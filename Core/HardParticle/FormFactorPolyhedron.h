@@ -108,8 +108,8 @@ public:
     complex_t evaluate_for_q(cvector_t q) const override final;
     complex_t evaluate_centered(cvector_t q) const;
 
-    double getVolume() const override final { return m_volume; }
-    double getRadialExtension() const override final { return m_radius; }
+    double volume() const override final { return m_volume; }
+    double radialExtension() const override final { return m_radius; }
     void assert_platonic() const;
 
 protected:
@@ -136,9 +136,9 @@ public:
     FormFactorPolygonalPrism(double height) : m_height(height) {}
 
     complex_t evaluate_for_q(cvector_t q) const override final;
-    double getVolume() const override final;
+    double volume() const override final;
     double getHeight() const { return m_height; }
-    double getRadialExtension() const override final { return std::sqrt(m_base->area()); }
+    double radialExtension() const override final { return std::sqrt(m_base->area()); }
 
 protected:
     std::unique_ptr<PolyhedralFace> m_base;
@@ -154,8 +154,8 @@ public:
     FormFactorPolygonalSurface() {}
 
     complex_t evaluate_for_q(cvector_t q) const override final;
-    double getVolume() const override { return 0; }
-    double getRadialExtension() const override final { return std::sqrt(m_base->area()); }
+    double volume() const override { return 0; }
+    double radialExtension() const override final { return std::sqrt(m_base->area()); }
 
 protected:
     std::unique_ptr<PolyhedralFace> m_base;

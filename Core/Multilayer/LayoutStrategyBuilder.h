@@ -18,13 +18,15 @@
 
 #include "SafePointerVector.h"
 #include "SimulationOptions.h"
+#include "SlicedParticle.h"
+#include <map>
 #include <memory>
 
 class FormFactorCoherentSum;
 class IFormFactor;
 class IInterferenceFunctionStrategy;
 class ILayout;
-class IMaterial;
+class HomogeneousMaterial;
 class IParticle;
 class IFresnelMap;
 class MultiLayer;
@@ -42,11 +44,15 @@ public:
 
     ~LayoutStrategyBuilder();
 
-    IInterferenceFunctionStrategy* createStrategy() const;
+    IInterferenceFunctionStrategy* releaseStrategy();
+
+    std::map<size_t, std::vector<HomogeneousRegion>> regionMap() const;
 
 private:
-    SafePointerVector<class FormFactorCoherentSum> collectFormFactorList() const;
-    FormFactorCoherentSum* createFormFactorCoherentSum(const IParticle* particle) const;
+    void createStrategy();
+    SafePointerVector<class FormFactorCoherentSum> collectFormFactorList();
+    FormFactorCoherentSum* createFormFactorCoherentSum(const IParticle* particle);
+    void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
 
     const MultiLayer* mp_multilayer;
     const ILayout* mp_layout;
@@ -55,6 +61,10 @@ private:
     bool m_polarized;  //!< polarized computation required?
     SimulationOptions m_sim_params;
     size_t m_layer_index;
+    std::unique_ptr<IInterferenceFunctionStrategy> mP_strategy;
+    std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
+
+void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor);
 
 #endif // LAYOUTSTRATEGYBUILDER_H

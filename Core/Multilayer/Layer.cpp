@@ -17,38 +17,33 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "ILayout.h"
-#include "IMaterial.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
-Layer::Layer(const IMaterial& material, double thickness)
-    : mp_material(nullptr), m_thickness(thickness)
+Layer::Layer(HomogeneousMaterial material, double thickness)
+    : m_material(std::move(material))
+    , m_thickness(thickness)
 {
     setName(BornAgain::LayerType);
-    setMaterial(material);
     registerThickness();
 }
 
 Layer::Layer(const Layer& other)
-    : ISample(), mp_material(nullptr)
+    : m_material(other.m_material)
 {
     setName(other.getName());
     m_thickness = other.m_thickness;
-    if (other.mp_material)
-        mp_material = other.mp_material->clone();
-    for (size_t i=0; i<other.getNumberOfLayouts();++i)
-        addLayout(*other.getLayout(i));
+    for (size_t i=0; i<other.numberOfLayouts();++i)
+        addLayout(*other.layout(i));
     registerThickness();
 }
 
 Layer::~Layer()
-{
-    delete mp_material;
-}
+{}
 
 Layer* Layer::cloneInvertB() const
 {
-    Layer* p_clone = new Layer(*mp_material->cloneInverted(), m_thickness);
+    Layer* p_clone = new Layer(m_material.inverted(), m_thickness);
     return p_clone;
 }
 
@@ -60,22 +55,20 @@ void Layer::setThickness(double thickness)
     m_thickness = thickness;
 }
 
-//! Sets _material_ of the layer.
-void Layer::setMaterial(const IMaterial& material)
+void Layer::setMaterial(HomogeneousMaterial material)
 {
-    delete mp_material;
-    mp_material = material.clone();
+    m_material = std::move(material);
 }
 
-complex_t Layer::getRefractiveIndex() const
+complex_t Layer::refractiveIndex() const
 {
-    return mp_material ? mp_material->getRefractiveIndex() : 1.0;
+    return m_material.refractiveIndex();
 }
 
-//TODO: remove this in favor of the IMaterial methods (or rename)
-complex_t Layer::getRefractiveIndex2() const
+//TODO: remove this in favor of the HomogeneousMaterial methods (or rename)
+complex_t Layer::refractiveIndex2() const
 {
-    return getRefractiveIndex()*getRefractiveIndex();
+    return refractiveIndex()*refractiveIndex();
 }
 
 void Layer::addLayout(const ILayout& layout)
@@ -85,7 +78,7 @@ void Layer::addLayout(const ILayout& layout)
     registerChild(clone);
 }
 
-const ILayout* Layer::getLayout(size_t i) const
+const ILayout* Layer::layout(size_t i) const
 {
     if (i>=m_layouts.size())
         return nullptr;

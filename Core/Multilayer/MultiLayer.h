@@ -47,8 +47,8 @@ public:
 
     virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
-    size_t getNumberOfLayers() const { return m_layers.size(); }
-    size_t getNumberOfInterfaces() const { return m_interfaces.size(); }
+    size_t numberOfLayers() const { return m_layers.size(); }
+    size_t numberOfInterfaces() const { return m_interfaces.size(); }
 
     //! Adds object to multilayer, overrides from ISample
     void addLayer(const Layer& p_child);
@@ -57,32 +57,38 @@ public:
     void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);
 
     //! Returns layer with given index
-    const Layer* getLayer(size_t i_layer) const { return m_layers[check_layer_index(i_layer)]; }
+    const Layer* layer(size_t i_layer) const { return m_layers[check_layer_index(i_layer)]; }
 
     //! Returns layer with given index
-    const LayerInterface* getLayerInterface(size_t i_interface) const {
+    const LayerInterface* layerInterface(size_t i_interface) const {
         return m_interfaces[check_interface_index(i_interface)]; }
 
     //! Returns z-coordinate of the layer's bottom
-    double getLayerTopZ(size_t i_layer) const;
+    double layerTopZ(size_t i_layer) const;
 
     //! Returns z-coordinate of the layer's bottom
-    double getLayerBottomZ(size_t i_layer) const;
+    double layerBottomZ(size_t i_layer) const;
 
     //! Returns thickness of layer
-    double getLayerThickness(size_t i_layer) const;
+    double layerThickness(size_t i_layer) const;
 
     //! Returns top interface of layer
-    const LayerInterface* getLayerTopInterface(size_t i_layer) const;
+    const LayerInterface* layerTopInterface(size_t i_layer) const;
 
     //! Returns bottom interface of layer
-    const LayerInterface* getLayerBottomInterface(size_t i_layer) const;
+    const LayerInterface* layerBottomInterface(size_t i_layer) const;
+
+    //! Returns layer material
+    HomogeneousMaterial layerMaterial(size_t i_layer) const;
+
+    //! Changes a layer's material
+    void setLayerMaterial(size_t i_layer, HomogeneousMaterial material);
 
     //! Adds a layout of particles to the whole multilayer (particles can be in different layers)
     void addLayout(const ILayout& layout);
 
-    size_t getNumberOfLayouts() const { return m_layouts.size(); }
-    const ILayout* getLayout(size_t i) const;
+    size_t numberOfLayouts() const { return m_layouts.size(); }
+    const ILayout* layout(size_t i) const;
 
     //! Destructs allocated objects
     void clear();
@@ -98,20 +104,20 @@ public:
     void setCrossCorrLength(double crossCorrLength);
 
     //! Returns cross correlation length of roughnesses between interfaces
-    double getCrossCorrLength() const { return m_crossCorrLength; }
+    double crossCorrLength() const { return m_crossCorrLength; }
 
     ///! correlation function of roughnesses between the interfaces
     //double getCrossCorrFun(const kvector_t k, int j, int k) const;
 
     //! Fourier transform of the correlation function of roughnesses between
     //! the interfaces
-    double getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
+    double crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
 
     //! Sets thickness of layer.
     void setLayerThickness(size_t i_layer, double thickness); // TODO: remove this function!
 
     //! returns layer index
-    int getIndexOfLayer(const Layer* layer) const;
+    int indexOfLayer(const Layer* layer) const;
 
     //! returns true if contains magnetic materials and matrix calculations are required
     bool requiresMatrixRTCoefficients() const;

@@ -34,9 +34,7 @@ public:
                                const IFresnelMap* p_fresnel_map);
     ~RoughMultiLayerComputation();
 
-    void eval(const SimulationOptions& options,
-              ProgressHandler* progress,
-              bool polarized,
+    void eval(ProgressHandler* progress,
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const override;
 

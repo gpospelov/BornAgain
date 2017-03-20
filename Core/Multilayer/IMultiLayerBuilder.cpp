@@ -17,7 +17,7 @@
 #include "FTDistributions2D.h"
 #include "IFormFactor.h"
 
-const IFormFactor* IMultiLayerBuilder::getFormFactor() const
+const IFormFactor* IMultiLayerBuilder::formFactor() const
 {
     return dynamic_cast<const IFormFactor*>(m_subtest_item);
 }

@@ -24,8 +24,7 @@ SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer,
     : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 
-void SpecularComputation::eval(
-    const SimulationOptions&, ProgressHandler*, bool,
+void SpecularComputation::eval(ProgressHandler*,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {

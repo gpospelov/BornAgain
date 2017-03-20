@@ -4643,35 +4643,35 @@ class ISample(ICloneable, INode):
         return _libBornAgainCore.ISample_cloneInvertB(self)
 
 
-    def getMaterial(self):
+    def material(self):
         """
-        getMaterial(ISample self) -> IMaterial
+        material(ISample self) -> HomogeneousMaterial
 
-        virtual const IMaterial* ISample::getMaterial() const
+        virtual const HomogeneousMaterial* ISample::material() const
 
         Returns nullptr, unless overwritten to return a specific material. 
 
         """
-        return _libBornAgainCore.ISample_getMaterial(self)
+        return _libBornAgainCore.ISample_material(self)
 
 
-    def getAmbientMaterial(self):
+    def ambientMaterial(self):
         """
-        getAmbientMaterial(ISample self) -> IMaterial
+        ambientMaterial(ISample self) -> HomogeneousMaterial
 
-        virtual const IMaterial* ISample::getAmbientMaterial() const
+        virtual const HomogeneousMaterial* ISample::ambientMaterial() const
 
         Returns nullptr, unless overwritten to return a specific material. 
 
         """
-        return _libBornAgainCore.ISample_getAmbientMaterial(self)
+        return _libBornAgainCore.ISample_ambientMaterial(self)
 
 
     def containedMaterials(self):
         """
-        containedMaterials(ISample self) -> std::vector< IMaterial const *,std::allocator< IMaterial const * > >
+        containedMaterials(ISample self) -> std::vector< HomogeneousMaterial const *,std::allocator< HomogeneousMaterial const * > >
 
-        std::vector< const IMaterial * > ISample::containedMaterials() const
+        std::vector< const HomogeneousMaterial * > ISample::containedMaterials() const
 
         Returns set of unique materials contained in this  ISample. 
 
@@ -7288,14 +7288,14 @@ class IMultiLayerBuilder(INode):
     if _newclass:
         m_subtest_item = _swig_property(_libBornAgainCore.IMultiLayerBuilder_m_subtest_item_get, _libBornAgainCore.IMultiLayerBuilder_m_subtest_item_set)
 
-    def getFormFactor(self):
+    def formFactor(self):
         """
-        getFormFactor(IMultiLayerBuilder self) -> IFormFactor
+        formFactor(IMultiLayerBuilder self) -> IFormFactor
 
-        const IFormFactor * IMultiLayerBuilder::getFormFactor() const 
+        const IFormFactor * IMultiLayerBuilder::formFactor() const 
 
         """
-        return _libBornAgainCore.IMultiLayerBuilder_getFormFactor(self)
+        return _libBornAgainCore.IMultiLayerBuilder_formFactor(self)
 
 
     def getFTDistribution2D(self):
@@ -7623,6 +7623,11 @@ class IClusteredParticles(ISample):
         """
         return _libBornAgainCore.IClusteredParticles_createTotalFormFactor(self, arg2, arg3, arg4)
 
+
+    def homogeneousRegions(self):
+        """homogeneousRegions(IClusteredParticles self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >"""
+        return _libBornAgainCore.IClusteredParticles_homogeneousRegions(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_IClusteredParticles
     __del__ = lambda self: None
 IClusteredParticles_swigregister = _libBornAgainCore.IClusteredParticles_swigregister
@@ -7711,14 +7716,19 @@ class Crystal(IClusteredParticles):
         return _libBornAgainCore.Crystal_createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation)
 
 
-    def getLatticeBasis(self):
-        """
-        getLatticeBasis(Crystal self) -> ParticleComposition
+    def homogeneousRegions(self):
+        """homogeneousRegions(Crystal self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >"""
+        return _libBornAgainCore.Crystal_homogeneousRegions(self)
 
-        const ParticleComposition* Crystal::getLatticeBasis() const 
 
-        """
-        return _libBornAgainCore.Crystal_getLatticeBasis(self)
+    def transformedLattice(self, p_rotation):
+        """transformedLattice(Crystal self, IRotation p_rotation) -> Lattice"""
+        return _libBornAgainCore.Crystal_transformedLattice(self, p_rotation)
+
+
+    def latticeBasis(self):
+        """latticeBasis(Crystal self) -> ParticleComposition"""
+        return _libBornAgainCore.Crystal_latticeBasis(self)
 
 
     def setDWFactor(self, dw_factor):
@@ -10687,9 +10697,9 @@ class IFormFactor(ISample):
 
     def setAmbientMaterial(self, arg0):
         """
-        setAmbientMaterial(IFormFactor self, IMaterial arg0)
+        setAmbientMaterial(IFormFactor self, HomogeneousMaterial arg0)
 
-        virtual void IFormFactor::setAmbientMaterial(const IMaterial &)=0
+        virtual void IFormFactor::setAmbientMaterial(HomogeneousMaterial)=0
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -10709,28 +10719,21 @@ class IFormFactor(ISample):
         return _libBornAgainCore.IFormFactor_evaluate(self, wavevectors)
 
 
-    def getVolume(self):
+    def volume(self):
+        """volume(IFormFactor self) -> double"""
+        return _libBornAgainCore.IFormFactor_volume(self)
+
+
+    def radialExtension(self):
         """
-        getVolume(IFormFactor self) -> double
+        radialExtension(IFormFactor self) -> double
 
-        double IFormFactor::getVolume() const
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
-        return _libBornAgainCore.IFormFactor_getVolume(self)
-
-
-    def getRadialExtension(self):
-        """
-        getRadialExtension(IFormFactor self) -> double
-
-        virtual double IFormFactor::getRadialExtension() const =0
+        virtual double IFormFactor::radialExtension() const =0
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.IFormFactor_getRadialExtension(self)
+        return _libBornAgainCore.IFormFactor_radialExtension(self)
 
 
     def bottomZ(self, rotation):
@@ -11070,9 +11073,9 @@ class IFormFactorBorn(IFormFactor):
 
     def setAmbientMaterial(self, arg0):
         """
-        setAmbientMaterial(IFormFactorBorn self, IMaterial arg0)
+        setAmbientMaterial(IFormFactorBorn self, HomogeneousMaterial arg0)
 
-        void IFormFactorBorn::setAmbientMaterial(const IMaterial &) override
+        void IFormFactorBorn::setAmbientMaterial(HomogeneousMaterial) override
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -11246,9 +11249,9 @@ class IFormFactorDecorator(IFormFactor):
 
     def setAmbientMaterial(self, material):
         """
-        setAmbientMaterial(IFormFactorDecorator self, IMaterial material)
+        setAmbientMaterial(IFormFactorDecorator self, HomogeneousMaterial material)
 
-        void IFormFactorDecorator::setAmbientMaterial(const IMaterial &material) override
+        void IFormFactorDecorator::setAmbientMaterial(HomogeneousMaterial material) override
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -11256,28 +11259,21 @@ class IFormFactorDecorator(IFormFactor):
         return _libBornAgainCore.IFormFactorDecorator_setAmbientMaterial(self, material)
 
 
-    def getVolume(self):
+    def volume(self):
+        """volume(IFormFactorDecorator self) -> double"""
+        return _libBornAgainCore.IFormFactorDecorator_volume(self)
+
+
+    def radialExtension(self):
         """
-        getVolume(IFormFactorDecorator self) -> double
+        radialExtension(IFormFactorDecorator self) -> double
 
-        double IFormFactorDecorator::getVolume() const override
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
-        return _libBornAgainCore.IFormFactorDecorator_getVolume(self)
-
-
-    def getRadialExtension(self):
-        """
-        getRadialExtension(IFormFactorDecorator self) -> double
-
-        double IFormFactorDecorator::getRadialExtension() const override
+        double IFormFactorDecorator::radialExtension() const override
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.IFormFactorDecorator_getRadialExtension(self)
+        return _libBornAgainCore.IFormFactorDecorator_radialExtension(self)
 
 
     def bottomZ(self, rotation):
@@ -11686,28 +11682,21 @@ class FormFactorPolyhedron(IFormFactorBorn):
         return _libBornAgainCore.FormFactorPolyhedron_evaluate_centered(self, q)
 
 
-    def getVolume(self):
+    def volume(self):
+        """volume(FormFactorPolyhedron self) -> double"""
+        return _libBornAgainCore.FormFactorPolyhedron_volume(self)
+
+
+    def radialExtension(self):
         """
-        getVolume(FormFactorPolyhedron self) -> double
+        radialExtension(FormFactorPolyhedron self) -> double
 
-        double FormFactorPolyhedron::getVolume() const overridefinal
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
-        return _libBornAgainCore.FormFactorPolyhedron_getVolume(self)
-
-
-    def getRadialExtension(self):
-        """
-        getRadialExtension(FormFactorPolyhedron self) -> double
-
-        double FormFactorPolyhedron::getRadialExtension() const overridefinal
+        double FormFactorPolyhedron::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorPolyhedron_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorPolyhedron_radialExtension(self)
 
 
     def assert_platonic(self):
@@ -11761,16 +11750,9 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         return _libBornAgainCore.FormFactorPolygonalPrism_evaluate_for_q(self, q)
 
 
-    def getVolume(self):
-        """
-        getVolume(FormFactorPolygonalPrism self) -> double
-
-        double FormFactorPolygonalPrism::getVolume() const overridefinal
-
-        Returns the volume of this prism. 
-
-        """
-        return _libBornAgainCore.FormFactorPolygonalPrism_getVolume(self)
+    def volume(self):
+        """volume(FormFactorPolygonalPrism self) -> double"""
+        return _libBornAgainCore.FormFactorPolygonalPrism_volume(self)
 
 
     def getHeight(self):
@@ -11783,16 +11765,16 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         return _libBornAgainCore.FormFactorPolygonalPrism_getHeight(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorPolygonalPrism self) -> double
+        radialExtension(FormFactorPolygonalPrism self) -> double
 
-        double FormFactorPolygonalPrism::getRadialExtension() const overridefinal
+        double FormFactorPolygonalPrism::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorPolygonalPrism_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorPolygonalPrism_radialExtension(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolygonalPrism
     __del__ = lambda self: None
@@ -11834,28 +11816,21 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
         return _libBornAgainCore.FormFactorPolygonalSurface_evaluate_for_q(self, q)
 
 
-    def getVolume(self):
+    def volume(self):
+        """volume(FormFactorPolygonalSurface self) -> double"""
+        return _libBornAgainCore.FormFactorPolygonalSurface_volume(self)
+
+
+    def radialExtension(self):
         """
-        getVolume(FormFactorPolygonalSurface self) -> double
+        radialExtension(FormFactorPolygonalSurface self) -> double
 
-        double FormFactorPolygonalSurface::getVolume() const override
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
-        return _libBornAgainCore.FormFactorPolygonalSurface_getVolume(self)
-
-
-    def getRadialExtension(self):
-        """
-        getRadialExtension(FormFactorPolygonalSurface self) -> double
-
-        double FormFactorPolygonalSurface::getRadialExtension() const overridefinal
+        double FormFactorPolygonalSurface::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorPolygonalSurface_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorPolygonalSurface_radialExtension(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorPolygonalSurface
     __del__ = lambda self: None
@@ -12077,16 +12052,16 @@ class FormFactorBox(IFormFactorBorn):
         return _libBornAgainCore.FormFactorBox_getWidth(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorBox self) -> double
+        radialExtension(FormFactorBox self) -> double
 
-        double FormFactorBox::getRadialExtension() const overridefinal
+        double FormFactorBox::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorBox_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorBox_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -12204,16 +12179,16 @@ class FormFactorCone(IFormFactorBorn):
         return _libBornAgainCore.FormFactorCone_getRadius(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorCone self) -> double
+        radialExtension(FormFactorCone self) -> double
 
-        double FormFactorCone::getRadialExtension() const overridefinal
+        double FormFactorCone::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorCone_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorCone_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -12396,9 +12371,9 @@ class FormFactorCrystal(IFormFactor):
 
     def setAmbientMaterial(self, material):
         """
-        setAmbientMaterial(FormFactorCrystal self, IMaterial material)
+        setAmbientMaterial(FormFactorCrystal self, HomogeneousMaterial material)
 
-        void FormFactorCrystal::setAmbientMaterial(const IMaterial &material) override
+        void FormFactorCrystal::setAmbientMaterial(HomogeneousMaterial material) override
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -12406,28 +12381,21 @@ class FormFactorCrystal(IFormFactor):
         return _libBornAgainCore.FormFactorCrystal_setAmbientMaterial(self, material)
 
 
-    def getVolume(self):
+    def volume(self):
+        """volume(FormFactorCrystal self) -> double"""
+        return _libBornAgainCore.FormFactorCrystal_volume(self)
+
+
+    def radialExtension(self):
         """
-        getVolume(FormFactorCrystal self) -> double
+        radialExtension(FormFactorCrystal self) -> double
 
-        double FormFactorCrystal::getVolume() const overridefinal
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
-        return _libBornAgainCore.FormFactorCrystal_getVolume(self)
-
-
-    def getRadialExtension(self):
-        """
-        getRadialExtension(FormFactorCrystal self) -> double
-
-        double FormFactorCrystal::getRadialExtension() const overridefinal
+        double FormFactorCrystal::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorCrystal_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorCrystal_radialExtension(self)
 
 
     def bottomZ(self, rotation):
@@ -12661,16 +12629,16 @@ class FormFactorCylinder(IFormFactorBorn):
         return _libBornAgainCore.FormFactorCylinder_getRadius(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorCylinder self) -> double
+        radialExtension(FormFactorCylinder self) -> double
 
-        double FormFactorCylinder::getRadialExtension() const overridefinal
+        double FormFactorCylinder::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorCylinder_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorCylinder_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -12942,16 +12910,16 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_getHeight(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorEllipsoidalCylinder self) -> double
+        radialExtension(FormFactorEllipsoidalCylinder self) -> double
 
-        double FormFactorEllipsoidalCylinder::getRadialExtension() const overridefinal
+        double FormFactorEllipsoidalCylinder::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorEllipsoidalCylinder_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorEllipsoidalCylinder_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -13037,16 +13005,16 @@ class FormFactorFullSphere(IFormFactorBorn):
         return _libBornAgainCore.FormFactorFullSphere_getRadius(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorFullSphere self) -> double
+        radialExtension(FormFactorFullSphere self) -> double
 
-        double FormFactorFullSphere::getRadialExtension() const overridefinal
+        double FormFactorFullSphere::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorFullSphere_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorFullSphere_radialExtension(self)
 
 
     def bottomZ(self, rotation):
@@ -13175,16 +13143,16 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         return _libBornAgainCore.FormFactorFullSpheroid_getRadius(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorFullSpheroid self) -> double
+        radialExtension(FormFactorFullSpheroid self) -> double
 
-        double FormFactorFullSpheroid::getRadialExtension() const overridefinal
+        double FormFactorFullSpheroid::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorFullSpheroid_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorFullSpheroid_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -13281,16 +13249,16 @@ class FormFactorGauss(IFormFactorBorn):
         return _libBornAgainCore.FormFactorGauss_getHeight(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorGauss self) -> double
+        radialExtension(FormFactorGauss self) -> double
 
-        double FormFactorGauss::getRadialExtension() const overridefinal
+        double FormFactorGauss::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorGauss_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorGauss_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -13410,16 +13378,16 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         return _libBornAgainCore.FormFactorHemiEllipsoid_getRadiusY(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorHemiEllipsoid self) -> double
+        radialExtension(FormFactorHemiEllipsoid self) -> double
 
-        double FormFactorHemiEllipsoid::getRadialExtension() const overridefinal
+        double FormFactorHemiEllipsoid::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorHemiEllipsoid_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorHemiEllipsoid_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -13608,16 +13576,16 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLongBoxGauss_getWidth(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorLongBoxGauss self) -> double
+        radialExtension(FormFactorLongBoxGauss self) -> double
 
-        double FormFactorLongBoxGauss::getRadialExtension() const overridefinal
+        double FormFactorLongBoxGauss::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorLongBoxGauss_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorLongBoxGauss_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -13737,16 +13705,16 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLongBoxLorentz_getWidth(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorLongBoxLorentz self) -> double
+        radialExtension(FormFactorLongBoxLorentz self) -> double
 
-        double FormFactorLongBoxLorentz::getRadialExtension() const overridefinal
+        double FormFactorLongBoxLorentz::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorLongBoxLorentz_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorLongBoxLorentz_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -13866,16 +13834,16 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLongRipple1Gauss_getLength(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorLongRipple1Gauss self) -> double
+        radialExtension(FormFactorLongRipple1Gauss self) -> double
 
-        double FormFactorLongRipple1Gauss::getRadialExtension() const overridefinal
+        double FormFactorLongRipple1Gauss::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorLongRipple1Gauss_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorLongRipple1Gauss_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -13965,16 +13933,16 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_accept(self, visitor)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorLongRipple1Lorentz self) -> double
+        radialExtension(FormFactorLongRipple1Lorentz self) -> double
 
-        double FormFactorLongRipple1Lorentz::getRadialExtension() const overridefinal
+        double FormFactorLongRipple1Lorentz::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorLongRipple1Lorentz_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorLongRipple1Lorentz_radialExtension(self)
 
 
     def getHeight(self):
@@ -14137,16 +14105,16 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLongRipple2Gauss_getAsymmetry(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorLongRipple2Gauss self) -> double
+        radialExtension(FormFactorLongRipple2Gauss self) -> double
 
-        double FormFactorLongRipple2Gauss::getRadialExtension() const overridefinal
+        double FormFactorLongRipple2Gauss::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorLongRipple2Gauss_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorLongRipple2Gauss_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -14277,16 +14245,16 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_getAsymmetry(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorLongRipple2Lorentz self) -> double
+        radialExtension(FormFactorLongRipple2Lorentz self) -> double
 
-        double FormFactorLongRipple2Lorentz::getRadialExtension() const overridefinal
+        double FormFactorLongRipple2Lorentz::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorLongRipple2Lorentz_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorLongRipple2Lorentz_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -14383,16 +14351,16 @@ class FormFactorLorentz(IFormFactorBorn):
         return _libBornAgainCore.FormFactorLorentz_getHeight(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorLorentz self) -> double
+        radialExtension(FormFactorLorentz self) -> double
 
-        double FormFactorLorentz::getRadialExtension() const overridefinal
+        double FormFactorLorentz::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorLorentz_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorLorentz_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -14757,16 +14725,16 @@ class FormFactorRipple1(IFormFactorBorn):
         return _libBornAgainCore.FormFactorRipple1_getWidth(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorRipple1 self) -> double
+        radialExtension(FormFactorRipple1 self) -> double
 
-        double FormFactorRipple1::getRadialExtension() const overridefinal
+        double FormFactorRipple1::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorRipple1_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorRipple1_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -14899,16 +14867,16 @@ class FormFactorRipple2(IFormFactorBorn):
         return _libBornAgainCore.FormFactorRipple2_getAsymmetry(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorRipple2 self) -> double
+        radialExtension(FormFactorRipple2 self) -> double
 
-        double FormFactorRipple2::getRadialExtension() const overridefinal
+        double FormFactorRipple2::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorRipple2_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorRipple2_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -14984,16 +14952,16 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         return _libBornAgainCore.FormFactorSphereGaussianRadius_accept(self, visitor)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorSphereGaussianRadius self) -> double
+        radialExtension(FormFactorSphereGaussianRadius self) -> double
 
-        double FormFactorSphereGaussianRadius::getRadialExtension() const overridefinal
+        double FormFactorSphereGaussianRadius::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorSphereGaussianRadius_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorSphereGaussianRadius_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -15069,16 +15037,16 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         return _libBornAgainCore.FormFactorSphereLogNormalRadius_accept(self, visitor)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorSphereLogNormalRadius self) -> double
+        radialExtension(FormFactorSphereLogNormalRadius self) -> double
 
-        double FormFactorSphereLogNormalRadius::getRadialExtension() const overridefinal
+        double FormFactorSphereLogNormalRadius::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorSphereLogNormalRadius_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorSphereLogNormalRadius_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -15154,16 +15122,16 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         return _libBornAgainCore.FormFactorSphereUniformRadius_accept(self, visitor)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorSphereUniformRadius self) -> double
+        radialExtension(FormFactorSphereUniformRadius self) -> double
 
-        double FormFactorSphereUniformRadius::getRadialExtension() const overridefinal
+        double FormFactorSphereUniformRadius::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorSphereUniformRadius_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorSphereUniformRadius_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -15342,16 +15310,16 @@ class FormFactorTrivial(IFormFactorBorn):
         return _libBornAgainCore.FormFactorTrivial_accept(self, visitor)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorTrivial self) -> double
+        radialExtension(FormFactorTrivial self) -> double
 
-        double FormFactorTrivial::getRadialExtension() const overridefinal
+        double FormFactorTrivial::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorTrivial_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorTrivial_radialExtension(self)
 
 
     def evaluate_for_q(self, arg2):
@@ -15538,16 +15506,16 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         return _libBornAgainCore.FormFactorTruncatedSphere_getRadius(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorTruncatedSphere self) -> double
+        radialExtension(FormFactorTruncatedSphere self) -> double
 
-        double FormFactorTruncatedSphere::getRadialExtension() const overridefinal
+        double FormFactorTruncatedSphere::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorTruncatedSphere_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorTruncatedSphere_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -15654,16 +15622,16 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getHeightFlattening(self)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorTruncatedSpheroid self) -> double
+        radialExtension(FormFactorTruncatedSpheroid self) -> double
 
-        double FormFactorTruncatedSpheroid::getRadialExtension() const overridefinal
+        double FormFactorTruncatedSpheroid::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorTruncatedSpheroid_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorTruncatedSpheroid_radialExtension(self)
 
 
     def evaluate_for_q(self, q):
@@ -15743,16 +15711,16 @@ class FormFactorWeighted(IFormFactor):
         return _libBornAgainCore.FormFactorWeighted_accept(self, visitor)
 
 
-    def getRadialExtension(self):
+    def radialExtension(self):
         """
-        getRadialExtension(FormFactorWeighted self) -> double
+        radialExtension(FormFactorWeighted self) -> double
 
-        double FormFactorWeighted::getRadialExtension() const overridefinal
+        double FormFactorWeighted::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
         """
-        return _libBornAgainCore.FormFactorWeighted_getRadialExtension(self)
+        return _libBornAgainCore.FormFactorWeighted_radialExtension(self)
 
 
     def bottomZ(self, rotation):
@@ -15792,9 +15760,9 @@ class FormFactorWeighted(IFormFactor):
 
     def setAmbientMaterial(self, material):
         """
-        setAmbientMaterial(FormFactorWeighted self, IMaterial material)
+        setAmbientMaterial(FormFactorWeighted self, HomogeneousMaterial material)
 
-        void FormFactorWeighted::setAmbientMaterial(const IMaterial &material) overridefinal
+        void FormFactorWeighted::setAmbientMaterial(HomogeneousMaterial material) overridefinal
 
         Passes the refractive index of the ambient material in which this particle is embedded. 
 
@@ -16280,6 +16248,16 @@ class SimulationOptions(_object):
 
         """
         return _libBornAgainCore.SimulationOptions_includeSpecular(self)
+
+
+    def setUseAvgMaterials(self, use_avg_materials):
+        """setUseAvgMaterials(SimulationOptions self, bool use_avg_materials)"""
+        return _libBornAgainCore.SimulationOptions_setUseAvgMaterials(self, use_avg_materials)
+
+
+    def useAvgMaterials(self):
+        """useAvgMaterials(SimulationOptions self) -> bool"""
+        return _libBornAgainCore.SimulationOptions_useAvgMaterials(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
     __del__ = lambda self: None
@@ -17420,152 +17398,35 @@ def Histogram2D_dynamicCast(pHistogram):
     """Histogram2D_dynamicCast(IHistogram pHistogram) -> Histogram2D"""
     return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
 
-class IMaterial(INamed):
+class HomogeneousMaterial(INamed):
     """
 
 
-    Interface to a named material.
-
-    C++ includes: IMaterial.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [INamed]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IMaterial, name, value)
-    __swig_getmethods__ = {}
-    for _s in [INamed]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IMaterial, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IMaterial
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(IMaterial self) -> IMaterial
-
-        virtual IMaterial* IMaterial::clone() const =0
-
-        """
-        return _libBornAgainCore.IMaterial_clone(self)
-
-
-    def cloneInverted(self):
-        """
-        cloneInverted(IMaterial self) -> IMaterial
-
-        virtual IMaterial* IMaterial::cloneInverted() const =0
-
-        """
-        return _libBornAgainCore.IMaterial_cloneInverted(self)
-
-
-    def isScalarMaterial(self):
-        """
-        isScalarMaterial(IMaterial self) -> bool
-
-        virtual bool IMaterial::isScalarMaterial() const
-
-        Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
-
-        """
-        return _libBornAgainCore.IMaterial_isScalarMaterial(self)
-
-
-    def isMagneticMaterial(self):
-        """
-        isMagneticMaterial(IMaterial self) -> bool
-
-        bool IMaterial::isMagneticMaterial() const 
-
-        """
-        return _libBornAgainCore.IMaterial_isMagneticMaterial(self)
-
-
-    def getRefractiveIndex(self):
-        """
-        getRefractiveIndex(IMaterial self) -> complex_t
-
-        virtual complex_t IMaterial::getRefractiveIndex() const 
-
-        """
-        return _libBornAgainCore.IMaterial_getRefractiveIndex(self)
-
-
-    def getScalarSLD(self, wavevectors):
-        """
-        getScalarSLD(IMaterial self, WavevectorInfo wavevectors) -> complex_t
-
-        complex_t IMaterial::getScalarSLD(const WavevectorInfo &wavevectors) const
-
-        Returns true if *this agrees with other in all parameters. 
-
-        """
-        return _libBornAgainCore.IMaterial_getScalarSLD(self, wavevectors)
-
-
-    def getScalarFresnel(self, k, n_ref):
-        """
-        getScalarFresnel(IMaterial self, kvector_t k, double n_ref) -> complex_t
-
-        complex_t IMaterial::getScalarFresnel(const kvector_t k, double n_ref) const
-
-        Return the potential term that is used in the one-dimensional Fresnel calculations. 
-
-        """
-        return _libBornAgainCore.IMaterial_getScalarFresnel(self, k, n_ref)
-
-
-    def createTransformedMaterial(self, transform):
-        """
-        createTransformedMaterial(IMaterial self, Transform3D const & transform) -> IMaterial
-
-        virtual const IMaterial* IMaterial::createTransformedMaterial(const Transform3D &transform) const =0
-
-        Create a new material that is transformed with respect to this one. 
-
-        """
-        return _libBornAgainCore.IMaterial_createTransformedMaterial(self, transform)
-
-
-    def __eq__(self, other):
-        """__eq__(IMaterial self, IMaterial other) -> bool"""
-        return _libBornAgainCore.IMaterial___eq__(self, other)
-
-IMaterial_swigregister = _libBornAgainCore.IMaterial_swigregister
-IMaterial_swigregister(IMaterial)
-
-class HomogeneousMaterial(IMaterial):
-    """
-
-
-    An homogeneous material with a refractive index.
+    An homogeneous material with a refractive index and (optionally) a magnetic field.
 
     C++ includes: HomogeneousMaterial.h
 
     """
 
     __swig_setmethods__ = {}
-    for _s in [IMaterial]:
+    for _s in [INamed]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, HomogeneousMaterial, name, value)
     __swig_getmethods__ = {}
-    for _s in [IMaterial]:
+    for _s in [INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, HomogeneousMaterial, name)
     __repr__ = _swig_repr
 
     def __init__(self, *args):
         """
+        __init__(HomogeneousMaterial self) -> HomogeneousMaterial
+        __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index, kvector_t magnetic_field) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index) -> HomogeneousMaterial
+        __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta) -> HomogeneousMaterial
 
-        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta)
+        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field=kvector_t())
 
         Constructs a material with  name and refractive_index parameters delta and beta (n = 1 - delta + i*beta). 
 
@@ -17578,34 +17439,31 @@ class HomogeneousMaterial(IMaterial):
     __swig_destroy__ = _libBornAgainCore.delete_HomogeneousMaterial
     __del__ = lambda self: None
 
-    def clone(self):
+    def inverted(self):
         """
-        clone(HomogeneousMaterial self) -> HomogeneousMaterial
+        inverted(HomogeneousMaterial self) -> HomogeneousMaterial
 
-        HomogeneousMaterial * HomogeneousMaterial::clone() const 
+        HomogeneousMaterial HomogeneousMaterial::inverted() const
 
-        """
-        return _libBornAgainCore.HomogeneousMaterial_clone(self)
-
-
-    def cloneInverted(self):
-        """
-        cloneInverted(HomogeneousMaterial self) -> HomogeneousMaterial
-
-        HomogeneousMaterial * HomogeneousMaterial::cloneInverted() const 
+        Constructs a material with inverted magnetic field. 
 
         """
-        return _libBornAgainCore.HomogeneousMaterial_cloneInverted(self)
+        return _libBornAgainCore.HomogeneousMaterial_inverted(self)
 
 
-    def getRefractiveIndex(self):
+    def refractiveIndex(self):
         """
-        getRefractiveIndex(HomogeneousMaterial self) -> complex_t
+        refractiveIndex(HomogeneousMaterial self) -> complex_t
 
-        virtual complex_t HomogeneousMaterial::getRefractiveIndex() const 
+        complex_t HomogeneousMaterial::refractiveIndex() const 
 
         """
-        return _libBornAgainCore.HomogeneousMaterial_getRefractiveIndex(self)
+        return _libBornAgainCore.HomogeneousMaterial_refractiveIndex(self)
+
+
+    def refractiveIndex2(self):
+        """refractiveIndex2(HomogeneousMaterial self) -> complex_t"""
+        return _libBornAgainCore.HomogeneousMaterial_refractiveIndex2(self)
 
 
     def setRefractiveIndex(self, refractive_index):
@@ -17618,127 +17476,85 @@ class HomogeneousMaterial(IMaterial):
         return _libBornAgainCore.HomogeneousMaterial_setRefractiveIndex(self, refractive_index)
 
 
-    def createTransformedMaterial(self, transform):
+    def isScalarMaterial(self):
         """
-        createTransformedMaterial(HomogeneousMaterial self, Transform3D const & transform) -> IMaterial
+        isScalarMaterial(HomogeneousMaterial self) -> bool
 
-        const IMaterial * HomogeneousMaterial::createTransformedMaterial(const Transform3D &transform) const
+        bool HomogeneousMaterial::isScalarMaterial() const
 
-        Create a new material that is transformed with respect to this one. 
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_createTransformedMaterial(self, transform)
-
-HomogeneousMaterial_swigregister = _libBornAgainCore.HomogeneousMaterial_swigregister
-HomogeneousMaterial_swigregister(HomogeneousMaterial)
-
-class HomogeneousMagneticMaterial(HomogeneousMaterial):
-    """
-
-
-    A homogeneous material with magnetization.
-
-    C++ includes: HomogeneousMagneticMaterial.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [HomogeneousMaterial]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, HomogeneousMagneticMaterial, name, value)
-    __swig_getmethods__ = {}
-    for _s in [HomogeneousMaterial]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, HomogeneousMagneticMaterial, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(HomogeneousMagneticMaterial self, std::string const & name, complex_t const refractive_index, kvector_t magnetic_field) -> HomogeneousMagneticMaterial
-        __init__(HomogeneousMagneticMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field) -> HomogeneousMagneticMaterial
-
-        HomogeneousMagneticMaterial::HomogeneousMagneticMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field)
-
-        Constructs a material with  name, refractive_index parameters and  magnetic_field
+        Indicates whether the interaction with the material is scalar. This means that different polarization states will be diffracted equally 
 
         """
-        this = _libBornAgainCore.new_HomogeneousMagneticMaterial(*args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
+        return _libBornAgainCore.HomogeneousMaterial_isScalarMaterial(self)
 
-    def clone(self):
+
+    def isMagneticMaterial(self):
         """
-        clone(HomogeneousMagneticMaterial self) -> HomogeneousMagneticMaterial
+        isMagneticMaterial(HomogeneousMaterial self) -> bool
 
-        HomogeneousMagneticMaterial * HomogeneousMagneticMaterial::clone() const final
+        bool HomogeneousMaterial::isMagneticMaterial() const 
 
         """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_clone(self)
+        return _libBornAgainCore.HomogeneousMaterial_isMagneticMaterial(self)
 
 
-    def cloneInverted(self):
+    def magneticField(self):
         """
-        cloneInverted(HomogeneousMagneticMaterial self) -> HomogeneousMagneticMaterial
+        magneticField(HomogeneousMaterial self) -> kvector_t
 
-        HomogeneousMagneticMaterial * HomogeneousMagneticMaterial::cloneInverted() const final
-
-        """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_cloneInverted(self)
-
-
-    def getMagneticField(self):
-        """
-        getMagneticField(HomogeneousMagneticMaterial self) -> kvector_t
-
-        kvector_t HomogeneousMagneticMaterial::getMagneticField() const
+        kvector_t HomogeneousMaterial::magneticField() const
 
         Get the magnetic field (in Tesla) 
 
         """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_getMagneticField(self)
+        return _libBornAgainCore.HomogeneousMaterial_magneticField(self)
 
 
     def setMagneticField(self, magnetic_field):
         """
-        setMagneticField(HomogeneousMagneticMaterial self, kvector_t magnetic_field)
+        setMagneticField(HomogeneousMaterial self, kvector_t magnetic_field)
 
-        void HomogeneousMagneticMaterial::setMagneticField(const kvector_t magnetic_field)
+        void HomogeneousMaterial::setMagneticField(const kvector_t magnetic_field)
 
         Set the magnetic field (in Tesla) 
 
         """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_setMagneticField(self, magnetic_field)
+        return _libBornAgainCore.HomogeneousMaterial_setMagneticField(self, magnetic_field)
 
 
-    def isScalarMaterial(self):
+    def scalarSLD(self, wavevectors):
         """
-        isScalarMaterial(HomogeneousMagneticMaterial self) -> bool
+        scalarSLD(HomogeneousMaterial self, WavevectorInfo wavevectors) -> complex_t
 
-        bool HomogeneousMagneticMaterial::isScalarMaterial() const final
-
-        Indicates that the material is not scalar. This means that different polarization states will be diffracted differently 
+        complex_t HomogeneousMaterial::scalarSLD(const WavevectorInfo &wavevectors) const 
 
         """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_isScalarMaterial(self)
+        return _libBornAgainCore.HomogeneousMaterial_scalarSLD(self, wavevectors)
 
 
-    def createTransformedMaterial(self, transform):
+    def scalarFresnel(self, k, n_ref):
         """
-        createTransformedMaterial(HomogeneousMagneticMaterial self, Transform3D const & transform) -> IMaterial
+        scalarFresnel(HomogeneousMaterial self, kvector_t k, double n_ref) -> complex_t
 
-        const IMaterial * HomogeneousMagneticMaterial::createTransformedMaterial(const Transform3D &transform) const final
+        complex_t HomogeneousMaterial::scalarFresnel(const kvector_t k, double n_ref) const
 
-        Create a new material that is transformed with respect to this one. 
+        Return the potential term that is used in the one-dimensional Fresnel calculations. 
 
         """
-        return _libBornAgainCore.HomogeneousMagneticMaterial_createTransformedMaterial(self, transform)
+        return _libBornAgainCore.HomogeneousMaterial_scalarFresnel(self, k, n_ref)
 
-    __swig_destroy__ = _libBornAgainCore.delete_HomogeneousMagneticMaterial
-    __del__ = lambda self: None
-HomogeneousMagneticMaterial_swigregister = _libBornAgainCore.HomogeneousMagneticMaterial_swigregister
-HomogeneousMagneticMaterial_swigregister(HomogeneousMagneticMaterial)
+
+    def transformedMaterial(self, transform):
+        """
+        transformedMaterial(HomogeneousMaterial self, Transform3D const & transform) -> HomogeneousMaterial
+
+        HomogeneousMaterial HomogeneousMaterial::transformedMaterial(const Transform3D &transform) const 
+
+        """
+        return _libBornAgainCore.HomogeneousMaterial_transformedMaterial(self, transform)
+
+HomogeneousMaterial_swigregister = _libBornAgainCore.HomogeneousMaterial_swigregister
+HomogeneousMaterial_swigregister(HomogeneousMaterial)
 
 class IDetector2D(ICloneable, INode):
     """
@@ -18359,52 +18175,52 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_cloneInvertB(self)
 
 
-    def getNumberOfParticles(self):
+    def numberOfParticles(self):
         """
-        getNumberOfParticles(ILayout self) -> size_t
+        numberOfParticles(ILayout self) -> size_t
 
-        virtual size_t ILayout::getNumberOfParticles() const =0
+        virtual size_t ILayout::numberOfParticles() const =0
 
         Returns number of particles. 
 
         """
-        return _libBornAgainCore.ILayout_getNumberOfParticles(self)
+        return _libBornAgainCore.ILayout_numberOfParticles(self)
 
 
-    def getParticle(self, index):
+    def particle(self, index):
         """
-        getParticle(ILayout self, size_t index) -> IAbstractParticle
+        particle(ILayout self, size_t index) -> IAbstractParticle
 
-        virtual const IAbstractParticle* ILayout::getParticle(size_t index) const =0
+        virtual const IAbstractParticle* ILayout::particle(size_t index) const =0
 
         Returns information about particle with index. 
 
         """
-        return _libBornAgainCore.ILayout_getParticle(self, index)
+        return _libBornAgainCore.ILayout_particle(self, index)
 
 
-    def getParticles(self):
+    def particles(self):
         """
-        getParticles(ILayout self) -> SafePointerVector< IParticle const >
+        particles(ILayout self) -> SafePointerVector< IParticle const >
 
-        virtual SafePointerVector<const IParticle> ILayout::getParticles() const =0
+        virtual SafePointerVector<const IParticle> ILayout::particles() const =0
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
         """
-        return _libBornAgainCore.ILayout_getParticles(self)
+        return _libBornAgainCore.ILayout_particles(self)
 
 
-    def getAbundanceOfParticle(self, index):
+    def abundanceOfParticle(self, index):
         """
-        getAbundanceOfParticle(ILayout self, size_t index) -> double
+        abundanceOfParticle(ILayout self, size_t index) -> double
 
-        virtual double ILayout::getAbundanceOfParticle(size_t index) const =0
+        virtual double ILayout::abundanceOfParticle(size_t index) const =0
 
         Get abundance fraction of particle with index. 
 
         """
-        return _libBornAgainCore.ILayout_getAbundanceOfParticle(self, index)
+        return _libBornAgainCore.ILayout_abundanceOfParticle(self, index)
 
 
     def getTotalAbundance(self):
@@ -18419,28 +18235,28 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_getTotalAbundance(self)
 
 
-    def getInterferenceFunction(self):
+    def interferenceFunction(self):
         """
-        getInterferenceFunction(ILayout self) -> IInterferenceFunction
+        interferenceFunction(ILayout self) -> IInterferenceFunction
 
-        virtual const IInterferenceFunction* ILayout::getInterferenceFunction() const =0
+        virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
 
         Returns interference function. 
 
         """
-        return _libBornAgainCore.ILayout_getInterferenceFunction(self)
+        return _libBornAgainCore.ILayout_interferenceFunction(self)
 
 
-    def getTotalParticleSurfaceDensity(self):
+    def totalParticleSurfaceDensity(self):
         """
-        getTotalParticleSurfaceDensity(ILayout self) -> double
+        totalParticleSurfaceDensity(ILayout self) -> double
 
-        virtual double ILayout::getTotalParticleSurfaceDensity() const =0
+        virtual double ILayout::totalParticleSurfaceDensity() const =0
 
         Returns surface density of all particles. 
 
         """
-        return _libBornAgainCore.ILayout_getTotalParticleSurfaceDensity(self)
+        return _libBornAgainCore.ILayout_totalParticleSurfaceDensity(self)
 
 
     def setTotalParticleSurfaceDensity(self, particle_density):
@@ -18544,14 +18360,14 @@ class IAbstractParticle(ISample):
         return _libBornAgainCore.IAbstractParticle_accept(self, visitor)
 
 
-    def getAbundance(self):
+    def abundance(self):
         """
-        getAbundance(IAbstractParticle self) -> double
+        abundance(IAbstractParticle self) -> double
 
-        double IAbstractParticle::getAbundance() const 
+        double IAbstractParticle::abundance() const 
 
         """
-        return _libBornAgainCore.IAbstractParticle_getAbundance(self)
+        return _libBornAgainCore.IAbstractParticle_abundance(self)
 
 
     def setAbundance(self, abundance):
@@ -18721,28 +18537,28 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_createFormFactor(self)
 
 
-    def createSlicedFormFactor(self, limits):
+    def createSlicedParticle(self, limits):
         """
-        createSlicedFormFactor(IParticle self, ZLimits limits) -> IFormFactor
+        createSlicedParticle(IParticle self, ZLimits limits) -> SlicedParticle
 
-        IFormFactor * IParticle::createSlicedFormFactor(ZLimits limits) const
+        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
 
         Create a sliced form factor for this particle. 
 
         """
-        return _libBornAgainCore.IParticle_createSlicedFormFactor(self, limits)
+        return _libBornAgainCore.IParticle_createSlicedParticle(self, limits)
 
 
-    def getPosition(self):
+    def position(self):
         """
-        getPosition(IParticle self) -> kvector_t
+        position(IParticle self) -> kvector_t
 
-        kvector_t IParticle::getPosition() const
+        kvector_t IParticle::position() const
 
         Returns particle position. 
 
         """
-        return _libBornAgainCore.IParticle_getPosition(self)
+        return _libBornAgainCore.IParticle_position(self)
 
 
     def setPosition(self, *args):
@@ -18770,16 +18586,16 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_applyTranslation(self, displacement)
 
 
-    def getRotation(self):
+    def rotation(self):
         """
-        getRotation(IParticle self) -> IRotation
+        rotation(IParticle self) -> IRotation
 
-        const IRotation * IParticle::getRotation() const
+        const IRotation * IParticle::rotation() const
 
         Returns rotation object. 
 
         """
-        return _libBornAgainCore.IParticle_getRotation(self)
+        return _libBornAgainCore.IParticle_rotation(self)
 
 
     def setRotation(self, rotation):
@@ -21202,16 +21018,9 @@ class Lattice(_object):
         return _libBornAgainCore.Lattice_getBasisVectorC(self)
 
 
-    def getVolume(self):
-        """
-        getVolume(Lattice self) -> double
-
-        double Lattice::getVolume() const
-
-        Returns the volume of the unit cell. 
-
-        """
-        return _libBornAgainCore.Lattice_getVolume(self)
+    def volume(self):
+        """volume(Lattice self) -> double"""
+        return _libBornAgainCore.Lattice_volume(self)
 
 
     def getReciprocalLatticeBasis(self, b1, b2, b3):
@@ -21652,10 +21461,10 @@ class Layer(ISample):
 
     def __init__(self, material, thickness=0):
         """
-        __init__(Layer self, IMaterial material, double thickness=0) -> Layer
-        __init__(Layer self, IMaterial material) -> Layer
+        __init__(Layer self, HomogeneousMaterial material, double thickness=0) -> Layer
+        __init__(Layer self, HomogeneousMaterial material) -> Layer
 
-        Layer::Layer(const IMaterial &material, double thickness=0)
+        Layer::Layer(HomogeneousMaterial material, double thickness=0)
 
         """
         this = _libBornAgainCore.new_Layer(material, thickness)
@@ -21670,7 +21479,7 @@ class Layer(ISample):
         """
         clone(Layer self) -> Layer
 
-        Layer* Layer::clone() const final
+        Layer* Layer::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -21682,7 +21491,7 @@ class Layer(ISample):
         """
         cloneInvertB(Layer self) -> Layer
 
-        Layer * Layer::cloneInvertB() const final
+        Layer * Layer::cloneInvertB() const overridefinal
 
         Returns a clone with inverted magnetic fields. 
 
@@ -21694,7 +21503,7 @@ class Layer(ISample):
         """
         accept(Layer self, INodeVisitor visitor)
 
-        void Layer::accept(INodeVisitor *visitor) const final
+        void Layer::accept(INodeVisitor *visitor) const overridefinal
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21714,60 +21523,53 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_setThickness(self, thickness)
 
 
-    def getThickness(self):
+    def thickness(self):
         """
-        getThickness(Layer self) -> double
+        thickness(Layer self) -> double
 
-        double Layer::getThickness() const 
-
-        """
-        return _libBornAgainCore.Layer_getThickness(self)
-
-
-    def setMaterial(self, material):
-        """
-        setMaterial(Layer self, IMaterial material)
-
-        void Layer::setMaterial(const IMaterial &material)
-
-        Sets  material of the layer. 
+        double Layer::thickness() const 
 
         """
-        return _libBornAgainCore.Layer_setMaterial(self, material)
+        return _libBornAgainCore.Layer_thickness(self)
 
 
-    def getMaterial(self):
+    def material(self):
         """
-        getMaterial(Layer self) -> IMaterial
+        material(Layer self) -> HomogeneousMaterial
 
-        const IMaterial* Layer::getMaterial() const
+        const HomogeneousMaterial* Layer::material() const overridefinal
 
         Returns nullptr, unless overwritten to return a specific material. 
 
         """
-        return _libBornAgainCore.Layer_getMaterial(self)
+        return _libBornAgainCore.Layer_material(self)
 
 
-    def getRefractiveIndex(self):
+    def setMaterial(self, material):
+        """setMaterial(Layer self, HomogeneousMaterial material)"""
+        return _libBornAgainCore.Layer_setMaterial(self, material)
+
+
+    def refractiveIndex(self):
         """
-        getRefractiveIndex(Layer self) -> complex_t
+        refractiveIndex(Layer self) -> complex_t
 
-        complex_t Layer::getRefractiveIndex() const 
+        complex_t Layer::refractiveIndex() const 
 
         """
-        return _libBornAgainCore.Layer_getRefractiveIndex(self)
+        return _libBornAgainCore.Layer_refractiveIndex(self)
 
 
-    def getRefractiveIndex2(self):
+    def refractiveIndex2(self):
         """
-        getRefractiveIndex2(Layer self) -> complex_t
+        refractiveIndex2(Layer self) -> complex_t
 
-        complex_t Layer::getRefractiveIndex2() const
+        complex_t Layer::refractiveIndex2() const
 
         squared refractive index 
 
         """
-        return _libBornAgainCore.Layer_getRefractiveIndex2(self)
+        return _libBornAgainCore.Layer_refractiveIndex2(self)
 
 
     def addLayout(self, decoration):
@@ -21780,24 +21582,24 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_addLayout(self, decoration)
 
 
-    def getNumberOfLayouts(self):
+    def numberOfLayouts(self):
         """
-        getNumberOfLayouts(Layer self) -> size_t
+        numberOfLayouts(Layer self) -> size_t
 
-        size_t Layer::getNumberOfLayouts() const 
-
-        """
-        return _libBornAgainCore.Layer_getNumberOfLayouts(self)
-
-
-    def getLayout(self, i):
-        """
-        getLayout(Layer self, size_t i) -> ILayout
-
-        const ILayout * Layer::getLayout(size_t i) const 
+        size_t Layer::numberOfLayouts() const 
 
         """
-        return _libBornAgainCore.Layer_getLayout(self, i)
+        return _libBornAgainCore.Layer_numberOfLayouts(self)
+
+
+    def layout(self, i):
+        """
+        layout(Layer self, size_t i) -> ILayout
+
+        const ILayout * Layer::layout(size_t i) const 
+
+        """
+        return _libBornAgainCore.Layer_layout(self, i)
 
 
     def hasComputation(self):
@@ -21816,7 +21618,7 @@ class Layer(ISample):
         """
         getChildren(Layer self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > Layer::getChildren() const
+        std::vector< const INode * > Layer::getChildren() const overridefinal
 
         Returns a vector of children (const). 
 
@@ -22284,28 +22086,28 @@ class MesoCrystal(IParticle):
         return _libBornAgainCore.MesoCrystal_accept(self, visitor)
 
 
-    def createSlicedFormFactor(self, limits):
+    def createSlicedParticle(self, limits):
         """
-        createSlicedFormFactor(MesoCrystal self, ZLimits limits) -> IFormFactor
+        createSlicedParticle(MesoCrystal self, ZLimits limits) -> SlicedParticle
 
-        IFormFactor * MesoCrystal::createSlicedFormFactor(ZLimits limits) const overridefinal
+        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
 
         Create a sliced form factor for this particle. 
 
         """
-        return _libBornAgainCore.MesoCrystal_createSlicedFormFactor(self, limits)
+        return _libBornAgainCore.MesoCrystal_createSlicedParticle(self, limits)
 
 
-    def getClusteredParticles(self):
+    def clusteredParticles(self):
         """
-        getClusteredParticles(MesoCrystal self) -> IClusteredParticles
+        clusteredParticles(MesoCrystal self) -> IClusteredParticles
 
-        const IClusteredParticles* MesoCrystal::getClusteredParticles() const
+        const IClusteredParticles* MesoCrystal::clusteredParticles() const
 
         get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
 
         """
-        return _libBornAgainCore.MesoCrystal_getClusteredParticles(self)
+        return _libBornAgainCore.MesoCrystal_clusteredParticles(self)
 
 
     def getChildren(self):
@@ -22371,24 +22173,24 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_accept(self, visitor)
 
 
-    def getNumberOfLayers(self):
+    def numberOfLayers(self):
         """
-        getNumberOfLayers(MultiLayer self) -> size_t
+        numberOfLayers(MultiLayer self) -> size_t
 
-        size_t MultiLayer::getNumberOfLayers() const 
-
-        """
-        return _libBornAgainCore.MultiLayer_getNumberOfLayers(self)
-
-
-    def getNumberOfInterfaces(self):
-        """
-        getNumberOfInterfaces(MultiLayer self) -> size_t
-
-        size_t MultiLayer::getNumberOfInterfaces() const 
+        size_t MultiLayer::numberOfLayers() const 
 
         """
-        return _libBornAgainCore.MultiLayer_getNumberOfInterfaces(self)
+        return _libBornAgainCore.MultiLayer_numberOfLayers(self)
+
+
+    def numberOfInterfaces(self):
+        """
+        numberOfInterfaces(MultiLayer self) -> size_t
+
+        size_t MultiLayer::numberOfInterfaces() const 
+
+        """
+        return _libBornAgainCore.MultiLayer_numberOfInterfaces(self)
 
 
     def addLayer(self, p_child):
@@ -22417,92 +22219,102 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_addLayerWithTopRoughness(self, layer, roughness)
 
 
-    def getLayer(self, i_layer):
+    def layer(self, i_layer):
         """
-        getLayer(MultiLayer self, size_t i_layer) -> Layer
+        layer(MultiLayer self, size_t i_layer) -> Layer
 
-        const Layer* MultiLayer::getLayer(size_t i_layer) const
+        const Layer* MultiLayer::layer(size_t i_layer) const
 
         Returns layer with given index. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayer(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layer(self, i_layer)
 
 
-    def getLayerInterface(self, i_interface):
+    def layerInterface(self, i_interface):
         """
-        getLayerInterface(MultiLayer self, size_t i_interface) -> LayerInterface const *
+        layerInterface(MultiLayer self, size_t i_interface) -> LayerInterface const *
 
-        const LayerInterface* MultiLayer::getLayerInterface(size_t i_interface) const
+        const LayerInterface* MultiLayer::layerInterface(size_t i_interface) const
 
         Returns layer with given index. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerInterface(self, i_interface)
+        return _libBornAgainCore.MultiLayer_layerInterface(self, i_interface)
 
 
-    def getLayerTopZ(self, i_layer):
+    def layerTopZ(self, i_layer):
         """
-        getLayerTopZ(MultiLayer self, size_t i_layer) -> double
+        layerTopZ(MultiLayer self, size_t i_layer) -> double
 
-        double MultiLayer::getLayerTopZ(size_t i_layer) const
+        double MultiLayer::layerTopZ(size_t i_layer) const
 
         Returns z-coordinate of the layer's bottom. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerTopZ(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layerTopZ(self, i_layer)
 
 
-    def getLayerBottomZ(self, i_layer):
+    def layerBottomZ(self, i_layer):
         """
-        getLayerBottomZ(MultiLayer self, size_t i_layer) -> double
+        layerBottomZ(MultiLayer self, size_t i_layer) -> double
 
-        double MultiLayer::getLayerBottomZ(size_t i_layer) const
+        double MultiLayer::layerBottomZ(size_t i_layer) const
 
         Returns z-coordinate of the layer's bottom. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerBottomZ(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layerBottomZ(self, i_layer)
 
 
-    def getLayerThickness(self, i_layer):
+    def layerThickness(self, i_layer):
         """
-        getLayerThickness(MultiLayer self, size_t i_layer) -> double
+        layerThickness(MultiLayer self, size_t i_layer) -> double
 
-        double MultiLayer::getLayerThickness(size_t i_layer) const
+        double MultiLayer::layerThickness(size_t i_layer) const
 
         Returns thickness of layer. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerThickness(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layerThickness(self, i_layer)
 
 
-    def getLayerTopInterface(self, i_layer):
+    def layerTopInterface(self, i_layer):
         """
-        getLayerTopInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
+        layerTopInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
 
-        const LayerInterface * MultiLayer::getLayerTopInterface(size_t i_layer) const
+        const LayerInterface * MultiLayer::layerTopInterface(size_t i_layer) const
 
         Returns top interface of layer.
 
         Returns pointer to the top interface of the layer. nInterfaces = nLayers-1, first layer in multilayer doesn't have interface. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerTopInterface(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layerTopInterface(self, i_layer)
 
 
-    def getLayerBottomInterface(self, i_layer):
+    def layerBottomInterface(self, i_layer):
         """
-        getLayerBottomInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
+        layerBottomInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
 
-        const LayerInterface * MultiLayer::getLayerBottomInterface(size_t i_layer) const
+        const LayerInterface * MultiLayer::layerBottomInterface(size_t i_layer) const
 
         Returns bottom interface of layer.
 
         Returns pointer to the bottom interface of the layer. 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayerBottomInterface(self, i_layer)
+        return _libBornAgainCore.MultiLayer_layerBottomInterface(self, i_layer)
+
+
+    def layerMaterial(self, i_layer):
+        """layerMaterial(MultiLayer self, size_t i_layer) -> HomogeneousMaterial"""
+        return _libBornAgainCore.MultiLayer_layerMaterial(self, i_layer)
+
+
+    def setLayerMaterial(self, i_layer, material):
+        """setLayerMaterial(MultiLayer self, size_t i_layer, HomogeneousMaterial material)"""
+        return _libBornAgainCore.MultiLayer_setLayerMaterial(self, i_layer, material)
 
 
     def addLayout(self, layout):
@@ -22517,24 +22329,24 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_addLayout(self, layout)
 
 
-    def getNumberOfLayouts(self):
+    def numberOfLayouts(self):
         """
-        getNumberOfLayouts(MultiLayer self) -> size_t
+        numberOfLayouts(MultiLayer self) -> size_t
 
-        size_t MultiLayer::getNumberOfLayouts() const 
-
-        """
-        return _libBornAgainCore.MultiLayer_getNumberOfLayouts(self)
-
-
-    def getLayout(self, i):
-        """
-        getLayout(MultiLayer self, size_t i) -> ILayout
-
-        const ILayout * MultiLayer::getLayout(size_t i) const 
+        size_t MultiLayer::numberOfLayouts() const 
 
         """
-        return _libBornAgainCore.MultiLayer_getLayout(self, i)
+        return _libBornAgainCore.MultiLayer_numberOfLayouts(self)
+
+
+    def layout(self, i):
+        """
+        layout(MultiLayer self, size_t i) -> ILayout
+
+        const ILayout * MultiLayer::layout(size_t i) const 
+
+        """
+        return _libBornAgainCore.MultiLayer_layout(self, i)
 
 
     def clear(self):
@@ -22585,23 +22397,23 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_setCrossCorrLength(self, crossCorrLength)
 
 
-    def getCrossCorrLength(self):
+    def crossCorrLength(self):
         """
-        getCrossCorrLength(MultiLayer self) -> double
+        crossCorrLength(MultiLayer self) -> double
 
-        double MultiLayer::getCrossCorrLength() const
+        double MultiLayer::crossCorrLength() const
 
         Returns cross correlation length of roughnesses between interfaces. 
 
         """
-        return _libBornAgainCore.MultiLayer_getCrossCorrLength(self)
+        return _libBornAgainCore.MultiLayer_crossCorrLength(self)
 
 
-    def getCrossCorrSpectralFun(self, kvec, j, k):
+    def crossCorrSpectralFun(self, kvec, j, k):
         """
-        getCrossCorrSpectralFun(MultiLayer self, kvector_t kvec, size_t j, size_t k) -> double
+        crossCorrSpectralFun(MultiLayer self, kvector_t kvec, size_t j, size_t k) -> double
 
-        double MultiLayer::getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
+        double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 
         ! correlation function of roughnesses between the interfaces
 
@@ -22610,7 +22422,7 @@ class MultiLayer(ISample):
         Fourier transform of the correlation function of roughnesses between the interfaces j,k - indexes of layers in multilayer whose bottom interfaces we are considering 
 
         """
-        return _libBornAgainCore.MultiLayer_getCrossCorrSpectralFun(self, kvec, j, k)
+        return _libBornAgainCore.MultiLayer_crossCorrSpectralFun(self, kvec, j, k)
 
 
     def setLayerThickness(self, i_layer, thickness):
@@ -22625,16 +22437,16 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_setLayerThickness(self, i_layer, thickness)
 
 
-    def getIndexOfLayer(self, layer):
+    def indexOfLayer(self, layer):
         """
-        getIndexOfLayer(MultiLayer self, Layer layer) -> int
+        indexOfLayer(MultiLayer self, Layer layer) -> int
 
-        int MultiLayer::getIndexOfLayer(const Layer *layer) const
+        int MultiLayer::indexOfLayer(const Layer *layer) const
 
         returns layer index 
 
         """
-        return _libBornAgainCore.MultiLayer_getIndexOfLayer(self, layer)
+        return _libBornAgainCore.MultiLayer_indexOfLayer(self, layer)
 
 
     def requiresMatrixRTCoefficients(self):
@@ -23964,11 +23776,11 @@ class Particle(IParticle):
     def __init__(self, *args):
         """
         __init__(Particle self) -> Particle
-        __init__(Particle self, IMaterial p_material) -> Particle
-        __init__(Particle self, IMaterial p_material, IFormFactor form_factor) -> Particle
-        __init__(Particle self, IMaterial p_material, IFormFactor form_factor, IRotation rotation) -> Particle
+        __init__(Particle self, HomogeneousMaterial material) -> Particle
+        __init__(Particle self, HomogeneousMaterial material, IFormFactor form_factor) -> Particle
+        __init__(Particle self, HomogeneousMaterial material, IFormFactor form_factor, IRotation rotation) -> Particle
 
-        Particle::Particle(const IMaterial &p_material, const IFormFactor &form_factor, const IRotation &rotation)
+        Particle::Particle(HomogeneousMaterial material, const IFormFactor &form_factor, const IRotation &rotation)
 
         """
         this = _libBornAgainCore.new_Particle(*args)
@@ -24013,48 +23825,48 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_accept(self, visitor)
 
 
-    def createSlicedFormFactor(self, limits):
+    def createSlicedParticle(self, limits):
         """
-        createSlicedFormFactor(Particle self, ZLimits limits) -> IFormFactor
+        createSlicedParticle(Particle self, ZLimits limits) -> SlicedParticle
 
-        IFormFactor * Particle::createSlicedFormFactor(ZLimits limits) const overridefinal
+        SlicedParticle Particle::createSlicedParticle(ZLimits limits) const overridefinal
 
         Create a sliced form factor for this particle. 
 
         """
-        return _libBornAgainCore.Particle_createSlicedFormFactor(self, limits)
+        return _libBornAgainCore.Particle_createSlicedParticle(self, limits)
 
 
     def setMaterial(self, material):
         """
-        setMaterial(Particle self, IMaterial material)
+        setMaterial(Particle self, HomogeneousMaterial material)
 
-        void Particle::setMaterial(const IMaterial &material)
+        void Particle::setMaterial(HomogeneousMaterial material)
 
         """
         return _libBornAgainCore.Particle_setMaterial(self, material)
 
 
-    def getMaterial(self):
+    def material(self):
         """
-        getMaterial(Particle self) -> IMaterial
+        material(Particle self) -> HomogeneousMaterial
 
-        const IMaterial* Particle::getMaterial() const overridefinal
+        const HomogeneousMaterial* Particle::material() const overridefinal
 
         Returns nullptr, unless overwritten to return a specific material. 
 
         """
-        return _libBornAgainCore.Particle_getMaterial(self)
+        return _libBornAgainCore.Particle_material(self)
 
 
-    def getRefractiveIndex(self):
+    def refractiveIndex(self):
         """
-        getRefractiveIndex(Particle self) -> complex_t
+        refractiveIndex(Particle self) -> complex_t
 
-        complex_t Particle::getRefractiveIndex() const 
+        complex_t Particle::refractiveIndex() const 
 
         """
-        return _libBornAgainCore.Particle_getRefractiveIndex(self)
+        return _libBornAgainCore.Particle_refractiveIndex(self)
 
 
     def setFormFactor(self, form_factor):
@@ -24067,14 +23879,14 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_setFormFactor(self, form_factor)
 
 
-    def getFormFactor(self):
+    def formFactor(self):
         """
-        getFormFactor(Particle self) -> IFormFactor
+        formFactor(Particle self) -> IFormFactor
 
-        const IFormFactor* Particle::getFormFactor() const 
+        const IFormFactor* Particle::formFactor() const 
 
         """
-        return _libBornAgainCore.Particle_getFormFactor(self)
+        return _libBornAgainCore.Particle_formFactor(self)
 
 
     def getChildren(self):
@@ -24196,38 +24008,38 @@ class ParticleComposition(IParticle):
         return _libBornAgainCore.ParticleComposition_createTransformedFormFactor(self, p_rotation, translation)
 
 
-    def getNbrParticles(self):
+    def nbrParticles(self):
         """
-        getNbrParticles(ParticleComposition self) -> size_t
+        nbrParticles(ParticleComposition self) -> size_t
 
-        size_t ParticleComposition::getNbrParticles() const
+        size_t ParticleComposition::nbrParticles() const
 
         Returns number of different particles. 
 
         """
-        return _libBornAgainCore.ParticleComposition_getNbrParticles(self)
+        return _libBornAgainCore.ParticleComposition_nbrParticles(self)
 
 
-    def getParticle(self, index):
+    def particle(self, index):
         """
-        getParticle(ParticleComposition self, size_t index) -> IParticle
+        particle(ParticleComposition self, size_t index) -> IParticle
 
-        const IParticle * ParticleComposition::getParticle(size_t index) const
+        const IParticle * ParticleComposition::particle(size_t index) const
 
         Returns particle with given index. 
 
         """
-        return _libBornAgainCore.ParticleComposition_getParticle(self, index)
+        return _libBornAgainCore.ParticleComposition_particle(self, index)
 
 
-    def getParticlePosition(self, index):
+    def particlePosition(self, index):
         """
-        getParticlePosition(ParticleComposition self, size_t index) -> kvector_t
+        particlePosition(ParticleComposition self, size_t index) -> kvector_t
 
-        kvector_t ParticleComposition::getParticlePosition(size_t index) const 
+        kvector_t ParticleComposition::particlePosition(size_t index) const 
 
         """
-        return _libBornAgainCore.ParticleComposition_getParticlePosition(self, index)
+        return _libBornAgainCore.ParticleComposition_particlePosition(self, index)
 
 
     def getChildren(self):
@@ -24328,16 +24140,16 @@ class ParticleCoreShell(IParticle):
         return _libBornAgainCore.ParticleCoreShell_accept(self, visitor)
 
 
-    def createSlicedFormFactor(self, limits):
+    def createSlicedParticle(self, limits):
         """
-        createSlicedFormFactor(ParticleCoreShell self, ZLimits limits) -> IFormFactor
+        createSlicedParticle(ParticleCoreShell self, ZLimits limits) -> SlicedParticle
 
-        IFormFactor * ParticleCoreShell::createSlicedFormFactor(ZLimits limits) const overridefinal
+        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
 
         Create a sliced form factor for this particle. 
 
         """
-        return _libBornAgainCore.ParticleCoreShell_createSlicedFormFactor(self, limits)
+        return _libBornAgainCore.ParticleCoreShell_createSlicedParticle(self, limits)
 
 
     def coreParticle(self):
@@ -24457,28 +24269,28 @@ class ParticleDistribution(IAbstractParticle):
         return _libBornAgainCore.ParticleDistribution_generateParticles(self)
 
 
-    def getParameterDistribution(self):
+    def parameterDistribution(self):
         """
-        getParameterDistribution(ParticleDistribution self) -> ParameterDistribution
+        parameterDistribution(ParticleDistribution self) -> ParameterDistribution
 
-        ParameterDistribution ParticleDistribution::getParameterDistribution() const
+        ParameterDistribution ParticleDistribution::parameterDistribution() const
 
         Returns the distributed parameter data. 
 
         """
-        return _libBornAgainCore.ParticleDistribution_getParameterDistribution(self)
+        return _libBornAgainCore.ParticleDistribution_parameterDistribution(self)
 
 
-    def getParticle(self):
+    def particle(self):
         """
-        getParticle(ParticleDistribution self) -> IParticle
+        particle(ParticleDistribution self) -> IParticle
 
-        const IParticle* ParticleDistribution::getParticle() const
+        const IParticle* ParticleDistribution::particle() const
 
         Returns particle. 
 
         """
-        return _libBornAgainCore.ParticleDistribution_getParticle(self)
+        return _libBornAgainCore.ParticleDistribution_particle(self)
 
 
     def getChildren(self):
@@ -24600,64 +24412,64 @@ class ParticleLayout(ILayout):
         return _libBornAgainCore.ParticleLayout_addParticle(self, *args)
 
 
-    def getNumberOfParticles(self):
+    def numberOfParticles(self):
         """
-        getNumberOfParticles(ParticleLayout self) -> size_t
+        numberOfParticles(ParticleLayout self) -> size_t
 
-        size_t ParticleLayout::getNumberOfParticles() const final
+        size_t ParticleLayout::numberOfParticles() const final
 
         Returns number of particles. 
 
         """
-        return _libBornAgainCore.ParticleLayout_getNumberOfParticles(self)
+        return _libBornAgainCore.ParticleLayout_numberOfParticles(self)
 
 
-    def getParticle(self, index):
+    def particle(self, index):
         """
-        getParticle(ParticleLayout self, size_t index) -> IAbstractParticle
+        particle(ParticleLayout self, size_t index) -> IAbstractParticle
 
-        const IAbstractParticle * ParticleLayout::getParticle(size_t index) const final
+        const IAbstractParticle * ParticleLayout::particle(size_t index) const final
 
         Returns particle info. 
 
         """
-        return _libBornAgainCore.ParticleLayout_getParticle(self, index)
+        return _libBornAgainCore.ParticleLayout_particle(self, index)
 
 
-    def getParticles(self):
+    def particles(self):
         """
-        getParticles(ParticleLayout self) -> SafePointerVector< IParticle const >
+        particles(ParticleLayout self) -> SafePointerVector< IParticle const >
 
-        SafePointerVector< const IParticle > ParticleLayout::getParticles() const final
+        SafePointerVector< const IParticle > ParticleLayout::particles() const final
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
         """
-        return _libBornAgainCore.ParticleLayout_getParticles(self)
+        return _libBornAgainCore.ParticleLayout_particles(self)
 
 
-    def getAbundanceOfParticle(self, index):
+    def abundanceOfParticle(self, index):
         """
-        getAbundanceOfParticle(ParticleLayout self, size_t index) -> double
+        abundanceOfParticle(ParticleLayout self, size_t index) -> double
 
-        double ParticleLayout::getAbundanceOfParticle(size_t index) const
+        double ParticleLayout::abundanceOfParticle(size_t index) const
 
         Returns the abundance fraction of particle at given index. 
 
         """
-        return _libBornAgainCore.ParticleLayout_getAbundanceOfParticle(self, index)
+        return _libBornAgainCore.ParticleLayout_abundanceOfParticle(self, index)
 
 
-    def getInterferenceFunction(self):
+    def interferenceFunction(self):
         """
-        getInterferenceFunction(ParticleLayout self) -> IInterferenceFunction
+        interferenceFunction(ParticleLayout self) -> IInterferenceFunction
 
-        const IInterferenceFunction * ParticleLayout::getInterferenceFunction() const final
+        const IInterferenceFunction * ParticleLayout::interferenceFunction() const final
 
         Returns interference function. 
 
         """
-        return _libBornAgainCore.ParticleLayout_getInterferenceFunction(self)
+        return _libBornAgainCore.ParticleLayout_interferenceFunction(self)
 
 
     def addInterferenceFunction(self, interference_function):
@@ -24672,16 +24484,16 @@ class ParticleLayout(ILayout):
         return _libBornAgainCore.ParticleLayout_addInterferenceFunction(self, interference_function)
 
 
-    def getTotalParticleSurfaceDensity(self):
+    def totalParticleSurfaceDensity(self):
         """
-        getTotalParticleSurfaceDensity(ParticleLayout self) -> double
+        totalParticleSurfaceDensity(ParticleLayout self) -> double
 
-        double ParticleLayout::getTotalParticleSurfaceDensity() const final
+        double ParticleLayout::totalParticleSurfaceDensity() const final
 
         Returns surface density of all particles. 
 
         """
-        return _libBornAgainCore.ParticleLayout_getTotalParticleSurfaceDensity(self)
+        return _libBornAgainCore.ParticleLayout_totalParticleSurfaceDensity(self)
 
 
     def setTotalParticleSurfaceDensity(self, particle_density):

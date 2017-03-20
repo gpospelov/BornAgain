@@ -37,7 +37,7 @@ public:
     double getHeight() const { return m_height; }
     double getHeightFlattening() const { return m_height_flattening; }
 
-    double getRadialExtension() const override final { return m_radius; }
+    double radialExtension() const override final { return m_radius; }
 
     complex_t evaluate_for_q(cvector_t q) const override final;
 

@@ -33,9 +33,9 @@ ParticleCoreShellTest::~ParticleCoreShellTest()
 
 TEST_F(ParticleCoreShellTest, InitialState)
 {
-    EXPECT_EQ(nullptr, mp_coreshell->getAmbientMaterial());
+    EXPECT_EQ(nullptr, mp_coreshell->ambientMaterial());
     EXPECT_EQ(nullptr, mp_coreshell->createFormFactor());
-    EXPECT_EQ(nullptr, mp_coreshell->getRotation());
+    EXPECT_EQ(nullptr, mp_coreshell->rotation());
     EXPECT_EQ(BornAgain::ParticleCoreShellType, mp_coreshell->getName());
     EXPECT_EQ(BornAgain::ParticleType, mp_coreshell->coreParticle()->getName());
     EXPECT_EQ(BornAgain::ParticleType, mp_coreshell->shellParticle()->getName());
@@ -45,7 +45,7 @@ TEST_F(ParticleCoreShellTest, Clone)
 {
     ParticleCoreShell *p_clone = mp_coreshell->clone();
     EXPECT_EQ(nullptr, p_clone->createFormFactor());
-    EXPECT_EQ(nullptr, p_clone->getRotation());
+    EXPECT_EQ(nullptr, p_clone->rotation());
     EXPECT_EQ(BornAgain::ParticleCoreShellType, p_clone->getName());
     EXPECT_EQ(BornAgain::ParticleType, p_clone->coreParticle()->getName());
     EXPECT_EQ(BornAgain::ParticleType, p_clone->shellParticle()->getName());
@@ -56,7 +56,7 @@ TEST_F(ParticleCoreShellTest, CloneInvertB)
 {
     ParticleCoreShell *p_clone = mp_coreshell->cloneInvertB();
     EXPECT_EQ(nullptr, p_clone->createFormFactor());
-    EXPECT_EQ(nullptr, p_clone->getRotation());
+    EXPECT_EQ(nullptr, p_clone->rotation());
     EXPECT_EQ(BornAgain::ParticleCoreShellType, p_clone->getName());
     EXPECT_EQ(BornAgain::ParticleType, p_clone->coreParticle()->getName());
     EXPECT_EQ(BornAgain::ParticleType, p_clone->shellParticle()->getName());
@@ -83,8 +83,8 @@ TEST_F(ParticleCoreShellTest, ComplexCoreShellClone)
     coreshell.setPosition(kvector_t(0,0,-10));
 
     ParticleCoreShell *clone = coreshell.clone();
-    EXPECT_EQ(coreshell.coreParticle()->getPosition(), relative_pos);
-    EXPECT_EQ(clone->coreParticle()->getPosition(), relative_pos);
+    EXPECT_EQ(coreshell.coreParticle()->position(), relative_pos);
+    EXPECT_EQ(clone->coreParticle()->position(), relative_pos);
 }
 
 TEST_F(ParticleCoreShellTest, getChildren)
@@ -97,9 +97,9 @@ TEST_F(ParticleCoreShellTest, getChildren)
     std::vector<const INode*> children = coreshell.getChildren();
     EXPECT_EQ(children.size(), 2u);
     EXPECT_EQ(dynamic_cast<const Particle*>(
-                  children.at(0))->getFormFactor()->getName(), BornAgain::FFBoxType);
+                  children.at(0))->formFactor()->getName(), BornAgain::FFBoxType);
     EXPECT_EQ(dynamic_cast<const Particle*>(
-                  children.at(1))->getFormFactor()->getName(), BornAgain::FFFullSphereType);
+                  children.at(1))->formFactor()->getName(), BornAgain::FFFullSphereType);
 
     // adding rotation and checking children again
     coreshell.setRotation(RotationZ(0.1));
@@ -107,7 +107,7 @@ TEST_F(ParticleCoreShellTest, getChildren)
     EXPECT_EQ(children.size(), 3u);
     EXPECT_EQ(children.at(0)->getName(), BornAgain::ZRotationType);
     EXPECT_EQ(dynamic_cast<const Particle*>(
-                  children.at(1))->getFormFactor()->getName(), BornAgain::FFBoxType);
+                  children.at(1))->formFactor()->getName(), BornAgain::FFBoxType);
     EXPECT_EQ(dynamic_cast<const Particle*>(
-                  children.at(2))->getFormFactor()->getName(), BornAgain::FFFullSphereType);
+                  children.at(2))->formFactor()->getName(), BornAgain::FFFullSphereType);
 }

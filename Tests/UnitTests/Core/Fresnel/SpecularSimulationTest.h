@@ -78,7 +78,7 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     SpecularSimulation sim;
     sim.setBeamParameters(1.0, 10, 0.0*Units::degree, 2.0*Units::degree);
     sim.setSample(multilayer);
-    EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(sim.getSample())->getNumberOfLayers());
+    EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(sim.getSample())->numberOfLayers());
 
     ASSERT_THROW( sim.getScalarR(0), Exceptions::ClassInitializationException);
     ASSERT_THROW( sim.getScalarT(0), Exceptions::ClassInitializationException);
@@ -103,7 +103,7 @@ TEST_F(SpecularSimulationTest, SimulationClone)
 
     SpecularSimulation *clone = sim.clone();
 
-    EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(clone->getSample())->getNumberOfLayers());
+    EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(clone->getSample())->numberOfLayers());
 
     ASSERT_THROW( clone->getScalarR(0), Exceptions::ClassInitializationException);
     ASSERT_THROW( clone->getScalarT(0), Exceptions::ClassInitializationException);

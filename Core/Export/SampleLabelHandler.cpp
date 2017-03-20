@@ -14,9 +14,8 @@
 // ************************************************************************** //
 
 #include "SampleLabelHandler.h"
-#include "HomogeneousMagneticMaterial.h"
 #include "IInterferenceFunction.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "LayerRoughness.h"
 #include "MultiLayer.h"
 #include "Particle.h"
@@ -34,7 +33,7 @@ std::string SampleLabelHandler::getLabelInterferenceFunction(const IInterference
     return m_InterferenceFunctionLabel[iff];
 }
 
-std::string SampleLabelHandler::getLabelMaterial(const IMaterial* mat)
+std::string SampleLabelHandler::getLabelMaterial(const HomogeneousMaterial* mat)
 {
     return m_MaterialLabel[mat];
 }
@@ -93,7 +92,7 @@ std::string SampleLabelHandler::getLabelRotation(const IRotation* rot)
     return m_RotationsLabel[rot];
 }
 
-void SampleLabelHandler::insertMaterial(const IMaterial* mat)
+void SampleLabelHandler::insertMaterial(const HomogeneousMaterial* mat)
 {
     for (auto it=m_MaterialLabel.begin(); it!=m_MaterialLabel.end(); ++it) {
         if( *(it->first) == *mat ) {

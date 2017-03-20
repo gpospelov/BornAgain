@@ -19,10 +19,8 @@
 #include "SimulationElement.h"
 #include "SpecularMatrix.h"
 
-ScalarFresnelMap::ScalarFresnelMap(const MultiLayer& multilayer)
-{
-    setMultilayer(multilayer);
-}
+ScalarFresnelMap::ScalarFresnelMap()
+{}
 
 ScalarFresnelMap::~ScalarFresnelMap()
 {}

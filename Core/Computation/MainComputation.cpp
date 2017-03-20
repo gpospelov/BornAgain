@@ -63,8 +63,7 @@ MainComputation::MainComputation(
     if (m_sim_options.includeSpecular())
         m_computation_terms.emplace_back(new SpecularComputation(mP_multi_layer.get(),
                                                               mP_fresnel_map.get()));
-    if (m_sim_options.useAvgMaterials())
-        adjustFresnelMap();
+    initFresnelMap();
 }
 
 MainComputation::~MainComputation()
@@ -100,32 +99,42 @@ void MainComputation::runProtected()
 IFresnelMap* MainComputation::createFresnelMap()
 {
         if (!mP_multi_layer->requiresMatrixRTCoefficients())
-            return new ScalarFresnelMap(*mP_multi_layer);
+            return new ScalarFresnelMap();
         else
-            return new MatrixFresnelMap(*mP_multi_layer);
+            return new MatrixFresnelMap();
 }
 
-void MainComputation::adjustFresnelMap()
+std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer()
 {
     std::map<size_t, std::vector<HomogeneousRegion>> region_map;
     for (auto& comp: m_computation_terms) {
         comp->mergeRegionMap(region_map);
     }
-    // TODO: use this multilayer!!!
-    std::unique_ptr<MultiLayer> p_multilayer(mP_multi_layer->clone());
+    std::unique_ptr<MultiLayer> P_result(mP_multi_layer->clone());
     for (auto& entry : region_map)
     {
         auto i_layer = entry.first;
-        auto layer_mat = p_multilayer->layerMaterial(i_layer);
+        auto layer_mat = P_result->layerMaterial(i_layer);
         if (!checkRegions(entry.second))
             throw std::runtime_error("MainComputation::adjustFresnelMap: "
                                      "total volumetric fraction of particles exceeds 1!");
         auto new_mat = CalculateAverageMaterial(layer_mat, entry.second);
-        p_multilayer->setLayerMaterial(i_layer, new_mat);
+        P_result->setLayerMaterial(i_layer, new_mat);
 //        std::cout << "Layer: " << entry.first << std::endl;
 //        for (auto& region : entry.second)
 //            std::cout << "  Region: vol: " << region.m_volume << std::endl;
     }
+    return P_result;
+}
+
+void MainComputation::initFresnelMap()
+{
+    if (m_sim_options.useAvgMaterials()) {
+        auto avg_multilayer = getAveragedMultilayer();
+        mP_fresnel_map->setMultilayer(*avg_multilayer);
+    }
+    else
+        mP_fresnel_map->setMultilayer(*mP_multi_layer);
 }
 
 bool MainComputation::checkRegions(const std::vector<HomogeneousRegion>& regions) const

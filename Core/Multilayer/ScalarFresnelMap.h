@@ -35,7 +35,7 @@ class SimulationElement;
 class BA_CORE_API_ ScalarFresnelMap : public IFresnelMap
 {
 public:
-    ScalarFresnelMap(const MultiLayer& multilayer);
+    ScalarFresnelMap();
     ~ScalarFresnelMap() final;
 
     const ILayerRTCoefficients* getOutCoefficients (

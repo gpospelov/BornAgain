@@ -56,8 +56,10 @@ public:
 private:
     void runProtected();
     IFresnelMap* createFresnelMap();
-    // corrects used materials in the Fresnel map to the average materials
-    void adjustFresnelMap();
+    // creates a multilayer that contains averaged materials, for use in Fresnel calculations
+    std::unique_ptr<MultiLayer> getAveragedMultilayer();
+    // sets the correct layer materials for the Fresnel map to use
+    void initFresnelMap();
     bool checkRegions(const std::vector<HomogeneousRegion>& regions) const;
 
     std::unique_ptr<MultiLayer> mP_multi_layer;

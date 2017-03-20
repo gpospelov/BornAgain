@@ -33,7 +33,7 @@ class SimulationElement;
 class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
-    MatrixFresnelMap(const MultiLayer& multilayer);
+    MatrixFresnelMap();
     ~MatrixFresnelMap() final;
 
     const ILayerRTCoefficients* getOutCoefficients(

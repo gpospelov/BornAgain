@@ -20,10 +20,8 @@
 #include "SimulationElement.h"
 #include "SpecularMagnetic.h"
 
-MatrixFresnelMap::MatrixFresnelMap(const MultiLayer& multilayer)
-{
-    setMultilayer(multilayer);
-}
+MatrixFresnelMap::MatrixFresnelMap()
+{}
 
 MatrixFresnelMap::~MatrixFresnelMap()
 {}

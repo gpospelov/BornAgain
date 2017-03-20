@@ -17,7 +17,7 @@
 #include "SphericalDetectorWidget.h"
 #include "ComponentBoxEditor.h"
 #include "SphericalDetectorItem.h"
-#include "columnresizer.h"
+#include "ColumnResizer.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 

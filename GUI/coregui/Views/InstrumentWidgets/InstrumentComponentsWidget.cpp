@@ -18,7 +18,7 @@
 #include "InstrumentItem.h"
 #include "BeamEditorWidget.h"
 #include "DetectorEditorWidget.h"
-#include "columnresizer.h"
+#include "ColumnResizer.h"
 #include <QVBoxLayout>
 
 InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget* parent)

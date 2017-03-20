@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InstrumentWidgets/columnresizer.h
+//! @file      GUI/coregui/Views/CommonWidgets/columnresizer.h
 //! @brief     Defines class ColumnResizer
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,25 +17,25 @@
 /*
  * Copyright 2011 Aurélien Gâteau <agateau@kde.org>
  * License: LGPL v2.1 or later (see COPYING)
+ * http://agateau.com/2011/clean-up-your-layouts-with-columnresizer/
+ * https://github.com/agateau/columnresizer
  */
+
 #ifndef COLUMNRESIZER_H
 #define COLUMNRESIZER_H
 
 #include <QFormLayout>
-
-#include <QtCore/QObject>
-#include <QtCore/QList>
+#include <QObject>
+#include <QList>
 
 class QEvent;
 class QGridLayout;
 class QLayout;
 class QWidget;
-
 class ColumnResizerPrivate;
 
-//! The ColumnResizer class provides vertically aligned widgets from diferent layouts
-//! http://agateau.com/2011/clean-up-your-layouts-with-columnresizer/
-//! https://github.com/agateau/columnresizer
+//! The ColumnResizer class provides vertically aligned widgets from diferent layouts.
+
 class ColumnResizer : public QObject
 {
     Q_OBJECT
@@ -49,9 +49,6 @@ public:
     void addWidgetsFromFormLayout(QFormLayout*, QFormLayout::ItemRole role);
 
     void dropWidgetsFromGridLayout(QGridLayout *layout);
-
-//public slots:
-//    void onObjectDestroyed(QObject *object);
 
 private slots:
     void updateWidth();

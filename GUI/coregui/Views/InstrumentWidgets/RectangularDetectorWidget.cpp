@@ -22,7 +22,7 @@
 #include "RectangularDetectorItem.h"
 #include "ExtendedDetectorDialog.h"
 #include "GroupInfoBox.h"
-#include "columnresizer.h"
+#include "ColumnResizer.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 

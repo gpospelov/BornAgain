@@ -26,7 +26,7 @@
 #include "SphericalDetectorWidget.h"
 #include "InstrumentItem.h"
 #include "GroupItem.h"
-#include "columnresizer.h"
+#include "ColumnResizer.h"
 #include <QGroupBox>
 #include <QLabel>
 #include <QVBoxLayout>

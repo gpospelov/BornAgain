@@ -55,7 +55,7 @@ public:
 
 private:
     void runProtected();
-    static IFresnelMap* createFresnelMap(const MultiLayer* p_multilayer);
+    IFresnelMap* createFresnelMap();
     // corrects used materials in the Fresnel map to the average materials
     void adjustFresnelMap();
     bool checkRegions(const std::vector<HomogeneousRegion>& regions) const;

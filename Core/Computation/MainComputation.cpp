@@ -44,8 +44,8 @@ MainComputation::MainComputation(
     , m_progress(&progress)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
-    , mP_fresnel_map(createFresnelMap(mP_multi_layer.get()))
 {
+    mP_fresnel_map.reset(createFresnelMap());
     bool polarized = mP_multi_layer->containsMagneticMaterial();
     size_t nLayers = mP_multi_layer->numberOfLayers();
     for (size_t i=0; i<nLayers; ++i) {
@@ -97,12 +97,12 @@ void MainComputation::runProtected()
     }
 }
 
-IFresnelMap* MainComputation::createFresnelMap(const MultiLayer* p_multilayer)
+IFresnelMap* MainComputation::createFresnelMap()
 {
-        if (!p_multilayer->requiresMatrixRTCoefficients())
-            return new ScalarFresnelMap(*p_multilayer);
+        if (!mP_multi_layer->requiresMatrixRTCoefficients())
+            return new ScalarFresnelMap(*mP_multi_layer);
         else
-            return new MatrixFresnelMap(*p_multilayer);
+            return new MatrixFresnelMap(*mP_multi_layer);
 }
 
 void MainComputation::adjustFresnelMap()

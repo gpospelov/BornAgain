@@ -71,8 +71,7 @@ void InstrumentEditorWidget::setInstrumentItem(SessionItem* instrument)
     updateWidgets();
 
     InstrumentItem* instrumentItem = dynamic_cast<InstrumentItem*>(instrument);
-    if (instrumentItem)
-        m_instrumentComponents->setInstrumentItem(instrumentItem);
+    m_instrumentComponents->setInstrumentItem(instrumentItem);
 }
 
 void InstrumentEditorWidget::onChangedEditor(const QString&)
@@ -109,9 +108,9 @@ void InstrumentEditorWidget::updateWidgets()
     m_block_signals = true;
 
     if (m_currentItem) {
-        m_nameLineEdit->setText(m_currentItem->itemName());
         m_nameLineEdit->setEnabled(true);
         m_typeComboBox->setEnabled(true);
+        m_nameLineEdit->setText(m_currentItem->itemName());
     } else {
         m_nameLineEdit->setText(QString());
         m_nameLineEdit->setEnabled(false);

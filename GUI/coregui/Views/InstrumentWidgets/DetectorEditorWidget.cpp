@@ -74,6 +74,13 @@ void DetectorEditorWidget::subscribeToItem()
     init_SubDetector_Widget();
 }
 
+void DetectorEditorWidget::unsubscribeFromItem()
+{
+    m_currentDetector = nullptr;
+    remove_SubDetectorWidget();
+    m_detectorTypeEditor->clearEditor();
+}
+
 void DetectorEditorWidget::init_SubDetector_Widget()
 {
     if (m_currentDetector == instrumentItem()->detectorItem())
@@ -81,11 +88,7 @@ void DetectorEditorWidget::init_SubDetector_Widget()
 
     m_currentDetector = instrumentItem()->detectorItem();
 
-    if (m_subDetectorWidget)
-        m_groupBox->layout()->removeWidget(m_subDetectorWidget);
-
-    delete m_subDetectorWidget;
-    m_subDetectorWidget = 0;
+    remove_SubDetectorWidget();
 
     if (m_currentDetector->modelType() == Constants::SphericalDetectorType) {
         m_subDetectorWidget = new SphericalDetectorWidget(m_columnResizer, m_currentDetector);
@@ -98,6 +101,15 @@ void DetectorEditorWidget::init_SubDetector_Widget()
     }
 
     m_groupBox->layout()->addWidget(m_subDetectorWidget);
+}
+
+void DetectorEditorWidget::remove_SubDetectorWidget()
+{
+    if (m_subDetectorWidget)
+        m_groupBox->layout()->removeWidget(m_subDetectorWidget);
+
+    delete m_subDetectorWidget;
+    m_subDetectorWidget = 0;
 }
 
 InstrumentItem* DetectorEditorWidget::instrumentItem()

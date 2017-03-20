@@ -45,6 +45,7 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel *model, QWidg
     ""));
 
     setModel(model);
+    layout()->setMargin(10);
 }
 
 QSize InstrumentSelectorWidget::sizeHint() const

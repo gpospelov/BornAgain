@@ -40,9 +40,11 @@ private slots:
 
 protected:
     virtual void subscribeToItem();
+    virtual void unsubscribeFromItem();
 
 private:
     void init_SubDetector_Widget();
+    void remove_SubDetectorWidget();
     InstrumentItem* instrumentItem();
 
     ColumnResizer* m_columnResizer;

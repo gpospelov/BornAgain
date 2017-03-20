@@ -40,12 +40,11 @@ MainComputation::MainComputation(
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
     : mP_multi_layer(multi_layer.clone())
-    , mP_inverted_multilayer(multi_layer.cloneInvertB())
     , m_sim_options(options)
     , m_progress(&progress)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
-    , mP_fresnel_map(createFresnelMap(mP_multi_layer.get(), mP_inverted_multilayer.get()))
+    , mP_fresnel_map(createFresnelMap(mP_multi_layer.get()))
 {
     bool polarized = mP_multi_layer->containsMagneticMaterial();
     size_t nLayers = mP_multi_layer->numberOfLayers();
@@ -98,13 +97,12 @@ void MainComputation::runProtected()
     }
 }
 
-IFresnelMap* MainComputation::createFresnelMap(const MultiLayer* p_multilayer,
-                                               const MultiLayer* p_inverted_multilayer)
+IFresnelMap* MainComputation::createFresnelMap(const MultiLayer* p_multilayer)
 {
         if (!p_multilayer->requiresMatrixRTCoefficients())
-            return new ScalarFresnelMap(p_multilayer);
+            return new ScalarFresnelMap(*p_multilayer);
         else
-            return new MatrixFresnelMap(p_multilayer, p_inverted_multilayer);
+            return new MatrixFresnelMap(*p_multilayer);
 }
 
 void MainComputation::adjustFresnelMap()

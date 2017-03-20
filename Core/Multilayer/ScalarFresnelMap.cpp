@@ -19,8 +19,8 @@
 #include "SimulationElement.h"
 #include "SpecularMatrix.h"
 
-ScalarFresnelMap::ScalarFresnelMap(const MultiLayer* multilayer)
-    : mp_multilayer(multilayer)
+ScalarFresnelMap::ScalarFresnelMap(const MultiLayer& multilayer)
+    : mP_multilayer(multilayer.clone())
 {}
 
 ScalarFresnelMap::~ScalarFresnelMap()
@@ -48,7 +48,7 @@ const ScalarRTCoefficients* ScalarFresnelMap::getCoefficients(
         result = new ScalarRTCoefficients(it->second[layer_index]);
     else {
         std::vector<ScalarRTCoefficients> coeffs;
-        SpecularMatrix::execute(*mp_multilayer, kvec, coeffs);
+        SpecularMatrix::execute(*mP_multilayer, kvec, coeffs);
         result = new ScalarRTCoefficients(coeffs[layer_index]);
         m_hash_table[k2_theta] = std::move(coeffs);
     }

@@ -55,14 +55,12 @@ public:
 
 private:
     void runProtected();
-    static IFresnelMap* createFresnelMap(const MultiLayer* p_multilayer,
-                                         const MultiLayer* p_inverted_multilayer);
+    static IFresnelMap* createFresnelMap(const MultiLayer* p_multilayer);
     // corrects used materials in the Fresnel map to the average materials
     void adjustFresnelMap();
     bool checkRegions(const std::vector<HomogeneousRegion>& regions) const;
 
     std::unique_ptr<MultiLayer> mP_multi_layer;
-    std::unique_ptr<MultiLayer> mP_inverted_multilayer;
     SimulationOptions m_sim_options;
     ProgressHandler* m_progress;
     //! these iterators define the span of detector bins this simulation will work on

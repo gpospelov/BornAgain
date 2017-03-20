@@ -25,7 +25,7 @@
 
 class IFresnelMap;
 class MultiLayer;
-class HomogeneousRegion;
+struct HomogeneousRegion;
 class IComputationTerm;
 class ProgressHandler;
 class SimulationElement;

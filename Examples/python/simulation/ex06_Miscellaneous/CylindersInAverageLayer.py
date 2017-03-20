@@ -49,8 +49,8 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(512, phi_min*deg, phi_max*deg,
-                                     512, alpha_min*deg, alpha_max*deg)
+    simulation.setDetectorParameters(100, phi_min*deg, phi_max*deg,
+                                     100, alpha_min*deg, alpha_max*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.getOptions().setUseAvgMaterials(True)
     return simulation

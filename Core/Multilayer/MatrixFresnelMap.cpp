@@ -61,3 +61,9 @@ const ILayerRTCoefficients* MatrixFresnelMap::getInCoefficients(
     }
     return result;
 }
+
+void MatrixFresnelMap::setMultilayer(const MultiLayer& multilayer)
+{
+    mP_multilayer.reset(multilayer.clone());
+    mP_inverted_multilayer.reset(multilayer.cloneInvertB());
+}

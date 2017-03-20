@@ -38,6 +38,11 @@ const ILayerRTCoefficients* ScalarFresnelMap::getInCoefficients(
     return getCoefficients(sim_element.getKi(), layer_index);
 }
 
+void ScalarFresnelMap::setMultilayer(const MultiLayer& multilayer)
+{
+    mP_multilayer.reset(multilayer.clone());
+}
+
 const ScalarRTCoefficients* ScalarFresnelMap::getCoefficients(
         kvector_t kvec, size_t layer_index) const
 {

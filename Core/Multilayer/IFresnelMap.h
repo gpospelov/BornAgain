@@ -20,6 +20,7 @@
 #include <cstddef>
 
 class ILayerRTCoefficients;
+class MultiLayer;
 class SimulationElement;
 
 //! Holds the necessary information to calculate the radiation wavefunction in every layer
@@ -40,6 +41,9 @@ public:
     //! Retrieves the amplitude coefficients for an incoming wavevector.
     virtual const ILayerRTCoefficients* getInCoefficients(
             const SimulationElement& sim_element, size_t layer_index) const =0;
+
+    //! Sets the multilayer to be used for the Fresnel calculations.
+    virtual void setMultilayer(const MultiLayer& multilayer) =0;
 };
 
 #endif // IFRESNELMAP_H

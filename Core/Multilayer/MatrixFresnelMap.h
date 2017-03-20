@@ -36,13 +36,13 @@ public:
     MatrixFresnelMap(const MultiLayer& multilayer);
     ~MatrixFresnelMap() final;
 
-    //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const final override;
 
-    //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const final override;
+
+    void setMultilayer(const MultiLayer& multilayer) final override;
 
 private:
     std::unique_ptr<MultiLayer> mP_multilayer;

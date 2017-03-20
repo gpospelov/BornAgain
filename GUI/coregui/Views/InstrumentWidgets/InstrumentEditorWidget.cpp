@@ -109,52 +109,21 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget *parent)
 
 void InstrumentEditorWidget::setInstrumentItem(SessionItem *instrument)
 {
-    if(!instrument)
-        return;
-
-    if(instrument != m_currentItem) {
-        if(m_currentItem) {
-            // TODO restore logic
-//            disconnect(m_currentItem,
-//                       SIGNAL(propertyChanged(QString)),
-//                       this,
-//                       SLOT(onPropertyChanged(QString))
-//                       );
-//            disconnect(m_currentItem,
-//                       SIGNAL(subItemChanged(QString)),
-//                       this,
-//                       SLOT(onPropertyChanged(QString))
-//                       );
-        }
-        m_currentItem = instrument;
-//        connect(m_currentItem,
-//                   SIGNAL(propertyChanged(QString)),
-//                   this,
-//                   SLOT(onPropertyChanged(QString))
-//                   );
-//        connect(m_currentItem,
-//                   SIGNAL(subItemChanged(QString)),
-//                   this,
-//                   SLOT(onPropertyChanged(QString))
-//                   );
-            updateWidgets();
-    }
-
+    m_currentItem = instrument;
+    updateWidgets();
 
     InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(instrument);
-
-    m_instrumentComponents->setInstrumentItem(instrumentItem);
+    if(instrumentItem)
+        m_instrumentComponents->setInstrumentItem(instrumentItem);
 }
 
 void InstrumentEditorWidget::onChangedEditor(const QString &)
 {
-    Q_ASSERT(m_currentItem);
-    if(m_block_signals) return;
-    m_currentItem->setItemName(m_nameLineEdit->text());
-}
+    if(m_block_signals)
+        return;
 
-void InstrumentEditorWidget::onPropertyChanged(const QString &)
-{
+    if(m_currentItem)
+        m_currentItem->setItemName(m_nameLineEdit->text());
 }
 
 //! top block with instrument name and type
@@ -178,8 +147,15 @@ QLayout *InstrumentEditorWidget::create_NameAndTypeLayout()
 
 void InstrumentEditorWidget::updateWidgets()
 {
-    Q_ASSERT(m_currentItem);
     m_block_signals = true;
-    m_nameLineEdit->setText(m_currentItem->itemName());
+    if(m_currentItem) {
+        m_nameLineEdit->setText(m_currentItem->itemName());
+        m_nameLineEdit->setEnabled(true);
+        m_typeComboBox->setEnabled(true);
+    } else {
+        m_nameLineEdit->setText(QString());
+        m_nameLineEdit->setEnabled(false);
+        m_typeComboBox->setEnabled(false);
+    }
     m_block_signals = false;
 }

@@ -46,7 +46,6 @@ signals:
 
 public slots:
     void onChangedEditor(const QString &);
-    void onPropertyChanged(const QString &);
 
 private:
     QLayout *create_NameAndTypeLayout();

@@ -25,7 +25,6 @@ class MainWindow;
 class InstrumentSelectorWidget;
 class InstrumentEditorWidget;
 class InstrumentModel;
-class QStackedWidget;
 class QItemSelection;
 class SessionItem;
 class QToolButton;
@@ -40,18 +39,14 @@ public:
 
 public slots:
     void updateView();
-    void resetView();
-    void onSelectionChanged(const QItemSelection&, const QItemSelection&);
     void onAddInstrument();
     void onRemoveInstrument();
-    void onRowsAboutToBeRemoved(QModelIndex,int,int);
     void onExtendedDetectorEditorRequest(DetectorItem *detectorItem);
 
 private slots:
     void onItemSelectionChanged(SessionItem* instrumentItem);
 
 private:
-    void setupConnections();
     void setupActions();
     QString getNewInstrumentName(const QString &name);
     void updateMapOfNames();
@@ -59,8 +54,9 @@ private:
     InstrumentModel *m_instrumentModel;
     class StyledToolBar *m_toolBar;
     InstrumentSelectorWidget *m_instrumentSelector;
-    QStackedWidget *m_stackWidget;
-    QMap<SessionItem *, InstrumentEditorWidget *> m_instrumentToEditor;
+
+    InstrumentEditorWidget* m_instrumentEditor;
+
     QAction *m_addInstrumentAction;
     QAction *m_removeInstrumentAction;
     QToolButton *m_addInstrumentButton;

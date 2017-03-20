@@ -33,7 +33,7 @@ InstrumentView::InstrumentView(MainWindow *mainWindow)
     , m_instrumentModel(mainWindow->instrumentModel())
     , m_toolBar(new StyledToolBar(this))
     , m_instrumentSelector(new InstrumentSelectorWidget(m_instrumentModel, this))
-    , m_stackWidget(new QStackedWidget)
+    , m_instrumentEditor(new InstrumentEditorWidget)
     , m_addInstrumentAction(0)
     , m_removeInstrumentAction(0)
     , m_addInstrumentButton(0)
@@ -45,65 +45,27 @@ InstrumentView::InstrumentView(MainWindow *mainWindow)
 
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
     horizontalLayout->addWidget(m_instrumentSelector);
-    horizontalLayout->addWidget(m_stackWidget, 1);
+    horizontalLayout->addWidget(m_instrumentEditor, 1);
 
     mainLayout->addWidget(m_toolBar);
     mainLayout->addLayout(horizontalLayout);
     setLayout(mainLayout);
 
-    setupConnections();
     setupActions();
 
     if(m_instrumentModel->rowCount(QModelIndex()) == 0)
         onAddInstrument();
 
-    updateView();
+//    updateView();
+
+    connect(m_instrumentSelector, SIGNAL(selectionChanged(SessionItem*)),
+            this, SLOT(onItemSelectionChanged(SessionItem*)));
 }
 
 
 void InstrumentView::updateView()
 {
     m_instrumentSelector->updateSelection();
-}
-
-
-void InstrumentView::resetView()
-{
-    QMap<SessionItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
-    while(it!=m_instrumentToEditor.end()) {
-        m_stackWidget->removeWidget(it.value());
-        delete it.value();
-        ++it;
-    }
-    m_instrumentToEditor.clear();
-    m_name_to_copy.clear();
-}
-
-
-void InstrumentView::onSelectionChanged(
-    const QItemSelection &selected, const QItemSelection &)
-{
-    if(selected.indexes().isEmpty())
-        return;
-
-    SessionItem *instrument = m_instrumentModel->itemForIndex(selected.indexes().back());
-
-    InstrumentEditorWidget *widget = m_instrumentToEditor[instrument];
-
-    if( !widget) {
-        widget = new InstrumentEditorWidget();
-        connect(widget,
-                SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
-                this,
-                SLOT(onExtendedDetectorEditorRequest(DetectorItem *))
-                );
-
-        widget->setInstrumentItem(instrument);
-        m_stackWidget->addWidget(widget);
-        m_instrumentToEditor[instrument] = widget;
-    }
-    m_stackWidget->setCurrentWidget(widget);
-
 }
 
 
@@ -125,27 +87,6 @@ void InstrumentView::onRemoveInstrument()
 }
 
 
-void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /* last */)
-{
-    SessionItem *item = m_instrumentModel->itemForIndex(m_instrumentModel->index(first,0, parent));
-    Q_ASSERT(item);
-    InstrumentEditorWidget *widget = m_instrumentToEditor[item];
-
-    if(!widget) return;
-
-    QMap<SessionItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
-    while(it!=m_instrumentToEditor.end()) {
-        if(it.value() == widget) {
-            it = m_instrumentToEditor.erase(it);
-        } else {
-            ++it;
-        }
-    }
-
-    m_stackWidget->removeWidget(widget);
-    delete widget;
-}
-
 void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *detectorItem)
 {
     ExtendedDetectorDialog *dialog = new ExtendedDetectorDialog(this);
@@ -155,42 +96,8 @@ void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *detectorItem)
 
 void InstrumentView::onItemSelectionChanged(SessionItem* instrumentItem)
 {
-    InstrumentEditorWidget *widget = m_instrumentToEditor[instrumentItem];
-
-    if( !widget) {
-        widget = new InstrumentEditorWidget();
-        connect(widget,
-                SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
-                this,
-                SLOT(onExtendedDetectorEditorRequest(DetectorItem *))
-                );
-
-        widget->setInstrumentItem(instrumentItem);
-        m_stackWidget->addWidget(widget);
-        m_instrumentToEditor[instrumentItem] = widget;
-    }
-    m_stackWidget->setCurrentWidget(widget);
-
+    m_instrumentEditor->setInstrumentItem(instrumentItem);
 }
-
-void InstrumentView::setupConnections()
-{    
-    connect(m_instrumentSelector, SIGNAL(selectionChanged(SessionItem*)),
-            this, SLOT(onItemSelectionChanged(SessionItem*)));
-
-    connect(m_instrumentModel,
-            SIGNAL(modelAboutToBeReset()),
-            this,
-            SLOT(resetView())
-            );
-
-    connect(m_instrumentModel,
-            SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)),
-            this,
-            SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int))
-            );
-}
-
 
 void InstrumentView::setupActions()
 {

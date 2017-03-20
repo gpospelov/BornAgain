@@ -26,7 +26,6 @@
 #include "SimulationElement.h"
 #include <iterator> // needed for back_inserter
 
-//#include <iostream>
 namespace
 {
 HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_mat,
@@ -116,13 +115,10 @@ std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer()
         auto i_layer = entry.first;
         auto layer_mat = P_result->layerMaterial(i_layer);
         if (!checkRegions(entry.second))
-            throw std::runtime_error("MainComputation::adjustFresnelMap: "
+            throw std::runtime_error("MainComputation::getAveragedMultilayer: "
                                      "total volumetric fraction of particles exceeds 1!");
         auto new_mat = CalculateAverageMaterial(layer_mat, entry.second);
         P_result->setLayerMaterial(i_layer, new_mat);
-//        std::cout << "Layer: " << entry.first << std::endl;
-//        for (auto& region : entry.second)
-//            std::cout << "  Region: vol: " << region.m_volume << std::endl;
     }
     return P_result;
 }

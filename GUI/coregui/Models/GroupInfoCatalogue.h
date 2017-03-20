@@ -7,10 +7,9 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
+//! @copyright Forschungszentrum Jülich GmbH 2017
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @authors   J. Burle, J. M. Fisher, M. Ganeva, D. Li, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 

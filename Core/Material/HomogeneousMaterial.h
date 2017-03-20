@@ -78,16 +78,14 @@ public:
 #endif
     HomogeneousMaterial transformedMaterial(const Transform3D& transform) const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const HomogeneousMaterial& mat);
+    friend BA_CORE_API_ std::ostream& operator<<(
+            std::ostream& ostr, const HomogeneousMaterial& mat);
 private:
     void print(std::ostream &ostr) const;
 
     complex_t m_refractive_index; //!< complex index of refraction
     kvector_t m_magnetic_field; //!< magnetic field in Tesla
 };
-
-// Explicitly declare stream operator to export it in Windows dll
-BA_CORE_API_ std::ostream& operator<<(std::ostream& ostr, const HomogeneousMaterial& mat);
 
 // Comparison operators:
 BA_CORE_API_ bool operator==(const HomogeneousMaterial& left, const HomogeneousMaterial& right);

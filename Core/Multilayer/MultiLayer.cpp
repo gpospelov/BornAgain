@@ -108,13 +108,12 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
 MultiLayer* MultiLayer::cloneInvertB() const
 {
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
-    if (numberOfLayers()>0)
-        P_result->addLayer(*m_layers[0]);
-    for (size_t i=1; i<numberOfLayers(); ++i)
+    for (size_t i=0; i<numberOfLayers(); ++i)
     {
-        auto p_interface = m_interfaces[i-1];
+        auto p_interface = i>0 ? m_interfaces[i-1]
+                               : nullptr;
         std::unique_ptr<Layer> P_layer(m_layers[i]->cloneInvertB());
-        if (p_interface->getRoughness())
+        if (i>0 && p_interface->getRoughness())
             P_result->addLayerWithTopRoughness(*P_layer, *p_interface->getRoughness());
         else
             P_result->addLayer(*P_layer);
@@ -208,24 +207,6 @@ double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k
                         (sigma_j/sigma_k)*rough_k->getSpectralFun(kvec) ) *
         std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
     return corr;
-}
-
-// Currently unused, except in a trivial test.
-// TODO: integrate this into an onChange() mechanism.
-
-void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
-{
-    if (thickness < 0.)
-        throw Exceptions::DomainErrorException("Layer thickness cannot be negative");
-
-    m_layers[ check_layer_index(i_layer) ]->setThickness(thickness);
-    // recalculating z-coordinates of layers
-    m_layers_z.clear();
-    m_layers_z.push_back(0.0);
-    for (size_t il=1; il<numberOfLayers(); il++)
-        m_layers_z.push_back(
-            m_layers_z.back() -
-            m_layers[ check_layer_index(il) ]->thickness() );
 }
 
 int MultiLayer::indexOfLayer(const Layer* layer) const

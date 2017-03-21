@@ -74,15 +74,6 @@ TEST_F(MultiLayerTest, LayerThicknesses)
     EXPECT_EQ(-20.0, mLayer.layerBottomZ(1));
     EXPECT_EQ(-60.0, mLayer.layerBottomZ(2));
     EXPECT_EQ(-60.0, mLayer.layerBottomZ(3));
-
-    //set layer thickness
-    mLayer.setLayerThickness(1, 45.0);
-    EXPECT_EQ(45.0, mLayer.layerThickness(1));
-
-    EXPECT_EQ(  0.0, mLayer.layerBottomZ(0));
-    EXPECT_EQ(-45.0, mLayer.layerBottomZ(1));
-    EXPECT_EQ(-85.0, mLayer.layerBottomZ(2));
-    EXPECT_EQ(-85.0, mLayer.layerBottomZ(3));
 }
 
 TEST_F(MultiLayerTest, CheckAllLayers)

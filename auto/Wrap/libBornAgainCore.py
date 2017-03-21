@@ -22502,18 +22502,6 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_crossCorrSpectralFun(self, kvec, j, k)
 
 
-    def setLayerThickness(self, i_layer, thickness):
-        """
-        setLayerThickness(MultiLayer self, size_t i_layer, double thickness)
-
-        void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
-
-        Sets thickness of layer. 
-
-        """
-        return _libBornAgainCore.MultiLayer_setLayerThickness(self, i_layer, thickness)
-
-
     def indexOfLayer(self, layer):
         """
         indexOfLayer(MultiLayer self, Layer layer) -> int

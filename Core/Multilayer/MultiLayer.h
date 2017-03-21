@@ -114,9 +114,6 @@ public:
     //! the interfaces
     double crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
 
-    //! Sets thickness of layer.
-    void setLayerThickness(size_t i_layer, double thickness); // TODO: remove this function!
-
     //! returns layer index
     int indexOfLayer(const Layer* layer) const;
 

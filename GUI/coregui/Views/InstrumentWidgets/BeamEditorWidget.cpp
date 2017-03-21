@@ -93,6 +93,9 @@ void BeamEditorWidget::setBeamItem(BeamItem* beamItem)
 
 void BeamEditorWidget::onDialogRequest(SessionItem* item, const QString& name)
 {
+    if(!item)
+        return;
+
     DistributionDialog* dialog = new DistributionDialog(this);
     dialog->setItem(item);
     dialog->setNameOfEditor(name);

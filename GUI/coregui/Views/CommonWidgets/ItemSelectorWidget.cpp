@@ -99,8 +99,6 @@ void ItemSelectorWidget::onSelectionChanged(const QItemSelection& selected, cons
     if (indexes.size())
         selectedItem = m_model->itemForIndex(indexes.back());
 
-    qDebug() << "ItemSelectorWidget::onSelectionChanged" << selectedItem;
-
     emit selectionChanged(selectedItem);
 }
 

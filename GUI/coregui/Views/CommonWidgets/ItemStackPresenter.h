@@ -20,6 +20,7 @@
 #include "ItemStackWidget.h"
 #include <QMap>
 #include <QStackedWidget>
+#include <QDebug>
 
 class SessionItem;
 
@@ -99,6 +100,9 @@ template <class T>
 void ItemStackPresenter<T>::removeWidgetForItem(SessionItem* item)
 {
     Q_ASSERT(item);
+
+    if(m_single_widget)
+        return;
 
     T* widget = m_itemToWidget[item];
     if (!widget)

@@ -18,6 +18,7 @@
 #define INSTRUMENTVIEW_H
 
 #include "WinDllMacros.h"
+#include "ItemStackPresenter.h"
 #include <QMap>
 #include <QWidget>
 
@@ -58,7 +59,8 @@ private:
     class StyledToolBar *m_toolBar;
     InstrumentSelectorWidget *m_instrumentSelector;
 
-    InstrumentEditorWidget* m_instrumentEditor;
+//    InstrumentEditorWidget* m_instrumentEditor;
+    ItemStackPresenter<InstrumentEditorWidget> *m_instrumentEditor;
 
     QAction *m_addInstrumentAction;
     QAction *m_removeInstrumentAction;

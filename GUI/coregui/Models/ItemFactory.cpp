@@ -148,7 +148,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::SquareLatticeType] = &createInstance<SquareLatticeItem>;
     result[Constants::HexagonalLatticeType] = &createInstance<HexagonalLatticeItem>;
 
-    result[Constants::MaterialType] = &createInstance<MaterialItem>;
+    result[Constants::HomogeneousMaterialType] = &createInstance<MaterialItem>;
 
     result[Constants::RefractiveIndexType] = &createInstance<RefractiveIndexItem>;
 

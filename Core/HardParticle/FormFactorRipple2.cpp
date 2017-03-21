@@ -32,7 +32,7 @@ FormFactorRipple2::FormFactorRipple2(double length, double width, double height,
     onChange();
 }
 
-double FormFactorRipple2::getRadialExtension() const
+double FormFactorRipple2::radialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }

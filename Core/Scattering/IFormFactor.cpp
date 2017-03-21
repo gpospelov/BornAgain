@@ -42,7 +42,7 @@ Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
         "IFormFactor::evaluatePol: is not implemented by default");
 }
 
-double IFormFactor::getVolume() const
+double IFormFactor::volume() const
 {
     WavevectorInfo zero_wavevectors;
     return std::abs(evaluate(zero_wavevectors));
@@ -63,17 +63,15 @@ bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
 {
     double zbottom = formfactor.bottomZ(rot) + translation.z();
     double ztop = formfactor.topZ(rot) + translation.z();
-    double eps = (ztop - zbottom)*1e-6;  // allow for relatively small crossing due to numerical
-                                         // approximations (like rotation over 180 degrees)
     switch (limits.type()) {
     case ZLimits::FINITE:
-        return zbottom>=limits.zmin()-eps && ztop<=limits.zmax()+eps;
+        return zbottom>=limits.zmin() && ztop<=limits.zmax();
     case ZLimits::INFINITE:
         return true;
     case ZLimits::NEG_INFINITE:
-        return ztop<=limits.zmax()+eps;
+        return ztop<=limits.zmax();
     case ZLimits::POS_INFINITE:
-        return zbottom>=limits.zmin()-eps;
+        return zbottom>=limits.zmin();
     }
     return false;
 }

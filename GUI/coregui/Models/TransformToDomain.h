@@ -20,7 +20,7 @@
 #include "Beam.h"
 #include "Distributions.h" // for IDistribution1D
 #include "IInterferenceFunction.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "IParticle.h"
 #include "Instrument.h"
 #include "Layer.h"
@@ -36,7 +36,7 @@ class DetectorItem;
 
 namespace TransformToDomain
 {
-BA_CORE_API_ std::unique_ptr<IMaterial> createDomainMaterial(const SessionItem& item);
+BA_CORE_API_ std::unique_ptr<HomogeneousMaterial> createDomainMaterial(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<IParticle> createIParticle(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<Layer> createLayer(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<LayerRoughness> createLayerRoughness(const SessionItem& item);

@@ -56,18 +56,25 @@ void MesoCrystal::accept(INodeVisitor* visitor) const
     visitor->visit(this);
 }
 
-IFormFactor*MesoCrystal::createSlicedFormFactor(ZLimits limits) const
+SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const
 {
     if (!mp_particle_structure || !mp_meso_form_factor)
-        return nullptr;
+        return {};
     std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
     if (mP_rotation)
         P_rotation.reset(mP_rotation->clone());
     std::unique_ptr<IFormFactor> P_temp_ff(
                 mp_meso_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
-    IFormFactor* p_result = mp_particle_structure->createTotalFormFactor(
-                                *P_temp_ff, P_rotation.get(), m_position);
-    return p_result;
+    std::unique_ptr<IFormFactor> P_total_ff( mp_particle_structure->createTotalFormFactor(
+                                                 *P_temp_ff, P_rotation.get(), m_position) );
+    double meso_volume = mp_meso_form_factor->volume();
+    auto regions = mp_particle_structure->homogeneousRegions();
+    for (auto& region : regions)
+        region.m_volume *= meso_volume;
+    SlicedParticle result;
+    result.mP_slicedff = std::move(P_total_ff);
+    result.m_regions = regions;
+    return result;
 }
 
 std::vector<const INode*> MesoCrystal::getChildren() const

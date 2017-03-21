@@ -60,9 +60,14 @@ public:
 
     bool includeSpecular() const { return m_include_specular; }
 
+    void setUseAvgMaterials(bool use_avg_materials) { m_use_avg_materials = use_avg_materials; }
+
+    bool useAvgMaterials() const { return m_use_avg_materials; }
+
 private:
     bool m_mc_integration;
     bool m_include_specular;
+    bool m_use_avg_materials;
     size_t m_mc_points;
     ThreadInfo m_thread_info;
 };

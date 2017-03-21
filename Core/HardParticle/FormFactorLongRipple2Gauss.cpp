@@ -65,7 +65,7 @@ bool FormFactorLongRipple2Gauss::check_initialization() const
     return result;
 }
 
-double FormFactorLongRipple2Gauss::getRadialExtension() const
+double FormFactorLongRipple2Gauss::radialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }

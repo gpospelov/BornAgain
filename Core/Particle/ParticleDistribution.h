@@ -38,10 +38,10 @@ public:
     std::vector<const IParticle*> generateParticles() const;
 
     //! Returns the distributed parameter data
-    ParameterDistribution getParameterDistribution() const { return m_par_distribution; }
+    ParameterDistribution parameterDistribution() const { return m_par_distribution; }
 
     //! Returns particle.
-    const IParticle* getParticle() const { return mP_particle.get(); }
+    const IParticle* particle() const { return mP_particle.get(); }
 
     std::vector<const INode*> getChildren() const;
 

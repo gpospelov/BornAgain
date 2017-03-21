@@ -27,7 +27,7 @@
 
 MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 {
-    const IFormFactor* form_factor = getFormFactor();
+    const IFormFactor* form_factor = formFactor();
     if(!form_factor)
         throw Exceptions::NullPointerException(
             "LayersWithAbsorptionBuilder::buildSample() -> Error. Form factor is not initialized.");

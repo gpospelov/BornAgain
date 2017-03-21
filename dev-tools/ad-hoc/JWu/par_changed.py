@@ -23,10 +23,10 @@ results.append( bp.Result(0, data, title) )
 pool = ff.getParameterPool()
 print( pool.getParameterNames() )
 print( ff.getLength() )
-print( ff.getVolume() )
+print( ff.volume() )
 pool.setParameterValue('Length', 10 )
 print( ff.getLength() )
-print( ff.getVolume() )
+print( ff.volume() )
 
 title = 'E=10'
 data = bp.run_sim( sim, det )

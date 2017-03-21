@@ -19,7 +19,7 @@ TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor)
     std::vector<kvector_t> positions;
     positions.push_back(kvector_t(0.0, 0.0, 0.0));
     EXPECT_EQ(BornAgain::ParticleCompositionType, composition->getName());
-    EXPECT_EQ(0u, composition->getNbrParticles());
+    EXPECT_EQ(0u, composition->nbrParticles());
 }
 
 TEST_F(ParticleCompositionTest, ParticleCompositionClone)
@@ -34,9 +34,9 @@ TEST_F(ParticleCompositionTest, ParticleCompositionClone)
 
     EXPECT_EQ(clone->getName(), composition.getName());
 
-    EXPECT_EQ(clone->getParticle(0)->getName(), composition.getParticle(0)->getName());
-    EXPECT_EQ(clone->getParticle(0)->getRotation(), nullptr);
-    EXPECT_EQ(position, clone->getParticlePosition(0));
+    EXPECT_EQ(clone->particle(0)->getName(), composition.particle(0)->getName());
+    EXPECT_EQ(clone->particle(0)->rotation(), nullptr);
+    EXPECT_EQ(position, clone->particlePosition(0));
 
 }
 

@@ -69,5 +69,5 @@ void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap* p_fresnel_map, s
 
 double FormFactorCoherentPart::radialExtension() const
 {
-    return mP_ff->getRadialExtension();
+    return mP_ff->radialExtension();
 }

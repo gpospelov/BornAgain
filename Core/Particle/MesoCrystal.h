@@ -19,7 +19,7 @@
 #include "IParticle.h"
 
 class IClusteredParticles;
-class IMaterial;
+class HomogeneousMaterial;
 
 //! A particle with an internal structure of smaller particles.
 //! @ingroup samples
@@ -37,11 +37,11 @@ public:
 
     void accept(INodeVisitor* visitor) const override final;
 
-    IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
+    SlicedParticle createSlicedParticle(ZLimits limits) const override final;
 
     //! @brief get the internal structure, which is in principle unbounded in
     //! space (e.g. an infinite crystal)
-    const IClusteredParticles* getClusteredParticles() const { return mp_particle_structure.get(); }
+    const IClusteredParticles* clusteredParticles() const { return mp_particle_structure.get(); }
 
     std::vector<const INode*> getChildren() const override final;
 

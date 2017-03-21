@@ -49,7 +49,7 @@ public:
     kvector_t getBasisVectorC() const { return m_a3; }
 
     //! Returns the volume of the unit cell
-    double getVolume() const;
+    double volume() const;
 
     //! Returns the reciprocal basis vectors
     void getReciprocalLatticeBasis(kvector_t b1, kvector_t b2, kvector_t b3) const;

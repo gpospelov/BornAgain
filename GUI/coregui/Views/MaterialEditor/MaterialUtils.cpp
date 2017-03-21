@@ -18,7 +18,6 @@
 #include "ComboProperty.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
-#include "HomogeneousMagneticMaterial.h"
 #include "HomogeneousMaterial.h"
 #include "MagneticFieldItem.h"
 #include "MaterialModel.h"
@@ -62,7 +61,7 @@ ColorProperty MaterialUtils::suggestMaterialColorProperty(const QString &name)
     return ColorProperty(MaterialUtils::suggestMaterialColor(name));
 }
 
-std::unique_ptr<IMaterial>
+std::unique_ptr<HomogeneousMaterial>
 MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
 {
     MaterialItem *materialItem

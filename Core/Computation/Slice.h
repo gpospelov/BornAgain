@@ -18,7 +18,7 @@
 
 #include <memory>
 
-class IMaterial;
+class HomogeneousMaterial;
 class LayerRoughness;
 
 //! Represents a single slice, constructed from the division of a layer into (possibly) multiple
@@ -29,11 +29,11 @@ class LayerRoughness;
 class Slice
 {
 public:
-    Slice(const IMaterial& material, double thickness, const LayerRoughness* top_roughness=nullptr);
+    Slice(const HomogeneousMaterial& material, double thickness, const LayerRoughness* top_roughness=nullptr);
     ~Slice();
 
 private:
-    std::unique_ptr<IMaterial> mP_material;
+    std::unique_ptr<HomogeneousMaterial> mP_material;
     double m_thickness;
     std::unique_ptr<LayerRoughness> mP_top_roughness;
 };

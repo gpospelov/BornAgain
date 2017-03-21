@@ -24,3 +24,14 @@ IComputationTerm::IComputationTerm(const MultiLayer* p_multilayer,
 
 IComputationTerm::~IComputationTerm()
 {}
+
+void IComputationTerm::mergeRegionMap(
+        std::map<size_t, std::vector<HomogeneousRegion> >& region_map) const
+{
+    for (auto& entry : m_region_map)
+    {
+        size_t i = entry.first;
+        auto& regions = entry.second;
+        region_map[i].insert(region_map[i].begin(), regions.begin(), regions.end());
+    }
+}

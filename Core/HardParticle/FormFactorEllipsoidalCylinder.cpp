@@ -34,7 +34,7 @@ FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(
     onChange();
 }
 
-double FormFactorEllipsoidalCylinder::getRadialExtension() const
+double FormFactorEllipsoidalCylinder::radialExtension() const
 {
     return ( m_radius_x + m_radius_y ) / 2.0;
 }

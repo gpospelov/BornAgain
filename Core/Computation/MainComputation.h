@@ -25,6 +25,7 @@
 
 class IFresnelMap;
 class MultiLayer;
+struct HomogeneousRegion;
 class IComputationTerm;
 class ProgressHandler;
 class SimulationElement;
@@ -54,11 +55,14 @@ public:
 
 private:
     void runProtected();
-    static IFresnelMap* createFresnelMap(const MultiLayer* p_multilayer,
-                                         const MultiLayer* p_inverted_multilayer);
+    IFresnelMap* createFresnelMap();
+    // creates a multilayer that contains averaged materials, for use in Fresnel calculations
+    std::unique_ptr<MultiLayer> getAveragedMultilayer();
+    // sets the correct layer materials for the Fresnel map to use
+    void initFresnelMap();
+    bool checkRegions(const std::vector<HomogeneousRegion>& regions) const;
 
     std::unique_ptr<MultiLayer> mP_multi_layer;
-    std::unique_ptr<MultiLayer> mP_inverted_multilayer;
     SimulationOptions m_sim_options;
     ProgressHandler* m_progress;
     //! these iterators define the span of detector bins this simulation will work on
@@ -67,7 +71,7 @@ private:
     //! contains the information, necessary to calculate the Fresnel coefficients
     std::unique_ptr<IFresnelMap> mP_fresnel_map;
 
-    std::vector<IComputationTerm*> m_computation_terms;
+    std::vector<std::unique_ptr<IComputationTerm>> m_computation_terms;
     ComputationStatus m_status;
 };
 

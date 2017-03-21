@@ -20,7 +20,7 @@
 #include "INode.h"
 #include <vector>
 
-class IMaterial;
+class HomogeneousMaterial;
 
 //! Pure virtual base class for sample components and properties related to scattering.
 //! @ingroup samples_internal
@@ -35,13 +35,13 @@ public:
     virtual ISample* cloneInvertB() const;
 
     //! Returns nullptr, unless overwritten to return a specific material.
-    virtual const IMaterial* getMaterial() const { return nullptr; }
+    virtual const HomogeneousMaterial* material() const { return nullptr; }
 
     //! Returns nullptr, unless overwritten to return a specific material.
-    virtual const IMaterial* getAmbientMaterial() const { return nullptr; }
+    virtual const HomogeneousMaterial* ambientMaterial() const { return nullptr; }
 
     //! Returns set of unique materials contained in this ISample.
-    std::vector<const IMaterial*> containedMaterials() const;
+    std::vector<const HomogeneousMaterial*> containedMaterials() const;
 
     template<class T> std::vector<const T*> containedSubclass() const;
 };

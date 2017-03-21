@@ -45,6 +45,7 @@ public slots:
     void onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint);
 
 private:
+    void setAllActionsEnabled(bool value);
     void updateSelection();
     QString suggestInstrumentName(const QString& currentName);
     QMap<QString, int> mapOfNames();

@@ -82,12 +82,23 @@ void InstrumentViewActions::onCloneInstrument()
 void InstrumentViewActions::onContextMenuRequest(const QPoint& point,
                                                  const QModelIndex& indexAtPoint)
 {
-    Q_UNUSED(indexAtPoint);
     QMenu menu;
+
+    setAllActionsEnabled(indexAtPoint.isValid());
+
+    m_addInstrumentAction->setEnabled(true);
+
     menu.addAction(m_addInstrumentAction);
     menu.addAction(m_removeInstrumentAction);
     menu.addAction(m_cloneInstrumentAction);
     menu.exec(point);
+}
+
+void InstrumentViewActions::setAllActionsEnabled(bool value)
+{
+    m_addInstrumentAction->setEnabled(value);
+    m_removeInstrumentAction->setEnabled(value);
+    m_cloneInstrumentAction->setEnabled(value);
 }
 
 void InstrumentViewActions::updateSelection()

@@ -30,10 +30,18 @@ SphericalDetectorItem::SphericalDetectorItem()
     item->setItemValue(BasicAxisItem::P_MIN, -1.0);
     item->setItemValue(BasicAxisItem::P_MAX, 1.0);
 
+    item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of phi-axis bins");
+    item->getItem(BasicAxisItem::P_MIN)->setToolTip("Low edge of first phi-bin (in deg)");
+    item->getItem(BasicAxisItem::P_MAX)->setToolTip("Upper edge of last phi-bin (in deg)");
+
     item = addGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MIN, 0.0);
     item->setItemValue(BasicAxisItem::P_MAX, 2.0);
+
+    item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of alpha-axis bins");
+    item->getItem(BasicAxisItem::P_MIN)->setToolTip("Low edge of first alpha-bin (in deg)");
+    item->getItem(BasicAxisItem::P_MAX)->setToolTip("Upper edge of last alpha-bin (in deg)");
 
     register_resolution_function();
 }

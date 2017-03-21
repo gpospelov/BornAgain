@@ -32,7 +32,8 @@ const QString BeamItem::P_AZIMUTHAL_ANGLE = QString::fromStdString(BornAgain::Az
 BeamItem::BeamItem() : SessionItem(Constants::BeamType)
 {
     ScientificDoubleProperty intensity(1e+08);
-    addProperty(P_INTENSITY, intensity.getVariant())->setLimits(RealLimits::limited(0.0, 1e+32));
+    addProperty(P_INTENSITY, intensity.getVariant())->setLimits(RealLimits::limited(0.0, 1e+32))
+            .setToolTip("Beam intensity in neutrons (or gammas) per sec.");
     addGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);

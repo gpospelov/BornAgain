@@ -44,8 +44,10 @@ const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y = QString::fromStdStri
 ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem()
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType)
 {
-    addProperty(P_SIGMA_X, 0.02)->setLimits(RealLimits::lowerLimited(0.0)).setDecimals(3);
-    addProperty(P_SIGMA_Y, 0.02)->setLimits(RealLimits::lowerLimited(0.0)).setDecimals(3);
+    addProperty(P_SIGMA_X, 0.02)->setLimits(RealLimits::lowerLimited(0.0)).setDecimals(3)
+            .setToolTip("Resolution along horizontal axis (in detector units)");
+    addProperty(P_SIGMA_Y, 0.02)->setLimits(RealLimits::lowerLimited(0.0)).setDecimals(3)
+            .setToolTip("Resolution along vertical axis (in detector units)");
 }
 
 std::unique_ptr<IResolutionFunction2D>

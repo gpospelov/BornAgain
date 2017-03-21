@@ -33,6 +33,12 @@ DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
 {
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
+
+    mapper()->setOnPropertyChange([this](const QString& name) {
+        if (name == P_RESOLUTION_FUNCTION)
+            update_resolution_function_tooltips();
+    });
+
 }
 
 std::unique_ptr<IDetector2D> DetectorItem::createDetector() const
@@ -73,8 +79,23 @@ void DetectorItem::importMasks(MaskContainerItem* maskContainer)
 
 void DetectorItem::register_resolution_function()
 {
-    addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup)
-            ->setDisplayName(res_func_group_label);
+    auto item = addGroupProperty(P_RESOLUTION_FUNCTION, Constants::ResolutionFunctionGroup);
+    item->setDisplayName(res_func_group_label);
+    item->setToolTip("Detector resolution function");
+}
+
+void DetectorItem::update_resolution_function_tooltips()
+{
+    auto& resfuncItem = groupItem<ResolutionFunctionItem>(DetectorItem::P_RESOLUTION_FUNCTION);
+
+    if(resfuncItem.modelType() == Constants::ResolutionFunction2DGaussianType) {
+        QString units = modelType() == Constants::SphericalDetectorType ? "deg" : "mm";
+
+        resfuncItem.getItem(ResolutionFunction2DGaussianItem::P_SIGMA_X)
+                ->setToolTip("Resolution along horizontal axis (in "+units+")");
+        resfuncItem.getItem(ResolutionFunction2DGaussianItem::P_SIGMA_Y)
+                ->setToolTip("Resolution along vertical axis (in "+units+")");
+    }
 }
 
 std::unique_ptr<IResolutionFunction2D> DetectorItem::createResolutionFunction() const

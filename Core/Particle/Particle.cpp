@@ -60,19 +60,6 @@ Particle* Particle::clone() const
     return p_result;
 }
 
-Particle* Particle::cloneInvertB() const
-{
-    Particle* p_result = new Particle(m_material.inverted());
-    p_result->setAbundance(m_abundance);
-    if (mP_form_factor)
-        p_result->setFormFactor(*mP_form_factor);
-    if (mP_rotation)
-        p_result->setRotation(*mP_rotation);
-    p_result->setPosition(m_position);
-
-    return p_result;
-}
-
 SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
 {
     if (!mP_form_factor)

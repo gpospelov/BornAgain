@@ -763,36 +763,36 @@ C++ includes: Crystal.h
 %feature("docstring")  Crystal::~Crystal "Crystal::~Crystal()
 ";
 
-%feature("docstring")  Crystal::clone "Crystal * Crystal::clone() const final
+%feature("docstring")  Crystal::clone "Crystal * Crystal::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  Crystal::cloneInvertB "Crystal * Crystal::cloneInvertB() const final
-
-Returns a clone with inverted magnetic fields. 
-";
-
-%feature("docstring")  Crystal::accept "void Crystal::accept(INodeVisitor *visitor) const final
+%feature("docstring")  Crystal::accept "void Crystal::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
+%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const overridefinal
 
 Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 ";
 
-%feature("docstring")  Crystal::getTransformedLattice "Lattice Crystal::getTransformedLattice(const IRotation *p_rotation) const 
+%feature("docstring")  Crystal::homogeneousRegions "std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const overridefinal
+
+Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
 ";
 
-%feature("docstring")  Crystal::getLatticeBasis "const ParticleComposition* Crystal::getLatticeBasis() const 
+%feature("docstring")  Crystal::transformedLattice "Lattice Crystal::transformedLattice(const IRotation *p_rotation) const 
+";
+
+%feature("docstring")  Crystal::latticeBasis "const ParticleComposition* Crystal::latticeBasis() const 
 ";
 
 %feature("docstring")  Crystal::setDWFactor "void Crystal::setDWFactor(double dw_factor)
 ";
 
-%feature("docstring")  Crystal::getChildren "std::vector< const INode * > Crystal::getChildren() const
+%feature("docstring")  Crystal::getChildren "std::vector< const INode * > Crystal::getChildren() const overridefinal
 
 Returns a vector of children (const). 
 ";
@@ -2879,7 +2879,7 @@ Calls the  INodeVisitor's visit method.
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
 
-%feature("docstring")  FormFactorCrystal::getVolume "double FormFactorCrystal::volume() const overridefinal
+%feature("docstring")  FormFactorCrystal::volume "double FormFactorCrystal::volume() const overridefinal
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
@@ -3237,7 +3237,7 @@ Passes the refractive index of the ambient material in which this particle is em
 Calculates and returns a form factor calculation in DWBA. 
 ";
 
-%feature("docstring")  FormFactorDWBA::getVolume "double FormFactorDWBA::volume() const override
+%feature("docstring")  FormFactorDWBA::volume "double FormFactorDWBA::volume() const override
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
@@ -3302,7 +3302,7 @@ Throws not-implemented exception.
 Calculates and returns a polarized form factor calculation in DWBA. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::getVolume "double FormFactorDWBAPol::volume() const override
+%feature("docstring")  FormFactorDWBAPol::volume "double FormFactorDWBAPol::volume() const override
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
@@ -3991,7 +3991,7 @@ C++ includes: FormFactorPolyhedron.h
 Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::getVolume "double FormFactorPolygonalPrism::volume() const overridefinal
+%feature("docstring")  FormFactorPolygonalPrism::volume "double FormFactorPolygonalPrism::volume() const overridefinal
 
 Returns the volume of this prism. 
 ";
@@ -4021,7 +4021,7 @@ C++ includes: FormFactorPolyhedron.h
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
-%feature("docstring")  FormFactorPolygonalSurface::getVolume "double FormFactorPolygonalSurface::volume() const override
+%feature("docstring")  FormFactorPolygonalSurface::volume "double FormFactorPolygonalSurface::volume() const override
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
@@ -4053,7 +4053,7 @@ Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
 Returns the form factor F(q) of this polyhedron, with origin at z=0. 
 ";
 
-%feature("docstring")  FormFactorPolyhedron::getVolume "double FormFactorPolyhedron::volume() const overridefinal
+%feature("docstring")  FormFactorPolyhedron::volume "double FormFactorPolyhedron::volume() const overridefinal
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
@@ -5558,6 +5558,9 @@ Constructs a material with inverted magnetic field.
 %feature("docstring")  HomogeneousMaterial::refractiveIndex "complex_t HomogeneousMaterial::refractiveIndex() const 
 ";
 
+%feature("docstring")  HomogeneousMaterial::refractiveIndex2 "complex_t HomogeneousMaterial::refractiveIndex2() const 
+";
+
 %feature("docstring")  HomogeneousMaterial::setRefractiveIndex "void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
 ";
 
@@ -5664,11 +5667,6 @@ C++ includes: IAbstractParticle.h
 %feature("docstring")  IAbstractParticle::clone "virtual IAbstractParticle* IAbstractParticle::clone() const =0
 
 Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IAbstractParticle::cloneInvertB "virtual IAbstractParticle* IAbstractParticle::cloneInvertB() const =0
-
-Returns a clone with inverted magnetic fields. 
 ";
 
 %feature("docstring")  IAbstractParticle::accept "virtual void IAbstractParticle::accept(INodeVisitor *visitor) const
@@ -5861,20 +5859,12 @@ An ordered assembly of particles. Currently, the only child class is  Crystal.
 C++ includes: IClusteredParticles.h
 ";
 
-%feature("docstring")  IClusteredParticles::IClusteredParticles "IClusteredParticles::IClusteredParticles()
-";
-
-%feature("docstring")  IClusteredParticles::clone "virtual IClusteredParticles* IClusteredParticles::clone() const =0
+%feature("docstring")  IClusteredParticles::clone "IClusteredParticles* IClusteredParticles::clone() const override=0
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IClusteredParticles::cloneInvertB "virtual IClusteredParticles* IClusteredParticles::cloneInvertB() const =0
-
-Returns a clone with inverted magnetic fields. 
-";
-
-%feature("docstring")  IClusteredParticles::accept "virtual void IClusteredParticles::accept(INodeVisitor *visitor) const =0
+%feature("docstring")  IClusteredParticles::accept "void IClusteredParticles::accept(INodeVisitor *visitor) const override=0
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -5882,6 +5872,11 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
 
 Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+";
+
+%feature("docstring")  IClusteredParticles::homogeneousRegions "virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const =0
+
+Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
 ";
 
 %feature("docstring")  IClusteredParticles::applyRotation "virtual void IClusteredParticles::applyRotation(const IRotation &)=delete
@@ -5907,6 +5902,11 @@ C++ includes: IComputationTerm.h
 %feature("docstring")  IComputationTerm::eval "virtual void IComputationTerm::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const =0
 
 Calculate scattering intensity for each  SimulationElement returns false if nothing needed to be calculated 
+";
+
+%feature("docstring")  IComputationTerm::mergeRegionMap "void IComputationTerm::mergeRegionMap(std::map< size_t, std::vector< HomogeneousRegion >> &region_map) const
+
+Merges its region map into the given one (notice non-const reference parameter) 
 ";
 
 
@@ -6323,7 +6323,7 @@ Returns scattering amplitude for complex wavevectors ki, kf.
 Returns scattering amplitude for matrix interactions. 
 ";
 
-%feature("docstring")  IFormFactor::getVolume "double IFormFactor::volume() const
+%feature("docstring")  IFormFactor::volume "double IFormFactor::volume() const
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
@@ -6432,7 +6432,7 @@ Calls the  INodeVisitor's visit method.
 Passes the refractive index of the ambient material in which this particle is embedded. 
 ";
 
-%feature("docstring")  IFormFactorDecorator::getVolume "double IFormFactorDecorator::volume() const override
+%feature("docstring")  IFormFactorDecorator::volume "double IFormFactorDecorator::volume() const override
 
 Returns the total volume of the particle of this form factor's shape. 
 ";
@@ -6475,6 +6475,11 @@ Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
 %feature("docstring")  IFresnelMap::getInCoefficients "virtual const ILayerRTCoefficients* IFresnelMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const =0
 
 Retrieves the amplitude coefficients for an incoming wavevector. 
+";
+
+%feature("docstring")  IFresnelMap::setMultilayer "void IFresnelMap::setMultilayer(const MultiLayer &multilayer)
+
+Sets the multilayer to be used for the Fresnel calculations. 
 ";
 
 
@@ -6984,7 +6989,7 @@ If defined by this interference function's parameters, returns the particle dens
 
 Base class of all interference function strategy classes. Provides an 'evaluate' function that computes the total scattering intensity from a decorated layer, taking into account a specific inter-particle interference function. This function uses the low-level functions scalarCalculation and polarizedCalculation that are to be overriden in the derived classes. Inheritance is used to support different approximation schemes ( DecouplingApproximationStrategy,  SSCApproximationStrategy).
 
-Instantiation of child classes takes place in  LayoutStrategyBuilder::createStrategy, which is called from  ParticleLayoutComputation::eval.
+Instantiation of child classes takes place in LayoutStrategyBuilder::createStrategy, which is called from  ParticleLayoutComputation::eval.
 
 C++ includes: IInterferenceFunctionStrategy.h
 ";
@@ -7087,11 +7092,6 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ILayout::cloneInvertB "virtual ILayout* ILayout::cloneInvertB() const =0
-
-Returns a clone with inverted magnetic fields. 
-";
-
 %feature("docstring")  ILayout::numberOfParticles "virtual size_t ILayout::numberOfParticles() const =0
 
 Returns number of particles. 
@@ -7140,6 +7140,16 @@ Gets the used approximation for particles and interference functions.
 %feature("docstring")  ILayout::setApproximation "void ILayout::setApproximation(EInterferenceApproximation approximation)
 
 Sets the used approximation for particles and interference functions. 
+";
+
+%feature("docstring")  ILayout::topZParticles "virtual double ILayout::topZParticles() const =0
+
+Returns the top-most z-coordinate of its particles. 
+";
+
+%feature("docstring")  ILayout::bottomZParticles "virtual double ILayout::bottomZParticles() const =0
+
+Returns the bottom-most z-coordinate of its particles. 
 ";
 
 
@@ -8462,20 +8472,15 @@ Pure virtual base class for  Particle,  ParticleComposition,  ParticleCoreShell,
 C++ includes: IParticle.h
 ";
 
-%feature("docstring")  IParticle::~IParticle "virtual IParticle::~IParticle()
+%feature("docstring")  IParticle::~IParticle "IParticle::~IParticle()
 ";
 
-%feature("docstring")  IParticle::clone "virtual IParticle* IParticle::clone() const =0
+%feature("docstring")  IParticle::clone "IParticle* IParticle::clone() const override=0
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IParticle::cloneInvertB "virtual IParticle* IParticle::cloneInvertB() const =0
-
-Returns a clone with inverted magnetic fields. 
-";
-
-%feature("docstring")  IParticle::accept "virtual void IParticle::accept(INodeVisitor *visitor) const
+%feature("docstring")  IParticle::accept "void IParticle::accept(INodeVisitor *visitor) const override
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8483,11 +8488,6 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  IParticle::createFormFactor "IFormFactor * IParticle::createFormFactor() const
 
 Create a form factor for this particle. 
-";
-
-%feature("docstring")  IParticle::createSlicedFormFactor "IFormFactor * IParticle::createSlicedFormFactor(ZLimits limits) const
-
-Create a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  IParticle::createSlicedParticle "SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
@@ -8530,7 +8530,7 @@ Sets transformation.
 Applies transformation by composing it with the existing one. 
 ";
 
-%feature("docstring")  IParticle::getChildren "std::vector< const INode * > IParticle::getChildren() const
+%feature("docstring")  IParticle::getChildren "std::vector< const INode * > IParticle::getChildren() const override
 
 Returns a vector of children (const). 
 ";
@@ -8610,11 +8610,6 @@ C++ includes: Rotations.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IRotation::cloneInvertB "IRotation* IRotation::cloneInvertB() const final
-
-Returns a clone with inverted magnetic fields. 
-";
-
 %feature("docstring")  IRotation::createInverse "virtual IRotation* IRotation::createInverse() const =0
 
 Returns a new  IRotation object that is the current object's inverse. 
@@ -8647,11 +8642,6 @@ C++ includes: ISample.h
 %feature("docstring")  ISample::clone "ISample* ISample::clone() const override=0
 
 Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ISample::cloneInvertB "ISample * ISample::cloneInvertB() const
-
-Returns a clone with inverted magnetic fields. 
 ";
 
 %feature("docstring")  ISample::material "virtual const HomogeneousMaterial* ISample::material() const
@@ -9002,7 +8992,7 @@ Returns basis vector b.
 Returns basis vector c. 
 ";
 
-%feature("docstring")  Lattice::getVolume "double Lattice::volume() const
+%feature("docstring")  Lattice::volume "double Lattice::volume() const
 
 Returns the volume of the unit cell. 
 ";
@@ -9122,9 +9112,7 @@ C++ includes: Layer.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  Layer::cloneInvertB "Layer * Layer::cloneInvertB() const overridefinal
-
-Returns a clone with inverted magnetic fields. 
+%feature("docstring")  Layer::cloneInvertB "Layer * Layer::cloneInvertB() const 
 ";
 
 %feature("docstring")  Layer::accept "void Layer::accept(INodeVisitor *visitor) const overridefinal
@@ -9143,6 +9131,9 @@ Sets layer thickness in nanometers.
 %feature("docstring")  Layer::material "const HomogeneousMaterial* Layer::material() const overridefinal
 
 Returns nullptr, unless overwritten to return a specific material. 
+";
+
+%feature("docstring")  Layer::setMaterial "void Layer::setMaterial(HomogeneousMaterial material)
 ";
 
 %feature("docstring")  Layer::refractiveIndex "complex_t Layer::refractiveIndex() const 
@@ -9165,6 +9156,19 @@ squared refractive index
 %feature("docstring")  Layer::hasComputation "bool Layer::hasComputation() const
 
 Returns true if decoration is present. 
+";
+
+%feature("docstring")  Layer::containsParticles "bool Layer::containsParticles() const 
+";
+
+%feature("docstring")  Layer::topZParticles "double Layer::topZParticles() const
+
+returns the highest z-coordinate of all particles in the layer 
+";
+
+%feature("docstring")  Layer::bottomZParticles "double Layer::bottomZParticles() const
+
+returns the lowest z-coordinate of all particles in the layer 
 ";
 
 %feature("docstring")  Layer::getChildren "std::vector< const INode * > Layer::getChildren() const overridefinal
@@ -9322,9 +9326,10 @@ C++ includes: LayoutStrategyBuilder.h
 %feature("docstring")  LayoutStrategyBuilder::~LayoutStrategyBuilder "LayoutStrategyBuilder::~LayoutStrategyBuilder()
 ";
 
-%feature("docstring")  LayoutStrategyBuilder::createStrategy "IInterferenceFunctionStrategy * LayoutStrategyBuilder::createStrategy() const
+%feature("docstring")  LayoutStrategyBuilder::releaseStrategy "IInterferenceFunctionStrategy * LayoutStrategyBuilder::releaseStrategy()
+";
 
-Returns a new strategy object that is able to calculate the scattering for fixed k_f. 
+%feature("docstring")  LayoutStrategyBuilder::regionMap "std::map< size_t, std::vector< HomogeneousRegion > > LayoutStrategyBuilder::regionMap() const 
 ";
 
 
@@ -9475,7 +9480,7 @@ Controlled by the multi-threading machinery in  Simulation::runSingleSimulation(
 C++ includes: MainComputation.h
 ";
 
-%feature("docstring")  MainComputation::MainComputation "MainComputation::MainComputation(const MultiLayer &p_multi_layer, const SimulationOptions &options, ProgressHandler &progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+%feature("docstring")  MainComputation::MainComputation "MainComputation::MainComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
 ";
 
 %feature("docstring")  MainComputation::~MainComputation "MainComputation::~MainComputation()
@@ -9499,7 +9504,7 @@ Implementation of  IFresnelMap for matrix valued reflection/transmission coeffic
 C++ includes: MatrixFresnelMap.h
 ";
 
-%feature("docstring")  MatrixFresnelMap::MatrixFresnelMap "MatrixFresnelMap::MatrixFresnelMap(const MultiLayer *p_multilayer, const MultiLayer *p_inverted_multilayer)
+%feature("docstring")  MatrixFresnelMap::MatrixFresnelMap "MatrixFresnelMap::MatrixFresnelMap()
 ";
 
 %feature("docstring")  MatrixFresnelMap::~MatrixFresnelMap "MatrixFresnelMap::~MatrixFresnelMap() final
@@ -9507,12 +9512,17 @@ C++ includes: MatrixFresnelMap.h
 
 %feature("docstring")  MatrixFresnelMap::getOutCoefficients "const ILayerRTCoefficients * MatrixFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
 
-Retrieves the amplitude coefficients for the given angles. 
+Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector. 
 ";
 
 %feature("docstring")  MatrixFresnelMap::getInCoefficients "const ILayerRTCoefficients * MatrixFresnelMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
 
-Retrieves the amplitude coefficients for the given angles. 
+Retrieves the amplitude coefficients for an incoming wavevector. 
+";
+
+%feature("docstring")  MatrixFresnelMap::setMultilayer "void MatrixFresnelMap::setMultilayer(const MultiLayer &multilayer) finaloverride
+
+Sets the multilayer to be used for the Fresnel calculations. 
 ";
 
 
@@ -9584,17 +9594,12 @@ C++ includes: MesoCrystal.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  MesoCrystal::cloneInvertB "MesoCrystal * MesoCrystal::cloneInvertB() const overridefinal
-
-Returns a clone with inverted magnetic fields. 
-";
-
 %feature("docstring")  MesoCrystal::accept "void MesoCrystal::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  MesoCrystal::createSlicedFormFactor "IFormFactor * MesoCrystal::createSlicedFormFactor(ZLimits limits) const overridefinal
+%feature("docstring")  MesoCrystal::createSlicedParticle "SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const overridefinal
 
 Create a sliced form factor for this particle. 
 ";
@@ -9644,7 +9649,7 @@ C++ includes: MultiLayer.h
 %feature("docstring")  MultiLayer::~MultiLayer "MultiLayer::~MultiLayer()
 ";
 
-%feature("docstring")  MultiLayer::accept "virtual void MultiLayer::accept(INodeVisitor *visitor) const
+%feature("docstring")  MultiLayer::accept "virtual void MultiLayer::accept(INodeVisitor *visitor) const finaloverride
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -9706,6 +9711,16 @@ Returns bottom interface of layer.
 Returns pointer to the bottom interface of the layer. 
 ";
 
+%feature("docstring")  MultiLayer::layerMaterial "HomogeneousMaterial MultiLayer::layerMaterial(size_t i_layer) const
+
+Returns layer material. 
+";
+
+%feature("docstring")  MultiLayer::setLayerMaterial "void MultiLayer::setLayerMaterial(size_t i_layer, HomogeneousMaterial material)
+
+Changes a layer's material. 
+";
+
 %feature("docstring")  MultiLayer::addLayout "void MultiLayer::addLayout(const ILayout &layout)
 
 Adds a layout of particles to the whole multilayer (particles can be in different layers) 
@@ -9722,9 +9737,14 @@ Adds a layout of particles to the whole multilayer (particles can be in differen
 Destructs allocated objects. 
 ";
 
-%feature("docstring")  MultiLayer::clone "MultiLayer * MultiLayer::clone() const
+%feature("docstring")  MultiLayer::clone "MultiLayer * MultiLayer::clone() const finaloverride
 
-Returns alone of multilayer with clones of all layers and recreated interfaces between layers 
+Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
+";
+
+%feature("docstring")  MultiLayer::cloneSliced "MultiLayer * MultiLayer::cloneSliced(bool use_average_layers) const
+
+Returns a clone of multilayer where the original layers may be sliced into several sublayers for usage with the graded layer approximation 
 ";
 
 %feature("docstring")  MultiLayer::cloneInvertB "MultiLayer * MultiLayer::cloneInvertB() const
@@ -9743,8 +9763,6 @@ Returns cross correlation length of roughnesses between interfaces.
 ";
 
 %feature("docstring")  MultiLayer::crossCorrSpectralFun "double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
-
-! correlation function of roughnesses between the interfaces
 
 Fourier transform of the correlation function of roughnesses between the interfaces
 
@@ -9785,7 +9803,10 @@ returns layer index corresponding to given global z coordinate The top interface
 %feature("docstring")  MultiLayer::totalNofLayouts "size_t MultiLayer::totalNofLayouts() const 
 ";
 
-%feature("docstring")  MultiLayer::getChildren "std::vector< const INode * > MultiLayer::getChildren() const
+%feature("docstring")  MultiLayer::containsParticles "bool MultiLayer::containsParticles() const 
+";
+
+%feature("docstring")  MultiLayer::getChildren "std::vector< const INode * > MultiLayer::getChildren() const finaloverride
 
 Returns a vector of children (const). 
 ";
@@ -10575,19 +10596,9 @@ C++ includes: Particle.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  Particle::cloneInvertB "Particle * Particle::cloneInvertB() const overridefinal
-
-Returns a clone with inverted magnetic fields. 
-";
-
 %feature("docstring")  Particle::accept "void Particle::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  Particle::createSlicedFormFactor "IFormFactor * Particle::createSlicedFormFactor(ZLimits limits) const overridefinal
-
-Create a sliced form factor for this particle. 
 ";
 
 %feature("docstring")  Particle::createSlicedParticle "SlicedParticle Particle::createSlicedParticle(ZLimits limits) const overridefinal
@@ -10638,11 +10649,6 @@ C++ includes: ParticleComposition.h
 %feature("docstring")  ParticleComposition::clone "ParticleComposition * ParticleComposition::clone() const override
 
 Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ParticleComposition::cloneInvertB "ParticleComposition * ParticleComposition::cloneInvertB() const override
-
-Returns a clone with inverted magnetic fields. 
 ";
 
 %feature("docstring")  ParticleComposition::accept "void ParticleComposition::accept(INodeVisitor *visitor) const override
@@ -10720,17 +10726,12 @@ C++ includes: ParticleCoreShell.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ParticleCoreShell::cloneInvertB "ParticleCoreShell * ParticleCoreShell::cloneInvertB() const overridefinal
-
-Returns a clone with inverted magnetic fields. 
-";
-
 %feature("docstring")  ParticleCoreShell::accept "void ParticleCoreShell::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ParticleCoreShell::createSlicedFormFactor "IFormFactor * ParticleCoreShell::createSlicedFormFactor(ZLimits limits) const overridefinal
+%feature("docstring")  ParticleCoreShell::createSlicedParticle "SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const overridefinal
 
 Create a sliced form factor for this particle. 
 ";
@@ -10761,11 +10762,6 @@ C++ includes: ParticleDistribution.h
 %feature("docstring")  ParticleDistribution::clone "ParticleDistribution * ParticleDistribution::clone() const final
 
 Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ParticleDistribution::cloneInvertB "ParticleDistribution * ParticleDistribution::cloneInvertB() const final
-
-Returns a clone with inverted magnetic fields. 
 ";
 
 %feature("docstring")  ParticleDistribution::accept "void ParticleDistribution::accept(INodeVisitor *visitor) const final
@@ -10831,20 +10827,15 @@ C++ includes: ParticleLayout.h
 %feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance)
 ";
 
-%feature("docstring")  ParticleLayout::~ParticleLayout "ParticleLayout::~ParticleLayout() final
+%feature("docstring")  ParticleLayout::~ParticleLayout "ParticleLayout::~ParticleLayout()
 ";
 
-%feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const final
+%feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const finaloverride
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ParticleLayout::cloneInvertB "ParticleLayout * ParticleLayout::cloneInvertB() const final
-
-Returns a clone with inverted magnetic fields. 
-";
-
-%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(INodeVisitor *visitor) const final
+%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(INodeVisitor *visitor) const finaloverride
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -10905,27 +10896,27 @@ rotation:
  Particle rotation 
 ";
 
-%feature("docstring")  ParticleLayout::numberOfParticles "size_t ParticleLayout::numberOfParticles() const final
+%feature("docstring")  ParticleLayout::numberOfParticles "size_t ParticleLayout::numberOfParticles() const finaloverride
 
 Returns number of particles. 
 ";
 
-%feature("docstring")  ParticleLayout::particle "const IAbstractParticle * ParticleLayout::particle(size_t index) const final
+%feature("docstring")  ParticleLayout::particle "const IAbstractParticle * ParticleLayout::particle(size_t index) const finaloverride
 
 Returns particle info. 
 ";
 
-%feature("docstring")  ParticleLayout::particles "SafePointerVector< const IParticle > ParticleLayout::particles() const final
+%feature("docstring")  ParticleLayout::particles "SafePointerVector< const IParticle > ParticleLayout::particles() const finaloverride
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
 
-%feature("docstring")  ParticleLayout::abundanceOfParticle "double ParticleLayout::abundanceOfParticle(size_t index) const
+%feature("docstring")  ParticleLayout::abundanceOfParticle "double ParticleLayout::abundanceOfParticle(size_t index) const finaloverride
 
 Returns the abundance fraction of particle at given index. 
 ";
 
-%feature("docstring")  ParticleLayout::interferenceFunction "const IInterferenceFunction * ParticleLayout::interferenceFunction() const final
+%feature("docstring")  ParticleLayout::interferenceFunction "const IInterferenceFunction * ParticleLayout::interferenceFunction() const finaloverride
 
 Returns interference function. 
 ";
@@ -10935,17 +10926,27 @@ Returns interference function.
 Adds interference functions. 
 ";
 
-%feature("docstring")  ParticleLayout::totalParticleSurfaceDensity "double ParticleLayout::totalParticleSurfaceDensity() const final
+%feature("docstring")  ParticleLayout::totalParticleSurfaceDensity "double ParticleLayout::totalParticleSurfaceDensity() const finaloverride
 
 Returns surface density of all particles. 
 ";
 
-%feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final
+%feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) finaloverride
 
 Sets surface density of all particles. 
 ";
 
-%feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const
+%feature("docstring")  ParticleLayout::topZParticles "double ParticleLayout::topZParticles() const finaloverride
+
+Returns the top-most z-coordinate of its particles. 
+";
+
+%feature("docstring")  ParticleLayout::bottomZParticles "double ParticleLayout::bottomZParticles() const finaloverride
+
+Returns the bottom-most z-coordinate of its particles. 
+";
+
+%feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const finaloverride
 
 Returns a vector of children (const). 
 ";
@@ -12032,7 +12033,7 @@ Implementation of  IFresnelMap for scalar valued reflection/transmission coeffic
 C++ includes: ScalarFresnelMap.h
 ";
 
-%feature("docstring")  ScalarFresnelMap::ScalarFresnelMap "ScalarFresnelMap::ScalarFresnelMap(const MultiLayer *multilayer)
+%feature("docstring")  ScalarFresnelMap::ScalarFresnelMap "ScalarFresnelMap::ScalarFresnelMap()
 ";
 
 %feature("docstring")  ScalarFresnelMap::~ScalarFresnelMap "ScalarFresnelMap::~ScalarFresnelMap() final
@@ -12040,12 +12041,12 @@ C++ includes: ScalarFresnelMap.h
 
 %feature("docstring")  ScalarFresnelMap::getOutCoefficients "const ILayerRTCoefficients * ScalarFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
 
-Retrieves the amplitude coefficients for the given angles. 
+Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector. 
 ";
 
 %feature("docstring")  ScalarFresnelMap::getInCoefficients "const ILayerRTCoefficients * ScalarFresnelMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
 
-Retrieves the amplitude coefficients for the given angles. 
+Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
 
 
@@ -12504,6 +12505,12 @@ Sets the batch and thread information to be used.
 %feature("docstring")  SimulationOptions::includeSpecular "bool SimulationOptions::includeSpecular() const 
 ";
 
+%feature("docstring")  SimulationOptions::setUseAvgMaterials "void SimulationOptions::setUseAvgMaterials(bool use_avg_materials)
+";
+
+%feature("docstring")  SimulationOptions::useAvgMaterials "bool SimulationOptions::useAvgMaterials() const 
+";
+
 
 // File: classSimulationRoiArea.xml
 %feature("docstring") SimulationRoiArea "
@@ -12603,6 +12610,9 @@ C++ includes: SlicedFormFactorList.h
 ";
 
 %feature("docstring")  SlicedFormFactorList::size "size_t SlicedFormFactorList::size() const 
+";
+
+%feature("docstring")  SlicedFormFactorList::regionMap "std::map< size_t, std::vector< HomogeneousRegion > > SlicedFormFactorList::regionMap() const 
 ";
 
 
@@ -13453,6 +13463,9 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0D473.xml
+
+
+// File: namespace_0D54.xml
 
 
 // File: namespace_0D60.xml
@@ -14917,9 +14930,13 @@ make Swappable
 
 
 // File: LayoutStrategyBuilder_8cpp.xml
+%feature("docstring")  ScaleRegionMap "void ScaleRegionMap(std::map< size_t, std::vector< HomogeneousRegion >> &region_map, double factor)
+";
 
 
 // File: LayoutStrategyBuilder_8h.xml
+%feature("docstring")  ScaleRegionMap "void ScaleRegionMap(std::map< size_t, std::vector< HomogeneousRegion >> &region_map, double factor)
+";
 
 
 // File: MatrixFresnelMap_8cpp.xml

@@ -33,12 +33,10 @@
 class BA_CORE_API_ IParticle : public IAbstractParticle
 {
 public:
-    virtual ~IParticle() {}
-    virtual IParticle* clone() const =0;
+    ~IParticle() {}
+    IParticle* clone() const  override=0;
 
-    virtual IParticle* cloneInvertB() const =0;
-
-    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const  override{ visitor->visit(this); }
 
     //! Create a form factor for this particle
     IFormFactor* createFormFactor() const;
@@ -67,7 +65,7 @@ public:
     //! Applies transformation by composing it with the existing one
     void applyRotation(const IRotation& rotation);
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override;
 
     void registerAbundance(bool make_registered = true);
 

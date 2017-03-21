@@ -42,18 +42,6 @@ ParticleCoreShell* ParticleCoreShell::clone() const
     return p_result;
 }
 
-ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
-{
-    ParticleCoreShell* p_result = new ParticleCoreShell();
-    p_result->setAbundance(m_abundance);
-    p_result->mp_shell.reset(mp_shell->cloneInvertB());
-    p_result->mp_core.reset(mp_core->cloneInvertB());
-    if (mP_rotation.get())
-        p_result->setRotation(*mP_rotation);
-    p_result->setPosition(m_position);
-    return p_result;
-}
-
 SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
 {
     if (!mp_core || !mp_shell)

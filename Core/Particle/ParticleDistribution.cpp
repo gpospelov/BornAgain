@@ -44,12 +44,6 @@ ParticleDistribution* ParticleDistribution::clone() const
     return p_result;
 }
 
-ParticleDistribution* ParticleDistribution::cloneInvertB() const
-{
-    throw Exceptions::NotImplementedException("ParticleDistribution::"
-                                              "cloneInvertB: should never be called");
-}
-
 //! Returns particle clones with parameter values drawn from distribution.
 
 std::vector<const IParticle*> ParticleDistribution::generateParticles() const

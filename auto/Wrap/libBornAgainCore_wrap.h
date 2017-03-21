@@ -138,7 +138,6 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
-    virtual ISample *cloneInvertB() const;
     virtual HomogeneousMaterial const *material() const;
     virtual HomogeneousMaterial const *ambientMaterial() const;
 
@@ -171,7 +170,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[10];
+    mutable swig::SwigVar_PyObject vtable[9];
 #endif
 
 };
@@ -322,7 +321,6 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
-    virtual ISample *cloneInvertB() const;
     virtual HomogeneousMaterial const *material() const;
     virtual HomogeneousMaterial const *ambientMaterial() const;
     virtual void setAmbientMaterial(HomogeneousMaterial arg0);
@@ -370,7 +368,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[19];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };
@@ -388,7 +386,6 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
-    virtual ISample *cloneInvertB() const;
     virtual HomogeneousMaterial const *material() const;
     virtual HomogeneousMaterial const *ambientMaterial() const;
     virtual void setAmbientMaterial(HomogeneousMaterial arg0);
@@ -437,7 +434,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[20];
+    mutable swig::SwigVar_PyObject vtable[19];
 #endif
 
 };

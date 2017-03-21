@@ -36,7 +36,6 @@ public:
     ~ParticleLayout();
 
     ParticleLayout* clone() const final override;
-    ParticleLayout* cloneInvertB() const final override;
 
     void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 

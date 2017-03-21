@@ -81,23 +81,6 @@ ParticleLayout* ParticleLayout::clone() const
     return p_new;
 }
 
-//! Returns a clone with inverted magnetic fields.
-ParticleLayout* ParticleLayout::cloneInvertB() const
-{
-    ParticleLayout* p_new = new ParticleLayout();
-
-    for (size_t i = 0; i < m_particles.size(); ++i)
-        p_new->addAndRegisterAbstractParticle(m_particles[i]->cloneInvertB());
-
-    if (mP_interference_function)
-        p_new->setAndRegisterInterferenceFunction(mP_interference_function->clone());
-
-    p_new->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
-    p_new->setApproximation(getApproximation());
-
-    return p_new;
-}
-
 //! Adds generic particle to the layout.
 void ParticleLayout::addParticle(const IAbstractParticle& particle)
 {

@@ -45,7 +45,7 @@ public:
     MultiLayer();
     virtual ~MultiLayer();
 
-    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
     size_t numberOfLayers() const { return m_layers.size(); }
     size_t numberOfInterfaces() const { return m_interfaces.size(); }
@@ -95,14 +95,14 @@ public:
 
     //! Returns a clone of multilayer with clones of all layers and recreated
     //! interfaces between layers
-    virtual MultiLayer* clone() const;
+    MultiLayer* clone() const final override;
 
     //! Returns a clone of multilayer where the original layers may be sliced into several sublayers
     //! for usage with the graded layer approximation
     MultiLayer* cloneSliced(bool use_average_layers) const;
 
     //! Returns a clone with inverted magnetic fields
-    virtual MultiLayer* cloneInvertB() const;
+    MultiLayer* cloneInvertB() const;
 
     //! Sets cross correlation length of roughnesses between interfaces
     void setCrossCorrLength(double crossCorrLength);
@@ -139,7 +139,7 @@ public:
 
     bool containsParticles() const;
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const final override;
 
 protected:
     //! Registers some class members for later access via parameter pool

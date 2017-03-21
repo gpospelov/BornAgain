@@ -36,7 +36,6 @@ public:
     virtual ~IAbstractParticle() {}
 
     virtual IAbstractParticle* clone() const =0;
-    virtual IAbstractParticle* cloneInvertB() const =0;
 
     virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 

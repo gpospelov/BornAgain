@@ -30,7 +30,6 @@ public:
     ParticleDistribution(const IParticle& prototype, const ParameterDistribution& par_distr);
 
     ParticleDistribution* clone() const final;
-    ParticleDistribution* cloneInvertB() const final;
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 

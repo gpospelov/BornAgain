@@ -40,17 +40,6 @@ MesoCrystal* MesoCrystal::clone() const
     return p_result;
 }
 
-MesoCrystal* MesoCrystal::cloneInvertB() const
-{
-    MesoCrystal* p_result
-        = new MesoCrystal(mp_particle_structure->cloneInvertB(), mp_meso_form_factor->clone());
-    p_result->setAbundance(m_abundance);
-    if (mP_rotation)
-        p_result->setRotation(*mP_rotation);
-    p_result->setPosition(m_position);
-    return p_result;
-}
-
 void MesoCrystal::accept(INodeVisitor* visitor) const
 {
     visitor->visit(this);

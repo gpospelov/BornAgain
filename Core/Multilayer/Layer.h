@@ -34,7 +34,7 @@ public:
     ~Layer();
 
     Layer* clone() const override final { return new Layer(*this); }
-    Layer* cloneInvertB() const override final;
+    Layer* cloneInvertB() const;
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 

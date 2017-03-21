@@ -138,11 +138,10 @@ public:
 
     std::vector<const INode*> getChildren() const final override;
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
-
 private:
+    //! Registers some class members for later access via parameter pool
+    void init_parameters();
+
     //! Adds the layer with simultaneous registration in parent class
     void addAndRegisterLayer(Layer* child);
 

@@ -50,7 +50,7 @@ public:
     size_t numberOfLayers() const { return m_layers.size(); }
     size_t numberOfInterfaces() const { return m_interfaces.size(); }
 
-    //! Adds object to multilayer, overrides from ISample
+    //! Adds object to multilayer
     void addLayer(const Layer& p_child);
 
     //! Adds layer with top roughness

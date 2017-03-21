@@ -41,7 +41,7 @@ class MainComputation final : public INoncopyable
 {
 public:
     MainComputation(
-        const MultiLayer& p_multi_layer,
+        const MultiLayer& multilayer,
         const SimulationOptions& options,
         ProgressHandler& progress,
         const std::vector<SimulationElement>::iterator& begin_it,
@@ -55,6 +55,9 @@ public:
 
 private:
     void runProtected();
+    // creates a multilayer with (possibly) sliced layers for the graded layer approximation
+    static MultiLayer* SliceMultiLayer(const MultiLayer& multilayer,
+                                       const SimulationOptions& options);
     IFresnelMap* createFresnelMap();
     // creates a multilayer that contains averaged materials, for use in Fresnel calculations
     std::unique_ptr<MultiLayer> getAveragedMultilayer();

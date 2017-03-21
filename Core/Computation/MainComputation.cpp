@@ -32,12 +32,12 @@ HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_ma
 }
 
 MainComputation::MainComputation(
-    const MultiLayer& multi_layer,
+    const MultiLayer& multilayer,
     const SimulationOptions& options,
     ProgressHandler& progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
-    : mP_multi_layer(multi_layer.clone())
+    : mP_multi_layer(SliceMultiLayer(multilayer, options))
     , m_sim_options(options)
     , m_progress(&progress)
     , m_begin_it(begin_it)
@@ -92,6 +92,13 @@ void MainComputation::runProtected()
             return;
         comp->eval(m_progress, m_begin_it, m_end_it );
     }
+}
+
+MultiLayer* MainComputation::SliceMultiLayer(const MultiLayer& multilayer,
+                                             const SimulationOptions& options)
+{
+    (void)options;
+    return multilayer.clone();
 }
 
 IFresnelMap* MainComputation::createFresnelMap()

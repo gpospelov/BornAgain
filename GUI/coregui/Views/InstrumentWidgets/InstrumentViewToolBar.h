@@ -36,6 +36,7 @@ public:
 private:
     QToolButton* m_addInstrumentButton;
     QToolButton* m_removeInstrumentButton;
+    QToolButton* m_cloneInstrumentButton;
 };
 
 #endif // INSTRUMENTVIEWTOOLBAR_H

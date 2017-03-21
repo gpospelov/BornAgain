@@ -41,6 +41,7 @@ public:
 public slots:
     void onAddInstrument();
     void onRemoveInstrument();
+    void onCloneInstrument();
     void onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint);
 
 private:
@@ -50,6 +51,7 @@ private:
 
     QAction* m_addInstrumentAction;
     QAction* m_removeInstrumentAction;
+    QAction* m_cloneInstrumentAction;
     SessionModel* m_model;
     QItemSelectionModel* m_selectionModel;
 };

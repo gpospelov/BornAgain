@@ -25,17 +25,22 @@ InstrumentViewActions::InstrumentViewActions(QWidget* parent)
     : QObject(parent)
     , m_addInstrumentAction(nullptr)
     , m_removeInstrumentAction(nullptr)
+    , m_cloneInstrumentAction(nullptr)
     , m_model(nullptr)
     , m_selectionModel(nullptr)
 {
-    m_addInstrumentAction
-        = new QAction(QIcon(":/images/toolbar16dark_newitem.svg"), "Add new instrument", this);
-    connect(m_addInstrumentAction, SIGNAL(triggered()), this, SLOT(onAddInstrument()));
+    m_addInstrumentAction = new QAction(QIcon(":/images/toolbar16dark_newitem.svg"),
+            "Add new instrument", this);
 
-    m_removeInstrumentAction
-        = new QAction(QIcon(":/images/toolbar16dark_recycle.svg"),
-                      "Remove currently selected instrument", this);
+    m_removeInstrumentAction = new QAction(QIcon(":/images/toolbar16dark_recycle.svg"),
+            "Remove currently selected instrument", this);
+
+    m_cloneInstrumentAction  = new QAction(QIcon(":/images/toolbar16dark_cloneitem.svg"),
+            "Clone currently selected instrument", this);
+
+    connect(m_addInstrumentAction, SIGNAL(triggered()), this, SLOT(onAddInstrument()));
     connect(m_removeInstrumentAction, SIGNAL(triggered()), this, SLOT(onRemoveInstrument()));
+    connect(m_cloneInstrumentAction, SIGNAL(triggered()), this, SLOT(onCloneInstrument()));
 }
 
 void InstrumentViewActions::setModel(SessionModel* model) { m_model = model; }
@@ -62,6 +67,18 @@ void InstrumentViewActions::onRemoveInstrument()
     updateSelection();
 }
 
+void InstrumentViewActions::onCloneInstrument()
+{
+    QModelIndex currentIndex = m_selectionModel->currentIndex();
+
+    if (currentIndex.isValid()) {
+        SessionItem* item  = m_model->itemForIndex(currentIndex);
+        QString nameOfClone = suggestInstrumentName(item->itemName());
+        SessionItem *clone = m_model->copyParameterizedItem(item);
+        clone->setItemName(nameOfClone);
+    }
+}
+
 void InstrumentViewActions::onContextMenuRequest(const QPoint& point,
                                                  const QModelIndex& indexAtPoint)
 {
@@ -69,6 +86,7 @@ void InstrumentViewActions::onContextMenuRequest(const QPoint& point,
     QMenu menu;
     menu.addAction(m_addInstrumentAction);
     menu.addAction(m_removeInstrumentAction);
+    menu.addAction(m_cloneInstrumentAction);
     menu.exec(point);
 }
 

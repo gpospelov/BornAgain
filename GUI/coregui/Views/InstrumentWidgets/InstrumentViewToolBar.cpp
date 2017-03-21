@@ -22,6 +22,7 @@ InstrumentViewToolBar::InstrumentViewToolBar(InstrumentViewActions* actions, QWi
     : StyledToolBar(parent)
     , m_addInstrumentButton(new QToolButton)
     , m_removeInstrumentButton(new QToolButton)
+    , m_cloneInstrumentButton(new QToolButton)
 {
     m_addInstrumentButton->setText("Add");
     m_addInstrumentButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
@@ -29,16 +30,19 @@ InstrumentViewToolBar::InstrumentViewToolBar(InstrumentViewActions* actions, QWi
     m_addInstrumentButton->setToolTip("Add new instrument");
     addWidget(m_addInstrumentButton);
 
-    addStyledSeparator();
-
     m_removeInstrumentButton->setText("Remove");
     m_removeInstrumentButton->setIcon(QIcon(":/images/toolbar16light_recycle.svg"));
     m_removeInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_removeInstrumentButton->setToolTip("Remove currently selected instrument");
     addWidget(m_removeInstrumentButton);
 
-    addStyledSeparator();
+    m_cloneInstrumentButton->setText("Clone");
+    m_cloneInstrumentButton->setIcon(QIcon(":/images/toolbar16light_cloneitem.svg"));
+    m_cloneInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_cloneInstrumentButton->setToolTip("Clone currently selected instrument");
+    addWidget(m_cloneInstrumentButton);
 
     connect(m_addInstrumentButton, SIGNAL(clicked()), actions, SLOT(onAddInstrument()));
     connect(m_removeInstrumentButton, SIGNAL(clicked()), actions, SLOT(onRemoveInstrument()));
+    connect(m_cloneInstrumentButton, SIGNAL(clicked()), actions, SLOT(onCloneInstrument()));
 }

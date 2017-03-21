@@ -27,27 +27,27 @@ class SessionItem;
 //! The ComponentEditorBox is a widget to display ComponentEditor inside
 //! custom group box equipped with help sign functionality
 //! (used to summon DistributionEditor)
+
 class BA_CORE_API_ ComponentInfoBox : public QWidget
 {
     Q_OBJECT
 public:
+    ComponentInfoBox(const QString& title, QWidget* parent = 0);
 
-    ComponentInfoBox(const QString &title, QWidget *parent = 0);
-
-    void addPropertyItems(SessionItem *item);
+    void addPropertyItems(SessionItem* item);
 
     void clearEditor();
 
 signals:
-    void onDialogRequest(SessionItem *item, const QString& names);
+    void onDialogRequest(SessionItem* item, const QString& names);
 
 private slots:
     void dialogRequest();
 
 private:
-    GroupInfoBox *m_groupBox;
-    ComponentBoxEditor *m_editor;
-    SessionItem *m_item;
+    GroupInfoBox* m_groupBox;
+    ComponentBoxEditor* m_editor;
+    SessionItem* m_item;
     QString m_title;
 };
 

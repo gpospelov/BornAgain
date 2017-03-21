@@ -22,9 +22,7 @@
 #include <memory>
 
 class ColumnResizer;
-class GroupInfoBox;
 class RectangularDetectorItem;
-class AwesomePropertyEditor;
 class ComponentBoxEditor;
 class QGridLayout;
 class ColumnResizer;
@@ -33,35 +31,35 @@ class BA_CORE_API_ RectangularDetectorWidget : public QWidget
 {
     Q_OBJECT
 public:
-    RectangularDetectorWidget(ColumnResizer *columnResizer,
-                              RectangularDetectorItem *detectorItem, QWidget *parent = 0);
+    RectangularDetectorWidget(ColumnResizer* columnResizer, RectangularDetectorItem* detectorItem,
+                              QWidget* parent = 0);
     virtual ~RectangularDetectorWidget();
 
-    void setDetectorItem(RectangularDetectorItem *detectorItem);
+    void setDetectorItem(RectangularDetectorItem* detectorItem);
 
 public slots:
-    void onPropertyChanged(const QString &propertyName);
-    void onColumnResizerDestroyed(QObject *object);
-    void setColumnResizer(ColumnResizer *columnResizer);
+    void onPropertyChanged(const QString& propertyName);
+    void onColumnResizerDestroyed(QObject* object);
+    void setColumnResizer(ColumnResizer* columnResizer);
 
 private:
     void create_editors();
     void init_editors();
     void init_alignment_editors();
 
-    ColumnResizer *m_columnResizer;
-    ComponentBoxEditor *m_xAxisEditor;
-    ComponentBoxEditor *m_yAxisEditor;
-    ComponentBoxEditor *m_resolutionFunctionEditor;
-    ComponentBoxEditor *m_alignmentEditor;
+    ColumnResizer* m_columnResizer;
+    ComponentBoxEditor* m_xAxisEditor;
+    ComponentBoxEditor* m_yAxisEditor;
+    ComponentBoxEditor* m_resolutionFunctionEditor;
+    ComponentBoxEditor* m_alignmentEditor;
 
-    ComponentBoxEditor *m_positionsEditor;
-    ComponentBoxEditor *m_normalEditor;
-    ComponentBoxEditor *m_directionEditor;
+    ComponentBoxEditor* m_positionsEditor;
+    ComponentBoxEditor* m_normalEditor;
+    ComponentBoxEditor* m_directionEditor;
 
-    QGridLayout *m_gridLayout;
+    QGridLayout* m_gridLayout;
 
-    RectangularDetectorItem *m_detectorItem;
+    RectangularDetectorItem* m_detectorItem;
 };
 
 #endif // RECTANGULARDETECTORWIDGET_H

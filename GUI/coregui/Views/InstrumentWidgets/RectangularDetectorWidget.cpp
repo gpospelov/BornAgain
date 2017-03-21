@@ -26,26 +26,27 @@
 #include <QGroupBox>
 #include <QVBoxLayout>
 
-RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer *columnResizer,
-                                                     RectangularDetectorItem *detectorItem, QWidget *parent)
+RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer* columnResizer,
+                                                     RectangularDetectorItem* detectorItem,
+                                                     QWidget* parent)
     : QWidget(parent)
-    , m_columnResizer(0)
-    , m_xAxisEditor(0)
-    , m_yAxisEditor(0)
-    , m_resolutionFunctionEditor(0)
-    , m_alignmentEditor(0)
-    , m_positionsEditor(0)
-    , m_normalEditor(0)
-    , m_directionEditor(0)
+    , m_columnResizer(nullptr)
+    , m_xAxisEditor(nullptr)
+    , m_yAxisEditor(nullptr)
+    , m_resolutionFunctionEditor(nullptr)
+    , m_alignmentEditor(nullptr)
+    , m_positionsEditor(nullptr)
+    , m_normalEditor(nullptr)
+    , m_directionEditor(nullptr)
     , m_gridLayout(new QGridLayout)
-    , m_detectorItem(0)
+    , m_detectorItem(nullptr)
 {
     create_editors();
     setColumnResizer(columnResizer);
 
     // main layout
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->setContentsMargins(0,0,0,0);
+    QVBoxLayout* mainLayout = new QVBoxLayout;
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(m_gridLayout);
     mainLayout->addStretch();
     setLayout(mainLayout);
@@ -55,62 +56,56 @@ RectangularDetectorWidget::RectangularDetectorWidget(ColumnResizer *columnResize
 
 RectangularDetectorWidget::~RectangularDetectorWidget()
 {
-    if(m_columnResizer) m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
+    if (m_columnResizer)
+        m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
 }
 
-void RectangularDetectorWidget::setDetectorItem(RectangularDetectorItem *detectorItem)
+void RectangularDetectorWidget::setDetectorItem(RectangularDetectorItem* detectorItem)
 {
-    if(m_detectorItem == detectorItem) {
+    if (m_detectorItem == detectorItem) {
         return;
 
     } else {
-        if(m_detectorItem)
+        if (m_detectorItem)
             m_detectorItem->mapper()->unsubscribe(this);
 
         m_detectorItem = detectorItem;
-        if(!m_detectorItem) return;
+
+        if (!m_detectorItem)
+            return;
 
         m_detectorItem->mapper()->setOnPropertyChange(
-                    [this](const QString &name)
-        {
-            onPropertyChanged(name);
-        }, this);
+            [this](const QString& name) { onPropertyChanged(name); }, this);
 
         init_editors();
     }
 }
 
-void RectangularDetectorWidget::onPropertyChanged(const QString &propertyName)
+void RectangularDetectorWidget::onPropertyChanged(const QString& propertyName)
 {
-    if(propertyName == RectangularDetectorItem::P_ALIGNMENT) {
+    if (propertyName == RectangularDetectorItem::P_ALIGNMENT)
         init_alignment_editors();
-    }
-
 }
 
-void RectangularDetectorWidget::onColumnResizerDestroyed(QObject *object)
+void RectangularDetectorWidget::onColumnResizerDestroyed(QObject* object)
 {
-    if(object == m_columnResizer) m_columnResizer = 0;
+    if (object == m_columnResizer)
+        m_columnResizer = 0;
 }
 
 //! set widget alignment to be under the control of external resizer
-void RectangularDetectorWidget::setColumnResizer(ColumnResizer *columnResizer)
+void RectangularDetectorWidget::setColumnResizer(ColumnResizer* columnResizer)
 {
-    if(m_columnResizer) {
+    if (m_columnResizer) {
         m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
-        disconnect(m_columnResizer,
-                   SIGNAL(destroyed(QObject*)),
-                   this,
-                   SLOT(onColumnResizerDestroyed(QObject *)));
+        disconnect(m_columnResizer, SIGNAL(destroyed(QObject*)), this,
+                   SLOT(onColumnResizerDestroyed(QObject*)));
     }
     m_columnResizer = columnResizer;
 
-    if(m_columnResizer) {
-        connect(m_columnResizer,
-                SIGNAL(destroyed(QObject*)),
-                this,
-                SLOT(onColumnResizerDestroyed(QObject *)));
-
+    if (m_columnResizer) {
+        connect(m_columnResizer, SIGNAL(destroyed(QObject*)), this,
+                SLOT(onColumnResizerDestroyed(QObject*)));
     }
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
@@ -143,24 +138,22 @@ void RectangularDetectorWidget::create_editors()
 
     m_directionEditor = new ComponentBoxEditor;
     m_gridLayout->addWidget(m_directionEditor, 3, 2);
-
 }
 
 void RectangularDetectorWidget::init_editors()
 {
     m_xAxisEditor->clearEditor();
-    SessionItem *xAxisItem = m_detectorItem->getItem(RectangularDetectorItem::P_X_AXIS);
+    SessionItem* xAxisItem = m_detectorItem->getItem(RectangularDetectorItem::P_X_AXIS);
     m_xAxisEditor->addPropertyItems(xAxisItem, QString("X axis"));
 
     m_yAxisEditor->clearEditor();
-    SessionItem *yAxisItem
-        = m_detectorItem->getItem(RectangularDetectorItem::P_Y_AXIS);
+    SessionItem* yAxisItem = m_detectorItem->getItem(RectangularDetectorItem::P_Y_AXIS);
     m_yAxisEditor->addPropertyItems(yAxisItem, QString("Y axis"));
 
     m_resolutionFunctionEditor->clearEditor();
-    SessionItem *resFuncGroup = m_detectorItem->getItem(RectangularDetectorItem::P_RESOLUTION_FUNCTION);
+    SessionItem* resFuncGroup
+        = m_detectorItem->getItem(RectangularDetectorItem::P_RESOLUTION_FUNCTION);
     m_resolutionFunctionEditor->addPropertyItems(resFuncGroup, QString("Resolution function"));
-
 
     m_alignmentEditor->clearEditor();
     m_alignmentEditor->addItem(m_detectorItem->getItem(RectangularDetectorItem::P_ALIGNMENT));
@@ -180,45 +173,46 @@ void RectangularDetectorWidget::init_alignment_editors()
     m_directionEditor->hide();
 
     ComboProperty alignment
-        = m_detectorItem->getItemValue(RectangularDetectorItem::P_ALIGNMENT)
-              .value<ComboProperty>();
-
+        = m_detectorItem->getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
 
     if (alignment.getValue() == Constants::ALIGNMENT_GENERIC) {
         m_positionsEditor->show();
         m_normalEditor->show();
         m_directionEditor->show();
 
-        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_U0), "Positions");
-        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_V0), "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_U0),
+                                            "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_V0),
+                                            "Positions");
 
-        SessionItem *normalVectorItem
-            = m_detectorItem->getItem(RectangularDetectorItem::P_NORMAL);
+        SessionItem* normalVectorItem = m_detectorItem->getItem(RectangularDetectorItem::P_NORMAL);
         m_normalEditor->addPropertyItems(normalVectorItem, "Normal vector");
 
-        SessionItem *directionVectorItem
+        SessionItem* directionVectorItem
             = m_detectorItem->getItem(RectangularDetectorItem::P_DIRECTION);
         m_directionEditor->addPropertyItems(directionVectorItem, "Direction vector");
 
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM ||
-               alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
+    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM
+               || alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
         m_positionsEditor->show();
-        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_DBEAM_U0), "Positions");
-        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_DBEAM_V0), "Positions");
+        m_positionsEditor->addPropertyItems(
+            m_detectorItem->getItem(RectangularDetectorItem::P_DBEAM_U0), "Positions");
+        m_positionsEditor->addPropertyItems(
+            m_detectorItem->getItem(RectangularDetectorItem::P_DBEAM_V0), "Positions");
 
-        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_DISTANCE), "Positions");
+        m_positionsEditor->addPropertyItems(
+            m_detectorItem->getItem(RectangularDetectorItem::P_DISTANCE), "Positions");
 
-    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE ||
-               alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
+    } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE
+               || alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
         m_positionsEditor->show();
 
-        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_U0), "Positions");
-        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_V0), "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_U0),
+                                            "Positions");
+        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_V0),
+                                            "Positions");
 
-        m_positionsEditor->addPropertyItems(m_detectorItem->getItem(RectangularDetectorItem::P_DISTANCE), "Positions");
-
+        m_positionsEditor->addPropertyItems(
+            m_detectorItem->getItem(RectangularDetectorItem::P_DISTANCE), "Positions");
     }
-
 }
-
-

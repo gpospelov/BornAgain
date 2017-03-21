@@ -24,6 +24,7 @@
 class QAction;
 class SessionModel;
 class QItemSelectionModel;
+class QModelIndex;
 
 //! Collection of actions to add/remove/clone instrument.
 
@@ -40,6 +41,7 @@ public:
 public slots:
     void onAddInstrument();
     void onRemoveInstrument();
+    void onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint);
 
 private:
     void updateSelection();

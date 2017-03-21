@@ -18,6 +18,8 @@
 #include "SessionModel.h"
 #include <QAction>
 #include <QItemSelectionModel>
+#include <QMenu>
+#include <QModelIndex>
 
 InstrumentViewActions::InstrumentViewActions(QWidget* parent)
     : QObject(parent)
@@ -58,6 +60,16 @@ void InstrumentViewActions::onRemoveInstrument()
         m_model->removeRows(currentIndex.row(), 1, QModelIndex());
 
     updateSelection();
+}
+
+void InstrumentViewActions::onContextMenuRequest(const QPoint& point,
+                                                 const QModelIndex& indexAtPoint)
+{
+    Q_UNUSED(indexAtPoint);
+    QMenu menu;
+    menu.addAction(m_addInstrumentAction);
+    menu.addAction(m_removeInstrumentAction);
+    menu.exec(point);
 }
 
 void InstrumentViewActions::updateSelection()

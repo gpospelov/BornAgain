@@ -132,9 +132,6 @@ void MainWindow::onChangeTabWidget(int index)
     {
         m_welcomeView->updateRecentProjectPanel();
     }
-    else if (index == INSTRUMENT) {
-        m_instrumentView->updateView();
-    }
     else if(index == SIMULATION) {
         m_simulationView->updateSimulationViewElements();
     }

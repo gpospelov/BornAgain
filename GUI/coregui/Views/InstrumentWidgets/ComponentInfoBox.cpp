@@ -51,6 +51,7 @@ void ComponentInfoBox::addPropertyItems(SessionItem *item)
 void ComponentInfoBox::clearEditor()
 {
     m_editor->clearEditor();
+    m_item = 0;
 }
 
 void ComponentInfoBox::dialogRequest()

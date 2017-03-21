@@ -18,53 +18,39 @@
 #define INSTRUMENTVIEW_H
 
 #include "WinDllMacros.h"
-#include <QMap>
+#include "ItemStackPresenter.h"
 #include <QWidget>
 
 class MainWindow;
+class DetectorItem;
+class InstrumentViewActions;
+class InstrumentViewToolBar;
 class InstrumentSelectorWidget;
 class InstrumentEditorWidget;
 class InstrumentModel;
-class QStackedWidget;
-class QItemSelection;
-class SessionItem;
-class QToolButton;
-class DetectorItem;
 
 class BA_CORE_API_ InstrumentView : public QWidget
 {
     Q_OBJECT
 
 public:
-    InstrumentView(MainWindow *mainWindow);
+    InstrumentView(MainWindow* mainWindow);
 
 public slots:
-    void updateView();
-    void resetView();
-    void onSelectionChanged(const QItemSelection&, const QItemSelection&);
-    void onAddInstrument();
-    void onRemoveInstrument();
-    void onRowsAboutToBeRemoved(QModelIndex,int,int);
-    void onExtendedDetectorEditorRequest(DetectorItem *detectorItem);
+    void onExtendedDetectorEditorRequest(DetectorItem* detectorItem);
+
+private slots:
+    void onItemSelectionChanged(SessionItem* instrumentItem);
+
+protected:
+    void showEvent(QShowEvent*);
 
 private:
-    void setupConnections();
-    void setupActions();
-    QString getNewInstrumentName(const QString &name);
-    void updateMapOfNames();
-
-    InstrumentModel *m_instrumentModel;
-    class StyledToolBar *m_toolBar;
-    InstrumentSelectorWidget *m_instrumentSelector;
-    QStackedWidget *m_stackWidget;
-    QMap<SessionItem *, InstrumentEditorWidget *> m_instrumentToEditor;
-    QAction *m_addInstrumentAction;
-    QAction *m_removeInstrumentAction;
-    QToolButton *m_addInstrumentButton;
-    QToolButton *m_removeInstrumentButton;
-
-    QMap<QString, int> m_name_to_copy;
+    InstrumentViewActions* m_actions;
+    InstrumentViewToolBar* m_toolBar;
+    InstrumentSelectorWidget* m_instrumentSelector;
+    ItemStackPresenter<InstrumentEditorWidget>* m_instrumentEditor;
+    InstrumentModel* m_instrumentModel;
 };
-
 
 #endif // INSTRUMENTVIEW_H

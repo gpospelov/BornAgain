@@ -18,7 +18,7 @@
 #include "InstrumentItem.h"
 #include "BeamEditorWidget.h"
 #include "DetectorEditorWidget.h"
-#include "columnresizer.h"
+#include "ColumnResizer.h"
 #include <QVBoxLayout>
 
 InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget* parent)
@@ -38,10 +38,17 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget* parent)
 
     connect(m_detectorEditor, SIGNAL(extendedDetectorEditorRequest(DetectorItem*)), this,
             SIGNAL(extendedDetectorEditorRequest(DetectorItem*)));
+
+    setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
 }
 
 void InstrumentComponentsWidget::setInstrumentItem(InstrumentItem* instrumentItem)
 {
-    m_beamEditor->setBeamItem(instrumentItem->beamItem());
-    m_detectorEditor->setItem(instrumentItem);
+    if(instrumentItem) {
+        m_beamEditor->setBeamItem(instrumentItem->beamItem());
+        m_detectorEditor->setItem(instrumentItem);
+    } else {
+        m_beamEditor->setBeamItem(nullptr);
+        m_detectorEditor->setItem(nullptr);
+    }
 }

@@ -17,47 +17,44 @@
 #ifndef INSTRUMENTEDITORWIDGET_H
 #define INSTRUMENTEDITORWIDGET_H
 
-
 #include "WinDllMacros.h"
-#include <QLabel>
-#include <QMap>
 #include <QWidget>
 
 class SessionItem;
-class DetectorEditorWidget;
 class DetectorItem;
-class BeamEditorWidget;
 class QLineEdit;
 class QComboBox;
 class InstrumentComponentsWidget;
+
+//! Main widget of InstrumentView. Contains InstrumentComponentsWidget with beam and detector
+//! settings.
 
 class BA_CORE_API_ InstrumentEditorWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    InstrumentEditorWidget(QWidget *parent = 0);
-    QSize sizeHint() const { return QSize(600, 600); }
+    InstrumentEditorWidget(QWidget* parent = 0);
 
-    void setInstrumentItem(SessionItem *instrument);
+    QSize sizeHint() const;
+
+    void setInstrumentItem(SessionItem* instrument);
 
 signals:
-    void extendedDetectorEditorRequest(DetectorItem *);
+    void extendedDetectorEditorRequest(DetectorItem*);
 
 public slots:
-    void onChangedEditor(const QString &);
-    void onPropertyChanged(const QString &);
+    void onChangedEditor(const QString&);
 
 private:
-    QLayout *create_NameAndTypeLayout();
-
+    QLayout* create_NameAndTypeLayout();
     void updateWidgets();
 
-    QLineEdit *m_nameLineEdit;
-    QComboBox *m_typeComboBox;
-    SessionItem *m_currentItem;
+    QLineEdit* m_nameLineEdit;
+    QComboBox* m_typeComboBox;
+    InstrumentComponentsWidget* m_instrumentComponents;
+    SessionItem* m_currentItem;
     bool m_block_signals;
-    InstrumentComponentsWidget *m_instrumentComponents;
 };
 
 #endif // INSTRUMENTEDITORWIDGET_H

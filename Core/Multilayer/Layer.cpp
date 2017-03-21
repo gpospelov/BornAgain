@@ -20,6 +20,8 @@
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
+#include <set>
+
 Layer::Layer(HomogeneousMaterial material, double thickness)
     : m_material(std::move(material))
     , m_thickness(thickness)
@@ -83,6 +85,36 @@ const ILayout* Layer::layout(size_t i) const
     if (i>=m_layouts.size())
         return nullptr;
     return m_layouts[i];
+}
+
+bool Layer::containsParticles() const
+{
+    for (size_t i=0; i<numberOfLayouts(); ++i)
+        if (layout(i)->numberOfParticles()>0)
+            return true;
+    return false;
+}
+
+double Layer::topZParticles() const
+{
+    if (!containsParticles())
+        throw std::runtime_error("Layer::topZParticles(): no particles in this layer.");
+    std::set<double> topValues;
+    for (size_t i=0; i<numberOfLayouts(); ++i)
+        if (layout(i)->numberOfParticles())
+            topValues.insert(layout(i)->topZParticles());
+    return *topValues.rbegin();
+}
+
+double Layer::bottomZParticles() const
+{
+    if (!containsParticles())
+        throw std::runtime_error("Layer::bottomZParticles(): no particles in this layer.");
+    std::set<double> bottomValues;
+    for (size_t i=0; i<numberOfLayouts(); ++i)
+        if (layout(i)->numberOfParticles())
+            bottomValues.insert(layout(i)->bottomZParticles());
+    return *bottomValues.begin();
 }
 
 std::vector<const INode*> Layer::getChildren() const

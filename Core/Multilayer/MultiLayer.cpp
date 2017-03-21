@@ -99,6 +99,12 @@ MultiLayer* MultiLayer::clone() const
     return newMultiLayer;
 }
 
+MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
+{
+    (void)use_average_layers;
+    return clone();
+}
+
 MultiLayer* MultiLayer::cloneInvertB() const
 {
     MultiLayer* newMultiLayer = new MultiLayer();
@@ -272,14 +278,9 @@ size_t MultiLayer::totalNofLayouts() const
 
 bool MultiLayer::containsParticles() const
 {
-    for (auto* layer: m_layers)
-    {
-        for (size_t i=0; i<layer->numberOfLayouts(); ++i)
-        {
-            if (layer->layout(i)->numberOfParticles()>0)
-                return true;
-        }
-    }
+    for (auto* p_layer: m_layers)
+        if (p_layer->containsParticles())
+            return true;
     return false;
 }
 

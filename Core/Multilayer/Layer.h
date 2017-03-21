@@ -55,6 +55,14 @@ public:
     //! Returns true if decoration is present
     bool hasComputation() const { return m_layouts.size()>0; }
 
+    bool containsParticles() const;
+
+    //! returns the highest z-coordinate of all particles in the layer
+    double topZParticles() const;
+
+    //! returns the lowest z-coordinate of all particles in the layer
+    double bottomZParticles() const;
+
     std::vector<const INode*> getChildren() const override final;
 
     void registerThickness(bool make_registered = true);

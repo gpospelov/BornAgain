@@ -18294,6 +18294,16 @@ class ILayout(ISample):
         """
         return _libBornAgainCore.ILayout_setApproximation(self, approximation)
 
+
+    def topZParticles(self):
+        """topZParticles(ILayout self) -> double"""
+        return _libBornAgainCore.ILayout_topZParticles(self)
+
+
+    def bottomZParticles(self):
+        """bottomZParticles(ILayout self) -> double"""
+        return _libBornAgainCore.ILayout_bottomZParticles(self)
+
 ILayout_swigregister = _libBornAgainCore.ILayout_swigregister
 ILayout_swigregister(ILayout)
 
@@ -21614,6 +21624,21 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_hasComputation(self)
 
 
+    def containsParticles(self):
+        """containsParticles(Layer self) -> bool"""
+        return _libBornAgainCore.Layer_containsParticles(self)
+
+
+    def topZParticles(self):
+        """topZParticles(Layer self) -> double"""
+        return _libBornAgainCore.Layer_topZParticles(self)
+
+
+    def bottomZParticles(self):
+        """bottomZParticles(Layer self) -> double"""
+        return _libBornAgainCore.Layer_bottomZParticles(self)
+
+
     def getChildren(self):
         """
         getChildren(Layer self) -> swig_dummy_type_const_inode_vector
@@ -22371,6 +22396,11 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_clone(self)
+
+
+    def cloneSliced(self, use_average_layers):
+        """cloneSliced(MultiLayer self, bool use_average_layers) -> MultiLayer"""
+        return _libBornAgainCore.MultiLayer_cloneSliced(self, use_average_layers)
 
 
     def cloneInvertB(self):
@@ -24511,6 +24541,16 @@ class ParticleLayout(ILayout):
 
         """
         return _libBornAgainCore.ParticleLayout_setTotalParticleSurfaceDensity(self, particle_density)
+
+
+    def topZParticles(self):
+        """topZParticles(ParticleLayout self) -> double"""
+        return _libBornAgainCore.ParticleLayout_topZParticles(self)
+
+
+    def bottomZParticles(self):
+        """bottomZParticles(ParticleLayout self) -> double"""
+        return _libBornAgainCore.ParticleLayout_bottomZParticles(self)
 
 
     def getChildren(self):

@@ -55,9 +55,6 @@ public:
 
 private:
     void runProtected();
-    // creates a multilayer with (possibly) sliced layers for the graded layer approximation
-    static MultiLayer* SliceMultiLayer(const MultiLayer& multilayer,
-                                       const SimulationOptions& options);
     IFresnelMap* createFresnelMap();
     // creates a multilayer that contains averaged materials, for use in Fresnel calculations
     std::unique_ptr<MultiLayer> getAveragedMultilayer();

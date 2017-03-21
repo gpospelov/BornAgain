@@ -196,6 +196,20 @@ double ParticleLayout::totalParticleSurfaceDensity() const
     return iff_density > 0.0 ? iff_density : m_total_particle_density;
 }
 
+double ParticleLayout::topZParticles() const
+{
+    if (numberOfParticles()==0)
+        throw std::runtime_error("ParticleLayout::topZParticles: no particles in this layout!");
+    return 0;
+}
+
+double ParticleLayout::bottomZParticles() const
+{
+    if (numberOfParticles()==0)
+        throw std::runtime_error("ParticleLayout::bottomZParticles: no particles in this layout!");
+    return 0;
+}
+
 std::vector<const INode*> ParticleLayout::getChildren() const
 {
     std::vector<const INode*> result;

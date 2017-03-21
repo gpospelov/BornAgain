@@ -93,9 +93,13 @@ public:
     //! Destructs allocated objects
     void clear();
 
-    //! Returns alone of multilayer with clones of all layers and recreated
+    //! Returns a clone of multilayer with clones of all layers and recreated
     //! interfaces between layers
     virtual MultiLayer* clone() const;
+
+    //! Returns a clone of multilayer where the original layers may be sliced into several sublayers
+    //! for usage with the graded layer approximation
+    MultiLayer* cloneSliced(bool use_average_layers) const;
 
     //! Returns a clone with inverted magnetic fields
     virtual MultiLayer* cloneInvertB() const;

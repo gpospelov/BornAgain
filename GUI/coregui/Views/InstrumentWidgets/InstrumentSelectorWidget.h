@@ -28,7 +28,7 @@ class BA_CORE_API_ InstrumentSelectorWidget : public ItemSelectorWidget
     Q_OBJECT
 
 public:
-    InstrumentSelectorWidget(InstrumentModel* model, QWidget* parent = 0);
+    InstrumentSelectorWidget(InstrumentModel* model = 0, QWidget* parent = 0);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;

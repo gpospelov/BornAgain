@@ -106,9 +106,6 @@ public:
     //! Returns cross correlation length of roughnesses between interfaces
     double crossCorrLength() const { return m_crossCorrLength; }
 
-    ///! correlation function of roughnesses between the interfaces
-    //double getCrossCorrFun(const kvector_t k, int j, int k) const;
-
     //! Fourier transform of the correlation function of roughnesses between
     //! the interfaces
     double crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
@@ -135,6 +132,8 @@ public:
     bool hasRoughness() const;
 
     size_t totalNofLayouts() const;
+
+    bool containsParticles() const;
 
     std::vector<const INode*> getChildren() const;
 
@@ -166,7 +165,7 @@ private:
     std::vector<LayerInterface*> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
-    //! independent layouts in this multilayer
+    //! independent layouts in this multilayer (not used)
     SafePointerVector<ILayout> m_layouts;
 };
 

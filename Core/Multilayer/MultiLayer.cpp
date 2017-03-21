@@ -270,6 +270,19 @@ size_t MultiLayer::totalNofLayouts() const
     return ret;
 }
 
+bool MultiLayer::containsParticles() const
+{
+    for (auto* layer: m_layers)
+    {
+        for (size_t i=0; i<layer->numberOfLayouts(); ++i)
+        {
+            if (layer->layout(i)->numberOfParticles()>0)
+                return true;
+        }
+    }
+    return false;
+}
+
 std::vector<const INode*> MultiLayer::getChildren() const
 {
     std::vector<const INode*> result;

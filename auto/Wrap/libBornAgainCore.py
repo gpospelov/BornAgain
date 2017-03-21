@@ -22515,6 +22515,11 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_totalNofLayouts(self)
 
 
+    def containsParticles(self):
+        """containsParticles(MultiLayer self) -> bool"""
+        return _libBornAgainCore.MultiLayer_containsParticles(self)
+
+
     def getChildren(self):
         """
         getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector

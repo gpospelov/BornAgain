@@ -29,11 +29,11 @@ InstrumentViewActions::InstrumentViewActions(QWidget* parent)
     , m_selectionModel(nullptr)
 {
     m_addInstrumentAction
-        = new QAction(QIcon(":/images/toolbar_newitem_dark.png"), "Add new instrument", this);
+        = new QAction(QIcon(":/images/toolbar16dark_newitem.svg"), "Add new instrument", this);
     connect(m_addInstrumentAction, SIGNAL(triggered()), this, SLOT(onAddInstrument()));
 
     m_removeInstrumentAction
-        = new QAction(QIcon(":/SampleDesigner/images/toolbar_recycle_dark.png"),
+        = new QAction(QIcon(":/images/toolbar16dark_recycle.svg"),
                       "Remove currently selected instrument", this);
     connect(m_removeInstrumentAction, SIGNAL(triggered()), this, SLOT(onRemoveInstrument()));
 }

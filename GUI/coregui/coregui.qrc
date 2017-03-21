@@ -12,8 +12,6 @@
         <file>images/treeview-branch-more.png</file>
         <file>images/treeview-branch-open.png</file>
         <file>images/treeview-vline.png</file>
-        <file>images/toolbar_newitem.png</file>
-        <file>images/toolbar_newitem_dark.png</file>
         <file>images/BornAgain.ico</file>
         <file>images/collapse_arrow.png</file>
         <file>images/expand_arrow.png</file>
@@ -47,5 +45,8 @@
         <file>images/toolbar16light_projections.svg</file>
         <file>images/toolbar16light_propertypanel.svg</file>
         <file>images/main_testview.svg</file>
+        <file>images/toolbar16dark_newitem.svg</file>
+        <file>images/toolbar16dark_cloneitem.svg</file>
+        <file>images/toolbar16dark_recycle.svg</file>
     </qresource>
 </RCC>

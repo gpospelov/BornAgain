@@ -24,15 +24,15 @@ InstrumentViewToolBar::InstrumentViewToolBar(InstrumentViewActions* actions, QWi
     , m_removeInstrumentButton(new QToolButton)
 {
     m_addInstrumentButton->setText("Add");
-    m_addInstrumentButton->setIcon(QIcon(":/images/toolbar_newitem.png"));
+    m_addInstrumentButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
     m_addInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_addInstrumentButton->setToolTip("Add new instrument");
     addWidget(m_addInstrumentButton);
 
     addStyledSeparator();
 
-    m_removeInstrumentButton->setText("Remove instrument");
-    m_removeInstrumentButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
+    m_removeInstrumentButton->setText("Remove");
+    m_removeInstrumentButton->setIcon(QIcon(":/images/toolbar16light_recycle.svg"));
     m_removeInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_removeInstrumentButton->setToolTip("Remove currently selected instrument");
     addWidget(m_removeInstrumentButton);

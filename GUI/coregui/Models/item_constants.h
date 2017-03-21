@@ -112,9 +112,7 @@ const ModelType BasicLatticeType = "BasicLattice";
 const ModelType SquareLatticeType = "SquareLattice";
 const ModelType HexagonalLatticeType = "HexagonalLattice";
 
-const ModelType MaterialType = "Material";
-const ModelType HomogeneousMaterialType = "Homogeneous Material";
-const ModelType HomogeneousMagneticMaterialType = "Homogeneous Magnetic Material";
+const ModelType HomogeneousMaterialType = "HomogeneousMaterial";
 
 const ModelType RefractiveIndexType = "RefractiveIndex";
 

@@ -39,7 +39,7 @@ public:
     double getWidth() const { return m_width; }
     double getLength() const { return m_length; }
 
-    double getRadialExtension() const override final;
+    double radialExtension() const override final;
 
     complex_t evaluate_for_q(cvector_t q) const override final;
 

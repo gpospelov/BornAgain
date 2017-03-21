@@ -19,6 +19,7 @@
 #include "Hash2Doubles.h"
 #include "IFresnelMap.h"
 #include "Vectors3D.h"
+#include <memory>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -34,19 +35,16 @@ class SimulationElement;
 class BA_CORE_API_ ScalarFresnelMap : public IFresnelMap
 {
 public:
-    ScalarFresnelMap(const MultiLayer* multilayer);
+    ScalarFresnelMap();
     ~ScalarFresnelMap() final;
 
-    //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getOutCoefficients (
         const SimulationElement& sim_element, size_t layer_index) const final override;
 
-    //! Retrieves the amplitude coefficients for the given angles
     const ILayerRTCoefficients* getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const final override;
 
 private:
-    const MultiLayer* mp_multilayer;
     const ScalarRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index) const;
     mutable std::unordered_map<std::pair<double, double>, std::vector<ScalarRTCoefficients>,
                                Hash2Doubles> m_hash_table;

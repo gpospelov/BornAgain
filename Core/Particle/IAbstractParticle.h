@@ -21,7 +21,7 @@
 #include "BornAgainNamespace.h"
 #include <memory>
 
-class IMaterial;
+class HomogeneousMaterial;
 
 //! Interface for a generic particle.
 //!
@@ -40,7 +40,7 @@ public:
 
     virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
-    double getAbundance() const { return m_abundance; }
+    double abundance() const { return m_abundance; }
     void setAbundance(double abundance) { m_abundance = abundance; }
 
 protected:

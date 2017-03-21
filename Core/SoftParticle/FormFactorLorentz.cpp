@@ -35,7 +35,7 @@ FormFactorLorentz::FormFactorLorentz(double length)
 }
 
 
-double FormFactorLorentz::getRadialExtension() const
+double FormFactorLorentz::radialExtension() const
 {
     return m_width / 2.0;
 }
@@ -53,6 +53,11 @@ complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const
     complex_t result = H*R*R/(1.0 + xnorm + ynorm + znorm);
 
     return result;
+}
+
+void FormFactorLorentz::onChange()
+{
+    mP_shape.reset(new Box(m_width, m_width, m_height));
 }
 
 void FormFactorLorentz::initialize()

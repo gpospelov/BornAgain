@@ -32,7 +32,7 @@ public:
 
     double getRadius() const { return m_radius; }
 
-    double getRadialExtension() const override final { return m_radius; }
+    double radialExtension() const override final { return m_radius; }
 
     double bottomZ(const IRotation& rotation) const override final;
 

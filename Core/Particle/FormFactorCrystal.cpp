@@ -64,7 +64,7 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3
     // is canceled by the convolution of Fourier transforms :
-    double volume = m_lattice.getVolume();
+    double volume = m_lattice.volume();
     return result / volume;
 }
 
@@ -87,7 +87,7 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3
     // is canceled by the convolution of Fourier transforms :
-    double volume = m_lattice.getVolume();
+    double volume = m_lattice.volume();
     return result / volume;
 }
 

@@ -73,7 +73,7 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
         P_new_pool->setUniqueMatchValue(main_par_name, main_sample.value);
         for (auto it = linked_ratios.begin(); it != linked_ratios.end(); ++it)
             P_new_pool->setUniqueMatchValue(it->first, main_sample.value * it->second);
-        p_particle_clone->setAbundance(getAbundance() * main_sample.weight);
+        p_particle_clone->setAbundance(abundance() * main_sample.weight);
         result.push_back(p_particle_clone);
     }
     return result;

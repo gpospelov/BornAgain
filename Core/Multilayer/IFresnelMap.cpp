@@ -14,6 +14,12 @@
 // ************************************************************************** //
 
 #include "IFresnelMap.h"
+#include "MultiLayer.h"
 
 IFresnelMap::IFresnelMap() {}
 IFresnelMap::~IFresnelMap() {}
+
+void IFresnelMap::setMultilayer(const MultiLayer& multilayer)
+{
+    mP_multilayer.reset(multilayer.clone());
+}

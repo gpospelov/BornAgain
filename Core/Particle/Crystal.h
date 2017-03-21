@@ -31,24 +31,26 @@ class BA_CORE_API_ Crystal : public IClusteredParticles
 {
 public:
     Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice);
-    virtual ~Crystal();
+    ~Crystal();
 
-    Crystal* clone() const final;
-    Crystal* cloneInvertB() const final;
+    Crystal* clone() const override final;
+    Crystal* cloneInvertB() const override final;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    virtual IFormFactor* createTotalFormFactor(
+    IFormFactor* createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
-        const IRotation* p_rotation, const kvector_t& translation) const;
+        const IRotation* p_rotation, const kvector_t& translation) const override final;
 
-    Lattice getTransformedLattice(const IRotation* p_rotation) const;
+    std::vector<HomogeneousRegion> homogeneousRegions() const override final;
 
-    const ParticleComposition* getLatticeBasis() const { return mp_lattice_basis.get(); }
+    Lattice transformedLattice(const IRotation* p_rotation) const;
+
+    const ParticleComposition* latticeBasis() const { return mp_lattice_basis.get(); }
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override final;
 
 private:
     Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice);

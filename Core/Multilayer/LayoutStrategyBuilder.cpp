@@ -28,6 +28,7 @@
 #include "SlicedFormFactorList.h"
 #include "SSCApproximationStrategy.h"
 
+
 LayoutStrategyBuilder::LayoutStrategyBuilder(
     const MultiLayer* p_multilayer, const ILayout* p_layout,
     const IFresnelMap* p_fresnel_map, bool polarized,
@@ -38,69 +39,79 @@ LayoutStrategyBuilder::LayoutStrategyBuilder(
     , m_polarized {polarized}
     , m_sim_params (sim_params)
     , m_layer_index(layer_index)
+{
+    createStrategy();
+}
+
+// needs class definitions => don't move to .h
+LayoutStrategyBuilder::~LayoutStrategyBuilder()
 {}
 
-LayoutStrategyBuilder::~LayoutStrategyBuilder()
-{} // needs class definitions => don't move to .h
+IInterferenceFunctionStrategy* LayoutStrategyBuilder::releaseStrategy()
+{
+    return mP_strategy.release();
+}
+
+std::map<size_t, std::vector<HomogeneousRegion> > LayoutStrategyBuilder::regionMap() const
+{
+    return m_region_map;
+}
 
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
-IInterferenceFunctionStrategy* LayoutStrategyBuilder::createStrategy() const
+void LayoutStrategyBuilder::createStrategy()
 {
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
 
-    IInterferenceFunctionStrategy* p_result = nullptr;
     switch (mp_layout->getApproximation())
     {
     case ILayout::DA:
-        if (m_polarized)
-            p_result = new DecouplingApproximationStrategy2(m_sim_params);
-        else
-            p_result = new DecouplingApproximationStrategy1(m_sim_params);
+        mP_strategy.reset( new DecouplingApproximationStrategy(m_sim_params, m_polarized) );
         break;
     case ILayout::SSCA:
-        double kappa = mp_layout ? mp_layout->getInterferenceFunction()->getKappa()
+        double kappa = mp_layout ? mp_layout->interferenceFunction()->getKappa()
                                  : 0.0;
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(
                 "SSCA requires a nontrivial interference function "
                 "with a strictly positive coupling coefficient kappa");
-        if (m_polarized)
-            p_result = new SSCApproximationStrategy2(m_sim_params, kappa);
-        else
-            p_result = new SSCApproximationStrategy1(m_sim_params, kappa);
+        mP_strategy.reset( new SSCApproximationStrategy(m_sim_params, kappa, m_polarized) );
         break;
     }
-    if (!p_result)
-        throw Exceptions::ClassInitializationException(
-            "Could not create appropriate strategy");
-    p_result->init(ff_wrappers, mp_layout->getInterferenceFunction());
-    return p_result;
+    if (!mP_strategy)
+        throw Exceptions::ClassInitializationException("Could not create appropriate strategy");
+    mP_strategy->init(ff_wrappers, mp_layout->interferenceFunction());
+    return;
 }
 
 //! Sets m_formfactor_wrappers, the list of weighted form factors.
-SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFormFactorList() const
+SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFormFactorList()
 {
     SafePointerVector<class FormFactorCoherentSum> result;
     double layout_abundance = mp_layout->getTotalAbundance();
-    for (const IParticle* particle: mp_layout->getParticles()) {
+    for (const IParticle* particle: mp_layout->particles()) {
         auto p_ff_coh = createFormFactorCoherentSum(particle);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
         result.push_back(p_ff_coh);
     }
+    double scale_factor = mp_layout->totalParticleSurfaceDensity()/layout_abundance;
+    ScaleRegionMap(m_region_map, scale_factor);
     return result;
 }
 
 //! Returns a new formfactor wrapper for a given particle in given ambient material.
 FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
-    const IParticle* particle) const
+    const IParticle* particle)
 {
-    std::unique_ptr<FormFactorCoherentSum> P_result(
-                new FormFactorCoherentSum(particle->getAbundance()));
+    double abundance = particle->abundance();
     auto sliced_ffs = CreateSlicedFormFactors(*particle, *mp_multilayer, m_layer_index);
+    auto region_map = sliced_ffs.regionMap();
+    ScaleRegionMap(region_map, abundance);
+    mergeRegionMap(region_map);
+    std::unique_ptr<FormFactorCoherentSum> P_result(new FormFactorCoherentSum(abundance));
     for (size_t i=0; i < sliced_ffs.size(); ++i) {
         auto ff_pair = sliced_ffs[i];
         std::unique_ptr<IFormFactor> P_ff_framework;
-        if (mp_multilayer->getNumberOfLayers()>1) {
+        if (mp_multilayer->numberOfLayers()>1) {
             if (m_polarized)
                 P_ff_framework.reset(new FormFactorDWBAPol(*ff_pair.first));
             else
@@ -109,7 +120,7 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
             P_ff_framework.reset(ff_pair.first->clone());
 
         size_t layer_index = ff_pair.second;
-        const IMaterial* p_layer_material = mp_multilayer->getLayer(layer_index)->getMaterial();
+        const HomogeneousMaterial* p_layer_material = mp_multilayer->layer(layer_index)->material();
         P_ff_framework->setAmbientMaterial(*p_layer_material);
 
         auto part = FormFactorCoherentPart(P_ff_framework.release());
@@ -118,4 +129,27 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
         P_result->addCoherentPart(part);
     }
     return P_result.release();
+}
+
+void LayoutStrategyBuilder::mergeRegionMap(
+        const std::map<size_t, std::vector<HomogeneousRegion>>& region_map)
+{
+    for (auto& entry : region_map)
+    {
+        size_t layer_index = entry.first;
+        auto regions = entry.second;
+        m_region_map[layer_index].insert(m_region_map[layer_index].begin(),
+                                         regions.begin(), regions.end());
+    }
+}
+
+void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor)
+{
+    for (auto& entry : region_map)
+    {
+        for (auto& region : entry.second)
+        {
+            region.m_volume *= factor;
+        }
+    }
 }

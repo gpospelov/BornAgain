@@ -33,7 +33,7 @@ public:
         return new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples); }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    double getRadialExtension() const override final { return m_mean; }
+    double radialExtension() const override final { return m_mean; }
 
     complex_t evaluate_for_q(cvector_t q) const override final;
 

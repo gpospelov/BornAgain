@@ -8,6 +8,5 @@
 #include "ChiSquaredModuleTest.h"
 #include "CumulativeValueTest.h"
 #include "BeamTest.h"
-#include "HomogeneousMagneticMaterialTest.h"
 #include "Shape2DTest.h"
 #include "GISASSimulationTest.h"

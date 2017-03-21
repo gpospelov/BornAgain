@@ -18,7 +18,7 @@
 
 #include "IParticle.h"
 
-class IMaterial;
+class HomogeneousMaterial;
 class Particle;
 
 //! A particle with a core/shell geometry.
@@ -36,7 +36,7 @@ public:
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    IFormFactor* createSlicedFormFactor(ZLimits limits) const override final;
+    SlicedParticle createSlicedParticle(ZLimits limits) const override final;
 
     const Particle* coreParticle() const;
 

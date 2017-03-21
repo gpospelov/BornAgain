@@ -16,7 +16,7 @@ def runSimulation():
 
     magnetic_field = ba.kvector_t(0, 0, 0)
 
-    magParticle = ba.HomogeneousMagneticMaterial("magParticle", 6e-4, 2e-8, magnetic_field )
+    magParticle = ba.HomogeneousMaterial("magParticle", 6e-4, 2e-8, magnetic_field )
     # collection of particles
     cylinder_ff = ba.FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = ba.Particle(magParticle, cylinder_ff)

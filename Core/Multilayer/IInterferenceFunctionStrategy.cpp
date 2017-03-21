@@ -3,8 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/IInterferenceFunctionStrategy.cpp
-//! @brief     Implements default behaviour of IInterferenceFunctionStrategy,
-//!              IInterferenceFunctionStrategy1, IInterferenceFunctionStrategy2
+//! @brief     Implements default behaviour of IInterferenceFunctionStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -27,14 +26,13 @@
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
 
-IInterferenceFunctionStrategy::IInterferenceFunctionStrategy()
-{}
-
-IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params)
-    : mP_iff {nullptr}
-    , m_options {sim_params}
-    , mP_integrator {make_integrator_miser(
-        this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2)}
+IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,
+                                                             bool polarized)
+    : mP_iff(nullptr)
+    , m_options(sim_params)
+    , m_polarized(polarized)
+    , mP_integrator(make_integrator_miser(
+        this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2) )
 {}
 
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
@@ -46,7 +44,8 @@ void IInterferenceFunctionStrategy::init(
     const IInterferenceFunction* p_iff)
 {
     if (weighted_formfactors.size()==0)
-        throw Exceptions::ClassInitializationException("Bug: Decorated layer has no formfactors.");
+        throw Exceptions::ClassInitializationException(
+                "IInterferenceFunctionStrategy::init: strategy gets no formfactors.");
     m_formfactor_wrappers = weighted_formfactors;
     if (p_iff)
         mP_iff.reset(p_iff->clone());
@@ -60,8 +59,39 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
 {
     if (m_options.isIntegrate() && (sim_element.getSolidAngle() > 0.0))
         return MCIntegratedEvaluate(sim_element);
-    precomputeParticleFormfactors(sim_element);
-    return evaluateForList(sim_element);
+    return evaluateSinglePoint(sim_element);
+}
+
+std::vector<complex_t> IInterferenceFunctionStrategy::precomputeScalar(
+        const SimulationElement& sim_element,
+        const SafePointerVector<FormFactorCoherentSum>& ff_wrappers)
+{
+    std::vector<complex_t> result;
+    for (auto ffw: ff_wrappers) {
+        result.push_back(ffw->evaluate(sim_element));
+    }
+    return result;
+}
+
+IInterferenceFunctionStrategy::matrixFFVector_t
+IInterferenceFunctionStrategy::precomputePolarized(
+        const SimulationElement& sim_element,
+        const SafePointerVector<FormFactorCoherentSum>& ff_wrappers)
+{
+    matrixFFVector_t result;
+    for (auto ffw: ff_wrappers) {
+        result.push_back(ffw->evaluatePol(sim_element));
+    }
+    return result;
+}
+
+double IInterferenceFunctionStrategy::evaluateSinglePoint(
+        const SimulationElement& sim_element) const
+{
+    if (!m_polarized)
+        return scalarCalculation(sim_element);
+    else
+        return polarizedCalculation(sim_element);
 }
 
 //! Performs a Monte Carlo integration over the bin for the evaluation of the intensity.
@@ -83,27 +113,5 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
     SimulationElement* pars = static_cast<SimulationElement*>(params);
 
     SimulationElement sim_element(*pars, par0, par1);
-    precomputeParticleFormfactors(sim_element);
-    return pars->getIntegrationFactor(par0, par1) * evaluateForList(sim_element);
-}
-
-
-//! Precomputes scalar form factors.
-void IInterferenceFunctionStrategy1::precomputeParticleFormfactors(
-    const SimulationElement& sim_element) const
-{
-    m_precomputed_ff1.clear();
-    for (auto ffw: m_formfactor_wrappers) {
-        m_precomputed_ff1.push_back(ffw->evaluate(sim_element));
-    }
-}
-
-//! Precomputes matrix form factors.
-void IInterferenceFunctionStrategy2::precomputeParticleFormfactors(
-    const SimulationElement& sim_element) const
-{
-    m_precomputed_ff2.clear();
-    for (auto ffw: m_formfactor_wrappers) {
-        m_precomputed_ff2.push_back(ffw->evaluatePol(sim_element));
-    }
+    return pars->getIntegrationFactor(par0, par1) * evaluateSinglePoint(sim_element);
 }

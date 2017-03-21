@@ -1,6 +1,6 @@
 #include "SpecularMatrix.h"
 #include "SpecularMagnetic.h"
-#include "HomogeneousMagneticMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "Units.h"
 
 class SpecularMagneticTest : public ::testing :: Test
@@ -48,7 +48,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     std::vector<ScalarRTCoefficients> coeffs_scalar;
 
     MultiLayer multi_layer_zerofield;
-    HomogeneousMagneticMaterial substr_material_zerofield("Substrate", 7e-6, 2e-8, substr_field);
+    HomogeneousMaterial substr_material_zerofield("Substrate", 7e-6, 2e-8, substr_field);
     Layer substr_layer_zerofield(substr_material_zerofield);
     multi_layer_zerofield.addLayer(air_layer);
     multi_layer_zerofield.addLayer(substr_layer_zerofield);

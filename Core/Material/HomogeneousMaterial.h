@@ -16,41 +16,79 @@
 #ifndef HOMOGENEOUSMATERIAL_H
 #define HOMOGENEOUSMATERIAL_H
 
-#include "IMaterial.h"
+#include "INamed.h"
+#include "Complex.h"
+#include "Vectors3D.h"
+#include "EigenCore.h"
 #include <vector>
 
-//! An homogeneous material with a refractive index.
+class Transform3D;
+class WavevectorInfo;
+
+//! An homogeneous material with a refractive index and (optionally) a magnetic field.
 //! @ingroup materials
 
-class BA_CORE_API_ HomogeneousMaterial : public IMaterial
+class BA_CORE_API_ HomogeneousMaterial : public INamed
 {
 public:
+    //! Constructs a default material (vacuum).
+    HomogeneousMaterial();
+
     //! Constructs a material with _name_ and _refractive_index_.
-    HomogeneousMaterial(const std::string &name, const complex_t refractive_index)
-        : IMaterial(name), m_refractive_index(refractive_index) {}
+    HomogeneousMaterial(const std::string &name, const complex_t refractive_index,
+                        const kvector_t magnetic_field=kvector_t());
 
     //! Constructs a material with _name_ and refractive_index parameters
     //! delta and beta (n = 1 - delta + i*beta).
     HomogeneousMaterial(const std::string &name, double refractive_index_delta,
-                        double refractive_index_beta);
-    virtual ~HomogeneousMaterial() {}
+                        double refractive_index_beta, const kvector_t magnetic_field=kvector_t());
+    ~HomogeneousMaterial() {}
 
-    virtual HomogeneousMaterial* clone() const;
-    virtual HomogeneousMaterial* cloneInverted() const;
+    //! Constructs a material with inverted magnetic field
+    HomogeneousMaterial inverted() const;
 
-    virtual complex_t getRefractiveIndex() const { return m_refractive_index; }
-    void setRefractiveIndex(const complex_t refractive_index) {
-        m_refractive_index = refractive_index; }
+    complex_t refractiveIndex() const;
+    complex_t refractiveIndex2() const;
+    void setRefractiveIndex(const complex_t refractive_index);
 
-    //! Create a new material that is transformed with respect to this one
-    virtual const IMaterial* createTransformedMaterial(const Transform3D& transform) const;
+    //! Indicates whether the interaction with the material is scalar.
+    //! This means that different polarization states will be diffracted equally
+    bool isScalarMaterial() const;
 
-protected:
-    virtual void print(std::ostream &ostr) const {
-        ostr << "HomMat:" << getName() << "<" << this << ">{ "
-             << "R=" << m_refractive_index << "}"; }
+    bool isMagneticMaterial() const { return !isScalarMaterial(); }
+
+    //! Get the magnetic field (in Tesla)
+    kvector_t magneticField() const;
+
+    //! Set the magnetic field (in Tesla)
+    void setMagneticField(const kvector_t magnetic_field);
+
+    complex_t scalarSLD(const WavevectorInfo& wavevectors) const;
+
+    //! Return the potential term that is used in the one-dimensional Fresnel calculations
+    complex_t scalarFresnel(const kvector_t k, double n_ref) const;
+
+#ifndef SWIG
+    virtual Eigen::Matrix2cd polarizedSLD(const WavevectorInfo& wavevectors) const;
+
+    //! Get the scattering matrix for a material defined by its magnetization (experimental)
+    Eigen::Matrix2cd polarizedSLDExperimental(const WavevectorInfo& wavevectors) const;
+
+    virtual Eigen::Matrix2cd polarizedFresnel(const kvector_t k, double n_ref) const;
+#endif
+    HomogeneousMaterial transformedMaterial(const Transform3D& transform) const;
+
+    friend BA_CORE_API_ std::ostream& operator<<(
+            std::ostream& ostr, const HomogeneousMaterial& mat);
+private:
+    void print(std::ostream &ostr) const;
 
     complex_t m_refractive_index; //!< complex index of refraction
+    kvector_t m_magnetic_field; //!< magnetic field in Tesla
 };
+
+// Comparison operators:
+BA_CORE_API_ bool operator==(const HomogeneousMaterial& left, const HomogeneousMaterial& right);
+BA_CORE_API_ bool operator!=(const HomogeneousMaterial& left, const HomogeneousMaterial& right);
 
 #endif // HOMOGENEOUSMATERIAL_H

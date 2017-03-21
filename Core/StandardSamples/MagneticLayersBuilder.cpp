@@ -1,6 +1,6 @@
 #include "MagneticLayersBuilder.h"
 #include "FormFactorFullSphere.h"
-#include "HomogeneousMagneticMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "MultiLayer.h"
 #include "Particle.h"
@@ -22,8 +22,8 @@ MultiLayer*MagneticSubstrateZeroFieldBuilder::buildSample() const
     kvector_t substr_field(0.0, 0.0, 0.0);
     kvector_t particle_field(0.1, 0.0, 0.0);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMagneticMaterial substrate_material("Substrate", 7e-6, 2e-8, substr_field);
-    HomogeneousMagneticMaterial particle_material("MagParticle", 6e-4, 2e-8, particle_field);
+    HomogeneousMaterial substrate_material("Substrate", 7e-6, 2e-8, substr_field);
+    HomogeneousMaterial particle_material("MagParticle", 6e-4, 2e-8, particle_field);
 
     ParticleLayout particle_layout;
     kvector_t position(0.0, 0.0, -10.0*Units::nanometer);
@@ -58,8 +58,8 @@ MultiLayer*MagneticRotationBuilder::buildSample() const
     kvector_t substr_field(0.0, 1.0, 0.0);
     kvector_t particle_field(1.0, 0.0, 0.0);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMagneticMaterial substrate_material("Substrate", 7e-6, 2e-8, substr_field);
-    HomogeneousMagneticMaterial particle_material("MagParticle", 6e-4, 2e-8, particle_field);
+    HomogeneousMaterial substrate_material("Substrate", 7e-6, 2e-8, substr_field);
+    HomogeneousMaterial particle_material("MagParticle", 6e-4, 2e-8, particle_field);
 
     ParticleLayout particle_layout;
     kvector_t position(0.0, 0.0, -10.0*Units::nanometer);

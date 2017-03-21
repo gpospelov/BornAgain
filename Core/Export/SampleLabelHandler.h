@@ -27,7 +27,7 @@ class IAbstractParticle;
 class IFormFactor;
 class IInterferenceFunction;
 class ILayout;
-class IMaterial;
+class HomogeneousMaterial;
 class IRotation;
 class Layer;
 class LayerRoughness;
@@ -116,7 +116,7 @@ public:
     typedef LabelMap<const IFormFactor*> formfactors_t;
     typedef LabelMap<const IInterferenceFunction*> interferences_t;
     typedef LabelMap<const ILayout*> layouts_t;
-    typedef std::map<const IMaterial*, std::string> materials_t;
+    typedef std::map<const HomogeneousMaterial*, std::string> materials_t;
     typedef LabelMap<const IRotation*> rotations_t;
     typedef LabelMap<const Layer*> layers_t;
     typedef LabelMap<const LayerRoughness*> roughnesses_t;
@@ -144,7 +144,7 @@ public:
     std::string getLabelFormFactor(const IFormFactor* sample);
     std::string getLabelInterferenceFunction(const IInterferenceFunction* sample);
     std::string getLabelLayout(const ILayout* sample);
-    std::string getLabelMaterial(const IMaterial* sample);
+    std::string getLabelMaterial(const HomogeneousMaterial* sample);
     std::string getLabelRotation(const IRotation* sample);
     std::string getLabelLayer(const Layer* sample);
     std::string getLabelRoughness(const LayerRoughness* sample);
@@ -153,7 +153,7 @@ public:
     std::string getLabelParticleCoreShell(const ParticleCoreShell* sample);
     std::string getLabelParticleDistribution(const ParticleDistribution* sample);
 
-    void insertMaterial(const IMaterial* sample);
+    void insertMaterial(const HomogeneousMaterial* sample);
     void insertFormFactor(const IFormFactor* sample);
     void insertInterferenceFunction(const IInterferenceFunction* sample);
     void insertLayout(const ILayout* sample);

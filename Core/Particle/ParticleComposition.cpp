@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "FormFactorWeighted.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "ParticleDistribution.h"
 
 ParticleComposition::ParticleComposition()
@@ -100,14 +100,14 @@ IFormFactor* ParticleComposition::createTransformedFormFactor(
     return p_result;
 }
 
-const IParticle* ParticleComposition::getParticle(size_t index) const
+const IParticle* ParticleComposition::particle(size_t index) const
 {
     return m_particles[check_index(index)].get();
 }
 
-kvector_t ParticleComposition::getParticlePosition(size_t index) const
+kvector_t ParticleComposition::particlePosition(size_t index) const
 {
-    return m_particles[check_index(index)]->getPosition();
+    return m_particles[check_index(index)]->position();
 }
 
 std::vector<const INode*> ParticleComposition::getChildren() const
@@ -121,8 +121,8 @@ std::vector<const INode*> ParticleComposition::getChildren() const
 SafePointerVector<IParticle> ParticleComposition::decompose() const
 {
     SafePointerVector<IParticle> result;
-    auto p_rotation = getRotation();
-    auto translation = getPosition();
+    auto p_rotation = rotation();
+    auto translation = position();
     for (auto& P_particle : m_particles)
     {
         auto sublist = P_particle->decompose();

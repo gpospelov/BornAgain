@@ -75,7 +75,7 @@ ParticleLayout* ParticleLayout::clone() const
     if (mP_interference_function)
         p_new->setAndRegisterInterferenceFunction(mP_interference_function->clone());
 
-    p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
+    p_new->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
     p_new->setApproximation(getApproximation());
 
     return p_new;
@@ -92,7 +92,7 @@ ParticleLayout* ParticleLayout::cloneInvertB() const
     if (mP_interference_function)
         p_new->setAndRegisterInterferenceFunction(mP_interference_function->clone());
 
-    p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
+    p_new->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
     p_new->setApproximation(getApproximation());
 
     return p_new;
@@ -146,17 +146,17 @@ void ParticleLayout::addParticle(const IParticle& particle, double abundance,
 }
 
 //! Returns particle info
-const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
+const IAbstractParticle* ParticleLayout::particle(size_t index) const
 {
     if (index>=m_particles.size())
         throw Exceptions::OutOfBoundsException(
-            "ParticleLayout::getParticle() -> Error! Not so many particles in this decoration.");
+            "ParticleLayout::particle() -> Error! Not so many particles in this decoration.");
     return m_particles[index];
 }
 
 //! Returns information on all particles (type and abundance)
 //! and generates new particles if an IAbstractParticle denotes a collection
-SafePointerVector<const IParticle> ParticleLayout::getParticles() const
+SafePointerVector<const IParticle> ParticleLayout::particles() const
 {
     SafePointerVector<const IParticle> particle_vector;
     for (auto particle: m_particles) {
@@ -173,12 +173,12 @@ SafePointerVector<const IParticle> ParticleLayout::getParticles() const
 }
 
 //! Returns the abundance fraction of particle at given index.
-double ParticleLayout::getAbundanceOfParticle(size_t index) const
+double ParticleLayout::abundanceOfParticle(size_t index) const
 {
-    return m_particles[index]->getAbundance();
+    return m_particles[index]->abundance();
 }
 
-const IInterferenceFunction*ParticleLayout::getInterferenceFunction() const
+const IInterferenceFunction*ParticleLayout::interferenceFunction() const
 {
     return mP_interference_function.get();
 }
@@ -189,7 +189,7 @@ void ParticleLayout::addInterferenceFunction(const IInterferenceFunction& interf
     setAndRegisterInterferenceFunction(interference_function.clone());
 }
 
-double ParticleLayout::getTotalParticleSurfaceDensity() const
+double ParticleLayout::totalParticleSurfaceDensity() const
 {
     double iff_density =
         mP_interference_function ? mP_interference_function->getParticleDensity() : 0.0;

@@ -32,7 +32,7 @@ template <class T> class BA_CORE_API_ ItemStackPresenter : public ItemStackWidge
 public:
     ItemStackPresenter(bool single_widget = false) : m_single_widget(single_widget){}
 
-    virtual void setItem(SessionItem* item, bool& isNew);
+    virtual void setItem(SessionItem* item, bool* isNew = 0);
 
     T* currentWidget();
     T* itemWidget(SessionItem* item);
@@ -48,11 +48,13 @@ private:
 };
 
 template <class T>
-void ItemStackPresenter<T>::setItem(SessionItem* item, bool& isNew)
+void ItemStackPresenter<T>::setItem(SessionItem* item, bool* isNew)
 {
     validateItem(item);
 
-    isNew = false;
+    if(isNew)
+        *isNew = false;
+
     if (!item) {
         hideWidgets();
         return;
@@ -62,7 +64,8 @@ void ItemStackPresenter<T>::setItem(SessionItem* item, bool& isNew)
 
     if (!widget) {
         widget = new T();
-        isNew = true;
+        if(isNew)
+            *isNew = true;
         m_stackedWidget->addWidget(widget);
         m_itemToWidget[item] = widget;
     }

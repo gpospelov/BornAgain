@@ -28,14 +28,12 @@
 #include <QListView>
 #include <QStackedWidget>
 #include <QToolButton>
-#include <QDebug>
 
 InstrumentView::InstrumentView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_instrumentModel(mainWindow->instrumentModel())
     , m_toolBar(new StyledToolBar(this))
     , m_instrumentSelector(new InstrumentSelectorWidget(m_instrumentModel, this))
-//    , m_instrumentEditor(new InstrumentEditorWidget)
     , m_instrumentEditor(new ItemStackPresenter<InstrumentEditorWidget>(true))
     , m_addInstrumentAction(0)
     , m_removeInstrumentAction(0)
@@ -89,15 +87,10 @@ void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *detectorItem)
 
 void InstrumentView::onItemSelectionChanged(SessionItem* instrumentItem)
 {
-    qDebug() << "InstrumentView::onItemSelectionChanged";
-    bool isNew;
-    m_instrumentEditor->setItem(instrumentItem, isNew);
+    m_instrumentEditor->setItem(instrumentItem);
 
-    qDebug() << "AAAA isNew" << isNew << "instrumentItem" << instrumentItem << "widget" << m_instrumentEditor->currentWidget();
-    if(instrumentItem) qDebug() << "          " << instrumentItem->itemName();
-    if(InstrumentEditorWidget* widget = m_instrumentEditor->currentWidget())
+    if(auto widget = m_instrumentEditor->currentWidget())
         widget->setInstrumentItem(instrumentItem);
-//    m_instrumentEditor->setInstrumentItem(instrumentItem);
 }
 
 void InstrumentView::showEvent(QShowEvent*)

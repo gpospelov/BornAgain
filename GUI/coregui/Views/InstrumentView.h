@@ -59,7 +59,6 @@ private:
     class StyledToolBar *m_toolBar;
     InstrumentSelectorWidget *m_instrumentSelector;
 
-//    InstrumentEditorWidget* m_instrumentEditor;
     ItemStackPresenter<InstrumentEditorWidget> *m_instrumentEditor;
 
     QAction *m_addInstrumentAction;

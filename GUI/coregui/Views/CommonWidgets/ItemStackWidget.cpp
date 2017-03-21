@@ -75,8 +75,7 @@ void ItemStackWidget::onRowsAboutToBeRemoved(const QModelIndex& parent, int firs
 
 void ItemStackWidget::onSelectionChanged(SessionItem* item)
 {
-    bool isNew(false);
-    setItem(item, isNew);
+    setItem(item);
 }
 
 void ItemStackWidget::connectModel()

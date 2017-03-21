@@ -107,19 +107,19 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
 
 MultiLayer* MultiLayer::cloneInvertB() const
 {
-    MultiLayer* result = new MultiLayer();
+    std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     if (numberOfLayers()>0)
-        result->addLayer(*m_layers[0]);
+        P_result->addLayer(*m_layers[0]);
     for (size_t i=1; i<numberOfLayers(); ++i)
     {
         auto p_interface = m_interfaces[i-1];
         std::unique_ptr<Layer> P_layer(m_layers[i]->cloneInvertB());
         if (p_interface->getRoughness())
-            result->addLayerWithTopRoughness(*P_layer, *p_interface->getRoughness());
+            P_result->addLayerWithTopRoughness(*P_layer, *p_interface->getRoughness());
         else
-            result->addLayer(*P_layer);
+            P_result->addLayer(*P_layer);
     }
-    return result;
+    return P_result.release();
 }
 
 //! Returns pointer to the top interface of the layer.

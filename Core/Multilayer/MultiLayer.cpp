@@ -314,6 +314,11 @@ double MultiLayer::layerTopZ(size_t i_layer) const
 
 double MultiLayer::layerBottomZ(size_t i_layer) const
 {
+    if (numberOfLayers()<2)
+        return 0;
+    // Never use last entry in m_layers_z:
+    if (i_layer==numberOfLayers()-1)
+        --i_layer;
     return m_layers_z[ check_layer_index(i_layer) ];
 }
 

@@ -67,36 +67,7 @@ void MultiLayer::clear() // TODO: understand need
 
 MultiLayer* MultiLayer::clone() const
 {
-    MultiLayer* newMultiLayer = new MultiLayer();
-
-    newMultiLayer->m_layers_z = m_layers_z;
-
-    std::vector<Layer*> layer_buffer;
-    for (size_t i=0; i<m_layers.size(); i++)
-        layer_buffer.push_back(m_layers[i]->clone() );
-
-    for (size_t i=0; i<m_interfaces.size(); i++) {
-        const Layer* topLayer = layer_buffer[i];
-        const Layer* bottomLayer = layer_buffer[i+1];
-
-        LayerInterface* newInterface(0);
-        if (m_interfaces[i]->getRoughness())
-            newInterface = LayerInterface::createRoughInterface(topLayer,
-                    bottomLayer, *m_interfaces[i]->getRoughness() );
-        else
-            newInterface = LayerInterface::createSmoothInterface(topLayer, bottomLayer );
-        newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
-        newMultiLayer->addAndRegisterInterface( newInterface );
-    }
-
-    if (layer_buffer.size())
-        newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
-
-    newMultiLayer->m_crossCorrLength = m_crossCorrLength;
-
-    newMultiLayer->init_parameters();
-
-    return newMultiLayer;
+    return cloneGeneric( [](const Layer* p_layer) { return p_layer->clone(); } );
 }
 
 MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
@@ -107,18 +78,7 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
 
 MultiLayer* MultiLayer::cloneInvertB() const
 {
-    std::unique_ptr<MultiLayer> P_result(new MultiLayer());
-    for (size_t i=0; i<numberOfLayers(); ++i)
-    {
-        auto p_interface = i>0 ? m_interfaces[i-1]
-                               : nullptr;
-        std::unique_ptr<Layer> P_layer(m_layers[i]->cloneInvertB());
-        if (i>0 && p_interface->getRoughness())
-            P_result->addLayerWithTopRoughness(*P_layer, *p_interface->getRoughness());
-        else
-            P_result->addLayer(*P_layer);
-    }
-    return P_result.release();
+    return cloneGeneric( [](const Layer* p_layer) { return p_layer->cloneInvertB(); } );
 }
 
 //! Returns pointer to the top interface of the layer.
@@ -297,6 +257,22 @@ size_t MultiLayer::check_interface_index(size_t i_interface) const
     if (i_interface >= m_interfaces.size())
         throw Exceptions::OutOfBoundsException("Interface index is out of bounds");
     return i_interface;
+}
+
+MultiLayer* MultiLayer::cloneGeneric(const std::function<Layer*(const Layer*)>& layer_clone) const
+{
+    std::unique_ptr<MultiLayer> P_result(new MultiLayer());
+    for (size_t i=0; i<numberOfLayers(); ++i)
+    {
+        auto p_interface = i>0 ? m_interfaces[i-1]
+                               : nullptr;
+        std::unique_ptr<Layer> P_layer(layer_clone(m_layers[i]));
+        if (i>0 && p_interface->getRoughness())
+            P_result->addLayerWithTopRoughness(*P_layer, *p_interface->getRoughness());
+        else
+            P_result->addLayer(*P_layer);
+    }
+    return P_result.release();
 }
 
 bool MultiLayer::requiresMatrixRTCoefficients() const

@@ -157,6 +157,9 @@ private:
     //! Checks index of interface w.r.t. vector length
     size_t check_interface_index(size_t i_interface) const;
 
+    //! Shared implementation for different clones
+    MultiLayer* cloneGeneric(const std::function<Layer*(const Layer*)>& layer_clone) const;
+
     //! stack of layers [nlayers]
     std::vector<Layer*> m_layers;
     //! coordinate of layer's bottoms [nlayers]

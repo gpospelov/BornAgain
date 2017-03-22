@@ -24,7 +24,7 @@
 class ZLimits
 {
 public:
-    enum Type { FINITE, INFINITE, POS_INFINITE, NEG_INFINITE };
+    enum Type { FINITE, INFINITE, POS_INFINITE, NEG_INFINITE, NONE };
     ZLimits(Type type=INFINITE, double ref=0.0);
     ZLimits(double min, double max);
 

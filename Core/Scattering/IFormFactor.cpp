@@ -72,6 +72,8 @@ bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
         return ztop<=limits.zmax();
     case ZLimits::POS_INFINITE:
         return zbottom>=limits.zmin();
+    case ZLimits::NONE:
+        return false;
     }
     return false;
 }

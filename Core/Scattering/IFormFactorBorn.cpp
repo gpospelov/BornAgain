@@ -102,6 +102,11 @@ SlicingEffects IFormFactorBorn::computeSlicingEffects(ZLimits limits, const kvec
         dz_bottom = 0;
         break;
     }
+    case ZLimits::NONE:
+    {
+        throw std::runtime_error(getName() + "::sliceFormFactor error: "
+                                 "limits can't be set to 'NONE'.");
+    }
     }
     if (dz_bottom < 0) dz_bottom = 0;
     if (dz_top < 0) dz_top = 0;

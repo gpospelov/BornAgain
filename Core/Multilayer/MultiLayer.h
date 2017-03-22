@@ -163,7 +163,7 @@ private:
     //! stack of layers [nlayers]
     std::vector<Layer*> m_layers;
     //! coordinate of layer's bottoms [nlayers]
-    std::vector<double> m_layers_z;
+    std::vector<double> m_layers_bottomz;
     //! stack of layer interfaces [nlayers-1]
     std::vector<LayerInterface*> m_interfaces;
     //! cross correlation length (in z direction) between different layers

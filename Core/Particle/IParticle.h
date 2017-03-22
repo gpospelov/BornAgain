@@ -75,6 +75,9 @@ public:
     //! Decompose in constituent IParticle objects
     virtual SafePointerVector<IParticle> decompose() const;
 
+    //! Top and bottom z-coordinate
+    std::pair<double, double> topBottomZ() const;
+
 protected:
     //! Creates a composed IRotation object
     IRotation* createComposedRotation(const IRotation* p_rotation) const;

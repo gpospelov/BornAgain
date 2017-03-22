@@ -85,11 +85,10 @@ std::pair<size_t, size_t> LayerIndicesLimits(const IParticle& particle,
                                              const MultiLayer& multilayer,
                                              size_t ref_layer_index)
 {
-    std::unique_ptr<IFormFactor> P_ff(particle.createFormFactor());
-    std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
     double position_offset = multilayer.layerTopZ(ref_layer_index);
-    double ztop = P_ff->topZ(*P_rot);
-    double zbottom = P_ff->bottomZ(*P_rot);
+    auto topBottom = particle.topBottomZ();
+    double ztop = topBottom.first;
+    double zbottom = topBottom.second;
     double eps = (ztop - zbottom)*1e-6;  // allow for relatively small crossing due to numerical
                                          // approximations (like rotation over 180 degrees)
     double zmax = ztop + position_offset - eps;

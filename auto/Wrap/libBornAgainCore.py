@@ -18702,6 +18702,11 @@ class IParticle(IAbstractParticle):
         """
         return _libBornAgainCore.IParticle_decompose(self)
 
+
+    def topBottomZ(self):
+        """topBottomZ(IParticle self) -> std::pair< double,double >"""
+        return _libBornAgainCore.IParticle_topBottomZ(self)
+
 IParticle_swigregister = _libBornAgainCore.IParticle_swigregister
 IParticle_swigregister(IParticle)
 

@@ -16,6 +16,8 @@
 #ifndef ZLIMITS_H
 #define ZLIMITS_H
 
+#include <iostream>
+
 //! Helper class that represents a onesided limit
 //!
 //! @ingroup intern
@@ -52,9 +54,13 @@ OneSidedLimit MaxLimit(const OneSidedLimit& left, const OneSidedLimit& right);
 bool operator==(const OneSidedLimit& left, const OneSidedLimit& right);
 bool operator!=(const OneSidedLimit& left, const OneSidedLimit& right);
 
+std::ostream& operator<<(std::ostream& ostr, const OneSidedLimit& limit);
+
 ZLimits ConvexHull(const ZLimits& left, const ZLimits& right);
 bool operator==(const ZLimits& left, const ZLimits& right);
 bool operator!=(const ZLimits& left, const ZLimits& right);
+
+std::ostream& operator<<(std::ostream& ostr, const ZLimits& limits);
 
 
 #endif // ZLIMITS_H

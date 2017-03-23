@@ -80,6 +80,11 @@ bool operator!=(const OneSidedLimit& left, const OneSidedLimit& right)
     return !(left==right);
 }
 
+std::ostream& operator<<(std::ostream& ostr, const OneSidedLimit& limit)
+{
+    return ostr << "{" << (limit.m_limitless ? "true, " : "false, ") << limit.m_value << "}";
+}
+
 ZLimits ConvexHull(const ZLimits& left, const ZLimits& right)
 {
     return { MinLimit(left.lowerLimit(), right.lowerLimit()),
@@ -95,4 +100,8 @@ bool operator==(const ZLimits& left, const ZLimits& right)
 bool operator!=(const ZLimits& left, const ZLimits& right)
 {
     return !(left==right);
+}
+
+std::ostream& operator<<(std::ostream& ostr, const ZLimits& limits) {
+    return ostr << "Lower: " << limits.lowerLimit() << ", Upper: " << limits.upperLimit();
 }

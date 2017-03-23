@@ -80,27 +80,15 @@ void LayerFillLimits::updateLayerLimits(size_t i_layer, ZLimits limits)
         throw std::runtime_error("LayerFillLimits::updateLayerLimits: given limits are not "
                                  "finite.");
     auto old_limits = m_layer_fill_limits[i_layer];
-    if (i_layer==0)
-    {
-        double layer_base = m_layers_bottomz[i_layer];
-        ZLimits bounded_limits(0, limits.upperLimit().m_value - layer_base);
-        m_layer_fill_limits[i_layer] = CalculateNewLayerLimits(old_limits, bounded_limits);
-    }
-    else if (i_layer==m_layer_fill_limits.size()-1)
-    {
-        double layer_ref = m_layers_bottomz[i_layer-1];
-        ZLimits bounded_limits(limits.lowerLimit().m_value - layer_ref, 0);
-        m_layer_fill_limits[i_layer] = CalculateNewLayerLimits(old_limits, bounded_limits);
-    }
-    else
-    {
-        double layer_ref = m_layers_bottomz[i_layer-1];
-        double local_bottom = std::max(limits.lowerLimit().m_value, m_layers_bottomz[i_layer])
-                              - layer_ref;
-        double local_top = std::min(limits.upperLimit().m_value, layer_ref) - layer_ref;
-        ZLimits bounded_limits(local_bottom, local_top);
-        m_layer_fill_limits[i_layer] = CalculateNewLayerLimits(old_limits, bounded_limits);
-    }
+    double layer_ref = i_layer ? m_layers_bottomz[i_layer-1]
+                               : m_layers_bottomz[i_layer];
+    double upper = i_layer ? std::min(limits.upperLimit().m_value, layer_ref)
+                           : limits.upperLimit().m_value;
+    double lower = (i_layer==m_layer_fill_limits.size()-1)
+                    ? limits.lowerLimit().m_value
+                    : std::max(limits.lowerLimit().m_value, m_layers_bottomz[i_layer]);
+    ZLimits bounded_limits(lower - layer_ref, upper - layer_ref);
+    m_layer_fill_limits[i_layer] = CalculateNewLayerLimits(old_limits, bounded_limits);
 }
 
 namespace

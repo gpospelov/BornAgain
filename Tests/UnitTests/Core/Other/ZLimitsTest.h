@@ -85,55 +85,55 @@ TEST_F(ZLimitsTest, ZLimitsConvexHull)
     ZLimits limits;
 
     limits = ConvexHull(limitless, limitless);
-    EXPECT_TRUE(limitless==limits);
+    EXPECT_EQ(limitless, limits);
 
     limits = ConvexHull(limitless, poslimit1);
-    EXPECT_TRUE(limitless==limits);
+    EXPECT_EQ(limitless, limits);
     limits = ConvexHull(poslimit1, limitless);
-    EXPECT_TRUE(limitless==limits);
+    EXPECT_EQ(limitless, limits);
 
     limits = ConvexHull(limitless, neglimit1);
-    EXPECT_TRUE(limitless==limits);
+    EXPECT_EQ(limitless, limits);
     limits = ConvexHull(neglimit1, limitless);
-    EXPECT_TRUE(limitless==limits);
+    EXPECT_EQ(limitless, limits);
 
     limits = ConvexHull(limitless, finite1);
-    EXPECT_TRUE(limitless==limits);
+    EXPECT_EQ(limitless, limits);
     limits = ConvexHull(finite1, limitless);
-    EXPECT_TRUE(limitless==limits);
+    EXPECT_EQ(limitless, limits);
 
     limits = ConvexHull(poslimit1, poslimit2);
-    EXPECT_TRUE(poslimit1==limits);
+    EXPECT_EQ(poslimit1, limits);
     limits = ConvexHull(poslimit2, poslimit1);
-    EXPECT_TRUE(poslimit1==limits);
+    EXPECT_EQ(poslimit1, limits);
 
     limits = ConvexHull(poslimit1, neglimit1);
-    EXPECT_TRUE(limitless==limits);
+    EXPECT_EQ(limitless, limits);
     limits = ConvexHull(neglimit1, poslimit1);
-    EXPECT_TRUE(limitless==limits);
+    EXPECT_EQ(limitless, limits);
 
     limits = ConvexHull(poslimit1, finite1);
-    EXPECT_TRUE(ZLimits({false, -3}, {true, 0})==limits);
+    EXPECT_EQ(ZLimits({false, -3}, {true, 0}), limits);
     limits = ConvexHull(finite1, poslimit1);
-    EXPECT_TRUE(ZLimits({false, -3}, {true, 0})==limits);
+    EXPECT_EQ(ZLimits({false, -3}, {true, 0}), limits);
 
     limits = ConvexHull(neglimit1, neglimit2);
-    EXPECT_TRUE(neglimit2==limits);
+    EXPECT_EQ(neglimit2, limits);
     limits = ConvexHull(neglimit2, neglimit1);
-    EXPECT_TRUE(neglimit2==limits);
+    EXPECT_EQ(neglimit2, limits);
 
     limits = ConvexHull(neglimit1, finite1);
-    EXPECT_TRUE(ZLimits({true, 0}, {false, 5})==limits);
+    EXPECT_EQ(ZLimits({true, 0}, {false, 5}), limits);
     limits = ConvexHull(finite1, neglimit1);
-    EXPECT_TRUE(ZLimits({true, 0}, {false, 5})==limits);
+    EXPECT_EQ(ZLimits({true, 0}, {false, 5}), limits);
 
     limits = ConvexHull(finite1, finite2);
-    EXPECT_TRUE(ZLimits(-3, 6)==limits);
+    EXPECT_EQ(ZLimits(-3, 6), limits);
     limits = ConvexHull(finite2, finite1);
-    EXPECT_TRUE(ZLimits(-3, 6)==limits);
+    EXPECT_EQ(ZLimits(-3, 6), limits);
 
     limits = ConvexHull(finite1, finite3);
-    EXPECT_TRUE(ZLimits(-3, 15)==limits);
+    EXPECT_EQ(ZLimits(-3, 15), limits);
     limits = ConvexHull(finite3, finite1);
-    EXPECT_TRUE(ZLimits(-3, 15)==limits);
+    EXPECT_EQ(ZLimits(-3, 15), limits);
 }

@@ -47,13 +47,6 @@ OneSidedLimit ZLimits::upperLimit() const
     return m_upper;
 }
 
-ZLimits Union(const ZLimits& left, const ZLimits& right)
-{
-    auto lower = MinLimit(left.lowerLimit(), right.lowerLimit());
-    auto upper = MaxLimit(left.upperLimit(), right.upperLimit());
-    return ZLimits(lower, upper);
-}
-
 OneSidedLimit MinLimit(const OneSidedLimit& left, const OneSidedLimit& right)
 {
     if (left.m_limitless || right.m_limitless)
@@ -66,4 +59,33 @@ OneSidedLimit MaxLimit(const OneSidedLimit& left, const OneSidedLimit& right)
     if (left.m_limitless || right.m_limitless)
         return { true, 0 };
     return { false, std::max(left.m_value, right.m_value) };
+}
+
+bool operator==(const OneSidedLimit& left, const OneSidedLimit& right)
+{
+    if (left.m_limitless != right.m_limitless) return false;
+    if (!left.m_limitless && left.m_value != right.m_value) return false;
+    return true;
+}
+
+bool operator!=(const OneSidedLimit& left, const OneSidedLimit& right)
+{
+    return !(left==right);
+}
+
+ZLimits ConvexHull(const ZLimits& left, const ZLimits& right)
+{
+    return { MinLimit(left.lowerLimit(), right.lowerLimit()),
+             MaxLimit(left.upperLimit(), right.upperLimit()) };
+}
+
+bool operator==(const ZLimits& left, const ZLimits& right)
+{
+    return (   left.lowerLimit()==right.lowerLimit()
+            && left.upperLimit()==right.upperLimit());
+}
+
+bool operator!=(const ZLimits& left, const ZLimits& right)
+{
+    return !(left==right);
 }

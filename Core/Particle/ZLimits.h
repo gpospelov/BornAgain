@@ -45,8 +45,14 @@ private:
     OneSidedLimit m_upper;
 };
 
-ZLimits Union(const ZLimits& left, const ZLimits& right);
 OneSidedLimit MinLimit(const OneSidedLimit& left, const OneSidedLimit& right);
 OneSidedLimit MaxLimit(const OneSidedLimit& left, const OneSidedLimit& right);
+bool operator==(const OneSidedLimit& left, const OneSidedLimit& right);
+bool operator!=(const OneSidedLimit& left, const OneSidedLimit& right);
+
+ZLimits ConvexHull(const ZLimits& left, const ZLimits& right);
+bool operator==(const ZLimits& left, const ZLimits& right);
+bool operator!=(const ZLimits& left, const ZLimits& right);
+
 
 #endif // ZLIMITS_H

@@ -1,7 +1,9 @@
 #include "Rectangle.h"
+#include "Bin.h"
 #include "Ellipse.h"
 #include "Line.h"
 #include "MathConstants.h"
+#include "Units.h"
 #include <memory>
 
 class Shape2DTest : public ::testing::Test

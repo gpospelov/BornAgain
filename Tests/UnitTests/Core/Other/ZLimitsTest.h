@@ -60,6 +60,18 @@ TEST_F(ZLimitsTest, ZLimitsOneSidedLimitConstructor)
     EXPECT_THROW(ZLimits limits8({ false, -4.0 }, { false, -5.0 }), std::runtime_error);
 }
 
+TEST_F(ZLimitsTest, ZLimitsIsFinite)
+{
+    ZLimits limitless;
+    ZLimits poslimit({false, 0}, {true, 0});
+    ZLimits neglimit({true, 0}, {false, -1});
+    ZLimits finite(-3.0, 5.0);
+    EXPECT_FALSE(limitless.isFinite());
+    EXPECT_FALSE(poslimit.isFinite());
+    EXPECT_FALSE(neglimit.isFinite());
+    EXPECT_TRUE(finite.isFinite());
+}
+
 TEST_F(ZLimitsTest, ZLimitsConvexHull)
 {
     ZLimits limitless;

@@ -21,6 +21,12 @@
 #include <vector>
 #include <utility>
 
+struct ParticleLimits
+{
+    double m_bottom;
+    double m_top;
+};
+
 //! Helper class for the graded layer approximation. Generates limits for each layer, indicating
 //! the region of the layer (along z) that contains particle(s)
 //!
@@ -34,7 +40,7 @@ public:
     LayerFillLimits(std::vector<double> layers_bottomz);
 
     //! Particle limits are given in global coordinates
-    void update(std::pair<double, double> particle_limits, double offset=0.0);
+    void update(ParticleLimits particle_limits, double offset=0.0);
 
     //! Returns the filled region limits for each layer (in local layer coordinates)
     std::vector<ZLimits> layerZLimits() const;

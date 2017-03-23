@@ -38,6 +38,8 @@ public:
     ZLimits(double min, double max);
     ZLimits(OneSidedLimit lower_limit, OneSidedLimit upper_limit);
 
+    bool isFinite() const;
+
     OneSidedLimit lowerLimit() const;
     OneSidedLimit upperLimit() const;
 private:

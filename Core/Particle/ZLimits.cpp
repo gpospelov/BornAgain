@@ -37,6 +37,13 @@ ZLimits::ZLimits(OneSidedLimit lower_limit, OneSidedLimit upper_limit)
                                  "lower limit bigger than upper limit.");
 }
 
+bool ZLimits::isFinite() const
+{
+    if (m_lower.m_limitless || m_upper.m_limitless)
+        return false;
+    return true;
+}
+
 OneSidedLimit ZLimits::lowerLimit() const
 {
     return m_lower;

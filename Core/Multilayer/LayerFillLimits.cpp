@@ -15,21 +15,35 @@
 
 #include "LayerFillLimits.h"
 #include <algorithm>
+#include <stdexcept>
+
+namespace
+{
+ZLimits CalculateNewLayerLimits(ZLimits old_limits, ZLimits bounded_limits);
+}
 
 LayerFillLimits::LayerFillLimits(std::vector<double> layers_bottomz)
     : m_layers_bottomz(std::move(layers_bottomz))
-    , m_layer_fill_limits(layers_bottomz.size() + 1)
+    , m_layer_fill_limits(m_layers_bottomz.size() + 1)
     // default ZLimits designate an absence of limits
 {}
 
-void LayerFillLimits::update(std::pair<double, double> particle_limits, double offset)
+void LayerFillLimits::update(ParticleLimits particle_limits, double offset)
 {
-    double top = particle_limits.first + offset;
-    double bottom = particle_limits.second + offset;
-    if (bottom >= top)
+    if (m_layers_bottomz.empty()) return;  // do nothing for the single layer case
+    double top = particle_limits.m_top + offset;
+    double bottom = particle_limits.m_bottom + offset;
+    if (bottom > top)
+        throw std::runtime_error("LayerFillLimits::update: lower_limit > upper_limit.");
+    if (bottom == top)  // zero-size particle
         return;
     size_t top_index = layerIndexTop(top);
     size_t bottom_index = layerIndexBottom(bottom);
+    for (size_t i_layer=top_index; i_layer<bottom_index+1; ++i_layer)
+    {
+        ZLimits limits(bottom, top);
+        updateLayerLimits(i_layer, limits);
+    }
 }
 
 std::vector<ZLimits> LayerFillLimits::layerZLimits() const
@@ -62,5 +76,40 @@ size_t LayerFillLimits::layerIndexBottom(double bottom_z) const
 
 void LayerFillLimits::updateLayerLimits(size_t i_layer, ZLimits limits)
 {
+    if (!limits.isFinite())
+        throw std::runtime_error("LayerFillLimits::updateLayerLimits: given limits are not "
+                                 "finite.");
+    auto old_limits = m_layer_fill_limits[i_layer];
+    if (i_layer==0)
+    {
+        double layer_base = m_layers_bottomz[i_layer];
+        ZLimits bounded_limits(0, limits.upperLimit().m_value - layer_base);
+        m_layer_fill_limits[i_layer] = CalculateNewLayerLimits(old_limits, bounded_limits);
+    }
+    else if (i_layer==m_layer_fill_limits.size()-1)
+    {
+        double layer_ref = m_layers_bottomz[i_layer-1];
+        ZLimits bounded_limits(limits.lowerLimit().m_value - layer_ref, 0);
+        m_layer_fill_limits[i_layer] = CalculateNewLayerLimits(old_limits, bounded_limits);
+    }
+    else
+    {
+        double layer_ref = m_layers_bottomz[i_layer-1];
+        double local_bottom = std::max(limits.lowerLimit().m_value, m_layers_bottomz[i_layer])
+                              - layer_ref;
+        double local_top = std::min(limits.upperLimit().m_value, layer_ref) - layer_ref;
+        ZLimits bounded_limits(local_bottom, local_top);
+        m_layer_fill_limits[i_layer] = CalculateNewLayerLimits(old_limits, bounded_limits);
+    }
+}
 
+namespace
+{
+ZLimits CalculateNewLayerLimits(ZLimits old_limits, ZLimits bounded_limits)
+{
+    if (!old_limits.isFinite())
+        return bounded_limits;
+    else
+        return ConvexHull(old_limits, bounded_limits);
+}
 }

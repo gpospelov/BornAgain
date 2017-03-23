@@ -56,6 +56,8 @@ public:
     //! Applies extra translation by adding it to the current one
     void applyTranslation(kvector_t displacement);
 
+    void translateZ(double offset) override;
+
     //! Returns rotation object
     const IRotation* rotation() const;
 

@@ -42,6 +42,9 @@ public:
     double abundance() const { return m_abundance; }
     void setAbundance(double abundance) { m_abundance = abundance; }
 
+    //! Applies a translation in the z-direction
+    virtual void translateZ(double offset) =0;
+
 protected:
     double m_abundance;
 };

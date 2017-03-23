@@ -36,6 +36,7 @@ public:
     ~ParticleLayout();
 
     ParticleLayout* clone() const final override;
+    ParticleLayout* cloneWithOffset(double offset) const final override;
 
     void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 

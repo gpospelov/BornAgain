@@ -44,6 +44,11 @@ ParticleDistribution* ParticleDistribution::clone() const
     return p_result;
 }
 
+void ParticleDistribution::translateZ(double offset)
+{
+    mP_particle->translateZ(offset);
+}
+
 //! Returns particle clones with parameter values drawn from distribution.
 
 std::vector<const IParticle*> ParticleDistribution::generateParticles() const

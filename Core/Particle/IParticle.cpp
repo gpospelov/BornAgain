@@ -35,6 +35,12 @@ void IParticle::applyTranslation(kvector_t displacement)
     m_position += displacement;
 }
 
+void IParticle::translateZ(double offset)
+{
+    kvector_t translation(0, 0, offset);
+    applyTranslation(translation);
+}
+
 const IRotation* IParticle::rotation() const
 {
     return mP_rotation.get();

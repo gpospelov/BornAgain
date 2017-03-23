@@ -63,19 +63,13 @@ bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
 {
     double zbottom = formfactor.bottomZ(rot) + translation.z();
     double ztop = formfactor.topZ(rot) + translation.z();
-    switch (limits.type()) {
-    case ZLimits::FINITE:
-        return zbottom>=limits.zmin() && ztop<=limits.zmax();
-    case ZLimits::INFINITE:
-        return true;
-    case ZLimits::NEG_INFINITE:
-        return ztop<=limits.zmax();
-    case ZLimits::POS_INFINITE:
-        return zbottom>=limits.zmin();
-    case ZLimits::NONE:
+    OneSidedLimit lower_limit = limits.lowerLimit();
+    OneSidedLimit upper_limit = limits.upperLimit();
+    if (!upper_limit.m_limitless && ztop > upper_limit.m_value)
         return false;
-    }
-    return false;
+    if (!lower_limit.m_limitless && zbottom < lower_limit.m_value)
+        return false;
+    return true;
 }
 
 IFormFactor* CreateTransformedFormFactor(const IFormFactor& formfactor, const IRotation& rot,

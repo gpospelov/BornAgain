@@ -16,6 +16,16 @@
 #ifndef ZLIMITS_H
 #define ZLIMITS_H
 
+//! Helper class that represents a onesided limit
+//!
+//! @ingroup intern
+
+struct OneSidedLimit
+{
+    bool m_limitless;
+    double m_value;
+};
+
 //! Class that contains upper and lower limits of the z-coordinate for the slicing of
 //! form factors.
 //!
@@ -24,17 +34,19 @@
 class ZLimits
 {
 public:
-    enum Type { FINITE, INFINITE, POS_INFINITE, NEG_INFINITE, NONE };
-    ZLimits(Type type=INFINITE, double ref=0.0);
+    ZLimits();
     ZLimits(double min, double max);
+    ZLimits(OneSidedLimit lower_limit, OneSidedLimit upper_limit);
 
-    Type type() const { return m_type; }
-    double zmin() const { return m_min; }
-    double zmax() const { return m_max; }
+    OneSidedLimit lowerLimit() const;
+    OneSidedLimit upperLimit() const;
 private:
-    Type m_type;
-    double m_min;
-    double m_max;
+    OneSidedLimit m_lower;
+    OneSidedLimit m_upper;
 };
+
+ZLimits Union(const ZLimits& left, const ZLimits& right);
+OneSidedLimit MinLimit(const OneSidedLimit& left, const OneSidedLimit& right);
+OneSidedLimit MaxLimit(const OneSidedLimit& left, const OneSidedLimit& right);
 
 #endif // ZLIMITS_H

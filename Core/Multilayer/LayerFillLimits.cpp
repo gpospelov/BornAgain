@@ -18,14 +18,9 @@
 
 LayerFillLimits::LayerFillLimits(std::vector<double> layers_bottomz)
     : m_layers_bottomz(std::move(layers_bottomz))
-{
-    size_t n_layers = layers_bottomz.size() + 1;
-    if (n_layers < 2)
-        m_layer_fill_limits.emplace_back(ZLimits::INFINITE);
-    else
-        for (size_t i=0; i<n_layers; ++i)
-            m_layer_fill_limits.emplace_back(ZLimits::NONE);
-}
+    , m_layer_fill_limits(layers_bottomz.size() + 1)
+    // default ZLimits designate an absence of limits
+{}
 
 void LayerFillLimits::update(std::pair<double, double> particle_limits, double offset)
 {
@@ -62,5 +57,10 @@ size_t LayerFillLimits::layerIndexBottom(double bottom_z) const
     auto index_below = std::upper_bound(m_layers_bottomz.rbegin(),
                                         m_layers_bottomz.rend(), bottom_z);
     return static_cast<size_t>(m_layers_bottomz.rend() - index_below);
+
+}
+
+void LayerFillLimits::updateLayerLimits(size_t i_layer, ZLimits limits)
+{
 
 }

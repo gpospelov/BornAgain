@@ -39,6 +39,7 @@ public:
 private:
     size_t layerIndexTop(double top_z) const;
     size_t layerIndexBottom(double bottom_z) const;
+    void updateLayerLimits(size_t i_layer, ZLimits limits);
     std::vector<double> m_layers_bottomz;
     std::vector<ZLimits> m_layer_fill_limits;
 };

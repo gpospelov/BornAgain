@@ -35,9 +35,27 @@ QString removeLeadingSlash(const QString& name )
     return name.indexOf('/') == 0 ? name.mid(1) : name;
 }
 
-void handleItem(SessionItem* tree, const SessionItem* source);
+#ifndef NDEBUG
 
-void populateDomainLinks(SessionItem* container);
+//! For every ParameterItem in a container creates a link to the domain.
+
+void populateDomainLinks(SessionItem* container)
+{
+    if(container->modelType() != Constants::ParameterContainerType)
+        throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
+                                "Not a ParameterContainerType.");
+
+    ParameterTreeUtils::visitParameterContainer(container, [container](ParameterItem* parItem)
+    {
+        QString translation = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(),
+                                                                    container->parent());
+        parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
+    });
+}
+
+#endif
+
+void handleItem(SessionItem* tree, const SessionItem* source);
 
 }
 
@@ -208,22 +226,6 @@ SessionItem* ParameterTreeUtils::parameterNameToLinkedItem(const QString& parNam
 }
 
 namespace {
-
-//! For every ParameterItem in a container creates a link to the domain.
-
-void populateDomainLinks(SessionItem* container)
-{
-    if(container->modelType() != Constants::ParameterContainerType)
-        throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
-                                "Not a ParameterContainerType.");
-
-    ParameterTreeUtils::visitParameterContainer(container, [container](ParameterItem* parItem)
-    {
-        QString translation = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(),
-                                                                    container->parent());
-        parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
-    });
-}
 
 void handleItem(SessionItem* tree, const SessionItem* source)
 {

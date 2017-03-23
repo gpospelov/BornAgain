@@ -45,9 +45,14 @@ public slots:
     void onSavePlotAction();
     void onMousePress(QMouseEvent *event);
 
+protected:
+    virtual void subscribeToItem();
+
 private:
     IntensityDataItem* intensityDataItem();
     void initActions();
+    void onPropertyChanged(const QString& name);
+    void applyPersistentSettings();
 
     ColorMapCanvas* m_colorMap;
     QAction* m_resetViewAction;

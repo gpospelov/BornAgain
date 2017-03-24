@@ -126,33 +126,28 @@ void ProjectManager::newProject()
     if (!closeCurrentProject())
         return;
 
-    NewProjectDialog dialog(m_mainWindow, workingDirectory(), untitledProjectName());
+    QString projectFileName = acquireProjectFileName();
 
-    if (dialog.exec() == QDialog::Accepted) {
+    if(!projectFileName.isEmpty()) {
         createNewProject();
-        m_workingDirectory = dialog.getWorkingDirectory();
-        m_project_document->setProjectFileName(dialog.getProjectFileName());
-        saveProject();
-        emit modified();
+        saveProject(projectFileName);
     }
 }
 
-bool ProjectManager::saveProject()
-{
-    if (!m_project_document->hasValidNameAndPath()) {
-        NewProjectDialog dialog(m_mainWindow, workingDirectory(), untitledProjectName());
 
-        if (dialog.exec() == QDialog::Accepted) {
-            m_workingDirectory = dialog.getWorkingDirectory();
-            m_project_document->setProjectFileName(dialog.getProjectFileName());
-        } else {
-            return false;
-        }
+bool ProjectManager::saveProject(QString projectFileName)
+{
+    if(projectFileName.isEmpty()) {
+        if(m_project_document->hasValidNameAndPath())
+            projectFileName = m_project_document->getProjectFileName();
+        else
+            projectFileName = acquireProjectFileName();
     }
 
-    bool success = m_project_document->save();
+    if(projectFileName.isEmpty())
+        return false;
 
-    if (success == false) {
+    if (!m_project_document->save(projectFileName)) {
         QMessageBox::warning(
             m_mainWindow, "Error while saving project",
             QString("Failed to save project under '%1'.").arg(m_project_document->getProjectDir()));
@@ -167,19 +162,12 @@ bool ProjectManager::saveProject()
 
 bool ProjectManager::saveProjectAs()
 {
-    NewProjectDialog dialog(m_mainWindow, workingDirectory(), untitledProjectName());
+    QString projectFileName = acquireProjectFileName();
 
-    if (dialog.exec() == QDialog::Accepted) {
-        m_workingDirectory = dialog.getWorkingDirectory();
-        m_project_document->setProjectFileName(dialog.getProjectFileName());
-        m_project_document->save();
-        addToRecentProjects();
-    } else {
+    if(projectFileName.isEmpty())
         return false;
-    }
 
-    modified();
-    return true;
+    return saveProject(projectFileName);
 }
 
 //! Opens existing project. If fileName is empty, will popup file selection dialog.
@@ -370,4 +358,18 @@ void ProjectManager::deleteCurrentProject()
     delete m_project_document;
     m_project_document = 0;
     m_mainWindow->models()->resetModels();
+}
+
+//! Returns project file name from dialog.
+
+QString ProjectManager::acquireProjectFileName()
+{
+    NewProjectDialog dialog(m_mainWindow, workingDirectory(), untitledProjectName());
+
+    if (dialog.exec() != QDialog::Accepted)
+        return QString();
+
+    m_workingDirectory = dialog.getWorkingDirectory();
+
+    return dialog.getProjectFileName();
 }

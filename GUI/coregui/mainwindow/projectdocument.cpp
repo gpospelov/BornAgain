@@ -91,13 +91,12 @@ void ProjectDocument::setApplicationModels(ApplicationModels *applicationModels)
     }
 }
 
-bool ProjectDocument::save()
+bool ProjectDocument::save(const QString& project_file_name)
 {
+    setProjectFileName(project_file_name);
     cleanProjectDir();
-//    reviseOutputData();
-    QString filename = getProjectFileName();
 
-    QFile file(filename);
+    QFile file(project_file_name);
     if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text)) {
         return false;
     }

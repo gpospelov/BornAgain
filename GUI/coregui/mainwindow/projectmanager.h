@@ -57,7 +57,7 @@ signals:
 public slots:
     void clearRecentProjects();
     void onDocumentModified();
-    bool saveProject();
+    bool saveProject(QString projectFileName = QString());
     bool saveProjectAs();
     void openProject(QString fileName = QString());
     void newProject();
@@ -72,6 +72,9 @@ private:
     void riseProjectLoadWarningDialog();
 
     void deleteCurrentProject();
+
+    QString acquireProjectFileName();
+
 
     MainWindow* m_mainWindow;
     ProjectDocument* m_project_document;

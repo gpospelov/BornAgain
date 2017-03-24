@@ -67,7 +67,7 @@ public:
 
     void setApplicationModels(ApplicationModels *applicationModels);
 
-    bool save();
+    bool save(const QString &project_file_name);
     bool load(const QString &project_file_name);
 
     bool hasValidNameAndPath();

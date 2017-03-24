@@ -29,6 +29,13 @@
 #include <QSettings>
 #include <QStandardPaths>
 
+namespace {
+    const QString S_PROJECTMANAGER = "ProjectManager";
+    const QString S_DEFAULTPROJECTPATH = "DefaultProjectPath";
+    const QString S_RECENTPROJECTS  = "RecentProjects";
+    const QString S_LASTUSEDIMPORTDIR = "LastUsedImportDir";
+}
+
 ProjectManager::ProjectManager(MainWindow* parent)
     : m_mainWindow(parent)
     , m_project_document(nullptr)
@@ -220,13 +227,13 @@ void ProjectManager::readSettings()
 {
     QSettings settings;
     m_workingDirectory = QDir::homePath();
-    if (settings.childGroups().contains(Constants::S_PROJECTMANAGER)) {
-        settings.beginGroup(Constants::S_PROJECTMANAGER);
-        m_workingDirectory = settings.value(Constants::S_DEFAULTPROJECTPATH).toString();
-        m_recentProjects = settings.value(Constants::S_RECENTPROJECTS).toStringList();
+    if (settings.childGroups().contains(S_PROJECTMANAGER)) {
+        settings.beginGroup(S_PROJECTMANAGER);
+        m_workingDirectory = settings.value(S_DEFAULTPROJECTPATH).toString();
+        m_recentProjects = settings.value(S_RECENTPROJECTS).toStringList();
 
-        if(settings.contains(Constants::S_LASTUSEDIMPORTDIR))
-            m_importDirectory = settings.value(Constants::S_LASTUSEDIMPORTDIR, QString()).toString();
+        if(settings.contains(S_LASTUSEDIMPORTDIR))
+            m_importDirectory = settings.value(S_LASTUSEDIMPORTDIR, QString()).toString();
 
         settings.endGroup();
     }
@@ -237,12 +244,12 @@ void ProjectManager::readSettings()
 void ProjectManager::writeSettings()
 {
     QSettings settings;
-    settings.beginGroup(Constants::S_PROJECTMANAGER);
-    settings.setValue(Constants::S_DEFAULTPROJECTPATH, m_workingDirectory);
-    settings.setValue(Constants::S_RECENTPROJECTS, m_recentProjects);
+    settings.beginGroup(S_PROJECTMANAGER);
+    settings.setValue(S_DEFAULTPROJECTPATH, m_workingDirectory);
+    settings.setValue(S_RECENTPROJECTS, m_recentProjects);
 
     if(!m_importDirectory.isEmpty())
-        settings.setValue(Constants::S_LASTUSEDIMPORTDIR, m_importDirectory);
+        settings.setValue(S_LASTUSEDIMPORTDIR, m_importDirectory);
 
     settings.endGroup();
 }

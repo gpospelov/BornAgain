@@ -36,12 +36,16 @@ public:
 private slots:
     void onTimerTimeout();
     void onDocumentDestroyed(QObject* object);
+    void onDocumentModified();
 
 private:
     void autosave();
+    bool isDocumentForAutosave();
+    QString autosaveName() const;
 
     ProjectDocument* m_document;
     QTimer* m_timer;
+    qint64 m_modificationCount;
 };
 
 #endif

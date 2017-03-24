@@ -91,7 +91,7 @@ void ProjectDocument::setApplicationModels(ApplicationModels *applicationModels)
     }
 }
 
-bool ProjectDocument::save(const QString& project_file_name)
+bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 {
     setProjectFileName(project_file_name);
     cleanProjectDir();
@@ -102,10 +102,13 @@ bool ProjectDocument::save(const QString& project_file_name)
     }
     writeTo(&file);
     file.close();
+
     m_applicationModels->saveNonXMLData(getProjectDir());
 
-    m_modified = false;
-    emit modified();
+    if(!autoSave) {
+        m_modified = false;
+        emit modified();
+    }
 
     return true;
 }

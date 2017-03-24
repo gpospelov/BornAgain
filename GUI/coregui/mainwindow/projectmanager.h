@@ -39,12 +39,11 @@ public:
     void readSettings();
     void writeSettings();
 
-    QStringList getRecentProjects();
+    QStringList recentProjects();
 
-    ProjectDocument *getDocument() { return m_project_document; }
+    ProjectDocument *document() { return m_project_document; }
 
-    QString getProjectDir() const;
-
+    QString projectDir() const;
     QString userExportDir() const;
     QString userImportDir() const;
     void setImportDir(const QString &dirname);
@@ -62,11 +61,10 @@ public slots:
     void newProject();
 
 private:
-//    ProjectDocument *createNewProject();
     void addToRecentProjects();
 
-    QString getDefaultWorkingDirectory();
-    QString getUntitledProjectName();
+    QString defaultWorkingDirectory();
+    QString untitledProjectName();
 
     void riseProjectLoadFailedDialog();
     void riseProjectLoadWarningDialog();
@@ -74,7 +72,6 @@ private:
     void deleteCurrentProject();
 
     MainWindow *m_mainWindow;
-
     ProjectDocument *m_project_document;
 
     QString m_defaultWorkingDirectory;

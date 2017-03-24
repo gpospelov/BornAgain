@@ -113,7 +113,7 @@ void ProjectManager::newProject()
 {
     if( !closeCurrentProject()) return;
 
-    NewProjectDialog dialog(m_mainWindow, getDefaultWorkingDirectory(), getUntitledProjectName());
+    NewProjectDialog dialog(m_mainWindow, defaultWorkingDirectory(), untitledProjectName());
 
     if (dialog.exec() == QDialog::Accepted) {
         createNewProject();
@@ -130,7 +130,7 @@ bool ProjectManager::saveProject()
     Q_ASSERT(m_project_document);
 
     if(!m_project_document->hasValidNameAndPath()) {
-        NewProjectDialog dialog(m_mainWindow, getDefaultWorkingDirectory(), getUntitledProjectName());
+        NewProjectDialog dialog(m_mainWindow, defaultWorkingDirectory(), untitledProjectName());
 
         if (dialog.exec() == QDialog::Accepted) {
             m_defaultWorkingDirectory = dialog.getWorkingDirectory();
@@ -157,7 +157,7 @@ bool ProjectManager::saveProject()
 
 bool ProjectManager::saveProjectAs()
 {
-    NewProjectDialog dialog(m_mainWindow, getDefaultWorkingDirectory(), getUntitledProjectName());
+    NewProjectDialog dialog(m_mainWindow, defaultWorkingDirectory(), untitledProjectName());
 
     if (dialog.exec() == QDialog::Accepted) {
         m_defaultWorkingDirectory = dialog.getWorkingDirectory();
@@ -179,7 +179,7 @@ void ProjectManager::openProject(QString fileName)
 
     if(fileName.isEmpty()) {
         fileName = QFileDialog::getOpenFileName(m_mainWindow, "Open project file",
-                                                    getDefaultWorkingDirectory(),
+                                                    defaultWorkingDirectory(),
                                          "BornAgain project Files (*.pro)");
 
         if(fileName.isEmpty()) return;
@@ -241,7 +241,7 @@ void ProjectManager::writeSettings()
 }
 
 //! returns list of recent projects, validates if projects still exists on disk
-QStringList ProjectManager::getRecentProjects()
+QStringList ProjectManager::recentProjects()
 {
     QStringList updatedList;
     foreach(QString fileName, m_recentProjects) {
@@ -253,7 +253,7 @@ QStringList ProjectManager::getRecentProjects()
 }
 
 //!returns name of the current project directory
-QString ProjectManager::getProjectDir() const
+QString ProjectManager::projectDir() const
 {
     if(m_project_document && m_project_document->hasValidNameAndPath()) {
         return m_project_document->getProjectDir();
@@ -264,7 +264,7 @@ QString ProjectManager::getProjectDir() const
 //! Returns directory name suitable for saving plots
 QString ProjectManager::userExportDir() const
 {
-    QString result = getProjectDir();
+    QString result = projectDir();
     if(result.isEmpty()) {
         result = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
     }
@@ -306,21 +306,21 @@ void ProjectManager::clearRecentProjects()
 }
 
 //! returns default project path
-QString ProjectManager::getDefaultWorkingDirectory()
+QString ProjectManager::defaultWorkingDirectory()
 {
     return m_defaultWorkingDirectory;
 }
 
 //! Will return 'Untitled' if the directory with such name doesn't exist in project
 //! path. Otherwise will return Untitled1, Untitled2 etc.
-QString ProjectManager::getUntitledProjectName()
+QString ProjectManager::untitledProjectName()
 {
     QString result = "Untitled";
-    QDir projectDir = getDefaultWorkingDirectory() + "/" + result;
+    QDir projectDir = defaultWorkingDirectory() + "/" + result;
     if(projectDir.exists()) {
         for(size_t i=1; i<99; ++i) {
             result = QString("Untitled")+QString::number(i);
-            projectDir = getDefaultWorkingDirectory() + "/" + result;
+            projectDir = defaultWorkingDirectory() + "/" + result;
             if(!projectDir.exists()) break;
         }
     }

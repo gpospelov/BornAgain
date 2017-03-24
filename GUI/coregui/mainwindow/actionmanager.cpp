@@ -146,7 +146,7 @@ void ActionManager::aboutToShowRecentProjects()
     m_recentProjectsMenu->clear();
 
     bool hasRecentProjects = false;
-    foreach(QString file, m_mainWindow->projectManager()->getRecentProjects() ) {
+    foreach(QString file, m_mainWindow->projectManager()->recentProjects() ) {
         hasRecentProjects = true;
         QAction *action = m_recentProjectsMenu->addAction(
             QDir::toNativeSeparators(GUI_StringUtils::withTildeHomePath(file)));

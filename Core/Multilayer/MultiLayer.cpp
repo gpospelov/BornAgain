@@ -72,9 +72,32 @@ MultiLayer* MultiLayer::clone() const
 
 MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
 {
-    if (!use_average_layers)
+    if (!use_average_layers || numberOfLayers()==0)
         return clone();
-    return clone();
+    std::vector<double> layers_bottomz;
+    std::copy(m_layers_bottomz.begin(), m_layers_bottomz.end()-1,
+              std::back_inserter(layers_bottomz));
+    std::unique_ptr<MultiLayer> P_result(new MultiLayer());
+    for (size_t i=0; i<numberOfLayers(); ++i)
+    {
+        auto p_interface = i>0 ? m_interfaces[i-1]
+                               : nullptr;
+        auto layer_type = (numberOfLayers()==1) ? Layer::ONLYLAYER
+                        : (i==0) ? Layer::TOPLAYER
+                        : (i==numberOfLayers()-1) ? Layer::BOTTOMLAYER
+                        : Layer::INTERMEDIATELAYER;
+        ZLimits limits;
+        SafePointerVector<Layer> sliced_layers = m_layers[i]->cloneSliced(limits, layer_type);
+        if (sliced_layers.size()==0)
+            throw std::runtime_error("MultiLayer::cloneSliced: slicing layer produced empty list,");
+        if (i>0 && p_interface->getRoughness())
+            P_result->addLayerWithTopRoughness(*sliced_layers[0], *p_interface->getRoughness());
+        else
+            P_result->addLayer(*sliced_layers[0]);
+        for (size_t j=1; j<sliced_layers.size(); ++j)
+            P_result->addLayer(*sliced_layers[j]);
+    }
+    return P_result.release();
 }
 
 MultiLayer* MultiLayer::cloneInvertB() const

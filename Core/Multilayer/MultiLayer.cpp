@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "ILayout.h"
 #include "Layer.h"
+#include "LayerFillLimits.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "HomogeneousMaterial.h"
@@ -65,7 +66,7 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
 {
     if (!use_average_layers || numberOfLayers()==0)
         return clone();
-
+    auto layer_limits = calculateLayerZLimits();
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     for (size_t i=0; i<numberOfLayers(); ++i)
     {
@@ -75,8 +76,8 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
                         : (i==0) ? Layer::TOPLAYER
                         : (i==numberOfLayers()-1) ? Layer::BOTTOMLAYER
                         : Layer::INTERMEDIATELAYER;
-        ZLimits limits;
-        SafePointerVector<Layer> sliced_layers = m_layers[i]->cloneSliced(limits, layer_type);
+        SafePointerVector<Layer> sliced_layers =
+                m_layers[i]->cloneSliced(layer_limits[i], layer_type);
         if (sliced_layers.size()==0)
             throw std::runtime_error("MultiLayer::cloneSliced: slicing layer produced empty list,");
         if (i>0 && p_interface->getRoughness())
@@ -346,4 +347,21 @@ void MultiLayer::setCrossCorrLength(double crossCorrLength)
     if (crossCorrLength<0.0)
         throw Exceptions::LogicErrorException("Attempt to set crossCorrLength to negative value");
     m_crossCorrLength = crossCorrLength;
+}
+
+std::vector<ZLimits> MultiLayer::calculateLayerZLimits() const
+{
+    LayerFillLimits layer_fill_limits(m_layers_bottomz);
+    for (size_t i=0; i<m_layers.size(); ++i)
+    {
+        auto p_layer = m_layers[i];
+        double offset = (i==0) ? 0 : m_layers_bottomz[i-1];
+        for (size_t j=0; j<p_layer->numberOfLayouts(); ++j)
+        {
+            auto p_layout = p_layer->layout(j);
+            for (auto p_particle : p_layout->particles())
+                layer_fill_limits.update(p_particle->bottomTopZ(), offset);
+        }
+    }
+    return layer_fill_limits.layerZLimits();
 }

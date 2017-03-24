@@ -19,6 +19,7 @@
 #include "ISample.h"
 #include "SafePointerVector.h"
 #include "Vectors3D.h"
+#include "ZLimits.h"
 
 class ILayout;
 class Layer;
@@ -156,6 +157,9 @@ private:
 
     //! Shared implementation for different clones
     MultiLayer* cloneGeneric(const std::function<Layer*(const Layer*)>& layer_clone) const;
+
+    //! Calculates the z-region in each layer that holds particles
+    std::vector<ZLimits> calculateLayerZLimits() const;
 
     //! stack of layers [nlayers]
     std::vector<Layer*> m_layers;

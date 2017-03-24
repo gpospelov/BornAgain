@@ -86,9 +86,9 @@ std::pair<size_t, size_t> LayerIndicesLimits(const IParticle& particle,
                                              size_t ref_layer_index)
 {
     double position_offset = multilayer.layerTopZ(ref_layer_index);
-    auto topBottom = particle.topBottomZ();
-    double ztop = topBottom.first;
-    double zbottom = topBottom.second;
+    auto bottomTopZ = particle.bottomTopZ();
+    double zbottom = bottomTopZ.m_bottom;
+    double ztop = bottomTopZ.m_top ;
     double eps = (ztop - zbottom)*1e-6;  // allow for relatively small crossing due to numerical
                                          // approximations (like rotation over 180 degrees)
     double zmax = ztop + position_offset - eps;

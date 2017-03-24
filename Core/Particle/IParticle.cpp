@@ -100,11 +100,11 @@ SafePointerVector<IParticle> IParticle::decompose() const
     return result;
 }
 
-std::pair<double, double> IParticle::topBottomZ() const
+ParticleLimits IParticle::bottomTopZ() const
 {
     std::unique_ptr<IFormFactor> P_ff(createFormFactor());
     std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
-    return { P_ff->topZ(*P_rot), P_ff->bottomZ(*P_rot) };
+    return { P_ff->bottomZ(*P_rot), P_ff->topZ(*P_rot) };
 }
 
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const

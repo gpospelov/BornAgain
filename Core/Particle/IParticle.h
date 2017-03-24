@@ -25,6 +25,12 @@
 #include <memory>
 
 
+struct ParticleLimits
+{
+    double m_bottom;
+    double m_top;
+};
+
 //! Pure virtual base class for Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
 //! Provides position/rotation and form factor. Abundance is inherited from IAbstractParticle.
 //!
@@ -78,7 +84,7 @@ public:
     virtual SafePointerVector<IParticle> decompose() const;
 
     //! Top and bottom z-coordinate
-    std::pair<double, double> topBottomZ() const;
+    ParticleLimits bottomTopZ() const;
 
 protected:
     //! Creates a composed IRotation object

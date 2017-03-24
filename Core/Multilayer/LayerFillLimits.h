@@ -16,16 +16,11 @@
 #ifndef LAYERFILLLIMITS_H
 #define LAYERFILLLIMITS_H
 
+#include "IParticle.h"
 #include "ZLimits.h"
 #include <cstddef>
 #include <vector>
 #include <utility>
-
-struct ParticleLimits
-{
-    double m_bottom;
-    double m_top;
-};
 
 //! Helper class for the graded layer approximation. Generates limits for each layer, indicating
 //! the region of the layer (along z) that contains particle(s)

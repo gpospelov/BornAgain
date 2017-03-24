@@ -18519,6 +18519,35 @@ class IParameterReal(INamed, INoncopyable):
 IParameterReal_swigregister = _libBornAgainCore.IParameterReal_swigregister
 IParameterReal_swigregister(IParameterReal)
 
+class ParticleLimits(_object):
+    """Proxy of C++ ParticleLimits class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ParticleLimits, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ParticleLimits, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["m_bottom"] = _libBornAgainCore.ParticleLimits_m_bottom_set
+    __swig_getmethods__["m_bottom"] = _libBornAgainCore.ParticleLimits_m_bottom_get
+    if _newclass:
+        m_bottom = _swig_property(_libBornAgainCore.ParticleLimits_m_bottom_get, _libBornAgainCore.ParticleLimits_m_bottom_set)
+    __swig_setmethods__["m_top"] = _libBornAgainCore.ParticleLimits_m_top_set
+    __swig_getmethods__["m_top"] = _libBornAgainCore.ParticleLimits_m_top_get
+    if _newclass:
+        m_top = _swig_property(_libBornAgainCore.ParticleLimits_m_top_get, _libBornAgainCore.ParticleLimits_m_top_set)
+
+    def __init__(self):
+        """__init__(ParticleLimits self) -> ParticleLimits"""
+        this = _libBornAgainCore.new_ParticleLimits()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_ParticleLimits
+    __del__ = lambda self: None
+ParticleLimits_swigregister = _libBornAgainCore.ParticleLimits_swigregister
+ParticleLimits_swigregister(ParticleLimits)
+
 class IParticle(IAbstractParticle):
     """
 
@@ -18718,9 +18747,9 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_decompose(self)
 
 
-    def topBottomZ(self):
-        """topBottomZ(IParticle self) -> std::pair< double,double >"""
-        return _libBornAgainCore.IParticle_topBottomZ(self)
+    def bottomTopZ(self):
+        """bottomTopZ(IParticle self) -> ParticleLimits"""
+        return _libBornAgainCore.IParticle_bottomTopZ(self)
 
 IParticle_swigregister = _libBornAgainCore.IParticle_swigregister
 IParticle_swigregister(IParticle)

@@ -90,9 +90,6 @@ public:
     size_t numberOfLayouts() const { return m_layouts.size(); }
     const ILayout* layout(size_t i) const;
 
-    //! Destructs allocated objects
-    void clear();
-
     //! Returns a clone of multilayer with clones of all layers and recreated
     //! interfaces between layers
     MultiLayer* clone() const final override;

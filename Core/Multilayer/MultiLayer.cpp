@@ -33,7 +33,13 @@ MultiLayer::MultiLayer() : m_crossCorrLength(0)
 
 MultiLayer::~MultiLayer()
 {
-    clear();
+    for (size_t i=0; i<m_layers.size(); i++)
+        delete m_layers[i];
+    m_layers.clear();
+
+    for (size_t i=0; i<m_interfaces.size(); i++)
+        delete m_interfaces[i];
+    m_interfaces.clear();
 }
 
 void MultiLayer::init_parameters()
@@ -50,21 +56,6 @@ const ILayout * MultiLayer::layout(size_t i) const
     return m_layouts[i];
 }
 
-void MultiLayer::clear() // TODO: understand need
-{
-    for (size_t i=0; i<m_layers.size(); i++)
-        delete m_layers[i];
-    m_layers.clear();
-
-    for (size_t i=0; i<m_interfaces.size(); i++)
-        delete m_interfaces[i];
-    m_interfaces.clear();
-
-    m_layers_bottomz.clear();
-
-    getParameterPool()->clear(); // non-trivially needed
-}
-
 MultiLayer* MultiLayer::clone() const
 {
     return cloneGeneric( [](const Layer* p_layer) { return p_layer->clone(); } );
@@ -74,9 +65,7 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
 {
     if (!use_average_layers || numberOfLayers()==0)
         return clone();
-    std::vector<double> layers_bottomz;
-    std::copy(m_layers_bottomz.begin(), m_layers_bottomz.end()-1,
-              std::back_inserter(layers_bottomz));
+
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     for (size_t i=0; i<numberOfLayers(); ++i)
     {
@@ -150,14 +139,15 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
         else
             interface = LayerInterface::createSmoothInterface(p_last_layer, p_new_layer);
         addAndRegisterInterface(interface);
-        m_layers_bottomz.push_back(m_layers_bottomz.back() - layer.thickness() );
+        double bottomz = (numberOfLayers()==1) ? 0.0
+                             : m_layers_bottomz.back() - p_last_layer->thickness();
+        m_layers_bottomz.push_back(bottomz);
     } else {
         // the top layer
         if (p_new_layer->thickness() != 0.0)
             throw std::runtime_error(
                 "Invalid call to MultiLayer::addLayer(): the semi-infinite top layer "
                 "must have a pro forma thickness of 0");
-        m_layers_bottomz.push_back(0.0);
     }
     addAndRegisterLayer(p_new_layer);
 }
@@ -309,11 +299,11 @@ bool MultiLayer::requiresMatrixRTCoefficients() const
 
 size_t MultiLayer::bottomZToLayerIndex(double z_value) const
 {
-    size_t n_layers = m_layers_bottomz.size();
+    size_t n_layers = numberOfLayers();
     if (n_layers < 2)
         return 0;
-    if (z_value < m_layers_bottomz[n_layers-2]) return m_layers_bottomz.size()-1;
-    auto top_limit = std::upper_bound(m_layers_bottomz.rbegin()+1, m_layers_bottomz.rend(), z_value);
+    if (z_value < m_layers_bottomz[n_layers-2]) return numberOfLayers()-1;
+    auto top_limit = std::upper_bound(m_layers_bottomz.rbegin(), m_layers_bottomz.rend(), z_value);
     size_t nbin = static_cast<size_t>(m_layers_bottomz.rend() - top_limit);
     return nbin;
 }
@@ -323,8 +313,8 @@ size_t MultiLayer::topZToLayerIndex(double z_value) const
     size_t n_layers = m_layers_bottomz.size();
     if (n_layers < 2)
         return 0;
-    if (z_value <= m_layers_bottomz[n_layers-2]) return m_layers_bottomz.size()-1;
-    auto bottom_limit = std::lower_bound(m_layers_bottomz.rbegin()+1, m_layers_bottomz.rend(), z_value);
+    if (z_value <= m_layers_bottomz[n_layers-2]) return numberOfLayers()-1;
+    auto bottom_limit = std::lower_bound(m_layers_bottomz.rbegin(), m_layers_bottomz.rend(), z_value);
     size_t nbin = static_cast<size_t>(m_layers_bottomz.rend() - bottom_limit);
     return nbin;
 }
@@ -340,10 +330,10 @@ double MultiLayer::layerBottomZ(size_t i_layer) const
 {
     if (numberOfLayers()<2)
         return 0;
-    // Never use last entry in m_layers_z:
-    if (i_layer==numberOfLayers()-1)
-        --i_layer;
-    return m_layers_bottomz[ check_layer_index(i_layer) ];
+    // Size of m_layers_z is numberOfLayers()-1:
+    if (i_layer>numberOfLayers()-2)
+        i_layer = numberOfLayers()-2;
+    return m_layers_bottomz[i_layer];
 }
 
 double MultiLayer::layerThickness(size_t i_layer) const

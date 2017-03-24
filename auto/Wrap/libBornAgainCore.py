@@ -22445,18 +22445,6 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_layout(self, i)
 
 
-    def clear(self):
-        """
-        clear(MultiLayer self)
-
-        void MultiLayer::clear()
-
-        Destructs allocated objects. 
-
-        """
-        return _libBornAgainCore.MultiLayer_clear(self)
-
-
     def clone(self):
         """
         clone(MultiLayer self) -> MultiLayer

@@ -224,6 +224,10 @@ void ProjectManager::readSettings()
         settings.beginGroup(Constants::S_PROJECTMANAGER);
         m_workingDirectory = settings.value(Constants::S_DEFAULTPROJECTPATH).toString();
         m_recentProjects = settings.value(Constants::S_RECENTPROJECTS).toStringList();
+
+        if(settings.contains(Constants::S_LASTUSEDIMPORTDIR))
+            m_importDirectory = settings.value(Constants::S_LASTUSEDIMPORTDIR, QString()).toString();
+
         settings.endGroup();
     }
 }
@@ -236,6 +240,10 @@ void ProjectManager::writeSettings()
     settings.beginGroup(Constants::S_PROJECTMANAGER);
     settings.setValue(Constants::S_DEFAULTPROJECTPATH, m_workingDirectory);
     settings.setValue(Constants::S_RECENTPROJECTS, m_recentProjects);
+
+    if(!m_importDirectory.isEmpty())
+        settings.setValue(Constants::S_LASTUSEDIMPORTDIR, m_importDirectory);
+
     settings.endGroup();
 }
 
@@ -278,29 +286,14 @@ QString ProjectManager::userExportDir() const
 
 QString ProjectManager::userImportDir() const
 {
-    QString result;
-    QSettings settings;
-    if (settings.childGroups().contains(Constants::S_PROJECTMANAGER)) {
-        settings.beginGroup(Constants::S_PROJECTMANAGER);
-        result = settings.value(Constants::S_LASTUSEDIMPORTDIR, QString()).toString();
-        settings.endGroup();
-    }
-    if (result.isEmpty())
-        result = userExportDir();
-
-    return result;
+    return m_importDirectory.isEmpty() ? userExportDir() : m_importDirectory;
 }
 
 //! Sets user import directory in system settings.
 
 void ProjectManager::setImportDir(const QString& dirname)
 {
-    QSettings settings;
-    if (settings.childGroups().contains(Constants::S_PROJECTMANAGER)) {
-        settings.beginGroup(Constants::S_PROJECTMANAGER);
-        settings.setValue(Constants::S_LASTUSEDIMPORTDIR, dirname);
-        settings.endGroup();
-    }
+    m_importDirectory = dirname;
 }
 
 //! Clears list of recent projects.

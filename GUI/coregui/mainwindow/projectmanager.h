@@ -77,6 +77,10 @@ private:
 
     //!< Name of directory where project directory was created.
     QString m_workingDirectory;
+
+    //!< Name of directory from there user prefer to import files
+    QString m_importDirectory;
+
     QStringList m_recentProjects;
     WarningMessageService* m_messageService;
 };

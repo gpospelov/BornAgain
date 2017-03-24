@@ -75,6 +75,8 @@ public:
 
     void registerThickness(bool make_registered = true);
 
+    void setNSlices(unsigned int n_slices) { m_n_slices = n_slices; }
+
 private:
     Layer(const Layer& other);
     //! Clone the layer without its layouts
@@ -83,8 +85,8 @@ private:
 
     HomogeneousMaterial m_material;   //!< material
     double m_thickness;       //!< layer thickness in nanometers
-    unsigned int m_n_slices=0;  //!< number of slices to create for graded layer approach
     SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
+    unsigned int m_n_slices=1;  //!< number of slices to create for graded layer approach
 };
 
 #endif // LAYER_H

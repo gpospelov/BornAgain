@@ -17466,7 +17466,7 @@ class HomogeneousMaterial(INamed):
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta) -> HomogeneousMaterial
 
-        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field=kvector_t())
+        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field=kvector_t())
 
         Constructs a material with  name and refractive_index parameters delta and beta (n = 1 - delta + i*beta). 
 
@@ -18197,7 +18197,12 @@ class ILayout(ISample):
 
 
     def cloneWithOffset(self, offset):
-        """cloneWithOffset(ILayout self, double offset) -> ILayout"""
+        """
+        cloneWithOffset(ILayout self, double offset) -> ILayout
+
+        virtual ILayout* ILayout::cloneWithOffset(double offset) const =0
+
+        """
         return _libBornAgainCore.ILayout_cloneWithOffset(self, offset)
 
 
@@ -18431,7 +18436,14 @@ class IAbstractParticle(ISample):
 
 
     def translateZ(self, offset):
-        """translateZ(IAbstractParticle self, double offset)"""
+        """
+        translateZ(IAbstractParticle self, double offset)
+
+        virtual void IAbstractParticle::translateZ(double offset)=0
+
+        Applies a translation in the z-direction. 
+
+        """
         return _libBornAgainCore.IAbstractParticle_translateZ(self, offset)
 
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
@@ -18659,7 +18671,14 @@ class IParticle(IAbstractParticle):
 
 
     def translateZ(self, offset):
-        """translateZ(IParticle self, double offset)"""
+        """
+        translateZ(IParticle self, double offset)
+
+        void IParticle::translateZ(double offset) override
+
+        Applies a translation in the z-direction. 
+
+        """
         return _libBornAgainCore.IParticle_translateZ(self, offset)
 
 
@@ -18748,7 +18767,14 @@ class IParticle(IAbstractParticle):
 
 
     def bottomTopZ(self):
-        """bottomTopZ(IParticle self) -> ParticleLimits"""
+        """
+        bottomTopZ(IParticle self) -> ParticleLimits
+
+        ParticleLimits IParticle::bottomTopZ() const
+
+        Top and bottom z-coordinate. 
+
+        """
         return _libBornAgainCore.IParticle_bottomTopZ(self)
 
 IParticle_swigregister = _libBornAgainCore.IParticle_swigregister
@@ -21579,7 +21605,12 @@ class Layer(ISample):
 
 
     def cloneSliced(self, limits, layer_type):
-        """cloneSliced(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >"""
+        """
+        cloneSliced(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >
+
+        SafePointerVector< Layer > Layer::cloneSliced(ZLimits limits, ELayerType layer_type) const 
+
+        """
         return _libBornAgainCore.Layer_cloneSliced(self, limits, layer_type)
 
 
@@ -21758,6 +21789,16 @@ class Layer(ISample):
 
         """
         return _libBornAgainCore.Layer_registerThickness(self, make_registered)
+
+
+    def setNSlices(self, n_slices):
+        """
+        setNSlices(Layer self, unsigned int n_slices)
+
+        void Layer::setNSlices(unsigned int n_slices)
+
+        """
+        return _libBornAgainCore.Layer_setNSlices(self, n_slices)
 
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
@@ -22310,7 +22351,7 @@ class MultiLayer(ISample):
 
         void MultiLayer::addLayer(const Layer &p_child)
 
-        Adds object to multilayer, overrides from  ISample.
+        Adds object to multilayer.
 
         Adds layer with default (zero) roughness. 
 
@@ -22520,7 +22561,7 @@ class MultiLayer(ISample):
         """
         indexOfLayer(MultiLayer self, Layer p_layer) -> int
 
-        int MultiLayer::indexOfLayer(const Layer *layer) const
+        int MultiLayer::indexOfLayer(const Layer *p_layer) const
 
         returns layer index 
 
@@ -24276,7 +24317,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         clone(ParticleDistribution self) -> ParticleDistribution
 
-        ParticleDistribution * ParticleDistribution::clone() const final
+        ParticleDistribution * ParticleDistribution::clone() const finaloverride
 
         Returns a clone of this  ISample object. 
 
@@ -24288,7 +24329,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         accept(ParticleDistribution self, INodeVisitor visitor)
 
-        void ParticleDistribution::accept(INodeVisitor *visitor) const final
+        void ParticleDistribution::accept(INodeVisitor *visitor) const finaloverride
 
         Calls the  INodeVisitor's visit method. 
 
@@ -24297,7 +24338,14 @@ class ParticleDistribution(IAbstractParticle):
 
 
     def translateZ(self, offset):
-        """translateZ(ParticleDistribution self, double offset)"""
+        """
+        translateZ(ParticleDistribution self, double offset)
+
+        void ParticleDistribution::translateZ(double offset) finaloverride
+
+        Applies a translation in the z-direction. 
+
+        """
         return _libBornAgainCore.ParticleDistribution_translateZ(self, offset)
 
 
@@ -24343,7 +24391,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleDistribution::getChildren() const
+        std::vector< const INode * > ParticleDistribution::getChildren() const finaloverride
 
         Returns a vector of children (const). 
 
@@ -24405,7 +24453,12 @@ class ParticleLayout(ILayout):
 
 
     def cloneWithOffset(self, offset):
-        """cloneWithOffset(ParticleLayout self, double offset) -> ParticleLayout"""
+        """
+        cloneWithOffset(ParticleLayout self, double offset) -> ParticleLayout
+
+        ParticleLayout * ParticleLayout::cloneWithOffset(double offset) const finaloverride
+
+        """
         return _libBornAgainCore.ParticleLayout_cloneWithOffset(self, offset)
 
 

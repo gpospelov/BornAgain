@@ -5537,12 +5537,12 @@ C++ includes: HomogeneousMaterial.h
 Constructs a default material (vacuum). 
 ";
 
-%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, const complex_t refractive_index, const kvector_t magnetic_field=kvector_t())
+%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, const complex_t refractive_index, kvector_t magnetic_field=kvector_t())
 
 Constructs a material with  name and  refractive_index. 
 ";
 
-%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field=kvector_t())
+%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field=kvector_t())
 
 Constructs a material with  name and refractive_index parameters delta and beta (n = 1 - delta + i*beta). 
 ";
@@ -5678,6 +5678,11 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  IAbstractParticle::setAbundance "void IAbstractParticle::setAbundance(double abundance)
+";
+
+%feature("docstring")  IAbstractParticle::translateZ "virtual void IAbstractParticle::translateZ(double offset)=0
+
+Applies a translation in the z-direction. 
 ";
 
 
@@ -7087,6 +7092,9 @@ C++ includes: ILayout.h
 Returns a clone of this  ISample object. 
 ";
 
+%feature("docstring")  ILayout::cloneWithOffset "virtual ILayout* ILayout::cloneWithOffset(double offset) const =0
+";
+
 %feature("docstring")  ILayout::accept "virtual void ILayout::accept(INodeVisitor *visitor) const =0
 
 Calls the  INodeVisitor's visit method. 
@@ -8426,7 +8434,7 @@ C++ includes: IParameterized.h
 %feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const IParameterized &other)
 ";
 
-%feature("docstring")  IParameterized::~IParameterized "IParameterized::~IParameterized() override
+%feature("docstring")  IParameterized::~IParameterized "IParameterized::~IParameterized()
 ";
 
 %feature("docstring")  IParameterized::getParameterPool "ParameterPool* IParameterized::getParameterPool() const
@@ -8515,6 +8523,11 @@ Sets particle position.
 Applies extra translation by adding it to the current one. 
 ";
 
+%feature("docstring")  IParticle::translateZ "void IParticle::translateZ(double offset) override
+
+Applies a translation in the z-direction. 
+";
+
 %feature("docstring")  IParticle::rotation "const IRotation * IParticle::rotation() const
 
 Returns rotation object. 
@@ -8546,6 +8559,11 @@ Registers the three components of its position.
 %feature("docstring")  IParticle::decompose "SafePointerVector< IParticle > IParticle::decompose() const
 
 Decompose in constituent  IParticle objects. 
+";
+
+%feature("docstring")  IParticle::bottomTopZ "ParticleLimits IParticle::bottomTopZ() const
+
+Top and bottom z-coordinate. 
 ";
 
 
@@ -9115,6 +9133,9 @@ Returns a clone of this  ISample object.
 %feature("docstring")  Layer::cloneInvertB "Layer * Layer::cloneInvertB() const 
 ";
 
+%feature("docstring")  Layer::cloneSliced "SafePointerVector< Layer > Layer::cloneSliced(ZLimits limits, ELayerType layer_type) const 
+";
+
 %feature("docstring")  Layer::accept "void Layer::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
@@ -9177,6 +9198,33 @@ Returns a vector of children (const).
 ";
 
 %feature("docstring")  Layer::registerThickness "void Layer::registerThickness(bool make_registered=true)
+";
+
+%feature("docstring")  Layer::setNSlices "void Layer::setNSlices(unsigned int n_slices)
+";
+
+
+// File: classLayerFillLimits.xml
+%feature("docstring") LayerFillLimits "
+
+Helper class for the graded layer approximation. Generates limits for each layer, indicating the region of the layer (along z) that contains particle(s)
+
+The constructor takes the bottom layer z-coordinates as parameter. This means that for N layers, only N-1 coordinates need to be passed (the last layer is assumed to be semi-infinite).
+
+C++ includes: LayerFillLimits.h
+";
+
+%feature("docstring")  LayerFillLimits::LayerFillLimits "LayerFillLimits::LayerFillLimits(std::vector< double > layers_bottomz)
+";
+
+%feature("docstring")  LayerFillLimits::update "void LayerFillLimits::update(ParticleLimits particle_limits, double offset=0.0)
+
+Particle limits are given in global coordinates. 
+";
+
+%feature("docstring")  LayerFillLimits::layerZLimits "std::vector< ZLimits > LayerFillLimits::layerZLimits() const
+
+Returns the filled region limits for each layer (in local layer coordinates) 
 ";
 
 
@@ -9662,7 +9710,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  MultiLayer::addLayer "void MultiLayer::addLayer(const Layer &p_child)
 
-Adds object to multilayer, overrides from  ISample.
+Adds object to multilayer.
 
 Adds layer with default (zero) roughness. 
 ";
@@ -9721,35 +9769,19 @@ Returns layer material.
 Changes a layer's material. 
 ";
 
-%feature("docstring")  MultiLayer::addLayout "void MultiLayer::addLayout(const ILayout &layout)
-
-Adds a layout of particles to the whole multilayer (particles can be in different layers) 
-";
-
-%feature("docstring")  MultiLayer::numberOfLayouts "size_t MultiLayer::numberOfLayouts() const 
-";
-
-%feature("docstring")  MultiLayer::layout "const ILayout * MultiLayer::layout(size_t i) const 
-";
-
-%feature("docstring")  MultiLayer::clear "void MultiLayer::clear()
-
-Destructs allocated objects. 
-";
-
 %feature("docstring")  MultiLayer::clone "MultiLayer * MultiLayer::clone() const finaloverride
 
 Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
 ";
 
-%feature("docstring")  MultiLayer::cloneSliced "MultiLayer * MultiLayer::cloneSliced(bool use_average_layers) const
-
-Returns a clone of multilayer where the original layers may be sliced into several sublayers for usage with the graded layer approximation 
-";
-
 %feature("docstring")  MultiLayer::cloneInvertB "MultiLayer * MultiLayer::cloneInvertB() const
 
 Returns a clone with inverted magnetic fields. 
+";
+
+%feature("docstring")  MultiLayer::cloneSliced "MultiLayer * MultiLayer::cloneSliced(bool use_average_layers) const
+
+Returns a clone of multilayer where the original layers may be sliced into several sublayers for usage with the graded layer approximation 
 ";
 
 %feature("docstring")  MultiLayer::setCrossCorrLength "void MultiLayer::setCrossCorrLength(double crossCorrLength)
@@ -9769,12 +9801,7 @@ Fourier transform of the correlation function of roughnesses between the interfa
 Fourier transform of the correlation function of roughnesses between the interfaces j,k - indexes of layers in multilayer whose bottom interfaces we are considering 
 ";
 
-%feature("docstring")  MultiLayer::setLayerThickness "void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
-
-Sets thickness of layer. 
-";
-
-%feature("docstring")  MultiLayer::indexOfLayer "int MultiLayer::indexOfLayer(const Layer *layer) const
+%feature("docstring")  MultiLayer::indexOfLayer "int MultiLayer::indexOfLayer(const Layer *p_layer) const
 
 returns layer index 
 ";
@@ -9912,6 +9939,15 @@ Sets beam parameters from here (forwarded to  Instrument)
 %feature("docstring")  OffSpecSimulation::setDetectorParameters "void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
 
 Sets detector parameters using angle ranges. 
+";
+
+
+// File: structOneSidedLimit.xml
+%feature("docstring") OneSidedLimit "
+
+Helper class that represents a onesided limit
+
+C++ includes: ZLimits.h
 ";
 
 
@@ -10759,14 +10795,19 @@ C++ includes: ParticleDistribution.h
 %feature("docstring")  ParticleDistribution::ParticleDistribution "ParticleDistribution::ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr)
 ";
 
-%feature("docstring")  ParticleDistribution::clone "ParticleDistribution * ParticleDistribution::clone() const final
+%feature("docstring")  ParticleDistribution::clone "ParticleDistribution * ParticleDistribution::clone() const finaloverride
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ParticleDistribution::accept "void ParticleDistribution::accept(INodeVisitor *visitor) const final
+%feature("docstring")  ParticleDistribution::accept "void ParticleDistribution::accept(INodeVisitor *visitor) const finaloverride
 
 Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  ParticleDistribution::translateZ "void ParticleDistribution::translateZ(double offset) finaloverride
+
+Applies a translation in the z-direction. 
 ";
 
 %feature("docstring")  ParticleDistribution::generateParticles "std::vector< const IParticle * > ParticleDistribution::generateParticles() const
@@ -10786,7 +10827,7 @@ Returns the distributed parameter data.
 Returns particle. 
 ";
 
-%feature("docstring")  ParticleDistribution::getChildren "std::vector< const INode * > ParticleDistribution::getChildren() const
+%feature("docstring")  ParticleDistribution::getChildren "std::vector< const INode * > ParticleDistribution::getChildren() const finaloverride
 
 Returns a vector of children (const). 
 ";
@@ -10833,6 +10874,9 @@ C++ includes: ParticleLayout.h
 %feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const finaloverride
 
 Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  ParticleLayout::cloneWithOffset "ParticleLayout * ParticleLayout::cloneWithOffset(double offset) const finaloverride
 ";
 
 %feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(INodeVisitor *visitor) const finaloverride
@@ -10967,6 +11011,10 @@ C++ includes: ParticleLayoutComputation.h
 
 Computes scattering intensity for given range of simulation elements. 
 ";
+
+
+// File: structParticleLimits.xml
+%feature("docstring") ParticleLimits "";
 
 
 // File: classPolygon.xml
@@ -13419,19 +13467,22 @@ Class that contains upper and lower limits of the z-coordinate for the slicing o
 C++ includes: ZLimits.h
 ";
 
-%feature("docstring")  ZLimits::ZLimits "ZLimits::ZLimits(Type type=INFINITE, double ref=0.0)
+%feature("docstring")  ZLimits::ZLimits "ZLimits::ZLimits()
 ";
 
 %feature("docstring")  ZLimits::ZLimits "ZLimits::ZLimits(double min, double max)
 ";
 
-%feature("docstring")  ZLimits::type "Type ZLimits::type() const 
+%feature("docstring")  ZLimits::ZLimits "ZLimits::ZLimits(OneSidedLimit lower_limit, OneSidedLimit upper_limit)
 ";
 
-%feature("docstring")  ZLimits::zmin "double ZLimits::zmin() const 
+%feature("docstring")  ZLimits::isFinite "bool ZLimits::isFinite() const 
 ";
 
-%feature("docstring")  ZLimits::zmax "double ZLimits::zmax() const 
+%feature("docstring")  ZLimits::lowerLimit "OneSidedLimit ZLimits::lowerLimit() const 
+";
+
+%feature("docstring")  ZLimits::upperLimit "OneSidedLimit ZLimits::upperLimit() const 
 ";
 
 
@@ -13450,19 +13501,22 @@ C++ includes: ZLimits.h
 // File: namespace_0D275.xml
 
 
-// File: namespace_0D305.xml
+// File: namespace_0D290.xml
 
 
 // File: namespace_0D307.xml
 
 
-// File: namespace_0D322.xml
+// File: namespace_0D309.xml
 
 
-// File: namespace_0D361.xml
+// File: namespace_0D324.xml
 
 
-// File: namespace_0D473.xml
+// File: namespace_0D363.xml
+
+
+// File: namespace_0D475.xml
 
 
 // File: namespace_0D54.xml
@@ -14917,6 +14971,12 @@ make Swappable
 // File: Layer_8h.xml
 
 
+// File: LayerFillLimits_8cpp.xml
+
+
+// File: LayerFillLimits_8h.xml
+
+
 // File: LayerInterface_8cpp.xml
 
 
@@ -15172,9 +15232,25 @@ Global function that creates a  SlicedFormFactorList from an  IParticle in a mul
 
 
 // File: ZLimits_8cpp.xml
+%feature("docstring")  MinLimit "OneSidedLimit MinLimit(const OneSidedLimit &left, const OneSidedLimit &right)
+";
+
+%feature("docstring")  MaxLimit "OneSidedLimit MaxLimit(const OneSidedLimit &left, const OneSidedLimit &right)
+";
+
+%feature("docstring")  ConvexHull "ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
+";
 
 
 // File: ZLimits_8h.xml
+%feature("docstring")  MinLimit "OneSidedLimit MinLimit(const OneSidedLimit &left, const OneSidedLimit &right)
+";
+
+%feature("docstring")  MaxLimit "OneSidedLimit MaxLimit(const OneSidedLimit &left, const OneSidedLimit &right)
+";
+
+%feature("docstring")  ConvexHull "ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
+";
 
 
 // File: IFormFactor_8cpp.xml

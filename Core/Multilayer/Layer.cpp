@@ -30,16 +30,6 @@ Layer::Layer(HomogeneousMaterial material, double thickness)
     registerThickness();
 }
 
-Layer::Layer(const Layer& other)
-    : m_material(other.m_material)
-{
-    setName(other.getName());
-    m_thickness = other.m_thickness;
-    for (size_t i=0; i<other.numberOfLayouts();++i)
-        addLayout(*other.layout(i));
-    registerThickness();
-}
-
 Layer::~Layer()
 {}
 
@@ -177,6 +167,17 @@ void Layer::registerThickness(bool make_registered)
     } else {
         removeParameter(BornAgain::Thickness);
     }
+}
+
+Layer::Layer(const Layer& other)
+    : m_material(other.m_material)
+{
+    setName(other.getName());
+    m_thickness = other.m_thickness;
+    m_n_slices = other.m_n_slices;
+    for (size_t i=0; i<other.numberOfLayouts();++i)
+        addLayout(*other.layout(i));
+    registerThickness();
 }
 
 Layer* Layer::emptyClone() const

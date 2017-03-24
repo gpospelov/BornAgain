@@ -72,7 +72,8 @@ MultiLayer* MultiLayer::clone() const
 
 MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
 {
-    (void)use_average_layers;
+    if (!use_average_layers)
+        return clone();
     return clone();
 }
 

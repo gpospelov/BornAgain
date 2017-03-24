@@ -18196,6 +18196,11 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_clone(self)
 
 
+    def cloneWithOffset(self, offset):
+        """cloneWithOffset(ILayout self, double offset) -> ILayout"""
+        return _libBornAgainCore.ILayout_cloneWithOffset(self, offset)
+
+
     def accept(self, visitor):
         """
         accept(ILayout self, INodeVisitor visitor)
@@ -18424,6 +18429,11 @@ class IAbstractParticle(ISample):
         """
         return _libBornAgainCore.IAbstractParticle_setAbundance(self, abundance)
 
+
+    def translateZ(self, offset):
+        """translateZ(IAbstractParticle self, double offset)"""
+        return _libBornAgainCore.IAbstractParticle_translateZ(self, offset)
+
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
 IAbstractParticle_swigregister(IAbstractParticle)
 
@@ -18617,6 +18627,11 @@ class IParticle(IAbstractParticle):
 
         """
         return _libBornAgainCore.IParticle_applyTranslation(self, displacement)
+
+
+    def translateZ(self, offset):
+        """translateZ(IParticle self, double offset)"""
+        return _libBornAgainCore.IParticle_translateZ(self, offset)
 
 
     def rotation(self):
@@ -21491,6 +21506,10 @@ class Layer(ISample):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Layer, name)
     __repr__ = _swig_repr
+    TOPLAYER = _libBornAgainCore.Layer_TOPLAYER
+    INTERMEDIATELAYER = _libBornAgainCore.Layer_INTERMEDIATELAYER
+    BOTTOMLAYER = _libBornAgainCore.Layer_BOTTOMLAYER
+    ONLYLAYER = _libBornAgainCore.Layer_ONLYLAYER
 
     def __init__(self, material, thickness=0):
         """
@@ -21528,6 +21547,11 @@ class Layer(ISample):
 
         """
         return _libBornAgainCore.Layer_cloneInvertB(self)
+
+
+    def cloneSliced(self, limits, layer_type):
+        """cloneSliced(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >"""
+        return _libBornAgainCore.Layer_cloneSliced(self, limits, layer_type)
 
 
     def accept(self, visitor):
@@ -24287,6 +24311,11 @@ class ParticleDistribution(IAbstractParticle):
         return _libBornAgainCore.ParticleDistribution_accept(self, visitor)
 
 
+    def translateZ(self, offset):
+        """translateZ(ParticleDistribution self, double offset)"""
+        return _libBornAgainCore.ParticleDistribution_translateZ(self, offset)
+
+
     def generateParticles(self):
         """
         generateParticles(ParticleDistribution self) -> std::vector< IParticle const *,std::allocator< IParticle const * > >
@@ -24388,6 +24417,11 @@ class ParticleLayout(ILayout):
 
         """
         return _libBornAgainCore.ParticleLayout_clone(self)
+
+
+    def cloneWithOffset(self, offset):
+        """cloneWithOffset(ParticleLayout self, double offset) -> ParticleLayout"""
+        return _libBornAgainCore.ParticleLayout_cloneWithOffset(self, offset)
 
 
     def accept(self, visitor):

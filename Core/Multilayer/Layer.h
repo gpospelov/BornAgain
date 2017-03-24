@@ -20,6 +20,7 @@
 #include "Complex.h"
 #include "HomogeneousMaterial.h"
 #include "SafePointerVector.h"
+#include "ZLimits.h"
 
 class ILayout;
 
@@ -29,12 +30,19 @@ class ILayout;
 class BA_CORE_API_ Layer : public ISample
 {
 public:
+    enum ELayerType {
+        TOPLAYER,
+        INTERMEDIATELAYER,
+        BOTTOMLAYER,
+        ONLYLAYER
+    };
     Layer(HomogeneousMaterial material, double thickness = 0);
 
     ~Layer();
 
     Layer* clone() const override final { return new Layer(*this); }
     Layer* cloneInvertB() const;
+    SafePointerVector<Layer> cloneSliced(ZLimits limits, ELayerType layer_type) const;
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
@@ -69,9 +77,13 @@ public:
 
 private:
     Layer(const Layer& other);
+    //! Clone the layer without its layouts
+    Layer* emptyClone() const;
+    Layer* cloneWithOffset(double offset) const;
 
     HomogeneousMaterial m_material;   //!< material
     double m_thickness;       //!< layer thickness in nanometers
+    unsigned int m_n_slices=0;  //!< number of slices to create for graded layer approach
     SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
 };
 

@@ -25,12 +25,13 @@ class MainWindow;
 class ProjectDocument;
 class WarningMessageService;
 
-//! handles activity related to opening/save projects
+//! Handles activity related to opening/save projects.
+
 class BA_CORE_API_ ProjectManager : public QObject
 {
     Q_OBJECT
 public:
-    ProjectManager(MainWindow *parent);
+    ProjectManager(MainWindow* parent);
     virtual ~ProjectManager();
 
     void createNewProject();
@@ -41,12 +42,12 @@ public:
 
     QStringList recentProjects();
 
-    ProjectDocument *document() { return m_project_document; }
+    ProjectDocument* document() { return m_project_document; }
 
     QString projectDir() const;
     QString userExportDir() const;
     QString userImportDir() const;
-    void setImportDir(const QString &dirname);
+    void setImportDir(const QString& dirname);
 
 signals:
     void modified();
@@ -63,7 +64,7 @@ public slots:
 private:
     void addToRecentProjects();
 
-    QString defaultWorkingDirectory();
+    QString workingDirectory();
     QString untitledProjectName();
 
     void riseProjectLoadFailedDialog();
@@ -71,12 +72,13 @@ private:
 
     void deleteCurrentProject();
 
-    MainWindow *m_mainWindow;
-    ProjectDocument *m_project_document;
+    MainWindow* m_mainWindow;
+    ProjectDocument* m_project_document;
 
-    QString m_defaultWorkingDirectory;
+    //!< Name of directory where project directory was created.
+    QString m_workingDirectory;
     QStringList m_recentProjects;
-    WarningMessageService *m_messageService;
+    WarningMessageService* m_messageService;
 };
 
 #endif // PROJECTMANAGER_H

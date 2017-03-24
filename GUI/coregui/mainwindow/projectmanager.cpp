@@ -24,6 +24,8 @@
 #include "mainwindow_constants.h"
 #include "newprojectdialog.h"
 #include "projectdocument.h"
+#include "AutosaveService.h"
+#include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QSettings>
@@ -40,6 +42,7 @@ ProjectManager::ProjectManager(MainWindow* parent)
     : m_mainWindow(parent)
     , m_project_document(nullptr)
     , m_messageService(new WarningMessageService)
+    , m_autosaveService(new AutosaveService(this))
 
 {
     createNewProject();
@@ -103,14 +106,19 @@ void ProjectManager::createNewProject()
     m_project_document->setProjectName("Untitled");
     m_project_document->setApplicationModels(m_mainWindow->models());
     m_project_document->setLogger(m_messageService);
+
+    if(m_autosaveService)
+        m_autosaveService->setDocument(m_project_document);
 }
 
 void ProjectManager::onDocumentModified()
 {
-    if (m_project_document->isModified())
+    if (m_project_document->isModified()) {
+        qDebug() << "ProjectManager::onDocumentModified()";
         m_mainWindow->setWindowTitle("*" + m_project_document->getProjectName());
-    else
+    } else {
         m_mainWindow->setWindowTitle(m_project_document->getProjectName());
+    }
 }
 
 void ProjectManager::newProject()

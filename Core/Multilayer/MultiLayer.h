@@ -85,22 +85,16 @@ public:
     //! Changes a layer's material
     void setLayerMaterial(size_t i_layer, HomogeneousMaterial material);
 
-    //! Adds a layout of particles to the whole multilayer (particles can be in different layers)
-    void addLayout(const ILayout& layout);
-
-    size_t numberOfLayouts() const { return m_layouts.size(); }
-    const ILayout* layout(size_t i) const;
-
     //! Returns a clone of multilayer with clones of all layers and recreated
     //! interfaces between layers
     MultiLayer* clone() const final override;
 
+    //! Returns a clone with inverted magnetic fields
+    MultiLayer* cloneInvertB() const;
+
     //! Returns a clone of multilayer where the original layers may be sliced into several sublayers
     //! for usage with the graded layer approximation
     MultiLayer* cloneSliced(bool use_average_layers) const;
-
-    //! Returns a clone with inverted magnetic fields
-    MultiLayer* cloneInvertB() const;
 
     //! Sets cross correlation length of roughnesses between interfaces
     void setCrossCorrLength(double crossCorrLength);
@@ -113,7 +107,7 @@ public:
     double crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
 
     //! returns layer index
-    int indexOfLayer(const Layer* layer) const;
+    int indexOfLayer(const Layer* p_layer) const;
 
     //! returns true if contains magnetic materials and matrix calculations are required
     bool requiresMatrixRTCoefficients() const;
@@ -147,7 +141,7 @@ private:
     void addAndRegisterInterface(LayerInterface* child);
 
     //! Handles correct registration of layer thicknesses (not needed for top and bottom layer)
-    void handleLayerThicknessRegistration() const;
+    void handleLayerThicknessRegistration();
 
     //! Checks index of layer w.r.t. vector length
     size_t check_layer_index(size_t i_layer) const;
@@ -162,15 +156,13 @@ private:
     std::vector<ZLimits> calculateLayerZLimits() const;
 
     //! stack of layers [nlayers]
-    std::vector<Layer*> m_layers;
+    SafePointerVector<Layer> m_layers;
     //! coordinate of layer's bottoms [nlayers]
     std::vector<double> m_layers_bottomz;
     //! stack of layer interfaces [nlayers-1]
-    std::vector<LayerInterface*> m_interfaces;
+    SafePointerVector<LayerInterface> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
-    //! independent layouts in this multilayer (not used)
-    SafePointerVector<ILayout> m_layouts;
 };
 
 #endif // MULTILAYER_H

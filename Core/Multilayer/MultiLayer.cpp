@@ -33,15 +33,7 @@ MultiLayer::MultiLayer() : m_crossCorrLength(0)
 }
 
 MultiLayer::~MultiLayer()
-{
-    for (size_t i=0; i<m_layers.size(); i++)
-        delete m_layers[i];
-    m_layers.clear();
-
-    for (size_t i=0; i<m_interfaces.size(); i++)
-        delete m_interfaces[i];
-    m_interfaces.clear();
-}
+{}
 
 void MultiLayer::init_parameters()
 {
@@ -50,16 +42,14 @@ void MultiLayer::init_parameters()
         setUnit("nm").setNonnegative();
 }
 
-const ILayout * MultiLayer::layout(size_t i) const
-{
-    if (i >= m_layouts.size())
-        return nullptr;
-    return m_layouts[i];
-}
-
 MultiLayer* MultiLayer::clone() const
 {
     return cloneGeneric( [](const Layer* p_layer) { return p_layer->clone(); } );
+}
+
+MultiLayer* MultiLayer::cloneInvertB() const
+{
+    return cloneGeneric( [](const Layer* p_layer) { return p_layer->cloneInvertB(); } );
 }
 
 MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
@@ -90,11 +80,6 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
     return P_result.release();
 }
 
-MultiLayer* MultiLayer::cloneInvertB() const
-{
-    return cloneGeneric( [](const Layer* p_layer) { return p_layer->cloneInvertB(); } );
-}
-
 //! Returns pointer to the top interface of the layer.
 //! nInterfaces = nLayers-1, first layer in multilayer doesn't have interface.
 const LayerInterface* MultiLayer::layerTopInterface(size_t i_layer) const
@@ -119,15 +104,7 @@ void MultiLayer::setLayerMaterial(size_t i_layer, HomogeneousMaterial material)
     p_layer->setMaterial(material);
 }
 
-void MultiLayer::addLayout(const ILayout & layout)
-{
-    ILayout *clone = layout.clone();
-    m_layouts.push_back(clone);
-    registerChild(clone);
-}
-
 //! Adds layer with top roughness
-
 void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness)
 {
     Layer* p_new_layer = layer.clone();
@@ -184,10 +161,10 @@ double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k
     return corr;
 }
 
-int MultiLayer::indexOfLayer(const Layer* layer) const
+int MultiLayer::indexOfLayer(const Layer* p_layer) const
 {
     for (size_t i=0; i<numberOfLayers(); ++i)
-        if (layer == m_layers[i])
+        if (p_layer == m_layers[i])
             return i;
     return -1;
 }
@@ -202,8 +179,8 @@ bool MultiLayer::containsMagneticMaterial() const
 
 bool MultiLayer::hasRoughness() const
 {
-    for (const LayerInterface* face: m_interfaces)
-        if (face->getRoughness())
+    for (auto p_interface: m_interfaces)
+        if (p_interface->getRoughness())
             return true;
     return false;
 }
@@ -211,14 +188,14 @@ bool MultiLayer::hasRoughness() const
 size_t MultiLayer::totalNofLayouts() const
 {
     size_t ret = 0;
-    for (const Layer* layer: m_layers)
-        ret += layer->numberOfLayouts();
+    for (auto p_layer: m_layers)
+        ret += p_layer->numberOfLayouts();
     return ret;
 }
 
 bool MultiLayer::containsParticles() const
 {
-    for (auto* p_layer: m_layers)
+    for (auto p_layer: m_layers)
         if (p_layer->containsParticles())
             return true;
     return false;
@@ -227,10 +204,10 @@ bool MultiLayer::containsParticles() const
 std::vector<const INode*> MultiLayer::getChildren() const
 {
     std::vector<const INode*> result;
-    for(auto layer : m_layers) {
-        result.push_back(layer);
-        if(const LayerInterface *interface = layerBottomInterface(indexOfLayer(layer)))
-            result.push_back(interface);
+    for(auto p_layer : m_layers) {
+        result.push_back(p_layer);
+        if(const LayerInterface* p_interface = layerBottomInterface(indexOfLayer(p_layer)))
+            result.push_back(p_interface);
     }
     return result;
 }
@@ -248,7 +225,7 @@ void MultiLayer::addAndRegisterInterface(LayerInterface* child)
     registerChild(child);
 }
 
-void MultiLayer::handleLayerThicknessRegistration() const
+void MultiLayer::handleLayerThicknessRegistration()
 {
     size_t n_layers = numberOfLayers();
     for (size_t i=0; i<numberOfLayers(); ++i) {
@@ -292,8 +269,8 @@ MultiLayer* MultiLayer::cloneGeneric(const std::function<Layer*(const Layer*)>& 
 
 bool MultiLayer::requiresMatrixRTCoefficients() const
 {
-    for (auto layer: m_layers)
-        if (!(layer->material()->isScalarMaterial()))
+    for (auto p_layer: m_layers)
+        if (!(p_layer->material()->isScalarMaterial()))
             return true;
     return false;
 }

@@ -22442,38 +22442,6 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_setLayerMaterial(self, i_layer, material)
 
 
-    def addLayout(self, layout):
-        """
-        addLayout(MultiLayer self, ILayout layout)
-
-        void MultiLayer::addLayout(const ILayout &layout)
-
-        Adds a layout of particles to the whole multilayer (particles can be in different layers) 
-
-        """
-        return _libBornAgainCore.MultiLayer_addLayout(self, layout)
-
-
-    def numberOfLayouts(self):
-        """
-        numberOfLayouts(MultiLayer self) -> size_t
-
-        size_t MultiLayer::numberOfLayouts() const 
-
-        """
-        return _libBornAgainCore.MultiLayer_numberOfLayouts(self)
-
-
-    def layout(self, i):
-        """
-        layout(MultiLayer self, size_t i) -> ILayout
-
-        const ILayout * MultiLayer::layout(size_t i) const 
-
-        """
-        return _libBornAgainCore.MultiLayer_layout(self, i)
-
-
     def clone(self):
         """
         clone(MultiLayer self) -> MultiLayer
@@ -22486,18 +22454,6 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_clone(self)
 
 
-    def cloneSliced(self, use_average_layers):
-        """
-        cloneSliced(MultiLayer self, bool use_average_layers) -> MultiLayer
-
-        MultiLayer * MultiLayer::cloneSliced(bool use_average_layers) const
-
-        Returns a clone of multilayer where the original layers may be sliced into several sublayers for usage with the graded layer approximation 
-
-        """
-        return _libBornAgainCore.MultiLayer_cloneSliced(self, use_average_layers)
-
-
     def cloneInvertB(self):
         """
         cloneInvertB(MultiLayer self) -> MultiLayer
@@ -22508,6 +22464,18 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_cloneInvertB(self)
+
+
+    def cloneSliced(self, use_average_layers):
+        """
+        cloneSliced(MultiLayer self, bool use_average_layers) -> MultiLayer
+
+        MultiLayer * MultiLayer::cloneSliced(bool use_average_layers) const
+
+        Returns a clone of multilayer where the original layers may be sliced into several sublayers for usage with the graded layer approximation 
+
+        """
+        return _libBornAgainCore.MultiLayer_cloneSliced(self, use_average_layers)
 
 
     def setCrossCorrLength(self, crossCorrLength):
@@ -22548,16 +22516,16 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_crossCorrSpectralFun(self, kvec, j, k)
 
 
-    def indexOfLayer(self, layer):
+    def indexOfLayer(self, p_layer):
         """
-        indexOfLayer(MultiLayer self, Layer layer) -> int
+        indexOfLayer(MultiLayer self, Layer p_layer) -> int
 
         int MultiLayer::indexOfLayer(const Layer *layer) const
 
         returns layer index 
 
         """
-        return _libBornAgainCore.MultiLayer_indexOfLayer(self, layer)
+        return _libBornAgainCore.MultiLayer_indexOfLayer(self, p_layer)
 
 
     def requiresMatrixRTCoefficients(self):

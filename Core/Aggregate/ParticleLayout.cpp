@@ -67,35 +67,38 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundan
 
 ParticleLayout* ParticleLayout::clone() const
 {
-    ParticleLayout* p_new = new ParticleLayout();
+    ParticleLayout* p_result = new ParticleLayout();
 
-    for (size_t i = 0; i < m_particles.size(); ++i)
-        p_new->addAndRegisterAbstractParticle(m_particles[i]->clone());
+    for (auto p_particle : m_particles)
+        p_result->addAndRegisterAbstractParticle(p_particle->clone());
 
     if (mP_interference_function)
-        p_new->setAndRegisterInterferenceFunction(mP_interference_function->clone());
+        p_result->setAndRegisterInterferenceFunction(mP_interference_function->clone());
 
-    p_new->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
-    p_new->setApproximation(getApproximation());
+    p_result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
+    p_result->setApproximation(getApproximation());
 
-    return p_new;
+    return p_result;
 }
 
-//! Returns a clone with inverted magnetic fields.
-ParticleLayout* ParticleLayout::cloneInvertB() const
+ParticleLayout* ParticleLayout::cloneWithOffset(double offset) const
 {
-    ParticleLayout* p_new = new ParticleLayout();
+    ParticleLayout* p_result = new ParticleLayout();
 
-    for (size_t i = 0; i < m_particles.size(); ++i)
-        p_new->addAndRegisterAbstractParticle(m_particles[i]->cloneInvertB());
+    for (auto p_particle : m_particles)
+    {
+        auto p_particle_clone = p_particle->clone();
+        p_particle_clone->translateZ(offset);
+        p_result->addAndRegisterAbstractParticle(p_particle_clone);
+    }
 
     if (mP_interference_function)
-        p_new->setAndRegisterInterferenceFunction(mP_interference_function->clone());
+        p_result->setAndRegisterInterferenceFunction(mP_interference_function->clone());
 
-    p_new->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
-    p_new->setApproximation(getApproximation());
+    p_result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
+    p_result->setApproximation(getApproximation());
 
-    return p_new;
+    return p_result;
 }
 
 //! Adds generic particle to the layout.
@@ -194,6 +197,20 @@ double ParticleLayout::totalParticleSurfaceDensity() const
     double iff_density =
         mP_interference_function ? mP_interference_function->getParticleDensity() : 0.0;
     return iff_density > 0.0 ? iff_density : m_total_particle_density;
+}
+
+double ParticleLayout::topZParticles() const
+{
+    if (numberOfParticles()==0)
+        throw std::runtime_error("ParticleLayout::topZParticles: no particles in this layout!");
+    return 0;
+}
+
+double ParticleLayout::bottomZParticles() const
+{
+    if (numberOfParticles()==0)
+        throw std::runtime_error("ParticleLayout::bottomZParticles: no particles in this layout!");
+    return 0;
 }
 
 std::vector<const INode*> ParticleLayout::getChildren() const

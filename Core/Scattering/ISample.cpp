@@ -20,12 +20,6 @@
 #include <algorithm>
 #include <sstream>
 
-ISample* ISample::cloneInvertB() const
-{
-    throw Exceptions::NotImplementedException(
-        "ISample::cloneInvertB() -> Error! Method is not implemented");
-}
-
 std::vector<const HomogeneousMaterial*> ISample::containedMaterials() const
 {
     std::vector<const HomogeneousMaterial*> result;

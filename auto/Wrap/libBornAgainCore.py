@@ -4631,18 +4631,6 @@ class ISample(ICloneable, INode):
         return _libBornAgainCore.ISample_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(ISample self) -> ISample
-
-        ISample * ISample::cloneInvertB() const
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.ISample_cloneInvertB(self)
-
-
     def material(self):
         """
         material(ISample self) -> HomogeneousMaterial
@@ -7580,7 +7568,7 @@ class IClusteredParticles(ISample):
         """
         clone(IClusteredParticles self) -> IClusteredParticles
 
-        virtual IClusteredParticles* IClusteredParticles::clone() const =0
+        IClusteredParticles* IClusteredParticles::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -7588,23 +7576,11 @@ class IClusteredParticles(ISample):
         return _libBornAgainCore.IClusteredParticles_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(IClusteredParticles self) -> IClusteredParticles
-
-        virtual IClusteredParticles* IClusteredParticles::cloneInvertB() const =0
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.IClusteredParticles_cloneInvertB(self)
-
-
     def accept(self, visitor):
         """
         accept(IClusteredParticles self, INodeVisitor visitor)
 
-        virtual void IClusteredParticles::accept(INodeVisitor *visitor) const =0
+        void IClusteredParticles::accept(INodeVisitor *visitor) const override=0
 
         Calls the  INodeVisitor's visit method. 
 
@@ -7625,7 +7601,14 @@ class IClusteredParticles(ISample):
 
 
     def homogeneousRegions(self):
-        """homogeneousRegions(IClusteredParticles self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >"""
+        """
+        homogeneousRegions(IClusteredParticles self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
+
+        virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const =0
+
+        Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
+
+        """
         return _libBornAgainCore.IClusteredParticles_homogeneousRegions(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_IClusteredParticles
@@ -7672,7 +7655,7 @@ class Crystal(IClusteredParticles):
         """
         clone(Crystal self) -> Crystal
 
-        Crystal * Crystal::clone() const final
+        Crystal * Crystal::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -7680,23 +7663,11 @@ class Crystal(IClusteredParticles):
         return _libBornAgainCore.Crystal_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(Crystal self) -> Crystal
-
-        Crystal * Crystal::cloneInvertB() const final
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.Crystal_cloneInvertB(self)
-
-
     def accept(self, visitor):
         """
         accept(Crystal self, INodeVisitor visitor)
 
-        void Crystal::accept(INodeVisitor *visitor) const final
+        void Crystal::accept(INodeVisitor *visitor) const overridefinal
 
         Calls the  INodeVisitor's visit method. 
 
@@ -7708,7 +7679,7 @@ class Crystal(IClusteredParticles):
         """
         createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
 
-        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
+        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const overridefinal
 
         Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 
@@ -7717,17 +7688,34 @@ class Crystal(IClusteredParticles):
 
 
     def homogeneousRegions(self):
-        """homogeneousRegions(Crystal self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >"""
+        """
+        homogeneousRegions(Crystal self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
+
+        std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const overridefinal
+
+        Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
+
+        """
         return _libBornAgainCore.Crystal_homogeneousRegions(self)
 
 
     def transformedLattice(self, p_rotation):
-        """transformedLattice(Crystal self, IRotation p_rotation) -> Lattice"""
+        """
+        transformedLattice(Crystal self, IRotation p_rotation) -> Lattice
+
+        Lattice Crystal::transformedLattice(const IRotation *p_rotation) const 
+
+        """
         return _libBornAgainCore.Crystal_transformedLattice(self, p_rotation)
 
 
     def latticeBasis(self):
-        """latticeBasis(Crystal self) -> ParticleComposition"""
+        """
+        latticeBasis(Crystal self) -> ParticleComposition
+
+        const ParticleComposition* Crystal::latticeBasis() const 
+
+        """
         return _libBornAgainCore.Crystal_latticeBasis(self)
 
 
@@ -7745,7 +7733,7 @@ class Crystal(IClusteredParticles):
         """
         getChildren(Crystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > Crystal::getChildren() const
+        std::vector< const INode * > Crystal::getChildren() const overridefinal
 
         Returns a vector of children (const). 
 
@@ -10720,7 +10708,14 @@ class IFormFactor(ISample):
 
 
     def volume(self):
-        """volume(IFormFactor self) -> double"""
+        """
+        volume(IFormFactor self) -> double
+
+        double IFormFactor::volume() const
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
         return _libBornAgainCore.IFormFactor_volume(self)
 
 
@@ -11260,7 +11255,14 @@ class IFormFactorDecorator(IFormFactor):
 
 
     def volume(self):
-        """volume(IFormFactorDecorator self) -> double"""
+        """
+        volume(IFormFactorDecorator self) -> double
+
+        double IFormFactorDecorator::volume() const override
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
         return _libBornAgainCore.IFormFactorDecorator_volume(self)
 
 
@@ -11683,7 +11685,14 @@ class FormFactorPolyhedron(IFormFactorBorn):
 
 
     def volume(self):
-        """volume(FormFactorPolyhedron self) -> double"""
+        """
+        volume(FormFactorPolyhedron self) -> double
+
+        double FormFactorPolyhedron::volume() const overridefinal
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
         return _libBornAgainCore.FormFactorPolyhedron_volume(self)
 
 
@@ -11751,7 +11760,14 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
 
 
     def volume(self):
-        """volume(FormFactorPolygonalPrism self) -> double"""
+        """
+        volume(FormFactorPolygonalPrism self) -> double
+
+        double FormFactorPolygonalPrism::volume() const overridefinal
+
+        Returns the volume of this prism. 
+
+        """
         return _libBornAgainCore.FormFactorPolygonalPrism_volume(self)
 
 
@@ -11817,7 +11833,14 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
 
 
     def volume(self):
-        """volume(FormFactorPolygonalSurface self) -> double"""
+        """
+        volume(FormFactorPolygonalSurface self) -> double
+
+        double FormFactorPolygonalSurface::volume() const override
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
         return _libBornAgainCore.FormFactorPolygonalSurface_volume(self)
 
 
@@ -12382,7 +12405,14 @@ class FormFactorCrystal(IFormFactor):
 
 
     def volume(self):
-        """volume(FormFactorCrystal self) -> double"""
+        """
+        volume(FormFactorCrystal self) -> double
+
+        double FormFactorCrystal::volume() const overridefinal
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
         return _libBornAgainCore.FormFactorCrystal_volume(self)
 
 
@@ -16251,12 +16281,22 @@ class SimulationOptions(_object):
 
 
     def setUseAvgMaterials(self, use_avg_materials):
-        """setUseAvgMaterials(SimulationOptions self, bool use_avg_materials)"""
+        """
+        setUseAvgMaterials(SimulationOptions self, bool use_avg_materials)
+
+        void SimulationOptions::setUseAvgMaterials(bool use_avg_materials)
+
+        """
         return _libBornAgainCore.SimulationOptions_setUseAvgMaterials(self, use_avg_materials)
 
 
     def useAvgMaterials(self):
-        """useAvgMaterials(SimulationOptions self) -> bool"""
+        """
+        useAvgMaterials(SimulationOptions self) -> bool
+
+        bool SimulationOptions::useAvgMaterials() const 
+
+        """
         return _libBornAgainCore.SimulationOptions_useAvgMaterials(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationOptions
@@ -17426,7 +17466,7 @@ class HomogeneousMaterial(INamed):
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta) -> HomogeneousMaterial
 
-        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, const kvector_t magnetic_field=kvector_t())
+        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field=kvector_t())
 
         Constructs a material with  name and refractive_index parameters delta and beta (n = 1 - delta + i*beta). 
 
@@ -17462,7 +17502,12 @@ class HomogeneousMaterial(INamed):
 
 
     def refractiveIndex2(self):
-        """refractiveIndex2(HomogeneousMaterial self) -> complex_t"""
+        """
+        refractiveIndex2(HomogeneousMaterial self) -> complex_t
+
+        complex_t HomogeneousMaterial::refractiveIndex2() const 
+
+        """
         return _libBornAgainCore.HomogeneousMaterial_refractiveIndex2(self)
 
 
@@ -18151,6 +18196,16 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_clone(self)
 
 
+    def cloneWithOffset(self, offset):
+        """
+        cloneWithOffset(ILayout self, double offset) -> ILayout
+
+        virtual ILayout* ILayout::cloneWithOffset(double offset) const =0
+
+        """
+        return _libBornAgainCore.ILayout_cloneWithOffset(self, offset)
+
+
     def accept(self, visitor):
         """
         accept(ILayout self, INodeVisitor visitor)
@@ -18161,18 +18216,6 @@ class ILayout(ISample):
 
         """
         return _libBornAgainCore.ILayout_accept(self, visitor)
-
-
-    def cloneInvertB(self):
-        """
-        cloneInvertB(ILayout self) -> ILayout
-
-        virtual ILayout* ILayout::cloneInvertB() const =0
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.ILayout_cloneInvertB(self)
 
 
     def numberOfParticles(self):
@@ -18294,6 +18337,30 @@ class ILayout(ISample):
         """
         return _libBornAgainCore.ILayout_setApproximation(self, approximation)
 
+
+    def topZParticles(self):
+        """
+        topZParticles(ILayout self) -> double
+
+        virtual double ILayout::topZParticles() const =0
+
+        Returns the top-most z-coordinate of its particles. 
+
+        """
+        return _libBornAgainCore.ILayout_topZParticles(self)
+
+
+    def bottomZParticles(self):
+        """
+        bottomZParticles(ILayout self) -> double
+
+        virtual double ILayout::bottomZParticles() const =0
+
+        Returns the bottom-most z-coordinate of its particles. 
+
+        """
+        return _libBornAgainCore.ILayout_bottomZParticles(self)
+
 ILayout_swigregister = _libBornAgainCore.ILayout_swigregister
 ILayout_swigregister(ILayout)
 
@@ -18336,18 +18403,6 @@ class IAbstractParticle(ISample):
         return _libBornAgainCore.IAbstractParticle_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(IAbstractParticle self) -> IAbstractParticle
-
-        virtual IAbstractParticle* IAbstractParticle::cloneInvertB() const =0
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.IAbstractParticle_cloneInvertB(self)
-
-
     def accept(self, visitor):
         """
         accept(IAbstractParticle self, INodeVisitor visitor)
@@ -18378,6 +18433,18 @@ class IAbstractParticle(ISample):
 
         """
         return _libBornAgainCore.IAbstractParticle_setAbundance(self, abundance)
+
+
+    def translateZ(self, offset):
+        """
+        translateZ(IAbstractParticle self, double offset)
+
+        virtual void IAbstractParticle::translateZ(double offset)=0
+
+        Applies a translation in the z-direction. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_translateZ(self, offset)
 
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
 IAbstractParticle_swigregister(IAbstractParticle)
@@ -18464,6 +18531,35 @@ class IParameterReal(INamed, INoncopyable):
 IParameterReal_swigregister = _libBornAgainCore.IParameterReal_swigregister
 IParameterReal_swigregister(IParameterReal)
 
+class ParticleLimits(_object):
+    """Proxy of C++ ParticleLimits class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ParticleLimits, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ParticleLimits, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["m_bottom"] = _libBornAgainCore.ParticleLimits_m_bottom_set
+    __swig_getmethods__["m_bottom"] = _libBornAgainCore.ParticleLimits_m_bottom_get
+    if _newclass:
+        m_bottom = _swig_property(_libBornAgainCore.ParticleLimits_m_bottom_get, _libBornAgainCore.ParticleLimits_m_bottom_set)
+    __swig_setmethods__["m_top"] = _libBornAgainCore.ParticleLimits_m_top_set
+    __swig_getmethods__["m_top"] = _libBornAgainCore.ParticleLimits_m_top_get
+    if _newclass:
+        m_top = _swig_property(_libBornAgainCore.ParticleLimits_m_top_get, _libBornAgainCore.ParticleLimits_m_top_set)
+
+    def __init__(self):
+        """__init__(ParticleLimits self) -> ParticleLimits"""
+        this = _libBornAgainCore.new_ParticleLimits()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_ParticleLimits
+    __del__ = lambda self: None
+ParticleLimits_swigregister = _libBornAgainCore.ParticleLimits_swigregister
+ParticleLimits_swigregister(ParticleLimits)
+
 class IParticle(IAbstractParticle):
     """
 
@@ -18493,7 +18589,7 @@ class IParticle(IAbstractParticle):
         """
         clone(IParticle self) -> IParticle
 
-        virtual IParticle* IParticle::clone() const =0
+        IParticle* IParticle::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -18501,23 +18597,11 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(IParticle self) -> IParticle
-
-        virtual IParticle* IParticle::cloneInvertB() const =0
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.IParticle_cloneInvertB(self)
-
-
     def accept(self, visitor):
         """
         accept(IParticle self, INodeVisitor visitor)
 
-        virtual void IParticle::accept(INodeVisitor *visitor) const
+        void IParticle::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -18586,6 +18670,18 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_applyTranslation(self, displacement)
 
 
+    def translateZ(self, offset):
+        """
+        translateZ(IParticle self, double offset)
+
+        void IParticle::translateZ(double offset) override
+
+        Applies a translation in the z-direction. 
+
+        """
+        return _libBornAgainCore.IParticle_translateZ(self, offset)
+
+
     def rotation(self):
         """
         rotation(IParticle self) -> IRotation
@@ -18626,7 +18722,7 @@ class IParticle(IAbstractParticle):
         """
         getChildren(IParticle self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > IParticle::getChildren() const
+        std::vector< const INode * > IParticle::getChildren() const override
 
         Returns a vector of children (const). 
 
@@ -18668,6 +18764,18 @@ class IParticle(IAbstractParticle):
 
         """
         return _libBornAgainCore.IParticle_decompose(self)
+
+
+    def bottomTopZ(self):
+        """
+        bottomTopZ(IParticle self) -> ParticleLimits
+
+        ParticleLimits IParticle::bottomTopZ() const
+
+        Top and bottom z-coordinate. 
+
+        """
+        return _libBornAgainCore.IParticle_bottomTopZ(self)
 
 IParticle_swigregister = _libBornAgainCore.IParticle_swigregister
 IParticle_swigregister(IParticle)
@@ -18770,18 +18878,6 @@ class IRotation(ISample):
 
         """
         return _libBornAgainCore.IRotation_clone(self)
-
-
-    def cloneInvertB(self):
-        """
-        cloneInvertB(IRotation self) -> IRotation
-
-        IRotation* IRotation::cloneInvertB() const final
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.IRotation_cloneInvertB(self)
 
 
     def createInverse(self):
@@ -21019,7 +21115,14 @@ class Lattice(_object):
 
 
     def volume(self):
-        """volume(Lattice self) -> double"""
+        """
+        volume(Lattice self) -> double
+
+        double Lattice::volume() const
+
+        Returns the volume of the unit cell. 
+
+        """
         return _libBornAgainCore.Lattice_volume(self)
 
 
@@ -21458,6 +21561,10 @@ class Layer(ISample):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Layer, name)
     __repr__ = _swig_repr
+    TOPLAYER = _libBornAgainCore.Layer_TOPLAYER
+    INTERMEDIATELAYER = _libBornAgainCore.Layer_INTERMEDIATELAYER
+    BOTTOMLAYER = _libBornAgainCore.Layer_BOTTOMLAYER
+    ONLYLAYER = _libBornAgainCore.Layer_ONLYLAYER
 
     def __init__(self, material, thickness=0):
         """
@@ -21491,12 +21598,20 @@ class Layer(ISample):
         """
         cloneInvertB(Layer self) -> Layer
 
-        Layer * Layer::cloneInvertB() const overridefinal
-
-        Returns a clone with inverted magnetic fields. 
+        Layer * Layer::cloneInvertB() const 
 
         """
         return _libBornAgainCore.Layer_cloneInvertB(self)
+
+
+    def cloneSliced(self, limits, layer_type):
+        """
+        cloneSliced(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >
+
+        SafePointerVector< Layer > Layer::cloneSliced(ZLimits limits, ELayerType layer_type) const 
+
+        """
+        return _libBornAgainCore.Layer_cloneSliced(self, limits, layer_type)
 
 
     def accept(self, visitor):
@@ -21546,7 +21661,12 @@ class Layer(ISample):
 
 
     def setMaterial(self, material):
-        """setMaterial(Layer self, HomogeneousMaterial material)"""
+        """
+        setMaterial(Layer self, HomogeneousMaterial material)
+
+        void Layer::setMaterial(HomogeneousMaterial material)
+
+        """
         return _libBornAgainCore.Layer_setMaterial(self, material)
 
 
@@ -21614,6 +21734,40 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_hasComputation(self)
 
 
+    def containsParticles(self):
+        """
+        containsParticles(Layer self) -> bool
+
+        bool Layer::containsParticles() const 
+
+        """
+        return _libBornAgainCore.Layer_containsParticles(self)
+
+
+    def topZParticles(self):
+        """
+        topZParticles(Layer self) -> double
+
+        double Layer::topZParticles() const
+
+        returns the highest z-coordinate of all particles in the layer 
+
+        """
+        return _libBornAgainCore.Layer_topZParticles(self)
+
+
+    def bottomZParticles(self):
+        """
+        bottomZParticles(Layer self) -> double
+
+        double Layer::bottomZParticles() const
+
+        returns the lowest z-coordinate of all particles in the layer 
+
+        """
+        return _libBornAgainCore.Layer_bottomZParticles(self)
+
+
     def getChildren(self):
         """
         getChildren(Layer self) -> swig_dummy_type_const_inode_vector
@@ -21635,6 +21789,16 @@ class Layer(ISample):
 
         """
         return _libBornAgainCore.Layer_registerThickness(self, make_registered)
+
+
+    def setNSlices(self, n_slices):
+        """
+        setNSlices(Layer self, unsigned int n_slices)
+
+        void Layer::setNSlices(unsigned int n_slices)
+
+        """
+        return _libBornAgainCore.Layer_setNSlices(self, n_slices)
 
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
@@ -22062,18 +22226,6 @@ class MesoCrystal(IParticle):
         return _libBornAgainCore.MesoCrystal_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(MesoCrystal self) -> MesoCrystal
-
-        MesoCrystal * MesoCrystal::cloneInvertB() const overridefinal
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.MesoCrystal_cloneInvertB(self)
-
-
     def accept(self, visitor):
         """
         accept(MesoCrystal self, INodeVisitor visitor)
@@ -22090,7 +22242,7 @@ class MesoCrystal(IParticle):
         """
         createSlicedParticle(MesoCrystal self, ZLimits limits) -> SlicedParticle
 
-        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
+        SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const overridefinal
 
         Create a sliced form factor for this particle. 
 
@@ -22165,7 +22317,7 @@ class MultiLayer(ISample):
         """
         accept(MultiLayer self, INodeVisitor visitor)
 
-        virtual void MultiLayer::accept(INodeVisitor *visitor) const
+        virtual void MultiLayer::accept(INodeVisitor *visitor) const finaloverride
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22199,7 +22351,7 @@ class MultiLayer(ISample):
 
         void MultiLayer::addLayer(const Layer &p_child)
 
-        Adds object to multilayer, overrides from  ISample.
+        Adds object to multilayer.
 
         Adds layer with default (zero) roughness. 
 
@@ -22308,66 +22460,36 @@ class MultiLayer(ISample):
 
 
     def layerMaterial(self, i_layer):
-        """layerMaterial(MultiLayer self, size_t i_layer) -> HomogeneousMaterial"""
+        """
+        layerMaterial(MultiLayer self, size_t i_layer) -> HomogeneousMaterial
+
+        HomogeneousMaterial MultiLayer::layerMaterial(size_t i_layer) const
+
+        Returns layer material. 
+
+        """
         return _libBornAgainCore.MultiLayer_layerMaterial(self, i_layer)
 
 
     def setLayerMaterial(self, i_layer, material):
-        """setLayerMaterial(MultiLayer self, size_t i_layer, HomogeneousMaterial material)"""
+        """
+        setLayerMaterial(MultiLayer self, size_t i_layer, HomogeneousMaterial material)
+
+        void MultiLayer::setLayerMaterial(size_t i_layer, HomogeneousMaterial material)
+
+        Changes a layer's material. 
+
+        """
         return _libBornAgainCore.MultiLayer_setLayerMaterial(self, i_layer, material)
-
-
-    def addLayout(self, layout):
-        """
-        addLayout(MultiLayer self, ILayout layout)
-
-        void MultiLayer::addLayout(const ILayout &layout)
-
-        Adds a layout of particles to the whole multilayer (particles can be in different layers) 
-
-        """
-        return _libBornAgainCore.MultiLayer_addLayout(self, layout)
-
-
-    def numberOfLayouts(self):
-        """
-        numberOfLayouts(MultiLayer self) -> size_t
-
-        size_t MultiLayer::numberOfLayouts() const 
-
-        """
-        return _libBornAgainCore.MultiLayer_numberOfLayouts(self)
-
-
-    def layout(self, i):
-        """
-        layout(MultiLayer self, size_t i) -> ILayout
-
-        const ILayout * MultiLayer::layout(size_t i) const 
-
-        """
-        return _libBornAgainCore.MultiLayer_layout(self, i)
-
-
-    def clear(self):
-        """
-        clear(MultiLayer self)
-
-        void MultiLayer::clear()
-
-        Destructs allocated objects. 
-
-        """
-        return _libBornAgainCore.MultiLayer_clear(self)
 
 
     def clone(self):
         """
         clone(MultiLayer self) -> MultiLayer
 
-        MultiLayer * MultiLayer::clone() const
+        MultiLayer * MultiLayer::clone() const finaloverride
 
-        Returns alone of multilayer with clones of all layers and recreated interfaces between layers 
+        Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
 
         """
         return _libBornAgainCore.MultiLayer_clone(self)
@@ -22383,6 +22505,18 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_cloneInvertB(self)
+
+
+    def cloneSliced(self, use_average_layers):
+        """
+        cloneSliced(MultiLayer self, bool use_average_layers) -> MultiLayer
+
+        MultiLayer * MultiLayer::cloneSliced(bool use_average_layers) const
+
+        Returns a clone of multilayer where the original layers may be sliced into several sublayers for usage with the graded layer approximation 
+
+        """
+        return _libBornAgainCore.MultiLayer_cloneSliced(self, use_average_layers)
 
 
     def setCrossCorrLength(self, crossCorrLength):
@@ -22415,8 +22549,6 @@ class MultiLayer(ISample):
 
         double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 
-        ! correlation function of roughnesses between the interfaces
-
         Fourier transform of the correlation function of roughnesses between the interfaces
 
         Fourier transform of the correlation function of roughnesses between the interfaces j,k - indexes of layers in multilayer whose bottom interfaces we are considering 
@@ -22425,28 +22557,16 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_crossCorrSpectralFun(self, kvec, j, k)
 
 
-    def setLayerThickness(self, i_layer, thickness):
+    def indexOfLayer(self, p_layer):
         """
-        setLayerThickness(MultiLayer self, size_t i_layer, double thickness)
+        indexOfLayer(MultiLayer self, Layer p_layer) -> int
 
-        void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
-
-        Sets thickness of layer. 
-
-        """
-        return _libBornAgainCore.MultiLayer_setLayerThickness(self, i_layer, thickness)
-
-
-    def indexOfLayer(self, layer):
-        """
-        indexOfLayer(MultiLayer self, Layer layer) -> int
-
-        int MultiLayer::indexOfLayer(const Layer *layer) const
+        int MultiLayer::indexOfLayer(const Layer *p_layer) const
 
         returns layer index 
 
         """
-        return _libBornAgainCore.MultiLayer_indexOfLayer(self, layer)
+        return _libBornAgainCore.MultiLayer_indexOfLayer(self, p_layer)
 
 
     def requiresMatrixRTCoefficients(self):
@@ -22515,11 +22635,21 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_totalNofLayouts(self)
 
 
+    def containsParticles(self):
+        """
+        containsParticles(MultiLayer self) -> bool
+
+        bool MultiLayer::containsParticles() const 
+
+        """
+        return _libBornAgainCore.MultiLayer_containsParticles(self)
+
+
     def getChildren(self):
         """
         getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > MultiLayer::getChildren() const
+        std::vector< const INode * > MultiLayer::getChildren() const finaloverride
 
         Returns a vector of children (const). 
 
@@ -23801,18 +23931,6 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(Particle self) -> Particle
-
-        Particle * Particle::cloneInvertB() const overridefinal
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.Particle_cloneInvertB(self)
-
-
     def accept(self, visitor):
         """
         accept(Particle self, INodeVisitor visitor)
@@ -23951,18 +24069,6 @@ class ParticleComposition(IParticle):
 
         """
         return _libBornAgainCore.ParticleComposition_clone(self)
-
-
-    def cloneInvertB(self):
-        """
-        cloneInvertB(ParticleComposition self) -> ParticleComposition
-
-        ParticleComposition * ParticleComposition::cloneInvertB() const override
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.ParticleComposition_cloneInvertB(self)
 
 
     def accept(self, visitor):
@@ -24116,18 +24222,6 @@ class ParticleCoreShell(IParticle):
         return _libBornAgainCore.ParticleCoreShell_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(ParticleCoreShell self) -> ParticleCoreShell
-
-        ParticleCoreShell * ParticleCoreShell::cloneInvertB() const overridefinal
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.ParticleCoreShell_cloneInvertB(self)
-
-
     def accept(self, visitor):
         """
         accept(ParticleCoreShell self, INodeVisitor visitor)
@@ -24144,7 +24238,7 @@ class ParticleCoreShell(IParticle):
         """
         createSlicedParticle(ParticleCoreShell self, ZLimits limits) -> SlicedParticle
 
-        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
+        SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const overridefinal
 
         Create a sliced form factor for this particle. 
 
@@ -24223,7 +24317,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         clone(ParticleDistribution self) -> ParticleDistribution
 
-        ParticleDistribution * ParticleDistribution::clone() const final
+        ParticleDistribution * ParticleDistribution::clone() const finaloverride
 
         Returns a clone of this  ISample object. 
 
@@ -24231,28 +24325,28 @@ class ParticleDistribution(IAbstractParticle):
         return _libBornAgainCore.ParticleDistribution_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(ParticleDistribution self) -> ParticleDistribution
-
-        ParticleDistribution * ParticleDistribution::cloneInvertB() const final
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_cloneInvertB(self)
-
-
     def accept(self, visitor):
         """
         accept(ParticleDistribution self, INodeVisitor visitor)
 
-        void ParticleDistribution::accept(INodeVisitor *visitor) const final
+        void ParticleDistribution::accept(INodeVisitor *visitor) const finaloverride
 
         Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.ParticleDistribution_accept(self, visitor)
+
+
+    def translateZ(self, offset):
+        """
+        translateZ(ParticleDistribution self, double offset)
+
+        void ParticleDistribution::translateZ(double offset) finaloverride
+
+        Applies a translation in the z-direction. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_translateZ(self, offset)
 
 
     def generateParticles(self):
@@ -24297,7 +24391,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleDistribution::getChildren() const
+        std::vector< const INode * > ParticleDistribution::getChildren() const finaloverride
 
         Returns a vector of children (const). 
 
@@ -24350,7 +24444,7 @@ class ParticleLayout(ILayout):
         """
         clone(ParticleLayout self) -> ParticleLayout
 
-        ParticleLayout * ParticleLayout::clone() const final
+        ParticleLayout * ParticleLayout::clone() const finaloverride
 
         Returns a clone of this  ISample object. 
 
@@ -24358,23 +24452,21 @@ class ParticleLayout(ILayout):
         return _libBornAgainCore.ParticleLayout_clone(self)
 
 
-    def cloneInvertB(self):
+    def cloneWithOffset(self, offset):
         """
-        cloneInvertB(ParticleLayout self) -> ParticleLayout
+        cloneWithOffset(ParticleLayout self, double offset) -> ParticleLayout
 
-        ParticleLayout * ParticleLayout::cloneInvertB() const final
-
-        Returns a clone with inverted magnetic fields. 
+        ParticleLayout * ParticleLayout::cloneWithOffset(double offset) const finaloverride
 
         """
-        return _libBornAgainCore.ParticleLayout_cloneInvertB(self)
+        return _libBornAgainCore.ParticleLayout_cloneWithOffset(self, offset)
 
 
     def accept(self, visitor):
         """
         accept(ParticleLayout self, INodeVisitor visitor)
 
-        void ParticleLayout::accept(INodeVisitor *visitor) const final
+        void ParticleLayout::accept(INodeVisitor *visitor) const finaloverride
 
         Calls the  INodeVisitor's visit method. 
 
@@ -24416,7 +24508,7 @@ class ParticleLayout(ILayout):
         """
         numberOfParticles(ParticleLayout self) -> size_t
 
-        size_t ParticleLayout::numberOfParticles() const final
+        size_t ParticleLayout::numberOfParticles() const finaloverride
 
         Returns number of particles. 
 
@@ -24428,7 +24520,7 @@ class ParticleLayout(ILayout):
         """
         particle(ParticleLayout self, size_t index) -> IAbstractParticle
 
-        const IAbstractParticle * ParticleLayout::particle(size_t index) const final
+        const IAbstractParticle * ParticleLayout::particle(size_t index) const finaloverride
 
         Returns particle info. 
 
@@ -24440,7 +24532,7 @@ class ParticleLayout(ILayout):
         """
         particles(ParticleLayout self) -> SafePointerVector< IParticle const >
 
-        SafePointerVector< const IParticle > ParticleLayout::particles() const final
+        SafePointerVector< const IParticle > ParticleLayout::particles() const finaloverride
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
@@ -24452,7 +24544,7 @@ class ParticleLayout(ILayout):
         """
         abundanceOfParticle(ParticleLayout self, size_t index) -> double
 
-        double ParticleLayout::abundanceOfParticle(size_t index) const
+        double ParticleLayout::abundanceOfParticle(size_t index) const finaloverride
 
         Returns the abundance fraction of particle at given index. 
 
@@ -24464,7 +24556,7 @@ class ParticleLayout(ILayout):
         """
         interferenceFunction(ParticleLayout self) -> IInterferenceFunction
 
-        const IInterferenceFunction * ParticleLayout::interferenceFunction() const final
+        const IInterferenceFunction * ParticleLayout::interferenceFunction() const finaloverride
 
         Returns interference function. 
 
@@ -24488,7 +24580,7 @@ class ParticleLayout(ILayout):
         """
         totalParticleSurfaceDensity(ParticleLayout self) -> double
 
-        double ParticleLayout::totalParticleSurfaceDensity() const final
+        double ParticleLayout::totalParticleSurfaceDensity() const finaloverride
 
         Returns surface density of all particles. 
 
@@ -24500,7 +24592,7 @@ class ParticleLayout(ILayout):
         """
         setTotalParticleSurfaceDensity(ParticleLayout self, double particle_density)
 
-        void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final
+        void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) finaloverride
 
         Sets surface density of all particles. 
 
@@ -24508,11 +24600,35 @@ class ParticleLayout(ILayout):
         return _libBornAgainCore.ParticleLayout_setTotalParticleSurfaceDensity(self, particle_density)
 
 
+    def topZParticles(self):
+        """
+        topZParticles(ParticleLayout self) -> double
+
+        double ParticleLayout::topZParticles() const finaloverride
+
+        Returns the top-most z-coordinate of its particles. 
+
+        """
+        return _libBornAgainCore.ParticleLayout_topZParticles(self)
+
+
+    def bottomZParticles(self):
+        """
+        bottomZParticles(ParticleLayout self) -> double
+
+        double ParticleLayout::bottomZParticles() const finaloverride
+
+        Returns the bottom-most z-coordinate of its particles. 
+
+        """
+        return _libBornAgainCore.ParticleLayout_bottomZParticles(self)
+
+
     def getChildren(self):
         """
         getChildren(ParticleLayout self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleLayout::getChildren() const
+        std::vector< const INode * > ParticleLayout::getChildren() const finaloverride
 
         Returns a vector of children (const). 
 

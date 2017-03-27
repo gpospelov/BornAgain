@@ -33,8 +33,6 @@ public:
     ~ParticleComposition();
     ParticleComposition* clone() const override;
 
-    ParticleComposition* cloneInvertB() const override;
-
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void addParticle(const IParticle& particle);
@@ -62,7 +60,7 @@ private:
     //! Returns true if particle's type is suitable for adding
     void checkParticleType(const IParticle& p_particle);
 
-    //! For internal use in cloneInvertB():
+    //! For internal use
     void addParticlePointer(IParticle* p_particle);
 
     std::vector<std::unique_ptr<IParticle>> m_particles;

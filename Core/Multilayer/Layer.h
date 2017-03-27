@@ -20,6 +20,7 @@
 #include "Complex.h"
 #include "HomogeneousMaterial.h"
 #include "SafePointerVector.h"
+#include "ZLimits.h"
 
 class ILayout;
 
@@ -29,12 +30,19 @@ class ILayout;
 class BA_CORE_API_ Layer : public ISample
 {
 public:
+    enum ELayerType {
+        TOPLAYER,
+        INTERMEDIATELAYER,
+        BOTTOMLAYER,
+        ONLYLAYER
+    };
     Layer(HomogeneousMaterial material, double thickness = 0);
 
     ~Layer();
 
     Layer* clone() const override final { return new Layer(*this); }
-    Layer* cloneInvertB() const override final;
+    Layer* cloneInvertB() const;
+    SafePointerVector<Layer> cloneSliced(ZLimits limits, ELayerType layer_type) const;
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
@@ -55,16 +63,30 @@ public:
     //! Returns true if decoration is present
     bool hasComputation() const { return m_layouts.size()>0; }
 
+    bool containsParticles() const;
+
+    //! returns the highest z-coordinate of all particles in the layer
+    double topZParticles() const;
+
+    //! returns the lowest z-coordinate of all particles in the layer
+    double bottomZParticles() const;
+
     std::vector<const INode*> getChildren() const override final;
 
     void registerThickness(bool make_registered = true);
 
+    void setNSlices(unsigned int n_slices) { m_n_slices = n_slices; }
+
 private:
     Layer(const Layer& other);
+    //! Clone the layer without its layouts
+    Layer* emptyClone() const;
+    Layer* cloneWithOffset(double offset) const;
 
     HomogeneousMaterial m_material;   //!< material
     double m_thickness;       //!< layer thickness in nanometers
     SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
+    unsigned int m_n_slices=1;  //!< number of slices to create for graded layer approach
 };
 
 #endif // LAYER_H

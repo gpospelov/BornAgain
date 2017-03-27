@@ -44,10 +44,9 @@ ParticleDistribution* ParticleDistribution::clone() const
     return p_result;
 }
 
-ParticleDistribution* ParticleDistribution::cloneInvertB() const
+void ParticleDistribution::translateZ(double offset)
 {
-    throw Exceptions::NotImplementedException("ParticleDistribution::"
-                                              "cloneInvertB: should never be called");
+    mP_particle->translateZ(offset);
 }
 
 //! Returns particle clones with parameter values drawn from distribution.

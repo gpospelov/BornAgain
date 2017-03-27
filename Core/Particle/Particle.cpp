@@ -60,19 +60,6 @@ Particle* Particle::clone() const
     return p_result;
 }
 
-Particle* Particle::cloneInvertB() const
-{
-    Particle* p_result = new Particle(m_material.inverted());
-    p_result->setAbundance(m_abundance);
-    if (mP_form_factor)
-        p_result->setFormFactor(*mP_form_factor);
-    if (mP_rotation)
-        p_result->setRotation(*mP_rotation);
-    p_result->setPosition(m_position);
-
-    return p_result;
-}
-
 SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
 {
     if (!mP_form_factor)
@@ -83,7 +70,7 @@ SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
     std::unique_ptr<IFormFactor> P_temp_ff(
                 mP_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
     std::unique_ptr<FormFactorDecoratorMaterial> P_ff(new FormFactorDecoratorMaterial(*P_temp_ff));
-    double volume = mP_form_factor->volume();
+    double volume = P_temp_ff->volume();
     HomogeneousMaterial transformed_material(
                 m_material.transformedMaterial(P_rotation->getTransform3D()));
     P_ff->setMaterial(transformed_material);

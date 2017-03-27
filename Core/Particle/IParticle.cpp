@@ -35,6 +35,12 @@ void IParticle::applyTranslation(kvector_t displacement)
     m_position += displacement;
 }
 
+void IParticle::translateZ(double offset)
+{
+    kvector_t translation(0, 0, offset);
+    applyTranslation(translation);
+}
+
 const IRotation* IParticle::rotation() const
 {
     return mP_rotation.get();
@@ -92,6 +98,13 @@ SafePointerVector<IParticle> IParticle::decompose() const
     SafePointerVector<IParticle> result;
     result.push_back(this->clone());
     return result;
+}
+
+ParticleLimits IParticle::bottomTopZ() const
+{
+    std::unique_ptr<IFormFactor> P_ff(createFormFactor());
+    std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
+    return { P_ff->bottomZ(*P_rot), P_ff->topZ(*P_rot) };
 }
 
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const

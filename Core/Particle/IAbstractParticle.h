@@ -36,12 +36,14 @@ public:
     virtual ~IAbstractParticle() {}
 
     virtual IAbstractParticle* clone() const =0;
-    virtual IAbstractParticle* cloneInvertB() const =0;
 
     virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     double abundance() const { return m_abundance; }
     void setAbundance(double abundance) { m_abundance = abundance; }
+
+    //! Applies a translation in the z-direction
+    virtual void translateZ(double offset) =0;
 
 protected:
     double m_abundance;

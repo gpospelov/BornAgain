@@ -60,18 +60,10 @@ SafePointerVector<Layer> Layer::cloneSliced(ZLimits limits, Layer::ELayerType la
     double offset = -top;
     for (size_t i=0; i<m_n_slices; ++i)
     {
-        if (i==0)
-        {
-            Layer* p_layer = cloneWithOffset(offset);
-            p_layer->setThickness(slice_thickness);
-            result.push_back(p_layer);
-        }
-        else
-        {
-            Layer* p_layer = emptyClone();
-            p_layer->setThickness(slice_thickness);
-            result.push_back(p_layer);
-        }
+        Layer* p_layer = (i==0) ? cloneWithOffset(offset)
+                                : emptyClone();
+        p_layer->setThickness(slice_thickness);
+        result.push_back(p_layer);
     }
     // empty bottom layer
     double layer_thickness = (layer_type==INTERMEDIATELAYER) ? thickness() : 0;

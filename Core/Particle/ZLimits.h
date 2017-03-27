@@ -16,13 +16,14 @@
 #ifndef ZLIMITS_H
 #define ZLIMITS_H
 
+#include "WinDllMacros.h"
 #include <iostream>
 
 //! Helper class that represents a onesided limit
 //!
 //! @ingroup intern
 
-struct OneSidedLimit
+struct BA_CORE_API_ OneSidedLimit
 {
     bool m_limitless;
     double m_value;
@@ -33,7 +34,7 @@ struct OneSidedLimit
 //!
 //! @ingroup intern
 
-class ZLimits
+class BA_CORE_API_ ZLimits
 {
 public:
     ZLimits();
@@ -56,11 +57,11 @@ bool operator!=(const OneSidedLimit& left, const OneSidedLimit& right);
 
 std::ostream& operator<<(std::ostream& ostr, const OneSidedLimit& limit);
 
-ZLimits ConvexHull(const ZLimits& left, const ZLimits& right);
-bool operator==(const ZLimits& left, const ZLimits& right);
-bool operator!=(const ZLimits& left, const ZLimits& right);
+BA_CORE_API_ ZLimits ConvexHull(const ZLimits& left, const ZLimits& right);
+BA_CORE_API_ bool operator==(const ZLimits& left, const ZLimits& right);
+BA_CORE_API_ bool operator!=(const ZLimits& left, const ZLimits& right);
 
-std::ostream& operator<<(std::ostream& ostr, const ZLimits& limits);
+BA_CORE_API_ std::ostream& operator<<(std::ostream& ostr, const ZLimits& limits);
 
 
 #endif // ZLIMITS_H

@@ -21,6 +21,8 @@
 #include "Vectors3D.h"
 #include "ZLimits.h"
 
+#include <functional>
+
 class ILayout;
 class Layer;
 class LayerInterface;

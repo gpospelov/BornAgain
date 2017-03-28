@@ -62,10 +62,6 @@ public:
     void setTotalParticleSurfaceDensity(double particle_density) final override {
         m_total_particle_density = particle_density; }
 
-    double topZParticles() const final override;
-
-    double bottomZParticles() const final override;
-
     std::vector<const INode*> getChildren() const final override;
 
 private:

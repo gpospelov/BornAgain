@@ -121,28 +121,6 @@ bool Layer::containsParticles() const
     return false;
 }
 
-double Layer::topZParticles() const
-{
-    if (!containsParticles())
-        throw std::runtime_error("Layer::topZParticles(): no particles in this layer.");
-    std::set<double> topValues;
-    for (size_t i=0; i<numberOfLayouts(); ++i)
-        if (layout(i)->numberOfParticles())
-            topValues.insert(layout(i)->topZParticles());
-    return *topValues.rbegin();
-}
-
-double Layer::bottomZParticles() const
-{
-    if (!containsParticles())
-        throw std::runtime_error("Layer::bottomZParticles(): no particles in this layer.");
-    std::set<double> bottomValues;
-    for (size_t i=0; i<numberOfLayouts(); ++i)
-        if (layout(i)->numberOfParticles())
-            bottomValues.insert(layout(i)->bottomZParticles());
-    return *bottomValues.begin();
-}
-
 std::vector<const INode*> Layer::getChildren() const
 {
     std::vector<const INode*> result;

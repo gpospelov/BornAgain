@@ -18325,30 +18325,6 @@ class ILayout(ISample):
         """
         return _libBornAgainCore.ILayout_setApproximation(self, approximation)
 
-
-    def topZParticles(self):
-        """
-        topZParticles(ILayout self) -> double
-
-        virtual double ILayout::topZParticles() const =0
-
-        Returns the top-most z-coordinate of its particles. 
-
-        """
-        return _libBornAgainCore.ILayout_topZParticles(self)
-
-
-    def bottomZParticles(self):
-        """
-        bottomZParticles(ILayout self) -> double
-
-        virtual double ILayout::bottomZParticles() const =0
-
-        Returns the bottom-most z-coordinate of its particles. 
-
-        """
-        return _libBornAgainCore.ILayout_bottomZParticles(self)
-
 ILayout_swigregister = _libBornAgainCore.ILayout_swigregister
 ILayout_swigregister(ILayout)
 
@@ -21720,30 +21696,6 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_containsParticles(self)
 
 
-    def topZParticles(self):
-        """
-        topZParticles(Layer self) -> double
-
-        double Layer::topZParticles() const
-
-        returns the highest z-coordinate of all particles in the layer 
-
-        """
-        return _libBornAgainCore.Layer_topZParticles(self)
-
-
-    def bottomZParticles(self):
-        """
-        bottomZParticles(Layer self) -> double
-
-        double Layer::bottomZParticles() const
-
-        returns the lowest z-coordinate of all particles in the layer 
-
-        """
-        return _libBornAgainCore.Layer_bottomZParticles(self)
-
-
     def getChildren(self):
         """
         getChildren(Layer self) -> swig_dummy_type_const_inode_vector
@@ -24584,30 +24536,6 @@ class ParticleLayout(ILayout):
 
         """
         return _libBornAgainCore.ParticleLayout_setTotalParticleSurfaceDensity(self, particle_density)
-
-
-    def topZParticles(self):
-        """
-        topZParticles(ParticleLayout self) -> double
-
-        double ParticleLayout::topZParticles() const finaloverride
-
-        Returns the top-most z-coordinate of its particles. 
-
-        """
-        return _libBornAgainCore.ParticleLayout_topZParticles(self)
-
-
-    def bottomZParticles(self):
-        """
-        bottomZParticles(ParticleLayout self) -> double
-
-        double ParticleLayout::bottomZParticles() const finaloverride
-
-        Returns the bottom-most z-coordinate of its particles. 
-
-        """
-        return _libBornAgainCore.ParticleLayout_bottomZParticles(self)
 
 
     def getChildren(self):

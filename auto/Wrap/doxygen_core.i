@@ -7150,16 +7150,6 @@ Gets the used approximation for particles and interference functions.
 Sets the used approximation for particles and interference functions. 
 ";
 
-%feature("docstring")  ILayout::topZParticles "virtual double ILayout::topZParticles() const =0
-
-Returns the top-most z-coordinate of its particles. 
-";
-
-%feature("docstring")  ILayout::bottomZParticles "virtual double ILayout::bottomZParticles() const =0
-
-Returns the bottom-most z-coordinate of its particles. 
-";
-
 
 // File: classIMultiLayerBuilder.xml
 %feature("docstring") IMultiLayerBuilder "
@@ -9172,16 +9162,6 @@ squared refractive index
 %feature("docstring")  Layer::containsParticles "bool Layer::containsParticles() const 
 ";
 
-%feature("docstring")  Layer::topZParticles "double Layer::topZParticles() const
-
-returns the highest z-coordinate of all particles in the layer 
-";
-
-%feature("docstring")  Layer::bottomZParticles "double Layer::bottomZParticles() const
-
-returns the lowest z-coordinate of all particles in the layer 
-";
-
 %feature("docstring")  Layer::getChildren "std::vector< const INode * > Layer::getChildren() const overridefinal
 
 Returns a vector of children (const). 
@@ -10971,16 +10951,6 @@ Returns surface density of all particles.
 %feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) finaloverride
 
 Sets surface density of all particles. 
-";
-
-%feature("docstring")  ParticleLayout::topZParticles "double ParticleLayout::topZParticles() const finaloverride
-
-Returns the top-most z-coordinate of its particles. 
-";
-
-%feature("docstring")  ParticleLayout::bottomZParticles "double ParticleLayout::bottomZParticles() const finaloverride
-
-Returns the bottom-most z-coordinate of its particles. 
 ";
 
 %feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const finaloverride

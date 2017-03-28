@@ -81,9 +81,11 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionIte
 
 std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem& item)
 {
-    return GUIHelpers::make_unique<Layer>(
+    auto P_layer = GUIHelpers::make_unique<Layer>(
         *createDomainMaterial(item),
         item.getItemValue(LayerItem::P_THICKNESS).toDouble());
+    P_layer->setNSlices(item.getItemValue(LayerItem::P_NSLICES).toUInt());
+    return P_layer;
 }
 
 std::unique_ptr<LayerRoughness>

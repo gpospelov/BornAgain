@@ -77,6 +77,8 @@ public:
 
     void setNSlices(unsigned int n_slices) { m_n_slices = n_slices; }
 
+    unsigned int numberOfSlices() const { return m_n_slices; }
+
 private:
     Layer(const Layer& other);
     //! Clone the layer without its layouts

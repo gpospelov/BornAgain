@@ -9203,6 +9203,9 @@ Returns a vector of children (const).
 %feature("docstring")  Layer::setNSlices "void Layer::setNSlices(unsigned int n_slices)
 ";
 
+%feature("docstring")  Layer::numberOfSlices "unsigned int Layer::numberOfSlices() const 
+";
+
 
 // File: classLayerFillLimits.xml
 %feature("docstring") LayerFillLimits "

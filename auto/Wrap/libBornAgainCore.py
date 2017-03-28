@@ -21800,6 +21800,16 @@ class Layer(ISample):
         """
         return _libBornAgainCore.Layer_setNSlices(self, n_slices)
 
+
+    def numberOfSlices(self):
+        """
+        numberOfSlices(Layer self) -> unsigned int
+
+        unsigned int Layer::numberOfSlices() const 
+
+        """
+        return _libBornAgainCore.Layer_numberOfSlices(self)
+
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
 

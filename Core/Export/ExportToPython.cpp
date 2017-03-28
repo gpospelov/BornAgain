@@ -219,6 +219,9 @@ std::string ExportToPython::defineLayers() const
         if (layer->thickness() != 0)
             result << ", " << layer->thickness();
         result << ")\n";
+        if (layer->numberOfSlices()!=1)
+            result << indent() << it->second << ".setNumberOfSlices("
+                   << layer->numberOfSlices() << ")\n";
     }
     return result.str();
 }
@@ -779,12 +782,14 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
     result << std::setprecision(12);
 
     const SimulationOptions& options = simulation->getOptions();
-    if(options.getHardwareConcurrency() != options.getNumberOfThreads())
+    if (options.getHardwareConcurrency() != options.getNumberOfThreads())
         result << indent() << "simulation.getOptions().setNumberOfThreads("
                << options.getNumberOfThreads() << ")\n";
-    if(options.isIntegrate())
+    if (options.isIntegrate())
         result << indent() << "simulation.getOptions().setMonteCarloIntegration(True, "
                << options.getMcPoints() << ")\n";
+    if (options.useAvgMaterials())
+        result << indent() << "simulation.getOptions().setUseAvgMaterials(True)\n";
     return result.str();
 }
 

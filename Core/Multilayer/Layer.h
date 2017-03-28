@@ -75,7 +75,9 @@ public:
 
     void registerThickness(bool make_registered = true);
 
-    void setNSlices(unsigned int n_slices) { m_n_slices = n_slices; }
+    void setNumberOfSlices(unsigned int n_slices) { m_n_slices = n_slices; }
+
+    unsigned int numberOfSlices() const { return m_n_slices; }
 
 private:
     Layer(const Layer& other);

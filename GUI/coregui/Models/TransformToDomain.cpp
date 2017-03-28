@@ -81,9 +81,11 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionIte
 
 std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem& item)
 {
-    return GUIHelpers::make_unique<Layer>(
+    auto P_layer = GUIHelpers::make_unique<Layer>(
         *createDomainMaterial(item),
         item.getItemValue(LayerItem::P_THICKNESS).toDouble());
+    P_layer->setNumberOfSlices(item.getItemValue(LayerItem::P_NSLICES).toUInt());
+    return P_layer;
 }
 
 std::unique_ptr<LayerRoughness>
@@ -183,14 +185,15 @@ void TransformToDomain::setSimulationOptions(GISASSimulation* simulation,
 {
     Q_ASSERT(item.modelType() == Constants::SimulationOptionsType);
 
-    if(auto optionItem = dynamic_cast<const SimulationOptionsItem*>(&item)) {
+    if (auto optionItem = dynamic_cast<const SimulationOptionsItem*>(&item)) {
         simulation->getOptions().setNumberOfThreads(optionItem->getNumberOfThreads());
-        if(optionItem->getComputationMethod() == Constants::SIMULATION_MONTECARLO) {
+        if (optionItem->getComputationMethod() == Constants::SIMULATION_MONTECARLO) {
             simulation->getOptions().setMonteCarloIntegration(true,
                     optionItem->getNumberOfMonteCarloPoints());
         }
+        if (optionItem->getFresnelMaterialMethod() == Constants::AVERAGE_LAYER_MATERIAL)
+            simulation->getOptions().setUseAvgMaterials(true);
     }
-
 }
 
 void TransformToDomain::setTransformationInfo(IParticle* result, const SessionItem& item)

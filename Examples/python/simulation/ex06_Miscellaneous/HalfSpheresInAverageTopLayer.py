@@ -36,7 +36,7 @@ def get_sample():
 
     air_layer = ba.Layer(m_ambience)
     air_layer.addLayout(particle_layout)
-    air_layer.setNSlices(n_slices)
+    air_layer.setNumberOfSlices(n_slices)
     substrate_layer = ba.Layer(m_substrate)
 
     multi_layer = ba.MultiLayer()

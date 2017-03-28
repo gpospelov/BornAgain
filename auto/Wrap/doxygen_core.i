@@ -9200,7 +9200,10 @@ Returns a vector of children (const).
 %feature("docstring")  Layer::registerThickness "void Layer::registerThickness(bool make_registered=true)
 ";
 
-%feature("docstring")  Layer::setNSlices "void Layer::setNSlices(unsigned int n_slices)
+%feature("docstring")  Layer::setNumberOfSlices "void Layer::setNumberOfSlices(unsigned int n_slices)
+";
+
+%feature("docstring")  Layer::numberOfSlices "unsigned int Layer::numberOfSlices() const 
 ";
 
 
@@ -15249,7 +15252,7 @@ Global function that creates a  SlicedFormFactorList from an  IParticle in a mul
 %feature("docstring")  MaxLimit "OneSidedLimit MaxLimit(const OneSidedLimit &left, const OneSidedLimit &right)
 ";
 
-%feature("docstring")  ConvexHull "ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
+%feature("docstring")  ConvexHull "BA_CORE_API_ ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
 ";
 
 

@@ -245,6 +245,9 @@ const ModelType DistributionSigmaFactor = "Sigma factor";
 const ModelType LAYOUT_DA = "Decoupling Approximation";
 const ModelType LAYOUT_SSCA = "Size Space Coupling Approximation";
 
+const ModelType AMBIENT_LAYER_MATERIAL = "Ambient Layer Material";
+const ModelType AVERAGE_LAYER_MATERIAL = "Average Layer Material";
+
 // --- Custom variants ----------------------------------------------------------
 
 const ModelType ScientificDoublePropertyType = "ScientificDoubleProperty";

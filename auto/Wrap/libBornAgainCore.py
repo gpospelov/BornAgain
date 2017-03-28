@@ -21791,14 +21791,24 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_registerThickness(self, make_registered)
 
 
-    def setNSlices(self, n_slices):
+    def setNumberOfSlices(self, n_slices):
         """
-        setNSlices(Layer self, unsigned int n_slices)
+        setNumberOfSlices(Layer self, unsigned int n_slices)
 
-        void Layer::setNSlices(unsigned int n_slices)
+        void Layer::setNumberOfSlices(unsigned int n_slices)
 
         """
-        return _libBornAgainCore.Layer_setNSlices(self, n_slices)
+        return _libBornAgainCore.Layer_setNumberOfSlices(self, n_slices)
+
+
+    def numberOfSlices(self):
+        """
+        numberOfSlices(Layer self) -> unsigned int
+
+        unsigned int Layer::numberOfSlices() const 
+
+        """
+        return _libBornAgainCore.Layer_numberOfSlices(self)
 
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)

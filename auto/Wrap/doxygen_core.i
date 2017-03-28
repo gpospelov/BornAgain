@@ -9200,7 +9200,7 @@ Returns a vector of children (const).
 %feature("docstring")  Layer::registerThickness "void Layer::registerThickness(bool make_registered=true)
 ";
 
-%feature("docstring")  Layer::setNSlices "void Layer::setNSlices(unsigned int n_slices)
+%feature("docstring")  Layer::setNumberOfSlices "void Layer::setNumberOfSlices(unsigned int n_slices)
 ";
 
 %feature("docstring")  Layer::numberOfSlices "unsigned int Layer::numberOfSlices() const 

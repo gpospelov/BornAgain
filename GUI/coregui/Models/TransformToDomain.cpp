@@ -84,7 +84,7 @@ std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem& item)
     auto P_layer = GUIHelpers::make_unique<Layer>(
         *createDomainMaterial(item),
         item.getItemValue(LayerItem::P_THICKNESS).toDouble());
-    P_layer->setNSlices(item.getItemValue(LayerItem::P_NSLICES).toUInt());
+    P_layer->setNumberOfSlices(item.getItemValue(LayerItem::P_NSLICES).toUInt());
     return P_layer;
 }
 

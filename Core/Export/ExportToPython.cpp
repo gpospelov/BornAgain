@@ -220,7 +220,7 @@ std::string ExportToPython::defineLayers() const
             result << ", " << layer->thickness();
         result << ")\n";
         if (layer->numberOfSlices()!=1)
-            result << indent() << it->second << ".setNSlices("
+            result << indent() << it->second << ".setNumberOfSlices("
                    << layer->numberOfSlices() << ")\n";
     }
     return result.str();

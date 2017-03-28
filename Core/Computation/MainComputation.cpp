@@ -109,9 +109,12 @@ std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer()
         comp->mergeRegionMap(region_map);
     }
     std::unique_ptr<MultiLayer> P_result(mP_multi_layer->clone());
+    auto last_layer_index = P_result->numberOfLayers()-1;
     for (auto& entry : region_map)
     {
         auto i_layer = entry.first;
+        if (i_layer==0 || i_layer==last_layer_index)
+            continue;  // skip semi-infinite layers
         auto layer_mat = P_result->layerMaterial(i_layer);
         if (!checkRegions(entry.second))
             throw std::runtime_error("MainComputation::getAveragedMultilayer: "

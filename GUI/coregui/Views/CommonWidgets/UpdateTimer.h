@@ -29,12 +29,10 @@ class QTimer;
 
 class BA_CORE_API_ UpdateTimer : public QObject {
     Q_OBJECT
-
 public:
-    explicit UpdateTimer(int accumulateDuring, QObject *parent = 0);
+    explicit UpdateTimer(int timerInterval, QObject* parent = 0);
 
-    void setAccumulateDuring(int accumulateDuring);
-    void setTimerInterval(int timerInterval);
+    void reset();
 
 signals:
     void timeToUpdate();
@@ -46,21 +44,10 @@ private slots:
     void onTimerTimeout();
 
 private:
-    void processUpdates();
-
-    //!< Interval in msec during which all update requests will be accumulated.
-    int m_accumulate_updates_during;
-
-    //!< Number of requests accumulated so far.
-    int m_update_request_count;
-
-    //!< Timer interval to check what is going on.
-    int m_timer_interval;
-
-    //!< Remaining time to to emit timeToUpdate signal
-    int m_remaining_time_to_update;
-
-    QTimer *m_timer;
+    qint64 m_update_request_count; //!< Number of requests accumulated so far.
+    int m_timer_interval; //!< Timer in msec.
+    bool m_is_busy;
+    QTimer* m_timer;
 };
 
 #endif // UPDATETIMER_H

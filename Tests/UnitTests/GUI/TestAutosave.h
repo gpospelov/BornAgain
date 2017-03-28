@@ -72,6 +72,10 @@ inline void TestAutosave::test_autoSave()
 
     QVERIFY(spyAutosave.wait(autosave_time * 1.5));
     QCOMPARE(spyAutosave.count(), 2);
+
+    // remove autosave dir
+    autosave.removeAutosaveDir();
+    QVERIFY(autosaveDir.exists() == false);
 }
 
 inline void TestAutosave::test_autoSaveIncludingData()

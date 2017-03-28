@@ -38,6 +38,10 @@ public:
 
     QString autosaveDir() const;
     QString autosaveName() const;
+
+    // remove auto save directory for given project and all its content
+    void removeAutosaveDir();
+
 signals:
     void autosaved();
 

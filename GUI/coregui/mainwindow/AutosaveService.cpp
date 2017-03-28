@@ -65,6 +65,16 @@ QString AutosaveService::autosaveDir() const
     return m_document->projectDir() + "/" + autosave_subdir;
 }
 
+void AutosaveService::removeAutosaveDir()
+{
+    if(autosaveDir().isEmpty())
+        return;
+
+    qDebug() << "AutosaveService::removeAutosaveDir()" << autosaveDir();
+    QDir dir(autosaveDir());
+    dir.removeRecursively();
+}
+
 void AutosaveService::onTimerTimeout()
 {
     qDebug() << "AutosaveService::onTimerTimeout()" << m_document << m_document->isModified();
@@ -120,3 +130,4 @@ QString AutosaveService::autosaveName() const
 
     return autosaveDir() + "/" + m_document->projectName() + m_document->projectFileExtension();
 }
+

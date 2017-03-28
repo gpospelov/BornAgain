@@ -355,6 +355,9 @@ void ProjectManager::riseProjectLoadWarningDialog()
 
 void ProjectManager::deleteCurrentProject()
 {
+    if(m_autosaveService)
+        m_autosaveService->removeAutosaveDir();
+
     delete m_project_document;
     m_project_document = 0;
     m_mainWindow->models()->resetModels();

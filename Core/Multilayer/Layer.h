@@ -60,8 +60,6 @@ public:
     size_t numberOfLayouts() const { return m_layouts.size(); }
     const ILayout* layout(size_t i) const;
 
-    bool containsParticles() const;
-
     std::vector<const INode*> getChildren() const override final;
 
     void registerThickness(bool make_registered = true);
@@ -74,6 +72,7 @@ private:
     Layer(const Layer& other);
     //! Clone the layer without its layouts
     Layer* emptyClone() const;
+    //! Clones and offsets the particles in the z-direction
     Layer* cloneWithOffset(double offset) const;
 
     HomogeneousMaterial m_material;   //!< material

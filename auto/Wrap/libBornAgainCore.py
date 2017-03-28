@@ -21686,16 +21686,6 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_layout(self, i)
 
 
-    def containsParticles(self):
-        """
-        containsParticles(Layer self) -> bool
-
-        bool Layer::containsParticles() const 
-
-        """
-        return _libBornAgainCore.Layer_containsParticles(self)
-
-
     def getChildren(self):
         """
         getChildren(Layer self) -> swig_dummy_type_const_inode_vector
@@ -22571,16 +22561,6 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_totalNofLayouts(self)
-
-
-    def containsParticles(self):
-        """
-        containsParticles(MultiLayer self) -> bool
-
-        bool MultiLayer::containsParticles() const 
-
-        """
-        return _libBornAgainCore.MultiLayer_containsParticles(self)
 
 
     def getChildren(self):

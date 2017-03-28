@@ -113,14 +113,6 @@ const ILayout* Layer::layout(size_t i) const
     return m_layouts[i];
 }
 
-bool Layer::containsParticles() const
-{
-    for (size_t i=0; i<numberOfLayouts(); ++i)
-        if (layout(i)->numberOfParticles()>0)
-            return true;
-    return false;
-}
-
 std::vector<const INode*> Layer::getChildren() const
 {
     std::vector<const INode*> result;

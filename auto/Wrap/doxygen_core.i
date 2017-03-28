@@ -9159,9 +9159,6 @@ squared refractive index
 %feature("docstring")  Layer::layout "const ILayout * Layer::layout(size_t i) const 
 ";
 
-%feature("docstring")  Layer::containsParticles "bool Layer::containsParticles() const 
-";
-
 %feature("docstring")  Layer::getChildren "std::vector< const INode * > Layer::getChildren() const overridefinal
 
 Returns a vector of children (const). 
@@ -9801,9 +9798,6 @@ returns layer index corresponding to given global z coordinate The top interface
 ";
 
 %feature("docstring")  MultiLayer::totalNofLayouts "size_t MultiLayer::totalNofLayouts() const 
-";
-
-%feature("docstring")  MultiLayer::containsParticles "bool MultiLayer::containsParticles() const 
 ";
 
 %feature("docstring")  MultiLayer::getChildren "std::vector< const INode * > MultiLayer::getChildren() const finaloverride

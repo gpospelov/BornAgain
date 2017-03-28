@@ -106,11 +106,12 @@ void Layer::addLayout(const ILayout& layout)
     registerChild(clone);
 }
 
-const ILayout* Layer::layout(size_t i) const
+std::vector<const ILayout*> Layer::layouts() const
 {
-    if (i>=m_layouts.size())
-        return nullptr;
-    return m_layouts[i];
+    std::vector<const ILayout*> result;
+    for (auto p_layout : m_layouts)
+        result.push_back(p_layout);
+    return result;
 }
 
 std::vector<const INode*> Layer::getChildren() const
@@ -137,8 +138,8 @@ Layer::Layer(const Layer& other)
     setName(other.getName());
     m_thickness = other.m_thickness;
     m_n_slices = other.m_n_slices;
-    for (size_t i=0; i<other.numberOfLayouts();++i)
-        addLayout(*other.layout(i));
+    for (auto p_layout : other.layouts())
+        addLayout(*p_layout);
     registerThickness();
 }
 
@@ -153,10 +154,11 @@ Layer* Layer::cloneWithOffset(double offset) const
 {
     Layer* p_result = emptyClone();
     for (size_t i=0; i<numberOfLayouts();++i)
+    for (auto p_layout : layouts())
     {
-        ILayout* p_layout = layout(i)->cloneWithOffset(offset);
-        p_result->m_layouts.push_back(p_layout);
-        p_result->registerChild(p_layout);
+        ILayout* p_layout_offset = p_layout->cloneWithOffset(offset);
+        p_result->m_layouts.push_back(p_layout_offset);
+        p_result->registerChild(p_layout_offset);
     }
     return p_result;
 }

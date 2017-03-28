@@ -9156,7 +9156,7 @@ squared refractive index
 %feature("docstring")  Layer::numberOfLayouts "size_t Layer::numberOfLayouts() const 
 ";
 
-%feature("docstring")  Layer::layout "const ILayout * Layer::layout(size_t i) const 
+%feature("docstring")  Layer::layouts "std::vector< const ILayout * > Layer::layouts() const 
 ";
 
 %feature("docstring")  Layer::getChildren "std::vector< const INode * > Layer::getChildren() const overridefinal

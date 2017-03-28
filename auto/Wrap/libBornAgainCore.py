@@ -21676,14 +21676,14 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_numberOfLayouts(self)
 
 
-    def layout(self, i):
+    def layouts(self):
         """
-        layout(Layer self, size_t i) -> ILayout
+        layouts(Layer self) -> std::vector< ILayout const *,std::allocator< ILayout const * > >
 
-        const ILayout * Layer::layout(size_t i) const 
+        std::vector< const ILayout * > Layer::layouts() const 
 
         """
-        return _libBornAgainCore.Layer_layout(self, i)
+        return _libBornAgainCore.Layer_layouts(self)
 
 
     def getChildren(self):

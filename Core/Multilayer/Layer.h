@@ -58,7 +58,8 @@ public:
 
     void addLayout(const ILayout& decoration);
     size_t numberOfLayouts() const { return m_layouts.size(); }
-    const ILayout* layout(size_t i) const;
+
+    std::vector<const ILayout*> layouts() const;
 
     std::vector<const INode*> getChildren() const override final;
 

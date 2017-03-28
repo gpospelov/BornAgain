@@ -16,7 +16,7 @@ TEST_F(LayerTest, LayerGetAndSet)
 
     Layer layer(air, 10*Units::nanometer);
     EXPECT_EQ(air.getName(), layer.material()->getName());
-    EXPECT_EQ(nullptr, layer.layout(0));
+    EXPECT_EQ(0u, layer.layouts().size());
     EXPECT_EQ(10, layer.thickness());
     EXPECT_EQ(layer.numberOfLayouts(), 0u);
     EXPECT_EQ(complex_t(1, 0), layer.refractiveIndex());
@@ -29,7 +29,7 @@ TEST_F(LayerTest, LayerGetAndSet)
 
     std::unique_ptr<Layer> clone(layer.clone());
     EXPECT_EQ(air.getName(), clone->material()->getName());
-    EXPECT_EQ(nullptr, clone->layout(0));
+    EXPECT_EQ(0u, clone->layouts().size());
     EXPECT_EQ(20, clone->thickness());
     EXPECT_EQ(clone->numberOfLayouts(), 0u);
     EXPECT_EQ(complex_t(1, 0), clone->refractiveIndex());
@@ -64,6 +64,6 @@ TEST_F(LayerTest, getChildren)
 
     children = layer.getChildren();
     EXPECT_EQ(children.size(), 2u);
-    EXPECT_EQ(children.at(0), layer.layout(0));
-    EXPECT_EQ(children.at(1), layer.layout(1));
+    EXPECT_EQ(children.at(0), layer.layouts()[0]);
+    EXPECT_EQ(children.at(1), layer.layouts()[1]);
 }

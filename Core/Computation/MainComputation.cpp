@@ -48,10 +48,10 @@ MainComputation::MainComputation(
     size_t nLayers = mP_multi_layer->numberOfLayers();
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mP_multi_layer->layer(i);
-        for (size_t j=0; j<layer->numberOfLayouts(); ++j)
+        for (auto p_layout : layer->layouts())
             m_computation_terms.emplace_back(
                         new ParticleLayoutComputation(
-                            mP_multi_layer.get(), mP_fresnel_map.get(), layer->layout(j), i,
+                            mP_multi_layer.get(), mP_fresnel_map.get(), p_layout, i,
                             m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA

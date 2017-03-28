@@ -15249,7 +15249,7 @@ Global function that creates a  SlicedFormFactorList from an  IParticle in a mul
 %feature("docstring")  MaxLimit "OneSidedLimit MaxLimit(const OneSidedLimit &left, const OneSidedLimit &right)
 ";
 
-%feature("docstring")  ConvexHull "ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
+%feature("docstring")  ConvexHull "BA_CORE_API_ ZLimits ConvexHull(const ZLimits &left, const ZLimits &right)
 ";
 
 

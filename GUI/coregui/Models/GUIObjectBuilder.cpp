@@ -131,6 +131,9 @@ SessionItem* GUIObjectBuilder::populateDocumentModel(DocumentModel* documentMode
         optionsItem->setComputationMethod(Constants::SIMULATION_MONTECARLO);
         optionsItem->setNumberOfMonteCarloPoints(simulation.getOptions().getMcPoints());
     }
+    if(simulation.getOptions().useAvgMaterials()) {
+        optionsItem->setFresnelMaterialMethod(Constants::AVERAGE_LAYER_MATERIAL);
+    }
     return optionsItem;
 }
 

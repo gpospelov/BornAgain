@@ -60,6 +60,8 @@ BA_CORE_API_ QString getValidFileName(const QString& proposed_name);
 
 BA_CORE_API_ QString fileDir(const QString& fileName);
 
+BA_CORE_API_ void createSubdir(const QString& parentName, const QString& subdirName);
+
 BA_CORE_API_ bool parseVersion(
     const QString& version, int& major_num, int& minor_num, int& patch_num);
 

@@ -191,6 +191,20 @@ QString fileDir(const QString &fileName)
     return QString();
 }
 
+//! Creates sub directory in given parent directory (should exist).
+//! If sub-directory already exists, no action will be taken.
+
+void createSubdir(const QString& parentName, const QString& subdirName)
+{
+    QDir projectDir(parentName);
+    if(!projectDir.exists(subdirName)) {
+        if(!projectDir.mkdir(subdirName))
+            throw GUIHelpers::Error("GUIHelpers::createSubdir() -> Error. Can't create '"
+                                    +subdirName+"' in parent directory '"
+                                    +parentName+"'.");
+    }
+}
+
 QString currentDateTime()
 {
     return QDateTime::currentDateTime().toString("yyyy.MM.dd hh:mm:ss");;

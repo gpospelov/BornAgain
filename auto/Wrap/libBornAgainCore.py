@@ -4643,18 +4643,6 @@ class ISample(ICloneable, INode):
         return _libBornAgainCore.ISample_material(self)
 
 
-    def ambientMaterial(self):
-        """
-        ambientMaterial(ISample self) -> HomogeneousMaterial
-
-        virtual const HomogeneousMaterial* ISample::ambientMaterial() const
-
-        Returns nullptr, unless overwritten to return a specific material. 
-
-        """
-        return _libBornAgainCore.ISample_ambientMaterial(self)
-
-
     def containedMaterials(self):
         """
         containedMaterials(ISample self) -> std::vector< HomogeneousMaterial const *,std::allocator< HomogeneousMaterial const * > >

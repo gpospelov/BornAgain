@@ -8667,11 +8667,6 @@ Returns a clone of this  ISample object.
 Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  ISample::ambientMaterial "virtual const HomogeneousMaterial* ISample::ambientMaterial() const
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
 %feature("docstring")  ISample::containedMaterials "std::vector< const HomogeneousMaterial * > ISample::containedMaterials() const
 
 Returns set of unique materials contained in this  ISample. 

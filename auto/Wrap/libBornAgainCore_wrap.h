@@ -139,7 +139,6 @@ public:
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual HomogeneousMaterial const *material() const;
-    virtual HomogeneousMaterial const *ambientMaterial() const;
 
 /* Internal director utilities */
 public:
@@ -170,7 +169,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[9];
+    mutable swig::SwigVar_PyObject vtable[8];
 #endif
 
 };
@@ -322,7 +321,6 @@ public:
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual HomogeneousMaterial const *material() const;
-    virtual HomogeneousMaterial const *ambientMaterial() const;
     virtual void setAmbientMaterial(HomogeneousMaterial arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double volume() const;
@@ -368,7 +366,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[18];
+    mutable swig::SwigVar_PyObject vtable[17];
 #endif
 
 };
@@ -387,7 +385,6 @@ public:
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual HomogeneousMaterial const *material() const;
-    virtual HomogeneousMaterial const *ambientMaterial() const;
     virtual void setAmbientMaterial(HomogeneousMaterial arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double volume() const;
@@ -434,7 +431,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[19];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };

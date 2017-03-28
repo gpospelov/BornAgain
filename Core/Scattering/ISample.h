@@ -34,9 +34,6 @@ public:
     //! Returns nullptr, unless overwritten to return a specific material.
     virtual const HomogeneousMaterial* material() const { return nullptr; }
 
-    //! Returns nullptr, unless overwritten to return a specific material.
-    virtual const HomogeneousMaterial* ambientMaterial() const { return nullptr; }
-
     //! Returns set of unique materials contained in this ISample.
     std::vector<const HomogeneousMaterial*> containedMaterials() const;
 

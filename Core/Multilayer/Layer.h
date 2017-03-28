@@ -60,9 +60,6 @@ public:
     size_t numberOfLayouts() const { return m_layouts.size(); }
     const ILayout* layout(size_t i) const;
 
-    //! Returns true if decoration is present
-    bool hasComputation() const { return m_layouts.size()>0; }
-
     bool containsParticles() const;
 
     //! returns the highest z-coordinate of all particles in the layer

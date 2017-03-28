@@ -9169,11 +9169,6 @@ squared refractive index
 %feature("docstring")  Layer::layout "const ILayout * Layer::layout(size_t i) const 
 ";
 
-%feature("docstring")  Layer::hasComputation "bool Layer::hasComputation() const
-
-Returns true if decoration is present. 
-";
-
 %feature("docstring")  Layer::containsParticles "bool Layer::containsParticles() const 
 ";
 

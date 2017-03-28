@@ -18,7 +18,7 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(air.getName(), layer.material()->getName());
     EXPECT_EQ(nullptr, layer.layout(0));
     EXPECT_EQ(10, layer.thickness());
-    EXPECT_FALSE(layer.hasComputation());
+    EXPECT_EQ(layer.numberOfLayouts(), 0u);
     EXPECT_EQ(complex_t(1, 0), layer.refractiveIndex());
     EXPECT_EQ(BornAgain::LayerType, layer.getName());
 
@@ -31,7 +31,7 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(air.getName(), clone->material()->getName());
     EXPECT_EQ(nullptr, clone->layout(0));
     EXPECT_EQ(20, clone->thickness());
-    EXPECT_FALSE(clone->hasComputation());
+    EXPECT_EQ(clone->numberOfLayouts(), 0u);
     EXPECT_EQ(complex_t(1, 0), clone->refractiveIndex());
     EXPECT_EQ(BornAgain::LayerType, clone->getName());
 }
@@ -44,7 +44,7 @@ TEST_F(LayerTest, LayerAndDecoration)
 
     Layer layer(air, 10*Units::nanometer);
     layer.addLayout(*layout1);
-    EXPECT_TRUE(layer.hasComputation());
+    EXPECT_EQ(layer.numberOfLayouts(), 1u);
 
     ParticleLayout layout2;
     layer.addLayout(layout2);

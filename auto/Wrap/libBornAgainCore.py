@@ -21710,18 +21710,6 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_layout(self, i)
 
 
-    def hasComputation(self):
-        """
-        hasComputation(Layer self) -> bool
-
-        bool Layer::hasComputation() const
-
-        Returns true if decoration is present. 
-
-        """
-        return _libBornAgainCore.Layer_hasComputation(self)
-
-
     def containsParticles(self):
         """
         containsParticles(Layer self) -> bool

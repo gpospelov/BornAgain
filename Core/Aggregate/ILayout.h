@@ -76,11 +76,6 @@ public:
     void setApproximation(EInterferenceApproximation approximation) {
         me_approx = approximation; }
 
-    //! Returns the top-most z-coordinate of its particles
-    virtual double topZParticles() const =0;
-
-    //! Returns the bottom-most z-coordinate of its particles
-    virtual double bottomZParticles() const =0;
 private:
     ///< Approximation used for combining particles and interference functions
     EInterferenceApproximation me_approx;

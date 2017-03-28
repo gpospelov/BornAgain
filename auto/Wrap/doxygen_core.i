@@ -7150,16 +7150,6 @@ Gets the used approximation for particles and interference functions.
 Sets the used approximation for particles and interference functions. 
 ";
 
-%feature("docstring")  ILayout::topZParticles "virtual double ILayout::topZParticles() const =0
-
-Returns the top-most z-coordinate of its particles. 
-";
-
-%feature("docstring")  ILayout::bottomZParticles "virtual double ILayout::bottomZParticles() const =0
-
-Returns the bottom-most z-coordinate of its particles. 
-";
-
 
 // File: classIMultiLayerBuilder.xml
 %feature("docstring") IMultiLayerBuilder "
@@ -8667,11 +8657,6 @@ Returns a clone of this  ISample object.
 Returns nullptr, unless overwritten to return a specific material. 
 ";
 
-%feature("docstring")  ISample::ambientMaterial "virtual const HomogeneousMaterial* ISample::ambientMaterial() const
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
 %feature("docstring")  ISample::containedMaterials "std::vector< const HomogeneousMaterial * > ISample::containedMaterials() const
 
 Returns set of unique materials contained in this  ISample. 
@@ -9171,25 +9156,7 @@ squared refractive index
 %feature("docstring")  Layer::numberOfLayouts "size_t Layer::numberOfLayouts() const 
 ";
 
-%feature("docstring")  Layer::layout "const ILayout * Layer::layout(size_t i) const 
-";
-
-%feature("docstring")  Layer::hasComputation "bool Layer::hasComputation() const
-
-Returns true if decoration is present. 
-";
-
-%feature("docstring")  Layer::containsParticles "bool Layer::containsParticles() const 
-";
-
-%feature("docstring")  Layer::topZParticles "double Layer::topZParticles() const
-
-returns the highest z-coordinate of all particles in the layer 
-";
-
-%feature("docstring")  Layer::bottomZParticles "double Layer::bottomZParticles() const
-
-returns the lowest z-coordinate of all particles in the layer 
+%feature("docstring")  Layer::layouts "std::vector< const ILayout * > Layer::layouts() const 
 ";
 
 %feature("docstring")  Layer::getChildren "std::vector< const INode * > Layer::getChildren() const overridefinal
@@ -9831,9 +9798,6 @@ returns layer index corresponding to given global z coordinate The top interface
 ";
 
 %feature("docstring")  MultiLayer::totalNofLayouts "size_t MultiLayer::totalNofLayouts() const 
-";
-
-%feature("docstring")  MultiLayer::containsParticles "bool MultiLayer::containsParticles() const 
 ";
 
 %feature("docstring")  MultiLayer::getChildren "std::vector< const INode * > MultiLayer::getChildren() const finaloverride
@@ -10981,16 +10945,6 @@ Returns surface density of all particles.
 %feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) finaloverride
 
 Sets surface density of all particles. 
-";
-
-%feature("docstring")  ParticleLayout::topZParticles "double ParticleLayout::topZParticles() const finaloverride
-
-Returns the top-most z-coordinate of its particles. 
-";
-
-%feature("docstring")  ParticleLayout::bottomZParticles "double ParticleLayout::bottomZParticles() const finaloverride
-
-Returns the bottom-most z-coordinate of its particles. 
 ";
 
 %feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const finaloverride

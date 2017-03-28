@@ -128,8 +128,6 @@ public:
 
     size_t totalNofLayouts() const;
 
-    bool containsParticles() const;
-
     std::vector<const INode*> getChildren() const final override;
 
 private:

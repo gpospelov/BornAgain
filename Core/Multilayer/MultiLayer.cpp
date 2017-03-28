@@ -193,14 +193,6 @@ size_t MultiLayer::totalNofLayouts() const
     return ret;
 }
 
-bool MultiLayer::containsParticles() const
-{
-    for (auto p_layer: m_layers)
-        if (p_layer->containsParticles())
-            return true;
-    return false;
-}
-
 std::vector<const INode*> MultiLayer::getChildren() const
 {
     std::vector<const INode*> result;
@@ -333,9 +325,8 @@ std::vector<ZLimits> MultiLayer::calculateLayerZLimits() const
     {
         auto p_layer = m_layers[i];
         double offset = (i==0) ? 0 : m_layers_bottomz[i-1];
-        for (size_t j=0; j<p_layer->numberOfLayouts(); ++j)
+        for (auto p_layout : p_layer->layouts())
         {
-            auto p_layout = p_layer->layout(j);
             for (auto p_particle : p_layout->particles())
                 layer_fill_limits.update(p_particle->bottomTopZ(), offset);
         }

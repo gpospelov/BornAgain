@@ -50,7 +50,6 @@ public:
     double thickness() const { return m_thickness; }
 
     const HomogeneousMaterial* material() const override final { return &m_material; }
-
     void setMaterial(HomogeneousMaterial material);
 
     complex_t refractiveIndex() const;
@@ -58,31 +57,20 @@ public:
 
     void addLayout(const ILayout& decoration);
     size_t numberOfLayouts() const { return m_layouts.size(); }
-    const ILayout* layout(size_t i) const;
-
-    //! Returns true if decoration is present
-    bool hasComputation() const { return m_layouts.size()>0; }
-
-    bool containsParticles() const;
-
-    //! returns the highest z-coordinate of all particles in the layer
-    double topZParticles() const;
-
-    //! returns the lowest z-coordinate of all particles in the layer
-    double bottomZParticles() const;
+    std::vector<const ILayout*> layouts() const;
 
     std::vector<const INode*> getChildren() const override final;
 
     void registerThickness(bool make_registered = true);
 
     void setNumberOfSlices(unsigned int n_slices) { m_n_slices = n_slices; }
-
     unsigned int numberOfSlices() const { return m_n_slices; }
 
 private:
     Layer(const Layer& other);
     //! Clone the layer without its layouts
     Layer* emptyClone() const;
+    //! Clones and offsets the particles in the z-direction
     Layer* cloneWithOffset(double offset) const;
 
     HomogeneousMaterial m_material;   //!< material

@@ -559,10 +559,9 @@ std::string ExportToPython::addLayoutsToLayers() const
     const auto layermap = m_label->getLayerMap();
     for (auto it=layermap->begin(); it!=layermap->end(); ++it) {
         const Layer* layer = it->first;
-        size_t numberOfLayouts = layer->numberOfLayouts();
-        for(size_t i = 0; i < numberOfLayouts; ++i)
+        for (auto p_layout : layer->layouts())
             result << "\n" << indent() << it->second << ".addLayout("
-                   << m_label->getLabelLayout(layer->layout(i)) << ")\n";
+                   << m_label->getLabelLayout(p_layout) << ")\n";
     }
     return result.str();
 }

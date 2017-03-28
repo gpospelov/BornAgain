@@ -66,9 +66,8 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const
 {
     m_q = q;
     if ( std::abs(q.mag()) < std::numeric_limits<double>::epsilon()) {
-        double HdivR = m_height/m_radius;
-        return M_PI/3.*m_radius*m_radius*m_radius
-                *(3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));
+        return M_PI/3.*(  m_height*m_height*(3.*m_radius - m_height)
+                        - m_dh*m_dh*(3.*m_radius - m_dh) );
     }
     // else
     complex_t integral = mP_integrator->integrate(m_radius-m_height, m_radius - m_dh);
@@ -80,7 +79,8 @@ IFormFactor* FormFactorTruncatedSphere::sliceFormFactor(ZLimits limits, const IR
 {
     double height = m_height - m_dh;
     auto effects = computeSlicingEffects(limits, translation, height);
-    FormFactorTruncatedSphere slicedff(m_radius, height - effects.dz_bottom, effects.dz_top + m_dh);
+    FormFactorTruncatedSphere slicedff(m_radius, m_height - effects.dz_bottom,
+                                       effects.dz_top + m_dh);
     return CreateTransformedFormFactor(slicedff, rot, effects.position);
 }
 

@@ -75,7 +75,7 @@ complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const
     m_q = q;
 
     if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
-        return M_PI*R*H*H/fp*(1.-H/(3.*fp*R));
+        return M_PI/3./fp*( H*H*(3.*R-H/fp) - m_dh*m_dh*(3.*R-m_dh/fp));
     complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*m_q.z()*(H-fp*R));
     return M_TWOPI * z_part *mP_integrator->integrate(fp*R-H,fp*R-m_dh );
 }

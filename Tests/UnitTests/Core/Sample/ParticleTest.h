@@ -37,19 +37,6 @@ TEST_F(ParticleTest, Clone)
     EXPECT_EQ(BornAgain::ParticleType, clone->getName());
 }
 
-TEST_F(ParticleTest, CloneInvertB)
-{
-    Particle particle;
-    HomogeneousMaterial vacuum;
-    std::unique_ptr<Particle> clone(particle.cloneInvertB());
-    EXPECT_EQ(vacuum, *clone->material());
-    EXPECT_EQ(complex_t(1,0), clone->refractiveIndex());
-    EXPECT_EQ(nullptr, clone->formFactor());
-    EXPECT_EQ(nullptr, clone->createFormFactor());
-    EXPECT_EQ(nullptr, clone->rotation());
-    EXPECT_EQ(BornAgain::ParticleType, clone->getName());
-}
-
 TEST_F(ParticleTest, Constructors)
 {
     HomogeneousMaterial mat("Air",0,0);

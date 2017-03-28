@@ -30,7 +30,6 @@ public:
     virtual ~IRotation() {}
 
     virtual IRotation* clone() const=0;
-    IRotation* cloneInvertB() const final { return clone(); }
 
     //! Returns a new IRotation object that is the current object's inverse
     virtual IRotation* createInverse() const=0;

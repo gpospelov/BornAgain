@@ -41,7 +41,7 @@ HomogeneousMaterial::HomogeneousMaterial()
 {}
 
 HomogeneousMaterial::HomogeneousMaterial(
-        const std::string& name, const complex_t refractive_index, const kvector_t magnetic_field)
+        const std::string& name, const complex_t refractive_index, kvector_t magnetic_field)
     : INamed(name)
     , m_refractive_index(refractive_index)
     , m_magnetic_field(magnetic_field)
@@ -49,7 +49,7 @@ HomogeneousMaterial::HomogeneousMaterial(
 
 HomogeneousMaterial::HomogeneousMaterial(
         const std::string& name, double refractive_index_delta,
-        double refractive_index_beta, const kvector_t magnetic_field)
+        double refractive_index_beta, kvector_t magnetic_field)
     : INamed(name)
     , m_refractive_index(complex_t(1.0 - refractive_index_delta, refractive_index_beta))
     , m_magnetic_field(magnetic_field)

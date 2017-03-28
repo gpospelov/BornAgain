@@ -25,6 +25,12 @@
 #include <memory>
 
 
+struct ParticleLimits
+{
+    double m_bottom;
+    double m_top;
+};
+
 //! Pure virtual base class for Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
 //! Provides position/rotation and form factor. Abundance is inherited from IAbstractParticle.
 //!
@@ -33,12 +39,10 @@
 class BA_CORE_API_ IParticle : public IAbstractParticle
 {
 public:
-    virtual ~IParticle() {}
-    virtual IParticle* clone() const =0;
+    ~IParticle() {}
+    IParticle* clone() const  override=0;
 
-    virtual IParticle* cloneInvertB() const =0;
-
-    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const  override{ visitor->visit(this); }
 
     //! Create a form factor for this particle
     IFormFactor* createFormFactor() const;
@@ -58,6 +62,8 @@ public:
     //! Applies extra translation by adding it to the current one
     void applyTranslation(kvector_t displacement);
 
+    void translateZ(double offset) override;
+
     //! Returns rotation object
     const IRotation* rotation() const;
 
@@ -67,7 +73,7 @@ public:
     //! Applies transformation by composing it with the existing one
     void applyRotation(const IRotation& rotation);
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override;
 
     void registerAbundance(bool make_registered = true);
 
@@ -76,6 +82,9 @@ public:
 
     //! Decompose in constituent IParticle objects
     virtual SafePointerVector<IParticle> decompose() const;
+
+    //! Top and bottom z-coordinate
+    ParticleLimits bottomTopZ() const;
 
 protected:
     //! Creates a composed IRotation object

@@ -34,7 +34,6 @@ public:
     ~Crystal();
 
     Crystal* clone() const override final;
-    Crystal* cloneInvertB() const override final;
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 

@@ -31,9 +31,6 @@ public:
     //! Returns a clone of this ISample object.
     ISample* clone() const override=0;
 
-    //! Returns a clone with inverted magnetic fields.
-    virtual ISample* cloneInvertB() const;
-
     //! Returns nullptr, unless overwritten to return a specific material.
     virtual const HomogeneousMaterial* material() const { return nullptr; }
 

@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "ILayout.h"
 #include "Layer.h"
+#include "LayerFillLimits.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "HomogeneousMaterial.h"
@@ -32,9 +33,7 @@ MultiLayer::MultiLayer() : m_crossCorrLength(0)
 }
 
 MultiLayer::~MultiLayer()
-{
-    clear();
-}
+{}
 
 void MultiLayer::init_parameters()
 {
@@ -43,93 +42,42 @@ void MultiLayer::init_parameters()
         setUnit("nm").setNonnegative();
 }
 
-const ILayout * MultiLayer::layout(size_t i) const
-{
-    if (i >= m_layouts.size())
-        return nullptr;
-    return m_layouts[i];
-}
-
-void MultiLayer::clear() // TODO: understand need
-{
-    for (size_t i=0; i<m_layers.size(); i++)
-        delete m_layers[i];
-    m_layers.clear();
-
-    for (size_t i=0; i<m_interfaces.size(); i++)
-        delete m_interfaces[i];
-    m_interfaces.clear();
-
-    m_layers_z.clear();
-
-    getParameterPool()->clear(); // non-trivially needed
-}
-
 MultiLayer* MultiLayer::clone() const
 {
-    MultiLayer* newMultiLayer = new MultiLayer();
-
-    newMultiLayer->m_layers_z = m_layers_z;
-
-    std::vector<Layer*> layer_buffer;
-    for (size_t i=0; i<m_layers.size(); i++)
-        layer_buffer.push_back(m_layers[i]->clone() );
-
-    for (size_t i=0; i<m_interfaces.size(); i++) {
-        const Layer* topLayer = layer_buffer[i];
-        const Layer* bottomLayer = layer_buffer[i+1];
-
-        LayerInterface* newInterface(0);
-        if (m_interfaces[i]->getRoughness())
-            newInterface = LayerInterface::createRoughInterface(topLayer,
-                    bottomLayer, *m_interfaces[i]->getRoughness() );
-        else
-            newInterface = LayerInterface::createSmoothInterface(topLayer, bottomLayer );
-        newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
-        newMultiLayer->addAndRegisterInterface( newInterface );
-    }
-
-    if (layer_buffer.size())
-        newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
-
-    newMultiLayer->m_crossCorrLength = m_crossCorrLength;
-
-    newMultiLayer->init_parameters();
-
-    return newMultiLayer;
+    return cloneGeneric( [](const Layer* p_layer) { return p_layer->clone(); } );
 }
 
 MultiLayer* MultiLayer::cloneInvertB() const
 {
-    MultiLayer* newMultiLayer = new MultiLayer();
+    return cloneGeneric( [](const Layer* p_layer) { return p_layer->cloneInvertB(); } );
+}
 
-    newMultiLayer->m_layers_z = m_layers_z;
-
-    std::vector<Layer*> layer_buffer;
-    for (size_t i=0; i<m_layers.size(); i++)
-        layer_buffer.push_back(m_layers[i]->cloneInvertB());
-
-    for (size_t i=0; i<m_interfaces.size(); i++) {
-        const Layer* topLayer = layer_buffer[i];
-        const Layer* bottomLayer = layer_buffer[i+1];
-
-        LayerInterface* newInterface(0);
-        if (m_interfaces[i]->getRoughness())
-            newInterface = LayerInterface::createRoughInterface(
-                topLayer, bottomLayer, *m_interfaces[i]->getRoughness());
+MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
+{
+    if (!use_average_layers || numberOfLayers()==0)
+        return clone();
+    auto layer_limits = calculateLayerZLimits();
+    std::unique_ptr<MultiLayer> P_result(new MultiLayer());
+    for (size_t i=0; i<numberOfLayers(); ++i)
+    {
+        auto p_interface = i>0 ? m_interfaces[i-1]
+                               : nullptr;
+        auto layer_type = (numberOfLayers()==1) ? Layer::ONLYLAYER
+                        : (i==0) ? Layer::TOPLAYER
+                        : (i==numberOfLayers()-1) ? Layer::BOTTOMLAYER
+                        : Layer::INTERMEDIATELAYER;
+        SafePointerVector<Layer> sliced_layers =
+                m_layers[i]->cloneSliced(layer_limits[i], layer_type);
+        if (sliced_layers.size()==0)
+            throw std::runtime_error("MultiLayer::cloneSliced: slicing layer produced empty list,");
+        if (i>0 && p_interface->getRoughness())
+            P_result->addLayerWithTopRoughness(*sliced_layers[0], *p_interface->getRoughness());
         else
-            newInterface = LayerInterface::createSmoothInterface(topLayer, bottomLayer );
-        newMultiLayer->addAndRegisterLayer( layer_buffer[i] );
-        newMultiLayer->addAndRegisterInterface( newInterface );
+            P_result->addLayer(*sliced_layers[0]);
+        for (size_t j=1; j<sliced_layers.size(); ++j)
+            P_result->addLayer(*sliced_layers[j]);
     }
-    if (layer_buffer.size())
-        newMultiLayer->addAndRegisterLayer( layer_buffer.back() );
-
-    newMultiLayer->m_crossCorrLength = m_crossCorrLength;
-
-    newMultiLayer->init_parameters();
-
-    return newMultiLayer;
+    return P_result.release();
 }
 
 //! Returns pointer to the top interface of the layer.
@@ -156,15 +104,7 @@ void MultiLayer::setLayerMaterial(size_t i_layer, HomogeneousMaterial material)
     p_layer->setMaterial(material);
 }
 
-void MultiLayer::addLayout(const ILayout & layout)
-{
-    ILayout *clone = layout.clone();
-    m_layouts.push_back(clone);
-    registerChild(clone);
-}
-
 //! Adds layer with top roughness
-
 void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness)
 {
     Layer* p_new_layer = layer.clone();
@@ -177,14 +117,15 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
         else
             interface = LayerInterface::createSmoothInterface(p_last_layer, p_new_layer);
         addAndRegisterInterface(interface);
-        m_layers_z.push_back(m_layers_z.back() - layer.thickness() );
+        double bottomz = (numberOfLayers()==1) ? 0.0
+                             : m_layers_bottomz.back() - p_last_layer->thickness();
+        m_layers_bottomz.push_back(bottomz);
     } else {
         // the top layer
         if (p_new_layer->thickness() != 0.0)
             throw std::runtime_error(
                 "Invalid call to MultiLayer::addLayer(): the semi-infinite top layer "
                 "must have a pro forma thickness of 0");
-        m_layers_z.push_back(0.0);
     }
     addAndRegisterLayer(p_new_layer);
 }
@@ -220,28 +161,10 @@ double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k
     return corr;
 }
 
-// Currently unused, except in a trivial test.
-// TODO: integrate this into an onChange() mechanism.
-
-void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
-{
-    if (thickness < 0.)
-        throw Exceptions::DomainErrorException("Layer thickness cannot be negative");
-
-    m_layers[ check_layer_index(i_layer) ]->setThickness(thickness);
-    // recalculating z-coordinates of layers
-    m_layers_z.clear();
-    m_layers_z.push_back(0.0);
-    for (size_t il=1; il<numberOfLayers(); il++)
-        m_layers_z.push_back(
-            m_layers_z.back() -
-            m_layers[ check_layer_index(il) ]->thickness() );
-}
-
-int MultiLayer::indexOfLayer(const Layer* layer) const
+int MultiLayer::indexOfLayer(const Layer* p_layer) const
 {
     for (size_t i=0; i<numberOfLayers(); ++i)
-        if (layer == m_layers[i])
+        if (p_layer == m_layers[i])
             return i;
     return -1;
 }
@@ -256,8 +179,8 @@ bool MultiLayer::containsMagneticMaterial() const
 
 bool MultiLayer::hasRoughness() const
 {
-    for (const LayerInterface* face: m_interfaces)
-        if (face->getRoughness())
+    for (auto p_interface: m_interfaces)
+        if (p_interface->getRoughness())
             return true;
     return false;
 }
@@ -265,18 +188,26 @@ bool MultiLayer::hasRoughness() const
 size_t MultiLayer::totalNofLayouts() const
 {
     size_t ret = 0;
-    for (const Layer* layer: m_layers)
-        ret += layer->numberOfLayouts();
+    for (auto p_layer: m_layers)
+        ret += p_layer->numberOfLayouts();
     return ret;
+}
+
+bool MultiLayer::containsParticles() const
+{
+    for (auto p_layer: m_layers)
+        if (p_layer->containsParticles())
+            return true;
+    return false;
 }
 
 std::vector<const INode*> MultiLayer::getChildren() const
 {
     std::vector<const INode*> result;
-    for(auto layer : m_layers) {
-        result.push_back(layer);
-        if(const LayerInterface *interface = layerBottomInterface(indexOfLayer(layer)))
-            result.push_back(interface);
+    for(auto p_layer : m_layers) {
+        result.push_back(p_layer);
+        if(const LayerInterface* p_interface = layerBottomInterface(indexOfLayer(p_layer)))
+            result.push_back(p_interface);
     }
     return result;
 }
@@ -294,7 +225,7 @@ void MultiLayer::addAndRegisterInterface(LayerInterface* child)
     registerChild(child);
 }
 
-void MultiLayer::handleLayerThicknessRegistration() const
+void MultiLayer::handleLayerThicknessRegistration()
 {
     size_t n_layers = numberOfLayers();
     for (size_t i=0; i<numberOfLayers(); ++i) {
@@ -320,33 +251,49 @@ size_t MultiLayer::check_interface_index(size_t i_interface) const
     return i_interface;
 }
 
+MultiLayer* MultiLayer::cloneGeneric(const std::function<Layer*(const Layer*)>& layer_clone) const
+{
+    std::unique_ptr<MultiLayer> P_result(new MultiLayer());
+    for (size_t i=0; i<numberOfLayers(); ++i)
+    {
+        auto p_interface = i>0 ? m_interfaces[i-1]
+                               : nullptr;
+        std::unique_ptr<Layer> P_layer(layer_clone(m_layers[i]));
+        if (i>0 && p_interface->getRoughness())
+            P_result->addLayerWithTopRoughness(*P_layer, *p_interface->getRoughness());
+        else
+            P_result->addLayer(*P_layer);
+    }
+    return P_result.release();
+}
+
 bool MultiLayer::requiresMatrixRTCoefficients() const
 {
-    for (auto layer: m_layers)
-        if (!(layer->material()->isScalarMaterial()))
+    for (auto p_layer: m_layers)
+        if (!(p_layer->material()->isScalarMaterial()))
             return true;
     return false;
 }
 
 size_t MultiLayer::bottomZToLayerIndex(double z_value) const
 {
-    size_t n_layers = m_layers_z.size();
+    size_t n_layers = numberOfLayers();
     if (n_layers < 2)
         return 0;
-    if (z_value < m_layers_z[n_layers-2]) return m_layers_z.size()-1;
-    auto top_limit = std::upper_bound(m_layers_z.rbegin()+1, m_layers_z.rend(), z_value);
-    size_t nbin = static_cast<size_t>(m_layers_z.rend() - top_limit);
+    if (z_value < m_layers_bottomz[n_layers-2]) return numberOfLayers()-1;
+    auto top_limit = std::upper_bound(m_layers_bottomz.rbegin(), m_layers_bottomz.rend(), z_value);
+    size_t nbin = static_cast<size_t>(m_layers_bottomz.rend() - top_limit);
     return nbin;
 }
 
 size_t MultiLayer::topZToLayerIndex(double z_value) const
 {
-    size_t n_layers = m_layers_z.size();
+    size_t n_layers = m_layers_bottomz.size();
     if (n_layers < 2)
         return 0;
-    if (z_value < m_layers_z[n_layers-2]) return m_layers_z.size()-1;
-    auto bottom_limit = std::lower_bound(m_layers_z.rbegin()+1, m_layers_z.rend(), z_value);
-    size_t nbin = static_cast<size_t>(m_layers_z.rend() - bottom_limit);
+    if (z_value <= m_layers_bottomz[n_layers-2]) return numberOfLayers()-1;
+    auto bottom_limit = std::lower_bound(m_layers_bottomz.rbegin(), m_layers_bottomz.rend(), z_value);
+    size_t nbin = static_cast<size_t>(m_layers_bottomz.rend() - bottom_limit);
     return nbin;
 }
 
@@ -359,7 +306,12 @@ double MultiLayer::layerTopZ(size_t i_layer) const
 
 double MultiLayer::layerBottomZ(size_t i_layer) const
 {
-    return m_layers_z[ check_layer_index(i_layer) ];
+    if (numberOfLayers()<2)
+        return 0;
+    // Size of m_layers_z is numberOfLayers()-1:
+    if (i_layer>numberOfLayers()-2)
+        i_layer = numberOfLayers()-2;
+    return m_layers_bottomz[i_layer];
 }
 
 double MultiLayer::layerThickness(size_t i_layer) const
@@ -372,4 +324,21 @@ void MultiLayer::setCrossCorrLength(double crossCorrLength)
     if (crossCorrLength<0.0)
         throw Exceptions::LogicErrorException("Attempt to set crossCorrLength to negative value");
     m_crossCorrLength = crossCorrLength;
+}
+
+std::vector<ZLimits> MultiLayer::calculateLayerZLimits() const
+{
+    LayerFillLimits layer_fill_limits(m_layers_bottomz);
+    for (size_t i=0; i<m_layers.size(); ++i)
+    {
+        auto p_layer = m_layers[i];
+        double offset = (i==0) ? 0 : m_layers_bottomz[i-1];
+        for (size_t j=0; j<p_layer->numberOfLayouts(); ++j)
+        {
+            auto p_layout = p_layer->layout(j);
+            for (auto p_particle : p_layout->particles())
+                layer_fill_limits.update(p_particle->bottomTopZ(), offset);
+        }
+    }
+    return layer_fill_limits.layerZLimits();
 }

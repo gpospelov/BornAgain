@@ -32,9 +32,6 @@ public:
     ~MesoCrystal();
     MesoCrystal* clone() const override final;
 
-    //! Returns a clone with inverted magnetic fields
-    MesoCrystal* cloneInvertB() const override final;
-
     void accept(INodeVisitor* visitor) const override final;
 
     SlicedParticle createSlicedParticle(ZLimits limits) const override final;

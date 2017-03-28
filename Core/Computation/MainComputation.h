@@ -41,7 +41,7 @@ class MainComputation final : public INoncopyable
 {
 public:
     MainComputation(
-        const MultiLayer& p_multi_layer,
+        const MultiLayer& multilayer,
         const SimulationOptions& options,
         ProgressHandler& progress,
         const std::vector<SimulationElement>::iterator& begin_it,

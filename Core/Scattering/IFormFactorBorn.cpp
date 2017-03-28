@@ -59,51 +59,30 @@ SlicingEffects IFormFactorBorn::computeSlicingEffects(ZLimits limits, const kvec
                                                       double height) const
 {
     kvector_t new_position(position);
-    double dz_bottom = limits.zmin() - position.z();
-    double dz_top = position.z() + height - limits.zmax();
-    switch (limits.type()) {
-    case ZLimits::FINITE:
-    {
-        if (dz_bottom < 0 && dz_top < 0)
-            throw std::runtime_error(getName() + "::sliceFormFactor error: "
-                                     "interface outside shape.");
-        if (dz_bottom > height)
-            throw std::runtime_error(getName() + "::sliceFormFactor error: "
-                                     "interface outside shape.");
-        if (dz_top > height)
-            throw std::runtime_error(getName() + "::sliceFormFactor error: "
-                                     "interface outside shape.");
-        if (dz_bottom + dz_top > height)
-            throw std::runtime_error(getName() + "::sliceFormFactor error: "
-                                     "limits zmax < zmin.");
-        if (dz_bottom > 0)
-            new_position.setZ(limits.zmin());
-        break;
-    }
-    case ZLimits::INFINITE:
-    {
+    double z_bottom = position.z();
+    double z_top = position.z() + height;
+    OneSidedLimit lower_limit = limits.lowerLimit();
+    OneSidedLimit upper_limit = limits.upperLimit();
+    if (!upper_limit.m_limitless && !lower_limit.m_limitless
+        && lower_limit.m_value > upper_limit.m_value)
+        throw std::runtime_error(getName() + "::sliceFormFactor error: "
+                                 "upperlimit < lowerlimit.");
+    double dz_top = upper_limit.m_limitless ? -1
+                                            : z_top - upper_limit.m_value;
+    double dz_bottom = lower_limit.m_limitless ? -1
+                                               : lower_limit.m_value - z_bottom;
+    if (dz_top < 0 && dz_bottom < 0)
         throw std::runtime_error(getName() + "::sliceFormFactor error: "
                                  "shape didn't need to be sliced.");
-    }
-    case ZLimits::POS_INFINITE:
-    {
-        if (dz_bottom < 0 || dz_bottom > height)
-            throw std::runtime_error(getName() + "::sliceFormFactor error: "
-                                     "shape didn't need to be sliced.");
-        new_position.setZ(limits.zmin());
-        dz_top = 0;
-        break;
-    }
-    case ZLimits::NEG_INFINITE:
-    {
-        if (dz_top < 0.0 || dz_top > height)
-            throw std::runtime_error(getName() + "::sliceFormFactor error: "
-                                     "shape didn't need to be sliced.");
-        dz_bottom = 0;
-        break;
-    }
-    }
+    if (dz_bottom > height)
+        throw std::runtime_error(getName() + "::sliceFormFactor error: "
+                                 "interface outside shape.");
+    if (dz_top > height)
+        throw std::runtime_error(getName() + "::sliceFormFactor error: "
+                                 "interface outside shape.");
     if (dz_bottom < 0) dz_bottom = 0;
     if (dz_top < 0) dz_top = 0;
+    if (dz_bottom > 0)
+        new_position.setZ(lower_limit.m_value);
     return { new_position, dz_bottom, dz_top };
 }

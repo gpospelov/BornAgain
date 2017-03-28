@@ -16,52 +16,61 @@
 
 #include "AutosaveService.h"
 #include "projectdocument.h"
-#include <QTimer>
+#include "UpdateTimer.h"
+#include "GUIHelpers.h"
+#include <QDir>
 #include <QDebug>
 
-namespace {
-    const int update_every = 10000; // in msec
+namespace
+{
+const int update_every = 10000; // in msec
+const QString autosave_subdir = "autosave";
 }
 
 AutosaveService::AutosaveService(QObject* parent)
-    : QObject(parent)
-    , m_document(0)
-    , m_timer(new QTimer(this))
-    , m_modificationCount(0)
+    : QObject(parent), m_document(0), m_timer(new UpdateTimer(update_every, this))
 {
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
+    connect(m_timer, SIGNAL(timeToUpdate()), this, SLOT(onTimerTimeout()));
 }
 
 void AutosaveService::setDocument(ProjectDocument* document)
 {
     qDebug() << "AutosaveService::setDocument" << document;
 
-    Q_ASSERT(m_timer->isActive() == false);
+    m_timer->reset();
 
     m_document = document;
 
-    if(!m_document)
+    if (!m_document)
         return;
 
-    connect(m_document, SIGNAL(destroyed(QObject*)), this,
-            SLOT(onDocumentDestroyed(QObject*)));
+    connect(m_document, SIGNAL(destroyed(QObject*)), this, SLOT(onDocumentDestroyed(QObject*)));
 
-    connect(m_document, SIGNAL(modified()), this,
-            SLOT(onDocumentModified()));
+    connect(m_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
+}
 
-    if(isDocumentForAutosave()) {
-        qDebug() << "Starting timer first time";
-        m_timer->start(update_every);
-    }
+void AutosaveService::setAutosaveTime(int timerInterval)
+{
+    m_timer->setTimeInterval(timerInterval);
+}
 
+//! Returns the name of autosave directory. The directory will be created, if not exists.
+
+QString AutosaveService::autosaveDir() const
+{
+    if (!m_document->hasValidNameAndPath())
+        return QString();
+
+    GUIHelpers::createSubdir(m_document->projectDir(), autosave_subdir);
+    return m_document->projectDir() + "/" + autosave_subdir;
 }
 
 void AutosaveService::onTimerTimeout()
 {
-    qDebug() << "AutosaveService::onTimerTimeout()" << m_document << m_document->isModified() << m_modificationCount;
+    qDebug() << "AutosaveService::onTimerTimeout()" << m_document << m_document->isModified();
     Q_ASSERT(m_document);
 
-    if(m_document->isModified() && m_modificationCount!=0)
+    if (m_document->isModified())
         autosave();
 }
 
@@ -70,22 +79,16 @@ void AutosaveService::onDocumentDestroyed(QObject* object)
     qDebug() << "AutosaveService::onDocumentDestroyed" << m_document << object;
     Q_ASSERT(m_document == object);
 
-    m_timer->stop();
+    m_timer->reset();
     m_document = 0;
-    m_modificationCount = 0;
 }
-
-//!
 
 void AutosaveService::onDocumentModified()
 {
-    qDebug() << "AutosaveService::onDocumentModified()" << m_modificationCount << m_document->isModified();
-    if(m_document->isModified())
-        ++m_modificationCount;
-
-    if(isDocumentForAutosave() && !m_timer->isActive()) {
-        qDebug() << "Starting timer";
-        m_timer->start(update_every);
+    qDebug() << "AutosaveService::onDocumentModified()" << m_document << m_document->isModified();
+    if (m_document->isModified() && m_document->hasValidNameAndPath()) {
+        qDebug() << "   ... scheduling update";
+        m_timer->scheduleUpdate();
     }
 }
 
@@ -95,10 +98,11 @@ void AutosaveService::autosave()
     qDebug() << "AutosaveService::autosave()";
 
     QString name = autosaveName();
-    if(!name.isEmpty()) {
+    if (!name.isEmpty()) {
+        qDebug() << "   saving ..." << name;
         bool result = m_document->save(name, true);
-        qDebug() << "   saving ..." << name << "result" << result;
-        m_modificationCount = 0;
+        qDebug() << "           save result" << result;
+        emit autosaved();
     }
 }
 
@@ -111,17 +115,8 @@ bool AutosaveService::isDocumentForAutosave()
 
 QString AutosaveService::autosaveName() const
 {
-    qDebug() << "AutosaveService::autosaveName()" << m_document->hasValidNameAndPath() << m_document->getProjectDir() << m_document->getProjectName();
-    Q_ASSERT(m_document);
-
-    if(!m_document->hasValidNameAndPath())
+    if (!m_document->hasValidNameAndPath())
         return QString();
 
-    QString result = m_document->getProjectFileName();
-
-    int index = result.lastIndexOf(m_document->getProjectFileExtension());
-    result.remove(index, m_document->getProjectFileExtension().size());
-    result.append(".temp");
-
-    return result;
+    return autosaveDir() + "/" + m_document->projectName() + m_document->projectFileExtension();
 }

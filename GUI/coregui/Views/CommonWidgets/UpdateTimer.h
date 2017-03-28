@@ -34,6 +34,8 @@ public:
 
     void reset();
 
+    void setTimeInterval(int timerInterval);
+
 signals:
     void timeToUpdate();
 

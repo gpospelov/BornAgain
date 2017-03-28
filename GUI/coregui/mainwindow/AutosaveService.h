@@ -21,7 +21,7 @@
 #include <QObject>
 
 class ProjectDocument;
-class QTimer;
+class UpdateTimer;
 
 //! Handles activity related to opening/save projects.
 
@@ -29,9 +29,17 @@ class BA_CORE_API_ AutosaveService : public QObject
 {
     Q_OBJECT
 public:
-    AutosaveService(QObject* parent);
+    explicit AutosaveService(QObject* parent = 0);
 
     void setDocument(ProjectDocument* document);
+
+    //! Sets autosave time (in msec)
+    void setAutosaveTime(int timerInterval);
+
+    QString autosaveDir() const;
+    QString autosaveName() const;
+signals:
+    void autosaved();
 
 private slots:
     void onTimerTimeout();
@@ -41,11 +49,9 @@ private slots:
 private:
     void autosave();
     bool isDocumentForAutosave();
-    QString autosaveName() const;
 
     ProjectDocument* m_document;
-    QTimer* m_timer;
-    qint64 m_modificationCount;
+    UpdateTimer* m_timer;
 };
 
 #endif

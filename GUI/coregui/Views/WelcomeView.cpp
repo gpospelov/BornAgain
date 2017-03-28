@@ -249,9 +249,9 @@ QString WelcomeView::getCurrentProjectFancyName()
     QString result("Untitled");
     if(ProjectDocument *projectDocument = m_projectManager->document()) {
         if(projectDocument->hasValidNameAndPath())
-           result = GUI_StringUtils::withTildeHomePath(projectDocument->getProjectFileName());
+           result = GUI_StringUtils::withTildeHomePath(projectDocument->projectFileName());
         else
-           result = projectDocument->getProjectName();
+           result = projectDocument->projectName();
     }
     return result;
 }

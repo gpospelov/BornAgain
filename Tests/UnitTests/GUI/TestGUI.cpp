@@ -23,6 +23,8 @@
 #include "TestDetectorItems.h"
 #include "TestLinkInstrument.h"
 #include "TestUpdateTimer.h"
+#include "TestProjectDocument.h"
+#include "TestAutosave.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
@@ -52,6 +54,8 @@ int main(int argc, char** argv) {
     TestDetectorItems testDetectorItems;
     TestLinkInstrument testLinkInstrument;
     TestUpdateTimer testUpdateTimer;
+    TestProjectDocument testProjectDocument;
+//    TestAutosave testAutosave;
 
     bool status(false);
 
@@ -79,6 +83,8 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testLinkInstrument, argc, argv);
     status |= QTest::qExec(&testLinkInstrument, argc, argv);
     status |= QTest::qExec(&testUpdateTimer, argc, argv);
+    status |= QTest::qExec(&testProjectDocument, argc, argv);
+//    status |= QTest::qExec(&testAutosave, argc, argv);
 
     return status;
 }

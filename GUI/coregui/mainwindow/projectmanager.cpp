@@ -113,11 +113,11 @@ void ProjectManager::createNewProject()
 
 void ProjectManager::onDocumentModified()
 {
+    qDebug() << "ProjectManager::onDocumentModified()" << m_project_document->isModified();
     if (m_project_document->isModified()) {
-        qDebug() << "ProjectManager::onDocumentModified()";
-        m_mainWindow->setWindowTitle("*" + m_project_document->getProjectName());
+        m_mainWindow->setWindowTitle("*" + m_project_document->projectName());
     } else {
-        m_mainWindow->setWindowTitle(m_project_document->getProjectName());
+        m_mainWindow->setWindowTitle(m_project_document->projectName());
     }
 }
 
@@ -139,7 +139,7 @@ bool ProjectManager::saveProject(QString projectFileName)
 {
     if(projectFileName.isEmpty()) {
         if(m_project_document->hasValidNameAndPath())
-            projectFileName = m_project_document->getProjectFileName();
+            projectFileName = m_project_document->projectFileName();
         else
             projectFileName = acquireProjectFileName();
     }
@@ -150,7 +150,7 @@ bool ProjectManager::saveProject(QString projectFileName)
     if (!m_project_document->save(projectFileName)) {
         QMessageBox::warning(
             m_mainWindow, "Error while saving project",
-            QString("Failed to save project under '%1'.").arg(m_project_document->getProjectDir()));
+            QString("Failed to save project under '%1'.").arg(m_project_document->projectDir()));
         return false;
     }
 
@@ -210,7 +210,7 @@ void ProjectManager::openProject(QString fileName)
 
 void ProjectManager::addToRecentProjects()
 {
-    QString fileName = m_project_document->getProjectFileName();
+    QString fileName = m_project_document->projectFileName();
     m_recentProjects.removeAll(fileName);
     m_recentProjects.prepend(fileName);
     while (m_recentProjects.size() > Constants::MAX_RECENT_PROJECTS)
@@ -269,7 +269,7 @@ QStringList ProjectManager::recentProjects()
 QString ProjectManager::projectDir() const
 {
     if (m_project_document && m_project_document->hasValidNameAndPath())
-        return m_project_document->getProjectDir();
+        return m_project_document->projectDir();
 
     return QString();
 }
@@ -335,7 +335,7 @@ QString ProjectManager::untitledProjectName()
 void ProjectManager::riseProjectLoadFailedDialog()
 {
     QString message = QString("Failed to load the project '%1' \n\n")
-                          .arg(m_project_document->getProjectFileName());
+                          .arg(m_project_document->projectFileName());
 
     QString details = m_messageService->getMessages(m_project_document);
     message.append(details);
@@ -347,7 +347,7 @@ void ProjectManager::riseProjectLoadWarningDialog()
 {
     Q_ASSERT(m_project_document);
     ProjectLoadWarningDialog* warningDialog = new ProjectLoadWarningDialog(
-        m_mainWindow, m_messageService, m_project_document->getDocumentVersion());
+        m_mainWindow, m_messageService, m_project_document->documentVersion());
 
     warningDialog->show();
     warningDialog->raise();

@@ -50,7 +50,6 @@ public:
     double thickness() const { return m_thickness; }
 
     const HomogeneousMaterial* material() const override final { return &m_material; }
-
     void setMaterial(HomogeneousMaterial material);
 
     complex_t refractiveIndex() const;
@@ -58,7 +57,6 @@ public:
 
     void addLayout(const ILayout& decoration);
     size_t numberOfLayouts() const { return m_layouts.size(); }
-
     std::vector<const ILayout*> layouts() const;
 
     std::vector<const INode*> getChildren() const override final;
@@ -66,7 +64,6 @@ public:
     void registerThickness(bool make_registered = true);
 
     void setNumberOfSlices(unsigned int n_slices) { m_n_slices = n_slices; }
-
     unsigned int numberOfSlices() const { return m_n_slices; }
 
 private:

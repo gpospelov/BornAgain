@@ -46,6 +46,8 @@ void AutosaveService::setDocument(ProjectDocument* document)
 
     if(m_document)
         setDocumentConnected(true);
+
+    onDocumentModified();
 }
 
 void AutosaveService::setAutosaveTime(int timerInterval)

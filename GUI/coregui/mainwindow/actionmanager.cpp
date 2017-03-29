@@ -185,6 +185,15 @@ void ActionManager::aboutToShowSettings()
     action->setChecked(settings.value(Constants::S_VIEWISACTIVE, false).toBool());
     connect(action, SIGNAL(toggled(bool)), this, SLOT(setSessionModelViewActive(bool)));
     settings.endGroup();
+
+    action = m_settingsMenu->addAction("Enable autosave");
+    action->setToolTip("Project will be saved periodically in project's autosave directory.\n"
+                       "When opening project, recover option will be suggested, if possible.");
+    action->setCheckable(true);
+    action->setChecked(m_mainWindow->projectManager()->isAutosaveEnabled());
+    connect(action, SIGNAL(toggled(bool)),
+            m_mainWindow->projectManager(), SLOT(setAutosaveEnabled(bool)));
+
 }
 
 void ActionManager::toggleCheckForUpdates(bool status)

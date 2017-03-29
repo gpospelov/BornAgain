@@ -46,6 +46,8 @@ public:
     QString userImportDir() const;
     void setImportDir(const QString& dirname);
 
+    bool isAutosaveEnabled();
+
 signals:
     void modified();
     void projectOpened();

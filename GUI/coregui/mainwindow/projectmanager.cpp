@@ -152,6 +152,11 @@ void ProjectManager::setImportDir(const QString& dirname)
     m_importDirectory = dirname;
 }
 
+bool ProjectManager::isAutosaveEnabled()
+{
+    return m_autosaveService ? true : false;
+}
+
 void ProjectManager::setAutosaveEnabled(bool value)
 {
     if(value) {
@@ -164,6 +169,9 @@ void ProjectManager::setAutosaveEnabled(bool value)
         delete m_autosaveService;
         m_autosaveService = 0;
     }
+
+    QSettings settings;
+    settings.setValue(S_PROJECTMANAGER+"/"+S_AUTOSAVE, value);
 }
 
 //! Updates title of main window when the project was modified.

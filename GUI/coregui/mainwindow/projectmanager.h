@@ -62,6 +62,7 @@ public slots:
 private:
     void createNewProject();
     void deleteCurrentProject();
+    void loadProject(const QString& projectFileName);
     QString acquireProjectFileName();
     void addToRecentProjects();
 
@@ -70,6 +71,7 @@ private:
 
     void riseProjectLoadFailedDialog();
     void riseProjectLoadWarningDialog();
+    bool restoreProjectDialog(const QString& projectFileName);
 
     MainWindow* m_mainWindow;
     ProjectDocument* m_project_document;

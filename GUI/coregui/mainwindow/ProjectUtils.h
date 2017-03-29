@@ -39,8 +39,14 @@ BA_CORE_API_ QString autosaveDir(const QString& projectFileName);
 //! Returns name of project for autoSave from given project file name.
 BA_CORE_API_ QString autosaveName(const QString& projectFileName);
 
+//! Returns true if file exists.
+BA_CORE_API_ bool exists(const QString& fileName);
+
 //! Returns true if project with given projectFileName contains autosaved data.
 BA_CORE_API_ bool hasAutosavedData(const QString& projectFileName);
+
+//! Returns a string representing modification time of given file
+BA_CORE_API_ QString lastModified(const QString& fileName);
 
 }
 

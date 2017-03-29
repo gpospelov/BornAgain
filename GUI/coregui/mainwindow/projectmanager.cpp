@@ -25,10 +25,12 @@
 #include "newprojectdialog.h"
 #include "projectdocument.h"
 #include "AutosaveService.h"
+#include "ProjectUtils.h"
 #include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QSettings>
+#include <QDateTime>
 #include <QStandardPaths>
 
 namespace {
@@ -269,8 +271,7 @@ void ProjectManager::openProject(QString fileName)
     }
 
     createNewProject();
-
-    m_project_document->load(fileName);
+    loadProject(fileName);
 
     if (m_project_document->isReady()) {
         addToRecentProjects();
@@ -316,6 +317,18 @@ void ProjectManager::deleteCurrentProject()
     delete m_project_document;
     m_project_document = 0;
     m_mainWindow->models()->resetModels();
+}
+
+//! Load project data from file name. If autosave info exists, opens dialog for project restore.
+
+void ProjectManager::loadProject(const QString& projectFileName)
+{
+    if(ProjectUtils::hasAutosavedData(projectFileName) && restoreProjectDialog(projectFileName)) {
+        m_project_document->load(ProjectUtils::autosaveName(projectFileName));
+        m_project_document->setProjectFileName(projectFileName);
+    } else {
+        m_project_document->load(projectFileName);
+    }
 }
 
 //! Returns project file name from dialog.
@@ -387,4 +400,21 @@ void ProjectManager::riseProjectLoadWarningDialog()
 
     warningDialog->show();
     warningDialog->raise();
+}
+
+//! Rises dialog if the project should be restored from autosave. Returns true, if yes.
+
+bool ProjectManager::restoreProjectDialog(const QString& projectFileName)
+{
+    QString title("Recover project");
+
+    QString message = QString("Project '%1' contains autosaved data.\n\n"
+              "Project saved at %2\nAutosave from %3")
+              .arg(ProjectUtils::projectName(projectFileName))
+              .arg(ProjectUtils::lastModified(projectFileName))
+              .arg(ProjectUtils::lastModified(ProjectUtils::autosaveName(projectFileName)));
+
+    return GUIHelpers::question(m_mainWindow, title, message,
+                                "\nDo you want to restore from autosave?\n", "Yes, please restore.",
+                                "No, keep loading original");
 }

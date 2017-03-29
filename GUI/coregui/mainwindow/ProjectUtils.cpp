@@ -16,6 +16,8 @@
 #include "ProjectUtils.h"
 #include "projectdocument.h"
 #include <QFileInfo>
+#include <QDateTime>
+#include <QDebug>
 
 QString ProjectUtils::projectName(const QString& projectFileName)
 {
@@ -49,9 +51,20 @@ QString ProjectUtils::autosaveName(const QString& projectFileName)
            ProjectUtils::projectName(projectFileName) + ProjectDocument::projectFileExtension();
 }
 
-bool ProjectUtils::hasAutosavedData(const QString& projectFileName)
+bool ProjectUtils::exists(const QString& fileName)
 {
-    QFileInfo info(autosaveName(projectFileName));
+    QFileInfo info(fileName);
     return info.exists();
 }
 
+bool ProjectUtils::hasAutosavedData(const QString& projectFileName)
+{
+    return exists(projectFileName) && exists(autosaveName(projectFileName));
+}
+
+
+QString ProjectUtils::lastModified(const QString& fileName)
+{
+    QFileInfo info(fileName);
+    return info.lastModified().toString("hh:mm:ss, MMMM d, yyyy");
+}

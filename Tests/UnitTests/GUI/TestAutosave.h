@@ -50,9 +50,6 @@ inline void TestAutosave::test_autoSave()
     QCOMPARE(autosave.autosaveDir(), QString("test_autoSave/autosave"));
     QCOMPARE(autosave.autosaveName(), QString("test_autoSave/autosave/document.pro"));
 
-    QDir autosaveDir(autosave.autosaveDir());
-    QVERIFY(autosaveDir.exists());
-
     QSignalSpy spyAutosave(&autosave, SIGNAL(autosaved()));
 
     // modify document once and check
@@ -60,6 +57,9 @@ inline void TestAutosave::test_autoSave()
     QVERIFY(document->isModified() == true);
     QVERIFY(spyAutosave.wait(autosave_time * 1.5));
     QCOMPARE(spyAutosave.count(), 1);
+
+    QDir autosaveDir(autosave.autosaveDir());
+    QVERIFY(autosaveDir.exists());
 
     // saving document and checking that autosave is not triggered
     document->save(projectFileName);

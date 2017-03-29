@@ -26,7 +26,6 @@ const char APPLICATION_NAME[]     = "BornAgain";
 const char ORGANIZATION_NAME[]    = "Scientific Computing at MLZ";
 
 // Settings groups
-const char S_PROJECTMANAGER[]      = "ProjectManager";
 const char S_MAINWINDOW[]          = "MainWindow";
 const char S_MASKEDITOR[]          = "MaskEditor";
 const char S_UPDATES[]             = "Updates";
@@ -34,9 +33,6 @@ const char S_MATERIALEDITOR[]      = "MaterialEditor";
 const char S_SESSIONMODELVIEW[]    = "SessionModelView";
 
 // Settings keys
-const char S_DEFAULTPROJECTPATH[]  = "DefaultProjectPath";
-const char S_RECENTPROJECTS[]      = "RecentProjects";
-const char S_LASTUSEDIMPORTDIR[]   = "LastUsedImportDir";
 const char S_WINDOWSIZE[]          = "size";
 const char S_WINDOWPOSITION[]      = "pos";
 const char S_SPLITTERSIZE[]        = "SplitterSize";

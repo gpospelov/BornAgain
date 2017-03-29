@@ -24,62 +24,70 @@
 class MainWindow;
 class ProjectDocument;
 class WarningMessageService;
+class AutosaveService;
 
-//! handles activity related to opening/save projects
+//! Handles activity related to opening/save projects.
+
 class BA_CORE_API_ ProjectManager : public QObject
 {
     Q_OBJECT
 public:
-    ProjectManager(MainWindow *parent);
+    ProjectManager(MainWindow* parent);
     virtual ~ProjectManager();
-
-    void createNewProject();
-    bool closeCurrentProject();
 
     void readSettings();
     void writeSettings();
 
-    QStringList getRecentProjects();
+    ProjectDocument* document();
 
-    ProjectDocument *getDocument() { return m_project_document; }
-
-    QString getProjectDir() const;
-
+    QStringList recentProjects();
+    QString projectDir() const;
     QString userExportDir() const;
     QString userImportDir() const;
-    void setImportDir(const QString &dirname);
+    void setImportDir(const QString& dirname);
+
+    bool isAutosaveEnabled();
 
 signals:
     void modified();
     void projectOpened();
 
 public slots:
-    void clearRecentProjects();
+    void setAutosaveEnabled(bool value);
     void onDocumentModified();
-    bool saveProject();
+    void clearRecentProjects();
+    void newProject();
+    bool closeCurrentProject();
+    bool saveProject(QString projectFileName = QString());
     bool saveProjectAs();
     void openProject(QString fileName = QString());
-    void newProject();
 
 private:
-//    ProjectDocument *createNewProject();
+    void createNewProject();
+    void deleteCurrentProject();
+    void loadProject(const QString& projectFileName);
+    QString acquireProjectFileName();
     void addToRecentProjects();
 
-    QString getDefaultWorkingDirectory();
-    QString getUntitledProjectName();
+    QString workingDirectory();
+    QString untitledProjectName();
 
     void riseProjectLoadFailedDialog();
     void riseProjectLoadWarningDialog();
+    bool restoreProjectDialog(const QString& projectFileName);
 
-    void deleteCurrentProject();
+    MainWindow* m_mainWindow;
+    ProjectDocument* m_project_document;
 
-    MainWindow *m_mainWindow;
+    //!< Name of directory where project directory was created.
+    QString m_workingDirectory;
 
-    ProjectDocument *m_project_document;
+    //!< Name of directory from there user prefer to import files
+    QString m_importDirectory;
 
-    QString m_defaultWorkingDirectory;
     QStringList m_recentProjects;
-    WarningMessageService *m_messageService;
+    WarningMessageService* m_messageService;
+    AutosaveService* m_autosaveService;
 };
 
 #endif // PROJECTMANAGER_H

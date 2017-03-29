@@ -34,7 +34,7 @@ class BA_CORE_API_ ApplicationModels : public QObject
 {
     Q_OBJECT
 public:
-    ApplicationModels(QObject *parent);
+    explicit ApplicationModels(QObject *parent = 0);
     ~ApplicationModels();
 
     DocumentModel *documentModel();

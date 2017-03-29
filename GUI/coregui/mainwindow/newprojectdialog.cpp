@@ -103,7 +103,7 @@ void NewProjectDialog::setProjectName(const QString &text)
 QString NewProjectDialog::getProjectFileName() const
 {
     QString projectDir = getWorkingDirectory() + QString("/") + getProjectName();
-    QString projectFile = getProjectName() + ProjectDocument::getProjectFileExtension();
+    QString projectFile = getProjectName() + ProjectDocument::projectFileExtension();
     QString result = projectDir + QString("/") + projectFile;
     return result;
 }

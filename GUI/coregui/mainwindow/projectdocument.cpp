@@ -18,6 +18,7 @@
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "WarningMessageService.h"
+#include "ProjectUtils.h"
 #include <QDir>
 #include <QXmlStreamReader>
 
@@ -28,61 +29,60 @@ const QString XML_FORMAT_ERROR = "XML_FORMAT_ERROR";
 const QString minimal_supported_version = "1.6.0";
 }
 
-ProjectDocument::ProjectDocument()
-    : m_applicationModels(0)
-    , m_modified(false), m_documentStatus(STATUS_OK), m_messageService(0)
+ProjectDocument::ProjectDocument(const QString& projectFileName)
+    : m_applicationModels(nullptr)
+    , m_modified(false)
+    , m_documentStatus(STATUS_OK)
+    , m_messageService(nullptr)
 {
     setObjectName("ProjectDocument");
+    if (!projectFileName.isEmpty())
+        setProjectFileName(projectFileName);
 }
 
-ProjectDocument::ProjectDocument(const QString &projectFileName)
-    : m_applicationModels(0)
-    , m_modified(false), m_documentStatus(STATUS_OK), m_messageService(0)
-{
-    setObjectName("ProjectDocument");
-    setProjectFileName(projectFileName);
-}
-
-QString ProjectDocument::getProjectName() const
+QString ProjectDocument::projectName() const
 {
     return m_project_name;
 }
 
-void ProjectDocument::setProjectName(const QString &text)
+void ProjectDocument::setProjectName(const QString& text)
 {
-    m_project_name = text;
-    emit modified();
+    if (m_project_name != text) {
+        m_project_name = text;
+        emit modified();
+    }
 }
 
-QString ProjectDocument::getProjectDir() const
+QString ProjectDocument::projectDir() const
 {
     return m_project_dir;
 }
 
-void ProjectDocument::setProjectDir(const QString &text)
+void ProjectDocument::setProjectDir(const QString& text)
 {
     m_project_dir = text;
 }
 
-QString ProjectDocument::getProjectFileName() const
+QString ProjectDocument::projectFileName() const
 {
-    QString result = getProjectDir() + "/" + getProjectName() + getProjectFileExtension();
-    return result;
+    if (!projectName().isEmpty())
+        return projectDir() + "/" + projectName() + projectFileExtension();
+    else
+        return QString();
 }
 
-void ProjectDocument::setProjectFileName(const QString &projectFileName)
+void ProjectDocument::setProjectFileName(const QString& projectFileName)
 {
-    QFileInfo info(projectFileName);
-    setProjectName(info.baseName());
-    setProjectDir(info.path());
+    setProjectName(ProjectUtils::projectName(projectFileName));
+    setProjectDir(ProjectUtils::projectDir(projectFileName));
 }
 
-QString ProjectDocument::getProjectFileExtension()
+QString ProjectDocument::projectFileExtension()
 {
     return QString(".pro");
 }
 
-void ProjectDocument::setApplicationModels(ApplicationModels *applicationModels)
+void ProjectDocument::setApplicationModels(ApplicationModels* applicationModels)
 {
     if (applicationModels != m_applicationModels) {
         disconnectModels();
@@ -91,36 +91,39 @@ void ProjectDocument::setApplicationModels(ApplicationModels *applicationModels)
     }
 }
 
-bool ProjectDocument::save()
+bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 {
-    cleanProjectDir();
-//    reviseOutputData();
-    QString filename = getProjectFileName();
+    QString projectDir = ProjectUtils::projectDir(project_file_name);
 
-    QFile file(filename);
-    if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text)) {
+    removeDataFiles(projectDir);
+
+    QFile file(project_file_name);
+    if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text))
         return false;
-    }
+
     writeTo(&file);
     file.close();
-    m_applicationModels->saveNonXMLData(getProjectDir());
 
-    m_modified = false;
-    emit modified();
+    m_applicationModels->saveNonXMLData(projectDir);
+
+    if (!autoSave) {
+        setProjectFileName(project_file_name);
+        m_modified = false;
+        emit modified();
+    }
 
     return true;
 }
 
-bool ProjectDocument::load(const QString &project_file_name)
+bool ProjectDocument::load(const QString& project_file_name)
 {
     m_documentStatus = STATUS_OK;
-
     setProjectFileName(project_file_name);
 
-    QFile file(getProjectFileName());
+    QFile file(projectFileName());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         m_messageService->send_message(this, OPEN_FILE_ERROR, file.errorString());
-        m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_FAILED);
+        m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
         return false;
     }
 
@@ -129,10 +132,10 @@ bool ProjectDocument::load(const QString &project_file_name)
         disconnectModels();
         readFrom(&file);
         file.close();
-        m_applicationModels->loadNonXMLData(getProjectDir());
+        m_applicationModels->loadNonXMLData(projectDir());
         connectModels();
 
-    } catch (const std::exception &ex) {
+    } catch (const std::exception& ex) {
         m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
         m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
         return false;
@@ -151,12 +154,19 @@ bool ProjectDocument::isModified()
     return m_modified;
 }
 
-void ProjectDocument::setLogger(WarningMessageService *messageService)
+void ProjectDocument::setModified(bool flag)
+{
+    m_modified = flag;
+    if(m_modified)
+        emit modified();
+}
+
+void ProjectDocument::setLogger(WarningMessageService* messageService)
 {
     m_messageService = messageService;
 }
 
-ProjectDocument::EDocumentStatus ProjectDocument::getDocumentStatus() const
+ProjectDocument::EDocumentStatus ProjectDocument::documentStatus() const
 {
     return m_documentStatus;
 }
@@ -176,10 +186,11 @@ bool ProjectDocument::hasErrors() const
     return (m_documentStatus & STATUS_FAILED);
 }
 
-QString ProjectDocument::getDocumentVersion() const
+QString ProjectDocument::documentVersion() const
 {
     QString result(m_currentVersion);
-    if(result.isEmpty()) result = GUIHelpers::getBornAgainVersionString();
+    if (result.isEmpty())
+        result = GUIHelpers::getBornAgainVersionString();
     return result;
 }
 
@@ -189,7 +200,7 @@ void ProjectDocument::onModelChanged()
     emit modified();
 }
 
-void ProjectDocument::readFrom(QIODevice *device)
+void ProjectDocument::readFrom(QIODevice* device)
 {
     QXmlStreamReader reader(device);
 
@@ -198,13 +209,15 @@ void ProjectDocument::readFrom(QIODevice *device)
         if (reader.isStartElement()) {
             if (reader.name() == ProjectDocumentXML::BornAgainTag) {
                 m_currentVersion = reader.attributes()
-                                            .value(ProjectDocumentXML::BornAgainVersionAttribute)
-                                            .toString();
-                if(!GUIHelpers::isVersionMatchMinimal(m_currentVersion, minimal_supported_version)) {
+                                       .value(ProjectDocumentXML::BornAgainVersionAttribute)
+                                       .toString();
+                if (!GUIHelpers::isVersionMatchMinimal(m_currentVersion,
+                                                       minimal_supported_version)) {
                     m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
                     QString message = QString("Can't open document version '%1', "
-                        "minimal supported version '%2'").arg(m_currentVersion)
-                            .arg(minimal_supported_version);
+                                              "minimal supported version '%2'")
+                                          .arg(m_currentVersion)
+                                          .arg(minimal_supported_version);
                     m_messageService->send_message(this, OPEN_FILE_ERROR, message);
                     return;
                 }
@@ -215,11 +228,10 @@ void ProjectDocument::readFrom(QIODevice *device)
                 //
             } else {
                 m_applicationModels->readFrom(&reader, m_messageService);
-                if(m_messageService->hasWarnings(m_applicationModels)) {
-                    m_documentStatus = EDocumentStatus(m_documentStatus|STATUS_WARNING);
+                if (m_messageService->hasWarnings(m_applicationModels)) {
+                    m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_WARNING);
                 }
             }
-
         }
     }
 
@@ -230,7 +242,7 @@ void ProjectDocument::readFrom(QIODevice *device)
     }
 }
 
-void ProjectDocument::writeTo(QIODevice *device)
+void ProjectDocument::writeTo(QIODevice* device)
 {
     QXmlStreamWriter writer(device);
     writer.setAutoFormatting(true);
@@ -240,7 +252,7 @@ void ProjectDocument::writeTo(QIODevice *device)
     writer.writeAttribute("Version", version_string);
 
     writer.writeStartElement(ProjectDocumentXML::InfoTag);
-    writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, getProjectName());
+    writer.writeAttribute(ProjectDocumentXML::InfoNameAttribute, projectName());
     writer.writeEndElement(); // InfoTag
 
     m_applicationModels->writeTo(&writer);
@@ -251,13 +263,13 @@ void ProjectDocument::writeTo(QIODevice *device)
 
 //! Cleans projectDir from *.int.gz files. Done on project save.
 
-void ProjectDocument::cleanProjectDir()
+void ProjectDocument::removeDataFiles(const QString& projectDir)
 {
-    QDir dir(getProjectDir());
+    QDir dir(projectDir);
     QStringList filters("*.int.gz");
     QStringList intensityFiles = dir.entryList(filters);
-    foreach(QString fileName, intensityFiles) {
-        QString filename = getProjectDir() + QStringLiteral("/") + fileName;
+    foreach (QString fileName, intensityFiles) {
+        QString filename = projectDir + QStringLiteral("/") + fileName;
         QFile fin(filename);
         if (fin.exists())
             fin.remove();
@@ -266,16 +278,13 @@ void ProjectDocument::cleanProjectDir()
 
 void ProjectDocument::disconnectModels()
 {
-    if(m_applicationModels) {
-        disconnect(m_applicationModels, SIGNAL(modelChanged()), this,
-                   SLOT(onModelChanged()));
-    }
+    if (m_applicationModels)
+        disconnect(m_applicationModels, SIGNAL(modelChanged()), this, SLOT(onModelChanged()));
 }
 
 void ProjectDocument::connectModels()
 {
-    if(m_applicationModels) {
-        connect(m_applicationModels, SIGNAL(modelChanged()), this,
-                   SLOT(onModelChanged()), Qt::UniqueConnection);
-    }
+    if (m_applicationModels)
+        connect(m_applicationModels, SIGNAL(modelChanged()), this, SLOT(onModelChanged()),
+                Qt::UniqueConnection);
 }

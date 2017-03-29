@@ -210,7 +210,7 @@ void WelcomeView::generateRecentProjectList()
     m_signalMapper = new QSignalMapper(this);
 
     int i(0);
-    foreach(QString file, m_projectManager->getRecentProjects() ) {
+    foreach(QString file, m_projectManager->recentProjects() ) {
         //hasRecentProjects = true;
 
         QFont font;
@@ -247,11 +247,11 @@ void WelcomeView::generateRecentProjectList()
 QString WelcomeView::getCurrentProjectFancyName()
 {
     QString result("Untitled");
-    if(ProjectDocument *projectDocument = m_projectManager->getDocument()) {
+    if(ProjectDocument *projectDocument = m_projectManager->document()) {
         if(projectDocument->hasValidNameAndPath())
-           result = GUI_StringUtils::withTildeHomePath(projectDocument->getProjectFileName());
+           result = GUI_StringUtils::withTildeHomePath(projectDocument->projectFileName());
         else
-           result = projectDocument->getProjectName();
+           result = projectDocument->projectName();
     }
     return result;
 }

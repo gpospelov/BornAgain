@@ -55,7 +55,7 @@ inline void TestAutosave::test_autoSave()
     // modify document once and check
     modify_models(&models);
     QVERIFY(document->isModified() == true);
-    QVERIFY(spyAutosave.wait(autosave_time * 1.5));
+    QVERIFY(spyAutosave.wait(autosave_time * 3.0));
     QCOMPARE(spyAutosave.count(), 1);
 
     QDir autosaveDir(autosave.autosaveDir());
@@ -70,7 +70,7 @@ inline void TestAutosave::test_autoSave()
     for (size_t i = 0; i < 10; ++i)
         modify_models(&models);
 
-    QVERIFY(spyAutosave.wait(autosave_time * 1.5));
+    QVERIFY(spyAutosave.wait(autosave_time * 3.0));
     QCOMPARE(spyAutosave.count(), 2);
 
     // remove autosave dir
@@ -108,7 +108,7 @@ inline void TestAutosave::test_autoSaveIncludingData()
 
     // modify document once and check
     modify_models(&models);
-    QVERIFY(spyAutosave.wait(autosave_time * 1.5));
+    QVERIFY(spyAutosave.wait(autosave_time * 3.0));
     QCOMPARE(spyAutosave.count(), 1);
 
     QFileInfo info("test_autoSave/autosave/document.pro");

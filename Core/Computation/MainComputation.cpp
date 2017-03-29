@@ -32,12 +32,12 @@ HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_ma
 }
 
 MainComputation::MainComputation(
-    const MultiLayer& multi_layer,
+    const MultiLayer& multilayer,
     const SimulationOptions& options,
     ProgressHandler& progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
-    : mP_multi_layer(multi_layer.clone())
+    : mP_multi_layer(multilayer.cloneSliced(options.useAvgMaterials()))
     , m_sim_options(options)
     , m_progress(&progress)
     , m_begin_it(begin_it)
@@ -48,10 +48,10 @@ MainComputation::MainComputation(
     size_t nLayers = mP_multi_layer->numberOfLayers();
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mP_multi_layer->layer(i);
-        for (size_t j=0; j<layer->numberOfLayouts(); ++j)
+        for (auto p_layout : layer->layouts())
             m_computation_terms.emplace_back(
                         new ParticleLayoutComputation(
-                            mP_multi_layer.get(), mP_fresnel_map.get(), layer->layout(j), i,
+                            mP_multi_layer.get(), mP_fresnel_map.get(), p_layout, i,
                             m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA
@@ -109,9 +109,12 @@ std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer()
         comp->mergeRegionMap(region_map);
     }
     std::unique_ptr<MultiLayer> P_result(mP_multi_layer->clone());
+    auto last_layer_index = P_result->numberOfLayers()-1;
     for (auto& entry : region_map)
     {
         auto i_layer = entry.first;
+        if (i_layer==0 || i_layer==last_layer_index)
+            continue;  // skip semi-infinite layers
         auto layer_mat = P_result->layerMaterial(i_layer);
         if (!checkRegions(entry.second))
             throw std::runtime_error("MainComputation::getAveragedMultilayer: "

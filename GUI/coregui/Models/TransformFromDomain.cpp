@@ -138,6 +138,7 @@ void TransformFromDomain::setItemFromSample(SessionItem* layerItem, const Layer*
 {
     layerItem->setItemValue(LayerItem::P_THICKNESS, layer->thickness());
     layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerZeroRoughnessType);
+    layerItem->setItemValue(LayerItem::P_NSLICES, (int)layer->numberOfSlices());
 
     if (top_interface) {
         const LayerRoughness* roughness = top_interface->getRoughness();

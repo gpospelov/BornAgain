@@ -138,9 +138,7 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
-    virtual ISample *cloneInvertB() const;
     virtual HomogeneousMaterial const *material() const;
-    virtual HomogeneousMaterial const *ambientMaterial() const;
 
 /* Internal director utilities */
 public:
@@ -171,7 +169,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[10];
+    mutable swig::SwigVar_PyObject vtable[8];
 #endif
 
 };
@@ -322,9 +320,7 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
-    virtual ISample *cloneInvertB() const;
     virtual HomogeneousMaterial const *material() const;
-    virtual HomogeneousMaterial const *ambientMaterial() const;
     virtual void setAmbientMaterial(HomogeneousMaterial arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double volume() const;
@@ -370,7 +366,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[19];
+    mutable swig::SwigVar_PyObject vtable[17];
 #endif
 
 };
@@ -388,9 +384,7 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
-    virtual ISample *cloneInvertB() const;
     virtual HomogeneousMaterial const *material() const;
-    virtual HomogeneousMaterial const *ambientMaterial() const;
     virtual void setAmbientMaterial(HomogeneousMaterial arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
     virtual double volume() const;
@@ -437,7 +431,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[20];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };

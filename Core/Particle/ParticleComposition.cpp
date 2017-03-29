@@ -47,19 +47,6 @@ ParticleComposition* ParticleComposition::clone() const
     return p_result;
 }
 
-ParticleComposition* ParticleComposition::cloneInvertB() const
-{
-    ParticleComposition* p_result = new ParticleComposition();
-    p_result->setAbundance(m_abundance);
-    for (size_t index=0; index<m_particles.size(); ++index)
-        p_result->addParticlePointer(m_particles[index]->cloneInvertB());
-
-    if (mP_rotation)
-        p_result->setRotation(*mP_rotation);
-    p_result->setPosition(m_position);
-    return p_result;
-}
-
 void ParticleComposition::addParticle(const IParticle &particle)
 {
     checkParticleType(particle);

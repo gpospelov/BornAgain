@@ -20,18 +20,10 @@
 #include <algorithm>
 #include <sstream>
 
-ISample* ISample::cloneInvertB() const
-{
-    throw Exceptions::NotImplementedException(
-        "ISample::cloneInvertB() -> Error! Method is not implemented");
-}
-
 std::vector<const HomogeneousMaterial*> ISample::containedMaterials() const
 {
     std::vector<const HomogeneousMaterial*> result;
     if( const HomogeneousMaterial* p_material = material() )
-        result.push_back( p_material );
-    if( const HomogeneousMaterial* p_material = ambientMaterial() )
         result.push_back( p_material );
     for(auto child: getChildren() ) {
         if(const ISample* sample = dynamic_cast<const ISample *>(child)) {

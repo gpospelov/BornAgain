@@ -33,12 +33,12 @@ public:
     ParticleLayout();
     ParticleLayout(const IAbstractParticle& particle);
     ParticleLayout(const IAbstractParticle& particle, double abundance);
-    ~ParticleLayout() final;
+    ~ParticleLayout();
 
-    ParticleLayout* clone() const final;
-    ParticleLayout* cloneInvertB() const final;
+    ParticleLayout* clone() const final override;
+    ParticleLayout* cloneWithOffset(double offset) const final override;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
     void addParticle(const IAbstractParticle& particle);
     void addParticle(const IAbstractParticle& particle, double abundance); // TODO delete this
@@ -46,23 +46,23 @@ public:
     void addParticle(const IParticle& particle, double abundance,
                      const kvector_t position, const IRotation& rotation);
 
-    size_t numberOfParticles() const final { return m_particles.size(); }
+    size_t numberOfParticles() const final override { return m_particles.size(); }
 
-    const IAbstractParticle* particle(size_t index) const final;
+    const IAbstractParticle* particle(size_t index) const final override;
 
-    SafePointerVector<const IParticle> particles() const final;
+    SafePointerVector<const IParticle> particles() const final override;
 
-    double abundanceOfParticle(size_t index) const;
+    double abundanceOfParticle(size_t index) const final override;
 
-    const IInterferenceFunction* interferenceFunction() const final;
+    const IInterferenceFunction* interferenceFunction() const final override;
     void addInterferenceFunction(const IInterferenceFunction& interference_function);
     // TODO add -> set (there can be at most 1 interference function)
 
-    double totalParticleSurfaceDensity() const final;
-    void setTotalParticleSurfaceDensity(double particle_density) final {
+    double totalParticleSurfaceDensity() const final override;
+    void setTotalParticleSurfaceDensity(double particle_density) final override {
         m_total_particle_density = particle_density; }
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const final override;
 
 private:
     void addAndRegisterAbstractParticle(IAbstractParticle* child);

@@ -35,9 +35,6 @@ public:
 
     Particle* clone() const override final;
 
-    //! Returns a clone with inverted magnetic fields
-    Particle* cloneInvertB() const override final;
-
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     SlicedParticle createSlicedParticle(ZLimits limits) const override final;

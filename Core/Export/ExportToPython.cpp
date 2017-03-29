@@ -219,6 +219,9 @@ std::string ExportToPython::defineLayers() const
         if (layer->thickness() != 0)
             result << ", " << layer->thickness();
         result << ")\n";
+        if (layer->numberOfSlices()!=1)
+            result << indent() << it->second << ".setNumberOfSlices("
+                   << layer->numberOfSlices() << ")\n";
     }
     return result.str();
 }
@@ -556,10 +559,9 @@ std::string ExportToPython::addLayoutsToLayers() const
     const auto layermap = m_label->getLayerMap();
     for (auto it=layermap->begin(); it!=layermap->end(); ++it) {
         const Layer* layer = it->first;
-        size_t numberOfLayouts = layer->numberOfLayouts();
-        for(size_t i = 0; i < numberOfLayouts; ++i)
+        for (auto p_layout : layer->layouts())
             result << "\n" << indent() << it->second << ".addLayout("
-                   << m_label->getLabelLayout(layer->layout(i)) << ")\n";
+                   << m_label->getLabelLayout(p_layout) << ")\n";
     }
     return result.str();
 }
@@ -779,12 +781,14 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
     result << std::setprecision(12);
 
     const SimulationOptions& options = simulation->getOptions();
-    if(options.getHardwareConcurrency() != options.getNumberOfThreads())
+    if (options.getHardwareConcurrency() != options.getNumberOfThreads())
         result << indent() << "simulation.getOptions().setNumberOfThreads("
                << options.getNumberOfThreads() << ")\n";
-    if(options.isIntegrate())
+    if (options.isIntegrate())
         result << indent() << "simulation.getOptions().setMonteCarloIntegration(True, "
                << options.getMcPoints() << ")\n";
+    if (options.useAvgMaterials())
+        result << indent() << "simulation.getOptions().setUseAvgMaterials(True)\n";
     return result.str();
 }
 

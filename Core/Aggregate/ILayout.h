@@ -40,11 +40,9 @@ public:
     virtual ~ILayout() {}
 
     virtual ILayout* clone() const =0;
+    virtual ILayout* cloneWithOffset(double offset) const =0;
 
     virtual void accept(INodeVisitor* visitor) const=0;
-
-    //! Returns a clone with inverted magnetic fields
-    virtual ILayout* cloneInvertB() const =0;
 
     //! Returns number of particles
     virtual size_t numberOfParticles() const =0;

@@ -36,12 +36,12 @@ public:
 
     //! Constructs a material with _name_ and _refractive_index_.
     HomogeneousMaterial(const std::string &name, const complex_t refractive_index,
-                        const kvector_t magnetic_field=kvector_t());
+                        kvector_t magnetic_field=kvector_t());
 
     //! Constructs a material with _name_ and refractive_index parameters
     //! delta and beta (n = 1 - delta + i*beta).
     HomogeneousMaterial(const std::string &name, double refractive_index_delta,
-                        double refractive_index_beta, const kvector_t magnetic_field=kvector_t());
+                        double refractive_index_beta, kvector_t magnetic_field=kvector_t());
     ~HomogeneousMaterial() {}
 
     //! Constructs a material with inverted magnetic field

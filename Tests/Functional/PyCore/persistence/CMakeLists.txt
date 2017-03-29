@@ -70,6 +70,7 @@ lppt("simulation/ex05_BeamAndDetector/RectangularDetector" 2e-10)
 lppt("simulation/ex05_BeamAndDetector/SpecularSimulation" 2e-10)
 lppt("simulation/ex06_Miscellaneous/AxesInDifferentUnits" 2e-10)
 lppt("simulation/ex06_Miscellaneous/CylindersInAverageLayer" 2e-10)
+lppt("simulation/ex06_Miscellaneous/HalfSpheresInAverageTopLayer" 2e-10)
 lppt("fitting/ex01_SampleParametersIntro/SampleParametersIntro" 2e-10)
 
 # gppt = generic python persistence test:

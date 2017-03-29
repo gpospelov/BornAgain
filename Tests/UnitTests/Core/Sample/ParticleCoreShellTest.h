@@ -33,7 +33,6 @@ ParticleCoreShellTest::~ParticleCoreShellTest()
 
 TEST_F(ParticleCoreShellTest, InitialState)
 {
-    EXPECT_EQ(nullptr, mp_coreshell->ambientMaterial());
     EXPECT_EQ(nullptr, mp_coreshell->createFormFactor());
     EXPECT_EQ(nullptr, mp_coreshell->rotation());
     EXPECT_EQ(BornAgain::ParticleCoreShellType, mp_coreshell->getName());
@@ -44,17 +43,6 @@ TEST_F(ParticleCoreShellTest, InitialState)
 TEST_F(ParticleCoreShellTest, Clone)
 {
     ParticleCoreShell *p_clone = mp_coreshell->clone();
-    EXPECT_EQ(nullptr, p_clone->createFormFactor());
-    EXPECT_EQ(nullptr, p_clone->rotation());
-    EXPECT_EQ(BornAgain::ParticleCoreShellType, p_clone->getName());
-    EXPECT_EQ(BornAgain::ParticleType, p_clone->coreParticle()->getName());
-    EXPECT_EQ(BornAgain::ParticleType, p_clone->shellParticle()->getName());
-    delete p_clone;
-}
-
-TEST_F(ParticleCoreShellTest, CloneInvertB)
-{
-    ParticleCoreShell *p_clone = mp_coreshell->cloneInvertB();
     EXPECT_EQ(nullptr, p_clone->createFormFactor());
     EXPECT_EQ(nullptr, p_clone->rotation());
     EXPECT_EQ(BornAgain::ParticleCoreShellType, p_clone->getName());

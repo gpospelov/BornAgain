@@ -35,16 +35,12 @@ public:
     ProjectManager(MainWindow* parent);
     virtual ~ProjectManager();
 
-    void createNewProject();
-    bool closeCurrentProject();
-
     void readSettings();
     void writeSettings();
 
+    ProjectDocument* document();
+
     QStringList recentProjects();
-
-    ProjectDocument* document() { return m_project_document; }
-
     QString projectDir() const;
     QString userExportDir() const;
     QString userImportDir() const;
@@ -55,14 +51,18 @@ signals:
     void projectOpened();
 
 public slots:
-    void clearRecentProjects();
     void onDocumentModified();
+    void clearRecentProjects();
+    void newProject();
+    bool closeCurrentProject();
     bool saveProject(QString projectFileName = QString());
     bool saveProjectAs();
     void openProject(QString fileName = QString());
-    void newProject();
 
 private:
+    void createNewProject();
+    void deleteCurrentProject();
+    QString acquireProjectFileName();
     void addToRecentProjects();
 
     QString workingDirectory();
@@ -70,11 +70,6 @@ private:
 
     void riseProjectLoadFailedDialog();
     void riseProjectLoadWarningDialog();
-
-    void deleteCurrentProject();
-
-    QString acquireProjectFileName();
-
 
     MainWindow* m_mainWindow;
     ProjectDocument* m_project_document;

@@ -173,6 +173,7 @@ void ActionManager::aboutToShowSettings()
 
     settings.beginGroup(Constants::S_UPDATES);
     QAction *action = m_settingsMenu->addAction("Check for Updates");
+    action->setToolTip("Checks for updates available on GUI startup.");
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
     connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleCheckForUpdates(bool)));
@@ -193,6 +194,8 @@ void ActionManager::aboutToShowSettings()
     action->setChecked(m_mainWindow->projectManager()->isAutosaveEnabled());
     connect(action, SIGNAL(toggled(bool)),
             m_mainWindow->projectManager(), SLOT(setAutosaveEnabled(bool)));
+
+    m_settingsMenu->setToolTipsVisible(true);
 
 }
 

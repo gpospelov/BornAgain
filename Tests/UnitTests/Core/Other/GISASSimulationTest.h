@@ -16,6 +16,7 @@ class GISASSimulationTest : public ::testing::Test
     GISASSimulation emptySimulation;
     GISASSimulation constructedSimulation;
     OutputData<double> test_data;
+    SimulationOptions default_options;
 };
 
 
@@ -33,11 +34,12 @@ GISASSimulationTest::~GISASSimulationTest()
 
 TEST_F(GISASSimulationTest, SimulationInitialState)
 {
-    // TODO FIXME revise
-//    EXPECT_EQ( nullptr, emptySimulation.getSample());
-//    EXPECT_EQ( size_t(1), emptySimulation.getOutputData()->getAllocatedSize());
-//    EXPECT_EQ( size_t(0), emptySimulation.getOutputData()->getRank());
-//    EXPECT_TRUE(emptySimulation.getOutputData()->getRank() == emptySimulation.getInstrument().getDetectorDimension() );
+    EXPECT_EQ( BornAgain::GISASSimulationType, emptySimulation.getName());
+    EXPECT_EQ( nullptr, emptySimulation.sample());
+    EXPECT_EQ( nullptr, emptySimulation.sampleBuilder().get());
+    EXPECT_EQ(0u, emptySimulation.numberOfSimulationElements());
+    EXPECT_THROW(emptySimulation.getDetectorIntensity(), Exceptions::OutOfBoundsException);
+    EXPECT_EQ(2u, emptySimulation.getChildren().size());
 }
 
 TEST_F(GISASSimulationTest, SimulationConstruction)

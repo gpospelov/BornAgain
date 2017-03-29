@@ -12214,13 +12214,13 @@ Sets the polarization analyzer characteristics of the detector.
 The  MultiLayer object will not be owned by the  Simulation object. 
 ";
 
-%feature("docstring")  Simulation::getSample "MultiLayer* Simulation::getSample() const 
+%feature("docstring")  Simulation::sample "MultiLayer* Simulation::sample() const 
 ";
 
 %feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
 ";
 
-%feature("docstring")  Simulation::getSampleBuilder "std::shared_ptr<IMultiLayerBuilder> Simulation::getSampleBuilder() const 
+%feature("docstring")  Simulation::sampleBuilder "std::shared_ptr<IMultiLayerBuilder> Simulation::sampleBuilder() const 
 ";
 
 %feature("docstring")  Simulation::numberOfSimulationElements "virtual size_t Simulation::numberOfSimulationElements() const =0
@@ -12707,7 +12707,7 @@ Run a simulation with the current parameter settings.
 Sets the sample to be tested. 
 ";
 
-%feature("docstring")  SpecularSimulation::getSample "ISample* SpecularSimulation::getSample() const
+%feature("docstring")  SpecularSimulation::sample "ISample* SpecularSimulation::sample() const
 
 Returns the sample. 
 ";
@@ -12717,7 +12717,7 @@ Returns the sample.
 Sets the sample builder. 
 ";
 
-%feature("docstring")  SpecularSimulation::getSampleBuilder "std::shared_ptr<IMultiLayerBuilder> SpecularSimulation::getSampleBuilder() const
+%feature("docstring")  SpecularSimulation::sampleBuilder "std::shared_ptr<IMultiLayerBuilder> SpecularSimulation::sampleBuilder() const
 
 return sample builder 
 ";

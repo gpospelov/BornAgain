@@ -15960,14 +15960,14 @@ class Simulation(ICloneable, INode):
         return _libBornAgainCore.Simulation_setSample(self, sample)
 
 
-    def getSample(self):
+    def sample(self):
         """
-        getSample(Simulation self) -> MultiLayer
+        sample(Simulation self) -> MultiLayer
 
-        MultiLayer* Simulation::getSample() const 
+        MultiLayer* Simulation::sample() const 
 
         """
-        return _libBornAgainCore.Simulation_getSample(self)
+        return _libBornAgainCore.Simulation_sample(self)
 
 
     def setSampleBuilderCpp(self, sample_builder):
@@ -15980,14 +15980,14 @@ class Simulation(ICloneable, INode):
         return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
 
 
-    def getSampleBuilder(self):
+    def sampleBuilder(self):
         """
-        getSampleBuilder(Simulation self) -> std::shared_ptr< IMultiLayerBuilder >
+        sampleBuilder(Simulation self) -> std::shared_ptr< IMultiLayerBuilder >
 
-        std::shared_ptr<IMultiLayerBuilder> Simulation::getSampleBuilder() const 
+        std::shared_ptr<IMultiLayerBuilder> Simulation::sampleBuilder() const 
 
         """
-        return _libBornAgainCore.Simulation_getSampleBuilder(self)
+        return _libBornAgainCore.Simulation_sampleBuilder(self)
 
 
     def numberOfSimulationElements(self):
@@ -25399,16 +25399,16 @@ class SpecularSimulation(ICloneable, IParameterized):
         return _libBornAgainCore.SpecularSimulation_setSample(self, sample)
 
 
-    def getSample(self):
+    def sample(self):
         """
-        getSample(SpecularSimulation self) -> ISample
+        sample(SpecularSimulation self) -> ISample
 
-        ISample* SpecularSimulation::getSample() const
+        ISample* SpecularSimulation::sample() const
 
         Returns the sample. 
 
         """
-        return _libBornAgainCore.SpecularSimulation_getSample(self)
+        return _libBornAgainCore.SpecularSimulation_sample(self)
 
 
     def setSampleBuilderCpp(self, sample_builder):
@@ -25423,16 +25423,16 @@ class SpecularSimulation(ICloneable, IParameterized):
         return _libBornAgainCore.SpecularSimulation_setSampleBuilderCpp(self, sample_builder)
 
 
-    def getSampleBuilder(self):
+    def sampleBuilder(self):
         """
-        getSampleBuilder(SpecularSimulation self) -> std::shared_ptr< IMultiLayerBuilder >
+        sampleBuilder(SpecularSimulation self) -> std::shared_ptr< IMultiLayerBuilder >
 
-        std::shared_ptr<IMultiLayerBuilder> SpecularSimulation::getSampleBuilder() const
+        std::shared_ptr<IMultiLayerBuilder> SpecularSimulation::sampleBuilder() const
 
         return sample builder 
 
         """
-        return _libBornAgainCore.SpecularSimulation_getSampleBuilder(self)
+        return _libBornAgainCore.SpecularSimulation_sampleBuilder(self)
 
 
     def setBeamParameters(self, *args):

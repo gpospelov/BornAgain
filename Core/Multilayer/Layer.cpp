@@ -93,10 +93,9 @@ complex_t Layer::refractiveIndex() const
     return m_material.refractiveIndex();
 }
 
-//TODO: remove this in favor of the HomogeneousMaterial methods (or rename)
 complex_t Layer::refractiveIndex2() const
 {
-    return refractiveIndex()*refractiveIndex();
+    return m_material.refractiveIndex2();
 }
 
 void Layer::addLayout(const ILayout& layout)

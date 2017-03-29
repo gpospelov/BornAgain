@@ -8705,21 +8705,6 @@ C++ includes: ISelectionRule.h
 ";
 
 
-// File: classIsGISAXS08BBuilder.xml
-%feature("docstring") IsGISAXS08BBuilder "
-
-Builds sample: 2D paracrystal lattice with isotropic pdfs (IsGISAXS example #8).
-
-C++ includes: ParaCrystalBuilder.h
-";
-
-%feature("docstring")  IsGISAXS08BBuilder::IsGISAXS08BBuilder "IsGISAXS08BBuilder::IsGISAXS08BBuilder()
-";
-
-%feature("docstring")  IsGISAXS08BBuilder::buildSample "MultiLayer * IsGISAXS08BBuilder::buildSample() const 
-";
-
-
 // File: classIsGISAXSDetector.xml
 %feature("docstring") IsGISAXSDetector "
 
@@ -13389,9 +13374,6 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 Holds all wavevector information relevant for calculating form factors.
 
 C++ includes: WavevectorInfo.h
-";
-
-%feature("docstring")  WavevectorInfo::WavevectorInfo "WavevectorInfo::WavevectorInfo()
 ";
 
 %feature("docstring")  WavevectorInfo::WavevectorInfo "WavevectorInfo::WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)

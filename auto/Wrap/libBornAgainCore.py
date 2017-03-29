@@ -3562,9 +3562,16 @@ class WavevectorInfo(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, WavevectorInfo, name)
     __repr__ = _swig_repr
 
+    def GetZeroQ():
+        """GetZeroQ() -> WavevectorInfo"""
+        return _libBornAgainCore.WavevectorInfo_GetZeroQ()
+
+    if _newclass:
+        GetZeroQ = staticmethod(GetZeroQ)
+    __swig_getmethods__["GetZeroQ"] = lambda x: GetZeroQ
+
     def __init__(self, *args):
         """
-        __init__(WavevectorInfo self) -> WavevectorInfo
         __init__(WavevectorInfo self, cvector_t ki, cvector_t kf, double wavelength) -> WavevectorInfo
         __init__(WavevectorInfo self, kvector_t ki, kvector_t kf, double wavelength) -> WavevectorInfo
 
@@ -3646,6 +3653,10 @@ sr = cvar.sr
 deg = cvar.deg
 tesla = cvar.tesla
 gauss = cvar.gauss
+
+def WavevectorInfo_GetZeroQ():
+    """WavevectorInfo_GetZeroQ() -> WavevectorInfo"""
+    return _libBornAgainCore.WavevectorInfo_GetZeroQ()
 
 class Beam(INode):
     """

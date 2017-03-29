@@ -55,8 +55,7 @@ public:
     double abundanceOfParticle(size_t index) const final override;
 
     const IInterferenceFunction* interferenceFunction() const final override;
-    void addInterferenceFunction(const IInterferenceFunction& interference_function);
-    // TODO add -> set (there can be at most 1 interference function)
+    void setInterferenceFunction(const IInterferenceFunction& interference_function);
 
     double totalParticleSurfaceDensity() const final override;
     void setTotalParticleSurfaceDensity(double particle_density) final override {

@@ -187,7 +187,7 @@ const IInterferenceFunction*ParticleLayout::interferenceFunction() const
 }
 
 //! Adds interference functions
-void ParticleLayout::addInterferenceFunction(const IInterferenceFunction& interference_function)
+void ParticleLayout::setInterferenceFunction(const IInterferenceFunction& interference_function)
 {
     setAndRegisterInterferenceFunction(interference_function.clone());
 }

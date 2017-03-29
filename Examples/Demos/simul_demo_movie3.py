@@ -38,7 +38,7 @@ def RunSimulation():
     interference.setProbabilityDistribution(pdf)
     # set coupling between size and space
     interference.setKappa(kappa)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
     particle_layout.setApproximation(ILayout.SSCA)
 
     # air layer with particles and substrate form multi layer

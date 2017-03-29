@@ -13,76 +13,67 @@ class GISASSimulationTest : public ::testing::Test
  protected:
     GISASSimulationTest();
     virtual ~GISASSimulationTest();
-    GISASSimulation emptySimulation;
-    GISASSimulation constructedSimulation;
-    OutputData<double> test_data;
-    SimulationOptions default_options;
+    GISASSimulation m_simulation;
 };
 
 
 GISASSimulationTest::GISASSimulationTest()
-{
-    test_data.addAxis(BornAgain::PHI_AXIS_NAME, 10, 0., 10.);
-    test_data.addAxis("theta_f", 20, 0., 20.);
-    test_data.setAllTo(2.0);
-}
+{}
 
 GISASSimulationTest::~GISASSimulationTest()
-{
-}
+{}
 
 
 TEST_F(GISASSimulationTest, SimulationInitialState)
 {
-    EXPECT_EQ( BornAgain::GISASSimulationType, emptySimulation.getName());
-    EXPECT_EQ( nullptr, emptySimulation.sample());
-    EXPECT_EQ( nullptr, emptySimulation.sampleBuilder().get());
-    EXPECT_EQ(0u, emptySimulation.numberOfSimulationElements());
-    EXPECT_THROW(emptySimulation.getDetectorIntensity(), Exceptions::OutOfBoundsException);
-    EXPECT_EQ(2u, emptySimulation.getChildren().size());
+    EXPECT_EQ( BornAgain::GISASSimulationType, m_simulation.getName());
+    EXPECT_EQ( nullptr, m_simulation.sample());
+    EXPECT_EQ( nullptr, m_simulation.sampleBuilder().get());
+    EXPECT_EQ(0u, m_simulation.numberOfSimulationElements());
+    EXPECT_THROW(m_simulation.getDetectorIntensity(), Exceptions::OutOfBoundsException);
+    EXPECT_EQ(2u, m_simulation.getChildren().size());
 }
 
 TEST_F(GISASSimulationTest, SimulationConstruction)
 {
-    // TODO FIXME revise
-//    EXPECT_FALSE( constructedSimulation.getOutputData()->hasSameShape(test_data));
-//    constructedSimulation.setDetectorParameters(test_data);
-//    EXPECT_TRUE( constructedSimulation.getOutputData()->hasSameShape(test_data));
-//    EXPECT_EQ( constructedSimulation.getOutputData()->totalSum(), 0.);
-//    MultiLayer ml;
-//    Layer layer;
-//    ml.addLayer(layer);
-//    constructedSimulation.setSample(ml);
-//    EXPECT_EQ( size_t(1), dynamic_cast<MultiLayer*>(constructedSimulation.getSample())->getNumberOfLayers());
-}
+    MultiLayer multi_layer;
+    GISASSimulation simulation(multi_layer);
+    EXPECT_EQ( BornAgain::GISASSimulationType, simulation.getName());
+    EXPECT_NE( nullptr, simulation.sample());
+    EXPECT_EQ( nullptr, simulation.sampleBuilder().get());
+    EXPECT_EQ(0u, simulation.numberOfSimulationElements());
+    EXPECT_THROW(simulation.getDetectorIntensity(), Exceptions::OutOfBoundsException);
+    EXPECT_EQ(2u, simulation.getChildren().size());
 
-TEST_F(GISASSimulationTest, SimulationInitialStateOfClone)
-{
-    // TODO FIXME revise
-//    GISASSimulation *emptyClonedSimulation = emptySimulation.clone();
-//    EXPECT_EQ( nullptr, emptyClonedSimulation->getSample());
-//    EXPECT_EQ( size_t(1), emptyClonedSimulation->getOutputData()->getAllocatedSize());
-//    EXPECT_EQ( size_t(0), emptyClonedSimulation->getOutputData()->getRank());
-//    EXPECT_TRUE(emptyClonedSimulation->getOutputData()->getRank() == emptyClonedSimulation->getInstrument().getDetector()->getDimension() );
-//    EXPECT_EQ( emptyClonedSimulation->getInstrument().getBeamIntensity(), 0.);
-//    delete emptyClonedSimulation;
+    simulation.setDetectorParameters(10, -2.0, 2.0, 20, 0.0, 2.0);
+    EXPECT_EQ( BornAgain::GISASSimulationType, simulation.getName());
+    EXPECT_NE( nullptr, simulation.sample());
+    EXPECT_EQ( nullptr, simulation.sampleBuilder().get());
+    EXPECT_EQ(200u, simulation.numberOfSimulationElements());
+    EXPECT_NO_THROW(simulation.getDetectorIntensity());
+    EXPECT_EQ(2u, simulation.getChildren().size());
 }
 
 TEST_F(GISASSimulationTest, SimulationClone)
 {
-    // TODO FIXME revise
-//    EXPECT_EQ(1,1);
-//    GISASSimulation *originalSimulation = new GISASSimulation();
-//    originalSimulation->setBeamIntensity(10);
-//    originalSimulation->setDetectorParameters(test_data);
-//    GISASSimulation *clonedSimulation = originalSimulation->clone();
-//    delete originalSimulation;
+    auto p_clone = m_simulation.clone();
+    EXPECT_EQ( BornAgain::GISASSimulationType, p_clone->getName());
+    EXPECT_EQ( nullptr, p_clone->sample());
+    EXPECT_EQ( nullptr, p_clone->sampleBuilder().get());
+    EXPECT_EQ(0u, p_clone->numberOfSimulationElements());
+    EXPECT_THROW(p_clone->getDetectorIntensity(), Exceptions::OutOfBoundsException);
+    EXPECT_EQ(2u, p_clone->getChildren().size());
+    delete p_clone;
 
-//    EXPECT_TRUE( clonedSimulation->getOutputData()->hasSameShape(test_data));
-//    EXPECT_EQ( clonedSimulation->getInstrument().getBeamIntensity(), 10.);
-//    EXPECT_TRUE( nullptr == clonedSimulation->getSample());
-//    clonedSimulation->prepareSimulation();
-//    EXPECT_TRUE( nullptr == clonedSimulation->getSample());
-
-//    delete clonedSimulation;
+    MultiLayer multi_layer;
+    GISASSimulation simulation(multi_layer);
+    simulation.setDetectorParameters(10, -2.0, 2.0, 20, 0.0, 2.0);
+    p_clone = simulation.clone();
+    EXPECT_EQ( BornAgain::GISASSimulationType, p_clone->getName());
+    EXPECT_NE( nullptr, p_clone->sample());
+    EXPECT_EQ( nullptr, p_clone->sampleBuilder().get());
+    EXPECT_EQ(200u, p_clone->numberOfSimulationElements());
+    EXPECT_NO_THROW(p_clone->getDetectorIntensity());
+    EXPECT_EQ(2u, p_clone->getChildren().size());
+    delete p_clone;
 }

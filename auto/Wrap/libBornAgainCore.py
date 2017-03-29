@@ -24482,16 +24482,16 @@ class ParticleLayout(ILayout):
         return _libBornAgainCore.ParticleLayout_interferenceFunction(self)
 
 
-    def addInterferenceFunction(self, interference_function):
+    def setInterferenceFunction(self, interference_function):
         """
-        addInterferenceFunction(ParticleLayout self, IInterferenceFunction interference_function)
+        setInterferenceFunction(ParticleLayout self, IInterferenceFunction interference_function)
 
-        void ParticleLayout::addInterferenceFunction(const IInterferenceFunction &interference_function)
+        void ParticleLayout::setInterferenceFunction(const IInterferenceFunction &interference_function)
 
         Adds interference functions. 
 
         """
-        return _libBornAgainCore.ParticleLayout_addInterferenceFunction(self, interference_function)
+        return _libBornAgainCore.ParticleLayout_setInterferenceFunction(self, interference_function)
 
 
     def totalParticleSurfaceDensity(self):

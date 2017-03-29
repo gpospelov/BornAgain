@@ -1,3 +1,6 @@
+  > API changes
+    1) ParticleLayout: addInterferenceFunction -> setInterferenceFunction
+
 BornAgain-1.7.1, released 2016.12.01
   > Hotfix:
   * Bug #1679: Remove leading U+FEFF from FindYamlCpp05.cmake

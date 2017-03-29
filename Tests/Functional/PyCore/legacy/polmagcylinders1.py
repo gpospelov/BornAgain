@@ -24,7 +24,7 @@ def runSimulation():
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
     interference = ba.InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = ba.Layer(mAmbience)

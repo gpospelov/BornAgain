@@ -71,7 +71,7 @@ class MySampleBuilder(ba.IMultiLayerBuilder):
         # assembling particle layout
         particle_layout = ba.ParticleLayout()
         particle_layout.addParticle(part_coll, 1.0)
-        particle_layout.addInterferenceFunction(interference)
+        particle_layout.setInterferenceFunction(interference)
         particle_layout.setApproximation(ba.ILayout.SSCA)
         particle_layout.setTotalParticleSurfaceDensity(1)
 

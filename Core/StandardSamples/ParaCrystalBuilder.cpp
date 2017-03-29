@@ -54,7 +54,7 @@ MultiLayer* RadialParaCrystalBuilder::buildSample() const
 
     Particle particle(particle_material, ff_cylinder);
     ParticleLayout particle_layout(particle);
-    particle_layout.addInterferenceFunction(interference_function);
+    particle_layout.setInterferenceFunction(interference_function);
 
     air_layer.addLayout(particle_layout);
 
@@ -114,7 +114,7 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
 
     Particle particle(particle_material, ff_cylinder);
     ParticleLayout particle_layout(particle);
-    particle_layout.addInterferenceFunction(interference_function);
+    particle_layout.setInterferenceFunction(interference_function);
 
     air_layer.addLayout(particle_layout);
 
@@ -162,7 +162,7 @@ MultiLayer* HexParaCrystalBuilder::buildSample() const
     Particle cylinder(particle_material,ff_cylinder);
 
     ParticleLayout particle_layout(cylinder);
-    particle_layout.addInterferenceFunction(*P_interference_function);
+    particle_layout.setInterferenceFunction(*P_interference_function);
 
     air_layer.addLayout(particle_layout);
 
@@ -212,7 +212,7 @@ MultiLayer* RectParaCrystalBuilder::buildSample() const
 
     Particle particle(particle_material, ff_cylinder);
     ParticleLayout particle_layout(particle);
-    particle_layout.addInterferenceFunction(*P_interference_function);
+    particle_layout.setInterferenceFunction(*P_interference_function);
 
     air_layer.addLayout(particle_layout);
 
@@ -249,7 +249,7 @@ MultiLayer* IsGISAXS08BBuilder::buildSample() const
 
     Particle particle(particle_material, ff_cylinder);
     ParticleLayout particle_layout(particle);
-    particle_layout.addInterferenceFunction(interference_function);
+    particle_layout.setInterferenceFunction(interference_function);
 
     air_layer.addLayout(particle_layout);
 

@@ -10932,7 +10932,7 @@ Returns the abundance fraction of particle at given index.
 Returns interference function. 
 ";
 
-%feature("docstring")  ParticleLayout::addInterferenceFunction "void ParticleLayout::addInterferenceFunction(const IInterferenceFunction &interference_function)
+%feature("docstring")  ParticleLayout::setInterferenceFunction "void ParticleLayout::setInterferenceFunction(const IInterferenceFunction &interference_function)
 
 Adds interference functions. 
 ";

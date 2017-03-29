@@ -22,12 +22,12 @@ inline void TestUpdateTimer::test_updateTimerShort()
         timer.scheduleUpdate();
 
     // Checks that after time bigger than timer interval, we have a valid signal
-    QVERIFY(spy.wait(timer_interval * 2));
+    QVERIFY(spy.wait(timer_interval * 3));
     QCOMPARE(spy.count(), 1);
 
     // once again
     timer.scheduleUpdate();
-    QVERIFY(spy.wait(timer_interval * 1.5));
+    QVERIFY(spy.wait(timer_interval * 3));
     QCOMPARE(spy.count(), 2);
 
     // Checks that after time smaller than timer interval, we have no signals

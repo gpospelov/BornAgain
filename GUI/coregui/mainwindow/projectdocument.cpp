@@ -118,7 +118,6 @@ bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 bool ProjectDocument::load(const QString& project_file_name)
 {
     m_documentStatus = STATUS_OK;
-
     setProjectFileName(project_file_name);
 
     QFile file(projectFileName());
@@ -153,6 +152,13 @@ bool ProjectDocument::hasValidNameAndPath()
 bool ProjectDocument::isModified()
 {
     return m_modified;
+}
+
+void ProjectDocument::setModified(bool flag)
+{
+    m_modified = flag;
+    if(m_modified)
+        emit modified();
 }
 
 void ProjectDocument::setLogger(WarningMessageService* messageService)

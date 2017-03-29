@@ -68,6 +68,7 @@ public:
     bool hasValidNameAndPath();
 
     bool isModified();
+    void setModified(bool flag);
 
     void setLogger(WarningMessageService* messageService);
 

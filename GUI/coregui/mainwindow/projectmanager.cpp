@@ -26,7 +26,6 @@
 #include "projectdocument.h"
 #include "AutosaveService.h"
 #include "ProjectUtils.h"
-#include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QSettings>
@@ -178,7 +177,6 @@ void ProjectManager::setAutosaveEnabled(bool value)
 
 void ProjectManager::onDocumentModified()
 {
-    qDebug() << "ProjectManager::onDocumentModified()" << m_project_document->isModified();
     if (m_project_document->isModified()) {
         m_mainWindow->setWindowTitle("*" + m_project_document->projectName());
     } else {
@@ -357,6 +355,7 @@ void ProjectManager::loadProject(const QString& projectFileName)
     if(useAutosave && restoreProjectDialog(projectFileName)) {
         m_project_document->load(ProjectUtils::autosaveName(projectFileName));
         m_project_document->setProjectFileName(projectFileName);
+        m_project_document->setModified(true);
     } else {
         m_project_document->load(projectFileName);
     }

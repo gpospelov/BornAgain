@@ -18,6 +18,7 @@
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "WarningMessageService.h"
+#include "ProjectUtils.h"
 #include <QDir>
 #include <QXmlStreamReader>
 
@@ -72,9 +73,8 @@ QString ProjectDocument::projectFileName() const
 
 void ProjectDocument::setProjectFileName(const QString& projectFileName)
 {
-    QFileInfo info(projectFileName);
-    setProjectName(info.baseName());
-    setProjectDir(info.path());
+    setProjectName(ProjectUtils::projectName(projectFileName));
+    setProjectDir(ProjectUtils::projectDir(projectFileName));
 }
 
 QString ProjectDocument::projectFileExtension()
@@ -93,8 +93,7 @@ void ProjectDocument::setApplicationModels(ApplicationModels* applicationModels)
 
 bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 {
-    QFileInfo info(project_file_name);
-    QString projectDir = info.path();
+    QString projectDir = ProjectUtils::projectDir(project_file_name);
 
     removeDataFiles(projectDir);
 

@@ -59,7 +59,7 @@ MultiLayer* ParticleCompositionBuilder::buildSample() const
     FTDecayFunction2DCauchy pdf(10*Units::nanometer, 10*Units::nanometer);
     P_interference->setDecayFunction(pdf);
 
-    particle_layout.addInterferenceFunction(*P_interference);
+    particle_layout.setInterferenceFunction(*P_interference);
 
     air_layer.addLayout(particle_layout);
     multi_layer->addLayer(air_layer);

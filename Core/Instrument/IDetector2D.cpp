@@ -91,8 +91,8 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
 {
     std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
     if(!detectorMap)
-        throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
-                                    "Can't create detector map.");
+        throw Exceptions::RuntimeErrorException("Instrument::createDetectorIntensity:"
+                                                "can't create detector map.");
 
     if (mP_detector_resolution) {
         if(units_type != DEFAULT) {
@@ -109,7 +109,6 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
     }
 
     return detectorMap.release();
-
 }
 
 OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits units) const
@@ -248,9 +247,14 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
 size_t IDetector2D::numberOfSimulationElements() const
 {
     size_t result(0);
-    SimulationArea area(this);
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
-        ++result;
+    try {
+        SimulationArea area(this);
+        for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+            ++result;
+    } catch (Exceptions::RuntimeErrorException e)
+    {
+        (void)e;  // do nothing, just return zero
+    }
     return result;
 }
 

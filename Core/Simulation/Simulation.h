@@ -64,10 +64,10 @@ public:
                                double total_transmission);
 
     void setSample(const MultiLayer& sample);
-    MultiLayer* getSample() const { return mP_multilayer.get(); }
+    MultiLayer* sample() const { return mP_multilayer.get(); }
 
     void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    std::shared_ptr<IMultiLayerBuilder> getSampleBuilder() const { return mP_sample_builder; }
+    std::shared_ptr<IMultiLayerBuilder> sampleBuilder() const { return mP_sample_builder; }
 
     virtual size_t numberOfSimulationElements() const=0;
 

@@ -88,15 +88,4 @@ public:
     virtual MultiLayer* buildSample() const;
 };
 
-//! Builds sample:  2D paracrystal lattice with isotropic pdfs (IsGISAXS example #8).
-//! @ingroup standard_samples
-//  TODO remove it completely (why? why not yet done?)
-
-class BA_CORE_API_ IsGISAXS08BBuilder : public IMultiLayerBuilder
-{
-public:
-    IsGISAXS08BBuilder(){}
-    virtual MultiLayer* buildSample() const;
-};
-
 #endif // PARACRYSTALBUILDER_H

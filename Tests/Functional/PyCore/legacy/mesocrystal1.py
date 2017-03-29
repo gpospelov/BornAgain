@@ -81,7 +81,7 @@ class MySampleBuilder(IMultiLayerBuilder):
                 particle_layout.addParticle(meso, 1.0, kvector_t(0,0,0), total_transform)
 
         particle_layout.setTotalParticleSurfaceDensity(surface_density)
-        particle_layout.addInterferenceFunction(p_interference_funtion)
+        particle_layout.setInterferenceFunction(p_interference_funtion)
 
         avg_layer.addLayout(particle_layout)
 

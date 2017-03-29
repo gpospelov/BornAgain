@@ -3562,9 +3562,16 @@ class WavevectorInfo(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, WavevectorInfo, name)
     __repr__ = _swig_repr
 
+    def GetZeroQ():
+        """GetZeroQ() -> WavevectorInfo"""
+        return _libBornAgainCore.WavevectorInfo_GetZeroQ()
+
+    if _newclass:
+        GetZeroQ = staticmethod(GetZeroQ)
+    __swig_getmethods__["GetZeroQ"] = lambda x: GetZeroQ
+
     def __init__(self, *args):
         """
-        __init__(WavevectorInfo self) -> WavevectorInfo
         __init__(WavevectorInfo self, cvector_t ki, cvector_t kf, double wavelength) -> WavevectorInfo
         __init__(WavevectorInfo self, kvector_t ki, kvector_t kf, double wavelength) -> WavevectorInfo
 
@@ -3646,6 +3653,10 @@ sr = cvar.sr
 deg = cvar.deg
 tesla = cvar.tesla
 gauss = cvar.gauss
+
+def WavevectorInfo_GetZeroQ():
+    """WavevectorInfo_GetZeroQ() -> WavevectorInfo"""
+    return _libBornAgainCore.WavevectorInfo_GetZeroQ()
 
 class Beam(INode):
     """
@@ -5581,7 +5592,7 @@ class SquaredFunctionDefault(ISquaredFunction):
         """
         clone(SquaredFunctionDefault self) -> SquaredFunctionDefault
 
-        virtual SquaredFunctionDefault* SquaredFunctionDefault::clone() const 
+        SquaredFunctionDefault * SquaredFunctionDefault::clone() const override
 
         """
         return _libBornAgainCore.SquaredFunctionDefault_clone(self)
@@ -5591,7 +5602,7 @@ class SquaredFunctionDefault(ISquaredFunction):
         """
         calculateSquaredDifference(SquaredFunctionDefault self, double real_value, double simulated_value) -> double
 
-        virtual double SquaredFunctionDefault::calculateSquaredDifference(double real_value, double simulated_value) const 
+        double SquaredFunctionDefault::calculateSquaredDifference(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionDefault_calculateSquaredDifference(self, real_value, simulated_value)
@@ -5602,7 +5613,7 @@ class SquaredFunctionDefault(ISquaredFunction):
         calculateSquaredError(SquaredFunctionDefault self, double real_value, double simulated_value=0) -> double
         calculateSquaredError(SquaredFunctionDefault self, double real_value) -> double
 
-        virtual double SquaredFunctionDefault::calculateSquaredError(double real_value, double simulated_value=0) const 
+        double SquaredFunctionDefault::calculateSquaredError(double real_value, double simulated_value=0) const override
 
         """
         return _libBornAgainCore.SquaredFunctionDefault_calculateSquaredError(self, real_value, simulated_value)
@@ -5639,7 +5650,7 @@ class SquaredFunctionSimError(ISquaredFunction):
         """
         clone(SquaredFunctionSimError self) -> SquaredFunctionSimError
 
-        virtual SquaredFunctionSimError* SquaredFunctionSimError::clone() const 
+        SquaredFunctionSimError * SquaredFunctionSimError::clone() const override
 
         """
         return _libBornAgainCore.SquaredFunctionSimError_clone(self)
@@ -5649,20 +5660,20 @@ class SquaredFunctionSimError(ISquaredFunction):
         """
         calculateSquaredDifference(SquaredFunctionSimError self, double real_value, double simulated_value) -> double
 
-        virtual double SquaredFunctionSimError::calculateSquaredDifference(double real_value, double simulated_value) const 
+        double SquaredFunctionSimError::calculateSquaredDifference(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionSimError_calculateSquaredDifference(self, real_value, simulated_value)
 
 
-    def calculateSquaredError(self, arg2, simulated_value):
+    def calculateSquaredError(self, real_value, simulated_value):
         """
-        calculateSquaredError(SquaredFunctionSimError self, double arg2, double simulated_value) -> double
+        calculateSquaredError(SquaredFunctionSimError self, double real_value, double simulated_value) -> double
 
-        virtual double SquaredFunctionSimError::calculateSquaredError(double, double simulated_value) const 
+        double SquaredFunctionSimError::calculateSquaredError(double real_value, double simulated_value) const override
 
         """
-        return _libBornAgainCore.SquaredFunctionSimError_calculateSquaredError(self, arg2, simulated_value)
+        return _libBornAgainCore.SquaredFunctionSimError_calculateSquaredError(self, real_value, simulated_value)
 
 SquaredFunctionSimError_swigregister = _libBornAgainCore.SquaredFunctionSimError_swigregister
 SquaredFunctionSimError_swigregister(SquaredFunctionSimError)
@@ -5696,7 +5707,7 @@ class SquaredFunctionMeanSquaredError(ISquaredFunction):
         """
         clone(SquaredFunctionMeanSquaredError self) -> SquaredFunctionMeanSquaredError
 
-        virtual SquaredFunctionMeanSquaredError* SquaredFunctionMeanSquaredError::clone() const 
+        SquaredFunctionMeanSquaredError * SquaredFunctionMeanSquaredError::clone() const override
 
         """
         return _libBornAgainCore.SquaredFunctionMeanSquaredError_clone(self)
@@ -5706,7 +5717,7 @@ class SquaredFunctionMeanSquaredError(ISquaredFunction):
         """
         calculateSquaredDifference(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double
 
-        virtual double SquaredFunctionMeanSquaredError::calculateSquaredDifference(double real_value, double simulated_value) const 
+        double SquaredFunctionMeanSquaredError::calculateSquaredDifference(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionMeanSquaredError_calculateSquaredDifference(self, real_value, simulated_value)
@@ -5716,7 +5727,7 @@ class SquaredFunctionMeanSquaredError(ISquaredFunction):
         """
         calculateSquaredError(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double
 
-        virtual double SquaredFunctionMeanSquaredError::calculateSquaredError(double real_value, double simulated_value) const 
+        double SquaredFunctionMeanSquaredError::calculateSquaredError(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionMeanSquaredError_calculateSquaredError(self, real_value, simulated_value)
@@ -5753,7 +5764,7 @@ class SquaredFunctionSystematicError(ISquaredFunction):
         """
         clone(SquaredFunctionSystematicError self) -> SquaredFunctionSystematicError
 
-        virtual SquaredFunctionSystematicError* SquaredFunctionSystematicError::clone() const 
+        SquaredFunctionSystematicError * SquaredFunctionSystematicError::clone() const override
 
         """
         return _libBornAgainCore.SquaredFunctionSystematicError_clone(self)
@@ -5763,20 +5774,20 @@ class SquaredFunctionSystematicError(ISquaredFunction):
         """
         calculateSquaredDifference(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double
 
-        virtual double SquaredFunctionSystematicError::calculateSquaredDifference(double real_value, double simulated_value) const 
+        double SquaredFunctionSystematicError::calculateSquaredDifference(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionSystematicError_calculateSquaredDifference(self, real_value, simulated_value)
 
 
-    def calculateSquaredError(self, real_value, arg3):
+    def calculateSquaredError(self, real_value, simulated_value):
         """
-        calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double arg3) -> double
+        calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double
 
-        virtual double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double) const 
+        double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double simulated_value) const override
 
         """
-        return _libBornAgainCore.SquaredFunctionSystematicError_calculateSquaredError(self, real_value, arg3)
+        return _libBornAgainCore.SquaredFunctionSystematicError_calculateSquaredError(self, real_value, simulated_value)
 
 SquaredFunctionSystematicError_swigregister = _libBornAgainCore.SquaredFunctionSystematicError_swigregister
 SquaredFunctionSystematicError_swigregister(SquaredFunctionSystematicError)
@@ -5810,7 +5821,7 @@ class SquaredFunctionGaussianError(ISquaredFunction):
         """
         clone(SquaredFunctionGaussianError self) -> SquaredFunctionGaussianError
 
-        virtual SquaredFunctionGaussianError* SquaredFunctionGaussianError::clone() const 
+        SquaredFunctionGaussianError * SquaredFunctionGaussianError::clone() const override
 
         """
         return _libBornAgainCore.SquaredFunctionGaussianError_clone(self)
@@ -5820,20 +5831,20 @@ class SquaredFunctionGaussianError(ISquaredFunction):
         """
         calculateSquaredDifference(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double
 
-        virtual double SquaredFunctionGaussianError::calculateSquaredDifference(double real_value, double simulated_value) const 
+        double SquaredFunctionGaussianError::calculateSquaredDifference(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionGaussianError_calculateSquaredDifference(self, real_value, simulated_value)
 
 
-    def calculateSquaredError(self, arg2, arg3):
+    def calculateSquaredError(self, real_value, simulated_value):
         """
-        calculateSquaredError(SquaredFunctionGaussianError self, double arg2, double arg3) -> double
+        calculateSquaredError(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double
 
-        virtual double SquaredFunctionGaussianError::calculateSquaredError(double, double) const 
+        double SquaredFunctionGaussianError::calculateSquaredError(double real_value, double simulated_value) const override
 
         """
-        return _libBornAgainCore.SquaredFunctionGaussianError_calculateSquaredError(self, arg2, arg3)
+        return _libBornAgainCore.SquaredFunctionGaussianError_calculateSquaredError(self, real_value, simulated_value)
 
 SquaredFunctionGaussianError_swigregister = _libBornAgainCore.SquaredFunctionGaussianError_swigregister
 SquaredFunctionGaussianError_swigregister(SquaredFunctionGaussianError)
@@ -15960,14 +15971,14 @@ class Simulation(ICloneable, INode):
         return _libBornAgainCore.Simulation_setSample(self, sample)
 
 
-    def getSample(self):
+    def sample(self):
         """
-        getSample(Simulation self) -> MultiLayer
+        sample(Simulation self) -> MultiLayer
 
-        MultiLayer* Simulation::getSample() const 
+        MultiLayer* Simulation::sample() const 
 
         """
-        return _libBornAgainCore.Simulation_getSample(self)
+        return _libBornAgainCore.Simulation_sample(self)
 
 
     def setSampleBuilderCpp(self, sample_builder):
@@ -15980,14 +15991,14 @@ class Simulation(ICloneable, INode):
         return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
 
 
-    def getSampleBuilder(self):
+    def sampleBuilder(self):
         """
-        getSampleBuilder(Simulation self) -> std::shared_ptr< IMultiLayerBuilder >
+        sampleBuilder(Simulation self) -> std::shared_ptr< IMultiLayerBuilder >
 
-        std::shared_ptr<IMultiLayerBuilder> Simulation::getSampleBuilder() const 
+        std::shared_ptr<IMultiLayerBuilder> Simulation::sampleBuilder() const 
 
         """
-        return _libBornAgainCore.Simulation_getSampleBuilder(self)
+        return _libBornAgainCore.Simulation_sampleBuilder(self)
 
 
     def numberOfSimulationElements(self):
@@ -24482,16 +24493,16 @@ class ParticleLayout(ILayout):
         return _libBornAgainCore.ParticleLayout_interferenceFunction(self)
 
 
-    def addInterferenceFunction(self, interference_function):
+    def setInterferenceFunction(self, interference_function):
         """
-        addInterferenceFunction(ParticleLayout self, IInterferenceFunction interference_function)
+        setInterferenceFunction(ParticleLayout self, IInterferenceFunction interference_function)
 
-        void ParticleLayout::addInterferenceFunction(const IInterferenceFunction &interference_function)
+        void ParticleLayout::setInterferenceFunction(const IInterferenceFunction &interference_function)
 
         Adds interference functions. 
 
         """
-        return _libBornAgainCore.ParticleLayout_addInterferenceFunction(self, interference_function)
+        return _libBornAgainCore.ParticleLayout_setInterferenceFunction(self, interference_function)
 
 
     def totalParticleSurfaceDensity(self):
@@ -25399,16 +25410,16 @@ class SpecularSimulation(ICloneable, IParameterized):
         return _libBornAgainCore.SpecularSimulation_setSample(self, sample)
 
 
-    def getSample(self):
+    def sample(self):
         """
-        getSample(SpecularSimulation self) -> ISample
+        sample(SpecularSimulation self) -> ISample
 
-        ISample* SpecularSimulation::getSample() const
+        ISample* SpecularSimulation::sample() const
 
         Returns the sample. 
 
         """
-        return _libBornAgainCore.SpecularSimulation_getSample(self)
+        return _libBornAgainCore.SpecularSimulation_sample(self)
 
 
     def setSampleBuilderCpp(self, sample_builder):
@@ -25423,16 +25434,16 @@ class SpecularSimulation(ICloneable, IParameterized):
         return _libBornAgainCore.SpecularSimulation_setSampleBuilderCpp(self, sample_builder)
 
 
-    def getSampleBuilder(self):
+    def sampleBuilder(self):
         """
-        getSampleBuilder(SpecularSimulation self) -> std::shared_ptr< IMultiLayerBuilder >
+        sampleBuilder(SpecularSimulation self) -> std::shared_ptr< IMultiLayerBuilder >
 
-        std::shared_ptr<IMultiLayerBuilder> SpecularSimulation::getSampleBuilder() const
+        std::shared_ptr<IMultiLayerBuilder> SpecularSimulation::sampleBuilder() const
 
         return sample builder 
 
         """
-        return _libBornAgainCore.SpecularSimulation_getSampleBuilder(self)
+        return _libBornAgainCore.SpecularSimulation_sampleBuilder(self)
 
 
     def setBeamParameters(self, *args):

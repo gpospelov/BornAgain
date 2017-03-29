@@ -57,7 +57,7 @@ std::unique_ptr<MultiLayer> MultiPatternFitTest::createSample()
                 InterferenceFunction2DLattice::createSquare(expected_value));
     interference->setDecayFunction(FTDecayFunction2DCauchy(50.0*Units::nm, 50.0*Units::nm));
 
-    layout.addInterferenceFunction(*interference);
+    layout.setInterferenceFunction(*interference);
 
     Layer air_layer(HomogeneousMaterial("Air", 0.0, 0.0));
     air_layer.addLayout(layout);

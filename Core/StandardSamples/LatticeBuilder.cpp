@@ -54,7 +54,7 @@ MultiLayer* Lattice1DBuilder::buildSample() const
     Particle cylinder(particle_material, ff_cylinder);
 
     ParticleLayout particle_layout(cylinder);
-    particle_layout.addInterferenceFunction(interference_function);
+    particle_layout.setInterferenceFunction(interference_function);
 
     air_layer.addLayout(particle_layout);
 

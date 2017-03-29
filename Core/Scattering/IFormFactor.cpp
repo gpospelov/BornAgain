@@ -44,7 +44,7 @@ Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
 
 double IFormFactor::volume() const
 {
-    WavevectorInfo zero_wavevectors;
+    auto zero_wavevectors = WavevectorInfo::GetZeroQ();
     return std::abs(evaluate(zero_wavevectors));
 }
 

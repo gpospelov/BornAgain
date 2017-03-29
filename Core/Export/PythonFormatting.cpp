@@ -44,10 +44,10 @@ std::string PythonFormatting::simulationToPython(GISASSimulation* simulation)
 {
     simulation->prepareSimulation();
     std::unique_ptr<ISample> sample;
-    if(simulation->getSample())
-        sample.reset(simulation->getSample()->clone());
+    if(simulation->sample())
+        sample.reset(simulation->sample()->clone());
     else
-        sample.reset(simulation->getSampleBuilder()->buildSample());
+        sample.reset(simulation->sampleBuilder()->buildSample());
     MultiLayer* multilayer = dynamic_cast<MultiLayer*>(sample.get());
     ExportToPython visitor(*multilayer);
     std::ostringstream result;

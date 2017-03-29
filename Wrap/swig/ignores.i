@@ -1,7 +1,7 @@
 
 // fix SWIG warning 509, certain C++ overloads create ambiguities in Python
-%ignore ParticleLayout::addInterferenceFunction(IInterferenceFunction*);
-%ignore ParticleLayout::addInterferenceFunction(const IInterferenceFunction*);
+%ignore ParticleLayout::setInterferenceFunction(IInterferenceFunction*);
+%ignore ParticleLayout::setInterferenceFunction(const IInterferenceFunction*);
 %ignore MesoCrystal::MesoCrystal(IClusteredParticles*, IFormFactor*);
 %ignore MesoCrystal::MesoCrystal(const IClusteredParticles*, const IFormFactor*);
 %ignore Instrument::setDetectorResolutionFunction(IResolutionFunction2D*);

@@ -32,7 +32,7 @@ def get_sample():
     interference = ba.InterferenceFunction2DLattice.createSquare(10*nm)
     pdf = ba.FTDecayFunction2DCauchy(100*nm, 100*nm)
     interference.setDecayFunction(pdf)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     air_layer = ba.Layer(m_ambience)
     air_layer.addLayout(particle_layout)

@@ -28,8 +28,8 @@ class BA_CORE_API_ SimulationArea
 {
 public:
     using iterator = SimulationAreaIterator;
-    explicit SimulationArea(const IDetector2D *detector);
-    virtual ~SimulationArea(){}
+    explicit SimulationArea(const IDetector2D* detector);
+    virtual ~SimulationArea() {}
 
     SimulationAreaIterator begin();
     SimulationAreaIterator end();
@@ -46,7 +46,7 @@ public:
     size_t detectorIndex(size_t index) const;
 
 protected:
-    const IDetector2D *m_detector;
+    const IDetector2D* m_detector;
     size_t m_max_index;
 };
 
@@ -63,7 +63,7 @@ inline size_t SimulationArea::totalSize() const
 class BA_CORE_API_ SimulationRoiArea : public SimulationArea
 {
 public:
-    explicit SimulationRoiArea(const IDetector2D *detector);
+    explicit SimulationRoiArea(const IDetector2D* detector);
 
     virtual bool isMasked(size_t) const;
 

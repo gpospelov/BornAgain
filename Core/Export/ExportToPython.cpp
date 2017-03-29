@@ -518,7 +518,7 @@ std::string ExportToPython::defineParticleLayouts() const
             }
 
             if( const IInterferenceFunction* p_iff = particleLayout->interferenceFunction() )
-                result << indent() << it->second << ".addInterferenceFunction("
+                result << indent() << it->second << ".setInterferenceFunction("
                        << m_label->getLabelInterferenceFunction(p_iff) << ")\n";
 
             switch (particleLayout->getApproximation()) {

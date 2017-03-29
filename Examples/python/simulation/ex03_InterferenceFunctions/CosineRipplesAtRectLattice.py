@@ -31,7 +31,7 @@ def get_sample():
     pdf = ba.FTDecayFunction2DCauchy(
         1000.*nm/2./numpy.pi, 100.*nm/2./numpy.pi)
     interference.setDecayFunction(pdf)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # assemble the sample
     air_layer = ba.Layer(m_ambience)

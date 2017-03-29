@@ -29,7 +29,7 @@ def get_sample(radius=5*nm, lattice_constant=10*nm):
     pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm)
     interference.setDecayFunction(pdf)
 
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     air_layer = ba.Layer(m_air)
     air_layer.addLayout(particle_layout)

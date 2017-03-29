@@ -16,6 +16,7 @@
 #include "ISquaredFunction.h"
 #include "Numeric.h"
 #include <algorithm>
+#include <cmath>
 
 SquaredFunctionDefault* SquaredFunctionDefault::clone() const
 {

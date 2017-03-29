@@ -18,13 +18,13 @@
 #include "projectdocument.h"
 #include "UpdateTimer.h"
 #include "GUIHelpers.h"
+#include "ProjectUtils.h"
 #include <QDir>
 #include <QDebug>
 
 namespace
 {
 const int update_every = 10000; // in msec
-const QString autosave_subdir = "autosave";
 }
 
 AutosaveService::AutosaveService(QObject* parent)
@@ -54,16 +54,24 @@ void AutosaveService::setAutosaveTime(int timerInterval)
     m_timer->setTimeInterval(timerInterval);
 }
 
-//! Returns the name of autosave directory. The directory will be created, if not exists.
+//! Returns the name of autosave directory.
 
 QString AutosaveService::autosaveDir() const
 {
-    if (!m_document->hasValidNameAndPath())
-        return QString();
+    if (m_document->hasValidNameAndPath())
+        return ProjectUtils::autosaveDir(m_document->projectFileName());
 
-    GUIHelpers::createSubdir(m_document->projectDir(), autosave_subdir);
-    return m_document->projectDir() + "/" + autosave_subdir;
+    return QString();
 }
+
+QString AutosaveService::autosaveName() const
+{
+    if (m_document->hasValidNameAndPath())
+        return ProjectUtils::autosaveName(m_document->projectFileName());
+
+    return QString();
+}
+
 
 void AutosaveService::removeAutosaveDir()
 {
@@ -109,25 +117,11 @@ void AutosaveService::autosave()
 
     QString name = autosaveName();
     if (!name.isEmpty()) {
+        GUIHelpers::createSubdir(m_document->projectDir(), ProjectUtils::autosaveSubdir());
+
         qDebug() << "   saving ..." << name;
         bool result = m_document->save(name, true);
         qDebug() << "           save result" << result;
         emit autosaved();
     }
 }
-
-bool AutosaveService::isDocumentForAutosave()
-{
-    return m_document->hasValidNameAndPath() && m_document->isModified();
-}
-
-//! Return name for temporary project file.
-
-QString AutosaveService::autosaveName() const
-{
-    if (!m_document->hasValidNameAndPath())
-        return QString();
-
-    return autosaveDir() + "/" + m_document->projectName() + m_document->projectFileExtension();
-}
-

@@ -39,7 +39,7 @@ public:
     QString autosaveDir() const;
     QString autosaveName() const;
 
-    // remove auto save directory for given project and all its content
+    //! remove auto save directory for given project and all its content
     void removeAutosaveDir();
 
 signals:
@@ -52,7 +52,6 @@ private slots:
 
 private:
     void autosave();
-    bool isDocumentForAutosave();
 
     ProjectDocument* m_document;
     UpdateTimer* m_timer;

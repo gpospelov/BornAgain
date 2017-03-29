@@ -30,6 +30,18 @@ BA_CORE_API_ QString projectName(const QString& projectFileName);
 //! Returns project directory deduced from project file name.
 BA_CORE_API_ QString projectDir(const QString& projectFileName);
 
+//! Returns fixed name for autosave sub-directory.
+BA_CORE_API_ QString autosaveSubdir();
+
+//! Returns name of autosave directory for project with given project file name.
+BA_CORE_API_ QString autosaveDir(const QString& projectFileName);
+
+//! Returns name of project for autoSave from given project file name.
+BA_CORE_API_ QString autosaveName(const QString& projectFileName);
+
+//! Returns true if project with given projectFileName contains autosaved data.
+BA_CORE_API_ bool hasAutosavedData(const QString& projectFileName);
+
 }
 
 #endif // PROJECTUTILS_H

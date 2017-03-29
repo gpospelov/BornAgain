@@ -34,15 +34,18 @@ AutosaveService::AutosaveService(QObject* parent)
 
 void AutosaveService::setDocument(ProjectDocument* document)
 {
+    if(document == m_document)
+        return;
+
     m_timer->reset();
+
+    if(m_document)
+        setDocumentConnected(false);
 
     m_document = document;
 
-    if (!m_document)
-        return;
-
-    connect(m_document, SIGNAL(destroyed(QObject*)), this, SLOT(onDocumentDestroyed(QObject*)));
-    connect(m_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
+    if(m_document)
+        setDocumentConnected(true);
 }
 
 void AutosaveService::setAutosaveTime(int timerInterval)
@@ -97,15 +100,36 @@ void AutosaveService::onDocumentModified()
         m_timer->scheduleUpdate();
 }
 
+#include <QDebug>
 void AutosaveService::autosave()
 {
     QString name = autosaveName();
     if (!name.isEmpty()) {
         GUIHelpers::createSubdir(m_document->projectDir(), ProjectUtils::autosaveSubdir());
 
+        qDebug() << "       saving";
+
         if(!m_document->save(name, true))
             throw GUIHelpers::Error("AutosaveService::autosave() -> Error during autosave.");
 
         emit autosaved();
+    }
+}
+
+void AutosaveService::setDocumentConnected(bool set_connected)
+{
+    if(!m_document)
+        return;
+
+    if(set_connected) {
+        connect(m_document, SIGNAL(destroyed(QObject*)),
+                this, SLOT(onDocumentDestroyed(QObject*)), Qt::UniqueConnection);
+        connect(m_document, SIGNAL(modified()), this,
+                SLOT(onDocumentModified()), Qt::UniqueConnection);
+    } else {
+        disconnect(m_document, SIGNAL(destroyed(QObject*)),
+                this, SLOT(onDocumentDestroyed(QObject*)));
+        disconnect(m_document, SIGNAL(modified()), this,
+                SLOT(onDocumentModified()));
     }
 }

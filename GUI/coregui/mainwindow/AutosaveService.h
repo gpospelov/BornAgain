@@ -52,6 +52,7 @@ private slots:
 
 private:
     void autosave();
+    void setDocumentConnected(bool set_connected);
 
     ProjectDocument* m_document;
     UpdateTimer* m_timer;

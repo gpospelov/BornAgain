@@ -35,6 +35,7 @@
 
 namespace {
     const QString S_PROJECTMANAGER = "ProjectManager";
+    const QString S_AUTOSAVE = "EnableAutosave";
     const QString S_DEFAULTPROJECTPATH = "DefaultProjectPath";
     const QString S_RECENTPROJECTS  = "RecentProjects";
     const QString S_LASTUSEDIMPORTDIR = "LastUsedImportDir";
@@ -44,7 +45,7 @@ ProjectManager::ProjectManager(MainWindow* parent)
     : m_mainWindow(parent)
     , m_project_document(nullptr)
     , m_messageService(new WarningMessageService)
-    , m_autosaveService(new AutosaveService(this))
+    , m_autosaveService(nullptr)
 
 {
     createNewProject();
@@ -66,11 +67,17 @@ void ProjectManager::readSettings()
     m_workingDirectory = QDir::homePath();
     if (settings.childGroups().contains(S_PROJECTMANAGER)) {
         settings.beginGroup(S_PROJECTMANAGER);
+
+        if(!settings.contains(S_AUTOSAVE))
+            settings.setValue(S_AUTOSAVE, true);
+
         m_workingDirectory = settings.value(S_DEFAULTPROJECTPATH).toString();
         m_recentProjects = settings.value(S_RECENTPROJECTS).toStringList();
 
         if(settings.contains(S_LASTUSEDIMPORTDIR))
             m_importDirectory = settings.value(S_LASTUSEDIMPORTDIR, QString()).toString();
+
+        setAutosaveEnabled(settings.value(S_AUTOSAVE).toBool());
 
         settings.endGroup();
     }
@@ -143,6 +150,20 @@ QString ProjectManager::userImportDir() const
 void ProjectManager::setImportDir(const QString& dirname)
 {
     m_importDirectory = dirname;
+}
+
+void ProjectManager::setAutosaveEnabled(bool value)
+{
+    if(value) {
+        if(!m_autosaveService)
+            m_autosaveService = new AutosaveService(this);
+
+        m_autosaveService->setDocument(m_project_document);
+
+    } else {
+        delete m_autosaveService;
+        m_autosaveService = 0;
+    }
 }
 
 //! Updates title of main window when the project was modified.
@@ -323,7 +344,9 @@ void ProjectManager::deleteCurrentProject()
 
 void ProjectManager::loadProject(const QString& projectFileName)
 {
-    if(ProjectUtils::hasAutosavedData(projectFileName) && restoreProjectDialog(projectFileName)) {
+    bool useAutosave = m_autosaveService && ProjectUtils::hasAutosavedData(projectFileName);
+
+    if(useAutosave && restoreProjectDialog(projectFileName)) {
         m_project_document->load(ProjectUtils::autosaveName(projectFileName));
         m_project_document->setProjectFileName(projectFileName);
     } else {

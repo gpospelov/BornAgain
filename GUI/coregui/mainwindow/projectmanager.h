@@ -51,6 +51,7 @@ signals:
     void projectOpened();
 
 public slots:
+    void setAutosaveEnabled(bool value);
     void onDocumentModified();
     void clearRecentProjects();
     void newProject();

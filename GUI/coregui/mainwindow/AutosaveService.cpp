@@ -20,11 +20,10 @@
 #include "GUIHelpers.h"
 #include "ProjectUtils.h"
 #include <QDir>
-#include <QDebug>
 
 namespace
 {
-const int update_every = 10000; // in msec
+const int update_every = 5000; // in msec
 }
 
 AutosaveService::AutosaveService(QObject* parent)
@@ -35,8 +34,6 @@ AutosaveService::AutosaveService(QObject* parent)
 
 void AutosaveService::setDocument(ProjectDocument* document)
 {
-    qDebug() << "AutosaveService::setDocument" << document;
-
     m_timer->reset();
 
     m_document = document;
@@ -45,7 +42,6 @@ void AutosaveService::setDocument(ProjectDocument* document)
         return;
 
     connect(m_document, SIGNAL(destroyed(QObject*)), this, SLOT(onDocumentDestroyed(QObject*)));
-
     connect(m_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
 }
 
@@ -78,50 +74,38 @@ void AutosaveService::removeAutosaveDir()
     if(autosaveDir().isEmpty())
         return;
 
-    qDebug() << "AutosaveService::removeAutosaveDir()" << autosaveDir();
     QDir dir(autosaveDir());
     dir.removeRecursively();
 }
 
 void AutosaveService::onTimerTimeout()
 {
-    qDebug() << "AutosaveService::onTimerTimeout()" << m_document << m_document->isModified();
-    Q_ASSERT(m_document);
-
     if (m_document->isModified())
         autosave();
 }
 
 void AutosaveService::onDocumentDestroyed(QObject* object)
 {
-    qDebug() << "AutosaveService::onDocumentDestroyed" << m_document << object;
-    Q_ASSERT(m_document == object);
-
+    Q_UNUSED(object);
     m_timer->reset();
     m_document = 0;
 }
 
 void AutosaveService::onDocumentModified()
 {
-    qDebug() << "AutosaveService::onDocumentModified()" << m_document << m_document->isModified();
-    if (m_document->isModified() && m_document->hasValidNameAndPath()) {
-        qDebug() << "   ... scheduling update";
+    if (m_document->isModified() && m_document->hasValidNameAndPath())
         m_timer->scheduleUpdate();
-    }
 }
 
 void AutosaveService::autosave()
 {
-    Q_ASSERT(m_document);
-    qDebug() << "AutosaveService::autosave()";
-
     QString name = autosaveName();
     if (!name.isEmpty()) {
         GUIHelpers::createSubdir(m_document->projectDir(), ProjectUtils::autosaveSubdir());
 
-        qDebug() << "   saving ..." << name;
-        bool result = m_document->save(name, true);
-        qDebug() << "           save result" << result;
+        if(!m_document->save(name, true))
+            throw GUIHelpers::Error("AutosaveService::autosave() -> Error during autosave.");
+
         emit autosaved();
     }
 }

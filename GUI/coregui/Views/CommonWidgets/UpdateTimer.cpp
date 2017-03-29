@@ -16,7 +16,6 @@
 
 #include "UpdateTimer.h"
 #include <QTimer>
-#include <QDebug>
 
 UpdateTimer::UpdateTimer(int timerInterval, QObject* parent)
     : QObject(parent)
@@ -32,7 +31,6 @@ UpdateTimer::UpdateTimer(int timerInterval, QObject* parent)
 
 void UpdateTimer::reset()
 {
-    qDebug() << "UpdateTimer::reset()";
     m_update_request_count = 0;
     m_timer->stop();
     m_is_busy = false;
@@ -45,34 +43,23 @@ void UpdateTimer::setTimeInterval(int timerInterval)
 
 void UpdateTimer::scheduleUpdate()
 {
-    qDebug() << "UpdateTimer::scheduleUpdate()" << this  << "is_busy" << m_is_busy << m_update_request_count;
-    if(m_is_busy)
+    if (m_is_busy)
         return;
 
     ++m_update_request_count;
 
-    qDebug() << "       UpdateTimer::scheduleUpdate()" << m_update_request_count;
-
-    if(!m_timer->isActive()) {
-        qDebug() << "       UpdateTimer::scheduleUpdate() -> starting timer";
+    if (!m_timer->isActive())
         m_timer->start(m_timer_interval);
-    }
 }
-
 
 void UpdateTimer::onTimerTimeout()
 {
     m_is_busy = true;
-    qDebug() << "UpdateTimer::onTimerTimeout()" << m_update_request_count;
 
-    if(m_update_request_count > 0) {
+    if (m_update_request_count > 0) {
         m_update_request_count = 0;
-        qDebug() << " emiting timeToUpdate()";
         emit timeToUpdate();
     }
 
     m_is_busy = false;
 }
-
-
-

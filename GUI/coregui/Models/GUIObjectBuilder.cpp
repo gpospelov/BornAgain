@@ -127,12 +127,15 @@ SessionItem* GUIObjectBuilder::populateDocumentModel(DocumentModel* documentMode
     SimulationOptionsItem* optionsItem = dynamic_cast<SimulationOptionsItem*>(
             documentModel->insertNewItem(Constants::SimulationOptionsType));
     Q_ASSERT(optionsItem);
-    if(simulation.getOptions().isIntegrate()) {
+    if (simulation.getOptions().isIntegrate()) {
         optionsItem->setComputationMethod(Constants::SIMULATION_MONTECARLO);
         optionsItem->setNumberOfMonteCarloPoints(simulation.getOptions().getMcPoints());
     }
-    if(simulation.getOptions().useAvgMaterials()) {
+    if (simulation.getOptions().useAvgMaterials()) {
         optionsItem->setFresnelMaterialMethod(Constants::AVERAGE_LAYER_MATERIAL);
+    }
+    if (simulation.getOptions().includeSpecular()) {
+        optionsItem->setIncludeSpecularPeak(Constants::Yes);
     }
     return optionsItem;
 }

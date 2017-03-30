@@ -789,6 +789,8 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
                << options.getMcPoints() << ")\n";
     if (options.useAvgMaterials())
         result << indent() << "simulation.getOptions().setUseAvgMaterials(True)\n";
+    if (options.includeSpecular())
+        result << indent() << "simulation.getOptions().setIncludeSpecular(True)\n";
     return result.str();
 }
 

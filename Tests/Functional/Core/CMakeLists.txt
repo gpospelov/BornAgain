@@ -22,6 +22,7 @@ set(test_cases
     BoxCompositionRotateY
     BoxCompositionRotateZ
     BoxCompositionRotateZandY
+    BoxesWithSpecular
     BoxStackComposition
     CenteredSquareLattice
     CoreShellBoxRotateZandY

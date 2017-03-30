@@ -30,7 +30,7 @@ def get_sample():
     particle_layout.addParticle(cylinder, 0.5)
     particle_layout.addParticle(prism, 0.5)
     interference = ba.InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = ba.Layer(m_air)

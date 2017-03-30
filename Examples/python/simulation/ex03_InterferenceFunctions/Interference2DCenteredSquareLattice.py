@@ -33,7 +33,7 @@ def get_sample():
     basis = ba.ParticleComposition()
     basis.addParticles(cylinder, [position1, position2])
     particle_layout.addParticle(basis)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # assembling the sample
     air_layer = ba.Layer(m_ambience)

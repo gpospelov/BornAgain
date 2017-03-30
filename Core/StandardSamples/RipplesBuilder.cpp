@@ -62,7 +62,7 @@ MultiLayer* CosineRippleBuilder::buildSample() const
                                                                 1e7 * Units::nanometer);
     FTDistribution1DGauss pdf(m_interf_width);
     interference_function.setProbabilityDistribution(pdf);
-    particle_layout.addInterferenceFunction(interference_function);
+    particle_layout.setInterferenceFunction(interference_function);
 
     air_layer.addLayout(particle_layout);
 
@@ -116,7 +116,7 @@ MultiLayer* TriangularRippleBuilder::buildSample() const
                                                                 1e7 * Units::nanometer);
     FTDistribution1DGauss pdf(m_interf_width);
     interference_function.setProbabilityDistribution(pdf);
-    particle_layout.addInterferenceFunction(interference_function);
+    particle_layout.setInterferenceFunction(interference_function);
 
     air_layer.addLayout(particle_layout);
 

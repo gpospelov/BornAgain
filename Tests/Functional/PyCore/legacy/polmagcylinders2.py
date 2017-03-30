@@ -27,7 +27,7 @@ def getSimulationIntensity(rho_beam, efficiency):
     particle_layout = ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
     interference = InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)

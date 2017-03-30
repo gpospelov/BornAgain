@@ -25,12 +25,11 @@ class ILayout;
 
 //! Pure virtual interface class to equip a sample layer with scattering properties.
 //! Currently only inherited by ParticleLayout; in the future also by domain structure.
+//!
 //! @ingroup samples_internal
 
-// TODO: CONSIDER REFACTORING:
-//   reference to particles could be removed in ILayout,
-//   at the cost of a big refactoring of LayoutStrategyBuilder.
-
+// NOTE: When domain structures are implemented, this interface would probably undergo
+// major changes, because a domain layout would not contain particles
 class BA_CORE_API_ ILayout : public ISample
 {
 public:

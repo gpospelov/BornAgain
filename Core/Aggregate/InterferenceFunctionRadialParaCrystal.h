@@ -39,7 +39,7 @@ public:
     double getDomainSize() const { return m_domain_size; }
 
     double evaluate(const kvector_t q) const final;
-    //TODO: replace these with strategy pattern for different algorithms
+
     complex_t FTPDF(double qpar) const;
 
     void setProbabilityDistribution(const IFTDistribution1D& pdf);

@@ -115,7 +115,7 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
     for (int i = 0; i < interferences.size(); i++) {
         auto P_interference = buildInterferenceFunction(*interferences[i]);
         if (P_interference) {
-            P_layout->addInterferenceFunction(*P_interference);
+            P_layout->setInterferenceFunction(*P_interference);
         }
     }
     return P_layout;

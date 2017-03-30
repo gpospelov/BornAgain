@@ -50,7 +50,7 @@ MultiLayer *Basic2DLatticeBuilder::buildSample() const
     Particle particle(particle_material, ff_cyl);
     particle_layout.addParticle(particle, 1.0);
 
-    particle_layout.addInterferenceFunction(*P_interference_function);
+    particle_layout.setInterferenceFunction(*P_interference_function);
 
     air_layer.addLayout(particle_layout);
 
@@ -87,7 +87,7 @@ MultiLayer* SquareLatticeBuilder::buildSample() const
     Particle particle(particle_material, ff_cyl);
     particle_layout.addParticle(particle, 1.0);
 
-    particle_layout.addInterferenceFunction(*P_interference_function);
+    particle_layout.setInterferenceFunction(*P_interference_function);
 
     air_layer.addLayout(particle_layout);
 
@@ -130,7 +130,7 @@ MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(basis);
-    particle_layout.addInterferenceFunction(interference_function);
+    particle_layout.setInterferenceFunction(interference_function);
     air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
@@ -168,7 +168,7 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
     Particle p(particle_material, ff_cyl);
     p.setPosition(position);
     particle_layout.addParticle(p);
-    particle_layout.addInterferenceFunction(*P_interference_function);
+    particle_layout.setInterferenceFunction(*P_interference_function);
 
     air_layer.addLayout(particle_layout);
 

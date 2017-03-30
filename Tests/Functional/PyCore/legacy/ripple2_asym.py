@@ -26,7 +26,7 @@ def runSimulation():
     interference = ba.InterferenceFunctionRadialParaCrystal(20*nm, 1e7*nm)
     pdf = ba.FTDistribution1DGauss(4*nm)
     interference.setProbabilityDistribution(pdf)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = ba.Layer(mAmbience)

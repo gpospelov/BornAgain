@@ -36,7 +36,7 @@ def get_sample(lattice_rotation_angle):
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(
         box, 1.0, ba.kvector_t(0.0, 0.0, 0.0), ba.RotationZ(lattice_rotation_angle))
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # assembling the sample
     air_layer = ba.Layer(m_ambience)

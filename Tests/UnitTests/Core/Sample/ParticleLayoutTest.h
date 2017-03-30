@@ -135,9 +135,9 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     particleDecoration.addParticle(particle5, 0.0);
 
     InterferenceFunctionNone iff_none;
-    particleDecoration.addInterferenceFunction(iff_none);
-    particleDecoration.addInterferenceFunction(iff_none);
-    particleDecoration.addInterferenceFunction(iff_none);
+    particleDecoration.setInterferenceFunction(iff_none);
+    particleDecoration.setInterferenceFunction(iff_none);
+    particleDecoration.setInterferenceFunction(iff_none);
 
     ParticleLayout * clone = particleDecoration.clone();
 
@@ -171,7 +171,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInterferenceFunction)
     ParticleLayout particleDecoration;
 
     InterferenceFunctionNone iff_none;
-    particleDecoration.addInterferenceFunction(iff_none);
+    particleDecoration.setInterferenceFunction(iff_none);
 
     EXPECT_TRUE(nullptr!=particleDecoration.interferenceFunction());
 }
@@ -183,7 +183,7 @@ TEST_F(ParticleLayoutTest, getChildren)
     EXPECT_EQ(children.size(), 0u);
 
     layout.addParticle(Particle());
-    layout.addInterferenceFunction(InterferenceFunction1DLattice(1.0, 2.0));
+    layout.setInterferenceFunction(InterferenceFunction1DLattice(1.0, 2.0));
     children = layout.getChildren();
     EXPECT_EQ(children.size(), 2u);
     EXPECT_EQ(children.at(0)->getName(), BornAgain::ParticleType);

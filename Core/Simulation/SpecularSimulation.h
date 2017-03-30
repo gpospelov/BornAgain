@@ -50,13 +50,13 @@ public:
     void setSample(const ISample& sample);
 
     //! Returns the sample
-    ISample* getSample() const { return mP_sample.get(); }
+    ISample* sample() const { return mP_sample.get(); }
 
     //! Sets the sample builder
     void setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sample_builder);
 
     //! return sample builder
-    std::shared_ptr<IMultiLayerBuilder> getSampleBuilder() const { return mP_sample_builder; }
+    std::shared_ptr<IMultiLayerBuilder> sampleBuilder() const { return mP_sample_builder; }
 
     //! Sets beam parameters with alpha_i of the beam defined in the range
     void setBeamParameters(double lambda, const IAxis& alpha_axis);

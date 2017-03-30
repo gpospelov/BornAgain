@@ -63,11 +63,11 @@ complex_t FormFactorCone::evaluate_for_q(cvector_t q) const
     if ( std::abs(m_q.mag()) < std::numeric_limits<double>::epsilon()) {
         double R = m_radius;
         double H = m_height;
-        double tga = std::tan(m_alpha);
-        double HdivRtga = H/tga/R; // TODO preclude division by zero WAITING fuller refactoring
-
-        return  M_PI/3.0*tga*R*R*R*
-                (1.0 - (1.0 - HdivRtga)*(1.0 - HdivRtga)*(1.0 - HdivRtga));
+        if (m_cot_alpha==0.0)
+            return M_PI*R*R*H;  // cylinder case
+        double R2 = R - H*m_cot_alpha;
+        double apex_height = R/m_cot_alpha;
+        return M_PI/3.*(R*R*H +(R*R - R2*R2)*(apex_height-H));
     } else {
         complex_t integral = mP_integrator->integrate(0., m_height);
         return M_TWOPI*integral;

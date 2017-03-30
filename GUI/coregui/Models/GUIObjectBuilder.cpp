@@ -86,7 +86,7 @@ SessionItem* GUIObjectBuilder::populateSampleModel(
 
     m_sampleModel = sampleModel;
 
-    VisitSampleTreePreorder(sample, *this);
+    VisitNodesPreorder(sample, *this);
     SessionItem* result = m_levelToParentItem[1];
 
     result->setItemName(m_topSampleName);

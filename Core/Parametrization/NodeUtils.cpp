@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "NodeUtils.h"
-#include "SampleTreeIterator.h"
-#include "ISampleIteratorStrategy.h"
+#include "NodeIterator.h"
+#include "IterationStrategy.h"
 #include "RealParameter.h"
 #include "ParameterPool.h"
 #include "INode.h"
@@ -66,7 +66,7 @@ std::string NodeUtils::nodeToString(const INode& node)
 {
     std::ostringstream result;
 
-    SampleTreeIterator<SampleIteratorPreorderStrategy> it(&node);
+    NodeIterator<PreorderStrategy> it(&node);
     it.first();
     while (!it.isDone()) {
         const INode *child = it.getCurrent();

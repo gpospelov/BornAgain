@@ -16,8 +16,8 @@
 #include "INode.h"
 #include "Exceptions.h"
 #include "NodeUtils.h"
-#include "SampleTreeIterator.h"
-#include "ISampleIteratorStrategy.h"
+#include "NodeIterator.h"
+#include "IterationStrategy.h"
 #include "ParameterPool.h"
 #include <algorithm>
 
@@ -89,7 +89,7 @@ ParameterPool* INode::createParameterTree() const
 {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
 
-    SampleTreeIterator<SampleIteratorPreorderStrategy> it(this);
+    NodeIterator<PreorderStrategy> it(this);
     it.first();
     while (!it.isDone()) {
         const INode *child = it.getCurrent();

@@ -470,6 +470,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
+// File: classBoxesSquareLatticeBuilder.xml
+%feature("docstring") BoxesSquareLatticeBuilder "
+
+Builds sample: square boxes in a square lattice
+
+C++ includes: BoxesSquareLatticeBuilder.h
+";
+
+%feature("docstring")  BoxesSquareLatticeBuilder::BoxesSquareLatticeBuilder "BoxesSquareLatticeBuilder::BoxesSquareLatticeBuilder()
+";
+
+%feature("docstring")  BoxesSquareLatticeBuilder::buildSample "MultiLayer * BoxesSquareLatticeBuilder::buildSample() const 
+";
+
+
 // File: classBoxStackCompositionBuilder.xml
 %feature("docstring") BoxStackCompositionBuilder "
 
@@ -13458,7 +13473,7 @@ C++ includes: ZLimits.h
 // File: namespace_0D364.xml
 
 
-// File: namespace_0D476.xml
+// File: namespace_0D478.xml
 
 
 // File: namespace_0D54.xml
@@ -13911,6 +13926,11 @@ GISAS simulation with detector resolution.
 ";
 
 %feature("docstring")  StandardSimulations::MiniGISASSpinFlipZ "GISASSimulation * StandardSimulations::MiniGISASSpinFlipZ()
+";
+
+%feature("docstring")  StandardSimulations::MiniGISASSpecularPeak "GISASSimulation * StandardSimulations::MiniGISASSpecularPeak()
+
+GISAS simulation with small detector and including specular peak. 
 ";
 
 %feature("docstring")  StandardSimulations::GISASWithMasks "GISASSimulation * StandardSimulations::GISASWithMasks()
@@ -15464,6 +15484,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: BoxCompositionBuilder_8h.xml
+
+
+// File: BoxesSquareLatticeBuilder_8cpp.xml
+
+
+// File: BoxesSquareLatticeBuilder_8h.xml
 
 
 // File: CoreShellParticleBuilder_8cpp.xml

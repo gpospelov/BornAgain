@@ -359,6 +359,13 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "CylindersAndPrismsBuilder",
         "None",
         1e-10);
+
+    add("BoxesWithSpecular",
+        "Boxes in square lattice including specular peak",
+        "MiniGISASSpecular",
+        "BoxesSquareLatticeBuilder",
+        "None",
+        1e-10);
 }
 
 void StandardSimulationsRegistry::add(

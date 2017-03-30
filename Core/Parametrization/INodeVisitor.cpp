@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "ISampleIteratorStrategy.h"
+#include "IterationStrategy.h"
 #include "NodeIterator.h"
 
 void VisitNodesPreorder(const INode& node, INodeVisitor& visitor)

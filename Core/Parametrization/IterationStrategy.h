@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/ISampleIteratorStrategy.h
-//! @brief     Defines strategies for the class SampleTreeIterator.
+//! @file      Core/Parametrization/IterationStrategy.h
+//! @brief     Defines strategies for the class IterationStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ISAMPLEITERATORSTRATEGY_H
-#define ISAMPLEITERATORSTRATEGY_H
+#ifndef ITERATIONSTRATEGY_H
+#define ITERATIONSTRATEGY_H
 
 #include "ISample.h"
 
@@ -58,4 +58,4 @@ public:
     virtual bool isDone(IteratorMemento& iterator_stack) const;
 };
 
-#endif // ISAMPLEITERATORSTRATEGY_H
+#endif // ITERATIONSTRATEGY_H

@@ -17,7 +17,7 @@
 #include "Exceptions.h"
 #include "NodeUtils.h"
 #include "NodeIterator.h"
-#include "ISampleIteratorStrategy.h"
+#include "IterationStrategy.h"
 #include "ParameterPool.h"
 #include <algorithm>
 

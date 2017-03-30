@@ -15,7 +15,7 @@
 
 #include "NodeUtils.h"
 #include "NodeIterator.h"
-#include "ISampleIteratorStrategy.h"
+#include "IterationStrategy.h"
 #include "RealParameter.h"
 #include "ParameterPool.h"
 #include "INode.h"

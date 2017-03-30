@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "ISampleIteratorStrategy.h"
+#include "IterationStrategy.h"
 #include "Exceptions.h"
 #include "NodeIterator.h"
 

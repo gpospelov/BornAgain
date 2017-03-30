@@ -193,6 +193,8 @@ void TransformToDomain::setSimulationOptions(GISASSimulation* simulation,
         }
         if (optionItem->getFresnelMaterialMethod() == Constants::AVERAGE_LAYER_MATERIAL)
             simulation->getOptions().setUseAvgMaterials(true);
+        if (optionItem->getIncludeSpecularPeak() == Constants::Yes)
+            simulation->getOptions().setIncludeSpecular(true);
     }
 }
 

@@ -38,15 +38,6 @@ LayerView::LayerView(QGraphicsItem *parent)
     addPort(QString(), NodeEditorPort::INPUT, NodeEditorPort::PARTICLE_LAYOUT);
 }
 
-LayerView::~LayerView()
-{
-    // FIXME replace with onChildrenChange callback from MultiLayerItem's model mapper.
-//    MultiLayerView *mlView = dynamic_cast<MultiLayerView *>(parentItem());
-//    if(mlView) {
-//        mlView->removeLayer(this);
-//    }
-}
-
 
 void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {

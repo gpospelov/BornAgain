@@ -100,7 +100,7 @@ void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
     jobItem->instrumentItem()->importMasks(intensityItem->maskContainerItem());
 }
 
-//! Crops RealDataItem to the region of interest. TODO is there better place?
+//! Crops RealDataItem to the region of interest.
 
 void JobModelFunctions::cropRealData(JobItem *jobItem) {
     RealDataItem *realData = jobItem->realDataItem();

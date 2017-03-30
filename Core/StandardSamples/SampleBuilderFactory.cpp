@@ -15,6 +15,7 @@
 
 #include "SampleBuilderFactory.h"
 #include "BoxCompositionBuilder.h"
+#include "BoxesSquareLatticeBuilder.h"
 #include "CoreShellParticleBuilder.h"
 #include "CustomMorphologyBuilder.h"
 #include "CylindersAndPrismsBuilder.h"
@@ -241,6 +242,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "LayersWithAbsorptionBuilder",
         create_new<LayersWithAbsorptionBuilder>,
         "3 layer system with absorption");
+
+    registerItem(
+        "BoxesSquareLatticeBuilder",
+        create_new<BoxesSquareLatticeBuilder>,
+        "Boxes in a square lattice");
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

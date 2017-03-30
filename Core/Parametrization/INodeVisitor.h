@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Scattering/INodeVisitor.h
+//! @file      Core/Parametrization/INodeVisitor.h
 //! @brief     Defines interface class INodeVisitor.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -303,7 +303,7 @@ private:
     int m_depth;
 };
 
-BA_CORE_API_ void VisitSampleTreePreorder(const INode& node, INodeVisitor& visitor);
-BA_CORE_API_ void VisitSampleTreePostorder(const INode& node, INodeVisitor& visitor);
+BA_CORE_API_ void VisitNodesPreorder(const INode& node, INodeVisitor& visitor);
+BA_CORE_API_ void VisitNodesPostorder(const INode& node, INodeVisitor& visitor);
 
 #endif // ISAMPLEVISITOR_H

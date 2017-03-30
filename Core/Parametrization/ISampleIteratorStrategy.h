@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Scattering/ISampleIteratorStrategy.h
+//! @file      Core/Parametrization/ISampleIteratorStrategy.h
 //! @brief     Defines strategies for the class SampleTreeIterator.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -20,42 +20,42 @@
 
 class IteratorMemento;
 
-class BA_CORE_API_ ISampleIteratorStrategy
+class BA_CORE_API_ IterationStrategy
 {
 public:
-    virtual ~ISampleIteratorStrategy() {}
+    virtual ~IterationStrategy() {}
 
-    virtual ISampleIteratorStrategy* clone() const=0;
+    virtual IterationStrategy* clone() const = 0;
 
-    virtual IteratorMemento first(const INode* p_root)=0;
-    virtual void next(IteratorMemento &iterator_stack) const=0;
-    virtual bool isDone(IteratorMemento &iterator_stack) const=0;
+    virtual IteratorMemento first(const INode* p_root) = 0;
+    virtual void next(IteratorMemento& iterator_stack) const = 0;
+    virtual bool isDone(IteratorMemento& iterator_stack) const = 0;
 };
 
-class BA_CORE_API_ SampleIteratorPreorderStrategy : public ISampleIteratorStrategy
+class BA_CORE_API_ PreorderStrategy : public IterationStrategy
 {
 public:
-    SampleIteratorPreorderStrategy();
+    PreorderStrategy();
 
-    virtual SampleIteratorPreorderStrategy* clone() const;
+    virtual PreorderStrategy* clone() const;
 
-    virtual ~SampleIteratorPreorderStrategy();
+    virtual ~PreorderStrategy();
     virtual IteratorMemento first(const INode* p_root);
-    virtual void next(IteratorMemento &iterator_stack) const;
-    virtual bool isDone(IteratorMemento &iterator_stack) const;
+    virtual void next(IteratorMemento& iterator_stack) const;
+    virtual bool isDone(IteratorMemento& iterator_stack) const;
 };
 
-class BA_CORE_API_ SampleIteratorPostorderStrategy : public ISampleIteratorStrategy
+class BA_CORE_API_ PostorderStrategy : public IterationStrategy
 {
 public:
-    SampleIteratorPostorderStrategy();
+    PostorderStrategy();
 
-    virtual SampleIteratorPostorderStrategy* clone() const;
+    virtual PostorderStrategy* clone() const;
 
-    virtual ~SampleIteratorPostorderStrategy();
+    virtual ~PostorderStrategy();
     virtual IteratorMemento first(const INode* p_root);
-    virtual void next(IteratorMemento &iterator_stack) const;
-    virtual bool isDone(IteratorMemento &iterator_stack) const;
+    virtual void next(IteratorMemento& iterator_stack) const;
+    virtual bool isDone(IteratorMemento& iterator_stack) const;
 };
 
 #endif // ISAMPLEITERATORSTRATEGY_H

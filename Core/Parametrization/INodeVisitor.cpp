@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Scattering/INodeVisitor.cpp
+//! @file      Core/Parametrization/INodeVisitor.cpp
 //! @brief     Implements class INodeVisitor.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,9 +16,9 @@
 #include "ISampleIteratorStrategy.h"
 #include "NodeIterator.h"
 
-void VisitSampleTreePreorder(const INode& node, INodeVisitor& visitor)
+void VisitNodesPreorder(const INode& node, INodeVisitor& visitor)
 {
-    NodeIterator<SampleIteratorPreorderStrategy> it(&node);
+    NodeIterator<PreorderStrategy> it(&node);
     it.first();
     while (!it.isDone()) {
         visitor.setDepth(it.depth());
@@ -28,9 +28,9 @@ void VisitSampleTreePreorder(const INode& node, INodeVisitor& visitor)
     }
 }
 
-void VisitSampleTreePostorder(const INode& node, INodeVisitor& visitor)
+void VisitNodesPostorder(const INode& node, INodeVisitor& visitor)
 {
-    NodeIterator<SampleIteratorPostorderStrategy> it(&node);
+    NodeIterator<PostorderStrategy> it(&node);
     it.first();
     while (!it.isDone()) {
         visitor.setDepth(it.depth());

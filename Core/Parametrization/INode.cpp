@@ -89,7 +89,7 @@ ParameterPool* INode::createParameterTree() const
 {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
 
-    NodeIterator<SampleIteratorPreorderStrategy> it(this);
+    NodeIterator<PreorderStrategy> it(this);
     it.first();
     while (!it.isDone()) {
         const INode *child = it.getCurrent();

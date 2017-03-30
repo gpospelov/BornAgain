@@ -25,6 +25,9 @@ namespace Constants {
 
 using ModelType = QString;
 
+const ModelType Yes = "Yes";
+const ModelType No = "No";
+
 const ModelType LayerType = "Layer";
 const ModelType MultiLayerType = "MultiLayer";
 const ModelType ParticleType = "Particle";

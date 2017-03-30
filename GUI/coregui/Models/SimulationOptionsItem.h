@@ -31,6 +31,7 @@ public:
     static const QString P_COMPUTATION_METHOD;
     static const QString P_MC_POINTS;
     static const QString P_FRESNEL_MATERIAL_METHOD;
+    static const QString P_INCLUDE_SPECULAR_PEAK;
 
     explicit SimulationOptionsItem();
 
@@ -48,6 +49,9 @@ public:
 
     void setFresnelMaterialMethod(const QString& name);
     QString getFresnelMaterialMethod() const;
+
+    void setIncludeSpecularPeak(const QString& name);
+    QString getIncludeSpecularPeak() const;
 
 private:
     QString runPolicy() const;

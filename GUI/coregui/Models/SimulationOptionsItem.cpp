@@ -35,9 +35,11 @@ const QString tooltip_runpolicy = "Defines run policy for the simulation";
 const QString tooltip_nthreads = "Defines number of threads to use for the simulation.";
 const QString tooltip_computation =
         "Defines computation method (analytical or Monte-Carlo integration)";
-const QString tooltop_ambientmaterial =
+const QString tooltip_ambientmaterial =
         "Define if the material used for Fresnel calculations should be the ambient layer "
         "material or the average material of the layer and the particles it contains";
+const QString tooltip_specularpeak =
+        "Defines if the specular peak should be included in the simulation result";
 
 }
 
@@ -48,6 +50,7 @@ const QString SimulationOptionsItem::P_COMPUTATION_METHOD = "Computation method"
 const QString SimulationOptionsItem::P_MC_POINTS = "Number of MC points";
 const QString SimulationOptionsItem::P_FRESNEL_MATERIAL_METHOD =
         "Material for Fresnel calculations";
+const QString SimulationOptionsItem::P_INCLUDE_SPECULAR_PEAK = "Include specular peak";
 
 SimulationOptionsItem::SimulationOptionsItem()
     : SessionItem(Constants::SimulationOptionsType)
@@ -74,7 +77,12 @@ SimulationOptionsItem::SimulationOptionsItem()
     ComboProperty averageLayerMaterials;
     averageLayerMaterials <<Constants::AMBIENT_LAYER_MATERIAL << Constants::AVERAGE_LAYER_MATERIAL;
     addProperty(P_FRESNEL_MATERIAL_METHOD,
-                averageLayerMaterials.getVariant())->setToolTip(tooltop_ambientmaterial);
+                averageLayerMaterials.getVariant())->setToolTip(tooltip_ambientmaterial);
+
+    ComboProperty includeSpecularPeak;
+    includeSpecularPeak << Constants::No << Constants::Yes;
+    addProperty(P_INCLUDE_SPECULAR_PEAK,
+                includeSpecularPeak.getVariant())->setToolTip(tooltip_specularpeak);
 
     mapper()->setOnPropertyChange(
         [this](const QString &name) {
@@ -89,8 +97,6 @@ SimulationOptionsItem::SimulationOptionsItem()
                 }
             }
     });
-
-
 }
 
 int SimulationOptionsItem::getNumberOfThreads() const
@@ -146,12 +152,25 @@ void SimulationOptionsItem::setFresnelMaterialMethod(const QString& name)
 {
     ComboProperty combo = getItemValue(P_FRESNEL_MATERIAL_METHOD).value<ComboProperty>();
     combo.setValue(name);
-    setItemValue(P_COMPUTATION_METHOD, combo.getVariant());
+    setItemValue(P_FRESNEL_MATERIAL_METHOD, combo.getVariant());
 }
 
 QString SimulationOptionsItem::getFresnelMaterialMethod() const
 {
     ComboProperty combo = getItemValue(P_FRESNEL_MATERIAL_METHOD).value<ComboProperty>();
+    return combo.getValue();
+}
+
+void SimulationOptionsItem::setIncludeSpecularPeak(const QString& name)
+{
+    ComboProperty combo = getItemValue(P_INCLUDE_SPECULAR_PEAK).value<ComboProperty>();
+    combo.setValue(name);
+    setItemValue(P_INCLUDE_SPECULAR_PEAK, combo.getVariant());
+}
+
+QString SimulationOptionsItem::getIncludeSpecularPeak() const
+{
+    ComboProperty combo = getItemValue(P_INCLUDE_SPECULAR_PEAK).value<ComboProperty>();
     return combo.getValue();
 }
 

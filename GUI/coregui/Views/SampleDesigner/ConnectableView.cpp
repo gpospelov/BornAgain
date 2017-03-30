@@ -93,7 +93,6 @@ void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
     if (other->getOutputPorts().size() != 1)
         throw GUIHelpers::Error("ConnectableView::connectInputPort() -> Wrong output port number");
 
-    //FIXME for debug
     if (port_number < 0)
         return;
 

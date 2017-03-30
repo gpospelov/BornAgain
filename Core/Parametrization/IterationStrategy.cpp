@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Parametrization/ISampleIteratorStrategy.cpp
+//! @file      Core/Parametrization/IterationStrategy.cpp
 //! @brief     Implements strategies for the class SampleTreeIterator.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -18,51 +18,32 @@
 
 #include "WinDllMacros.h"
 
-// - the order according to the hierarchy as reported by IDE
-class INode;
-// -
+class BasicLattice;
 class Beam;
-// -
-class RectangularDetector;
-class SphericalDetector;
-class IsGISAXSDetector;
-class ResolutionFunction2DGaussian;
 class ConvolutionDetectorResolution;
-// -
-class ISample;
-// -
-class IClusteredParticles;
 class Crystal;
-// -
-class ILayout;
-class ParticleLayout;
-// -
-class Layer;
-// -
-class LayerInterface;
-// -
-class MultiLayer;
-// -
-class IAbstractParticle;
-class IParticle;
-class Particle;
-class ParticleDistribution;
-class ParticleComposition;
-class MesoCrystal;
-class ParticleCoreShell;
-// -
-class IFormFactor;
-// -
-class IFormFactorBorn;
-// -
+class DistributionCosine;
+class DistributionGate;
+class DistributionGaussian;
+class DistributionLogNormal;
+class DistributionLorentz;
+class FitObject;
+class FitSuiteObjects;
 class FormFactorAnisoPyramid;
 class FormFactorBox;
 class FormFactorCone;
 class FormFactorCone6;
-class FormFactorCuboctahedron;
+class FormFactorCoreShell;
 class FormFactorCrystal;
+class FormFactorCuboctahedron;
 class FormFactorCylinder;
+class FormFactorDecoratorDebyeWaller;
+class FormFactorDecoratorMaterial;
+class FormFactorDecoratorPositionFactor;
+class FormFactorDecoratorRotation;
 class FormFactorDodecahedron;
+class FormFactorDWBA;
+class FormFactorDWBAPol;
 class FormFactorEllipsoidalCylinder;
 class FormFactorFullSphere;
 class FormFactorFullSpheroid;
@@ -84,18 +65,7 @@ class FormFactorTrivial;
 class FormFactorTruncatedCube;
 class FormFactorTruncatedSphere;
 class FormFactorTruncatedSpheroid;
-// -
-class IFormFactorDecorator;
-// -
-class FormFactorCoreShell;
-class FormFactorDWBA;
-class FormFactorDWBAPol;
 class FormFactorWeighted;
-class FormFactorDecoratorDebyeWaller;
-class FormFactorDecoratorMaterial;
-class FormFactorDecoratorPositionFactor;
-class FormFactorDecoratorRotation;
-// -
 class FTDecayFunction1DCauchy;
 class FTDecayFunction1DGauss;
 class FTDecayFunction1DTriangle;
@@ -103,51 +73,58 @@ class FTDecayFunction1DVoigt;
 class FTDecayFunction2DCauchy;
 class FTDecayFunction2DGauss;
 class FTDecayFunction2DVoigt;
+class FTDistribution1DCauchy;
+class FTDistribution1DCosine;
+class FTDistribution1DGate;
+class FTDistribution1DGauss;
+class FTDistribution1DTriangle;
+class FTDistribution1DVoigt;
 class FTDistribution2DCauchy;
-class FTDistribution2DGauss;
-class FTDistribution2DGate;
 class FTDistribution2DCone;
+class FTDistribution2DGate;
+class FTDistribution2DGauss;
 class FTDistribution2DVoigt;
-// -
+class GISASSimulation;
+class HexagonalLattice;
+class IAbstractParticle;
+class IClusteredParticles;
+class IFormFactor;
+class IFormFactorBorn;
+class IFormFactorDecorator;
 class IInterferenceFunction;
+class ILayout;
+class INode;
+class Instrument;
+class IntensityNormalizer;
+class IntensityScaleAndShiftNormalizer;
 class InterferenceFunction1DLattice;
-class InterferenceFunctionRadialParaCrystal;
 class InterferenceFunction2DLattice;
 class InterferenceFunction2DParaCrystal;
 class InterferenceFunctionNone;
-// -
-class LayerRoughness;
-// -
+class InterferenceFunctionRadialParaCrystal;
+class IParticle;
 class IRotation;
+class ISample;
+class IsGISAXSDetector;
+class Layer;
+class LayerInterface;
+class LayerRoughness;
+class MesoCrystal;
+class MultiLayer;
+class OffSpecSimulation;
+class Particle;
+class ParticleComposition;
+class ParticleCoreShell;
+class ParticleDistribution;
+class ParticleLayout;
+class RectangularDetector;
+class ResolutionFunction2DGaussian;
+class RotationEuler;
 class RotationX;
 class RotationY;
 class RotationZ;
-class RotationEuler;
-//-
-class Instrument;
-class FitSuiteObjects;
-class FitObject;
-class GISASSimulation;
-class OffSpecSimulation;
-class IntensityNormalizer;
-class IntensityScaleAndShiftNormalizer;
-
-class BasicLattice;
+class SphericalDetector;
 class SquareLattice;
-class HexagonalLattice;
-
-class FTDistribution1DCauchy;
-class FTDistribution1DGauss;
-class FTDistribution1DGate;
-class FTDistribution1DTriangle;
-class FTDistribution1DCosine;
-class FTDistribution1DVoigt;
-
-class DistributionGate;
-class DistributionLorentz;
-class DistributionGaussian;
-class DistributionLogNormal;
-class DistributionCosine;
 
 //! Visitor interface to visit ISample objects.
 //! @ingroup samples_internal
@@ -160,52 +137,32 @@ public:
     INodeVisitor() : m_depth(0) {}
     virtual ~INodeVisitor(){}
 
-    // visiting methods (the order according to the hierarchy as reported by IDE)
-
-    virtual void visit(const INode*) {}
-
+    virtual void visit(const BasicLattice*) {}
     virtual void visit(const Beam*) {}
-
-    virtual void visit(const RectangularDetector*) {}
-    virtual void visit(const SphericalDetector*) {}
-    virtual void visit(const IsGISAXSDetector*) {}
-    virtual void visit(const ResolutionFunction2DGaussian*) {}
     virtual void visit(const ConvolutionDetectorResolution*) {}
-
-    virtual void visit(const ISample*) {}
-
-    virtual void visit(const IClusteredParticles*) {}
     virtual void visit(const Crystal*) {}
-
-    virtual void visit(const ILayout*) {}
-    virtual void visit(const ParticleLayout*) {}
-
-    virtual void visit(const Layer*) {}
-
-    virtual void visit(const LayerInterface*) {}
-
-    virtual void visit(const MultiLayer*) {}
-
-    virtual void visit(const IAbstractParticle*) {}
-    virtual void visit(const IParticle*) {}
-    virtual void visit(const Particle*) {}
-    virtual void visit(const ParticleDistribution*) {}
-    virtual void visit(const ParticleComposition*) {}
-    virtual void visit(const MesoCrystal*) {}
-    virtual void visit(const ParticleCoreShell*) {}
-
-    virtual void visit(const IFormFactor*) {}
-    virtual void visit(const IFormFactorBorn*) {}
-    virtual void visit(const IFormFactorDecorator*) {}
-
+    virtual void visit(const DistributionCosine*) {}
+    virtual void visit(const DistributionGate*) {}
+    virtual void visit(const DistributionGaussian*) {}
+    virtual void visit(const DistributionLogNormal*) {}
+    virtual void visit(const DistributionLorentz*) {}
+    virtual void visit(const FitObject*) {}
+    virtual void visit(const FitSuiteObjects*) {}
     virtual void visit(const FormFactorAnisoPyramid*) {}
     virtual void visit(const FormFactorBox*) {}
     virtual void visit(const FormFactorCone*) {}
     virtual void visit(const FormFactorCone6*) {}
-    virtual void visit(const FormFactorCuboctahedron*) {}
+    virtual void visit(const FormFactorCoreShell*) {}
     virtual void visit(const FormFactorCrystal*) {}
+    virtual void visit(const FormFactorCuboctahedron*) {}
     virtual void visit(const FormFactorCylinder*) {}
+    virtual void visit(const FormFactorDecoratorDebyeWaller*) {}
+    virtual void visit(const FormFactorDecoratorMaterial*) {}
+    virtual void visit(const FormFactorDecoratorPositionFactor*) {}
+    virtual void visit(const FormFactorDecoratorRotation*) {}
     virtual void visit(const FormFactorDodecahedron*) {}
+    virtual void visit(const FormFactorDWBA*) {}
+    virtual void visit(const FormFactorDWBAPol*) {}
     virtual void visit(const FormFactorEllipsoidalCylinder*) {}
     virtual void visit(const FormFactorFullSphere*) {}
     virtual void visit(const FormFactorFullSpheroid*) {}
@@ -227,16 +184,7 @@ public:
     virtual void visit(const FormFactorTruncatedCube*) {}
     virtual void visit(const FormFactorTruncatedSphere*) {}
     virtual void visit(const FormFactorTruncatedSpheroid*) {}
-
-    virtual void visit(const FormFactorCoreShell*) {}
-    virtual void visit(const FormFactorDWBA*) {}
-    virtual void visit(const FormFactorDWBAPol*) {}
     virtual void visit(const FormFactorWeighted*) {}
-    virtual void visit(const FormFactorDecoratorDebyeWaller*) {}
-    virtual void visit(const FormFactorDecoratorMaterial*) {}
-    virtual void visit(const FormFactorDecoratorPositionFactor*) {}
-    virtual void visit(const FormFactorDecoratorRotation*) {}
-
     virtual void visit(const FTDecayFunction1DCauchy*) {}
     virtual void visit(const FTDecayFunction1DGauss*) {}
     virtual void visit(const FTDecayFunction1DTriangle*) {}
@@ -244,54 +192,58 @@ public:
     virtual void visit(const FTDecayFunction2DCauchy*) {}
     virtual void visit(const FTDecayFunction2DGauss*) {}
     virtual void visit(const FTDecayFunction2DVoigt*) {}
-
+    virtual void visit(const FTDistribution1DCauchy*) {}
+    virtual void visit(const FTDistribution1DCosine*) {}
+    virtual void visit(const FTDistribution1DGate*) {}
+    virtual void visit(const FTDistribution1DGauss*) {}
+    virtual void visit(const FTDistribution1DTriangle*) {}
+    virtual void visit(const FTDistribution1DVoigt*) {}
     virtual void visit(const FTDistribution2DCauchy*) {}
-    virtual void visit(const FTDistribution2DGauss*) {}
-    virtual void visit(const FTDistribution2DGate*) {}
     virtual void visit(const FTDistribution2DCone*) {}
+    virtual void visit(const FTDistribution2DGate*) {}
+    virtual void visit(const FTDistribution2DGauss*) {}
     virtual void visit(const FTDistribution2DVoigt*) {}
-
+    virtual void visit(const GISASSimulation*) {}
+    virtual void visit(const HexagonalLattice*) {}
+    virtual void visit(const IAbstractParticle*) {}
+    virtual void visit(const IClusteredParticles*) {}
+    virtual void visit(const IFormFactor*) {}
+    virtual void visit(const IFormFactorBorn*) {}
+    virtual void visit(const IFormFactorDecorator*) {}
     virtual void visit(const IInterferenceFunction*) {}
+    virtual void visit(const ILayout*) {}
+    virtual void visit(const INode*) {}
+    virtual void visit(const Instrument*) {}
+    virtual void visit(const IntensityNormalizer*) {}
+    virtual void visit(const IntensityScaleAndShiftNormalizer*) {}
     virtual void visit(const InterferenceFunction1DLattice*) {}
-    virtual void visit(const InterferenceFunctionRadialParaCrystal*) {}
     virtual void visit(const InterferenceFunction2DLattice*) {}
     virtual void visit(const InterferenceFunction2DParaCrystal*) {}
     virtual void visit(const InterferenceFunctionNone*) {}
-
-    virtual void visit(const LayerRoughness*) {}
-
+    virtual void visit(const InterferenceFunctionRadialParaCrystal*) {}
+    virtual void visit(const IParticle*) {}
     virtual void visit(const IRotation*) {}
+    virtual void visit(const ISample*) {}
+    virtual void visit(const IsGISAXSDetector*) {}
+    virtual void visit(const Layer*) {}
+    virtual void visit(const LayerInterface*) {}
+    virtual void visit(const LayerRoughness*) {}
+    virtual void visit(const MesoCrystal*) {}
+    virtual void visit(const MultiLayer*) {}
+    virtual void visit(const OffSpecSimulation*) {}
+    virtual void visit(const Particle*) {}
+    virtual void visit(const ParticleComposition*) {}
+    virtual void visit(const ParticleCoreShell*) {}
+    virtual void visit(const ParticleDistribution*) {}
+    virtual void visit(const ParticleLayout*) {}
+    virtual void visit(const RectangularDetector*) {}
+    virtual void visit(const ResolutionFunction2DGaussian*) {}
+    virtual void visit(const RotationEuler*) {}
     virtual void visit(const RotationX*) {}
     virtual void visit(const RotationY*) {}
     virtual void visit(const RotationZ*) {}
-    virtual void visit(const RotationEuler*) {}
-
-    virtual void visit(const Instrument*) {}
-    virtual void visit(const FitSuiteObjects*) {}
-    virtual void visit(const FitObject*) {}
-
-    virtual void visit(const GISASSimulation*) {}
-    virtual void visit(const OffSpecSimulation*) {}
-
-    virtual void visit(const IntensityNormalizer*) {}
-    virtual void visit(const IntensityScaleAndShiftNormalizer*) {}
-
-    virtual void visit(const BasicLattice*) {}
+    virtual void visit(const SphericalDetector*) {}
     virtual void visit(const SquareLattice*) {}
-    virtual void visit(const HexagonalLattice*) {}
-
-    virtual void visit(const FTDistribution1DCauchy*) {}
-    virtual void visit(const FTDistribution1DGauss*) {}
-    virtual void visit(const FTDistribution1DGate*) {}
-    virtual void visit(const FTDistribution1DTriangle*) {}
-    virtual void visit(const FTDistribution1DCosine*) {}
-    virtual void visit(const FTDistribution1DVoigt*) {}
-
-    virtual void visit(const DistributionGate*) {}
-    virtual void visit(const DistributionLorentz*) {}
-    virtual void visit(const DistributionGaussian*) {}
-    virtual void visit(const DistributionLogNormal*) {}
-    virtual void visit(const DistributionCosine*) {}
 
     //! Returns depth of the visitor in the composite hierarchy
     int depth() const { return m_depth; }

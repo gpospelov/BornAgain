@@ -16,7 +16,7 @@
 #include "INode.h"
 #include "Exceptions.h"
 #include "NodeUtils.h"
-#include "SampleTreeIterator.h"
+#include "NodeIterator.h"
 #include "ISampleIteratorStrategy.h"
 #include "ParameterPool.h"
 #include <algorithm>

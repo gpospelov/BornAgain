@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "ISampleIteratorStrategy.h"
-#include "SampleTreeIterator.h"
+#include "NodeIterator.h"
 
 void VisitSampleTreePreorder(const INode& node, INodeVisitor& visitor)
 {

@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "NodeUtils.h"
-#include "SampleTreeIterator.h"
+#include "NodeIterator.h"
 #include "ISampleIteratorStrategy.h"
 #include "RealParameter.h"
 #include "ParameterPool.h"

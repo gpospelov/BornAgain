@@ -15,7 +15,7 @@
 
 #include "ISampleIteratorStrategy.h"
 #include "Exceptions.h"
-#include "SampleTreeIterator.h"
+#include "NodeIterator.h"
 
 SampleIteratorPreorderStrategy::SampleIteratorPreorderStrategy()
 {

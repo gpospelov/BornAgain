@@ -18,7 +18,7 @@
 
 void VisitSampleTreePreorder(const INode& node, INodeVisitor& visitor)
 {
-    SampleTreeIterator<SampleIteratorPreorderStrategy> it(&node);
+    NodeIterator<SampleIteratorPreorderStrategy> it(&node);
     it.first();
     while (!it.isDone()) {
         visitor.setDepth(it.depth());
@@ -30,7 +30,7 @@ void VisitSampleTreePreorder(const INode& node, INodeVisitor& visitor)
 
 void VisitSampleTreePostorder(const INode& node, INodeVisitor& visitor)
 {
-    SampleTreeIterator<SampleIteratorPostorderStrategy> it(&node);
+    NodeIterator<SampleIteratorPostorderStrategy> it(&node);
     it.first();
     while (!it.isDone()) {
         visitor.setDepth(it.depth());

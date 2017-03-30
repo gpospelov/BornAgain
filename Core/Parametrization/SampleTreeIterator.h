@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Scattering/SampleTreeIterator.h
-//! @brief     Defines classes IteratorState, IteratorMemento and SampleTreeIterator.
+//! @brief     Defines classes IteratorState, IteratorMemento and NodeIterator.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLETREEITERATOR_H
-#define SAMPLETREEITERATOR_H
+#ifndef NODEITERATOR_H
+#define NODEITERATOR_H
 
 #include "INode.h"
 #include <ostream>
@@ -82,11 +82,11 @@ protected:
 //! @ingroup samples_internal
 
 template <class Strategy>
-class BA_CORE_API_ SampleTreeIterator
+class BA_CORE_API_ NodeIterator
 {
 public:
-    SampleTreeIterator(const INode *root);
-    virtual ~SampleTreeIterator() {}
+    NodeIterator(const INode *root);
+    virtual ~NodeIterator() {}
 
     void first();
     void next();
@@ -100,39 +100,39 @@ protected:
 };
 
 template <class Strategy>
-inline SampleTreeIterator<Strategy>::SampleTreeIterator(const INode *root)
+inline NodeIterator<Strategy>::NodeIterator(const INode *root)
     : mp_root(root)
 {
 }
 
 template <class Strategy>
-inline void SampleTreeIterator<Strategy>::first()
+inline void NodeIterator<Strategy>::first()
 {
     m_memento_itor = m_strategy.first(mp_root);
 }
 
 template <class Strategy>
-inline void SampleTreeIterator<Strategy>::next()
+inline void NodeIterator<Strategy>::next()
 {
     m_strategy.next(m_memento_itor);
 }
 
 template <class Strategy>
-inline const INode *SampleTreeIterator<Strategy>::getCurrent()
+inline const INode *NodeIterator<Strategy>::getCurrent()
 {
     return m_memento_itor.getCurrent();
 }
 
 template <class Strategy>
-inline bool SampleTreeIterator<Strategy>::isDone() const
+inline bool NodeIterator<Strategy>::isDone() const
 {
     return m_memento_itor.size()==0;
 }
 
 template <class Strategy>
-inline size_t SampleTreeIterator<Strategy>::depth() const
+inline size_t NodeIterator<Strategy>::depth() const
 {
     return m_memento_itor.size();
 }
 
-#endif // SAMPLETREEITERATOR_H
+#endif // NODEITERATOR_H

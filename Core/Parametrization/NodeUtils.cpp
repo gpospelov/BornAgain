@@ -66,7 +66,7 @@ std::string NodeUtils::nodeToString(const INode& node)
 {
     std::ostringstream result;
 
-    SampleTreeIterator<SampleIteratorPreorderStrategy> it(&node);
+    NodeIterator<SampleIteratorPreorderStrategy> it(&node);
     it.first();
     while (!it.isDone()) {
         const INode *child = it.getCurrent();

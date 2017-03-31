@@ -230,7 +230,7 @@ void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* c
 void ParticleLayout::registerParticleDensity(bool make_registered)
 {
     if(make_registered) {
-        if(!getParameter(BornAgain::TotalParticleDensity))
+        if(!parameter(BornAgain::TotalParticleDensity))
             registerParameter(BornAgain::TotalParticleDensity, &m_total_particle_density);
     } else {
         removeParameter(BornAgain::TotalParticleDensity);

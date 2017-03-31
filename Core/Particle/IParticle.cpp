@@ -71,7 +71,7 @@ std::vector<const INode*> IParticle::getChildren() const
 void IParticle::registerAbundance(bool make_registered)
 {
     if(make_registered) {
-        if(!getParameter(BornAgain::Abundance))
+        if(!parameter(BornAgain::Abundance))
             registerParameter(BornAgain::Abundance, &m_abundance);
     } else {
         removeParameter(BornAgain::Abundance);
@@ -81,7 +81,7 @@ void IParticle::registerAbundance(bool make_registered)
 void IParticle::registerPosition(bool make_registered)
 {
     if(make_registered) {
-        if(!getParameter(BornAgain::PositionX)) {
+        if(!parameter(BornAgain::PositionX)) {
             registerParameter(BornAgain::PositionX, &m_position[0]).setUnit("nm");
             registerParameter(BornAgain::PositionY, &m_position[1]).setUnit("nm");
             registerParameter(BornAgain::PositionZ, &m_position[2]).setUnit("nm");

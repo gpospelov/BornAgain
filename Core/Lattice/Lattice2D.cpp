@@ -68,7 +68,7 @@ Lattice2D::Lattice2D(const Lattice2D& other)
 void Lattice2D::setRotationEnabled(bool enabled)
 {
     if(enabled) {
-        if(getParameter(BornAgain::Xi))
+        if(parameter(BornAgain::Xi))
             return;
 
         registerParameter(BornAgain::Xi, &m_xi).setUnit("rad");

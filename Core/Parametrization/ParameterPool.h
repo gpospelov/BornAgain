@@ -44,12 +44,12 @@ public:
 
     RealParameter& addParameter(RealParameter* par);
 
-    RealParameter* getParameter(const std::string& name);
+    RealParameter* parameter(const std::string& name);
 
-    const RealParameter* getParameter(const std::string& name) const;
+    const RealParameter* parameter(const std::string& name) const;
 
     //! Returns full vector of parameters.
-    const std::vector<RealParameter*> getParameters() const { return m_params; }
+    const std::vector<RealParameter*> parameters() const { return m_params; }
 
     std::vector<RealParameter*> getMatchedParameters(const std::string& wildcards) const;
     RealParameter* getUniqueMatch(const std::string& pattern) const;

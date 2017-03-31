@@ -1926,16 +1926,9 @@ class IParameterized(INamed):
     __swig_destroy__ = _libBornAgainCore.delete_IParameterized
     __del__ = lambda self: None
 
-    def getParameterPool(self):
-        """
-        getParameterPool(IParameterized self) -> ParameterPool
-
-        ParameterPool* IParameterized::getParameterPool() const
-
-        Returns pointer to the parameter pool. 
-
-        """
-        return _libBornAgainCore.IParameterized_getParameterPool(self)
+    def parameterPool(self):
+        """parameterPool(IParameterized self) -> ParameterPool"""
+        return _libBornAgainCore.IParameterized_parameterPool(self)
 
 
     def createParameterTree(self):
@@ -1982,16 +1975,9 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
 
 
-    def getParameter(self, name):
-        """
-        getParameter(IParameterized self, std::string const & name) -> RealParameter
-
-        RealParameter * IParameterized::getParameter(const std::string &name) const
-
-        Returns parameter with given 'name'. 
-
-        """
-        return _libBornAgainCore.IParameterized_getParameter(self, name)
+    def parameter(self, name):
+        """parameter(IParameterized self, std::string const & name) -> RealParameter"""
+        return _libBornAgainCore.IParameterized_parameter(self, name)
 
 
     def onChange(self):
@@ -23458,29 +23444,17 @@ class ParameterPool(ICloneable):
         return _libBornAgainCore.ParameterPool_addParameter(self, par)
 
 
-    def getParameter(self, *args):
+    def parameter(self, *args):
         """
-        getParameter(ParameterPool self, std::string const & name) -> RealParameter
-        getParameter(ParameterPool self, std::string const & name) -> RealParameter
-
-        const RealParameter * ParameterPool::getParameter(const std::string &name) const
-
-        Returns parameter with given  name. 
-
+        parameter(ParameterPool self, std::string const & name) -> RealParameter
+        parameter(ParameterPool self, std::string const & name) -> RealParameter
         """
-        return _libBornAgainCore.ParameterPool_getParameter(self, *args)
+        return _libBornAgainCore.ParameterPool_parameter(self, *args)
 
 
-    def getParameters(self):
-        """
-        getParameters(ParameterPool self) -> std::vector< RealParameter *,std::allocator< RealParameter * > > const
-
-        const std::vector<RealParameter*> ParameterPool::getParameters() const
-
-        Returns full vector of parameters. 
-
-        """
-        return _libBornAgainCore.ParameterPool_getParameters(self)
+    def parameters(self):
+        """parameters(ParameterPool self) -> std::vector< RealParameter *,std::allocator< RealParameter * > > const"""
+        return _libBornAgainCore.ParameterPool_parameters(self)
 
 
     def getMatchedParameters(self, wildcards):

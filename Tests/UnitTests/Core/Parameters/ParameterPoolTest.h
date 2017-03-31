@@ -31,11 +31,11 @@ TEST_F(ParameterPoolTest, addParameter)
     EXPECT_THROW(pool.addParameter(rp1), Exceptions::RuntimeErrorException);
 
     // getting parameters
-    EXPECT_EQ(pool.getParameter("rp1"), rp1);
-    EXPECT_EQ(pool.getParameter("rp2"), rp2);
+    EXPECT_EQ(pool.parameter("rp1"), rp1);
+    EXPECT_EQ(pool.parameter("rp2"), rp2);
 
     // getting non-existing parameters
-    EXPECT_EQ(pool.getParameter("rp3"), nullptr);
+    EXPECT_EQ(pool.parameter("rp3"), nullptr);
 
     // vector of parameter names
     std::vector<std::string> names{"rp1","rp2"};
@@ -110,9 +110,9 @@ TEST_F(ParameterPoolTest, clone)
     delete pool;
 
     EXPECT_EQ(clone->size(), 3u);
-    EXPECT_EQ(double(1.0), clone->getParameter("par1")->getValue());
-    EXPECT_EQ(double(2.0), clone->getParameter("xxx")->getValue());
-    EXPECT_EQ(double(3.0), clone->getParameter("par3")->getValue());
+    EXPECT_EQ(double(1.0), clone->parameter("par1")->getValue());
+    EXPECT_EQ(double(2.0), clone->parameter("xxx")->getValue());
+    EXPECT_EQ(double(3.0), clone->parameter("par3")->getValue());
 }
 
 TEST_F(ParameterPoolTest, copyToExternalPool)
@@ -130,9 +130,9 @@ TEST_F(ParameterPoolTest, copyToExternalPool)
     delete pool;
 
     EXPECT_EQ(externalPool.size(), 3u);
-    EXPECT_EQ(double(1.0), externalPool.getParameter("prefix/par1")->getValue());
-    EXPECT_EQ(double(2.0), externalPool.getParameter("prefix/par2")->getValue());
-    EXPECT_EQ(double(3.0), externalPool.getParameter("par3")->getValue());
+    EXPECT_EQ(double(1.0), externalPool.parameter("prefix/par1")->getValue());
+    EXPECT_EQ(double(2.0), externalPool.parameter("prefix/par2")->getValue());
+    EXPECT_EQ(double(3.0), externalPool.parameter("par3")->getValue());
 
     std::vector<std::string> names{"par3", "prefix/par1", "prefix/par2"};
     EXPECT_EQ(externalPool.parameterNames(), names);
@@ -146,9 +146,9 @@ TEST_F(ParameterPoolTest, removeParameter)
     pool.addParameter(new RealParameter("par2", &par2));
     EXPECT_EQ(pool.size(), 2u);
 
-    EXPECT_FALSE(pool.getParameter("par1") == nullptr);
+    EXPECT_FALSE(pool.parameter("par1") == nullptr);
     pool.removeParameter("par1");
     EXPECT_EQ(pool.size(), 1u);
-    EXPECT_TRUE(pool.getParameter("par1") == nullptr);
+    EXPECT_TRUE(pool.parameter("par1") == nullptr);
 }
 

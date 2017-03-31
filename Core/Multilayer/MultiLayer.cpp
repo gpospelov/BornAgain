@@ -37,7 +37,7 @@ MultiLayer::~MultiLayer()
 
 void MultiLayer::init_parameters()
 {
-    getParameterPool()->clear(); // non-trivially needed
+    parameterPool()->clear(); // non-trivially needed
     registerParameter(BornAgain::CrossCorrelationLength, &m_crossCorrLength).
         setUnit("nm").setNonnegative();
 }

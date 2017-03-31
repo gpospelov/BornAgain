@@ -37,7 +37,7 @@ namespace {
     std::string poolToString(const INode &node) {
         std::ostringstream result;
 
-        const std::vector<RealParameter*> pars = node.getParameterPool()->getParameters();
+        const std::vector<RealParameter*> pars = node.parameterPool()->parameters();
         if (pars.empty())
             return {};
 

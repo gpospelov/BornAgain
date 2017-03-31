@@ -16,7 +16,10 @@ class ParameterPoolTest(unittest.TestCase):
         particle.setAbundance(1.0)
         particle.setPosition(2.0, 3.0, 4.0)
 
-        pool = particle.getParameterPool()
+        # print(particle.parametersToString())
+        # print(particle.treeToString())
+
+        pool = particle.parameterPool()
         self.assertEqual(pool.size(), 4)
         self.assertEqual(pool.parameterNames(), ('Abundance', 'PositionX', 'PositionY', 'PositionZ'))
 
@@ -34,10 +37,10 @@ class ParameterPoolTest(unittest.TestCase):
         particle.setAbundance(1.0)
         particle.setPosition(2.0, 3.0, 4.0)
 
-        pool = particle.getParameterPool()
+        pool = particle.parameterPool()
         pool.setParameterValue('Abundance', 10.0)
         pool[1].setValue(20.0)  # PositionX
-        pool.getParameter('PositionY').setValue(30.0)
+        pool.parameter('PositionY').setValue(30.0)
 
         expected = {'Abundance': 10.0, 'PositionX': 20.0, 'PositionY': 30.0, 'PositionZ': 4.0}
 
@@ -54,9 +57,6 @@ class ParameterPoolTest(unittest.TestCase):
         particle.setAbundance(1.0)
         particle.setPosition(2.0, 3.0, 4.0)
 
-        # print(particle.parametersToString())
-        # print(particle.treeToString())
-
         pool = particle.createParameterTree()
 
         expected = {'/Particle/Abundance': 1.0, '/Particle/PositionX': 2.0,
@@ -68,8 +68,7 @@ class ParameterPoolTest(unittest.TestCase):
 
     def test_parameterTreeModify(self):
         """
-        Checks values in particle's parameter tree. Parameter tree is a pool with parameters of
-        particle and its children (in given case, formfactor of cylinder)
+        Modifies values of particle's parameter tree.
         """
         ff = ba.FormFactorCylinder(5*nm, 6*nm)
         particle = ba.Particle(ba.HomogeneousMaterial("Air", 0.0, 0.0), ff)
@@ -82,7 +81,7 @@ class ParameterPoolTest(unittest.TestCase):
         pool = particle.createParameterTree()
         pool.setParameterValue('/Particle/Abundance', 10.0)
         pool[1].setValue(20.0)  # PositionX
-        pool.getParameter('/Particle/PositionY').setValue(30.0)
+        pool.parameter('/Particle/PositionY').setValue(30.0)
         pool.setMatchedParametersValue('*Cylinder*', 50.0)
 
         expected = {'/Particle/Abundance': 10.0, '/Particle/PositionX': 20.0,
@@ -91,6 +90,22 @@ class ParameterPoolTest(unittest.TestCase):
 
         for par in pool:
             self.assertEqual(par.getValue(), expected[par.getName()])
+
+    def test_parameterModify(self):
+        """
+        Modification of particle's parameters without intermediate access to parameter pool
+        """
+        ff = ba.FormFactorCylinder(5*nm, 6*nm)
+        particle = ba.Particle(ba.HomogeneousMaterial("Air", 0.0, 0.0), ff)
+        particle.setAbundance(1.0)
+        particle.setPosition(2.0, 3.0, 4.0)
+
+        particle.setParameterValue('/Particle/Abundance', 10.0)
+        particle.setParameterValue('PositionZ', 40.0)
+        particle.setParameterValue('*Cylinder*', 50.0)
+
+        self.assertEqual(particle.abundance(), 10.0)
+        self.assertEqual(particle.position().z(), 40.0)
 
 
 if __name__ == '__main__':

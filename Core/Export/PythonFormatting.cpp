@@ -224,7 +224,7 @@ std::string valueTimesUnit(const RealParameter* par)
 std::string argumentList(const IParameterized* ip)
 {
     std::vector<std::string> args;
-    for(const auto* par: ip->getParameterPool()->getParameters())
+    for(const auto* par: ip->parameterPool()->parameters())
         args.push_back( valueTimesUnit(par) );
     return StringUtils::join( args, ", " );
 }

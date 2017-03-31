@@ -81,7 +81,7 @@ void ParameterPool::copyToExternalPool(const std::string& prefix, ParameterPool*
 
 //! Returns parameter with given _name_.
 
-const RealParameter* ParameterPool::getParameter(const std::string& name) const
+const RealParameter* ParameterPool::parameter(const std::string& name) const
 {
     for (const auto* par: m_params )
         if( par->getName()==name )
@@ -92,10 +92,10 @@ const RealParameter* ParameterPool::getParameter(const std::string& name) const
 
 //! Returns parameter with given _name_.
 
-RealParameter* ParameterPool::getParameter(const std::string& name)
+RealParameter* ParameterPool::parameter(const std::string& name)
 {
     return const_cast<RealParameter *>(
-                static_cast<const ParameterPool *>(this)->getParameter(name));
+                static_cast<const ParameterPool *>(this)->parameter(name));
 }
 
 //! Returns nonempty vector of parameters that match the _pattern_ ('*' allowed), or throws.
@@ -130,7 +130,7 @@ RealParameter* ParameterPool::getUniqueMatch(const std::string& pattern) const
 
 void ParameterPool::setParameterValue(const std::string& name, double value)
 {
-    if(RealParameter* par = getParameter(name)) {
+    if(RealParameter* par = parameter(name)) {
         try {
             par->setValue(value);
         } catch (std::runtime_error) {
@@ -183,7 +183,7 @@ std::vector<std::string> ParameterPool::parameterNames() const
 
 void ParameterPool::removeParameter(const std::string& name)
 {
-    if(RealParameter *par = getParameter(name)) {
+    if(RealParameter *par = parameter(name)) {
         m_params.erase(std::remove(m_params.begin(), m_params.end(), par), m_params.end());
         delete par;
     }
@@ -224,7 +224,7 @@ void ParameterPool::report_set_value_error(const std::string& parname, double va
     std::ostringstream ostr;
     ostr << "ParameterPool::set_value_error() -> Attempt to set value " << value;
     ostr << " for parameter '" << parname << "' failed. Out of bounds?";
-    ostr << " Parameter limits: '" << getParameter(parname)->getLimits() << "'.\n";
+    ostr << " Parameter limits: '" << parameter(parname)->getLimits() << "'.\n";
     throw Exceptions::RuntimeErrorException(ostr.str());
 }
 

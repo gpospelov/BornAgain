@@ -148,8 +148,8 @@ TEST_F(FTDistributionsTest, FTDistribution2DCauchyConstructor)
     std::unique_ptr<IFTDistribution2D> P_2d_cauchy { new FTDistribution2DCauchy(1.0,2.0) };
     EXPECT_EQ(1.0, P_2d_cauchy->getCoherenceLengthX());
     EXPECT_EQ(2.0, P_2d_cauchy->getCoherenceLengthY());
-    EXPECT_EQ(2.0, P_2d_cauchy->getParameter("CoherenceLengthY")->getValue());
-    EXPECT_EQ(0, P_2d_cauchy->getParameter("Gamma")->getValue());
+    EXPECT_EQ(2.0, P_2d_cauchy->parameter("CoherenceLengthY")->getValue());
+    EXPECT_EQ(0, P_2d_cauchy->parameter("Gamma")->getValue());
     EXPECT_EQ(M_PI/2.0, P_2d_cauchy->getDelta());
     EXPECT_EQ(0.0, P_2d_cauchy->getGamma());
     EXPECT_EQ(BornAgain::FTDistribution2DCauchyType, P_2d_cauchy->getName());
@@ -157,7 +157,7 @@ TEST_F(FTDistributionsTest, FTDistribution2DCauchyConstructor)
 
     P_2d_cauchy->setGamma(3.0);
     EXPECT_EQ(3.0, P_2d_cauchy->getGamma());
-    EXPECT_EQ(3.0, P_2d_cauchy->getParameter("Gamma")->getValue());
+    EXPECT_EQ(3.0, P_2d_cauchy->parameter("Gamma")->getValue());
 
     P_2d_cauchy->setParameterValue(BornAgain::CoherenceLengthX, 7.0);
     P_2d_cauchy->setParameterValue(BornAgain::CoherenceLengthY, 5.3);

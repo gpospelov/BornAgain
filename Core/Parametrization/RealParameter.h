@@ -43,10 +43,10 @@ public:
     void setValue(double value);
 
     //! Returns value of wrapped parameter
-    double getValue() const { return *m_data; }
+    double value() const { return *m_data; }
 
     RealParameter& setLimits(const RealLimits& limits) { m_limits = limits; return *this; }
-    RealLimits getLimits() const { return m_limits; }
+    RealLimits limits() const { return m_limits; }
 
     RealParameter& setLimited(double lower, double upper);
     RealParameter& setPositive();

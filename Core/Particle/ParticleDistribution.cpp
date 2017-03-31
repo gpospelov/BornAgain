@@ -55,13 +55,13 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
 {
     std::unique_ptr<ParameterPool> P_pool {mP_particle->createParameterTree()};
     std::string main_par_name = m_par_distribution.getMainParameterName();
-    double main_par_value = P_pool->getUniqueMatch(main_par_name)->getValue();
+    double main_par_value = P_pool->getUniqueMatch(main_par_name)->value();
 
     // Preset link ratios:
     std::map<std::string, double> linked_ratios;
     for (const std::string& name: m_par_distribution.getLinkedParameterNames())
         linked_ratios[name] = main_par_value == 0 ? 1.0 :
-            P_pool->getUniqueMatch(name)->getValue() / main_par_value;
+            P_pool->getUniqueMatch(name)->value() / main_par_value;
 
     // Draw distribution samples; for each sample, create one particle clone:
     std::vector<ParameterSample> main_par_samples = m_par_distribution.generateSamples();

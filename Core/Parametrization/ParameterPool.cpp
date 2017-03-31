@@ -203,7 +203,7 @@ RealParameter* ParameterPool::operator[](size_t index)
 void ParameterPool::print(std::ostream& ostr) const
 {
     for (const auto* par: m_params)
-        ostr << "'" << par->getName() << "'" << ":" << par->getValue() << "\n";
+        ostr << "'" << par->getName() << "'" << ":" << par->value() << "\n";
 }
 
 //! reports error while finding parameters matching given name.
@@ -224,7 +224,7 @@ void ParameterPool::report_set_value_error(const std::string& parname, double va
     std::ostringstream ostr;
     ostr << "ParameterPool::set_value_error() -> Attempt to set value " << value;
     ostr << " for parameter '" << parname << "' failed. Out of bounds?";
-    ostr << " Parameter limits: '" << parameter(parname)->getLimits() << "'.\n";
+    ostr << " Parameter limits: '" << parameter(parname)->limits() << "'.\n";
     throw Exceptions::RuntimeErrorException(ostr.str());
 }
 

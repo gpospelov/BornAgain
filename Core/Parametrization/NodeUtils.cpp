@@ -44,7 +44,7 @@ namespace {
         result << " (";
         size_t index(0);
         for (auto par : pars) {
-            result << "'" << par->getName() << "':" << par->getValue();
+            result << "'" << par->getName() << "':" << par->value();
             ++index;
             if (index!=pars.size())
                 result << " ";

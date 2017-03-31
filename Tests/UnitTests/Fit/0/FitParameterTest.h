@@ -66,14 +66,14 @@ TEST_F(FitParameterTest, addParameter)
     linked.setValue(newValue);
     EXPECT_EQ(linked.value(), newValue);
 
-    EXPECT_EQ(obj1.parameter("par1")->getValue(), newValue);
+    EXPECT_EQ(obj1.parameter("par1")->value(), newValue);
     EXPECT_EQ(obj1.m_par1, newValue);
-    EXPECT_EQ(obj1.parameter("par2")->getValue(), 2.0);
+    EXPECT_EQ(obj1.parameter("par2")->value(), 2.0);
     EXPECT_EQ(obj1.m_par2, 2.0);
 
-    EXPECT_EQ(obj2.parameter("par1")->getValue(), 3.0);
+    EXPECT_EQ(obj2.parameter("par1")->value(), 3.0);
     EXPECT_EQ(obj2.m_par1, 3.0);
-    EXPECT_EQ(obj2.parameter("par2")->getValue(), newValue);
+    EXPECT_EQ(obj2.parameter("par2")->value(), newValue);
     EXPECT_EQ(obj2.m_par2, newValue);
 }
 

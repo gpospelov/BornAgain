@@ -25,8 +25,8 @@ class ParameterPoolTest(unittest.TestCase):
 
         expected = {'Abundance': 1.0, 'PositionX': 2.0, 'PositionY': 3.0, 'PositionZ': 4.0}
         for par in pool:
-            print(par.getValue(), par.getName(), par.getLimits().toString())
-            self.assertEqual(par.getValue(), expected[par.getName()])
+            print(par.value(), par.getName(), par.limits().toString())
+            self.assertEqual(par.value(), expected[par.getName()])
 
     def test_parameterPoolModify(self):
         """
@@ -45,7 +45,7 @@ class ParameterPoolTest(unittest.TestCase):
         expected = {'Abundance': 10.0, 'PositionX': 20.0, 'PositionY': 30.0, 'PositionZ': 4.0}
 
         for par in pool:
-            self.assertEqual(par.getValue(), expected[par.getName()])
+            self.assertEqual(par.value(), expected[par.getName()])
 
     def test_parameterTreeAccess(self):
         """
@@ -64,7 +64,7 @@ class ParameterPoolTest(unittest.TestCase):
                     '/Particle/Cylinder/Radius': 5.0, '/Particle/Cylinder/Height': 6.0}
 
         for par in pool:
-            self.assertEqual(par.getValue(), expected[par.getName()])
+            self.assertEqual(par.value(), expected[par.getName()])
 
     def test_parameterTreeModify(self):
         """
@@ -89,7 +89,7 @@ class ParameterPoolTest(unittest.TestCase):
                     '/Particle/Cylinder/Radius': 50.0, '/Particle/Cylinder/Height': 50.0}
 
         for par in pool:
-            self.assertEqual(par.getValue(), expected[par.getName()])
+            self.assertEqual(par.value(), expected[par.getName()])
 
     def test_parameterModify(self):
         """

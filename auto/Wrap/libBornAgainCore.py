@@ -24678,16 +24678,9 @@ class RealParameter(IParameterReal):
         return _libBornAgainCore.RealParameter_setValue(self, value)
 
 
-    def getValue(self):
-        """
-        getValue(RealParameter self) -> double
-
-        double RealParameter::getValue() const
-
-        Returns value of wrapped parameter. 
-
-        """
-        return _libBornAgainCore.RealParameter_getValue(self)
+    def value(self):
+        """value(RealParameter self) -> double"""
+        return _libBornAgainCore.RealParameter_value(self)
 
 
     def setLimits(self, limits):
@@ -24700,14 +24693,9 @@ class RealParameter(IParameterReal):
         return _libBornAgainCore.RealParameter_setLimits(self, limits)
 
 
-    def getLimits(self):
-        """
-        getLimits(RealParameter self) -> RealLimits
-
-        RealLimits RealParameter::getLimits() const 
-
-        """
-        return _libBornAgainCore.RealParameter_getLimits(self)
+    def limits(self):
+        """limits(RealParameter self) -> RealLimits"""
+        return _libBornAgainCore.RealParameter_limits(self)
 
 
     def setLimited(self, lower, upper):

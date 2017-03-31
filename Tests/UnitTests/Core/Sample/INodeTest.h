@@ -148,7 +148,7 @@ TEST_F(INodeTest, createParameterTree)
 
     std::unique_ptr<ParameterPool> pool(root.createParameterTree());
     EXPECT_EQ(pool->size(), 1u);
-    EXPECT_EQ(pool->parameter("/root/par1")->getValue(), test_par1_value);
+    EXPECT_EQ(pool->parameter("/root/par1")->value(), test_par1_value);
 
     // adding first child
     INodeTest::TestClass *child0 = new INodeTest::TestClass("child", 99.0);
@@ -156,8 +156,8 @@ TEST_F(INodeTest, createParameterTree)
     pool.reset(root.createParameterTree());
 
     EXPECT_EQ(pool->size(), 2u);
-    EXPECT_EQ(pool->parameter("/root/par1")->getValue(), test_par1_value);
-    EXPECT_EQ(pool->parameter("/root/child/par1")->getValue(), 99.0);
+    EXPECT_EQ(pool->parameter("/root/par1")->value(), test_par1_value);
+    EXPECT_EQ(pool->parameter("/root/child/par1")->value(), 99.0);
 }
 
 //! Checking parameter tree for INode structure (for one of children).
@@ -176,8 +176,8 @@ TEST_F(INodeTest, createChildParameterTree)
 
     std::unique_ptr<ParameterPool> pool(grand->createParameterTree());
     EXPECT_EQ(pool->size(), 2u);
-    EXPECT_EQ(pool->parameter("/grand/par1")->getValue(), 2.0);
-    EXPECT_EQ(pool->parameter("/grand/grandgrand/par1")->getValue(), 3.0);
+    EXPECT_EQ(pool->parameter("/grand/par1")->value(), 2.0);
+    EXPECT_EQ(pool->parameter("/grand/grandgrand/par1")->value(), 3.0);
 }
 
 #endif // INODETEST_H

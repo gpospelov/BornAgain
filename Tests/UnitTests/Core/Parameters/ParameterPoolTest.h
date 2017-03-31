@@ -110,9 +110,9 @@ TEST_F(ParameterPoolTest, clone)
     delete pool;
 
     EXPECT_EQ(clone->size(), 3u);
-    EXPECT_EQ(double(1.0), clone->parameter("par1")->getValue());
-    EXPECT_EQ(double(2.0), clone->parameter("xxx")->getValue());
-    EXPECT_EQ(double(3.0), clone->parameter("par3")->getValue());
+    EXPECT_EQ(double(1.0), clone->parameter("par1")->value());
+    EXPECT_EQ(double(2.0), clone->parameter("xxx")->value());
+    EXPECT_EQ(double(3.0), clone->parameter("par3")->value());
 }
 
 TEST_F(ParameterPoolTest, copyToExternalPool)
@@ -130,9 +130,9 @@ TEST_F(ParameterPoolTest, copyToExternalPool)
     delete pool;
 
     EXPECT_EQ(externalPool.size(), 3u);
-    EXPECT_EQ(double(1.0), externalPool.parameter("prefix/par1")->getValue());
-    EXPECT_EQ(double(2.0), externalPool.parameter("prefix/par2")->getValue());
-    EXPECT_EQ(double(3.0), externalPool.parameter("par3")->getValue());
+    EXPECT_EQ(double(1.0), externalPool.parameter("prefix/par1")->value());
+    EXPECT_EQ(double(2.0), externalPool.parameter("prefix/par2")->value());
+    EXPECT_EQ(double(3.0), externalPool.parameter("par3")->value());
 
     std::vector<std::string> names{"par3", "prefix/par1", "prefix/par2"};
     EXPECT_EQ(externalPool.parameterNames(), names);

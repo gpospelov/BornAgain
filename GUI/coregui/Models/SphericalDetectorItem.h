@@ -26,7 +26,7 @@ public:
     static const QString P_ALPHA_AXIS;
     SphericalDetectorItem();
 
-    void setSize(int nx, int ny);
+    void setSize(int nx, int ny) override;
 
 protected:
     std::unique_ptr<IDetector2D> createDomainDetector() const override;

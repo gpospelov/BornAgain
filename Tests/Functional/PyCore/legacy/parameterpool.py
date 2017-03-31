@@ -1,8 +1,8 @@
 import numpy, os, sys, unittest
-import bornagain as ba
-from bornagain import nm
 
 sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
+import bornagain as ba
+from bornagain import nm
 
 
 class ParameterPoolTest(unittest.TestCase):

@@ -189,6 +189,17 @@ void ParameterPool::removeParameter(const std::string& name)
     }
 }
 
+const RealParameter* ParameterPool::operator[](size_t index) const
+{
+    return m_params[check_index(index)];
+}
+
+RealParameter* ParameterPool::operator[](size_t index)
+{
+    return const_cast<RealParameter*>(static_cast<const ParameterPool*>(this)
+                                      ->operator[](index));
+}
+
 void ParameterPool::print(std::ostream& ostr) const
 {
     for (const auto* par: m_params)
@@ -215,4 +226,11 @@ void ParameterPool::report_set_value_error(const std::string& parname, double va
     ostr << " for parameter '" << parname << "' failed. Out of bounds?";
     ostr << " Parameter limits: '" << getParameter(parname)->getLimits() << "'.\n";
     throw Exceptions::RuntimeErrorException(ostr.str());
+}
+
+size_t ParameterPool::check_index(size_t index) const
+{
+    if (index >= m_params.size())
+        throw std::runtime_error("ParameterPool::check_index() -> Error. Index out of bounds");
+    return index;
 }

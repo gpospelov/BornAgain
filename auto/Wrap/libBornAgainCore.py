@@ -207,6 +207,26 @@ SwigPyIterator_swigregister(SwigPyIterator)
 
 _libBornAgainCore.SHARED_PTR_DISOWN_swigconstant(_libBornAgainCore)
 SHARED_PTR_DISOWN = _libBornAgainCore.SHARED_PTR_DISOWN
+
+class ParameterPoolIterator(object):
+
+    def __init__(self, pool):
+        self.pool = pool
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.index += 1
+        if self.index < self.pool.size():
+            return self.pool[self.index]
+        else:
+            raise StopIteration
+
+    def __next__(self):
+        return self.next()
+
 class vdouble1d_t(_object):
     """Proxy of C++ std::vector<(double)> class."""
 
@@ -7382,39 +7402,32 @@ class INodeVisitor(_object):
 
     def visit(self, *args):
         """
-        visit(INodeVisitor self, INode arg2)
+        visit(INodeVisitor self, BasicLattice arg2)
         visit(INodeVisitor self, Beam arg2)
-        visit(INodeVisitor self, RectangularDetector arg2)
-        visit(INodeVisitor self, SphericalDetector arg2)
-        visit(INodeVisitor self, IsGISAXSDetector arg2)
-        visit(INodeVisitor self, ResolutionFunction2DGaussian arg2)
         visit(INodeVisitor self, ConvolutionDetectorResolution const * arg2)
-        visit(INodeVisitor self, ISample arg2)
-        visit(INodeVisitor self, IClusteredParticles arg2)
         visit(INodeVisitor self, Crystal arg2)
-        visit(INodeVisitor self, ILayout arg2)
-        visit(INodeVisitor self, ParticleLayout arg2)
-        visit(INodeVisitor self, Layer arg2)
-        visit(INodeVisitor self, LayerInterface const * arg2)
-        visit(INodeVisitor self, MultiLayer arg2)
-        visit(INodeVisitor self, IAbstractParticle arg2)
-        visit(INodeVisitor self, IParticle arg2)
-        visit(INodeVisitor self, Particle arg2)
-        visit(INodeVisitor self, ParticleDistribution arg2)
-        visit(INodeVisitor self, ParticleComposition arg2)
-        visit(INodeVisitor self, MesoCrystal arg2)
-        visit(INodeVisitor self, ParticleCoreShell arg2)
-        visit(INodeVisitor self, IFormFactor arg2)
-        visit(INodeVisitor self, IFormFactorBorn arg2)
-        visit(INodeVisitor self, IFormFactorDecorator arg2)
+        visit(INodeVisitor self, DistributionCosine arg2)
+        visit(INodeVisitor self, DistributionGate arg2)
+        visit(INodeVisitor self, DistributionGaussian arg2)
+        visit(INodeVisitor self, DistributionLogNormal arg2)
+        visit(INodeVisitor self, DistributionLorentz arg2)
+        visit(INodeVisitor self, FitObject arg2)
+        visit(INodeVisitor self, FitSuiteObjects arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
         visit(INodeVisitor self, FormFactorBox arg2)
         visit(INodeVisitor self, FormFactorCone arg2)
         visit(INodeVisitor self, FormFactorCone6 arg2)
-        visit(INodeVisitor self, FormFactorCuboctahedron arg2)
+        visit(INodeVisitor self, FormFactorCoreShell const * arg2)
         visit(INodeVisitor self, FormFactorCrystal arg2)
+        visit(INodeVisitor self, FormFactorCuboctahedron arg2)
         visit(INodeVisitor self, FormFactorCylinder arg2)
+        visit(INodeVisitor self, FormFactorDecoratorDebyeWaller arg2)
+        visit(INodeVisitor self, FormFactorDecoratorMaterial const * arg2)
+        visit(INodeVisitor self, FormFactorDecoratorPositionFactor const * arg2)
+        visit(INodeVisitor self, FormFactorDecoratorRotation const * arg2)
         visit(INodeVisitor self, FormFactorDodecahedron arg2)
+        visit(INodeVisitor self, FormFactorDWBA const * arg2)
+        visit(INodeVisitor self, FormFactorDWBAPol const * arg2)
         visit(INodeVisitor self, FormFactorEllipsoidalCylinder arg2)
         visit(INodeVisitor self, FormFactorFullSphere arg2)
         visit(INodeVisitor self, FormFactorFullSpheroid arg2)
@@ -7436,14 +7449,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, FormFactorTruncatedCube arg2)
         visit(INodeVisitor self, FormFactorTruncatedSphere arg2)
         visit(INodeVisitor self, FormFactorTruncatedSpheroid arg2)
-        visit(INodeVisitor self, FormFactorCoreShell const * arg2)
-        visit(INodeVisitor self, FormFactorDWBA const * arg2)
-        visit(INodeVisitor self, FormFactorDWBAPol const * arg2)
         visit(INodeVisitor self, FormFactorWeighted arg2)
-        visit(INodeVisitor self, FormFactorDecoratorDebyeWaller arg2)
-        visit(INodeVisitor self, FormFactorDecoratorMaterial const * arg2)
-        visit(INodeVisitor self, FormFactorDecoratorPositionFactor const * arg2)
-        visit(INodeVisitor self, FormFactorDecoratorRotation const * arg2)
         visit(INodeVisitor self, FTDecayFunction1DCauchy arg2)
         visit(INodeVisitor self, FTDecayFunction1DGauss arg2)
         visit(INodeVisitor self, FTDecayFunction1DTriangle arg2)
@@ -7451,44 +7457,58 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, FTDecayFunction2DCauchy arg2)
         visit(INodeVisitor self, FTDecayFunction2DGauss arg2)
         visit(INodeVisitor self, FTDecayFunction2DVoigt arg2)
+        visit(INodeVisitor self, FTDistribution1DCauchy arg2)
+        visit(INodeVisitor self, FTDistribution1DCosine arg2)
+        visit(INodeVisitor self, FTDistribution1DGate arg2)
+        visit(INodeVisitor self, FTDistribution1DGauss arg2)
+        visit(INodeVisitor self, FTDistribution1DTriangle arg2)
+        visit(INodeVisitor self, FTDistribution1DVoigt arg2)
         visit(INodeVisitor self, FTDistribution2DCauchy arg2)
-        visit(INodeVisitor self, FTDistribution2DGauss arg2)
-        visit(INodeVisitor self, FTDistribution2DGate arg2)
         visit(INodeVisitor self, FTDistribution2DCone arg2)
+        visit(INodeVisitor self, FTDistribution2DGate arg2)
+        visit(INodeVisitor self, FTDistribution2DGauss arg2)
         visit(INodeVisitor self, FTDistribution2DVoigt arg2)
+        visit(INodeVisitor self, GISASSimulation arg2)
+        visit(INodeVisitor self, HexagonalLattice arg2)
+        visit(INodeVisitor self, IAbstractParticle arg2)
+        visit(INodeVisitor self, IClusteredParticles arg2)
+        visit(INodeVisitor self, IFormFactor arg2)
+        visit(INodeVisitor self, IFormFactorBorn arg2)
+        visit(INodeVisitor self, IFormFactorDecorator arg2)
         visit(INodeVisitor self, IInterferenceFunction arg2)
+        visit(INodeVisitor self, ILayout arg2)
+        visit(INodeVisitor self, INode arg2)
+        visit(INodeVisitor self, Instrument arg2)
+        visit(INodeVisitor self, IntensityNormalizer arg2)
+        visit(INodeVisitor self, IntensityScaleAndShiftNormalizer arg2)
         visit(INodeVisitor self, InterferenceFunction1DLattice arg2)
-        visit(INodeVisitor self, InterferenceFunctionRadialParaCrystal arg2)
         visit(INodeVisitor self, InterferenceFunction2DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DParaCrystal arg2)
         visit(INodeVisitor self, InterferenceFunctionNone arg2)
-        visit(INodeVisitor self, LayerRoughness arg2)
+        visit(INodeVisitor self, InterferenceFunctionRadialParaCrystal arg2)
+        visit(INodeVisitor self, IParticle arg2)
         visit(INodeVisitor self, IRotation arg2)
+        visit(INodeVisitor self, ISample arg2)
+        visit(INodeVisitor self, IsGISAXSDetector arg2)
+        visit(INodeVisitor self, Layer arg2)
+        visit(INodeVisitor self, LayerInterface const * arg2)
+        visit(INodeVisitor self, LayerRoughness arg2)
+        visit(INodeVisitor self, MesoCrystal arg2)
+        visit(INodeVisitor self, MultiLayer arg2)
+        visit(INodeVisitor self, OffSpecSimulation arg2)
+        visit(INodeVisitor self, Particle arg2)
+        visit(INodeVisitor self, ParticleComposition arg2)
+        visit(INodeVisitor self, ParticleCoreShell arg2)
+        visit(INodeVisitor self, ParticleDistribution arg2)
+        visit(INodeVisitor self, ParticleLayout arg2)
+        visit(INodeVisitor self, RectangularDetector arg2)
+        visit(INodeVisitor self, ResolutionFunction2DGaussian arg2)
+        visit(INodeVisitor self, RotationEuler arg2)
         visit(INodeVisitor self, RotationX arg2)
         visit(INodeVisitor self, RotationY arg2)
         visit(INodeVisitor self, RotationZ arg2)
-        visit(INodeVisitor self, RotationEuler arg2)
-        visit(INodeVisitor self, Instrument arg2)
-        visit(INodeVisitor self, FitSuiteObjects arg2)
-        visit(INodeVisitor self, FitObject arg2)
-        visit(INodeVisitor self, GISASSimulation arg2)
-        visit(INodeVisitor self, OffSpecSimulation arg2)
-        visit(INodeVisitor self, IntensityNormalizer arg2)
-        visit(INodeVisitor self, IntensityScaleAndShiftNormalizer arg2)
-        visit(INodeVisitor self, BasicLattice arg2)
+        visit(INodeVisitor self, SphericalDetector arg2)
         visit(INodeVisitor self, SquareLattice arg2)
-        visit(INodeVisitor self, HexagonalLattice arg2)
-        visit(INodeVisitor self, FTDistribution1DCauchy arg2)
-        visit(INodeVisitor self, FTDistribution1DGauss arg2)
-        visit(INodeVisitor self, FTDistribution1DGate arg2)
-        visit(INodeVisitor self, FTDistribution1DTriangle arg2)
-        visit(INodeVisitor self, FTDistribution1DCosine arg2)
-        visit(INodeVisitor self, FTDistribution1DVoigt arg2)
-        visit(INodeVisitor self, DistributionGate arg2)
-        visit(INodeVisitor self, DistributionLorentz arg2)
-        visit(INodeVisitor self, DistributionGaussian arg2)
-        visit(INodeVisitor self, DistributionLogNormal arg2)
-        visit(INodeVisitor self, DistributionCosine arg2)
 
         virtual void INodeVisitor::visit(const DistributionCosine *)
 
@@ -7523,23 +7543,13 @@ INodeVisitor_swigregister = _libBornAgainCore.INodeVisitor_swigregister
 INodeVisitor_swigregister(INodeVisitor)
 
 
-def VisitSampleTreePreorder(node, visitor):
-    """
-    VisitSampleTreePreorder(INode node, INodeVisitor visitor)
+def VisitNodesPreorder(node, visitor):
+    """VisitNodesPreorder(INode node, INodeVisitor visitor)"""
+    return _libBornAgainCore.VisitNodesPreorder(node, visitor)
 
-    BA_CORE_API_ void VisitSampleTreePreorder(const INode &node, INodeVisitor &visitor)
-
-    """
-    return _libBornAgainCore.VisitSampleTreePreorder(node, visitor)
-
-def VisitSampleTreePostorder(node, visitor):
-    """
-    VisitSampleTreePostorder(INode node, INodeVisitor visitor)
-
-    BA_CORE_API_ void VisitSampleTreePostorder(const INode &node, INodeVisitor &visitor)
-
-    """
-    return _libBornAgainCore.VisitSampleTreePostorder(node, visitor)
+def VisitNodesPostorder(node, visitor):
+    """VisitNodesPostorder(INode node, INodeVisitor visitor)"""
+    return _libBornAgainCore.VisitNodesPostorder(node, visitor)
 class IClusteredParticles(ISample):
     """
 
@@ -23553,6 +23563,15 @@ class ParameterPool(ICloneable):
 
         """
         return _libBornAgainCore.ParameterPool_removeParameter(self, name)
+
+
+    def __getitem__(self, index):
+        """__getitem__(ParameterPool self, size_t index) -> RealParameter"""
+        return _libBornAgainCore.ParameterPool___getitem__(self, index)
+
+
+    def __iter__(self):
+        return ParameterPoolIterator(self)
 
 ParameterPool_swigregister = _libBornAgainCore.ParameterPool_swigregister
 ParameterPool_swigregister(ParameterPool)

@@ -68,7 +68,8 @@ public slots:
     void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
     void onRowsRemoved(const QModelIndex &parent, int first, int last);
 
-    void setLayerInterfaceLine(const QLineF &line=QLineF()) { m_layer_interface_line = line; }
+    void setLayerInterfaceLine(const QLineF &line=QLineF()) { m_layer_interface_line = line;
+                                                              invalidate(); }
 
     void deleteSelectedItems();
 

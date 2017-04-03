@@ -26,8 +26,6 @@ include_directories(
 
 add_executable(PyPersistenceTest RunPyPersistenceTest.cpp PyPersistenceTest.h PyPersistenceTest.cpp)
 target_link_libraries(PyPersistenceTest BornAgainCore BornAgainTestMachinery)
-foreach(example ${PY_EXAMPLES})
-endforeach()
 
 # lppt = legacy python persistence test:
 function(lppt example tolerance)

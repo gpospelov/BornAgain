@@ -194,6 +194,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "triangular ripple within the 1D-paracrystal model");
 
     registerItem(
+        "AsymRippleBuilder",
+        create_new<AsymRippleBuilder>,
+        "triangular ripple with asymetry within the 1D-paracrystal model");
+
+    registerItem(
         "CosineRippleBuilder",
         create_new<CosineRippleBuilder>,
         "cosine ripple within the 1D-paracrystal model");

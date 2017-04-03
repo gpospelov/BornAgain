@@ -47,6 +47,7 @@ set(test_cases
     SquareLattice
     TransformBox
     TriangularRipple
+    AsymRipple
     TwoTypesCylindersDistribution
     SphericalDetWithRoi
     RectDetWithRoi

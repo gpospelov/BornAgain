@@ -26,7 +26,6 @@
 #include <QStyleOptionGraphicsItem>
 
 
-
 MultiLayerView::MultiLayerView(QGraphicsItem* parent)
     : ILayerView(parent)
 {
@@ -40,6 +39,17 @@ MultiLayerView::MultiLayerView(QGraphicsItem* parent)
     updateGeometry();
 }
 
+QRectF MultiLayerView::boundingRect() const
+{
+    QRectF result = m_rect;
+    if (m_layers.size()) {
+        qreal toplayer_height = m_layers.front()->boundingRect().height();
+        qreal bottomlayer_height = m_layers.back()->boundingRect().height();
+        result.setTop(-toplayer_height/2.);
+        result.setHeight( m_rect.height() + (toplayer_height+bottomlayer_height)/2. );
+    }
+    return result;
+}
 
 void MultiLayerView::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
                            QWidget* widget)
@@ -52,7 +62,6 @@ void MultiLayerView::paint(QPainter* painter, const QStyleOptionGraphicsItem* op
     painter->setBrush(DesignerHelper::getLayerGradient(m_color, getRectangle() ) );
     painter->drawRect(getRectangle());
 }
-
 
 void MultiLayerView::addView(IView* childView, int row)
 {
@@ -70,7 +79,6 @@ void MultiLayerView::addView(IView* childView, int row)
     updateGeometry();
 }
 
-
 void MultiLayerView::addNewLayer(ILayerView* layer, int row)
 {
     m_layers.insert(row, layer);
@@ -80,14 +88,12 @@ void MultiLayerView::addNewLayer(ILayerView* layer, int row)
     layer->setParentItem(this);
 }
 
-
 void MultiLayerView::onLayerAboutToBeDeleted()
 {
     ILayerView* layer = qobject_cast<ILayerView*>(sender());
     Q_ASSERT(layer);
     removeLayer(layer);
 }
-
 
 void MultiLayerView::removeLayer(ILayerView* layer)
 {
@@ -98,14 +104,12 @@ void MultiLayerView::removeLayer(ILayerView* layer)
     updateGeometry();
 }
 
-
 //! Updates geometry of MultiLayerView from current childs geometries.
 void MultiLayerView::updateGeometry()
 {
     updateHeight();
     updateWidth();
 }
-
 
 //! Updates MultiLayer height, sets y-positions of children, defines new drop areas.
 void MultiLayerView::updateHeight()
@@ -114,46 +118,31 @@ void MultiLayerView::updateHeight()
     m_drop_areas.clear();
     m_interfaces.clear();
 
-    bool is_nested_multilayer(false);
-    if( dynamic_cast<MultiLayerView*>(parentItem())) is_nested_multilayer = true;
-
     int total_height = 0;
     if(m_layers.size()) {
         foreach(ILayerView* layer, m_layers) {
             layer->setY(total_height);
             layer->update();
-
-            qreal drop_area_height = layer->boundingRect().height()*0.5;
+            qreal drop_area_height = layer->boundingRect().height(); //*0.5;
             qreal drop_area_ypos = total_height - drop_area_height/2.;
-            if(total_height==0 && is_nested_multilayer) {
-                drop_area_height = drop_area_height/2.;
-                drop_area_ypos = total_height + drop_area_height/2.;
-            }
-
             m_drop_areas.append(QRectF(0, drop_area_ypos, boundingRect().width(), drop_area_height));
             m_interfaces.append(QLineF(m_rect.left(), total_height, m_rect.right(), total_height));
             total_height += layer->boundingRect().height();
         }
-        qreal drop_area_height = m_layers.back()->boundingRect().height()*0.5;
+        qreal drop_area_height = m_layers.back()->boundingRect().height(); //*0.5;
         qreal drop_area_ypos = total_height - drop_area_height/2.;
-        if(is_nested_multilayer) {
-            drop_area_height = drop_area_height/2.;
-            drop_area_ypos = total_height - drop_area_height;
-        }
-
         m_drop_areas.append(QRectF(0, drop_area_ypos, boundingRect().width(), drop_area_height));
         m_interfaces.append(QLineF(m_rect.left(), total_height, m_rect.right(), total_height));
     } else {
         total_height = DesignerHelper::getDefaultMultiLayerHeight();
         m_drop_areas.append(boundingRect());
-        m_interfaces.append(QLineF(m_rect.left(), m_rect.center().y(), m_rect.right(), m_rect.center().y()));
+        m_interfaces.append(QLineF(m_rect.left(), m_rect.center().y(),
+                                   m_rect.right(), m_rect.center().y()));
     }
-
     m_rect.setHeight(total_height);
     update();
     emit heightChanged();
 }
-
 
 //! Updates MultiLayerView width, sets x-positions of children.
 //! If list of children contains another MultiLayer, then width of given MultiLayer
@@ -170,7 +159,6 @@ void MultiLayerView::updateWidth()
     if(max_width == 0) {
         max_width = DesignerHelper::getDefaultMultiLayerWidth();
     }
-
     m_rect.setWidth(max_width);
     update();
 
@@ -179,10 +167,8 @@ void MultiLayerView::updateWidth()
         layer->setX(xpos);
         layer->update();
     }
-
     emit widthChanged();
 }
-
 
 //! Returns index of drop area for given coordinate.
 int MultiLayerView::getDropArea(QPointF pos)
@@ -197,7 +183,6 @@ int MultiLayerView::getDropArea(QPointF pos)
     return area;
 }
 
-
 //! Returns drop area rectangle corresponding to given row
 QRectF MultiLayerView::getDropAreaRectangle(int row)
 {
@@ -207,7 +192,6 @@ QRectF MultiLayerView::getDropAreaRectangle(int row)
         return QRectF();
     }
 }
-
 
 //! Returns line representing interface
 QLineF MultiLayerView::getInterfaceLine(int row)
@@ -225,12 +209,10 @@ void MultiLayerView::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
         QGraphicsItem::dragMoveEvent(event);
 }
 
-
 void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
     const DesignerMimeData* mimeData = checkDragEvent(event);
     if (mimeData) {
-
         DesignerScene* designerScene = dynamic_cast<DesignerScene*>(scene());
         if(designerScene) {
             SampleModel* sampleModel = designerScene->getSampleModel();
@@ -244,7 +226,6 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent* event)
     }
 }
 
-
 const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEvent* event)
 {
     const DesignerMimeData* mimeData = qobject_cast<const DesignerMimeData*>(event->mimeData());
@@ -252,7 +233,6 @@ const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEve
         event->ignore();
         return 0;
     }
-
     int row = getDropArea(event->pos());
     if(mimeData->hasFormat("bornagain/widget")
             && getItem()->acceptsAsDefaultItem(mimeData->getClassName())

@@ -34,11 +34,13 @@ public:
 
     MultiLayerView(QGraphicsItem* parent = 0);
 
-    int type() const { return TYPE; }
+    int type() const override { return TYPE; }
 
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
+    QRectF boundingRect() const override;
 
-    void addView(IView* childView, int row = 0);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+
+    void addView(IView* childView, int row = 0) override;
 
     virtual void addNewLayer(ILayerView* layer, int row);
     virtual void removeLayer(ILayerView* layer);
@@ -54,10 +56,10 @@ public slots:
     void onLayerAboutToBeDeleted();
 
 protected:
-    void dropEvent(QGraphicsSceneDragDropEvent* event);
-    void dragMoveEvent(QGraphicsSceneDragDropEvent* event);
+    void dropEvent(QGraphicsSceneDragDropEvent* event) override;
+    void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override;
     const DesignerMimeData* checkDragEvent(QGraphicsSceneDragDropEvent* event);
-    QVariant itemChange(GraphicsItemChange change, const QVariant& value);
+    QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
 
 private:
     QList<ILayerView*> m_layers;

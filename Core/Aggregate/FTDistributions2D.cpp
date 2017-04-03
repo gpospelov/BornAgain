@@ -42,7 +42,7 @@ void IFTDistribution2D::init_parameters()
 
 void IFTDistribution2D::print(std::ostream& ostr) const
 {
-    ostr << getName() << " " << *getParameterPool();
+    ostr << getName() << " " << *parameterPool();
 }
 
 

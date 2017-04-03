@@ -124,7 +124,7 @@ std::vector<const INode*> Layer::getChildren() const
 void Layer::registerThickness(bool make_registered)
 {
     if(make_registered) {
-        if(!getParameter(BornAgain::Thickness))
+        if(!parameter(BornAgain::Thickness))
             registerParameter(BornAgain::Thickness, &m_thickness).setUnit("nm").setNonnegative();
     } else {
         removeParameter(BornAgain::Thickness);

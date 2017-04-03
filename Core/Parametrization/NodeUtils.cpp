@@ -37,14 +37,14 @@ namespace {
     std::string poolToString(const INode &node) {
         std::ostringstream result;
 
-        const std::vector<RealParameter*> pars = node.getParameterPool()->getParameters();
+        const std::vector<RealParameter*> pars = node.parameterPool()->parameters();
         if (pars.empty())
             return {};
 
         result << " (";
         size_t index(0);
         for (auto par : pars) {
-            result << "'" << par->getName() << "':" << par->getValue();
+            result << "'" << par->getName() << "':" << par->value();
             ++index;
             if (index!=pars.size())
                 result << " ";

@@ -345,12 +345,6 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
     ConnectableView *parentView = connection->getParentView();
     ConnectableView *childView = connection->getChildView();
 
-    // TODO restore logic
-//    SessionItem::PortInfo::EPorts input_port_index
-//        = (ParameterizedItem::PortInfo::EPorts)parentView->getInputPortIndex(
-//            connection->getInputPort());
-
-//    childView->getParameterizedItem()->setPort(input_port_index);
     QString tag;
     if (connection->getParentView()->getItem()->modelType() == Constants::ParticleLayoutType) {
         if (connection->inputPort()->getPortType() == NodeEditorPort::INTERFERENCE)

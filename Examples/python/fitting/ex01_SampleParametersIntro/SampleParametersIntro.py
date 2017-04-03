@@ -100,6 +100,8 @@ def simulate():
     simulation.runSimulation()
     results[3] = simulation.getIntensityData()
 
+    # See more trick in <source>/Tests/Functional/PyCore/legacy/parameterpool.py
+
     return results
 
 

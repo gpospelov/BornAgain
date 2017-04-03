@@ -35,7 +35,7 @@ public:
     IParameterized operator=(const IParameterized& other) = delete;
 
     //! Returns pointer to the parameter pool.
-    ParameterPool* getParameterPool() const { return m_pool; }
+    ParameterPool* parameterPool() const { return m_pool; }
 
     //! Creates new parameter pool, with all local parameters and those of its children.
     virtual ParameterPool* createParameterTree() const;
@@ -47,7 +47,7 @@ public:
 
     void setParameterValue(const std::string& name, double value);
 
-    RealParameter* getParameter(const std::string& name) const;
+    RealParameter* parameter(const std::string& name) const;
 
     //! Action to be taken in inherited class when a parameter has changed.
     virtual void onChange() {}

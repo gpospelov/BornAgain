@@ -215,8 +215,8 @@ bool isDefaultDirection(const kvector_t direction)
 std::string valueTimesUnit(const RealParameter* par)
 {
     if (par->unit()=="rad")
-        return printDegrees(par->getValue());
-    return printDouble(par->getValue()) + ( par->unit()=="" ? "" : ("*"+par->unit()) );
+        return printDegrees(par->value());
+    return printDouble(par->value()) + ( par->unit()=="" ? "" : ("*"+par->unit()) );
 }
 
 //! Returns comma-separated list of parameter values, including unit multiplicator (like "* nm").
@@ -224,7 +224,7 @@ std::string valueTimesUnit(const RealParameter* par)
 std::string argumentList(const IParameterized* ip)
 {
     std::vector<std::string> args;
-    for(const auto* par: ip->getParameterPool()->getParameters())
+    for(const auto* par: ip->parameterPool()->parameters())
         args.push_back( valueTimesUnit(par) );
     return StringUtils::join( args, ", " );
 }

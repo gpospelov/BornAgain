@@ -27,12 +27,11 @@
 
 
 
-MultiLayerView::MultiLayerView(QGraphicsItem *parent)
+MultiLayerView::MultiLayerView(QGraphicsItem* parent)
     : ILayerView(parent)
 {
     setColor(QColor(Qt::blue));
 
-    //setRectangle(QRect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight()));
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::MultiLayerType));
     setToolTip(Constants::MultiLayerType);
     setAcceptHoverEvents(false);
@@ -42,7 +41,8 @@ MultiLayerView::MultiLayerView(QGraphicsItem *parent)
 }
 
 
-void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void MultiLayerView::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
+                           QWidget* widget)
 {
     Q_UNUSED(widget);
     painter->setPen(m_color);
@@ -54,9 +54,9 @@ void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 }
 
 
-void MultiLayerView::addView(IView *childView, int row)
+void MultiLayerView::addView(IView* childView, int row)
 {
-    ILayerView *layer = dynamic_cast<ILayerView *>(childView);
+    ILayerView* layer = dynamic_cast<ILayerView*>(childView);
     Q_ASSERT(layer);
 
     if(!childItems().contains(layer)) {
@@ -71,24 +71,25 @@ void MultiLayerView::addView(IView *childView, int row)
 }
 
 
-void MultiLayerView::addNewLayer(ILayerView *layer, int row)
+void MultiLayerView::addNewLayer(ILayerView* layer, int row)
 {
     m_layers.insert(row, layer);
     connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()), Qt::UniqueConnection);
-    connect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()), Qt::UniqueConnection);
+    connect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()),
+            Qt::UniqueConnection);
     layer->setParentItem(this);
 }
 
 
 void MultiLayerView::onLayerAboutToBeDeleted()
 {
-    ILayerView *layer = qobject_cast<ILayerView *>(sender());
+    ILayerView* layer = qobject_cast<ILayerView*>(sender());
     Q_ASSERT(layer);
     removeLayer(layer);
 }
 
 
-void MultiLayerView::removeLayer(ILayerView *layer)
+void MultiLayerView::removeLayer(ILayerView* layer)
 {
     Q_ASSERT(m_layers.contains(layer));
     disconnect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
@@ -114,11 +115,11 @@ void MultiLayerView::updateHeight()
     m_interfaces.clear();
 
     bool is_nested_multilayer(false);
-    if( dynamic_cast<MultiLayerView *>(parentItem())) is_nested_multilayer = true;
+    if( dynamic_cast<MultiLayerView*>(parentItem())) is_nested_multilayer = true;
 
     int total_height = 0;
     if(m_layers.size()) {
-        foreach(ILayerView *layer, m_layers) {
+        foreach(ILayerView* layer, m_layers) {
             layer->setY(total_height);
             layer->update();
 
@@ -161,7 +162,7 @@ void MultiLayerView::updateWidth()
 {
     const double wider_than_children(1.15);
     double max_width(0);
-    foreach(ILayerView *layer, m_layers) {
+    foreach(ILayerView* layer, m_layers) {
         if(layer->boundingRect().width() > max_width)
             max_width = layer->boundingRect().width();
     }
@@ -173,7 +174,7 @@ void MultiLayerView::updateWidth()
     m_rect.setWidth(max_width);
     update();
 
-    foreach(ILayerView *layer, m_layers) {
+    foreach(ILayerView* layer, m_layers) {
         int xpos = ((boundingRect().width() - layer->boundingRect().width()))/2.;
         layer->setX(xpos);
         layer->update();
@@ -194,16 +195,6 @@ int MultiLayerView::getDropArea(QPointF pos)
         }
     }
     return area;
-}
-
-
-//! Returns true if given coordinate is inside one of drop areas.
-bool MultiLayerView::isInDropArea(QPointF pos)
-{
-    foreach(QRectF rect, m_drop_areas) {
-        if (rect.contains(pos)) return true;
-    }
-    return false;
 }
 
 
@@ -228,21 +219,21 @@ QLineF MultiLayerView::getInterfaceLine(int row)
     }
 }
 
-void MultiLayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+void MultiLayerView::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (!checkDragEvent(event))
         QGraphicsItem::dragMoveEvent(event);
 }
 
 
-void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
+void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
-    const DesignerMimeData *mimeData = checkDragEvent(event);
+    const DesignerMimeData* mimeData = checkDragEvent(event);
     if (mimeData) {
 
-        DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
+        DesignerScene* designerScene = dynamic_cast<DesignerScene*>(scene());
         if(designerScene) {
-            SampleModel *sampleModel = designerScene->getSampleModel();
+            SampleModel* sampleModel = designerScene->getSampleModel();
 
             sampleModel->insertNewItem(
                         mimeData->getClassName(),
@@ -254,9 +245,9 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
 }
 
 
-const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEvent * event)
+const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEvent* event)
 {
-    const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
+    const DesignerMimeData* mimeData = qobject_cast<const DesignerMimeData*>(event->mimeData());
     if (!mimeData) {
         event->ignore();
         return 0;
@@ -274,7 +265,7 @@ const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEve
     return mimeData;
 }
 
-QVariant MultiLayerView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
+QVariant MultiLayerView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value)
 {
     return QGraphicsItem::itemChange(change, value);
 }

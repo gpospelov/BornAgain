@@ -128,7 +128,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     MultiLayerView *requested_parent = candidate.multilayer;
     int requested_row = candidate.row;
 
-    // Simple move of lonely layer across the scene: let it be.
+    // Simple move of single layer on the scene
     if (requested_parent == 0 && parentItem() == 0) {
         QGraphicsItem::mouseReleaseEvent(event);
         return;
@@ -156,7 +156,6 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     // the scene: changing ownership.
     if (parentItem() && !requested_parent) {
         QPointF newPos = mapToScene(event->pos()) - event->pos();
-//        setPos(newPos);
         this->getItem()->setItemValue(SessionGraphicsItem::P_XPOS, newPos.x());
         this->getItem()->setItemValue(SessionGraphicsItem::P_YPOS, newPos.y());
 
@@ -174,7 +173,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
 
-    // should not be here
+    // throw only happens when not all cases were considered previously
     throw GUIHelpers::Error("LayerView::mouseReleaseEvent() -> Loggic error.");
 }
 

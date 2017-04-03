@@ -31,8 +31,10 @@ target_link_libraries(PyPersistenceTest BornAgainCore BornAgainTestMachinery)
 function(lppt example tolerance)
     set(script_path ${PY_EXAMPLES_DIR}/${example}.py)
     get_filename_component(script_name ${script_path} NAME_WE)
-    add_test(PyPersistenceTest/${script_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
+    set(test_name PyPersistenceTest/${script_name})
+    add_test(${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
         ${script_path} ${script_name} ${tolerance})
+    set_tests_properties(${test_name} PROPERTIES LABELS "Examples")
 endfunction()
 
 lppt("simulation/ex01_BasicParticles/AllFormFactorsAvailable" 2e-10)

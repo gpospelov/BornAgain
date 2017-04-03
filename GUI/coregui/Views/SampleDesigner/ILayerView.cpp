@@ -32,7 +32,7 @@ QLineF MultiLayerCandidate::getInterfaceToScene()
     if(line.length() != 0) {
         QPointF p1(multilayer->mapToScene(line.p1()));
         QPointF p2(multilayer->mapToScene(line.p2()));
-        const int prolongation = 10.0;
+        const int prolongation = 20.0;
         return QLineF(p1.x() -prolongation, p1.y(), p2.x()+prolongation, p2.y());
     }
 

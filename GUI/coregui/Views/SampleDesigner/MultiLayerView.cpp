@@ -123,13 +123,14 @@ void MultiLayerView::updateHeight()
         foreach(ILayerView* layer, m_layers) {
             layer->setY(total_height);
             layer->update();
-            qreal drop_area_height = layer->boundingRect().height(); //*0.5;
+            qreal drop_area_height = layer->boundingRect().height();
             qreal drop_area_ypos = total_height - drop_area_height/2.;
-            m_drop_areas.append(QRectF(0, drop_area_ypos, boundingRect().width(), drop_area_height));
+            m_drop_areas.append(QRectF(0, drop_area_ypos,
+                                       boundingRect().width(), drop_area_height));
             m_interfaces.append(QLineF(m_rect.left(), total_height, m_rect.right(), total_height));
             total_height += layer->boundingRect().height();
         }
-        qreal drop_area_height = m_layers.back()->boundingRect().height(); //*0.5;
+        qreal drop_area_height = m_layers.back()->boundingRect().height();
         qreal drop_area_ypos = total_height - drop_area_height/2.;
         m_drop_areas.append(QRectF(0, drop_area_ypos, boundingRect().width(), drop_area_height));
         m_interfaces.append(QLineF(m_rect.left(), total_height, m_rect.right(), total_height));

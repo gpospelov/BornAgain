@@ -23,6 +23,7 @@
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "RealParameter.h"
+#include "Rotations.h"
 #include "Units.h"
 
 // -----------------------------------------------------------------------------
@@ -33,12 +34,6 @@ CylindersInDWBABuilder::CylindersInDWBABuilder()
     , m_radius(5*Units::nanometer)
 {
     init_parameters();
-}
-
-void CylindersInDWBABuilder::init_parameters()
-{
-    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
 MultiLayer* CylindersInDWBABuilder::buildSample() const
@@ -65,6 +60,12 @@ MultiLayer* CylindersInDWBABuilder::buildSample() const
     return multi_layer;
 }
 
+void CylindersInDWBABuilder::init_parameters()
+{
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+}
+
 // -----------------------------------------------------------------------------
 // Cylinders in BA
 // -----------------------------------------------------------------------------
@@ -73,12 +74,6 @@ CylindersInBABuilder::CylindersInBABuilder()
     , m_radius(5*Units::nanometer)
 {
     init_parameters();
-}
-
-void CylindersInBABuilder::init_parameters()
-{
-    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
 MultiLayer* CylindersInBABuilder::buildSample() const
@@ -101,6 +96,12 @@ MultiLayer* CylindersInBABuilder::buildSample() const
     return multi_layer;
 }
 
+void CylindersInBABuilder::init_parameters()
+{
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+}
+
 // -----------------------------------------------------------------------------
 // Large cylinders in DWBA
 // -----------------------------------------------------------------------------
@@ -109,13 +110,6 @@ LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
     , m_radius(500*Units::nanometer)
 {
     init_parameters();
-}
-
-void LargeCylindersInDWBABuilder::init_parameters()
-{
-
-    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }
 
 MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
@@ -140,4 +134,53 @@ MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
+}
+
+void LargeCylindersInDWBABuilder::init_parameters()
+{
+
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+}
+
+// -----------------------------------------------------------------------------
+// Rotated cylinders in DWBA
+// -----------------------------------------------------------------------------
+RotatedCylindersBuilder::RotatedCylindersBuilder()
+    : m_height(5*Units::nanometer)
+    , m_radius(5*Units::nanometer)
+{
+    init_parameters();
+}
+
+MultiLayer* RotatedCylindersBuilder::buildSample() const
+{
+    MultiLayer* multi_layer = new MultiLayer();
+
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+
+    FormFactorCylinder ff_cylinder(m_radius, m_height);
+    RotationY rotation(M_PI);
+    kvector_t position(0, 0, 0);
+
+    Particle particle(particle_material, ff_cylinder);
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(particle, 1.0, position, rotation);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+    substrate_layer.addLayout(particle_layout);
+
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+}
+
+void RotatedCylindersBuilder::init_parameters()
+{
+    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
 }

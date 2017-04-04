@@ -366,6 +366,13 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "BoxesSquareLatticeBuilder",
         "None",
         1e-10);
+
+    add("RotatedCylinder",
+        "Rotated cylinder in substrate",
+        "MiniGISAS",
+        "RotatedCylindersBuilder",
+        "None",
+        1e-10);
 }
 
 void StandardSimulationsRegistry::add(

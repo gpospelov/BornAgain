@@ -34,7 +34,7 @@ function(lppt example tolerance)
     set(test_name PyPersistenceTest/${script_name})
     add_test(${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
         ${script_path} ${script_name} ${tolerance})
-    set_tests_properties(${test_name} PROPERTIES LABELS "Examples")
+#    set_tests_properties(${test_name} PROPERTIES LABELS "Examples")
 endfunction()
 
 lppt("simulation/ex01_BasicParticles/AllFormFactorsAvailable" 2e-10)

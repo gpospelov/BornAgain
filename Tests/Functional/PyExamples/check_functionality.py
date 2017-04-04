@@ -46,6 +46,9 @@ def run_example(filename):
     """
     Tries to run python example and produce a *.png image
     """
+    if not os.path.exists(filename):
+        raise Exception("File '"+filename+"' doesn't exist.")
+
     print(filename)
 
     fig = get_figure(filename)
@@ -64,10 +67,13 @@ def run_example(filename):
             status = "EMPTY?"
 
     except:
+        e = sys.exc_info()[0]
+        print("Error {0} while trying to execute '{1}'".format(e, filename))
         status = "FAILED"
 
     print(status)
-    # return os.path.join(dirname, filename), status, ""
+    if status != "OK":
+        raise Exception(status)
 
 
 if __name__ == '__main__':

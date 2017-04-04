@@ -71,4 +71,22 @@ private:
     double m_radius;
 };
 
+//! Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I).
+//! @ingroup standard_samples
+
+class BA_CORE_API_ RotatedCylindersBuilder : public IMultiLayerBuilder
+{
+public:
+    RotatedCylindersBuilder();
+    MultiLayer* buildSample() const;
+
+protected:
+    void init_parameters();
+
+private:
+    double m_height;
+    double m_radius;
+};
+
+
 #endif // CYLINDERSBUILDER_H

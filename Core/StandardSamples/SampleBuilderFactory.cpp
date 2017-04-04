@@ -252,6 +252,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "BoxesSquareLatticeBuilder",
         create_new<BoxesSquareLatticeBuilder>,
         "Boxes in a square lattice");
+
+    registerItem(
+        "RotatedCylindersBuilder",
+        create_new<RotatedCylindersBuilder>,
+        "Rotated cylinder in substrate");
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

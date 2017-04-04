@@ -59,6 +59,18 @@ public:
     //! Calculates the Euler angles corresponding to the rotation
     void calculateEulerAngles(double *p_alpha, double *p_beta, double *p_gamma) const;
 
+    //! Calculates the rotation angle for a rotation around the x-axis alone
+    //! Only meaningfull if the actual rotation is around the x-axis
+    double calculateRotateXAngle() const;
+
+    //! Calculates the rotation angle for a rotation around the y-axis alone
+    //! Only meaningfull if the actual rotation is around the y-axis
+    double calculateRotateYAngle() const;
+
+    //! Calculates the rotation angle for a rotation around the z-axis alone
+    //! Only meaningfull if the actual rotation is around the z-axis
+    double calculateRotateZAngle() const;
+
     //! Returns the inverse transformation.
     Transform3D getInverse() const;
 

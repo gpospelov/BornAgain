@@ -280,7 +280,7 @@ size_t MultiLayer::bottomZToLayerIndex(double z_value) const
 
 size_t MultiLayer::topZToLayerIndex(double z_value) const
 {
-    size_t n_layers = m_layers_bottomz.size();
+    size_t n_layers = numberOfLayers();
     if (n_layers < 2)
         return 0;
     if (z_value <= m_layers_bottomz[n_layers-2]) return numberOfLayers()-1;

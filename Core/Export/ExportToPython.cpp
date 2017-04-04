@@ -824,28 +824,37 @@ void ExportToPython::setRotationInformation(
     const IParticle* p_particle, std::string name, std::ostringstream& result) const
 {
     if (p_particle->rotation()) {
-        double alpha, beta, gamma;
-        p_particle->rotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
         switch (p_particle->rotation()->getTransform3D().getRotationType()) {
         case Transform3D::EULER:
+        {
+            double alpha, beta, gamma;
+            p_particle->rotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
             result << indent() << name << "_rotation = ba.RotationEuler("
                    << printDegrees(alpha) << ", " << printDegrees(beta)
                    << ", " << printDegrees(gamma) << ")\n";
             break;
+        }
         case Transform3D::XAXIS:
+        {
+            double alpha = p_particle->rotation()->getTransform3D().calculateRotateXAngle();
             result << indent() << name << "_rotation = ba.RotationX("
-                   << printDegrees(beta) << ")\n";
+                   << printDegrees(alpha) << ")\n";
             break;
+        }
         case Transform3D::YAXIS:
+        {
+            double alpha = p_particle->rotation()->getTransform3D().calculateRotateYAngle();
             result << indent() << name << "_rotation = ba.RotationY("
-                   << printDegrees(gamma) << ")\n";
+                   << printDegrees(alpha) << ")\n";
             break;
+        }
         case Transform3D::ZAXIS:
+        {
+            double alpha = p_particle->rotation()->getTransform3D().calculateRotateZAngle();
             result << indent() << name << "_rotation = ba.RotationZ("
                    << printDegrees(alpha) << ")\n";
             break;
-        default:
-            break;
+        }
         }
         result << indent() << name << ".setRotation(" << name << "_rotation)\n";
     }

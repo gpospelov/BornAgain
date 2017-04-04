@@ -52,6 +52,7 @@ set(test_cases
     RectDetectorPerpToReflectedBeamDpos
     RectDetectorPerpToSample
     RectParaCrystal
+    RotatedCylinder
     RotatedPyramids
     RotatedSquareLattice
     SimulationWithMasks

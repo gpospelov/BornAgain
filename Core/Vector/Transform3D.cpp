@@ -97,6 +97,21 @@ void Transform3D::calculateEulerAngles(
     }
 }
 
+double Transform3D::calculateRotateXAngle() const
+{
+    return std::atan2(m_matrix(2,1), m_matrix(1,1));
+}
+
+double Transform3D::calculateRotateYAngle() const
+{
+    return std::atan2(m_matrix(0,2), m_matrix(2,2));
+}
+
+double Transform3D::calculateRotateZAngle() const
+{
+    return std::atan2(m_matrix(1,0), m_matrix(0,0));
+}
+
 Transform3D Transform3D::getInverse() const
 {
     Transform3D result(m_inverse_matrix);

@@ -256,7 +256,7 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "MiniGISAS",
         "AsymRippleBuilder",
         "None",
-        2e-10);
+        2e-4);
 
     add("MesoCrystal",
         "Cylindrical mesocrystal composed of spherical nano particles",

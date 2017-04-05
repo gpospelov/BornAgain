@@ -37,3 +37,4 @@ build_script:
 
 test_script:
 - ctest
+- type Testing\Temporary\LastTest.log

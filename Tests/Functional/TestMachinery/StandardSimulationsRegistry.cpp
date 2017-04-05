@@ -251,6 +251,13 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "None",
         2e-10);
 
+    add("AsymRipple",
+        "Triangular ripple with asymetry within radial paracrystal model",
+        "MiniGISAS",
+        "AsymRippleBuilder",
+        "None",
+        2e-4);
+
     add("MesoCrystal",
         "Cylindrical mesocrystal composed of spherical nano particles",
         "MiniGISAS",

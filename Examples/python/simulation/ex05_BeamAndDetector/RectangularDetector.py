@@ -81,8 +81,6 @@ def plot(result):
     import matplotlib
     from matplotlib import pyplot as plt
     from matplotlib import rc
-    rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-    rc('text', usetex=True)
     fig = plt.figure(figsize=(13.6, 5.12))
 
     result_sph  = result['spherical']

@@ -61,4 +61,10 @@ private:
     double m_interf_width;
 };
 
+class BA_CORE_API_ AsymRippleBuilder : public IMultiLayerBuilder
+{
+public:
+    MultiLayer* buildSample() const;
+};
+
 #endif // RIPPLESBUILDER_H

@@ -127,3 +127,10 @@ MultiLayer* TriangularRippleBuilder::buildSample() const
 
     return p_multi_layer;
 }
+
+MultiLayer* AsymRippleBuilder::buildSample() const
+{
+    TriangularRippleBuilder builder;
+    builder.setParameterValue("asymetry", -3.0);
+    return builder.buildSample();
+}

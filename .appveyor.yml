@@ -36,5 +36,5 @@ build_script:
 - cmake --build . --config Release
 
 test_script:
-- ctest
-- type Testing\Temporary\LastTest.log
+- ctest -LE Examples
+

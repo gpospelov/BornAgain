@@ -13,6 +13,7 @@ import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 
+sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 
 def get_figure(filename):
     """

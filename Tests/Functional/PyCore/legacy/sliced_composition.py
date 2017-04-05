@@ -190,6 +190,20 @@ class SlicedSpheresTest(unittest.TestCase):
         print(diff)
         self.assertLess(diff, 1e-10)
 
+    # def testExample(self):
+    #     """
+    #     Temporary method to generate reference data
+    #     """
+    #     m_top_cup = ba.HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7)
+    #     m_bottom_cup = ba.HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9)
+    #
+    #     composition = self.get_composition(m_top_cup, m_bottom_cup)
+    #     shift = 4*nm
+    #     composition.setPosition(0, 0, -shift)
+    #     data = self.get_intensity_data(composition)
+    #     ba.IntensityDataIOFactory.writeIntensityData(data, "SlicedComposition.int")
+
+
 
 if __name__ == '__main__':
     unittest.main()

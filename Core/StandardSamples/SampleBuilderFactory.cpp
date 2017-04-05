@@ -37,6 +37,7 @@
 #include "SizeDistributionModelsBuilder.h"
 #include "TransformationsBuilder.h"
 #include "TwoDimLatticeBuilder.h"
+#include "SlicedParticleBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -257,6 +258,12 @@ SampleBuilderFactory::SampleBuilderFactory()
         "RotatedCylindersBuilder",
         create_new<RotatedCylindersBuilder>,
         "Rotated cylinder in substrate");
+
+    registerItem(
+        "SlicedCompositionBuilder",
+        create_new<SlicedCompositionBuilder>,
+        "Spherical particle made of two different materials crossing interface");
+
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

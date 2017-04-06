@@ -6158,6 +6158,9 @@ class FitParameter(libBornAgainFit.IFitParameter):
         __init__(FitParameter self, std::string const & pattern, double value, AttLimits lim, double step=0.0) -> FitParameter
         __init__(FitParameter self, std::string const & pattern, double value, AttLimits lim) -> FitParameter
         __init__(FitParameter self, std::string const & pattern, double value) -> FitParameter
+        __init__(FitParameter self, double value, AttLimits lim, double step=0.0) -> FitParameter
+        __init__(FitParameter self, double value, AttLimits lim) -> FitParameter
+        __init__(FitParameter self, double value) -> FitParameter
 
         FitParameter::FitParameter(const std::string &pattern, double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
 
@@ -6330,9 +6333,9 @@ class FitSuite(IObservable):
 
     def addFitParameter(self, *args):
         """
-        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits, double step=0.0) -> FitParameter
-        addFitParameter(FitSuite self, std::string const & name, double value, AttLimits limits) -> FitParameter
-        addFitParameter(FitSuite self, std::string const & name, double value) -> FitParameter
+        addFitParameter(FitSuite self, std::string const & pattern, double value, AttLimits limits, double step=0.0) -> FitParameter
+        addFitParameter(FitSuite self, std::string const & pattern, double value, AttLimits limits) -> FitParameter
+        addFitParameter(FitSuite self, std::string const & pattern, double value) -> FitParameter
         addFitParameter(FitSuite self, FitParameter fitPar) -> FitParameter
 
         FitParameter * FitSuite::addFitParameter(const FitParameter &fitPar)

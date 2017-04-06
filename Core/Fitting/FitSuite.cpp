@@ -52,10 +52,10 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
 }
 
 
-FitParameter *FitSuite::addFitParameter(const std::string& name, double value,
+FitParameter *FitSuite::addFitParameter(const std::string& pattern, double value,
                                const AttLimits& limits, double step)
 {
-    return m_impl->addFitParameter(name, value, limits, step);
+    return m_impl->addFitParameter(pattern, value, limits, step);
 }
 
 FitParameter* FitSuite::addFitParameter(const FitParameter& fitPar)

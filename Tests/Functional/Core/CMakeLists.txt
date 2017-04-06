@@ -63,6 +63,7 @@ set(test_cases
     TwoTypesCylindersDistribution
     SphericalDetWithRoi
     RectDetWithRoi
+    SlicedComposition
     )
 
 # Other tests:

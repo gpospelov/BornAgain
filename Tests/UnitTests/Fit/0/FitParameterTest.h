@@ -32,7 +32,7 @@ TEST_F(FitParameterTest, fullConstructor)
     AttLimits limits = AttLimits::limited(-10.0, 2.0);
     FitParameter fitParameter("FitPL", 2.0, limits, 0.2);
 
-    EXPECT_EQ("noname", fitParameter.name());
+    EXPECT_EQ("", fitParameter.name());
     EXPECT_EQ(2.0, fitParameter.value());
     EXPECT_EQ(0.2, fitParameter.step());
     EXPECT_EQ(-10.0, fitParameter.limits().lowerLimit());
@@ -121,12 +121,13 @@ TEST_F(FitParameterTest, clone)
                 pattern, value, AttLimits::limited(lim1, lim2), step);
     link->addMatchedParameters(pool);
     link->setValue(value);
+    link->setName("link");
 
     // deleting original and checking that clone is pointing to the same real parameters
     std::unique_ptr<FitParameter> clone(link->clone());
     delete link;
 
-    EXPECT_EQ(clone->name(), "noname");
+    EXPECT_EQ(clone->name(), "link");
     EXPECT_EQ(clone->value(), value);
     EXPECT_EQ(clone->startValue(), value);
     EXPECT_EQ(clone->step(), step);

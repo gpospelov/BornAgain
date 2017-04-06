@@ -380,6 +380,13 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "RotatedCylindersBuilder",
         "None",
         1e-10);
+
+    add("SlicedComposition",
+        "Spherical particle made of two different materials crossing interface",
+        "MiniGISAS",
+        "SlicedCompositionBuilder",
+        "None",
+        1e-10);
 }
 
 void StandardSimulationsRegistry::add(

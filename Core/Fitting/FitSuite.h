@@ -68,7 +68,7 @@ public:
     //! @param value Parameter's starting value
     //! @param limits Limits attribute
     //! @param step Initial parameter's step (some minimizers don't use it)
-    FitParameter* addFitParameter(const std::string& name, double value,
+    FitParameter* addFitParameter(const std::string& pattern, double value,
                          const AttLimits& limits=AttLimits::limitless(), double step = 0.0);
 
     //! Adds fit parameter

@@ -58,7 +58,7 @@ namespace {
         "from bornagain import deg, angstrom, nm, kvector_t\n\n";
 
     const std::string defineSimulate =
-        "def simulate():\n"
+        "def run_simulation():\n"
         "    # Run Simulation\n"
         "    sample = getSample()\n"
         "    simulation = getSimulation()\n"
@@ -69,7 +69,8 @@ namespace {
 
     const std::string mainProgram =
         "if __name__ == '__main__': \n"
-        "    ba.simulateThenPlotOrSave(simulate, plot)\n";
+        "    result = run_simulation()\n"
+        "    ba.plot_intensity_data(result)\n";
 
     //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
     std::function<std::string(double)> printFunc(const IDetector2D* detector)
@@ -128,7 +129,6 @@ std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation* si
     return preamble
         + defineGetSample()
         + defineGetSimulation(simulation)
-        + definePlot(simulation)
         + defineSimulate
         + mainProgram;
 }
@@ -791,27 +791,6 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
         result << indent() << "simulation.getOptions().setUseAvgMaterials(True)\n";
     if (options.includeSpecular())
         result << indent() << "simulation.getOptions().setIncludeSpecular(True)\n";
-    return result.str();
-}
-
-std::string ExportToPython::definePlot(const GISASSimulation* simulation) const
-{
-    std::ostringstream result;
-    result << std::setprecision(12) <<
-        "def plot(intensities):\n"
-        "    import matplotlib.colors\n"
-        "    from matplotlib import pyplot as plt\n"
-        "    im = plt.imshow(intensities.getArray(), "
-        "norm=matplotlib.colors.LogNorm(1, intensities.getMaximum()), extent=[";
-    const Instrument& instrument = simulation->getInstrument();
-    std::vector<std::string> entries;
-    for (size_t i=0; i<instrument.getDetectorDimension(); ++ i)
-        entries.push_back( printDegrees(instrument.getDetectorAxis(i).getMin()) + ", " +
-                           printDegrees(instrument.getDetectorAxis(i).getMax()) );
-    result << StringUtils::join( entries, ", " ) << "]) \n";
-    result <<
-        "    plt.colorbar(im)\n"
-        "    plt.show()\n\n\n";
     return result.str();
 }
 

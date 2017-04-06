@@ -1,2 +1,4 @@
+if(NOT BORNAGAIN_BUILDBOT_SERVER)
 set(CTEST_CUSTOM_POST_TEST "echo For details, see the log files in Testing/Temporary/
 More info at http://bornagainproject.org/documentation/troubleshooting#ctest")
+endif()

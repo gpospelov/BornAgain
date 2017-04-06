@@ -54,7 +54,7 @@ MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
 
 MaskGraphicsScene::~MaskGraphicsScene()
 {
-
+    // Fix within #1792
     if(m_proxy)
         m_proxy->setSceneAdaptor(0);
 }

@@ -52,6 +52,13 @@ MaskGraphicsScene::MaskGraphicsScene(QObject *parent)
     connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
 }
 
+MaskGraphicsScene::~MaskGraphicsScene()
+{
+
+    if(m_proxy)
+        m_proxy->setSceneAdaptor(0);
+}
+
 void MaskGraphicsScene::setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
                     IntensityDataItem *intensityItem)
 {

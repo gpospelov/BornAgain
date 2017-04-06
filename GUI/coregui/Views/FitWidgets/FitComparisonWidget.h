@@ -39,7 +39,7 @@ public:
     explicit FitComparisonWidget(QWidget *parent = 0);
     ~FitComparisonWidget();
 
-    void setItem(class SessionItem *item);
+    void setItem(SessionItem *item);
 
     virtual QList<QAction *> actionList();
 
@@ -47,19 +47,25 @@ private slots:
     void onResetViewAction();
 
 protected:
-    void setJobItem(class JobItem *jobItem);
-    virtual void showEvent(QShowEvent *);
-    virtual void hideEvent(QHideEvent *);
+//    void setJobItem(class JobItem *jobItem);
+//    virtual void showEvent(QShowEvent *);
+//    virtual void hideEvent(QHideEvent *);
+    virtual void subscribeToItem();
+    virtual void unsubscribeFromItem();
 
 private:
 
-    void processJobItemItem(JobItem *jobItem);
-    void setSimulatedDataItem(IntensityDataItem *simulatedDataItem);
+//    void processJobItemItem(JobItem *jobItem);
+//    void setSimulatedDataItem(IntensityDataItem *simulatedDataItem);
 
     IntensityDataItem *createRelativeDifferenceItem();
     void calculateRelativeDifference();
     void restoreLabels(IntensityDataItem *intensityItem);
     void removeLabels(IntensityDataItem *intensityItem);
+
+    JobItem* jobItem();
+    IntensityDataItem* realDataItem();
+    IntensityDataItem* simulatedDataItem();
 
     ColorMapCanvas *m_realDataPlot;
     ColorMapCanvas *m_simulatedDataPlot;
@@ -68,9 +74,9 @@ private:
     FitFlowWidget *m_fitFlowWidget;
     ColorMapLabel *m_statusLabel;
 
-    JobItem *m_currentJobItem;
-    IntensityDataItem *m_realDataItem;
-    IntensityDataItem *m_simulatedDataItem;
+//    JobItem *m_currentJobItem;
+//    IntensityDataItem *m_realDataItem;
+//    IntensityDataItem *m_simulatedDataItem;
     IntensityDataItem *m_relativeDiffItem;
 
     QAction *m_resetViewAction;

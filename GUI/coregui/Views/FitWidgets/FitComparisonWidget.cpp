@@ -29,6 +29,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QVBoxLayout>
+#include <QDebug>
 
 namespace {
 const double relative_diff_min = 1e-05;
@@ -42,9 +43,9 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_relativeDiffPlot(new ColorMapCanvas)
     , m_fitFlowWidget(new FitFlowWidget)
     , m_statusLabel(new ColorMapLabel(0, this))
-    , m_currentJobItem(0)
-    , m_realDataItem(0)
-    , m_simulatedDataItem(0)
+//    , m_currentJobItem(0)
+//    , m_realDataItem(0)
+//    , m_simulatedDataItem(0)
     , m_relativeDiffItem(0)
     , m_resetViewAction(0)
     , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
@@ -78,17 +79,19 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
 
 FitComparisonWidget::~FitComparisonWidget()
 {
-    if(m_simulatedDataItem)
-        m_simulatedDataItem->mapper()->unsubscribe(this);
+//    if(m_simulatedDataItem)
+//        m_simulatedDataItem->mapper()->unsubscribe(this);
 
-    if(m_currentJobItem)
-        m_currentJobItem->mapper()->unsubscribe(this);
+//    if(m_currentJobItem)
+//        m_currentJobItem->mapper()->unsubscribe(this);
 }
 
 void FitComparisonWidget::setItem(SessionItem *item)
 {
-    JobItem *jobItem = dynamic_cast<JobItem *>(item);
-    setJobItem(jobItem);
+    SessionItemWidget::setItem(item);
+    qDebug() << "FitComparisonWidget::setItem(SessionItem *item)";
+//    JobItem *jobItem = dynamic_cast<JobItem *>(item);
+//    setJobItem(jobItem);
 }
 
 QList<QAction *> FitComparisonWidget::actionList()
@@ -96,111 +99,166 @@ QList<QAction *> FitComparisonWidget::actionList()
     return QList<QAction *>() << m_resetViewAction;
 }
 
-void FitComparisonWidget::setJobItem(JobItem *jobItem)
+//void FitComparisonWidget::setJobItem(JobItem *jobItem)
+//{
+//    if(!jobItem->isValidForFitting())
+//        return;
+
+//    processJobItemItem(jobItem);
+//    setSimulatedDataItem(jobItem->intensityDataItem());
+
+
+//    m_relativeDiffItem = createRelativeDifferenceItem();
+//    calculateRelativeDifference();
+
+//    m_realDataPlot->setItem(m_realDataItem);
+//    m_simulatedDataPlot->setItem(m_simulatedDataItem);
+//    m_relativeDiffPlot->setItem(m_relativeDiffItem);
+//    m_fitFlowWidget->setItem(jobItem->fitSuiteItem());
+
+//    m_statusLabel->reset();
+//    m_statusLabel->addColorMap(m_realDataPlot);
+//    m_statusLabel->addColorMap(m_simulatedDataPlot);
+//    m_statusLabel->addColorMap(m_relativeDiffPlot);
+//}
+
+//! When widget is visible, axes labels will be removed intensity data items to free more space.
+
+//void FitComparisonWidget::showEvent(QShowEvent *)
+//{
+////    if(isVisible()) {
+////        removeLabels(m_realDataItem);
+////        removeLabels(m_simulatedDataItem);
+////    }
+//}
+
+//! When widget is about to be hidden, axes labels will be restored to not to upset other widgets.
+
+//void FitComparisonWidget::hideEvent(QHideEvent *)
+//{
+////    if(isHidden()) {
+////        restoreLabels(m_realDataItem);
+////        restoreLabels(m_simulatedDataItem);
+////    }
+//}
+
+void FitComparisonWidget::subscribeToItem()
 {
-    if(!jobItem->isValidForFitting())
+    if(!jobItem()->isValidForFitting())
         return;
 
-    processJobItemItem(jobItem);
-    setSimulatedDataItem(jobItem->intensityDataItem());
+    jobItem()->mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        if(name == JobItem::P_STATUS) {
+            if(jobItem()->isCompleted())
+                onResetViewAction();
+        }
+    }, this);
 
+    if(auto simItem = simulatedDataItem()) {
+        simItem->mapper()->setOnValueChange(
+            [this]()
+        {
+            calculateRelativeDifference();
+        }, this);
+    }
 
-    m_relativeDiffItem = createRelativeDifferenceItem();
+    if(!m_relativeDiffItem)
+        m_relativeDiffItem = createRelativeDifferenceItem();
+
     calculateRelativeDifference();
 
-    m_realDataPlot->setItem(m_realDataItem);
-    m_simulatedDataPlot->setItem(m_simulatedDataItem);
+    m_realDataPlot->setItem(realDataItem());
+    m_simulatedDataPlot->setItem(simulatedDataItem());
     m_relativeDiffPlot->setItem(m_relativeDiffItem);
-    m_fitFlowWidget->setItem(jobItem->fitSuiteItem());
+    m_fitFlowWidget->setItem(jobItem()->fitSuiteItem());
 
     m_statusLabel->reset();
     m_statusLabel->addColorMap(m_realDataPlot);
     m_statusLabel->addColorMap(m_simulatedDataPlot);
     m_statusLabel->addColorMap(m_relativeDiffPlot);
+
+
 }
 
-//! When widget is visible, axes labels will be removed intensity data items to free more space.
-
-void FitComparisonWidget::showEvent(QShowEvent *)
+void FitComparisonWidget::unsubscribeFromItem()
 {
-    if(isVisible()) {
-        removeLabels(m_realDataItem);
-        removeLabels(m_simulatedDataItem);
-    }
-}
-
-//! When widget is about to be hidden, axes labels will be restored to not to upset other widgets.
-
-void FitComparisonWidget::hideEvent(QHideEvent *)
-{
-    if(isHidden()) {
-        restoreLabels(m_realDataItem);
-        restoreLabels(m_simulatedDataItem);
-    }
-}
-
-void FitComparisonWidget::processJobItemItem(JobItem *jobItem)
-{
-
-    if(jobItem == m_currentJobItem)
+    if(!currentItem())
         return;
 
-    if(m_currentJobItem)
-        m_currentJobItem->mapper()->unsubscribe(this);
-
-    m_currentJobItem = jobItem;
-    if(!m_currentJobItem) return;
-
-    m_currentJobItem->mapper()->setOnPropertyChange(
-                [this](const QString &name)
-    {
-        if(name == JobItem::P_STATUS) {
-            if(m_currentJobItem->isCompleted())
-                onResetViewAction();
-        }
-    }, this);
-
-    m_currentJobItem->mapper()->setOnItemDestroy(
-                [this](SessionItem *) {
-        m_currentJobItem = 0;
-    }, this);
-
-    m_realDataItem = m_currentJobItem->realDataItem()->intensityDataItem();
+    if(simulatedDataItem())
+        simulatedDataItem()->mapper()->unsubscribe(this);
 }
+
+//void FitComparisonWidget::processJobItemItem(JobItem *jobItem)
+//{
+
+//    if(jobItem == m_currentJobItem)
+//        return;
+
+//    if(m_currentJobItem)
+//        m_currentJobItem->mapper()->unsubscribe(this);
+
+//    m_currentJobItem = jobItem;
+//    if(!m_currentJobItem) return;
+
+//    m_currentJobItem->mapper()->setOnPropertyChange(
+//                [this](const QString &name)
+//    {
+//        if(name == JobItem::P_STATUS) {
+//            if(m_currentJobItem->isCompleted())
+//                onResetViewAction();
+//        }
+//    }, this);
+
+//    m_currentJobItem->mapper()->setOnItemDestroy(
+//                [this](SessionItem *) {
+//        m_currentJobItem = 0;
+//    }, this);
+
+//    m_realDataItem = m_currentJobItem->realDataItem()->intensityDataItem();
+//}
 
 void FitComparisonWidget::onResetViewAction()
 {
-    m_realDataItem->resetView();
-    m_simulatedDataItem->resetView();
-    m_relativeDiffItem->resetView();
-    m_relativeDiffItem->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
+    if(auto item = realDataItem())
+        item->resetView();
+
+    if(auto item = simulatedDataItem())
+        item->resetView();
+
+    if(m_relativeDiffItem) {
+        m_relativeDiffItem->resetView();
+        m_relativeDiffItem->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
+    }
 }
 
 //! Sets tracking of simulated data item.
 
-void FitComparisonWidget::setSimulatedDataItem(IntensityDataItem *simulatedDataItem)
-{
-    if(simulatedDataItem == m_simulatedDataItem)
-        return;
+//void FitComparisonWidget::setSimulatedDataItem(IntensityDataItem *simulatedDataItem)
+//{
+//    if(simulatedDataItem == m_simulatedDataItem)
+//        return;
 
-    if(m_simulatedDataItem)
-        m_simulatedDataItem->mapper()->unsubscribe(this);
+//    if(m_simulatedDataItem)
+//        m_simulatedDataItem->mapper()->unsubscribe(this);
 
-    m_simulatedDataItem = simulatedDataItem;
-    if(!m_simulatedDataItem) return;
+//    m_simulatedDataItem = simulatedDataItem;
+//    if(!m_simulatedDataItem) return;
 
-    m_simulatedDataItem->mapper()->setOnValueChange(
-        [this]()
-    {
-        calculateRelativeDifference();
-    }, this);
+//    m_simulatedDataItem->mapper()->setOnValueChange(
+//        [this]()
+//    {
+//        calculateRelativeDifference();
+//    }, this);
 
-    m_simulatedDataItem->mapper()->setOnItemDestroy(
-                [this](SessionItem *) {
-        m_simulatedDataItem = 0;
-    }, this);
+//    m_simulatedDataItem->mapper()->setOnItemDestroy(
+//                [this](SessionItem *) {
+//        m_simulatedDataItem = 0;
+//    }, this);
 
-}
+//}
 
 //! Creates an IntensityDataItem which will hold relative difference map between simulation
 //! and real data.
@@ -217,16 +275,16 @@ IntensityDataItem *FitComparisonWidget::createRelativeDifferenceItem()
 
 void FitComparisonWidget::calculateRelativeDifference()
 {
-    if(!m_simulatedDataItem->getOutputData()) // job failed
+    if(!simulatedDataItem()->getOutputData()) // job failed
         return;
 
-    Q_ASSERT(m_realDataItem);
-    Q_ASSERT(m_simulatedDataItem);
+    Q_ASSERT(realDataItem());
+    Q_ASSERT(simulatedDataItem());
     Q_ASSERT(m_relativeDiffItem);
 
     m_relativeDiffItem->setOutputData(
-        IntensityDataFunctions::createRelativeDifferenceData(*m_simulatedDataItem->getOutputData(),
-                *m_realDataItem->getOutputData()));
+        IntensityDataFunctions::createRelativeDifferenceData(*simulatedDataItem()->getOutputData(),
+                *realDataItem()->getOutputData()));
 
     m_relativeDiffItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
     m_relativeDiffItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
@@ -254,4 +312,21 @@ void FitComparisonWidget::removeLabels(IntensityDataItem *intensityItem)
 
     intensityItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, false);
     intensityItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, false);
+}
+
+JobItem* FitComparisonWidget::jobItem()
+{
+    JobItem *jobItem = dynamic_cast<JobItem *>(currentItem());
+    Q_ASSERT(jobItem);
+    return jobItem;
+}
+
+IntensityDataItem* FitComparisonWidget::realDataItem()
+{
+    return jobItem()->realDataItem()->intensityDataItem();
+}
+
+IntensityDataItem* FitComparisonWidget::simulatedDataItem()
+{
+    return jobItem()->intensityDataItem();
 }

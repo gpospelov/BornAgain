@@ -9,15 +9,18 @@ phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
 
 
-def get_composition(top_material, bottom_material, top_height=4.0, bottom_height=10.0):
+def get_composition(top_material, bottom_material,
+                    top_height=4.0, bottom_height=10.0):
     """
     Returns cylindrical particle made of two different materials.
     """
 
     cylinder_radius = 10*nm
 
-    topPart = ba.Particle(top_material, ba.FormFactorCylinder(cylinder_radius, top_height))
-    bottomPart = ba.Particle(bottom_material, ba.FormFactorCylinder(cylinder_radius, bottom_height))
+    topPart = ba.Particle(top_material,
+                          ba.FormFactorCylinder(cylinder_radius, top_height))
+    bottomPart = ba.Particle(bottom_material,
+                             ba.FormFactorCylinder(cylinder_radius, bottom_height))
 
     result = ba.ParticleComposition()
     result.addParticle(topPart, ba.kvector_t(0.0, 0.0, bottom_height))
@@ -28,8 +31,9 @@ def get_composition(top_material, bottom_material, top_height=4.0, bottom_height
 
 def get_sample():
     """
-    Returns a multi layer with substrate/air layers. Air layer contains cylindrical particle
-    made of two materials. Particle shifted down to cross interface.
+    Returns a multi layer with substrate/air layers.
+    Air layer contains cylindrical particles made of two materials.
+    Particle shifted down to cross interface.
     """
 
     # defining materials

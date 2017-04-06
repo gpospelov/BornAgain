@@ -39,6 +39,7 @@ option(UNITTESTS "Don't skip unit tests" ON)
 option(BORNAGAIN_COVERAGE "Build with test coverage information" OFF)
 option(BORNAGAIN_DEBUG_OPTIMIZATION "Build with debug optimization (gcc only)" OFF)
 option(BORNAGAIN_OPENGL "Build additional modules for 3D in GUI" ON)
+option(BORNAGAIN_BUILDBOT_SERVER "Special option for the buildbot server" OFF)
 
 if(AUTOGENERATE)
     set(BORNAGAIN_MANPAGE ON)

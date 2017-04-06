@@ -40,6 +40,14 @@ gradient_map_t createGradientMap() {
 
     return result;
 }
+
+// Converts xmin (low edge of first bin) and xmax (upper edge of last bin) to the
+// range expected by QCPColorMapData::setRange.
+QCPRange qcpRange(double xmin, double xmax, int nbins) {
+    double dx = (xmax-xmin)/nbins;
+    return QCPRange(xmin+dx/2., xmax-dx/2.);
+}
+
 }
 
 QCPColorGradient ColorMapUtils::getGradient(const QString& gradientName)
@@ -61,7 +69,7 @@ QCPColorGradient ColorMapUtils::itemGradient(const IntensityDataItem* item)
 
 QCPRange ColorMapUtils::itemXrange(const IntensityDataItem* item)
 {
-    return QCPRange(item->getXmin(), item->getXmax());
+    return qcpRange(item->getXmin(), item->getXmax(), item->getNbinsX());
 }
 
 QCPRange ColorMapUtils::itemZoomX(const IntensityDataItem* item)
@@ -71,7 +79,7 @@ QCPRange ColorMapUtils::itemZoomX(const IntensityDataItem* item)
 
 QCPRange ColorMapUtils::itemYrange(const IntensityDataItem* item)
 {
-    return QCPRange(item->getYmin(), item->getYmax());
+    return qcpRange(item->getYmin(), item->getYmax(), item->getNbinsY());
 }
 
 QCPRange ColorMapUtils::itemZoomY(const IntensityDataItem* item)

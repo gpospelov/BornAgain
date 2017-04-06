@@ -47,6 +47,7 @@ set(test_cases
     TwoTypesCylindersDistribution
     SphericalDetWithRoi
     RectDetWithRoi
+    SlicedComposition
 )
 
 add_executable(GUIStandardTest main.cpp GUIReferencedTest.cpp GUIReferencedTest.h )

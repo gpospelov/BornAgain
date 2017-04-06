@@ -10,8 +10,8 @@ cylinder_radius = cylinder_height = lattice_length1 = lattice_length2 = 8*nm
 Then we create a fit setup, where one fit parameter will steer all corresponding
 sample parameters, namely
 
-/MultiLayer/Layer0/ParticleLayout/Interference2DLattice/LatticeLength1
-/MultiLayer/Layer0/ParticleLayout/Interference2DLattice/LatticeLength2
+/MultiLayer/Layer0/ParticleLayout/Interference2DLattice/BasicLattice/LatticeLength1
+/MultiLayer/Layer0/ParticleLayout/Interference2DLattice/BasicLattice/LatticeLength2
 /MultiLayer/Layer0/ParticleLayout/Particle/Cylinder/Radius
 /MultiLayer/Layer0/ParticleLayout/Particle/Cylinder/Height
 """
@@ -37,8 +37,8 @@ def get_sample(radius=5*nm, height=5*nm, lattice_constant=10*nm):
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder)
 
-    interference = ba.InterferenceFunction2DLattice.\
-        createSquare(lattice_constant)
+    interference = ba.InterferenceFunction2DLattice(
+        lattice_constant, lattice_constant, 90.0*deg)
     pdf = ba.FTDecayFunction2DCauchy(50*nm, 50*nm)
     interference.setDecayFunction(pdf)
 
@@ -109,7 +109,7 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # this fit parameter fits 4 sample parameter with one value
-    fit_suite.addFitParameter("*2DLattice/LatticeLength*", 10.*nm).\
+    fit_suite.addFitParameter("*Lattice/LatticeLength*", 10.*nm).\
         setLimited(4., 12.).addPattern("*Cylinder/Radius").\
         addPattern("*Cylinder/Height")
 

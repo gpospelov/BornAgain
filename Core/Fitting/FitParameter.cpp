@@ -24,9 +24,16 @@
 
 FitParameter::FitParameter(const std::string& pattern, double value,
                                        const AttLimits& lim, double step)
-    : IFitParameter("noname", value, lim, step)
+    : IFitParameter("", value, lim, step)
 {
-    addPattern(pattern);
+    if(pattern.size())
+        addPattern(pattern);
+}
+
+FitParameter::FitParameter(double value, const AttLimits& lim, double step)
+    : FitParameter("", value, lim, step)
+{
+
 }
 
 FitParameter::~FitParameter()

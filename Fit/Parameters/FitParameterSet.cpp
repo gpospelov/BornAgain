@@ -73,7 +73,9 @@ void FitParameterSet::addFitParameter(IFitParameter* par)
             throw std::runtime_error("FitParameterSet::addFitParameter() -> Error. Attempt to add "
                                      "same fit parameter twice.");
 
-    par->setName(suggestParameterName());
+    if(par->name().empty())
+        par->setName(suggestParameterName());
+
     if(isExistingName(par->name()))
         throw std::runtime_error("FitParameterSet::addFitParameter() -> Error. Parameter with "
                                  "the name '"+par->name()+"' already exist.");

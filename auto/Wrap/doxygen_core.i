@@ -35,6 +35,13 @@ C++ includes: AdjustMinimizerStrategy.h
 ";
 
 
+// File: classAsymRippleBuilder.xml
+%feature("docstring") AsymRippleBuilder "";
+
+%feature("docstring")  AsymRippleBuilder::buildSample "MultiLayer * AsymRippleBuilder::buildSample() const 
+";
+
+
 // File: classBasic2DLatticeBuilder.xml
 %feature("docstring") Basic2DLatticeBuilder "
 
@@ -500,21 +507,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -1710,6 +1717,9 @@ C++ includes: FitParameter.h
 %feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(const std::string &pattern, double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
 ";
 
+%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
+";
+
 %feature("docstring")  FitParameter::~FitParameter "FitParameter::~FitParameter() final
 ";
 
@@ -1903,7 +1913,7 @@ Assigns pair of (simulation, real data) for fitting. More than one pair can be a
 Assigns pair of (simulation, real data) for fitting. Numpy array is used to provide intensities. Shape of array (nrows, ncols) should coinside with detector's axes (n_alpha, n_phi). 
 ";
 
-%feature("docstring")  FitSuite::addFitParameter "FitParameter * FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
+%feature("docstring")  FitSuite::addFitParameter "FitParameter * FitSuite::addFitParameter(const std::string &pattern, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
 
 Adds fit parameter
 
@@ -7327,79 +7337,37 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::~INodeVisitor "virtual INodeVisitor::~INodeVisitor()
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const INode *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const BasicLattice *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const Beam *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const RectangularDetector *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const SphericalDetector *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IsGISAXSDetector *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ResolutionFunction2DGaussian *)
-";
-
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ConvolutionDetectorResolution *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ISample *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IClusteredParticles *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const Crystal *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ILayout *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionCosine *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ParticleLayout *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionGate *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const Layer *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionGaussian *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const LayerInterface *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionLogNormal *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const MultiLayer *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionLorentz *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IAbstractParticle *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FitObject *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IParticle *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const Particle *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ParticleDistribution *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ParticleComposition *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const MesoCrystal *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ParticleCoreShell *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IFormFactor *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IFormFactorBorn *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IFormFactorDecorator *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FitSuiteObjects *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorAnisoPyramid *)
@@ -7414,16 +7382,37 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCone6 *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCuboctahedron *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCoreShell *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCrystal *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCuboctahedron *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCylinder *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorDebyeWaller *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorMaterial *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorPositionFactor *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorRotation *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDodecahedron *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDWBA *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDWBAPol *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorEllipsoidalCylinder *)
@@ -7489,28 +7478,7 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorTruncatedSpheroid *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCoreShell *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDWBA *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDWBAPol *)
-";
-
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorWeighted *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorDebyeWaller *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorMaterial *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorPositionFactor *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorRotation *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDecayFunction1DCauchy *)
@@ -7534,28 +7502,79 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDecayFunction2DVoigt *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DCauchy *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DCosine *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DGate *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DGauss *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DTriangle *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DVoigt *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution2DCauchy *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution2DGauss *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution2DGate *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution2DCone *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution2DGate *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution2DGauss *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution2DVoigt *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const GISASSimulation *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const HexagonalLattice *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IAbstractParticle *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IClusteredParticles *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IFormFactor *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IFormFactorBorn *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IFormFactorDecorator *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IInterferenceFunction *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction1DLattice *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ILayout *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const INode *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const Instrument *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IntensityNormalizer *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IntensityScaleAndShiftNormalizer *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction1DLattice *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DLattice *)
@@ -7567,10 +7586,61 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionNone *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const LayerRoughness *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IParticle *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IRotation *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ISample *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IsGISAXSDetector *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const Layer *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const LayerInterface *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const LayerRoughness *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const MesoCrystal *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const MultiLayer *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const OffSpecSimulation *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const Particle *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ParticleComposition *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ParticleCoreShell *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ParticleDistribution *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ParticleLayout *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const RectangularDetector *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ResolutionFunction2DGaussian *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const RotationEuler *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const RotationX *)
@@ -7582,70 +7652,10 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const RotationZ *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const RotationEuler *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const Instrument *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FitSuiteObjects *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FitObject *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const GISASSimulation *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const OffSpecSimulation *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IntensityNormalizer *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IntensityScaleAndShiftNormalizer *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const BasicLattice *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const SphericalDetector *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const SquareLattice *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const HexagonalLattice *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DCauchy *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DGauss *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DGate *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DTriangle *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DCosine *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FTDistribution1DVoigt *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionGate *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionLorentz *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionGaussian *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionLogNormal *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionCosine *)
 ";
 
 %feature("docstring")  INodeVisitor::depth "int INodeVisitor::depth() const
@@ -8442,7 +8452,7 @@ C++ includes: IParameterized.h
 %feature("docstring")  IParameterized::~IParameterized "IParameterized::~IParameterized()
 ";
 
-%feature("docstring")  IParameterized::getParameterPool "ParameterPool* IParameterized::getParameterPool() const
+%feature("docstring")  IParameterized::parameterPool "ParameterPool* IParameterized::parameterPool() const
 
 Returns pointer to the parameter pool. 
 ";
@@ -8463,7 +8473,7 @@ Returns multiline string representing available parameters.
 %feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
 ";
 
-%feature("docstring")  IParameterized::getParameter "RealParameter * IParameterized::getParameter(const std::string &name) const
+%feature("docstring")  IParameterized::parameter "RealParameter * IParameterized::parameter(const std::string &name) const
 
 Returns parameter with given 'name'. 
 ";
@@ -8683,25 +8693,6 @@ Returns vector of children of type T.
 ";
 
 
-// File: classISampleIteratorStrategy.xml
-%feature("docstring") ISampleIteratorStrategy "";
-
-%feature("docstring")  ISampleIteratorStrategy::~ISampleIteratorStrategy "virtual ISampleIteratorStrategy::~ISampleIteratorStrategy()
-";
-
-%feature("docstring")  ISampleIteratorStrategy::clone "virtual ISampleIteratorStrategy* ISampleIteratorStrategy::clone() const =0
-";
-
-%feature("docstring")  ISampleIteratorStrategy::first "virtual IteratorMemento ISampleIteratorStrategy::first(const INode *p_root)=0
-";
-
-%feature("docstring")  ISampleIteratorStrategy::next "virtual void ISampleIteratorStrategy::next(IteratorMemento &iterator_stack) const =0
-";
-
-%feature("docstring")  ISampleIteratorStrategy::isDone "virtual bool ISampleIteratorStrategy::isDone(IteratorMemento &iterator_stack) const =0
-";
-
-
 // File: classISelectionRule.xml
 %feature("docstring") ISelectionRule "
 
@@ -8829,12 +8820,31 @@ C++ includes: ISquaredFunction.h
 ";
 
 
+// File: classIterationStrategy.xml
+%feature("docstring") IterationStrategy "";
+
+%feature("docstring")  IterationStrategy::~IterationStrategy "virtual IterationStrategy::~IterationStrategy()
+";
+
+%feature("docstring")  IterationStrategy::clone "virtual IterationStrategy* IterationStrategy::clone() const =0
+";
+
+%feature("docstring")  IterationStrategy::first "virtual IteratorMemento IterationStrategy::first(const INode *p_root)=0
+";
+
+%feature("docstring")  IterationStrategy::next "virtual void IterationStrategy::next(IteratorMemento &iterator_stack) const =0
+";
+
+%feature("docstring")  IterationStrategy::isDone "virtual bool IterationStrategy::isDone(IteratorMemento &iterator_stack) const =0
+";
+
+
 // File: classIteratorMemento.xml
 %feature("docstring") IteratorMemento "
 
-Holds all iterator states encountered for  SampleTreeIterator.
+Holds all iterator states encountered for SampleTreeIterator.
 
-C++ includes: SampleTreeIterator.h
+C++ includes: NodeIterator.h
 ";
 
 %feature("docstring")  IteratorMemento::IteratorMemento "IteratorMemento::IteratorMemento()
@@ -8871,9 +8881,9 @@ C++ includes: SampleTreeIterator.h
 // File: classIteratorState.xml
 %feature("docstring") IteratorState "
 
-Holds state of iterator at single level for  SampleTreeIterator.
+Holds state of iterator at single level for SampleTreeIterator.
 
-C++ includes: SampleTreeIterator.h
+C++ includes: NodeIterator.h
 ";
 
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
@@ -9839,6 +9849,38 @@ C++ includes: MultipleLayoutBuilder.h
 ";
 
 
+// File: classNodeIterator.xml
+%feature("docstring") NodeIterator "
+
+Iterator through  INode tree of objects.
+
+Usage example: SampleTreeIterator<Strategy> it(&sample); it.first(); while( !it.is_done() ) {  INode *p_sample = it.get_current(); it.next(); }
+
+C++ includes: NodeIterator.h
+";
+
+%feature("docstring")  NodeIterator::NodeIterator "NodeIterator< Strategy >::NodeIterator(const INode *root)
+";
+
+%feature("docstring")  NodeIterator::~NodeIterator "virtual NodeIterator< Strategy >::~NodeIterator()
+";
+
+%feature("docstring")  NodeIterator::first "void NodeIterator< Strategy >::first()
+";
+
+%feature("docstring")  NodeIterator::next "void NodeIterator< Strategy >::next()
+";
+
+%feature("docstring")  NodeIterator::getCurrent "const INode * NodeIterator< Strategy >::getCurrent()
+";
+
+%feature("docstring")  NodeIterator::isDone "bool NodeIterator< Strategy >::isDone() const 
+";
+
+%feature("docstring")  NodeIterator::depth "size_t NodeIterator< Strategy >::depth() const 
+";
+
+
 // File: classExceptions_1_1NotImplementedException.xml
 %feature("docstring") Exceptions::NotImplementedException "";
 
@@ -9931,7 +9973,7 @@ C++ includes: ZLimits.h
 // File: classOutputData.xml
 %feature("docstring") OutputData "
 
-Template class to store data of any type in multi-dimensional space.Used with data type double to hold simulation results. Used with data type  CumulativeValue in  IHistogram classes. Used with data type bool to hold a detector mask (-> class  DetectorMask)
+Template class to store data of any type in multi-dimensional space.
 
 C++ includes: OutputData.h
 ";
@@ -10516,17 +10558,17 @@ Adds parameter to the pool, and returns reference to the input pointer.
 Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
 ";
 
-%feature("docstring")  ParameterPool::getParameter "RealParameter * ParameterPool::getParameter(const std::string &name)
+%feature("docstring")  ParameterPool::parameter "RealParameter * ParameterPool::parameter(const std::string &name)
 
 Returns parameter with given  name. 
 ";
 
-%feature("docstring")  ParameterPool::getParameter "const RealParameter * ParameterPool::getParameter(const std::string &name) const
+%feature("docstring")  ParameterPool::parameter "const RealParameter * ParameterPool::parameter(const std::string &name) const
 
 Returns parameter with given  name. 
 ";
 
-%feature("docstring")  ParameterPool::getParameters "const std::vector<RealParameter*> ParameterPool::getParameters() const
+%feature("docstring")  ParameterPool::parameters "const std::vector<RealParameter*> ParameterPool::parameters() const
 
 Returns full vector of parameters. 
 ";
@@ -11146,12 +11188,56 @@ C++ includes: FormFactorPolyhedron.h
 ";
 
 
+// File: classPostorderStrategy.xml
+%feature("docstring") PostorderStrategy "";
+
+%feature("docstring")  PostorderStrategy::PostorderStrategy "PostorderStrategy::PostorderStrategy()
+";
+
+%feature("docstring")  PostorderStrategy::clone "PostorderStrategy * PostorderStrategy::clone() const 
+";
+
+%feature("docstring")  PostorderStrategy::~PostorderStrategy "PostorderStrategy::~PostorderStrategy()
+";
+
+%feature("docstring")  PostorderStrategy::first "IteratorMemento PostorderStrategy::first(const INode *p_root)
+";
+
+%feature("docstring")  PostorderStrategy::next "void PostorderStrategy::next(IteratorMemento &iterator_stack) const 
+";
+
+%feature("docstring")  PostorderStrategy::isDone "bool PostorderStrategy::isDone(IteratorMemento &iterator_stack) const 
+";
+
+
 // File: classPrecomputed.xml
 %feature("docstring") Precomputed "
 
 This class contains precomputed constants.
 
 C++ includes: Precomputed.h
+";
+
+
+// File: classPreorderStrategy.xml
+%feature("docstring") PreorderStrategy "";
+
+%feature("docstring")  PreorderStrategy::PreorderStrategy "PreorderStrategy::PreorderStrategy()
+";
+
+%feature("docstring")  PreorderStrategy::clone "PreorderStrategy * PreorderStrategy::clone() const 
+";
+
+%feature("docstring")  PreorderStrategy::~PreorderStrategy "PreorderStrategy::~PreorderStrategy()
+";
+
+%feature("docstring")  PreorderStrategy::first "IteratorMemento PreorderStrategy::first(const INode *p_root)
+";
+
+%feature("docstring")  PreorderStrategy::next "void PreorderStrategy::next(IteratorMemento &iterator_stack) const 
+";
+
+%feature("docstring")  PreorderStrategy::isDone "bool PreorderStrategy::isDone(IteratorMemento &iterator_stack) const 
 ";
 
 
@@ -11241,7 +11327,7 @@ C++ includes: RealParameter.h
 Sets value of wrapped parameter and emit signal. 
 ";
 
-%feature("docstring")  RealParameter::getValue "double RealParameter::getValue() const
+%feature("docstring")  RealParameter::value "double RealParameter::value() const
 
 Returns value of wrapped parameter. 
 ";
@@ -11249,7 +11335,7 @@ Returns value of wrapped parameter.
 %feature("docstring")  RealParameter::setLimits "RealParameter& RealParameter::setLimits(const RealLimits &limits)
 ";
 
-%feature("docstring")  RealParameter::getLimits "RealLimits RealParameter::getLimits() const 
+%feature("docstring")  RealParameter::limits "RealLimits RealParameter::limits() const 
 ";
 
 %feature("docstring")  RealParameter::setLimited "RealParameter & RealParameter::setLimited(double lower, double upper)
@@ -11584,6 +11670,21 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
+// File: classRotatedCylindersBuilder.xml
+%feature("docstring") RotatedCylindersBuilder "
+
+Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I).
+
+C++ includes: CylindersBuilder.h
+";
+
+%feature("docstring")  RotatedCylindersBuilder::RotatedCylindersBuilder "RotatedCylindersBuilder::RotatedCylindersBuilder()
+";
+
+%feature("docstring")  RotatedCylindersBuilder::buildSample "MultiLayer * RotatedCylindersBuilder::buildSample() const 
+";
+
+
 // File: classRotatedPyramidsBuilder.xml
 %feature("docstring") RotatedPyramidsBuilder "
 
@@ -11837,50 +11938,6 @@ Retrieves a SampleBuilder from the registry, does the build, and returns the res
 ";
 
 
-// File: classSampleIteratorPostorderStrategy.xml
-%feature("docstring") SampleIteratorPostorderStrategy "";
-
-%feature("docstring")  SampleIteratorPostorderStrategy::SampleIteratorPostorderStrategy "SampleIteratorPostorderStrategy::SampleIteratorPostorderStrategy()
-";
-
-%feature("docstring")  SampleIteratorPostorderStrategy::clone "SampleIteratorPostorderStrategy * SampleIteratorPostorderStrategy::clone() const 
-";
-
-%feature("docstring")  SampleIteratorPostorderStrategy::~SampleIteratorPostorderStrategy "SampleIteratorPostorderStrategy::~SampleIteratorPostorderStrategy()
-";
-
-%feature("docstring")  SampleIteratorPostorderStrategy::first "IteratorMemento SampleIteratorPostorderStrategy::first(const INode *p_root)
-";
-
-%feature("docstring")  SampleIteratorPostorderStrategy::next "void SampleIteratorPostorderStrategy::next(IteratorMemento &iterator_stack) const 
-";
-
-%feature("docstring")  SampleIteratorPostorderStrategy::isDone "bool SampleIteratorPostorderStrategy::isDone(IteratorMemento &iterator_stack) const 
-";
-
-
-// File: classSampleIteratorPreorderStrategy.xml
-%feature("docstring") SampleIteratorPreorderStrategy "";
-
-%feature("docstring")  SampleIteratorPreorderStrategy::SampleIteratorPreorderStrategy "SampleIteratorPreorderStrategy::SampleIteratorPreorderStrategy()
-";
-
-%feature("docstring")  SampleIteratorPreorderStrategy::clone "SampleIteratorPreorderStrategy * SampleIteratorPreorderStrategy::clone() const 
-";
-
-%feature("docstring")  SampleIteratorPreorderStrategy::~SampleIteratorPreorderStrategy "SampleIteratorPreorderStrategy::~SampleIteratorPreorderStrategy()
-";
-
-%feature("docstring")  SampleIteratorPreorderStrategy::first "IteratorMemento SampleIteratorPreorderStrategy::first(const INode *p_root)
-";
-
-%feature("docstring")  SampleIteratorPreorderStrategy::next "void SampleIteratorPreorderStrategy::next(IteratorMemento &iterator_stack) const 
-";
-
-%feature("docstring")  SampleIteratorPreorderStrategy::isDone "bool SampleIteratorPreorderStrategy::isDone(IteratorMemento &iterator_stack) const 
-";
-
-
 // File: classSampleLabelHandler.xml
 %feature("docstring") SampleLabelHandler "
 
@@ -11998,38 +12055,6 @@ C++ includes: SampleLabelHandler.h
 ";
 
 %feature("docstring")  SampleLabelHandler::insertParticleDistribution "void SampleLabelHandler::insertParticleDistribution(const ParticleDistribution *sample)
-";
-
-
-// File: classSampleTreeIterator.xml
-%feature("docstring") SampleTreeIterator "
-
-Iterator through  INode tree of objects.
-
-Usage example: SampleTreeIterator<Strategy> it(&sample); it.first(); while( !it.is_done() ) {  INode *p_sample = it.get_current(); it.next(); }
-
-C++ includes: SampleTreeIterator.h
-";
-
-%feature("docstring")  SampleTreeIterator::SampleTreeIterator "SampleTreeIterator< Strategy >::SampleTreeIterator(const INode *root)
-";
-
-%feature("docstring")  SampleTreeIterator::~SampleTreeIterator "virtual SampleTreeIterator< Strategy >::~SampleTreeIterator()
-";
-
-%feature("docstring")  SampleTreeIterator::first "void SampleTreeIterator< Strategy >::first()
-";
-
-%feature("docstring")  SampleTreeIterator::next "void SampleTreeIterator< Strategy >::next()
-";
-
-%feature("docstring")  SampleTreeIterator::getCurrent "const INode * SampleTreeIterator< Strategy >::getCurrent()
-";
-
-%feature("docstring")  SampleTreeIterator::isDone "bool SampleTreeIterator< Strategy >::isDone() const 
-";
-
-%feature("docstring")  SampleTreeIterator::depth "size_t SampleTreeIterator< Strategy >::depth() const 
 ";
 
 
@@ -12597,6 +12622,21 @@ C++ includes: Slice.h
 ";
 
 
+// File: classSlicedCompositionBuilder.xml
+%feature("docstring") SlicedCompositionBuilder "
+
+Builds sample: spherical composition made of top+bottom spherical cups
+
+C++ includes: SlicedParticleBuilder.h
+";
+
+%feature("docstring")  SlicedCompositionBuilder::SlicedCompositionBuilder "SlicedCompositionBuilder::SlicedCompositionBuilder()
+";
+
+%feature("docstring")  SlicedCompositionBuilder::buildSample "MultiLayer * SlicedCompositionBuilder::buildSample() const 
+";
+
+
 // File: classSlicedFormFactorList.xml
 %feature("docstring") SlicedFormFactorList "
 
@@ -13116,6 +13156,21 @@ Clones the transformation.
 Calculates the Euler angles corresponding to the rotation. 
 ";
 
+%feature("docstring")  Transform3D::calculateRotateXAngle "double Transform3D::calculateRotateXAngle() const
+
+Calculates the rotation angle for a rotation around the x-axis alone Only meaningfull if the actual rotation is around the x-axis 
+";
+
+%feature("docstring")  Transform3D::calculateRotateYAngle "double Transform3D::calculateRotateYAngle() const
+
+Calculates the rotation angle for a rotation around the y-axis alone Only meaningfull if the actual rotation is around the y-axis 
+";
+
+%feature("docstring")  Transform3D::calculateRotateZAngle "double Transform3D::calculateRotateZAngle() const
+
+Calculates the rotation angle for a rotation around the z-axis alone Only meaningfull if the actual rotation is around the z-axis 
+";
+
 %feature("docstring")  Transform3D::getInverse "Transform3D Transform3D::getInverse() const
 
 Returns the inverse transformation. 
@@ -13467,13 +13522,13 @@ C++ includes: ZLimits.h
 // File: namespace_0D310.xml
 
 
-// File: namespace_0D325.xml
+// File: namespace_0D331.xml
 
 
-// File: namespace_0D364.xml
+// File: namespace_0D370.xml
 
 
-// File: namespace_0D478.xml
+// File: namespace_0D480.xml
 
 
 // File: namespace_0D54.xml
@@ -15047,6 +15102,22 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 // File: INode_8h.xml
 
 
+// File: INodeVisitor_8cpp.xml
+%feature("docstring")  VisitNodesPreorder "void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
+";
+
+%feature("docstring")  VisitNodesPostorder "void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
+";
+
+
+// File: INodeVisitor_8h.xml
+%feature("docstring")  VisitNodesPreorder "BA_CORE_API_ void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
+";
+
+%feature("docstring")  VisitNodesPostorder "BA_CORE_API_ void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
+";
+
+
 // File: IParameter_8h.xml
 
 
@@ -15054,6 +15125,18 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 
 
 // File: IParameterized_8h.xml
+
+
+// File: IterationStrategy_8cpp.xml
+
+
+// File: IterationStrategy_8h.xml
+
+
+// File: NodeIterator_8cpp.xml
+
+
+// File: NodeIterator_8h.xml
 
 
 // File: NodeUtils_8cpp.xml
@@ -15240,32 +15323,10 @@ Global function that creates a  SlicedFormFactorList from an  IParticle in a mul
 // File: IFormFactorBorn_8h.xml
 
 
-// File: INodeVisitor_8cpp.xml
-%feature("docstring")  VisitSampleTreePreorder "void VisitSampleTreePreorder(const INode &node, INodeVisitor &visitor)
-";
-
-%feature("docstring")  VisitSampleTreePostorder "void VisitSampleTreePostorder(const INode &node, INodeVisitor &visitor)
-";
-
-
-// File: INodeVisitor_8h.xml
-%feature("docstring")  VisitSampleTreePreorder "BA_CORE_API_ void VisitSampleTreePreorder(const INode &node, INodeVisitor &visitor)
-";
-
-%feature("docstring")  VisitSampleTreePostorder "BA_CORE_API_ void VisitSampleTreePostorder(const INode &node, INodeVisitor &visitor)
-";
-
-
 // File: ISample_8cpp.xml
 
 
 // File: ISample_8h.xml
-
-
-// File: ISampleIteratorStrategy_8cpp.xml
-
-
-// File: ISampleIteratorStrategy_8h.xml
 
 
 // File: Rotations_8cpp.xml
@@ -15286,12 +15347,6 @@ Returns concatenated rotation (first right, then left).
 
 %feature("docstring")  IsZRotation "bool IsZRotation(const IRotation &rot)
 ";
-
-
-// File: SampleTreeIterator_8cpp.xml
-
-
-// File: SampleTreeIterator_8h.xml
 
 
 // File: AnisoPyramid_8cpp.xml
@@ -15615,6 +15670,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SizeDistributionModelsBuilder_8h.xml
+
+
+// File: SlicedParticleBuilder_8cpp.xml
+
+
+// File: SlicedParticleBuilder_8h.xml
 
 
 // File: StandardSimulations_8cpp.xml

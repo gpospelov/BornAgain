@@ -42,14 +42,14 @@ ImportDataToolBar::ImportDataToolBar(QWidget* parent)
     m_importDataAction = new QAction(QStringLiteral("Import"), parent);
     m_importDataAction->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
     m_importDataAction->setToolTip(QStringLiteral("Import data"));
-    connect(m_importDataAction, SIGNAL(triggered()), this, SLOT(onImportDataAction()));
     addAction(m_importDataAction);
+    connect(m_importDataAction, SIGNAL(triggered()), this, SLOT(onImportDataAction()));
 
     m_removeDataAction = new QAction(QStringLiteral("Remove"), parent);
     m_removeDataAction->setIcon(QIcon(":/images/toolbar16light_recycle.svg"));
     m_removeDataAction->setToolTip(QStringLiteral("Remove selected data"));
-    connect(m_removeDataAction, SIGNAL(triggered()), this, SLOT(onRemoveDataAction()));
     addAction(m_removeDataAction);
+    connect(m_removeDataAction, SIGNAL(triggered()), this, SLOT(onRemoveDataAction()));
 }
 
 void ImportDataToolBar::setRealDataModel(RealDataModel* model) { m_realDataModel = model; }

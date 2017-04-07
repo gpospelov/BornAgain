@@ -45,6 +45,7 @@ class BA_CORE_API_ MaskGraphicsScene : public QGraphicsScene
     Q_OBJECT
 public:
     MaskGraphicsScene(QObject *parent = 0);
+    ~MaskGraphicsScene();
 
     void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
                         IntensityDataItem *intensityItem);
@@ -110,9 +111,9 @@ private:
 
     SessionModel *m_maskModel;
     QItemSelectionModel *m_selectionModel;
-    QSharedPointer<ISceneAdaptor> m_adaptor;
     QMap<SessionItem *, IShape2DView *> m_ItemToView;
     MaskGraphicsProxy *m_proxy;
+    QSharedPointer<ISceneAdaptor> m_adaptor;
     bool m_block_selection;
     QModelIndex m_maskContainerIndex;
     IntensityDataItem *m_intensityItem;

@@ -20,6 +20,98 @@ MatrixRTCoefficients *MatrixRTCoefficients::clone() const
     return new MatrixRTCoefficients(*this);
 }
 
+Eigen::Vector2cd MatrixRTCoefficients::T1plus() const
+{
+    Eigen::Vector2cd result;
+    Eigen::Matrix<complex_t, 4, 1> m = T1m*phi_psi_plus;
+    result(0) = m(2);
+    result(1) = m(3);
+    if (lambda(0)==0.0 && result==Eigen::Vector2cd::Zero())
+        result(0) = 0.5;
+    return result;
+}
+
+Eigen::Vector2cd MatrixRTCoefficients::R1plus() const
+{
+    Eigen::Vector2cd result;
+    Eigen::Matrix<complex_t, 4, 1> m = R1m*phi_psi_plus;
+    result(0) = m(2);
+    result(1) = m(3);
+    Eigen::Matrix<complex_t, 4, 1> mT = T1m*phi_psi_plus;
+    if (lambda(0)==0.0 && mT(2)==0.0 && mT(3)==0.0)
+        result(0) = -0.5;
+    return result;
+}
+
+Eigen::Vector2cd MatrixRTCoefficients::T2plus() const
+{
+    Eigen::Vector2cd result;
+    Eigen::Matrix<complex_t, 4, 1> m = T2m*phi_psi_plus;
+    result(0) = m(2);
+    result(1) = m(3);
+    if (lambda(1)==0.0 && result==Eigen::Vector2cd::Zero())
+        result(0) = 0.5;
+    return result;
+}
+
+Eigen::Vector2cd MatrixRTCoefficients::R2plus() const
+{
+    Eigen::Vector2cd result;
+    Eigen::Matrix<complex_t, 4, 1> m = R2m*phi_psi_plus;
+    result(0) = m(2);
+    result(1) = m(3);
+    Eigen::Matrix<complex_t, 4, 1> mT = T2m*phi_psi_plus;
+    if (lambda(1)==0.0 && mT(2)==0.0 && mT(3)==0.0)
+        result(0) = -0.5;
+    return result;
+}
+
+Eigen::Vector2cd MatrixRTCoefficients::T1min() const
+{
+    Eigen::Vector2cd result;
+    Eigen::Matrix<complex_t, 4, 1> m = T1m*phi_psi_min;
+    result(0) = m(2);
+    result(1) = m(3);
+    if (lambda(0)==0.0 && result==Eigen::Vector2cd::Zero())
+        result(1) = 0.5;
+    return result;
+}
+
+Eigen::Vector2cd MatrixRTCoefficients::R1min() const
+{
+    Eigen::Vector2cd result;
+    Eigen::Matrix<complex_t, 4, 1> m = R1m*phi_psi_min;
+    result(0) = m(2);
+    result(1) = m(3);
+    Eigen::Matrix<complex_t, 4, 1> mT = T1m*phi_psi_min;
+    if (lambda(0)==0.0 && mT(2)==0.0 && mT(3)==0.0)
+        result(1) = -0.5;
+    return result;
+}
+
+Eigen::Vector2cd MatrixRTCoefficients::T2min() const
+{
+    Eigen::Vector2cd result;
+    Eigen::Matrix<complex_t, 4, 1> m = T2m*phi_psi_min;
+    result(0) = m(2);
+    result(1) = m(3);
+    if (lambda(1)==0.0 && result==Eigen::Vector2cd::Zero())
+        result(1) = 0.5;
+    return result;
+}
+
+Eigen::Vector2cd MatrixRTCoefficients::R2min() const
+{
+    Eigen::Vector2cd result;
+    Eigen::Matrix<complex_t, 4, 1> m = R2m*phi_psi_min;
+    result(0) = m(2);
+    result(1) = m(3);
+    Eigen::Matrix<complex_t, 4, 1> mT = T2m*phi_psi_min;
+    if (lambda(1)==0.0 && mT(2)==0.0 && mT(3)==0.0)
+        result(1) = -0.5;
+    return result;
+}
+
 void MatrixRTCoefficients::calculateTRMatrices()
 {
     if (m_b_mag == 0.0) {
@@ -160,42 +252,6 @@ void MatrixRTCoefficients::calculateTRMatrices()
     }
 }
 
-void MatrixRTCoefficients::initializeBottomLayerPhiPsi()
-{
-    if (m_b_mag == 0.0) {
-        phi_psi_min << 0.0, -std::sqrt(m_a), 0.0, 1.0;
-        phi_psi_plus << -std::sqrt(m_a), 0.0, 1.0, 0.0;
-        return;
-    }
-    // First basis vector that has no upward going wave amplitude
-    phi_psi_min(0) = m_scatt_matrix(0,1) * ( lambda(0)-lambda(1) ) /
-            2.0/m_b_mag;
-    phi_psi_min(1) = ( m_bz  * (lambda(1) - lambda(0)) / m_b_mag -
-            lambda(1) - lambda(0) )/2.0;
-    phi_psi_min(2) = 0.0;
-    phi_psi_min(3) = 1.0;
-
-    // Second basis vector that has no upward going wave amplitude
-    phi_psi_plus(0) = - (m_scatt_matrix(0,0) + lambda(0) * lambda(1) ) /
-            ( lambda(0) + lambda(1) );
-    phi_psi_plus(1) = m_scatt_matrix(1,0) * ( lambda(0) - lambda(1) ) /
-            2.0/m_b_mag;
-    phi_psi_plus(2) = 1.0;
-    phi_psi_plus(3) = 0.0;
-}
-
-void MatrixRTCoefficients::initializeBottomLayerRT()
-{
-    // first treat case where both eigenmodes are the same (no B-field in layer)
-    if (m_b_mag == 0.0) {
-        phi_psi_min << 0.0, -std::sqrt(m_a), 0.0, 1.0;
-        phi_psi_plus << -std::sqrt(m_a), 0.0, 1.0, 0.0;
-        return;
-    }
-    // non-zero B-field
-    return;
-}
-
 void MatrixRTCoefficients::calculateTRWithoutMagnetization()
 {
     T1m.setZero();
@@ -239,4 +295,28 @@ void MatrixRTCoefficients::calculateTRWithoutMagnetization()
     R2m(0,2) = std::sqrt(m_a)/2.0;
     R2m(2,0) = 1.0/(2.0*std::sqrt(m_a));
     R2m(2,2) = 0.5;
+}
+
+void MatrixRTCoefficients::initializeBottomLayerPhiPsi()
+{
+    if (m_b_mag == 0.0) {
+        phi_psi_min << 0.0, -std::sqrt(m_a), 0.0, 1.0;
+        phi_psi_plus << -std::sqrt(m_a), 0.0, 1.0, 0.0;
+        return;
+    }
+    // First basis vector that has no upward going wave amplitude
+    phi_psi_min(0) = m_scatt_matrix(0,1) * ( lambda(0)-lambda(1) ) /
+            2.0/m_b_mag;
+    phi_psi_min(1) = ( m_bz  * (lambda(1) - lambda(0)) / m_b_mag -
+            lambda(1) - lambda(0) )/2.0;
+    phi_psi_min(2) = 0.0;
+    phi_psi_min(3) = 1.0;
+
+    // Second basis vector that has no upward going wave amplitude
+    phi_psi_plus(0) = - (m_scatt_matrix(0,0) + lambda(0) * lambda(1) ) /
+            ( lambda(0) + lambda(1) );
+    phi_psi_plus(1) = m_scatt_matrix(1,0) * ( lambda(0) - lambda(1) ) /
+            2.0/m_b_mag;
+    phi_psi_plus(2) = 1.0;
+    phi_psi_plus(3) = 0.0;
 }

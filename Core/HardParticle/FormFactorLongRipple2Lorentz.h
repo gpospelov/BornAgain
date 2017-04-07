@@ -28,16 +28,19 @@ public:
 
     FormFactorLongRipple2Lorentz *clone() const override final {
         return new FormFactorLongRipple2Lorentz(m_length, m_width, m_height, m_d); }
-    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
     double getLength() const { return m_length; }
     double getAsymmetry() const { return m_d; }
 
-    double getRadialExtension() const override final;
+    double radialExtension() const override final;
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
+
+protected:
+    void onChange() override final;
 
 private:
     void check_parameters() const;

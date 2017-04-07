@@ -17,6 +17,7 @@
 #define FORMFACTORDWBAPOL_H
 
 #include "IFormFactor.h"
+#include <memory>
 
 class ILayerRTCoefficients;
 
@@ -32,7 +33,11 @@ public:
 
     FormFactorDWBAPol* clone() const override;
 
-    void accept(ISampleVisitor* visitor) const override { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
+
+    void setAmbientMaterial(HomogeneousMaterial material) override {
+        mP_form_factor->setAmbientMaterial(material);
+    }
 
     //! Throws not-implemented exception
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
@@ -40,14 +45,14 @@ public:
     //! Calculates and returns a polarized form factor calculation in DWBA
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 
-    //! Returns the total volume of the particle of this form factor's shape
-    double getVolume() const override { return mp_form_factor->getVolume(); }
+    double volume() const override { return mP_form_factor->volume(); }
 
-    //! Returns the (approximate in some cases) radial size of the particle of this
-    //! form factor's shape. This is used for SSCA calculations
-    double getRadialExtension() const override { return mp_form_factor->getRadialExtension(); }
+    double radialExtension() const override { return mP_form_factor->radialExtension(); }
 
-    //! Sets reflection/transmission info for scalar DWBA simulation
+    double bottomZ(const IRotation& rotation) const override;
+
+    double topZ(const IRotation& rotation) const override;
+
     void setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,
                          const ILayerRTCoefficients* p_out_coeffs) override;
 
@@ -55,7 +60,7 @@ public:
 
 private:
     //! The form factor for BA
-    IFormFactor* mp_form_factor;
+    std::unique_ptr<IFormFactor> mP_form_factor;
 
     const ILayerRTCoefficients* mp_in_coeffs;  //!< not owned by this
     const ILayerRTCoefficients* mp_out_coeffs; //!< not owned by this

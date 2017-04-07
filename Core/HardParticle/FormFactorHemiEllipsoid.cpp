@@ -18,6 +18,7 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "TruncatedEllipsoid.h"
 #include <limits>
 
 //! @param radius_x half length of one horizontal main axes
@@ -31,9 +32,10 @@ FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_
     registerParameter(BornAgain::RadiusY, & m_radius_y).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorHemiEllipsoid::Integrand);
+    onChange();
 }
 
-double FormFactorHemiEllipsoid::getRadialExtension() const
+double FormFactorHemiEllipsoid::radialExtension() const
 {
     return ( m_radius_x + m_radius_y ) / 2.0;
 }
@@ -57,7 +59,7 @@ complex_t FormFactorHemiEllipsoid::Integrand(double Z) const
     return Rz * Wz * J1_gamma_div_gamma * exp_I(m_q.z()*Z);
 }
 
-complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const
 {
      m_q = q;
      double R = m_radius_x;
@@ -67,4 +69,9 @@ complex_t FormFactorHemiEllipsoid::evaluate_for_q(const cvector_t q) const
      if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
          return M_TWOPI*R*W*H/3.;
      return M_TWOPI*mP_integrator->integrate(0.,H );
+}
+
+void FormFactorHemiEllipsoid::onChange()
+{
+    mP_shape.reset(new TruncatedEllipsoid(m_radius_x, m_radius_x, m_height, m_height, 0.0));
 }

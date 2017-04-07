@@ -30,18 +30,20 @@ public:
     ObjectiveFunctionPlan(const std::string &name, objective_function_t func, double expected_minimum,
                           double threshold = 0.01);
 
+    virtual ~ObjectiveFunctionPlan();
+
     void addParameter(double start_value, double expected_value,
                       const AttLimits &limits, double step);
 
     objective_function_t objectiveFunction() const { return m_objective_function; }
 
-    const std::vector<FitParameterPlan>& parameterPlan() const { return m_parameters; }
+    std::vector<const FitParameterPlan*> parameterPlan() const;
 
     std::string name() const { return m_name; }
 private:
     std::string m_name;
     objective_function_t m_objective_function;
-    std::vector<FitParameterPlan> m_parameters;
+    std::vector<FitParameterPlan*> m_parameters;
 };
 
 //! @class Rosenbrock1
@@ -64,4 +66,4 @@ public:
     WoodFour();
 };
 
-#endif
+#endif // OBJECTIVEFUNCTIONPLAN_H

@@ -17,7 +17,7 @@
 #include "MaskViewFactory.h"
 #include "EllipseView.h"
 #include "GUIHelpers.h"
-#include "IMaskView.h"
+#include "IShape2DView.h"
 #include "IntensityDataView.h"
 #include "LineViews.h"
 #include "MaskAllView.h"
@@ -29,13 +29,17 @@
 #include "SessionItem.h"
 #include "item_constants.h"
 
-IMaskView *MaskViewFactory::createMaskView(SessionItem *item,
+IShape2DView *MaskViewFactory::createMaskView(SessionItem *item,
                                            ISceneAdaptor *adaptor)
 {
-    IMaskView *result(0);
+    IShape2DView *result(0);
     QString model_type = item->modelType();
 
     if(model_type == Constants::MaskContainerType) {
+        result = new MaskContainerView();
+    }
+
+    else if(model_type == Constants::ProjectionContainerType) {
         result = new MaskContainerView();
     }
 
@@ -70,7 +74,6 @@ IMaskView *MaskViewFactory::createMaskView(SessionItem *item,
     else if(model_type == Constants::RegionOfInterestType) {
         result = new RegionOfInterestView();
     }
-
 
     else {
         throw GUIHelpers::Error("MaskViewFactory::createSampleView() -> Error! "

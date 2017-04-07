@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include "TruncatedEllipsoid.h"
 #include <limits>
 
 FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
@@ -32,9 +33,10 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
     setName(BornAgain::FormFactorSphereUniformRadiusType);
     registerParameter(BornAgain::MeanRadius, &m_mean).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::FullWidth, &m_full_width).setUnit("nm").setNonnegative();
+    onChange();
 }
 
-complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorSphereUniformRadius::evaluate_for_q(cvector_t q) const
 {
     double R = m_mean;
     double W = m_full_width;
@@ -48,6 +50,11 @@ complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
                                   - qW*std::cos(qW/2.0)*std::sin(qR)
                                   - 2.0*qR*std::cos(qR)*std::sin(qW/2.0) );
     return nominator/(q2*q2*W);
+}
+
+void FormFactorSphereUniformRadius::onChange()
+{
+    mP_shape.reset(new TruncatedEllipsoid(m_mean, m_mean, m_mean, 2.0*m_mean, 0.0));
 }
 
 bool FormFactorSphereUniformRadius::checkParameters() const

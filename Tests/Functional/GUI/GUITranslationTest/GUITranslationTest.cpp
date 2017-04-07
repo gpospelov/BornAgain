@@ -25,16 +25,21 @@
 #include "JobModel.h"
 #include "DocumentModel.h"
 #include "JobItem.h"
-#include "ParameterTreeBuilder.h"
+#include "ParameterTreeUtils.h"
 #include "ParameterTreeItems.h"
 #include "ParameterPool.h"
+#include "FitParameterHelper.h"
 #include "GUIHelpers.h"
 #include "StringUtils.h"
+#include "MultiLayer.h"
+#include "ModelPath.h"
 #include <QStack>
-#include <QDebug>
 
+namespace {
+    std::string header(size_t width=80) { return std::string(width, '-'); }
+}
 
-GUITranslationTest::GUITranslationTest(const std::string &simName, const std::string &sampleName)
+GUITranslationTest::GUITranslationTest(const std::string& simName, const std::string& sampleName)
     : m_models(new ApplicationModels(0))
     , m_simulationName(simName)
     , m_sampleName(sampleName)
@@ -54,17 +59,14 @@ GUITranslationTest::~GUITranslationTest()
 bool GUITranslationTest::runTest()
 {
     processParameterTree();
-    bool success = checkExistingTranslations();
+    std::cout << translationResultsToString() << std::endl;
 
-    // Uncomment line below to check missed translation (i.e. when fit parameter exist in domain
-    // but doesn't exist in GUI (like thickness of top layer)
-    //success &= checkMissedTranslations();
+    bool success = checkExistingTranslations();
+    success &= checkMissedTranslations();
 
     if(!success) {
         std::cout << "GUITranslationTest failed: " << m_simulationName
                   << " " << m_sampleName << std::endl;
-        std::cout << "Available simulation parameters" << std::endl;
-        m_simulation->printParameters();
     }
 
     return success;
@@ -87,32 +89,58 @@ void GUITranslationTest::processParameterTree()
                 0,
                 m_models->documentModel()->getSimulationOptionsItem());
 
-    ParameterTreeBuilder::populateDomainLinks(jobItem, JobItem::T_PARAMETER_TREE);
+    SessionItem *container = jobItem->parameterContainerItem();
 
-    SessionItem *current = jobItem->getItem(JobItem::T_PARAMETER_TREE);
+    ParameterTreeUtils::visitParameterContainer(container, [&](ParameterItem *parItem){
+        if(parItem->isFittable()) {
+            std::string sampleParLink =
+                    parItem->getItemValue(ParameterItem::P_LINK).toString().toStdString();
 
-    QStack<SessionItem *> stack;
-    stack.push(current);
-    while (!stack.empty()) {
-        current = stack.pop();
-        if (current->modelType() == Constants::ParameterLabelType
-                || current->modelType() == Constants::ParameterContainerType) {
-            for (SessionItem *child : current->getItems())
-                stack.push(child);
+            std::string parPath = FitParameterHelper::getParameterItemPath(parItem).toStdString();
 
-        } else {
-            if (ParameterItem *parItem = dynamic_cast<ParameterItem *>(current)) {
-                if(parItem->isFittable()) {
-                    std::string guiName =
-                            parItem->getItemValue(ParameterItem::P_LINK).toString().toStdString();
-                    std::string domainName = std::string("*") +
-                            parItem->getItemValue(ParameterItem::P_DOMAIN).toString().toStdString();
-                    m_translations.push_back({guiName, domainName});
-                }
-            }
+            std::string domainName = std::string("*") +
+                    parItem->getItemValue(ParameterItem::P_DOMAIN).toString().toStdString();
+
+            QString translation = ModelPath::itemPathTranslation(*parItem->linkedItem(), jobItem);
+            domainName = std::string("*/") + translation.toStdString();
+
+            m_translations.push_back({sampleParLink, parPath, domainName});
         }
-    }
+    });
+}
 
+//! Returns multiline string representing results of translation
+
+std::string GUITranslationTest::translationResultsToString() const
+{
+    std::ostringstream ostr;
+
+    ostr << "\n" << header() << "\n";
+    ostr << m_sampleName << "\n";
+    ostr << header() << "\n";
+
+    ostr << m_simulation->treeToString();
+
+    auto domainPars = m_simulation->parametersToString();
+    domainPars.pop_back(); // to remove extra "\n"
+    ostr << domainPars;
+    ostr << header(10) << "\n";
+
+    for(auto guiPar : m_translations) {
+        ostr << "GUI sampleLink : " << guiPar.sampleParLink << "\n";
+        ostr << "GUI parPath    : " << guiPar.parPath << "\n";
+        ostr << "Translated     : " << guiPar.translatedName << "\n\n";
+    }
+    return ostr.str();
+}
+
+//! Returns true, if it makes sence to look for GUI translation for given domain name.
+//! Intended to supress warnings about not-yet implemented translations.
+
+bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
+{
+    (void)domainName;
+    return true;
 }
 
 //! Validates GUI translations against simulation parameters. Tries to retrieve fit parameter
@@ -125,25 +153,28 @@ bool GUITranslationTest::checkExistingTranslations()
                                 "Empty list of translations.");
 
     std::unique_ptr<ParameterPool> pool(m_simulation->createParameterTree());
-    std::vector<name_pair> wrong_translations;
-    for(auto pair : m_translations) {
+    std::vector<ParItem> wrong_translations;
+    for(auto guiPar : m_translations) {
         try {
-            pool->getMatchedParameters(pair.translatedName);
+            pool->getMatchedParameters(guiPar.translatedName);
         } catch (const std::runtime_error &/*ex*/) {
-            wrong_translations.push_back(pair);
+            wrong_translations.push_back(guiPar);
         }
     }
 
+    std::ostringstream ostr;
     if(wrong_translations.size() > 0) {
-        std::cout << std::string(80, '-') << std::endl;
-        std::cout << "Translation doesn't match domain parameters:" << std::endl;
-        std::cout << std::string(80, '-') << std::endl;
-        for(auto pair : wrong_translations) {
-            std::cout << "gui         : " << pair.guiName << std::endl;
-            std::cout << "translation : " << pair.translatedName << std::endl;
-            std::cout << std::string(8, '-') << std::endl;
+        ostr << header() << std::endl;
+        ostr << "Translation doesn't match domain parameters:" << std::endl;
+        ostr << header() << std::endl;
+        for(auto guiPar : wrong_translations) {
+            ostr << "GUI sampleLink : " << guiPar.sampleParLink << "\n";
+            ostr << "GUI parPath    : " << guiPar.parPath << "\n";
+            ostr << "Translated     : " << guiPar.translatedName << "\n";
+            ostr << header(8) << std::endl;
         }
     }
+    std::cout << ostr.str();
 
     bool isSuccess = (wrong_translations.empty() ? true : false);
     return isSuccess;
@@ -158,10 +189,11 @@ bool GUITranslationTest::checkMissedTranslations()
                                 "Empty list of translations.");
 
     std::unique_ptr<ParameterPool> pool(m_simulation->createParameterTree());
-    std::vector<std::string> domainNames = pool->getParameterNames();
+    std::vector<std::string> domainNames = pool->parameterNames();
     std::vector<std::string> missedNames;
     for(auto name : domainNames) {
-        std::string domainName = "*" + Utils::String::removeSubstring(name, "/GISASSimulation");
+        std::string domainName = "*" + StringUtils::removeSubstring(name, "/GISASSimulation");
+
         bool translationFound(false);
         for(auto pair : m_translations) {
             if(pair.translatedName == domainName) {
@@ -169,18 +201,17 @@ bool GUITranslationTest::checkMissedTranslations()
                 break;
             }
         }
-        if(!translationFound) {
+        if(!translationFound && isValidDomainName(domainName)) {
             missedNames.push_back(name);
         }
     }
 
-    if(missedNames.size() > 1) {
-        std::cout << std::string(80, '-') << std::endl;
+    if(missedNames.size()) {
+        std::cout << header() << std::endl;
         std::cout << "Translation doesn't exist:" << std::endl;
-        std::cout << std::string(80, '-') << std::endl;
-        for(auto name : missedNames) {
+        std::cout << header() << std::endl;
+        for(auto name : missedNames)
             std::cout << "domain : " << name << std::endl;
-        }
     }
 
     bool isSuccess = (missedNames.empty() ? true : false);

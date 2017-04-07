@@ -9,7 +9,6 @@
 #include <QStyleOption>
 #include <QVBoxLayout>
 #include <QStackedWidget>
-#include <QDebug>
 
 using namespace Manhattan;
 

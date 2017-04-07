@@ -17,7 +17,7 @@
 #define SPHERICALDETECTOR_H
 
 #include "IDetector2D.h"
-#include "IPixelMap.h"
+#include "IPixel.h"
 
 //! A spherical detector with axes and resolution function.
 //! SphericalDetector
@@ -42,11 +42,9 @@ public:
 
     SphericalDetector* clone() const override;
 
-    ~SphericalDetector() override {}
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const override;
+    ~SphericalDetector() override {}
 
     //! returns vector of valid axes units
     std::vector<EAxesUnits> getValidAxesUnits() const override;
@@ -55,10 +53,8 @@ public:
     EAxesUnits getDefaultAxesUnits() const override;
 
 protected:
-    //! Create an IPixelMap for the given OutputData object and index
-    IPixelMap* createPixelMap(size_t index) const override;
-
-    void print(std::ostream& ostr) const override;
+    //! Create an IPixel for the given OutputData object and index
+    IPixel* createPixel(size_t index) const override;
 
     //! Registers some class members for later access via parameter pool.
     void init_parameters() override {}
@@ -79,14 +75,14 @@ protected:
     size_t getIndexOfSpecular(const Beam& beam) const override;
 };
 
-class AngularPixelMap : public IPixelMap
+class SphericalPixel : public IPixel
 {
 public:
-    AngularPixelMap(Bin1D alpha_bin, Bin1D phi_bin);
-    virtual ~AngularPixelMap() {}
+    SphericalPixel(Bin1D alpha_bin, Bin1D phi_bin);
+    virtual ~SphericalPixel() {}
 
-    AngularPixelMap* clone() const override;
-    AngularPixelMap* createZeroSizeMap(double x, double y) const override;
+    SphericalPixel* clone() const override;
+    SphericalPixel* createZeroSizePixel(double x, double y) const override;
     kvector_t getK(double x, double y, double wavelength) const override;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;

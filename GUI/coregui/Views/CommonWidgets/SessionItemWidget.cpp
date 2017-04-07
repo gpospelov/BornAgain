@@ -15,15 +15,69 @@
 // ************************************************************************** //
 
 #include "SessionItemWidget.h"
+#include "SessionItem.h"
 
-
-SessionItemWidget::SessionItemWidget(QWidget *parent)
+SessionItemWidget::SessionItemWidget(QWidget* parent)
     : QWidget(parent)
+    , m_currentItem(nullptr)
+    , is_subscribed(false)
 {
 
 }
 
-QList<QAction *> SessionItemWidget::actionList()
+SessionItemWidget::~SessionItemWidget()
+{
+    unsubscribe();
+}
+
+void SessionItemWidget::setItem(SessionItem* item)
+{
+    if(m_currentItem == item)
+        return;
+
+    unsubscribe(); // from previous item
+
+    m_currentItem = item;
+    if (!m_currentItem)
+        return;
+
+    if(!isHidden())
+        subscribe();
+}
+
+QList<QAction*> SessionItemWidget::actionList()
 {
     return QList<QAction *>();
+}
+
+void SessionItemWidget::showEvent(QShowEvent*)
+{
+    subscribe();
+}
+
+void SessionItemWidget::hideEvent(QHideEvent*)
+{
+    unsubscribe();
+}
+
+void SessionItemWidget::subscribe()
+{
+    if (!m_currentItem || is_subscribed)
+        return;
+
+    m_currentItem->mapper()->setOnItemDestroy([this](SessionItem*) { m_currentItem = 0; }, this);
+
+    subscribeToItem();
+
+    is_subscribed = true;
+}
+
+void SessionItemWidget::unsubscribe()
+{
+    if (m_currentItem)
+        m_currentItem->mapper()->unsubscribe(this);
+
+    unsubscribeFromItem();
+
+    is_subscribed = false;
 }

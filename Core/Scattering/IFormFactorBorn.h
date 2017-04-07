@@ -17,7 +17,10 @@
 #define IFORMFACTORBORN_H
 
 #include "IFormFactor.h"
+#include "IShape.h"
 #include "Vectors3D.h"
+
+struct SlicingEffects;
 
 //! Pure virtual base class for Born form factors.
 //!
@@ -30,10 +33,12 @@
 class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 {
 public:
-    IFormFactorBorn() {}
+    IFormFactorBorn();
     ~IFormFactorBorn() override {}
 
     IFormFactorBorn* clone() const override=0;
+
+    void setAmbientMaterial(HomogeneousMaterial) override {}
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 
@@ -41,17 +46,42 @@ public:
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 #endif
 
+    double bottomZ(const IRotation& rotation) const override;
+
+    double topZ(const IRotation& rotation) const override;
+
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
     //! This method is public only for convenience of plotting form factors in Python.
-    virtual complex_t evaluate_for_q(const cvector_t q) const=0;
+    virtual complex_t evaluate_for_q(cvector_t q) const=0;
 
 protected:
+    //! Default implementation only allows rotations along z-axis
+    bool canSliceAnalytically(const IRotation& rot) const override;
+
 #ifndef SWIG
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f in case
     //! of matrix interactions. Default implementation calls evaluate_for_q(q) and
     //! multiplies with the unit matrix.
-    virtual Eigen::Matrix2cd  evaluate_for_q_pol(const cvector_t q) const;
+    virtual Eigen::Matrix2cd  evaluate_for_q_pol(cvector_t q) const;
 #endif
+
+    //! IShape object, used to retrieve vertices (which may be approximate in the case
+    //! of round shapes). For soft particles, this will be a hard mean shape.
+    std::unique_ptr<IShape> mP_shape;
+
+    //! Helper method for slicing
+    SlicingEffects computeSlicingEffects(ZLimits limits, const kvector_t& position,
+                                         double height) const;
+};
+
+//! Nested structure that holds slicing effects on position and removed parts.
+
+//! @ingroup formfactors_internal
+
+struct SlicingEffects {
+    kvector_t position;
+    double dz_bottom;
+    double dz_top;
 };
 
 #ifdef POLYHEDRAL_DIAGNOSTIC

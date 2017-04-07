@@ -19,9 +19,8 @@
 #include "IFitObserver.h"
 #include "TimeInterval.h"
 
-//! @class FitSuitePrintObserver
+//! Prints fit progress at the end of each FitSuite's iteration.
 //! @ingroup fitting_internal
-//! @brief Prints fit progress at the end of each FitSuite's iteration
 
 class BA_CORE_API_ FitSuitePrintObserver : public IFitObserver
 {
@@ -32,6 +31,7 @@ public:
     void update(FitSuite* fit_suite);
 
 protected:
+    void printFitSuiteHeader();
     void printIterationHeader();
     void printWallTime();
     void printParameters();

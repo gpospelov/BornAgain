@@ -34,7 +34,8 @@ public:
         HORIZONTAL_LINE_MODE,
         ELLIPSE_MODE,
         ROI_MODE,
-        MASKALL_MODE
+        MASKALL_MODE,
+        PREVIOUS_MODE
     };
     Q_DECLARE_FLAGS(Activity, EActivityType)
 

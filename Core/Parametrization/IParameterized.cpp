@@ -17,6 +17,7 @@
 #include "RealLimits.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
+#include "Exceptions.h"
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -25,13 +26,13 @@
 IParameterized::IParameterized(const std::string& name)
     : INamed(name)
 {
-    m_pool = new ParameterPool( name, std::bind(&IParameterized::onChange, this) );
+    m_pool = new ParameterPool;
 }
 
 IParameterized::IParameterized(const IParameterized& other)
     : IParameterized(other.getName())
 {
-    if( other.getParameterPool()->size() )
+    if( other.parameterPool()->size() )
         throw std::runtime_error( "BUG: not prepared to copy parameters of " + getName() );
 }
 
@@ -40,41 +41,25 @@ IParameterized::~IParameterized()
     delete m_pool;
 }
 
-ParameterPool* IParameterized::createParameterTree()
+ParameterPool* IParameterized::createParameterTree() const
 {
-    auto P_new_pool = new ParameterPool(getName(), std::bind(&IParameterized::onChange, this) );
-    addParametersToExternalPool("/", P_new_pool);
-    return P_new_pool;
+    std::unique_ptr<ParameterPool> result(new ParameterPool);
+    m_pool->copyToExternalPool("/"+getName()+"/", result.get());
+    return result.release();
 }
 
-//! Copies local parameters to external_pool, under name "path/<name>copy_number/"
-
-std::string IParameterized::addParametersToExternalPool(
-    const std::string& _path, ParameterPool* external_pool, int copy_number) const
+std::string IParameterized::parametersToString() const
 {
-    std::string path = _path;
-    if( path[path.length()-1] != '/' )
-        path += "/";
-    path += getName();
-    if(copy_number >=0)
-        path += std::to_string(copy_number);
-    path += "/";
-
-    m_pool->copyToExternalPool(path, external_pool);
-
-    return path;
-}
-
-void IParameterized::printParameters()
-{
+    std::ostringstream result;
     std::unique_ptr<ParameterPool> P_pool( createParameterTree() );
-    std::cout << *P_pool << std::endl;
+    result << *P_pool << "\n";
+    return result.str();
 }
 
 RealParameter& IParameterized::registerParameter(const std::string& name, double* data)
 {
     return m_pool->addParameter(
-        new RealParameter( name, data, m_pool->getName(), [&]()->void{ onChange(); } ));
+        new RealParameter( name, data, getName(), [&]()->void{ onChange(); } ));
 }
 
 void IParameterized::setParameterValue(const std::string& name, double value)
@@ -92,11 +77,11 @@ void IParameterized::setParameterValue(const std::string& name, double value)
 }
 
 //! Returns parameter with given 'name'.
-RealParameter* IParameterized::getParameter(const std::string& name) const {
-    return m_pool->getParameter(name);
+RealParameter* IParameterized::parameter(const std::string& name) const {
+    return m_pool->parameter(name);
 }
 
-void IParameterized::print(std::ostream& ostr) const
+void IParameterized::removeParameter(const std::string& name)
 {
-    ostr << "IParameterized:" << getName() << " " << *m_pool;
+    m_pool->removeParameter(name);
 }

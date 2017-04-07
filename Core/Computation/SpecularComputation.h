@@ -16,34 +16,20 @@
 #ifndef SPECULARCOMPUTATION_H
 #define SPECULARCOMPUTATION_H
 
-#include "INoncopyable.h"
-#include <vector>
-#include <memory>
-
-class MultiLayer;
-class LayerSpecularInfo;
-class ProgressHandler;
-class SimulationElement;
-class SimulationOptions;
+#include "IComputationTerm.h"
 
 //! Computes the specular scattering.
 //! Controlled by MainComputation.
 //! @ingroup algorithms_internal
 
-class SpecularComputation final : public INoncopyable
+class SpecularComputation final : public IComputationTerm
 {
 public:
-    SpecularComputation();
+    SpecularComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
     void eval(ProgressHandler* progress,
-              bool polarized,
               const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it);
-    void setSpecularInfo(const LayerSpecularInfo& specular_info);
-
-private:
-    std::unique_ptr<LayerSpecularInfo> mP_specular_info;
+              const std::vector<SimulationElement>::iterator& end_it) const override;
 };
-
 
 #endif // SPECULARCOMPUTATION_H

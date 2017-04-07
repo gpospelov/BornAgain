@@ -18,30 +18,29 @@
 
 #include "VariableBinAxis.h"
 
-//! @class ConstKBinAxis
+//! Axis with fixed bin size in sin(angle) space.
 //! @ingroup tools
-//! @brief Axis with fixed bin size in sin(angle) space.
 
 class BA_CORE_API_ ConstKBinAxis : public VariableBinAxis
 {
 public:
-    //! @brief ConstKBinAxis constructor
+    //! ConstKBinAxis constructor.
     //! @param name Axis name
     //! @param nbins number of bins
     //! @param start low edge of first bin
     //! @param end upper edge of last bin
     ConstKBinAxis(const std::string& name, size_t nbins, double start, double end);
-    virtual ~ConstKBinAxis() {}
+    ~ConstKBinAxis() final {}
 
-    ConstKBinAxis* clone() const;
+    ConstKBinAxis* clone() const final;
 
-    ConstKBinAxis* createClippedAxis(double left, double right) const;
+    ConstKBinAxis* createClippedAxis(double left, double right) const final;
 
 protected:
     ConstKBinAxis(const std::string& name, size_t nbins);
 
-    void print(std::ostream& ostr) const;
-    bool equals(const IAxis& other) const;
+    void print(std::ostream& ostr) const final;
+    bool equals(const IAxis& other) const final;
 
     double m_start;
     double m_end;

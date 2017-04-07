@@ -20,8 +20,7 @@
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
-
-static complex_t I(0.,1.);
+#include "RippleCosine.h"
 
 FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
@@ -32,6 +31,7 @@ FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorRipple1::Integrand);
+    onChange();
 }
 
 bool FormFactorRipple1::check_initialization() const
@@ -49,7 +49,7 @@ bool FormFactorRipple1::check_initialization() const
     return result;
 }
 
-double FormFactorRipple1::getRadialExtension() const
+double FormFactorRipple1::radialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }
@@ -61,7 +61,7 @@ complex_t FormFactorRipple1::Integrand(double u) const
 }
 
 //! Complex formfactor.
-complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorRipple1::evaluate_for_q(cvector_t q) const
 {
     complex_t factor = m_length*MathFunctions::sinc(q.x()*m_length*0.5)*m_width/M_PI;
 
@@ -78,7 +78,12 @@ complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const
 
     // numerical integration otherwise
     m_ay = q.y() * m_width / M_TWOPI;
-    m_az = I * q.z() * (m_height/2);
+    m_az = complex_t(0,1) * q.z() * (m_height/2);
     complex_t integral = mP_integrator->integrate(0, M_PI);
     return factor * integral * exp(m_az) * (m_height/2);
+}
+
+void FormFactorRipple1::onChange()
+{
+    mP_shape.reset(new RippleCosine(m_length, m_width, m_height));
 }

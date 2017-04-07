@@ -31,11 +31,14 @@ public:
 
     FormFactorSphereLogNormalRadius* clone() const override final {
         return new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    double getRadialExtension() const override final { return m_mean; }
+    double radialExtension() const override final { return m_mean; }
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
+
+protected:
+    void onChange() override final;
 
 private:
     double m_mean;

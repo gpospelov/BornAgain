@@ -20,6 +20,8 @@
 #include "BeamItem.h"
 #include "BeamWavelengthItem.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDistributionItems.h"
 #include "FitParameterItems.h"
@@ -31,7 +33,7 @@
 #include "IntensityDataItem.h"
 #include "InterferenceFunctionItems.h"
 #include "JobItem.h"
-#include "LatticeTypeItems.h"
+#include "Lattice2DItems.h"
 #include "LayerItem.h"
 #include "LayerRoughnessItems.h"
 #include "MagneticFieldItem.h"
@@ -54,7 +56,8 @@
 #include "TransformationItem.h"
 #include "VectorItem.h"
 #include "LinkInstrumentItem.h"
-#include <QDebug>
+#include "RealLimitsItems.h"
+#include "ProjectionItems.h"
 
 namespace {
 template<typename T> SessionItem *createInstance() { return new T; }
@@ -75,7 +78,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;
     result[Constants::InterferenceFunction1DLatticeType] = &createInstance<InterferenceFunction1DLatticeItem>;
     result[Constants::InstrumentType] = &createInstance<InstrumentItem>;
-    result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
     result[Constants::VectorType] = &createInstance<VectorItem>;
     result[Constants::PropertyType] = &createInstance<PropertyItem>;
@@ -110,7 +112,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::LayerBasicRoughnessType] = &createInstance<LayerBasicRoughnessItem>;
     result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;
 
-    result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::SphericalDetectorType] = &createInstance<SphericalDetectorItem>;
     result[Constants::RectangularDetectorType] = &createInstance<RectangularDetectorItem>;
 
@@ -143,11 +144,11 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::FTDecayFunction2DGaussType] = &createInstance<FTDecayFunction2DGaussItem>;
     result[Constants::FTDecayFunction2DVoigtType] = &createInstance<FTDecayFunction2DVoigtItem>;
 
-    result[Constants::BasicLatticeType] = &createInstance<BasicLatticeTypeItem>;
-    result[Constants::SquareLatticeType] = &createInstance<SquareLatticeTypeItem>;
-    result[Constants::HexagonalLatticeType] = &createInstance<HexagonalLatticeTypeItem>;
+    result[Constants::BasicLatticeType] = &createInstance<BasicLatticeItem>;
+    result[Constants::SquareLatticeType] = &createInstance<SquareLatticeItem>;
+    result[Constants::HexagonalLatticeType] = &createInstance<HexagonalLatticeItem>;
 
-    result[Constants::MaterialType] = &createInstance<MaterialItem>;
+    result[Constants::HomogeneousMaterialType] = &createInstance<MaterialItem>;
 
     result[Constants::RefractiveIndexType] = &createInstance<RefractiveIndexItem>;
 
@@ -160,7 +161,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::BasicAxisType] = &createInstance<BasicAxisItem>;
     result[Constants::AmplitudeAxisType] = &createInstance<AmplitudeAxisItem>;
 
-//    result[Constants::BeamDistributionType] = &createInstance<BeamDistributionItem>;
     result[Constants::BeamWavelengthType] = &createInstance<BeamWavelengthItem>;
     result[Constants::BeamAzimuthalAngleType] = &createInstance<BeamAzimuthalAngleItem>;
     result[Constants::BeamInclinationAngleType] = &createInstance<BeamInclinationAngleItem>;
@@ -203,6 +203,15 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::GSLLMAMinimizerType] = &createInstance<GSLLMAMinimizerItem>;
     result[Constants::TestMinimizerType] = &createInstance<TestMinimizerItem>;
 
+    result[Constants::RealLimitsLimitlessType] = &createInstance<LimitlessItem>;
+    result[Constants::RealLimitsPositiveType] = &createInstance<PositiveItem>;
+    result[Constants::RealLimitsNonnegativeType] = &createInstance<NonnegativeItem>;
+    result[Constants::RealLimitsLowerLimitedType] = &createInstance<LowerLimitedItem>;
+    result[Constants::RealLimitsUpperLimitedType] = &createInstance<UpperLimitedItem>;
+    result[Constants::RealLimitsLimitedType] = &createInstance<LimitedItem>;
+
+    result[Constants::ProjectionContainerType] = &createInstance<ProjectionContainerItem>;
+
     return result;
 }
 }
@@ -225,8 +234,6 @@ ItemFactory::ItemMap_t ItemFactory::m_item_map = initializeItemMap();
 SessionItem *ItemFactory::createItem(const QString &model_name,
                                            SessionItem *parent)
 {
-    //qDebug() << "ItemFactory::createItem" << model_name;
-
     if(!m_item_map.contains(model_name))
         throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "+model_name);
 
@@ -234,7 +241,7 @@ SessionItem *ItemFactory::createItem(const QString &model_name,
     if(parent) {
         parent->insertItem(-1, result);
     }
-    //qDebug() << "       result:" << result;
+
     return result;
 }
 

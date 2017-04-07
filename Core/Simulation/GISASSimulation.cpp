@@ -52,7 +52,7 @@ void GISASSimulation::prepareSimulation()
     Simulation::prepareSimulation();
 }
 
-int GISASSimulation::numberOfSimulationElements() const
+size_t GISASSimulation::numberOfSimulationElements() const
 {
     return getInstrument().getDetector()->numberOfSimulationElements();
 }
@@ -61,7 +61,6 @@ OutputData<double>* GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnit
 {
     std::unique_ptr<OutputData<double>> result(
         m_instrument.createDetectorIntensity(m_sim_elements, units_type));
-    result->setVariability( m_options.getDefaultVariability() );
     return result.release();
 }
 
@@ -90,21 +89,6 @@ void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double
     m_instrument.setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 }
 
-std::string GISASSimulation::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path = IParameterized::addParametersToExternalPool(
-            path, external_pool, copy_number);
-
-    // add parameters of the instrument
-    m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
-
-    new_path = addSimulationParametersToExternalPool(new_path, external_pool);
-
-    return new_path;
-}
-
 void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
     m_instrument.getDetector()->setRegionOfInterest(xlow, ylow, xup, yup);
@@ -120,7 +104,7 @@ void GISASSimulation::removeMasks()
     m_instrument.getDetector()->removeMasks();
 }
 
-void GISASSimulation::addMask(const Geometry::IShape2D& shape, bool mask_value)
+void GISASSimulation::addMask(const IShape2D& shape, bool mask_value)
 {
     m_instrument.getDetector()->addMask(shape, mask_value);
 }

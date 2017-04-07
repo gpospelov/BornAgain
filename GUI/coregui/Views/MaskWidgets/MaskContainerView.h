@@ -17,7 +17,7 @@
 #ifndef MASKCONTAINERVIEW_H
 #define MASKCONTAINERVIEW_H
 
-#include "IMaskView.h"
+#include "IShape2DView.h"
 #include "SizeHandleElement.h"
 #include <QMap>
 
@@ -28,17 +28,19 @@
 //! The size of the rectangle always matches axes viewport at any zoom level.
 //! All MasksViews are added to MaskContainerView as children.
 
-class BA_CORE_API_ MaskContainerView : public IMaskView
+class BA_CORE_API_ MaskContainerView : public IShape2DView
 {
     Q_OBJECT
+
 public:
+    int type() const { return MaskEditorHelper::MASKCONTAINER; }
     MaskContainerView();
 
-public slots:
+protected slots:
     void update_view();
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 };
 
 #endif // MASKCONTAINERVIEW_H

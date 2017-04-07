@@ -16,16 +16,17 @@
 #ifndef MAINCOMPUTATION_H
 #define MAINCOMPUTATION_H
 
-#include "ComputationOutcome.h"
+#include "ComputationStatus.h"
 #include "Complex.h"
 #include "INoncopyable.h"
 #include "SimulationOptions.h"
+#include <memory>
 #include <vector>
 
+class IFresnelMap;
 class MultiLayer;
-class DecoratedLayerComputation;
-class RoughMultiLayerComputation;
-class SpecularComputation;
+struct HomogeneousRegion;
+class IComputationTerm;
 class ProgressHandler;
 class SimulationElement;
 
@@ -40,7 +41,7 @@ class MainComputation final : public INoncopyable
 {
 public:
     MainComputation(
-        const MultiLayer* p_multi_layer,
+        const MultiLayer& multilayer,
         const SimulationOptions& options,
         ProgressHandler& progress,
         const std::vector<SimulationElement>::iterator& begin_it,
@@ -49,27 +50,29 @@ public:
 
     void run();
 
-    bool isCompleted() const { return m_outcome.isCompleted(); }
-    std::string getRunMessage() const { return m_outcome.getRunMessage(); }
+    bool isCompleted() const { return m_status.isCompleted(); }
+    std::string errorMessage() const { return m_status.errorMessage(); }
 
 private:
     void runProtected();
+    IFresnelMap* createFresnelMap();
+    // creates a multilayer that contains averaged materials, for use in Fresnel calculations
+    std::unique_ptr<MultiLayer> getAveragedMultilayer();
+    // sets the correct layer materials for the Fresnel map to use
+    void initFresnelMap();
+    bool checkRegions(const std::vector<HomogeneousRegion>& regions) const;
 
-    //! calculates intensity map for samples with magnetization
-    void collectRTCoefficientsScalar();
-    void collectRTCoefficientsMatrix();
-
-    MultiLayer* mp_multi_layer;
+    std::unique_ptr<MultiLayer> mP_multi_layer;
     SimulationOptions m_sim_options;
     ProgressHandler* m_progress;
     //! these iterators define the span of detector bins this simulation will work on
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
-    RoughMultiLayerComputation* mp_roughness_computation;
-    SpecularComputation *mp_specular_computation;
-    std::vector<std::vector<DecoratedLayerComputation*>> m_layer_computation;
+    //! contains the information, necessary to calculate the Fresnel coefficients
+    std::unique_ptr<IFresnelMap> mP_fresnel_map;
 
-    ComputationOutcome m_outcome;
+    std::vector<std::unique_ptr<IComputationTerm>> m_computation_terms;
+    ComputationStatus m_status;
 };
 
 #endif // MAINCOMPUTATION_H

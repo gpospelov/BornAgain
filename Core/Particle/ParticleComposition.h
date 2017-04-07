@@ -17,8 +17,9 @@
 #define PARTICLECOMPOSITION_H
 
 #include "IParticle.h"
+#include <memory>
 
-class IMaterial;
+class HomogeneousMaterial;
 
 //! A composition of particles at fixed positions
 //! @ingroup samples
@@ -27,36 +28,31 @@ class BA_CORE_API_ ParticleComposition : public IParticle
 {
 public:
     ParticleComposition();
-    explicit ParticleComposition(const IParticle& particle);
-    ParticleComposition(const IParticle& particle, kvector_t position);
     ParticleComposition(const IParticle& particle, std::vector<kvector_t > positions);
 
-    virtual ~ParticleComposition();
-    virtual ParticleComposition* clone() const;
+    ~ParticleComposition();
+    ParticleComposition* clone() const override;
 
-    //! Returns a clone with inverted magnetic fields
-    virtual ParticleComposition* cloneInvertB() const;
-
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void addParticle(const IParticle& particle);
     void addParticle(const IParticle& particle, kvector_t  position);
     void addParticles(const IParticle& particle, std::vector<kvector_t > positions);
 
-    virtual void setAmbientMaterial(const IMaterial& material);
-    virtual const IMaterial* getAmbientMaterial() const;
-
-    //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
-                                                     kvector_t translation) const;
+    IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
+                                             kvector_t translation) const;
 
     //! Returns number of different particles
-    size_t getNbrParticles() const { return m_particles.size(); }
+    size_t nbrParticles() const { return m_particles.size(); }
 
     //! Returns particle with given index
-    const IParticle* getParticle(size_t index) const;
+    const IParticle* particle(size_t index) const;
 
-    kvector_t getParticlePosition(size_t index) const;
+    kvector_t particlePosition(size_t index) const;
+
+    std::vector<const INode*> getChildren() const override;
+
+    SafePointerVector<IParticle> decompose() const override;
 
 private:
     size_t check_index(size_t index) const;
@@ -64,10 +60,10 @@ private:
     //! Returns true if particle's type is suitable for adding
     void checkParticleType(const IParticle& p_particle);
 
-    //! For internal use in cloneInvertB():
+    //! For internal use
     void addParticlePointer(IParticle* p_particle);
 
-    std::vector<IParticle*> m_particles;
+    std::vector<std::unique_ptr<IParticle>> m_particles;
     void initialize();
 };
 

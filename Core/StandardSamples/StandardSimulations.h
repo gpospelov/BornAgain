@@ -20,7 +20,7 @@ class GISASSimulation;
 
 //! Standard pre-defined simulations.
 
-namespace StandardSimulations{
+namespace StandardSimulations {
 
 // Special tests:
 GISASSimulation* PolarizedDWBAMagCylinders2();
@@ -32,6 +32,9 @@ GISASSimulation* MiniGISAS();
 GISASSimulation* MiniGISAS_v2();
 GISASSimulation* MiniGISASBeamDivergence();
 GISASSimulation* MiniGISASDetectorResolution();
+GISASSimulation* MiniGISASPolarizationPP();
+GISASSimulation* MiniGISASSpinFlipZ();
+GISASSimulation* MiniGISASSpecularPeak();
 GISASSimulation* GISASWithMasks();
 GISASSimulation* MaxiGISAS();
 GISASSimulation* MaxiGISAS00();
@@ -45,6 +48,7 @@ GISASSimulation* RectDetectorPerpToReflectedBeamDpos();
 GISASSimulation* MiniGISASMonteCarlo();
 GISASSimulation* SphericalDetWithRoi();
 GISASSimulation* RectDetWithRoi();
-}
+
+} // namespace StandardSimulations
 
 #endif // STANDARDSIMULATIONS_H

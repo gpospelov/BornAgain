@@ -66,7 +66,7 @@ void JobRealTimeWidget::setItem(JobItem * jobItem)
     }
 
     bool isNew(false);
-    m_stackedWidget->setItem(jobItem, isNew);
+    m_stackedWidget->setItem(jobItem, &isNew);
 
     if(isNew) {
         ParameterTuningWidget *widget = m_stackedWidget->currentWidget();

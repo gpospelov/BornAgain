@@ -23,7 +23,6 @@
 #include "SampleToolBar.h"
 #include "SampleViewComponents.h"
 #include "mainwindow.h"
-#include <QDebug>
 #include <QDockWidget>
 #include <QMenu>
 #include <QTimer>
@@ -179,7 +178,6 @@ void SampleView::deleteItem()
 //! functionality.
 void SampleView::setDockHeightForWidget(int height)
 {
-    qDebug() << "SampleView::setDockHeightForWidget(int height)" << height;
     QWidget *widget = qobject_cast<QWidget *>(sender());
     Q_ASSERT(widget);
     QDockWidget *dock = m_widget_to_dock[widget];

@@ -20,7 +20,7 @@
 
 //! Coherent sum of different scalar IFormFactor's with different weights.
 //!
-//! Used by ParticleComposition and ParticleCoreShell.
+//! Used by ParticleComposition.
 //! If same particles are at different positions, then consider
 //! FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
@@ -34,13 +34,17 @@ public:
 
     FormFactorWeighted* clone() const override final;
 
-    void accept(ISampleVisitor* visitor) const override  final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override  final { visitor->visit(this); }
 
-    double getRadialExtension() const override final;
+    double radialExtension() const override final;
+
+    double bottomZ(const IRotation& rotation) const override final;
+
+    double topZ(const IRotation& rotation) const override final;
 
     void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 
-    void setAmbientMaterial(const IMaterial& material) override final;
+    void setAmbientMaterial(HomogeneousMaterial material) override final;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 

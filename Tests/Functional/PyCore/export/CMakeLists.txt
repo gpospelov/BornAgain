@@ -17,6 +17,7 @@ set(test_cases
     BoxCompositionRotateY
     BoxCompositionRotateZ
     BoxCompositionRotateZandY
+    BoxesWithSpecular
     BoxStackComposition
     CenteredSquareLattice
     CoreShellBoxRotateZandY
@@ -40,15 +41,18 @@ set(test_cases
     RectDetectorPerpToReflectedBeamDpos
     RectDetectorPerpToSample
     RectParaCrystal
+    RotatedCylinder
     RotatedPyramids
     RotatedSquareLattice
     SimulationWithMasks
     SquareLattice
     TransformBox
     TriangularRipple
+    AsymRipple
     TwoTypesCylindersDistribution
     SphericalDetWithRoi
     RectDetWithRoi
+    SlicedComposition
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

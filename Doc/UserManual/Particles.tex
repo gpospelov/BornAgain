@@ -31,7 +31,7 @@ class ParticleLayout {
     void addParticle(const IAbstractParticle& particle, double abundance);
     void addParticle(const IParticle& particle, double abundance, const kvector_t position);
     void addParticle(const IParticle& particle, double abundance, const kvector_t position, const IRotation& rotation);
-    void addInterferenceFunction(const IInterferenceFunction& interference_function);
+    void setInterferenceFunction(const IInterferenceFunction& interference_function);
     void setTotalParticleSurfaceDensity(double particle_density);
 };
 \end{lstlisting}

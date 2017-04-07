@@ -16,15 +16,15 @@
 #ifndef FTDECAYFUNCTIONS_H
 #define FTDECAYFUNCTIONS_H
 
-#include "IParameterized.h"
+#include "ICloneable.h"
+#include "INode.h"
 #include "MathConstants.h"
-
 
 //! Interface for a one-dimensional decay function,
 //!   with evaluate(q) returning the Fourier transform,
 //!   normalized to \f$\int dq\; {\rm evaluate}(q) = 1\f$.
 //! @ingroup distribution_internal
-class BA_CORE_API_ IFTDecayFunction1D : public IParameterized
+class BA_CORE_API_ IFTDecayFunction1D : public ICloneable, public INode
 {
 public:
     IFTDecayFunction1D(double omega) : m_omega(omega) {}
@@ -51,6 +51,7 @@ public:
     FTDecayFunction1DCauchy(double omega);
     virtual FTDecayFunction1DCauchy* clone() const {
         return new FTDecayFunction1DCauchy(m_omega); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
 
@@ -64,6 +65,7 @@ public:
     FTDecayFunction1DGauss(double omega);
     virtual FTDecayFunction1DGauss* clone() const {
         return new FTDecayFunction1DGauss(m_omega); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
 
@@ -77,6 +79,7 @@ public:
     FTDecayFunction1DTriangle(double omega);
     virtual FTDecayFunction1DTriangle* clone() const {
         return new FTDecayFunction1DTriangle(m_omega); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
 
@@ -90,6 +93,7 @@ public:
     FTDecayFunction1DVoigt(double omega, double eta);
     virtual FTDecayFunction1DVoigt* clone() const {
         return new FTDecayFunction1DVoigt(m_omega, m_eta); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
     double getEta() const { return m_eta;}
 protected:
@@ -100,7 +104,7 @@ protected:
 
 //! Interface for two-dimensional decay function in reciprocal space.
 //! @ingroup decayFT_internal
-class BA_CORE_API_ IFTDecayFunction2D : public IParameterized
+class BA_CORE_API_ IFTDecayFunction2D : public ICloneable, public INode
 {
 public:
     IFTDecayFunction2D(double decay_length_x, double decay_length_y,
@@ -153,6 +157,7 @@ public:
                             double gamma=0, double delta=M_PI_2);
     virtual FTDecayFunction2DCauchy* clone() const {
         return new FTDecayFunction2DCauchy(m_omega_x, m_omega_y, m_gamma, m_delta); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double evaluate(double qx, double qy) const final;
 };
@@ -169,6 +174,7 @@ public:
                            double gamma=0, double delta=M_PI_2);
     virtual FTDecayFunction2DGauss* clone() const {
         return new FTDecayFunction2DGauss(m_omega_x, m_omega_y, m_gamma, m_delta); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double evaluate(double qx, double qy) const final;
 };
@@ -183,6 +189,7 @@ public:
                            double gamma=0, double delta=M_PI_2);
     virtual FTDecayFunction2DVoigt* clone() const {
         return new FTDecayFunction2DVoigt(m_omega_x, m_omega_y, m_eta, m_gamma, m_delta); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double evaluate(double qx, double qy) const final;
 

@@ -23,20 +23,20 @@ class IChiSquaredModule;
 //! Holds vector of FitObject's (simulation and real data) to fit
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitSuiteObjects : public IParameterized, public INoncopyable
+class BA_CORE_API_ FitSuiteObjects : public INode, public INoncopyable
 {
  public:
     typedef SafePointerVector<FitObject> FitObjects_t;
+    typedef FitObjects_t::iterator iterator;
 
     FitSuiteObjects();
     virtual ~FitSuiteObjects();
 
-    //! Adds to kit pair of (simulation, real data) for consecutive simulation
-    void add(const GISASSimulation& simulation, const OutputData<double>& real_data,
-             double weight = 1.0);
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    //! Returns number of fit objects (simulation/real data pairs)
-    size_t getNumberOfFitObjects() const { return m_fit_objects.size(); }
+    //! Adds to kit pair of (simulation, real data) for consecutive simulation
+    FitObject* add(const GISASSimulation& simulation, const OutputData<double>& real_data,
+             double weight = 1.0);
 
     //! Returns total number of data points (number of all non-masked channels in all fit objects)
     size_t getSizeOfDataSet() const;
@@ -66,14 +66,16 @@ class BA_CORE_API_ FitSuiteObjects : public IParameterized, public INoncopyable
     //! @param global_index index accross all element in FitElement vector
     double getResidualValue(size_t global_index);
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number=-1) const;
-
     void setNfreeParameters(int nfree_parameters) { m_nfree_parameters = nfree_parameters; }
 
     //! clear all data
     void clear();
+
+    size_t size() const { return m_fit_objects.size(); }
+    iterator begin() { return m_fit_objects.begin(); }
+    iterator end() { return m_fit_objects.end(); }
+
+    std::vector<const INode*> getChildren() const;
 
  protected:
     //! Registers some class members for later access via parameter pool

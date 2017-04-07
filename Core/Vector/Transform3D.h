@@ -16,13 +16,14 @@
 #ifndef TRANSFORM3D_H
 #define TRANSFORM3D_H
 
-#include "BasicVector3D.h"
+#include "Vectors3D.h"
 #include "Complex.h"
 #include "EigenCore.h"
 
-//! @class Transform3D
+#include <vector>
+
+//! Vector transformations in three dimensions.
 //! @ingroup tools_internal
-//! @brief Vector transformations in three dimensions.
 
 class BA_CORE_API_ Transform3D {
 public:
@@ -57,6 +58,18 @@ public:
 
     //! Calculates the Euler angles corresponding to the rotation
     void calculateEulerAngles(double *p_alpha, double *p_beta, double *p_gamma) const;
+
+    //! Calculates the rotation angle for a rotation around the x-axis alone
+    //! Only meaningfull if the actual rotation is around the x-axis
+    double calculateRotateXAngle() const;
+
+    //! Calculates the rotation angle for a rotation around the y-axis alone
+    //! Only meaningfull if the actual rotation is around the y-axis
+    double calculateRotateYAngle() const;
+
+    //! Calculates the rotation angle for a rotation around the z-axis alone
+    //! Only meaningfull if the actual rotation is around the z-axis
+    double calculateRotateZAngle() const;
 
     //! Returns the inverse transformation.
     Transform3D getInverse() const;
@@ -93,15 +106,21 @@ public:
 
     void print(std::ostream& ostr) const;
 
+    bool isXRotation() const;
+    bool isYRotation() const;
+    bool isZRotation() const;
 private:
 #ifndef SWIG
     Transform3D(const Eigen::Matrix3d &matrix);
     Eigen::Matrix3d m_matrix;
     Eigen::Matrix3d m_inverse_matrix;
 #endif
-    bool isXRotation() const;
-    bool isYRotation() const;
-    bool isZRotation() const;
 };
+
+//! Calculates the z-coordinate of the lowest vertex after rotation
+double BottomZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation);
+
+//! Calculates the z-coordinate of the highest vertex after rotation
+double TopZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation);
 
 #endif // TRANSFORM3D_H

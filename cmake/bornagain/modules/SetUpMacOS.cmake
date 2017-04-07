@@ -87,7 +87,7 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 
      # Select flags.
      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
-     set(CMAKE_CXX_FLAGS_RELEASE        "-O2")
+     set(CMAKE_CXX_FLAGS_RELEASE        "-O2 -DNDEBUG")
      set(CMAKE_CXX_FLAGS_DEBUG          "-g -O2 -fno-inline")
      set(CMAKE_CXX_FLAGS_DEBUGFULL      "-g3 -fno-inline")
      set(CMAKE_CXX_FLAGS_PROFILE        "-g3 -fno-inline -ftest-coverage -fprofile-arcs")

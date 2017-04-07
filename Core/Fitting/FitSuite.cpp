@@ -19,11 +19,13 @@
 #include "FitSuitePrintObserver.h"
 #include "IHistogram.h"
 #include "MinimizerFactory.h"
+#include "ParameterPool.h"
 #include <iostream>
 
 FitSuite::FitSuite()
     : m_impl(new FitSuiteImpl(std::bind(&FitSuite::notifyObservers, this)))
-{}
+{
+}
 
 FitSuite::~FitSuite()
 {}
@@ -50,10 +52,15 @@ void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
 }
 
 
-FitParameterLinked *FitSuite::addFitParameter(const std::string& name, double value,
+FitParameter *FitSuite::addFitParameter(const std::string& pattern, double value,
                                const AttLimits& limits, double step)
 {
-    return m_impl->addFitParameter(name, value, limits, step);
+    return m_impl->addFitParameter(pattern, value, limits, step);
+}
+
+FitParameter* FitSuite::addFitParameter(const FitParameter& fitPar)
+{
+    return m_impl->addFitParameter(fitPar);
 }
 
 void FitSuite::setMinimizer(const std::string& minimizer_name, const std::string& algorithm_name,
@@ -97,7 +104,7 @@ void FitSuite::runFit()
 
 int FitSuite::numberOfFitObjects() const
 {
-    return m_impl->fitObjects()->getNumberOfFitObjects();
+    return m_impl->fitObjects()->size();
 }
 
 IHistogram* FitSuite::getRealData(size_t i_item) const
@@ -130,6 +137,20 @@ const OutputData<double>* FitSuite::getChiSquaredOutputData(size_t i_item) const
     return &m_impl->fitObjects()->getChiSquaredMap(i_item);
 }
 
+std::string FitSuite::parametersToString() const
+{
+    return m_impl->fitObjects()->parametersToString();
+}
+
+std::string FitSuite::treeToString() const
+{
+    return m_impl->fitObjects()->treeToString();
+}
+
+std::string FitSuite::setupToString()
+{
+    return m_impl->setupToString();
+}
 
 FitSuiteObjects* FitSuite::fitObjects()
 {

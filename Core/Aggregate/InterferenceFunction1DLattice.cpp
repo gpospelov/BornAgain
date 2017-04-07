@@ -17,7 +17,6 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "FTDecayFunctions.h"
-#include "ISampleVisitor.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
 
@@ -29,7 +28,7 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, doub
 
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(
     const Lattice1DParameters& lattice_params)
-    : m_lattice_params(lattice_params), mp_pdf(nullptr), m_na(0)
+    : m_lattice_params(lattice_params), m_na(0)
 {
     setName(BornAgain::InterferenceFunction1DLatticeType);
     init_parameters();
@@ -37,7 +36,6 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(
 
 InterferenceFunction1DLattice::~InterferenceFunction1DLattice()
 {
-    delete mp_pdf;
 }
 
 InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
@@ -50,10 +48,8 @@ InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 
 void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& pdf)
 {
-    if (mp_pdf != &pdf) {
-        delete mp_pdf;
-        mp_pdf = pdf.clone();
-    }
+    mp_pdf.reset(pdf.clone());
+    registerChild(mp_pdf.get());
     double omega = mp_pdf->getOmega();
     double qa_max = (m_lattice_params.m_length / M_TWOPI) * nmax / omega;
     m_na = (int)(std::abs(qa_max) + 0.5);
@@ -85,6 +81,11 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
         result += mp_pdf->evaluate(qx);
     }
     return result/a;
+}
+
+std::vector<const INode*> InterferenceFunction1DLattice::getChildren() const
+{
+    return std::vector<const INode*>() << mp_pdf;
 }
 
 void InterferenceFunction1DLattice::init_parameters()

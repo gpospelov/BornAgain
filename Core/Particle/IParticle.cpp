@@ -16,31 +16,18 @@
 #include "IParticle.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
+#include "MultiLayer.h"
 #include "RealParameter.h"
 
 IFormFactor* IParticle::createFormFactor() const
 {
-    return createTransformedFormFactor(nullptr, kvector_t());
+    return createSlicedParticle(ZLimits {}).mP_slicedff.release();
 }
 
-void IParticle::setRotation(const IRotation& rotation)
+SlicedParticle IParticle::createSlicedParticle(ZLimits) const
 {
-    if (mP_rotation)
-        deregisterChild(mP_rotation.get());
-    mP_rotation.reset(rotation.clone());
-    registerChild(mP_rotation.get());
-}
-
-void IParticle::applyRotation(const IRotation& rotation)
-{
-    if (mP_rotation) {
-        deregisterChild(mP_rotation.get());
-        mP_rotation.reset(CreateProduct(rotation, *mP_rotation));
-    } else {
-        mP_rotation.reset(rotation.clone());
-    }
-    m_position = rotation.getTransform3D().transformed(m_position);
-    registerChild(mP_rotation.get());
+    throw std::runtime_error("IParticle::createSlicedParticle error: "
+                             "not implemented!");
 }
 
 void IParticle::applyTranslation(kvector_t displacement)
@@ -48,11 +35,83 @@ void IParticle::applyTranslation(kvector_t displacement)
     m_position += displacement;
 }
 
+void IParticle::translateZ(double offset)
+{
+    kvector_t translation(0, 0, offset);
+    applyTranslation(translation);
+}
+
+const IRotation* IParticle::rotation() const
+{
+    return mP_rotation.get();
+}
+
+void IParticle::setRotation(const IRotation& rotation)
+{
+    mP_rotation.reset(rotation.clone());
+    registerChild(mP_rotation.get());
+}
+
+void IParticle::applyRotation(const IRotation& rotation)
+{
+    if (mP_rotation) {
+        mP_rotation.reset(createProduct(rotation, *mP_rotation));
+    } else {
+        mP_rotation.reset(rotation.clone());
+    }
+    m_position = rotation.getTransform3D().transformed(m_position);
+    registerChild(mP_rotation.get());
+}
+
+std::vector<const INode*> IParticle::getChildren() const
+{
+    return std::vector<const INode*>() << mP_rotation;
+}
+
+void IParticle::registerAbundance(bool make_registered)
+{
+    if(make_registered) {
+        if(!parameter(BornAgain::Abundance))
+            registerParameter(BornAgain::Abundance, &m_abundance);
+    } else {
+        removeParameter(BornAgain::Abundance);
+    }
+}
+
+void IParticle::registerPosition(bool make_registered)
+{
+    if(make_registered) {
+        if(!parameter(BornAgain::PositionX)) {
+            registerParameter(BornAgain::PositionX, &m_position[0]).setUnit("nm");
+            registerParameter(BornAgain::PositionY, &m_position[1]).setUnit("nm");
+            registerParameter(BornAgain::PositionZ, &m_position[2]).setUnit("nm");
+        }
+    } else {
+        removeParameter(BornAgain::PositionX);
+        removeParameter(BornAgain::PositionY);
+        removeParameter(BornAgain::PositionZ);
+    }
+}
+
+SafePointerVector<IParticle> IParticle::decompose() const
+{
+    SafePointerVector<IParticle> result;
+    result.push_back(this->clone());
+    return result;
+}
+
+ParticleLimits IParticle::bottomTopZ() const
+{
+    std::unique_ptr<IFormFactor> P_ff(createFormFactor());
+    std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
+    return { P_ff->bottomZ(*P_rot), P_ff->topZ(*P_rot) };
+}
+
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
 {
     if (p_rotation) {
         if (mP_rotation)
-            return CreateProduct(*p_rotation, *mP_rotation);
+            return createProduct(*p_rotation, *mP_rotation);
         else
             return p_rotation->clone();
     } else {
@@ -63,7 +122,7 @@ IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
     }
 }
 
-kvector_t IParticle::getComposedTranslation(
+kvector_t IParticle::composedTranslation(
     const IRotation* p_rotation, kvector_t translation) const
 {
     if (p_rotation) {
@@ -74,14 +133,9 @@ kvector_t IParticle::getComposedTranslation(
     }
 }
 
-void IParticle::registerPosition()
+void IParticle::registerParticleProperties()
 {
-    registerParameter(BornAgain::PositionX, &m_position[0]).setUnit("nm");
-    registerParameter(BornAgain::PositionY, &m_position[1]).setUnit("nm");
-    registerParameter(BornAgain::PositionZ, &m_position[2]).setUnit("nm");
+    registerAbundance();
+    registerPosition();
 }
 
-const IRotation* IParticle::getRotation() const
-{
-    return mP_rotation.get();
-}

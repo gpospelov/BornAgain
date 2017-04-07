@@ -16,7 +16,8 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
-#include "IParameterized.h"
+#include "INode.h"
+#include "ICloneable.h"
 #include "Beam.h"
 #include "DetectorMask.h"
 #include "SafePointerVector.h"
@@ -25,28 +26,26 @@
 
 template<class T> class OutputData;
 class Beam;
+class DetectionProperties;
 class IAxis;
 class IDetectorResolution;
-class IPixelMap;
-class SimulationElement;
-class DetectionProperties;
+class IResolutionFunction2D;
+class IPixel;
+class IShape2D;
 class RegionOfInterest;
-namespace Geometry {
-    class IShape2D;
-}
+class SimulationElement;
 
-//! @class IDetector
+//! Pure virtual detector interface.
 //! @ingroup simulation
-//! @brief The detector interface.
 
-class BA_CORE_API_ IDetector2D : public ICloneable, public IParameterized
+class BA_CORE_API_ IDetector2D :  public ICloneable, public INode
 {
 public:
     enum EAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
 
     IDetector2D();
 
-    virtual IDetector2D* clone() const=0;
+    virtual IDetector2D* clone() const =0;
 
     virtual ~IDetector2D();
 
@@ -69,18 +68,22 @@ public:
     void setDetectorAxes(const IAxis& axis0, const IAxis& axis1);
 
     //! Sets the detector resolution
-    void setDetectorResolution(IDetectorResolution* p_detector_resolution);
+    void setDetectorResolution(const IDetectorResolution& p_detector_resolution);
+    void setResolutionFunction(const IResolutionFunction2D& resFunc);
+
+    //! Removes detector resolution function.
+    void removeDetectorResolution();
 
     //! Applies the detector resolution to the given intensity maps
     void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
-    const IDetectorResolution* getDetectorResolutionFunction() const;
+    const IDetectorResolution* detectorResolution() const;
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission);
 
-    //! removes all masks from the detector
+    //! Removes all masks from the detector
     void removeMasks();
 
     //! Adds mask of given shape to the stack of detector masks. The mask value 'true' means
@@ -88,7 +91,7 @@ public:
     //! has priority.
     //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
     //! @param mask_value The value of mask
-    void addMask(const Geometry::IShape2D& shape, bool mask_value = true);
+    void addMask(const IShape2D& shape, bool mask_value = true);
 
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
     void maskAll();
@@ -110,10 +113,6 @@ public:
     SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
 #endif
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
-
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
             const Beam& beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
@@ -124,10 +123,10 @@ public:
     //! Inits axes of OutputData to match the detector and sets values to zero.
     virtual void initOutputData(OutputData<double> &data) const;
 
-    //! returns vector of valid axes units
+    //! Returns vector of valid axes units
     virtual std::vector<EAxesUnits> getValidAxesUnits() const;
 
-    //! return default axes units
+    //! Return default axes units
     virtual EAxesUnits getDefaultAxesUnits() const { return DEFAULT; }
 
     //! Returns region of  interest if exists.
@@ -148,11 +147,13 @@ public:
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
 
+    std::vector<const INode*> getChildren() const;
+
 protected:
     IDetector2D(const IDetector2D& other);
 
-    //! Create an IPixelMap for the given OutputData object and index
-    virtual IPixelMap* createPixelMap(size_t index) const=0;
+    //! Create an IPixel for the given OutputData object and index
+    virtual IPixel* createPixel(size_t index) const=0;
 
     //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}

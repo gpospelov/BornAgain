@@ -16,12 +16,9 @@
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "ISampleVisitor.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <limits>
-
-using namespace BornAgain;
 
 InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
         double peak_distance, double damping_length)
@@ -31,7 +28,7 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
     , m_kappa(0.0)
     , m_domain_size(0.0)
 {
-    setName(InterferenceFunctionRadialParaCrystalType);
+    setName(BornAgain::InterferenceFunctionRadialParaCrystalType);
     if (m_damping_length==0.0)
         m_use_damping_length = false;
     init_parameters();
@@ -39,10 +36,10 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
 
 void InterferenceFunctionRadialParaCrystal::init_parameters()
 {
-    registerParameter(PeakDistance, &m_peak_distance).setUnit("nm").setNonnegative();
-    registerParameter(DampingLength, &m_damping_length).setUnit("nm").setNonnegative();
-    registerParameter(SizeSpaceCoupling, &m_kappa).setNonnegative();
-    registerParameter(DomainSize, &m_domain_size).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::PeakDistance, &m_peak_distance).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::DampingLength, &m_damping_length).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::SizeSpaceCoupling, &m_kappa).setNonnegative();
+    registerParameter(BornAgain::DomainSize, &m_domain_size).setUnit("nm").setNonnegative();
 }
 
 InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::clone() const {
@@ -54,16 +51,6 @@ InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::cl
     if (mP_pdf)
         result->setProbabilityDistribution(*mP_pdf);
     return result;
-}
-
-std::string InterferenceFunctionRadialParaCrystal::to_str(int indent) const
-{
-    std::stringstream ss;
-    ss << std::string(4*indent, '.') << " " << getName() << " " << *getParameterPool() << "\n";
-    ss << std::string(4*(indent+1), '.') << " pdf: " << *getProbabilityDistribution() << "\n";
-    for( const ISample* child: getChildren() )
-        ss << child->to_str(indent+1);
-    return ss.str();
 }
 
 double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
@@ -118,6 +105,11 @@ complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
 
 void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
 {
-    if (mP_pdf.get() != &pdf)
-        mP_pdf.reset(pdf.clone());
+    mP_pdf.reset(pdf.clone());
+    registerChild(mP_pdf.get());
+}
+
+std::vector<const INode*> InterferenceFunctionRadialParaCrystal::getChildren() const
+{
+    return std::vector<const INode*>() << mP_pdf;
 }

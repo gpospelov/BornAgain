@@ -21,7 +21,6 @@
 #include "ParticleLayoutView.h"
 #include "SessionItem.h"
 #include "tooltipdatabase.h"
-#include <QDebug>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
@@ -37,16 +36,6 @@ LayerView::LayerView(QGraphicsItem *parent)
     setToolTip(ToolTipDataBase::getSampleViewDesignerToolTip(Constants::LayerType));
     setAcceptDrops(false);
     addPort(QString(), NodeEditorPort::INPUT, NodeEditorPort::PARTICLE_LAYOUT);
-}
-
-LayerView::~LayerView()
-{
-    qDebug() << "LayerView::~LayerView()";
-    // FIXME replace with onChildrenChange callback from MultiLayerItem's model mapper.
-//    MultiLayerView *mlView = dynamic_cast<MultiLayerView *>(parentItem());
-//    if(mlView) {
-//        mlView->removeLayer(this);
-//    }
 }
 
 
@@ -65,13 +54,8 @@ void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 void LayerView::addView(IView *childView, int /* row */)
 {
-    qDebug() << "LayerView::addView() " << m_item->itemName() << childView->getItem()->itemName();
     ParticleLayoutView *layout = dynamic_cast<ParticleLayoutView *>(childView);
     Q_ASSERT(layout);
     connectInputPort(layout, 0);
 }
 
-//QVariant LayerView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
-//{
-//    return QGraphicsItem::itemChange(change, value);
-//}

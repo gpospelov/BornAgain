@@ -28,13 +28,16 @@ public:
 
     FormFactorTetrahedron *clone() const override final {
         return new FormFactorTetrahedron(m_base_edge, m_height, m_alpha); }
-    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }
     double getHeight() const { return m_height; }
     double getAlpha() const { return m_alpha; }
 
 protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
     void onChange() override final;
 
 private:

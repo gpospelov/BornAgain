@@ -17,17 +17,16 @@
 #ifndef TRANSFORMATIONITEM_H
 #define TRANSFORMATIONITEM_H
 
+#include "WinDllMacros.h"
 #include "SessionGraphicsItem.h"
 
-class TransformationItem : public SessionGraphicsItem
+class BA_CORE_API_ TransformationItem : public SessionGraphicsItem
 {
-
 public:
     static const QString P_ROT;
     explicit TransformationItem();
     virtual ~TransformationItem(){}
 };
-
 
 #endif // TRANSFORMATIONITEM_H
 

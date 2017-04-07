@@ -18,8 +18,13 @@
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "GUIHelpers.h"
+#include "SessionModel.h"
+#include "GroupItem.h"
+#include "MaskItems.h"
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
+const QString InstrumentItem::P_BEAM = "Beam";
+const QString InstrumentItem::P_DETECTOR = "Detector";
 
 InstrumentItem::InstrumentItem()
     : SessionItem(Constants::InstrumentType)
@@ -28,23 +33,39 @@ InstrumentItem::InstrumentItem()
 
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
 
-    const QString T_DATA = "Data tag";
-    registerTag(T_DATA, 0, -1, QStringList() << Constants::BeamType << Constants::DetectorType);
-    setDefaultTag(T_DATA);
+    addGroupProperty(P_BEAM, Constants::BeamType);
+
+    addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+
+    setDefaultTag(P_DETECTOR);
 }
 
 BeamItem *InstrumentItem::beamItem() const
 {
-    for(SessionItem *item : childItems())
-        if(item->modelType() == Constants::BeamType)
-            return dynamic_cast<BeamItem *>(item);
-    return 0;
+    return &item<BeamItem>(InstrumentItem::P_BEAM);
 }
 
-DetectorItem *InstrumentItem::detectorItem() const
+DetectorItem* InstrumentItem::detectorItem() const
 {
-    for(SessionItem *item : childItems())
-        if(item->modelType() == Constants::DetectorType)
-            return dynamic_cast<DetectorItem *>(item);
-    return 0;
+    return &groupItem<DetectorItem>(P_DETECTOR);
+}
+
+GroupItem* InstrumentItem::detectorGroup()
+{
+    return &item<GroupItem>(P_DETECTOR);
+}
+
+void InstrumentItem::setDetectorGroup(const QString& modelType)
+{
+    setGroupProperty(P_DETECTOR, modelType);
+}
+
+void InstrumentItem::clearMasks()
+{
+    detectorItem()->clearMasks();
+}
+
+void InstrumentItem::importMasks(MaskContainerItem* maskContainer)
+{
+    detectorItem()->importMasks(maskContainer);
 }

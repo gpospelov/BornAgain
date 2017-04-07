@@ -25,6 +25,9 @@ namespace Constants {
 
 using ModelType = QString;
 
+const ModelType Yes = "Yes";
+const ModelType No = "No";
+
 const ModelType LayerType = "Layer";
 const ModelType MultiLayerType = "MultiLayer";
 const ModelType ParticleType = "Particle";
@@ -38,7 +41,7 @@ const ModelType InterferenceFunction2DParaCrystalType = "Interference2DParaCryst
 const ModelType InterferenceFunction1DLatticeType = "Interference1DLattice";
 const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
 const ModelType InstrumentType = "Instrument";
-const ModelType DetectorType = "Detector";
+//const ModelType DetectorContainerType = "DetectorContainer";
 const ModelType BeamType = "Beam";
 
 const ModelType FormFactorType = "FormFactor";
@@ -108,13 +111,11 @@ const ModelType FTDecayFunction2DCauchyType = "FTDecayFunction2DCauchy";
 const ModelType FTDecayFunction2DGaussType = "FTDecayFunction2DGauss";
 const ModelType FTDecayFunction2DVoigtType = "FTDecayFunction2DVoigt";
 
-const ModelType BasicLatticeType = "BasicLatticeType";
-const ModelType SquareLatticeType = "SquareLatticeType";
-const ModelType HexagonalLatticeType = "HexagonalLatticeType";
+const ModelType BasicLatticeType = "BasicLattice";
+const ModelType SquareLatticeType = "SquareLattice";
+const ModelType HexagonalLatticeType = "HexagonalLattice";
 
-const ModelType MaterialType = "Material";
-const ModelType HomogeneousMaterialType = "Homogeneous Material";
-const ModelType HomogeneousMagneticMaterialType = "Homogeneous Magnetic Material";
+const ModelType HomogeneousMaterialType = "HomogeneousMaterial";
 
 const ModelType RefractiveIndexType = "RefractiveIndex";
 
@@ -167,6 +168,15 @@ const ModelType GSLSimAnMinimizerType = "GSLSimAn";
 const ModelType GeneticMinimizerType = "Genetic";
 const ModelType TestMinimizerType = "Test";
 
+const ModelType RealLimitsLimitlessType = "RealLimitsLimitless";
+const ModelType RealLimitsPositiveType = "RealLimitsPositive";
+const ModelType RealLimitsNonnegativeType = "RealLimitsNonnegative";
+const ModelType RealLimitsLowerLimitedType = "RealLimitsLowerLimited";
+const ModelType RealLimitsUpperLimitedType = "RealLimitsUpperLimited";
+const ModelType RealLimitsLimitedType = "RealLimitsLimited";
+
+const ModelType ProjectionContainerType = "ProjectionContainer";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -183,8 +193,10 @@ const ModelType LatticeGroup = "Lattice group";
 const ModelType MaterialGroup = "Material group";
 const ModelType ResolutionFunctionGroup = "Resolution function group";
 const ModelType MinimizerLibraryGroup = "Minimizer library group";
+const ModelType RealLimitsGroup = "RealLimits group";
 
 // --- Units&Constants----------------------------------------------------------
+
 const ModelType UnitsNbins = "nbins";
 const ModelType UnitsRadians = "Radians";
 const ModelType UnitsDegrees = "Degrees";
@@ -230,6 +242,23 @@ const ModelType FITPAR_LIMITED = "limited";
 const ModelType FITPAR_LOWERLIMITED = "lower limited";
 const ModelType FITPAR_UPPERLIMITED = "upper limited";
 const ModelType FITPAR_FREE = "free";
+
+const ModelType DistributionSigmaFactor = "Sigma factor";
+
+const ModelType LAYOUT_DA = "Decoupling Approximation";
+const ModelType LAYOUT_SSCA = "Size Space Coupling Approximation";
+
+const ModelType AMBIENT_LAYER_MATERIAL = "Ambient Layer Material";
+const ModelType AVERAGE_LAYER_MATERIAL = "Average Layer Material";
+
+// --- Custom variants ----------------------------------------------------------
+
+const ModelType ScientificDoublePropertyType = "ScientificDoubleProperty";
+const ModelType MaterialPropertyType = "MaterialProperty";
+const ModelType ComboPropertyType = "ComboProperty";
+const ModelType ColorPropertyType = "ColorProperty";
+const ModelType GroupPropertyType = "GroupProperty_t";
+const ModelType AnglePropertyType = "AngleProperty";
 
 }
 

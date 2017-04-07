@@ -19,7 +19,6 @@
 #include "JobModel.h"
 #include "JobResultsPresenter.h"
 #include "JobViewFlags.h"
-#include "ObsoleteIntensityDataWidget.h"
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
 
@@ -52,7 +51,7 @@ void JobOutputDataWidget::setItem(JobItem * jobItem)
     }
 
     bool isNew(false);
-    m_stackedWidget->setItem(jobItem, isNew);
+    m_stackedWidget->setItem(jobItem, &isNew);
 
     if(isNew) {
         JobResultsPresenter *widget = m_stackedWidget->currentWidget();

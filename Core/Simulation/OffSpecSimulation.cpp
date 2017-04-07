@@ -55,7 +55,7 @@ void OffSpecSimulation::prepareSimulation()
     Simulation::prepareSimulation();
 }
 
-int OffSpecSimulation::numberOfSimulationElements() const
+size_t OffSpecSimulation::numberOfSimulationElements() const
 {
     checkInitialization();
     return getInstrument().getDetector()->numberOfSimulationElements()*mp_alpha_i_axis->size();
@@ -85,21 +85,6 @@ void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x
 {
     m_instrument.setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     updateIntensityMap();
-}
-
-std::string OffSpecSimulation::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path = IParameterized::addParametersToExternalPool(
-            path, external_pool, copy_number);
-
-    // add parameters of the instrument
-    m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
-
-    new_path = addSimulationParametersToExternalPool(new_path, external_pool);
-
-    return new_path;
 }
 
 void OffSpecSimulation::initSimulationElementVector()

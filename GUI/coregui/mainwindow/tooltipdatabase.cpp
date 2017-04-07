@@ -17,7 +17,6 @@
 #include "tooltipdatabase.h"
 #include "GUIHelpers.h"
 #include "item_constants.h"
-#include <QDebug>
 #include <QFile>
 #include <QXmlStreamReader>
 
@@ -72,8 +71,6 @@ QString ToolTipDataBase::getSampleViewDesignerToolTip(const QString &className)
 
 void ToolTipDataBase::initDataBase()
 {
-    qDebug() << "ToolTipDataBase::initDataBase() ";
-
     QFile file(":/mainwindow/tooltips.xml");
     if (!file.open(QIODevice::ReadOnly))
         throw GUIHelpers::Error(file.errorString());

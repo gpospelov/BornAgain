@@ -20,7 +20,6 @@
 #include "hostosinfo.h"
 #include "progressbar.h"
 #include <QApplication>
-#include <QDebug>
 #include <QMouseEvent>
 #include <QPaintDevice>
 #include <QPainter>

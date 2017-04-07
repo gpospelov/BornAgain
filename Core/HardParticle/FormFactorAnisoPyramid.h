@@ -28,7 +28,7 @@ public:
 
     FormFactorAnisoPyramid* clone() const override final {
         return new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getWidth()  const { return m_width; }
@@ -36,6 +36,9 @@ public:
     double getAlpha()  const { return m_alpha; }
 
 protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
     void onChange() override final;
 
 private:

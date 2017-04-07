@@ -120,7 +120,9 @@ if(BORNAGAIN_RELEASE)
         ${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile @ONLY)
 endif()
 
+if(NOT BORNAGAIN_BUILDBOT_SERVER)
 configure_file(${TEMPLATE_DIR}/CTestCustom.cmake.in ${CMAKE_BINARY_DIR}/CTestCustom.cmake)
+endif()
 
 configure_file(${TEMPLATE_DIR}/BAVersion.h.in  ${BUILD_INC_DIR}/BAVersion.h @ONLY)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILD_INC_DIR}")

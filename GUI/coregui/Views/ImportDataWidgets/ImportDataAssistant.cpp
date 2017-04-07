@@ -25,7 +25,9 @@
 #include "InstrumentItem.h"
 #include "AxesItems.h"
 #include "DetectorItems.h"
-#include <QDebug>
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
+#include "IDetector2D.h"
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
@@ -160,25 +162,7 @@ void ImportDataAssistant::realDataShape(const RealDataItem *realData, int &nx, i
 
 void ImportDataAssistant::detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny)
 {
-    nx = ny = 0;
-    DetectorItem *detectorItem = instrumentItem ->detectorItem();
-    Q_ASSERT(detectorItem);
-
-    // FIXME Refactor subDetector
-    auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
-    Q_ASSERT(subDetector);
-
-    std::unique_ptr<IDetector2D> detector;
-
-    if(auto sphericalDetector = dynamic_cast<SphericalDetectorItem *>(subDetector)) {
-        detector = sphericalDetector->createDetector();
-    }
-
-    else if(auto rectangularDetector = dynamic_cast<RectangularDetectorItem *>(subDetector)) {
-        detector = rectangularDetector->createDetector();
-    }
-
-    Q_ASSERT(detector.get());
+    std::unique_ptr<IDetector2D> detector = instrumentItem ->detectorItem()->createDetector();
     nx = detector->getAxis(0).size();
     ny = detector->getAxis(1).size();
 }
@@ -188,30 +172,5 @@ void ImportDataAssistant::setInstrumentShapeToData(InstrumentItem *instrumentIte
 {
     int nxData(0), nyData(0);
     realDataShape(realDataItemItem, nxData, nyData);
-
-    DetectorItem *detectorItem = instrumentItem ->detectorItem();
-    Q_ASSERT(detectorItem);
-
-    // FIXME Refactor subDetector
-    auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
-    Q_ASSERT(subDetector);
-
-    if (subDetector->modelType() == Constants::SphericalDetectorType) {
-      subDetector->getItem(SphericalDetectorItem::P_PHI_AXIS)
-          ->setItemValue(BasicAxisItem::P_NBINS, nxData);
-      subDetector->getItem(SphericalDetectorItem::P_ALPHA_AXIS)
-          ->setItemValue(BasicAxisItem::P_NBINS, nyData);
-    }
-
-    else if (subDetector->modelType() == Constants::RectangularDetectorType) {
-        subDetector->getItem(RectangularDetectorItem::P_X_AXIS)
-            ->setItemValue(BasicAxisItem::P_NBINS, nxData);
-        subDetector->getItem(RectangularDetectorItem::P_Y_AXIS)
-            ->setItemValue(BasicAxisItem::P_NBINS, nyData);
-    }
-
-    else {
-        throw GUIHelpers::Error("ImportDataAssistant::setInstrumentShapeToData() -> Error.");
-    }
-
+    instrumentItem->detectorItem()->setSize(nxData, nyData);
 }

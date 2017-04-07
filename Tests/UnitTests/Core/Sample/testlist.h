@@ -1,0 +1,18 @@
+// To renew this file, run /G/ba/dev-tools/code-tools/update-gtestlist.py <directory>
+
+#include "FormFactorBasicTest.h"
+#include "FormFactorCoherentSumTest.h"
+#include "LayerTest.h"
+#include "MultiLayerTest.h"
+#include "RTTest.h"
+#include "ParticleCoreShellTest.h"
+#include "LayerRoughnessTest.h"
+#include "ParticleTest.h"
+#include "ParticleCompositionTest.h"
+#include "ParticleLayoutTest.h"
+#include "LayerInterfaceTest.h"
+#include "ParticleDistributionTest.h"
+#include "CrystalTest.h"
+#include "MesoCrystalTest.h"
+#include "INodeTest.h"
+#include "Lattice2DTest.h"

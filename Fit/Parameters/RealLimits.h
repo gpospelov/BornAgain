@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <ostream>
+#include <string>
 
 //! Limits for a real fit parameter.
 //! @ingroup fitting
@@ -69,7 +70,8 @@ class BA_CORE_API_ RealLimits
     // static creation methods
 
     //! Creates an object bounded from the left
-    static RealLimits lowerLimited(double bound_value) { return RealLimits(true, false, bound_value, 0.); }
+    static RealLimits lowerLimited(double bound_value) {
+        return RealLimits(true, false, bound_value, 0.); }
 
     //! Creates an object which can have only positive values (>0., zero is not included)
     static RealLimits positive();
@@ -78,7 +80,8 @@ class BA_CORE_API_ RealLimits
     static RealLimits nonnegative() { return lowerLimited(0.); }
 
     //! Creates an object bounded from the right
-    static RealLimits upperLimited(double bound_value) { return RealLimits(false, true, 0., bound_value); }
+    static RealLimits upperLimited(double bound_value) {
+        return RealLimits(false, true, 0., bound_value); }
 
     //! Creates an object bounded from the left and right
     static RealLimits limited(double left_bound_value, double right_bound_value) {
@@ -87,12 +90,21 @@ class BA_CORE_API_ RealLimits
     //! Creates an object withoud bounds (default)
     static RealLimits limitless() { return RealLimits(); }
 
+    std::string toString() const;
+
     //! Prints class
     friend std::ostream& operator<<(std::ostream& ostr, const RealLimits& m)
-    { m.print(ostr); return ostr; }
+    { ostr << m.toString(); return ostr; }
 
     bool operator==(const RealLimits &other) const;
     bool operator!=(const RealLimits &other) const { return !(*this == other); }
+
+    bool isLimitless() const;
+    bool isPositive() const;
+    bool isNonnegative() const;
+    bool isLowerLimited() const;
+    bool isUpperLimited() const;
+    bool isLimited() const;
 
  protected:
     RealLimits(bool has_lower_limit, bool has_upper_limit, double lower_limit, double upper_limit)
@@ -105,8 +117,6 @@ class BA_CORE_API_ RealLimits
     bool   m_has_upper_limit; //! parameter has upper bound
     double m_lower_limit; //! minimum allowed value
     double m_upper_limit; //! maximum allowed value
-
-    void print(std::ostream& ostr) const;
 };
 
 #endif // REALLIMITS_H

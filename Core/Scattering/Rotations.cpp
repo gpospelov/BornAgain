@@ -15,14 +15,13 @@
 
 #include "Rotations.h"
 #include "BornAgainNamespace.h"
-#include "ISampleVisitor.h"
 #include "RealParameter.h"
 
 IRotation* IRotation::createRotation(const Transform3D& transform)
 {
     double alpha, beta, gamma;
     transform.calculateEulerAngles(&alpha, &beta, &gamma);
-    Transform3D::ERotationType rot_type = transform.getRotationType();
+    auto rot_type = transform.getRotationType();
     switch (rot_type) {
     case Transform3D::XAXIS:
         if (alpha>0.0) beta = -beta;
@@ -32,9 +31,15 @@ IRotation* IRotation::createRotation(const Transform3D& transform)
         return new RotationY(beta);
     case Transform3D::ZAXIS:
         return new RotationZ(alpha);
-    default:
+    case Transform3D::EULER:
         return new RotationEuler(alpha, beta, gamma);
     }
+    throw std::runtime_error("IRotation::createRotation error: unknown rotation type.");
+}
+
+IRotation* IRotation::createIdentity()
+{
+    return new RotationZ(0.0);
 }
 
 bool IRotation::isIdentity() const
@@ -44,12 +49,18 @@ bool IRotation::isIdentity() const
 
 //! Returns concatenated rotation (first right, then left).
 
-IRotation* CreateProduct(const IRotation& left, const IRotation& right)
+IRotation* createProduct(const IRotation& left, const IRotation& right)
 {
     Transform3D tr_left = left.getTransform3D();
     Transform3D tr_right = right.getTransform3D();
     IRotation *p_result = IRotation::createRotation(tr_left*tr_right);
     return p_result;
+}
+
+bool IsZRotation(const IRotation& rot)
+{
+    auto transform = rot.getTransform3D();
+    return transform.isZRotation();
 }
 
 // --- RotationX --------------------------------------------------------------
@@ -115,3 +126,4 @@ Transform3D RotationEuler::getTransform3D() const
 {
     return Transform3D::createRotateEuler(m_alpha, m_beta, m_gamma);
 }
+

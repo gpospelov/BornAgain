@@ -15,10 +15,9 @@
 // ************************************************************************** //
 
 #include "SavePlotAssistant.h"
-#include "ColorMapPlot.h"
+#include "ColorMap.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
-#include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
 

@@ -3,11 +3,8 @@
 
 %feature("director") IMultiLayerBuilder;
 %feature("director") INamed;
-%feature("director") INamedShared;
 %feature("director") IParameterized;
-%feature("director") IParameterizedShared;
-%feature("director") IParameterizedTemplate<ICloneable>;
-%feature("director") IParameterizedTemplate<IShareable>;
+%feature("director") INode;
 %feature("director") ISample;
 %feature("director") IFormFactor;
 %feature("director") IFormFactorBorn;

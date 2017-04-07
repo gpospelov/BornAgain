@@ -114,8 +114,6 @@ if __name__ == '__main__':
         import matplotlib
         from matplotlib import pyplot as plt
         from matplotlib import rc
-        rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-        rc('text', usetex=True)
         plt.figure(figsize=(12.80, 10.24))
         for nplot in range(len(conditions)):
             condi = conditions[nplot]

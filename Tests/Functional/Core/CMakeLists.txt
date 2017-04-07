@@ -22,6 +22,7 @@ set(test_cases
     BoxCompositionRotateY
     BoxCompositionRotateZ
     BoxCompositionRotateZandY
+    BoxesWithSpecular
     BoxStackComposition
     CenteredSquareLattice
     CoreShellBoxRotateZandY
@@ -38,6 +39,8 @@ set(test_cases
     LargeCylindersMonteCarlo
     Lattice1D
     MagneticParticleZeroField
+    MagneticSubstrateZeroField
+    MagneticRotation
     MesoCrystal
     MultiLayerWithRoughness
     MultipleLayout
@@ -49,15 +52,18 @@ set(test_cases
     RectDetectorPerpToReflectedBeamDpos
     RectDetectorPerpToSample
     RectParaCrystal
+    RotatedCylinder
     RotatedPyramids
     RotatedSquareLattice
     SimulationWithMasks
     SquareLattice
     TransformBox
     TriangularRipple
+    AsymRipple
     TwoTypesCylindersDistribution
     SphericalDetWithRoi
     RectDetWithRoi
+    SlicedComposition
     )
 
 # Other tests:

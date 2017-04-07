@@ -23,8 +23,6 @@
 #include "WinDllMacros.h"
 #include <complex>
 
-static const double PI2 = 6.28318530717958647692528676655900577;
-
 //! Three-dimensional vector template, for use with integer, double, or complex components.
 //! @ingroup tools_internal
 
@@ -67,10 +65,6 @@ public:
     void setY(const T&a) { v_[1] = a; }
     //! Sets z-component in cartesian coordinate system.
     void setZ(const T&a) { v_[2] = a; }
-
-    //! Sets components in cartesian coordinate system.
-    void setXYZ(const T&x1, const T&y1, const T&z1)
-    { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     // -------------------------------------------------------------------------
     // In-place operations
@@ -288,7 +282,7 @@ inline auto BasicVector3D<T>::dot(const BasicVector3D<U> &v) const
 //! Returns cross product of (complex) vectors.
 #ifndef SWIG
 template<class T> template<class U>
-inline auto BasicVector3D<T>::cross(const BasicVector3D<U> &v) const
+inline auto BasicVector3D<T>::cross(const BasicVector3D<U>& v) const
 -> BasicVector3D<decltype(this->x()*v.x())>
 {
     return BasicVector3D<decltype(this->x()*v.x())>(y()*v.z()-v.y()*z(),
@@ -306,11 +300,21 @@ template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 
 template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;
 
+template<> BA_CORE_API_ double BasicVector3D<double>::cosTheta() const;
+
+template<> BA_CORE_API_ double BasicVector3D<double>::sin2Theta() const;
+
 template<> BA_CORE_API_ BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const;
+
+template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::real() const;
 
 template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<std::complex<double>>::real() const;
 
+template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::unit() const;
+
 template<> BA_CORE_API_ BasicVector3D<std::complex<double>>
     BasicVector3D<std::complex<double>>::unit() const;
+
+template<> BA_CORE_API_ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const;
 
 #endif // BASICVECTOR3D_H

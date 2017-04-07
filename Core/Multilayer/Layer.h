@@ -16,67 +16,67 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "ICompositeSample.h"
+#include "ISample.h"
 #include "Complex.h"
+#include "HomogeneousMaterial.h"
 #include "SafePointerVector.h"
+#include "ZLimits.h"
 
 class ILayout;
-class IMaterial;
 
 //! A layer, with thickness (in nanometer) and material.
 //! @ingroup samples
 
-class BA_CORE_API_ Layer : public ICompositeSample
+class BA_CORE_API_ Layer : public ISample
 {
 public:
-    Layer(const IMaterial& material, double thickness = 0);
+    enum ELayerType {
+        TOPLAYER,
+        INTERMEDIATELAYER,
+        BOTTOMLAYER,
+        ONLYLAYER
+    };
+    Layer(HomogeneousMaterial material, double thickness = 0);
 
-    ~Layer() final;
+    ~Layer();
 
-    Layer* clone() const final { return new Layer(*this); }
-    Layer* cloneInvertB() const final;
+    Layer* clone() const override final { return new Layer(*this); }
+    Layer* cloneInvertB() const;
+    SafePointerVector<Layer> cloneSliced(ZLimits limits, ELayerType layer_type) const;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
-
-    std::string to_str(int indent=0) const final;
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     void setThickness(double thickness);
-    double getThickness() const { return m_thickness; }
+    double thickness() const { return m_thickness; }
 
-    void setMaterial(const IMaterial& material);
-    const IMaterial* getMaterial() const { return mp_material; }
+    const HomogeneousMaterial* material() const override final { return &m_material; }
+    void setMaterial(HomogeneousMaterial material);
 
-    complex_t getRefractiveIndex() const;
-    complex_t getRefractiveIndex2() const; //!< squared refractive index
+    complex_t refractiveIndex() const;
+    complex_t refractiveIndex2() const; //!< squared refractive index
 
     void addLayout(const ILayout& decoration);
-    size_t getNumberOfLayouts() const { return m_layouts.size(); }
-    const ILayout* getLayout(size_t i) const;
+    size_t numberOfLayouts() const { return m_layouts.size(); }
+    std::vector<const ILayout*> layouts() const;
 
-    //! Returns true if decoration is present
-    bool hasComputation() const { return m_layouts.size()>0; }
+    std::vector<const INode*> getChildren() const override final;
 
-    double getTotalParticleSurfaceDensity(size_t layout_index) const;
+    void registerThickness(bool make_registered = true);
 
-    void setNumberOfLayers(size_t n_layers) { mn_layers = n_layers; }
-    size_t getNumberOfLayers() const { return mn_layers; }
+    void setNumberOfSlices(unsigned int n_slices) { m_n_slices = n_slices; }
+    unsigned int numberOfSlices() const { return m_n_slices; }
 
 private:
     Layer(const Layer& other);
+    //! Clone the layer without its layouts
+    Layer* emptyClone() const;
+    //! Clones and offsets the particles in the z-direction
+    Layer* cloneWithOffset(double offset) const;
 
-    void init_parameters();
-
-    void print(std::ostream& ostr) const;
-
-    //! adds particle layout (separate pointer version due to python-bindings)
-    void addLayoutPtr(ILayout* layout);
-
-    IMaterial* mp_material;   //!< pointer to the material
+    HomogeneousMaterial m_material;   //!< material
     double m_thickness;       //!< layer thickness in nanometers
-    SafePointerVector<class ILayout> m_layouts; //!< independent layouts in this layer
-    size_t mn_layers;
-
-    void initialize();
+    SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
+    unsigned int m_n_slices=1;  //!< number of slices to create for graded layer approach
 };
 
 #endif // LAYER_H

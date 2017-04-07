@@ -23,7 +23,7 @@
 class JobItem;
 class QPushButton;
 class QSlider;
-class WarningSignWidget;
+class WarningSign;
 class QLabel;
 class FitSuiteItem;
 class JobMessagePanel;
@@ -54,12 +54,7 @@ private slots:
     void onSliderValueChanged(int value);
     void onFitSuitePropertyChange(const QString &name);
 
-protected:
-    void resizeEvent(QResizeEvent *event);
-
 private:
-    QPoint getPositionForWarningSign();
-    void clearWarningSign();
     int sliderUpdateInterval();
     int sliderValueToUpdateInterval(int value);
     FitSuiteItem *fitSuiteItem();
@@ -71,7 +66,7 @@ private:
     QLabel *m_updateIntervalLabel;
     QLabel *m_iterationsCountLabel;
     JobItem *m_currentItem;
-    WarningSignWidget *m_warningSign;
+    WarningSign *m_warningSign;
     JobMessagePanel *m_jobMessagePanel;
 };
 

@@ -22,7 +22,6 @@
 #include "MaskEditorFlags.h"
 #include "SessionModel.h"
 #include <QButtonGroup>
-#include <QDebug>
 #include <QGridLayout>
 #include <QItemSelection>
 #include <QLabel>

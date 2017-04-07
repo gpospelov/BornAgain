@@ -18,7 +18,7 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "Materials.h"
+#include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
@@ -49,7 +49,7 @@ MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
     kvector_t magnetic_field(0.0, 0.0, 0.0);
-    HomogeneousMagneticMaterial particle_material("MagParticle", 6e-4, 2e-8, magnetic_field);
+    HomogeneousMaterial particle_material("MagParticle", 6e-4, 2e-8, magnetic_field);
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
@@ -90,7 +90,7 @@ MultiLayer* MagneticCylindersBuilder::buildSample() const
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
     kvector_t magnetic_field(0.0, 1.0, 0.0);
-    HomogeneousMagneticMaterial particle_material("MagParticle2", 5e-6, 0.0, magnetic_field);
+    HomogeneousMaterial particle_material("MagParticle2", 5e-6, 0.0, magnetic_field);
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);

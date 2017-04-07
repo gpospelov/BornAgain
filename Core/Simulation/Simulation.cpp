@@ -17,40 +17,46 @@
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "MainComputation.h"
-#include "Logger.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "SimulationElement.h"
-#include "Utils.h"
+#include "StringUtils.h"
 #include <gsl/gsl_errno.h>
 #include <thread>
 #include <iomanip>
 #include <iostream>
 
 Simulation::Simulation()
-{}
+{
+    registerChild(&m_instrument);
+}
 
 Simulation::Simulation(const MultiLayer& p_sample)
 {
-    mP_sample.reset(p_sample.clone());
+    setSample(p_sample);
+    registerChild(&m_instrument);
 }
 
 Simulation::Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : mP_sample_builder(p_sample_builder)
-{}
+{
+    registerChild(&m_instrument);
+    registerChild(p_sample_builder.get());
+}
 
 Simulation::Simulation(const Simulation& other)
-    : ICloneable()
-    , IParameterized(other)
-    , mP_sample_builder(other.mP_sample_builder)
+    : mP_sample_builder(other.mP_sample_builder)
     , m_options(other.m_options)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)
     , m_instrument(other.m_instrument)
     , m_intensity_map()
 {
-    if (other.mP_sample)
-        mP_sample.reset(other.mP_sample->clone());
+    if (other.mP_multilayer)
+        setSample(*other.mP_multilayer);
+    registerChild(&m_instrument);
+    if(mP_sample_builder)
+        registerChild(mP_sample_builder.get());
     m_intensity_map.copyFrom(other.m_intensity_map);
 }
 
@@ -66,7 +72,7 @@ void Simulation::setTerminalProgressMonitor()
             else // wipe out
                 std::cout << "\r... 100%\n";
             return true;
-        } );
+    } );
 }
 
 void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function)
@@ -76,7 +82,7 @@ void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D& reso
 
 void Simulation::removeDetectorResolutionFunction()
 {
-    m_instrument.setDetectorResolutionFunction(nullptr);
+    m_instrument.removeDetectorResolution();
 }
 
 //! Sets the polarization analyzer characteristics of the detector
@@ -111,7 +117,7 @@ void Simulation::prepareSimulation()
 void Simulation::runSimulation()
 {
     updateSample();
-    if (!mP_sample)
+    if (!mP_multilayer)
         throw Exceptions::NullPointerException("Simulation::runSimulation() -> Error! No sample.");
 
     prepareSimulation();
@@ -119,9 +125,9 @@ void Simulation::runSimulation()
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
     m_progress.reset();
-    int prefac = ( mP_sample->totalNofLayouts()>0 ? 1 : 0 )
-        + ( mP_sample->hasRoughness() ? 1 : 0 );
-    m_progress.setExpectedNTicks(prefac*param_combinations*numberOfSimulationElements());
+    size_t prefactor = ( mP_multilayer->totalNofLayouts()>0 ? 1 : 0 )
+        + ( mP_multilayer->hasRoughness() ? 1 : 0 );
+    m_progress.setExpectedNTicks(prefactor*param_combinations*numberOfSimulationElements());
 
     // no averaging needed:
     if (param_combinations == 1) {
@@ -163,7 +169,8 @@ void Simulation::setInstrument(const Instrument& instrument)
 //! The MultiLayer object will not be owned by the Simulation object
 void Simulation::setSample(const MultiLayer& sample)
 {
-    mP_sample.reset(sample.clone());
+    mP_multilayer.reset(sample.clone());
+    registerChild(mP_multilayer.get());
 }
 
 void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
@@ -173,21 +180,19 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder
                                    "Error! Attempt to set null sample builder.");
 
     mP_sample_builder = p_sample_builder;
-    mP_sample.reset(nullptr);
+    registerChild(mP_sample_builder.get());
+    mP_multilayer.reset(nullptr);
 }
 
-std::string Simulation::addSimulationParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool) const
+std::vector<const INode*> Simulation::getChildren() const
 {
-    std::string new_path = path;
-
-    if (mP_sample_builder) {
-        new_path = mP_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
-    } else if (mP_sample) {
-        new_path = mP_sample->addParametersToExternalPool(new_path, external_pool, -1);
-    }
-
-    return new_path;
+    std::vector<const INode*> result;
+    result.push_back(&m_instrument);
+    if(mP_sample_builder)
+        result.push_back(mP_sample_builder.get());
+    else
+        result.push_back(mP_multilayer.get());
+    return result;
 }
 
 void Simulation::addParameterDistribution(const std::string& param_name,
@@ -208,9 +213,9 @@ void Simulation::updateSample()
     if (!mP_sample_builder)
         return;
     if (mP_sample_builder->isPythonBuilder()) {
-        mP_sample.reset( mP_sample_builder->buildSample()->clone() );
+        mP_multilayer.reset( mP_sample_builder->buildSample()->clone() );
     } else {
-        mP_sample.reset( mP_sample_builder->buildSample() );
+        mP_multilayer.reset( mP_sample_builder->buildSample() );
     }
 }
 
@@ -230,27 +235,21 @@ void Simulation::runSingleSimulation()
 
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
-        std::unique_ptr<MainComputation> P_dwba_simulation(
-            new MainComputation(mP_sample.get(), m_options, m_progress, batch_start, batch_end));
-        P_dwba_simulation->run(); // the work is done here
-        if (!P_dwba_simulation->isCompleted()) {
-            std::string message = P_dwba_simulation->getRunMessage();
+        std::unique_ptr<MainComputation> P_computation(
+            new MainComputation(*mP_multilayer, m_options, m_progress, batch_start, batch_end));
+        P_computation->run(); // the work is done here
+        if (!P_computation->isCompleted()) {
+            std::string message = P_computation->errorMessage();
             throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has "
                                                     "terminated unexpectedly with following error "
                                                     "message.\n" + message);
         }
     } else {
         // Multithreading.
+        std::vector<std::unique_ptr<std::thread>> threads;
+        std::vector<std::unique_ptr<MainComputation>> computations;
 
-        msglog(MSG::DEBUG) << "Simulation::runSimulation() -> Info. Number of threads "
-                           << m_options.getNumberOfThreads()
-                           << ", n_batches = " << m_options.getNumberOfBatches()
-                           << ", current_batch = " << m_options.getCurrentBatch();
-
-        std::vector<std::thread*> threads;
-        std::vector<MainComputation*> simulations;
-
-        // Initialize n simulations.
+        // Initialize n computations.
         int total_batch_elements = batch_end - batch_start;
         int element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
         if (total_batch_elements % m_options.getNumberOfThreads()) // there is a remainder
@@ -259,7 +258,6 @@ void Simulation::runSingleSimulation()
         for (int i_thread = 0; i_thread < m_options.getNumberOfThreads(); ++i_thread) {
             if (i_thread*element_thread_step >= total_batch_elements)
                 break;
-            // TODO: why a plain pointer here, and a unique pointer in the single-thread case?
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
@@ -268,33 +266,30 @@ void Simulation::runSingleSimulation()
                 end_it = batch_end;
             else
                 end_it = batch_start + end_thread_index;
-            simulations.push_back(
-                new MainComputation(
-                    mP_sample.get(), m_options, m_progress, begin_it, end_it));
+            computations.emplace_back(
+                new MainComputation(*mP_multilayer, m_options, m_progress, begin_it, end_it));
         }
 
         // Run simulations in n threads.
-        for (MainComputation* sim: simulations)
-            threads.push_back(new std::thread([sim]() {sim->run();}));
+        for (auto& comp: computations)
+            threads.emplace_back(new std::thread([&comp]() {comp->run();}));
 
         // Wait for threads to complete.
-        for (auto thread: threads) {
+        for (auto& thread: threads) {
             thread->join();
-            delete thread;
         }
 
         // Check successful completion.
         std::vector<std::string> failure_messages;
-        for (auto sim: simulations) {
-            if (!sim->isCompleted())
-                failure_messages.push_back(sim->getRunMessage());
-            delete sim;
+        for (auto& comp: computations) {
+            if (!comp->isCompleted())
+                failure_messages.push_back(comp->errorMessage());
         }
         if (failure_messages.size())
             throw Exceptions::RuntimeErrorException(
                 "Simulation::runSingleSimulation() -> "
                 "At least one simulation thread has terminated unexpectedly.\n"
-                "Messages: " + Utils::String::join(failure_messages, " --- "));
+                "Messages: " + StringUtils::join(failure_messages, " --- "));
     }
     normalize(batch_start, batch_end);
 }

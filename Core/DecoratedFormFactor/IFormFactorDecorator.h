@@ -32,16 +32,22 @@ public:
     IFormFactorDecorator(const IFormFactor& form_factor) : mp_form_factor(form_factor.clone()) {}
     ~IFormFactorDecorator() override { delete mp_form_factor; }
     IFormFactorDecorator* clone() const override=0;
-    void accept(ISampleVisitor* visitor) const override=0;
+    void accept(INodeVisitor* visitor) const override=0;
 
-    void setAmbientMaterial(const IMaterial &material) override {
+    void setAmbientMaterial(HomogeneousMaterial material) override {
         mp_form_factor->setAmbientMaterial(material); }
 
-    double getVolume() const override {
-        return mp_form_factor->getVolume(); }
+    double volume() const override {
+        return mp_form_factor->volume(); }
 
-    double getRadialExtension() const override {
-        return mp_form_factor->getRadialExtension(); }
+    double radialExtension() const override {
+        return mp_form_factor->radialExtension(); }
+
+    double bottomZ(const IRotation& rotation) const override {
+        return mp_form_factor->bottomZ(rotation); }
+
+    double topZ(const IRotation& rotation) const override {
+        return mp_form_factor->topZ(rotation); }
 
 protected:
     IFormFactor* mp_form_factor;

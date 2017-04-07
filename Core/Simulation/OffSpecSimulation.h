@@ -33,11 +33,13 @@ public:
 
     OffSpecSimulation* clone() const { return new OffSpecSimulation(*this); }
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
     //! Put into a clean state for running a simulation
     void prepareSimulation() final;
 
     //! Gets the number of elements this simulation needs to calculate
-    int numberOfSimulationElements() const final;
+    size_t numberOfSimulationElements() const final;
 
     //! Returns clone of the detector intensity map
     OutputData<double>* getDetectorIntensity(
@@ -53,10 +55,6 @@ public:
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
                                size_t n_y, double y_min, double y_max);
-
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const final;
 
 private:
     OffSpecSimulation(const OffSpecSimulation& other);

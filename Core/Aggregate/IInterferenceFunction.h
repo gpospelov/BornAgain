@@ -28,7 +28,7 @@ public:
     virtual ~IInterferenceFunction() {}
 
     virtual IInterferenceFunction* clone() const=0;
-    virtual void accept(ISampleVisitor* visitor) const =0;
+    virtual void accept(INodeVisitor* visitor) const =0;
 
     //! Evaluates the interference function for a given wavevector transfer (only the real
     //! x and y components are relevant)

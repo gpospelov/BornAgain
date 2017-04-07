@@ -16,14 +16,14 @@
 #ifndef BEAM_H
 #define BEAM_H
 
-#include "IParameterized.h"
+#include "INode.h"
 #include "EigenCore.h"
 #include "Vectors3D.h"
 
 //! Ideal collimated beam defined by wavelength, direction and intensity.
 //! @ingroup simulation
 
-class BA_CORE_API_ Beam : public IParameterized
+class BA_CORE_API_ Beam : public INode
 {
 public:
     Beam();
@@ -56,8 +56,7 @@ public:
     double getAlpha() const { return m_alpha; }
     double getPhi() const { return m_phi; }
 
-protected:
-    virtual void print(std::ostream& ostr) const;
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
 private:
     void init_parameters();

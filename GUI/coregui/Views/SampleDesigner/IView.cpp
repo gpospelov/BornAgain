@@ -17,7 +17,6 @@
 #include "IView.h"
 #include "ModelMapper.h"
 #include "SessionGraphicsItem.h"
-#include <QDebug>
 #include <QString>
 
 IView::IView(QGraphicsItem *parent) : QGraphicsObject(parent), m_item(0)

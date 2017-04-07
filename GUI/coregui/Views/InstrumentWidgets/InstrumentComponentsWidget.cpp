@@ -15,45 +15,40 @@
 // ************************************************************************** //
 
 #include "InstrumentComponentsWidget.h"
+#include "InstrumentItem.h"
 #include "BeamEditorWidget.h"
 #include "DetectorEditorWidget.h"
-#include "columnresizer.h"
-#include <QDebug>
+#include "ColumnResizer.h"
 #include <QVBoxLayout>
 
-InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget *parent)
+InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget* parent)
     : QWidget(parent)
     , m_columnResizer(new ColumnResizer(this))
     , m_beamEditor(new BeamEditorWidget)
     , m_detectorEditor(new DetectorEditorWidget(m_columnResizer))
-    , m_beamItem(0)
-    , m_detectorItem(0)
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(m_beamEditor);
     mainLayout->addWidget(m_detectorEditor);
     mainLayout->addStretch();
 
-    m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->getGridLayout(), 0);
-    m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->getGridLayout(), 1);
-    m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->getGridLayout(), 2);
+    m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->gridLayout(), 0);
+    m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->gridLayout(), 1);
+    m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->gridLayout(), 2);
 
-    connect(m_detectorEditor,
-            SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
-            this,
-            SIGNAL(extendedDetectorEditorRequest(DetectorItem *))
-            );
+    connect(m_detectorEditor, SIGNAL(extendedDetectorEditorRequest(DetectorItem*)), this,
+            SIGNAL(extendedDetectorEditorRequest(DetectorItem*)));
 
+    setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
 }
 
-void InstrumentComponentsWidget::setBeamItem(BeamItem *beamItem)
+void InstrumentComponentsWidget::setInstrumentItem(InstrumentItem* instrumentItem)
 {
-    m_beamItem = beamItem;
-    m_beamEditor->setBeamItem(beamItem);
-}
-
-void InstrumentComponentsWidget::setDetectorItem(DetectorItem *detectorItem)
-{
-    m_detectorItem = detectorItem;
-    m_detectorEditor->setDetectorItem(detectorItem);
+    if(instrumentItem) {
+        m_beamEditor->setBeamItem(instrumentItem->beamItem());
+        m_detectorEditor->setItem(instrumentItem);
+    } else {
+        m_beamEditor->setBeamItem(nullptr);
+        m_detectorEditor->setItem(nullptr);
+    }
 }

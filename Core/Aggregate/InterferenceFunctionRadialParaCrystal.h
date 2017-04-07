@@ -30,9 +30,7 @@ public:
     InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0);
     InterferenceFunctionRadialParaCrystal* clone() const final;
 
-    void accept(ISampleVisitor* visitor) const final { visitor->visit(this); }
-
-    std::string to_str(int indent=0) const final;
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     void setKappa(double kappa) { m_kappa = kappa; }
     double getKappa() const final { return m_kappa; }
@@ -41,7 +39,7 @@ public:
     double getDomainSize() const { return m_domain_size; }
 
     double evaluate(const kvector_t q) const final;
-    //TODO: replace these with strategy pattern for different algorithms
+
     complex_t FTPDF(double qpar) const;
 
     void setProbabilityDistribution(const IFTDistribution1D& pdf);
@@ -50,6 +48,8 @@ public:
     double getPeakDistance() const { return m_peak_distance; }
 
     double getDampingLength() const { return m_damping_length; }
+
+    std::vector<const INode*> getChildren() const override;
 
 private:
     void init_parameters();

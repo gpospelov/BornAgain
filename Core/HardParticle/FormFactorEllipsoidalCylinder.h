@@ -28,15 +28,21 @@ public:
 
     FormFactorEllipsoidalCylinder* clone() const override final {
         return new FormFactorEllipsoidalCylinder(m_radius_x, m_radius_y, m_height); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadiusX() const { return m_radius_x; }
     double getRadiusY() const { return m_radius_y; }
     double getHeight() const { return m_height; }
 
-    double getRadialExtension() const override final;
+    double radialExtension() const override final;
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
+
+protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
+    void onChange() override final;
 
 private:
     double m_radius_x;

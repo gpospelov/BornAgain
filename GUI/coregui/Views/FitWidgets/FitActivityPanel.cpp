@@ -80,7 +80,7 @@ void FitActivityPanel::setItem(JobItem *item)
     }
 
     bool isNew(false);
-    m_stackedWidget->setItem(item, isNew);
+    m_stackedWidget->setItem(item, &isNew);
 
     if(isNew) {
         FitSuiteWidget *widget = m_stackedWidget->currentWidget();

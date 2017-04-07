@@ -15,6 +15,7 @@
 
 #include "SampleBuilderFactory.h"
 #include "BoxCompositionBuilder.h"
+#include "BoxesSquareLatticeBuilder.h"
 #include "CoreShellParticleBuilder.h"
 #include "CustomMorphologyBuilder.h"
 #include "CylindersAndPrismsBuilder.h"
@@ -22,6 +23,7 @@
 #include "LatticeBuilder.h"
 #include "LayersWithAbsorptionBuilder.h"
 #include "MagneticParticlesBuilder.h"
+#include "MagneticLayersBuilder.h"
 #include "MesoCrystalBuilder.h"
 #include "MultiLayerWithRoughnessBuilder.h"
 #include "MultipleLayoutBuilder.h"
@@ -35,6 +37,7 @@
 #include "SizeDistributionModelsBuilder.h"
 #include "TransformationsBuilder.h"
 #include "TwoDimLatticeBuilder.h"
+#include "SlicedParticleBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -167,6 +170,16 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Polarized DWBA with non-zero magnetic field");
 
     registerItem(
+        "MagneticSubstrateZeroFieldBuilder",
+        create_new<MagneticSubstrateZeroFieldBuilder>,
+        "Polarized DWBA with zero field substrate");
+
+    registerItem(
+        "MagneticRotationBuilder",
+        create_new<MagneticRotationBuilder>,
+        "Rotated magnetic particle in magnetic substrate");
+
+    registerItem(
         "MultiLayerWithRoughnessBuilder",
         create_new<MultiLayerWithRoughnessBuilder>,
         "Layer with correlated roughness");
@@ -180,6 +193,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "TriangularRippleBuilder",
         create_new<TriangularRippleBuilder>,
         "triangular ripple within the 1D-paracrystal model");
+
+    registerItem(
+        "AsymRippleBuilder",
+        create_new<AsymRippleBuilder>,
+        "triangular ripple with asymetry within the 1D-paracrystal model");
 
     registerItem(
         "CosineRippleBuilder",
@@ -230,6 +248,22 @@ SampleBuilderFactory::SampleBuilderFactory()
         "LayersWithAbsorptionBuilder",
         create_new<LayersWithAbsorptionBuilder>,
         "3 layer system with absorption");
+
+    registerItem(
+        "BoxesSquareLatticeBuilder",
+        create_new<BoxesSquareLatticeBuilder>,
+        "Boxes in a square lattice");
+
+    registerItem(
+        "RotatedCylindersBuilder",
+        create_new<RotatedCylindersBuilder>,
+        "Rotated cylinder in substrate");
+
+    registerItem(
+        "SlicedCompositionBuilder",
+        create_new<SlicedCompositionBuilder>,
+        "Spherical particle made of two different materials crossing interface");
+
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

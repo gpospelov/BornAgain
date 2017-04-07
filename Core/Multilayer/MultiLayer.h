@@ -16,9 +16,14 @@
 #ifndef MULTILAYER_H
 #define MULTILAYER_H
 
-#include "ICompositeSample.h"
+#include "ISample.h"
+#include "SafePointerVector.h"
 #include "Vectors3D.h"
+#include "ZLimits.h"
 
+#include <functional>
+
+class ILayout;
 class Layer;
 class LayerInterface;
 class LayerRoughness;
@@ -37,82 +42,85 @@ class LayerRoughness;
 //!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
 
 
-class BA_CORE_API_ MultiLayer : public ICompositeSample
+class BA_CORE_API_ MultiLayer : public ISample
 {
 public:
     MultiLayer();
     virtual ~MultiLayer();
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
-    virtual std::string to_str(int indent=0) const;
+    size_t numberOfLayers() const { return m_layers.size(); }
+    size_t numberOfInterfaces() const { return m_interfaces.size(); }
 
-    size_t getNumberOfLayers() const { return m_layers.size(); }
-    size_t getNumberOfInterfaces() const { return m_interfaces.size(); }
-
-    //! Adds object to multilayer, overrides from ISample
+    //! Adds object to multilayer
     void addLayer(const Layer& p_child);
 
     //! Adds layer with top roughness
     void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);
 
     //! Returns layer with given index
-    const Layer* getLayer(size_t i_layer) const { return m_layers[check_layer_index(i_layer)]; }
+    const Layer* layer(size_t i_layer) const { return m_layers[check_layer_index(i_layer)]; }
 
     //! Returns layer with given index
-    const LayerInterface* getLayerInterface(size_t i_interface) const {
+    const LayerInterface* layerInterface(size_t i_interface) const {
         return m_interfaces[check_interface_index(i_interface)]; }
 
     //! Returns z-coordinate of the layer's bottom
-    double getLayerBottomZ(size_t i_layer) const;
+    double layerTopZ(size_t i_layer) const;
+
+    //! Returns z-coordinate of the layer's bottom
+    double layerBottomZ(size_t i_layer) const;
 
     //! Returns thickness of layer
-    double getLayerThickness(size_t i_layer) const;
+    double layerThickness(size_t i_layer) const;
 
     //! Returns top interface of layer
-    const LayerInterface* getLayerTopInterface(size_t i_layer) const;
+    const LayerInterface* layerTopInterface(size_t i_layer) const;
 
     //! Returns bottom interface of layer
-    const LayerInterface* getLayerBottomInterface(size_t i_layer) const;
+    const LayerInterface* layerBottomInterface(size_t i_layer) const;
 
-    //! Destructs allocated objects
-    void clear();
+    //! Returns layer material
+    HomogeneousMaterial layerMaterial(size_t i_layer) const;
 
-    //! Returns alone of multilayer with clones of all layers and recreated
+    //! Changes a layer's material
+    void setLayerMaterial(size_t i_layer, HomogeneousMaterial material);
+
+    //! Returns a clone of multilayer with clones of all layers and recreated
     //! interfaces between layers
-    virtual MultiLayer* clone() const;
+    MultiLayer* clone() const final override;
 
     //! Returns a clone with inverted magnetic fields
-    virtual MultiLayer* cloneInvertB() const;
+    MultiLayer* cloneInvertB() const;
+
+    //! Returns a clone of multilayer where the original layers may be sliced into several sublayers
+    //! for usage with the graded layer approximation
+    MultiLayer* cloneSliced(bool use_average_layers) const;
 
     //! Sets cross correlation length of roughnesses between interfaces
     void setCrossCorrLength(double crossCorrLength);
 
     //! Returns cross correlation length of roughnesses between interfaces
-    double getCrossCorrLength() const { return m_crossCorrLength; }
-
-    ///! correlation function of roughnesses between the interfaces
-    //double getCrossCorrFun(const kvector_t k, int j, int k) const;
+    double crossCorrLength() const { return m_crossCorrLength; }
 
     //! Fourier transform of the correlation function of roughnesses between
     //! the interfaces
-    double getCrossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
-
-    //! Sets thickness of layer.
-    void setLayerThickness(size_t i_layer, double thickness); // TODO: remove this function!
-
-    //! Prints class
-    friend std::ostream& operator << (std::ostream& ostr, const MultiLayer& m) {
-        m.print(ostr); return ostr; }
+    double crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
 
     //! returns layer index
-    int getIndexOfLayer(const Layer* layer) const;
+    int indexOfLayer(const Layer* p_layer) const;
 
     //! returns true if contains magnetic materials and matrix calculations are required
     bool requiresMatrixRTCoefficients() const;
 
     //! returns layer index corresponding to given global z coordinate
-    size_t zToLayerIndex(double z_value);
+    //! The top interface position of a layer is considered to belong to the layer above
+    size_t bottomZToLayerIndex(double z_value) const;
+
+    //! returns layer index corresponding to given global z coordinate
+    //! The top interface position of a layer is considered to belong to the layer beneath
+    size_t topZToLayerIndex(double z_value) const;
 
     bool containsMagneticMaterial() const;
 
@@ -120,20 +128,20 @@ public:
 
     size_t totalNofLayouts() const;
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
-    //! Prints class
-    void print(std::ostream& ostr) const;
+    std::vector<const INode*> getChildren() const final override;
 
 private:
+    //! Registers some class members for later access via parameter pool
+    void init_parameters();
+
     //! Adds the layer with simultaneous registration in parent class
     void addAndRegisterLayer(Layer* child);
 
     //! Adds the interface with simultaneous registration in parent class
     void addAndRegisterInterface(LayerInterface* child);
 
-    void setNLayersInLayers() const;
+    //! Handles correct registration of layer thicknesses (not needed for top and bottom layer)
+    void handleLayerThicknessRegistration();
 
     //! Checks index of layer w.r.t. vector length
     size_t check_layer_index(size_t i_layer) const;
@@ -141,12 +149,18 @@ private:
     //! Checks index of interface w.r.t. vector length
     size_t check_interface_index(size_t i_interface) const;
 
+    //! Shared implementation for different clones
+    MultiLayer* cloneGeneric(const std::function<Layer*(const Layer*)>& layer_clone) const;
+
+    //! Calculates the z-region in each layer that holds particles
+    std::vector<ZLimits> calculateLayerZLimits() const;
+
     //! stack of layers [nlayers]
-    std::vector<Layer*> m_layers;
+    SafePointerVector<Layer> m_layers;
     //! coordinate of layer's bottoms [nlayers]
-    std::vector<double> m_layers_z;
+    std::vector<double> m_layers_bottomz;
     //! stack of layer interfaces [nlayers-1]
-    std::vector<LayerInterface*> m_interfaces;
+    SafePointerVector<LayerInterface> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
 };

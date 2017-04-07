@@ -19,17 +19,16 @@
 #include "MaskEditorHelper.h"
 #include "MaskItems.h"
 #include <QCursor>
-#include <QDebug>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
-namespace {
+namespace
+{
 const double mask_width = 8.0;
 const double mask_visible_width = 3.0;
 }
 
 VerticalLineView::VerticalLineView()
-    : m_block_on_property_change(false)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
@@ -39,63 +38,61 @@ VerticalLineView::VerticalLineView()
 
 void VerticalLineView::onChangedX()
 {
-    m_block_on_property_change = true;
+    setBlockOnProperty(true);
     m_item->setItemValue(VerticalLineItem::P_POSX, fromSceneX(this->x()));
-    m_block_on_property_change = false;
+    setBlockOnProperty(false);
 }
 
-void VerticalLineView::onPropertyChange(const QString &propertyName)
+void VerticalLineView::onPropertyChange(const QString& propertyName)
 {
-    if(m_block_on_property_change) return;
-    if(propertyName == VerticalLineItem::P_POSX) {
+    if (propertyName == VerticalLineItem::P_POSX)
         setX(toSceneX(VerticalLineItem::P_POSX));
-    }
 }
 
 void VerticalLineView::update_view()
 {
-    QRectF plot_scene_rectangle = m_adaptor->getViewportRectangle();
+    QRectF plot_scene_rectangle = m_adaptor->viewportRectangle();
 
     setX(toSceneX(VerticalLineItem::P_POSX));
     setY(plot_scene_rectangle.top());
 
-    m_bounding_rect = QRectF(-mask_width/2., 0.0, mask_width, plot_scene_rectangle.height());
+    m_bounding_rect = QRectF(-mask_width / 2., 0.0, mask_width, plot_scene_rectangle.height());
     update();
 }
 
-void VerticalLineView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void VerticalLineView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
     bool mask_value = m_item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
-    painter->drawRect(QRectF(-mask_visible_width/2., 0.0, mask_visible_width,
-                             m_bounding_rect.height()));
+    painter->drawRect(
+        QRectF(-mask_visible_width / 2., 0.0, mask_visible_width, m_bounding_rect.height()));
 
-    if(isSelected()) {
+    if (isSelected()) {
         QPen pen;
         pen.setStyle(Qt::DashLine);
         painter->setPen(pen);
         painter->setBrush(Qt::NoBrush);
-        painter->drawRect(QRectF(-mask_visible_width/2., 0.0, mask_visible_width,
-                                 m_bounding_rect.height()));
+        painter->drawRect(
+            QRectF(-mask_visible_width / 2., 0.0, mask_visible_width, m_bounding_rect.height()));
     }
 }
 
 //! Allows item movement along x, prevent movement along y
-QVariant VerticalLineView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
+QVariant VerticalLineView::itemChange(QGraphicsItem::GraphicsItemChange change,
+                                      const QVariant& value)
 {
     if (isSelected() && change == ItemPositionChange && scene()) {
-          QPointF newPos = value.toPointF();
-          newPos.setY(y());
-          return newPos;
-      }
+        QPointF newPos = value.toPointF();
+        newPos.setY(y());
+        return newPos;
+    }
     return QGraphicsItem::itemChange(change, value);
 }
 
-// ------------------------------------------------------------------------- //
+// --------------------------------------------------------------------------------------------- //
 
 HorizontalLineView::HorizontalLineView()
-    : m_block_on_property_change(false)
 {
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
@@ -105,55 +102,54 @@ HorizontalLineView::HorizontalLineView()
 
 void HorizontalLineView::onChangedY()
 {
-    m_block_on_property_change = true;
+    setBlockOnProperty(true);
     m_item->setItemValue(HorizontalLineItem::P_POSY, fromSceneY(this->y()));
-    m_block_on_property_change = false;
+    setBlockOnProperty(false);
 }
 
-void HorizontalLineView::onPropertyChange(const QString &propertyName)
+void HorizontalLineView::onPropertyChange(const QString& propertyName)
 {
-    if(m_block_on_property_change) return;
-    if(propertyName == HorizontalLineItem::P_POSY) {
+    if (propertyName == HorizontalLineItem::P_POSY)
         setY(toSceneY(HorizontalLineItem::P_POSY));
-    }
 }
 
 void HorizontalLineView::update_view()
 {
-    QRectF plot_scene_rectangle = m_adaptor->getViewportRectangle();
+    QRectF plot_scene_rectangle = m_adaptor->viewportRectangle();
 
     setX(plot_scene_rectangle.left());
     setY(toSceneY(HorizontalLineItem::P_POSY));
 
-    m_bounding_rect = QRectF(0.0, -mask_width/2., plot_scene_rectangle.width(), mask_width);
+    m_bounding_rect = QRectF(0.0, -mask_width / 2., plot_scene_rectangle.width(), mask_width);
     update();
 }
 
-void HorizontalLineView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void HorizontalLineView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
     bool mask_value = m_item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
-    painter->drawRect(QRectF( 0.0, -mask_visible_width/2., m_bounding_rect.width(),
-                              mask_visible_width));
+    painter->drawRect(
+        QRectF(0.0, -mask_visible_width / 2., m_bounding_rect.width(), mask_visible_width));
 
-    if(isSelected()) {
+    if (isSelected()) {
         QPen pen;
         pen.setStyle(Qt::DashLine);
         painter->setPen(pen);
         painter->setBrush(Qt::NoBrush);
-        painter->drawRect(QRectF(0.0, -mask_visible_width/2., m_bounding_rect.width(),
-                                 mask_visible_width));
+        painter->drawRect(
+            QRectF(0.0, -mask_visible_width / 2., m_bounding_rect.width(), mask_visible_width));
     }
 }
 
 //! Allows item movement along y, prevent movement along x
-QVariant HorizontalLineView::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
+QVariant HorizontalLineView::itemChange(QGraphicsItem::GraphicsItemChange change,
+                                        const QVariant& value)
 {
     if (isSelected() && change == ItemPositionChange && scene()) {
-          QPointF newPos = value.toPointF();
-          newPos.setX(x());
-          return newPos;
-      }
+        QPointF newPos = value.toPointF();
+        newPos.setX(x());
+        return newPos;
+    }
     return QGraphicsItem::itemChange(change, value);
 }

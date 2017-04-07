@@ -18,25 +18,27 @@
 #define RESOLUTIONFUNCTIONITEMS_H
 
 #include "SessionItem.h"
-#include "ResolutionFunction2DGaussian.h"
+#include <memory>
 
+class IResolutionFunction2D;
 
 class BA_CORE_API_ ResolutionFunctionItem : public SessionItem
 {
 
 public:
-    explicit ResolutionFunctionItem(const QString name);
+    explicit ResolutionFunctionItem(const QString& name);
     virtual ~ResolutionFunctionItem() {}
 
-    virtual IResolutionFunction2D *createResolutionFunction(double scale = 1.0) const=0;
+    virtual std::unique_ptr<IResolutionFunction2D>
+        createResolutionFunction(double scale = 1.0) const = 0;
 };
 
 class BA_CORE_API_ ResolutionFunctionNoneItem : public ResolutionFunctionItem
 {
 
 public:
-    explicit ResolutionFunctionNoneItem();
-    virtual IResolutionFunction2D *createResolutionFunction(double scale) const;
+    ResolutionFunctionNoneItem();
+    std::unique_ptr<IResolutionFunction2D> createResolutionFunction(double scale = 1.0) const;
 };
 
 class BA_CORE_API_ ResolutionFunction2DGaussianItem : public ResolutionFunctionItem
@@ -45,11 +47,9 @@ class BA_CORE_API_ ResolutionFunction2DGaussianItem : public ResolutionFunctionI
 public:
     static const QString P_SIGMA_X;
     static const QString P_SIGMA_Y;
-    explicit ResolutionFunction2DGaussianItem();
-    virtual IResolutionFunction2D *createResolutionFunction(double scale) const;
+    ResolutionFunction2DGaussianItem();
+    std::unique_ptr<IResolutionFunction2D> createResolutionFunction(double scale = 1.0) const;
 };
-
-
 
 #endif // RESOLUTIONFUNCTIONITEMS_H
 

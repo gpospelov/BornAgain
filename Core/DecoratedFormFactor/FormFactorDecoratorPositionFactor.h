@@ -30,7 +30,11 @@ public:
     FormFactorDecoratorPositionFactor* clone() const override final {
         return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position); }
 
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+
+    double bottomZ(const IRotation& rotation) const override final;
+
+    double topZ(const IRotation& rotation) const override final;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 #ifndef SWIG

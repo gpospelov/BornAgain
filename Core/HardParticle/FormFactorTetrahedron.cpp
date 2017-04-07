@@ -18,6 +18,7 @@
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "MathConstants.h"
+#include "Pyramid3.h"
 #include "RealParameter.h"
 
 const PolyhedralTopology FormFactorTetrahedron::topology = {
@@ -47,6 +48,16 @@ FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, do
     onChange();
 }
 
+IFormFactor* FormFactorTetrahedron::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                    kvector_t translation) const
+{
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    double dbase_edge = 2*sqrt(3)*effects.dz_bottom*MathFunctions::cot(m_alpha);
+    FormFactorTetrahedron slicedff(m_base_edge - dbase_edge,
+                                   m_height - effects.dz_bottom - effects.dz_top, m_alpha);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
+}
+
 void FormFactorTetrahedron::onChange()
 {
     double cot_alpha = MathFunctions::cot(m_alpha);
@@ -61,6 +72,7 @@ void FormFactorTetrahedron::onChange()
         ostr << ", alpha[rad]:" << m_alpha << ")";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new Pyramid3(m_base_edge, m_height, m_alpha));
 
     double a = m_base_edge;
     double as = a/2;

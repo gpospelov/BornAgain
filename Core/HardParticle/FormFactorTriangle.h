@@ -25,7 +25,7 @@ public:
     FormFactorTriangle(const double base_edge);
 
     FormFactorTriangle* clone() const override final { return new FormFactorTriangle(m_base_edge); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }
 

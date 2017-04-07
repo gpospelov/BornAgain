@@ -19,7 +19,7 @@ def getSimulationIntensity(rho_beam, efficiency):
 
     magnetic_field = kvector_t(0, 1, 0)
 
-    magParticle = HomogeneousMagneticMaterial("magParticle", 5e-6, 0.0, magnetic_field )
+    magParticle = HomogeneousMaterial("magParticle", 5e-6, 0.0, magnetic_field )
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(magParticle, cylinder_ff)
@@ -27,7 +27,7 @@ def getSimulationIntensity(rho_beam, efficiency):
     particle_layout = ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
     interference = InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)

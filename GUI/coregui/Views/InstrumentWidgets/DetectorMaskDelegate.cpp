@@ -18,27 +18,26 @@
 #include "AxesItems.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
-#include "GUIHelpers.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
 #include "MaskEditor.h"
 #include "MaskItems.h"
-#include "MaskModel.h"
-#include "OutputData.h"
-#include <QDebug>
+#include "ModelPath.h"
+#include "JobItemUtils.h"
+#include "InstrumentItem.h"
 
-DetectorMaskDelegate::DetectorMaskDelegate(QObject *parent)
+DetectorMaskDelegate::DetectorMaskDelegate(QObject* parent)
     : QObject(parent)
     , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
-    , m_instrumentModel(0)
-    , m_detectorItem(0)
-    , m_intensityItem(0)
+    , m_instrumentModel(nullptr)
+    , m_detectorItem(nullptr)
+    , m_intensityItem(nullptr)
 {
 }
 
-void DetectorMaskDelegate::initMaskEditorContext(
-    MaskEditor *maskEditor, InstrumentModel *instrumentModel,
-    DetectorItem *detectorItem)
+void DetectorMaskDelegate::initMaskEditorContext(MaskEditor* maskEditor,
+                                                 InstrumentModel* instrumentModel,
+                                                 DetectorItem* detectorItem)
 {
     m_instrumentModel = instrumentModel;
     m_detectorItem = detectorItem;
@@ -47,14 +46,11 @@ void DetectorMaskDelegate::initMaskEditorContext(
     Q_ASSERT(m_detectorItem);
 
     createIntensityDataItem();
-    createMaskContainer();
+    m_detectorItem->createMaskContainer();
 
-    Q_ASSERT(m_detectorItem->maskContainerItem());
-
-    maskEditor->setMaskContext(
-        m_instrumentModel,
-        m_instrumentModel->indexOfItem(m_detectorItem->maskContainerItem()),
-        m_intensityItem);
+    maskEditor->setMaskContext(m_instrumentModel,
+                               m_instrumentModel->indexOfItem(m_detectorItem->maskContainerItem()),
+                               m_intensityItem);
 }
 
 //! Creates IntensityDataItem from DetectorItem for later usage in MaskEditor.
@@ -64,121 +60,25 @@ void DetectorMaskDelegate::createIntensityDataItem()
 {
     m_tempIntensityDataModel->clear();
 
-    m_intensityItem = dynamic_cast<IntensityDataItem *>(
+    m_intensityItem = dynamic_cast<IntensityDataItem*>(
         m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
     Q_ASSERT(m_intensityItem);
 
     m_intensityItem->getItem(IntensityDataItem::P_PROJECTIONS_FLAG)->setEnabled(false);
-    m_intensityItem->setItemValue(IntensityDataItem::P_IS_INTERPOLATED,
-                                           false);
+    m_intensityItem->setItemValue(IntensityDataItem::P_IS_INTERPOLATED, false);
 
-//    ComboProperty gradient
-//        = m_intensityItem->getRegisteredProperty(IntensityDataItem::P_GRADIENT)
-//              .value<ComboProperty>();
-//    gradient.setValue(Constants::GRADIENT_GRAYSCALE);
-//    m_intensityItem->setRegisteredProperty(IntensityDataItem::P_GRADIENT,
-//                                           gradient.getVariant());
+    auto& zAxisItem = m_intensityItem->item<AmplitudeAxisItem>(IntensityDataItem::P_ZAXIS);
+    zAxisItem.setItemValue(BasicAxisItem::P_IS_VISIBLE, false);
+    zAxisItem.setItemValue(BasicAxisItem::P_MIN, 0.0);
+    zAxisItem.setItemValue(BasicAxisItem::P_MAX, 2.0);
+    zAxisItem.setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, false);
+    zAxisItem.setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, true);
 
-    AmplitudeAxisItem *zAxisItem = dynamic_cast<AmplitudeAxisItem *>(
-        m_intensityItem->getItem(IntensityDataItem::P_ZAXIS));
+    // creating output data corresponding to the detector
+    auto instrument = dynamic_cast<const InstrumentItem*>(
+                ModelPath::ancestor(m_detectorItem, Constants::InstrumentType));
+    JobItemUtils::createDefaultDetectorMap(m_intensityItem, instrument);
 
-    zAxisItem->setItemValue(BasicAxisItem::P_IS_VISIBLE, false);
-    zAxisItem->setItemValue(BasicAxisItem::P_MIN, 0.0);
-    zAxisItem->setItemValue(BasicAxisItem::P_MAX, 2.0);
-    zAxisItem->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, false);
-    zAxisItem->setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, true);
-
-    m_intensityItem->setOutputData(createOutputData(m_detectorItem));
-}
-
-//! Creates MaskContainer in DetectorItem
-void DetectorMaskDelegate::createMaskContainer()
-{
-    Q_ASSERT(m_detectorItem);
-    if (!m_detectorItem->maskContainerItem()) {
-        m_instrumentModel->insertNewItem(
-            Constants::MaskContainerType,
-            m_instrumentModel->indexOfItem(m_detectorItem));
-    }
-}
-
-//! Creates OutputData from DetectorItem's axes for later initialization of
-//! IntensityDataItem
-OutputData<double> *
-DetectorMaskDelegate::createOutputData(DetectorItem *detectorItem)
-{
-    Q_ASSERT(detectorItem);
-    OutputData<double> *result = new OutputData<double>;
-
-    auto subDetector = detectorItem->getGroupItem(DetectorItem::P_DETECTOR);
-    Q_ASSERT(subDetector);
-
-    if (subDetector->modelType() == Constants::SphericalDetectorType) {
-
-        auto x_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getItem(SphericalDetectorItem::P_PHI_AXIS));
-        Q_ASSERT(x_axis);
-        int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-        double x_min
-            = x_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
-        double x_max
-            = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
-
-        auto y_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
-        Q_ASSERT(y_axis);
-        int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-        double y_min
-            = y_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
-        double y_max
-            = y_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
-
-        result->addAxis("x", n_x, x_min, x_max);
-        result->addAxis("y", n_y, y_min, y_max);
-
-    }
-
-    else if (subDetector->modelType() == Constants::RectangularDetectorType) {
-        auto x_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getItem(RectangularDetectorItem::P_X_AXIS));
-        Q_ASSERT(x_axis);
-        int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-        double x_min = x_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
-        double x_max = x_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
-
-        auto y_axis = dynamic_cast<BasicAxisItem *>(
-            subDetector->getItem(RectangularDetectorItem::P_Y_AXIS));
-        Q_ASSERT(y_axis);
-        int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-        double y_min
-            = y_axis->getItemValue(BasicAxisItem::P_MIN).toDouble();
-        double y_max
-            = y_axis->getItemValue(BasicAxisItem::P_MAX).toDouble();
-
-        result->addAxis("x", n_x, x_min, x_max);
-        result->addAxis("y", n_y, y_min, y_max);
-
-    }
-
-    else {
-        throw GUIHelpers::Error(
-            "DetectorMaskDelegate::createOutputData() -> Error. "
-            " Unknown detector type");
-    }
-
-    result->setAllTo(1.0);
-//    (*result)[0] = 10;
-
-//    const IAxis *axis0 = result->getAxis(0);
-//    const IAxis *axis1 = result->getAxis(1);
-
-//    for(int ix=0; ix<(int)axis0.size(); ix+=2) {
-//        for(int iy=0; iy<(int)axis1.size(); iy+=2) {
-//            std::vector<int> indices = {ix, iy};
-//            int index = result->toGlobalIndex(indices);
-//            (*result)[index] = 10;
-//        }
-//    }
-
-    return result;
+    m_intensityItem->getOutputData()->setAllTo(1.0);
+    m_intensityItem->getItem(IntensityDataItem::P_AXES_UNITS)->setEnabled(false);
 }

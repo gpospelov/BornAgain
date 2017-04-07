@@ -18,7 +18,6 @@
 #include "MaterialItem.h"
 #include "MaterialModel.h"
 #include <QAction>
-#include <QDebug>
 #include <QItemSelectionModel>
 #include <QListView>
 #include <QMenu>

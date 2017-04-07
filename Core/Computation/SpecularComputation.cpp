@@ -15,22 +15,25 @@
 
 #include "SpecularComputation.h"
 #include "SimulationElement.h"
-#include "LayerSpecularInfo.h"
+#include "IFresnelMap.h"
 #include "ILayerRTCoefficients.h"
+#include "MultiLayer.h"
 
-SpecularComputation::SpecularComputation()
+SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer,
+                                         const IFresnelMap* p_fresnel_map)
+    : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 
-void SpecularComputation::eval(
-        ProgressHandler* /*unused*/,
-        bool polarized,
-        const std::vector<SimulationElement>::iterator& begin_it,
-        const std::vector<SimulationElement>::iterator& end_it)
+void SpecularComputation::eval(ProgressHandler*,
+    const std::vector<SimulationElement>::iterator& begin_it,
+    const std::vector<SimulationElement>::iterator& end_it) const
 {
-    if (polarized) return;
-    for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
+    if (mp_multilayer->requiresMatrixRTCoefficients())
+        return;
+
+    for (auto it = begin_it; it != end_it; ++it) {
         if (it->containsSpecularWavevector()) {
-            complex_t R = mP_specular_info->getInCoefficients(*it)->getScalarR();
+            complex_t R = mp_fresnel_map->getInCoefficients(*it, 0)->getScalarR();
             double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));
             if (sin_alpha_i==0.0)
                 sin_alpha_i = 1.0;
@@ -41,11 +44,4 @@ void SpecularComputation::eval(
             it->setIntensity(intensity);
         }
     }
-    return;
-}
-
-void SpecularComputation::setSpecularInfo(const LayerSpecularInfo &specular_info)
-{
-    if (mP_specular_info.get() != &specular_info)
-        mP_specular_info.reset(specular_info.clone());
 }

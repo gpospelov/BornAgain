@@ -64,9 +64,9 @@ IFormFactorBorn* make_polyhedron( int ishape )
 //! Bisect between two q's to find possible discontinuities
 
 void bisect(
-    const IFormFactorBorn* polyh, const int ishape, const double q0mag,
-    const cvector_t qi, const complex_t ri, const Diagnosis di,
-    const cvector_t qf, const complex_t rf, const Diagnosis df,
+    const IFormFactorBorn* polyh, int ishape, double q0mag,
+    cvector_t qi, complex_t ri, const Diagnosis di,
+    cvector_t qf, complex_t rf, const Diagnosis df,
     double& maxrelstep )
 {
     assert( di!=df );
@@ -93,8 +93,8 @@ void bisect(
 
 void run(
     const IFormFactorBorn* polyh,
-    const double step, const int ishape, const cvector_t q, const cvector_t qlast,
-    const int outfilter, double& maxrelstep )
+    double step, int ishape, cvector_t q, cvector_t qlast,
+    int outfilter, double& maxrelstep )
 {
     complex_t ret;
     static complex_t last_ret = 0;

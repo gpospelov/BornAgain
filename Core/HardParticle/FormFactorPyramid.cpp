@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorPyramid.h"
+#include "AnisoPyramid.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -43,16 +44,26 @@ FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alp
     setName(BornAgain::FFPyramidType);
     registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
+    registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI);
     onChange();
+}
+
+IFormFactor* FormFactorPyramid::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                kvector_t translation) const
+{
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    double dbase_edge = 2*effects.dz_bottom*MathFunctions::cot(m_alpha);
+    FormFactorPyramid slicedff(m_base_edge - dbase_edge,
+                               m_height - effects.dz_bottom - effects.dz_top, m_alpha);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
 }
 
 void FormFactorPyramid::onChange()
 {
     double cot_alpha = MathFunctions::cot(m_alpha);
-    if( !std::isfinite(cot_alpha) || cot_alpha<0 )
+    if( !std::isfinite(cot_alpha) )
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
-    double r = cot_alpha*2 * m_height / m_base_edge; // L(top)/L(base)
+    double r = cot_alpha*2 * m_height / m_base_edge; // [L(base)-L(top)]/L(base)
     if ( r > 1 ) {
         std::ostringstream ostr;
         ostr << "FormFactorPyramid() -> Error in class initialization with parameters";
@@ -62,6 +73,7 @@ void FormFactorPyramid::onChange()
         ostr << "Check for 'height <= base_edge*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new AnisoPyramid(m_base_edge, m_base_edge, m_height, m_alpha));
 
     double a = m_base_edge/2;
     double b = a * (1-r);

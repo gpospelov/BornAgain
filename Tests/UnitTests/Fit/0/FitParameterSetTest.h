@@ -1,7 +1,4 @@
-#ifndef FITPARAMETERSETTEST_H
-#define FITPARAMETERSETTEST_H
-
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "FitParameterSet.h"
 #include "gtest/gtest.h"
 
@@ -16,16 +13,18 @@ TEST_F(FitParameterSetTest, addFitParameter)
 {
     FitParameterSet parameters;
 
-    FitParameter *par = new FitParameter("par1", 1.0);
+    IFitParameter *par = new IFitParameter("pattern1", 1.0);
     parameters.addFitParameter(par);
     EXPECT_EQ(parameters.size(), 1u);
+    EXPECT_EQ(par->name(), "pattern1");
 
     // attempt to add same fit parameter twice
     EXPECT_THROW(parameters.addFitParameter(par), std::runtime_error);
 
-    // attempt to add fit parameter with the same name
-    std::unique_ptr<FitParameter> par2(new FitParameter("par1", 2.0));
-    EXPECT_THROW(parameters.addFitParameter(par2.get()), std::runtime_error);
+    IFitParameter *par2 = new IFitParameter("pattern2", 1.0);
+    parameters.addFitParameter(par2);
+    EXPECT_EQ(parameters.size(), 2u);
+    EXPECT_EQ(par2->name(), "pattern2");
 
     parameters.clear();
     EXPECT_EQ(parameters.size(), 0u);
@@ -35,15 +34,15 @@ TEST_F(FitParameterSetTest, getFitParameter)
 {
     FitParameterSet parameters;
 
-    FitParameter *par1 = new FitParameter("par1", 1.0);
+    IFitParameter *par1 = new IFitParameter("pattern1", 1.0);
     parameters.addFitParameter(par1);
-    FitParameter *par2 = new FitParameter("par2", 1.0);
+    IFitParameter *par2 = new IFitParameter("pattern2", 1.0);
     parameters.addFitParameter(par2);
 
-    EXPECT_EQ(parameters.fitParameter("par1"), par1);
-    EXPECT_EQ(parameters.fitParameter("par2"), par2);
-    EXPECT_EQ(parameters["par1"], par1);
-    EXPECT_EQ(parameters["par2"], par2);
+    EXPECT_EQ(parameters.fitParameter("pattern1"), par1);
+    EXPECT_EQ(parameters.fitParameter("pattern2"), par2);
+    EXPECT_EQ(parameters["pattern1"], par1);
+    EXPECT_EQ(parameters["pattern2"], par2);
     EXPECT_EQ(parameters[0], par1);
     EXPECT_EQ(parameters[1], par2);
 
@@ -55,9 +54,9 @@ TEST_F(FitParameterSetTest, getFitParameter)
 TEST_F(FitParameterSetTest, parameterValues)
 {
     FitParameterSet parameters;
-    parameters.addFitParameter(new FitParameter("par1", 1.0));
-    parameters.addFitParameter(new FitParameter("par2", 2.0));
-    parameters.addFitParameter(new FitParameter("par3", 3.0));
+    parameters.addFitParameter(new IFitParameter("pattern1", 1.0));
+    parameters.addFitParameter(new IFitParameter("pattern2", 2.0));
+    parameters.addFitParameter(new IFitParameter("pattern3", 3.0));
     std::vector<double> values{1.0, 2.0, 3.0};
     EXPECT_EQ(parameters.values(), values);
 
@@ -78,8 +77,8 @@ TEST_F(FitParameterSetTest, parameterValues)
 TEST_F(FitParameterSetTest, parameterErrors)
 {
     FitParameterSet parameters;
-    FitParameter *par1 = new FitParameter("par1", 1.0, AttLimits::limitless(), 0.01);
-    FitParameter *par2 = new FitParameter("par2", 1.0, AttLimits::limitless(), 0.01);
+    IFitParameter *par1 = new IFitParameter("pattern1", 1.0, AttLimits::limitless(), 0.01);
+    IFitParameter *par2 = new IFitParameter("pattern2", 1.0, AttLimits::limitless(), 0.01);
 
     parameters.addFitParameter(par1);
     parameters.addFitParameter(par2);
@@ -97,9 +96,9 @@ TEST_F(FitParameterSetTest, parameterErrors)
 TEST_F(FitParameterSetTest, fixRelease)
 {
     FitParameterSet parameters;
-    FitParameter *par1 = new FitParameter("par1", 1.0, AttLimits::limitless(), 0.01);
-    FitParameter *par2 = new FitParameter("par2", 1.0, AttLimits::limitless(), 0.01);
-    FitParameter *par3 = new FitParameter("par3", 1.0, AttLimits::limitless(), 0.01);
+    IFitParameter *par1 = new IFitParameter("pattern1", 1.0, AttLimits::limitless(), 0.01);
+    IFitParameter *par2 = new IFitParameter("pattern2", 1.0, AttLimits::limitless(), 0.01);
+    IFitParameter *par3 = new IFitParameter("pattern3", 1.0, AttLimits::limitless(), 0.01);
 
     parameters.addFitParameter(par1);
     parameters.addFitParameter(par2);
@@ -118,12 +117,10 @@ TEST_F(FitParameterSetTest, fixRelease)
     parameters.releaseAll();
     EXPECT_EQ(parameters.freeFitParameterCount(), 3u);
 
-    std::vector<std::string> names_to_fix={"par1", "par3"};
+    std::vector<std::string> names_to_fix={"pattern1", "pattern3"};
     parameters.setFixed(names_to_fix, true);
     EXPECT_EQ(parameters.freeFitParameterCount(), 1u);
     EXPECT_TRUE(par1->limits().isFixed());
     EXPECT_FALSE(par2->limits().isFixed());
     EXPECT_TRUE(par3->limits().isFixed());
 }
-
-#endif

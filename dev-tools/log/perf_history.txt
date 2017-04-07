@@ -560,3 +560,43 @@
 | 2016-11-11 14:01:06 | scgsun   | Linux x86_64 | 2.7    | 120.5640  | 18.1298    | 2.8138     | 0.5744          | 3.1869          | 0.4087    | 2.2109        | 0.5960            | 3.2414         | 0.8705 | 1.7517      | 1.6192    | 0.8565    |
 | 2016-11-11 14:01:41 | scgsun   | Linux x86_64 | 2.7    | 120.7520  | 18.1567    | 2.8182     | 0.5756          | 3.2338          | 0.4107    | 2.1995        | 0.5951            | 3.2290         | 0.8655 | 1.7562      | 1.6096    | 0.8635    |
 
+# develop branch performance, after Release-1.7.1 fix merge
+| 2016-12-05 15:58:01 | scgsun   | Linux x86_64 | 2.7    | 120.3377  | 18.4170    | 2.7919     | 0.5750          | 3.2279          | 0.4029    | 2.2173        | 0.5889            | 3.2348         | 0.9846 | 1.8415      | 1.7238    | 0.8283    |
+
+# before INode::registerParameter refactoring
+| 2016-12-12 14:13:35 | scgsun   | Linux x86_64 | 2.7    | 120.3479  | 18.0438    | 2.7311     | 0.5572          | 3.1718          | 0.3916    | 2.1592        | 0.5663            | 3.1803         | 0.9648 | 1.8042      | 1.6837    | 0.8335    |
+
+# after INode::getChildren() refactoring
+| 2016-12-13 13:40:29 | scgsun   | Linux x86_64 | 2.7    | 120.2220  | 18.8454    | 2.8367     | 0.5845          | 3.3847          | 0.4181    | 2.2807        | 0.6077            | 3.2274         | 1.0269 | 1.8949      | 1.7435    | 0.8404    |
+
+# before removing volatile from IParameter
+| 2017-01-18 12:13:59 | scgsun   | Linux x86_64 | 2.7    | 118.0423  | 17.8696    | 2.4341     | 0.5644          | 3.1871          | 0.3983    | 2.1651        | 0.5752            | 3.2200         | 0.9742 | 1.8123      | 1.7080    | 0.8309    |
+# after removing volatile from IParameter
+| 2017-01-18 12:19:30 | scgsun   | Linux x86_64 | 2.7    | 118.2139  | 17.7676    | 2.4074     | 0.5639          | 3.1969          | 0.3977    | 2.1772        | 0.5731            | 3.1873         | 0.9855 | 1.7713      | 1.6826    | 0.8246    |
+
+# before migrating to Lattice2D family
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2017-01-23 17:31:16 | scgsun   | Linux x86_64 | 2.7    | 118.3371  | 18.6758    | 2.5766     | 0.5958          | 3.3604          | 0.4292    | 2.2796        | 0.6037            | 3.2815         | 0.9989 | 1.8764      | 1.7708    | 0.9028    |
+# before moving InterferenceFunction2D to to Lattice2D family
+| 2017-01-24 16:20:17 | scgsun   | Linux x86_64 | 2.7    | 118.5575  | 18.4619    | 2.4920     | 0.5836          | 3.2596          | 0.4187    | 2.2849        | 0.6467            | 3.2747         | 0.9935 | 1.8567      | 1.7464    | 0.9052    |
+# after moving InterferenceFunction2D to to Lattice2D family
+| 2017-01-26 14:13:03 | scgsun   | Linux x86_64 | 2.7    | 119.2852  | 18.5108    | 2.4588     | 0.6091          | 3.2656          | 0.4516    | 2.2932        | 0.6232            | 3.2866         | 1.0145 | 1.8147      | 1.7602    | 0.9332    |
+# use_damping_length is removed from ParaCrystal2D
+| 2017-01-26 15:58:48 | scgsun   | Linux x86_64 | 2.7    | 118.9539  | 18.1694    | 2.5009     | 0.5742          | 3.2318          | 0.4133    | 2.1943        | 0.5948            | 3.2492         | 0.9821 | 1.8144      | 1.7355    | 0.8789    |
+
+# before merging "Main Computation Refactoring"
+| 2017-02-02 15:07:09 | scgsun   | Linux x86_64 | 2.7    | 118.2458  | 18.2851    | 2.6681     | 0.6339          | 3.1927          | 0.3905    | 2.2329        | 0.5892            | 3.1985         | 0.9908 | 1.8031      | 1.7187    | 0.8667    |
+# after the merge
+| 2017-02-02 15:17:04 | scgsun   | Linux x86_64 | 2.7    | 118.4439  | 17.9032    | 2.4094     | 0.5630          | 3.2205          | 0.3951    | 2.1992        | 0.5685            | 3.2139         | 0.9742 | 1.8155      | 1.7048    | 0.8391    |
+
+# Check after month pause
+| 2017-03-16 15:53:02 | scgsun   | Linux x86_64 | 2.7    | 93.3001   | 18.0506    | 0.7573     | 0.6264          | 3.9816          | 0.4498    | 2.7937        | 0.6295            | 2.9224         | 1.0736 | 1.9965      | 2.0363    | 0.7836    |
+
+16.03.2017 17:17:08 | domain2gui 1415 msec | gui2domain 1431 msec | realTime 1018 msec | 
+
+# after groupProperty refactoring
+17.03.2017 14:11:39 | domain2gui 1290 msec | gui2domain 1392 msec | realTime 983 msec |
+
+# before release 1.8
+| 2017-04-06 10:10:45 | scgsun   | Linux x86_64 | 2.7    | 92.7194   | 14.7865    | 0.3003     | 0.5033          | 3.1531          | 0.3659    | 2.1406        | 0.5124            | 2.5461         | 0.8613 | 2.0314      | 1.5734    | 0.7986    |
+| 06.04.2017 10:14:18 | domain2gui 1337 msec | gui2domain 1567 msec | realTime 1284 msec | 

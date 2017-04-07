@@ -251,6 +251,13 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "None",
         2e-10);
 
+    add("AsymRipple",
+        "Triangular ripple with asymetry within radial paracrystal model",
+        "MiniGISAS",
+        "AsymRippleBuilder",
+        "None",
+        2e-4);
+
     add("MesoCrystal",
         "Cylindrical mesocrystal composed of spherical nano particles",
         "MiniGISAS",
@@ -269,6 +276,20 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "Magnetic cylinders with zero field",
         "MiniGISAS",
         "MagneticParticleZeroFieldBuilder",
+        "None",
+        2e-10);
+
+    add("MagneticSubstrateZeroField",
+        "Magnetic substrate with zero field",
+        "MiniGISASPolarizationPP",
+        "MagneticSubstrateZeroFieldBuilder",
+        "None",
+        2e-10);
+
+    add("MagneticRotation",
+        "Rotated magnetic particle in magnetic substrate",
+        "MiniGISASSpinFlipZ",
+        "MagneticRotationBuilder",
         "None",
         2e-10);
 
@@ -345,6 +366,27 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "CylindersAndPrismsBuilder",
         "None",
         1e-10);
+
+    add("BoxesWithSpecular",
+        "Boxes in square lattice including specular peak",
+        "MiniGISASSpecular",
+        "BoxesSquareLatticeBuilder",
+        "None",
+        1e-10);
+
+    add("RotatedCylinder",
+        "Rotated cylinder in substrate",
+        "MiniGISAS",
+        "RotatedCylindersBuilder",
+        "None",
+        1e-10);
+
+    add("SlicedComposition",
+        "Spherical particle made of two different materials crossing interface",
+        "MiniGISAS",
+        "SlicedCompositionBuilder",
+        "None",
+        1e-10);
 }
 
 void StandardSimulationsRegistry::add(
@@ -379,8 +421,8 @@ void StandardSimulationsRegistry::printCatalogue(std::ostream& ostr) const
 {
     for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
         SimulationInfo info = it->second;
-        ostr << Utils::String::padRight(info.m_test_name, 20) << " | ";
-        ostr << Utils::String::padRight(info.m_test_description, 40) << " | ";
+        ostr << StringUtils::padRight(info.m_test_name, 20) << " | ";
+        ostr << StringUtils::padRight(info.m_test_description, 40) << " | ";
         ostr << info.m_simulation_name << ", ";
         ostr << info.m_sample_builder_name << ", ";
         ostr << info.m_subtest_type;

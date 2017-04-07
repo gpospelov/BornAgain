@@ -102,7 +102,7 @@ void RectangularDetector::setDirectBeamPosition(double u0, double v0)
     m_dbeam_v0 = v0;
 }
 
-IPixelMap *RectangularDetector::createPixelMap(size_t index) const
+IPixel *RectangularDetector::createPixel(size_t index) const
 {
     const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
@@ -115,20 +115,7 @@ IPixelMap *RectangularDetector::createPixelMap(size_t index) const
             + (u_bin.m_lower - m_u0)*m_u_unit + (v_bin.m_lower - m_v0)*m_v_unit );
     kvector_t width = u_bin.getBinSize()*m_u_unit;
     kvector_t height = v_bin.getBinSize()*m_v_unit;
-    return new RectPixelMap(corner_position, width, height);
-}
-
-std::string RectangularDetector::addParametersToExternalPool(
-    const std::string& path, ParameterPool *external_pool, int copy_number) const
-{
-    // add own parameters
-    std::string new_path
-        = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
-
-    // add parameters of the resolution function
-    if (mP_detector_resolution)
-        mP_detector_resolution->addParametersToExternalPool(new_path, external_pool, -1);
-    return new_path;
+    return new RectangularPixel(corner_position, width, height);
 }
 
 double RectangularDetector::getWidth() const
@@ -205,13 +192,6 @@ std::vector<IDetector2D::EAxesUnits> RectangularDetector::getValidAxesUnits() co
 IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
 {
     return IDetector2D::MM;
-}
-
-void RectangularDetector::print(std::ostream& ostr) const
-{
-    ostr << "RectangularDetector: '" << getName() << "' " << getParameterPool();
-    for (size_t i = 0; i < m_axes.size(); ++i)
-        ostr << "    IAxis:" << *m_axes[i] << std::endl;
 }
 
 IAxis *RectangularDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
@@ -361,33 +341,33 @@ void RectangularDetector::initUandV(double alpha_i)
     }
 }
 
-RectPixelMap::RectPixelMap(kvector_t corner_pos, kvector_t width, kvector_t height)
+RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
     : m_corner_pos(corner_pos), m_width(width), m_height(height)
 {
     m_normal = m_width.cross(m_height);
     m_solid_angle = calculateSolidAngle();
 }
 
-RectPixelMap *RectPixelMap::clone() const
+RectangularPixel *RectangularPixel::clone() const
 {
-    return new RectPixelMap(m_corner_pos, m_width, m_height);
+    return new RectangularPixel(m_corner_pos, m_width, m_height);
 }
 
-RectPixelMap *RectPixelMap::createZeroSizeMap(double x, double y) const
+RectangularPixel *RectangularPixel::createZeroSizePixel(double x, double y) const
 {
     kvector_t position = m_corner_pos + x*m_width + y*m_height;
     kvector_t null_vector;
-    return new RectPixelMap(position, null_vector, null_vector);
+    return new RectangularPixel(position, null_vector, null_vector);
 }
 
-kvector_t RectPixelMap::getK(double x, double y, double wavelength) const
+kvector_t RectangularPixel::getK(double x, double y, double wavelength) const
 {
     kvector_t direction = m_corner_pos + x*m_width + y*m_height;
-    double length = PI2/wavelength;
+    double length = M_TWOPI/wavelength;
     return normalizeLength(direction, length);
 }
 
-double RectPixelMap::getIntegrationFactor(double x, double y) const
+double RectangularPixel::getIntegrationFactor(double x, double y) const
 {
     if (m_solid_angle==0.0) return 1.0;
     kvector_t position = m_corner_pos + x*m_width + y*m_height;
@@ -395,18 +375,18 @@ double RectPixelMap::getIntegrationFactor(double x, double y) const
     return std::abs(position.dot(m_normal))/std::pow(length, 3)/m_solid_angle;
 }
 
-double RectPixelMap::getSolidAngle() const
+double RectangularPixel::getSolidAngle() const
 {
     if (m_solid_angle<=0.0) return 1.0;
     return m_solid_angle;
 }
 
-kvector_t RectPixelMap::normalizeLength(const kvector_t direction, double length) const
+kvector_t RectangularPixel::normalizeLength(const kvector_t direction, double length) const
 {
     return direction.unit()*length;
 }
 
-double RectPixelMap::calculateSolidAngle() const
+double RectangularPixel::calculateSolidAngle() const
 {
     kvector_t position = m_corner_pos + 0.5*m_width + 0.5*m_height;
     double length = position.mag();

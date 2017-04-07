@@ -21,114 +21,43 @@
 #include <QStringList>
 #include <QVariant>
 
-//! The ComboProperty defines SessionItem's property with a value
-//! from predefined list.
-//!
-//! This is a light version of GroupProperty without SubItem mechanism
+//! The ComboProperty defines SessionItem's property with a value from predefined list.
+
 class BA_CORE_API_ ComboProperty
 {
 public:
+    ComboProperty();
+    ComboProperty(const QStringList& values, const QString& current_value);
 
-    ComboProperty(const QStringList &values = QStringList(),
-                  const QString &current_value = QString("Undefined"));
-    virtual ~ComboProperty() {}
     QString getValue() const;
-
-    void setValue(const QString &name);
-    bool isDefined();
+    void setValue(const QString& name);
 
     QStringList getValues() const;
+    void setValues(const QStringList& values);
 
-    QStringList getToolTips() const;
-    void setToolTips(const QStringList &tooltips);
+    QStringList toolTips() const;
+    void setToolTips(const QStringList& tooltips);
 
-    int index() const;
-    int toIndex(const QString &value) const;
-    QString toString(int index) const;
+    int currentIndex() const;
+    void setCurrentIndex(int index);
 
-    inline ComboProperty &operator<<(const QString &str);
+    ComboProperty& operator<<(const QString& str);
+    ComboProperty& operator<<(const QStringList& str);
+    bool operator==(const ComboProperty& other) const;
+    bool operator!=(const ComboProperty& other) const;
+    bool operator<(const ComboProperty& other) const;
 
-    inline ComboProperty &operator<<(const QStringList &str);
+    QString stringOfValues() const;
+    void setStringOfValues(const QString& values);
 
     QVariant getVariant() const;
 
-    int getIndex() const;
-
-    QString getCachedValue() const;
-    void setCachedValue(const QString &name);
-
-    bool cacheContainsGUIValue() const;
-    void setCacheContainsGUIFlag(bool flag=true);
-
-    bool operator==(const ComboProperty &other) const;
-    bool operator!=(const ComboProperty &other) const { return !(*this == other); }
-    bool operator<(const ComboProperty &other) const;
-
 private:
     QStringList m_values;
-    QStringList m_values_tooltips;
-    QString m_current_value;
-    QString m_cached_value;  // for comboboxes with dynamically generated value lists
-    bool m_cache_contains_GUI_value;
+    QStringList m_tooltips;
+    int m_current_index;
 };
 
-inline QString ComboProperty::getValue() const
-{
-    return m_current_value;
-}
-
-inline bool ComboProperty::isDefined()
-{
-    return m_current_value != QStringLiteral("Undefined");
-}
-
-inline QStringList ComboProperty::getValues() const
-{
-    return m_values;
-}
-
-inline ComboProperty &ComboProperty::operator<<(const QString &str)
-{
-    m_values.append(str);
-    if(m_values.size()) m_current_value=m_values.at(0);
-    return *this;
-}
-
-inline ComboProperty &ComboProperty::operator<<(const QStringList &str)
-{
-    m_values.append(str);
-    if(m_values.size()) m_current_value=m_values.at(0);
-    return *this;
-}
-
-inline QVariant ComboProperty::getVariant() const {
-    QVariant result;
-    result.setValue(*this);
-    return result;
-}
-
-inline int ComboProperty::getIndex() const
-{
-    return toIndex(m_current_value);
-}
-
-inline QString ComboProperty::getCachedValue() const
-{
-    return m_cached_value;
-}
-
-inline bool ComboProperty::cacheContainsGUIValue() const
-{
-    return m_cache_contains_GUI_value;
-}
-
-inline void ComboProperty::setCacheContainsGUIFlag(bool flag)
-{
-    m_cache_contains_GUI_value = flag;
-}
-
 Q_DECLARE_METATYPE(ComboProperty)
-
-
 
 #endif // COMBOPROPERTY_H

@@ -22,7 +22,6 @@
 
 class BeamDistributionItem;
 class BeamItem;
-class DetectorItem;
 class FormFactorAnisoPyramid;
 class GISASSimulation;
 class InterferenceFunction1DLattice;
@@ -39,6 +38,10 @@ class RectangularDetectorItem;
 class SessionItem;
 class SphericalDetector;
 class SphericalDetectorItem;
+class DetectorItem;
+class MaskContainerItem;
+class IDetector2D;
+class InstrumentItem;
 
 namespace TransformFromDomain
 {
@@ -68,14 +71,10 @@ BA_CORE_API_ void setItemFromSample(SessionItem *item,
 
 BA_CORE_API_ bool isValidRoughness(const LayerRoughness *roughness);
 
-BA_CORE_API_ bool isSquareLattice(double length1, double length2, double angle);
-
-BA_CORE_API_ bool isHexagonalLattice(double length1, double length2, double angle);
-
 BA_CORE_API_ void setItemFromSample(BeamItem *beamItem,
                                     const GISASSimulation &simulation);
 
-BA_CORE_API_ void setItemFromSample(DetectorItem *detectorItem,
+BA_CORE_API_ void setInstrumentDetectorFromSample(InstrumentItem *detectorItem,
                                     const GISASSimulation &simulation);
 
 BA_CORE_API_ void setItemFromSample(SphericalDetectorItem *detectorItem,
@@ -87,13 +86,15 @@ BA_CORE_API_ void setItemFromSample(RectangularDetectorItem *detectorItem,
 BA_CORE_API_ void setDetectorMasks(DetectorItem *detectorItem,
                                    const GISASSimulation &simulation);
 
-BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
-                                    const ParameterDistribution &parameterDistribution);
+BA_CORE_API_ void setDetectorMasks(MaskContainerItem *containerItem,
+                                   const IDetector2D &detector, double scale);
 
 BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
                                     const ParameterDistribution &parameterDistribution);
 
-BA_CORE_API_ QString translateParameterNameToGUI(SessionItem *item, const QString &par_name);
+BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
+                                    const ParameterDistribution &parameterDistribution);
+
 }
 
 #endif // TRANSFORMFROMDOMAIN_H

@@ -26,7 +26,6 @@ const char APPLICATION_NAME[]     = "BornAgain";
 const char ORGANIZATION_NAME[]    = "Scientific Computing at MLZ";
 
 // Settings groups
-const char S_PROJECTMANAGER[]      = "ProjectManager";
 const char S_MAINWINDOW[]          = "MainWindow";
 const char S_MASKEDITOR[]          = "MaskEditor";
 const char S_UPDATES[]             = "Updates";
@@ -34,9 +33,6 @@ const char S_MATERIALEDITOR[]      = "MaterialEditor";
 const char S_SESSIONMODELVIEW[]    = "SessionModelView";
 
 // Settings keys
-const char S_DEFAULTPROJECTPATH[]  = "DefaultProjectPath";
-const char S_RECENTPROJECTS[]      = "RecentProjects";
-const char S_LASTUSEDIMPORTDIR[]   = "LastUsedImportDir";
 const char S_WINDOWSIZE[]          = "size";
 const char S_WINDOWPOSITION[]      = "pos";
 const char S_SPLITTERSIZE[]        = "SplitterSize";
@@ -56,12 +52,17 @@ const unsigned int MAIN_THEME_COLOR    = 0x086FA1;
 const unsigned int BUTTON_COLOR        = 0x044362;
 const unsigned int BUTTON_TEXT_COLOR   = 0xFFFFFF;
 
+// Hints
+
 const unsigned int REALTIME_WIDGET_WIDTH_HINT = 480;
 const unsigned int FIT_ACTIVITY_PANEL_HEIGHT = 380;
 const unsigned int FIT_SUITE_WIDGET_HEIGHT= 330;
 const unsigned int RUN_FIT_CONTROL_WIDGET_HEIGHT = 50;
 const unsigned int ITEM_SELECTOR_WIDGET_WIDTH = 128;
 const unsigned int ITEM_SELECTOR_WIDGET_HEIGHT = 765;
+
+const unsigned int hint_panel_width = 230;
+const unsigned int hint_panel_height = 64;
 
 // Widget names
 
@@ -77,7 +78,13 @@ const QString JobFittingActivityName = "Fitting Activity";
 
 //
 const QString IntensityDataWidgetName = "Color Map";
+const QString JobProjectionsWidgetName = "Projections";
+
 const QString FitComparisonWidgetName = "Fit Data";
+
+const int toolbar_icon_size = 32;
+
+const int styled_toolbar_height = 25;
 
 }
 

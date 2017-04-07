@@ -26,43 +26,32 @@ EllipseView::EllipseView()
 
 void EllipseView::onChangedX()
 {
-    m_block_on_property_change = true;
+    setBlockOnProperty(true);
     m_item->setItemValue(EllipseItem::P_XCENTER, fromSceneX(this->x()));
-    m_block_on_property_change = false;
+    setBlockOnProperty(false);
 }
 
 void EllipseView::onChangedY()
 {
-    m_block_on_property_change = true;
+    setBlockOnProperty(true);
     m_item->setItemValue(EllipseItem::P_YCENTER, fromSceneY(this->y()));
-    m_block_on_property_change = false;
+    setBlockOnProperty(false);
 }
 
-void EllipseView::onPropertyChange(const QString &propertyName)
+void EllipseView::onPropertyChange(const QString& propertyName)
 {
-    if(m_block_on_property_change) return;
-    m_block_on_property_change = true;
-
-    if(propertyName == EllipseItem::P_XRADIUS || propertyName == EllipseItem::P_YRADIUS) {
+    if (propertyName == EllipseItem::P_XRADIUS || propertyName == EllipseItem::P_YRADIUS) {
         update_view();
-    }
-    else if(propertyName == EllipseItem::P_XCENTER) {
+    } else if (propertyName == EllipseItem::P_XCENTER) {
         setX(toSceneX(EllipseItem::P_XCENTER));
-    }
-    else if(propertyName == EllipseItem::P_YCENTER) {
+    } else if (propertyName == EllipseItem::P_YCENTER) {
         setY(toSceneY(EllipseItem::P_YCENTER));
+    } else if (propertyName == EllipseItem::P_ANGLE) {
+        setTransform(QTransform().rotate(-1.0 * par(EllipseItem::P_ANGLE)));
     }
-    else if(propertyName == EllipseItem::P_ANGLE) {
-        setTransform(QTransform().rotate(-1.0*par(EllipseItem::P_ANGLE)));
-    }
-    else if(propertyName == MaskItem::P_MASK_VALUE) {
-        update();
-    }
-
-    m_block_on_property_change = false;
 }
 
-void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void EllipseView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
     painter->setRenderHints(QPainter::Antialiasing);
     bool mask_value = m_item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
@@ -71,49 +60,53 @@ void EllipseView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWi
     painter->drawEllipse(m_mask_rect);
 }
 
-void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-    if(m_activeHandleElement) {
+    if (m_activeHandleElement) {
         QPointF opposPos = mapFromScene(m_resize_opposite_origin);
-        qreal xmin = std::min(event->pos().x(),opposPos.x());
-        qreal xmax = std::max(event->pos().x(),opposPos.x());
-        qreal ymin = std::min(event->pos().y(),opposPos.y());
-        qreal ymax = std::max(event->pos().y(),opposPos.y());
-        qreal width = xmax-xmin;
-        qreal height = ymax-ymin;
+        qreal xmin = std::min(event->pos().x(), opposPos.x());
+        qreal xmax = std::max(event->pos().x(), opposPos.x());
+        qreal ymin = std::min(event->pos().y(), opposPos.y());
+        qreal ymax = std::max(event->pos().y(), opposPos.y());
+        qreal width = xmax - xmin;
+        qreal height = ymax - ymin;
 
-        qreal xcenter = xmin + (xmax-xmin)/2.;
-        qreal ycenter = ymin + (ymax-ymin)/2.;
+        qreal xcenter = xmin + (xmax - xmin) / 2.;
+        qreal ycenter = ymin + (ymax - ymin) / 2.;
 
         QPointF center(xcenter, ycenter);
         QPointF centerInScene = mapToScene(center);
 
-        if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE) {
+        if (m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE) {
             m_item->setItemValue(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
             m_item->setItemValue(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
 
             m_item->setItemValue(EllipseItem::P_XRADIUS,
-                                          (fromSceneX(centerInScene.x()+width/2.) -
-                                          fromSceneX(centerInScene.x()-width/2.))/2.);
+                                 (fromSceneX(centerInScene.x() + width / 2.)
+                                  - fromSceneX(centerInScene.x() - width / 2.))
+                                     / 2.);
             m_item->setItemValue(EllipseItem::P_YRADIUS,
-                                          (fromSceneY(centerInScene.y()-height/2.) -
-                                          fromSceneY(centerInScene.y()+height/2.))/2.);
+                                 (fromSceneY(centerInScene.y() - height / 2.)
+                                  - fromSceneY(centerInScene.y() + height / 2.))
+                                     / 2.);
 
-        } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_HEIGHT) {
+        } else if (m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_HEIGHT) {
             m_item->setItemValue(EllipseItem::P_YCENTER, fromSceneY(centerInScene.y()));
             m_item->setItemValue(EllipseItem::P_YRADIUS,
-                                          (fromSceneY(centerInScene.y()-height/2.) -
-                                          fromSceneY(centerInScene.y()+height/2.))/2.);
+                                 (fromSceneY(centerInScene.y() - height / 2.)
+                                  - fromSceneY(centerInScene.y() + height / 2.))
+                                     / 2.);
 
-        } else if(m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_WIDTH) {
+        } else if (m_activeHandleElement->getHandleType() == SizeHandleElement::RESIZE_WIDTH) {
             m_item->setItemValue(EllipseItem::P_XCENTER, fromSceneX(centerInScene.x()));
             m_item->setItemValue(EllipseItem::P_XRADIUS,
-                                          (fromSceneX(centerInScene.x()+width/2.) -
-                                          fromSceneX(centerInScene.x()-width/2.))/2.);
+                                 (fromSceneX(centerInScene.x() + width / 2.)
+                                  - fromSceneX(centerInScene.x() - width / 2.))
+                                     / 2.);
         }
 
     } else {
-        IMaskView::mouseMoveEvent(event);
+        IShape2DView::mouseMoveEvent(event);
     }
 }
 
@@ -130,13 +123,13 @@ void EllipseView::update_position()
     connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
     connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
 
-    if(par(EllipseItem::P_ANGLE) != 0.0)
-        setTransform(QTransform().rotate(-1.0*par(EllipseItem::P_ANGLE)));
+    if (par(EllipseItem::P_ANGLE) != 0.0)
+        setTransform(QTransform().rotate(-1.0 * par(EllipseItem::P_ANGLE)));
 }
 
 QRectF EllipseView::mask_rectangle()
 {
-    return QRectF(-width()/2., -height()/2., width(), height());
+    return QRectF(-width() / 2., -height() / 2., width(), height());
 }
 
 //! returns the x-coordinate of the rectangle's left edge
@@ -150,19 +143,19 @@ qreal EllipseView::left() const
 
 qreal EllipseView::right() const
 {
-    return toSceneX(par(EllipseItem::P_XCENTER)+par(EllipseItem::P_XRADIUS));
+    return toSceneX(par(EllipseItem::P_XCENTER) + par(EllipseItem::P_XRADIUS));
 }
 
 //! Returns the y-coordinate of the rectangle's top edge.
 
 qreal EllipseView::top() const
 {
-    return toSceneY(par(EllipseItem::P_YCENTER)+par(EllipseItem::P_YRADIUS));
+    return toSceneY(par(EllipseItem::P_YCENTER) + par(EllipseItem::P_YRADIUS));
 }
 
 //! Returns the y-coordinate of the rectangle's bottom edge.
 
 qreal EllipseView::bottom() const
 {
-    return toSceneY(par(EllipseItem::P_YCENTER)-par(EllipseItem::P_YRADIUS));
+    return toSceneY(par(EllipseItem::P_YCENTER) - par(EllipseItem::P_YRADIUS));
 }

@@ -19,7 +19,6 @@
 #include "MaterialUtils.h"
 #include "RefractiveIndexItem.h"
 #include "GUIHelpers.h"
-#include <QDebug>
 
 MaterialModel::MaterialModel(QObject *parent)
     : SessionModel(SessionXML::MaterialModelTag, parent)
@@ -37,17 +36,20 @@ MaterialModel *MaterialModel::createCopy(SessionItem *parent)
 
 MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, double beta)
 {
-    MaterialItem *materialItem = dynamic_cast<MaterialItem *>(insertNewItem(Constants::MaterialType));
+    MaterialItem *materialItem = dynamic_cast<MaterialItem *>(
+                                     insertNewItem(Constants::HomogeneousMaterialType));
     materialItem->setItemName(name);
 
     RefractiveIndexItem *refractiveIndexItem =
-            dynamic_cast<RefractiveIndexItem *>(materialItem->getItem(MaterialItem::P_REFRACTIVE_INDEX));
+            dynamic_cast<RefractiveIndexItem *>(
+                materialItem->getItem(MaterialItem::P_REFRACTIVE_INDEX));
     Q_ASSERT(refractiveIndexItem);
 
     refractiveIndexItem->setDelta(delta);
     refractiveIndexItem->setBeta(beta);
 
-    materialItem->setItemValue(MaterialItem::P_COLOR, MaterialUtils::suggestMaterialColorProperty(name).getVariant());
+    materialItem->setItemValue(MaterialItem::P_COLOR,
+                               MaterialUtils::suggestMaterialColorProperty(name).getVariant());
 
     return materialItem;
 }
@@ -65,7 +67,6 @@ MaterialItem *MaterialModel::getMaterial(const QModelIndex &index)
 
 MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)
 {
-    qDebug() << "MaterialModel::getMaterial()";
     QModelIndex parentIndex;
     for( int i_row = 0; i_row < rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = index( i_row, 0, parentIndex );
@@ -79,7 +80,6 @@ MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)
 
 MaterialItem *MaterialModel::getMaterial(const QString &material_name)
 {
-    qDebug() << "MaterialModel::getMaterial()";
     QModelIndex parentIndex;
     for( int i_row = 0; i_row < rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = index( i_row, 0, parentIndex );

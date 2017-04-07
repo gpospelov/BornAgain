@@ -20,7 +20,9 @@
 #include "ScientificDoubleProperty.h"
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
-#include <QDebug>
+#include "GUIHelpers.h"
+#include "Units.h"
+#include "Beam.h"
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
 const QString BeamItem::P_WAVELENGTH = QString::fromStdString(BornAgain::Wavelength);
@@ -30,11 +32,14 @@ const QString BeamItem::P_AZIMUTHAL_ANGLE = QString::fromStdString(BornAgain::Az
 BeamItem::BeamItem() : SessionItem(Constants::BeamType)
 {
     ScientificDoubleProperty intensity(1e+08);
-    addProperty(P_INTENSITY, intensity.getVariant())->setLimits(RealLimits::limited(0.0, 1e+32));
+    addProperty(P_INTENSITY, intensity.getVariant())->setLimits(RealLimits::limited(0.0, 1e+32))
+            .setToolTip("Beam intensity in neutrons (or gammas) per sec.");
     addGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
 }
+
+BeamItem::~BeamItem(){}
 
 double BeamItem::getIntensity() const
 {
@@ -102,4 +107,17 @@ void BeamItem::setAzimuthalAngle(double value, const QString &distribution_name)
         BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
     Q_ASSERT(distributionItem);
     distributionItem->setItemValue(DistributionNoneItem::P_VALUE, value);
+}
+
+std::unique_ptr<Beam> BeamItem::createBeam() const
+{
+    auto result = GUIHelpers::make_unique<Beam>();
+
+    result->setIntensity(getIntensity());
+    double lambda = getWavelength();
+    double inclination_angle = Units::deg2rad(getInclinationAngle());
+    double azimuthal_angle = Units::deg2rad(getAzimuthalAngle());
+    result->setCentralK(lambda, inclination_angle, azimuthal_angle);
+
+    return std::move(result);
 }

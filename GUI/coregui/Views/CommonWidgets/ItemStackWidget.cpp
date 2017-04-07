@@ -17,31 +17,29 @@
 #include "ItemStackWidget.h"
 #include "GUIHelpers.h"
 #include "SessionModel.h"
-#include <QDebug>
 #include <QStackedWidget>
 #include <QVBoxLayout>
 
-
-ItemStackWidget::ItemStackWidget(QWidget *parent)
+ItemStackWidget::ItemStackWidget(QWidget* parent)
     : QWidget(parent)
     , m_stackedWidget(new QStackedWidget)
-    , m_model(0)
+    , m_model(nullptr)
     , m_size_hint(QSize(1024, 1024))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
-    layout->setContentsMargins(0,0,0,0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_stackedWidget);
     setLayout(layout);
 }
 
-void ItemStackWidget::setModel(SessionModel *model)
+void ItemStackWidget::setModel(SessionModel* model)
 {
-    if(model == m_model)
+    if (model == m_model)
         return;
 
     disconnectModel();
@@ -59,70 +57,63 @@ QSize ItemStackWidget::minimumSizeHint() const
     return QSize(25, 25);
 }
 
-void ItemStackWidget::setSizeHint(const QSize &size_hint)
+void ItemStackWidget::setSizeHint(const QSize& size_hint)
 {
     m_size_hint = size_hint;
 }
 
 void ItemStackWidget::onModelAboutToBeReset()
 {
-    qDebug() << "ItemStackWidget::onModelAboutToBeReset()";
     removeWidgets();
 }
 
-void ItemStackWidget::onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int)
+void ItemStackWidget::onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int)
 {
-    qDebug() << "ItemStackWidget::onRowsAboutToBeRemoved()";
-    SessionItem *item = m_model->itemForIndex(m_model->index(first, 0, parent));
+    SessionItem* item = m_model->itemForIndex(m_model->index(first, 0, parent));
     removeWidgetForItem(item);
 }
 
-void ItemStackWidget::onSelectionChanged(SessionItem *item)
+void ItemStackWidget::onSelectionChanged(SessionItem* item)
 {
-    if(item) qDebug() << "ItemStackWidget::onSelectionChanged(SessionItem *item)" << item->displayName();
-    bool isNew(false);
-    setItem(item, isNew);
+    setItem(item);
 }
-
 
 void ItemStackWidget::connectModel()
 {
-    if(!m_model) return;
+    if (!m_model)
+        return;
 
-    connect(m_model, SIGNAL(modelAboutToBeReset()),
-            this, SLOT(onModelAboutToBeReset()),
+    connect(m_model, SIGNAL(modelAboutToBeReset()), this, SLOT(onModelAboutToBeReset()),
             Qt::UniqueConnection);
 
-    connect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)),
-            this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)),
-            Qt::UniqueConnection);
+    connect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
+            SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)), Qt::UniqueConnection);
 }
 
 void ItemStackWidget::disconnectModel()
 {
-    if(!m_model) return;
+    if (!m_model)
+        return;
 
-    disconnect(m_model, SIGNAL(modelAboutToBeReset()),
-            this, SLOT(onModelAboutToBeReset()));
+    disconnect(m_model, SIGNAL(modelAboutToBeReset()), this, SLOT(onModelAboutToBeReset()));
 
-    disconnect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)),
-               this, SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int)));
+    disconnect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
+               SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
 }
 
 //! Checks if model was set correctly.
 
-void ItemStackWidget::validateItem(SessionItem *item)
+void ItemStackWidget::validateItem(SessionItem* item)
 {
-    if(!item) return;
+    if (!item)
+        return;
 
-    if(m_model) {
-        if(m_model != item->model()) {
+    if (m_model) {
+        if (m_model != item->model())
             // in principle it should be possible, but should be tested
             throw GUIHelpers::Error("ItemStackWidget::validateItem() -> Error. "
                                     "Attempt to use items from different models.");
-        }
     } else {
-        qDebug() << "ItemStackPresenter::setItem() -> Warning, model is not initialized.";
         setModel(item->model());
     }
 }

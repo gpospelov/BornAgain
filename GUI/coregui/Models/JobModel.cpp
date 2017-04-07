@@ -20,17 +20,15 @@
 #include "InstrumentItem.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
-#include "JobItemHelper.h"
+#include "JobItemUtils.h"
 #include "JobQueueData.h"
 #include "MultiLayerItem.h"
-#include "ParameterTreeBuilder.h"
+#include "ParameterTreeUtils.h"
 #include "ParameterTreeItems.h"
 #include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
 #include "JobModelFunctions.h"
 #include "ImportDataAssistant.h"
-#include <QDebug>
-
 
 JobModel::JobModel(QObject *parent)
     : SessionModel(SessionXML::JobModelTag, parent)
@@ -96,7 +94,7 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
     jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
 
-    ParameterTreeBuilder::createParameterTree(jobItem, JobItem::T_PARAMETER_TREE);
+    ParameterTreeUtils::createParameterTree(jobItem);
 
     insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
 
@@ -131,7 +129,7 @@ void JobModel::loadNonXMLData(const QString &projectDir)
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemHelper::loadIntensityData(jobItem, projectDir);
+        JobItemUtils::loadIntensityData(jobItem, projectDir);
         if(RealDataItem *refItem = jobItem->realDataItem()) {
             ImportDataAssistant::loadIntensityData(refItem, projectDir);
             refItem->linkToInstrument(jobItem->instrumentItem());
@@ -145,9 +143,9 @@ void JobModel::saveNonXMLData(const QString &projectDir)
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemHelper::saveIntensityData(jobItem->intensityDataItem(), projectDir);
+        JobItemUtils::saveIntensityData(jobItem->intensityDataItem(), projectDir);
         if(RealDataItem *refItem = jobItem->realDataItem())
-            JobItemHelper::saveIntensityData(refItem->intensityDataItem(), projectDir);
+            JobItemUtils::saveIntensityData(refItem->intensityDataItem(), projectDir);
     }
 }
 
@@ -163,13 +161,11 @@ void JobModel::runJob(const QModelIndex &index)
 
 void JobModel::cancelJob(const QModelIndex &index)
 {
-    qDebug() << "JobModel::cancelJob(const QModelIndex &index)";
     m_queue_data->cancelJob(getJobItemForIndex(index)->getIdentifier());
 }
 
 void JobModel::removeJob(const QModelIndex &index)
 {
-    qDebug() << "NJobModel::removeJob(const QModelIndex &index)";
     JobItem *jobItem = getJobItemForIndex(index);
     Q_ASSERT(jobItem);
     m_queue_data->removeJob(jobItem->getIdentifier());
@@ -201,10 +197,9 @@ QString JobModel::generateJobName()
 
 void JobModel::restoreItem(SessionItem *item)
 {
-    if (ParameterItem *parameter = dynamic_cast<ParameterItem*>(item)) {
-        parameter->propagateValueLink(true);
-    }
-    for (auto child : item->childItems()) {
+    if (ParameterItem *parameter = dynamic_cast<ParameterItem*>(item))
+        parameter->restoreFromBackup();
+
+    for (auto child : item->childItems())
         restoreItem(child);
-    }
 }

@@ -28,8 +28,6 @@
 #include "RealParameter.h"
 #include "Units.h"
 
-using namespace BornAgain;
-
 MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
 {
         MultiLayer* multi_layer = new MultiLayer();
@@ -60,7 +58,7 @@ MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
         ParticleLayout particle_layout;
         particle_layout.addParticle(cylinder1, 0.8);
         particle_layout.addParticle(cylinder2, 0.2);
-        particle_layout.addInterferenceFunction(interference);
+        particle_layout.setInterferenceFunction(interference);
 
         Layer air_layer(m_ambience);
         air_layer.addLayout(particle_layout);
@@ -107,11 +105,11 @@ MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
     // assembling the sample
     ParticleLayout particle_layout1;
     particle_layout1.addParticle(cylinder1, 0.8);
-    particle_layout1.addInterferenceFunction(interference1);
+    particle_layout1.setInterferenceFunction(interference1);
 
     ParticleLayout particle_layout2;
     particle_layout2.addParticle(cylinder2, 0.2);
-    particle_layout2.addInterferenceFunction(interference2);
+    particle_layout2.setInterferenceFunction(interference2);
 
     Layer air_layer(m_ambience);
     air_layer.addLayout(particle_layout1);
@@ -157,7 +155,7 @@ MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
     ParticleLayout particle_layout;
     particle_layout.addParticle(cylinder1, 0.8);
     particle_layout.addParticle(cylinder2, 0.2);
-    particle_layout.addInterferenceFunction(interference);
+    particle_layout.setInterferenceFunction(interference);
     particle_layout.setApproximation(ILayout::SSCA);
 
     Layer air_layer(m_ambience);
@@ -193,15 +191,17 @@ MultiLayer* CylindersInSSCABuilder::buildSample() const
 
     DistributionGaussian gauss(5.0*Units::nanometer, 1.25*Units::nanometer);
     ParameterPattern pattern_radius;
-    pattern_radius.add(ParticleType).add(FFCylinderType).add(Radius);
+    pattern_radius.
+        add(BornAgain::ParticleType).add(BornAgain::FFCylinderType).add(BornAgain::Radius);
     ParameterDistribution par_distr(pattern_radius.toStdString(), gauss, 30, 3.0);
     ParameterPattern pattern_height;
-    pattern_height.add(ParticleType).add(FFCylinderType).add(Height);
+    pattern_height.
+        add(BornAgain::ParticleType).add(BornAgain::FFCylinderType).add(BornAgain::Height);
     par_distr.linkParameter(pattern_height.toStdString());
     ParticleDistribution particle_collection(particle_prototype, par_distr);
     particle_layout.addParticle(particle_collection);
 
-    particle_layout.addInterferenceFunction(interference_function);
+    particle_layout.setInterferenceFunction(interference_function);
     particle_layout.setApproximation(ILayout::SSCA);
 
     air_layer.addLayout(particle_layout);

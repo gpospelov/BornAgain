@@ -19,23 +19,19 @@
 
 #include "ItemComboWidget.h"
 
-//! The JobResultsPresenter class is a widget which is able to present results of job (JobItem)
-//! using stack of different widgets and combo box in the right top corner of JobView, to switch
-//! between widgets.
-
-//! For example, for JobItem with fitting abilities, it is possible to switch between
-//! ColorMap plot and FitDataWidget.
+//! Presents results of job (JobItem) using stack of different widgets and combo box in the
+//! right top corner of JobView, to switch between widgets.
 
 class BA_CORE_API_ JobResultsPresenter : public ItemComboWidget
 {
     Q_OBJECT
 
 public:
-    explicit JobResultsPresenter(QWidget *parent = 0);
+    explicit JobResultsPresenter(QWidget* parent = 0);
 
 protected:
-    virtual QStringList getValidPresentationList(SessionItem *item);
-
+    QStringList activePresentationList(SessionItem* item);
+    virtual QStringList presentationList(SessionItem* item);
 };
 
 #endif // JOBRESULTSPRESENTER_H

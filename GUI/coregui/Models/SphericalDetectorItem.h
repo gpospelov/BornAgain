@@ -17,22 +17,20 @@
 #ifndef SPHERICALDETECTORITEM_H
 #define SPHERICALDETECTORITEM_H
 
-#include "SessionItem.h"
+#include "DetectorItems.h"
 
-class IDetector2D;
-class IResolutionFunction2D;
-
-class SphericalDetectorItem : public SessionItem
+class BA_CORE_API_ SphericalDetectorItem : public DetectorItem
 {
 public:
     static const QString P_PHI_AXIS;
     static const QString P_ALPHA_AXIS;
-    static const QString P_RESOLUTION_FUNCTION;
-    explicit SphericalDetectorItem();
+    SphericalDetectorItem();
 
-    std::unique_ptr<IDetector2D> createDetector() const;
-    std::unique_ptr<IResolutionFunction2D> createResolutionFunction();
+    void setSize(int nx, int ny) override;
 
+protected:
+    std::unique_ptr<IDetector2D> createDomainDetector() const override;
+    double axesToDomainUnitsFactor() const override;
 };
 
 #endif // SPHERICALDETECTORITEM_H

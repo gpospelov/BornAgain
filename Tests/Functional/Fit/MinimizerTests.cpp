@@ -48,7 +48,6 @@ GSLSimulatedAnnealingTest::GSLSimulatedAnnealingTest()
 
 std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
 {
-    setParameterTolerance(0.1);
     std::unique_ptr<FitSuite> result(new FitSuite());
     result->initPrint(200);
 
@@ -60,9 +59,10 @@ std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
     minimizer->setBoltzmannMinTemp(1.0);
 
     result->setMinimizer(minimizer);
-    for (const auto& par: m_parameters)
-        result->addFitParameter(
-            par.m_name, par.m_start_value, AttLimits::limited(4.0, 6.0), par.m_start_value/100.);
+    for (auto par: m_parplans) {
+        par->setTolerance(0.1);
+        result->addFitParameter(par->fitParameter());
+    }
     return result;
 }
 
@@ -73,7 +73,6 @@ GeneticTest::GeneticTest()
 
 std::unique_ptr<FitSuite> GeneticTest::createFitSuite()
 {
-    setParameterTolerance(0.1);
     std::unique_ptr<FitSuite> result(new FitSuite());
     result->initPrint(200);
 
@@ -84,8 +83,9 @@ std::unique_ptr<FitSuite> GeneticTest::createFitSuite()
     minimizer->setRandomSeed(1);
 
     result->setMinimizer(minimizer);
-    for (const auto& par: m_parameters)
-        result->addFitParameter(
-            par.m_name, par.m_start_value, AttLimits::limited(4.0, 6.0), par.m_start_value/100.);
+    for (auto par: m_parplans) {
+        par->setTolerance(0.1);
+        result->addFitParameter(par->fitParameter())->setLimits(AttLimits::limited(4.0, 6.0));
+    }
     return result;
 }

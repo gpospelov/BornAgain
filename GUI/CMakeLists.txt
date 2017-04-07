@@ -10,6 +10,12 @@ endif()
 
 message(STATUS "Configuring BornAgain GUI")
 
+if(BORNAGAIN_OPENGL)
+    message(STATUS "Configuring BornAgain OpenGL")
+    add_definitions(-DBORNAGAIN_OPENGL)
+    add_subdirectory(ba3d)
+endif()
+
 add_subdirectory(coregui)
 
 if(BORNAGAIN_CRASHHANDLER)
@@ -19,9 +25,5 @@ endif()
 
 add_subdirectory(main)
 
-set(BornAgainGUI_INCLUDE_DIRS
-    ${BornAgainGUI_INCLUDE_DIRS}
-    PARENT_SCOPE)
-set(BornAgainGUI_LIBRARY
-    ${BornAgainGUI_LIBRARY}
-    PARENT_SCOPE)
+set(BornAgainGUI_INCLUDE_DIRS ${BornAgainGUI_INCLUDE_DIRS} PARENT_SCOPE)
+set(BornAgainGUI_LIBRARY ${BornAgainGUI_LIBRARY} PARENT_SCOPE)

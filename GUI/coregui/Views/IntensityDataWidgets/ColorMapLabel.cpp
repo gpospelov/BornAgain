@@ -18,28 +18,22 @@
 #include "ColorMap.h"
 #include "ColorMapCanvas.h"
 
-//namespace {
-//const int min_size = 0;
-//}
-
-ColorMapLabel::ColorMapLabel(ColorMap *colorMap, QWidget *parent)
-    : StatusLabel(parent)
+ColorMapLabel::ColorMapLabel(ColorMap* colorMap, QWidget* parent) : StatusLabel(parent)
 {
-    if(colorMap)
+    if (colorMap)
         addColorMap(colorMap);
 }
 
-void ColorMapLabel::addColorMap(ColorMap *colorMap)
+void ColorMapLabel::addColorMap(ColorMap* colorMap)
 {
-    if(m_colorMaps.contains(colorMap))
+    if (m_colorMaps.contains(colorMap))
         return;
 
     m_colorMaps.push_back(colorMap);
-
     setColorMapLabelEnabled(colorMap, true);
 }
 
-void ColorMapLabel::addColorMap(ColorMapCanvas *colorMapCanvas)
+void ColorMapLabel::addColorMap(ColorMapCanvas* colorMapCanvas)
 {
     addColorMap(colorMapCanvas->colorMap());
 }
@@ -48,7 +42,7 @@ void ColorMapLabel::addColorMap(ColorMapCanvas *colorMapCanvas)
 
 void ColorMapLabel::setLabelEnabled(bool flag)
 {
-    foreach(ColorMap *colorMap, m_colorMaps)
+    foreach (ColorMap* colorMap, m_colorMaps)
         setColorMapLabelEnabled(colorMap, flag);
 
     setEnabled(flag);
@@ -58,26 +52,20 @@ void ColorMapLabel::setLabelEnabled(bool flag)
 
 void ColorMapLabel::reset()
 {
-    foreach(ColorMap *colorMap, m_colorMaps)
+    foreach (ColorMap* colorMap, m_colorMaps)
         setColorMapLabelEnabled(colorMap, false);
 
     m_colorMaps.clear();
 }
 
-void ColorMapLabel::onColorMapStatusString(const QString &text)
+void ColorMapLabel::onColorMapStatusString(const QString& text)
 {
     setText(text);
 }
 
-//void ColorMapLabel::resizeEvent(QResizeEvent *event)
-//{
-//    qDebug() << "ColorMapLabel::resizeEvent(QResizeEvent *event)" << event->size();
-
-//}
-
 //! Enables/disables showing of label for given color map.
 
-void ColorMapLabel::setColorMapLabelEnabled(ColorMap *colorMap, bool flag)
+void ColorMapLabel::setColorMapLabelEnabled(ColorMap* colorMap, bool flag)
 {
     colorMap->setMouseTrackingEnabled(flag);
     setConnected(colorMap, flag);
@@ -85,13 +73,12 @@ void ColorMapLabel::setColorMapLabelEnabled(ColorMap *colorMap, bool flag)
 
 //! Connects with colorMap's status string signal.
 
-void ColorMapLabel::setConnected(ColorMap *colorMap, bool flag)
+void ColorMapLabel::setConnected(ColorMap* colorMap, bool flag)
 {
-    if(flag) {
-        connect(colorMap, SIGNAL(statusString(const QString&)),
-                this, SLOT(onColorMapStatusString(const QString&)), Qt::UniqueConnection);
-    } else {
-        disconnect(colorMap, SIGNAL(statusString(const QString&)),
-                this, SLOT(onColorMapStatusString(const QString&)));
-    }
+    if (flag)
+        connect(colorMap, SIGNAL(statusString(const QString&)), this,
+                SLOT(onColorMapStatusString(const QString&)), Qt::UniqueConnection);
+    else
+        disconnect(colorMap, SIGNAL(statusString(const QString&)), this,
+                   SLOT(onColorMapStatusString(const QString&)));
 }

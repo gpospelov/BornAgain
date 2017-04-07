@@ -28,7 +28,7 @@ public:
 
     FormFactorIcosahedron *clone() const override final {
         return new FormFactorIcosahedron(m_edge); }
-    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
 
     double getEdge() const { return m_edge; }
 

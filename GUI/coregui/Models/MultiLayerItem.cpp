@@ -17,6 +17,7 @@
 #include "MultiLayerItem.h"
 #include "BornAgainNamespace.h"
 #include "LayerItem.h"
+#include "ParameterTranslators.h"
 
 const QString MultiLayerItem::P_CROSS_CORR_LENGTH =
         QString::fromStdString(BornAgain::CrossCorrelationLength);
@@ -25,10 +26,14 @@ const QString MultiLayerItem::T_LAYERS = "Layer tag";
 MultiLayerItem::MultiLayerItem()
     : SessionGraphicsItem(Constants::MultiLayerType)
 {
+    setItemName(Constants::MultiLayerType);
+
     addProperty(P_CROSS_CORR_LENGTH, 0.0);
     registerTag(T_LAYERS, 0, -1, QStringList() << Constants::LayerType);
     setDefaultTag(T_LAYERS);
-    setItemName(Constants::MultiLayerType);
+
+    addTranslator(RoughnessTranslator());
+
     mapper()->setOnChildrenChange(
                 [this](SessionItem*)
     {

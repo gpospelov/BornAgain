@@ -22,35 +22,23 @@
 class BA_CORE_API_ BeamAzimuthalAngleItem : public BeamDistributionItem
 {
 public:
-    explicit BeamAzimuthalAngleItem();
-    virtual ~BeamAzimuthalAngleItem(){}
+    BeamAzimuthalAngleItem();
 
     double azimuthalAngle() const;
 
 protected:
-    virtual std::unique_ptr<IDistribution1D> createDistribution1D() const override;
+    virtual double scaleFactor() const;
 };
 
 class BA_CORE_API_ BeamInclinationAngleItem : public BeamDistributionItem
 {
 public:
-    explicit BeamInclinationAngleItem();
-    virtual ~BeamInclinationAngleItem(){}
+    BeamInclinationAngleItem();
 
     double inclinationAngle() const;
 
 protected:
-    virtual std::unique_ptr<IDistribution1D> createDistribution1D() const override;
+    virtual double scaleFactor() const;
 };
-
-// TODO Move to anonymous namespace
-
-class BA_CORE_API_ BeamAngleHelper
-{
-public:
-    static std::unique_ptr<IDistribution1D> creatAngleDistribution(
-            DistributionItem *distributionItem);
-};
-
 
 #endif // BEAMANGLEITEMS_H

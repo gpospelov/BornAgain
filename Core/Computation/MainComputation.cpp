@@ -14,75 +14,68 @@
 // ************************************************************************** //
 
 #include "MainComputation.h"
-#include "BornAgainNamespace.h"
-#include "DecoratedLayerComputation.h"
+#include "ParticleLayoutComputation.h"
 #include "Layer.h"
-#include "LayerInterface.h"
-#include "LayerRoughness.h"
-#include "LayerSpecularInfo.h"
-#include "Logger.h"
-#include "MatrixSpecularInfoMap.h"
+#include "IFresnelMap.h"
+#include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "RoughMultiLayerComputation.h"
 #include "SpecularComputation.h"
-#include "ScalarSpecularInfoMap.h"
+#include "ScalarFresnelMap.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
-#include "SpecularMagnetic.h"
-#include "SpecularMatrix.h"
 
-#include <algorithm>
-#include <iterator>
-#include <iostream>
+namespace
+{
+HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_mat,
+                                             const std::vector<HomogeneousRegion>& regions);
+}
 
 MainComputation::MainComputation(
-    const MultiLayer* p_multi_layer,
+    const MultiLayer& multilayer,
     const SimulationOptions& options,
     ProgressHandler& progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
-    : m_sim_options(options)
+    : mP_multi_layer(multilayer.cloneSliced(options.useAvgMaterials()))
+    , m_sim_options(options)
     , m_progress(&progress)
-    , mp_roughness_computation(nullptr)
+    , m_begin_it(begin_it)
+    , m_end_it(end_it)
 {
-    mp_multi_layer = p_multi_layer->clone();
-
-    msglog(MSG::DEBUG2) << "MainComputation::init()";
-    m_begin_it = begin_it;
-    m_end_it = end_it;
-
-    size_t nLayers = mp_multi_layer->getNumberOfLayers();
-    m_layer_computation.resize( nLayers );
+    mP_fresnel_map.reset(createFresnelMap());
+    bool polarized = mP_multi_layer->containsMagneticMaterial();
+    size_t nLayers = mP_multi_layer->numberOfLayers();
     for (size_t i=0; i<nLayers; ++i) {
-        const Layer* layer = mp_multi_layer->getLayer(i);
-        for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
-            m_layer_computation[i].push_back( new DecoratedLayerComputation(layer, j) );
+        const Layer* layer = mP_multi_layer->layer(i);
+        for (auto p_layout : layer->layouts())
+            m_computation_terms.emplace_back(
+                        new ParticleLayoutComputation(
+                            mP_multi_layer.get(), mP_fresnel_map.get(), p_layout, i,
+                            m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA
-    if (mp_multi_layer->hasRoughness())
-        mp_roughness_computation = new RoughMultiLayerComputation(mp_multi_layer);
-    mp_specular_computation = new SpecularComputation();
+    if (mP_multi_layer->hasRoughness())
+        m_computation_terms.emplace_back(new RoughMultiLayerComputation(mP_multi_layer.get(),
+                                                                     mP_fresnel_map.get()));
+    if (m_sim_options.includeSpecular())
+        m_computation_terms.emplace_back(new SpecularComputation(mP_multi_layer.get(),
+                                                              mP_fresnel_map.get()));
+    initFresnelMap();
 }
 
 MainComputation::~MainComputation()
-{
-    delete mp_multi_layer;
-    delete mp_roughness_computation;
-    delete mp_specular_computation;
-    for (auto& layer_comp: m_layer_computation)
-        for (DecoratedLayerComputation* comp: layer_comp)
-            delete comp;
-}
+{}
 
 void MainComputation::run()
 {
-    m_outcome.setRunning();
+    m_status.setRunning();
     try {
         runProtected();
-        m_outcome.setCompleted();
+        m_status.setCompleted();
     } catch(const std::exception &ex) {
-        m_outcome.setRunMessage(std::string(ex.what()));
-        m_outcome.setFailed();
+        m_status.setErrorMessage(std::string(ex.what()));
+        m_status.setFailed();
     }
 }
 
@@ -93,71 +86,81 @@ void MainComputation::run()
 // This allows them to be added and normalized together to the beam afterwards
 void MainComputation::runProtected()
 {
-    msglog(MSG::DEBUG2) << "MainComputation::runProtected()";
-
-    if (mp_multi_layer->requiresMatrixRTCoefficients())
-        collectRTCoefficientsMatrix();
-    else
-        collectRTCoefficientsScalar();
-
-    // run through layers and run layer simulations
-    std::vector<SimulationElement> layer_elements;
-    std::copy(m_begin_it, m_end_it, std::back_inserter(layer_elements));
-    bool polarized = mp_multi_layer->containsMagneticMaterial();
-    for (auto& layer_comp: m_layer_computation) {
-        for (const DecoratedLayerComputation* comp: layer_comp) {
-            if (!m_progress->alive())
-                return;
-            comp->eval(m_sim_options, m_progress, polarized,
-                       layer_elements.begin(), layer_elements.end());
-            addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
-        }
-    }
-
-    if (!mp_multi_layer->requiresMatrixRTCoefficients() && mp_roughness_computation) {
-        msglog(MSG::DEBUG2) << "MainComputation::run() -> roughness";
+    // add intensity of all IComputationTerms:
+    for (auto& comp: m_computation_terms) {
         if (!m_progress->alive())
             return;
-        mp_roughness_computation->eval(
-            m_progress, layer_elements.begin(), layer_elements.end());
-        addElementsWithWeight(layer_elements.begin(), layer_elements.end(), m_begin_it, 1.0);
-    }
-
-    if (m_sim_options.includeSpecular())
-        mp_specular_computation->eval(m_progress, polarized, m_begin_it, m_end_it);
-}
-
-void MainComputation::collectRTCoefficientsScalar()
-{
-    // run through layers and construct T,R functions
-    for(size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
-        msglog(MSG::DEBUG2) << "MainComputation::run() -> Layer " << i;
-        LayerSpecularInfo layer_coeff_map;
-        layer_coeff_map.addRTCoefficients(new ScalarSpecularInfoMap(mp_multi_layer, i));
-
-        // layer DWBA simulation
-        for(DecoratedLayerComputation* comp: m_layer_computation[i])
-            comp->setSpecularInfo(layer_coeff_map);
-
-        // layer roughness DWBA
-        if (mp_roughness_computation)
-            mp_roughness_computation->setSpecularInfo(i, layer_coeff_map);
-
-        if (i==0)
-            mp_specular_computation->setSpecularInfo(layer_coeff_map);
+        comp->eval(m_progress, m_begin_it, m_end_it );
     }
 }
 
-void MainComputation::collectRTCoefficientsMatrix()
+IFresnelMap* MainComputation::createFresnelMap()
 {
-    // run through layers and construct T,R functions
-    for(size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
-        msglog(MSG::DEBUG2) << "MainComputation::runMagnetic() -> Layer " << i;
-        LayerSpecularInfo layer_coeff_map;
-        layer_coeff_map.addRTCoefficients(new MatrixSpecularInfoMap(mp_multi_layer, i));
+        if (!mP_multi_layer->requiresMatrixRTCoefficients())
+            return new ScalarFresnelMap();
+        else
+            return new MatrixFresnelMap();
+}
 
-        // layer DWBA simulation
-        for(DecoratedLayerComputation* comp: m_layer_computation[i])
-            comp->setSpecularInfo(layer_coeff_map);
+std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer()
+{
+    std::map<size_t, std::vector<HomogeneousRegion>> region_map;
+    for (auto& comp: m_computation_terms) {
+        comp->mergeRegionMap(region_map);
     }
+    std::unique_ptr<MultiLayer> P_result(mP_multi_layer->clone());
+    auto last_layer_index = P_result->numberOfLayers()-1;
+    for (auto& entry : region_map)
+    {
+        auto i_layer = entry.first;
+        if (i_layer==0 || i_layer==last_layer_index)
+            continue;  // skip semi-infinite layers
+        auto layer_mat = P_result->layerMaterial(i_layer);
+        if (!checkRegions(entry.second))
+            throw std::runtime_error("MainComputation::getAveragedMultilayer: "
+                                     "total volumetric fraction of particles exceeds 1!");
+        auto new_mat = CalculateAverageMaterial(layer_mat, entry.second);
+        P_result->setLayerMaterial(i_layer, new_mat);
+    }
+    return P_result;
+}
+
+void MainComputation::initFresnelMap()
+{
+    if (m_sim_options.useAvgMaterials()) {
+        auto avg_multilayer = getAveragedMultilayer();
+        mP_fresnel_map->setMultilayer(*avg_multilayer);
+    }
+    else
+        mP_fresnel_map->setMultilayer(*mP_multi_layer);
+}
+
+bool MainComputation::checkRegions(const std::vector<HomogeneousRegion>& regions) const
+{
+    double total_fraction = 0;
+    for (auto& region : regions)
+        total_fraction += region.m_volume;
+    return (total_fraction >= 0 && total_fraction <= 1);
+}
+
+namespace
+{
+HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_mat,
+                                             const std::vector<HomogeneousRegion>& regions)
+{
+    kvector_t magnetization_layer = layer_mat.magneticField();
+    complex_t refr_index2_layer = layer_mat.refractiveIndex2();
+    kvector_t magnetization_avg = magnetization_layer;
+    complex_t refr_index2_avg = refr_index2_layer;
+    for (auto& region : regions)
+    {
+        kvector_t magnetization_region = region.m_material.magneticField();
+        complex_t refr_index2_region = region.m_material.refractiveIndex2();
+        magnetization_avg += region.m_volume*(magnetization_region - magnetization_layer);
+        refr_index2_avg += region.m_volume*(refr_index2_region - refr_index2_layer);
+    }
+    complex_t refr_index_avg = std::sqrt(refr_index2_avg);
+    HomogeneousMaterial result(layer_mat.getName()+"_avg", refr_index_avg, magnetization_avg);
+    return result;
+}
 }

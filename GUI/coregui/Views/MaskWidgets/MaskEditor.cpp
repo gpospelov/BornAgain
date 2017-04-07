@@ -32,7 +32,6 @@
 #include "minisplitter.h"
 #include <QBoxLayout>
 #include <QContextMenuEvent>
-#include <QDebug>
 #include <QMenu>
 
 MaskEditor::MaskEditor(QWidget* parent)
@@ -143,6 +142,13 @@ void MaskEditor::setup_connections()
             SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
             m_toolBar,
             SLOT(onChangeActivityRequest(MaskEditorFlags::Activity))
+            );
+
+    // Delete request is propagated from canvas to actions
+    connect(m_editorCanvas,
+            SIGNAL(deleteSelectedRequest()),
+            m_editorActions,
+            SLOT(onDeleteMaskAction())
             );
 
     // context menu request is propagated from graphics scene to MaskEditorActions

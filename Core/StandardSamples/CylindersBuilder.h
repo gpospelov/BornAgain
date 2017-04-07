@@ -20,9 +20,8 @@
 
 class ISample;
 
-//! @class CylindersInDWBABuilder
+//! Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I).
 //! @ingroup standard_samples
-//! @brief Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I)
 
 class BA_CORE_API_ CylindersInDWBABuilder : public IMultiLayerBuilder
 {
@@ -38,9 +37,8 @@ private:
     double m_radius;
 };
 
-//! @class CylindersInBABuilder
+//! Builds sample: cylinder formfactor in BA (IsGISAXS example #3, part II).
 //! @ingroup standard_samples
-//! @brief Builds sample: cylinder formfactor in BA (IsGISAXS example #3, part II)
 
 class BA_CORE_API_ CylindersInBABuilder : public IMultiLayerBuilder
 {
@@ -56,9 +54,8 @@ private:
     double m_radius;
 };
 
-//! @class LargeCylindersInDWBABuilder
+//! Builds sample with large cylinders for MC integration tests.
 //! @ingroup standard_samples
-//! @brief Builds sample with large cylinders for MC integration tests
 
 class BA_CORE_API_ LargeCylindersInDWBABuilder : public IMultiLayerBuilder
 {
@@ -73,5 +70,23 @@ private:
     double m_height;
     double m_radius;
 };
+
+//! Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I).
+//! @ingroup standard_samples
+
+class BA_CORE_API_ RotatedCylindersBuilder : public IMultiLayerBuilder
+{
+public:
+    RotatedCylindersBuilder();
+    MultiLayer* buildSample() const;
+
+protected:
+    void init_parameters();
+
+private:
+    double m_height;
+    double m_radius;
+};
+
 
 #endif // CYLINDERSBUILDER_H

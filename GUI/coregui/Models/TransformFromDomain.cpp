@@ -23,6 +23,8 @@
 #include "ComboProperty.h"
 #include "ConvolutionDetectorResolution.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "Distributions.h"
 #include "Ellipse.h"
 #include "FTDecayFunctionItems.h"
@@ -32,7 +34,7 @@
 #include "InfinitePlane.h"
 #include "InterferenceFunctionItems.h"
 #include "InterferenceFunctions.h"
-#include "LatticeTypeItems.h"
+#include "Lattice2DItems.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerItem.h"
@@ -53,18 +55,18 @@
 #include "SphericalDetector.h"
 #include "Units.h"
 #include "VectorItem.h"
-#include <QDebug>
+#include "ParameterTreeUtils.h"
+#include "InstrumentItem.h"
+#include "ResolutionFunction2DGaussian.h"
 #include <limits>
-
-using namespace BornAgain;
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);
 void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_name);
 void SetDecayFunction1D(SessionItem* item, const IFTDecayFunction1D* pdf, QString group_name);
 void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QString group_name);
 
-void set2DLatticeParameters(SessionItem* item, Lattice2DParameters lattice_params,
-                            SessionItem* lattice_item);
+void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice);
+
 void setDistribution(SessionItem* item, ParameterDistribution par_distr,
                      QString group_name, double factor = 1.0);
 
@@ -82,16 +84,13 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 
     const IFTDistribution1D* ipdf = sample->getProbabilityDistribution();
     QString group_name = InterferenceFunctionRadialParaCrystalItem::P_PDF;
-    qDebug() << "    group_name" << group_name;
     SetPDF1D(item, ipdf, group_name);
 }
 
 void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const InterferenceFunction2DParaCrystal* sample)
 {
-    SessionItem* lattice_item(0);
-    Lattice2DParameters lattice_params = sample->getLatticeParameters();
-    set2DLatticeParameters(item, lattice_params, lattice_item);
+    set2DLatticeParameters(item, sample->lattice());
 
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH,
                                 sample->getDampingLength());
@@ -106,10 +105,8 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
     QStringList group_names;
     group_names << InterferenceFunction2DParaCrystalItem::P_PDF1
                 << InterferenceFunction2DParaCrystalItem::P_PDF2;
-    for (size_t i = 0; i < pdfs.size(); ++i) {
-        qDebug() << "    group_name" << group_names[i];
+    for (size_t i = 0; i < pdfs.size(); ++i)
         setPDF2D(item, pdfs[i], group_names[i]);
-    }
 }
 
 void TransformFromDomain::setItemFromSample(SessionItem* item,
@@ -123,28 +120,25 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 
     const IFTDecayFunction1D* pdf = sample->getDecayFunction();
     QString group_name = InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION;
-    qDebug() << "    group_name" << group_name;
     SetDecayFunction1D(item, pdf, group_name);
 }
 
 void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const InterferenceFunction2DLattice* sample)
 {
-    SessionItem* lattice_item(0);
-    Lattice2DParameters lattice_params = sample->getLatticeParameters();
-    set2DLatticeParameters(item, lattice_params, lattice_item);
+    set2DLatticeParameters(item, sample->lattice());
 
     const IFTDecayFunction2D* p_pdf = sample->getDecayFunction();
     QString group_name = InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION;
-    qDebug() << "    group_name" << group_name;
     SetDecayFunction2D(item, p_pdf, group_name);
 }
 
 void TransformFromDomain::setItemFromSample(SessionItem* layerItem, const Layer* layer,
                                             const LayerInterface* top_interface)
 {
-    layerItem->setItemValue(LayerItem::P_THICKNESS, layer->getThickness());
+    layerItem->setItemValue(LayerItem::P_THICKNESS, layer->thickness());
     layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerZeroRoughnessType);
+    layerItem->setItemValue(LayerItem::P_NSLICES, (int)layer->numberOfSlices());
 
     if (top_interface) {
         const LayerRoughness* roughness = top_interface->getRoughness();
@@ -168,20 +162,18 @@ void TransformFromDomain::setItemFromSample(SessionItem* item, const LayerRoughn
 void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const ParticleDistribution* sample)
 {
-    item->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    ParticleDistributionItem *distItem = dynamic_cast<ParticleDistributionItem*>(item);
+    Q_ASSERT(distItem);
 
-    ParameterDistribution par_distr = sample->getParameterDistribution();
+    distItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->abundance());
+
+    ParameterDistribution par_distr = sample->parameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
-    ComboProperty combo_property
-        = item->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
-              .value<ComboProperty>();
-    combo_property.setCachedValue(main_distr_par_name);
-    combo_property.setCacheContainsGUIFlag(false);
-    item->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER,
-                                combo_property.getVariant());
+
+    distItem->setDomainCacheName(main_distr_par_name);
 
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
-    setDistribution(item, par_distr, group_name);
+    setDistribution(distItem, par_distr, group_name);
 }
 
 //! Returns true if given roughness is non-zero roughness
@@ -193,16 +185,6 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness* roughness)
         && roughness->getLatteralCorrLength() == 0.0)
         return false;
     return true;
-}
-
-bool TransformFromDomain::isSquareLattice(double length1, double length2, double angle)
-{
-    return length1 == length2 && Numeric::areAlmostEqual(angle, M_PI / 2.0);
-}
-
-bool TransformFromDomain::isHexagonalLattice(double length1, double length2, double angle)
-{
-    return length1 == length2 && Numeric::areAlmostEqual(angle, M_TWOPI / 3.0);
 }
 
 void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimulation& simulation)
@@ -220,11 +202,11 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
         = simulation.getDistributionHandler().getDistributions();
     for (size_t i = 0; i < distributions.size(); ++i) {
         ParameterPattern pattern_wavelength;
-        pattern_wavelength.beginsWith("*").add(BeamType).add(Wavelength);
+        pattern_wavelength.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
         ParameterPattern pattern_alpha;
-        pattern_alpha.beginsWith("*").add(BeamType).add(Inclination);
+        pattern_alpha.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
         ParameterPattern pattern_phi;
-        pattern_phi.beginsWith("*").add(BeamType).add(Azimuth);
+        pattern_phi.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Azimuth);
         std::string mainParameterName = distributions[i].getMainParameterName();
         if (mainParameterName == pattern_wavelength.toStdString()) {
             BeamDistributionItem* beamWavelength = dynamic_cast<BeamDistributionItem*>(
@@ -242,30 +224,29 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
     }
 }
 
-void TransformFromDomain::setItemFromSample(DetectorItem* detectorItem,
+void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrumentItem,
                                             const GISASSimulation& simulation)
 {
-    Q_ASSERT(detectorItem);
     const IDetector2D* iDetector = simulation.getInstrument().getDetector();
+
     if(auto detector = dynamic_cast<const SphericalDetector*>(iDetector)) {
-        auto item = dynamic_cast<SphericalDetectorItem*>
-                (detectorItem->setGroupProperty(DetectorItem::P_DETECTOR,
-                                             Constants::SphericalDetectorType));
-        Q_ASSERT(item);
-        setItemFromSample(item,* detector);
+        instrumentItem->setDetectorGroup(Constants::SphericalDetectorType);
+        auto item = dynamic_cast<SphericalDetectorItem*> (instrumentItem->detectorItem());
+        setItemFromSample(item, *detector);
     }
 
     else if(auto detector = dynamic_cast<const RectangularDetector*>(iDetector)) {
-        auto item = dynamic_cast<RectangularDetectorItem*>
-                (detectorItem->setGroupProperty(DetectorItem::P_DETECTOR,
-                                             Constants::RectangularDetectorType));
+        instrumentItem->setDetectorGroup(Constants::RectangularDetectorType);
+        auto item = dynamic_cast<RectangularDetectorItem*> (instrumentItem->detectorItem());
+        setItemFromSample(item, *detector);
+
         Q_ASSERT(item);
         setItemFromSample(item,* detector);
     }
 
     else {
         throw GUIHelpers::Error(
-            "TransformFromDomain::setItemFromSample(DetectorItem*) -> Unknown detector type.");
+            "TransformFromDomain::setInstrumentDetectorFromSample(DetectorItem*) -> Unknown detector type.");
     }
 }
 
@@ -292,7 +273,7 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
     alphaAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 
     // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
         if (const ConvolutionDetectorResolution* p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian* resfunc
@@ -400,7 +381,7 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
     }
 
     // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
         if (const ConvolutionDetectorResolution* p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian* resfunc
@@ -428,101 +409,105 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
     }
 }
 
-
 void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GISASSimulation& simulation)
 {
-    Q_ASSERT(detectorItem);
-
-    double scale(1.0);
-    if(detectorItem->getGroupItem(DetectorItem::P_DETECTOR)->modelType()
-            == Constants::SphericalDetectorType)
-        scale = 1./Units::degree;
-
     const IDetector2D* detector = simulation.getInstrument().getDetector();
-    const DetectorMask* detectorMask = detector->getDetectorMask();
-    if(detectorMask && detectorMask->numberOfMasks()) {
-        MaskContainerItem* containerItem = new MaskContainerItem();
-        detectorItem->insertItem(-1, containerItem);
-        for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {
-            bool mask_value(false);
-            const Geometry::IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
-            if(const Geometry::Ellipse* ellipse = dynamic_cast<const Geometry::Ellipse*>(shape)) {
-                EllipseItem* ellipseItem = new EllipseItem();
-                ellipseItem->setItemValue(EllipseItem::P_XCENTER, scale*ellipse->getCenterX());
-                ellipseItem->setItemValue(EllipseItem::P_YCENTER, scale*ellipse->getCenterY());
-                ellipseItem->setItemValue(EllipseItem::P_XRADIUS, scale*ellipse->getRadiusX());
-                ellipseItem->setItemValue(EllipseItem::P_YRADIUS, scale*ellipse->getRadiusY());
-                ellipseItem->setItemValue(EllipseItem::P_ANGLE, scale*ellipse->getTheta());
-                ellipseItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertItem(0, ellipseItem);
+    if( (detector->getDetectorMask() && detector->getDetectorMask()->numberOfMasks()) ||
+        detector->regionOfInterest()) {
+        detectorItem->createMaskContainer();
 
-            }
-            else if(const Geometry::Rectangle* rectangle = dynamic_cast<const Geometry::Rectangle*>(shape)) {
-                RectangleItem* rectangleItem = new RectangleItem();
-                rectangleItem->setItemValue(RectangleItem::P_XLOW, scale*rectangle->getXlow());
-                rectangleItem->setItemValue(RectangleItem::P_YLOW, scale*rectangle->getYlow());
-                rectangleItem->setItemValue(RectangleItem::P_XUP, scale*rectangle->getXup());
-                rectangleItem->setItemValue(RectangleItem::P_YUP, scale*rectangle->getYup());
-                rectangleItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertItem(0, rectangleItem);
+        double scale(1.0);
+        if(detectorItem->modelType() == Constants::SphericalDetectorType)
+            scale = 1./Units::degree;
 
-            }
-            else if(const Geometry::Polygon* polygon = dynamic_cast<const Geometry::Polygon*>(shape)) {
-                PolygonItem* polygonItem = new PolygonItem();
-                std::vector<double> xpos, ypos;
-                polygon->getPoints(xpos, ypos);
-                for(size_t i_point=0; i_point<xpos.size(); ++i_point) {
-                    PolygonPointItem* pointItem = new PolygonPointItem();
-                    pointItem->setItemValue(PolygonPointItem::P_POSX, scale*xpos[i_point]);
-                    pointItem->setItemValue(PolygonPointItem::P_POSY, scale*ypos[i_point]);
-                    polygonItem->insertItem(-1, pointItem);
-                }
+        setDetectorMasks(detectorItem->maskContainerItem(), *detector, scale);
+    }
+}
 
-                polygonItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                polygonItem->setItemValue(PolygonItem::P_ISCLOSED, true);
+void TransformFromDomain::setDetectorMasks(MaskContainerItem* containerItem,
+                                           const IDetector2D& detector, double scale)
+{
+    auto detectorMask = detector.getDetectorMask();
+    for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {
+        bool mask_value(false);
+        const IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
 
-                containerItem->insertItem(0, polygonItem);
+        if(const Ellipse* ellipse = dynamic_cast<const Ellipse*>(shape)) {
+            EllipseItem* ellipseItem = new EllipseItem();
+            ellipseItem->setItemValue(EllipseItem::P_XCENTER, scale*ellipse->getCenterX());
+            ellipseItem->setItemValue(EllipseItem::P_YCENTER, scale*ellipse->getCenterY());
+            ellipseItem->setItemValue(EllipseItem::P_XRADIUS, scale*ellipse->getRadiusX());
+            ellipseItem->setItemValue(EllipseItem::P_YRADIUS, scale*ellipse->getRadiusY());
+            ellipseItem->setItemValue(EllipseItem::P_ANGLE, scale*ellipse->getTheta());
+            ellipseItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            containerItem->insertItem(0, ellipseItem);
+        }
+
+        else if(const Rectangle* rectangle = dynamic_cast<const Rectangle*>(shape)) {
+            RectangleItem* rectangleItem = new RectangleItem();
+            rectangleItem->setItemValue(RectangleItem::P_XLOW, scale*rectangle->getXlow());
+            rectangleItem->setItemValue(RectangleItem::P_YLOW, scale*rectangle->getYlow());
+            rectangleItem->setItemValue(RectangleItem::P_XUP, scale*rectangle->getXup());
+            rectangleItem->setItemValue(RectangleItem::P_YUP, scale*rectangle->getYup());
+            rectangleItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            containerItem->insertItem(0, rectangleItem);
+
+        }
+
+        else if(const Polygon* polygon = dynamic_cast<const Polygon*>(shape)) {
+            PolygonItem* polygonItem = new PolygonItem();
+            std::vector<double> xpos, ypos;
+            polygon->getPoints(xpos, ypos);
+            for(size_t i_point=0; i_point<xpos.size(); ++i_point) {
+                PolygonPointItem* pointItem = new PolygonPointItem();
+                pointItem->setItemValue(PolygonPointItem::P_POSX, scale*xpos[i_point]);
+                pointItem->setItemValue(PolygonPointItem::P_POSY, scale*ypos[i_point]);
+                polygonItem->insertItem(-1, pointItem);
             }
-            else if(const Geometry::VerticalLine* vline = dynamic_cast<const Geometry::VerticalLine*>(shape)) {
-                VerticalLineItem* lineItem = new VerticalLineItem();
-                lineItem->setItemValue(VerticalLineItem::P_POSX, scale*vline->getXpos());
-                lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertItem(0, lineItem);
-            }
-            else if(const Geometry::HorizontalLine* hline = dynamic_cast<const Geometry::HorizontalLine*>(shape)) {
-                HorizontalLineItem* lineItem = new HorizontalLineItem();
-                lineItem->setItemValue(HorizontalLineItem::P_POSY, scale*hline->getYpos());
-                lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertItem(0, lineItem);
-            }
-            else if(const Geometry::InfinitePlane* plane = dynamic_cast<const Geometry::InfinitePlane*>(shape)) {
-                Q_UNUSED(plane);
-                MaskAllItem* planeItem = new MaskAllItem();
-                planeItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertItem(-1, planeItem);
-            }
-            else {
-                throw GUIHelpers::Error("TransformFromDomain::setDetectorMasks() -> Error. "
-                                        "Unknown shape");
-            }
+
+            polygonItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            polygonItem->setItemValue(PolygonItem::P_ISCLOSED, true);
+
+            containerItem->insertItem(0, polygonItem);
+        }
+
+        else if(const VerticalLine* vline = dynamic_cast<const VerticalLine*>(shape)) {
+            VerticalLineItem* lineItem = new VerticalLineItem();
+            lineItem->setItemValue(VerticalLineItem::P_POSX, scale*vline->getXpos());
+            lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            containerItem->insertItem(0, lineItem);
+        }
+
+        else if(const HorizontalLine* hline = dynamic_cast<const HorizontalLine*>(shape)) {
+            HorizontalLineItem* lineItem = new HorizontalLineItem();
+            lineItem->setItemValue(HorizontalLineItem::P_POSY, scale*hline->getYpos());
+            lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            containerItem->insertItem(0, lineItem);
+        }
+
+        else if(const InfinitePlane* plane = dynamic_cast<const InfinitePlane*>(shape)) {
+            Q_UNUSED(plane);
+            MaskAllItem* planeItem = new MaskAllItem();
+            planeItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            containerItem->insertItem(-1, planeItem);
+        }
+
+        else {
+            throw GUIHelpers::Error("TransformFromDomain::setDetectorMasks() -> Error. "
+                                    "Unknown shape");
         }
     }
 
-    if(detector->regionOfInterest()) {
-        SessionItem* containerItem = detectorItem->getChildOfType(Constants::MaskContainerType);
-        if(!containerItem) {
-            containerItem = new MaskContainerItem();
-            detectorItem->insertItem(-1, containerItem);
-        }
-
+    if(detector.regionOfInterest()) {
         RegionOfInterestItem *roiItem = new RegionOfInterestItem();
-        roiItem->setItemValue(RectangleItem::P_XLOW, scale*detector->regionOfInterest()->getXlow());
-        roiItem->setItemValue(RectangleItem::P_YLOW, scale*detector->regionOfInterest()->getYlow());
-        roiItem->setItemValue(RectangleItem::P_XUP, scale*detector->regionOfInterest()->getXup());
-        roiItem->setItemValue(RectangleItem::P_YUP, scale*detector->regionOfInterest()->getYup());
+        roiItem->setItemValue(RectangleItem::P_XLOW, scale*detector.regionOfInterest()->getXlow());
+        roiItem->setItemValue(RectangleItem::P_YLOW, scale*detector.regionOfInterest()->getYlow());
+        roiItem->setItemValue(RectangleItem::P_XUP, scale*detector.regionOfInterest()->getXup());
+        roiItem->setItemValue(RectangleItem::P_YUP, scale*detector.regionOfInterest()->getYup());
         containerItem->insertItem(-1, roiItem);
     }
 }
+
 
 void TransformFromDomain::setItemFromSample(BeamDistributionItem* beamDistributionItem,
                                             const ParameterDistribution& parameterDistribution)
@@ -545,51 +530,37 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beamDistributi
     setDistribution(beamDistributionItem, parameterDistribution, group_name, unit_factor);
 }
 
-QString TransformFromDomain::translateParameterNameToGUI(SessionItem* item,
-                                                         const QString& par_name)
-{
-    QStringList gui_par_list = ModelPath::getParameterTreeList(item);
-    for (QString gui_par_name : gui_par_list) {
-        QString domain_par_name = QString::fromStdString(
-                    ModelPath::translateParameterName(item, gui_par_name));
-        if (domain_par_name == par_name) {
-            return gui_par_name;
-        }
-    }
-    return {};
-}
-
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_name)
 {
     if (const FTDistribution1DCauchy* pdf = dynamic_cast<const FTDistribution1DCauchy*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DCauchyType);
-        pdfItem->setItemValue(FTDistribution1DCauchyItem::P_CORR_LENGTH, pdf->getOmega());
+        pdfItem->setItemValue(FTDistribution1DCauchyItem::P_OMEGA, pdf->getOmega());
     } else if (const FTDistribution1DGauss* pdf
                = dynamic_cast<const FTDistribution1DGauss*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DGaussType);
-        pdfItem->setItemValue(FTDistribution1DGaussItem::P_CORR_LENGTH, pdf->getOmega());
+        pdfItem->setItemValue(FTDistribution1DGaussItem::P_OMEGA, pdf->getOmega());
     } else if (const FTDistribution1DGate* pdf = dynamic_cast<const FTDistribution1DGate*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DGateType);
-        pdfItem->setItemValue(FTDistribution1DGateItem::P_CORR_LENGTH, pdf->getOmega());
+        pdfItem->setItemValue(FTDistribution1DGateItem::P_OMEGA, pdf->getOmega());
     } else if (const FTDistribution1DTriangle* pdf
                = dynamic_cast<const FTDistribution1DTriangle*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DTriangleType);
-        pdfItem->setItemValue(FTDistribution1DTriangleItem::P_CORR_LENGTH,
+        pdfItem->setItemValue(FTDistribution1DTriangleItem::P_OMEGA,
                                        pdf->getOmega());
     } else if (const FTDistribution1DCosine* pdf
                = dynamic_cast<const FTDistribution1DCosine*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DCosineType);
-        pdfItem->setItemValue(FTDistribution1DCosineItem::P_CORR_LENGTH, pdf->getOmega());
+        pdfItem->setItemValue(FTDistribution1DCosineItem::P_OMEGA, pdf->getOmega());
     } else if (const FTDistribution1DVoigt* pdf
                = dynamic_cast<const FTDistribution1DVoigt*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DVoigtType);
-        pdfItem->setItemValue(FTDistribution1DVoigtItem::P_CORR_LENGTH, pdf->getOmega());
+        pdfItem->setItemValue(FTDistribution1DVoigtItem::P_OMEGA, pdf->getOmega());
         pdfItem->setItemValue(FTDistribution1DVoigtItem::P_ETA, pdf->getEta());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setPDF1D: -> Error");
@@ -720,72 +691,76 @@ void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QStrin
     }
 }
 
-void set2DLatticeParameters(SessionItem* item, Lattice2DParameters lattice_params,
-                            SessionItem* lattice_item)
+void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice)
 {
-    if (TransformFromDomain::isSquareLattice(lattice_params.m_length_1, lattice_params.m_length_2,
-                                             lattice_params.m_angle)) {
-        lattice_item = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                                 Constants::SquareLatticeType);
-        lattice_item->setItemValue(SquareLatticeTypeItem::P_LATTICE_LENGTH,
-                                               lattice_params.m_length_1);
-    } else if (TransformFromDomain::isHexagonalLattice(
-                   lattice_params.m_length_1, lattice_params.m_length_2, lattice_params.m_angle)) {
-        lattice_item = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                                 Constants::HexagonalLatticeType);
-        lattice_item->setItemValue(HexagonalLatticeTypeItem::P_LATTICE_LENGTH,
-                                               lattice_params.m_length_1);
+    SessionItem* latticeItem(0);
+    if (lattice.getName() == BornAgain::SquareLatticeType) {
+        latticeItem = item->setGroupProperty(
+            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::SquareLatticeType);
+        latticeItem->setItemValue(SquareLatticeItem::P_LATTICE_LENGTH, lattice.length1());
+
+    } else if (lattice.getName() == BornAgain::HexagonalLatticeType) {
+        latticeItem = item->setGroupProperty(
+            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::HexagonalLatticeType);
+        latticeItem->setItemValue(HexagonalLatticeItem::P_LATTICE_LENGTH, lattice.length1());
+
     } else {
-        lattice_item = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                                 Constants::BasicLatticeType);
-        lattice_item->setItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH1,
-                                               lattice_params.m_length_1);
-        lattice_item->setItemValue(BasicLatticeTypeItem::P_LATTICE_LENGTH2,
-                                               lattice_params.m_length_2);
-        lattice_item->setItemValue(BasicLatticeTypeItem::P_LATTICE_ANGLE,
-                                               Units::rad2deg(lattice_params.m_angle));
+        latticeItem = item->setGroupProperty(
+            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::BasicLatticeType);
+        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_LENGTH1, lattice.length1());
+        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_LENGTH2, lattice.length2());
+        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_ANGLE,
+                                  Units::rad2deg(lattice.latticeAngle()));
     }
-    item->setItemValue(InterferenceFunction2DLatticeItem::P_ROTATION_ANGLE,
-                                Units::rad2deg(lattice_params.m_xi));
+    latticeItem->setItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE,
+                       Units::rad2deg(lattice.rotationAngle()));
 }
 
-void setDistribution(SessionItem* item, ParameterDistribution par_distr,
+void setDistribution(SessionItem* partDistrItem, ParameterDistribution par_distr,
                      QString group_name, double factor)
 {
     const IDistribution1D* p_distribution = par_distr.getDistribution();
-    SessionItem* pdfItem = 0;
+
+    SessionItem* item = 0;
     if (const DistributionGate* distr = dynamic_cast<const DistributionGate*>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionGateType);
-        pdfItem->setItemValue(DistributionGateItem::P_MIN, factor*distr->getMin());
-        pdfItem->setItemValue(DistributionGateItem::P_MAX, factor*distr->getMax());
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionGateType);
+        item->setItemValue(DistributionGateItem::P_MIN, factor*distr->getMin());
+        item->setItemValue(DistributionGateItem::P_MAX, factor*distr->getMax());
     } else if (const DistributionLorentz* distr
                = dynamic_cast<const DistributionLorentz*>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionLorentzType);
-        pdfItem->setItemValue(DistributionLorentzItem::P_MEAN, factor*distr->getMean());
-        pdfItem->setItemValue(DistributionLorentzItem::P_HWHM, factor*distr->getHWHM());
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionLorentzType);
+        item->setItemValue(DistributionLorentzItem::P_MEAN, factor*distr->getMean());
+        item->setItemValue(DistributionLorentzItem::P_HWHM, factor*distr->getHWHM());
     } else if (const DistributionGaussian* distr
                = dynamic_cast<const DistributionGaussian*>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionGaussianType);
-        pdfItem->setItemValue(DistributionGaussianItem::P_MEAN, factor*distr->getMean());
-        pdfItem->setItemValue(DistributionGaussianItem::P_STD_DEV, factor*distr->getStdDev());
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionGaussianType);
+        item->setItemValue(DistributionGaussianItem::P_MEAN, factor*distr->getMean());
+        item->setItemValue(DistributionGaussianItem::P_STD_DEV, factor*distr->getStdDev());
     } else if (const DistributionLogNormal* distr
                = dynamic_cast<const DistributionLogNormal*>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionLogNormalType);
-        pdfItem->setItemValue(DistributionLogNormalItem::P_MEDIAN, factor*distr->getMedian());
-        pdfItem->setItemValue(DistributionLogNormalItem::P_SCALE_PAR,
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionLogNormalType);
+        item->setItemValue(DistributionLogNormalItem::P_MEDIAN, factor*distr->getMedian());
+        item->setItemValue(DistributionLogNormalItem::P_SCALE_PAR,
                                        distr->getScalePar());
     } else if (const DistributionCosine* distr
                = dynamic_cast<const DistributionCosine*>(p_distribution)) {
-        pdfItem = item->setGroupProperty(group_name, Constants::DistributionCosineType);
-        pdfItem->setItemValue(DistributionCosineItem::P_MEAN, factor*distr->getMean());
-        pdfItem->setItemValue(DistributionCosineItem::P_SIGMA, factor*distr->getSigma());
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionCosineType);
+        item->setItemValue(DistributionCosineItem::P_MEAN, factor*distr->getMean());
+        item->setItemValue(DistributionCosineItem::P_SIGMA, factor*distr->getSigma());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setDistribution: -> unknown distribution");
     }
-    if (pdfItem) {
-        pdfItem->setItemValue(DistributionItem::P_NUMBER_OF_SAMPLES,
-                                       (int)par_distr.getNbrSamples());
-        pdfItem->setItemValue(DistributionItem::P_SIGMA_FACTOR,
-                                       par_distr.getSigmaFactor());
-    }
+
+    DistributionItem *distItem = dynamic_cast<DistributionItem*>(item);
+    Q_ASSERT(distItem);
+
+    distItem->setItemValue(DistributionItem::P_NUMBER_OF_SAMPLES, (int)par_distr.getNbrSamples());
+
+    if(distItem->isTag(DistributionItem::P_SIGMA_FACTOR))
+        distItem->setItemValue(DistributionItem::P_SIGMA_FACTOR, par_distr.getSigmaFactor());
+
+    // TODO It's wrong if domain distribution made for angles.
+    if(distItem->isTag(DistributionItem::P_LIMITS))
+        distItem->init_limits_group(par_distr.getLimits());
+
 }

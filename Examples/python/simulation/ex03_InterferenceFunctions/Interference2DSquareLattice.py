@@ -28,7 +28,7 @@ def get_sample():
     cylinder = ba.Particle(m_particle, cylinder_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # assembling the sample
     air_layer = ba.Layer(m_ambience)
@@ -38,6 +38,8 @@ def get_sample():
     multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
+    print(multi_layer.parametersToString())
+    print(multi_layer.treeToString())
     return multi_layer
 
 

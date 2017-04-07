@@ -16,17 +16,20 @@
 #include "SpecularMagnetic.h"
 #include "Layer.h"
 #include "LayerInterface.h"
-#include "Materials.h"
+#include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
+#include "WavevectorInfo.h"
 #include <Eigen/LU>
 
-static complex_t I(0.,1.);
+namespace {
+    const complex_t I(0,1);
+}
 
 void SpecularMagnetic::execute(
-    const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff)
+    const MultiLayer& sample, const kvector_t k, std::vector<MatrixRTCoefficients>& coeff)
 {
     coeff.clear();
-    coeff.resize(sample.getNumberOfLayers());
+    coeff.resize(sample.numberOfLayers());
 
     calculateEigenvalues(sample, k, coeff);
 
@@ -34,14 +37,14 @@ void SpecularMagnetic::execute(
 }
 
 void SpecularMagnetic::calculateEigenvalues(
-    const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff)
+    const MultiLayer& sample, const kvector_t k, std::vector<MatrixRTCoefficients>& coeff)
 {
     double mag_k = k.mag();
+    double n_ref = sample.layer(0)->refractiveIndex().real();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
     for(size_t i=0; i<coeff.size(); ++i) {
-        coeff[i].m_scatt_matrix = sample.getLayer(i)->getMaterial()->
-                getSpecularScatteringMatrix(k);
-        coeff[i].m_kt = mag_k*sample.getLayer(i)->getThickness();
+        coeff[i].m_scatt_matrix = sample.layer(i)->material()->polarizedFresnel(k, n_ref);
+        coeff[i].m_kt = mag_k*sample.layer(i)->thickness();
         coeff[i].m_a = coeff[i].m_scatt_matrix.trace()/2.0;
         coeff[i].m_b_mag = sqrt(coeff[i].m_a*coeff[i].m_a -
                 (complex_t)coeff[i].m_scatt_matrix.determinant());
@@ -62,7 +65,7 @@ void SpecularMagnetic::calculateEigenvalues(
 
 // todo: avoid overflows (see SpecularMatrix.cpp)
 void SpecularMagnetic::calculateTransferAndBoundary(
-    const MultiLayer& sample, const kvector_t k, MultiLayerCoeff_t& coeff)
+    const MultiLayer& sample, const kvector_t k, std::vector<MatrixRTCoefficients>& coeff)
 {
     (void)k;
     size_t N = coeff.size();
@@ -73,10 +76,12 @@ void SpecularMagnetic::calculateTransferAndBoundary(
 
     // First, initialize bottom layer values to have no reflection
     coeff[N-1].initializeBottomLayerPhiPsi();
+    if (N>1)
+        coeff[N-1].calculateTRMatrices();
 
     coeff[0].calculateTRMatrices();
     for (int i=(int)N-2; i>0; --i) {
-        double t = sample.getLayer(i)->getThickness();
+        double t = sample.layer(i)->thickness();
         coeff[i].calculateTRMatrices();
         Eigen::Matrix4cd l =
                coeff[i].R1m * getImExponential((complex_t)(coeff[i].kz(0)*t)) +
@@ -123,7 +128,7 @@ void SpecularMagnetic::calculateTransferAndBoundary(
     }
 }
 
-void SpecularMagnetic::setForNoTransmission(MultiLayerCoeff_t& coeff)
+void SpecularMagnetic::setForNoTransmission(std::vector<MatrixRTCoefficients>& coeff)
 {
     size_t N = coeff.size();
     for (size_t i=0; i<N; ++i) {

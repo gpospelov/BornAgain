@@ -15,11 +15,10 @@
 
 #include "FormFactorLorentz.h"
 #include "BornAgainNamespace.h"
+#include "Box.h"
 #include "RealLimits.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
-
-using namespace BornAgain;
 
 FormFactorLorentz::FormFactorLorentz(double width, double height)
 {
@@ -36,12 +35,12 @@ FormFactorLorentz::FormFactorLorentz(double length)
 }
 
 
-double FormFactorLorentz::getRadialExtension() const
+double FormFactorLorentz::radialExtension() const
 {
     return m_width / 2.0;
 }
 
-complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const
 {
     static const double sigma2 = 4.0*std::pow(M_PI, 2.0/3.0);
     double R = m_width;
@@ -56,9 +55,15 @@ complex_t FormFactorLorentz::evaluate_for_q(const cvector_t q) const
     return result;
 }
 
+void FormFactorLorentz::onChange()
+{
+    mP_shape.reset(new Box(m_width, m_width, m_height));
+}
+
 void FormFactorLorentz::initialize()
 {
     setName(BornAgain::FFLorentzType);
     registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    onChange();
 }

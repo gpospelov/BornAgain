@@ -20,42 +20,47 @@
 #include <cmath>
 #include <iomanip>
 
-static const int precision { 12 };
+namespace {
+    const int precision { 12 };
 
-double IgnoreDenormalized(double value)
-{
-    if (std::fpclassify(value)==FP_SUBNORMAL)
-        return 0.0;
-    return value;
-}
+    double IgnoreDenormalized(double value)
+    {
+        if (std::fpclassify(value)==FP_SUBNORMAL)
+            return 0.0;
+        return value;
+    }
 
-void WriteOutputDataDoubles(const OutputData<double>& data, std::ostream& output_stream,
-                            size_t n_columns)
-{
-    OutputData<double>::const_iterator it = data.begin();
-    output_stream.imbue(std::locale::classic());
-    output_stream << std::scientific << std::setprecision(precision);
-    size_t ncol(0);
-    while(it != data.end()) {
-        ncol++;
-        double z_value = *it++;
-        output_stream << IgnoreDenormalized(z_value) << "    ";
-        if(ncol == n_columns) {
-            output_stream << std::endl;
-            ncol = 0;
+    void WriteOutputDataDoubles(
+        const OutputData<double>& data, std::ostream& output_stream, size_t n_columns)
+    {
+        OutputData<double>::const_iterator it = data.begin();
+        output_stream.imbue(std::locale::classic());
+        output_stream << std::scientific << std::setprecision(precision);
+        size_t ncol(0);
+        while (it != data.end()) {
+            ncol++;
+            double z_value = *it++;
+            output_stream << IgnoreDenormalized(z_value) << "    ";
+            if(ncol == n_columns) {
+                output_stream << std::endl;
+                ncol = 0;
+            }
         }
     }
-}
 
-void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double>& data,
-                                               std::ostream& output_stream)
+} // namespace
+
+// ----------------------------------------------------------------------------
+// class OutputDataWriteINTStrategy
+// ----------------------------------------------------------------------------
+
+void OutputDataWriteINTStrategy::writeOutputData(
+    const OutputData<double>& data, std::ostream& output_stream)
 {
     output_stream << "# BornAgain Intensity Data\n\n";
 
-    output_stream << "# reproducibility\n" << data.getVariability() << "\n";
-
     for(size_t i=0; i<data.getRank(); ++i) {
-        const IAxis &axis = data.getAxis(i);
+        const IAxis& axis = data.getAxis(i);
         output_stream << std::endl;
         output_stream << "# axis-" << i << "\n";
         output_stream << (axis) << "\n";
@@ -68,9 +73,11 @@ void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double>& data,
 }
 
 // ----------------------------------------------------------------------------
+// class OutputDataWriteNumpyTXTStrategy
+// ----------------------------------------------------------------------------
 
-void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double>& data,
-                                                      std::ostream& output_stream)
+void OutputDataWriteNumpyTXTStrategy::writeOutputData(
+    const OutputData<double>& data, std::ostream& output_stream)
 {
     if(data.getRank() != 2)
         throw Exceptions::LogicErrorException(
@@ -90,22 +97,22 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double>& 
 }
 
 // ----------------------------------------------------------------------------
-
+// class OutputDataWriteTiffStrategy
+// ----------------------------------------------------------------------------
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
 OutputDataWriteTiffStrategy::OutputDataWriteTiffStrategy()
     : m_d(new TiffHandler)
-{
-}
+{}
 
 OutputDataWriteTiffStrategy::~OutputDataWriteTiffStrategy()
 {
     delete m_d;
 }
 
-void OutputDataWriteTiffStrategy::writeOutputData(const OutputData<double>& data,
-                                                  std::ostream& output_stream)
+void OutputDataWriteTiffStrategy::writeOutputData(
+    const OutputData<double>& data, std::ostream& output_stream)
 {
     m_d->write(data, output_stream);
 }

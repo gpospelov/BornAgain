@@ -17,7 +17,6 @@
 #include "RunFitManager.h"
 #include "FitSuite.h"
 #include "FittingWorker.h"
-#include <QDebug>
 #include <QThread>
 #include <memory>
 

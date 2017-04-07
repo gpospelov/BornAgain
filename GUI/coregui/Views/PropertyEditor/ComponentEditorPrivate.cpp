@@ -18,7 +18,6 @@
 #include "CustomEventFilters.h"
 #include "GUIHelpers.h"
 #include <QComboBox>
-#include <QDebug>
 #include <QString>
 #include <cmath>
 

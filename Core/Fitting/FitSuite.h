@@ -31,11 +31,10 @@ class FitSuiteStrategies;
 class FitOptions;
 class FitSuiteImpl;
 class IMinimizer;
-class FitParameterLinked;
+class FitParameter;
 
-//! @class FitSuite
-//! @ingroup fitting
 //! @brief User interface class that wraps all fit methods.
+//! @ingroup fitting
 
 class BA_CORE_API_ FitSuite : public IObservable
 {
@@ -65,12 +64,16 @@ public:
                                   double weight=1);
 
     //! Adds fit parameter
-    //! @param name The name of fit parameter
+    //! @param name The name of sample parameter(s) to fit (may contain wildcards).
     //! @param value Parameter's starting value
     //! @param limits Limits attribute
     //! @param step Initial parameter's step (some minimizers don't use it)
-    FitParameterLinked* addFitParameter(const std::string& name, double value,
+    FitParameter* addFitParameter(const std::string& pattern, double value,
                          const AttLimits& limits=AttLimits::limitless(), double step = 0.0);
+
+    //! Adds fit parameter
+    //! @param fitPar Fully constructed fit parameter.
+    FitParameter* addFitParameter(const FitParameter& fitPar);
 
     //! Sets minimizer with given name and algorithm type
     //! @param minimizer_name The name of the minimizer
@@ -154,6 +157,14 @@ public:
     const OutputData<double>* getSimulationOutputData(size_t i_item = 0) const;
     const OutputData<double>* getChiSquaredOutputData(size_t i_item = 0) const;
 
+    //! Returns multiline string representing possible fit parameters.
+    std::string parametersToString() const;
+
+    //! Returns multiline string representing tree structure of fit components.
+    std::string treeToString() const;
+
+    //! Returns multiline string representing fit setup
+    std::string setupToString();
 private:
     std::unique_ptr<FitSuiteImpl> m_impl;
 };

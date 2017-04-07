@@ -29,14 +29,20 @@ public:
 
     FormFactorFullSpheroid* clone() const override final {
         return new FormFactorFullSpheroid(m_radius, m_height); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
 
-    double getRadialExtension() const override final { return m_radius; }
+    double radialExtension() const override final { return m_radius; }
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
+
+protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
+    void onChange() override final;
 
 private:
     complex_t Integrand(double Z) const;

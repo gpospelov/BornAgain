@@ -18,7 +18,7 @@
 
 #include "IParticle.h"
 
-class IMaterial;
+class HomogeneousMaterial;
 class Particle;
 
 //! A particle with a core/shell geometry.
@@ -28,37 +28,38 @@ class BA_CORE_API_ ParticleCoreShell : public IParticle
 {
 public:
     ParticleCoreShell(const Particle& shell, const Particle& core,
-            kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0));
-    virtual ~ParticleCoreShell();
-    virtual ParticleCoreShell* clone() const;
+                      kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0));
+    ~ParticleCoreShell();
 
-    //! Returns a clone with inverted magnetic fields
-    virtual ParticleCoreShell* cloneInvertB() const;
+    ParticleCoreShell* clone() const override final;
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    //! Sets the refractive index of the ambient material (which influences its scattering power)
-    virtual void setAmbientMaterial(const IMaterial& material);
-    virtual const IMaterial* getAmbientMaterial() const;
+    SlicedParticle createSlicedParticle(ZLimits limits) const override final;
 
-    //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
-                                                     kvector_t translation) const;
+    const Particle* coreParticle() const;
 
-    //! Returns the core particle
-    const Particle* getCoreParticle() const { return mp_core; }
+    const Particle* shellParticle() const;
 
-    //! Returns the shell particle
-    const Particle* getShellParticle() const { return mp_shell; }
+    std::vector<const INode*> getChildren() const override final;
 
 protected:
-    void addAndRegisterCore(const Particle &core, kvector_t relative_core_position);
-    void addAndRegisterShell(const Particle &shell);
-
+    void addAndRegisterCore(const Particle& core, kvector_t relative_core_position);
+    void addAndRegisterShell(const Particle& shell);
     ParticleCoreShell();
-    Particle* mp_shell;
-    Particle* mp_core;
+
+    std::unique_ptr<Particle> mp_shell;
+    std::unique_ptr<Particle> mp_core;
 };
+
+inline const Particle* ParticleCoreShell::coreParticle() const
+{
+    return mp_core.get();
+}
+
+inline const Particle* ParticleCoreShell::shellParticle() const
+{
+    return mp_shell.get();
+}
 
 #endif // PARTICLECORESHELL_H

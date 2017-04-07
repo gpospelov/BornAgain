@@ -15,111 +15,94 @@
 
 #include "ParticleCoreShell.h"
 #include "BornAgainNamespace.h"
-#include "FormFactorWeighted.h"
-#include "Materials.h"
+#include "FormFactorCoreShell.h"
+#include "HomogeneousMaterial.h"
 #include "Particle.h"
 
 ParticleCoreShell::ParticleCoreShell(
     const Particle& shell, const Particle& core, kvector_t relative_core_position)
-    : mp_shell { nullptr }, mp_core { nullptr }
 {
     setName(BornAgain::ParticleCoreShellType);
-    registerPosition();
+    registerParticleProperties();
     addAndRegisterCore(core, relative_core_position);
     addAndRegisterShell(shell);
 }
 
 ParticleCoreShell::~ParticleCoreShell()
 {
-    delete mp_shell;
-    delete mp_core;
 }
 
 ParticleCoreShell* ParticleCoreShell::clone() const
 {
-    ParticleCoreShell* p_result =
-            new ParticleCoreShell(*mp_shell, *mp_core, kvector_t(0.0, 0.0, 0.0));
+    ParticleCoreShell* p_result = new ParticleCoreShell(*mp_shell, *mp_core);
     p_result->setAbundance(m_abundance);
-    p_result->setAmbientMaterial(*getAmbientMaterial());
     if (mP_rotation.get())
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
     return p_result;
 }
 
-ParticleCoreShell* ParticleCoreShell::cloneInvertB() const
-{
-    ParticleCoreShell* p_result = new ParticleCoreShell();
-    p_result->setAbundance(m_abundance);
-    p_result->mp_shell = this->mp_shell->cloneInvertB();
-    p_result->mp_core = this->mp_core->cloneInvertB();
-    p_result->setAmbientMaterial( *Materials::createInvertedMaterial(getAmbientMaterial()) );
-    if (mP_rotation.get()) {
-        p_result->setRotation(*mP_rotation);
-    }
-    p_result->setPosition(m_position);
-    return p_result;
-}
-
-void ParticleCoreShell::setAmbientMaterial(const IMaterial& material)
-{
-    mp_shell->setAmbientMaterial(material);
-}
-
-const IMaterial* ParticleCoreShell::getAmbientMaterial() const
-{
-    if (!mp_shell) return 0;
-    return mp_shell->getAmbientMaterial();
-}
-
-IFormFactor* ParticleCoreShell::createTransformedFormFactor(const IRotation* p_rotation,
-                                                            kvector_t translation) const
+SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
 {
     if (!mp_core || !mp_shell)
-        return nullptr;
-    std::unique_ptr<FormFactorWeighted> P_result{ new FormFactorWeighted() };
-    std::unique_ptr<IRotation> P_total_rotation { createComposedRotation(p_rotation) };
-    kvector_t total_position = getComposedTranslation(p_rotation, translation);
+        return {};
+    std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
+    if (mP_rotation)
+        P_rotation.reset(mP_rotation->clone());
 
-    // shell form factor
-    std::unique_ptr<IFormFactor> P_ff_shell{ mp_shell->createTransformedFormFactor(
-        P_total_rotation.get(), total_position) };
-    if (!P_ff_shell)
-        return nullptr;
-    P_result->addFormFactor(*P_ff_shell, 1.0);
+    // core
+    std::unique_ptr<Particle> P_core(mp_core->clone());
+    P_core->applyRotation(*P_rotation);
+    P_core->applyTranslation(m_position);
+    auto sliced_core = P_core->createSlicedParticle(limits);
+    if (!sliced_core.mP_slicedff || sliced_core.m_regions.size()!=1)
+        return {};
 
-    // core form factor
-    std::unique_ptr<Particle> P_core_clone { mp_core->clone() };
-    P_core_clone->setAmbientMaterial(*mp_shell->getMaterial());
-    std::unique_ptr<IFormFactor> P_ff_core{ P_core_clone->createTransformedFormFactor(
-        P_total_rotation.get(), total_position) };
-    if (!P_ff_core)
-        return nullptr;
-    P_result->addFormFactor(*P_ff_core, 1.0);
+    // shell
+    std::unique_ptr<Particle> P_shell(mp_shell->clone());
+    P_shell->applyRotation(*P_rotation);
+    P_shell->applyTranslation(m_position);
+    auto sliced_shell = P_shell->createSlicedParticle(limits);
+    if (!sliced_shell.mP_slicedff)
+        return {};
 
-    return P_result.release();
+    // set core ambient material
+    if (sliced_shell.m_regions.size()!=1)
+        return {};
+    auto shell_material = sliced_shell.m_regions[0].m_material;
+    sliced_core.mP_slicedff->setAmbientMaterial(shell_material);
+
+    // construct sliced particle
+    SlicedParticle result;
+    sliced_shell.m_regions.back().m_volume -= sliced_core.m_regions.back().m_volume;
+    result.mP_slicedff.reset(new FormFactorCoreShell(sliced_core.mP_slicedff.release(),
+                                                     sliced_shell.mP_slicedff.release()));
+    result.m_regions.push_back(sliced_core.m_regions.back());
+    result.m_regions.push_back(sliced_shell.m_regions.back());
+
+    return result;
 }
 
-void ParticleCoreShell::addAndRegisterCore(const Particle &core, kvector_t relative_core_position)
+std::vector<const INode*> ParticleCoreShell::getChildren() const
 {
-    if(mp_core) {
-        deregisterChild(mp_core);
-        delete mp_core;
-    }
-    mp_core = core.clone();
+    return std::vector<const INode*>() << IParticle::getChildren() << mp_core << mp_shell;
+}
+
+void ParticleCoreShell::addAndRegisterCore(const Particle& core,
+                                           kvector_t relative_core_position)
+{
+    mp_core.reset(core.clone());
     mp_core->applyTranslation(relative_core_position);
-    registerChild(mp_core);
+    registerChild(mp_core.get());
+    mp_core->registerAbundance(false);
 }
 
-
-void ParticleCoreShell::addAndRegisterShell(const Particle &shell)
+void ParticleCoreShell::addAndRegisterShell(const Particle& shell)
 {
-    if(mp_shell) {
-        deregisterChild(mp_shell);
-        delete mp_shell;
-    }
-    mp_shell = shell.clone();
-    registerChild(mp_shell);
+    mp_shell.reset(shell.clone());
+    registerChild(mp_shell.get());
+    mp_shell->registerAbundance(false);
+    mp_shell->registerPosition(false);
 }
 
 ParticleCoreShell::ParticleCoreShell()

@@ -16,13 +16,14 @@
 #ifndef FTDISTRIBUTIONS1D_H
 #define FTDISTRIBUTIONS1D_H
 
-#include "IParameterized.h"
+#include "ICloneable.h"
+#include "INode.h"
 
 //! Interface for a one-dimensional distribution, with normalization adjusted so that
 //! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
 //! @ingroup distribution_internal
 
-class BA_CORE_API_ IFTDistribution1D : public IParameterized
+class BA_CORE_API_ IFTDistribution1D : public ICloneable, public INode
 {
 public:
     IFTDistribution1D(double omega) : m_omega(omega) {}
@@ -41,7 +42,7 @@ public:
 
 protected:
     virtual void print(std::ostream& ostr) const;
-    virtual void init_parameters();
+    void init_parameters();
     double m_omega;
 };
 
@@ -55,6 +56,7 @@ class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 public:
     FTDistribution1DCauchy(double omega);
     FTDistribution1DCauchy* clone() const final { return new FTDistribution1DCauchy(m_omega); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
 
@@ -68,6 +70,7 @@ class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 public:
     FTDistribution1DGauss(double omega);
     FTDistribution1DGauss* clone() const final { return new FTDistribution1DGauss(m_omega); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
 
@@ -81,6 +84,7 @@ class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
 public:
     FTDistribution1DGate(double omega);
     FTDistribution1DGate* clone() const final { return new FTDistribution1DGate(m_omega); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
 
@@ -95,6 +99,7 @@ public:
     FTDistribution1DTriangle(double omega);
     virtual ~FTDistribution1DTriangle() {}
     FTDistribution1DTriangle* clone() const final { return new FTDistribution1DTriangle(m_omega); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
 
@@ -109,6 +114,7 @@ class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
 public:
     FTDistribution1DCosine(double omega);
     FTDistribution1DCosine* clone() const final { return new FTDistribution1DCosine(m_omega); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
 
@@ -124,10 +130,10 @@ public:
     FTDistribution1DVoigt(double omega, double eta);
     FTDistribution1DVoigt* clone() const final {
         return new FTDistribution1DVoigt(m_omega, m_eta); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
     double getEta() const { return m_eta;}
 protected:
-    virtual void init_parameters();
     double m_eta;
 };
 

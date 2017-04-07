@@ -1,6 +1,3 @@
-#ifndef TESTFITPARAMETERMODEL_H
-#define TESTFITPARAMETERMODEL_H
-
 #include <QtTest>
 #include "JobModel.h"
 #include "FitParameterProxyModel.h"
@@ -226,7 +223,6 @@ inline void TestFitParameterModel::test_addTwoFitParameterAndLinks()
     QModelIndex linkIndex1 = proxy.index(0, 0, index1);
     QCOMPARE(linkIndex1.row(), 0);
     QCOMPARE(linkIndex1.column(), 0);
-    qDebug() << "AAA" << index1 << linkIndex1;
     QCOMPARE(linkIndex1.parent(), index1);
     QCOMPARE(proxy.rowCount(linkIndex1), 0);
     QCOMPARE(proxy.columnCount(linkIndex1),  0);
@@ -238,7 +234,5 @@ inline void TestFitParameterModel::test_addTwoFitParameterAndLinks()
 //    QModelIndex linkIndex1 = proxy.index(0, 0, index1);
 
 }
-
-#endif // TESTFITPARAMETERMODEL_H
 
 

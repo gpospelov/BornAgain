@@ -32,11 +32,19 @@ public:
     FormFactorCrystal* clone() const override final {
         return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor); }
 
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    double getVolume() const override final { return mp_meso_form_factor->getVolume(); }
-    double getRadialExtension() const override final {
-        return mp_meso_form_factor->getRadialExtension(); }
+    void setAmbientMaterial(HomogeneousMaterial material) override {
+        mp_basis_form_factor->setAmbientMaterial(material);
+    }
+
+    double volume() const override final { return mp_meso_form_factor->volume(); }
+    double radialExtension() const override final {
+        return mp_meso_form_factor->radialExtension(); }
+
+    double bottomZ(const IRotation& rotation) const override;
+
+    double topZ(const IRotation& rotation) const override final;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 #ifndef SWIG

@@ -17,19 +17,14 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "LayerRoughness.h"
-#include "Logger.h"
 
-LayerInterface::LayerInterface()
-    : m_roughness(0)
-    , m_LayerTop(0)
-    , m_LayerBottom(0)
+LayerInterface::LayerInterface() : m_topLayer(nullptr), m_bottomLayer(nullptr)
 {
     setName(BornAgain::LayerInterfaceType);
 }
 
 LayerInterface::~LayerInterface()
 {
-    delete m_roughness;
 }
 
 LayerInterface* LayerInterface::clone() const
@@ -37,40 +32,41 @@ LayerInterface* LayerInterface::clone() const
     throw Exceptions::NotImplementedException("LayerInterface::clone() -> Not allowed to clone.");
 }
 
-LayerInterface* LayerInterface::createSmoothInterface(
-    const Layer* p_layer_top, const Layer* p_layer_bottom)
+LayerInterface* LayerInterface::createSmoothInterface(const Layer* top_layer,
+                                                      const Layer* bottom_layer)
 {
-    LayerInterface* lr = new LayerInterface();
-    lr->setLayerTop(p_layer_top);
-    lr->setLayerBottom(p_layer_bottom);
-    return lr;
+    LayerInterface* result = new LayerInterface();
+    result->setLayersTopBottom(top_layer, bottom_layer);
+    return result;
 }
 
-LayerInterface* LayerInterface::createRoughInterface(
-    const Layer* p_layer_top, const Layer* p_layer_bottom, const LayerRoughness& roughness)
+LayerInterface* LayerInterface::createRoughInterface(const Layer* top_layer,
+                                                     const Layer* bottom_layer,
+                                                     const LayerRoughness& roughness)
 {
-    LayerInterface* lr = new LayerInterface();
-    lr->setLayerTop(p_layer_top);
-    lr->setLayerBottom(p_layer_bottom);
-    lr->setRoughness(roughness);
-    return lr;
+    LayerInterface* result = createSmoothInterface(top_layer, bottom_layer);
+    result->setRoughness(roughness);
+    return result;
 }
 
 void LayerInterface::setRoughness(const LayerRoughness& roughness)
 {
-    if(m_roughness) {
-        msglog(MSG::WARNING) << "LayerInterface::setRoughness() -> "
-            "Info. Roughness already assigned to given interface, removing it ";
-        deregisterChild(m_roughness);
-        delete m_roughness;
-    }
-    //m_roughness = new LayerRoughness(roughness);
-    m_roughness = roughness.clone();
-    registerChild(m_roughness);
+    m_roughness.reset(roughness.clone());
+    registerChild(m_roughness.get());
 }
 
-void LayerInterface::print(std::ostream& ostr) const
+std::vector<const INode*> LayerInterface::getChildren() const
 {
-    ICompositeSample::print(ostr);
-    ostr << "-->LayerI'face{top=" << getLayerTop() << ", bottom=" << getLayerBottom() << "}";
+    return std::vector<const INode*>() << m_roughness;
+}
+
+//! Sets links to the layers above and below the interface.
+
+void LayerInterface::setLayersTopBottom(const Layer* top_layer, const Layer* bottom_layer)
+{
+    if (top_layer == nullptr || bottom_layer == nullptr)
+        throw Exceptions::RuntimeErrorException("LayerInterface::setLayersTopBottom() -> Error. "
+                                                "Attempt to set nullptr.");
+    m_topLayer = top_layer;
+    m_bottomLayer = bottom_layer;
 }

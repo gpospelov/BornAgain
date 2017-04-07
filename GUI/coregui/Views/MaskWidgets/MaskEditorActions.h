@@ -54,12 +54,12 @@ signals:
 
 public slots:
     void onItemContextMenuRequest(const QPoint &point);
+    void onDeleteMaskAction();
 
 private slots:
     void onToggleMaskValueAction();
     void onBringToFrontAction();
     void onSendToBackAction();
-    void onDeleteMaskAction();
 
 private:
     void initItemContextMenu(QMenu &menu);

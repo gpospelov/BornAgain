@@ -3,8 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/DecouplingApproximationStrategy.cpp
-//! @brief     Implements classes DecouplingApproximationStrategy1,
-//!              DecouplingApproximationStrategy2.
+//! @brief     Implements class DecouplingApproximationStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,26 +15,32 @@
 
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
-#include "FormFactorWrapper.h"
+#include "FormFactorCoherentSum.h"
 #include "IInterferenceFunction.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
 #include "SimulationElement.h"
 
+DecouplingApproximationStrategy::DecouplingApproximationStrategy(
+        SimulationOptions sim_params, bool polarized)
+    : IInterferenceFunctionStrategy(sim_params, polarized)
+{}
+
 //! Returns the total incoherent and coherent scattering intensity for given kf and
-//! for one layer (implied by the given particle form factors).
-//! For each IParticle in the layer layout, the precomputed form factor must be provided.
-double DecouplingApproximationStrategy1::evaluateForList(
-    const SimulationElement& sim_element) const
+//! for one particle layout (implied by the given particle form factors).
+//! This is the scalar version
+double DecouplingApproximationStrategy::scalarCalculation(
+        const SimulationElement& sim_element) const
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
+    auto precomputed_ff = precomputeScalar(sim_element, m_formfactor_wrappers);
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        complex_t ff = m_precomputed_ff1[i];
+        complex_t ff = precomputed_ff[i];
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
-                "DecouplingApproximationStrategy::evaluateForList() -> Error! Amplitude is NaN");
-        double fraction = m_formfactor_wrappers[i]->m_abundance;
+                "DecouplingApproximationStrategy::scalarCalculation() -> Error! Amplitude is NaN");
+        double fraction = m_formfactor_wrappers[i]->relativeAbundance();
         amplitude += fraction * ff;
         intensity += fraction * std::norm(ff);
     }
@@ -44,24 +49,21 @@ double DecouplingApproximationStrategy1::evaluateForList(
     return intensity + amplitude_norm * (itf_function - 1.0);
 }
 
-//! Returns the total incoherent and coherent scattering intensity for given kf and
-//! for one layer (implied by the given particle form factors).
-//! For each IParticle in the layer layout, the precomputed form factor must be provided.
-//! This is the polarized variant of evaluateForList. Each form factor must be
-//! precomputed for polarized beam and detector.
-double DecouplingApproximationStrategy2::evaluateForList(
-    const SimulationElement& sim_element) const
+//! This is the polarized version
+double DecouplingApproximationStrategy::polarizedCalculation(
+        const SimulationElement& sim_element) const
 {
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
+    auto precomputed_ff = precomputePolarized(sim_element, m_formfactor_wrappers);
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        Eigen::Matrix2cd ff = m_precomputed_ff2[i];
+        Eigen::Matrix2cd ff = precomputed_ff[i];
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
-                "DecouplingApproximationStrategy::evaluateForList() -> "
+                "DecouplingApproximationStrategy::polarizedCalculation() -> "
                 "Error! Form factor contains NaN or infinite");
-        double fraction = m_formfactor_wrappers[i]->m_abundance;
+        double fraction = m_formfactor_wrappers[i]->relativeAbundance();
         mean_amplitude += fraction * ff;
         mean_intensity += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
     }

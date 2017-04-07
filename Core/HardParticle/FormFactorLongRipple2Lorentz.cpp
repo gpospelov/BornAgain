@@ -15,6 +15,7 @@
 
 #include "FormFactorLongRipple2Lorentz.h"
 #include "BornAgainNamespace.h"
+#include "Box.h"
 #include "Exceptions.h"
 #include "RealParameter.h"
 
@@ -31,6 +32,7 @@ FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(
     registerParameter(BornAgain::Height, &m_height    ).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Length, &m_length    ).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit("nm");
+    onChange();
 }
 
 void FormFactorLongRipple2Lorentz::check_parameters() const
@@ -63,13 +65,13 @@ void FormFactorLongRipple2Lorentz::check_parameters() const
     throw Exceptions::ClassInitializationException(ostr.str());
 }
 
-double FormFactorLongRipple2Lorentz::getRadialExtension() const
+double FormFactorLongRipple2Lorentz::radialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }
 
 //! Complex formfactor.
-complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(cvector_t q) const
 {
     check_parameters();
 
@@ -103,4 +105,9 @@ complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const
                  / (4.0 * Hqzdqy * Hqzdqy - q.y() * q.y() * m_width * m_width);
     }
     return factor * result;
+}
+
+void FormFactorLongRipple2Lorentz::onChange()
+{
+    mP_shape.reset(new Box(m_length, m_width, m_height));
 }

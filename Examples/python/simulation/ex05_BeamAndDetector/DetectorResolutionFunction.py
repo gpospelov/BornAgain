@@ -55,7 +55,6 @@ def run_simulation():
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
-    simulation.printParameters()
     simulation.runSimulation()
     return simulation.getIntensityData()
 

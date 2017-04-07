@@ -1,6 +1,3 @@
-#ifndef TESTGUIHELPERS_H
-#define TESTGUIHELPERS_H
-
 #include <QtTest>
 #include "GUIHelpers.h"
 
@@ -31,5 +28,3 @@ inline void TestGUIHelpers::test_VersionString()
     QCOMPARE(GUIHelpers::isVersionMatchMinimal("1.4.9", min_version), false);
     QCOMPARE(GUIHelpers::isVersionMatchMinimal("0.6.9", min_version), false);
 }
-
-#endif // TESTGUIHELPERS_H

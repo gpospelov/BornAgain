@@ -17,7 +17,6 @@
 #include "MaskGraphicsView.h"
 #include "MaskGraphicsProxy.h"
 #include "MaskGraphicsScene.h"
-#include <QDebug>
 #include <QGraphicsScene>
 #include <QScrollBar>
 #include <QTransform>
@@ -76,7 +75,6 @@ void MaskGraphicsView::resizeEvent(QResizeEvent *event)
 //            proxy->resize(event->size());
 //            scene()->setSceneRect(0,0,event->size().width(),event->size().height());
 //            proxy->setPos(0,0);
-//            qDebug() << "!!! Resizing" << this->size() << event->size();
 //        }
 //    }
 }
@@ -94,6 +92,12 @@ void MaskGraphicsView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Escape:
         cancelCurrentDrawing();
         break;
+    case Qt::Key_Delete:
+        emit deleteSelectedRequest();
+        break;
+    case Qt::Key_Backspace:
+        emit deleteSelectedRequest();
+        break;
     default:
         QWidget::keyPressEvent(event);
     }
@@ -104,7 +108,7 @@ void MaskGraphicsView::keyReleaseEvent(QKeyEvent *event)
     switch (event->key()) {
     case Qt::Key_Space:
         if(!event->isAutoRepeat()) {
-            emit changeActivityRequest(MaskEditorFlags::SELECTION_MODE);
+            emit changeActivityRequest(MaskEditorFlags::PREVIOUS_MODE);
         }
         break;
     default:
@@ -158,7 +162,6 @@ void MaskGraphicsView::updateSize(const QSize &newSize)
             proxy->resize(newSize);
             scene()->setSceneRect(0, 0, newSize.width(), newSize.height());
             proxy->setPos(0,0);
-            qDebug() << "!!! Resizing" << this->size() << newSize;
         }
     }
 

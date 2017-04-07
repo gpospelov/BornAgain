@@ -31,6 +31,7 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
     setName("FitObject");
     m_fit_elements_count =
             m_simulation->getInstrument().getDetector()->numberOfSimulationElements();
+    registerChild(m_simulation.get());
     init_dataset(real_data);
 }
 
@@ -57,20 +58,9 @@ const GISASSimulation& FitObject::simulation() const
     return *m_simulation.get();
 }
 
-//! Adds parameters from local pool to external pool
-
-std::string FitObject::addParametersToExternalPool(
-    const std::string& path, ParameterPool* external_pool, int copy_number) const
+std::vector<const INode*> FitObject::getChildren() const
 {
-    // add own parameters
-    std::string new_path = IParameterized::addParametersToExternalPool(
-        path, external_pool, copy_number);
-
-    // add parameters of the simulation
-    if(m_simulation)
-        m_simulation->addParametersToExternalPool(new_path, external_pool, -1);
-
-    return new_path;
+    return std::vector<const INode*>() << m_simulation;
 }
 
 //! Initialize detector, if necessary, to match experimental data

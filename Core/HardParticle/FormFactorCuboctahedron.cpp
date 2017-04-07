@@ -14,8 +14,10 @@
 // ************************************************************************** //
 
 #include "FormFactorCuboctahedron.h"
+#include "BiPyramid.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "FormFactorPyramid.h"
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
@@ -54,6 +56,27 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(
     onChange();
 }
 
+IFormFactor* FormFactorCuboctahedron::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                      kvector_t translation) const
+{
+    auto effects = computeSlicingEffects(limits, translation, m_height*(1+m_height_ratio));
+    if (effects.dz_bottom>m_height) {
+        double dbase_edge = 2*(effects.dz_bottom-m_height)*MathFunctions::cot(m_alpha);
+        FormFactorPyramid slicedff(m_length - dbase_edge, m_height*(1+m_height_ratio)
+                                   - effects.dz_bottom - effects.dz_top, m_alpha);
+        return CreateTransformedFormFactor(slicedff, rot, effects.position);
+    } else if (effects.dz_top>m_height_ratio*m_height) {
+        double dbase_edge = 2*(m_height-effects.dz_bottom)*MathFunctions::cot(m_alpha);
+        FormFactorPyramid slicedff(m_length - dbase_edge, m_height*(1+m_height_ratio)
+                                   - effects.dz_bottom - effects.dz_top, M_PI - m_alpha);
+        return CreateTransformedFormFactor(slicedff, rot, effects.position);
+    } else {
+        FormFactorCuboctahedron slicedff(m_length, m_height - effects.dz_bottom,
+                                         m_height_ratio*m_height - effects.dz_top, m_alpha);
+        return CreateTransformedFormFactor(slicedff, rot, effects.position);
+    }
+}
+
 void FormFactorCuboctahedron::onChange()
 {
     double cot_alpha = MathFunctions::cot(m_alpha);
@@ -71,6 +94,8 @@ void FormFactorCuboctahedron::onChange()
         ostr << "Check for '2.*height <= length*tan(alpha)*min(1.,1.0/height_ratio)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new BiPyramid(m_length, m_height, m_height_ratio, m_alpha));
+
     double a = m_length/2 * (1-r);
     double b = m_length/2;
     double c = m_length/2 * (1-r*x);

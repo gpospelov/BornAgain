@@ -25,13 +25,9 @@
 #include <boost/format.hpp>
 #include <memory>
 
-//IMinimizerTest::TestParameter::TestParameter(const std::string &name,
-//                                             double real_value,
-//                                             double start_value)
-//    : m_name(name)
-//    , m_real_value(real_value)
-//    , m_start_value(start_value)
-//    , m_found_value(0.0) {}
+namespace {
+    const double default_parameter_tolerance = 0.01;
+}
 
 IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
                                const std::string& minimizer_algorithm)
@@ -39,8 +35,13 @@ IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
     , m_minimizer_algorithm(minimizer_algorithm)
     , m_simulation_name("MiniGISAS")
     , m_sample_builder_name("CylindersInBABuilder")
-    , m_parameter_tolerance(0.01)
 {
+}
+
+IMinimizerTest::~IMinimizerTest()
+{
+    for(auto par : m_parplans)
+        delete par;
 }
 
 
@@ -60,35 +61,42 @@ bool IMinimizerTest::runTest()
     fitSuite->addSimulationAndRealData(*simulation.get(), *real_data.get());
 
     // run fit
+    std::cout << fitSuite->treeToString() << std::endl;
+    std::cout << fitSuite->parametersToString() << std::endl;
+    std::cout << fitSuite->setupToString() << std::endl;
     fitSuite->runFit();
 
     std::vector<double> valuesAtMinimum = fitSuite->fitParameters()->values();
 
     // analyze results
     bool success = true;
-    for (size_t i = 0; i < m_parameters.size(); ++i) {
-        double foundValue = valuesAtMinimum[i];
-        double diff = std::abs(foundValue - m_parameters[i].m_expected_value)
-                      / m_parameters[i].m_expected_value;
-        if (diff > m_parameter_tolerance)
+    size_t index(0);
+    for(auto plan : m_parplans) {
+        double foundValue = valuesAtMinimum[index];
+        double diff = std::abs(foundValue - plan->expectedValue()) / plan->expectedValue();
+        if (diff > plan->tolerance())
             success = false;
         std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) %s\n") %
-            m_parameters[i].m_name % foundValue % diff %
-            (success ? "OK" : "FAILED");
+            ("par"+std::to_string(index)) % foundValue % diff % (success ? "OK" : "FAILED");
+        ++index;
     }
+
     return success;
 }
 
 //! Creates plan with initial/real values of fit parameters.
 
 void IMinimizerTest::initParameterPlan() {
-  m_parameters.clear();
-  m_parameters.push_back(FitParameterPlan("*Height", 4.5 * Units::nanometer,
+  m_parplans.clear();
+  m_parplans.push_back(new FitParameterPlan("*Height", 4.5 * Units::nanometer,
                                           5.0 * Units::nanometer,
                                           AttLimits::lowerLimited(0.01), 0.01));
-  m_parameters.push_back(FitParameterPlan("*Radius", 5.5 * Units::nanometer,
+  m_parplans.push_back(new FitParameterPlan("*Radius", 5.5 * Units::nanometer,
                                           5.0 * Units::nanometer,
                                           AttLimits::lowerLimited(0.01), 0.01));
+
+  for(auto plan : m_parplans)
+      plan->setTolerance(default_parameter_tolerance);
 }
 
 std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
@@ -99,10 +107,9 @@ std::unique_ptr<FitSuite> IMinimizerTest::createFitSuite()
                 m_minimizer_name, m_minimizer_algorithm);
     result->setMinimizer(minimizer);
 
-    for (size_t i = 0; i < m_parameters.size(); ++i)
-        result->addFitParameter(
-            m_parameters[i].m_name, m_parameters[i].m_start_value,
-            m_parameters[i].m_limits, m_parameters[i].m_start_value / 100.);
+    for(auto plan : m_parplans)
+        result->addFitParameter(plan->fitParameter());
+
     return result;
 }
 
@@ -110,8 +117,9 @@ std::unique_ptr<MultiLayer> IMinimizerTest::createSample()
 {
     SampleBuilderFactory builderFactory;
     std::unique_ptr<MultiLayer> result(builderFactory.createSample(m_sample_builder_name));
-    for (size_t i = 0; i < m_parameters.size(); ++i)
-        result->setParameterValue(m_parameters[i].m_name, m_parameters[i].m_expected_value);
+    for(auto plan : m_parplans)
+        for(auto pattern : plan->fitParameter().patterns())
+            result->setParameterValue(pattern, plan->expectedValue());
     return result;
 }
 

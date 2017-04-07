@@ -17,18 +17,16 @@
 #ifndef DISTRIBUTIONWIDGET_H
 #define DISTRIBUTIONWIDGET_H
 
-#include "WarningSignWidget.h"
 #include "qcustomplot.h"
 #include <QWidget>
-#include <memory>
 
 class SessionItem;
-class AwesomePropertyEditor;
 class QLabel;
 class QCustomPlot;
 class DistributionItem;
-class QCPRange;
 class QAction;
+class RealLimits;
+class WarningSign;
 
 //! The DistributionWidget class plots 1d functions corresponding to domain's Distribution1D
 class DistributionWidget : public QWidget
@@ -37,32 +35,38 @@ class DistributionWidget : public QWidget
 
 public:
     DistributionWidget(QWidget *parent = 0);
+    ~DistributionWidget();
 
     void setItem(DistributionItem *item);
     void plotItem();
-    double getWidthOfBars(double min, double max, int samples);
-    void setVerticalDashedLine(double xMin, double yMin, double xMax, double yMax);
-    int getMaxYPosition(int y);
-    void setXAxisName(QString xAxisName);
-    QPoint getPositionForWarningSign();
+    void setXAxisName(const QString& xAxisName);
 
 public slots:
     void onMouseMove(QMouseEvent *event);
     void onMousePress(QMouseEvent *event);
 
-protected:
-    void resizeEvent(QResizeEvent *event);
 private slots:
     void resetView();
 
 private:
+    void init_plot();
+    void plot_distributions();
+    void plot_single_value();
+    void plot_multiple_values();
+    void setPlotRange(const QPair<double, double>& xRange, const QPair<double, double>& yRange);
+    void plotBars(const QVector<double>& xbars, const QVector<double>& ybars);
+    void plotFunction(const QVector<double>& xFunc, const QVector<double>& ybars);
+    void plotVerticalLine(double xMin, double yMin, double xMax, double yMax,
+                          const QColor& color = Qt::blue);
+    void plotLimits(const RealLimits& limits);
+    QPoint positionForWarningSign();
+
     QCustomPlot *m_plot;
     DistributionItem *m_item;
     QLabel *m_label;
     QAction *m_resetAction;
-    QCPRange *m_xRange;
-    QCPRange *m_yRange;
-    WarningSignWidget *m_warningSign;
+    QCPRange m_xRange, m_yRange;
+    WarningSign *m_warningSign;
 };
 
 #endif // DISTRIBUTIONWIDGET_H

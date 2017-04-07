@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "GeneticMinimizer.h"
-#include "FitParameter.h"
+#include "IFitParameter.h"
 #include "MinimizerConstants.h"
 #include "Math/GeneticMinimizer.h"
 
@@ -108,7 +108,7 @@ int GeneticMinimizer::randomSeed() const
 
 //! Sets minimizer parameter. Overload is required to check that parameter is properly limited.
 
-void GeneticMinimizer::setParameter(size_t index, const FitParameter *par)
+void GeneticMinimizer::setParameter(size_t index, const IFitParameter *par)
 {
     if( !par->limits().isFixed() && !par->limits().isLimited()) {
         std::ostringstream ostr;

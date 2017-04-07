@@ -15,6 +15,7 @@
 
 #include "FormFactorEllipsoidalCylinder.h"
 #include "BornAgainNamespace.h"
+#include "DoubleEllipse.h"
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
@@ -30,14 +31,15 @@ FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(
     registerParameter(BornAgain::RadiusX, &m_radius_x).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::RadiusY, & m_radius_y).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    onChange();
 }
 
-double FormFactorEllipsoidalCylinder::getRadialExtension() const
+double FormFactorEllipsoidalCylinder::radialExtension() const
 {
     return ( m_radius_x + m_radius_y ) / 2.0;
 }
 
-complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const
 {
     complex_t qxRa = q.x()*m_radius_x;
     complex_t qyRb = q.y()*m_radius_y;
@@ -48,4 +50,18 @@ complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(const cvector_t q) const
     complex_t J1_gamma_div_gamma = MathFunctions::Bessel_J1c(gamma);
 
     return M_TWOPI *m_radius_x*m_radius_y*m_height * Fz*J1_gamma_div_gamma;
+}
+
+IFormFactor* FormFactorEllipsoidalCylinder::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                            kvector_t translation) const
+{
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    FormFactorEllipsoidalCylinder slicedff(m_radius_x, m_radius_y,
+                                           m_height - effects.dz_bottom - effects.dz_top);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
+}
+
+void FormFactorEllipsoidalCylinder::onChange()
+{
+    mP_shape.reset(new DoubleEllipse(m_radius_x, m_radius_y, m_height, m_radius_x, m_radius_y));
 }

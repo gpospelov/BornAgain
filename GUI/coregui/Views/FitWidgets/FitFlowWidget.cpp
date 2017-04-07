@@ -17,7 +17,6 @@
 #include "FitFlowWidget.h"
 #include "FitSuiteItem.h"
 #include "HistogramPlot.h"
-#include <QDebug>
 #include <QVBoxLayout>
 
 FitFlowWidget::FitFlowWidget(QWidget *parent)

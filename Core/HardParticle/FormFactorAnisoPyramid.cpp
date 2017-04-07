@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "FormFactorAnisoPyramid.h"
+#include "AnisoPyramid.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
@@ -50,6 +51,16 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     onChange();
 }
 
+IFormFactor* FormFactorAnisoPyramid::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                     kvector_t translation) const
+{
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    double dbase_edge = 2*effects.dz_bottom*MathFunctions::cot(m_alpha);
+    FormFactorAnisoPyramid slicedff(m_length - dbase_edge, m_width - dbase_edge,
+                                    m_height - effects.dz_bottom - effects.dz_top, m_alpha);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
+}
+
 void FormFactorAnisoPyramid::onChange()
 {
     double cot_alpha = MathFunctions::cot(m_alpha);
@@ -67,6 +78,7 @@ void FormFactorAnisoPyramid::onChange()
         ostr << "Check for '2*height <= (length,width)*tan(alpha)' failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    mP_shape.reset(new AnisoPyramid(m_length, m_width, m_height, m_alpha));
 
     double D = m_length/2;
     double d = m_length/2 * (1-r);

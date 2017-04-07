@@ -32,7 +32,6 @@
 #include "ParameterTreeItems.h"
 #include "RunFitManager.h"
 #include "mainwindow_constants.h"
-#include <QDebug>
 #include <QMessageBox>
 #include <QTabWidget>
 #include <QVBoxLayout>
@@ -98,14 +97,12 @@ QSize FitSuiteWidget::minimumSizeHint() const
     return QSize(25, 25);
 }
 
-void FitSuiteWidget::onError(const QString &text)
+void FitSuiteWidget::onError(const QString &)
 {
-    qDebug() << "FitSuiteWidget::onError" << text;
 }
 
 void FitSuiteWidget::onPlotsUpdate()
 {
-    qDebug() << "FitSuiteWidget::onPlotsUpdate";
     m_currentItem->intensityDataItem()->setRawDataVector(m_observer->simulationData());
     m_observer->finishedPlotting();
 }
@@ -129,7 +126,6 @@ void FitSuiteWidget::startFitting()
 {
     if(!m_currentItem)
         return;
-    qDebug() << "FitSuiteWidget::startFitting()";
 
     m_currentItem->fitSuiteItem()->mapper()->setOnPropertyChange(
                 [this](const QString &name)
@@ -139,7 +135,6 @@ void FitSuiteWidget::startFitting()
 
 
     try {
-        qDebug() << " try run fitting";
         m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(
                                     FitSuiteItem::P_UPDATE_INTERVAL).toInt());
         std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_currentItem));
@@ -147,7 +142,6 @@ void FitSuiteWidget::startFitting()
         m_runFitManager->setFitSuite(fitSuite);
         m_observer->finishedPlotting();
         m_runFitManager->runFitting();
-        qDebug() << " done";
     } catch(std::exception& e) {
         m_currentItem->setStatus(Constants::STATUS_FAILED);
         m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
@@ -160,9 +154,6 @@ void FitSuiteWidget::startFitting()
 
 void FitSuiteWidget::stopFitting()
 {
-//    if(!m_currentItem)
-//        return;
-    qDebug() << "FitSuiteWidget::stopFitting()";
     m_runFitManager->interruptFitting();
 }
 
@@ -174,7 +165,6 @@ void FitSuiteWidget::onFittingStarted()
     m_currentItem->setEndTime(QString());
     m_currentItem->setDuration(0);
 
-    qDebug() << "FitSuiteWidget::onFittingStarted()";
     emit fittingStarted(m_currentItem);
 }
 
@@ -185,7 +175,6 @@ void FitSuiteWidget::onFittingFinished()
     m_currentItem->setEndTime(GUIHelpers::currentDateTime());
     m_currentItem->setProgress(100);
     m_currentItem->setDuration(m_runFitManager->getDuration());
-    qDebug() << "FitSuiteWidget::onFittingFinished()";
     m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
     emit fittingFinished(m_currentItem);
 }

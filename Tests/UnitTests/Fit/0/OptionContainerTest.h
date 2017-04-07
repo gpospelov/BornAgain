@@ -1,6 +1,3 @@
-#ifndef OPTIONCONTAINERTEST_H
-#define OPTIONCONTAINERTEST_H
-
 #include "OptionContainer.h"
 #include "gtest/gtest.h"
 #include <exception>
@@ -129,5 +126,3 @@ TEST_F(OptionContainerTest, Assignment)
     EXPECT_EQ(1.1, test.optionValue<double>("option #2"));
     EXPECT_EQ("xxx", test.optionValue<std::string>("option #3"));
 }
-
-#endif

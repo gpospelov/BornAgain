@@ -19,7 +19,6 @@
 #include "GroupItem.h"
 #include "GroupProperty.h"
 #include "ParticleItem.h"
-#include <QDebug>
 #include <QObject>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -99,12 +98,7 @@ void ParticleView::update_appearance()
 
 void ParticleView::updatePixmap()
 {
-    GroupProperty_t group_property
-        = dynamic_cast<GroupItem *>(
-              getItem()->getItem(ParticleItem::P_FORM_FACTOR))
-              ->group();
-    QString current_ff_type = group_property->getCurrentType();
-    QString filename
-        = QString(":/widgetbox/images/ff_%1_32.png").arg(current_ff_type);
+    QString ff_type = getItem()->item<GroupItem>(ParticleItem::P_FORM_FACTOR).currentType();
+    QString filename = QString(":/widgetbox/images/ff_%1_32.png").arg(ff_type);
     m_pixmap = QPixmap(filename);
 }

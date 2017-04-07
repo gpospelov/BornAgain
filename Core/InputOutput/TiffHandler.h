@@ -23,9 +23,8 @@
 #include <tiffio.hxx>
 #include <memory>
 
-//! @class TiffHandler
+//! Reads/write tiff files, should be used through TiffReadStrategy.
 //! @ingroup input_output_internal
-//! @brief Reads/write tiff files, should be used through TiffReadStrategy
 
 class BA_CORE_API_ TiffHandler
 {
@@ -48,8 +47,8 @@ private:
     void create_output_data();
 
     TIFF* m_tiff;
-    size_t m_width;
-    size_t m_height;
+    size_t m_width, m_height;
+    uint16 m_bitsPerSample, m_samplesPerPixel, m_sampleFormat;
     std::unique_ptr<OutputData<double>> m_data;
 };
 

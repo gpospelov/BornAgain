@@ -20,48 +20,40 @@
 #include <memory>
 
 SpecularSimulation::SpecularSimulation()
-    : IParameterized("SpecularSimulation"), mP_sample { nullptr }, m_alpha_i_axis(0), m_z_axis(0),
-      m_lambda(0.0)
+    : IParameterized("SpecularSimulation")
 {
     init_parameters();
 }
 
 SpecularSimulation::SpecularSimulation(const ISample &sample)
-    : IParameterized("SpecularSimulation"), mP_sample(sample.clone()), m_alpha_i_axis(0),
-      m_z_axis(0), m_lambda(0.0)
+    : IParameterized("SpecularSimulation")
+    , mP_sample(sample.clone())
 {
     init_parameters();
 }
 
 SpecularSimulation::SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder)
-    : IParameterized("SpecularSimulation"), mP_sample { nullptr },
-      mP_sample_builder(sample_builder),
-      m_alpha_i_axis(0), m_z_axis(0), m_lambda(0.0)
+    : IParameterized("SpecularSimulation")
+    , mP_sample_builder(sample_builder)
 {
     init_parameters();
 }
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation &other)
-    : ICloneable(), IParameterized(other), mP_sample { nullptr },
-      mP_sample_builder(other.mP_sample_builder),
-      m_alpha_i_axis(0), m_z_axis(0), m_lambda(other.m_lambda)
+    : IParameterized(other)
+    , mP_sample_builder(other.mP_sample_builder)
+    , m_lambda(other.m_lambda)
 {
     if (other.mP_sample.get())
         mP_sample.reset( other.mP_sample->clone() );
-    if (other.m_alpha_i_axis)
-        m_alpha_i_axis = other.m_alpha_i_axis->clone();
-    if (other.m_z_axis)
-        m_z_axis = other.m_z_axis->clone();
+    if (other.mP_alpha_i_axis)
+        mP_alpha_i_axis.reset(other.mP_alpha_i_axis->clone());
     m_data.copyFrom(other.m_data);
-    m_ewave_intensity.copyFrom(other.m_ewave_intensity);
     init_parameters();
 }
 
 SpecularSimulation::~SpecularSimulation()
-{
-    delete m_alpha_i_axis;
-    delete m_z_axis;
-}
+{}
 
 SpecularSimulation *SpecularSimulation::clone() const
 {
@@ -77,7 +69,7 @@ void SpecularSimulation::setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sa
 {
     if (!sample_builder)
         throw Exceptions::NullPointerException("SpecularSimulation::setSampleBuilder() -> "
-                                   "Error! Attempt to set null sample builder.");
+                                               "Error! Attempt to set null sample builder.");
 
     mP_sample_builder = sample_builder;
     mP_sample.reset(nullptr);
@@ -87,7 +79,7 @@ void SpecularSimulation::prepareSimulation()
 {
     updateSample();
 
-    if (!m_alpha_i_axis || m_alpha_i_axis->size() < 1)
+    if (!mP_alpha_i_axis || mP_alpha_i_axis->size() < 1)
         throw Exceptions::ClassInitializationException("SpecularSimulation::checkSimulation() "
                                            "-> Error. Incoming alpha range not configured.");
     if (m_lambda <= 0.0)
@@ -113,14 +105,12 @@ void SpecularSimulation::runSimulation()
         collectRTCoefficientsMatrix(multilayer);
     } else {
         collectRTCoefficientsScalar(multilayer);
-        //        calculateEvanescentWaveIntensity();
     }
 }
 
 void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis)
 {
-    delete m_alpha_i_axis;
-    m_alpha_i_axis = alpha_axis.clone();
+    mP_alpha_i_axis.reset(alpha_axis.clone());
     m_lambda = lambda;
 }
 
@@ -131,21 +121,9 @@ void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alph
     setBeamParameters(lambda, axis);
 }
 
-void SpecularSimulation::setEvanescentWaveAxis(const IAxis &z_axis)
-{
-    delete m_z_axis;
-    m_z_axis = z_axis.clone();
-}
-
-void SpecularSimulation::setEvanescentWaveAxis(int nbins, double z_min, double z_max)
-{
-    FixedBinAxis axis("z_axis", nbins, z_min, z_max);
-    setEvanescentWaveAxis(axis);
-}
-
 const IAxis *SpecularSimulation::getAlphaAxis() const
 {
-    return m_alpha_i_axis;
+    return mP_alpha_i_axis.get();
 }
 
 std::vector<complex_t> SpecularSimulation::getScalarR(size_t i_layer) const
@@ -213,7 +191,7 @@ void SpecularSimulation::collectRTCoefficientsScalar(const MultiLayer *multilaye
         double alpha_i = m_data.getAxisValue(it.getIndex(), 0);
         kvector_t kvec = vecOfLambdaAlphaPhi(m_lambda, -alpha_i, 0.0);
 
-        SpecularMatrix::MultiLayerCoeff_t coeffs;
+        std::vector<ScalarRTCoefficients> coeffs;
         SpecularMatrix::execute(*multilayer, kvec, coeffs);
 
         MultiLayerRTCoefficients_t ml_coeffs;
@@ -254,11 +232,5 @@ void SpecularSimulation::checkCoefficients(size_t i_layer) const
 void SpecularSimulation::updateCoefficientDataAxes()
 {
     m_data.clear();
-    m_data.addAxis(*m_alpha_i_axis);
-
-    if (m_z_axis) {
-        m_ewave_intensity.clear();
-        m_ewave_intensity.addAxis(*m_alpha_i_axis);
-        m_ewave_intensity.addAxis(*m_z_axis);
-    }
+    m_data.addAxis(*mP_alpha_i_axis);
 }

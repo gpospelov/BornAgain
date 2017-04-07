@@ -1,6 +1,3 @@
-#ifndef TESTMATERIALMODEL_H
-#define TESTMATERIALMODEL_H
-
 #include "MaterialModel.h"
 #include "MaterialItem.h"
 #include "RefractiveIndexItem.h"
@@ -67,5 +64,3 @@ inline void TestMaterialModel::test_cloneMaterial()
 
 
 }
-
-#endif // TESTMATERIALMODEL_H

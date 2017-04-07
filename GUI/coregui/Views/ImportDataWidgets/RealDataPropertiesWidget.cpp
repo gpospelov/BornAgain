@@ -24,7 +24,6 @@
 #include <QComboBox>
 #include <QDataWidgetMapper>
 #include <QLabel>
-#include <QDebug>
 
 namespace {
 const QString instrumentNameTooltip = "Name of real data";
@@ -34,7 +33,7 @@ const QString selectorTooltip = "Select instrument to link with real data";
 RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget *parent)
     : QWidget(parent)
     , m_linkManager(new LinkInstrumentManager(this))
-    , m_dataNameMapper(new QDataWidgetMapper)
+    , m_dataNameMapper(new QDataWidgetMapper(this))
     , m_dataNameLabel(new QLabel("Dataset"))
     , m_dataNameEdit(new QLineEdit)
     , m_instrumentLabel(new QLabel("Linked instrument"))

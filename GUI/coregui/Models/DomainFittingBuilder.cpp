@@ -13,6 +13,7 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
+
 #include "DomainFittingBuilder.h"
 #include "DomainSimulationBuilder.h"
 #include "FitParameterItems.h"
@@ -24,15 +25,12 @@
 #include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "MinimizerItem.h"
-#include "ModelPath.h"
-#include "MultiLayerItem.h"
 #include "RealDataItem.h"
-
-// FIXME make unique_ptr all along
+#include "FitParameter.h"
 
 std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
 {
-    std::shared_ptr<FitSuite> result(new FitSuite());
+    std::shared_ptr<FitSuite> result(new FitSuite);
 
     FitSuiteItem *fitSuiteItem = jobItem->fitSuiteItem();
     Q_ASSERT(fitSuiteItem);
@@ -43,15 +41,8 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
     Q_ASSERT(container);
 
     foreach(FitParameterItem *parItem, container->fitParameterItems()) {
-        double value = parItem->getItemValue(FitParameterItem::P_START_VALUE).toDouble();
-        foreach(SessionItem *linkItem, parItem->getItems(FitParameterItem::T_LINK)) {
-            QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
-            std::string domainPath = "*" + ModelPath::translateParameterName(jobItem, link);
-            linkItem->setItemValue(FitParameterLinkItem::P_DOMAIN, QString::fromStdString(domainPath));
-            result->addFitParameter(domainPath, value, parItem->getAttLimits());
-            //FIXME only one link is possible at the time due to limitations in FitCore
-            break;
-        }
+        if(auto fitPar = parItem->createFitParameter())
+            result->addFitParameter(*fitPar);
     }
 
     DomainSimulationBuilder builder;

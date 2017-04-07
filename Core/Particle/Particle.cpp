@@ -16,30 +16,30 @@
 #include "Particle.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
-#include "Materials.h"
+#include "HomogeneousMaterial.h"
 
 Particle::Particle()
 {
     initialize();
 }
 
-Particle::Particle(const IMaterial& p_material)
-    : mP_material(p_material.clone())
+Particle::Particle(HomogeneousMaterial material)
+    : m_material(material)
 {
     initialize();
 }
 
-Particle::Particle(const IMaterial& p_material, const IFormFactor& form_factor)
-    : mP_material(p_material.clone())
+Particle::Particle(HomogeneousMaterial material, const IFormFactor& form_factor)
+    : m_material(material)
     , mP_form_factor(form_factor.clone())
 {
     initialize();
     registerChild(mP_form_factor.get());
 }
 
-Particle::Particle(const IMaterial& p_material, const IFormFactor& form_factor,
+Particle::Particle(HomogeneousMaterial material, const IFormFactor& form_factor,
                    const IRotation& rotation)
-    : mP_material(p_material.clone())
+    : m_material(material)
     , mP_form_factor(form_factor.clone())
 {
     initialize();
@@ -49,14 +49,10 @@ Particle::Particle(const IMaterial& p_material, const IFormFactor& form_factor,
 
 Particle* Particle::clone() const
 {
-    Particle* p_result = new Particle();
+    Particle* p_result = new Particle(m_material);
     p_result->setAbundance(m_abundance);
     if (mP_form_factor)
         p_result->setFormFactor(*mP_form_factor);
-    if (mP_material)
-        p_result->setMaterial(*mP_material);
-    if (mP_ambient_material)
-        p_result->setAmbientMaterial(*mP_ambient_material);
     if (mP_rotation)
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
@@ -64,95 +60,51 @@ Particle* Particle::clone() const
     return p_result;
 }
 
-Particle* Particle::cloneInvertB() const
-{
-    Particle* p_result = new Particle();
-    p_result->setAbundance(m_abundance);
-    if (mP_form_factor)
-        p_result->setFormFactor(*mP_form_factor);
-    if (mP_material)
-        p_result->mP_material.reset(Materials::createInvertedMaterial(mP_material.get()));
-    if (mP_ambient_material)
-        p_result->mP_ambient_material.reset(
-            Materials::createInvertedMaterial(mP_ambient_material.get()));
-    if (mP_rotation)
-        p_result->setRotation(*mP_rotation);
-    p_result->setPosition(m_position);
-
-    return p_result;
-}
-
-std::string Particle::to_str(int indent) const
-{
-    std::stringstream ss;
-    ss << std::string(4*indent, '.') << " " << getName() << " "
-       << (getMaterial() ? getMaterial()->getName() : "0_MATERIAL") << " "
-       << getRefractiveIndex() << "\n";
-    for( const ISample* child: getChildren() )
-        ss << child->to_str(indent+1);
-    return ss.str();
-}
-
-void Particle::setAmbientMaterial(const IMaterial& material)
-{
-    if(mP_ambient_material.get() != &material)
-        mP_ambient_material.reset(material.clone());
-}
-
-IFormFactor* Particle::createTransformedFormFactor(const IRotation* p_rotation,
-                                                   kvector_t translation) const
+SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
 {
     if (!mP_form_factor)
-        return nullptr;
-    const std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
-    kvector_t total_position = getComposedTranslation(p_rotation, translation);
-    std::unique_ptr<IFormFactor> P_temp_ff1;
-    if (P_total_rotation)
-        P_temp_ff1.reset(new FormFactorDecoratorRotation(*mP_form_factor, *P_total_rotation));
-    else
-        P_temp_ff1.reset(mP_form_factor->clone());
-    std::unique_ptr<IFormFactor> P_temp_ff2;
-    if (total_position != kvector_t())
-        P_temp_ff2.reset(new FormFactorDecoratorPositionFactor(*P_temp_ff1, total_position));
-    else
-        P_temp_ff2.swap(P_temp_ff1);
-    FormFactorDecoratorMaterial* p_ff = new FormFactorDecoratorMaterial(*P_temp_ff2);
-    if (mP_material) {
-        if (mP_rotation) {
-            const std::unique_ptr<const IMaterial> P_transformed_material(
-                mP_material->createTransformedMaterial(P_total_rotation->getTransform3D()));
-            p_ff->setMaterial(*P_transformed_material);
-        } else
-            p_ff->setMaterial(*mP_material);
-    }
-    if (mP_ambient_material)
-        p_ff->setAmbientMaterial(*mP_ambient_material);
-    return p_ff;
+        return {};
+    std::unique_ptr<IRotation> P_rotation(IRotation::createIdentity());
+    if (mP_rotation)
+        P_rotation.reset(mP_rotation->clone());
+    std::unique_ptr<IFormFactor> P_temp_ff(
+                mP_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
+    std::unique_ptr<FormFactorDecoratorMaterial> P_ff(new FormFactorDecoratorMaterial(*P_temp_ff));
+    double volume = P_temp_ff->volume();
+    HomogeneousMaterial transformed_material(
+                m_material.transformedMaterial(P_rotation->getTransform3D()));
+    P_ff->setMaterial(transformed_material);
+    SlicedParticle result;
+    result.m_regions.push_back( { volume, transformed_material } );
+    result.mP_slicedff = std::move(P_ff);
+    return result;
 }
 
-void Particle::setMaterial(const IMaterial& material)
+void Particle::setMaterial(HomogeneousMaterial material)
 {
-    if(mP_material.get() != &material)
-        mP_material.reset(material.clone());
+    m_material = std::move(material);
 }
 
-complex_t Particle::getRefractiveIndex() const
+complex_t Particle::refractiveIndex() const
 {
-    return mP_material ? mP_material->getRefractiveIndex() : 0.0;
+    return m_material.refractiveIndex();
 }
 
 void Particle::setFormFactor(const IFormFactor& form_factor)
 {
     if (&form_factor != mP_form_factor.get()) {
-        if (mP_form_factor)
-            deregisterChild(mP_form_factor.get());
         mP_form_factor.reset(form_factor.clone());
         registerChild(mP_form_factor.get());
     }
 }
 
+std::vector<const INode*> Particle::getChildren() const
+{
+    return std::vector<const INode*>() << IParticle::getChildren() << mP_form_factor;
+}
+
 void Particle::initialize()
 {
     setName(BornAgain::ParticleType);
-    registerPosition();
+    registerParticleProperties();
 }

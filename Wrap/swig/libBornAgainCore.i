@@ -38,8 +38,9 @@
 %include "directors.i"
 
 %template(vdouble1d_t) std::vector<double>;
-%template(vdouble2d_t) std::vector< std::vector<double>>;
+%template(vdouble2d_t) std::vector<std::vector<double>>;
 %template(vector_integer_t) std::vector<int>;
+%template(vinteger2d_t) std::vector<std::vector<int>>;
 %template(vector_longinteger_t) std::vector<unsigned long int>;
 %template(vector_complex_t) std::vector< std::complex<double>>;
 %template(vector_string_t) std::vector<std::string>;
@@ -86,7 +87,7 @@
 #include "FTDistributions2D.h"
 #include "FitObject.h"
 #include "FitOptions.h"
-#include "FitParameterLinked.h"
+#include "FitParameter.h"
 #include "FitSuite.h"
 #include "FitSuiteImpl.h"
 #include "FitSuiteObjects.h"
@@ -133,12 +134,10 @@
 #include "GISASSimulation.h"
 #include "Histogram1D.h"
 #include "Histogram2D.h"
-#include "HomogeneousMagneticMaterial.h"
 #include "HomogeneousMaterial.h"
 #include "IAbstractParticle.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
-#include "ICompositeSample.h"
 #include "IDetector2D.h"
 #include "IDetectorResolution.h"
 #include "IFitObserver.h"
@@ -148,8 +147,8 @@
 #include "IIntensityFunction.h"
 #include "IInterferenceFunction.h"
 #include "ILayout.h"
-#include "IMaterial.h"
 #include "INamed.h"
+#include "INode.h"
 #include "INoncopyable.h"
 #include "IObserver.h"
 #include "IParameterized.h"
@@ -157,7 +156,7 @@
 #include "IResolutionFunction2D.h"
 #include "ISample.h"
 #include "IMultiLayerBuilder.h"
-#include "ISampleVisitor.h"
+#include "INodeVisitor.h"
 #include "ISelectionRule.h"
 #include "IShape2D.h"
 #include "ISingleton.h"
@@ -177,12 +176,11 @@
 #include "IsGISAXSDetector.h"
 #include "Lattice.h"
 #include "Lattice1DParameters.h"
-#include "Lattice2DParameters.h"
+#include "Lattice2D.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "Line.h"
-#include "Logger.h"
 #include "MathFunctions.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
@@ -190,6 +188,7 @@
 #include "OutputData.h"
 #include "ParameterDistribution.h"
 #include "ParameterPool.h"
+#include "ParameterSample.h"
 #include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleCoreShell.h"
@@ -206,6 +205,7 @@
 #include "Simulation.h"
 #include "SimulationFactory.h"
 #include "SimulationOptions.h"
+#include "SlicedParticle.h"
 #include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "ThreadInfo.h"
@@ -244,7 +244,6 @@
 %import(module="libBornAgainFit") "Attributes.h"
 %import(module="libBornAgainFit") "RealLimits.h"
 %import(module="libBornAgainFit") "IFitParameter.h"
-%import(module="libBornAgainFit") "FitParameter.h"
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"
@@ -252,6 +251,11 @@
 %include "ICloneable.h"
 %include "INamed.h"
 %include "IParameterized.h"
+%include "INode.h"
+
+// need to tell SWIG explicitly to instantiate these templates with given types
+%template(swig_dummy_type_inode_vector) std::vector<INode*>;
+%template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
 
 // SWIG does not automatically instantiate templates, so we declare these by hand
 %template(kvector_t) BasicVector3D<double>;
@@ -274,11 +278,6 @@
 
 %include "IShape2D.h"
 %include "ISample.h"
-
-// need to tell SWIG explicitly to instantiate these templates with given types
-%template(swig_dummy_type_isample_vector) std::vector<ISample*>;
-%template(swig_dummy_type_const_isample_vector) std::vector<const ISample*>;
-
 %include "IChiSquaredModule.h"
 %include "IObserver.h"
 %include "IFitObserver.h"
@@ -289,15 +288,14 @@
 %include "ChiSquaredModule.h"
 %include "FitObject.h"
 %include "FitOptions.h"
-%include "FitParameterLinked.h"
+%include "FitParameter.h"
 %include "FitSuite.h"
 %include "FitSuiteObjects.h"
 %include "MathFunctions.h"
 %include "AdjustMinimizerStrategy.h"
 %include "IFactory.h"
 %include "IMultiLayerBuilder.h"
-%include "ISampleVisitor.h"
-%include "ICompositeSample.h"
+%include "INodeVisitor.h"
 %include "IClusteredParticles.h"
 %include "Crystal.h"
 %include "Distributions.h"
@@ -357,9 +355,7 @@
 %include "IHistogram.h"
 %include "Histogram1D.h"
 %include "Histogram2D.h"
-%include "IMaterial.h"
 %include "HomogeneousMaterial.h"
-%include "HomogeneousMagneticMaterial.h"
 %include "IDetector2D.h"
 %include "IDetectorResolution.h"
 %include "Distributions.h"
@@ -387,19 +383,17 @@
 %include "InterferenceFunction2DLattice.h"
 %include "InterferenceFunction2DParaCrystal.h"
 %include "InterferenceFunctionNone.h"
-%include "IPixelMap.h"
+%include "IPixel.h"
 %include "SphericalDetector.h"
 %include "IsGISAXSDetector.h"
 %include "Lattice.h"
 %include "Lattice1DParameters.h"
-%include "Lattice2DParameters.h"
+%include "Lattice2D.h"
 %include "Layer.h"
-%include "IRoughness.h"
 %include "LayerRoughness.h"
 %include "Line.h"
 %include "MathFunctions.h"
 %include "MesoCrystal.h"
-%include "Logger.h"
 %include "MultiLayer.h"
 %include "OffSpecSimulation.h"
 %include "IIntensityFunction.h"
@@ -407,6 +401,8 @@
 %template(IntensityData) OutputData<double>;
 %include "ParameterDistribution.h"
 %include "ParameterPool.h"
+%include "ParameterSample.h"
+%template(ParameterSampleVector) std::vector<ParameterSample>;
 %include "Particle.h"
 %include "ParticleComposition.h"
 %include "ParticleCoreShell.h"

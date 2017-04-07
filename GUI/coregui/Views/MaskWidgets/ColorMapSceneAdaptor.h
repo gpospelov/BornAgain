@@ -34,15 +34,15 @@ public:
     qreal fromSceneX(qreal scene_x) const;
     qreal fromSceneY(qreal scene_y) const;
 
-    void setColorMapPlot(ColorMap *plot);
+    void setColorMapPlot(ColorMap* plot);
 
-    bool eventFilter(QObject *object, QEvent *event);
+    bool eventFilter(QObject* object, QEvent* event);
 
     //! returns ColorMapPlot axes rectangle (at current zoom level) in scene coordinates
-    const QRectF& getViewportRectangle() const;
+    const QRectF& viewportRectangle() const;
 
 private:
-    ColorMap *m_plot;
+    ColorMap* m_plot;
 };
 
 #endif // COLORMAPSCENEADAPTOR_H

@@ -37,11 +37,13 @@ public:
 
     GISASSimulation* clone() const { return new GISASSimulation(*this); }
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
     //! Put into a clean state for running a simulation
     void prepareSimulation() final;
 
     //! Gets the number of elements this simulation needs to calculate
-    int numberOfSimulationElements() const final;
+    size_t numberOfSimulationElements() const final;
 
     //! Returns clone of the detector intensity map with detector resolution applied
     OutputData<double>* getDetectorIntensity(
@@ -74,14 +76,10 @@ public:
     //! has priority.
     //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
     //! @param mask_value The value of mask
-    void addMask(const Geometry::IShape2D& shape, bool mask_value = true);
+    void addMask(const IShape2D& shape, bool mask_value = true);
 
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
     void maskAll();
-
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const final;
 
     //! Sets rectangular region of interest with lower left and upper right corners defined.
     void setRegionOfInterest(double xlow, double ylow, double xup, double yup);

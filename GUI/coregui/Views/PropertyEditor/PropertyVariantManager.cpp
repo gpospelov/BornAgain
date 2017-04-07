@@ -17,7 +17,6 @@
 #include "PropertyVariantManager.h"
 #include "DesignerHelper.h"
 #include "SessionItem.h"
-#include <QDebug>
 
 PropertyVariantManager::PropertyVariantManager(QObject *parent)
     : QtVariantPropertyManager(parent)
@@ -132,7 +131,7 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
         return m_theScientificDoubleValues[property].getText();
     }
     if (m_theFancyGroupValues.contains(property)) {
-        return m_theFancyGroupValues[property]->getCurrentLabel();
+        return m_theFancyGroupValues[property]->currentLabel();
     }
     if (m_theComboValues.contains(property)) {
         return m_theComboValues[property].getValue();
@@ -155,7 +154,6 @@ QIcon PropertyVariantManager::valueIcon(const QtProperty *property) const
 
 void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
 {
-//    qDebug() << "PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)";
     if (m_theMaterialValues.contains(property)) {
         if( val.userType() != materialTypeId() ) return;
         MaterialProperty mat = val.value<MaterialProperty>();
@@ -213,7 +211,6 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
 
 void PropertyVariantManager::initializeProperty(QtProperty *property)
 {
-//    qDebug() << "PropertyVariantManager::initializeProperty(QtProperty *property)";
     if (propertyType(property) == materialTypeId()) {
         MaterialProperty m;
         m_theMaterialValues[property] = m;

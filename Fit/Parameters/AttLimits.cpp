@@ -20,9 +20,12 @@
 AttLimits::AttLimits()
     : m_limits(RealLimits::limitless())
     , m_att_fixed(Attributes::free())
-{
+{}
 
-}
+AttLimits::AttLimits(const RealLimits &limits, const Attributes &fixedAttr)
+    : m_limits(limits)
+    , m_att_fixed(fixedAttr)
+{}
 
 AttLimits AttLimits::limitless()
 {
@@ -114,19 +117,12 @@ std::string AttLimits::toString() const
     }else if(isLimitless()) {
         result << "free";
     } else if(isLowerLimited()) {
-        result << "lim("  << std::fixed <<std::setprecision(2) << lowerLimit() << ",)";
+        result << "lowerLimited("  << std::fixed <<std::setprecision(2) << lowerLimit() << ")";
     }else if(isUpperLimited()) {
-        result << "lim(," << std::fixed <<std::setprecision(2) << upperLimit() << ",)";
+        result << "upperLimited(" << std::fixed <<std::setprecision(2) << upperLimit() << ")";
     }else if(isLimited()) {
-        result << "lim(" << std::fixed <<std::setprecision(2) << lowerLimit() << "," <<
+        result << "limited(" << std::fixed <<std::setprecision(2) << lowerLimit() << "," <<
             std::fixed <<std::setprecision(2) << upperLimit() << ")";
     }
     return result.str();
-}
-
-AttLimits::AttLimits(const RealLimits &limits, const Attributes &fixedAttr)
-    : m_limits(limits)
-    , m_att_fixed(fixedAttr)
-{
-
 }

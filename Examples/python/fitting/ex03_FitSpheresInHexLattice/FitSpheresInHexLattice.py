@@ -1,5 +1,7 @@
 """
 Two parameter fit of spheres in a hex lattice.
+See FitSpheresInHexLattice_builder.py example which performs same fitting task
+using advanced sample construction techniques.
 """
 
 from matplotlib import pyplot as plt
@@ -27,7 +29,7 @@ def get_sample(radius=5*nm, lattice_constant=10*nm):
     pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm)
     interference.setDecayFunction(pdf)
 
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     air_layer = ba.Layer(m_air)
     air_layer.addLayout(particle_layout)
@@ -79,8 +81,9 @@ def run_fitting():
     """
     simulation = get_simulation()
     sample = get_sample()
-    sample.printParameters()
     simulation.setSample(sample)
+    print(simulation.treeToString())
+    print(simulation.parametersToString())
 
     real_data = create_real_data()
 
@@ -92,9 +95,8 @@ def run_fitting():
     draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)
 
-    # this fit parameter will change both length_1 and length_2 simultaneously
     fit_suite.addFitParameter(
-        "*2DLattice/LatticeLength*", 8.*nm, ba.AttLimits.limited(4., 12.))
+        "*HexagonalLattice/LatticeLength", 8.*nm, ba.AttLimits.limited(4., 12.))
     fit_suite.addFitParameter(
         "*/FullSphere/Radius", 8.*nm, ba.AttLimits.limited(4., 12.))
 

@@ -22,13 +22,19 @@
 
 class BA_CORE_API_ GroupItem : public SessionItem
 {
-
 public:
     static const QString T_ITEMS;
     GroupItem();
-    void setGroup(GroupProperty_t group);
-    GroupProperty_t group() const;
-    SessionItem *currentItem();
+
+    void setGroup(GroupProperty_t groupProperty);
+    GroupProperty_t groupProperty() const;
+    SessionItem* currentItem() const;
+
+    QString currentType() const;
+
+    SessionItem* setCurrentType(const QString& modelType);
+
+    QStringList translateList(const QStringList& list) const;
 };
 
 #endif // GROUPITEM_H

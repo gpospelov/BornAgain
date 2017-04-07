@@ -19,7 +19,7 @@
 #include "WavevectorInfo.h"
 
 FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
-    : mp_form_factor(form_factor.clone())
+    : mP_form_factor(form_factor.clone())
     , mp_in_coeffs(0)
     , mp_out_coeffs(0)
 {
@@ -31,7 +31,7 @@ FormFactorDWBA::~FormFactorDWBA()
 
 FormFactorDWBA* FormFactorDWBA::clone() const
 {
-    FormFactorDWBA* result = new FormFactorDWBA(*mp_form_factor);
+    FormFactorDWBA* result = new FormFactorDWBA(*mP_form_factor);
     result->setSpecularInfo(mp_in_coeffs, mp_out_coeffs);
     return result;
 }
@@ -65,12 +65,22 @@ complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
 
     // The four different scattering contributions; S stands for scattering
     // off the particle, R for reflection off the layer interface
-    complex_t term_S   = T_in * mp_form_factor->evaluate(k_TT) * T_out;
-    complex_t term_RS  = R_in * mp_form_factor->evaluate(k_RT) * T_out;
-    complex_t term_SR  = T_in * mp_form_factor->evaluate(k_TR) * R_out;
-    complex_t term_RSR = R_in * mp_form_factor->evaluate(k_RR) * R_out;
+    complex_t term_S   = T_in * mP_form_factor->evaluate(k_TT) * T_out;
+    complex_t term_RS  = R_in * mP_form_factor->evaluate(k_RT) * T_out;
+    complex_t term_SR  = T_in * mP_form_factor->evaluate(k_TR) * R_out;
+    complex_t term_RSR = R_in * mP_form_factor->evaluate(k_RR) * R_out;
 
     return term_S + term_RS + term_SR + term_RSR;
+}
+
+double FormFactorDWBA::bottomZ(const IRotation& rotation) const
+{
+    return mP_form_factor->bottomZ(rotation);
+}
+
+double FormFactorDWBA::topZ(const IRotation& rotation) const
+{
+    return mP_form_factor->topZ(rotation);
 }
 
 void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients* p_in_coeffs,

@@ -33,27 +33,23 @@ class BA_CORE_API_ ColorMapLabel : public StatusLabel
 {
     Q_OBJECT
 public:
-    ColorMapLabel(ColorMap *colorMap, QWidget *parent = 0);
+    ColorMapLabel(ColorMap* colorMap, QWidget* parent = 0);
 
-    void addColorMap(ColorMap *colorMap);
-    void addColorMap(ColorMapCanvas *colorMapCanvas);
+    void addColorMap(ColorMap* colorMap);
+    void addColorMap(ColorMapCanvas* colorMapCanvas);
 
     void setLabelEnabled(bool flag);
 
     void reset();
 
 public slots:
-    void onColorMapStatusString(const QString &text);
-
-//protected:
-//    void resizeEvent(QResizeEvent *event);
+    void onColorMapStatusString(const QString& text);
 
 private:
-    void setColorMapLabelEnabled(ColorMap *colorMap, bool flag);
-    void setConnected(ColorMap *colorMap, bool flag);
+    void setColorMapLabelEnabled(ColorMap* colorMap, bool flag);
+    void setConnected(ColorMap* colorMap, bool flag);
 
-    QList<ColorMap *> m_colorMaps;
+    QList<ColorMap*> m_colorMaps;
 };
 
 #endif // COLORMAPLABEL_H
-

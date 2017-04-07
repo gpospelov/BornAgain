@@ -25,12 +25,13 @@ def get_sample():
 
     # collection of particles with size distribution
     nparticles = 100
-    nfwhm = 2.0
     sigma = 0.2*radius
 
     gauss_distr = ba.DistributionGaussian(radius, sigma)
+
+    sigma_factor = 2.0
     par_distr = ba.ParameterDistribution(
-        "/Particle/Cylinder/Radius", gauss_distr, nparticles, nfwhm)
+        "/Particle/Cylinder/Radius", gauss_distr, nparticles, sigma_factor)
     # by uncommenting the line below, the height of the cylinders
     #   can be scaled proportionally to the radius:
     # par_distr.linkParameter("/Particle/Cylinder/Height")
@@ -63,7 +64,7 @@ def run_simulation():
     Runs simulation and returns intensity map.
     """
     sample = get_sample()
-    print( sample.to_str() ) # print tree structure of sample
+    print(sample.treeToString())
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()

@@ -16,11 +16,12 @@
 #ifndef IABSTRACTPARTICLE_H
 #define IABSTRACTPARTICLE_H
 
-#include "ICompositeSample.h"
+#include "ISample.h"
 #include "Vectors3D.h"
+#include "BornAgainNamespace.h"
 #include <memory>
 
-class IMaterial;
+class HomogeneousMaterial;
 
 //! Interface for a generic particle.
 //!
@@ -28,24 +29,21 @@ class IMaterial;
 
 //! @ingroup samples
 
-class BA_CORE_API_ IAbstractParticle : public ICompositeSample
+class BA_CORE_API_ IAbstractParticle : public ISample
 {
 public:
     IAbstractParticle() : m_abundance(1.0) {}
     virtual ~IAbstractParticle() {}
 
     virtual IAbstractParticle* clone() const =0;
-    virtual IAbstractParticle* cloneInvertB() const =0;
 
-    virtual void accept(ISampleVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
-    //! Sets the refractive index of the ambient material (which influences its scattering power)
-    virtual void setAmbientMaterial(const IMaterial&) =0;
-
-    double getAbundance() const { return m_abundance; }
+    double abundance() const { return m_abundance; }
     void setAbundance(double abundance) { m_abundance = abundance; }
 
-    virtual const IMaterial* getAmbientMaterial() const =0;
+    //! Applies a translation in the z-direction
+    virtual void translateZ(double offset) =0;
 
 protected:
     double m_abundance;

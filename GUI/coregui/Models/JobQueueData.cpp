@@ -21,7 +21,6 @@
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobWorker.h"
-#include <QDebug>
 #include <QThread>
 
 JobQueueData::JobQueueData(JobModel *jobModel)
@@ -73,10 +72,8 @@ bool JobQueueData::hasUnfinishedJobs()
 void JobQueueData::runJob(JobItem *jobItem)
 {
     QString identifier = jobItem->getIdentifier();
-    if(getThread(identifier)) {
-        qDebug() << "JobQueueData::runInThread() -> Thread is already running";
+    if(getThread(identifier))
         return;
-    }
 
     if(getSimulation(identifier))
         throw GUIHelpers::Error("JobQueueData::runJob() -> Error. Simulation is already existing.");
@@ -276,14 +273,14 @@ void JobQueueData::processFinishedJob(JobWorker *runner, JobItem *jobItem)
     jobItem->setDuration(runner->getSimulationDuration());
 
     // propagating status of runner
-    jobItem->setStatus(runner->getStatus());
-    if(jobItem->isFailed()) {
+    if(runner->getStatus() == Constants::STATUS_FAILED) {
         jobItem->setComments(runner->getFailureMessage());
     } else {
         // propagating simulation results
         GISASSimulation *simulation = getSimulation(runner->getIdentifier());
         jobItem->setResults(simulation);
     }
+    jobItem->setStatus(runner->getStatus());
 
     // fixing job progress (if job was successfull, but due to wrong estimation, progress not 100%)
     if(jobItem->isCompleted())

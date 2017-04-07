@@ -1,22 +1,11 @@
 
 // fix SWIG warning 509, certain C++ overloads create ambiguities in Python
-%ignore ParticleLayout::addInterferenceFunction(IInterferenceFunction*);
-%ignore ParticleLayout::addInterferenceFunction(const IInterferenceFunction*);
+%ignore ParticleLayout::setInterferenceFunction(IInterferenceFunction*);
+%ignore ParticleLayout::setInterferenceFunction(const IInterferenceFunction*);
 %ignore MesoCrystal::MesoCrystal(IClusteredParticles*, IFormFactor*);
 %ignore MesoCrystal::MesoCrystal(const IClusteredParticles*, const IFormFactor*);
 %ignore Instrument::setDetectorResolutionFunction(IResolutionFunction2D*);
 %ignore Instrument::setDetectorResolutionFunction(const IResolutionFunction2D*);
-
-
-// used to return numpy array
-/*
-%ignore Histogram1D::getBinCenters() const;
-%ignore Histogram1D::getBinValues() const;
-%ignore Histogram1D::getBinErrors() const;
-*/
-// need to fix SWIG error, PI2 multiply defined
-%ignore Units::PI2;
-
 
 // problems with BasicVector3D.h
 %ignore BasicVector3D<std::complex<double>>::complex() const;
@@ -66,4 +55,6 @@
 %ignore DecoratedLayerComputation;
 %ignore RoughMultiLayerComputation;
 %ignore SpecularComputation;
-
+%ignore SlicedFormFactorList;
+%ignore Lattice2D::ReciprocalBases;
+%ignore Lattice2D::reciprocalBases();

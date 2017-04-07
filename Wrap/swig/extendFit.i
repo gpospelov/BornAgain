@@ -25,11 +25,11 @@ class FitParameterSetIterator(object):
 // FitParameterSet accessors
 
 %extend FitParameterSet {
-    const FitParameter* __getitem__(std::string name) const
+    const IFitParameter* __getitem__(std::string name) const
     {
         return (*($self))[name];
     }
-    const FitParameter* __getitem__(size_t index) const
+    const IFitParameter* __getitem__(size_t index) const
     {
         return (*($self))[index];
     }

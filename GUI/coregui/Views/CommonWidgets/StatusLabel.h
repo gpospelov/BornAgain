@@ -33,16 +33,15 @@ class BA_CORE_API_ StatusLabel : public QFrame
     Q_OBJECT
 
 public:
-    explicit StatusLabel(QWidget *parent = 0);
+    explicit StatusLabel(QWidget* parent = 0);
 
-    void setText(const QString &text);
-    void setFont(const QFont &font);
+    void setText(const QString& text);
+    void setFont(const QFont& font);
     void setPointSize(int pointSize);
     void setAlignment(Qt::Alignment);
 
-
 protected:
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent* event);
 
 private:
     QString m_text;

@@ -32,7 +32,7 @@ def get_sample():
     pdf = ba.FTDecayFunction2DGauss(
         1000.*nm/2./numpy.pi, 100.*nm/2./numpy.pi)
     interference.setDecayFunction(pdf)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = ba.Layer(m_ambience)

@@ -15,10 +15,11 @@
 
 #include "FormFactorPrism3.h"
 #include "BornAgainNamespace.h"
+#include "Pyramid3.h"
 #include "RealParameter.h"
 #include <iostream>
 
-FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
+FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
     : FormFactorPolygonalPrism( height ), m_base_edge( base_edge )
 {
     setName(BornAgain::FFPrism3Type);
@@ -27,8 +28,18 @@ FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
     onChange();
 }
 
+IFormFactor* FormFactorPrism3::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                               kvector_t translation) const
+{
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    FormFactorPrism3 slicedff(m_base_edge, m_height - effects.dz_bottom - effects.dz_top);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
+
+}
+
 void FormFactorPrism3::onChange()
 {
+    mP_shape.reset(new Pyramid3(m_base_edge, m_height, M_PI_2));
     double a = m_base_edge;
     double as = a/2;
     double ac = a/sqrt(3)/2;

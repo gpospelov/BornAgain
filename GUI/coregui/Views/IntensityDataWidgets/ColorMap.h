@@ -17,12 +17,11 @@
 #ifndef COLORMAP_H
 #define COLORMAP_H
 
+#include "SessionItemWidget.h"
 #include "ColorMapBin.h"
-#include "WinDllMacros.h"
 #include "qcustomplot.h"
 #include <QMap>
 #include <QPoint>
-#include <QWidget>
 #include <memory>
 
 class IntensityDataItem;
@@ -37,21 +36,21 @@ class ColorMapEvent;
 //! Provides a minimal functionality for data plotting and axes interaction. Should be a component
 //! for more complicated plotting widgets. This is a replacement for ColorMapPlot.
 
-class BA_CORE_API_ ColorMap : public QWidget {
+class BA_CORE_API_ ColorMap : public SessionItemWidget
+{
     Q_OBJECT
 
 public:
-    explicit ColorMap(QWidget *parent = 0);
-    ~ColorMap();
+    explicit ColorMap(QWidget* parent = 0);
 
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
-    void setItem(IntensityDataItem *item);
+    QCustomPlot* customPlot() { return m_customPlot; }
+    const QCustomPlot* customPlot() const { return m_customPlot; }
+    QCPColorScale* colorScale() { return m_colorScale; }
 
-    QCustomPlot *customPlot() { return m_customPlot; }
-    const QCustomPlot *customPlot() const { return m_customPlot; }
-    QCPColorScale *colorScale() { return m_colorScale; }
+    ColorMapEvent* colorMapEvent() { return m_colorMapEvent; }
 
     //! transform axes coordinates to CustomPlot widget coordinates
     double xAxisCoordToPixel(double axis_coordinate) const;
@@ -62,7 +61,7 @@ public:
     double pixelToYaxisCoord(double pixel) const;
 
     //! returns rectangle representing current axes zoom state in widget coordinates
-    QRectF getViewportRectangleInWidgetCoordinates();
+    QRectF viewportRectangleInWidgetCoordinates();
 
     //! Returns true if axes rectangle contains given in axes coordinates.
     bool axesRangeContains(double xpos, double ypos) const;
@@ -73,7 +72,8 @@ public:
     void setMouseTrackingEnabled(bool enable);
 
 signals:
-    void statusString(const QString &text);
+    void statusString(const QString& text);
+    void marginsChanged(double left, double right);
 
 public slots:
     void setLogz(bool logz);
@@ -81,13 +81,18 @@ public slots:
 
 private slots:
     void onIntensityModified();
-    void onPropertyChanged(const QString &property_name);
-    void onSubItemPropertyChanged(const QString &property_group, const QString &property_name);
+    void onPropertyChanged(const QString& property_name);
+    void onAxisPropertyChanged(const QString& axisName, const QString& propertyName);
     void onDataRangeChanged(QCPRange newRange);
     void onXaxisRangeChanged(QCPRange newRange);
     void onYaxisRangeChanged(QCPRange newRange);
     void replot();
     void onTimeToReplot();
+    void marginsChangedNotify();
+
+protected:
+    virtual void subscribeToItem();
+    virtual void unsubscribeFromItem();
 
 private:
     void initColorMap();
@@ -99,26 +104,24 @@ private:
 
     void setFixedColorMapMargins();
 
-    void setColorMapFromItem(IntensityDataItem *intensityItem);
-    void setAxesRangeFromItem(IntensityDataItem *item);
-    void setAxesZoomFromItem(IntensityDataItem *item);
-    void setLabelsFromItem(IntensityDataItem *item);
-    void setDataFromItem(IntensityDataItem *item);
-    void setColorScaleAppearanceFromItem(IntensityDataItem *item);
-    void setDataRangeFromItem(IntensityDataItem *item);
+    void setColorMapFromItem(IntensityDataItem* intensityItem);
+    void setAxesRangeFromItem(IntensityDataItem* item);
+    void setAxesZoomFromItem(IntensityDataItem* item);
+    void setAxesLabelsFromItem(IntensityDataItem* item);
+    void setDataFromItem(IntensityDataItem* item);
+    void setColorScaleAppearanceFromItem(IntensityDataItem* item);
+    void setDataRangeFromItem(IntensityDataItem* item);
 
     void setColorScaleVisible(bool visibility_flag);
 
-    void resetColorMap();
+    IntensityDataItem* intensityItem();
 
-    QCustomPlot *m_customPlot;
-    QCPColorMap *m_colorMap;
-    QCPColorScale *m_colorScale;
+    QCustomPlot* m_customPlot;
+    QCPColorMap* m_colorMap;
+    QCPColorScale* m_colorScale;
+    UpdateTimer* m_updateTimer;
+    ColorMapEvent* m_colorMapEvent;
 
-    UpdateTimer *m_updateTimer;
-    ColorMapEvent *m_colorMapEvent;
-
-    IntensityDataItem *m_item;
     bool m_block_update;
 };
 

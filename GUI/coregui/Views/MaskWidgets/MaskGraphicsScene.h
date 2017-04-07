@@ -26,7 +26,7 @@
 
 class SessionModel;
 class SessionItem;
-class IMaskView;
+class IShape2DView;
 class ISceneAdaptor;
 class MaskGraphicsProxy;
 class QItemSelectionModel;
@@ -45,6 +45,7 @@ class BA_CORE_API_ MaskGraphicsScene : public QGraphicsScene
     Q_OBJECT
 public:
     MaskGraphicsScene(QObject *parent = 0);
+    ~MaskGraphicsScene();
 
     void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
                         IntensityDataItem *intensityItem);
@@ -64,7 +65,6 @@ public slots:
     void cancelCurrentDrawing();
     void resetScene();
     void updateScene();
-    void onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType);
 
 private slots:
     void onSessionSelectionChanged(const QItemSelection & /* selected */,
@@ -80,8 +80,8 @@ protected:
 
 private:
     void updateProxyWidget();
-    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IMaskView *parentView = 0);
-    IMaskView* addViewForItem(SessionItem *item);
+    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IShape2DView *parentView = 0);
+    IShape2DView* addViewForItem(SessionItem *item);
     void deleteViews(const QModelIndex & itemIndex);
     void removeItemViewFromScene(SessionItem *item);
 
@@ -111,9 +111,9 @@ private:
 
     SessionModel *m_maskModel;
     QItemSelectionModel *m_selectionModel;
-    QSharedPointer<ISceneAdaptor> m_adaptor;
-    QMap<SessionItem *, IMaskView *> m_ItemToView;
+    QMap<SessionItem *, IShape2DView *> m_ItemToView;
     MaskGraphicsProxy *m_proxy;
+    QSharedPointer<ISceneAdaptor> m_adaptor;
     bool m_block_selection;
     QModelIndex m_maskContainerIndex;
     IntensityDataItem *m_intensityItem;

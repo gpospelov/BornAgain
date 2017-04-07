@@ -29,7 +29,7 @@ def get_sample():
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(particle)
     interference = ba.InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     air_layer = ba.Layer(m_air)
     air_layer.addLayout(particle_layout)

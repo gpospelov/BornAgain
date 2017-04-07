@@ -18,19 +18,15 @@
 #include "SessionItem.h"
 #include "SessionModel.h"
 #include "mainwindow_constants.h"
-#include <QDebug>
 #include <QListView>
 #include <QVBoxLayout>
 
-
-ItemSelectorWidget::ItemSelectorWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_listView(new QListView(this))
-    , m_model(0)
+ItemSelectorWidget::ItemSelectorWidget(QWidget* parent)
+    : QWidget(parent), m_listView(new QListView), m_model(nullptr)
 {
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
 
     layout->addWidget(m_listView);
@@ -39,9 +35,8 @@ ItemSelectorWidget::ItemSelectorWidget(QWidget *parent)
     m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_listView->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint &)),
-            this, SLOT(onCustomContextMenuRequested(const QPoint &)));
-
+    connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint&)), this,
+            SLOT(onCustomContextMenuRequested(const QPoint&)));
 }
 
 QSize ItemSelectorWidget::sizeHint() const
@@ -49,14 +44,11 @@ QSize ItemSelectorWidget::sizeHint() const
     return QSize(Constants::ITEM_SELECTOR_WIDGET_WIDTH, Constants::ITEM_SELECTOR_WIDGET_HEIGHT);
 }
 
-QSize ItemSelectorWidget::minimumSizeHint() const
-{
-    return QSize(25, 25);
-}
+QSize ItemSelectorWidget::minimumSizeHint() const { return QSize(25, 25); }
 
-void ItemSelectorWidget::setModel(SessionModel *model)
+void ItemSelectorWidget::setModel(SessionModel* model)
 {
-    if(model == m_model)
+    if (model == m_model)
         return;
 
     disconnectModel();
@@ -64,67 +56,82 @@ void ItemSelectorWidget::setModel(SessionModel *model)
     connectModel();
 }
 
-void ItemSelectorWidget::setItemDelegate(QAbstractItemDelegate *delegate)
+void ItemSelectorWidget::setItemDelegate(QAbstractItemDelegate* delegate)
 {
     m_listView->setItemDelegate(delegate);
 }
 
-QItemSelectionModel *ItemSelectorWidget::selectionModel()
+QItemSelectionModel* ItemSelectorWidget::selectionModel()
 {
     return m_listView->selectionModel();
 }
 
-QListView *ItemSelectorWidget::listView()
+QListView* ItemSelectorWidget::listView()
 {
     return m_listView;
 }
 
-void ItemSelectorWidget::onSelectionChanged(const QItemSelection &selected, const QItemSelection &)
+void ItemSelectorWidget::select(const QModelIndex& index, QItemSelectionModel::SelectionFlags command)
+{
+    selectionModel()->select(index, command);
+}
+
+//! select last item if no selection exists
+
+void ItemSelectorWidget::updateSelection()
+{
+    if (!selectionModel()->hasSelection())
+        selectLast();
+}
+
+void ItemSelectorWidget::selectLast()
+{
+    QModelIndex itemIndex = m_model->index(
+        m_model->rowCount(QModelIndex()) - 1, 0, QModelIndex());
+    selectionModel()->select(itemIndex, QItemSelectionModel::ClearAndSelect);
+}
+
+void ItemSelectorWidget::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)
 {
     QModelIndexList indexes = selected.indexes();
-    SessionItem *selectedItem(0);
-    if(indexes.size()) {
+    SessionItem* selectedItem(0);
+
+    if (indexes.size())
         selectedItem = m_model->itemForIndex(indexes.back());
-    }
+
     emit selectionChanged(selectedItem);
 }
 
-void ItemSelectorWidget::onCustomContextMenuRequested(const QPoint &point)
+void ItemSelectorWidget::onCustomContextMenuRequested(const QPoint& point)
 {
     emit contextMenuRequest(m_listView->mapToGlobal(point), m_listView->indexAt(point));
 }
 
 void ItemSelectorWidget::connectModel()
 {
-    if(!m_model)
+    if (!m_model)
         return;
 
     m_listView->setModel(m_model);
 
     connect(m_listView->selectionModel(),
-            SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
-            this,
+            SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this,
             SLOT(onSelectionChanged(const QItemSelection&, const QItemSelection&)),
-            Qt::UniqueConnection
-    );
-
+            Qt::UniqueConnection);
 }
 
 void ItemSelectorWidget::disconnectModel()
 {
-    m_listView->setModel(0);
-    m_model = 0;
+    m_listView->setModel(nullptr);
+    m_model = nullptr;
 }
 
 //! provide default selection when widget is shown
-void ItemSelectorWidget::showEvent(QShowEvent *)
+void ItemSelectorWidget::showEvent(QShowEvent*)
 {
-    if(!m_model || !selectionModel()) return;
+    if (!m_model || !selectionModel())
+        return;
 
-    if(selectionModel()->selectedIndexes().isEmpty()) {
-        if(m_model->rowCount(QModelIndex()) != 0) {
-            selectionModel()->select(m_model->index(0, 0, QModelIndex()),
-                                     QItemSelectionModel::Select);
-        }
-    }
+    if (selectionModel()->selectedIndexes().isEmpty() && m_model->rowCount(QModelIndex()) != 0)
+        selectionModel()->select(m_model->index(0, 0, QModelIndex()), QItemSelectionModel::Select);
 }

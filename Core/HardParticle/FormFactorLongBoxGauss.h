@@ -32,14 +32,20 @@ public:
 
     FormFactorLongBoxGauss *clone() const override final {
         return new FormFactorLongBoxGauss(m_length, m_width, m_height); }
-    void accept(ISampleVisitor *visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
-    double getRadialExtension() const override final{ return m_length/2.0; }
+    double radialExtension() const override final{ return m_length/2.0; }
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
+
+protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
+    void onChange() override final;
 
 private:
     double m_length;

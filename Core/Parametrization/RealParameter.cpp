@@ -17,16 +17,16 @@
 #include <sstream>
 
 RealParameter::RealParameter(
-    const std::string& name, volatile double* par,
+    const std::string& name, double* par,
     const std::string& parent_name, const std::function<void()>& onChange,
     const RealLimits& limits, const Attributes& attr)
     : IParameter<double>(name, par, parent_name, onChange)
     , m_limits(limits)
     , m_attr(attr)
 {
-    if(!m_limits.isInRange(getValue())) {
+    if(!m_limits.isInRange(value())) {
         std::ostringstream message;
-        message << "Cannot initialize parameter " << fullName() << " with value " << getValue()
+        message << "Cannot initialize parameter " << fullName() << " with value " << value()
                 << ": out of bounds [" << limits << "]\n";
         throw std::runtime_error(message.str());
     }
@@ -44,6 +44,11 @@ void RealParameter::setValue(double value)
 {
     if(value == *m_data)
         return; // nothing to do
+
+    if(isNull())
+        throw std::runtime_error("RealParameter::setValue() -> Error. Non-initialized parameter '"
+                                 +fullName()+"'");
+
     if(!m_limits.isInRange(value)) {
         std::ostringstream message;
         message << "Cannot set parameter " << fullName() << " to value " << value
@@ -53,7 +58,8 @@ void RealParameter::setValue(double value)
     if(m_attr.isFixed())
         throw std::runtime_error("Parameter "+fullName()+" is fixed");
     *m_data = value;
-    m_onChange();
+    if(m_onChange)
+        m_onChange();
 }
 
 RealParameter& RealParameter::setLimited(double lower, double upper)
@@ -73,3 +79,4 @@ RealParameter& RealParameter::setNonnegative()
     setLimits( RealLimits::nonnegative() );
     return *this;
 }
+

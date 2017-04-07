@@ -19,13 +19,11 @@
 #include "IntensityDataItem.h"
 #include "JobModel.h"
 #include <QAction>
-#include <QDebug>
 #include <QVBoxLayout>
 
 IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     : SessionItemWidget(parent)
     , m_togglePanelAction(0)
-    , m_currentItem(0)
     , m_componentEditor(0)
 {
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
@@ -47,44 +45,16 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget *parent)
     m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
     m_togglePanelAction->setToolTip("Toggle Property Panel");
     connect(m_togglePanelAction, SIGNAL(triggered()), this, SLOT(onTogglePanelAction()));
-
 }
 
-IntensityDataPropertyWidget::~IntensityDataPropertyWidget()
+QSize IntensityDataPropertyWidget::sizeHint() const
 {
-    if(m_currentItem)
-        m_currentItem->mapper()->unsubscribe(this);
+    return QSize(230, 256);
 }
 
-void IntensityDataPropertyWidget::setItem(SessionItem *item)
+QSize IntensityDataPropertyWidget::minimumSizeHint() const
 {
-    if(m_currentItem == item)
-        return;
-
-    if(m_currentItem)
-        m_currentItem->mapper()->unsubscribe(this);
-
-    m_currentItem = item;
-   if (!m_currentItem) return;
-
-    m_componentEditor->setItem(item);
-
-    setPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
-
-    m_currentItem->mapper()->setOnPropertyChange(
-                 [this](const QString &name)
-    {
-        if(name == IntensityDataItem::P_PROPERTY_PANEL_FLAG) {
-            setPanelVisible(m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool());
-        }
-    }, this);
-
-    m_currentItem->mapper()->setOnItemDestroy(
-                [this](SessionItem *) {
-        m_currentItem = 0;
-    }, this);
-
-
+    return QSize(230, 64);
 }
 
 QList<QAction *> IntensityDataPropertyWidget::actionList()
@@ -94,20 +64,15 @@ QList<QAction *> IntensityDataPropertyWidget::actionList()
 
 void IntensityDataPropertyWidget::onTogglePanelAction()
 {
-    if(m_currentItem) {
-        bool current_flag = m_currentItem->getItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG).toBool();
-        m_currentItem->setItemValue(IntensityDataItem::P_PROPERTY_PANEL_FLAG, !current_flag);
-    }
-
+    setVisible(!isVisible());
 }
 
-void IntensityDataPropertyWidget::setPanelVisible(bool visible)
+void IntensityDataPropertyWidget::subscribeToItem()
 {
-    if(visible) {
-        m_componentEditor->setItem(m_currentItem);
+    m_componentEditor->setItem(currentItem());
+}
 
-    } else {
-        m_componentEditor->setItem(0);
-    }
-    setVisible(visible);
+void IntensityDataPropertyWidget::unsubscribeFromItem()
+{
+    m_componentEditor->setItem(nullptr);
 }

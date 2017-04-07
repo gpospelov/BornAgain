@@ -15,8 +15,23 @@
 
 #include "BasicVector3D.h"
 #include "Exceptions.h"
+#include "MathConstants.h"
 
 typedef std::complex<double> complex_t;
+
+// -----------------------------------------------------------------------------
+// Quasi constructor
+// -----------------------------------------------------------------------------
+
+BasicVector3D<double> vecOfLambdaAlphaPhi(
+    const double _lambda, const double _alpha, const double _phi)
+{
+    double k = M_TWOPI/_lambda;
+    return BasicVector3D<double>(
+        k*std::cos(_alpha) * std::cos(_phi),
+        -k*std::cos(_alpha) * std::sin(_phi),
+        k*std::sin(_alpha) );
+}
 
 // -----------------------------------------------------------------------------
 // Functions of this (with no further argument)
@@ -29,7 +44,6 @@ BasicVector3D<double> BasicVector3D<double>::conj() const
     return *this;
 }
 
-//! Returns complex conjugate vector
 template<>
 BasicVector3D<complex_t> BasicVector3D<complex_t >::conj() const
 {
@@ -73,15 +87,15 @@ BasicVector3D<complex_t> BasicVector3D<double>::complex() const
 
 //! Returns real parts.
 template<>
-BasicVector3D<double> BasicVector3D<complex_t>::real() const
-{
-    return BasicVector3D<double>( v_[0].real(), v_[1].real(), v_[2].real() );
-}
-
-template<>
 BasicVector3D<double> BasicVector3D<double>::real() const
 {
     return *this;
+}
+
+template<>
+BasicVector3D<double> BasicVector3D<complex_t>::real() const
+{
+    return BasicVector3D<double>( v_[0].real(), v_[1].real(), v_[2].real() );
 }
 
 //! Returns unit vector in direction of this. Throws for null vector.
@@ -119,18 +133,4 @@ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
         if(cosa < -1) cosa = -1;
     }
     return std::acos(cosa);
-}
-
-// -----------------------------------------------------------------------------
-// Quasi constructor
-// -----------------------------------------------------------------------------
-
-BasicVector3D<double> vecOfLambdaAlphaPhi(
-    const double _lambda, const double _alpha, const double _phi)
-{
-    double k = PI2/_lambda;
-    return BasicVector3D<double>(
-        k*std::cos(_alpha) * std::cos(_phi),
-        -k*std::cos(_alpha) * std::sin(_phi),
-        k*std::sin(_alpha) );
 }

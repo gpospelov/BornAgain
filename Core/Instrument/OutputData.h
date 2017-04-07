@@ -36,10 +36,6 @@ using std::size_t;
 //! Template class to store data of any type in multi-dimensional space.
 //! @ingroup tools
 
-//! Used with data type double to hold simulation results.
-//! Used with data type CumulativeValue in IHistogram classes.
-//! Used with data type bool to hold a detector mask (-> class DetectorMask)
-
 template <class T>
 class OutputData
 {
@@ -63,9 +59,7 @@ public:
     //! returns axis with given name
     const IAxis& getAxis(const std::string& axis_name) const;
 
-    // ---------------------------------
     // retrieve basic info
-    // ---------------------------------
 
     //! Returns number of dimensions.
     size_t getRank() const { return m_value_axes.size(); }
@@ -89,9 +83,7 @@ public:
     //! Returns sum of all values in the data structure
     T totalSum() const;
 
-    // ---------------------------------
-    // external iterators (with their possible masking)
-    // ---------------------------------
+    // iterators
 
     friend class OutputDataIterator<T, OutputData<T>>;
     friend class OutputDataIterator<const T, const OutputData<T>>;
@@ -116,12 +108,7 @@ public:
         return const_iterator(this, getAllocatedSize());
     }
 
-    void setVariability(double variability) { m_variability = variability; }
-    double getVariability() const { return m_variability; }
-
-    // ---------------------------------
     // coordinate and index functions
-    // ---------------------------------
 
     //! Returns vector of axes indices for given global index
     //! @param global_index The global index of this data structure.
@@ -179,9 +166,7 @@ public:
     //! @return Corresponding Bin1D object
     Bin1D getAxisBin(size_t global_index, const std::string& axis_name) const;
 
-    // ---------
     // modifiers
-    // ---------
 
     //! Sets object into initial state (no dimensions, data)
     void clear();
@@ -228,9 +213,7 @@ public:
         return (*mp_ll_data)[index];
     }
 
-    // --------
     // helpers
-    // --------
 
     //! Returns true if object have same dimensions and number of axes bins
     template <class U> bool hasSameDimensions(const OutputData<U>& right) const;
@@ -258,18 +241,16 @@ private:
 
     SafePointerVector<IAxis> m_value_axes;
     LLData<T>* mp_ll_data;
-    double m_variability;
 };
 
-/* ***************************************************************************/
+// --------------------------------------------------------------------- //
 // Implementation
-/* ***************************************************************************/
+// --------------------------------------------------------------------- //
 
 template <class T>
 OutputData<T>::OutputData()
     : m_value_axes()
     , mp_ll_data(nullptr)
-    , m_variability(2e-10)
 {
     allocate();
 }
@@ -285,7 +266,6 @@ OutputData<T>* OutputData<T>::clone() const
     OutputData<T>* ret = new OutputData<T>();
     ret->m_value_axes = m_value_axes;
     (*ret->mp_ll_data) = *mp_ll_data;
-    ret->setVariability(m_variability);
     return ret;
 }
 
@@ -298,7 +278,6 @@ void OutputData<T>::copyFrom(const OutputData<T>& other)
     mp_ll_data = 0;
     if(other.mp_ll_data)
         mp_ll_data = new LLData<T>(*other.mp_ll_data);
-    m_variability = other.getVariability();
 }
 
 template <class T>
@@ -309,7 +288,6 @@ void OutputData<T>::copyShapeFrom(const OutputData<U>& other)
     size_t rank = other.getRank();
     for (size_t i=0; i<rank; ++i)
         addAxis(other.getAxis(i));
-    m_variability = other.getVariability();
 }
 
 template <class T>
@@ -318,10 +296,8 @@ OutputData<double>* OutputData<T>::meanValues() const
     auto ret = new OutputData<double>();
     ret->copyShapeFrom(*this);
     ret->allocate();
-    ret->setVariability(m_variability);
     for (size_t i=0; i<mp_ll_data->getTotalSize(); ++i)
         (*ret)[i] = getValue(i);
-    ret->setVariability(m_variability);
     return ret;
 }
 
@@ -688,6 +664,5 @@ bool OutputData<T>::axisNameExists(const std::string &axis_name) const
         if (m_value_axes[i]->getName() == axis_name) return true;
     return false;
 }
-
 
 #endif // OUTPUTDATA_H

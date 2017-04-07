@@ -18,6 +18,8 @@
 
 #include <string>
 
+//! Mostly names of classes and parameters.
+
 namespace BornAgain
 {
 // Axis constants
@@ -54,6 +56,10 @@ const std::string TransformationType = "Rotation";
 
 const std::string LayerBasicRoughnessType = "LayerBasicRoughness";
 const std::string LayerZeroRoughnessType = "LayerZeroRoughness";
+
+const std::string BasicLatticeType = "BasicLattice";
+const std::string SquareLatticeType = "SquareLattice";
+const std::string HexagonalLatticeType = "HexagonalLattice";
 
 const std::string InterferenceFunctionNoneType = "InterferenceNone";
 const std::string InterferenceFunctionRadialParaCrystalType = "InterferenceRadialParaCrystal";
@@ -102,7 +108,7 @@ const std::string FormFactorTrivialType = "FormFactorTrivial";
 const std::string FormFactorDWBAType = "FormFactorDWBA";
 const std::string FormFactorPolarizedDWBAType = "FormFactorDWBAPol";
 
-const std::string FormFactorDecoratorFactorType = "FormFactorDecoratorFactor";
+const std::string FormFactorCoreShellType = "FormFactorCoreShell";
 const std::string FormFactorDecoratorPositionFactorType = "FormFactorDecoratorPositionFactor";
 const std::string FormFactorDecoratorRotationType = "FormFactorDecoratorRotation";
 const std::string FormFactorDecoratorDebyeWallerType = "FormFactorDecoratorDebyeWaller";
@@ -162,6 +168,7 @@ const std::string Width = "Width";
 const std::string Height = "Height";
 const std::string HeightRatio = "HeightRatio";
 const std::string HeightFlattening = "HeightFlattening";
+const std::string DeltaHeight = "DeltaHeight";
 const std::string Intensity = "Intensity";
 const std::string Wavelength = "Wavelength";
 const std::string Angle = "Angle";
@@ -207,6 +214,7 @@ const std::string CorrelationLength = "CorrelationLength";
 const std::string CrossCorrelationLength = "CrossCorrelationLength";
 const std::string Inclination = "InclinationAngle";
 const std::string Azimuth = "AzimuthalAngle";
+const std::string TotalParticleDensity = "TotalParticleDensity";
 }
 
 #endif // BORNAGAINNAMESPACE_H

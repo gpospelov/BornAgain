@@ -16,6 +16,7 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
+#include "INode.h"
 #include "DistributionHandler.h"
 #include "IDetector2D.h"
 #include "Instrument.h"
@@ -31,7 +32,7 @@ class IMultiLayerBuilder;
 //! holds common infrastructure to run a simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ Simulation : public ICloneable, public IParameterized
+class BA_CORE_API_ Simulation : public ICloneable, public INode
 {
 public:
     Simulation();
@@ -63,20 +64,16 @@ public:
                                double total_transmission);
 
     void setSample(const MultiLayer& sample);
-    MultiLayer* getSample() const { return mP_sample.get(); }
+    MultiLayer* sample() const { return mP_multilayer.get(); }
 
     void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    std::shared_ptr<IMultiLayerBuilder> getSampleBuilder() const { return mP_sample_builder; }
+    std::shared_ptr<IMultiLayerBuilder> sampleBuilder() const { return mP_sample_builder; }
 
-    virtual int numberOfSimulationElements() const=0;
+    virtual size_t numberOfSimulationElements() const=0;
 
     //! Clone simulated intensity map
     virtual OutputData<double>* getDetectorIntensity(
         IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const=0;
-
-    //! Adds parameters defined in this class the to external pool.
-    std::string addSimulationParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool) const;
 
     void addParameterDistribution(
         const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,
@@ -90,6 +87,8 @@ public:
 
     void subscribe(ProgressHandler::Callback_t inform) { m_progress.subscribe(inform); }
     void setTerminalProgressMonitor();
+
+    std::vector<const INode*> getChildren() const;
 
 protected:
     Simulation(const Simulation& other);
@@ -118,7 +117,7 @@ protected:
     //! Returns the end iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
-    std::unique_ptr<MultiLayer> mP_sample;
+    std::unique_ptr<MultiLayer> mP_multilayer;
     std::shared_ptr<IMultiLayerBuilder> mP_sample_builder;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;

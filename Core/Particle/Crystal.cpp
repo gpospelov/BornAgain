@@ -24,13 +24,12 @@ Crystal::Crystal(const ParticleComposition& lattice_basis, const Lattice& lattic
     : m_lattice(lattice), m_dw_factor(0.0)
 {
     setName(BornAgain::CrystalType);
-    mp_lattice_basis = lattice_basis.clone();
-    registerChild(mp_lattice_basis);
+    mp_lattice_basis.reset(lattice_basis.clone());
+    registerChild(mp_lattice_basis.get());
 }
 
 Crystal::~Crystal()
 {
-    delete mp_lattice_basis;
 }
 
 Crystal* Crystal::clone() const
@@ -40,28 +39,11 @@ Crystal* Crystal::clone() const
     return p_new;
 }
 
-Crystal* Crystal::cloneInvertB() const
-{
-    Crystal* p_new = new Crystal(mp_lattice_basis->cloneInvertB(), m_lattice);
-    p_new->setDWFactor(m_dw_factor);
-    return p_new;
-}
-
-void Crystal::setAmbientMaterial(const IMaterial& material)
-{
-    mp_lattice_basis->setAmbientMaterial(material);
-}
-
-const IMaterial* Crystal::getAmbientMaterial() const
-{
-    return mp_lattice_basis->getAmbientMaterial();
-}
-
 IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
                                             const IRotation* p_rotation,
                                             const kvector_t& translation) const
 {
-    Lattice transformed_lattice = getTransformedLattice(p_rotation);
+    Lattice transformed_lattice = transformedLattice(p_rotation);
     const std::unique_ptr<IFormFactor> P_basis_ff(
         mp_lattice_basis->createTransformedFormFactor(p_rotation, translation));
     const std::unique_ptr<FormFactorCrystal> P_ff_crystal(
@@ -71,7 +53,26 @@ IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form
     return P_ff_crystal->clone();
 }
 
-Lattice Crystal::getTransformedLattice(const IRotation* p_rotation) const
+std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const
+{
+    std::vector<HomogeneousRegion> result;
+    double unit_cell_volume = m_lattice.volume();
+    if (unit_cell_volume <= 0)
+        return {};
+    auto particles = mp_lattice_basis->decompose();
+    ZLimits limits;
+    for (auto p_particle : particles)
+    {
+        auto sliced_particle = p_particle->createSlicedParticle(limits);
+        result.insert(result.end(), sliced_particle.m_regions.begin(),
+                      sliced_particle.m_regions.end());
+    }
+    for (auto& region : result)
+        region.m_volume /= unit_cell_volume;
+    return result;
+}
+
+Lattice Crystal::transformedLattice(const IRotation* p_rotation) const
 {
     if (p_rotation)
         return m_lattice.createTransformedLattice(p_rotation->getTransform3D());
@@ -79,10 +80,15 @@ Lattice Crystal::getTransformedLattice(const IRotation* p_rotation) const
         return m_lattice;
 }
 
+std::vector<const INode*> Crystal::getChildren() const
+{
+    return std::vector<const INode*>() << mp_lattice_basis;
+}
+
 Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_dw_factor(0.0)
 {
     setName(BornAgain::CrystalType);
-    mp_lattice_basis = p_lattice_basis;
-    registerChild(mp_lattice_basis);
+    mp_lattice_basis.reset(p_lattice_basis);
+    registerChild(mp_lattice_basis.get());
 }

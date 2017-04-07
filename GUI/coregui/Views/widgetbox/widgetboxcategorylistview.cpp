@@ -62,7 +62,6 @@
 #include <QtCore/QList>
 #include <QtCore/QTextStream>
 #include <QtCore/QRegExp>
-#include <QDebug>
 #include <QXmlStreamReader>
 
 static const char *widgetElementC = "widget";

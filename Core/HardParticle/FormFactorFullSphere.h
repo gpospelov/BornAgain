@@ -28,13 +28,25 @@ public:
 
     FormFactorFullSphere* clone() const override final {
         return new FormFactorFullSphere(m_radius); }
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadius() const { return m_radius; }
 
-    double getRadialExtension() const override final { return m_radius; }
+    double radialExtension() const override final { return m_radius; }
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
+    double bottomZ(const IRotation& rotation) const override final;
+
+    double topZ(const IRotation& rotation) const override final;
+
+    complex_t evaluate_for_q(cvector_t q) const override final;
+
+protected:
+    bool canSliceAnalytically(const IRotation&) const override final { return true; }
+
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
+    void onChange() override final;
 
 private:
     double m_radius;

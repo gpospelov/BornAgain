@@ -38,14 +38,11 @@ MinimizerContainerItem::MinimizerContainerItem() : MinimizerItem(Constants::Mini
 {
     addGroupProperty(P_MINIMIZERS, Constants::MinimizerLibraryGroup)
         ->setToolTip(QStringLiteral("Minimizer library"));
-    setGroupProperty(P_MINIMIZERS, Constants::MinuitMinimizerType);
 }
 
 std::unique_ptr<IMinimizer> MinimizerContainerItem::createMinimizer() const
 {
-    auto minimizer = static_cast<MinimizerItem *>(getGroupItem(P_MINIMIZERS));
-    Q_ASSERT(minimizer);
-    return minimizer->createMinimizer();
+    return groupItem<MinimizerItem>(P_MINIMIZERS).createMinimizer();
 }
 
 // ----------------------------------------------------------------------------

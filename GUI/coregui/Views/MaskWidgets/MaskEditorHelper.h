@@ -42,6 +42,7 @@ public:
         ELLIPSE,
         MASKALL,
         REGIONOFINTEREST,
+        MASKCONTAINER,
         MASKGRAPHICSPROXY
     };
 

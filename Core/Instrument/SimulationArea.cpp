@@ -22,13 +22,13 @@
 #include "RegionOfInterest.h"
 #include <sstream>
 
-SimulationArea::SimulationArea(const IDetector2D *detector)
+SimulationArea::SimulationArea(const IDetector2D* detector)
     : m_detector(detector)
     , m_max_index(0)
 {
-    if(detector == nullptr)
-        throw Exceptions::RuntimeErrorException("SimulationArea::SimulationArea -> Error. "
-                                                "Detector nullptr.");
+    if(m_detector==nullptr)
+        throw Exceptions::RuntimeErrorException("SimulationArea::SimulationArea: nullpointer passed"
+                                                " as detector");
 
     if (m_detector->getDimension()!=2)
         throw Exceptions::RuntimeErrorException(
@@ -54,8 +54,8 @@ bool SimulationArea::isMasked(size_t index) const
 {
     if(index >= totalSize()) {
         std::ostringstream message;
-        message << "SimulationArea::isActive() -> Error. Index " << index << " is out of range, "
-             << "totalSize=" << totalSize();
+        message << "SimulationArea::isActive: index " << index << " is out of range, "
+                << "total size = " << totalSize();
         throw Exceptions::RuntimeErrorException(message.str());
     }
 
@@ -79,9 +79,7 @@ size_t SimulationArea::detectorIndex(size_t index) const
 
 SimulationRoiArea::SimulationRoiArea(const IDetector2D *detector)
     : SimulationArea(detector)
-{
-
-}
+{}
 
 bool SimulationRoiArea::isMasked(size_t) const
 {

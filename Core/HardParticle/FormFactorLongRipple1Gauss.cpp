@@ -15,6 +15,7 @@
 
 #include "FormFactorLongRipple1Gauss.h"
 #include "BornAgainNamespace.h"
+#include "Box.h"
 #include "Exceptions.h"
 #include "RealLimits.h"
 #include "MathFunctions.h"
@@ -30,6 +31,7 @@ FormFactorLongRipple1Gauss::FormFactorLongRipple1Gauss(double length, double wid
     registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorLongRipple1Gauss::Integrand);
+    onChange();
 }
 
 bool FormFactorLongRipple1Gauss::check_initialization() const
@@ -47,7 +49,7 @@ bool FormFactorLongRipple1Gauss::check_initialization() const
     return result;
 }
 
-double FormFactorLongRipple1Gauss::getRadialExtension() const
+double FormFactorLongRipple1Gauss::radialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }
@@ -60,7 +62,7 @@ complex_t FormFactorLongRipple1Gauss::Integrand(double Z) const
 }
 
 //! Complex formfactor.
-complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorLongRipple1Gauss::evaluate_for_q(cvector_t q) const
 {
     m_q = q;
 //    complex_t factor = m_length*MathFunctions::sinc(m_q.x()*m_length*0.5)*m_width/M_PI;
@@ -81,4 +83,9 @@ complex_t FormFactorLongRipple1Gauss::evaluate_for_q(const cvector_t q) const
     // numerical integration otherwise
     complex_t integral = mP_integrator->integrate(0, m_height);
     return factor * integral;
+}
+
+void FormFactorLongRipple1Gauss::onChange()
+{
+    mP_shape.reset(new Box(m_length, m_width, m_height));
 }

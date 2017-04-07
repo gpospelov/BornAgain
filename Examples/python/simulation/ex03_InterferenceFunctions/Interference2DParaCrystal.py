@@ -29,7 +29,7 @@ def get_sample():
 
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # assembling the sample
     air_layer = ba.Layer(m_ambience)
@@ -63,6 +63,7 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.setTerminalProgressMonitor()
+
     simulation.runSimulation()
     return simulation.getIntensityData()
 

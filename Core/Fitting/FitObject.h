@@ -16,7 +16,7 @@
 #ifndef FITOBJECT_H
 #define FITOBJECT_H
 
-#include "IParameterized.h"
+#include "INode.h"
 #include "OutputData.h"
 #include <INoncopyable.h>
 #include <memory>
@@ -28,7 +28,7 @@ class IIntensityNormalizer;
 //! Holds simulation description and real data to run the fit.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitObject : public IParameterized, public INoncopyable
+class BA_CORE_API_ FitObject : public INode, public INoncopyable
 {
 public:
     //! FitObject constructor
@@ -40,6 +40,8 @@ public:
               double weight = 1);
 
     virtual ~FitObject();
+
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     //! Returns real (experimental) data.
     const OutputData<double>& realData() const;
@@ -66,9 +68,7 @@ public:
     void transferToChi2Map(std::vector<FitElement>::const_iterator first,
                            std::vector<FitElement>::const_iterator last) const;
 
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    virtual std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const;
+    std::vector<const INode*> getChildren() const;
 
 protected:
     //! Registers some class members for later access via parameter pool

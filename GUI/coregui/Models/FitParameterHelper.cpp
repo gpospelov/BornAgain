@@ -41,7 +41,7 @@ void FitParameterHelper::createFitParameter(FitParameterContainerItem *container
     fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
     link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
 
-    fitPar->initMinMaxValues(parameterItem->getLinkedItem()->limits());
+    fitPar->initMinMaxValues(parameterItem->linkedItem()->limits());
 }
 
 //! Removes link to given parameterItem from fit parameters
@@ -88,7 +88,7 @@ FitParameterItem *FitParameterHelper::getFitParameterItem(FitParameterContainerI
                                                       ParameterItem *parameterItem)
 {
     Q_ASSERT(container);
-    return container->getFitParameterItem(getParameterItemPath(parameterItem));
+    return container->fitParameterItem(getParameterItemPath(parameterItem));
 }
 
 //! Returns list of fit parameter display names

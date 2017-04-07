@@ -16,19 +16,19 @@
 #ifndef IRESOLUTIONFUNCTION2D_H
 #define IRESOLUTIONFUNCTION2D_H
 
-#include "IParameterized.h"
+#include "ICloneable.h"
+#include "INode.h"
 
-//! @class IResolutionFunction2D
+//! Interface providing two-dimensional resolution function.
 //! @ingroup algorithms_internal
-//! @brief Interface providing two-dimensional resolution function.
 
-class BA_CORE_API_ IResolutionFunction2D : public IParameterized
+class BA_CORE_API_ IResolutionFunction2D : public ICloneable, public INode
 {
 public:
     virtual ~IResolutionFunction2D() {}
 
-    virtual double evaluateCDF(double x, double y) const=0;
-    virtual IResolutionFunction2D *clone() const = 0;
+    virtual double evaluateCDF(double x, double y) const =0;
+    virtual IResolutionFunction2D* clone() const =0;
 };
 
 #endif // IRESOLUTIONFUNCTION2D_H

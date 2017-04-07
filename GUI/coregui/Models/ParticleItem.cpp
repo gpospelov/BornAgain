@@ -25,7 +25,7 @@
 
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
-const QString ParticleItem::P_ABUNDANCE = "Abundance";
+const QString ParticleItem::P_ABUNDANCE = QString::fromStdString(BornAgain::Abundance);
 const QString ParticleItem::P_MATERIAL = "Material";
 const QString ParticleItem::P_POSITION = "Position Offset";
 const QString ParticleItem::T_TRANSFORMATION = "Transformation Tag";
@@ -39,13 +39,12 @@ ParticleItem::ParticleItem()
     addProperty(P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0));
     getItem(P_ABUNDANCE)->setDecimals(3);
     addGroupProperty(P_POSITION, Constants::VectorType);
-    PositionTranslator position_translator;
-    ModelPath::addParameterTranslator(position_translator);
 
     registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
     setDefaultTag(T_TRANSFORMATION);
-    RotationTranslator rotation_translator;
-    ModelPath::addParameterTranslator(rotation_translator);
+
+    addTranslator(PositionTranslator());
+    addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange(
                 [this](SessionItem* parentItem) {
@@ -81,10 +80,8 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     P_particle->setAbundance(abundance);
 
-    auto ffItem = static_cast<FormFactorItem*>(getGroupItem(ParticleItem::P_FORM_FACTOR));
-    Q_ASSERT(ffItem);
-    auto P_ff = ffItem->createFormFactor();
-    P_particle->setFormFactor(*P_ff);
+    auto& ffItem = groupItem<FormFactorItem>(ParticleItem::P_FORM_FACTOR);
+    P_particle->setFormFactor(*ffItem.createFormFactor());
 
     TransformToDomain::setTransformationInfo(P_particle.get(), *this);
 

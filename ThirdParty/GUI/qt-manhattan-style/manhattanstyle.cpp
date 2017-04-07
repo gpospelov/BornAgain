@@ -60,7 +60,6 @@
 #include <QTreeView>
 #include <QToolButton>
 #include <QAbstractItemView>
-#include <QDebug>
 
 using namespace Manhattan;
 
@@ -282,8 +281,6 @@ QPalette panelPalette(const QPalette &oldPalette, bool lightColored = false)
     pal.setBrush(QPalette::Disabled, QPalette::Foreground, color);
     return pal;
 }
-
-#include <QDebug>
 
 void ManhattanStyle::polish(QWidget *widget)
 {

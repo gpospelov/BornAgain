@@ -28,10 +28,9 @@
 #include "DetectorFunctions.h"
 #include "DomainObjectBuilder.h"
 #include "Instrument.h"
-#include "JobItemHelper.h"
+#include "JobItemUtils.h"
 #include "IDetector2D.h"
 #include "JobItemFunctions.h"
-#include <QDebug>
 
 namespace JobModelFunctions {
 void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);
@@ -98,19 +97,10 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
 void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
 {
     IntensityDataItem *intensityItem = jobItem->realDataItem()->intensityDataItem();
-    DetectorItem *detector = jobItem->instrumentItem()->detectorItem();
-
-    // removing original masks from the detector, if exists
-    if(detector->maskContainerItem())
-        detector->takeItem(0, DetectorItem::T_MASKS);
-
-    if(MaskContainerItem *container = intensityItem->maskContainerItem()) {
-        SessionModel *model = detector->model();
-        model->copyParameterizedItem(container, detector, DetectorItem::T_MASKS);
-    }
+    jobItem->instrumentItem()->importMasks(intensityItem->maskContainerItem());
 }
 
-//! Crops RealDataItem to the region of interest. TODO is there better place?
+//! Crops RealDataItem to the region of interest.
 
 void JobModelFunctions::cropRealData(JobItem *jobItem) {
     RealDataItem *realData = jobItem->realDataItem();
@@ -123,8 +113,7 @@ void JobModelFunctions::cropRealData(JobItem *jobItem) {
     instrument->initDetector();
 
     IDetector2D::EAxesUnits requested_units
-        = JobItemHelper::getAxesUnitsFromName(intensityItem->getSelectedAxesUnits());
-    qDebug() << "AAAAAAa" << requested_units << intensityItem->getSelectedAxesUnits();
+        = JobItemUtils::axesUnitsFromName(intensityItem->selectedAxesUnits());
 
     std::unique_ptr<OutputData<double>> adjustedData = DetectorFunctions::createDataSet(
                 *instrument.get(), *intensityItem->getOutputData(), true, requested_units);

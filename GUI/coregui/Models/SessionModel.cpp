@@ -18,7 +18,6 @@
 #include "GUIHelpers.h"
 #include "IconProvider.h"
 #include "ItemFactory.h"
-#include <QDebug>
 #include <QFile>
 #include <QMimeData>
 
@@ -244,9 +243,7 @@ QModelIndex SessionModel::indexOfItem(SessionItem *item) const
     if (!item || item == m_root_item || !item->parent())
         return QModelIndex();
     SessionItem *parent_item = item->parent();
-//    qDebug() << "OOO indexOfItem:" << item << " parent_item" <<  parent_item << "m_root_item:" << m_root_item;
     int row = parent_item->rowOfChild(item);
-    Q_ASSERT(row>=0); // FIXME For Debugging
     return createIndex(row, 0, item);
 }
 
@@ -263,10 +260,8 @@ SessionItem *SessionModel::insertNewItem(QString model_type, const QModelIndex &
             tag = parent_item->defaultTag();
         SessionTagInfo tagInfo = parent_item->getTagInfo(tag);
 
-        if (!tagInfo.modelTypes.contains(model_type)) {
-            qDebug() << "Child of type " << model_type << " not acceptable!\n";
+        if (!tagInfo.modelTypes.contains(model_type))
             return nullptr;
-        }
     }
 
     SessionItem *new_item = ItemFactory::createItem(model_type);
@@ -342,11 +337,8 @@ void SessionModel::readFrom(QXmlStreamReader *reader, WarningMessageService *mes
 {
     Q_ASSERT(reader);
 
-    qDebug() << "SessionModel::readFrom()" << m_model_tag << reader->name() << m_root_item;
-
-    if (reader->name() != m_model_tag) {
+    if (reader->name() != m_model_tag)
         throw GUIHelpers::Error("SessionModel::readFrom() -> Format error in p1");
-    }
 
     beginResetModel();
     clear();
@@ -374,9 +366,6 @@ void SessionModel::writeTo(QXmlStreamWriter *writer, SessionItem *parent)
 SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem *new_parent,
                                          int row, const QString &tag)
 {
-    qDebug() << "";
-    qDebug() << "";
-    qDebug() << "SessionModel::moveParameterizedItem() " << item << new_parent << row;
     if (!new_parent)
         new_parent = m_root_item;
     const QString tagName = tag.isEmpty() ? new_parent->defaultTag() : tag;
@@ -391,8 +380,6 @@ SessionItem *SessionModel::moveParameterizedItem(SessionItem *item, SessionItem 
         // take care of indexes when moving item within same parent
         int previousIndex = item->parent()->getItems(tagName).indexOf(item);
         if (row==previousIndex) {
-            qDebug()
-                << "SessionModel::moveParameterizedItem() -> no need to move, same parent, same row. ";
             return item;
         } else if (previousIndex >= 0 && row>previousIndex) {
             row--;
@@ -490,9 +477,8 @@ QStringList SessionModel::topItemNames(const QString &model_type, const QModelIn
     return result;
 }
 
-void SessionModel::initFrom(SessionModel *model, SessionItem *parent)
+void SessionModel::initFrom(SessionModel *model, SessionItem *)
 {
-    qDebug() << "SessionModel::initFrom() -> " << model->getModelTag() << parent;
     QByteArray byte_array;
     QXmlStreamWriter writer(&byte_array);
     writer.setAutoFormatting(true);

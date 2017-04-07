@@ -14,20 +14,20 @@
 // ************************************************************************** //
 
 #include "ParameterPool.h"
+#include "Exceptions.h"
 #include "RealLimits.h"
 #include "RealParameter.h"
-#include <stdexcept>
 #include "StringUtils.h"
 #include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
+#include <algorithm>
 
 //! Constructs an empty parameter pool.
 
-ParameterPool::ParameterPool(const std::string& name, const std::function<void()>& onChange)
-    : m_name(name)
-    , m_onChange(onChange)
+ParameterPool::ParameterPool()
 {}
 
 ParameterPool::~ParameterPool()
@@ -39,18 +39,10 @@ ParameterPool::~ParameterPool()
 
 ParameterPool* ParameterPool::clone() const
 {
-    ParameterPool* new_pool = new ParameterPool(m_name, m_onChange);
-    new_pool->m_params = m_params;
-    return new_pool;
-}
-
-//! Returns a clone with _prefix_ prepended to every parameter key.
-
-ParameterPool* ParameterPool::cloneWithPrefix(const std::string& prefix) const
-{
-    ParameterPool* new_pool = new ParameterPool(m_name, m_onChange);
-    copyToExternalPool( prefix, new_pool );
-    return new_pool;
+    ParameterPool* result = new ParameterPool();
+    for(auto par : m_params)
+        result->addParameter(par->clone());
+    return result;
 }
 
 //! Clears the parameter map.
@@ -71,8 +63,7 @@ RealParameter& ParameterPool::addParameter(RealParameter* newPar)
 {
     for (const auto* par: m_params )
         if( par->getName()==newPar->getName() )
-            throw std::runtime_error(
-                "Bug in ParameterPool::addParameter(): "
+            throw Exceptions::RuntimeErrorException("ParameterPool::addParameter() -> Error. "
                 "Parameter '"+newPar->getName()+"' is already registered");
     m_params.push_back(newPar);
     return *newPar;
@@ -90,76 +81,97 @@ void ParameterPool::copyToExternalPool(const std::string& prefix, ParameterPool*
 
 //! Returns parameter with given _name_.
 
-const RealParameter* ParameterPool::getParameter(const std::string& name) const
+const RealParameter* ParameterPool::parameter(const std::string& name) const
 {
     for (const auto* par: m_params )
         if( par->getName()==name )
             return par;
-    throw std::runtime_error(
-        "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
+
+    return nullptr;
 }
 
 //! Returns parameter with given _name_.
 
-RealParameter* ParameterPool::getParameter(const std::string& name)
+RealParameter* ParameterPool::parameter(const std::string& name)
 {
-    for (auto* par: m_params )
-        if( par->getName()==name )
-            return par;
-    throw std::runtime_error(
-        "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
+    return const_cast<RealParameter *>(
+                static_cast<const ParameterPool *>(this)->parameter(name));
 }
 
-//! Returns vector of parameters that match the _pattern_ (wildcards '*' allowed).
+//! Returns nonempty vector of parameters that match the _pattern_ ('*' allowed), or throws.
 
 std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::string& pattern) const
 {
-    std::vector<RealParameter*> selected_parameters;
+    std::vector<RealParameter*> result;
     // loop over all parameters in the pool
-    for (auto* par: m_params)
-        if( Utils::String::matchesPattern( par->getName(), pattern ) )
-            selected_parameters.push_back(par);
-    if( selected_parameters.empty() )
+    for (auto* par : m_params)
+        if (StringUtils::matchesPattern(par->getName(), pattern))
+            result.push_back(par);
+    if (result.empty())
         report_find_matched_parameters_error(pattern);
-    return selected_parameters;
+    return result;
+}
+
+//! Returns the one parameter that matches the _pattern_ (wildcards '*' allowed), or throws.
+
+RealParameter* ParameterPool::getUniqueMatch(const std::string& pattern) const
+{
+    std::vector<RealParameter*> matches = getMatchedParameters(pattern);
+    if (matches.size() == 0)
+        throw Exceptions::RuntimeErrorException(
+            "ParameterPool::getUniqueMatch: there is no match for '" + pattern + "'");
+    if (matches.size() != 1)
+        throw Exceptions::RuntimeErrorException("ParameterPool::getUniqueMatch: pattern '" + pattern
+                                                + "' is not unique");
+    return matches[0];
 }
 
 //! Sets parameter value.
 
 void ParameterPool::setParameterValue(const std::string& name, double value)
 {
-    RealParameter* par = getParameter(name);
-    if( par->isNull() )
-        throw std::runtime_error(
-            "ParameterPool::setParameterValue() -> Error! Unitialized parameter '"+name+"'.");
-    try {
-        par->setValue(value);
-    } catch(std::runtime_error) {
-        report_set_value_error(name, value);
+    if(RealParameter* par = parameter(name)) {
+        try {
+            par->setValue(value);
+        } catch (std::runtime_error) {
+            report_set_value_error(name, value);
+        }
+    } else {
+        std::ostringstream message;
+        message << "ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'\n"
+                << "Available parameters:" << *this;
+        throw Exceptions::RuntimeErrorException(message.str());
     }
 }
 
-//! Sets parameter value.
+//! Sets value of the nonzero parameters that match _pattern_ ('*' allowed), or throws.
 
 int ParameterPool::setMatchedParametersValue(const std::string& pattern, double value)
 {
-    int npars(0);
-    for (auto* par: m_params) {
-        if( Utils::String::matchesPattern( par->getName(), pattern ) ) {
-            try {
-                par->setValue(value);
-                npars++;
-            } catch(std::runtime_error) {
-                report_set_value_error(par->getName(), value);
-            }
+    int npars = 0;
+    for (RealParameter* par : getMatchedParameters(pattern)) {
+        try {
+            par->setValue(value);
+            npars++;
+        } catch (std::runtime_error) {
+            report_set_value_error(par->getName(), value);
         }
     }
-    if(npars == 0)
+    if (npars == 0)
         report_find_matched_parameters_error(pattern);
     return npars;
 }
 
-std::vector<std::string> ParameterPool::getParameterNames() const
+//! Sets value of the one parameter that matches _pattern_ ('*' allowed), or throws.
+
+void ParameterPool::setUniqueMatchValue(const std::string& pattern, double value)
+{
+    if (setMatchedParametersValue(pattern, value) != 1)
+        throw  Exceptions::RuntimeErrorException(
+            "ParameterPool::setUniqueMatchValue: pattern '"+pattern+"' is not unique");
+}
+
+std::vector<std::string> ParameterPool::parameterNames() const
 {
     std::vector<std::string> result;
     for (const auto* par: m_params)
@@ -167,33 +179,31 @@ std::vector<std::string> ParameterPool::getParameterNames() const
     return result;
 }
 
-void ParameterPool::print(std::ostream& ostr) const
+//! Removes parameter with given name from the pool.
+
+void ParameterPool::removeParameter(const std::string& name)
 {
-    const size_t number_of_pars_in_line(12);
-    if( m_params.size() ) {
-        if(m_params.size() < number_of_pars_in_line) { // print in one line
-            ostr << "POOL_" << m_params.size();
-            ostr << "(";
-            for (const auto* par: m_params)
-                ostr << "'" << par->getName() << "'" << ":" << par->getValue() << " " ;
-            ostr << ")";
-        } else { // print in several lines
-            for (const auto* par: m_params)
-                ostr << "'" << par->getName() << "'" << ":" << par->getValue() << "\n";
-        }
-    } else {
-        ostr << "POOL_0";
+    if(RealParameter *par = parameter(name)) {
+        m_params.erase(std::remove(m_params.begin(), m_params.end(), par), m_params.end());
+        delete par;
     }
 }
 
-std::string ParameterPool::get_error_message(const std::string& criteria) const
+const RealParameter* ParameterPool::operator[](size_t index) const
 {
-    std::ostringstream ostr;
-    ostr << "No parameters satisfying  criteria '" << criteria
-       << "' have been found. Existing keys are:\n";
+    return m_params[check_index(index)];
+}
+
+RealParameter* ParameterPool::operator[](size_t index)
+{
+    return const_cast<RealParameter*>(static_cast<const ParameterPool*>(this)
+                                      ->operator[](index));
+}
+
+void ParameterPool::print(std::ostream& ostr) const
+{
     for (const auto* par: m_params)
-        ostr << "'" << par->getName() << "'\n";
-    return ostr.str();
+        ostr << "'" << par->getName() << "'" << ":" << par->value() << "\n";
 }
 
 //! reports error while finding parameters matching given name.
@@ -205,7 +215,7 @@ void ParameterPool::report_find_matched_parameters_error(const std::string& patt
        << "' have been found. Existing keys are:" << std::endl;
     for (const auto* par: m_params)
         ostr << "'" << par->getName() << "'\n";
-    throw std::runtime_error(ostr.str());
+    throw Exceptions::RuntimeErrorException(ostr.str());
 }
 
 //! Reports error while setting parname to given value.
@@ -214,10 +224,13 @@ void ParameterPool::report_set_value_error(const std::string& parname, double va
     std::ostringstream ostr;
     ostr << "ParameterPool::set_value_error() -> Attempt to set value " << value;
     ostr << " for parameter '" << parname << "' failed. Out of bounds?";
-    try {
-        ostr << " Parameter limits " << getParameter(parname)->getLimits() << ".\n";
-    } catch (...) {
-        throw std::runtime_error("Bug de luxe in ParameterPool: cannot even report the error");
-    }
-    throw std::runtime_error(ostr.str());
+    ostr << " Parameter limits: '" << parameter(parname)->limits() << "'.\n";
+    throw Exceptions::RuntimeErrorException(ostr.str());
+}
+
+size_t ParameterPool::check_index(size_t index) const
+{
+    if (index >= m_params.size())
+        throw std::runtime_error("ParameterPool::check_index() -> Error. Index out of bounds");
+    return index;
 }

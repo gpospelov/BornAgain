@@ -96,6 +96,8 @@ public:
 
     FitSuiteItem *fitSuiteItem();
     ParameterContainerItem *parameterContainerItem();
+    const ParameterContainerItem *parameterContainerItem() const;
+
     FitParameterContainerItem *fitParameterContainerItem();
     RealDataItem *realDataItem();
 

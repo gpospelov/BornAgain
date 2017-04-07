@@ -24,13 +24,17 @@
 #include "ScientificDoubleProperty.h"
 #include "SessionModel.h"
 #include "WarningMessageService.h"
-#include <QDebug>
 
 namespace
 {
 const QString SET_ITEM_PROPERTY_ERROR = "SET_ITEM_PROPERTY_ERROR";
 const QString ITEM_IS_NOT_INITIALIZED = "ITEM_IS_NOT_INITIALIZED";
 const QString NON_EXISTING_SUBITEM = "NON_EXISTING_SUBITEM";
+
+const QString bool_type_name = "bool";
+const QString double_type_name = "double";
+const QString int_type_name = "int";
+const QString qstring_type_name = "QString";
 }
 
 void SessionWriter::writeTo(QXmlStreamWriter *writer, SessionItem *parent)
@@ -77,26 +81,26 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
         writer->writeAttribute(SessionXML::ParameterTypeAttribute, type_name);
         writer->writeAttribute(SessionXML::ParameterRoleAttribute, QString::number(role));
 
-        if (type_name == QString("double")) {
+        if (type_name == double_type_name) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(variant.toDouble(), 'e', 12));
         }
 
-        else if (type_name == QString("int")) {
+        else if (type_name == int_type_name) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(variant.toInt()));
         }
 
-        else if (type_name == QString("bool")) {
+        else if (type_name == bool_type_name) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(variant.toBool()));
         }
 
-        else if (type_name == QString("QString")) {
+        else if (type_name == qstring_type_name) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute, variant.toString());
         }
 
-        else if (type_name == QString("MaterialProperty")) {
+        else if (type_name == Constants::MaterialPropertyType) {
             MaterialProperty material_property = variant.value<MaterialProperty>();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    material_property.getName());
@@ -105,23 +109,27 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
 
         }
 
-        else if (type_name == QString("ComboProperty")) {
+        else if (type_name == Constants::ComboPropertyType) {
+            int currentIndex = variant.value<ComboProperty>().currentIndex();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                   variant.value<ComboProperty>().getValue());
+                                   QString::number(currentIndex));
+            writer->writeAttribute(SessionXML::ParameterExtAttribute,
+                                   variant.value<ComboProperty>().stringOfValues());
+
         }
 
-        else if (type_name == QString("ScientificDoubleProperty")) {
+        else if (type_name == Constants::ScientificDoublePropertyType) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    variant.value<ScientificDoubleProperty>().getText());
 
         }
 
-        else if (type_name == QString("GroupProperty_t")) {
-            QString ff_name = variant.value<GroupProperty_t>()->getCurrentType();
+        else if (type_name == Constants::GroupPropertyType) {
+            QString ff_name = variant.value<GroupProperty_t>()->currentType();
             writer->writeAttribute(SessionXML::ParameterValueAttribute, ff_name);
         }
 
-        else if (type_name == QString("ColorProperty")) {
+        else if (type_name == Constants::ColorPropertyType) {
             int r, g, b, a;
             QColor material_color = variant.value<ColorProperty>().getColor();
             material_color.getRgb(&r, &g, &b, &a);
@@ -131,7 +139,7 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
             writer->writeAttribute(SessionXML::ColorAlphaAttribute, QString::number(a));
         }
 
-        else if (type_name == QString("AngleProperty")) {
+        else if (type_name == Constants::AnglePropertyType) {
             double value = variant.value<AngleProperty>().getValueInRadians();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(value, 'g'));
@@ -150,8 +158,6 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                               WarningMessageService *messageService)
 {
     bool isTopItem = true;
-    qDebug() << "SessionModel::readItems()  item:" << item << "topTag:" << topTag;
-    if(item) qDebug() << "  item" << item->modelType();
     const QString modelType = item->model()->getModelTag();
     while (!reader->atEnd()) {
         reader->readNext();
@@ -175,7 +181,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                     item = newItem;
 
                 } else if (item->modelType() == Constants::GroupItemType) {
-                    SessionItem *newItem = item->parent()->getGroupItem(item->parent()
+                    SessionItem *newItem = item->parent()->setGroupProperty(item->parent()
                                                 ->tagFromItem(item), model_type);
                     if (!newItem) {
                         QString message = QString("Unrecoverable read error for model '%1', "
@@ -230,7 +236,6 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                     item = item->parent();
                 } else {
                     // handling the case when reading obsolete project file, when SubItem doesn't exist anymore
-                    qDebug() << "!!";
                     Q_ASSERT(0);
                 }
             }
@@ -246,9 +251,6 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
 QString SessionReader::readProperty(QXmlStreamReader *reader,
         SessionItem *item, WarningMessageService *messageService)
 {
-//    qDebug() << "SessionModel::readProperty() for" << item;
-    if (item)
-        qDebug() << item->modelType();
     const QString parameter_name
         = reader->attributes().value(SessionXML::ParameterNameAttribute).toString();
     const QString parameter_type
@@ -264,54 +266,54 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
     }
 
     QVariant variant;
-    if (parameter_type == "double") {
+    if (parameter_type == double_type_name) {
         double parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
         variant = parameter_value;
 
     }
 
-    else if (parameter_type == "int") {
+    else if (parameter_type == int_type_name) {
         int parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
         variant = parameter_value;
     }
 
-    else if (parameter_type == "bool") {
+    else if (parameter_type == bool_type_name) {
         bool parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
         variant = parameter_value;
 
     }
 
-    else if (parameter_type == "QString") {
+    else if (parameter_type == qstring_type_name) {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
         variant = parameter_value;
 
     }
 
-    else if (parameter_type == "MaterialProperty") {
+    else if (parameter_type == Constants::MaterialPropertyType) {
         QString identifier = reader->attributes().value(SessionXML::IdentifierAttribute).toString();
 
         MaterialProperty material_property(identifier);
         variant = material_property.getVariant();
     }
 
-    else if (parameter_type == "ComboProperty") {
-        QString parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
+    else if (parameter_type == Constants::ComboPropertyType) {
+        int parameter_value
+            = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
+        QString parameterExt
+            = reader->attributes().value(SessionXML::ParameterExtAttribute).toString();
 
-        ComboProperty combo_property
-            = item->value().value<ComboProperty>();
-        if (combo_property.getValues().contains(parameter_value)) {
-            combo_property.setValue(parameter_value);
-        }
-        combo_property.setCachedValue(parameter_value);
+        ComboProperty combo_property;
+        combo_property.setStringOfValues(parameterExt);
+        combo_property.setCurrentIndex(parameter_value);
+
         variant = combo_property.getVariant();
     }
 
-    else if (parameter_type == "ScientificDoubleProperty") {
+    else if (parameter_type == Constants::ScientificDoublePropertyType) {
         double parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
 
@@ -321,7 +323,7 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
         variant = v;
     }
 
-    else if (parameter_type == "GroupProperty_t") {
+    else if (parameter_type == Constants::GroupPropertyType) {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
 
@@ -337,7 +339,7 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
 
     }
 
-    else if (parameter_type == "ColorProperty") {
+    else if (parameter_type == Constants::ColorPropertyType) {
         int r = reader->attributes().value(SessionXML::ColorRedAttribute).toInt();
         int g = reader->attributes().value(SessionXML::ColorGreenAttribute).toInt();
         int b = reader->attributes().value(SessionXML::ColorBlueAttribute).toInt();
@@ -346,7 +348,7 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
         variant = color.getVariant();
     }
 
-    else if (parameter_type == "AngleProperty") {
+    else if (parameter_type == Constants::AnglePropertyType) {
         double parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
         QString units = reader->attributes().value(SessionXML::AngleUnitsAttribute).toString();

@@ -1,6 +1,3 @@
-#ifndef TESTGUICOREOBJECTCORRESPONDENCE_H
-#define TESTGUICOREOBJECTCORRESPONDENCE_H
-
 #include <QtTest>
 
 class TestGUICoreObjectCorrespondence : public QObject {
@@ -37,5 +34,3 @@ private slots:
 //    void test_2DParacrystal();
 //    void test_2DLattice();
 };
-
-#endif // TESTGUICOREOBJECTCORRESPONDENCE_H

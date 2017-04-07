@@ -1,6 +1,3 @@
-#ifndef MULTIOPTIONTEST_H
-#define MULTIOPTIONTEST_H
-
 #include "MultiOption.h"
 #include "gtest/gtest.h"
 #include <iostream>
@@ -100,6 +97,3 @@ TEST_F(MultiOptionTest, SetFromString)
     opt3.setFromString("yyy");
     EXPECT_EQ("yyy", opt3.get<std::string>());
 }
-
-
-#endif

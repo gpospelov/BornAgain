@@ -23,7 +23,6 @@
 #include "projectmanager.h"
 #include "qstringutils.h"
 #include <QCommandLinkButton>
-#include <QDebug>
 #include <QDesktopServices>
 #include <QSignalMapper>
 #include <QUrl>
@@ -211,7 +210,7 @@ void WelcomeView::generateRecentProjectList()
     m_signalMapper = new QSignalMapper(this);
 
     int i(0);
-    foreach(QString file, m_projectManager->getRecentProjects() ) {
+    foreach(QString file, m_projectManager->recentProjects() ) {
         //hasRecentProjects = true;
 
         QFont font;
@@ -224,7 +223,7 @@ void WelcomeView::generateRecentProjectList()
         palette.setColor(QPalette::ButtonText,QColor(41,73,150));
 
         slotButtons[i] = new QCommandLinkButton;
-        slotButtons[i]->setText(Utils::withTildeHomePath(file));
+        slotButtons[i]->setText(GUI_StringUtils::withTildeHomePath(file));
         slotButtons[i]->setFont(font);
         slotButtons[i]->setPalette(palette);
         //slotButtons[i]->setDescription("Recent description");
@@ -248,12 +247,11 @@ void WelcomeView::generateRecentProjectList()
 QString WelcomeView::getCurrentProjectFancyName()
 {
     QString result("Untitled");
-    if(ProjectDocument *projectDocument = m_projectManager->getDocument()) {
-        if(projectDocument->hasValidNameAndPath()) {
-           result = Utils::withTildeHomePath(projectDocument->getProjectFileName());
-        } else {
-           result = projectDocument->getProjectName();
-        }
+    if(ProjectDocument *projectDocument = m_projectManager->document()) {
+        if(projectDocument->hasValidNameAndPath())
+           result = GUI_StringUtils::withTildeHomePath(projectDocument->projectFileName());
+        else
+           result = projectDocument->projectName();
     }
     return result;
 }
@@ -278,7 +276,6 @@ void WelcomeView::onNewUser()
 
 void WelcomeView::updateRecentProjectPanel()
 {
-    qDebug() << "WelcomeView::updateRecentProjectPanel called";
     this->clearLayout(m_recentProjectLayout);
     this->generateRecentProjectList();
     update();

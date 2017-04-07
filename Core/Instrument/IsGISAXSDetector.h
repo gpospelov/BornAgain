@@ -18,9 +18,8 @@
 
 #include "SphericalDetector.h"
 
-//! @class IsGISAXSDetector
+//! A spherical detector used for validation with IsGISAXS results.
 //! @ingroup simulation
-//! @brief A spherical detector used for validation with IsGISAXS results.
 
 class BA_CORE_API_ IsGISAXSDetector : public SphericalDetector
 {
@@ -32,9 +31,9 @@ public:
 
     IsGISAXSDetector* clone() const override;
 
-protected:
-    void print(std::ostream &ostr) const override;
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
+protected:
     //! Generates an axis with correct name and default binning for given index
     IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const override;
 

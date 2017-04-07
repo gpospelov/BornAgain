@@ -26,6 +26,7 @@
 class SessionItem;
 class SessionItemWidget;
 class ItemComboToolBar;
+class QStackedWidget;
 
 //! The ItemComboWidget class combines stack of widgets with QComboBox controller to switch between
 //! widgets. It is used in the case when one SessionItem can be presented with different widgets.
@@ -33,38 +34,36 @@ class ItemComboToolBar;
 //! For example, in JobOutputDataWidget the results of the job can be presented with either
 //! IntensityDataWidget or FitDataWidget, depending from the JobView's activity type.
 
-class BA_CORE_API_ ItemComboWidget : public QWidget {
+class BA_CORE_API_ ItemComboWidget : public QWidget
+{
     Q_OBJECT
 
 public:
-    typedef std::function<SessionItemWidget*()> factory_function_t;
+    using factory_function_t = std::function<SessionItemWidget*()>;
 
-    explicit ItemComboWidget(QWidget *parent = 0);
+    explicit ItemComboWidget(QWidget* parent = 0);
 
-    virtual void setItem(SessionItem *item);
+    virtual void setItem(SessionItem* item);
 
-    void registerWidget(const QString &presentationType, factory_function_t);
+    void registerWidget(const QString& presentationType, factory_function_t);
 
-    void setPresentation(const QString &presentationType);
-
+    void setPresentation(const QString& presentationType);
 
 protected:
-//    virtual void showEvent(class QShowEvent *);
-//    virtual void hideEvent(class QHideEvent *);
-    virtual QStringList getValidPresentationList(SessionItem *item);
+    virtual QStringList activePresentationList(SessionItem* item);
+    virtual QStringList presentationList(SessionItem* item);
 
 private slots:
-    void onComboChanged(const QString &name);
+    void onComboChanged(const QString& name);
 
 private:
     QString currentPresentation() const;
 
-    ItemComboToolBar *m_toolBar;
-    class QStackedWidget *m_stackedWidget;
-    SessionItem *m_currentItem;
+    ItemComboToolBar* m_toolBar;
+    QStackedWidget* m_stackedWidget;
+    SessionItem* m_currentItem;
     IFactory<QString, SessionItemWidget> m_widgetFactory;
-    QMap<QString, SessionItemWidget *> m_presentationTypeToWidget;
-
+    QMap<QString, SessionItemWidget*> m_presentationTypeToWidget;
 };
 
 #endif // ITEMCOMBOWIDGET_H

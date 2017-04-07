@@ -19,7 +19,6 @@
 #include "MaterialSvc.h"
 #include <QColorDialog>
 #include <QComboBox>
-#include <QDebug>
 #include <QDoubleValidator>
 #include <QFileDialog>
 #include <QFocusEvent>
@@ -107,11 +106,9 @@ GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
 
 GroupPropertyEdit::~GroupPropertyEdit()
 {
-    qDebug() << "GroupPropertyEdit::~GroupPropertyEdit() -> destroyed" << this;
 }
 
-void GroupPropertyEdit::setGroupProperty(
-        GroupProperty_t groupProperty)
+void GroupPropertyEdit::setGroupProperty(GroupProperty_t groupProperty)
 {
     if(groupProperty) {
         m_groupProperty = groupProperty;
@@ -121,15 +118,14 @@ void GroupPropertyEdit::setGroupProperty(
 
 void GroupPropertyEdit::processGroup()
 {
-    qDebug() << "GroupPropertyEdit::processGroup()";
     disconnect(m_box, SIGNAL(currentIndexChanged(int)),
             this, SLOT(indexChanged(int)));
 
-    if(m_box->count() != m_groupProperty->getLabels().size()) {
+    if(m_box->count() != m_groupProperty->itemLabels().size()) {
         m_box->clear();
-        m_box->insertItems(0, m_groupProperty->getLabels());
+        m_box->insertItems(0, m_groupProperty->itemLabels());
     }
-    m_box->setCurrentIndex(m_groupProperty->index());
+    m_box->setCurrentIndex(m_groupProperty->currentIndex());
 
     connect(m_box, SIGNAL(currentIndexChanged(int)),
             this, SLOT(indexChanged(int)), Qt::UniqueConnection);
@@ -137,8 +133,7 @@ void GroupPropertyEdit::processGroup()
 
 void GroupPropertyEdit::indexChanged(int index)
 {
-    qDebug() << "GroupPropertyEdit::textChanged() -> " << index;
-    m_groupProperty->setCurrentType(m_groupProperty->toString(index));
+    m_groupProperty->setCurrentIndex(index);
 }
 
 QSize GroupPropertyEdit::sizeHint() const
@@ -307,13 +302,11 @@ ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
 
 //ComboPropertyEdit::~ComboPropertyEdit()
 //{
-//    qDebug() << "ComboPropertyEdit::~ComboPropertyEdit()" << this;
 //}
 
 void ComboPropertyEdit::setComboProperty(
         const ComboProperty &combo_property)
 {
-    qDebug() << "ComboPropertyEdit::setComboProperty() this=" << this;
     m_combo_property = combo_property;
 //    if (!m_comboBox) {
 //        m_comboBox = new QComboBox(this);
@@ -330,7 +323,7 @@ void ComboPropertyEdit::setComboProperty(
         addItems(value_list);
 
         int index(0);
-        foreach(QString descr, m_combo_property.getToolTips())
+        foreach(QString descr, m_combo_property.toolTips())
             setItemData(index++, descr, Qt::ToolTipRole);
 
     }
@@ -360,10 +353,7 @@ QString ComboPropertyEdit::comboValueText()
 
 void ComboPropertyEdit::onCurrentIndexChanged(QString current_value)
 {
-    qDebug() << "ComboPropertyEdit::onCurrentIndexChanged(QString current_value)" << current_value;
     m_combo_property.setValue(current_value);
-    m_combo_property.setCachedValue(current_value);
-    qDebug() << "       ComboPropertyEdit::onCurrentIndexChanged(QString current_value) -> emitting combo property";
     emit comboPropertyChanged(m_combo_property);
 }
 

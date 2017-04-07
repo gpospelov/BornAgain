@@ -17,24 +17,12 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "FormFactorWeighted.h"
-#include "Materials.h"
+#include "HomogeneousMaterial.h"
 #include "ParticleDistribution.h"
 
 ParticleComposition::ParticleComposition()
 {
     initialize();
-}
-
-ParticleComposition::ParticleComposition(const IParticle& particle)
-{
-    initialize();
-    addParticle( particle, kvector_t(0.0, 0.0, 0.0) );
-}
-
-ParticleComposition::ParticleComposition(const IParticle &particle, kvector_t position)
-{
-    initialize();
-    addParticle(particle, position);
 }
 
 ParticleComposition::ParticleComposition(const IParticle& particle,
@@ -45,10 +33,7 @@ ParticleComposition::ParticleComposition(const IParticle& particle,
 }
 
 ParticleComposition::~ParticleComposition()
-{
-    for (size_t index=0; index<m_particles.size(); ++index)
-        delete m_particles[index];
-}
+{}
 
 ParticleComposition* ParticleComposition::clone() const
 {
@@ -56,22 +41,6 @@ ParticleComposition* ParticleComposition::clone() const
     p_result->setAbundance(m_abundance);
     for (size_t index=0; index<m_particles.size(); ++index)
         p_result->addParticle(*m_particles[index]);
-    p_result->setAmbientMaterial(*getAmbientMaterial());
-    if (mP_rotation)
-        p_result->setRotation(*mP_rotation);
-    p_result->setPosition(m_position);
-    return p_result;
-}
-
-ParticleComposition* ParticleComposition::cloneInvertB() const
-{
-    ParticleComposition* p_result = new ParticleComposition();
-    p_result->setAbundance(m_abundance);
-    for (size_t index=0; index<m_particles.size(); ++index)
-        p_result->addParticlePointer(m_particles[index]->cloneInvertB());
-
-    if(getAmbientMaterial())
-        p_result->setAmbientMaterial(*Materials::createInvertedMaterial(getAmbientMaterial()));
     if (mP_rotation)
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
@@ -82,8 +51,7 @@ void ParticleComposition::addParticle(const IParticle &particle)
 {
     checkParticleType(particle);
     IParticle* np = particle.clone();
-    registerChild(np);
-    m_particles.push_back(np);
+    addParticlePointer(np);
 }
 
 void ParticleComposition::addParticle(const IParticle& particle, kvector_t position)
@@ -91,57 +59,68 @@ void ParticleComposition::addParticle(const IParticle& particle, kvector_t posit
     checkParticleType(particle);
     IParticle* np = particle.clone();
     np->applyTranslation(position);
-    registerChild(np);
-    m_particles.push_back(np);
+    addParticlePointer(np);
 }
 
-// Please note, that positions is not const reference here. This is intentionally to
-// python lists to std::vector
-void ParticleComposition::addParticles(const IParticle& particle,
-        std::vector<kvector_t > positions)
+// Please note, that positions is not const reference here. This is intentional, to
+// enable python lists to std::vector conversion
+void ParticleComposition::addParticles(const IParticle& particle, std::vector<kvector_t> positions)
 {
     for (size_t i=0; i<positions.size(); ++i)
         addParticle(particle, positions[i]);
 }
 
-void ParticleComposition::setAmbientMaterial(const IMaterial& material)
-{
-    for (size_t index=0; index<m_particles.size(); ++index)
-        m_particles[index]->setAmbientMaterial(material);
-}
-
-const IMaterial* ParticleComposition::getAmbientMaterial() const
-{
-    if (m_particles.size()==0) return 0;
-    return m_particles[0]->getAmbientMaterial();
-}
-
-IFormFactor*
-ParticleComposition::createTransformedFormFactor(const IRotation* p_rotation,
-                                                 kvector_t translation) const
+IFormFactor* ParticleComposition::createTransformedFormFactor(
+    const IRotation* p_rotation, kvector_t translation) const
 {
     if (m_particles.size() == 0)
         return 0;
-    const std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
-    kvector_t total_position = getComposedTranslation(p_rotation, translation);
     FormFactorWeighted* p_result = new FormFactorWeighted();
-    for (size_t index = 0; index < m_particles.size(); ++index) {
-        const std::unique_ptr<IFormFactor> P_particle_ff(
-            m_particles[index]->createTransformedFormFactor(P_total_rotation.get(),
-                                                            total_position));
+    auto particles = decompose();
+    for (auto p_particle : particles) {
+        if (p_rotation)
+            p_particle->applyRotation(*p_rotation);
+        p_particle->applyTranslation(translation);
+        const std::unique_ptr<IFormFactor> P_particle_ff(p_particle->createFormFactor());
         p_result->addFormFactor(*P_particle_ff);
     }
     return p_result;
 }
 
-const IParticle* ParticleComposition::getParticle(size_t index) const
+const IParticle* ParticleComposition::particle(size_t index) const
 {
-    return m_particles[check_index(index)];
+    return m_particles[check_index(index)].get();
 }
 
-kvector_t ParticleComposition::getParticlePosition(size_t index) const
+kvector_t ParticleComposition::particlePosition(size_t index) const
 {
-    return m_particles[check_index(index)]->getPosition();
+    return m_particles[check_index(index)]->position();
+}
+
+std::vector<const INode*> ParticleComposition::getChildren() const
+{
+    std::vector<const INode*> result = IParticle::getChildren();
+    for (auto& P_particle : m_particles)
+        result.push_back(P_particle.get());
+    return result;
+}
+
+SafePointerVector<IParticle> ParticleComposition::decompose() const
+{
+    SafePointerVector<IParticle> result;
+    auto p_rotation = rotation();
+    auto translation = position();
+    for (auto& P_particle : m_particles)
+    {
+        auto sublist = P_particle->decompose();
+        for (auto p_subparticle : sublist) {
+            if (p_rotation)
+                p_subparticle->applyRotation(*p_rotation);
+            p_subparticle->applyTranslation(translation);
+            result.push_back(p_subparticle->clone());
+        }
+    }
+    return result;
 }
 
 size_t ParticleComposition::check_index(size_t index) const
@@ -160,12 +139,13 @@ void ParticleComposition::checkParticleType(const IParticle &p_particle)
 
 void ParticleComposition::addParticlePointer(IParticle* p_particle)
 {
+    p_particle->registerAbundance(false);
     registerChild(p_particle);
-    m_particles.push_back(p_particle);
+    m_particles.emplace_back(p_particle);
 }
 
 void ParticleComposition::initialize()
 {
     setName(BornAgain::ParticleCompositionType);
-    registerPosition();
+    registerParticleProperties();
 }

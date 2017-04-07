@@ -30,7 +30,7 @@ def get_sample():
     particle_layout.addParticle(cylinder, 0.5)
     particle_layout.addParticle(prism, 0.5)
     interference = ba.InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = ba.Layer(m_air)
@@ -60,10 +60,10 @@ def simulate():
 
     sample = get_sample()
     print("The tree structure of the sample")
-    print( sample.to_str() )
+    print(sample.treeToString())
 
     print("The sample contains following parameters ('name':value)")
-    sample.printParameters()
+    print(sample.parametersToString())
 
     simulation = get_simulation()
 
@@ -99,6 +99,8 @@ def simulate():
     simulation.setSample(sample)
     simulation.runSimulation()
     results[3] = simulation.getIntensityData()
+
+    # See more trick in <source>/Tests/Functional/PyCore/legacy/parameterpool.py
 
     return results
 

@@ -16,19 +16,19 @@
 #ifndef FTDISTRIBUTIONS2D_H
 #define FTDISTRIBUTIONS2D_H
 
-#include "IParameterized.h"
+#include "ICloneable.h"
+#include "INode.h"
 #include "MathConstants.h"
-
 
 //! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup distribution_internal
 
-class BA_CORE_API_ IFTDistribution2D : public IParameterized
+class BA_CORE_API_ IFTDistribution2D : public ICloneable, public INode
 {
 public:
     IFTDistribution2D(double coherence_length_x, double coherence_length_y,
                       double gamma=0, double delta=M_PI_2);
-    virtual IFTDistribution2D* clone() const=0;
+    IFTDistribution2D* clone() const =0;
 
     void setGamma(double gamma) { m_gamma = gamma; }
     double getGamma() const { return m_gamma; }
@@ -76,6 +76,7 @@ public:
     FTDistribution2DCauchy* clone() const final {
         return new FTDistribution2DCauchy(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
 
@@ -93,6 +94,7 @@ public:
     FTDistribution2DGauss* clone() const final {
         return new FTDistribution2DGauss(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
 
@@ -110,6 +112,7 @@ public:
     FTDistribution2DGate* clone() const final {
         return new FTDistribution2DGate(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
 
@@ -127,6 +130,7 @@ public:
     FTDistribution2DCone* clone() const final {
         return new FTDistribution2DCone(
             m_coherence_length_x, m_coherence_length_y, m_gamma, m_delta); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 
 private:
@@ -148,6 +152,7 @@ public:
     FTDistribution2DVoigt* clone() const final {
         return new FTDistribution2DVoigt(
             m_coherence_length_x, m_coherence_length_y, m_eta, m_gamma, m_delta); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
     double getEta() const { return m_eta;}
 

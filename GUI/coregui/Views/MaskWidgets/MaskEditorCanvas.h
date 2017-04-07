@@ -45,6 +45,7 @@ public:
 
 signals:
     void changeActivityRequest(MaskEditorFlags::Activity);
+    void deleteSelectedRequest();
 
 public slots:
     void onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType);

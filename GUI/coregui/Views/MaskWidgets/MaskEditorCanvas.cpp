@@ -27,7 +27,6 @@
 #include "ColorMap.h"
 #include "IntensityDataItem.h"
 #include "MaskItems.h"
-#include <QDebug>
 #include <QGraphicsRectItem>
 #include <QModelIndex>
 #include <QVBoxLayout>
@@ -53,7 +52,8 @@ MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
 
     connect(m_view, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
             this, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)));
-
+    connect(m_view, SIGNAL(deleteSelectedRequest()),
+            this, SIGNAL(deleteSelectedRequest()));
 }
 
 void MaskEditorCanvas::setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
@@ -80,7 +80,12 @@ MaskGraphicsScene *MaskEditorCanvas::getScene()
 void MaskEditorCanvas::onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType)
 {
     m_resultsPresenter->updatePresenter(presentationType);
-    m_scene->onPresentationTypeRequest(presentationType);
+
+    if(auto container = m_intensityDataItem->maskContainerItem()) {
+        bool isVisible = presentationType.testFlag(MaskEditorFlags::MASK_EDITOR);
+        for(auto mask : container->getItems())
+            mask->setItemValue(MaskItem::P_IS_VISIBLE, isVisible);
+    }
 }
 
 //! Saves plot into project directory.

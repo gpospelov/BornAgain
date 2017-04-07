@@ -9,11 +9,21 @@ platform:
 # http://www.appveyor.com/docs/installed-software
 environment:
   QTDIR: "C:\\Qt\\5.7\\msvc2015_64"
-  PATH: "C:\\Qt\\5.7\\msvc2015_64\\bin;C:\\opt\\local_x64\\lib;C:\\Miniconda-x64;C:\\Miniconda-x64\\Scripts;C:\\Miniconda-x64\\Library\\bin;%PATH%"
+  MYCONDA: "C:\\Miniconda-x64;C:\\Miniconda-x64\\Scripts;C:\\Miniconda-x64\\Library\\bin"
+  MYGIT: "C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\usr\\bin;"
+  MYOTHER: "C:\\Program Files (x86)\\CMake\\bin;C:\\Program Files\\7-Zip"
+  MYMSVC: "C:\\Program Files (x86)\\MSBuild\\14.0\\Bin;"
+  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYGIT%;%MYOTHER%"
 build:
   parallel: true
 
+init:  
+- echo "BornAgain init"
+- echo %PATH%
+  
 before_build:
+- echo "BornAgain before_build"
+- echo %PATH%
 - python -m pip install numpy
 - python -m pip install pyyaml
 - C:\cygwin\bin\wget -q http://apps.jcns.fz-juelich.de/redmine/attachments/download/279/local_x64.zip -O %temp%\local_x64.zip
@@ -26,4 +36,5 @@ build_script:
 - cmake --build . --config Release
 
 test_script:
-- ctest
+- ctest -LE Examples
+

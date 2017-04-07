@@ -61,7 +61,7 @@ void Lattice::initialize() const
     m_cache_ok = true;
 }
 
-double Lattice::getVolume() const
+double Lattice::volume() const
 {
     return std::abs(m_a1.dot( m_a2.cross(m_a3)));
 }

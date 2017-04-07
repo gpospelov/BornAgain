@@ -19,11 +19,19 @@
 BeamWavelengthItem::BeamWavelengthItem()
     : BeamDistributionItem(Constants::BeamWavelengthType)
 {
+    register_distribution_group();
+
+    SessionItem *valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_VALUE);
+    valueItem->setLimits(RealLimits::positive());
+    valueItem->setDecimals(4);
+    valueItem->setValue(0.1);
+
+    initDistributionItem();
 }
 
 //! Returns wavelength. In the case of distribution applied, returns its mean.
 
 double BeamWavelengthItem::wavelength() const
 {
-    return this->meanValue();
+    return BeamDistributionItem::meanValue();
 }

@@ -17,54 +17,62 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "ILayout.h"
-#include "Materials.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
-Layer::Layer(const IMaterial& material, double thickness)
-    : mp_material(nullptr), m_thickness(thickness)
-{
-    setMaterial(material);
-    initialize();
-}
+#include <set>
 
-Layer::Layer(const Layer& other) : ICompositeSample()
+Layer::Layer(HomogeneousMaterial material, double thickness)
+    : m_material(std::move(material))
+    , m_thickness(thickness)
 {
-    m_thickness = other.m_thickness;
-    mp_material = nullptr;
-    if (other.mp_material)
-        mp_material = other.mp_material->clone();
-    for (size_t i=0; i<other.getNumberOfLayouts();++i)
-        addLayoutPtr(other.getLayout(i)->clone());
-    setNumberOfLayers(other.getNumberOfLayers());
-    initialize();
+    setName(BornAgain::LayerType);
+    registerThickness();
 }
 
 Layer::~Layer()
-{
-    delete mp_material;
-}
+{}
 
 Layer* Layer::cloneInvertB() const
 {
-    Layer* p_clone = new Layer(
-        *Materials::createInvertedMaterial(this->mp_material), this->m_thickness);
-    for (size_t i=0; i<getNumberOfLayouts(); ++i)
-        p_clone->addLayoutPtr(getLayout(i)->cloneInvertB());
-    p_clone->setNumberOfLayers(getNumberOfLayers());
-    p_clone->init_parameters();
+    Layer* p_clone = new Layer(m_material.inverted(), m_thickness);
     return p_clone;
 }
 
-std::string Layer::to_str(int indent) const
+SafePointerVector<Layer> Layer::cloneSliced(ZLimits limits, Layer::ELayerType layer_type) const
 {
-    std::stringstream ss;
-    ss << std::string(4*indent, '.') << " " << getName() << " "
-       << (getMaterial() ? getMaterial()->getName() : "0_MATERIAL") << " "
-       << getRefractiveIndex() << " " << *getParameterPool() << "\n";
-    for( const ISample* child: getChildren() )
-        ss << child->to_str(indent+1);
-    return ss.str();
+    SafePointerVector<Layer> result;
+    // no slicing when there are no limits or #slices is zero
+    if (!limits.isFinite() || m_n_slices==0 || layer_type==ONLYLAYER) {
+        result.push_back(clone());
+        return result;
+    }
+    double bottom = limits.lowerLimit().m_value;
+    double top = limits.upperLimit().m_value;
+    double slice_thickness = (top-bottom)/m_n_slices;
+    // empty top layer
+    double empty_top_thickness = (layer_type==TOPLAYER) ? 0 : -top;
+    if (empty_top_thickness>0 || layer_type==TOPLAYER)
+    {
+        result.push_back(new Layer(m_material, empty_top_thickness));
+    }
+    // slices containing particles
+    double offset = -top;
+    for (size_t i=0; i<m_n_slices; ++i)
+    {
+        Layer* p_layer = (i==0) ? cloneWithOffset(offset)
+                                : emptyClone();
+        p_layer->setThickness(slice_thickness);
+        result.push_back(p_layer);
+    }
+    // empty bottom layer
+    double layer_thickness = (layer_type==INTERMEDIATELAYER) ? thickness() : 0;
+    double empty_bottom_thickness = (layer_type==BOTTOMLAYER) ? 0 : bottom + layer_thickness;
+    if (empty_bottom_thickness>0 || layer_type==BOTTOMLAYER)
+    {
+        result.push_back(new Layer(m_material, empty_bottom_thickness));
+    }
+    return result;
 }
 
 //! Sets layer thickness in nanometers.
@@ -75,65 +83,81 @@ void Layer::setThickness(double thickness)
     m_thickness = thickness;
 }
 
-//! Sets _material_ of the layer.
-void Layer::setMaterial(const IMaterial& material)
+void Layer::setMaterial(HomogeneousMaterial material)
 {
-    delete mp_material;
-    mp_material = material.clone();
+    m_material = std::move(material);
 }
 
-complex_t Layer::getRefractiveIndex() const
+complex_t Layer::refractiveIndex() const
 {
-    return mp_material ? mp_material->getRefractiveIndex() : 1.0;
+    return m_material.refractiveIndex();
 }
 
-complex_t Layer::getRefractiveIndex2() const
+complex_t Layer::refractiveIndex2() const
 {
-    return getRefractiveIndex()*getRefractiveIndex();
+    return m_material.refractiveIndex2();
 }
 
-void Layer::addLayout(const ILayout& decoration)
+void Layer::addLayout(const ILayout& layout)
 {
-    addLayoutPtr(decoration.clone());
+    ILayout* clone = layout.clone();
+    m_layouts.push_back(clone);
+    registerChild(clone);
 }
 
-const ILayout* Layer::getLayout(size_t i) const
+std::vector<const ILayout*> Layer::layouts() const
 {
-    if (i>=m_layouts.size())
-        return nullptr;
-    return m_layouts[i];
+    std::vector<const ILayout*> result;
+    for (auto p_layout : m_layouts)
+        result.push_back(p_layout);
+    return result;
 }
 
-double Layer::getTotalParticleSurfaceDensity(size_t layout_index) const
+std::vector<const INode*> Layer::getChildren() const
 {
-    if (getNumberOfLayouts()==0 || layout_index>=getNumberOfLayouts())
-        return 0.0;
-    return getLayout(layout_index)->getTotalParticleSurfaceDensity();
+    std::vector<const INode*> result;
+    for(auto layout : m_layouts)
+        result.push_back(layout);
+    return result;
 }
 
-void Layer::init_parameters()
+void Layer::registerThickness(bool make_registered)
 {
-    getParameterPool()->clear(); // non-trivially needed
-    registerParameter(BornAgain::Thickness, &m_thickness).setUnit("nm").setNonnegative();
+    if(make_registered) {
+        if(!parameter(BornAgain::Thickness))
+            registerParameter(BornAgain::Thickness, &m_thickness).setUnit("nm").setNonnegative();
+    } else {
+        removeParameter(BornAgain::Thickness);
+    }
 }
 
-//! Prints description.
-void Layer::print(std::ostream& ostr) const
+Layer::Layer(const Layer& other)
+    : m_material(other.m_material)
 {
-    ICompositeSample::print(ostr);
-    ostr << "-->Layer{" <<  *getMaterial() << "}";
+    setName(other.getName());
+    m_thickness = other.m_thickness;
+    m_n_slices = other.m_n_slices;
+    for (auto p_layout : other.layouts())
+        addLayout(*p_layout);
+    registerThickness();
 }
 
-void Layer::addLayoutPtr(ILayout* layout)
+Layer* Layer::emptyClone() const
 {
-    if( !layout )
-        return;
-    m_layouts.push_back(layout);
-    registerChild(layout);
+    Layer* p_result = new Layer(m_material, m_thickness);
+    p_result->setName(getName());
+    return p_result;
 }
 
-void Layer::initialize()
+Layer* Layer::cloneWithOffset(double offset) const
 {
-    setName(BornAgain::LayerType);
-    init_parameters();
+    Layer* p_result = emptyClone();
+    for (size_t i=0; i<numberOfLayouts();++i)
+    for (auto p_layout : layouts())
+    {
+        ILayout* p_layout_offset = p_layout->cloneWithOffset(offset);
+        p_result->m_layouts.push_back(p_layout_offset);
+        p_result->registerChild(p_layout_offset);
+    }
+    return p_result;
 }

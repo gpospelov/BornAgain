@@ -19,7 +19,7 @@
 #include "GroupPropertyRegistry.h"
 #include "ItemFactory.h"
 #include "SessionModel.h"
-#include <QDebug>
+#include "ParameterTranslators.h"
 
 class SessionItemData
 {
@@ -46,7 +46,7 @@ SessionItem::SessionItem(const QString &modelType)
     setData(SessionModel::ModelTypeRole, modelType);
     setDisplayName(modelType);
     setDecimals(3);
-    setLimits(RealLimits::lowerLimited(0.0));
+    setLimits(RealLimits::nonnegative());
 }
 
 //! Destructor deletes all its children and request parent to delete this item.
@@ -66,6 +66,9 @@ SessionItem::~SessionItem()
     m_children.clear();
     if (m_parent && m_model)
         m_parent->childDeleted(this);
+
+    for(IPathTranslator* translator : m_translators)
+        delete translator;
 }
 
 //! internal
@@ -350,7 +353,6 @@ bool SessionItem::insertItem(int row, SessionItem *item, const QString &tag)
         if (item->parent() == nullptr) {
             item->setParentAndModel(this, m_model);
         } else {
-            qDebug() << "Double insertion of item";
             return false;
         }
     }
@@ -436,7 +438,6 @@ QVariant SessionItem::getItemValue(const QString &tag) const
 
 void SessionItem::setItemValue(const QString &tag, const QVariant &variant)
 {
-    // check if variant of previous property coincides with new one
     if (!isTag(tag))
         throw GUIHelpers::Error("Property not existing!");
 
@@ -451,8 +452,7 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
 
     if(GroupPropertyRegistry::isValidGroup(groupType)) {
         // create group item
-        GroupProperty_t group_property
-            = GroupPropertyRegistry::createGroupProperty(groupName, groupType);
+        GroupProperty_t group_property = GroupPropertyRegistry::createGroupProperty(groupType);
         GroupItem *groupItem = dynamic_cast<GroupItem *>(
                     ItemFactory::createItem(Constants::GroupItemType));
         Q_ASSERT(groupItem);
@@ -476,35 +476,18 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
     return result;
 }
 
-//! Access subitem of group item. If not existing, new item will be created by group property.
+//! Access subitem of group item.
 
-SessionItem *SessionItem::getGroupItem(const QString &name, const QString &type) const
+SessionItem *SessionItem::getGroupItem(const QString &groupName) const
 {
-    if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name))) {
-        GroupProperty_t group_property = item->group();
-        if (type.isEmpty()) {
-            return group_property->getCurrentItem();
-        }
-        QString backup = group_property->getCurrentType();
-        group_property->setCurrentType(type);
-        SessionItem *value = group_property->getCurrentItem();
-        group_property->setCurrentType(backup);
-        return value;
-    }
-    return nullptr;
+    return item<GroupItem>(groupName).currentItem();
 }
 
 //! Set the current type of group item.
 
 SessionItem *SessionItem::setGroupProperty(const QString &name, const QString &value) const
 {
-    qDebug() << "ParameterizedItem::setGroupProperty()" << name << value;
-    if (GroupItem *item = dynamic_cast<GroupItem *>(getItem(name))) {
-        GroupProperty_t group_property = item->group();
-        group_property->setCurrentType(value);
-        return group_property->getCurrentItem();
-    }
-    return nullptr;
+    return item<GroupItem>(name).setCurrentType(value);
 }
 
 //! Returns corresponding variant under given role, invalid variant when role is not present.
@@ -612,12 +595,14 @@ bool SessionItem::setValue(QVariant value)
     QVariant previous_variant = this->value();
     if (previous_variant.isValid() && GUIHelpers::getVariantType(previous_variant)
             != GUIHelpers::getVariantType(value)) {
-        qDebug() << "ParameterizedItem::setRegisteredProperty() -> Error. Type of previous and new "
-                    "variant does not coincide.";
-        qDebug() << "New variant" << value << ", previous " << previous_variant;
         throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of "
                                 "previous and new variant does not coincide.");
     }
+
+    // TODO If QVariant contains ComboProperty, the comparison will be always true.
+    if(previous_variant == value)
+        return true;
+
     return setData(Qt::DisplayRole, value);
 }
 
@@ -805,4 +790,18 @@ ModelMapper *SessionItem::mapper()
         m_mapper->setItem(this);
     }
     return m_mapper.get();
+}
+
+QStringList SessionItem::translateList(const QStringList& list) const
+{
+    QStringList result = list;
+    for(const IPathTranslator* translator : m_translators)
+        result = translator->translate(result);
+    result << displayName();
+    return result;
+}
+
+void SessionItem::addTranslator(const IPathTranslator& translator)
+{
+    m_translators.push_back(translator.clone());
 }

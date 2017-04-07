@@ -28,11 +28,19 @@ public:
 
     FormFactorTrivial* clone() const override final { return new FormFactorTrivial(); }
 
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    double getRadialExtension() const override final { return 0; }
+    double radialExtension() const override final { return 0; }
 
-    complex_t evaluate_for_q(const cvector_t) const override final { return 1; }
+    complex_t evaluate_for_q(cvector_t) const override final { return 1; }
+
+protected:
+    bool canSliceAnalytically(const IRotation&) const override final { return true; }
+
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
+    void onChange() override final;
 };
 
 #endif // FORMFACTORTRIVIAL_H

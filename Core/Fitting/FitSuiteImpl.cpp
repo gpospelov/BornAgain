@@ -16,12 +16,11 @@
 #include "FitSuiteImpl.h"
 #include "RealLimits.h"
 #include "FitParameter.h"
-#include "FitParameterLinked.h"
-#include "Logger.h"
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
 #include "IMinimizer.h"
 #include "FitKernel.h"
+#include "FitSuiteUtils.h"
 #include <stdexcept>
 
 FitSuiteImpl::FitSuiteImpl(const std::function<void()>& notifyObservers)
@@ -51,20 +50,30 @@ void FitSuiteImpl::clear()
 }
 
 //! Adds pair of (simulation, real data) for consecutive simulation
-void FitSuiteImpl::addSimulationAndRealData(const GISASSimulation& simulation,
+FitObject* FitSuiteImpl::addSimulationAndRealData(const GISASSimulation& simulation,
                                          const OutputData<double>& real_data, double weight)
 {
-    m_fit_objects.add(simulation, real_data, weight);
+    return m_fit_objects.add(simulation, real_data, weight);
 }
 
 //! Adds fit parameter, step is calculated from initial parameter value
-FitParameterLinked *FitSuiteImpl::addFitParameter(const std::string& name, double value,
+FitParameter* FitSuiteImpl::addFitParameter(const std::string& pattern, double value,
                                   const AttLimits& limits, double step)
 {
     if(step <=0.0)
         step = value * getOptions().stepFactor();
 
-    FitParameterLinked *result = new FitParameterLinked(name, value, limits, step);
+    FitParameter* result = new FitParameter(pattern, value, limits, step);
+    m_kernel->fitParameters()->addFitParameter(result);
+    return result;
+}
+
+FitParameter* FitSuiteImpl::addFitParameter(const FitParameter& fitPar)
+{
+    FitParameter* result = fitPar.clone();
+    if(result->step() <= 0.0)
+        result->setStep(result->value() * getOptions().stepFactor());
+
     m_kernel->fitParameters()->addFitParameter(result);
     return result;
 }
@@ -122,7 +131,7 @@ void FitSuiteImpl::minimize()
     m_fit_objects.runSimulations(); // we run simulation once again for best values found
 }
 
-FitParameterSet *FitSuiteImpl::fitParameters() {
+FitParameterSet* FitSuiteImpl::fitParameters() {
     return m_kernel->fitParameters();
 }
 
@@ -142,14 +151,25 @@ std::string FitSuiteImpl::reportResults() const
     return m_kernel->reportResults();
 }
 
-const FitKernel *FitSuiteImpl::kernel() const
+const FitKernel* FitSuiteImpl::kernel() const
 {
-   return m_kernel.get();
+    return m_kernel.get();
+}
+
+// method is not const because we have to link fit parameters with the sample,
+// to know what is going to be fitted
+std::string FitSuiteImpl::setupToString()
+{
+    check_prerequisites();
+    link_fit_parameters();
+    std::stringstream result;
+    result << FitSuiteUtils::fitParameterSettingsToString(*m_kernel->fitParameters());
+    return result.str();
 }
 
 bool FitSuiteImpl::check_prerequisites() const
 {
-    if( !m_fit_objects.getNumberOfFitObjects() ) throw Exceptions::LogicErrorException(
+    if( !m_fit_objects.size() ) throw Exceptions::LogicErrorException(
         "FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
     if( m_fit_objects.getSizeOfDataSet() == 0) throw Exceptions::LogicErrorException(
         "FitSuite::check_prerequisites() -> Error! No elements to fit. "
@@ -160,14 +180,22 @@ bool FitSuiteImpl::check_prerequisites() const
 //! link FitMultiParameters with simulation parameters
 void FitSuiteImpl::link_fit_parameters()
 {
-    const std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
-    for (auto par: *m_kernel->fitParameters()) {
-        FitParameterLinked* linkedPar = dynamic_cast<FitParameterLinked*>(par);
-        if( !linkedPar )
-            throw std::runtime_error(
-                "FitKernel::link_fit_parameters() -> Error! Can't cast to FitParameterLinked.");
-        linkedPar->addMatchedParametersFromPool(pool.get());
+    std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
+    auto parameters = FitSuiteUtils::linkedParameters(*m_kernel->fitParameters());
+
+    if(parameters.empty())
+        throw Exceptions::RuntimeErrorException("No fit Parameters defined.");
+
+    for (auto par: parameters)
+        par->addMatchedParameters(*pool);
+
+    if(FitSuiteUtils::hasConflicts(*m_kernel->fitParameters())) {
+        std::ostringstream message;
+        message << "FitSuite::runFit() -> Error. Fit parameters are conflicting with each other, "
+                << "meaning that one sample parameter can be controled by "
+                << "two different fit parameters.\n";
+        message << FitSuiteUtils::fitParameterSettingsToString(*m_kernel->fitParameters());
+        throw Exceptions::RuntimeErrorException(message.str());
     }
-    msglog(MSG::DEBUG2) << "FitSuite::link_fit_parameters() -> Parameter pool:";
-    msglog(MSG::DEBUG2) << *pool;
+
 }

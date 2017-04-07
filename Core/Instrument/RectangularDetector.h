@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Instrument/RectangularDetector.h
-//! @brief     Defines class RectangularDetector.
+//!     Defines class RectangularDetector.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,11 +17,10 @@
 #define RECTANGULARDETECTOR_H
 
 #include "IDetector2D.h"
-#include "IPixelMap.h"
+#include "IPixel.h"
 
-//! @class RectangularDetector
+//! A flat rectangular detector with axes and resolution function.
 //! @ingroup simulation
-//! @brief A rectangular plane detector with axes and resolution function.
 
 class BA_CORE_API_ RectangularDetector : public IDetector2D
 {
@@ -45,6 +44,8 @@ public:
 
     RectangularDetector* clone() const override;
 
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
     ~RectangularDetector();
 
     void init(const Beam& beam) override;
@@ -57,10 +58,6 @@ public:
     void setPerpendicularToDirectBeam(double distance, double u0, double v0);
     void setPerpendicularToReflectedBeam(double distance, double u0 = 0.0, double v0 = 0.0);
     void setDirectBeamPosition(double u0, double v0);
-
-    //! Adds parameters from local pool to external pool and recursively calls its direct children.
-    std::string addParametersToExternalPool(
-        const std::string& path, ParameterPool* external_pool, int copy_number = -1) const override;
 
     double getWidth() const;
     double getHeight() const;
@@ -82,10 +79,8 @@ public:
     EAxesUnits getDefaultAxesUnits() const override;
 
 protected:
-    //! Create an IPixelMap for the given OutputData object and index
-    IPixelMap* createPixelMap(size_t index) const override;
-
-    void print(std::ostream& ostr) const override;
+    //! Create an IPixel for the given OutputData object and index
+    IPixel* createPixel(size_t index) const override;
 
     //! Registers some class members for later access via parameter pool.
     void init_parameters() override {}
@@ -122,14 +117,14 @@ private:
     kvector_t m_v_unit;
 };
 
-class RectPixelMap : public IPixelMap
+class RectangularPixel : public IPixel
 {
 public:
-    RectPixelMap(kvector_t corner_pos, kvector_t width, kvector_t height);
-    virtual ~RectPixelMap() {}
+    RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height);
+    virtual ~RectangularPixel() {}
 
-    RectPixelMap* clone() const override;
-    RectPixelMap* createZeroSizeMap(double x, double y) const override;
+    RectangularPixel* clone() const override;
+    RectangularPixel* createZeroSizePixel(double x, double y) const override;
     kvector_t getK(double x, double y, double wavelength) const override;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;

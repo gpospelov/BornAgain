@@ -66,12 +66,6 @@ with the indicator function
 \index{Indicator function}%
 The following formalism, however, shall not rely on \cref{EDvpHomo},
 but also allow for soft particles for which $\Delta v_\sp(\r)$ is a continuous function of~$\r$.
-\Warn{Currently,
-BornAgain uses the given $v_\sp$
-(given through a particle refractive index)
-in place of the difference $v_\sp - v_\sm(z)$.
-In other words, BornAgain does not subtract the matrix SLD from the particle SLD;
-it leaves it to the user to do this subtraction before entering the particle refractive index.}
 
 The sum~\cref{Evmpr} has the same form as the decomposition~\cref{Edecompose_vz}.
 Nonetheless, implementations are free to choose a convenient mean SLD~$\mv(z)$.
@@ -1088,7 +1082,7 @@ def get_sample():
 
     # interferences
     interference = InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # assembling the sample
     air_layer = Layer(m_ambience)
@@ -1162,7 +1156,7 @@ def get_sample():
 
     # interferences
     interference = InterferenceFunctionNone()
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # assembling the sample
     air_layer = Layer(m_ambience)
@@ -1286,7 +1280,7 @@ These functions can be used with all interference functions, except the case wit
 The interference function is specified when building the sample. It is linked with the particles (shape, material). Examples of implementation are given at the end of each description.
 
 \paragraph{Syntax:}
- \Code{particle\_layout.addInterferenceFunction(interference\_function)},\\ where \Code{particle\_layout} holds the information about the different shapes and their proportions for a given layer of particles, and \Code{interference\_function}  is one of the following expressions:
+ \Code{particle\_layout.setInterferenceFunction(interference\_function)},\\ where \Code{particle\_layout} holds the information about the different shapes and their proportions for a given layer of particles, and \Code{interference\_function}  is one of the following expressions:
 \begin{itemize}
 \item \Code{InterferenceFunctionNone()}
 \item \Code{InterferenceFunction1DLattice(lattice\_parameters)}
@@ -1333,7 +1327,7 @@ def get_sample():
     particle_layout = ParticleLayout()
     particle_layout.addParticle(sphere, 1.0)
     |interference = InterferenceFunctionNone()|
-    |particle_layout.addInterferenceFunction(interference)|
+    |particle_layout.setInterferenceFunction(interference)|
     # assembling the sample
     air_layer = Layer(m_ambience)
     air_layer.addLayout(particle_layout)
@@ -1389,7 +1383,7 @@ def get_sample():
     |interference = InterferenceFunction1DLattice(30.0*nanometer, 0.0*degree)|
     |pdf = FTDistribution1DCauchy(200./2./M_PI*nanometer)|
     |interference.setProbabilityDistribution(pdf)|
-    |particle_layout.addInterferenceFunction(interference)|
+    |particle_layout.setInterferenceFunction(interference)|
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(m_air)
@@ -1428,7 +1422,7 @@ To illustrate the radial paracrystal interference function, we use the same samp
     interference = InterferenceFunctionRadialParaCrystal(25.0*nanometer, 1e3*nanometer)
     pdf = FTDistribution1DGauss(7 * nanometer)
     interference.setProbabilityDistribution(pdf)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 \end{lstlisting}
 
 
@@ -1475,7 +1469,7 @@ Like for the one-dimensional case, a probability distribution function \Code{pdf
     |interference.setProbabilityDistribution(pdf)|
     particle_layout = ParticleLayout()
     particle_layout.addParticle(sphere, 1.0)
-    |particle_layout.addInterferenceFunction(interference)|
+    |particle_layout.setInterferenceFunction(interference)|
 
     # interference approx chosen between: DA (default) and SSCA
     |particle_layout.setApproximation(ILayout.DA)|
@@ -1542,7 +1536,7 @@ Probability distribution functions have to be defined. As the two-dimensional pa
     interference = InterferenceFunction2DParaCrystal.createHexagonal(30.0*nanometer,0.0, 40.0*micrometer, 40.0*micrometer)|
     pdf = FTDistribution2DCauchy(1.0*nanometer, 1.0*nanometer)
     interference.setProbabilityDistributions(pdf, pdf)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 \end{lstlisting}
 
 \begin{figure}[tb]

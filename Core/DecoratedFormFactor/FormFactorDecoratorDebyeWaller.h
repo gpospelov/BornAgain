@@ -34,7 +34,7 @@ public:
     FormFactorDecoratorDebyeWaller* clone() const override final {
         return new FormFactorDecoratorDebyeWaller(*mp_form_factor, m_h_dw_factor, m_r_dw_factor); }
 
-    void accept(ISampleVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 #ifndef SWIG

@@ -18,7 +18,6 @@
 #include "FitParameterHelper.h"
 #include "ParameterTreeItems.h"
 #include "SessionModel.h"
-#include <QDebug>
 #include <QMimeData>
 
 ParameterTuningModel::ParameterTuningModel(QObject *parent)
@@ -49,14 +48,12 @@ Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex &proxyIndex) const
 
 QMimeData *ParameterTuningModel::mimeData(const QModelIndexList &proxyIndexes) const
 {
-    qDebug() << "ParameterTuningModel::mimeData" << proxyIndexes;
     QMimeData *mimeData = new QMimeData();
 
     foreach(QModelIndex proxyIndex, proxyIndexes) {
         if(ParameterItem *parameterItem = getParameterItem(proxyIndex)) {
             QString path = FitParameterHelper::getParameterItemPath(parameterItem);
             mimeData->setData(SessionXML::LinkMimeType, path.toLatin1());
-            qDebug() << "       FilterPropertyProxy::mimeData" << path;
             break;
         }
     }

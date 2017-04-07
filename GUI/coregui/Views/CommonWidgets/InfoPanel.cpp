@@ -17,7 +17,6 @@
 #include "InfoPanel.h"
 #include "InfoPanelToolBar.h"
 #include <QBoxLayout>
-#include <QDebug>
 #include <QResizeEvent>
 #include <QStackedWidget>
 
@@ -57,32 +56,26 @@ QSize InfoPanel::sizeHint() const
     } else {
         result.setHeight(m_toolBar->height() );
     }
-    qDebug() << "SSSSSS InfoPanel::sizeHint()" << result;
     return result;
 }
 
 QSize InfoPanel::minimumSizeHint() const
 {
-    qDebug() << "SSSSSS InfoPanel::minimumSizeHint()" << QSize(minimum_widget_height, minimum_widget_height);
     return QSize(minimum_widget_height, minimum_widget_height);
 }
 
 void InfoPanel::onExpandButtonClicked()
 {
-    qDebug() << "InfoPanel::onExpandButtonClicked()  isContentVisible()?" << isContentVisible();
     setContentVisible(!isContentVisible(), true);
 }
 
 void InfoPanel::onCloseButtonClicked()
 {
-    qDebug() << "InfoPanel::onCloseButtonClicked()";
     emit widgetCloseRequest();
 }
 
 void InfoPanel::setContentVisible(bool editor_status, bool dock_notify)
 {
-    qDebug() << "InfoPanel::setContentVisible" << editor_status << dock_notify;
-
     m_toolBar->setExpandStatus(editor_status);
     if(editor_status) {
         if(m_cached_height)
@@ -105,11 +98,8 @@ void InfoPanel::setContentVisible(bool editor_status, bool dock_notify)
 
 bool InfoPanel::isContentVisible()
 {
-    qDebug() << "InfoPanel::isContentVisible() m_stackedWidget->currentWidget()" << m_stackedWidget->currentWidget();
-    if(m_stackedWidget->currentWidget()) {
-        qDebug() << "m_stackedWidget->currentWidget()->isVisible()" << m_stackedWidget->currentWidget()->isVisible();
+    if(m_stackedWidget->currentWidget())
         return m_stackedWidget->currentWidget()->isVisible();
-    }
 
     return false;
 }

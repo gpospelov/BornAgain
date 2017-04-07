@@ -24,7 +24,6 @@
 #include "GroupItem.h"
 #include "SessionItem.h"
 #include "qcustomplot.h"
-#include <QDebug>
 #include <QVBoxLayout>
 
 namespace

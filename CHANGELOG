@@ -1,5 +1,76 @@
+BornAgain-1.8.0, released 2017.04.06
   > API changes
     1) ParticleLayout: addInterferenceFunction -> setInterferenceFunction
+  > Summary:
+    1) Fitting: all reasonable parameters can now be used for fitting.
+    2) GUI: plot settings are now persistent.
+    3) Graded layer approximation: simulations can now use the average refractive index as the background.
+       Layers can be split into multiple slices with different average material, depending on the particle content.
+    4) Particles can now cross layer interfaces.
+    5) Import of Tiff data improved.
+    6) Lots of refactoring and bug-fixing.
+
+  * Bug #1633: Possible memory leakage in LayerStrategyBuilder.
+  * Bug #1634: MacOS dmg 1.7 installation is partly broken
+  * Bug #1639: GUI: crash if fitting parameter removed
+  * Bug #1641: histogram2d test fails under certain configurations
+  * Bug #1658: add qt5-svg as a dependency
+  * Bug #1661: FitSuite doesn't know about TestMinimizer
+  * Bug #1662: CMake: require Qt version 5.4
+  * Bug #1664: FitSuite.runFit() crashes with unclear error message
+  * Bug #1674: Possible bug introduced in Polygon in Python context
+  * Bug #1681: Fitting GUI: free parameter error
+  * Bug #1687: LMA is incorrectly normalized
+  * Bug #1692: GUI and Py: simulation crash when sample contains undefined material
+  * Bug #1705: Py Fit crashes for zero fit parameters
+  * Bug #1745: GUI: resolution function for spherical detector doesn't affect simulation.
+  * Bug #1746: Zero scattering for buried particle in magnetic layer
+  * Bug #1759: GUI: sample script view shows false warnings
+  * Bug #1764: Rotation of magnetic particle insided magnetic layer behaves erroneously
+  * Bug #1776: SpecularSimulation gives wrong results when top layer is not vacuum
+  * Bug #1789: GUI: axes range of color map
+  * Feature #163: implement IsGISAXS Example 14 (graded layer)
+  * Feature #1238: nicer layout for newsletter@bornagainproject.org (reopened: v1.6.0 round mail still had black bars)
+  * Feature #1478: Refactor FitParameterLinked to provide simultaneous fit of several sample parameters
+  * Feature #1562: Provide ISample with possibility to export parameter tree in Python dictionary
+  * Feature #1616: For correct computation of mean refractive index, no longer allow embedding particles in the semi-infinite top layer
+  * Feature #1624: Make all reasonable parameter values into fittable parameter
+  * Feature #1653: Outcome of BornAgain user meetings in November
+  * Feature #1667: Read DESY/dpdak tiff files to BornAgain GUI
+  * Feature #1669: Allow for multiple form factors (dwba or not) in FromFactorWrapper and rename accordingly
+  * Feature #1670: Provide interface for adding particle shapes in different layers that are to be treated coherently (at fix relative position)
+  * Feature #1671: Provide automatic splitting of particle shapes when they cross a layer interface
+  * Feature #1672: Implement subdivision of a layer into multiple layers for graded interface calculations
+  * Feature #1680: Provide 1.7.1 hotfix
+  * Feature #1683: GUI: provide persistence of plot settings (interpolation, color scale, ...)
+  * Feature #1696: GUI: Improve drag-and-drop construction of a MultiLayer.
+  * Feature #1702: Fit: Provide extended print output for fit parameters during iterations.
+  * Feature #1753: Create specular peak user example and functional test.
+  * Feature #1763: Revise ParameterDistribution constructors and exceptions
+  * Feature #1769: support TIFF data from A. Nent
+  * Feature #1774: Check and document best way of handling magnetic materials under rotations
+  * Feature #1782: GUI: provide restore project on GUI crash
+  * Feature #1785: Add graded layer approximation to GUI
+  * Feature #1787: Include option for specular peak in GUI
+  * Documentation #1523: explain numeric value of HomogeneousMagneticMaterial::m_magnetic_prefactor
+  * Refactoring #1484: GUI: refactor InstrumentItem and DetectorItem
+  * Refactoring #1485: GUI: refactor InstrumentView
+  * Refactoring #1490: GUI: refactor JobView and IntensityData widgets
+  * Refactoring #1492: GUI: Unify WarningSignWidget usage across the whole project
+  * Refactoring #1604: move expected inaccuracy (m_variability) out of class OutputData
+  * Refactoring #1623: Parameter name translation (GUI -> domain)
+  * Refactoring #1652: Sort namespaces, and provide Doxygen comments
+  * Refactoring #1659: rename PixelMap -> Pixel
+  * Refactoring #1660: remove global functions
+  * Refactoring #1730: Refactor ICompositeSample hierarchy
+  * Refactoring #1733: Avoid multiple calculations of same RT coefficients
+  * Refactoring #1743: resolve mutual directory dependence Parametrization <-> Scattering
+  * Refactoring #1744: resolve mutual directory dependence Aggregate <-> Multilayer
+  * Refactoring #1784: Clean up code after implementation of graded layer approximation
+  * Configuration #1496: Switch Windows10 buildslave from virtual box to vagrant box
+  * Configuration #1536: prevent Drupal from sending HTML mails with black horizontal header bar, without left margin, and in grey font
+  * Configuration #1635: update to gtest-1.8
+  * Configuration #1729: Fix centos7 CI build on buildbot
 
 BornAgain-1.7.1, released 2016.12.01
   > Hotfix:

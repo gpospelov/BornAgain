@@ -1927,7 +1927,14 @@ class IParameterized(INamed):
     __del__ = lambda self: None
 
     def parameterPool(self):
-        """parameterPool(IParameterized self) -> ParameterPool"""
+        """
+        parameterPool(IParameterized self) -> ParameterPool
+
+        ParameterPool* IParameterized::parameterPool() const
+
+        Returns pointer to the parameter pool. 
+
+        """
         return _libBornAgainCore.IParameterized_parameterPool(self)
 
 
@@ -1976,7 +1983,14 @@ class IParameterized(INamed):
 
 
     def parameter(self, name):
-        """parameter(IParameterized self, std::string const & name) -> RealParameter"""
+        """
+        parameter(IParameterized self, std::string const & name) -> RealParameter
+
+        RealParameter * IParameterized::parameter(const std::string &name) const
+
+        Returns parameter with given 'name'. 
+
+        """
         return _libBornAgainCore.IParameterized_parameter(self, name)
 
 
@@ -6162,7 +6176,7 @@ class FitParameter(libBornAgainFit.IFitParameter):
         __init__(FitParameter self, double value, AttLimits lim) -> FitParameter
         __init__(FitParameter self, double value) -> FitParameter
 
-        FitParameter::FitParameter(const std::string &pattern, double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
+        FitParameter::FitParameter(double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
 
         """
         this = _libBornAgainCore.new_FitParameter(*args)
@@ -7499,7 +7513,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, SphericalDetector arg2)
         visit(INodeVisitor self, SquareLattice arg2)
 
-        virtual void INodeVisitor::visit(const DistributionCosine *)
+        virtual void INodeVisitor::visit(const SquareLattice *)
 
         """
         return _libBornAgainCore.INodeVisitor_visit(self, *args)
@@ -7533,11 +7547,21 @@ INodeVisitor_swigregister(INodeVisitor)
 
 
 def VisitNodesPreorder(node, visitor):
-    """VisitNodesPreorder(INode node, INodeVisitor visitor)"""
+    """
+    VisitNodesPreorder(INode node, INodeVisitor visitor)
+
+    BA_CORE_API_ void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
+
+    """
     return _libBornAgainCore.VisitNodesPreorder(node, visitor)
 
 def VisitNodesPostorder(node, visitor):
-    """VisitNodesPostorder(INode node, INodeVisitor visitor)"""
+    """
+    VisitNodesPostorder(INode node, INodeVisitor visitor)
+
+    BA_CORE_API_ void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
+
+    """
     return _libBornAgainCore.VisitNodesPostorder(node, visitor)
 class IClusteredParticles(ISample):
     """
@@ -22725,7 +22749,7 @@ class IntensityData(_object):
     """
 
 
-    Template class to store data of any type in multi-dimensional space.Used with data type double to hold simulation results. Used with data type  CumulativeValue in  IHistogram classes. Used with data type bool to hold a detector mask (-> class  DetectorMask)
+    Template class to store data of any type in multi-dimensional space.
 
     C++ includes: OutputData.h
 
@@ -23451,12 +23475,24 @@ class ParameterPool(ICloneable):
         """
         parameter(ParameterPool self, std::string const & name) -> RealParameter
         parameter(ParameterPool self, std::string const & name) -> RealParameter
+
+        const RealParameter * ParameterPool::parameter(const std::string &name) const
+
+        Returns parameter with given  name. 
+
         """
         return _libBornAgainCore.ParameterPool_parameter(self, *args)
 
 
     def parameters(self):
-        """parameters(ParameterPool self) -> std::vector< RealParameter *,std::allocator< RealParameter * > > const"""
+        """
+        parameters(ParameterPool self) -> std::vector< RealParameter *,std::allocator< RealParameter * > > const
+
+        const std::vector<RealParameter*> ParameterPool::parameters() const
+
+        Returns full vector of parameters. 
+
+        """
         return _libBornAgainCore.ParameterPool_parameters(self)
 
 
@@ -24682,7 +24718,14 @@ class RealParameter(IParameterReal):
 
 
     def value(self):
-        """value(RealParameter self) -> double"""
+        """
+        value(RealParameter self) -> double
+
+        double RealParameter::value() const
+
+        Returns value of wrapped parameter. 
+
+        """
         return _libBornAgainCore.RealParameter_value(self)
 
 
@@ -24697,7 +24740,12 @@ class RealParameter(IParameterReal):
 
 
     def limits(self):
-        """limits(RealParameter self) -> RealLimits"""
+        """
+        limits(RealParameter self) -> RealLimits
+
+        RealLimits RealParameter::limits() const 
+
+        """
         return _libBornAgainCore.RealParameter_limits(self)
 
 

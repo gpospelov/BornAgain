@@ -90,7 +90,9 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
         = ParameterTreeUtils::parameterNameToDomainName(par_name, childParticle()).toStdString();
 
     int nbr_samples = distr_item.getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
-    double sigma_factor = distr_item.getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble();
+    double sigma_factor = distr_item.isTag(DistributionItem::P_SIGMA_FACTOR) ?
+                          distr_item.getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble() :
+                          0.0;
     ParameterDistribution par_distr(domain_par, *P_distribution, nbr_samples, sigma_factor, limits);
     auto result = GUIHelpers::make_unique<ParticleDistribution>(*P_particle, par_distr);
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();

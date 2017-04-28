@@ -84,7 +84,7 @@ public:
     virtual SafePointerVector<IParticle> decompose() const;
 
     //! Top and bottom z-coordinate
-    ParticleLimits bottomTopZ() const;
+    virtual ParticleLimits bottomTopZ() const;
 
 protected:
     //! Creates a composed IRotation object

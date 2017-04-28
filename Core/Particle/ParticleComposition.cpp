@@ -123,6 +123,19 @@ SafePointerVector<IParticle> ParticleComposition::decompose() const
     return result;
 }
 
+ParticleLimits ParticleComposition::bottomTopZ() const
+{
+    auto particles = decompose();
+    ParticleLimits result = particles[check_index(0)]->bottomTopZ();
+    for (auto& P_particle : particles)
+    {
+        ParticleLimits limits = P_particle->bottomTopZ();
+        result.m_bottom = std::min(result.m_bottom, limits.m_bottom);
+        result.m_top = std::max(result.m_top, limits.m_top);
+    }
+    return result;
+}
+
 size_t ParticleComposition::check_index(size_t index) const
 {
     return index < m_particles.size() ? index : throw Exceptions::OutOfBoundsException(

@@ -54,6 +54,7 @@ public:
 
     SafePointerVector<IParticle> decompose() const override;
 
+    ParticleLimits bottomTopZ() const override;
 private:
     size_t check_index(size_t index) const;
 

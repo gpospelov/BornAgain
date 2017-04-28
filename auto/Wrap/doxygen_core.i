@@ -10739,6 +10739,11 @@ Returns a vector of children (const).
 Decompose in constituent  IParticle objects. 
 ";
 
+%feature("docstring")  ParticleComposition::bottomTopZ "ParticleLimits ParticleComposition::bottomTopZ() const override
+
+Top and bottom z-coordinate. 
+";
+
 
 // File: classParticleCompositionBuilder.xml
 %feature("docstring") ParticleCompositionBuilder "

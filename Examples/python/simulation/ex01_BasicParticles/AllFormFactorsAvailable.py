@@ -4,6 +4,8 @@ All formfactors available in BornAgain in the Born Approximation
 import numpy
 import bornagain as ba
 from bornagain import deg, angstrom
+import matplotlib
+from matplotlib import pyplot as plt
 
 phi_min, phi_max = -2.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -60,8 +62,8 @@ def get_simulation():
     Returns GISAXS simulation with standard beam and detector.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(
-        100, phi_min*deg, phi_max*deg, 100, alpha_min*deg, alpha_max*deg)
+    simulation.setDetectorParameters(100, phi_min*deg, phi_max*deg,
+                                     100, alpha_min*deg, alpha_max*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
@@ -77,46 +79,37 @@ def simulate(ff):
     return simulation.getIntensityData()
 
 
-def plot(result, nframe, name):
+def run_simulation():
     """
-    Plots simulated detector image 'result' to position number 'nframe' on canvas.
+    Run simulation one by one for every form factor from the list and plot results
+    on a single canvas
     """
-    plt.subplot(5, 5, nframe)
-    plt.subplots_adjust(wspace=0.3, hspace=0.3)
 
-    im = plt.imshow(
-        result.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/deg, result.getXmax()/deg,
-                result.getYmin()/deg, result.getYmax()/deg],
-        aspect='auto')
-    plt.tick_params(axis='both', which='major', labelsize=8)
-    plt.tick_params(axis='both', which='minor', labelsize=6)
-    plt.xticks(numpy.arange(phi_min, phi_max+0.0001, 1.0))
-    plt.text(-0.1, 2.17, name, horizontalalignment='center',
-             verticalalignment='center', fontsize=11)
+    fig = plt.figure(figsize=(12.80, 10.24))
+
+    for nplot, ff in enumerate(formfactors):
+        name = ff.__class__.__name__
+        name = name.replace("FormFactor", "")
+        print("Generating intensity map in BA for '{0}'".format(name))
+
+        result = simulate(ff)
+
+        # showing the result
+        plt.subplot(5, 5, nplot+1)
+        plt.subplots_adjust(wspace=0.3, hspace=0.3)
+
+        im = plt.imshow(result.getArray(),
+                        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
+                        extent=[result.getXmin()/deg, result.getXmax()/deg,
+                                result.getYmin()/deg, result.getYmax()/deg],
+                        aspect='auto')
+        plt.tick_params(axis='both', which='major', labelsize=8)
+        plt.tick_params(axis='both', which='minor', labelsize=6)
+        plt.xticks(numpy.arange(phi_min, phi_max+0.0001, 1.0))
+        plt.text(-0.1, 2.17, name, horizontalalignment='center',
+                 verticalalignment='center', fontsize=11)
 
 
 if __name__ == '__main__':
-    """
-    Runs one simulation for each form factor, and plots results on a single canvas.
-    """
-    arg = ba.getFilenameOrPlotflag()
-    if arg == "-p":
-        import matplotlib
-        from matplotlib import pyplot as plt
-        plt.figure(figsize=(12.80, 10.24))
-        for nplot in range(len(formfactors)):
-            ff = formfactors[nplot]
-            name = ff.__class__.__name__.replace("FormFactor","")
-            print("Generating intensity map for " + name)
-            intensities = simulate(ff)
-            plot(intensities, nplot+1, name)
-        plt.show()
-    else:
-        for ff in formfactors:
-            name = ff.__class__.__name__.replace("FormFactor","")
-            intensities = simulate(ff)
-            fname = "%s.%s.int" % (arg, name)
-            ba.IntensityDataIOFactory.writeIntensityData(intensities, fname)
-            print("Stored intensity map in " + fname)
+    run_simulation()
+    plt.show()

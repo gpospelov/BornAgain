@@ -44,7 +44,6 @@ def run_simulation():
     Runs simulation and returns intensity map.
     """
     simulation = get_simulation()
-    simulation.setSample(sample)
     simulation.setSample(get_sample())
     simulation.runSimulation()
     return simulation.getIntensityData()

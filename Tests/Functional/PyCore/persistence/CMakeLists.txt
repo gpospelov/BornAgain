@@ -37,7 +37,6 @@ function(lppt example tolerance)
 #    set_tests_properties(${test_name} PROPERTIES LABELS "Examples")
 endfunction()
 
-#lppt("simulation/ex01_BasicParticles/AllFormFactorsAvailable" 2e-10)
 #lppt("simulation/ex03_InterferenceFunctions/Interference2DLatticeSumOfRotated" 2e-10)
 #lppt("simulation/ex04_ComplexShapes/LargeParticlesFormFactor" 0.5)
 #lppt("simulation/ex05_BeamAndDetector/OffSpecularSimulation" 2e-10)

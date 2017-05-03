@@ -2,13 +2,8 @@
 In this example we demonstrate how to plot simulation results with
 axes in different units (nbins, mm, degs and QyQz).
 """
-import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
-
-detector_distance = 2000.0  # in mm
-pilatus_pixel_size = 0.172  # in mm
-pilatus_npx, pilatus_npy = 981, 1043  # number of pixels
 
 
 def get_sample():
@@ -40,6 +35,11 @@ def get_rectangular_detector():
     """
     Returns rectangular detector representing our PILATUS detector
     """
+
+    detector_distance = 2000.0  # in mm
+    pilatus_pixel_size = 0.172  # in mm
+    pilatus_npx, pilatus_npy = 981, 1043  # number of pixels
+
     width = pilatus_npx*pilatus_pixel_size
     height = pilatus_npy*pilatus_pixel_size
     detector = ba.RectangularDetector(pilatus_npx, width, pilatus_npy, height)
@@ -73,25 +73,25 @@ def plot_as_colormap(hist, Title, xLabel, yLabel):
     plt.title(Title)
 
 
-def simulate():
+def run_simulation():
     """
-    Run simulation and returns results for different detectors.
+    Run simulation and returns results for different detector units.
     """
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
 
-    result = {}
-    result['mm'] = simulation.getIntensityData()
-    result['bin'] = simulation.getIntensityData(ba.IDetector2D.NBINS)
-    result['deg'] = simulation.getIntensityData(ba.IDetector2D.DEGREES)
-    result['nm-1'] = simulation.getIntensityData(ba.IDetector2D.QYQZ)
+    results = {}
+    results['mm'] = simulation.getIntensityData()
+    results['bin'] = simulation.getIntensityData(ba.IDetector2D.NBINS)
+    results['deg'] = simulation.getIntensityData(ba.IDetector2D.DEGREES)
+    results['nm-1'] = simulation.getIntensityData(ba.IDetector2D.QYQZ)
 
-    return result
+    return results
 
 
-def plot(result):
+def plot(results):
     """
     Plots simulation results for different detectors.
     """
@@ -103,19 +103,19 @@ def plot(result):
     plt.subplot(2, 2, 1)
     # default units for rectangular detector are millimeters
 
-    plot_as_colormap(result['mm'], "In default units",
+    plot_as_colormap(results['mm'], "In default units",
                      r'$X_{mm}$', r'$Y_{mm}$')
 
     plt.subplot(2, 2, 2)
-    plot_as_colormap(result['bin'], "In number of bins",
+    plot_as_colormap(results['bin'], "In number of bins",
                      r'$X_{nbins}$', r'$Y_{nbins}$')
 
     plt.subplot(2, 2, 3)
-    plot_as_colormap(result['deg'], "In degs",
+    plot_as_colormap(results['deg'], "In degs",
                      r'$\phi_f ^{\circ}$', r'$\alpha_f ^{\circ}$')
 
     plt.subplot(2, 2, 4)
-    plot_as_colormap(result['nm-1'], "Q-space",
+    plot_as_colormap(results['nm-1'], "Q-space",
                      r'$Q_{y} [1/nm]$', r'$Q_{z} [1/nm]$')
 
     plt.subplots_adjust(left=0.07, right=0.97, top=0.9, bottom=0.1, hspace=0.25)
@@ -123,4 +123,5 @@ def plot(result):
 
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate, plot)
+    results = run_simulation()
+    plot(results)

@@ -38,13 +38,6 @@ function(lppt example tolerance)
 endfunction()
 
 lppt("simulation/ex01_BasicParticles/AllFormFactorsAvailable" 2e-10)
-lppt("simulation/ex01_BasicParticles/CylindersAndPrisms" 2e-10)
-lppt("simulation/ex01_BasicParticles/CylindersInBA" 2e-10)
-lppt("simulation/ex01_BasicParticles/CylindersInDWBA" 2e-10)
-lppt("simulation/ex01_BasicParticles/CylindersWithSizeDistribution" 2e-10)
-lppt("simulation/ex01_BasicParticles/RotatedPyramids" 2e-10)
-lppt("simulation/ex01_BasicParticles/TwoTypesOfCylindersWithSizeDistribution" 2e-10)
-lppt("simulation/ex02_LayeredStructures/CorrelatedRoughness" 2e-10)
 lppt("simulation/ex03_InterferenceFunctions/ApproximationDA" 2e-10)
 lppt("simulation/ex03_InterferenceFunctions/ApproximationLMA" 2e-10)
 lppt("simulation/ex03_InterferenceFunctions/ApproximationSSCA" 2e-10)
@@ -74,7 +67,7 @@ lppt("simulation/ex06_Miscellaneous/HalfSpheresInAverageTopLayer" 2e-10)
 lppt("fitting/ex01_SampleParametersIntro/SampleParametersIntro" 2e-10)
 
 # Python persistence test
-function(run_example example tolerance)
+function(test_example example tolerance)
     set(script_path ${PY_EXAMPLES_DIR}/${example}.py)
     get_filename_component(EXAMPLE_NAME ${script_path} NAME_WE)
     get_filename_component(EXAMPLE_DIR ${script_path} DIRECTORY)
@@ -89,7 +82,15 @@ function(run_example example tolerance)
             ${example_mod} ${EXAMPLE_NAME} ${tolerance})
 endfunction()
 
-run_example("simulation/ex02_LayeredStructures/BuriedParticles" 2e-10)
+test_example("simulation/ex01_BasicParticles/CylindersAndPrisms" 2e-10)
+test_example("simulation/ex01_BasicParticles/CylindersInBA" 2e-10)
+test_example("simulation/ex01_BasicParticles/CylindersInDWBA" 2e-10)
+test_example("simulation/ex01_BasicParticles/CylindersWithSizeDistribution" 2e-10)
+test_example("simulation/ex01_BasicParticles/RotatedPyramids" 2e-10)
+test_example("simulation/ex01_BasicParticles/TwoTypesOfCylindersWithSizeDistribution" 2e-10)
+
+test_example("simulation/ex02_LayeredStructures/BuriedParticles" 2e-10)
+test_example("simulation/ex02_LayeredStructures/CorrelatedRoughness" 2e-10)
 
 
 

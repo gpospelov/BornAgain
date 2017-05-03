@@ -37,7 +37,6 @@ function(lppt example tolerance)
 #    set_tests_properties(${test_name} PROPERTIES LABELS "Examples")
 endfunction()
 
-#lppt("simulation/ex05_BeamAndDetector/OffSpecularSimulation" 2e-10)
 #lppt("simulation/ex05_BeamAndDetector/SpecularSimulation" 2e-10)
 #lppt("fitting/ex01_SampleParametersIntro/SampleParametersIntro" 2e-10)
 
@@ -86,6 +85,7 @@ test_example("simulation/ex04_ComplexShapes/HexagonalLatticesWithBasis" 2e-10)
 
 test_example("simulation/ex05_BeamAndDetector/BeamDivergence" 2e-10)
 test_example("simulation/ex05_BeamAndDetector/DetectorResolutionFunction" 2e-10)
+test_example("simulation/ex05_BeamAndDetector/OffSpecularSimulation" 2e-10)
 
 test_example("simulation/ex06_Miscellaneous/CylindersInAverageLayer" 2e-10)
 test_example("simulation/ex06_Miscellaneous/HalfSpheresInAverageTopLayer" 2e-10)

@@ -5,12 +5,9 @@ and slicing
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
-phi_min, phi_max = -2.0, 2.0
-alpha_min, alpha_max = 0.0, 2.0
-
 sphere_radius = 5*nm
 n_slices = 10
-use_avg_materials = True
+
 
 def get_sample():
     """
@@ -50,10 +47,10 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, phi_min*deg, phi_max*deg,
-                                     100, alpha_min*deg, alpha_max*deg)
+    simulation.setDetectorParameters(100, -2.0*deg, 2.0*deg,
+                                     100, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.getOptions().setUseAvgMaterials(use_avg_materials)
+    simulation.getOptions().setUseAvgMaterials(True)
     return simulation
 
 

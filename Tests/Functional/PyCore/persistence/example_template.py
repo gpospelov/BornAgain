@@ -3,7 +3,6 @@ Turns a Python example into a functional persistence test via CMake machinery.
 """
 
 import bornagain as ba
-from bornagain import deg, angstrom, nm
 import sys
 import os
 
@@ -27,8 +26,8 @@ def get_minified_simulation():
     ay = detector.getAxis(1)
     xmin, xmax = ax.getMin(), ax.getMax()
     ymin, ymax = ay.getMin(), ay.getMax()
-
     simulation.setDetectorParameters(5, xmin, xmax, 6, ymin, ymax)
+
     return simulation
 
 

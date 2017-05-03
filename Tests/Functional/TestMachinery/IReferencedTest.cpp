@@ -39,7 +39,7 @@ bool IReferencedTest::runPython(const std::string& py_command)
 {
 #ifndef _WIN32
     std::string sys_command = std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
-        PYTHON_EXECUTABLE + " " + py_command;
+        PYTHON_EXECUTABLE + " -B " + py_command;
 #else
     std::string sys_command = std::string("set PYTHONPATH=") + BUILD_LIB_DIR + " & " +
         PYTHON_EXECUTABLE + " " + py_command;

@@ -40,10 +40,7 @@ endfunction()
 lppt("simulation/ex01_BasicParticles/AllFormFactorsAvailable" 2e-10)
 lppt("simulation/ex03_InterferenceFunctions/Interference2DLatticeSumOfRotated" 2e-10)
 lppt("simulation/ex03_InterferenceFunctions/RectangularGrating" 0.5)
-
-lppt("simulation/ex04_ComplexShapes/CoreShellNanoparticles" 2e-10)
 lppt("simulation/ex04_ComplexShapes/CustomFormFactor" 2e-10)
-lppt("simulation/ex04_ComplexShapes/HexagonalLatticesWithBasis" 2e-10)
 lppt("simulation/ex04_ComplexShapes/LargeParticlesFormFactor" 0.5)
 lppt("simulation/ex05_BeamAndDetector/BeamDivergence" 2e-10)
 lppt("simulation/ex05_BeamAndDetector/DetectorResolutionFunction" 2e-10)
@@ -79,7 +76,6 @@ test_example("simulation/ex01_BasicParticles/RotatedPyramids" 2e-10)
 test_example("simulation/ex01_BasicParticles/TwoTypesOfCylindersWithSizeDistribution" 2e-10)
 test_example("simulation/ex02_LayeredStructures/BuriedParticles" 2e-10)
 test_example("simulation/ex02_LayeredStructures/CorrelatedRoughness" 2e-10)
-
 test_example("simulation/ex03_InterferenceFunctions/ApproximationDA" 2e-10)
 test_example("simulation/ex03_InterferenceFunctions/ApproximationLMA" 2e-10)
 test_example("simulation/ex03_InterferenceFunctions/ApproximationSSCA" 2e-10)
@@ -93,4 +89,6 @@ test_example("simulation/ex03_InterferenceFunctions/Interference2DSquareLattice"
 test_example("simulation/ex03_InterferenceFunctions/SpheresAtHexLattice" 2e-10)
 test_example("simulation/ex03_InterferenceFunctions/TriangularRipple" 2e-10)
 
+test_example("simulation/ex04_ComplexShapes/CoreShellNanoparticles" 2e-10)
+test_example("simulation/ex04_ComplexShapes/HexagonalLatticesWithBasis" 2e-10)
 

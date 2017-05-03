@@ -2,9 +2,11 @@
 Turns a Python example into a functional persistence test via CMake machinery.
 """
 
-import bornagain as ba
 import sys
 import os
+
+sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
+import bornagain as ba
 
 example_dir = "@EXAMPLE_DIR@"
 example_name = "@EXAMPLE_NAME@"

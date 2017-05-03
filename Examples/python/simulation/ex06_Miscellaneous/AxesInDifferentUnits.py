@@ -4,6 +4,8 @@ axes in different units (nbins, mm, degs and QyQz).
 """
 import bornagain as ba
 from bornagain import deg, angstrom, nm
+import matplotlib
+from matplotlib import pyplot as plt
 
 
 def get_sample():
@@ -95,9 +97,6 @@ def plot(results):
     """
     Plots simulation results for different detectors.
     """
-    import matplotlib
-    from matplotlib import pyplot as plt
-    global matplotlib, plt
     fig = plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)

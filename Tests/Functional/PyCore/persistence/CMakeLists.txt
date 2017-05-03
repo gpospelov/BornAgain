@@ -40,9 +40,7 @@ endfunction()
 #lppt("simulation/ex03_InterferenceFunctions/Interference2DLatticeSumOfRotated" 2e-10)
 #lppt("simulation/ex04_ComplexShapes/LargeParticlesFormFactor" 0.5)
 #lppt("simulation/ex05_BeamAndDetector/OffSpecularSimulation" 2e-10)
-#lppt("simulation/ex05_BeamAndDetector/RectangularDetector" 2e-10)
 #lppt("simulation/ex05_BeamAndDetector/SpecularSimulation" 2e-10)
-#lppt("simulation/ex06_Miscellaneous/AxesInDifferentUnits" 2e-10)
 #lppt("fitting/ex01_SampleParametersIntro/SampleParametersIntro" 2e-10)
 
 # Python persistence test

@@ -15,16 +15,6 @@ sys.path.append(example_dir)
 example = __import__(example_name)
 
 
-def get_default_simulation():
-    """
-    Returns a GISAXS simulation.
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(5, -1*deg, +1*deg, 6, 0*deg, +2*deg)
-    simulation.setBeamParameters(1.5*angstrom, 0.15*deg, 0.0*deg)
-    return simulation
-
-
 def get_minified_simulation():
     """
     Returns a GISAXS simulation constructed from example simulation with smaller detector
@@ -42,19 +32,11 @@ def get_minified_simulation():
     return simulation
 
 
-def get_simulation():
-
-    if "CustomFormFactor" in example_name:
-        return get_minified_simulation()
-    else:
-        return get_default_simulation()
-
-
 def run_simulation():
     """
     Runs simulation and returns resulting intensity map.
     """
-    simulation = get_simulation()
+    simulation = get_minified_simulation()
     simulation.setSample(example.get_sample())
     simulation.runSimulation()
     return simulation.getIntensityData()

@@ -3,7 +3,7 @@
 ############################################################################
 
 set(PYPERSIST_REF_DIR ${REFERENCE_DIR}/PyPersist)
-set(PYPERSIST_OUT_DIR ${BUILD_REF_DIR}/PyPersist)
+set(PYPERSIST_OUT_DIR ${CMAKE_CURRENT_BINARY_DIR})
 file(MAKE_DIRECTORY ${PYPERSIST_OUT_DIR})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYPERSIST_OUT_DIR=\\\"${PYPERSIST_OUT_DIR}\\\"")
@@ -73,22 +73,23 @@ lppt("simulation/ex06_Miscellaneous/CylindersInAverageLayer" 2e-10)
 lppt("simulation/ex06_Miscellaneous/HalfSpheresInAverageTopLayer" 2e-10)
 lppt("fitting/ex01_SampleParametersIntro/SampleParametersIntro" 2e-10)
 
-# gppt = generic python persistence test:
-function(gppt script wrapped_dir wrapped_name tolerance)
-    configure_file(${PY_EXAMPLES_DIR}/${wrapped_dir}/${wrapped_name}.py
-        ${CMAKE_BINARY_DIR}/lib/bornagain/${wrapped_name}.py COPYONLY)
-    add_test(PyPersistenceTest/${script} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
-        ${CMAKE_CURRENT_SOURCE_DIR}/${script}.py ${script} ${tolerance})
+# Python persistence test
+function(run_example example tolerance)
+    set(script_path ${PY_EXAMPLES_DIR}/${example}.py)
+    get_filename_component(EXAMPLE_NAME ${script_path} NAME_WE)
+    get_filename_component(EXAMPLE_DIR ${script_path} DIRECTORY)
+
+    set(OUTPUT_DIR ${PYPERSIST_OUT_DIR})
+
+    # modified example to run as a test
+    set(example_mod ${CMAKE_CURRENT_BINARY_DIR}/${EXAMPLE_NAME}_mod.py)
+    configure_file(example_template.py ${example_mod} @ONLY)
+
+    add_test(PyPersistenceTest2/${EXAMPLE_NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
+            ${example_mod} ${EXAMPLE_NAME} ${tolerance})
 endfunction()
 
-# sppt = standard python persistence test:
-function(sppt script wrapped_dir wrapped_name tolerance)
-    configure_file(${PY_EXAMPLES_DIR}/${wrapped_dir}/${wrapped_name}.py
-        ${CMAKE_BINARY_DIR}/lib/bornagain/${wrapped_name}.py COPYONLY)
-    set(WRAPPED_MODULE ${wrapped_name})
-    configure_file(standard_test.py.in ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${script}.py @ONLY)
-    add_test(PyPersistenceTest/${script} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
-        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${script}.py ${script} ${tolerance})
-endfunction()
+run_example("simulation/ex02_LayeredStructures/BuriedParticles" 2e-10)
 
-sppt("ex02_BuriedParticles" "simulation/ex02_LayeredStructures" "BuriedParticles" 2e-10)
+
+

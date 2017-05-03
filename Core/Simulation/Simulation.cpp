@@ -188,10 +188,11 @@ std::vector<const INode*> Simulation::getChildren() const
 {
     std::vector<const INode*> result;
     result.push_back(&m_instrument);
-    if(mP_sample_builder)
+    if(mP_sample_builder) {
         result.push_back(mP_sample_builder.get());
-    else
-        result.push_back(mP_multilayer.get());
+    } else {
+        result << mP_multilayer;
+    }
     return result;
 }
 

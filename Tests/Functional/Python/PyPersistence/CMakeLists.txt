@@ -39,7 +39,7 @@ function(test_example example tolerance)
     set(example_mod ${CMAKE_CURRENT_BINARY_DIR}/${EXAMPLE_NAME}_mod.py)
     configure_file(example_template.py ${example_mod} @ONLY)
 
-    add_test(PyPersistenceTest/${EXAMPLE_NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
+    add_test(PyPersistence/${EXAMPLE_NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
             ${example_mod} ${EXAMPLE_NAME} ${tolerance})
 endfunction()
 

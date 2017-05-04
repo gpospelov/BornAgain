@@ -18,5 +18,5 @@ set(tests
 )
 
 foreach(_test ${tests})
-    add_test(${_test} ${PYTHON_EXECUTABLE} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${_test})
+    add_test(PyFit/${_test} ${PYTHON_EXECUTABLE} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${_test})
 endforeach()

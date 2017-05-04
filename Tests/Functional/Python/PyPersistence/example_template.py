@@ -38,7 +38,9 @@ def get_simulation_RectangularGrating():
 
 def get_simulation_GenericExample():
     """
-    Returns minified simulation for majority of examples. Detector size is adjusted
+    Returns minified simulation for majority of examples. Detector size is adjusted.
+    The idea is that all other example's setting related to the simulation (MC integration flags,
+    threads settings etc) remains intact.
     """
     simulation = example.get_simulation()
     detector = simulation.getInstrument().getDetector()
@@ -69,7 +71,8 @@ def get_minified_simulation():
 
 def adjusted_simulation():
     """
-    Returns minified simulation to be used in example
+    Returns pre-calculated minified simulation. Function is intended for
+    injection into python example file.
     """
     global simulationObject
     return simulationObject
@@ -84,7 +87,7 @@ def run_simulation():
     global simulationObject
     simulationObject = get_minified_simulation()
 
-    # replacing get_simulation() method of example with local method
+    # INJECTION HERE: replacing get_simulation() method of example with local method
     example.get_simulation = adjusted_simulation
     return example.run_simulation()
 

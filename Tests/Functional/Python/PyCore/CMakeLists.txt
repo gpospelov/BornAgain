@@ -16,5 +16,5 @@ set(tests ${sources})
 list(REMOVE_ITEM tests utils.py)
 
 foreach(_test ${tests})
-    add_test(${_test} ${PYTHON_EXECUTABLE} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${_test})
+    add_test(PyCore/${_test} ${PYTHON_EXECUTABLE} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${_test})
 endforeach()

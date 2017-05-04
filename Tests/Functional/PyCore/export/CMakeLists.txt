@@ -2,8 +2,7 @@
 # Tests/Functional/PyCore/suite/CMakeLists.txt
 ############################################################################
 
-set(PYEXPORT_TMP_DIR ${BUILD_REF_DIR}/PyExport)
-file(MAKE_DIRECTORY ${PYEXPORT_TMP_DIR})
+set(PYEXPORT_TMP_DIR ${CMAKE_CURRENT_BINARY_DIR})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYEXPORT_TMP_DIR=\\\"${PYEXPORT_TMP_DIR}\\\"")
 
@@ -73,6 +72,6 @@ include_directories(
 add_executable(PyExportStandardTest PyExportStandardTest.cpp PyExportTest.h PyExportTest.cpp)
 target_link_libraries(PyExportStandardTest BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})
-    add_test(PyExportStandardTest/${test_case}
+    add_test(PyStandardTest/${test_case}
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyExportStandardTest ${test_case})
 endforeach()

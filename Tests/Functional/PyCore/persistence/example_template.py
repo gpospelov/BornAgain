@@ -30,12 +30,16 @@ def get_minified_simulation():
 
     detector = simulation.getInstrument().getDetector()
 
-    # preserving axes range, making less bins
-    ax = detector.getAxis(0)
-    ay = detector.getAxis(1)
-    xmin, xmax = ax.getMin(), ax.getMax()
-    ymin, ymax = ay.getMin(), ay.getMax()
-    simulation.setDetectorParameters(5, xmin, xmax, 6, ymin, ymax)
+    if "RectangularGrating" == example_name:
+        # very small axes range to make MC integration happy
+        simulation.setDetectorParameters(5, -0.01*ba.deg, 0.01*ba.deg, 6, 0.0, 0.02*ba.deg)
+    else:
+        # preserving axes range, making less bins
+        ax = detector.getAxis(0)
+        ay = detector.getAxis(1)
+        xmin, xmax = ax.getMin(), ax.getMax()
+        ymin, ymax = ay.getMin(), ay.getMax()
+        simulation.setDetectorParameters(5, xmin, xmax, 6, ymin, ymax)
 
     return simulation
 

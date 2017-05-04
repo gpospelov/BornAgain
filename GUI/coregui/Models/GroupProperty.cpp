@@ -24,7 +24,7 @@ GroupProperty::GroupProperty()
 
 SessionItem* GroupProperty::currentItem()
 {
-    return m_groupItem ? m_groupItem->getChildOfType(this->currentType()) : nullptr;
+    return m_groupItem ? m_groupItem->getChildOfType(currentType()) : nullptr;
 }
 
 void GroupProperty::setGroupItem(SessionItem* groupItem)
@@ -56,14 +56,44 @@ void GroupProperty::setCurrentType(const QString& type)
             SessionItem* new_item = createCorrespondingItem();
             m_groupItem->insertItem(-1, new_item);
         }
-
         if (prevItem) {
             prevItem->setVisible(false);
             prevItem->setEnabled(false);
         }
-
         m_groupItem->emitDataChanged();
     }
+}
+
+void GroupProperty::setCurrentTypeName(const QString& type)
+{
+    if (type == currentType())
+        return;
+
+    SessionItem* prevItem = currentItem();
+    m_current_type = type;
+    if (prevItem) {
+        prevItem->setVisible(false);
+        prevItem->setEnabled(false);
+    }
+}
+
+SessionItem* GroupProperty::getItemOfType(const QString& type)
+{
+    if (m_groupItem) {
+        if (auto item = m_groupItem->getChildOfType(type)) {
+            return item;
+        } else {
+            SessionItem* new_item = addItem(type);
+            if (type != currentType()) {
+                new_item->setVisible(false);
+                new_item->setEnabled(false);
+            }
+            m_groupItem->insertItem(-1, new_item);
+            m_groupItem->emitDataChanged();
+            return new_item;
+        }
+    }
+    return nullptr;
 }
 
 int GroupProperty::currentIndex() const
@@ -97,9 +127,14 @@ void GroupProperty::setGroupInfo(GroupInfo groupInfo)
     setCurrentType(m_groupInfo.defaultType());
 }
 
+SessionItem* GroupProperty::addItem(const QString& item_type)
+{
+    return ItemFactory::createItem(item_type);
+}
+
 SessionItem* GroupProperty::createCorrespondingItem()
 {
-    return ItemFactory::createItem(currentType());
+    return addItem(currentType());
 }
 
 int GroupProperty::toIndex(const QString& type) const

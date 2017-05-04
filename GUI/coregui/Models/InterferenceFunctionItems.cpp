@@ -143,10 +143,11 @@ InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const
 
 void InterferenceFunction2DParaCrystalItem::update_rotation_availability()
 {
-    SessionItem *angleItem = getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
-            ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
-
-    angleItem->setEnabled(!getItemValue(P_XI_INTEGRATION).toBool());
+    auto p_lattice_item = getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
+    if (p_lattice_item) {
+        auto angle_item = p_lattice_item->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
+        angle_item->setEnabled(!getItemValue(P_XI_INTEGRATION).toBool());
+    }
 }
 
 void InterferenceFunction2DParaCrystalItem::update_distribution_displaynames()

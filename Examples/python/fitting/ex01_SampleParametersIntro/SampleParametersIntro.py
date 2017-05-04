@@ -9,7 +9,7 @@ fitting; it serves as a gentle introduction to other fitting examples.
 from __future__ import print_function
 import bornagain as ba
 from bornagain import deg, angstrom, nm
-
+from matplotlib import pyplot as plt
 
 def get_sample():
     """
@@ -109,16 +109,12 @@ def plot(results):
     """
     Draw results of several simulations on canvas
     """
-    import matplotlib
-    from matplotlib import pyplot as plt
-    plt.figure(1)
+
+    plt.figure(figsize=(12.80, 10.24))
+
     for nplot, hist in results.items():
         plt.subplot(2, 2, nplot+1)
-        plt.imshow(
-            hist.getArray(),
-            norm=matplotlib.colors.LogNorm(1, hist.getMaximum()),
-            extent=[hist.getXmin()/deg, hist.getXmax()/deg,
-                    hist.getYmin()/deg, hist.getYmax()/deg])
+        ba.plot_colormap(hist)
     plt.show()
 
 

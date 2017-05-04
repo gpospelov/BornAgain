@@ -150,5 +150,5 @@ def run_simulation():
 
 
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_intensity_data(result, plot)
+    results = run_simulation()
+    plot(results)

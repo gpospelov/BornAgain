@@ -43,7 +43,7 @@ def plot_colormap(intensity, zmin=None, zmax=None,
                 intensity.getYmin()/deg, intensity.getYmax()/deg],
         aspect='auto',
     )
-    cb = plt.colorbar(im)
+    cb = plt.colorbar(im, pad=0.025)
 
     plt.xlabel(xlabel, fontsize=14)
     plt.ylabel(ylabel, fontsize=14)
@@ -52,16 +52,17 @@ def plot_colormap(intensity, zmin=None, zmax=None,
 
 def plot_intensity_data(intensity, zmin=None, zmax=None):
     """
-    Plots intensity data as color map and hold the plot
+    Plots intensity data as color map and hold the plot.
+    If command line parameter was provided, save image instead of plotting.
     :param intensity: Histogram2D object obtained from GISASSimulation
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """
 
-    from matplotlib import pyplot as plt
     import sys
 
     if len(sys.argv) <= 1:
+        from matplotlib import pyplot as plt
         plot_colormap(intensity, zmin, zmax)
         plt.show()
     else:

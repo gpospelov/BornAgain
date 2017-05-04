@@ -8,7 +8,6 @@ In this case Monte-Carlo integration over detector bin should be used.
 """
 import bornagain as ba
 from bornagain import deg, angstrom, nm
-import matplotlib
 from matplotlib import pyplot as plt
 
 default_cylinder_radius = 10*nm
@@ -92,21 +91,12 @@ def run_simulation():
         # plotting results
         plt.subplot(2, 2, i_plot+1)
         plt.subplots_adjust(wspace=0.3, hspace=0.3)
-        im = plt.imshow(result.getArray(),
-                        norm=matplotlib.colors.LogNorm(
-                            1.0, result.getMaximum()),
-                        extent=[result.getXmin()/deg,
-                                result.getXmax()/deg,
-                                result.getYmin()/deg,
-                                result.getYmax()/deg],
-                        aspect='auto')
-        cb = plt.colorbar(im)
-        cb.set_label(r'Intensity (arb. u.)', size=16)
-        plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-        plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
+
+        ba.plot_colormap(result)
+
         plt.text(0.0, 2.1, conditions[i_plot]['title'],
                  horizontalalignment='center', verticalalignment='center',
-                 fontsize=13)
+                 fontsize=12)
 
 
 if __name__ == '__main__':

@@ -18,33 +18,56 @@ example = __import__(example_name)
 simulationObject = None
 
 
-def get_minified_simulation():
+def get_simulation_SpecularSimulation():
     """
-    Returns a GISAXS simulation constructed from example simulation with smaller detector
+    Returns custom simulation for SpecularSimulation.py.
+    Minification is not yet implemented.
+    """
+    return example.get_simulation()
+
+
+def get_simulation_RectangularGrating():
+    """
+    Returns custom simulation for RectangularGrating.py.
+    Contains smaller detector to make MC integration happy on all platforms
     """
     simulation = example.get_simulation()
+    simulation.setDetectorParameters(5, -0.01*ba.deg, 0.01*ba.deg, 6, 0.0, 0.02*ba.deg)
+    return simulation
 
-    # temporary hack for SpecularSimulation
-    if "SpecularSimulation" == example_name:
-        return simulation
 
+def get_simulation_GenericExample():
+    """
+    Returns minified simulation for majority of examples. Detector size is adjusted
+    """
+    simulation = example.get_simulation()
     detector = simulation.getInstrument().getDetector()
 
-    if "RectangularGrating" == example_name:
-        # very small axes range to make MC integration happy
-        simulation.setDetectorParameters(5, -0.01*ba.deg, 0.01*ba.deg, 6, 0.0, 0.02*ba.deg)
-    else:
-        # preserving axes range, making less bins
-        ax = detector.getAxis(0)
-        ay = detector.getAxis(1)
-        xmin, xmax = ax.getMin(), ax.getMax()
-        ymin, ymax = ay.getMin(), ay.getMax()
-        simulation.setDetectorParameters(5, xmin, xmax, 6, ymin, ymax)
+    # preserving axes range, making less bins
+    ax = detector.getAxis(0)
+    ay = detector.getAxis(1)
+    xmin, xmax = ax.getMin(), ax.getMax()
+    ymin, ymax = ay.getMin(), ay.getMax()
+    simulation.setDetectorParameters(5, xmin, xmax, 6, ymin, ymax)
 
     return simulation
 
 
-def get_simulation():
+def get_minified_simulation():
+    """
+    Returns a GISAXS simulation constructed from example simulation with smaller detector.
+    """
+    if example_name == "SpecularSimulation":
+        return get_simulation_SpecularSimulation()
+
+    elif example_name == "RectangularGrating":
+        return get_simulation_RectangularGrating()
+
+    else:
+        return get_simulation_GenericExample();
+
+
+def adjusted_simulation():
     """
     Returns minified simulation to be used in example
     """
@@ -62,7 +85,7 @@ def run_simulation():
     simulationObject = get_minified_simulation()
 
     # replacing get_simulation() method of example with local method
-    example.get_simulation = get_simulation
+    example.get_simulation = adjusted_simulation
     return example.run_simulation()
 
 

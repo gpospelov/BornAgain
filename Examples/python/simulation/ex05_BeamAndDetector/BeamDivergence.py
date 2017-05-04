@@ -4,9 +4,6 @@ Cylinder form factor in DWBA with beam divergence
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
-phi_min, phi_max = 0.0, 2.0
-alpha_min, alpha_max = 0.0, 2.0
-
 
 def get_sample():
     """
@@ -55,7 +52,6 @@ def run_simulation():
     """
     Runs simulation and returns intensity map.
     """
-    sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(get_sample())
     print(simulation.treeToString())

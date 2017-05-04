@@ -95,7 +95,7 @@ def plot(simulation):
         plt.legend(['|R| layer #'+str(layer_index),
                     '|T| layer #'+str(layer_index)],
                    loc='upper right')
-        nplot = nplot + 1
+        nplot += 1
 
     plt.show()
 

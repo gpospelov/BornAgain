@@ -98,16 +98,13 @@ def run_simulation():
         plt.subplot(5, 5, nplot+1)
         plt.subplots_adjust(wspace=0.3, hspace=0.3)
 
-        im = plt.imshow(result.getArray(),
-                        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-                        extent=[result.getXmin()/deg, result.getXmax()/deg,
-                                result.getYmin()/deg, result.getYmax()/deg],
-                        aspect='auto')
+        ba.plot_colormap(result, xlabel="", ylabel="", zlabel="")
+
         plt.tick_params(axis='both', which='major', labelsize=8)
         plt.tick_params(axis='both', which='minor', labelsize=6)
         plt.xticks(numpy.arange(phi_min, phi_max+0.0001, 1.0))
         plt.text(-0.1, 2.17, name, horizontalalignment='center',
-                 verticalalignment='center', fontsize=11)
+                 verticalalignment='center', fontsize=10)
 
 
 if __name__ == '__main__':

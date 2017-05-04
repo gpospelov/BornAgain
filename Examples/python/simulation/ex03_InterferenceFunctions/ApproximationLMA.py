@@ -37,7 +37,7 @@ def get_sample():
         22.8*nm, 1e3*nm)
     interference2.setProbabilityDistribution(pdf)
 
-     # assembling the sample
+    # assembling the sample
     particle_layout1 = ba.ParticleLayout()
     particle_layout1.addParticle(cylinder1, 0.8)
     particle_layout1.setInterferenceFunction(interference1)

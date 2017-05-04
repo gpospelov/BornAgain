@@ -25,7 +25,7 @@ def get_minified_simulation():
     simulation = example.get_simulation()
 
     # temporary hack for SpecularSimulation
-    if "SpecularSimulation" in example_name:
+    if "SpecularSimulation" == example_name:
         return simulation
 
     detector = simulation.getInstrument().getDetector()
@@ -64,7 +64,7 @@ def run_simulation():
 
 def save(data, filename):
 
-    if "SpecularSimulation" in example_name:
+    if "SpecularSimulation" == example_name:
         filename += ".ref"
         R, T = example.coefficientsRT(data)
         ba.yamlDump(filename, { "coeff_R": ba.FlowSeq(R[0]), "coeff_T": ba.FlowSeq(T[0])})

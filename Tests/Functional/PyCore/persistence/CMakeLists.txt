@@ -27,17 +27,6 @@ include_directories(
 add_executable(PyPersistenceTest RunPyPersistenceTest.cpp PyPersistenceTest.h PyPersistenceTest.cpp)
 target_link_libraries(PyPersistenceTest BornAgainCore BornAgainTestMachinery)
 
-# lppt = legacy python persistence test:
-function(lppt example tolerance)
-    set(script_path ${PY_EXAMPLES_DIR}/${example}.py)
-    get_filename_component(script_name ${script_path} NAME_WE)
-    set(test_name PyPersistenceTest/${script_name})
-    add_test(${test_name} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
-        ${script_path} ${script_name} ${tolerance})
-#    set_tests_properties(${test_name} PROPERTIES LABELS "Examples")
-endfunction()
-
-
 # Python persistence test
 function(test_example example tolerance)
     set(script_path ${PY_EXAMPLES_DIR}/${example}.py)
@@ -50,7 +39,7 @@ function(test_example example tolerance)
     set(example_mod ${CMAKE_CURRENT_BINARY_DIR}/${EXAMPLE_NAME}_mod.py)
     configure_file(example_template.py ${example_mod} @ONLY)
 
-    add_test(PyPersistenceTest2/${EXAMPLE_NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
+    add_test(PyPersistenceTest/${EXAMPLE_NAME} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyPersistenceTest
             ${example_mod} ${EXAMPLE_NAME} ${tolerance})
 endfunction()
 

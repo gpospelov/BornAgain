@@ -158,7 +158,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                               WarningMessageService *messageService)
 {
     bool isTopItem = true;
-    const QString modelType = item->model()->getModelTag();
+    const QString start_type = item->model()->getModelTag();
     while (!reader->atEnd()) {
         reader->readNext();
         if (reader->isStartElement()) {
@@ -181,8 +181,10 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                     item = newItem;
 
                 } else if (item->modelType() == Constants::GroupItemType) {
-                    SessionItem *newItem = item->parent()->setGroupProperty(item->parent()
-                                                ->tagFromItem(item), model_type);
+                    // get item corresponding to model_type and create if it doesn't exist
+                    SessionItem *newItem = item->parent()->item<GroupItem>(
+                                               item->parent()->tagFromItem(item))
+                                           .groupProperty()->getItemOfType(model_type);
                     if (!newItem) {
                         QString message = QString("Unrecoverable read error for model '%1', "
                             "Can't get group item").arg(item->model()->getModelTag());
@@ -239,7 +241,7 @@ void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const
                     Q_ASSERT(0);
                 }
             }
-            if (reader->name() == modelType) {
+            if (reader->name() == start_type) {
                 break;
             }
             if (reader->name() == SessionXML::ParameterTag) {
@@ -270,7 +272,6 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
         double parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
         variant = parameter_value;
-
     }
 
     else if (parameter_type == int_type_name) {
@@ -283,14 +284,12 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
         bool parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
         variant = parameter_value;
-
     }
 
     else if (parameter_type == qstring_type_name) {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
         variant = parameter_value;
-
     }
 
     else if (parameter_type == Constants::MaterialPropertyType) {
@@ -333,10 +332,9 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
                          QStringLiteral("GroupProperty conversion failed"));
         } else {
             GroupProperty_t group_property = v.value<GroupProperty_t>();
-            group_property->setCurrentType(parameter_value);
+            group_property->setCurrentTypeName(parameter_value);
             variant = QVariant::fromValue<GroupProperty_t>(group_property);
         }
-
     }
 
     else if (parameter_type == Constants::ColorPropertyType) {

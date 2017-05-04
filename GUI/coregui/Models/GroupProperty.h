@@ -37,6 +37,9 @@ public:
 
     QString currentType() const;
     void setCurrentType(const QString& type);
+    void setCurrentTypeName(const QString& type);
+
+    SessionItem* getItemOfType(const QString& type);
 
     int currentIndex() const;
     void setCurrentIndex(int index);
@@ -50,6 +53,7 @@ private:
     GroupProperty();
 
     void setGroupInfo(GroupInfo groupInfo);
+    SessionItem* addItem(const QString& item_type);
     SessionItem* createCorrespondingItem();
     int toIndex(const QString& type) const;
     QString toString(int currentIndex) const;

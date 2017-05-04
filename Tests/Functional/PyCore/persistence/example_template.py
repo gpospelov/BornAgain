@@ -23,6 +23,11 @@ def get_minified_simulation():
     Returns a GISAXS simulation constructed from example simulation with smaller detector
     """
     simulation = example.get_simulation()
+
+    # temporary hack for SpecularSimulation
+    if "SpecularSimulation" in example_name:
+        return simulation
+
     detector = simulation.getInstrument().getDetector()
 
     # preserving axes range, making less bins
@@ -58,8 +63,16 @@ def run_simulation():
 
 
 def save(data, filename):
+
+    if "SpecularSimulation" in example_name:
+        filename += ".ref"
+        R, T = example.coefficientsRT(data)
+        ba.yamlDump(filename, { "coeff_R": ba.FlowSeq(R), "coeff_T": ba.FlowSeq(T)})
+    else:
+        filename += ".ref.int.gz"
+        ba.IntensityDataIOFactory.writeIntensityData(data, filename)
+
     print("example_template.py -> Writing results in '{0}'".format(filename))
-    ba.IntensityDataIOFactory.writeIntensityData(data, filename)
 
 
 if __name__ == '__main__':
@@ -67,10 +80,10 @@ if __name__ == '__main__':
 
     if type(results) is dict:
         for name, subresult in results.items():
-            filename = os.path.join(output_dir, example_name+"."+str(name)+".ref.int.gz")
+            filename = os.path.join(output_dir, example_name+"."+str(name))
             save(subresult, filename)
     else:
-        filename = os.path.join(output_dir, example_name+".ref.int.gz")
+        filename = os.path.join(output_dir, example_name)
         save(results, filename)
 
 

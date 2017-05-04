@@ -485,9 +485,9 @@ SessionItem *SessionItem::getGroupItem(const QString &groupName) const
 
 //! Set the current type of group item.
 
-SessionItem *SessionItem::setGroupProperty(const QString &name, const QString &value) const
+SessionItem *SessionItem::setGroupProperty(const QString &groupName, const QString &value) const
 {
-    return item<GroupItem>(name).setCurrentType(value);
+    return item<GroupItem>(groupName).setCurrentType(value);
 }
 
 //! Returns corresponding variant under given role, invalid variant when role is not present.

@@ -14,11 +14,15 @@
 #  **************************************************************************  #
 
 from __future__ import print_function
+import bornagain as ba
 from bornagain import deg as deg
 from bornagain import IFitObserver as IFitObserver
 
 
-def plot_colormap(intensity, zmin=None, zmax=None):
+def plot_colormap(intensity, zmin=None, zmax=None,
+                  xlabel=r'$\phi_f ^{\circ}$',
+                  ylabel=r'$\alpha_f ^{\circ}$',
+                  zlabel="Intensity"):
     """
     Plots intensity data as color map
     :param intensity: Histogram2D object obtained from GISASSimulation
@@ -40,9 +44,10 @@ def plot_colormap(intensity, zmin=None, zmax=None):
         aspect='auto',
     )
     cb = plt.colorbar(im)
-    cb.set_label(r'Intensity', size=14)
-    plt.xlabel(r'$\phi_f ^{\circ}$', fontsize=14)
-    plt.ylabel(r'$\alpha_f ^{\circ}$', fontsize=14)
+
+    plt.xlabel(xlabel, fontsize=14)
+    plt.ylabel(ylabel, fontsize=14)
+    cb.set_label(zlabel, size=14)
 
 
 def plot_intensity_data(intensity, zmin=None, zmax=None):
@@ -54,9 +59,13 @@ def plot_intensity_data(intensity, zmin=None, zmax=None):
     """
 
     from matplotlib import pyplot as plt
+    import sys
 
-    plot_colormap(intensity, zmin, zmax)
-    plt.show()
+    if len(sys.argv) <= 1:
+        plot_colormap(intensity, zmin, zmax)
+        plt.show()
+    else:
+        ba.IntensityDataIOFactory.writeIntensityData(intensity, sys.argv[1])
 
 
 class DefaultFitObserver(IFitObserver):

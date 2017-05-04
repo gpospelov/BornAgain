@@ -44,7 +44,7 @@ bool PyExportTest::runTest()
 {
     // Set output data filename, and remove old output files
     std::string output_name = FileSystemUtils::jointPath(PYEXPORT_TMP_DIR, getName());
-    std::string output_path = output_name + ".ref.int";
+    std::string output_path = output_name + ".ref.int.gz";
     std::remove( output_path.c_str() );
     std::cout << "Removed old output " << output_path << "n";
 
@@ -56,7 +56,7 @@ bool PyExportTest::runTest()
 
     // Run Python script
     assert(std::string(BUILD_LIB_DIR)!="");
-    if (!runPython(pyscript_filename + " " + output_name))
+    if (!runPython(pyscript_filename + " " + output_path))
         return false;
 
     // Run direct simulation

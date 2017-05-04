@@ -114,12 +114,11 @@ bool PyPersistenceTest::compareFilePair(
     const std::string& dat_fpath, const std::string& ref_fpath) const
 {
     std::cout << "Comparing dat='" << dat_fpath << "' with ref='" << ref_fpath << "':\n";
-    const std::string extension = StringUtils::split(FileSystemUtils::filename(dat_fpath), ".")[2];
-    if ( extension=="int" )
+    if ( dat_fpath.find(".int") != std::string::npos )
         return compareIntensityPair( dat_fpath, ref_fpath );
-    if ( extension=="yaml" )
+    if ( dat_fpath.find(".yaml") != std::string::npos )
         return compareYamlPair( dat_fpath, ref_fpath );
-    std::cerr << "Failed: Unsupported file type '" << extension << "'\n";
+    std::cerr << "Failed: Unsupported file type '" << dat_fpath << "'\n";
     return false;
 }
 

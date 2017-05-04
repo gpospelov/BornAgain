@@ -16,123 +16,47 @@
 from __future__ import print_function
 from bornagain import deg as deg
 from bornagain import IFitObserver as IFitObserver
-import bornagain as ba
 
-def standardIntensityPlot(result):
+
+def plot_colormap(intensity, zmin=None, zmax=None):
     """
-    Plots intensity map.
+    Plots intensity data as color map
+    :param intensity: Histogram2D object obtained from GISASSimulation
+    :param zmin: Min value on amplitude's color bar
+    :param zmax: Max value on amplitude's color bar
     """
+
     import matplotlib
-    import sys
     from matplotlib import pyplot as plt
 
-    zmin, zmax = 1.0, result.getMaximum()
-    if zmin >= zmax:
-        zmax = 1.0
-        zmin = 1e-6*zmax
+    zmin = 1.0 if not zmin else zmin
+    zmax = intensity.getMaximum() if not zmax else zmax
 
     im = plt.imshow(
-        result.getArray(),
+        intensity.getArray(),
         norm=matplotlib.colors.LogNorm(zmin, zmax),
-        extent=[result.getXmin()/deg, result.getXmax()/deg,
-                result.getYmin()/deg, result.getYmax()/deg],
+        extent=[intensity.getXmin()/deg, intensity.getXmax()/deg,
+                intensity.getYmin()/deg, intensity.getYmax()/deg],
         aspect='auto',
     )
     cb = plt.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', size=16)
-    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    plt.show()
+    cb.set_label(r'Intensity', size=14)
+    plt.xlabel(r'$\phi_f ^{\circ}$', fontsize=14)
+    plt.ylabel(r'$\alpha_f ^{\circ}$', fontsize=14)
 
 
-def exoticIntensityPlot(result):
+def plot_intensity_data(intensity, zmin=None, zmax=None):
     """
-    Plots intensity map.
+    Plots intensity data as color map and hold the plot
+    :param intensity: Histogram2D object obtained from GISASSimulation
+    :param zmin: Min value on amplitude's color bar
+    :param zmax: Max value on amplitude's color bar
     """
-    import matplotlib
-    import sys
+
     from matplotlib import pyplot as plt
-    from matplotlib import rc
-    rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-    rc('text', usetex=True)
-    im = plt.imshow(
-        result.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/deg, result.getXmax()/deg,
-                result.getYmin()/deg, result.getYmax()/deg],
-        aspect='auto',
-    )
-    cb = plt.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', size=16)
-    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    plt.title(sys.argv[0])
+
+    plot_colormap(intensity, zmin, zmax)
     plt.show()
-
-
-def standardIntensitySave(filename, result):
-    """
-    Saves simulation result, which must be in an intensity map,
-    or a dictionary of such maps.
-    """
-    ba.IntensityDataIOFactory.writeIntensityData(result, filename+".int")
-
-
-
-def getFilenameOrPlotflag():
-    """
-    Used at beginning of main program, this function returns a filename or a flag
-    obtained from the command-line argument, or prints a help message and exit.
-    """
-    import sys
-    # if len(sys.argv)<=1:
-    #     print("Usage:")
-    #     print("  " + sys.argv[0] + " -p                           # to plot results")
-    #     print("  " + sys.argv[0] + " <filename without extension> # to save results")
-    #     sys.exit()
-    # return sys.argv[1]
-    if len(sys.argv)<=1:
-        return '-p'
-    else:
-        return sys.argv[1]
-
-
-def simulateThenPlotOrSave(
-        simulate, plot=standardIntensityPlot, save=standardIntensitySave):
-    """
-    Runs a simulation. Then plots the function or saves the result,
-    depending on the command-line argument argv[1].
-    """
-    arg = getFilenameOrPlotflag()
-    result = simulate()
-    if arg == '-p':
-        plot(result)
-        return
-    # save result
-    if type(result) is dict:
-        for name, subresult in result.items(): # inefficient under Py2, but good enough
-            save(arg+"."+str(name), subresult)
-    else:
-        save(arg+".ref", result)
-
-
-def plot_intensity_data(intensity_data, plot=standardIntensityPlot, save=standardIntensitySave):
-    """
-    Plots intensity data (if no command line arguments are provided).
-    If there is an additional command line arguments, it must be a file name, and
-    the data are silently saved to that file. This is used in our persistence tests.
-    """
-    import sys
-    if len(sys.argv) <= 1:
-        plot(intensity_data)
-    else:
-        filename = sys.argv[1]
-        # save result
-        if type(intensity_data) is dict:
-            for name, subresult in intensity_data.items():  # inefficient under Py2, but good enough
-                save(filename+"."+str(name), subresult)
-        else:
-            save(filename+".ref", intensity_data)
 
 
 class DefaultFitObserver(IFitObserver):

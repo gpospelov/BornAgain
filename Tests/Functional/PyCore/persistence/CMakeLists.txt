@@ -38,7 +38,6 @@ function(lppt example tolerance)
 endfunction()
 
 #lppt("simulation/ex05_BeamAndDetector/SpecularSimulation" 2e-10)
-#lppt("fitting/ex01_SampleParametersIntro/SampleParametersIntro" 2e-10)
 
 # Python persistence test
 function(test_example example tolerance)
@@ -90,3 +89,4 @@ test_example("simulation/ex05_BeamAndDetector/OffSpecularSimulation" 2e-10)
 test_example("simulation/ex06_Miscellaneous/CylindersInAverageLayer" 2e-10)
 test_example("simulation/ex06_Miscellaneous/HalfSpheresInAverageTopLayer" 2e-10)
 
+test_example("fitting/ex01_SampleParametersIntro/SampleParametersIntro" 2e-10)

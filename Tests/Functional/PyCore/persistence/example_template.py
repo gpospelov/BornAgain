@@ -47,16 +47,31 @@ def run_simulation():
     """
     Runs simulation and returns resulting intensity map.
     """
+
+    # create minified simulation object
     global simulationObject
     simulationObject = get_minified_simulation()
-    # replacing get_simulation() method of example with templated
+
+    # replacing get_simulation() method of example with local method
     example.get_simulation = get_simulation
     return example.run_simulation()
 
 
-if __name__ == '__main__':
-    result = run_simulation()
-
-    filename = os.path.join(output_dir, example_name+".ref.int.gz")
+def save(data, filename):
     print("example_template.py -> Writing results in '{0}'".format(filename))
-    ba.IntensityDataIOFactory.writeIntensityData(result, filename)
+    ba.IntensityDataIOFactory.writeIntensityData(data, filename)
+
+
+if __name__ == '__main__':
+    results = run_simulation()
+
+    if type(results) is dict:
+        for name, subresult in results.items():
+            filename = os.path.join(output_dir, example_name+"."+str(name)+".ref.int.gz")
+            save(subresult, filename)
+    else:
+        filename = os.path.join(output_dir, example_name+".ref.int.gz")
+        save(results, filename)
+
+
+

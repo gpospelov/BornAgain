@@ -53,7 +53,7 @@ def get_simulation():
     return simulation
 
 
-def simulate():
+def run_simulation():
     """
     Runs simulations for the sample with different sample parameters.
     """
@@ -123,4 +123,5 @@ def plot(results):
 
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate, plot)
+    results = run_simulation()
+    plot(results)

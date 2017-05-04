@@ -67,7 +67,7 @@ def save(data, filename):
     if "SpecularSimulation" in example_name:
         filename += ".ref"
         R, T = example.coefficientsRT(data)
-        ba.yamlDump(filename, { "coeff_R": ba.FlowSeq(R), "coeff_T": ba.FlowSeq(T)})
+        ba.yamlDump(filename, { "coeff_R": ba.FlowSeq(R[0]), "coeff_T": ba.FlowSeq(T[0])})
     else:
         filename += ".ref.int.gz"
         ba.IntensityDataIOFactory.writeIntensityData(data, filename)

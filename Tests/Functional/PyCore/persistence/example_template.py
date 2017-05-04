@@ -15,6 +15,8 @@ output_dir = "@OUTPUT_DIR@"
 sys.path.append(example_dir)
 example = __import__(example_name)
 
+simulationObject = None
+
 
 def get_minified_simulation():
     """
@@ -33,14 +35,23 @@ def get_minified_simulation():
     return simulation
 
 
+def get_simulation():
+    """
+    Returns minified simulation to be used in example
+    """
+    global simulationObject
+    return simulationObject
+
+
 def run_simulation():
     """
     Runs simulation and returns resulting intensity map.
     """
-    simulation = get_minified_simulation()
-    simulation.setSample(example.get_sample())
-    simulation.runSimulation()
-    return simulation.getIntensityData()
+    global simulationObject
+    simulationObject = get_minified_simulation()
+    # replacing get_simulation() method of example with templated
+    example.get_simulation = get_simulation
+    return example.run_simulation()
 
 
 if __name__ == '__main__':

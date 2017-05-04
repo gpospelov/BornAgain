@@ -4,6 +4,7 @@ Spherical particles embedded in the middle of the layer on top of substrate.
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
+
 def get_sample():
     """
     Returns a sample with spherical particles in an layer between air and substrate.

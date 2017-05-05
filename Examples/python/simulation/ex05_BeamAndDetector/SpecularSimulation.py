@@ -77,7 +77,6 @@ def plot(simulation):
     """
     Plots results for several selected layers
     """
-    import matplotlib
     from matplotlib import pyplot as plt
     fig = plt.figure(figsize=(12.80, 10.24))
 

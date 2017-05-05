@@ -4,7 +4,6 @@ All formfactors available in BornAgain in the Born Approximation
 import numpy
 import bornagain as ba
 from bornagain import deg, angstrom
-import matplotlib
 from matplotlib import pyplot as plt
 
 phi_min, phi_max = -2.0, 2.0

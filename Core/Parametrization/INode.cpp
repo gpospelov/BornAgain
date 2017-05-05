@@ -64,6 +64,10 @@ int INode::copyNumber(const INode* node) const
 
     int result(-1), count(0);
     for (auto child : getChildren()) {
+
+        if(child == nullptr)
+            throw std::runtime_error("INode::copyNumber() -> Error. Nullptr as child.");
+
         if (child == node)
             result = count;
 

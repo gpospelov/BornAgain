@@ -16,11 +16,7 @@ add_subdirectory(Core)
 add_subdirectory(Fit)
 
 if(BORNAGAIN_PYTHON)
-    add_subdirectory(PyCore/legacy)
-    add_subdirectory(PyCore/export)
-    add_subdirectory(PyCore/persistence)
-    add_subdirectory(PyFit)
-    add_subdirectory(PyExamples)
+    add_subdirectory(Python)
 endif()
 
 if(BORNAGAIN_GUI)

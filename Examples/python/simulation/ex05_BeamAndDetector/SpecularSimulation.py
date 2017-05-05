@@ -49,11 +49,11 @@ def get_simulation():
     """
     simulation = ba.SpecularSimulation()
     simulation.setBeamParameters(
-        1.54*angstrom, 1000, alpha_i_min*deg, alpha_i_max*deg)
+        1.54*angstrom, 500, alpha_i_min*deg, alpha_i_max*deg)
     return simulation
 
 
-def simulate():
+def run_simulation():
     """
     Runs simulation and returns it.
     """
@@ -77,7 +77,6 @@ def plot(simulation):
     """
     Plots results for several selected layers
     """
-    import matplotlib
     from matplotlib import pyplot as plt
     fig = plt.figure(figsize=(12.80, 10.24))
 
@@ -95,15 +94,11 @@ def plot(simulation):
         plt.legend(['|R| layer #'+str(layer_index),
                     '|T| layer #'+str(layer_index)],
                    loc='upper right')
-        nplot = nplot + 1
+        nplot += 1
 
     plt.show()
 
 
-def save(filename, simulation):
-    R, T = coefficientsRT(simulation)
-    ba.yamlDump(filename, { "coeff_R": ba.FlowSeq(R), "coeff_T": ba.FlowSeq(T) })
-
-
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate, plot, save)
+    results = run_simulation()
+    plot(results)

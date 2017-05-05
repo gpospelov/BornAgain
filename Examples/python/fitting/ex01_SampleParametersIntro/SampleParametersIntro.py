@@ -53,7 +53,7 @@ def get_simulation():
     return simulation
 
 
-def simulate():
+def run_simulation():
     """
     Runs simulations for the sample with different sample parameters.
     """
@@ -109,18 +109,16 @@ def plot(results):
     """
     Draw results of several simulations on canvas
     """
-    import matplotlib
+
     from matplotlib import pyplot as plt
-    plt.figure(1)
+    plt.figure(figsize=(12.80, 10.24))
+
     for nplot, hist in results.items():
         plt.subplot(2, 2, nplot+1)
-        plt.imshow(
-            hist.getArray(),
-            norm=matplotlib.colors.LogNorm(1, hist.getMaximum()),
-            extent=[hist.getXmin()/deg, hist.getXmax()/deg,
-                    hist.getYmin()/deg, hist.getYmax()/deg])
+        ba.plot_colormap(hist)
     plt.show()
 
 
 if __name__ == '__main__':
-    ba.simulateThenPlotOrSave(simulate, plot)
+    results = run_simulation()
+    plot(results)

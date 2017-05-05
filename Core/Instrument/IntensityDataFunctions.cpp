@@ -24,6 +24,11 @@
 double IntensityDataFunctions::getRelativeDifference(
         const OutputData<double>& dat, const OutputData<double>& ref)
 {
+    if(!dat.hasSameDimensions(ref))
+        throw Exceptions::RuntimeErrorException(
+            "IntensityDataFunctions::getRelativeDifference() -> "
+            "Error. Different dimensions of data and reference.");
+
     double diff = 0.0;
     for(size_t i=0; i<dat.getAllocatedSize(); ++i)
         diff += Numeric::get_relative_difference(dat[i], ref[i]);

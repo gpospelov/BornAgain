@@ -16,7 +16,6 @@ adjusts calculations accordingly.
 For example, X or Y rotated particles can not yet cross interfaces (exception
 will be thrown when trying to simulate such geometries).
 """
-import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 

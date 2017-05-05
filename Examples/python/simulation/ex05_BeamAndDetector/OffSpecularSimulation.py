@@ -1,7 +1,6 @@
 """
 Long boxes at 1D lattice, ba.OffSpecular simulation
 """
-import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 

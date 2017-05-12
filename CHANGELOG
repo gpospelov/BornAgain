@@ -1,3 +1,10 @@
+BornAgain-1.8.1, released 2017.05.12
+  > Hotfix:
+  * Bug #1799: Average layer material doesn't work with ParticleComposition
+  * Bug #1800: GUI: missing sigma factor in gate distribution causes problem
+  * Bug #1801: GUI crashes on welcome screen
+  * Bug #1802: GUI: hexagonal lattice becomes square during simulation
+
 BornAgain-1.8.0, released 2017.04.06
   > API changes
     1) ParticleLayout: addInterferenceFunction -> setInterferenceFunction

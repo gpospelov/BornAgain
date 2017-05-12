@@ -212,6 +212,9 @@ void ProjectManager::newProject()
 
 bool ProjectManager::closeCurrentProject()
 {
+    if (!m_project_document)
+        return true;
+
     bool projectWasClosed(true);
 
     if (m_project_document && m_project_document->isModified()) {

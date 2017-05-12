@@ -24132,6 +24132,18 @@ class ParticleComposition(IParticle):
         """
         return _libBornAgainCore.ParticleComposition_decompose(self)
 
+
+    def bottomTopZ(self):
+        """
+        bottomTopZ(ParticleComposition self) -> ParticleLimits
+
+        ParticleLimits ParticleComposition::bottomTopZ() const override
+
+        Top and bottom z-coordinate. 
+
+        """
+        return _libBornAgainCore.ParticleComposition_bottomTopZ(self)
+
 ParticleComposition_swigregister = _libBornAgainCore.ParticleComposition_swigregister
 ParticleComposition_swigregister(ParticleComposition)
 

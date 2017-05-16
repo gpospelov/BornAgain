@@ -85,7 +85,7 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
             result += interferenceAtOneRecLatticePoint(qx, qy);
         }
     }
-    return result;
+    return getParticleDensity()*result;
 }
 
 const Lattice2D& InterferenceFunction2DLattice::lattice() const

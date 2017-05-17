@@ -111,8 +111,7 @@ protected:
 class BA_CORE_API_ IFTDecayFunction2D : public ICloneable, public INode
 {
 public:
-    IFTDecayFunction2D(double decay_length_x, double decay_length_y,
-                       double gamma=0, double delta=M_PI_2);
+    IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma=0);
     virtual IFTDecayFunction2D* clone() const=0;
 
     //! set angle between first lattice vector and X-axis of distribution (both in direct space)
@@ -124,11 +123,11 @@ public:
     //! get angle between X- and Y-axis of distribution (in direct space)
     double getDelta() const { return m_delta; }
 
-    //! get coherence length in X-direction
-    double getDecayLengthX() const { return m_omega_x; }
+    //! get decay length in distribution's X-direction
+    double decayLengthX() const { return m_decay_length_x; }
 
-    //! get coherence length in Y-direction
-    double getDecayLengthY() const { return m_omega_y; }
+    //! get decay length in distribution's  Y-direction
+    double decayLengthY() const { return m_decay_length_y; }
 
     //! evaluate Fourier transformed decay function for q in X,Y coordinates
     virtual double evaluate(double qx, double qy) const=0;
@@ -143,8 +142,8 @@ public:
 protected:
     virtual void print(std::ostream& ostr) const;
     virtual void init_parameters();
-    double m_omega_x;
-    double m_omega_y;
+    double m_decay_length_x;
+    double m_decay_length_y;
     double m_gamma;
     double m_delta;
 };
@@ -157,12 +156,10 @@ protected:
 class BA_CORE_API_ FTDecayFunction2DCauchy : public IFTDecayFunction2D
 {
 public:
-    FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y,
-                            double gamma=0, double delta=M_PI_2);
-    virtual FTDecayFunction2DCauchy* clone() const {
-        return new FTDecayFunction2DCauchy(m_omega_x, m_omega_y, m_gamma, m_delta); }
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0);
 
+    virtual FTDecayFunction2DCauchy* clone() const;
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
 
@@ -174,12 +171,10 @@ public:
 class BA_CORE_API_ FTDecayFunction2DGauss : public IFTDecayFunction2D
 {
 public:
-    FTDecayFunction2DGauss(double decay_length_x, double decay_length_y,
-                           double gamma=0, double delta=M_PI_2);
-    virtual FTDecayFunction2DGauss* clone() const {
-        return new FTDecayFunction2DGauss(m_omega_x, m_omega_y, m_gamma, m_delta); }
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0);
 
+    virtual FTDecayFunction2DGauss* clone() const;
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
 
@@ -190,13 +185,11 @@ class BA_CORE_API_ FTDecayFunction2DVoigt : public IFTDecayFunction2D
 {
 public:
     FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta,
-                           double gamma=0, double delta=M_PI_2);
-    virtual FTDecayFunction2DVoigt* clone() const {
-        return new FTDecayFunction2DVoigt(m_omega_x, m_omega_y, m_eta, m_gamma, m_delta); }
+                           double gamma=0);
+
+    virtual FTDecayFunction2DVoigt* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
-
     double evaluate(double qx, double qy) const final;
-
     virtual double getEta() const { return m_eta; }
 
 protected:

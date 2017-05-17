@@ -9190,28 +9190,14 @@ class IFTDecayFunction2D(ICloneable, INode):
         return _libBornAgainCore.IFTDecayFunction2D_getDelta(self)
 
 
-    def getDecayLengthX(self):
-        """
-        getDecayLengthX(IFTDecayFunction2D self) -> double
-
-        double IFTDecayFunction2D::getDecayLengthX() const
-
-        get coherence length in X-direction 
-
-        """
-        return _libBornAgainCore.IFTDecayFunction2D_getDecayLengthX(self)
+    def decayLengthX(self):
+        """decayLengthX(IFTDecayFunction2D self) -> double"""
+        return _libBornAgainCore.IFTDecayFunction2D_decayLengthX(self)
 
 
-    def getDecayLengthY(self):
-        """
-        getDecayLengthY(IFTDecayFunction2D self) -> double
-
-        double IFTDecayFunction2D::getDecayLengthY() const
-
-        get coherence length in Y-direction 
-
-        """
-        return _libBornAgainCore.IFTDecayFunction2D_getDecayLengthY(self)
+    def decayLengthY(self):
+        """decayLengthY(IFTDecayFunction2D self) -> double"""
+        return _libBornAgainCore.IFTDecayFunction2D_decayLengthY(self)
 
 
     def evaluate(self, qx, qy):
@@ -9262,16 +9248,15 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction2DCauchy, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, decay_length_x, decay_length_y, gamma=0):
         """
-        __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0, double delta) -> FTDecayFunction2DCauchy
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DCauchy
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DCauchy
 
         FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction2DCauchy(*args)
+        this = _libBornAgainCore.new_FTDecayFunction2DCauchy(decay_length_x, decay_length_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -9335,16 +9320,15 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction2DGauss, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, decay_length_x, decay_length_y, gamma=0):
         """
-        __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0, double delta) -> FTDecayFunction2DGauss
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DGauss
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DGauss
 
         FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction2DGauss(*args)
+        this = _libBornAgainCore.new_FTDecayFunction2DGauss(decay_length_x, decay_length_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -9408,16 +9392,15 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction2DVoigt, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, decay_length_x, decay_length_y, eta, gamma=0):
         """
-        __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta) -> FTDecayFunction2DVoigt
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0) -> FTDecayFunction2DVoigt
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta) -> FTDecayFunction2DVoigt
 
         FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=M_PI_2)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction2DVoigt(*args)
+        this = _libBornAgainCore.new_FTDecayFunction2DVoigt(decay_length_x, decay_length_y, eta, gamma)
         try:
             self.this.append(this)
         except Exception:

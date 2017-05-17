@@ -660,9 +660,9 @@ void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QStrin
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction2DCauchyType);
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
-                                       pdf_cauchy->getDecayLengthX());
+                                       pdf_cauchy->decayLengthX());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
-                                       pdf_cauchy->getDecayLengthY());
+                                       pdf_cauchy->decayLengthY());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_GAMMA,
                                        Units::rad2deg(pdf_cauchy->getGamma()));
     } else if (const FTDecayFunction2DGauss* pdf_gauss
@@ -670,9 +670,9 @@ void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QStrin
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction2DGaussType);
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
-                                       pdf_gauss->getDecayLengthX());
+                                       pdf_gauss->decayLengthX());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
-                                       pdf_gauss->getDecayLengthY());
+                                       pdf_gauss->decayLengthY());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_GAMMA,
                                        Units::rad2deg(pdf_gauss->getGamma()));
     } else if (const FTDecayFunction2DVoigt* pdf_voigt
@@ -680,9 +680,9 @@ void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QStrin
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction2DVoigtType);
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_X,
-                                       pdf_voigt->getDecayLengthX());
+                                       pdf_voigt->decayLengthX());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_DECAY_LENGTH_Y,
-                                       pdf_voigt->getDecayLengthY());
+                                       pdf_voigt->decayLengthY());
         pdfItem->setItemValue(FTDecayFunction2DItem::P_GAMMA,
                                        Units::rad2deg(pdf_voigt->getGamma()));
         pdfItem->setItemValue(FTDecayFunction2DVoigtItem::P_ETA, pdf_voigt->getEta());

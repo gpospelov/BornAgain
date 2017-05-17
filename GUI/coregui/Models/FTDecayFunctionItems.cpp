@@ -122,7 +122,7 @@ void FTDecayFunction2DItem::add_decay_property()
 void FTDecayFunction2DItem::add_gammadelta_property()
 {
     addProperty(P_GAMMA, 0.0);
-    addProperty(P_DELTA, 90.0);
+    addProperty(P_DELTA, 90.0)->setVisible(false);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -138,8 +138,7 @@ std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DCauchyItem::createFTDecayFu
 {
     auto result = GUIHelpers::make_unique<FTDecayFunction2DCauchy>(
         getItemValue(P_DECAY_LENGTH_X).toDouble(), getItemValue(P_DECAY_LENGTH_Y).toDouble(),
-        Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
-        Units::deg2rad(getItemValue(P_DELTA).toDouble()));
+        Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
 
     return std::move(result);
 }
@@ -157,8 +156,7 @@ std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DGaussItem::createFTDecayFun
 {
     auto result = GUIHelpers::make_unique<FTDecayFunction2DGauss>(
         getItemValue(P_DECAY_LENGTH_X).toDouble(), getItemValue(P_DECAY_LENGTH_Y).toDouble(),
-        Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
-        Units::deg2rad(getItemValue(P_DELTA).toDouble()));
+        Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
 
     return std::move(result);
 }
@@ -180,8 +178,7 @@ std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DVoigtItem::createFTDecayFun
     auto result = GUIHelpers::make_unique<FTDecayFunction2DVoigt>(
         getItemValue(P_DECAY_LENGTH_X).toDouble(), getItemValue(P_DECAY_LENGTH_Y).toDouble(),
         getItemValue(P_ETA).toDouble(),
-        Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
-        Units::deg2rad(getItemValue(P_DELTA).toDouble()));
+        Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
 
     return std::move(result);
 }

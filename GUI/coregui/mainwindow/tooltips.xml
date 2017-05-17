@@ -103,16 +103,16 @@
                 <tooltip>Interference function of 1D lattice </tooltip>
             </property>
             <property name="Description">
-                <tooltip>Empty</tooltip>
+                <tooltip></tooltip>
             </property>
         </category>
 
-        <category name="InterferenceFunction2DLattice">
+        <category name="Interference2DLattice">
             <property name="Title">
                 <tooltip>Interference 2D lattice </tooltip>
             </property>
             <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
+                <tooltip></tooltip>
             </property>
             <property name="Lattice_type">
                 <tooltip>Type of lattice: Basic, Hexagonal or Square</tooltip>

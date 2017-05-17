@@ -34,11 +34,11 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    void setDecayFunction(const IFTDecayFunction1D& pdf);
+    void setDecayFunction(const IFTDecayFunction1D& decay);
 
     Lattice1DParameters getLatticeParameters() const { return m_lattice_params; }
 
-    const IFTDecayFunction1D* getDecayFunction() const { return mp_pdf.get(); }
+    const IFTDecayFunction1D* getDecayFunction() const { return m_decay.get(); }
 
     double evaluate(const kvector_t q) const final;
 
@@ -49,7 +49,7 @@ private:
     void init_parameters();
 
     Lattice1DParameters m_lattice_params;
-    std::unique_ptr<IFTDecayFunction1D> mp_pdf;
+    std::unique_ptr<IFTDecayFunction1D> m_decay;
     int m_na; //!< determines the number of reciprocal lattice points to use
 
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday

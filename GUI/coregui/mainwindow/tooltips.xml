@@ -98,6 +98,15 @@
             </property>
         </category>
 
+        <category name="Interference1DLattice">
+            <property name="Title">
+                <tooltip>Interference function of 1D lattice </tooltip>
+            </property>
+            <property name="Description">
+                <tooltip>Empty</tooltip>
+            </property>
+        </category>
+
         <category name="InterferenceFunction2DLattice">
             <property name="Title">
                 <tooltip>Interference 2D lattice </tooltip>

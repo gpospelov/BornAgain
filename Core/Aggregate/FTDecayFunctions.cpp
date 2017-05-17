@@ -30,11 +30,11 @@ void IFTDecayFunction1D::print(std::ostream &ostr) const
 
 void IFTDecayFunction1D::init_parameters()
 {
-    registerParameter(BornAgain::DecayLength, &m_omega);
+    registerParameter(BornAgain::DecayLength, &m_decay_length);
 }
 
-FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double omega)
-: IFTDecayFunction1D(omega)
+FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double decay_length)
+: IFTDecayFunction1D(decay_length)
 {
     setName(BornAgain::FTDecayFunction1DCauchyType);
     init_parameters();
@@ -42,12 +42,12 @@ FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double omega)
 
 double FTDecayFunction1DCauchy::evaluate(double q) const
 {
-    double sum_sq = q*q*m_omega*m_omega;
-    return m_omega*2.0/(1.0 + sum_sq);
+    double sum_sq = q*q*m_decay_length*m_decay_length;
+    return m_decay_length*2.0/(1.0 + sum_sq);
 }
 
-FTDecayFunction1DGauss::FTDecayFunction1DGauss(double omega)
-: IFTDecayFunction1D(omega)
+FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
+: IFTDecayFunction1D(decay_length)
 {
     setName(BornAgain::FTDecayFunction1DGaussType);
     init_parameters();
@@ -55,12 +55,12 @@ FTDecayFunction1DGauss::FTDecayFunction1DGauss(double omega)
 
 double FTDecayFunction1DGauss::evaluate(double q) const
 {
-    double sum_sq = q*q*m_omega*m_omega;
-    return m_omega*std::sqrt(M_TWOPI)*std::exp(-sum_sq/2.0);
+    double sum_sq = q*q*m_decay_length*m_decay_length;
+    return m_decay_length*std::sqrt(M_TWOPI)*std::exp(-sum_sq/2.0);
 }
 
-FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double omega)
-    : IFTDecayFunction1D(omega)
+FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
+    : IFTDecayFunction1D(decay_length)
 {
     setName(BornAgain::FTDecayFunction1DTriangleType);
     init_parameters();
@@ -68,12 +68,12 @@ FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double omega)
 
 double FTDecayFunction1DTriangle::evaluate(double q) const
 {
-    double sincqw2 = MathFunctions::sinc(q*m_omega/2.0);
-    return m_omega*sincqw2*sincqw2;
+    double sincqw2 = MathFunctions::sinc(q*m_decay_length/2.0);
+    return m_decay_length*sincqw2*sincqw2;
 }
 
-FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double omega, double eta)
-: IFTDecayFunction1D(omega)
+FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
+: IFTDecayFunction1D(decay_length)
 , m_eta(eta)
 {
     setName(BornAgain::FTDecayFunction1DVoigtType);
@@ -82,9 +82,9 @@ FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double omega, double eta)
 
 double FTDecayFunction1DVoigt::evaluate(double q) const
 {
-    double sum_sq = q*q*m_omega*m_omega;
-    return m_eta*m_omega*std::sqrt(M_TWOPI)*std::exp(-sum_sq/2.0)
-            + (1.0 - m_eta)*m_omega*2.0/(1.0 + sum_sq);
+    double sum_sq = q*q*m_decay_length*m_decay_length;
+    return m_eta*m_decay_length*std::sqrt(M_TWOPI)*std::exp(-sum_sq/2.0)
+            + (1.0 - m_eta)*m_decay_length*2.0/(1.0 + sum_sq);
 }
 
 void FTDecayFunction1DVoigt::init_parameters()

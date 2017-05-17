@@ -30,6 +30,10 @@
 #include "InterferenceFunction1DLattice.h"
 #include "GroupItem.h"
 
+// TODO (when back compatibility will be broken  again)
+// Make InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION and
+// InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION rely on same constant
+
 InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
     : SessionGraphicsItem(modelType)
 {
@@ -183,9 +187,14 @@ const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = "Decay Funct
 InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
     : InterferenceFunctionItem(Constants::InterferenceFunction1DLatticeType)
 {
-    addProperty(P_LENGTH, 20.0 * Units::nanometer);
-    addProperty(P_ROTATION_ANGLE, 0.0);
-    addGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction1DGroup);
+    setToolTip(QStringLiteral("Interference function of 1D lattice"));
+    addProperty(P_LENGTH, 20.0 * Units::nanometer)
+            ->setToolTip(QStringLiteral("Lattice length in nanometers"));
+    addProperty(P_ROTATION_ANGLE, 0.0)
+        ->setToolTip(QStringLiteral("Rotation of lattice with respect to x-axis of reference frame "
+                                    "in degrees"));
+    addGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction1DGroup)
+        ->setToolTip(QStringLiteral("One-dimensional decay function (finite size effects)"));
 }
 
 std::unique_ptr<IInterferenceFunction>

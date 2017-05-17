@@ -26,59 +26,60 @@
 //! @ingroup distribution_internal
 class BA_CORE_API_ IFTDecayFunction1D : public ICloneable, public INode
 {
-public:
-    IFTDecayFunction1D(double omega) : m_omega(omega) {}
+public:    
+    //! Constructor of one-dimensional decay function.
+    //! @param decay_length: half-width of the distribution in nanometers
+    IFTDecayFunction1D(double decay_length) : m_decay_length(decay_length) {}
     virtual IFTDecayFunction1D* clone() const=0;
     virtual double evaluate(double q) const=0;
-    void setOmega(double omega) { m_omega = omega; }
-    double getOmega() const { return m_omega; }
+    double decayLength() const { return m_decay_length; }
     friend std::ostream& operator<<(std::ostream& ostr, const IFTDecayFunction1D& m) {
         m.print(ostr); return ostr; }
 
 protected:
     virtual void print(std::ostream& ostr) const;
     virtual void init_parameters();
-    double m_omega;
+    double m_decay_length;
 };
 
 
 //! One-dimensional Cauchy decay function in reciprocal space;
-//! corresponds to exp(-|x|/omega) in real space.
+//! corresponds to exp(-|x|/decay_length) in real space.
 //! @ingroup decayFT
 class BA_CORE_API_ FTDecayFunction1DCauchy : public IFTDecayFunction1D
 {
 public:
-    FTDecayFunction1DCauchy(double omega);
+    FTDecayFunction1DCauchy(double decay_length);
     virtual FTDecayFunction1DCauchy* clone() const {
-        return new FTDecayFunction1DCauchy(m_omega); }
+        return new FTDecayFunction1DCauchy(m_decay_length); }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
 
 
 //! One-dimensional Gauss decay function in reciprocal space;
-//! corresponds to exp[-x^2/(2*omega^2)] in real space.
+//! corresponds to exp[-x^2/(2*decay_length^2)] in real space.
 //! @ingroup decayFT
 class BA_CORE_API_ FTDecayFunction1DGauss : public IFTDecayFunction1D
 {
 public:
-    FTDecayFunction1DGauss(double omega);
+    FTDecayFunction1DGauss(double decay_length);
     virtual FTDecayFunction1DGauss* clone() const {
-        return new FTDecayFunction1DGauss(m_omega); }
+        return new FTDecayFunction1DGauss(m_decay_length); }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
 
 
 //! One-dimensional triangle decay function in reciprocal space;
-//! corresponds to 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
+//! corresponds to 1-|x|/decay_length if |x|<decay_length (and 0 otherwise) in real space.
 //! @ingroup decayFT
 class BA_CORE_API_ FTDecayFunction1DTriangle : public IFTDecayFunction1D
 {
 public:
-    FTDecayFunction1DTriangle(double omega);
+    FTDecayFunction1DTriangle(double decay_length);
     virtual FTDecayFunction1DTriangle* clone() const {
-        return new FTDecayFunction1DTriangle(m_omega); }
+        return new FTDecayFunction1DTriangle(m_decay_length); }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -90,9 +91,12 @@ public:
 class BA_CORE_API_ FTDecayFunction1DVoigt : public IFTDecayFunction1D
 {
 public:
-    FTDecayFunction1DVoigt(double omega, double eta);
+    //! Constructor of one-dimensional decay function.
+    //! @param decay_length: half-width of the distribution in nanometers
+    //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
+    FTDecayFunction1DVoigt(double decay_length, double eta);
     virtual FTDecayFunction1DVoigt* clone() const {
-        return new FTDecayFunction1DVoigt(m_omega, m_eta); }
+        return new FTDecayFunction1DVoigt(m_decay_length, m_eta); }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
     double getEta() const { return m_eta;}

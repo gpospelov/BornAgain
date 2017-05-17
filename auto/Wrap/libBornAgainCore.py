@@ -8826,24 +8826,9 @@ class IFTDecayFunction1D(ICloneable, INode):
         return _libBornAgainCore.IFTDecayFunction1D_evaluate(self, q)
 
 
-    def setOmega(self, omega):
-        """
-        setOmega(IFTDecayFunction1D self, double omega)
-
-        void IFTDecayFunction1D::setOmega(double omega)
-
-        """
-        return _libBornAgainCore.IFTDecayFunction1D_setOmega(self, omega)
-
-
-    def getOmega(self):
-        """
-        getOmega(IFTDecayFunction1D self) -> double
-
-        double IFTDecayFunction1D::getOmega() const 
-
-        """
-        return _libBornAgainCore.IFTDecayFunction1D_getOmega(self)
+    def decayLength(self):
+        """decayLength(IFTDecayFunction1D self) -> double"""
+        return _libBornAgainCore.IFTDecayFunction1D_decayLength(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_IFTDecayFunction1D
     __del__ = lambda self: None
@@ -8870,14 +8855,14 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction1DCauchy, name)
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, decay_length):
         """
-        __init__(FTDecayFunction1DCauchy self, double omega) -> FTDecayFunction1DCauchy
+        __init__(FTDecayFunction1DCauchy self, double decay_length) -> FTDecayFunction1DCauchy
 
         FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double omega)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction1DCauchy(omega)
+        this = _libBornAgainCore.new_FTDecayFunction1DCauchy(decay_length)
         try:
             self.this.append(this)
         except Exception:
@@ -8939,14 +8924,14 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction1DGauss, name)
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, decay_length):
         """
-        __init__(FTDecayFunction1DGauss self, double omega) -> FTDecayFunction1DGauss
+        __init__(FTDecayFunction1DGauss self, double decay_length) -> FTDecayFunction1DGauss
 
         FTDecayFunction1DGauss::FTDecayFunction1DGauss(double omega)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction1DGauss(omega)
+        this = _libBornAgainCore.new_FTDecayFunction1DGauss(decay_length)
         try:
             self.this.append(this)
         except Exception:
@@ -9008,14 +8993,14 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction1DTriangle, name)
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, decay_length):
         """
-        __init__(FTDecayFunction1DTriangle self, double omega) -> FTDecayFunction1DTriangle
+        __init__(FTDecayFunction1DTriangle self, double decay_length) -> FTDecayFunction1DTriangle
 
         FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double omega)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction1DTriangle(omega)
+        this = _libBornAgainCore.new_FTDecayFunction1DTriangle(decay_length)
         try:
             self.this.append(this)
         except Exception:
@@ -9077,14 +9062,14 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction1DVoigt, name)
     __repr__ = _swig_repr
 
-    def __init__(self, omega, eta):
+    def __init__(self, decay_length, eta):
         """
-        __init__(FTDecayFunction1DVoigt self, double omega, double eta) -> FTDecayFunction1DVoigt
+        __init__(FTDecayFunction1DVoigt self, double decay_length, double eta) -> FTDecayFunction1DVoigt
 
         FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double omega, double eta)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction1DVoigt(omega, eta)
+        this = _libBornAgainCore.new_FTDecayFunction1DVoigt(decay_length, eta)
         try:
             self.this.append(this)
         except Exception:
@@ -19945,14 +19930,14 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction1DLattice_accept(self, visitor)
 
 
-    def setDecayFunction(self, pdf):
+    def setDecayFunction(self, decay):
         """
-        setDecayFunction(InterferenceFunction1DLattice self, IFTDecayFunction1D pdf)
+        setDecayFunction(InterferenceFunction1DLattice self, IFTDecayFunction1D decay)
 
         void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &pdf)
 
         """
-        return _libBornAgainCore.InterferenceFunction1DLattice_setDecayFunction(self, pdf)
+        return _libBornAgainCore.InterferenceFunction1DLattice_setDecayFunction(self, decay)
 
 
     def getLatticeParameters(self):

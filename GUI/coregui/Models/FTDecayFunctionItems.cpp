@@ -28,12 +28,19 @@ FTDecayFunction1DItem::FTDecayFunction1DItem(const QString& name)
     : SessionItem(name)
 { }
 
+void FTDecayFunction1DItem::add_decay_property()
+{
+    addProperty(P_DECAY_LENGTH, 1000.0)
+        ->setToolTip(QStringLiteral("Decay length (half-width of the distribution in nanometers)"));
+}
+
 // --------------------------------------------------------------------------------------------- //
 
 FTDecayFunction1DCauchyItem::FTDecayFunction1DCauchyItem()
     : FTDecayFunction1DItem(Constants::FTDecayFunction1DCauchyType)
 {
-    addProperty(P_DECAY_LENGTH, 1000.0);
+    setToolTip(QStringLiteral("One-dimensional Cauchy decay function"));
+    add_decay_property();
 }
 
 std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DCauchyItem::createFTDecayFunction() const
@@ -47,7 +54,8 @@ std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DCauchyItem::createFTDecayFu
 FTDecayFunction1DGaussItem::FTDecayFunction1DGaussItem()
     : FTDecayFunction1DItem(Constants::FTDecayFunction1DGaussType)
 {
-    addProperty(P_DECAY_LENGTH, 1000.0);
+    setToolTip(QStringLiteral("One-dimensional Gauss decay function"));
+    add_decay_property();
 }
 
 std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DGaussItem::createFTDecayFunction() const
@@ -60,7 +68,8 @@ std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DGaussItem::createFTDecayFun
 FTDecayFunction1DTriangleItem::FTDecayFunction1DTriangleItem()
     : FTDecayFunction1DItem(Constants::FTDecayFunction1DTriangleType)
 {
-    addProperty(P_DECAY_LENGTH, 1000.0);
+    setToolTip(QStringLiteral("One-dimensional triangle decay function"));
+    add_decay_property();
 }
 
 std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DTriangleItem::createFTDecayFunction() const
@@ -76,7 +85,8 @@ const QString FTDecayFunction1DVoigtItem::P_ETA = QString::fromStdString(BornAga
 FTDecayFunction1DVoigtItem::FTDecayFunction1DVoigtItem()
     : FTDecayFunction1DItem(Constants::FTDecayFunction1DVoigtType)
 {
-    addProperty(P_DECAY_LENGTH, 1000.0);
+    setToolTip(QStringLiteral("One-dimensional pseudo-Voigt decay function"));
+    add_decay_property();
     addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0));
 }
 

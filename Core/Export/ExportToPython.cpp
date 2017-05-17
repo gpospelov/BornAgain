@@ -376,7 +376,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
 
             const IFTDecayFunction1D* pdf = oneDLattice->getDecayFunction();
 
-            if (pdf->getOmega() != 0.0)
+            if (pdf->decayLength() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                        << "(" << argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";

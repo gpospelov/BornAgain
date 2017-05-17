@@ -630,23 +630,23 @@ void SetDecayFunction1D(SessionItem* item, const IFTDecayFunction1D* ipdf, QStri
     if (const FTDecayFunction1DCauchy* pdf = dynamic_cast<const FTDecayFunction1DCauchy*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DCauchyType);
-        pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
+        pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
     } else if (const FTDecayFunction1DGauss* pdf
                = dynamic_cast<const FTDecayFunction1DGauss*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DGaussType);
-        pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
+        pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
     } else if (const FTDecayFunction1DTriangle* pdf
                = dynamic_cast<const FTDecayFunction1DTriangle*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DTriangleType);
         pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH,
-                                       pdf->getOmega());
+                                       pdf->decayLength());
     } else if (const FTDecayFunction1DVoigt* pdf
                = dynamic_cast<const FTDecayFunction1DVoigt*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDecayFunction1DVoigtType);
-        pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->getOmega());
+        pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
         pdfItem->setItemValue(FTDecayFunction1DVoigtItem::P_ETA, pdf->getEta());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::SetDecayFunction1D: -> Error");

@@ -100,7 +100,7 @@
 
         <category name="Interference1DLattice">
             <property name="Title">
-                <tooltip>Interference function of 1D lattice </tooltip>
+                <tooltip>Interference function of 1D lattice</tooltip>
             </property>
             <property name="Description">
                 <tooltip></tooltip>
@@ -109,19 +109,10 @@
 
         <category name="Interference2DLattice">
             <property name="Title">
-                <tooltip>Interference 2D lattice </tooltip>
+                <tooltip>Interference function of 2D lattice</tooltip>
             </property>
             <property name="Description">
                 <tooltip></tooltip>
-            </property>
-            <property name="Lattice_type">
-                <tooltip>Type of lattice: Basic, Hexagonal or Square</tooltip>
-            </property>
-            <property name="Rotation_angle">
-                <tooltip>Angle between the first basis vector and the x-axis of the incoming beam in degrees</tooltip>
-            </property>
-            <property name="PDF">
-                <tooltip>Probability Distribution Function</tooltip>
             </property>
         </category>
 

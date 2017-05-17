@@ -217,8 +217,10 @@ const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = "DecayFuncti
 InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()
     : InterferenceFunctionItem(Constants::InterferenceFunction2DLatticeType)
 {
-    addGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup);
-    addGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction2DGroup);
+    setToolTip(QStringLiteral("Interference function of 2D lattice"));
+    addGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup)->setToolTip("Type of lattice");
+    addGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction2DGroup)
+        ->setToolTip("Two-dimensional decay function (finite size effects)");
 }
 
 std::unique_ptr<IInterferenceFunction>

@@ -19,7 +19,7 @@
 #include "IParticle.h"
 
 class IClusteredParticles;
-class IMaterial;
+class HomogeneousMaterial;
 
 //! A particle with an internal structure of smaller particles.
 //! @ingroup samples
@@ -29,29 +29,21 @@ class BA_CORE_API_ MesoCrystal : public IParticle
 public:
     MesoCrystal(const IClusteredParticles& particle_structure, const IFormFactor& form_factor);
 
-    virtual ~MesoCrystal();
-    virtual MesoCrystal* clone() const;
+    ~MesoCrystal();
+    MesoCrystal* clone() const override final;
 
-    //! Returns a clone with inverted magnetic fields
-    virtual MesoCrystal* cloneInvertB() const;
+    void accept(INodeVisitor* visitor) const override final;
 
-    virtual void accept(INodeVisitor* visitor) const;
-
-    //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor* createTransformedFormFactor(
-        const IRotation* p_rotation, kvector_t translation) const;
+    SlicedParticle createSlicedParticle(ZLimits limits) const override final;
 
     //! @brief get the internal structure, which is in principle unbounded in
     //! space (e.g. an infinite crystal)
-    const IClusteredParticles* getClusteredParticles() const { return mp_particle_structure.get(); }
+    const IClusteredParticles* clusteredParticles() const { return mp_particle_structure.get(); }
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override final;
 
 private:
     MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor);
-    //! Creates a form factor decorated with the IParticle's position/rotation
-    IFormFactor* createTransformationDecoratedFormFactor(
-        const IFormFactor& bare_ff, const IRotation* p_rotation, kvector_t translation) const;
     void initialize();
 
     std::unique_ptr<IClusteredParticles> mp_particle_structure; //!< Crystal  structure

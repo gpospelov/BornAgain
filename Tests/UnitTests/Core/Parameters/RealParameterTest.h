@@ -16,8 +16,8 @@ TEST_F(RealParameterTest, simpleConstructor)
     std::unique_ptr<RealParameter> par(new RealParameter("name", &value));
 
     EXPECT_EQ(par->getName(), "name");
-    EXPECT_EQ(par->getValue(), value);
-    EXPECT_EQ(par->getLimits(), RealLimits::limitless());
+    EXPECT_EQ(par->value(), value);
+    EXPECT_EQ(par->limits(), RealLimits::limitless());
     EXPECT_EQ(par->unit(), std::string());
     EXPECT_EQ(&value, &par->getData());
     EXPECT_FALSE(par->isNull());
@@ -46,15 +46,15 @@ TEST_F(RealParameterTest, extendedConstructor)
                       RealLimits::limited(1.0, 43.0), Attributes::free());
 
     EXPECT_EQ(par.getName(), "name");
-    EXPECT_EQ(par.getValue(), value);
-    EXPECT_EQ(par.getLimits(), RealLimits::limited(1.0, 43.0));
+    EXPECT_EQ(par.value(), value);
+    EXPECT_EQ(par.limits(), RealLimits::limited(1.0, 43.0));
 
     // checks
     EXPECT_FALSE(is_changed);
     const double new_value(41.0);
     par.setValue(new_value);
     EXPECT_TRUE(is_changed);
-    EXPECT_EQ(par.getValue(), new_value);
+    EXPECT_EQ(par.value(), new_value);
 }
 
 TEST_F(RealParameterTest, clone)
@@ -70,14 +70,14 @@ TEST_F(RealParameterTest, clone)
     par.reset();
 
     EXPECT_EQ(clone->getName(), "name");
-    EXPECT_EQ(clone->getValue(), value);
-    EXPECT_EQ(clone->getLimits(), RealLimits::limited(1.0, 43.0));
+    EXPECT_EQ(clone->value(), value);
+    EXPECT_EQ(clone->limits(), RealLimits::limited(1.0, 43.0));
 
     // checks
     EXPECT_FALSE(is_changed);
     const double new_value(41.0);
     clone->setValue(new_value);
     EXPECT_TRUE(is_changed);
-    EXPECT_EQ(clone->getValue(), new_value);
+    EXPECT_EQ(clone->value(), new_value);
     EXPECT_EQ(value, new_value);
 }

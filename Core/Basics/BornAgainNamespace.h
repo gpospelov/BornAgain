@@ -168,6 +168,7 @@ const std::string Width = "Width";
 const std::string Height = "Height";
 const std::string HeightRatio = "HeightRatio";
 const std::string HeightFlattening = "HeightFlattening";
+const std::string DeltaHeight = "DeltaHeight";
 const std::string Intensity = "Intensity";
 const std::string Wavelength = "Wavelength";
 const std::string Angle = "Angle";

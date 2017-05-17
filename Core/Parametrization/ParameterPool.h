@@ -44,12 +44,12 @@ public:
 
     RealParameter& addParameter(RealParameter* par);
 
-    RealParameter* getParameter(const std::string& name);
+    RealParameter* parameter(const std::string& name);
 
-    const RealParameter* getParameter(const std::string& name) const;
+    const RealParameter* parameter(const std::string& name) const;
 
     //! Returns full vector of parameters.
-    const std::vector<RealParameter*> getParameters() const { return m_params; }
+    const std::vector<RealParameter*> parameters() const { return m_params; }
 
     std::vector<RealParameter*> getMatchedParameters(const std::string& wildcards) const;
     RealParameter* getUniqueMatch(const std::string& pattern) const;
@@ -65,10 +65,15 @@ public:
         obj.print(ostr); return ostr; }
 
     void removeParameter(const std::string& name);
+
+    const RealParameter* operator[](size_t index) const;
+    RealParameter* operator[](size_t index);
+
 private:
     virtual void print(std::ostream& ostr) const;
     void report_find_matched_parameters_error(const std::string& pattern) const;
     void report_set_value_error(const std::string& parname, double value) const;
+    size_t check_index(size_t index) const;
 
     std::vector<RealParameter*> m_params;
 };

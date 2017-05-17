@@ -18,7 +18,7 @@
 #include "Pyramid6.h"
 #include "RealParameter.h"
 
-FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
+FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
     : FormFactorPolygonalPrism( height )
     , m_base_edge(base_edge)
 {
@@ -26,6 +26,14 @@ FormFactorPrism6::FormFactorPrism6(const double base_edge, const double height)
     registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     onChange();
+}
+
+IFormFactor* FormFactorPrism6::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                               kvector_t translation) const
+{
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    FormFactorPrism6 slicedff(m_base_edge, m_height - effects.dz_bottom - effects.dz_top);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
 }
 
 void FormFactorPrism6::onChange()

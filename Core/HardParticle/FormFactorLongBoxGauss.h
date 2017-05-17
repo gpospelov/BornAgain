@@ -37,11 +37,14 @@ public:
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
-    double getRadialExtension() const override final{ return m_length/2.0; }
+    double radialExtension() const override final{ return m_length/2.0; }
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
 
 protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
     void onChange() override final;
 
 private:

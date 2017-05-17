@@ -30,7 +30,6 @@ public:
     virtual ~IRotation() {}
 
     virtual IRotation* clone() const=0;
-    IRotation* cloneInvertB() const final { return clone(); }
 
     //! Returns a new IRotation object that is the current object's inverse
     virtual IRotation* createInverse() const=0;
@@ -45,6 +44,8 @@ public:
 };
 
 BA_CORE_API_ IRotation* createProduct(const IRotation& left, const IRotation& right);
+
+bool IsZRotation(const IRotation& rot);
 
 class BA_CORE_API_ RotationX : public IRotation
 {

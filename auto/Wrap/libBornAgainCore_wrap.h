@@ -138,9 +138,7 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
-    virtual ISample *cloneInvertB() const;
-    virtual IMaterial const *getMaterial() const;
-    virtual IMaterial const *getAmbientMaterial() const;
+    virtual HomogeneousMaterial const *material() const;
 
 /* Internal director utilities */
 public:
@@ -171,7 +169,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[10];
+    mutable swig::SwigVar_PyObject vtable[8];
 #endif
 
 };
@@ -322,16 +320,22 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
-    virtual ISample *cloneInvertB() const;
-    virtual IMaterial const *getMaterial() const;
-    virtual IMaterial const *getAmbientMaterial() const;
-    virtual void setAmbientMaterial(IMaterial const &arg0);
+    virtual HomogeneousMaterial const *material() const;
+    virtual void setAmbientMaterial(HomogeneousMaterial arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
-    virtual double getVolume() const;
-    virtual double getRadialExtension() const;
+    virtual double volume() const;
+    virtual double radialExtension() const;
     virtual double bottomZ(IRotation const &rotation) const;
     virtual double topZ(IRotation const &rotation) const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
+    virtual bool canSliceAnalytically(IRotation const &rot) const;
+    virtual bool canSliceAnalyticallySwigPublic(IRotation const &rot) const {
+      return IFormFactor::canSliceAnalytically(rot);
+    }
+    virtual IFormFactor *sliceFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
+    virtual IFormFactor *sliceFormFactorSwigPublic(ZLimits limits, IRotation const &rot, kvector_t translation) const {
+      return IFormFactor::sliceFormFactor(limits,rot,translation);
+    }
 
 /* Internal director utilities */
 public:
@@ -380,17 +384,23 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
-    virtual ISample *cloneInvertB() const;
-    virtual IMaterial const *getMaterial() const;
-    virtual IMaterial const *getAmbientMaterial() const;
-    virtual void setAmbientMaterial(IMaterial const &arg0);
+    virtual HomogeneousMaterial const *material() const;
+    virtual void setAmbientMaterial(HomogeneousMaterial arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
-    virtual double getVolume() const;
-    virtual double getRadialExtension() const;
+    virtual double volume() const;
+    virtual double radialExtension() const;
     virtual double bottomZ(IRotation const &rotation) const;
     virtual double topZ(IRotation const &rotation) const;
     virtual void setSpecularInfo(ILayerRTCoefficients const *arg0, ILayerRTCoefficients const *arg1);
-    virtual complex_t evaluate_for_q(cvector_t const q) const;
+    virtual bool canSliceAnalytically(IRotation const &rot) const;
+    virtual bool canSliceAnalyticallySwigPublic(IRotation const &rot) const {
+      return IFormFactorBorn::canSliceAnalytically(rot);
+    }
+    virtual IFormFactor *sliceFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
+    virtual IFormFactor *sliceFormFactorSwigPublic(ZLimits limits, IRotation const &rot, kvector_t translation) const {
+      return IFormFactor::sliceFormFactor(limits,rot,translation);
+    }
+    virtual complex_t evaluate_for_q(cvector_t q) const;
 
 /* Internal director utilities */
 public:

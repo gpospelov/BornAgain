@@ -77,10 +77,6 @@ PySampleWidget::PySampleWidget(QWidget *parent)
     m_textEdit->setFont(textFont);
     m_textEdit->setFontPointSize(DesignerHelper::getPythonEditorFontSize());
 
-    // FIXME First appearance of the editor takes ~0.3sec delay which is unconfortable.
-    // It can be made faster, if one uncomment line below. But we would like to have it
-    // commented because of welcome message (we need to wrap welcome message).
-    //m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
 }
 
 void PySampleWidget::setSampleModel(SampleModel* sampleModel)

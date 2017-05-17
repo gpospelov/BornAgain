@@ -19,7 +19,7 @@
 #include "IParticle.h"
 #include <memory>
 
-class IMaterial;
+class HomogeneousMaterial;
 
 //! A composition of particles at fixed positions
 //! @ingroup samples
@@ -33,8 +33,6 @@ public:
     ~ParticleComposition();
     ParticleComposition* clone() const override;
 
-    ParticleComposition* cloneInvertB() const override;
-
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void addParticle(const IParticle& particle);
@@ -42,27 +40,28 @@ public:
     void addParticles(const IParticle& particle, std::vector<kvector_t > positions);
 
     IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
-                                                     kvector_t translation) const override;
+                                             kvector_t translation) const;
 
     //! Returns number of different particles
-    size_t getNbrParticles() const { return m_particles.size(); }
+    size_t nbrParticles() const { return m_particles.size(); }
 
     //! Returns particle with given index
-    const IParticle* getParticle(size_t index) const;
+    const IParticle* particle(size_t index) const;
 
-    kvector_t getParticlePosition(size_t index) const;
+    kvector_t particlePosition(size_t index) const;
 
     std::vector<const INode*> getChildren() const override;
 
     SafePointerVector<IParticle> decompose() const override;
 
+    ParticleLimits bottomTopZ() const override;
 private:
     size_t check_index(size_t index) const;
 
     //! Returns true if particle's type is suitable for adding
     void checkParticleType(const IParticle& p_particle);
 
-    //! For internal use in cloneInvertB():
+    //! For internal use
     void addParticlePointer(IParticle* p_particle);
 
     std::vector<std::unique_ptr<IParticle>> m_particles;

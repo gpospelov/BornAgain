@@ -68,8 +68,8 @@ InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const
     result->setDomainSize(getItemValue(P_DOMAIN_SIZE).toDouble());
     result->setKappa(getItemValue(P_KAPPA).toDouble());
 
-    auto pdfItem = dynamic_cast<FTDistribution1DItem*>(getGroupItem(P_PDF));
-    result->setProbabilityDistribution(*pdfItem->createFTDistribution());
+    auto& pdfItem = groupItem<FTDistribution1DItem>(P_PDF);
+    result->setProbabilityDistribution(*pdfItem.createFTDistribution());
     return std::move(result);
 }
 
@@ -121,23 +121,20 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
 std::unique_ptr<IInterferenceFunction>
 InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const
 {
-    auto latticeItem = dynamic_cast<Lattice2DItem*>(
-        getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE));
+    auto& latticeItem = groupItem<Lattice2DItem>(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
 
     std::unique_ptr<InterferenceFunction2DParaCrystal> result(
-        new InterferenceFunction2DParaCrystal(*latticeItem->createLattice()));
+        new InterferenceFunction2DParaCrystal(*latticeItem.createLattice()));
 
     result->setDampingLength(getItemValue(P_DAMPING_LENGTH).toDouble());
     result->setDomainSizes(getItemValue(P_DOMAIN_SIZE1).toDouble(),
                            getItemValue(P_DOMAIN_SIZE2).toDouble());
     result->setIntegrationOverXi(getItemValue(P_XI_INTEGRATION).toBool());
 
-    auto pdf1Item = dynamic_cast<FTDistribution2DItem*>(
-        getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF1));
-    auto pdf2Item = dynamic_cast<FTDistribution2DItem*>(
-        getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF2));
-    result->setProbabilityDistributions(*pdf1Item->createFTDistribution(),
-                                        *pdf2Item->createFTDistribution());
+    auto& pdf1Item = groupItem<FTDistribution2DItem>(InterferenceFunction2DParaCrystalItem::P_PDF1);
+    auto& pdf2Item = groupItem<FTDistribution2DItem>(InterferenceFunction2DParaCrystalItem::P_PDF2);
+    result->setProbabilityDistributions(*pdf1Item.createFTDistribution(),
+                                        *pdf2Item.createFTDistribution());
 
     return std::move(result);
 }
@@ -146,10 +143,11 @@ InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const
 
 void InterferenceFunction2DParaCrystalItem::update_rotation_availability()
 {
-    SessionItem *angleItem = getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
-            ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
-
-    angleItem->setEnabled(!getItemValue(P_XI_INTEGRATION).toBool());
+    auto p_lattice_item = getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
+    if (p_lattice_item) {
+        auto angle_item = p_lattice_item->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
+        angle_item->setEnabled(!getItemValue(P_XI_INTEGRATION).toBool());
+    }
 }
 
 void InterferenceFunction2DParaCrystalItem::update_distribution_displaynames()
@@ -217,12 +215,12 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()
 std::unique_ptr<IInterferenceFunction>
 InterferenceFunction2DLatticeItem::createInterferenceFunction() const
 {
-    auto latticeItem = dynamic_cast<Lattice2DItem*>(getGroupItem(P_LATTICE_TYPE));
+    auto& latticeItem = groupItem<Lattice2DItem>(P_LATTICE_TYPE);
     std::unique_ptr<InterferenceFunction2DLattice> result(
-        new InterferenceFunction2DLattice(*latticeItem->createLattice()));
+        new InterferenceFunction2DLattice(*latticeItem.createLattice()));
 
-    auto pdfItem = dynamic_cast<FTDecayFunction2DItem*>(getGroupItem(P_DECAY_FUNCTION));
-    result->setDecayFunction(*pdfItem->createFTDecayFunction());
+    auto& pdfItem = groupItem<FTDecayFunction2DItem>(P_DECAY_FUNCTION);
+    result->setDecayFunction(*pdfItem.createFTDecayFunction());
 
     return std::move(result);
 }

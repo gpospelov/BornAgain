@@ -52,8 +52,8 @@ Simulation::Simulation(const Simulation& other)
     , m_instrument(other.m_instrument)
     , m_intensity_map()
 {
-    if (other.mP_sample)
-        setSample(*other.mP_sample);
+    if (other.mP_multilayer)
+        setSample(*other.mP_multilayer);
     registerChild(&m_instrument);
     if(mP_sample_builder)
         registerChild(mP_sample_builder.get());
@@ -117,7 +117,7 @@ void Simulation::prepareSimulation()
 void Simulation::runSimulation()
 {
     updateSample();
-    if (!mP_sample)
+    if (!mP_multilayer)
         throw Exceptions::NullPointerException("Simulation::runSimulation() -> Error! No sample.");
 
     prepareSimulation();
@@ -125,8 +125,8 @@ void Simulation::runSimulation()
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
     m_progress.reset();
-    size_t prefactor = ( mP_sample->totalNofLayouts()>0 ? 1 : 0 )
-        + ( mP_sample->hasRoughness() ? 1 : 0 );
+    size_t prefactor = ( mP_multilayer->totalNofLayouts()>0 ? 1 : 0 )
+        + ( mP_multilayer->hasRoughness() ? 1 : 0 );
     m_progress.setExpectedNTicks(prefactor*param_combinations*numberOfSimulationElements());
 
     // no averaging needed:
@@ -169,8 +169,8 @@ void Simulation::setInstrument(const Instrument& instrument)
 //! The MultiLayer object will not be owned by the Simulation object
 void Simulation::setSample(const MultiLayer& sample)
 {
-    mP_sample.reset(sample.clone());
-    registerChild(mP_sample.get());
+    mP_multilayer.reset(sample.clone());
+    registerChild(mP_multilayer.get());
 }
 
 void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
@@ -181,17 +181,18 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder
 
     mP_sample_builder = p_sample_builder;
     registerChild(mP_sample_builder.get());
-    mP_sample.reset(nullptr);
+    mP_multilayer.reset(nullptr);
 }
 
 std::vector<const INode*> Simulation::getChildren() const
 {
     std::vector<const INode*> result;
     result.push_back(&m_instrument);
-    if(mP_sample_builder)
+    if(mP_sample_builder) {
         result.push_back(mP_sample_builder.get());
-    else
-        result.push_back(mP_sample.get());
+    } else {
+        result << mP_multilayer;
+    }
     return result;
 }
 
@@ -213,9 +214,9 @@ void Simulation::updateSample()
     if (!mP_sample_builder)
         return;
     if (mP_sample_builder->isPythonBuilder()) {
-        mP_sample.reset( mP_sample_builder->buildSample()->clone() );
+        mP_multilayer.reset( mP_sample_builder->buildSample()->clone() );
     } else {
-        mP_sample.reset( mP_sample_builder->buildSample() );
+        mP_multilayer.reset( mP_sample_builder->buildSample() );
     }
 }
 
@@ -235,21 +236,21 @@ void Simulation::runSingleSimulation()
 
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
-        std::unique_ptr<MainComputation> P_dwba_simulation(
-            new MainComputation(*mP_sample, m_options, m_progress, batch_start, batch_end));
-        P_dwba_simulation->run(); // the work is done here
-        if (!P_dwba_simulation->isCompleted()) {
-            std::string message = P_dwba_simulation->errorMessage();
+        std::unique_ptr<MainComputation> P_computation(
+            new MainComputation(*mP_multilayer, m_options, m_progress, batch_start, batch_end));
+        P_computation->run(); // the work is done here
+        if (!P_computation->isCompleted()) {
+            std::string message = P_computation->errorMessage();
             throw Exceptions::RuntimeErrorException("Simulation::runSimulation() -> Simulation has "
                                                     "terminated unexpectedly with following error "
                                                     "message.\n" + message);
         }
     } else {
         // Multithreading.
-        std::vector<std::thread*> threads;
-        std::vector<MainComputation*> simulations;
+        std::vector<std::unique_ptr<std::thread>> threads;
+        std::vector<std::unique_ptr<MainComputation>> computations;
 
-        // Initialize n simulations.
+        // Initialize n computations.
         int total_batch_elements = batch_end - batch_start;
         int element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
         if (total_batch_elements % m_options.getNumberOfThreads()) // there is a remainder
@@ -258,7 +259,6 @@ void Simulation::runSingleSimulation()
         for (int i_thread = 0; i_thread < m_options.getNumberOfThreads(); ++i_thread) {
             if (i_thread*element_thread_step >= total_batch_elements)
                 break;
-            // TODO: why a plain pointer here, and a unique pointer in the single-thread case?
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
@@ -267,26 +267,24 @@ void Simulation::runSingleSimulation()
                 end_it = batch_end;
             else
                 end_it = batch_start + end_thread_index;
-            simulations.push_back(
-                new MainComputation(*mP_sample, m_options, m_progress, begin_it, end_it));
+            computations.emplace_back(
+                new MainComputation(*mP_multilayer, m_options, m_progress, begin_it, end_it));
         }
 
         // Run simulations in n threads.
-        for (MainComputation* sim: simulations)
-            threads.push_back(new std::thread([sim]() {sim->run();}));
+        for (auto& comp: computations)
+            threads.emplace_back(new std::thread([&comp]() {comp->run();}));
 
         // Wait for threads to complete.
-        for (auto thread: threads) {
+        for (auto& thread: threads) {
             thread->join();
-            delete thread;
         }
 
         // Check successful completion.
         std::vector<std::string> failure_messages;
-        for (auto sim: simulations) {
-            if (!sim->isCompleted())
-                failure_messages.push_back(sim->errorMessage());
-            delete sim;
+        for (auto& comp: computations) {
+            if (!comp->isCompleted())
+                failure_messages.push_back(comp->errorMessage());
         }
         if (failure_messages.size())
             throw Exceptions::RuntimeErrorException(

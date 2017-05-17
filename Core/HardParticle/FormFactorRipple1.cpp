@@ -49,7 +49,7 @@ bool FormFactorRipple1::check_initialization() const
     return result;
 }
 
-double FormFactorRipple1::getRadialExtension() const
+double FormFactorRipple1::radialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }
@@ -61,7 +61,7 @@ complex_t FormFactorRipple1::Integrand(double u) const
 }
 
 //! Complex formfactor.
-complex_t FormFactorRipple1::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorRipple1::evaluate_for_q(cvector_t q) const
 {
     complex_t factor = m_length*MathFunctions::sinc(q.x()*m_length*0.5)*m_width/M_PI;
 

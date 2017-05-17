@@ -65,13 +65,13 @@ bool FormFactorLongRipple2Gauss::check_initialization() const
     return result;
 }
 
-double FormFactorLongRipple2Gauss::getRadialExtension() const
+double FormFactorLongRipple2Gauss::radialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }
 
 //! Complex formfactor.
-complex_t FormFactorLongRipple2Gauss::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorLongRipple2Gauss::evaluate_for_q(cvector_t q) const
 {
     m_q = q;
 

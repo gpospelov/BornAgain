@@ -23,6 +23,7 @@
 #include "Units.h"
 #include "RegionOfInterest.h"
 #include "Exceptions.h"
+#include "ConvolutionDetectorResolution.h"
 
 IDetector2D::IDetector2D()
     : m_axes()
@@ -90,11 +91,22 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
 {
     std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
     if(!detectorMap)
-        throw Exceptions::RuntimeErrorException("Instrument::getDetectorIntensity() -> Error."
-                                    "Can't create detector map.");
+        throw Exceptions::RuntimeErrorException("Instrument::createDetectorIntensity:"
+                                                "can't create detector map.");
 
-    setDataToDetectorMap(*detectorMap.get(), elements);
-    applyDetectorResolution(detectorMap.get());
+    if (mP_detector_resolution) {
+        if(units_type != DEFAULT) {
+            std::unique_ptr<OutputData<double>> defaultMap(createDetectorMap(beam, DEFAULT));
+            setDataToDetectorMap(*defaultMap.get(), elements);
+            applyDetectorResolution(defaultMap.get());
+            detectorMap->setRawDataVector(defaultMap->getRawDataVector());
+        } else {
+            setDataToDetectorMap(*detectorMap.get(), elements);
+            applyDetectorResolution(detectorMap.get());
+        }
+    } else {
+        setDataToDetectorMap(*detectorMap.get(), elements);
+    }
 
     return detectorMap.release();
 }
@@ -235,9 +247,14 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
 size_t IDetector2D::numberOfSimulationElements() const
 {
     size_t result(0);
-    SimulationArea area(this);
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
-        ++result;
+    try {
+        SimulationArea area(this);
+        for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+            ++result;
+    } catch (Exceptions::RuntimeErrorException e)
+    {
+        (void)e;  // do nothing, just return zero
+    }
     return result;
 }
 
@@ -349,12 +366,18 @@ void IDetector2D::setDetectorResolution(const IDetectorResolution& p_detector_re
     registerChild(mP_detector_resolution.get());
 }
 
+void IDetector2D::setResolutionFunction(const IResolutionFunction2D& resFunc)
+{
+    ConvolutionDetectorResolution convFunc(resFunc);
+    setDetectorResolution(convFunc);
+}
+
 void IDetector2D::removeDetectorResolution()
 {
     mP_detector_resolution.reset();
 }
 
-const IDetectorResolution* IDetector2D::getDetectorResolutionFunction() const
+const IDetectorResolution* IDetector2D::detectorResolution() const
 {
     return mP_detector_resolution.get();
 }

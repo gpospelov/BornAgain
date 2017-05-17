@@ -172,9 +172,6 @@ void ProgressBar::mouseMoveEvent(QMouseEvent *)
 
 void ProgressBar::paintEvent(QPaintEvent *)
 {
-    // TODO move font into Utils::StyleHelper
-    // TODO use Utils::StyleHelper white
-
     if (bar.isNull())
         bar.load(QLatin1String(":/core/images/progressbar.png"));
 

@@ -36,7 +36,7 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
     onChange();
 }
 
-complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorSphereUniformRadius::evaluate_for_q(cvector_t q) const
 {
     double R = m_mean;
     double W = m_full_width;
@@ -54,7 +54,7 @@ complex_t FormFactorSphereUniformRadius::evaluate_for_q(const cvector_t q) const
 
 void FormFactorSphereUniformRadius::onChange()
 {
-    mP_shape.reset(new TruncatedEllipsoid(m_mean, m_mean, m_mean, 2.0*m_mean));
+    mP_shape.reset(new TruncatedEllipsoid(m_mean, m_mean, m_mean, 2.0*m_mean, 0.0));
 }
 
 bool FormFactorSphereUniformRadius::checkParameters() const

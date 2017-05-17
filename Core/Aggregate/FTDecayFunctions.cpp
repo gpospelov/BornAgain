@@ -25,7 +25,7 @@
 
 void IFTDecayFunction1D::print(std::ostream &ostr) const
 {
-    ostr << getName() << " " << *getParameterPool();
+    ostr << getName() << " " << *parameterPool();
 }
 
 void IFTDecayFunction1D::init_parameters()
@@ -146,7 +146,7 @@ void IFTDecayFunction2D::transformToStarBasis(double qX, double qY, double alpha
 
 void IFTDecayFunction2D::print(std::ostream &ostr) const
 {
-    ostr << getName() << " " << *getParameterPool();
+    ostr << getName() << " " << *parameterPool();
 }
 
 void IFTDecayFunction2D::init_parameters()

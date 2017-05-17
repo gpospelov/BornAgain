@@ -18,11 +18,11 @@
 #include <algorithm>
 #include <cmath>
 
-TruncatedEllipsoid::TruncatedEllipsoid(double r_x, double r_y, double r_z, double height)
+TruncatedEllipsoid::TruncatedEllipsoid(double r_x, double r_y, double r_z, double height, double dh)
 {
     static const int n_heights = std::max(2, static_cast<int>(
             std::round(static_cast<double>(IShape::N_Circle)*height/2.0/r_z + 0.5)) );
-    double h_step = height/(n_heights-1);
+    double h_step = (height-dh)/(n_heights-1);
     m_vertices.resize(n_heights*IShape::N_Circle);
     auto it = m_vertices.begin();
     for (int i=0; i<n_heights; ++i)

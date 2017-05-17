@@ -251,6 +251,13 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "None",
         2e-10);
 
+    add("AsymRipple",
+        "Triangular ripple with asymetry within radial paracrystal model",
+        "MiniGISAS",
+        "AsymRippleBuilder",
+        "None",
+        2e-4);
+
     add("MesoCrystal",
         "Cylindrical mesocrystal composed of spherical nano particles",
         "MiniGISAS",
@@ -357,6 +364,27 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "Rectangular detector with ROI and mask defined",
         "RectDetWithRoi",
         "CylindersAndPrismsBuilder",
+        "None",
+        1e-10);
+
+    add("BoxesWithSpecular",
+        "Boxes in square lattice including specular peak",
+        "MiniGISASSpecular",
+        "BoxesSquareLatticeBuilder",
+        "None",
+        1e-10);
+
+    add("RotatedCylinder",
+        "Rotated cylinder in substrate",
+        "MiniGISAS",
+        "RotatedCylindersBuilder",
+        "None",
+        1e-10);
+
+    add("SlicedComposition",
+        "Spherical particle made of two different materials crossing interface",
+        "MiniGISAS",
+        "SlicedCompositionBuilder",
         "None",
         1e-10);
 }

@@ -26,7 +26,7 @@
 #include "FormFactors.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "InstrumentModel.h"
 #include "IMultiLayerBuilder.h"
 #include "Layer.h"
@@ -49,6 +49,8 @@
 #include "SphericalDetector.h"
 #include "TransformFromDomain.h"
 #include "TransformationItem.h"
+#include "InstrumentItem.h"
+#include "DetectorItems.h"
 #include "Units.h"
 #include "VectorItem.h"
 
@@ -61,10 +63,10 @@ SessionItem* GUIObjectBuilder::populateSampleModel(
     SampleModel* sampleModel, const GISASSimulation& simulation, const QString& sampleName)
 {
     std::unique_ptr<ISample> P_sample;
-    if(simulation.getSampleBuilder()) {
-        P_sample.reset(simulation.getSampleBuilder()->buildSample());
-    } else if(simulation.getSample()) {
-        P_sample.reset(simulation.getSample()->clone());
+    if(simulation.sampleBuilder()) {
+        P_sample.reset(simulation.sampleBuilder()->buildSample());
+    } else if(simulation.sample()) {
+        P_sample.reset(simulation.sample()->clone());
     } else {
         throw GUIHelpers::Error("GUIObjectBuilder::populateSampleModel() -> No valid sample");
     }
@@ -84,7 +86,7 @@ SessionItem* GUIObjectBuilder::populateSampleModel(
 
     m_sampleModel = sampleModel;
 
-    VisitSampleTreePreorder(sample, *this);
+    VisitNodesPreorder(sample, *this);
     SessionItem* result = m_levelToParentItem[1];
 
     result->setItemName(m_topSampleName);
@@ -96,8 +98,9 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     const GISASSimulation& simulation, const QString& instrumentName)
 {
     Q_ASSERT(instrumentModel);
-    SessionItem* instrumentItem =
-            instrumentModel->insertNewItem(Constants::InstrumentType);
+
+    InstrumentItem* instrumentItem = dynamic_cast<InstrumentItem*>
+            (instrumentModel->insertNewItem(Constants::InstrumentType));
 
     if(instrumentName.isEmpty()) {
         instrumentItem->setItemName(simulation.getInstrument().getName().c_str());
@@ -106,20 +109,14 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     }
 
     // beam
-    BeamItem* beamItem = dynamic_cast<BeamItem*>(instrumentModel->insertNewItem(
-                Constants::BeamType,
-                instrumentModel->indexOfItem(instrumentItem)));
-
-    TransformFromDomain::setItemFromSample(beamItem, simulation);
+    auto& beamItem = instrumentItem->item<BeamItem>(InstrumentItem::P_BEAM);
+    TransformFromDomain::setItemFromSample(&beamItem, simulation);
 
     // detector
-    DetectorItem* detectorItem = dynamic_cast<DetectorItem*>(instrumentModel->insertNewItem(
-        Constants::DetectorType, instrumentModel->indexOfItem(instrumentItem)));
-    TransformFromDomain::setItemFromSample(detectorItem, simulation);
+    TransformFromDomain::setInstrumentDetectorFromSample(instrumentItem, simulation);
 
     // detector masks
-    TransformFromDomain::setDetectorMasks(detectorItem, simulation);
-
+    TransformFromDomain::setDetectorMasks(instrumentItem->detectorItem(), simulation);
 
     return instrumentItem;
 }
@@ -130,9 +127,15 @@ SessionItem* GUIObjectBuilder::populateDocumentModel(DocumentModel* documentMode
     SimulationOptionsItem* optionsItem = dynamic_cast<SimulationOptionsItem*>(
             documentModel->insertNewItem(Constants::SimulationOptionsType));
     Q_ASSERT(optionsItem);
-    if(simulation.getOptions().isIntegrate()) {
+    if (simulation.getOptions().isIntegrate()) {
         optionsItem->setComputationMethod(Constants::SIMULATION_MONTECARLO);
         optionsItem->setNumberOfMonteCarloPoints(simulation.getOptions().getMcPoints());
+    }
+    if (simulation.getOptions().useAvgMaterials()) {
+        optionsItem->setFresnelMaterialMethod(Constants::AVERAGE_LAYER_MATERIAL);
+    }
+    if (simulation.getOptions().includeSpecular()) {
+        optionsItem->setIncludeSpecularPeak(Constants::Yes);
     }
     return optionsItem;
 }
@@ -150,24 +153,23 @@ void GUIObjectBuilder::visit(const ParticleLayout* sample)
     }
 
     ComboProperty approx_prop;
-    approx_prop << "Decoupling Approximation"
-                << "Size Space Coupling Approximation";
+    approx_prop << Constants::LAYOUT_DA << Constants::LAYOUT_SSCA;
     ILayout::EInterferenceApproximation approx = sample->getApproximation();
     switch(approx)
     {
     case ILayout::DA:
-        approx_prop.setValue("Decoupling Approximation");
+        approx_prop.setValue(Constants::LAYOUT_DA);
         break;
     case ILayout::SSCA:
-        approx_prop.setValue("Size Space Coupling Approximation");
+        approx_prop.setValue(Constants::LAYOUT_SSCA);
         break;
     default:
-        approx_prop.setValue("Decoupling Approximation");
+        approx_prop.setValue(Constants::LAYOUT_DA);
         break;
     }
     item->setItemValue(ParticleLayoutItem::P_APPROX, approx_prop.getVariant());
     item->setItemValue(ParticleLayoutItem::P_TOTAL_DENSITY,
-                       sample->getTotalParticleSurfaceDensity());
+                       sample->totalParticleSurfaceDensity());
     m_levelToParentItem[depth()] = item;
 }
 
@@ -178,14 +180,14 @@ void GUIObjectBuilder::visit(const Layer* sample)
 
     auto multilayer = dynamic_cast<const MultiLayer*>(m_itemToSample[parent]);
     Q_ASSERT(multilayer);
-    int layer_index = multilayer->getIndexOfLayer(sample);
+    int layer_index = multilayer->indexOfLayer(sample);
     Q_ASSERT(layer_index != -1);
-    const LayerInterface* interface = multilayer->getLayerTopInterface(layer_index);
+    const LayerInterface* interface = multilayer->layerTopInterface(layer_index);
 
     SessionItem* layerItem = m_sampleModel->insertNewItem(
         Constants::LayerType, m_sampleModel->indexOfItem(parent));
     layerItem->setItemValue(LayerItem::P_MATERIAL,
-        createMaterialFromDomain(sample->getMaterial()).getVariant());
+        createMaterialFromDomain(sample->material()).getVariant());
 
     TransformFromDomain::setItemFromSample(layerItem, sample, interface);
 
@@ -197,7 +199,7 @@ void GUIObjectBuilder::visit(const MultiLayer* sample)
     SessionItem* item =
             m_sampleModel->insertNewItem(Constants::MultiLayerType);
     item->setItemName(sample->getName().c_str());
-    item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH, sample->getCrossCorrLength());
+    item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH, sample->crossCorrLength());
     m_levelToParentItem[depth()] = item;
     m_itemToSample[item] = sample;
 }
@@ -239,9 +241,9 @@ void GUIObjectBuilder::visit(const Particle* sample)
 
     buildPositionInfo(particleItem, sample);
 
-    particleItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    particleItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->abundance());
     particleItem->setItemValue(ParticleItem::P_MATERIAL,
-        createMaterialFromDomain(sample->getMaterial()).getVariant());
+        createMaterialFromDomain(sample->material()).getVariant());
     m_levelToParentItem[depth()] = particleItem;
 }
 
@@ -266,7 +268,7 @@ void GUIObjectBuilder::visit(const ParticleCoreShell* sample)
 
     SessionItem* coreshellItem = m_sampleModel->insertNewItem(
         Constants::ParticleCoreShellType, m_sampleModel->indexOfItem(parent));
-    coreshellItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    coreshellItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->abundance());
 
     buildPositionInfo(coreshellItem, sample);
 
@@ -280,7 +282,7 @@ void GUIObjectBuilder::visit(const ParticleComposition* sample)
     Q_ASSERT(parent);
     SessionItem* particle_composition_item = m_sampleModel->insertNewItem(
         Constants::ParticleCompositionType, m_sampleModel->indexOfItem(parent));
-    particle_composition_item->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    particle_composition_item->setItemValue(ParticleItem::P_ABUNDANCE, sample->abundance());
 
     buildPositionInfo(particle_composition_item, sample);
 
@@ -620,7 +622,7 @@ void GUIObjectBuilder::visit(const RotationEuler* sample)
 
 void GUIObjectBuilder::buildPositionInfo(SessionItem* particleItem, const IParticle* sample)
 {
-    kvector_t position = sample->getPosition();
+    kvector_t position = sample->position();
     SessionItem* positionItem = particleItem->getItem(ParticleItem::P_POSITION);
     Q_ASSERT(positionItem);
     positionItem->setItemValue(VectorItem::P_X, position.x());
@@ -629,7 +631,7 @@ void GUIObjectBuilder::buildPositionInfo(SessionItem* particleItem, const IParti
 }
 
 MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
-        const IMaterial* material)
+        const HomogeneousMaterial* material)
 {
     QString materialName = m_topSampleName + QString("_") + QString(material->getName().c_str());
 
@@ -639,7 +641,7 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
     MaterialModel* model = MaterialSvc::getMaterialModel();
 
     if(material->isScalarMaterial()) {
-        complex_t rindex = material->getRefractiveIndex();
+        complex_t rindex = material->refractiveIndex();
         MaterialItem* materialItem  =
             model->addMaterial(materialName, 1-rindex.real(),rindex.imag());
         return MaterialProperty(materialItem->getIdentifier());

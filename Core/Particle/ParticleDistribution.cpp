@@ -44,10 +44,9 @@ ParticleDistribution* ParticleDistribution::clone() const
     return p_result;
 }
 
-ParticleDistribution* ParticleDistribution::cloneInvertB() const
+void ParticleDistribution::translateZ(double offset)
 {
-    throw Exceptions::NotImplementedException("ParticleDistribution::"
-                                              "cloneInvertB: should never be called");
+    mP_particle->translateZ(offset);
 }
 
 //! Returns particle clones with parameter values drawn from distribution.
@@ -56,13 +55,13 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
 {
     std::unique_ptr<ParameterPool> P_pool {mP_particle->createParameterTree()};
     std::string main_par_name = m_par_distribution.getMainParameterName();
-    double main_par_value = P_pool->getUniqueMatch(main_par_name)->getValue();
+    double main_par_value = P_pool->getUniqueMatch(main_par_name)->value();
 
     // Preset link ratios:
     std::map<std::string, double> linked_ratios;
     for (const std::string& name: m_par_distribution.getLinkedParameterNames())
         linked_ratios[name] = main_par_value == 0 ? 1.0 :
-            P_pool->getUniqueMatch(name)->getValue() / main_par_value;
+            P_pool->getUniqueMatch(name)->value() / main_par_value;
 
     // Draw distribution samples; for each sample, create one particle clone:
     std::vector<ParameterSample> main_par_samples = m_par_distribution.generateSamples();
@@ -73,7 +72,7 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
         P_new_pool->setUniqueMatchValue(main_par_name, main_sample.value);
         for (auto it = linked_ratios.begin(); it != linked_ratios.end(); ++it)
             P_new_pool->setUniqueMatchValue(it->first, main_sample.value * it->second);
-        p_particle_clone->setAbundance(getAbundance() * main_sample.weight);
+        p_particle_clone->setAbundance(abundance() * main_sample.weight);
         result.push_back(p_particle_clone);
     }
     return result;

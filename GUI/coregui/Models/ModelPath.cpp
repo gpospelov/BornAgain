@@ -17,6 +17,7 @@
 #include "ModelPath.h"
 #include "SessionModel.h"
 #include "JobItem.h"
+#include "InstrumentItem.h"
 
 QString ModelPath::getPathFromIndex(const QModelIndex& index)
 {
@@ -88,7 +89,9 @@ bool ModelPath::isValidItem(SessionModel* model, SessionItem* item, const QModel
 bool ModelPath::isTranslatable(const SessionItem* item, const QString& par_name)
 {
     Q_UNUSED(item);
-    if (par_name.contains(Constants::DetectorType))
+    if (par_name.contains(Constants::SphericalDetectorType))
+        return false;
+    if (par_name.contains(Constants::RectangularDetectorType))
         return false;
     if (par_name.contains(Constants::DistributionSigmaFactor))
         return false;

@@ -33,7 +33,7 @@ def RunSimulation():
     interference = InterferenceFunctionRadialParaCrystal(distance)
     pdf = FTDistribution1DGauss(3 * nanometer)
     interference.setProbabilityDistribution(pdf)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAir)

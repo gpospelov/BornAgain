@@ -22,6 +22,11 @@
 #include "MinimizerItem.h"
 #include "MinimizerSettingsWidget.h"
 #include "mainwindow.h"
+
+#ifdef BORNAGAIN_OPENGL
+#include "RealSpaceWidget.h"
+#endif
+
 #include <QCheckBox>
 #include <QLineEdit>
 
@@ -29,12 +34,11 @@ TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
 {
-//    test_MaskEditor();
-//    test_AccordionWidget();
-//    test_RunFitWidget();
 //    test_MaterialEditor();
 //    test_MinimizerSettings();
-    test_ColorMapLight();
+//    test_AccordionWidget();
+//    test_RunFitWidget();
+    test_ba3d();
 }
 
 
@@ -57,53 +61,11 @@ void TestView::test_MinimizerSettings()
     layout->addWidget(widget);
     setLayout(layout);
 
-
     SessionModel* model = new SessionModel("TempModel", this);
     MinimizerContainerItem *minimizerItem = dynamic_cast<MinimizerContainerItem *>(
                 model->insertNewItem(Constants::MinimizerContainerType));
     widget->setItem(minimizerItem);
 
-}
-
-void TestView::test_ColorMapLight()
-{
-//    SessionModel *tempIntensityDataModel = new SessionModel("TempIntensityDataModel", this);
-//    IntensityDataItem *intensityData = dynamic_cast<IntensityDataItem *>(
-//        tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
-////    intensityData->setOutputData(IntensityDataIOFactory::readOutputData("/home/pospelov/development/BornAgain/temp/Untitled25/jobdata_job1_0.int.gz"));
-
-
-//    QGridLayout *gridLayout = new QGridLayout;
-
-////    JobItem *jobItem = dynamic_cast<JobItem *>(m_mainWindow->jobModel()->topItem());
-////    Q_ASSERT(jobItem);
-////    IntensityDataItem *intensityData = jobItem->getIntensityDataItem();
-
-//    ColorMapCanvas *map1 = new ColorMapCanvas;
-//    ColorMapCanvas *map2 = new ColorMapCanvas;
-//    ColorMapCanvas *map3 = new ColorMapCanvas;
-
-//    map1->setItem(intensityData);
-//    map2->setItem(intensityData);
-//    map3->setItem(intensityData);
-
-//    gridLayout->addWidget(map1, 0, 0);
-//    gridLayout->addWidget(map2, 0, 1);
-//    gridLayout->addWidget(map3, 1, 0);
-
-//    setLayout(gridLayout);
-
-}
-
-
-void TestView::test_MaskEditor()
-{
-    MaskEditor *maskEditor = new MaskEditor();
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
-    layout->setSpacing(0);
-    layout->addWidget(maskEditor);
-    setLayout(layout);
 }
 
 void TestView::test_AccordionWidget()
@@ -180,18 +142,16 @@ void TestView::test_AccordionWidget()
     }
 }
 
-void TestView::test_RunFitWidget()
+void TestView::test_ba3d()
 {
-    //FitParameterWidget *fitting = new FitParameterWidget(m_mainWindow);
     QVBoxLayout *layout = new QVBoxLayout;
-    QTabWidget *tabs = new QTabWidget;
-    //tabs->addTab(maskEditor, "Run Fit");
-    //tabs->addTab(fw, "FitView by Ivonna");
-    //tabs->addTab(fitting, "Test TreeView");
     layout->setMargin(0);
     layout->setSpacing(0);
-    layout->addWidget(tabs);
+#ifdef BORNAGAIN_OPENGL
+    RealSpaceWidget* widget = new RealSpaceWidget;
+    widget->setModel(m_mainWindow->sampleModel());
+    layout->addWidget(widget);
+#endif
     setLayout(layout);
 
 }
-

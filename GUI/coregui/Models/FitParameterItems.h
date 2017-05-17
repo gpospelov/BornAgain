@@ -55,6 +55,7 @@ public:
 
 private:
     AttLimits attLimits() const;
+    QString parameterType() const;
     void onTypeChange();
     void setLimitEnabled(const QString &name, bool enabled);
     bool isLimited() const;

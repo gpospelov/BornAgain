@@ -19,16 +19,14 @@
 #include "DetectorMaskDelegate.h"
 #include "MaskEditor.h"
 #include "mainwindow_constants.h"
-#include <QKeyEvent>
-#include <QModelIndex>
 #include <QPushButton>
 #include <QSettings>
 #include <QVBoxLayout>
 
-ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
+ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget* parent)
     : QDialog(parent)
     , m_maskEditor(new MaskEditor)
-    , m_detectorMaskDelegate(new DetectorMaskDelegate(this))
+    , m_maskDelegate(new DetectorMaskDelegate(this))
 {
     setMinimumSize(256, 256);
 
@@ -39,11 +37,11 @@ ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     setAttribute(Qt::WA_DeleteOnClose, true);
     setModal(true);
 
-    QVBoxLayout *layout = new QVBoxLayout;
-    QPushButton *button = new QPushButton("Close", this);
+    QVBoxLayout* layout = new QVBoxLayout;
+    QPushButton* button = new QPushButton("Close", this);
     connect(button, SIGNAL(clicked()), this, SLOT(close()));
 
-    QHBoxLayout *buttonLayout = new QHBoxLayout;
+    QHBoxLayout* buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch(1);
     buttonLayout->setContentsMargins(4, 4, 4, 4);
     buttonLayout->addWidget(button);
@@ -59,17 +57,15 @@ ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget *parent)
     button->setAutoDefault(false);
     setFocusProxy(m_maskEditor);
 
-    SpaceKeyEater *filter = new SpaceKeyEater(this);
+    SpaceKeyEater* filter = new SpaceKeyEater(this);
     installEventFilter(filter);
     button->installEventFilter(filter);
-
 }
 
-void ExtendedDetectorDialog::setDetectorContext(InstrumentModel *instrumentModel,
-                                                DetectorItem *detectorItem)
+void ExtendedDetectorDialog::setDetectorContext(InstrumentModel* instrumentModel,
+                                                DetectorItem* detectorItem)
 {
-    m_detectorMaskDelegate->initMaskEditorContext(m_maskEditor, instrumentModel,
-                                                  detectorItem);
+    m_maskDelegate->initMaskEditorContext(m_maskEditor, instrumentModel, detectorItem);
 }
 
 void ExtendedDetectorDialog::reject()
@@ -84,9 +80,8 @@ void ExtendedDetectorDialog::readSettings()
     if (settings.childGroups().contains(Constants::S_MASKEDITOR)) {
         settings.beginGroup(Constants::S_MASKEDITOR);
         resize(settings.value(Constants::S_WINDOWSIZE, QSize(750, 650)).toSize());
-        move(settings.value(Constants::S_WINDOWPOSITION, QPoint(200,200)).toPoint());
-    }
-    else {
+        move(settings.value(Constants::S_WINDOWPOSITION, QPoint(200, 200)).toPoint());
+    } else {
         resize(750, 650);
     }
 }

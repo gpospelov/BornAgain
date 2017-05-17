@@ -23,13 +23,16 @@
 #include "TruncatedEllipsoid.h"
 #include <limits>
 
-FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height)
-    : m_radius(radius), m_height(height)
+FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh)
+    : m_radius(radius)
+    , m_height(height)
+    , m_dh(dh)
 {
     setName(BornAgain::FFTruncatedSphereType);
     check_initialization();
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::DeltaHeight, &m_dh).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSphere::Integrand);
     onChange();
 }
@@ -37,11 +40,12 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
 bool FormFactorTruncatedSphere::check_initialization() const
 {
     bool result(true);
-    if(m_height > 2.*m_radius) {
+    if(m_height > 2.*m_radius || m_dh > m_height) {
         std::ostringstream ostr;
         ostr << "::FormFactorTruncatedSphere() -> Error in class initialization ";
-        ostr << "with parameters 'radius':" << m_radius << " 'height':" << m_height << "\n\n";
-        ostr << "Check for height <= 2.*radius failed.";
+        ostr << "with parameters 'radius':" << m_radius << " 'height':" << m_height
+             << " 'delta_height':" << m_dh << "\n\n";
+        ostr << "Check for height <= 2.*radius AND delta_height < height failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
     return result;
@@ -58,20 +62,29 @@ complex_t FormFactorTruncatedSphere::Integrand(double Z) const
 }
 
 //! Complex formfactor.
-complex_t FormFactorTruncatedSphere::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const
 {
     m_q = q;
     if ( std::abs(q.mag()) < std::numeric_limits<double>::epsilon()) {
-        double HdivR = m_height/m_radius;
-        return M_PI/3.*m_radius*m_radius*m_radius
-                *(3.*HdivR -1. - (HdivR - 1.)*(HdivR - 1.)*(HdivR - 1.));
+        return M_PI/3.*(  m_height*m_height*(3.*m_radius - m_height)
+                        - m_dh*m_dh*(3.*m_radius - m_dh) );
     }
     // else
-    complex_t integral = mP_integrator->integrate(m_radius-m_height, m_radius);
+    complex_t integral = mP_integrator->integrate(m_radius-m_height, m_radius - m_dh);
     return M_TWOPI * integral * exp_I(q.z()*(m_height-m_radius));
+}
+
+IFormFactor* FormFactorTruncatedSphere::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                        kvector_t translation) const
+{
+    double height = m_height - m_dh;
+    auto effects = computeSlicingEffects(limits, translation, height);
+    FormFactorTruncatedSphere slicedff(m_radius, m_height - effects.dz_bottom,
+                                       effects.dz_top + m_dh);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
 }
 
 void FormFactorTruncatedSphere::onChange()
 {
-    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_radius, m_height));
+    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_radius, m_height, m_dh));
 }

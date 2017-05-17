@@ -27,8 +27,7 @@ const QString ParticleLayoutItem::T_INTERFERENCE = "Interference Tag";
 ParticleLayoutItem::ParticleLayoutItem()
     : SessionGraphicsItem(Constants::ParticleLayoutType)
 {
-    ComboProperty approx;
-    approx << "Decoupling Approximation" << "Size Space Coupling Approximation";
+    ComboProperty approx = ComboProperty() << Constants::LAYOUT_DA << Constants::LAYOUT_SSCA;
     addProperty(P_APPROX, approx.getVariant());
     addProperty(P_TOTAL_DENSITY, 1.0);
 

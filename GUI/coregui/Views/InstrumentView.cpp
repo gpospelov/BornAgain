@@ -19,242 +19,56 @@
 #include "InstrumentEditorWidget.h"
 #include "InstrumentModel.h"
 #include "InstrumentSelectorWidget.h"
-#include "StyledToolBar.h"
 #include "mainwindow.h"
-#include <QAction> // need detected by TeamCity
+#include "InstrumentViewToolBar.h"
+#include "InstrumentViewActions.h"
 #include <QBoxLayout>
-#include <QListView>
-#include <QStackedWidget>
-#include <QToolButton>
 
-InstrumentView::InstrumentView(MainWindow *mainWindow)
-    : QWidget(mainWindow)
-    , m_instrumentModel(mainWindow->instrumentModel())
-    , m_toolBar(new StyledToolBar(this))
-    , m_instrumentSelector(new InstrumentSelectorWidget(m_instrumentModel, this))
-    , m_stackWidget(new QStackedWidget)
-    , m_addInstrumentAction(0)
-    , m_removeInstrumentAction(0)
-    , m_addInstrumentButton(0)
-    , m_removeInstrumentButton(0)
+InstrumentView::InstrumentView(MainWindow* mainWindow)
+    : QWidget(mainWindow), m_actions(new InstrumentViewActions),
+      m_toolBar(new InstrumentViewToolBar(m_actions, this)),
+      m_instrumentSelector(new InstrumentSelectorWidget),
+      m_instrumentEditor(new ItemStackPresenter<InstrumentEditorWidget>(true)),
+      m_instrumentModel(mainWindow->instrumentModel())
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QHBoxLayout* horizontalLayout = new QHBoxLayout;
+    horizontalLayout->addWidget(m_instrumentSelector);
+    horizontalLayout->addWidget(m_instrumentEditor, 1);
+
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-
-    QHBoxLayout *horizontalLayout = new QHBoxLayout;
-    horizontalLayout->addWidget(m_instrumentSelector);
-    horizontalLayout->addWidget(m_stackWidget, 1);
-
     mainLayout->addWidget(m_toolBar);
     mainLayout->addLayout(horizontalLayout);
     setLayout(mainLayout);
 
-    setupConnections();
-    setupActions();
+    m_instrumentSelector->setModel(m_instrumentModel);
+    m_actions->setModel(m_instrumentModel);
+    m_actions->setSelectionModel(m_instrumentSelector->selectionModel());
 
-    if(m_instrumentModel->rowCount(QModelIndex()) == 0)
-        onAddInstrument();
+    connect(m_instrumentSelector, SIGNAL(contextMenuRequest(const QPoint&, const QModelIndex&)),
+            m_actions, SLOT(onContextMenuRequest(const QPoint&, const QModelIndex&)));
 
-    updateView();
+    connect(m_instrumentSelector, SIGNAL(selectionChanged(SessionItem*)), this,
+            SLOT(onItemSelectionChanged(SessionItem*)));
 }
 
-
-void InstrumentView::updateView()
+void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem* detectorItem)
 {
-    m_instrumentSelector->updateSelection();
-}
-
-
-void InstrumentView::resetView()
-{
-    QMap<SessionItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
-    while(it!=m_instrumentToEditor.end()) {
-        m_stackWidget->removeWidget(it.value());
-        delete it.value();
-        ++it;
-    }
-    m_instrumentToEditor.clear();
-    m_name_to_copy.clear();
-}
-
-
-void InstrumentView::onSelectionChanged(
-    const QItemSelection &selected, const QItemSelection &)
-{
-    if(selected.indexes().isEmpty())
-        return;
-
-    SessionItem *instrument = m_instrumentModel->itemForIndex(selected.indexes().back());
-
-    InstrumentEditorWidget *widget = m_instrumentToEditor[instrument];
-
-    if( !widget) {
-        widget = new InstrumentEditorWidget();
-        connect(widget,
-                SIGNAL(extendedDetectorEditorRequest(DetectorItem *)),
-                this,
-                SLOT(onExtendedDetectorEditorRequest(DetectorItem *))
-                );
-
-        widget->setInstrumentItem(instrument);
-        m_stackWidget->addWidget(widget);
-        m_instrumentToEditor[instrument] = widget;
-    }
-    m_stackWidget->setCurrentWidget(widget);
-
-}
-
-
-void InstrumentView::onAddInstrument()
-{
-    SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
-    instrument->setItemName(getNewInstrumentName("Default GISAS"));
-    m_instrumentModel->insertNewItem(
-        Constants::DetectorType, m_instrumentModel->indexOfItem(instrument));
-    m_instrumentModel->insertNewItem(
-        Constants::BeamType, m_instrumentModel->indexOfItem(instrument));
-    QModelIndex itemIndex = m_instrumentModel->indexOfItem(instrument);
-    m_instrumentSelector->getSelectionModel()->clearSelection();
-    m_instrumentSelector->getSelectionModel()->select(itemIndex, QItemSelectionModel::Select);
-}
-
-
-void InstrumentView::onRemoveInstrument()
-{
-    QModelIndex currentIndex = m_instrumentSelector->getSelectionModel()->currentIndex();
-    if(currentIndex.isValid())
-        m_instrumentModel->removeRows(currentIndex.row(), 1, QModelIndex());
-}
-
-
-void InstrumentView::onRowsAboutToBeRemoved(QModelIndex parent, int first, int /* last */)
-{
-    SessionItem *item = m_instrumentModel->itemForIndex(m_instrumentModel->index(first,0, parent));
-    Q_ASSERT(item);
-    InstrumentEditorWidget *widget = m_instrumentToEditor[item];
-
-    if(!widget) return;
-
-    QMap<SessionItem *, InstrumentEditorWidget *>::iterator it = m_instrumentToEditor.begin();
-    while(it!=m_instrumentToEditor.end()) {
-        if(it.value() == widget) {
-            it = m_instrumentToEditor.erase(it);
-        } else {
-            ++it;
-        }
-    }
-
-    m_stackWidget->removeWidget(widget);
-    delete widget;
-}
-
-void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem *detectorItem)
-{
-    ExtendedDetectorDialog *dialog = new ExtendedDetectorDialog(this);
+    auto dialog = new ExtendedDetectorDialog(this);
     dialog->setDetectorContext(m_instrumentModel, detectorItem);
     dialog->show();
 }
 
-void InstrumentView::setupConnections()
+void InstrumentView::onItemSelectionChanged(SessionItem* instrumentItem)
 {
-    connect(m_instrumentSelector,
-        SIGNAL( selectionChanged(const QItemSelection&, const QItemSelection&) ),
-        this,
-        SLOT( onSelectionChanged(const QItemSelection&, const QItemSelection&) )
-        );
+    m_instrumentEditor->setItem(instrumentItem);
 
-    connect(m_instrumentModel,
-            SIGNAL(modelAboutToBeReset()),
-            this,
-            SLOT(resetView())
-            );
-
-    connect(m_instrumentModel,
-            SIGNAL(rowsAboutToBeRemoved(QModelIndex, int,int)),
-            this,
-            SLOT(onRowsAboutToBeRemoved(QModelIndex,int,int))
-            );
+    if (auto widget = m_instrumentEditor->currentWidget())
+        widget->setInstrumentItem(instrumentItem);
 }
 
-
-void InstrumentView::setupActions()
+void InstrumentView::showEvent(QShowEvent*)
 {
-    m_addInstrumentButton = new QToolButton;
-    m_addInstrumentButton->setText("Add instrument");
-    m_addInstrumentButton->setIcon(QIcon(":/images/toolbar_newitem.png"));
-    m_addInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_addInstrumentButton->setToolTip("Add new instrument");
-    connect(m_addInstrumentButton, SIGNAL(clicked()), this, SLOT(onAddInstrument()));
-    m_toolBar->addWidget(m_addInstrumentButton);
-
-    m_toolBar->addWidget(new QLabel(" "));
-    m_toolBar->addSeparator();
-    m_toolBar->addWidget(new QLabel(" "));
-
-    m_removeInstrumentButton = new QToolButton;
-    m_removeInstrumentButton->setText("Remove instrument");
-    m_removeInstrumentButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
-    m_removeInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_removeInstrumentButton->setToolTip("Remove currently selected instrument");
-    connect(m_removeInstrumentButton, SIGNAL(clicked()), this, SLOT(onRemoveInstrument()));
-    m_toolBar->addWidget(m_removeInstrumentButton);
-
-    m_toolBar->addWidget(new QLabel(" "));
-    m_toolBar->addSeparator();
-    m_toolBar->addWidget(new QLabel(" "));
-
-    m_addInstrumentAction
-        = new QAction(QIcon(":/images/toolbar_newitem_dark.png"), "Add new instrument", this);
-    connect(m_addInstrumentAction, SIGNAL(triggered()), this, SLOT(onAddInstrument()));
-
-    m_removeInstrumentAction
-        = new QAction(QIcon(":/SampleDesigner/images/toolbar_recycle_dark.png"),
-                      "Remove currently selected instrument", this);
-    connect(m_removeInstrumentAction, SIGNAL(triggered()), this, SLOT(onRemoveInstrument()));
-
-    Q_ASSERT(m_instrumentSelector->getListView());
-    m_instrumentSelector->getListView()->setContextMenuPolicy(Qt::ActionsContextMenu);
-    m_instrumentSelector->getListView()->addAction(m_addInstrumentAction);
-    m_instrumentSelector->getListView()->addAction(m_removeInstrumentAction);
-}
-
-
-//! returns name of instrument which is based on suggested name
-//! If "Default GISAS" name already exists, then "Default GISAS (2)" will be proposed.
-QString InstrumentView::getNewInstrumentName(const QString &name)
-{
-    updateMapOfNames();
-
-    int ncopies = m_name_to_copy[name];
-    if(ncopies == 0) {
-        m_name_to_copy[name]=1;
-        return name;
-    }
-    else {
-        m_name_to_copy[name]++;
-        return QString("%1 (%2)").arg(name).arg(m_name_to_copy[name]);
-    }
-}
-
-
-//! construct map of instrument names defined in the model together with number
-//! of copies
-void InstrumentView::updateMapOfNames()
-{
-
-    m_name_to_copy.clear();
-    QModelIndex parentIndex;
-    for( int i_row = 0; i_row < m_instrumentModel->rowCount( parentIndex ); ++i_row) {
-        QModelIndex itemIndex = m_instrumentModel->index( i_row, 0, parentIndex );
-        QString name =  m_instrumentModel->itemForIndex(itemIndex)->itemName();
-        int ncopy(1);
-        QRegExp regexp("\\((.*)\\)");
-        if(regexp.indexIn(name) >= 0) {
-            ncopy = regexp.cap(1).toInt();
-        }
-        name.replace(regexp.cap(0),"");
-        name = name.trimmed();
-        m_name_to_copy[name] = ncopy;
-    }
+    m_instrumentSelector->updateSelection();
 }

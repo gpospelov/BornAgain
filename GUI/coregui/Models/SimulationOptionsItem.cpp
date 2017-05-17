@@ -35,6 +35,11 @@ const QString tooltip_runpolicy = "Defines run policy for the simulation";
 const QString tooltip_nthreads = "Defines number of threads to use for the simulation.";
 const QString tooltip_computation =
         "Defines computation method (analytical or Monte-Carlo integration)";
+const QString tooltip_ambientmaterial =
+        "Define if the material used for Fresnel calculations should be the ambient layer "
+        "material or the average material of the layer and the particles it contains";
+const QString tooltip_specularpeak =
+        "Defines if the specular peak should be included in the simulation result";
 
 }
 
@@ -43,7 +48,9 @@ const QString SimulationOptionsItem::P_RUN_POLICY = "Run Policy";
 const QString SimulationOptionsItem::P_NTHREADS = "Number of Threads";
 const QString SimulationOptionsItem::P_COMPUTATION_METHOD = "Computation method";
 const QString SimulationOptionsItem::P_MC_POINTS = "Number of MC points";
-
+const QString SimulationOptionsItem::P_FRESNEL_MATERIAL_METHOD =
+        "Material for Fresnel calculations";
+const QString SimulationOptionsItem::P_INCLUDE_SPECULAR_PEAK = "Include specular peak";
 
 SimulationOptionsItem::SimulationOptionsItem()
     : SessionItem(Constants::SimulationOptionsType)
@@ -62,9 +69,20 @@ SimulationOptionsItem::SimulationOptionsItem()
 
     ComboProperty computationMethod;
     computationMethod << Constants::SIMULATION_ANALYTICAL << Constants::SIMULATION_MONTECARLO;
-    addProperty(P_COMPUTATION_METHOD, computationMethod.getVariant())->setToolTip(tooltip_computation);
+    addProperty(P_COMPUTATION_METHOD,
+                computationMethod.getVariant())->setToolTip(tooltip_computation);
 
     addProperty(P_MC_POINTS, 100)->setEnabled(false);
+
+    ComboProperty averageLayerMaterials;
+    averageLayerMaterials <<Constants::AMBIENT_LAYER_MATERIAL << Constants::AVERAGE_LAYER_MATERIAL;
+    addProperty(P_FRESNEL_MATERIAL_METHOD,
+                averageLayerMaterials.getVariant())->setToolTip(tooltip_ambientmaterial);
+
+    ComboProperty includeSpecularPeak;
+    includeSpecularPeak << Constants::No << Constants::Yes;
+    addProperty(P_INCLUDE_SPECULAR_PEAK,
+                includeSpecularPeak.getVariant())->setToolTip(tooltip_specularpeak);
 
     mapper()->setOnPropertyChange(
         [this](const QString &name) {
@@ -79,8 +97,6 @@ SimulationOptionsItem::SimulationOptionsItem()
                 }
             }
     });
-
-
 }
 
 int SimulationOptionsItem::getNumberOfThreads() const
@@ -94,14 +110,12 @@ int SimulationOptionsItem::getNumberOfThreads() const
 
 bool SimulationOptionsItem::runImmediately() const
 {
-    ComboProperty combo = getItemValue(P_RUN_POLICY).value<ComboProperty>();
-    return combo.getValue() == Constants::JOB_RUN_IMMEDIATELY;
+    return runPolicy() == Constants::JOB_RUN_IMMEDIATELY;
 }
 
 bool SimulationOptionsItem::runInBackground() const
 {
-    ComboProperty combo = getItemValue(P_RUN_POLICY).value<ComboProperty>();
-    return combo.getValue() == Constants::JOB_RUN_IN_BACKGROUND;
+    return runPolicy() == Constants::JOB_RUN_IN_BACKGROUND;
 }
 
 void SimulationOptionsItem::setRunPolicy(const QString &policy)
@@ -132,6 +146,38 @@ int SimulationOptionsItem::getNumberOfMonteCarloPoints() const
 void SimulationOptionsItem::setNumberOfMonteCarloPoints(int npoints)
 {
     setItemValue(P_MC_POINTS, npoints);
+}
+
+void SimulationOptionsItem::setFresnelMaterialMethod(const QString& name)
+{
+    ComboProperty combo = getItemValue(P_FRESNEL_MATERIAL_METHOD).value<ComboProperty>();
+    combo.setValue(name);
+    setItemValue(P_FRESNEL_MATERIAL_METHOD, combo.getVariant());
+}
+
+QString SimulationOptionsItem::getFresnelMaterialMethod() const
+{
+    ComboProperty combo = getItemValue(P_FRESNEL_MATERIAL_METHOD).value<ComboProperty>();
+    return combo.getValue();
+}
+
+void SimulationOptionsItem::setIncludeSpecularPeak(const QString& name)
+{
+    ComboProperty combo = getItemValue(P_INCLUDE_SPECULAR_PEAK).value<ComboProperty>();
+    combo.setValue(name);
+    setItemValue(P_INCLUDE_SPECULAR_PEAK, combo.getVariant());
+}
+
+QString SimulationOptionsItem::getIncludeSpecularPeak() const
+{
+    ComboProperty combo = getItemValue(P_INCLUDE_SPECULAR_PEAK).value<ComboProperty>();
+    return combo.getValue();
+}
+
+QString SimulationOptionsItem::runPolicy() const
+{
+    ComboProperty combo = getItemValue(P_RUN_POLICY).value<ComboProperty>();
+    return combo.getValue();
 }
 
 //! returns list with number of threads to select

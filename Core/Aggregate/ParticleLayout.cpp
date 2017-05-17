@@ -67,35 +67,38 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundan
 
 ParticleLayout* ParticleLayout::clone() const
 {
-    ParticleLayout* p_new = new ParticleLayout();
+    ParticleLayout* p_result = new ParticleLayout();
 
-    for (size_t i = 0; i < m_particles.size(); ++i)
-        p_new->addAndRegisterAbstractParticle(m_particles[i]->clone());
+    for (auto p_particle : m_particles)
+        p_result->addAndRegisterAbstractParticle(p_particle->clone());
 
     if (mP_interference_function)
-        p_new->setAndRegisterInterferenceFunction(mP_interference_function->clone());
+        p_result->setAndRegisterInterferenceFunction(mP_interference_function->clone());
 
-    p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
-    p_new->setApproximation(getApproximation());
+    p_result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
+    p_result->setApproximation(getApproximation());
 
-    return p_new;
+    return p_result;
 }
 
-//! Returns a clone with inverted magnetic fields.
-ParticleLayout* ParticleLayout::cloneInvertB() const
+ParticleLayout* ParticleLayout::cloneWithOffset(double offset) const
 {
-    ParticleLayout* p_new = new ParticleLayout();
+    ParticleLayout* p_result = new ParticleLayout();
 
-    for (size_t i = 0; i < m_particles.size(); ++i)
-        p_new->addAndRegisterAbstractParticle(m_particles[i]->cloneInvertB());
+    for (auto p_particle : m_particles)
+    {
+        auto p_particle_clone = p_particle->clone();
+        p_particle_clone->translateZ(offset);
+        p_result->addAndRegisterAbstractParticle(p_particle_clone);
+    }
 
     if (mP_interference_function)
-        p_new->setAndRegisterInterferenceFunction(mP_interference_function->clone());
+        p_result->setAndRegisterInterferenceFunction(mP_interference_function->clone());
 
-    p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
-    p_new->setApproximation(getApproximation());
+    p_result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
+    p_result->setApproximation(getApproximation());
 
-    return p_new;
+    return p_result;
 }
 
 //! Adds generic particle to the layout.
@@ -146,17 +149,17 @@ void ParticleLayout::addParticle(const IParticle& particle, double abundance,
 }
 
 //! Returns particle info
-const IAbstractParticle* ParticleLayout::getParticle(size_t index) const
+const IAbstractParticle* ParticleLayout::particle(size_t index) const
 {
     if (index>=m_particles.size())
         throw Exceptions::OutOfBoundsException(
-            "ParticleLayout::getParticle() -> Error! Not so many particles in this decoration.");
+            "ParticleLayout::particle() -> Error! Not so many particles in this decoration.");
     return m_particles[index];
 }
 
 //! Returns information on all particles (type and abundance)
 //! and generates new particles if an IAbstractParticle denotes a collection
-SafePointerVector<const IParticle> ParticleLayout::getParticles() const
+SafePointerVector<const IParticle> ParticleLayout::particles() const
 {
     SafePointerVector<const IParticle> particle_vector;
     for (auto particle: m_particles) {
@@ -173,23 +176,23 @@ SafePointerVector<const IParticle> ParticleLayout::getParticles() const
 }
 
 //! Returns the abundance fraction of particle at given index.
-double ParticleLayout::getAbundanceOfParticle(size_t index) const
+double ParticleLayout::abundanceOfParticle(size_t index) const
 {
-    return m_particles[index]->getAbundance();
+    return m_particles[index]->abundance();
 }
 
-const IInterferenceFunction*ParticleLayout::getInterferenceFunction() const
+const IInterferenceFunction*ParticleLayout::interferenceFunction() const
 {
     return mP_interference_function.get();
 }
 
 //! Adds interference functions
-void ParticleLayout::addInterferenceFunction(const IInterferenceFunction& interference_function)
+void ParticleLayout::setInterferenceFunction(const IInterferenceFunction& interference_function)
 {
     setAndRegisterInterferenceFunction(interference_function.clone());
 }
 
-double ParticleLayout::getTotalParticleSurfaceDensity() const
+double ParticleLayout::totalParticleSurfaceDensity() const
 {
     double iff_density =
         mP_interference_function ? mP_interference_function->getParticleDensity() : 0.0;
@@ -227,7 +230,7 @@ void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* c
 void ParticleLayout::registerParticleDensity(bool make_registered)
 {
     if(make_registered) {
-        if(!getParameter(BornAgain::TotalParticleDensity))
+        if(!parameter(BornAgain::TotalParticleDensity))
             registerParameter(BornAgain::TotalParticleDensity, &m_total_particle_density);
     } else {
         removeParameter(BornAgain::TotalParticleDensity);

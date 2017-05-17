@@ -35,7 +35,7 @@ public:
 
     PositionTranslator* clone() const override { return new PositionTranslator; }
 
-    virtual QStringList translate(const QStringList& list) const;
+    virtual QStringList translate(const QStringList& list) const override;
 };
 
 class RotationTranslator : public IPathTranslator {
@@ -44,7 +44,7 @@ public:
 
     RotationTranslator* clone() const override { return new RotationTranslator; }
 
-    virtual QStringList translate(const QStringList& list) const;
+    virtual QStringList translate(const QStringList& list) const override;
 };
 
 class DistributionNoneTranslator : public IPathTranslator {
@@ -53,7 +53,7 @@ public:
 
     DistributionNoneTranslator* clone() const override { return new DistributionNoneTranslator; }
 
-    virtual QStringList translate(const QStringList& list) const;
+    virtual QStringList translate(const QStringList& list) const override;
 };
 
 class RoughnessTranslator : public IPathTranslator {
@@ -62,7 +62,7 @@ public:
 
     RoughnessTranslator* clone() const override { return new RoughnessTranslator; }
 
-    virtual QStringList translate(const QStringList& list) const;
+    virtual QStringList translate(const QStringList& list) const override;
 private:
     int getLayerIndex(QString layerName) const;
 };

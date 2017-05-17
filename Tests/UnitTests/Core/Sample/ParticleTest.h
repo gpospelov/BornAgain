@@ -15,35 +15,25 @@ protected:
 TEST_F(ParticleTest, InitialState)
 {
     Particle particle;
-    EXPECT_EQ(nullptr, particle.getMaterial());
-    EXPECT_EQ(complex_t(0,0), particle.getRefractiveIndex());
-    EXPECT_EQ(nullptr, particle.getFormFactor());
+    HomogeneousMaterial vacuum;
+    EXPECT_EQ(vacuum, *particle.material());
+    EXPECT_EQ(complex_t(1,0), particle.refractiveIndex());
+    EXPECT_EQ(nullptr, particle.formFactor());
     EXPECT_EQ(nullptr, particle.createFormFactor());
-    EXPECT_EQ(nullptr, particle.getRotation());
+    EXPECT_EQ(nullptr, particle.rotation());
     EXPECT_EQ(BornAgain::ParticleType, particle.getName());
 }
 
 TEST_F(ParticleTest, Clone)
 {
     Particle particle;
+    HomogeneousMaterial vacuum;
     std::unique_ptr<Particle> clone(particle.clone());
-    EXPECT_EQ(nullptr, clone->getMaterial());
-    EXPECT_EQ(complex_t(0,0), clone->getRefractiveIndex());
-    EXPECT_EQ(nullptr, clone->getFormFactor());
+    EXPECT_EQ(vacuum, *clone->material());
+    EXPECT_EQ(complex_t(1,0), clone->refractiveIndex());
+    EXPECT_EQ(nullptr, clone->formFactor());
     EXPECT_EQ(nullptr, clone->createFormFactor());
-    EXPECT_EQ(nullptr, clone->getRotation());
-    EXPECT_EQ(BornAgain::ParticleType, clone->getName());
-}
-
-TEST_F(ParticleTest, CloneInvertB)
-{
-    Particle particle;
-    std::unique_ptr<Particle> clone(particle.cloneInvertB());
-    EXPECT_EQ(nullptr, clone->getMaterial());
-    EXPECT_EQ(complex_t(0,0), clone->getRefractiveIndex());
-    EXPECT_EQ(nullptr, clone->getFormFactor());
-    EXPECT_EQ(nullptr, clone->createFormFactor());
-    EXPECT_EQ(nullptr, clone->getRotation());
+    EXPECT_EQ(nullptr, clone->rotation());
     EXPECT_EQ(BornAgain::ParticleType, clone->getName());
 }
 
@@ -55,33 +45,33 @@ TEST_F(ParticleTest, Constructors)
 
     // construction with material
     std::unique_ptr<Particle> p1(new Particle(mat));
-    EXPECT_EQ("Air", p1->getMaterial()->getName());
-    EXPECT_EQ(complex_t(1,0), p1->getRefractiveIndex());
-    EXPECT_EQ(nullptr, p1->getFormFactor());
+    EXPECT_EQ("Air", p1->material()->getName());
+    EXPECT_EQ(complex_t(1,0), p1->refractiveIndex());
+    EXPECT_EQ(nullptr, p1->formFactor());
     EXPECT_EQ(nullptr, p1->createFormFactor());
-    EXPECT_EQ( nullptr, p1->getRotation());
+    EXPECT_EQ( nullptr, p1->rotation());
 
     // construction with formfactor
     std::unique_ptr<Particle> p2(new Particle(mat, sphere));
-    EXPECT_EQ("Air", p2->getMaterial()->getName());
-    EXPECT_EQ(complex_t(1,0), p2->getRefractiveIndex());
-    EXPECT_EQ(BornAgain::FFFullSphereType, p2->getFormFactor()->getName());
-    EXPECT_EQ(1, p2->getFormFactor()->getRadialExtension());
+    EXPECT_EQ("Air", p2->material()->getName());
+    EXPECT_EQ(complex_t(1,0), p2->refractiveIndex());
+    EXPECT_EQ(BornAgain::FFFullSphereType, p2->formFactor()->getName());
+    EXPECT_EQ(1, p2->formFactor()->radialExtension());
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(p2->createFormFactor()));
     EXPECT_EQ(complex_t(1,0), dynamic_cast<FormFactorDecoratorMaterial *>(
                       p2->createFormFactor())->getAmbientRefractiveIndex());
-    EXPECT_EQ( nullptr, p2->getRotation());
+    EXPECT_EQ( nullptr, p2->rotation());
 
     // construction with transformation
     std::unique_ptr<Particle> p3(new Particle(mat, sphere, transform));
-    EXPECT_EQ("Air", p3->getMaterial()->getName());
-    EXPECT_EQ(complex_t(1,0), p3->getRefractiveIndex());
-    EXPECT_EQ(BornAgain::FFFullSphereType, p3->getFormFactor()->getName());
-    EXPECT_EQ(1, p3->getFormFactor()->getRadialExtension());
+    EXPECT_EQ("Air", p3->material()->getName());
+    EXPECT_EQ(complex_t(1,0), p3->refractiveIndex());
+    EXPECT_EQ(BornAgain::FFFullSphereType, p3->formFactor()->getName());
+    EXPECT_EQ(1, p3->formFactor()->radialExtension());
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(p3->createFormFactor()));
     EXPECT_EQ(complex_t(1,0), dynamic_cast<FormFactorDecoratorMaterial *>(
                       p3->createFormFactor())->getAmbientRefractiveIndex());
-    EXPECT_EQ(BornAgain::ZRotationType, p3->getRotation()->getName());
+    EXPECT_EQ(BornAgain::ZRotationType, p3->rotation()->getName());
 }
 
 TEST_F(ParticleTest, setters)
@@ -91,28 +81,25 @@ TEST_F(ParticleTest, setters)
     RotationY transform(45.*Units::degree);
 
     Particle particle;
-    EXPECT_EQ(nullptr, particle.getMaterial());
-    EXPECT_EQ(nullptr, particle.getFormFactor());
-    EXPECT_EQ(nullptr, particle.getRotation());
-
-    particle.setMaterial(mat);
-    EXPECT_EQ("Air", particle.getMaterial()->getName());
-    EXPECT_EQ(complex_t(1.0), particle.getRefractiveIndex());
+    HomogeneousMaterial vacuum;
+    EXPECT_EQ(vacuum, *particle.material());
+    EXPECT_EQ(nullptr, particle.formFactor());
+    EXPECT_EQ(nullptr, particle.rotation());
 
     particle.setFormFactor(sphere);
-    EXPECT_EQ(BornAgain::FFFullSphereType, particle.getFormFactor()->getName());
-    EXPECT_EQ(2.1, particle.getFormFactor()->getRadialExtension());
+    EXPECT_EQ(BornAgain::FFFullSphereType, particle.formFactor()->getName());
+    EXPECT_EQ(2.1, particle.formFactor()->radialExtension());
 
     particle.setRotation(transform);
-    EXPECT_TRUE(nullptr != particle.getRotation());
+    EXPECT_TRUE(nullptr != particle.rotation());
 
     std::unique_ptr<Particle> particle2(particle.clone());
     EXPECT_EQ(BornAgain::ParticleType, particle2->getName());
-    EXPECT_EQ("Air", particle2->getMaterial()->getName());
-    EXPECT_EQ(complex_t(1.0), particle2->getRefractiveIndex());
-    EXPECT_TRUE(nullptr != particle2->getFormFactor());
-    EXPECT_EQ(2.1, particle2->getFormFactor()->getRadialExtension());
-    EXPECT_TRUE(nullptr != particle2->getRotation());
+    EXPECT_EQ(vacuum.getName(), particle2->material()->getName());
+    EXPECT_EQ(complex_t(1.0), particle2->refractiveIndex());
+    EXPECT_TRUE(nullptr != particle2->formFactor());
+    EXPECT_EQ(2.1, particle2->formFactor()->radialExtension());
+    EXPECT_TRUE(nullptr != particle2->rotation());
 }
 
 TEST_F(ParticleTest, getChildren)

@@ -146,7 +146,7 @@ void ActionManager::aboutToShowRecentProjects()
     m_recentProjectsMenu->clear();
 
     bool hasRecentProjects = false;
-    foreach(QString file, m_mainWindow->projectManager()->getRecentProjects() ) {
+    foreach(QString file, m_mainWindow->projectManager()->recentProjects() ) {
         hasRecentProjects = true;
         QAction *action = m_recentProjectsMenu->addAction(
             QDir::toNativeSeparators(GUI_StringUtils::withTildeHomePath(file)));
@@ -173,6 +173,7 @@ void ActionManager::aboutToShowSettings()
 
     settings.beginGroup(Constants::S_UPDATES);
     QAction *action = m_settingsMenu->addAction("Check for Updates");
+    action->setToolTip("Checks for updates available on GUI startup.");
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
     connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleCheckForUpdates(bool)));
@@ -185,6 +186,17 @@ void ActionManager::aboutToShowSettings()
     action->setChecked(settings.value(Constants::S_VIEWISACTIVE, false).toBool());
     connect(action, SIGNAL(toggled(bool)), this, SLOT(setSessionModelViewActive(bool)));
     settings.endGroup();
+
+    action = m_settingsMenu->addAction("Enable autosave");
+    action->setToolTip("Project will be saved periodically in project's autosave directory.\n"
+                       "When opening project, recover option will be suggested, if possible.");
+    action->setCheckable(true);
+    action->setChecked(m_mainWindow->projectManager()->isAutosaveEnabled());
+    connect(action, SIGNAL(toggled(bool)),
+            m_mainWindow->projectManager(), SLOT(setAutosaveEnabled(bool)));
+
+    m_settingsMenu->setToolTipsVisible(true);
+
 }
 
 void ActionManager::toggleCheckForUpdates(bool status)

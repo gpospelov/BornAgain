@@ -15,6 +15,7 @@
 
 #include "SampleBuilderFactory.h"
 #include "BoxCompositionBuilder.h"
+#include "BoxesSquareLatticeBuilder.h"
 #include "CoreShellParticleBuilder.h"
 #include "CustomMorphologyBuilder.h"
 #include "CylindersAndPrismsBuilder.h"
@@ -36,6 +37,7 @@
 #include "SizeDistributionModelsBuilder.h"
 #include "TransformationsBuilder.h"
 #include "TwoDimLatticeBuilder.h"
+#include "SlicedParticleBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -193,6 +195,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "triangular ripple within the 1D-paracrystal model");
 
     registerItem(
+        "AsymRippleBuilder",
+        create_new<AsymRippleBuilder>,
+        "triangular ripple with asymetry within the 1D-paracrystal model");
+
+    registerItem(
         "CosineRippleBuilder",
         create_new<CosineRippleBuilder>,
         "cosine ripple within the 1D-paracrystal model");
@@ -241,6 +248,22 @@ SampleBuilderFactory::SampleBuilderFactory()
         "LayersWithAbsorptionBuilder",
         create_new<LayersWithAbsorptionBuilder>,
         "3 layer system with absorption");
+
+    registerItem(
+        "BoxesSquareLatticeBuilder",
+        create_new<BoxesSquareLatticeBuilder>,
+        "Boxes in a square lattice");
+
+    registerItem(
+        "RotatedCylindersBuilder",
+        create_new<RotatedCylindersBuilder>,
+        "Rotated cylinder in substrate");
+
+    registerItem(
+        "SlicedCompositionBuilder",
+        create_new<SlicedCompositionBuilder>,
+        "Spherical particle made of two different materials crossing interface");
+
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

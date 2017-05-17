@@ -26,9 +26,11 @@ class Transform3D;
 class BA_CORE_API_ WavevectorInfo
 {
 public:
-    WavevectorInfo() {} // TODO: stop abuse for q=0, then =delete
+    static WavevectorInfo GetZeroQ();
     WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)
-        : m_ki(ki), m_kf(kf), m_vacuum_wavelength(wavelength) {}
+        : m_ki(ki)
+        , m_kf(kf)
+        , m_vacuum_wavelength(wavelength) {}
     WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
         : m_ki(ki.complex())
         , m_kf(kf.complex())
@@ -41,6 +43,7 @@ public:
     double getWavelength() const { return m_vacuum_wavelength; }
 
 private:
+    WavevectorInfo();
     cvector_t m_ki;
     cvector_t m_kf;
     double m_vacuum_wavelength;

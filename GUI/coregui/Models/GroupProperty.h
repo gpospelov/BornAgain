@@ -17,45 +17,50 @@
 #ifndef GROUPPROPERTY_H
 #define GROUPPROPERTY_H
 
-#include "WinDllMacros.h"
+#include "GroupInfo.h"
 #include <QSharedPointer>
 #include <QStringList>
 
 class SessionItem;
 
-//! The GroupProperty class represents a composition of the basic properties
-//! corresponding to a SessionItem object.
+//! Provides logic for manipulating items belonging to GroupItem parent.
 //! Its construction is handled by a GroupPropertyRegistry object.
+
 class BA_CORE_API_ GroupProperty
 {
 public:
+    friend class GroupPropertyRegistry;
+
     void setGroupItem(SessionItem* groupItem);
 
     SessionItem* currentItem();
 
     QString currentType() const;
     void setCurrentType(const QString& type);
+    void setCurrentTypeName(const QString& type);
 
-    QString getCurrentLabel() const;
+    SessionItem* getItemOfType(const QString& type);
 
-    QStringList getTypes() const;
-    QStringList getLabels() const;
+    int currentIndex() const;
+    void setCurrentIndex(int index);
 
-    int index() const;
-    int toIndex(const QString& type) const;
-    QString toString(int index) const;
+    QString currentLabel() const;
 
-    friend class GroupPropertyRegistry;
+    QStringList itemTypes() const;
+    QStringList itemLabels() const;
 
 private:
-    GroupProperty(QString group_name);
-    void setGroupMap(std::map<QString, QString> group_map);
-    SessionItem* createCorrespondingItem();
+    GroupProperty();
 
-    QString m_group_name;
+    void setGroupInfo(GroupInfo groupInfo);
+    SessionItem* addItem(const QString& item_type);
+    SessionItem* createCorrespondingItem();
+    int toIndex(const QString& type) const;
+    QString toString(int currentIndex) const;
+
     SessionItem* m_groupItem;
     QString m_current_type;
-    std::map<QString, QString> m_type_label_map;
+    GroupInfo m_groupInfo;
 };
 
 typedef QSharedPointer<GroupProperty> GroupProperty_t;

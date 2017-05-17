@@ -22,6 +22,7 @@ set(test_cases
     BoxCompositionRotateY
     BoxCompositionRotateZ
     BoxCompositionRotateZandY
+    BoxesWithSpecular
     BoxStackComposition
     CenteredSquareLattice
     CoreShellBoxRotateZandY
@@ -51,15 +52,18 @@ set(test_cases
     RectDetectorPerpToReflectedBeamDpos
     RectDetectorPerpToSample
     RectParaCrystal
+    RotatedCylinder
     RotatedPyramids
     RotatedSquareLattice
     SimulationWithMasks
     SquareLattice
     TransformBox
     TriangularRipple
+    AsymRipple
     TwoTypesCylindersDistribution
     SphericalDetWithRoi
     RectDetWithRoi
+    SlicedComposition
     )
 
 # Other tests:
@@ -95,5 +99,5 @@ endforeach()
 foreach(test ${other_tests})
     add_executable(${test} ${test}.cpp)
     target_link_libraries(${test} BornAgainFit BornAgainCore)
-    add_test(${test} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test})
+    add_test(CoreSpecial/${test} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test})
 endforeach()

@@ -21,7 +21,7 @@
 class TruncatedEllipsoid : public IShape
 {
 public:
-    TruncatedEllipsoid(double r_x, double r_y, double r_z, double height);
+    TruncatedEllipsoid(double r_x, double r_y, double r_z, double height, double dh);
     ~TruncatedEllipsoid();
 };
 

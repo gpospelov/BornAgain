@@ -8,6 +8,7 @@
 #include "BeamItem.h"
 #include "BeamDistributionItem.h"
 #include "DistributionItems.h"
+#include "InstrumentItem.h"
 #include <QDebug>
 
 class TestTranslations : public QObject {
@@ -57,7 +58,7 @@ inline void TestTranslations::test_BeamDistributionNone()
 {
     SampleModel model;
     SessionItem *instrument = model.insertNewItem(Constants::InstrumentType);
-    SessionItem *beam = model.insertNewItem(Constants::BeamType, instrument->index());
+    SessionItem *beam = instrument->getItem(InstrumentItem::P_BEAM);
 
     SessionItem* wavelength = beam->getItem(BeamItem::P_WAVELENGTH);
 

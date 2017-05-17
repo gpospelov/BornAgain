@@ -16,7 +16,23 @@
 #include "WavevectorInfo.h"
 #include "Transform3D.h"
 
+
+// TODO: can be removed when IFormFactor::volume() is refactored
+// (static function is provided to easily track usage of default constructor)
+WavevectorInfo WavevectorInfo::GetZeroQ()
+{
+    return {};
+}
+
 WavevectorInfo WavevectorInfo::transformed(const Transform3D& transform) const
 {
-    return WavevectorInfo(transform.transformed(m_ki), transform.transformed(m_kf), m_vacuum_wavelength);
+    return WavevectorInfo(transform.transformed(m_ki), transform.transformed(m_kf),
+                          m_vacuum_wavelength);
 }
+
+// same as GetZeroQ
+WavevectorInfo::WavevectorInfo()
+    : m_ki(1, 0, 0)
+    , m_kf(1, 0, 0)
+    , m_vacuum_wavelength(1)
+{}

@@ -19,7 +19,7 @@
 
 #include "SessionItem.h"
 
-class IMaterial;
+class HomogeneousMaterial;
 
 class BA_CORE_API_ MaterialItem : public SessionItem
 {
@@ -33,7 +33,7 @@ public:
 
     QString getIdentifier() const;
     QColor getColor() const;
-    std::unique_ptr<IMaterial> createMaterial() const;
+    std::unique_ptr<HomogeneousMaterial> createMaterial() const;
 };
 
 #endif // MATERIALITEM_H

@@ -17,7 +17,7 @@
 #define PARTICLE_H
 
 #include "IParticle.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorRotation.h"
 
@@ -28,34 +28,29 @@ class BA_CORE_API_ Particle : public IParticle
 {
 public:
     Particle();
-    Particle(const IMaterial& p_material);
-    Particle(const IMaterial& p_material, const IFormFactor& form_factor);
-    Particle(const IMaterial& p_material, const IFormFactor& form_factor,
+    Particle(HomogeneousMaterial material);
+    Particle(HomogeneousMaterial material, const IFormFactor& form_factor);
+    Particle(HomogeneousMaterial material, const IFormFactor& form_factor,
              const IRotation& rotation);
 
-    virtual Particle* clone() const;
+    Particle* clone() const override final;
 
-    //! Returns a clone with inverted magnetic fields
-    virtual Particle* cloneInvertB() const;
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+    SlicedParticle createSlicedParticle(ZLimits limits) const override final;
 
-    //! Create a form factor for this particle with an extra scattering factor
-    virtual IFormFactor* createTransformedFormFactor(
-        const IRotation* p_rotation, kvector_t translation) const;
+    void setMaterial(HomogeneousMaterial material);
+    const HomogeneousMaterial* material() const override final { return &m_material; }
 
-    void setMaterial(const IMaterial& material);
-    const IMaterial* getMaterial() const { return mP_material.get(); }
-
-    complex_t getRefractiveIndex() const;
+    complex_t refractiveIndex() const;
 
     void setFormFactor(const IFormFactor& form_factor);
-    const IFormFactor* getFormFactor() const { return mP_form_factor.get(); }
+    const IFormFactor* formFactor() const { return mP_form_factor.get(); }
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override final;
 
 protected:
-    std::unique_ptr<IMaterial> mP_material;
+    HomogeneousMaterial m_material;
     std::unique_ptr<IFormFactor> mP_form_factor;
 private:
     void initialize();

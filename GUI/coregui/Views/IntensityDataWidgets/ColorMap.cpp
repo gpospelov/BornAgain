@@ -156,17 +156,17 @@ void ColorMap::onAxisPropertyChanged(const QString& axisName, const QString& pro
     if (m_block_update)
         return;
 
+    if (propertyName == BasicAxisItem::P_TITLE  ||
+        propertyName == BasicAxisItem::P_TITLE_IS_VISIBLE) {
+        setAxesLabelsFromItem(intensityItem());
+        replot();
+    }
+
     if (axisName == IntensityDataItem::P_XAXIS) {
         if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
             setAxesRangeConnected(false);
             m_customPlot->xAxis->setRange(ColorMapUtils::itemZoomX(intensityItem()));
             setAxesRangeConnected(true);
-            replot();
-        } else if (propertyName == BasicAxisItem::P_TITLE) {
-            m_customPlot->xAxis->setLabel(intensityItem()->getXaxisTitle());
-            m_colorScale->setMargins(QMargins(0, 0, 0, 0));
-            // a hack to make MarginGroup working
-            //             m_customPlot->plotLayout()->simplify();
             replot();
         }
     } else if (axisName == IntensityDataItem::P_YAXIS) {
@@ -174,9 +174,6 @@ void ColorMap::onAxisPropertyChanged(const QString& axisName, const QString& pro
             setAxesRangeConnected(false);
             m_customPlot->yAxis->setRange(ColorMapUtils::itemZoomY(intensityItem()));
             setAxesRangeConnected(true);
-            replot();
-        } else if (propertyName == BasicAxisItem::P_TITLE) {
-            m_customPlot->yAxis->setLabel(intensityItem()->getYaxisTitle());
             replot();
         }
     }
@@ -349,7 +346,7 @@ void ColorMap::setColorMapFromItem(IntensityDataItem* intensityItem)
 
     setAxesRangeFromItem(intensityItem);
     setAxesZoomFromItem(intensityItem);
-    setLabelsFromItem(intensityItem);
+    setAxesLabelsFromItem(intensityItem);
     setDataFromItem(intensityItem);
     setColorScaleAppearanceFromItem(intensityItem);
     setDataRangeFromItem(intensityItem);
@@ -381,10 +378,22 @@ void ColorMap::setAxesZoomFromItem(IntensityDataItem* item)
 
 //! Sets X,Y axes labels from item
 
-void ColorMap::setLabelsFromItem(IntensityDataItem* item)
+void ColorMap::setAxesLabelsFromItem(IntensityDataItem* item)
 {
-    m_customPlot->xAxis->setLabel(item->getXaxisTitle());
-    m_customPlot->yAxis->setLabel(item->getYaxisTitle());
+    auto xaxis = item->xAxisItem();
+    if(xaxis->getItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE).toBool())
+        m_customPlot->xAxis->setLabel(item->getXaxisTitle());
+    else
+        m_customPlot->xAxis->setLabel(QString());
+
+    m_colorScale->setMargins(QMargins(0, 0, 0, 0));
+
+    auto yaxis = item->yAxisItem();
+    if(yaxis->getItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE).toBool())
+        m_customPlot->yAxis->setLabel(item->getYaxisTitle());
+    else
+        m_customPlot->yAxis->setLabel(QString());
+
 }
 
 //! Sets the intensity values to ColorMap.

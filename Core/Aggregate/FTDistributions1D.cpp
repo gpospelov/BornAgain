@@ -24,7 +24,7 @@
 
 void IFTDistribution1D::print(std::ostream& ostr) const
 {
-    ostr << getName() << " " << *getParameterPool();
+    ostr << getName() << " " << *parameterPool();
 }
 
 void IFTDistribution1D::init_parameters()

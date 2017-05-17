@@ -39,10 +39,10 @@ bool IReferencedTest::runPython(const std::string& py_command)
 {
 #ifndef _WIN32
     std::string sys_command = std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +
-        PYTHON_EXECUTABLE + " " + py_command;
+        PYTHON_EXECUTABLE + " -B " + py_command;
 #else
     std::string sys_command = std::string("set PYTHONPATH=") + BUILD_LIB_DIR + " & " +
-        PYTHON_EXECUTABLE + " " + py_command;
+        PYTHON_EXECUTABLE + " -B " + py_command;
 #endif
     std::cout << sys_command << std::endl/*sic*/; // flush output before calling std::system
     int ret = std::system(sys_command.c_str());

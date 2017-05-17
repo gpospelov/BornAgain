@@ -19,8 +19,10 @@
 #include "ISample.h"
 #include "Complex.h"
 #include "EigenCore.h"
+#include "HomogeneousMaterial.h"
+#include "Vectors3D.h"
+#include "ZLimits.h"
 
-class IMaterial;
 class ILayerRTCoefficients;
 class IRotation;
 class WavevectorInfo;
@@ -43,8 +45,12 @@ public:
     ~IFormFactor() override;
     IFormFactor* clone() const override=0;
 
+    //! Creates a (possibly sliced) form factor with the given rotation and translation
+    IFormFactor* createSlicedFormFactor(ZLimits limits, const IRotation& rot,
+                                        kvector_t translation) const;
+
     //! Passes the refractive index of the ambient material in which this particle is embedded.
-    virtual void setAmbientMaterial(const IMaterial&) =0;
+    virtual void setAmbientMaterial(HomogeneousMaterial) =0;
 
     //! Returns scattering amplitude for complex wavevectors ki, kf.
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;
@@ -55,11 +61,11 @@ public:
 #endif
 
     //! Returns the total volume of the particle of this form factor's shape
-    virtual double getVolume() const;
+    virtual double volume() const;
 
     //! Returns the (approximate in some cases) radial size of the particle of this
     //! form factor's shape. This is used for SSCA calculations
-    virtual double getRadialExtension() const=0;
+    virtual double radialExtension() const=0;
 
     //! Returns the z-coordinate of the lowest point in this shape after a given rotation
     virtual double bottomZ(const IRotation& rotation) const=0;
@@ -69,6 +75,20 @@ public:
 
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(const ILayerRTCoefficients*, const ILayerRTCoefficients*) {}
+
+protected:
+    //! Checks if slicing has a fast analytical solution
+    virtual bool canSliceAnalytically(const IRotation& rot) const;
+
+    //! Actually slices the form factor or throws an exception
+    virtual IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                         kvector_t translation) const;
 };
+
+bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
+                              const IRotation& rot, kvector_t translation);
+
+IFormFactor* CreateTransformedFormFactor(const IFormFactor& formfactor, const IRotation& rot,
+                                         kvector_t translation);
 
 #endif // IFORMFACTOR_H

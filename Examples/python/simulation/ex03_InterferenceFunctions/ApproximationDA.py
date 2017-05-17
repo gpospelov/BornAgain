@@ -1,12 +1,8 @@
 """
 Cylinders of two different sizes in Decoupling Approximation
 """
-import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
-
-phi_min, phi_max = 0.0, 2.0
-alpha_min, alpha_max = 0.0, 2.0
 
 
 def get_sample():
@@ -36,11 +32,11 @@ def get_sample():
     pdf = ba.FTDistribution1DGauss(3 * nm)
     interference.setProbabilityDistribution(pdf)
 
-     # assembling the sample
+    # assembling the sample
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder1, 0.8)
     particle_layout.addParticle(cylinder2, 0.2)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     air_layer = ba.Layer(m_ambience)
     air_layer.addLayout(particle_layout)
@@ -56,8 +52,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
-                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setDetectorParameters(200, 0.0*deg, 2.0*deg,
+                                     200, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
@@ -66,9 +62,8 @@ def run_simulation():
     """
     Runs simulation and returns intensity map.
     """
-    sample = get_sample()
     simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation.setSample(get_sample())
     simulation.runSimulation()
     return simulation.getIntensityData()
 

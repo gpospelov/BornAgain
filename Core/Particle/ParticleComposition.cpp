@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "FormFactorWeighted.h"
-#include "IMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "ParticleDistribution.h"
 
 ParticleComposition::ParticleComposition()
@@ -41,19 +41,6 @@ ParticleComposition* ParticleComposition::clone() const
     p_result->setAbundance(m_abundance);
     for (size_t index=0; index<m_particles.size(); ++index)
         p_result->addParticle(*m_particles[index]);
-    if (mP_rotation)
-        p_result->setRotation(*mP_rotation);
-    p_result->setPosition(m_position);
-    return p_result;
-}
-
-ParticleComposition* ParticleComposition::cloneInvertB() const
-{
-    ParticleComposition* p_result = new ParticleComposition();
-    p_result->setAbundance(m_abundance);
-    for (size_t index=0; index<m_particles.size(); ++index)
-        p_result->addParticlePointer(m_particles[index]->cloneInvertB());
-
     if (mP_rotation)
         p_result->setRotation(*mP_rotation);
     p_result->setPosition(m_position);
@@ -88,26 +75,26 @@ IFormFactor* ParticleComposition::createTransformedFormFactor(
 {
     if (m_particles.size() == 0)
         return 0;
-    const std::unique_ptr<IRotation> P_total_rotation(createComposedRotation(p_rotation));
-    kvector_t total_position = getComposedTranslation(p_rotation, translation);
     FormFactorWeighted* p_result = new FormFactorWeighted();
-    for (size_t index = 0; index < m_particles.size(); ++index) {
-        const std::unique_ptr<IFormFactor> P_particle_ff(
-            m_particles[index]->createTransformedFormFactor(P_total_rotation.get(),
-                                                            total_position));
+    auto particles = decompose();
+    for (auto p_particle : particles) {
+        if (p_rotation)
+            p_particle->applyRotation(*p_rotation);
+        p_particle->applyTranslation(translation);
+        const std::unique_ptr<IFormFactor> P_particle_ff(p_particle->createFormFactor());
         p_result->addFormFactor(*P_particle_ff);
     }
     return p_result;
 }
 
-const IParticle* ParticleComposition::getParticle(size_t index) const
+const IParticle* ParticleComposition::particle(size_t index) const
 {
     return m_particles[check_index(index)].get();
 }
 
-kvector_t ParticleComposition::getParticlePosition(size_t index) const
+kvector_t ParticleComposition::particlePosition(size_t index) const
 {
-    return m_particles[check_index(index)]->getPosition();
+    return m_particles[check_index(index)]->position();
 }
 
 std::vector<const INode*> ParticleComposition::getChildren() const
@@ -121,8 +108,8 @@ std::vector<const INode*> ParticleComposition::getChildren() const
 SafePointerVector<IParticle> ParticleComposition::decompose() const
 {
     SafePointerVector<IParticle> result;
-    auto p_rotation = getRotation();
-    auto translation = getPosition();
+    auto p_rotation = rotation();
+    auto translation = position();
     for (auto& P_particle : m_particles)
     {
         auto sublist = P_particle->decompose();
@@ -132,6 +119,19 @@ SafePointerVector<IParticle> ParticleComposition::decompose() const
             p_subparticle->applyTranslation(translation);
             result.push_back(p_subparticle->clone());
         }
+    }
+    return result;
+}
+
+ParticleLimits ParticleComposition::bottomTopZ() const
+{
+    auto particles = decompose();
+    ParticleLimits result = particles[check_index(0)]->bottomTopZ();
+    for (auto& P_particle : particles)
+    {
+        ParticleLimits limits = P_particle->bottomTopZ();
+        result.m_bottom = std::min(result.m_bottom, limits.m_bottom);
+        result.m_top = std::max(result.m_top, limits.m_top);
     }
     return result;
 }

@@ -107,7 +107,7 @@ private:
     void setColorMapFromItem(IntensityDataItem* intensityItem);
     void setAxesRangeFromItem(IntensityDataItem* item);
     void setAxesZoomFromItem(IntensityDataItem* item);
-    void setLabelsFromItem(IntensityDataItem* item);
+    void setAxesLabelsFromItem(IntensityDataItem* item);
     void setDataFromItem(IntensityDataItem* item);
     void setColorScaleAppearanceFromItem(IntensityDataItem* item);
     void setDataRangeFromItem(IntensityDataItem* item);

@@ -23,7 +23,7 @@
 class BA_CORE_API_ FormFactorPrism3 : public FormFactorPolygonalPrism
 {
 public:
-    FormFactorPrism3(const double base_edge, const double height);
+    FormFactorPrism3(double base_edge, double height);
 
     FormFactorPrism3 *clone() const override final {
         return new FormFactorPrism3(m_base_edge, m_height); }
@@ -32,6 +32,9 @@ public:
     double getBaseEdge() const { return m_base_edge; }
 
 protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
     void onChange() override final;
 
 private:

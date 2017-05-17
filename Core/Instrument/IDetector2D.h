@@ -29,6 +29,7 @@ class Beam;
 class DetectionProperties;
 class IAxis;
 class IDetectorResolution;
+class IResolutionFunction2D;
 class IPixel;
 class IShape2D;
 class RegionOfInterest;
@@ -68,6 +69,7 @@ public:
 
     //! Sets the detector resolution
     void setDetectorResolution(const IDetectorResolution& p_detector_resolution);
+    void setResolutionFunction(const IResolutionFunction2D& resFunc);
 
     //! Removes detector resolution function.
     void removeDetectorResolution();
@@ -75,7 +77,7 @@ public:
     //! Applies the detector resolution to the given intensity maps
     void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
-    const IDetectorResolution* getDetectorResolutionFunction() const;
+    const IDetectorResolution* detectorResolution() const;
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,

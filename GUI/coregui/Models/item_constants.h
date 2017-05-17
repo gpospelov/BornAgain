@@ -25,6 +25,9 @@ namespace Constants {
 
 using ModelType = QString;
 
+const ModelType Yes = "Yes";
+const ModelType No = "No";
+
 const ModelType LayerType = "Layer";
 const ModelType MultiLayerType = "MultiLayer";
 const ModelType ParticleType = "Particle";
@@ -38,7 +41,7 @@ const ModelType InterferenceFunction2DParaCrystalType = "Interference2DParaCryst
 const ModelType InterferenceFunction1DLatticeType = "Interference1DLattice";
 const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
 const ModelType InstrumentType = "Instrument";
-const ModelType DetectorType = "Detector";
+//const ModelType DetectorContainerType = "DetectorContainer";
 const ModelType BeamType = "Beam";
 
 const ModelType FormFactorType = "FormFactor";
@@ -112,9 +115,7 @@ const ModelType BasicLatticeType = "BasicLattice";
 const ModelType SquareLatticeType = "SquareLattice";
 const ModelType HexagonalLatticeType = "HexagonalLattice";
 
-const ModelType MaterialType = "Material";
-const ModelType HomogeneousMaterialType = "Homogeneous Material";
-const ModelType HomogeneousMagneticMaterialType = "Homogeneous Magnetic Material";
+const ModelType HomogeneousMaterialType = "HomogeneousMaterial";
 
 const ModelType RefractiveIndexType = "RefractiveIndex";
 
@@ -243,6 +244,12 @@ const ModelType FITPAR_UPPERLIMITED = "upper limited";
 const ModelType FITPAR_FREE = "free";
 
 const ModelType DistributionSigmaFactor = "Sigma factor";
+
+const ModelType LAYOUT_DA = "Decoupling Approximation";
+const ModelType LAYOUT_SSCA = "Size Space Coupling Approximation";
+
+const ModelType AMBIENT_LAYER_MATERIAL = "Ambient Layer Material";
+const ModelType AVERAGE_LAYER_MATERIAL = "Average Layer Material";
 
 // --- Custom variants ----------------------------------------------------------
 

@@ -5,9 +5,10 @@ Results will be compared against simulation with spherical detector.
 import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
+import matplotlib
+from matplotlib import pyplot as plt
 
-
-detector_distance = 500.0  # in mm
+detector_distance = 1000.0  # in mm
 pilatus_pixel_size = 0.172  # in mm
 pilatus_npx, pilatus_npy = 981, 1043  # number of pixels
 
@@ -74,60 +75,49 @@ def get_simulation():
     return simulation
 
 
-def plot(result):
+def plot_as_colormap(hist, Title, xLabel, yLabel, zmin=None, zmax=None):
+    """
+    Simple plot of intensity data as color map
+    """
+    if not zmin:
+        zmin = 1.0
+
+    if not zmax:
+        zmax = hist.getMaximum()
+
+    im = plt.imshow(
+        hist.getArray(),
+        norm=matplotlib.colors.LogNorm(zmin, zmax),
+        extent=[hist.getXmin(), hist.getXmax(),
+                hist.getYmin(), hist.getYmax()],
+        aspect='auto')
+    cb = plt.colorbar(im, pad=0.025)
+    plt.xlabel(xLabel, fontsize=16)
+    plt.ylabel(yLabel, fontsize=16)
+    plt.title(Title)
+
+
+def plot(results):
     """
     Plots results of two simulations and their relative difference on one canvas
     """
-    import matplotlib
-    from matplotlib import pyplot as plt
-    from matplotlib import rc
-    rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-    rc('text', usetex=True)
     fig = plt.figure(figsize=(13.6, 5.12))
-
-    result_sph  = result['spherical']
-    result_rect = result['rectangular']
-    result_diff = result['difference']
 
     # showing  result of spherical detector simulation
     plt.subplot(1, 3, 1)
-    im = plt.imshow(
-        result_sph.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, result_sph.getMaximum()),
-        extent=[result_sph.getXmin()/deg, result_sph.getXmax()/deg,
-                result_sph.getYmin()/deg, result_sph.getYmax()/deg],
-        aspect='auto')
-    cb = plt.colorbar(im, pad=0.025)
-    plt.xlabel(r'$\phi_f ^{\circ}$', fontsize=16)
-    plt.ylabel(r'$\alpha_f ^{\circ}$', fontsize=16)
-    plt.title("Spherical detector")
+    plot_as_colormap(results['spherical'], "Spherical detector",
+                     r'$\phi_f ^{\circ}$', r'$\alpha_f ^{\circ}$')
 
     # showing  result of rectangular detector simulation
     plt.subplot(1, 3, 2)
-    im = plt.imshow(
-        result_rect.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, result_rect.getMaximum()),
-        extent=[result_rect.getXmin(), result_rect.getXmax(),
-                result_rect.getYmin(), result_rect.getYmax()],
-        aspect='auto')
-    cb = plt.colorbar(im, pad = 0.025)
-    plt.xlabel('X, mm', fontsize=12)
-    plt.ylabel('Y, mm', fontsize=12)
-    plt.title("Rectangular detector")
+    plot_as_colormap(results['rectangular'], "Rectangular detector",
+                     'X, mm', 'Y, mm')
 
     # show relative difference between two plots (sph[i]-rect[i])/rect[i]
     # for every detector pixel
     plt.subplot(1, 3, 3)
-    im = plt.imshow(
-        result_diff.getArray(),
-        norm=matplotlib.colors.LogNorm(1e-06, 1.0),
-        extent=[result_diff.getXmin(), result_diff.getXmax(),
-                result_diff.getYmin(), result_diff.getYmax()],
-        aspect='auto')
-    cb = plt.colorbar(im, pad=0.025)
-    plt.xlabel('X, mm', fontsize=12)
-    plt.ylabel('Y, mm', fontsize=12)
-    plt.title("Relative difference")
+    plot_as_colormap(results['difference'], "Relative difference",
+                     'X, mm', 'Y, mm', 1e-06, 1.0)
 
     plt.subplots_adjust(left=0.05, right=0.95, top=0.88, bottom=0.12)
     plt.show()
@@ -137,7 +127,7 @@ def run_simulation():
     """
     Run two simulations for two different detectors and plot results
     """
-    result = {}
+    results = {}
 
     sample = get_sample()
     simulation = get_simulation()
@@ -146,19 +136,19 @@ def run_simulation():
     # runs simulation for spherical detector
     simulation.setDetector(get_spherical_detector())
     simulation.runSimulation()
-    result['spherical'] = simulation.getIntensityData()
+    results['spherical'] = simulation.getIntensityData(ba.IDetector2D.DEGREES)
 
     # runs simulation for rectangular detector
     simulation.setDetector(get_rectangular_detector())
     simulation.runSimulation()
-    result['rectangular'] = simulation.getIntensityData()
+    results['rectangular'] = simulation.getIntensityData()
 
-    result['difference'] = result['spherical'].relativeDifferenceHistogram(
-        result['rectangular'])
+    results['difference'] = results['spherical'].relativeDifferenceHistogram(
+        results['rectangular'])
 
-    return result
+    return results
 
 
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_intensity_data(result, plot)
+    results = run_simulation()
+    plot(results)

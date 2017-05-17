@@ -94,6 +94,8 @@ if(BORNAGAIN_PYTHON)
 
     configure_file(${WRAP_DIR}/python/plot_utils.py
                    ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
+               configure_file(${WRAP_DIR}/python/yaml_utils.py
+                              ${CMAKE_BINARY_DIR}/lib/bornagain/yaml_utils.py COPYONLY)
 
     set(BA_MODULES_IMPORT_PATH "..")
     if(BORNAGAIN_APPLE_BUNDLE)

@@ -48,8 +48,7 @@ RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi
 RoughMultiLayerComputation::~RoughMultiLayerComputation()
 {}
 
-void RoughMultiLayerComputation::eval(
-    const SimulationOptions&, ProgressHandler* progress, bool,
+void RoughMultiLayerComputation::eval(ProgressHandler* progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {
@@ -74,28 +73,28 @@ double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element
     double autocorr(0.0);
     complex_t crosscorr(0.0, 0.0);
 
-    std::vector<complex_t > rterm( mp_multilayer->getNumberOfLayers()-1 );
-    std::vector<complex_t > sterm( mp_multilayer->getNumberOfLayers()-1 );
+    std::vector<complex_t > rterm( mp_multilayer->numberOfLayers()-1 );
+    std::vector<complex_t > sterm( mp_multilayer->numberOfLayers()-1 );
 
-    for (size_t i=0; i<mp_multilayer->getNumberOfLayers()-1; i++){
+    for (size_t i=0; i<mp_multilayer->numberOfLayers()-1; i++){
         rterm[i] = get_refractive_term(i);
         sterm[i] = get_sum8terms(i, sim_element);
     }
 
-    for (size_t i=0; i<mp_multilayer->getNumberOfLayers()-1; i++) {
+    for (size_t i=0; i<mp_multilayer->numberOfLayers()-1; i++) {
         const LayerRoughness *rough =
-            mp_multilayer->getLayerBottomInterface(i)->getRoughness();
+            mp_multilayer->layerBottomInterface(i)->getRoughness();
         if(rough)
             autocorr += std::norm( rterm[i] ) * std::norm( sterm[i] ) * rough->getSpectralFun(q);
     }
 
     // cross correlation between layers
-    if (mp_multilayer->getCrossCorrLength() != 0.0) {
-        for(size_t j=0; j<mp_multilayer->getNumberOfLayers()-1; j++){
-            for(size_t k=0; k<mp_multilayer->getNumberOfLayers()-1; k++) {
+    if (mp_multilayer->crossCorrLength() != 0.0) {
+        for(size_t j=0; j<mp_multilayer->numberOfLayers()-1; j++){
+            for(size_t k=0; k<mp_multilayer->numberOfLayers()-1; k++) {
                 if(j==k) continue;
                 crosscorr += rterm[j]*sterm[j]*
-                    mp_multilayer->getCrossCorrSpectralFun(q,j,k)*
+                    mp_multilayer->crossCorrSpectralFun(q,j,k)*
                     std::conj(rterm[k])*std::conj(sterm[k]);
             }
         }
@@ -107,8 +106,8 @@ double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element
 
 complex_t RoughMultiLayerComputation::get_refractive_term(size_t ilayer) const
 {
-    return mp_multilayer->getLayer(ilayer  )->getRefractiveIndex2() -
-           mp_multilayer->getLayer(ilayer+1)->getRefractiveIndex2();
+    return mp_multilayer->layer(ilayer  )->refractiveIndex2() -
+           mp_multilayer->layer(ilayer+1)->refractiveIndex2();
 }
 
 complex_t RoughMultiLayerComputation::get_sum8terms(
@@ -130,7 +129,7 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
     complex_t qz2_plus = - kiz_plus + kfz_plus;
     complex_t qz3_plus = - qz2_plus;
     complex_t qz4_plus = - qz1_plus;
-    double thickness = mp_multilayer->getLayerThickness(ilayer);
+    double thickness = mp_multilayer->layerThickness(ilayer);
     complex_t T_in_plus  = P_in_plus ->getScalarT()*exp_I( kiz_plus*thickness);
     complex_t R_in_plus  = P_in_plus ->getScalarR()*exp_I(-kiz_plus*thickness);
     complex_t T_out_plus = P_out_plus->getScalarT()*exp_I( kfz_plus*thickness);
@@ -145,7 +144,7 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
 
     double sigma(0.0);
     if (const LayerRoughness* roughness
-        = mp_multilayer->getLayerBottomInterface(ilayer)->getRoughness())
+        = mp_multilayer->layerBottomInterface(ilayer)->getRoughness())
         sigma = roughness->getSigma();
     complex_t term1 = T_in_plus * T_out_plus * h_plus(qz1_plus*sigma);
     complex_t term2 = T_in_plus * R_out_plus * h_plus(qz2_plus*sigma);

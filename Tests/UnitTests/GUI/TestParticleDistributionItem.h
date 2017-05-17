@@ -15,9 +15,8 @@
 #include "MaterialSvc.h"
 
 namespace {
-    const QStringList expectedAnisoParams = {
-        "None", "Particle/AnisoPyramid/Length", "Particle/AnisoPyramid/Width",
-        "Particle/AnisoPyramid/Height", "Particle/AnisoPyramid/Alpha",
+    const QStringList expectedCylinderParams = {
+        "None", "Particle/Cylinder/Radius", "Particle/Cylinder/Height",
         "Particle/Position Offset/X", "Particle/Position Offset/Y", "Particle/Position Offset/Z"};
 
     const QStringList expectedBoxParams = {
@@ -75,7 +74,7 @@ inline void TestParticleDistributionItem::test_AddParticle()
     ComboProperty prop = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                     .value<ComboProperty>();
 
-    QCOMPARE(prop.getValues(), expectedAnisoParams);
+    QCOMPARE(prop.getValues(), expectedCylinderParams);
     QCOMPARE(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 
     // changing formfactor of the particle
@@ -145,6 +144,8 @@ inline void TestParticleDistributionItem::test_FromDomain()
     SampleModel model;
     SessionItem *distItem = model.insertNewItem(Constants::ParticleDistributionType);
     SessionItem *particleItem = model.insertNewItem(Constants::ParticleType, distItem->index());
+
+    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::AnisoPyramidType);
 
     // Sets it from domain
     TransformFromDomain::setItemFromSample(distItem, &particle_collection);

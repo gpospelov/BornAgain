@@ -35,8 +35,8 @@ TEST_F(SpecularSimulationTest, InitialState)
     SpecularSimulation sim;
     ASSERT_THROW( sim.runSimulation(), Exceptions::ClassInitializationException);
     EXPECT_EQ(nullptr, sim.getAlphaAxis());
-    EXPECT_EQ(nullptr, sim.getSample());
-    EXPECT_EQ(nullptr, sim.getSampleBuilder().get());
+    EXPECT_EQ(nullptr, sim.sample());
+    EXPECT_EQ(nullptr, sim.sampleBuilder().get());
     ASSERT_THROW( sim.getScalarR(0), Exceptions::ClassInitializationException);
     ASSERT_THROW( sim.getScalarT(0), Exceptions::ClassInitializationException);
     ASSERT_THROW( sim.getScalarKz(0), Exceptions::ClassInitializationException);
@@ -49,8 +49,8 @@ TEST_F(SpecularSimulationTest, CloneOfEmpty)
     SpecularSimulation *clone = sim.clone();
     ASSERT_THROW( clone->runSimulation(), Exceptions::ClassInitializationException);
     EXPECT_EQ(nullptr, clone->getAlphaAxis());
-    EXPECT_EQ(nullptr, clone->getSample());
-    EXPECT_EQ(nullptr, clone->getSampleBuilder().get());
+    EXPECT_EQ(nullptr, clone->sample());
+    EXPECT_EQ(nullptr, clone->sampleBuilder().get());
     ASSERT_THROW( clone->getScalarR(0), Exceptions::ClassInitializationException);
     ASSERT_THROW( clone->getScalarT(0), Exceptions::ClassInitializationException);
     ASSERT_THROW( clone->getScalarKz(0), Exceptions::ClassInitializationException);
@@ -78,7 +78,7 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     SpecularSimulation sim;
     sim.setBeamParameters(1.0, 10, 0.0*Units::degree, 2.0*Units::degree);
     sim.setSample(multilayer);
-    EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(sim.getSample())->getNumberOfLayers());
+    EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(sim.sample())->numberOfLayers());
 
     ASSERT_THROW( sim.getScalarR(0), Exceptions::ClassInitializationException);
     ASSERT_THROW( sim.getScalarT(0), Exceptions::ClassInitializationException);
@@ -103,7 +103,7 @@ TEST_F(SpecularSimulationTest, SimulationClone)
 
     SpecularSimulation *clone = sim.clone();
 
-    EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(clone->getSample())->getNumberOfLayers());
+    EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(clone->sample())->numberOfLayers());
 
     ASSERT_THROW( clone->getScalarR(0), Exceptions::ClassInitializationException);
     ASSERT_THROW( clone->getScalarT(0), Exceptions::ClassInitializationException);

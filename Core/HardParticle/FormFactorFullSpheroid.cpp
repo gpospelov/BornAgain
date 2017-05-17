@@ -15,6 +15,7 @@
 
 #include "FormFactorFullSpheroid.h"
 #include "BornAgainNamespace.h"
+#include "FormFactorTruncatedSpheroid.h"
 #include "MathFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
@@ -47,7 +48,7 @@ complex_t FormFactorFullSpheroid::Integrand(double Z) const
     return Rz*Rz* J1_qrRz_div_qrRz *std::cos(m_q.z()*Z);
 }
 
-complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const
 {
     double H = m_height;
     double R = m_radius;
@@ -59,7 +60,17 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t q) const
     return 4 * M_PI * mP_integrator->integrate(0.0, H/2.0) * exp_I(qzH_half);
 }
 
+IFormFactor*FormFactorFullSpheroid:: sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                     kvector_t translation) const
+{
+    double flattening = m_height/(2.0*m_radius);
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    FormFactorTruncatedSpheroid slicedff(m_radius, m_height - effects.dz_bottom,
+                                         flattening, effects.dz_top);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
+}
+
 void FormFactorFullSpheroid::onChange()
 {
-    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_height/2.0, m_height));
+    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_height/2.0, m_height, 0.0));
 }

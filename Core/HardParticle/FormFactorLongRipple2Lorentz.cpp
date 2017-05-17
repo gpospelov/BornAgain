@@ -65,13 +65,13 @@ void FormFactorLongRipple2Lorentz::check_parameters() const
     throw Exceptions::ClassInitializationException(ostr.str());
 }
 
-double FormFactorLongRipple2Lorentz::getRadialExtension() const
+double FormFactorLongRipple2Lorentz::radialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }
 
 //! Complex formfactor.
-complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(cvector_t q) const
 {
     check_parameters();
 

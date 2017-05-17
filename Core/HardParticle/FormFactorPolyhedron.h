@@ -44,7 +44,7 @@ public:
     complex_t qE( cvector_t q ) const { return m_E.dot(q); }
     complex_t qR( cvector_t q ) const { return m_R.dot(q); }
 
-    complex_t contrib(int m, const cvector_t qpa, complex_t qrperp) const;
+    complex_t contrib(int m, cvector_t qpa, complex_t qrperp) const;
 
 private:
     kvector_t m_E; //!< vector pointing from mid of edge to upper vertex
@@ -68,10 +68,10 @@ public:
     double pyramidalVolume() const { return m_rperp*m_area/3; }
     double radius3d() const { return m_radius_3d; }
     //! Returns conj(q)*normal [BasicVector3D::dot is antilinear in 'this' argument]
-    complex_t normalProjectionConj( cvector_t q) const { return q.dot(m_normal); }
-    complex_t ff_n(int m, const cvector_t q) const;
-    complex_t ff(const cvector_t q, const bool sym_Ci) const;
-    complex_t ff_2D(const cvector_t qpa) const;
+    complex_t normalProjectionConj(cvector_t q) const { return q.dot(m_normal); }
+    complex_t ff_n(int m, cvector_t q) const;
+    complex_t ff(cvector_t q, bool sym_Ci) const;
+    complex_t ff_2D(cvector_t qpa) const;
     void assert_Ci(const PolyhedralFace& other) const;
 
 private:
@@ -87,8 +87,8 @@ private:
     double m_radius_3d; //!< radius of enclosing sphere
     kvector_t m_center; //!< center of mass
 
-    void decompose_q(const cvector_t q, complex_t& qperp, cvector_t& qpa) const;
-    complex_t ff_n_core(int m, const cvector_t qpa, complex_t qperp) const;
+    void decompose_q(cvector_t q, complex_t& qperp, cvector_t& qpa) const;
+    complex_t ff_n_core(int m, cvector_t qpa, complex_t qperp) const;
     complex_t edge_sum_ff(cvector_t q, cvector_t qpa, bool sym_Ci) const;
     complex_t expansion(
         complex_t fac_even, complex_t fac_odd, cvector_t qpa, double abslevel ) const;
@@ -105,11 +105,11 @@ public:
 
     FormFactorPolyhedron() {}
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
-    complex_t evaluate_centered(const cvector_t q) const;
+    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_centered(cvector_t q) const;
 
-    double getVolume() const override final { return m_volume; }
-    double getRadialExtension() const override final { return m_radius; }
+    double volume() const override final { return m_volume; }
+    double radialExtension() const override final { return m_radius; }
     void assert_platonic() const;
 
 protected:
@@ -133,12 +133,12 @@ private:
 
 class BA_CORE_API_ FormFactorPolygonalPrism : public IFormFactorBorn {
 public:
-    FormFactorPolygonalPrism(const double height) : m_height(height) {}
+    FormFactorPolygonalPrism(double height) : m_height(height) {}
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
-    double getVolume() const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
+    double volume() const override final;
     double getHeight() const { return m_height; }
-    double getRadialExtension() const override final { return std::sqrt(m_base->area()); }
+    double radialExtension() const override final { return std::sqrt(m_base->area()); }
 
 protected:
     std::unique_ptr<PolyhedralFace> m_base;
@@ -153,9 +153,9 @@ class FormFactorPolygonalSurface : public IFormFactorBorn {
 public:
     FormFactorPolygonalSurface() {}
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
-    double getVolume() const override { return 0; }
-    double getRadialExtension() const override final { return std::sqrt(m_base->area()); }
+    complex_t evaluate_for_q(cvector_t q) const override final;
+    double volume() const override { return 0; }
+    double radialExtension() const override final { return std::sqrt(m_base->area()); }
 
 protected:
     std::unique_ptr<PolyhedralFace> m_base;

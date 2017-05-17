@@ -13,8 +13,8 @@ endif()
 if(POLICY CMP0028)
     cmake_policy(SET CMP0028 NEW)
 endif()
-set(library_name BornAgainGUI)
 
+set(library_name BornAgainGUI)
 
 # --- source and include files ---
 set(include_dirs
@@ -22,7 +22,6 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/utils
     ${CMAKE_CURRENT_SOURCE_DIR}/Models
     ${CMAKE_CURRENT_SOURCE_DIR}/Views
-    ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/SampleDesigner
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/JobWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/IntensityDataWidgets
@@ -37,27 +36,20 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/ImportDataWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/CommonWidgets
 )
-include_directories(${include_dirs})
 
-file(GLOB source_files
-    "mainwindow/*.cpp"
-    "utils/*.cpp"
-    "Models/*.cpp"
-    "Views/*.cpp"
-    "Views/SampleDesigner/*.cpp"
-    "Views/JobWidgets/*.cpp"
-    "Views/IntensityDataWidgets/*.cpp"
-    "Views/InfoWidgets/*.cpp"
-    "Views/MaterialEditor/*.cpp"
-    "Views/InstrumentWidgets/*.cpp"
-    "Views/SimulationWidgets/*.cpp"
-    "Views/FitWidgets/*.cpp"
-    "Views/PropertyEditor/*.cpp"
-    "Views/MaskWidgets/*.cpp"
-    "Views/AccordionWidget/*.cpp"
-    "Views/ImportDataWidgets/*.cpp"
-    "Views/CommonWidgets/*.cpp"
-)
+if(BORNAGAIN_OPENGL)
+    list(APPEND include_dirs ${CMAKE_CURRENT_SOURCE_DIR}/Views/RealSpaceWidgets)
+endif()
+
+set(source_files)
+set(include_files)
+
+foreach(dir ${include_dirs})
+    file(GLOB source ${dir}/*.cpp)
+    file(GLOB include ${dir}/*.h)
+    list(APPEND source_files ${source})
+    list(APPEND include_files ${include})
+endforeach()
 
 set(source_widgetbox
     "Views/widgetbox/widgetboxcategorylistview.cpp"
@@ -66,26 +58,6 @@ set(source_widgetbox
     "Views/widgetbox/widgetbox_dnditem.cpp"
 )
 list(APPEND source_files ${source_widgetbox})
-
-file(GLOB include_files
-    "mainwindow/*.h"
-    "utils/*.h"
-    "Models/*.h"
-    "Views/*.h"
-    "Views/SampleDesigner/*.h"
-    "Views/JobWidgets/*.h"
-    "Views/IntensityDataWidgets/*.h"
-    "Views/InfoWidgets/*.h"
-    "Views/MaterialEditor/*.h"
-    "Views/InstrumentWidgets/*.h"
-    "Views/SimulationWidgets/*.h"
-    "Views/FitWidgets/*.h"
-    "Views/PropertyEditor/*.h"
-    "Views/MaskWidgets/*.h"
-    "Views/AccordionWidget/*.h"
-    "Views/ImportDataWidgets/*.h"
-    "Views/CommonWidgets/*.h"
-)
 
 set(include_widgetbox
     "Views/widgetbox/widgetboxcategorylistview.h"
@@ -96,6 +68,9 @@ set(include_widgetbox
 )
 list(APPEND include_files ${include_widgetbox})
 
+list(APPEND include_dirs ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox)
+include_directories(${include_dirs})
+
 set(resource_files
     "coregui.qrc"
     "Views/SampleDesigner/SampleDesigner.qrc"
@@ -103,7 +78,6 @@ set(resource_files
     "Views/widgetbox/widgetbox.qrc"
     "Views/AccordionWidget/accordionwidgeticons.qrc"
 )
-
 
 # --- Qt configuration ---------
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -147,6 +121,7 @@ include_directories(
     ${BornAgainFit_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
     ${PYTHON_INCLUDE_DIRS}
+    ${ba3d_INCLUDE_DIRS}
 )
 
 target_link_libraries(${library_name}
@@ -155,6 +130,7 @@ target_link_libraries(${library_name}
     ${Boost_LIBRARIES}
     ${BornAgainFit_LIBRARY}
     ${BornAgainCore_LIBRARY}
+    ${ba3d_LIBRARY}
 )
 
 target_link_libraries(${library_name}

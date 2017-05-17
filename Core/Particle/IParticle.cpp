@@ -21,7 +21,13 @@
 
 IFormFactor* IParticle::createFormFactor() const
 {
-    return createTransformedFormFactor(nullptr, kvector_t());
+    return createSlicedParticle(ZLimits {}).mP_slicedff.release();
+}
+
+SlicedParticle IParticle::createSlicedParticle(ZLimits) const
+{
+    throw std::runtime_error("IParticle::createSlicedParticle error: "
+                             "not implemented!");
 }
 
 void IParticle::applyTranslation(kvector_t displacement)
@@ -29,7 +35,13 @@ void IParticle::applyTranslation(kvector_t displacement)
     m_position += displacement;
 }
 
-const IRotation* IParticle::getRotation() const
+void IParticle::translateZ(double offset)
+{
+    kvector_t translation(0, 0, offset);
+    applyTranslation(translation);
+}
+
+const IRotation* IParticle::rotation() const
 {
     return mP_rotation.get();
 }
@@ -59,7 +71,7 @@ std::vector<const INode*> IParticle::getChildren() const
 void IParticle::registerAbundance(bool make_registered)
 {
     if(make_registered) {
-        if(!getParameter(BornAgain::Abundance))
+        if(!parameter(BornAgain::Abundance))
             registerParameter(BornAgain::Abundance, &m_abundance);
     } else {
         removeParameter(BornAgain::Abundance);
@@ -69,7 +81,7 @@ void IParticle::registerAbundance(bool make_registered)
 void IParticle::registerPosition(bool make_registered)
 {
     if(make_registered) {
-        if(!getParameter(BornAgain::PositionX)) {
+        if(!parameter(BornAgain::PositionX)) {
             registerParameter(BornAgain::PositionX, &m_position[0]).setUnit("nm");
             registerParameter(BornAgain::PositionY, &m_position[1]).setUnit("nm");
             registerParameter(BornAgain::PositionZ, &m_position[2]).setUnit("nm");
@@ -88,6 +100,13 @@ SafePointerVector<IParticle> IParticle::decompose() const
     return result;
 }
 
+ParticleLimits IParticle::bottomTopZ() const
+{
+    std::unique_ptr<IFormFactor> P_ff(createFormFactor());
+    std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
+    return { P_ff->bottomZ(*P_rot), P_ff->topZ(*P_rot) };
+}
+
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
 {
     if (p_rotation) {
@@ -103,7 +122,7 @@ IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
     }
 }
 
-kvector_t IParticle::getComposedTranslation(
+kvector_t IParticle::composedTranslation(
     const IRotation* p_rotation, kvector_t translation) const
 {
     if (p_rotation) {

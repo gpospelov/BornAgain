@@ -100,7 +100,7 @@ void SimulationSetupWidget::onExportToPythonScript()
     pythonWidget->generatePythonScript(
         multiLayerItem, instrumentItem,
         m_applicationModels->documentModel()->getSimulationOptionsItem(),
-        AppSvc::projectManager()->getProjectDir());
+        AppSvc::projectManager()->projectDir());
 }
 
 QWidget *SimulationSetupWidget::createButtonWidget()

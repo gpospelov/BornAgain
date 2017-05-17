@@ -19,13 +19,22 @@
 #include "RealParameter.h"
 #include <iostream>
 
-FormFactorPrism3::FormFactorPrism3(const double base_edge, const double height)
+FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
     : FormFactorPolygonalPrism( height ), m_base_edge( base_edge )
 {
     setName(BornAgain::FFPrism3Type);
     registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     onChange();
+}
+
+IFormFactor* FormFactorPrism3::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                               kvector_t translation) const
+{
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    FormFactorPrism3 slicedff(m_base_edge, m_height - effects.dz_bottom - effects.dz_top);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
+
 }
 
 void FormFactorPrism3::onChange()

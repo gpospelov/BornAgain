@@ -32,7 +32,7 @@ IParameterized::IParameterized(const std::string& name)
 IParameterized::IParameterized(const IParameterized& other)
     : IParameterized(other.getName())
 {
-    if( other.getParameterPool()->size() )
+    if( other.parameterPool()->size() )
         throw std::runtime_error( "BUG: not prepared to copy parameters of " + getName() );
 }
 
@@ -77,8 +77,8 @@ void IParameterized::setParameterValue(const std::string& name, double value)
 }
 
 //! Returns parameter with given 'name'.
-RealParameter* IParameterized::getParameter(const std::string& name) const {
-    return m_pool->getParameter(name);
+RealParameter* IParameterized::parameter(const std::string& name) const {
+    return m_pool->parameter(name);
 }
 
 void IParameterized::removeParameter(const std::string& name)

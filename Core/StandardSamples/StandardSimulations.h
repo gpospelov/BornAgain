@@ -34,6 +34,7 @@ GISASSimulation* MiniGISASBeamDivergence();
 GISASSimulation* MiniGISASDetectorResolution();
 GISASSimulation* MiniGISASPolarizationPP();
 GISASSimulation* MiniGISASSpinFlipZ();
+GISASSimulation* MiniGISASSpecularPeak();
 GISASSimulation* GISASWithMasks();
 GISASSimulation* MaxiGISAS();
 GISASSimulation* MaxiGISAS00();

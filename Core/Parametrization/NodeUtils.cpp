@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "NodeUtils.h"
-#include "SampleTreeIterator.h"
-#include "ISampleIteratorStrategy.h"
+#include "NodeIterator.h"
+#include "IterationStrategy.h"
 #include "RealParameter.h"
 #include "ParameterPool.h"
 #include "INode.h"
@@ -37,14 +37,14 @@ namespace {
     std::string poolToString(const INode &node) {
         std::ostringstream result;
 
-        const std::vector<RealParameter*> pars = node.getParameterPool()->getParameters();
+        const std::vector<RealParameter*> pars = node.parameterPool()->parameters();
         if (pars.empty())
             return {};
 
         result << " (";
         size_t index(0);
         for (auto par : pars) {
-            result << "'" << par->getName() << "':" << par->getValue();
+            result << "'" << par->getName() << "':" << par->value();
             ++index;
             if (index!=pars.size())
                 result << " ";
@@ -66,7 +66,7 @@ std::string NodeUtils::nodeToString(const INode& node)
 {
     std::ostringstream result;
 
-    SampleTreeIterator<SampleIteratorPreorderStrategy> it(&node);
+    NodeIterator<PreorderStrategy> it(&node);
     it.first();
     while (!it.isDone()) {
         const INode *child = it.getCurrent();

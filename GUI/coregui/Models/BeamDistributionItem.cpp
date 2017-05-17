@@ -125,7 +125,6 @@ double BeamDistributionItem::scaleFactor() const
 void BeamDistributionItem::register_distribution_group()
 {
     addGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
-    setGroupProperty(P_DISTRIBUTION, Constants::DistributionNoneType);
 }
 
 std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D() const

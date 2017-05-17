@@ -108,11 +108,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem *realData
         return true;
 
     // FIXME temporary hack to get rid from Instrument's own masks and ROI
-    DetectorItem *detectorItem = instrumentItem->detectorItem();
-    if(SessionItem *maskContainer = detectorItem->maskContainerItem()) {
-        SessionItem *item = detectorItem->takeRow(detectorItem->rowOfChild(maskContainer));
-        delete item;
-    }
+    instrumentItem->clearMasks();
 
     QString message;
     if(ImportDataAssistant::hasSameDimensions(instrumentItem, realDataItem, message))
@@ -175,12 +171,10 @@ void LinkInstrumentManager::onInstrumentChildChange(InstrumentItem *instrument, 
     if(child == nullptr)
         return;
 
-    if(child->itemName() == BasicAxisItem::P_NBINS ||
-       child->parent()->itemName() == DetectorItem::P_DETECTOR) {
+    if(child->itemName() == BasicAxisItem::P_NBINS)
         onInstrumentBinningChange(instrument);
-    } else {
+    else
         onInstrumentLayoutChange(instrument);
-    }
 }
 
 //! Updates map of instruments on insert/remove InstrumentItem event.

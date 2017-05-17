@@ -19,7 +19,7 @@
 #include "Crystal.h"
 #include "Distributions.h"
 #include "GISASSimulation.h"
-#include "HomogeneousMagneticMaterial.h"
+#include "HomogeneousMaterial.h"
 #include "IFormFactor.h"
 #include "InterferenceFunctions.h"
 #include "Layer.h"
@@ -58,7 +58,7 @@ namespace {
         "from bornagain import deg, angstrom, nm, kvector_t\n\n";
 
     const std::string defineSimulate =
-        "def simulate():\n"
+        "def run_simulation():\n"
         "    # Run Simulation\n"
         "    sample = getSample()\n"
         "    simulation = getSimulation()\n"
@@ -69,7 +69,8 @@ namespace {
 
     const std::string mainProgram =
         "if __name__ == '__main__': \n"
-        "    ba.simulateThenPlotOrSave(simulate, plot)\n";
+        "    result = run_simulation()\n"
+        "    ba.plot_intensity_data(result)\n";
 
     //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
     std::function<std::string(double)> printFunc(const IDetector2D* detector)
@@ -128,7 +129,6 @@ std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation* si
     return preamble
         + defineGetSample()
         + defineGetSimulation(simulation)
-        + definePlot(simulation)
         + defineSimulate
         + mainProgram;
 }
@@ -180,8 +180,8 @@ std::string ExportToPython::defineMaterials() const
         if (visitedMaterials.find(it->second) != visitedMaterials.end())
             continue;
         visitedMaterials.insert(it->second);
-        const IMaterial* p_material = it->first;
-        complex_t ri = p_material->getRefractiveIndex();
+        const HomogeneousMaterial* p_material = it->first;
+        complex_t ri = p_material->refractiveIndex();
         double delta = 1.0 - std::real(ri);
         double beta = std::imag(ri);
         if (p_material->isScalarMaterial()) {
@@ -190,18 +190,12 @@ std::string ExportToPython::defineMaterials() const
                    << "\", " << printDouble(delta) << ", "
                    << printDouble(beta) << ")\n";
         } else {
-            const HomogeneousMagneticMaterial* p_mag_material
-                = dynamic_cast<const HomogeneousMagneticMaterial*>(p_material);
-            if (p_mag_material == 0)
-                throw Exceptions::RuntimeErrorException(
-                    "ExportToPython::defineMaterials: "
-                    "Non scalar material should be of type HomogeneousMagneticMaterial");
-            kvector_t magnetic_field = p_mag_material->getMagneticField();
+            kvector_t magnetic_field = p_material->magneticField();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ", "
                    << ")\n";
             result << indent() << m_label->getLabelMaterial(p_material)
-                   << " = ba.HomogeneousMagneticMaterial(\"" << p_material->getName();
+                   << " = ba.HomogeneousMaterial(\"" << p_material->getName();
             result << "\", " << printDouble(delta) << ", "
                    << printDouble(beta) << ", "
                    << "magnetic_field)\n";
@@ -221,10 +215,13 @@ std::string ExportToPython::defineLayers() const
     for (auto it=themap->begin(); it != themap->end(); ++it) {
         const Layer* layer = it->first;
         result << indent() << it->second << " = ba.Layer(" <<
-            m_label->getLabelMaterial(layer->getMaterial());
-        if (layer->getThickness() != 0)
-            result << ", " << layer->getThickness();
+            m_label->getLabelMaterial(layer->material());
+        if (layer->thickness() != 0)
+            result << ", " << layer->thickness();
         result << ")\n";
+        if (layer->numberOfSlices()!=1)
+            result << indent() << it->second << ".setNumberOfSlices("
+                   << layer->numberOfSlices() << ")\n";
     }
     return result.str();
 }
@@ -257,8 +254,8 @@ std::string ExportToPython::defineParticles() const
         const Particle* p_particle = it->first;
         std::string particle_name = it->second;
         result << indent() << particle_name << " = ba.Particle("
-               << m_label->getLabelMaterial(p_particle->getMaterial()) << ", "
-               << m_label->getLabelFormFactor(p_particle->getFormFactor()) << ")\n";
+               << m_label->getLabelMaterial(p_particle->material()) << ", "
+               << m_label->getLabelFormFactor(p_particle->formFactor()) << ")\n";
         setRotationInformation(p_particle, particle_name, result);
         setPositionInformation(p_particle, particle_name, result);
     }
@@ -297,7 +294,7 @@ std::string ExportToPython::defineParticleDistributions() const
 
     int index(1);
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
-        ParameterDistribution par_distr = it->first->getParameterDistribution();
+        ParameterDistribution par_distr = it->first->parameterDistribution();
 
         // building distribution functions
         std::stringstream s_distr;
@@ -326,7 +323,7 @@ std::string ExportToPython::defineParticleDistributions() const
         }
 
         result << indent() << it->second << " = ba.ParticleDistribution("
-               << m_label->getLabelParticle(it->first->getParticle())
+               << m_label->getLabelParticle(it->first->particle())
                << ", " << s_par_distr.str() << ")\n";
         index++;
     }
@@ -345,9 +342,9 @@ std::string ExportToPython::defineParticleCompositions() const
         const ParticleComposition* p_particle_composition = it->first;
         std::string particle_composition_name = it->second;
         result << indent() << particle_composition_name << " = ba.ParticleComposition()\n";
-        for (size_t i = 0; i < p_particle_composition->getNbrParticles(); ++i) {
+        for (size_t i = 0; i < p_particle_composition->nbrParticles(); ++i) {
             result << indent() << particle_composition_name << ".addParticle("
-                   << m_label->getLabelParticle(p_particle_composition->getParticle(i))
+                   << m_label->getLabelParticle(p_particle_composition->particle(i))
             << ")\n";
         }
         setRotationInformation(p_particle_composition, particle_composition_name, result);
@@ -508,20 +505,20 @@ std::string ExportToPython::defineParticleLayouts() const
         const ILayout* iLayout = it->first;
         if (const ParticleLayout* particleLayout = dynamic_cast<const ParticleLayout*>(iLayout)) {
             result << indent() << it->second << " = ba.ParticleLayout()\n";
-            size_t numberOfParticles = particleLayout->getNumberOfParticles();
+            size_t numberOfParticles = particleLayout->numberOfParticles();
             size_t particleIndex = 0;
 
             while (particleIndex != numberOfParticles) {
-                const IAbstractParticle* p_particle = particleLayout->getParticle(particleIndex);
-                double abundance = particleLayout->getAbundanceOfParticle(particleIndex);
+                const IAbstractParticle* p_particle = particleLayout->particle(particleIndex);
+                double abundance = particleLayout->abundanceOfParticle(particleIndex);
                 result << indent() << it->second << ".addParticle("
                        << m_label->getLabelParticle(p_particle) << ", "
                        << printDouble(abundance) << ")\n";
                 particleIndex++;
             }
 
-            if( const IInterferenceFunction* p_iff = particleLayout->getInterferenceFunction() )
-                result << indent() << it->second << ".addInterferenceFunction("
+            if( const IInterferenceFunction* p_iff = particleLayout->interferenceFunction() )
+                result << indent() << it->second << ".setInterferenceFunction("
                        << m_label->getLabelInterferenceFunction(p_iff) << ")\n";
 
             switch (particleLayout->getApproximation()) {
@@ -532,7 +529,7 @@ std::string ExportToPython::defineParticleLayouts() const
                 break;
             }
             result << indent() << it->second << ".setTotalParticleSurfaceDensity("
-                   << it->first->getTotalParticleSurfaceDensity() << ")\n";
+                   << it->first->totalParticleSurfaceDensity() << ")\n";
         }
     }
     return result.str();
@@ -562,10 +559,9 @@ std::string ExportToPython::addLayoutsToLayers() const
     const auto layermap = m_label->getLayerMap();
     for (auto it=layermap->begin(); it!=layermap->end(); ++it) {
         const Layer* layer = it->first;
-        size_t numberOfLayouts = layer->getNumberOfLayouts();
-        for(size_t i = 0; i < numberOfLayouts; ++i)
+        for (auto p_layout : layer->layouts())
             result << "\n" << indent() << it->second << ".addLayout("
-                   << m_label->getLabelLayout(layer->getLayout(i)) << ")\n";
+                   << m_label->getLabelLayout(p_layout) << ")\n";
     }
     return result.str();
 }
@@ -581,22 +577,22 @@ std::string ExportToPython::defineMultiLayers() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         result << indent() << it->second << " = ba.MultiLayer()\n";
 
-        size_t numberOfLayers = it->first->getNumberOfLayers();
+        size_t numberOfLayers = it->first->numberOfLayers();
 
         if (numberOfLayers) {
             result << indent() << it->second << ".addLayer("
-                   << m_label->getLabelLayer(it->first->getLayer(0)) << ")\n";
+                   << m_label->getLabelLayer(it->first->layer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
-                const LayerInterface* layerInterface = it->first->getLayerInterface(layerIndex - 1);
+                const LayerInterface* layerInterface = it->first->layerInterface(layerIndex - 1);
                 if (m_label->getLayerRoughnessMap()->find(layerInterface->getRoughness())
                     == m_label->getLayerRoughnessMap()->end())
                     result << indent() << it->second << ".addLayer("
-                           << m_label->getLabelLayer(it->first->getLayer(layerIndex)) << ")\n";
+                           << m_label->getLabelLayer(it->first->layer(layerIndex)) << ")\n";
                 else
                     result << indent() << it->second << ".addLayerWithTopRoughness("
-                           << m_label->getLabelLayer(it->first->getLayer(layerIndex)) << ", "
+                           << m_label->getLabelLayer(it->first->layer(layerIndex)) << ", "
                            << m_label->getLabelRoughness(layerInterface->getRoughness()) << ")\n";
                 layerIndex++;
             }
@@ -700,7 +696,7 @@ std::string ExportToPython::defineDetectorResolutionFunction(
     std::ostringstream result;
     const IDetector2D* detector = simulation->getInstrument().getDetector();
 
-    if (const IDetectorResolution* p_resfunc = detector->getDetectorResolutionFunction()) {
+    if (const IDetectorResolution* p_resfunc = detector->detectorResolution()) {
         if ( auto* p_convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (auto* resfunc = dynamic_cast<const ResolutionFunction2DGaussian*>(
                     p_convfunc->getResolutionFunction2D())) {
@@ -785,33 +781,16 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
     result << std::setprecision(12);
 
     const SimulationOptions& options = simulation->getOptions();
-    if(options.getHardwareConcurrency() != options.getNumberOfThreads())
+    if (options.getHardwareConcurrency() != options.getNumberOfThreads())
         result << indent() << "simulation.getOptions().setNumberOfThreads("
                << options.getNumberOfThreads() << ")\n";
-    if(options.isIntegrate())
+    if (options.isIntegrate())
         result << indent() << "simulation.getOptions().setMonteCarloIntegration(True, "
                << options.getMcPoints() << ")\n";
-    return result.str();
-}
-
-std::string ExportToPython::definePlot(const GISASSimulation* simulation) const
-{
-    std::ostringstream result;
-    result << std::setprecision(12) <<
-        "def plot(intensities):\n"
-        "    import matplotlib.colors\n"
-        "    from matplotlib import pyplot as plt\n"
-        "    im = plt.imshow(intensities.getArray(), "
-        "norm=matplotlib.colors.LogNorm(1, intensities.getMaximum()), extent=[";
-    const Instrument& instrument = simulation->getInstrument();
-    std::vector<std::string> entries;
-    for (size_t i=0; i<instrument.getDetectorDimension(); ++ i)
-        entries.push_back( printDegrees(instrument.getDetectorAxis(i).getMin()) + ", " +
-                           printDegrees(instrument.getDetectorAxis(i).getMax()) );
-    result << StringUtils::join( entries, ", " ) << "]) \n";
-    result <<
-        "    plt.colorbar(im)\n"
-        "    plt.show()\n\n\n";
+    if (options.useAvgMaterials())
+        result << indent() << "simulation.getOptions().setUseAvgMaterials(True)\n";
+    if (options.includeSpecular())
+        result << indent() << "simulation.getOptions().setIncludeSpecular(True)\n";
     return result.str();
 }
 
@@ -823,29 +802,38 @@ std::string ExportToPython::indent() const
 void ExportToPython::setRotationInformation(
     const IParticle* p_particle, std::string name, std::ostringstream& result) const
 {
-    if (p_particle->getRotation()) {
-        double alpha, beta, gamma;
-        p_particle->getRotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
-        switch (p_particle->getRotation()->getTransform3D().getRotationType()) {
+    if (p_particle->rotation()) {
+        switch (p_particle->rotation()->getTransform3D().getRotationType()) {
         case Transform3D::EULER:
+        {
+            double alpha, beta, gamma;
+            p_particle->rotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
             result << indent() << name << "_rotation = ba.RotationEuler("
                    << printDegrees(alpha) << ", " << printDegrees(beta)
                    << ", " << printDegrees(gamma) << ")\n";
             break;
+        }
         case Transform3D::XAXIS:
+        {
+            double alpha = p_particle->rotation()->getTransform3D().calculateRotateXAngle();
             result << indent() << name << "_rotation = ba.RotationX("
-                   << printDegrees(beta) << ")\n";
+                   << printDegrees(alpha) << ")\n";
             break;
+        }
         case Transform3D::YAXIS:
+        {
+            double alpha = p_particle->rotation()->getTransform3D().calculateRotateYAngle();
             result << indent() << name << "_rotation = ba.RotationY("
-                   << printDegrees(gamma) << ")\n";
+                   << printDegrees(alpha) << ")\n";
             break;
+        }
         case Transform3D::ZAXIS:
+        {
+            double alpha = p_particle->rotation()->getTransform3D().calculateRotateZAngle();
             result << indent() << name << "_rotation = ba.RotationZ("
                    << printDegrees(alpha) << ")\n";
             break;
-        default:
-            break;
+        }
         }
         result << indent() << name << ".setRotation(" << name << "_rotation)\n";
     }
@@ -854,7 +842,7 @@ void ExportToPython::setRotationInformation(
 void ExportToPython::setPositionInformation(
     const IParticle* p_particle, std::string name, std::ostringstream& result) const
 {
-    kvector_t pos = p_particle->getPosition();
+    kvector_t pos = p_particle->position();
     bool has_position_info = (pos != kvector_t());
 
     if (has_position_info) {

@@ -34,9 +34,9 @@ public:
     double getWidth() const { return m_width; }
     double getHeight() const { return m_height; }
 
-    double getRadialExtension() const override final { return m_width; }
+    double radialExtension() const override final { return m_width; }
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
 
 protected:
     void onChange() override final;

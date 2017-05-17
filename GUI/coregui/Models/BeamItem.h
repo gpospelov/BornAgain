@@ -19,6 +19,8 @@
 
 #include "SessionItem.h"
 
+class Beam;
+
 class BA_CORE_API_ BeamItem : public SessionItem
 {
 
@@ -27,8 +29,8 @@ public:
     static const QString P_WAVELENGTH;
     static const QString P_INCLINATION_ANGLE;
     static const QString P_AZIMUTHAL_ANGLE;
-    explicit BeamItem();
-    virtual ~BeamItem(){}
+    BeamItem();
+    virtual ~BeamItem();
 
     double getIntensity() const;
     void setIntensity(double value);
@@ -41,6 +43,8 @@ public:
 
     double getAzimuthalAngle() const;
     void setAzimuthalAngle(double value, const QString &distribution_name = QString());
+
+    std::unique_ptr<Beam> createBeam() const;
 };
 
 #endif // BEAMITEM_H

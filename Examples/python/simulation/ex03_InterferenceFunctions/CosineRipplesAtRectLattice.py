@@ -5,9 +5,6 @@ import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
-phi_min, phi_max = -1.5, 1.5
-alpha_min, alpha_max = 0.0, 2.5
-
 
 def get_sample():
     """
@@ -31,7 +28,7 @@ def get_sample():
     pdf = ba.FTDecayFunction2DCauchy(
         1000.*nm/2./numpy.pi, 100.*nm/2./numpy.pi)
     interference.setDecayFunction(pdf)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # assemble the sample
     air_layer = ba.Layer(m_ambience)
@@ -49,8 +46,8 @@ def get_simulation():
     characterizing the input beam and output detector
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, phi_min*deg, phi_max*deg,
-                                     100, alpha_min*deg, alpha_max*deg)
+    simulation.setDetectorParameters(100, -1.5*deg, 1.5*deg,
+                                     100, 0.0*deg, 2.5*deg)
     simulation.setBeamParameters(1.6*angstrom, 0.3*deg, 0.0*deg)
     return simulation
 
@@ -59,9 +56,8 @@ def run_simulation():
     """
     Runs simulation and returns intensity map.
     """
-    sample = get_sample()
     simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation.setSample(get_sample())
     simulation.runSimulation()
     return simulation.getIntensityData()
 

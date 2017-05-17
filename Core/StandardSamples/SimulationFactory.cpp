@@ -52,6 +52,10 @@ SimulationFactory::SimulationFactory()
                  StandardSimulations::MiniGISASSpinFlipZ,
                  "GISAS simulation measuring spin flip channel");
 
+    registerItem("MiniGISASSpecular",
+                 StandardSimulations::MiniGISASSpecularPeak,
+                 "GISAS simulation including specular peak");
+
     registerItem("GISASWithMasks",
                  StandardSimulations::GISASWithMasks,
                  "GISAS simulation with small detector and various masks");

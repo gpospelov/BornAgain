@@ -30,6 +30,8 @@ public:
     static const QString P_NTHREADS;
     static const QString P_COMPUTATION_METHOD;
     static const QString P_MC_POINTS;
+    static const QString P_FRESNEL_MATERIAL_METHOD;
+    static const QString P_INCLUDE_SPECULAR_PEAK;
 
     explicit SimulationOptionsItem();
 
@@ -37,15 +39,22 @@ public:
     bool runImmediately() const;
     bool runInBackground() const;
 
-    void setRunPolicy(const QString &policy);
+    void setRunPolicy(const QString& policy);
 
-    void setComputationMethod(const QString &name);
+    void setComputationMethod(const QString& name);
     QString getComputationMethod() const;
 
     int getNumberOfMonteCarloPoints() const;
     void setNumberOfMonteCarloPoints(int npoints);
 
+    void setFresnelMaterialMethod(const QString& name);
+    QString getFresnelMaterialMethod() const;
+
+    void setIncludeSpecularPeak(const QString& name);
+    QString getIncludeSpecularPeak() const;
+
 private:
+    QString runPolicy() const;
     QStringList getCPUUsageOptions();
 };
 

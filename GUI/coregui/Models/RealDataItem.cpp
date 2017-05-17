@@ -20,7 +20,7 @@
 #include "ComboProperty.h"
 #include "SessionModel.h"
 #include "ComboProperty.h"
-#include "JobItemHelper.h"
+#include "JobItemUtils.h"
 #include "ImportDataAssistant.h"
 #include "MaskUnitsConverter.h"
 #include "JobItemFunctions.h"
@@ -70,7 +70,7 @@ RealDataItem::RealDataItem()
             MaskUnitsConverter converter;
             converter.convertToNbins(intensityDataItem());
 
-            JobItemHelper::updateDataAxes(intensityDataItem(), m_linkedInstrument);
+            JobItemUtils::updateDataAxes(intensityDataItem(), m_linkedInstrument);
 
             converter.convertFromNbins(intensityDataItem());
 
@@ -129,8 +129,7 @@ void RealDataItem::updateToInstrument()
     Q_ASSERT(item);
 
     if(m_linkedInstrument == 0) {
-        ComboProperty combo;
-        combo << Constants::UnitsNbins;
+        ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
         item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
         item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
         item->setXaxisTitle("X [nbins]");
@@ -143,7 +142,7 @@ void RealDataItem::updateToInstrument()
     }
 
     else {
-        JobItemHelper::adjustAxesUnitsToInstrument(item, m_linkedInstrument);
+        JobItemUtils::setIntensityItemAxesUnits(item, m_linkedInstrument);
     }
 
 }

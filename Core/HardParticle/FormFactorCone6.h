@@ -35,6 +35,9 @@ public:
     double getAlpha() const { return m_alpha; }
 
 protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
     void onChange() override final;
 
 private:

@@ -1,7 +1,6 @@
 """
 Long boxes at 1D lattice, ba.OffSpecular simulation
 """
-import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -34,7 +33,7 @@ def get_sample():
     transform = ba.RotationZ(90.0*deg)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(box, 1.0, ba.kvector_t(0.0, 0.0, 0.0), transform)
-    particle_layout.addInterferenceFunction(interference)
+    particle_layout.setInterferenceFunction(interference)
 
     # assembling the sample
     air_layer = ba.Layer(m_ambience)

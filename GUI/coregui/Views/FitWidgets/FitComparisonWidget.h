@@ -39,50 +39,34 @@ public:
     explicit FitComparisonWidget(QWidget *parent = 0);
     ~FitComparisonWidget();
 
-    void setItem(class SessionItem *item);
-
     virtual QList<QAction *> actionList();
 
 private slots:
     void onResetViewAction();
 
 protected:
-    void setJobItem(class JobItem *jobItem);
-    virtual void showEvent(QShowEvent *);
-    virtual void hideEvent(QHideEvent *);
+    virtual void subscribeToItem();
+    virtual void unsubscribeFromItem();
 
 private:
-
-    struct LabelBackup {
-        QString xlabel, ylabel;
-    };
-
-    void processJobItemItem(JobItem *jobItem);
-    void setSimulatedDataItem(IntensityDataItem *simulatedDataItem);
-
     IntensityDataItem *createRelativeDifferenceItem();
     void calculateRelativeDifference();
-    void backupLabels(IntensityDataItem *intensityItem);
     void restoreLabels(IntensityDataItem *intensityItem);
     void removeLabels(IntensityDataItem *intensityItem);
+
+    JobItem* jobItem();
+    IntensityDataItem* realDataItem();
+    IntensityDataItem* simulatedDataItem();
 
     ColorMapCanvas *m_realDataPlot;
     ColorMapCanvas *m_simulatedDataPlot;
     ColorMapCanvas *m_relativeDiffPlot;
-
-
     FitFlowWidget *m_fitFlowWidget;
     ColorMapLabel *m_statusLabel;
 
-    JobItem *m_currentJobItem;
-    IntensityDataItem *m_realDataItem;
-    IntensityDataItem *m_simulatedDataItem;
     IntensityDataItem *m_relativeDiffItem;
-
     QAction *m_resetViewAction;
-
     SessionModel *m_tempIntensityDataModel;
-    QMap<IntensityDataItem *, LabelBackup> m_labelBackup;
 };
 
 #endif // FITCOMPARISONWIDGET_H

@@ -38,11 +38,14 @@ public:
     double getAlpha() const { return m_alpha; }
     double getRadius() const { return m_radius; }
 
-    double getRadialExtension() const override final { return m_radius; }
+    double radialExtension() const override final { return m_radius; }
 
-    complex_t evaluate_for_q (const cvector_t q) const override final;
+    complex_t evaluate_for_q (cvector_t q) const override final;
 
 protected:
+    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                 kvector_t translation) const override final;
+
     void onChange() override final;
 
 private:

@@ -361,7 +361,6 @@ const IHistogram& IHistogram::operator+=(const IHistogram& right)
     return *this;
 }
 
-// TODO merge with IntensityDataFunctions::createRelativeDifferenceData
 IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram& rhs)
 {
     if(!hasSameDimensions(rhs))

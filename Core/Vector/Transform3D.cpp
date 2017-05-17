@@ -97,6 +97,21 @@ void Transform3D::calculateEulerAngles(
     }
 }
 
+double Transform3D::calculateRotateXAngle() const
+{
+    return std::atan2(m_matrix(2,1), m_matrix(1,1));
+}
+
+double Transform3D::calculateRotateYAngle() const
+{
+    return std::atan2(m_matrix(0,2), m_matrix(2,2));
+}
+
+double Transform3D::calculateRotateZAngle() const
+{
+    return std::atan2(m_matrix(1,0), m_matrix(0,0));
+}
+
 Transform3D Transform3D::getInverse() const
 {
     Transform3D result(m_inverse_matrix);
@@ -183,12 +198,6 @@ void Transform3D::print(std::ostream& ostr) const
     ostr << "Transform3D: " << m_matrix;
 }
 
-Transform3D::Transform3D(const Eigen::Matrix3d& matrix)
-: m_matrix(matrix)
-{
-    m_inverse_matrix = m_matrix.inverse();
-}
-
 bool Transform3D::isXRotation() const
 {
     if (m_matrix(0,0) != 1.0) return false;
@@ -217,6 +226,12 @@ bool Transform3D::isZRotation() const
     if (m_matrix(2,0) != 0.0) return false;
     if (m_matrix(2,1) != 0.0) return false;
     return true;
+}
+
+Transform3D::Transform3D(const Eigen::Matrix3d& matrix)
+: m_matrix(matrix)
+{
+    m_inverse_matrix = m_matrix.inverse();
 }
 
 double BottomZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation)

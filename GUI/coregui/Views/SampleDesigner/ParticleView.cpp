@@ -98,12 +98,7 @@ void ParticleView::update_appearance()
 
 void ParticleView::updatePixmap()
 {
-    GroupProperty_t group_property
-        = dynamic_cast<GroupItem *>(
-              getItem()->getItem(ParticleItem::P_FORM_FACTOR))
-              ->groupProperty();
-    QString current_ff_type = group_property->currentType();
-    QString filename
-        = QString(":/widgetbox/images/ff_%1_32.png").arg(current_ff_type);
+    QString ff_type = getItem()->item<GroupItem>(ParticleItem::P_FORM_FACTOR).currentType();
+    QString filename = QString(":/widgetbox/images/ff_%1_32.png").arg(ff_type);
     m_pixmap = QPixmap(filename);
 }

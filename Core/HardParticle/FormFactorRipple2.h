@@ -40,9 +40,9 @@ public:
     double getLength() const { return m_length; }
     double getAsymmetry() const { return m_d; }
 
-    double getRadialExtension() const override final;
+    double radialExtension() const override final;
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
 
 protected:
     void onChange() override final;

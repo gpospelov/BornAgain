@@ -26,6 +26,8 @@ class FitSuiteItem;
 //! The FitFlowWidget class is intended for showing chi2 .vs interation count dependency.
 //! The main goal is to fill vacant place in FitComparisonWidget.
 
+//  FIXME Switch to SessionItemWidget
+
 class BA_CORE_API_ FitFlowWidget : public QFrame
 {
     Q_OBJECT

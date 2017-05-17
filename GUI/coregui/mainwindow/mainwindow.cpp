@@ -36,6 +36,7 @@
 #include "projectmanager.h"
 #include "stylehelper.h"
 #include "tooltipdatabase.h"
+#include "TestView.h"
 #include <QApplication>
 #include <QCloseEvent>
 #include <QMessageBox>
@@ -130,9 +131,6 @@ void MainWindow::onChangeTabWidget(int index)
     if(index == WELCOME)
     {
         m_welcomeView->updateRecentProjectPanel();
-    }
-    else if (index == INSTRUMENT) {
-        m_instrumentView->updateView();
     }
     else if(index == SIMULATION) {
         m_simulationView->updateSimulationViewElements();
@@ -250,9 +248,6 @@ void MainWindow::initViews()
 
     m_jobView = new JobView(this);
 //    TestView *testView = new TestView(this);
-//    m_sessionModelView = new SessionModelView(this);
-//    TestFitWidgets *testFitWidgets = new TestFitWidgets(this);
-    //m_fitView = new FitView(this);
 
     m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_welcomeview.svg"), "Welcome");
     m_tabWidget->setTabToolTip(WELCOME, QStringLiteral("Switch to Welcome View"));
@@ -272,9 +267,7 @@ void MainWindow::initViews()
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobview.svg"), "Jobs");
     m_tabWidget->setTabToolTip(JOB, QStringLiteral("Switch to see job results, tune parameters real time,\nfit the data"));
 
-    //m_tabWidget->insertTab(FIT, m_fitView, QIcon(":/images/main_jobview.svg"), "Fit");
-    //m_tabWidget->insertTab(MODELVIEW, m_sessionModelView, QIcon(":/images/main_sessionmodel.svg"), "Models");
-//    m_tabWidget->insertTab(TESTVIEW, testView, QIcon(":/images/main_jobview.svg"), "TestView");
+//    m_tabWidget->insertTab(TESTVIEW, testView, QIcon(":/images/main_testview.svg"), "TestView");
 
     m_tabWidget->setCurrentIndex(WELCOME);
 

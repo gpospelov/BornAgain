@@ -21,9 +21,19 @@
 #include "IntensityDataItem.h"
 #include "SavePlotAssistant.h"
 #include "projectmanager.h"
+#include "ComboProperty.h"
 #include <QAction>
 #include <QVBoxLayout>
 #include <QMouseEvent>
+#include <QSettings>
+
+namespace {
+
+QString group_name() { return QStringLiteral("IntensityDataCanvas/"); }
+QString gradient_setting_name() { return group_name()+IntensityDataItem::P_GRADIENT; }
+QString interpolation_setting_name() { return group_name()+IntensityDataItem::P_IS_INTERPOLATED;}
+
+}
 
 IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
     : SessionItemWidget(parent)
@@ -51,6 +61,8 @@ void IntensityDataCanvas::setItem(SessionItem* intensityItem)
 {
     SessionItemWidget::setItem(intensityItem);
     m_colorMap->setItem(intensityDataItem());
+
+    applyPersistentSettings();
 }
 
 QSize IntensityDataCanvas::sizeHint() const
@@ -86,6 +98,16 @@ void IntensityDataCanvas::onMousePress(QMouseEvent* event)
         emit customContextMenuRequested(event->globalPos());
 }
 
+void IntensityDataCanvas::subscribeToItem()
+{
+    intensityDataItem()->mapper()->setOnPropertyChange(
+        [this](const QString& name)
+    {
+        onPropertyChanged(name);
+    }, this);
+
+}
+
 IntensityDataItem* IntensityDataCanvas::intensityDataItem()
 {
     IntensityDataItem* result = dynamic_cast<IntensityDataItem*>(currentItem());
@@ -106,4 +128,37 @@ void IntensityDataCanvas::initActions()
     m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
     m_savePlotAction->setToolTip("Save Plot");
     connect(m_savePlotAction, SIGNAL(triggered()), this, SLOT(onSavePlotAction()));
+}
+
+//! Reads gradient/ interpolation settings from IntensityDataItem and writes to persistant
+//! project settings.
+
+void IntensityDataCanvas::onPropertyChanged(const QString& name)
+{
+    if (name == IntensityDataItem::P_GRADIENT) {
+        QSettings settings;
+        settings.setValue(gradient_setting_name(), intensityDataItem()->getGradient());
+    } else if (name == IntensityDataItem::P_IS_INTERPOLATED) {
+        QSettings settings;
+        settings.setValue(interpolation_setting_name(), intensityDataItem()->isInterpolated());
+    }
+}
+
+//! Apply persistent settings (gradient, interpolation) to IntensityDataItem.
+
+void IntensityDataCanvas::applyPersistentSettings()
+{
+    QSettings settings;
+
+    if (settings.contains(gradient_setting_name())) {
+        ComboProperty combo = intensityDataItem()->getItemValue(IntensityDataItem::P_GRADIENT)
+                                  .value<ComboProperty>();
+        combo.setValue(settings.value(gradient_setting_name()).toString());
+        intensityDataItem()->setItemValue(IntensityDataItem::P_GRADIENT, combo.getVariant());
+    }
+
+    if (settings.contains(interpolation_setting_name())) {
+        bool value = settings.value(interpolation_setting_name()).toBool();
+        intensityDataItem()->setItemValue(IntensityDataItem::P_IS_INTERPOLATED, value);
+    }
 }

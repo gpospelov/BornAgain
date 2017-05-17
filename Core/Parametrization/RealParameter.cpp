@@ -24,9 +24,9 @@ RealParameter::RealParameter(
     , m_limits(limits)
     , m_attr(attr)
 {
-    if(!m_limits.isInRange(getValue())) {
+    if(!m_limits.isInRange(value())) {
         std::ostringstream message;
-        message << "Cannot initialize parameter " << fullName() << " with value " << getValue()
+        message << "Cannot initialize parameter " << fullName() << " with value " << value()
                 << ": out of bounds [" << limits << "]\n";
         throw std::runtime_error(message.str());
     }

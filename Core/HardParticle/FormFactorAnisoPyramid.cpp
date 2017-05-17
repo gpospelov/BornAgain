@@ -51,6 +51,16 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     onChange();
 }
 
+IFormFactor* FormFactorAnisoPyramid::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                     kvector_t translation) const
+{
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    double dbase_edge = 2*effects.dz_bottom*MathFunctions::cot(m_alpha);
+    FormFactorAnisoPyramid slicedff(m_length - dbase_edge, m_width - dbase_edge,
+                                    m_height - effects.dz_bottom - effects.dz_top, m_alpha);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
+}
+
 void FormFactorAnisoPyramid::onChange()
 {
     double cot_alpha = MathFunctions::cot(m_alpha);

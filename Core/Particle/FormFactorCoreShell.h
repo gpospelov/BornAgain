@@ -36,13 +36,13 @@ public:
 
     void accept(INodeVisitor* visitor) const override  final { visitor->visit(this); }
 
-    double getRadialExtension() const override final;
+    double radialExtension() const override final;
 
     double bottomZ(const IRotation& rotation) const override final;
 
     double topZ(const IRotation& rotation) const override final;
 
-    void setAmbientMaterial(const IMaterial& material) override final;
+    void setAmbientMaterial(HomogeneousMaterial material) override final;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 

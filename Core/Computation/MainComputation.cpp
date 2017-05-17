@@ -24,44 +24,48 @@
 #include "ScalarFresnelMap.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
-#include <iterator> // needed for back_inserter
+
+namespace
+{
+HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_mat,
+                                             const std::vector<HomogeneousRegion>& regions);
+}
 
 MainComputation::MainComputation(
-    const MultiLayer& multi_layer,
+    const MultiLayer& multilayer,
     const SimulationOptions& options,
     ProgressHandler& progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
-    : mP_multi_layer(multi_layer.clone())
-    , mP_inverted_multilayer(multi_layer.cloneInvertB())
+    : mP_multi_layer(multilayer.cloneSliced(options.useAvgMaterials()))
     , m_sim_options(options)
     , m_progress(&progress)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
-    , mP_fresnel_map(createFresnelMap(mP_multi_layer.get(), mP_inverted_multilayer.get()))
 {
-    size_t nLayers = mP_multi_layer->getNumberOfLayers();
+    mP_fresnel_map.reset(createFresnelMap());
+    bool polarized = mP_multi_layer->containsMagneticMaterial();
+    size_t nLayers = mP_multi_layer->numberOfLayers();
     for (size_t i=0; i<nLayers; ++i) {
-        const Layer* layer = mP_multi_layer->getLayer(i);
-        for (size_t j=0; j<layer->getNumberOfLayouts(); ++j)
-            m_computation_terms.push_back(
-                        new ParticleLayoutComputation(mP_multi_layer.get(), mP_fresnel_map.get(),
-                                                      layer->getLayout(j), i));
+        const Layer* layer = mP_multi_layer->layer(i);
+        for (auto p_layout : layer->layouts())
+            m_computation_terms.emplace_back(
+                        new ParticleLayoutComputation(
+                            mP_multi_layer.get(), mP_fresnel_map.get(), p_layout, i,
+                            m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())
-        m_computation_terms.push_back(new RoughMultiLayerComputation(mP_multi_layer.get(),
+        m_computation_terms.emplace_back(new RoughMultiLayerComputation(mP_multi_layer.get(),
                                                                      mP_fresnel_map.get()));
     if (m_sim_options.includeSpecular())
-        m_computation_terms.push_back(new SpecularComputation(mP_multi_layer.get(),
+        m_computation_terms.emplace_back(new SpecularComputation(mP_multi_layer.get(),
                                                               mP_fresnel_map.get()));
+    initFresnelMap();
 }
 
 MainComputation::~MainComputation()
-{
-    for (IComputationTerm* comp: m_computation_terms)
-        delete comp;
-}
+{}
 
 void MainComputation::run()
 {
@@ -82,20 +86,81 @@ void MainComputation::run()
 // This allows them to be added and normalized together to the beam afterwards
 void MainComputation::runProtected()
 {
-    bool polarized = mP_multi_layer->containsMagneticMaterial();
-    // add all IComputationTerms:
-    for (const IComputationTerm* comp: m_computation_terms) {
+    // add intensity of all IComputationTerms:
+    for (auto& comp: m_computation_terms) {
         if (!m_progress->alive())
             return;
-        comp->eval(m_sim_options, m_progress, polarized, m_begin_it, m_end_it );
+        comp->eval(m_progress, m_begin_it, m_end_it );
     }
 }
 
-IFresnelMap* MainComputation::createFresnelMap(const MultiLayer* p_multilayer,
-                                               const MultiLayer* p_inverted_multilayer)
+IFresnelMap* MainComputation::createFresnelMap()
 {
-        if (!p_multilayer->requiresMatrixRTCoefficients())
-            return new ScalarFresnelMap(p_multilayer);
+        if (!mP_multi_layer->requiresMatrixRTCoefficients())
+            return new ScalarFresnelMap();
         else
-            return new MatrixFresnelMap(p_multilayer, p_inverted_multilayer);
+            return new MatrixFresnelMap();
+}
+
+std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer()
+{
+    std::map<size_t, std::vector<HomogeneousRegion>> region_map;
+    for (auto& comp: m_computation_terms) {
+        comp->mergeRegionMap(region_map);
+    }
+    std::unique_ptr<MultiLayer> P_result(mP_multi_layer->clone());
+    auto last_layer_index = P_result->numberOfLayers()-1;
+    for (auto& entry : region_map)
+    {
+        auto i_layer = entry.first;
+        if (i_layer==0 || i_layer==last_layer_index)
+            continue;  // skip semi-infinite layers
+        auto layer_mat = P_result->layerMaterial(i_layer);
+        if (!checkRegions(entry.second))
+            throw std::runtime_error("MainComputation::getAveragedMultilayer: "
+                                     "total volumetric fraction of particles exceeds 1!");
+        auto new_mat = CalculateAverageMaterial(layer_mat, entry.second);
+        P_result->setLayerMaterial(i_layer, new_mat);
+    }
+    return P_result;
+}
+
+void MainComputation::initFresnelMap()
+{
+    if (m_sim_options.useAvgMaterials()) {
+        auto avg_multilayer = getAveragedMultilayer();
+        mP_fresnel_map->setMultilayer(*avg_multilayer);
+    }
+    else
+        mP_fresnel_map->setMultilayer(*mP_multi_layer);
+}
+
+bool MainComputation::checkRegions(const std::vector<HomogeneousRegion>& regions) const
+{
+    double total_fraction = 0;
+    for (auto& region : regions)
+        total_fraction += region.m_volume;
+    return (total_fraction >= 0 && total_fraction <= 1);
+}
+
+namespace
+{
+HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_mat,
+                                             const std::vector<HomogeneousRegion>& regions)
+{
+    kvector_t magnetization_layer = layer_mat.magneticField();
+    complex_t refr_index2_layer = layer_mat.refractiveIndex2();
+    kvector_t magnetization_avg = magnetization_layer;
+    complex_t refr_index2_avg = refr_index2_layer;
+    for (auto& region : regions)
+    {
+        kvector_t magnetization_region = region.m_material.magneticField();
+        complex_t refr_index2_region = region.m_material.refractiveIndex2();
+        magnetization_avg += region.m_volume*(magnetization_region - magnetization_layer);
+        refr_index2_avg += region.m_volume*(refr_index2_region - refr_index2_layer);
+    }
+    complex_t refr_index_avg = std::sqrt(refr_index2_avg);
+    HomogeneousMaterial result(layer_mat.getName()+"_avg", refr_index_avg, magnetization_avg);
+    return result;
+}
 }

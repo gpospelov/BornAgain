@@ -24,6 +24,11 @@
 double IntensityDataFunctions::getRelativeDifference(
         const OutputData<double>& dat, const OutputData<double>& ref)
 {
+    if(!dat.hasSameDimensions(ref))
+        throw Exceptions::RuntimeErrorException(
+            "IntensityDataFunctions::getRelativeDifference() -> "
+            "Error. Different dimensions of data and reference.");
+
     double diff = 0.0;
     for(size_t i=0; i<dat.getAllocatedSize(); ++i)
         diff += Numeric::get_relative_difference(dat[i], ref[i]);
@@ -42,7 +47,6 @@ double IntensityDataFunctions::getRelativeDifference(
         *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()) );
 }
 
-// TODO merge with IHistogram::relativeDifferenceHistogram(
 OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(
     const OutputData<double>& data, const OutputData<double>& reference)
 {
@@ -68,7 +72,6 @@ OutputData<double>* IntensityDataFunctions::createClippedDataSet(
     OutputData<double>* result = new OutputData<double>;
     for(size_t i_axis=0; i_axis<origin.getRank(); i_axis++) {
         const IAxis& axis = origin.getAxis(i_axis);
-        //TODO: replace this with exception safe code
         IAxis* new_axis;
         if(i_axis == 0)
             new_axis = axis.createClippedAxis(x1, x2);

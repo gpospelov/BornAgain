@@ -49,7 +49,7 @@ bool FormFactorLongRipple1Lorentz::check_initialization() const
     return result;
 }
 
-double FormFactorLongRipple1Lorentz::getRadialExtension() const
+double FormFactorLongRipple1Lorentz::radialExtension() const
 {
     return ( m_width + m_length ) / 4.0;
 }
@@ -62,7 +62,7 @@ complex_t FormFactorLongRipple1Lorentz::Integrand(double Z) const
 }
 
 //! Complex formfactor.
-complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(cvector_t q) const
 {
     m_q = q;
 

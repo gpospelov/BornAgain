@@ -16,8 +16,8 @@
 #include "INode.h"
 #include "Exceptions.h"
 #include "NodeUtils.h"
-#include "SampleTreeIterator.h"
-#include "ISampleIteratorStrategy.h"
+#include "NodeIterator.h"
+#include "IterationStrategy.h"
 #include "ParameterPool.h"
 #include <algorithm>
 
@@ -64,6 +64,10 @@ int INode::copyNumber(const INode* node) const
 
     int result(-1), count(0);
     for (auto child : getChildren()) {
+
+        if(child == nullptr)
+            throw std::runtime_error("INode::copyNumber() -> Error. Nullptr as child.");
+
         if (child == node)
             result = count;
 
@@ -89,12 +93,12 @@ ParameterPool* INode::createParameterTree() const
 {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
 
-    SampleTreeIterator<SampleIteratorPreorderStrategy> it(this);
+    NodeIterator<PreorderStrategy> it(this);
     it.first();
     while (!it.isDone()) {
         const INode *child = it.getCurrent();
         const std::string path = NodeUtils::nodePath(*child, this->parent()) + "/";
-        child->getParameterPool()->copyToExternalPool(path, result.get());
+        child->parameterPool()->copyToExternalPool(path, result.get());
         it.next();
     }
 

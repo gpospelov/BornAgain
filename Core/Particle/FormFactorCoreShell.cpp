@@ -32,9 +32,9 @@ FormFactorCoreShell*FormFactorCoreShell::clone() const
     return new FormFactorCoreShell(mP_core->clone(), mP_shell->clone());
 }
 
-double FormFactorCoreShell::getRadialExtension() const
+double FormFactorCoreShell::radialExtension() const
 {
-    return mP_shell->getRadialExtension();
+    return mP_shell->radialExtension();
 }
 
 double FormFactorCoreShell::bottomZ(const IRotation& rotation) const
@@ -47,7 +47,7 @@ double FormFactorCoreShell::topZ(const IRotation& rotation) const
     return mP_shell->topZ(rotation);
 }
 
-void FormFactorCoreShell::setAmbientMaterial(const IMaterial& material)
+void FormFactorCoreShell::setAmbientMaterial(HomogeneousMaterial material)
 {
     mP_shell->setAmbientMaterial(material);
 }

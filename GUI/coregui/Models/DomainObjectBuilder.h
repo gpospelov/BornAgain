@@ -27,6 +27,7 @@ class ParticleLayout;
 class IInterferenceFunction;
 class Beam;
 class SessionItem;
+class InstrumentItem;
 
 class BA_CORE_API_ DomainObjectBuilder
 {
@@ -36,8 +37,7 @@ public:
     std::unique_ptr<ParticleLayout> buildParticleLayout(const SessionItem &item) const;
     std::unique_ptr<IInterferenceFunction>
     buildInterferenceFunction(const SessionItem &item) const;
-    std::unique_ptr<Instrument> buildInstrument(const SessionItem &instrument_item) const;
-    std::unique_ptr<Beam> buildBeam(const SessionItem &item) const;
+    std::unique_ptr<Instrument> buildInstrument(const InstrumentItem& instrumentItem) const;
 };
 
 #endif // DOMAINOBJECTBUILDER_H

@@ -21,6 +21,7 @@
 const QString LayerItem::P_THICKNESS = QString::fromStdString(BornAgain::Thickness);
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
 const QString LayerItem::P_MATERIAL = "Material";
+const QString LayerItem::P_NSLICES = "Number of slices";
 const QString LayerItem::T_LAYOUTS = "Layout tag";
 
 LayerItem::LayerItem()
@@ -28,10 +29,13 @@ LayerItem::LayerItem()
 {
     addProperty(P_THICKNESS, 0.0);
     getItem(P_THICKNESS)->setLimits(RealLimits::lowerLimited(0.0));
+
     addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
 
+    addProperty(P_NSLICES, 1)->setLimits(RealLimits::lowerLimited(0.0));
+
     addGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
-    setGroupProperty(P_ROUGHNESS, Constants::LayerZeroRoughnessType);
+
     registerTag(T_LAYOUTS, 0, -1, QStringList() << Constants::ParticleLayoutType);
     setDefaultTag(T_LAYOUTS);
 }

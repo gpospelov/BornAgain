@@ -20,7 +20,7 @@
 #include "INodeVisitor.h"
 #include "MaterialProperty.h"
 
-class IMaterial;
+class HomogeneousMaterial;
 class InstrumentModel;
 class SampleModel;
 class SessionItem;
@@ -98,7 +98,7 @@ public:
 private:
     void buildAbundanceInfo(SessionItem* particleItem);
     void buildPositionInfo(SessionItem* particleItem, const IParticle* sample);
-    MaterialProperty createMaterialFromDomain(const IMaterial*);
+    MaterialProperty createMaterialFromDomain(const HomogeneousMaterial*);
 
     SampleModel* m_sampleModel;
 

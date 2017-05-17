@@ -83,6 +83,8 @@ public:
 
     // access tagged items
     SessionItem *getItem(const QString &tag = QString(), int row = 0) const;
+    template<typename T> T& item(const QString &tag) const;
+
     QVector<SessionItem *> getItems(const QString &tag = QString()) const;
     bool insertItem(int row, SessionItem *item, const QString &tag = QString());
     SessionItem *takeItem(int row, const QString &tag);
@@ -94,7 +96,8 @@ public:
     SessionItem *addGroupProperty(const QString &groupName, const QString &groupType);
 
     SessionItem *setGroupProperty(const QString &name, const QString &value) const;
-    SessionItem *getGroupItem(const QString &name, const QString &type = QString()) const;
+    SessionItem *getGroupItem(const QString &groupName) const;
+    template<typename T> T& groupItem(const QString &groupName) const;
 
     // access data stored in roles
     virtual QVariant data(int role) const;
@@ -160,5 +163,21 @@ private:
 };
 
 Q_DECLARE_METATYPE(SessionItem*) // INVESTIGATE something requires sessionitem be declared as meta type
+
+template<typename T>
+T& SessionItem::item(const QString& tag) const
+{
+    T* t = dynamic_cast<T*>(getItem(tag));
+    Q_ASSERT(t);
+    return *t;
+}
+
+template<typename T>
+T& SessionItem::groupItem(const QString& groupName) const
+{
+    T* t = dynamic_cast<T*>(getGroupItem(groupName));
+    Q_ASSERT(t);
+    return *t;
+}
 
 #endif // SESSIONITEM_H

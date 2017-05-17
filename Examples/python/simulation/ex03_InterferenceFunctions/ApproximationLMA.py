@@ -1,12 +1,8 @@
 """
 Cylinders of two different sizes in Local Monodisperse Approximation
 """
-import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
-
-phi_min, phi_max = 0.0, 2.0
-alpha_min, alpha_max = 0.0, 2.0
 
 
 def get_sample():
@@ -41,14 +37,14 @@ def get_sample():
         22.8*nm, 1e3*nm)
     interference2.setProbabilityDistribution(pdf)
 
-     # assembling the sample
+    # assembling the sample
     particle_layout1 = ba.ParticleLayout()
     particle_layout1.addParticle(cylinder1, 0.8)
-    particle_layout1.addInterferenceFunction(interference1)
+    particle_layout1.setInterferenceFunction(interference1)
 
     particle_layout2 = ba.ParticleLayout()
     particle_layout2.addParticle(cylinder2, 0.2)
-    particle_layout2.addInterferenceFunction(interference2)
+    particle_layout2.setInterferenceFunction(interference2)
 
     air_layer = ba.Layer(m_ambience)
     air_layer.addLayout(particle_layout1)
@@ -65,8 +61,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
-                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setDetectorParameters(200, 0.0*deg, 2.0*deg,
+                                     200, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
@@ -75,9 +71,8 @@ def run_simulation():
     """
     Runs simulation and returns intensity map.
     """
-    sample = get_sample()
     simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation.setSample(get_sample())
     simulation.runSimulation()
     return simulation.getIntensityData()
 

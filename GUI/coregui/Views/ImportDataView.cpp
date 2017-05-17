@@ -69,7 +69,7 @@ void ImportDataView::onSelectionChanged(SessionItem *item)
     if(!item) return;
 
     bool isNew(false);
-    m_stackedWidget->setItem(item, isNew);
+    m_stackedWidget->setItem(item, &isNew);
     if(isNew) {
 //        RealDataEditorWidget *widget = m_stackedWidget->currentWidget();
         RealDataMaskWidget *widget = m_stackedWidget->currentWidget();

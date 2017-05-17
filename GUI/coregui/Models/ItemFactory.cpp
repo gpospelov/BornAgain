@@ -20,6 +20,8 @@
 #include "BeamItem.h"
 #include "BeamWavelengthItem.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDistributionItems.h"
 #include "FitParameterItems.h"
@@ -76,7 +78,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;
     result[Constants::InterferenceFunction1DLatticeType] = &createInstance<InterferenceFunction1DLatticeItem>;
     result[Constants::InstrumentType] = &createInstance<InstrumentItem>;
-    result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
     result[Constants::VectorType] = &createInstance<VectorItem>;
     result[Constants::PropertyType] = &createInstance<PropertyItem>;
@@ -111,7 +112,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::LayerBasicRoughnessType] = &createInstance<LayerBasicRoughnessItem>;
     result[Constants::LayerZeroRoughnessType] = &createInstance<LayerZeroRoughnessItem>;
 
-    result[Constants::DetectorType] = &createInstance<DetectorItem>;
     result[Constants::SphericalDetectorType] = &createInstance<SphericalDetectorItem>;
     result[Constants::RectangularDetectorType] = &createInstance<RectangularDetectorItem>;
 
@@ -148,7 +148,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::SquareLatticeType] = &createInstance<SquareLatticeItem>;
     result[Constants::HexagonalLatticeType] = &createInstance<HexagonalLatticeItem>;
 
-    result[Constants::MaterialType] = &createInstance<MaterialItem>;
+    result[Constants::HomogeneousMaterialType] = &createInstance<MaterialItem>;
 
     result[Constants::RefractiveIndexType] = &createInstance<RefractiveIndexItem>;
 
@@ -161,7 +161,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::BasicAxisType] = &createInstance<BasicAxisItem>;
     result[Constants::AmplitudeAxisType] = &createInstance<AmplitudeAxisItem>;
 
-//    result[Constants::BeamDistributionType] = &createInstance<BeamDistributionItem>;
     result[Constants::BeamWavelengthType] = &createInstance<BeamWavelengthItem>;
     result[Constants::BeamAzimuthalAngleType] = &createInstance<BeamAzimuthalAngleItem>;
     result[Constants::BeamInclinationAngleType] = &createInstance<BeamInclinationAngleItem>;

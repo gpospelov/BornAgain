@@ -29,7 +29,7 @@ FormFactorLongBoxGauss::FormFactorLongBoxGauss(double length, double width, doub
     onChange();
 }
 
-complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const
 {
     complex_t qxL2 = std::pow(m_length * q.x(), 2) / 2.0;
     complex_t qyWdiv2 = m_width * q.y() / 2.0;
@@ -37,6 +37,15 @@ complex_t FormFactorLongBoxGauss::evaluate_for_q(const cvector_t q) const
 
     return m_height * m_length * m_width * exp_I(qzHdiv2) * std::exp(-qxL2)
             * MathFunctions::sinc(qyWdiv2) * MathFunctions::sinc(qzHdiv2);
+}
+
+IFormFactor* FormFactorLongBoxGauss::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                     kvector_t translation) const
+{
+    auto effects = computeSlicingEffects(limits, translation, m_height);
+    FormFactorLongBoxGauss slicedff(m_length, m_width,
+                                    m_height - effects.dz_bottom - effects.dz_top);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
 }
 
 void FormFactorLongBoxGauss::onChange()

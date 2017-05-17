@@ -210,9 +210,8 @@ void DistributionWidget::plot_multiple_values()
 
     RealLimits limits;
     if (m_item->isTag(DistributionItem::P_LIMITS)) {
-        auto limitsItem
-            = dynamic_cast<RealLimitsItem*>(m_item->getGroupItem(DistributionItem::P_LIMITS));
-        limits = limitsItem->createRealLimits();
+        auto& limitsItem = m_item->groupItem<RealLimitsItem>(DistributionItem::P_LIMITS);
+        limits = limitsItem.createRealLimits();
     }
     plotLimits(limits);
 

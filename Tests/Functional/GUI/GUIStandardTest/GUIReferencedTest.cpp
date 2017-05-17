@@ -59,7 +59,7 @@ bool GUIReferencedTest::runTest()
 //! returns new simulation from
 void GUIReferencedTest::createDomainSimulation()
 {
-    assert(m_reference_simulation->getSample());
+    assert(m_reference_simulation->sample());
 
     // initializing necessary GUI
     const std::unique_ptr<DocumentModel> documentModel(new DocumentModel());

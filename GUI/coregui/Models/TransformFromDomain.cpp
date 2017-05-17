@@ -23,6 +23,8 @@
 #include "ComboProperty.h"
 #include "ConvolutionDetectorResolution.h"
 #include "DetectorItems.h"
+#include "SphericalDetectorItem.h"
+#include "RectangularDetectorItem.h"
 #include "Distributions.h"
 #include "Ellipse.h"
 #include "FTDecayFunctionItems.h"
@@ -54,6 +56,8 @@
 #include "Units.h"
 #include "VectorItem.h"
 #include "ParameterTreeUtils.h"
+#include "InstrumentItem.h"
+#include "ResolutionFunction2DGaussian.h"
 #include <limits>
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);
@@ -132,8 +136,9 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 void TransformFromDomain::setItemFromSample(SessionItem* layerItem, const Layer* layer,
                                             const LayerInterface* top_interface)
 {
-    layerItem->setItemValue(LayerItem::P_THICKNESS, layer->getThickness());
+    layerItem->setItemValue(LayerItem::P_THICKNESS, layer->thickness());
     layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, Constants::LayerZeroRoughnessType);
+    layerItem->setItemValue(LayerItem::P_NSLICES, (int)layer->numberOfSlices());
 
     if (top_interface) {
         const LayerRoughness* roughness = top_interface->getRoughness();
@@ -160,9 +165,9 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
     ParticleDistributionItem *distItem = dynamic_cast<ParticleDistributionItem*>(item);
     Q_ASSERT(distItem);
 
-    distItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->getAbundance());
+    distItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->abundance());
 
-    ParameterDistribution par_distr = sample->getParameterDistribution();
+    ParameterDistribution par_distr = sample->parameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
 
     distItem->setDomainCacheName(main_distr_par_name);
@@ -219,30 +224,29 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
     }
 }
 
-void TransformFromDomain::setItemFromSample(DetectorItem* detectorItem,
+void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrumentItem,
                                             const GISASSimulation& simulation)
 {
-    Q_ASSERT(detectorItem);
     const IDetector2D* iDetector = simulation.getInstrument().getDetector();
+
     if(auto detector = dynamic_cast<const SphericalDetector*>(iDetector)) {
-        auto item = dynamic_cast<SphericalDetectorItem*>
-                (detectorItem->setGroupProperty(DetectorItem::P_DETECTOR,
-                                             Constants::SphericalDetectorType));
-        Q_ASSERT(item);
-        setItemFromSample(item,* detector);
+        instrumentItem->setDetectorGroup(Constants::SphericalDetectorType);
+        auto item = dynamic_cast<SphericalDetectorItem*> (instrumentItem->detectorItem());
+        setItemFromSample(item, *detector);
     }
 
     else if(auto detector = dynamic_cast<const RectangularDetector*>(iDetector)) {
-        auto item = dynamic_cast<RectangularDetectorItem*>
-                (detectorItem->setGroupProperty(DetectorItem::P_DETECTOR,
-                                             Constants::RectangularDetectorType));
+        instrumentItem->setDetectorGroup(Constants::RectangularDetectorType);
+        auto item = dynamic_cast<RectangularDetectorItem*> (instrumentItem->detectorItem());
+        setItemFromSample(item, *detector);
+
         Q_ASSERT(item);
         setItemFromSample(item,* detector);
     }
 
     else {
         throw GUIHelpers::Error(
-            "TransformFromDomain::setItemFromSample(DetectorItem*) -> Unknown detector type.");
+            "TransformFromDomain::setInstrumentDetectorFromSample(DetectorItem*) -> Unknown detector type.");
     }
 }
 
@@ -269,7 +273,7 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
     alphaAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
 
     // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
         if (const ConvolutionDetectorResolution* p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian* resfunc
@@ -377,7 +381,7 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
     }
 
     // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.getDetectorResolutionFunction()) {
+    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
         if (const ConvolutionDetectorResolution* p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian* resfunc
@@ -405,101 +409,105 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
     }
 }
 
-
 void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GISASSimulation& simulation)
 {
-    Q_ASSERT(detectorItem);
-
-    double scale(1.0);
-    if(detectorItem->getGroupItem(DetectorItem::P_DETECTOR)->modelType()
-            == Constants::SphericalDetectorType)
-        scale = 1./Units::degree;
-
     const IDetector2D* detector = simulation.getInstrument().getDetector();
-    const DetectorMask* detectorMask = detector->getDetectorMask();
-    if(detectorMask && detectorMask->numberOfMasks()) {
-        MaskContainerItem* containerItem = new MaskContainerItem();
-        detectorItem->insertItem(-1, containerItem);
-        for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {
-            bool mask_value(false);
-            const IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
-            if(const Ellipse* ellipse = dynamic_cast<const Ellipse*>(shape)) {
-                EllipseItem* ellipseItem = new EllipseItem();
-                ellipseItem->setItemValue(EllipseItem::P_XCENTER, scale*ellipse->getCenterX());
-                ellipseItem->setItemValue(EllipseItem::P_YCENTER, scale*ellipse->getCenterY());
-                ellipseItem->setItemValue(EllipseItem::P_XRADIUS, scale*ellipse->getRadiusX());
-                ellipseItem->setItemValue(EllipseItem::P_YRADIUS, scale*ellipse->getRadiusY());
-                ellipseItem->setItemValue(EllipseItem::P_ANGLE, scale*ellipse->getTheta());
-                ellipseItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertItem(0, ellipseItem);
+    if( (detector->getDetectorMask() && detector->getDetectorMask()->numberOfMasks()) ||
+        detector->regionOfInterest()) {
+        detectorItem->createMaskContainer();
 
-            }
-            else if(const Rectangle* rectangle = dynamic_cast<const Rectangle*>(shape)) {
-                RectangleItem* rectangleItem = new RectangleItem();
-                rectangleItem->setItemValue(RectangleItem::P_XLOW, scale*rectangle->getXlow());
-                rectangleItem->setItemValue(RectangleItem::P_YLOW, scale*rectangle->getYlow());
-                rectangleItem->setItemValue(RectangleItem::P_XUP, scale*rectangle->getXup());
-                rectangleItem->setItemValue(RectangleItem::P_YUP, scale*rectangle->getYup());
-                rectangleItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertItem(0, rectangleItem);
+        double scale(1.0);
+        if(detectorItem->modelType() == Constants::SphericalDetectorType)
+            scale = 1./Units::degree;
 
-            }
-            else if(const Polygon* polygon = dynamic_cast<const Polygon*>(shape)) {
-                PolygonItem* polygonItem = new PolygonItem();
-                std::vector<double> xpos, ypos;
-                polygon->getPoints(xpos, ypos);
-                for(size_t i_point=0; i_point<xpos.size(); ++i_point) {
-                    PolygonPointItem* pointItem = new PolygonPointItem();
-                    pointItem->setItemValue(PolygonPointItem::P_POSX, scale*xpos[i_point]);
-                    pointItem->setItemValue(PolygonPointItem::P_POSY, scale*ypos[i_point]);
-                    polygonItem->insertItem(-1, pointItem);
-                }
+        setDetectorMasks(detectorItem->maskContainerItem(), *detector, scale);
+    }
+}
 
-                polygonItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                polygonItem->setItemValue(PolygonItem::P_ISCLOSED, true);
+void TransformFromDomain::setDetectorMasks(MaskContainerItem* containerItem,
+                                           const IDetector2D& detector, double scale)
+{
+    auto detectorMask = detector.getDetectorMask();
+    for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {
+        bool mask_value(false);
+        const IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
 
-                containerItem->insertItem(0, polygonItem);
+        if(const Ellipse* ellipse = dynamic_cast<const Ellipse*>(shape)) {
+            EllipseItem* ellipseItem = new EllipseItem();
+            ellipseItem->setItemValue(EllipseItem::P_XCENTER, scale*ellipse->getCenterX());
+            ellipseItem->setItemValue(EllipseItem::P_YCENTER, scale*ellipse->getCenterY());
+            ellipseItem->setItemValue(EllipseItem::P_XRADIUS, scale*ellipse->getRadiusX());
+            ellipseItem->setItemValue(EllipseItem::P_YRADIUS, scale*ellipse->getRadiusY());
+            ellipseItem->setItemValue(EllipseItem::P_ANGLE, scale*ellipse->getTheta());
+            ellipseItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            containerItem->insertItem(0, ellipseItem);
+        }
+
+        else if(const Rectangle* rectangle = dynamic_cast<const Rectangle*>(shape)) {
+            RectangleItem* rectangleItem = new RectangleItem();
+            rectangleItem->setItemValue(RectangleItem::P_XLOW, scale*rectangle->getXlow());
+            rectangleItem->setItemValue(RectangleItem::P_YLOW, scale*rectangle->getYlow());
+            rectangleItem->setItemValue(RectangleItem::P_XUP, scale*rectangle->getXup());
+            rectangleItem->setItemValue(RectangleItem::P_YUP, scale*rectangle->getYup());
+            rectangleItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            containerItem->insertItem(0, rectangleItem);
+
+        }
+
+        else if(const Polygon* polygon = dynamic_cast<const Polygon*>(shape)) {
+            PolygonItem* polygonItem = new PolygonItem();
+            std::vector<double> xpos, ypos;
+            polygon->getPoints(xpos, ypos);
+            for(size_t i_point=0; i_point<xpos.size(); ++i_point) {
+                PolygonPointItem* pointItem = new PolygonPointItem();
+                pointItem->setItemValue(PolygonPointItem::P_POSX, scale*xpos[i_point]);
+                pointItem->setItemValue(PolygonPointItem::P_POSY, scale*ypos[i_point]);
+                polygonItem->insertItem(-1, pointItem);
             }
-            else if(const VerticalLine* vline = dynamic_cast<const VerticalLine*>(shape)) {
-                VerticalLineItem* lineItem = new VerticalLineItem();
-                lineItem->setItemValue(VerticalLineItem::P_POSX, scale*vline->getXpos());
-                lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertItem(0, lineItem);
-            }
-            else if(const HorizontalLine* hline = dynamic_cast<const HorizontalLine*>(shape)) {
-                HorizontalLineItem* lineItem = new HorizontalLineItem();
-                lineItem->setItemValue(HorizontalLineItem::P_POSY, scale*hline->getYpos());
-                lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertItem(0, lineItem);
-            }
-            else if(const InfinitePlane* plane = dynamic_cast<const InfinitePlane*>(shape)) {
-                Q_UNUSED(plane);
-                MaskAllItem* planeItem = new MaskAllItem();
-                planeItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-                containerItem->insertItem(-1, planeItem);
-            }
-            else {
-                throw GUIHelpers::Error("TransformFromDomain::setDetectorMasks() -> Error. "
-                                        "Unknown shape");
-            }
+
+            polygonItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            polygonItem->setItemValue(PolygonItem::P_ISCLOSED, true);
+
+            containerItem->insertItem(0, polygonItem);
+        }
+
+        else if(const VerticalLine* vline = dynamic_cast<const VerticalLine*>(shape)) {
+            VerticalLineItem* lineItem = new VerticalLineItem();
+            lineItem->setItemValue(VerticalLineItem::P_POSX, scale*vline->getXpos());
+            lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            containerItem->insertItem(0, lineItem);
+        }
+
+        else if(const HorizontalLine* hline = dynamic_cast<const HorizontalLine*>(shape)) {
+            HorizontalLineItem* lineItem = new HorizontalLineItem();
+            lineItem->setItemValue(HorizontalLineItem::P_POSY, scale*hline->getYpos());
+            lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            containerItem->insertItem(0, lineItem);
+        }
+
+        else if(const InfinitePlane* plane = dynamic_cast<const InfinitePlane*>(shape)) {
+            Q_UNUSED(plane);
+            MaskAllItem* planeItem = new MaskAllItem();
+            planeItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
+            containerItem->insertItem(-1, planeItem);
+        }
+
+        else {
+            throw GUIHelpers::Error("TransformFromDomain::setDetectorMasks() -> Error. "
+                                    "Unknown shape");
         }
     }
 
-    if(detector->regionOfInterest()) {
-        SessionItem* containerItem = detectorItem->getChildOfType(Constants::MaskContainerType);
-        if(!containerItem) {
-            containerItem = new MaskContainerItem();
-            detectorItem->insertItem(-1, containerItem);
-        }
-
+    if(detector.regionOfInterest()) {
         RegionOfInterestItem *roiItem = new RegionOfInterestItem();
-        roiItem->setItemValue(RectangleItem::P_XLOW, scale*detector->regionOfInterest()->getXlow());
-        roiItem->setItemValue(RectangleItem::P_YLOW, scale*detector->regionOfInterest()->getYlow());
-        roiItem->setItemValue(RectangleItem::P_XUP, scale*detector->regionOfInterest()->getXup());
-        roiItem->setItemValue(RectangleItem::P_YUP, scale*detector->regionOfInterest()->getYup());
+        roiItem->setItemValue(RectangleItem::P_XLOW, scale*detector.regionOfInterest()->getXlow());
+        roiItem->setItemValue(RectangleItem::P_YLOW, scale*detector.regionOfInterest()->getYlow());
+        roiItem->setItemValue(RectangleItem::P_XUP, scale*detector.regionOfInterest()->getXup());
+        roiItem->setItemValue(RectangleItem::P_YUP, scale*detector.regionOfInterest()->getYup());
         containerItem->insertItem(-1, roiItem);
     }
 }
+
 
 void TransformFromDomain::setItemFromSample(BeamDistributionItem* beamDistributionItem,
                                             const ParameterDistribution& parameterDistribution)

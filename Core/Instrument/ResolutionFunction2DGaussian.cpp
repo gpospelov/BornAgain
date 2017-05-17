@@ -22,7 +22,6 @@ ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, doubl
     : m_sigma_x(sigma_x), m_sigma_y(sigma_y)
 {
     setName(BornAgain::ResolutionFunction2D);
-    // TODO clarify dimension [if detector->getDefaultAxesUnits()==RADIANS then degrees??]
     registerParameter(BornAgain::SigmaX, &m_sigma_x).setNonnegative();
     registerParameter(BornAgain::SigmaY, &m_sigma_y).setNonnegative();
 }

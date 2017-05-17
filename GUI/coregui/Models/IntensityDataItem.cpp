@@ -23,6 +23,19 @@
 #include "ProjectionItems.h"
 #include "BornAgainNamespace.h"
 
+namespace {
+ComboProperty gradientCombo() {
+    ComboProperty result;
+    result << Constants::GRADIENT_GRAYSCALE << Constants::GRADIENT_HOT << Constants::GRADIENT_COLD
+           << Constants::GRADIENT_NIGHT << Constants::GRADIENT_CANDY
+           << Constants::GRADIENT_GEOGRAPHY << Constants::GRADIENT_ION
+           << Constants::GRADIENT_THERMAL << Constants::GRADIENT_POLAR
+           << Constants::GRADIENT_SPECTRUM << Constants::GRADIENT_JET << Constants::GRADIENT_HUES;
+    result.setValue(Constants::GRADIENT_JET);
+    return result;
+}
+}
+
 const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
 const QString IntensityDataItem::P_TITLE = "Title";
 const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
@@ -44,16 +57,7 @@ IntensityDataItem::IntensityDataItem() : SessionItem(Constants::IntensityDataTyp
 
     addProperty(P_PROJECTIONS_FLAG, false)->setVisible(false);
     addProperty(P_IS_INTERPOLATED, true);
-
-    ComboProperty gradient;
-
-    gradient << Constants::GRADIENT_GRAYSCALE << Constants::GRADIENT_HOT << Constants::GRADIENT_COLD
-             << Constants::GRADIENT_NIGHT << Constants::GRADIENT_CANDY
-             << Constants::GRADIENT_GEOGRAPHY << Constants::GRADIENT_ION
-             << Constants::GRADIENT_THERMAL << Constants::GRADIENT_POLAR
-             << Constants::GRADIENT_SPECTRUM << Constants::GRADIENT_JET << Constants::GRADIENT_HUES;
-    gradient.setValue(Constants::GRADIENT_JET);
-    addProperty(P_GRADIENT, gradient.getVariant());
+    addProperty(P_GRADIENT, gradientCombo().getVariant());
 
     SessionItem* item = addGroupProperty(P_XAXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
@@ -200,7 +204,7 @@ void IntensityDataItem::setZAxisLocked(bool state)
     return getItem(P_ZAXIS)->setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, state);
 }
 
-QString IntensityDataItem::getSelectedAxesUnits() const
+QString IntensityDataItem::selectedAxesUnits() const
 {
     ComboProperty combo = getItemValue(IntensityDataItem::P_AXES_UNITS).value<ComboProperty>();
     return combo.getValue();

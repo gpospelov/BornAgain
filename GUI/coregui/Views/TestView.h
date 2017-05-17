@@ -26,18 +26,15 @@ class BA_CORE_API_ TestView : public QWidget
 {
     Q_OBJECT
 public:
-    TestView(MainWindow *mainWindow = 0);
+    TestView(MainWindow* mainWindow = 0);
 
 private:
-    void test_MaskEditor();
-    void test_AccordionWidget();
-    void test_RunFitWidget();
     void test_MaterialEditor();
     void test_MinimizerSettings();
-    void test_ColorMapLight();
+    void test_AccordionWidget();
+    void test_ba3d();
 
-
-    MainWindow *m_mainWindow;
+    MainWindow* m_mainWindow;
 };
 
 #endif // TESTVIEW_H

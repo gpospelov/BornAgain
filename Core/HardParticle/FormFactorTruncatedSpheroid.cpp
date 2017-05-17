@@ -23,14 +23,18 @@
 #include <limits>
 
 FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
-    double radius, double height, double height_flattening)
-    : m_radius(radius), m_height(height), m_height_flattening(height_flattening)
+    double radius, double height, double height_flattening, double dh)
+    : m_radius(radius)
+    , m_height(height)
+    , m_height_flattening(height_flattening)
+    , m_dh(dh)
 {
     setName(BornAgain::FFTruncatedSpheroidType);
     check_initialization();
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::HeightFlattening, &m_height_flattening).setNonnegative();
+    registerParameter(BornAgain::DeltaHeight, &m_dh).setUnit("nm").setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSpheroid::Integrand);
     onChange();
 }
@@ -40,7 +44,7 @@ bool FormFactorTruncatedSpheroid::check_initialization() const
     bool result(true);
     if(m_height > 2.*m_radius*m_height_flattening) {
         std::ostringstream ostr;
-        ostr << "::FormFactorTruncatedSphere() -> Error in class initialization with parameters ";
+        ostr << "::FormFactorTruncatedSpheroid() -> Error in class initialization with parameters ";
         ostr << " radius:" << m_radius;
         ostr << " height:" << m_height;
         ostr << " height_flattening:" << m_height_flattening << "\n\n";
@@ -63,7 +67,7 @@ complex_t FormFactorTruncatedSpheroid::Integrand(double Z) const
     return Rz * Rz * J1_qrRz_div_qrRz * std::exp(complex_t(0.0,1.0)*m_q.z()*Z);
 }
 
-complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const
+complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const
 {
     double H = m_height;
     double R = m_radius;
@@ -71,13 +75,23 @@ complex_t FormFactorTruncatedSpheroid::evaluate_for_q(const cvector_t q) const
     m_q = q;
 
     if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
-        return M_PI*R*H*H/fp*(1.-H/(3.*fp*R));
+        return M_PI/3./fp*( H*H*(3.*R-H/fp) - m_dh*m_dh*(3.*R-m_dh/fp));
     complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*m_q.z()*(H-fp*R));
-    return M_TWOPI * z_part *mP_integrator->integrate(fp*R-H,fp*R );
+    return M_TWOPI * z_part *mP_integrator->integrate(fp*R-H,fp*R-m_dh );
+}
+
+IFormFactor* FormFactorTruncatedSpheroid::sliceFormFactor(ZLimits limits, const IRotation& rot,
+                                                          kvector_t translation) const
+{
+    double height = m_height - m_dh;
+    auto effects = computeSlicingEffects(limits, translation, height);
+    FormFactorTruncatedSpheroid slicedff(m_radius, height - effects.dz_bottom,
+                                         m_height_flattening, effects.dz_top + m_dh);
+    return CreateTransformedFormFactor(slicedff, rot, effects.position);
 }
 
 void FormFactorTruncatedSpheroid::onChange()
 {
     mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_height_flattening*m_radius,
-                                          m_height));
+                                          m_height, m_dh));
 }

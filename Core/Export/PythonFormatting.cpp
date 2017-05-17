@@ -44,10 +44,10 @@ std::string PythonFormatting::simulationToPython(GISASSimulation* simulation)
 {
     simulation->prepareSimulation();
     std::unique_ptr<ISample> sample;
-    if(simulation->getSample())
-        sample.reset(simulation->getSample()->clone());
+    if(simulation->sample())
+        sample.reset(simulation->sample()->clone());
     else
-        sample.reset(simulation->getSampleBuilder()->buildSample());
+        sample.reset(simulation->sampleBuilder()->buildSample());
     MultiLayer* multilayer = dynamic_cast<MultiLayer*>(sample.get());
     ExportToPython visitor(*multilayer);
     std::ostringstream result;
@@ -215,8 +215,8 @@ bool isDefaultDirection(const kvector_t direction)
 std::string valueTimesUnit(const RealParameter* par)
 {
     if (par->unit()=="rad")
-        return printDegrees(par->getValue());
-    return printDouble(par->getValue()) + ( par->unit()=="" ? "" : ("*"+par->unit()) );
+        return printDegrees(par->value());
+    return printDouble(par->value()) + ( par->unit()=="" ? "" : ("*"+par->unit()) );
 }
 
 //! Returns comma-separated list of parameter values, including unit multiplicator (like "* nm").
@@ -224,7 +224,7 @@ std::string valueTimesUnit(const RealParameter* par)
 std::string argumentList(const IParameterized* ip)
 {
     std::vector<std::string> args;
-    for(const auto* par: ip->getParameterPool()->getParameters())
+    for(const auto* par: ip->parameterPool()->parameters())
         args.push_back( valueTimesUnit(par) );
     return StringUtils::join( args, ", " );
 }

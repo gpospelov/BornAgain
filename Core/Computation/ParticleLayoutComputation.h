@@ -17,10 +17,12 @@
 #define PARTICLELAYOUTCOMPUTATION_H
 
 #include "IComputationTerm.h"
+#include <memory>
 
 using std::size_t;
 
 class ILayout;
+class IInterferenceFunctionStrategy;
 
 //! Computes the scattering contribution from one particle layout.
 //! Controlled by MainComputation.
@@ -30,18 +32,16 @@ class ParticleLayoutComputation final : public IComputationTerm
 {
 public:
     ParticleLayoutComputation(
-        const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map,
-        const ILayout* p_layout, size_t layer_index);
+        const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map, const ILayout* p_layout,
+        size_t layer_index, const SimulationOptions& options, bool polarized);
 
-    void eval(const SimulationOptions& options,
-              ProgressHandler* progress,
-              bool polarized,
+    void eval(ProgressHandler* progress,
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const override;
 
 private:
-    const ILayout* mp_layout;
-    size_t m_layer_index;
+    std::unique_ptr<const IInterferenceFunctionStrategy> mP_strategy;
+    double m_surface_density;
 };
 
 #endif // PARTICLELAYOUTCOMPUTATION_H

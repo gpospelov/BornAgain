@@ -64,10 +64,10 @@ public:
                                double total_transmission);
 
     void setSample(const MultiLayer& sample);
-    MultiLayer* getSample() const { return mP_sample.get(); }
+    MultiLayer* sample() const { return mP_multilayer.get(); }
 
     void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    std::shared_ptr<IMultiLayerBuilder> getSampleBuilder() const { return mP_sample_builder; }
+    std::shared_ptr<IMultiLayerBuilder> sampleBuilder() const { return mP_sample_builder; }
 
     virtual size_t numberOfSimulationElements() const=0;
 
@@ -117,7 +117,7 @@ protected:
     //! Returns the end iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
-    std::unique_ptr<MultiLayer> mP_sample;
+    std::unique_ptr<MultiLayer> mP_multilayer;
     std::shared_ptr<IMultiLayerBuilder> mP_sample_builder;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;

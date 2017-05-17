@@ -35,13 +35,13 @@ public:
         return new FormFactorLongRipple1Lorentz(m_length, m_width, m_height); }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    double getRadialExtension() const override final;
+    double radialExtension() const override final;
 
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
     double getLength() const { return m_length; }
 
-    complex_t evaluate_for_q(const cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
 
 protected:
     void onChange() override final;

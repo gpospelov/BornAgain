@@ -244,7 +244,6 @@ QModelIndex SessionModel::indexOfItem(SessionItem *item) const
         return QModelIndex();
     SessionItem *parent_item = item->parent();
     int row = parent_item->rowOfChild(item);
-    Q_ASSERT(row>=0); // FIXME For Debugging
     return createIndex(row, 0, item);
 }
 

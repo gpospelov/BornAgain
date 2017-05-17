@@ -19950,14 +19950,9 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction1DLattice_getLatticeParameters(self)
 
 
-    def getDecayFunction(self):
-        """
-        getDecayFunction(InterferenceFunction1DLattice self) -> IFTDecayFunction1D
-
-        const IFTDecayFunction1D* InterferenceFunction1DLattice::getDecayFunction() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction1DLattice_getDecayFunction(self)
+    def decayFunction(self):
+        """decayFunction(InterferenceFunction1DLattice self) -> IFTDecayFunction1D"""
+        return _libBornAgainCore.InterferenceFunction1DLattice_decayFunction(self)
 
 
     def evaluate(self, q):
@@ -20187,8 +20182,8 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
     def __init__(self, *args):
         """
         __init__(InterferenceFunction2DLattice self, Lattice2D lattice) -> InterferenceFunction2DLattice
-        __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double angle, double xi=0.0) -> InterferenceFunction2DLattice
-        __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double angle) -> InterferenceFunction2DLattice
+        __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double alpha, double xi=0.0) -> InterferenceFunction2DLattice
+        __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double alpha) -> InterferenceFunction2DLattice
 
         InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0)
 
@@ -20262,24 +20257,19 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         createHexagonal = staticmethod(createHexagonal)
     __swig_getmethods__["createHexagonal"] = lambda x: createHexagonal
 
-    def setDecayFunction(self, pdf):
+    def setDecayFunction(self, decay):
         """
-        setDecayFunction(InterferenceFunction2DLattice self, IFTDecayFunction2D pdf)
+        setDecayFunction(InterferenceFunction2DLattice self, IFTDecayFunction2D decay)
 
         void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
 
         """
-        return _libBornAgainCore.InterferenceFunction2DLattice_setDecayFunction(self, pdf)
+        return _libBornAgainCore.InterferenceFunction2DLattice_setDecayFunction(self, decay)
 
 
-    def getDecayFunction(self):
-        """
-        getDecayFunction(InterferenceFunction2DLattice self) -> IFTDecayFunction2D
-
-        const IFTDecayFunction2D* InterferenceFunction2DLattice::getDecayFunction() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DLattice_getDecayFunction(self)
+    def decayFunction(self):
+        """decayFunction(InterferenceFunction2DLattice self) -> IFTDecayFunction2D"""
+        return _libBornAgainCore.InterferenceFunction2DLattice_decayFunction(self)
 
 
     def evaluate(self, q):

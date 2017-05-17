@@ -374,7 +374,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
                    << printNm(latticeParameters.m_length) << ", "
                    << printDegrees(latticeParameters.m_xi) << ")\n";
 
-            const IFTDecayFunction1D* pdf = oneDLattice->getDecayFunction();
+            const IFTDecayFunction1D* pdf = oneDLattice->decayFunction();
 
             if (pdf->decayLength() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
@@ -414,7 +414,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
                    << printDegrees(lattice.latticeAngle()) << ", "
                    << printDegrees(lattice.rotationAngle()) << ")\n";
 
-            const IFTDecayFunction2D* pdf = twoDLattice->getDecayFunction();
+            const IFTDecayFunction2D* pdf = twoDLattice->decayFunction();
 
             result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                    << "(" << argumentList(pdf) << ")\n"

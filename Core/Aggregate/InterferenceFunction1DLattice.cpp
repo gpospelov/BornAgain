@@ -48,7 +48,7 @@ InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 }
 
 //! Sets one-dimensional decay function.
-//! @param decay One-dimensional decay function in reciprocal space
+//! @param decay: one-dimensional decay function in reciprocal space
 void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& decay)
 {
     m_decay.reset(decay.clone());

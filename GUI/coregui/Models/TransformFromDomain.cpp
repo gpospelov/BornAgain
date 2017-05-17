@@ -118,7 +118,7 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
     item->setItemValue(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
                                 Units::rad2deg(lattice_params.m_xi));
 
-    const IFTDecayFunction1D* pdf = sample->getDecayFunction();
+    const IFTDecayFunction1D* pdf = sample->decayFunction();
     QString group_name = InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION;
     SetDecayFunction1D(item, pdf, group_name);
 }
@@ -128,7 +128,7 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 {
     set2DLatticeParameters(item, sample->lattice());
 
-    const IFTDecayFunction2D* p_pdf = sample->getDecayFunction();
+    const IFTDecayFunction2D* p_pdf = sample->decayFunction();
     QString group_name = InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION;
     SetDecayFunction2D(item, p_pdf, group_name);
 }

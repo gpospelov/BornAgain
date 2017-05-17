@@ -38,7 +38,7 @@ public:
 
     Lattice1DParameters getLatticeParameters() const { return m_lattice_params; }
 
-    const IFTDecayFunction1D* getDecayFunction() const { return m_decay.get(); }
+    const IFTDecayFunction1D* decayFunction() const { return m_decay.get(); }
 
     double evaluate(const kvector_t q) const final;
 

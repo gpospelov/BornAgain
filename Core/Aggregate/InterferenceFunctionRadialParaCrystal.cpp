@@ -20,7 +20,7 @@
 #include "RealParameter.h"
 #include <limits>
 
-//! Constructor of interference function of one-dimensional paracrystal.
+//! Constructor of interference function of radial paracrystal.
 //! @param peak_distance: average distance to the next neighbor in nanometers
 //! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
 InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
@@ -54,6 +54,18 @@ InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::cl
     if (mP_pdf)
         result->setProbabilityDistribution(*mP_pdf);
     return result;
+}
+
+//! Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
+//! @param size spacing coupling parameter
+void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
+{
+    m_kappa = kappa;
+}
+
+double InterferenceFunctionRadialParaCrystal::kappa() const
+{
+    return m_kappa;
 }
 
 //! Sets domain size (finite size corrections).

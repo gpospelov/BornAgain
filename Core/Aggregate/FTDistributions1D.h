@@ -26,6 +26,8 @@
 class BA_CORE_API_ IFTDistribution1D : public ICloneable, public INode
 {
 public:
+    //! Constructor of one-dimensional probability distribution.
+    //! @param omega: half-width of the distribution in nanometers
     IFTDistribution1D(double omega) : m_omega(omega) {}
 
     virtual IFTDistribution1D* clone() const=0;
@@ -127,6 +129,9 @@ public:
 class BA_CORE_API_ FTDistribution1DVoigt : public IFTDistribution1D
 {
 public:
+    //! Constructor of one-dimensional pseudo-Voigt probability distribution.
+    //! @param omega: half-width of the distribution in nanometers
+    //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
     FTDistribution1DVoigt(double omega, double eta);
     FTDistribution1DVoigt* clone() const final {
         return new FTDistribution1DVoigt(m_omega, m_eta); }

@@ -57,11 +57,20 @@ const QString InterferenceFunctionRadialParaCrystalItem::P_PDF = "PDF";
 InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem()
     : InterferenceFunctionItem(Constants::InterferenceFunctionRadialParaCrystalType)
 {
-    addProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer);
-    addProperty(P_DAMPING_LENGTH, 1000.0*Units::micrometer);
-    addProperty(P_DOMAIN_SIZE, 20.0*Units::micrometer);
-    addProperty(P_KAPPA, 0.0);
-    addGroupProperty(P_PDF, Constants::FTDistribution1DGroup);
+    setToolTip(QStringLiteral("Interference function of radial paracrystal"));
+    addProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer)
+        ->setToolTip(QStringLiteral("Average distance to the next neighbor in nanometers"));
+    addProperty(P_DAMPING_LENGTH, 1000.0*Units::nanometer)
+        ->setToolTip(QStringLiteral("The damping (coherence) length of the paracrystal "
+                                    "in nanometers"));
+    addProperty(P_DOMAIN_SIZE, 0.0)
+        ->setToolTip(QStringLiteral("Size of coherence domain along the lattice main axis "
+                                    "in nanometers"));
+    addProperty(P_KAPPA, 0.0)
+        ->setToolTip(QStringLiteral("Size spacing coupling parameter of the Size Spacing "
+                                    "Correlation Approximation"));
+    addGroupProperty(P_PDF, Constants::FTDistribution1DGroup)
+        ->setToolTip(QStringLiteral("One-dimensional probability distribution"));
 }
 
 std::unique_ptr<IInterferenceFunction>

@@ -28,6 +28,8 @@ public:
     explicit FTDistribution1DItem(const QString& name);
     virtual std::unique_ptr<IFTDistribution1D> createFTDistribution() const=0;
     virtual ~FTDistribution1DItem(){}
+protected:
+    void add_omega_property();
 };
 
 class BA_CORE_API_ FTDistribution1DCauchyItem : public FTDistribution1DItem

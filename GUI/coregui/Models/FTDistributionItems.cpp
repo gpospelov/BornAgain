@@ -27,12 +27,19 @@ FTDistribution1DItem::FTDistribution1DItem(const QString& name)
 
 }
 
+void FTDistribution1DItem::add_omega_property()
+{
+    addProperty(P_OMEGA, 1.0)
+        ->setToolTip(QStringLiteral("Half-width of the distribution in nanometers"));
+}
+
 // --------------------------------------------------------------------------------------------- //
 
 FTDistribution1DCauchyItem::FTDistribution1DCauchyItem()
     : FTDistribution1DItem(Constants::FTDistribution1DCauchyType)
 {
-    addProperty(P_OMEGA, 1.0);
+    setToolTip(QStringLiteral("One-dimensional Cauchy probability distribution"));
+    add_omega_property();
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DCauchyItem::createFTDistribution() const
@@ -45,7 +52,8 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DCauchyItem::createFTDistribut
 FTDistribution1DGaussItem::FTDistribution1DGaussItem()
     : FTDistribution1DItem(Constants::FTDistribution1DGaussType)
 {
-    addProperty(P_OMEGA, 1.0);
+    setToolTip(QStringLiteral("One-dimensional Gauss probability distribution"));
+    add_omega_property();
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DGaussItem::createFTDistribution() const
@@ -58,7 +66,8 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DGaussItem::createFTDistributi
 FTDistribution1DGateItem::FTDistribution1DGateItem()
     : FTDistribution1DItem(Constants::FTDistribution1DGateType)
 {
-    addProperty(P_OMEGA, 1.0);
+    setToolTip(QStringLiteral("One-dimensional Gate probability distribution"));
+    add_omega_property();
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DGateItem::createFTDistribution() const
@@ -71,7 +80,8 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DGateItem::createFTDistributio
 FTDistribution1DTriangleItem::FTDistribution1DTriangleItem()
     : FTDistribution1DItem(Constants::FTDistribution1DTriangleType)
 {
-    addProperty(P_OMEGA, 1.0);
+    setToolTip(QStringLiteral("One-dimensional triangle probability distribution"));
+    add_omega_property();
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DTriangleItem::createFTDistribution() const
@@ -85,7 +95,8 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DTriangleItem::createFTDistrib
 FTDistribution1DCosineItem::FTDistribution1DCosineItem()
     : FTDistribution1DItem(Constants::FTDistribution1DCosineType)
 {
-    addProperty(P_OMEGA, 1.0);
+    setToolTip(QStringLiteral("One-dimensional Cosine probability distribution"));
+    add_omega_property();
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DCosineItem::createFTDistribution() const
@@ -100,8 +111,10 @@ const QString FTDistribution1DVoigtItem::P_ETA = QString::fromStdString(BornAgai
 FTDistribution1DVoigtItem::FTDistribution1DVoigtItem()
     : FTDistribution1DItem(Constants::FTDistribution1DVoigtType)
 {
-    addProperty(P_OMEGA, 1.0);
-    addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0));
+    setToolTip(QStringLiteral("One-dimensional pseudo-Voigt probability distribution"));
+    add_omega_property();
+    addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0)).setToolTip(QStringLiteral(
+        "Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)"));
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DVoigtItem::createFTDistribution() const

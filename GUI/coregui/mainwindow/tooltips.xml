@@ -43,25 +43,10 @@
 
         <category name="InterferenceRadialParaCrystal">
             <property name="Title">
-                <tooltip>Interference 1D Paracrystal</tooltip>
+                <tooltip>Interference function of radial paracrystal</tooltip>
             </property>
             <property name="Description">
                 <tooltip></tooltip>
-            </property>
-            <property name="Peak_distance">
-                <tooltip>Distance to the first neighbor peak in nm</tooltip>
-            </property>
-            <property name="Damping_length">
-                <tooltip>Damping length in nm (finite size effects). If non-zero, PDF multiplied by exp(-Peak_distance/Damping_length)</tooltip>
-            </property>
-            <property name="Domain_size">
-                <tooltip>Coherent domain size along the lattice main axis</tooltip>
-            </property>
-            <property name="Size_space_coupling">
-                <tooltip>Size spacing coupling parameter of the Size Spacing Correlation Approximation</tooltip>
-            </property>
-            <property name="PDF">
-                <tooltip>1D Probability Distribution Function</tooltip>
             </property>
         </category>
 

@@ -18,7 +18,8 @@ include_directories(${include_dirs})
 set (CMAKE_AUTOMOC ON)
 
 add_subdirectory (ba3d)
-add_subdirectory (main)
+# add_subdirectory (main)
+add_subdirectory (demo)
 
 set(library_name ba3d)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)

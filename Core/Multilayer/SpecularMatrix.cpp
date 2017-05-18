@@ -122,13 +122,14 @@ bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff, const MultiL
     coeff[layer_index+1].t_r(0) = 1.0;
     coeff[layer_index+1].t_r(1) = 0.0;
     double kfactor = std::pow(M_PI_2, 1.5)*kmag;
-    for (int i=layer_index; i>=0; --i) {
+    for (size_t j=0; j<=layer_index; ++j) {
+        size_t i = layer_index - j;  // start from bottom
         complex_t roughness_factor = 1;
         if (sample.layerInterface(i)->getRoughness()) {
             double sigma = sample.layerBottomInterface(i)->getRoughness()->getSigma();
             if(sigma > 0.0) {
                 // since there is a roughness, compute one diagonal matrix element p00;
-                // the other element is p11 = 1/p00.
+                // the other non-zero element is p11 = 1/p00.
                 double sigeff = kfactor*sigma;
                 roughness_factor = sqrt(
                             MathFunctions::tanhc(sigeff*coeff[i+1].lambda) /

@@ -167,6 +167,24 @@ std::ostream& operator<<(std::ostream& ostr, const HomogeneousMaterial& m)
     return ostr;
 }
 
+complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
+{
+    return n*n - n_ref*n_ref*k.sin2Theta();
+}
+
+Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field,
+                                           kvector_t k, double n_ref)
+{
+    Eigen::Matrix2cd result;
+    double factor = Magnetic_Prefactor/k.mag2();
+    complex_t unit_factor = ScalarReducedPotential(n, k, n_ref);
+    result = unit_factor*Unit_Matrix
+            + factor*Pauli_X*b_field[0]
+            + factor*Pauli_Y*b_field[1]
+            + factor*Pauli_Z*b_field[2];
+    return result;
+}
+
 bool operator==(const HomogeneousMaterial& left, const HomogeneousMaterial& right)
 {
     if (left.getName() != right.getName()) return false;

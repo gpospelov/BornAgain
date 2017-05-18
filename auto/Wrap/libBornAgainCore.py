@@ -17671,6 +17671,10 @@ class HomogeneousMaterial(INamed):
 HomogeneousMaterial_swigregister = _libBornAgainCore.HomogeneousMaterial_swigregister
 HomogeneousMaterial_swigregister(HomogeneousMaterial)
 
+
+def ScalarReducedPotential(n, k, n_ref):
+    """ScalarReducedPotential(complex_t n, kvector_t k, double n_ref) -> complex_t"""
+    return _libBornAgainCore.ScalarReducedPotential(n, k, n_ref)
 class IDetector2D(ICloneable, INode):
     """
 

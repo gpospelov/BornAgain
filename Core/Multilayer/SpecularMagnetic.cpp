@@ -46,8 +46,7 @@ void SpecularMagnetic::calculateEigenvalues(
         coeff[i].m_scatt_matrix = sample.layer(i)->polarizedReducedPotential(k, n_ref);
         coeff[i].m_kt = mag_k*sample.layer(i)->thickness();
         coeff[i].m_a = coeff[i].m_scatt_matrix.trace()/2.0;
-        coeff[i].m_b_mag = sqrt(coeff[i].m_a*coeff[i].m_a -
-                (complex_t)coeff[i].m_scatt_matrix.determinant());
+        coeff[i].m_b_mag = sqrt(coeff[i].m_a*coeff[i].m_a - coeff[i].m_scatt_matrix.determinant());
         coeff[i].m_bz = ( coeff[i].m_scatt_matrix(0,0) -
                 coeff[i].m_scatt_matrix(1,1) )/2.0;
         complex_t rad0 = coeff[i].m_a - coeff[i].m_b_mag;

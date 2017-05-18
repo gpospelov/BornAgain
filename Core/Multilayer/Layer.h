@@ -85,10 +85,11 @@ private:
     //! Return the magnetic B-field in this layer
     kvector_t bField() const;
 
-    HomogeneousMaterial m_material;   //!< material
-    double m_thickness;       //!< layer thickness in nanometers
+    HomogeneousMaterial m_material;       //!< material
+    kvector_t m_B_field;                  //!< cached value of magnetic induction
+    double m_thickness;                   //!< layer thickness in nanometers
     SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
-    unsigned int m_n_slices=1;  //!< number of slices to create for graded layer approach
+    unsigned int m_n_slices=1;            //!< number of slices to create for graded layer approach
 };
 
 #endif // LAYER_H

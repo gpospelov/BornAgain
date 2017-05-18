@@ -10068,16 +10068,15 @@ class FTDistribution2DCauchy(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DCauchy, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, omega_x, omega_y, gamma=0):
         """
-        __init__(FTDistribution2DCauchy self, double omega_x, double omega_y, double gamma=0, double delta) -> FTDistribution2DCauchy
         __init__(FTDistribution2DCauchy self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DCauchy
         __init__(FTDistribution2DCauchy self, double omega_x, double omega_y) -> FTDistribution2DCauchy
 
         FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DCauchy(*args)
+        this = _libBornAgainCore.new_FTDistribution2DCauchy(omega_x, omega_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -10141,16 +10140,15 @@ class FTDistribution2DGauss(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DGauss, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, omega_x, omega_y, gamma=0):
         """
-        __init__(FTDistribution2DGauss self, double omega_x, double omega_y, double gamma=0, double delta) -> FTDistribution2DGauss
         __init__(FTDistribution2DGauss self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DGauss
         __init__(FTDistribution2DGauss self, double omega_x, double omega_y) -> FTDistribution2DGauss
 
         FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DGauss(*args)
+        this = _libBornAgainCore.new_FTDistribution2DGauss(omega_x, omega_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -10214,16 +10212,15 @@ class FTDistribution2DGate(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DGate, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, omega_x, omega_y, gamma=0):
         """
-        __init__(FTDistribution2DGate self, double omega_x, double omega_y, double gamma=0, double delta) -> FTDistribution2DGate
         __init__(FTDistribution2DGate self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DGate
         __init__(FTDistribution2DGate self, double omega_x, double omega_y) -> FTDistribution2DGate
 
         FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DGate(*args)
+        this = _libBornAgainCore.new_FTDistribution2DGate(omega_x, omega_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -10287,16 +10284,15 @@ class FTDistribution2DCone(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DCone, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, omega_x, omega_y, gamma=0):
         """
-        __init__(FTDistribution2DCone self, double omega_x, double omega_y, double gamma=0, double delta) -> FTDistribution2DCone
         __init__(FTDistribution2DCone self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DCone
         __init__(FTDistribution2DCone self, double omega_x, double omega_y) -> FTDistribution2DCone
 
         FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DCone(*args)
+        this = _libBornAgainCore.new_FTDistribution2DCone(omega_x, omega_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -10360,16 +10356,15 @@ class FTDistribution2DVoigt(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DVoigt, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, omega_x, omega_y, eta, gamma=0):
         """
-        __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double eta, double gamma=0, double delta) -> FTDistribution2DVoigt
         __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double eta, double gamma=0) -> FTDistribution2DVoigt
         __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double eta) -> FTDistribution2DVoigt
 
         FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=M_PI_2)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DVoigt(*args)
+        this = _libBornAgainCore.new_FTDistribution2DVoigt(omega_x, omega_y, eta, gamma)
         try:
             self.this.append(this)
         except Exception:

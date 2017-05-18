@@ -22,11 +22,11 @@
 #include "RealParameter.h"
 #include <limits>
 
-IFTDistribution2D::IFTDistribution2D(double omega_x, double omega_y, double gamma, double delta)
+IFTDistribution2D::IFTDistribution2D(double omega_x, double omega_y, double gamma)
     : m_omega_x(omega_x)
     , m_omega_y(omega_y)
     , m_gamma(gamma)
-    , m_delta(delta)
+    , m_delta(M_PI_2)
 {}
 
 double IFTDistribution2D::sumsq(double qx, double qy) const
@@ -40,11 +40,15 @@ void IFTDistribution2D::register_omega()
     registerParameter(BornAgain::OmegaY, &m_omega_y).setUnit("nm").setNonnegative();
 }
 
+void IFTDistribution2D::register_gamma()
+{
+    registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
+}
+
 void IFTDistribution2D::init_parameters()
 {
     register_omega();
-    registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
-    registerParameter(BornAgain::Delta, &m_delta).setUnit("rad").setLimited(0, M_PI);
+    register_gamma();
 }
 
 void IFTDistribution2D::print(std::ostream& ostr) const
@@ -53,11 +57,16 @@ void IFTDistribution2D::print(std::ostream& ostr) const
 }
 
 
-FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma, double delta)
-    : IFTDistribution2D(omega_x, omega_y, gamma, delta)
+FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma)
+    : IFTDistribution2D(omega_x, omega_y, gamma)
 {
     setName(BornAgain::FTDistribution2DCauchyType);
     init_parameters();
+}
+
+FTDistribution2DCauchy* FTDistribution2DCauchy::clone() const
+{
+    return new FTDistribution2DCauchy(m_omega_x, m_omega_y, m_gamma);
 }
 
 double FTDistribution2DCauchy::evaluate(double qx, double qy) const
@@ -66,11 +75,16 @@ double FTDistribution2DCauchy::evaluate(double qx, double qy) const
 }
 
 
-FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma, double delta)
-    : IFTDistribution2D(omega_x, omega_y, gamma, delta)
+FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma)
+    : IFTDistribution2D(omega_x, omega_y, gamma)
 {
     setName(BornAgain::FTDistribution2DGaussType);
     init_parameters();
+}
+
+FTDistribution2DGauss* FTDistribution2DGauss::clone() const
+{
+    return new FTDistribution2DGauss(m_omega_x, m_omega_y, m_gamma);
 }
 
 double FTDistribution2DGauss::evaluate(double qx, double qy) const
@@ -79,11 +93,16 @@ double FTDistribution2DGauss::evaluate(double qx, double qy) const
 }
 
 
-FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma, double delta)
-    : IFTDistribution2D(omega_x, omega_y, gamma, delta)
+FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma)
+    : IFTDistribution2D(omega_x, omega_y, gamma)
 {
     setName(BornAgain::FTDistribution2DGateType);
     init_parameters();
+}
+
+FTDistribution2DGate* FTDistribution2DGate::clone() const
+{
+    return new FTDistribution2DGate(m_omega_x, m_omega_y, m_gamma);
 }
 
 double FTDistribution2DGate::evaluate(double qx, double qy) const
@@ -93,11 +112,16 @@ double FTDistribution2DGate::evaluate(double qx, double qy) const
 }
 
 
-FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma, double delta)
-    : IFTDistribution2D(omega_x, omega_y, gamma, delta)
+FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma)
+    : IFTDistribution2D(omega_x, omega_y, gamma)
 {
     setName(BornAgain::FTDistribution2DConeType);
     init_parameters();
+}
+
+FTDistribution2DCone* FTDistribution2DCone::clone() const
+{
+    return new FTDistribution2DCone(m_omega_x, m_omega_y, m_gamma);
 }
 
 double FTDistribution2DCone::evaluate(double qx, double qy) const
@@ -117,14 +141,18 @@ double FTDistribution2DCone::coneIntegrand2(double value) const
 
 
 FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y,
-                                             double eta, double gamma, double delta)
-    : IFTDistribution2D(omega_x, omega_y, gamma, delta), m_eta(eta)
+                                             double eta, double gamma)
+    : IFTDistribution2D(omega_x, omega_y, gamma), m_eta(eta)
 {
     setName(BornAgain::FTDistribution2DVoigtType);
     register_omega();
     registerParameter(BornAgain::Eta, &m_eta);
-    registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
-    registerParameter("Delta", &m_delta).setUnit("rad").setLimited(0, M_PI);
+    register_gamma();
+}
+
+FTDistribution2DVoigt* FTDistribution2DVoigt::clone() const
+{
+    return new FTDistribution2DVoigt(m_omega_x, m_omega_y, m_eta, m_gamma);
 }
 
 double FTDistribution2DVoigt::evaluate(double qx, double qy) const

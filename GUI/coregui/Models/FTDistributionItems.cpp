@@ -130,25 +130,31 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DVoigtItem::createFTDistributi
 
 const QString FTDistribution2DItem::P_OMEGA_X = "CoherenceLengthX"; // temp FIXME
 const QString FTDistribution2DItem::P_OMEGA_Y = "CoherenceLengthY"; // temp FIXME
-
-const QString FTDistribution2DItem::P_GAMMA =
-        QString::fromStdString(BornAgain::Gamma);
-const QString FTDistribution2DItem::P_DELTA =
-        QString::fromStdString(BornAgain::Delta);
+const QString FTDistribution2DItem::P_GAMMA = QString::fromStdString(BornAgain::Gamma);
 
 FTDistribution2DItem::FTDistribution2DItem(const QString& name)
     : SessionItem(name)
 {
 }
 
-void FTDistribution2DItem::add_properties()
+void FTDistribution2DItem::add_omega_properties()
 {
     // TODO BACKCOMPATIBILITY (remove setDisplayName)
     addProperty(P_OMEGA_X, 1.0)->setDisplayName("OmegaX");
     addProperty(P_OMEGA_Y, 1.0)->setDisplayName("OmegaY");
-    addProperty(P_GAMMA, 0.0);
-    addProperty(P_DELTA, 90.0);
 }
+
+void FTDistribution2DItem::add_gamma_property()
+{
+    addProperty(P_GAMMA, 0.0);
+}
+
+void FTDistribution2DItem::add_properties()
+{
+    add_omega_properties();
+    add_gamma_property();
+}
+
 
 // --------------------------------------------------------------------------------------------- //
 
@@ -163,9 +169,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DCauchyItem::createFTDistribut
     auto result = GUIHelpers::make_unique<FTDistribution2DCauchy>(
                 getItemValue(P_OMEGA_X).toDouble(),
                 getItemValue(P_OMEGA_Y).toDouble(),
-                Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
-                Units::deg2rad(getItemValue(P_DELTA).toDouble())
-                );
+                Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
     return std::move(result);
 }
 
@@ -181,8 +185,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DGaussItem::createFTDistributi
 {
     auto result = GUIHelpers::make_unique<FTDistribution2DGauss>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
-        Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
-        Units::deg2rad(getItemValue(P_DELTA).toDouble()));
+        Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
 
     return std::move(result);
 }
@@ -199,8 +202,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DGateItem::createFTDistributio
 {
     auto result = GUIHelpers::make_unique<FTDistribution2DGate>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
-        Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
-        Units::deg2rad(getItemValue(P_DELTA).toDouble()));
+        Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
     return std::move(result);
 }
 
@@ -216,8 +218,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DConeItem::createFTDistributio
 {
     auto result = GUIHelpers::make_unique<FTDistribution2DCone>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
-        Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
-        Units::deg2rad(getItemValue(P_DELTA).toDouble()));
+        Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
     return std::move(result);
 }
 
@@ -228,11 +229,9 @@ const QString FTDistribution2DVoigtItem::P_ETA = QString::fromStdString(BornAgai
 FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
     : FTDistribution2DItem(Constants::FTDistribution2DVoigtType)
 {
-    addProperty(P_OMEGA_X, 1.0);
-    addProperty(P_OMEGA_Y, 1.0);
+    add_omega_properties();
     addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0));
-    addProperty(P_GAMMA, 0.0);
-    addProperty(P_DELTA, 90.0);
+    add_gamma_property();
 }
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DVoigtItem::createFTDistribution() const
@@ -240,7 +239,6 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DVoigtItem::createFTDistributi
     auto result = GUIHelpers::make_unique<FTDistribution2DVoigt>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         getItemValue(P_ETA).toDouble(),
-        Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
-        Units::deg2rad(getItemValue(P_DELTA).toDouble()));
+        Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
     return std::move(result);
 }

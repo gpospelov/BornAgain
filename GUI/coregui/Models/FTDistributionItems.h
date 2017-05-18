@@ -83,11 +83,12 @@ public:
     static const QString P_OMEGA_X;
     static const QString P_OMEGA_Y;
     static const QString P_GAMMA;
-    static const QString P_DELTA;
     explicit FTDistribution2DItem(const QString& name);
     virtual std::unique_ptr<IFTDistribution2D> createFTDistribution() const=0;
     virtual ~FTDistribution2DItem(){}
 protected:
+    void add_omega_properties();
+    void add_gamma_property();
     void add_properties();
 };
 

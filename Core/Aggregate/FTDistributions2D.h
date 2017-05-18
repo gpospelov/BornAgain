@@ -26,8 +26,7 @@
 class BA_CORE_API_ IFTDistribution2D : public ICloneable, public INode
 {
 public:
-    IFTDistribution2D(double omega_x, double omega_y,
-                      double gamma=0, double delta=M_PI_2);
+    IFTDistribution2D(double omega_x, double omega_y, double gamma=0);
     IFTDistribution2D* clone() const =0;
 
     void setGamma(double gamma) { m_gamma = gamma; }
@@ -51,6 +50,7 @@ protected:
 
     virtual void print(std::ostream& ostr) const;
     void register_omega();
+    void register_gamma();
     void init_parameters();
 
     double m_omega_x; //!< Half-width of the distribution along its x-axis in nanometers.
@@ -70,11 +70,9 @@ protected:
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
 public:
-    FTDistribution2DCauchy(double omega_x, double omega_y,
-                           double gamma=0, double delta=M_PI_2);
-    FTDistribution2DCauchy* clone() const final {
-        return new FTDistribution2DCauchy(
-            m_omega_x, m_omega_y, m_gamma, m_delta); }
+    FTDistribution2DCauchy(double omega_x, double omega_y, double gamma=0);
+
+    FTDistribution2DCauchy* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
@@ -88,11 +86,8 @@ public:
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
 public:
-    FTDistribution2DGauss(double omega_x, double omega_y,
-                          double gamma=0, double delta=M_PI_2);
-    FTDistribution2DGauss* clone() const final {
-        return new FTDistribution2DGauss(
-            m_omega_x, m_omega_y, m_gamma, m_delta); }
+    FTDistribution2DGauss(double omega_x, double omega_y, double gamma=0);
+    FTDistribution2DGauss* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
@@ -106,11 +101,8 @@ public:
 class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
 {
 public:
-    FTDistribution2DGate(double omega_x, double omega_y,
-                         double gamma=0, double delta=M_PI_2);
-    FTDistribution2DGate* clone() const final {
-        return new FTDistribution2DGate(
-            m_omega_x, m_omega_y, m_gamma, m_delta); }
+    FTDistribution2DGate(double omega_x, double omega_y, double gamma=0);
+    FTDistribution2DGate* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
@@ -124,11 +116,8 @@ public:
 class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
 {
 public:
-    FTDistribution2DCone(double omega_x, double omega_y,
-                         double gamma=0, double delta=M_PI_2);
-    FTDistribution2DCone* clone() const final {
-        return new FTDistribution2DCone(
-            m_omega_x, m_omega_y, m_gamma, m_delta); }
+    FTDistribution2DCone(double omega_x, double omega_y, double gamma=0);
+    FTDistribution2DCone* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 
@@ -146,11 +135,8 @@ private:
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 {
 public:
-    FTDistribution2DVoigt(double omega_x, double omega_y,
-                          double eta, double gamma=0, double delta=M_PI_2);
-    FTDistribution2DVoigt* clone() const final {
-        return new FTDistribution2DVoigt(
-            m_omega_x, m_omega_y, m_eta, m_gamma, m_delta); }
+    FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma=0);
+    FTDistribution2DVoigt* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
     double getEta() const { return m_eta;}

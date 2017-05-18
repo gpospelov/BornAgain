@@ -22,19 +22,24 @@
 #include "RealParameter.h"
 #include <limits>
 
-IFTDistribution2D::IFTDistribution2D(
-    double coherence_length_x, double coherence_length_y, double gamma, double delta)
-    : m_coherence_length_x(coherence_length_x)
-    , m_coherence_length_y(coherence_length_y)
+IFTDistribution2D::IFTDistribution2D(double omega_x, double omega_y, double gamma, double delta)
+    : m_omega_x(omega_x)
+    , m_omega_y(omega_y)
     , m_gamma(gamma)
     , m_delta(delta)
 {}
 
+double IFTDistribution2D::sumsq(double qx, double qy) const
+{
+    return qx*qx*m_omega_x*m_omega_x +
+            qy*qy*m_omega_y*m_omega_y;
+}
+
 void IFTDistribution2D::init_parameters()
 {
-    registerParameter(BornAgain::CoherenceLengthX, &m_coherence_length_x).
-        setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::CoherenceLengthY, &m_coherence_length_y).
+    registerParameter(BornAgain::CoherenceLengthX, &m_omega_x).
+            setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::CoherenceLengthY, &m_omega_y).
         setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
     registerParameter(BornAgain::Delta, &m_delta).setUnit("rad").setLimited(0, M_PI);
@@ -46,9 +51,8 @@ void IFTDistribution2D::print(std::ostream& ostr) const
 }
 
 
-FTDistribution2DCauchy::FTDistribution2DCauchy(
-    double coherence_length_x, double coherence_length_y, double gamma, double delta)
-    : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta)
+FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma, double delta)
+    : IFTDistribution2D(omega_x, omega_y, gamma, delta)
 {
     setName(BornAgain::FTDistribution2DCauchyType);
     init_parameters();
@@ -60,9 +64,8 @@ double FTDistribution2DCauchy::evaluate(double qx, double qy) const
 }
 
 
-FTDistribution2DGauss::FTDistribution2DGauss(
-    double coherence_length_x, double coherence_length_y, double gamma, double delta)
-    : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta)
+FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma, double delta)
+    : IFTDistribution2D(omega_x, omega_y, gamma, delta)
 {
     setName(BornAgain::FTDistribution2DGaussType);
     init_parameters();
@@ -74,9 +77,8 @@ double FTDistribution2DGauss::evaluate(double qx, double qy) const
 }
 
 
-FTDistribution2DGate::FTDistribution2DGate(
-    double coherence_length_x, double coherence_length_y, double gamma, double delta)
-    : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta)
+FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma, double delta)
+    : IFTDistribution2D(omega_x, omega_y, gamma, delta)
 {
     setName(BornAgain::FTDistribution2DGateType);
     init_parameters();
@@ -89,9 +91,8 @@ double FTDistribution2DGate::evaluate(double qx, double qy) const
 }
 
 
-FTDistribution2DCone::FTDistribution2DCone(
-    double coherence_length_x, double coherence_length_y, double gamma, double delta)
-    : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta)
+FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma, double delta)
+    : IFTDistribution2D(omega_x, omega_y, gamma, delta)
 {
     setName(BornAgain::FTDistribution2DConeType);
     init_parameters();
@@ -113,14 +114,13 @@ double FTDistribution2DCone::coneIntegrand2(double value) const
 }
 
 
-FTDistribution2DVoigt::FTDistribution2DVoigt(
-    double coherence_length_x, double coherence_length_y, double eta, double gamma, double delta)
-    : IFTDistribution2D(coherence_length_x, coherence_length_y, gamma, delta), m_eta(eta)
+FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma, double delta)
+    : IFTDistribution2D(omega_x, omega_y, gamma, delta), m_eta(eta)
 {
     setName(BornAgain::FTDistribution2DVoigtType);
-    registerParameter(BornAgain::CoherenceLengthX, &m_coherence_length_x).
+    registerParameter(BornAgain::CoherenceLengthX, &m_omega_x).
         setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::CoherenceLengthY, &m_coherence_length_y).
+    registerParameter(BornAgain::CoherenceLengthY, &m_omega_y).
         setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Eta, &m_eta);
     registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);

@@ -10022,24 +10022,14 @@ class IFTDistribution2D(ICloneable, INode):
         return _libBornAgainCore.IFTDistribution2D_getDelta(self)
 
 
-    def getCoherenceLengthX(self):
-        """
-        getCoherenceLengthX(IFTDistribution2D self) -> double
-
-        double IFTDistribution2D::getCoherenceLengthX() const 
-
-        """
-        return _libBornAgainCore.IFTDistribution2D_getCoherenceLengthX(self)
+    def omegaX(self):
+        """omegaX(IFTDistribution2D self) -> double"""
+        return _libBornAgainCore.IFTDistribution2D_omegaX(self)
 
 
-    def getCoherenceLengthY(self):
-        """
-        getCoherenceLengthY(IFTDistribution2D self) -> double
-
-        double IFTDistribution2D::getCoherenceLengthY() const 
-
-        """
-        return _libBornAgainCore.IFTDistribution2D_getCoherenceLengthY(self)
+    def omegaY(self):
+        """omegaY(IFTDistribution2D self) -> double"""
+        return _libBornAgainCore.IFTDistribution2D_omegaY(self)
 
 
     def evaluate(self, qx, qy):
@@ -10080,9 +10070,9 @@ class FTDistribution2DCauchy(IFTDistribution2D):
 
     def __init__(self, *args):
         """
-        __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DCauchy
-        __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCauchy
-        __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCauchy
+        __init__(FTDistribution2DCauchy self, double omega_x, double omega_y, double gamma=0, double delta) -> FTDistribution2DCauchy
+        __init__(FTDistribution2DCauchy self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DCauchy
+        __init__(FTDistribution2DCauchy self, double omega_x, double omega_y) -> FTDistribution2DCauchy
 
         FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
@@ -10153,9 +10143,9 @@ class FTDistribution2DGauss(IFTDistribution2D):
 
     def __init__(self, *args):
         """
-        __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DGauss
-        __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGauss
-        __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGauss
+        __init__(FTDistribution2DGauss self, double omega_x, double omega_y, double gamma=0, double delta) -> FTDistribution2DGauss
+        __init__(FTDistribution2DGauss self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DGauss
+        __init__(FTDistribution2DGauss self, double omega_x, double omega_y) -> FTDistribution2DGauss
 
         FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
@@ -10226,9 +10216,9 @@ class FTDistribution2DGate(IFTDistribution2D):
 
     def __init__(self, *args):
         """
-        __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DGate
-        __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGate
-        __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGate
+        __init__(FTDistribution2DGate self, double omega_x, double omega_y, double gamma=0, double delta) -> FTDistribution2DGate
+        __init__(FTDistribution2DGate self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DGate
+        __init__(FTDistribution2DGate self, double omega_x, double omega_y) -> FTDistribution2DGate
 
         FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
@@ -10299,9 +10289,9 @@ class FTDistribution2DCone(IFTDistribution2D):
 
     def __init__(self, *args):
         """
-        __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DCone
-        __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCone
-        __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCone
+        __init__(FTDistribution2DCone self, double omega_x, double omega_y, double gamma=0, double delta) -> FTDistribution2DCone
+        __init__(FTDistribution2DCone self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DCone
+        __init__(FTDistribution2DCone self, double omega_x, double omega_y) -> FTDistribution2DCone
 
         FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
 
@@ -10372,9 +10362,9 @@ class FTDistribution2DVoigt(IFTDistribution2D):
 
     def __init__(self, *args):
         """
-        __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta) -> FTDistribution2DVoigt
-        __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta, double gamma=0) -> FTDistribution2DVoigt
-        __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta) -> FTDistribution2DVoigt
+        __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double eta, double gamma=0, double delta) -> FTDistribution2DVoigt
+        __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double eta, double gamma=0) -> FTDistribution2DVoigt
+        __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double eta) -> FTDistribution2DVoigt
 
         FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=M_PI_2)
 

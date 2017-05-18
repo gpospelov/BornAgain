@@ -574,9 +574,9 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DCauchyType);
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_COHER_LENGTH_X,
-                                       pdf_cauchy->getCoherenceLengthX());
+                                       pdf_cauchy->omegaX());
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_COHER_LENGTH_Y,
-                                       pdf_cauchy->getCoherenceLengthY());
+                                       pdf_cauchy->omegaY());
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_GAMMA,
                                        Units::rad2deg(pdf_cauchy->getGamma()));
     } else if (const FTDistribution2DGauss* pdf_gauss
@@ -584,9 +584,9 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DGaussType);
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_COHER_LENGTH_X,
-                                       pdf_gauss->getCoherenceLengthX());
+                                       pdf_gauss->omegaX());
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_COHER_LENGTH_Y,
-                                       pdf_gauss->getCoherenceLengthY());
+                                       pdf_gauss->omegaY());
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_GAMMA,
                                        Units::rad2deg(pdf_gauss->getGamma()));
     } else if (const FTDistribution2DGate* pdf_gate
@@ -594,9 +594,9 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DGateType);
         pdfItem->setItemValue(FTDistribution2DGateItem::P_COHER_LENGTH_X,
-                                       pdf_gate->getCoherenceLengthX());
+                                       pdf_gate->omegaX());
         pdfItem->setItemValue(FTDistribution2DGateItem::P_COHER_LENGTH_Y,
-                                       pdf_gate->getCoherenceLengthY());
+                                       pdf_gate->omegaY());
         pdfItem->setItemValue(FTDistribution2DGateItem::P_GAMMA,
                                        Units::rad2deg(pdf_gate->getGamma()));
     } else if (const FTDistribution2DCone* pdf_cone
@@ -604,9 +604,9 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DConeType);
         pdfItem->setItemValue(FTDistribution2DConeItem::P_COHER_LENGTH_X,
-                                       pdf_cone->getCoherenceLengthX());
+                                       pdf_cone->omegaX());
         pdfItem->setItemValue(FTDistribution2DConeItem::P_COHER_LENGTH_Y,
-                                       pdf_cone->getCoherenceLengthY());
+                                       pdf_cone->omegaY());
         pdfItem->setItemValue(FTDistribution2DConeItem::P_GAMMA,
                                        Units::rad2deg(pdf_cone->getGamma()));
     } else if (const FTDistribution2DVoigt* pdf_voigt
@@ -614,9 +614,9 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution2DVoigtType);
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_COHER_LENGTH_X,
-                                       pdf_voigt->getCoherenceLengthX());
+                                       pdf_voigt->omegaX());
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_COHER_LENGTH_Y,
-                                       pdf_voigt->getCoherenceLengthY());
+                                       pdf_voigt->omegaY());
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_GAMMA,
                                        Units::rad2deg(pdf_voigt->getGamma()));
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_ETA, pdf_voigt->getEta());

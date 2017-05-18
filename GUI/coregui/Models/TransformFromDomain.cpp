@@ -578,7 +578,7 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_OMEGA_Y,
                                        pdf_cauchy->omegaY());
         pdfItem->setItemValue(FTDistribution2DCauchyItem::P_GAMMA,
-                                       Units::rad2deg(pdf_cauchy->getGamma()));
+                                       Units::rad2deg(pdf_cauchy->gamma()));
     } else if (const FTDistribution2DGauss* pdf_gauss
                = dynamic_cast<const FTDistribution2DGauss*>(pdf)) {
         SessionItem* pdfItem
@@ -588,7 +588,7 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_OMEGA_Y,
                                        pdf_gauss->omegaY());
         pdfItem->setItemValue(FTDistribution2DGaussItem::P_GAMMA,
-                                       Units::rad2deg(pdf_gauss->getGamma()));
+                                       Units::rad2deg(pdf_gauss->gamma()));
     } else if (const FTDistribution2DGate* pdf_gate
                = dynamic_cast<const FTDistribution2DGate*>(pdf)) {
         SessionItem* pdfItem
@@ -598,7 +598,7 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
         pdfItem->setItemValue(FTDistribution2DGateItem::P_OMEGA_Y,
                                        pdf_gate->omegaY());
         pdfItem->setItemValue(FTDistribution2DGateItem::P_GAMMA,
-                                       Units::rad2deg(pdf_gate->getGamma()));
+                                       Units::rad2deg(pdf_gate->gamma()));
     } else if (const FTDistribution2DCone* pdf_cone
                = dynamic_cast<const FTDistribution2DCone*>(pdf)) {
         SessionItem* pdfItem
@@ -608,7 +608,7 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
         pdfItem->setItemValue(FTDistribution2DConeItem::P_OMEGA_Y,
                                        pdf_cone->omegaY());
         pdfItem->setItemValue(FTDistribution2DConeItem::P_GAMMA,
-                                       Units::rad2deg(pdf_cone->getGamma()));
+                                       Units::rad2deg(pdf_cone->gamma()));
     } else if (const FTDistribution2DVoigt* pdf_voigt
                = dynamic_cast<const FTDistribution2DVoigt*>(pdf)) {
         SessionItem* pdfItem
@@ -618,8 +618,8 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_OMEGA_Y,
                                        pdf_voigt->omegaY());
         pdfItem->setItemValue(FTDistribution2DVoigtItem::P_GAMMA,
-                                       Units::rad2deg(pdf_voigt->getGamma()));
-        pdfItem->setItemValue(FTDistribution2DVoigtItem::P_ETA, pdf_voigt->getEta());
+                                       Units::rad2deg(pdf_voigt->gamma()));
+        pdfItem->setItemValue(FTDistribution2DVoigtItem::P_ETA, pdf_voigt->eta());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setPDF2D: -> Error");
     }

@@ -30,9 +30,9 @@ public:
     IFTDistribution2D* clone() const =0;
 
     void setGamma(double gamma) { m_gamma = gamma; }
-    double getGamma() const { return m_gamma; }
+    double gamma() const { return m_gamma; }
 
-    double getDelta() const { return m_delta; }
+    double delta() const { return m_delta; }
 
     double omegaX() const { return m_omega_x; }
     double omegaY() const { return m_omega_y; }
@@ -70,13 +70,12 @@ protected:
 class BA_CORE_API_ FTDistribution2DCauchy : public IFTDistribution2D
 {
 public:
-    FTDistribution2DCauchy(double omega_x, double omega_y, double gamma=0);
+    FTDistribution2DCauchy(double omega_x, double omega_y, double gamma = 0);
 
     FTDistribution2DCauchy* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
-
 
 //! Two-dimensional Gauss distribution in Fourier space;
 //! corresponds to normalized exp(-r^2/2) in real space
@@ -86,12 +85,12 @@ public:
 class BA_CORE_API_ FTDistribution2DGauss : public IFTDistribution2D
 {
 public:
-    FTDistribution2DGauss(double omega_x, double omega_y, double gamma=0);
+    FTDistribution2DGauss(double omega_x, double omega_y, double gamma = 0);
+
     FTDistribution2DGauss* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
-
 
 //! Two-dimensional gate distribution in Fourier space;
 //! corresponds to normalized constant if r<1 (and 0 otherwise) in real space,
@@ -101,12 +100,12 @@ public:
 class BA_CORE_API_ FTDistribution2DGate : public IFTDistribution2D
 {
 public:
-    FTDistribution2DGate(double omega_x, double omega_y, double gamma=0);
+    FTDistribution2DGate(double omega_x, double omega_y, double gamma = 0);
+
     FTDistribution2DGate* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
-
 
 //! Two-dimensional cone distribution in Fourier space;
 //! corresponds to 1-r if r<1 (and 0 otherwise) in real space
@@ -116,7 +115,8 @@ public:
 class BA_CORE_API_ FTDistribution2DCone : public IFTDistribution2D
 {
 public:
-    FTDistribution2DCone(double omega_x, double omega_y, double gamma=0);
+    FTDistribution2DCone(double omega_x, double omega_y, double gamma = 0);
+
     FTDistribution2DCone* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
@@ -127,7 +127,6 @@ private:
     double coneIntegrand2(double value) const;
 };
 
-
 //! Two-dimensional Voigt distribution in Fourier space;
 //! corresponds to eta*Gauss + (1-eta)*Cauchy
 //! @ingroup distributionFT
@@ -135,11 +134,12 @@ private:
 class BA_CORE_API_ FTDistribution2DVoigt : public IFTDistribution2D
 {
 public:
-    FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma=0);
+    FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma = 0);
+
     FTDistribution2DVoigt* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
-    double getEta() const { return m_eta;}
+    double eta() const { return m_eta; }
 
 protected:
     double m_eta;

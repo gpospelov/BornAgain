@@ -10002,24 +10002,14 @@ class IFTDistribution2D(ICloneable, INode):
         return _libBornAgainCore.IFTDistribution2D_setGamma(self, gamma)
 
 
-    def getGamma(self):
-        """
-        getGamma(IFTDistribution2D self) -> double
-
-        double IFTDistribution2D::getGamma() const 
-
-        """
-        return _libBornAgainCore.IFTDistribution2D_getGamma(self)
+    def gamma(self):
+        """gamma(IFTDistribution2D self) -> double"""
+        return _libBornAgainCore.IFTDistribution2D_gamma(self)
 
 
-    def getDelta(self):
-        """
-        getDelta(IFTDistribution2D self) -> double
-
-        double IFTDistribution2D::getDelta() const 
-
-        """
-        return _libBornAgainCore.IFTDistribution2D_getDelta(self)
+    def delta(self):
+        """delta(IFTDistribution2D self) -> double"""
+        return _libBornAgainCore.IFTDistribution2D_delta(self)
 
 
     def omegaX(self):
@@ -10404,14 +10394,9 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         return _libBornAgainCore.FTDistribution2DVoigt_evaluate(self, qx, qy)
 
 
-    def getEta(self):
-        """
-        getEta(FTDistribution2DVoigt self) -> double
-
-        double FTDistribution2DVoigt::getEta() const 
-
-        """
-        return _libBornAgainCore.FTDistribution2DVoigt_getEta(self)
+    def eta(self):
+        """eta(FTDistribution2DVoigt self) -> double"""
+        return _libBornAgainCore.FTDistribution2DVoigt_eta(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DVoigt
     __del__ = lambda self: None

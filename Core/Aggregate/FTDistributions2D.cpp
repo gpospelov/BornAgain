@@ -138,7 +138,7 @@ double FTDistribution2DCone::coneIntegrand2(double value) const
 //! @param omega_x: half-width of the distribution along its x-axis in nanometers
 //! @param omega_y: half-width of the distribution along its y-axis in nanometers
 //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
-//! @param gamma: angle in direct space between corresponding lattice vector and x-axis
+//! @param gamma: angle in direct space between first lattice vector and x-axis
 //! of the distribution in radians
 
 FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double eta,

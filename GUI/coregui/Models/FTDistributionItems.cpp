@@ -152,7 +152,7 @@ void FTDistribution2DItem::add_omega_properties()
 void FTDistribution2DItem::add_gamma_property()
 {
     addProperty(P_GAMMA, 0.0)->setToolTip(QStringLiteral("Angle in direct space between "
-        "corresponding lattice vector \nand x-axis of the distribution in degrees"));
+        "first lattice vector \nand x-axis of the distribution in degrees"));
 }
 
 void FTDistribution2DItem::add_properties()

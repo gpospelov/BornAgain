@@ -125,7 +125,7 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DVoigtItem::createFTDistributi
 
 // --------------------------------------------------------------------------------------------- //
 
-// TODO BACKCOMPATIBILITY (fix at the moment when we will break back compatibility)
+// TODO BACKCOMPATIBILITY (fix when we will break back compatibility)
 // Make P_OMEGA_X, P_OMEGA_Y depend on BornAgain::OmegaX and OmegaY
 
 const QString FTDistribution2DItem::P_OMEGA_X = "CoherenceLengthX"; // temp FIXME
@@ -139,14 +139,20 @@ FTDistribution2DItem::FTDistribution2DItem(const QString& name)
 
 void FTDistribution2DItem::add_omega_properties()
 {
-    // TODO BACKCOMPATIBILITY (remove setDisplayName)
-    addProperty(P_OMEGA_X, 1.0)->setDisplayName("OmegaX");
-    addProperty(P_OMEGA_Y, 1.0)->setDisplayName("OmegaY");
+    // TODO BACKCOMPATIBILITY (remove setDisplayName when P_OMEGA_X will be "OmegaX")
+    addProperty(P_OMEGA_X, 1.0)->setToolTip(
+        QStringLiteral("Half-width of the distribution along its x-axis in nanometers"))
+            .setDisplayName("OmegaX");
+
+    addProperty(P_OMEGA_Y, 1.0)->setToolTip(
+        QStringLiteral("Half-width of the distribution along its y-axis in nanometers"))
+            .setDisplayName("OmegaY");
 }
 
 void FTDistribution2DItem::add_gamma_property()
 {
-    addProperty(P_GAMMA, 0.0);
+    addProperty(P_GAMMA, 0.0)->setToolTip(QStringLiteral("Angle in direct space between "
+        "corresponding lattice vector \nand x-axis of the distribution in degrees"));
 }
 
 void FTDistribution2DItem::add_properties()
@@ -161,6 +167,7 @@ void FTDistribution2DItem::add_properties()
 FTDistribution2DCauchyItem::FTDistribution2DCauchyItem()
     : FTDistribution2DItem(Constants::FTDistribution2DCauchyType)
 {
+    setToolTip(QStringLiteral("Two-dimensional Cauchy probability distribution"));
     add_properties();
 }
 
@@ -178,6 +185,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DCauchyItem::createFTDistribut
 FTDistribution2DGaussItem::FTDistribution2DGaussItem()
     : FTDistribution2DItem(Constants::FTDistribution2DGaussType)
 {
+    setToolTip(QStringLiteral("Two-dimensional Gauss probability distribution"));
     add_properties();
 }
 
@@ -195,6 +203,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DGaussItem::createFTDistributi
 FTDistribution2DGateItem::FTDistribution2DGateItem()
     : FTDistribution2DItem(Constants::FTDistribution2DGateType)
 {
+    setToolTip(QStringLiteral("Two-dimensional Gate probability distribution"));
     add_properties();
 }
 
@@ -211,6 +220,7 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DGateItem::createFTDistributio
 FTDistribution2DConeItem::FTDistribution2DConeItem()
     : FTDistribution2DItem(Constants::FTDistribution2DConeType)
 {
+    setToolTip(QStringLiteral("Two-dimensional Cone probability distribution"));
     add_properties();
 }
 
@@ -229,8 +239,11 @@ const QString FTDistribution2DVoigtItem::P_ETA = QString::fromStdString(BornAgai
 FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
     : FTDistribution2DItem(Constants::FTDistribution2DVoigtType)
 {
+    setToolTip(QStringLiteral("Two-dimensional pseudo-Voigt probability distribution"));
+
     add_omega_properties();
-    addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0));
+    addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0)).setToolTip(QStringLiteral(
+        "Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)"));
     add_gamma_property();
 }
 

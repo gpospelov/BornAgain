@@ -101,16 +101,26 @@ const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
 InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
     : InterferenceFunctionItem(Constants::InterferenceFunction2DParaCrystalType)
 {
-    addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::LatticeGroup);
+    setToolTip(QStringLiteral("Interference function of two-dimensional paracrystal"));
+
+    addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::LatticeGroup)
+        ->setToolTip(QStringLiteral("Type of lattice"));
     getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
         ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE)->setEnabled(false);
-    addProperty(P_XI_INTEGRATION, true);
+    addProperty(P_XI_INTEGRATION, true)->setToolTip(
+        QStringLiteral("Enables/disables averaging over the lattice rotation angle."));
 
-    addProperty(P_DAMPING_LENGTH, 0.0);
-    addProperty(P_DOMAIN_SIZE1, 20.0 * Units::micrometer);
-    addProperty(P_DOMAIN_SIZE2, 20.0 * Units::micrometer);
-    addGroupProperty(P_PDF1, Constants::FTDistribution2DGroup);
-    addGroupProperty(P_PDF2, Constants::FTDistribution2DGroup);
+    addProperty(P_DAMPING_LENGTH, 0.0)->setToolTip(
+        QStringLiteral("The damping (coherence) length of the paracrystal in nanometers"));
+
+    addProperty(P_DOMAIN_SIZE1, 20.0 * Units::micrometer)->setToolTip(
+        QStringLiteral("Size of the coherent domain along the first basis vector in nanometers"));
+    addProperty(P_DOMAIN_SIZE2, 20.0 * Units::micrometer)->setToolTip(
+        QStringLiteral("Size of the coherent domain along the second basis vector in nanometers"));
+    addGroupProperty(P_PDF1, Constants::FTDistribution2DGroup)->setToolTip(
+        QStringLiteral("Probability distribution in first lattice direction"));
+    addGroupProperty(P_PDF2, Constants::FTDistribution2DGroup)->setToolTip(
+                QStringLiteral("Probability distribution in second lattice direction"));
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_XI_INTEGRATION && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {

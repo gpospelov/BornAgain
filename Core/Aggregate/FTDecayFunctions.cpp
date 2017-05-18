@@ -138,7 +138,8 @@ double FTDecayFunction1DCosine::evaluate(double q) const
 //! Constructor of two-dimensional decay function in reciprocal space.
 //! @param decay_length_x: the decay length in nanometers along x-axis of the distribution
 //! @param decay_length_y: the decay length in nanometers along y-axis of the distribution
-//! @param gamma: distribution orientation with respect to the first lattice vector in radians
+//! @param gamma: distribution orientation with respect to the corresponding lattice vector
+//! in radians
 IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma)
     : m_decay_length_x(decay_length_x), m_decay_length_y(decay_length_y), m_gamma(gamma),
       m_delta(M_PI_2)

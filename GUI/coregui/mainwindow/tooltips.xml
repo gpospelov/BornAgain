@@ -50,36 +50,12 @@
             </property>
         </category>
 
-        <category name="InterferenceFunction2DParaCrystal">
+        <category name="Interference2DParaCrystal">
             <property name="Title">
-                <tooltip>Interference 2D Paracrystal</tooltip>
+                <tooltip>Interference function of two-dimensional paracrystal</tooltip>
             </property>
             <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
-            </property>
-            <property name="Lattice_type">
-                <tooltip>Lattice type: Basic, Hexagonal or Square</tooltip>
-            </property>
-            <property name="Rotation_angle">
-                <tooltip>Angle between the first basis vector and the x-axis of the incoming beam, in degrees</tooltip>
-            </property>
-            <property name="Damping_length">
-                <tooltip>Damping length in nm (finite size effects)</tooltip>
-            </property>
-            <property name="Domain_size1">
-                <tooltip>Dimension of the coherent domain along the first basis vector</tooltip>
-            </property>
-            <property name="Domain_size2">
-                <tooltip>Dimension of the coherent domain along the second basis vector</tooltip>
-            </property>
-            <property name="Integration_over_xi">
-                <tooltip>Averaging over the Rotation_angle</tooltip>
-            </property>
-            <property name="PDF1">
-                <tooltip>2D Probability Distribution Function in the first basis direction</tooltip>
-            </property>
-            <property name="PDF2">
-                <tooltip>2D Probability Distribution Function in the second basis direction</tooltip>
+                <tooltip></tooltip>
             </property>
         </category>
 

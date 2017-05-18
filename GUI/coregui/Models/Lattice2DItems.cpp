@@ -22,7 +22,8 @@
 
 namespace {
     const QString axis_rotation_tooltip
-        = "Rotation of lattice with respect to x-axis (beam direction) in degrees";
+        = "Rotation of lattice with respect to x-axis of reference frame \n"
+          "(beam direction) in degrees";
 }
 
 const QString Lattice2DItem::P_LATTICE_ROTATION_ANGLE

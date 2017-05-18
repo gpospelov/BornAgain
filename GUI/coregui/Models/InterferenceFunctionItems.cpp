@@ -191,8 +191,8 @@ InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
     addProperty(P_LENGTH, 20.0 * Units::nanometer)
             ->setToolTip(QStringLiteral("Lattice length in nanometers"));
     addProperty(P_ROTATION_ANGLE, 0.0)
-        ->setToolTip(QStringLiteral("Rotation of lattice with respect to x-axis of reference frame "
-                                    "in degrees"));
+        ->setToolTip(QStringLiteral("Rotation of lattice with respect to x-axis of reference \n"
+                                    "frame (beam direction) in degrees "));
     addGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction1DGroup)
         ->setToolTip(QStringLiteral("One-dimensional decay function (finite size effects)"));
 }

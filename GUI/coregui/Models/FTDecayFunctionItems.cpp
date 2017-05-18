@@ -127,7 +127,7 @@ void FTDecayFunction2DItem::add_decay_property()
 void FTDecayFunction2DItem::add_gammadelta_property()
 {
     addProperty(P_GAMMA, 0.0)->setToolTip(QStringLiteral(
-        "Distribution orientation with respect to the first lattice vector in radians"));
+        "Distribution orientation with respect to the first lattice vector in degrees"));
     addProperty(P_DELTA, 90.0)->setVisible(false);
 }
 

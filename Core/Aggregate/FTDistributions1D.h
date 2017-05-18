@@ -53,7 +53,8 @@ class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 {
 public:
     FTDistribution1DCauchy(double omega);
-    FTDistribution1DCauchy* clone() const final { return new FTDistribution1DCauchy(m_omega); }
+
+    FTDistribution1DCauchy* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -67,7 +68,8 @@ class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 {
 public:
     FTDistribution1DGauss(double omega);
-    FTDistribution1DGauss* clone() const final { return new FTDistribution1DGauss(m_omega); }
+
+    FTDistribution1DGauss* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -81,7 +83,8 @@ class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
 {
 public:
     FTDistribution1DGate(double omega);
-    FTDistribution1DGate* clone() const final { return new FTDistribution1DGate(m_omega); }
+
+    FTDistribution1DGate* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -95,8 +98,8 @@ class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
 {
 public:
     FTDistribution1DTriangle(double omega);
-    virtual ~FTDistribution1DTriangle() {}
-    FTDistribution1DTriangle* clone() const final { return new FTDistribution1DTriangle(m_omega); }
+
+    FTDistribution1DTriangle* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -111,7 +114,8 @@ class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
 {
 public:
     FTDistribution1DCosine(double omega);
-    FTDistribution1DCosine* clone() const final { return new FTDistribution1DCosine(m_omega); }
+
+    FTDistribution1DCosine* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -129,11 +133,11 @@ public:
     //! @param omega: half-width of the distribution in nanometers
     //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
     FTDistribution1DVoigt(double omega, double eta);
-    FTDistribution1DVoigt* clone() const final {
-        return new FTDistribution1DVoigt(m_omega, m_eta); }
+
+    FTDistribution1DVoigt* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
-    double getEta() const { return m_eta;}
+    double eta() const { return m_eta;}
 protected:
     double m_eta;
 };

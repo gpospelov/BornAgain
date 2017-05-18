@@ -35,6 +35,11 @@ FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
     init_parameters();
 }
 
+FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const
+{
+    return new FTDistribution1DCauchy(m_omega);
+}
+
 double FTDistribution1DCauchy::evaluate(double q) const
 {
     double sum_sq = q*q*m_omega*m_omega;
@@ -46,6 +51,11 @@ FTDistribution1DGauss::FTDistribution1DGauss(double omega)
 {
     setName(BornAgain::FTDistribution1DGaussType);
     init_parameters();
+}
+
+FTDistribution1DGauss* FTDistribution1DGauss::clone() const
+{
+    return new FTDistribution1DGauss(m_omega);
 }
 
 double FTDistribution1DGauss::evaluate(double q) const
@@ -61,6 +71,11 @@ FTDistribution1DGate::FTDistribution1DGate(double omega)
     init_parameters();
 }
 
+FTDistribution1DGate* FTDistribution1DGate::clone() const
+{
+    return new FTDistribution1DGate(m_omega);
+}
+
 double FTDistribution1DGate::evaluate(double q) const
 {
     return MathFunctions::sinc(q*m_omega);
@@ -71,6 +86,11 @@ FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
 {
     setName(BornAgain::FTDistribution1DTriangleType);
     init_parameters();
+}
+
+FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const
+{
+    return new FTDistribution1DTriangle(m_omega);
 }
 
 double FTDistribution1DTriangle::evaluate(double q) const
@@ -84,6 +104,11 @@ FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 {
     setName(BornAgain::FTDistribution1DCosineType);
     init_parameters();
+}
+
+FTDistribution1DCosine* FTDistribution1DCosine::clone() const
+{
+    return new FTDistribution1DCosine(m_omega);
 }
 
 double FTDistribution1DCosine::evaluate(double q) const
@@ -101,6 +126,11 @@ FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
     setName(BornAgain::FTDistribution1DVoigtType);
     init_parameters();
     registerParameter(BornAgain::Eta, &m_eta);
+}
+
+FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const
+{
+    return new FTDistribution1DVoigt(m_omega, m_eta);
 }
 
 double FTDistribution1DVoigt::evaluate(double q) const

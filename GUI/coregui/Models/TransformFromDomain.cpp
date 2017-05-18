@@ -561,7 +561,7 @@ void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_na
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DVoigtType);
         pdfItem->setItemValue(FTDistribution1DVoigtItem::P_OMEGA, pdf->omega());
-        pdfItem->setItemValue(FTDistribution1DVoigtItem::P_ETA, pdf->getEta());
+        pdfItem->setItemValue(FTDistribution1DVoigtItem::P_ETA, pdf->eta());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setPDF1D: -> Error");
     }

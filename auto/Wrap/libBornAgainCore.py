@@ -9739,8 +9739,6 @@ class FTDistribution1DTriangle(IFTDistribution1D):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DTriangle
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9775,6 +9773,8 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         return _libBornAgainCore.FTDistribution1DTriangle_evaluate(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DTriangle
+    __del__ = lambda self: None
 FTDistribution1DTriangle_swigregister = _libBornAgainCore.FTDistribution1DTriangle_swigregister
 FTDistribution1DTriangle_swigregister(FTDistribution1DTriangle)
 
@@ -9916,14 +9916,9 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         return _libBornAgainCore.FTDistribution1DVoigt_evaluate(self, q)
 
 
-    def getEta(self):
-        """
-        getEta(FTDistribution1DVoigt self) -> double
-
-        double FTDistribution1DVoigt::getEta() const 
-
-        """
-        return _libBornAgainCore.FTDistribution1DVoigt_getEta(self)
+    def eta(self):
+        """eta(FTDistribution1DVoigt self) -> double"""
+        return _libBornAgainCore.FTDistribution1DVoigt_eta(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DVoigt
     __del__ = lambda self: None

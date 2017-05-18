@@ -22,36 +22,45 @@
 
 //===============1D======================
 
-
 void IFTDecayFunction1D::register_decay_length()
 {
     registerParameter(BornAgain::DecayLength, &m_decay_length);
 }
 
 FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double decay_length)
-: IFTDecayFunction1D(decay_length)
+    : IFTDecayFunction1D(decay_length)
 {
     setName(BornAgain::FTDecayFunction1DCauchyType);
     register_decay_length();
 }
 
+FTDecayFunction1DCauchy* FTDecayFunction1DCauchy::clone() const
+{
+    return new FTDecayFunction1DCauchy(m_decay_length);
+}
+
 double FTDecayFunction1DCauchy::evaluate(double q) const
 {
-    double sum_sq = q*q*m_decay_length*m_decay_length;
-    return m_decay_length*2.0/(1.0 + sum_sq);
+    double sum_sq = q * q * m_decay_length * m_decay_length;
+    return m_decay_length * 2.0 / (1.0 + sum_sq);
 }
 
 FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
-: IFTDecayFunction1D(decay_length)
+    : IFTDecayFunction1D(decay_length)
 {
     setName(BornAgain::FTDecayFunction1DGaussType);
     register_decay_length();
 }
 
+FTDecayFunction1DGauss* FTDecayFunction1DGauss::clone() const
+{
+    return new FTDecayFunction1DGauss(m_decay_length);
+}
+
 double FTDecayFunction1DGauss::evaluate(double q) const
 {
-    double sum_sq = q*q*m_decay_length*m_decay_length;
-    return m_decay_length*std::sqrt(M_TWOPI)*std::exp(-sum_sq/2.0);
+    double sum_sq = q * q * m_decay_length * m_decay_length;
+    return m_decay_length * std::sqrt(M_TWOPI) * std::exp(-sum_sq / 2.0);
 }
 
 FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
@@ -61,26 +70,35 @@ FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
     register_decay_length();
 }
 
+FTDecayFunction1DTriangle* FTDecayFunction1DTriangle::clone() const
+{
+    return new FTDecayFunction1DTriangle(m_decay_length);
+}
+
 double FTDecayFunction1DTriangle::evaluate(double q) const
 {
-    double sincqw2 = MathFunctions::sinc(q*m_decay_length/2.0);
-    return m_decay_length*sincqw2*sincqw2;
+    double sincqw2 = MathFunctions::sinc(q * m_decay_length / 2.0);
+    return m_decay_length * sincqw2 * sincqw2;
 }
 
 FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
-: IFTDecayFunction1D(decay_length)
-, m_eta(eta)
+    : IFTDecayFunction1D(decay_length), m_eta(eta)
 {
     setName(BornAgain::FTDecayFunction1DVoigtType);
     register_decay_length();
     registerParameter(BornAgain::Eta, &m_eta);
 }
 
+FTDecayFunction1DVoigt* FTDecayFunction1DVoigt::clone() const
+{
+    return new FTDecayFunction1DVoigt(m_decay_length, m_eta);
+}
+
 double FTDecayFunction1DVoigt::evaluate(double q) const
 {
-    double sum_sq = q*q*m_decay_length*m_decay_length;
-    return m_eta*m_decay_length*std::sqrt(M_TWOPI)*std::exp(-sum_sq/2.0)
-            + (1.0 - m_eta)*m_decay_length*2.0/(1.0 + sum_sq);
+    double sum_sq = q * q * m_decay_length * m_decay_length;
+    return m_eta * m_decay_length * std::sqrt(M_TWOPI) * std::exp(-sum_sq / 2.0)
+           + (1.0 - m_eta) * m_decay_length * 2.0 / (1.0 + sum_sq);
 }
 
 /* Commented out decay functions: see header for rationale
@@ -137,11 +155,21 @@ void IFTDecayFunction2D::transformToStarBasis(double qX, double qY, double alpha
          * (-std::sin(alpha - m_gamma - m_delta) * qX + std::sin(alpha - m_gamma) * qY);
 }
 
-void IFTDecayFunction2D::init_parameters()
+void IFTDecayFunction2D::register_decay_lengths()
 {
     registerParameter(BornAgain::DecayLengthX, &m_decay_length_x).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::DecayLengthY, &m_decay_length_y).setUnit("nm").setNonnegative();
+}
+
+void IFTDecayFunction2D::register_gamma()
+{
     registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
+}
+
+void IFTDecayFunction2D::init_parameters()
+{
+    register_decay_lengths();
+    register_gamma();
 }
 
 FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y,
@@ -195,7 +223,9 @@ FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double dec
     : IFTDecayFunction2D(decay_length_x, decay_length_y, gamma), m_eta(eta)
 {
     setName(BornAgain::FTDecayFunction2DVoigtType);
-    init_parameters();
+    register_decay_lengths();
+    registerParameter(BornAgain::Eta, &m_eta);
+    register_gamma();
 }
 
 FTDecayFunction2DVoigt* FTDecayFunction2DVoigt::clone() const
@@ -209,12 +239,4 @@ double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const
                     + qy * qy * m_decay_length_y * m_decay_length_y;
     return M_TWOPI * m_decay_length_x * m_decay_length_y
            * (m_eta * std::exp(-sum_sq / 2.0) + (1.0 - m_eta) * std::pow(1.0 + sum_sq, -1.5));
-}
-
-void FTDecayFunction2DVoigt::init_parameters()
-{
-    registerParameter(BornAgain::DecayLengthX, &m_decay_length_x).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::DecayLengthY, &m_decay_length_y).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Eta, &m_eta);
-    registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
 }

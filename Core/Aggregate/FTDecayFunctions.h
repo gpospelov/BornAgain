@@ -48,8 +48,8 @@ class BA_CORE_API_ FTDecayFunction1DCauchy : public IFTDecayFunction1D
 {
 public:
     FTDecayFunction1DCauchy(double decay_length);
-    virtual FTDecayFunction1DCauchy* clone() const {
-        return new FTDecayFunction1DCauchy(m_decay_length); }
+
+    FTDecayFunction1DCauchy* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -62,8 +62,8 @@ class BA_CORE_API_ FTDecayFunction1DGauss : public IFTDecayFunction1D
 {
 public:
     FTDecayFunction1DGauss(double decay_length);
-    virtual FTDecayFunction1DGauss* clone() const {
-        return new FTDecayFunction1DGauss(m_decay_length); }
+
+    FTDecayFunction1DGauss* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -76,8 +76,8 @@ class BA_CORE_API_ FTDecayFunction1DTriangle : public IFTDecayFunction1D
 {
 public:
     FTDecayFunction1DTriangle(double decay_length);
-    virtual FTDecayFunction1DTriangle* clone() const {
-        return new FTDecayFunction1DTriangle(m_decay_length); }
+
+    FTDecayFunction1DTriangle* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -89,16 +89,15 @@ public:
 class BA_CORE_API_ FTDecayFunction1DVoigt : public IFTDecayFunction1D
 {
 public:
-    //! Constructor of one-dimensional decay function.
+    //! Constructor of pseudo-Voigt decay function.
     //! @param decay_length: half-width of the distribution in nanometers
     //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
     FTDecayFunction1DVoigt(double decay_length, double eta);
 
-    virtual FTDecayFunction1DVoigt* clone() const {
-        return new FTDecayFunction1DVoigt(m_decay_length, m_eta); }
+    FTDecayFunction1DVoigt* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
-    double getEta() const { return m_eta;}
+    double eEta() const { return m_eta;}
 
 private:
     double m_eta;
@@ -117,10 +116,10 @@ public:
     void setGamma(double gamma) { m_gamma = gamma; }
 
     //! get angle between first lattice vector and X-axis of distribution (both in direct space)
-    double getGamma() const { return m_gamma; }
+    double gamma() const { return m_gamma; }
 
     //! get angle between X- and Y-axis of distribution (in direct space)
-    double getDelta() const { return m_delta; }
+    double delta() const { return m_delta; }
 
     //! get decay length in distribution's X-direction
     double decayLengthX() const { return m_decay_length_x; }
@@ -136,7 +135,9 @@ public:
             double alpha, double a, double b, double& qa, double& qb) const;
 
 protected:
-    virtual void init_parameters();
+    void register_decay_lengths();
+    void register_gamma();
+    void init_parameters();
     double m_decay_length_x;
     double m_decay_length_y;
     double m_gamma;
@@ -153,7 +154,7 @@ class BA_CORE_API_ FTDecayFunction2DCauchy : public IFTDecayFunction2D
 public:
     FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0);
 
-    virtual FTDecayFunction2DCauchy* clone() const;
+    FTDecayFunction2DCauchy* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
@@ -168,7 +169,7 @@ class BA_CORE_API_ FTDecayFunction2DGauss : public IFTDecayFunction2D
 public:
     FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0);
 
-    virtual FTDecayFunction2DGauss* clone() const;
+    FTDecayFunction2DGauss* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
@@ -182,13 +183,12 @@ public:
     FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta,
                            double gamma=0);
 
-    virtual FTDecayFunction2DVoigt* clone() const;
+    FTDecayFunction2DVoigt* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
-    virtual double getEta() const { return m_eta; }
+    double eta() const { return m_eta; }
 
 protected:
-    virtual void init_parameters();
     double m_eta;
 };
 

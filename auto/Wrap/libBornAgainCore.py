@@ -9107,14 +9107,9 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         return _libBornAgainCore.FTDecayFunction1DVoigt_evaluate(self, q)
 
 
-    def getEta(self):
-        """
-        getEta(FTDecayFunction1DVoigt self) -> double
-
-        double FTDecayFunction1DVoigt::getEta() const 
-
-        """
-        return _libBornAgainCore.FTDecayFunction1DVoigt_getEta(self)
+    def eEta(self):
+        """eEta(FTDecayFunction1DVoigt self) -> double"""
+        return _libBornAgainCore.FTDecayFunction1DVoigt_eEta(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction1DVoigt
     __del__ = lambda self: None
@@ -9166,28 +9161,14 @@ class IFTDecayFunction2D(ICloneable, INode):
         return _libBornAgainCore.IFTDecayFunction2D_setGamma(self, gamma)
 
 
-    def getGamma(self):
-        """
-        getGamma(IFTDecayFunction2D self) -> double
-
-        double IFTDecayFunction2D::getGamma() const
-
-        get angle between first lattice vector and X-axis of distribution (both in direct space) 
-
-        """
-        return _libBornAgainCore.IFTDecayFunction2D_getGamma(self)
+    def gamma(self):
+        """gamma(IFTDecayFunction2D self) -> double"""
+        return _libBornAgainCore.IFTDecayFunction2D_gamma(self)
 
 
-    def getDelta(self):
-        """
-        getDelta(IFTDecayFunction2D self) -> double
-
-        double IFTDecayFunction2D::getDelta() const
-
-        get angle between X- and Y-axis of distribution (in direct space) 
-
-        """
-        return _libBornAgainCore.IFTDecayFunction2D_getDelta(self)
+    def delta(self):
+        """delta(IFTDecayFunction2D self) -> double"""
+        return _libBornAgainCore.IFTDecayFunction2D_delta(self)
 
 
     def decayLengthX(self):
@@ -9440,14 +9421,9 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         return _libBornAgainCore.FTDecayFunction2DVoigt_evaluate(self, qx, qy)
 
 
-    def getEta(self):
-        """
-        getEta(FTDecayFunction2DVoigt self) -> double
-
-        virtual double FTDecayFunction2DVoigt::getEta() const 
-
-        """
-        return _libBornAgainCore.FTDecayFunction2DVoigt_getEta(self)
+    def eta(self):
+        """eta(FTDecayFunction2DVoigt self) -> double"""
+        return _libBornAgainCore.FTDecayFunction2DVoigt_eta(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction2DVoigt
     __del__ = lambda self: None

@@ -148,8 +148,8 @@ double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx
             "InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
             " -> Error! No decay function defined.");
     double qp1, qp2;
-    double gamma = m_lattice->rotationAngle() + m_decay->getGamma();
-    double delta = m_decay->getDelta();
+    double gamma = m_lattice->rotationAngle() + m_decay->gamma();
+    double delta = m_decay->delta();
     transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
     return m_decay->evaluate(qp1, qp2);
 }

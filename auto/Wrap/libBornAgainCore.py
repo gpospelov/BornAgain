@@ -17647,18 +17647,6 @@ class HomogeneousMaterial(INamed):
         return _libBornAgainCore.HomogeneousMaterial_scalarSLD(self, wavevectors)
 
 
-    def scalarFresnel(self, k, n_ref):
-        """
-        scalarFresnel(HomogeneousMaterial self, kvector_t k, double n_ref) -> complex_t
-
-        complex_t HomogeneousMaterial::scalarFresnel(const kvector_t k, double n_ref) const
-
-        Return the potential term that is used in the one-dimensional Fresnel calculations. 
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_scalarFresnel(self, k, n_ref)
-
-
     def transformedMaterial(self, transform):
         """
         transformedMaterial(HomogeneousMaterial self, Transform3D const & transform) -> HomogeneousMaterial

@@ -65,9 +65,6 @@ public:
 
     complex_t scalarSLD(const WavevectorInfo& wavevectors) const;
 
-    //! Return the potential term that is used in the one-dimensional Fresnel calculations
-    complex_t scalarFresnel(const kvector_t k, double n_ref) const;
-
 #ifndef SWIG
     Eigen::Matrix2cd polarizedSLD(const WavevectorInfo& wavevectors) const;
 

@@ -101,12 +101,6 @@ complex_t HomogeneousMaterial::scalarSLD(const WavevectorInfo& wavevectors) cons
     return prefactor * refractive_index * refractive_index;
 }
 
-complex_t HomogeneousMaterial::scalarFresnel(const kvector_t k, double n_ref) const
-{
-    complex_t refractive_index = refractiveIndex();
-    return refractive_index*refractive_index - n_ref*n_ref*k.sin2Theta();
-}
-
 Eigen::Matrix2cd HomogeneousMaterial::polarizedSLD(const WavevectorInfo& wavevectors) const
 {
     //    return getPolarizedSLDExperimental(wavevectors);
@@ -141,7 +135,7 @@ Eigen::Matrix2cd HomogeneousMaterial::polarizedFresnel(const kvector_t k, double
 {
     Eigen::Matrix2cd result;
     double factor = Magnetic_Prefactor/k.mag2();
-    complex_t unit_factor = scalarFresnel(k, n_ref);
+    complex_t unit_factor = ScalarReducedPotential(refractiveIndex(), k, n_ref);
     result = unit_factor*Unit_Matrix
             + factor*Pauli_X*m_magnetic_field[0]
             + factor*Pauli_Y*m_magnetic_field[1]

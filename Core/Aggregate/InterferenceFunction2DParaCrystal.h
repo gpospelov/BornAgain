@@ -62,12 +62,12 @@ public:
 
     double evaluate(const kvector_t q) const final;
 
-    std::vector<double> getDomainSizes() const;
-    std::vector<const IFTDistribution2D*> getProbabilityDistributions() const;
+    std::vector<double> domainSizes() const;
+    std::vector<const IFTDistribution2D*> probabilityDistributions() const;
 
     void setIntegrationOverXi(bool integrate_xi);
-    bool getIntegrationOverXi() const { return m_integrate_xi; }
-    double getDampingLength() const { return m_damping_length; }
+    bool integrationOverXi() const { return m_integrate_xi; }
+    double dampingLength() const { return m_damping_length; }
 
     const Lattice2D& lattice() const;
 

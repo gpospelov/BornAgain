@@ -241,13 +241,13 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy, double 
     return result;
 }
 
-std::vector<double> InterferenceFunction2DParaCrystal::getDomainSizes() const
+std::vector<double> InterferenceFunction2DParaCrystal::domainSizes() const
 {
     return {m_domain_sizes[0], m_domain_sizes[1]};
 }
 
 std::vector<const IFTDistribution2D*>
-InterferenceFunction2DParaCrystal::getProbabilityDistributions() const
+InterferenceFunction2DParaCrystal::probabilityDistributions() const
 {
     return {m_pdf1.get(), m_pdf2.get()};
 }

@@ -20468,24 +20468,14 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_evaluate(self, q)
 
 
-    def getDomainSizes(self):
-        """
-        getDomainSizes(InterferenceFunction2DParaCrystal self) -> vdouble1d_t
-
-        std::vector< double > InterferenceFunction2DParaCrystal::getDomainSizes() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getDomainSizes(self)
+    def domainSizes(self):
+        """domainSizes(InterferenceFunction2DParaCrystal self) -> vdouble1d_t"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_domainSizes(self)
 
 
-    def getProbabilityDistributions(self):
-        """
-        getProbabilityDistributions(InterferenceFunction2DParaCrystal self) -> std::vector< IFTDistribution2D const *,std::allocator< IFTDistribution2D const * > >
-
-        std::vector< const IFTDistribution2D * > InterferenceFunction2DParaCrystal::getProbabilityDistributions() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getProbabilityDistributions(self)
+    def probabilityDistributions(self):
+        """probabilityDistributions(InterferenceFunction2DParaCrystal self) -> std::vector< IFTDistribution2D const *,std::allocator< IFTDistribution2D const * > >"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_probabilityDistributions(self)
 
 
     def setIntegrationOverXi(self, integrate_xi):
@@ -20498,24 +20488,14 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_setIntegrationOverXi(self, integrate_xi)
 
 
-    def getIntegrationOverXi(self):
-        """
-        getIntegrationOverXi(InterferenceFunction2DParaCrystal self) -> bool
-
-        bool InterferenceFunction2DParaCrystal::getIntegrationOverXi() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getIntegrationOverXi(self)
+    def integrationOverXi(self):
+        """integrationOverXi(InterferenceFunction2DParaCrystal self) -> bool"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_integrationOverXi(self)
 
 
-    def getDampingLength(self):
-        """
-        getDampingLength(InterferenceFunction2DParaCrystal self) -> double
-
-        double InterferenceFunction2DParaCrystal::getDampingLength() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getDampingLength(self)
+    def dampingLength(self):
+        """dampingLength(InterferenceFunction2DParaCrystal self) -> double"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_dampingLength(self)
 
 
     def lattice(self):

@@ -38,14 +38,14 @@ inline void TestParaCrystalItems::test_Para2D_fromToDomain()
     TransformFromDomain::setItemFromSample(&item, &orig);
 
     QCOMPARE(item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH).toDouble(),
-             orig.getDampingLength());
+             orig.dampingLength());
     QCOMPARE(item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1).toDouble(),
-             orig.getDomainSizes()[0]);
+             orig.domainSizes()[0]);
     QCOMPARE(item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2).toDouble(),
-             orig.getDomainSizes()[1]);
-    QCOMPARE(orig.getIntegrationOverXi(), false);
+             orig.domainSizes()[1]);
+    QCOMPARE(orig.integrationOverXi(), false);
     QCOMPARE(item.getItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION).toBool(),
-             orig.getIntegrationOverXi());
+             orig.integrationOverXi());
 
     SessionItem* latticeItem = item.getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
     QCOMPARE(latticeItem->modelType(), Constants::BasicLatticeType);
@@ -70,9 +70,9 @@ inline void TestParaCrystalItems::test_Para2D_fromToDomain()
     auto ifun = item.createInterferenceFunction();
     std::unique_ptr<InterferenceFunction2DParaCrystal> domain(
         dynamic_cast<InterferenceFunction2DParaCrystal*>(ifun->clone()));
-    QCOMPARE(domain->getIntegrationOverXi(), orig.getIntegrationOverXi());
-    QCOMPARE(domain->getDomainSizes(), orig.getDomainSizes());
-    QCOMPARE(domain->getDampingLength(), orig.getDampingLength());
+    QCOMPARE(domain->integrationOverXi(), orig.integrationOverXi());
+    QCOMPARE(domain->domainSizes(), orig.domainSizes());
+    QCOMPARE(domain->dampingLength(), orig.dampingLength());
     QCOMPARE(domain->lattice().length1(), orig.lattice().length1());
     QCOMPARE(domain->lattice().length2(), orig.lattice().length2());
     QCOMPARE(domain->lattice().latticeAngle(), orig.lattice().latticeAngle());

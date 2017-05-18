@@ -93,15 +93,15 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
     set2DLatticeParameters(item, sample->lattice());
 
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH,
-                                sample->getDampingLength());
+                                sample->dampingLength());
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1,
-                                sample->getDomainSizes()[0]);
+                                sample->domainSizes()[0]);
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2,
-                                sample->getDomainSizes()[1]);
+                                sample->domainSizes()[1]);
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION,
-                                sample->getIntegrationOverXi());
+                                sample->integrationOverXi());
 
-    std::vector<const IFTDistribution2D*> pdfs = sample->getProbabilityDistributions();
+    std::vector<const IFTDistribution2D*> pdfs = sample->probabilityDistributions();
     QStringList group_names;
     group_names << InterferenceFunction2DParaCrystalItem::P_PDF1
                 << InterferenceFunction2DParaCrystalItem::P_PDF2;

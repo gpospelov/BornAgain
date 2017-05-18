@@ -535,32 +535,32 @@ void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_na
     if (const FTDistribution1DCauchy* pdf = dynamic_cast<const FTDistribution1DCauchy*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DCauchyType);
-        pdfItem->setItemValue(FTDistribution1DCauchyItem::P_OMEGA, pdf->getOmega());
+        pdfItem->setItemValue(FTDistribution1DCauchyItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DGauss* pdf
                = dynamic_cast<const FTDistribution1DGauss*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DGaussType);
-        pdfItem->setItemValue(FTDistribution1DGaussItem::P_OMEGA, pdf->getOmega());
+        pdfItem->setItemValue(FTDistribution1DGaussItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DGate* pdf = dynamic_cast<const FTDistribution1DGate*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DGateType);
-        pdfItem->setItemValue(FTDistribution1DGateItem::P_OMEGA, pdf->getOmega());
+        pdfItem->setItemValue(FTDistribution1DGateItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DTriangle* pdf
                = dynamic_cast<const FTDistribution1DTriangle*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DTriangleType);
         pdfItem->setItemValue(FTDistribution1DTriangleItem::P_OMEGA,
-                                       pdf->getOmega());
+                                       pdf->omega());
     } else if (const FTDistribution1DCosine* pdf
                = dynamic_cast<const FTDistribution1DCosine*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DCosineType);
-        pdfItem->setItemValue(FTDistribution1DCosineItem::P_OMEGA, pdf->getOmega());
+        pdfItem->setItemValue(FTDistribution1DCosineItem::P_OMEGA, pdf->omega());
     } else if (const FTDistribution1DVoigt* pdf
                = dynamic_cast<const FTDistribution1DVoigt*>(ipdf)) {
         SessionItem* pdfItem
             = item->setGroupProperty(group_name, Constants::FTDistribution1DVoigtType);
-        pdfItem->setItemValue(FTDistribution1DVoigtItem::P_OMEGA, pdf->getOmega());
+        pdfItem->setItemValue(FTDistribution1DVoigtItem::P_OMEGA, pdf->omega());
         pdfItem->setItemValue(FTDistribution1DVoigtItem::P_ETA, pdf->getEta());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setPDF1D: -> Error");

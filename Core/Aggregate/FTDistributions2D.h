@@ -42,13 +42,9 @@ public:
     //! total integral is equal to 1
     virtual double evaluate(double qx, double qy) const=0;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IFTDistribution2D& m) {
-        m.print(ostr); return ostr; }
-
 protected:
     double sumsq( double qx, double qy) const;
 
-    virtual void print(std::ostream& ostr) const;
     void register_omega();
     void register_gamma();
     void init_parameters();

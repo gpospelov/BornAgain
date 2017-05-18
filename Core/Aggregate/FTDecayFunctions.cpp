@@ -23,12 +23,7 @@
 //===============1D======================
 
 
-void IFTDecayFunction1D::print(std::ostream &ostr) const
-{
-    ostr << getName() << " " << *parameterPool();
-}
-
-void IFTDecayFunction1D::init_parameters()
+void IFTDecayFunction1D::register_decay_length()
 {
     registerParameter(BornAgain::DecayLength, &m_decay_length);
 }
@@ -37,7 +32,7 @@ FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double decay_length)
 : IFTDecayFunction1D(decay_length)
 {
     setName(BornAgain::FTDecayFunction1DCauchyType);
-    init_parameters();
+    register_decay_length();
 }
 
 double FTDecayFunction1DCauchy::evaluate(double q) const
@@ -50,7 +45,7 @@ FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
 : IFTDecayFunction1D(decay_length)
 {
     setName(BornAgain::FTDecayFunction1DGaussType);
-    init_parameters();
+    register_decay_length();
 }
 
 double FTDecayFunction1DGauss::evaluate(double q) const
@@ -63,7 +58,7 @@ FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
     : IFTDecayFunction1D(decay_length)
 {
     setName(BornAgain::FTDecayFunction1DTriangleType);
-    init_parameters();
+    register_decay_length();
 }
 
 double FTDecayFunction1DTriangle::evaluate(double q) const
@@ -77,7 +72,8 @@ FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
 , m_eta(eta)
 {
     setName(BornAgain::FTDecayFunction1DVoigtType);
-    init_parameters();
+    register_decay_length();
+    registerParameter(BornAgain::Eta, &m_eta);
 }
 
 double FTDecayFunction1DVoigt::evaluate(double q) const
@@ -85,12 +81,6 @@ double FTDecayFunction1DVoigt::evaluate(double q) const
     double sum_sq = q*q*m_decay_length*m_decay_length;
     return m_eta*m_decay_length*std::sqrt(M_TWOPI)*std::exp(-sum_sq/2.0)
             + (1.0 - m_eta)*m_decay_length*2.0/(1.0 + sum_sq);
-}
-
-void FTDecayFunction1DVoigt::init_parameters()
-{
-    IFTDecayFunction1D::init_parameters();
-    registerParameter(BornAgain::Eta, &m_eta);
 }
 
 /* Commented out decay functions: see header for rationale
@@ -145,11 +135,6 @@ void IFTDecayFunction2D::transformToStarBasis(double qX, double qY, double alpha
     qa = a * prefactor * (std::sin(m_gamma + m_delta) * qX - std::sin(m_gamma) * qY);
     qb = b * prefactor
          * (-std::sin(alpha - m_gamma - m_delta) * qX + std::sin(alpha - m_gamma) * qY);
-}
-
-void IFTDecayFunction2D::print(std::ostream& ostr) const
-{
-    ostr << getName() << " " << *parameterPool();
 }
 
 void IFTDecayFunction2D::init_parameters()

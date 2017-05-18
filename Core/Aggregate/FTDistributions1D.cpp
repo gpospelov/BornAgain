@@ -22,11 +22,6 @@
 #include "RealParameter.h"
 #include <limits>
 
-void IFTDistribution1D::print(std::ostream& ostr) const
-{
-    ostr << getName() << " " << *parameterPool();
-}
-
 void IFTDistribution1D::init_parameters()
 {
     registerParameter(BornAgain::Omega, &m_omega);

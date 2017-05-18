@@ -37,13 +37,9 @@ public:
     virtual double evaluate(double q) const=0;
 
     void setOmega(double omega) { m_omega = omega; }
-    double getOmega() const { return m_omega; }
-
-    friend std::ostream& operator<<(std::ostream& ostr, const IFTDistribution1D& m) {
-        m.print(ostr); return ostr; }
+    double omega() const { return m_omega; }
 
 protected:
-    virtual void print(std::ostream& ostr) const;
     void init_parameters();
     double m_omega;
 };

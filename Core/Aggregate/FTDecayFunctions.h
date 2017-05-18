@@ -30,15 +30,13 @@ public:
     //! Constructor of one-dimensional decay function.
     //! @param decay_length: half-width of the distribution in nanometers
     IFTDecayFunction1D(double decay_length) : m_decay_length(decay_length) {}
+
     virtual IFTDecayFunction1D* clone() const=0;
     virtual double evaluate(double q) const=0;
     double decayLength() const { return m_decay_length; }
-    friend std::ostream& operator<<(std::ostream& ostr, const IFTDecayFunction1D& m) {
-        m.print(ostr); return ostr; }
 
 protected:
-    virtual void print(std::ostream& ostr) const;
-    virtual void init_parameters();
+    void register_decay_length();
     double m_decay_length;
 };
 
@@ -95,13 +93,14 @@ public:
     //! @param decay_length: half-width of the distribution in nanometers
     //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
     FTDecayFunction1DVoigt(double decay_length, double eta);
+
     virtual FTDecayFunction1DVoigt* clone() const {
         return new FTDecayFunction1DVoigt(m_decay_length, m_eta); }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
     double getEta() const { return m_eta;}
-protected:
-    virtual void init_parameters();
+
+private:
     double m_eta;
 };
 
@@ -136,11 +135,7 @@ public:
     void transformToStarBasis(double qX, double qY,
             double alpha, double a, double b, double& qa, double& qb) const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IFTDecayFunction2D& m)
-    { m.print(ostr); return ostr; }
-
 protected:
-    virtual void print(std::ostream& ostr) const;
     virtual void init_parameters();
     double m_decay_length_x;
     double m_decay_length_y;

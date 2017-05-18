@@ -9509,14 +9509,9 @@ class IFTDistribution1D(ICloneable, INode):
         return _libBornAgainCore.IFTDistribution1D_setOmega(self, omega)
 
 
-    def getOmega(self):
-        """
-        getOmega(IFTDistribution1D self) -> double
-
-        double IFTDistribution1D::getOmega() const 
-
-        """
-        return _libBornAgainCore.IFTDistribution1D_getOmega(self)
+    def omega(self):
+        """omega(IFTDistribution1D self) -> double"""
+        return _libBornAgainCore.IFTDistribution1D_omega(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
     __del__ = lambda self: None

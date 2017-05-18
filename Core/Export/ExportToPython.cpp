@@ -398,7 +398,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
 
             const IFTDistribution1D* pdf = oneDParaCrystal->probabilityDistribution();
 
-            if (pdf->getOmega() != 0.0)
+            if (pdf->omega() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                        << "(" << argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setProbabilityDistribution(" << it->second

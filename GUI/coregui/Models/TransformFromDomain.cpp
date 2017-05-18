@@ -74,15 +74,15 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const InterferenceFunctionRadialParaCrystal* sample)
 {
     item->setItemValue(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE,
-                                sample->getPeakDistance());
+                                sample->peakDistance());
     item->setItemValue(InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH,
-                                sample->getDampingLength());
+                                sample->dampingLength());
     item->setItemValue(InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE,
-                                sample->getDomainSize());
+                                sample->domainSize());
     item->setItemValue(InterferenceFunctionRadialParaCrystalItem::P_KAPPA,
-                                sample->getKappa());
+                                sample->kappa());
 
-    const IFTDistribution1D* ipdf = sample->getProbabilityDistribution();
+    const IFTDistribution1D* ipdf = sample->probabilityDistribution();
     QString group_name = InterferenceFunctionRadialParaCrystalItem::P_PDF;
     SetPDF1D(item, ipdf, group_name);
 }

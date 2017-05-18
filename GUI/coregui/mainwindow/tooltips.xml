@@ -41,12 +41,12 @@
             </property>
         </category>
 
-        <category name="InterferenceFunctionRadialParaCrystal">
+        <category name="InterferenceRadialParaCrystal">
             <property name="Title">
                 <tooltip>Interference 1D Paracrystal</tooltip>
             </property>
             <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
+                <tooltip></tooltip>
             </property>
             <property name="Peak_distance">
                 <tooltip>Distance to the first neighbor peak in nm</tooltip>

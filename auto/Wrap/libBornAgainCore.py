@@ -18121,16 +18121,9 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_evaluate(self, q)
 
 
-    def getKappa(self):
-        """
-        getKappa(IInterferenceFunction self) -> double
-
-        virtual double IInterferenceFunction::getKappa() const
-
-        Retrieves the size-distance coupling constant (default 0.0) 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_getKappa(self)
+    def kappa(self):
+        """kappa(IInterferenceFunction self) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_kappa(self)
 
 
     def getParticleDensity(self):
@@ -20032,16 +20025,9 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setKappa(self, kappa)
 
 
-    def getKappa(self):
-        """
-        getKappa(InterferenceFunctionRadialParaCrystal self) -> double
-
-        double InterferenceFunctionRadialParaCrystal::getKappa() const final
-
-        Retrieves the size-distance coupling constant (default 0.0) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getKappa(self)
+    def kappa(self):
+        """kappa(InterferenceFunctionRadialParaCrystal self) -> double"""
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_kappa(self)
 
 
     def setDomainSize(self, size):
@@ -20054,14 +20040,9 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setDomainSize(self, size)
 
 
-    def getDomainSize(self):
-        """
-        getDomainSize(InterferenceFunctionRadialParaCrystal self) -> double
-
-        double InterferenceFunctionRadialParaCrystal::getDomainSize() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getDomainSize(self)
+    def domainSize(self):
+        """domainSize(InterferenceFunctionRadialParaCrystal self) -> double"""
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_domainSize(self)
 
 
     def evaluate(self, q):
@@ -20096,34 +20077,19 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setProbabilityDistribution(self, pdf)
 
 
-    def getProbabilityDistribution(self):
-        """
-        getProbabilityDistribution(InterferenceFunctionRadialParaCrystal self) -> IFTDistribution1D
-
-        const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getProbabilityDistribution(self)
+    def probabilityDistribution(self):
+        """probabilityDistribution(InterferenceFunctionRadialParaCrystal self) -> IFTDistribution1D"""
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_probabilityDistribution(self)
 
 
-    def getPeakDistance(self):
-        """
-        getPeakDistance(InterferenceFunctionRadialParaCrystal self) -> double
-
-        double InterferenceFunctionRadialParaCrystal::getPeakDistance() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getPeakDistance(self)
+    def peakDistance(self):
+        """peakDistance(InterferenceFunctionRadialParaCrystal self) -> double"""
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_peakDistance(self)
 
 
-    def getDampingLength(self):
-        """
-        getDampingLength(InterferenceFunctionRadialParaCrystal self) -> double
-
-        double InterferenceFunctionRadialParaCrystal::getDampingLength() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getDampingLength(self)
+    def dampingLength(self):
+        """dampingLength(InterferenceFunctionRadialParaCrystal self) -> double"""
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_dampingLength(self)
 
 
     def getChildren(self):

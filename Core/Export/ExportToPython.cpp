@@ -385,18 +385,18 @@ std::string ExportToPython::defineInterferenceFunctions() const
         else if (const auto* oneDParaCrystal
                  = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
-                   << printNm(oneDParaCrystal->getPeakDistance()) << ", "
-                   << printNm(oneDParaCrystal->getDampingLength()) << ")\n";
+                   << printNm(oneDParaCrystal->peakDistance()) << ", "
+                   << printNm(oneDParaCrystal->dampingLength()) << ")\n";
 
-            if (oneDParaCrystal->getKappa() != 0.0)
+            if (oneDParaCrystal->kappa() != 0.0)
                 result << indent() << it->second << ".setKappa("
-                       << printDouble(oneDParaCrystal->getKappa()) << ")\n";
+                       << printDouble(oneDParaCrystal->kappa()) << ")\n";
 
-            if (oneDParaCrystal->getDomainSize() != 0.0)
+            if (oneDParaCrystal->domainSize() != 0.0)
                 result << indent() << it->second << ".setDomainSize("
-                       << printDouble(oneDParaCrystal->getDomainSize()) << ")\n";
+                       << printDouble(oneDParaCrystal->domainSize()) << ")\n";
 
-            const IFTDistribution1D* pdf = oneDParaCrystal->getProbabilityDistribution();
+            const IFTDistribution1D* pdf = oneDParaCrystal->probabilityDistribution();
 
             if (pdf->getOmega() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()

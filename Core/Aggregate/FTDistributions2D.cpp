@@ -31,16 +31,18 @@ IFTDistribution2D::IFTDistribution2D(double omega_x, double omega_y, double gamm
 
 double IFTDistribution2D::sumsq(double qx, double qy) const
 {
-    return qx*qx*m_omega_x*m_omega_x +
-            qy*qy*m_omega_y*m_omega_y;
+    return qx*qx*m_omega_x*m_omega_x + qy*qy*m_omega_y*m_omega_y;
+}
+
+void IFTDistribution2D::register_omega()
+{
+    registerParameter(BornAgain::OmegaX, &m_omega_x).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::OmegaY, &m_omega_y).setUnit("nm").setNonnegative();
 }
 
 void IFTDistribution2D::init_parameters()
 {
-    registerParameter(BornAgain::CoherenceLengthX, &m_omega_x).
-            setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::CoherenceLengthY, &m_omega_y).
-        setUnit("nm").setNonnegative();
+    register_omega();
     registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
     registerParameter(BornAgain::Delta, &m_delta).setUnit("rad").setLimited(0, M_PI);
 }
@@ -114,14 +116,12 @@ double FTDistribution2DCone::coneIntegrand2(double value) const
 }
 
 
-FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma, double delta)
+FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y,
+                                             double eta, double gamma, double delta)
     : IFTDistribution2D(omega_x, omega_y, gamma, delta), m_eta(eta)
 {
     setName(BornAgain::FTDistribution2DVoigtType);
-    registerParameter(BornAgain::CoherenceLengthX, &m_omega_x).
-        setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::CoherenceLengthY, &m_omega_y).
-        setUnit("nm").setNonnegative();
+    register_omega();
     registerParameter(BornAgain::Eta, &m_eta);
     registerParameter("Gamma", &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
     registerParameter("Delta", &m_delta).setUnit("rad").setLimited(0, M_PI);

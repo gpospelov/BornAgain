@@ -50,6 +50,7 @@ protected:
     double sumsq( double qx, double qy) const;
 
     virtual void print(std::ostream& ostr) const;
+    void register_omega();
     void init_parameters();
 
     double m_omega_x; //!< Half-width of the distribution along its x-axis in nanometers.

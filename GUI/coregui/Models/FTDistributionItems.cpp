@@ -125,10 +125,12 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DVoigtItem::createFTDistributi
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString FTDistribution2DItem::P_COHER_LENGTH_X =
-        QString::fromStdString(BornAgain::CoherenceLengthX);
-const QString FTDistribution2DItem::P_COHER_LENGTH_Y =
-    QString::fromStdString(BornAgain::CoherenceLengthY);
+// TODO BACKCOMPATIBILITY (fix at the moment when we will break back compatibility)
+// Make P_OMEGA_X, P_OMEGA_Y depend on BornAgain::OmegaX and OmegaY
+
+const QString FTDistribution2DItem::P_OMEGA_X = "CoherenceLengthX"; // temp FIXME
+const QString FTDistribution2DItem::P_OMEGA_Y = "CoherenceLengthY"; // temp FIXME
+
 const QString FTDistribution2DItem::P_GAMMA =
         QString::fromStdString(BornAgain::Gamma);
 const QString FTDistribution2DItem::P_DELTA =
@@ -141,8 +143,9 @@ FTDistribution2DItem::FTDistribution2DItem(const QString& name)
 
 void FTDistribution2DItem::add_properties()
 {
-    addProperty(P_COHER_LENGTH_X, 1.0);
-    addProperty(P_COHER_LENGTH_Y, 1.0);
+    // TODO BACKCOMPATIBILITY (remove setDisplayName)
+    addProperty(P_OMEGA_X, 1.0)->setDisplayName("OmegaX");
+    addProperty(P_OMEGA_Y, 1.0)->setDisplayName("OmegaY");
     addProperty(P_GAMMA, 0.0);
     addProperty(P_DELTA, 90.0);
 }
@@ -158,8 +161,8 @@ FTDistribution2DCauchyItem::FTDistribution2DCauchyItem()
 std::unique_ptr<IFTDistribution2D> FTDistribution2DCauchyItem::createFTDistribution() const
 {
     auto result = GUIHelpers::make_unique<FTDistribution2DCauchy>(
-                getItemValue(P_COHER_LENGTH_X).toDouble(),
-                getItemValue(P_COHER_LENGTH_Y).toDouble(),
+                getItemValue(P_OMEGA_X).toDouble(),
+                getItemValue(P_OMEGA_Y).toDouble(),
                 Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
                 Units::deg2rad(getItemValue(P_DELTA).toDouble())
                 );
@@ -177,7 +180,7 @@ FTDistribution2DGaussItem::FTDistribution2DGaussItem()
 std::unique_ptr<IFTDistribution2D> FTDistribution2DGaussItem::createFTDistribution() const
 {
     auto result = GUIHelpers::make_unique<FTDistribution2DGauss>(
-        getItemValue(P_COHER_LENGTH_X).toDouble(), getItemValue(P_COHER_LENGTH_Y).toDouble(),
+        getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
         Units::deg2rad(getItemValue(P_DELTA).toDouble()));
 
@@ -195,7 +198,7 @@ FTDistribution2DGateItem::FTDistribution2DGateItem()
 std::unique_ptr<IFTDistribution2D> FTDistribution2DGateItem::createFTDistribution() const
 {
     auto result = GUIHelpers::make_unique<FTDistribution2DGate>(
-        getItemValue(P_COHER_LENGTH_X).toDouble(), getItemValue(P_COHER_LENGTH_Y).toDouble(),
+        getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
         Units::deg2rad(getItemValue(P_DELTA).toDouble()));
     return std::move(result);
@@ -212,7 +215,7 @@ FTDistribution2DConeItem::FTDistribution2DConeItem()
 std::unique_ptr<IFTDistribution2D> FTDistribution2DConeItem::createFTDistribution() const
 {
     auto result = GUIHelpers::make_unique<FTDistribution2DCone>(
-        getItemValue(P_COHER_LENGTH_X).toDouble(), getItemValue(P_COHER_LENGTH_Y).toDouble(),
+        getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
         Units::deg2rad(getItemValue(P_DELTA).toDouble()));
     return std::move(result);
@@ -225,8 +228,8 @@ const QString FTDistribution2DVoigtItem::P_ETA = QString::fromStdString(BornAgai
 FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
     : FTDistribution2DItem(Constants::FTDistribution2DVoigtType)
 {
-    addProperty(P_COHER_LENGTH_X, 1.0);
-    addProperty(P_COHER_LENGTH_Y, 1.0);
+    addProperty(P_OMEGA_X, 1.0);
+    addProperty(P_OMEGA_Y, 1.0);
     addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0));
     addProperty(P_GAMMA, 0.0);
     addProperty(P_DELTA, 90.0);
@@ -235,7 +238,7 @@ FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
 std::unique_ptr<IFTDistribution2D> FTDistribution2DVoigtItem::createFTDistribution() const
 {
     auto result = GUIHelpers::make_unique<FTDistribution2DVoigt>(
-        getItemValue(P_COHER_LENGTH_X).toDouble(), getItemValue(P_COHER_LENGTH_Y).toDouble(),
+        getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         getItemValue(P_ETA).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()),
         Units::deg2rad(getItemValue(P_DELTA).toDouble()));

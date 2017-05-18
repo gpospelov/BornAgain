@@ -80,8 +80,8 @@ public:
 class BA_CORE_API_ FTDistribution2DItem : public SessionItem
 {
 public:
-    static const QString P_COHER_LENGTH_X;
-    static const QString P_COHER_LENGTH_Y;
+    static const QString P_OMEGA_X;
+    static const QString P_OMEGA_Y;
     static const QString P_GAMMA;
     static const QString P_DELTA;
     explicit FTDistribution2DItem(const QString& name);

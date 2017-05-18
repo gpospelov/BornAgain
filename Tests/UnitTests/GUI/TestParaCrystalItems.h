@@ -56,14 +56,14 @@ inline void TestParaCrystalItems::test_Para2D_fromToDomain()
 
     SessionItem* pdfItem1 = item.getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF1);
     QCOMPARE(pdfItem1->modelType(), Constants::FTDistribution2DCauchyType);
-    QCOMPARE(pdfItem1->getItemValue(FTDistribution2DItem::P_COHER_LENGTH_X).toDouble(), clength_x);
-    QCOMPARE(pdfItem1->getItemValue(FTDistribution2DItem::P_COHER_LENGTH_Y).toDouble(), clength_y);
+    QCOMPARE(pdfItem1->getItemValue(FTDistribution2DItem::P_OMEGA_X).toDouble(), clength_x);
+    QCOMPARE(pdfItem1->getItemValue(FTDistribution2DItem::P_OMEGA_Y).toDouble(), clength_y);
     QCOMPARE(pdfItem1->getItemValue(FTDistribution2DItem::P_GAMMA).toDouble(), gamma);
 
     SessionItem* pdfItem2 = item.getGroupItem(InterferenceFunction2DParaCrystalItem::P_PDF2);
     QCOMPARE(pdfItem2->modelType(), Constants::FTDistribution2DGaussType);
-    QCOMPARE(pdfItem2->getItemValue(FTDistribution2DItem::P_COHER_LENGTH_X).toDouble(), clength_x);
-    QCOMPARE(pdfItem2->getItemValue(FTDistribution2DItem::P_COHER_LENGTH_Y).toDouble(), clength_y);
+    QCOMPARE(pdfItem2->getItemValue(FTDistribution2DItem::P_OMEGA_X).toDouble(), clength_x);
+    QCOMPARE(pdfItem2->getItemValue(FTDistribution2DItem::P_OMEGA_Y).toDouble(), clength_y);
     QCOMPARE(pdfItem2->getItemValue(FTDistribution2DItem::P_GAMMA).toDouble(), gamma);
 
     // to domain

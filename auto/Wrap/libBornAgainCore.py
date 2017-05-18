@@ -17661,7 +17661,12 @@ HomogeneousMaterial_swigregister(HomogeneousMaterial)
 
 
 def ScalarReducedPotential(n, k, n_ref):
-    """ScalarReducedPotential(complex_t n, kvector_t k, double n_ref) -> complex_t"""
+    """
+    ScalarReducedPotential(complex_t n, kvector_t k, double n_ref) -> complex_t
+
+    complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
+
+    """
     return _libBornAgainCore.ScalarReducedPotential(n, k, n_ref)
 class IDetector2D(ICloneable, INode):
     """
@@ -21877,7 +21882,14 @@ class Layer(ISample):
 
 
     def scalarReducedPotential(self, k, n_ref):
-        """scalarReducedPotential(Layer self, kvector_t k, double n_ref) -> complex_t"""
+        """
+        scalarReducedPotential(Layer self, kvector_t k, double n_ref) -> complex_t
+
+        complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
+
+        Return the potential term that is used in the one-dimensional Fresnel calculations. 
+
+        """
         return _libBornAgainCore.Layer_scalarReducedPotential(self, k, n_ref)
 
 Layer_swigregister = _libBornAgainCore.Layer_swigregister

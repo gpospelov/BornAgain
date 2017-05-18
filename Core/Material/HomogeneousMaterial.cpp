@@ -131,18 +131,6 @@ Eigen::Matrix2cd HomogeneousMaterial::polarizedSLDExperimental(
     return result;
 }
 
-Eigen::Matrix2cd HomogeneousMaterial::polarizedFresnel(const kvector_t k, double n_ref) const
-{
-    Eigen::Matrix2cd result;
-    double factor = Magnetic_Prefactor/k.mag2();
-    complex_t unit_factor = ScalarReducedPotential(refractiveIndex(), k, n_ref);
-    result = unit_factor*Unit_Matrix
-            + factor*Pauli_X*m_magnetic_field[0]
-            + factor*Pauli_Y*m_magnetic_field[1]
-            + factor*Pauli_Z*m_magnetic_field[2];
-    return result;
-}
-
 HomogeneousMaterial HomogeneousMaterial::transformedMaterial(const Transform3D& transform) const
 {
     kvector_t transformed_field = transform.transformed(m_magnetic_field);

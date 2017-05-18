@@ -69,12 +69,21 @@ public:
     //! Return the potential term that is used in the one-dimensional Fresnel calculations
     complex_t scalarReducedPotential(kvector_t k, double n_ref) const;
 
+#ifndef SWIG
+    //! Return the potential term that is used in the one-dimensional Fresnel calculations
+    //! in the presence of magnetization
+    Eigen::Matrix2cd polarizedReducedPotential(kvector_t k, double n_ref) const;
+#endif
+
 private:
     Layer(const Layer& other);
     //! Clone the layer without its layouts
     Layer* emptyClone() const;
     //! Clones and offsets the particles in the z-direction
     Layer* cloneWithOffset(double offset) const;
+
+    //! Return the magnetic B-field in this layer
+    kvector_t bField() const;
 
     HomogeneousMaterial m_material;   //!< material
     double m_thickness;       //!< layer thickness in nanometers

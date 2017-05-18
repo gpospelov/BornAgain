@@ -138,6 +138,13 @@ complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
     return ScalarReducedPotential(n, k, n_ref);
 }
 
+Eigen::Matrix2cd Layer::polarizedReducedPotential(kvector_t k, double n_ref) const
+{
+    complex_t n = m_material.refractiveIndex();
+    kvector_t b_field = bField();
+    return PolarizedReducedPotential(n, b_field, k, n_ref);
+}
+
 Layer::Layer(const Layer& other)
     : m_material(other.m_material)
 {
@@ -167,4 +174,9 @@ Layer* Layer::cloneWithOffset(double offset) const
         p_result->registerChild(p_layout_offset);
     }
     return p_result;
+}
+
+kvector_t Layer::bField() const
+{
+    return m_material.magneticField();
 }

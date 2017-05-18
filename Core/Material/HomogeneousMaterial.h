@@ -70,9 +70,8 @@ public:
 
     //! Get the scattering matrix for a material defined by its magnetization (experimental)
     Eigen::Matrix2cd polarizedSLDExperimental(const WavevectorInfo& wavevectors) const;
-
-    Eigen::Matrix2cd polarizedFresnel(const kvector_t k, double n_ref) const;
 #endif
+
     HomogeneousMaterial transformedMaterial(const Transform3D& transform) const;
 
     friend BA_CORE_API_ std::ostream& operator<<(

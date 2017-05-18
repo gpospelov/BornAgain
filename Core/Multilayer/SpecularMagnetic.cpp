@@ -43,7 +43,7 @@ void SpecularMagnetic::calculateEigenvalues(
     double n_ref = sample.layer(0)->refractiveIndex().real();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
     for(size_t i=0; i<coeff.size(); ++i) {
-        coeff[i].m_scatt_matrix = sample.layer(i)->material()->polarizedFresnel(k, n_ref);
+        coeff[i].m_scatt_matrix = sample.layer(i)->polarizedReducedPotential(k, n_ref);
         coeff[i].m_kt = mag_k*sample.layer(i)->thickness();
         coeff[i].m_a = coeff[i].m_scatt_matrix.trace()/2.0;
         coeff[i].m_b_mag = sqrt(coeff[i].m_a*coeff[i].m_a -
@@ -80,14 +80,15 @@ void SpecularMagnetic::calculateTransferAndBoundary(
         coeff[N-1].calculateTRMatrices();
 
     coeff[0].calculateTRMatrices();
-    for (int i=(int)N-2; i>0; --i) {
+    for (int signed_index=static_cast<int>(N)-2; signed_index>0; --signed_index) {
+        size_t i = static_cast<size_t>(signed_index);
         double t = sample.layer(i)->thickness();
         coeff[i].calculateTRMatrices();
         Eigen::Matrix4cd l =
-               coeff[i].R1m * getImExponential((complex_t)(coeff[i].kz(0)*t)) +
-               coeff[i].T1m * getImExponential((complex_t)(-coeff[i].kz(0)*t)) +
-               coeff[i].R2m * getImExponential((complex_t)(coeff[i].kz(1)*t)) +
-               coeff[i].T2m * getImExponential((complex_t)(-coeff[i].kz(1)*t));
+               coeff[i].R1m * getImExponential(coeff[i].kz(0)*t) +
+               coeff[i].T1m * getImExponential(-coeff[i].kz(0)*t) +
+               coeff[i].R2m * getImExponential(coeff[i].kz(1)*t) +
+               coeff[i].T2m * getImExponential(-coeff[i].kz(1)*t);
         coeff[i].phi_psi_plus = l * coeff[i+1].phi_psi_plus;
         coeff[i].phi_psi_min = l * coeff[i+1].phi_psi_min;
     }

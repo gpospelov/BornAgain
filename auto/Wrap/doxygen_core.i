@@ -5636,20 +5636,12 @@ Set the magnetic field (in Tesla)
 %feature("docstring")  HomogeneousMaterial::scalarSLD "complex_t HomogeneousMaterial::scalarSLD(const WavevectorInfo &wavevectors) const 
 ";
 
-%feature("docstring")  HomogeneousMaterial::scalarFresnel "complex_t HomogeneousMaterial::scalarFresnel(const kvector_t k, double n_ref) const
-
-Return the potential term that is used in the one-dimensional Fresnel calculations. 
-";
-
 %feature("docstring")  HomogeneousMaterial::polarizedSLD "Eigen::Matrix2cd HomogeneousMaterial::polarizedSLD(const WavevectorInfo &wavevectors) const 
 ";
 
 %feature("docstring")  HomogeneousMaterial::polarizedSLDExperimental "Eigen::Matrix2cd HomogeneousMaterial::polarizedSLDExperimental(const WavevectorInfo &wavevectors) const
 
 Get the scattering matrix for a material defined by its magnetization (experimental) 
-";
-
-%feature("docstring")  HomogeneousMaterial::polarizedFresnel "Eigen::Matrix2cd HomogeneousMaterial::polarizedFresnel(const kvector_t k, double n_ref) const 
 ";
 
 %feature("docstring")  HomogeneousMaterial::transformedMaterial "HomogeneousMaterial HomogeneousMaterial::transformedMaterial(const Transform3D &transform) const 
@@ -9324,6 +9316,16 @@ Returns a vector of children (const).
 ";
 
 %feature("docstring")  Layer::numberOfSlices "unsigned int Layer::numberOfSlices() const 
+";
+
+%feature("docstring")  Layer::scalarReducedPotential "complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
+
+Return the potential term that is used in the one-dimensional Fresnel calculations. 
+";
+
+%feature("docstring")  Layer::polarizedReducedPotential "Eigen::Matrix2cd Layer::polarizedReducedPotential(kvector_t k, double n_ref) const
+
+Return the potential term that is used in the one-dimensional Fresnel calculations in the presence of magnetization 
 ";
 
 
@@ -15069,8 +15071,19 @@ make Swappable
 %feature("docstring")  Pauli_Z "static const Eigen::Matrix2cd Pauli_Z((Eigen::Matrix2cd()<< 1, 0, 0,-1).finished())
 ";
 
+%feature("docstring")  ScalarReducedPotential "complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
+";
+
+%feature("docstring")  PolarizedReducedPotential "Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field, kvector_t k, double n_ref)
+";
+
 
 // File: HomogeneousMaterial_8h.xml
+%feature("docstring")  ScalarReducedPotential "complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
+";
+
+%feature("docstring")  PolarizedReducedPotential "Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field, kvector_t k, double n_ref)
+";
 
 
 // File: DecouplingApproximationStrategy_8cpp.xml

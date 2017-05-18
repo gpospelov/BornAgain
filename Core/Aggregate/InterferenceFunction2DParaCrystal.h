@@ -35,7 +35,7 @@ public:
                                       double domain_size_1 = 0.0,
                                       double domain_size_2 = 0.0);
 
-    InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice,
+    InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha,
                                       double xi = 0.0, double damping_length = 0.0);
 
     ~InterferenceFunction2DParaCrystal() final;
@@ -44,11 +44,11 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    static InterferenceFunction2DParaCrystal* createSquare(double peak_distance,
+    static InterferenceFunction2DParaCrystal* createSquare(double lattice_length,
                                                            double damping_length = 0.0,
                                                            double domain_size_1 = 0.0,
                                                            double domain_size_2 = 0.0);
-    static InterferenceFunction2DParaCrystal* createHexagonal(double peak_distance,
+    static InterferenceFunction2DParaCrystal* createHexagonal(double lattice_length,
                                                               double damping_length = 0.0,
                                                               double domain_size_1 = 0.0,
                                                               double domain_size_2 = 0.0);

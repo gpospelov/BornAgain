@@ -20321,9 +20321,9 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
         __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
         __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice) -> InterferenceFunction2DParaCrystal
-        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice, double xi=0.0, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
-        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice, double xi=0.0) -> InterferenceFunction2DParaCrystal
-        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha, double xi=0.0, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha, double xi=0.0) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha) -> InterferenceFunction2DParaCrystal
 
         InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi=0.0, double damping_length=0.0)
 
@@ -20378,27 +20378,27 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_accept(self, visitor)
 
 
-    def createSquare(peak_distance, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
+    def createSquare(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
         """
-        createSquare(double peak_distance, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
-        createSquare(double peak_distance, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
-        createSquare(double peak_distance, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
-        createSquare(double peak_distance) -> InterferenceFunction2DParaCrystal
+        createSquare(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
+        createSquare(double lattice_length, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
+        createSquare(double lattice_length, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+        createSquare(double lattice_length) -> InterferenceFunction2DParaCrystal
         """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(peak_distance, damping_length, domain_size_1, domain_size_2)
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
 
     if _newclass:
         createSquare = staticmethod(createSquare)
     __swig_getmethods__["createSquare"] = lambda x: createSquare
 
-    def createHexagonal(peak_distance, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
+    def createHexagonal(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
         """
-        createHexagonal(double peak_distance, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
-        createHexagonal(double peak_distance, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
-        createHexagonal(double peak_distance, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
-        createHexagonal(double peak_distance) -> InterferenceFunction2DParaCrystal
+        createHexagonal(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
+        createHexagonal(double lattice_length, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
+        createHexagonal(double lattice_length, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+        createHexagonal(double lattice_length) -> InterferenceFunction2DParaCrystal
         """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(peak_distance, damping_length, domain_size_1, domain_size_2)
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
 
     if _newclass:
         createHexagonal = staticmethod(createHexagonal)
@@ -20534,23 +20534,23 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 InterferenceFunction2DParaCrystal_swigregister = _libBornAgainCore.InterferenceFunction2DParaCrystal_swigregister
 InterferenceFunction2DParaCrystal_swigregister(InterferenceFunction2DParaCrystal)
 
-def InterferenceFunction2DParaCrystal_createSquare(peak_distance, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
+def InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
     """
-    createSquare(double peak_distance, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
-    createSquare(double peak_distance, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
-    createSquare(double peak_distance, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
-    InterferenceFunction2DParaCrystal_createSquare(double peak_distance) -> InterferenceFunction2DParaCrystal
+    createSquare(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
+    createSquare(double lattice_length, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
+    createSquare(double lattice_length, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+    InterferenceFunction2DParaCrystal_createSquare(double lattice_length) -> InterferenceFunction2DParaCrystal
     """
-    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(peak_distance, damping_length, domain_size_1, domain_size_2)
+    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
 
-def InterferenceFunction2DParaCrystal_createHexagonal(peak_distance, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
+def InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
     """
-    createHexagonal(double peak_distance, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
-    createHexagonal(double peak_distance, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
-    createHexagonal(double peak_distance, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
-    InterferenceFunction2DParaCrystal_createHexagonal(double peak_distance) -> InterferenceFunction2DParaCrystal
+    createHexagonal(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
+    createHexagonal(double lattice_length, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
+    createHexagonal(double lattice_length, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+    InterferenceFunction2DParaCrystal_createHexagonal(double lattice_length) -> InterferenceFunction2DParaCrystal
     """
-    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(peak_distance, damping_length, domain_size_1, domain_size_2)
+    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
 
 class InterferenceFunctionNone(IInterferenceFunction):
     """

@@ -66,6 +66,8 @@ public:
     void setNumberOfSlices(unsigned int n_slices) { m_n_slices = n_slices; }
     unsigned int numberOfSlices() const { return m_n_slices; }
 
+    complex_t scalarReducedPotential(kvector_t k, double n_ref) const;
+
 private:
     Layer(const Layer& other);
     //! Clone the layer without its layouts

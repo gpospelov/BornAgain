@@ -132,6 +132,12 @@ void Layer::registerThickness(bool make_registered)
     }
 }
 
+complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
+{
+    complex_t n = m_material.refractiveIndex();
+    return ScalarReducedPotential(n, k, n_ref);
+}
+
 Layer::Layer(const Layer& other)
     : m_material(other.m_material)
 {

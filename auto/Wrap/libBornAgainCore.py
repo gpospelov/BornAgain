@@ -21887,6 +21887,11 @@ class Layer(ISample):
         """
         return _libBornAgainCore.Layer_numberOfSlices(self)
 
+
+    def scalarReducedPotential(self, k, n_ref):
+        """scalarReducedPotential(Layer self, kvector_t k, double n_ref) -> complex_t"""
+        return _libBornAgainCore.Layer_scalarReducedPotential(self, k, n_ref)
+
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
 

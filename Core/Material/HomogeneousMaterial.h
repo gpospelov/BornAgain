@@ -69,12 +69,12 @@ public:
     complex_t scalarFresnel(const kvector_t k, double n_ref) const;
 
 #ifndef SWIG
-    virtual Eigen::Matrix2cd polarizedSLD(const WavevectorInfo& wavevectors) const;
+    Eigen::Matrix2cd polarizedSLD(const WavevectorInfo& wavevectors) const;
 
     //! Get the scattering matrix for a material defined by its magnetization (experimental)
     Eigen::Matrix2cd polarizedSLDExperimental(const WavevectorInfo& wavevectors) const;
 
-    virtual Eigen::Matrix2cd polarizedFresnel(const kvector_t k, double n_ref) const;
+    Eigen::Matrix2cd polarizedFresnel(const kvector_t k, double n_ref) const;
 #endif
     HomogeneousMaterial transformedMaterial(const Transform3D& transform) const;
 

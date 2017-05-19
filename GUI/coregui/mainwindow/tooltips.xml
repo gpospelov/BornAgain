@@ -7,10 +7,7 @@
                 <tooltip>A Multi-Layer with cross correlation length</tooltip>
             </property>
             <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
-            </property>
-            <property name="Cross Correlation Length">
-                <tooltip>Cross Correlation Length for roughness between interfaces in nm</tooltip>
+                <tooltip></tooltip>
             </property>
         </category>
 

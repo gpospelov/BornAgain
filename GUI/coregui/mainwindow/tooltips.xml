@@ -16,16 +16,10 @@
 
         <category name="Layer">
             <property name="Title">
-                <tooltip>A Layer with thickness and material</tooltip>
+                <tooltip>A layer with thickness and material</tooltip>
             </property>
             <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
-            </property>
-            <property name="Thickness">
-                <tooltip>Thickness of Layer in nm</tooltip>
-            </property>
-            <property name="Top roughness">
-                <tooltip>Is the top interface of the Layer rough or not?</tooltip>
+                <tooltip></tooltip>
             </property>
         </category>
 

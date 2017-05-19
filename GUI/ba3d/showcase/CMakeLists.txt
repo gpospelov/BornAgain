@@ -1,4 +1,4 @@
-set (app ba3d_app)
+set (app ba3d_showcase)
 
 find_package (Qt5Core     REQUIRED)
 find_package (Qt5Gui      REQUIRED)

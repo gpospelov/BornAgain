@@ -49,6 +49,10 @@ void Canvas::setModel(Model* m) {
   setCamera(true);
 }
 
+Model* Canvas::getModel() {
+  return model;
+}
+
 void Canvas::setCamera(bool full) {
   if (camera) {
     camera->setAspectRatio(aspectRatio);

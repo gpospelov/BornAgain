@@ -8,7 +8,7 @@
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-Object::Object(geometry::key gky_) : color(Qt::gray)
+Object::Object(geometry::key gky_) : color(Qt::black)
 , isNull(false), model(nullptr), gky(gky_) {
 }
 

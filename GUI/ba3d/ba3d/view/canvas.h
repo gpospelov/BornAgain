@@ -30,6 +30,7 @@ public:
   void setCamera(Camera*);
   void setProgram(Program*);
   void setModel(Model*);
+  Model* getModel();
 
 private:
   QRect viewport;

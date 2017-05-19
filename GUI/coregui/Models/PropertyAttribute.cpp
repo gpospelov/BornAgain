@@ -182,13 +182,6 @@ PropertyAttribute PropertyAttribute::fromItem(SessionItem *item)
     if (!item->isEnabled())
         attribute.setDisabled();
 
-    if(attribute.getToolTip().isEmpty()) {
-        if(SessionItem *parent = item->parent()) {
-            attribute.setToolTip(ToolTipDataBase::getSampleViewToolTip(
-                                     parent->modelType(), item->displayName()));
-        }
-    }
-
     return attribute;
 }
 

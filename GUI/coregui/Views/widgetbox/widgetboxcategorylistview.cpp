@@ -260,7 +260,7 @@ void WidgetBoxCategoryModel::addWidget(const QDesignerWidgetBoxInterface::Widget
             if (tag == "widget") {
                 const QXmlStreamAttributes attributes = reader.attributes();
                 QString className = attributes.value("class").toString();
-                QString toolTip = ToolTipDataBase::getSampleViewWidgetboxToolTip(className);
+                QString toolTip = ToolTipDataBase::widgetboxToolTip(className);
                 if(!toolTip.isEmpty())
                     item.toolTip = toolTip;
             }

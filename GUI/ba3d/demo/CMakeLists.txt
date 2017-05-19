@@ -1,8 +1,8 @@
-set (app ba3d_app)
+set (app ba3d_demo)
 
-find_package (Qt5Core     REQUIRED)
-find_package (Qt5Gui      REQUIRED)
-find_package (Qt5Widgets  REQUIRED)
+find_package (Qt5Core       REQUIRED)
+find_package (Qt5Gui        REQUIRED)
+find_package (Qt5Widgets    REQUIRED)
 find_package (OpenGL)
 
 file (GLOB_RECURSE files *)

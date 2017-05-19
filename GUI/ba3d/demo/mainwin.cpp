@@ -8,6 +8,7 @@
 #include <QSlider>
 #include <QSettings>
 #include <QPushButton>
+#include <QKeyEvent>
 
 //------------------------------------------------------------------------------
 
@@ -26,6 +27,15 @@ void MainWin::closeEvent(QCloseEvent*) {
   s.setValue(MAINWIN_GEOMETRY, saveGeometry());
 }
 
+void MainWin::keyPressEvent(QKeyEvent* e) {
+  if ("q" == e->text())
+    close();
+}
+
+void MainWin::mouseDoubleClickEvent(QMouseEvent*) {
+
+}
+
 void MainWin::createLayout() {
   setCentralWidget(new QWidget);
 
@@ -39,7 +49,8 @@ void MainWin::createLayout() {
   vb->addLayout(hb);
 
   sigmaSlider  = new QSlider(Qt::Horizontal);
-  auto recalcButton = new QPushButton("Recalc");
+  auto calcButton = new QPushButton("Calc");
+  auto flipButton = new QPushButton("Flip");
 
   sigmaSlider->setRange(0,30);
   sigmaSlider->setSingleStep(5);
@@ -48,12 +59,29 @@ void MainWin::createLayout() {
 
   hb->addStretch();
   hb->addWidget(sigmaSlider);
-  hb->addWidget(recalcButton);
+  hb->addWidget(calcButton);
+  hb->addWidget(flipButton);
 
-  connect(recalcButton, &QPushButton::clicked, [this]() {
+  auto calc = [this]() {
     auto model = dynamic_cast<DemoModel*>(w3d->getModel());
-    if (model)
+    if (model && model->ready()) {
       model->calc(sigmaSlider->value() / 100.f);
+    }
+  };
+
+  auto flip = [this]() {
+    auto model = dynamic_cast<DemoModel*>(w3d->getModel());
+    if (model) {
+      model->flip();
+    }
+  };
+
+  connect(calcButton, &QPushButton::clicked, [calc]() {
+    calc();
+  });
+
+  connect(flipButton, &QPushButton::clicked, [flip]() {
+    flip();
   });
 }
 

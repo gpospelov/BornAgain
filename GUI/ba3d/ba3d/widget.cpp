@@ -34,9 +34,7 @@ void Widget3D::setModel(Model* model) {
   disconnect(modelUpdated);
   canvas->setModel(model);
 
-  connect(model, &Model::updated, [this]() {
-    update();
-  });
+  connect(model, &Model::updated, this, &Widget3D::update);
 }
 
 Model* Widget3D::getModel() {

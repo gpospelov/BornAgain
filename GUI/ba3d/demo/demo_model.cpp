@@ -1,17 +1,19 @@
 // GPL3; https://github.com/jburle/ba3d
 
 #include "demo_model.h"
-#include <ba3d/model/layer.h>
 #include "lattice.h"
+#include <ba3d/model/layer.h>
+#include <QApplication>
+#include <thread>
 #include <qmath.h>
 
 //------------------------------------------------------------------------------
 
 using namespace ba3d;
 
-DemoModel::DemoModel() {
-  flt const sz = 80; //0;
-  spacing = 20;      // of particles
+DemoModel::DemoModel() : busy(0) {
+  flt const sz = 1200;
+  spacing = 20; // of particles
 
   defEye = xyz(10, 10, sz);
   defCtr = xyz(0, 0, -20);
@@ -35,6 +37,8 @@ DemoModel::DemoModel() {
 }
 
 void DemoModel::calc(float sigma) {
+  ++busy;
+
   auto mesh = squareLattice(n, sigma);
   for (auto& m: mesh)
     m = m  * spacing + xyz(0, 0, -20);
@@ -68,11 +72,36 @@ void DemoModel::calc(float sigma) {
         }
         p->transform(xyz::_0, pos);
       }
-//      emit updated(); TODO async
+
+      emit updated();
+      qApp->processEvents();
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
   }
 
   emit updated();
+  --busy;
+}
+
+void DemoModel::flip() {
+  ++busy;
+
+  if (!activeMesh.empty()) {
+    for (int deg=0; deg <=360; deg += 5) {
+      for (uint i=0; i < ps.count(); ++i) {
+        auto& p = ps.at(i);
+        auto& pos = activeMesh[i];
+        p->transform(xyz(0,deg,0), pos);
+      }
+
+      emit updated();
+      qApp->processEvents();
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+  }
+
+  emit updated();
+  --busy;
 }
 
 //------------------------------------------------------------------------------

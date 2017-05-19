@@ -22,12 +22,13 @@ public:
 
 private:
   void closeEvent(QCloseEvent*);
+  void keyPressEvent(QKeyEvent*);
+  void mouseDoubleClickEvent(QMouseEvent*);
 
+  void createLayout();
   ba3d::Widget3D *w3d;
   QWidget *controls;
   QSlider *sigmaSlider;
-
-  void createLayout();
 };
 
 //------------------------------------------------------------------------------

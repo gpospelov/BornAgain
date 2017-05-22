@@ -38,7 +38,6 @@ def get_sample():
         my_sample.addLayerWithTopRoughness(l_part_b, roughness)
 
     my_sample.addLayerWithTopRoughness(l_substrate, roughness)
-    # my_sample.setCrossCorrLength(1e-4)
 
     return my_sample
 

@@ -33,6 +33,7 @@ signals:
 
 private:
   void closeEvent(QCloseEvent*);
+  void keyPressEvent(QKeyEvent*);
 
   ba3d::Widget3D *w3d_1, *w3d_2, *w3d_3;
   QComboBox *combo;

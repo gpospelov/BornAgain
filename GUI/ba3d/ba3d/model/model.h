@@ -14,7 +14,8 @@ namespace ba3d {
 class Canvas;
 class Object;
 
-class Model {
+class Model : public QObject {
+  Q_OBJECT
   friend class Canvas;
   friend class Object;
 public:
@@ -28,6 +29,9 @@ public:
   void releaseGeometries(); // may be called any time
 
   xyz defEye, defCtr, defUp;  // default camera params
+
+signals:
+  void updated();
 
 private:
   QVector<Object*> objects, objectsBlend;

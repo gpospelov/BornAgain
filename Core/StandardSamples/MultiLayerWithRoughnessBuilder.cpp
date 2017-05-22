@@ -27,7 +27,7 @@ MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
     , m_sigma(1.0*Units::nanometer)
     , m_hurst(0.3)
     , m_lateralCorrLength(5.0*Units::nanometer)
-    , m_crossCorrLength(1e-4)
+    , m_crossCorrLength(10.0*Units::nanometer)
 {
     init_parameters();
 }

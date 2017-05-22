@@ -18,6 +18,13 @@
 #include "BornAgainNamespace.h"
 #include "MaterialUtils.h"
 
+namespace {
+const QString layer_nslices_toolitp =
+    "Number of horizontal slices.\n"
+    "Used for Average Layer Material calculations \n"
+    "when corresponding Simulation option set.";
+}
+
 const QString LayerItem::P_THICKNESS = QString::fromStdString(BornAgain::Thickness);
 const QString LayerItem::P_ROUGHNESS = "Top roughness";
 const QString LayerItem::P_MATERIAL = "Material";
@@ -27,14 +34,18 @@ const QString LayerItem::T_LAYOUTS = "Layout tag";
 LayerItem::LayerItem()
     : SessionGraphicsItem(Constants::LayerType)
 {
-    addProperty(P_THICKNESS, 0.0);
-    getItem(P_THICKNESS)->setLimits(RealLimits::lowerLimited(0.0));
+    setToolTip(QStringLiteral("A layer with thickness and material"));
+    addProperty(P_THICKNESS, 0.0)->setLimits(RealLimits::lowerLimited(0.0))
+        .setToolTip(QStringLiteral("Thickness of Layer in nm"));
 
-    addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant());
+    addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant())
+            ->setToolTip(QStringLiteral("Layer material"));
 
-    addProperty(P_NSLICES, 1)->setLimits(RealLimits::lowerLimited(0.0));
+    addProperty(P_NSLICES, 1)->setLimits(RealLimits::lowerLimited(0.0))
+            .setToolTip(layer_nslices_toolitp);
 
-    addGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup);
+    addGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup)
+        ->setToolTip(QStringLiteral("Roughness of top interface"));
 
     registerTag(T_LAYOUTS, 0, -1, QStringList() << Constants::ParticleLayoutType);
     setDefaultTag(T_LAYOUTS);

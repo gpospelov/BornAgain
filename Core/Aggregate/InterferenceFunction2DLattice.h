@@ -27,7 +27,7 @@ class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
     InterferenceFunction2DLattice(const Lattice2D& lattice);
-    InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0);
+    InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi=0.0);
     ~InterferenceFunction2DLattice() final;
 
     InterferenceFunction2DLattice* clone() const final;
@@ -37,9 +37,9 @@ public:
     static InterferenceFunction2DLattice* createSquare(double lattice_length, double xi = 0.0);
     static InterferenceFunction2DLattice* createHexagonal(double lattice_length, double xi = 0.0);
 
-    void setDecayFunction(const IFTDecayFunction2D& pdf);
+    void setDecayFunction(const IFTDecayFunction2D& decay);
 
-    const IFTDecayFunction2D* getDecayFunction() const { return mp_pdf.get(); }
+    const IFTDecayFunction2D* decayFunction() const { return m_decay.get(); }
 
     double evaluate(const kvector_t q) const final;
 
@@ -74,7 +74,7 @@ private:
     //! Initializes factors needed in each calculation
     void initialize_calc_factors();
 
-    std::unique_ptr<IFTDecayFunction2D> mp_pdf;
+    std::unique_ptr<IFTDecayFunction2D> m_decay;
     std::unique_ptr<Lattice2D> m_lattice;
     Lattice2D::ReciprocalBases m_sbase;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday

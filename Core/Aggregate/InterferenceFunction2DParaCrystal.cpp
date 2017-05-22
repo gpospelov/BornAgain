@@ -33,18 +33,20 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Latti
     init_parameters();
 }
 
-//! @param length_1 Length of first lattice basis vector.
-//! @param length_2 Length of second lattice basis vector.
-//! @param alpha_lattice Angle between the lattice basis vectors.
-//! @param xi Angle between first basis vector and the x-axis of incoming beam.
-//! @param damping_length Damping length for removing delta function singularity at q=0.
-InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
-    double length_1, double length_2, double alpha_lattice, double xi, double damping_length)
+//! Constructor of interference function of two-dimensional paracrystal.
+//! @param length_1: length of first lattice vector in nanometers
+//! @param length_2: length of second lattice vector in nanometers
+//! @param alpha: angle between lattice vectors in radians
+//! @param xi: rotation of lattice with respect to x-axis (beam direction) in radians
+//! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
+
+InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1,
+    double length_2, double alpha, double xi, double damping_length)
     : m_integrate_xi(false)
     , m_damping_length(damping_length)
 {
     setName(BornAgain::InterferenceFunction2DParaCrystalType);
-    setLattice(BasicLattice(length_1, length_2, alpha_lattice, xi));
+    setLattice(BasicLattice(length_1, length_2, alpha, xi));
     setDomainSizes(0.0, 0.0);
     init_parameters();
 }
@@ -61,6 +63,7 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() co
 //! Sets the probability distributions (Fourier transformed) for the two lattice directions.
 //! @param pdf_1: probability distribution in first lattice direction
 //! @param pdf_2: probability distribution in second lattice direction
+
 void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const IFTDistribution2D& pdf_1,
                                                                     const IFTDistribution2D& pdf_2)
 {
@@ -69,6 +72,9 @@ void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const IFTDis
     m_pdf2.reset(pdf_2.clone());
     registerChild(m_pdf2.get());
 }
+
+//! Sets the damping length.
+//! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
 
 void InterferenceFunction2DParaCrystal::setDampingLength(double damping_length)
 {
@@ -120,29 +126,42 @@ void InterferenceFunction2DParaCrystal::setLattice(const Lattice2D& lattice)
     registerChild(m_lattice.get());
 }
 
+//! Creates square lattice.
+//! @param lattice_length: length of first and second lattice vectors in nanometers
+//! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
+//! @param domain_size_1: size of the coherent domain along the first basis vector in nanometers
+//! @param domain_size_2: size of the coherent domain along the second basis vector in nanometers
+
 InterferenceFunction2DParaCrystal*
-InterferenceFunction2DParaCrystal::createSquare(double peak_distance, double damping_length,
+InterferenceFunction2DParaCrystal::createSquare(double lattice_length, double damping_length,
                                                 double domain_size_1, double domain_size_2)
 {
     auto result = new InterferenceFunction2DParaCrystal(
-        SquareLattice(peak_distance), damping_length, domain_size_1, domain_size_2);
+        SquareLattice(lattice_length), damping_length, domain_size_1, domain_size_2);
     result->setIntegrationOverXi(true);
     return result;
 }
 
+//! Creates hexagonal lattice.
+//! @param lattice_length: length of first and second lattice vectors in nanometers
+//! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
+//! @param domain_size_1: size of the coherent domain along the first basis vector in nanometers
+//! @param domain_size_2: size of the coherent domain along the second basis vector in nanometers
+
 InterferenceFunction2DParaCrystal*
-InterferenceFunction2DParaCrystal::createHexagonal(double peak_distance, double damping_length,
+InterferenceFunction2DParaCrystal::createHexagonal(double lattice_length, double damping_length,
                                                    double domain_size_1, double domain_size_2)
 {
     auto result = new InterferenceFunction2DParaCrystal(
-        HexagonalLattice(peak_distance), damping_length, domain_size_1, domain_size_2);
+        HexagonalLattice(lattice_length), damping_length, domain_size_1, domain_size_2);
     result->setIntegrationOverXi(true);
     return result;
 }
 
 //! Sets the sizes of coherence domains.
-//! @param size_1: size in first lattice direction
-//! @param size_2: size in second lattice direction
+//! @param size_1: coherence domain size along the first basis vector in nanometers
+//! @param size_2: coherence domain size along the second basis vector in nanometers
+
 void InterferenceFunction2DParaCrystal::setDomainSizes(double size_1, double size_2)
 {
     m_domain_sizes[0] = size_1;
@@ -231,8 +250,8 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy, double 
     complex_t phase = exp_I(qa);
     // transform q to principal axes:
     double qp1, qp2;
-    double gamma = xi + pdf->getGamma();
-    double delta = pdf->getDelta();
+    double gamma = xi + pdf->gamma();
+    double delta = pdf->delta();
     transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
     double amplitude = pdf->evaluate(qp1, qp2);
     complex_t result = phase * amplitude;
@@ -241,16 +260,19 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy, double 
     return result;
 }
 
-std::vector<double> InterferenceFunction2DParaCrystal::getDomainSizes() const
+std::vector<double> InterferenceFunction2DParaCrystal::domainSizes() const
 {
     return {m_domain_sizes[0], m_domain_sizes[1]};
 }
 
 std::vector<const IFTDistribution2D*>
-InterferenceFunction2DParaCrystal::getProbabilityDistributions() const
+InterferenceFunction2DParaCrystal::probabilityDistributions() const
 {
     return {m_pdf1.get(), m_pdf2.get()};
 }
+
+//! Enables/disables averaging over the lattice rotation angle.
+//! @param integrate_xi: integration flag
 
 void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
 {

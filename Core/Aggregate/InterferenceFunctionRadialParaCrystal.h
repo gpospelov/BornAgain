@@ -32,22 +32,22 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    void setKappa(double kappa) { m_kappa = kappa; }
-    double getKappa() const final { return m_kappa; }
+    void setKappa(double kappa);
+    double kappa() const final;
 
-    void setDomainSize(double size) { m_domain_size = size; }
-    double getDomainSize() const { return m_domain_size; }
+    void setDomainSize(double size);
+    double domainSize() const { return m_domain_size; }
 
     double evaluate(const kvector_t q) const final;
 
     complex_t FTPDF(double qpar) const;
 
     void setProbabilityDistribution(const IFTDistribution1D& pdf);
-    const IFTDistribution1D* getProbabilityDistribution() const { return mP_pdf.get(); }
+    const IFTDistribution1D* probabilityDistribution() const { return mP_pdf.get(); }
 
-    double getPeakDistance() const { return m_peak_distance; }
+    double peakDistance() const { return m_peak_distance; }
 
-    double getDampingLength() const { return m_damping_length; }
+    double dampingLength() const { return m_damping_length; }
 
     std::vector<const INode*> getChildren() const override;
 

@@ -18,7 +18,6 @@
 #define COMPONENTEDITORPRIVATE_H
 
 #include "ComponentEditorFlags.h"
-#include "PropertyAttribute.h"
 #include "PropertyVariantFactory.h"
 #include "PropertyVariantManager.h"
 #include "SessionItem.h"
@@ -58,7 +57,7 @@ public:
 
     void removeQtVariantProperty(QtVariantProperty *property);
     void updatePropertyAppearance(QtVariantProperty *property,
-                                  const PropertyAttribute &attribute);
+                                  SessionItem* item);
     void cleanChildren(SessionItem *item);
 
     void install_custom_filters();

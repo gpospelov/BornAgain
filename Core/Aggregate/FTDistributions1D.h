@@ -26,6 +26,8 @@
 class BA_CORE_API_ IFTDistribution1D : public ICloneable, public INode
 {
 public:
+    //! Constructor of one-dimensional probability distribution.
+    //! @param omega: half-width of the distribution in nanometers
     IFTDistribution1D(double omega) : m_omega(omega) {}
 
     virtual IFTDistribution1D* clone() const=0;
@@ -35,13 +37,9 @@ public:
     virtual double evaluate(double q) const=0;
 
     void setOmega(double omega) { m_omega = omega; }
-    double getOmega() const { return m_omega; }
-
-    friend std::ostream& operator<<(std::ostream& ostr, const IFTDistribution1D& m) {
-        m.print(ostr); return ostr; }
+    double omega() const { return m_omega; }
 
 protected:
-    virtual void print(std::ostream& ostr) const;
     void init_parameters();
     double m_omega;
 };
@@ -55,7 +53,8 @@ class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 {
 public:
     FTDistribution1DCauchy(double omega);
-    FTDistribution1DCauchy* clone() const final { return new FTDistribution1DCauchy(m_omega); }
+
+    FTDistribution1DCauchy* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -69,7 +68,8 @@ class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 {
 public:
     FTDistribution1DGauss(double omega);
-    FTDistribution1DGauss* clone() const final { return new FTDistribution1DGauss(m_omega); }
+
+    FTDistribution1DGauss* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -83,7 +83,8 @@ class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
 {
 public:
     FTDistribution1DGate(double omega);
-    FTDistribution1DGate* clone() const final { return new FTDistribution1DGate(m_omega); }
+
+    FTDistribution1DGate* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -97,8 +98,8 @@ class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
 {
 public:
     FTDistribution1DTriangle(double omega);
-    virtual ~FTDistribution1DTriangle() {}
-    FTDistribution1DTriangle* clone() const final { return new FTDistribution1DTriangle(m_omega); }
+
+    FTDistribution1DTriangle* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -113,7 +114,8 @@ class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
 {
 public:
     FTDistribution1DCosine(double omega);
-    FTDistribution1DCosine* clone() const final { return new FTDistribution1DCosine(m_omega); }
+
+    FTDistribution1DCosine* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
@@ -127,12 +129,15 @@ public:
 class BA_CORE_API_ FTDistribution1DVoigt : public IFTDistribution1D
 {
 public:
+    //! Constructor of one-dimensional pseudo-Voigt probability distribution.
+    //! @param omega: half-width of the distribution in nanometers
+    //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
     FTDistribution1DVoigt(double omega, double eta);
-    FTDistribution1DVoigt* clone() const final {
-        return new FTDistribution1DVoigt(m_omega, m_eta); }
+
+    FTDistribution1DVoigt* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
-    double getEta() const { return m_eta;}
+    double eta() const { return m_eta;}
 protected:
     double m_eta;
 };

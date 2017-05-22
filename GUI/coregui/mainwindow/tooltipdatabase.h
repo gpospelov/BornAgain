@@ -34,28 +34,28 @@ const QString titleProperty = "Title";
 const QString descriptionProperty = "Description";
 }
 
-
 //! The MaterialEditor is the main class to access materials.
 class BA_CORE_API_ ToolTipDataBase : public QObject
 {
     Q_OBJECT
 public:
-    ToolTipDataBase(QObject *parent=0);
+    ToolTipDataBase(QObject* parent = 0);
     virtual ~ToolTipDataBase();
 
-    static QString getSampleViewToolTip(const QString &className, const QString &propertyName);
-    static QString getSampleViewWidgetboxToolTip(const QString &className);
-    static QString getSampleViewDesignerToolTip(const QString &className);
+    static QString widgetboxToolTip(const QString& className);
 
 private:
     void initDataBase();
-    QString getTag(const QString &contextName, const QString &categoryName, const QString &propertyName);
-    void addToolTip(const QString &contextName, const QString &categoryName, const QString &propertyName, const QString &tooltip);
-    QString this_getToolTip(const QString &contextName, const QString &categoryName, const QString &propertyName);
+    QString getTag(const QString& contextName, const QString& categoryName,
+                   const QString& propertyName);
+    void addToolTip(const QString& contextName, const QString& categoryName,
+                    const QString& propertyName, const QString& tooltip);
+    QString this_getToolTip(const QString& contextName, const QString& categoryName,
+                            const QString& propertyName);
 
-    static ToolTipDataBase *m_instance;
+    static ToolTipDataBase* m_instance;
 
-    static QMap<QString, QString > m_tagToToolTip;
+    static QMap<QString, QString> m_tagToToolTip;
 };
 
 #endif // TOOLTIPDATABASE_H

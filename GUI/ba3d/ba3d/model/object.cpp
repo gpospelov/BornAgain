@@ -8,7 +8,17 @@
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-Object::Object(geometry::key gky_) : color(Qt::black)
+#ifdef Q_OS_LINUX
+
+QColor const clrObject = Qt::lightGray;
+
+#else
+
+QColor const clrObject = Qt::black;
+
+#endif
+
+Object::Object(geometry::key gky_) : color(clrObject)
 , isNull(false), model(nullptr), gky(gky_) {
 }
 

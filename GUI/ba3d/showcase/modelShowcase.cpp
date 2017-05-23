@@ -9,9 +9,8 @@ using namespace ba3d;
 static flt const R = 1;
 
 ModelShowcase::ModelShowcase() : p(nullptr) {
-
-  defEye    = xyz(0, -4*R, 0);
-  defCtr    = xyz(0, 0, R);
+  defCamPos.eye = xyz(0, -4*R, 0);
+  defCamPos.ctr = xyz(0, 0, R);
 
   Object *o;
 
@@ -33,6 +32,8 @@ void ModelShowcase::showKind(kind k) {
     return;
 
   add((p = newParticle(k, R)));
+
+  emit updated();
 }
 
 particle::Particle* ModelShowcase::newParticle(kind k, flp R) {

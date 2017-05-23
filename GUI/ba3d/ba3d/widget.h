@@ -26,13 +26,10 @@ public:
   void setModel(Model*); // model owned elsewhere, may be nullptr
   Model* getModel();
 
-  void update();
-
 private:
   Canvas  *canvas;
   Camera  *camera;
   Program *program;
-  QMetaObject::Connection modelUpdated;
 };
 
 //------------------------------------------------------------------------------

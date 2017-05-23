@@ -27,11 +27,6 @@ void MainWin::closeEvent(QCloseEvent*) {
   s.setValue(MAINWIN_GEOMETRY, saveGeometry());
 }
 
-void MainWin::keyPressEvent(QKeyEvent* e) {
-  if ("q" == e->text())
-    close();
-}
-
 void MainWin::createLayout() {
   setCentralWidget(new QWidget);
 

@@ -97,6 +97,8 @@ struct xyz {
   flt length()     const;
   xyz normalized() const;
 
+  xyz interpolateTo(flt, rc) const;
+
   static xyz const _0, _1, _x, _y, _z;
 };
 

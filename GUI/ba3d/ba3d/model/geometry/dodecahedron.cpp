@@ -57,7 +57,7 @@ Geometry::mesh_t Geometry::meshDodecahedron() {
   add5( 4, 13, 19,  5, 15);
   add5( 4,  8, 14,  6, 13);  // top
 
-  ENSURE(180 == vs.count())
+  ENSURE(144 == vs.count())
 
   return makeMesh(vs);
 }

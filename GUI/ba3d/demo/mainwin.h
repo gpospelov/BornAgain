@@ -27,8 +27,8 @@ private:
 
   void createLayout();
   ba3d::Widget3D *w3d;
-  QWidget *controls;
-  QSlider *sigmaSlider;
+
+  class DemoModel* model();
 };
 
 //------------------------------------------------------------------------------

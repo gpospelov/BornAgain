@@ -6,7 +6,7 @@
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-Model::Model() : defEye(xyz::_1), defCtr(xyz::_0), defUp(xyz::_z) {}
+Model::Model() : defCamPos(xyz::_1, xyz::_0, xyz::_z) {}
 
 Model::~Model() {
   for (auto o: objects) {
@@ -18,6 +18,15 @@ Model::~Model() {
     o->model = nullptr;
     delete o;
   }
+}
+
+void Model::clear(bool alsoBlend) {
+  while (!objects.isEmpty())
+    delete objects.first();
+  if (alsoBlend)
+    while (!objectsBlend.isEmpty())
+      delete objectsBlend.first();
+  emit updated();
 }
 
 void Model::add(Object* o) {

@@ -11,19 +11,44 @@
 
 class DemoModel : public ba3d::Model {
 public:
+  using super = ba3d::Model;
+
+  using xyz = ba3d::xyz;
+  using flt = ba3d::flt;
+  using Particle = ba3d::particle::Particle;
+  using Camera   = ba3d::Camera;
+
   DemoModel();
+  void switchBack();
+
   void calc(float sigma);
   void flip();
 
-  bool ready() {
-    return 0 == busy;
-  }
+  void setCameraTop(bool animate = false);
+  void setCameraSide(bool animate = false);
+  void setCamera(Camera::pos_t::rc, bool animate = false);
+
+  void cameraUpdated(Camera const&);
 
 private:
-  uint n; float spacing;
-  QVector<ba3d::particle::Particle*> ps;
-  QVector<ba3d::xyz> activeMesh;
-  QAtomicInteger<int> busy;
+  void addSubstrate();
+  void addLayer();
+
+  enum {hasNONE, hasSUBSTRATE, hasLAYER } back = hasNONE;
+
+  flt szSample = 400;
+  flt spacing  = 20; // of particles
+
+  Camera::pos_t camPos;
+
+private:
+  void addLayer(ba3d::dr, QColor);
+
+  QVector<Particle*> ps;
+  QVector<xyz> activeMesh;
+
+private:
+  void snooze();
 };
 
 //------------------------------------------------------------------------------

@@ -48,41 +48,62 @@ void MainWin::createLayout() {
   auto hb = new QHBoxLayout;
   vb->addLayout(hb);
 
-  sigmaSlider  = new QSlider(Qt::Horizontal);
-  auto calcButton = new QPushButton("Calc");
-  auto flipButton = new QPushButton("Flip");
+  auto btnSide  = new QPushButton("side");
+  auto btnTop   = new QPushButton("top");
+  auto btn0     = new QPushButton("0");
+  auto btn1     = new QPushButton("1");
+  auto sldSigma = new QSlider(Qt::Horizontal);
+  auto btnCalc  = new QPushButton("Calc");
+  auto btnFlip  = new QPushButton("Flip");
 
-  sigmaSlider->setRange(0,30);
-  sigmaSlider->setSingleStep(5);
-  sigmaSlider->setTickInterval(5);
-  sigmaSlider->setTickPosition(QSlider::TicksBelow);
-
+  hb->addWidget(btnSide);
+  hb->addWidget(btnTop);
   hb->addStretch();
-  hb->addWidget(sigmaSlider);
-  hb->addWidget(calcButton);
-  hb->addWidget(flipButton);
+  hb->addWidget(btn0);
+  hb->addWidget(btn1);
+  hb->addStretch();
+  hb->addWidget(sldSigma);
+  hb->addWidget(btnCalc);
+  hb->addWidget(btnFlip);
 
-  auto calc = [this]() {
-    auto model = dynamic_cast<DemoModel*>(w3d->getModel());
-    if (model && model->ready()) {
-      model->calc(sigmaSlider->value() / 100.f);
-    }
+  sldSigma->setRange(0,30);
+  sldSigma->setSingleStep(5);
+  sldSigma->setTickInterval(5);
+  sldSigma->setTickPosition(QSlider::TicksBelow);
+
+  connect(btnSide, &QPushButton::clicked, [this]() {
+    model()->setCameraSide(true);
+  });
+
+  connect(btnTop, &QPushButton::clicked, [this]() {
+    model()->setCameraTop(true);
+  });
+
+  connect(btn0, &QPushButton::clicked, [this]() {
+    model()->switchBack();
+  });
+
+  auto calc = [this, sldSigma]() {
+    model()->calc(sldSigma->value() / 100.f);
   };
 
   auto flip = [this]() {
-    auto model = dynamic_cast<DemoModel*>(w3d->getModel());
-    if (model) {
-      model->flip();
-    }
+    model()->flip();
   };
 
-  connect(calcButton, &QPushButton::clicked, [calc]() {
+  connect(btnCalc, &QPushButton::clicked, [calc]() {
     calc();
   });
 
-  connect(flipButton, &QPushButton::clicked, [flip]() {
+  connect(btnFlip, &QPushButton::clicked, [flip]() {
     flip();
   });
+}
+
+DemoModel* MainWin::model() {
+  auto model = dynamic_cast<DemoModel*>(w3d->getModel());
+  EXPECT(model)
+  return model;
 }
 
 //------------------------------------------------------------------------------

@@ -13,16 +13,34 @@ namespace ba3d {
 class Canvas;
 class Program;
 
-class Camera {
+class Camera : public QObject {
+  Q_OBJECT
   friend class Canvas;
   friend class Program;
 public:
   Camera();
 
-  void lookAt(xyz::rc eye, xyz::rc ctr, xyz::rc up);
+  struct pos_t {
+    typedef pos_t const& rc;
+
+    pos_t();
+    pos_t(xyz::rc eye, xyz::rc ctr, xyz::rc up);
+
+    xyz eye, ctr, up;
+
+    pos_t interpolateTo(flt, rc) const;
+  };
+
+  void lookAt(pos_t::rc);
+
+  pos_t::rc getPos() const { return pos; }
+
+  void set();
+
+signals:
+  void updated(Camera const&);
 
 private:
-  void set();
 
   void setAspectRatio(float);
 
@@ -32,7 +50,7 @@ private:
   void endTransform(bool keep);
 
   // camera setup
-  xyz eye, ctr, up;
+  pos_t pos;
   flt zoom;
   flt vertAngle, nearPlane, farPlane;
 
@@ -48,5 +66,3 @@ private:
 }
 #endif
 // eof
-
-

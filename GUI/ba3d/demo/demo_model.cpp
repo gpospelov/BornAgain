@@ -76,12 +76,12 @@ void DemoModel::square(float sigma) {
 
   if (activeMesh.empty()) {
     activeMesh = mesh;
-    for (uint i=0; i < ps.count(); ++i)
+    for (uint i=0; i < uint(ps.count()); ++i)
       ps.at(i)->transform(xyz::_0, activeMesh.at(i));
 
     uint const steps = 20;
     for_int (s, steps + 1) {
-      for (uint i=0; i < ps.count(); ++i)
+      for (uint i=0; i < uint(ps.count()); ++i)
         ps.at(i)->fancy(xyz::_0, flt(s) / steps);
       snooze(false);
     }
@@ -92,7 +92,7 @@ void DemoModel::square(float sigma) {
       m = m  * spacing + xyz(0, 0, -20);
     uint const steps = 30;
     for_int (s, steps + 1) {
-      for (uint i=0; i < ps.count(); ++i)
+      for (uint i=0; i < uint(ps.count()); ++i)
         ps.at(i)->transform(xyz::_0, from.at(i).interpolateTo(home.at(i), flt(s)/steps));
       snooze(false);
     }
@@ -102,7 +102,7 @@ void DemoModel::square(float sigma) {
     float const step = .1; bool go = true;
     while (go) {
       go = false;
-      for (uint i=0; i < ps.count(); ++i) {
+      for (uint i=0; i < uint(ps.count()); ++i) {
         auto& p = ps.at(i);
         auto& newPos = mesh.at(i);
         auto& pos = activeMesh[i];

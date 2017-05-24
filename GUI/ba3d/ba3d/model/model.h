@@ -37,11 +37,10 @@ public:
 
   virtual void cameraUpdated(Camera const&) {}
 
+  Camera::pos_t defCamPos;    // default camera params
+
 signals:
   void updated(bool withEye);
-
-protected:
-  Camera::pos_t defCamPos;    // default camera params
 
 private:
   QVector<Object*> objects, objectsBlend;

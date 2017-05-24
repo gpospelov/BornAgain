@@ -22635,6 +22635,16 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_crossCorrLength(self)
 
 
+    def setExternalField(self, ext_field):
+        """setExternalField(MultiLayer self, kvector_t ext_field)"""
+        return _libBornAgainCore.MultiLayer_setExternalField(self, ext_field)
+
+
+    def externalField(self):
+        """externalField(MultiLayer self) -> kvector_t"""
+        return _libBornAgainCore.MultiLayer_externalField(self)
+
+
     def crossCorrSpectralFun(self, kvec, j, k):
         """
         crossCorrSpectralFun(MultiLayer self, kvector_t kvec, size_t j, size_t k) -> double

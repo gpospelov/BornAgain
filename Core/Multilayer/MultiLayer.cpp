@@ -26,6 +26,8 @@
 #include "RealParameter.h"
 #include <iomanip>
 
+static const double Magnetic_Permeability = 4e-7 * M_PI;
+
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
     setName(BornAgain::MultiLayerType);
@@ -59,6 +61,7 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
     auto layer_limits = calculateLayerZLimits();
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
+    P_result->setExternalField(externalField());
     for (size_t i=0; i<numberOfLayers(); ++i)
     {
         auto p_interface = i>0 ? m_interfaces[i-1]
@@ -248,6 +251,7 @@ MultiLayer* MultiLayer::cloneGeneric(const std::function<Layer*(const Layer*)>& 
 {
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
+    P_result->setExternalField(externalField());
     for (size_t i=0; i<numberOfLayers(); ++i)
     {
         auto p_interface = i>0 ? m_interfaces[i-1]
@@ -318,6 +322,11 @@ void MultiLayer::setCrossCorrLength(double crossCorrLength)
     if (crossCorrLength<0.0)
         throw Exceptions::LogicErrorException("Attempt to set crossCorrLength to negative value");
     m_crossCorrLength = crossCorrLength;
+}
+
+void MultiLayer::setExternalField(kvector_t ext_field)
+{
+    m_ext_field = ext_field;
 }
 
 std::vector<ZLimits> MultiLayer::calculateLayerZLimits() const

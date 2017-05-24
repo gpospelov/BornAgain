@@ -1,7 +1,6 @@
 // GPL3; https://github.com/jburle/ba3d
 
 #include "camera.h"
-#include <QQuaternion>
 
 namespace ba3d {
 //------------------------------------------------------------------------------
@@ -16,15 +15,17 @@ Camera::Camera()
 Camera::pos_t::pos_t() : eye(), ctr(), up() {
 }
 
-Camera::pos_t::pos_t(xyz::rc eye_, xyz::rc ctr_, xyz::rc up_)
-  : eye(eye_), ctr(ctr_), up(up_) {
+Camera::pos_t::pos_t(xyz::rc eye_, xyz::rc ctr_, xyz::rc up_,
+                     QQuaternion const& rot_)
+  : eye(eye_), ctr(ctr_), up(up_), rot(rot_) {
 }
 
-Camera::pos_t Camera::pos_t::interpolateTo(flt r, rc to) const {
+Camera::pos_t Camera::pos_t::interpolateTo(rc to, flt r) const {
   return pos_t(
-    eye.interpolateTo(r, to.eye),
-    ctr.interpolateTo(r, to.ctr),
-    up.interpolateTo(r, to.up)
+    eye.interpolateTo(to.eye, r),
+    ctr.interpolateTo(to.ctr, r),
+    up.interpolateTo(to.up, r),
+    QQuaternion::slerp(rot, to.rot, r)
   );
 }
 
@@ -38,7 +39,7 @@ void Camera::set() {
   matModel.setToIdentity();
   matModel.lookAt((pos.eye-pos.ctr)*zoom + pos.ctr, pos.ctr, pos.up);
 
-  QQuaternion rt(rot * addRot);
+  QQuaternion rt(pos.rot * addRot);
   matModel.translate(+pos.ctr);
   matModel.rotate(rt);
   matModel.translate(-pos.ctr);
@@ -65,7 +66,7 @@ void Camera::zoomBy(flt zoom_) {
 
 void Camera::endTransform(bool keep) {
   if (keep) {
-    rot     = (rot * addRot).normalized();
+    pos.rot = (pos.rot * addRot).normalized();
     pos.eye = pos.eye * zoom; // TODO limit
   }
 

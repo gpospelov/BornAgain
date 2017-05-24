@@ -5,6 +5,7 @@
 
 #include <ba3d/view/camera.h>
 #include "object.h"
+#include "particles.h"
 #include <QVector>
 #include <QHash>
 
@@ -23,7 +24,10 @@ public:
   Model();
   virtual ~Model();
 
-  void clear(bool alsoBlend);
+  void clearOpaque();
+  void clearBlend();
+
+  static particle::Particle* newParticle(particle::kind k, ba3d::flp R);
 
   void add(Object*);        // add an opaque object, the model takes ownership
   void addBlend(Object*);   // add a transparent object, the model takes ownership
@@ -34,7 +38,7 @@ public:
   virtual void cameraUpdated(Camera const&) {}
 
 signals:
-  void updated();
+  void updated(bool withEye);
 
 protected:
   Camera::pos_t defCamPos;    // default camera params

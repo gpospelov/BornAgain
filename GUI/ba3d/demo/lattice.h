@@ -8,7 +8,20 @@
 
 //------------------------------------------------------------------------------
 
-QVector<ba3d::xyz> squareLattice(uint n, float sigma); // n half-size
+class Lattice : public QVector<ba3d::xyz> {
+public:
+  using super = QVector<ba3d::xyz>;
+
+  Lattice();
+  Lattice(uint n, uint nn);
+
+  uint index(int ix, int iy);
+  int ix(uint);
+  int iy(uint);
+  uint n;
+};
+
+Lattice squareLattice(uint n, float sigma); // n half-size
 
 //------------------------------------------------------------------------------
 #endif

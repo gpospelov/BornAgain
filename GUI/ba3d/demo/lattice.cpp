@@ -7,7 +7,30 @@
 
 //------------------------------------------------------------------------------
 
-QVector<ba3d::xyz> squareLattice(uint n, float sigma) {
+Lattice::Lattice() : n(0) {}
+
+Lattice::Lattice(uint n_, uint nn) : super (nn), n(n_) {}
+
+uint Lattice::index(int ix, int iy) {
+  int nx = n, ny = n;
+  EXPECT (-nx <= ix && ix <= +nx)
+  EXPECT (-ny <= iy && iy <= +ny)
+  uint i = (2*nx + 1) * (iy + ny) + (ix + nx);
+  ENSURE (i < count())
+  return i;
+}
+
+int Lattice::ix(uint i) {
+  int nr = 2*n + 1;
+  return i % nr - n;
+}
+
+int Lattice::iy(uint i) {
+  int nr = 2*n + 1;
+  return i / nr - n;
+}
+
+Lattice squareLattice(uint n, float sigma) {
   using flt = ba3d::flt;
   using xyz = ba3d::xyz;
 
@@ -44,28 +67,19 @@ QVector<ba3d::xyz> squareLattice(uint n, float sigma) {
 
   uint nn = (2*n + 1) * (2*n + 1); // total number
 
-  auto mesh = QVector<xyz>(nn);
-
-  auto index = [&](int ix, int iy) -> uint {
-    int nx = n, ny = n;
-    EXPECT (-nx <= ix && ix <= +nx)
-    EXPECT (-ny <= iy && iy <= +ny)
-    uint i = (2*nx + 1) * (iy + ny) + (ix + nx);
-    ENSURE (i < nn)
-    return i;
-  };
+  auto mesh = Lattice(n, nn);
 
   auto get = [&](int ix, int iy) -> xyz::rc {
-    return mesh.at(index(ix, iy));
+    return mesh.at(mesh.index(ix, iy));
   };
 
   auto isMade = [&](int ix, int iy) -> bool {
-    return xyz::_0 != mesh.at(index(ix, iy));
+    return xyz::_0 != mesh.at(mesh.index(ix, iy));
   };
 
   auto put = [&](int ix, int iy) {
     if (!isMade(ix, iy))
-      mesh[index(ix, iy)] = placeXY(ix, iy);
+      mesh[mesh.index(ix, iy)] = placeXY(ix, iy);
   };
 
   auto growBy1Quadrant = [&](uint n, int mx, int my) {

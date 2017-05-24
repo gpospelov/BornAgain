@@ -48,8 +48,11 @@ void Canvas::setModel(Model* m) {
 
   disconnect(modelUpdated);
   model = m;
-  modelUpdated = connect(model, &Model::updated, [this]() {
-    setCamera();
+  modelUpdated = connect(model, &Model::updated, [this](bool withEye) {
+    if (withEye)
+      setCamera();
+    else
+      update();
   });
 
   setCamera();
@@ -94,7 +97,7 @@ void Canvas::paintGL() {
     // opaque objects
     model->draw(*this);
 
-    // transparebnt objects
+    // transparent objects
     glEnable(GL_BLEND); glDepthMask(false);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     model->drawBlend(*this);

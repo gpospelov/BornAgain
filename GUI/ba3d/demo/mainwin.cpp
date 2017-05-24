@@ -50,21 +50,23 @@ void MainWin::createLayout() {
 
   auto btnSide  = new QPushButton("side");
   auto btnTop   = new QPushButton("top");
-  auto btn0     = new QPushButton("0");
-  auto btn1     = new QPushButton("1");
+  auto btnOne   = new QPushButton("one");
+  auto btn0     = new QPushButton("=");
+  auto btn1     = new QPushButton("1|n");
+  auto btnP     = new QPushButton("p");
   auto sldSigma = new QSlider(Qt::Horizontal);
-  auto btnCalc  = new QPushButton("Calc");
-  auto btnFlip  = new QPushButton("Flip");
+  auto btnSq    = new QPushButton("><");
 
   hb->addWidget(btnSide);
   hb->addWidget(btnTop);
+  hb->addWidget(btnOne);
   hb->addStretch();
   hb->addWidget(btn0);
   hb->addWidget(btn1);
+  hb->addWidget(btnP);
   hb->addStretch();
   hb->addWidget(sldSigma);
-  hb->addWidget(btnCalc);
-  hb->addWidget(btnFlip);
+  hb->addWidget(btnSq);
 
   sldSigma->setRange(0,30);
   sldSigma->setSingleStep(5);
@@ -79,24 +81,24 @@ void MainWin::createLayout() {
     model()->setCameraTop(true);
   });
 
+  connect(btnOne, &QPushButton::clicked, [this]() {
+    model()->setCameraOne(true);
+  });
+
   connect(btn0, &QPushButton::clicked, [this]() {
     model()->switchBack();
   });
 
-  auto calc = [this, sldSigma]() {
-    model()->calc(sldSigma->value() / 100.f);
-  };
-
-  auto flip = [this]() {
-    model()->flip();
-  };
-
-  connect(btnCalc, &QPushButton::clicked, [calc]() {
-    calc();
+  connect(btn1, &QPushButton::clicked, [this]() {
+    model()->switchFront();
   });
 
-  connect(btnFlip, &QPushButton::clicked, [flip]() {
-    flip();
+  connect(btnP, &QPushButton::clicked, [this]() {
+    model()->switchOne();
+  });
+
+  connect(btnSq, &QPushButton::clicked, [this, sldSigma]() {
+    model()->square(sldSigma->value() / 100.f);
   });
 }
 

@@ -6,6 +6,7 @@
 #include "../def.h"
 #include <QColor>
 #include <QMatrix4x4>
+#include <QQuaternion>
 
 namespace ba3d {
 //------------------------------------------------------------------------------
@@ -24,11 +25,13 @@ public:
     typedef pos_t const& rc;
 
     pos_t();
-    pos_t(xyz::rc eye, xyz::rc ctr, xyz::rc up);
+    pos_t(xyz::rc eye, xyz::rc ctr, xyz::rc up,
+          QQuaternion const& = QQuaternion());
 
     xyz eye, ctr, up;
+    QQuaternion rot;
 
-    pos_t interpolateTo(flt, rc) const;
+    pos_t interpolateTo(rc, flt) const;
   };
 
   void lookAt(pos_t::rc);
@@ -58,7 +61,7 @@ private:
   xyz lightPos, lightPosRotated;
 
   // transformation
-  QQuaternion rot, addRot;        // rotation, additional rotation
+  QQuaternion addRot;        // rotation, additional rotation
   QMatrix4x4  matModel, matProj;
 };
 

@@ -46,7 +46,7 @@ void ModelLayers::showKind(particle::kind k) {
         p->transform(xyz::_0, xyz((i-4)*sz/10, (j-4)*sz/10, z[zi]+.001f));
       }
 
-  emit updated();
+  emit updated(false);
 }
 
 //------------------------------------------------------------------------------

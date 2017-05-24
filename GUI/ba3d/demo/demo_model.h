@@ -5,6 +5,7 @@
 
 #include <ba3d/model/model.h>
 #include <ba3d/model/particles.h>
+#include "lattice.h"
 #include <QAtomicInteger>
 
 //------------------------------------------------------------------------------
@@ -20,12 +21,18 @@ public:
 
   DemoModel();
   void switchBack();
+  void switchFront();
+  void switchOne();
 
-  void calc(float sigma);
-  void flip();
+  void square(float sigma);
+  void one();
+  void oneOut();
+  void oneIn(ba3d::particle::kind);
 
   void setCameraTop(bool animate = false);
   void setCameraSide(bool animate = false);
+  void setCameraOne(bool animate = false);
+
   void setCamera(Camera::pos_t::rc, bool animate = false);
 
   void cameraUpdated(Camera const&);
@@ -34,10 +41,13 @@ private:
   void addSubstrate();
   void addLayer();
 
-  enum {hasNONE, hasSUBSTRATE, hasLAYER } back = hasNONE;
+  enum {backNONE,  backSUBSTRATE, backLAYER }                   back  = backNONE;
+  enum {frontNONE, frontONE, frontSQUARELOW, frontSQUAREHIGH }  front = frontNONE;
 
   flt szSample = 400;
-  flt spacing  = 20; // of particles
+  flt const spacing  = 20; // of particles
+  flt const R = 6;
+  flt const hgtLayer = 20, hgtSubstrate = 35;
 
   Camera::pos_t camPos;
 
@@ -45,10 +55,12 @@ private:
   void addLayer(ba3d::dr, QColor);
 
   QVector<Particle*> ps;
-  QVector<xyz> activeMesh;
+  Particle* p; ba3d::particle::kind kind = ba3d::particle::kind::None;
+
+  Lattice activeMesh;
 
 private:
-  void snooze();
+  void snooze(bool withEye);
 };
 
 //------------------------------------------------------------------------------

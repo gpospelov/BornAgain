@@ -41,8 +41,9 @@ private:
   void addSubstrate();
   void addLayer();
 
-  enum {backNONE,  backSUBSTRATE, backLAYER }                   back  = backNONE;
-  enum {frontNONE, frontONE, frontSQUARELOW, frontSQUAREHIGH }  front = frontNONE;
+  enum {backNONE,  backSUBSTRATE, backLAYER }           back  = backNONE;
+  enum {frontNONE, frontONE, frontSQUARELOW,
+                   frontSQUAREHIGH, frontSQUAREINSANE } front = frontNONE;
 
   flt szSample = 400;
   flt const spacing  = 20; // of particles

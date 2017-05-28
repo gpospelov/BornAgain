@@ -43,7 +43,8 @@ void MainWin::createLayout() {
   centralWidget()->setLayout(vb);
 
   vb->addWidget((w3d = new ba3d::Widget3D));
-  w3d->setBackground(palette().color(QPalette::Background));
+
+  w3d->setBackground(QColor(160,160,160));
 
   auto hb = new QHBoxLayout;
   vb->addLayout(hb);

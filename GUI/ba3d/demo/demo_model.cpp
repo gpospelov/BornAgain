@@ -44,6 +44,10 @@ void DemoModel::switchFront() {
     front = frontSQUAREHIGH; szSample = 800; square(0);
     break;
   case frontSQUAREHIGH:
+    super::clearOpaque(); ps.clear(); kind = ba3d::particle::kind::None;
+    front = frontSQUAREINSANE; szSample = 2000; square(0);
+    break;
+  case frontSQUAREINSANE:
     super::clearOpaque(); ps.clear(); front = frontNONE;
     break;
   }
@@ -57,7 +61,7 @@ void DemoModel::switchOne() {
 }
 
 void DemoModel::square(float sigma) {
-  if (frontSQUARELOW != front && frontSQUAREHIGH != front)
+  if (frontSQUARELOW != front && frontSQUAREHIGH != front && frontSQUAREINSANE != front)
     return;
 
   uint n = qFloor(szSample / spacing / 2 - 1);
@@ -67,8 +71,10 @@ void DemoModel::square(float sigma) {
 
   if (ps.empty()) { // first time - init
     ps.resize(mesh.count());
-    for (auto& p: ps)
+    for (auto& p: ps) {
       add((p = new particle::TruncatedSphere(R, R)));
+      p->color = QColor(70, 0, 0);
+    }
     activeMesh.clear();
   }
 
@@ -99,7 +105,7 @@ void DemoModel::square(float sigma) {
 
     activeMesh = home;
 
-    float const step = .1; bool go = true;
+    float const step = .2; bool go = true;
     while (go) {
       go = false;
       for (uint i=0; i < uint(ps.count()); ++i) {
@@ -156,7 +162,7 @@ void DemoModel::oneOut() {
 
 void DemoModel::oneIn(particle::kind kind) {
   add((p = newParticle(kind, R)));
-  p->color = Qt::cyan;
+  p->color = QColor(70,0,0);
   p->transform(xyz::_0, xyz(0, 0, -hgtLayer));
 
   uint const steps = 140;
@@ -199,11 +205,11 @@ void DemoModel::cameraUpdated(DemoModel::Camera const& cam) {
 }
 
 void DemoModel::addSubstrate() {
-  addLayer(dr(-hgtLayer, -hgtLayer - hgtSubstrate), Qt::gray);
+  addLayer(dr(-hgtLayer, -hgtLayer - hgtSubstrate), Qt::lightGray);
 }
 
 void DemoModel::addLayer() {
-  addLayer(dr(0, -hgtLayer), Qt::green);
+  addLayer(dr(0, -hgtLayer), QColor(0, 100, 0));
 }
 
 void DemoModel::addLayer(dr z, QColor clr) {

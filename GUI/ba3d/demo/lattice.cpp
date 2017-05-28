@@ -54,7 +54,7 @@ Lattice squareLattice(uint n, float sigma) {
     } while (w >= 1.f);
 
     w = sqrt(-2.f * qLn(w) / w);
-    return ba3d::xyz(x01 * w * sigma, y01 * w * sigma, 0);
+    return ba3d::xyz(x01 * w * sigma, y01 * w * sigma, 0.01);
   };
 
   auto placeHere = [&](xyz::rc here) -> xyz {

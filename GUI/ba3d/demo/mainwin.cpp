@@ -1,7 +1,6 @@
 // GPL3; https://github.com/jburle/ba3d
 
 #include "mainwin.h"
-#include "demo_model.h"
 
 #include <QApplication>
 #include <QBoxLayout>
@@ -32,10 +31,6 @@ void MainWin::keyPressEvent(QKeyEvent* e) {
     close();
 }
 
-void MainWin::mouseDoubleClickEvent(QMouseEvent*) {
-
-}
-
 void MainWin::createLayout() {
   setCentralWidget(new QWidget);
 
@@ -44,7 +39,12 @@ void MainWin::createLayout() {
 
   vb->addWidget((w3d = new ba3d::Widget3D));
 
-  w3d->setBackground(QColor(160,160,160));
+#ifdef Q_OS_OSX
+  QColor clrBg(160,160,160);
+#else
+  QColor clrBg(palette().color(QPalette::Background));
+#endif
+  w3d->setBackground(clrBg);
 
   auto hb = new QHBoxLayout;
   vb->addLayout(hb);

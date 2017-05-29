@@ -9,13 +9,9 @@ namespace ba3d {
 //------------------------------------------------------------------------------
 
 #ifdef Q_OS_LINUX
-
 QColor const clrObject = Qt::lightGray;
-
 #else
-
 QColor const clrObject = Qt::black;
-
 #endif
 
 Object::Object(geometry::key gky_) : color(clrObject)

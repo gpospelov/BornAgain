@@ -58,13 +58,15 @@ public:
 
 class RoughnessTranslator : public IPathTranslator {
 public:
+    RoughnessTranslator(const SessionItem* p_parent);
     ~RoughnessTranslator() override {}
 
-    RoughnessTranslator* clone() const override { return new RoughnessTranslator; }
+    RoughnessTranslator* clone() const override { return new RoughnessTranslator(nullptr); }
 
     virtual QStringList translate(const QStringList& list) const override;
 private:
     int getLayerIndex(QString layerName) const;
+    const SessionItem* mp_parent;
 };
 
 #endif // PARAMETERTRANSLATORS_H

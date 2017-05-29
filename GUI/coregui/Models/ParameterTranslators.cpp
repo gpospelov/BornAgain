@@ -69,6 +69,10 @@ QStringList DistributionNoneTranslator::translate(const QStringList& list) const
 
 //! Converts "/Layer1/LayerBasicRoughness/Sigma" into "/LayerInterface0/LayerBasicRoughness/Sigma"
 
+RoughnessTranslator::RoughnessTranslator(const SessionItem* p_parent)
+    : mp_parent(p_parent)
+{}
+
 QStringList RoughnessTranslator::translate(const QStringList& list) const
 {
     if (!list.back().contains(Constants::LayerType)

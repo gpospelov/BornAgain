@@ -1,7 +1,7 @@
 // GPL3; https://github.com/jburle/ba3d
 
-#ifndef BA3D_DEMOMODEL_LAYERS_H
-#define BA3D_DEMOMODEL_LAYERS_H
+#ifndef BA3D_DEMOMODEL_H
+#define BA3D_DEMOMODEL_H
 
 #include <ba3d/model/model.h>
 #include <ba3d/model/particles.h>
@@ -20,6 +20,7 @@ public:
   using Camera   = ba3d::Camera;
 
   DemoModel();
+
   void switchBack();
   void switchFront();
   void switchOne();

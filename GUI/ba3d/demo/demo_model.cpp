@@ -73,7 +73,10 @@ void DemoModel::square(float sigma) {
     ps.resize(mesh.count());
     for (auto& p: ps) {
       add((p = new particle::TruncatedSphere(R, R)));
+      p->color = QColor(170, 0, 0);
+#ifdef Q_OS_OSX
       p->color = QColor(70, 0, 0);
+#endif
     }
     activeMesh.clear();
   }
@@ -162,7 +165,9 @@ void DemoModel::oneOut() {
 
 void DemoModel::oneIn(particle::kind kind) {
   add((p = newParticle(kind, R)));
+#ifdef Q_OS_OSX
   p->color = QColor(70,0,0);
+#endif
   p->transform(xyz::_0, xyz(0, 0, -hgtLayer));
 
   uint const steps = 140;
@@ -205,11 +210,13 @@ void DemoModel::cameraUpdated(DemoModel::Camera const& cam) {
 }
 
 void DemoModel::addSubstrate() {
-  addLayer(dr(-hgtLayer, -hgtLayer - hgtSubstrate), Qt::lightGray);
+  QColor clr = Qt::lightGray;
+  addLayer(dr(-hgtLayer, -hgtLayer - hgtSubstrate), clr);
 }
 
 void DemoModel::addLayer() {
-  addLayer(dr(0, -hgtLayer), QColor(0, 100, 0));
+  QColor clr = QColor(0, 100, 0);
+  addLayer(dr(0, -hgtLayer), clr);
 }
 
 void DemoModel::addLayer(dr z, QColor clr) {

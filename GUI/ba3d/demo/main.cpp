@@ -29,7 +29,6 @@ int App::exec() {
   win.show();
 
   QScopedPointer<DemoModel> model(new DemoModel);
-
   win.widg3t().setModel(model.data());
 
   return base::exec();

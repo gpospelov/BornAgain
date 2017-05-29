@@ -69,6 +69,15 @@ QStringList DistributionNoneTranslator::translate(const QStringList& list) const
 
 //! Converts "/Layer1/LayerBasicRoughness/Sigma" into "/LayerInterface0/LayerBasicRoughness/Sigma"
 
+RoughnessTranslator::RoughnessTranslator(const SessionItem* p_parent)
+    : mp_parent(p_parent)
+{}
+
+RoughnessTranslator*RoughnessTranslator::clone() const
+{
+    return new RoughnessTranslator(mp_parent);
+}
+
 QStringList RoughnessTranslator::translate(const QStringList& list) const
 {
     if (!list.back().contains(Constants::LayerType)
@@ -79,9 +88,11 @@ QStringList RoughnessTranslator::translate(const QStringList& list) const
 
     QString layerName = result.takeLast();
     int layerIndex = getLayerIndex(layerName);
+    QString postfix = numberOfLayers()==2 ?
+                      QString() :
+                      QString::number(layerIndex - 1);
 
-    result.push_back(QString::fromStdString(BornAgain::LayerInterfaceType)
-                     + QString::number(layerIndex - 1));
+    result.push_back(QString::fromStdString(BornAgain::LayerInterfaceType) + postfix);
     return result;
 }
 
@@ -95,4 +106,10 @@ int RoughnessTranslator::getLayerIndex(QString layerName) const
     if(!ok)
         throw GUIHelpers::Error("RoughnessTranslator::getLayerIndex() -> Error. Can't parse.");
     return layerIndex;
+}
+
+int RoughnessTranslator::numberOfLayers() const
+{
+    QVector<SessionItem*> list = mp_parent->getChildrenOfType(Constants::LayerType);
+    return list.size();
 }

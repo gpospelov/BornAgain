@@ -25,7 +25,8 @@ protected:
   Particle(geometry::key);
   xyz turn,   // turn before scale
       scale,  // geometries are of 1-size (box 1x1x1, sphere D=1), need scaling
-      offset; // geometries centered around origin; particles stand on z=0 plane
+      offset, // geometries centered around origin; particles stand on z=0 plane
+      rotate, translate;  // remembered
 
   void set();
 
@@ -34,6 +35,7 @@ public:
                     lastKind  = kind::AnisoPyramid;
 
   void transform(xyz rotate, xyz translate);
+  void fancy(xyz rotate, flt r);
 };
 
 //------------------------------------------------------------------------------

@@ -576,6 +576,9 @@ std::string ExportToPython::defineMultiLayers() const
     result << "\n" << indent() << "# Defining Multilayers\n";
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         result << indent() << it->second << " = ba.MultiLayer()\n";
+        double ccl = it->first->crossCorrLength();
+        if (ccl > 0.0)
+            result << indent() << it->second << ".setCrossCorrLength(" << ccl << ")\n";
 
         size_t numberOfLayers = it->first->numberOfLayers();
 

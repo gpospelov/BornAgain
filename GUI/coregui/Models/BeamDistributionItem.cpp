@@ -109,7 +109,7 @@ double BeamDistributionItem::meanValue() const
 {
     std::unique_ptr<IDistribution1D> domainDistr = createDistribution1D();
     if (domainDistr)
-        return scaleFactor()*domainDistr->getMean();
+        return domainDistr->getMean()/scaleFactor();
     else
         return getGroupItem(P_DISTRIBUTION)->getItemValue(DistributionNoneItem::P_VALUE).toDouble();
 }

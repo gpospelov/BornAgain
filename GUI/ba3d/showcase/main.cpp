@@ -38,11 +38,11 @@ int App::exec() {
   w2.setModel(ml.data());
   w3.setModel(ms.data());
 
-  w2.cam().lookAt(ba3d::xyz::_z*90, ba3d::xyz(0,0,0), ba3d::xyz::_y);
+  w2.cam().lookAt(ba3d::Camera::pos_t(
+    ba3d::xyz::_z*90, ba3d::xyz(0,0,0), ba3d::xyz::_y));
 
   connect(&win, &MainWin::showKind, [&](ba3d::particle::kind kind) {
     ml->showKind(kind); ms->showKind(kind);
-    w1.update(); w2.update(); w3.update();
   });
 
   return base::exec();

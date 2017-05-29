@@ -1,7 +1,6 @@
 // GPL3; https://github.com/jburle/ba3d
 
 #include "mainwin.h"
-#include "demo_model.h"
 
 #include <QApplication>
 #include <QBoxLayout>
@@ -32,10 +31,6 @@ void MainWin::keyPressEvent(QKeyEvent* e) {
     close();
 }
 
-void MainWin::mouseDoubleClickEvent(QMouseEvent*) {
-
-}
-
 void MainWin::createLayout() {
   setCentralWidget(new QWidget);
 
@@ -43,46 +38,75 @@ void MainWin::createLayout() {
   centralWidget()->setLayout(vb);
 
   vb->addWidget((w3d = new ba3d::Widget3D));
-  w3d->setBackground(palette().color(QPalette::Background));
+
+#ifdef Q_OS_OSX
+  QColor clrBg(160,160,160);
+#else
+  QColor clrBg(palette().color(QPalette::Background));
+#endif
+  w3d->setBackground(clrBg);
 
   auto hb = new QHBoxLayout;
   vb->addLayout(hb);
 
-  sigmaSlider  = new QSlider(Qt::Horizontal);
-  auto calcButton = new QPushButton("Calc");
-  auto flipButton = new QPushButton("Flip");
+  auto btnSide  = new QPushButton("side");
+  auto btnTop   = new QPushButton("top");
+  auto btnOne   = new QPushButton("one");
+  auto btn0     = new QPushButton("=");
+  auto btn1     = new QPushButton("1|n");
+  auto btnP     = new QPushButton("p");
+  auto sldSigma = new QSlider(Qt::Horizontal);
+  auto btnSq    = new QPushButton("><");
 
-  sigmaSlider->setRange(0,30);
-  sigmaSlider->setSingleStep(5);
-  sigmaSlider->setTickInterval(5);
-  sigmaSlider->setTickPosition(QSlider::TicksBelow);
-
+  hb->addWidget(btnSide);
+  hb->addWidget(btnTop);
+  hb->addWidget(btnOne);
   hb->addStretch();
-  hb->addWidget(sigmaSlider);
-  hb->addWidget(calcButton);
-  hb->addWidget(flipButton);
+  hb->addWidget(btn0);
+  hb->addWidget(btn1);
+  hb->addWidget(btnP);
+  hb->addStretch();
+  hb->addWidget(sldSigma);
+  hb->addWidget(btnSq);
 
-  auto calc = [this]() {
-    auto model = dynamic_cast<DemoModel*>(w3d->getModel());
-    if (model && model->ready()) {
-      model->calc(sigmaSlider->value() / 100.f);
-    }
-  };
+  sldSigma->setRange(0,30);
+  sldSigma->setSingleStep(5);
+  sldSigma->setTickInterval(5);
+  sldSigma->setTickPosition(QSlider::TicksBelow);
 
-  auto flip = [this]() {
-    auto model = dynamic_cast<DemoModel*>(w3d->getModel());
-    if (model) {
-      model->flip();
-    }
-  };
-
-  connect(calcButton, &QPushButton::clicked, [calc]() {
-    calc();
+  connect(btnSide, &QPushButton::clicked, [this]() {
+    model()->setCameraSide(true);
   });
 
-  connect(flipButton, &QPushButton::clicked, [flip]() {
-    flip();
+  connect(btnTop, &QPushButton::clicked, [this]() {
+    model()->setCameraTop(true);
   });
+
+  connect(btnOne, &QPushButton::clicked, [this]() {
+    model()->setCameraOne(true);
+  });
+
+  connect(btn0, &QPushButton::clicked, [this]() {
+    model()->switchBack();
+  });
+
+  connect(btn1, &QPushButton::clicked, [this]() {
+    model()->switchFront();
+  });
+
+  connect(btnP, &QPushButton::clicked, [this]() {
+    model()->switchOne();
+  });
+
+  connect(btnSq, &QPushButton::clicked, [this, sldSigma]() {
+    model()->square(sldSigma->value() / 100.f);
+  });
+}
+
+DemoModel* MainWin::model() {
+  auto model = dynamic_cast<DemoModel*>(w3d->getModel());
+  EXPECT(model)
+  return model;
 }
 
 //------------------------------------------------------------------------------

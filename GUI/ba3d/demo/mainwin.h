@@ -3,6 +3,7 @@
 #ifndef BA3D_MAINWIN_H
 #define BA3D_MAINWIN_H
 
+#include "demo_model.h"
 #include <ba3d/widget.h>
 #include <ba3d/model/particles.h>
 #include <QMainWindow>
@@ -23,12 +24,11 @@ public:
 private:
   void closeEvent(QCloseEvent*);
   void keyPressEvent(QKeyEvent*);
-  void mouseDoubleClickEvent(QMouseEvent*);
 
   void createLayout();
   ba3d::Widget3D *w3d;
-  QWidget *controls;
-  QSlider *sigmaSlider;
+
+  class DemoModel* model();
 };
 
 //------------------------------------------------------------------------------

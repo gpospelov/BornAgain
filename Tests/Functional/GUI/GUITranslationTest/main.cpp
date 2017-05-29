@@ -31,7 +31,8 @@ bool run_tests() {
         {"BasicGISAS", "ParticleCompositionBuilder"},
         {"BasicGISAS", "Basic2DParaCrystalBuilder"},
         {"BasicGISAS", "Lattice1DBuilder"},
-        {"BasicGISAS", "Basic2DLatticeBuilder"}
+        {"BasicGISAS", "Basic2DLatticeBuilder"},
+        {"BasicGISAS", "TwoLayerRoughnessBuilder"}
     };
 
     bool success(true);

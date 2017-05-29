@@ -35,7 +35,7 @@ MultiLayerItem::MultiLayerItem()
     registerTag(T_LAYERS, 0, -1, QStringList() << Constants::LayerType);
     setDefaultTag(T_LAYERS);
 
-    addTranslator(RoughnessTranslator());
+    addTranslator(RoughnessTranslator(this));
 
     mapper()->setOnChildrenChange(
                 [this](SessionItem*)

@@ -37,6 +37,7 @@
 #include "SizeDistributionModelsBuilder.h"
 #include "TransformationsBuilder.h"
 #include "TwoDimLatticeBuilder.h"
+#include "TwoLayerRoughnessBuilder.h"
 #include "SlicedParticleBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
@@ -183,6 +184,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "MultiLayerWithRoughnessBuilder",
         create_new<MultiLayerWithRoughnessBuilder>,
         "Layer with correlated roughness");
+
+    registerItem(
+        "TwoLayerRoughnessBuilder",
+        create_new<TwoLayerRoughnessBuilder>,
+        "Two layers with rough interface");
 
     registerItem(
        "MultipleLayoutBuilder",

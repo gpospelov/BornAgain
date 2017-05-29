@@ -374,9 +374,9 @@ std::string ExportToPython::defineInterferenceFunctions() const
                    << printNm(latticeParameters.m_length) << ", "
                    << printDegrees(latticeParameters.m_xi) << ")\n";
 
-            const IFTDecayFunction1D* pdf = oneDLattice->getDecayFunction();
+            const IFTDecayFunction1D* pdf = oneDLattice->decayFunction();
 
-            if (pdf->getOmega() != 0.0)
+            if (pdf->decayLength() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                        << "(" << argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
@@ -385,20 +385,20 @@ std::string ExportToPython::defineInterferenceFunctions() const
         else if (const auto* oneDParaCrystal
                  = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
-                   << printNm(oneDParaCrystal->getPeakDistance()) << ", "
-                   << printNm(oneDParaCrystal->getDampingLength()) << ")\n";
+                   << printNm(oneDParaCrystal->peakDistance()) << ", "
+                   << printNm(oneDParaCrystal->dampingLength()) << ")\n";
 
-            if (oneDParaCrystal->getKappa() != 0.0)
+            if (oneDParaCrystal->kappa() != 0.0)
                 result << indent() << it->second << ".setKappa("
-                       << printDouble(oneDParaCrystal->getKappa()) << ")\n";
+                       << printDouble(oneDParaCrystal->kappa()) << ")\n";
 
-            if (oneDParaCrystal->getDomainSize() != 0.0)
+            if (oneDParaCrystal->domainSize() != 0.0)
                 result << indent() << it->second << ".setDomainSize("
-                       << printDouble(oneDParaCrystal->getDomainSize()) << ")\n";
+                       << printDouble(oneDParaCrystal->domainSize()) << ")\n";
 
-            const IFTDistribution1D* pdf = oneDParaCrystal->getProbabilityDistribution();
+            const IFTDistribution1D* pdf = oneDParaCrystal->probabilityDistribution();
 
-            if (pdf->getOmega() != 0.0)
+            if (pdf->omega() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                        << "(" << argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setProbabilityDistribution(" << it->second
@@ -414,7 +414,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
                    << printDegrees(lattice.latticeAngle()) << ", "
                    << printDegrees(lattice.rotationAngle()) << ")\n";
 
-            const IFTDecayFunction2D* pdf = twoDLattice->getDecayFunction();
+            const IFTDecayFunction2D* pdf = twoDLattice->decayFunction();
 
             result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                    << "(" << argumentList(pdf) << ")\n"
@@ -423,7 +423,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
 
         else if (const auto* twoDParaCrystal
                  = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
-            std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
+            std::vector<double> domainSize = twoDParaCrystal->domainSizes();
             const Lattice2D& lattice = twoDParaCrystal->lattice();
 
             if(lattice.getName() == BornAgain::SquareLatticeType) {
@@ -431,7 +431,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << " = ba.InterferenceFunction2DParaCrystal.createSquare("
                        << printNm(lattice.length1())
                        << ", "
-                       << printNm(twoDParaCrystal->getDampingLength()) << ", "
+                       << printNm(twoDParaCrystal->dampingLength()) << ", "
                        << printNm(domainSize[0]) << ", "
                        << printNm(domainSize[1]) << ")\n";
 
@@ -442,7 +442,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << " = ba.InterferenceFunction2DParaCrystal.createHexagonal("
                        << printNm(lattice.length1())
                        << ", "
-                       << printNm(twoDParaCrystal->getDampingLength()) << ", "
+                       << printNm(twoDParaCrystal->dampingLength()) << ", "
                        << printNm(domainSize[0]) << ", "
                        << printNm(domainSize[1]) << ")\n";
 
@@ -458,19 +458,19 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << ", "
                        << printDegrees(lattice.rotationAngle())
                        << ", "
-                       << printNm(twoDParaCrystal->getDampingLength()) << ")\n";
+                       << printNm(twoDParaCrystal->dampingLength()) << ")\n";
 
                 if (domainSize[0] != 0 || domainSize[1] != 0)
                     result << indent() << it->second << ".setDomainSizes("
                            << printNm(domainSize[0]) << ", "
                            << printNm(domainSize[1]) << ")\n";
 
-                if (twoDParaCrystal->getIntegrationOverXi() == true)
+                if (twoDParaCrystal->integrationOverXi() == true)
                     result << indent() << it->second << ".setIntegrationOverXi(True)\n";
             }
 
             std::vector<const IFTDistribution2D*> pdf_vector
-                = twoDParaCrystal->getProbabilityDistributions();
+                = twoDParaCrystal->probabilityDistributions();
             const IFTDistribution2D* pdf = pdf_vector[0];
 
             result << indent() << it->second << "_pdf_1  = ba." << pdf->getName()
@@ -576,6 +576,9 @@ std::string ExportToPython::defineMultiLayers() const
     result << "\n" << indent() << "# Defining Multilayers\n";
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         result << indent() << it->second << " = ba.MultiLayer()\n";
+        double ccl = it->first->crossCorrLength();
+        if (ccl > 0.0)
+            result << indent() << it->second << ".setCrossCorrLength(" << ccl << ")\n";
 
         size_t numberOfLayers = it->first->numberOfLayers();
 

@@ -27,6 +27,8 @@ public:
     explicit FTDecayFunction1DItem(const QString& name);
     virtual std::unique_ptr<IFTDecayFunction1D> createFTDecayFunction() const=0;
     virtual ~FTDecayFunction1DItem(){}
+protected:
+    void add_decay_property();
 };
 
 class BA_CORE_API_ FTDecayFunction1DCauchyItem : public FTDecayFunction1DItem

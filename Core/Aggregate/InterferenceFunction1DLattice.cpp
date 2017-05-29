@@ -20,8 +20,9 @@
 #include "MathConstants.h"
 #include "RealParameter.h"
 
-//! @param length: Lattice length
-//! @param xi: rotation of lattice with respect to x-axis
+//! Constructor of interference function of one-dimensional lattice.
+//! @param length: lattice length in nanometers
+//! @param xi: rotation of lattice with respect to x-axis in radians
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
     : InterferenceFunction1DLattice(Lattice1DParameters(length, xi))
 {}
@@ -41,25 +42,27 @@ InterferenceFunction1DLattice::~InterferenceFunction1DLattice()
 InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 {
     InterferenceFunction1DLattice* result = new InterferenceFunction1DLattice(m_lattice_params);
-    if (mp_pdf)
-        result->setDecayFunction(*mp_pdf);
+    if (m_decay)
+        result->setDecayFunction(*m_decay);
     return result;
 }
 
-void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& pdf)
+//! Sets one-dimensional decay function.
+//! @param decay: one-dimensional decay function in reciprocal space
+void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& decay)
 {
-    mp_pdf.reset(pdf.clone());
-    registerChild(mp_pdf.get());
-    double omega = mp_pdf->getOmega();
-    double qa_max = (m_lattice_params.m_length / M_TWOPI) * nmax / omega;
+    m_decay.reset(decay.clone());
+    registerChild(m_decay.get());
+    double decay_length = m_decay->decayLength();
+    double qa_max = (m_lattice_params.m_length / M_TWOPI) * nmax / decay_length;
     m_na = (int)(std::abs(qa_max) + 0.5);
 }
 
 double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
 {
-    if (!mp_pdf)
+    if (!m_decay)
         throw Exceptions::NullPointerException("InterferenceFunction1DLattice::evaluate"
-                                   " -> Error! No probability distribution function defined.");
+                                   " -> Error! No decay function defined.");
     double result = 0.0;
     double qxr = q.x();
     double qyr = q.y();
@@ -78,14 +81,14 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
 
     for (int i = -m_na - 1; i < m_na + 2; ++i) {
         double qx = qx_frac + i * a_rec;
-        result += mp_pdf->evaluate(qx);
+        result += m_decay->evaluate(qx);
     }
     return result/a;
 }
 
 std::vector<const INode*> InterferenceFunction1DLattice::getChildren() const
 {
-    return std::vector<const INode*>() << mp_pdf;
+    return std::vector<const INode*>() << m_decay;
 }
 
 void InterferenceFunction1DLattice::init_parameters()

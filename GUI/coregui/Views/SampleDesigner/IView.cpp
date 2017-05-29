@@ -36,6 +36,9 @@ void IView::setParameterizedItem(SessionItem *item)
     Q_ASSERT(item);
     Q_ASSERT(m_item == nullptr);
 
+    if(toolTip().isEmpty())
+        setToolTip(item->toolTip());
+
     m_item = item;
     setX(m_item->getItemValue(SessionGraphicsItem::P_XPOS).toReal());
     setY(m_item->getItemValue(SessionGraphicsItem::P_YPOS).toReal());

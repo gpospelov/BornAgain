@@ -28,6 +28,8 @@ public:
     explicit FTDistribution1DItem(const QString& name);
     virtual std::unique_ptr<IFTDistribution1D> createFTDistribution() const=0;
     virtual ~FTDistribution1DItem(){}
+protected:
+    void add_omega_property();
 };
 
 class BA_CORE_API_ FTDistribution1DCauchyItem : public FTDistribution1DItem
@@ -78,14 +80,15 @@ public:
 class BA_CORE_API_ FTDistribution2DItem : public SessionItem
 {
 public:
-    static const QString P_COHER_LENGTH_X;
-    static const QString P_COHER_LENGTH_Y;
+    static const QString P_OMEGA_X;
+    static const QString P_OMEGA_Y;
     static const QString P_GAMMA;
-    static const QString P_DELTA;
     explicit FTDistribution2DItem(const QString& name);
     virtual std::unique_ptr<IFTDistribution2D> createFTDistribution() const=0;
     virtual ~FTDistribution2DItem(){}
 protected:
+    void add_omega_properties();
+    void add_gamma_property();
     void add_properties();
 };
 

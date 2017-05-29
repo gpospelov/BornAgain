@@ -137,7 +137,6 @@ QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(SessionItem *
 
     QString property_name = item->itemName();
     QVariant prop_value = item->value();
-    PropertyAttribute prop_attribute = PropertyAttribute::fromItem(item);
 
     if (!prop_value.isValid()) {
         result = m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), property_name);
@@ -146,7 +145,7 @@ QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(SessionItem *
         int type = GUIHelpers::getVariantType(prop_value);
 
         QtVariantPropertyManager *manager = m_manager;
-        if (prop_attribute.isReadOnly())
+        if (!item->isEditable())
             manager = m_read_only_manager;
 
         if (!manager->isPropertyTypeSupported(type)) {
@@ -159,7 +158,7 @@ QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(SessionItem *
         result->setValue(prop_value);
     }
 
-    updatePropertyAppearance(result, PropertyAttribute::fromItem(item));
+    updatePropertyAppearance(result, item);
     return result;
 }
 
@@ -199,18 +198,18 @@ void ComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property
 
 //! update visual apperance of qtVariantProperty using SessionItem's attribute
 void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *property,
-                                                      const PropertyAttribute &attribute)
+                                                      SessionItem* item)
 {
     Q_ASSERT(property);
 
-    QString toolTip = attribute.getToolTip();
+    QString toolTip = item->toolTip();
     if (!toolTip.isEmpty())
         property->setToolTip(toolTip);
 
-    if (attribute.isDisabled()) {
-        property->setEnabled(false);
-    } else {
+    if (item->isEnabled()) {
         property->setEnabled(true);
+    } else {
+        property->setEnabled(false);
     }
 
     QVariant prop_value = property->value();
@@ -219,16 +218,16 @@ void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *propert
     int type = GUIHelpers::getVariantType(prop_value);
 
     if (type == QVariant::Double) {
-        RealLimits limits = attribute.getLimits();
+        RealLimits limits = item->limits();
         if (limits.hasLowerLimit())
             property->setAttribute(QStringLiteral("minimum"), limits.getLowerLimit());
         if (limits.hasUpperLimit())
             property->setAttribute(QStringLiteral("maximum"), limits.getUpperLimit());
-        property->setAttribute(QStringLiteral("decimals"), attribute.getDecimals());
+        property->setAttribute(QStringLiteral("decimals"), item->decimals());
         property->setAttribute(QStringLiteral("singleStep"),
-                               1. / std::pow(10., attribute.getDecimals() - 1));
+                               1. / std::pow(10., item->decimals() - 1));
     } else if (type == QVariant::Int) {
-        RealLimits limits = attribute.getLimits();
+        RealLimits limits = item->limits();
         if (limits.hasLowerLimit())
             property->setAttribute(QStringLiteral("minimum"), int(limits.getLowerLimit()));
         if (limits.hasUpperLimit())

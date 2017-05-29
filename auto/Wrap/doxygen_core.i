@@ -1450,33 +1450,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classDWBADiffuseReflection.xml
-%feature("docstring") DWBADiffuseReflection "
-
-Calculation of diffuse (aka off-specular) reflection from multilayers.
-
-C++ includes: DWBADiffuseReflection.h
-";
-
-%feature("docstring")  DWBADiffuseReflection::DWBADiffuseReflection "DWBADiffuseReflection::DWBADiffuseReflection()
-";
-
-%feature("docstring")  DWBADiffuseReflection::execute "void DWBADiffuseReflection::execute(const MultiLayer &sample, const kvector_t ki, const kvector_t kf)
-";
-
-%feature("docstring")  DWBADiffuseReflection::setSample "void DWBADiffuseReflection::setSample(const MultiLayer &sample)
-";
-
-%feature("docstring")  DWBADiffuseReflection::getDiffuseAutocorr "double DWBADiffuseReflection::getDiffuseAutocorr() const 
-";
-
-%feature("docstring")  DWBADiffuseReflection::getDiffuseCrosscorr "double DWBADiffuseReflection::getDiffuseCrosscorr() const 
-";
-
-%feature("docstring")  DWBADiffuseReflection::setKvectors "void DWBADiffuseReflection::setKvectors(const kvector_t ki, const kvector_t kf)
-";
-
-
 // File: classEllipse.xml
 %feature("docstring") Ellipse "
 
@@ -4678,15 +4651,15 @@ Calculates and returns a polarized form factor calculation in DWBA.
 // File: classFTDecayFunction1DCauchy.xml
 %feature("docstring") FTDecayFunction1DCauchy "
 
-One-dimensional Cauchy decay function in reciprocal space; corresponds to exp(-|x|/omega) in real space.
+One-dimensional Cauchy decay function in reciprocal space; corresponds to exp(-|x|/decay_length) in real space.
 
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction1DCauchy::FTDecayFunction1DCauchy "FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double omega)
+%feature("docstring")  FTDecayFunction1DCauchy::FTDecayFunction1DCauchy "FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double decay_length)
 ";
 
-%feature("docstring")  FTDecayFunction1DCauchy::clone "virtual FTDecayFunction1DCauchy* FTDecayFunction1DCauchy::clone() const 
+%feature("docstring")  FTDecayFunction1DCauchy::clone "FTDecayFunction1DCauchy * FTDecayFunction1DCauchy::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction1DCauchy::accept "void FTDecayFunction1DCauchy::accept(INodeVisitor *visitor) const final
@@ -4701,15 +4674,15 @@ Calls the  INodeVisitor's visit method.
 // File: classFTDecayFunction1DGauss.xml
 %feature("docstring") FTDecayFunction1DGauss "
 
-One-dimensional Gauss decay function in reciprocal space; corresponds to exp[-x^2/(2*omega^2)] in real space.
+One-dimensional Gauss decay function in reciprocal space; corresponds to exp[-x^2/(2*decay_length^2)] in real space.
 
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction1DGauss::FTDecayFunction1DGauss "FTDecayFunction1DGauss::FTDecayFunction1DGauss(double omega)
+%feature("docstring")  FTDecayFunction1DGauss::FTDecayFunction1DGauss "FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
 ";
 
-%feature("docstring")  FTDecayFunction1DGauss::clone "virtual FTDecayFunction1DGauss* FTDecayFunction1DGauss::clone() const 
+%feature("docstring")  FTDecayFunction1DGauss::clone "FTDecayFunction1DGauss * FTDecayFunction1DGauss::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction1DGauss::accept "void FTDecayFunction1DGauss::accept(INodeVisitor *visitor) const final
@@ -4724,15 +4697,15 @@ Calls the  INodeVisitor's visit method.
 // File: classFTDecayFunction1DTriangle.xml
 %feature("docstring") FTDecayFunction1DTriangle "
 
-One-dimensional triangle decay function in reciprocal space; corresponds to 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
+One-dimensional triangle decay function in reciprocal space; corresponds to 1-|x|/decay_length if |x|<decay_length (and 0 otherwise) in real space.
 
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction1DTriangle::FTDecayFunction1DTriangle "FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double omega)
+%feature("docstring")  FTDecayFunction1DTriangle::FTDecayFunction1DTriangle "FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
 ";
 
-%feature("docstring")  FTDecayFunction1DTriangle::clone "virtual FTDecayFunction1DTriangle* FTDecayFunction1DTriangle::clone() const 
+%feature("docstring")  FTDecayFunction1DTriangle::clone "FTDecayFunction1DTriangle * FTDecayFunction1DTriangle::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction1DTriangle::accept "void FTDecayFunction1DTriangle::accept(INodeVisitor *visitor) const final
@@ -4752,10 +4725,21 @@ One-dimensional pseudo-Voigt decay function in reciprocal space; corresponds to 
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction1DVoigt::FTDecayFunction1DVoigt "FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double omega, double eta)
+%feature("docstring")  FTDecayFunction1DVoigt::FTDecayFunction1DVoigt "FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
+
+Constructor of pseudo-Voigt decay function.
+
+Parameters:
+-----------
+
+decay_length: 
+half-width of the distribution in nanometers
+
+eta: 
+parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 ";
 
-%feature("docstring")  FTDecayFunction1DVoigt::clone "virtual FTDecayFunction1DVoigt* FTDecayFunction1DVoigt::clone() const 
+%feature("docstring")  FTDecayFunction1DVoigt::clone "FTDecayFunction1DVoigt * FTDecayFunction1DVoigt::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction1DVoigt::accept "void FTDecayFunction1DVoigt::accept(INodeVisitor *visitor) const final
@@ -4766,7 +4750,7 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  FTDecayFunction1DVoigt::evaluate "double FTDecayFunction1DVoigt::evaluate(double q) const final
 ";
 
-%feature("docstring")  FTDecayFunction1DVoigt::getEta "double FTDecayFunction1DVoigt::getEta() const 
+%feature("docstring")  FTDecayFunction1DVoigt::eEta "double FTDecayFunction1DVoigt::eEta() const 
 ";
 
 
@@ -4778,10 +4762,10 @@ Two-dimensional Cauchy decay function in reciprocal space; corresponds to exp(-r
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DCauchy::FTDecayFunction2DCauchy "FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
+%feature("docstring")  FTDecayFunction2DCauchy::FTDecayFunction2DCauchy "FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0)
 ";
 
-%feature("docstring")  FTDecayFunction2DCauchy::clone "virtual FTDecayFunction2DCauchy* FTDecayFunction2DCauchy::clone() const 
+%feature("docstring")  FTDecayFunction2DCauchy::clone "FTDecayFunction2DCauchy * FTDecayFunction2DCauchy::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction2DCauchy::accept "void FTDecayFunction2DCauchy::accept(INodeVisitor *visitor) const final
@@ -4803,10 +4787,10 @@ Two-dimensional Gauss decay function in reciprocal space; corresponds to exp(-r^
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DGauss::FTDecayFunction2DGauss "FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
+%feature("docstring")  FTDecayFunction2DGauss::FTDecayFunction2DGauss "FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0)
 ";
 
-%feature("docstring")  FTDecayFunction2DGauss::clone "virtual FTDecayFunction2DGauss* FTDecayFunction2DGauss::clone() const 
+%feature("docstring")  FTDecayFunction2DGauss::clone "FTDecayFunction2DGauss * FTDecayFunction2DGauss::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction2DGauss::accept "void FTDecayFunction2DGauss::accept(INodeVisitor *visitor) const final
@@ -4828,10 +4812,27 @@ Two-dimensional pseudo-Voigt decay function in reciprocal space; corresponds to 
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=M_PI_2)
+%feature("docstring")  FTDecayFunction2DVoigt::FTDecayFunction2DVoigt "FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0)
+
+Constructor of two-dimensional pseudo-Voigt decay function in reciprocal space.
+
+Parameters:
+-----------
+
+decay_length_x: 
+the decay length in nanometers along x-axis of the distribution
+
+decay_length_y: 
+the decay length in nanometers along y-axis of the distribution
+
+eta: 
+parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
+
+gamma: 
+distribution orientation with respect to the first lattice vector in radians 
 ";
 
-%feature("docstring")  FTDecayFunction2DVoigt::clone "virtual FTDecayFunction2DVoigt* FTDecayFunction2DVoigt::clone() const 
+%feature("docstring")  FTDecayFunction2DVoigt::clone "FTDecayFunction2DVoigt * FTDecayFunction2DVoigt::clone() const 
 ";
 
 %feature("docstring")  FTDecayFunction2DVoigt::accept "void FTDecayFunction2DVoigt::accept(INodeVisitor *visitor) const final
@@ -4844,7 +4845,7 @@ Calls the  INodeVisitor's visit method.
 evaluate Fourier transformed decay function for q in X,Y coordinates 
 ";
 
-%feature("docstring")  FTDecayFunction2DVoigt::getEta "virtual double FTDecayFunction2DVoigt::getEta() const 
+%feature("docstring")  FTDecayFunction2DVoigt::eta "double FTDecayFunction2DVoigt::eta() const 
 ";
 
 
@@ -4859,7 +4860,7 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DCauchy::FTDistribution1DCauchy "FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DCauchy::clone "FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const final
+%feature("docstring")  FTDistribution1DCauchy::clone "FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const final
 ";
 
 %feature("docstring")  FTDistribution1DCauchy::accept "void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const final
@@ -4884,7 +4885,7 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DCosine::FTDistribution1DCosine "FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DCosine::clone "FTDistribution1DCosine* FTDistribution1DCosine::clone() const final
+%feature("docstring")  FTDistribution1DCosine::clone "FTDistribution1DCosine * FTDistribution1DCosine::clone() const final
 ";
 
 %feature("docstring")  FTDistribution1DCosine::accept "void FTDistribution1DCosine::accept(INodeVisitor *visitor) const final
@@ -4909,7 +4910,7 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DGate::FTDistribution1DGate "FTDistribution1DGate::FTDistribution1DGate(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DGate::clone "FTDistribution1DGate* FTDistribution1DGate::clone() const final
+%feature("docstring")  FTDistribution1DGate::clone "FTDistribution1DGate * FTDistribution1DGate::clone() const final
 ";
 
 %feature("docstring")  FTDistribution1DGate::accept "void FTDistribution1DGate::accept(INodeVisitor *visitor) const final
@@ -4934,7 +4935,7 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DGauss::FTDistribution1DGauss "FTDistribution1DGauss::FTDistribution1DGauss(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DGauss::clone "FTDistribution1DGauss* FTDistribution1DGauss::clone() const final
+%feature("docstring")  FTDistribution1DGauss::clone "FTDistribution1DGauss * FTDistribution1DGauss::clone() const final
 ";
 
 %feature("docstring")  FTDistribution1DGauss::accept "void FTDistribution1DGauss::accept(INodeVisitor *visitor) const final
@@ -4959,10 +4960,7 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DTriangle::FTDistribution1DTriangle "FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DTriangle::~FTDistribution1DTriangle "virtual FTDistribution1DTriangle::~FTDistribution1DTriangle()
-";
-
-%feature("docstring")  FTDistribution1DTriangle::clone "FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const final
+%feature("docstring")  FTDistribution1DTriangle::clone "FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const final
 ";
 
 %feature("docstring")  FTDistribution1DTriangle::accept "void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const final
@@ -4985,9 +4983,20 @@ C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  FTDistribution1DVoigt::FTDistribution1DVoigt "FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
+
+Constructor of one-dimensional pseudo-Voigt probability distribution.
+
+Parameters:
+-----------
+
+omega: 
+half-width of the distribution in nanometers
+
+eta: 
+parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::clone "FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const final
+%feature("docstring")  FTDistribution1DVoigt::clone "FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const final
 ";
 
 %feature("docstring")  FTDistribution1DVoigt::accept "void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const final
@@ -5000,7 +5009,7 @@ Calls the  INodeVisitor's visit method.
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::getEta "double FTDistribution1DVoigt::getEta() const 
+%feature("docstring")  FTDistribution1DVoigt::eta "double FTDistribution1DVoigt::eta() const 
 ";
 
 
@@ -5012,10 +5021,10 @@ Two-dimensional Cauchy distribution in Fourier space; corresponds to a normalize
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DCauchy::FTDistribution2DCauchy "FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
+%feature("docstring")  FTDistribution2DCauchy::FTDistribution2DCauchy "FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma=0)
 ";
 
-%feature("docstring")  FTDistribution2DCauchy::clone "FTDistribution2DCauchy* FTDistribution2DCauchy::clone() const final
+%feature("docstring")  FTDistribution2DCauchy::clone "FTDistribution2DCauchy * FTDistribution2DCauchy::clone() const final
 ";
 
 %feature("docstring")  FTDistribution2DCauchy::accept "void FTDistribution2DCauchy::accept(INodeVisitor *visitor) const final
@@ -5037,10 +5046,10 @@ Two-dimensional cone distribution in Fourier space; corresponds to 1-r if r<1 (a
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DCone::FTDistribution2DCone "FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
+%feature("docstring")  FTDistribution2DCone::FTDistribution2DCone "FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma=0)
 ";
 
-%feature("docstring")  FTDistribution2DCone::clone "FTDistribution2DCone* FTDistribution2DCone::clone() const final
+%feature("docstring")  FTDistribution2DCone::clone "FTDistribution2DCone * FTDistribution2DCone::clone() const final
 ";
 
 %feature("docstring")  FTDistribution2DCone::accept "void FTDistribution2DCone::accept(INodeVisitor *visitor) const final
@@ -5062,10 +5071,10 @@ Two-dimensional gate distribution in Fourier space; corresponds to normalized co
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DGate::FTDistribution2DGate "FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
+%feature("docstring")  FTDistribution2DGate::FTDistribution2DGate "FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma=0)
 ";
 
-%feature("docstring")  FTDistribution2DGate::clone "FTDistribution2DGate* FTDistribution2DGate::clone() const final
+%feature("docstring")  FTDistribution2DGate::clone "FTDistribution2DGate * FTDistribution2DGate::clone() const final
 ";
 
 %feature("docstring")  FTDistribution2DGate::accept "void FTDistribution2DGate::accept(INodeVisitor *visitor) const final
@@ -5087,10 +5096,10 @@ Two-dimensional Gauss distribution in Fourier space; corresponds to normalized e
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DGauss::FTDistribution2DGauss "FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
+%feature("docstring")  FTDistribution2DGauss::FTDistribution2DGauss "FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma=0)
 ";
 
-%feature("docstring")  FTDistribution2DGauss::clone "FTDistribution2DGauss* FTDistribution2DGauss::clone() const final
+%feature("docstring")  FTDistribution2DGauss::clone "FTDistribution2DGauss * FTDistribution2DGauss::clone() const final
 ";
 
 %feature("docstring")  FTDistribution2DGauss::accept "void FTDistribution2DGauss::accept(INodeVisitor *visitor) const final
@@ -5112,10 +5121,27 @@ Two-dimensional Voigt distribution in Fourier space; corresponds to eta*Gauss + 
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=M_PI_2)
+%feature("docstring")  FTDistribution2DVoigt::FTDistribution2DVoigt "FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma=0)
+
+Constructor of two-dimensional pseudo-Voigt probability distribution.
+
+Parameters:
+-----------
+
+omega_x: 
+half-width of the distribution along its x-axis in nanometers
+
+omega_y: 
+half-width of the distribution along its y-axis in nanometers
+
+eta: 
+parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
+
+gamma: 
+angle in direct space between first lattice vector and x-axis of the distribution in radians 
 ";
 
-%feature("docstring")  FTDistribution2DVoigt::clone "FTDistribution2DVoigt* FTDistribution2DVoigt::clone() const final
+%feature("docstring")  FTDistribution2DVoigt::clone "FTDistribution2DVoigt * FTDistribution2DVoigt::clone() const final
 ";
 
 %feature("docstring")  FTDistribution2DVoigt::accept "void FTDistribution2DVoigt::accept(INodeVisitor *visitor) const final
@@ -5128,7 +5154,7 @@ Calls the  INodeVisitor's visit method.
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 ";
 
-%feature("docstring")  FTDistribution2DVoigt::getEta "double FTDistribution2DVoigt::getEta() const 
+%feature("docstring")  FTDistribution2DVoigt::eta "double FTDistribution2DVoigt::eta() const 
 ";
 
 
@@ -6521,7 +6547,15 @@ Interface for a one-dimensional decay function, with evaluate(q) returning the F
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  IFTDecayFunction1D::IFTDecayFunction1D "IFTDecayFunction1D::IFTDecayFunction1D(double omega)
+%feature("docstring")  IFTDecayFunction1D::IFTDecayFunction1D "IFTDecayFunction1D::IFTDecayFunction1D(double decay_length)
+
+Constructor of one-dimensional decay function.
+
+Parameters:
+-----------
+
+decay_length: 
+half-width of the distribution in nanometers 
 ";
 
 %feature("docstring")  IFTDecayFunction1D::clone "virtual IFTDecayFunction1D* IFTDecayFunction1D::clone() const =0
@@ -6530,10 +6564,7 @@ C++ includes: FTDecayFunctions.h
 %feature("docstring")  IFTDecayFunction1D::evaluate "virtual double IFTDecayFunction1D::evaluate(double q) const =0
 ";
 
-%feature("docstring")  IFTDecayFunction1D::setOmega "void IFTDecayFunction1D::setOmega(double omega)
-";
-
-%feature("docstring")  IFTDecayFunction1D::getOmega "double IFTDecayFunction1D::getOmega() const 
+%feature("docstring")  IFTDecayFunction1D::decayLength "double IFTDecayFunction1D::decayLength() const 
 ";
 
 
@@ -6545,7 +6576,21 @@ Interface for two-dimensional decay function in reciprocal space.
 C++ includes: FTDecayFunctions.h
 ";
 
-%feature("docstring")  IFTDecayFunction2D::IFTDecayFunction2D "IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
+%feature("docstring")  IFTDecayFunction2D::IFTDecayFunction2D "IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma=0)
+
+Constructor of two-dimensional decay function in reciprocal space.
+
+Parameters:
+-----------
+
+decay_length_x: 
+the decay length in nanometers along x-axis of the distribution
+
+decay_length_y: 
+the decay length in nanometers along y-axis of the distribution
+
+gamma: 
+distribution orientation with respect to the corresponding lattice vector in radians 
 ";
 
 %feature("docstring")  IFTDecayFunction2D::clone "virtual IFTDecayFunction2D* IFTDecayFunction2D::clone() const =0
@@ -6556,24 +6601,24 @@ C++ includes: FTDecayFunctions.h
 set angle between first lattice vector and X-axis of distribution (both in direct space) 
 ";
 
-%feature("docstring")  IFTDecayFunction2D::getGamma "double IFTDecayFunction2D::getGamma() const
+%feature("docstring")  IFTDecayFunction2D::gamma "double IFTDecayFunction2D::gamma() const
 
 get angle between first lattice vector and X-axis of distribution (both in direct space) 
 ";
 
-%feature("docstring")  IFTDecayFunction2D::getDelta "double IFTDecayFunction2D::getDelta() const
+%feature("docstring")  IFTDecayFunction2D::delta "double IFTDecayFunction2D::delta() const
 
 get angle between X- and Y-axis of distribution (in direct space) 
 ";
 
-%feature("docstring")  IFTDecayFunction2D::getDecayLengthX "double IFTDecayFunction2D::getDecayLengthX() const
+%feature("docstring")  IFTDecayFunction2D::decayLengthX "double IFTDecayFunction2D::decayLengthX() const
 
-get coherence length in X-direction 
+get decay length in distribution's X-direction 
 ";
 
-%feature("docstring")  IFTDecayFunction2D::getDecayLengthY "double IFTDecayFunction2D::getDecayLengthY() const
+%feature("docstring")  IFTDecayFunction2D::decayLengthY "double IFTDecayFunction2D::decayLengthY() const
 
-get coherence length in Y-direction 
+get decay length in distribution's Y-direction 
 ";
 
 %feature("docstring")  IFTDecayFunction2D::evaluate "virtual double IFTDecayFunction2D::evaluate(double qx, double qy) const =0
@@ -6596,6 +6641,14 @@ C++ includes: FTDistributions1D.h
 ";
 
 %feature("docstring")  IFTDistribution1D::IFTDistribution1D "IFTDistribution1D::IFTDistribution1D(double omega)
+
+Constructor of one-dimensional probability distribution.
+
+Parameters:
+-----------
+
+omega: 
+half-width of the distribution in nanometers 
 ";
 
 %feature("docstring")  IFTDistribution1D::clone "virtual IFTDistribution1D* IFTDistribution1D::clone() const =0
@@ -6609,7 +6662,7 @@ Returns Fourier transform of this distribution; is a decay function starting at 
 %feature("docstring")  IFTDistribution1D::setOmega "void IFTDistribution1D::setOmega(double omega)
 ";
 
-%feature("docstring")  IFTDistribution1D::getOmega "double IFTDistribution1D::getOmega() const 
+%feature("docstring")  IFTDistribution1D::omega "double IFTDistribution1D::omega() const 
 ";
 
 
@@ -6621,7 +6674,21 @@ Interface for two-dimensional distributions in Fourier space.
 C++ includes: FTDistributions2D.h
 ";
 
-%feature("docstring")  IFTDistribution2D::IFTDistribution2D "IFTDistribution2D::IFTDistribution2D(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
+%feature("docstring")  IFTDistribution2D::IFTDistribution2D "IFTDistribution2D::IFTDistribution2D(double omega_x, double omega_y, double gamma=0)
+
+Constructor of two-dimensional probability distribution.
+
+Parameters:
+-----------
+
+omega_x: 
+half-width of the distribution along its x-axis in nanometers
+
+omega_y: 
+half-width of the distribution along its y-axis in nanometers
+
+gamma: 
+angle in direct space between first lattice vector and x-axis of the distribution 
 ";
 
 %feature("docstring")  IFTDistribution2D::clone "IFTDistribution2D* IFTDistribution2D::clone() const =0
@@ -6630,16 +6697,16 @@ C++ includes: FTDistributions2D.h
 %feature("docstring")  IFTDistribution2D::setGamma "void IFTDistribution2D::setGamma(double gamma)
 ";
 
-%feature("docstring")  IFTDistribution2D::getGamma "double IFTDistribution2D::getGamma() const 
+%feature("docstring")  IFTDistribution2D::gamma "double IFTDistribution2D::gamma() const 
 ";
 
-%feature("docstring")  IFTDistribution2D::getDelta "double IFTDistribution2D::getDelta() const 
+%feature("docstring")  IFTDistribution2D::delta "double IFTDistribution2D::delta() const 
 ";
 
-%feature("docstring")  IFTDistribution2D::getCoherenceLengthX "double IFTDistribution2D::getCoherenceLengthX() const 
+%feature("docstring")  IFTDistribution2D::omegaX "double IFTDistribution2D::omegaX() const 
 ";
 
-%feature("docstring")  IFTDistribution2D::getCoherenceLengthY "double IFTDistribution2D::getCoherenceLengthY() const 
+%feature("docstring")  IFTDistribution2D::omegaY "double IFTDistribution2D::omegaY() const 
 ";
 
 %feature("docstring")  IFTDistribution2D::evaluate "virtual double IFTDistribution2D::evaluate(double qx, double qy) const =0
@@ -7003,7 +7070,7 @@ Calls the  INodeVisitor's visit method.
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
-%feature("docstring")  IInterferenceFunction::getKappa "virtual double IInterferenceFunction::getKappa() const
+%feature("docstring")  IInterferenceFunction::kappa "virtual double IInterferenceFunction::kappa() const
 
 Retrieves the size-distance coupling constant (default 0.0) 
 ";
@@ -8016,14 +8083,16 @@ C++ includes: InterferenceFunction1DLattice.h
 
 %feature("docstring")  InterferenceFunction1DLattice::InterferenceFunction1DLattice "InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
 
+Constructor of interference function of one-dimensional lattice.
+
 Parameters:
 -----------
 
 length: 
- Lattice length
+lattice length in nanometers
 
 xi: 
-rotation of lattice with respect to x-axis 
+rotation of lattice with respect to x-axis in radians 
 ";
 
 %feature("docstring")  InterferenceFunction1DLattice::~InterferenceFunction1DLattice "InterferenceFunction1DLattice::~InterferenceFunction1DLattice() final
@@ -8039,13 +8108,21 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::setDecayFunction "void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &pdf)
+%feature("docstring")  InterferenceFunction1DLattice::setDecayFunction "void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &decay)
+
+Sets one-dimensional decay function.
+
+Parameters:
+-----------
+
+decay: 
+one-dimensional decay function in reciprocal space 
 ";
 
 %feature("docstring")  InterferenceFunction1DLattice::getLatticeParameters "Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const 
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::getDecayFunction "const IFTDecayFunction1D* InterferenceFunction1DLattice::getDecayFunction() const 
+%feature("docstring")  InterferenceFunction1DLattice::decayFunction "const IFTDecayFunction1D* InterferenceFunction1DLattice::decayFunction() const 
 ";
 
 %feature("docstring")  InterferenceFunction1DLattice::evaluate "double InterferenceFunction1DLattice::evaluate(const kvector_t q) const final
@@ -8070,22 +8147,24 @@ C++ includes: InterferenceFunction2DLattice.h
 %feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D &lattice)
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0)
+%feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi=0.0)
+
+Constructor of two-dimensional interference function.
 
 Parameters:
 -----------
 
 length_1: 
- Lattice length 1
+length of first lattice vector in nanometers
 
 length_2: 
- Lattice length 2
+length of second lattice vector in nanometers
 
-angle: 
-angle between lattice vectors
+alpha: 
+angle between lattice vectors in radians
 
 xi: 
-rotation of lattice with respect to x-axis 
+rotation of lattice with respect to x-axis (beam direction) in radians 
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::~InterferenceFunction2DLattice "InterferenceFunction2DLattice::~InterferenceFunction2DLattice() final
@@ -8101,10 +8180,18 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::setDecayFunction "void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
+%feature("docstring")  InterferenceFunction2DLattice::setDecayFunction "void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &decay)
+
+Sets two-dimensional decay function.
+
+Parameters:
+-----------
+
+decay: 
+two-dimensional decay function in reciprocal space 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::getDecayFunction "const IFTDecayFunction2D* InterferenceFunction2DLattice::getDecayFunction() const 
+%feature("docstring")  InterferenceFunction2DLattice::decayFunction "const IFTDecayFunction2D* InterferenceFunction2DLattice::decayFunction() const 
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::evaluate "double InterferenceFunction2DLattice::evaluate(const kvector_t q) const final
@@ -8142,25 +8229,27 @@ C++ includes: InterferenceFunction2DParaCrystal.h
 %feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D &lattice, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0)
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi=0.0, double damping_length=0.0)
+%feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi=0.0, double damping_length=0.0)
+
+Constructor of interference function of two-dimensional paracrystal.
 
 Parameters:
 -----------
 
 length_1: 
-Length of first lattice basis vector.
+length of first lattice vector in nanometers
 
 length_2: 
-Length of second lattice basis vector.
+length of second lattice vector in nanometers
 
-alpha_lattice: 
-Angle between the lattice basis vectors.
+alpha: 
+angle between lattice vectors in radians
 
 xi: 
-Angle between first basis vector and the x-axis of incoming beam.
+rotation of lattice with respect to x-axis (beam direction) in radians
 
 damping_length: 
-Damping length for removing delta function singularity at q=0. 
+the damping (coherence) length of the paracrystal in nanometers 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal() final
@@ -8184,10 +8273,10 @@ Parameters:
 -----------
 
 size_1: 
-size in first lattice direction
+coherence domain size along the first basis vector in nanometers
 
 size_2: 
-size in second lattice direction 
+coherence domain size along the second basis vector in nanometers 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::setProbabilityDistributions "void InterferenceFunction2DParaCrystal::setProbabilityDistributions(const IFTDistribution2D &pdf_1, const IFTDistribution2D &pdf_2)
@@ -8205,6 +8294,14 @@ probability distribution in second lattice direction
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::setDampingLength "void InterferenceFunction2DParaCrystal::setDampingLength(double damping_length)
+
+Sets the damping length.
+
+Parameters:
+-----------
+
+damping_length: 
+the damping (coherence) length of the paracrystal in nanometers 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::evaluate "double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const final
@@ -8212,19 +8309,27 @@ probability distribution in second lattice direction
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::getDomainSizes "std::vector< double > InterferenceFunction2DParaCrystal::getDomainSizes() const 
+%feature("docstring")  InterferenceFunction2DParaCrystal::domainSizes "std::vector< double > InterferenceFunction2DParaCrystal::domainSizes() const 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::getProbabilityDistributions "std::vector< const IFTDistribution2D * > InterferenceFunction2DParaCrystal::getProbabilityDistributions() const 
+%feature("docstring")  InterferenceFunction2DParaCrystal::probabilityDistributions "std::vector< const IFTDistribution2D * > InterferenceFunction2DParaCrystal::probabilityDistributions() const 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::setIntegrationOverXi "void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
+
+Enables/disables averaging over the lattice rotation angle.
+
+Parameters:
+-----------
+
+integrate_xi: 
+integration flag 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::getIntegrationOverXi "bool InterferenceFunction2DParaCrystal::getIntegrationOverXi() const 
+%feature("docstring")  InterferenceFunction2DParaCrystal::integrationOverXi "bool InterferenceFunction2DParaCrystal::integrationOverXi() const 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::getDampingLength "double InterferenceFunction2DParaCrystal::getDampingLength() const 
+%feature("docstring")  InterferenceFunction2DParaCrystal::dampingLength "double InterferenceFunction2DParaCrystal::dampingLength() const 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::lattice "const Lattice2D & InterferenceFunction2DParaCrystal::lattice() const 
@@ -8277,6 +8382,17 @@ C++ includes: InterferenceFunctionRadialParaCrystal.h
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal "InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
+
+Constructor of interference function of radial paracrystal.
+
+Parameters:
+-----------
+
+peak_distance: 
+average distance to the next neighbor in nanometers
+
+damping_length: 
+the damping (coherence) length of the paracrystal in nanometers 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::clone "InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
@@ -8290,17 +8406,33 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setKappa "void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
+
+Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
+
+Parameters:
+-----------
+
+size: 
+spacing coupling parameter 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getKappa "double InterferenceFunctionRadialParaCrystal::getKappa() const final
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::kappa "double InterferenceFunctionRadialParaCrystal::kappa() const final
 
 Retrieves the size-distance coupling constant (default 0.0) 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setDomainSize "void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
+
+Sets domain size (finite size corrections).
+
+Parameters:
+-----------
+
+size: 
+size of coherence domain along the lattice main axis in nanometers 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getDomainSize "double InterferenceFunctionRadialParaCrystal::getDomainSize() const 
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::domainSize "double InterferenceFunctionRadialParaCrystal::domainSize() const 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::evaluate "double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const final
@@ -8312,15 +8444,23 @@ Evaluates the interference function for a given wavevector transfer (only the re
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setProbabilityDistribution "void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
+
+Sets one-dimensional probability distribution.
+
+Parameters:
+-----------
+
+pdf: 
+probability distribution (Fourier transform of probability density) 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getProbabilityDistribution "const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const 
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::probabilityDistribution "const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::probabilityDistribution() const 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getPeakDistance "double InterferenceFunctionRadialParaCrystal::getPeakDistance() const 
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::peakDistance "double InterferenceFunctionRadialParaCrystal::peakDistance() const 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getDampingLength "double InterferenceFunctionRadialParaCrystal::getDampingLength() const 
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::dampingLength "double InterferenceFunctionRadialParaCrystal::dampingLength() const 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::getChildren "std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override
@@ -13515,25 +13655,25 @@ C++ includes: ZLimits.h
 // File: namespace_0D268.xml
 
 
-// File: namespace_0D276.xml
+// File: namespace_0D274.xml
 
 
-// File: namespace_0D291.xml
+// File: namespace_0D289.xml
+
+
+// File: namespace_0D306.xml
 
 
 // File: namespace_0D308.xml
 
 
-// File: namespace_0D310.xml
+// File: namespace_0D329.xml
 
 
-// File: namespace_0D331.xml
+// File: namespace_0D368.xml
 
 
-// File: namespace_0D370.xml
-
-
-// File: namespace_0D480.xml
+// File: namespace_0D478.xml
 
 
 // File: namespace_0D54.xml
@@ -14937,12 +15077,6 @@ make Swappable
 
 
 // File: DecouplingApproximationStrategy_8h.xml
-
-
-// File: DWBADiffuseReflection_8cpp.xml
-
-
-// File: DWBADiffuseReflection_8h.xml
 
 
 // File: FormFactorDWBA_8cpp.xml

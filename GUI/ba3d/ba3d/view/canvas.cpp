@@ -33,7 +33,7 @@ void Canvas::setBgColor(QColor const& c) {
 
 void Canvas::setCamera(Camera* c) {
   camera = c;
-  setCamera(true);
+  setCamera();
 }
 
 void Canvas::setProgram(Program* p) {
@@ -45,8 +45,17 @@ void Canvas::setProgram(Program* p) {
 
 void Canvas::setModel(Model* m) {
   releaseBuffers();
+
+  disconnect(modelUpdated);
   model = m;
-  setCamera(true);
+  modelUpdated = connect(model, &Model::updated, [this](bool withEye) {
+    if (withEye)
+      setCamera();
+    else
+      update();
+  });
+
+  setCamera();
 }
 
 Model* Canvas::getModel() {
@@ -57,7 +66,7 @@ void Canvas::setCamera(bool full) {
   if (camera) {
     camera->setAspectRatio(aspectRatio);
     if (full && model)
-      camera->lookAt(model->defEye, model->defCtr, model->defUp);
+      camera->lookAt(model->defCamPos);
   }
 
   update();
@@ -88,7 +97,7 @@ void Canvas::paintGL() {
     // opaque objects
     model->draw(*this);
 
-    // transparebnt objects
+    // transparent objects
     glEnable(GL_BLEND); glDepthMask(false);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     model->drawBlend(*this);

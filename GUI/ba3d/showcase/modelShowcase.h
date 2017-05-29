@@ -16,8 +16,6 @@ public:
   ModelShowcase();
   void showKind(kind);
 
-  static Particle* newParticle(kind k, ba3d::flp R);
-
 private:
   Particle *p;
 };

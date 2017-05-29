@@ -11,9 +11,7 @@ using namespace ba3d;
 static flt const sz = 100; // half sz
 
 ModelLayers::ModelLayers() {
-  defEye = xyz(-10, -140, 20);
-  defCtr = xyz(0, 0, -30);
-  defUp  = xyz::_z;
+  defCamPos = Camera::pos_t(xyz(-10, -140, 20), xyz(0, 0, -30), xyz::_z);
 
   auto layer = [&](int z1, int z2, QColor color) {
     flt s2 = sz /2;
@@ -47,6 +45,8 @@ void ModelLayers::showKind(particle::kind k) {
         add(p); ps.append(p);
         p->transform(xyz::_0, xyz((i-4)*sz/10, (j-4)*sz/10, z[zi]+.001f));
       }
+
+  emit updated(false);
 }
 
 //------------------------------------------------------------------------------

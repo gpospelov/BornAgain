@@ -38,7 +38,11 @@ static char const *shaderFragment =
   "  highp vec3  L  = normalize(lightPos - vo);"
   "  highp vec3  N  = normalize(nm);"
   "  highp float NL = dot(N,L);"
+#ifdef Q_OS_OSX
   "  highp vec4  C  = color*(0.6 + NL*0.4);"  // mix ambient with specular
+#else
+  "  highp vec4  C  = color*(0.4 + NL*0.6);"
+#endif
   "  gl_FragColor   = clamp(C, 0.0, 1.0);"
   "}";
 }

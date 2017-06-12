@@ -48,6 +48,7 @@ set(test_cases
     SphericalDetWithRoi
     RectDetWithRoi
     SlicedComposition
+    RotatedPyramidsDistribution
 )
 
 add_executable(GUIStandardTest main.cpp GUIReferencedTest.cpp GUIReferencedTest.h )

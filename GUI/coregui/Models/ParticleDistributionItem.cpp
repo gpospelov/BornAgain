@@ -24,6 +24,8 @@
 #include "TransformToDomain.h"
 #include "ParameterTreeUtils.h"
 #include "RealLimitsItems.h"
+#include "ParameterUtils.h"
+#include "Units.h"
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
@@ -80,14 +82,15 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
         limits = limitsItem.createRealLimits();
     }
 
-    auto P_distribution = distr_item.createDistribution();
-
     auto prop
         = getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
     QString par_name = prop.getValue();
 
     std::string domain_par
         = ParameterTreeUtils::parameterNameToDomainName(par_name, childParticle()).toStdString();
+
+    double scale = ParameterUtils::isAngleRelated(domain_par) ? Units::degree : 1.0;
+    auto P_distribution = distr_item.createDistribution(scale);
 
     int nbr_samples = distr_item.getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
     double sigma_factor = distr_item.isTag(DistributionItem::P_SIGMA_FACTOR) ?

@@ -296,17 +296,11 @@ std::string ExportToPython::defineParticleDistributions() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         ParameterDistribution par_distr = it->first->parameterDistribution();
 
-        std::unique_ptr<IDistribution1D> p_distr(par_distr.getDistribution()->clone());
-        if(PythonFormatting::isAngleRelated(par_distr))
-            p_distr->setUnits(BornAgain::UnitsRad);
-
         // building distribution functions
         std::stringstream s_distr;
         s_distr << "distr_" << index;
-
-        result << indent() << s_distr.str()
-               << " = ba." << p_distr->getName() << "("
-               << argumentList(p_distr.get()) << ")\n";
+        result << indent() << s_distr.str() << " = "
+               << representDistribution(par_distr) << "\n";
 
         // building parameter distribution
         std::stringstream s_par_distr;
@@ -751,15 +745,11 @@ std::string ExportToPython::defineParameterDistributions(const GISASSimulation* 
         std::string main_par_name = distributions[i].getMainParameterName();
         size_t nbr_samples = distributions[i].getNbrSamples();
         double sigma_factor = distributions[i].getSigmaFactor();
-        std::unique_ptr<IDistribution1D> p_distr(distributions[i].getDistribution()->clone());
-        if(PythonFormatting::isAngleRelated(distributions[i]))
-            p_distr->setUnits(BornAgain::UnitsRad);
 
         std::stringstream s_distr;
         s_distr << "distr_" << (i+1);
-        result << indent() << s_distr.str()
-               << " = ba." << p_distr->getName() << "("
-               << argumentList(p_distr.get()) << ")\n";
+        result << indent() << s_distr.str() << " = "
+               << representDistribution(distributions[i]) << "\n";
 
         result << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
                << s_distr.str() << ", " << nbr_samples << ", "

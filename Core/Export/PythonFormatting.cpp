@@ -35,6 +35,7 @@
 #include "Units.h"
 #include "IDetector2D.h"
 #include "BornAgainNamespace.h"
+#include "Distributions.h"
 #include <iomanip>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
@@ -260,6 +261,23 @@ bool isAngleRelated(const ParameterDistribution& distr)
     }
 
     return false;
+}
+
+//! Returns string representation of the distribution defined in ParameterDistribution.
+//! ba.DistributionGaussian(2.0*deg, 0.02*deg)
+//! *deg multiplayer will be taken from main parameter name.
+
+std::string representDistribution(const ParameterDistribution& par_distr)
+{
+    std::unique_ptr<IDistribution1D> distr(par_distr.getDistribution()->clone());
+
+    if(PythonFormatting::isAngleRelated(par_distr))
+        distr->setUnits(BornAgain::UnitsRad);
+
+    std::ostringstream result;
+    result << "ba." << distr->getName() << "(" << argumentList(distr.get()) << ")";
+
+    return result.str();
 }
 
 } // namespace PythonFormatting

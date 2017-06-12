@@ -102,7 +102,7 @@ IFresnelMap* MainComputation::createFresnelMap()
             return new MatrixFresnelMap();
 }
 
-std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer()
+std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer() const
 {
     std::map<size_t, std::vector<HomogeneousRegion>> region_map;
     for (auto& comp: m_computation_terms) {
@@ -125,14 +125,19 @@ std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer()
     return P_result;
 }
 
+std::unique_ptr<MultiLayer> MainComputation::getMultilayerForFresnel() const
+{
+    std::unique_ptr<MultiLayer> P_result = m_sim_options.useAvgMaterials()
+                                           ? getAveragedMultilayer()
+                                           : std::unique_ptr<MultiLayer>(mP_multi_layer->clone());
+    P_result->initBFields();
+    return P_result;
+}
+
 void MainComputation::initFresnelMap()
 {
-    if (m_sim_options.useAvgMaterials()) {
-        auto avg_multilayer = getAveragedMultilayer();
-        mP_fresnel_map->setMultilayer(*avg_multilayer);
-    }
-    else
-        mP_fresnel_map->setMultilayer(*mP_multi_layer);
+    auto multilayer = getMultilayerForFresnel();
+    mP_fresnel_map->setMultilayer(*multilayer);
 }
 
 bool MainComputation::checkRegions(const std::vector<HomogeneousRegion>& regions) const

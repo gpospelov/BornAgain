@@ -181,6 +181,11 @@ bool MultiLayer::containsMagneticMaterial() const
     return false;
 }
 
+void MultiLayer::initBFields()
+{
+    return;
+}
+
 bool MultiLayer::hasRoughness() const
 {
     for (auto p_interface: m_interfaces)

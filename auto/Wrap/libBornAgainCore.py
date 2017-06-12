@@ -22717,6 +22717,11 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_containsMagneticMaterial(self)
 
 
+    def initBFields(self):
+        """initBFields(MultiLayer self)"""
+        return _libBornAgainCore.MultiLayer_initBFields(self)
+
+
     def hasRoughness(self):
         """
         hasRoughness(MultiLayer self) -> bool

@@ -130,6 +130,9 @@ public:
 
     bool containsMagneticMaterial() const;
 
+    //! precalculate the magnetic B fields in each layer
+    void initBFields();
+
     bool hasRoughness() const;
 
     size_t totalNofLayouts() const;

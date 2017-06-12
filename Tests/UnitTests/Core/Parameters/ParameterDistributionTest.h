@@ -3,6 +3,7 @@
 #include "Exceptions.h"
 #include "ParameterSample.h"
 #include "IParameterized.h"
+#include "PythonFormatting.h"
 #include <cmath>
 
 class ParameterDistributionTest : public ::testing::Test
@@ -136,4 +137,18 @@ TEST_F(ParameterDistributionTest, GenerateSamples)
     EXPECT_EQ(sample_values[0].value, xmin);
     EXPECT_EQ(sample_values[1].value, xmin + (xmax-xmin)/2.0);
     EXPECT_EQ(sample_values[2].value, xmax);
+}
+
+//! Tests if main parameter name is related to angles.
+
+TEST_F(ParameterDistributionTest, isAngleRelated)
+{
+    DistributionGate gate(1.0, 2.0);
+
+    EXPECT_FALSE(PythonFormatting::isAngleRelated(ParameterDistribution("Some", gate, 1)));
+
+    EXPECT_TRUE(PythonFormatting::isAngleRelated(ParameterDistribution("InclinationAngle", gate, 1)));
+    EXPECT_TRUE(PythonFormatting::isAngleRelated(ParameterDistribution("*/Beam/InclinationAngle", gate, 1)));
+    EXPECT_TRUE(PythonFormatting::isAngleRelated(ParameterDistribution("*/Beam/AzimuthalAngle", gate, 1)));
+
 }

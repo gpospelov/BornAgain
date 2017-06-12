@@ -25,6 +25,7 @@ class IDistribution1D;
 class IParameterized;
 class IShape2D;
 class RealParameter;
+class ParameterDistribution;
 
 //! Utility functions for writing Python code snippets.
 
@@ -47,6 +48,8 @@ namespace PythonFormatting {
     BA_CORE_API_ bool isDefaultDirection(const kvector_t direction);
     BA_CORE_API_ std::string valueTimesUnit(const RealParameter* par);
     BA_CORE_API_ std::string argumentList(const IParameterized* ip);
+
+    BA_CORE_API_ bool isAngleRelated(const ParameterDistribution& distr);
 }
 
 #endif // PYTHONFORMATTING_H

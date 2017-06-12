@@ -41,6 +41,18 @@ GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 
+namespace {
+
+//! Returns list of all angle related parameters used in Core library.
+std::vector<std::string> angleRelatedParameters() {
+    std::vector<std::string> result {
+        BornAgain::Inclination,
+        BornAgain::Azimuth
+    };
+    return result;
+}
+}
+
 std::string PythonFormatting::simulationToPython(GISASSimulation* simulation)
 {
     simulation->prepareSimulation();
@@ -228,6 +240,22 @@ std::string argumentList(const IParameterized* ip)
     for(const auto* par: ip->parameterPool()->parameters())
         args.push_back( valueTimesUnit(par) );
     return StringUtils::join( args, ", " );
+}
+
+//! Returns true if given ParameterDistribution is intended for angles basing on
+//! main parameter name.
+
+bool isAngleRelated(const ParameterDistribution& distr)
+{
+    static std::vector<std::string> angleRelated = angleRelatedParameters();
+
+    std::string mainParameter = distr.getMainParameterName();
+    for(const auto& par : angleRelated) {
+        if(mainParameter.find(par) != std::string::npos)
+            return true;
+    }
+
+    return false;
 }
 
 } // namespace PythonFormatting

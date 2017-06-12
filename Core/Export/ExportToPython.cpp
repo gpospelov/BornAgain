@@ -747,10 +747,12 @@ std::string ExportToPython::defineParameterDistributions(const GISASSimulation* 
         std::string main_par_name = distributions[i].getMainParameterName();
         size_t nbr_samples = distributions[i].getNbrSamples();
         double sigma_factor = distributions[i].getSigmaFactor();
-        const IDistribution1D* p_distr = distributions[i].getDistribution();
+        std::unique_ptr<IDistribution1D> p_distr(distributions[i].getDistribution()->clone());
+        if(PythonFormatting::isAngleRelated(distributions[i]))
+            p_distr->setUnits(BornAgain::UnitsRad);
         result << indent() << "distribution_" << i+1 << " = ba."
                << std::setprecision(12) << p_distr->getName() << "("
-               << argumentList(p_distr) << ")\n"
+               << argumentList(p_distr.get()) << ")\n"
                << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
                << "distribution_" << i+1 << ", " << nbr_samples << ", "
                << printDouble(sigma_factor) << ")\n";

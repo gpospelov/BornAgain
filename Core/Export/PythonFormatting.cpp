@@ -47,7 +47,11 @@ namespace {
 std::vector<std::string> angleRelatedParameters() {
     std::vector<std::string> result {
         BornAgain::Inclination,
-        BornAgain::Azimuth
+        BornAgain::Azimuth,
+        BornAgain::Alpha,
+        BornAgain::Beta,
+        BornAgain::Gamma,
+        BornAgain::Angle
     };
     return result;
 }

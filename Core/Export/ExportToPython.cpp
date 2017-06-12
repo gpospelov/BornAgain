@@ -296,13 +296,17 @@ std::string ExportToPython::defineParticleDistributions() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         ParameterDistribution par_distr = it->first->parameterDistribution();
 
+        std::unique_ptr<IDistribution1D> p_distr(par_distr.getDistribution()->clone());
+        if(PythonFormatting::isAngleRelated(par_distr))
+            p_distr->setUnits(BornAgain::UnitsRad);
+
         // building distribution functions
         std::stringstream s_distr;
         s_distr << "distr_" << index;
 
         result << indent() << s_distr.str()
-               << " = ba." << par_distr.getDistribution()->getName() << "("
-               << argumentList(par_distr.getDistribution()) << ")\n";
+               << " = ba." << p_distr->getName() << "("
+               << argumentList(p_distr.get()) << ")\n";
 
         // building parameter distribution
         std::stringstream s_par_distr;
@@ -750,11 +754,15 @@ std::string ExportToPython::defineParameterDistributions(const GISASSimulation* 
         std::unique_ptr<IDistribution1D> p_distr(distributions[i].getDistribution()->clone());
         if(PythonFormatting::isAngleRelated(distributions[i]))
             p_distr->setUnits(BornAgain::UnitsRad);
-        result << indent() << "distribution_" << i+1 << " = ba."
-               << std::setprecision(12) << p_distr->getName() << "("
-               << argumentList(p_distr.get()) << ")\n"
-               << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
-               << "distribution_" << i+1 << ", " << nbr_samples << ", "
+
+        std::stringstream s_distr;
+        s_distr << "distr_" << (i+1);
+        result << indent() << s_distr.str()
+               << " = ba." << p_distr->getName() << "("
+               << argumentList(p_distr.get()) << ")\n";
+
+        result << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
+               << s_distr.str() << ", " << nbr_samples << ", "
                << printDouble(sigma_factor) << ")\n";
     }
     return result.str();

@@ -147,8 +147,12 @@ TEST_F(ParameterDistributionTest, isAngleRelated)
 
     EXPECT_FALSE(PythonFormatting::isAngleRelated(ParameterDistribution("Some", gate, 1)));
 
-    EXPECT_TRUE(PythonFormatting::isAngleRelated(ParameterDistribution("InclinationAngle", gate, 1)));
-    EXPECT_TRUE(PythonFormatting::isAngleRelated(ParameterDistribution("*/Beam/InclinationAngle", gate, 1)));
-    EXPECT_TRUE(PythonFormatting::isAngleRelated(ParameterDistribution("*/Beam/AzimuthalAngle", gate, 1)));
-
+    EXPECT_TRUE(
+        PythonFormatting::isAngleRelated(ParameterDistribution("InclinationAngle", gate, 1)));
+    EXPECT_TRUE(PythonFormatting::isAngleRelated(
+        ParameterDistribution("*/Beam/InclinationAngle", gate, 1)));
+    EXPECT_TRUE(
+        PythonFormatting::isAngleRelated(ParameterDistribution("*/Beam/AzimuthalAngle", gate, 1)));
+    EXPECT_TRUE(PythonFormatting::isAngleRelated(
+        ParameterDistribution("/Particle/ZRotation/Angle", gate, 1)));
 }

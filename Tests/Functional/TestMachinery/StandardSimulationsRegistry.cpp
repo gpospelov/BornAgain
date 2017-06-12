@@ -188,6 +188,13 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "None",
         2e-10);
 
+    add("RotatedPyramidsDistribution",
+        "Rotated pyramids distribution",
+        "MiniGISAS",
+        "RotatedPyramidsDistributionBuilder",
+        "None",
+        2e-10);
+
     add("BeamDivergence",
         "Cylinders in BA in the presence of beam divergence",
         "MiniGISASBeamDivergence",

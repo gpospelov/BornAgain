@@ -64,6 +64,7 @@ set(test_cases
     SphericalDetWithRoi
     RectDetWithRoi
     SlicedComposition
+    RotatedPyramidsDistribution
     )
 
 # Other tests:

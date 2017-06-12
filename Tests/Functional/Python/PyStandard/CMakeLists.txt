@@ -52,6 +52,7 @@ set(test_cases
     SphericalDetWithRoi
     RectDetWithRoi
     SlicedComposition
+    RotatedPyramidsDistribution
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

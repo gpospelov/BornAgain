@@ -270,6 +270,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         create_new<SlicedCompositionBuilder>,
         "Spherical particle made of two different materials crossing interface");
 
+    registerItem(
+        "RotatedPyramidsDistributionBuilder",
+        create_new<RotatedPyramidsDistributionBuilder>,
+        "Rotated pyramids distribution");
+
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

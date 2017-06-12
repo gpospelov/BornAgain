@@ -57,4 +57,20 @@ private:
     double m_sigma2_ratio;
 };
 
+//! Rotated Pyramids with the distribution applied to the rotation angle.
+//! @ingroup standard_samples
+
+class RotatedPyramidsDistributionBuilder : public IMultiLayerBuilder
+{
+public:
+    RotatedPyramidsDistributionBuilder();
+    MultiLayer* buildSample() const;
+
+private:
+    double m_length;
+    double m_height;
+    double m_alpha;
+    double m_zangle;
+};
+
 #endif // PARTICLEDISTRIBUTIONSBUILDER_H

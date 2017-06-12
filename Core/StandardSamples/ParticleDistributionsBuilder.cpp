@@ -25,6 +25,7 @@
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
 #include "RealParameter.h"
+#include "FormFactorPyramid.h"
 #include "Units.h"
 
 CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
@@ -146,3 +147,48 @@ MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
 
     return multi_layer;
 }
+
+// ----------------------------------------------------------------------------
+
+RotatedPyramidsDistributionBuilder::RotatedPyramidsDistributionBuilder()
+    : m_length(10*Units::nanometer)
+    , m_height(5*Units::nanometer)
+    , m_alpha(Units::deg2rad(54.73 ))
+    , m_zangle(45.*Units::degree)
+{
+
+}
+
+MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
+{
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+
+    // particle
+    FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
+    Particle pyramid(particle_material, ff_pyramid);
+    pyramid.setRotation(RotationZ(m_zangle));
+
+    // particle collection
+    DistributionGate gate(35.0*Units::deg, 55.0*Units::deg);
+    ParameterDistribution parameter_distr("/Particle/ZRotation/Angle", gate, 10, 2.0);
+
+    ParticleDistribution collection(pyramid, parameter_distr);
+
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(collection);
+
+    // Multi layer
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    air_layer.addLayout(particle_layout);
+
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+}
+

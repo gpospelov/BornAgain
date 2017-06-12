@@ -44,7 +44,8 @@ FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alp
     setName(BornAgain::FFPyramidType);
     registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI);
+    registerParameter(BornAgain::Alpha, & m_alpha).setUnit(BornAgain::UnitsRad)
+        .setLimited(0., M_PI);
     onChange();
 }
 

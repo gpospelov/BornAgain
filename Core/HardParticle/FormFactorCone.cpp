@@ -43,7 +43,8 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     }
     registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
+    registerParameter(BornAgain::Alpha, &m_alpha).setUnit(BornAgain::UnitsRad)
+        .setLimited(0., M_PI_2);
 
     mP_integrator = make_integrator_complex(this, &FormFactorCone::Integrand);
     onChange();

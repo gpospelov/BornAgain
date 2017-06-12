@@ -44,7 +44,8 @@ FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, do
     setName(BornAgain::FFTetrahedronType);
     registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Alpha, &m_alpha).setUnit("rad").setLimited(0., M_PI_2);
+    registerParameter(BornAgain::Alpha, &m_alpha).setUnit(BornAgain::UnitsRad)
+        .setLimited(0., M_PI_2);
     onChange();
 }
 

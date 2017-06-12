@@ -39,8 +39,10 @@ void Beam::init_parameters()
 {
     registerParameter(BornAgain::Intensity, &m_intensity).setNonnegative();
     registerParameter(BornAgain::Wavelength, &m_wavelength).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Inclination, &m_alpha).setUnit("rad").setLimited(0, M_PI_2);
-    registerParameter(BornAgain::Azimuth,   &m_phi  ).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
+    registerParameter(BornAgain::Inclination, &m_alpha).setUnit(BornAgain::UnitsRad)
+        .setLimited(0, M_PI_2);
+    registerParameter(BornAgain::Azimuth,   &m_phi  ).setUnit(BornAgain::UnitsRad)
+        .setLimited(-M_PI_2, M_PI_2);
 }
 
 Beam &Beam::operator=(const Beam &other)

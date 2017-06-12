@@ -34,6 +34,7 @@
 #include "StringUtils.h"
 #include "Units.h"
 #include "IDetector2D.h"
+#include "BornAgainNamespace.h"
 #include <iomanip>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
@@ -214,7 +215,7 @@ bool isDefaultDirection(const kvector_t direction)
 
 std::string valueTimesUnit(const RealParameter* par)
 {
-    if (par->unit()=="rad")
+    if (par->unit() == BornAgain::UnitsRad)
         return printDegrees(par->value());
     return printDouble(par->value()) + ( par->unit()=="" ? "" : ("*"+par->unit()) );
 }

@@ -71,7 +71,7 @@ void Lattice2D::setRotationEnabled(bool enabled)
         if(parameter(BornAgain::Xi))
             return;
 
-        registerParameter(BornAgain::Xi, &m_xi).setUnit("rad");
+        registerParameter(BornAgain::Xi, &m_xi).setUnit(BornAgain::UnitsRad);
 
     } else {
         removeParameter(BornAgain::Xi);
@@ -102,8 +102,8 @@ void BasicLattice::init_parameters()
 {
     registerParameter(BornAgain::LatticeLength1, &m_length1).setUnit("nm").setPositive();
     registerParameter(BornAgain::LatticeLength2, &m_length2).setUnit("nm").setPositive();
-    registerParameter(BornAgain::LatticeAngle, &m_angle).setUnit("rad");
-    registerParameter(BornAgain::Xi, &m_xi).setUnit("rad");
+    registerParameter(BornAgain::LatticeAngle, &m_angle).setUnit(BornAgain::UnitsRad);
+    registerParameter(BornAgain::Xi, &m_xi).setUnit(BornAgain::UnitsRad);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -129,7 +129,7 @@ SquareLattice::SquareLattice(const SquareLattice& other)
 void SquareLattice::init_parameters()
 {
     registerParameter(BornAgain::LatticeLength, &m_length1).setUnit("nm").setPositive();
-    registerParameter(BornAgain::Xi, &m_xi).setUnit("rad");
+    registerParameter(BornAgain::Xi, &m_xi).setUnit(BornAgain::UnitsRad);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -155,5 +155,5 @@ HexagonalLattice::HexagonalLattice(const HexagonalLattice& other)
 void HexagonalLattice::init_parameters()
 {
     registerParameter(BornAgain::LatticeLength, &m_length1).setUnit("nm").setPositive();
-    registerParameter(BornAgain::Xi, &m_xi).setUnit("rad");
+    registerParameter(BornAgain::Xi, &m_xi).setUnit(BornAgain::UnitsRad);
 }

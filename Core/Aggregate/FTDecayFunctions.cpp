@@ -164,7 +164,8 @@ void IFTDecayFunction2D::register_decay_lengths()
 
 void IFTDecayFunction2D::register_gamma()
 {
-    registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
+    registerParameter(BornAgain::Gamma, &m_gamma).setUnit(BornAgain::UnitsRad)
+        .setLimited(-M_PI_2, M_PI_2);
 }
 
 void IFTDecayFunction2D::init_parameters()

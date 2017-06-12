@@ -14,11 +14,12 @@
 // ************************************************************************** //
 
 #include "Unit.h"
+#include "BornAgainNamespace.h"
 #include <stdexcept>
 
 void Unit::setUnit(const std::string& name)
 {
-    if (! (name=="" || name=="nm" || name=="rad" ) )
+    if (! (name=="" || name=="nm" || name== BornAgain::UnitsRad ) )
         throw std::runtime_error("Bug: call to Unit::Unit with unexpected name "+name);
     setName(name);
 }

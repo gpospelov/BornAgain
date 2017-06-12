@@ -3,7 +3,7 @@
 #include "Exceptions.h"
 #include "ParameterSample.h"
 #include "IParameterized.h"
-#include "PythonFormatting.h"
+#include "ParameterUtils.h"
 #include <cmath>
 
 class ParameterDistributionTest : public ::testing::Test
@@ -145,14 +145,14 @@ TEST_F(ParameterDistributionTest, isAngleRelated)
 {
     DistributionGate gate(1.0, 2.0);
 
-    EXPECT_FALSE(PythonFormatting::isAngleRelated(ParameterDistribution("Some", gate, 1)));
+    EXPECT_FALSE(ParameterUtils::isAngleRelated(ParameterDistribution("Some", gate, 1)));
 
     EXPECT_TRUE(
-        PythonFormatting::isAngleRelated(ParameterDistribution("InclinationAngle", gate, 1)));
-    EXPECT_TRUE(PythonFormatting::isAngleRelated(
+        ParameterUtils::isAngleRelated(ParameterDistribution("InclinationAngle", gate, 1)));
+    EXPECT_TRUE(ParameterUtils::isAngleRelated(
         ParameterDistribution("*/Beam/InclinationAngle", gate, 1)));
     EXPECT_TRUE(
-        PythonFormatting::isAngleRelated(ParameterDistribution("*/Beam/AzimuthalAngle", gate, 1)));
-    EXPECT_TRUE(PythonFormatting::isAngleRelated(
+        ParameterUtils::isAngleRelated(ParameterDistribution("*/Beam/AzimuthalAngle", gate, 1)));
+    EXPECT_TRUE(ParameterUtils::isAngleRelated(
         ParameterDistribution("/Particle/ZRotation/Angle", gate, 1)));
 }

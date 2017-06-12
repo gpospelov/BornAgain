@@ -36,27 +36,13 @@
 #include "IDetector2D.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
+#include "ParameterUtils.h"
 #include <iomanip>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 
-namespace {
-
-//! Returns list of all angle related parameters used in Core library.
-std::vector<std::string> angleRelatedParameters() {
-    std::vector<std::string> result {
-        BornAgain::Inclination,
-        BornAgain::Azimuth,
-        BornAgain::Alpha,
-        BornAgain::Beta,
-        BornAgain::Gamma,
-        BornAgain::Angle
-    };
-    return result;
-}
-}
 
 std::string PythonFormatting::simulationToPython(GISASSimulation* simulation)
 {
@@ -247,22 +233,6 @@ std::string argumentList(const IParameterized* ip)
     return StringUtils::join( args, ", " );
 }
 
-//! Returns true if given ParameterDistribution is intended for angles basing on
-//! main parameter name.
-
-bool isAngleRelated(const ParameterDistribution& distr)
-{
-    static std::vector<std::string> angleRelated = angleRelatedParameters();
-
-    std::string mainParameter = distr.getMainParameterName();
-    for(const auto& par : angleRelated) {
-        if(mainParameter.find(par) != std::string::npos)
-            return true;
-    }
-
-    return false;
-}
-
 //! Returns string representation of the distribution defined in ParameterDistribution.
 //! ba.DistributionGaussian(2.0*deg, 0.02*deg)
 //! *deg multiplayer will be taken from main parameter name.
@@ -271,7 +241,7 @@ std::string representDistribution(const ParameterDistribution& par_distr)
 {
     std::unique_ptr<IDistribution1D> distr(par_distr.getDistribution()->clone());
 
-    if(PythonFormatting::isAngleRelated(par_distr))
+    if(ParameterUtils::isAngleRelated(par_distr))
         distr->setUnits(BornAgain::UnitsRad);
 
     std::ostringstream result;

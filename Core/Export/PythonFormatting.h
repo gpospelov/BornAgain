@@ -49,8 +49,6 @@ namespace PythonFormatting {
     BA_CORE_API_ std::string valueTimesUnit(const RealParameter* par);
     BA_CORE_API_ std::string argumentList(const IParameterized* ip);
 
-    BA_CORE_API_ bool isAngleRelated(const ParameterDistribution& distr);
-
     BA_CORE_API_ std::string representDistribution(const ParameterDistribution& par_distr);
 }
 

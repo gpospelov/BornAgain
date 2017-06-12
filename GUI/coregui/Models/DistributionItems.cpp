@@ -128,6 +128,7 @@ DistributionGateItem::DistributionGateItem() : DistributionItem(Constants::Distr
     addProperty(P_MAX, 1.0)->setLimits(RealLimits::limitless());
     register_number_of_samples();
     register_limits();
+    getItem(P_LIMITS)->setVisible(false);
 }
 
 std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution(double scale) const

@@ -18,6 +18,8 @@
 #include "Exceptions.h"
 #include "MathConstants.h"
 #include "ParameterSample.h"
+#include "ParameterPool.h"
+#include "RealParameter.h"
 #include <cmath>
 #include <sstream>
 
@@ -65,6 +67,12 @@ std::vector<double> IDistribution1D::equidistantPointsInRange(
     for (size_t i=0; i<nbr_samples; ++i)
         result[i] = xmin + i*(xmax-xmin)/(nbr_samples-1.0);
     return result;
+}
+
+void IDistribution1D::setUnits(const std::string& units)
+{
+    for(auto* par: parameterPool()->parameters())
+        par->setUnit(units);
 }
 
 void IDistribution1D::SignalBadInitialization(std::string distribution_name)
@@ -314,6 +322,12 @@ void DistributionLogNormal::init_parameters()
 bool DistributionLogNormal::isDelta() const
 {
     return m_scale_param == 0.0;
+}
+
+void DistributionLogNormal::setUnits(const std::string& units)
+{
+    parameter(BornAgain::Median)->setUnit(units);
+    // scale parameter remains unitless
 }
 
 bool DistributionLogNormal::checkInitialization() const

@@ -39,7 +39,7 @@ void MultiLayer::init_parameters()
 {
     parameterPool()->clear(); // non-trivially needed
     registerParameter(BornAgain::CrossCorrelationLength, &m_crossCorrLength).
-        setUnit("nm").setNonnegative();
+        setUnit(BornAgain::UnitsNm).setNonnegative();
 }
 
 MultiLayer* MultiLayer::clone() const

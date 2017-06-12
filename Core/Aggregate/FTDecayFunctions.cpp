@@ -158,8 +158,10 @@ void IFTDecayFunction2D::transformToStarBasis(double qX, double qY, double alpha
 
 void IFTDecayFunction2D::register_decay_lengths()
 {
-    registerParameter(BornAgain::DecayLengthX, &m_decay_length_x).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::DecayLengthY, &m_decay_length_y).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::DecayLengthX, &m_decay_length_x).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::DecayLengthY, &m_decay_length_y).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 void IFTDecayFunction2D::register_gamma()

@@ -42,7 +42,8 @@ MultiLayer*MagneticSubstrateZeroFieldBuilder::buildSample() const
 
 void MagneticSubstrateZeroFieldBuilder::init_parameters()
 {
-    registerParameter("sphere_radius", &m_sphere_radius).setUnit("nm").setNonnegative();
+    registerParameter("sphere_radius", &m_sphere_radius).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 MagneticRotationBuilder::MagneticRotationBuilder()
@@ -79,5 +80,6 @@ MultiLayer*MagneticRotationBuilder::buildSample() const
 
 void MagneticRotationBuilder::init_parameters()
 {
-    registerParameter("sphere_radius", &m_sphere_radius).setUnit("nm").setNonnegative();
+    registerParameter("sphere_radius", &m_sphere_radius).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }

@@ -63,7 +63,7 @@ void FormFactorLorentz::onChange()
 void FormFactorLorentz::initialize()
 {
     setName(BornAgain::FFLorentzType);
-    registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
     onChange();
 }

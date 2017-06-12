@@ -37,11 +37,13 @@ CosineRippleBuilder::CosineRippleBuilder()
 
 void CosineRippleBuilder::init_parameters()
 {
-    registerParameter("width", &m_w).setUnit("nm").setNonnegative();
-    registerParameter("height", &m_h).setUnit("nm").setNonnegative();
-    registerParameter("length", &m_l).setUnit("nm").setNonnegative();
-    registerParameter("interf_distance", &m_interf_distance).setUnit("nm").setNonnegative();
-    registerParameter("interf_width", &m_interf_width).setUnit("nm").setNonnegative();
+    registerParameter("width", &m_w).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("height", &m_h).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("length", &m_l).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("interf_distance", &m_interf_distance).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("interf_width", &m_interf_width).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 MultiLayer* CosineRippleBuilder::buildSample() const
@@ -90,12 +92,14 @@ TriangularRippleBuilder::TriangularRippleBuilder()
 void TriangularRippleBuilder::init_parameters()
 {
 
-    registerParameter("width", &m_w).setUnit("nm").setNonnegative();
-    registerParameter("height", &m_h).setUnit("nm").setNonnegative();
-    registerParameter("length", &m_l).setUnit("nm").setNonnegative();
-    registerParameter  ("asymetry", &m_d);
-    registerParameter("interf_distance", &m_interf_distance).setUnit("nm").setNonnegative();
-    registerParameter("interf_width", &m_interf_width).setUnit("nm").setNonnegative();
+    registerParameter("width", &m_w).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("height", &m_h).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("length", &m_l).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("asymetry", &m_d);
+    registerParameter("interf_distance", &m_interf_distance).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("interf_width", &m_interf_width).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 MultiLayer* TriangularRippleBuilder::buildSample() const

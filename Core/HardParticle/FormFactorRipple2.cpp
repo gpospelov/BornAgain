@@ -25,10 +25,10 @@ FormFactorRipple2::FormFactorRipple2(double length, double width, double height,
 {
     setName(BornAgain::FFRipple2Type);
     check_initialization();
-    registerParameter(BornAgain::Length, &m_length    ).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Width, &m_width      ).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height    ).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit("nm");
+    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit(BornAgain::UnitsNm);
     onChange();
 }
 

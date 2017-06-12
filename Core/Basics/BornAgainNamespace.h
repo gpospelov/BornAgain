@@ -217,6 +217,7 @@ const std::string Azimuth = "AzimuthalAngle";
 const std::string TotalParticleDensity = "TotalParticleDensity";
 
 const std::string UnitsRad = "rad";
+const std::string UnitsNm = "nm";
 }
 
 #endif // BORNAGAINNAMESPACE_H

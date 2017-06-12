@@ -125,7 +125,8 @@ void Layer::registerThickness(bool make_registered)
 {
     if(make_registered) {
         if(!parameter(BornAgain::Thickness))
-            registerParameter(BornAgain::Thickness, &m_thickness).setUnit("nm").setNonnegative();
+            registerParameter(BornAgain::Thickness, &m_thickness).setUnit(BornAgain::UnitsNm)
+                .setNonnegative();
     } else {
         removeParameter(BornAgain::Thickness);
     }

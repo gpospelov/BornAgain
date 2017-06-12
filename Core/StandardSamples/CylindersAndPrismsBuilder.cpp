@@ -37,10 +37,14 @@ CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
 void CylindersAndPrismsBuilder::init_parameters()
 {
 
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
-    registerParameter("prism_height", &m_prism_height).setUnit("nm").setNonnegative();
-    registerParameter("prism_length", &m_prism_length).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("prism_height", &m_prism_height).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("prism_length", &m_prism_length).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
     registerParameter("cylinder_weight", &m_cylinder_weight).setNonnegative();
 }
 

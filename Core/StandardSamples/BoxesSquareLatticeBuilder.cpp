@@ -71,6 +71,6 @@ MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
 
 void BoxesSquareLatticeBuilder::init_parameters()
 {
-    registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
 }

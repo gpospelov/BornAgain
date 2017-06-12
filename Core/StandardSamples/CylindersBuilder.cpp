@@ -62,8 +62,8 @@ MultiLayer* CylindersInDWBABuilder::buildSample() const
 
 void CylindersInDWBABuilder::init_parameters()
 {
-    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
 }
 
 // -----------------------------------------------------------------------------
@@ -98,8 +98,8 @@ MultiLayer* CylindersInBABuilder::buildSample() const
 
 void CylindersInBABuilder::init_parameters()
 {
-    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
 }
 
 // -----------------------------------------------------------------------------
@@ -139,8 +139,8 @@ MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 void LargeCylindersInDWBABuilder::init_parameters()
 {
 
-    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
 }
 
 // -----------------------------------------------------------------------------
@@ -181,6 +181,6 @@ MultiLayer* RotatedCylindersBuilder::buildSample() const
 
 void RotatedCylindersBuilder::init_parameters()
 {
-    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
 }

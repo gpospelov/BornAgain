@@ -29,10 +29,6 @@ namespace ParameterUtils
 //! Returns true if given parameter name is related to angles.
 BA_CORE_API_ bool isAngleRelated(const std::string& par_name);
 
-//! Returns true if given ParameterDistribution is intended for angles (based on
-//! main parameter name).
-BA_CORE_API_ bool isAngleRelated(const ParameterDistribution& distr);
-
 //! Returns units of main parameter.
 BA_CORE_API_ std::string mainParUnits(const ParticleDistribution& distr);
 

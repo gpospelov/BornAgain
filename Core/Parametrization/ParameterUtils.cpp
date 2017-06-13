@@ -40,8 +40,8 @@ bool ParameterUtils::isAngleRelated(const std::string& par_name)
 {
     static std::vector<std::string> angleRelated = angleRelatedParameters();
 
-    for(const auto& par : angleRelated) {
-        if(par_name.find(par) != std::string::npos)
+    for (const auto& par : angleRelated) {
+        if (par_name.find(par) != std::string::npos)
             return true;
     }
 
@@ -49,14 +49,9 @@ bool ParameterUtils::isAngleRelated(const std::string& par_name)
 
 }
 
-bool ParameterUtils::isAngleRelated(const ParameterDistribution& distr)
-{
-    return isAngleRelated(distr.getMainParameterName());
-}
-
 std::string ParameterUtils::mainParUnits(const ParticleDistribution& distr)
 {
-    if(distr.particle() == nullptr)
+    if (distr.particle() == nullptr)
         return BornAgain::UnitsNone;
 
     return poolParameterUnits(*distr.particle(),

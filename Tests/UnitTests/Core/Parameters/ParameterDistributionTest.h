@@ -143,16 +143,9 @@ TEST_F(ParameterDistributionTest, GenerateSamples)
 
 TEST_F(ParameterDistributionTest, isAngleRelated)
 {
-    DistributionGate gate(1.0, 2.0);
-
-    EXPECT_FALSE(ParameterUtils::isAngleRelated(ParameterDistribution("Some", gate, 1)));
-
-    EXPECT_TRUE(
-        ParameterUtils::isAngleRelated(ParameterDistribution("InclinationAngle", gate, 1)));
-    EXPECT_TRUE(ParameterUtils::isAngleRelated(
-        ParameterDistribution("*/Beam/InclinationAngle", gate, 1)));
-    EXPECT_TRUE(
-        ParameterUtils::isAngleRelated(ParameterDistribution("*/Beam/AzimuthalAngle", gate, 1)));
-    EXPECT_TRUE(ParameterUtils::isAngleRelated(
-        ParameterDistribution("/Particle/ZRotation/Angle", gate, 1)));
+    EXPECT_FALSE(ParameterUtils::isAngleRelated("Some"));
+    EXPECT_TRUE(ParameterUtils::isAngleRelated("InclinationAngle"));
+    EXPECT_TRUE(ParameterUtils::isAngleRelated("*/Beam/InclinationAngle"));
+    EXPECT_TRUE(ParameterUtils::isAngleRelated("*/Beam/AzimuthalAngle"));
+    EXPECT_TRUE(ParameterUtils::isAngleRelated("/Particle/ZRotation/Angle"));
 }

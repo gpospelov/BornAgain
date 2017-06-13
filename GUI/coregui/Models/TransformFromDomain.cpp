@@ -174,7 +174,7 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
     distItem->setDomainCacheName(main_distr_par_name);
 
     double unit_factor(1.0);
-    if (ParameterUtils::isAngleRelated(par_distr))
+    if (ParameterUtils::mainParUnits(*sample) == BornAgain::UnitsRad)
         unit_factor = 1. / Units::degree;
 
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;

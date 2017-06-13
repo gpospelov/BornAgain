@@ -263,6 +263,21 @@ std::string representDistribution(const ParameterDistribution& par_distr)
     return result.str();
 }
 
+
+//! Prints distribution with constructor parameters in given units.
+//! ba.DistributionGaussian(2.0*deg, 0.02*deg)
+
+std::string printDistribution(const IDistribution1D& par_distr, const std::string& units)
+{
+    std::unique_ptr<IDistribution1D> distr(par_distr.clone());
+    distr->setUnits(units);
+
+    std::ostringstream result;
+    result << "ba." << distr->getName() << "(" << argumentList(distr.get()) << ")";
+    return result.str();
+}
+
+
 std::string printRealLimits(const RealLimits& limits, const std::string& units)
 {
     std::ostringstream result;

@@ -53,6 +53,9 @@ namespace PythonFormatting {
 
     BA_CORE_API_ std::string representDistribution(const ParameterDistribution& par_distr);
 
+    BA_CORE_API_ std::string printDistribution(const IDistribution1D& par_distr,
+                                               const std::string& units="");
+
     BA_CORE_API_ std::string printRealLimits(const RealLimits& limits, const std::string& units="");
     BA_CORE_API_ std::string printRealLimitsArg(const RealLimits& limits,
                                                 const std::string& units="");

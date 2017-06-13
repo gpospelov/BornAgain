@@ -20,6 +20,7 @@
 #include <string>
 
 class ParameterDistribution;
+class ParticleDistribution;
 
 namespace ParameterUtils
 {
@@ -31,8 +32,11 @@ BA_CORE_API_ bool isAngleRelated(const std::string& par_name);
 //! main parameter name).
 BA_CORE_API_ bool isAngleRelated(const ParameterDistribution& distr);
 
-//! Returns units of main parameter.
+//! Returns units of main parameter (guess).
 BA_CORE_API_ std::string mainParUnits(const ParameterDistribution& distr);
+
+//! Returns units of main parameter.
+BA_CORE_API_ std::string mainParUnits(const ParticleDistribution& distr);
 
 }
 

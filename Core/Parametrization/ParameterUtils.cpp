@@ -16,6 +16,10 @@
 #include "ParameterUtils.h"
 #include "ParameterDistribution.h"
 #include "BornAgainNamespace.h"
+#include "ParticleDistribution.h"
+#include "ParameterPool.h"
+#include "Particle.h"
+#include "RealParameter.h"
 
 namespace {
 //! Returns list of all angle related parameters used in Core library.
@@ -54,4 +58,14 @@ bool ParameterUtils::isAngleRelated(const ParameterDistribution& distr)
 std::string ParameterUtils::mainParUnits(const ParameterDistribution& distr)
 {
     return isAngleRelated(distr) ? BornAgain::UnitsRad : BornAgain::UnitsNm;
+}
+
+std::string ParameterUtils::mainParUnits(const ParticleDistribution& distr)
+{
+    if(distr.particle() == nullptr)
+        return BornAgain::UnitsNone;
+
+    std::unique_ptr<ParameterPool> pool {distr.particle()->createParameterTree()};
+    std::string main_par_name = distr.parameterDistribution().getMainParameterName();
+    return pool->getUniqueMatch(main_par_name)->unit();
 }

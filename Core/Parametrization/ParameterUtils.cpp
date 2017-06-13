@@ -65,7 +65,13 @@ std::string ParameterUtils::mainParUnits(const ParticleDistribution& distr)
     if(distr.particle() == nullptr)
         return BornAgain::UnitsNone;
 
-    std::unique_ptr<ParameterPool> pool {distr.particle()->createParameterTree()};
-    std::string main_par_name = distr.parameterDistribution().getMainParameterName();
-    return pool->getUniqueMatch(main_par_name)->unit();
+    return poolParameterUnits(*distr.particle(),
+                              distr.parameterDistribution().getMainParameterName());
+}
+
+std::string ParameterUtils::poolParameterUnits(const IParameterized& node,
+                                               const std::string& parName)
+{
+    std::unique_ptr<ParameterPool> pool {node.createParameterTree()};
+    return pool->getUniqueMatch(parName)->unit();
 }

@@ -741,17 +741,21 @@ std::string ExportToPython::defineParameterDistributions(const GISASSimulation* 
     if (distributions.size()==0) return "";
     for (size_t i=0; i<distributions.size(); ++i) {
         std::string main_par_name = distributions[i].getMainParameterName();
+
+        std::string mainParUnits = ParameterUtils::poolParameterUnits(*simulation, main_par_name);
+
         size_t nbr_samples = distributions[i].getNbrSamples();
         double sigma_factor = distributions[i].getSigmaFactor();
 
-        std::stringstream s_distr;
-        s_distr << "distr_" << (i+1);
-        result << indent() << s_distr.str() << " = "
-               << representDistribution(distributions[i]) << "\n";
+        std::string s_distr = "distr_" + std::to_string(i+1);
+        result << indent() << s_distr << " = "
+               << printDistribution(*distributions[i].getDistribution(), mainParUnits) << "\n";
 
         result << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
-               << s_distr.str() << ", " << nbr_samples << ", "
-               << printDouble(sigma_factor) << ")\n";
+               << s_distr << ", " << nbr_samples << ", "
+               << printDouble(sigma_factor)
+               << printRealLimitsArg(distributions[i].getLimits(), mainParUnits)
+               << ")\n";
     }
     return result.str();
 }

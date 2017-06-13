@@ -19,6 +19,8 @@
 #include <list>
 #include <unordered_map>
 #include <stdexcept>
+#include <cassert>
+#include <iostream>
 
 //! @class OrderedMap
 //! @ingroup tools_internal

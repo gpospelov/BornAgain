@@ -17,11 +17,8 @@
 #define SAMPLELABELHANDLER_H
 
 #include "Exceptions.h"
-#include <cassert>
-#include <list>
+#include "OrderedMap.h"
 #include <map>
-
-#include <iostream>
 
 class IAbstractParticle;
 class IFormFactor;
@@ -38,74 +35,10 @@ class ParticleCoreShell;
 class ParticleDistribution;
 
 template<class Key>
-class LabelMap
+class LabelMap : public OrderedMap<Key, std::string>
 {
-public:
-    typedef std::pair<Key, std::string> entry_t;
-    typedef std::list<entry_t> list_t;
-    typedef typename list_t::iterator iterator;
-    typedef typename list_t::const_iterator const_iterator;
-    typedef std::map<Key, iterator> map_t;
-
-    LabelMap() {}
-    virtual ~LabelMap(){}
-
-    void clear() {
-        m_map.clear();
-        m_list.clear();
-    }
-
-    const_iterator begin() const { return m_list.begin(); }
-    const_iterator end() const { return m_list.end(); }
-    iterator begin() { return m_list.begin(); }
-    iterator end() { return m_list.end(); }
-
-    size_t size() {
-        assert(m_list.size() == m_map.size());
-        return m_list.size();
-    }
-
-    // if such key exists, pair will be deleted, and new pair appended to the end
-    void insert(const Key& key, const std::string& object) {
-        erase(key);
-        iterator it = m_list.insert(m_list.end(), std::make_pair(key, object));
-        m_map[key] = it;
-    }
-
-    const iterator find(const Key& key) const {
-        if(m_map.find(key) == m_map.end())
-            return m_list.end();
-        return m_map[key];
-    }
-
-    iterator find(const Key& key) {
-        if(m_map.find(key) == m_map.end())
-            return m_list.end();
-        return m_map[key];
-    }
-
-    void erase(const Key& key) {
-        if(m_map.find(key) == m_map.end())
-            return;
-        iterator it = m_map[key];
-        m_list.erase(it);
-        m_map.erase(key);
-    }
-
-    const std::string& value(const Key& key) {
-        typename map_t::const_iterator mit = m_map.find(key);
-        if(mit == m_map.end())
-            throw Exceptions::RuntimeErrorException("LabelMap::value() -> No such key");
-        const_iterator it = mit->second;
-        return it->second;
-    }
-
-    const std::string& operator[](const Key& key) { return value(key); }
-
-private:
-    map_t m_map;
-    list_t m_list;
 };
+
 
 //! The handler which construct labels for sample variables during python script generation.
 //! @ingroup tools_internal

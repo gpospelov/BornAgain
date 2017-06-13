@@ -51,8 +51,6 @@ namespace PythonFormatting {
     BA_CORE_API_ std::string valueTimesUnit(const RealParameter* par);
     BA_CORE_API_ std::string argumentList(const IParameterized* ip);
 
-    BA_CORE_API_ std::string representDistribution(const ParameterDistribution& par_distr);
-
     BA_CORE_API_ std::string printDistribution(const IDistribution1D& par_distr,
                                                const std::string& units="");
 
@@ -62,7 +60,7 @@ namespace PythonFormatting {
 
     BA_CORE_API_ std::string printParameterDistribution(const ParameterDistribution& par_distr,
                                                         const std::string& distVarName,
-                                                        const std::string& units = "undefined");
+                                                        const std::string& units = "");
 }
 
 #endif // PYTHONFORMATTING_H

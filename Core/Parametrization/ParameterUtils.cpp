@@ -54,12 +54,6 @@ bool ParameterUtils::isAngleRelated(const ParameterDistribution& distr)
     return isAngleRelated(distr.getMainParameterName());
 }
 
-
-std::string ParameterUtils::mainParUnits(const ParameterDistribution& distr)
-{
-    return isAngleRelated(distr) ? BornAgain::UnitsRad : BornAgain::UnitsNm;
-}
-
 std::string ParameterUtils::mainParUnits(const ParticleDistribution& distr)
 {
     if(distr.particle() == nullptr)

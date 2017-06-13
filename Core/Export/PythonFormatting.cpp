@@ -246,24 +246,6 @@ std::string argumentList(const IParameterized* ip)
     return StringUtils::join( args, ", " );
 }
 
-//! Returns string representation of the distribution defined in ParameterDistribution.
-//! ba.DistributionGaussian(2.0*deg, 0.02*deg)
-//! *deg multiplayer will be taken from main parameter name.
-
-std::string representDistribution(const ParameterDistribution& par_distr)
-{
-    std::unique_ptr<IDistribution1D> distr(par_distr.getDistribution()->clone());
-
-    if(ParameterUtils::isAngleRelated(par_distr))
-        distr->setUnits(BornAgain::UnitsRad);
-
-    std::ostringstream result;
-    result << "ba." << distr->getName() << "(" << argumentList(distr.get()) << ")";
-
-    return result.str();
-}
-
-
 //! Prints distribution with constructor parameters in given units.
 //! ba.DistributionGaussian(2.0*deg, 0.02*deg)
 
@@ -329,15 +311,11 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
 {
     std::ostringstream result;
 
-    std::string mainParUnits = units;
-    if(mainParUnits == "undefined")
-        mainParUnits = ParameterUtils::mainParUnits(par_distr);
-
     result << "ba.ParameterDistribution("
            << "\"" << par_distr.getMainParameterName() << "\""
            << ", " << distVarName << ", " << par_distr.getNbrSamples() << ", "
            << printDouble(par_distr.getSigmaFactor())
-           << printRealLimitsArg(par_distr.getLimits(), mainParUnits)
+           << printRealLimitsArg(par_distr.getLimits(), units)
            << ")";
 
     return result.str();

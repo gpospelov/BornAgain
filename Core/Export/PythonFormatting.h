@@ -26,6 +26,7 @@ class IParameterized;
 class IShape2D;
 class RealParameter;
 class ParameterDistribution;
+class RealLimits;
 
 //! Utility functions for writing Python code snippets.
 
@@ -41,6 +42,7 @@ namespace PythonFormatting {
     BA_CORE_API_ std::string printNm(double input);
     BA_CORE_API_ std::string printScientificDouble(double input);
     BA_CORE_API_ std::string printDegrees(double input);
+    BA_CORE_API_ std::string printValue(double value, const std::string& units="");
 
     BA_CORE_API_ bool isSquare(double length1, double length2, double angle);
     BA_CORE_API_ bool isHexagonal(double length1, double length2, double angle);
@@ -50,6 +52,10 @@ namespace PythonFormatting {
     BA_CORE_API_ std::string argumentList(const IParameterized* ip);
 
     BA_CORE_API_ std::string representDistribution(const ParameterDistribution& par_distr);
+
+    BA_CORE_API_ std::string printRealLimits(const RealLimits& limits, const std::string& units="");
+    BA_CORE_API_ std::string printRealLimitsArg(const RealLimits& limits,
+                                                const std::string& units="");
 }
 
 #endif // PYTHONFORMATTING_H

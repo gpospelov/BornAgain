@@ -185,6 +185,19 @@ std::string printDegrees(double input)
     return inter.str();
 }
 
+std::string printValue(double value, const std::string& units)
+{
+    if (units == BornAgain::UnitsRad)
+        return printDegrees(value);
+    else if(units == BornAgain::UnitsNm)
+        return printNm(value);
+    else if(units == BornAgain::UnitsNone)
+        return printDouble(value);
+    else
+        throw std::runtime_error("PythonFormatting::printValue() -> Error. Unknown units '"+
+                                 units+"'");
+}
+
 bool isSquare(double length1, double length2, double angle)
 {
     return length1==length2 && Numeric::areAlmostEqual(angle, M_PI_2);
@@ -249,5 +262,47 @@ std::string representDistribution(const ParameterDistribution& par_distr)
 
     return result.str();
 }
+
+std::string printRealLimits(const RealLimits& limits, const std::string& units)
+{
+    std::ostringstream result;
+
+    if (limits.isLimitless()) {
+        result << "RealLimits()";
+    }
+
+    else if(limits.isPositive()) {
+        result << "RealLimits.positive()";
+    }
+
+    else if(limits.isNonnegative()) {
+        result << "RealLimits.nonnegative()";
+    }
+
+    else if(limits.isLowerLimited()) {
+        result << "RealLimits.lowerLimited(" << printValue(limits.getLowerLimit(), units) << ")";
+    }
+
+    else if(limits.isUpperLimited()) {
+        result << "RealLimits.upperLimited(" << printValue(limits.getUpperLimit(), units) << ")";
+    }
+
+    else if(limits.isLimited()) {
+        result << "RealLimits.limited(" << printValue(limits.getLowerLimit(), units) << ", "
+               << printValue(limits.getUpperLimit(), units) << ")";
+    }
+
+    return result.str();
+}
+
+//! Prints RealLimits in the form of argument (in the context of ParameterDistribution and
+//! similar). Default RealLimits will not be printed, any other will be printed as
+//! ", ba.RealLimits.limited(1*deg, 2*deg)"
+
+std::string printRealLimitsArg(const RealLimits& limits, const std::string& units)
+{
+    return limits.isLimitless() ? "" : ", ba."+printRealLimits(limits, units);
+}
+
 
 } // namespace PythonFormatting

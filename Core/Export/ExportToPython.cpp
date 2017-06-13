@@ -41,6 +41,7 @@
 #include "StringUtils.h"
 #include "RegionOfInterest.h"
 #include "BornAgainNamespace.h"
+#include "ParameterUtils.h"
 #include <iomanip>
 #include <set>
 #include <functional>
@@ -294,27 +295,24 @@ std::string ExportToPython::defineParticleDistributions() const
 
     int index(1);
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
+        std::string units = ParameterUtils::mainParUnits(*it->first);
         ParameterDistribution par_distr = it->first->parameterDistribution();
 
         // building distribution functions
-        std::stringstream s_distr;
-        s_distr << "distr_" << index;
-        result << indent() << s_distr.str() << " = "
-               << representDistribution(par_distr) << "\n";
+        std::string s_distr = "distr_" + std::to_string(index);
+        result << indent() << s_distr << " = "
+               << printDistribution(*par_distr.getDistribution(), units) << "\n";
 
         // building parameter distribution
-        std::stringstream s_par_distr;
-        s_par_distr << "par_distr_" << index;
+        std::string s_par_distr = "par_distr_" + std::to_string(index);
 
-        result << indent() << s_par_distr.str() << " = ba.ParameterDistribution("
-               << "\"" << par_distr.getMainParameterName() << "\""
-               << ", " << s_distr.str() << ", " << par_distr.getNbrSamples() << ", "
-               << printDouble(par_distr.getSigmaFactor()) << ")\n";
+        result << indent() << s_par_distr << " = "
+               << printParameterDistribution(par_distr, s_distr, units) << "\n";
 
         // linked parameters
         std::vector<std::string> linked_pars = par_distr.getLinkedParameterNames();
         if(linked_pars.size()) {
-            result << indent() << s_par_distr.str();
+            result << indent() << s_par_distr;
             for(size_t i=0; i<linked_pars.size(); ++i)
                 result << ".linkParameter(\"" << linked_pars[i] << "\")";
             result << "\n";
@@ -322,7 +320,7 @@ std::string ExportToPython::defineParticleDistributions() const
 
         result << indent() << it->second << " = ba.ParticleDistribution("
                << m_label->getLabelParticle(it->first->particle())
-               << ", " << s_par_distr.str() << ")\n";
+               << ", " << s_par_distr << ")\n";
         index++;
     }
     return result.str();

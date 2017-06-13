@@ -3,6 +3,7 @@
 #include "Units.h"
 #include "RealLimits.h"
 #include "Distributions.h"
+#include "ParameterDistribution.h"
 
 class PythonFormattingTest : public ::testing::Test
 {
@@ -72,4 +73,25 @@ TEST_F(PythonFormattingTest, printDistribution)
     EXPECT_EQ(PythonFormatting::printDistribution(DistributionLogNormal(1.0 * Units::deg, 0.01),
                                                   BornAgain::UnitsRad),
               "ba.DistributionLogNormal(1.0*deg, 0.01)");
+}
+
+
+TEST_F(PythonFormattingTest, printParameterDistribution)
+{
+
+    DistributionGate gate(1.0, 2.0);
+    ParameterDistribution dist("ParName", gate, 5, 2.0);
+
+    EXPECT_EQ(PythonFormatting::printParameterDistribution(dist, "distr_1"),
+              "ba.ParameterDistribution(\"ParName\", distr_1, 5, 2.0)");
+
+    ParameterDistribution dist2("ParName", gate, 5, 2.0, RealLimits::limited(1.0, 2.0));
+    EXPECT_EQ(PythonFormatting::printParameterDistribution(dist2, "distr_1"),
+              "ba.ParameterDistribution(\"ParName\", distr_1, 5, 2.0, ba.RealLimits.limited(1.0*nm, 2.0*nm))");
+
+
+    ParameterDistribution dist3("/Particle/ZRotation/Angle", gate, 5, 2.0, RealLimits::limited(1.0*Units::deg, 2.0*Units::deg));
+    EXPECT_EQ(PythonFormatting::printParameterDistribution(dist3, "distr_1"),
+              "ba.ParameterDistribution(\"/Particle/ZRotation/Angle\", distr_1, 5, 2.0, ba.RealLimits.limited(1.0*deg, 2.0*deg))");
+
 }

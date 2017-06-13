@@ -319,5 +319,25 @@ std::string printRealLimitsArg(const RealLimits& limits, const std::string& unit
     return limits.isLimitless() ? "" : ", ba."+printRealLimits(limits, units);
 }
 
+//! Prints ParameterDistribution.
+//! distVarName is a string representing IDistribution1D variable, e.g. "distr_1"
+//!
+//! ba.ParameterDistribution("/Particle/Height", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm))
+
+std::string printParameterDistribution(const ParameterDistribution& par_distr,
+                                       const std::string& distVarName)
+{
+    std::ostringstream result;
+
+    result << "ba.ParameterDistribution("
+           << "\"" << par_distr.getMainParameterName() << "\""
+           << ", " << distVarName << ", " << par_distr.getNbrSamples() << ", "
+           << printDouble(par_distr.getSigmaFactor())
+           << printRealLimitsArg(par_distr.getLimits(), ParameterUtils::mainParUnits(par_distr))
+           << ")";
+
+    return result.str();
+}
+
 
 } // namespace PythonFormatting

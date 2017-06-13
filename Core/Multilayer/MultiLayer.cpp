@@ -26,8 +26,6 @@
 #include "RealParameter.h"
 #include <iomanip>
 
-static const double Magnetic_Permeability = 4e-7 * M_PI;
-
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
     setName(BornAgain::MultiLayerType);
@@ -183,7 +181,13 @@ bool MultiLayer::containsMagneticMaterial() const
 
 void MultiLayer::initBFields()
 {
-    return;
+    if (numberOfLayers()==0)
+        return;
+    double m_z0 = m_layers[0]->material()->magneticField().z();
+    double b_z = Layer::Magnetic_Permeability*(m_ext_field.z()+m_z0);
+    for (size_t i=0; i<numberOfLayers(); ++i) {
+        m_layers[i]->initBField(m_ext_field, b_z);
+    }
 }
 
 bool MultiLayer::hasRoughness() const

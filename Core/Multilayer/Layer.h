@@ -75,6 +75,11 @@ public:
     Eigen::Matrix2cd polarizedReducedPotential(kvector_t k, double n_ref) const;
 #endif
 
+    //! Initializes the magnetic B field from a given ambient field strength H
+    void initBField(kvector_t h_field, double b_z);
+
+    static constexpr double Magnetic_Permeability = 4e-7 * M_PI;
+
 private:
     Layer(const Layer& other);
     //! Clone the layer without its layouts

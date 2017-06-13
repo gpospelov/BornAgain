@@ -9328,6 +9328,11 @@ Return the potential term that is used in the one-dimensional Fresnel calculatio
 Return the potential term that is used in the one-dimensional Fresnel calculations in the presence of magnetization 
 ";
 
+%feature("docstring")  Layer::initBField "void Layer::initBField(kvector_t h_field, double b_z)
+
+Initializes the magnetic B field from a given ambient field strength H. 
+";
+
 
 // File: classLayerFillLimits.xml
 %feature("docstring") LayerFillLimits "
@@ -9919,6 +9924,16 @@ Sets cross correlation length of roughnesses between interfaces.
 Returns cross correlation length of roughnesses between interfaces. 
 ";
 
+%feature("docstring")  MultiLayer::setExternalField "void MultiLayer::setExternalField(kvector_t ext_field)
+
+Sets the external field applied to the multilayer (units: A/m) 
+";
+
+%feature("docstring")  MultiLayer::externalField "kvector_t MultiLayer::externalField() const
+
+Returns the external field applied to the multilayer (units: A/m) 
+";
+
 %feature("docstring")  MultiLayer::crossCorrSpectralFun "double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 
 Fourier transform of the correlation function of roughnesses between the interfaces
@@ -9947,6 +9962,11 @@ returns layer index corresponding to given global z coordinate The top interface
 ";
 
 %feature("docstring")  MultiLayer::containsMagneticMaterial "bool MultiLayer::containsMagneticMaterial() const 
+";
+
+%feature("docstring")  MultiLayer::initBFields "void MultiLayer::initBFields()
+
+precalculate the magnetic B fields in each layer 
 ";
 
 %feature("docstring")  MultiLayer::hasRoughness "bool MultiLayer::hasRoughness() const 
@@ -13441,6 +13461,21 @@ C++ includes: TRange.h
 ";
 
 
+// File: classTwoLayerRoughnessBuilder.xml
+%feature("docstring") TwoLayerRoughnessBuilder "
+
+Builds sample: two layers with rough interface.
+
+C++ includes: TwoLayerRoughnessBuilder.h
+";
+
+%feature("docstring")  TwoLayerRoughnessBuilder::TwoLayerRoughnessBuilder "TwoLayerRoughnessBuilder::TwoLayerRoughnessBuilder()
+";
+
+%feature("docstring")  TwoLayerRoughnessBuilder::buildSample "MultiLayer * TwoLayerRoughnessBuilder::buildSample() const 
+";
+
+
 // File: classTwoTypesCylindersDistributionBuilder.xml
 %feature("docstring") TwoTypesCylindersDistributionBuilder "
 
@@ -15846,6 +15881,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: TwoDimLatticeBuilder_8h.xml
+
+
+// File: TwoLayerRoughnessBuilder_8cpp.xml
+
+
+// File: TwoLayerRoughnessBuilder_8h.xml
 
 
 // File: FileSystemUtils_8cpp.xml

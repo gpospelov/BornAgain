@@ -21892,6 +21892,19 @@ class Layer(ISample):
         """
         return _libBornAgainCore.Layer_scalarReducedPotential(self, k, n_ref)
 
+
+    def initBField(self, h_field, b_z):
+        """
+        initBField(Layer self, kvector_t h_field, double b_z)
+
+        void Layer::initBField(kvector_t h_field, double b_z)
+
+        Initializes the magnetic B field from a given ambient field strength H. 
+
+        """
+        return _libBornAgainCore.Layer_initBField(self, h_field, b_z)
+
+    Magnetic_Permeability = _libBornAgainCore.Layer_Magnetic_Permeability
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
 
@@ -22636,12 +22649,26 @@ class MultiLayer(ISample):
 
 
     def setExternalField(self, ext_field):
-        """setExternalField(MultiLayer self, kvector_t ext_field)"""
+        """
+        setExternalField(MultiLayer self, kvector_t ext_field)
+
+        void MultiLayer::setExternalField(kvector_t ext_field)
+
+        Sets the external field applied to the multilayer (units: A/m) 
+
+        """
         return _libBornAgainCore.MultiLayer_setExternalField(self, ext_field)
 
 
     def externalField(self):
-        """externalField(MultiLayer self) -> kvector_t"""
+        """
+        externalField(MultiLayer self) -> kvector_t
+
+        kvector_t MultiLayer::externalField() const
+
+        Returns the external field applied to the multilayer (units: A/m) 
+
+        """
         return _libBornAgainCore.MultiLayer_externalField(self)
 
 
@@ -22718,7 +22745,14 @@ class MultiLayer(ISample):
 
 
     def initBFields(self):
-        """initBFields(MultiLayer self)"""
+        """
+        initBFields(MultiLayer self)
+
+        void MultiLayer::initBFields()
+
+        precalculate the magnetic B fields in each layer 
+
+        """
         return _libBornAgainCore.MultiLayer_initBFields(self)
 
 

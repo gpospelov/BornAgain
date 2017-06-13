@@ -145,6 +145,12 @@ Eigen::Matrix2cd Layer::polarizedReducedPotential(kvector_t k, double n_ref) con
     return PolarizedReducedPotential(n, b_field, k, n_ref);
 }
 
+void Layer::initBField(kvector_t h_field, double b_z)
+{
+    m_B_field = Magnetic_Permeability*(h_field + m_material.magneticField());
+    m_B_field.setZ(b_z);
+}
+
 Layer::Layer(const Layer& other)
     : m_material(other.m_material)
 {

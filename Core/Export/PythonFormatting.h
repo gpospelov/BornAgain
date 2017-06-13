@@ -61,7 +61,8 @@ namespace PythonFormatting {
                                                 const std::string& units="");
 
     BA_CORE_API_ std::string printParameterDistribution(const ParameterDistribution& par_distr,
-                                                        const std::string& distVarName);
+                                                        const std::string& distVarName,
+                                                        const std::string& units = "undefined");
 }
 
 #endif // PYTHONFORMATTING_H

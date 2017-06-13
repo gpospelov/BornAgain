@@ -325,15 +325,19 @@ std::string printRealLimitsArg(const RealLimits& limits, const std::string& unit
 //! ba.ParameterDistribution("/Particle/Height", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm))
 
 std::string printParameterDistribution(const ParameterDistribution& par_distr,
-                                       const std::string& distVarName)
+                                       const std::string& distVarName, const std::string& units)
 {
     std::ostringstream result;
+
+    std::string mainParUnits = units;
+    if(mainParUnits == "undefined")
+        mainParUnits = ParameterUtils::mainParUnits(par_distr);
 
     result << "ba.ParameterDistribution("
            << "\"" << par_distr.getMainParameterName() << "\""
            << ", " << distVarName << ", " << par_distr.getNbrSamples() << ", "
            << printDouble(par_distr.getSigmaFactor())
-           << printRealLimitsArg(par_distr.getLimits(), ParameterUtils::mainParUnits(par_distr))
+           << printRealLimitsArg(par_distr.getLimits(), mainParUnits)
            << ")";
 
     return result.str();

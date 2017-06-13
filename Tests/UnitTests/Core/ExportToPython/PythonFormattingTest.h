@@ -82,16 +82,28 @@ TEST_F(PythonFormattingTest, printParameterDistribution)
     DistributionGate gate(1.0, 2.0);
     ParameterDistribution dist("ParName", gate, 5, 2.0);
 
+    // No RealLimits defined
     EXPECT_EQ(PythonFormatting::printParameterDistribution(dist, "distr_1"),
               "ba.ParameterDistribution(\"ParName\", distr_1, 5, 2.0)");
 
+    // RealLimits defined, units unknown
     ParameterDistribution dist2("ParName", gate, 5, 2.0, RealLimits::limited(1.0, 2.0));
     EXPECT_EQ(PythonFormatting::printParameterDistribution(dist2, "distr_1"),
-              "ba.ParameterDistribution(\"ParName\", distr_1, 5, 2.0, ba.RealLimits.limited(1.0*nm, 2.0*nm))");
+              "ba.ParameterDistribution(\"ParName\", distr_1, "
+              "5, 2.0, ba.RealLimits.limited(1.0*nm, 2.0*nm))");
 
+    // RealLimits defined, units explicetely set
+    ParameterDistribution dist3("ParName", gate, 5, 2.0, RealLimits::limited(1.0, 2.0));
+    EXPECT_EQ(PythonFormatting::printParameterDistribution(dist3, "distr_1", BornAgain::UnitsNone),
+              "ba.ParameterDistribution(\"ParName\", distr_1, "
+              "5, 2.0, ba.RealLimits.limited(1.0, 2.0))");
 
-    ParameterDistribution dist3("/Particle/ZRotation/Angle", gate, 5, 2.0, RealLimits::limited(1.0*Units::deg, 2.0*Units::deg));
-    EXPECT_EQ(PythonFormatting::printParameterDistribution(dist3, "distr_1"),
-              "ba.ParameterDistribution(\"/Particle/ZRotation/Angle\", distr_1, 5, 2.0, ba.RealLimits.limited(1.0*deg, 2.0*deg))");
+    // RealLimits defined, checking that method guess radians units correctly
+    ParameterDistribution dist4("/Particle/ZRotation/Angle", gate, 5, 2.0,
+                                RealLimits::limited(1.0*Units::deg, 2.0*Units::deg));
+    EXPECT_EQ(PythonFormatting::printParameterDistribution(dist4, "distr_1"),
+              "ba.ParameterDistribution(\"/Particle/ZRotation/Angle\", "
+              "distr_1, 5, 2.0, ba.RealLimits.limited(1.0*deg, 2.0*deg))");
+
 
 }

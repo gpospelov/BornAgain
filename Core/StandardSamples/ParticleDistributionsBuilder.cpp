@@ -27,6 +27,7 @@
 #include "RealParameter.h"
 #include "FormFactorPyramid.h"
 #include "FormFactorFullSphere.h"
+#include "FormFactorCone.h"
 #include "Units.h"
 #include "ParameterSample.h"
 
@@ -196,8 +197,6 @@ MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-#include <iostream>
-
 MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
 {
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -212,10 +211,6 @@ MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
     DistributionGaussian gauss(3.0*Units::nm, 1.0*Units::nm);
     ParameterDistribution parameter_distr("/Particle/FullSphere/Radius", gauss, 10, 20.0,
                                           RealLimits::limited(2.0, 4.0));
-
-    std::vector<ParameterSample> ss = parameter_distr.generateSamples();
-    for(auto s : ss)
-        std::cout << s.value << std::endl;
 
     ParticleDistribution collection(sphere, parameter_distr);
 
@@ -235,3 +230,44 @@ MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
     return multi_layer;
 }
 
+// ----------------------------------------------------------------------------
+
+#include <iostream>
+
+MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
+{
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+
+    // particle
+    FormFactorCone ff(10.0*Units::nm, 13.0*Units::nm, 60.0*Units::deg);
+    Particle cone(particle_material, ff);
+
+    // particle collection
+    DistributionGaussian gauss(60.0*Units::deg, 6.0*Units::deg);
+    ParameterDistribution parameter_distr("/Particle/Cone/Alpha", gauss, 5, 20.0,
+                                          RealLimits::limited(55.0*Units::deg, 65.0*Units::deg));
+
+    std::vector<ParameterSample> ss = parameter_distr.generateSamples();
+    for(auto s : ss)
+        std::cout << Units::rad2deg(s.value) << std::endl;
+
+    ParticleDistribution collection(cone, parameter_distr);
+
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(collection);
+
+    // Multi layer
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    air_layer.addLayout(particle_layout);
+
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+
+}

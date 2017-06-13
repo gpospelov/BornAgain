@@ -50,6 +50,7 @@ set(test_cases
     SlicedComposition
     RotatedPyramidsDistribution
     SpheresWithLimitsDistribution
+    ConesWithLimitsDistribution
 )
 
 add_executable(GUIStandardTest main.cpp GUIReferencedTest.cpp GUIReferencedTest.h )

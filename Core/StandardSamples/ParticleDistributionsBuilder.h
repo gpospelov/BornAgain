@@ -83,5 +83,15 @@ public:
     MultiLayer* buildSample() const;
 };
 
+//! Cones with the distribution applied to the angle and RealLimits defined.
+//! @ingroup standard_samples
+
+class ConesWithLimitsDistributionBuilder : public IMultiLayerBuilder
+{
+public:
+    ConesWithLimitsDistributionBuilder(){}
+    MultiLayer* buildSample() const;
+};
+
 
 #endif // PARTICLEDISTRIBUTIONSBUILDER_H

@@ -66,6 +66,7 @@ set(test_cases
     SlicedComposition
     RotatedPyramidsDistribution
     SpheresWithLimitsDistribution
+    ConesWithLimitsDistribution
     )
 
 # Other tests:

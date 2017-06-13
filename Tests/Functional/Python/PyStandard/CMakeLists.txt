@@ -54,6 +54,7 @@ set(test_cases
     SlicedComposition
     RotatedPyramidsDistribution
     SpheresWithLimitsDistribution
+    ConesWithLimitsDistribution
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

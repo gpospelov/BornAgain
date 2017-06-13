@@ -280,6 +280,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         create_new<SpheresWithLimitsDistributionBuilder>,
         "Spherical particles with the distribution applied to the radius and RealLimits defined");
 
+    registerItem(
+        "ConesWithLimitsDistributionBuilder",
+        create_new<ConesWithLimitsDistributionBuilder>,
+        "Cones with the distribution applied to the angle and RealLimits defined.");
+
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

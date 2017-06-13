@@ -202,6 +202,13 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "None",
         2e-10);
 
+    add("ConesWithLimitsDistribution",
+        "Spherical particles with the distribution applied to the radius and RealLimits defined.",
+        "MiniGISAS",
+        "ConesWithLimitsDistributionBuilder",
+        "None",
+        2e-10);
+
     // ---
 
     add("BeamDivergence",

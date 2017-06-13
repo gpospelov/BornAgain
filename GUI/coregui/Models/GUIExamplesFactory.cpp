@@ -48,8 +48,8 @@ QMap<QString, QString > init_NameToRegistry()
     //result["example09"] = "LargeCylindersInDWBABuilder";
     //result["example09"] = "SlicedCompositionBuilder";
     //result["example09"] = "RotatedPyramidsDistributionBuilder";
-
-    result["example09"] = "SpheresWithLimitsDistributionBuilder";
+    //result["example09"] = "SpheresWithLimitsDistributionBuilder";
+    result["example09"] = "ConesWithLimitsDistributionBuilder";
     return result;
 }
 

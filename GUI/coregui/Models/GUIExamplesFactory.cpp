@@ -46,9 +46,10 @@ QMap<QString, QString > init_NameToRegistry()
     //result["example09"] = "BoxStackCompositionBuilder";
     //result["example09"] = "CylindersWithSizeDistributionBuilder";
     //result["example09"] = "LargeCylindersInDWBABuilder";
-//    result["example09"] = "SlicedCompositionBuilder";
-    result["example09"] = "RotatedPyramidsDistributionBuilder";
+    //result["example09"] = "SlicedCompositionBuilder";
+    //result["example09"] = "RotatedPyramidsDistributionBuilder";
 
+    result["example09"] = "SpheresWithLimitsDistributionBuilder";
     return result;
 }
 

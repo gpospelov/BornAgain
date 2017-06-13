@@ -73,4 +73,15 @@ private:
     double m_zangle;
 };
 
+//! Spherical particles with the distribution applied to the radius and RealLimits defined.
+//! @ingroup standard_samples
+
+class SpheresWithLimitsDistributionBuilder : public IMultiLayerBuilder
+{
+public:
+    SpheresWithLimitsDistributionBuilder(){}
+    MultiLayer* buildSample() const;
+};
+
+
 #endif // PARTICLEDISTRIBUTIONSBUILDER_H

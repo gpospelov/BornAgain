@@ -195,6 +195,15 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         "None",
         2e-10);
 
+    add("SpheresWithLimitsDistribution",
+        "Spherical particles with the distribution applied to the radius and RealLimits defined.",
+        "MiniGISAS",
+        "SpheresWithLimitsDistributionBuilder",
+        "None",
+        2e-10);
+
+    // ---
+
     add("BeamDivergence",
         "Cylinders in BA in the presence of beam divergence",
         "MiniGISASBeamDivergence",

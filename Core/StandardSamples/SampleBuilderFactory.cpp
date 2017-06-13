@@ -275,6 +275,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         create_new<RotatedPyramidsDistributionBuilder>,
         "Rotated pyramids distribution");
 
+    registerItem(
+        "SpheresWithLimitsDistributionBuilder",
+        create_new<SpheresWithLimitsDistributionBuilder>,
+        "Spherical particles with the distribution applied to the radius and RealLimits defined");
+
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

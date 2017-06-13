@@ -26,7 +26,9 @@
 #include "ParticleLayout.h"
 #include "RealParameter.h"
 #include "FormFactorPyramid.h"
+#include "FormFactorFullSphere.h"
 #include "Units.h"
+#include "ParameterSample.h"
 
 CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
     : m_height(5*Units::nanometer)
@@ -175,6 +177,47 @@ MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
     ParameterDistribution parameter_distr("/Particle/ZRotation/Angle", gate, 10, 2.0);
 
     ParticleDistribution collection(pyramid, parameter_distr);
+
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(collection);
+
+    // Multi layer
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    air_layer.addLayout(particle_layout);
+
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+}
+
+// ----------------------------------------------------------------------------
+
+#include <iostream>
+
+MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
+{
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+
+    // particle
+    FormFactorFullSphere ff(3.0*Units::nm);
+    Particle sphere(particle_material, ff);
+
+    // particle collection
+    DistributionGaussian gauss(3.0*Units::nm, 1.0*Units::nm);
+    ParameterDistribution parameter_distr("/Particle/FullSphere/Radius", gauss, 10, 20.0,
+                                          RealLimits::limited(2.0, 4.0));
+
+    std::vector<ParameterSample> ss = parameter_distr.generateSamples();
+    for(auto s : ss)
+        std::cout << s.value << std::endl;
+
+    ParticleDistribution collection(sphere, parameter_distr);
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(collection);

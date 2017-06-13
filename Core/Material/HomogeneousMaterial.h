@@ -66,10 +66,8 @@ public:
     complex_t scalarSLD(const WavevectorInfo& wavevectors) const;
 
 #ifndef SWIG
+    //! Get the scattering matrix for a material defined by its magnetization
     Eigen::Matrix2cd polarizedSLD(const WavevectorInfo& wavevectors) const;
-
-    //! Get the scattering matrix for a material defined by its magnetization (experimental)
-    Eigen::Matrix2cd polarizedSLDExperimental(const WavevectorInfo& wavevectors) const;
 #endif
 
     HomogeneousMaterial transformedMaterial(const Transform3D& transform) const;

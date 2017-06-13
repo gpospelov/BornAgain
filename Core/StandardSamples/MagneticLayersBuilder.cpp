@@ -52,12 +52,12 @@ MagneticRotationBuilder::MagneticRotationBuilder()
     init_parameters();
 }
 
-MultiLayer*MagneticRotationBuilder::buildSample() const
+MultiLayer* MagneticRotationBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    kvector_t substr_field(0.0, 1.0, 0.0);
-    kvector_t particle_field(1.0, 0.0, 0.0);
+    kvector_t substr_field = kvector_t(0.0, 1e6, 0.0);
+    kvector_t particle_field(1e6, 0.0, 0.0);
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 7e-6, 2e-8, substr_field);
     HomogeneousMaterial particle_material("MagParticle", 6e-4, 2e-8, particle_field);

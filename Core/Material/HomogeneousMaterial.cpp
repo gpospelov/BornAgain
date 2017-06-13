@@ -10,6 +10,14 @@
 // Units are: 1/(nm^2 * T)
 static const double Magnetic_Prefactor = -2.91042993836710484e-3;
 
+static const double Thomson_Scattering_Length = 2.8179403227e-15;
+static const double Bohr_Magneton = 9.274009994e-24;
+// The neutron's magnetic moment is Gamma_Neutron times the nuclear magneton
+static const double Gamma_Neutron = 1.91304272;
+// The factor 1e-18 is here to have unit: m/A*nm^-2
+static const double Magnetization_Prefactor = (Gamma_Neutron*Thomson_Scattering_Length
+                                               /2.0/Bohr_Magneton)*1e-18;
+
 // Unit 2x2 matrix
 static const Eigen::Matrix2cd Unit_Matrix(Eigen::Matrix2cd::Identity());
 
@@ -103,31 +111,13 @@ complex_t HomogeneousMaterial::scalarSLD(const WavevectorInfo& wavevectors) cons
 
 Eigen::Matrix2cd HomogeneousMaterial::polarizedSLD(const WavevectorInfo& wavevectors) const
 {
-    //    return getPolarizedSLDExperimental(wavevectors);
-        Eigen::Matrix2cd result;
-        double factor = Magnetic_Prefactor/4.0/M_PI;
-        complex_t unit_factor = scalarSLD(wavevectors);
-        result = unit_factor*Unit_Matrix
-                + factor*Pauli_X*m_magnetic_field[0]
-                + factor*Pauli_Y*m_magnetic_field[1]
-                + factor*Pauli_Z*m_magnetic_field[2];
-        return result;
-}
-
-// Implementation only for experimental testing purposes
-// The magnetic field is here interpreted as the magnetization, which is seven orders
-// of magnitude bigger in general!
-Eigen::Matrix2cd HomogeneousMaterial::polarizedSLDExperimental(
-        const WavevectorInfo& wavevectors) const
-{
-    const double mag_prefactor = 0.291e-9; // needs to be given more precisely?
     cvector_t mag_ortho = OrthogonalToBaseVector(wavevectors.getQ(), m_magnetic_field);
     complex_t unit_factor = scalarSLD(wavevectors);
     Eigen::Matrix2cd result;
     result = unit_factor*Unit_Matrix
-            + mag_prefactor*Pauli_X*mag_ortho[0]
-            + mag_prefactor*Pauli_Y*mag_ortho[1]
-            + mag_prefactor*Pauli_Z*mag_ortho[2];
+            + Magnetization_Prefactor*Pauli_X*mag_ortho[0]
+            + Magnetization_Prefactor*Pauli_Y*mag_ortho[1]
+            + Magnetization_Prefactor*Pauli_Z*mag_ortho[2];
     return result;
 }
 

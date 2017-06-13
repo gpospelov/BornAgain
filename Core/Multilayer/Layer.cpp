@@ -36,6 +36,7 @@ Layer::~Layer()
 Layer* Layer::cloneInvertB() const
 {
     Layer* p_clone = new Layer(m_material.inverted(), m_thickness);
+    p_clone->m_B_field = - m_B_field;
     return p_clone;
 }
 
@@ -157,6 +158,7 @@ Layer::Layer(const Layer& other)
     setName(other.getName());
     m_thickness = other.m_thickness;
     m_n_slices = other.m_n_slices;
+    m_B_field = other.m_B_field;
     for (auto p_layout : other.layouts())
         addLayout(*p_layout);
     registerThickness();
@@ -166,6 +168,7 @@ Layer* Layer::emptyClone() const
 {
     Layer* p_result = new Layer(m_material, m_thickness);
     p_result->setName(getName());
+    p_result->m_B_field = m_B_field;
     return p_result;
 }
 
@@ -184,5 +187,5 @@ Layer* Layer::cloneWithOffset(double offset) const
 
 kvector_t Layer::bField() const
 {
-    return m_material.magneticField();
+    return m_B_field;
 }

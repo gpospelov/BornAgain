@@ -49,25 +49,25 @@ HomogeneousMaterial::HomogeneousMaterial()
 {}
 
 HomogeneousMaterial::HomogeneousMaterial(
-        const std::string& name, const complex_t refractive_index, kvector_t magnetic_field)
+        const std::string& name, const complex_t refractive_index, kvector_t magnetization)
     : INamed(name)
     , m_refractive_index(refractive_index)
-    , m_magnetic_field(magnetic_field)
+    , m_magnetization(magnetization)
 {}
 
 HomogeneousMaterial::HomogeneousMaterial(
         const std::string& name, double refractive_index_delta,
-        double refractive_index_beta, kvector_t magnetic_field)
+        double refractive_index_beta, kvector_t magnetization)
     : INamed(name)
     , m_refractive_index(complex_t(1.0 - refractive_index_delta, refractive_index_beta))
-    , m_magnetic_field(magnetic_field)
+    , m_magnetization(magnetization)
 {}
 
 HomogeneousMaterial HomogeneousMaterial::inverted() const
 {
     std::string name = isScalarMaterial() ? getName()
                                           : getName()+"_inv";
-    HomogeneousMaterial result(name, refractiveIndex(), -magneticField());
+    HomogeneousMaterial result(name, refractiveIndex(), -magnetization());
     return result;
 }
 
@@ -88,17 +88,17 @@ void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
 
 bool HomogeneousMaterial::isScalarMaterial() const
 {
-    return m_magnetic_field == kvector_t {};
+    return m_magnetization == kvector_t {};
 }
 
-kvector_t HomogeneousMaterial::magneticField() const
+kvector_t HomogeneousMaterial::magnetization() const
 {
-    return m_magnetic_field;
+    return m_magnetization;
 }
 
-void HomogeneousMaterial::setMagneticField(const kvector_t magnetic_field)
+void HomogeneousMaterial::setMagnetization(const kvector_t magnetic_field)
 {
-    m_magnetic_field = magnetic_field;
+    m_magnetization = magnetic_field;
 }
 
 complex_t HomogeneousMaterial::scalarSLD(const WavevectorInfo& wavevectors) const
@@ -111,7 +111,7 @@ complex_t HomogeneousMaterial::scalarSLD(const WavevectorInfo& wavevectors) cons
 
 Eigen::Matrix2cd HomogeneousMaterial::polarizedSLD(const WavevectorInfo& wavevectors) const
 {
-    cvector_t mag_ortho = OrthogonalToBaseVector(wavevectors.getQ(), m_magnetic_field);
+    cvector_t mag_ortho = OrthogonalToBaseVector(wavevectors.getQ(), m_magnetization);
     complex_t unit_factor = scalarSLD(wavevectors);
     Eigen::Matrix2cd result;
     result = unit_factor*Unit_Matrix
@@ -123,14 +123,14 @@ Eigen::Matrix2cd HomogeneousMaterial::polarizedSLD(const WavevectorInfo& wavevec
 
 HomogeneousMaterial HomogeneousMaterial::transformedMaterial(const Transform3D& transform) const
 {
-    kvector_t transformed_field = transform.transformed(m_magnetic_field);
+    kvector_t transformed_field = transform.transformed(m_magnetization);
     return HomogeneousMaterial(getName(), refractiveIndex(), transformed_field);
 }
 
 void HomogeneousMaterial::print(std::ostream& ostr) const
 {
     ostr << "HomMat:" << getName() << "<" << this << ">{ "
-         << "R=" << m_refractive_index << ", B=" << m_magnetic_field << "}";
+         << "R=" << m_refractive_index << ", B=" << m_magnetization << "}";
 }
 
 std::ostream& operator<<(std::ostream& ostr, const HomogeneousMaterial& m)
@@ -161,7 +161,7 @@ bool operator==(const HomogeneousMaterial& left, const HomogeneousMaterial& righ
 {
     if (left.getName() != right.getName()) return false;
     if (left.refractiveIndex() != right.refractiveIndex()) return false;
-    if (left.magneticField() != right.magneticField()) return false;
+    if (left.magnetization() != right.magnetization()) return false;
     return true;
 }
 

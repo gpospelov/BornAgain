@@ -17531,9 +17531,9 @@ class HomogeneousMaterial(INamed):
     def __init__(self, *args):
         """
         __init__(HomogeneousMaterial self) -> HomogeneousMaterial
-        __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index, kvector_t magnetic_field) -> HomogeneousMaterial
+        __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index, kvector_t magnetization) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index) -> HomogeneousMaterial
-        __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field) -> HomogeneousMaterial
+        __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetization) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta) -> HomogeneousMaterial
 
         HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field=kvector_t())
@@ -17613,28 +17613,14 @@ class HomogeneousMaterial(INamed):
         return _libBornAgainCore.HomogeneousMaterial_isMagneticMaterial(self)
 
 
-    def magneticField(self):
-        """
-        magneticField(HomogeneousMaterial self) -> kvector_t
-
-        kvector_t HomogeneousMaterial::magneticField() const
-
-        Get the magnetic field (in Tesla) 
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_magneticField(self)
+    def magnetization(self):
+        """magnetization(HomogeneousMaterial self) -> kvector_t"""
+        return _libBornAgainCore.HomogeneousMaterial_magnetization(self)
 
 
-    def setMagneticField(self, magnetic_field):
-        """
-        setMagneticField(HomogeneousMaterial self, kvector_t magnetic_field)
-
-        void HomogeneousMaterial::setMagneticField(const kvector_t magnetic_field)
-
-        Set the magnetic field (in Tesla) 
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_setMagneticField(self, magnetic_field)
+    def setMagnetization(self, magnetization):
+        """setMagnetization(HomogeneousMaterial self, kvector_t magnetization)"""
+        return _libBornAgainCore.HomogeneousMaterial_setMagnetization(self, magnetization)
 
 
     def scalarSLD(self, wavevectors):

@@ -154,13 +154,13 @@ namespace
 HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_mat,
                                              const std::vector<HomogeneousRegion>& regions)
 {
-    kvector_t magnetization_layer = layer_mat.magneticField();
+    kvector_t magnetization_layer = layer_mat.magnetization();
     complex_t refr_index2_layer = layer_mat.refractiveIndex2();
     kvector_t magnetization_avg = magnetization_layer;
     complex_t refr_index2_avg = refr_index2_layer;
     for (auto& region : regions)
     {
-        kvector_t magnetization_region = region.m_material.magneticField();
+        kvector_t magnetization_region = region.m_material.magnetization();
         complex_t refr_index2_region = region.m_material.refractiveIndex2();
         magnetization_avg += region.m_volume*(magnetization_region - magnetization_layer);
         refr_index2_avg += region.m_volume*(refr_index2_region - refr_index2_layer);

@@ -183,7 +183,7 @@ void MultiLayer::initBFields()
 {
     if (numberOfLayers()==0)
         return;
-    double m_z0 = m_layers[0]->material()->magneticField().z();
+    double m_z0 = m_layers[0]->material()->magnetization().z();
     double b_z = Layer::Magnetic_Permeability*(m_ext_field.z()+m_z0);
     for (size_t i=0; i<numberOfLayers(); ++i) {
         m_layers[i]->initBField(m_ext_field, b_z);

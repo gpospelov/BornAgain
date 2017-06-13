@@ -22,6 +22,7 @@
 #include "ParticleComposition.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
+#include <set>
 
 std::string SampleLabelHandler::getLabelFormFactor(const IFormFactor* ff)
 {
@@ -96,14 +97,17 @@ void SampleLabelHandler::insertMaterial(const HomogeneousMaterial* mat)
 {
     for (auto it=m_MaterialLabel.begin(); it!=m_MaterialLabel.end(); ++it) {
         if( *(it->first) == *mat ) {
-            m_MaterialLabel.insert(std::make_pair(mat, it->second));
+            m_MaterialLabel.insert(mat, it->second);
             return;
         }
     }
     // material not found => create new label
-    std::ostringstream label_stream;
-    label_stream << "material_" << m_MaterialLabel.size()+1;
-    m_MaterialLabel.insert(std::make_pair(mat, label_stream.str()));
+    std::set<std::string> unique_labels;
+    for (auto it=m_MaterialLabel.begin(); it!=m_MaterialLabel.end(); ++it)
+        unique_labels.insert(it->second);
+
+    std::string label = "material_" + std::to_string(unique_labels.size()+1);
+    m_MaterialLabel.insert(mat, label);
 }
 
 void SampleLabelHandler::insertFormFactor(const IFormFactor* sample)

@@ -170,7 +170,7 @@ std::string ExportToPython::defineGetSample() const
 
 std::string ExportToPython::defineMaterials() const
 {
-    const auto themap = m_label->getMaterialMap();
+    const auto themap = m_label->materialMap();
     if (themap->size() == 0)
         return "# No Materials.\n\n";
     std::ostringstream result;
@@ -186,7 +186,7 @@ std::string ExportToPython::defineMaterials() const
         double delta = 1.0 - std::real(ri);
         double beta = std::imag(ri);
         if (p_material->isScalarMaterial()) {
-            result << indent() << m_label->getLabelMaterial(p_material)
+            result << indent() << m_label->labelMaterial(p_material)
                    << " = ba.HomogeneousMaterial(\"" << p_material->getName()
                    << "\", " << printDouble(delta) << ", "
                    << printDouble(beta) << ")\n";
@@ -195,7 +195,7 @@ std::string ExportToPython::defineMaterials() const
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ", "
                    << ")\n";
-            result << indent() << m_label->getLabelMaterial(p_material)
+            result << indent() << m_label->labelMaterial(p_material)
                    << " = ba.HomogeneousMaterial(\"" << p_material->getName();
             result << "\", " << printDouble(delta) << ", "
                    << printDouble(beta) << ", "
@@ -207,7 +207,7 @@ std::string ExportToPython::defineMaterials() const
 
 std::string ExportToPython::defineLayers() const
 {
-    const auto themap = m_label->getLayerMap();
+    const auto themap = m_label->layerMap();
     if (themap->size() == 0)
         return "# No Layers.\n\n";
     std::ostringstream result;
@@ -216,7 +216,7 @@ std::string ExportToPython::defineLayers() const
     for (auto it=themap->begin(); it != themap->end(); ++it) {
         const Layer* layer = it->first;
         result << indent() << it->second << " = ba.Layer(" <<
-            m_label->getLabelMaterial(layer->material());
+            m_label->labelMaterial(layer->material());
         if (layer->thickness() != 0)
             result << ", " << layer->thickness();
         result << ")\n";
@@ -229,7 +229,7 @@ std::string ExportToPython::defineLayers() const
 
 std::string ExportToPython::defineFormFactors() const
 {
-    const auto themap = m_label->getFormFactorMap();
+    const auto themap = m_label->formFactorMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -245,7 +245,7 @@ std::string ExportToPython::defineFormFactors() const
 
 std::string ExportToPython::defineParticles() const
 {
-    const auto themap = m_label->getParticleMap();
+    const auto themap = m_label->particleMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -255,8 +255,8 @@ std::string ExportToPython::defineParticles() const
         const Particle* p_particle = it->first;
         std::string particle_name = it->second;
         result << indent() << particle_name << " = ba.Particle("
-               << m_label->getLabelMaterial(p_particle->material()) << ", "
-               << m_label->getLabelFormFactor(p_particle->formFactor()) << ")\n";
+               << m_label->labelMaterial(p_particle->material()) << ", "
+               << m_label->labelFormFactor(p_particle->formFactor()) << ")\n";
         setRotationInformation(p_particle, particle_name, result);
         setPositionInformation(p_particle, particle_name, result);
     }
@@ -265,7 +265,7 @@ std::string ExportToPython::defineParticles() const
 
 std::string ExportToPython::defineCoreShellParticles() const
 {
-    const auto themap = m_label->getParticleCoreShellMap();
+    const auto themap = m_label->particleCoreShellMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -274,8 +274,8 @@ std::string ExportToPython::defineCoreShellParticles() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const ParticleCoreShell* p_coreshell = it->first;
         result << "\n" << indent() << it->second << " = ba.ParticleCoreShell("
-               << m_label->getLabelParticle(p_coreshell->shellParticle()) << ", "
-               << m_label->getLabelParticle(p_coreshell->coreParticle()) << ")\n";
+               << m_label->labelParticle(p_coreshell->shellParticle()) << ", "
+               << m_label->labelParticle(p_coreshell->coreParticle()) << ")\n";
         std::string core_shell_name = it->second;
         setRotationInformation(p_coreshell, core_shell_name, result);
         setPositionInformation(p_coreshell, core_shell_name, result);
@@ -285,7 +285,7 @@ std::string ExportToPython::defineCoreShellParticles() const
 
 std::string ExportToPython::defineParticleDistributions() const
 {
-    const auto themap = m_label->getParticleDistributionsMap();
+    const auto themap = m_label->particleDistributionsMap();
     if (themap->size() == 0)
         return "";
 
@@ -319,7 +319,7 @@ std::string ExportToPython::defineParticleDistributions() const
         }
 
         result << indent() << it->second << " = ba.ParticleDistribution("
-               << m_label->getLabelParticle(it->first->particle())
+               << m_label->labelParticle(it->first->particle())
                << ", " << s_par_distr << ")\n";
         index++;
     }
@@ -328,7 +328,7 @@ std::string ExportToPython::defineParticleDistributions() const
 
 std::string ExportToPython::defineParticleCompositions() const
 {
-    const auto themap = m_label->getParticleCompositionMap();
+    const auto themap = m_label->particleCompositionMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -340,7 +340,7 @@ std::string ExportToPython::defineParticleCompositions() const
         result << indent() << particle_composition_name << " = ba.ParticleComposition()\n";
         for (size_t i = 0; i < p_particle_composition->nbrParticles(); ++i) {
             result << indent() << particle_composition_name << ".addParticle("
-                   << m_label->getLabelParticle(p_particle_composition->particle(i))
+                   << m_label->labelParticle(p_particle_composition->particle(i))
             << ")\n";
         }
         setRotationInformation(p_particle_composition, particle_composition_name, result);
@@ -351,7 +351,7 @@ std::string ExportToPython::defineParticleCompositions() const
 
 std::string ExportToPython::defineInterferenceFunctions() const
 {
-    const auto themap = m_label->getInterferenceFunctionMap();
+    const auto themap = m_label->interferenceFunctionMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -491,7 +491,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
 
 std::string ExportToPython::defineParticleLayouts() const
 {
-    const auto themap = m_label->getParticleLayoutMap();
+    const auto themap = m_label->particleLayoutMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -508,14 +508,14 @@ std::string ExportToPython::defineParticleLayouts() const
                 const IAbstractParticle* p_particle = particleLayout->particle(particleIndex);
                 double abundance = particleLayout->abundanceOfParticle(particleIndex);
                 result << indent() << it->second << ".addParticle("
-                       << m_label->getLabelParticle(p_particle) << ", "
+                       << m_label->labelParticle(p_particle) << ", "
                        << printDouble(abundance) << ")\n";
                 particleIndex++;
             }
 
             if( const IInterferenceFunction* p_iff = particleLayout->interferenceFunction() )
                 result << indent() << it->second << ".setInterferenceFunction("
-                       << m_label->getLabelInterferenceFunction(p_iff) << ")\n";
+                       << m_label->labelInterferenceFunction(p_iff) << ")\n";
 
             switch (particleLayout->getApproximation()) {
             case ILayout::DA:
@@ -533,7 +533,7 @@ std::string ExportToPython::defineParticleLayouts() const
 
 std::string ExportToPython::defineRoughnesses() const
 {
-    const auto themap = m_label->getLayerRoughnessMap();
+    const auto themap = m_label->layerRoughnessMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -547,24 +547,24 @@ std::string ExportToPython::defineRoughnesses() const
 
 std::string ExportToPython::addLayoutsToLayers() const
 {
-    if (m_label->getParticleLayoutMap()->size() == 0)
+    if (m_label->particleLayoutMap()->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Adding layouts to layers";
-    const auto layermap = m_label->getLayerMap();
+    const auto layermap = m_label->layerMap();
     for (auto it=layermap->begin(); it!=layermap->end(); ++it) {
         const Layer* layer = it->first;
         for (auto p_layout : layer->layouts())
             result << "\n" << indent() << it->second << ".addLayout("
-                   << m_label->getLabelLayout(p_layout) << ")\n";
+                   << m_label->labelLayout(p_layout) << ")\n";
     }
     return result.str();
 }
 
 std::string ExportToPython::defineMultiLayers() const
 {
-    const auto themap = m_label->getMultiLayerMap();
+    const auto themap = m_label->multiLayerMap();
     if (themap->size() == 0)
         return "# No MultiLayers.\n\n";
     std::ostringstream result;
@@ -580,19 +580,19 @@ std::string ExportToPython::defineMultiLayers() const
 
         if (numberOfLayers) {
             result << indent() << it->second << ".addLayer("
-                   << m_label->getLabelLayer(it->first->layer(0)) << ")\n";
+                   << m_label->labelLayer(it->first->layer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
                 const LayerInterface* layerInterface = it->first->layerInterface(layerIndex - 1);
-                if (m_label->getLayerRoughnessMap()->find(layerInterface->getRoughness())
-                    == m_label->getLayerRoughnessMap()->end())
+                if (m_label->layerRoughnessMap()->find(layerInterface->getRoughness())
+                    == m_label->layerRoughnessMap()->end())
                     result << indent() << it->second << ".addLayer("
-                           << m_label->getLabelLayer(it->first->layer(layerIndex)) << ")\n";
+                           << m_label->labelLayer(it->first->layer(layerIndex)) << ")\n";
                 else
                     result << indent() << it->second << ".addLayerWithTopRoughness("
-                           << m_label->getLabelLayer(it->first->layer(layerIndex)) << ", "
-                           << m_label->getLabelRoughness(layerInterface->getRoughness()) << ")\n";
+                           << m_label->labelLayer(it->first->layer(layerIndex)) << ", "
+                           << m_label->labelRoughness(layerInterface->getRoughness()) << ")\n";
                 layerIndex++;
             }
         }

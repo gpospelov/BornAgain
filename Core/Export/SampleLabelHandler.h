@@ -18,7 +18,6 @@
 
 #include "Exceptions.h"
 #include "OrderedMap.h"
-#include <map>
 
 class IAbstractParticle;
 class IFormFactor;
@@ -60,31 +59,31 @@ public:
     typedef LabelMap<const ParticleDistribution*> particledistributions_t;
 
     SampleLabelHandler() {}
-    formfactors_t* getFormFactorMap() { return &m_FormFactorLabel; }
-    interferences_t* getInterferenceFunctionMap() { return &m_InterferenceFunctionLabel; }
-    layers_t* getLayerMap() { return &m_LayerLabel; }
-    layouts_t* getParticleLayoutMap() { return &m_ILayoutLabel; }
-    materials_t* getMaterialMap() { return &m_MaterialLabel; }
-    multilayers_t* getMultiLayerMap() { return &m_MultiLayerLabel; }
-    particlecompositions_t* getParticleCompositionMap() { return &m_ParticleCompositionLabel; }
-    particledistributions_t* getParticleDistributionsMap() { return &m_ParticleDistributionLabel; }
-    particles_t* getParticleMap() { return &m_ParticleLabel; }
-    particlescoreshell_t* getParticleCoreShellMap() { return &m_ParticleCoreShellLabel; }
-    rotations_t* getRotationsMap() { return &m_RotationsLabel; }
-    roughnesses_t* getLayerRoughnessMap() { return &m_LayerRoughnessLabel; }
+    formfactors_t* formFactorMap() { return &m_FormFactorLabel; }
+    interferences_t* interferenceFunctionMap() { return &m_InterferenceFunctionLabel; }
+    layers_t* layerMap() { return &m_LayerLabel; }
+    layouts_t* particleLayoutMap() { return &m_ILayoutLabel; }
+    materials_t* materialMap() { return &m_MaterialLabel; }
+    multilayers_t* multiLayerMap() { return &m_MultiLayerLabel; }
+    particlecompositions_t* particleCompositionMap() { return &m_ParticleCompositionLabel; }
+    particledistributions_t* particleDistributionsMap() { return &m_ParticleDistributionLabel; }
+    particles_t* particleMap() { return &m_ParticleLabel; }
+    particlescoreshell_t* particleCoreShellMap() { return &m_ParticleCoreShellLabel; }
+    rotations_t* rotationsMap() { return &m_RotationsLabel; }
+    roughnesses_t* layerRoughnessMap() { return &m_LayerRoughnessLabel; }
 
-    std::string getLabelParticle(const IAbstractParticle* sample);
-    std::string getLabelFormFactor(const IFormFactor* sample);
-    std::string getLabelInterferenceFunction(const IInterferenceFunction* sample);
-    std::string getLabelLayout(const ILayout* sample);
-    std::string getLabelMaterial(const HomogeneousMaterial* sample);
-    std::string getLabelRotation(const IRotation* sample);
-    std::string getLabelLayer(const Layer* sample);
-    std::string getLabelRoughness(const LayerRoughness* sample);
-    std::string getLabelMultiLayer(const MultiLayer* sample);
-    std::string getLabelParticleComposition(const ParticleComposition* sample);
-    std::string getLabelParticleCoreShell(const ParticleCoreShell* sample);
-    std::string getLabelParticleDistribution(const ParticleDistribution* sample);
+    std::string labelParticle(const IAbstractParticle* sample);
+    std::string labelFormFactor(const IFormFactor* sample);
+    std::string labelInterferenceFunction(const IInterferenceFunction* sample);
+    std::string labelLayout(const ILayout* sample);
+    std::string labelMaterial(const HomogeneousMaterial* sample);
+    std::string labelRotation(const IRotation* sample);
+    std::string labelLayer(const Layer* sample);
+    std::string labelRoughness(const LayerRoughness* sample);
+    std::string labelMultiLayer(const MultiLayer* sample);
+    std::string labelParticleComposition(const ParticleComposition* sample);
+    std::string labelParticleCoreShell(const ParticleCoreShell* sample);
+    std::string labelParticleDistribution(const ParticleDistribution* sample);
 
     void insertMaterial(const HomogeneousMaterial* sample);
     void insertFormFactor(const IFormFactor* sample);

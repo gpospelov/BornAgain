@@ -45,7 +45,7 @@ void DistributionItem::init_parameters(double value, const RealLimits& limits)
     setItemValue(P_IS_INITIALIZED, true);
 }
 
-void DistributionItem::init_limits_group(const RealLimits& limits)
+void DistributionItem::init_limits_group(const RealLimits& limits, double factor)
 {
     if (!isTag(P_LIMITS))
         return;
@@ -65,18 +65,18 @@ void DistributionItem::init_limits_group(const RealLimits& limits)
 
     else if (limits.isLowerLimited()) {
         SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsLowerLimitedType);
-        lim->setItemValue(RealLimitsItem::P_XMIN, limits.getLowerLimit());
+        lim->setItemValue(RealLimitsItem::P_XMIN, limits.getLowerLimit()*factor);
     }
 
     else if (limits.isUpperLimited()) {
         SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsUpperLimitedType);
-        lim->setItemValue(RealLimitsItem::P_XMAX, limits.getUpperLimit());
+        lim->setItemValue(RealLimitsItem::P_XMAX, limits.getUpperLimit()*factor);
     }
 
     else if (limits.isLimited()) {
         SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsLimitedType);
-        lim->setItemValue(RealLimitsItem::P_XMIN, limits.getLowerLimit());
-        lim->setItemValue(RealLimitsItem::P_XMAX, limits.getUpperLimit());
+        lim->setItemValue(RealLimitsItem::P_XMIN, limits.getLowerLimit()*factor);
+        lim->setItemValue(RealLimitsItem::P_XMAX, limits.getUpperLimit()*factor);
     }
 }
 

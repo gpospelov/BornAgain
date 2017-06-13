@@ -766,6 +766,6 @@ void setDistribution(SessionItem* partDistrItem, ParameterDistribution par_distr
 
     // TODO It's wrong if domain distribution made for angles.
     if(distItem->isTag(DistributionItem::P_LIMITS))
-        distItem->init_limits_group(par_distr.getLimits());
+        distItem->init_limits_group(par_distr.getLimits(), factor);
 
 }

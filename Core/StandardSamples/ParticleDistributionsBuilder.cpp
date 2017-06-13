@@ -232,8 +232,6 @@ MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-#include <iostream>
-
 MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
 {
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -248,10 +246,6 @@ MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
     DistributionGaussian gauss(60.0*Units::deg, 6.0*Units::deg);
     ParameterDistribution parameter_distr("/Particle/Cone/Alpha", gauss, 5, 20.0,
                                           RealLimits::limited(55.0*Units::deg, 65.0*Units::deg));
-
-    std::vector<ParameterSample> ss = parameter_distr.generateSamples();
-    for(auto s : ss)
-        std::cout << Units::rad2deg(s.value) << std::endl;
 
     ParticleDistribution collection(cone, parameter_distr);
 
@@ -269,5 +263,4 @@ MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
-
 }

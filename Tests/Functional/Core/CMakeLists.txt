@@ -27,3 +27,4 @@ endif()
 
 add_subdirectory(CoreStandardTest)
 add_subdirectory(CoreSpecial)
+add_subdirectory(CoreIO)

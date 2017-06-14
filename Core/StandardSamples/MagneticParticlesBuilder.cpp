@@ -69,7 +69,7 @@ MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 }
 
 // ----------------------------------------------------------------------------
-// Magnetic cylinders and non-zero magnetic field
+// Magnetic cylinders and non-zero magnetization
 // ----------------------------------------------------------------------------
 MagneticCylindersBuilder::MagneticCylindersBuilder()
     :  m_cylinder_radius(5*Units::nanometer)
@@ -93,8 +93,8 @@ MultiLayer* MagneticCylindersBuilder::buildSample() const
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
-    kvector_t magnetic_field(0.0, 1.0, 0.0);
-    HomogeneousMaterial particle_material("MagParticle2", 5e-6, 0.0, magnetic_field);
+    kvector_t magnetization(0.0, 1e6, 0.0);
+    HomogeneousMaterial particle_material("MagParticle2", 5e-6, 0.0, magnetization);
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);

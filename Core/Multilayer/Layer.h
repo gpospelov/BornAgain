@@ -66,6 +66,20 @@ public:
     void setNumberOfSlices(unsigned int n_slices) { m_n_slices = n_slices; }
     unsigned int numberOfSlices() const { return m_n_slices; }
 
+    //! Return the potential term that is used in the one-dimensional Fresnel calculations
+    complex_t scalarReducedPotential(kvector_t k, double n_ref) const;
+
+#ifndef SWIG
+    //! Return the potential term that is used in the one-dimensional Fresnel calculations
+    //! in the presence of magnetization
+    Eigen::Matrix2cd polarizedReducedPotential(kvector_t k, double n_ref) const;
+#endif
+
+    //! Initializes the magnetic B field from a given ambient field strength H
+    void initBField(kvector_t h_field, double b_z);
+
+    static constexpr double Magnetic_Permeability = 4e-7 * M_PI;
+
 private:
     Layer(const Layer& other);
     //! Clone the layer without its layouts
@@ -73,10 +87,14 @@ private:
     //! Clones and offsets the particles in the z-direction
     Layer* cloneWithOffset(double offset) const;
 
-    HomogeneousMaterial m_material;   //!< material
-    double m_thickness;       //!< layer thickness in nanometers
+    //! Return the magnetic B-field in this layer
+    kvector_t bField() const;
+
+    HomogeneousMaterial m_material;       //!< material
+    kvector_t m_B_field;                  //!< cached value of magnetic induction
+    double m_thickness;                   //!< layer thickness in nanometers
     SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
-    unsigned int m_n_slices=1;  //!< number of slices to create for graded layer approach
+    unsigned int m_n_slices=1;            //!< number of slices to create for graded layer approach
 };
 
 #endif // LAYER_H

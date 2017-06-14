@@ -17,9 +17,9 @@ def getSimulationIntensity(rho_beam, efficiency):
     mAmbience = HomogeneousMaterial("Air", 0.0, 0.0)
     mSubstrate = HomogeneousMaterial("Substrate", 15e-6, 0.0)
 
-    magnetic_field = kvector_t(0, 1, 0)
+    magnetization = kvector_t(0, 1e6, 0)
 
-    magParticle = HomogeneousMaterial("magParticle", 5e-6, 0.0, magnetic_field )
+    magParticle = HomogeneousMaterial("magParticle", 5e-6, 0.0, magnetization )
     # collection of particles
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(magParticle, cylinder_ff)

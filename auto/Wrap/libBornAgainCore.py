@@ -17531,9 +17531,9 @@ class HomogeneousMaterial(INamed):
     def __init__(self, *args):
         """
         __init__(HomogeneousMaterial self) -> HomogeneousMaterial
-        __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index, kvector_t magnetic_field) -> HomogeneousMaterial
+        __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index, kvector_t magnetization) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index) -> HomogeneousMaterial
-        __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field) -> HomogeneousMaterial
+        __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetization) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta) -> HomogeneousMaterial
 
         HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field=kvector_t())
@@ -17613,28 +17613,14 @@ class HomogeneousMaterial(INamed):
         return _libBornAgainCore.HomogeneousMaterial_isMagneticMaterial(self)
 
 
-    def magneticField(self):
-        """
-        magneticField(HomogeneousMaterial self) -> kvector_t
-
-        kvector_t HomogeneousMaterial::magneticField() const
-
-        Get the magnetic field (in Tesla) 
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_magneticField(self)
+    def magnetization(self):
+        """magnetization(HomogeneousMaterial self) -> kvector_t"""
+        return _libBornAgainCore.HomogeneousMaterial_magnetization(self)
 
 
-    def setMagneticField(self, magnetic_field):
-        """
-        setMagneticField(HomogeneousMaterial self, kvector_t magnetic_field)
-
-        void HomogeneousMaterial::setMagneticField(const kvector_t magnetic_field)
-
-        Set the magnetic field (in Tesla) 
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_setMagneticField(self, magnetic_field)
+    def setMagnetization(self, magnetization):
+        """setMagnetization(HomogeneousMaterial self, kvector_t magnetization)"""
+        return _libBornAgainCore.HomogeneousMaterial_setMagnetization(self, magnetization)
 
 
     def scalarSLD(self, wavevectors):
@@ -17645,18 +17631,6 @@ class HomogeneousMaterial(INamed):
 
         """
         return _libBornAgainCore.HomogeneousMaterial_scalarSLD(self, wavevectors)
-
-
-    def scalarFresnel(self, k, n_ref):
-        """
-        scalarFresnel(HomogeneousMaterial self, kvector_t k, double n_ref) -> complex_t
-
-        complex_t HomogeneousMaterial::scalarFresnel(const kvector_t k, double n_ref) const
-
-        Return the potential term that is used in the one-dimensional Fresnel calculations. 
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_scalarFresnel(self, k, n_ref)
 
 
     def transformedMaterial(self, transform):
@@ -17671,6 +17645,15 @@ class HomogeneousMaterial(INamed):
 HomogeneousMaterial_swigregister = _libBornAgainCore.HomogeneousMaterial_swigregister
 HomogeneousMaterial_swigregister(HomogeneousMaterial)
 
+
+def ScalarReducedPotential(n, k, n_ref):
+    """
+    ScalarReducedPotential(complex_t n, kvector_t k, double n_ref) -> complex_t
+
+    complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
+
+    """
+    return _libBornAgainCore.ScalarReducedPotential(n, k, n_ref)
 class IDetector2D(ICloneable, INode):
     """
 
@@ -21883,6 +21866,31 @@ class Layer(ISample):
         """
         return _libBornAgainCore.Layer_numberOfSlices(self)
 
+
+    def scalarReducedPotential(self, k, n_ref):
+        """
+        scalarReducedPotential(Layer self, kvector_t k, double n_ref) -> complex_t
+
+        complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
+
+        Return the potential term that is used in the one-dimensional Fresnel calculations. 
+
+        """
+        return _libBornAgainCore.Layer_scalarReducedPotential(self, k, n_ref)
+
+
+    def initBField(self, h_field, b_z):
+        """
+        initBField(Layer self, kvector_t h_field, double b_z)
+
+        void Layer::initBField(kvector_t h_field, double b_z)
+
+        Initializes the magnetic B field from a given ambient field strength H. 
+
+        """
+        return _libBornAgainCore.Layer_initBField(self, h_field, b_z)
+
+    Magnetic_Permeability = _libBornAgainCore.Layer_Magnetic_Permeability
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
 
@@ -22626,6 +22634,30 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_crossCorrLength(self)
 
 
+    def setExternalField(self, ext_field):
+        """
+        setExternalField(MultiLayer self, kvector_t ext_field)
+
+        void MultiLayer::setExternalField(kvector_t ext_field)
+
+        Sets the external field applied to the multilayer (units: A/m) 
+
+        """
+        return _libBornAgainCore.MultiLayer_setExternalField(self, ext_field)
+
+
+    def externalField(self):
+        """
+        externalField(MultiLayer self) -> kvector_t
+
+        kvector_t MultiLayer::externalField() const
+
+        Returns the external field applied to the multilayer (units: A/m) 
+
+        """
+        return _libBornAgainCore.MultiLayer_externalField(self)
+
+
     def crossCorrSpectralFun(self, kvec, j, k):
         """
         crossCorrSpectralFun(MultiLayer self, kvector_t kvec, size_t j, size_t k) -> double
@@ -22696,6 +22728,18 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_containsMagneticMaterial(self)
+
+
+    def initBFields(self):
+        """
+        initBFields(MultiLayer self)
+
+        void MultiLayer::initBFields()
+
+        precalculate the magnetic B fields in each layer 
+
+        """
+        return _libBornAgainCore.MultiLayer_initBFields(self)
 
 
     def hasRoughness(self):

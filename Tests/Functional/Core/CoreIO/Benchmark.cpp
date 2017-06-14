@@ -57,7 +57,7 @@ std::string Benchmark::report() const
 
     for (auto it = m_data.begin(); it!= m_data.end(); ++it) {
         std::string name(it->first);
-        name.resize(20, ' ');
+        name.resize(30, ' ');
         result  <<  name << " : " << std::setprecision(6) << it->second->runTime() << "\n";
     }
 

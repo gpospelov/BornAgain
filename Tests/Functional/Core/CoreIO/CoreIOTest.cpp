@@ -21,62 +21,75 @@
 #include <cassert>
 #include <random>
 #include <iomanip>
+#include <boost/format.hpp>
 
 bool CoreIOTest::runTest()
 {
     std::cout << "CoreIOTest::runTest()" << std::endl;
 
-    test_configuration(1024, 768, false);
-    test_configuration(1024, 768, true);
-    test_configuration(2048, 2048, true);
+    bool success(true);
 
-    return true;
+    // 1024x768, zeros
+    success &= test_io(1024, 768, false, "int");
+    success &= test_io(1024, 768, false, "int.gz");
+    success &= test_io(1024, 768, false, "int.bz2");
+
+    // 1024x768, random data
+    success &= test_io(1024, 768, true, "int");
+    success &= test_io(1024, 768, true, "int.gz");
+    success &= test_io(1024, 768, true, "int.bz2");
+
+    // 2048x2048, random data
+    success &= test_io(2048, 2048, true, "int");
+    success &= test_io(2048, 2048, true, "int.gz");
+    success &= test_io(2048, 2048, true, "int.bz2");
+
+    std::cout << report() << std::endl;
+
+    return success;
 }
 
-void CoreIOTest::test_configuration(int nx, int ny, bool random_data)
+bool CoreIOTest::test_io(int nx, int ny, bool random_data, const std::string& ext)
 {
-    Benchmark bm;
+    std::cout << "Test " << nx << "x" << ny << ", "
+              << (random_data ? "random data" : "zeros")
+              << ", file_format: " << ext << "\n";
 
-    std::ostringstream report;
-    report << std::string(60, '-') << "\n";
-    report << "Test " << nx << "x" << ny << (random_data ? " random data" : " zeros") << "\n";
+    TestResults result;
+    result.m_nx = nx;
+    result.m_ny = ny;
+    result.m_data_type = random_data;
+    result.m_file_format = ext;
 
-    bm.start("createData");
+    Benchmark mb;
+
+    std::string test_name("create_data");
+    mb.start(test_name);
     auto ref_data = createData(nx, ny, random_data);
-    bm.stop("createData");
+    mb.stop(test_name);
+    result.m_create_data_time = mb.runTime(test_name);
 
-    bm.start("write gz");
-    IntensityDataIOFactory::writeOutputData(*ref_data, "xxx.int.gz");
-    bm.stop("write gz");
+    test_name = "write";
+    mb.start(test_name);
+    IntensityDataIOFactory::writeOutputData(*ref_data, "xxx."+ext);
+    mb.stop(test_name);
+    result.m_write_time = mb.runTime(test_name);
 
-    bm.start("write bz2");
-    IntensityDataIOFactory::writeOutputData(*ref_data, "xxx.int.bz2");
-    bm.stop("write bz2");
+    test_name = "read";
+    mb.start(test_name);
+    auto data = IntensityDataIOFactory::readOutputData("xxx."+ext);
+    mb.stop(test_name);
+    result.m_read_time = mb.runTime(test_name);
 
-    bm.start("write int");
-    IntensityDataIOFactory::writeOutputData(*ref_data, "xxx.int");
-    bm.stop("write int");
+    result.m_biggest_diff = biggest_difference(*data, *ref_data);;
 
-    bm.start("read gz");
-    auto data_gz = IntensityDataIOFactory::readOutputData("xxx.int.gz");
-    bm.stop("read gz");
+    std::cout << mb.report() << std::endl;
+    std::cout << "Diff: " << result.m_biggest_diff << std::endl;
 
-    bm.start("read bz2");
-    auto data_bz2 = IntensityDataIOFactory::readOutputData("xxx.int.bz2");
-    bm.stop("read bz2");
+    m_test_results.push_back(result);
 
-    bm.start("read int");
-    auto data_int = IntensityDataIOFactory::readOutputData("xxx.int");
-    bm.stop("read int");
-
-    report << bm.report();
-
-    report << "Diff_gz: " << biggest_difference(*data_gz, *ref_data)
-           << " Diff_bz: " << biggest_difference(*data_bz2, *ref_data)
-           << " Diff_int: " << biggest_difference(*data_int, *ref_data)
-           << "\n";
-
-    std::cout << report.str() << std::endl;
+    bool success = result.m_biggest_diff  < 1e-10 ? true : false;
+    return success;
 }
 
 std::unique_ptr<OutputData<double>> CoreIOTest::createData(int nx, int ny, bool fill)
@@ -98,7 +111,7 @@ std::unique_ptr<OutputData<double>> CoreIOTest::createData(int nx, int ny, bool 
     return result;
 }
 
-//! Returns biggest element difference found;
+//! Returns biggest element difference found.
 
 double CoreIOTest::biggest_difference(const OutputData<double>& data, const OutputData<double>& ref)
 {
@@ -112,4 +125,21 @@ double CoreIOTest::biggest_difference(const OutputData<double>& data, const Outp
         max_diff = std::max(diff, max_diff);
     }
     return max_diff;
+}
+
+std::string CoreIOTest::report() const
+{
+    std::ostringstream result;
+
+    result << "--- CoreIOTest::report() ---\n";
+    result << "Size      | format     | data  | create  read    write   | diff \n";
+    for(auto res : m_test_results) {
+        result << boost::format("%-4dx%-4d | %-10s |   %1d   | %-7.3f %-7.3f %-7.3f | %g \n")
+                  % res.m_nx % res.m_ny %res.m_file_format
+                  % res.m_data_type
+                  % res.m_create_data_time % res.m_read_time % res.m_write_time
+                  % res.m_biggest_diff;
+    }
+
+    return result.str();
 }

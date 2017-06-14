@@ -31,6 +31,8 @@ public:
     bool runTest();
 
 private:
+    void test_configuration(int nx, int ny, bool random_data = false);
+
     std::unique_ptr<OutputData<double>> createData(int nx, int ny, bool fill = false);
     double biggest_difference(const OutputData<double>& data, const OutputData<double>& ref);
 };

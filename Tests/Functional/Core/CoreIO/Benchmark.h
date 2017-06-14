@@ -19,6 +19,7 @@
 #include <string>
 #include <map>
 #include "TimeInterval.h"
+#include "OrderedMap.h"
 
 class Duration {
 public:
@@ -47,7 +48,7 @@ public:
     std::string report() const;
 
 private:
-    std::map<std::string, Duration* > m_data;
+    OrderedMap<std::string, Duration* > m_data;
 };
 
 #endif // COREIOTEST_H

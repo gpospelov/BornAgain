@@ -17,6 +17,8 @@
 #define COREIOTEST_H
 
 #include "IFunctionalTest.h"
+#include "OutputData.h"
+#include <memory>
 
 //! Functional test to validate read/write of large data files.
 
@@ -27,6 +29,10 @@ public:
     ~CoreIOTest() {}
 
     bool runTest();
+
+private:
+    std::unique_ptr<OutputData<double>> createData(int nx, int ny, bool fill = false);
+    double biggest_difference(const OutputData<double>& data, const OutputData<double>& ref);
 };
 
 #endif // COREIOTEST_H

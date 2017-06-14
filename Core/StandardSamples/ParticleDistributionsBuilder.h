@@ -57,4 +57,41 @@ private:
     double m_sigma2_ratio;
 };
 
+//! Rotated Pyramids with the distribution applied to the rotation angle.
+//! @ingroup standard_samples
+
+class RotatedPyramidsDistributionBuilder : public IMultiLayerBuilder
+{
+public:
+    RotatedPyramidsDistributionBuilder();
+    MultiLayer* buildSample() const;
+
+private:
+    double m_length;
+    double m_height;
+    double m_alpha;
+    double m_zangle;
+};
+
+//! Spherical particles with the distribution applied to the radius and RealLimits defined.
+//! @ingroup standard_samples
+
+class SpheresWithLimitsDistributionBuilder : public IMultiLayerBuilder
+{
+public:
+    SpheresWithLimitsDistributionBuilder(){}
+    MultiLayer* buildSample() const;
+};
+
+//! Cones with the distribution applied to the angle and RealLimits defined.
+//! @ingroup standard_samples
+
+class ConesWithLimitsDistributionBuilder : public IMultiLayerBuilder
+{
+public:
+    ConesWithLimitsDistributionBuilder(){}
+    MultiLayer* buildSample() const;
+};
+
+
 #endif // PARTICLEDISTRIBUTIONSBUILDER_H

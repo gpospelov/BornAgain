@@ -20,6 +20,7 @@
 #include "MultiLayer.h"
 #include "RealParameter.h"
 #include "Units.h"
+#include "BornAgainNamespace.h"
 
 TwoLayerRoughnessBuilder::TwoLayerRoughnessBuilder()
     : m_sigma(1.0*Units::nanometer)
@@ -32,9 +33,10 @@ TwoLayerRoughnessBuilder::TwoLayerRoughnessBuilder()
 
 void TwoLayerRoughnessBuilder::init_parameters()
 {
-    registerParameter("sigma", &m_sigma).setUnit("nm").setNonnegative();
+    registerParameter("sigma", &m_sigma).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter("hurst", &m_hurst);
-    registerParameter("lateralCorrLength", &m_lateralCorrLength).setUnit("nm").setNonnegative();
+    registerParameter("lateralCorrLength", &m_lateralCorrLength).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 

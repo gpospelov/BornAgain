@@ -34,11 +34,15 @@
 #include "StringUtils.h"
 #include "Units.h"
 #include "IDetector2D.h"
+#include "BornAgainNamespace.h"
+#include "Distributions.h"
+#include "ParameterUtils.h"
 #include <iomanip>
 GCC_DIAG_OFF(missing-field-initializers)
 GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
+
 
 std::string PythonFormatting::simulationToPython(GISASSimulation* simulation)
 {
@@ -181,6 +185,19 @@ std::string printDegrees(double input)
     return inter.str();
 }
 
+std::string printValue(double value, const std::string& units)
+{
+    if (units == BornAgain::UnitsRad)
+        return printDegrees(value);
+    else if(units == BornAgain::UnitsNm)
+        return printNm(value);
+    else if(units == BornAgain::UnitsNone)
+        return printDouble(value);
+    else
+        throw std::runtime_error("PythonFormatting::printValue() -> Error. Unknown units '"+
+                                 units+"'");
+}
+
 bool isSquare(double length1, double length2, double angle)
 {
     return length1==length2 && Numeric::areAlmostEqual(angle, M_PI_2);
@@ -214,7 +231,7 @@ bool isDefaultDirection(const kvector_t direction)
 
 std::string valueTimesUnit(const RealParameter* par)
 {
-    if (par->unit()=="rad")
+    if (par->unit() == BornAgain::UnitsRad)
         return printDegrees(par->value());
     return printDouble(par->value()) + ( par->unit()=="" ? "" : ("*"+par->unit()) );
 }
@@ -228,5 +245,81 @@ std::string argumentList(const IParameterized* ip)
         args.push_back( valueTimesUnit(par) );
     return StringUtils::join( args, ", " );
 }
+
+//! Prints distribution with constructor parameters in given units.
+//! ba.DistributionGaussian(2.0*deg, 0.02*deg)
+
+std::string printDistribution(const IDistribution1D& par_distr, const std::string& units)
+{
+    std::unique_ptr<IDistribution1D> distr(par_distr.clone());
+    distr->setUnits(units);
+
+    std::ostringstream result;
+    result << "ba." << distr->getName() << "(" << argumentList(distr.get()) << ")";
+    return result.str();
+}
+
+
+std::string printRealLimits(const RealLimits& limits, const std::string& units)
+{
+    std::ostringstream result;
+
+    if (limits.isLimitless()) {
+        result << "RealLimits()";
+    }
+
+    else if(limits.isPositive()) {
+        result << "RealLimits.positive()";
+    }
+
+    else if(limits.isNonnegative()) {
+        result << "RealLimits.nonnegative()";
+    }
+
+    else if(limits.isLowerLimited()) {
+        result << "RealLimits.lowerLimited(" << printValue(limits.getLowerLimit(), units) << ")";
+    }
+
+    else if(limits.isUpperLimited()) {
+        result << "RealLimits.upperLimited(" << printValue(limits.getUpperLimit(), units) << ")";
+    }
+
+    else if(limits.isLimited()) {
+        result << "RealLimits.limited(" << printValue(limits.getLowerLimit(), units) << ", "
+               << printValue(limits.getUpperLimit(), units) << ")";
+    }
+
+    return result.str();
+}
+
+//! Prints RealLimits in the form of argument (in the context of ParameterDistribution and
+//! similar). Default RealLimits will not be printed, any other will be printed as
+//! ", ba.RealLimits.limited(1*deg, 2*deg)"
+
+std::string printRealLimitsArg(const RealLimits& limits, const std::string& units)
+{
+    return limits.isLimitless() ? "" : ", ba."+printRealLimits(limits, units);
+}
+
+//! Prints ParameterDistribution.
+//! distVarName is a string representing IDistribution1D variable, e.g. "distr_1"
+//!
+//! ba.ParameterDistribution("/Particle/Height", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm))
+
+std::string printParameterDistribution(const ParameterDistribution& par_distr,
+                                       const std::string& distVarName, const std::string& units)
+{
+    std::ostringstream result;
+
+    result << "ba.ParameterDistribution("
+           << "\"" << par_distr.getMainParameterName() << "\""
+           << ", " << distVarName << ", " << par_distr.getNbrSamples() << ", "
+           << printDouble(par_distr.getSigmaFactor())
+           << printRealLimitsArg(par_distr.getLimits(), units)
+           << ")";
+
+    return result.str();
+}
+
 
 } // namespace PythonFormatting

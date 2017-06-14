@@ -58,6 +58,7 @@
 #include "ParameterTreeUtils.h"
 #include "InstrumentItem.h"
 #include "ResolutionFunction2DGaussian.h"
+#include "ParameterUtils.h"
 #include <limits>
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);
@@ -172,8 +173,12 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 
     distItem->setDomainCacheName(main_distr_par_name);
 
+    double unit_factor(1.0);
+    if (ParameterUtils::mainParUnits(*sample) == BornAgain::UnitsRad)
+        unit_factor = 1. / Units::degree;
+
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
-    setDistribution(distItem, par_distr, group_name);
+    setDistribution(distItem, par_distr, group_name, unit_factor);
 }
 
 //! Returns true if given roughness is non-zero roughness
@@ -761,6 +766,6 @@ void setDistribution(SessionItem* partDistrItem, ParameterDistribution par_distr
 
     // TODO It's wrong if domain distribution made for angles.
     if(distItem->isTag(DistributionItem::P_LIMITS))
-        distItem->init_limits_group(par_distr.getLimits());
+        distItem->init_limits_group(par_distr.getLimits(), factor);
 
 }

@@ -32,7 +32,7 @@ public:
 
     virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const=0;
     void init_parameters(double value, const RealLimits& limits=RealLimits::limitless());
-    void init_limits_group(const RealLimits& limits);
+    void init_limits_group(const RealLimits& limits, double factor = 1.0);
 
 protected:
     virtual void init_distribution(double){}

@@ -79,6 +79,17 @@ TEST_F(DistributionsTest, DistributionGateParameters)
     DistributionGate gate(2.0, 3.0);
     EXPECT_EQ(gate.getMin(), gate.parameter(BornAgain::Minimum)->value());
     EXPECT_EQ(gate.getMax(), gate.parameter(BornAgain::Maximum)->value());
+
+    EXPECT_EQ(gate.parameter(BornAgain::Minimum)->unit(), BornAgain::UnitsNone);
+    EXPECT_EQ(gate.parameter(BornAgain::Maximum)->unit(), BornAgain::UnitsNone);
+
+    gate.setUnits(BornAgain::UnitsRad);
+    EXPECT_EQ(gate.parameter(BornAgain::Minimum)->unit(), BornAgain::UnitsRad);
+    EXPECT_EQ(gate.parameter(BornAgain::Maximum)->unit(), BornAgain::UnitsRad);
+
+    gate.setUnits(BornAgain::UnitsNone);
+    EXPECT_EQ(gate.parameter(BornAgain::Minimum)->unit(), BornAgain::UnitsNone);
+    EXPECT_EQ(gate.parameter(BornAgain::Maximum)->unit(), BornAgain::UnitsNone);
 }
 
 TEST_F(DistributionsTest, DistributionGateClone)
@@ -91,6 +102,7 @@ TEST_F(DistributionsTest, DistributionGateClone)
     EXPECT_EQ(gate.getMax(), clone->getMax());
     delete clone;
 }
+
 
 // -------------------------------------------------------------------------- //
 
@@ -136,12 +148,15 @@ TEST_F(DistributionsTest, DistributionLorentzConstructor)
 TEST_F(DistributionsTest, DistributionLorentzParameters)
 {
     DistributionLorentz lorentz(2.0, 3.0);
-    /* TEMPORARILY DISABLED getParameterPool()
-    EXPECT_EQ(lorentz.getMean(),
-              lorentz.getParameterPool()->getParameter(BornAgain::Mean).getValue());
-    EXPECT_EQ(lorentz.getHWHM(),
-              lorentz.getParameterPool()->getParameter(BornAgain::HWHM).getValue());
-    */
+    EXPECT_EQ(lorentz.getMean(), lorentz.parameter(BornAgain::Mean)->value());
+    EXPECT_EQ(lorentz.getHWHM(), lorentz.parameter(BornAgain::HWHM)->value());
+
+    EXPECT_EQ(lorentz.parameter(BornAgain::Mean)->unit(), BornAgain::UnitsNone);
+    EXPECT_EQ(lorentz.parameter(BornAgain::HWHM)->unit(), BornAgain::UnitsNone);
+
+    lorentz.setUnits(BornAgain::UnitsRad);
+    EXPECT_EQ(lorentz.parameter(BornAgain::Mean)->unit(), BornAgain::UnitsRad);
+    EXPECT_EQ(lorentz.parameter(BornAgain::HWHM)->unit(), BornAgain::UnitsRad);
 }
 
 TEST_F(DistributionsTest, DistributionLorentzClone)
@@ -231,12 +246,15 @@ TEST_F(DistributionsTest, DistributionGaussianConstructor)
 TEST_F(DistributionsTest, DistributionGaussianParameters)
 {
     DistributionGaussian gaussian(2.0, 3.0);
-    /* TEMPORARILY DISABLED getParameterPool()
-    EXPECT_EQ(gaussian.getMean(),
-              gaussian.getParameterPool()->getParameter(BornAgain::Mean).getValue());
-    EXPECT_EQ(gaussian.getStdDev(),
-              gaussian.getParameterPool()->getParameter(BornAgain::StdDeviation).getValue());
-    */
+    EXPECT_EQ(gaussian.getMean(), gaussian.parameter(BornAgain::Mean)->value());
+    EXPECT_EQ(gaussian.getStdDev(), gaussian.parameter(BornAgain::StdDeviation)->value());
+
+    EXPECT_EQ(gaussian.parameter(BornAgain::Mean)->unit(), BornAgain::UnitsNone);
+    EXPECT_EQ(gaussian.parameter(BornAgain::StdDeviation)->unit(), BornAgain::UnitsNone);
+
+    gaussian.setUnits(BornAgain::UnitsRad);
+    EXPECT_EQ(gaussian.parameter(BornAgain::Mean)->unit(), BornAgain::UnitsRad);
+    EXPECT_EQ(gaussian.parameter(BornAgain::StdDeviation)->unit(), BornAgain::UnitsRad);
 }
 
 TEST_F(DistributionsTest, DistributionGaussianClone)
@@ -302,12 +320,15 @@ TEST_F(DistributionsTest, DistributionLogNormalConstructorWithTwoParameter)
 TEST_F(DistributionsTest, DistributionLogNormalParameters)
 {
     DistributionLogNormal logNormal(2.0, 3.0);
-    /* TEMPORARILY DISABLED getParameterPool()
-    EXPECT_EQ(logNormal.getMedian(),
-              logNormal.getParameterPool()->getParameter(BornAgain::Median).getValue());
-    EXPECT_EQ(logNormal.getScalePar(),
-              logNormal.getParameterPool()->getParameter(BornAgain::ScaleParameter).getValue());
-    */
+    EXPECT_EQ(logNormal.getMedian(), logNormal.parameter(BornAgain::Median)->value());
+    EXPECT_EQ(logNormal.getScalePar(), logNormal.parameter(BornAgain::ScaleParameter)->value());
+
+    EXPECT_EQ(logNormal.parameter(BornAgain::Median)->unit(), BornAgain::UnitsNone);
+    EXPECT_EQ(logNormal.parameter(BornAgain::ScaleParameter)->unit(), BornAgain::UnitsNone);
+
+    logNormal.setUnits(BornAgain::UnitsRad);
+    EXPECT_EQ(logNormal.parameter(BornAgain::Median)->unit(), BornAgain::UnitsRad);
+    EXPECT_EQ(logNormal.parameter(BornAgain::ScaleParameter)->unit(), BornAgain::UnitsNone);
 }
 
 TEST_F(DistributionsTest, DistributionLogNormalClone)
@@ -374,10 +395,15 @@ TEST_F(DistributionsTest, DistributionCosineConstructor)
 TEST_F(DistributionsTest, DistributionCosineParameters)
 {
     DistributionCosine cosine(2.0, 3.0);
-    /* TEMPORARILY DISABLED getParameterPool()
-    EXPECT_EQ(cosine.getMean(), cosine.getParameterPool()->getParameter(BornAgain::Mean).getValue());
-    EXPECT_EQ(cosine.getSigma(), cosine.getParameterPool()->getParameter(BornAgain::Sigma).getValue());
-    */
+    EXPECT_EQ(cosine.getMean(), cosine.parameter(BornAgain::Mean)->value());
+    EXPECT_EQ(cosine.getSigma(), cosine.parameter(BornAgain::Sigma)->value());
+
+    EXPECT_EQ(cosine.parameter(BornAgain::Mean)->unit(), BornAgain::UnitsNone);
+    EXPECT_EQ(cosine.parameter(BornAgain::Sigma)->unit(), BornAgain::UnitsNone);
+
+    cosine.setUnits(BornAgain::UnitsRad);
+    EXPECT_EQ(cosine.parameter(BornAgain::Mean)->unit(), BornAgain::UnitsRad);
+    EXPECT_EQ(cosine.parameter(BornAgain::Sigma)->unit(), BornAgain::UnitsRad);
 }
 
 TEST_F(DistributionsTest, DistributionCosineClone)

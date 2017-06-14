@@ -34,10 +34,10 @@ RotatedPyramidsBuilder::RotatedPyramidsBuilder()
 
 void RotatedPyramidsBuilder::init_parameters()
 {
-    registerParameter("length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("height", &m_height).setUnit("nm").setNonnegative();
-    registerParameter("alpha", &m_alpha  ).setUnit("rad");
-    registerParameter("zangle", &m_zangle).setUnit("rad");
+    registerParameter("length", &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("height", &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("alpha", &m_alpha  ).setUnit(BornAgain::UnitsRad);
+    registerParameter("zangle", &m_zangle).setUnit(BornAgain::UnitsRad);
 }
 
 MultiLayer* RotatedPyramidsBuilder::buildSample() const

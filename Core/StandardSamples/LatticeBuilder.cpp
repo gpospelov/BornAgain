@@ -66,9 +66,13 @@ MultiLayer* Lattice1DBuilder::buildSample() const
 
 void Lattice1DBuilder::init_parameters()
 {
-    registerParameter("lattice_length", &m_length).setUnit("nm").setNonnegative();
-    registerParameter("lattice_rotation", &m_xi).setUnit("rad");
-    registerParameter("corr_length", &m_corr_length).setUnit("nm").setNonnegative();
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
+    registerParameter("lattice_length", &m_length).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("lattice_rotation", &m_xi).setUnit(BornAgain::UnitsRad);
+    registerParameter("corr_length", &m_corr_length).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }

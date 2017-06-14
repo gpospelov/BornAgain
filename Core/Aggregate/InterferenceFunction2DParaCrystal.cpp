@@ -181,9 +181,12 @@ void InterferenceFunction2DParaCrystal::init_parameters()
     mP_integrator
         = make_integrator_real(this, &InterferenceFunction2DParaCrystal::interferenceForXi);
 
-    registerParameter(BornAgain::DampingLength, &m_damping_length).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::DomainSize1, &m_domain_sizes[0]).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::DomainSize2, &m_domain_sizes[1]).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::DampingLength, &m_damping_length).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::DomainSize1, &m_domain_sizes[0]).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::DomainSize2, &m_domain_sizes[1]).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 //! Returns interference function for fixed angle xi.

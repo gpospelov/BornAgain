@@ -93,6 +93,7 @@ std::vector<const INode*> InterferenceFunction1DLattice::getChildren() const
 
 void InterferenceFunction1DLattice::init_parameters()
 {
-    registerParameter(BornAgain::Length, &m_lattice_params.m_length).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Xi, &m_lattice_params.m_xi).setUnit("rad");
+    registerParameter(BornAgain::Length, &m_lattice_params.m_length).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::Xi, &m_lattice_params.m_xi).setUnit(BornAgain::UnitsRad);
 }

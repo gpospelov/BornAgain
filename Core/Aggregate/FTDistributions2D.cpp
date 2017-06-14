@@ -39,13 +39,14 @@ double IFTDistribution2D::sumsq(double qx, double qy) const
 
 void IFTDistribution2D::register_omega()
 {
-    registerParameter(BornAgain::OmegaX, &m_omega_x).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::OmegaY, &m_omega_y).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::OmegaX, &m_omega_x).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::OmegaY, &m_omega_y).setUnit(BornAgain::UnitsNm).setNonnegative();
 }
 
 void IFTDistribution2D::register_gamma()
 {
-    registerParameter(BornAgain::Gamma, &m_gamma).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
+    registerParameter(BornAgain::Gamma, &m_gamma).setUnit(BornAgain::UnitsRad)
+        .setLimited(-M_PI_2, M_PI_2);
 }
 
 void IFTDistribution2D::init_parameters()

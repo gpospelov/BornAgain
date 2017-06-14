@@ -7886,6 +7886,11 @@ class IDistribution1D(ICloneable, INode):
         """
         return _libBornAgainCore.IDistribution1D_isDelta(self)
 
+
+    def setUnits(self, units):
+        """setUnits(IDistribution1D self, std::string const & units)"""
+        return _libBornAgainCore.IDistribution1D_setUnits(self, units)
+
 IDistribution1D_swigregister = _libBornAgainCore.IDistribution1D_swigregister
 IDistribution1D_swigregister(IDistribution1D)
 
@@ -8381,6 +8386,11 @@ class DistributionLogNormal(IDistribution1D):
 
         """
         return _libBornAgainCore.DistributionLogNormal_accept(self, visitor)
+
+
+    def setUnits(self, units):
+        """setUnits(DistributionLogNormal self, std::string const & units)"""
+        return _libBornAgainCore.DistributionLogNormal_setUnits(self, units)
 
 DistributionLogNormal_swigregister = _libBornAgainCore.DistributionLogNormal_swigregister
 DistributionLogNormal_swigregister(DistributionLogNormal)

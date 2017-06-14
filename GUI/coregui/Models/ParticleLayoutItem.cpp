@@ -30,6 +30,7 @@ ParticleLayoutItem::ParticleLayoutItem()
     ComboProperty approx = ComboProperty() << Constants::LAYOUT_DA << Constants::LAYOUT_SSCA;
     addProperty(P_APPROX, approx.getVariant());
     addProperty(P_TOTAL_DENSITY, 1.0);
+    getItem(P_TOTAL_DENSITY)->setDecimals(10);
 
     registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType << Constants::ParticleCoreShellType
                 << Constants::ParticleCompositionType << Constants::ParticleDistributionType);

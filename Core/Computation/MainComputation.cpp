@@ -137,7 +137,6 @@ std::unique_ptr<MultiLayer> MainComputation::getMultilayerForFresnel() const
 void MainComputation::initFresnelMap()
 {
     auto multilayer = getMultilayerForFresnel();
-    multilayer->initBFields();
     mP_fresnel_map->setMultilayer(*multilayer);
 }
 

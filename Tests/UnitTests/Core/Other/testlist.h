@@ -12,3 +12,4 @@
 #include "CumulativeValueTest.h"
 #include "ChiSquaredModuleTest.h"
 #include "BeamTest.h"
+#include "OrderedMapTest.h"

@@ -36,15 +36,15 @@ public:
 
     //! Constructs a material with _name_ and _refractive_index_.
     HomogeneousMaterial(const std::string &name, const complex_t refractive_index,
-                        kvector_t magnetic_field=kvector_t());
+                        kvector_t magnetization=kvector_t());
 
     //! Constructs a material with _name_ and refractive_index parameters
     //! delta and beta (n = 1 - delta + i*beta).
     HomogeneousMaterial(const std::string &name, double refractive_index_delta,
-                        double refractive_index_beta, kvector_t magnetic_field=kvector_t());
+                        double refractive_index_beta, kvector_t magnetization=kvector_t());
     ~HomogeneousMaterial() {}
 
-    //! Constructs a material with inverted magnetic field
+    //! Constructs a material with inverted magnetization
     HomogeneousMaterial inverted() const;
 
     complex_t refractiveIndex() const;
@@ -57,25 +57,19 @@ public:
 
     bool isMagneticMaterial() const { return !isScalarMaterial(); }
 
-    //! Get the magnetic field (in Tesla)
-    kvector_t magneticField() const;
+    //! Get the magnetization (in A/m)
+    kvector_t magnetization() const;
 
-    //! Set the magnetic field (in Tesla)
-    void setMagneticField(const kvector_t magnetic_field);
+    //! Set the magnetizationd (in A/m)
+    void setMagnetization(const kvector_t magnetization);
 
     complex_t scalarSLD(const WavevectorInfo& wavevectors) const;
 
-    //! Return the potential term that is used in the one-dimensional Fresnel calculations
-    complex_t scalarFresnel(const kvector_t k, double n_ref) const;
-
 #ifndef SWIG
-    virtual Eigen::Matrix2cd polarizedSLD(const WavevectorInfo& wavevectors) const;
-
-    //! Get the scattering matrix for a material defined by its magnetization (experimental)
-    Eigen::Matrix2cd polarizedSLDExperimental(const WavevectorInfo& wavevectors) const;
-
-    virtual Eigen::Matrix2cd polarizedFresnel(const kvector_t k, double n_ref) const;
+    //! Get the scattering matrix for a material defined by its magnetization
+    Eigen::Matrix2cd polarizedSLD(const WavevectorInfo& wavevectors) const;
 #endif
+
     HomogeneousMaterial transformedMaterial(const Transform3D& transform) const;
 
     friend BA_CORE_API_ std::ostream& operator<<(
@@ -84,8 +78,16 @@ private:
     void print(std::ostream &ostr) const;
 
     complex_t m_refractive_index; //!< complex index of refraction
-    kvector_t m_magnetic_field; //!< magnetic field in Tesla
+    kvector_t m_magnetization; //!< magnetization
 };
+
+// Functions for calculating the reduced potential, used for obtaining the Fresnel coefficients:
+complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref);
+
+#ifndef SWIG
+Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field,
+                                           kvector_t k, double n_ref);
+#endif
 
 // Comparison operators:
 BA_CORE_API_ bool operator==(const HomogeneousMaterial& left, const HomogeneousMaterial& right);

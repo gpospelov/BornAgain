@@ -59,6 +59,7 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
     auto layer_limits = calculateLayerZLimits();
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
+    P_result->setExternalField(externalField());
     for (size_t i=0; i<numberOfLayers(); ++i)
     {
         auto p_interface = i>0 ? m_interfaces[i-1]
@@ -178,6 +179,17 @@ bool MultiLayer::containsMagneticMaterial() const
     return false;
 }
 
+void MultiLayer::initBFields()
+{
+    if (numberOfLayers()==0)
+        return;
+    double m_z0 = m_layers[0]->material()->magnetization().z();
+    double b_z = Layer::Magnetic_Permeability*(m_ext_field.z()+m_z0);
+    for (size_t i=0; i<numberOfLayers(); ++i) {
+        m_layers[i]->initBField(m_ext_field, b_z);
+    }
+}
+
 bool MultiLayer::hasRoughness() const
 {
     for (auto p_interface: m_interfaces)
@@ -248,6 +260,7 @@ MultiLayer* MultiLayer::cloneGeneric(const std::function<Layer*(const Layer*)>& 
 {
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
+    P_result->setExternalField(externalField());
     for (size_t i=0; i<numberOfLayers(); ++i)
     {
         auto p_interface = i>0 ? m_interfaces[i-1]
@@ -318,6 +331,11 @@ void MultiLayer::setCrossCorrLength(double crossCorrLength)
     if (crossCorrLength<0.0)
         throw Exceptions::LogicErrorException("Attempt to set crossCorrLength to negative value");
     m_crossCorrLength = crossCorrLength;
+}
+
+void MultiLayer::setExternalField(kvector_t ext_field)
+{
+    m_ext_field = ext_field;
 }
 
 std::vector<ZLimits> MultiLayer::calculateLayerZLimits() const

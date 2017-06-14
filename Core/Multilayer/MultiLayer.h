@@ -104,6 +104,12 @@ public:
     //! Returns cross correlation length of roughnesses between interfaces
     double crossCorrLength() const { return m_crossCorrLength; }
 
+    //! Sets the external field applied to the multilayer (units: A/m)
+    void setExternalField(kvector_t ext_field);
+
+    //! Returns the external field applied to the multilayer (units: A/m)
+    kvector_t externalField() const { return m_ext_field; }
+
     //! Fourier transform of the correlation function of roughnesses between
     //! the interfaces
     double crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
@@ -123,6 +129,9 @@ public:
     size_t topZToLayerIndex(double z_value) const;
 
     bool containsMagneticMaterial() const;
+
+    //! precalculate the magnetic B fields in each layer
+    void initBFields();
 
     bool hasRoughness() const;
 
@@ -163,6 +172,8 @@ private:
     SafePointerVector<LayerInterface> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
+    //! external magnetic field (in A/m)
+    kvector_t m_ext_field;
 };
 
 #endif // MULTILAYER_H

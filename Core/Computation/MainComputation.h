@@ -57,7 +57,10 @@ private:
     void runProtected();
     IFresnelMap* createFresnelMap();
     // creates a multilayer that contains averaged materials, for use in Fresnel calculations
-    std::unique_ptr<MultiLayer> getAveragedMultilayer();
+    std::unique_ptr<MultiLayer> getAveragedMultilayer() const;
+    // creates a multilayer for use in Fresnel calculations; if needed, it calculates average
+    // materials and precalculates the magnetic B fields
+    std::unique_ptr<MultiLayer> getMultilayerForFresnel() const;
     // sets the correct layer materials for the Fresnel map to use
     void initFresnelMap();
     bool checkRegions(const std::vector<HomogeneousRegion>& regions) const;

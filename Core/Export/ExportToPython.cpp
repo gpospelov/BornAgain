@@ -191,7 +191,7 @@ std::string ExportToPython::defineMaterials() const
                    << "\", " << printDouble(delta) << ", "
                    << printDouble(beta) << ")\n";
         } else {
-            kvector_t magnetic_field = p_material->magneticField();
+            kvector_t magnetic_field = p_material->magnetization();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ", "
                    << ")\n";

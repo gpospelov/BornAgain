@@ -225,8 +225,8 @@ QString IntensityDataItem::selectedAxesUnits() const
 
 QString IntensityDataItem::fileName(const QString& projectDir)
 {
-    return projectDir + QStringLiteral("/")
-           + getItemValue(IntensityDataItem::P_FILE_NAME).toString();
+    QString filename = getItemValue(IntensityDataItem::P_FILE_NAME).toString();
+    return projectDir.isEmpty() ? filename : projectDir + QStringLiteral("/") + filename;
 }
 
 void IntensityDataItem::setLowerX(double xmin)

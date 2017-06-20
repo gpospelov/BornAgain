@@ -26,6 +26,7 @@
 #include "TestProjectDocument.h"
 #include "TestAutosave.h"
 #include "TestOutputDataIOService.h"
+#include "TestIntensityDataItem.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
@@ -58,6 +59,7 @@ int main(int argc, char** argv) {
     TestProjectDocument testProjectDocument;
     TestAutosave testAutosave;
     TestOutputDataIOService testIO;
+    TestIntensityDataItem testIntensityData;
 
     bool status(false);
 
@@ -88,6 +90,7 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testProjectDocument, argc, argv);
     status |= QTest::qExec(&testAutosave, argc, argv);
     status |= QTest::qExec(&testIO, argc, argv);
+    status |= QTest::qExec(&testIntensityData, argc, argv);
 
     return status;
 }

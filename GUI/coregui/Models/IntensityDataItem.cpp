@@ -78,6 +78,19 @@ IntensityDataItem::IntensityDataItem() : SessionItem(Constants::IntensityDataTyp
     setDefaultTag(T_MASKS);
 
     registerTag(T_PROJECTIONS, 0, -1, QStringList() << Constants::ProjectionContainerType);
+
+    mapper()->setOnPropertyChange([this](const QString& name)
+    {
+        if(name == P_FILE_NAME)
+            setLastModified(QDateTime::currentDateTime());
+    });
+
+    mapper()->setOnValueChange([this]()
+    {
+        // OutputData was modified
+        setLastModified(QDateTime::currentDateTime());
+    });
+
 }
 
 void IntensityDataItem::setOutputData(OutputData<double>* data)
@@ -394,4 +407,14 @@ MaskContainerItem* IntensityDataItem::maskContainerItem()
 ProjectionContainerItem* IntensityDataItem::projectionContainerItem()
 {
     return dynamic_cast<ProjectionContainerItem*>(getItem(IntensityDataItem::T_PROJECTIONS));
+}
+
+QDateTime IntensityDataItem::lastModified() const
+{
+    return m_last_modified;
+}
+
+void IntensityDataItem::setLastModified(const QDateTime &dtime)
+{
+    m_last_modified = dtime;
 }

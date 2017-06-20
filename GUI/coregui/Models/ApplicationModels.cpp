@@ -294,6 +294,12 @@ void ApplicationModels::saveNonXMLData(const QString &projectDir)
     }
 }
 
+QVector<SessionItem *> ApplicationModels::nonXMLData() const
+{
+    Q_ASSERT(m_realDataModel && m_jobModel);
+    return QVector<SessionItem *>() << m_realDataModel->nonXMLData() << m_jobModel->nonXMLData();
+}
+
 void ApplicationModels::disconnectModel(SessionModel *model)
 {
     if(model) {

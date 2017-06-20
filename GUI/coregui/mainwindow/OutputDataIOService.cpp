@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "OutputDataIOService.h"
+#include "ApplicationModels.h"
+#include "IntensityDataItem.h"
 
 OutputDataIOService::OutputDataIOService(ApplicationModels* models, QObject* parent)
     : QObject(parent)
@@ -24,6 +26,23 @@ OutputDataIOService::OutputDataIOService(ApplicationModels* models, QObject* par
 
 void OutputDataIOService::setApplicationModels(ApplicationModels* models)
 {
+    m_applicationModels = models;
+}
 
+//! Returns all IntensityDataItems available for save/load.
+
+QVector<IntensityDataItem *> OutputDataIOService::dataItems() const
+{
+    QVector<IntensityDataItem *> result;
+
+    if (!m_applicationModels)
+        return result;
+
+    for (auto item : m_applicationModels->nonXMLData()) {
+        if (auto intensityItem = dynamic_cast<IntensityDataItem*>(item))
+                result.push_back(intensityItem);
+    }
+
+    return result;
 }
 

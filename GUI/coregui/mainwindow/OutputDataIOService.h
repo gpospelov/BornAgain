@@ -18,8 +18,10 @@
 
 #include "WinDllMacros.h"
 #include <QObject>
+#include <QVector>
 
 class ApplicationModels;
+class IntensityDataItem;
 
 //! Provide read/write of heavy data files in a separate thread.
 //!
@@ -33,6 +35,12 @@ public:
     explicit OutputDataIOService(ApplicationModels* models, QObject* parent = 0);
 
     void setApplicationModels(ApplicationModels* models);
+
+    void save(const QString& projectDir);
+
+    void load(const QString& projectDir);
+
+    QVector<IntensityDataItem* > dataItems() const;
 
 private:
     ApplicationModels* m_applicationModels;

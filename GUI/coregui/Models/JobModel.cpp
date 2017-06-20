@@ -149,6 +149,23 @@ void JobModel::saveNonXMLData(const QString &projectDir)
     }
 }
 
+QVector<SessionItem *> JobModel::nonXMLData() const
+{
+    QVector<SessionItem *> result;
+
+    for (auto jobItem : topItems(Constants::JobItemType)) {
+        if (auto intensityItem = jobItem->getItem(JobItem::T_OUTPUT))
+            result.push_back(intensityItem);
+
+        if (auto realData = jobItem->getItem(JobItem::T_REALDATA)) {
+            if (auto intensityItem = realData->getItem(RealDataItem::T_INTENSITY_DATA))
+                result.push_back(intensityItem);
+        }
+    }
+
+    return result;
+}
+
 void JobModel::onCancelAllJobs()
 {
     m_queue_data->onCancelAllJobs();

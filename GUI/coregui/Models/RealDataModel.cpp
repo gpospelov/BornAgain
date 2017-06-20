@@ -54,3 +54,15 @@ void RealDataModel::saveNonXMLData(const QString &projectDir)
         ImportDataAssistant::saveIntensityData(realDataItem, projectDir);
     }
 }
+
+QVector<SessionItem *> RealDataModel::nonXMLData() const
+{
+    QVector<SessionItem *> result;
+
+    for (auto realData : topItems(Constants::RealDataType)) {
+        if (auto intensityItem = realData->getItem(RealDataItem::T_INTENSITY_DATA))
+            result.push_back(intensityItem);
+    }
+
+    return result;
+}

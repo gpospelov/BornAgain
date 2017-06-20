@@ -25,6 +25,7 @@
 #include "TestUpdateTimer.h"
 #include "TestProjectDocument.h"
 #include "TestAutosave.h"
+#include "TestOutputDataIOService.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
@@ -56,6 +57,7 @@ int main(int argc, char** argv) {
     TestUpdateTimer testUpdateTimer;
     TestProjectDocument testProjectDocument;
     TestAutosave testAutosave;
+    TestOutputDataIOService testIO;
 
     bool status(false);
 
@@ -85,6 +87,7 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testUpdateTimer, argc, argv);
     status |= QTest::qExec(&testProjectDocument, argc, argv);
     status |= QTest::qExec(&testAutosave, argc, argv);
+    status |= QTest::qExec(&testIO, argc, argv);
 
     return status;
 }

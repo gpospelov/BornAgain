@@ -513,6 +513,11 @@ void SessionModel::saveNonXMLData(const QString &projectDir)
     Q_UNUSED(projectDir);
 }
 
+QVector<SessionItem *> SessionModel::nonXMLData() const
+{
+    return QVector<SessionItem *>();
+}
+
 void SessionModel::setIconProvider(IconProvider *icon_provider)
 {
     m_iconProvider.reset(icon_provider);

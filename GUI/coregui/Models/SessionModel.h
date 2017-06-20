@@ -115,6 +115,7 @@ public:
     virtual void loadNonXMLData(const QString &projectDir);
     virtual void saveNonXMLData(const QString &projectDir);
 
+    virtual QVector<SessionItem*> nonXMLData() const;
 
 protected:
     void setRootItem(SessionItem *root) {m_root_item = root;}

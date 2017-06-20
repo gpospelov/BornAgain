@@ -223,7 +223,7 @@ QString IntensityDataItem::selectedAxesUnits() const
     return combo.getValue();
 }
 
-QString IntensityDataItem::fileName(const QString& projectDir)
+QString IntensityDataItem::fileName(const QString& projectDir) const
 {
     QString filename = getItemValue(IntensityDataItem::P_FILE_NAME).toString();
     return projectDir.isEmpty() ? filename : projectDir + QStringLiteral("/") + filename;

@@ -84,7 +84,7 @@ public:
 
     QString selectedAxesUnits() const;
 
-    QString fileName(const QString& projectDir = QString());
+    QString fileName(const QString& projectDir = QString()) const;
 
     void updateDataRange();
     void computeDataRange();

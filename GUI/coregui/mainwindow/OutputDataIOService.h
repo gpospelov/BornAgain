@@ -17,8 +17,8 @@
 #define OUTPUTDATAIOSERVICE_H
 
 #include "WinDllMacros.h"
+#include "OutputDataIOHistory.h"
 #include <QObject>
-#include <QVector>
 
 class ApplicationModels;
 class IntensityDataItem;
@@ -43,6 +43,7 @@ public:
     QVector<IntensityDataItem* > dataItems() const;
 
 private:
+    OutputDataIOHistory m_history;
     ApplicationModels* m_applicationModels;
 };
 

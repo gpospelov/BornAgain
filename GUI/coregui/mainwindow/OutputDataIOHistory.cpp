@@ -79,7 +79,12 @@ OutputDataSaveInfo OutputDataDirHistory::itemInfo(const IntensityDataItem* item)
 
 //-----------------------------------------------------------------------------
 
-bool OutputDataIOHistory::wasModifiedSinceLastSave(const QString &dirname,
+bool OutputDataIOHistory::hasHistory(const QString& dirname) const
+{
+    return m_dir_history.find(dirname) == m_dir_history.end() ? false : true;
+}
+
+bool OutputDataIOHistory::wasModifiedSinceLastSave(const QString& dirname,
                                                    const IntensityDataItem* item)
 {
     auto it = m_dir_history.find(dirname);
@@ -91,8 +96,10 @@ bool OutputDataIOHistory::wasModifiedSinceLastSave(const QString &dirname,
 
 //! Sets history for given directory. Previous history will be rewritten.
 
-void OutputDataIOHistory::setHistory(const QString &dirname, const OutputDataDirHistory &history)
+void OutputDataIOHistory::setHistory(const QString& dirname, const OutputDataDirHistory& history)
 {
+    Q_ASSERT(dirname.isEmpty() == false);
+
     m_dir_history[dirname] = history;
 }
 

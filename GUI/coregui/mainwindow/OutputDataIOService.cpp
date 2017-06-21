@@ -16,6 +16,7 @@
 #include "OutputDataIOService.h"
 #include "ApplicationModels.h"
 #include "IntensityDataItem.h"
+#include "JobItemUtils.h"
 
 OutputDataIOService::OutputDataIOService(ApplicationModels* models, QObject* parent)
     : QObject(parent)
@@ -27,6 +28,30 @@ OutputDataIOService::OutputDataIOService(ApplicationModels* models, QObject* par
 void OutputDataIOService::setApplicationModels(ApplicationModels* models)
 {
     m_applicationModels = models;
+}
+
+void OutputDataIOService::save(const QString& projectDir)
+{
+    if (!m_history.hasHistory(projectDir))
+        m_history.setHistory(projectDir, OutputDataDirHistory());
+
+    OutputDataDirHistory newHistory;
+
+    for (auto item : dataItems()) {
+
+        if (m_history.wasModifiedSinceLastSave(projectDir, item))
+            JobItemUtils::saveIntensityData(item, projectDir);
+
+        newHistory.markAsSaved(item);
+    }
+
+    // if oldHistory contained some deleted IntensityDataItems, that info will be dropped here
+    m_history.setHistory(projectDir, newHistory);
+}
+
+void OutputDataIOService::load(const QString& projectDir)
+{
+    Q_UNUSED(projectDir);
 }
 
 //! Returns all IntensityDataItems available for save/load.

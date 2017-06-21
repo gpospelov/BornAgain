@@ -66,6 +66,8 @@ private:
 
 class BA_CORE_API_ OutputDataIOHistory {
 public:
+    bool hasHistory(const QString& dirname) const;
+
     bool wasModifiedSinceLastSave(const QString& dirname, const IntensityDataItem* item);
 
     void setHistory(const QString& dirname, const OutputDataDirHistory& history);

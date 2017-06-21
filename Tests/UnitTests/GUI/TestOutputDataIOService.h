@@ -8,18 +8,63 @@
 #include "IntensityDataItem.h"
 #include "OutputDataIOHistory.h"
 #include "GUIHelpers.h"
+#include "OutputData.h"
+#include "ProjectUtils.h"
+#include "IntensityDataIOFactory.h"
+#include "IntensityDataFunctions.h"
 #include <QSignalSpy>
 #include <QDebug>
+
+namespace {
+const int nxsize = 5;
+const int nysize = 10;
+}
 
 class TestOutputDataIOService : public QObject
 {
     Q_OBJECT
 
 private slots:
+
+    //! Helper function to create test OutputData.
+    std::unique_ptr<OutputData<double>> createData(double value = 0.0)
+    {
+        std::unique_ptr<OutputData<double>> result(new OutputData<double>());
+        result->addAxis("x", nxsize, -1.0, 1.0);
+        result->addAxis("y", nysize, 0.0, 2.0);
+        result->setAllTo(value);
+        return result;
+    }
+
+    //! Helper function to create test RealData
+    RealDataItem* createRealData(const QString& name, ApplicationModels& models, double value = 0.0)
+    {
+        RealDataItem* result = dynamic_cast<RealDataItem*>(
+            models.realDataModel()->insertNewItem(Constants::RealDataType));
+        result->intensityDataItem()->setOutputData(createData(value).release());
+        result->setItemValue(SessionItem::P_NAME, name);
+        return result;
+    }
+
+    //! Helper function to test if data are the same.
+    bool isTheSame(const OutputData<double>&data1, const OutputData<double>& data2)
+    {
+        return IntensityDataFunctions::getRelativeDifference(data1, data2) < 1e-10;
+    }
+
+    //! Helper function to check if file on disk represents same data.
+    bool isTheSame(const QString& fileName, const OutputData<double>& data)
+    {
+        std::unique_ptr<OutputData<double>> dataOnDisk(
+            IntensityDataIOFactory::readOutputData(fileName.toStdString()));
+        return isTheSame(*dataOnDisk, data);
+    }
+
     void test_nonXMLData();
     void test_OutputDataSaveInfo();
     void test_OutputDataDirHistory();
     void test_OutputDataIOHistory();
+    void test_OutputDataIOService();
 };
 
 //! Test methods for retrieving nonXML data.
@@ -78,7 +123,6 @@ inline void TestOutputDataIOService::test_OutputDataSaveInfo()
     QTest::qSleep(nap_time);
     item->setLastModified(QDateTime::currentDateTime());
     QVERIFY(info.wasModifiedSinceLastSave() == true);
-
 }
 
 //! Tests OutputDataDirHistory class intended for storing save history of several
@@ -122,6 +166,8 @@ inline void TestOutputDataIOService::test_OutputDataDirHistory()
     QVERIFY(history.wasModifiedSinceLastSave(item2) == false);
 }
 
+//! Tests OutputDataIOHistory class (save info for several independent directories).
+
 inline void TestOutputDataIOService::test_OutputDataIOHistory()
 {
     SessionModel model("TempModel");
@@ -158,7 +204,57 @@ inline void TestOutputDataIOService::test_OutputDataIOHistory()
 
     // asking info for some non-existing directory
     QVERIFY_EXCEPTION_THROWN(history.wasModifiedSinceLastSave("dir3", item1), GUIHelpers::Error);
-
 }
 
+//! Testing saving abilities of OutputDataIOService class.
+
+inline void TestOutputDataIOService::test_OutputDataIOService()
+{
+    const double value1(1.0), value2(2.0), value3(3.0);
+
+    ApplicationModels models;
+    RealDataItem* realData1 = createRealData("data1", models, value1);
+    RealDataItem* realData2 = createRealData("data2", models, value2);
+
+    const QString projectDir("test_OutputDataIOService");
+    GUIHelpers::createSubdir(".", projectDir);
+
+    // Saving first time
+    OutputDataIOService service(&models);
+    service.save(projectDir);
+
+    // Checking existance of data on disk
+    QString fname1 = "./" + projectDir + "/" + "realdata_data1_0.int.gz";
+    QString fname2 = "./" + projectDir + "/" + "realdata_data2_0.int.gz";
+    QVERIFY(ProjectUtils::exists(fname1));
+    QVERIFY(ProjectUtils::exists(fname2));
+
+    // Reading data from disk, checking it is the same
+    std::unique_ptr<OutputData<double>> dataOnDisk1(
+        IntensityDataIOFactory::readOutputData(fname1.toStdString()));
+    std::unique_ptr<OutputData<double>> dataOnDisk2(
+        IntensityDataIOFactory::readOutputData(fname2.toStdString()));
+    QVERIFY(isTheSame(*dataOnDisk1, *realData1->intensityDataItem()->getOutputData()));
+    QVERIFY(isTheSame(*dataOnDisk2, *realData2->intensityDataItem()->getOutputData()));
+
+    // Modifying data and saving the project.
+    realData2->intensityDataItem()->setOutputData(createData(value3).release());
+    service.save(projectDir);
+    QVERIFY(isTheSame(*dataOnDisk1, *realData1->intensityDataItem()->getOutputData()));
+    QVERIFY(isTheSame(*dataOnDisk2, *realData2->intensityDataItem()->getOutputData()) == false);
+    // checking that data on disk has changed
+    dataOnDisk2.reset(IntensityDataIOFactory::readOutputData(fname2.toStdString()));
+    QVERIFY(isTheSame(*dataOnDisk2, *realData2->intensityDataItem()->getOutputData()));
+
+    // Renaming RealData and check that file on disk changed the name
+    realData2->setItemName("data2new");
+    service.save(projectDir);
+    QString fname2new = "./" + projectDir + "/" + "realdata_data2new_0.int.gz";
+    QVERIFY(ProjectUtils::exists(fname2new));
+    QVERIFY(isTheSame(fname2new, *realData2->intensityDataItem()->getOutputData()));
+
+    // Check that file with old name was removed.
+//    QVERIFY(ProjectUtils::exists(fname2) == false);
+
+}
 

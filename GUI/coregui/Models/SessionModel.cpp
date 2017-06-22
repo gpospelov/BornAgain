@@ -506,13 +506,6 @@ void SessionModel::loadNonXMLData(const QString &projectDir)
     Q_UNUSED(projectDir);
 }
 
-//! Saves non-XML data of the model to the projectDir
-
-void SessionModel::saveNonXMLData(const QString &projectDir)
-{
-    Q_UNUSED(projectDir);
-}
-
 QVector<SessionItem *> SessionModel::nonXMLData() const
 {
     return QVector<SessionItem *>();

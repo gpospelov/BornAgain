@@ -93,8 +93,6 @@ private:
     void readFrom(QIODevice* device);
     void writeTo(QIODevice* device);
 
-    void removeDataFiles(const QString& projectDir);
-
     void disconnectModels();
     void connectModels();
 

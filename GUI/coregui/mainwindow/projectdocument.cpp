@@ -113,8 +113,8 @@ bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
     QElapsedTimer timer2;
     timer2.start();
 
-    removeDataFiles(projectDir);
-    m_applicationModels->saveNonXMLData(projectDir);
+    m_dataService->save(projectDir);
+
     qDebug() << "saved. Project save time:" << (timer1.elapsed() - timer2.elapsed()) << ";"
              << "nonXML save time:" << timer2.elapsed();
 
@@ -271,21 +271,6 @@ void ProjectDocument::writeTo(QIODevice* device)
 
     writer.writeEndElement(); // BornAgain tag
     writer.writeEndDocument();
-}
-
-//! Cleans projectDir from *.int.gz files. Done on project save.
-
-void ProjectDocument::removeDataFiles(const QString& projectDir)
-{
-    QDir dir(projectDir);
-    QStringList filters("*.int.gz");
-    QStringList intensityFiles = dir.entryList(filters);
-    foreach (QString fileName, intensityFiles) {
-        QString filename = projectDir + QStringLiteral("/") + fileName;
-        QFile fin(filename);
-        if (fin.exists())
-            fin.remove();
-    }
 }
 
 void ProjectDocument::disconnectModels()

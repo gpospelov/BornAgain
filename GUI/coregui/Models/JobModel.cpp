@@ -137,18 +137,6 @@ void JobModel::loadNonXMLData(const QString &projectDir)
     }
 }
 
-//! Saves JobItem's OutputData to the projectDir
-
-void JobModel::saveNonXMLData(const QString &projectDir)
-{
-    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemUtils::saveIntensityData(jobItem->intensityDataItem(), projectDir);
-        if(RealDataItem *refItem = jobItem->realDataItem())
-            JobItemUtils::saveIntensityData(refItem->intensityDataItem(), projectDir);
-    }
-}
-
 QVector<SessionItem *> JobModel::nonXMLData() const
 {
     QVector<SessionItem *> result;

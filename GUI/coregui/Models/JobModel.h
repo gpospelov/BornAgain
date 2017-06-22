@@ -49,7 +49,6 @@ public:
     void clear() override;
 
     void loadNonXMLData(const QString &projectDir) override;
-    void saveNonXMLData(const QString &projectDir) override;
 
     QVector<SessionItem*> nonXMLData() const override;
 

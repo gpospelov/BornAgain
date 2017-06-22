@@ -30,7 +30,6 @@ public:
 //    Qt::ItemFlags flags(const QModelIndex &index) const;
 
     void loadNonXMLData(const QString &projectDir)  override;
-    void saveNonXMLData(const QString &projectDir)  override;
 
     QVector<SessionItem*> nonXMLData() const override;
 

@@ -58,7 +58,6 @@ public:
     QList<SessionModel *> modelList();
 
     void loadNonXMLData(const QString &projectDir);
-    void saveNonXMLData(const QString &projectDir);
 
     QVector<SessionItem*> nonXMLData() const;
 

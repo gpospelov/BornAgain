@@ -113,7 +113,6 @@ public:
     SessionItem* rootItem() const;
 
     virtual void loadNonXMLData(const QString &projectDir);
-    virtual void saveNonXMLData(const QString &projectDir);
 
     virtual QVector<SessionItem*> nonXMLData() const;
 

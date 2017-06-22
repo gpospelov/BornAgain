@@ -285,15 +285,6 @@ void ApplicationModels::loadNonXMLData(const QString &projectDir)
     }
 }
 
-//! Saves model's non-XML data  to the projectDir
-
-void ApplicationModels::saveNonXMLData(const QString &projectDir)
-{
-    foreach(SessionModel *model, modelList()) {
-        model->saveNonXMLData(projectDir);
-    }
-}
-
 QVector<SessionItem *> ApplicationModels::nonXMLData() const
 {
     Q_ASSERT(m_realDataModel && m_jobModel);

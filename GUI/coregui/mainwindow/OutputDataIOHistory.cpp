@@ -67,6 +67,18 @@ bool OutputDataDirHistory::contains(const IntensityDataItem *item) {
     return false;
 }
 
+//! Returns list of file names used to save all IntensityDataItem in a history.
+
+QStringList OutputDataDirHistory::savedFileNames() const
+{
+    QStringList result;
+
+    for(auto& info : m_history)
+        result.append(info.fileName());
+
+    return result;
+}
+
 OutputDataSaveInfo OutputDataDirHistory::itemInfo(const IntensityDataItem* item) const
 {
     for(auto& info : m_history) {
@@ -87,11 +99,10 @@ bool OutputDataIOHistory::hasHistory(const QString& dirname) const
 bool OutputDataIOHistory::wasModifiedSinceLastSave(const QString& dirname,
                                                    const IntensityDataItem* item)
 {
-    auto it = m_dir_history.find(dirname);
-    if (it == m_dir_history.end())
+    if (!hasHistory(dirname))
         throw GUIHelpers::Error("OutputDataIOHistory::wasModifiedSinceLastSave() -> Error. "
                                 "No info for directory '"+dirname+"'.");
-    return it.value().wasModifiedSinceLastSave(item);
+    return m_dir_history[dirname].wasModifiedSinceLastSave(item);
 }
 
 //! Sets history for given directory. Previous history will be rewritten.
@@ -101,5 +112,14 @@ void OutputDataIOHistory::setHistory(const QString& dirname, const OutputDataDir
     Q_ASSERT(dirname.isEmpty() == false);
 
     m_dir_history[dirname] = history;
+}
+
+QStringList OutputDataIOHistory::savedFileNames(const QString& dirname) const
+{
+    if (!hasHistory(dirname))
+        throw GUIHelpers::Error("OutputDataIOHistory::savedFileNames() -> Error. "
+                                "No info for directory '"+dirname+"'.");
+
+    return m_dir_history[dirname].savedFileNames();
 }
 

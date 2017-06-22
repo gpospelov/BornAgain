@@ -34,6 +34,8 @@ public:
 
     const IntensityDataItem* dataItem() const { return m_dataItem; }
 
+    QString fileName() const { return m_file_name; }
+
     bool wasModifiedSinceLastSave() const;
 
 private:
@@ -56,6 +58,8 @@ public:
 
     bool contains(const IntensityDataItem* item);
 
+    QStringList savedFileNames() const;
+
 private:
     OutputDataSaveInfo itemInfo(const IntensityDataItem* item) const;
 
@@ -71,11 +75,13 @@ public:
     bool wasModifiedSinceLastSave(const QString& dirname, const IntensityDataItem* item);
 
     void setHistory(const QString& dirname, const OutputDataDirHistory& history);
+
+    QStringList savedFileNames(const QString& dirname) const;
+
 private:
 
     //!< Correspondance of directory name to save history.
     QMap<QString, OutputDataDirHistory> m_dir_history;
 };
-
 
 #endif // OUTPUTDATAIOHISTORY_H

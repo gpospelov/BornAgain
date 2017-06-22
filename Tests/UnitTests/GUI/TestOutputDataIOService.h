@@ -261,7 +261,6 @@ inline void TestOutputDataIOService::test_OutputDataIOService()
     QVERIFY(isTheSame(fname2new, *realData2->intensityDataItem()->getOutputData()));
 
     // Check that file with old name was removed.
-//    QVERIFY(ProjectUtils::exists(fname2) == false);
-
+    QVERIFY(ProjectUtils::exists(fname2) == false);
 }
 

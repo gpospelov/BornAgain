@@ -43,6 +43,9 @@ public:
     QVector<IntensityDataItem* > dataItems() const;
 
 private:
+    void cleanOldFiles(const QString& projectDir, const QStringList& oldSaves,
+                       const QStringList& newSaves);
+
     OutputDataIOHistory m_history;
     ApplicationModels* m_applicationModels;
 };

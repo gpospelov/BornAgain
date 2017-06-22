@@ -17,6 +17,7 @@
 #include "ApplicationModels.h"
 #include "IntensityDataItem.h"
 #include "JobItemUtils.h"
+#include "ProjectUtils.h"
 
 OutputDataIOService::OutputDataIOService(ApplicationModels* models, QObject* parent)
     : QObject(parent)
@@ -45,6 +46,11 @@ void OutputDataIOService::save(const QString& projectDir)
         newHistory.markAsSaved(item);
     }
 
+    // dealing with files
+    QStringList oldFiles = m_history.savedFileNames(projectDir);
+    QStringList newFiles = newHistory.savedFileNames();
+    cleanOldFiles(projectDir, oldFiles, newFiles);
+
     // if oldHistory contained some deleted IntensityDataItems, that info will be dropped here
     m_history.setHistory(projectDir, newHistory);
 }
@@ -69,5 +75,15 @@ QVector<IntensityDataItem *> OutputDataIOService::dataItems() const
     }
 
     return result;
+}
+
+//! Clean old saved files.
+//! All files in oldSaves list, which are not in newSaves list, will be removed.
+
+void OutputDataIOService::cleanOldFiles(const QString &projectDir, const QStringList &oldSaves,
+                                        const QStringList &newSaves)
+{
+    QStringList to_remove = ProjectUtils::substract(oldSaves, newSaves);
+    ProjectUtils::removeFiles(projectDir, to_remove);
 }
 

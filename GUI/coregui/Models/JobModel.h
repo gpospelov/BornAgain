@@ -52,6 +52,8 @@ public:
 
     QVector<SessionItem*> nonXMLData() const override;
 
+    void link_instruments();
+
 signals:
     void aboutToDeleteJobItem(JobItem *item);
     void focusRequest(JobItem *item);

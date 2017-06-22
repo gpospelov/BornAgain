@@ -91,6 +91,16 @@ void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
     updateAxesTitle(intensityItem);
 }
 
+//! loads intensity data from project directory
+
+void JobItemUtils::loadIntensityData(IntensityDataItem *intensityItem, const QString &projectDir)
+{
+    QString filename = intensityItem->fileName(projectDir);
+    auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
+    intensityItem->setOutputData(data);
+}
+
+
 //! Saves intensityData in project directory
 
 void JobItemUtils::saveIntensityData(IntensityDataItem* intensityItem, const QString& projectDir)
@@ -243,3 +253,4 @@ OutputData<double>* JobItemUtils::createDetectorMap(const InstrumentItem* instru
 
     return result;
 }
+

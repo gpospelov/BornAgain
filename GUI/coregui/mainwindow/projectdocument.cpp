@@ -20,6 +20,7 @@
 #include "WarningMessageService.h"
 #include "ProjectUtils.h"
 #include "OutputDataIOService.h"
+#include "JobModel.h"
 #include <QDir>
 #include <QXmlStreamReader>
 #include <QElapsedTimer>
@@ -129,6 +130,9 @@ bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 
 bool ProjectDocument::load(const QString& project_file_name)
 {
+    QElapsedTimer timer1, timer2;
+    timer1.start();
+
     m_documentStatus = STATUS_OK;
     setProjectFileName(project_file_name);
 
@@ -144,7 +148,11 @@ bool ProjectDocument::load(const QString& project_file_name)
         disconnectModels();
         readFrom(&file);
         file.close();
-        m_applicationModels->loadNonXMLData(projectDir());
+        //m_applicationModels->loadNonXMLData(projectDir());
+
+        timer2.start();
+        m_dataService->load(projectDir());
+        m_applicationModels->jobModel()->link_instruments();
         connectModels();
 
     } catch (const std::exception& ex) {
@@ -152,6 +160,9 @@ bool ProjectDocument::load(const QString& project_file_name)
         m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
         return false;
     }
+
+    qDebug() << "loaded. Project load time:" << (timer1.elapsed() - timer2.elapsed()) << ";"
+             << "nonXML load time:" << timer2.elapsed();
 
     return true;
 }

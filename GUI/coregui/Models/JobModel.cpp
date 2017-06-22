@@ -154,6 +154,17 @@ QVector<SessionItem *> JobModel::nonXMLData() const
     return result;
 }
 
+//! Link instruments to real data on project load.
+
+void JobModel::link_instruments()
+{
+    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
+        JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
+        if (RealDataItem *refItem = jobItem->realDataItem())
+            refItem->linkToInstrument(jobItem->instrumentItem());
+    }
+}
+
 void JobModel::onCancelAllJobs()
 {
     m_queue_data->onCancelAllJobs();

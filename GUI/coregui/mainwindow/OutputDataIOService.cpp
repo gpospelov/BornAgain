@@ -65,7 +65,14 @@ void OutputDataIOService::save(const QString& projectDir)
 
 void OutputDataIOService::load(const QString& projectDir)
 {
-    Q_UNUSED(projectDir);
+    OutputDataDirHistory newHistory;
+
+    for (auto item : dataItems()) {
+        JobItemUtils::loadIntensityData(item, projectDir);
+        newHistory.markAsSaved(item);
+    }
+
+    m_history.setHistory(projectDir, newHistory);
 }
 
 //! Returns all IntensityDataItems available for save/load.

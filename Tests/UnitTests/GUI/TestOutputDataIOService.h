@@ -49,7 +49,9 @@ private slots:
     //! Helper function to test if data are the same.
     bool isTheSame(const OutputData<double>&data1, const OutputData<double>& data2)
     {
-        return IntensityDataFunctions::getRelativeDifference(data1, data2) < 1e-10;
+        double diff = IntensityDataFunctions::getRelativeDifference(data1, data2);
+//        qDebug() << "XXX" << diff;
+        return diff < 1e-10;
     }
 
     //! Helper function to check if file on disk represents same data.
@@ -222,6 +224,7 @@ inline void TestOutputDataIOService::test_OutputDataIOService()
     // Saving first time
     OutputDataIOService service(&models);
     service.save(projectDir);
+    QTest::qSleep(10);
 
     // Checking existance of data on disk
     QString fname1 = "./" + projectDir + "/" + "realdata_data1_0.int.gz";
@@ -240,6 +243,8 @@ inline void TestOutputDataIOService::test_OutputDataIOService()
     // Modifying data and saving the project.
     realData2->intensityDataItem()->setOutputData(createData(value3).release());
     service.save(projectDir);
+    QTest::qSleep(10);
+
     QVERIFY(isTheSame(*dataOnDisk1, *realData1->intensityDataItem()->getOutputData()));
     QVERIFY(isTheSame(*dataOnDisk2, *realData2->intensityDataItem()->getOutputData()) == false);
     // checking that data on disk has changed
@@ -249,6 +254,8 @@ inline void TestOutputDataIOService::test_OutputDataIOService()
     // Renaming RealData and check that file on disk changed the name
     realData2->setItemName("data2new");
     service.save(projectDir);
+    QTest::qSleep(10);
+
     QString fname2new = "./" + projectDir + "/" + "realdata_data2new_0.int.gz";
     QVERIFY(ProjectUtils::exists(fname2new));
     QVERIFY(isTheSame(fname2new, *realData2->intensityDataItem()->getOutputData()));

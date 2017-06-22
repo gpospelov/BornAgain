@@ -59,6 +59,9 @@ BA_CORE_API_ bool removeRecursively(const QString& dirname);
 BA_CORE_API_ bool removeFile(const QString& dirname, const QString& filename);
 BA_CORE_API_ bool removeFiles(const QString& dirname, const QStringList& filenames);
 
+//! Returns list of string from lhs, which are not in rhs.
+BA_CORE_API_ QStringList substract(const QStringList& lhs, const QStringList& rhs);
+
 }
 
 #endif // PROJECTUTILS_H

@@ -116,3 +116,9 @@ bool ProjectUtils::removeFiles(const QString &dirname, const QStringList &filena
     return success;
 }
 
+
+QStringList ProjectUtils::substract(const QStringList &lhs, const QStringList &rhs)
+{
+    QSet<QString> diff = lhs.toSet().subtract(rhs.toSet());
+    return diff.toList();
+}

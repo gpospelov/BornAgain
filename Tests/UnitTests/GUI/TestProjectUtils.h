@@ -31,6 +31,7 @@ private slots:
 
     void test_basicFileOperations();
     void test_nonXMLDataInDir();
+    void test_stringListSubstraction();
 };
 
 inline void TestProjectUtils::test_basicFileOperations()
@@ -87,4 +88,18 @@ inline void TestProjectUtils::test_nonXMLDataInDir()
     QCOMPARE(nonxml.size(), 0);
 }
 
+//! Test substraction of two lists (scenario: old files on disk vs new files).
+
+inline void TestProjectUtils::test_stringListSubstraction()
+{
+    QStringList oldFiles = QStringList()
+            << "a.int.gz" << "b.int.gz" << "c.int.gz";
+
+    QStringList newFiles = QStringList()
+            << "d.int.gz" << "b_renamed.int.gz" << "c.int.gz" << "a.int.gz";
+
+    QStringList diff = ProjectUtils::substract(oldFiles, newFiles);
+    QCOMPARE(diff.size(), 1);
+    QCOMPARE(diff.at(0), QString("b.int.gz"));
+}
 

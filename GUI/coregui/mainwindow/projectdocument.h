@@ -23,6 +23,7 @@
 class QIODevice;
 class ApplicationModels;
 class WarningMessageService;
+class OutputDataIOService;
 
 namespace ProjectDocumentXML
 {
@@ -104,6 +105,7 @@ private:
     EDocumentStatus m_documentStatus;
     WarningMessageService* m_messageService;
     QString m_currentVersion;
+    OutputDataIOService* m_dataService;
 };
 
 #endif // PROJECTDOCUMENT_H

@@ -19,8 +19,11 @@
 #include "GUIHelpers.h"
 #include "WarningMessageService.h"
 #include "ProjectUtils.h"
+#include "OutputDataIOService.h"
 #include <QDir>
 #include <QXmlStreamReader>
+#include <QElapsedTimer>
+#include <QDebug>
 
 namespace {
 const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
@@ -34,6 +37,7 @@ ProjectDocument::ProjectDocument(const QString& projectFileName)
     , m_modified(false)
     , m_documentStatus(STATUS_OK)
     , m_messageService(nullptr)
+    , m_dataService(new OutputDataIOService(this))
 {
     setObjectName("ProjectDocument");
     if (!projectFileName.isEmpty())
@@ -87,15 +91,17 @@ void ProjectDocument::setApplicationModels(ApplicationModels* applicationModels)
     if (applicationModels != m_applicationModels) {
         disconnectModels();
         m_applicationModels = applicationModels;
+        m_dataService->setApplicationModels(m_applicationModels);
         connectModels();
     }
 }
 
 bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 {
-    QString projectDir = ProjectUtils::projectDir(project_file_name);
+    QElapsedTimer timer1;
+    timer1.start();
 
-    removeDataFiles(projectDir);
+    QString projectDir = ProjectUtils::projectDir(project_file_name);
 
     QFile file(project_file_name);
     if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text))
@@ -104,7 +110,13 @@ bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
     writeTo(&file);
     file.close();
 
+    QElapsedTimer timer2;
+    timer2.start();
+
+    removeDataFiles(projectDir);
     m_applicationModels->saveNonXMLData(projectDir);
+    qDebug() << "saved. Project save time:" << (timer1.elapsed() - timer2.elapsed()) << ";"
+             << "nonXML save time:" << timer2.elapsed();
 
     if (!autoSave) {
         setProjectFileName(project_file_name);

@@ -18,6 +18,13 @@
 #include "IntensityDataItem.h"
 #include "JobItemUtils.h"
 #include "ProjectUtils.h"
+#include <QDebug>
+
+OutputDataIOService::OutputDataIOService(QObject* parent)
+    : QObject(parent)
+    , m_applicationModels(nullptr)
+{
+}
 
 OutputDataIOService::OutputDataIOService(ApplicationModels* models, QObject* parent)
     : QObject(parent)
@@ -40,9 +47,10 @@ void OutputDataIOService::save(const QString& projectDir)
 
     for (auto item : dataItems()) {
 
-        if (m_history.wasModifiedSinceLastSave(projectDir, item))
+        if (m_history.wasModifiedSinceLastSave(projectDir, item)) {
             JobItemUtils::saveIntensityData(item, projectDir);
-
+            qDebug() << "data saved";
+        }
         newHistory.markAsSaved(item);
     }
 

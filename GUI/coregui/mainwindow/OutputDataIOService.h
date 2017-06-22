@@ -32,6 +32,7 @@ class BA_CORE_API_ OutputDataIOService : public QObject
 {
     Q_OBJECT
 public:
+    explicit OutputDataIOService(QObject* parent = 0);
     explicit OutputDataIOService(ApplicationModels* models, QObject* parent = 0);
 
     void setApplicationModels(ApplicationModels* models);

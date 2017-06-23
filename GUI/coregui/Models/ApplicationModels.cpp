@@ -276,22 +276,10 @@ QList<SessionModel *> ApplicationModels::modelList()
     return result;
 }
 
-//! Loads model's non-XML data  from the projectDir
-
-void ApplicationModels::loadNonXMLData(const QString &projectDir)
+QVector<SessionItem *> ApplicationModels::nonXMLData() const
 {
-    foreach(SessionModel *model, modelList()) {
-        model->loadNonXMLData(projectDir);
-    }
-}
-
-//! Saves model's non-XML data  to the projectDir
-
-void ApplicationModels::saveNonXMLData(const QString &projectDir)
-{
-    foreach(SessionModel *model, modelList()) {
-        model->saveNonXMLData(projectDir);
-    }
+    Q_ASSERT(m_realDataModel && m_jobModel);
+    return QVector<SessionItem *>() << m_realDataModel->nonXMLData() << m_jobModel->nonXMLData();
 }
 
 void ApplicationModels::disconnectModel(SessionModel *model)

@@ -29,8 +29,7 @@ public:
     explicit RealDataModel(QObject *parent = 0);
 //    Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    void loadNonXMLData(const QString &projectDir);
-    void saveNonXMLData(const QString &projectDir);
+    QVector<SessionItem*> nonXMLData() const override;
 
 signals:
     void modelLoaded();

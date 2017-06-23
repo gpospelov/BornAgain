@@ -19,8 +19,12 @@
 #include "GUIHelpers.h"
 #include "WarningMessageService.h"
 #include "ProjectUtils.h"
+#include "OutputDataIOService.h"
+#include "JobModel.h"
 #include <QDir>
 #include <QXmlStreamReader>
+#include <QElapsedTimer>
+#include <QDebug>
 
 namespace {
 const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
@@ -34,6 +38,7 @@ ProjectDocument::ProjectDocument(const QString& projectFileName)
     , m_modified(false)
     , m_documentStatus(STATUS_OK)
     , m_messageService(nullptr)
+    , m_dataService(new OutputDataIOService(this))
 {
     setObjectName("ProjectDocument");
     if (!projectFileName.isEmpty())
@@ -87,15 +92,18 @@ void ProjectDocument::setApplicationModels(ApplicationModels* applicationModels)
     if (applicationModels != m_applicationModels) {
         disconnectModels();
         m_applicationModels = applicationModels;
+        m_dataService->setApplicationModels(m_applicationModels);
         connectModels();
     }
 }
 
 bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 {
-    QString projectDir = ProjectUtils::projectDir(project_file_name);
+    qDebug() << "ProjectDocument saving...";
+    QElapsedTimer timer1;
+    timer1.start();
 
-    removeDataFiles(projectDir);
+    QString projectDir = ProjectUtils::projectDir(project_file_name);
 
     QFile file(project_file_name);
     if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text))
@@ -104,7 +112,13 @@ bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
     writeTo(&file);
     file.close();
 
-    m_applicationModels->saveNonXMLData(projectDir);
+    QElapsedTimer timer2;
+    timer2.start();
+
+    m_dataService->save(projectDir);
+
+    qDebug() << "saved. Project save time:" << (timer1.elapsed() - timer2.elapsed()) << ";"
+             << "nonXML save time:" << timer2.elapsed();
 
     if (!autoSave) {
         setProjectFileName(project_file_name);
@@ -117,6 +131,11 @@ bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 
 bool ProjectDocument::load(const QString& project_file_name)
 {
+    qDebug() << "ProjectDocument loading...";
+
+    QElapsedTimer timer1, timer2;
+    timer1.start();
+
     m_documentStatus = STATUS_OK;
     setProjectFileName(project_file_name);
 
@@ -132,7 +151,11 @@ bool ProjectDocument::load(const QString& project_file_name)
         disconnectModels();
         readFrom(&file);
         file.close();
-        m_applicationModels->loadNonXMLData(projectDir());
+        //m_applicationModels->loadNonXMLData(projectDir());
+
+        timer2.start();
+        m_dataService->load(projectDir());
+        m_applicationModels->jobModel()->link_instruments();
         connectModels();
 
     } catch (const std::exception& ex) {
@@ -140,6 +163,9 @@ bool ProjectDocument::load(const QString& project_file_name)
         m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
         return false;
     }
+
+    qDebug() << "loaded. Project load time:" << (timer1.elapsed() - timer2.elapsed()) << ";"
+             << "nonXML load time:" << timer2.elapsed();
 
     return true;
 }
@@ -259,21 +285,6 @@ void ProjectDocument::writeTo(QIODevice* device)
 
     writer.writeEndElement(); // BornAgain tag
     writer.writeEndDocument();
-}
-
-//! Cleans projectDir from *.int.gz files. Done on project save.
-
-void ProjectDocument::removeDataFiles(const QString& projectDir)
-{
-    QDir dir(projectDir);
-    QStringList filters("*.int.gz");
-    QStringList intensityFiles = dir.entryList(filters);
-    foreach (QString fileName, intensityFiles) {
-        QString filename = projectDir + QStringLiteral("/") + fileName;
-        QFile fin(filename);
-        if (fin.exists())
-            fin.remove();
-    }
 }
 
 void ProjectDocument::disconnectModels()

@@ -23,6 +23,7 @@
 class QIODevice;
 class ApplicationModels;
 class WarningMessageService;
+class OutputDataIOService;
 
 namespace ProjectDocumentXML
 {
@@ -92,8 +93,6 @@ private:
     void readFrom(QIODevice* device);
     void writeTo(QIODevice* device);
 
-    void removeDataFiles(const QString& projectDir);
-
     void disconnectModels();
     void connectModels();
 
@@ -104,6 +103,7 @@ private:
     EDocumentStatus m_documentStatus;
     WarningMessageService* m_messageService;
     QString m_currentVersion;
+    OutputDataIOService* m_dataService;
 };
 
 #endif // PROJECTDOCUMENT_H

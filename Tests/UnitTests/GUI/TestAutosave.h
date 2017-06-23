@@ -16,7 +16,7 @@ class TestAutosave : public QObject
 {
     Q_OBJECT
 
-private slots:
+private:
     // helper method to modify something in a model
     void modify_models(ApplicationModels* models)
     {
@@ -24,6 +24,7 @@ private slots:
         instrument->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
     }
 
+private slots:
     void test_autoSave();
     void test_autoSaveIncludingData();
 };

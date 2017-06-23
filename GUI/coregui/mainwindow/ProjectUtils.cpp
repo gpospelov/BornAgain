@@ -15,8 +15,11 @@
 
 #include "ProjectUtils.h"
 #include "projectdocument.h"
+#include "GUIHelpers.h"
+#include "JobItemFunctions.h"
 #include <QFileInfo>
 #include <QDateTime>
+#include <QDir>
 #include <QDebug>
 
 QString ProjectUtils::projectName(const QString& projectFileName)
@@ -67,4 +70,55 @@ QString ProjectUtils::lastModified(const QString& fileName)
 {
     QFileInfo info(fileName);
     return info.lastModified().toString("hh:mm:ss, MMMM d, yyyy");
+}
+
+QStringList ProjectUtils::nonXMLDataInDir(const QString &dirname)
+{
+    QDir dir(dirname);
+
+    if (!dir.exists())
+        throw GUIHelpers::Error("ProjectUtils::nonXMLDataInDir() -> Error. Non existing "
+                                "directory '"+dirname+"'.");
+
+    return dir.entryList(JobItemFunctions::nonXMLFileNameFilters());
+}
+
+bool ProjectUtils::removeRecursively(const QString &dirname)
+{
+    QDir dir(dirname);
+
+    if (!dir.exists())
+        throw GUIHelpers::Error("ProjectUtils::removeRecursively() -> Error. Non existing "
+                                "directory '"+dirname+"'.");
+
+    return dir.removeRecursively();
+}
+
+bool ProjectUtils::removeFile(const QString &dirname, const QString &filename)
+{
+    QString name = dirname + QStringLiteral("/") + filename;
+    QFile fin(name);
+
+    if (!fin.exists())
+        throw GUIHelpers::Error("ProjectUtils::removeRecursively() -> Error. Non existing "
+                                "file '"+name+"'.");
+
+    return fin.remove();
+}
+
+bool ProjectUtils::removeFiles(const QString &dirname, const QStringList &filenames)
+{
+    bool success(true);
+
+    for (auto& name : filenames)
+        success &= removeFile(dirname, name);
+
+    return success;
+}
+
+
+QStringList ProjectUtils::substract(const QStringList &lhs, const QStringList &rhs)
+{
+    QSet<QString> diff = lhs.toSet().subtract(rhs.toSet());
+    return diff.toList();
 }

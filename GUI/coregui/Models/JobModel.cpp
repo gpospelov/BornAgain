@@ -123,29 +123,31 @@ void JobModel::clear()
     SessionModel::clear();
 }
 
-//! Loads OutputData from the projectDir to JobItem
-
-void JobModel::loadNonXMLData(const QString &projectDir)
+QVector<SessionItem *> JobModel::nonXMLData() const
 {
-    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemUtils::loadIntensityData(jobItem, projectDir);
-        if(RealDataItem *refItem = jobItem->realDataItem()) {
-            ImportDataAssistant::loadIntensityData(refItem, projectDir);
-            refItem->linkToInstrument(jobItem->instrumentItem());
+    QVector<SessionItem *> result;
+
+    for (auto jobItem : topItems(Constants::JobItemType)) {
+        if (auto intensityItem = jobItem->getItem(JobItem::T_OUTPUT))
+            result.push_back(intensityItem);
+
+        if (auto realData = jobItem->getItem(JobItem::T_REALDATA)) {
+            if (auto intensityItem = realData->getItem(RealDataItem::T_INTENSITY_DATA))
+                result.push_back(intensityItem);
         }
     }
+
+    return result;
 }
 
-//! Saves JobItem's OutputData to the projectDir
+//! Link instruments to real data on project load.
 
-void JobModel::saveNonXMLData(const QString &projectDir)
+void JobModel::link_instruments()
 {
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemUtils::saveIntensityData(jobItem->intensityDataItem(), projectDir);
-        if(RealDataItem *refItem = jobItem->realDataItem())
-            JobItemUtils::saveIntensityData(refItem->intensityDataItem(), projectDir);
+        if (RealDataItem *refItem = jobItem->realDataItem())
+            refItem->linkToInstrument(jobItem->instrumentItem(), false);
     }
 }
 

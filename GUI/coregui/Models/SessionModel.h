@@ -112,8 +112,6 @@ public:
     virtual void initFrom(SessionModel *model, SessionItem *parent);
     SessionItem* rootItem() const;
 
-    virtual void loadNonXMLData(const QString &projectDir);
-
     virtual QVector<SessionItem*> nonXMLData() const;
 
 protected:

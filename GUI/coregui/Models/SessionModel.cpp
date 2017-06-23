@@ -499,13 +499,6 @@ SessionItem* SessionModel::rootItem() const{
     return m_root_item;
 }
 
-//! Loads non-XML data of the model from the projectDir
-
-void SessionModel::loadNonXMLData(const QString &projectDir)
-{
-    Q_UNUSED(projectDir);
-}
-
 QVector<SessionItem *> SessionModel::nonXMLData() const
 {
     return QVector<SessionItem *>();

@@ -32,18 +32,6 @@ RealDataModel::RealDataModel(QObject *parent)
 //}
 
 
-//! Loads OutputData from the projectDir to JobItem
-
-void RealDataModel::loadNonXMLData(const QString &projectDir)
-{
-    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
-        RealDataItem *realDataItem
-            = dynamic_cast<RealDataItem *>(itemForIndex(index(i, 0, QModelIndex())));
-        ImportDataAssistant::loadIntensityData(realDataItem, projectDir);
-    }
-    emit modelLoaded();
-}
-
 QVector<SessionItem *> RealDataModel::nonXMLData() const
 {
     QVector<SessionItem *> result;

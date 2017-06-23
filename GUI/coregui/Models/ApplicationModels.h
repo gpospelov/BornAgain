@@ -57,8 +57,6 @@ public:
 
     QList<SessionModel *> modelList();
 
-    void loadNonXMLData(const QString &projectDir);
-
     QVector<SessionItem*> nonXMLData() const;
 
 signals:

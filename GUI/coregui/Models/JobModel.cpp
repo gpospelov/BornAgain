@@ -123,20 +123,6 @@ void JobModel::clear()
     SessionModel::clear();
 }
 
-//! Loads OutputData from the projectDir to JobItem
-
-void JobModel::loadNonXMLData(const QString &projectDir)
-{
-    for (int i = 0; i < rowCount(QModelIndex()); ++i) {
-        JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
-        JobItemUtils::loadIntensityData(jobItem, projectDir);
-        if(RealDataItem *refItem = jobItem->realDataItem()) {
-            ImportDataAssistant::loadIntensityData(refItem, projectDir);
-            refItem->linkToInstrument(jobItem->instrumentItem());
-        }
-    }
-}
-
 QVector<SessionItem *> JobModel::nonXMLData() const
 {
     QVector<SessionItem *> result;

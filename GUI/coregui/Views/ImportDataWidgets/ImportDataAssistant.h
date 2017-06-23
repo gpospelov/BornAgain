@@ -31,9 +31,6 @@ public:
 
     OutputData<double> *importData(QString &baseNameOfLoadedFile);
 
-    static void loadIntensityData(RealDataItem *realDataItem, const QString &projectDir);
-    static void saveIntensityData(RealDataItem *realDataItem, const QString &projectDir);
-
     static OutputData<double> *createSimlifiedOutputData(const OutputData<double> &data);
 
     static bool hasSameDimensions(const InstrumentItem *instrumentItem,

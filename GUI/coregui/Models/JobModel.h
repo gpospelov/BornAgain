@@ -48,8 +48,6 @@ public:
 
     void clear() override;
 
-    void loadNonXMLData(const QString &projectDir) override;
-
     QVector<SessionItem*> nonXMLData() const override;
 
     void link_instruments();

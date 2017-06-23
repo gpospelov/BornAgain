@@ -31,6 +31,7 @@
 #include <QSettings>
 #include <QDateTime>
 #include <QStandardPaths>
+#include <QApplication>
 
 namespace {
     const QString S_PROJECTMANAGER = "ProjectManager";
@@ -356,12 +357,16 @@ void ProjectManager::loadProject(const QString& projectFileName)
     bool useAutosave = m_autosaveService && ProjectUtils::hasAutosavedData(projectFileName);
 
     if(useAutosave && restoreProjectDialog(projectFileName)) {
+        QApplication::setOverrideCursor(Qt::WaitCursor);
         m_project_document->load(ProjectUtils::autosaveName(projectFileName));
         m_project_document->setProjectFileName(projectFileName);
         m_project_document->setModified(true);
     } else {
+        QApplication::setOverrideCursor(Qt::WaitCursor);
         m_project_document->load(projectFileName);
     }
+
+    QApplication::restoreOverrideCursor();
 }
 
 //! Returns project file name from dialog.

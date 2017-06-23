@@ -44,9 +44,6 @@ BA_CORE_API_ void loadIntensityData(IntensityDataItem* intensityItem, const QStr
 //! saves intensity data into project directory
 BA_CORE_API_ void saveIntensityData(IntensityDataItem* intensityItem, const QString& projectDir);
 
-//! load intensity data from project directory
-BA_CORE_API_ void loadIntensityData(JobItem* jobItem, const QString& projectDir);
-
 //! returns axes units names from their domain counterpart
 BA_CORE_API_ QString nameFromAxesUnits(IDetector2D::EAxesUnits units);
 

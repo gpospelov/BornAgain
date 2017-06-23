@@ -113,31 +113,6 @@ void JobItemUtils::saveIntensityData(IntensityDataItem* intensityItem, const QSt
                                             filename.toStdString());
 }
 
-//! Loads intensityData from project directory
-
-void JobItemUtils::loadIntensityData(JobItem* jobItem, const QString& projectDir)
-{
-    IntensityDataItem* intensityItem = jobItem->intensityDataItem();
-    if (!intensityItem)
-        return;
-
-    QString filename = intensityItem->fileName(projectDir);
-
-    QFileInfo info(filename);
-    if (info.exists()) {
-        std::unique_ptr<OutputData<double>> rawData(
-            IntensityDataIOFactory::readOutputData(filename.toStdString()));
-        intensityItem->setOutputData(rawData.release());
-
-    } else {
-        jobItem->setStatus(Constants::STATUS_FAILED);
-        QString warning("Error while loading job from file, intensity data file '");
-        warning.append(filename);
-        warning.append("' was not found");
-        jobItem->setComments(warning);
-    }
-}
-
 //! Correspondance of domain detector axes types to their gui counterpart.
 
 QString JobItemUtils::nameFromAxesUnits(IDetector2D::EAxesUnits units)

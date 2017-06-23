@@ -1,4 +1,5 @@
 #include <QtTest>
+#include <memory>
 #include "ApplicationModels.h"
 #include "OutputDataIOService.h"
 #include "RealDataItem.h"
@@ -24,7 +25,7 @@ class TestOutputDataIOService : public QObject
 {
     Q_OBJECT
 
-private slots:
+private:
 
     //! Helper function to create test OutputData.
     std::unique_ptr<OutputData<double>> createData(double value = 0.0)
@@ -50,7 +51,6 @@ private slots:
     bool isTheSame(const OutputData<double>&data1, const OutputData<double>& data2)
     {
         double diff = IntensityDataFunctions::getRelativeDifference(data1, data2);
-//        qDebug() << "XXX" << diff;
         return diff < 1e-10;
     }
 
@@ -62,6 +62,7 @@ private slots:
         return isTheSame(*dataOnDisk, data);
     }
 
+private slots:
     void test_nonXMLData();
     void test_OutputDataSaveInfo();
     void test_OutputDataDirHistory();

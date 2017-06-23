@@ -13,7 +13,7 @@ class TestProjectUtils : public QObject
 {
     Q_OBJECT
 
-private slots:
+private:
     //! Helper function to create test file in a given directory (directory should exist).
     void createTestFile(const QString& dirname, const QString& fileName)
     {
@@ -29,6 +29,7 @@ private slots:
         file.close();
     }
 
+private slots:
     void test_basicFileOperations();
     void test_nonXMLDataInDir();
     void test_stringListSubstraction();

@@ -11,15 +11,41 @@ class TestProjectDocument : public QObject
 {
     Q_OBJECT
 
-private slots:
-    // helper method to modify something in a model
+private:
+    //! helper method to modify something in a model
     void modify_models(ApplicationModels* models) {
         auto instrument = models->instrumentModel()->instrumentItem();
         instrument->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
     }
 
+private slots:
+    void test_documentFlags();
     void test_projectDocument();
 };
+
+inline void TestProjectDocument::test_documentFlags()
+{
+    ProjectFlags::DocumentStatus flags;
+    QVERIFY(flags.testFlag(ProjectFlags::STATUS_OK) == false);
+    QVERIFY(flags.testFlag(ProjectFlags::STATUS_WARNING) == false);
+    QVERIFY(flags.testFlag(ProjectFlags::STATUS_FAILED) == false);
+
+    flags.setFlag(ProjectFlags::STATUS_WARNING);
+    QVERIFY(flags.testFlag(ProjectFlags::STATUS_OK) == false);
+    QVERIFY(flags.testFlag(ProjectFlags::STATUS_WARNING) == true);
+    QVERIFY(flags.testFlag(ProjectFlags::STATUS_FAILED) == false);
+
+    ProjectFlags::DocumentStatus flags2(ProjectFlags::STATUS_WARNING | ProjectFlags::STATUS_FAILED);
+    QVERIFY(flags2.testFlag(ProjectFlags::STATUS_OK) == false);
+    QVERIFY(flags2.testFlag(ProjectFlags::STATUS_WARNING) == true);
+    QVERIFY(flags2.testFlag(ProjectFlags::STATUS_FAILED) == true);
+
+    ProjectDocument document;
+    QVERIFY(document.documentStatus() == ProjectFlags::STATUS_OK);
+    QVERIFY(document.isReady() == true);
+    QVERIFY(document.hasWarnings() == false);
+    QVERIFY(document.hasErrors() == false);
+}
 
 inline void TestProjectDocument::test_projectDocument()
 {

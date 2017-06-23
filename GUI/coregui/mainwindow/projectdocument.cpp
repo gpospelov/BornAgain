@@ -36,7 +36,7 @@ const QString minimal_supported_version = "1.6.0";
 ProjectDocument::ProjectDocument(const QString& projectFileName)
     : m_applicationModels(nullptr)
     , m_modified(false)
-    , m_documentStatus(STATUS_OK)
+    , m_documentStatus(ProjectFlags::STATUS_OK)
     , m_messageService(nullptr)
     , m_dataService(new OutputDataIOService(this))
 {
@@ -136,13 +136,13 @@ bool ProjectDocument::load(const QString& project_file_name)
     QElapsedTimer timer1, timer2;
     timer1.start();
 
-    m_documentStatus = STATUS_OK;
+    m_documentStatus = ProjectFlags::STATUS_OK;
     setProjectFileName(project_file_name);
 
     QFile file(projectFileName());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         m_messageService->send_message(this, OPEN_FILE_ERROR, file.errorString());
-        m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
+        m_documentStatus.setFlag(ProjectFlags::STATUS_FAILED);
         return false;
     }
 
@@ -159,7 +159,7 @@ bool ProjectDocument::load(const QString& project_file_name)
         connectModels();
 
     } catch (const std::exception& ex) {
-        m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
+        m_documentStatus.setFlag(ProjectFlags::STATUS_FAILED);
         m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
         return false;
     }
@@ -192,24 +192,24 @@ void ProjectDocument::setLogger(WarningMessageService* messageService)
     m_messageService = messageService;
 }
 
-ProjectDocument::EDocumentStatus ProjectDocument::documentStatus() const
+ProjectFlags::DocumentStatus ProjectDocument::documentStatus() const
 {
     return m_documentStatus;
 }
 
 bool ProjectDocument::isReady() const
 {
-    return (m_documentStatus == STATUS_OK);
+    return (m_documentStatus == ProjectFlags::STATUS_OK);
 }
 
 bool ProjectDocument::hasWarnings() const
 {
-    return (m_documentStatus & STATUS_WARNING);
+    return m_documentStatus.testFlag(ProjectFlags::STATUS_WARNING);
 }
 
 bool ProjectDocument::hasErrors() const
 {
-    return (m_documentStatus & STATUS_FAILED);
+    return m_documentStatus.testFlag(ProjectFlags::STATUS_FAILED);
 }
 
 QString ProjectDocument::documentVersion() const
@@ -239,7 +239,7 @@ void ProjectDocument::readFrom(QIODevice* device)
                                        .toString();
                 if (!GUIHelpers::isVersionMatchMinimal(m_currentVersion,
                                                        minimal_supported_version)) {
-                    m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
+                    m_documentStatus.setFlag(ProjectFlags::STATUS_FAILED);
                     QString message = QString("Can't open document version '%1', "
                                               "minimal supported version '%2'")
                                           .arg(m_currentVersion)
@@ -255,14 +255,14 @@ void ProjectDocument::readFrom(QIODevice* device)
             } else {
                 m_applicationModels->readFrom(&reader, m_messageService);
                 if (m_messageService->hasWarnings(m_applicationModels)) {
-                    m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_WARNING);
+                    m_documentStatus.setFlag(ProjectFlags::STATUS_WARNING);
                 }
             }
         }
     }
 
     if (reader.hasError()) {
-        m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
+        m_documentStatus.setFlag(ProjectFlags::STATUS_FAILED);
         m_messageService->send_message(this, XML_FORMAT_ERROR, reader.errorString());
         return;
     }

@@ -18,6 +18,7 @@
 #define PROJECTDOCUMENT_H
 
 #include "WinDllMacros.h"
+#include "ProjectFlags.h"
 #include <QObject>
 
 class QIODevice;
@@ -46,8 +47,6 @@ class BA_CORE_API_ ProjectDocument : public QObject
     Q_OBJECT
 
 public:
-    enum EDocumentStatus { STATUS_OK = 0x0001, STATUS_WARNING = 0x0002, STATUS_FAILED = 0x0004 };
-
     ProjectDocument(const QString& projectFileName = QString());
 
     QString projectName() const;
@@ -73,7 +72,7 @@ public:
 
     void setLogger(WarningMessageService* messageService);
 
-    EDocumentStatus documentStatus() const;
+    ProjectFlags::DocumentStatus documentStatus() const;
 
     bool isReady() const;
 
@@ -100,7 +99,7 @@ private:
     QString m_project_name;
     ApplicationModels* m_applicationModels;
     bool m_modified;
-    EDocumentStatus m_documentStatus;
+    ProjectFlags::DocumentStatus m_documentStatus;
     WarningMessageService* m_messageService;
     QString m_currentVersion;
     OutputDataIOService* m_dataService;

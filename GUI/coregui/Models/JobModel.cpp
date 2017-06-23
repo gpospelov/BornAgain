@@ -161,7 +161,7 @@ void JobModel::link_instruments()
     for (int i = 0; i < rowCount(QModelIndex()); ++i) {
         JobItem *jobItem = getJobItemForIndex(index(i, 0, QModelIndex()));
         if (RealDataItem *refItem = jobItem->realDataItem())
-            refItem->linkToInstrument(jobItem->instrumentItem());
+            refItem->linkToInstrument(jobItem->instrumentItem(), false);
     }
 }
 

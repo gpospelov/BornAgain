@@ -99,6 +99,7 @@ void ProjectDocument::setApplicationModels(ApplicationModels* applicationModels)
 
 bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 {
+    qDebug() << "ProjectDocument saving...";
     QElapsedTimer timer1;
     timer1.start();
 
@@ -130,6 +131,8 @@ bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 
 bool ProjectDocument::load(const QString& project_file_name)
 {
+    qDebug() << "ProjectDocument loading...";
+
     QElapsedTimer timer1, timer2;
     timer1.start();
 

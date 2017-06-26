@@ -4,6 +4,8 @@
 #include "InstrumentModel.h"
 #include "InstrumentItem.h"
 #include "GUIHelpers.h"
+#include "JobItemUtils.h"
+#include "ProjectUtils.h"
 #include <QSignalSpy>
 #include <QDebug>
 
@@ -18,9 +20,20 @@ private:
         instrument->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
     }
 
+    void createProjectDir(const QString& projectDir) {
+        QDir dir(projectDir);
+        if(dir.exists()) {
+            QVERIFY(ProjectUtils::removeRecursively(projectDir) == true);
+            QVERIFY(dir.exists() == false);
+        }
+        GUIHelpers::createSubdir(".", projectDir);
+        QVERIFY(ProjectUtils::exists(projectDir));
+    }
+
 private slots:
     void test_documentFlags();
     void test_projectDocument();
+    void test_projectDocumentWithData();
 };
 
 inline void TestProjectDocument::test_documentFlags()
@@ -90,4 +103,31 @@ inline void TestProjectDocument::test_projectDocument()
     QVERIFY(info.exists());
 
     delete document;
+}
+
+inline void TestProjectDocument::test_projectDocumentWithData()
+{
+    ApplicationModels models;
+
+    RealDataItem* realData = dynamic_cast<RealDataItem*>(
+        models.realDataModel()->insertNewItem(Constants::RealDataType));
+    Q_ASSERT(realData);
+    IntensityDataItem* intensityItem = realData->intensityDataItem();
+    JobItemUtils::createDefaultDetectorMap(intensityItem,
+                                           models.instrumentModel()->instrumentItem());
+    intensityItem->setItemValue(IntensityDataItem::P_FILE_NAME, "realdata.int.gz");
+
+
+    const QString projectDir("test_projectDocument2");
+    createProjectDir(projectDir);
+
+    ProjectDocument* document = new ProjectDocument;
+    document->setApplicationModels(&models);
+    document->save("test_projectDocument2/untitled.pro");
+
+    QFileInfo info("test_projectDocument2/untitled.pro");
+    QVERIFY(info.exists());
+
+    info.setFile("test_projectDocument2/realdata.int.gz");
+    QVERIFY(info.exists());
 }

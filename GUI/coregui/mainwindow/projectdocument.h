@@ -63,6 +63,10 @@ public:
     void setApplicationModels(ApplicationModels* applicationModels);
 
     bool save(const QString& project_file_name, bool autoSave = false);
+
+    bool save_project_file(const QString& project_file_name);
+    bool save_project_data(const QString& project_file_name);
+
     bool load(const QString& project_file_name);
 
     bool hasValidNameAndPath();
@@ -80,7 +84,7 @@ public:
 
     bool hasErrors() const;
 
-    bool isSaving() const;
+    bool hasData() const;
 
     QString documentVersion() const;
 
@@ -91,7 +95,6 @@ public slots:
     void onModelChanged();
 
 private:
-    bool save_document(const QString& project_file_name, bool autoSave = false);
     void readFrom(QIODevice* device);
     void writeTo(QIODevice* device);
 

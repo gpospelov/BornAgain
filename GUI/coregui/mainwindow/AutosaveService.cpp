@@ -109,7 +109,13 @@ void AutosaveService::autosave()
     if (!name.isEmpty()) {
         GUIHelpers::createSubdir(m_document->projectDir(), ProjectUtils::autosaveSubdir());
 
-        qDebug() << "       saving";
+        qDebug() << "       auto-saving";
+
+        if(m_document->isSaving()) {
+            qDebug() << "       skipping autosave";
+            onDocumentModified();
+            return;
+        }
 
         if(!m_document->save(name, true))
             throw GUIHelpers::Error("AutosaveService::autosave() -> Error during autosave.");

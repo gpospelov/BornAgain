@@ -99,34 +99,7 @@ void ProjectDocument::setApplicationModels(ApplicationModels* applicationModels)
 
 bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 {
-    qDebug() << "ProjectDocument saving...";
-    QElapsedTimer timer1;
-    timer1.start();
-
-    QString projectDir = ProjectUtils::projectDir(project_file_name);
-
-    QFile file(project_file_name);
-    if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text))
-        return false;
-
-    writeTo(&file);
-    file.close();
-
-    QElapsedTimer timer2;
-    timer2.start();
-
-    m_dataService->save(projectDir);
-
-    qDebug() << "saved. Project save time:" << (timer1.elapsed() - timer2.elapsed()) << ";"
-             << "nonXML save time:" << timer2.elapsed();
-
-    if (!autoSave) {
-        setProjectFileName(project_file_name);
-        m_modified = false;
-        emit modified();
-    }
-
-    return true;
+    return save_document(project_file_name, autoSave);
 }
 
 bool ProjectDocument::load(const QString& project_file_name)
@@ -212,6 +185,13 @@ bool ProjectDocument::hasErrors() const
     return m_documentStatus.testFlag(ProjectFlags::STATUS_FAILED);
 }
 
+//! Returns true if project still saving.
+
+bool ProjectDocument::isSaving() const
+{
+    return m_documentStatus.testFlag(ProjectFlags::SAVING);
+}
+
 QString ProjectDocument::documentVersion() const
 {
     QString result(m_currentVersion);
@@ -224,6 +204,40 @@ void ProjectDocument::onModelChanged()
 {
     m_modified = true;
     emit modified();
+}
+
+//! Performs actual document saving.
+
+bool ProjectDocument::save_document(const QString& project_file_name, bool autoSave)
+{
+    qDebug() << "ProjectDocument saving...";
+    QElapsedTimer timer1;
+    timer1.start();
+
+    QString projectDir = ProjectUtils::projectDir(project_file_name);
+
+    QFile file(project_file_name);
+    if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text))
+        return false;
+
+    writeTo(&file);
+    file.close();
+
+    QElapsedTimer timer2;
+    timer2.start();
+
+    m_dataService->save(projectDir);
+
+    qDebug() << "saved. Project save time:" << (timer1.elapsed() - timer2.elapsed()) << ";"
+             << "nonXML save time:" << timer2.elapsed();
+
+    if (!autoSave) {
+        setProjectFileName(project_file_name);
+        m_modified = false;
+        emit modified();
+    }
+
+    return true;
 }
 
 void ProjectDocument::readFrom(QIODevice* device)

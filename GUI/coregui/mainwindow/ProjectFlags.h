@@ -26,7 +26,8 @@ public:
     {
         STATUS_OK = 0x0001,
         STATUS_WARNING = 0x0002,
-        STATUS_FAILED = 0x0004
+        STATUS_FAILED = 0x0004,
+        SAVING = 0x0008
     };
 
     Q_DECLARE_FLAGS(DocumentStatus, EDocumentStatus)

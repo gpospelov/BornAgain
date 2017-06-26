@@ -40,7 +40,7 @@ const QString InfoNameAttribute("ProjectName");
 //!
 //! e.g. if project file is /home/users/development/Untitled/Untitled.pro
 //! projectName()     - 'Untitled'
-//! projectDir()      - 'home/users/development/Untitled
+//! projectDir()      - '/home/users/development/Untitled
 //! projectFileName() - '/home/users/development/Untitled/Untitled.pro'
 class BA_CORE_API_ ProjectDocument : public QObject
 {
@@ -80,6 +80,8 @@ public:
 
     bool hasErrors() const;
 
+    bool isSaving() const;
+
     QString documentVersion() const;
 
 signals:
@@ -89,6 +91,7 @@ public slots:
     void onModelChanged();
 
 private:
+    bool save_document(const QString& project_file_name, bool autoSave = false);
     void readFrom(QIODevice* device);
     void writeTo(QIODevice* device);
 

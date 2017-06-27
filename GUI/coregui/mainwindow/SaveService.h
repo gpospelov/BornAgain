@@ -34,15 +34,17 @@ public:
 
     void setDocument(ProjectDocument* document);
 
-    void save(const QString& project_file_name);
+    bool save(const QString& project_file_name);
 
     void setAutosaveEnabled(bool value);
+    bool isAutosaveEnabled() const;
 
     //! Sets autosave time (in msec)
     void setAutosaveTime(int timerInterval);
 
     bool isSaving() const;
 
+    void stopService();
 
 signals:
     void projectSaved();

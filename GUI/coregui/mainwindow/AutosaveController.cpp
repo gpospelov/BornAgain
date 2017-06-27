@@ -61,7 +61,7 @@ void AutosaveController::setAutosaveTime(int timerInterval)
 
 QString AutosaveController::autosaveDir() const
 {
-    if (m_document->hasValidNameAndPath())
+    if (m_document && m_document->hasValidNameAndPath())
         return ProjectUtils::autosaveDir(m_document->projectFileName());
 
     return QString();
@@ -69,7 +69,7 @@ QString AutosaveController::autosaveDir() const
 
 QString AutosaveController::autosaveName() const
 {
-    if (m_document->hasValidNameAndPath())
+    if (m_document && m_document->hasValidNameAndPath())
         return ProjectUtils::autosaveName(m_document->projectFileName());
 
     return QString();
@@ -100,6 +100,9 @@ void AutosaveController::onDocumentDestroyed(QObject* object)
 
 void AutosaveController::onDocumentModified()
 {
+    if(!m_document)
+        return;
+
     qDebug() << "AutosaveController::onDocumentModified()  isModified:"
              << m_document->isModified() << " hasValidName:" << m_document->hasValidNameAndPath();
     if (m_document->isModified() && m_document->hasValidNameAndPath()) {

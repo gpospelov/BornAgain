@@ -40,13 +40,15 @@ void SaveService::setDocument(ProjectDocument* document)
     m_save_queue.clear();
 }
 
-void SaveService::save(const QString& project_file_name)
+bool SaveService::save(const QString& project_file_name)
 {
     Q_ASSERT(m_document);
     qDebug() << "SaveService::save() -> Project saving. Putting in a queue:" << project_file_name;
 
     m_save_queue.enqueue(project_file_name);
     process_queue();
+
+    return true;
 }
 
 void SaveService::setAutosaveEnabled(bool value)
@@ -63,6 +65,11 @@ void SaveService::setAutosaveEnabled(bool value)
     }
 }
 
+bool SaveService::isAutosaveEnabled() const
+{
+    return m_autosave ? true : false;
+}
+
 void SaveService::setAutosaveTime(int timerInterval)
 {
     if(!m_autosave)
@@ -74,6 +81,16 @@ void SaveService::setAutosaveTime(int timerInterval)
 bool SaveService::isSaving() const
 {
     return m_is_saving;
+}
+
+//!
+
+void SaveService::stopService()
+{
+    if(m_autosave)
+        m_autosave->removeAutosaveDir();
+
+    setDocument(nullptr);
 }
 
 void SaveService::onAutosaveRequest()

@@ -14,7 +14,7 @@
 #include <QSignalSpy>
 #include <QDebug>
 
-class TestAutosave : public QObject
+class TestSaveService : public QObject
 {
     Q_OBJECT
 
@@ -41,7 +41,7 @@ private slots:
 //    void test_autoSaveIncludingData();
 };
 
-inline void TestAutosave::test_autoSaveController()
+inline void TestSaveService::test_autoSaveController()
 {
     const QString projectDir("test_autoSaveController");
     createDir(projectDir);
@@ -91,7 +91,7 @@ inline void TestAutosave::test_autoSaveController()
 }
 
 
-inline void TestAutosave::test_saveService()
+inline void TestSaveService::test_saveService()
 {
     createDir("test_saveService");
     const QString projectFileName("test_saveService/document.pro");
@@ -113,7 +113,7 @@ inline void TestAutosave::test_saveService()
 
 }
 
-inline void TestAutosave::test_saveServiceWithData()
+inline void TestSaveService::test_saveServiceWithData()
 {
     createDir("test_saveServiceWithData");
     const QString projectFileName("test_saveServiceWithData/document.pro");
@@ -145,7 +145,7 @@ inline void TestAutosave::test_saveServiceWithData()
     QVERIFY(document->isModified() == false);
 }
 
-inline void TestAutosave::test_autosaveEnabled()
+inline void TestSaveService::test_autosaveEnabled()
 {
     const int autosave_time(100);
 

@@ -20,6 +20,7 @@
 #include "GUIHelpers.h"
 #include "ProjectUtils.h"
 #include <QDir>
+#include <QDebug>
 
 namespace
 {
@@ -52,6 +53,7 @@ void AutosaveService::setDocument(ProjectDocument* document)
 
 void AutosaveService::setAutosaveTime(int timerInterval)
 {
+    m_timer->reset();
     m_timer->setTimeInterval(timerInterval);
 }
 
@@ -98,29 +100,21 @@ void AutosaveService::onDocumentDestroyed(QObject* object)
 
 void AutosaveService::onDocumentModified()
 {
-    if (m_document->isModified() && m_document->hasValidNameAndPath())
+    qDebug() << "xxx 1.1" << m_document->isModified() << m_document->hasValidNameAndPath();
+    if (m_document->isModified() && m_document->hasValidNameAndPath()) {
+        qDebug() << "xxx 1.2";
         m_timer->scheduleUpdate();
+    }
 }
 
-#include <QDebug>
 void AutosaveService::autosave()
 {
     QString name = autosaveName();
     if (!name.isEmpty()) {
         GUIHelpers::createSubdir(m_document->projectDir(), ProjectUtils::autosaveSubdir());
 
-        qDebug() << "       auto-saving";
-
-        if(m_document->isSaving()) {
-            qDebug() << "       skipping autosave";
-            onDocumentModified();
-            return;
-        }
-
-        if(!m_document->save(name, true))
-            throw GUIHelpers::Error("AutosaveService::autosave() -> Error during autosave.");
-
-        emit autosaved();
+        qDebug() << "       AutosaveService::autosave() -> emitting autosave request";
+        emit autosaveRequest();
     }
 }
 

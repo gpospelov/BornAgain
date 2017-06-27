@@ -43,7 +43,7 @@ public:
     void removeAutosaveDir();
 
 signals:
-    void autosaved();
+    void autosaveRequest();
 
 private slots:
     void onTimerTimeout();

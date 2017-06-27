@@ -87,7 +87,6 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testParameterTreeUtils, argc, argv);
     status |= QTest::qExec(&testDetectorItems, argc, argv);
     status |= QTest::qExec(&testLinkInstrument, argc, argv);
-    status |= QTest::qExec(&testLinkInstrument, argc, argv);
     status |= QTest::qExec(&testUpdateTimer, argc, argv);
     status |= QTest::qExec(&testProjectDocument, argc, argv);
     status |= QTest::qExec(&testAutosave, argc, argv);

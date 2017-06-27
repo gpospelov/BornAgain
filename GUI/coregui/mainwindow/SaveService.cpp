@@ -19,6 +19,9 @@
 #include "AutosaveController.h"
 #include "projectdocument.h"
 #include "ProjectUtils.h"
+#include <QApplication>
+#include <QTime>
+#include <QCoreApplication>
 #include <QDebug>
 
 SaveService::SaveService(QObject* parent)
@@ -87,10 +90,22 @@ bool SaveService::isSaving() const
 
 void SaveService::stopService()
 {
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+
+    if (isSaving()) {
+        QTime dieTime= QTime::currentTime().addSecs(10);
+        while (QTime::currentTime() < dieTime) {
+            QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+            if (!isSaving())
+                break;
+        }
+    }
+
     if(m_autosave)
         m_autosave->removeAutosaveDir();
 
     setDocument(nullptr);
+    QApplication::restoreOverrideCursor();
 }
 
 void SaveService::onAutosaveRequest()

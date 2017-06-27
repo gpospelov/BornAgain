@@ -64,7 +64,7 @@ public:
 
     bool save(const QString& project_file_name, bool autoSave = false);
 
-    bool save_project_file(const QString& project_file_name);
+    bool save_project_file(const QString& project_file_name, bool autoSave = false);
     bool save_project_data(const QString& project_file_name);
 
     bool load(const QString& project_file_name);

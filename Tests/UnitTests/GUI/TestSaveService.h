@@ -29,51 +29,53 @@ private:
 
 private slots:
     void test_autoSaveController();
+    void test_autoSaveControllerNewDocument();
     void test_saveService();
     void test_saveServiceWithData();
     void test_autosaveEnabled();
-//    void test_autoSaveIncludingData();
 };
+
+//! Testing AutosaveController. It watches ProjectDocument and sends autosaveRequest() when
+//! number of document changes has been accumulated.
 
 inline void TestSaveService::test_autoSaveController()
 {
     const QString projectDir("test_autoSaveController");
     TestUtils::create_dir(projectDir);
 
-    const QString projectFileName("test_autoSaveController/document.pro");
+    const QString projectFileName(projectDir+"/document.pro");
 
     const int autosave_time(100);
 
     ApplicationModels models;
-    ProjectDocument* document = new ProjectDocument;
+    std::unique_ptr<ProjectDocument> document(new ProjectDocument);
     document->setApplicationModels(&models);
     document->save(projectFileName);
 
-    // Setting up autosave
+    // setting up autosave
     AutosaveController autosave;
     autosave.setAutosaveTime(autosave_time);
-    autosave.setDocument(document);
+    autosave.setDocument(document.get());
 
-    QCOMPARE(autosave.autosaveDir(), QString("test_autoSaveController/autosave"));
-    QCOMPARE(autosave.autosaveName(), QString("test_autoSaveController/autosave/document.pro"));
+    // checking proposed autosave directory
+    QCOMPARE(autosave.autosaveDir(), QString(projectDir+"/autosave"));
+    QCOMPARE(autosave.autosaveName(), QString(projectDir+"/autosave/document.pro"));
 
     QSignalSpy spyAutosave(&autosave, SIGNAL(autosaveRequest()));
 
-    // modify document once and check
+    // modify document once and check that autosave directory was created
     modify_models(&models);
     QVERIFY(document->isModified() == true);
     QVERIFY(spyAutosave.wait(autosave_time * 3.0));
     QCOMPARE(spyAutosave.count(), 1);
-
-    QDir autosaveDir(autosave.autosaveDir());
-    QVERIFY(autosaveDir.exists());
+    QVERIFY(ProjectUtils::exists(autosave.autosaveDir()));
 
     // saving document and checking that autosave is not triggered
     document->save(projectFileName);
     QVERIFY(document->isModified() == false);
     QCOMPARE(spyAutosave.count(), 1);
 
-    // modify several times and check
+    // modify several times and check than autosave was triggered only once
     for (size_t i = 0; i < 10; ++i)
         modify_models(&models);
 
@@ -82,35 +84,70 @@ inline void TestSaveService::test_autoSaveController()
 
     // remove autosave dir
     autosave.removeAutosaveDir();
-    QVERIFY(autosaveDir.exists() == false);
+    QVERIFY(ProjectUtils::exists(autosave.autosaveDir()) == false);
 }
 
+//! AutosaveController shouldn't trigger autosaveRequest() if document has no name.
+
+inline void TestSaveService::test_autoSaveControllerNewDocument()
+{
+    ApplicationModels models;
+    std::unique_ptr<ProjectDocument> document(new ProjectDocument);
+    document->setApplicationModels(&models);
+
+    const int autosave_time(100);
+
+    AutosaveController autosave;
+    autosave.setAutosaveTime(autosave_time);
+    autosave.setDocument(document.get());
+
+    QSignalSpy spyAutosave(&autosave, SIGNAL(autosaveRequest()));
+
+    modify_models(&models);
+    QVERIFY(spyAutosave.wait(autosave_time * 3.0) == false);
+    QCOMPARE(spyAutosave.count(), 0);
+}
+
+//! Testing SaveService on simple documents (no heavy data).
+//! SaveService should be able to save project file and send documentSaved() signal.
 
 inline void TestSaveService::test_saveService()
 {
-    TestUtils::create_dir("test_saveService");
-    const QString projectFileName("test_saveService/document.pro");
+    const QString projectDir("test_saveService");
+    TestUtils::create_dir(projectDir);
+    const QString projectFileName(projectDir+"/document.pro");
 
     ApplicationModels models;
-    ProjectDocument* document = new ProjectDocument;
+    std::unique_ptr<ProjectDocument> document(new ProjectDocument);
     document->setApplicationModels(&models);
+    modify_models(&models);
 
     QVERIFY(ProjectUtils::exists(projectFileName) == false);
 
     SaveService service;
     QSignalSpy spySaveService(&service, SIGNAL(projectSaved()));
 
-    service.setDocument(document);
+    service.setDocument(document.get());
     service.save(projectFileName);
 
     QCOMPARE(spySaveService.count(), 1);
     QVERIFY(ProjectUtils::exists(projectFileName) == true);
+
+    // after save, document should be in non-modified state, project file name should be updated
+    QCOMPARE(document->projectFileName(), projectFileName);
+    QVERIFY(document->isModified() == false);
+
 }
+
+//! Testing SaveService on documents having nonXML data.
+//! SaveService should be able to save project file (in main thread) and project nonXML
+//! in second thread.
 
 inline void TestSaveService::test_saveServiceWithData()
 {
-    TestUtils::create_dir("test_saveServiceWithData");
-    const QString projectFileName("test_saveServiceWithData/document.pro");
+    const QString projectDir("test_saveServiceWithData");
+    TestUtils::create_dir(projectDir);
+    const QString projectFileName(projectDir+"/document.pro");
 
     ApplicationModels models;
     RealDataItem* realData = dynamic_cast<RealDataItem*>(
@@ -121,7 +158,7 @@ inline void TestSaveService::test_saveServiceWithData()
                                            models.instrumentModel()->instrumentItem());
     intensityItem->setItemValue(IntensityDataItem::P_FILE_NAME, "realdata.int.gz");
 
-    ProjectDocument* document = new ProjectDocument;
+    std::unique_ptr<ProjectDocument> document(new ProjectDocument);
     document->setApplicationModels(&models);
 
     QVERIFY(ProjectUtils::exists(projectFileName) == false);
@@ -129,88 +166,67 @@ inline void TestSaveService::test_saveServiceWithData()
     SaveService service;
     QSignalSpy spySaveService(&service, SIGNAL(projectSaved()));
 
-    service.setDocument(document);
+    service.setDocument(document.get());
     service.save(projectFileName);
 
     spySaveService.wait(100); // waiting saving in a thread is complete
 
     QCOMPARE(spySaveService.count(), 1);
     QVERIFY(ProjectUtils::exists(projectFileName) == true);
+    QVERIFY(ProjectUtils::exists(projectDir+"/realdata.int.gz") == true);
     QVERIFY(document->isModified() == false);
 }
 
+//! Testing SaveService when autosave is enabled.
+
 inline void TestSaveService::test_autosaveEnabled()
 {
-    TestUtils::create_dir("test_autosaveEnabled");
-    const int autosave_time(100);
-    const QString projectFileName("test_autosaveEnabled/document.pro");
+    const QString projectDir("test_autosaveEnabled");
+    TestUtils::create_dir(projectDir);
+    const QString projectFileName(projectDir+"/document.pro");
 
     ApplicationModels models;
-    ProjectDocument* document = new ProjectDocument;
+    RealDataItem* realData = dynamic_cast<RealDataItem*>(
+        models.realDataModel()->insertNewItem(Constants::RealDataType));
+    IntensityDataItem* intensityItem = realData->intensityDataItem();
+    JobItemUtils::createDefaultDetectorMap(intensityItem,
+                                           models.instrumentModel()->instrumentItem());
+    intensityItem->setItemValue(IntensityDataItem::P_FILE_NAME, "realdata.int.gz");
+
+    std::unique_ptr<ProjectDocument> document(new ProjectDocument(projectFileName));
     document->setApplicationModels(&models);
 
-    SaveService service;
-    QSignalSpy spySaveService(&service, SIGNAL(projectSaved()));
-
-    service.setAutosaveEnabled(true);
-    service.setAutosaveTime(autosave_time);
-    service.setDocument(document);
-    service.save(projectFileName);
-
-//    spySaveService.wait(100); // waiting saving in a thread is complete
-    QCOMPARE(spySaveService.count(), 1);
     QVERIFY(document->isModified() == false);
 
-    // modify several times and check
+    SaveService service;
+    service.setAutosaveEnabled(true);
+    const int autosave_time(100);
+    service.setAutosaveTime(autosave_time);
+    service.setDocument(document.get());
+
+    QSignalSpy spySaveService(&service, SIGNAL(projectSaved()));
+    service.save(projectFileName);
+
+    spySaveService.wait(autosave_time*3); // waiting saving in a thread is complete
+    QCOMPARE(spySaveService.count(), 1);
+    QVERIFY(document->isModified() == false);
+    QVERIFY(ProjectUtils::exists(projectDir+"/document.pro"));
+    QVERIFY(ProjectUtils::exists(projectDir+"/realdata.int.gz"));
+
+    // modify several times and check SaveService signals
     for (size_t i = 0; i < 10; ++i)
         modify_models(&models);
 
     QVERIFY(document->isModified() == true);
 
-//    QVERIFY(spySaveService.wait(autosave_time * 3.0));
-//    QCOMPARE(spyAutosave.count(), 2);
+    spySaveService.wait(autosave_time*3); // waiting saving in a thread is complete
+    QCOMPARE(spySaveService.count(), 2);
 
+    QVERIFY(ProjectUtils::exists(projectDir+"/autosave/document.pro"));
+    QVERIFY(ProjectUtils::exists(projectDir+"/autosave/realdata.int.gz"));
 
+    // after autosave the project has to be still in modified state
+    QVERIFY(document->isModified() == true);
+    // after autosave, project file name should remain the same
+    QCOMPARE(document->projectFileName(), projectFileName);
 }
-
-
-
-//inline void TestAutosave::test_autoSaveIncludingData()
-//{
-//    const int autosave_time(100);
-//    ApplicationModels models;
-
-//    RealDataItem* realData = dynamic_cast<RealDataItem*>(
-//        models.realDataModel()->insertNewItem(Constants::RealDataType));
-//    Q_ASSERT(realData);
-//    IntensityDataItem* intensityItem = realData->intensityDataItem();
-//    JobItemUtils::createDefaultDetectorMap(intensityItem,
-//                                           models.instrumentModel()->instrumentItem());
-//    intensityItem->setItemValue(IntensityDataItem::P_FILE_NAME, "realdata.int.gz");
-
-//    const QString projectDir("test_autoSave");
-//    const QString projectFileName("test_autoSave/document.pro");
-//    GUIHelpers::createSubdir(".", projectDir);
-
-//    ProjectDocument* document = new ProjectDocument;
-//    document->setApplicationModels(&models);
-//    document->save(projectFileName);
-
-//    // Setting up auto save
-//    AutosaveService autosave;
-//    autosave.setAutosaveTime(autosave_time);
-//    autosave.setDocument(document);
-
-//    QSignalSpy spyAutosave(&autosave, SIGNAL(autosaved()));
-
-//    // modify document once and check
-//    modify_models(&models);
-//    QVERIFY(spyAutosave.wait(autosave_time * 3.0));
-//    QCOMPARE(spyAutosave.count(), 1);
-
-//    QFileInfo info("test_autoSave/autosave/document.pro");
-//    QVERIFY(info.exists());
-
-//    info.setFile("test_autoSave/autosave/realdata.int.gz");
-//    QVERIFY(info.exists());
-//}

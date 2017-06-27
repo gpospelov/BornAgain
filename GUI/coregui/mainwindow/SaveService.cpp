@@ -114,7 +114,8 @@ void SaveService::process_queue()
         QString project_file_name = m_save_queue.dequeue();
 
         // saving project file in a main thread
-        m_document->save_project_file(project_file_name);
+        bool isAutosave = project_file_name.contains(ProjectUtils::autosaveSubdir()) ? true : false;
+        m_document->save_project_file(project_file_name, isAutosave);
 
         if(m_document->hasData()) {
             // saving heavy data in separate thread

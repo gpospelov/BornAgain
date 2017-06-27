@@ -101,19 +101,13 @@ bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
 {
     bool success(true);
 
-    success &= save_project_file(project_file_name);
     success &= save_project_data(project_file_name);
-
-    if (!autoSave) {
-        setProjectFileName(project_file_name);
-        m_modified = false;
-        emit modified();
-    }
+    success &= save_project_file(project_file_name, autoSave);
 
     return success;
 }
 
-bool ProjectDocument::save_project_file(const QString& project_file_name)
+bool ProjectDocument::save_project_file(const QString& project_file_name, bool autoSave)
 {
     qDebug() << "ProjectDocument::save_project_file() -> " << project_file_name;
     QElapsedTimer timer;
@@ -125,6 +119,12 @@ bool ProjectDocument::save_project_file(const QString& project_file_name)
 
     writeTo(&file);
     file.close();
+
+    if (!autoSave) {
+        setProjectFileName(project_file_name);
+        m_modified = false;
+        emit modified();
+    }
 
     qDebug() << "   saved. Project file save time:" << timer.elapsed();
     return true;

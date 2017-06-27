@@ -100,9 +100,10 @@ void AutosaveController::onDocumentDestroyed(QObject* object)
 
 void AutosaveController::onDocumentModified()
 {
-    qDebug() << "xxx 1.1" << m_document->isModified() << m_document->hasValidNameAndPath();
+    qDebug() << "AutosaveController::onDocumentModified()  isModified:"
+             << m_document->isModified() << " hasValidName:" << m_document->hasValidNameAndPath();
     if (m_document->isModified() && m_document->hasValidNameAndPath()) {
-        qDebug() << "xxx 1.2";
+        qDebug() << "AutosaveController::onDocumentModified() -> scheduleUpdate()";
         m_timer->scheduleUpdate();
     }
 }

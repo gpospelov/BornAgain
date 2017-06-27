@@ -49,7 +49,7 @@ void OutputDataIOService::save(const QString& projectDir)
 
         if (m_history.wasModifiedSinceLastSave(projectDir, item)) {
             JobItemUtils::saveIntensityData(item, projectDir);
-            qDebug() << "data saved";
+            qDebug() << "OutputDataIOService::data saved";
         }
         newHistory.markAsSaved(item);
     }

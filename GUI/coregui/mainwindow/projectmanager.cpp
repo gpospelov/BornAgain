@@ -251,10 +251,15 @@ bool ProjectManager::saveProject(QString projectFileName)
     if(projectFileName.isEmpty())
         return false;
 
-    if (!m_saveService->save(projectFileName)) {
-        QMessageBox::warning(
-            m_mainWindow, "Error while saving project",
-            QString("Failed to save project under '%1'.").arg(m_project_document->projectDir()));
+    try {
+        m_saveService->save(projectFileName);
+
+    } catch(const std::exception &ex) {
+        QString message = QString("Failed to save project under '%1'. \n\n").arg(projectFileName);
+        message.append("Exception was thrown.\n\n");
+        message.append(ex.what());
+
+        QMessageBox::warning(m_mainWindow, "Error while saving project", message);
         return false;
     }
 

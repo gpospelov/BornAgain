@@ -34,7 +34,7 @@ public:
 
     void setDocument(ProjectDocument* document);
 
-    bool save(const QString& project_file_name);
+    void save(const QString& project_file_name);
 
     void setAutosaveEnabled(bool value);
     bool isAutosaveEnabled() const;

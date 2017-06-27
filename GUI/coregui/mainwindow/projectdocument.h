@@ -62,10 +62,10 @@ public:
 
     void setApplicationModels(ApplicationModels* applicationModels);
 
-    bool save(const QString& project_file_name, bool autoSave = false);
+    void save(const QString& project_file_name, bool autoSave = false);
 
-    bool save_project_file(const QString& project_file_name, bool autoSave = false);
-    bool save_project_data(const QString& project_file_name);
+    void save_project_file(const QString& project_file_name, bool autoSave = false);
+    void save_project_data(const QString& project_file_name);
 
     bool load(const QString& project_file_name);
 

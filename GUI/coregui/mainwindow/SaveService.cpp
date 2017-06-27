@@ -43,15 +43,13 @@ void SaveService::setDocument(ProjectDocument* document)
     m_save_queue.clear();
 }
 
-bool SaveService::save(const QString& project_file_name)
+void SaveService::save(const QString& project_file_name)
 {
     Q_ASSERT(m_document);
     qDebug() << "SaveService::save() -> Project saving. Putting in a queue:" << project_file_name;
 
     m_save_queue.enqueue(project_file_name);
     process_queue();
-
-    return true;
 }
 
 void SaveService::setAutosaveEnabled(bool value)

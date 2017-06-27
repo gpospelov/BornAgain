@@ -97,17 +97,13 @@ void ProjectDocument::setApplicationModels(ApplicationModels* applicationModels)
     }
 }
 
-bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
+void ProjectDocument::save(const QString& project_file_name, bool autoSave)
 {
-    bool success(true);
-
-    success &= save_project_data(project_file_name);
-    success &= save_project_file(project_file_name, autoSave);
-
-    return success;
+    save_project_data(project_file_name);
+    save_project_file(project_file_name, autoSave);
 }
 
-bool ProjectDocument::save_project_file(const QString& project_file_name, bool autoSave)
+void ProjectDocument::save_project_file(const QString& project_file_name, bool autoSave)
 {
     qDebug() << "ProjectDocument::save_project_file() -> " << project_file_name;
     QElapsedTimer timer;
@@ -115,7 +111,8 @@ bool ProjectDocument::save_project_file(const QString& project_file_name, bool a
 
     QFile file(project_file_name);
     if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text))
-        return false;
+        throw GUIHelpers::Error("ProjectDocument::save_project_file() -> Error. Can't open "
+                                "file '"+project_file_name+"' for writing.");
 
     writeTo(&file);
     file.close();
@@ -127,10 +124,9 @@ bool ProjectDocument::save_project_file(const QString& project_file_name, bool a
     }
 
     qDebug() << "   saved. Project file save time:" << timer.elapsed();
-    return true;
 }
 
-bool ProjectDocument::save_project_data(const QString& project_file_name)
+void ProjectDocument::save_project_data(const QString& project_file_name)
 {
     qDebug() << "ProjectDocument::save_project_data() -> " << project_file_name;
     QElapsedTimer timer;
@@ -139,8 +135,6 @@ bool ProjectDocument::save_project_data(const QString& project_file_name)
     m_dataService->save(ProjectUtils::projectDir(project_file_name));
 
     qDebug() << "saved. Project data save time:" << timer.elapsed();
-
-    return true;
 }
 
 
@@ -166,7 +160,6 @@ bool ProjectDocument::load(const QString& project_file_name)
         disconnectModels();
         readFrom(&file);
         file.close();
-        //m_applicationModels->loadNonXMLData(projectDir());
 
         timer2.start();
         m_dataService->load(projectDir());

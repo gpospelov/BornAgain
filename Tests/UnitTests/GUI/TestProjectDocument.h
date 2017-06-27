@@ -6,6 +6,7 @@
 #include "GUIHelpers.h"
 #include "JobItemUtils.h"
 #include "ProjectUtils.h"
+#include "test_utils.h"
 #include <QSignalSpy>
 #include <QDebug>
 
@@ -18,16 +19,6 @@ private:
     void modify_models(ApplicationModels* models) {
         auto instrument = models->instrumentModel()->instrumentItem();
         instrument->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
-    }
-
-    void createProjectDir(const QString& projectDir) {
-        QDir dir(projectDir);
-        if(dir.exists()) {
-            QVERIFY(ProjectUtils::removeRecursively(projectDir) == true);
-            QVERIFY(dir.exists() == false);
-        }
-        GUIHelpers::createSubdir(".", projectDir);
-        QVERIFY(ProjectUtils::exists(projectDir));
     }
 
 private slots:
@@ -62,6 +53,10 @@ inline void TestProjectDocument::test_documentFlags()
 
 inline void TestProjectDocument::test_projectDocument()
 {
+    const QString projectDir("test_projectDocument");
+    TestUtils::create_dir(projectDir);
+    const QString projectFileName(projectDir+"/document.pro");
+
     ApplicationModels models;
     ProjectDocument* document = new ProjectDocument;
     document->setApplicationModels(&models);
@@ -72,11 +67,6 @@ inline void TestProjectDocument::test_projectDocument()
     QCOMPARE(document->projectDir(), QString());
     QCOMPARE(document->projectName(), QString());
     QCOMPARE(document->projectFileName(), QString());
-
-    // Preparing place for project
-    const QString projectDir("test_projectDocument");
-    const QString projectFileName("test_projectDocument/document.pro");
-    GUIHelpers::createSubdir(".", projectDir);
 
     // Checking document name and isModified status after project save
     document->save(projectFileName);
@@ -107,8 +97,10 @@ inline void TestProjectDocument::test_projectDocument()
 
 inline void TestProjectDocument::test_projectDocumentWithData()
 {
-    ApplicationModels models;
+    const QString projectDir("test_projectDocumentWithData");
+    TestUtils::create_dir(projectDir);
 
+    ApplicationModels models;
     RealDataItem* realData = dynamic_cast<RealDataItem*>(
         models.realDataModel()->insertNewItem(Constants::RealDataType));
     Q_ASSERT(realData);
@@ -117,17 +109,13 @@ inline void TestProjectDocument::test_projectDocumentWithData()
                                            models.instrumentModel()->instrumentItem());
     intensityItem->setItemValue(IntensityDataItem::P_FILE_NAME, "realdata.int.gz");
 
-
-    const QString projectDir("test_projectDocument2");
-    createProjectDir(projectDir);
-
     ProjectDocument* document = new ProjectDocument;
     document->setApplicationModels(&models);
-    document->save("test_projectDocument2/untitled.pro");
+    document->save(projectDir+"/untitled.pro");
 
-    QFileInfo info("test_projectDocument2/untitled.pro");
+    QFileInfo info(projectDir+"/untitled.pro");
     QVERIFY(info.exists());
 
-    info.setFile("test_projectDocument2/realdata.int.gz");
+    info.setFile(projectDir+"/realdata.int.gz");
     QVERIFY(info.exists());
 }

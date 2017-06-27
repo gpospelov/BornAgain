@@ -13,6 +13,7 @@
 #include "ProjectUtils.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataFunctions.h"
+#include "test_utils.h"
 #include <QSignalSpy>
 #include <QDebug>
 
@@ -213,14 +214,14 @@ inline void TestOutputDataIOService::test_OutputDataIOHistory()
 
 inline void TestOutputDataIOService::test_OutputDataIOService()
 {
+    const QString projectDir("test_OutputDataIOService");
+    TestUtils::create_dir(projectDir);
+
     const double value1(1.0), value2(2.0), value3(3.0);
 
     ApplicationModels models;
     RealDataItem* realData1 = createRealData("data1", models, value1);
     RealDataItem* realData2 = createRealData("data2", models, value2);
-
-    const QString projectDir("test_OutputDataIOService");
-    GUIHelpers::createSubdir(".", projectDir);
 
     // Saving first time
     OutputDataIOService service(&models);

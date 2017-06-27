@@ -11,6 +11,7 @@
 #include "GUIHelpers.h"
 #include "SaveService.h"
 #include "ProjectUtils.h"
+#include "test_utils.h"
 #include <QSignalSpy>
 #include <QDebug>
 
@@ -26,13 +27,6 @@ private:
         instrument->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
     }
 
-    void createDir(const QString& projectDir)
-    {
-        if (ProjectUtils::exists(projectDir))
-            ProjectUtils::removeRecursively(projectDir);
-        GUIHelpers::createSubdir(".", projectDir);
-    }
-
 private slots:
     void test_autoSaveController();
     void test_saveService();
@@ -44,7 +38,8 @@ private slots:
 inline void TestSaveService::test_autoSaveController()
 {
     const QString projectDir("test_autoSaveController");
-    createDir(projectDir);
+    TestUtils::create_dir(projectDir);
+
     const QString projectFileName("test_autoSaveController/document.pro");
 
     const int autosave_time(100);
@@ -93,7 +88,7 @@ inline void TestSaveService::test_autoSaveController()
 
 inline void TestSaveService::test_saveService()
 {
-    createDir("test_saveService");
+    TestUtils::create_dir("test_saveService");
     const QString projectFileName("test_saveService/document.pro");
 
     ApplicationModels models;
@@ -110,12 +105,11 @@ inline void TestSaveService::test_saveService()
 
     QCOMPARE(spySaveService.count(), 1);
     QVERIFY(ProjectUtils::exists(projectFileName) == true);
-
 }
 
 inline void TestSaveService::test_saveServiceWithData()
 {
-    createDir("test_saveServiceWithData");
+    TestUtils::create_dir("test_saveServiceWithData");
     const QString projectFileName("test_saveServiceWithData/document.pro");
 
     ApplicationModels models;
@@ -147,9 +141,8 @@ inline void TestSaveService::test_saveServiceWithData()
 
 inline void TestSaveService::test_autosaveEnabled()
 {
+    TestUtils::create_dir("test_autosaveEnabled");
     const int autosave_time(100);
-
-    createDir("test_autosaveEnabled");
     const QString projectFileName("test_autosaveEnabled/document.pro");
 
     ApplicationModels models;

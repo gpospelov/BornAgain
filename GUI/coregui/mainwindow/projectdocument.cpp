@@ -138,7 +138,7 @@ void ProjectDocument::save_project_data(const QString& project_file_name)
 }
 
 
-bool ProjectDocument::load(const QString& project_file_name)
+void ProjectDocument::load(const QString& project_file_name)
 {
     qDebug() << "ProjectDocument loading...";
 
@@ -152,7 +152,7 @@ bool ProjectDocument::load(const QString& project_file_name)
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         m_messageService->send_message(this, OPEN_FILE_ERROR, file.errorString());
         m_documentStatus.setFlag(ProjectFlags::STATUS_FAILED);
-        return false;
+        return;
     }
 
     try {
@@ -169,13 +169,10 @@ bool ProjectDocument::load(const QString& project_file_name)
     } catch (const std::exception& ex) {
         m_documentStatus.setFlag(ProjectFlags::STATUS_FAILED);
         m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
-        return false;
     }
 
     qDebug() << "loaded. Project load time:" << (timer1.elapsed() - timer2.elapsed()) << ";"
              << "nonXML load time:" << timer2.elapsed();
-
-    return true;
 }
 
 bool ProjectDocument::hasValidNameAndPath()

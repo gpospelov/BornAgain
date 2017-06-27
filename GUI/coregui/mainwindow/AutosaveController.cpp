@@ -24,7 +24,7 @@
 
 namespace
 {
-const int update_every = 5000; // in msec
+const int update_every = 20000; // in msec
 }
 
 AutosaveController::AutosaveController(QObject* parent)

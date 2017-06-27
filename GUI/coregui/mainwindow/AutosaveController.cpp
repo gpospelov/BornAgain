@@ -20,7 +20,6 @@
 #include "GUIHelpers.h"
 #include "ProjectUtils.h"
 #include <QDir>
-#include <QDebug>
 
 namespace
 {
@@ -35,17 +34,17 @@ AutosaveController::AutosaveController(QObject* parent)
 
 void AutosaveController::setDocument(ProjectDocument* document)
 {
-    if(document == m_document)
+    if (document == m_document)
         return;
 
     m_timer->reset();
 
-    if(m_document)
+    if (m_document)
         setDocumentConnected(false);
 
     m_document = document;
 
-    if(m_document)
+    if (m_document)
         setDocumentConnected(true);
 
     onDocumentModified();
@@ -75,10 +74,9 @@ QString AutosaveController::autosaveName() const
     return QString();
 }
 
-
 void AutosaveController::removeAutosaveDir()
 {
-    if(autosaveDir().isEmpty())
+    if (autosaveDir().isEmpty())
         return;
 
     QDir dir(autosaveDir());
@@ -100,15 +98,11 @@ void AutosaveController::onDocumentDestroyed(QObject* object)
 
 void AutosaveController::onDocumentModified()
 {
-    if(!m_document)
+    if (!m_document)
         return;
 
-    qDebug() << "AutosaveController::onDocumentModified()  isModified:"
-             << m_document->isModified() << " hasValidName:" << m_document->hasValidNameAndPath();
-    if (m_document->isModified() && m_document->hasValidNameAndPath()) {
-        qDebug() << "AutosaveController::onDocumentModified() -> scheduleUpdate()";
+    if (m_document->isModified() && m_document->hasValidNameAndPath())
         m_timer->scheduleUpdate();
-    }
 }
 
 void AutosaveController::autosave()
@@ -116,26 +110,23 @@ void AutosaveController::autosave()
     QString name = autosaveName();
     if (!name.isEmpty()) {
         GUIHelpers::createSubdir(m_document->projectDir(), ProjectUtils::autosaveSubdir());
-
-        qDebug() << "       AutosaveService::autosave() -> emitting autosave request";
         emit autosaveRequest();
     }
 }
 
 void AutosaveController::setDocumentConnected(bool set_connected)
 {
-    if(!m_document)
+    if (!m_document)
         return;
 
-    if(set_connected) {
-        connect(m_document, SIGNAL(destroyed(QObject*)),
-                this, SLOT(onDocumentDestroyed(QObject*)), Qt::UniqueConnection);
-        connect(m_document, SIGNAL(modified()), this,
-                SLOT(onDocumentModified()), Qt::UniqueConnection);
+    if (set_connected) {
+        connect(m_document, SIGNAL(destroyed(QObject*)), this, SLOT(onDocumentDestroyed(QObject*)),
+                Qt::UniqueConnection);
+        connect(m_document, SIGNAL(modified()), this, SLOT(onDocumentModified()),
+                Qt::UniqueConnection);
     } else {
-        disconnect(m_document, SIGNAL(destroyed(QObject*)),
-                this, SLOT(onDocumentDestroyed(QObject*)));
-        disconnect(m_document, SIGNAL(modified()), this,
-                SLOT(onDocumentModified()));
+        disconnect(m_document, SIGNAL(destroyed(QObject*)), this,
+                   SLOT(onDocumentDestroyed(QObject*)));
+        disconnect(m_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
     }
 }

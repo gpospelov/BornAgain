@@ -105,7 +105,6 @@ void ProjectDocument::save(const QString& project_file_name, bool autoSave)
 
 void ProjectDocument::save_project_file(const QString& project_file_name, bool autoSave)
 {
-    qDebug() << "ProjectDocument::save_project_file() -> " << project_file_name;
     QElapsedTimer timer;
     timer.start();
 
@@ -123,25 +122,24 @@ void ProjectDocument::save_project_file(const QString& project_file_name, bool a
         emit modified();
     }
 
-    qDebug() << "   saved. Project file save time:" << timer.elapsed();
+    qDebug() << "ProjectDocument::save_project_file() -> " << project_file_name
+             << timer.elapsed() << "msec";
 }
 
 void ProjectDocument::save_project_data(const QString& project_file_name)
 {
-    qDebug() << "ProjectDocument::save_project_data() -> " << project_file_name;
     QElapsedTimer timer;
     timer.start();
 
     m_dataService->save(ProjectUtils::projectDir(project_file_name));
 
-    qDebug() << "saved. Project data save time:" << timer.elapsed();
+    qDebug() << "ProjectDocument::save_project_data() -> " << project_file_name
+             << timer.elapsed() << "msec";
 }
 
 
 void ProjectDocument::load(const QString& project_file_name)
 {
-    qDebug() << "ProjectDocument loading...";
-
     QElapsedTimer timer1, timer2;
     timer1.start();
 
@@ -171,7 +169,8 @@ void ProjectDocument::load(const QString& project_file_name)
         m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
     }
 
-    qDebug() << "loaded. Project load time:" << (timer1.elapsed() - timer2.elapsed()) << ";"
+    qDebug() << "ProjectDocument::load() -> Project load time:"
+             << (timer1.elapsed() - timer2.elapsed()) << ";"
              << "nonXML load time:" << timer2.elapsed();
 }
 

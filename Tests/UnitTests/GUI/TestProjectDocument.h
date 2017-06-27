@@ -34,8 +34,14 @@ inline void TestProjectDocument::test_documentFlags()
     QVERIFY(flags.testFlag(ProjectFlags::STATUS_WARNING) == false);
     QVERIFY(flags.testFlag(ProjectFlags::STATUS_FAILED) == false);
 
-    flags.setFlag(ProjectFlags::STATUS_WARNING);
+    ProjectFlags::setFlag(flags, ProjectFlags::STATUS_WARNING);
     QVERIFY(flags.testFlag(ProjectFlags::STATUS_OK) == false);
+    QVERIFY(flags.testFlag(ProjectFlags::STATUS_WARNING) == true);
+    QVERIFY(flags.testFlag(ProjectFlags::STATUS_FAILED) == false);
+
+    //flags.setFlag(ProjectFlags::STATUS_OK); // only in Qt5.7
+    ProjectFlags::setFlag(flags, ProjectFlags::STATUS_OK);
+    QVERIFY(flags.testFlag(ProjectFlags::STATUS_OK) == true);
     QVERIFY(flags.testFlag(ProjectFlags::STATUS_WARNING) == true);
     QVERIFY(flags.testFlag(ProjectFlags::STATUS_FAILED) == false);
 

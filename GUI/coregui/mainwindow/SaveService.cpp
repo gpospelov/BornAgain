@@ -91,12 +91,13 @@ void SaveService::stopService()
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
     if (isSaving()) {
-        QTime dieTime= QTime::currentTime().addSecs(10);
+        QTime dieTime= QTime::currentTime().addSecs(60);
         while (QTime::currentTime() < dieTime) {
             QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
             if (!isSaving())
                 break;
         }
+        // TODO make an exception for too long waiting time
     }
 
     if(m_autosave)

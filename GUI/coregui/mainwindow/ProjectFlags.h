@@ -30,6 +30,11 @@ public:
     };
 
     Q_DECLARE_FLAGS(DocumentStatus, EDocumentStatus)
+
+    static void setFlag(ProjectFlags::DocumentStatus& flags, EDocumentStatus status)
+    {
+        flags |= status;
+    }
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ProjectFlags::DocumentStatus)

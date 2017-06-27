@@ -151,7 +151,7 @@ void ProjectDocument::load(const QString& project_file_name)
     QFile file(projectFileName());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         m_messageService->send_message(this, OPEN_FILE_ERROR, file.errorString());
-        m_documentStatus.setFlag(ProjectFlags::STATUS_FAILED);
+        ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
         return;
     }
 
@@ -167,7 +167,7 @@ void ProjectDocument::load(const QString& project_file_name)
         connectModels();
 
     } catch (const std::exception& ex) {
-        m_documentStatus.setFlag(ProjectFlags::STATUS_FAILED);
+        ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
         m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
     }
 
@@ -249,7 +249,7 @@ void ProjectDocument::readFrom(QIODevice* device)
                                        .toString();
                 if (!GUIHelpers::isVersionMatchMinimal(m_currentVersion,
                                                        minimal_supported_version)) {
-                    m_documentStatus.setFlag(ProjectFlags::STATUS_FAILED);
+                    ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
                     QString message = QString("Can't open document version '%1', "
                                               "minimal supported version '%2'")
                                           .arg(m_currentVersion)
@@ -265,14 +265,14 @@ void ProjectDocument::readFrom(QIODevice* device)
             } else {
                 m_applicationModels->readFrom(&reader, m_messageService);
                 if (m_messageService->hasWarnings(m_applicationModels)) {
-                    m_documentStatus.setFlag(ProjectFlags::STATUS_WARNING);
+                    ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_WARNING);
                 }
             }
         }
     }
 
     if (reader.hasError()) {
-        m_documentStatus.setFlag(ProjectFlags::STATUS_FAILED);
+        ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
         m_messageService->send_message(this, XML_FORMAT_ERROR, reader.errorString());
         return;
     }

@@ -24,7 +24,7 @@
 class MainWindow;
 class ProjectDocument;
 class WarningMessageService;
-class AutosaveService;
+class AutosaveController;
 
 //! Handles activity related to opening/save projects.
 
@@ -87,7 +87,7 @@ private:
 
     QStringList m_recentProjects;
     WarningMessageService* m_messageService;
-    AutosaveService* m_autosaveService;
+    AutosaveController* m_autosaveService;
 };
 
 #endif // PROJECTMANAGER_H

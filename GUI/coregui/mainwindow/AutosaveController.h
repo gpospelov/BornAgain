@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/mainwindow/AutosaveService.h
-//! @brief     Defines class AutosaveService
+//! @file      GUI/coregui/mainwindow/AutosaveController.h
+//! @brief     Defines class AutosaveController
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef AUTOSAVESERVICE_H
-#define AUTOSAVESERVICE_H
+#ifndef AUTOSAVECONTROLLER_H
+#define AUTOSAVECONTROLLER_H
 
 #include "WinDllMacros.h"
 #include <QObject>
@@ -25,11 +25,11 @@ class UpdateTimer;
 
 //! Handles activity related to opening/save projects.
 
-class BA_CORE_API_ AutosaveService : public QObject
+class BA_CORE_API_ AutosaveController : public QObject
 {
     Q_OBJECT
 public:
-    explicit AutosaveService(QObject* parent = 0);
+    explicit AutosaveController(QObject* parent = 0);
 
     void setDocument(ProjectDocument* document);
 
@@ -58,4 +58,4 @@ private:
     UpdateTimer* m_timer;
 };
 
-#endif
+#endif // AUTOSAVECONTROLLER_H

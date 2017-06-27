@@ -21,7 +21,7 @@
 #include <QQueue>
 
 class ProjectDocument;
-class AutosaveService;
+class AutosaveController;
 
 //! Provides save/autosave of ProjectDocument in a thread.
 
@@ -58,7 +58,7 @@ private:
 
     QQueue<QString> m_save_queue;
     bool m_is_saving;
-    AutosaveService* m_autosave;
+    AutosaveController* m_autosave;
     ProjectDocument* m_document;
 };
 

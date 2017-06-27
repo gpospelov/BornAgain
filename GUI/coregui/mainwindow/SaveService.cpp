@@ -16,7 +16,7 @@
 #include "SaveService.h"
 #include "UpdateTimer.h"
 #include "SaveThread.h"
-#include "AutosaveService.h"
+#include "AutosaveController.h"
 #include "projectdocument.h"
 #include "ProjectUtils.h"
 #include <QDebug>
@@ -53,9 +53,9 @@ void SaveService::setAutosaveEnabled(bool value)
 {
     if (value) {
         delete m_autosave;
-        m_autosave = new AutosaveService(this);
+        m_autosave = new AutosaveController(this);
         m_autosave->setDocument(m_document);
-        connect(m_autosave, &AutosaveService::autosaveRequest,
+        connect(m_autosave, &AutosaveController::autosaveRequest,
                 this, &SaveService::onAutosaveRequest);
     } else {
         delete m_autosave;

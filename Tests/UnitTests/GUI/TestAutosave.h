@@ -1,5 +1,5 @@
 #include <QtTest>
-#include "AutosaveService.h"
+#include "AutosaveController.h"
 #include "projectdocument.h"
 #include "ApplicationModels.h"
 #include "InstrumentModel.h"
@@ -55,7 +55,7 @@ inline void TestAutosave::test_autoSaveController()
     document->save(projectFileName);
 
     // Setting up autosave
-    AutosaveService autosave;
+    AutosaveController autosave;
     autosave.setAutosaveTime(autosave_time);
     autosave.setDocument(document);
 

@@ -24,7 +24,7 @@
 #include "mainwindow_constants.h"
 #include "newprojectdialog.h"
 #include "projectdocument.h"
-#include "AutosaveService.h"
+#include "AutosaveController.h"
 #include "ProjectUtils.h"
 #include <QFileDialog>
 #include <QMessageBox>
@@ -161,7 +161,7 @@ void ProjectManager::setAutosaveEnabled(bool value)
 {
     if(value) {
         if(!m_autosaveService)
-            m_autosaveService = new AutosaveService(this);
+            m_autosaveService = new AutosaveController(this);
 
         m_autosaveService->setDocument(m_project_document);
 

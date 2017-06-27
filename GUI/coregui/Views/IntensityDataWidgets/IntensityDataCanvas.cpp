@@ -153,8 +153,11 @@ void IntensityDataCanvas::applyPersistentSettings()
     if (settings.contains(gradient_setting_name())) {
         ComboProperty combo = intensityDataItem()->getItemValue(IntensityDataItem::P_GRADIENT)
                                   .value<ComboProperty>();
-        combo.setValue(settings.value(gradient_setting_name()).toString());
-        intensityDataItem()->setItemValue(IntensityDataItem::P_GRADIENT, combo.getVariant());
+        QString persistentGradient = settings.value(gradient_setting_name()).toString();
+        if (combo.getValue() != persistentGradient) {
+            combo.setValue(settings.value(gradient_setting_name()).toString());
+            intensityDataItem()->setItemValue(IntensityDataItem::P_GRADIENT, combo.getVariant());
+        }
     }
 
     if (settings.contains(interpolation_setting_name())) {

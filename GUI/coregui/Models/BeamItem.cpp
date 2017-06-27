@@ -119,5 +119,5 @@ std::unique_ptr<Beam> BeamItem::createBeam() const
     double azimuthal_angle = Units::deg2rad(getAzimuthalAngle());
     result->setCentralK(lambda, inclination_angle, azimuthal_angle);
 
-    return std::move(result);
+    return result;
 }

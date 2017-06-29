@@ -54,7 +54,8 @@ class MySampleBuilder(ba.IMultiLayerBuilder):
         sphere.setPosition(position)
         ln_distr = ba.DistributionLogNormal(self.radius.value, self.sigma.value)
         par_distr = ba.ParameterDistribution(
-            "/Particle/FullSphere/Radius", ln_distr, nparticles, nfwhm)
+            "/Particle/FullSphere/Radius", ln_distr, nparticles, nfwhm,
+            ba.RealLimits.limited(0.0, self.hmdso_thickness.value/2.0))
         # par_distr = ba.ParameterDistribution(
         #    "/Particle/TruncatedSphere/Radius", ln_distr, nparticles, nfwhm)
         # par_distr.linkParameter("/Particle/TruncatedSphere/Height")

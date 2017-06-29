@@ -24,13 +24,14 @@
 #include "mainwindow_constants.h"
 #include "newprojectdialog.h"
 #include "projectdocument.h"
-#include "AutosaveService.h"
+#include "SaveService.h"
 #include "ProjectUtils.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QSettings>
 #include <QDateTime>
 #include <QStandardPaths>
+#include <QApplication>
 
 namespace {
     const QString S_PROJECTMANAGER = "ProjectManager";
@@ -44,7 +45,7 @@ ProjectManager::ProjectManager(MainWindow* parent)
     : m_mainWindow(parent)
     , m_project_document(nullptr)
     , m_messageService(new WarningMessageService)
-    , m_autosaveService(nullptr)
+    , m_saveService(new SaveService(this))
 
 {
     createNewProject();
@@ -151,24 +152,14 @@ void ProjectManager::setImportDir(const QString& dirname)
     m_importDirectory = dirname;
 }
 
-bool ProjectManager::isAutosaveEnabled()
+bool ProjectManager::isAutosaveEnabled() const
 {
-    return m_autosaveService ? true : false;
+    return m_saveService->isAutosaveEnabled();
 }
 
 void ProjectManager::setAutosaveEnabled(bool value)
 {
-    if(value) {
-        if(!m_autosaveService)
-            m_autosaveService = new AutosaveService(this);
-
-        m_autosaveService->setDocument(m_project_document);
-
-    } else {
-        delete m_autosaveService;
-        m_autosaveService = 0;
-    }
-
+    m_saveService->setAutosaveEnabled(value);
     QSettings settings;
     settings.setValue(S_PROJECTMANAGER+"/"+S_AUTOSAVE, value);
 }
@@ -260,10 +251,15 @@ bool ProjectManager::saveProject(QString projectFileName)
     if(projectFileName.isEmpty())
         return false;
 
-    if (!m_project_document->save(projectFileName)) {
-        QMessageBox::warning(
-            m_mainWindow, "Error while saving project",
-            QString("Failed to save project under '%1'.").arg(m_project_document->projectDir()));
+    try {
+        m_saveService->save(projectFileName);
+
+    } catch(const std::exception &ex) {
+        QString message = QString("Failed to save project under '%1'. \n\n").arg(projectFileName);
+        message.append("Exception was thrown.\n\n");
+        message.append(ex.what());
+
+        QMessageBox::warning(m_mainWindow, "Error while saving project", message);
         return false;
     }
 
@@ -335,14 +331,12 @@ void ProjectManager::createNewProject()
     m_project_document->setApplicationModels(m_mainWindow->models());
     m_project_document->setLogger(m_messageService);
 
-    if(m_autosaveService)
-        m_autosaveService->setDocument(m_project_document);
+    m_saveService->setDocument(m_project_document);
 }
 
 void ProjectManager::deleteCurrentProject()
 {
-    if(m_autosaveService)
-        m_autosaveService->removeAutosaveDir();
+    m_saveService->stopService();
 
     delete m_project_document;
     m_project_document = 0;
@@ -353,15 +347,19 @@ void ProjectManager::deleteCurrentProject()
 
 void ProjectManager::loadProject(const QString& projectFileName)
 {
-    bool useAutosave = m_autosaveService && ProjectUtils::hasAutosavedData(projectFileName);
+    bool useAutosave = m_saveService && ProjectUtils::hasAutosavedData(projectFileName);
 
     if(useAutosave && restoreProjectDialog(projectFileName)) {
+        QApplication::setOverrideCursor(Qt::WaitCursor);
         m_project_document->load(ProjectUtils::autosaveName(projectFileName));
         m_project_document->setProjectFileName(projectFileName);
         m_project_document->setModified(true);
     } else {
+        QApplication::setOverrideCursor(Qt::WaitCursor);
         m_project_document->load(projectFileName);
     }
+
+    QApplication::restoreOverrideCursor();
 }
 
 //! Returns project file name from dialog.

@@ -25,11 +25,6 @@
 #include <ba3d/model/layer.h>
 #include <QDebug>
 
-namespace
-{
-const double layer_min_thickness = 25;
-}
-
 void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item)
 {
     model->defCamPos = ba3d::Camera::pos_t(

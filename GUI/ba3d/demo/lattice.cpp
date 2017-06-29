@@ -16,7 +16,7 @@ uint Lattice::index(int ix, int iy) {
   EXPECT (-nx <= ix && ix <= +nx)
   EXPECT (-ny <= iy && iy <= +ny)
   uint i = (2*nx + 1) * (iy + ny) + (ix + nx);
-  ENSURE (i < count())
+  ENSURE (static_cast<int>(i) < count())
   return i;
 }
 
@@ -72,6 +72,7 @@ Lattice squareLattice(uint n, float sigma) {
   auto get = [&](int ix, int iy) -> xyz::rc {
     return mesh.at(mesh.index(ix, iy));
   };
+  (void)get;
 
   auto isMade = [&](int ix, int iy) -> bool {
     return xyz::_0 != mesh.at(mesh.index(ix, iy));
@@ -110,7 +111,7 @@ Lattice squareLattice(uint n, float sigma) {
 
   growTo(n);
   return mesh;
-};
+}
 
 //------------------------------------------------------------------------------
 // eof

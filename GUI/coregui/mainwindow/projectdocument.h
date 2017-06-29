@@ -18,6 +18,7 @@
 #define PROJECTDOCUMENT_H
 
 #include "WinDllMacros.h"
+#include "ProjectFlags.h"
 #include <QObject>
 
 class QIODevice;
@@ -39,15 +40,13 @@ const QString InfoNameAttribute("ProjectName");
 //!
 //! e.g. if project file is /home/users/development/Untitled/Untitled.pro
 //! projectName()     - 'Untitled'
-//! projectDir()      - 'home/users/development/Untitled
+//! projectDir()      - '/home/users/development/Untitled
 //! projectFileName() - '/home/users/development/Untitled/Untitled.pro'
 class BA_CORE_API_ ProjectDocument : public QObject
 {
     Q_OBJECT
 
 public:
-    enum EDocumentStatus { STATUS_OK = 0x0001, STATUS_WARNING = 0x0002, STATUS_FAILED = 0x0004 };
-
     ProjectDocument(const QString& projectFileName = QString());
 
     QString projectName() const;
@@ -63,8 +62,12 @@ public:
 
     void setApplicationModels(ApplicationModels* applicationModels);
 
-    bool save(const QString& project_file_name, bool autoSave = false);
-    bool load(const QString& project_file_name);
+    void save(const QString& project_file_name, bool autoSave = false);
+
+    void save_project_file(const QString& project_file_name, bool autoSave = false);
+    void save_project_data(const QString& project_file_name);
+
+    void load(const QString& project_file_name);
 
     bool hasValidNameAndPath();
 
@@ -73,13 +76,15 @@ public:
 
     void setLogger(WarningMessageService* messageService);
 
-    EDocumentStatus documentStatus() const;
+    ProjectFlags::DocumentStatus documentStatus() const;
 
     bool isReady() const;
 
     bool hasWarnings() const;
 
     bool hasErrors() const;
+
+    bool hasData() const;
 
     QString documentVersion() const;
 
@@ -100,7 +105,7 @@ private:
     QString m_project_name;
     ApplicationModels* m_applicationModels;
     bool m_modified;
-    EDocumentStatus m_documentStatus;
+    ProjectFlags::DocumentStatus m_documentStatus;
     WarningMessageService* m_messageService;
     QString m_currentVersion;
     OutputDataIOService* m_dataService;

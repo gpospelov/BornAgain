@@ -345,8 +345,6 @@ void SessionModel::readFrom(QXmlStreamReader *reader, WarningMessageService *mes
 
     m_name = reader->attributes().value(SessionXML::ModelNameAttribute).toString();
 
-    createRootItem();
-
     SessionReader::readItems(reader, m_root_item, QString(), messageService);
     if (reader->hasError())
         throw GUIHelpers::Error(reader->errorString());

@@ -25,7 +25,6 @@
 #include "GUIHelpers.h"
 
 namespace {
-    const double layer_alpha = 0.3;
     const double layer_size = 50.0;
     const double top_layer_thickness = 25.0;
     const double bottom_layer_thickness = 25.0;

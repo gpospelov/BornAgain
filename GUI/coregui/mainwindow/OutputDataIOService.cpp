@@ -18,17 +18,14 @@
 #include "IntensityDataItem.h"
 #include "JobItemUtils.h"
 #include "ProjectUtils.h"
-#include <QDebug>
 
 OutputDataIOService::OutputDataIOService(QObject* parent)
-    : QObject(parent)
-    , m_applicationModels(nullptr)
+    : QObject(parent), m_applicationModels(nullptr)
 {
 }
 
 OutputDataIOService::OutputDataIOService(ApplicationModels* models, QObject* parent)
-    : QObject(parent)
-    , m_applicationModels(nullptr)
+    : QObject(parent), m_applicationModels(nullptr)
 {
     setApplicationModels(models);
 }
@@ -47,10 +44,9 @@ void OutputDataIOService::save(const QString& projectDir)
 
     for (auto item : dataItems()) {
 
-        if (m_history.wasModifiedSinceLastSave(projectDir, item)) {
+        if (m_history.wasModifiedSinceLastSave(projectDir, item))
             JobItemUtils::saveIntensityData(item, projectDir);
-            qDebug() << "data saved";
-        }
+
         newHistory.markAsSaved(item);
     }
 
@@ -77,16 +73,16 @@ void OutputDataIOService::load(const QString& projectDir)
 
 //! Returns all IntensityDataItems available for save/load.
 
-QVector<IntensityDataItem *> OutputDataIOService::dataItems() const
+QVector<IntensityDataItem*> OutputDataIOService::dataItems() const
 {
-    QVector<IntensityDataItem *> result;
+    QVector<IntensityDataItem*> result;
 
     if (!m_applicationModels)
         return result;
 
     for (auto item : m_applicationModels->nonXMLData()) {
         if (auto intensityItem = dynamic_cast<IntensityDataItem*>(item))
-                result.push_back(intensityItem);
+            result.push_back(intensityItem);
     }
 
     return result;
@@ -95,10 +91,9 @@ QVector<IntensityDataItem *> OutputDataIOService::dataItems() const
 //! Clean old saved files.
 //! All files in oldSaves list, which are not in newSaves list, will be removed.
 
-void OutputDataIOService::cleanOldFiles(const QString &projectDir, const QStringList &oldSaves,
-                                        const QStringList &newSaves)
+void OutputDataIOService::cleanOldFiles(const QString& projectDir, const QStringList& oldSaves,
+                                        const QStringList& newSaves)
 {
     QStringList to_remove = ProjectUtils::substract(oldSaves, newSaves);
     ProjectUtils::removeFiles(projectDir, to_remove);
 }
-

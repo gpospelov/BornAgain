@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/mainwindow/AutosaveService.cpp
-//! @brief     Implements class AutosaveService
+//! @file      GUI/coregui/mainwindow/AutosaveController.cpp
+//! @brief     Implements class AutosaveController
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "AutosaveService.h"
+#include "AutosaveController.h"
 #include "projectdocument.h"
 #include "UpdateTimer.h"
 #include "GUIHelpers.h"
@@ -23,115 +23,110 @@
 
 namespace
 {
-const int update_every = 5000; // in msec
+const int update_every = 20000; // in msec
 }
 
-AutosaveService::AutosaveService(QObject* parent)
+AutosaveController::AutosaveController(QObject* parent)
     : QObject(parent), m_document(0), m_timer(new UpdateTimer(update_every, this))
 {
     connect(m_timer, SIGNAL(timeToUpdate()), this, SLOT(onTimerTimeout()));
 }
 
-void AutosaveService::setDocument(ProjectDocument* document)
+void AutosaveController::setDocument(ProjectDocument* document)
 {
-    if(document == m_document)
+    if (document == m_document)
         return;
 
     m_timer->reset();
 
-    if(m_document)
+    if (m_document)
         setDocumentConnected(false);
 
     m_document = document;
 
-    if(m_document)
+    if (m_document)
         setDocumentConnected(true);
 
     onDocumentModified();
 }
 
-void AutosaveService::setAutosaveTime(int timerInterval)
+void AutosaveController::setAutosaveTime(int timerInterval)
 {
+    m_timer->reset();
     m_timer->setTimeInterval(timerInterval);
 }
 
 //! Returns the name of autosave directory.
 
-QString AutosaveService::autosaveDir() const
+QString AutosaveController::autosaveDir() const
 {
-    if (m_document->hasValidNameAndPath())
+    if (m_document && m_document->hasValidNameAndPath())
         return ProjectUtils::autosaveDir(m_document->projectFileName());
 
     return QString();
 }
 
-QString AutosaveService::autosaveName() const
+QString AutosaveController::autosaveName() const
 {
-    if (m_document->hasValidNameAndPath())
+    if (m_document && m_document->hasValidNameAndPath())
         return ProjectUtils::autosaveName(m_document->projectFileName());
 
     return QString();
 }
 
-
-void AutosaveService::removeAutosaveDir()
+void AutosaveController::removeAutosaveDir()
 {
-    if(autosaveDir().isEmpty())
+    if (autosaveDir().isEmpty())
         return;
 
     QDir dir(autosaveDir());
     dir.removeRecursively();
 }
 
-void AutosaveService::onTimerTimeout()
+void AutosaveController::onTimerTimeout()
 {
     if (m_document->isModified())
         autosave();
 }
 
-void AutosaveService::onDocumentDestroyed(QObject* object)
+void AutosaveController::onDocumentDestroyed(QObject* object)
 {
     Q_UNUSED(object);
     m_timer->reset();
     m_document = 0;
 }
 
-void AutosaveService::onDocumentModified()
+void AutosaveController::onDocumentModified()
 {
+    if (!m_document)
+        return;
+
     if (m_document->isModified() && m_document->hasValidNameAndPath())
         m_timer->scheduleUpdate();
 }
 
-#include <QDebug>
-void AutosaveService::autosave()
+void AutosaveController::autosave()
 {
     QString name = autosaveName();
     if (!name.isEmpty()) {
         GUIHelpers::createSubdir(m_document->projectDir(), ProjectUtils::autosaveSubdir());
-
-        qDebug() << "       saving";
-
-        if(!m_document->save(name, true))
-            throw GUIHelpers::Error("AutosaveService::autosave() -> Error during autosave.");
-
-        emit autosaved();
+        emit autosaveRequest();
     }
 }
 
-void AutosaveService::setDocumentConnected(bool set_connected)
+void AutosaveController::setDocumentConnected(bool set_connected)
 {
-    if(!m_document)
+    if (!m_document)
         return;
 
-    if(set_connected) {
-        connect(m_document, SIGNAL(destroyed(QObject*)),
-                this, SLOT(onDocumentDestroyed(QObject*)), Qt::UniqueConnection);
-        connect(m_document, SIGNAL(modified()), this,
-                SLOT(onDocumentModified()), Qt::UniqueConnection);
+    if (set_connected) {
+        connect(m_document, SIGNAL(destroyed(QObject*)), this, SLOT(onDocumentDestroyed(QObject*)),
+                Qt::UniqueConnection);
+        connect(m_document, SIGNAL(modified()), this, SLOT(onDocumentModified()),
+                Qt::UniqueConnection);
     } else {
-        disconnect(m_document, SIGNAL(destroyed(QObject*)),
-                this, SLOT(onDocumentDestroyed(QObject*)));
-        disconnect(m_document, SIGNAL(modified()), this,
-                SLOT(onDocumentModified()));
+        disconnect(m_document, SIGNAL(destroyed(QObject*)), this,
+                   SLOT(onDocumentDestroyed(QObject*)));
+        disconnect(m_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
     }
 }

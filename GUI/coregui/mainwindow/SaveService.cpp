@@ -19,6 +19,7 @@
 #include "AutosaveController.h"
 #include "projectdocument.h"
 #include "ProjectUtils.h"
+#include "GUIHelpers.h"
 #include <QApplication>
 #include <QTime>
 #include <QCoreApplication>
@@ -97,7 +98,8 @@ void SaveService::stopService()
             if (!isSaving())
                 break;
         }
-        // TODO make an exception for too long waiting time
+        if (isSaving())
+            throw GUIHelpers::Error("SaveService::stopService() -> Error. Can't stop service. ");
     }
 
     if(m_autosave)

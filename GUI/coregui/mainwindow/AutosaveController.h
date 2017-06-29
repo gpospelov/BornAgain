@@ -23,7 +23,7 @@
 class ProjectDocument;
 class UpdateTimer;
 
-//! Handles activity related to opening/save projects.
+//! Triggers autosave request after some accumulated ammount of document changes.
 
 class BA_CORE_API_ AutosaveController : public QObject
 {

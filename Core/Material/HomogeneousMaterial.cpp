@@ -38,6 +38,7 @@ namespace {
 // Used in experimental calculation of scattering matrix:
 cvector_t OrthogonalToBaseVector(cvector_t base, const kvector_t vector)
 {
+    if (base.mag2()==0.0) return cvector_t {};
     cvector_t projection = (base.dot(vector)/base.mag2())*base;
     return vector.complex() - projection;
 }

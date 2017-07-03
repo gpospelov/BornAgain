@@ -77,5 +77,6 @@ test_example("simulation/ex05_BeamAndDetector/SpecularSimulation" 2e-10)
 
 test_example("simulation/ex06_Miscellaneous/CylindersInAverageLayer" 2e-10)
 test_example("simulation/ex06_Miscellaneous/HalfSpheresInAverageTopLayer" 2e-10)
+test_example("simulation/ex06_Miscellaneous/MagneticSpheres" 2e-10)
 
 test_example("fitting/ex01_SampleParametersIntro/SampleParametersIntro" 2e-10)

@@ -68,7 +68,7 @@ void LayoutStrategyBuilder::createStrategy()
         mP_strategy.reset( new DecouplingApproximationStrategy(m_sim_params, m_polarized) );
         break;
     case ILayout::SSCA:
-        double kappa = mp_layout ? mp_layout->interferenceFunction()->getKappa()
+        double kappa = mp_layout ? mp_layout->interferenceFunction()->kappa()
                                  : 0.0;
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(

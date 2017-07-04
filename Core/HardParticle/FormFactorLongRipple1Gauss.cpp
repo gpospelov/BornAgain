@@ -27,9 +27,9 @@ FormFactorLongRipple1Gauss::FormFactorLongRipple1Gauss(double length, double wid
 {
     setName(BornAgain::FFLongRipple1GaussType);
     check_initialization();
-    registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorLongRipple1Gauss::Integrand);
     onChange();
 }

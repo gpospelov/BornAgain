@@ -20,6 +20,9 @@
 #include "RealParameter.h"
 #include <limits>
 
+//! Constructor of interference function of radial paracrystal.
+//! @param peak_distance: average distance to the next neighbor in nanometers
+//! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
 InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
         double peak_distance, double damping_length)
     : m_peak_distance(peak_distance)
@@ -36,21 +39,44 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
 
 void InterferenceFunctionRadialParaCrystal::init_parameters()
 {
-    registerParameter(BornAgain::PeakDistance, &m_peak_distance).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::DampingLength, &m_damping_length).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::PeakDistance, &m_peak_distance).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::DampingLength, &m_damping_length).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
     registerParameter(BornAgain::SizeSpaceCoupling, &m_kappa).setNonnegative();
-    registerParameter(BornAgain::DomainSize, &m_domain_size).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::DomainSize, &m_domain_size).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::clone() const {
     InterferenceFunctionRadialParaCrystal* result =
         new InterferenceFunctionRadialParaCrystal(
             m_peak_distance, m_damping_length);
-    result->setDomainSize(getDomainSize());
+    result->setDomainSize(domainSize());
     result->setKappa(m_kappa);
     if (mP_pdf)
         result->setProbabilityDistribution(*mP_pdf);
     return result;
+}
+
+//! Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
+//! @param size spacing coupling parameter
+void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
+{
+    m_kappa = kappa;
+}
+
+double InterferenceFunctionRadialParaCrystal::kappa() const
+{
+    return m_kappa;
+}
+
+//! Sets domain size (finite size corrections).
+//! @param size: size of coherence domain along the lattice main axis in nanometers
+
+void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
+{
+    m_domain_size = size;
 }
 
 double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
@@ -102,6 +128,9 @@ complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
         result *= std::exp(-m_peak_distance/m_damping_length);
     return result;
 }
+
+//! Sets one-dimensional probability distribution.
+//! @param pdf: probability distribution (Fourier transform of probability density)
 
 void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
 {

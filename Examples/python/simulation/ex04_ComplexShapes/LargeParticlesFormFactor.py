@@ -6,12 +6,10 @@ oscillates rapidly within one detector bin and analytical calculations
 (performed for the bin center) give completely wrong intensity pattern.
 In this case Monte-Carlo integration over detector bin should be used.
 """
-import numpy, sys
 import bornagain as ba
 from bornagain import deg, angstrom, nm
+from matplotlib import pyplot as plt
 
-phi_min, phi_max = -2.0, 2.0
-alpha_min, alpha_max = 0.0, 2.0
 default_cylinder_radius = 10*nm
 default_cylinder_height = 20*nm
 
@@ -47,84 +45,60 @@ def get_simulation(integration_flag):
     If integration_flag=True, the simulation will integrate over detector bins.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(
-        200, phi_min*deg, phi_max*deg, 200, alpha_min*deg, alpha_max*deg)
+    simulation.setDetectorParameters(200, -2.0*deg, 2.0*deg,
+                                     200, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.getOptions().setMonteCarloIntegration(integration_flag, 50)
-
+    simulation.setTerminalProgressMonitor()
     return simulation
 
 
-def simulate(condi):
+def run_simulation():
     """
-    Runs simulation and returns result.
+    Run simulation and plot results 4 times: for small and large cylinders,
+    with and without integration
     """
-    scale = condi['scale']
-    integration_flag = condi['integration']
-    sample = get_sample(default_cylinder_radius*scale,
-                        default_cylinder_height*scale)
-    simulation = get_simulation(integration_flag)
-    simulation.setSample(sample)
-    simulation.setTerminalProgressMonitor()
-    simulation.runSimulation()
-    return simulation.getIntensityData()
 
+    fig = plt.figure(figsize=(12.80, 10.24))
 
-def plot(result, nframe, title):
-    plt.subplot(2, 2, nframe+1)
-    plt.subplots_adjust(wspace=0.3, hspace=0.3)
-    im = plt.imshow(
-        result.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, result.getMaximum()),
-        extent=[result.getXmin()/deg, result.getXmax()/deg,
-                result.getYmin()/deg, result.getYmax()/deg],
-        aspect='auto')
-    cb = plt.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', size=16)
-    plt.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    plt.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    plt.text(0.0, 2.1, title, horizontalalignment='center',
-             verticalalignment='center',  fontsize=13)
+    # conditions to define cylinders scale factor and integration flag
+    conditions = [
+        {'title': "Small cylinders, analytical calculations",
+         'scale': 1,   'integration': False},
+
+        {'title': "Small cylinders, Monte-Carlo integration",
+         'scale': 1,   'integration': True},
+
+        {'title': "Large cylinders, analytical calculations",
+         'scale': 100, 'integration': False},
+
+        {'title': "Large cylinders, Monte-Carlo integration",
+         'scale': 100, 'integration': True}
+    ]
+
+    # run simulation 4 times and plot results
+    for i_plot, condition in enumerate(conditions):
+        scale = condition['scale']
+        integration_flag = condition['integration']
+
+        sample = get_sample(default_cylinder_radius*scale,
+                            default_cylinder_height*scale)
+        simulation = get_simulation(integration_flag)
+        simulation.setSample(sample)
+        simulation.runSimulation()
+        result = simulation.getIntensityData()
+
+        # plotting results
+        plt.subplot(2, 2, i_plot+1)
+        plt.subplots_adjust(wspace=0.3, hspace=0.3)
+
+        ba.plot_colormap(result)
+
+        plt.text(0.0, 2.1, conditions[i_plot]['title'],
+                 horizontalalignment='center', verticalalignment='center',
+                 fontsize=12)
 
 
 if __name__ == '__main__':
-    """
-    Runs one simulation for each condition, and plots results on a single canvas.
-    Conditions are small and large cylinders, with and without integration.
-    """
-    arg = ba.getFilenameOrPlotflag()
-
-    # conditions to define cylinders scale factor and Monte-Carlo integration flag
-    conditions = [
-        {'name': "SmallAn",
-         'title': "Small cylinders, analytical calculations", 'scale': 1,
-         'integration': False, 'max': 1e+08},
-        {'name': "SmallMC",
-         'title': "Small cylinders, Monte-Carlo integration", 'scale': 1,
-         'integration': True,  'max': 1e+08},
-        {'name': "LargeAn",
-         'title': "Large cylinders, analytical calculations", 'scale': 100,
-         'integration': False, 'max': 1e+12},
-        {'name': "LargeMC",
-         'title': "Large cylinders, Monte-Carlo integration", 'scale': 100,
-         'integration': True,  'max': 1e+12}
-    ]
-
-    if arg == "-p":
-        import matplotlib
-        from matplotlib import pyplot as plt
-        from matplotlib import rc
-        plt.figure(figsize=(12.80, 10.24))
-        for nplot in range(len(conditions)):
-            condi = conditions[nplot]
-            title = condi['title']
-            print("Generating intensity map for " + title)
-            intensities = simulate(condi)
-            plot(intensities, nplot, title)
-        plt.show()
-    else:
-        for condi in conditions:
-            intensities = simulate(condi)
-            fname = "%s.%s.int" % (arg, condi['name'])
-            ba.IntensityDataIOFactory.writeIntensityData(intensities, fname)
-            print("Stored intensity map in " + fname)
+    run_simulation()
+    plt.show()

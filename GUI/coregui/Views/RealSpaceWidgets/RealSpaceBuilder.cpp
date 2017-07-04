@@ -25,16 +25,12 @@
 #include <ba3d/model/layer.h>
 #include <QDebug>
 
-namespace
-{
-const double layer_min_thickness = 25;
-}
-
 void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item)
 {
-    model->defEye = ba3d::xyz(-10, -140, 20);
-    model->defCtr = ba3d::xyz(0, 0, -30);
-    model->defUp = ba3d::xyz::_z;
+    model->defCamPos = ba3d::Camera::pos_t(
+        ba3d::xyz(-10, -140, 20),   // eye
+        ba3d::xyz(0, 0, -30),       // center
+        ba3d::xyz::_z);             // up vector
 
     if (item.modelType() == Constants::MultiLayerType)
         populateMultiLayer(model, item);

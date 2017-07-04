@@ -345,8 +345,6 @@ void SessionModel::readFrom(QXmlStreamReader *reader, WarningMessageService *mes
 
     m_name = reader->attributes().value(SessionXML::ModelNameAttribute).toString();
 
-    createRootItem();
-
     SessionReader::readItems(reader, m_root_item, QString(), messageService);
     if (reader->hasError())
         throw GUIHelpers::Error(reader->errorString());
@@ -499,18 +497,9 @@ SessionItem* SessionModel::rootItem() const{
     return m_root_item;
 }
 
-//! Loads non-XML data of the model from the projectDir
-
-void SessionModel::loadNonXMLData(const QString &projectDir)
+QVector<SessionItem *> SessionModel::nonXMLData() const
 {
-    Q_UNUSED(projectDir);
-}
-
-//! Saves non-XML data of the model to the projectDir
-
-void SessionModel::saveNonXMLData(const QString &projectDir)
-{
-    Q_UNUSED(projectDir);
+    return QVector<SessionItem *>();
 }
 
 void SessionModel::setIconProvider(IconProvider *icon_provider)

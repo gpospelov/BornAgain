@@ -37,6 +37,7 @@
 #include "SizeDistributionModelsBuilder.h"
 #include "TransformationsBuilder.h"
 #include "TwoDimLatticeBuilder.h"
+#include "TwoLayerRoughnessBuilder.h"
 #include "SlicedParticleBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
@@ -185,6 +186,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Layer with correlated roughness");
 
     registerItem(
+        "TwoLayerRoughnessBuilder",
+        create_new<TwoLayerRoughnessBuilder>,
+        "Two layers with rough interface");
+
+    registerItem(
        "MultipleLayoutBuilder",
        create_new<MultipleLayoutBuilder>,
       "cylinder and prisms using multiple layouts");
@@ -263,6 +269,21 @@ SampleBuilderFactory::SampleBuilderFactory()
         "SlicedCompositionBuilder",
         create_new<SlicedCompositionBuilder>,
         "Spherical particle made of two different materials crossing interface");
+
+    registerItem(
+        "RotatedPyramidsDistributionBuilder",
+        create_new<RotatedPyramidsDistributionBuilder>,
+        "Rotated pyramids distribution");
+
+    registerItem(
+        "SpheresWithLimitsDistributionBuilder",
+        create_new<SpheresWithLimitsDistributionBuilder>,
+        "Spherical particles with the distribution applied to the radius and RealLimits defined");
+
+    registerItem(
+        "ConesWithLimitsDistributionBuilder",
+        create_new<ConesWithLimitsDistributionBuilder>,
+        "Cones with the distribution applied to the angle and RealLimits defined.");
 
 }
 

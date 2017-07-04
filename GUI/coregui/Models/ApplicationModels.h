@@ -21,6 +21,7 @@
 #include <QObject>
 
 class SessionModel;
+class SessionItem;
 class DocumentModel;
 class MaterialModel;
 class MaterialSvc;
@@ -56,8 +57,7 @@ public:
 
     QList<SessionModel *> modelList();
 
-    void loadNonXMLData(const QString &projectDir);
-    void saveNonXMLData(const QString &projectDir);
+    QVector<SessionItem*> nonXMLData() const;
 
 signals:
     void modelChanged();

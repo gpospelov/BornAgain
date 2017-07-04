@@ -31,7 +31,7 @@ TEST_F(GISASSimulationTest, SimulationInitialState)
     EXPECT_EQ( nullptr, m_simulation.sampleBuilder().get());
     EXPECT_EQ(0u, m_simulation.numberOfSimulationElements());
     EXPECT_THROW(m_simulation.getDetectorIntensity(), Exceptions::OutOfBoundsException);
-    EXPECT_EQ(2u, m_simulation.getChildren().size());
+    EXPECT_EQ(1u, m_simulation.getChildren().size());
 }
 
 TEST_F(GISASSimulationTest, SimulationConstruction)
@@ -62,7 +62,7 @@ TEST_F(GISASSimulationTest, SimulationClone)
     EXPECT_EQ( nullptr, p_clone->sampleBuilder().get());
     EXPECT_EQ(0u, p_clone->numberOfSimulationElements());
     EXPECT_THROW(p_clone->getDetectorIntensity(), Exceptions::OutOfBoundsException);
-    EXPECT_EQ(2u, p_clone->getChildren().size());
+    EXPECT_EQ(1u, p_clone->getChildren().size());
     delete p_clone;
 
     MultiLayer multi_layer;

@@ -38,8 +38,10 @@ MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
 
 void MagneticParticleZeroFieldBuilder::init_parameters()
 {
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
@@ -67,7 +69,7 @@ MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 }
 
 // ----------------------------------------------------------------------------
-// Magnetic cylinders and non-zero magnetic field
+// Magnetic cylinders and non-zero magnetization
 // ----------------------------------------------------------------------------
 MagneticCylindersBuilder::MagneticCylindersBuilder()
     :  m_cylinder_radius(5*Units::nanometer)
@@ -79,8 +81,10 @@ MagneticCylindersBuilder::MagneticCylindersBuilder()
 void MagneticCylindersBuilder::init_parameters()
 {
 
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 MultiLayer* MagneticCylindersBuilder::buildSample() const
@@ -89,8 +93,8 @@ MultiLayer* MagneticCylindersBuilder::buildSample() const
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
     HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
-    kvector_t magnetic_field(0.0, 1.0, 0.0);
-    HomogeneousMaterial particle_material("MagParticle2", 5e-6, 0.0, magnetic_field);
+    kvector_t magnetization(0.0, 1e6, 0.0);
+    HomogeneousMaterial particle_material("MagParticle2", 5e-6, 0.0, magnetization);
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);

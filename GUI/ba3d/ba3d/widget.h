@@ -15,6 +15,7 @@ class Camera;
 class Program;
 
 class Widget3D : public QWidget { BASE(QWidget)
+  Q_OBJECT
 public:
   Widget3D();
  ~Widget3D();
@@ -23,8 +24,7 @@ public:
 
   void setBackground(QColor const&);
   void setModel(Model*); // model owned elsewhere, may be nullptr
-
-  void update();
+  Model* getModel();
 
 private:
   Canvas  *canvas;

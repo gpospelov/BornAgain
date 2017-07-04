@@ -30,12 +30,13 @@ public:
   void setCamera(Camera*);
   void setProgram(Program*);
   void setModel(Model*);
+  Model* getModel();
 
 private:
   QRect viewport;
   flt   aspectRatio, colorBgR, colorBgG, colorBgB;
 
-  void setCamera(bool full);
+  void setCamera(bool full = true);
 
   void initializeGL();
   void resizeGL(int, int);
@@ -54,6 +55,8 @@ private:
   Camera  *camera;
   Program *program;
   Model   *model;
+
+  QMetaObject::Connection modelUpdated;
 
   QHash<Geometry const*, Buffer*> buffers;
   void releaseBuffer(Geometry const*);

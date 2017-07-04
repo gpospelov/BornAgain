@@ -36,6 +36,7 @@ Layer::~Layer()
 Layer* Layer::cloneInvertB() const
 {
     Layer* p_clone = new Layer(m_material.inverted(), m_thickness);
+    p_clone->m_B_field = - m_B_field;
     return p_clone;
 }
 
@@ -125,10 +126,30 @@ void Layer::registerThickness(bool make_registered)
 {
     if(make_registered) {
         if(!parameter(BornAgain::Thickness))
-            registerParameter(BornAgain::Thickness, &m_thickness).setUnit("nm").setNonnegative();
+            registerParameter(BornAgain::Thickness, &m_thickness).setUnit(BornAgain::UnitsNm)
+                .setNonnegative();
     } else {
         removeParameter(BornAgain::Thickness);
     }
+}
+
+complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
+{
+    complex_t n = m_material.refractiveIndex();
+    return ScalarReducedPotential(n, k, n_ref);
+}
+
+Eigen::Matrix2cd Layer::polarizedReducedPotential(kvector_t k, double n_ref) const
+{
+    complex_t n = m_material.refractiveIndex();
+    kvector_t b_field = bField();
+    return PolarizedReducedPotential(n, b_field, k, n_ref);
+}
+
+void Layer::initBField(kvector_t h_field, double b_z)
+{
+    m_B_field = Magnetic_Permeability*(h_field + m_material.magnetization());
+    m_B_field.setZ(b_z);
 }
 
 Layer::Layer(const Layer& other)
@@ -137,6 +158,7 @@ Layer::Layer(const Layer& other)
     setName(other.getName());
     m_thickness = other.m_thickness;
     m_n_slices = other.m_n_slices;
+    m_B_field = other.m_B_field;
     for (auto p_layout : other.layouts())
         addLayout(*p_layout);
     registerThickness();
@@ -146,6 +168,7 @@ Layer* Layer::emptyClone() const
 {
     Layer* p_result = new Layer(m_material, m_thickness);
     p_result->setName(getName());
+    p_result->m_B_field = m_B_field;
     return p_result;
 }
 
@@ -160,4 +183,9 @@ Layer* Layer::cloneWithOffset(double offset) const
         p_result->registerChild(p_layout_offset);
     }
     return p_result;
+}
+
+kvector_t Layer::bField() const
+{
+    return m_B_field;
 }

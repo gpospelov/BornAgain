@@ -24,8 +24,8 @@ FormFactorCylinder::FormFactorCylinder(double radius, double height)
     : m_radius(radius), m_height(height)
 {
     setName(BornAgain::FFCylinderType);
-    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
     onChange();
 }
 

@@ -66,11 +66,16 @@ MultiLayer* RadialParaCrystalBuilder::buildSample() const
 
 void RadialParaCrystalBuilder::init_parameters()
 {
-    registerParameter("corr_peak_distance", &m_corr_peak_distance).setUnit("nm").setNonnegative();
-    registerParameter("corr_width", &m_corr_width).setUnit("nm").setNonnegative();
-    registerParameter("corr_length", &m_corr_length).setUnit("nm").setNonnegative();
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
+    registerParameter("corr_peak_distance", &m_corr_peak_distance).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("corr_width", &m_corr_width).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("corr_length", &m_corr_length).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 // -----------------------------------------------------------------------------
@@ -175,12 +180,18 @@ MultiLayer* HexParaCrystalBuilder::buildSample() const
 void HexParaCrystalBuilder::init_parameters()
 {
 
-    registerParameter("m_peak_distance", &m_peak_distance).setUnit("nm").setNonnegative();
-    registerParameter("m_corr_length", &m_corr_length).setUnit("nm").setNonnegative();
-    registerParameter("m_domain_size_1", &m_domain_size_1).setUnit("nm").setNonnegative();
-    registerParameter("m_domain_size_2", &m_domain_size_2).setUnit("nm").setNonnegative();
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit("nm").setNonnegative();
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit("nm").setNonnegative();
+    registerParameter("m_peak_distance", &m_peak_distance).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("m_corr_length", &m_corr_length).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("m_domain_size_1", &m_domain_size_1).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("m_domain_size_2", &m_domain_size_2).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 // -----------------------------------------------------------------------------

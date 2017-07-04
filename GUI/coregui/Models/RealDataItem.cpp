@@ -102,10 +102,11 @@ void RealDataItem::setOutputData(OutputData<double> *data)
     item->setOutputData(data);
 }
 
-void RealDataItem::linkToInstrument(const InstrumentItem *instrument)
+void RealDataItem::linkToInstrument(const InstrumentItem *instrument, bool make_update)
 {
     m_linkedInstrument = instrument;
-    updateToInstrument();
+    if(make_update)
+        updateToInstrument();
 }
 
 //! Updates the name of file to store intensity data.

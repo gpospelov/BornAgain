@@ -3,6 +3,7 @@
 #include "Exceptions.h"
 #include "ParameterSample.h"
 #include "IParameterized.h"
+#include "ParameterUtils.h"
 #include <cmath>
 
 class ParameterDistributionTest : public ::testing::Test
@@ -136,4 +137,15 @@ TEST_F(ParameterDistributionTest, GenerateSamples)
     EXPECT_EQ(sample_values[0].value, xmin);
     EXPECT_EQ(sample_values[1].value, xmin + (xmax-xmin)/2.0);
     EXPECT_EQ(sample_values[2].value, xmax);
+}
+
+//! Tests if main parameter name is related to angles.
+
+TEST_F(ParameterDistributionTest, isAngleRelated)
+{
+    EXPECT_FALSE(ParameterUtils::isAngleRelated("Some"));
+    EXPECT_TRUE(ParameterUtils::isAngleRelated("InclinationAngle"));
+    EXPECT_TRUE(ParameterUtils::isAngleRelated("*/Beam/InclinationAngle"));
+    EXPECT_TRUE(ParameterUtils::isAngleRelated("*/Beam/AzimuthalAngle"));
+    EXPECT_TRUE(ParameterUtils::isAngleRelated("/Particle/ZRotation/Angle"));
 }

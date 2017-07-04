@@ -41,6 +41,7 @@
 #include "StringUtils.h"
 #include "RegionOfInterest.h"
 #include "BornAgainNamespace.h"
+#include "ParameterUtils.h"
 #include <iomanip>
 #include <set>
 #include <functional>
@@ -169,7 +170,7 @@ std::string ExportToPython::defineGetSample() const
 
 std::string ExportToPython::defineMaterials() const
 {
-    const auto themap = m_label->getMaterialMap();
+    const auto themap = m_label->materialMap();
     if (themap->size() == 0)
         return "# No Materials.\n\n";
     std::ostringstream result;
@@ -185,16 +186,16 @@ std::string ExportToPython::defineMaterials() const
         double delta = 1.0 - std::real(ri);
         double beta = std::imag(ri);
         if (p_material->isScalarMaterial()) {
-            result << indent() << m_label->getLabelMaterial(p_material)
+            result << indent() << m_label->labelMaterial(p_material)
                    << " = ba.HomogeneousMaterial(\"" << p_material->getName()
                    << "\", " << printDouble(delta) << ", "
                    << printDouble(beta) << ")\n";
         } else {
-            kvector_t magnetic_field = p_material->magneticField();
+            kvector_t magnetic_field = p_material->magnetization();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ", "
                    << ")\n";
-            result << indent() << m_label->getLabelMaterial(p_material)
+            result << indent() << m_label->labelMaterial(p_material)
                    << " = ba.HomogeneousMaterial(\"" << p_material->getName();
             result << "\", " << printDouble(delta) << ", "
                    << printDouble(beta) << ", "
@@ -206,7 +207,7 @@ std::string ExportToPython::defineMaterials() const
 
 std::string ExportToPython::defineLayers() const
 {
-    const auto themap = m_label->getLayerMap();
+    const auto themap = m_label->layerMap();
     if (themap->size() == 0)
         return "# No Layers.\n\n";
     std::ostringstream result;
@@ -215,7 +216,7 @@ std::string ExportToPython::defineLayers() const
     for (auto it=themap->begin(); it != themap->end(); ++it) {
         const Layer* layer = it->first;
         result << indent() << it->second << " = ba.Layer(" <<
-            m_label->getLabelMaterial(layer->material());
+            m_label->labelMaterial(layer->material());
         if (layer->thickness() != 0)
             result << ", " << layer->thickness();
         result << ")\n";
@@ -228,7 +229,7 @@ std::string ExportToPython::defineLayers() const
 
 std::string ExportToPython::defineFormFactors() const
 {
-    const auto themap = m_label->getFormFactorMap();
+    const auto themap = m_label->formFactorMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -244,7 +245,7 @@ std::string ExportToPython::defineFormFactors() const
 
 std::string ExportToPython::defineParticles() const
 {
-    const auto themap = m_label->getParticleMap();
+    const auto themap = m_label->particleMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -254,8 +255,8 @@ std::string ExportToPython::defineParticles() const
         const Particle* p_particle = it->first;
         std::string particle_name = it->second;
         result << indent() << particle_name << " = ba.Particle("
-               << m_label->getLabelMaterial(p_particle->material()) << ", "
-               << m_label->getLabelFormFactor(p_particle->formFactor()) << ")\n";
+               << m_label->labelMaterial(p_particle->material()) << ", "
+               << m_label->labelFormFactor(p_particle->formFactor()) << ")\n";
         setRotationInformation(p_particle, particle_name, result);
         setPositionInformation(p_particle, particle_name, result);
     }
@@ -264,7 +265,7 @@ std::string ExportToPython::defineParticles() const
 
 std::string ExportToPython::defineCoreShellParticles() const
 {
-    const auto themap = m_label->getParticleCoreShellMap();
+    const auto themap = m_label->particleCoreShellMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -273,8 +274,8 @@ std::string ExportToPython::defineCoreShellParticles() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const ParticleCoreShell* p_coreshell = it->first;
         result << "\n" << indent() << it->second << " = ba.ParticleCoreShell("
-               << m_label->getLabelParticle(p_coreshell->shellParticle()) << ", "
-               << m_label->getLabelParticle(p_coreshell->coreParticle()) << ")\n";
+               << m_label->labelParticle(p_coreshell->shellParticle()) << ", "
+               << m_label->labelParticle(p_coreshell->coreParticle()) << ")\n";
         std::string core_shell_name = it->second;
         setRotationInformation(p_coreshell, core_shell_name, result);
         setPositionInformation(p_coreshell, core_shell_name, result);
@@ -284,7 +285,7 @@ std::string ExportToPython::defineCoreShellParticles() const
 
 std::string ExportToPython::defineParticleDistributions() const
 {
-    const auto themap = m_label->getParticleDistributionsMap();
+    const auto themap = m_label->particleDistributionsMap();
     if (themap->size() == 0)
         return "";
 
@@ -294,37 +295,32 @@ std::string ExportToPython::defineParticleDistributions() const
 
     int index(1);
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
+        std::string units = ParameterUtils::mainParUnits(*it->first);
         ParameterDistribution par_distr = it->first->parameterDistribution();
 
         // building distribution functions
-        std::stringstream s_distr;
-        s_distr << "distr_" << index;
-
-        result << indent() << s_distr.str()
-               << " = ba." << par_distr.getDistribution()->getName() << "("
-               << argumentList(par_distr.getDistribution()) << ")\n";
+        std::string s_distr = "distr_" + std::to_string(index);
+        result << indent() << s_distr << " = "
+               << printDistribution(*par_distr.getDistribution(), units) << "\n";
 
         // building parameter distribution
-        std::stringstream s_par_distr;
-        s_par_distr << "par_distr_" << index;
+        std::string s_par_distr = "par_distr_" + std::to_string(index);
 
-        result << indent() << s_par_distr.str() << " = ba.ParameterDistribution("
-               << "\"" << par_distr.getMainParameterName() << "\""
-               << ", " << s_distr.str() << ", " << par_distr.getNbrSamples() << ", "
-               << printDouble(par_distr.getSigmaFactor()) << ")\n";
+        result << indent() << s_par_distr << " = "
+               << printParameterDistribution(par_distr, s_distr, units) << "\n";
 
         // linked parameters
         std::vector<std::string> linked_pars = par_distr.getLinkedParameterNames();
         if(linked_pars.size()) {
-            result << indent() << s_par_distr.str();
+            result << indent() << s_par_distr;
             for(size_t i=0; i<linked_pars.size(); ++i)
                 result << ".linkParameter(\"" << linked_pars[i] << "\")";
             result << "\n";
         }
 
         result << indent() << it->second << " = ba.ParticleDistribution("
-               << m_label->getLabelParticle(it->first->particle())
-               << ", " << s_par_distr.str() << ")\n";
+               << m_label->labelParticle(it->first->particle())
+               << ", " << s_par_distr << ")\n";
         index++;
     }
     return result.str();
@@ -332,7 +328,7 @@ std::string ExportToPython::defineParticleDistributions() const
 
 std::string ExportToPython::defineParticleCompositions() const
 {
-    const auto themap = m_label->getParticleCompositionMap();
+    const auto themap = m_label->particleCompositionMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -344,7 +340,7 @@ std::string ExportToPython::defineParticleCompositions() const
         result << indent() << particle_composition_name << " = ba.ParticleComposition()\n";
         for (size_t i = 0; i < p_particle_composition->nbrParticles(); ++i) {
             result << indent() << particle_composition_name << ".addParticle("
-                   << m_label->getLabelParticle(p_particle_composition->particle(i))
+                   << m_label->labelParticle(p_particle_composition->particle(i))
             << ")\n";
         }
         setRotationInformation(p_particle_composition, particle_composition_name, result);
@@ -355,7 +351,7 @@ std::string ExportToPython::defineParticleCompositions() const
 
 std::string ExportToPython::defineInterferenceFunctions() const
 {
-    const auto themap = m_label->getInterferenceFunctionMap();
+    const auto themap = m_label->interferenceFunctionMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -374,9 +370,9 @@ std::string ExportToPython::defineInterferenceFunctions() const
                    << printNm(latticeParameters.m_length) << ", "
                    << printDegrees(latticeParameters.m_xi) << ")\n";
 
-            const IFTDecayFunction1D* pdf = oneDLattice->getDecayFunction();
+            const IFTDecayFunction1D* pdf = oneDLattice->decayFunction();
 
-            if (pdf->getOmega() != 0.0)
+            if (pdf->decayLength() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                        << "(" << argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
@@ -385,20 +381,20 @@ std::string ExportToPython::defineInterferenceFunctions() const
         else if (const auto* oneDParaCrystal
                  = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
-                   << printNm(oneDParaCrystal->getPeakDistance()) << ", "
-                   << printNm(oneDParaCrystal->getDampingLength()) << ")\n";
+                   << printNm(oneDParaCrystal->peakDistance()) << ", "
+                   << printNm(oneDParaCrystal->dampingLength()) << ")\n";
 
-            if (oneDParaCrystal->getKappa() != 0.0)
+            if (oneDParaCrystal->kappa() != 0.0)
                 result << indent() << it->second << ".setKappa("
-                       << printDouble(oneDParaCrystal->getKappa()) << ")\n";
+                       << printDouble(oneDParaCrystal->kappa()) << ")\n";
 
-            if (oneDParaCrystal->getDomainSize() != 0.0)
+            if (oneDParaCrystal->domainSize() != 0.0)
                 result << indent() << it->second << ".setDomainSize("
-                       << printDouble(oneDParaCrystal->getDomainSize()) << ")\n";
+                       << printDouble(oneDParaCrystal->domainSize()) << ")\n";
 
-            const IFTDistribution1D* pdf = oneDParaCrystal->getProbabilityDistribution();
+            const IFTDistribution1D* pdf = oneDParaCrystal->probabilityDistribution();
 
-            if (pdf->getOmega() != 0.0)
+            if (pdf->omega() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                        << "(" << argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setProbabilityDistribution(" << it->second
@@ -414,7 +410,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
                    << printDegrees(lattice.latticeAngle()) << ", "
                    << printDegrees(lattice.rotationAngle()) << ")\n";
 
-            const IFTDecayFunction2D* pdf = twoDLattice->getDecayFunction();
+            const IFTDecayFunction2D* pdf = twoDLattice->decayFunction();
 
             result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                    << "(" << argumentList(pdf) << ")\n"
@@ -423,7 +419,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
 
         else if (const auto* twoDParaCrystal
                  = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
-            std::vector<double> domainSize = twoDParaCrystal->getDomainSizes();
+            std::vector<double> domainSize = twoDParaCrystal->domainSizes();
             const Lattice2D& lattice = twoDParaCrystal->lattice();
 
             if(lattice.getName() == BornAgain::SquareLatticeType) {
@@ -431,7 +427,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << " = ba.InterferenceFunction2DParaCrystal.createSquare("
                        << printNm(lattice.length1())
                        << ", "
-                       << printNm(twoDParaCrystal->getDampingLength()) << ", "
+                       << printNm(twoDParaCrystal->dampingLength()) << ", "
                        << printNm(domainSize[0]) << ", "
                        << printNm(domainSize[1]) << ")\n";
 
@@ -442,7 +438,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << " = ba.InterferenceFunction2DParaCrystal.createHexagonal("
                        << printNm(lattice.length1())
                        << ", "
-                       << printNm(twoDParaCrystal->getDampingLength()) << ", "
+                       << printNm(twoDParaCrystal->dampingLength()) << ", "
                        << printNm(domainSize[0]) << ", "
                        << printNm(domainSize[1]) << ")\n";
 
@@ -458,19 +454,19 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << ", "
                        << printDegrees(lattice.rotationAngle())
                        << ", "
-                       << printNm(twoDParaCrystal->getDampingLength()) << ")\n";
+                       << printNm(twoDParaCrystal->dampingLength()) << ")\n";
 
                 if (domainSize[0] != 0 || domainSize[1] != 0)
                     result << indent() << it->second << ".setDomainSizes("
                            << printNm(domainSize[0]) << ", "
                            << printNm(domainSize[1]) << ")\n";
 
-                if (twoDParaCrystal->getIntegrationOverXi() == true)
+                if (twoDParaCrystal->integrationOverXi() == true)
                     result << indent() << it->second << ".setIntegrationOverXi(True)\n";
             }
 
             std::vector<const IFTDistribution2D*> pdf_vector
-                = twoDParaCrystal->getProbabilityDistributions();
+                = twoDParaCrystal->probabilityDistributions();
             const IFTDistribution2D* pdf = pdf_vector[0];
 
             result << indent() << it->second << "_pdf_1  = ba." << pdf->getName()
@@ -495,7 +491,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
 
 std::string ExportToPython::defineParticleLayouts() const
 {
-    const auto themap = m_label->getParticleLayoutMap();
+    const auto themap = m_label->particleLayoutMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -512,14 +508,14 @@ std::string ExportToPython::defineParticleLayouts() const
                 const IAbstractParticle* p_particle = particleLayout->particle(particleIndex);
                 double abundance = particleLayout->abundanceOfParticle(particleIndex);
                 result << indent() << it->second << ".addParticle("
-                       << m_label->getLabelParticle(p_particle) << ", "
+                       << m_label->labelParticle(p_particle) << ", "
                        << printDouble(abundance) << ")\n";
                 particleIndex++;
             }
 
             if( const IInterferenceFunction* p_iff = particleLayout->interferenceFunction() )
                 result << indent() << it->second << ".setInterferenceFunction("
-                       << m_label->getLabelInterferenceFunction(p_iff) << ")\n";
+                       << m_label->labelInterferenceFunction(p_iff) << ")\n";
 
             switch (particleLayout->getApproximation()) {
             case ILayout::DA:
@@ -537,7 +533,7 @@ std::string ExportToPython::defineParticleLayouts() const
 
 std::string ExportToPython::defineRoughnesses() const
 {
-    const auto themap = m_label->getLayerRoughnessMap();
+    const auto themap = m_label->layerRoughnessMap();
     if (themap->size() == 0)
         return "";
     std::ostringstream result;
@@ -551,24 +547,24 @@ std::string ExportToPython::defineRoughnesses() const
 
 std::string ExportToPython::addLayoutsToLayers() const
 {
-    if (m_label->getParticleLayoutMap()->size() == 0)
+    if (m_label->particleLayoutMap()->size() == 0)
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Adding layouts to layers";
-    const auto layermap = m_label->getLayerMap();
+    const auto layermap = m_label->layerMap();
     for (auto it=layermap->begin(); it!=layermap->end(); ++it) {
         const Layer* layer = it->first;
         for (auto p_layout : layer->layouts())
             result << "\n" << indent() << it->second << ".addLayout("
-                   << m_label->getLabelLayout(p_layout) << ")\n";
+                   << m_label->labelLayout(p_layout) << ")\n";
     }
     return result.str();
 }
 
 std::string ExportToPython::defineMultiLayers() const
 {
-    const auto themap = m_label->getMultiLayerMap();
+    const auto themap = m_label->multiLayerMap();
     if (themap->size() == 0)
         return "# No MultiLayers.\n\n";
     std::ostringstream result;
@@ -576,24 +572,27 @@ std::string ExportToPython::defineMultiLayers() const
     result << "\n" << indent() << "# Defining Multilayers\n";
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         result << indent() << it->second << " = ba.MultiLayer()\n";
+        double ccl = it->first->crossCorrLength();
+        if (ccl > 0.0)
+            result << indent() << it->second << ".setCrossCorrLength(" << ccl << ")\n";
 
         size_t numberOfLayers = it->first->numberOfLayers();
 
         if (numberOfLayers) {
             result << indent() << it->second << ".addLayer("
-                   << m_label->getLabelLayer(it->first->layer(0)) << ")\n";
+                   << m_label->labelLayer(it->first->layer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
                 const LayerInterface* layerInterface = it->first->layerInterface(layerIndex - 1);
-                if (m_label->getLayerRoughnessMap()->find(layerInterface->getRoughness())
-                    == m_label->getLayerRoughnessMap()->end())
+                if (m_label->layerRoughnessMap()->find(layerInterface->getRoughness())
+                    == m_label->layerRoughnessMap()->end())
                     result << indent() << it->second << ".addLayer("
-                           << m_label->getLabelLayer(it->first->layer(layerIndex)) << ")\n";
+                           << m_label->labelLayer(it->first->layer(layerIndex)) << ")\n";
                 else
                     result << indent() << it->second << ".addLayerWithTopRoughness("
-                           << m_label->getLabelLayer(it->first->layer(layerIndex)) << ", "
-                           << m_label->getLabelRoughness(layerInterface->getRoughness()) << ")\n";
+                           << m_label->labelLayer(it->first->layer(layerIndex)) << ", "
+                           << m_label->labelRoughness(layerInterface->getRoughness()) << ")\n";
                 layerIndex++;
             }
         }
@@ -742,15 +741,21 @@ std::string ExportToPython::defineParameterDistributions(const GISASSimulation* 
     if (distributions.size()==0) return "";
     for (size_t i=0; i<distributions.size(); ++i) {
         std::string main_par_name = distributions[i].getMainParameterName();
+
+        std::string mainParUnits = ParameterUtils::poolParameterUnits(*simulation, main_par_name);
+
         size_t nbr_samples = distributions[i].getNbrSamples();
         double sigma_factor = distributions[i].getSigmaFactor();
-        const IDistribution1D* p_distr = distributions[i].getDistribution();
-        result << indent() << "distribution_" << i+1 << " = ba."
-               << std::setprecision(12) << p_distr->getName() << "("
-               << argumentList(p_distr) << ")\n"
-               << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
-               << "distribution_" << i+1 << ", " << nbr_samples << ", "
-               << printDouble(sigma_factor) << ")\n";
+
+        std::string s_distr = "distr_" + std::to_string(i+1);
+        result << indent() << s_distr << " = "
+               << printDistribution(*distributions[i].getDistribution(), mainParUnits) << "\n";
+
+        result << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
+               << s_distr << ", " << nbr_samples << ", "
+               << printDouble(sigma_factor)
+               << printRealLimitsArg(distributions[i].getLimits(), mainParUnits)
+               << ")\n";
     }
     return result.str();
 }

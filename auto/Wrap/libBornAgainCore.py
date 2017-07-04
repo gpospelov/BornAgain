@@ -7886,6 +7886,18 @@ class IDistribution1D(ICloneable, INode):
         """
         return _libBornAgainCore.IDistribution1D_isDelta(self)
 
+
+    def setUnits(self, units):
+        """
+        setUnits(IDistribution1D self, std::string const & units)
+
+        void IDistribution1D::setUnits(const std::string &units)
+
+        Sets distribution units. 
+
+        """
+        return _libBornAgainCore.IDistribution1D_setUnits(self, units)
+
 IDistribution1D_swigregister = _libBornAgainCore.IDistribution1D_swigregister
 IDistribution1D_swigregister(IDistribution1D)
 
@@ -8382,6 +8394,18 @@ class DistributionLogNormal(IDistribution1D):
         """
         return _libBornAgainCore.DistributionLogNormal_accept(self, visitor)
 
+
+    def setUnits(self, units):
+        """
+        setUnits(DistributionLogNormal self, std::string const & units)
+
+        void DistributionLogNormal::setUnits(const std::string &units)
+
+        Sets distribution units. 
+
+        """
+        return _libBornAgainCore.DistributionLogNormal_setUnits(self, units)
+
 DistributionLogNormal_swigregister = _libBornAgainCore.DistributionLogNormal_swigregister
 DistributionLogNormal_swigregister(DistributionLogNormal)
 
@@ -8826,24 +8850,14 @@ class IFTDecayFunction1D(ICloneable, INode):
         return _libBornAgainCore.IFTDecayFunction1D_evaluate(self, q)
 
 
-    def setOmega(self, omega):
+    def decayLength(self):
         """
-        setOmega(IFTDecayFunction1D self, double omega)
+        decayLength(IFTDecayFunction1D self) -> double
 
-        void IFTDecayFunction1D::setOmega(double omega)
-
-        """
-        return _libBornAgainCore.IFTDecayFunction1D_setOmega(self, omega)
-
-
-    def getOmega(self):
-        """
-        getOmega(IFTDecayFunction1D self) -> double
-
-        double IFTDecayFunction1D::getOmega() const 
+        double IFTDecayFunction1D::decayLength() const 
 
         """
-        return _libBornAgainCore.IFTDecayFunction1D_getOmega(self)
+        return _libBornAgainCore.IFTDecayFunction1D_decayLength(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_IFTDecayFunction1D
     __del__ = lambda self: None
@@ -8854,7 +8868,7 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
     """
 
 
-    One-dimensional Cauchy decay function in reciprocal space; corresponds to exp(-|x|/omega) in real space.
+    One-dimensional Cauchy decay function in reciprocal space; corresponds to exp(-|x|/decay_length) in real space.
 
     C++ includes: FTDecayFunctions.h
 
@@ -8870,14 +8884,14 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction1DCauchy, name)
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, decay_length):
         """
-        __init__(FTDecayFunction1DCauchy self, double omega) -> FTDecayFunction1DCauchy
+        __init__(FTDecayFunction1DCauchy self, double decay_length) -> FTDecayFunction1DCauchy
 
-        FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double omega)
+        FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(double decay_length)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction1DCauchy(omega)
+        this = _libBornAgainCore.new_FTDecayFunction1DCauchy(decay_length)
         try:
             self.this.append(this)
         except Exception:
@@ -8887,7 +8901,7 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DCauchy self) -> FTDecayFunction1DCauchy
 
-        virtual FTDecayFunction1DCauchy* FTDecayFunction1DCauchy::clone() const 
+        FTDecayFunction1DCauchy * FTDecayFunction1DCauchy::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction1DCauchy_clone(self)
@@ -8923,7 +8937,7 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
     """
 
 
-    One-dimensional Gauss decay function in reciprocal space; corresponds to exp[-x^2/(2*omega^2)] in real space.
+    One-dimensional Gauss decay function in reciprocal space; corresponds to exp[-x^2/(2*decay_length^2)] in real space.
 
     C++ includes: FTDecayFunctions.h
 
@@ -8939,14 +8953,14 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction1DGauss, name)
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, decay_length):
         """
-        __init__(FTDecayFunction1DGauss self, double omega) -> FTDecayFunction1DGauss
+        __init__(FTDecayFunction1DGauss self, double decay_length) -> FTDecayFunction1DGauss
 
-        FTDecayFunction1DGauss::FTDecayFunction1DGauss(double omega)
+        FTDecayFunction1DGauss::FTDecayFunction1DGauss(double decay_length)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction1DGauss(omega)
+        this = _libBornAgainCore.new_FTDecayFunction1DGauss(decay_length)
         try:
             self.this.append(this)
         except Exception:
@@ -8956,7 +8970,7 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DGauss self) -> FTDecayFunction1DGauss
 
-        virtual FTDecayFunction1DGauss* FTDecayFunction1DGauss::clone() const 
+        FTDecayFunction1DGauss * FTDecayFunction1DGauss::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction1DGauss_clone(self)
@@ -8992,7 +9006,7 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
     """
 
 
-    One-dimensional triangle decay function in reciprocal space; corresponds to 1-|x|/omega if |x|<omega (and 0 otherwise) in real space.
+    One-dimensional triangle decay function in reciprocal space; corresponds to 1-|x|/decay_length if |x|<decay_length (and 0 otherwise) in real space.
 
     C++ includes: FTDecayFunctions.h
 
@@ -9008,14 +9022,14 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction1DTriangle, name)
     __repr__ = _swig_repr
 
-    def __init__(self, omega):
+    def __init__(self, decay_length):
         """
-        __init__(FTDecayFunction1DTriangle self, double omega) -> FTDecayFunction1DTriangle
+        __init__(FTDecayFunction1DTriangle self, double decay_length) -> FTDecayFunction1DTriangle
 
-        FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double omega)
+        FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(double decay_length)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction1DTriangle(omega)
+        this = _libBornAgainCore.new_FTDecayFunction1DTriangle(decay_length)
         try:
             self.this.append(this)
         except Exception:
@@ -9025,7 +9039,7 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DTriangle self) -> FTDecayFunction1DTriangle
 
-        virtual FTDecayFunction1DTriangle* FTDecayFunction1DTriangle::clone() const 
+        FTDecayFunction1DTriangle * FTDecayFunction1DTriangle::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction1DTriangle_clone(self)
@@ -9077,14 +9091,25 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction1DVoigt, name)
     __repr__ = _swig_repr
 
-    def __init__(self, omega, eta):
+    def __init__(self, decay_length, eta):
         """
-        __init__(FTDecayFunction1DVoigt self, double omega, double eta) -> FTDecayFunction1DVoigt
+        __init__(FTDecayFunction1DVoigt self, double decay_length, double eta) -> FTDecayFunction1DVoigt
 
-        FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double omega, double eta)
+        FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(double decay_length, double eta)
+
+        Constructor of pseudo-Voigt decay function.
+
+        Parameters:
+        -----------
+
+        decay_length: 
+        half-width of the distribution in nanometers
+
+        eta: 
+        parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction1DVoigt(omega, eta)
+        this = _libBornAgainCore.new_FTDecayFunction1DVoigt(decay_length, eta)
         try:
             self.this.append(this)
         except Exception:
@@ -9094,7 +9119,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DVoigt self) -> FTDecayFunction1DVoigt
 
-        virtual FTDecayFunction1DVoigt* FTDecayFunction1DVoigt::clone() const 
+        FTDecayFunction1DVoigt * FTDecayFunction1DVoigt::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction1DVoigt_clone(self)
@@ -9122,14 +9147,14 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         return _libBornAgainCore.FTDecayFunction1DVoigt_evaluate(self, q)
 
 
-    def getEta(self):
+    def eEta(self):
         """
-        getEta(FTDecayFunction1DVoigt self) -> double
+        eEta(FTDecayFunction1DVoigt self) -> double
 
-        double FTDecayFunction1DVoigt::getEta() const 
+        double FTDecayFunction1DVoigt::eEta() const 
 
         """
-        return _libBornAgainCore.FTDecayFunction1DVoigt_getEta(self)
+        return _libBornAgainCore.FTDecayFunction1DVoigt_eEta(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction1DVoigt
     __del__ = lambda self: None
@@ -9181,52 +9206,52 @@ class IFTDecayFunction2D(ICloneable, INode):
         return _libBornAgainCore.IFTDecayFunction2D_setGamma(self, gamma)
 
 
-    def getGamma(self):
+    def gamma(self):
         """
-        getGamma(IFTDecayFunction2D self) -> double
+        gamma(IFTDecayFunction2D self) -> double
 
-        double IFTDecayFunction2D::getGamma() const
+        double IFTDecayFunction2D::gamma() const
 
         get angle between first lattice vector and X-axis of distribution (both in direct space) 
 
         """
-        return _libBornAgainCore.IFTDecayFunction2D_getGamma(self)
+        return _libBornAgainCore.IFTDecayFunction2D_gamma(self)
 
 
-    def getDelta(self):
+    def delta(self):
         """
-        getDelta(IFTDecayFunction2D self) -> double
+        delta(IFTDecayFunction2D self) -> double
 
-        double IFTDecayFunction2D::getDelta() const
+        double IFTDecayFunction2D::delta() const
 
         get angle between X- and Y-axis of distribution (in direct space) 
 
         """
-        return _libBornAgainCore.IFTDecayFunction2D_getDelta(self)
+        return _libBornAgainCore.IFTDecayFunction2D_delta(self)
 
 
-    def getDecayLengthX(self):
+    def decayLengthX(self):
         """
-        getDecayLengthX(IFTDecayFunction2D self) -> double
+        decayLengthX(IFTDecayFunction2D self) -> double
 
-        double IFTDecayFunction2D::getDecayLengthX() const
+        double IFTDecayFunction2D::decayLengthX() const
 
-        get coherence length in X-direction 
-
-        """
-        return _libBornAgainCore.IFTDecayFunction2D_getDecayLengthX(self)
-
-
-    def getDecayLengthY(self):
-        """
-        getDecayLengthY(IFTDecayFunction2D self) -> double
-
-        double IFTDecayFunction2D::getDecayLengthY() const
-
-        get coherence length in Y-direction 
+        get decay length in distribution's X-direction 
 
         """
-        return _libBornAgainCore.IFTDecayFunction2D_getDecayLengthY(self)
+        return _libBornAgainCore.IFTDecayFunction2D_decayLengthX(self)
+
+
+    def decayLengthY(self):
+        """
+        decayLengthY(IFTDecayFunction2D self) -> double
+
+        double IFTDecayFunction2D::decayLengthY() const
+
+        get decay length in distribution's Y-direction 
+
+        """
+        return _libBornAgainCore.IFTDecayFunction2D_decayLengthY(self)
 
 
     def evaluate(self, qx, qy):
@@ -9277,16 +9302,15 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction2DCauchy, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, decay_length_x, decay_length_y, gamma=0):
         """
-        __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0, double delta) -> FTDecayFunction2DCauchy
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DCauchy
         __init__(FTDecayFunction2DCauchy self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DCauchy
 
-        FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
+        FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction2DCauchy(*args)
+        this = _libBornAgainCore.new_FTDecayFunction2DCauchy(decay_length_x, decay_length_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -9296,7 +9320,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         """
         clone(FTDecayFunction2DCauchy self) -> FTDecayFunction2DCauchy
 
-        virtual FTDecayFunction2DCauchy* FTDecayFunction2DCauchy::clone() const 
+        FTDecayFunction2DCauchy * FTDecayFunction2DCauchy::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction2DCauchy_clone(self)
@@ -9350,16 +9374,15 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction2DGauss, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, decay_length_x, decay_length_y, gamma=0):
         """
-        __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0, double delta) -> FTDecayFunction2DGauss
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y, double gamma=0) -> FTDecayFunction2DGauss
         __init__(FTDecayFunction2DGauss self, double decay_length_x, double decay_length_y) -> FTDecayFunction2DGauss
 
-        FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0, double delta=M_PI_2)
+        FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0)
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction2DGauss(*args)
+        this = _libBornAgainCore.new_FTDecayFunction2DGauss(decay_length_x, decay_length_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -9369,7 +9392,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         """
         clone(FTDecayFunction2DGauss self) -> FTDecayFunction2DGauss
 
-        virtual FTDecayFunction2DGauss* FTDecayFunction2DGauss::clone() const 
+        FTDecayFunction2DGauss * FTDecayFunction2DGauss::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction2DGauss_clone(self)
@@ -9423,16 +9446,32 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDecayFunction2DVoigt, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, decay_length_x, decay_length_y, eta, gamma=0):
         """
-        __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta) -> FTDecayFunction2DVoigt
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta, double gamma=0) -> FTDecayFunction2DVoigt
         __init__(FTDecayFunction2DVoigt self, double decay_length_x, double decay_length_y, double eta) -> FTDecayFunction2DVoigt
 
-        FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0, double delta=M_PI_2)
+        FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta, double gamma=0)
+
+        Constructor of two-dimensional pseudo-Voigt decay function in reciprocal space.
+
+        Parameters:
+        -----------
+
+        decay_length_x: 
+        the decay length in nanometers along x-axis of the distribution
+
+        decay_length_y: 
+        the decay length in nanometers along y-axis of the distribution
+
+        eta: 
+        parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
+
+        gamma: 
+        distribution orientation with respect to the first lattice vector in radians 
 
         """
-        this = _libBornAgainCore.new_FTDecayFunction2DVoigt(*args)
+        this = _libBornAgainCore.new_FTDecayFunction2DVoigt(decay_length_x, decay_length_y, eta, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -9442,7 +9481,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         """
         clone(FTDecayFunction2DVoigt self) -> FTDecayFunction2DVoigt
 
-        virtual FTDecayFunction2DVoigt* FTDecayFunction2DVoigt::clone() const 
+        FTDecayFunction2DVoigt * FTDecayFunction2DVoigt::clone() const 
 
         """
         return _libBornAgainCore.FTDecayFunction2DVoigt_clone(self)
@@ -9472,14 +9511,14 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         return _libBornAgainCore.FTDecayFunction2DVoigt_evaluate(self, qx, qy)
 
 
-    def getEta(self):
+    def eta(self):
         """
-        getEta(FTDecayFunction2DVoigt self) -> double
+        eta(FTDecayFunction2DVoigt self) -> double
 
-        virtual double FTDecayFunction2DVoigt::getEta() const 
+        double FTDecayFunction2DVoigt::eta() const 
 
         """
-        return _libBornAgainCore.FTDecayFunction2DVoigt_getEta(self)
+        return _libBornAgainCore.FTDecayFunction2DVoigt_eta(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDecayFunction2DVoigt
     __del__ = lambda self: None
@@ -9541,14 +9580,14 @@ class IFTDistribution1D(ICloneable, INode):
         return _libBornAgainCore.IFTDistribution1D_setOmega(self, omega)
 
 
-    def getOmega(self):
+    def omega(self):
         """
-        getOmega(IFTDistribution1D self) -> double
+        omega(IFTDistribution1D self) -> double
 
-        double IFTDistribution1D::getOmega() const 
+        double IFTDistribution1D::omega() const 
 
         """
-        return _libBornAgainCore.IFTDistribution1D_getOmega(self)
+        return _libBornAgainCore.IFTDistribution1D_omega(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
     __del__ = lambda self: None
@@ -9592,7 +9631,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         clone(FTDistribution1DCauchy self) -> FTDistribution1DCauchy
 
-        FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const final
+        FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DCauchy_clone(self)
@@ -9663,7 +9702,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         clone(FTDistribution1DGauss self) -> FTDistribution1DGauss
 
-        FTDistribution1DGauss* FTDistribution1DGauss::clone() const final
+        FTDistribution1DGauss * FTDistribution1DGauss::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DGauss_clone(self)
@@ -9734,7 +9773,7 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         clone(FTDistribution1DGate self) -> FTDistribution1DGate
 
-        FTDistribution1DGate* FTDistribution1DGate::clone() const final
+        FTDistribution1DGate * FTDistribution1DGate::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DGate_clone(self)
@@ -9800,14 +9839,12 @@ class FTDistribution1DTriangle(IFTDistribution1D):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DTriangle
-    __del__ = lambda self: None
 
     def clone(self):
         """
         clone(FTDistribution1DTriangle self) -> FTDistribution1DTriangle
 
-        FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const final
+        FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DTriangle_clone(self)
@@ -9836,6 +9873,8 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         return _libBornAgainCore.FTDistribution1DTriangle_evaluate(self, q)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DTriangle
+    __del__ = lambda self: None
 FTDistribution1DTriangle_swigregister = _libBornAgainCore.FTDistribution1DTriangle_swigregister
 FTDistribution1DTriangle_swigregister(FTDistribution1DTriangle)
 
@@ -9876,7 +9915,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         clone(FTDistribution1DCosine self) -> FTDistribution1DCosine
 
-        FTDistribution1DCosine* FTDistribution1DCosine::clone() const final
+        FTDistribution1DCosine * FTDistribution1DCosine::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DCosine_clone(self)
@@ -9936,6 +9975,17 @@ class FTDistribution1DVoigt(IFTDistribution1D):
 
         FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
 
+        Constructor of one-dimensional pseudo-Voigt probability distribution.
+
+        Parameters:
+        -----------
+
+        omega: 
+        half-width of the distribution in nanometers
+
+        eta: 
+        parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
+
         """
         this = _libBornAgainCore.new_FTDistribution1DVoigt(omega, eta)
         try:
@@ -9947,7 +9997,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         clone(FTDistribution1DVoigt self) -> FTDistribution1DVoigt
 
-        FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const final
+        FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_clone(self)
@@ -9977,14 +10027,14 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         return _libBornAgainCore.FTDistribution1DVoigt_evaluate(self, q)
 
 
-    def getEta(self):
+    def eta(self):
         """
-        getEta(FTDistribution1DVoigt self) -> double
+        eta(FTDistribution1DVoigt self) -> double
 
-        double FTDistribution1DVoigt::getEta() const 
+        double FTDistribution1DVoigt::eta() const 
 
         """
-        return _libBornAgainCore.FTDistribution1DVoigt_getEta(self)
+        return _libBornAgainCore.FTDistribution1DVoigt_eta(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DVoigt
     __del__ = lambda self: None
@@ -10034,44 +10084,44 @@ class IFTDistribution2D(ICloneable, INode):
         return _libBornAgainCore.IFTDistribution2D_setGamma(self, gamma)
 
 
-    def getGamma(self):
+    def gamma(self):
         """
-        getGamma(IFTDistribution2D self) -> double
+        gamma(IFTDistribution2D self) -> double
 
-        double IFTDistribution2D::getGamma() const 
-
-        """
-        return _libBornAgainCore.IFTDistribution2D_getGamma(self)
-
-
-    def getDelta(self):
-        """
-        getDelta(IFTDistribution2D self) -> double
-
-        double IFTDistribution2D::getDelta() const 
+        double IFTDistribution2D::gamma() const 
 
         """
-        return _libBornAgainCore.IFTDistribution2D_getDelta(self)
+        return _libBornAgainCore.IFTDistribution2D_gamma(self)
 
 
-    def getCoherenceLengthX(self):
+    def delta(self):
         """
-        getCoherenceLengthX(IFTDistribution2D self) -> double
+        delta(IFTDistribution2D self) -> double
 
-        double IFTDistribution2D::getCoherenceLengthX() const 
-
-        """
-        return _libBornAgainCore.IFTDistribution2D_getCoherenceLengthX(self)
-
-
-    def getCoherenceLengthY(self):
-        """
-        getCoherenceLengthY(IFTDistribution2D self) -> double
-
-        double IFTDistribution2D::getCoherenceLengthY() const 
+        double IFTDistribution2D::delta() const 
 
         """
-        return _libBornAgainCore.IFTDistribution2D_getCoherenceLengthY(self)
+        return _libBornAgainCore.IFTDistribution2D_delta(self)
+
+
+    def omegaX(self):
+        """
+        omegaX(IFTDistribution2D self) -> double
+
+        double IFTDistribution2D::omegaX() const 
+
+        """
+        return _libBornAgainCore.IFTDistribution2D_omegaX(self)
+
+
+    def omegaY(self):
+        """
+        omegaY(IFTDistribution2D self) -> double
+
+        double IFTDistribution2D::omegaY() const 
+
+        """
+        return _libBornAgainCore.IFTDistribution2D_omegaY(self)
 
 
     def evaluate(self, qx, qy):
@@ -10110,16 +10160,15 @@ class FTDistribution2DCauchy(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DCauchy, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, omega_x, omega_y, gamma=0):
         """
-        __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DCauchy
-        __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCauchy
-        __init__(FTDistribution2DCauchy self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCauchy
+        __init__(FTDistribution2DCauchy self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DCauchy
+        __init__(FTDistribution2DCauchy self, double omega_x, double omega_y) -> FTDistribution2DCauchy
 
-        FTDistribution2DCauchy::FTDistribution2DCauchy(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
+        FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma=0)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DCauchy(*args)
+        this = _libBornAgainCore.new_FTDistribution2DCauchy(omega_x, omega_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -10129,7 +10178,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
         """
         clone(FTDistribution2DCauchy self) -> FTDistribution2DCauchy
 
-        FTDistribution2DCauchy* FTDistribution2DCauchy::clone() const final
+        FTDistribution2DCauchy * FTDistribution2DCauchy::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DCauchy_clone(self)
@@ -10183,16 +10232,15 @@ class FTDistribution2DGauss(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DGauss, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, omega_x, omega_y, gamma=0):
         """
-        __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DGauss
-        __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGauss
-        __init__(FTDistribution2DGauss self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGauss
+        __init__(FTDistribution2DGauss self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DGauss
+        __init__(FTDistribution2DGauss self, double omega_x, double omega_y) -> FTDistribution2DGauss
 
-        FTDistribution2DGauss::FTDistribution2DGauss(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
+        FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma=0)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DGauss(*args)
+        this = _libBornAgainCore.new_FTDistribution2DGauss(omega_x, omega_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -10202,7 +10250,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
         """
         clone(FTDistribution2DGauss self) -> FTDistribution2DGauss
 
-        FTDistribution2DGauss* FTDistribution2DGauss::clone() const final
+        FTDistribution2DGauss * FTDistribution2DGauss::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DGauss_clone(self)
@@ -10256,16 +10304,15 @@ class FTDistribution2DGate(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DGate, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, omega_x, omega_y, gamma=0):
         """
-        __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DGate
-        __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DGate
-        __init__(FTDistribution2DGate self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DGate
+        __init__(FTDistribution2DGate self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DGate
+        __init__(FTDistribution2DGate self, double omega_x, double omega_y) -> FTDistribution2DGate
 
-        FTDistribution2DGate::FTDistribution2DGate(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
+        FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma=0)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DGate(*args)
+        this = _libBornAgainCore.new_FTDistribution2DGate(omega_x, omega_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -10275,7 +10322,7 @@ class FTDistribution2DGate(IFTDistribution2D):
         """
         clone(FTDistribution2DGate self) -> FTDistribution2DGate
 
-        FTDistribution2DGate* FTDistribution2DGate::clone() const final
+        FTDistribution2DGate * FTDistribution2DGate::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DGate_clone(self)
@@ -10329,16 +10376,15 @@ class FTDistribution2DCone(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DCone, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, omega_x, omega_y, gamma=0):
         """
-        __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y, double gamma=0, double delta) -> FTDistribution2DCone
-        __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y, double gamma=0) -> FTDistribution2DCone
-        __init__(FTDistribution2DCone self, double coherence_length_x, double coherence_length_y) -> FTDistribution2DCone
+        __init__(FTDistribution2DCone self, double omega_x, double omega_y, double gamma=0) -> FTDistribution2DCone
+        __init__(FTDistribution2DCone self, double omega_x, double omega_y) -> FTDistribution2DCone
 
-        FTDistribution2DCone::FTDistribution2DCone(double coherence_length_x, double coherence_length_y, double gamma=0, double delta=M_PI_2)
+        FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma=0)
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DCone(*args)
+        this = _libBornAgainCore.new_FTDistribution2DCone(omega_x, omega_y, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -10348,7 +10394,7 @@ class FTDistribution2DCone(IFTDistribution2D):
         """
         clone(FTDistribution2DCone self) -> FTDistribution2DCone
 
-        FTDistribution2DCone* FTDistribution2DCone::clone() const final
+        FTDistribution2DCone * FTDistribution2DCone::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DCone_clone(self)
@@ -10402,16 +10448,32 @@ class FTDistribution2DVoigt(IFTDistribution2D):
     __getattr__ = lambda self, name: _swig_getattr(self, FTDistribution2DVoigt, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, omega_x, omega_y, eta, gamma=0):
         """
-        __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta) -> FTDistribution2DVoigt
-        __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta, double gamma=0) -> FTDistribution2DVoigt
-        __init__(FTDistribution2DVoigt self, double coherence_length_x, double coherence_length_y, double eta) -> FTDistribution2DVoigt
+        __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double eta, double gamma=0) -> FTDistribution2DVoigt
+        __init__(FTDistribution2DVoigt self, double omega_x, double omega_y, double eta) -> FTDistribution2DVoigt
 
-        FTDistribution2DVoigt::FTDistribution2DVoigt(double coherence_length_x, double coherence_length_y, double eta, double gamma=0, double delta=M_PI_2)
+        FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double eta, double gamma=0)
+
+        Constructor of two-dimensional pseudo-Voigt probability distribution.
+
+        Parameters:
+        -----------
+
+        omega_x: 
+        half-width of the distribution along its x-axis in nanometers
+
+        omega_y: 
+        half-width of the distribution along its y-axis in nanometers
+
+        eta: 
+        parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
+
+        gamma: 
+        angle in direct space between first lattice vector and x-axis of the distribution in radians 
 
         """
-        this = _libBornAgainCore.new_FTDistribution2DVoigt(*args)
+        this = _libBornAgainCore.new_FTDistribution2DVoigt(omega_x, omega_y, eta, gamma)
         try:
             self.this.append(this)
         except Exception:
@@ -10421,7 +10483,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         """
         clone(FTDistribution2DVoigt self) -> FTDistribution2DVoigt
 
-        FTDistribution2DVoigt* FTDistribution2DVoigt::clone() const final
+        FTDistribution2DVoigt * FTDistribution2DVoigt::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DVoigt_clone(self)
@@ -10451,14 +10513,14 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         return _libBornAgainCore.FTDistribution2DVoigt_evaluate(self, qx, qy)
 
 
-    def getEta(self):
+    def eta(self):
         """
-        getEta(FTDistribution2DVoigt self) -> double
+        eta(FTDistribution2DVoigt self) -> double
 
-        double FTDistribution2DVoigt::getEta() const 
+        double FTDistribution2DVoigt::eta() const 
 
         """
-        return _libBornAgainCore.FTDistribution2DVoigt_getEta(self)
+        return _libBornAgainCore.FTDistribution2DVoigt_eta(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution2DVoigt
     __del__ = lambda self: None
@@ -17483,12 +17545,12 @@ class HomogeneousMaterial(INamed):
     def __init__(self, *args):
         """
         __init__(HomogeneousMaterial self) -> HomogeneousMaterial
-        __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index, kvector_t magnetic_field) -> HomogeneousMaterial
+        __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index, kvector_t magnetization) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, complex_t const refractive_index) -> HomogeneousMaterial
-        __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field) -> HomogeneousMaterial
+        __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetization) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta) -> HomogeneousMaterial
 
-        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field=kvector_t())
+        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetization=kvector_t())
 
         Constructs a material with  name and refractive_index parameters delta and beta (n = 1 - delta + i*beta). 
 
@@ -17507,7 +17569,7 @@ class HomogeneousMaterial(INamed):
 
         HomogeneousMaterial HomogeneousMaterial::inverted() const
 
-        Constructs a material with inverted magnetic field. 
+        Constructs a material with inverted magnetization. 
 
         """
         return _libBornAgainCore.HomogeneousMaterial_inverted(self)
@@ -17565,28 +17627,28 @@ class HomogeneousMaterial(INamed):
         return _libBornAgainCore.HomogeneousMaterial_isMagneticMaterial(self)
 
 
-    def magneticField(self):
+    def magnetization(self):
         """
-        magneticField(HomogeneousMaterial self) -> kvector_t
+        magnetization(HomogeneousMaterial self) -> kvector_t
 
-        kvector_t HomogeneousMaterial::magneticField() const
+        kvector_t HomogeneousMaterial::magnetization() const
 
-        Get the magnetic field (in Tesla) 
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_magneticField(self)
-
-
-    def setMagneticField(self, magnetic_field):
-        """
-        setMagneticField(HomogeneousMaterial self, kvector_t magnetic_field)
-
-        void HomogeneousMaterial::setMagneticField(const kvector_t magnetic_field)
-
-        Set the magnetic field (in Tesla) 
+        Get the magnetization (in A/m) 
 
         """
-        return _libBornAgainCore.HomogeneousMaterial_setMagneticField(self, magnetic_field)
+        return _libBornAgainCore.HomogeneousMaterial_magnetization(self)
+
+
+    def setMagnetization(self, magnetization):
+        """
+        setMagnetization(HomogeneousMaterial self, kvector_t magnetization)
+
+        void HomogeneousMaterial::setMagnetization(const kvector_t magnetization)
+
+        Set the magnetizationd (in A/m) 
+
+        """
+        return _libBornAgainCore.HomogeneousMaterial_setMagnetization(self, magnetization)
 
 
     def scalarSLD(self, wavevectors):
@@ -17597,18 +17659,6 @@ class HomogeneousMaterial(INamed):
 
         """
         return _libBornAgainCore.HomogeneousMaterial_scalarSLD(self, wavevectors)
-
-
-    def scalarFresnel(self, k, n_ref):
-        """
-        scalarFresnel(HomogeneousMaterial self, kvector_t k, double n_ref) -> complex_t
-
-        complex_t HomogeneousMaterial::scalarFresnel(const kvector_t k, double n_ref) const
-
-        Return the potential term that is used in the one-dimensional Fresnel calculations. 
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_scalarFresnel(self, k, n_ref)
 
 
     def transformedMaterial(self, transform):
@@ -17623,6 +17673,15 @@ class HomogeneousMaterial(INamed):
 HomogeneousMaterial_swigregister = _libBornAgainCore.HomogeneousMaterial_swigregister
 HomogeneousMaterial_swigregister(HomogeneousMaterial)
 
+
+def ScalarReducedPotential(n, k, n_ref):
+    """
+    ScalarReducedPotential(complex_t n, kvector_t k, double n_ref) -> complex_t
+
+    complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
+
+    """
+    return _libBornAgainCore.ScalarReducedPotential(n, k, n_ref)
 class IDetector2D(ICloneable, INode):
     """
 
@@ -18153,16 +18212,16 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_evaluate(self, q)
 
 
-    def getKappa(self):
+    def kappa(self):
         """
-        getKappa(IInterferenceFunction self) -> double
+        kappa(IInterferenceFunction self) -> double
 
-        virtual double IInterferenceFunction::getKappa() const
+        virtual double IInterferenceFunction::kappa() const
 
         Retrieves the size-distance coupling constant (default 0.0) 
 
         """
-        return _libBornAgainCore.IInterferenceFunction_getKappa(self)
+        return _libBornAgainCore.IInterferenceFunction_kappa(self)
 
 
     def getParticleDensity(self):
@@ -19903,14 +19962,16 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
 
         InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
 
+        Constructor of interference function of one-dimensional lattice.
+
         Parameters:
         -----------
 
         length: 
-         Lattice length
+        lattice length in nanometers
 
         xi: 
-        rotation of lattice with respect to x-axis 
+        rotation of lattice with respect to x-axis in radians 
 
         """
         this = _libBornAgainCore.new_InterferenceFunction1DLattice(length, xi)
@@ -19945,14 +20006,22 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction1DLattice_accept(self, visitor)
 
 
-    def setDecayFunction(self, pdf):
+    def setDecayFunction(self, decay):
         """
-        setDecayFunction(InterferenceFunction1DLattice self, IFTDecayFunction1D pdf)
+        setDecayFunction(InterferenceFunction1DLattice self, IFTDecayFunction1D decay)
 
-        void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &pdf)
+        void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D &decay)
+
+        Sets one-dimensional decay function.
+
+        Parameters:
+        -----------
+
+        decay: 
+        one-dimensional decay function in reciprocal space 
 
         """
-        return _libBornAgainCore.InterferenceFunction1DLattice_setDecayFunction(self, pdf)
+        return _libBornAgainCore.InterferenceFunction1DLattice_setDecayFunction(self, decay)
 
 
     def getLatticeParameters(self):
@@ -19965,14 +20034,14 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction1DLattice_getLatticeParameters(self)
 
 
-    def getDecayFunction(self):
+    def decayFunction(self):
         """
-        getDecayFunction(InterferenceFunction1DLattice self) -> IFTDecayFunction1D
+        decayFunction(InterferenceFunction1DLattice self) -> IFTDecayFunction1D
 
-        const IFTDecayFunction1D* InterferenceFunction1DLattice::getDecayFunction() const 
+        const IFTDecayFunction1D* InterferenceFunction1DLattice::decayFunction() const 
 
         """
-        return _libBornAgainCore.InterferenceFunction1DLattice_getDecayFunction(self)
+        return _libBornAgainCore.InterferenceFunction1DLattice_decayFunction(self)
 
 
     def evaluate(self, q):
@@ -20028,6 +20097,17 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
 
+        Constructor of interference function of radial paracrystal.
+
+        Parameters:
+        -----------
+
+        peak_distance: 
+        average distance to the next neighbor in nanometers
+
+        damping_length: 
+        the damping (coherence) length of the paracrystal in nanometers 
+
         """
         this = _libBornAgainCore.new_InterferenceFunctionRadialParaCrystal(peak_distance, damping_length)
         try:
@@ -20065,20 +20145,28 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
 
+        Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
+
+        Parameters:
+        -----------
+
+        size: 
+        spacing coupling parameter 
+
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setKappa(self, kappa)
 
 
-    def getKappa(self):
+    def kappa(self):
         """
-        getKappa(InterferenceFunctionRadialParaCrystal self) -> double
+        kappa(InterferenceFunctionRadialParaCrystal self) -> double
 
-        double InterferenceFunctionRadialParaCrystal::getKappa() const final
+        double InterferenceFunctionRadialParaCrystal::kappa() const final
 
         Retrieves the size-distance coupling constant (default 0.0) 
 
         """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getKappa(self)
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_kappa(self)
 
 
     def setDomainSize(self, size):
@@ -20087,18 +20175,26 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
 
+        Sets domain size (finite size corrections).
+
+        Parameters:
+        -----------
+
+        size: 
+        size of coherence domain along the lattice main axis in nanometers 
+
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setDomainSize(self, size)
 
 
-    def getDomainSize(self):
+    def domainSize(self):
         """
-        getDomainSize(InterferenceFunctionRadialParaCrystal self) -> double
+        domainSize(InterferenceFunctionRadialParaCrystal self) -> double
 
-        double InterferenceFunctionRadialParaCrystal::getDomainSize() const 
+        double InterferenceFunctionRadialParaCrystal::domainSize() const 
 
         """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getDomainSize(self)
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_domainSize(self)
 
 
     def evaluate(self, q):
@@ -20129,38 +20225,46 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
 
+        Sets one-dimensional probability distribution.
+
+        Parameters:
+        -----------
+
+        pdf: 
+        probability distribution (Fourier transform of probability density) 
+
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setProbabilityDistribution(self, pdf)
 
 
-    def getProbabilityDistribution(self):
+    def probabilityDistribution(self):
         """
-        getProbabilityDistribution(InterferenceFunctionRadialParaCrystal self) -> IFTDistribution1D
+        probabilityDistribution(InterferenceFunctionRadialParaCrystal self) -> IFTDistribution1D
 
-        const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::getProbabilityDistribution() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getProbabilityDistribution(self)
-
-
-    def getPeakDistance(self):
-        """
-        getPeakDistance(InterferenceFunctionRadialParaCrystal self) -> double
-
-        double InterferenceFunctionRadialParaCrystal::getPeakDistance() const 
+        const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::probabilityDistribution() const 
 
         """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getPeakDistance(self)
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_probabilityDistribution(self)
 
 
-    def getDampingLength(self):
+    def peakDistance(self):
         """
-        getDampingLength(InterferenceFunctionRadialParaCrystal self) -> double
+        peakDistance(InterferenceFunctionRadialParaCrystal self) -> double
 
-        double InterferenceFunctionRadialParaCrystal::getDampingLength() const 
+        double InterferenceFunctionRadialParaCrystal::peakDistance() const 
 
         """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getDampingLength(self)
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_peakDistance(self)
+
+
+    def dampingLength(self):
+        """
+        dampingLength(InterferenceFunctionRadialParaCrystal self) -> double
+
+        double InterferenceFunctionRadialParaCrystal::dampingLength() const 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_dampingLength(self)
 
 
     def getChildren(self):
@@ -20202,25 +20306,27 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
     def __init__(self, *args):
         """
         __init__(InterferenceFunction2DLattice self, Lattice2D lattice) -> InterferenceFunction2DLattice
-        __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double angle, double xi=0.0) -> InterferenceFunction2DLattice
-        __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double angle) -> InterferenceFunction2DLattice
+        __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double alpha, double xi=0.0) -> InterferenceFunction2DLattice
+        __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double alpha) -> InterferenceFunction2DLattice
 
-        InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double angle, double xi=0.0)
+        InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi=0.0)
+
+        Constructor of two-dimensional interference function.
 
         Parameters:
         -----------
 
         length_1: 
-         Lattice length 1
+        length of first lattice vector in nanometers
 
         length_2: 
-         Lattice length 2
+        length of second lattice vector in nanometers
 
-        angle: 
-        angle between lattice vectors
+        alpha: 
+        angle between lattice vectors in radians
 
         xi: 
-        rotation of lattice with respect to x-axis 
+        rotation of lattice with respect to x-axis (beam direction) in radians 
 
         """
         this = _libBornAgainCore.new_InterferenceFunction2DLattice(*args)
@@ -20277,24 +20383,32 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         createHexagonal = staticmethod(createHexagonal)
     __swig_getmethods__["createHexagonal"] = lambda x: createHexagonal
 
-    def setDecayFunction(self, pdf):
+    def setDecayFunction(self, decay):
         """
-        setDecayFunction(InterferenceFunction2DLattice self, IFTDecayFunction2D pdf)
+        setDecayFunction(InterferenceFunction2DLattice self, IFTDecayFunction2D decay)
 
-        void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
+        void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &decay)
 
-        """
-        return _libBornAgainCore.InterferenceFunction2DLattice_setDecayFunction(self, pdf)
+        Sets two-dimensional decay function.
 
+        Parameters:
+        -----------
 
-    def getDecayFunction(self):
-        """
-        getDecayFunction(InterferenceFunction2DLattice self) -> IFTDecayFunction2D
-
-        const IFTDecayFunction2D* InterferenceFunction2DLattice::getDecayFunction() const 
+        decay: 
+        two-dimensional decay function in reciprocal space 
 
         """
-        return _libBornAgainCore.InterferenceFunction2DLattice_getDecayFunction(self)
+        return _libBornAgainCore.InterferenceFunction2DLattice_setDecayFunction(self, decay)
+
+
+    def decayFunction(self):
+        """
+        decayFunction(InterferenceFunction2DLattice self) -> IFTDecayFunction2D
+
+        const IFTDecayFunction2D* InterferenceFunction2DLattice::decayFunction() const 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DLattice_decayFunction(self)
 
 
     def evaluate(self, q):
@@ -20397,29 +20511,31 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
         __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
         __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice) -> InterferenceFunction2DParaCrystal
-        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice, double xi=0.0, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
-        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice, double xi=0.0) -> InterferenceFunction2DParaCrystal
-        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha_lattice) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha, double xi=0.0, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha, double xi=0.0) -> InterferenceFunction2DParaCrystal
+        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha) -> InterferenceFunction2DParaCrystal
 
-        InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi=0.0, double damping_length=0.0)
+        InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi=0.0, double damping_length=0.0)
+
+        Constructor of interference function of two-dimensional paracrystal.
 
         Parameters:
         -----------
 
         length_1: 
-        Length of first lattice basis vector.
+        length of first lattice vector in nanometers
 
         length_2: 
-        Length of second lattice basis vector.
+        length of second lattice vector in nanometers
 
-        alpha_lattice: 
-        Angle between the lattice basis vectors.
+        alpha: 
+        angle between lattice vectors in radians
 
         xi: 
-        Angle between first basis vector and the x-axis of incoming beam.
+        rotation of lattice with respect to x-axis (beam direction) in radians
 
         damping_length: 
-        Damping length for removing delta function singularity at q=0. 
+        the damping (coherence) length of the paracrystal in nanometers 
 
         """
         this = _libBornAgainCore.new_InterferenceFunction2DParaCrystal(*args)
@@ -20454,27 +20570,27 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_accept(self, visitor)
 
 
-    def createSquare(peak_distance, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
+    def createSquare(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
         """
-        createSquare(double peak_distance, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
-        createSquare(double peak_distance, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
-        createSquare(double peak_distance, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
-        createSquare(double peak_distance) -> InterferenceFunction2DParaCrystal
+        createSquare(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
+        createSquare(double lattice_length, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
+        createSquare(double lattice_length, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+        createSquare(double lattice_length) -> InterferenceFunction2DParaCrystal
         """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(peak_distance, damping_length, domain_size_1, domain_size_2)
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
 
     if _newclass:
         createSquare = staticmethod(createSquare)
     __swig_getmethods__["createSquare"] = lambda x: createSquare
 
-    def createHexagonal(peak_distance, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
+    def createHexagonal(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
         """
-        createHexagonal(double peak_distance, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
-        createHexagonal(double peak_distance, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
-        createHexagonal(double peak_distance, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
-        createHexagonal(double peak_distance) -> InterferenceFunction2DParaCrystal
+        createHexagonal(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
+        createHexagonal(double lattice_length, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
+        createHexagonal(double lattice_length, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+        createHexagonal(double lattice_length) -> InterferenceFunction2DParaCrystal
         """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(peak_distance, damping_length, domain_size_1, domain_size_2)
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
 
     if _newclass:
         createHexagonal = staticmethod(createHexagonal)
@@ -20492,10 +20608,10 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         -----------
 
         size_1: 
-        size in first lattice direction
+        coherence domain size along the first basis vector in nanometers
 
         size_2: 
-        size in second lattice direction 
+        coherence domain size along the second basis vector in nanometers 
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_setDomainSizes(self, size_1, size_2)
@@ -20528,6 +20644,14 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         void InterferenceFunction2DParaCrystal::setDampingLength(double damping_length)
 
+        Sets the damping length.
+
+        Parameters:
+        -----------
+
+        damping_length: 
+        the damping (coherence) length of the paracrystal in nanometers 
+
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_setDampingLength(self, damping_length)
 
@@ -20544,24 +20668,24 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_evaluate(self, q)
 
 
-    def getDomainSizes(self):
+    def domainSizes(self):
         """
-        getDomainSizes(InterferenceFunction2DParaCrystal self) -> vdouble1d_t
+        domainSizes(InterferenceFunction2DParaCrystal self) -> vdouble1d_t
 
-        std::vector< double > InterferenceFunction2DParaCrystal::getDomainSizes() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getDomainSizes(self)
-
-
-    def getProbabilityDistributions(self):
-        """
-        getProbabilityDistributions(InterferenceFunction2DParaCrystal self) -> std::vector< IFTDistribution2D const *,std::allocator< IFTDistribution2D const * > >
-
-        std::vector< const IFTDistribution2D * > InterferenceFunction2DParaCrystal::getProbabilityDistributions() const 
+        std::vector< double > InterferenceFunction2DParaCrystal::domainSizes() const 
 
         """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getProbabilityDistributions(self)
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_domainSizes(self)
+
+
+    def probabilityDistributions(self):
+        """
+        probabilityDistributions(InterferenceFunction2DParaCrystal self) -> std::vector< IFTDistribution2D const *,std::allocator< IFTDistribution2D const * > >
+
+        std::vector< const IFTDistribution2D * > InterferenceFunction2DParaCrystal::probabilityDistributions() const 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_probabilityDistributions(self)
 
 
     def setIntegrationOverXi(self, integrate_xi):
@@ -20570,28 +20694,36 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
 
+        Enables/disables averaging over the lattice rotation angle.
+
+        Parameters:
+        -----------
+
+        integrate_xi: 
+        integration flag 
+
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_setIntegrationOverXi(self, integrate_xi)
 
 
-    def getIntegrationOverXi(self):
+    def integrationOverXi(self):
         """
-        getIntegrationOverXi(InterferenceFunction2DParaCrystal self) -> bool
+        integrationOverXi(InterferenceFunction2DParaCrystal self) -> bool
 
-        bool InterferenceFunction2DParaCrystal::getIntegrationOverXi() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getIntegrationOverXi(self)
-
-
-    def getDampingLength(self):
-        """
-        getDampingLength(InterferenceFunction2DParaCrystal self) -> double
-
-        double InterferenceFunction2DParaCrystal::getDampingLength() const 
+        bool InterferenceFunction2DParaCrystal::integrationOverXi() const 
 
         """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_getDampingLength(self)
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_integrationOverXi(self)
+
+
+    def dampingLength(self):
+        """
+        dampingLength(InterferenceFunction2DParaCrystal self) -> double
+
+        double InterferenceFunction2DParaCrystal::dampingLength() const 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_dampingLength(self)
 
 
     def lattice(self):
@@ -20630,23 +20762,23 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 InterferenceFunction2DParaCrystal_swigregister = _libBornAgainCore.InterferenceFunction2DParaCrystal_swigregister
 InterferenceFunction2DParaCrystal_swigregister(InterferenceFunction2DParaCrystal)
 
-def InterferenceFunction2DParaCrystal_createSquare(peak_distance, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
+def InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
     """
-    createSquare(double peak_distance, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
-    createSquare(double peak_distance, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
-    createSquare(double peak_distance, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
-    InterferenceFunction2DParaCrystal_createSquare(double peak_distance) -> InterferenceFunction2DParaCrystal
+    createSquare(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
+    createSquare(double lattice_length, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
+    createSquare(double lattice_length, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+    InterferenceFunction2DParaCrystal_createSquare(double lattice_length) -> InterferenceFunction2DParaCrystal
     """
-    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(peak_distance, damping_length, domain_size_1, domain_size_2)
+    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
 
-def InterferenceFunction2DParaCrystal_createHexagonal(peak_distance, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
+def InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length=0.0, domain_size_1=0.0, domain_size_2=0.0):
     """
-    createHexagonal(double peak_distance, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
-    createHexagonal(double peak_distance, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
-    createHexagonal(double peak_distance, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
-    InterferenceFunction2DParaCrystal_createHexagonal(double peak_distance) -> InterferenceFunction2DParaCrystal
+    createHexagonal(double lattice_length, double damping_length=0.0, double domain_size_1=0.0, double domain_size_2=0.0) -> InterferenceFunction2DParaCrystal
+    createHexagonal(double lattice_length, double damping_length=0.0, double domain_size_1=0.0) -> InterferenceFunction2DParaCrystal
+    createHexagonal(double lattice_length, double damping_length=0.0) -> InterferenceFunction2DParaCrystal
+    InterferenceFunction2DParaCrystal_createHexagonal(double lattice_length) -> InterferenceFunction2DParaCrystal
     """
-    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(peak_distance, damping_length, domain_size_1, domain_size_2)
+    return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
 
 class InterferenceFunctionNone(IInterferenceFunction):
     """
@@ -21762,6 +21894,31 @@ class Layer(ISample):
         """
         return _libBornAgainCore.Layer_numberOfSlices(self)
 
+
+    def scalarReducedPotential(self, k, n_ref):
+        """
+        scalarReducedPotential(Layer self, kvector_t k, double n_ref) -> complex_t
+
+        complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
+
+        Return the potential term that is used in the one-dimensional Fresnel calculations. 
+
+        """
+        return _libBornAgainCore.Layer_scalarReducedPotential(self, k, n_ref)
+
+
+    def initBField(self, h_field, b_z):
+        """
+        initBField(Layer self, kvector_t h_field, double b_z)
+
+        void Layer::initBField(kvector_t h_field, double b_z)
+
+        Initializes the magnetic B field from a given ambient field strength H. 
+
+        """
+        return _libBornAgainCore.Layer_initBField(self, h_field, b_z)
+
+    Magnetic_Permeability = _libBornAgainCore.Layer_Magnetic_Permeability
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
 
@@ -22505,6 +22662,30 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_crossCorrLength(self)
 
 
+    def setExternalField(self, ext_field):
+        """
+        setExternalField(MultiLayer self, kvector_t ext_field)
+
+        void MultiLayer::setExternalField(kvector_t ext_field)
+
+        Sets the external field applied to the multilayer (units: A/m) 
+
+        """
+        return _libBornAgainCore.MultiLayer_setExternalField(self, ext_field)
+
+
+    def externalField(self):
+        """
+        externalField(MultiLayer self) -> kvector_t
+
+        kvector_t MultiLayer::externalField() const
+
+        Returns the external field applied to the multilayer (units: A/m) 
+
+        """
+        return _libBornAgainCore.MultiLayer_externalField(self)
+
+
     def crossCorrSpectralFun(self, kvec, j, k):
         """
         crossCorrSpectralFun(MultiLayer self, kvector_t kvec, size_t j, size_t k) -> double
@@ -22575,6 +22756,18 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_containsMagneticMaterial(self)
+
+
+    def initBFields(self):
+        """
+        initBFields(MultiLayer self)
+
+        void MultiLayer::initBFields()
+
+        precalculate the magnetic B fields in each layer 
+
+        """
+        return _libBornAgainCore.MultiLayer_initBFields(self)
 
 
     def hasRoughness(self):

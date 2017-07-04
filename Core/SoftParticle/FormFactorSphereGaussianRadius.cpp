@@ -27,8 +27,10 @@ FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mean, doub
     setName(BornAgain::FormFactorSphereGaussianRadiusType);
     m_mean_r3 = calculateMeanR3();
     P_ff_sphere.reset(new FormFactorFullSphere(m_mean_r3));
-    registerParameter(BornAgain::MeanRadius, &m_mean).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::SigmaRadius, &m_sigma).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::MeanRadius, &m_mean).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::SigmaRadius, &m_sigma)
+        .setUnit(BornAgain::UnitsNm).setNonnegative();
     onChange();
 }
 

@@ -130,7 +130,7 @@ inline void TestParticleDistributionItem::test_AddParticle()
 
 inline void TestParticleDistributionItem::test_FromDomain()
 {
-    const std::string pattern("Particle/Cylinder/Radius");
+    const std::string pattern("/Particle/Cylinder/Radius");
 
     // creating domain distribution
     FormFactorCylinder cylinder(1.0, 2.0);
@@ -160,12 +160,12 @@ inline void TestParticleDistributionItem::test_FromDomain()
     prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                     .value<ComboProperty>();
 
-    QCOMPARE(prop.getValue(), QString::fromStdString(pattern));
+    QCOMPARE(prop.getValue(), QString("Particle/Cylinder/Radius"));
 }
 
 inline void TestParticleDistributionItem::test_FromDomainWithLimits()
 {
-    const std::string pattern("Particle/Cylinder/Radius");
+    const std::string pattern("/Particle/Cylinder/Radius");
 
     // creating domain distribution
     FormFactorCylinder cylinder(1.0, 2.0);

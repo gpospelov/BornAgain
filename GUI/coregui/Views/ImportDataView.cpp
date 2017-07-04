@@ -26,7 +26,7 @@
 
 ImportDataView::ImportDataView(MainWindow *mainWindow)
     : QWidget(mainWindow)
-    , m_toolBar(new ImportDataToolBar)
+    , m_toolBar(new ImportDataToolBar(this))
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new RealDataSelectorWidget)
 //    , m_stackedWidget(new ItemStackPresenter<RealDataEditorWidget>)

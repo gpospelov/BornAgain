@@ -27,7 +27,6 @@ const QString refdata_file_prefix = "refdata";
 const QString realdata_file_prefix = "realdata";
 
 QString intensityDataFileName(const QString& itemName, const QString& prefix);
-
 }
 
 //! Constructs the name of the file for intensity data.
@@ -58,3 +57,16 @@ QString JobItemFunctions::realDataFileName(const RealDataItem& realDataItem)
 {
     return JobItemFunctions::intensityDataFileName(realDataItem.itemName(), realdata_file_prefix);
 }
+
+//! Returns list of fileName filters related to nonXML data stored by JobModel and RealDataModel.
+
+QStringList JobItemFunctions::nonXMLFileNameFilters()
+{
+    QStringList result = QStringList()
+        << QString(jobdata_file_prefix+"_*.int.gz")
+        << QString(refdata_file_prefix+"_*.int.gz")
+        << QString(realdata_file_prefix+"_*.int.gz");
+
+    return result;
+}
+

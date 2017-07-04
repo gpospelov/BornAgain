@@ -28,9 +28,12 @@ FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(
     : m_radius_x(radius_x), m_radius_y(radius_y), m_height(height)
 {
     setName(BornAgain::FFEllipsoidalCylinderType);
-    registerParameter(BornAgain::RadiusX, &m_radius_x).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::RadiusY, & m_radius_y).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::RadiusX, &m_radius_x).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::RadiusY, & m_radius_y).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
     onChange();
 }
 

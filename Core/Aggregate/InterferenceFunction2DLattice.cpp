@@ -27,16 +27,17 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& la
     setLattice(lattice);
 }
 
-//! @param length_1 Lattice length 1
-//! @param length_2 Lattice length 2
-//! @param angle angle between lattice vectors
-//! @param xi rotation of lattice with respect to x-axis
-InterferenceFunction2DLattice::InterferenceFunction2DLattice(
-    double length_1, double length_2, double angle, double xi)
+//! Constructor of two-dimensional interference function.
+//! @param length_1: length of first lattice vector in nanometers
+//! @param length_2: length of second lattice vector  in nanometers
+//! @param alpha: angle between lattice vectors in radians
+//! @param xi: rotation of lattice with respect to x-axis (beam direction) in radians
+InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2,
+                                                             double alpha, double xi)
     : m_na(0), m_nb(0)
 {
     setName(BornAgain::InterferenceFunction2DLatticeType);
-    setLattice(BasicLattice(length_1, length_2, angle, xi));
+    setLattice(BasicLattice(length_1, length_2, alpha, xi));
 }
 
 InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
@@ -48,30 +49,38 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
     return new InterferenceFunction2DLattice(*this);
 }
 
+//! Creates square lattice.
+//! @param lattice_length: length of first and second lattice vectors in nanometers
+//! @param xi: rotation of lattice with respect to x-axis in radians
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(
 double lattice_length, double xi)
 {
     return new InterferenceFunction2DLattice(SquareLattice(lattice_length, xi));
 }
 
+//! Creates hexagonal lattice.
+//! @param lattice_length: length of first and second lattice vectors in nanometers
+//! @param xi: rotation of lattice with respect to x-axis in radians
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(
     double lattice_length, double xi)
 {
     return new InterferenceFunction2DLattice(HexagonalLattice(lattice_length, xi));
 }
 
-void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &pdf)
+//! Sets two-dimensional decay function.
+//! @param decay: two-dimensional decay function in reciprocal space
+void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D& decay)
 {
-    mp_pdf.reset(pdf.clone());
-    registerChild(mp_pdf.get());
+    m_decay.reset(decay.clone());
+    registerChild(m_decay.get());
     initialize_calc_factors();
 }
 
 double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
 {
-    if (!mp_pdf)
+    if (!m_decay)
         throw Exceptions::NullPointerException("InterferenceFunction2DLattice::evaluate"
-                                   " -> Error! No probability distribution function defined.");
+                                   " -> Error! No decay function defined.");
     double result = 0.0;
     double qxr = q.x();
     double qyr = q.y();
@@ -85,7 +94,7 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
             result += interferenceAtOneRecLatticePoint(qx, qy);
         }
     }
-    return result;
+    return getParticleDensity()*result;
 }
 
 const Lattice2D& InterferenceFunction2DLattice::lattice() const
@@ -104,7 +113,7 @@ double InterferenceFunction2DLattice::getParticleDensity() const
 
 std::vector<const INode*> InterferenceFunction2DLattice::getChildren() const
 {
-    return std::vector<const INode*>() << mp_pdf << m_lattice;
+    return std::vector<const INode*>() << m_decay << m_lattice;
 }
 
 void InterferenceFunction2DLattice::onChange()
@@ -121,8 +130,8 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     if(other.m_lattice)
         setLattice(*other.m_lattice);
 
-    if(other.mp_pdf)
-        setDecayFunction(*other.mp_pdf);
+    if(other.m_decay)
+        setDecayFunction(*other.m_decay);
 }
 
 void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)
@@ -134,15 +143,15 @@ void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)
 
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const
 {
-    if (!mp_pdf)
+    if (!m_decay)
         throw Exceptions::NullPointerException(
             "InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
-            " -> Error! No probability distribution function defined.");
+            " -> Error! No decay function defined.");
     double qp1, qp2;
-    double gamma = m_lattice->rotationAngle() + mp_pdf->getGamma();
-    double delta = mp_pdf->getDelta();
+    double gamma = m_lattice->rotationAngle() + m_decay->gamma();
+    double delta = m_decay->delta();
     transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
-    return mp_pdf->evaluate(qp1, qp2);
+    return m_decay->evaluate(qp1, qp2);
 }
 
 void InterferenceFunction2DLattice::transformToPrincipalAxes(
@@ -177,20 +186,18 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
 
 void InterferenceFunction2DLattice::initialize_calc_factors()
 {
-    if (!mp_pdf)
+    if (!m_decay)
         throw Exceptions::NullPointerException(
             "InterferenceFunction2DLattice::initialize_calc_factors"
-            " -> Error! No probability distribution function defined.");
-
-    double coherence_length_x = mp_pdf->getDecayLengthX();
-    double coherence_length_y = mp_pdf->getDecayLengthY();
+            " -> Error! No decay function defined.");
 
     // number of reciprocal lattice points to use
     double qa_max(0.0), qb_max(0.0);
 
-    mp_pdf->transformToStarBasis(nmax / coherence_length_x, nmax / coherence_length_y,
-                                 m_lattice->latticeAngle(), m_lattice->length1(),
-                                 m_lattice->length2(), qa_max, qb_max);
+    m_decay->transformToStarBasis(nmax / m_decay->decayLengthX(),
+                                  nmax / m_decay->decayLengthY(),
+                                  m_lattice->latticeAngle(), m_lattice->length1(),
+                                  m_lattice->length2(), qa_max, qb_max);
     m_na = std::lround(std::abs(qa_max));
     m_nb = std::lround(std::abs(qb_max));
 }

@@ -32,10 +32,12 @@ void Widget3D::setBackground(QColor const& color) {
 
 void Widget3D::setModel(Model* model) {
   canvas->setModel(model);
+  connect(camera, &ba3d::Camera::updated, model, &Model::cameraUpdated);
+  camera->set();
 }
 
-void Widget3D::update() {
-  canvas->update();
+Model* Widget3D::getModel() {
+  return canvas->getModel();
 }
 
 //------------------------------------------------------------------------------

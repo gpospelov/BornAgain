@@ -188,11 +188,11 @@ const std::string ScaleParameter = "ScaleParameter";
 const std::string Sigma = "Sigma";
 const std::string Eta = "Eta";
 const std::string Omega = "Omega";
+const std::string OmegaX = "OmegaX";
+const std::string OmegaY = "OmegaY";
 const std::string DecayLength = "DecayLength";
 const std::string DecayLengthX = "DecayLengthX";
 const std::string DecayLengthY = "DecayLengthY";
-const std::string CoherenceLengthX = "CoherenceLengthX";
-const std::string CoherenceLengthY = "CoherenceLengthY";
 const std::string SigmaX = "SigmaX";
 const std::string SigmaY = "SigmaY";
 const std::string HeightDWFactor = "HeightDWFactor";
@@ -215,6 +215,10 @@ const std::string CrossCorrelationLength = "CrossCorrelationLength";
 const std::string Inclination = "InclinationAngle";
 const std::string Azimuth = "AzimuthalAngle";
 const std::string TotalParticleDensity = "TotalParticleDensity";
+
+const std::string UnitsRad = "rad";
+const std::string UnitsNm = "nm";
+const std::string UnitsNone = "";
 }
 
 #endif // BORNAGAINNAMESPACE_H

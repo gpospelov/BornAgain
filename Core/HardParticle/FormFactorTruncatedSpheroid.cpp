@@ -31,10 +31,10 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
 {
     setName(BornAgain::FFTruncatedSpheroidType);
     check_initialization();
-    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter(BornAgain::HeightFlattening, &m_height_flattening).setNonnegative();
-    registerParameter(BornAgain::DeltaHeight, &m_dh).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::DeltaHeight, &m_dh).setUnit(BornAgain::UnitsNm).setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSpheroid::Integrand);
     onChange();
 }

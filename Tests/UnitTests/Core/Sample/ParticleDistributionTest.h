@@ -3,6 +3,8 @@
 #include "HomogeneousMaterial.h"
 #include "Distributions.h"
 #include "BornAgainNamespace.h"
+#include "ParameterUtils.h"
+#include "Units.h"
 
 class ParticleDistributionTest : public ::testing::Test
 {
@@ -22,3 +24,17 @@ TEST_F(ParticleDistributionTest, getChildren)
     EXPECT_EQ(children.at(0)->getName(), BornAgain::ParticleType);
 }
 
+TEST_F(ParticleDistributionTest, mainParameterUnits)
+{
+    HomogeneousMaterial mat("Air",0.0, 0.0);
+    DistributionGate gate(1.0, 2.0);
+
+    ParameterDistribution par("/Particle/FullSphere/Radius", gate, 5);
+    ParticleDistribution distr(Particle(mat, FormFactorFullSphere(1.0)), par);
+    EXPECT_EQ(ParameterUtils::mainParUnits(distr), BornAgain::UnitsNm);
+
+    par = ParameterDistribution("/Particle/Cone/Alpha", gate, 5);
+    ParticleDistribution distr2(Particle(mat, FormFactorCone(10.0, 20.0, 70.0*Units::deg)), par);
+    EXPECT_EQ(ParameterUtils::mainParUnits(distr2), BornAgain::UnitsRad);
+
+}

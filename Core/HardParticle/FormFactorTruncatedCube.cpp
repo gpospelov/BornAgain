@@ -46,8 +46,10 @@ FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_l
     , m_removed_length(removed_length)
 {
     setName(BornAgain::FFTruncatedCubeType);
-    registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::RemovedLength, &m_removed_length).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::RemovedLength, &m_removed_length).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
     onChange();
 }
 

@@ -30,20 +30,23 @@ def fileCpp(x):
 
 
 def dirCore(x):
-    if "/Core/Algorithms" in x: return True
-    if "/Core/FormFactors" in x: return True
-    if "/Core/Samples" in x: return True
-    if "/Core/StandardSamples" in x: return True
-    if "/Core/Tools" in x: return True
-    if "/Core/Fitting" in x: return True
-    if "/Core/inc" in x: return True
-    if "/Core/src" in x: return True
-    if "/Core/InputOutput" in x: return True
-    if "/Core/Geometry" in x: return True
-    if "/Fit/Factory" in x: return True
-    if "/Fit/FitKernel" in x: return True
-    if "/Fit/StandardFits" in x: return True
-    if "/Core/Geometry" in x: return True
+    # if "/Core/Algorithms" in x: return True
+    # if "/Core/FormFactors" in x: return True
+    # if "/Core/Samples" in x: return True
+    # if "/Core/StandardSamples" in x: return True
+    # if "/Core/Tools" in x: return True
+    # if "/Core/Fitting" in x: return True
+    # if "/Core/inc" in x: return True
+    # if "/Core/src" in x: return True
+    # if "/Core/InputOutput" in x: return True
+    # if "/Core/Geometry" in x: return True
+    # if "/Fit/Factory" in x: return True
+    # if "/Fit/FitKernel" in x: return True
+    # if "/Fit/StandardFits" in x: return True
+    # if "/Core/Geometry" in x: return True
+    if "/Core/" in x: return True
+    if "/Fit/" in x: return True
+
     return False
 
 
@@ -100,23 +103,23 @@ def filetype(x):
     if dirSkip(x):
         return result
 
-    if fileCpp(x) and dirCore(x):
-        result = FileTypes.CORE
+    if dirPyAPI(x):
+        result = FileTypes.PYAPI
+
+    elif dirThirdParty(x):
+        result = FileTypes.THIRD
 
     elif (fileCpp(x) or filePython(x)) and dirFuncTest(x):
         result = FileTypes.FTEST
+
+    elif fileCpp(x) and dirCore(x):
+        result = FileTypes.CORE
 
     elif dirUnitTests(x):
         result = FileTypes.UTEST
 
     elif dirGUI(x):
         result = FileTypes.GUI
-
-    elif dirPyAPI(x):
-        result = FileTypes.PYAPI
-
-    elif dirThirdParty(x):
-        result = FileTypes.THIRD
 
     return result
 
@@ -189,6 +192,7 @@ class HistoryCollector:
 
             if x.startswith('+++'):
                 self.file_type_ppp = filetype(x)
+                print(x, self.file_type_ppp)
 
             if x.startswith('---'):
                 self.file_type_mmm = filetype(x)
@@ -298,7 +302,7 @@ def plot_loc_number(history):
 
 
     #preparing canvas
-    c1 = TCanvas( 'gisasfw_loc', 'Number of lines of code in BornAgain project', 1024, 768)
+    c1 = TCanvas( 'gisasfw_loc', 'Number of lines of code in BornAgain project', 1280, 768)
     c1.cd()
     gPad.SetGrid()
     gPad.SetBottomMargin(0.10)

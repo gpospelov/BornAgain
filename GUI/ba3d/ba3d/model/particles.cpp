@@ -28,8 +28,13 @@ void Particle::set() {
   transform(xyz::_0, xyz::_0);
 }
 
-void Particle::transform(xyz rotate, xyz translate) {
-  base::transform(turn, scale, rotate, offset + translate);
+void Particle::transform(xyz rotate_, xyz translate_) {
+  base::transform(turn, scale,
+                  (rotate = rotate_), offset + (translate = translate_));
+}
+
+void Particle::fancy(xyz rotate, flt r) {
+  base::transform(turn, scale*r, rotate, offset + translate);
 }
 
 //------------------------------------------------------------------------------

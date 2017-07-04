@@ -32,8 +32,6 @@ LayerView::LayerView(QGraphicsItem *parent)
     setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
     setName(Constants::LayerType);
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::LayerType));
-    //setToolTip(QString("%1\n%2").arg("Layer").arg("A layer with thickness and material.\nCan be connected with ParticleLayout."));
-    setToolTip(ToolTipDataBase::getSampleViewDesignerToolTip(Constants::LayerType));
     setAcceptDrops(false);
     addPort(QString(), NodeEditorPort::INPUT, NodeEditorPort::PARTICLE_LAYOUT);
 }

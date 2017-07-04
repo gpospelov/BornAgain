@@ -26,9 +26,9 @@ FormFactorBox::FormFactorBox(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
 {
     setName(BornAgain::FFBoxType);
-    registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Width,  &m_width).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Width,  &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
     onChange();
 }
 

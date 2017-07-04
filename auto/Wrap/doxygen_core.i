@@ -603,6 +603,21 @@ C++ includes: ComputationStatus.h
 ";
 
 
+// File: classConesWithLimitsDistributionBuilder.xml
+%feature("docstring") ConesWithLimitsDistributionBuilder "
+
+Cones with the distribution applied to the angle and RealLimits defined.
+
+C++ includes: ParticleDistributionsBuilder.h
+";
+
+%feature("docstring")  ConesWithLimitsDistributionBuilder::ConesWithLimitsDistributionBuilder "ConesWithLimitsDistributionBuilder::ConesWithLimitsDistributionBuilder()
+";
+
+%feature("docstring")  ConesWithLimitsDistributionBuilder::buildSample "MultiLayer * ConesWithLimitsDistributionBuilder::buildSample() const 
+";
+
+
 // File: classConstKBinAxis.xml
 %feature("docstring") ConstKBinAxis "
 
@@ -1354,6 +1369,11 @@ Returns true if the distribution is in the limit case of a Dirac delta distribut
 %feature("docstring")  DistributionLogNormal::accept "void DistributionLogNormal::accept(INodeVisitor *visitor) const final
 
 Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  DistributionLogNormal::setUnits "void DistributionLogNormal::setUnits(const std::string &units)
+
+Sets distribution units. 
 ";
 
 
@@ -5588,12 +5608,12 @@ C++ includes: HomogeneousMaterial.h
 Constructs a default material (vacuum). 
 ";
 
-%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, const complex_t refractive_index, kvector_t magnetic_field=kvector_t())
+%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, const complex_t refractive_index, kvector_t magnetization=kvector_t())
 
 Constructs a material with  name and  refractive_index. 
 ";
 
-%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field=kvector_t())
+%feature("docstring")  HomogeneousMaterial::HomogeneousMaterial "HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetization=kvector_t())
 
 Constructs a material with  name and refractive_index parameters delta and beta (n = 1 - delta + i*beta). 
 ";
@@ -5603,7 +5623,7 @@ Constructs a material with  name and refractive_index parameters delta and beta 
 
 %feature("docstring")  HomogeneousMaterial::inverted "HomogeneousMaterial HomogeneousMaterial::inverted() const
 
-Constructs a material with inverted magnetic field. 
+Constructs a material with inverted magnetization. 
 ";
 
 %feature("docstring")  HomogeneousMaterial::refractiveIndex "complex_t HomogeneousMaterial::refractiveIndex() const 
@@ -5623,25 +5643,22 @@ Indicates whether the interaction with the material is scalar. This means that d
 %feature("docstring")  HomogeneousMaterial::isMagneticMaterial "bool HomogeneousMaterial::isMagneticMaterial() const 
 ";
 
-%feature("docstring")  HomogeneousMaterial::magneticField "kvector_t HomogeneousMaterial::magneticField() const
+%feature("docstring")  HomogeneousMaterial::magnetization "kvector_t HomogeneousMaterial::magnetization() const
 
-Get the magnetic field (in Tesla) 
+Get the magnetization (in A/m) 
 ";
 
-%feature("docstring")  HomogeneousMaterial::setMagneticField "void HomogeneousMaterial::setMagneticField(const kvector_t magnetic_field)
+%feature("docstring")  HomogeneousMaterial::setMagnetization "void HomogeneousMaterial::setMagnetization(const kvector_t magnetization)
 
-Set the magnetic field (in Tesla) 
+Set the magnetizationd (in A/m) 
 ";
 
 %feature("docstring")  HomogeneousMaterial::scalarSLD "complex_t HomogeneousMaterial::scalarSLD(const WavevectorInfo &wavevectors) const 
 ";
 
-%feature("docstring")  HomogeneousMaterial::polarizedSLD "Eigen::Matrix2cd HomogeneousMaterial::polarizedSLD(const WavevectorInfo &wavevectors) const 
-";
+%feature("docstring")  HomogeneousMaterial::polarizedSLD "Eigen::Matrix2cd HomogeneousMaterial::polarizedSLD(const WavevectorInfo &wavevectors) const
 
-%feature("docstring")  HomogeneousMaterial::polarizedSLDExperimental "Eigen::Matrix2cd HomogeneousMaterial::polarizedSLDExperimental(const WavevectorInfo &wavevectors) const
-
-Get the scattering matrix for a material defined by its magnetization (experimental) 
+Get the scattering matrix for a material defined by its magnetization. 
 ";
 
 %feature("docstring")  HomogeneousMaterial::transformedMaterial "HomogeneousMaterial HomogeneousMaterial::transformedMaterial(const Transform3D &transform) const 
@@ -6222,6 +6239,11 @@ Returns equidistant interpolation points from xmin to xmax.
 %feature("docstring")  IDistribution1D::isDelta "virtual bool IDistribution1D::isDelta() const =0
 
 Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+";
+
+%feature("docstring")  IDistribution1D::setUnits "void IDistribution1D::setUnits(const std::string &units)
+
+Sets distribution units. 
 ";
 
 
@@ -9040,45 +9062,6 @@ C++ includes: NodeIterator.h
 // File: classLabelMap.xml
 %feature("docstring") LabelMap "";
 
-%feature("docstring")  LabelMap::LabelMap "LabelMap< Key >::LabelMap()
-";
-
-%feature("docstring")  LabelMap::~LabelMap "virtual LabelMap< Key >::~LabelMap()
-";
-
-%feature("docstring")  LabelMap::clear "void LabelMap< Key >::clear()
-";
-
-%feature("docstring")  LabelMap::begin "const_iterator LabelMap< Key >::begin() const 
-";
-
-%feature("docstring")  LabelMap::end "const_iterator LabelMap< Key >::end() const 
-";
-
-%feature("docstring")  LabelMap::begin "iterator LabelMap< Key >::begin()
-";
-
-%feature("docstring")  LabelMap::end "iterator LabelMap< Key >::end()
-";
-
-%feature("docstring")  LabelMap::size "size_t LabelMap< Key >::size()
-";
-
-%feature("docstring")  LabelMap::insert "void LabelMap< Key >::insert(const Key &key, const std::string &object)
-";
-
-%feature("docstring")  LabelMap::find "const iterator LabelMap< Key >::find(const Key &key) const 
-";
-
-%feature("docstring")  LabelMap::find "iterator LabelMap< Key >::find(const Key &key)
-";
-
-%feature("docstring")  LabelMap::erase "void LabelMap< Key >::erase(const Key &key)
-";
-
-%feature("docstring")  LabelMap::value "const std::string& LabelMap< Key >::value(const Key &key)
-";
-
 
 // File: classLargeCylindersInDWBABuilder.xml
 %feature("docstring") LargeCylindersInDWBABuilder "
@@ -10122,6 +10105,54 @@ Sets detector parameters using angle ranges.
 Helper class that represents a onesided limit
 
 C++ includes: ZLimits.h
+";
+
+
+// File: classOrderedMap.xml
+%feature("docstring") OrderedMap "
+
+Ordered map which saves the order of insertion.
+
+C++ includes: OrderedMap.h
+";
+
+%feature("docstring")  OrderedMap::OrderedMap "OrderedMap< Key, Object >::OrderedMap()
+";
+
+%feature("docstring")  OrderedMap::~OrderedMap "virtual OrderedMap< Key, Object >::~OrderedMap()
+";
+
+%feature("docstring")  OrderedMap::clear "void OrderedMap< Key, Object >::clear()
+";
+
+%feature("docstring")  OrderedMap::begin "const_iterator OrderedMap< Key, Object >::begin() const 
+";
+
+%feature("docstring")  OrderedMap::end "const_iterator OrderedMap< Key, Object >::end() const 
+";
+
+%feature("docstring")  OrderedMap::begin "iterator OrderedMap< Key, Object >::begin()
+";
+
+%feature("docstring")  OrderedMap::end "iterator OrderedMap< Key, Object >::end()
+";
+
+%feature("docstring")  OrderedMap::size "size_t OrderedMap< Key, Object >::size()
+";
+
+%feature("docstring")  OrderedMap::insert "void OrderedMap< Key, Object >::insert(const Key &key, const Object &object)
+";
+
+%feature("docstring")  OrderedMap::find "iterator OrderedMap< Key, Object >::find(const Key &key)
+";
+
+%feature("docstring")  OrderedMap::find "const_iterator OrderedMap< Key, Object >::find(const Key &key) const 
+";
+
+%feature("docstring")  OrderedMap::erase "size_t OrderedMap< Key, Object >::erase(const Key &key)
+";
+
+%feature("docstring")  OrderedMap::value "const Object& OrderedMap< Key, Object >::value(const Key &key)
 ";
 
 
@@ -11867,6 +11898,21 @@ C++ includes: RotatedPyramidsBuilder.h
 ";
 
 
+// File: classRotatedPyramidsDistributionBuilder.xml
+%feature("docstring") RotatedPyramidsDistributionBuilder "
+
+Rotated Pyramids with the distribution applied to the rotation angle.
+
+C++ includes: ParticleDistributionsBuilder.h
+";
+
+%feature("docstring")  RotatedPyramidsDistributionBuilder::RotatedPyramidsDistributionBuilder "RotatedPyramidsDistributionBuilder::RotatedPyramidsDistributionBuilder()
+";
+
+%feature("docstring")  RotatedPyramidsDistributionBuilder::buildSample "MultiLayer * RotatedPyramidsDistributionBuilder::buildSample() const 
+";
+
+
 // File: classRotatedSquareLatticeBuilder.xml
 %feature("docstring") RotatedSquareLatticeBuilder "
 
@@ -12116,76 +12162,76 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::SampleLabelHandler "SampleLabelHandler::SampleLabelHandler()
 ";
 
-%feature("docstring")  SampleLabelHandler::getFormFactorMap "formfactors_t* SampleLabelHandler::getFormFactorMap()
+%feature("docstring")  SampleLabelHandler::formFactorMap "formfactors_t* SampleLabelHandler::formFactorMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getInterferenceFunctionMap "interferences_t* SampleLabelHandler::getInterferenceFunctionMap()
+%feature("docstring")  SampleLabelHandler::interferenceFunctionMap "interferences_t* SampleLabelHandler::interferenceFunctionMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLayerMap "layers_t* SampleLabelHandler::getLayerMap()
+%feature("docstring")  SampleLabelHandler::layerMap "layers_t* SampleLabelHandler::layerMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleLayoutMap "layouts_t* SampleLabelHandler::getParticleLayoutMap()
+%feature("docstring")  SampleLabelHandler::particleLayoutMap "layouts_t* SampleLabelHandler::particleLayoutMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getMaterialMap "materials_t* SampleLabelHandler::getMaterialMap()
+%feature("docstring")  SampleLabelHandler::materialMap "materials_t* SampleLabelHandler::materialMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getMultiLayerMap "multilayers_t* SampleLabelHandler::getMultiLayerMap()
+%feature("docstring")  SampleLabelHandler::multiLayerMap "multilayers_t* SampleLabelHandler::multiLayerMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleCompositionMap "particlecompositions_t* SampleLabelHandler::getParticleCompositionMap()
+%feature("docstring")  SampleLabelHandler::particleCompositionMap "particlecompositions_t* SampleLabelHandler::particleCompositionMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleDistributionsMap "particledistributions_t* SampleLabelHandler::getParticleDistributionsMap()
+%feature("docstring")  SampleLabelHandler::particleDistributionsMap "particledistributions_t* SampleLabelHandler::particleDistributionsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleMap "particles_t* SampleLabelHandler::getParticleMap()
+%feature("docstring")  SampleLabelHandler::particleMap "particles_t* SampleLabelHandler::particleMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getParticleCoreShellMap "particlescoreshell_t* SampleLabelHandler::getParticleCoreShellMap()
+%feature("docstring")  SampleLabelHandler::particleCoreShellMap "particlescoreshell_t* SampleLabelHandler::particleCoreShellMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getRotationsMap "rotations_t* SampleLabelHandler::getRotationsMap()
+%feature("docstring")  SampleLabelHandler::rotationsMap "rotations_t* SampleLabelHandler::rotationsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLayerRoughnessMap "roughnesses_t* SampleLabelHandler::getLayerRoughnessMap()
+%feature("docstring")  SampleLabelHandler::layerRoughnessMap "roughnesses_t* SampleLabelHandler::layerRoughnessMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelParticle "std::string SampleLabelHandler::getLabelParticle(const IAbstractParticle *sample)
+%feature("docstring")  SampleLabelHandler::labelParticle "std::string SampleLabelHandler::labelParticle(const IAbstractParticle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelFormFactor "std::string SampleLabelHandler::getLabelFormFactor(const IFormFactor *sample)
+%feature("docstring")  SampleLabelHandler::labelFormFactor "std::string SampleLabelHandler::labelFormFactor(const IFormFactor *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelInterferenceFunction "std::string SampleLabelHandler::getLabelInterferenceFunction(const IInterferenceFunction *sample)
+%feature("docstring")  SampleLabelHandler::labelInterferenceFunction "std::string SampleLabelHandler::labelInterferenceFunction(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelLayout "std::string SampleLabelHandler::getLabelLayout(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::labelLayout "std::string SampleLabelHandler::labelLayout(const ILayout *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelMaterial "std::string SampleLabelHandler::getLabelMaterial(const HomogeneousMaterial *sample)
+%feature("docstring")  SampleLabelHandler::labelMaterial "std::string SampleLabelHandler::labelMaterial(const HomogeneousMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelRotation "std::string SampleLabelHandler::getLabelRotation(const IRotation *sample)
+%feature("docstring")  SampleLabelHandler::labelRotation "std::string SampleLabelHandler::labelRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelLayer "std::string SampleLabelHandler::getLabelLayer(const Layer *sample)
+%feature("docstring")  SampleLabelHandler::labelLayer "std::string SampleLabelHandler::labelLayer(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelRoughness "std::string SampleLabelHandler::getLabelRoughness(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::labelRoughness "std::string SampleLabelHandler::labelRoughness(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelMultiLayer "std::string SampleLabelHandler::getLabelMultiLayer(const MultiLayer *sample)
+%feature("docstring")  SampleLabelHandler::labelMultiLayer "std::string SampleLabelHandler::labelMultiLayer(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelParticleComposition "std::string SampleLabelHandler::getLabelParticleComposition(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::labelParticleComposition "std::string SampleLabelHandler::labelParticleComposition(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelParticleCoreShell "std::string SampleLabelHandler::getLabelParticleCoreShell(const ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::labelParticleCoreShell "std::string SampleLabelHandler::labelParticleCoreShell(const ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::getLabelParticleDistribution "std::string SampleLabelHandler::getLabelParticleDistribution(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::labelParticleDistribution "std::string SampleLabelHandler::labelParticleDistribution(const ParticleDistribution *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const HomogeneousMaterial *sample)
@@ -12969,6 +13015,21 @@ Put into a clean state for running a simulation.
 ";
 
 
+// File: classSpheresWithLimitsDistributionBuilder.xml
+%feature("docstring") SpheresWithLimitsDistributionBuilder "
+
+Spherical particles with the distribution applied to the radius and RealLimits defined.
+
+C++ includes: ParticleDistributionsBuilder.h
+";
+
+%feature("docstring")  SpheresWithLimitsDistributionBuilder::SpheresWithLimitsDistributionBuilder "SpheresWithLimitsDistributionBuilder::SpheresWithLimitsDistributionBuilder()
+";
+
+%feature("docstring")  SpheresWithLimitsDistributionBuilder::buildSample "MultiLayer * SpheresWithLimitsDistributionBuilder::buildSample() const 
+";
+
+
 // File: classSphericalDetector.xml
 %feature("docstring") SphericalDetector "
 
@@ -13707,10 +13768,13 @@ C++ includes: ZLimits.h
 // File: namespace_0D329.xml
 
 
-// File: namespace_0D368.xml
+// File: namespace_0D338.xml
 
 
-// File: namespace_0D478.xml
+// File: namespace_0D370.xml
+
+
+// File: namespace_0D480.xml
 
 
 // File: namespace_0D54.xml
@@ -14076,6 +14140,23 @@ Returns the safe relative difference, which is |(a-b)/b| except in special cases
 ";
 
 
+// File: namespaceParameterUtils.xml
+%feature("docstring")  ParameterUtils::isAngleRelated "bool ParameterUtils::isAngleRelated(const std::string &par_name)
+
+Returns true if given parameter name is related to angles. 
+";
+
+%feature("docstring")  ParameterUtils::mainParUnits "std::string ParameterUtils::mainParUnits(const ParticleDistribution &distr)
+
+Returns units of main parameter. 
+";
+
+%feature("docstring")  ParameterUtils::poolParameterUnits "std::string ParameterUtils::poolParameterUnits(const IParameterized &node, const std::string &parName)
+
+Returns units of main parameter. 
+";
+
+
 // File: namespacePythonFormatting.xml
 %feature("docstring")  PythonFormatting::representShape2D "BA_CORE_API_ std::string PythonFormatting::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
 
@@ -14095,6 +14176,9 @@ Returns fixed Python code snippet that defines the function \"runSimulation\".
 ";
 
 %feature("docstring")  PythonFormatting::printDegrees "BA_CORE_API_ std::string PythonFormatting::printDegrees(double input)
+";
+
+%feature("docstring")  PythonFormatting::printValue "BA_CORE_API_ std::string PythonFormatting::printValue(double value, const std::string &units)
 ";
 
 %feature("docstring")  PythonFormatting::isSquare "BA_CORE_API_ bool PythonFormatting::isSquare(double length1, double length2, double angle)
@@ -14119,6 +14203,26 @@ Returns parameter value, followed by its unit multiplicator (like \"* nm\").
 %feature("docstring")  PythonFormatting::argumentList "BA_CORE_API_ std::string PythonFormatting::argumentList(const IParameterized *ip)
 
 Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  PythonFormatting::printDistribution "BA_CORE_API_ std::string PythonFormatting::printDistribution(const IDistribution1D &par_distr, const std::string &units)
+
+Prints distribution with constructor parameters in given units. ba.DistributionGaussian(2.0*deg, 0.02*deg) 
+";
+
+%feature("docstring")  PythonFormatting::printRealLimits "BA_CORE_API_ std::string PythonFormatting::printRealLimits(const RealLimits &limits, const std::string &units)
+";
+
+%feature("docstring")  PythonFormatting::printRealLimitsArg "BA_CORE_API_ std::string PythonFormatting::printRealLimitsArg(const RealLimits &limits, const std::string &units)
+
+Prints RealLimits in the form of argument (in the context of  ParameterDistribution and similar). Default RealLimits will not be printed, any other will be printed as \", ba.RealLimits.limited(1*deg, 2*deg)\" 
+";
+
+%feature("docstring")  PythonFormatting::printParameterDistribution "BA_CORE_API_ std::string PythonFormatting::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
+
+Prints  ParameterDistribution. distVarName is a string representing  IDistribution1D variable, e.g. \"distr_1\"
+
+ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm)) 
 ";
 
 %feature("docstring")  PythonFormatting::simulationToPython "std::string PythonFormatting::simulationToPython(GISASSimulation *simulation)
@@ -15353,6 +15457,12 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 // File: ParameterSample_8h.xml
 
 
+// File: ParameterUtils_8cpp.xml
+
+
+// File: ParameterUtils_8h.xml
+
+
 // File: RealParameter_8cpp.xml
 
 
@@ -15943,6 +16053,9 @@ Template function to create an integrator object.
 
 
 // File: Numeric_8h.xml
+
+
+// File: OrderedMap_8h.xml
 
 
 // File: Precomputed_8cpp.xml

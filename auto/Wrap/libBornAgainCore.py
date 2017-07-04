@@ -7888,7 +7888,14 @@ class IDistribution1D(ICloneable, INode):
 
 
     def setUnits(self, units):
-        """setUnits(IDistribution1D self, std::string const & units)"""
+        """
+        setUnits(IDistribution1D self, std::string const & units)
+
+        void IDistribution1D::setUnits(const std::string &units)
+
+        Sets distribution units. 
+
+        """
         return _libBornAgainCore.IDistribution1D_setUnits(self, units)
 
 IDistribution1D_swigregister = _libBornAgainCore.IDistribution1D_swigregister
@@ -8389,7 +8396,14 @@ class DistributionLogNormal(IDistribution1D):
 
 
     def setUnits(self, units):
-        """setUnits(DistributionLogNormal self, std::string const & units)"""
+        """
+        setUnits(DistributionLogNormal self, std::string const & units)
+
+        void DistributionLogNormal::setUnits(const std::string &units)
+
+        Sets distribution units. 
+
+        """
         return _libBornAgainCore.DistributionLogNormal_setUnits(self, units)
 
 DistributionLogNormal_swigregister = _libBornAgainCore.DistributionLogNormal_swigregister
@@ -17536,7 +17550,7 @@ class HomogeneousMaterial(INamed):
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetization) -> HomogeneousMaterial
         __init__(HomogeneousMaterial self, std::string const & name, double refractive_index_delta, double refractive_index_beta) -> HomogeneousMaterial
 
-        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetic_field=kvector_t())
+        HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_delta, double refractive_index_beta, kvector_t magnetization=kvector_t())
 
         Constructs a material with  name and refractive_index parameters delta and beta (n = 1 - delta + i*beta). 
 
@@ -17555,7 +17569,7 @@ class HomogeneousMaterial(INamed):
 
         HomogeneousMaterial HomogeneousMaterial::inverted() const
 
-        Constructs a material with inverted magnetic field. 
+        Constructs a material with inverted magnetization. 
 
         """
         return _libBornAgainCore.HomogeneousMaterial_inverted(self)
@@ -17614,12 +17628,26 @@ class HomogeneousMaterial(INamed):
 
 
     def magnetization(self):
-        """magnetization(HomogeneousMaterial self) -> kvector_t"""
+        """
+        magnetization(HomogeneousMaterial self) -> kvector_t
+
+        kvector_t HomogeneousMaterial::magnetization() const
+
+        Get the magnetization (in A/m) 
+
+        """
         return _libBornAgainCore.HomogeneousMaterial_magnetization(self)
 
 
     def setMagnetization(self, magnetization):
-        """setMagnetization(HomogeneousMaterial self, kvector_t magnetization)"""
+        """
+        setMagnetization(HomogeneousMaterial self, kvector_t magnetization)
+
+        void HomogeneousMaterial::setMagnetization(const kvector_t magnetization)
+
+        Set the magnetizationd (in A/m) 
+
+        """
         return _libBornAgainCore.HomogeneousMaterial_setMagnetization(self, magnetization)
 
 

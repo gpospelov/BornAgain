@@ -8,7 +8,7 @@ endif ()
 
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets OpenGL)
 
-if (${Qt5Core_VERSION_STRING} VERSION_LESS "5.5.1")
+if (${Qt5Core_VERSION} VERSION_LESS "5.5.1")
   message (FATAL_ERROR "Qt 5.5.1+ is required, have ${Qt5Core_VERSION_STRING}")
 endif ()
 
@@ -18,7 +18,8 @@ include_directories(${include_dirs})
 set (CMAKE_AUTOMOC ON)
 
 add_subdirectory (ba3d)
-add_subdirectory (main)
+add_subdirectory (showcase)
+add_subdirectory (demo)
 
 set(library_name ba3d)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)

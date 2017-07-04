@@ -28,10 +28,10 @@ FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(
     : m_length(length), m_width(width), m_height(height), m_d(asymetry)
 {
     setName(BornAgain::FFLongRipple2LorentzType);
-    registerParameter(BornAgain::Width, &m_width      ).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height    ).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Length, &m_length    ).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit("nm");
+    registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::AsymmetryLength, &m_d).setUnit(BornAgain::UnitsNm);
     onChange();
 }
 

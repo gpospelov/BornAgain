@@ -27,9 +27,9 @@ FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
 {
     setName(BornAgain::FFRipple1Type);
     check_initialization();
-    registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Width, &m_width).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorRipple1::Integrand);
     onChange();
 }

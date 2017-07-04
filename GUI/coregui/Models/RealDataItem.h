@@ -38,7 +38,7 @@ public:
 
     void setOutputData(OutputData<double> *data);
 
-    void linkToInstrument(const InstrumentItem *instrument);
+    void linkToInstrument(const InstrumentItem *instrument, bool make_update = true);
 
 private:
     void updateIntensityDataFileName();

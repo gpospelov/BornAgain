@@ -23,8 +23,10 @@ FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
     , m_base_edge(base_edge)
 {
     setName(BornAgain::FFPrism6Type);
-    registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
     onChange();
 }
 

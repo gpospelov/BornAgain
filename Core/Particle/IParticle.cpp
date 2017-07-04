@@ -82,9 +82,9 @@ void IParticle::registerPosition(bool make_registered)
 {
     if(make_registered) {
         if(!parameter(BornAgain::PositionX)) {
-            registerParameter(BornAgain::PositionX, &m_position[0]).setUnit("nm");
-            registerParameter(BornAgain::PositionY, &m_position[1]).setUnit("nm");
-            registerParameter(BornAgain::PositionZ, &m_position[2]).setUnit("nm");
+            registerParameter(BornAgain::PositionX, &m_position[0]).setUnit(BornAgain::UnitsNm);
+            registerParameter(BornAgain::PositionY, &m_position[1]).setUnit(BornAgain::UnitsNm);
+            registerParameter(BornAgain::PositionZ, &m_position[2]).setUnit(BornAgain::UnitsNm);
         }
     } else {
         removeParameter(BornAgain::PositionX);

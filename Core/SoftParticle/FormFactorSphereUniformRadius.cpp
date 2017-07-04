@@ -31,8 +31,10 @@ FormFactorSphereUniformRadius::FormFactorSphereUniformRadius(double mean,
                 "FormFactorSphereUniformRadius::FormFactorSphereUniformRadius:"
                 " mean radius must be bigger than the half width");
     setName(BornAgain::FormFactorSphereUniformRadiusType);
-    registerParameter(BornAgain::MeanRadius, &m_mean).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::FullWidth, &m_full_width).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::MeanRadius, &m_mean).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::FullWidth, &m_full_width).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
     onChange();
 }
 

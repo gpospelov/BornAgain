@@ -24,7 +24,7 @@
 class MainWindow;
 class ProjectDocument;
 class WarningMessageService;
-class AutosaveService;
+class SaveService;
 
 //! Handles activity related to opening/save projects.
 
@@ -46,7 +46,7 @@ public:
     QString userImportDir() const;
     void setImportDir(const QString& dirname);
 
-    bool isAutosaveEnabled();
+    bool isAutosaveEnabled() const;
 
 signals:
     void modified();
@@ -87,7 +87,7 @@ private:
 
     QStringList m_recentProjects;
     WarningMessageService* m_messageService;
-    AutosaveService* m_autosaveService;
+    SaveService* m_saveService;
 };
 
 #endif // PROJECTMANAGER_H

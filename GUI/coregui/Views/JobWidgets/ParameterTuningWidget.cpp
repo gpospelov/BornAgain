@@ -46,7 +46,7 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget *parent)
     , m_parameterTuningModel(0)
     , m_sliderSettingsWidget(new SliderSettingsWidget(this))
     , m_treeView(new QTreeView)
-    , m_delegate(new ParameterTuningDelegate)
+    , m_delegate(new ParameterTuningDelegate(this))
     , m_warningSign(new WarningSign(m_treeView))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

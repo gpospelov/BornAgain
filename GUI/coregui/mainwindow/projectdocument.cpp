@@ -19,8 +19,12 @@
 #include "GUIHelpers.h"
 #include "WarningMessageService.h"
 #include "ProjectUtils.h"
+#include "OutputDataIOService.h"
+#include "JobModel.h"
 #include <QDir>
 #include <QXmlStreamReader>
+#include <QElapsedTimer>
+#include <QDebug>
 
 namespace {
 const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
@@ -32,8 +36,9 @@ const QString minimal_supported_version = "1.6.0";
 ProjectDocument::ProjectDocument(const QString& projectFileName)
     : m_applicationModels(nullptr)
     , m_modified(false)
-    , m_documentStatus(STATUS_OK)
+    , m_documentStatus(ProjectFlags::STATUS_OK)
     , m_messageService(nullptr)
+    , m_dataService(new OutputDataIOService(this))
 {
     setObjectName("ProjectDocument");
     if (!projectFileName.isEmpty())
@@ -87,24 +92,29 @@ void ProjectDocument::setApplicationModels(ApplicationModels* applicationModels)
     if (applicationModels != m_applicationModels) {
         disconnectModels();
         m_applicationModels = applicationModels;
+        m_dataService->setApplicationModels(m_applicationModels);
         connectModels();
     }
 }
 
-bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
+void ProjectDocument::save(const QString& project_file_name, bool autoSave)
 {
-    QString projectDir = ProjectUtils::projectDir(project_file_name);
+    save_project_data(project_file_name);
+    save_project_file(project_file_name, autoSave);
+}
 
-    removeDataFiles(projectDir);
+void ProjectDocument::save_project_file(const QString& project_file_name, bool autoSave)
+{
+    QElapsedTimer timer;
+    timer.start();
 
     QFile file(project_file_name);
     if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text))
-        return false;
+        throw GUIHelpers::Error("ProjectDocument::save_project_file() -> Error. Can't open "
+                                "file '"+project_file_name+"' for writing.");
 
     writeTo(&file);
     file.close();
-
-    m_applicationModels->saveNonXMLData(projectDir);
 
     if (!autoSave) {
         setProjectFileName(project_file_name);
@@ -112,19 +122,35 @@ bool ProjectDocument::save(const QString& project_file_name, bool autoSave)
         emit modified();
     }
 
-    return true;
+    qDebug() << "ProjectDocument::save_project_file() -> " << project_file_name
+             << timer.elapsed() << "msec";
 }
 
-bool ProjectDocument::load(const QString& project_file_name)
+void ProjectDocument::save_project_data(const QString& project_file_name)
 {
-    m_documentStatus = STATUS_OK;
+    QElapsedTimer timer;
+    timer.start();
+
+    m_dataService->save(ProjectUtils::projectDir(project_file_name));
+
+    qDebug() << "ProjectDocument::save_project_data() -> " << project_file_name
+             << timer.elapsed() << "msec";
+}
+
+
+void ProjectDocument::load(const QString& project_file_name)
+{
+    QElapsedTimer timer1, timer2;
+    timer1.start();
+
+    m_documentStatus = ProjectFlags::STATUS_OK;
     setProjectFileName(project_file_name);
 
     QFile file(projectFileName());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         m_messageService->send_message(this, OPEN_FILE_ERROR, file.errorString());
-        m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
-        return false;
+        ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
+        return;
     }
 
     try {
@@ -132,16 +158,20 @@ bool ProjectDocument::load(const QString& project_file_name)
         disconnectModels();
         readFrom(&file);
         file.close();
-        m_applicationModels->loadNonXMLData(projectDir());
+
+        timer2.start();
+        m_dataService->load(projectDir());
+        m_applicationModels->jobModel()->link_instruments();
         connectModels();
 
     } catch (const std::exception& ex) {
-        m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
+        ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
         m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
-        return false;
     }
 
-    return true;
+    qDebug() << "ProjectDocument::load() -> Project load time:"
+             << (timer1.elapsed() - timer2.elapsed()) << ";"
+             << "nonXML load time:" << timer2.elapsed();
 }
 
 bool ProjectDocument::hasValidNameAndPath()
@@ -166,24 +196,29 @@ void ProjectDocument::setLogger(WarningMessageService* messageService)
     m_messageService = messageService;
 }
 
-ProjectDocument::EDocumentStatus ProjectDocument::documentStatus() const
+ProjectFlags::DocumentStatus ProjectDocument::documentStatus() const
 {
     return m_documentStatus;
 }
 
 bool ProjectDocument::isReady() const
 {
-    return (m_documentStatus == STATUS_OK);
+    return (m_documentStatus == ProjectFlags::STATUS_OK);
 }
 
 bool ProjectDocument::hasWarnings() const
 {
-    return (m_documentStatus & STATUS_WARNING);
+    return m_documentStatus.testFlag(ProjectFlags::STATUS_WARNING);
 }
 
 bool ProjectDocument::hasErrors() const
 {
-    return (m_documentStatus & STATUS_FAILED);
+    return m_documentStatus.testFlag(ProjectFlags::STATUS_FAILED);
+}
+
+bool ProjectDocument::hasData() const
+{
+    return m_dataService->dataItems().isEmpty() ? false : true;
 }
 
 QString ProjectDocument::documentVersion() const
@@ -213,7 +248,7 @@ void ProjectDocument::readFrom(QIODevice* device)
                                        .toString();
                 if (!GUIHelpers::isVersionMatchMinimal(m_currentVersion,
                                                        minimal_supported_version)) {
-                    m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
+                    ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
                     QString message = QString("Can't open document version '%1', "
                                               "minimal supported version '%2'")
                                           .arg(m_currentVersion)
@@ -229,14 +264,14 @@ void ProjectDocument::readFrom(QIODevice* device)
             } else {
                 m_applicationModels->readFrom(&reader, m_messageService);
                 if (m_messageService->hasWarnings(m_applicationModels)) {
-                    m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_WARNING);
+                    ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_WARNING);
                 }
             }
         }
     }
 
     if (reader.hasError()) {
-        m_documentStatus = EDocumentStatus(m_documentStatus | STATUS_FAILED);
+        ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
         m_messageService->send_message(this, XML_FORMAT_ERROR, reader.errorString());
         return;
     }
@@ -259,21 +294,6 @@ void ProjectDocument::writeTo(QIODevice* device)
 
     writer.writeEndElement(); // BornAgain tag
     writer.writeEndDocument();
-}
-
-//! Cleans projectDir from *.int.gz files. Done on project save.
-
-void ProjectDocument::removeDataFiles(const QString& projectDir)
-{
-    QDir dir(projectDir);
-    QStringList filters("*.int.gz");
-    QStringList intensityFiles = dir.entryList(filters);
-    foreach (QString fileName, intensityFiles) {
-        QString filename = projectDir + QStringLiteral("/") + fileName;
-        QFile fin(filename);
-        if (fin.exists())
-            fin.remove();
-    }
 }
 
 void ProjectDocument::disconnectModels()

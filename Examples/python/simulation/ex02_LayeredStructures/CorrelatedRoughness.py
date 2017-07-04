@@ -1,12 +1,8 @@
 """
 MultiLayer with correlated roughness
 """
-import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
-
-phi_min, phi_max = -0.5, 0.5
-alpha_min, alpha_max = 0.0, 1.0
 
 
 def get_sample():
@@ -41,7 +37,7 @@ def get_sample():
         my_sample.addLayerWithTopRoughness(l_part_b, roughness)
 
     my_sample.addLayerWithTopRoughness(l_substrate, roughness)
-    my_sample.setCrossCorrLength(1e-4)
+    my_sample.setCrossCorrLength(10*nm)
 
     print(my_sample.treeToString())
 
@@ -53,8 +49,8 @@ def get_simulation():
     Characterizing the input beam and output detector
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
-                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setDetectorParameters(200, -0.5*deg, 0.5*deg,
+                                     200, 0.0*deg, 1.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setBeamIntensity(5e11)
     return simulation
@@ -64,9 +60,8 @@ def run_simulation():
     """
     Runs simulation and returns intensity map.
     """
-    sample = get_sample()
     simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation.setSample(get_sample())
     simulation.runSimulation()
     return simulation.getIntensityData()
 

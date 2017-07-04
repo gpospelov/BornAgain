@@ -102,7 +102,7 @@ IFresnelMap* MainComputation::createFresnelMap()
             return new MatrixFresnelMap();
 }
 
-std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer()
+std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer() const
 {
     std::map<size_t, std::vector<HomogeneousRegion>> region_map;
     for (auto& comp: m_computation_terms) {
@@ -125,14 +125,19 @@ std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer()
     return P_result;
 }
 
+std::unique_ptr<MultiLayer> MainComputation::getMultilayerForFresnel() const
+{
+    std::unique_ptr<MultiLayer> P_result = m_sim_options.useAvgMaterials()
+                                           ? getAveragedMultilayer()
+                                           : std::unique_ptr<MultiLayer>(mP_multi_layer->clone());
+    P_result->initBFields();
+    return P_result;
+}
+
 void MainComputation::initFresnelMap()
 {
-    if (m_sim_options.useAvgMaterials()) {
-        auto avg_multilayer = getAveragedMultilayer();
-        mP_fresnel_map->setMultilayer(*avg_multilayer);
-    }
-    else
-        mP_fresnel_map->setMultilayer(*mP_multi_layer);
+    auto multilayer = getMultilayerForFresnel();
+    mP_fresnel_map->setMultilayer(*multilayer);
 }
 
 bool MainComputation::checkRegions(const std::vector<HomogeneousRegion>& regions) const
@@ -148,13 +153,13 @@ namespace
 HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_mat,
                                              const std::vector<HomogeneousRegion>& regions)
 {
-    kvector_t magnetization_layer = layer_mat.magneticField();
+    kvector_t magnetization_layer = layer_mat.magnetization();
     complex_t refr_index2_layer = layer_mat.refractiveIndex2();
     kvector_t magnetization_avg = magnetization_layer;
     complex_t refr_index2_avg = refr_index2_layer;
     for (auto& region : regions)
     {
-        kvector_t magnetization_region = region.m_material.magneticField();
+        kvector_t magnetization_region = region.m_material.magnetization();
         complex_t refr_index2_region = region.m_material.refractiveIndex2();
         magnetization_avg += region.m_volume*(magnetization_region - magnetization_layer);
         refr_index2_avg += region.m_volume*(refr_index2_region - refr_index2_layer);

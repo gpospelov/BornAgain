@@ -30,9 +30,9 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
 {
     setName(BornAgain::FFTruncatedSphereType);
     check_initialization();
-    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::DeltaHeight, &m_dh).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::DeltaHeight, &m_dh).setUnit(BornAgain::UnitsNm).setNonnegative();
     mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSphere::Integrand);
     onChange();
 }

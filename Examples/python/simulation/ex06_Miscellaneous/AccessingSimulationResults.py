@@ -3,15 +3,10 @@ Extended example for simulation results treatment (cropping, slicing, exporting)
 The standard "Cylinders in DWBA" sample is used to setup the simulation.
 """
 import math
-import numpy
 import random
 import bornagain as ba
 from bornagain import deg, angstrom, nm
-import matplotlib
 from matplotlib import pyplot as plt
-
-phi_min, phi_max = -2.0, 2.0
-alpha_min, alpha_max = 0.0, 2.0
 
 
 def get_sample():
@@ -44,31 +39,10 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, phi_min*deg, phi_max*deg,
-                                     200, alpha_min*deg, alpha_max*deg)
+    simulation.setDetectorParameters(200, -2.0*deg, 2.0*deg,
+                                     200, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
-
-
-def plot_as_colormap(hist, zmin=None, zmax=None):
-    """
-    Simple plot of intensity data as color map
-    """
-    if not zmin:
-        zmin = 1.0
-
-    if not zmax:
-        zmax = hist.getMaximum()
-
-    im = plt.imshow(
-        hist.getArray(),
-        norm=matplotlib.colors.LogNorm(zmin, zmax),
-        extent=[hist.getXmin()/deg, hist.getXmax()/deg,
-                hist.getYmin()/deg, hist.getYmax()/deg],
-        aspect='auto')
-    cb = plt.colorbar(im, pad=0.025)
-    plt.xlabel(r'$\phi_f ^{\circ}$', fontsize=16)
-    plt.ylabel(r'$\alpha_f ^{\circ}$', fontsize=16)
 
 
 def plot_cropped_map(hist):
@@ -76,7 +50,7 @@ def plot_cropped_map(hist):
     Plot cropped version of intensity data
     """
     crop = hist.crop(-1.0*deg, 0.5*deg, 1.0*deg, 1.0*deg)
-    plot_as_colormap(crop)
+    ba.plot_colormap(crop)
 
 
 def get_noisy_image(hist):
@@ -100,7 +74,7 @@ def plot_relative_difference(hist):
     """
     noisy = get_noisy_image(hist)
     diff = noisy.relativeDifferenceHistogram(hist)
-    plot_as_colormap(diff, zmin=1e-03, zmax=10)
+    ba.plot_colormap(diff, zmin=1e-03, zmax=10)
 
 
 def plot_slices(hist):
@@ -157,7 +131,7 @@ def plot(result):
     fig = plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)
-    plot_as_colormap(result)
+    ba.plot_colormap(result)
     plt.title("Intensity as colormap")
 
     plt.subplot(2, 2, 2)
@@ -191,4 +165,4 @@ def run_simulation():
 
 if __name__ == '__main__':
     result = run_simulation()
-    ba.plot_intensity_data(result, plot)
+    plot(result)

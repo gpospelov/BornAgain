@@ -25,7 +25,11 @@
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
 #include "RealParameter.h"
+#include "FormFactorPyramid.h"
+#include "FormFactorFullSphere.h"
+#include "FormFactorCone.h"
 #include "Units.h"
+#include "ParameterSample.h"
 
 CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
     : m_height(5*Units::nanometer)
@@ -37,8 +41,8 @@ CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
 
 void CylindersWithSizeDistributionBuilder::init_parameters()
 {
-    registerParameter(BornAgain::Radius, &m_radius).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
+    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
 }
 
 
@@ -92,10 +96,10 @@ TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
 
 void TwoTypesCylindersDistributionBuilder::init_parameters()
 {
-    registerParameter("radius1", &m_radius1).setUnit("nm").setNonnegative();
-    registerParameter("radius2", &m_radius2).setUnit("nm").setNonnegative();
-    registerParameter("height1", &m_height1).setUnit("nm").setNonnegative();
-    registerParameter("height2", &m_height2).setUnit("nm").setNonnegative();
+    registerParameter("radius1", &m_radius1).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("radius2", &m_radius2).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("height1", &m_height1).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("height2", &m_height2).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter("sigma1_ratio", &m_sigma1_ratio).setNonnegative();
     registerParameter("sigma2_ratio", &m_sigma2_ratio).setNonnegative();
 }
@@ -143,6 +147,120 @@ MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
     air_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
+
+    return multi_layer;
+}
+
+// ----------------------------------------------------------------------------
+
+RotatedPyramidsDistributionBuilder::RotatedPyramidsDistributionBuilder()
+    : m_length(10*Units::nanometer)
+    , m_height(5*Units::nanometer)
+    , m_alpha(Units::deg2rad(54.73 ))
+    , m_zangle(45.*Units::degree)
+{
+
+}
+
+MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
+{
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+
+    // particle
+    FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
+    Particle pyramid(particle_material, ff_pyramid);
+    pyramid.setRotation(RotationZ(m_zangle));
+
+    // particle collection
+    DistributionGate gate(35.0*Units::deg, 55.0*Units::deg);
+    ParameterDistribution parameter_distr("/Particle/ZRotation/Angle", gate, 10, 2.0);
+
+    ParticleDistribution collection(pyramid, parameter_distr);
+
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(collection);
+
+    // Multi layer
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    air_layer.addLayout(particle_layout);
+
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+}
+
+// ----------------------------------------------------------------------------
+
+MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
+{
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+
+    // particle
+    FormFactorFullSphere ff(3.0*Units::nm);
+    Particle sphere(particle_material, ff);
+
+    // particle collection
+    DistributionGaussian gauss(3.0*Units::nm, 1.0*Units::nm);
+    ParameterDistribution parameter_distr("/Particle/FullSphere/Radius", gauss, 10, 20.0,
+                                          RealLimits::limited(2.0, 4.0));
+
+    ParticleDistribution collection(sphere, parameter_distr);
+
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(collection);
+
+    // Multi layer
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    air_layer.addLayout(particle_layout);
+
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+}
+
+// ----------------------------------------------------------------------------
+
+MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
+{
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+
+    // particle
+    FormFactorCone ff(10.0*Units::nm, 13.0*Units::nm, 60.0*Units::deg);
+    Particle cone(particle_material, ff);
+
+    // particle collection
+    DistributionGaussian gauss(60.0*Units::deg, 6.0*Units::deg);
+    ParameterDistribution parameter_distr("/Particle/Cone/Alpha", gauss, 5, 20.0,
+                                          RealLimits::limited(55.0*Units::deg, 65.0*Units::deg));
+
+    ParticleDistribution collection(cone, parameter_distr);
+
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(collection);
+
+    // Multi layer
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    air_layer.addLayout(particle_layout);
+
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
 }

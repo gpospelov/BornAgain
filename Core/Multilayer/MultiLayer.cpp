@@ -39,7 +39,7 @@ void MultiLayer::init_parameters()
 {
     parameterPool()->clear(); // non-trivially needed
     registerParameter(BornAgain::CrossCorrelationLength, &m_crossCorrLength).
-        setUnit("nm").setNonnegative();
+        setUnit(BornAgain::UnitsNm).setNonnegative();
 }
 
 MultiLayer* MultiLayer::clone() const
@@ -58,6 +58,8 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
         return clone();
     auto layer_limits = calculateLayerZLimits();
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
+    P_result->setCrossCorrLength(crossCorrLength());
+    P_result->setExternalField(externalField());
     for (size_t i=0; i<numberOfLayers(); ++i)
     {
         auto p_interface = i>0 ? m_interfaces[i-1]
@@ -143,7 +145,7 @@ void MultiLayer::addLayer(const Layer& layer)
 //! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
 double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 {
-    if (m_crossCorrLength == 0)
+    if (m_crossCorrLength <= 0.0)
         return 0.0;
     double z_j = layerBottomZ(j);
     double z_k = layerBottomZ(k);
@@ -153,7 +155,7 @@ double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k
         return 0.0;
     double sigma_j = rough_j->getSigma();
     double sigma_k = rough_k->getSigma();
-    if (sigma_j == 0 || sigma_k == 0)
+    if (sigma_j <= 0 || sigma_k <= 0)
         return 0.0;
     double corr = 0.5*( (sigma_k/sigma_j)*rough_j->getSpectralFun(kvec) +
                         (sigma_j/sigma_k)*rough_k->getSpectralFun(kvec) ) *
@@ -175,6 +177,17 @@ bool MultiLayer::containsMagneticMaterial() const
         if (mat->isMagneticMaterial())
             return true;
     return false;
+}
+
+void MultiLayer::initBFields()
+{
+    if (numberOfLayers()==0)
+        return;
+    double m_z0 = m_layers[0]->material()->magnetization().z();
+    double b_z = Layer::Magnetic_Permeability*(m_ext_field.z()+m_z0);
+    for (size_t i=0; i<numberOfLayers(); ++i) {
+        m_layers[i]->initBField(m_ext_field, b_z);
+    }
 }
 
 bool MultiLayer::hasRoughness() const
@@ -246,6 +259,8 @@ size_t MultiLayer::check_interface_index(size_t i_interface) const
 MultiLayer* MultiLayer::cloneGeneric(const std::function<Layer*(const Layer*)>& layer_clone) const
 {
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
+    P_result->setCrossCorrLength(crossCorrLength());
+    P_result->setExternalField(externalField());
     for (size_t i=0; i<numberOfLayers(); ++i)
     {
         auto p_interface = i>0 ? m_interfaces[i-1]
@@ -316,6 +331,11 @@ void MultiLayer::setCrossCorrLength(double crossCorrLength)
     if (crossCorrLength<0.0)
         throw Exceptions::LogicErrorException("Attempt to set crossCorrLength to negative value");
     m_crossCorrLength = crossCorrLength;
+}
+
+void MultiLayer::setExternalField(kvector_t ext_field)
+{
+    m_ext_field = ext_field;
 }
 
 std::vector<ZLimits> MultiLayer::calculateLayerZLimits() const

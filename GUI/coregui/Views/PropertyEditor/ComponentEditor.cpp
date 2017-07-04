@@ -124,7 +124,7 @@ void ComponentEditor::onDataChanged(const QModelIndex &topLeft,
     if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
         // updating editor's property appearance (tooltips, limits)
         if (roles.contains(SessionModel::FlagRole)) {
-            m_d->updatePropertyAppearance(property, PropertyAttribute::fromItem(item));
+            m_d->updatePropertyAppearance(property, item);
         }
 
         // updating editor's property values

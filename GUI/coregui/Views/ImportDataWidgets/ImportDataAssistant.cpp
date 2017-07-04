@@ -73,28 +73,6 @@ OutputData<double> *ImportDataAssistant::importData(QString &baseNameOfLoadedFil
     return result;
 }
 
-//! Loads corresponding intensityDataItem from projectDir.
-
-void ImportDataAssistant::loadIntensityData(RealDataItem *realDataItem, const QString &projectDir)
-{
-    if(IntensityDataItem *intensityItem = realDataItem->intensityDataItem()) {
-        QString filename = intensityItem->fileName(projectDir);
-        auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
-        intensityItem->setOutputData(data);
-    }
-}
-
-//! Saves corresponding intensityDataItem to projectDir.
-
-void ImportDataAssistant::saveIntensityData(RealDataItem *realDataItem, const QString &projectDir)
-{
-    if(IntensityDataItem *intensityItem = realDataItem->intensityDataItem()) {
-        QString filename = intensityItem->fileName(projectDir);
-        IntensityDataIOFactory::writeOutputData(
-                    *intensityItem->getOutputData(), filename.toStdString());
-    }
-}
-
 //! Creates OutputData with simplified axes [0,nxbin]x[0,nybin].
 
 OutputData<double> *ImportDataAssistant::createSimlifiedOutputData(const OutputData<double> &data)

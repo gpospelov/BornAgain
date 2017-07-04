@@ -54,7 +54,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
     // Calculate refraction angle, expressed as lambda or k_z, for each layer.
     double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;
     for(size_t i=0; i<N; ++i) {
-        complex_t rad = sample.layer(i)->material()->scalarFresnel(k, n_ref);
+        complex_t rad = sample.layer(i)->scalarReducedPotential(k, n_ref);
         // use small absorptive component for layers with i>0 if radicand becomes very small:
         if (i>0 && std::abs(rad)<1e-40) rad = imag_unit*1e-40;
         coeff[i].lambda = sqrt(rad);
@@ -122,13 +122,14 @@ bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff, const MultiL
     coeff[layer_index+1].t_r(0) = 1.0;
     coeff[layer_index+1].t_r(1) = 0.0;
     double kfactor = std::pow(M_PI_2, 1.5)*kmag;
-    for (int i=layer_index; i>=0; --i) {
+    for (size_t j=0; j<=layer_index; ++j) {
+        size_t i = layer_index - j;  // start from bottom
         complex_t roughness_factor = 1;
         if (sample.layerInterface(i)->getRoughness()) {
             double sigma = sample.layerBottomInterface(i)->getRoughness()->getSigma();
             if(sigma > 0.0) {
                 // since there is a roughness, compute one diagonal matrix element p00;
-                // the other element is p11 = 1/p00.
+                // the other non-zero element is p11 = 1/p00.
                 double sigeff = kfactor*sigma;
                 roughness_factor = sqrt(
                             MathFunctions::tanhc(sigeff*coeff[i+1].lambda) /

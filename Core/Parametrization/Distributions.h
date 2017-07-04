@@ -64,6 +64,9 @@ public:
     //! Returns true if the distribution is in the limit case of a Dirac delta distribution.
     virtual bool isDelta() const =0;
 
+    //! Sets distribution units.
+    virtual void setUnits(const std::string& units);
+
 protected:
     //! this function is called during bad initialization of a subclass
     static void SignalBadInitialization(std::string distribution_name);
@@ -216,6 +219,8 @@ public:
     bool isDelta() const final;
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
+    virtual void setUnits(const std::string& units);
 
 protected:
     //! Registers some class members for later access via parameter pool

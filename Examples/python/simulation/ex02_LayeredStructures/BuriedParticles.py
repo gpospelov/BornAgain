@@ -1,9 +1,9 @@
 """
 Spherical particles embedded in the middle of the layer on top of substrate.
 """
-import numpy
 import bornagain as ba
 from bornagain import deg, angstrom, nm
+
 
 def get_sample():
     """
@@ -46,8 +46,16 @@ def get_simulation():
     return simulation
 
 
-if __name__ == '__main__':
+def run_simulation():
+    """
+    Runs simulation and returns intensity map.
+    """
     simulation = get_simulation()
+    simulation.setSample(get_sample())
     simulation.runSimulation()
-    result = simulation.getIntensityData()
+    return simulation.getIntensityData()
+
+
+if __name__ == '__main__':
+    result = run_simulation()
     ba.plot_intensity_data(result)

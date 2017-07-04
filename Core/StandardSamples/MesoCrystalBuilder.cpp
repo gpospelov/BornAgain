@@ -51,22 +51,33 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 
 void MesoCrystalBuilder::init_parameters()
 {
-    registerParameter("meso_radius", &m_meso_radius).setUnit("nm").setNonnegative();
+    registerParameter("meso_radius", &m_meso_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter("surface_filling_ratio", &m_surface_filling_ratio).setNonnegative();
-    registerParameter("meso_height", &m_meso_height).setUnit("nm").setNonnegative();
-    registerParameter("sigma_meso_height", &m_sigma_meso_height).setUnit("nm").setNonnegative();
-    registerParameter("sigma_meso_radius", &m_sigma_meso_radius).setUnit("nm").setNonnegative();
-    registerParameter("lattice_length_a", &m_lattice_length_a).setUnit("nm").setNonnegative();
-    registerParameter("lattice_length_c", &m_lattice_length_c).setUnit("nm").setNonnegative();
-    registerParameter("nanoparticle_radius", &m_nanoparticle_radius).setUnit("nm").setNonnegative();
-    registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius).
-        setUnit("nm").setNonnegative();
-    registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a).
-        setUnit("nm").setNonnegative();
-    registerParameter("roughness", &m_roughness).setUnit("nm").setNonnegative();
+    registerParameter("meso_height", &m_meso_height).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("sigma_meso_height", &m_sigma_meso_height)
+        .setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("sigma_meso_radius", &m_sigma_meso_radius)
+        .setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("lattice_length_a", &m_lattice_length_a)
+        .setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("lattice_length_c", &m_lattice_length_c)
+        .setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("nanoparticle_radius", &m_nanoparticle_radius)
+        .setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius)
+        .setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a)
+        .setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("roughness", &m_roughness).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter("nphi_rotations", &m_nphi_rotations).setNonnegative();
 }
-
 
 // create mesocrystal
 MultiLayer* MesoCrystalBuilder::buildSample() const

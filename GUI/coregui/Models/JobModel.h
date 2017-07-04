@@ -46,10 +46,11 @@ public:
 
     bool hasUnfinishedJobs();
 
-    void clear();
+    void clear() override;
 
-    void loadNonXMLData(const QString &projectDir);
-    void saveNonXMLData(const QString &projectDir);
+    QVector<SessionItem*> nonXMLData() const override;
+
+    void link_instruments();
 
 signals:
     void aboutToDeleteJobItem(JobItem *item);

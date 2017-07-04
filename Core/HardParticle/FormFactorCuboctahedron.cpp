@@ -49,10 +49,14 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(
     , m_alpha(alpha)
 {
     setName(BornAgain::FFCuboctahedronType);
-    registerParameter(BornAgain::Length, &m_length).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::HeightRatio, &m_height_ratio).setUnit("nm").setNonnegative();
-    registerParameter(BornAgain::Alpha, & m_alpha).setUnit("rad").setLimited(0., M_PI_2);
+    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::HeightRatio, &m_height_ratio).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::Alpha, &m_alpha).setUnit(BornAgain::UnitsRad)
+        .setLimited(0., M_PI_2);
     onChange();
 }
 

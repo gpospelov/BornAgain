@@ -48,6 +48,20 @@ BA_CORE_API_ bool hasAutosavedData(const QString& projectFileName);
 //! Returns a string representing modification time of given file
 BA_CORE_API_ QString lastModified(const QString& fileName);
 
+//! Returns list of files on disk representing nonXML data.
+BA_CORE_API_ QStringList nonXMLDataInDir(const QString& dirname);
+
+//! Removes recursively directory with given name. Directory name is relative
+//! to the parent (working directory of the executable).
+BA_CORE_API_ bool removeRecursively(const QString& dirname);
+
+//! Remove file from given directory.
+BA_CORE_API_ bool removeFile(const QString& dirname, const QString& filename);
+BA_CORE_API_ bool removeFiles(const QString& dirname, const QStringList& filenames);
+
+//! Returns list of string from lhs, which are not in rhs.
+BA_CORE_API_ QStringList substract(const QStringList& lhs, const QStringList& rhs);
+
 }
 
 #endif // PROJECTUTILS_H

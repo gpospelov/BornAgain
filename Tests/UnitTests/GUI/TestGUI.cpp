@@ -24,7 +24,10 @@
 #include "TestLinkInstrument.h"
 #include "TestUpdateTimer.h"
 #include "TestProjectDocument.h"
-#include "TestAutosave.h"
+#include "TestSaveService.h"
+#include "TestOutputDataIOService.h"
+#include "TestIntensityDataItem.h"
+#include "TestProjectUtils.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
@@ -55,7 +58,10 @@ int main(int argc, char** argv) {
     TestLinkInstrument testLinkInstrument;
     TestUpdateTimer testUpdateTimer;
     TestProjectDocument testProjectDocument;
-    TestAutosave testAutosave;
+    TestSaveService testSaveService;
+    TestOutputDataIOService testIO;
+    TestIntensityDataItem testIntensityData;
+    TestProjectUtils testProjectUtils;
 
     bool status(false);
 
@@ -81,10 +87,12 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testParameterTreeUtils, argc, argv);
     status |= QTest::qExec(&testDetectorItems, argc, argv);
     status |= QTest::qExec(&testLinkInstrument, argc, argv);
-    status |= QTest::qExec(&testLinkInstrument, argc, argv);
     status |= QTest::qExec(&testUpdateTimer, argc, argv);
     status |= QTest::qExec(&testProjectDocument, argc, argv);
-    status |= QTest::qExec(&testAutosave, argc, argv);
+    status |= QTest::qExec(&testSaveService, argc, argv);
+    status |= QTest::qExec(&testIO, argc, argv);
+    status |= QTest::qExec(&testIntensityData, argc, argv);
+    status |= QTest::qExec(&testProjectUtils, argc, argv);
 
     return status;
 }

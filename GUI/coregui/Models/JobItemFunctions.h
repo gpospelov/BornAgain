@@ -34,6 +34,8 @@ BA_CORE_API_ QString jobReferenceFileName(const JobItem& jobItem);
 
 BA_CORE_API_ QString realDataFileName(const RealDataItem& realDataItem);
 
+BA_CORE_API_ QStringList nonXMLFileNameFilters();
+
 }
 
 #endif // JOBITEMFUNCTIONS_H

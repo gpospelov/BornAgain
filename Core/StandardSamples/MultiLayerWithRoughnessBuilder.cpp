@@ -20,6 +20,7 @@
 #include "MultiLayer.h"
 #include "RealParameter.h"
 #include "Units.h"
+#include "BornAgainNamespace.h"
 
 MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
     : m_thicknessA(2.5*Units::nanometer)
@@ -27,7 +28,7 @@ MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
     , m_sigma(1.0*Units::nanometer)
     , m_hurst(0.3)
     , m_lateralCorrLength(5.0*Units::nanometer)
-    , m_crossCorrLength(1e-4)
+    , m_crossCorrLength(10.0*Units::nanometer)
 {
     init_parameters();
 }
@@ -35,12 +36,14 @@ MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
 
 void MultiLayerWithRoughnessBuilder::init_parameters()
 {
-    registerParameter("thicknessA", &m_thicknessA).setUnit("nm").setNonnegative();
-    registerParameter("thicknessB", &m_thicknessB).setUnit("nm").setNonnegative();
-    registerParameter("sigma", &m_sigma).setUnit("nm").setNonnegative();
+    registerParameter("thicknessA", &m_thicknessA).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("thicknessB", &m_thicknessB).setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter("sigma", &m_sigma).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter("hurst", &m_hurst);
-    registerParameter("lateralCorrLength", &m_lateralCorrLength).setUnit("nm").setNonnegative();
-    registerParameter("crossCorrLength", &m_crossCorrLength).setUnit("nm").setNonnegative();
+    registerParameter("lateralCorrLength", &m_lateralCorrLength).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter("crossCorrLength", &m_crossCorrLength).setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
 
 

@@ -34,6 +34,10 @@ xyz xyz::normalized() const {
   return QVector3D(*this).normalized();
 }
 
+xyz xyz::interpolateTo(rc to, flt rat) const {
+  return *this * (1 - rat) + to * rat;
+}
+
 ba3d::xyz::operator QVector3D() const {
   return QVector3D(x, y, z);
 }

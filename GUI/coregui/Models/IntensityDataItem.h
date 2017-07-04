@@ -19,6 +19,7 @@
 
 #include "SessionItem.h"
 #include "OutputData.h"
+#include <QDateTime>
 
 class BasicAxisItem;
 class MaskContainerItem;
@@ -83,7 +84,7 @@ public:
 
     QString selectedAxesUnits() const;
 
-    QString fileName(const QString& projectDir);
+    QString fileName(const QString& projectDir = QString()) const;
 
     void updateDataRange();
     void computeDataRange();
@@ -98,6 +99,9 @@ public:
 
     MaskContainerItem* maskContainerItem();
     ProjectionContainerItem* projectionContainerItem();
+
+    QDateTime lastModified() const;
+    void setLastModified(const QDateTime& dtime);
 
 public slots:
     void setLowerX(double xmin);
@@ -118,6 +122,7 @@ private:
     void updateAxesLabels();
 
     std::unique_ptr<OutputData<double>> m_data; //!< simulation results
+    QDateTime m_last_modified;
 };
 
 #endif // INTENSITYDATAITEM_H

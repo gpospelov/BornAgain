@@ -21,7 +21,7 @@
 
 FormFactorTrivial::FormFactorTrivial()
 {
-    setName(BornAgain::FormFactorTrivialType);
+    setName(BornAgain::FFTrivialType);
     onChange();
 }
 

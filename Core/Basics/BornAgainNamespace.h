@@ -96,6 +96,7 @@ const std::string FFLongRipple1LorentzType = "LongRipple1Lorentz";
 const std::string FFLongRipple2GaussType = "LongRipple2Gauss";
 const std::string FFLongRipple2LorentzType = "LongRipple2Lorentz";
 const std::string FFTetrahedronType = "Tetrahedron";
+const std::string FFTrivialType = "Dot";
 const std::string FFTruncatedCubeType = "TruncatedCube";
 const std::string FFTruncatedSphereType = "TruncatedSphere";
 const std::string FFTruncatedSpheroidType = "TruncatedSpheroid";
@@ -104,7 +105,6 @@ const std::string FormFactorCrystalType = "FormFactorCrystal";
 const std::string FormFactorSphereGaussianRadiusType = "FormFactorSphereGaussianRadius";
 const std::string FormFactorSphereLogNormalRadiusType = "FormFactorSphereLogNormalRadius";
 const std::string FormFactorSphereUniformRadiusType = "FormFactorSphereUniformRadius";
-const std::string FormFactorTrivialType = "FormFactorTrivial";
 const std::string FormFactorDWBAType = "FormFactorDWBA";
 const std::string FormFactorPolarizedDWBAType = "FormFactorDWBAPol";
 

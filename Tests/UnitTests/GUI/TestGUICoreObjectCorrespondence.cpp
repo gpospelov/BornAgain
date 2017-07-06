@@ -48,6 +48,13 @@ void TestGUICoreObjectCorrespondence::test_Dodecahedron()
     GUICoreObjectCorrespondence(gui_dodecahedron, core_dodecahedron);
 }
 
+void TestGUICoreObjectCorrespondence::test_Dot()
+{
+    DotItem gui_dot;
+    FormFactorTrivial core_dot;
+    GUICoreObjectCorrespondence(gui_dot, core_dot);
+}
+
 void TestGUICoreObjectCorrespondence::test_Cylinder()
 {
     CylinderItem gui_cylinder;

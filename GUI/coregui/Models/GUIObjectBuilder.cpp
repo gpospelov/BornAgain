@@ -481,6 +481,13 @@ void GUIObjectBuilder::visit(const FormFactorTetrahedron* sample)
     m_levelToParentItem[depth()] = particleItem;
 }
 
+void GUIObjectBuilder::visit(const FormFactorTrivial*)
+{
+    SessionItem* particleItem = m_levelToParentItem[depth()-1];
+    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::DotType);
+    m_levelToParentItem[depth()] = particleItem;
+}
+
 void GUIObjectBuilder::visit(const FormFactorTruncatedCube* sample)
 {
     SessionItem* particleItem = m_levelToParentItem[depth()-1];

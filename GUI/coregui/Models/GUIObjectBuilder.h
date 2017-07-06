@@ -81,6 +81,7 @@ public:
     void visit(const FormFactorRipple1*);
     void visit(const FormFactorRipple2*);
     void visit(const FormFactorTetrahedron*);
+    void visit(const FormFactorTrivial*);
     void visit(const FormFactorTruncatedCube*);
     void visit(const FormFactorTruncatedSphere*);
     void visit(const FormFactorTruncatedSpheroid*);

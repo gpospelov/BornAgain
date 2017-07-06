@@ -478,3 +478,15 @@ std::unique_ptr<IFormFactor> TruncatedSpheroidItem::createFormFactor() const
                 getItemValue(P_HFC).toDouble()
                 );
 }
+
+/* ------------------------------------------------ */
+
+DotItem::DotItem()
+    : FormFactorItem(Constants::DotType)
+{
+}
+
+std::unique_ptr<IFormFactor> DotItem::createFormFactor() const
+{
+    return GUIHelpers::make_unique<FormFactorTrivial>();
+}

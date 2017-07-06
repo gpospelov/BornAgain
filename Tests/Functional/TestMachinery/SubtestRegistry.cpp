@@ -54,6 +54,9 @@ SubtestRegistryFormFactor::SubtestRegistryFormFactor()
     add(BornAgain::FFDodecahedronType,
         new FormFactorDodecahedron(5.0));
 
+    add(BornAgain::FFDotType,
+        new FormFactorDot());
+
     add(BornAgain::FFEllipsoidalCylinderType,
         new FormFactorEllipsoidalCylinder(5.0, 10.0, 15.0));
 

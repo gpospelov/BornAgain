@@ -51,7 +51,7 @@ void TestGUICoreObjectCorrespondence::test_Dodecahedron()
 void TestGUICoreObjectCorrespondence::test_Dot()
 {
     DotItem gui_dot;
-    FormFactorTrivial core_dot;
+    FormFactorDot core_dot;
     GUICoreObjectCorrespondence(gui_dot, core_dot);
 }
 

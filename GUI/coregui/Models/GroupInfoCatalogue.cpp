@@ -27,6 +27,7 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::CuboctahedronType, "Cuboctahedron");
     info.add(Constants::CylinderType, "Cylinder");
     info.add(Constants::DodecahedronType, "Dodecahedron");
+    info.add(Constants::DotType, "Dot");
     info.add(Constants::EllipsoidalCylinderType, "Ellipsoidal Cylinder");
     info.add(Constants::FullSphereType, "Full Sphere");
     info.add(Constants::FullSpheroidType, "Full Spheroid");

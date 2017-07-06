@@ -1,3 +1,40 @@
+BornAgain-1.9.0, released 2017.07.04
+  > No API changes
+  > Summary:
+    1) Magnetic scattering: New formalism that uses the magnetization of the different materials instead of the B-field.
+    2) GUI: Project saving now done in seperate thread.
+    3) Documentation: tutorials explaining interference functions and magnetic scattering
+    4) Bugfixes.
+
+  * Bug #1580: ParticleComposition w/ distructive interference (selection rules not met)
+  * Bug #1765: GUI: ExportToPython generates unsorted material labels.
+  * Bug #1790: MacOS dmg installer contains garbage from libgtest
+  * Bug #1791: Python example FitGalaxiData became much slower
+  * Bug #1792: Invalid memory access in MaskGraphicsScene destructor
+  * Bug #1793: GUI: get rid of memory leackages in graphics widgets
+  * Bug #1798: Provide check for negative absorption values
+  * Bug #1809: Review cross correlation length of multi layer
+  * Bug #1810: GUI: unconsistency in deg2rad convertion for angle distributions
+  * Bug #1811: GUI: fitting of roughness parameters is broken for two layers systems
+  * Bug #1816: GUI: minimum value of particle density in particle layouts is fixed to 0.001, which is too strict
+  * Bug #1821: SpecularSimulation gives slightly different results compared to GISASSimulation with specular peak
+  * Feature #1740: Implement polarized scattering on magnetic nanoparticles using the magnetization instead of the B-field
+  * Feature #1762: GUI: create tooltips for interference function items
+  * Feature #1812: GUI: provide saving of project in separate thread
+  * Feature #1813: GUI: pop-up modal progress bar dialog on project load
+  * Documentation #1131: Create tutorial explaining interference function parameterization
+  * Documentation #1522: Create python example with polarized neutrons and magnetic materials
+  * Documentation #1797: Provide prototype of statically generated documentation based on GitHub pages
+  * Documentation #1820: Provide Jülich logo on website
+  * Testing #1609: Clarify relation between PyPersistence tests and tutorial examples
+
+BornAgain-1.8.1, released 2017.05.12
+  > Hotfix:
+  * Bug #1799: Average layer material doesn't work with ParticleComposition
+  * Bug #1800: GUI: missing sigma factor in gate distribution causes problem
+  * Bug #1801: GUI crashes on welcome screen
+  * Bug #1802: GUI: hexagonal lattice becomes square during simulation
+
 BornAgain-1.8.0, released 2017.04.06
   > API changes
     1) ParticleLayout: addInterferenceFunction -> setInterferenceFunction

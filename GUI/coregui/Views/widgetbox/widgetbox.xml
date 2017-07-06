@@ -127,7 +127,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Dot" icon="images/ff_Dodecahedron_32.png">
+        <categoryentry name="Dot" icon="images/ff_Dot_32.png">
             <widget class="FormFactorDot">
                 <property name="objectName">
                     <string notr="true">somestring</string>

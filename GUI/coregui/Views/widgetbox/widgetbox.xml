@@ -127,6 +127,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Dot" icon="images/ff_Dot_32.png">
+            <widget class="FormFactorDot">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
         <categoryentry name="Ellipsoidal cylinder" icon="images/ff_EllipsoidalCylinder_32.png">
             <widget class="FormFactorEllipsoidalCylinder">
                 <property name="objectName">

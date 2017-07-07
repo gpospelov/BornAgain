@@ -96,6 +96,14 @@ class BA_CORE_API_ DodecahedronItem : public FormFactorItem
 };
 
 
+class BA_CORE_API_ DotItem : public FormFactorItem
+{
+public:
+    explicit DotItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
+
 class BA_CORE_API_ CylinderItem : public FormFactorItem
 {
 public:

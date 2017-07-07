@@ -88,6 +88,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::Cone6Type] = &createInstance<Cone6Item>;
     result[Constants::CuboctahedronType] = &createInstance<CuboctahedronItem>;
     result[Constants::DodecahedronType] = &createInstance<DodecahedronItem>;
+    result[Constants::DotType] = &createInstance<DotItem>;
     result[Constants::CylinderType] = &createInstance<CylinderItem>;
     result[Constants::EllipsoidalCylinderType] = &createInstance<EllipsoidalCylinderItem>;
     result[Constants::FullSphereType] = &createInstance<FullSphereItem>;

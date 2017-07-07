@@ -52,6 +52,7 @@ const ModelType Cone6Type = "Cone6";
 const ModelType CuboctahedronType = "Cuboctahedron";
 const ModelType CylinderType = "Cylinder";
 const ModelType DodecahedronType = "Dodecahedron";
+const ModelType DotType = "Dot";
 const ModelType EllipsoidalCylinderType = "EllipsoidalCylinder";
 const ModelType FullSphereType = "FullSphere";
 const ModelType FullSpheroidType = "FullSpheroid";

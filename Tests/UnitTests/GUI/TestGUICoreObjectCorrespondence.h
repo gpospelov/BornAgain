@@ -12,6 +12,7 @@ private slots:
     void test_Cuboctahedron();
     void test_Cylinder();
     void test_Dodecahedron();
+    void test_Dot();
     void test_EllipsoidalCylinder();
     void test_FullSphere();
     void test_FullSpheroid();

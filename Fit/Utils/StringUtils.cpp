@@ -76,6 +76,7 @@ std::string StringUtils::join(const std::vector<std::string>& joinable, const st
 {
     std::string result;
     size_t n = joinable.size();
+    if (n==0) return result;
     for(size_t i=0; i<n-1; ++i)
         result += joinable[i] + joint;
     result += joinable[n-1];

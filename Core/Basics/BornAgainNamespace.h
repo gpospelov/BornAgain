@@ -77,6 +77,7 @@ const std::string FFCone6Type = "Cone6";
 const std::string FFCuboctahedronType = "Cuboctahedron";
 const std::string FFCylinderType = "Cylinder";
 const std::string FFDodecahedronType = "Dodecahedron";
+const std::string FFDotType = "Dot";
 const std::string FFEllipsoidalCylinderType = "EllipsoidalCylinder";
 const std::string FFFullSphereType = "FullSphere";
 const std::string FFFullSpheroidType = "FullSpheroid";
@@ -104,7 +105,6 @@ const std::string FormFactorCrystalType = "FormFactorCrystal";
 const std::string FormFactorSphereGaussianRadiusType = "FormFactorSphereGaussianRadius";
 const std::string FormFactorSphereLogNormalRadiusType = "FormFactorSphereLogNormalRadius";
 const std::string FormFactorSphereUniformRadiusType = "FormFactorSphereUniformRadius";
-const std::string FormFactorTrivialType = "FormFactorTrivial";
 const std::string FormFactorDWBAType = "FormFactorDWBA";
 const std::string FormFactorPolarizedDWBAType = "FormFactorDWBAPol";
 

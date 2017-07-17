@@ -61,7 +61,7 @@ class FormFactorRipple2;
 class FormFactorSphereGaussianRadius;
 class FormFactorSphereLogNormalRadius;
 class FormFactorTetrahedron;
-class FormFactorTrivial;
+class FormFactorDot;
 class FormFactorTruncatedCube;
 class FormFactorTruncatedSphere;
 class FormFactorTruncatedSpheroid;
@@ -180,7 +180,7 @@ public:
     virtual void visit(const FormFactorSphereGaussianRadius*) {}
     virtual void visit(const FormFactorSphereLogNormalRadius*) {}
     virtual void visit(const FormFactorTetrahedron*) {}
-    virtual void visit(const FormFactorTrivial*) {}
+    virtual void visit(const FormFactorDot*) {}
     virtual void visit(const FormFactorTruncatedCube*) {}
     virtual void visit(const FormFactorTruncatedSphere*) {}
     virtual void visit(const FormFactorTruncatedSpheroid*) {}

@@ -7448,7 +7448,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, FormFactorSphereGaussianRadius arg2)
         visit(INodeVisitor self, FormFactorSphereLogNormalRadius arg2)
         visit(INodeVisitor self, FormFactorTetrahedron arg2)
-        visit(INodeVisitor self, FormFactorTrivial arg2)
+        visit(INodeVisitor self, FormFactorDot arg2)
         visit(INodeVisitor self, FormFactorTruncatedCube arg2)
         visit(INodeVisitor self, FormFactorTruncatedSphere arg2)
         visit(INodeVisitor self, FormFactorTruncatedSpheroid arg2)
@@ -12926,6 +12926,79 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
 FormFactorDodecahedron_swigregister = _libBornAgainCore.FormFactorDodecahedron_swigregister
 FormFactorDodecahedron_swigregister(FormFactorDodecahedron)
 
+class FormFactorDot(IFormFactorBorn):
+    """Proxy of C++ FormFactorDot class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorDot, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FormFactorDot, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(FormFactorDot self) -> FormFactorDot"""
+        this = _libBornAgainCore.new_FormFactorDot()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(FormFactorDot self) -> FormFactorDot
+
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorDot_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FormFactorDot self, INodeVisitor visitor)
+
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorDot_accept(self, visitor)
+
+
+    def radialExtension(self):
+        """
+        radialExtension(FormFactorDot self) -> double
+
+        virtual double IFormFactor::radialExtension() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorDot_radialExtension(self)
+
+
+    def evaluate_for_q(self, arg2):
+        """
+        evaluate_for_q(FormFactorDot self, cvector_t arg2) -> complex_t
+
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
+
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+
+        """
+        return _libBornAgainCore.FormFactorDot_evaluate_for_q(self, arg2)
+
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorDot
+    __del__ = lambda self: None
+FormFactorDot_swigregister = _libBornAgainCore.FormFactorDot_swigregister
+FormFactorDot_swigregister(FormFactorDot)
+
 class FormFactorEllipsoidalCylinder(IFormFactorBorn):
     """
 
@@ -15366,91 +15439,6 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
     __del__ = lambda self: None
 FormFactorTetrahedron_swigregister = _libBornAgainCore.FormFactorTetrahedron_swigregister
 FormFactorTetrahedron_swigregister(FormFactorTetrahedron)
-
-class FormFactorTrivial(IFormFactorBorn):
-    """
-
-
-    A dot, with trivial formfactor F(q)=1.
-
-    C++ includes: FormFactorTrivial.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IFormFactorBorn]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorTrivial, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IFormFactorBorn]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, FormFactorTrivial, name)
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(FormFactorTrivial self) -> FormFactorTrivial
-
-        FormFactorTrivial::FormFactorTrivial()
-
-        """
-        this = _libBornAgainCore.new_FormFactorTrivial()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-
-    def clone(self):
-        """
-        clone(FormFactorTrivial self) -> FormFactorTrivial
-
-        FormFactorTrivial* FormFactorTrivial::clone() const overridefinal
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorTrivial_clone(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(FormFactorTrivial self, INodeVisitor visitor)
-
-        void FormFactorTrivial::accept(INodeVisitor *visitor) const overridefinal
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorTrivial_accept(self, visitor)
-
-
-    def radialExtension(self):
-        """
-        radialExtension(FormFactorTrivial self) -> double
-
-        double FormFactorTrivial::radialExtension() const overridefinal
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorTrivial_radialExtension(self)
-
-
-    def evaluate_for_q(self, arg2):
-        """
-        evaluate_for_q(FormFactorTrivial self, cvector_t arg2) -> complex_t
-
-        complex_t FormFactorTrivial::evaluate_for_q(cvector_t) const overridefinal
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorTrivial_evaluate_for_q(self, arg2)
-
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorTrivial
-    __del__ = lambda self: None
-FormFactorTrivial_swigregister = _libBornAgainCore.FormFactorTrivial_swigregister
-FormFactorTrivial_swigregister(FormFactorTrivial)
 
 class FormFactorTruncatedCube(FormFactorPolyhedron):
     """

@@ -32,11 +32,11 @@ AnisoPyramidItem::AnisoPyramidItem()
 {
     setToolTip(QStringLiteral("A truncated pyramid with a rectangular base"));
     addProperty(P_LENGTH, 20.0)
-        ->setToolTip(QStringLiteral("Length of the rectangular base in nm"));
+        ->setToolTip(QStringLiteral("Length of the rectangular base in nanometers"));
     addProperty(P_WIDTH, 16.0)
-        ->setToolTip(QStringLiteral("Width of the rectangular base in nm"));
+        ->setToolTip(QStringLiteral("Width of the rectangular base in nanometers"));
     addProperty(P_HEIGHT, 13.0)
-        ->setToolTip(QStringLiteral("Height of pyramid in nm"));
+        ->setToolTip(QStringLiteral("Height of pyramid in nanometers"));
     addProperty(P_ALPHA, 60.0)->setToolTip(
         QStringLiteral("Dihedral angle in degrees between base and facet"));
 }
@@ -62,11 +62,11 @@ BoxItem::BoxItem()
 {
     setToolTip(QStringLiteral("Rectangular cuboid"));
     addProperty(P_LENGTH, 20.0)
-        ->setToolTip(QStringLiteral("Length of the base in nm"));
+        ->setToolTip(QStringLiteral("Length of the base in nanometers"));
     addProperty(P_WIDTH, 16.0)
-        ->setToolTip(QStringLiteral("Width of the base in nm"));
+        ->setToolTip(QStringLiteral("Width of the base in nanometers"));
     addProperty(P_HEIGHT, 13.0)
-        ->setToolTip(QStringLiteral("Height of the box in nm"));
+        ->setToolTip(QStringLiteral("Height of the box in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> BoxItem::createFormFactor() const
@@ -89,9 +89,9 @@ ConeItem::ConeItem()
 {
     setToolTip(QStringLiteral("Truncated cone with circular base"));
     addProperty(P_RADIUS, 10.0)
-        ->setToolTip(QStringLiteral("Radius of the base in nm"));
+        ->setToolTip(QStringLiteral("Radius of the base in nanometers"));
     addProperty(P_HEIGHT, 13.0)
-        ->setToolTip(QStringLiteral("Height of the cone in nm"));
+        ->setToolTip(QStringLiteral("Height of the cone in nanometers"));
     addProperty(P_ALPHA, 60.0)
         ->setToolTip(QStringLiteral("Angle between the side and the base in degrees"));
 }
@@ -114,13 +114,13 @@ const QString Cone6Item::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 Cone6Item::Cone6Item()
     : FormFactorItem(Constants::Cone6Type)
 {
-    setToolTip(QStringLiteral("Truncated hexagonal pyramid"));
+    setToolTip(QStringLiteral("A truncated pyramid, based on a regular hexagon"));
     addProperty(P_BASEEDGE, 10.0)
-        ->setToolTip(QStringLiteral("Edge of the regular hexagonal base in nm"));
+        ->setToolTip(QStringLiteral("Edge of the regular hexagonal base in nanometers"));
     addProperty(P_HEIGHT, 13.0)
-        ->setToolTip(QStringLiteral("Height of the cone in nm"));
+        ->setToolTip(QStringLiteral("Height of frustum in nanometers"));
     addProperty(P_ALPHA, 60.0)->setToolTip(
-        QStringLiteral("Angle between the base and the middle of side faces in degrees"));
+        QStringLiteral("Dihedral angle in degrees between base and facet"));
 
 }
 
@@ -143,16 +143,16 @@ const QString CuboctahedronItem::P_ALPHA = QString::fromStdString(BornAgain::Alp
 CuboctahedronItem::CuboctahedronItem()
     : FormFactorItem(Constants::CuboctahedronType)
 {
-    setToolTip(QStringLiteral("Combination of two pyramids of different heights, "
-                              "sharing a common face"));
+    setToolTip(QStringLiteral("Compound of two truncated pyramids with a common square base \n"
+                              "and opposite orientations"));
     addProperty(P_LENGTH, 20.0)
-        ->setToolTip(QStringLiteral("Side length of the common square base in nm"));
+        ->setToolTip(QStringLiteral("Side length of the common square base in nanometers"));
     addProperty(P_HEIGHT, 13.0)
-        ->setToolTip(QStringLiteral("Height of the lower pyramid in nm"));
+        ->setToolTip(QStringLiteral("Height of the lower pyramid in nanometers"));
     addProperty(P_HEIGHT_RATIO, 0.7)->setLimits(RealLimits::lowerLimited(0.0))
-        .setToolTip(QStringLiteral("Height ratio of the upper pyramid to the lower"));
+        .setToolTip(QStringLiteral("Ratio of heights of top to bottom pyramids"));
     addProperty(P_ALPHA, 60.0)->setToolTip(
-        QStringLiteral("Angle between the base and the middle of side faces in degrees"));
+        QStringLiteral("Dihedral angle in degrees between base and facets"));
 }
 
 std::unique_ptr<IFormFactor> CuboctahedronItem::createFormFactor() const
@@ -175,9 +175,9 @@ CylinderItem::CylinderItem()
 {
     setToolTip(QStringLiteral("Cylinder with a circular base"));
     addProperty(P_RADIUS, 8.0)
-        ->setToolTip(QStringLiteral("Radius of the circular base in nm"));
+        ->setToolTip(QStringLiteral("Radius of the circular base in nanometers"));
     addProperty(P_HEIGHT, 16.0)
-        ->setToolTip(QStringLiteral("Height of the cylinder in nm"));
+        ->setToolTip(QStringLiteral("Height of the cylinder in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> CylinderItem::createFormFactor() const
@@ -197,7 +197,7 @@ DodecahedronItem::DodecahedronItem()
 {
     setToolTip(QStringLiteral("Dodecahedron"));
     addProperty(P_EDGE, 10.0)
-        ->setToolTip(QStringLiteral("Edge length in nm"));
+        ->setToolTip(QStringLiteral("Length of the edge in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> DodecahedronItem::createFormFactor() const

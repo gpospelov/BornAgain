@@ -31,10 +31,10 @@ const PolyhedralTopology FormFactorTetrahedron::topology = {
     }, false };
 
 
-//! @param base_edge of a side of the base
-//! @param height    of the frustum
-//! @param alpha:    dihedral angle in radians between base and facet
-
+//! Constructor of a truncated tethrahedron.
+//! @param base_edge: length of one edge of the equilateral triangular base in nanometers
+//! @param height: height of the tetrahedron in nanometers
+//! @param alpha: dihedral angle in radians between base and facet
 FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
     : FormFactorPolyhedron()
     , m_base_edge(base_edge)

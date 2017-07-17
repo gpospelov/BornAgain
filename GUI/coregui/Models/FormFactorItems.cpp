@@ -347,9 +347,9 @@ Prism3Item::Prism3Item()
 {
     setToolTip(QStringLiteral("Prism with an equilaterial triangle base"));
     addProperty(P_BASEEDGE, 10.0)
-        ->setToolTip(QStringLiteral("Length of the base edge in nm"));
+        ->setToolTip(QStringLiteral("Length of the base edge in nanometers"));
     addProperty(P_HEIGHT, 13.0)
-        ->setToolTip(QStringLiteral("Height in nm"));
+        ->setToolTip(QStringLiteral("Height in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> Prism3Item::createFormFactor() const
@@ -370,9 +370,9 @@ Prism6Item::Prism6Item()
 {
     setToolTip(QStringLiteral("Prism with a regular hexagonal base"));
     addProperty(P_BASEEDGE, 5.0)
-        ->setToolTip(QStringLiteral("Length of the hexagonal base in nm"));
+        ->setToolTip(QStringLiteral("Length of the hexagonal base in nanometers"));
     addProperty(P_HEIGHT, 11.0)
-        ->setToolTip(QStringLiteral("Height in nm"));
+        ->setToolTip(QStringLiteral("Height in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> Prism6Item::createFormFactor() const
@@ -394,11 +394,11 @@ PyramidItem::PyramidItem()
 {
     setToolTip(QStringLiteral("Truncated pyramid with a square base"));
     addProperty(P_BASEEDGE, 18.0)
-        ->setToolTip(QStringLiteral("Length of the square base in nm"));
+        ->setToolTip(QStringLiteral("Length of the square base in nanometers"));
     addProperty(P_HEIGHT, 13.0)
-        ->setToolTip(QStringLiteral("Height of the pyramid in nm"));
+        ->setToolTip(QStringLiteral("Height of the pyramid in nanometers"));
     addProperty(P_ALPHA, 60.0)->setToolTip(QStringLiteral(
-       "Angle between the base and the middle of the lateral faces in degrees"));
+       "angle between the base and a side face in degrees"));
 }
 
 std::unique_ptr<IFormFactor> PyramidItem::createFormFactor() const
@@ -421,11 +421,11 @@ Ripple1Item::Ripple1Item()
 {
     setToolTip(QStringLiteral("Particle with a cosine profile and a rectangular base"));
     addProperty(P_LENGTH, 27.0)
-        ->setToolTip(QStringLiteral("Length of the rectangular base in nm"));
+        ->setToolTip(QStringLiteral("Length of the rectangular base in nanometers"));
     addProperty(P_WIDTH, 20.0)
-        ->setToolTip(QStringLiteral("Width of the rectangular base in nm"));
+        ->setToolTip(QStringLiteral("Width of the rectangular base in nanometers"));
     addProperty(P_HEIGHT, 14.0)
-        ->setToolTip(QStringLiteral("Height of the ripple in nm"));
+        ->setToolTip(QStringLiteral("Height of the ripple in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> Ripple1Item::createFormFactor() const
@@ -450,13 +450,13 @@ Ripple2Item::Ripple2Item()
     setToolTip(QStringLiteral(
         "Particle with an asymmetric triangle profile and a rectangular base"));
     addProperty(P_LENGTH, 36.0)
-        ->setToolTip(QStringLiteral("Length of the rectangular base in nm"));
+        ->setToolTip(QStringLiteral("Length of the rectangular base in nanometers"));
     addProperty(P_WIDTH, 25.0)
-        ->setToolTip(QStringLiteral("Width of the rectangular base in nm"));
+        ->setToolTip(QStringLiteral("Width of the rectangular base in nanometers"));
     addProperty(P_HEIGHT, 14.0)
-        ->setToolTip(QStringLiteral("Height of the ripple in nm"));
+        ->setToolTip(QStringLiteral("Height of the ripple in nanometers"));
     addProperty(P_ASYMMETRY, 3.0)
-        ->setToolTip(QStringLiteral("Asymmetry length of the triangular profile in nm"));
+        ->setToolTip(QStringLiteral("Asymmetry length of the triangular profile in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> Ripple2Item::createFormFactor() const
@@ -478,14 +478,13 @@ const QString TetrahedronItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha
 TetrahedronItem::TetrahedronItem()
     : FormFactorItem(Constants::TetrahedronType)
 {
-    setToolTip(QStringLiteral(
-        "Truncated polyhedron with equilateral triangle base and cropped side faces"));
-    addProperty(P_BASEEDGE, 15.0)
-        ->setToolTip(QStringLiteral("Side length of the base in nm"));
+    setToolTip(QStringLiteral("A truncated tethrahedron"));
+    addProperty(P_BASEEDGE, 15.0)->setToolTip(QStringLiteral(
+        "Length of one edge of the equilateral triangular base in nanometers"));
     addProperty(P_HEIGHT, 6.0)
-        ->setToolTip(QStringLiteral("Height of the tetrahedron in nm"));
+        ->setToolTip(QStringLiteral("Height of the tetrahedron in nanometers"));
     addProperty(P_ALPHA, 60.0)->setToolTip(QStringLiteral(
-        "Angle between the base and the middle of the side faces in degrees"));
+        "Dihedral angle in degrees between base and facet"));
 }
 
 std::unique_ptr<IFormFactor> TetrahedronItem::createFormFactor() const

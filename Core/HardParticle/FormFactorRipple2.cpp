@@ -20,6 +20,11 @@
 #include "RealParameter.h"
 #include "RippleSawtooth.h"
 
+//! @brief Constructor of a triangular ripple.
+//! @param length: length of the rectangular base in nanometers
+//! @param width: width of the rectangular base in nanometers
+//! @param height: height of the ripple in nanometers
+//! @param asymmetry: asymmetry length of the triangular profile in nanometers
 FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymmetry)
     : m_length(length), m_width(width), m_height(height), m_d(asymmetry)
 {

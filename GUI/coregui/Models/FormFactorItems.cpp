@@ -30,7 +30,7 @@ const QString AnisoPyramidItem::P_ALPHA = QString::fromStdString(BornAgain::Alph
 AnisoPyramidItem::AnisoPyramidItem()
     : FormFactorItem(Constants::AnisoPyramidType)
 {
-    setToolTip(QStringLiteral("Pyramid with a rectangular base"));
+    setToolTip(QStringLiteral("A truncated pyramid with a rectangular base"));
     addProperty(P_LENGTH, 20.0)
         ->setToolTip(QStringLiteral("Length of the rectangular base in nm"));
     addProperty(P_WIDTH, 16.0)
@@ -38,7 +38,7 @@ AnisoPyramidItem::AnisoPyramidItem()
     addProperty(P_HEIGHT, 13.0)
         ->setToolTip(QStringLiteral("Height of pyramid in nm"));
     addProperty(P_ALPHA, 60.0)->setToolTip(
-        QStringLiteral("Angle between the base and the middle of side faces in degrees"));
+        QStringLiteral("Dihedral angle in degrees between base and facet"));
 }
 
 std::unique_ptr<IFormFactor> AnisoPyramidItem::createFormFactor() const
@@ -87,13 +87,13 @@ const QString ConeItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 ConeItem::ConeItem()
     : FormFactorItem(Constants::ConeType)
 {
-    setToolTip(QStringLiteral("Truncated cone"));
+    setToolTip(QStringLiteral("Truncated cone with circular base"));
     addProperty(P_RADIUS, 10.0)
         ->setToolTip(QStringLiteral("Radius of the base in nm"));
     addProperty(P_HEIGHT, 13.0)
         ->setToolTip(QStringLiteral("Height of the cone in nm"));
     addProperty(P_ALPHA, 60.0)
-        ->setToolTip(QStringLiteral("Angle between the base and the side face in degrees"));
+        ->setToolTip(QStringLiteral("Angle between the side and the base in degrees"));
 }
 
 std::unique_ptr<IFormFactor> ConeItem::createFormFactor() const

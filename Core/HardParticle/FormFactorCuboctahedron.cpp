@@ -36,10 +36,12 @@ const PolyhedralTopology FormFactorCuboctahedron::topology = {
         { {  8,  9, 10, 11 }, true  }
     }, false };
 
-//! @param length        of one side of the square base
-//! @param height        of bottom frustum
-//! @param height_ratio: ratio of heights of top to bottom frustum
-//! @param alpha:        dihedral angle in radians between base and facet
+//! Constructor of cuboctahedron (compound of two truncated pyramids with a common square base
+//! and opposite orientations).
+//! @param length: side length of the common square base in nanometers
+//! @param height: height of the lower pyramid in nanometers
+//! @param height_ratio: ratio of heights of top to bottom pyramids
+//! @param alpha: dihedral angle in radians between base and facet
 FormFactorCuboctahedron::FormFactorCuboctahedron(
     double length, double height, double height_ratio, double alpha)
     : FormFactorPolyhedron()

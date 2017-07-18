@@ -49,6 +49,8 @@ const PolyhedralTopology FormFactorIcosahedron::topology = {
     }, true };
 
 
+//! Constructor of a icosahedron.
+//! @param edge: length of the edge in nanometers
 FormFactorIcosahedron::FormFactorIcosahedron(double edge)
     : FormFactorPolyhedron()
     , m_edge(edge)

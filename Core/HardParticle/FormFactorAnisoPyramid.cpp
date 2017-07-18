@@ -31,10 +31,11 @@ const PolyhedralTopology FormFactorAnisoPyramid::topology = {
         { { 4, 5, 6, 7 }, true }
     }, false };
 
-//! @param length of one side of the rectangular base
-//! @param width  of other side of the rectangular base
-//! @param height of frustum
-//! @param alpha  dihedral angle in radians between base and facet
+//! Constructor of a truncated pyramid with a rectangular base.
+//! @param length: length of the rectangular base in nm
+//! @param width: width of the rectangular base in nm
+//! @param height: height of pyramid in nm
+//! @param alpha: dihedral angle in radians between base and facet
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(
     double length, double width, double height, double alpha)
     : FormFactorPolyhedron()

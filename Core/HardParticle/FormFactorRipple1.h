@@ -25,10 +25,6 @@
 class BA_CORE_API_ FormFactorRipple1 : public IFormFactorBorn
 {
 public:
-    //! @brief Ripple1 constructor
-    //! @param length of Ripple1
-    //! @param width of cosine cross section
-    //! @param height of cosine cross section
     FormFactorRipple1(double length, double width, double height);
 
     FormFactorRipple1* clone() const override final {

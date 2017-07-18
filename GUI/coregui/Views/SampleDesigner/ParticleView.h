@@ -43,6 +43,7 @@ protected:
 
 private:
     void updatePixmap();
+    void updateToolTip();
 
     QPixmap m_pixmap;
 };

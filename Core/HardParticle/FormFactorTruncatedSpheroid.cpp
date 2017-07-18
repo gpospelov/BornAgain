@@ -22,6 +22,11 @@
 #include "TruncatedEllipsoid.h"
 #include <limits>
 
+//! Constructor of a spheroidal dome.
+//! @param radius: radius of the truncated spheroid in nanometers
+//! @param height: height of the truncated spheroid in nanometers
+//! @param height_flattening: ratio of the height of the corresponding full spheroid to its diameter
+//! @param dh: length of cup truncated from the top
 FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
     double radius, double height, double height_flattening, double dh)
     : m_radius(radius)

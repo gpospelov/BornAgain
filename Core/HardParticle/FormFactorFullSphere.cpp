@@ -22,6 +22,8 @@
 #include "Rotations.h"
 #include "TruncatedEllipsoid.h"
 
+//! Constructor of a full sphere.
+//! @param radius: radius of the sphere in nanometers
 FormFactorFullSphere::FormFactorFullSphere(double radius)
     : m_radius(radius)
 {

@@ -18,6 +18,9 @@
 #include "Pyramid6.h"
 #include "RealParameter.h"
 
+//! Constructor of a prism with a regular hexagonal base.
+//! @param base_edge: length of the hexagonal base in nanometers
+//! @param height: height in nanometers
 FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
     : FormFactorPolygonalPrism( height )
     , m_base_edge(base_edge)

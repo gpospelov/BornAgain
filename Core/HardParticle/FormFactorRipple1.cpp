@@ -22,6 +22,10 @@
 #include "RealParameter.h"
 #include "RippleCosine.h"
 
+//! @brief Constructor of cosine ripple.
+//! @param length: length of the rectangular base in nanometers
+//! @param width: width of the rectangular base in nanometers
+//! @param height: height of the ripple in nanometers
 FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
 {

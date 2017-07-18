@@ -20,9 +20,10 @@
 #include "MathConstants.h"
 #include "RealParameter.h"
 
-//! @param radius_x half length of one horizontal main axes
-//! @param radius_y half length of the other horizontal main axes
-//! @param height
+//! Constructor of a cylinder with an ellipse cross section.
+//! @param radius_x: radius of the ellipse base in the x-direction, in nanometers
+//! @param radius_y: radius of the ellipse base in the y-direction, in nanometers
+//! @param height: height of the ellipsoidal cylinder in nanometers
 FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(
     double radius_x, double radius_y, double height)
     : m_radius_x(radius_x), m_radius_y(radius_y), m_height(height)

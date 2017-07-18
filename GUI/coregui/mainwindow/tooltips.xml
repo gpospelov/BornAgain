@@ -24,17 +24,11 @@
             <property name="Title">
                 <tooltip>Interference function of radial paracrystal</tooltip>
             </property>
-            <property name="Description">
-                <tooltip></tooltip>
-            </property>
         </category>
 
         <category name="Interference2DParaCrystal">
             <property name="Title">
                 <tooltip>Interference function of two-dimensional paracrystal</tooltip>
-            </property>
-            <property name="Description">
-                <tooltip></tooltip>
             </property>
         </category>
 
@@ -42,17 +36,11 @@
             <property name="Title">
                 <tooltip>Interference function of 1D lattice</tooltip>
             </property>
-            <property name="Description">
-                <tooltip></tooltip>
-            </property>
         </category>
 
         <category name="Interference2DLattice">
             <property name="Title">
                 <tooltip>Interference function of 2D lattice</tooltip>
-            </property>
-            <property name="Description">
-                <tooltip></tooltip>
             </property>
         </category>
 
@@ -188,18 +176,9 @@
            </property>
         </category>
 
-        <category name="Transformation">
+        <category name="Rotation">
            <property name="Title">
-               <tooltip>Transformation</tooltip>
-           </property>
-           <property name="Description">
-               <tooltip>to be completed </tooltip>
-           </property>
-           <property name="Position">
-               <tooltip>Position of the particle initializing a layer</tooltip>
-           </property>
-           <property name="Rotation">
-               <tooltip>Rotation applied to the particles</tooltip>
+               <tooltip>Rotation applied to particles</tooltip>
            </property>
         </category>
 

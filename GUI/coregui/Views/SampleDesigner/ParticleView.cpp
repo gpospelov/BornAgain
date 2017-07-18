@@ -30,9 +30,10 @@ ParticleView::ParticleView(QGraphicsItem *parent) : ConnectableView(parent)
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(
         DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
-    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);
-    addPort("transformation", NodeEditorPort::INPUT,
-            NodeEditorPort::TRANSFORMATION);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
+        ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
+    addPort("transformation", NodeEditorPort::INPUT,NodeEditorPort::TRANSFORMATION)
+        ->setToolTip(QStringLiteral("Connect particle rotation to this port, if necessary"));
     m_roundpar = 5;
     m_label_vspace = 45;
 }

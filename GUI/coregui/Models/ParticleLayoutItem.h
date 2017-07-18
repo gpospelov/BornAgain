@@ -21,14 +21,15 @@
 
 class BA_CORE_API_ ParticleLayoutItem : public SessionGraphicsItem
 {
-
 public:
     static const QString P_APPROX;
     static const QString P_TOTAL_DENSITY;
     static const QString T_PARTICLES;
     static const QString T_INTERFERENCE;
-    explicit ParticleLayoutItem();
-    virtual ~ParticleLayoutItem();
+    ParticleLayoutItem();
+
+private:
+    void updateDensityAppearance(SessionItem* item);
 };
 
 #endif // PARTICLELAYOUTITEM_H

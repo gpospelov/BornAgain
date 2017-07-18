@@ -58,8 +58,7 @@ public:
     void setInterferenceFunction(const IInterferenceFunction& interference_function);
 
     double totalParticleSurfaceDensity() const final override;
-    void setTotalParticleSurfaceDensity(double particle_density) final override {
-        m_total_particle_density = particle_density; }
+    void setTotalParticleSurfaceDensity(double particle_density) final override;
 
     std::vector<const INode*> getChildren() const final override;
 

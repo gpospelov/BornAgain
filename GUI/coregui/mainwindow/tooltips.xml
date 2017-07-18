@@ -16,13 +16,7 @@
 
         <category name="ParticleLayout">
             <property name="Title">
-                <tooltip>A Layout of particles </tooltip>
-            </property>
-            <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
-            </property>
-            <property name="Approximation">
-                <tooltip>Approximation used to distribute the particles: Decoupling, Local Monodisperse or Size Space Coupling</tooltip>
+                <tooltip>A layout of particles </tooltip>
             </property>
         </category>
 

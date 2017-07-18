@@ -35,7 +35,7 @@ const PolyhedralTopology FormFactorCone6::topology = {
 
 //! Constructor of a truncated pyramid, based on a regular hexagon
 //! @param base_edge: Edge of the regular hexagonal base in nanometers
-//! @param height: height of frustum in nanometers
+//! @param height: height of a truncated pyramid in nanometers
 //! @param alpha: dihedral angle in radians between base and facet
 FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
     : FormFactorPolyhedron()

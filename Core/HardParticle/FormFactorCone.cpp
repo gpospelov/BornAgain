@@ -25,7 +25,7 @@
 //! Constructor of a truncated cone with circular base.
 //! @param radius: radius of the base in nanometers
 //! @param height: height of the cone in nanometers
-//! @param alpha: angle between the side and the base in radians
+//! @param alpha: angle between the base and the side surface in radians
 FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     : m_radius(radius), m_height(height), m_alpha(alpha)
 {

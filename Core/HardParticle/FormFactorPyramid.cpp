@@ -34,7 +34,7 @@ const PolyhedralTopology FormFactorPyramid::topology = {
 //! Constructor of a truncated pyramid with a square base
 //! @param base_edge: length of the square base in nanometers
 //! @param height: height of the pyramid in nanometers
-//! @param alpha: angle between the base and a side face in radians
+//! @param alpha: dihedral angle between the base and a side face in radians
 FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
     : FormFactorPolyhedron()
     , m_base_edge(base_edge)

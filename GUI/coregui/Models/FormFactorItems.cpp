@@ -93,7 +93,7 @@ ConeItem::ConeItem()
     addProperty(P_HEIGHT, 13.0)
         ->setToolTip(QStringLiteral("Height of the cone in nanometers"));
     addProperty(P_ALPHA, 60.0)
-        ->setToolTip(QStringLiteral("Angle between the side and the base in degrees"));
+        ->setToolTip(QStringLiteral("Angle between the base and the side surface in degrees"));
 }
 
 std::unique_ptr<IFormFactor> ConeItem::createFormFactor() const
@@ -118,7 +118,7 @@ Cone6Item::Cone6Item()
     addProperty(P_BASEEDGE, 10.0)
         ->setToolTip(QStringLiteral("Edge of the regular hexagonal base in nanometers"));
     addProperty(P_HEIGHT, 13.0)
-        ->setToolTip(QStringLiteral("Height of frustum in nanometers"));
+        ->setToolTip(QStringLiteral("Height of a truncated pyramid in nanometers"));
     addProperty(P_ALPHA, 60.0)->setToolTip(
         QStringLiteral("Dihedral angle in degrees between base and facet"));
 
@@ -398,7 +398,7 @@ PyramidItem::PyramidItem()
     addProperty(P_HEIGHT, 13.0)
         ->setToolTip(QStringLiteral("Height of the pyramid in nanometers"));
     addProperty(P_ALPHA, 60.0)->setToolTip(QStringLiteral(
-       "angle between the base and a side face in degrees"));
+       "Dihedral angle between the base and a side face in degrees"));
 }
 
 std::unique_ptr<IFormFactor> PyramidItem::createFormFactor() const

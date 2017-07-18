@@ -4,19 +4,13 @@
 
         <category name="MultiLayer">
             <property name="Title">
-                <tooltip>A Multi-Layer with cross correlation length</tooltip>
-            </property>
-            <property name="Description">
-                <tooltip></tooltip>
+                <tooltip>A multilayer to hold stack of layers</tooltip>
             </property>
         </category>
 
         <category name="Layer">
             <property name="Title">
                 <tooltip>A layer with thickness and material</tooltip>
-            </property>
-            <property name="Description">
-                <tooltip></tooltip>
             </property>
         </category>
 

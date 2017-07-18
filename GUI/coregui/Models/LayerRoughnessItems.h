@@ -17,28 +17,21 @@
 #ifndef LAYERROUGHNESSITEMS_H
 #define LAYERROUGHNESSITEMS_H
 
-
 #include "SessionItem.h"
 
 class BA_CORE_API_ LayerZeroRoughnessItem : public SessionItem
 {
-
 public:
-    explicit LayerZeroRoughnessItem();
-    virtual ~LayerZeroRoughnessItem(){}
+    LayerZeroRoughnessItem();
 };
-
 
 class BA_CORE_API_ LayerBasicRoughnessItem : public SessionItem
 {
-
 public:
     static const QString P_SIGMA;
     static const QString P_HURST;
     static const QString P_LATERAL_CORR_LENGTH;
-    explicit LayerBasicRoughnessItem();
-    virtual ~LayerBasicRoughnessItem(){}
+    LayerBasicRoughnessItem();
 };
-
 
 #endif // LAYERROUGHNESSITEMS_H

@@ -49,15 +49,15 @@ void MultiLayerItem::updateLayers()
 {
     QVector<SessionItem*> list = getChildrenOfType(Constants::LayerType);
     for(auto it = list.begin(); it != list.end(); ++it) {
-        if(it == list.begin()) {
+        if(it == list.begin())
             (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(false);
-        } else {
+        else
             (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(true);
-        }
-        if(it == list.begin() || it == (list.end()-1)) {
+
+        if(it == list.begin() || it == (list.end()-1))
             (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(false);
-        } else {
+        else
             (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(true);
-        }
+
     }
 }

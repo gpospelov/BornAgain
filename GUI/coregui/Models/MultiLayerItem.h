@@ -21,12 +21,10 @@
 
 class BA_CORE_API_ MultiLayerItem : public SessionGraphicsItem
 {
-
 public:
     static const QString P_CROSS_CORR_LENGTH;
     static const QString T_LAYERS;
-    explicit MultiLayerItem();
-    virtual ~MultiLayerItem() {}
+    MultiLayerItem();
 
 private:
     void updateLayers();

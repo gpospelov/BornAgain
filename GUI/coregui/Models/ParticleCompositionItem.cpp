@@ -19,6 +19,7 @@
 #include "ModelPath.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
+#include "Particle.h"
 #include "TransformToDomain.h"
 
 const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";

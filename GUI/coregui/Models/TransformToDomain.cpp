@@ -48,6 +48,7 @@
 #include "RotationItems.h"
 #include "SimulationOptionsItem.h"
 #include "TransformationItem.h"
+#include "Particle.h"
 #include "Units.h"
 #include "VectorItem.h"
 

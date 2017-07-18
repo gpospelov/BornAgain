@@ -40,6 +40,10 @@ public:
     virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     double abundance() const { return m_abundance; }
+
+    //! Sets particle abundance.
+    //! @param abundance: proportion of this type of particles normalized to the
+    //! total number of particles in the layout.
     void setAbundance(double abundance) { m_abundance = abundance; }
 
     //! Applies a translation in the z-direction

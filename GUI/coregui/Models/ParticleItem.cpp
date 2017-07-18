@@ -22,7 +22,17 @@
 #include "ParticleCoreShellItem.h"
 #include "TransformToDomain.h"
 #include "VectorItem.h"
+#include "Particle.h"
 
+namespace {
+const QString abundance_tooltip =
+    "Proportion of this type of particles normalized to the \n"
+    "total number of particles in the layout";
+
+const QString position_tooltip =
+    "Relative position of the particle's reference point \n"
+    "in the coordinate system of the parent";
+}
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
 const QString ParticleItem::P_ABUNDANCE = QString::fromStdString(BornAgain::Abundance);
@@ -34,11 +44,12 @@ ParticleItem::ParticleItem()
     : SessionGraphicsItem(Constants::ParticleType)
 {
     addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
-    addProperty(P_MATERIAL,
-                     MaterialUtils::getDefaultMaterialProperty().getVariant());
-    addProperty(P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0));
-    getItem(P_ABUNDANCE)->setDecimals(3);
-    addGroupProperty(P_POSITION, Constants::VectorType);
+    addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant())
+        ->setToolTip(QStringLiteral("Material of particle"));
+
+    addProperty(P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0)).setDecimals(3)
+        .setToolTip(abundance_tooltip);
+    addGroupProperty(P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
 
     registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
     setDefaultTag(T_TRANSFORMATION);
@@ -46,29 +57,8 @@ ParticleItem::ParticleItem()
     addTranslator(PositionTranslator());
     addTranslator(RotationTranslator());
 
-    mapper()->setOnParentChange(
-                [this](SessionItem* parentItem) {
-        if (parentItem) {
-            if (parent()->modelType() == Constants::ParticleCoreShellType
-                || parent()->modelType() == Constants::ParticleCompositionType
-                || parent()->modelType() == Constants::ParticleDistributionType) {
-                setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
-                getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
-                if (parent()->modelType() == Constants::ParticleCoreShellType &&
-                    parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL) {
-                        SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
-                    positionItem->setItemValue(VectorItem::P_X, 0.0);
-                    positionItem->setItemValue(VectorItem::P_Y, 0.0);
-                    positionItem->setItemValue(VectorItem::P_Z, 0.0);
-                    positionItem->setEnabled(false);
-                } else {
-                    getItem(ParticleItem::P_POSITION)->setEnabled(true);
-                }
-                return;
-            }
-        }
-        getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
-        getItem(ParticleItem::P_POSITION)->setEnabled(true);
+    mapper()->setOnParentChange([this](SessionItem* parentItem) {
+        updatePropertiesAppearance(parentItem);
     });
 }
 
@@ -86,4 +76,31 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
     TransformToDomain::setTransformationInfo(P_particle.get(), *this);
 
     return P_particle;
+}
+
+//! Updates enabled/disabled for particle position and particle abundance depending on context.
+
+void ParticleItem::updatePropertiesAppearance(SessionItem* parentItem)
+{
+    if (parentItem) {
+        if (parent()->modelType() == Constants::ParticleCoreShellType
+            || parent()->modelType() == Constants::ParticleCompositionType
+            || parent()->modelType() == Constants::ParticleDistributionType) {
+            setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
+            if (parent()->modelType() == Constants::ParticleCoreShellType &&
+                parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL) {
+                    SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
+                positionItem->setItemValue(VectorItem::P_X, 0.0);
+                positionItem->setItemValue(VectorItem::P_Y, 0.0);
+                positionItem->setItemValue(VectorItem::P_Z, 0.0);
+                positionItem->setEnabled(false);
+            } else {
+                getItem(ParticleItem::P_POSITION)->setEnabled(true);
+            }
+            return;
+        }
+    }
+    getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
+    getItem(ParticleItem::P_POSITION)->setEnabled(true);
 }

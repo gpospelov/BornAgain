@@ -53,10 +53,16 @@ public:
     //! Returns particle position.
     kvector_t position() const { return m_position; }
 
-    //! Sets particle position.
+    //! Sets relative position of the particle's reference point in the
+    //! coordinate system of parent.
+    //! @param position: relative position vector (components are in nanometers)
     void setPosition(kvector_t position) { m_position = position; }
 
-    //! Sets particle position.
+    //! Sets relative position of the particle's reference point in the
+    //! coordinate system of parent.
+    //! @param x: x-coordinate in nanometers
+    //! @param y: y-coordinate in nanometers
+    //! @param z: z-coordinate in nanometers
     void setPosition(double x, double y, double z) { m_position = kvector_t(x, y, z); }
 
     //! Applies extra translation by adding it to the current one

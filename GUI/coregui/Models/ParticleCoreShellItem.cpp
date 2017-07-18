@@ -19,6 +19,7 @@
 #include "ModelPath.h"
 #include "ParticleItem.h"
 #include "TransformToDomain.h"
+#include "Particle.h"
 
 const QString ParticleCoreShellItem::T_CORE = "Core Tag";
 const QString ParticleCoreShellItem::T_SHELL = "Shell Tag";

@@ -53,6 +53,7 @@
 #include "DetectorItems.h"
 #include "Units.h"
 #include "VectorItem.h"
+#include "Particle.h"
 
 GUIObjectBuilder::GUIObjectBuilder()
     : m_sampleModel(0)

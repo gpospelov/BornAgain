@@ -507,9 +507,9 @@ TruncatedCubeItem::TruncatedCubeItem()
 {
     setToolTip(QStringLiteral("A cube whose eight vertices have been removed"));
     addProperty(P_LENGTH, 15.0)
-        ->setToolTip(QStringLiteral("Length of the full cube in nm"));
-    addProperty(P_REMOVED_LENGTH, 6.0)->setToolTip(QStringLiteral(
-        "Side length of the trirectangular tetrahedron removed from the cube’s vertices in nm"));
+        ->setToolTip(QStringLiteral("Length of the full cube's edge in nanometers"));
+    addProperty(P_REMOVED_LENGTH, 6.0)->setToolTip(
+       QStringLiteral("Removed length from each edge of the cube in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> TruncatedCubeItem::createFormFactor() const
@@ -530,9 +530,9 @@ TruncatedSphereItem::TruncatedSphereItem()
 {
     setToolTip(QStringLiteral("Spherical dome"));
     addProperty(P_RADIUS, 5.0)
-        ->setToolTip(QStringLiteral("Radius of the truncated sphere in nm"));
+        ->setToolTip(QStringLiteral("Radius of the truncated sphere in nanometers"));
     addProperty(P_HEIGHT, 7.0)
-        ->setToolTip(QStringLiteral("Height of the truncated sphere in nm"));
+        ->setToolTip(QStringLiteral("Height of the truncated sphere in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> TruncatedSphereItem::createFormFactor() const
@@ -554,9 +554,9 @@ TruncatedSpheroidItem::TruncatedSpheroidItem()
 {
     setToolTip(QStringLiteral("Spheroidal dome"));
     addProperty(P_RADIUS, 7.5)
-        ->setToolTip(QStringLiteral("Radius of the truncated spheroid in nm"));
+        ->setToolTip(QStringLiteral("Radius of the truncated spheroid in nanometers"));
     addProperty(P_HEIGHT, 9.0)
-        ->setToolTip(QStringLiteral("Height of the truncated spheroid in nm"));
+        ->setToolTip(QStringLiteral("Height of the truncated spheroid in nanometers"));
     addProperty(P_HFC, 1.2)->setToolTip(
         QStringLiteral("Ratio of the height of the corresponding full spheroid to its diameter"));
 }

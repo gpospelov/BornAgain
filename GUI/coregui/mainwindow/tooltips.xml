@@ -186,15 +186,18 @@
            <property name="Title">
                <tooltip>A particle with a core/shell geometry</tooltip>
            </property>
-           <property name="Core Position">
-               <tooltip>Position of the core particle with respect to the shell (measured from the centrest of base faces)</tooltip>
-           </property>
         </category>
 
         <category name="ParticleComposition">
            <property name="Title">
                <tooltip>Composition of particles with fixed positions</tooltip>
            </property>
+        </category>
+
+        <category name="ParticleDistribution">
+            <property name="Title">
+                <tooltip>Collection of particles obtained via parametric distribution of particle prototype</tooltip>
+            </property>
         </category>
 
         <category name="EulerRotation">

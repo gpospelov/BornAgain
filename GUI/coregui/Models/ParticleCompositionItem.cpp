@@ -23,15 +23,29 @@
 #include "TransformToDomain.h"
 #include "ParticleCoreShell.h"
 
+namespace {
+const QString abundance_tooltip =
+    "Proportion of this type of particles normalized to the \n"
+    "total number of particles in the layout";
+
+const QString position_tooltip =
+    "Relative position of the particle's reference point \n"
+    "in the coordinate system of the parent";
+}
+
 const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";
+
+// TODO make ParticleCoreShellItem and ParticleItem to derive from common base.
 
 ParticleCompositionItem::ParticleCompositionItem()
     : SessionGraphicsItem(Constants::ParticleCompositionType)
 {
-    addProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    getItem(ParticleItem::P_ABUNDANCE)->setLimits(RealLimits::limited(0.0, 1.0));
-    getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
-    addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
+    setToolTip(QStringLiteral("Composition of particles with fixed positions"));
+
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0))
+        .setDecimals(3).setToolTip(abundance_tooltip);
+
+    addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
 
     registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType <<
                 Constants::ParticleCoreShellType << Constants::ParticleCompositionType);

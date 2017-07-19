@@ -59,6 +59,8 @@
 #include "InstrumentItem.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "ParameterUtils.h"
+#include "Particle.h"
+#include "ParticleDistribution.h"
 #include <limits>
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);

@@ -44,6 +44,11 @@ void ModelMapper::setOnChildPropertyChange(std::function<void(SessionItem*, QStr
     m_onChildPropertyChange.push_back(call_item_str_t(f, caller));
 }
 
+//! Calls back when parent has changed, reports newParent.
+//! If newParent=0, the item is about being to be removed from children. Method parent()
+//! will still report old parent.
+//! If newParent!=0, it is just the same as parent().
+
 void ModelMapper::setOnParentChange(std::function<void(SessionItem*)> f, const void* caller)
 {
     m_onParentChange.push_back(call_item_t(f, caller));

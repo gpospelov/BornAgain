@@ -28,6 +28,7 @@
 #include "TestOutputDataIOService.h"
 #include "TestIntensityDataItem.h"
 #include "TestProjectUtils.h"
+#include "TestParticleCoreShell.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
@@ -62,6 +63,7 @@ int main(int argc, char** argv) {
     TestOutputDataIOService testIO;
     TestIntensityDataItem testIntensityData;
     TestProjectUtils testProjectUtils;
+    TestParticleCoreShell testParticleCoreShell;
 
     bool status(false);
 
@@ -93,6 +95,7 @@ int main(int argc, char** argv) {
     status |= QTest::qExec(&testIO, argc, argv);
     status |= QTest::qExec(&testIntensityData, argc, argv);
     status |= QTest::qExec(&testProjectUtils, argc, argv);
+    status |= QTest::qExec(&testParticleCoreShell, argc, argv);
 
     return status;
 }

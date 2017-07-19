@@ -57,9 +57,8 @@ ParticleItem::ParticleItem()
     addTranslator(PositionTranslator());
     addTranslator(RotationTranslator());
 
-    mapper()->setOnParentChange([this](SessionItem* parentItem) {
-        Q_ASSERT(parentItem == parent());
-        updatePropertiesAppearance(parentItem);
+    mapper()->setOnParentChange([this](SessionItem* newParent) {
+        updatePropertiesAppearance(newParent);
     });
 }
 
@@ -81,33 +80,34 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
 
 //! Updates enabled/disabled for particle position and particle abundance depending on context.
 
-void ParticleItem::updatePropertiesAppearance(SessionItem* parentItem)
+void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
 {
-    if (parentItem) {
-        if (parent()->modelType() == Constants::ParticleCoreShellType
-            || parent()->modelType() == Constants::ParticleCompositionType
-            || parent()->modelType() == Constants::ParticleDistributionType) {
+    if (newParent) {
+        if (isShellParticle()) {
             setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
-            if (parent()->modelType() == Constants::ParticleCoreShellType &&
-                parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL) {
-                    SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
-                positionItem->setItemValue(VectorItem::P_X, 0.0);
-                positionItem->setItemValue(VectorItem::P_Y, 0.0);
-                positionItem->setItemValue(VectorItem::P_Z, 0.0);
-                positionItem->setEnabled(false);
-            } else {
-                getItem(ParticleItem::P_POSITION)->setEnabled(true);
-            }
-            return;
+            SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
+            positionItem->setItemValue(VectorItem::P_X, 0.0);
+            positionItem->setItemValue(VectorItem::P_Y, 0.0);
+            positionItem->setItemValue(VectorItem::P_Z, 0.0);
+            positionItem->setEnabled(false);
+        } else if(isCoreParticle()) {
+            setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
+
+        } else if(isDistributionContext() || isCompositionContext()) {
+            setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         }
+    } else {
+        getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
+        getItem(ParticleItem::P_POSITION)->setEnabled(true);
     }
-    getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
-    getItem(ParticleItem::P_POSITION)->setEnabled(true);
 }
 
-//! Returns true if this particle is a core in some CoreShellParticle
-bool ParticleItem::isShellParticle()
+//! Returns true if this particle is a shell particle.
+
+bool ParticleItem::isShellParticle() const
 {
     if (!parent())
         return false;
@@ -116,11 +116,33 @@ bool ParticleItem::isShellParticle()
             && parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL;
 }
 
-bool ParticleItem::isCoreParticle()
+//! Returns true if this particle is a core particle.
+
+bool ParticleItem::isCoreParticle() const
 {
     if (!parent())
         return false;
 
     return parent()->modelType() == Constants::ParticleCoreShellType
             && parent()->tagFromItem(this) == ParticleCoreShellItem::T_CORE;
+}
+
+//! Returns true if this particle attached to particle distribution.
+
+bool ParticleItem::isDistributionContext() const
+{
+    if (!parent())
+        return false;
+
+    return parent()->modelType() == Constants::ParticleDistributionType;
+}
+
+//! Returns true if this particle attached to composition.
+
+bool ParticleItem::isCompositionContext() const
+{
+    if (!parent())
+        return false;
+
+    return parent()->modelType() == Constants::ParticleCompositionType;
 }

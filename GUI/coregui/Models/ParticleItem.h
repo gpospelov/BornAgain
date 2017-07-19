@@ -35,9 +35,11 @@ public:
     std::unique_ptr<Particle> createParticle() const;
 
 private:
-    void updatePropertiesAppearance(SessionItem* parentItem);
-    bool isShellParticle();
-    bool isCoreParticle();
+    void updatePropertiesAppearance(SessionItem* newParent);
+    bool isShellParticle() const;
+    bool isCoreParticle() const;
+    bool isDistributionContext() const;
+    bool isCompositionContext() const;
 };
 
 #endif // PARTICLEITEM_H

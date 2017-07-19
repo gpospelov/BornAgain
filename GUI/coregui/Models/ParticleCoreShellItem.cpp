@@ -35,6 +35,8 @@ const QString position_tooltip =
 const QString ParticleCoreShellItem::T_CORE = "Core Tag";
 const QString ParticleCoreShellItem::T_SHELL = "Shell Tag";
 
+// TODO make ParticleCoreShellItem and ParticleItem to derive from common base.
+
 ParticleCoreShellItem::ParticleCoreShellItem()
     : SessionGraphicsItem(Constants::ParticleCoreShellType)
 {
@@ -53,14 +55,16 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange(
-                [this](SessionItem*)
+                [this](SessionItem* newParent)
     {
-        if (parent()) {
+        if (newParent) {
             if (parent()->modelType() == Constants::ParticleCompositionType
                 || parent()->modelType() == Constants::ParticleDistributionType) {
                 setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
                 getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
             }
+        } else {
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
         }
     });
 

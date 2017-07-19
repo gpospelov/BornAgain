@@ -18,10 +18,14 @@
 #include "MinimizerUtils.h"
 #include "StringUtils.h"
 
+#ifdef _WIN32
+#include "Math/PatchedGSLNLSMinimizer.h"
+#else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include "Math/PatchedGSLNLSMinimizer.h"
 #pragma GCC diagnostic pop
+#endif
 
 namespace {
 

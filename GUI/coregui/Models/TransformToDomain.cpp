@@ -51,6 +51,7 @@
 #include "Particle.h"
 #include "Units.h"
 #include "VectorItem.h"
+#include "ParticleCoreShell.h"
 
 std::unique_ptr<HomogeneousMaterial> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {

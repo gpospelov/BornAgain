@@ -36,6 +36,8 @@ public:
 
 private:
     void updatePropertiesAppearance(SessionItem* parentItem);
+    bool isShellParticle();
+    bool isCoreParticle();
 };
 
 #endif // PARTICLEITEM_H

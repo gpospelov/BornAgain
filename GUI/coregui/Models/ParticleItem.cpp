@@ -58,6 +58,7 @@ ParticleItem::ParticleItem()
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange([this](SessionItem* parentItem) {
+        Q_ASSERT(parentItem == parent());
         updatePropertiesAppearance(parentItem);
     });
 }
@@ -103,4 +104,23 @@ void ParticleItem::updatePropertiesAppearance(SessionItem* parentItem)
     }
     getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
     getItem(ParticleItem::P_POSITION)->setEnabled(true);
+}
+
+//! Returns true if this particle is a core in some CoreShellParticle
+bool ParticleItem::isShellParticle()
+{
+    if (!parent())
+        return false;
+
+    return parent()->modelType() == Constants::ParticleCoreShellType
+            && parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL;
+}
+
+bool ParticleItem::isCoreParticle()
+{
+    if (!parent())
+        return false;
+
+    return parent()->modelType() == Constants::ParticleCoreShellType
+            && parent()->tagFromItem(this) == ParticleCoreShellItem::T_CORE;
 }

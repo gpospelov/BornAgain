@@ -184,7 +184,7 @@
 
         <category name="ParticleCoreShell">
            <property name="Title">
-               <tooltip>Core Shell particle</tooltip>
+               <tooltip>A particle with a core/shell geometry</tooltip>
            </property>
            <property name="Core Position">
                <tooltip>Position of the core particle with respect to the shell (measured from the centrest of base faces)</tooltip>

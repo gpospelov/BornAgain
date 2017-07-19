@@ -21,6 +21,7 @@
 #include "ParticleItem.h"
 #include "Particle.h"
 #include "TransformToDomain.h"
+#include "ParticleCoreShell.h"
 
 const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";
 

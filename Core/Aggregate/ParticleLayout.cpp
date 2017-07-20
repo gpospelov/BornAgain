@@ -199,6 +199,13 @@ double ParticleLayout::totalParticleSurfaceDensity() const
     return iff_density > 0.0 ? iff_density : m_total_particle_density;
 }
 
+//! Sets total particle surface density.
+//! @params particle_density: number of particles per square nanometer
+void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
+{
+    m_total_particle_density = particle_density;
+}
+
 std::vector<const INode*> ParticleLayout::getChildren() const
 {
     std::vector<const INode*> result;

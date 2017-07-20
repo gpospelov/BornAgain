@@ -48,8 +48,10 @@
 #include "RotationItems.h"
 #include "SimulationOptionsItem.h"
 #include "TransformationItem.h"
+#include "Particle.h"
 #include "Units.h"
 #include "VectorItem.h"
+#include "ParticleCoreShell.h"
 
 std::unique_ptr<HomogeneousMaterial> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
@@ -220,9 +222,9 @@ void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& it
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::TransformationType) {
             auto& rot_item = children[i]->groupItem<RotationItem>(TransformationItem::P_ROT);
-            std::unique_ptr<IRotation> P_rotation(rot_item.createRotation());
-            if (P_rotation)
-                result->setRotation(*P_rotation);
+            auto rotation = rot_item.createRotation();
+            if (rotation)
+                result->setRotation(*rotation);
             break;
         }
     }

@@ -27,6 +27,12 @@
 #include "ParameterUtils.h"
 #include "Units.h"
 
+namespace {
+const QString abundance_tooltip =
+    "Proportion of this type of particles normalized to the \n"
+    "total number of particles in the layout";
+}
+
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
 const QString ParticleDistributionItem::NO_SELECTION = "None";
@@ -35,11 +41,14 @@ const QString ParticleDistributionItem::T_PARTICLES = "Particle Tag";
 ParticleDistributionItem::ParticleDistributionItem()
     : SessionGraphicsItem(Constants::ParticleDistributionType)
 {
-    addProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    getItem(ParticleItem::P_ABUNDANCE)->setLimits(RealLimits::limited(0.0, 1.0));
-    getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
+    setToolTip(QStringLiteral("Collection of particles obtained via parametric distribution "
+                              "of particle prototype"));
 
-    addGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0))
+        .setDecimals(3).setToolTip(abundance_tooltip);
+
+    addGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup)->setToolTip(
+        QStringLiteral("Distribution to apply to the specified parameter"));
 
     registerTag(T_PARTICLES, 0, 1, QStringList() << Constants::ParticleType
                                                  << Constants::ParticleCoreShellType
@@ -47,7 +56,9 @@ ParticleDistributionItem::ParticleDistributionItem()
     setDefaultTag(T_PARTICLES);
 
     ComboProperty par_prop;
-    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());
+    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant())->setToolTip(
+        QStringLiteral("Parameter to distribute"));
+
     updateParameterList();
     mapper()->setOnAnyChildChange([this](SessionItem* item) {
         // prevent infinit loop when item changes its own properties

@@ -25,6 +25,7 @@ TransformationView::TransformationView(QGraphicsItem *parent)
     setName(Constants::TransformationType);
     setColor(DesignerHelper::getDefaultTransformationColor());
     setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );
-    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::TRANSFORMATION);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::TRANSFORMATION)
+        ->setToolTip(QStringLiteral("Connect this port to the particle to define its rotation"));
     m_roundpar = 3;
 }

@@ -4,10 +4,7 @@
 
         <category name="MultiLayer">
             <property name="Title">
-                <tooltip>A Multi-Layer with cross correlation length</tooltip>
-            </property>
-            <property name="Description">
-                <tooltip></tooltip>
+                <tooltip>A multilayer to hold stack of layers</tooltip>
             </property>
         </category>
 
@@ -15,20 +12,11 @@
             <property name="Title">
                 <tooltip>A layer with thickness and material</tooltip>
             </property>
-            <property name="Description">
-                <tooltip></tooltip>
-            </property>
         </category>
 
         <category name="ParticleLayout">
             <property name="Title">
-                <tooltip>A Layout of particles </tooltip>
-            </property>
-            <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
-            </property>
-            <property name="Approximation">
-                <tooltip>Approximation used to distribute the particles: Decoupling, Local Monodisperse or Size Space Coupling</tooltip>
+                <tooltip>A layout of particles </tooltip>
             </property>
         </category>
 
@@ -36,17 +24,11 @@
             <property name="Title">
                 <tooltip>Interference function of radial paracrystal</tooltip>
             </property>
-            <property name="Description">
-                <tooltip></tooltip>
-            </property>
         </category>
 
         <category name="Interference2DParaCrystal">
             <property name="Title">
                 <tooltip>Interference function of two-dimensional paracrystal</tooltip>
-            </property>
-            <property name="Description">
-                <tooltip></tooltip>
             </property>
         </category>
 
@@ -54,17 +36,11 @@
             <property name="Title">
                 <tooltip>Interference function of 1D lattice</tooltip>
             </property>
-            <property name="Description">
-                <tooltip></tooltip>
-            </property>
         </category>
 
         <category name="Interference2DLattice">
             <property name="Title">
                 <tooltip>Interference function of 2D lattice</tooltip>
-            </property>
-            <property name="Description">
-                <tooltip></tooltip>
             </property>
         </category>
 
@@ -88,7 +64,7 @@
 
         <category name="Cone6">
             <property name="Title">
-                <tooltip>Truncated hexagonal pyramid</tooltip>
+                <tooltip>"A truncated pyramid, based on a regular hexagon</tooltip>
             </property>
         </category>
 
@@ -200,30 +176,15 @@
            </property>
         </category>
 
-        <category name="Transformation">
+        <category name="Rotation">
            <property name="Title">
-               <tooltip>Transformation</tooltip>
-           </property>
-           <property name="Description">
-               <tooltip>to be completed </tooltip>
-           </property>
-           <property name="Position">
-               <tooltip>Position of the particle initializing a layer</tooltip>
-           </property>
-           <property name="Rotation">
-               <tooltip>Rotation applied to the particles</tooltip>
+               <tooltip>Rotation applied to particles</tooltip>
            </property>
         </category>
 
         <category name="ParticleCoreShell">
            <property name="Title">
-               <tooltip>Core Shell particle</tooltip>
-           </property>
-           <property name="Description">
-               <tooltip>to be completed </tooltip>
-           </property>
-           <property name="Core Position">
-               <tooltip>Position of the core particle with respect to the shell (measured from the centrest of base faces)</tooltip>
+               <tooltip>A particle with a core/shell geometry</tooltip>
            </property>
         </category>
 
@@ -231,26 +192,17 @@
            <property name="Title">
                <tooltip>Composition of particles with fixed positions</tooltip>
            </property>
-           <property name="Description">
-               <tooltip>to be completed </tooltip>
-           </property>
+        </category>
+
+        <category name="ParticleDistribution">
+            <property name="Title">
+                <tooltip>Collection of particles obtained via parametric distribution of particle prototype</tooltip>
+            </property>
         </category>
 
         <category name="EulerRotation">
            <property name="Title">
                <tooltip>Rotation applied to the particle</tooltip>
-           </property>
-           <property name="Description">
-               <tooltip>to be completed </tooltip>
-           </property>
-           <property name="Alpha">
-               <tooltip>First Euler angle in degrees</tooltip>
-           </property>
-           <property name="Beta">
-               <tooltip>Second Euler angle in degrees</tooltip>
-           </property>
-           <property name="Gamma">
-               <tooltip>Third Euler angle in degrees</tooltip>
            </property>
         </category>
 
@@ -258,17 +210,11 @@
             <property name="Title">
                 <tooltip>Mixture of cylinders and prisms without interference</tooltip>
             </property>
-            <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
-            </property>
         </category>
 
         <category name="example02">
             <property name="Title">
                 <tooltip>Interference 1D radial paracrystal</tooltip>
-            </property>
-            <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
             </property>
         </category>
 
@@ -276,17 +222,11 @@
             <property name="Title">
                 <tooltip>Interference 2D paracrystal</tooltip>
             </property>
-            <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
-            </property>
         </category>
 
         <category name="example04">
             <property name="Title">
                 <tooltip>Core shell particles</tooltip>
-            </property>
-            <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
             </property>
         </category>
 
@@ -294,17 +234,11 @@
             <property name="Title">
                 <tooltip>Multilayer with correlated roughness</tooltip>
             </property>
-            <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
-            </property>
         </category>
 
         <category name="example06">
             <property name="Title">
                 <tooltip>Interference 2D lattice</tooltip>
-            </property>
-            <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
             </property>
         </category>
 
@@ -312,26 +246,17 @@
             <property name="Title">
                 <tooltip>Rotated pyramids on top of substrate</tooltip>
             </property>
-            <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
-            </property>
         </category>
 
         <category name="example08">
             <property name="Title">
                 <tooltip>Cylinders with size distribution</tooltip>
             </property>
-            <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
-            </property>
         </category>
 
         <category name="example09">
             <property name="Title">
                 <tooltip>Hexagonal lattice with basis to represent two layers of spheres</tooltip>
-            </property>
-            <property name="Description">
-                <tooltip>Some lengthy description here if necessary</tooltip>
             </property>
         </category>
 

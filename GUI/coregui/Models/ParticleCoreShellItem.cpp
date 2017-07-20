@@ -19,17 +19,33 @@
 #include "ModelPath.h"
 #include "ParticleItem.h"
 #include "TransformToDomain.h"
+#include "Particle.h"
+#include "ParticleCoreShell.h"
+
+namespace {
+const QString abundance_tooltip =
+    "Proportion of this type of particles normalized to the \n"
+    "total number of particles in the layout";
+
+const QString position_tooltip =
+    "Relative position of the particle's reference point \n"
+    "in the coordinate system of the parent";
+}
 
 const QString ParticleCoreShellItem::T_CORE = "Core Tag";
 const QString ParticleCoreShellItem::T_SHELL = "Shell Tag";
 
+// TODO make ParticleCoreShellItem and ParticleItem to derive from common base.
+
 ParticleCoreShellItem::ParticleCoreShellItem()
     : SessionGraphicsItem(Constants::ParticleCoreShellType)
 {
-    addProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    getItem(ParticleItem::P_ABUNDANCE)->setLimits(RealLimits::limited(0.0, 1.0));
-    getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
-    addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
+    setToolTip(QStringLiteral("A particle with a core/shell geometry"));
+
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0))
+        .setDecimals(3).setToolTip(abundance_tooltip);
+
+    addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
 
     registerTag(T_CORE, 0, 1, QStringList() << Constants::ParticleType);
     registerTag(T_SHELL, 0, 1, QStringList() << Constants::ParticleType);
@@ -39,14 +55,16 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange(
-                [this](SessionItem*)
+                [this](SessionItem* newParent)
     {
-        if (parent()) {
+        if (newParent) {
             if (parent()->modelType() == Constants::ParticleCompositionType
                 || parent()->modelType() == Constants::ParticleDistributionType) {
                 setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
                 getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
             }
+        } else {
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
         }
     });
 

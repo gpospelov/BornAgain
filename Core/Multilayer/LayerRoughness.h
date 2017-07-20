@@ -19,7 +19,7 @@
 #include "ISample.h"
 #include "Vectors3D.h"
 
-//! A Roughness of interface between two layers.
+//! A roughness of interface between two layers.
 //!
 //! Based on the article
 //! D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995

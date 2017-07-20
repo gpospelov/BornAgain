@@ -22,6 +22,9 @@
 
 #include <set>
 
+//! Constructor of a layer with thickness and material
+//! @param material: material the layer is made of
+//! @param thickness: thickness of a layer in nanometers
 Layer::Layer(HomogeneousMaterial material, double thickness)
     : m_material(std::move(material))
     , m_thickness(thickness)

@@ -25,7 +25,6 @@ public:
     enum { TYPE = DesignerHelper::PARTICLE_LAYOUT };
 
     ParticleLayoutView(QGraphicsItem *parent = 0);
-    ~ParticleLayoutView();
 
     int type() const { return TYPE; }
 

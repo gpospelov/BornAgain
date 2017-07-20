@@ -251,8 +251,8 @@ void Simulation::runSingleSimulation()
         std::vector<std::unique_ptr<MainComputation>> computations;
 
         // Initialize n computations.
-        int total_batch_elements = batch_end - batch_start;
-        int element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
+        auto total_batch_elements = batch_end - batch_start;
+        auto element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
         if (total_batch_elements % m_options.getNumberOfThreads()) // there is a remainder
             ++element_thread_step;
 
@@ -262,7 +262,7 @@ void Simulation::runSingleSimulation()
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
-            int end_thread_index = (i_thread+1) * element_thread_step;
+            auto end_thread_index = (i_thread+1) * element_thread_step;
             if (end_thread_index >= total_batch_elements)
                 end_it = batch_end;
             else

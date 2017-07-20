@@ -114,7 +114,7 @@ public:
   @return the number of function parameters
 
   */
-  virtual unsigned int  NumberOfParameters() const { return par.size(); }
+  virtual size_t  NumberOfParameters() const { return par.size(); }
 
   // Why do I need to declare it here, it should be inherited without
   // any problems, no?

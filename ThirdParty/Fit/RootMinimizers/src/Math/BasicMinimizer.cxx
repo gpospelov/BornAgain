@@ -229,7 +229,7 @@ std::string BasicMinimizer::VariableName(unsigned int ivar) const {
 int BasicMinimizer::VariableIndex(const std::string & name) const {
    std::vector<std::string>::const_iterator itr = std::find( fNames.begin(), fNames.end(), name);
    if (itr == fNames.end() ) return -1;
-   return itr - fNames.begin();
+   return static_cast<int>(itr - fNames.begin());
 }
 
 

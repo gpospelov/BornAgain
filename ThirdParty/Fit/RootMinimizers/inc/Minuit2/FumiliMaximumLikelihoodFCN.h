@@ -145,9 +145,9 @@ public:
 
      double sumoflogs = 0.0;
      std::vector<double> vecElements =  Elements(par);
-     unsigned int vecElementsSize = vecElements.size();
+     size_t vecElementsSize = vecElements.size();
 
-     for (unsigned int i = 0; i < vecElementsSize; ++i) {
+     for (size_t i = 0; i < vecElementsSize; ++i) {
         double tmp = vecElements[i];
         //for max likelihood probability have to be positive
         assert(tmp >= 0);

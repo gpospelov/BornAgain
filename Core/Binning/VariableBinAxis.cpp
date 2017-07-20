@@ -32,7 +32,7 @@ VariableBinAxis::VariableBinAxis(
 }
 
 
-VariableBinAxis::VariableBinAxis(const std::string &name, int nbins)
+VariableBinAxis::VariableBinAxis(const std::string &name, size_t nbins)
     : IAxis(name)
     , m_nbins(nbins)
 {

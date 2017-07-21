@@ -133,7 +133,7 @@ VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) c
 
 void VariableBinAxis::print(std::ostream& ostr) const
 {
-    ostr << "VariableBinAxis(\"" << m_name << "\", " << size() << ", [";
+    ostr << "VariableBinAxis(\"" << getName() << "\", " << size() << ", [";
     for(size_t i=0; i<m_bin_boundaries.size(); ++i) {
         ostr << std::setprecision(std::numeric_limits<double>::digits10+2) << m_bin_boundaries[i];
         if(i!=m_bin_boundaries.size()-1) ostr << ", ";

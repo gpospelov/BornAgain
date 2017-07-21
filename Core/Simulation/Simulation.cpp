@@ -21,8 +21,8 @@
 #include "ParameterSample.h"
 #include "SimulationElement.h"
 #include "StringUtils.h"
-#include <gsl/gsl_errno.h>
 #include <thread>
+#include <gsl/gsl_errno.h>
 #include <iomanip>
 #include <iostream>
 
@@ -65,7 +65,7 @@ Simulation::~Simulation() {} // forward class declaration prevents move to .h
 //! Initializes a progress monitor that prints to stdout.
 void Simulation::setTerminalProgressMonitor()
 {
-    m_progress.subscribe( [] (int percentage_done) -> bool {
+    m_progress.subscribe( [] (size_t percentage_done) -> bool {
             if (percentage_done<100)
                 std::cout << std::setprecision(2)
                           << "\r... " << percentage_done << "%" << std::flush;

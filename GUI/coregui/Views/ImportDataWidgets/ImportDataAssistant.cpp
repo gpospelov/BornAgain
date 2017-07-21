@@ -141,8 +141,8 @@ void ImportDataAssistant::realDataShape(const RealDataItem *realData, int &nx, i
 void ImportDataAssistant::detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny)
 {
     std::unique_ptr<IDetector2D> detector = instrumentItem ->detectorItem()->createDetector();
-    nx = detector->getAxis(0).size();
-    ny = detector->getAxis(1).size();
+    nx = static_cast<int>(detector->getAxis(0).size());
+    ny = static_cast<int>(detector->getAxis(1).size());
 }
 
 void ImportDataAssistant::setInstrumentShapeToData(InstrumentItem *instrumentItem,

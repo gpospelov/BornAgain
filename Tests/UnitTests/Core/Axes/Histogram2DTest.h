@@ -132,7 +132,7 @@ TEST_F(Histogram2DTest, VariableHistFill)
     // check bin content using axes bins
     for(size_t binx=0; binx<hist->getXaxis().size(); ++binx){
         for(size_t biny=0; biny<hist->getYaxis().size(); ++biny){
-            int globalbin = hist->getGlobalBin(binx, biny);
+			size_t globalbin = hist->getGlobalBin(binx, biny);
             EXPECT_EQ(globalbin*10.0, hist->getBinContent(binx, biny));
             EXPECT_EQ(1.0, hist->getBinNumberOfEntries(binx, biny));
         }

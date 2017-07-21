@@ -63,13 +63,13 @@ def run_simulation():
     return simulation
 
 
-def coefficientsRT(simulation):
+def rt_coefficients(simulation):
     """
-    Returns lists R[0:layer_index], L[0:layer_index]
+    Returns refraction/transmission coefficients for all layers
     """
-    R = [ [ abs(c) for c in simulation.getScalarR(i) ] for i in range(22) ]
-    T = [ [ abs(c) for c in simulation.getScalarT(i) ] for i in range(22) ]
-    return R, T
+    rf = [[abs(c) for c in simulation.getScalarR(i)] for i in range(22)]
+    tf = [[abs(c) for c in simulation.getScalarT(i)] for i in range(22)]
+    return rf, tf
 
 
 def plot(simulation):
@@ -77,10 +77,10 @@ def plot(simulation):
     Plots results for several selected layers
     """
     from matplotlib import pyplot as plt
-    fig = plt.figure(figsize=(12.80, 10.24))
+    plt.figure(figsize=(12.80, 10.24))
 
     alpha_angles = simulation.getAlphaAxis().getBinCenters()
-    R, T = coefficientsRT(simulation)
+    rf, tf = rt_coefficients(simulation)
 
     selected_layers = [0, 1, 20, 21]
     nplot = 1
@@ -88,8 +88,8 @@ def plot(simulation):
         plt.subplot(2, 2, nplot)
         plt.ylim(ymax=50.0, ymin=1e-06)
         plt.xlabel(r'$\alpha_f$ (rad)', fontsize=16)
-        plt.semilogy(alpha_angles, [ numpy.abs(coeff) for coeff in R[layer_index] ])
-        plt.semilogy(alpha_angles, [ numpy.abs(coeff) for coeff in T[layer_index] ])
+        plt.semilogy(alpha_angles, [numpy.abs(coeff) for coeff in rf[layer_index]])
+        plt.semilogy(alpha_angles, [numpy.abs(coeff) for coeff in tf[layer_index]])
         plt.legend(['|R| layer #'+str(layer_index),
                     '|T| layer #'+str(layer_index)],
                    loc='upper right')

@@ -2,12 +2,9 @@
 Fitting example: demonstrates how to fit two datasets simultaneously.
 """
 
-from __future__ import print_function
+import numpy as np
 import matplotlib
 from matplotlib import pyplot as plt
-import matplotlib.gridspec as gridspec
-import math
-import random
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
@@ -53,23 +50,18 @@ def create_real_data(incident_alpha):
     """
     sample = get_sample(
         radius_a=5.0*nm, radius_b=6.0*nm, height=8.0*nm)
-
     simulation = get_simulation(incident_alpha)
     simulation.setSample(sample)
-
     simulation.runSimulation()
-    real_data = simulation.getIntensityData()
+
+    # retrieving simulated data in the form of numpy array
+    real_data = simulation.getIntensityData().getArray()
 
     # spoiling simulated data with the noise to produce "real" data
-    noise_factor = 1.0
-    for i in range(0, real_data.getTotalNumberOfBins()):
-        amplitude = real_data.getBinContent(i)
-        sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = random.gauss(amplitude, sigma)
-        if noisy_amplitude < 0.0:
-            noisy_amplitude = 0.0
-        real_data.setBinContent(i, noisy_amplitude)
-    return real_data
+    noise_factor = 0.1
+    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
+    noisy[noisy < 0.1] = 0.1
+    return noisy
 
 
 class DrawObserver(ba.IFitObserver):
@@ -87,7 +79,7 @@ class DrawObserver(ba.IFitObserver):
         self.fig.canvas.draw()
         plt.ion()
 
-    def plot_colormap(self, data, title, min=1, max=1e6):
+    def plot_colormap(self, data, title, min=1.0, max=1e6):
         im = plt.imshow(
             data.getArray(),
             norm=matplotlib.colors.LogNorm(min, max),

@@ -2,15 +2,13 @@
 Fitting example: fit with masks
 """
 
-from __future__ import print_function
+import numpy as np
 from matplotlib import pyplot as plt
-import math
-import random
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
 
-def get_sample(radius=5*nm, height=10*nm):
+def get_sample(radius=5.0*nm, height=10.0*nm):
     """
     Build the sample representing cylinders on top of
     substrate without interference.
@@ -51,23 +49,18 @@ def create_real_data():
     Generating "real" data by adding noise to the simulated data.
     """
     sample = get_sample(5.0*nm, 10.0*nm)
-
     simulation = get_simulation()
     simulation.setSample(sample)
-
     simulation.runSimulation()
-    real_data = simulation.getIntensityData()
+
+    # retrieving simulated data in the form of numpy array
+    real_data = simulation.getIntensityData().getArray()
 
     # spoiling simulated data with the noise to produce "real" data
-    noise_factor = 0.5
-    for i in range(0, real_data.getTotalNumberOfBins()):
-        amplitude = real_data.getBinContent(i)
-        sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = random.gauss(amplitude, sigma)
-        if noisy_amplitude < 1.0:
-            noisy_amplitude = 1.0
-        real_data.setBinContent(i, noisy_amplitude)
-    return real_data
+    noise_factor = 0.1
+    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
+    noisy[noisy < 0.1] = 0.1
+    return noisy
 
 
 def add_mask_to_simulation(simulation):

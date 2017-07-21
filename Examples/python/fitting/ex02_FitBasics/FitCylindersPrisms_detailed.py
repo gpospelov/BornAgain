@@ -101,7 +101,7 @@ class DrawObserver(ba.IFitObserver):
         self.fig.canvas.draw()
         plt.ion()
 
-    def plot(self, data, title, nplot, min=1, max=1e6):
+    def plot(self, data, title, nplot, min=1.0, max=1e6):
         plt.subplot(2, 2, nplot)
         plt.subplots_adjust(wspace=0.2, hspace=0.2)
         im = plt.imshow(

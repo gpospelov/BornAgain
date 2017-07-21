@@ -90,3 +90,9 @@ std::string StringUtils::removeSubstring(const std::string &text, const std::str
         result.erase(i, substr.length());
     return result;
 }
+
+std::string StringUtils::to_lower(std::string text)
+{
+    boost::to_lower(text);
+    return text;
+}

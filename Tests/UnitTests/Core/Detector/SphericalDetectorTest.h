@@ -11,6 +11,7 @@
 #include "Units.h"
 #include "Beam.h"
 #include "SimulationArea.h"
+#include "DetectorFunctions.h"
 #include <memory>
 
 class SphericalDetectorTest : public ::testing::Test
@@ -363,3 +364,16 @@ TEST_F(SphericalDetectorTest, Clone)
     EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
 }
+
+TEST_F(SphericalDetectorTest, nameToUnitTranslation)
+{
+    EXPECT_EQ(DetectorFunctions::detectorUnits("QyQz"), IDetector2D::QYQZ);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("qyqz"), IDetector2D::QYQZ);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("MM"), IDetector2D::MM);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("mm"), IDetector2D::MM);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("radians"), IDetector2D::RADIANS);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("rad"), IDetector2D::RADIANS);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("degrees"), IDetector2D::DEGREES);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("deg"), IDetector2D::DEGREES);
+}
+

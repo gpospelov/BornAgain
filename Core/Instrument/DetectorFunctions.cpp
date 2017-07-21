@@ -18,7 +18,27 @@
 #include "IDetector2D.h"
 #include "Instrument.h"
 #include "SimulationArea.h"
+#include "StringUtils.h"
 #include <sstream>
+#include <algorithm>
+#include <map>
+#include <cctype>
+
+namespace
+{
+std::map<std::string, IDetector2D::EAxesUnits> init_name_to_units_map()
+{
+    std::map<std::string, IDetector2D::EAxesUnits> result;
+    result["nbins"] = IDetector2D::NBINS;
+    result["radians"] = IDetector2D::RADIANS;
+    result["rad"] = IDetector2D::RADIANS;
+    result["degrees"] = IDetector2D::DEGREES;
+    result["deg"] = IDetector2D::DEGREES;
+    result["mm"] = IDetector2D::MM;
+    result["qyqz"] = IDetector2D::QYQZ;
+    return result;
+}
+}
 
 bool DetectorFunctions::hasSameDimensions(const IDetector2D &detector,
                                           const OutputData<double> &data)
@@ -92,4 +112,20 @@ std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instr
     }
 
     return result;
+}
+
+IDetector2D::EAxesUnits DetectorFunctions::detectorUnits(const std::string& unitName)
+{
+    if(unitName.empty())
+        return IDetector2D::DEFAULT;
+
+    static auto units_map = init_name_to_units_map();
+
+    std::string lowercase = StringUtils::to_lower(unitName);
+    auto it = units_map.find(lowercase);
+    if(it == units_map.end())
+        throw std::runtime_error("DetectorFunctions::detectorUnits() -> Error. No such "
+                                 "detector unit '"+unitName+"'");
+
+    return it->second;
 }

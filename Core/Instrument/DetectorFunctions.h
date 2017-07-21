@@ -53,6 +53,8 @@ BA_CORE_API_ std::unique_ptr<OutputData<double>> createDataSet(const Instrument&
     const OutputData<double> &data, bool put_masked_areas_to_zero=true,
     IDetector2D::EAxesUnits units=IDetector2D::DEFAULT);
 
+//! Translates the name of detector axes units into corresponding enum
+BA_CORE_API_ IDetector2D::EAxesUnits detectorUnits(const std::string& unitName);
 }
 
 #endif // DETECTORFUNCTIONS_H

@@ -313,7 +313,7 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
 std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches, int current_batch)
 {
     imposeConsistencyOfBatchNumbers(n_batches, current_batch);
-    int total_size = m_sim_elements.size();
+    int total_size = static_cast<int>(m_sim_elements.size());
     int size_per_batch = total_size/n_batches;
     if (total_size%n_batches)
         ++size_per_batch;
@@ -325,7 +325,7 @@ std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches
 std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, int current_batch)
 {
     imposeConsistencyOfBatchNumbers(n_batches, current_batch);
-    int total_size = m_sim_elements.size();
+    int total_size = static_cast<int>(m_sim_elements.size());
     int size_per_batch = total_size/n_batches;
     if (total_size%n_batches)
         ++size_per_batch;

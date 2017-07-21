@@ -102,7 +102,7 @@ void FitSuite::runFit()
     m_impl->runFit();
 }
 
-int FitSuite::numberOfFitObjects() const
+size_t FitSuite::numberOfFitObjects() const
 {
     return m_impl->fitObjects()->size();
 }

@@ -430,7 +430,7 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
             "size_t OutputData<T>::toGlobalIndex() -> "
             "Error! Number of coordinates must match rank of data structure");
     size_t result = 0;
-    int step_size = 1;
+	size_t step_size = 1;
     for (size_t i=mp_ll_data->getRank(); i>0; --i) {
         if(axes_indices[i-1] < 0 || axes_indices[i-1] >= (int)m_value_axes[i-1]->size()) {
             std::ostringstream message;
@@ -457,7 +457,7 @@ size_t OutputData<T>::findGlobalIndex(const std::vector<double> &coordinates) co
     std::vector<int> axes_indexes;
     axes_indexes.resize(mp_ll_data->getRank());
     for(size_t i = 0; i<mp_ll_data->getRank(); ++i)
-        axes_indexes[i] = m_value_axes[i]->findClosestIndex(coordinates[i]);
+        axes_indexes[i] = static_cast<int>(m_value_axes[i]->findClosestIndex(coordinates[i]));
     return toGlobalIndex(axes_indexes);
 }
 

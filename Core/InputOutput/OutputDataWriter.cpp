@@ -16,7 +16,12 @@
 #include "OutputDataWriter.h"
 #include "OutputData.h"
 #include "DataFormatUtils.h"
+#ifdef _WIN32
+#pragma warning ( push )
+#pragma warning ( disable: 4244 )
 #include "boost_streams.h"
+#pragma warning ( pop )
+#endif
 #include <fstream>
 
 OutputDataWriter::OutputDataWriter(const std::string& file_name)

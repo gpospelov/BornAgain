@@ -144,7 +144,7 @@ double FitSuiteObjects::calculateChiSquaredValue()
     for (auto it = m_fit_elements.begin(); it != m_fit_elements.end(); ++it)
         result += it->getSquaredDifference();
 
-    int fnorm = m_fit_elements.size() - m_nfree_parameters;
+    int fnorm = static_cast<int>(m_fit_elements.size()) - m_nfree_parameters;
     if (fnorm <= 0)
         throw Exceptions::LogicErrorException(
             "FitSuiteObjects::calculateChiSquaredValue() -> Error. Normalization is 0");

@@ -134,20 +134,20 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
     // creating map in degrees and checking axes
     data.reset(detector.createDetectorMap(beam, IDetector2D::DEGREES));
     EXPECT_EQ(data->getAxis(0).size(), 10u);
-    EXPECT_FLOAT_EQ(data->getAxis(0).getMin(), -1.0);
-    EXPECT_FLOAT_EQ(data->getAxis(0).getMax(), 1.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), -1.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 1.0);
     EXPECT_EQ(data->getAxis(1).size(), 20u);
-    EXPECT_FLOAT_EQ(data->getAxis(1).getMin(), 0.0);
-    EXPECT_FLOAT_EQ(data->getAxis(1).getMax(), 2.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(1).getMin(), 0.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 2.0);
 
     // creating map in nbins and checking axes
     data.reset(detector.createDetectorMap(beam, IDetector2D::NBINS));
     EXPECT_EQ(data->getAxis(0).size(), 10u);
-    EXPECT_FLOAT_EQ(data->getAxis(0).getMin(), 0.0);
-    EXPECT_FLOAT_EQ(data->getAxis(0).getMax(), 10.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), 0.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 10.0);
     EXPECT_EQ(data->getAxis(1).size(), 20u);
-    EXPECT_FLOAT_EQ(data->getAxis(1).getMin(), 0.0);
-    EXPECT_FLOAT_EQ(data->getAxis(1).getMax(), 20.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(1).getMin(), 0.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 20.0);
 }
 
 //! Testing region of interest.

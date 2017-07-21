@@ -25,10 +25,10 @@ std::vector<double> FumiliStandardChi2FCN::Elements(const std::vector<double>& p
 
    std::vector<double> result;
    double tmp1 = 0.0;
-   unsigned int fPositionsSize = fPositions.size();
+   size_t fPositionsSize = fPositions.size();
 
 
-   for(unsigned int i=0; i < fPositionsSize; i++) {
+   for(size_t i=0; i < fPositionsSize; i++) {
 
       const std::vector<double> & currentPosition = fPositions[i];
 

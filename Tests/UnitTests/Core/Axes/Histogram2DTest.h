@@ -384,7 +384,7 @@ TEST_F(Histogram2DTest, CreateOutputData)
 
     for(size_t nx=0; nx<hist.getNbinsX(); ++nx) {
         for(size_t ny=0; ny<hist.getNbinsY(); ++ny) {
-            double value(ny + nx*hist.getNbinsY());
+            double value(1.0*ny + nx*hist.getNbinsY());
             size_t globalbin = hist.getGlobalBin(nx, ny);
             hist.fill(hist.getXaxisValue(globalbin), hist.getYaxisValue(globalbin), value);
         }

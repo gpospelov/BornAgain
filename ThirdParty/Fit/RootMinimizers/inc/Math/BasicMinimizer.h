@@ -147,13 +147,13 @@ public:
    virtual const double *  X() const { return &fValues.front(); }
 
    /// number of dimensions
-   virtual unsigned int NDim() const { return fDim; }
+   virtual size_t NDim() const { return fDim; }
 
    /// number of free variables (real dimension of the problem)
-   virtual unsigned int NFree() const;
+   virtual size_t NFree() const;
 
    /// total number of parameter defined
-   virtual unsigned int NPar() const { return fValues.size(); }
+   virtual size_t NPar() const { return fValues.size(); }
 
    /// return pointer to used objective function
    const BA_ROOT::Math::IMultiGenFunction * ObjFunction() const { return fObjFunc; }
@@ -185,7 +185,7 @@ protected:
 private:
 
    // dimension of the function to be minimized
-   unsigned int fDim;
+   size_t fDim;
 
    const BA_ROOT::Math::IMultiGenFunction * fObjFunc;
 

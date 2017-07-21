@@ -168,11 +168,11 @@ public:
 
    /// this is <= Function().NDim() which is the total
    /// number of variables (free+ constrained ones)
-   virtual unsigned int NDim() const { return fDim; }
+   virtual size_t NDim() const { return fDim; }
 
    /// number of free variables (real dimension of the problem)
    /// this is <= Function().NDim() which is the total
-   virtual unsigned int NFree() const { return fState.VariableParameters(); }
+   virtual size_t NFree() const { return fState.VariableParameters(); }
 
    /// minimizer provides error and error matrix
    virtual bool ProvidesError() const { return true; }

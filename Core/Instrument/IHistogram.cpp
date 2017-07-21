@@ -102,12 +102,12 @@ size_t IHistogram::findGlobalBin(double x, double y) const
     return m_data.findGlobalIndex(coordinates);
 }
 
-int IHistogram::getXaxisIndex(size_t i) const
+size_t IHistogram::getXaxisIndex(size_t i) const
 {
     return m_data.getAxisBinIndex(i, 0);
 }
 
-int IHistogram::getYaxisIndex(size_t i) const
+size_t IHistogram::getYaxisIndex(size_t i) const
 {
     return m_data.getAxisBinIndex(i, 1);
 }

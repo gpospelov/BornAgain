@@ -132,7 +132,7 @@ public:
       std::copy(begin, end, fX.begin() );
    }
 
-   unsigned int NDim() const { return fX.size(); }
+   size_t NDim() const { return fX.size(); }
 
    double X(unsigned int i) const { return fX[i]; }
 

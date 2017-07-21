@@ -78,7 +78,7 @@ protected:
 
     virtual bool isGradientBasedAgorithm() { return false;}
     virtual void setParameter(size_t index, const IFitParameter *par);
-    int fitDimension() const;
+	size_t fitDimension() const;
     std::vector<double> parValuesAtMinimum() const;
     std::vector<double> parErrorsAtMinimum() const;
 

@@ -271,12 +271,12 @@ public:
 
    /// this is <= Function().NDim() which is the total
    /// number of variables (free+ constrained ones)
-   virtual unsigned int NDim() const = 0;
+   virtual size_t NDim() const = 0;
 
    /// number of free variables (real dimension of the problem)
    /// this is <= Function().NDim() which is the total
    /// (re-implement if minimizer supports bounded parameters)
-   virtual unsigned int NFree() const { return NDim(); }
+   virtual size_t NFree() const { return NDim(); }
 
    /// minimizer provides error and error matrix
    virtual bool ProvidesError() const { return false; }

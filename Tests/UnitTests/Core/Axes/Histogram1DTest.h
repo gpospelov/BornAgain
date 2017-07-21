@@ -122,7 +122,7 @@ TEST_F(Histogram1DTest, crop)
     Histogram1D hist(4, xedges);
 
     for(size_t i=0; i<xvalues.size(); ++i) {
-        hist.fill(xvalues[i], i*10);
+        hist.fill(xvalues[i], i*10.0);
     }
 
     std::unique_ptr<Histogram1D > crop(hist.crop(-0.49, 0.99));

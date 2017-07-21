@@ -350,10 +350,10 @@ const MinimTransformFunction * BasicMinimizer::TransformFunction() const {
    return dynamic_cast<const MinimTransformFunction *>(fObjFunc);
 }
 
-unsigned int BasicMinimizer::NFree() const {
+size_t BasicMinimizer::NFree() const {
    // number of free variables
-   unsigned int nfree = fValues.size();
-   for (unsigned int i = 0; i < fVarTypes.size(); ++i)
+	size_t nfree = fValues.size();
+   for (size_t i = 0; i < fVarTypes.size(); ++i)
       if (fVarTypes[i] == kFix) nfree--;
    return nfree;
 }

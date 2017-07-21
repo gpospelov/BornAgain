@@ -354,14 +354,14 @@ unsigned int GeneticMinimizer::NCalls() const
       return 0;
 }
 
-unsigned int GeneticMinimizer::NDim() const
+size_t GeneticMinimizer::NDim() const
 {
    if ( fFitness )
       return static_cast<MultiGenFunctionFitness*>(fFitness)->NTotal();
    else
       return 0;
 }
-unsigned int GeneticMinimizer::NFree() const
+size_t GeneticMinimizer::NFree() const
 {
    if ( fFitness )
       return static_cast<MultiGenFunctionFitness*>(fFitness)->NDims();

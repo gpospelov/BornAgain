@@ -6449,7 +6449,7 @@ class FitSuite(IObservable):
 
     def numberOfFitObjects(self):
         """
-        numberOfFitObjects(FitSuite self) -> int
+        numberOfFitObjects(FitSuite self) -> size_t
 
         int FitSuite::numberOfFitObjects() const
 
@@ -16818,7 +16818,7 @@ class IHistogram(_object):
 
     def getXaxisIndex(self, i):
         """
-        getXaxisIndex(IHistogram self, size_t i) -> int
+        getXaxisIndex(IHistogram self, size_t i) -> size_t
 
         int IHistogram::getXaxisIndex(size_t i) const
 
@@ -16830,7 +16830,7 @@ class IHistogram(_object):
 
     def getYaxisIndex(self, i):
         """
-        getYaxisIndex(IHistogram self, size_t i) -> int
+        getYaxisIndex(IHistogram self, size_t i) -> size_t
 
         int IHistogram::getYaxisIndex(size_t i) const
 
@@ -23131,8 +23131,8 @@ class IntensityData(_object):
 
     def getAxisBinIndex(self, *args):
         """
-        getAxisBinIndex(IntensityData self, size_t global_index, size_t i_selected_axis) -> int
-        getAxisBinIndex(IntensityData self, size_t global_index, std::string const & axis_name) -> int
+        getAxisBinIndex(IntensityData self, size_t global_index, size_t i_selected_axis) -> size_t
+        getAxisBinIndex(IntensityData self, size_t global_index, std::string const & axis_name) -> size_t
 
         int OutputData< T >::getAxisBinIndex(size_t global_index, const std::string &axis_name) const
 

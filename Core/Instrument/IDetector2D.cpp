@@ -24,6 +24,7 @@
 #include "RegionOfInterest.h"
 #include "Exceptions.h"
 #include "ConvolutionDetectorResolution.h"
+#include "DetectorFunctions.h"
 
 IDetector2D::IDetector2D()
     : m_axes()
@@ -113,6 +114,8 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
 
 OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits units) const
 {
+    check_axes_units(units);
+
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     result->addAxis(*constructAxis(BornAgain::X_AXIS_INDEX, beam, units));
     result->addAxis(*constructAxis(BornAgain::Y_AXIS_INDEX, beam, units));
@@ -386,3 +389,23 @@ bool IDetector2D::isCorrectAxisIndex(size_t index) const
 {
     return index < getDimension();
 }
+
+//! Checks if given unit is valid for the detector. Throws exception if it is not the case.
+void IDetector2D::check_axes_units(IDetector2D::EAxesUnits units) const
+{
+    if(units == DEFAULT)
+        return;
+
+    auto validUnits = getValidAxesUnits();
+    if(std::find(validUnits.begin(), validUnits.end(), units) == validUnits.end()) {
+        std::ostringstream message;
+        message << "IDetector2D::createDetectorMap() -> Error. Unknown axes unit " << units << "\n";
+        message << "Available units for this detector type \n";
+        for(size_t i=0; i<validUnits.size(); ++i)
+        for(auto unit : validUnits)
+            message << unit << " ";
+        message << "\n";
+        throw std::runtime_error(message.str());
+    }
+}
+

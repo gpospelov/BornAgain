@@ -55,10 +55,10 @@ public:
                                       const std::vector<double>& pos)
   {
     this->SetModelFunction(modelFCN);
-	size_t n = pos.size();
+    unsigned int n = pos.size();
     fPositions.reserve( n );
     std::vector<double> x(1);
-    for (size_t i = 0; i < n; ++i) {
+    for (unsigned int i = 0; i < n; ++i) {
       x[0] = pos[i];
       fPositions.push_back(x);
     }

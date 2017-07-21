@@ -72,11 +72,11 @@ public:
       assert(meas.size() == mvar.size());
       fMeasurements = meas;
       std::vector<double> x(1);
-      size_t n = mvar.size();
+      unsigned int n = mvar.size();
       fPositions.reserve( n);
       // correct for variance == 0
       fInvErrors.resize(n);
-      for (size_t i = 0; i < n; ++i)
+      for (unsigned int i = 0; i < n; ++i)
       {
          x[0] = pos[i];
          fPositions.push_back(x);
@@ -118,9 +118,9 @@ public:
       fMeasurements = meas;
       fPositions = pos;
       // correct for variance == 0
-	  size_t n = mvar.size();
+      unsigned int n = mvar.size();
       fInvErrors.resize(n);
-      for (size_t i = 0; i < n; ++i)
+      for (unsigned int i = 0; i < n; ++i)
       {
          // PAW/ROOT hack : use 1 for 0 entries bins
          if (mvar[i] == 0)

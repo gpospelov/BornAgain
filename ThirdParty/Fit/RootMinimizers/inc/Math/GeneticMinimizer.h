@@ -74,8 +74,8 @@ public:
    virtual const double *  MinGradient() const;
    virtual unsigned int NCalls() const;
 
-   virtual size_t NDim() const;
-   virtual size_t NFree() const;
+   virtual unsigned int NDim() const;
+   virtual unsigned int NFree() const;
 
    virtual bool ProvidesError() const;
    virtual const double * Errors() const;

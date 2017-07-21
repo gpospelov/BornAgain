@@ -148,9 +148,9 @@ public:
 
     double chiSquare = 0.0;
     std::vector<double> vecElements =  Elements(par);
-    size_t vecElementsSize = vecElements.size();
+    unsigned int vecElementsSize = vecElements.size();
 
-    for (size_t i = 0; i < vecElementsSize; ++i)
+    for (unsigned int i = 0; i < vecElementsSize; ++i)
       chiSquare += vecElements[i]*vecElements[i];
 
     return chiSquare;

@@ -229,7 +229,7 @@ std::string BasicMinimizer::VariableName(unsigned int ivar) const {
 int BasicMinimizer::VariableIndex(const std::string & name) const {
    std::vector<std::string>::const_iterator itr = std::find( fNames.begin(), fNames.end(), name);
    if (itr == fNames.end() ) return -1;
-   return static_cast<int>(itr - fNames.begin());
+   return itr - fNames.begin();
 }
 
 
@@ -350,10 +350,10 @@ const MinimTransformFunction * BasicMinimizer::TransformFunction() const {
    return dynamic_cast<const MinimTransformFunction *>(fObjFunc);
 }
 
-size_t BasicMinimizer::NFree() const {
+unsigned int BasicMinimizer::NFree() const {
    // number of free variables
-	size_t nfree = fValues.size();
-   for (size_t i = 0; i < fVarTypes.size(); ++i)
+   unsigned int nfree = fValues.size();
+   for (unsigned int i = 0; i < fVarTypes.size(); ++i)
       if (fVarTypes[i] == kFix) nfree--;
    return nfree;
 }

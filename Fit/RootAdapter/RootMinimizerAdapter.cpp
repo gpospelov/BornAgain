@@ -129,7 +129,7 @@ void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters)
 
         for(unsigned i=0; i<(size_t)fitDimension(); ++i) {
             matrix[i].resize(fitDimension(), 0.0);
-            for(size_t j=0; j<(size_t)fitDimension(); ++j)
+            for(unsigned j=0; j<(size_t)fitDimension(); ++j)
                 matrix[i][j] = rootMinimizer()->Correlation(i,j);
         }
         parameters.setCorrelationMatrix(matrix);

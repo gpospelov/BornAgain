@@ -92,7 +92,7 @@ public:
     void next();
     const INode* getCurrent();
     bool isDone() const;
-    size_t depth() const;
+    int depth() const;
 protected:
     Strategy m_strategy;
     IteratorMemento m_memento_itor;
@@ -130,9 +130,9 @@ inline bool NodeIterator<Strategy>::isDone() const
 }
 
 template <class Strategy>
-inline size_t NodeIterator<Strategy>::depth() const
+inline int NodeIterator<Strategy>::depth() const
 {
-    return m_memento_itor.size();
+    return static_cast<int>(m_memento_itor.size());
 }
 
 #endif // NODEITERATOR_H

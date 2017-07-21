@@ -37,23 +37,23 @@ public:
                   const RealLimits& limits=RealLimits::limitless(),
                   const Attributes& attr=Attributes::free());
 
-    RealParameter* clone( const std::string& new_name="" ) const;
+    RealParameter* clone(const std::string& new_name="" ) const;
 
     //! Sets value of wrapped parameter and emit signal
     void setValue(double value);
 
     //! Returns value of wrapped parameter
-    double value() const { return *m_data; }
+    double value() const;
 
-    RealParameter& setLimits(const RealLimits& limits) { m_limits = limits; return *this; }
-    RealLimits limits() const { return m_limits; }
+    RealParameter& setLimits(const RealLimits& limits);
+    RealLimits limits() const;
 
     RealParameter& setLimited(double lower, double upper);
     RealParameter& setPositive();
     RealParameter& setNonnegative();
 
-    RealParameter& setUnit(const std::string& name) { m_unit.setUnit(name); return *this; }
-    std::string unit() const { return m_unit.getName(); }
+    RealParameter& setUnit(const std::string& name);
+    std::string unit() const;
 
 protected:
     RealLimits m_limits;

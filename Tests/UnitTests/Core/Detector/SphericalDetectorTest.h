@@ -367,6 +367,7 @@ TEST_F(SphericalDetectorTest, Clone)
 
 TEST_F(SphericalDetectorTest, nameToUnitTranslation)
 {
+    EXPECT_EQ(DetectorFunctions::detectorUnits(""), IDetector2D::DEFAULT);
     EXPECT_EQ(DetectorFunctions::detectorUnits("QyQz"), IDetector2D::QYQZ);
     EXPECT_EQ(DetectorFunctions::detectorUnits("qyqz"), IDetector2D::QYQZ);
     EXPECT_EQ(DetectorFunctions::detectorUnits("MM"), IDetector2D::MM);
@@ -375,5 +376,6 @@ TEST_F(SphericalDetectorTest, nameToUnitTranslation)
     EXPECT_EQ(DetectorFunctions::detectorUnits("rad"), IDetector2D::RADIANS);
     EXPECT_EQ(DetectorFunctions::detectorUnits("degrees"), IDetector2D::DEGREES);
     EXPECT_EQ(DetectorFunctions::detectorUnits("deg"), IDetector2D::DEGREES);
+    EXPECT_THROW(DetectorFunctions::detectorUnits("xxx"), std::runtime_error);
 }
 

@@ -389,7 +389,7 @@ void IHistogram::load(const std::string& filename)
     copyContentFrom(*hist);
 }
 
-void IHistogram::setAxesUnits(std::string& name)
+void IHistogram::setAxesUnits(const std::string& name)
 {
     m_axes_units = name;
 }

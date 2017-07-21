@@ -17168,6 +17168,16 @@ class IHistogram(_object):
         """
         return _libBornAgainCore.IHistogram_load(self, filename)
 
+
+    def setAxesUnits(self, name):
+        """setAxesUnits(IHistogram self, std::string const & name)"""
+        return _libBornAgainCore.IHistogram_setAxesUnits(self, name)
+
+
+    def axesUnits(self):
+        """axesUnits(IHistogram self) -> std::string"""
+        return _libBornAgainCore.IHistogram_axesUnits(self)
+
 IHistogram_swigregister = _libBornAgainCore.IHistogram_swigregister
 IHistogram_swigregister(IHistogram)
 

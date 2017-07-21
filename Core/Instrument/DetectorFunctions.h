@@ -55,6 +55,9 @@ BA_CORE_API_ std::unique_ptr<OutputData<double>> createDataSet(const Instrument&
 
 //! Translates the name of detector axes units into corresponding enum
 BA_CORE_API_ IDetector2D::EAxesUnits detectorUnits(const std::string& unitName);
+
+//! Translate detector axes units enum into string.
+BA_CORE_API_ std::string detectorUnitsName(IDetector2D::EAxesUnits units);
 }
 
 #endif // DETECTORFUNCTIONS_H

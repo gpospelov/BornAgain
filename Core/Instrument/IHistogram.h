@@ -212,7 +212,7 @@ public:
     void load(const std::string& filename);
 
     //! Sets axes units
-    void setAxesUnits(std::string& name);
+    void setAxesUnits(const std::string& name);
     std::string axesUnits() const;
 
 protected:

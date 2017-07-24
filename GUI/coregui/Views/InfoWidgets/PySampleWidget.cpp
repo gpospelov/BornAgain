@@ -18,7 +18,7 @@
 #include "DesignerHelper.h"
 #include "DomainObjectBuilder.h"
 #include "MultiLayer.h"
-#include "ExportToPython.h"
+#include "PythonFormatting.h"
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
 #include "WarningSign.h"
@@ -165,13 +165,11 @@ QString PySampleWidget::generateCodeSnippet()
     foreach (SessionItem* sampleItem, m_sampleModel->topItems(Constants::MultiLayerType)) {
         DomainObjectBuilder builder;
         try {
-            auto P_multilayer = builder.buildMultiLayer(*sampleItem);
-            ExportToPython visitor(*P_multilayer);
-            std::ostringstream ostr;
-            ostr << visitor.defineGetSample();
+            auto multilayer = builder.buildMultiLayer(*sampleItem);
             if (!result.isEmpty())
                 result.append("\n");
-            result.append(QString::fromStdString(ostr.str()));
+            result.append(QString::fromStdString(
+                          PythonFormatting::generateCode(*multilayer)));
         } catch (const std::exception& ex) {
             QString message
                 = QString("Generation of Python Script failed. Code is not complete.\n\n"

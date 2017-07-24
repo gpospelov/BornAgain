@@ -44,6 +44,13 @@ GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 
 
+std::string PythonFormatting::generateCode(const MultiLayer& multilayer)
+{
+    ExportToPython generator;
+    return generator.generateSampleCode(multilayer);
+}
+
+
 std::string PythonFormatting::simulationToPython(GISASSimulation* simulation)
 {
     simulation->prepareSimulation();

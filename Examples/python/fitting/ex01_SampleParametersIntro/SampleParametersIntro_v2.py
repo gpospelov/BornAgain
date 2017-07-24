@@ -76,9 +76,8 @@ def run_simulation():
 
     # simulation #2
     # one sample parameter (cylinder height) is changed using exact parameter name
-    simulation.setParameterValue(
-        "/GISASSimulation/MultiLayer/Layer0/ParticleLayout/Particle0/Cylinder/Height",
-        10.0*nm)
+    simulation.setParameterValue("/GISASSimulation/MultiLayer/Layer0/ParticleLayout"
+                                 "/Particle0/Cylinder/Height", 10.0*nm)
     simulation.runSimulation()
     results[1] = simulation.getIntensityData()
 

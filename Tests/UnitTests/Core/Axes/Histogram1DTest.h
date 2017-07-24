@@ -21,7 +21,7 @@ TEST_F(Histogram1DTest, FixedBinConstructor)
     EXPECT_THROW(hist.getYaxis(), Exceptions::LogicErrorException);
     for(size_t index=0; index<hist.getTotalNumberOfBins(); ++index) {
         EXPECT_EQ(index, hist.getGlobalBin(index));
-        EXPECT_EQ(int(index), hist.getXaxisIndex(index));
+        EXPECT_EQ(index, hist.getXaxisIndex(index));
     }
 }
 

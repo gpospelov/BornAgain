@@ -89,6 +89,7 @@ const ModelType DistributionLorentzType = "DistributionLorentz";
 const ModelType DistributionGaussianType = "DistributionGaussian";
 const ModelType DistributionLogNormalType = "DistributionLogNormal";
 const ModelType DistributionCosineType = "DistributionCosine";
+const ModelType DistributionTrapezoidType = "DistributionTrapezoid";
 
 const ModelType FTDistribution1DCauchyType = "FTDistribution1DCauchy";
 const ModelType FTDistribution1DGaussType = "FTDistribution1DGauss";

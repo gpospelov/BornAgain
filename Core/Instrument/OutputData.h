@@ -130,7 +130,7 @@ public:
     //! Returns global index for specified indices of axes
     //! @param axes_indices Vector of axes indices for all specified axes in this dataset
     //! @return Corresponding global index
-    size_t toGlobalIndex(const std::vector<int> &axes_indices) const;
+    size_t toGlobalIndex(const std::vector<unsigned> &axes_indices) const;
 
     //! Returns global index for specified axes values
     //! @param coordinates Vector of axes coordinates for all specified axes in this dataset
@@ -406,7 +406,7 @@ size_t OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axi
     size_t remainder(global_index);
     for (size_t i=0; i<mp_ll_data->getRank(); ++i) {
         size_t i_axis = mp_ll_data->getRank()-1-i;
-		size_t result = remainder % m_value_axes[i_axis]->size();
+        size_t result = remainder % m_value_axes[i_axis]->size();
         if(i_selected_axis == i_axis ) return result;
         remainder /= m_value_axes[i_axis]->size();
     }
@@ -422,7 +422,7 @@ size_t OutputData<T>::getAxisBinIndex(size_t global_index, const std::string &ax
 }
 
 template <class T>
-size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
+size_t OutputData<T>::toGlobalIndex(const std::vector<unsigned> &axes_indices) const
 {
     assert(mp_ll_data);
     if (axes_indices.size() != mp_ll_data->getRank())
@@ -430,9 +430,9 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<int> &axes_indices) const
             "size_t OutputData<T>::toGlobalIndex() -> "
             "Error! Number of coordinates must match rank of data structure");
     size_t result = 0;
-	size_t step_size = 1;
+    size_t step_size = 1;
     for (size_t i=mp_ll_data->getRank(); i>0; --i) {
-        if(axes_indices[i-1] < 0 || axes_indices[i-1] >= (int)m_value_axes[i-1]->size()) {
+        if(axes_indices[i-1] >= m_value_axes[i-1]->size()) {
             std::ostringstream message;
             message << "size_t OutputData<T>::toGlobalIndex() -> Error. Index ";
             message << axes_indices[i-1] << " is out of range. Axis ";
@@ -454,10 +454,10 @@ size_t OutputData<T>::findGlobalIndex(const std::vector<double> &coordinates) co
         throw Exceptions::LogicErrorException(
             "OutputData<T>::findClosestIndex() -> "
             "Error! Number of coordinates must match rank of data structure");
-    std::vector<int> axes_indexes;
+    std::vector<unsigned> axes_indexes;
     axes_indexes.resize(mp_ll_data->getRank());
     for(size_t i = 0; i<mp_ll_data->getRank(); ++i)
-        axes_indexes[i] = static_cast<int>(m_value_axes[i]->findClosestIndex(coordinates[i]));
+        axes_indexes[i] = static_cast<unsigned>(m_value_axes[i]->findClosestIndex(coordinates[i]));
     return toGlobalIndex(axes_indexes);
 }
 

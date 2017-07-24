@@ -71,7 +71,7 @@ private:
 
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = mp_alpha_i_axis->getBin(index)
-    void transferDetectorImage(int index);
+    void transferDetectorImage(size_t index);
 
     //! Check correct number of axes
     void checkInitialization() const;

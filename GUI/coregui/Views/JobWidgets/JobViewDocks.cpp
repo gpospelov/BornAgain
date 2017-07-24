@@ -168,7 +168,7 @@ void JobViewDocks::dockToMinMaxSizes()
 
 QWidget *JobViewDocks::jobWidget(JobViewFlags::Dock dockId)
 {
-    Q_ASSERT(dockId >=0 && dockId<m_jobWidgets.size());
+    Q_ASSERT(dockId<m_jobWidgets.size());
     return m_jobWidgets[dockId];
 }
 
@@ -176,7 +176,7 @@ QWidget *JobViewDocks::jobWidget(JobViewFlags::Dock dockId)
 
 QDockWidget *JobViewDocks::dock(JobViewFlags::Dock dockId)
 {
-    Q_ASSERT(dockId >=0 && dockId<m_dockWidgets.size());
+    Q_ASSERT(dockId<m_dockWidgets.size());
     return m_dockWidgets[dockId];
 }
 

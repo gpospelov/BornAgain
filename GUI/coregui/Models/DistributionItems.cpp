@@ -49,30 +49,23 @@ void DistributionItem::init_limits_group(const RealLimits& limits, double factor
 {
     if (!isTag(P_LIMITS))
         return;
-
     if (limits.isLimitless()) {
         setGroupProperty(P_LIMITS, Constants::RealLimitsLimitlessType);
-
     }
-
     else if (limits.isPositive()) {
         setGroupProperty(P_LIMITS, Constants::RealLimitsPositiveType);
     }
-
     else if (limits.isNonnegative()) {
         setGroupProperty(P_LIMITS, Constants::RealLimitsNonnegativeType);
     }
-
     else if (limits.isLowerLimited()) {
         SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsLowerLimitedType);
         lim->setItemValue(RealLimitsItem::P_XMIN, limits.getLowerLimit()*factor);
     }
-
     else if (limits.isUpperLimited()) {
         SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsUpperLimitedType);
         lim->setItemValue(RealLimitsItem::P_XMAX, limits.getUpperLimit()*factor);
     }
-
     else if (limits.isLimited()) {
         SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsLimitedType);
         lim->setItemValue(RealLimitsItem::P_XMIN, limits.getLowerLimit()*factor);
@@ -278,4 +271,45 @@ void DistributionCosineItem::init_distribution(double value)
     setItemValue(P_MEAN, value);
     setItemValue(P_SIGMA, sigma);
     getItem(P_SIGMA)->setLimits(RealLimits::lowerLimited(0.0));
+}
+
+// --------------------------------------------------------------------------------------------- //
+
+const QString DistributionTrapezoidItem::P_CENTER = QString::fromStdString(BornAgain::Center);
+const QString DistributionTrapezoidItem::P_LEFTWIDTH = QString::fromStdString(BornAgain::LeftWidth);
+const QString DistributionTrapezoidItem::P_MIDDLEWIDTH =
+        QString::fromStdString(BornAgain::MiddleWidth);
+const QString DistributionTrapezoidItem::P_RIGHTWIDTH =
+        QString::fromStdString(BornAgain::RightWidth);
+
+DistributionTrapezoidItem::DistributionTrapezoidItem()
+    : DistributionItem(Constants::DistributionTrapezoidType)
+{
+    addProperty(P_CENTER, 1.0)->setLimits(RealLimits::limitless());
+    addProperty(P_LEFTWIDTH, 1.0);
+    addProperty(P_MIDDLEWIDTH, 1.0);
+    addProperty(P_RIGHTWIDTH, 1.0);
+    register_number_of_samples();
+    register_limits();
+}
+
+std::unique_ptr<IDistribution1D> DistributionTrapezoidItem::createDistribution(double scale) const
+{
+    double center = getItemValue(P_CENTER).toDouble();
+    double left = getItemValue(P_LEFTWIDTH).toDouble();
+    double middle = getItemValue(P_MIDDLEWIDTH).toDouble();
+    double right = getItemValue(P_RIGHTWIDTH).toDouble();
+    return GUIHelpers::make_unique<DistributionTrapezoid>(scale*center, scale*left,
+                                                          scale*middle, scale*right);
+}
+
+void DistributionTrapezoidItem::init_distribution(double value)
+{
+    double width(0.1 * std::abs(value));
+    if (width == 0.0)
+        width = 0.1;
+    setItemValue(P_CENTER, value);
+    setItemValue(P_LEFTWIDTH, width);
+    setItemValue(P_MIDDLEWIDTH, width);
+    setItemValue(P_RIGHTWIDTH, width);
 }

@@ -62,7 +62,7 @@ void RootMinimizerAdapter::setParameters(const FitParameterSet &parameters)
     for (auto par: parameters)
         setParameter(index++, par );
 
-    if( (int)parameters.size() != fitDimension())  {
+    if( parameters.size() != fitDimension())  {
         std::ostringstream ostr;
         ostr << "BasicMinimizer::setParameters() -> Error! Unconsistency in fit parameter number: ";
         ostr << "fitParameterCount = " << fitDimension() << ",";

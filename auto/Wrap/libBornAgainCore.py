@@ -23155,7 +23155,7 @@ class IntensityData(_object):
 
     def toGlobalIndex(self, axes_indices):
         """
-        toGlobalIndex(IntensityData self, vector_integer_t axes_indices) -> size_t
+        toGlobalIndex(IntensityData self, std::vector< unsigned int,std::allocator< unsigned int > > const & axes_indices) -> size_t
 
         size_t OutputData< T >::toGlobalIndex(const std::vector< int > &axes_indices) const
 

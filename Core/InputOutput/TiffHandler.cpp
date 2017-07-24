@@ -137,7 +137,7 @@ void TiffHandler::read_data()
     std::vector<int8> line_buf;
     line_buf.resize(buf_size, 0);
 
-    std::vector<int32> axes_indices(2);
+    std::vector<unsigned> axes_indices(2);
 
     for (uint32 row = 0; row < (uint32) m_height; row++) {
         if(TIFFReadScanline(m_tiff, buf, row) < 0)
@@ -227,11 +227,11 @@ void TiffHandler::write_data()
 
     std::vector<sample_t> line_buf;
     line_buf.resize(m_width, 0);
-    std::vector<int> axes_indices(2);
+    std::vector<unsigned> axes_indices(2);
     for (int row = 0; row < (uint32) m_height; row++) {
         for(int col=0; col<line_buf.size(); ++col) {
             axes_indices[0] = col;
-            axes_indices[1] = static_cast<int>(m_height) - 1 - row;
+            axes_indices[1] = static_cast<unsigned>(m_height) - 1 - row;
             size_t global_index = m_data->toGlobalIndex(axes_indices);
             line_buf[col] = static_cast<sample_t>((*m_data)[global_index]);
         }

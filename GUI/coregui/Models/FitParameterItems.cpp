@@ -288,7 +288,7 @@ void FitParameterContainerItem::setValuesInParameterContainer(
 
     QVector<SessionItem*> fitPars = getItems(FitParameterContainerItem::T_FIT_PARAMETERS);
 
-    size_t index(0);
+    int index(0);
     for (int i = 0; i < fitPars.size(); ++i) {
         auto link_list = fitPars[i]->getItems(FitParameterItem::T_LINK);
         if (link_list.size() == 0)

@@ -54,7 +54,7 @@ public:
     virtual VariableBinAxis* createClippedAxis(double left, double right) const;
 
 protected:
-    VariableBinAxis(const std::string& name, int nbins = 0);
+    VariableBinAxis(const std::string& name, size_t nbins = 0);
     void setBinBoundaries(const std::vector<double> &bin_boundaries);
 
     virtual void print(std::ostream& ostr) const;

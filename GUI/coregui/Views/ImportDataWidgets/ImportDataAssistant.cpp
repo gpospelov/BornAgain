@@ -62,7 +62,7 @@ OutputData<double> *ImportDataAssistant::importData(QString &baseNameOfLoadedFil
     try {
         std::unique_ptr<OutputData<double>> data(
                     IntensityDataIOFactory::readOutputData(fileName.toStdString()));
-        result = createSimlifiedOutputData(*data.get());
+        result = createSimplifiedOutputData(*data.get());
     } catch (std::exception &ex) {
         QString message = QString("Error while trying to read file\n\n'%1'\n\n%2")
                               .arg(fileName)
@@ -75,7 +75,7 @@ OutputData<double> *ImportDataAssistant::importData(QString &baseNameOfLoadedFil
 
 //! Creates OutputData with simplified axes [0,nxbin]x[0,nybin].
 
-OutputData<double> *ImportDataAssistant::createSimlifiedOutputData(const OutputData<double> &data)
+OutputData<double> *ImportDataAssistant::createSimplifiedOutputData(const OutputData<double> &data)
 {
     double xmin(0.0), ymin(0.0);
 
@@ -141,8 +141,8 @@ void ImportDataAssistant::realDataShape(const RealDataItem *realData, int &nx, i
 void ImportDataAssistant::detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny)
 {
     std::unique_ptr<IDetector2D> detector = instrumentItem ->detectorItem()->createDetector();
-    nx = detector->getAxis(0).size();
-    ny = detector->getAxis(1).size();
+    nx = static_cast<int>(detector->getAxis(0).size());
+    ny = static_cast<int>(detector->getAxis(1).size());
 }
 
 void ImportDataAssistant::setInstrumentShapeToData(InstrumentItem *instrumentItem,

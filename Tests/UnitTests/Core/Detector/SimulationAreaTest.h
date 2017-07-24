@@ -65,12 +65,12 @@ TEST_F(SimulationAreaTest, detectorIteration)
     SphericalDetector detector(4, -1.0, 3.0, 2, 0.0, 2.0);
     SimulationArea area(&detector);
 
-    std::vector<int> expectedIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
-    std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
+    std::vector<size_t> expectedIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
+    std::vector<size_t> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
 
-    std::vector<int> indexes;
-    std::vector<int> elementIndexes;
-    std::vector<int> detectorIndexes;
+    std::vector<size_t> indexes;
+    std::vector<size_t> elementIndexes;
+    std::vector<size_t> detectorIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
@@ -90,10 +90,10 @@ TEST_F(SimulationAreaTest, maskedIteration)
     detector.addMask(Rectangle(3.1, 3.1, 3.9, 3.9), true);
     SimulationArea area(&detector);
 
-    std::vector<int> expectedIndexes = {0, 1, 2, 3, 4, 7, 8, 11, 12, 15, 16, 17, 18};
-    std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-    std::vector<int> indexes;
-    std::vector<int> elementIndexes;
+    std::vector<size_t> expectedIndexes = {0, 1, 2, 3, 4, 7, 8, 11, 12, 15, 16, 17, 18};
+    std::vector<size_t> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+    std::vector<size_t> indexes;
+    std::vector<size_t> elementIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
@@ -111,12 +111,12 @@ TEST_F(SimulationAreaTest, maskedCornerIteration)
     detector.addMask(Rectangle(3.1, 3.1, 3.9, 3.9), true);
     SimulationArea area(&detector);
 
-    std::vector<int> expectedIndexes
+    std::vector<size_t> expectedIndexes
             = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
-    std::vector<int> expectedElementIndexes
+    std::vector<size_t> expectedElementIndexes
             = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
-    std::vector<int> indexes;
-    std::vector<int> elementIndexes;
+    std::vector<size_t> indexes;
+    std::vector<size_t> elementIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
@@ -133,8 +133,8 @@ TEST_F(SimulationAreaTest, allMaskedIteration)
     detector.addMask(Rectangle(-0.9, 0.1, 3.9, 3.9), true);
     SimulationArea area(&detector);
 
-    std::vector<int> indexes;
-    std::vector<int> elementIndexes;
+    std::vector<size_t> indexes;
+    std::vector<size_t> elementIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
@@ -152,13 +152,13 @@ TEST_F(SimulationAreaTest, maskAndRoiIteration)
     detector.addMask(Rectangle(-0.9, 0.1, 0.9, 1.9), true);
     SimulationArea area(&detector);
 
-    std::vector<int> expectedRoiIndexes = {1, 2, 3, 4, 5, 6, 7, 8};
-    std::vector<int> expectedDetectorIndexes = {6, 7, 9, 10, 11, 13, 14, 15};
-    std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
-    std::vector<int> indexes;
-    std::vector<int> elementIndexes;
-    std::vector<int> detectorIndexes;
-    std::vector<int> roiIndexes;
+    std::vector<size_t> expectedRoiIndexes = {1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<size_t> expectedDetectorIndexes = {6, 7, 9, 10, 11, 13, 14, 15};
+    std::vector<size_t> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
+    std::vector<size_t> indexes;
+    std::vector<size_t> elementIndexes;
+    std::vector<size_t> detectorIndexes;
+    std::vector<size_t> roiIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
@@ -180,14 +180,14 @@ TEST_F(SimulationAreaTest, indexInRoi)
     detector.addMask(Rectangle(-0.9, 0.1, 0.9, 1.9), true);
     SimulationArea area(&detector);
 
-    std::vector<int> expectedIndexes = {1, 2, 3, 4, 5, 6, 7, 8};
-    std::vector<int> expectedDetectorIndexes = {6, 7, 9, 10, 11, 13, 14, 15};
-    std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
-    std::vector<int> expectedRoi = {1, 2, 3, 4, 5, 6, 7, 8};
-    std::vector<int> indexes;
-    std::vector<int> elementIndexes;
-    std::vector<int> roiIndexes;
-    std::vector<int> detectorIndexes;
+    std::vector<size_t> expectedIndexes = {1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<size_t> expectedDetectorIndexes = {6, 7, 9, 10, 11, 13, 14, 15};
+    std::vector<size_t> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7};
+    std::vector<size_t> expectedRoi = {1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<size_t> indexes;
+    std::vector<size_t> elementIndexes;
+    std::vector<size_t> roiIndexes;
+    std::vector<size_t> detectorIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());

@@ -21,8 +21,8 @@
 #include "ParameterSample.h"
 #include "SimulationElement.h"
 #include "StringUtils.h"
-#include <gsl/gsl_errno.h>
 #include <thread>
+#include <gsl/gsl_errno.h>
 #include <iomanip>
 #include <iostream>
 
@@ -65,7 +65,7 @@ Simulation::~Simulation() {} // forward class declaration prevents move to .h
 //! Initializes a progress monitor that prints to stdout.
 void Simulation::setTerminalProgressMonitor()
 {
-    m_progress.subscribe( [] (int percentage_done) -> bool {
+    m_progress.subscribe( [] (size_t percentage_done) -> bool {
             if (percentage_done<100)
                 std::cout << std::setprecision(2)
                           << "\r... " << percentage_done << "%" << std::flush;
@@ -251,8 +251,8 @@ void Simulation::runSingleSimulation()
         std::vector<std::unique_ptr<MainComputation>> computations;
 
         // Initialize n computations.
-        int total_batch_elements = batch_end - batch_start;
-        int element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
+        auto total_batch_elements = batch_end - batch_start;
+        auto element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
         if (total_batch_elements % m_options.getNumberOfThreads()) // there is a remainder
             ++element_thread_step;
 
@@ -262,7 +262,7 @@ void Simulation::runSingleSimulation()
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
-            int end_thread_index = (i_thread+1) * element_thread_step;
+            auto end_thread_index = (i_thread+1) * element_thread_step;
             if (end_thread_index >= total_batch_elements)
                 end_it = batch_end;
             else
@@ -313,7 +313,7 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
 std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches, int current_batch)
 {
     imposeConsistencyOfBatchNumbers(n_batches, current_batch);
-    int total_size = m_sim_elements.size();
+    int total_size = static_cast<int>(m_sim_elements.size());
     int size_per_batch = total_size/n_batches;
     if (total_size%n_batches)
         ++size_per_batch;
@@ -325,7 +325,7 @@ std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches
 std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, int current_batch)
 {
     imposeConsistencyOfBatchNumbers(n_batches, current_batch);
-    int total_size = m_sim_elements.size();
+    int total_size = static_cast<int>(m_sim_elements.size());
     int size_per_batch = total_size/n_batches;
     if (total_size%n_batches)
         ++size_per_batch;

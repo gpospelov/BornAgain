@@ -38,7 +38,7 @@ bool CoreTest::runTest()
     try {
         m_reference = IntensityDataIOFactory::readOutputData(
             FileSystemUtils::jointPath(CORE_STD_REF_DIR, getName() + ".int.gz"));
-    } catch(const std::exception& ex) {
+    } catch(const std::exception&) {
         m_reference = nullptr;
         std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
     }

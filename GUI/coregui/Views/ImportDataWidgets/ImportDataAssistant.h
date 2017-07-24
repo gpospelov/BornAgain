@@ -31,7 +31,7 @@ public:
 
     OutputData<double> *importData(QString &baseNameOfLoadedFile);
 
-    static OutputData<double> *createSimlifiedOutputData(const OutputData<double> &data);
+    static OutputData<double> *createSimplifiedOutputData(const OutputData<double> &data);
 
     static bool hasSameDimensions(const InstrumentItem *instrumentItem,
                                   const RealDataItem *realDataItem);

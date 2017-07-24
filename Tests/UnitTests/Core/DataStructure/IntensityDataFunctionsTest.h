@@ -20,7 +20,7 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetFixed)
     data.addAxis(axis1);
 
     for(size_t i=0; i<data.getAllocatedSize(); ++i) {
-        data[i] = i;
+        data[i] = static_cast<double>(i);
     }
 
     OutputData<double> *clip = IntensityDataFunctions::createClippedDataSet(data, -5.0, 0.0, -1.5, 1.5);
@@ -46,7 +46,7 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
     data.addAxis(axis1);
 
     for(size_t i=0; i<data.getAllocatedSize(); ++i) {
-        data[i] = i;
+        data[i] = static_cast<double>(i);
     }
 
     OutputData<double> *clip = IntensityDataFunctions::createClippedDataSet(data, -0.5, 0.5, 0.99, 2.0);
@@ -176,13 +176,13 @@ TEST_F(IntensityDataFunctionsTest, outputDataCoordinatesToFromBinf)
     double x(-4.5), y(2.5);
     IntensityDataFunctions::coordinateToBinf(x, y, data1);
     IntensityDataFunctions::coordinateFromBinf(x, y, data2);
-    EXPECT_FLOAT_EQ(x, -5.0);
-    EXPECT_FLOAT_EQ(y, -5.0);
+    EXPECT_DOUBLE_EQ(x, -5.0);
+	EXPECT_DOUBLE_EQ(y, -5.0);
 
     x = 3.1; y = 5.1;
     IntensityDataFunctions::coordinateToBinf(x, y, data1);
     IntensityDataFunctions::coordinateFromBinf(x, y, data2);
-    EXPECT_FLOAT_EQ(x, 71.0);
-    EXPECT_FLOAT_EQ(y, 21.0);
+	EXPECT_DOUBLE_EQ(x, 71.0);
+	EXPECT_DOUBLE_EQ(y, 21.0);
 
 }

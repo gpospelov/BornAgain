@@ -135,20 +135,20 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
     // creating map in degrees and checking axes
     data.reset(detector.createDetectorMap(beam, IDetector2D::DEGREES));
     EXPECT_EQ(data->getAxis(0).size(), 10u);
-    EXPECT_FLOAT_EQ(data->getAxis(0).getMin(), -1.0);
-    EXPECT_FLOAT_EQ(data->getAxis(0).getMax(), 1.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), -1.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 1.0);
     EXPECT_EQ(data->getAxis(1).size(), 20u);
-    EXPECT_FLOAT_EQ(data->getAxis(1).getMin(), 0.0);
-    EXPECT_FLOAT_EQ(data->getAxis(1).getMax(), 2.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(1).getMin(), 0.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 2.0);
 
     // creating map in nbins and checking axes
     data.reset(detector.createDetectorMap(beam, IDetector2D::NBINS));
     EXPECT_EQ(data->getAxis(0).size(), 10u);
-    EXPECT_FLOAT_EQ(data->getAxis(0).getMin(), 0.0);
-    EXPECT_FLOAT_EQ(data->getAxis(0).getMax(), 10.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), 0.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 10.0);
     EXPECT_EQ(data->getAxis(1).size(), 20u);
-    EXPECT_FLOAT_EQ(data->getAxis(1).getMin(), 0.0);
-    EXPECT_FLOAT_EQ(data->getAxis(1).getMax(), 20.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(1).getMin(), 0.0);
+	EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 20.0);
 }
 
 //! Testing region of interest.
@@ -353,10 +353,10 @@ TEST_F(SphericalDetectorTest, Clone)
 
     // checking iteration over the map of cloned detector
     SimulationArea area(clone.get());
-    std::vector<int> expectedDetectorIndexes = {6, 9, 10, 13, 14, 17};
-    std::vector<int> expectedElementIndexes = {0, 1, 2, 3, 4, 5};
-    std::vector<int> detectorIndexes;
-    std::vector<int> elementIndexes;
+    std::vector<size_t> expectedDetectorIndexes = {6, 9, 10, 13, 14, 17};
+    std::vector<size_t> expectedElementIndexes = {0, 1, 2, 3, 4, 5};
+    std::vector<size_t> detectorIndexes;
+    std::vector<size_t> elementIndexes;
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         detectorIndexes.push_back(it.detectorIndex());
         elementIndexes.push_back(it.elementIndex());

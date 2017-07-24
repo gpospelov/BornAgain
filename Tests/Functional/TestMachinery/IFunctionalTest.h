@@ -22,7 +22,7 @@
 //! Base class for all functional tests.
 //! @class IFunctionalTest
 
-class IFunctionalTest : public INamed
+class BA_CORE_API_ IFunctionalTest : public INamed
 {
 public:
     IFunctionalTest() {}

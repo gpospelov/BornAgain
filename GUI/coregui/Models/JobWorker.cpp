@@ -38,8 +38,8 @@ void JobWorker::start()
 
     if(m_simulation) {
         m_simulation->subscribe(
-            [this] (int percentage_done) {
-                return simulationInformsUs(percentage_done); } );
+            [this] (size_t percentage_done) {
+                return simulationInformsUs(static_cast<int>(percentage_done)); } );
 
         m_job_status = Constants::STATUS_RUNNING;
 

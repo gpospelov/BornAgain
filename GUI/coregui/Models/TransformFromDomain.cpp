@@ -754,6 +754,14 @@ void setDistribution(SessionItem* partDistrItem, ParameterDistribution par_distr
         item = partDistrItem->setGroupProperty(group_name, Constants::DistributionCosineType);
         item->setItemValue(DistributionCosineItem::P_MEAN, factor*distr->getMean());
         item->setItemValue(DistributionCosineItem::P_SIGMA, factor*distr->getSigma());
+    } else if (const DistributionTrapezoid* distr
+               = dynamic_cast<const DistributionTrapezoid*>(p_distribution)) {
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionTrapezoidType);
+        item->setItemValue(DistributionTrapezoidItem::P_CENTER, factor*distr->getMean());
+        item->setItemValue(DistributionTrapezoidItem::P_LEFTWIDTH, factor*distr->getLeftWidth());
+        item->setItemValue(DistributionTrapezoidItem::P_MIDDLEWIDTH,
+                           factor*distr->getMiddleWidth());
+        item->setItemValue(DistributionTrapezoidItem::P_RIGHTWIDTH, factor*distr->getRightWidth());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setDistribution: -> unknown distribution");
     }

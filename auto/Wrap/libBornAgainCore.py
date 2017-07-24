@@ -7414,6 +7414,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, DistributionGaussian arg2)
         visit(INodeVisitor self, DistributionLogNormal arg2)
         visit(INodeVisitor self, DistributionLorentz arg2)
+        visit(INodeVisitor self, DistributionTrapezoid arg2)
         visit(INodeVisitor self, FitObject arg2)
         visit(INodeVisitor self, FitSuiteObjects arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
@@ -8527,6 +8528,120 @@ class DistributionCosine(IDistribution1D):
 
 DistributionCosine_swigregister = _libBornAgainCore.DistributionCosine_swigregister
 DistributionCosine_swigregister(DistributionCosine)
+
+class DistributionTrapezoid(IDistribution1D):
+    """Proxy of C++ DistributionTrapezoid class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IDistribution1D]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, DistributionTrapezoid, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IDistribution1D]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, DistributionTrapezoid, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(DistributionTrapezoid self) -> DistributionTrapezoid
+        __init__(DistributionTrapezoid self, double center, double left_width, double middle_width, double right_width) -> DistributionTrapezoid
+        """
+        this = _libBornAgainCore.new_DistributionTrapezoid(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_DistributionTrapezoid
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(DistributionTrapezoid self) -> DistributionTrapezoid
+
+        virtual IDistribution1D* IDistribution1D::clone() const =0
+
+        """
+        return _libBornAgainCore.DistributionTrapezoid_clone(self)
+
+
+    def probabilityDensity(self, x):
+        """
+        probabilityDensity(DistributionTrapezoid self, double x) -> double
+
+        virtual double IDistribution1D::probabilityDensity(double x) const =0
+
+        Returns the distribution-specific probability density for value x. 
+
+        """
+        return _libBornAgainCore.DistributionTrapezoid_probabilityDensity(self, x)
+
+
+    def getMean(self):
+        """
+        getMean(DistributionTrapezoid self) -> double
+
+        virtual double IDistribution1D::getMean() const =0
+
+        Returns the distribution-specific mean. 
+
+        """
+        return _libBornAgainCore.DistributionTrapezoid_getMean(self)
+
+
+    def getLeftWidth(self):
+        """getLeftWidth(DistributionTrapezoid self) -> double"""
+        return _libBornAgainCore.DistributionTrapezoid_getLeftWidth(self)
+
+
+    def getMiddleWidth(self):
+        """getMiddleWidth(DistributionTrapezoid self) -> double"""
+        return _libBornAgainCore.DistributionTrapezoid_getMiddleWidth(self)
+
+
+    def getRightWidth(self):
+        """getRightWidth(DistributionTrapezoid self) -> double"""
+        return _libBornAgainCore.DistributionTrapezoid_getRightWidth(self)
+
+
+    def equidistantPoints(self, *args):
+        """
+        equidistantPoints(DistributionTrapezoid self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
+        equidistantPoints(DistributionTrapezoid self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
+
+        virtual std::vector<double> IDistribution1D::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const =0
+
+        Returns equidistant interpolation points, with range computed in distribution-specific way from mean and width parameter, taking into account limits and sigma_factor. 
+
+        """
+        return _libBornAgainCore.DistributionTrapezoid_equidistantPoints(self, *args)
+
+
+    def isDelta(self):
+        """
+        isDelta(DistributionTrapezoid self) -> bool
+
+        virtual bool IDistribution1D::isDelta() const =0
+
+        Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+
+        """
+        return _libBornAgainCore.DistributionTrapezoid_isDelta(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(DistributionTrapezoid self, INodeVisitor visitor)
+
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.DistributionTrapezoid_accept(self, visitor)
+
+DistributionTrapezoid_swigregister = _libBornAgainCore.DistributionTrapezoid_swigregister
+DistributionTrapezoid_swigregister(DistributionTrapezoid)
 
 class DetectorMask(_object):
     """

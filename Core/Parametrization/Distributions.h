@@ -269,4 +269,45 @@ private:
     double m_sigma;
 };
 
+//! Trapezoidal distribution.
+//! @ingroup paramDistribution
+
+class BA_CORE_API_ DistributionTrapezoid: public IDistribution1D
+{
+public:
+    DistributionTrapezoid() : DistributionTrapezoid(0., 0., 1., 0.) {}
+    DistributionTrapezoid(double center, double left_width,
+                            double middle_width, double right_width);
+    virtual ~DistributionTrapezoid() {}
+
+    DistributionTrapezoid* clone() const final {
+        return new DistributionTrapezoid(m_center, m_left, m_middle, m_right); }
+
+    double probabilityDensity(double x) const final;
+    double getMean() const final { return m_center; }
+    double getLeftWidth() const { return m_left; }
+    double getMiddleWidth() const { return m_middle; }
+    double getRightWidth() const { return m_right; }
+
+    //! generate list of sample values
+    virtual std::vector<double> equidistantPoints(
+        size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
+
+    bool isDelta() const final;
+
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
+protected:
+    //! Registers some class members for later access via parameter pool
+    void init_parameters();
+
+private:
+    //! check initialization
+    bool checkInitialization() const;
+    double m_center;
+    double m_left;
+    double m_middle;
+    double m_right;
+};
+
 #endif // DISTRIBUTIONS_H

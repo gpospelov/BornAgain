@@ -62,7 +62,7 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
 
     m_intervalSlider->setToolTip(slider_tooltip);
     m_intervalSlider->setOrientation(Qt::Horizontal);
-    m_intervalSlider->setRange(0, slider_to_interval.size()-1);
+    m_intervalSlider->setRange(0, static_cast<int>(slider_to_interval.size())-1);
     m_intervalSlider->setMaximumWidth(120);
     m_intervalSlider->setMinimumWidth(120);
     m_intervalSlider->setFocusPolicy(Qt::NoFocus);

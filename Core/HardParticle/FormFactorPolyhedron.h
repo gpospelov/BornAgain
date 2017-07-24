@@ -149,7 +149,7 @@ protected:
 
 //! A polygonal surface, for testing form factor computations.
 
-class FormFactorPolygonalSurface : public IFormFactorBorn {
+class BA_CORE_API_ FormFactorPolygonalSurface : public IFormFactorBorn {
 public:
     FormFactorPolygonalSurface() {}
 

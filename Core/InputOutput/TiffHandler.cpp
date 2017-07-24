@@ -146,9 +146,9 @@ void TiffHandler::read_data()
 
         memcpy(&line_buf[0], buf, buf_size);
 
-        for(size_t col=0; col<m_width; ++col) {
+        for(int col=0; col<m_width; ++col) {
             axes_indices[0] = col;
-            axes_indices[1] = m_height - 1 - row;
+            axes_indices[1] = static_cast<int>(m_height) - 1 - row;
             size_t global_index = m_data->toGlobalIndex(axes_indices);
 
             void *incoming = &line_buf[col*bytesPerSample];
@@ -203,8 +203,8 @@ void TiffHandler::write_header()
            "Image converted from BornAgain intensity file.");
     TIFFSetField(m_tiff, TIFFTAG_SOFTWARE, "BornAgain");
 
-    uint32 width = m_width;
-    uint32 height = m_height;
+    uint32 width = static_cast<uint32>(m_width);
+    uint32 height = static_cast<uint32>(m_height);
     TIFFSetField(m_tiff, TIFFTAG_IMAGEWIDTH, width);
     TIFFSetField(m_tiff, TIFFTAG_IMAGELENGTH, height);
 
@@ -228,10 +228,10 @@ void TiffHandler::write_data()
     std::vector<sample_t> line_buf;
     line_buf.resize(m_width, 0);
     std::vector<int> axes_indices(2);
-    for (uint32 row = 0; row < (uint32) m_height; row++) {
-        for(size_t col=0; col<line_buf.size(); ++col) {
+    for (int row = 0; row < (uint32) m_height; row++) {
+        for(int col=0; col<line_buf.size(); ++col) {
             axes_indices[0] = col;
-            axes_indices[1] = m_height - 1 - row;
+            axes_indices[1] = static_cast<int>(m_height) - 1 - row;
             size_t global_index = m_data->toGlobalIndex(axes_indices);
             line_buf[col] = static_cast<sample_t>((*m_data)[global_index]);
         }

@@ -89,8 +89,8 @@ size_t IHistogram::getNbinsY() const
 size_t IHistogram::getGlobalBin(size_t binx, size_t biny) const
 {
     std::vector<int > axes_indices;
-    axes_indices.push_back(binx);
-    if(getRank() == 2) axes_indices.push_back(biny);
+    axes_indices.push_back(static_cast<int>(binx));
+    if(getRank() == 2) axes_indices.push_back(static_cast<int>(biny));
     return m_data.toGlobalIndex(axes_indices);
 }
 
@@ -102,12 +102,12 @@ size_t IHistogram::findGlobalBin(double x, double y) const
     return m_data.findGlobalIndex(coordinates);
 }
 
-int IHistogram::getXaxisIndex(size_t i) const
+size_t IHistogram::getXaxisIndex(size_t i) const
 {
     return m_data.getAxisBinIndex(i, 0);
 }
 
-int IHistogram::getYaxisIndex(size_t i) const
+size_t IHistogram::getYaxisIndex(size_t i) const
 {
     return m_data.getAxisBinIndex(i, 1);
 }

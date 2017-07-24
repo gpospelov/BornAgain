@@ -234,8 +234,7 @@ void ApplicationModels::createTestRealData()
     std::unique_ptr<OutputData<double>> data(
                 IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int"));
 
-    ImportDataAssistant assistant;
-    OutputData<double> *simplified = assistant.createSimlifiedOutputData(*data.get());
+    OutputData<double> *simplified = ImportDataAssistant::createSimplifiedOutputData(*data.get());
     realDataItem->setOutputData(simplified);
 }
 

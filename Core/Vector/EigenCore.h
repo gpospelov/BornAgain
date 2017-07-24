@@ -20,12 +20,14 @@
 // see http://eigen.tuxfamily.org/dox-devel/group__TopicStructHavingEigenMembers.html
 
 #ifndef SWIG
-#ifndef _WIN32
-#endif
+#ifdef _WIN32
+#include <Eigen/Core>
+#else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include <Eigen/Core>
 #pragma GCC diagnostic pop
+#endif
 #endif
 
 #endif // EIGENCORE_H

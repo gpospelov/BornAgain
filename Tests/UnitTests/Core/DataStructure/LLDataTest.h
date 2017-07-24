@@ -371,7 +371,7 @@ TEST_F(LLDataTest, Accessors) {
 
 
     for (size_t i=0; i < matrix_data_2d->getTotalSize(); ++i) {
-        (*matrix_data_2d)[i] = i *  Eigen::Matrix2d::Identity();
+        (*matrix_data_2d)[i] = static_cast<double>(i) *  Eigen::Matrix2d::Identity();
     }
 
     EXPECT_EQ((*matrix_data_2d)[2], 2 * Eigen::Matrix2d::Identity());

@@ -108,7 +108,7 @@ public:
     // ------------------------------------------------------------------------
 
     //! Returns number of fit objects, where fit object stands for (real, simulated) pair.
-    int numberOfFitObjects() const;
+    size_t numberOfFitObjects() const;
 
     //! returns real data histogram
     //! @param i_item The index of fit object

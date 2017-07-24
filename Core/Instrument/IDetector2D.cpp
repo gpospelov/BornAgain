@@ -236,7 +236,7 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
     for (size_t i=0; i<getDimension(); ++i)
     {
         size_t i_axis = getDimension()-1-i;
-        int result = remainder % m_axes[i_axis]->size();
+		size_t result = remainder % m_axes[i_axis]->size();
         if(selected_axis == i_axis ) return result;
         remainder /= m_axes[i_axis]->size();
     }

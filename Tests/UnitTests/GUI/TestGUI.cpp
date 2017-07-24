@@ -30,6 +30,10 @@
 #include "TestProjectUtils.h"
 #include "TestParticleCoreShell.h"
 
+inline bool TestResult(QObject *testObject, int argc = 0, char **argv = Q_NULLPTR) {
+	return QTest::qExec(testObject, argc, argv) != 0;
+}
+
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
     Q_UNUSED(app);
@@ -67,35 +71,34 @@ int main(int argc, char** argv) {
 
     bool status(false);
 
-    status |= QTest::qExec(&testFormFactorItems, argc, argv);
-    status |= QTest::qExec(&testFTDistributionItems, argc, argv);
-    status |= QTest::qExec(&testParameterizedItem, argc, argv);
-    status |= QTest::qExec(&testParticleItem, argc, argv);
-    status |= QTest::qExec(&testLayerRoughnessItems, argc, argv);
-    status |= QTest::qExec(&testParaCrystalItems, argc, argv);
-    status |= QTest::qExec(&testSessionModel, argc, argv);
-    status |= QTest::qExec(&testGUICoreObjectCorrespondence, argc, argv);
-    status |= QTest::qExec(&testSessionItem);
-    status |= QTest::qExec(&testMapperCases, argc, argv);
-    status |= QTest::qExec(&testSessionModel, argc, argv);
-    status |= QTest::qExec(&testMapperForItem, argc, argv);
-    status |= QTest::qExec(&testGUIHelpers, argc, argv);
-    status |= QTest::qExec(&testFitParameterModel, argc, argv);
-    status |= QTest::qExec(&testMaterialModel, argc, argv);
-    status |= QTest::qExec(&testComboProperty, argc, argv);
-    status |= QTest::qExec(&testTranslations, argc, argv);
-    status |= QTest::qExec(&testGroupProperty, argc, argv);
-    status |= QTest::qExec(&testParticleDistributionItem, argc, argv);
-    status |= QTest::qExec(&testParameterTreeUtils, argc, argv);
-    status |= QTest::qExec(&testDetectorItems, argc, argv);
-    status |= QTest::qExec(&testLinkInstrument, argc, argv);
-    status |= QTest::qExec(&testUpdateTimer, argc, argv);
-    status |= QTest::qExec(&testProjectDocument, argc, argv);
-    status |= QTest::qExec(&testSaveService, argc, argv);
-    status |= QTest::qExec(&testIO, argc, argv);
-    status |= QTest::qExec(&testIntensityData, argc, argv);
-    status |= QTest::qExec(&testProjectUtils, argc, argv);
-    status |= QTest::qExec(&testParticleCoreShell, argc, argv);
+    status |= TestResult(&testFormFactorItems, argc, argv);
+    status |= TestResult(&testFTDistributionItems, argc, argv);
+    status |= TestResult(&testParameterizedItem, argc, argv);
+    status |= TestResult(&testParticleItem, argc, argv);
+    status |= TestResult(&testLayerRoughnessItems, argc, argv);
+    status |= TestResult(&testParaCrystalItems, argc, argv);
+    status |= TestResult(&testSessionModel, argc, argv);
+    status |= TestResult(&testGUICoreObjectCorrespondence, argc, argv);
+    status |= TestResult(&testSessionItem);
+    status |= TestResult(&testMapperCases, argc, argv);
+    status |= TestResult(&testSessionModel, argc, argv);
+    status |= TestResult(&testMapperForItem, argc, argv);
+    status |= TestResult(&testGUIHelpers, argc, argv);
+    status |= TestResult(&testFitParameterModel, argc, argv);
+    status |= TestResult(&testMaterialModel, argc, argv);
+    status |= TestResult(&testComboProperty, argc, argv);
+    status |= TestResult(&testTranslations, argc, argv);
+    status |= TestResult(&testGroupProperty, argc, argv);
+    status |= TestResult(&testParticleDistributionItem, argc, argv);
+    status |= TestResult(&testParameterTreeUtils, argc, argv);
+    status |= TestResult(&testDetectorItems, argc, argv);
+    status |= TestResult(&testLinkInstrument, argc, argv);
+    status |= TestResult(&testUpdateTimer, argc, argv);
+    status |= TestResult(&testProjectDocument, argc, argv);
+    status |= TestResult(&testSaveService, argc, argv);
+    status |= TestResult(&testIO, argc, argv);
+    status |= TestResult(&testIntensityData, argc, argv);
+    status |= TestResult(&testProjectUtils, argc, argv);
 
     return status;
 }

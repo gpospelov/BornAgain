@@ -118,7 +118,7 @@ void FitSuiteImpl::minimize()
             return m_function_gradient.evaluate(pars, index, gradients);
         };
     m_kernel->setGradientFunction(
-        fun_gradient, m_fit_objects.getSizeOfDataSet() );
+        fun_gradient, static_cast<int>(m_fit_objects.getSizeOfDataSet()) );
 
     m_fit_objects.setNfreeParameters((int)fitParameters()->freeFitParameterCount());
 

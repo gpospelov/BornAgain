@@ -19,7 +19,6 @@
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "SimulationElement.h"
-#include "DetectorFunctions.h"
 
 GISASSimulation::GISASSimulation()
 {
@@ -67,9 +66,8 @@ OutputData<double>* GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnit
 
 Histogram2D* GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type) const
 {
-    const std::unique_ptr<OutputData<double>> data(getDetectorIntensity(units_type));
-    std::unique_ptr<Histogram2D> result(new Histogram2D(*data));
-    result->setAxesUnits(DetectorFunctions::detectorUnitsName(units_type));
+    std::unique_ptr<Histogram2D> result(
+        m_instrument.createIntensityData(m_sim_elements, units_type));
     return result.release();
 }
 

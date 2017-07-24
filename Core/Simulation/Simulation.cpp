@@ -110,16 +110,13 @@ void Simulation::setBeamPolarization(const kvector_t bloch_vector)
 
 void Simulation::prepareSimulation()
 {
+    updateSample();
     gsl_set_error_handler_off();
 }
 
 //! Run simulation with possible averaging over parameter distributions
 void Simulation::runSimulation()
 {
-    updateSample();
-    if (!mP_multilayer)
-        throw Exceptions::NullPointerException("Simulation::runSimulation() -> Error! No sample.");
-
     prepareSimulation();
 
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
@@ -218,13 +215,16 @@ void Simulation::updateSample()
     } else {
         mP_multilayer.reset( mP_sample_builder->buildSample() );
     }
+
+    if (!mP_multilayer)
+        throw Exceptions::NullPointerException("Simulation::runSimulation() -> Error! No sample.");
 }
 
 //! Runs a single simulation with fixed parameter values.
 //! If desired, the simulation is run in several threads.
 void Simulation::runSingleSimulation()
 {
-    updateSample();
+    prepareSimulation();
     initSimulationElementVector();
 
     // restrict calculation to current batch

@@ -146,9 +146,9 @@ void TiffHandler::read_data()
 
         memcpy(&line_buf[0], buf, buf_size);
 
-        for(int col=0; col<m_width; ++col) {
+        for(unsigned col=0; col<m_width; ++col) {
             axes_indices[0] = col;
-            axes_indices[1] = static_cast<int>(m_height) - 1 - row;
+            axes_indices[1] = static_cast<unsigned>(m_height) - 1 - row;
             size_t global_index = m_data->toGlobalIndex(axes_indices);
 
             void *incoming = &line_buf[col*bytesPerSample];
@@ -228,8 +228,8 @@ void TiffHandler::write_data()
     std::vector<sample_t> line_buf;
     line_buf.resize(m_width, 0);
     std::vector<unsigned> axes_indices(2);
-    for (int row = 0; row < (uint32) m_height; row++) {
-        for(int col=0; col<line_buf.size(); ++col) {
+    for (unsigned row = 0; row < (uint32) m_height; row++) {
+        for(unsigned col=0; col<line_buf.size(); ++col) {
             axes_indices[0] = col;
             axes_indices[1] = static_cast<unsigned>(m_height) - 1 - row;
             size_t global_index = m_data->toGlobalIndex(axes_indices);

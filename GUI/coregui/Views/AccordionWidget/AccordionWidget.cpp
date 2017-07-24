@@ -364,13 +364,13 @@ bool AccordionWidget::checkIndexError(uint index, bool sizeIndexAllowed,
     // Update, I removed the 0 exclusion in the second if statement. Really a
     // fix??
     if (sizeIndexAllowed) {
-        if (index != 0 && index > numberOfContentPanes()) {
+        if (index != 0 && static_cast<int>(index) > numberOfContentPanes()) {
             qDebug() << Q_FUNC_INFO << errMessage;
             this->errorString = errMessage;
             return true;
         }
     } else {
-        if (index >= numberOfContentPanes()) {
+        if (static_cast<int>(index) >= numberOfContentPanes()) {
             qDebug() << Q_FUNC_INFO << errMessage;
             this->errorString = errMessage;
             return true;

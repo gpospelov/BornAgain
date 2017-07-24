@@ -116,7 +116,7 @@ void OffSpecSimulation::transferResultsToIntensityMap()
         throw Exceptions::RuntimeErrorException(
             "OffSpecSimulation::transferResultsToIntensityMap: "
             "intensity map size does not conform to number of calculated intensities");
-    for (int i=0; i<mp_alpha_i_axis->size(); ++i)
+    for (size_t i=0; i<mp_alpha_i_axis->size(); ++i)
         transferDetectorImage(i);
 }
 
@@ -131,7 +131,7 @@ void OffSpecSimulation::updateIntensityMap()
     m_intensity_map.setAllTo(0.);
 }
 
-void OffSpecSimulation::transferDetectorImage(int index)
+void OffSpecSimulation::transferDetectorImage(size_t index)
 {
     OutputData<double> detector_image;
     size_t detector_dimension = m_instrument.getDetectorDimension();

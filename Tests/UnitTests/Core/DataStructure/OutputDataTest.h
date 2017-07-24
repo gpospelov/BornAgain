@@ -58,13 +58,13 @@ TEST_F(OutputDataTest, SizeAfterAddingAxes)
 
 TEST_F(OutputDataTest, DataInitialization)
 {
-    std::vector<int> coordinates;
+    std::vector<unsigned> coordinates;
     coordinates.push_back(11);
     coordinates.push_back(4);
     coordinates.push_back(3);
     EXPECT_DOUBLE_EQ((double)1143, db_data_3d[db_data_3d.toGlobalIndex(coordinates)]);
 
-    std::vector<int> coordinates2;
+    std::vector<unsigned> coordinates2;
     coordinates2.push_back(10);
     coordinates2.push_back(5);
     EXPECT_EQ(Eigen::Matrix2d::Identity(),

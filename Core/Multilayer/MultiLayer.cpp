@@ -165,9 +165,9 @@ double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k
 
 int MultiLayer::indexOfLayer(const Layer* p_layer) const
 {
-    for (int i=0; i<numberOfLayers(); ++i)
+    for (size_t i=0; i<numberOfLayers(); ++i)
         if (p_layer == m_layers[i])
-            return i;
+            return static_cast<int>(i);
     return -1;
 }
 

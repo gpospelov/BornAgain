@@ -108,7 +108,7 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
     QStringList group_names;
     group_names << InterferenceFunction2DParaCrystalItem::P_PDF1
                 << InterferenceFunction2DParaCrystalItem::P_PDF2;
-    for (int i = 0; i < pdfs.size(); ++i)
+    for (unsigned i = 0; i < pdfs.size(); ++i)
         setPDF2D(item, pdfs[i], group_names[i]);
 }
 

@@ -4,7 +4,6 @@ axes in different units (nbins, mm, degs and QyQz).
 """
 import bornagain as ba
 from bornagain import deg, angstrom, nm
-import matplotlib
 from matplotlib import pyplot as plt
 
 
@@ -59,22 +58,6 @@ def get_simulation():
     return simulation
 
 
-def plot_as_colormap(hist, Title, xLabel, yLabel):
-    """
-    Simple plot of intensity data as color map
-    """
-    im = plt.imshow(
-        hist.getArray(),
-        norm=matplotlib.colors.LogNorm(1.0, hist.getMaximum()),
-        extent=[hist.getXmin(), hist.getXmax(),
-                hist.getYmin(), hist.getYmax()],
-        aspect='auto')
-    cb = plt.colorbar(im, pad=0.025)
-    plt.xlabel(xLabel, fontsize=16)
-    plt.ylabel(yLabel, fontsize=16)
-    plt.title(Title)
-
-
 def run_simulation():
     """
     Run simulation and returns results for different detector units.
@@ -102,20 +85,20 @@ def plot(results):
     plt.subplot(2, 2, 1)
     # default units for rectangular detector are millimeters
 
-    plot_as_colormap(results['mm'], "In default units",
-                     r'$X_{mm}$', r'$Y_{mm}$')
+    ba.plot_colormap(results['mm'], title="In default units",
+                     xlabel=r'$X_{mm}$', ylabel=r'$Y_{mm}$', zlabel=None)
 
     plt.subplot(2, 2, 2)
-    plot_as_colormap(results['bin'], "In number of bins",
-                     r'$X_{nbins}$', r'$Y_{nbins}$')
+    ba.plot_colormap(results['bin'], title="In number of bins",
+                     xlabel=r'$X_{nbins}$', ylabel=r'$Y_{nbins}$', zlabel=None)
 
     plt.subplot(2, 2, 3)
-    plot_as_colormap(results['deg'], "In degs",
-                     r'$\phi_f ^{\circ}$', r'$\alpha_f ^{\circ}$')
+    ba.plot_colormap(results['deg'], title="In degs",
+                     xlabel=r'$\phi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$', zlabel=None)
 
     plt.subplot(2, 2, 4)
-    plot_as_colormap(results['nm-1'], "Q-space",
-                     r'$Q_{y} [1/nm]$', r'$Q_{z} [1/nm]$')
+    ba.plot_colormap(results['nm-1'], title="Q-space",
+                     xlabel=r'$Q_{y} [1/nm]$', ylabel=r'$Q_{z} [1/nm]$', zlabel=None)
 
     plt.subplots_adjust(left=0.07, right=0.97, top=0.9, bottom=0.1, hspace=0.25)
     plt.show()

@@ -19745,6 +19745,14 @@ class Instrument(INode):
         return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
 
 
+    def createIntensityData(self, *args):
+        """
+        createIntensityData(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units_type) -> Histogram2D
+        createIntensityData(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> Histogram2D
+        """
+        return _libBornAgainCore.Instrument_createIntensityData(self, *args)
+
+
     def createDetectorMap(self, *args):
         """
         createDetectorMap(Instrument self, IDetector2D::EAxesUnits units) -> IntensityData

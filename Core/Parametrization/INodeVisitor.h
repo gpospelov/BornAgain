@@ -27,6 +27,7 @@ class DistributionGate;
 class DistributionGaussian;
 class DistributionLogNormal;
 class DistributionLorentz;
+class DistributionTrapezoid;
 class FitObject;
 class FitSuiteObjects;
 class FormFactorAnisoPyramid;
@@ -146,6 +147,7 @@ public:
     virtual void visit(const DistributionGaussian*) {}
     virtual void visit(const DistributionLogNormal*) {}
     virtual void visit(const DistributionLorentz*) {}
+    virtual void visit(const DistributionTrapezoid*) {}
     virtual void visit(const FitObject*) {}
     virtual void visit(const FitSuiteObjects*) {}
     virtual void visit(const FormFactorAnisoPyramid*) {}

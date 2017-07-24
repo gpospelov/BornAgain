@@ -7414,6 +7414,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, DistributionGaussian arg2)
         visit(INodeVisitor self, DistributionLogNormal arg2)
         visit(INodeVisitor self, DistributionLorentz arg2)
+        visit(INodeVisitor self, DistributionTrapezoid arg2)
         visit(INodeVisitor self, FitObject arg2)
         visit(INodeVisitor self, FitSuiteObjects arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)

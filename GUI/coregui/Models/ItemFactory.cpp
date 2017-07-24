@@ -122,6 +122,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::DistributionGaussianType] = &createInstance<DistributionGaussianItem>;
     result[Constants::DistributionLogNormalType] = &createInstance<DistributionLogNormalItem>;
     result[Constants::DistributionCosineType] = &createInstance<DistributionCosineItem>;
+    result[Constants::DistributionTrapezoidType] = &createInstance<DistributionTrapezoidItem>;
 
     result[Constants::FTDistribution1DCauchyType] = &createInstance<FTDistribution1DCauchyItem>;
     result[Constants::FTDistribution1DGaussType] = &createInstance<FTDistribution1DGaussItem>;

@@ -33,9 +33,8 @@ class RealLimits;
 
 namespace PythonFormatting {
 
-    BA_CORE_API_ std::string generateCode(const MultiLayer& multilayer);
-
-    BA_CORE_API_ std::string simulationToPython(GISASSimulation* simulation);
+    BA_CORE_API_ std::string generateSampleCode(const MultiLayer& multilayer);
+    BA_CORE_API_ std::string generateSimulationCode(const GISASSimulation& simulation);
 
     BA_CORE_API_ std::string representShape2D(const std::string& indent,
                                               const IShape2D* ishape,

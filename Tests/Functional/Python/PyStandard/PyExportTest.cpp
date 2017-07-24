@@ -51,7 +51,7 @@ bool PyExportTest::runTest()
     // Generate Python script
     std::string pyscript_filename = FileSystemUtils::jointPath(PYEXPORT_TMP_DIR, getName() + ".py");
     std::ofstream pythonFile(pyscript_filename);
-    pythonFile << PythonFormatting::simulationToPython(m_reference_simulation);
+    pythonFile << PythonFormatting::generateSimulationCode(*m_reference_simulation);
     pythonFile.close();
 
     // Run Python script

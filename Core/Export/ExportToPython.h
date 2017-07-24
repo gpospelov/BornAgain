@@ -37,17 +37,14 @@ public:
     };
 
     ExportToPython();
-    ExportToPython(const MultiLayer& multilayer);
     virtual ~ExportToPython();
 
     std::string generateSampleCode(const MultiLayer& multilayer);
     std::string generateSimulationCode(const GISASSimulation& simulation, EMainType mainType);
 
-    std::string simulationToPythonLowlevel(const GISASSimulation* simulation);
-    std::string defineGetSample() const;
-
 private:
     void initSample(const MultiLayer& multilayer);
+    std::string defineGetSample() const;
     std::string definePreamble() const;
     std::string defineGetSimulation(const GISASSimulation* simulation) const;
     std::string defineMaterials() const;

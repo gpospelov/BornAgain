@@ -83,11 +83,6 @@ namespace {
 
 ExportToPython::ExportToPython(){}
 
-ExportToPython::ExportToPython(const MultiLayer& multilayer)
-{
-    initSample(multilayer);
-}
-
 ExportToPython::~ExportToPython()
 {
 }
@@ -97,6 +92,8 @@ std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer)
     initSample(multilayer);
     return defineGetSample();
 }
+
+//! Returns a Python script that sets up a simulation and runs it if invoked as main program.
 
 std::string ExportToPython::generateSimulationCode(const GISASSimulation& simulation,
                                                    EMainType mainType)
@@ -114,17 +111,6 @@ std::string ExportToPython::generateSimulationCode(const GISASSimulation& simula
         + defineMain(mainType);
 }
 
-//! Returns a Python script that sets up a simulation and runs it if invoked as main program.
-
-std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation* simulation)
-{
-    return preamble
-        + defineGetSample()
-        + defineGetSimulation(simulation)
-        + defineSimulate
-        + defineMain();
-}
-
 std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
@@ -139,24 +125,6 @@ std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulatio
     result << defineSimulationOptions(simulation);
     result << indent() << "return simulation\n\n\n";
     return result.str();
-}
-
-std::string ExportToPython::defineGetSample() const
-{
-    return "def getSample():\n"
-        + defineMaterials()
-        + defineLayers()
-        + defineFormFactors()
-        + defineParticles()
-        + defineCoreShellParticles()
-        + defineParticleCompositions()
-        + defineParticleDistributions()
-        + defineInterferenceFunctions()
-        + defineParticleLayouts()
-        + defineRoughnesses()
-        + addLayoutsToLayers()
-        + defineMultiLayers()
-            + "\n";
 }
 
 void ExportToPython::initSample(const MultiLayer& multilayer)
@@ -190,6 +158,24 @@ void ExportToPython::initSample(const MultiLayer& multilayer)
     if( multilayer.containedSubclass<MesoCrystal>().size() )
         throw Exceptions::NotImplementedException(
             "ExportToPython: class MesoCrystal not yet supported!");
+}
+
+std::string ExportToPython::defineGetSample() const
+{
+    return "def getSample():\n"
+        + defineMaterials()
+        + defineLayers()
+        + defineFormFactors()
+        + defineParticles()
+        + defineCoreShellParticles()
+        + defineParticleCompositions()
+        + defineParticleDistributions()
+        + defineInterferenceFunctions()
+        + defineParticleLayouts()
+        + defineRoughnesses()
+        + addLayoutsToLayers()
+        + defineMultiLayers()
+            + "\n";
 }
 
 std::string ExportToPython::defineMaterials() const
@@ -834,6 +820,8 @@ std::string ExportToPython::defineMain(ExportToPython::EMainType mainType)
         result = "if __name__ == '__main__': \n"
                  "    result = run_simulation()\n"
                  "    import sys\n"
+                 "    if len(sys.argv)<2:\n"
+                 "        exit(\"File name is required\")\n"
                  "    ba.IntensityDataIOFactory.writeIntensityData(result, sys.argv[1])\n";
     } else {
         throw std::runtime_error("ExportToPython::defineMain() -> Error. Unknown main type.");

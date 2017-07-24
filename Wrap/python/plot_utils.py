@@ -58,15 +58,9 @@ def plot_intensity_data(intensity, zmin=None, zmax=None):
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """
-
-    import sys
-
-    if len(sys.argv) <= 1:
-        from matplotlib import pyplot as plt
-        plot_colormap(intensity, zmin, zmax)
-        plt.show()
-    else:
-        ba.IntensityDataIOFactory.writeIntensityData(intensity, sys.argv[1])
+    from matplotlib import pyplot as plt
+    plot_colormap(intensity, zmin, zmax)
+    plt.show()
 
 
 class DefaultFitObserver(IFitObserver):

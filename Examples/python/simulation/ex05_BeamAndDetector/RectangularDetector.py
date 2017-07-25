@@ -84,7 +84,8 @@ def plot(results):
     # showing  result of spherical detector simulation
     plt.subplot(1, 3, 1)
     ba.plot_colormap(results['spherical'], title="Spherical detector",
-                     xlabel=r'$\phi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$', zlabel=None)
+                     xlabel=r'$\phi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$',
+                     zlabel=None)
 
     # showing  result of rectangular detector simulation
     plt.subplot(1, 3, 2)

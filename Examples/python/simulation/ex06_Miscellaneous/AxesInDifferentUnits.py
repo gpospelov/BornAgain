@@ -69,9 +69,9 @@ def run_simulation():
 
     results = {}
     results['mm'] = simulation.getIntensityData()
-    results['bin'] = simulation.getIntensityData(ba.IDetector2D.NBINS)
+    results['nbins'] = simulation.getIntensityData(ba.IDetector2D.NBINS)
     results['deg'] = simulation.getIntensityData(ba.IDetector2D.DEGREES)
-    results['nm-1'] = simulation.getIntensityData(ba.IDetector2D.QYQZ)
+    results['qyqz'] = simulation.getIntensityData(ba.IDetector2D.QYQZ)
 
     return results
 
@@ -89,15 +89,16 @@ def plot(results):
                      xlabel=r'$X_{mm}$', ylabel=r'$Y_{mm}$', zlabel=None)
 
     plt.subplot(2, 2, 2)
-    ba.plot_colormap(results['bin'], title="In number of bins",
+    ba.plot_colormap(results['nbins'], title="In number of bins",
                      xlabel=r'$X_{nbins}$', ylabel=r'$Y_{nbins}$', zlabel=None)
 
     plt.subplot(2, 2, 3)
     ba.plot_colormap(results['deg'], title="In degs",
-                     xlabel=r'$\phi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$', zlabel=None)
+                     xlabel=r'$\phi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$',
+                     zlabel=None)
 
     plt.subplot(2, 2, 4)
-    ba.plot_colormap(results['nm-1'], title="Q-space",
+    ba.plot_colormap(results['qyqz'], title="Q-space",
                      xlabel=r'$Q_{y} [1/nm]$', ylabel=r'$Q_{z} [1/nm]$', zlabel=None)
 
     plt.subplots_adjust(left=0.07, right=0.97, top=0.9, bottom=0.1, hspace=0.25)

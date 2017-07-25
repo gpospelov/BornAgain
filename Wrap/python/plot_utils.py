@@ -28,17 +28,48 @@ def get_axes_limits(intensity):
     result = [intensity.getXmin(), intensity.getXmax(),
               intensity.getYmin(), intensity.getYmax()]
 
-    # by default we assume these are radians and will show them as degrees
-    if "rad" in intensity.axesUnits() or len(intensity.axesUnits())==0:
+    # We show radians as degrees. If no units defined in histogram object,
+    # we assume radians.
+    if "rad" in intensity.axesUnits() or len(intensity.axesUnits()) == 0:
         result = [x/deg for x in result]
 
     return result
 
 
+def get_xlabel(intensity):
+    """
+    Returns the label for x-axis
+    :param intensity: Histogram2D object from GISAS simulation
+    :return:label for x-axis
+    """
+    if "mm" in intensity.axesUnits():
+        return r'$X_{mm}$'
+
+    if "deg" in intensity.axesUnits() or "rad" in intensity.axesUnits():
+        return r'$\phi_f ^{\circ}$'
+
+    if "qyqz" in intensity.axesUnits():
+        return r'$Q_{y} [1/nm]$'
+
+
+def get_ylabel(intensity):
+    """
+    Returns the label for y-axis
+    :param intensity: Histogram2D object from GISAS simulation
+    :return:label for y-axis
+    """
+    if "mm" in intensity.axesUnits():
+        return r'$X_{mm}$'
+
+    if "deg" in intensity.axesUnits() or "rad" in intensity.axesUnits():
+        return r'$\alpha_f ^{\circ}$'
+
+    if "qyqz" in intensity.axesUnits():
+        return r'$Q_{z} [1/nm]$'
+
+
 def plot_colormap(intensity, zmin=None, zmax=None,
-                  xlabel=r'$\phi_f ^{\circ}$',
-                  ylabel=r'$\alpha_f ^{\circ}$',
-                  zlabel="Intensity",
+                  xlabel=None, ylabel=None, zlabel=None,
                   title=None):
     """
     Plots intensity data as color map
@@ -50,8 +81,12 @@ def plot_colormap(intensity, zmin=None, zmax=None,
     import matplotlib
     from matplotlib import pyplot as plt
 
-    zmin = 1.0 if not zmin else zmin
-    zmax = intensity.getMaximum() if not zmax else zmax
+    zmin = 1.0 if zmin is None else zmin
+    zmax = intensity.getMaximum() if zmax is None else zmax
+
+    xlabel = get_xlabel(intensity) if xlabel is None else xlabel
+    ylabel = get_ylabel(intensity) if ylabel is None else ylabel
+    zlabel = "Intensity" if zlabel is None else zlabel
 
     im = plt.imshow(
         intensity.getArray(),
@@ -117,19 +152,19 @@ class DefaultFitObserver(IFitObserver):
         real_data = fit_suite.getRealData()
         plot_colormap(real_data, title="\"Real\" data",
                       zmin=1.0, zmax=real_data.getMaximum(),
-                      xlabel=None, ylabel=None, zlabel=None)
+                      xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(2)
         sim_data = fit_suite.getSimulationData()
         plot_colormap(sim_data, title="Simulated data",
                       zmin=1.0, zmax=real_data.getMaximum(),
-                      xlabel=None, ylabel=None, zlabel=None)
+                      xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(3)
         chi_data = fit_suite.getChiSquaredMap()
         plot_colormap(chi_data, title="Chi2 map",
                       zmin=0.001, zmax=10.0,
-                      xlabel=None, ylabel=None, zlabel=None)
+                      xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(4)
         plt.title('Parameters')

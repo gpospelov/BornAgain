@@ -68,11 +68,6 @@ namespace {
         "    return simulation.getIntensityData()\n"
         "\n\n";
 
-    const std::string mainProgram =
-        "if __name__ == '__main__': \n"
-        "    result = run_simulation()\n"
-        "    ba.plot_intensity_data(result)\n";
-
     //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
     std::function<std::string(double)> printFunc(const IDetector2D* detector)
     {
@@ -86,9 +81,56 @@ namespace {
 
 } // namespace
 
-ExportToPython::ExportToPython(const MultiLayer& multilayer)
-    : m_label(new SampleLabelHandler())
+ExportToPython::ExportToPython(){}
+
+ExportToPython::~ExportToPython()
 {
+}
+
+std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer)
+{
+    initSample(multilayer);
+    return defineGetSample();
+}
+
+//! Returns a Python script that sets up a simulation and runs it if invoked as main program.
+
+std::string ExportToPython::generateSimulationCode(const GISASSimulation& simulation,
+                                                   EMainType mainType)
+{
+    if (simulation.sample() == nullptr)
+        throw std::runtime_error("ExportToPython::generateSimulationCode() -> Error. "
+                                 "Simulation is not initialized.");
+
+    initSample(*simulation.sample());
+
+    return preamble
+        + defineGetSample()
+        + defineGetSimulation(&simulation)
+        + defineSimulate
+        + defineMain(mainType);
+}
+
+std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulation) const
+{
+    std::ostringstream result;
+    result << "def getSimulation():\n";
+    //    result << indent() << "# Creating and returning GISAXS simulation\n";
+    result << indent() << "simulation = ba.GISASSimulation()\n";
+    result << defineDetector(simulation);
+    result << defineDetectorResolutionFunction(simulation);
+    result << defineBeam(simulation);
+    result << defineParameterDistributions(simulation);
+    result << defineMasks(simulation);
+    result << defineSimulationOptions(simulation);
+    result << indent() << "return simulation\n\n\n";
+    return result.str();
+}
+
+void ExportToPython::initSample(const MultiLayer& multilayer)
+{
+    m_label.reset(new SampleLabelHandler());
+
     for( auto x: multilayer.containedMaterials() )
         m_label->insertMaterial(x);
     for( auto x: multilayer.containedSubclass<Layer>() )
@@ -118,38 +160,6 @@ ExportToPython::ExportToPython(const MultiLayer& multilayer)
             "ExportToPython: class MesoCrystal not yet supported!");
 }
 
-ExportToPython::~ExportToPython()
-{
-    delete m_label;
-}
-
-//! Returns a Python script that sets up a simulation and runs it if invoked as main program.
-
-std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation* simulation)
-{
-    return preamble
-        + defineGetSample()
-        + defineGetSimulation(simulation)
-        + defineSimulate
-        + mainProgram;
-}
-
-std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulation) const
-{
-    std::ostringstream result;
-    result << "def getSimulation():\n";
-    //    result << indent() << "# Creating and returning GISAXS simulation\n";
-    result << indent() << "simulation = ba.GISASSimulation()\n";
-    result << defineDetector(simulation);
-    result << defineDetectorResolutionFunction(simulation);
-    result << defineBeam(simulation);
-    result << defineParameterDistributions(simulation);
-    result << defineMasks(simulation);
-    result << defineSimulationOptions(simulation);
-    result << indent() << "return simulation\n\n\n";
-    return result.str();
-}
-
 std::string ExportToPython::defineGetSample() const
 {
     return "def getSample():\n"
@@ -165,7 +175,7 @@ std::string ExportToPython::defineGetSample() const
         + defineRoughnesses()
         + addLayoutsToLayers()
         + defineMultiLayers()
-        + "\n";
+            + "\n";
 }
 
 std::string ExportToPython::defineMaterials() const
@@ -797,6 +807,27 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
     if (options.includeSpecular())
         result << indent() << "simulation.getOptions().setIncludeSpecular(True)\n";
     return result.str();
+}
+
+std::string ExportToPython::defineMain(ExportToPython::EMainType mainType)
+{
+    std::string result;
+    if(mainType == RUN_SIMULATION) {
+        result = "if __name__ == '__main__': \n"
+                 "    result = run_simulation()\n"
+                 "    ba.plot_intensity_data(result)\n";
+    } else if(mainType == SAVE_DATA) {
+        result = "if __name__ == '__main__': \n"
+                 "    result = run_simulation()\n"
+                 "    import sys\n"
+                 "    if len(sys.argv)<2:\n"
+                 "        exit(\"File name is required\")\n"
+                 "    ba.IntensityDataIOFactory.writeIntensityData(result, sys.argv[1])\n";
+    } else {
+        throw std::runtime_error("ExportToPython::defineMain() -> Error. Unknown main type.");
+    }
+
+    return result;
 }
 
 std::string ExportToPython::indent() const

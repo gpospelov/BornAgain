@@ -4,14 +4,13 @@ See FitSpheresInHexLattice_builder.py example which performs same fitting task
 using advanced sample construction techniques.
 """
 
+import numpy as np
 from matplotlib import pyplot as plt
-import math
-import random
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
 
-def get_sample(radius=5*nm, lattice_constant=10*nm):
+def get_sample(radius=5.0*nm, lattice_constant=10.0*nm):
     """
     Returns a sample with cylinders and pyramids on a substrate,
     forming a hexagonal lattice.
@@ -56,23 +55,18 @@ def create_real_data():
     Generating "real" data by adding noise to the simulated data.
     """
     sample = get_sample(5.0*nm, 10.0*nm)
-
     simulation = get_simulation()
     simulation.setSample(sample)
-
     simulation.runSimulation()
-    real_data = simulation.getIntensityData()
+
+    # retrieving simulated data in the form of numpy array
+    real_data = simulation.getIntensityData().getArray()
 
     # spoiling simulated data with the noise to produce "real" data
     noise_factor = 0.1
-    for i in range(0, real_data.getTotalNumberOfBins()):
-        amplitude = real_data.getBinContent(i)
-        sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = random.gauss(amplitude, sigma)
-        if noisy_amplitude < 0.1:
-            noisy_amplitude = 0.1
-        real_data.setBinContent(i, noisy_amplitude)
-    return real_data
+    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
+    noisy[noisy < 0.1] = 0.1
+    return noisy
 
 
 def run_fitting():

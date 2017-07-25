@@ -19,10 +19,58 @@ from bornagain import deg as deg
 from bornagain import IFitObserver as IFitObserver
 
 
+def get_axes_limits(intensity):
+    """
+    Returns axes range as expected by pyplot.imshow.
+    :param intensity: Histogram2D object from GISAS simulation
+    :return:axes range
+    """
+    result = [intensity.getXmin(), intensity.getXmax(),
+              intensity.getYmin(), intensity.getYmax()]
+
+    # We show radians as degrees. If no units defined in histogram object,
+    # we assume radians.
+    if "rad" in intensity.axesUnits() or len(intensity.axesUnits()) == 0:
+        result = [x/deg for x in result]
+
+    return result
+
+
+def get_xlabel(intensity):
+    """
+    Returns the label for x-axis
+    :param intensity: Histogram2D object from GISAS simulation
+    :return:label for x-axis
+    """
+    if "mm" in intensity.axesUnits():
+        return r'$X_{mm}$'
+
+    if "deg" in intensity.axesUnits() or "rad" in intensity.axesUnits():
+        return r'$\phi_f ^{\circ}$'
+
+    if "qyqz" in intensity.axesUnits():
+        return r'$Q_{y} [1/nm]$'
+
+
+def get_ylabel(intensity):
+    """
+    Returns the label for y-axis
+    :param intensity: Histogram2D object from GISAS simulation
+    :return:label for y-axis
+    """
+    if "mm" in intensity.axesUnits():
+        return r'$X_{mm}$'
+
+    if "deg" in intensity.axesUnits() or "rad" in intensity.axesUnits():
+        return r'$\alpha_f ^{\circ}$'
+
+    if "qyqz" in intensity.axesUnits():
+        return r'$Q_{z} [1/nm]$'
+
+
 def plot_colormap(intensity, zmin=None, zmax=None,
-                  xlabel=r'$\phi_f ^{\circ}$',
-                  ylabel=r'$\alpha_f ^{\circ}$',
-                  zlabel="Intensity"):
+                  xlabel=None, ylabel=None, zlabel=None,
+                  title=None):
     """
     Plots intensity data as color map
     :param intensity: Histogram2D object obtained from GISASSimulation
@@ -33,21 +81,32 @@ def plot_colormap(intensity, zmin=None, zmax=None,
     import matplotlib
     from matplotlib import pyplot as plt
 
-    zmin = 1.0 if not zmin else zmin
-    zmax = intensity.getMaximum() if not zmax else zmax
+    zmin = 1.0 if zmin is None else zmin
+    zmax = intensity.getMaximum() if zmax is None else zmax
+
+    xlabel = get_xlabel(intensity) if xlabel is None else xlabel
+    ylabel = get_ylabel(intensity) if ylabel is None else ylabel
+    zlabel = "Intensity" if zlabel is None else zlabel
 
     im = plt.imshow(
         intensity.getArray(),
         norm=matplotlib.colors.LogNorm(zmin, zmax),
-        extent=[intensity.getXmin()/deg, intensity.getXmax()/deg,
-                intensity.getYmin()/deg, intensity.getYmax()/deg],
+        extent=get_axes_limits(intensity),
         aspect='auto',
     )
     cb = plt.colorbar(im, pad=0.025)
 
-    plt.xlabel(xlabel, fontsize=14)
-    plt.ylabel(ylabel, fontsize=14)
-    cb.set_label(zlabel, size=14)
+    if xlabel:
+        plt.xlabel(xlabel, fontsize=14)
+
+    if ylabel:
+        plt.ylabel(ylabel, fontsize=14)
+
+    if zlabel:
+        cb.set_label(zlabel, size=14)
+
+    if title:
+        plt.title(title)
 
 
 def plot_intensity_data(intensity, zmin=None, zmax=None):
@@ -58,15 +117,9 @@ def plot_intensity_data(intensity, zmin=None, zmax=None):
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """
-
-    import sys
-
-    if len(sys.argv) <= 1:
-        from matplotlib import pyplot as plt
-        plot_colormap(intensity, zmin, zmax)
-        plt.show()
-    else:
-        ba.IntensityDataIOFactory.writeIntensityData(intensity, sys.argv[1])
+    from matplotlib import pyplot as plt
+    plot_colormap(intensity, zmin, zmax)
+    plt.show()
 
 
 class DefaultFitObserver(IFitObserver):
@@ -88,24 +141,32 @@ class DefaultFitObserver(IFitObserver):
         self.fig.canvas.draw()
         plt.ion()
 
-    def plot(self, data, title, nplot, min=1, max=1e6):
+    def make_subplot(self, nplot):
         plt.subplot(2, 2, nplot)
         plt.subplots_adjust(wspace=0.2, hspace=0.2)
-        im = plt.imshow(data.getArray(),
-                        norm=matplotlib.colors.LogNorm(min, max),
-                        extent=[data.getXmin(), data.getXmax(), data.getYmin(), data.getYmax()],
-                        aspect='auto')
-        plt.colorbar(im)
-        plt.title(title)
 
     def update(self, fit_suite):
         self.fig.clf()
-        real_data = fit_suite.getRealData()
-        self.plot(real_data, "\"Real\" data", nplot=1, min=1.0, max=real_data.getMaximum())
-        self.plot(fit_suite.getSimulationData(), "Simulated data", nplot=2, min=1.0, max=real_data.getMaximum())
-        self.plot(fit_suite.getChiSquaredMap(), "Chi2 map", nplot=3, min=0.001, max=10.0)
 
-        plt.subplot(2, 2, 4)
+        self.make_subplot(1)
+        real_data = fit_suite.getRealData()
+        plot_colormap(real_data, title="\"Real\" data",
+                      zmin=1.0, zmax=real_data.getMaximum(),
+                      xlabel='', ylabel='', zlabel='')
+
+        self.make_subplot(2)
+        sim_data = fit_suite.getSimulationData()
+        plot_colormap(sim_data, title="Simulated data",
+                      zmin=1.0, zmax=real_data.getMaximum(),
+                      xlabel='', ylabel='', zlabel='')
+
+        self.make_subplot(3)
+        chi_data = fit_suite.getChiSquaredMap()
+        plot_colormap(chi_data, title="Chi2 map",
+                      zmin=0.001, zmax=10.0,
+                      xlabel='', ylabel='', zlabel='')
+
+        self.make_subplot(4)
         plt.title('Parameters')
         plt.axis('off')
         plt.text(0.01, 0.85, "Iterations  " + '{:d}     {:s}'.

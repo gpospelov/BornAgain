@@ -136,6 +136,11 @@ std::vector<const INode*> FitSuiteObjects::getChildren() const
     return result;
 }
 
+std::string FitSuiteObjects::getDefaultAxesUnits(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->getDefaultAxisUnits();
+}
+
 double FitSuiteObjects::calculateChiSquaredValue()
 {
     m_chi2_module->processFitElements(m_fit_elements.begin(), m_fit_elements.end());

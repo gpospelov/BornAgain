@@ -211,6 +211,10 @@ public:
     //! Only bin content will be loaded, histogram axes remain the same.
     void load(const std::string& filename);
 
+    //! Sets axes units
+    void setAxesUnits(const std::string& name);
+    std::string axesUnits() const;
+
 protected:
     void check_x_axis() const;
     void check_y_axis() const;
@@ -219,6 +223,7 @@ protected:
     std::vector<double> getDataVector(DataType dataType) const;
     void copyContentFrom(const IHistogram& other);
     OutputData<CumulativeValue> m_data;
+    std::string m_axes_units;
 };
 
 #endif // IHISTOGRAM_H

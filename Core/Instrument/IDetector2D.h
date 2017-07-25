@@ -118,7 +118,7 @@ public:
             const Beam& beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
 
     //! Returns empty detector map in given axes units.
-    virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
+    OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
 
     //! Inits axes of OutputData to match the detector and sets values to zero.
     virtual void initOutputData(OutputData<double> &data) const;
@@ -189,6 +189,8 @@ protected:
 private:
     void setDataToDetectorMap(OutputData<double> &detectorMap,
                               const std::vector<SimulationElement> &elements) const;
+    void check_axes_units(EAxesUnits units) const;
+
     std::unique_ptr<RegionOfInterest> m_region_of_interest;
     DetectionProperties m_detection_properties;
 };

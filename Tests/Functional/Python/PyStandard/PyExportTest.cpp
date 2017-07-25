@@ -42,6 +42,13 @@ PyExportTest::~PyExportTest()
 //! Runs simulation via a Python script and directly, and returns true if the results agree.
 bool PyExportTest::runTest()
 {
+    // Run direct simulation
+    std::cout <<
+        "Now going to directly run the simulation, and to compare with result from Py script\n";
+    m_reference_simulation->runSimulation();
+    const std::unique_ptr<OutputData<double> > P_reference_data(
+        m_reference_simulation->getDetectorIntensity());
+
     // Set output data filename, and remove old output files
     std::string output_name = FileSystemUtils::jointPath(PYEXPORT_TMP_DIR, getName());
     std::string output_path = output_name + ".ref.int.gz";
@@ -51,20 +58,13 @@ bool PyExportTest::runTest()
     // Generate Python script
     std::string pyscript_filename = FileSystemUtils::jointPath(PYEXPORT_TMP_DIR, getName() + ".py");
     std::ofstream pythonFile(pyscript_filename);
-    pythonFile << PythonFormatting::simulationToPython(m_reference_simulation);
+    pythonFile << PythonFormatting::generatePyExportTest(*m_reference_simulation);
     pythonFile.close();
 
     // Run Python script
     assert(std::string(BUILD_LIB_DIR)!="");
     if (!runPython(pyscript_filename + " " + output_path))
         return false;
-
-    // Run direct simulation
-    std::cout <<
-        "Now going to directly run the simulation, and to compare with result from Py script\n";
-    m_reference_simulation->runSimulation();
-    const std::unique_ptr<OutputData<double> > P_reference_data(
-        m_reference_simulation->getDetectorIntensity());
 
     // Compare results
     const std::unique_ptr<OutputData<double> > P_domain_data(

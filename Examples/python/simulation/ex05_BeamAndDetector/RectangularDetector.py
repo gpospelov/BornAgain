@@ -75,28 +75,6 @@ def get_simulation():
     return simulation
 
 
-def plot_as_colormap(hist, Title, xLabel, yLabel, zmin=None, zmax=None):
-    """
-    Simple plot of intensity data as color map
-    """
-    if not zmin:
-        zmin = 1.0
-
-    if not zmax:
-        zmax = hist.getMaximum()
-
-    im = plt.imshow(
-        hist.getArray(),
-        norm=matplotlib.colors.LogNorm(zmin, zmax),
-        extent=[hist.getXmin(), hist.getXmax(),
-                hist.getYmin(), hist.getYmax()],
-        aspect='auto')
-    cb = plt.colorbar(im, pad=0.025)
-    plt.xlabel(xLabel, fontsize=16)
-    plt.ylabel(yLabel, fontsize=16)
-    plt.title(Title)
-
-
 def plot(results):
     """
     Plots results of two simulations and their relative difference on one canvas
@@ -105,19 +83,21 @@ def plot(results):
 
     # showing  result of spherical detector simulation
     plt.subplot(1, 3, 1)
-    plot_as_colormap(results['spherical'], "Spherical detector",
-                     r'$\phi_f ^{\circ}$', r'$\alpha_f ^{\circ}$')
+    ba.plot_colormap(results['spherical'], title="Spherical detector",
+                     xlabel=r'$\phi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$',
+                     zlabel=None)
 
     # showing  result of rectangular detector simulation
     plt.subplot(1, 3, 2)
-    plot_as_colormap(results['rectangular'], "Rectangular detector",
-                     'X, mm', 'Y, mm')
+    ba.plot_colormap(results['rectangular'], title="Rectangular detector",
+                     xlabel='X, mm', ylabel='Y, mm', zlabel=None)
 
     # show relative difference between two plots (sph[i]-rect[i])/rect[i]
     # for every detector pixel
     plt.subplot(1, 3, 3)
-    plot_as_colormap(results['difference'], "Relative difference",
-                     'X, mm', 'Y, mm', 1e-06, 1.0)
+    ba.plot_colormap(results['difference'], title="Relative difference",
+                     zmin=1e-06, zmax=1.0,
+                     xlabel='X, mm', ylabel='Y, mm', zlabel=None)
 
     plt.subplots_adjust(left=0.05, right=0.95, top=0.88, bottom=0.12)
     plt.show()
@@ -143,8 +123,8 @@ def run_simulation():
     simulation.runSimulation()
     results['rectangular'] = simulation.getIntensityData()
 
-    results['difference'] = results['spherical'].relativeDifferenceHistogram(
-        results['rectangular'])
+    results['difference'] = results['rectangular'].relativeDifferenceHistogram(
+        results['spherical'])
 
     return results
 

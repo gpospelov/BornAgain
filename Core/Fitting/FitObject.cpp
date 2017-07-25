@@ -63,6 +63,12 @@ std::vector<const INode*> FitObject::getChildren() const
     return std::vector<const INode*>() << m_simulation;
 }
 
+std::string FitObject::getDefaultAxisUnits() const
+{
+    return DetectorFunctions::detectorUnitsName(
+        m_simulation->getInstrument().getDetector()->getDefaultAxesUnits());
+}
+
 //! Initialize detector, if necessary, to match experimental data
 void FitObject::init_dataset(const OutputData<double>& real_data)
 {

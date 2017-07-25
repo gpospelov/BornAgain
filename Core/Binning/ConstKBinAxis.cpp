@@ -91,7 +91,7 @@ bool ConstKBinAxis::equals(const IAxis& other) const
 
 void ConstKBinAxis::print(std::ostream& ostr) const
 {
-    ostr << "ConstKBinAxis(\"" << m_name << "\", " << size() << ", "
+    ostr << "ConstKBinAxis(\"" << getName() << "\", " << size() << ", "
          << std::setprecision(std::numeric_limits<double>::digits10+2)
          << m_start << ", " << m_end << ")";
 }

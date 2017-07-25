@@ -6102,6 +6102,11 @@ class FitObject(INode, INoncopyable):
         """
         return _libBornAgainCore.FitObject_getChildren(self)
 
+
+    def getDefaultAxisUnits(self):
+        """getDefaultAxisUnits(FitObject self) -> std::string"""
+        return _libBornAgainCore.FitObject_getDefaultAxisUnits(self)
+
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
 FitObject_swigregister(FitObject)
 
@@ -6974,6 +6979,14 @@ class FitSuiteObjects(INode, INoncopyable):
 
         """
         return _libBornAgainCore.FitSuiteObjects_getChildren(self)
+
+
+    def getDefaultAxesUnits(self, i_item=0):
+        """
+        getDefaultAxesUnits(FitSuiteObjects self, size_t i_item=0) -> std::string
+        getDefaultAxesUnits(FitSuiteObjects self) -> std::string
+        """
+        return _libBornAgainCore.FitSuiteObjects_getDefaultAxesUnits(self, i_item)
 
 FitSuiteObjects_swigregister = _libBornAgainCore.FitSuiteObjects_swigregister
 FitSuiteObjects_swigregister(FitSuiteObjects)
@@ -17283,6 +17296,16 @@ class IHistogram(_object):
         """
         return _libBornAgainCore.IHistogram_load(self, filename)
 
+
+    def setAxesUnits(self, name):
+        """setAxesUnits(IHistogram self, std::string const & name)"""
+        return _libBornAgainCore.IHistogram_setAxesUnits(self, name)
+
+
+    def axesUnits(self):
+        """axesUnits(IHistogram self) -> std::string"""
+        return _libBornAgainCore.IHistogram_axesUnits(self)
+
 IHistogram_swigregister = _libBornAgainCore.IHistogram_swigregister
 IHistogram_swigregister(IHistogram)
 
@@ -19848,6 +19871,14 @@ class Instrument(INode):
 
         """
         return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
+
+
+    def createIntensityData(self, *args):
+        """
+        createIntensityData(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units_type) -> Histogram2D
+        createIntensityData(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> Histogram2D
+        """
+        return _libBornAgainCore.Instrument_createIntensityData(self, *args)
 
 
     def createDetectorMap(self, *args):

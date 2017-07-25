@@ -102,8 +102,8 @@ def run_simulation():
         plt.tick_params(axis='both', which='major', labelsize=8)
         plt.tick_params(axis='both', which='minor', labelsize=6)
         plt.xticks(numpy.arange(phi_min, phi_max+0.0001, 1.0))
-        plt.text(-0.1, 2.17, name, horizontalalignment='center',
-                 verticalalignment='center', fontsize=10)
+        plt.text(-0.1, 2.15, name, horizontalalignment='center',
+                 verticalalignment='center', fontsize=9)
 
 
 if __name__ == '__main__':

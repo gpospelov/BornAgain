@@ -3,8 +3,7 @@ Two parameter fit of spheres in a hex lattice.
 Sample builder approach is used.
 """
 
-import math
-import random
+import numpy as np
 import ctypes
 import bornagain as ba
 from matplotlib import pyplot as plt
@@ -76,23 +75,18 @@ def create_real_data():
     sample_builder = MySampleBuilder()
     sample_builder.setParameterValue("radius", 5.0*nm)
     sample_builder.setParameterValue("lattice_constant", 10.0*nm)
-
     simulation = get_simulation()
     simulation.setSampleBuilder(sample_builder)
-
     simulation.runSimulation()
-    real_data = simulation.getIntensityData()
+
+    # retrieving simulated data in the form of numpy array
+    real_data = simulation.getIntensityData().getArray()
 
     # spoiling simulated data with the noise to produce "real" data
     noise_factor = 0.1
-    for i in range(0, real_data.getTotalNumberOfBins()):
-        amplitude = real_data.getBinContent(i)
-        sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = random.gauss(amplitude, sigma)
-        if noisy_amplitude < 0.1:
-            noisy_amplitude = 0.1
-        real_data.setBinContent(i, noisy_amplitude)
-    return real_data
+    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
+    noisy[noisy < 0.1] = 0.1
+    return noisy
 
 
 def run_fitting():

@@ -3,7 +3,6 @@ Long boxes at 1D lattice, ba.OffSpecular simulation
 """
 import bornagain as ba
 from bornagain import deg, angstrom, nm
-from matplotlib import pyplot as plt
 
 phi_f_min, phi_f_max = -1.0, 1.0
 alpha_f_min, alpha_f_max = 0.0, 10.0
@@ -76,4 +75,5 @@ def run_simulation():
 if __name__ == '__main__':
     result = run_simulation()
     ba.plot_colormap(result, xlabel=r'$\alpha_i ^{\circ}$')
+    from matplotlib import pyplot as plt
     plt.show()

@@ -131,6 +131,9 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 {
     set2DLatticeParameters(item, sample->lattice());
 
+    item->setItemValue(InterferenceFunction2DLatticeItem::P_XI_INTEGRATION,
+                                sample->integrationOverXi());
+
     const IFTDecayFunction2D* p_pdf = sample->decayFunction();
     QString group_name = InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION;
     SetDecayFunction2D(item, p_pdf, group_name);

@@ -425,6 +425,9 @@ std::string ExportToPython::defineInterferenceFunctions() const
             result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                    << "(" << argumentList(pdf) << ")\n"
                    << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
+
+            if (twoDLattice->integrationOverXi() == true)
+                result << indent() << it->second << ".setIntegrationOverXi(True)\n";
         }
 
         else if (const auto* twoDParaCrystal

@@ -41,7 +41,7 @@ public:
     //! Returns a vector of children (const).
     virtual std::vector<const INode*> getChildren() const;
 
-    void setParent(const INode* parent);
+    virtual void setParent(const INode* newParent);
     const INode* parent() const;
     INode* parent();
 

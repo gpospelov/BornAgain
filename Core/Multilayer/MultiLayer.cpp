@@ -72,7 +72,7 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
                 m_layers[i]->cloneSliced(layer_limits[i], layer_type);
         if (sliced_layers.size()==0)
             throw std::runtime_error("MultiLayer::cloneSliced: slicing layer produced empty list,");
-        if (i>0 && p_interface->getRoughness())
+        if (i>0 && p_interface->getRoughness() != nullptr)
             P_result->addLayerWithTopRoughness(*sliced_layers[0], *p_interface->getRoughness());
         else
             P_result->addLayer(*sliced_layers[0]);
@@ -86,13 +86,13 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
 //! nInterfaces = nLayers-1, first layer in multilayer doesn't have interface.
 const LayerInterface* MultiLayer::layerTopInterface(size_t i_layer) const
 {
-    return i_layer>0 ? m_interfaces[ check_interface_index(i_layer-1) ] : 0;
+    return i_layer>0 ? m_interfaces[ check_interface_index(i_layer-1) ] : nullptr;
 }
 
 //! Returns pointer to the bottom interface of the layer.
 const LayerInterface* MultiLayer::layerBottomInterface(size_t i_layer) const
 {
-    return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
+    return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : nullptr;
 }
 
 HomogeneousMaterial MultiLayer::layerMaterial(size_t i_layer) const
@@ -113,7 +113,7 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
     if (numberOfLayers()) {
         // not the top layer
         const Layer* p_last_layer = m_layers.back();
-        LayerInterface* interface(0);
+        LayerInterface* interface(nullptr);
         if (roughness.getSigma() != 0.0)
             interface = LayerInterface::createRoughInterface(p_last_layer, p_new_layer, roughness);
         else
@@ -151,7 +151,7 @@ double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k
     double z_k = layerBottomZ(k);
     const LayerRoughness* rough_j = layerBottomInterface(j)->getRoughness();
     const LayerRoughness* rough_k = layerBottomInterface(k)->getRoughness();
-    if (!rough_j || !rough_k)
+    if (rough_j==nullptr || rough_k==nullptr)
         return 0.0;
     double sigma_j = rough_j->getSigma();
     double sigma_k = rough_k->getSigma();
@@ -193,7 +193,7 @@ void MultiLayer::initBFields()
 bool MultiLayer::hasRoughness() const
 {
     for (auto p_interface: m_interfaces)
-        if (p_interface->getRoughness())
+        if (p_interface->getRoughness() != nullptr)
             return true;
     return false;
 }
@@ -266,7 +266,7 @@ MultiLayer* MultiLayer::cloneGeneric(const std::function<Layer*(const Layer*)>& 
         auto p_interface = i>0 ? m_interfaces[i-1]
                                : nullptr;
         std::unique_ptr<Layer> P_layer(layer_clone(m_layers[i]));
-        if (i>0 && p_interface->getRoughness())
+        if (i>0 && p_interface->getRoughness() != nullptr)
             P_result->addLayerWithTopRoughness(*P_layer, *p_interface->getRoughness());
         else
             P_result->addLayer(*P_layer);

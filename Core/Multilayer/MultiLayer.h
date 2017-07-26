@@ -54,7 +54,7 @@ public:
     size_t numberOfInterfaces() const { return m_interfaces.size(); }
 
     //! Adds object to multilayer
-    void addLayer(const Layer& p_child);
+    void addLayer(const Layer& layer);
 
     //! Adds layer with top roughness
     void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);

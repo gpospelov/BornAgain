@@ -29,7 +29,6 @@
 IDetector2D::IDetector2D()
     : m_axes()
 {
-    init_parameters();
 }
 
 IDetector2D::IDetector2D(const IDetector2D &other)
@@ -40,9 +39,8 @@ IDetector2D::IDetector2D(const IDetector2D &other)
     setName(other.getName());
     if(other.mP_detector_resolution)
         setDetectorResolution(*other.mP_detector_resolution);
-    if(other.regionOfInterest())
+    if(other.regionOfInterest() != nullptr)
         m_region_of_interest.reset(other.regionOfInterest()->clone());
-    init_parameters();
 }
 
 IDetector2D::~IDetector2D() {}
@@ -73,7 +71,7 @@ void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
 
 void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) const
 {
-    if (!p_intensity_map)
+    if (p_intensity_map == nullptr)
         throw Exceptions::NullPointerException("IDetector2D::applyDetectorResolution() -> "
                                    "Error! Null pointer to intensity map");
     if (mP_detector_resolution)
@@ -98,15 +96,15 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
     if (mP_detector_resolution) {
         if(units_type != DEFAULT) {
             std::unique_ptr<OutputData<double>> defaultMap(createDetectorMap(beam, DEFAULT));
-            setDataToDetectorMap(*defaultMap.get(), elements);
+            setDataToDetectorMap(*defaultMap, elements);
             applyDetectorResolution(defaultMap.get());
             detectorMap->setRawDataVector(defaultMap->getRawDataVector());
         } else {
-            setDataToDetectorMap(*detectorMap.get(), elements);
+            setDataToDetectorMap(*detectorMap, elements);
             applyDetectorResolution(detectorMap.get());
         }
     } else {
-        setDataToDetectorMap(*detectorMap.get(), elements);
+        setDataToDetectorMap(*detectorMap, elements);
     }
 
     return detectorMap.release();
@@ -178,11 +176,7 @@ const DetectorMask *IDetector2D::getDetectorMask() const
 
 size_t IDetector2D::numberOfMaskedChannels() const
 {
-    if (getDetectorMask()) {
-        return getDetectorMask()->numberOfMaskedChannels();
-    } else {
-        return 0;
-    }
+    return getDetectorMask() != nullptr ? getDetectorMask()->numberOfMaskedChannels() : 0;
 }
 
 bool IDetector2D::isMasked(size_t index) const
@@ -275,11 +269,10 @@ std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam 
     std::unique_ptr<IAxis> result(new FixedBinAxis(getAxisName(axis_index),
                                                    getAxis(axis_index).size(), amin, amax));
 
-    if(m_region_of_interest) {
-        return m_region_of_interest->clipAxisToRoi(axis_index, *result.get());
-    } else {
-        return result;
-    }
+    if (m_region_of_interest)
+        return m_region_of_interest->clipAxisToRoi(axis_index, *result);
+
+    return result;
 }
 
 void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,

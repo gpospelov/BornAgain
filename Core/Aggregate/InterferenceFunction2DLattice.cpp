@@ -16,6 +16,7 @@
 #include "InterferenceFunction2DLattice.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
+#include "IntegratorReal.h"
 #include "Macros.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
@@ -26,6 +27,7 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& la
 {
     setName(BornAgain::InterferenceFunction2DLatticeType);
     setLattice(lattice);
+    init_parameters();
 }
 
 //! Constructor of two-dimensional interference function.
@@ -40,6 +42,7 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, do
 {
     setName(BornAgain::InterferenceFunction2DLatticeType);
     setLattice(BasicLattice(length_1, length_2, alpha, xi));
+    init_parameters();
 }
 
 InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
@@ -85,9 +88,9 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
                                                " -> Error! No decay function defined.");
     m_qx = q.x();
     m_qy = q.y();
-//    if (!m_integrate_xi)
-    return interferenceForXi(m_lattice->rotationAngle());
-//    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
+    if (!m_integrate_xi)
+        return interferenceForXi(m_lattice->rotationAngle());
+    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
 }
 
 void InterferenceFunction2DLattice::setIntegrationOverXi(bool integrate_xi)
@@ -130,6 +133,7 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     if(other.m_decay)
         setDecayFunction(*other.m_decay);
     setIntegrationOverXi(other.integrationOverXi());
+    init_parameters();
 }
 
 void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)
@@ -137,6 +141,12 @@ void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)
     m_lattice.reset(lattice.clone());
     registerChild(m_lattice.get());
     initialize_rec_vectors();
+}
+
+void InterferenceFunction2DLattice::init_parameters()
+{
+    mP_integrator
+        = make_integrator_real(this, &InterferenceFunction2DLattice::interferenceForXi);
 }
 
 double InterferenceFunction2DLattice::interferenceForXi(double xi) const

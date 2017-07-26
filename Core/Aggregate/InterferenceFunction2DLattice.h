@@ -20,6 +20,8 @@
 #include "FTDecayFunctions.h"
 #include "Lattice2D.h"
 
+template <class T> class IntegratorReal;
+
 //! Interference function of 2D lattice.
 //! @ingroup interference
 
@@ -59,6 +61,7 @@ private:
     InterferenceFunction2DLattice(const InterferenceFunction2DLattice& other);
     void setLattice(const Lattice2D& lattice);
 
+    void init_parameters();
     double interferenceForXi(double xi) const;
 
     //! Returns interference from a single reciprocal lattice vector
@@ -87,6 +90,9 @@ private:
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
     mutable double m_qx;
     mutable double m_qy;
+#ifndef SWIG
+    std::unique_ptr<IntegratorReal<InterferenceFunction2DLattice>> mP_integrator;
+#endif
 };
 
 #endif // INTERFERENCEFUNCTION2DLATTICE_H

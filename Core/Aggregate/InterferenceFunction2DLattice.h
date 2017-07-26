@@ -59,8 +59,10 @@ private:
     InterferenceFunction2DLattice(const InterferenceFunction2DLattice& other);
     void setLattice(const Lattice2D& lattice);
 
+    double interferenceForXi(double xi) const;
+
     //! Returns interference from a single reciprocal lattice vector
-    double interferenceAtOneRecLatticePoint(double qx, double qy) const;
+    double interferenceAtOneRecLatticePoint(double qx, double qy, double xi) const;
 
     //! Returns reciprocal coordinates in the principal axis system
     void transformToPrincipalAxes(double qx, double qy, double gamma,
@@ -68,7 +70,7 @@ private:
 
     //! Returns qx,qy coordinates of q - qint, where qint is a reciprocal lattice vector
     //! bounding the reciprocal unit cell to which q belongs
-    void calculateReciprocalVectorFraction(double qx, double qy,
+    void calculateReciprocalVectorFraction(double qx, double qy, double xi,
                                            double& qx_frac, double& qy_frac) const;
 
     //! Initializes the x,y coordinates of the a*,b* reciprocal bases
@@ -83,6 +85,8 @@ private:
     Lattice2D::ReciprocalBases m_sbase;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
+    mutable double m_qx;
+    mutable double m_qy;
 };
 
 #endif // INTERFERENCEFUNCTION2DLATTICE_H

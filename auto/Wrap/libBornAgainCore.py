@@ -20557,6 +20557,16 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DLattice_evaluate(self, q)
 
 
+    def setIntegrationOverXi(self, integrate_xi):
+        """setIntegrationOverXi(InterferenceFunction2DLattice self, bool integrate_xi)"""
+        return _libBornAgainCore.InterferenceFunction2DLattice_setIntegrationOverXi(self, integrate_xi)
+
+
+    def integrationOverXi(self):
+        """integrationOverXi(InterferenceFunction2DLattice self) -> bool"""
+        return _libBornAgainCore.InterferenceFunction2DLattice_integrationOverXi(self)
+
+
     def lattice(self):
         """
         lattice(InterferenceFunction2DLattice self) -> Lattice2D

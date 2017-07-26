@@ -43,6 +43,9 @@ public:
 
     double evaluate(const kvector_t q) const final;
 
+    void setIntegrationOverXi(bool integrate_xi);
+    bool integrationOverXi() const { return m_integrate_xi; }
+
     const Lattice2D& lattice() const;
 
     //! Returns the particle density associated with this 2d lattice
@@ -74,6 +77,7 @@ private:
     //! Initializes factors needed in each calculation
     void initialize_calc_factors();
 
+    bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<IFTDecayFunction2D> m_decay;
     std::unique_ptr<Lattice2D> m_lattice;
     Lattice2D::ReciprocalBases m_sbase;

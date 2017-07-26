@@ -22,6 +22,7 @@
 
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& lattice)
+    : m_integrate_xi(false)
 {
     setName(BornAgain::InterferenceFunction2DLatticeType);
     setLattice(lattice);
@@ -34,7 +35,8 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& la
 //! @param xi: rotation of lattice with respect to x-axis (beam direction) in radians
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2,
                                                              double alpha, double xi)
-    : m_na(0), m_nb(0)
+    : m_integrate_xi(false)
+    , m_na(0), m_nb(0)
 {
     setName(BornAgain::InterferenceFunction2DLatticeType);
     setLattice(BasicLattice(length_1, length_2, alpha, xi));
@@ -97,6 +99,12 @@ double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
     return getParticleDensity()*result;
 }
 
+void InterferenceFunction2DLattice::setIntegrationOverXi(bool integrate_xi)
+{
+    m_integrate_xi = integrate_xi;
+    m_lattice->setRotationEnabled(!m_integrate_xi); // deregister Xi in the case of integration
+}
+
 const Lattice2D& InterferenceFunction2DLattice::lattice() const
 {
     if(!m_lattice)
@@ -126,12 +134,11 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
         const InterferenceFunction2DLattice& other)
 {
     setName(other.getName());
-
     if(other.m_lattice)
         setLattice(*other.m_lattice);
-
     if(other.m_decay)
         setDecayFunction(*other.m_decay);
+    setIntegrationOverXi(other.integrationOverXi());
 }
 
 void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)

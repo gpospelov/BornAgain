@@ -15736,6 +15736,11 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         return _libBornAgainCore.FormFactorTruncatedSphere_getRadius(self)
 
 
+    def getRemovedTop(self):
+        """getRemovedTop(FormFactorTruncatedSphere self) -> double"""
+        return _libBornAgainCore.FormFactorTruncatedSphere_getRemovedTop(self)
+
+
     def radialExtension(self):
         """
         radialExtension(FormFactorTruncatedSphere self) -> double

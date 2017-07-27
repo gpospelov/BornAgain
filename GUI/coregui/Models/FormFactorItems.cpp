@@ -524,6 +524,7 @@ std::unique_ptr<IFormFactor> TruncatedCubeItem::createFormFactor() const
 
 const QString TruncatedSphereItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
 const QString TruncatedSphereItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString TruncatedSphereItem::P_REMOVED_TOP = QString::fromStdString(BornAgain::RemovedTop);
 
 TruncatedSphereItem::TruncatedSphereItem()
     : FormFactorItem(Constants::TruncatedSphereType)
@@ -533,13 +534,16 @@ TruncatedSphereItem::TruncatedSphereItem()
         ->setToolTip(QStringLiteral("Radius of the truncated sphere in nanometers"));
     addProperty(P_HEIGHT, 7.0)
         ->setToolTip(QStringLiteral("Height of the truncated sphere in nanometers"));
+    addProperty(P_REMOVED_TOP, 0.0)
+        ->setToolTip(QStringLiteral("Height of the removed top cap in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> TruncatedSphereItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorTruncatedSphere>(
                 getItemValue(P_RADIUS).toDouble(),
-                getItemValue(P_HEIGHT).toDouble()
+                getItemValue(P_HEIGHT).toDouble(),
+                getItemValue(P_REMOVED_TOP).toDouble()
                 );
 }
 

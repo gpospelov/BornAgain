@@ -507,6 +507,7 @@ void GUIObjectBuilder::visit(const FormFactorTruncatedSphere* sample)
         ParticleItem::P_FORM_FACTOR, Constants::TruncatedSphereType);
     ffItem->setItemValue(TruncatedSphereItem::P_RADIUS, sample->getRadius());
     ffItem->setItemValue(TruncatedSphereItem::P_HEIGHT, sample->getHeight());
+    ffItem->setItemValue(TruncatedSphereItem::P_REMOVED_TOP, sample->getRemovedTop());
     m_levelToParentItem[depth()] = particleItem;
 }
 

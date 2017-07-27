@@ -165,6 +165,7 @@ const std::string Edge = "Edge";
 const std::string BaseEdge = "BaseEdge";
 const std::string Length = "Length";
 const std::string RemovedLength = "RemovedLength";
+const std::string RemovedTop = "RemovedTopHeight";
 const std::string Width = "Width";
 const std::string LeftWidth = "LeftWidth";
 const std::string MiddleWidth = "MiddleWidth";

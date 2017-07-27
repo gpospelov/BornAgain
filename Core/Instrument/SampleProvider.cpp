@@ -76,26 +76,6 @@ void SampleProvider::updateSample()
         throw std::runtime_error("SampleProvider::updateSample() -> Error. No sample.");
 }
 
-//! Returns a child for GISAS simulation. If sample builder is defined, the result will
-//! be a special node, presenting a builder. Is no sample builder defined, the
-//! result will be current multi layer.
-
-//const INode* SampleProvider::provideChild(INode* parent)
-//{
-//    INode* result(nullptr);
-
-//    if (m_sample_builder) {
-//        result = &m_sample_builder;
-//    } else {
-//        result = m_multilayer.get();
-//    }
-
-//    // Before returning a child, its parent will be set.
-//    if(result)
-//        result->setParent(parent);
-//    return result;
-//}
-
 std::vector<const INode*> SampleProvider::getChildren() const
 {
     std::vector<const INode*> result;

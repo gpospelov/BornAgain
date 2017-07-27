@@ -164,9 +164,10 @@ void Simulation::setSample(const MultiLayer& sample)
     m_sample_provider.setSample(sample);
 }
 
-MultiLayer* Simulation::sample() const
+const MultiLayer* Simulation::sample() const
 {
-    return const_cast<MultiLayer*>(m_sample_provider.sample());
+//    return const_cast<MultiLayer*>(m_sample_provider.sample());
+    return m_sample_provider.sample();
 }
 
 void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)

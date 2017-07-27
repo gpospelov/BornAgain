@@ -15857,6 +15857,11 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getHeightFlattening(self)
 
 
+    def getRemovedTop(self):
+        """getRemovedTop(FormFactorTruncatedSpheroid self) -> double"""
+        return _libBornAgainCore.FormFactorTruncatedSpheroid_getRemovedTop(self)
+
+
     def radialExtension(self):
         """
         radialExtension(FormFactorTruncatedSpheroid self) -> double

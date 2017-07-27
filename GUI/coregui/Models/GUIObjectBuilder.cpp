@@ -519,6 +519,7 @@ void GUIObjectBuilder::visit(const FormFactorTruncatedSpheroid* sample)
     ffItem->setItemValue(TruncatedSpheroidItem::P_RADIUS, sample->getRadius());
     ffItem->setItemValue(TruncatedSpheroidItem::P_HEIGHT, sample->getHeight());
     ffItem->setItemValue(TruncatedSpheroidItem::P_HFC, sample->getHeightFlattening());
+    ffItem->setItemValue(TruncatedSpheroidItem::P_REMOVED_TOP, sample->getRemovedTop());
     m_levelToParentItem[depth()] = particleItem;
 }
 

@@ -47,7 +47,8 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
 bool FormFactorTruncatedSpheroid::check_initialization() const
 {
     bool result(true);
-    if(m_height > 2.*m_radius*m_height_flattening) {
+    if(m_height > 2.*m_radius*m_height_flattening ||
+       m_dh > m_height) {
         std::ostringstream ostr;
         ostr << "::FormFactorTruncatedSpheroid() -> Error in class initialization with parameters ";
         ostr << " radius:" << m_radius;

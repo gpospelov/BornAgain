@@ -36,6 +36,7 @@ public:
     double getRadius() const { return m_radius; }
     double getHeight() const { return m_height; }
     double getHeightFlattening() const { return m_height_flattening; }
+    double getRemovedTop() const { return m_dh; }
 
     double radialExtension() const override final { return m_radius; }
 

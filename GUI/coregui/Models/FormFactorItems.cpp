@@ -524,7 +524,7 @@ std::unique_ptr<IFormFactor> TruncatedCubeItem::createFormFactor() const
 
 const QString TruncatedSphereItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
 const QString TruncatedSphereItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
-const QString TruncatedSphereItem::P_REMOVED_TOP = QString::fromStdString(BornAgain::RemovedTop);
+const QString TruncatedSphereItem::P_REMOVED_TOP = QString::fromStdString(BornAgain::DeltaHeight);
 
 TruncatedSphereItem::TruncatedSphereItem()
     : FormFactorItem(Constants::TruncatedSphereType)
@@ -552,6 +552,7 @@ std::unique_ptr<IFormFactor> TruncatedSphereItem::createFormFactor() const
 const QString TruncatedSpheroidItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
 const QString TruncatedSpheroidItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 const QString TruncatedSpheroidItem::P_HFC = QString::fromStdString(BornAgain::HeightFlattening);
+const QString TruncatedSpheroidItem::P_REMOVED_TOP = QString::fromStdString(BornAgain::DeltaHeight);
 
 TruncatedSpheroidItem::TruncatedSpheroidItem()
     : FormFactorItem(Constants::TruncatedSpheroidType)
@@ -563,6 +564,8 @@ TruncatedSpheroidItem::TruncatedSpheroidItem()
         ->setToolTip(QStringLiteral("Height of the truncated spheroid in nanometers"));
     addProperty(P_HFC, 1.2)->setToolTip(
         QStringLiteral("Ratio of the height of the corresponding full spheroid to its diameter"));
+    addProperty(P_REMOVED_TOP, 0.0)
+        ->setToolTip(QStringLiteral("Height of the removed top cap in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> TruncatedSpheroidItem::createFormFactor() const
@@ -570,7 +573,8 @@ std::unique_ptr<IFormFactor> TruncatedSpheroidItem::createFormFactor() const
     return GUIHelpers::make_unique<FormFactorTruncatedSpheroid>(
                 getItemValue(P_RADIUS).toDouble(),
                 getItemValue(P_HEIGHT).toDouble(),
-                getItemValue(P_HFC).toDouble()
+                getItemValue(P_HFC).toDouble(),
+                getItemValue(P_REMOVED_TOP).toDouble()
                 );
 }
 

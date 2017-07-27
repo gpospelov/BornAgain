@@ -234,6 +234,7 @@ public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
     static const QString P_HFC;
+    static const QString P_REMOVED_TOP;
     TruncatedSpheroidItem();
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };

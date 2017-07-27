@@ -2107,14 +2107,14 @@ class INode(IParameterized):
         return _libBornAgainCore.INode_getChildren(self)
 
 
-    def setParent(self, parent):
+    def setParent(self, newParent):
         """
-        setParent(INode self, INode parent)
+        setParent(INode self, INode newParent)
 
         void INode::setParent(const INode *parent)
 
         """
-        return _libBornAgainCore.INode_setParent(self, parent)
+        return _libBornAgainCore.INode_setParent(self, newParent)
 
 
     def parent(self, *args):
@@ -16202,16 +16202,6 @@ class Simulation(ICloneable, INode):
         return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
 
 
-    def sampleBuilder(self):
-        """
-        sampleBuilder(Simulation self) -> std::shared_ptr< IMultiLayerBuilder >
-
-        std::shared_ptr<IMultiLayerBuilder> Simulation::sampleBuilder() const 
-
-        """
-        return _libBornAgainCore.Simulation_sampleBuilder(self)
-
-
     def numberOfSimulationElements(self):
         """
         numberOfSimulationElements(Simulation self) -> size_t
@@ -22618,9 +22608,9 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_numberOfInterfaces(self)
 
 
-    def addLayer(self, p_child):
+    def addLayer(self, layer):
         """
-        addLayer(MultiLayer self, Layer p_child)
+        addLayer(MultiLayer self, Layer layer)
 
         void MultiLayer::addLayer(const Layer &p_child)
 
@@ -22629,7 +22619,7 @@ class MultiLayer(ISample):
         Adds layer with default (zero) roughness. 
 
         """
-        return _libBornAgainCore.MultiLayer_addLayer(self, p_child)
+        return _libBornAgainCore.MultiLayer_addLayer(self, layer)
 
 
     def addLayerWithTopRoughness(self, layer, roughness):
@@ -23768,16 +23758,16 @@ class ParameterPool(ICloneable):
         return _libBornAgainCore.ParameterPool_clone(self)
 
 
-    def copyToExternalPool(self, prefix, external_pool):
+    def copyToExternalPool(self, prefix, other_pool):
         """
-        copyToExternalPool(ParameterPool self, std::string const & prefix, ParameterPool external_pool)
+        copyToExternalPool(ParameterPool self, std::string const & prefix, ParameterPool other_pool)
 
         void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
 
         Copies parameters of given pool to  other pool, prepeding  prefix to the parameter names. 
 
         """
-        return _libBornAgainCore.ParameterPool_copyToExternalPool(self, prefix, external_pool)
+        return _libBornAgainCore.ParameterPool_copyToExternalPool(self, prefix, other_pool)
 
 
     def clear(self):
@@ -23804,9 +23794,9 @@ class ParameterPool(ICloneable):
         return _libBornAgainCore.ParameterPool_size(self)
 
 
-    def addParameter(self, par):
+    def addParameter(self, newPar):
         """
-        addParameter(ParameterPool self, RealParameter par) -> RealParameter
+        addParameter(ParameterPool self, RealParameter newPar) -> RealParameter
 
         RealParameter & ParameterPool::addParameter(RealParameter *par)
 
@@ -23815,7 +23805,7 @@ class ParameterPool(ICloneable):
         Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
 
         """
-        return _libBornAgainCore.ParameterPool_addParameter(self, par)
+        return _libBornAgainCore.ParameterPool_addParameter(self, newPar)
 
 
     def parameter(self, *args):
@@ -23843,16 +23833,16 @@ class ParameterPool(ICloneable):
         return _libBornAgainCore.ParameterPool_parameters(self)
 
 
-    def getMatchedParameters(self, wildcards):
+    def getMatchedParameters(self, pattern):
         """
-        getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< RealParameter *,std::allocator< RealParameter * > >
+        getMatchedParameters(ParameterPool self, std::string const & pattern) -> std::vector< RealParameter *,std::allocator< RealParameter * > >
 
         std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
 
         Returns nonempty vector of parameters that match the  pattern ('*' allowed), or throws. 
 
         """
-        return _libBornAgainCore.ParameterPool_getMatchedParameters(self, wildcards)
+        return _libBornAgainCore.ParameterPool_getMatchedParameters(self, pattern)
 
 
     def getUniqueMatch(self, pattern):

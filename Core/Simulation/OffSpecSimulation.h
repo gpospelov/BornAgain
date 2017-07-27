@@ -79,6 +79,8 @@ private:
     void initialize();
 
     IAxis* mp_alpha_i_axis;
+    OutputData<double> m_intensity_map;
+
 };
 
 #endif // OFFSPECSIMULATION_H

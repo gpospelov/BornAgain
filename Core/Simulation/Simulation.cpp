@@ -49,13 +49,11 @@ Simulation::Simulation(const Simulation& other)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)
     , m_instrument(other.m_instrument)
-    , m_intensity_map()
 {
-    m_intensity_map.copyFrom(other.m_intensity_map);
     initialize();
 }
 
-Simulation::~Simulation() {} // forward class declaration prevents move to .h
+Simulation::~Simulation() {}
 
 //! Initializes a progress monitor that prints to stdout.
 void Simulation::setTerminalProgressMonitor()
@@ -166,7 +164,6 @@ void Simulation::setSample(const MultiLayer& sample)
 
 const MultiLayer* Simulation::sample() const
 {
-//    return const_cast<MultiLayer*>(m_sample_provider.sample());
     return m_sample_provider.sample();
 }
 

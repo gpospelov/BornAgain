@@ -46,6 +46,7 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
 {
     if(other.mp_alpha_i_axis)
         mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
+    m_intensity_map.copyFrom(other.m_intensity_map);
     initialize();
 }
 

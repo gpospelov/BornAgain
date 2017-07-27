@@ -123,7 +123,6 @@ protected:
     ProgressHandler m_progress;
     std::vector<SimulationElement> m_sim_elements;
     Instrument m_instrument;
-    OutputData<double> m_intensity_map;
 
 private:
     void initialize();

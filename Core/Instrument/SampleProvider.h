@@ -31,6 +31,7 @@ public:
     SampleProvider();
     SampleProvider(const SampleProvider& other);
     SampleProvider& operator=(const SampleProvider& other);
+    ~SampleProvider();
 
     void setSample(const MultiLayer& multilayer);
 

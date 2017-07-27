@@ -39,6 +39,11 @@ SampleProvider& SampleProvider::operator=(const SampleProvider& other)
     return *this;
 }
 
+SampleProvider::~SampleProvider()
+{
+
+}
+
 void SampleProvider::setSample(const MultiLayer& multilayer)
 {
     m_multilayer.reset(multilayer.clone());

@@ -7236,7 +7236,7 @@ class AdjustMinimizerStrategy(IFitStrategy):
 AdjustMinimizerStrategy_swigregister = _libBornAgainCore.AdjustMinimizerStrategy_swigregister
 AdjustMinimizerStrategy_swigregister(AdjustMinimizerStrategy)
 
-class IMultiLayerBuilder(INode):
+class IMultiLayerBuilder(IParameterized):
     """
 
 
@@ -7247,11 +7247,11 @@ class IMultiLayerBuilder(INode):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INode]:
+    for _s in [IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IMultiLayerBuilder, name, value)
     __swig_getmethods__ = {}
-    for _s in [INode]:
+    for _s in [IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IMultiLayerBuilder, name)
     __repr__ = _swig_repr
@@ -7272,20 +7272,6 @@ class IMultiLayerBuilder(INode):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
-    __del__ = lambda self: None
-
-    def accept(self, visitor):
-        """
-        accept(IMultiLayerBuilder self, INodeVisitor visitor)
-
-        void IMultiLayerBuilder::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_accept(self, visitor)
-
 
     def buildSample(self):
         """
@@ -7331,18 +7317,6 @@ class IMultiLayerBuilder(INode):
         return _libBornAgainCore.IMultiLayerBuilder_getFTDistribution2D(self)
 
 
-    def getChildren(self):
-        """
-        getChildren(IMultiLayerBuilder self) -> swig_dummy_type_const_inode_vector
-
-        std::vector<const INode*> IMultiLayerBuilder::getChildren() const
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_getChildren(self)
-
-
     def onChange(self):
         """
         onChange(IMultiLayerBuilder self)
@@ -7372,6 +7346,8 @@ class IMultiLayerBuilder(INode):
     if _newclass:
         isPythonBuilder = staticmethod(isPythonBuilder)
     __swig_getmethods__["isPythonBuilder"] = lambda x: isPythonBuilder
+    __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
+    __del__ = lambda self: None
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IMultiLayerBuilder(self)

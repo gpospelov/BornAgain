@@ -22,7 +22,6 @@ SampleProvider::SampleProvider()
 }
 
 SampleProvider::SampleProvider(const SampleProvider& other)
-    : m_sample_builder(other.m_sample_builder)
 {
     if (other.m_multilayer)
         setSample(*other.m_multilayer);

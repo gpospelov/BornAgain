@@ -28,24 +28,27 @@
 
 Simulation::Simulation()
 {
-    registerChild(&m_instrument);
+    initialize();
 }
 
 Simulation::Simulation(const MultiLayer& p_sample)
 {
     setSample(p_sample);
-    registerChild(&m_instrument);
+    initialize();
+    m_sample_provider.setSample(p_sample);
 }
 
 Simulation::Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : mP_sample_builder(p_sample_builder)
 {
-    registerChild(&m_instrument);
     registerChild(p_sample_builder.get());
+    initialize();
+    m_sample_provider.setSampleBuilder(p_sample_builder);
 }
 
 Simulation::Simulation(const Simulation& other)
     : mP_sample_builder(other.mP_sample_builder)
+    , m_sample_provider(other.m_sample_provider)
     , m_options(other.m_options)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)
@@ -54,10 +57,10 @@ Simulation::Simulation(const Simulation& other)
 {
     if (other.mP_multilayer)
         setSample(*other.mP_multilayer);
-    registerChild(&m_instrument);
     if(mP_sample_builder)
         registerChild(mP_sample_builder.get());
     m_intensity_map.copyFrom(other.m_intensity_map);
+    initialize();
 }
 
 Simulation::~Simulation() {} // forward class declaration prevents move to .h
@@ -168,6 +171,12 @@ void Simulation::setSample(const MultiLayer& sample)
 {
     mP_multilayer.reset(sample.clone());
     registerChild(mP_multilayer.get());
+    m_sample_provider.setSample(sample);
+}
+
+MultiLayer*Simulation::sample() const
+{
+    return mP_multilayer.get();
 }
 
 void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
@@ -179,6 +188,13 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder
     mP_sample_builder = p_sample_builder;
     registerChild(mP_sample_builder.get());
     mP_multilayer.reset(nullptr);
+
+    m_sample_provider.setSampleBuilder(p_sample_builder);
+}
+
+std::shared_ptr<IMultiLayerBuilder> Simulation::sampleBuilder() const
+{
+    return mP_sample_builder;
 }
 
 std::vector<const INode*> Simulation::getChildren() const
@@ -208,6 +224,8 @@ void Simulation::addParameterDistribution(const ParameterDistribution& par_distr
 
 void Simulation::updateSample()
 {
+    m_sample_provider.updateSample();
+
     if (!mP_sample_builder)
         return;
     if (mP_sample_builder->isPythonBuilder()) {
@@ -333,6 +351,12 @@ std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, 
     if (end_index >= total_size)
         return m_sim_elements.end();
     return m_sim_elements.begin() + end_index;
+}
+
+void Simulation::initialize()
+{
+    registerChild(&m_instrument);
+    registerChild(&m_sample_provider);
 }
 
 void Simulation::imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch)

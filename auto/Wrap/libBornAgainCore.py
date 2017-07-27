@@ -15736,6 +15736,11 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         return _libBornAgainCore.FormFactorTruncatedSphere_getRadius(self)
 
 
+    def getRemovedTop(self):
+        """getRemovedTop(FormFactorTruncatedSphere self) -> double"""
+        return _libBornAgainCore.FormFactorTruncatedSphere_getRemovedTop(self)
+
+
     def radialExtension(self):
         """
         radialExtension(FormFactorTruncatedSphere self) -> double
@@ -15850,6 +15855,11 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getHeightFlattening(self)
+
+
+    def getRemovedTop(self):
+        """getRemovedTop(FormFactorTruncatedSpheroid self) -> double"""
+        return _libBornAgainCore.FormFactorTruncatedSpheroid_getRemovedTop(self)
 
 
     def radialExtension(self):
@@ -20555,6 +20565,16 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_evaluate(self, q)
+
+
+    def setIntegrationOverXi(self, integrate_xi):
+        """setIntegrationOverXi(InterferenceFunction2DLattice self, bool integrate_xi)"""
+        return _libBornAgainCore.InterferenceFunction2DLattice_setIntegrationOverXi(self, integrate_xi)
+
+
+    def integrationOverXi(self):
+        """integrationOverXi(InterferenceFunction2DLattice self) -> bool"""
+        return _libBornAgainCore.InterferenceFunction2DLattice_integrationOverXi(self)
 
 
     def lattice(self):

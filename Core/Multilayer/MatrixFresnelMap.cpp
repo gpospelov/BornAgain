@@ -20,6 +20,11 @@
 #include "SimulationElement.h"
 #include "SpecularMagnetic.h"
 
+namespace {
+std::vector<MatrixRTCoefficients> calculateCoefficients(const MultiLayer& multilayer,
+                                                        kvector_t kvec);
+}
+
 MatrixFresnelMap::MatrixFresnelMap()
 {}
 
@@ -29,14 +34,17 @@ MatrixFresnelMap::~MatrixFresnelMap()
 const ILayerRTCoefficients* MatrixFresnelMap::getOutCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
-    MatrixRTCoefficients* result;
     kvector_t kvec = -sim_element.getMeanKf();
+    if (!m_use_cache) {
+        auto coeffs { calculateCoefficients(*mP_inverted_multilayer, kvec) };
+        return new MatrixRTCoefficients(coeffs[layer_index]);
+    }
+    MatrixRTCoefficients* result;
     auto it = m_hash_table_out.find(kvec);
     if (it != m_hash_table_out.end())
         result = new MatrixRTCoefficients(it->second[layer_index]);
     else {
-        std::vector<MatrixRTCoefficients> coeffs;
-        SpecularMagnetic::execute(*mP_inverted_multilayer, kvec, coeffs);
+        auto coeffs { calculateCoefficients(*mP_inverted_multilayer, kvec) };
         result = new MatrixRTCoefficients(coeffs[layer_index]);
         m_hash_table_out[kvec] = std::move(coeffs);
     }
@@ -46,14 +54,17 @@ const ILayerRTCoefficients* MatrixFresnelMap::getOutCoefficients(
 const ILayerRTCoefficients* MatrixFresnelMap::getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const
 {
-    MatrixRTCoefficients* result;
     kvector_t kvec = sim_element.getKi();
+    if (!m_use_cache) {
+        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
+        return new MatrixRTCoefficients(coeffs[layer_index]);
+    }
+    MatrixRTCoefficients* result;
     auto it = m_hash_table_in.find(kvec);
     if (it != m_hash_table_in.end())
         result = new MatrixRTCoefficients(it->second[layer_index]);
     else {
-        std::vector<MatrixRTCoefficients> coeffs;
-        SpecularMagnetic::execute(*mP_multilayer, kvec, coeffs);
+        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
         result = new MatrixRTCoefficients(coeffs[layer_index]);
         m_hash_table_in[kvec] = std::move(coeffs);
     }
@@ -65,3 +76,14 @@ void MatrixFresnelMap::setMultilayer(const MultiLayer& multilayer)
     IFresnelMap::setMultilayer(multilayer);
     mP_inverted_multilayer.reset(multilayer.cloneInvertB());
 }
+
+namespace {
+std::vector<MatrixRTCoefficients> calculateCoefficients(const MultiLayer& multilayer,
+                                                        kvector_t kvec)
+{
+    std::vector<MatrixRTCoefficients> coeffs;
+    SpecularMagnetic::execute(multilayer, kvec, coeffs);
+    return coeffs;
+}
+}
+

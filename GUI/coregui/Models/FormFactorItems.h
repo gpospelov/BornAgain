@@ -223,6 +223,7 @@ class BA_CORE_API_ TruncatedSphereItem : public FormFactorItem
 public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
+    static const QString P_REMOVED_TOP;
     TruncatedSphereItem();
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
@@ -233,6 +234,7 @@ public:
     static const QString P_RADIUS;
     static const QString P_HEIGHT;
     static const QString P_HFC;
+    static const QString P_REMOVED_TOP;
     TruncatedSpheroidItem();
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };

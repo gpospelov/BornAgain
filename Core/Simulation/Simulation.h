@@ -68,7 +68,6 @@ public:
     const MultiLayer* sample() const;
 
     void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    std::shared_ptr<IMultiLayerBuilder> sampleBuilder() const;
 
     virtual size_t numberOfSimulationElements() const=0;
 

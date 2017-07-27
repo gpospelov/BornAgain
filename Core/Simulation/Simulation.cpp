@@ -175,11 +175,6 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder
     m_sample_provider.setSampleBuilder(p_sample_builder);
 }
 
-std::shared_ptr<IMultiLayerBuilder> Simulation::sampleBuilder() const
-{
-    return m_sample_provider.builder();
-}
-
 std::vector<const INode*> Simulation::getChildren() const
 {
     std::vector<const INode*> result;

@@ -40,7 +40,6 @@ TEST_F(GISASSimulationTest, SimulationConstruction)
     GISASSimulation simulation(multi_layer);
     EXPECT_EQ( BornAgain::GISASSimulationType, simulation.getName());
     EXPECT_NE( nullptr, simulation.sample());
-    EXPECT_EQ( nullptr, simulation.sampleBuilder().get());
     EXPECT_EQ(0u, simulation.numberOfSimulationElements());
     EXPECT_THROW(simulation.getDetectorIntensity(), Exceptions::OutOfBoundsException);
     EXPECT_EQ(2u, simulation.getChildren().size());
@@ -48,7 +47,6 @@ TEST_F(GISASSimulationTest, SimulationConstruction)
     simulation.setDetectorParameters(10, -2.0, 2.0, 20, 0.0, 2.0);
     EXPECT_EQ( BornAgain::GISASSimulationType, simulation.getName());
     EXPECT_NE( nullptr, simulation.sample());
-    EXPECT_EQ( nullptr, simulation.sampleBuilder().get());
     EXPECT_EQ(200u, simulation.numberOfSimulationElements());
     EXPECT_NO_THROW(simulation.getDetectorIntensity());
     EXPECT_EQ(2u, simulation.getChildren().size());

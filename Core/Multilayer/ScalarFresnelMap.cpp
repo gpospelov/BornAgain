@@ -19,6 +19,11 @@
 #include "SimulationElement.h"
 #include "SpecularMatrix.h"
 
+namespace {
+std::vector<ScalarRTCoefficients> calculateCoefficients(const MultiLayer& multilayer,
+                                                        kvector_t kvec);
+}
+
 ScalarFresnelMap::ScalarFresnelMap()
 {}
 
@@ -40,16 +45,29 @@ const ILayerRTCoefficients* ScalarFresnelMap::getInCoefficients(
 const ScalarRTCoefficients* ScalarFresnelMap::getCoefficients(
         kvector_t kvec, size_t layer_index) const
 {
+    if (!m_use_cache) {
+        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
+        return new ScalarRTCoefficients(coeffs[layer_index]);
+    }
     ScalarRTCoefficients* result;
     std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());
     auto it = m_hash_table.find(k2_theta);
     if (it != m_hash_table.end())
         result = new ScalarRTCoefficients(it->second[layer_index]);
     else {
-        std::vector<ScalarRTCoefficients> coeffs;
-        SpecularMatrix::execute(*mP_multilayer, kvec, coeffs);
+        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
         result = new ScalarRTCoefficients(coeffs[layer_index]);
         m_hash_table[k2_theta] = std::move(coeffs);
     }
     return result;
+}
+
+namespace {
+std::vector<ScalarRTCoefficients> calculateCoefficients(const MultiLayer& multilayer,
+                                                        kvector_t kvec)
+{
+    std::vector<ScalarRTCoefficients> coeffs;
+    SpecularMatrix::execute(multilayer, kvec, coeffs);
+    return coeffs;
+}
 }

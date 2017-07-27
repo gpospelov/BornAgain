@@ -33,32 +33,24 @@ Simulation::Simulation()
 
 Simulation::Simulation(const MultiLayer& p_sample)
 {
-    setSample(p_sample);
     initialize();
     m_sample_provider.setSample(p_sample);
 }
 
 Simulation::Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : mP_sample_builder(p_sample_builder)
 {
-    registerChild(p_sample_builder.get());
     initialize();
     m_sample_provider.setSampleBuilder(p_sample_builder);
 }
 
 Simulation::Simulation(const Simulation& other)
-    : mP_sample_builder(other.mP_sample_builder)
-    , m_sample_provider(other.m_sample_provider)
+    : m_sample_provider(other.m_sample_provider)
     , m_options(other.m_options)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)
     , m_instrument(other.m_instrument)
     , m_intensity_map()
 {
-    if (other.mP_multilayer)
-        setSample(*other.mP_multilayer);
-    if(mP_sample_builder)
-        registerChild(mP_sample_builder.get());
     m_intensity_map.copyFrom(other.m_intensity_map);
     initialize();
 }
@@ -125,8 +117,8 @@ void Simulation::runSimulation()
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
     m_progress.reset();
-    size_t prefactor = ( mP_multilayer->totalNofLayouts()>0 ? 1 : 0 )
-        + ( mP_multilayer->hasRoughness() ? 1 : 0 );
+    size_t prefactor = ( sample()->totalNofLayouts()>0 ? 1 : 0 )
+        + ( sample()->hasRoughness() ? 1 : 0 );
     m_progress.setExpectedNTicks(prefactor*param_combinations*numberOfSimulationElements());
 
     // no averaging needed:
@@ -169,43 +161,29 @@ void Simulation::setInstrument(const Instrument& instrument)
 //! The MultiLayer object will not be owned by the Simulation object
 void Simulation::setSample(const MultiLayer& sample)
 {
-    mP_multilayer.reset(sample.clone());
-    registerChild(mP_multilayer.get());
     m_sample_provider.setSample(sample);
 }
 
-MultiLayer*Simulation::sample() const
+MultiLayer* Simulation::sample() const
 {
-    return mP_multilayer.get();
+    return const_cast<MultiLayer*>(m_sample_provider.sample());
 }
 
 void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
 {
-    if (!p_sample_builder)
-        throw Exceptions::NullPointerException("Simulation::setSampleBuilder() -> "
-                                   "Error! Attempt to set null sample builder.");
-
-    mP_sample_builder = p_sample_builder;
-    registerChild(mP_sample_builder.get());
-    mP_multilayer.reset(nullptr);
-
     m_sample_provider.setSampleBuilder(p_sample_builder);
 }
 
 std::shared_ptr<IMultiLayerBuilder> Simulation::sampleBuilder() const
 {
-    return mP_sample_builder;
+    return m_sample_provider.builder();
 }
 
 std::vector<const INode*> Simulation::getChildren() const
 {
     std::vector<const INode*> result;
     result.push_back(&m_instrument);
-    if(mP_sample_builder) {
-        result.push_back(mP_sample_builder.get());
-    } else {
-        result << mP_multilayer;
-    }
+    result << m_sample_provider.getChildren();
     return result;
 }
 
@@ -225,17 +203,6 @@ void Simulation::addParameterDistribution(const ParameterDistribution& par_distr
 void Simulation::updateSample()
 {
     m_sample_provider.updateSample();
-
-    if (!mP_sample_builder)
-        return;
-    if (mP_sample_builder->isPythonBuilder()) {
-        mP_multilayer.reset( mP_sample_builder->buildSample()->clone() );
-    } else {
-        mP_multilayer.reset( mP_sample_builder->buildSample() );
-    }
-
-    if (!mP_multilayer)
-        throw Exceptions::NullPointerException("Simulation::runSimulation() -> Error! No sample.");
 }
 
 //! Runs a single simulation with fixed parameter values.
@@ -255,7 +222,7 @@ void Simulation::runSingleSimulation()
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
         std::unique_ptr<MainComputation> P_computation(
-            new MainComputation(*mP_multilayer, m_options, m_progress, batch_start, batch_end));
+            new MainComputation(*sample(), m_options, m_progress, batch_start, batch_end));
         P_computation->run(); // the work is done here
         if (!P_computation->isCompleted()) {
             std::string message = P_computation->errorMessage();
@@ -286,7 +253,7 @@ void Simulation::runSingleSimulation()
             else
                 end_it = batch_start + end_thread_index;
             computations.emplace_back(
-                new MainComputation(*mP_multilayer, m_options, m_progress, begin_it, end_it));
+                new MainComputation(*sample(), m_options, m_progress, begin_it, end_it));
         }
 
         // Run simulations in n threads.

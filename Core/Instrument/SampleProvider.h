@@ -46,6 +46,8 @@ public:
 
     void setParent(const INode* newParent) override;
 
+    SampleBuilderNode::builder_t builder() const;
+
 private:
     void swapContent(SampleProvider& other);
 

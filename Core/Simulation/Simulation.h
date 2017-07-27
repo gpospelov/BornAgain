@@ -118,8 +118,6 @@ protected:
     //! Returns the end iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
-    std::unique_ptr<MultiLayer> mP_multilayer;
-    std::shared_ptr<IMultiLayerBuilder> mP_sample_builder;
     SampleProvider m_sample_provider;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;

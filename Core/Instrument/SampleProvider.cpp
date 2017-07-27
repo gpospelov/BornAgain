@@ -114,6 +114,11 @@ void SampleProvider::setParent(const INode* newParent)
     }
 }
 
+SampleBuilderNode::builder_t SampleProvider::builder() const
+{
+    return m_sample_builder.builder();
+}
+
 void SampleProvider::swapContent(SampleProvider& other)
 {
     std::swap(m_multilayer, other.m_multilayer);

@@ -46,7 +46,11 @@ public:
     //! Sets the multilayer to be used for the Fresnel calculations.
     virtual void setMultilayer(const MultiLayer& multilayer);
 
+    //! Disables caching of previously computed Fresnel coefficients
+    void disableCaching();
+
 protected:
+    bool m_use_cache;
     std::unique_ptr<MultiLayer> mP_multilayer;
 };
 

@@ -434,49 +434,24 @@ std::string ExportToPython::defineInterferenceFunctions() const
                  = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
             std::vector<double> domainSize = twoDParaCrystal->domainSizes();
             const Lattice2D& lattice = twoDParaCrystal->lattice();
+            result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
+                   << printNm(lattice.length1())
+                   << ", "
+                   << printNm(lattice.length2())
+                   << ", "
+                   << printDegrees(lattice.latticeAngle())
+                   << ", "
+                   << printDegrees(lattice.rotationAngle())
+                   << ", "
+                   << printNm(twoDParaCrystal->dampingLength()) << ")\n";
 
-            if(lattice.getName() == BornAgain::SquareLatticeType) {
-                result << indent() << it->second
-                       << " = ba.InterferenceFunction2DParaCrystal.createSquare("
-                       << printNm(lattice.length1())
-                       << ", "
-                       << printNm(twoDParaCrystal->dampingLength()) << ", "
+            if (domainSize[0] != 0.0 || domainSize[1] != 0.0)
+                result << indent() << it->second << ".setDomainSizes("
                        << printNm(domainSize[0]) << ", "
-                       << printNm(domainSize[1]) << ")\n";
+                                                 << printNm(domainSize[1]) << ")\n";
 
-            }
-
-            else if(lattice.getName() == BornAgain::HexagonalLatticeType) {
-                result << indent() << it->second
-                       << " = ba.InterferenceFunction2DParaCrystal.createHexagonal("
-                       << printNm(lattice.length1())
-                       << ", "
-                       << printNm(twoDParaCrystal->dampingLength()) << ", "
-                       << printNm(domainSize[0]) << ", "
-                       << printNm(domainSize[1]) << ")\n";
-
-            }
-
-            else {
-                result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
-                       << printNm(lattice.length1())
-                       << ", "
-                       << printNm(lattice.length2())
-                       << ", "
-                       << printDegrees(lattice.latticeAngle())
-                       << ", "
-                       << printDegrees(lattice.rotationAngle())
-                       << ", "
-                       << printNm(twoDParaCrystal->dampingLength()) << ")\n";
-
-                if (domainSize[0] != 0 || domainSize[1] != 0)
-                    result << indent() << it->second << ".setDomainSizes("
-                           << printNm(domainSize[0]) << ", "
-                           << printNm(domainSize[1]) << ")\n";
-
-                if (twoDParaCrystal->integrationOverXi() == true)
-                    result << indent() << it->second << ".setIntegrationOverXi(True)\n";
-            }
+            if (twoDParaCrystal->integrationOverXi() == true)
+                result << indent() << it->second << ".setIntegrationOverXi(True)\n";
 
             std::vector<const IFTDistribution2D*> pdf_vector
                 = twoDParaCrystal->probabilityDistributions();

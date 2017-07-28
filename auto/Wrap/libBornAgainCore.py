@@ -21569,16 +21569,6 @@ class Lattice2D(ICloneable, INode):
         return _libBornAgainCore.Lattice2D_latticeAngle(self)
 
 
-    def rotationAngle(self):
-        """
-        rotationAngle(Lattice2D self) -> double
-
-        double Lattice2D::rotationAngle() const 
-
-        """
-        return _libBornAgainCore.Lattice2D_rotationAngle(self)
-
-
     def unitCellArea(self):
         """
         unitCellArea(Lattice2D self) -> double
@@ -21587,6 +21577,16 @@ class Lattice2D(ICloneable, INode):
 
         """
         return _libBornAgainCore.Lattice2D_unitCellArea(self)
+
+
+    def rotationAngle(self):
+        """
+        rotationAngle(Lattice2D self) -> double
+
+        double Lattice2D::rotationAngle() const 
+
+        """
+        return _libBornAgainCore.Lattice2D_rotationAngle(self)
 
 
     def reciprocalBases(self):
@@ -21661,6 +21661,46 @@ class BasicLattice(Lattice2D):
         """
         return _libBornAgainCore.BasicLattice_accept(self, visitor)
 
+
+    def length1(self):
+        """
+        length1(BasicLattice self) -> double
+
+        double Lattice2D::length1() const 
+
+        """
+        return _libBornAgainCore.BasicLattice_length1(self)
+
+
+    def length2(self):
+        """
+        length2(BasicLattice self) -> double
+
+        virtual double Lattice2D::length2() const 
+
+        """
+        return _libBornAgainCore.BasicLattice_length2(self)
+
+
+    def latticeAngle(self):
+        """
+        latticeAngle(BasicLattice self) -> double
+
+        double Lattice2D::latticeAngle() const 
+
+        """
+        return _libBornAgainCore.BasicLattice_latticeAngle(self)
+
+
+    def unitCellArea(self):
+        """
+        unitCellArea(BasicLattice self) -> double
+
+        double Lattice2D::unitCellArea() const 
+
+        """
+        return _libBornAgainCore.BasicLattice_unitCellArea(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_BasicLattice
     __del__ = lambda self: None
 BasicLattice_swigregister = _libBornAgainCore.BasicLattice_swigregister
@@ -21715,6 +21755,16 @@ class SquareLattice(Lattice2D):
         return _libBornAgainCore.SquareLattice_accept(self, visitor)
 
 
+    def length1(self):
+        """
+        length1(SquareLattice self) -> double
+
+        double Lattice2D::length1() const 
+
+        """
+        return _libBornAgainCore.SquareLattice_length1(self)
+
+
     def length2(self):
         """
         length2(SquareLattice self) -> double
@@ -21723,6 +21773,26 @@ class SquareLattice(Lattice2D):
 
         """
         return _libBornAgainCore.SquareLattice_length2(self)
+
+
+    def latticeAngle(self):
+        """
+        latticeAngle(SquareLattice self) -> double
+
+        double Lattice2D::latticeAngle() const 
+
+        """
+        return _libBornAgainCore.SquareLattice_latticeAngle(self)
+
+
+    def unitCellArea(self):
+        """
+        unitCellArea(SquareLattice self) -> double
+
+        double Lattice2D::unitCellArea() const 
+
+        """
+        return _libBornAgainCore.SquareLattice_unitCellArea(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_SquareLattice
     __del__ = lambda self: None
@@ -21778,6 +21848,16 @@ class HexagonalLattice(Lattice2D):
         return _libBornAgainCore.HexagonalLattice_accept(self, visitor)
 
 
+    def length1(self):
+        """
+        length1(HexagonalLattice self) -> double
+
+        double Lattice2D::length1() const 
+
+        """
+        return _libBornAgainCore.HexagonalLattice_length1(self)
+
+
     def length2(self):
         """
         length2(HexagonalLattice self) -> double
@@ -21786,6 +21866,26 @@ class HexagonalLattice(Lattice2D):
 
         """
         return _libBornAgainCore.HexagonalLattice_length2(self)
+
+
+    def latticeAngle(self):
+        """
+        latticeAngle(HexagonalLattice self) -> double
+
+        double Lattice2D::latticeAngle() const 
+
+        """
+        return _libBornAgainCore.HexagonalLattice_latticeAngle(self)
+
+
+    def unitCellArea(self):
+        """
+        unitCellArea(HexagonalLattice self) -> double
+
+        double Lattice2D::unitCellArea() const 
+
+        """
+        return _libBornAgainCore.HexagonalLattice_unitCellArea(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_HexagonalLattice
     __del__ = lambda self: None

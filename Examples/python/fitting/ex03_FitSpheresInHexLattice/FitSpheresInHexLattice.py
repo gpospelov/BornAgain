@@ -63,6 +63,8 @@ def create_real_data():
     real_data = simulation.getIntensityData().getArray()
 
     # spoiling simulated data with the noise to produce "real" data
+    # random seed made as in FitSPheresInHexLattice_builder.py example
+    np.random.seed(0)
     noise_factor = 0.1
     noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
     noisy[noisy < 0.1] = 0.1
@@ -76,8 +78,6 @@ def run_fitting():
     simulation = get_simulation()
     sample = get_sample()
     simulation.setSample(sample)
-    print(simulation.treeToString())
-    print(simulation.parametersToString())
 
     real_data = create_real_data()
 
@@ -90,9 +90,12 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     fit_suite.addFitParameter(
-        "*HexagonalLattice/LatticeLength", 8.*nm, ba.AttLimits.limited(4., 12.))
-    fit_suite.addFitParameter(
         "*/FullSphere/Radius", 8.*nm, ba.AttLimits.limited(4., 12.))
+    fit_suite.addFitParameter(
+        "*HexagonalLattice/LatticeLength", 8.*nm, ba.AttLimits.limited(4., 12.))
+
+    print(fit_suite.treeToString())
+    print(fit_suite.parametersToString())
 
     # running fit
     fit_suite.runFit()

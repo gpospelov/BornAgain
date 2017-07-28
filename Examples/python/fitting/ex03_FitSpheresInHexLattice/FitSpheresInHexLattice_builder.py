@@ -83,6 +83,8 @@ def create_real_data():
     real_data = simulation.getIntensityData().getArray()
 
     # spoiling simulated data with the noise to produce "real" data
+    # random seed made as in FitSPheresInHexLattice.py example
+    np.random.seed(0)
     noise_factor = 0.1
     noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
     noisy[noisy < 0.1] = 0.1
@@ -93,21 +95,14 @@ def run_fitting():
     """
     main function to run fitting
     """
-    # print("1.1")
-    # builder = MySampleBuilder()
-    # print(builder.parametersToString())
-    # print("1.2")
-
-
     simulation = get_simulation()
     simulation.setSampleBuilder(MySampleBuilder())
-    print(simulation.parametersToString())
 
     real_data = create_real_data()
 
     fit_suite = ba.FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)
-    fit_suite.initPrint(1)
+    fit_suite.initPrint(10)
 
     draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
     fit_suite.attachObserver(draw_observer)

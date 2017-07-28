@@ -64,16 +64,9 @@ GUIObjectBuilder::GUIObjectBuilder()
 SessionItem* GUIObjectBuilder::populateSampleModel(
     SampleModel* sampleModel, const GISASSimulation& simulation, const QString& sampleName)
 {
-    std::unique_ptr<ISample> P_sample;
-    if(simulation.sampleBuilder()) {
-        P_sample.reset(simulation.sampleBuilder()->buildSample());
-    } else if(simulation.sample()) {
-        P_sample.reset(simulation.sample()->clone());
-    } else {
-        throw GUIHelpers::Error("GUIObjectBuilder::populateSampleModel() -> No valid sample");
-    }
-
-    return populateSampleModel(sampleModel,* P_sample, sampleName);
+    std::unique_ptr<GISASSimulation> sim(simulation.clone());
+    sim->prepareSimulation();
+    return populateSampleModel(sampleModel,*sim->sample(), sampleName);
 }
 
 SessionItem* GUIObjectBuilder::populateSampleModel(

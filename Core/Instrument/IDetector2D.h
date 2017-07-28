@@ -155,9 +155,6 @@ protected:
     //! Create an IPixel for the given OutputData object and index
     virtual IPixel* createPixel(size_t index) const=0;
 
-    //! Registers some class members for later access via parameter pool.
-    virtual void init_parameters() {}
-
     //! Generates an axis with correct name and default binning for given index
     virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const=0;
 

@@ -2107,14 +2107,14 @@ class INode(IParameterized):
         return _libBornAgainCore.INode_getChildren(self)
 
 
-    def setParent(self, parent):
+    def setParent(self, newParent):
         """
-        setParent(INode self, INode parent)
+        setParent(INode self, INode newParent)
 
         void INode::setParent(const INode *parent)
 
         """
-        return _libBornAgainCore.INode_setParent(self, parent)
+        return _libBornAgainCore.INode_setParent(self, newParent)
 
 
     def parent(self, *args):
@@ -7236,7 +7236,7 @@ class AdjustMinimizerStrategy(IFitStrategy):
 AdjustMinimizerStrategy_swigregister = _libBornAgainCore.AdjustMinimizerStrategy_swigregister
 AdjustMinimizerStrategy_swigregister(AdjustMinimizerStrategy)
 
-class IMultiLayerBuilder(INode):
+class IMultiLayerBuilder(IParameterized):
     """
 
 
@@ -7247,11 +7247,11 @@ class IMultiLayerBuilder(INode):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INode]:
+    for _s in [IParameterized]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IMultiLayerBuilder, name, value)
     __swig_getmethods__ = {}
-    for _s in [INode]:
+    for _s in [IParameterized]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IMultiLayerBuilder, name)
     __repr__ = _swig_repr
@@ -7272,20 +7272,6 @@ class IMultiLayerBuilder(INode):
             self.this.append(this)
         except Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
-    __del__ = lambda self: None
-
-    def accept(self, visitor):
-        """
-        accept(IMultiLayerBuilder self, INodeVisitor visitor)
-
-        void IMultiLayerBuilder::accept(INodeVisitor *visitor) const
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_accept(self, visitor)
-
 
     def buildSample(self):
         """
@@ -7331,18 +7317,6 @@ class IMultiLayerBuilder(INode):
         return _libBornAgainCore.IMultiLayerBuilder_getFTDistribution2D(self)
 
 
-    def getChildren(self):
-        """
-        getChildren(IMultiLayerBuilder self) -> swig_dummy_type_const_inode_vector
-
-        std::vector<const INode*> IMultiLayerBuilder::getChildren() const
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_getChildren(self)
-
-
     def onChange(self):
         """
         onChange(IMultiLayerBuilder self)
@@ -7372,6 +7346,8 @@ class IMultiLayerBuilder(INode):
     if _newclass:
         isPythonBuilder = staticmethod(isPythonBuilder)
     __swig_getmethods__["isPythonBuilder"] = lambda x: isPythonBuilder
+    __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
+    __del__ = lambda self: None
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IMultiLayerBuilder(self)
@@ -16202,16 +16178,6 @@ class Simulation(ICloneable, INode):
         return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
 
 
-    def sampleBuilder(self):
-        """
-        sampleBuilder(Simulation self) -> std::shared_ptr< IMultiLayerBuilder >
-
-        std::shared_ptr<IMultiLayerBuilder> Simulation::sampleBuilder() const 
-
-        """
-        return _libBornAgainCore.Simulation_sampleBuilder(self)
-
-
     def numberOfSimulationElements(self):
         """
         numberOfSimulationElements(Simulation self) -> size_t
@@ -22618,9 +22584,9 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_numberOfInterfaces(self)
 
 
-    def addLayer(self, p_child):
+    def addLayer(self, layer):
         """
-        addLayer(MultiLayer self, Layer p_child)
+        addLayer(MultiLayer self, Layer layer)
 
         void MultiLayer::addLayer(const Layer &p_child)
 
@@ -22629,7 +22595,7 @@ class MultiLayer(ISample):
         Adds layer with default (zero) roughness. 
 
         """
-        return _libBornAgainCore.MultiLayer_addLayer(self, p_child)
+        return _libBornAgainCore.MultiLayer_addLayer(self, layer)
 
 
     def addLayerWithTopRoughness(self, layer, roughness):
@@ -23768,16 +23734,16 @@ class ParameterPool(ICloneable):
         return _libBornAgainCore.ParameterPool_clone(self)
 
 
-    def copyToExternalPool(self, prefix, external_pool):
+    def copyToExternalPool(self, prefix, other_pool):
         """
-        copyToExternalPool(ParameterPool self, std::string const & prefix, ParameterPool external_pool)
+        copyToExternalPool(ParameterPool self, std::string const & prefix, ParameterPool other_pool)
 
         void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
 
         Copies parameters of given pool to  other pool, prepeding  prefix to the parameter names. 
 
         """
-        return _libBornAgainCore.ParameterPool_copyToExternalPool(self, prefix, external_pool)
+        return _libBornAgainCore.ParameterPool_copyToExternalPool(self, prefix, other_pool)
 
 
     def clear(self):
@@ -23804,9 +23770,9 @@ class ParameterPool(ICloneable):
         return _libBornAgainCore.ParameterPool_size(self)
 
 
-    def addParameter(self, par):
+    def addParameter(self, newPar):
         """
-        addParameter(ParameterPool self, RealParameter par) -> RealParameter
+        addParameter(ParameterPool self, RealParameter newPar) -> RealParameter
 
         RealParameter & ParameterPool::addParameter(RealParameter *par)
 
@@ -23815,7 +23781,7 @@ class ParameterPool(ICloneable):
         Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
 
         """
-        return _libBornAgainCore.ParameterPool_addParameter(self, par)
+        return _libBornAgainCore.ParameterPool_addParameter(self, newPar)
 
 
     def parameter(self, *args):
@@ -23843,16 +23809,16 @@ class ParameterPool(ICloneable):
         return _libBornAgainCore.ParameterPool_parameters(self)
 
 
-    def getMatchedParameters(self, wildcards):
+    def getMatchedParameters(self, pattern):
         """
-        getMatchedParameters(ParameterPool self, std::string const & wildcards) -> std::vector< RealParameter *,std::allocator< RealParameter * > >
+        getMatchedParameters(ParameterPool self, std::string const & pattern) -> std::vector< RealParameter *,std::allocator< RealParameter * > >
 
         std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
 
         Returns nonempty vector of parameters that match the  pattern ('*' allowed), or throws. 
 
         """
-        return _libBornAgainCore.ParameterPool_getMatchedParameters(self, wildcards)
+        return _libBornAgainCore.ParameterPool_getMatchedParameters(self, pattern)
 
 
     def getUniqueMatch(self, pattern):

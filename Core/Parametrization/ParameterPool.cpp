@@ -39,7 +39,7 @@ ParameterPool::~ParameterPool()
 
 ParameterPool* ParameterPool::clone() const
 {
-    ParameterPool* result = new ParameterPool();
+    auto result = new ParameterPool();
     for(auto par : m_params)
         result->addParameter(par->clone());
     return result;
@@ -117,7 +117,7 @@ std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::strin
 RealParameter* ParameterPool::getUniqueMatch(const std::string& pattern) const
 {
     std::vector<RealParameter*> matches = getMatchedParameters(pattern);
-    if (matches.size() == 0)
+    if (matches.empty())
         throw Exceptions::RuntimeErrorException(
             "ParameterPool::getUniqueMatch: there is no match for '" + pattern + "'");
     if (matches.size() != 1)

@@ -42,9 +42,9 @@ std::vector<const INode *> INode::getChildren() const
     return {};
 }
 
-void INode::setParent(const INode* parent)
+void INode::setParent(const INode* newParent)
 {
-    m_parent = parent;
+    m_parent = newParent;
 }
 
 const INode* INode::parent() const

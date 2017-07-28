@@ -8,6 +8,12 @@ if(POLICY CMP0042)
     cmake_policy(SET CMP0042 NEW)
 endif()
 
+if(BORNAGAIN_TIDY)
+#    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,readability-*,-readability-braces-around-statements")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,clang-analyzer-*,readability-*,-readability-braces-around-statements,modernize-*")
+#set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*,-google-*,-misc-macro-parentheses,-readability-braces-around-statements,-readability-named-parameter,-llvm-namespace-comment")
+endif()
+
 # --- source and include files ---------
 include(GlobDirectories)
 GLOB_DIRECTORIES(CORE_SUBDIRS)

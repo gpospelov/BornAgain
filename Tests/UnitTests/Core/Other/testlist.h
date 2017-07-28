@@ -13,3 +13,6 @@
 #include "ChiSquaredModuleTest.h"
 #include "BeamTest.h"
 #include "OrderedMapTest.h"
+#include "SampleBuilderNoteTest.h"
+#include "SampleProviderTest.h"
+

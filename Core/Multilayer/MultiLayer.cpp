@@ -86,13 +86,13 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
 //! nInterfaces = nLayers-1, first layer in multilayer doesn't have interface.
 const LayerInterface* MultiLayer::layerTopInterface(size_t i_layer) const
 {
-    return i_layer>0 ? m_interfaces[ check_interface_index(i_layer-1) ] : 0;
+    return i_layer>0 ? m_interfaces[ check_interface_index(i_layer-1) ] : nullptr;
 }
 
 //! Returns pointer to the bottom interface of the layer.
 const LayerInterface* MultiLayer::layerBottomInterface(size_t i_layer) const
 {
-    return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
+    return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : nullptr;
 }
 
 HomogeneousMaterial MultiLayer::layerMaterial(size_t i_layer) const
@@ -113,7 +113,7 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
     if (numberOfLayers()) {
         // not the top layer
         const Layer* p_last_layer = m_layers.back();
-        LayerInterface* interface(0);
+        LayerInterface* interface(nullptr);
         if (roughness.getSigma() != 0.0)
             interface = LayerInterface::createRoughInterface(p_last_layer, p_new_layer, roughness);
         else

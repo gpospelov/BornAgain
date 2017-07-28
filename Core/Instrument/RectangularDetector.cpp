@@ -32,7 +32,6 @@ RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, d
 {
     setDetectorParameters(nxbins, 0.0, width, nybins, 0.0, height);
     setName(BornAgain::RectangularDetectorType);
-    init_parameters();
 }
 
 RectangularDetector::RectangularDetector(const RectangularDetector& other)
@@ -49,7 +48,6 @@ RectangularDetector::RectangularDetector(const RectangularDetector& other)
     , m_v_unit(other.m_v_unit)
 {
     setName(BornAgain::RectangularDetectorType);
-    init_parameters();
 }
 
 RectangularDetector::~RectangularDetector() {}

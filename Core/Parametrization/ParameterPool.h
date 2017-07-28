@@ -35,14 +35,14 @@ public:
 
     ParameterPool* clone() const;
 
-    void copyToExternalPool(const std::string& prefix, ParameterPool* external_pool) const;
+    void copyToExternalPool(const std::string& prefix, ParameterPool* other_pool) const;
 
     void clear();
 
     //! Returns number of parameters in the pool.
     size_t size() const { return m_params.size(); }
 
-    RealParameter& addParameter(RealParameter* par);
+    RealParameter& addParameter(RealParameter* newPar);
 
     RealParameter* parameter(const std::string& name);
 
@@ -51,7 +51,7 @@ public:
     //! Returns full vector of parameters.
     const std::vector<RealParameter*> parameters() const { return m_params; }
 
-    std::vector<RealParameter*> getMatchedParameters(const std::string& wildcards) const;
+    std::vector<RealParameter*> getMatchedParameters(const std::string& pattern) const;
     RealParameter* getUniqueMatch(const std::string& pattern) const;
 
     void setParameterValue(const std::string& name, double value);

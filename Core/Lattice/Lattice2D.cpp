@@ -33,7 +33,7 @@ Lattice2D::Lattice2D(double length1, double length2, double angle, double rotati
 
 double Lattice2D::unitCellArea() const
 {
-    return std::abs(m_length1*m_length2*std::sin(m_angle));
+    return std::abs(length1()*length2()*std::sin(latticeAngle()));
 }
 
 Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const

@@ -39,7 +39,7 @@ IDetector2D::IDetector2D(const IDetector2D &other)
     setName(other.getName());
     if(other.mP_detector_resolution)
         setDetectorResolution(*other.mP_detector_resolution);
-    if(other.regionOfInterest() != nullptr)
+    if(other.regionOfInterest())
         m_region_of_interest.reset(other.regionOfInterest()->clone());
 }
 
@@ -71,7 +71,7 @@ void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
 
 void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) const
 {
-    if (p_intensity_map == nullptr)
+    if (!p_intensity_map)
         throw Exceptions::NullPointerException("IDetector2D::applyDetectorResolution() -> "
                                    "Error! Null pointer to intensity map");
     if (mP_detector_resolution)
@@ -176,7 +176,7 @@ const DetectorMask *IDetector2D::getDetectorMask() const
 
 size_t IDetector2D::numberOfMaskedChannels() const
 {
-    return getDetectorMask() != nullptr ? getDetectorMask()->numberOfMaskedChannels() : 0;
+    return getDetectorMask() ? getDetectorMask()->numberOfMaskedChannels() : 0;
 }
 
 bool IDetector2D::isMasked(size_t index) const

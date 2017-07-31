@@ -215,6 +215,7 @@ void ColorPropertyEdit::buttonClicked()
     QRgb newRgba = QColorDialog::getRgba(oldRgba, &ok, this);
     if (ok && newRgba != oldRgba) {
         m_colorProperty.setColor(QColor::fromRgba(newRgba));
+        m_pixmapLabel->setPixmap(m_colorProperty.getPixmap());
         emit colorPropertyChanged(m_colorProperty);
     }
 

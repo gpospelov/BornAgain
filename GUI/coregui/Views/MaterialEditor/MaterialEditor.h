@@ -31,41 +31,41 @@ class MaterialItem;
 class MaterialProperty;
 
 //! Main widget of MaterialEditor
+
 class BA_CORE_API_ MaterialEditor : public QWidget
 {
     Q_OBJECT
 
 public:
-    MaterialEditor(MaterialModel *materialModel, QWidget *parent = 0);
+    MaterialEditor(MaterialModel* materialModel, QWidget* parent = 0);
 
-    QItemSelectionModel *getSelectionModel();
+    QItemSelectionModel* getSelectionModel();
 
-    MaterialItem *getSelectedMaterial();
+    MaterialItem* getSelectedMaterial();
 
-    void setInitialMaterialProperty(const MaterialProperty &matProperty);
+    void setInitialMaterialProperty(const MaterialProperty& matProperty);
 
     bool isModelWasModified() const;
 
 private slots:
-    void onSelectionChanged(const QItemSelection &selected, const QItemSelection&);
-    void onDataChanged(const QModelIndex &, const QModelIndex &, const QVector<int> &);
-    void onRowsInserted(const QModelIndex &, int, int );
-    void onRowsRemoved(const QModelIndex &, int, int);
+    void onSelectionChanged(const QItemSelection& selected, const QItemSelection&);
+    void onDataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&);
+    void onRowsInserted(const QModelIndex&, int, int);
+    void onRowsRemoved(const QModelIndex&, int, int);
 
 protected:
-    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent* event);
 
 private:
     void init_views();
 
-    MaterialModel *m_materialModel;
-    MaterialEditorToolBar *m_toolBar;
-    QSplitter *m_splitter;
-    QListView *m_listView;
-    ComponentEditor *m_componentEditor;
+    MaterialModel* m_materialModel;
+    MaterialEditorToolBar* m_toolBar;
+    QSplitter* m_splitter;
+    QListView* m_listView;
+    ComponentEditor* m_componentEditor;
     bool m_model_was_modified;
 };
-
 
 #endif // MATERIALEDITOR_H
 

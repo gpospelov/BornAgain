@@ -35,6 +35,16 @@ bool isMaterialProperty(const QModelIndex& index)
     return index.data().canConvert<MaterialProperty>();
 }
 
+bool isColorProperty(const QModelIndex& index)
+{
+    return index.data().canConvert<ColorProperty>();
+}
+
+bool isScientificDoubleProperty(const QModelIndex& index)
+{
+    return index.data().canConvert<ScientificDoubleProperty>();
+}
+
 }
 
 SessionModelDelegate::SessionModelDelegate(QWidget* parent)
@@ -59,6 +69,14 @@ void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& 
     } else if (isMaterialProperty(index)) {
         MaterialProperty property = prop_value.value<MaterialProperty>();
         paintCustomLabel(painter, option, index, property.getName());
+
+    } else if (isColorProperty(index)) {
+        ColorProperty property = prop_value.value<ColorProperty>();
+        paintCustomLabel(painter, option, index, property.getText());
+
+    } else if (isScientificDoubleProperty(index)) {
+        ScientificDoubleProperty property = prop_value.value<ScientificDoubleProperty>();
+        paintCustomLabel(painter, option, index, property.getText());
 
     } else {
         QStyledItemDelegate::paint(painter, option, index);
@@ -90,6 +108,20 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
                 SLOT(onMaterialPropertyChanged(MaterialProperty)));
         return editor;
 
+    } else if (isColorProperty(index)) {
+        ColorPropertyEdit* editor = new ColorPropertyEdit(parent);
+        editor->setColorProperty(index.data().value<ColorProperty>());
+        connect(editor, SIGNAL(colorPropertyChanged(ColorProperty)), this,
+                SLOT(onColorPropertyChanged(ColorProperty)));
+        return editor;
+
+    } else if (isScientificDoubleProperty(index)) {
+        ScientificDoublePropertyEdit* editor = new ScientificDoublePropertyEdit(parent);
+        editor->setScientificDoubleProperty(index.data().value<ScientificDoubleProperty>());
+        connect(editor, SIGNAL(scientificDoublePropertyChanged(ScientificDoubleProperty)), this,
+                SLOT(onScientificDoublePropertyChanged(ScientificDoubleProperty)));
+        return editor;
+
     } else {
         return QStyledItemDelegate::createEditor(parent, option, index);
     }
@@ -111,6 +143,18 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
         MaterialPropertyEdit* matEditor = qobject_cast<MaterialPropertyEdit*>(editor);
         model->setData(index,
                        QVariant::fromValue<MaterialProperty>(matEditor->getMaterialProperty()));
+
+    } else if (isColorProperty(index)) {
+        ColorPropertyEdit* colorEditor = qobject_cast<ColorPropertyEdit*>(editor);
+        model->setData(index,
+                       QVariant::fromValue<ColorProperty>(colorEditor->getColorProperty()));
+
+    } else if (isScientificDoubleProperty(index)) {
+        ScientificDoublePropertyEdit* doubleEditor
+                = qobject_cast<ScientificDoublePropertyEdit*>(editor);
+        model->setData(index, QVariant::fromValue<
+                ScientificDoubleProperty>(doubleEditor->getScientificDoubleProperty()));
+
 
     } else {
         QStyledItemDelegate::setModelData(editor, model, index);
@@ -146,6 +190,21 @@ void SessionModelDelegate::onMaterialPropertyChanged(const MaterialProperty& /*p
     MaterialPropertyEdit* editor = qobject_cast<MaterialPropertyEdit*>(sender());
     Q_ASSERT(editor);
     emit commitData(editor);
+}
+
+void SessionModelDelegate::onColorPropertyChanged(const ColorProperty& /*property*/)
+{
+    ColorPropertyEdit* editor = qobject_cast<ColorPropertyEdit*>(sender());
+    Q_ASSERT(editor);
+    emit commitData(editor);
+}
+
+void SessionModelDelegate::onScientificDoublePropertyChanged(const ScientificDoubleProperty&)
+{
+    ScientificDoublePropertyEdit* editor = qobject_cast<ScientificDoublePropertyEdit*>(sender());
+    Q_ASSERT(editor);
+    emit commitData(editor);
+
 }
 
 //! Paints custom text in a a place corresponding given index.

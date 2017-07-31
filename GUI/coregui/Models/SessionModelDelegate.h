@@ -23,6 +23,8 @@
 
 class ComboProperty;
 class MaterialProperty;
+class ColorProperty;
+class ScientificDoubleProperty;
 
 //! The SessionModelDelegate class presents the content of SessionModel items in
 //! standard QTreeView. Extents base QItemDelegate with possibility to show/edit
@@ -48,6 +50,8 @@ private slots:
     void onComboPropertyChanged(const ComboProperty&);
     void onGroupPropertyChanged(const GroupProperty_t&);
     void onMaterialPropertyChanged(const MaterialProperty&);
+    void onColorPropertyChanged(const ColorProperty&);
+    void onScientificDoublePropertyChanged(const ScientificDoubleProperty&);
 
 private:
     void paintCustomLabel(QPainter* painter, const QStyleOptionViewItem& option,

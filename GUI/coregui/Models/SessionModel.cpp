@@ -16,7 +16,6 @@
 
 #include "SessionModel.h"
 #include "GUIHelpers.h"
-#include "IconProvider.h"
 #include "ItemFactory.h"
 #include <QFile>
 #include <QMimeData>
@@ -78,9 +77,6 @@ QVariant SessionModel::data(const QModelIndex &index, int role) const
                 return item->data(Qt::DisplayRole);
             if (index.column() == ITEM_NAME)
                 return item->itemName();
-        } else if (role == Qt::DecorationRole && m_iconProvider) {
-            return m_iconProvider->icon(item);
-
         } else if(role == Qt::ToolTipRole) {
             return item->displayName();
         } else {
@@ -502,7 +498,3 @@ QVector<SessionItem *> SessionModel::nonXMLData() const
     return QVector<SessionItem *>();
 }
 
-void SessionModel::setIconProvider(IconProvider *icon_provider)
-{
-    m_iconProvider.reset(icon_provider);
-}

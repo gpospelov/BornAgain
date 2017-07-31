@@ -17,6 +17,7 @@
 #include "PropertyBrowserUtils.h"
 #include "GUIHelpers.h"
 #include "MaterialSvc.h"
+#include "CustomEventFilters.h"
 #include <QColorDialog>
 #include <QComboBox>
 #include <QDoubleValidator>
@@ -36,18 +37,22 @@
 
 MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
     : QWidget(parent)
+    , m_focusFilter(new LostFocusFilter(this))
 {
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    setMouseTracking(true);
+    setAutoFillBackground(true);
+
+    QHBoxLayout *layout = new QHBoxLayout;
     layout->setMargin(2);
     layout->setSpacing(0);
 
-    m_textLabel = new QLabel(this);
+    m_textLabel = new QLabel;
     m_textLabel->setText(m_materialProperty.getName());
 
-    m_pixmapLabel = new QLabel(this);
+    m_pixmapLabel = new QLabel;
     m_pixmapLabel->setPixmap(m_materialProperty.getPixmap());
 
-    QToolButton *button = new QToolButton(this);
+    QToolButton *button = new QToolButton;
     button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,
                                       QSizePolicy::Preferred));
     button->setText(QLatin1String("..."));
@@ -58,12 +63,17 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
     setFocusPolicy(Qt::StrongFocus);
     setAttribute(Qt::WA_InputMethodEnabled);
     connect(button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
-}
 
+    setLayout(layout);
+}
 
 void MaterialPropertyEdit::buttonClicked()
 {
+    // temporarily installing filter to prevent loss of focus caused by too  insistent dialog
+    installEventFilter(m_focusFilter);
     MaterialProperty mat = MaterialSvc::selectMaterialProperty(m_materialProperty);
+    removeEventFilter(m_focusFilter);
+
     if(mat.isDefined() ) {
         setMaterialProperty(mat);
         emit materialPropertyChanged(m_materialProperty);
@@ -89,6 +99,7 @@ GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
     , m_label(new QLabel())
     , m_groupProperty(0)
 {
+    setAutoFillBackground(true);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *layout = new QVBoxLayout();
@@ -176,6 +187,8 @@ void GroupPropertyEdit::setGroup(GroupProperty_t group)
 ColorPropertyEdit::ColorPropertyEdit(QWidget *parent)
     : QWidget(parent)
 {
+    setAutoFillBackground(true);
+
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setMargin(2);
     layout->setSpacing(2);
@@ -210,6 +223,7 @@ void ColorPropertyEdit::buttonClicked()
     QRgb newRgba = QColorDialog::getRgba(oldRgba, &ok, this);
     if (ok && newRgba != oldRgba) {
         m_colorProperty.setColor(QColor::fromRgba(newRgba));
+        m_pixmapLabel->setPixmap(m_colorProperty.getPixmap());
         emit colorPropertyChanged(m_colorProperty);
     }
 
@@ -238,6 +252,7 @@ QString ColorPropertyEdit::colorValueText(const QColor &c)
 ScientificDoublePropertyEdit::ScientificDoublePropertyEdit(QWidget *parent)
     : QWidget(parent)
 {
+    setAutoFillBackground(true);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *layout = new QVBoxLayout();
@@ -298,6 +313,7 @@ QSize ScientificDoublePropertyEdit::minimumSizeHint() const
 ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
     : QComboBox(parent)
 {
+    setAutoFillBackground(true);
 }
 
 //ComboPropertyEdit::~ComboPropertyEdit()

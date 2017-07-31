@@ -15,6 +15,8 @@
 
 #include "ModelTreeView.h"
 #include "SessionDecorationModel.h"
+#include "SessionModel.h"
+#include "GUIHelpers.h"
 #include <QVBoxLayout>
 #include <QTreeView>
 
@@ -24,6 +26,11 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
     , m_decorationProxy(new SessionDecorationModel(this, model))
     , m_is_expanded(false)
 {
+    if (!model)
+        throw GUIHelpers::Error("ModelTreeView::ModelTreeView() -> Error. Nullptr as model.");
+
+   setObjectName(model->getModelTag());
+
    auto layout = new QVBoxLayout;
    layout->setMargin(0);
    layout->setSpacing(0);
@@ -31,6 +38,10 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
 
    m_decorationProxy->setSessionModel(model);
    m_tree->setModel(m_decorationProxy);
+
+
+   if (m_decorationProxy->rowCount(QModelIndex()) > 0)
+       setExpanded(true);
 
    setLayout(layout);
 }

@@ -173,7 +173,7 @@ void ApplicationModels::createInstrumentModel()
     delete m_instrumentModel;
     m_instrumentModel = new InstrumentModel(this);
     connectModel(m_instrumentModel);
-    m_instrumentModel->setIconProvider(new IconProvider());
+    //m_instrumentModel->setIconProvider(new IconProvider());
 }
 
 void ApplicationModels::createRealDataModel()

@@ -37,6 +37,8 @@
 MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
     : QWidget(parent)
 {
+    setAutoFillBackground(true);
+
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setMargin(2);
     layout->setSpacing(0);
@@ -89,6 +91,7 @@ GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
     , m_label(new QLabel())
     , m_groupProperty(0)
 {
+    setAutoFillBackground(true);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *layout = new QVBoxLayout();
@@ -176,6 +179,8 @@ void GroupPropertyEdit::setGroup(GroupProperty_t group)
 ColorPropertyEdit::ColorPropertyEdit(QWidget *parent)
     : QWidget(parent)
 {
+    setAutoFillBackground(true);
+
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setMargin(2);
     layout->setSpacing(2);
@@ -238,6 +243,7 @@ QString ColorPropertyEdit::colorValueText(const QColor &c)
 ScientificDoublePropertyEdit::ScientificDoublePropertyEdit(QWidget *parent)
     : QWidget(parent)
 {
+    setAutoFillBackground(true);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *layout = new QVBoxLayout();
@@ -298,6 +304,7 @@ QSize ScientificDoublePropertyEdit::minimumSizeHint() const
 ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
     : QComboBox(parent)
 {
+    setAutoFillBackground(true);
 }
 
 //ComboPropertyEdit::~ComboPropertyEdit()

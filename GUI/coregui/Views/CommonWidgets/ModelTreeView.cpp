@@ -46,6 +46,11 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
    setLayout(layout);
 }
 
+void ModelTreeView::setItemDelegate(QAbstractItemDelegate* delegate)
+{
+    m_tree->setItemDelegate(delegate);
+}
+
 void ModelTreeView::toggleExpanded()
 {
     setExpanded(!isExpanded());

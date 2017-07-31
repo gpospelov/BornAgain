@@ -26,6 +26,7 @@ class QTabWidget;
 class QToolButton;
 class SessionModel;
 class ModelTreeView;
+class SessionModelDelegate;
 
 //! The SessionModelView is a technical view which shows the content all current application
 //! models. It appears as an additional view in the main navigation bar on the left, right
@@ -51,6 +52,7 @@ private:
     QToolBar* m_toolBar;
     QTabWidget* m_tabs;
     QToolButton* m_expandCollapseButton;
+    SessionModelDelegate* m_delegate;
     QVector<ModelTreeView*> m_content;
 };
 

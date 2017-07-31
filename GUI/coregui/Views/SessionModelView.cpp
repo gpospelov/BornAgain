@@ -22,6 +22,7 @@
 #include "SampleModel.h"
 #include "ModelTreeView.h"
 #include "mainwindow.h"
+#include "SessionModelDelegate.h"
 #include <QToolBar>
 #include <QToolButton>
 #include <QVBoxLayout>
@@ -32,6 +33,7 @@ SessionModelView::SessionModelView(MainWindow *mainWindow)
     , m_toolBar(new QToolBar)
     , m_tabs(new QTabWidget)
     , m_expandCollapseButton(new QToolButton)
+    , m_delegate(new SessionModelDelegate(this))
 {
     auto layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -64,6 +66,7 @@ void SessionModelView::init_tabs()
 
     for (auto model : modelsForTabs()) {
         auto treeView = new ModelTreeView(this, model);
+        treeView->setItemDelegate(m_delegate);
         m_tabs->addTab(treeView, treeView->objectName());
         m_content.push_back(treeView);
     }

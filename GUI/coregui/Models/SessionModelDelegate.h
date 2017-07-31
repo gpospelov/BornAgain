@@ -43,8 +43,15 @@ public:
 
     void setEditorData(QWidget *editor, const QModelIndex &index) const;
 
-private slots:
+private:
+    void paintCustomLabel(QPainter *painter, const QStyleOptionViewItem &option,
+                          const QModelIndex &index, const QString& text);
+
     void onComboPropertyChanged(const ComboProperty &);
+
+private:
+    void paintCustomLabel(QPainter *painter, const QStyleOptionViewItem &option,
+                          const QModelIndex &index, const QString& text) const;
 
 };
 

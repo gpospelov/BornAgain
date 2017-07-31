@@ -30,16 +30,18 @@ class BA_CORE_API_ SessionDecorationModel : public QIdentityProxyModel
 {
     Q_OBJECT
 public:
-    SessionDecorationModel(QObject* parent);
+    explicit SessionDecorationModel(QObject* parent, SessionModel* model = nullptr);
 
     void setSessionModel(SessionModel* model);
 
-    QVariant data(const QModelIndex &index, int role) const;
+    QVariant data(const QModelIndex& index, int role) const;
+
+    SessionModel* sessionModel();
 
 private:
     QVariant createIcon(const QModelIndex& index) const;
 
-    SessionModel *m_model;
+    SessionModel* m_model;
 };
 
 #endif

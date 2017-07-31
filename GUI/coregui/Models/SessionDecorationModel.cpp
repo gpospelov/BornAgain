@@ -41,11 +41,11 @@ QIcon materialIcon(const QColor& color)
 }
 
 
-SessionDecorationModel::SessionDecorationModel(QObject* parent)
+SessionDecorationModel::SessionDecorationModel(QObject* parent, SessionModel* model)
     : QIdentityProxyModel(parent)
     , m_model(nullptr)
 {
-
+    setSessionModel(model);
 }
 
 void SessionDecorationModel::setSessionModel(SessionModel* model)
@@ -54,29 +54,32 @@ void SessionDecorationModel::setSessionModel(SessionModel* model)
     m_model = model;
 }
 
-QVariant SessionDecorationModel::data(const QModelIndex &index, int role) const
+QVariant SessionDecorationModel::data(const QModelIndex& index, int role) const
 {
     if (role == Qt::DecorationRole) {
         QVariant result = createIcon(index);
-        if(result.isValid())
+        if (result.isValid())
             return result;
     }
 
     return QIdentityProxyModel::data(index, role);
 }
 
+SessionModel* SessionDecorationModel::sessionModel()
+{
+    return m_model;
+}
 
 QVariant SessionDecorationModel::createIcon(const QModelIndex& index) const
 {
     QVariant result;
 
-    if (SessionItem *item = m_model->itemForIndex(index)) {
-        if(item->modelType() == Constants::InstrumentType) {
+    if (SessionItem* item = m_model->itemForIndex(index)) {
+        if (item->modelType() == Constants::InstrumentType) {
             return instrumentIcon();
         } else if(item->modelType() == Constants::HomogeneousMaterialType) {
-            if(const MaterialItem *materialItem = dynamic_cast<const MaterialItem *>(item)) {
+            if (const MaterialItem *materialItem = dynamic_cast<const MaterialItem *>(item))
                 return materialIcon(materialItem->getColor());
-            }
         }
     }
 

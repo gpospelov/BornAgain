@@ -90,36 +90,36 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
         ComboPropertyEdit* editor = new ComboPropertyEdit(parent);
         ComboProperty combo = index.data().value<ComboProperty>();
         editor->setComboProperty(combo);
-        connect(editor, SIGNAL(comboPropertyChanged(const ComboProperty&)), this,
-                SLOT(onComboPropertyChanged(const ComboProperty&)));
+        connect(editor, &ComboPropertyEdit::comboPropertyChanged,
+                this, &SessionModelDelegate::onComboPropertyChanged);
         return editor;
 
     } else if (isGroupProperty(index)) {
         GroupPropertyEdit* editor = new GroupPropertyEdit(parent);
         editor->setGroupProperty(index.data().value<GroupProperty_t>());
-        connect(editor, SIGNAL(groupPropertyChanged(GroupProperty_t)), this,
-                SLOT(onGroupPropertyChanged(GroupProperty_t)));
+        connect(editor, &GroupPropertyEdit::groupPropertyChanged,
+                this, &SessionModelDelegate::onGroupPropertyChanged);
         return editor;
 
     } else if (isMaterialProperty(index)) {
         MaterialPropertyEdit* editor = new MaterialPropertyEdit(parent);
         editor->setMaterialProperty(index.data().value<MaterialProperty>());
-        connect(editor, SIGNAL(materialPropertyChanged(MaterialProperty)), this,
-                SLOT(onMaterialPropertyChanged(MaterialProperty)));
+        connect(editor, &MaterialPropertyEdit::materialPropertyChanged,
+                this, &SessionModelDelegate::onMaterialPropertyChanged);
         return editor;
 
     } else if (isColorProperty(index)) {
         ColorPropertyEdit* editor = new ColorPropertyEdit(parent);
         editor->setColorProperty(index.data().value<ColorProperty>());
-        connect(editor, SIGNAL(colorPropertyChanged(ColorProperty)), this,
-                SLOT(onColorPropertyChanged(ColorProperty)));
+        connect(editor, &ColorPropertyEdit::colorPropertyChanged,
+                this, &SessionModelDelegate::onColorPropertyChanged);
         return editor;
 
     } else if (isScientificDoubleProperty(index)) {
         ScientificDoublePropertyEdit* editor = new ScientificDoublePropertyEdit(parent);
         editor->setScientificDoubleProperty(index.data().value<ScientificDoubleProperty>());
-        connect(editor, SIGNAL(scientificDoublePropertyChanged(ScientificDoubleProperty)), this,
-                SLOT(onScientificDoublePropertyChanged(ScientificDoubleProperty)));
+        connect(editor, &ScientificDoublePropertyEdit::scientificDoublePropertyChanged,
+                this, &SessionModelDelegate::onScientificDoublePropertyChanged);
         return editor;
 
     } else {

@@ -40,7 +40,6 @@ QIcon materialIcon(const QColor& color)
 
 }
 
-
 SessionDecorationModel::SessionDecorationModel(QObject* parent, SessionModel* model)
     : QIdentityProxyModel(parent)
     , m_model(nullptr)

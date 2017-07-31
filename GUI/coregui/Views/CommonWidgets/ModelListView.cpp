@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/CommonWidgets/ModelTreeView.cpp
-//! @brief     Implements class ModelTreeView
+//! @file      GUI/coregui/Views/CommonWidgets/ModelListView.cpp
+//! @brief     Implements class ModelListView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,53 +13,30 @@
 //
 // ************************************************************************** //
 
-#include "ModelTreeView.h"
+#include "ModelListView.h"
 #include "SessionDecorationModel.h"
 #include "SessionModel.h"
 #include "GUIHelpers.h"
 #include <QVBoxLayout>
-#include <QTreeView>
+#include <QListView>
 
-ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
+ModelListView::ModelListView(QWidget* parent, SessionModel* model)
     : QWidget(parent)
-    , m_tree(new QTreeView)
+    , m_listView(new QListView)
     , m_decorationProxy(new SessionDecorationModel(this, model))
-    , m_is_expanded(false)
 {
     if (!model)
-        throw GUIHelpers::Error("ModelTreeView::ModelTreeView() -> Error. Nullptr as model.");
+        throw GUIHelpers::Error("ModelListView::ModelListView() -> Error. Nullptr as model.");
 
    setObjectName(model->getModelTag());
 
    auto layout = new QVBoxLayout;
    layout->setMargin(0);
    layout->setSpacing(0);
-   layout->addWidget(m_tree);
+   layout->addWidget(m_listView);
 
    m_decorationProxy->setSessionModel(model);
-   m_tree->setModel(m_decorationProxy);
-
-
-   if (m_decorationProxy->rowCount(QModelIndex()) > 0)
-       setExpanded(true);
+   m_listView->setModel(m_decorationProxy);
 
    setLayout(layout);
-}
-
-void ModelTreeView::toggleExpanded()
-{
-    setExpanded(!isExpanded());
-}
-
-void ModelTreeView::setExpanded(bool expanded)
-{
-    Q_ASSERT(m_tree);
-    if (expanded) {
-        m_tree->expandAll();
-        m_tree->resizeColumnToContents(0);
-        m_tree->resizeColumnToContents(1);
-    } else {
-        m_tree->collapseAll();
-    }
-    m_is_expanded = expanded;
 }

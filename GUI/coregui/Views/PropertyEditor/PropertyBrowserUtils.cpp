@@ -17,6 +17,7 @@
 #include "PropertyBrowserUtils.h"
 #include "GUIHelpers.h"
 #include "MaterialSvc.h"
+#include "CustomEventFilters.h"
 #include <QColorDialog>
 #include <QComboBox>
 #include <QDoubleValidator>
@@ -36,20 +37,22 @@
 
 MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
     : QWidget(parent)
+    , m_focusFilter(new LostFocusFilter(this))
 {
+    setMouseTracking(true);
     setAutoFillBackground(true);
 
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    QHBoxLayout *layout = new QHBoxLayout;
     layout->setMargin(2);
     layout->setSpacing(0);
 
-    m_textLabel = new QLabel(this);
+    m_textLabel = new QLabel;
     m_textLabel->setText(m_materialProperty.getName());
 
-    m_pixmapLabel = new QLabel(this);
+    m_pixmapLabel = new QLabel;
     m_pixmapLabel->setPixmap(m_materialProperty.getPixmap());
 
-    QToolButton *button = new QToolButton(this);
+    QToolButton *button = new QToolButton;
     button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,
                                       QSizePolicy::Preferred));
     button->setText(QLatin1String("..."));
@@ -60,12 +63,17 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
     setFocusPolicy(Qt::StrongFocus);
     setAttribute(Qt::WA_InputMethodEnabled);
     connect(button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
-}
 
+    setLayout(layout);
+}
 
 void MaterialPropertyEdit::buttonClicked()
 {
+    // temporarily installing filter to prevent loss of focus caused by too  insistent dialog
+    installEventFilter(m_focusFilter);
     MaterialProperty mat = MaterialSvc::selectMaterialProperty(m_materialProperty);
+    removeEventFilter(m_focusFilter);
+
     if(mat.isDefined() ) {
         setMaterialProperty(mat);
         emit materialPropertyChanged(m_materialProperty);

@@ -29,6 +29,7 @@ class QIcon;
 class QComboBox;
 class QLineEdit;
 class QDoubleValidator;
+class LostFocusFilter;
 
 //! The MaterialPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for MaterialProperty.
@@ -48,6 +49,7 @@ private:
     QLabel *m_textLabel;
     QLabel *m_pixmapLabel;
     MaterialProperty m_materialProperty;
+    LostFocusFilter* m_focusFilter;
 };
 
 

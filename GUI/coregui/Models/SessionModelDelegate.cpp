@@ -155,7 +155,6 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
         model->setData(index, QVariant::fromValue<
                 ScientificDoubleProperty>(doubleEditor->getScientificDoubleProperty()));
 
-
     } else {
         QStyledItemDelegate::setModelData(editor, model, index);
     }
@@ -163,7 +162,8 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
 
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    if (isComboProperty(index) || isGroupProperty(index) || isMaterialProperty(index)) {
+    if (isComboProperty(index) || isGroupProperty(index) || isMaterialProperty(index)
+        || isScientificDoubleProperty(index) || isColorProperty(index)) {
         // as using custom widget(s), doing nothing here
     } else {
         QStyledItemDelegate::setEditorData(editor, index);

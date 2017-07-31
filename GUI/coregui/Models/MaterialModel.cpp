@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "MaterialModel.h"
-#include "IconProvider.h"
 #include "MaterialUtils.h"
 #include "RefractiveIndexItem.h"
 #include "GUIHelpers.h"
@@ -24,7 +23,6 @@ MaterialModel::MaterialModel(QObject *parent)
     : SessionModel(SessionXML::MaterialModelTag, parent)
 {
     setObjectName(SessionXML::MaterialModelTag);
-    setIconProvider(new IconProvider());
 }
 
 MaterialModel *MaterialModel::createCopy(SessionItem *parent)

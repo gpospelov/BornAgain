@@ -19,6 +19,7 @@
 #include "MaterialEditorToolBar.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
+#include "SessionDecorationModel.h"
 #include <QListView>
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -131,7 +132,7 @@ void MaterialEditor::init_views()
                this, SLOT(onRowsRemoved(QModelIndex,int,int)));
 
     m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
-    m_listView->setModel(m_materialModel);
+    m_listView->setModel(new SessionDecorationModel(m_listView, m_materialModel));
     m_listView->setMovement(QListView::Static);
     m_listView->setMinimumWidth(50);
     m_listView->setMaximumWidth(220);

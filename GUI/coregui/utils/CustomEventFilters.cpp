@@ -96,3 +96,20 @@ bool DeleteEventFilter::eventFilter( QObject *dist, QEvent *event )
     return QObject::eventFilter(dist, event);
 }
 
+// ----------------------------------------------------------------------------
+
+LostFocusFilter::LostFocusFilter(QObject* parent)
+    : QObject(parent)
+{
+
+}
+
+bool LostFocusFilter::eventFilter(QObject* obj, QEvent* event)
+{
+    if( event->type() == QEvent::FocusOut )
+    {
+        return true;
+    }
+
+    return QObject::eventFilter(obj, event);
+}

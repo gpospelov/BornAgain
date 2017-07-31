@@ -63,6 +63,19 @@ signals:
   void removeItem();
 };
 
+//! Event filter to prevent lost of focus by custom material editor.
+
+class BA_CORE_API_ LostFocusFilter : public QObject
+{
+    Q_OBJECT
+public:
+
+    LostFocusFilter(QObject *parent = 0);
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
+};
+
 
 
 #endif // CUSTOMEVENTFILTERS_H

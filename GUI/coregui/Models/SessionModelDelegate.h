@@ -22,6 +22,7 @@
 #include <QStyledItemDelegate>
 
 class ComboProperty;
+class MaterialProperty;
 
 //! The SessionModelDelegate class presents the content of SessionModel items in
 //! standard QTreeView. Extents base QItemDelegate with possibility to show/edit
@@ -46,6 +47,7 @@ public:
 private slots:
     void onComboPropertyChanged(const ComboProperty&);
     void onGroupPropertyChanged(const GroupProperty_t&);
+    void onMaterialPropertyChanged(const MaterialProperty&);
 
 private:
     void paintCustomLabel(QPainter* painter, const QStyleOptionViewItem& option,

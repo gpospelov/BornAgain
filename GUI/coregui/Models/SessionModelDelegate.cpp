@@ -30,6 +30,11 @@ bool isGroupProperty(const QModelIndex& index)
     return index.data().canConvert<GroupProperty_t>();
 }
 
+bool isMaterialProperty(const QModelIndex& index)
+{
+    return index.data().canConvert<MaterialProperty>();
+}
+
 }
 
 SessionModelDelegate::SessionModelDelegate(QWidget* parent)
@@ -50,6 +55,10 @@ void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& 
     } else if (isGroupProperty(index)) {
         GroupProperty_t property = prop_value.value<GroupProperty_t>();
         paintCustomLabel(painter, option, index, property->currentType());
+
+    } else if (isMaterialProperty(index)) {
+        MaterialProperty property = prop_value.value<MaterialProperty>();
+        paintCustomLabel(painter, option, index, property.getName());
 
     } else {
         QStyledItemDelegate::paint(painter, option, index);
@@ -74,6 +83,13 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
                 SLOT(onGroupPropertyChanged(GroupProperty_t)));
         return editor;
 
+    } else if (isMaterialProperty(index)) {
+        MaterialPropertyEdit* editor = new MaterialPropertyEdit(parent);
+        editor->setMaterialProperty(index.data().value<MaterialProperty>());
+        connect(editor, SIGNAL(materialPropertyChanged(MaterialProperty)), this,
+                SLOT(onMaterialPropertyChanged(MaterialProperty)));
+        return editor;
+
     } else {
         return QStyledItemDelegate::createEditor(parent, option, index);
     }
@@ -91,6 +107,11 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
         model->setData(index,
                        QVariant::fromValue<GroupProperty_t>(groupEditor->getGroupProperty()));
 
+    } else if (isMaterialProperty(index)) {
+        MaterialPropertyEdit* matEditor = qobject_cast<MaterialPropertyEdit*>(editor);
+        model->setData(index,
+                       QVariant::fromValue<MaterialProperty>(matEditor->getMaterialProperty()));
+
     } else {
         QStyledItemDelegate::setModelData(editor, model, index);
     }
@@ -98,26 +119,31 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
 
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    if (isComboProperty(index) || isGroupProperty(index)) {
-        // as using custom widget, doing nothing here
+    if (isComboProperty(index) || isGroupProperty(index) || isMaterialProperty(index)) {
+        // as using custom widget(s), doing nothing here
     } else {
         QStyledItemDelegate::setEditorData(editor, index);
     }
 }
 
-void SessionModelDelegate::onComboPropertyChanged(const ComboProperty& property)
+void SessionModelDelegate::onComboPropertyChanged(const ComboProperty& /*property*/)
 {
-    Q_UNUSED(property);
     ComboPropertyEdit* editor = qobject_cast<ComboPropertyEdit*>(sender());
     Q_ASSERT(editor);
     emit commitData(editor);
     // emit closeEditor(editor); // Qt by default leaves editor alive after editing finished
 }
 
-void SessionModelDelegate::onGroupPropertyChanged(const GroupProperty_t& property)
+void SessionModelDelegate::onGroupPropertyChanged(const GroupProperty_t& /*property*/)
 {
-    Q_UNUSED(property);
     GroupPropertyEdit* editor = qobject_cast<GroupPropertyEdit*>(sender());
+    Q_ASSERT(editor);
+    emit commitData(editor);
+}
+
+void SessionModelDelegate::onMaterialPropertyChanged(const MaterialProperty& /*property*/)
+{
+    MaterialPropertyEdit* editor = qobject_cast<MaterialPropertyEdit*>(sender());
     Q_ASSERT(editor);
     emit commitData(editor);
 }

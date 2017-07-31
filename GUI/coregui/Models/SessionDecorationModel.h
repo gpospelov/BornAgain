@@ -40,6 +40,7 @@ public:
 
 private:
     QVariant createIcon(const QModelIndex& index) const;
+    QVariant textColor(const QModelIndex& index) const;
 
     SessionModel* m_model;
 };

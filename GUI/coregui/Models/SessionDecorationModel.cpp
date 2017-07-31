@@ -61,6 +61,12 @@ QVariant SessionDecorationModel::data(const QModelIndex& index, int role) const
             return result;
     }
 
+    if(role == Qt::TextColorRole) {
+        QVariant result = textColor(index);
+        if (result.isValid())
+            return result;
+    }
+
     return QIdentityProxyModel::data(index, role);
 }
 
@@ -80,6 +86,20 @@ QVariant SessionDecorationModel::createIcon(const QModelIndex& index) const
             if (const MaterialItem *materialItem = dynamic_cast<const MaterialItem *>(item))
                 return materialIcon(materialItem->getColor());
         }
+    }
+
+    return result;
+}
+
+//! Returns text color. Disabled SessionItem's will appear in gray.
+
+QVariant SessionDecorationModel::textColor(const QModelIndex& index) const
+{
+    QVariant result;
+
+    if (SessionItem* item = m_model->itemForIndex(index)) {
+        if (item->isEnabled() == false)
+            return QColor(Qt::gray);
     }
 
     return result;

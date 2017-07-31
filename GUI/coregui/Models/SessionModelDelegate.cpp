@@ -32,8 +32,7 @@ bool isGroupProperty(const QModelIndex& index)
 
 }
 
-
-SessionModelDelegate::SessionModelDelegate(QWidget *parent)
+SessionModelDelegate::SessionModelDelegate(QWidget* parent)
     : QStyledItemDelegate(parent)
 {
 
@@ -57,67 +56,81 @@ void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& 
     }
 }
 
-QWidget *SessionModelDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option,
-                                            const QModelIndex &index) const
+QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option,
+                                            const QModelIndex& index) const
 {
     if (isComboProperty(index)) {
-        ComboPropertyEdit *editor = new ComboPropertyEdit(parent);
+        ComboPropertyEdit* editor = new ComboPropertyEdit(parent);
         ComboProperty combo = index.data().value<ComboProperty>();
         editor->setComboProperty(combo);
-        connect(editor, SIGNAL(comboPropertyChanged(const ComboProperty &)),
-                this, SLOT(onComboPropertyChanged(const ComboProperty &)));
+        connect(editor, SIGNAL(comboPropertyChanged(const ComboProperty&)), this,
+                SLOT(onComboPropertyChanged(const ComboProperty&)));
         return editor;
 
-    }else if (isGroupProperty(index)) {
-        return nullptr;
+    } else if (isGroupProperty(index)) {
+        GroupPropertyEdit* editor = new GroupPropertyEdit(parent);
+        editor->setGroupProperty(index.data().value<GroupProperty_t>());
+        connect(editor, SIGNAL(groupPropertyChanged(GroupProperty_t)), this,
+                SLOT(onGroupPropertyChanged(GroupProperty_t)));
+        return editor;
 
     } else {
         return QStyledItemDelegate::createEditor(parent, option, index);
     }
-
 }
 
-void SessionModelDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
-                                        const QModelIndex &index) const
+void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
+                                        const QModelIndex& index) const
 {
     if (isComboProperty(index)) {
-        ComboPropertyEdit *comboEditor = qobject_cast<ComboPropertyEdit *>(editor);
+        ComboPropertyEdit* comboEditor = qobject_cast<ComboPropertyEdit*>(editor);
         model->setData(index, comboEditor->getComboProperty().getVariant());
+
+    } else if (isGroupProperty(index)) {
+        GroupPropertyEdit* groupEditor = qobject_cast<GroupPropertyEdit*>(editor);
+        model->setData(index,
+                       QVariant::fromValue<GroupProperty_t>(groupEditor->getGroupProperty()));
+
     } else {
         QStyledItemDelegate::setModelData(editor, model, index);
     }
-
 }
 
-void SessionModelDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    if (isComboProperty(index)) {
-        //as using custom widget, doing nothing here
+    if (isComboProperty(index) || isGroupProperty(index)) {
+        // as using custom widget, doing nothing here
     } else {
         QStyledItemDelegate::setEditorData(editor, index);
     }
 }
 
-void SessionModelDelegate::onComboPropertyChanged(const ComboProperty &property)
+void SessionModelDelegate::onComboPropertyChanged(const ComboProperty& property)
 {
     Q_UNUSED(property);
-    ComboPropertyEdit *editor = qobject_cast<ComboPropertyEdit *>(sender());
+    ComboPropertyEdit* editor = qobject_cast<ComboPropertyEdit*>(sender());
     Q_ASSERT(editor);
     emit commitData(editor);
-    //emit closeEditor(editor); // Qt by default leaves editor alive after editing finished
+    // emit closeEditor(editor); // Qt by default leaves editor alive after editing finished
+}
+
+void SessionModelDelegate::onGroupPropertyChanged(const GroupProperty_t& property)
+{
+    Q_UNUSED(property);
+    GroupPropertyEdit* editor = qobject_cast<GroupPropertyEdit*>(sender());
+    Q_ASSERT(editor);
+    emit commitData(editor);
 }
 
 //! Paints custom text in a a place corresponding given index.
 
-void SessionModelDelegate::paintCustomLabel(QPainter *painter,
-                                            const QStyleOptionViewItem& option,
-                                            const QModelIndex& index,
-                                            const QString& text) const
+void SessionModelDelegate::paintCustomLabel(QPainter* painter, const QStyleOptionViewItem& option,
+                                            const QModelIndex& index, const QString& text) const
 {
     QStyleOptionViewItem opt = option;
     initStyleOption(&opt, index); // calling original method to take into accounts colors etc
     opt.text = displayText(text, option.locale); // by overriding text with ours
-    const QWidget *widget = opt.widget;
-    QStyle *style = widget ? widget->style() : QApplication::style();
+    const QWidget* widget = opt.widget;
+    QStyle* style = widget ? widget->style() : QApplication::style();
     style->drawControl(QStyle::CE_ItemViewItem, &opt, painter, widget);
 }

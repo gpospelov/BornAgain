@@ -1442,6 +1442,11 @@ Removes multiple occurences of given substring from a string and returns result.
 Returns scientific string representing given value of any numeric type. 
 ";
 
+%feature("docstring")  StringUtils::to_lower "std::string StringUtils::to_lower(std::string text)
+
+Returns new string which is lower case of text. 
+";
+
 
 // File: FitKernel_8cpp.xml
 

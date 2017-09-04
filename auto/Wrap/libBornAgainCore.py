@@ -10972,15 +10972,6 @@ IFormFactor_swigregister = _libBornAgainCore.IFormFactor_swigregister
 IFormFactor_swigregister(IFormFactor)
 
 
-def ShapeIsContainedInLimits(formfactor, limits, rot, translation):
-    """
-    ShapeIsContainedInLimits(IFormFactor formfactor, ZLimits limits, IRotation rot, kvector_t translation) -> bool
-
-    bool ShapeIsContainedInLimits(const IFormFactor &formfactor, ZLimits limits, const IRotation &rot, kvector_t translation)
-
-    """
-    return _libBornAgainCore.ShapeIsContainedInLimits(formfactor, limits, rot, translation)
-
 def CreateTransformedFormFactor(formfactor, rot, translation):
     """
     CreateTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor

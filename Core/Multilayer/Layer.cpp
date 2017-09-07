@@ -36,16 +36,20 @@ Layer::Layer(HomogeneousMaterial material, double thickness)
 Layer::~Layer()
 {}
 
-Layer*Layer::clone() const
+Layer* Layer::clone() const
 {
-    return new Layer(*this);
+    Layer* p_result = shallowClone();
+    p_result->m_n_slices = m_n_slices;
+    for (auto p_layout : layouts())
+        p_result->addLayout(*p_layout);
+    return p_result;
 }
 
 Layer* Layer::cloneInvertB() const
 {
-    Layer* p_clone = new Layer(m_material.inverted(), m_thickness);
-    p_clone->m_B_field = - m_B_field;
-    return p_clone;
+    Layer* p_result = shallowClone();
+    p_result->m_B_field = -m_B_field;
+    return p_result;
 }
 
 SafePointerVector<Layer> Layer::cloneSliced(ZLimits limits, Layer::ELayerType layer_type) const
@@ -158,18 +162,6 @@ void Layer::initBField(kvector_t h_field, double b_z)
 {
     m_B_field = Magnetic_Permeability*(h_field + m_material.magnetization());
     m_B_field.setZ(b_z);
-}
-
-Layer::Layer(const Layer& other)
-    : m_material(other.m_material)
-{
-    setName(other.getName());
-    m_thickness = other.m_thickness;
-    m_n_slices = other.m_n_slices;
-    m_B_field = other.m_B_field;
-    for (auto p_layout : other.layouts())
-        addLayout(*p_layout);
-    registerThickness();
 }
 
 Layer* Layer::shallowClone() const

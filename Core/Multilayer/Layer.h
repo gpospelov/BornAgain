@@ -81,7 +81,6 @@ public:
     static constexpr double Magnetic_Permeability = 4e-7 * M_PI;
 
 private:
-    Layer(const Layer& other);
     //! Clone the layer without its layouts
     Layer* shallowClone() const;
     //! Clone and offsets the particles in the z-direction

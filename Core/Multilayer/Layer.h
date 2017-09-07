@@ -83,8 +83,8 @@ public:
 private:
     Layer(const Layer& other);
     //! Clone the layer without its layouts
-    Layer* emptyClone() const;
-    //! Clones and offsets the particles in the z-direction
+    Layer* shallowClone() const;
+    //! Clone and offsets the particles in the z-direction
     Layer* cloneWithOffset(double offset) const;
 
     //! Return the magnetic B-field in this layer

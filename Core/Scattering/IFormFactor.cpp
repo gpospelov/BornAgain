@@ -58,7 +58,7 @@ bool IFormFactor::canSliceAnalytically(const IRotation&) const
     return false;
 }
 
-IFormFactor*IFormFactor::sliceFormFactor(ZLimits, const IRotation&, kvector_t) const
+IFormFactor* IFormFactor::sliceFormFactor(ZLimits, const IRotation&, kvector_t) const
 {
     throw std::runtime_error(getName() + "::sliceFormFactor error: not implemented!");
 }

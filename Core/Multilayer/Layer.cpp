@@ -36,6 +36,11 @@ Layer::Layer(HomogeneousMaterial material, double thickness)
 Layer::~Layer()
 {}
 
+Layer*Layer::clone() const
+{
+    return new Layer(*this);
+}
+
 Layer* Layer::cloneInvertB() const
 {
     Layer* p_clone = new Layer(m_material.inverted(), m_thickness);

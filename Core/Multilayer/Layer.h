@@ -40,7 +40,7 @@ public:
 
     ~Layer();
 
-    Layer* clone() const override final { return new Layer(*this); }
+    Layer* clone() const override final;
     Layer* cloneInvertB() const;
     SafePointerVector<Layer> cloneSliced(ZLimits limits, ELayerType layer_type) const;
 

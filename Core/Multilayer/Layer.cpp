@@ -73,8 +73,14 @@ SafePointerVector<Layer> Layer::cloneSliced(ZLimits limits, Layer::ELayerType la
     double offset = -top;
     for (size_t i=0; i<m_n_slices; ++i)
     {
-        Layer* p_layer = (i==0) ? cloneWithOffset(offset)
-                                : shallowClone();
+        Layer* p_layer = shallowClone();
+        if (i==0) {
+            for (auto p_layout : layouts())
+            {
+                std::unique_ptr<ILayout> P_layout_offset { p_layout->cloneWithOffset(offset) };
+                p_layer->addLayout(*P_layout_offset);
+            }
+        }
         p_layer->setThickness(slice_thickness);
         result.push_back(p_layer);
     }
@@ -169,19 +175,6 @@ Layer* Layer::shallowClone() const
     Layer* p_result = new Layer(m_material, m_thickness);
     p_result->setName(getName());
     p_result->m_B_field = m_B_field;
-    return p_result;
-}
-
-Layer* Layer::cloneWithOffset(double offset) const
-{
-    Layer* p_result = shallowClone();
-    for (size_t i=0; i<numberOfLayouts();++i)
-    for (auto p_layout : layouts())
-    {
-        ILayout* p_layout_offset = p_layout->cloneWithOffset(offset);
-        p_result->m_layouts.push_back(p_layout_offset);
-        p_result->registerChild(p_layout_offset);
-    }
     return p_result;
 }
 

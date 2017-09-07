@@ -83,8 +83,6 @@ public:
 private:
     //! Clone the layer without its layouts
     Layer* shallowClone() const;
-    //! Clone and offsets the particles in the z-direction
-    Layer* cloneWithOffset(double offset) const;
 
     //! Return the magnetic B-field in this layer
     kvector_t bField() const;

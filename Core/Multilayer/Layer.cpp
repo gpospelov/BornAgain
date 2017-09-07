@@ -52,48 +52,6 @@ Layer* Layer::cloneInvertB() const
     return p_result;
 }
 
-SafePointerVector<Layer> Layer::cloneSliced(ZLimits limits, Layer::ELayerType layer_type) const
-{
-    SafePointerVector<Layer> result;
-    // no slicing when there are no limits or #slices is zero
-    if (!limits.isFinite() || m_n_slices==0 || layer_type==ONLYLAYER) {
-        result.push_back(clone());
-        return result;
-    }
-    double bottom = limits.lowerLimit().m_value;
-    double top = limits.upperLimit().m_value;
-    double slice_thickness = (top-bottom)/m_n_slices;
-    // empty top layer
-    double empty_top_thickness = (layer_type==TOPLAYER) ? 0 : -top;
-    if (empty_top_thickness>0 || layer_type==TOPLAYER)
-    {
-        result.push_back(new Layer(m_material, empty_top_thickness));
-    }
-    // slices containing particles
-    double offset = -top;
-    for (size_t i=0; i<m_n_slices; ++i)
-    {
-        Layer* p_layer = shallowClone();
-        if (i==0) {
-            for (auto p_layout : layouts())
-            {
-                std::unique_ptr<ILayout> P_layout_offset { p_layout->cloneWithOffset(offset) };
-                p_layer->addLayout(*P_layout_offset);
-            }
-        }
-        p_layer->setThickness(slice_thickness);
-        result.push_back(p_layer);
-    }
-    // empty bottom layer
-    double layer_thickness = (layer_type==INTERMEDIATELAYER) ? thickness() : 0;
-    double empty_bottom_thickness = (layer_type==BOTTOMLAYER) ? 0 : bottom + layer_thickness;
-    if (empty_bottom_thickness>0 || layer_type==BOTTOMLAYER)
-    {
-        result.push_back(new Layer(m_material, empty_bottom_thickness));
-    }
-    return result;
-}
-
 //! Sets layer thickness in nanometers.
 void Layer::setThickness(double thickness)
 {
@@ -149,6 +107,48 @@ void Layer::registerThickness(bool make_registered)
     } else {
         removeParameter(BornAgain::Thickness);
     }
+}
+
+SafePointerVector<Layer> Layer::slice(ZLimits limits, Layer::ELayerType layer_type) const
+{
+    SafePointerVector<Layer> result;
+    // no slicing when there are no limits or #slices is zero
+    if (!limits.isFinite() || m_n_slices==0 || layer_type==ONLYLAYER) {
+        result.push_back(clone());
+        return result;
+    }
+    double bottom = limits.lowerLimit().m_value;
+    double top = limits.upperLimit().m_value;
+    double slice_thickness = (top-bottom)/m_n_slices;
+    // empty top layer
+    double empty_top_thickness = (layer_type==TOPLAYER) ? 0 : -top;
+    if (empty_top_thickness>0 || layer_type==TOPLAYER)
+    {
+        result.push_back(new Layer(m_material, empty_top_thickness));
+    }
+    // slices containing particles
+    double offset = -top;
+    for (size_t i=0; i<m_n_slices; ++i)
+    {
+        Layer* p_layer = shallowClone();
+        if (i==0) {
+            for (auto p_layout : layouts())
+            {
+                std::unique_ptr<ILayout> P_layout_offset { p_layout->cloneWithOffset(offset) };
+                p_layer->addLayout(*P_layout_offset);
+            }
+        }
+        p_layer->setThickness(slice_thickness);
+        result.push_back(p_layer);
+    }
+    // empty bottom layer
+    double layer_thickness = (layer_type==INTERMEDIATELAYER) ? thickness() : 0;
+    double empty_bottom_thickness = (layer_type==BOTTOMLAYER) ? 0 : bottom + layer_thickness;
+    if (empty_bottom_thickness>0 || layer_type==BOTTOMLAYER)
+    {
+        result.push_back(new Layer(m_material, empty_bottom_thickness));
+    }
+    return result;
 }
 
 complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const

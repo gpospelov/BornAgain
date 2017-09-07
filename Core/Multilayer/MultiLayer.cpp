@@ -69,7 +69,7 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
                         : (i==numberOfLayers()-1) ? Layer::BOTTOMLAYER
                         : Layer::INTERMEDIATELAYER;
         SafePointerVector<Layer> sliced_layers =
-                m_layers[i]->cloneSliced(layer_limits[i], layer_type);
+                m_layers[i]->slice(layer_limits[i], layer_type);
         if (sliced_layers.size()==0)
             throw std::runtime_error("MultiLayer::cloneSliced: slicing layer produced empty list,");
         if (i>0 && p_interface->getRoughness())

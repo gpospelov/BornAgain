@@ -44,12 +44,12 @@ void MultiLayer::init_parameters()
 
 MultiLayer* MultiLayer::clone() const
 {
-    return cloneGeneric( [](const Layer* p_layer) { return p_layer->clone(); } );
+    return genericClone( [](const Layer* p_layer) { return p_layer->clone(); } );
 }
 
 MultiLayer* MultiLayer::cloneInvertB() const
 {
-    return cloneGeneric( [](const Layer* p_layer) { return p_layer->cloneInvertB(); } );
+    return genericClone( [](const Layer* p_layer) { return p_layer->cloneInvertB(); } );
 }
 
 MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
@@ -256,7 +256,7 @@ size_t MultiLayer::check_interface_index(size_t i_interface) const
     return i_interface;
 }
 
-MultiLayer* MultiLayer::cloneGeneric(const std::function<Layer*(const Layer*)>& layer_clone) const
+MultiLayer* MultiLayer::genericClone(const std::function<Layer*(const Layer*)>& layer_clone) const
 {
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());

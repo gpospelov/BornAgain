@@ -159,7 +159,7 @@ private:
     size_t check_interface_index(size_t i_interface) const;
 
     //! Shared implementation for different clones
-    MultiLayer* cloneGeneric(const std::function<Layer*(const Layer*)>& layer_clone) const;
+    MultiLayer* genericClone(const std::function<Layer*(const Layer*)>& layer_clone) const;
 
     //! Calculates the z-region in each layer that holds particles
     std::vector<ZLimits> calculateLayerZLimits() const;

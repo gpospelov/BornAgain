@@ -22207,16 +22207,6 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_cloneInvertB(self)
 
 
-    def cloneSliced(self, limits, layer_type):
-        """
-        cloneSliced(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >
-
-        SafePointerVector< Layer > Layer::cloneSliced(ZLimits limits, ELayerType layer_type) const 
-
-        """
-        return _libBornAgainCore.Layer_cloneSliced(self, limits, layer_type)
-
-
     def accept(self, visitor):
         """
         accept(Layer self, INodeVisitor visitor)
@@ -22366,6 +22356,11 @@ class Layer(ISample):
 
         """
         return _libBornAgainCore.Layer_numberOfSlices(self)
+
+
+    def slice(self, limits, layer_type):
+        """slice(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >"""
+        return _libBornAgainCore.Layer_slice(self, limits, layer_type)
 
 
     def scalarReducedPotential(self, k, n_ref):

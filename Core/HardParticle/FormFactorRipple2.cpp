@@ -47,32 +47,26 @@ complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const
 {
     complex_t factor = m_length * MathFunctions::sinc(q.x() * m_length * 0.5) * m_width;
     complex_t result = 0;
-    complex_t iqzH = mul_I( q.z() * m_height );
-    complex_t iqyW = mul_I( q.y() * m_width );
-    complex_t aaa = 2.0 * (m_d * q.y() + m_height * q.z());
+    const complex_t alpha = q.y() * m_width * 0.5;
+    const complex_t qyd = q.y() * m_d;
+    const complex_t qzh = q.z() * m_height;
     // dimensionless scale factors
-    const double dScale = std::abs(q.y() * m_d);
-    const double hScale = std::abs(m_height * q.z());
-    const double wScale = std::abs(iqyW);
+    const double dScale = std::abs(qyd);
+    const double hScale = std::abs(qzh);
+    const double wScale = std::abs(alpha);
 
     if (dScale + hScale < 1.e-10 && wScale < 1.e-5) // q.z() == 0 && q.y() == 0
         result = m_height * 0.5;
-    else if (dScale < 1.e-10 && wScale < 1.e-5) // q.y() == 0, q.z() != 0
-        result = (1.0 - std::exp(iqzH) + iqzH) / (m_height * q.z() * q.z());
-    else if (1.0 == aaa / (q.y() * m_width))
-        result = m_height * std::exp(iqzH) * (1.0 - std::exp(-1.0 * iqyW) - iqyW)
-                 / (q.y() * q.y() * m_width * m_width);
-    else if (-1.0 == aaa / (q.y() * m_width))
-        result = m_height * std::exp(iqzH) * (1.0 - std::exp(-1.0 * iqyW) + iqyW)
-                 / (q.y() * q.y() * m_width * m_width);
-    else {
-        complex_t iHqzdqy = complex_t(0.0, 1.0) * (q.z() * m_height + q.y() * m_d);
-        complex_t Hqzdqy = q.z() * m_height + q.y() * m_d;
-        result = std::cos(q.y() * m_width * 0.5)
-                 + 2.0 * iHqzdqy * std::sin(q.y() * m_width * 0.5) / (m_width * q.y());
-        result = result * std::exp(-1.0 * iHqzdqy) - 1.0;
-        result = result * 4.0 * m_height * std::exp(iqzH)
-                 / (4.0 * Hqzdqy * Hqzdqy - q.y() * q.y() * m_width * m_width);
+    else if (dScale < 1.e-10 && wScale < 1.e-5) { // q.y() == 0, q.z() != 0
+        const complex_t iqzH = mul_I(qzh);
+        result = (1.0 - std::exp(iqzH) + iqzH) / (qzh * q.z());
+    } else {
+        const complex_t gamma_p = (qzh + alpha + qyd) * 0.5;
+        const complex_t gamma_m = (qzh - alpha + qyd) * 0.5;
+        result = std::exp(mul_I(gamma_p)) * MathFunctions::sinc(gamma_m)
+                 - std::exp(mul_I(gamma_m)) * MathFunctions::sinc(gamma_p);
+        result = result * std::exp(mul_I(-qyd));
+        result = mul_I(-result * m_height * 0.5/alpha);
     }
     return factor * result;
 }

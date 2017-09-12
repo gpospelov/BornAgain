@@ -50,10 +50,14 @@ complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const
     complex_t iqzH = mul_I( q.z() * m_height );
     complex_t iqyW = mul_I( q.y() * m_width );
     complex_t aaa = 2.0 * (m_d * q.y() + m_height * q.z());
+    // dimensionless scale factors
+    const double dScale = std::abs(q.y() * m_d);
+    const double hScale = std::abs(m_height * q.z());
+    const double wScale = std::abs(iqyW);
 
-    if (0.0 == q.y() && 0.0 == q.z())
+    if (dScale + hScale < 1.e-10 && wScale < 1.e-5) // q.z() == 0 && q.y() == 0
         result = m_height * 0.5;
-    else if (0.0 == q.y())
+    else if (dScale < 1.e-10 && wScale < 1.e-5) // q.y() == 0, q.z() != 0
         result = (1.0 - std::exp(iqzH) + iqzH) / (m_height * q.z() * q.z());
     else if (1.0 == aaa / (q.y() * m_width))
         result = m_height * std::exp(iqzH) * (1.0 - std::exp(-1.0 * iqyW) - iqyW)

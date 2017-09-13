@@ -46,11 +46,11 @@ IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form
     Lattice transformed_lattice = transformedLattice(p_rotation);
     const std::unique_ptr<IFormFactor> P_basis_ff(
         mp_lattice_basis->createTransformedFormFactor(p_rotation, translation));
-    const std::unique_ptr<FormFactorCrystal> P_ff_crystal(
+    std::unique_ptr<FormFactorCrystal> P_ff_crystal(
         new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor));
     if (m_dw_factor > 0.0)
         return new FormFactorDecoratorDebyeWaller(*P_ff_crystal, m_dw_factor);
-    return P_ff_crystal->clone();
+    return P_ff_crystal.release();
 }
 
 std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const

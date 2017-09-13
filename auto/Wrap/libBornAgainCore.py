@@ -2111,7 +2111,7 @@ class INode(IParameterized):
         """
         setParent(INode self, INode newParent)
 
-        void INode::setParent(const INode *parent)
+        void INode::setParent(const INode *newParent)
 
         """
         return _libBornAgainCore.INode_setParent(self, newParent)
@@ -6104,7 +6104,12 @@ class FitObject(INode, INoncopyable):
 
 
     def getDefaultAxisUnits(self):
-        """getDefaultAxisUnits(FitObject self) -> std::string"""
+        """
+        getDefaultAxisUnits(FitObject self) -> std::string
+
+        std::string FitObject::getDefaultAxisUnits() const 
+
+        """
         return _libBornAgainCore.FitObject_getDefaultAxisUnits(self)
 
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
@@ -6456,7 +6461,7 @@ class FitSuite(IObservable):
         """
         numberOfFitObjects(FitSuite self) -> size_t
 
-        int FitSuite::numberOfFitObjects() const
+        size_t FitSuite::numberOfFitObjects() const
 
         Returns number of fit objects, where fit object stands for (real, simulated) pair. 
 
@@ -6985,6 +6990,9 @@ class FitSuiteObjects(INode, INoncopyable):
         """
         getDefaultAxesUnits(FitSuiteObjects self, size_t i_item=0) -> std::string
         getDefaultAxesUnits(FitSuiteObjects self) -> std::string
+
+        std::string FitSuiteObjects::getDefaultAxesUnits(size_t i_item=0) const 
+
         """
         return _libBornAgainCore.FitSuiteObjects_getDefaultAxesUnits(self, i_item)
 
@@ -8519,7 +8527,14 @@ DistributionCosine_swigregister = _libBornAgainCore.DistributionCosine_swigregis
 DistributionCosine_swigregister(DistributionCosine)
 
 class DistributionTrapezoid(IDistribution1D):
-    """Proxy of C++ DistributionTrapezoid class."""
+    """
+
+
+    Trapezoidal distribution.
+
+    C++ includes: Distributions.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [IDistribution1D]:
@@ -8535,6 +8550,9 @@ class DistributionTrapezoid(IDistribution1D):
         """
         __init__(DistributionTrapezoid self) -> DistributionTrapezoid
         __init__(DistributionTrapezoid self, double center, double left_width, double middle_width, double right_width) -> DistributionTrapezoid
+
+        DistributionTrapezoid::DistributionTrapezoid(double center, double left_width, double middle_width, double right_width)
+
         """
         this = _libBornAgainCore.new_DistributionTrapezoid(*args)
         try:
@@ -8548,7 +8566,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         clone(DistributionTrapezoid self) -> DistributionTrapezoid
 
-        virtual IDistribution1D* IDistribution1D::clone() const =0
+        DistributionTrapezoid* DistributionTrapezoid::clone() const final
 
         """
         return _libBornAgainCore.DistributionTrapezoid_clone(self)
@@ -8558,7 +8576,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         probabilityDensity(DistributionTrapezoid self, double x) -> double
 
-        virtual double IDistribution1D::probabilityDensity(double x) const =0
+        double DistributionTrapezoid::probabilityDensity(double x) const final
 
         Returns the distribution-specific probability density for value x. 
 
@@ -8570,7 +8588,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         getMean(DistributionTrapezoid self) -> double
 
-        virtual double IDistribution1D::getMean() const =0
+        double DistributionTrapezoid::getMean() const final
 
         Returns the distribution-specific mean. 
 
@@ -8579,17 +8597,32 @@ class DistributionTrapezoid(IDistribution1D):
 
 
     def getLeftWidth(self):
-        """getLeftWidth(DistributionTrapezoid self) -> double"""
+        """
+        getLeftWidth(DistributionTrapezoid self) -> double
+
+        double DistributionTrapezoid::getLeftWidth() const 
+
+        """
         return _libBornAgainCore.DistributionTrapezoid_getLeftWidth(self)
 
 
     def getMiddleWidth(self):
-        """getMiddleWidth(DistributionTrapezoid self) -> double"""
+        """
+        getMiddleWidth(DistributionTrapezoid self) -> double
+
+        double DistributionTrapezoid::getMiddleWidth() const 
+
+        """
         return _libBornAgainCore.DistributionTrapezoid_getMiddleWidth(self)
 
 
     def getRightWidth(self):
-        """getRightWidth(DistributionTrapezoid self) -> double"""
+        """
+        getRightWidth(DistributionTrapezoid self) -> double
+
+        double DistributionTrapezoid::getRightWidth() const 
+
+        """
         return _libBornAgainCore.DistributionTrapezoid_getRightWidth(self)
 
 
@@ -8598,9 +8631,9 @@ class DistributionTrapezoid(IDistribution1D):
         equidistantPoints(DistributionTrapezoid self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         equidistantPoints(DistributionTrapezoid self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        virtual std::vector<double> IDistribution1D::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const =0
+        std::vector< double > DistributionTrapezoid::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
 
-        Returns equidistant interpolation points, with range computed in distribution-specific way from mean and width parameter, taking into account limits and sigma_factor. 
+        generate list of sample values 
 
         """
         return _libBornAgainCore.DistributionTrapezoid_equidistantPoints(self, *args)
@@ -8610,7 +8643,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         isDelta(DistributionTrapezoid self) -> bool
 
-        virtual bool IDistribution1D::isDelta() const =0
+        bool DistributionTrapezoid::isDelta() const final
 
         Returns true if the distribution is in the limit case of a Dirac delta distribution. 
 
@@ -8622,7 +8655,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         accept(DistributionTrapezoid self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void DistributionTrapezoid::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -10972,15 +11005,6 @@ IFormFactor_swigregister = _libBornAgainCore.IFormFactor_swigregister
 IFormFactor_swigregister(IFormFactor)
 
 
-def ShapeIsContainedInLimits(formfactor, limits, rot, translation):
-    """
-    ShapeIsContainedInLimits(IFormFactor formfactor, ZLimits limits, IRotation rot, kvector_t translation) -> bool
-
-    bool ShapeIsContainedInLimits(const IFormFactor &formfactor, ZLimits limits, const IRotation &rot, kvector_t translation)
-
-    """
-    return _libBornAgainCore.ShapeIsContainedInLimits(formfactor, limits, rot, translation)
-
 def CreateTransformedFormFactor(formfactor, rot, translation):
     """
     CreateTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor
@@ -12074,17 +12098,19 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
 
         FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
 
+        Constructor of a truncated pyramid with a rectangular base.
+
         Parameters:
         -----------
 
         length: 
-        of one side of the rectangular base
+        length of the rectangular base in nm
 
         width: 
-        of other side of the rectangular base
+        width of the rectangular base in nm
 
         height: 
-        of frustum
+        height of pyramid in nm
 
         alpha: 
         dihedral angle in radians between base and facet 
@@ -12190,17 +12216,19 @@ class FormFactorBox(IFormFactorBorn):
 
         FormFactorBox::FormFactorBox(double length, double width, double height)
 
+        Constructor of a rectangular cuboid.
+
         Parameters:
         -----------
 
         length: 
-        of rectangular base
+        length of the base in nanometers
 
         width: 
-        of rectangular base
+        width of the base in nanometers
 
         height: 
-        of prism 
+        height of the box in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorBox(length, width, height)
@@ -12317,17 +12345,19 @@ class FormFactorCone(IFormFactorBorn):
 
         FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 
+        Constructor of a truncated cone with circular base.
+
         Parameters:
         -----------
 
         radius: 
-        of circular base
+        radius of the base in nanometers
 
         height: 
-        of frustum
+        height of the cone in nanometers
 
         alpha: 
-        angle in radians between base and lateral surface 
+        angle between the base and the side surface in radians 
 
         """
         this = _libBornAgainCore.new_FormFactorCone(radius, height, alpha)
@@ -12444,14 +12474,16 @@ class FormFactorCone6(FormFactorPolyhedron):
 
         FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
 
+        Constructor of a truncated pyramid, based on a regular hexagon
+
         Parameters:
         -----------
 
         base_edge: 
-        of hexagonal base
+        Edge of the regular hexagonal base in nanometers
 
         height: 
-        of frustum
+        height of a truncated pyramid in nanometers
 
         alpha: 
         dihedral angle in radians between base and facet 
@@ -12680,17 +12712,19 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
 
         FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
 
+        Constructor of cuboctahedron (compound of two truncated pyramids with a common square base and opposite orientations).
+
         Parameters:
         -----------
 
         length: 
-        of one side of the square base
+        side length of the common square base in nanometers
 
         height: 
-        of bottom frustum
+        height of the lower pyramid in nanometers
 
         height_ratio: 
-        ratio of heights of top to bottom frustum
+        ratio of heights of top to bottom pyramids
 
         alpha: 
         dihedral angle in radians between base and facet 
@@ -12795,6 +12829,17 @@ class FormFactorCylinder(IFormFactorBorn):
         __init__(FormFactorCylinder self, double radius, double height) -> FormFactorCylinder
 
         FormFactorCylinder::FormFactorCylinder(double radius, double height)
+
+        Constructor of a cylinder with a circular base.
+
+        Parameters:
+        -----------
+
+        radius: 
+        radius of the circular base in nanometers
+
+        height: 
+        height of the cylinder in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorCylinder(radius, height)
@@ -12983,7 +13028,15 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
         -----------
 
         edge: 
-        length 
+        length
+
+        Constructor of a dodecahedron.
+
+        Parameters:
+        -----------
+
+        edge: 
+        length of the edge in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorDodecahedron(edge)
@@ -13031,7 +13084,14 @@ FormFactorDodecahedron_swigregister = _libBornAgainCore.FormFactorDodecahedron_s
 FormFactorDodecahedron_swigregister(FormFactorDodecahedron)
 
 class FormFactorDot(IFormFactorBorn):
-    """Proxy of C++ FormFactorDot class."""
+    """
+
+
+    A dot, with trivial formfactor F(q)=1.
+
+    C++ includes: FormFactorDot.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [IFormFactorBorn]:
@@ -13044,7 +13104,12 @@ class FormFactorDot(IFormFactorBorn):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(FormFactorDot self) -> FormFactorDot"""
+        """
+        __init__(FormFactorDot self) -> FormFactorDot
+
+        FormFactorDot::FormFactorDot()
+
+        """
         this = _libBornAgainCore.new_FormFactorDot()
         try:
             self.this.append(this)
@@ -13055,7 +13120,7 @@ class FormFactorDot(IFormFactorBorn):
         """
         clone(FormFactorDot self) -> FormFactorDot
 
-        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+        FormFactorDot* FormFactorDot::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -13067,7 +13132,7 @@ class FormFactorDot(IFormFactorBorn):
         """
         accept(FormFactorDot self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void FormFactorDot::accept(INodeVisitor *visitor) const overridefinal
 
         Calls the  INodeVisitor's visit method. 
 
@@ -13079,7 +13144,7 @@ class FormFactorDot(IFormFactorBorn):
         """
         radialExtension(FormFactorDot self) -> double
 
-        virtual double IFormFactor::radialExtension() const =0
+        double FormFactorDot::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13091,7 +13156,7 @@ class FormFactorDot(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorDot self, cvector_t arg2) -> complex_t
 
-        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
+        complex_t FormFactorDot::evaluate_for_q(cvector_t) const overridefinal
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13129,16 +13194,19 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
 
         FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height)
 
+        Constructor of a cylinder with an ellipse cross section.
+
         Parameters:
         -----------
 
         radius_x: 
-        half length of one horizontal main axes
+        radius of the ellipse base in the x-direction, in nanometers
 
         radius_y: 
-        half length of the other horizontal main axes
+        radius of the ellipse base in the y-direction, in nanometers
 
         height: 
+        height of the ellipsoidal cylinder in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorEllipsoidalCylinder(radius_x, radius_y, height)
@@ -13254,6 +13322,14 @@ class FormFactorFullSphere(IFormFactorBorn):
         __init__(FormFactorFullSphere self, double radius) -> FormFactorFullSphere
 
         FormFactorFullSphere::FormFactorFullSphere(double radius)
+
+        Constructor of a full sphere.
+
+        Parameters:
+        -----------
+
+        radius: 
+        radius of the sphere in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorFullSphere(radius)
@@ -13374,14 +13450,16 @@ class FormFactorFullSpheroid(IFormFactorBorn):
 
         FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
 
+        Constructor of full spheroid.
+
         Parameters:
         -----------
 
         radius: 
-        of the two equal axes
+        radius of the circular cross section in nanometers
 
         height: 
-        total height of the spheroid, i.e. twice the radius of the third axis 
+        height of the full spheroid in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorFullSpheroid(radius, height)
@@ -13594,17 +13672,19 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 
         FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
 
+        Constructor of horizontally oriented ellipsoid, truncated at the central plane.
+
         Parameters:
         -----------
 
         radius_x: 
-        half length of one horizontal main axes
+        radius of the ellipse base in the x-direction, in nanometers
 
         radius_y: 
-        half length of the other horizontal main axes
+        radius of the ellipse base in the y-direction, in nanometers
 
         height: 
-        of the hemi ellipsoid 
+        height of the hemi ellipsoid in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorHemiEllipsoid(radius_x, radius_y, height)
@@ -13720,6 +13800,14 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         __init__(FormFactorIcosahedron self, double edge) -> FormFactorIcosahedron
 
         FormFactorIcosahedron::FormFactorIcosahedron(double edge)
+
+        Constructor of a icosahedron.
+
+        Parameters:
+        -----------
+
+        edge: 
+        length of the edge in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorIcosahedron(edge)
@@ -14696,6 +14784,17 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
 
         FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
 
+        Constructor of a prism with an equilaterial triangle base.
+
+        Parameters:
+        -----------
+
+        base_edge: 
+        length of the base edge in nanometers
+
+        height: 
+        height in nanometers 
+
         """
         this = _libBornAgainCore.new_FormFactorPrism3(base_edge, height)
         try:
@@ -14766,6 +14865,17 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         __init__(FormFactorPrism6 self, double base_edge, double height) -> FormFactorPrism6
 
         FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
+
+        Constructor of a prism with a regular hexagonal base.
+
+        Parameters:
+        -----------
+
+        base_edge: 
+        length of the hexagonal base in nanometers
+
+        height: 
+        height in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorPrism6(base_edge, height)
@@ -14838,17 +14948,19 @@ class FormFactorPyramid(FormFactorPolyhedron):
 
         FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
 
+        Constructor of a truncated pyramid with a square base
+
         Parameters:
         -----------
 
         base_edge: 
-        of one side of the square base
+        length of the square base in nanometers
 
         height: 
-        of the frustum
+        height of the pyramid in nanometers
 
         alpha: 
-        dihedral angle in radians between base and facet 
+        dihedral angle between the base and a side face in radians 
 
         """
         this = _libBornAgainCore.new_FormFactorPyramid(base_edge, height, alpha)
@@ -14941,19 +15053,19 @@ class FormFactorRipple1(IFormFactorBorn):
 
         FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
 
-        Ripple1 constructor.
+        Constructor of cosine ripple.
 
         Parameters:
         -----------
 
         length: 
-        of Ripple1
+        length of the rectangular base in nanometers
 
         width: 
-        of cosine cross section
+        width of the rectangular base in nanometers
 
         height: 
-        of cosine cross section 
+        height of the ripple in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorRipple1(length, width, height)
@@ -15070,22 +15182,22 @@ class FormFactorRipple2(IFormFactorBorn):
 
         FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymmetry)
 
-        Ripple2 constructor.
+        Constructor of a triangular ripple.
 
         Parameters:
         -----------
 
         length: 
-        of Ripple2
+        length of the rectangular base in nanometers
 
         width: 
-        of triangular cross section
+        width of the rectangular base in nanometers
 
         height: 
-        of triangular cross section
+        height of the ripple in nanometers
 
         asymmetry: 
-        length of triangular cross section 
+        asymmetry length of the triangular profile in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorRipple2(length, width, height, asymmetry)
@@ -15467,14 +15579,16 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
 
         FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
 
+        Constructor of a truncated tethrahedron.
+
         Parameters:
         -----------
 
         base_edge: 
-        of a side of the base
+        length of one edge of the equilateral triangular base in nanometers
 
         height: 
-        of the frustum
+        height of the tetrahedron in nanometers
 
         alpha: 
         dihedral angle in radians between base and facet 
@@ -15570,14 +15684,16 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
 
         FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
 
+        Constructor of a truncated cube.
+
         Parameters:
         -----------
 
         length: 
-        of the full cube
+        length of the full cube's edge in nanometers
 
         removed_length: 
-        as removed from each edge of the cube 
+        removed length from each edge of the cube in nanometers 
 
         """
         this = _libBornAgainCore.new_FormFactorTruncatedCube(length, removed_length)
@@ -15661,6 +15777,20 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
 
         FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh=0.0)
 
+        Constructor of a spherical dome.
+
+        Parameters:
+        -----------
+
+        radius: 
+        radius of the truncated sphere in nanometers
+
+        height: 
+        height of the truncated sphere in nanometers
+
+        dh: 
+        length of cup truncated from the top 
+
         """
         this = _libBornAgainCore.new_FormFactorTruncatedSphere(radius, height, dh)
         try:
@@ -15713,7 +15843,12 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
 
 
     def getRemovedTop(self):
-        """getRemovedTop(FormFactorTruncatedSphere self) -> double"""
+        """
+        getRemovedTop(FormFactorTruncatedSphere self) -> double
+
+        double FormFactorTruncatedSphere::getRemovedTop() const 
+
+        """
         return _libBornAgainCore.FormFactorTruncatedSphere_getRemovedTop(self)
 
 
@@ -15771,6 +15906,23 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         __init__(FormFactorTruncatedSpheroid self, double radius, double height, double height_flattening) -> FormFactorTruncatedSpheroid
 
         FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh=0.0)
+
+        Constructor of a spheroidal dome.
+
+        Parameters:
+        -----------
+
+        radius: 
+        radius of the truncated spheroid in nanometers
+
+        height: 
+        height of the truncated spheroid in nanometers
+
+        height_flattening: 
+        ratio of the height of the corresponding full spheroid to its diameter
+
+        dh: 
+        length of cup truncated from the top 
 
         """
         this = _libBornAgainCore.new_FormFactorTruncatedSpheroid(radius, height, height_flattening, dh)
@@ -15834,7 +15986,12 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
 
 
     def getRemovedTop(self):
-        """getRemovedTop(FormFactorTruncatedSpheroid self) -> double"""
+        """
+        getRemovedTop(FormFactorTruncatedSpheroid self) -> double
+
+        double FormFactorTruncatedSpheroid::getRemovedTop() const 
+
+        """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getRemovedTop(self)
 
 
@@ -16162,7 +16319,7 @@ class Simulation(ICloneable, INode):
         """
         sample(Simulation self) -> MultiLayer
 
-        MultiLayer* Simulation::sample() const 
+        const MultiLayer * Simulation::sample() const 
 
         """
         return _libBornAgainCore.Simulation_sample(self)
@@ -16924,7 +17081,7 @@ class IHistogram(_object):
         """
         getXaxisIndex(IHistogram self, size_t i) -> size_t
 
-        int IHistogram::getXaxisIndex(size_t i) const
+        size_t IHistogram::getXaxisIndex(size_t i) const
 
         Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value. 
 
@@ -16936,7 +17093,7 @@ class IHistogram(_object):
         """
         getYaxisIndex(IHistogram self, size_t i) -> size_t
 
-        int IHistogram::getYaxisIndex(size_t i) const
+        size_t IHistogram::getYaxisIndex(size_t i) const
 
         Returns y-axis bin index for given globalbin (for 2D histograms). 
 
@@ -17274,12 +17431,24 @@ class IHistogram(_object):
 
 
     def setAxesUnits(self, name):
-        """setAxesUnits(IHistogram self, std::string const & name)"""
+        """
+        setAxesUnits(IHistogram self, std::string const & name)
+
+        void IHistogram::setAxesUnits(const std::string &name)
+
+        Sets axes units. 
+
+        """
         return _libBornAgainCore.IHistogram_setAxesUnits(self, name)
 
 
     def axesUnits(self):
-        """axesUnits(IHistogram self) -> std::string"""
+        """
+        axesUnits(IHistogram self) -> std::string
+
+        std::string IHistogram::axesUnits() const 
+
+        """
         return _libBornAgainCore.IHistogram_axesUnits(self)
 
 IHistogram_swigregister = _libBornAgainCore.IHistogram_swigregister
@@ -18590,6 +18759,14 @@ class IAbstractParticle(ISample):
 
         void IAbstractParticle::setAbundance(double abundance)
 
+        Sets particle abundance.
+
+        Parameters:
+        -----------
+
+        abundance: 
+        proportion of this type of particles normalized to the total number of particles in the layout. 
+
         """
         return _libBornAgainCore.IAbstractParticle_setAbundance(self, abundance)
 
@@ -18811,7 +18988,19 @@ class IParticle(IAbstractParticle):
 
         void IParticle::setPosition(double x, double y, double z)
 
-        Sets particle position. 
+        Sets relative position of the particle's reference point in the coordinate system of parent.
+
+        Parameters:
+        -----------
+
+        x: 
+        x-coordinate in nanometers
+
+        y: 
+        y-coordinate in nanometers
+
+        z: 
+        z-coordinate in nanometers 
 
         """
         return _libBornAgainCore.IParticle_setPosition(self, *args)
@@ -19136,6 +19325,14 @@ class RotationX(IRotation):
 
         RotationX::RotationX(double angle)
 
+        Constructor of rotation around x-axis
+
+        Parameters:
+        -----------
+
+        angle: 
+        rotation angle around x-axis in radians 
+
         """
         this = _libBornAgainCore.new_RotationX(angle)
         try:
@@ -19223,6 +19420,14 @@ class RotationY(IRotation):
         __init__(RotationY self, double angle) -> RotationY
 
         RotationY::RotationY(double angle)
+
+        Constructor of rotation around y-axis
+
+        Parameters:
+        -----------
+
+        angle: 
+        rotation angle around y-axis in radians 
 
         """
         this = _libBornAgainCore.new_RotationY(angle)
@@ -19313,6 +19518,14 @@ class RotationZ(IRotation):
 
         RotationZ::RotationZ(double angle=0.0)
 
+        Constructor of rotation around z-axis
+
+        Parameters:
+        -----------
+
+        angle: 
+        rotation angle around z-axis in radians 
+
         """
         this = _libBornAgainCore.new_RotationZ(angle)
         try:
@@ -19400,6 +19613,20 @@ class RotationEuler(IRotation):
         __init__(RotationEuler self, double alpha, double beta, double gamma) -> RotationEuler
 
         RotationEuler::RotationEuler(double alpha, double beta, double gamma)
+
+        Constructor of Euler rotation (sequence of three rotations following Euler angles notation z-x'-z').
+
+        Parameters:
+        -----------
+
+        alpha: 
+        first Euler angle in radians
+
+        beta: 
+        second Euler angle in radians
+
+        gamma: 
+        third Euler angle in radians 
 
         """
         this = _libBornAgainCore.new_RotationEuler(alpha, beta, gamma)
@@ -19853,6 +20080,11 @@ class Instrument(INode):
         """
         createIntensityData(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, IDetector2D::EAxesUnits units_type) -> Histogram2D
         createIntensityData(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> Histogram2D
+
+        Histogram2D * Instrument::createIntensityData(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+
+        Returns histogram representing intensity map in requested axes units. 
+
         """
         return _libBornAgainCore.Instrument_createIntensityData(self, *args)
 
@@ -20534,12 +20766,22 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
 
     def setIntegrationOverXi(self, integrate_xi):
-        """setIntegrationOverXi(InterferenceFunction2DLattice self, bool integrate_xi)"""
+        """
+        setIntegrationOverXi(InterferenceFunction2DLattice self, bool integrate_xi)
+
+        void InterferenceFunction2DLattice::setIntegrationOverXi(bool integrate_xi)
+
+        """
         return _libBornAgainCore.InterferenceFunction2DLattice_setIntegrationOverXi(self, integrate_xi)
 
 
     def integrationOverXi(self):
-        """integrationOverXi(InterferenceFunction2DLattice self) -> bool"""
+        """
+        integrationOverXi(InterferenceFunction2DLattice self) -> bool
+
+        bool InterferenceFunction2DLattice::integrationOverXi() const 
+
+        """
         return _libBornAgainCore.InterferenceFunction2DLattice_integrationOverXi(self)
 
 
@@ -21543,7 +21785,7 @@ class Lattice2D(ICloneable, INode):
         """
         length1(Lattice2D self) -> double
 
-        double Lattice2D::length1() const 
+        virtual double Lattice2D::length1() const =0
 
         """
         return _libBornAgainCore.Lattice2D_length1(self)
@@ -21553,7 +21795,7 @@ class Lattice2D(ICloneable, INode):
         """
         length2(Lattice2D self) -> double
 
-        virtual double Lattice2D::length2() const 
+        virtual double Lattice2D::length2() const =0
 
         """
         return _libBornAgainCore.Lattice2D_length2(self)
@@ -21563,7 +21805,7 @@ class Lattice2D(ICloneable, INode):
         """
         latticeAngle(Lattice2D self) -> double
 
-        double Lattice2D::latticeAngle() const 
+        virtual double Lattice2D::latticeAngle() const =0
 
         """
         return _libBornAgainCore.Lattice2D_latticeAngle(self)
@@ -21573,7 +21815,7 @@ class Lattice2D(ICloneable, INode):
         """
         unitCellArea(Lattice2D self) -> double
 
-        double Lattice2D::unitCellArea() const 
+        virtual double Lattice2D::unitCellArea() const =0
 
         """
         return _libBornAgainCore.Lattice2D_unitCellArea(self)
@@ -21666,7 +21908,7 @@ class BasicLattice(Lattice2D):
         """
         length1(BasicLattice self) -> double
 
-        double Lattice2D::length1() const 
+        virtual double BasicLattice::length1() const 
 
         """
         return _libBornAgainCore.BasicLattice_length1(self)
@@ -21676,7 +21918,7 @@ class BasicLattice(Lattice2D):
         """
         length2(BasicLattice self) -> double
 
-        virtual double Lattice2D::length2() const 
+        virtual double BasicLattice::length2() const 
 
         """
         return _libBornAgainCore.BasicLattice_length2(self)
@@ -21686,7 +21928,7 @@ class BasicLattice(Lattice2D):
         """
         latticeAngle(BasicLattice self) -> double
 
-        double Lattice2D::latticeAngle() const 
+        virtual double BasicLattice::latticeAngle() const 
 
         """
         return _libBornAgainCore.BasicLattice_latticeAngle(self)
@@ -21696,7 +21938,7 @@ class BasicLattice(Lattice2D):
         """
         unitCellArea(BasicLattice self) -> double
 
-        double Lattice2D::unitCellArea() const 
+        double BasicLattice::unitCellArea() const 
 
         """
         return _libBornAgainCore.BasicLattice_unitCellArea(self)
@@ -21759,7 +22001,7 @@ class SquareLattice(Lattice2D):
         """
         length1(SquareLattice self) -> double
 
-        double Lattice2D::length1() const 
+        virtual double SquareLattice::length1() const 
 
         """
         return _libBornAgainCore.SquareLattice_length1(self)
@@ -21769,7 +22011,7 @@ class SquareLattice(Lattice2D):
         """
         length2(SquareLattice self) -> double
 
-        double SquareLattice::length2() const 
+        virtual double SquareLattice::length2() const 
 
         """
         return _libBornAgainCore.SquareLattice_length2(self)
@@ -21779,7 +22021,7 @@ class SquareLattice(Lattice2D):
         """
         latticeAngle(SquareLattice self) -> double
 
-        double Lattice2D::latticeAngle() const 
+        double SquareLattice::latticeAngle() const 
 
         """
         return _libBornAgainCore.SquareLattice_latticeAngle(self)
@@ -21789,7 +22031,7 @@ class SquareLattice(Lattice2D):
         """
         unitCellArea(SquareLattice self) -> double
 
-        double Lattice2D::unitCellArea() const 
+        double SquareLattice::unitCellArea() const 
 
         """
         return _libBornAgainCore.SquareLattice_unitCellArea(self)
@@ -21852,7 +22094,7 @@ class HexagonalLattice(Lattice2D):
         """
         length1(HexagonalLattice self) -> double
 
-        double Lattice2D::length1() const 
+        virtual double HexagonalLattice::length1() const 
 
         """
         return _libBornAgainCore.HexagonalLattice_length1(self)
@@ -21862,7 +22104,7 @@ class HexagonalLattice(Lattice2D):
         """
         length2(HexagonalLattice self) -> double
 
-        double HexagonalLattice::length2() const 
+        virtual double HexagonalLattice::length2() const 
 
         """
         return _libBornAgainCore.HexagonalLattice_length2(self)
@@ -21872,7 +22114,7 @@ class HexagonalLattice(Lattice2D):
         """
         latticeAngle(HexagonalLattice self) -> double
 
-        double Lattice2D::latticeAngle() const 
+        double HexagonalLattice::latticeAngle() const 
 
         """
         return _libBornAgainCore.HexagonalLattice_latticeAngle(self)
@@ -21882,7 +22124,7 @@ class HexagonalLattice(Lattice2D):
         """
         unitCellArea(HexagonalLattice self) -> double
 
-        double Lattice2D::unitCellArea() const 
+        double HexagonalLattice::unitCellArea() const 
 
         """
         return _libBornAgainCore.HexagonalLattice_unitCellArea(self)
@@ -21923,6 +22165,17 @@ class Layer(ISample):
 
         Layer::Layer(HomogeneousMaterial material, double thickness=0)
 
+        Constructor of a layer with thickness and material
+
+        Parameters:
+        -----------
+
+        material: 
+        material the layer is made of
+
+        thickness: 
+        thickness of a layer in nanometers 
+
         """
         this = _libBornAgainCore.new_Layer(material, thickness)
         try:
@@ -21952,16 +22205,6 @@ class Layer(ISample):
 
         """
         return _libBornAgainCore.Layer_cloneInvertB(self)
-
-
-    def cloneSliced(self, limits, layer_type):
-        """
-        cloneSliced(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >
-
-        SafePointerVector< Layer > Layer::cloneSliced(ZLimits limits, ELayerType layer_type) const 
-
-        """
-        return _libBornAgainCore.Layer_cloneSliced(self, limits, layer_type)
 
 
     def accept(self, visitor):
@@ -22115,6 +22358,11 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_numberOfSlices(self)
 
 
+    def slice(self, limits, layer_type):
+        """slice(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >"""
+        return _libBornAgainCore.Layer_slice(self, limits, layer_type)
+
+
     def scalarReducedPotential(self, k, n_ref):
         """
         scalarReducedPotential(Layer self, kvector_t k, double n_ref) -> complex_t
@@ -22146,7 +22394,7 @@ class LayerRoughness(ISample):
     """
 
 
-    A Roughness of interface between two layers.
+    A roughness of interface between two layers.
 
     Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 "X-ray reflection and transmission by rough surfaces"
 
@@ -22170,6 +22418,20 @@ class LayerRoughness(ISample):
         __init__(LayerRoughness self, double sigma, double hurstParameter, double lateralCorrLength) -> LayerRoughness
 
         LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)
+
+        Constructor of layer roughness.
+
+        Parameters:
+        -----------
+
+        sigma: 
+        rms of the roughness in nanometers
+
+        hurstParameter: 
+        hurst parameter which describes how jagged the interface, dimensionless [0.0, 1.0], where 0.0 gives more spikes, 1.0 more smoothness
+
+        lateralCorrLength: 
+        lateral correlation length of the roughness in nanometers 
 
         """
         this = _libBornAgainCore.new_LayerRoughness(*args)
@@ -22688,7 +22950,7 @@ class MultiLayer(ISample):
         """
         addLayer(MultiLayer self, Layer layer)
 
-        void MultiLayer::addLayer(const Layer &p_child)
+        void MultiLayer::addLayer(const Layer &layer)
 
         Adds object to multilayer.
 
@@ -23366,7 +23628,7 @@ class IntensityData(_object):
         getAxisBinIndex(IntensityData self, size_t global_index, size_t i_selected_axis) -> size_t
         getAxisBinIndex(IntensityData self, size_t global_index, std::string const & axis_name) -> size_t
 
-        int OutputData< T >::getAxisBinIndex(size_t global_index, const std::string &axis_name) const
+        size_t OutputData< T >::getAxisBinIndex(size_t global_index, const std::string &axis_name) const
 
         Returns axis bin index for given global index
 
@@ -23389,7 +23651,7 @@ class IntensityData(_object):
         """
         toGlobalIndex(IntensityData self, std::vector< unsigned int,std::allocator< unsigned int > > const & axes_indices) -> size_t
 
-        size_t OutputData< T >::toGlobalIndex(const std::vector< int > &axes_indices) const
+        size_t OutputData< T >::toGlobalIndex(const std::vector< unsigned > &axes_indices) const
 
         Returns global index for specified indices of axes
 
@@ -23838,7 +24100,7 @@ class ParameterPool(ICloneable):
         """
         copyToExternalPool(ParameterPool self, std::string const & prefix, ParameterPool other_pool)
 
-        void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
+        void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *other_pool) const
 
         Copies parameters of given pool to  other pool, prepeding  prefix to the parameter names. 
 
@@ -23874,7 +24136,7 @@ class ParameterPool(ICloneable):
         """
         addParameter(ParameterPool self, RealParameter newPar) -> RealParameter
 
-        RealParameter & ParameterPool::addParameter(RealParameter *par)
+        RealParameter & ParameterPool::addParameter(RealParameter *newPar)
 
         Adds parameter to the pool, and returns reference to the input pointer.
 
@@ -23913,7 +24175,7 @@ class ParameterPool(ICloneable):
         """
         getMatchedParameters(ParameterPool self, std::string const & pattern) -> std::vector< RealParameter *,std::allocator< RealParameter * > >
 
-        std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
+        std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &pattern) const
 
         Returns nonempty vector of parameters that match the  pattern ('*' allowed), or throws. 
 
@@ -24980,7 +25242,7 @@ class ParticleLayout(ILayout):
 
         void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) finaloverride
 
-        Sets surface density of all particles. 
+        Sets total particle surface density.  particle_density: number of particles per square nanometer 
 
         """
         return _libBornAgainCore.ParticleLayout_setTotalParticleSurfaceDensity(self, particle_density)
@@ -25158,7 +25420,7 @@ class RealParameter(IParameterReal):
         """
         setLimits(RealParameter self, RealLimits limits) -> RealParameter
 
-        RealParameter& RealParameter::setLimits(const RealLimits &limits)
+        RealParameter & RealParameter::setLimits(const RealLimits &limits)
 
         """
         return _libBornAgainCore.RealParameter_setLimits(self, limits)
@@ -25208,7 +25470,7 @@ class RealParameter(IParameterReal):
         """
         setUnit(RealParameter self, std::string const & name) -> RealParameter
 
-        RealParameter& RealParameter::setUnit(const std::string &name)
+        RealParameter & RealParameter::setUnit(const std::string &name)
 
         """
         return _libBornAgainCore.RealParameter_setUnit(self, name)

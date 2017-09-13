@@ -85,9 +85,6 @@ protected:
                                          kvector_t translation) const;
 };
 
-bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
-                              const IRotation& rot, kvector_t translation);
-
 IFormFactor* CreateTransformedFormFactor(const IFormFactor& formfactor, const IRotation& rot,
                                          kvector_t translation);
 

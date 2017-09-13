@@ -101,6 +101,7 @@ IFresnelMap* MainComputation::createFresnelMap()
         P_result.reset(new ScalarFresnelMap());
     else
         P_result.reset(new MatrixFresnelMap());
+    // Disable caching of R,T coefficients when using Monte Carlo integration
     if (P_result && m_sim_options.isIntegrate()) {
         P_result->disableCaching();
     }

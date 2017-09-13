@@ -89,6 +89,18 @@ C++ includes: ParaCrystalBuilder.h
 Calls the  INodeVisitor's visit method. 
 ";
 
+%feature("docstring")  BasicLattice::length1 "virtual double BasicLattice::length1() const 
+";
+
+%feature("docstring")  BasicLattice::length2 "virtual double BasicLattice::length2() const 
+";
+
+%feature("docstring")  BasicLattice::latticeAngle "virtual double BasicLattice::latticeAngle() const 
+";
+
+%feature("docstring")  BasicLattice::unitCellArea "double BasicLattice::unitCellArea() const 
+";
+
 
 // File: classBasicVector3D.xml
 %feature("docstring") BasicVector3D "
@@ -1426,6 +1438,61 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
+// File: classDistributionTrapezoid.xml
+%feature("docstring") DistributionTrapezoid "
+
+Trapezoidal distribution.
+
+C++ includes: Distributions.h
+";
+
+%feature("docstring")  DistributionTrapezoid::DistributionTrapezoid "DistributionTrapezoid::DistributionTrapezoid()
+";
+
+%feature("docstring")  DistributionTrapezoid::DistributionTrapezoid "DistributionTrapezoid::DistributionTrapezoid(double center, double left_width, double middle_width, double right_width)
+";
+
+%feature("docstring")  DistributionTrapezoid::~DistributionTrapezoid "virtual DistributionTrapezoid::~DistributionTrapezoid()
+";
+
+%feature("docstring")  DistributionTrapezoid::clone "DistributionTrapezoid* DistributionTrapezoid::clone() const final
+";
+
+%feature("docstring")  DistributionTrapezoid::probabilityDensity "double DistributionTrapezoid::probabilityDensity(double x) const final
+
+Returns the distribution-specific probability density for value x. 
+";
+
+%feature("docstring")  DistributionTrapezoid::getMean "double DistributionTrapezoid::getMean() const final
+
+Returns the distribution-specific mean. 
+";
+
+%feature("docstring")  DistributionTrapezoid::getLeftWidth "double DistributionTrapezoid::getLeftWidth() const 
+";
+
+%feature("docstring")  DistributionTrapezoid::getMiddleWidth "double DistributionTrapezoid::getMiddleWidth() const 
+";
+
+%feature("docstring")  DistributionTrapezoid::getRightWidth "double DistributionTrapezoid::getRightWidth() const 
+";
+
+%feature("docstring")  DistributionTrapezoid::equidistantPoints "std::vector< double > DistributionTrapezoid::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const
+
+generate list of sample values 
+";
+
+%feature("docstring")  DistributionTrapezoid::isDelta "bool DistributionTrapezoid::isDelta() const final
+
+Returns true if the distribution is in the limit case of a Dirac delta distribution. 
+";
+
+%feature("docstring")  DistributionTrapezoid::accept "void DistributionTrapezoid::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
 // File: classExceptions_1_1DivisionByZeroException.xml
 %feature("docstring") Exceptions::DivisionByZeroException "";
 
@@ -1543,18 +1610,18 @@ Write a Python script that allows to run the current simulation.
 C++ includes: ExportToPython.h
 ";
 
-%feature("docstring")  ExportToPython::ExportToPython "ExportToPython::ExportToPython(const MultiLayer &multilayer)
+%feature("docstring")  ExportToPython::ExportToPython "ExportToPython::ExportToPython()
 ";
 
 %feature("docstring")  ExportToPython::~ExportToPython "ExportToPython::~ExportToPython()
 ";
 
-%feature("docstring")  ExportToPython::simulationToPythonLowlevel "std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation *simulation)
-
-Returns a Python script that sets up a simulation and runs it if invoked as main program. 
+%feature("docstring")  ExportToPython::generateSampleCode "std::string ExportToPython::generateSampleCode(const MultiLayer &multilayer)
 ";
 
-%feature("docstring")  ExportToPython::defineGetSample "std::string ExportToPython::defineGetSample() const 
+%feature("docstring")  ExportToPython::generateSimulationCode "std::string ExportToPython::generateSimulationCode(const GISASSimulation &simulation, EMainType mainType)
+
+Returns a Python script that sets up a simulation and runs it if invoked as main program. 
 ";
 
 
@@ -1693,6 +1760,9 @@ Updates ChiSquared map from external vector and returns const reference to it. U
 %feature("docstring")  FitObject::getChildren "std::vector< const INode * > FitObject::getChildren() const
 
 Returns a vector of children (const). 
+";
+
+%feature("docstring")  FitObject::getDefaultAxisUnits "std::string FitObject::getDefaultAxisUnits() const 
 ";
 
 
@@ -1990,7 +2060,7 @@ Print every n'th iteration
 main method to run the fitting 
 ";
 
-%feature("docstring")  FitSuite::numberOfFitObjects "int FitSuite::numberOfFitObjects() const
+%feature("docstring")  FitSuite::numberOfFitObjects "size_t FitSuite::numberOfFitObjects() const
 
 Returns number of fit objects, where fit object stands for (real, simulated) pair. 
 ";
@@ -2401,6 +2471,9 @@ clear all data
 Returns a vector of children (const). 
 ";
 
+%feature("docstring")  FitSuiteObjects::getDefaultAxesUnits "std::string FitSuiteObjects::getDefaultAxesUnits(size_t i_item=0) const 
+";
+
 
 // File: classFitSuitePrintObserver.xml
 %feature("docstring") FitSuitePrintObserver "
@@ -2554,17 +2627,19 @@ C++ includes: FormFactorAnisoPyramid.h
 
 %feature("docstring")  FormFactorAnisoPyramid::FormFactorAnisoPyramid "FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height, double alpha)
 
+Constructor of a truncated pyramid with a rectangular base.
+
 Parameters:
 -----------
 
 length: 
-of one side of the rectangular base
+length of the rectangular base in nm
 
 width: 
-of other side of the rectangular base
+width of the rectangular base in nm
 
 height: 
-of frustum
+height of pyramid in nm
 
 alpha: 
 dihedral angle in radians between base and facet 
@@ -2603,17 +2678,19 @@ C++ includes: FormFactorBox.h
 
 %feature("docstring")  FormFactorBox::FormFactorBox "FormFactorBox::FormFactorBox(double length, double width, double height)
 
+Constructor of a rectangular cuboid.
+
 Parameters:
 -----------
 
 length: 
-of rectangular base
+length of the base in nanometers
 
 width: 
-of rectangular base
+width of the base in nanometers
 
 height: 
-of prism 
+height of the box in nanometers 
 ";
 
 %feature("docstring")  FormFactorBox::clone "FormFactorBox* FormFactorBox::clone() const overridefinal
@@ -2725,17 +2802,19 @@ C++ includes: FormFactorCone.h
 
 %feature("docstring")  FormFactorCone::FormFactorCone "FormFactorCone::FormFactorCone(double radius, double height, double alpha)
 
+Constructor of a truncated cone with circular base.
+
 Parameters:
 -----------
 
 radius: 
-of circular base
+radius of the base in nanometers
 
 height: 
-of frustum
+height of the cone in nanometers
 
 alpha: 
-angle in radians between base and lateral surface 
+angle between the base and the side surface in radians 
 ";
 
 %feature("docstring")  FormFactorCone::clone "FormFactorCone* FormFactorCone::clone() const overridefinal
@@ -2778,14 +2857,16 @@ C++ includes: FormFactorCone6.h
 
 %feature("docstring")  FormFactorCone6::FormFactorCone6 "FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
 
+Constructor of a truncated pyramid, based on a regular hexagon
+
 Parameters:
 -----------
 
 base_edge: 
-of hexagonal base
+Edge of the regular hexagonal base in nanometers
 
 height: 
-of frustum
+height of a truncated pyramid in nanometers
 
 alpha: 
 dihedral angle in radians between base and facet 
@@ -2938,17 +3019,19 @@ C++ includes: FormFactorCuboctahedron.h
 
 %feature("docstring")  FormFactorCuboctahedron::FormFactorCuboctahedron "FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha)
 
+Constructor of cuboctahedron (compound of two truncated pyramids with a common square base and opposite orientations).
+
 Parameters:
 -----------
 
 length: 
-of one side of the square base
+side length of the common square base in nanometers
 
 height: 
-of bottom frustum
+height of the lower pyramid in nanometers
 
 height_ratio: 
-ratio of heights of top to bottom frustum
+ratio of heights of top to bottom pyramids
 
 alpha: 
 dihedral angle in radians between base and facet 
@@ -2986,6 +3069,17 @@ C++ includes: FormFactorCylinder.h
 ";
 
 %feature("docstring")  FormFactorCylinder::FormFactorCylinder "FormFactorCylinder::FormFactorCylinder(double radius, double height)
+
+Constructor of a cylinder with a circular base.
+
+Parameters:
+-----------
+
+radius: 
+radius of the circular base in nanometers
+
+height: 
+height of the cylinder in nanometers 
 ";
 
 %feature("docstring")  FormFactorCylinder::clone "FormFactorCylinder* FormFactorCylinder::clone() const overridefinal
@@ -3204,7 +3298,15 @@ Parameters:
 -----------
 
 edge: 
-length 
+length
+
+Constructor of a dodecahedron.
+
+Parameters:
+-----------
+
+edge: 
+length of the edge in nanometers 
 ";
 
 %feature("docstring")  FormFactorDodecahedron::clone "FormFactorDodecahedron* FormFactorDodecahedron::clone() const overridefinal
@@ -3218,6 +3320,38 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  FormFactorDodecahedron::getEdge "double FormFactorDodecahedron::getEdge() const 
+";
+
+
+// File: classFormFactorDot.xml
+%feature("docstring") FormFactorDot "
+
+A dot, with trivial formfactor F(q)=1.
+
+C++ includes: FormFactorDot.h
+";
+
+%feature("docstring")  FormFactorDot::FormFactorDot "FormFactorDot::FormFactorDot()
+";
+
+%feature("docstring")  FormFactorDot::clone "FormFactorDot* FormFactorDot::clone() const overridefinal
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorDot::accept "void FormFactorDot::accept(INodeVisitor *visitor) const overridefinal
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorDot::radialExtension "double FormFactorDot::radialExtension() const overridefinal
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorDot::evaluate_for_q "complex_t FormFactorDot::evaluate_for_q(cvector_t) const overridefinal
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -3356,16 +3490,19 @@ C++ includes: FormFactorEllipsoidalCylinder.h
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder "FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height)
 
+Constructor of a cylinder with an ellipse cross section.
+
 Parameters:
 -----------
 
 radius_x: 
-half length of one horizontal main axes
+radius of the ellipse base in the x-direction, in nanometers
 
 radius_y: 
-half length of the other horizontal main axes
+radius of the ellipse base in the y-direction, in nanometers
 
 height: 
+height of the ellipsoidal cylinder in nanometers 
 ";
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::clone "FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const overridefinal
@@ -3407,6 +3544,14 @@ C++ includes: FormFactorFullSphere.h
 ";
 
 %feature("docstring")  FormFactorFullSphere::FormFactorFullSphere "FormFactorFullSphere::FormFactorFullSphere(double radius)
+
+Constructor of a full sphere.
+
+Parameters:
+-----------
+
+radius: 
+radius of the sphere in nanometers 
 ";
 
 %feature("docstring")  FormFactorFullSphere::clone "FormFactorFullSphere* FormFactorFullSphere::clone() const overridefinal
@@ -3453,14 +3598,16 @@ C++ includes: FormFactorFullSpheroid.h
 
 %feature("docstring")  FormFactorFullSpheroid::FormFactorFullSpheroid "FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
 
+Constructor of full spheroid.
+
 Parameters:
 -----------
 
 radius: 
-of the two equal axes
+radius of the circular cross section in nanometers
 
 height: 
-total height of the spheroid, i.e. twice the radius of the third axis 
+height of the full spheroid in nanometers 
 ";
 
 %feature("docstring")  FormFactorFullSpheroid::clone "FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const overridefinal
@@ -3541,17 +3688,19 @@ C++ includes: FormFactorHemiEllipsoid.h
 
 %feature("docstring")  FormFactorHemiEllipsoid::FormFactorHemiEllipsoid "FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
 
+Constructor of horizontally oriented ellipsoid, truncated at the central plane.
+
 Parameters:
 -----------
 
 radius_x: 
-half length of one horizontal main axes
+radius of the ellipse base in the x-direction, in nanometers
 
 radius_y: 
-half length of the other horizontal main axes
+radius of the ellipse base in the y-direction, in nanometers
 
 height: 
-of the hemi ellipsoid 
+height of the hemi ellipsoid in nanometers 
 ";
 
 %feature("docstring")  FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid "virtual FormFactorHemiEllipsoid::~FormFactorHemiEllipsoid()
@@ -3596,6 +3745,14 @@ C++ includes: FormFactorIcosahedron.h
 ";
 
 %feature("docstring")  FormFactorIcosahedron::FormFactorIcosahedron "FormFactorIcosahedron::FormFactorIcosahedron(double edge)
+
+Constructor of a icosahedron.
+
+Parameters:
+-----------
+
+edge: 
+length of the edge in nanometers 
 ";
 
 %feature("docstring")  FormFactorIcosahedron::clone "FormFactorIcosahedron* FormFactorIcosahedron::clone() const overridefinal
@@ -4096,6 +4253,17 @@ C++ includes: FormFactorPrism3.h
 ";
 
 %feature("docstring")  FormFactorPrism3::FormFactorPrism3 "FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
+
+Constructor of a prism with an equilaterial triangle base.
+
+Parameters:
+-----------
+
+base_edge: 
+length of the base edge in nanometers
+
+height: 
+height in nanometers 
 ";
 
 %feature("docstring")  FormFactorPrism3::clone "FormFactorPrism3* FormFactorPrism3::clone() const overridefinal
@@ -4121,6 +4289,17 @@ C++ includes: FormFactorPrism6.h
 ";
 
 %feature("docstring")  FormFactorPrism6::FormFactorPrism6 "FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
+
+Constructor of a prism with a regular hexagonal base.
+
+Parameters:
+-----------
+
+base_edge: 
+length of the hexagonal base in nanometers
+
+height: 
+height in nanometers 
 ";
 
 %feature("docstring")  FormFactorPrism6::clone "FormFactorPrism6* FormFactorPrism6::clone() const overridefinal
@@ -4147,17 +4326,19 @@ C++ includes: FormFactorPyramid.h
 
 %feature("docstring")  FormFactorPyramid::FormFactorPyramid "FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
 
+Constructor of a truncated pyramid with a square base
+
 Parameters:
 -----------
 
 base_edge: 
-of one side of the square base
+length of the square base in nanometers
 
 height: 
-of the frustum
+height of the pyramid in nanometers
 
 alpha: 
-dihedral angle in radians between base and facet 
+dihedral angle between the base and a side face in radians 
 ";
 
 %feature("docstring")  FormFactorPyramid::clone "FormFactorPyramid* FormFactorPyramid::clone() const overridefinal
@@ -4190,19 +4371,19 @@ C++ includes: FormFactorRipple1.h
 
 %feature("docstring")  FormFactorRipple1::FormFactorRipple1 "FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
 
-Ripple1 constructor.
+Constructor of cosine ripple.
 
 Parameters:
 -----------
 
 length: 
-of Ripple1
+length of the rectangular base in nanometers
 
 width: 
-of cosine cross section
+width of the rectangular base in nanometers
 
 height: 
-of cosine cross section 
+height of the ripple in nanometers 
 ";
 
 %feature("docstring")  FormFactorRipple1::clone "FormFactorRipple1* FormFactorRipple1::clone() const overridefinal
@@ -4245,22 +4426,22 @@ C++ includes: FormFactorRipple2.h
 
 %feature("docstring")  FormFactorRipple2::FormFactorRipple2 "FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymmetry)
 
-Ripple2 constructor.
+Constructor of a triangular ripple.
 
 Parameters:
 -----------
 
 length: 
-of Ripple2
+length of the rectangular base in nanometers
 
 width: 
-of triangular cross section
+width of the rectangular base in nanometers
 
 height: 
-of triangular cross section
+height of the ripple in nanometers
 
 asymmetry: 
-length of triangular cross section 
+asymmetry length of the triangular profile in nanometers 
 ";
 
 %feature("docstring")  FormFactorRipple2::clone "FormFactorRipple2* FormFactorRipple2::clone() const overridefinal
@@ -4402,14 +4583,16 @@ C++ includes: FormFactorTetrahedron.h
 
 %feature("docstring")  FormFactorTetrahedron::FormFactorTetrahedron "FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
 
+Constructor of a truncated tethrahedron.
+
 Parameters:
 -----------
 
 base_edge: 
-of a side of the base
+length of one edge of the equilateral triangular base in nanometers
 
 height: 
-of the frustum
+height of the tetrahedron in nanometers
 
 alpha: 
 dihedral angle in radians between base and facet 
@@ -4460,38 +4643,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classFormFactorTrivial.xml
-%feature("docstring") FormFactorTrivial "
-
-A dot, with trivial formfactor F(q)=1.
-
-C++ includes: FormFactorTrivial.h
-";
-
-%feature("docstring")  FormFactorTrivial::FormFactorTrivial "FormFactorTrivial::FormFactorTrivial()
-";
-
-%feature("docstring")  FormFactorTrivial::clone "FormFactorTrivial* FormFactorTrivial::clone() const overridefinal
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorTrivial::accept "void FormFactorTrivial::accept(INodeVisitor *visitor) const overridefinal
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorTrivial::radialExtension "double FormFactorTrivial::radialExtension() const overridefinal
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorTrivial::evaluate_for_q "complex_t FormFactorTrivial::evaluate_for_q(cvector_t) const overridefinal
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
 // File: classFormFactorTruncatedCube.xml
 %feature("docstring") FormFactorTruncatedCube "
 
@@ -4502,14 +4653,16 @@ C++ includes: FormFactorTruncatedCube.h
 
 %feature("docstring")  FormFactorTruncatedCube::FormFactorTruncatedCube "FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
 
+Constructor of a truncated cube.
+
 Parameters:
 -----------
 
 length: 
-of the full cube
+length of the full cube's edge in nanometers
 
 removed_length: 
-as removed from each edge of the cube 
+removed length from each edge of the cube in nanometers 
 ";
 
 %feature("docstring")  FormFactorTruncatedCube::clone "FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const overridefinal
@@ -4538,6 +4691,20 @@ C++ includes: FormFactorTruncatedSphere.h
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::FormFactorTruncatedSphere "FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh=0.0)
+
+Constructor of a spherical dome.
+
+Parameters:
+-----------
+
+radius: 
+radius of the truncated sphere in nanometers
+
+height: 
+height of the truncated sphere in nanometers
+
+dh: 
+length of cup truncated from the top 
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::clone "FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const overridefinal
@@ -4554,6 +4721,9 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::getRadius "double FormFactorTruncatedSphere::getRadius() const 
+";
+
+%feature("docstring")  FormFactorTruncatedSphere::getRemovedTop "double FormFactorTruncatedSphere::getRemovedTop() const 
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::radialExtension "double FormFactorTruncatedSphere::radialExtension() const overridefinal
@@ -4576,6 +4746,23 @@ C++ includes: FormFactorTruncatedSpheroid.h
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid "FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh=0.0)
+
+Constructor of a spheroidal dome.
+
+Parameters:
+-----------
+
+radius: 
+radius of the truncated spheroid in nanometers
+
+height: 
+height of the truncated spheroid in nanometers
+
+height_flattening: 
+ratio of the height of the corresponding full spheroid to its diameter
+
+dh: 
+length of cup truncated from the top 
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::clone "FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const overridefinal
@@ -4595,6 +4782,9 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::getHeightFlattening "double FormFactorTruncatedSpheroid::getHeightFlattening() const 
+";
+
+%feature("docstring")  FormFactorTruncatedSpheroid::getRemovedTop "double FormFactorTruncatedSpheroid::getRemovedTop() const 
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::radialExtension "double FormFactorTruncatedSpheroid::radialExtension() const overridefinal
@@ -5331,7 +5521,16 @@ Resets region of interest making whole detector plane available for the simulati
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  HexagonalLattice::length2 "double HexagonalLattice::length2() const 
+%feature("docstring")  HexagonalLattice::length1 "virtual double HexagonalLattice::length1() const 
+";
+
+%feature("docstring")  HexagonalLattice::length2 "virtual double HexagonalLattice::length2() const 
+";
+
+%feature("docstring")  HexagonalLattice::latticeAngle "double HexagonalLattice::latticeAngle() const 
+";
+
+%feature("docstring")  HexagonalLattice::unitCellArea "double HexagonalLattice::unitCellArea() const 
 ";
 
 
@@ -5738,6 +5937,14 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  IAbstractParticle::setAbundance "void IAbstractParticle::setAbundance(double abundance)
+
+Sets particle abundance.
+
+Parameters:
+-----------
+
+abundance: 
+proportion of this type of particles normalized to the total number of particles in the layout. 
 ";
 
 %feature("docstring")  IAbstractParticle::translateZ "virtual void IAbstractParticle::translateZ(double offset)=0
@@ -6552,6 +6759,11 @@ Retrieves the amplitude coefficients for an incoming wavevector.
 Sets the multilayer to be used for the Fresnel calculations. 
 ";
 
+%feature("docstring")  IFresnelMap::disableCaching "void IFresnelMap::disableCaching()
+
+Disables caching of previously computed Fresnel coefficients. 
+";
+
 
 // File: classIFTDecayFunction1D.xml
 %feature("docstring") IFTDecayFunction1D "
@@ -6837,12 +7049,12 @@ Value on y-axis (for 2D histograms)
 Closest global bin index 
 ";
 
-%feature("docstring")  IHistogram::getXaxisIndex "int IHistogram::getXaxisIndex(size_t i) const
+%feature("docstring")  IHistogram::getXaxisIndex "size_t IHistogram::getXaxisIndex(size_t i) const
 
 Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide with globalbin value. 
 ";
 
-%feature("docstring")  IHistogram::getYaxisIndex "int IHistogram::getYaxisIndex(size_t i) const
+%feature("docstring")  IHistogram::getYaxisIndex "size_t IHistogram::getYaxisIndex(size_t i) const
 
 Returns y-axis bin index for given globalbin (for 2D histograms). 
 ";
@@ -7013,6 +7225,14 @@ Saves histogram in file Following formats are available: *.txt, *.tif, *.int (*.
 %feature("docstring")  IHistogram::load "void IHistogram::load(const std::string &filename)
 
 Loads histogram from file, the shape of array in file should match Following formats are available: *.txt, *.tif, *.int (*.txt.gz, *.tif.gz, *.int.gz) Only bin content will be loaded, histogram axes remain the same. 
+";
+
+%feature("docstring")  IHistogram::setAxesUnits "void IHistogram::setAxesUnits(const std::string &name)
+
+Sets axes units. 
+";
+
+%feature("docstring")  IHistogram::axesUnits "std::string IHistogram::axesUnits() const 
 ";
 
 
@@ -7268,14 +7488,6 @@ C++ includes: IMultiLayerBuilder.h
 %feature("docstring")  IMultiLayerBuilder::IMultiLayerBuilder "IMultiLayerBuilder::IMultiLayerBuilder()
 ";
 
-%feature("docstring")  IMultiLayerBuilder::~IMultiLayerBuilder "virtual IMultiLayerBuilder::~IMultiLayerBuilder()
-";
-
-%feature("docstring")  IMultiLayerBuilder::accept "void IMultiLayerBuilder::accept(INodeVisitor *visitor) const
-
-Calls the  INodeVisitor's visit method. 
-";
-
 %feature("docstring")  IMultiLayerBuilder::buildSample "virtual MultiLayer* IMultiLayerBuilder::buildSample() const =0
 ";
 
@@ -7286,11 +7498,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  IMultiLayerBuilder::getFTDistribution2D "const IFTDistribution2D * IMultiLayerBuilder::getFTDistribution2D() const 
-";
-
-%feature("docstring")  IMultiLayerBuilder::getChildren "std::vector<const INode*> IMultiLayerBuilder::getChildren() const
-
-Returns a vector of children (const). 
 ";
 
 %feature("docstring")  IMultiLayerBuilder::onChange "virtual void IMultiLayerBuilder::onChange()
@@ -7377,7 +7584,7 @@ Returns multiline string representing tree structure below the node.
 Returns a vector of children (const). 
 ";
 
-%feature("docstring")  INode::setParent "void INode::setParent(const INode *parent)
+%feature("docstring")  INode::setParent "void INode::setParent(const INode *newParent)
 ";
 
 %feature("docstring")  INode::parent "const INode * INode::parent() const 
@@ -7443,6 +7650,9 @@ C++ includes: INodeVisitor.h
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionLorentz *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionTrapezoid *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FitObject *)
@@ -7547,7 +7757,7 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorTetrahedron *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorTrivial *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDot *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorTruncatedCube *)
@@ -7882,6 +8092,11 @@ apply the detector resolution to the given intensity map
 Returns new intensity map with detector resolution applied and axes in requested units. 
 ";
 
+%feature("docstring")  Instrument::createIntensityData "Histogram2D * Instrument::createIntensityData(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+
+Returns histogram representing intensity map in requested axes units. 
+";
+
 %feature("docstring")  Instrument::createDetectorMap "OutputData< double > * Instrument::createDetectorMap(IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const
 
 Returns empty detector map in given axes units. 
@@ -8211,6 +8426,12 @@ two-dimensional decay function in reciprocal space
 %feature("docstring")  InterferenceFunction2DLattice::evaluate "double InterferenceFunction2DLattice::evaluate(const kvector_t q) const final
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+";
+
+%feature("docstring")  InterferenceFunction2DLattice::setIntegrationOverXi "void InterferenceFunction2DLattice::setIntegrationOverXi(bool integrate_xi)
+";
+
+%feature("docstring")  InterferenceFunction2DLattice::integrationOverXi "bool InterferenceFunction2DLattice::integrationOverXi() const 
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::lattice "const Lattice2D & InterferenceFunction2DLattice::lattice() const 
@@ -8679,12 +8900,30 @@ Returns particle position.
 
 %feature("docstring")  IParticle::setPosition "void IParticle::setPosition(kvector_t position)
 
-Sets particle position. 
+Sets relative position of the particle's reference point in the coordinate system of parent.
+
+Parameters:
+-----------
+
+position: 
+relative position vector (components are in nanometers) 
 ";
 
 %feature("docstring")  IParticle::setPosition "void IParticle::setPosition(double x, double y, double z)
 
-Sets particle position. 
+Sets relative position of the particle's reference point in the coordinate system of parent.
+
+Parameters:
+-----------
+
+x: 
+x-coordinate in nanometers
+
+y: 
+y-coordinate in nanometers
+
+z: 
+z-coordinate in nanometers 
 ";
 
 %feature("docstring")  IParticle::applyTranslation "void IParticle::applyTranslation(kvector_t displacement)
@@ -9196,25 +9435,25 @@ xi:
 // File: classLattice2D.xml
 %feature("docstring") Lattice2D "";
 
-%feature("docstring")  Lattice2D::Lattice2D "Lattice2D::Lattice2D(double length1, double length2, double angle, double rotation_angle=0.0)
+%feature("docstring")  Lattice2D::Lattice2D "Lattice2D::Lattice2D(double rotation_angle=0.0)
 ";
 
 %feature("docstring")  Lattice2D::clone "Lattice2D* Lattice2D::clone() const =0
 ";
 
-%feature("docstring")  Lattice2D::length1 "double Lattice2D::length1() const 
+%feature("docstring")  Lattice2D::length1 "virtual double Lattice2D::length1() const =0
 ";
 
-%feature("docstring")  Lattice2D::length2 "virtual double Lattice2D::length2() const 
+%feature("docstring")  Lattice2D::length2 "virtual double Lattice2D::length2() const =0
 ";
 
-%feature("docstring")  Lattice2D::latticeAngle "double Lattice2D::latticeAngle() const 
+%feature("docstring")  Lattice2D::latticeAngle "virtual double Lattice2D::latticeAngle() const =0
+";
+
+%feature("docstring")  Lattice2D::unitCellArea "virtual double Lattice2D::unitCellArea() const =0
 ";
 
 %feature("docstring")  Lattice2D::rotationAngle "double Lattice2D::rotationAngle() const 
-";
-
-%feature("docstring")  Lattice2D::unitCellArea "double Lattice2D::unitCellArea() const 
 ";
 
 %feature("docstring")  Lattice2D::reciprocalBases "Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const 
@@ -9233,6 +9472,17 @@ C++ includes: Layer.h
 ";
 
 %feature("docstring")  Layer::Layer "Layer::Layer(HomogeneousMaterial material, double thickness=0)
+
+Constructor of a layer with thickness and material
+
+Parameters:
+-----------
+
+material: 
+material the layer is made of
+
+thickness: 
+thickness of a layer in nanometers 
 ";
 
 %feature("docstring")  Layer::~Layer "Layer::~Layer()
@@ -9387,7 +9637,7 @@ Returns a vector of children (const).
 // File: classLayerRoughness.xml
 %feature("docstring") LayerRoughness "
 
-A Roughness of interface between two layers.
+A roughness of interface between two layers.
 
 Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 \"X-ray reflection and transmission by rough surfaces\"
 
@@ -9398,6 +9648,20 @@ C++ includes: LayerRoughness.h
 ";
 
 %feature("docstring")  LayerRoughness::LayerRoughness "LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)
+
+Constructor of layer roughness.
+
+Parameters:
+-----------
+
+sigma: 
+rms of the roughness in nanometers
+
+hurstParameter: 
+hurst parameter which describes how jagged the interface, dimensionless [0.0, 1.0], where 0.0 gives more spikes, 1.0 more smoothness
+
+lateralCorrLength: 
+lateral correlation length of the roughness in nanometers 
 ";
 
 %feature("docstring")  LayerRoughness::clone "LayerRoughness* LayerRoughness::clone() const
@@ -9821,7 +10085,7 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  MultiLayer::numberOfInterfaces "size_t MultiLayer::numberOfInterfaces() const 
 ";
 
-%feature("docstring")  MultiLayer::addLayer "void MultiLayer::addLayer(const Layer &p_child)
+%feature("docstring")  MultiLayer::addLayer "void MultiLayer::addLayer(const Layer &layer)
 
 Adds object to multilayer.
 
@@ -10022,7 +10286,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  NodeIterator::isDone "bool NodeIterator< Strategy >::isDone() const 
 ";
 
-%feature("docstring")  NodeIterator::depth "size_t NodeIterator< Strategy >::depth() const 
+%feature("docstring")  NodeIterator::depth "int NodeIterator< Strategy >::depth() const 
 ";
 
 
@@ -10271,7 +10535,7 @@ The global index of this data structure.
 Vector of bin indices for all axes defined 
 ";
 
-%feature("docstring")  OutputData::getAxisBinIndex "int OutputData< T >::getAxisBinIndex(size_t global_index, size_t i_selected_axis) const
+%feature("docstring")  OutputData::getAxisBinIndex "size_t OutputData< T >::getAxisBinIndex(size_t global_index, size_t i_selected_axis) const
 
 Returns axis bin index for given global index
 
@@ -10287,7 +10551,7 @@ Serial number of selected axis.
 Corresponding bin index for selected axis 
 ";
 
-%feature("docstring")  OutputData::getAxisBinIndex "int OutputData< T >::getAxisBinIndex(size_t global_index, const std::string &axis_name) const
+%feature("docstring")  OutputData::getAxisBinIndex "size_t OutputData< T >::getAxisBinIndex(size_t global_index, const std::string &axis_name) const
 
 Returns axis bin index for given global index
 
@@ -10303,7 +10567,7 @@ The name of selected axis.
 Corresponding bin index for selected axis 
 ";
 
-%feature("docstring")  OutputData::toGlobalIndex "size_t OutputData< T >::toGlobalIndex(const std::vector< int > &axes_indices) const
+%feature("docstring")  OutputData::toGlobalIndex "size_t OutputData< T >::toGlobalIndex(const std::vector< unsigned > &axes_indices) const
 
 Returns global index for specified indices of axes
 
@@ -10729,7 +10993,7 @@ Constructs an empty parameter pool.
 Returns a literal clone. 
 ";
 
-%feature("docstring")  ParameterPool::copyToExternalPool "void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
+%feature("docstring")  ParameterPool::copyToExternalPool "void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *other_pool) const
 
 Copies parameters of given pool to  other pool, prepeding  prefix to the parameter names. 
 ";
@@ -10744,7 +11008,7 @@ Clears the parameter map.
 Returns number of parameters in the pool. 
 ";
 
-%feature("docstring")  ParameterPool::addParameter "RealParameter & ParameterPool::addParameter(RealParameter *par)
+%feature("docstring")  ParameterPool::addParameter "RealParameter & ParameterPool::addParameter(RealParameter *newPar)
 
 Adds parameter to the pool, and returns reference to the input pointer.
 
@@ -10766,7 +11030,7 @@ Returns parameter with given  name.
 Returns full vector of parameters. 
 ";
 
-%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &wildcards) const
+%feature("docstring")  ParameterPool::getMatchedParameters "std::vector< RealParameter * > ParameterPool::getMatchedParameters(const std::string &pattern) const
 
 Returns nonempty vector of parameters that match the  pattern ('*' allowed), or throws. 
 ";
@@ -11187,7 +11451,7 @@ Returns surface density of all particles.
 
 %feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) finaloverride
 
-Sets surface density of all particles. 
+Sets total particle surface density.  particle_density: number of particles per square nanometer 
 ";
 
 %feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const finaloverride
@@ -11530,7 +11794,7 @@ Sets value of wrapped parameter and emit signal.
 Returns value of wrapped parameter. 
 ";
 
-%feature("docstring")  RealParameter::setLimits "RealParameter& RealParameter::setLimits(const RealLimits &limits)
+%feature("docstring")  RealParameter::setLimits "RealParameter & RealParameter::setLimits(const RealLimits &limits)
 ";
 
 %feature("docstring")  RealParameter::limits "RealLimits RealParameter::limits() const 
@@ -11545,7 +11809,7 @@ Returns value of wrapped parameter.
 %feature("docstring")  RealParameter::setNonnegative "RealParameter & RealParameter::setNonnegative()
 ";
 
-%feature("docstring")  RealParameter::setUnit "RealParameter& RealParameter::setUnit(const std::string &name)
+%feature("docstring")  RealParameter::setUnit "RealParameter & RealParameter::setUnit(const std::string &name)
 ";
 
 %feature("docstring")  RealParameter::unit "std::string RealParameter::unit() const 
@@ -11932,6 +12196,20 @@ C++ includes: TwoDimLatticeBuilder.h
 %feature("docstring") RotationEuler "";
 
 %feature("docstring")  RotationEuler::RotationEuler "RotationEuler::RotationEuler(double alpha, double beta, double gamma)
+
+Constructor of Euler rotation (sequence of three rotations following Euler angles notation z-x'-z').
+
+Parameters:
+-----------
+
+alpha: 
+first Euler angle in radians
+
+beta: 
+second Euler angle in radians
+
+gamma: 
+third Euler angle in radians 
 ";
 
 %feature("docstring")  RotationEuler::clone "RotationEuler* RotationEuler::clone() const
@@ -11968,6 +12246,14 @@ Returns transformation.
 %feature("docstring") RotationX "";
 
 %feature("docstring")  RotationX::RotationX "RotationX::RotationX(double angle)
+
+Constructor of rotation around x-axis
+
+Parameters:
+-----------
+
+angle: 
+rotation angle around x-axis in radians 
 ";
 
 %feature("docstring")  RotationX::clone "RotationX* RotationX::clone() const
@@ -11998,6 +12284,14 @@ Returns transformation.
 %feature("docstring") RotationY "";
 
 %feature("docstring")  RotationY::RotationY "RotationY::RotationY(double angle)
+
+Constructor of rotation around y-axis
+
+Parameters:
+-----------
+
+angle: 
+rotation angle around y-axis in radians 
 ";
 
 %feature("docstring")  RotationY::clone "RotationY* RotationY::clone() const
@@ -12028,6 +12322,14 @@ Returns transformation.
 %feature("docstring") RotationZ "";
 
 %feature("docstring")  RotationZ::RotationZ "RotationZ::RotationZ(double angle=0.0)
+
+Constructor of rotation around z-axis
+
+Parameters:
+-----------
+
+angle: 
+rotation angle around z-axis in radians 
 ";
 
 %feature("docstring")  RotationZ::clone "RotationZ* RotationZ::clone() const
@@ -12097,7 +12399,7 @@ C++ includes: SafePointerVector.h
 %feature("docstring")  SafePointerVector::SafePointerVector "SafePointerVector< T >::SafePointerVector(const SafePointerVector &other)
 ";
 
-%feature("docstring")  SafePointerVector::~SafePointerVector "virtual SafePointerVector< T >::~SafePointerVector()
+%feature("docstring")  SafePointerVector::~SafePointerVector "SafePointerVector< T >::~SafePointerVector()
 ";
 
 %feature("docstring")  SafePointerVector::size "size_t SafePointerVector< T >::size() const 
@@ -12148,6 +12450,46 @@ C++ includes: SampleBuilderFactory.h
 %feature("docstring")  SampleBuilderFactory::createSample "MultiLayer * SampleBuilderFactory::createSample(const std::string &name)
 
 Retrieves a SampleBuilder from the registry, does the build, and returns the result. 
+";
+
+
+// File: classSampleBuilderNode.xml
+%feature("docstring") SampleBuilderNode "
+
+Enfolds MultiLayerBuilder to have it in  INode tree.
+
+C++ includes: SampleBuilderNode.h
+";
+
+%feature("docstring")  SampleBuilderNode::SampleBuilderNode "SampleBuilderNode::SampleBuilderNode()
+";
+
+%feature("docstring")  SampleBuilderNode::SampleBuilderNode "SampleBuilderNode::SampleBuilderNode(const SampleBuilderNode &other)
+";
+
+%feature("docstring")  SampleBuilderNode::setSampleBuilder "void SampleBuilderNode::setSampleBuilder(builder_t sample_builder)
+
+Sets sample builder and borrows its parameters. 
+";
+
+%feature("docstring")  SampleBuilderNode::reset "void SampleBuilderNode::reset()
+
+Resets to initial state by removing builder and its borrowed parameters. 
+";
+
+%feature("docstring")  SampleBuilderNode::accept "void SampleBuilderNode::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  SampleBuilderNode::createMultiLayer "std::unique_ptr< MultiLayer > SampleBuilderNode::createMultiLayer()
+
+Creates a multilayer using sample builder. 
+";
+
+%feature("docstring")  SampleBuilderNode::builder "SampleBuilderNode::builder_t SampleBuilderNode::builder() const
+
+Returns current sample builder. 
 ";
 
 
@@ -12268,6 +12610,53 @@ C++ includes: SampleLabelHandler.h
 ";
 
 %feature("docstring")  SampleLabelHandler::insertParticleDistribution "void SampleLabelHandler::insertParticleDistribution(const ParticleDistribution *sample)
+";
+
+
+// File: classSampleProvider.xml
+%feature("docstring") SampleProvider "
+
+Gives access to the sample to simulate. Sample can come either directly from the user or from SampleBuilder.
+
+C++ includes: SampleProvider.h
+";
+
+%feature("docstring")  SampleProvider::SampleProvider "SampleProvider::SampleProvider()
+";
+
+%feature("docstring")  SampleProvider::SampleProvider "SampleProvider::SampleProvider(const SampleProvider &other)
+";
+
+%feature("docstring")  SampleProvider::~SampleProvider "SampleProvider::~SampleProvider()
+";
+
+%feature("docstring")  SampleProvider::setSample "void SampleProvider::setSample(const MultiLayer &multilayer)
+";
+
+%feature("docstring")  SampleProvider::setSampleBuilder "void SampleProvider::setSampleBuilder(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
+";
+
+%feature("docstring")  SampleProvider::sample "const MultiLayer * SampleProvider::sample() const
+
+Returns current sample. 
+";
+
+%feature("docstring")  SampleProvider::updateSample "void SampleProvider::updateSample()
+
+Generates new sample if sample builder defined. 
+";
+
+%feature("docstring")  SampleProvider::getChildren "std::vector< const INode * > SampleProvider::getChildren() const override
+
+Returns a vector of children (const). 
+";
+
+%feature("docstring")  SampleProvider::accept "void SampleProvider::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  SampleProvider::setParent "void SampleProvider::setParent(const INode *newParent) override
 ";
 
 
@@ -12455,13 +12844,10 @@ Sets the polarization analyzer characteristics of the detector.
 The  MultiLayer object will not be owned by the  Simulation object. 
 ";
 
-%feature("docstring")  Simulation::sample "MultiLayer* Simulation::sample() const 
+%feature("docstring")  Simulation::sample "const MultiLayer * Simulation::sample() const 
 ";
 
 %feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
-";
-
-%feature("docstring")  Simulation::sampleBuilder "std::shared_ptr<IMultiLayerBuilder> Simulation::sampleBuilder() const 
 ";
 
 %feature("docstring")  Simulation::numberOfSimulationElements "virtual size_t Simulation::numberOfSimulationElements() const =0
@@ -12560,10 +12946,10 @@ C++ includes: SimulationAreaIterator.h
 %feature("docstring")  SimulationAreaIterator::elementIndex "size_t SimulationAreaIterator::elementIndex() const 
 ";
 
-%feature("docstring")  SimulationAreaIterator::roiIndex "int SimulationAreaIterator::roiIndex() const 
+%feature("docstring")  SimulationAreaIterator::roiIndex "size_t SimulationAreaIterator::roiIndex() const 
 ";
 
-%feature("docstring")  SimulationAreaIterator::detectorIndex "int SimulationAreaIterator::detectorIndex() const 
+%feature("docstring")  SimulationAreaIterator::detectorIndex "size_t SimulationAreaIterator::detectorIndex() const 
 ";
 
 
@@ -13251,7 +13637,16 @@ C++ includes: ISquaredFunction.h
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  SquareLattice::length2 "double SquareLattice::length2() const 
+%feature("docstring")  SquareLattice::length1 "virtual double SquareLattice::length1() const 
+";
+
+%feature("docstring")  SquareLattice::length2 "virtual double SquareLattice::length2() const 
+";
+
+%feature("docstring")  SquareLattice::latticeAngle "double SquareLattice::latticeAngle() const 
+";
+
+%feature("docstring")  SquareLattice::unitCellArea "double SquareLattice::unitCellArea() const 
 ";
 
 
@@ -13741,40 +14136,55 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D144.xml
+// File: namespace_0D146.xml
 
 
 // File: namespace_0D187.xml
 
 
+// File: namespace_0D205.xml
+
+
 // File: namespace_0D22.xml
 
 
-// File: namespace_0D268.xml
+// File: namespace_0D246.xml
 
 
-// File: namespace_0D274.xml
+// File: namespace_0D272.xml
 
 
-// File: namespace_0D289.xml
+// File: namespace_0D278.xml
 
 
-// File: namespace_0D306.xml
+// File: namespace_0D293.xml
 
 
-// File: namespace_0D308.xml
+// File: namespace_0D301.xml
 
 
-// File: namespace_0D329.xml
+// File: namespace_0D307.xml
 
 
-// File: namespace_0D338.xml
+// File: namespace_0D310.xml
 
 
-// File: namespace_0D370.xml
+// File: namespace_0D312.xml
 
 
-// File: namespace_0D480.xml
+// File: namespace_0D333.xml
+
+
+// File: namespace_0D342.xml
+
+
+// File: namespace_0D374.xml
+
+
+// File: namespace_0D381.xml
+
+
+// File: namespace_0D484.xml
 
 
 // File: namespace_0D54.xml
@@ -13784,6 +14194,9 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0D74.xml
+
+
+// File: namespace_0D76.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -13900,6 +14313,16 @@ Returns string representation of axes dimension in the form \"(nx,ny)\".
 %feature("docstring")  DetectorFunctions::createDataSet "std::unique_ptr< OutputData< double > > DetectorFunctions::createDataSet(const Instrument &instrument, const OutputData< double > &data, bool put_masked_areas_to_zero=true, IDetector2D::EAxesUnits units=IDetector2D::DEFAULT)
 
 Creates real data containing original user data clipped to the ROI area of the detector. If put_masked_areas_to_zero==true: resulting data will have 0.0 in all masked areas If put_masked_areas_to_zero==false: resulting data will be only cropped, masked areas will still contain intensities TODO: what users will like more (this appears on FitSuitePlotObserver)? 
+";
+
+%feature("docstring")  DetectorFunctions::detectorUnits "IDetector2D::EAxesUnits DetectorFunctions::detectorUnits(const std::string &unitName)
+
+Translates the name of detector axes units into corresponding enum. 
+";
+
+%feature("docstring")  DetectorFunctions::detectorUnitsName "std::string DetectorFunctions::detectorUnitsName(IDetector2D::EAxesUnits units)
+
+Translate detector axes units enum into string. 
 ";
 
 
@@ -14225,7 +14648,13 @@ Prints  ParameterDistribution. distVarName is a string representing  IDistributi
 ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm)) 
 ";
 
-%feature("docstring")  PythonFormatting::simulationToPython "std::string PythonFormatting::simulationToPython(GISASSimulation *simulation)
+%feature("docstring")  PythonFormatting::generateSampleCode "std::string PythonFormatting::generateSampleCode(const MultiLayer &multilayer)
+";
+
+%feature("docstring")  PythonFormatting::generateSimulationCode "std::string PythonFormatting::generateSimulationCode(const GISASSimulation &simulation)
+";
+
+%feature("docstring")  PythonFormatting::generatePyExportTest "std::string PythonFormatting::generatePyExportTest(const GISASSimulation &simulation)
 ";
 
 
@@ -14753,6 +15182,12 @@ Add element vector to element vector with weight.
 // File: FormFactorDodecahedron_8h.xml
 
 
+// File: FormFactorDot_8cpp.xml
+
+
+// File: FormFactorDot_8h.xml
+
+
 // File: FormFactorEllipsoidalCylinder_8cpp.xml
 
 
@@ -14865,12 +15300,6 @@ Add element vector to element vector with weight.
 
 
 // File: FormFactorTriangle_8h.xml
-
-
-// File: FormFactorTrivial_8cpp.xml
-
-
-// File: FormFactorTrivial_8h.xml
 
 
 // File: FormFactorTruncatedCube_8cpp.xml
@@ -15129,6 +15558,18 @@ make Swappable
 
 
 // File: ResolutionFunction2DGaussian_8h.xml
+
+
+// File: SampleBuilderNode_8cpp.xml
+
+
+// File: SampleBuilderNode_8h.xml
+
+
+// File: SampleProvider_8cpp.xml
+
+
+// File: SampleProvider_8h.xml
 
 
 // File: SimulationArea_8cpp.xml
@@ -15599,17 +16040,11 @@ Global function that creates a  SlicedFormFactorList from an  IParticle in a mul
 
 
 // File: IFormFactor_8cpp.xml
-%feature("docstring")  ShapeIsContainedInLimits "bool ShapeIsContainedInLimits(const IFormFactor &formfactor, ZLimits limits, const IRotation &rot, kvector_t translation)
-";
-
 %feature("docstring")  CreateTransformedFormFactor "IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
 ";
 
 
 // File: IFormFactor_8h.xml
-%feature("docstring")  ShapeIsContainedInLimits "bool ShapeIsContainedInLimits(const IFormFactor &formfactor, ZLimits limits, const IRotation &rot, kvector_t translation)
-";
-
 %feature("docstring")  CreateTransformedFormFactor "IFormFactor* CreateTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
 ";
 

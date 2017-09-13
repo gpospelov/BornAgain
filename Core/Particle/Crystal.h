@@ -45,8 +45,6 @@ public:
 
     Lattice transformedLattice(const IRotation* p_rotation) const;
 
-    const ParticleComposition* latticeBasis() const { return mp_lattice_basis.get(); }
-
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
     std::vector<const INode*> getChildren() const override final;

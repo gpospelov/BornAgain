@@ -7729,16 +7729,6 @@ class Crystal(IClusteredParticles):
         return _libBornAgainCore.Crystal_transformedLattice(self, p_rotation)
 
 
-    def latticeBasis(self):
-        """
-        latticeBasis(Crystal self) -> ParticleComposition
-
-        const ParticleComposition* Crystal::latticeBasis() const 
-
-        """
-        return _libBornAgainCore.Crystal_latticeBasis(self)
-
-
     def setDWFactor(self, dw_factor):
         """
         setDWFactor(Crystal self, double dw_factor)

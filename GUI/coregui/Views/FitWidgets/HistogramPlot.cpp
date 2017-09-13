@@ -17,25 +17,16 @@
 #include "HistogramPlot.h"
 #include "plot_constants.h"
 
-HistogramPlot::HistogramPlot(QWidget *parent)
-    : QWidget(parent)
-    , m_customPlot(new QCustomPlot)
+HistogramPlot::HistogramPlot(QWidget* parent) : QWidget(parent), m_customPlot(new QCustomPlot)
 
 {
-    QVBoxLayout *vlayout = new QVBoxLayout(this);
+    QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->setMargin(0);
     vlayout->setSpacing(0);
     vlayout->addWidget(m_customPlot);
     setLayout(vlayout);
 
-    m_customPlot->addGraph();
-
-    QPen pen;
-    pen.setColor(QColor(0, 0, 255, 200));
-    m_customPlot->graph()->setLineStyle(QCPGraph::lsLine);
-    m_customPlot->graph()->setPen(pen);
-    m_customPlot->graph()->setBrush(QBrush(QColor(255/4.0,160,50,150)));
-
+    initGraph();
 
     m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
     m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
@@ -49,7 +40,6 @@ HistogramPlot::HistogramPlot(QWidget *parent)
 
     m_customPlot->xAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size));
     m_customPlot->yAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size));
-
 }
 
 void HistogramPlot::addData(double x, double y)
@@ -59,14 +49,14 @@ void HistogramPlot::addData(double x, double y)
     m_customPlot->replot();
 }
 
-void HistogramPlot::addData(const QVector<double> &x, const QVector<double> y)
+void HistogramPlot::addData(const QVector<double>& x, const QVector<double>& y)
 {
     m_customPlot->graph()->addData(x, y);
     m_customPlot->graph(0)->rescaleAxes();
     m_customPlot->replot();
 }
 
-void HistogramPlot::setData(const QVector<double> &x, const QVector<double> y)
+void HistogramPlot::setData(const QVector<double>& x, const QVector<double>& y)
 {
     m_customPlot->graph()->setData(x, y);
     m_customPlot->graph(0)->rescaleAxes();
@@ -75,10 +65,16 @@ void HistogramPlot::setData(const QVector<double> &x, const QVector<double> y)
 
 void HistogramPlot::clearData()
 {
-    m_customPlot->graph()->clearData();
+    m_customPlot->removeGraph(m_customPlot->graph());
+    initGraph();
 }
 
-//bool HistogramPlot::addData(double x, double y)
-//{
+void HistogramPlot::initGraph()
+{
+    m_customPlot->addGraph();
 
-//}
+    QPen pen(QColor(0, 0, 255, 200));
+    m_customPlot->graph()->setLineStyle(QCPGraph::lsLine);
+    m_customPlot->graph()->setPen(pen);
+    m_customPlot->graph()->setBrush(QBrush(QColor(255 / 4, 160, 50, 150)));
+}

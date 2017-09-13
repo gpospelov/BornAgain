@@ -20,7 +20,7 @@
 #include "Particle.h"
 #include "ParticleComposition.h"
 
-Crystal::Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice)
+Crystal::Crystal(const IParticle& lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_dw_factor(0.0)
 {
     setName(BornAgain::CrystalType);
@@ -44,8 +44,11 @@ IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form
                                             const kvector_t& translation) const
 {
     Lattice transformed_lattice = transformedLattice(p_rotation);
-    const std::unique_ptr<IFormFactor> P_basis_ff(
-        mp_lattice_basis->createTransformedFormFactor(p_rotation, translation));
+    std::unique_ptr<IParticle> P_basis_clone { mp_lattice_basis->clone() };
+    if (p_rotation)
+        P_basis_clone->applyRotation(*p_rotation);
+    P_basis_clone->applyTranslation(translation);
+    const std::unique_ptr<IFormFactor> P_basis_ff(P_basis_clone->createFormFactor());
     std::unique_ptr<FormFactorCrystal> P_ff_crystal(
         new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor));
     if (m_dw_factor > 0.0)
@@ -85,7 +88,7 @@ std::vector<const INode*> Crystal::getChildren() const
     return std::vector<const INode*>() << mp_lattice_basis;
 }
 
-Crystal::Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice)
+Crystal::Crystal(IParticle* p_lattice_basis, const Lattice& lattice)
     : m_lattice(lattice), m_dw_factor(0.0)
 {
     setName(BornAgain::CrystalType);

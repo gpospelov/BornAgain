@@ -7658,7 +7658,7 @@ class Crystal(IClusteredParticles):
 
     def __init__(self, lattice_basis, lattice):
         """
-        __init__(Crystal self, ParticleComposition lattice_basis, Lattice lattice) -> Crystal
+        __init__(Crystal self, IParticle lattice_basis, Lattice lattice) -> Crystal
 
         Crystal::Crystal(const ParticleComposition &lattice_basis, const Lattice &lattice)
 
@@ -24752,14 +24752,16 @@ class ParticleComposition(IParticle):
         return _libBornAgainCore.ParticleComposition_addParticles(self, particle, positions)
 
 
-    def createTransformedFormFactor(self, p_rotation, translation):
+    def createSlicedParticle(self, limits):
         """
-        createTransformedFormFactor(ParticleComposition self, IRotation p_rotation, kvector_t translation) -> IFormFactor
+        createSlicedParticle(ParticleComposition self, ZLimits limits) -> SlicedParticle
 
-        IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const 
+        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
+
+        Create a sliced form factor for this particle. 
 
         """
-        return _libBornAgainCore.ParticleComposition_createTransformedFormFactor(self, p_rotation, translation)
+        return _libBornAgainCore.ParticleComposition_createSlicedParticle(self, limits)
 
 
     def nbrParticles(self):

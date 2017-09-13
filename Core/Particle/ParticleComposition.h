@@ -39,8 +39,8 @@ public:
     void addParticle(const IParticle& particle, kvector_t  position);
     void addParticles(const IParticle& particle, std::vector<kvector_t > positions);
 
-    IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
-                                             kvector_t translation) const;
+    //! Create a sliced form factor for this particle
+    SlicedParticle createSlicedParticle(ZLimits limits) const override;
 
     //! Returns number of different particles
     size_t nbrParticles() const { return m_particles.size(); }

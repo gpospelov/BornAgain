@@ -70,21 +70,21 @@ void ParticleComposition::addParticles(const IParticle& particle, std::vector<kv
         addParticle(particle, positions[i]);
 }
 
-IFormFactor* ParticleComposition::createTransformedFormFactor(
-    const IRotation* p_rotation, kvector_t translation) const
+SlicedParticle ParticleComposition::createSlicedParticle(ZLimits limits) const
 {
     if (m_particles.size() == 0)
-        return 0;
-    FormFactorWeighted* p_result = new FormFactorWeighted();
+        return {};
+    SlicedParticle result;
+    std::unique_ptr<FormFactorWeighted> P_weighted { new FormFactorWeighted() };
     auto particles = decompose();
     for (auto p_particle : particles) {
-        if (p_rotation)
-            p_particle->applyRotation(*p_rotation);
-        p_particle->applyTranslation(translation);
-        const std::unique_ptr<IFormFactor> P_particle_ff(p_particle->createFormFactor());
-        p_result->addFormFactor(*P_particle_ff);
+        auto sliced_particle_ff = p_particle->createSlicedParticle(limits);
+        P_weighted->addFormFactor(*sliced_particle_ff.mP_slicedff);
+        result.m_regions.insert(result.m_regions.end(), sliced_particle_ff.m_regions.begin(),
+                                                        sliced_particle_ff.m_regions.end());
     }
-    return p_result;
+    result.mP_slicedff.reset(P_weighted.release());
+    return result;
 }
 
 const IParticle* ParticleComposition::particle(size_t index) const

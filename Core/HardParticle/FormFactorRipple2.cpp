@@ -50,22 +50,23 @@ complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const
     const complex_t qyW2 = q.y() * m_width * 0.5;
     const complex_t qyd = q.y() * m_d;
     const complex_t qzH = q.z() * m_height;
+    const complex_t a = qzH + qyd;
     // dimensionless scale factors
-    const double d_scale = std::abs(qyd);
-    const double h_scale = std::abs(qzH);
+    const double a_scale = std::abs(a);
     const double w_scale = std::abs(qyW2);
 
-    if (d_scale + h_scale < 1.e-10 && w_scale < 1.e-5) // |q_y| << 1 && |q_z| << 1
-        result = 0.5;
-    else if (d_scale < 1.e-10 && w_scale < 1.e-5) { // |q_y| << 1
-        result = (1.0 + mul_I(qzH) - exp_I(qzH)) / (qzH * qzH);
+    if (w_scale < 1.e-5) { // |q_y*W| << 1
+        if (a_scale < 1e-5) { // |q_y*W| << 1 && |q_z*H + q_y*d| << 1
+            result = exp_I(-qyd)*(0.5 + mul_I(a)/6.);
+        } else {
+            result = exp_I(-qyd)*(1.0 + mul_I(a) - exp_I(a)) / (a * a);
+        }
     } else {
-        const complex_t gamma_p = (qzH + qyW2 + qyd) * 0.5;
-        const complex_t gamma_m = (qzH - qyW2 + qyd) * 0.5;
+        const complex_t gamma_p = (a + qyW2) * 0.5;
+        const complex_t gamma_m = (a - qyW2) * 0.5;
         result = exp_I(gamma_m) * MathFunctions::sinc(gamma_p)
                - exp_I(gamma_p) * MathFunctions::sinc(gamma_m);
-        result = result * exp_I(-qyd);
-        result = mul_I(result / (qyW2*2.));
+        result = mul_I(exp_I(-qyd)*result / (qyW2*2.));
     }
     return factor * result;
 }

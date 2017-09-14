@@ -103,7 +103,8 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
     const IParticle* particle)
 {
     double abundance = particle->abundance();
-    auto sliced_ffs = CreateSlicedFormFactors(*particle, *mp_multilayer, m_layer_index);
+    auto sliced_ffs = SlicedFormFactorList::CreateSlicedFormFactors(*particle, *mp_multilayer,
+                                                                    m_layer_index);
     auto region_map = sliced_ffs.regionMap();
     ScaleRegionMap(region_map, abundance);
     mergeRegionMap(region_map);

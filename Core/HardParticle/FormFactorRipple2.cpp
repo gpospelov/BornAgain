@@ -57,8 +57,10 @@ complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const
 
     if (w_scale < 1.e-5) { // |q_y*W| << 1
         if (a_scale < 1e-5) { // |q_y*W| << 1 && |q_z*H + q_y*d| << 1
+            // relative error is O((q_y*W)^2) and O((q_z*H + q_y*d)^2)
             result = exp_I(-qyd)*(0.5 + mul_I(a)/6.);
         } else {
+            // relative error is O((q_y*W)^2)
             result = exp_I(-qyd)*(1.0 + mul_I(a) - exp_I(a)) / (a * a);
         }
     } else {

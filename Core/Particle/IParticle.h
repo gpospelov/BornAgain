@@ -45,7 +45,7 @@ public:
     void accept(INodeVisitor* visitor) const  override{ visitor->visit(this); }
 
     //! Create a form factor for this particle
-    IFormFactor* createFormFactor() const;
+    virtual IFormFactor* createFormFactor() const;
 
     //! Create a sliced form factor for this particle
     virtual SlicedParticle createSlicedParticle(ZLimits limits) const;

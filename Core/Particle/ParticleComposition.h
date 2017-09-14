@@ -31,16 +31,15 @@ public:
     ParticleComposition(const IParticle& particle, std::vector<kvector_t > positions);
 
     ~ParticleComposition();
-    ParticleComposition* clone() const override;
+    ParticleComposition* clone() const override final;
 
-    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+
+    IFormFactor* createFormFactor() const override final;
 
     void addParticle(const IParticle& particle);
     void addParticle(const IParticle& particle, kvector_t  position);
     void addParticles(const IParticle& particle, std::vector<kvector_t > positions);
-
-    IFormFactor* createTransformedFormFactor(const IRotation* p_rotation,
-                                             kvector_t translation) const;
 
     //! Returns number of different particles
     size_t nbrParticles() const { return m_particles.size(); }
@@ -50,11 +49,11 @@ public:
 
     kvector_t particlePosition(size_t index) const;
 
-    std::vector<const INode*> getChildren() const override;
+    std::vector<const INode*> getChildren() const override final;
 
-    SafePointerVector<IParticle> decompose() const override;
+    SafePointerVector<IParticle> decompose() const override final;
 
-    ParticleLimits bottomTopZ() const override;
+    ParticleLimits bottomTopZ() const override final;
 private:
     size_t check_index(size_t index) const;
 

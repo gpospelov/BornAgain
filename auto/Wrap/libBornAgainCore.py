@@ -7658,7 +7658,7 @@ class Crystal(IClusteredParticles):
 
     def __init__(self, lattice_basis, lattice):
         """
-        __init__(Crystal self, ParticleComposition lattice_basis, Lattice lattice) -> Crystal
+        __init__(Crystal self, IParticle lattice_basis, Lattice lattice) -> Crystal
 
         Crystal::Crystal(const ParticleComposition &lattice_basis, const Lattice &lattice)
 
@@ -7727,16 +7727,6 @@ class Crystal(IClusteredParticles):
 
         """
         return _libBornAgainCore.Crystal_transformedLattice(self, p_rotation)
-
-
-    def latticeBasis(self):
-        """
-        latticeBasis(Crystal self) -> ParticleComposition
-
-        const ParticleComposition* Crystal::latticeBasis() const 
-
-        """
-        return _libBornAgainCore.Crystal_latticeBasis(self)
 
 
     def setDWFactor(self, dw_factor):
@@ -24741,6 +24731,18 @@ class ParticleComposition(IParticle):
         return _libBornAgainCore.ParticleComposition_accept(self, visitor)
 
 
+    def createFormFactor(self):
+        """
+        createFormFactor(ParticleComposition self) -> IFormFactor
+
+        IFormFactor * IParticle::createFormFactor() const
+
+        Create a form factor for this particle. 
+
+        """
+        return _libBornAgainCore.ParticleComposition_createFormFactor(self)
+
+
     def addParticle(self, *args):
         """
         addParticle(ParticleComposition self, IParticle particle)
@@ -24760,16 +24762,6 @@ class ParticleComposition(IParticle):
 
         """
         return _libBornAgainCore.ParticleComposition_addParticles(self, particle, positions)
-
-
-    def createTransformedFormFactor(self, p_rotation, translation):
-        """
-        createTransformedFormFactor(ParticleComposition self, IRotation p_rotation, kvector_t translation) -> IFormFactor
-
-        IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const 
-
-        """
-        return _libBornAgainCore.ParticleComposition_createTransformedFormFactor(self, p_rotation, translation)
 
 
     def nbrParticles(self):

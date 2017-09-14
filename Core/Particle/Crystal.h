@@ -20,9 +20,6 @@
 #include "Lattice.h"
 #include "Vectors3D.h"
 
-class Particle;
-class ParticleComposition;
-
 //! A crystal structure with a ParticleComposition as a basis.
 //! Used in MesoCrystal, where it is given an outer shape.
 //! @ingroup samples
@@ -30,7 +27,7 @@ class ParticleComposition;
 class BA_CORE_API_ Crystal : public IClusteredParticles
 {
 public:
-    Crystal(const ParticleComposition& lattice_basis, const Lattice& lattice);
+    Crystal(const IParticle& lattice_basis, const Lattice& lattice);
     ~Crystal();
 
     Crystal* clone() const override final;
@@ -45,17 +42,15 @@ public:
 
     Lattice transformedLattice(const IRotation* p_rotation) const;
 
-    const ParticleComposition* latticeBasis() const { return mp_lattice_basis.get(); }
-
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
     std::vector<const INode*> getChildren() const override final;
 
 private:
-    Crystal(ParticleComposition* p_lattice_basis, const Lattice& lattice);
+    Crystal(IParticle* p_lattice_basis, const Lattice& lattice);
 
     Lattice m_lattice;
-    std::unique_ptr<ParticleComposition> mp_lattice_basis;
+    std::unique_ptr<IParticle> mp_lattice_basis;
     double m_dw_factor;
 };
 

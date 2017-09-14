@@ -47,6 +47,19 @@ ParticleComposition* ParticleComposition::clone() const
     return p_result;
 }
 
+IFormFactor* ParticleComposition::createFormFactor() const
+{
+    if (m_particles.size() == 0)
+        return {};
+    std::unique_ptr<FormFactorWeighted> P_result { new FormFactorWeighted() };
+    auto particles = decompose();
+    for (auto p_particle : particles) {
+        std::unique_ptr<IFormFactor> P_particle_ff { p_particle->createFormFactor() };
+        P_result->addFormFactor(*P_particle_ff);
+    }
+    return P_result.release();
+}
+
 void ParticleComposition::addParticle(const IParticle &particle)
 {
     checkParticleType(particle);
@@ -68,23 +81,6 @@ void ParticleComposition::addParticles(const IParticle& particle, std::vector<kv
 {
     for (size_t i=0; i<positions.size(); ++i)
         addParticle(particle, positions[i]);
-}
-
-IFormFactor* ParticleComposition::createTransformedFormFactor(
-    const IRotation* p_rotation, kvector_t translation) const
-{
-    if (m_particles.size() == 0)
-        return 0;
-    FormFactorWeighted* p_result = new FormFactorWeighted();
-    auto particles = decompose();
-    for (auto p_particle : particles) {
-        if (p_rotation)
-            p_particle->applyRotation(*p_rotation);
-        p_particle->applyTranslation(translation);
-        const std::unique_ptr<IFormFactor> P_particle_ff(p_particle->createFormFactor());
-        p_result->addFormFactor(*P_particle_ff);
-    }
-    return p_result;
 }
 
 const IParticle* ParticleComposition::particle(size_t index) const

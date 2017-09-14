@@ -45,28 +45,27 @@ double FormFactorRipple2::radialExtension() const
 //! Complex formfactor.
 complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const
 {
-    complex_t factor = m_length * MathFunctions::sinc(q.x() * m_length * 0.5) * m_width;
-    complex_t result = 0;
-    const complex_t alpha = q.y() * m_width * 0.5;
+    complex_t factor = m_length * MathFunctions::sinc(q.x()*m_length/2.) * m_height * m_width;
+    complex_t result;
+    const complex_t qyW2 = q.y() * m_width * 0.5;
     const complex_t qyd = q.y() * m_d;
-    const complex_t qzh = q.z() * m_height;
+    const complex_t qzH = q.z() * m_height;
     // dimensionless scale factors
-    const double dScale = std::abs(qyd);
-    const double hScale = std::abs(qzh);
-    const double wScale = std::abs(alpha);
+    const double d_scale = std::abs(qyd);
+    const double h_scale = std::abs(qzH);
+    const double w_scale = std::abs(qyW2);
 
-    if (dScale + hScale < 1.e-10 && wScale < 1.e-5) // q.z() == 0 && q.y() == 0
-        result = m_height * 0.5;
-    else if (dScale < 1.e-10 && wScale < 1.e-5) { // q.y() == 0, q.z() != 0
-        const complex_t iqzH = mul_I(qzh);
-        result = (1.0 - std::exp(iqzH) + iqzH) / (qzh * q.z());
+    if (d_scale + h_scale < 1.e-10 && w_scale < 1.e-5) // q.z() == 0 && q.y() == 0
+        result = 0.5;
+    else if (d_scale < 1.e-10 && w_scale < 1.e-5) { // q.y() == 0, q.z() != 0
+        result = (1.0 - exp_I(qzH) + mul_I(qzH)) / (qzH * qzH);
     } else {
-        const complex_t gamma_p = (qzh + alpha + qyd) * 0.5;
-        const complex_t gamma_m = (qzh - alpha + qyd) * 0.5;
-        result = std::exp(mul_I(gamma_p)) * MathFunctions::sinc(gamma_m)
-                 - std::exp(mul_I(gamma_m)) * MathFunctions::sinc(gamma_p);
-        result = result * std::exp(mul_I(-qyd));
-        result = mul_I(-result * m_height * 0.5/alpha);
+        const complex_t gamma_p = (qzH + qyW2 + qyd) * 0.5;
+        const complex_t gamma_m = (qzH - qyW2 + qyd) * 0.5;
+        result = exp_I(gamma_m) * MathFunctions::sinc(gamma_p)
+               - exp_I(gamma_p) * MathFunctions::sinc(gamma_m);
+        result = result * exp_I(-qyd);
+        result = mul_I(result / (qyW2*2.));
     }
     return factor * result;
 }

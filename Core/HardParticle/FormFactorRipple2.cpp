@@ -55,10 +55,10 @@ complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const
     const double h_scale = std::abs(qzH);
     const double w_scale = std::abs(qyW2);
 
-    if (d_scale + h_scale < 1.e-10 && w_scale < 1.e-5) // q.z() == 0 && q.y() == 0
+    if (d_scale + h_scale < 1.e-10 && w_scale < 1.e-5) // |q_y| << 1 && |q_z| << 1
         result = 0.5;
-    else if (d_scale < 1.e-10 && w_scale < 1.e-5) { // q.y() == 0, q.z() != 0
-        result = (1.0 - exp_I(qzH) + mul_I(qzH)) / (qzH * qzH);
+    else if (d_scale < 1.e-10 && w_scale < 1.e-5) { // |q_y| << 1
+        result = (1.0 + mul_I(qzH) - exp_I(qzH)) / (qzH * qzH);
     } else {
         const complex_t gamma_p = (qzH + qyW2 + qyd) * 0.5;
         const complex_t gamma_m = (qzH - qyW2 + qyd) * 0.5;

@@ -47,6 +47,19 @@ ParticleComposition* ParticleComposition::clone() const
     return p_result;
 }
 
+IFormFactor* ParticleComposition::createFormFactor() const
+{
+    if (m_particles.size() == 0)
+        return {};
+    std::unique_ptr<FormFactorWeighted> P_result { new FormFactorWeighted() };
+    auto particles = decompose();
+    for (auto p_particle : particles) {
+        std::unique_ptr<IFormFactor> P_particle_ff { p_particle->createFormFactor() };
+        P_result->addFormFactor(*P_particle_ff);
+    }
+    return P_result.release();
+}
+
 void ParticleComposition::addParticle(const IParticle &particle)
 {
     checkParticleType(particle);
@@ -68,23 +81,6 @@ void ParticleComposition::addParticles(const IParticle& particle, std::vector<kv
 {
     for (size_t i=0; i<positions.size(); ++i)
         addParticle(particle, positions[i]);
-}
-
-SlicedParticle ParticleComposition::createSlicedParticle(ZLimits limits) const
-{
-    if (m_particles.size() == 0)
-        return {};
-    SlicedParticle result;
-    std::unique_ptr<FormFactorWeighted> P_weighted { new FormFactorWeighted() };
-    auto particles = decompose();
-    for (auto p_particle : particles) {
-        auto sliced_particle_ff = p_particle->createSlicedParticle(limits);
-        P_weighted->addFormFactor(*sliced_particle_ff.mP_slicedff);
-        result.m_regions.insert(result.m_regions.end(), sliced_particle_ff.m_regions.begin(),
-                                                        sliced_particle_ff.m_regions.end());
-    }
-    result.mP_slicedff.reset(P_weighted.release());
-    return result;
 }
 
 const IParticle* ParticleComposition::particle(size_t index) const

@@ -24731,6 +24731,18 @@ class ParticleComposition(IParticle):
         return _libBornAgainCore.ParticleComposition_accept(self, visitor)
 
 
+    def createFormFactor(self):
+        """
+        createFormFactor(ParticleComposition self) -> IFormFactor
+
+        IFormFactor * IParticle::createFormFactor() const
+
+        Create a form factor for this particle. 
+
+        """
+        return _libBornAgainCore.ParticleComposition_createFormFactor(self)
+
+
     def addParticle(self, *args):
         """
         addParticle(ParticleComposition self, IParticle particle)
@@ -24750,18 +24762,6 @@ class ParticleComposition(IParticle):
 
         """
         return _libBornAgainCore.ParticleComposition_addParticles(self, particle, positions)
-
-
-    def createSlicedParticle(self, limits):
-        """
-        createSlicedParticle(ParticleComposition self, ZLimits limits) -> SlicedParticle
-
-        SlicedParticle IParticle::createSlicedParticle(ZLimits limits) const
-
-        Create a sliced form factor for this particle. 
-
-        """
-        return _libBornAgainCore.ParticleComposition_createSlicedParticle(self, limits)
 
 
     def nbrParticles(self):

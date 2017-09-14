@@ -89,7 +89,7 @@ void SavePlotAssistant::saveToFile(const QString &fileName, QCustomPlot *plot, I
     }
 
     else if(isPdfFile(fileName)) {
-        plot->savePdf(fileName, true, plot->width(), plot->height());
+        plot->savePdf(fileName, plot->width(), plot->height());
     }
 
     else {

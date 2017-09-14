@@ -17,7 +17,7 @@ def get_sample():
     # mesocrystal lattice
     lattice_basis_1 = ba.kvector_t(5.0, 0.0, 0.0)
     lattice_basis_2 = ba.kvector_t(0.0, 5.0, 0.0)
-    lattice_basis_3 =ba. kvector_t(0.0, 0.0, 5.0)
+    lattice_basis_3 = ba. kvector_t(0.0, 0.0, 5.0)
     lattice = ba.Lattice(lattice_basis_1, lattice_basis_2, lattice_basis_3)
 
     # spherical particle that forms the base of the mesocrystal
@@ -42,6 +42,7 @@ def get_sample():
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
+
 
 def get_simulation():
     """

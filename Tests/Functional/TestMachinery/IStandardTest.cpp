@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "IStandardTest.h"
-#include "StandardSimulationsRegistry.h"
+#include "StandardTestCatalogue.h"
 #include "GISASSimulation.h"
 #include "IFunctionalTest.h"
 #include "SampleBuilderFactory.h"

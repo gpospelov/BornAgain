@@ -15,12 +15,12 @@
 
 #include "SimulationInfo.h"
 
-SimulationInfo::SimulationInfo()
+StandardTestInfo::StandardTestInfo()
     : m_threshold(0.0)
 {
 }
 
-SimulationInfo::SimulationInfo(const std::string& test_name,
+StandardTestInfo::StandardTestInfo(const std::string& test_name,
                        const std::string& test_description,
                        const std::string& simulation_name,
                        const std::string& sample_builder_name,

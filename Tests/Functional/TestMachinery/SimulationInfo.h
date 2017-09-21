@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/SimulationInfo.h
-//! @brief     Defines class SimulationInfo.
+//! @file      Tests/Functional/TestMachinery/StandardTestInfo.h
+//! @brief     Defines class StandardTestInfo.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,26 +13,25 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONINFO_H
-#define SIMULATIONINFO_H
+#ifndef STANDARDTESTINFO_H
+#define STANDARDTESTINFO_H
 
 #include <string>
 
-//! @class SimulationInfo
+//! @class StandardTestInfo
 //! @ingroup standard_samples
-//! @brief Parameter set to describe a simulation example.
-//!   Used for communication from StandardSimulationsRegistry to IStandardTest.
+//! @brief Collection of parameters necessary to run standard functional test.
 
-class SimulationInfo
+class StandardTestInfo
 {
 public:
-    SimulationInfo();
-    SimulationInfo(const std::string& test_name,
-                       const std::string& test_description,
-                       const std::string& simulation_name,
-                       const std::string& sample_builder_name,
-                       const std::string& subtest_type,
-                       double threshold);
+    StandardTestInfo();
+    StandardTestInfo(const std::string& test_name,
+                     const std::string& test_description,
+                     const std::string& simulation_name,
+                     const std::string& sample_builder_name,
+                     const std::string& subtest_type,
+                     double threshold);
 
     std::string m_test_name;
     std::string m_test_description;
@@ -42,4 +41,4 @@ public:
     double m_threshold;
 };
 
-#endif // SIMULATIONINFO_H
+#endif // STANDARDTESTINFO_H

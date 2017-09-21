@@ -31,12 +31,12 @@ public:
     void add(const std::string& test_name, const std::string& test_description,
              const std::string& simulation_name, const std::string& sample_builder_name,
              const std::string& component_registry_name, double threshold);
-    const SimulationInfo* getItemOrExplain(
+    const StandardTestInfo* getItemOrExplain(
         const std::string& test_name, const std::string& suite_name) const;
     void printCatalogue(std::ostream& ostr) const;
 
 private:
-    std::map<std::string, SimulationInfo> m_catalogue;
+    std::map<std::string, StandardTestInfo> m_catalogue;
 };
 
 #endif // STANDARDSIMULATIONSREGISTRY_H

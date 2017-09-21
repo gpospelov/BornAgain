@@ -21,7 +21,7 @@
 
 class GISASSimulation;
 class IFunctionalTest;
-class SimulationInfo;
+class StandardTestInfo;
 class IParameterized;
 
 //! Base class for Core/PyCore/GUI tests that involve standard simulations.
@@ -70,7 +70,7 @@ protected:
     virtual double getTestThreshold() const;
 
 private:
-    const SimulationInfo* m_info;
+    const StandardTestInfo* m_info;
     const IParameterized* m_subtest_item;
 
     bool execute_onetest();

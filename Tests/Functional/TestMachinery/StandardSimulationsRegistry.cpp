@@ -420,12 +420,12 @@ void StandardSimulationsRegistry::add(
     if( m_catalogue.find(test_name) != m_catalogue.end() )
         throw Exceptions::ExistingClassRegistrationException(
             "StandardSimulationsRegistry::add() -> Error. Existing item " + test_name);
-    m_catalogue[test_name] = SimulationInfo(
+    m_catalogue[test_name] = StandardTestInfo(
         test_name, test_description, simulation_name,
         sample_builder_name, subtest_type, threshold);
 }
 
-const SimulationInfo* StandardSimulationsRegistry::getItemOrExplain(
+const StandardTestInfo* StandardSimulationsRegistry::getItemOrExplain(
     const std::string& test_name, const std::string& suite_name) const
 {
     auto it = m_catalogue.find(test_name);
@@ -443,7 +443,7 @@ const SimulationInfo* StandardSimulationsRegistry::getItemOrExplain(
 void StandardSimulationsRegistry::printCatalogue(std::ostream& ostr) const
 {
     for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
-        SimulationInfo info = it->second;
+        StandardTestInfo info = it->second;
         ostr << StringUtils::padRight(info.m_test_name, 20) << " | ";
         ostr << StringUtils::padRight(info.m_test_description, 40) << " | ";
         ostr << info.m_simulation_name << ", ";

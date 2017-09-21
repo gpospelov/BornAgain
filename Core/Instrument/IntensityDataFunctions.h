@@ -36,12 +36,14 @@ BA_CORE_API_ double getRelativeDifference(const IHistogram& dat, const IHistogra
 BA_CORE_API_ OutputData<double>* createRelativeDifferenceData(
     const OutputData<double>& data, const OutputData<double>& reference);
 
+#ifndef SWIG
 //! Returns a pointer to new object with input data rotated by
 //! n*90 deg counterclockwise (n > 0) or clockwise (n < 0)
 //! Axes are swapped if the data is effectively rotated by 90 or 270 degrees
 //! Applicable to 2D arrays only
 BA_CORE_API_ std::unique_ptr<OutputData<double>>
 createRearrangedDataSet(const OutputData<double>& data, int n);
+#endif //SWIG
 
 //! Returns new IntensityData objects which axes clipped to represent the specified rectangle.
 BA_CORE_API_ OutputData<double>* createClippedDataSet(

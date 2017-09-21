@@ -24,10 +24,10 @@
 //! @ingroup standard_samples
 //! @brief Handles simulation infos, and contains hard-coded list of standard simulations.
 
-class StandardSimulationsRegistry : public ISingleton<StandardSimulationsRegistry>
+class StandardTestCatalogue : public ISingleton<StandardTestCatalogue>
 {
 public:
-    StandardSimulationsRegistry();
+    StandardTestCatalogue();
     void add(const std::string& test_name, const std::string& test_description,
              const std::string& simulation_name, const std::string& sample_builder_name,
              const std::string& component_registry_name, double threshold);

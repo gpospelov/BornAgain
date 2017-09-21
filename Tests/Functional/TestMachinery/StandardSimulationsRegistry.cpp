@@ -17,7 +17,7 @@
 #include "Exceptions.h"
 #include "StringUtils.h"
 
-StandardSimulationsRegistry::StandardSimulationsRegistry()
+StandardTestCatalogue::StandardTestCatalogue()
 {
     add("FormFactors",
         "Test of all form factors defined",
@@ -412,7 +412,7 @@ StandardSimulationsRegistry::StandardSimulationsRegistry()
         1e-10);
 }
 
-void StandardSimulationsRegistry::add(
+void StandardTestCatalogue::add(
     const std::string& test_name, const std::string& test_description,
     const std::string& simulation_name, const std::string& sample_builder_name,
     const std::string& subtest_type, double threshold )
@@ -425,7 +425,7 @@ void StandardSimulationsRegistry::add(
         sample_builder_name, subtest_type, threshold);
 }
 
-const StandardTestInfo* StandardSimulationsRegistry::getItemOrExplain(
+const StandardTestInfo* StandardTestCatalogue::getItemOrExplain(
     const std::string& test_name, const std::string& suite_name) const
 {
     auto it = m_catalogue.find(test_name);
@@ -440,7 +440,7 @@ const StandardTestInfo* StandardSimulationsRegistry::getItemOrExplain(
     return &(it->second);
 }
 
-void StandardSimulationsRegistry::printCatalogue(std::ostream& ostr) const
+void StandardTestCatalogue::printCatalogue(std::ostream& ostr) const
 {
     for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
         StandardTestInfo info = it->second;

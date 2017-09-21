@@ -32,7 +32,7 @@ bool IStandardTest::execute(int argc, char** argv) {
     std::string test_name;
     if(argc > 1)
         test_name = std::string(argv[1]);
-    m_info = StandardSimulationsRegistry::instance().getItemOrExplain(test_name, getName());
+    m_info = StandardTestCatalogue::instance().getItemOrExplain(test_name, getName());
     if( !m_info )
         throw Exceptions::RuntimeErrorException("IStandardTest -> Error in look up.");
 

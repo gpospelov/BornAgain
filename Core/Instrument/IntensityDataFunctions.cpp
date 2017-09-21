@@ -18,7 +18,6 @@
 #include "IHistogram.h"
 #include "IntensityDataFunctions.h"
 #include "Numeric.h"
-#include <memory>
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 double IntensityDataFunctions::getRelativeDifference(
@@ -60,15 +59,15 @@ OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(
     return result;
 }
 
-OutputData<double>* IntensityDataFunctions::createRearrangedDataSet(
-    const OutputData<double>& data, int n)
+std::unique_ptr<OutputData<double>>
+IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, int n)
 {
     if (data.getRank() != 2)
         throw Exceptions::LogicErrorException("IntensityDataFunctions::rotateDataByN90Deg()"
             " -> Error! Works only on two-dimensional data");
     n = (4 + n % 4) % 4;
     if (n == 0)
-        return data.clone();
+        return std::unique_ptr<OutputData<double>>(data.clone());
     std::unique_ptr<OutputData<double>> output(new OutputData<double>());
 
     // swapping axes if necessary
@@ -103,7 +102,7 @@ OutputData<double>* IntensityDataFunctions::createRearrangedDataSet(
             {static_cast<unsigned>(axis_inds[0]), static_cast<unsigned>(axis_inds[1])});
         (*output)[output_index] = data[index];
     }
-    return output.release();
+    return output;
 }
 
 OutputData<double>* IntensityDataFunctions::createClippedDataSet(

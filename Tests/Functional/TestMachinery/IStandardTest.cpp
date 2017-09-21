@@ -33,6 +33,15 @@ bool IStandardTest::execute(int argc, char** argv) {
     if(argc > 1)
         test_name = std::string(argv[1]);
     StandardTestCatalogue catalogue;
+
+    if (!catalogue.contains(test_name)) {
+        std::cout<<"There is no test named '"<< test_name << "'\n";
+        std::cout << "Usage: "<< getName() << " <test_name>\n";
+        std::cout << "Available tests:\n";
+        catalogue.printCatalogue(std::cout);
+        return true;
+    }
+
     m_info = catalogue.getItemOrExplain(test_name, getName());
     if( !m_info )
         throw Exceptions::RuntimeErrorException("IStandardTest -> Error in look up.");

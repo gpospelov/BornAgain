@@ -441,6 +441,24 @@ const StandardTestInfo* StandardTestCatalogue::getItemOrExplain(
     return &(it->second);
 }
 
+//! Returns test info for given test name.
+
+StandardTestInfo StandardTestCatalogue::testInfo(const std::string& test_name)
+{
+    if (!contains(test_name))
+        throw std::runtime_error("StandardTestCatalogue::testInfo() -> Error. No info for "
+                                 "given name '"+test_name+"'");
+
+    return m_catalogue[test_name];
+}
+
+//! Returns true if catalogue contains info for test with given name.
+
+bool StandardTestCatalogue::contains(const std::string& test_name)
+{
+    return m_catalogue.find( test_name ) != m_catalogue.end();
+}
+
 void StandardTestCatalogue::printCatalogue(std::ostream& ostr) const
 {
     for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {

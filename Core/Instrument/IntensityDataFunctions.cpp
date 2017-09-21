@@ -18,7 +18,6 @@
 #include "IHistogram.h"
 #include "IntensityDataFunctions.h"
 #include "Numeric.h"
-#include <memory>
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 double IntensityDataFunctions::getRelativeDifference(
@@ -60,6 +59,51 @@ OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(
     return result;
 }
 
+std::unique_ptr<OutputData<double>>
+IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, int n)
+{
+    if (data.getRank() != 2)
+        throw Exceptions::LogicErrorException("IntensityDataFunctions::rotateDataByN90Deg()"
+            " -> Error! Works only on two-dimensional data");
+    n = (4 + n % 4) % 4;
+    if (n == 0)
+        return std::unique_ptr<OutputData<double>>(data.clone());
+    std::unique_ptr<OutputData<double>> output(new OutputData<double>());
+
+    // swapping axes if necessary
+    const IAxis& x_axis = data.getAxis(0);
+    const IAxis& y_axis = data.getAxis(1);
+    output->addAxis( n == 2 ? x_axis : y_axis);
+    output->addAxis( n == 2 ? y_axis : x_axis);
+
+    // creating index mapping
+    std::function<void(std::vector<int>&)> index_mapping;
+    if (n == 2) {
+        const int end_bin_x = x_axis.size() - 1;
+        const int end_bin_y = y_axis.size() - 1;
+        index_mapping = [end_bin_x, end_bin_y](std::vector<int>& inds) {
+            inds[0] = end_bin_x - inds[0];
+            inds[1] = end_bin_y - inds[1];
+        };
+    } else {
+        const size_t rev_axis_i = n % 3;
+        const size_t end_bin = data.getAxis(rev_axis_i).size() - 1;
+        index_mapping = [rev_axis_i, end_bin](std::vector<int>& inds) {
+            const int tmp_index = inds[rev_axis_i];
+            inds[rev_axis_i] = inds[rev_axis_i ^ 1];
+            inds[rev_axis_i ^ 1] = end_bin - tmp_index;
+        };
+    }
+
+    for (size_t index = 0, size = data.getAllocatedSize(); index < size; ++index) {
+        std::vector<int> axis_inds = data.getAxesBinIndices(index);
+        index_mapping(axis_inds);
+        size_t output_index = output->toGlobalIndex(
+            {static_cast<unsigned>(axis_inds[0]), static_cast<unsigned>(axis_inds[1])});
+        (*output)[output_index] = data[index];
+    }
+    return output;
+}
 
 OutputData<double>* IntensityDataFunctions::createClippedDataSet(
         const OutputData<double>& origin, double x1, double y1, double x2, double y2)

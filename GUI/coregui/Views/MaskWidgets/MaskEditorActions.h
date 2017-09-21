@@ -51,6 +51,7 @@ signals:
     void resetViewRequest();
     void propertyPanelRequest();
     void savePlotRequest();
+    void rotateDataRequest();
 
 public slots:
     void onItemContextMenuRequest(const QPoint& point);
@@ -76,6 +77,7 @@ private:
     QAction* m_resetViewAction;
     QAction* m_savePlotAction;
     QAction* m_togglePanelAction;
+    QAction* m_rotateDataAction;
 
     SessionModel* m_maskModel;
     QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem

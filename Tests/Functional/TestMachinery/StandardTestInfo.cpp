@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "SimulationInfo.h"
+#include "StandardTestInfo.h"
 
 StandardTestInfo::StandardTestInfo()
     : m_threshold(0.0)

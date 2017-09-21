@@ -17,7 +17,7 @@
 #define STANDARDSIMULATIONSREGISTRY_H
 
 #include "ISingleton.h"
-#include "SimulationInfo.h"
+#include "StandardTestInfo.h"
 #include <map>
 
 //! @class StandardSimulationsRegistry

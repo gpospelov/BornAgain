@@ -16,15 +16,14 @@
 #ifndef STANDARDTESTCATALOGUE_H
 #define STANDARDTESTCATALOGUE_H
 
-#include "ISingleton.h"
 #include "StandardTestInfo.h"
 #include <map>
 
-//! @class StandardSimulationsRegistry
+//! @class StandardTestCatalogue
 //! @ingroup standard_samples
-//! @brief Handles simulation infos, and contains hard-coded list of standard simulations.
+//! @brief Catalogue with the description of standard functional tests.
 
-class StandardTestCatalogue : public ISingleton<StandardTestCatalogue>
+class StandardTestCatalogue
 {
 public:
     StandardTestCatalogue();

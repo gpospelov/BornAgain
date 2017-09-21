@@ -16,6 +16,7 @@
 #include "StandardTestCatalogue.h"
 #include "Exceptions.h"
 #include "StringUtils.h"
+#include <iostream>
 
 StandardTestCatalogue::StandardTestCatalogue()
 {

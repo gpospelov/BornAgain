@@ -42,4 +42,4 @@ private:
     std::map<std::string, StandardTestInfo> m_catalogue;
 };
 
-#endif // STANDARDSIMULATIONSREGISTRY_H
+#endif // STANDARDTESTCATALOGUE_H

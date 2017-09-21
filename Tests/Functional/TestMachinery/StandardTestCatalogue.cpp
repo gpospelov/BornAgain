@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "StandardTestCatalogue.h"
-#include "Exceptions.h"
 #include "StringUtils.h"
 #include <iostream>
 
@@ -413,14 +412,17 @@ StandardTestCatalogue::StandardTestCatalogue()
         1e-10);
 }
 
+//! Adds test description to the catalogue.
+
 void StandardTestCatalogue::add(
     const std::string& test_name, const std::string& test_description,
     const std::string& simulation_name, const std::string& sample_builder_name,
     const std::string& subtest_type, double threshold )
 {
-    if( m_catalogue.find(test_name) != m_catalogue.end() )
-        throw Exceptions::ExistingClassRegistrationException(
-            "StandardSimulationsRegistry::add() -> Error. Existing item " + test_name);
+    if (contains(test_name))
+        throw std::runtime_error("StandardTestCatalogue::add() -> Error. "
+                                 "Existing item '"+test_name+"'");
+
     m_catalogue[test_name] = StandardTestInfo(
         test_name, test_description, simulation_name,
         sample_builder_name, subtest_type, threshold);
@@ -446,13 +448,8 @@ bool StandardTestCatalogue::contains(const std::string& test_name)
 
 void StandardTestCatalogue::printCatalogue(std::ostream& ostr) const
 {
-    for(auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
-        StandardTestInfo info = it->second;
-        ostr << StringUtils::padRight(info.m_test_name, 20) << " | ";
-        ostr << StringUtils::padRight(info.m_test_description, 40) << " | ";
-        ostr << info.m_simulation_name << ", ";
-        ostr << info.m_sample_builder_name << ", ";
-        ostr << info.m_subtest_type;
-        ostr << "\n";
+    for (auto it : m_catalogue) {
+        ostr << StringUtils::padRight(it.second.m_test_name, 40) << " | ";
+        ostr << StringUtils::padRight(it.second.m_test_description, 65) << "\n";
     }
 }

@@ -143,8 +143,8 @@ TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
 {
     OutputData<double> input_data;
     input_data.addAxis("axis0", 2, 1.0, 2.0);
-    input_data.addAxis("axis1", 2, 3.0, 4.0);
-    input_data.setRawDataVector(std::vector<double>{1.0, 2.0, 3.0, 4.0});
+    input_data.addAxis("axis1", 3, 3.0, 4.0);
+    input_data.setRawDataVector(std::vector<double>{1.0, 2.0, 3.0, 4.0, 5.0, 6.0});
 
     std::unique_ptr<OutputData<double>> output_data
         = IntensityDataFunctions::createRearrangedDataSet(input_data, 5);
@@ -153,11 +153,15 @@ TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
     EXPECT_EQ(4.0, output_data->getAxis(0).getBinBoundaries().back());
     EXPECT_EQ(1.0, output_data->getAxis(1).getBinBoundaries().front());
     EXPECT_EQ(2.0, output_data->getAxis(1).getBinBoundaries().back());
+    EXPECT_EQ(size_t(3), output_data->getAxis(0).size());
+    EXPECT_EQ(size_t(2), output_data->getAxis(1).size());
 
-    EXPECT_EQ(input_data[1], (*output_data)[0]);
-    EXPECT_EQ(input_data[3], (*output_data)[1]);
-    EXPECT_EQ(input_data[0], (*output_data)[2]);
-    EXPECT_EQ(input_data[2], (*output_data)[3]);
+    EXPECT_EQ(input_data[2], (*output_data)[0]);
+    EXPECT_EQ(input_data[5], (*output_data)[1]);
+    EXPECT_EQ(input_data[1], (*output_data)[2]);
+    EXPECT_EQ(input_data[4], (*output_data)[3]);
+    EXPECT_EQ(input_data[0], (*output_data)[4]);
+    EXPECT_EQ(input_data[3], (*output_data)[5]);
 
     output_data = IntensityDataFunctions::createRearrangedDataSet(input_data, -6);
 
@@ -165,11 +169,15 @@ TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
     EXPECT_EQ(2.0, output_data->getAxis(0).getBinBoundaries().back());
     EXPECT_EQ(3.0, output_data->getAxis(1).getBinBoundaries().front());
     EXPECT_EQ(4.0, output_data->getAxis(1).getBinBoundaries().back());
+    EXPECT_EQ(size_t(2), output_data->getAxis(0).size());
+    EXPECT_EQ(size_t(3), output_data->getAxis(1).size());
 
-    EXPECT_EQ(input_data[3], (*output_data)[0]);
-    EXPECT_EQ(input_data[2], (*output_data)[1]);
-    EXPECT_EQ(input_data[1], (*output_data)[2]);
-    EXPECT_EQ(input_data[0], (*output_data)[3]);
+    EXPECT_EQ(input_data[5], (*output_data)[0]);
+    EXPECT_EQ(input_data[4], (*output_data)[1]);
+    EXPECT_EQ(input_data[3], (*output_data)[2]);
+    EXPECT_EQ(input_data[2], (*output_data)[3]);
+    EXPECT_EQ(input_data[1], (*output_data)[4]);
+    EXPECT_EQ(input_data[0], (*output_data)[5]);
 
     output_data = IntensityDataFunctions::createRearrangedDataSet(input_data, 3);
 
@@ -177,11 +185,15 @@ TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
     EXPECT_EQ(4.0, output_data->getAxis(0).getBinBoundaries().back());
     EXPECT_EQ(1.0, output_data->getAxis(1).getBinBoundaries().front());
     EXPECT_EQ(2.0, output_data->getAxis(1).getBinBoundaries().back());
+    EXPECT_EQ(size_t(3), output_data->getAxis(0).size());
+    EXPECT_EQ(size_t(2), output_data->getAxis(1).size());
 
-    EXPECT_EQ(input_data[2], (*output_data)[0]);
+    EXPECT_EQ(input_data[3], (*output_data)[0]);
     EXPECT_EQ(input_data[0], (*output_data)[1]);
-    EXPECT_EQ(input_data[3], (*output_data)[2]);
+    EXPECT_EQ(input_data[4], (*output_data)[2]);
     EXPECT_EQ(input_data[1], (*output_data)[3]);
+    EXPECT_EQ(input_data[5], (*output_data)[4]);
+    EXPECT_EQ(input_data[2], (*output_data)[5]);
 }
 
 TEST_F(IntensityDataFunctionsTest, coordinateToFromBinf)

@@ -42,11 +42,9 @@ bool IStandardTest::execute(int argc, char** argv) {
         return true;
     }
 
-    m_info = catalogue.getItemOrExplain(test_name, getName());
-    if( !m_info )
-        throw Exceptions::RuntimeErrorException("IStandardTest -> Error in look up.");
+    m_info = catalogue.testInfo(test_name);
 
-    if (m_info->m_subtest_type == "None")
+    if (m_info.m_subtest_type == "None")
         return execute_onetest();
     else
         return execute_subtests();
@@ -56,7 +54,7 @@ bool IStandardTest::execute(int argc, char** argv) {
 
 bool IStandardTest::execute_onetest()
 {
-    setName( m_info->m_test_name );
+    setName( m_info.m_test_name );
     return getTest()->runTest();
 }
 
@@ -67,20 +65,20 @@ bool IStandardTest::execute_subtests()
     // initialize subtest registry
     std::vector<std::string> subtest_names;
     ISubtestRegistry* subtest_registry;
-    if       (m_info->m_subtest_type == "FormFactors") {
+    if (m_info.m_subtest_type == "FormFactors") {
         subtest_registry = new SubtestRegistryFormFactor;
-    } else if(m_info->m_subtest_type == "FTDistributions2D") {
+    } else if(m_info.m_subtest_type == "FTDistributions2D") {
         subtest_registry = new SubtestRegistryFTDistribution2D;
     } else
         throw Exceptions::RuntimeErrorException("IStandardTest -> Error. "
-                                    "Unknown factory '"+m_info->m_subtest_type+"'.");
+                                    "Unknown factory '"+m_info.m_subtest_type+"'.");
     subtest_names = subtest_registry->keys();
     size_t n_subtests = subtest_names.size();
 
     // run and analyze subtests
     int number_of_failed_tests = 0;
     for (size_t i = 0; i < n_subtests; ++i) {
-        setName( m_info->m_test_name + "_" + subtest_names[i] );
+        setName( m_info.m_test_name + "_" + subtest_names[i] );
         m_subtest_item = subtest_registry->getItem(subtest_names[i]);
         std::cout << "IStandardTest::execute() -> " << getName()
                   << " " << i+1 << "/" << n_subtests << " (" << subtest_names[i] << ")\n";
@@ -99,18 +97,18 @@ bool IStandardTest::execute_subtests()
 //  Functions called by getTest() in *Suite.cpp
 // ************************************************************************** //
 
-std::string IStandardTest::getTestDescription() const { return m_info->m_test_description; }
+std::string IStandardTest::getTestDescription() const { return m_info.m_test_description; }
 
-double IStandardTest::getTestThreshold() const { return m_info->m_threshold; }
+double IStandardTest::getTestThreshold() const { return m_info.m_threshold; }
 
 GISASSimulation* IStandardTest::getSimulation() const
 {
     std::shared_ptr<IMultiLayerBuilder> sample_builder(
-        SampleBuilderFactory().createItem(m_info->m_sample_builder_name) );
+        SampleBuilderFactory().createItem(m_info.m_sample_builder_name) );
     if(m_subtest_item)
         sample_builder->set_subtest(m_subtest_item);
 
-    GISASSimulation* result = SimulationFactory().createItem(m_info->m_simulation_name);
+    GISASSimulation* result = SimulationFactory().createItem(m_info.m_simulation_name);
     result->setSampleBuilder(sample_builder);
     return result;
 }

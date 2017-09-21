@@ -28,9 +28,6 @@ class StandardTestCatalogue
 public:
     StandardTestCatalogue();
 
-    const StandardTestInfo* getItemOrExplain(
-        const std::string& test_name, const std::string& suite_name) const;
-
     StandardTestInfo testInfo(const std::string& test_name);
 
     bool contains(const std::string& test_name);

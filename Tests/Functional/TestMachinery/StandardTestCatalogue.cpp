@@ -426,21 +426,6 @@ void StandardTestCatalogue::add(
         sample_builder_name, subtest_type, threshold);
 }
 
-const StandardTestInfo* StandardTestCatalogue::getItemOrExplain(
-    const std::string& test_name, const std::string& suite_name) const
-{
-    auto it = m_catalogue.find(test_name);
-    if( it == m_catalogue.end() ) {
-        if(test_name!="")
-            std::cout<<"There is no test named '"<< test_name << "'\n";
-        std::cout << "Usage: "<< suite_name << " <test_name>\n";
-        std::cout << "Available tests:\n";
-        printCatalogue(std::cout);
-        return nullptr;
-    }
-    return &(it->second);
-}
-
 //! Returns test info for given test name.
 
 StandardTestInfo StandardTestCatalogue::testInfo(const std::string& test_name)

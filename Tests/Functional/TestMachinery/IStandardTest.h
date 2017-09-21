@@ -17,11 +17,11 @@
 #define ISTANDARDTEST_H
 
 #include "INamed.h"
+#include "StandardTestInfo.h"
 #include <memory>
 
 class GISASSimulation;
 class IFunctionalTest;
-class StandardTestInfo;
 class IParameterized;
 
 //! Base class for Core/PyCore/GUI tests that involve standard simulations.
@@ -70,7 +70,7 @@ protected:
     virtual double getTestThreshold() const;
 
 private:
-    const StandardTestInfo* m_info;
+    StandardTestInfo m_info;
     const IParameterized* m_subtest_item;
 
     bool execute_onetest();

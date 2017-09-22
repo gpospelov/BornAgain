@@ -65,7 +65,7 @@ MultiLayer* ParticleInTheAirBuilder::createSample(size_t index)
 
 size_t ParticleInTheAirBuilder::size()
 {
-    static size_t result = ff_registry().keys().size();
+    static size_t result = ff_registry().size();
     return result;
 }
 

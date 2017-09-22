@@ -142,7 +142,7 @@ MultiLayer* Basic2DParaCrystalBuilder::createSample(size_t index)
 
 size_t Basic2DParaCrystalBuilder::size()
 {
-    static size_t result = pdf_registry().keys().size();
+    static size_t result = pdf_registry().size();
     return result;
 }
 

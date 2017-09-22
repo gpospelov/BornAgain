@@ -45,6 +45,8 @@ public:
         return result;
     }
 
+    size_t size() const { return m_data.size(); }
+
 protected:
     void add(const std::string& key, ValueType* item) {
         if(m_data.find(key) != m_data.end())

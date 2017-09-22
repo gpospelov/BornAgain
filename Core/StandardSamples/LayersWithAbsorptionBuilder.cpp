@@ -82,7 +82,7 @@ MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
 
 size_t LayersWithAbsorptionBuilder::size()
 {
-    static size_t result = ff_registry().keys().size();
+    static size_t result = ff_registry().size();
     return result;
 }
 

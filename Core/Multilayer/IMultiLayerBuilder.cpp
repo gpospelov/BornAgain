@@ -16,6 +16,12 @@
 #include "IMultiLayerBuilder.h"
 #include "FTDistributions2D.h"
 #include "IFormFactor.h"
+#include "BornAgainNamespace.h"
+
+IMultiLayerBuilder::IMultiLayerBuilder() : m_subtest_item(0)
+{
+    setName(BornAgain::SampleBuilderType);
+}
 
 const IFormFactor* IMultiLayerBuilder::formFactor() const
 {

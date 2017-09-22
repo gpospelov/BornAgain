@@ -13,33 +13,17 @@
 //
 // ************************************************************************** //
 
-#ifndef ISTANDARDTEST_H
-#define ISTANDARDTEST_H
+#include "IStandardTest.h"
+#include "GISASSimulation.h"
 
-#include "IFunctionalTest.h"
-#include "OutputData.h"
-#include <map>
-#include <string>
-#include <memory>
-
-class GISASSimulation;
-
-//! Base class for tests that compare results with reference data.
-//! @ingroup standard_samples
-
-class BA_CORE_API_ IStandardTest : public IFunctionalTest
+IStandardTest::IStandardTest(const std::string& name, const std::string& description,
+                             GISASSimulation* simulation, double threshold)
+    : IFunctionalTest(name, description)
+    , m_reference_simulation(simulation)
+    , m_threshold(threshold)
 {
-public:
-    IStandardTest(const std::string& name, const std::string& description,
-                  GISASSimulation* simulation, double threshold);
 
-    ~IStandardTest();
+}
 
-    bool runTest() =0;
+IStandardTest::~IStandardTest() = default;
 
-protected:
-    std::unique_ptr<GISASSimulation> m_reference_simulation;
-    double m_threshold;
-};
-
-#endif // ISTANDARDTEST_H

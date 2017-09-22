@@ -16,22 +16,11 @@
 #include "PyStandardTest.h"
 #include "FileSystemUtils.h"
 #include "GISASSimulation.h"
-#include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "PythonFormatting.h"
-#include "SimulationFactory.h"
 #include "TestUtils.h"
-#include <cassert>
-#include <cstdio>
 #include <fstream>
-
-PyStandardTest::PyStandardTest(
-    const std::string& name, const std::string& description,
-    GISASSimulation* reference_simulation, double threshold)
-    : IStandardTest(name, description, threshold)
-    , m_reference_simulation(reference_simulation)
-{
-}
+#include <iostream>
 
 //! Runs simulation via a Python script and directly, and returns true if the results agree.
 bool PyStandardTest::runTest()
@@ -54,14 +43,15 @@ bool PyStandardTest::runTest()
         return false;
 
     // Run direct simulation
-    std::cout <<
-        "Now going to directly run the simulation, and to compare with result from Py script\n";
+    std::cout << "Running simulation and comparing with result from Py script\n";
     m_reference_simulation->runSimulation();
-    const std::unique_ptr<OutputData<double> > P_reference_data(
+
+    const std::unique_ptr<OutputData<double> > reference_data(
         m_reference_simulation->getDetectorIntensity());
 
     // Compare results
-    const std::unique_ptr<OutputData<double> > P_domain_data(
+    const std::unique_ptr<OutputData<double> > domain_data(
         IntensityDataIOFactory::readOutputData(output_path));
-    return TestUtils::isTheSame(*P_domain_data, *P_reference_data, m_threshold);
+
+    return TestUtils::isTheSame(*domain_data, *reference_data, m_threshold);
 }

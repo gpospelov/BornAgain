@@ -17,24 +17,16 @@
 #define CORESTANDARDTEST_H
 
 #include "IStandardTest.h"
-#include <memory>
-
-class GISASSimulation;
 
 //! A functional test of BornAgain/Core.
-//!   Performs a given standard simulation, and compares results with reference data.
-//!   Invoked from CoreStandardTest.
+//! Performs a given standard simulation, and compares results with reference data.
 
 class CoreStandardTest : public IStandardTest
 {
 public:
-    CoreStandardTest(const std::string& name, const std::string& description,
-             GISASSimulation* simulation, double threshold);
+    using IStandardTest::IStandardTest;
 
     bool runTest() final;
-
-private:
-    std::unique_ptr<GISASSimulation> m_reference_simulation;
 };
 
 #endif // CORESTANDARDTEST_H

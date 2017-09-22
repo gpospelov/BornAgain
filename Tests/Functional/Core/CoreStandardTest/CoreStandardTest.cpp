@@ -16,16 +16,8 @@
 #include "CoreStandardTest.h"
 #include "FileSystemUtils.h"
 #include "GISASSimulation.h"
-#include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "TestUtils.h"
-
-CoreStandardTest::CoreStandardTest(
-    const std::string& name, const std::string& description, GISASSimulation* simulation,
-    double threshold)
-    : IStandardTest(name, description, threshold)
-    , m_reference_simulation(simulation)
-{}
 
 bool CoreStandardTest::runTest()
 {
@@ -46,7 +38,6 @@ bool CoreStandardTest::runTest()
 
     // Compare with reference if available.
     bool success = TestUtils::isTheSame(*result_data, *reference, m_threshold) ? true : false;
-
 
     // Save simulation if different from reference.
     if (!success) {

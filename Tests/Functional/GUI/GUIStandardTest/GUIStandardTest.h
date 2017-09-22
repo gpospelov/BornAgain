@@ -18,29 +18,17 @@
 #define GUISTANDARDTEST_H
 
 #include "IStandardTest.h"
-#include "OutputData.h"
-#include <memory>
-
-class GISASSimulation;
 
 //! A functional test of the BornAgain GUI.
-//!   Performs a given standard simulation directly, and through domain->GUI->domain,
-//!   and compares results.
-//!   Invoked by GUIStandardTest.
+//! Performs a given standard simulation directly, and through domain->GUI->domain,
+//! and compares results.
 
 class GUIStandardTest : public IStandardTest
 {
 public:
-    GUIStandardTest(const std::string& name, const std::string& description,
-            GISASSimulation* reference_simulation, double threshold);
+    using IStandardTest::IStandardTest;
 
     bool runTest() final;
-
-private:
-    void createDomainSimulation();
-
-    std::unique_ptr<GISASSimulation> m_reference_simulation;
-    std::unique_ptr<GISASSimulation> m_domain_simulation;
 };
 
 #endif // GUISTANDARDTEST_H

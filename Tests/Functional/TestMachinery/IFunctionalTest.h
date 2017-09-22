@@ -28,11 +28,10 @@ public:
     IFunctionalTest() {}
     IFunctionalTest(const std::string& name, const std::string& description)
         : INamed(name), m_description(description) {}
-    virtual ~IFunctionalTest() {}
 
     virtual bool runTest() = 0; //!< Returns true when successful
 
-    std::string getDescription() const { return m_description; }
+    std::string description() const { return m_description; }
     void setDescription(const std::string& description) { m_description = description; }
 
 protected:

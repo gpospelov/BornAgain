@@ -54,10 +54,6 @@ std::unique_ptr<GISASSimulation> createDomainSimulation(const GISASSimulation& o
 
 bool GUIStandardTest::runTest()
 {
-    if (!m_reference_simulation)
-        throw Exceptions::NullPointerException(
-            "GUITest::runTest() -> Error. Uninitialized simulation object.");
-
     m_reference_simulation->runSimulation();
 
     auto domain_simulation = createDomainSimulation(*m_reference_simulation);

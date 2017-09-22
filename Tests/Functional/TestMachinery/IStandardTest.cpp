@@ -17,9 +17,9 @@
 #include "GISASSimulation.h"
 
 IStandardTest::IStandardTest(const std::string& name, const std::string& description,
-                             GISASSimulation* simulation, double threshold)
+                             const GISASSimulation& simulation, double threshold)
     : IFunctionalTest(name, description)
-    , m_reference_simulation(simulation)
+    , m_reference_simulation(simulation.clone())
     , m_threshold(threshold)
 {
 

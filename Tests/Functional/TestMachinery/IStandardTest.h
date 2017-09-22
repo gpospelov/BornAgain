@@ -17,8 +17,6 @@
 #define ISTANDARDTEST_H
 
 #include "IFunctionalTest.h"
-#include "OutputData.h"
-#include <map>
 #include <string>
 #include <memory>
 
@@ -31,7 +29,7 @@ class BA_CORE_API_ IStandardTest : public IFunctionalTest
 {
 public:
     IStandardTest(const std::string& name, const std::string& description,
-                  GISASSimulation* simulation, double threshold);
+                  const GISASSimulation& simulation, double threshold);
 
     ~IStandardTest();
 

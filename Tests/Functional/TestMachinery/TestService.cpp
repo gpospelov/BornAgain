@@ -41,7 +41,6 @@ std::string fullTestName(const std::string& test_name, const std::string& builde
 
 }
 
-
 //! Runs test corresponding to given command line parameters, returns true if success.
 
 bool TestServiceBase::execute(int argc, char** argv)
@@ -66,7 +65,7 @@ bool TestServiceBase::execute(int argc, char** argv)
         std::string test_name = fullTestName(info.m_test_name, builder->getName());
 
         std::unique_ptr<IFunctionalTest> test(createTest(test_name, info.m_test_description,
-                                           simulation.release(), info.m_threshold));
+                                           *simulation, info.m_threshold));
 
         if(n_subtests)
             std::cout << "IStandardTest::execute() -> " << test_name << " " << sample_index+1

@@ -17,6 +17,7 @@
 #define TESTSERVICE_H
 
 #include <string>
+#include <memory>
 class IFunctionalTest;
 class GISASSimulation;
 
@@ -32,7 +33,8 @@ public:
 
 private:
     virtual IFunctionalTest* createTest(const std::string& name, const std::string& description,
-                                        GISASSimulation* simulation, double threshold) = 0;
+                                        const GISASSimulation& simulation,
+                                        double threshold) = 0;
 };
 
 
@@ -47,13 +49,14 @@ class TestService : public TestServiceBase
 
 private:
     virtual IFunctionalTest* createTest(const std::string& name, const std::string& description,
-                                        GISASSimulation* simulation, double threshold)
+                                        const GISASSimulation&  simulation,
+                                        double threshold)
     {
-        return createStandardTest(name, description, simulation, threshold);
+        return createStandardTest(name, description, std::move(simulation), threshold);
     }
 
     T* createStandardTest(const std::string& name, const std::string& description,
-                          GISASSimulation* simulation, double threshold) {
+                          const GISASSimulation&  simulation, double threshold) {
         return new T(name, description, simulation, threshold);
     }
 };

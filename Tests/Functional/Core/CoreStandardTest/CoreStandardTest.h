@@ -16,7 +16,7 @@
 #ifndef CORESTANDARDTEST_H
 #define CORESTANDARDTEST_H
 
-#include "IReferencedTest.h"
+#include "IStandardTest.h"
 
 template <class T> class OutputData;
 class GISASSimulation;

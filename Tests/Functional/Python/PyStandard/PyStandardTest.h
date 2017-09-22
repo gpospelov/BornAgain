@@ -16,7 +16,7 @@
 #ifndef PYSTANDARDTEST_H
 #define PYSTANDARDTEST_H
 
-#include "IReferencedTest.h"
+#include "IStandardTest.h"
 #include "OutputData.h"
 
 //! A functional test of PyCore (the Python wrapper of BornAgain/Core).

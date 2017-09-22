@@ -16,7 +16,7 @@
 #ifndef PYPERSISTENCETEST_H
 #define PYPERSISTENCETEST_H
 
-#include "IReferencedTest.h"
+#include "IStandardTest.h"
 #include "OutputData.h"
 #include <map>
 #include <string>

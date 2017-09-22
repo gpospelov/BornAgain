@@ -17,7 +17,7 @@
 #ifndef GUISTANDARDTEST_H
 #define GUISTANDARDTEST_H
 
-#include "IReferencedTest.h"
+#include "IStandardTest.h"
 #include "OutputData.h"
 
 class GISASSimulation;

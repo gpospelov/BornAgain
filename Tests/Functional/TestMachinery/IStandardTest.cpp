@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "IReferencedTest.h"
+#include "IStandardTest.h"
 #include "IntensityDataFunctions.h"
 #include <iostream>
 #include <cstdlib>

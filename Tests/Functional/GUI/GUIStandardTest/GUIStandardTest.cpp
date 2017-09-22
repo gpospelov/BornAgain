@@ -24,6 +24,7 @@
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
 #include "SampleModel.h"
+#include "TestUtils.h"
 
 GUIStandardTest::GUIStandardTest(const std::string &name, const std::string &description,
                  GISASSimulation *reference_simulation, double threshold)
@@ -53,7 +54,7 @@ bool GUIStandardTest::runTest()
                 m_domain_simulation->getDetectorIntensity());
     const std::unique_ptr<OutputData<double> > P_reference_data(
         m_reference_simulation->getDetectorIntensity());
-    return compareIntensityMaps(*P_domain_data, *P_reference_data);
+    return TestUtils::isTheSame(*P_domain_data, *P_reference_data, m_threshold);
 }
 
 //! returns new simulation from

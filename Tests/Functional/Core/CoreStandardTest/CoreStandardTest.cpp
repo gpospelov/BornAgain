@@ -18,6 +18,7 @@
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
+#include "TestUtils.h"
 
 CoreStandardTest::CoreStandardTest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
@@ -51,7 +52,7 @@ bool CoreStandardTest::runTest()
     // Compare with reference if available.
     bool success = false;
     if (m_reference)
-        success = compareIntensityMaps(*result_data.get(), *m_reference);
+        success = TestUtils::isTheSame(*result_data.get(), *m_reference, m_threshold);
     // Save simulation if different from reference.
     if (!success) {
         FileSystemUtils::createDirectory(CORE_STD_OUT_DIR);

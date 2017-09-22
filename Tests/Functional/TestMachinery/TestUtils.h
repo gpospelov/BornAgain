@@ -18,13 +18,16 @@
 
 #include "WinDllMacros.h"
 #include "StandardTestInfo.h"
+#include "OutputData.h"
 
 namespace TestUtils
 {
 
-//! Returns test info for given set of command line parameters
+//! Returns test info for given set of command line parameters.
 StandardTestInfo testInfo(int argc, char** argv);
 
+//! Returns true if intensity maps are the same within given threshold.
+bool isTheSame(const OutputData<double>& dat, const OutputData<double>& ref, double threshold);
 
 }
 

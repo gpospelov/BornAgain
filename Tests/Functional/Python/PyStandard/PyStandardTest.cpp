@@ -20,6 +20,7 @@
 #include "IntensityDataIOFactory.h"
 #include "PythonFormatting.h"
 #include "SimulationFactory.h"
+#include "TestUtils.h"
 #include <cassert>
 #include <cstdio>
 #include <fstream>
@@ -69,5 +70,5 @@ bool PyStandardTest::runTest()
     // Compare results
     const std::unique_ptr<OutputData<double> > P_domain_data(
         IntensityDataIOFactory::readOutputData(output_path));
-    return compareIntensityMaps(*P_domain_data, *P_reference_data);
+    return TestUtils::isTheSame(*P_domain_data, *P_reference_data, m_threshold);
 }

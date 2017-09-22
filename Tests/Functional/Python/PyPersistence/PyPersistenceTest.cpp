@@ -21,6 +21,7 @@
 #include "PythonFormatting.h"
 #include "SimulationFactory.h"
 #include "StringUtils.h"
+#include "TestUtils.h"
 #include <yaml-cpp/yaml.h>
 #include <cstdio>
 #include <fstream>
@@ -125,7 +126,7 @@ bool PyPersistenceTest::compareIntensityPair(
 {
     const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( dat_fpath );
     const OutputData<double>* ref = IntensityDataIOFactory::readOutputData( ref_fpath );
-    return compareIntensityMaps(*dat, *ref);
+    return TestUtils::isTheSame(*dat, *ref, m_threshold);
 }
 
 //! Returns true if YAML files from test output and reference agree.

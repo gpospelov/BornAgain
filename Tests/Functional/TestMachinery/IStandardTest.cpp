@@ -18,21 +18,6 @@
 #include <iostream>
 #include <cstdlib>
 
-//! Compares two intensity maps, and returns true unless they disagree beyond their variability.
-bool IStandardTest::compareIntensityMaps(
-    const OutputData<double>& dat, const OutputData<double>& ref) const
-{
-    double diff = IntensityDataFunctions::getRelativeDifference(dat, ref);
-    if ( diff > m_threshold ) {
-        std::cerr << "Failed: Relative difference between dat and ref = " << diff
-                  << " is above given threshold = " << m_threshold << "\n";
-        return false;
-    }
-    std::cout << "Relative difference between dat and ref = " << diff
-              << " is within given threshold = " << m_threshold << "\n";
-    return true;
-}
-
 #ifdef PYTHON_EXECUTABLE
 //! Runs a python command, prints messages, returns true unless the system call failed.
 bool IStandardTest::runPython(const std::string& py_command)

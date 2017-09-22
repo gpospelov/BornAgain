@@ -15,6 +15,7 @@
 
 #include "TestUtils.h"
 #include "StandardTestCatalogue.h"
+#include "IntensityDataFunctions.h"
 #include <iostream>
 
 StandardTestInfo TestUtils::testInfo(int argc, char** argv)
@@ -31,4 +32,18 @@ StandardTestInfo TestUtils::testInfo(int argc, char** argv)
     }
 
     return catalogue.testInfo(test_name);
+}
+
+bool TestUtils::isTheSame(const OutputData<double>& dat, const OutputData<double>& ref,
+                          double threshold)
+{
+    double diff = IntensityDataFunctions::getRelativeDifference(dat, ref);
+    if ( diff > threshold ) {
+        std::cerr << "Failed: Relative difference between dat and ref = " << diff
+                  << " is above given threshold = " << threshold << "\n";
+        return false;
+    }
+    std::cout << "Relative difference between dat and ref = " << diff
+              << " is within given threshold = " << threshold << "\n";
+    return true;
 }

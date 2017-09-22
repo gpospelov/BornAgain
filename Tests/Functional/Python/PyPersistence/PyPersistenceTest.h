@@ -16,7 +16,7 @@
 #ifndef PYPERSISTENCETEST_H
 #define PYPERSISTENCETEST_H
 
-#include "IStandardTest.h"
+#include "IFunctionalTest.h"
 #include "OutputData.h"
 #include <map>
 #include <string>
@@ -33,7 +33,7 @@ namespace YAML {
 //!     the stem must be the script name; the extension is arbitrary.
 //!   One script may generate several output files, which must have different extensions.
 
-class PyPersistenceTest : public IStandardTest
+class PyPersistenceTest : public IFunctionalTest
 {
 public:
     PyPersistenceTest(const std::string& path, const std::string& name, double threshold);
@@ -43,6 +43,7 @@ public:
 
 private:
     std::string m_path;
+    double m_threshold;
 
     static std::map<const std::string, const std::string>
         glob2map(const std::string& dir, const std::string& stem);

@@ -30,8 +30,9 @@
 
 PyPersistenceTest::PyPersistenceTest(
     const std::string& path, const std::string& name, double threshold)
-    : IStandardTest(name, "persistence test on script "+name, threshold)
+    : IFunctionalTest(name, "persistence test on script "+name)
     , m_path(path)
+    , m_threshold(threshold)
 {}
 
 //! Runs a Python script, and returns true if the output of the script agrees with reference data.

@@ -14,11 +14,11 @@
 // ************************************************************************** //
 
 #include "TestService.h"
-#include "PyExportTest.h"
+#include "PyStandardTest.h"
 
-//! Runs PyExportTest on a standard simulation indicated by argv[1].
+//! Runs PyStandardTest on a standard simulation indicated by argv[1].
 
 int main(int argc, char** argv)
 {
-    return TestService<PyExportTest>().execute(argc, argv) ? 0 : 1;
+    return TestService<PyStandardTest>().execute(argc, argv) ? 0 : 1;
 }

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/PyCore/export/PyExportTest.cpp
+//! @file      Tests/Functional/PyCore/export/PyStandardTest.cpp
 //! @brief     Implements class PyExportTest
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "PyExportTest.h"
+#include "PyStandardTest.h"
 #include "FileSystemUtils.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
@@ -24,7 +24,7 @@
 #include <cstdio>
 #include <fstream>
 
-PyExportTest::PyExportTest(
+PyStandardTest::PyStandardTest(
     const std::string& name, const std::string& description,
     GISASSimulation* reference_simulation, double threshold)
     : IReferencedTest(name, description, threshold)
@@ -33,14 +33,14 @@ PyExportTest::PyExportTest(
 {
 }
 
-PyExportTest::~PyExportTest()
+PyStandardTest::~PyStandardTest()
 {
     delete m_reference_simulation;
     delete m_domain_simulation;
 }
 
 //! Runs simulation via a Python script and directly, and returns true if the results agree.
-bool PyExportTest::runTest()
+bool PyStandardTest::runTest()
 {
     // Set output data filename, and remove old output files
     std::string output_name = FileSystemUtils::jointPath(PYEXPORT_TMP_DIR, getName());

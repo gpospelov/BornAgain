@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/PyCore/export/PyExportTest.h
-//! @brief     Defines class PyExportTest
+//! @file      Tests/Functional/PyCore/export/PyStandardTest.h
+//! @brief     Defines class PyStandardTest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYEXPORTTEST_H
-#define PYEXPORTTEST_H
+#ifndef PYSTANDARDTEST_H
+#define PYSTANDARDTEST_H
 
 #include "IReferencedTest.h"
 #include "OutputData.h"
@@ -23,12 +23,12 @@
 //!   Performs a given standard simulation, both directly and from a Python dump.
 //!   Invoked from PyExportStandardTest.
 
-class PyExportTest : public IReferencedTest
+class PyStandardTest : public IReferencedTest
 {
 public:
-    PyExportTest(const std::string& name, const std::string& description,
+    PyStandardTest(const std::string& name, const std::string& description,
                  class GISASSimulation* reference_simulation, double threshold);
-    virtual ~PyExportTest();
+    virtual ~PyStandardTest();
 
     bool runTest() final;
 
@@ -39,4 +39,4 @@ private:
     class GISASSimulation* m_domain_simulation;
 };
 
-#endif // PYEXPORTTEST_H
+#endif // PYSTANDARDTEST_H

@@ -19,6 +19,7 @@
 
 #include "IStandardTest.h"
 #include "OutputData.h"
+#include <memory>
 
 class GISASSimulation;
 
@@ -32,15 +33,14 @@ class GUIStandardTest : public IStandardTest
 public:
     GUIStandardTest(const std::string& name, const std::string& description,
             GISASSimulation* reference_simulation, double threshold);
-    virtual ~GUIStandardTest();
 
     bool runTest() final;
 
 private:
     void createDomainSimulation();
 
-    GISASSimulation* m_reference_simulation;
-    GISASSimulation* m_domain_simulation;
+    std::unique_ptr<GISASSimulation> m_reference_simulation;
+    std::unique_ptr<GISASSimulation> m_domain_simulation;
 };
 
 #endif // GUISTANDARDTEST_H

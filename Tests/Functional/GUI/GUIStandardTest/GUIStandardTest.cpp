@@ -30,14 +30,7 @@ GUIStandardTest::GUIStandardTest(const std::string &name, const std::string &des
                  GISASSimulation *reference_simulation, double threshold)
     : IStandardTest(name, description, threshold)
     , m_reference_simulation(reference_simulation)
-    , m_domain_simulation(nullptr)
 {}
-
-GUIStandardTest::~GUIStandardTest()
-{
-    delete m_reference_simulation;
-    delete m_domain_simulation;
-}
 
 bool GUIStandardTest::runTest()
 {
@@ -75,6 +68,6 @@ void GUIStandardTest::createDomainSimulation()
     guiBuilder.populateInstrumentModel(instrumentModel.get(), *m_reference_simulation);
     guiBuilder.populateDocumentModel(documentModel.get(), *m_reference_simulation);
 
-    m_domain_simulation = DomainSimulationBuilder::getSimulation(sampleModel->multiLayerItem(),
-            instrumentModel->instrumentItem(), documentModel->getSimulationOptionsItem());
+    m_domain_simulation.reset(DomainSimulationBuilder::getSimulation(sampleModel->multiLayerItem(),
+            instrumentModel->instrumentItem(), documentModel->getSimulationOptionsItem()));
 }

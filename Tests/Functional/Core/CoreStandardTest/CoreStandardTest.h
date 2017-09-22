@@ -17,8 +17,8 @@
 #define CORESTANDARDTEST_H
 
 #include "IStandardTest.h"
+#include <memory>
 
-template <class T> class OutputData;
 class GISASSimulation;
 
 //! A functional test of BornAgain/Core.
@@ -30,13 +30,11 @@ class CoreStandardTest : public IStandardTest
 public:
     CoreStandardTest(const std::string& name, const std::string& description,
              GISASSimulation* simulation, double threshold);
-    ~CoreStandardTest() final;
 
     bool runTest() final;
 
 private:
-    GISASSimulation* m_simulation;
-    OutputData<double>* m_reference;
+    std::unique_ptr<GISASSimulation> m_reference_simulation;
 };
 
 #endif // CORESTANDARDTEST_H

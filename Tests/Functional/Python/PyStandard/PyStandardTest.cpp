@@ -30,14 +30,7 @@ PyStandardTest::PyStandardTest(
     GISASSimulation* reference_simulation, double threshold)
     : IStandardTest(name, description, threshold)
     , m_reference_simulation(reference_simulation)
-    , m_domain_simulation(nullptr)
 {
-}
-
-PyStandardTest::~PyStandardTest()
-{
-    delete m_reference_simulation;
-    delete m_domain_simulation;
 }
 
 //! Runs simulation via a Python script and directly, and returns true if the results agree.

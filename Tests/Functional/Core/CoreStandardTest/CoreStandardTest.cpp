@@ -24,35 +24,30 @@ CoreStandardTest::CoreStandardTest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
     double threshold)
     : IStandardTest(name, description, threshold)
-    , m_simulation(simulation)
+    , m_reference_simulation(simulation)
 {}
-
-CoreStandardTest::~CoreStandardTest()
-{
-    delete m_simulation;
-    delete m_reference;
-}
 
 bool CoreStandardTest::runTest()
 {
+    std::unique_ptr<OutputData<double>> reference;
+
     // Load reference if available
     try {
-        m_reference = IntensityDataIOFactory::readOutputData(
-            FileSystemUtils::jointPath(CORE_STD_REF_DIR, getName() + ".int.gz"));
+        reference.reset(IntensityDataIOFactory::readOutputData(
+            FileSystemUtils::jointPath(CORE_STD_REF_DIR, getName() + ".int.gz")));
     } catch(const std::exception&) {
-        m_reference = nullptr;
         std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
     }
 
     // Run simulation.
-    assert(m_simulation);
-    m_simulation->runSimulation();
-    const std::unique_ptr<OutputData<double>> result_data(m_simulation->getDetectorIntensity());
+    assert(m_reference_simulation);
+    m_reference_simulation->runSimulation();
+    const std::unique_ptr<OutputData<double>> result_data(m_reference_simulation->getDetectorIntensity());
 
     // Compare with reference if available.
-    bool success = false;
-    if (m_reference)
-        success = TestUtils::isTheSame(*result_data.get(), *m_reference, m_threshold);
+    bool success = TestUtils::isTheSame(*result_data, *reference, m_threshold) ? true : false;
+
+
     // Save simulation if different from reference.
     if (!success) {
         FileSystemUtils::createDirectory(CORE_STD_OUT_DIR);

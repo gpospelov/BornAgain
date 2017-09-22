@@ -7315,16 +7315,6 @@ class IMultiLayerBuilder(IParameterized):
         return _libBornAgainCore.IMultiLayerBuilder_formFactor(self)
 
 
-    def getFTDistribution2D(self):
-        """
-        getFTDistribution2D(IMultiLayerBuilder self) -> IFTDistribution2D
-
-        const IFTDistribution2D * IMultiLayerBuilder::getFTDistribution2D() const 
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_getFTDistribution2D(self)
-
-
     def onChange(self):
         """
         onChange(IMultiLayerBuilder self)
@@ -7335,6 +7325,19 @@ class IMultiLayerBuilder(IParameterized):
 
         """
         return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
+
+
+    def createSample(self, index=0):
+        """
+        createSample(IMultiLayerBuilder self, size_t index=0) -> MultiLayer
+        createSample(IMultiLayerBuilder self) -> MultiLayer
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_createSample(self, index)
+
+
+    def size(self):
+        """size(IMultiLayerBuilder self) -> size_t"""
+        return _libBornAgainCore.IMultiLayerBuilder_size(self)
 
 
     def registerParameter(self, name, parpointer):

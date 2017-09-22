@@ -16,13 +16,14 @@
 #ifndef STANDARDTESTINFO_H
 #define STANDARDTESTINFO_H
 
+#include "WinDllMacros.h"
 #include <string>
 
 //! @class StandardTestInfo
 //! @ingroup standard_samples
 //! @brief Collection of parameters necessary to run standard functional test.
 
-class StandardTestInfo
+class BA_CORE_API_ StandardTestInfo
 {
 public:
     StandardTestInfo();

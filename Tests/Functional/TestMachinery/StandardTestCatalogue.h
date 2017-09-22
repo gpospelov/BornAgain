@@ -16,6 +16,7 @@
 #ifndef STANDARDTESTCATALOGUE_H
 #define STANDARDTESTCATALOGUE_H
 
+#include "WinDllMacros.h"
 #include "StandardTestInfo.h"
 #include <map>
 
@@ -23,7 +24,7 @@
 //! @ingroup standard_samples
 //! @brief Catalogue with the description of standard functional tests.
 
-class StandardTestCatalogue
+class BA_CORE_API_ StandardTestCatalogue
 {
 public:
     StandardTestCatalogue();

@@ -24,13 +24,13 @@ namespace TestUtils
 {
 
 //! Returns test info for given set of command line parameters.
-StandardTestInfo testInfo(int argc, char** argv);
+BA_CORE_API_ StandardTestInfo testInfo(int argc, char** argv);
 
 //! Returns true if intensity maps are the same within given threshold.
-bool isTheSame(const OutputData<double>& dat, const OutputData<double>& ref, double threshold);
+BA_CORE_API_ bool isTheSame(const OutputData<double>& dat, const OutputData<double>& ref, double threshold);
 
 //! Executes script in external (system) Python interpreter
-bool runPython(const std::string& py_command);
+BA_CORE_API_ bool runPython(const std::string& py_command);
 
 }
 

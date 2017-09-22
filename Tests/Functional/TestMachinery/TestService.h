@@ -16,6 +16,7 @@
 #ifndef TESTSERVICE_H
 #define TESTSERVICE_H
 
+#include "WinDllMacros.h"
 #include <string>
 #include <memory>
 class IFunctionalTest;
@@ -25,7 +26,7 @@ class GISASSimulation;
 //! @ingroup standard_samples
 //! @brief Main class to run standard functional test from standalone executable.
 
-class TestServiceBase
+class BA_CORE_API_ TestServiceBase
 {
 public:
     virtual ~TestServiceBase() = default;

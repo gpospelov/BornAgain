@@ -26,6 +26,7 @@
 #include "projectmanager.h"
 #include "ColorMap.h"
 #include "IntensityDataItem.h"
+#include "IntensityDataFunctions.h"
 #include "MaskItems.h"
 #include <QGraphicsRectItem>
 #include <QModelIndex>
@@ -107,6 +108,16 @@ void MaskEditorCanvas::onResetViewRequest()
     } else {
         m_intensityDataItem->resetView();
     }
+}
+
+void MaskEditorCanvas::onRotateDataRequest()
+{
+    Q_ASSERT(m_intensityDataItem);
+
+    OutputData<double>* input = m_intensityDataItem->getOutputData();
+    m_intensityDataItem->setOutputData(
+        IntensityDataFunctions::createRearrangedDataSet(*input, 1).release());
+    m_intensityDataItem->setAxesRangeToData();
 }
 
 //! Returns true if IntensityData is currently at 100% zoom level

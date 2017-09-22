@@ -37,23 +37,24 @@ class BA_CORE_API_ MaskEditorActions : public QObject
 {
     Q_OBJECT
 public:
-    MaskEditorActions(QWidget *parent);
+    MaskEditorActions(QWidget* parent);
 
-    void setModel(SessionModel *maskModel, const QModelIndex &rootIndex);
-    void setSelectionModel(QItemSelectionModel *selectionModel);
+    void setModel(SessionModel* maskModel, const QModelIndex& rootIndex);
+    void setSelectionModel(QItemSelectionModel* selectionModel);
 
-    QAction *sendToBackAction();
-    QAction *bringToFrontAction();
+    QAction* sendToBackAction();
+    QAction* bringToFrontAction();
 
-    QList<QAction *> topToolBarActions();
+    QList<QAction*> topToolBarActions();
 
 signals:
     void resetViewRequest();
     void propertyPanelRequest();
     void savePlotRequest();
+    void rotateDataRequest();
 
 public slots:
-    void onItemContextMenuRequest(const QPoint &point);
+    void onItemContextMenuRequest(const QPoint& point);
     void onDeleteMaskAction();
 
 private slots:
@@ -62,24 +63,25 @@ private slots:
     void onSendToBackAction();
 
 private:
-    void initItemContextMenu(QMenu &menu);
+    void initItemContextMenu(QMenu& menu);
     void changeMaskStackingOrder(MaskEditorFlags::Stacking value);
     bool isBringToFrontPossible() const;
     bool isSendToBackPossible() const;
     void setAllActionsEnabled(bool value);
 
-    QAction *m_toggleMaskValueAction;
-    QAction *m_bringToFrontAction;
-    QAction *m_sendToBackAction;
-    QAction *m_deleteMaskAction;
+    QAction* m_toggleMaskValueAction;
+    QAction* m_bringToFrontAction;
+    QAction* m_sendToBackAction;
+    QAction* m_deleteMaskAction;
 
-    QAction *m_resetViewAction;
-    QAction *m_savePlotAction;
-    QAction *m_togglePanelAction;
+    QAction* m_resetViewAction;
+    QAction* m_savePlotAction;
+    QAction* m_togglePanelAction;
+    QAction* m_rotateDataAction;
 
-    SessionModel *m_maskModel;
+    SessionModel* m_maskModel;
     QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem
-    QItemSelectionModel *m_selectionModel;
+    QItemSelectionModel* m_selectionModel;
 };
 
 #endif // MASKEDITORACTIONS_H

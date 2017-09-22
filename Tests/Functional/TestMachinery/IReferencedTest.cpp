@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/IReferencedTest.cpp
-//! @brief     Implements pure virtual base class IReferencedTest.
+//! @file      Tests/Functional/TestMachinery/IStandardTest.cpp
+//! @brief     Implements pure virtual base class IStandardTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,7 @@
 #include <cstdlib>
 
 //! Compares two intensity maps, and returns true unless they disagree beyond their variability.
-bool IReferencedTest::compareIntensityMaps(
+bool IStandardTest::compareIntensityMaps(
     const OutputData<double>& dat, const OutputData<double>& ref) const
 {
     double diff = IntensityDataFunctions::getRelativeDifference(dat, ref);
@@ -35,7 +35,7 @@ bool IReferencedTest::compareIntensityMaps(
 
 #ifdef PYTHON_EXECUTABLE
 //! Runs a python command, prints messages, returns true unless the system call failed.
-bool IReferencedTest::runPython(const std::string& py_command)
+bool IStandardTest::runPython(const std::string& py_command)
 {
 #ifndef _WIN32
     std::string sys_command = std::string("PYTHONPATH=") + BUILD_LIB_DIR + " " +

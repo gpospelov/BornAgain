@@ -22,7 +22,7 @@
 CoreStandardTest::CoreStandardTest(
     const std::string& name, const std::string& description, GISASSimulation* simulation,
     double threshold)
-    : IReferencedTest(name, description, threshold)
+    : IStandardTest(name, description, threshold)
     , m_simulation(simulation)
 {}
 

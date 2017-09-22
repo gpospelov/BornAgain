@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/IReferencedTest.h
-//! @brief     Defines pure virtual base class IReferencedTest.
+//! @file      Tests/Functional/TestMachinery/IStandardTest.h
+//! @brief     Defines pure virtual base class IStandardTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IREFERENCEDTEST_H
-#define IREFERENCEDTEST_H
+#ifndef ISTANDARDTEST_H
+#define ISTANDARDTEST_H
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
@@ -24,13 +24,13 @@
 //! Base class for tests that compare results with reference data.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ IReferencedTest : public IFunctionalTest
+class BA_CORE_API_ IStandardTest : public IFunctionalTest
 {
 public:
-    IReferencedTest();
-    IReferencedTest(const std::string& name, const std::string& description, double threshold)
+    IStandardTest();
+    IStandardTest(const std::string& name, const std::string& description, double threshold)
         : IFunctionalTest(name, description), m_threshold(threshold) {}
-    virtual ~IReferencedTest() {}
+    virtual ~IStandardTest() {}
 
     bool runTest() =0;
 
@@ -41,4 +41,4 @@ protected:
     static bool runPython(const std::string& py_command);
 };
 
-#endif // IREFERENCEDTEST_H
+#endif // ISTANDARDTEST_H

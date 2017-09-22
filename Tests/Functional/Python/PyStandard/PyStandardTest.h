@@ -23,7 +23,7 @@
 //!   Performs a given standard simulation, both directly and from a Python dump.
 //!   Invoked from PyExportStandardTest.
 
-class PyStandardTest : public IReferencedTest
+class PyStandardTest : public IStandardTest
 {
 public:
     PyStandardTest(const std::string& name, const std::string& description,

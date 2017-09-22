@@ -25,7 +25,7 @@ class GISASSimulation;
 //!   Performs a given standard simulation, and compares results with reference data.
 //!   Invoked from CoreStandardTest.
 
-class CoreStandardTest : public IReferencedTest
+class CoreStandardTest : public IStandardTest
 {
 public:
     CoreStandardTest(const std::string& name, const std::string& description,

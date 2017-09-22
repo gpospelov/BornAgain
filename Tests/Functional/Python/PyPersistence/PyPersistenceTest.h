@@ -33,7 +33,7 @@ namespace YAML {
 //!     the stem must be the script name; the extension is arbitrary.
 //!   One script may generate several output files, which must have different extensions.
 
-class PyPersistenceTest : public IReferencedTest
+class PyPersistenceTest : public IStandardTest
 {
 public:
     PyPersistenceTest(const std::string& path, const std::string& name, double threshold);

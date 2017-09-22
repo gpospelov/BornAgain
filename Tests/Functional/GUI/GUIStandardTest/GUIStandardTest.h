@@ -27,7 +27,7 @@ class GISASSimulation;
 //!   and compares results.
 //!   Invoked by GUIStandardTest.
 
-class GUIStandardTest : public IReferencedTest
+class GUIStandardTest : public IStandardTest
 {
 public:
     GUIStandardTest(const std::string& name, const std::string& description,

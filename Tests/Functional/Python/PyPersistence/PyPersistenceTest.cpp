@@ -29,7 +29,7 @@
 
 PyPersistenceTest::PyPersistenceTest(
     const std::string& path, const std::string& name, double threshold)
-    : IReferencedTest(name, "persistence test on script "+name, threshold)
+    : IStandardTest(name, "persistence test on script "+name, threshold)
     , m_path(path)
 {}
 

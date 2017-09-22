@@ -27,7 +27,7 @@
 PyStandardTest::PyStandardTest(
     const std::string& name, const std::string& description,
     GISASSimulation* reference_simulation, double threshold)
-    : IReferencedTest(name, description, threshold)
+    : IStandardTest(name, description, threshold)
     , m_reference_simulation(reference_simulation)
     , m_domain_simulation(nullptr)
 {

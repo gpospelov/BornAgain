@@ -17,6 +17,7 @@
 #define LAYERSWITHABSORPTIONBUILDER_H
 
 #include "IMultiLayerBuilder.h"
+class SubtestRegistryFormFactor;
 
 //! The LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with
 //! absorption (refractive index has imaginary part).
@@ -31,6 +32,12 @@ public:
     LayersWithAbsorptionBuilder() {}
     virtual ~LayersWithAbsorptionBuilder() {}
     virtual MultiLayer* buildSample() const;
+
+    MultiLayer* createSample(size_t index=0);
+    size_t size();
+
+private:
+    SubtestRegistryFormFactor& ff_registry();
 };
 
 #endif // LAYERSWITHABSORPTIONBUILDER_H

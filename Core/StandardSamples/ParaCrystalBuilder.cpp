@@ -24,6 +24,7 @@
 #include "ParticleLayout.h"
 #include "RealParameter.h"
 #include "Units.h"
+#include "SubtestRegistry.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0*Units::nanometer)
@@ -127,6 +128,32 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
+}
+
+MultiLayer* Basic2DParaCrystalBuilder::createSample(size_t index)
+{
+    if(index >= size())
+        throw std::runtime_error("Basic2DParaCrystalBuilder::createSample() -> Error. "
+                                 "Sample index is out of range.");
+
+    auto names = pdf_registry().keys();
+    m_subtest_item = pdf_registry().getItem(names[index]);
+
+    setName(names[index]);
+
+    return buildSample();
+}
+
+size_t Basic2DParaCrystalBuilder::size()
+{
+    static size_t result = pdf_registry().keys().size();
+    return result;
+}
+
+SubtestRegistryFTDistribution2D& Basic2DParaCrystalBuilder::pdf_registry()
+{
+    static SubtestRegistryFTDistribution2D result = SubtestRegistryFTDistribution2D();
+    return result;
 }
 
 

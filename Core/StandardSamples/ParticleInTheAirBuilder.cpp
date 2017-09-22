@@ -21,6 +21,7 @@
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "RealParameter.h"
+#include "SubtestRegistry.h"
 
 MultiLayer* ParticleInTheAirBuilder::buildSample() const
 {
@@ -41,5 +42,31 @@ MultiLayer* ParticleInTheAirBuilder::buildSample() const
 
     result->addLayer(air_layer);
 
+    return result;
+}
+
+MultiLayer* ParticleInTheAirBuilder::createSample(size_t index)
+{
+    if(index >= size())
+        throw std::runtime_error("ParticleInTheAirBuilder::createSample() -> Error. "
+                                 "Sample index is out of range.");
+
+    auto ff_names = ff_registry().keys();
+    m_subtest_item = ff_registry().getItem(ff_names[index]);
+
+    setName(ff_names[index]);
+
+    return buildSample();
+}
+
+size_t ParticleInTheAirBuilder::size()
+{
+    static size_t result = ff_registry().keys().size();
+    return result;
+}
+
+SubtestRegistryFormFactor& ParticleInTheAirBuilder::ff_registry()
+{
+    static SubtestRegistryFormFactor result = SubtestRegistryFormFactor();
     return result;
 }

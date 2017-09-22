@@ -21,6 +21,7 @@
 
 class IFTDistribution2D;
 class ISample;
+class SubtestRegistryFTDistribution2D;
 
 //! @ingroup standard_samples
 //! Builds sample: cylinders with 1DDL structure factor (IsGISAXS example #4).
@@ -52,7 +53,12 @@ public:
     Basic2DParaCrystalBuilder();
     virtual ~Basic2DParaCrystalBuilder();
     virtual MultiLayer* buildSample() const;
+
+    MultiLayer* createSample(size_t index=0);
+    size_t size();
+
 private:
+    SubtestRegistryFTDistribution2D& pdf_registry();
     std::unique_ptr<IFTDistribution2D> m_pdf1;
     std::unique_ptr<IFTDistribution2D> m_pdf2;
 };

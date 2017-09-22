@@ -44,6 +44,9 @@ public:
 
     // Without duplication below PythonBindings doesn't work for shared_ptr<IMultiLayerBuilder>
     virtual void onChange() {}
+
+    virtual MultiLayer* createSample(size_t index=0) { (void)index; return buildSample(); }
+    virtual size_t size() { return 1;}
 };
 
 #endif // IMULTILAYERBUILDER_H

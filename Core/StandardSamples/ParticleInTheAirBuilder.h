@@ -18,6 +18,8 @@
 
 #include "IMultiLayerBuilder.h"
 
+class SubtestRegistryFormFactor;
+
 //! The ParticleInTheAirBuilder class generates a multilayer with single air layer
 //! populated with particles of certain types.
 //! Requires IComponentService which generates form factors, used for bulk form factors testing.
@@ -29,6 +31,12 @@ public:
     ParticleInTheAirBuilder() {}
     virtual ~ParticleInTheAirBuilder() {}
     virtual MultiLayer* buildSample() const;
+
+    MultiLayer* createSample(size_t index=0);
+    size_t size();
+
+private:
+    SubtestRegistryFormFactor& ff_registry();
 };
 
 #endif // PARTICLEINTHEAIRBUILDER_H

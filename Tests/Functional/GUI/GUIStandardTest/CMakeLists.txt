@@ -53,7 +53,7 @@ set(test_cases
     ConesWithLimitsDistribution
 )
 
-add_executable(GUIStandardTest main.cpp GUIReferencedTest.cpp GUIReferencedTest.h )
+add_executable(GUIStandardTest main.cpp GUIStandardTest.cpp GUIStandardTest.h )
 target_link_libraries(GUIStandardTest BornAgainCore BornAgainGUI BornAgainTestMachinery)
 
 qt5_use_modules(GUIStandardTest Widgets Core Gui Designer PrintSupport Network)

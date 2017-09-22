@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUIStandardTest/GUIReferencedTest.h
-//! @brief     Defines class GUIReferencedTest
+//! @file      Tests/Functional/GUI/GUIStandardTest/GUIStandardTest.h
+//! @brief     Defines class GUIStandardTest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GUIREFERENCEDTEST_H
-#define GUIREFERENCEDTEST_H
+#ifndef GUISTANDARDTEST_H
+#define GUISTANDARDTEST_H
 
 #include "IReferencedTest.h"
 #include "OutputData.h"
@@ -27,12 +27,12 @@ class GISASSimulation;
 //!   and compares results.
 //!   Invoked by GUIStandardTest.
 
-class GUIReferencedTest : public IReferencedTest
+class GUIStandardTest : public IReferencedTest
 {
 public:
-    GUIReferencedTest(const std::string& name, const std::string& description,
+    GUIStandardTest(const std::string& name, const std::string& description,
             GISASSimulation* reference_simulation, double threshold);
-    virtual ~GUIReferencedTest();
+    virtual ~GUIStandardTest();
 
     bool runTest() final;
 
@@ -43,4 +43,4 @@ private:
     GISASSimulation* m_domain_simulation;
 };
 
-#endif // GUIREFERENCEDTEST_H
+#endif // GUISTANDARDTEST_H

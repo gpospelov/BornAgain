@@ -15,11 +15,11 @@
 // ************************************************************************** //
 
 #include "TestService.h"
-#include "GUIReferencedTest.h"
+#include "GUIStandardTest.h"
 
 //! Runs GUITest on a standard simulation indicated by argv[1].
 
 int main(int argc, char** argv)
 {
-    return TestService<GUIReferencedTest>().execute(argc, argv) ? 0 : 1;
+    return TestService<GUIStandardTest>().execute(argc, argv) ? 0 : 1;
 }

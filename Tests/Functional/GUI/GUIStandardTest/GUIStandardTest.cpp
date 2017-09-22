@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUIStandardTest/GUIReferencedTest.cpp
-//! @brief     Implements class GUIReferencedTest
+//! @file      Tests/Functional/GUI/GUIStandardTest/GUIStandardTest.cpp
+//! @brief     Implements class GUIStandardTest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "GUIReferencedTest.h"
+#include "GUIStandardTest.h"
 #include "DocumentModel.h"
 #include "DomainSimulationBuilder.h"
 #include "GISASSimulation.h"
@@ -25,20 +25,20 @@
 #include "MaterialSvc.h"
 #include "SampleModel.h"
 
-GUIReferencedTest::GUIReferencedTest(const std::string &name, const std::string &description,
+GUIStandardTest::GUIStandardTest(const std::string &name, const std::string &description,
                  GISASSimulation *reference_simulation, double threshold)
     : IReferencedTest(name, description, threshold)
     , m_reference_simulation(reference_simulation)
     , m_domain_simulation(nullptr)
 {}
 
-GUIReferencedTest::~GUIReferencedTest()
+GUIStandardTest::~GUIStandardTest()
 {
     delete m_reference_simulation;
     delete m_domain_simulation;
 }
 
-bool GUIReferencedTest::runTest()
+bool GUIStandardTest::runTest()
 {
     if (!m_reference_simulation)
         throw Exceptions::NullPointerException(
@@ -57,7 +57,7 @@ bool GUIReferencedTest::runTest()
 }
 
 //! returns new simulation from
-void GUIReferencedTest::createDomainSimulation()
+void GUIStandardTest::createDomainSimulation()
 {
     assert(m_reference_simulation->sample());
 

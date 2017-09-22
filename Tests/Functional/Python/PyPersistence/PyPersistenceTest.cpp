@@ -46,7 +46,7 @@ bool PyPersistenceTest::runTest()
 
     // Run Python script, which writes output to PYPERSIST_OUT_DIR.
     std::string dat_stem = FileSystemUtils::jointPath(PYPERSIST_OUT_DIR, getName());
-    if (!runPython(m_path + " " + dat_stem))
+    if (!TestUtils::runPython(m_path + " " + dat_stem))
         return false;
 
     // Retrieve new output and reference files

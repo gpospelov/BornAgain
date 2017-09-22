@@ -29,6 +29,9 @@ StandardTestInfo testInfo(int argc, char** argv);
 //! Returns true if intensity maps are the same within given threshold.
 bool isTheSame(const OutputData<double>& dat, const OutputData<double>& ref, double threshold);
 
+//! Executes script in external (system) Python interpreter
+bool runPython(const std::string& py_command);
+
 }
 
 

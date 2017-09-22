@@ -36,8 +36,6 @@ public:
 
 protected:
     double m_threshold;
-
-    static bool runPython(const std::string& py_command);
 };
 
 #endif // ISTANDARDTEST_H

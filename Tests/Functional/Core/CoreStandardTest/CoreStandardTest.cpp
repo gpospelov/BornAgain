@@ -13,20 +13,12 @@
 //
 // ************************************************************************** //
 
-#include "IStandardTest.h"
+#include "TestService.h"
 #include "CoreTest.h"
 
-//! Provides a CoreTest through a callback mechanism explained in IStandardTest.h.
-class CoreStandardTest : public IStandardTest
-{
-public:
-    CoreStandardTest() : IStandardTest("CoreStandardTest") {}
-    std::unique_ptr<IFunctionalTest> getTest() const { return std::unique_ptr<IFunctionalTest>
-            (new CoreTest(getName(), getTestDescription(), getSimulation(), getTestThreshold())); }
-};
-
 //! Runs CoreTest on a standard simulation indicated by argv[1].
+
 int main(int argc, char** argv)
 {
-    return CoreStandardTest().execute(argc, argv) ? 0 : 1;
+    return TestService<CoreTest>().execute(argc, argv) ? 0 : 1;
 }

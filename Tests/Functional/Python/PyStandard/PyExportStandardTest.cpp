@@ -13,21 +13,12 @@
 //
 // ************************************************************************** //
 
-#include "IStandardTest.h"
+#include "TestService.h"
 #include "PyExportTest.h"
 
-//! Provides a PyExportTest through a callback mechanism explained in IStandardTest.h.
-class PyExportStandardTest : public IStandardTest
-{
-public:
-    PyExportStandardTest() : IStandardTest("PyExport") {}
-    std::unique_ptr<IFunctionalTest> getTest() const { return std::unique_ptr<IFunctionalTest>
-            (new PyExportTest(
-                getName(), getTestDescription(), getSimulation(), getTestThreshold())); }
-};
-
 //! Runs PyExportTest on a standard simulation indicated by argv[1].
+
 int main(int argc, char** argv)
 {
-    return PyExportStandardTest().execute(argc, argv) ? 0 : 1;
+    return TestService<PyExportTest>().execute(argc, argv) ? 0 : 1;
 }

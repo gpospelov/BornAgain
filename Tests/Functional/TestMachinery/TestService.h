@@ -52,7 +52,7 @@ private:
                                         const GISASSimulation&  simulation,
                                         double threshold)
     {
-        return createStandardTest(name, description, std::move(simulation), threshold);
+        return createStandardTest(name, description, simulation, threshold);
     }
 
     T* createStandardTest(const std::string& name, const std::string& description,

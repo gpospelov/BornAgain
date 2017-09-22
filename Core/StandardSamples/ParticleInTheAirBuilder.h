@@ -17,7 +17,9 @@
 #define PARTICLEINTHEAIRBUILDER_H
 
 #include "IMultiLayerBuilder.h"
+#include <memory>
 
+class IFormFactor;
 class SubtestRegistryFormFactor;
 
 //! The ParticleInTheAirBuilder class generates a multilayer with single air layer
@@ -28,15 +30,16 @@ class SubtestRegistryFormFactor;
 class BA_CORE_API_ ParticleInTheAirBuilder : public IMultiLayerBuilder
 {
 public:
-    ParticleInTheAirBuilder() {}
-    virtual ~ParticleInTheAirBuilder() {}
+    ParticleInTheAirBuilder();
+    virtual ~ParticleInTheAirBuilder();
     virtual MultiLayer* buildSample() const;
 
     MultiLayer* createSample(size_t index=0);
     size_t size();
 
-private:
+protected:
     SubtestRegistryFormFactor& ff_registry();
+    std::unique_ptr<IFormFactor> m_ff;
 };
 
 #endif // PARTICLEINTHEAIRBUILDER_H

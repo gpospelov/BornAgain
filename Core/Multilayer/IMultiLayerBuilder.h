@@ -19,8 +19,6 @@
 #include "IParameterized.h"
 
 class MultiLayer;
-class IFormFactor;
-class IFTDistribution2D;
 
 //! Interface to the class capable to build samples to simulate.
 //! @ingroup simulation_internal
@@ -31,11 +29,6 @@ public:
     IMultiLayerBuilder();
 
     virtual MultiLayer* buildSample() const =0;
-
-    void set_subtest(const IParameterized* subtest_item) { m_subtest_item = subtest_item; }
-    const IParameterized* m_subtest_item;
-
-    const IFormFactor* formFactor() const;
 
     // this method is extended in the Python wrappers (needed to solve ownership issues with
     // the created sample in buildSample()

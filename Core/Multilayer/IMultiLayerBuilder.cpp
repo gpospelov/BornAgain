@@ -14,16 +14,10 @@
 // ************************************************************************** //
 
 #include "IMultiLayerBuilder.h"
-#include "FTDistributions2D.h"
-#include "IFormFactor.h"
 #include "BornAgainNamespace.h"
 
-IMultiLayerBuilder::IMultiLayerBuilder() : m_subtest_item(0)
+IMultiLayerBuilder::IMultiLayerBuilder()
 {
     setName(BornAgain::SampleBuilderType);
 }
 
-const IFormFactor* IMultiLayerBuilder::formFactor() const
-{
-    return dynamic_cast<const IFormFactor*>(m_subtest_item);
-}

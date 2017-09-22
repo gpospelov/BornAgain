@@ -19,10 +19,6 @@
 #include "IRegistry.h"
 #include "FTDistributions2D.h"
 
-class ISubtestRegistry : public IRegistry<IParameterized>
-{
-};
-
 // ************************************************************************** //
 //! @class SubtestRegistryFTDistribution2D
 //! @brief Registry with predefined Fourier transformed distributions, for functional tests.
@@ -39,7 +35,7 @@ public:
 //! @brief Registry with predefined form factors, for functional tests.
 // ************************************************************************** //
 
-class SubtestRegistryFormFactor : public ISubtestRegistry
+class SubtestRegistryFormFactor : public IRegistry<IFormFactor>
 {
 public:
     SubtestRegistryFormFactor();

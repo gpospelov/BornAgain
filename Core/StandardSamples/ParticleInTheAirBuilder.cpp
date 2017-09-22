@@ -21,14 +21,18 @@
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "RealParameter.h"
+#include "FormFactors.h"
 #include "SubtestRegistry.h"
+#include "Units.h"
+
+ParticleInTheAirBuilder::ParticleInTheAirBuilder()
+    : m_ff(new FormFactorFullSphere(5.0*Units::nanometer))
+{}
+
+ParticleInTheAirBuilder::~ParticleInTheAirBuilder() = default;
 
 MultiLayer* ParticleInTheAirBuilder::buildSample() const
 {
-    const IFormFactor* form_factor = formFactor();
-    if(!form_factor)
-        throw Exceptions::NullPointerException("ParticleInTheAirBuilder::buildSample() -> Error. "
-                                   "Form factor is not initialized.");
     MultiLayer* result = new MultiLayer;
 
     HomogeneousMaterial air_material("Air", 0.0, 0.0);
@@ -36,7 +40,7 @@ MultiLayer* ParticleInTheAirBuilder::buildSample() const
 
     Layer air_layer(air_material);
 
-    Particle particle(particle_material, *form_factor);
+    Particle particle(particle_material, *m_ff);
     ParticleLayout particle_layout(particle);
     air_layer.addLayout(particle_layout);
 
@@ -52,7 +56,7 @@ MultiLayer* ParticleInTheAirBuilder::createSample(size_t index)
                                  "Sample index is out of range.");
 
     auto ff_names = ff_registry().keys();
-    m_subtest_item = ff_registry().getItem(ff_names[index]);
+    m_ff.reset(ff_registry().getItem(ff_names[index])->clone());
 
     setName(ff_names[index]);
 

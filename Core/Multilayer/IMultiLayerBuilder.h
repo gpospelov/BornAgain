@@ -36,7 +36,6 @@ public:
     const IParameterized* m_subtest_item;
 
     const IFormFactor* formFactor() const;
-    const IFTDistribution2D* getFTDistribution2D() const;
 
     // this method is extended in the Python wrappers (needed to solve ownership issues with
     // the created sample in buildSample()

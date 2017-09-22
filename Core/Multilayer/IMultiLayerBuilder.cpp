@@ -27,8 +27,3 @@ const IFormFactor* IMultiLayerBuilder::formFactor() const
 {
     return dynamic_cast<const IFormFactor*>(m_subtest_item);
 }
-
-const IFTDistribution2D* IMultiLayerBuilder::getFTDistribution2D() const
-{
-    return dynamic_cast<const IFTDistribution2D*>(m_subtest_item);
-}

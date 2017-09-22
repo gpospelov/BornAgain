@@ -28,7 +28,7 @@ class ISubtestRegistry : public IRegistry<IParameterized>
 //! @brief Registry with predefined Fourier transformed distributions, for functional tests.
 // ************************************************************************** //
 
-class SubtestRegistryFTDistribution2D : public ISubtestRegistry
+class SubtestRegistryFTDistribution2D : public IRegistry<IFTDistribution2D>
 {
 public:
     SubtestRegistryFTDistribution2D();

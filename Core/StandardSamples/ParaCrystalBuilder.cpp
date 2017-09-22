@@ -110,11 +110,7 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     interference_function.setDomainSizes(20.0*Units::micrometer,
             40.0*Units::micrometer);
 
-    if(const IFTDistribution2D* pdf2 = getFTDistribution2D())
-        interference_function.setProbabilityDistributions(*m_pdf1, *pdf2);
-    else
-        interference_function.setProbabilityDistributions(*m_pdf1, *m_pdf2);
-
+    interference_function.setProbabilityDistributions(*m_pdf1, *m_pdf2);
 
     FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
 
@@ -137,7 +133,7 @@ MultiLayer* Basic2DParaCrystalBuilder::createSample(size_t index)
                                  "Sample index is out of range.");
 
     auto names = pdf_registry().keys();
-    m_subtest_item = pdf_registry().getItem(names[index]);
+    m_pdf2.reset(pdf_registry().getItem(names[index])->clone());
 
     setName(names[index]);
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/CoreTest.h
-//! @brief     Defines class CoreTest.
+//! @file      Tests/Functional/Core/CoreStandardTest.h
+//! @brief     Defines class CoreStandardTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CORETEST_H
-#define CORETEST_H
+#ifndef CORESTANDARDTEST_H
+#define CORESTANDARDTEST_H
 
 #include "IReferencedTest.h"
 
@@ -25,12 +25,12 @@ class GISASSimulation;
 //!   Performs a given standard simulation, and compares results with reference data.
 //!   Invoked from CoreStandardTest.
 
-class CoreTest : public IReferencedTest
+class CoreStandardTest : public IReferencedTest
 {
 public:
-    CoreTest(const std::string& name, const std::string& description,
+    CoreStandardTest(const std::string& name, const std::string& description,
              GISASSimulation* simulation, double threshold);
-    ~CoreTest() final;
+    ~CoreStandardTest() final;
 
     bool runTest() final;
 
@@ -39,4 +39,4 @@ private:
     OutputData<double>* m_reference;
 };
 
-#endif // CORETEST_H
+#endif // CORESTANDARDTEST_H

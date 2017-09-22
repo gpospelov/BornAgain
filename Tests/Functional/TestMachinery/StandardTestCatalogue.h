@@ -37,7 +37,7 @@ public:
 private:
     void add(const std::string& test_name, const std::string& test_description,
              const std::string& simulation_name, const std::string& sample_builder_name,
-             const std::string& component_registry_name, double threshold);
+             double threshold);
 
     std::map<std::string, StandardTestInfo> m_catalogue;
 };

@@ -23,56 +23,48 @@ StandardTestCatalogue::StandardTestCatalogue()
         "Test of all form factors defined",
         "MiniGISAS",
         "ParticleInTheAirBuilder",
-        "FormFactors",
         2e-10);
 
     add("FormFactorsAbs",
         "Test of all form factors defined, absorption case",
         "MiniGISAS_v2",
         "LayersWithAbsorptionBuilder",
-        "FormFactors",
         2e-10);
 
     add("CylindersAndPrisms",
         "Mixture of cylinders and prisms without interference",
         "MiniGISAS",
         "CylindersAndPrismsBuilder",
-        "None",
         2e-10);
 
     add("RadialParaCrystal",
         "Interference function of radial paracrystal",
         "MiniGISAS",
         "RadialParaCrystalBuilder",
-        "None",
         2e-10);
 
     add("Basic2DParaCrystal",
         "Interference function of basic 2D paracrystal with variety of FT distributions",
         "MiniGISAS",
         "Basic2DParaCrystalBuilder",
-        "FTDistributions2D",
         2e-10);
 
     add("HexParaCrystal",
         "Interference function of 2D hexagonal paracrystal",
         "MiniGISAS",
         "HexParaCrystalBuilder",
-        "None",
         2e-10);
 
     add("Lattice1D",
         "Interference function of 21D lattice",
         "MiniGISAS",
         "Lattice1DBuilder",
-        "None",
         2e-10);
 
     add("RectParaCrystal",
         "Interference function of 2D rectanguler paracrystal",
         "MiniGISAS",
         "RectParaCrystalBuilder",
-        "None",
         2e-10);
 
     // --- CoreShell ---
@@ -81,14 +73,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "Core shell particle",
         "MiniGISAS",
         "CoreShellParticleBuilder",
-        "None",
         2e-10);
 
     add("CoreShellBoxRotateZandY",
         "Rotation and translation of core shell box particle in 3 layers system",
         "MiniGISAS",
         "CoreShellBoxRotateZandYBuilder",
-        "None",
         2e-10);
 
     // ---
@@ -97,35 +87,30 @@ StandardTestCatalogue::StandardTestCatalogue()
         "Multilayer with roughness",
         "MiniGISAS",
         "MultiLayerWithRoughnessBuilder",
-        "None",
         2e-10);
 
     add("SquareLattice",
         "Interference function of 2D square lattice",
         "MiniGISAS",
         "SquareLatticeBuilder",
-        "None",
         2e-10);
 
     add("CenteredSquareLattice",
         "Interference function of 2D square lattice",
         "MiniGISAS",
         "CenteredSquareLatticeBuilder",
-        "None",
         2e-10);
 
     add("RotatedSquareLattice",
         "Interference function of rotated 2D square lattice",
         "MiniGISAS",
         "RotatedSquareLatticeBuilder",
-        "None",
         2e-10);
 
     add("RotatedPyramids",
         "Interference function of rotated 2D square lattice",
         "MiniGISAS",
         "RotatedPyramidsBuilder",
-        "None",
         2e-10);
 
     // --- Compositions ---
@@ -134,42 +119,36 @@ StandardTestCatalogue::StandardTestCatalogue()
         "Two layers of spheres at hex lattice",
         "MiniGISAS",
         "ParticleCompositionBuilder",
-        "None",
         2e-10);
 
     add("BoxCompositionRotateX",
         "Two boxes in particle composition rotated in X by 90 degrees",
         "MiniGISAS",
         "BoxCompositionRotateXBuilder",
-        "None",
         2e-10);
 
     add("BoxCompositionRotateY",
         "Two boxes in particle composition rotated in Y by 90 degrees",
         "MiniGISAS",
         "BoxCompositionRotateYBuilder",
-        "None",
         2e-10);
 
     add("BoxCompositionRotateZ",
         "Two boxes in particle composition rotated in Z by 90 degrees",
         "MiniGISAS",
         "BoxCompositionRotateZBuilder",
-        "None",
         2e-10);
 
     add("BoxCompositionRotateZandY",
         "Two boxes in particle composition rotated in Z and Y by 90 degrees",
         "MiniGISAS",
         "BoxCompositionRotateZandYBuilder",
-        "None",
         2e-10);
 
     add("BoxStackComposition",
         "Two different boxes are first rotated and then composed, composition is then rotated.",
         "MiniGISAS",
         "BoxStackCompositionBuilder",
-        "None",
         2e-10);
 
     // ---
@@ -178,35 +157,30 @@ StandardTestCatalogue::StandardTestCatalogue()
         "Cylinders in BA with size distributions",
         "MiniGISAS",
         "CylindersWithSizeDistributionBuilder",
-        "None",
         2e-10);
 
     add("TwoTypesCylindersDistribution",
         "Cylinders in BA with size distributions",
         "MiniGISAS",
         "TwoTypesCylindersDistributionBuilder",
-        "None",
         2e-10);
 
     add("RotatedPyramidsDistribution",
         "Rotated pyramids distribution",
         "MiniGISAS",
         "RotatedPyramidsDistributionBuilder",
-        "None",
         2e-10);
 
     add("SpheresWithLimitsDistribution",
         "Spherical particles with the distribution applied to the radius and RealLimits defined.",
         "MiniGISAS",
         "SpheresWithLimitsDistributionBuilder",
-        "None",
         2e-10);
 
     add("ConesWithLimitsDistribution",
         "Spherical particles with the distribution applied to the radius and RealLimits defined.",
         "MiniGISAS",
         "ConesWithLimitsDistributionBuilder",
-        "None",
         2e-10);
 
     // ---
@@ -215,112 +189,96 @@ StandardTestCatalogue::StandardTestCatalogue()
         "Cylinders in BA in the presence of beam divergence",
         "MiniGISASBeamDivergence",
         "CylindersInBABuilder",
-        "None",
         2e-10);
 
     add("DetectorResolution",
         "Cylinders in BA with detector resolution",
         "MiniGISASDetectorResolution",
         "CylindersInBABuilder",
-        "None",
         2e-10);
 
     add("MultipleLayout",
         "Two types of particles in different layouts",
         "MiniGISAS",
         "MultipleLayoutBuilder",
-        "None",
         2e-10);
 
     add("ApproximationDA",
         "Size distribution model: decoupling approximation",
         "MiniGISAS",
         "SizeDistributionDAModelBuilder",
-        "None",
         2e-10);
 
     add("ApproximationLMA",
         "Size distribution model: local monodisperse approximation",
         "MiniGISAS",
         "SizeDistributionLMAModelBuilder",
-        "None",
         2e-10);
 
     add("ApproximationSSCA",
         "Size distribution model: size space coupling approximation",
         "MiniGISAS",
         "SizeDistributionSSCAModelBuilder",
-        "None",
         2e-10);
 
     add("CylindersInSSCA",
         "Size spacing correlation approximation",
         "MiniGISAS",
         "CylindersInSSCABuilder",
-        "None",
         2e-10);
 
     add("CosineRipple",
         "Cosine ripple within radial paracrystal model",
         "MiniGISAS",
         "CosineRippleBuilder",
-        "None",
         2e-10);
 
     add("TriangularRipple",
         "Triangular ripple within radial paracrystal model",
         "MiniGISAS",
         "TriangularRippleBuilder",
-        "None",
         2e-10);
 
     add("AsymRipple",
         "Triangular ripple with asymetry within radial paracrystal model",
         "MiniGISAS",
         "AsymRippleBuilder",
-        "None",
         2e-10);
 
     add("MesoCrystal",
         "Cylindrical mesocrystal composed of spherical nano particles",
         "MiniGISAS",
         "MesoCrystalBuilder",
-        "None",
         2e-10);
 
     add("CustomMorphology",
         "Custom particle mixture a la isgisaxs morphology approach",
         "MiniGISAS",
         "CustomMorphologyBuilder",
-        "None",
         2e-10);
 
     add("MagneticParticleZeroField",
         "Magnetic cylinders with zero field",
         "MiniGISAS",
         "MagneticParticleZeroFieldBuilder",
-        "None",
         2e-10);
 
     add("MagneticSubstrateZeroField",
         "Magnetic substrate with zero field",
         "MiniGISASPolarizationPP",
         "MagneticSubstrateZeroFieldBuilder",
-        "None",
         2e-10);
 
     add("MagneticRotation",
         "Rotated magnetic particle in magnetic substrate",
         "MiniGISASSpinFlipZ",
         "MagneticRotationBuilder",
-        "None",
         2e-10);
 
     add("TransformBox",
         "Rotated/translated box in 3 layers system",
         "MiniGISAS",
         "TransformBoxBuilder",
-        "None",
         1e-10);
 
     // Masking
@@ -329,7 +287,6 @@ StandardTestCatalogue::StandardTestCatalogue()
         "Various masks are added to the simulation",
         "GISASWithMasks",
         "CylindersAndPrismsBuilder",
-        "None",
         1e-10);
 
     // Various rectangular detector alignment
@@ -338,94 +295,81 @@ StandardTestCatalogue::StandardTestCatalogue()
         "Various masks are added to the simulation",
         "RectDetectorGeneric",
         "CylindersInBABuilder",
-        "None",
         1e-10);
 
     add("RectDetectorPerpToSample",
         "Various masks are added to the simulation",
         "RectDetectorPerpToSample",
         "CylindersInBABuilder",
-        "None",
         1e-10);
 
     add("RectDetectorPerpToDirectBeam",
         "Various masks are added to the simulation",
         "RectDetectorPerpToDirectBeam",
         "CylindersInBABuilder",
-        "None",
         1e-10);
 
     add("RectDetectorPerpToReflectedBeam",
         "Various masks are added to the simulation",
         "RectDetectorPerpToReflectedBeam",
         "CylindersInBABuilder",
-        "None",
         1e-10);
 
     add("RectDetectorPerpToReflectedBeamDpos",
         "Various masks are added to the simulation",
         "RectDetectorPerpToReflectedBeamDpos",
         "CylindersInBABuilder",
-        "None",
         1e-10);
 
     add("LargeCylindersMonteCarlo",
         "Large cylinders simulated with MonteCarlo integration",
         "MiniGISASMonteCarlo",
         "LargeCylindersInDWBABuilder",
-        "None",
         5e-1);
 
     add("SphericalDetWithRoi",
         "Spherical detector with ROI and mask defined",
         "SphericalDetWithRoi",
         "CylindersAndPrismsBuilder",
-        "None",
         1e-10);
 
     add("RectDetWithRoi",
         "Rectangular detector with ROI and mask defined",
         "RectDetWithRoi",
         "CylindersAndPrismsBuilder",
-        "None",
         1e-10);
 
     add("BoxesWithSpecular",
         "Boxes in square lattice including specular peak",
         "MiniGISASSpecular",
         "BoxesSquareLatticeBuilder",
-        "None",
         1e-10);
 
     add("RotatedCylinder",
         "Rotated cylinder in substrate",
         "MiniGISAS",
         "RotatedCylindersBuilder",
-        "None",
         1e-10);
 
     add("SlicedComposition",
         "Spherical particle made of two different materials crossing interface",
         "MiniGISAS",
         "SlicedCompositionBuilder",
-        "None",
         1e-10);
 }
 
 //! Adds test description to the catalogue.
 
-void StandardTestCatalogue::add(
-    const std::string& test_name, const std::string& test_description,
+void StandardTestCatalogue::add(const std::string& test_name, const std::string& test_description,
     const std::string& simulation_name, const std::string& sample_builder_name,
-    const std::string& subtest_type, double threshold )
+    double threshold )
 {
     if (contains(test_name))
         throw std::runtime_error("StandardTestCatalogue::add() -> Error. "
                                  "Existing item '"+test_name+"'");
 
-    m_catalogue[test_name] = StandardTestInfo(
-        test_name, test_description, simulation_name,
-        sample_builder_name, subtest_type, threshold);
+    m_catalogue[test_name] = StandardTestInfo(test_name, test_description, simulation_name,
+                                              sample_builder_name, threshold);
 }
 
 //! Returns test info for given test name.

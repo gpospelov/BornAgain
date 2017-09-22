@@ -30,14 +30,12 @@ public:
                      const std::string& test_description,
                      const std::string& simulation_name,
                      const std::string& sample_builder_name,
-                     const std::string& subtest_type,
                      double threshold);
 
     std::string m_test_name;
     std::string m_test_description;
     std::string m_simulation_name;
     std::string m_sample_builder_name;
-    std::string m_subtest_type;
     double m_threshold;
 };
 

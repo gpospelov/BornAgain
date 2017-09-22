@@ -24,13 +24,11 @@ StandardTestInfo::StandardTestInfo(const std::string& test_name,
                        const std::string& test_description,
                        const std::string& simulation_name,
                        const std::string& sample_builder_name,
-                       const std::string& subtest_type,
                        double threshold)
     : m_test_name(test_name)
     , m_test_description(test_description)
     , m_simulation_name(simulation_name)
     , m_sample_builder_name(sample_builder_name)
-    , m_subtest_type(subtest_type)
     , m_threshold(threshold)
 {
 }

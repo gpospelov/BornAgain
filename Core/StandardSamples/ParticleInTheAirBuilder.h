@@ -20,7 +20,7 @@
 #include <memory>
 
 class IFormFactor;
-class SubtestRegistryFormFactor;
+class FormFactorComponents;
 
 //! The ParticleInTheAirBuilder class generates a multilayer with single air layer
 //! populated with particles of certain types.
@@ -38,7 +38,7 @@ public:
     size_t size();
 
 protected:
-    SubtestRegistryFormFactor& ff_registry();
+    FormFactorComponents& ff_components();
     std::unique_ptr<IFormFactor> m_ff;
 };
 

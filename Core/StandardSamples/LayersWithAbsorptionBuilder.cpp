@@ -24,7 +24,7 @@
 #include "ParticleLayout.h"
 #include "RealParameter.h"
 #include "Units.h"
-#include "SubtestRegistry.h"
+#include "SampleComponents.h"
 #include "FormFactors.h"
 
 LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
@@ -72,8 +72,8 @@ MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
         throw std::runtime_error("ParticleInTheAirBuilder::createSample() -> Error. "
                                  "Sample index is out of range.");
 
-    auto ff_names = ff_registry().keys();
-    m_ff.reset(ff_registry().getItem(ff_names[index])->clone());
+    auto ff_names = ff_components().keys();
+    m_ff.reset(ff_components().getItem(ff_names[index])->clone());
 
     setName(ff_names[index]);
 
@@ -82,13 +82,12 @@ MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
 
 size_t LayersWithAbsorptionBuilder::size()
 {
-    static size_t result = ff_registry().size();
-    return result;
+    return ff_components().size();
 }
 
-SubtestRegistryFormFactor& LayersWithAbsorptionBuilder::ff_registry()
+FormFactorComponents& LayersWithAbsorptionBuilder::ff_components()
 {
-    static SubtestRegistryFormFactor result = SubtestRegistryFormFactor();
+    static FormFactorComponents result = FormFactorComponents();
     return result;
 }
 

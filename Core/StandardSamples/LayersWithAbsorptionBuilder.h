@@ -19,7 +19,7 @@
 #include "IMultiLayerBuilder.h"
 #include <memory>
 
-class SubtestRegistryFormFactor;
+class FormFactorComponents;
 class IFormFactor;
 
 //! The LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with
@@ -40,7 +40,7 @@ public:
     size_t size();
 
 private:
-    SubtestRegistryFormFactor& ff_registry();
+    FormFactorComponents& ff_components();
     std::unique_ptr<IFormFactor> m_ff;
 };
 

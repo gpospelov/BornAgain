@@ -21,7 +21,7 @@
 
 class IFTDistribution2D;
 class ISample;
-class SubtestRegistryFTDistribution2D;
+class FTDistribution2DComponents;
 
 //! @ingroup standard_samples
 //! Builds sample: cylinders with 1DDL structure factor (IsGISAXS example #4).
@@ -58,7 +58,7 @@ public:
     size_t size();
 
 private:
-    SubtestRegistryFTDistribution2D& pdf_registry();
+    FTDistribution2DComponents& pdf_components();
     std::unique_ptr<IFTDistribution2D> m_pdf1;
     std::unique_ptr<IFTDistribution2D> m_pdf2;
 };

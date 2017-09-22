@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/SubtestRegistry.h
-//! @brief     Defines different registries for subtests of functional tests.
+//! @file      Core/StandardSamples/SampleComponents.h
+//! @brief     Defines sample components for complex sample builders.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,32 +13,28 @@
 //
 // ************************************************************************** //
 
-#ifndef SUBTESTREGISTRY_H
-#define SUBTESTREGISTRY_H
+#ifndef SAMPLECOMPONENTS_H
+#define SAMPLECOMPONENTS_H
 
 #include "IRegistry.h"
 #include "FTDistributions2D.h"
 
-// ************************************************************************** //
-//! @class SubtestRegistryFTDistribution2D
-//! @brief Registry with predefined Fourier transformed distributions, for functional tests.
-// ************************************************************************** //
+//! @class FTDistribution2DComponents
+//! @brief Predefined Fourier transformed distributions for functional tests.
 
-class SubtestRegistryFTDistribution2D : public IRegistry<IFTDistribution2D>
+class FTDistribution2DComponents : public IRegistry<IFTDistribution2D>
 {
 public:
-    SubtestRegistryFTDistribution2D();
+    FTDistribution2DComponents();
 };
 
-// ************************************************************************** //
-//! @class SubtestRegistryFormFactor
-//! @brief Registry with predefined form factors, for functional tests.
-// ************************************************************************** //
+//! @class FormFactorComponents
+//! @brief Predefined form factors for functional tests.
 
-class SubtestRegistryFormFactor : public IRegistry<IFormFactor>
+class FormFactorComponents : public IRegistry<IFormFactor>
 {
 public:
-    SubtestRegistryFormFactor();
+    FormFactorComponents();
 };
 
-#endif // SUBTESTREGISTRY_H
+#endif // SAMPLECOMPONENTS_H

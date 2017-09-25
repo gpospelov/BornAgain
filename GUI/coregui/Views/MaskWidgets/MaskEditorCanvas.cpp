@@ -129,7 +129,7 @@ void MaskEditorCanvas::onRotateDataRequest()
 {
     Q_ASSERT(m_intensityDataItem);
 
-    RealDataItem* data_parent = static_cast<RealDataItem*>(m_intensityDataItem->parent());
+    auto data_parent = m_intensityDataItem->parent();
     if (data_parent->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool()) {
         if (!getRotateWarningCallback(this))
             return;
@@ -137,7 +137,7 @@ void MaskEditorCanvas::onRotateDataRequest()
     }
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    OutputData<double>* input = m_intensityDataItem->getOutputData();
+    const auto input = m_intensityDataItem->getOutputData();
     m_intensityDataItem->setOutputData(
         IntensityDataFunctions::createRearrangedDataSet(*input, 1).release());
     m_intensityDataItem->setAxesRangeToData();

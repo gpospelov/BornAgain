@@ -34,6 +34,18 @@
 #include <QModelIndex>
 #include <QVBoxLayout>
 
+namespace {
+inline bool getRotateWarningCallback(QWidget* parent) {
+    const QString title("Rotate data");
+
+    const QString message("Rotation will break the link between the data and the instrument. "
+                          "Detector masks, if exist, will be removed.");
+
+    return GUIHelpers::question(parent, title, message, "Do you wish to roate the data?",
+        "Yes, please rotate", "No, cancel data rotation");
+}
+}
+
 
 MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
     : QWidget(parent)
@@ -112,18 +124,6 @@ void MaskEditorCanvas::onResetViewRequest()
     }
 }
 
-namespace {
-inline bool getRotateWarningCallback(QWidget* parent) {
-    const QString title("Reset data setup");
-
-    const QString message("Rotation will break the link between "
-                          "the data and current instrument. You can re-link the instrument "
-                          "after rotation.");
-
-    return GUIHelpers::question(parent, title, message, "Do you wish to proceed?",
-        "Yes, reset data setup", "No, cancel data rotation");
-}
-}
 
 void MaskEditorCanvas::onRotateDataRequest()
 {

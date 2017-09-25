@@ -58,6 +58,9 @@ void IShape2DView::setParameterizedItem(SessionItem* item)
 
         m_item->mapper()->setOnPropertyChange(
             [this](const QString& name) { onItemPropertyChange(name); }, this);
+
+        m_item->mapper()->setOnItemDestroy([this](SessionItem*) { m_item = 0; }, this);
+
     }
 }
 

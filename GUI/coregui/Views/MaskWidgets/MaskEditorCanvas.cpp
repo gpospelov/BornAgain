@@ -136,10 +136,12 @@ void MaskEditorCanvas::onRotateDataRequest()
         data_parent->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
     }
 
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     OutputData<double>* input = m_intensityDataItem->getOutputData();
     m_intensityDataItem->setOutputData(
         IntensityDataFunctions::createRearrangedDataSet(*input, 1).release());
     m_intensityDataItem->setAxesRangeToData();
+    QApplication::restoreOverrideCursor();
 }
 
 //! Returns true if IntensityData is currently at 100% zoom level

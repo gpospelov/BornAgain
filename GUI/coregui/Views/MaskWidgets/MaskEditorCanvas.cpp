@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "GUIHelpers.h"
 #include "MaskEditorCanvas.h"
 #include "MaskGraphicsProxy.h"
 #include "MaskGraphicsScene.h"
@@ -26,6 +27,8 @@
 #include "projectmanager.h"
 #include "ColorMap.h"
 #include "IntensityDataItem.h"
+#include "RealDataItem.h"
+#include "IntensityDataFunctions.h"
 #include "MaskItems.h"
 #include <QGraphicsRectItem>
 #include <QModelIndex>
@@ -107,6 +110,36 @@ void MaskEditorCanvas::onResetViewRequest()
     } else {
         m_intensityDataItem->resetView();
     }
+}
+
+namespace {
+inline bool getRotateWarningCallback(QWidget* parent) {
+    const QString title("Reset data setup");
+
+    const QString message("Rotation will break the link between "
+                          "the data and current instrument. You can re-link the instrument "
+                          "after rotation.");
+
+    return GUIHelpers::question(parent, title, message, "Do you wish to proceed?",
+        "Yes, reset data setup", "No, cancel data rotation");
+}
+}
+
+void MaskEditorCanvas::onRotateDataRequest()
+{
+    Q_ASSERT(m_intensityDataItem);
+
+    RealDataItem* data_parent = static_cast<RealDataItem*>(m_intensityDataItem->parent());
+    if (data_parent->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool()) {
+        if (!getRotateWarningCallback(this))
+            return;
+        data_parent->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
+    }
+
+    OutputData<double>* input = m_intensityDataItem->getOutputData();
+    m_intensityDataItem->setOutputData(
+        IntensityDataFunctions::createRearrangedDataSet(*input, 1).release());
+    m_intensityDataItem->setAxesRangeToData();
 }
 
 //! Returns true if IntensityData is currently at 100% zoom level

@@ -32,7 +32,7 @@
 
 namespace {
 const QString abundance_tooltip =
-    "Proportion of this type of particles normalized to the \n"
+    "Proportion of this type of mesocrystal normalized to the \n"
     "total number of particles in the layout";
 
 const QString lattice_vector1_tooltip =
@@ -45,11 +45,11 @@ const QString lattice_vector3_tooltip =
     "Coordinates of the third lattice vector";
 
 const QString position_tooltip =
-    "Relative position of the particle's reference point \n"
+    "Relative position of the mesocrystal's reference point \n"
     "in the coordinate system of the parent";
 
 const QString density_tooltip =
-    "Number of particles per square nanometer (particle surface density).\n "
+    "Number of mesocrystals per square nanometer (particle surface density).\n "
     "Should be defined for disordered and 1d-ordered particle collections.";
 }
 

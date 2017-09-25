@@ -37,7 +37,7 @@ MesoCrystalView::MesoCrystalView(QGraphicsItem *parent) : ConnectableView(parent
 void MesoCrystalView::addView(IView *childView, int /* row */)
 {
     int index = 0;
-    if (this->getItem()->tagFromItem(childView->getItem()) == MesoCrystalItem::T_TRANSFORMATION)
+    if (this->getItem()->tagFromItem(childView->getItem()) == ParticleItem::T_TRANSFORMATION)
         index = 1;
     connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
 }

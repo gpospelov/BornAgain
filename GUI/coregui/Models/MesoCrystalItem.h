@@ -34,8 +34,6 @@ public:
     static const QString P_VECTOR_1;
     static const QString P_VECTOR_2;
     static const QString P_VECTOR_3;
-    static const QString P_POSITION;
-    static const QString T_TRANSFORMATION;
 
     MesoCrystalItem();
 

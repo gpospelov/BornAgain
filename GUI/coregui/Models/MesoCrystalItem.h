@@ -17,7 +17,12 @@
 #ifndef MESOCRYSTALITEM_H
 #define MESOCRYSTALITEM_H
 
+#include "Lattice.h"
 #include "SessionGraphicsItem.h"
+
+class IFormFactor;
+class IParticle;
+class MesoCrystal;
 
 class BA_CORE_API_ MesoCrystalItem : public SessionGraphicsItem
 {
@@ -34,7 +39,12 @@ public:
 
     MesoCrystalItem();
 
+    std::unique_ptr<MesoCrystal> createMesoCrystal() const;
+
 private:
+    Lattice getLattice() const;
+    std::unique_ptr<IParticle> getBasis() const;
+    std::unique_ptr<IFormFactor> getOuterShape() const;
 };
 
 #endif // MESOCRYSTALITEM_H

@@ -15,9 +15,18 @@
 // ************************************************************************** //
 
 #include "MesoCrystalItem.h"
-#include "ComboProperty.h"
-#include "ModelPath.h"
 #include "BornAgainNamespace.h"
+#include "ComboProperty.h"
+#include "Crystal.h"
+#include "FormFactorItems.h"
+#include "GUIHelpers.h"
+#include "MesoCrystal.h"
+#include "ModelPath.h"
+#include "Particle.h"
+#include "ParticleCompositionItem.h"
+#include "ParticleCoreShell.h"
+#include "ParticleCoreShellItem.h"
+#include "ParticleItem.h"
 
 namespace {
 const QString abundance_tooltip =
@@ -76,4 +85,50 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     addTranslator(PositionTranslator());
     addTranslator(RotationTranslator());
+}
+
+std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
+{
+    auto lattice = getLattice();
+    auto P_basis = getBasis();
+    Crystal crystal(*P_basis, lattice);
+
+    auto P_ff = getOuterShape();
+
+    return GUIHelpers::make_unique<MesoCrystal>(crystal, *P_ff);
+}
+
+Lattice MesoCrystalItem::getLattice() const
+{
+    kvector_t a1(10.0, 0.0, 0.0);
+    kvector_t a2(0.0, 10.0, 0.0);
+    kvector_t a3(0.0, 0.0, 10.0);
+    return Lattice(a1, a2, a3);
+}
+
+std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const
+{
+    std::unique_ptr<IParticle> P_result;
+    QVector<SessionItem *> children = childItems();
+    for (int i = 0; i < children.size(); ++i) {
+        if (children[i]->modelType() == Constants::ParticleType) {
+            auto *particle_item = static_cast<ParticleItem*>(children[i]);
+            auto P_result = particle_item->createParticle();
+        } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
+            auto *particle_coreshell_item = static_cast<ParticleCoreShellItem*>(children[i]);
+            auto P_result = particle_coreshell_item->createParticleCoreShell();
+        } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
+            auto *particlecomposition_item = static_cast<ParticleCompositionItem*>(children[i]);
+            auto P_result = particlecomposition_item->createParticleComposition();
+        } else if (children[i]->modelType() == Constants::TransformationType) {
+            continue;
+        }
+    }
+    return P_result;
+}
+
+std::unique_ptr<IFormFactor> MesoCrystalItem::getOuterShape() const
+{
+    auto& ff_item = groupItem<FormFactorItem>(MesoCrystalItem::P_FORM_FACTOR);
+    return ff_item.createFormFactor();
 }

@@ -26,6 +26,8 @@ const QStringList expectedRoughnessPars = QStringList() << QString::fromStdStrin
     << QString::fromStdString(BornAgain::CorrelationLength);
 }
 
+IPathTranslator::~IPathTranslator() {}
+
 QStringList PositionTranslator::translate(const QStringList& list) const
 {
     if(list.back() != ParticleItem::P_POSITION)

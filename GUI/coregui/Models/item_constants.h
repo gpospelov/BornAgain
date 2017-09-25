@@ -29,6 +29,7 @@ const ModelType Yes = "Yes";
 const ModelType No = "No";
 
 const ModelType LayerType = "Layer";
+const ModelType MesoCrystalType = "MesoCrystal";
 const ModelType MultiLayerType = "MultiLayer";
 const ModelType ParticleType = "Particle";
 const ModelType ParticleLayoutType = "ParticleLayout";

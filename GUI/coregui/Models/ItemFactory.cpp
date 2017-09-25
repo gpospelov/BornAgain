@@ -39,6 +39,7 @@
 #include "MagneticFieldItem.h"
 #include "MaskItems.h"
 #include "MaterialItem.h"
+#include "MesoCrystalItem.h"
 #include "MinimizerItem.h"
 #include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
@@ -73,6 +74,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ParticleCoreShellType] = &createInstance<ParticleCoreShellItem>;
     result[Constants::ParticleCompositionType] = &createInstance<ParticleCompositionItem>;
     result[Constants::ParticleDistributionType] = &createInstance<ParticleDistributionItem>;
+    result[Constants::MesoCrystalType] = &createInstance<MesoCrystalItem>;
     result[Constants::InterferenceFunctionRadialParaCrystalType] = &createInstance<InterferenceFunctionRadialParaCrystalItem>;
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;
     result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;

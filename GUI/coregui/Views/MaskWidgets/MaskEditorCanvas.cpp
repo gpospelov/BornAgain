@@ -35,15 +35,40 @@
 #include <QVBoxLayout>
 
 namespace {
-inline bool getRotateWarningCallback(QWidget* parent) {
+bool getRotateWarningCallback(QWidget* parent) {
     const QString title("Rotate data");
 
     const QString message("Rotation will break the link between the data and the instrument. "
                           "Detector masks, if exist, will be removed.");
 
-    return GUIHelpers::question(parent, title, message, "Do you wish to roate the data?",
+    return GUIHelpers::question(parent, title, message, "Do you wish to rotate the data?",
         "Yes, please rotate", "No, cancel data rotation");
 }
+
+//! Returns true, if rotation will affect linked instrument or mask presence.
+
+bool isRotationAffectsSetup(IntensityDataItem& intensityItem) {
+    if (intensityItem.parent()->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool())
+        return true;
+
+    if (intensityItem.maskContainerItem() && intensityItem.maskContainerItem()->hasChildren())
+        return true;
+
+    return false;
+}
+
+//! Resets linked instruments and masks.
+
+void resetSetup(IntensityDataItem& intensityItem) {
+
+    auto data_parent = intensityItem.parent();
+    if (data_parent->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool())
+        data_parent->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
+
+    if (auto maskContainer = intensityItem.maskContainerItem())
+        maskContainer->model()->removeRows(0, maskContainer->rowCount(), maskContainer->index());
+}
+
 }
 
 
@@ -129,11 +154,11 @@ void MaskEditorCanvas::onRotateDataRequest()
 {
     Q_ASSERT(m_intensityDataItem);
 
-    auto data_parent = m_intensityDataItem->parent();
-    if (data_parent->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool()) {
+    if (isRotationAffectsSetup(*m_intensityDataItem)) {
         if (!getRotateWarningCallback(this))
             return;
-        data_parent->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
+
+        resetSetup(*m_intensityDataItem);
     }
 
     QApplication::setOverrideCursor(Qt::WaitCursor);

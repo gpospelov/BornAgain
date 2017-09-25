@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/main.cpp
+//! @file      Tests/Functional/Core/CoreStandardTest/main.cpp
 //! @brief     Implements program CoreStandardTest to run core functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,7 +16,7 @@
 #include "TestService.h"
 #include "CoreStandardTest.h"
 
-//! Runs CoreTest on a standard simulation indicated by argv[1].
+//! Runs CoreStandardTest on a standard simulation indicated by argv[1].
 
 int main(int argc, char** argv)
 {

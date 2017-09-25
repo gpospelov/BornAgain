@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUIStandardTest.cpp
+//! @file      Tests/Functional/GUI/GUIStandardTest/main.cpp
 //! @brief     Implements program GUIStandardTest to run gui functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,7 +17,7 @@
 #include "TestService.h"
 #include "GUIStandardTest.h"
 
-//! Runs GUITest on a standard simulation indicated by argv[1].
+//! Runs GUIStandardTest on a standard simulation indicated by argv[1].
 
 int main(int argc, char** argv)
 {

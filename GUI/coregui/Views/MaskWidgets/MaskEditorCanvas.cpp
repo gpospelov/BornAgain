@@ -35,11 +35,11 @@
 #include <QVBoxLayout>
 
 namespace {
-bool riseRotateWarningDialog(QWidget* parent) {
+bool openRotateWarningDialog(QWidget* parent) {
     const QString title("Rotate data");
 
     const QString message("Rotation will break the link between the data and the instrument. "
-                          "Detector masks, if exist, will be removed.");
+                          "Detector masks, if they exist, will be removed.");
 
     return GUIHelpers::question(parent, title, message, "Do you wish to rotate the data?",
         "Yes, please rotate", "No, cancel data rotation");
@@ -47,7 +47,7 @@ bool riseRotateWarningDialog(QWidget* parent) {
 
 //! Returns true, if rotation will affect linked instrument or mask presence.
 
-bool isRotationAffectsSetup(IntensityDataItem& intensityItem) {
+bool rotationAffectsSetup(IntensityDataItem& intensityItem) {
     if (intensityItem.parent()->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool())
         return true;
 
@@ -154,8 +154,8 @@ void MaskEditorCanvas::onRotateDataRequest()
 {
     Q_ASSERT(m_intensityDataItem);
 
-    if (isRotationAffectsSetup(*m_intensityDataItem)) {
-        if (!riseRotateWarningDialog(this))
+    if (rotationAffectsSetup(*m_intensityDataItem)) {
+        if (!openRotateWarningDialog(this))
             return;
 
         resetSetup(*m_intensityDataItem);

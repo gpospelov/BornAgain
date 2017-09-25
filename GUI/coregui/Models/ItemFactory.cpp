@@ -227,6 +227,7 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
         << Constants::ParticleType
         << Constants::ParticleCoreShellType
         << Constants::ParticleCompositionType
+        << Constants::MesoCrystalType
         << Constants::ParticleDistributionType
         << Constants::TransformationType
         << Constants::InterferenceFunctionRadialParaCrystalType

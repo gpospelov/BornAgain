@@ -24,6 +24,15 @@ const QString abundance_tooltip =
     "Proportion of this type of particles normalized to the \n"
     "total number of particles in the layout";
 
+const QString lattice_vector1_tooltip =
+    "Coordinates of the first lattice vector";
+
+const QString lattice_vector2_tooltip =
+    "Coordinates of the second lattice vector";
+
+const QString lattice_vector3_tooltip =
+    "Coordinates of the third lattice vector";
+
 const QString position_tooltip =
     "Relative position of the particle's reference point \n"
     "in the coordinate system of the parent";
@@ -37,29 +46,33 @@ const QString MesoCrystalItem::P_FORM_FACTOR = "Outer Shape";
 const QString MesoCrystalItem::P_ABUNDANCE = QString::fromStdString(BornAgain::Abundance);
 const QString MesoCrystalItem::T_BASIS_PARTICLE = "Basis Particle";
 const QString MesoCrystalItem::P_LATTICE = "Lattice";
+const QString MesoCrystalItem::P_VECTOR_1 = "First lattice vector";
+const QString MesoCrystalItem::P_VECTOR_2 = "Second lattice vector";
+const QString MesoCrystalItem::P_VECTOR_3 = "Third lattice vector";
 const QString MesoCrystalItem::P_POSITION = "Position Offset";
 const QString MesoCrystalItem::T_TRANSFORMATION = "Transformation Tag";
 
 
 MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalType)
 {
-    setToolTip(QStringLiteral("A layout of particles"));
+    setToolTip(QStringLiteral("A 3D crystal structure of nanoparticles"));
 
     addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
 
     addProperty(P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0)).setDecimals(3)
         .setToolTip(abundance_tooltip);
 
-    registerTag(T_BASIS_PARTICLE, 0, 1, QStringList() << Constants::ParticleType
-                                                  << Constants::ParticleCoreShellType
-                                                  << Constants::ParticleCompositionType
-                                                  << Constants::ParticleDistributionType);
-    setDefaultTag(T_BASIS_PARTICLE);
-
+    addGroupProperty(P_VECTOR_1, Constants::VectorType)->setToolTip(lattice_vector1_tooltip);
+    addGroupProperty(P_VECTOR_2, Constants::VectorType)->setToolTip(lattice_vector2_tooltip);
+    addGroupProperty(P_VECTOR_3, Constants::VectorType)->setToolTip(lattice_vector3_tooltip);
     addGroupProperty(P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
 
+    registerTag(T_BASIS_PARTICLE, 0, 1, QStringList() << Constants::ParticleType
+                                                      << Constants::ParticleCoreShellType
+                                                      << Constants::ParticleCompositionType);
+    setDefaultTag(T_BASIS_PARTICLE);
+
     registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
-    setDefaultTag(T_TRANSFORMATION);
 
     addTranslator(PositionTranslator());
     addTranslator(RotationTranslator());

@@ -53,6 +53,7 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem(Constants::Partic
     registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType
                                                   << Constants::ParticleCoreShellType
                                                   << Constants::ParticleCompositionType
+                                                  << Constants::MesoCrystalType
                                                   << Constants::ParticleDistributionType);
     setDefaultTag(T_PARTICLES);
     registerTag(T_INTERFERENCE, 0, 1, QStringList()

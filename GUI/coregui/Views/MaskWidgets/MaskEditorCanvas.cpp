@@ -35,7 +35,7 @@
 #include <QVBoxLayout>
 
 namespace {
-bool getRotateWarningCallback(QWidget* parent) {
+bool riseRotateWarningDialog(QWidget* parent) {
     const QString title("Rotate data");
 
     const QString message("Rotation will break the link between the data and the instrument. "
@@ -155,7 +155,7 @@ void MaskEditorCanvas::onRotateDataRequest()
     Q_ASSERT(m_intensityDataItem);
 
     if (isRotationAffectsSetup(*m_intensityDataItem)) {
-        if (!getRotateWarningCallback(this))
+        if (!riseRotateWarningDialog(this))
             return;
 
         resetSetup(*m_intensityDataItem);

@@ -14,20 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "IStandardTest.h"
-#include "GUIReferencedTest.h"
-
-//! Provides a GUITest through a callback mechanism explained in IStandardTest.h.
-class GUIStandardTest : public IStandardTest
-{
-public:
-    GUIStandardTest() : IStandardTest("GUIStandardTest") {}
-    std::unique_ptr<IFunctionalTest> getTest() const { return std::unique_ptr<IFunctionalTest>
-            (new GUIReferencedTest(getName(), getTestDescription(), getSimulation(), getTestThreshold())); }
-};
+#include "TestService.h"
+#include "GUIStandardTest.h"
 
 //! Runs GUITest on a standard simulation indicated by argv[1].
+
 int main(int argc, char** argv)
 {
-    return GUIStandardTest().execute(argc, argv) ? 0 : 1;
+    return TestService<GUIStandardTest>().execute(argc, argv) ? 0 : 1;
 }

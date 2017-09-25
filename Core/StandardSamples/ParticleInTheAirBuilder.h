@@ -17,6 +17,10 @@
 #define PARTICLEINTHEAIRBUILDER_H
 
 #include "IMultiLayerBuilder.h"
+#include <memory>
+
+class IFormFactor;
+class FormFactorComponents;
 
 //! The ParticleInTheAirBuilder class generates a multilayer with single air layer
 //! populated with particles of certain types.
@@ -26,9 +30,16 @@
 class BA_CORE_API_ ParticleInTheAirBuilder : public IMultiLayerBuilder
 {
 public:
-    ParticleInTheAirBuilder() {}
-    virtual ~ParticleInTheAirBuilder() {}
+    ParticleInTheAirBuilder();
+    virtual ~ParticleInTheAirBuilder();
     virtual MultiLayer* buildSample() const;
+
+    MultiLayer* createSample(size_t index=0);
+    size_t size();
+
+protected:
+    FormFactorComponents& ff_components();
+    std::unique_ptr<IFormFactor> m_ff;
 };
 
 #endif // PARTICLEINTHEAIRBUILDER_H

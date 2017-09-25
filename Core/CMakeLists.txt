@@ -23,9 +23,6 @@ foreach(subdir ${CORE_SUBDIRS})
     list(APPEND CORE_SOURCE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/${subdir}")
 endforeach()
 
-# export for use in functional tests:
-set(CORE_SOURCE_DIRS ${CORE_SOURCE_DIRS} ${EIGEN3_INCLUDE_DIR} PARENT_SCOPE)
-
 set(include_dirs
     ${BUILD_INC_DIR}
     ${CMAKE_SOURCE_DIR}/Wrap

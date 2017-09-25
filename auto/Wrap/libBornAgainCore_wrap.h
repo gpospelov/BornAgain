@@ -271,6 +271,8 @@ public:
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
     virtual MultiLayer *buildSample() const;
+    virtual MultiLayer *createSample(size_t index = 0);
+    virtual size_t size();
 
 /* Internal director utilities */
 public:
@@ -301,7 +303,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[3];
+    mutable swig::SwigVar_PyObject vtable[6];
 #endif
 
 };

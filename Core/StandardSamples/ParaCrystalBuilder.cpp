@@ -24,6 +24,7 @@
 #include "ParticleLayout.h"
 #include "RealParameter.h"
 #include "Units.h"
+#include "SampleComponents.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0*Units::nanometer)
@@ -109,11 +110,7 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     interference_function.setDomainSizes(20.0*Units::micrometer,
             40.0*Units::micrometer);
 
-    if(const IFTDistribution2D* pdf2 = getFTDistribution2D())
-        interference_function.setProbabilityDistributions(*m_pdf1, *pdf2);
-    else
-        interference_function.setProbabilityDistributions(*m_pdf1, *m_pdf2);
-
+    interference_function.setProbabilityDistributions(*m_pdf1, *m_pdf2);
 
     FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
 
@@ -127,6 +124,31 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
+}
+
+MultiLayer* Basic2DParaCrystalBuilder::createSample(size_t index)
+{
+    if(index >= size())
+        throw std::runtime_error("Basic2DParaCrystalBuilder::createSample() -> Error. "
+                                 "Sample index is out of range.");
+
+    auto names = pdf_components().keys();
+    m_pdf2.reset(pdf_components().getItem(names[index])->clone());
+
+    setName(names[index]);
+
+    return buildSample();
+}
+
+size_t Basic2DParaCrystalBuilder::size()
+{
+    return pdf_components().size();
+}
+
+FTDistribution2DComponents& Basic2DParaCrystalBuilder::pdf_components()
+{
+    static FTDistribution2DComponents result = FTDistribution2DComponents();
+    return result;
 }
 
 

@@ -150,6 +150,8 @@ const std::string FTDecayFunction2DCauchyType = "FTDecayFunction2DCauchy";
 const std::string FTDecayFunction2DGaussType = "FTDecayFunction2DGauss";
 const std::string FTDecayFunction2DVoigtType = "FTDecayFunction2DVoigt";
 
+const std::string SampleBuilderType = "SampleBuilder";
+
 // Parameter names (dimensions, angles, ...)
 const std::string Abundance = "Abundance";
 const std::string PositionX = "PositionX";

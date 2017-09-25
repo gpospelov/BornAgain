@@ -24,14 +24,19 @@
 #include "ParticleLayout.h"
 #include "RealParameter.h"
 #include "Units.h"
+#include "SampleComponents.h"
+#include "FormFactors.h"
+
+LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
+    : m_ff(new FormFactorFullSphere(5.0*Units::nanometer))
+{
+
+}
+
+LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder() = default;
 
 MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 {
-    const IFormFactor* form_factor = formFactor();
-    if(!form_factor)
-        throw Exceptions::NullPointerException(
-            "LayersWithAbsorptionBuilder::buildSample() -> Error. Form factor is not initialized.");
-
     HomogeneousMaterial mAmbience("Air", 0.0, 0.0);
     HomogeneousMaterial mMiddle("Teflon", 2.900e-6, 6.019e-9);
     HomogeneousMaterial mSubstrate("Substrate", 3.212e-6, 3.244e-8);
@@ -39,7 +44,7 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 
     const double middle_layer_thickness(60.0*Units::nanometer);
 
-    Particle particle(mParticle, *form_factor);
+    Particle particle(mParticle, *m_ff);
     particle.setRotation(RotationZ(10.0*Units::degree));
     particle.applyRotation(RotationY(10.0*Units::degree));
     particle.applyRotation(RotationX(10.0*Units::degree));
@@ -60,3 +65,29 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
     multi_layer->addLayer(substrate);
     return multi_layer;
 }
+
+MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
+{
+    if(index >= size())
+        throw std::runtime_error("ParticleInTheAirBuilder::createSample() -> Error. "
+                                 "Sample index is out of range.");
+
+    auto ff_names = ff_components().keys();
+    m_ff.reset(ff_components().getItem(ff_names[index])->clone());
+
+    setName(ff_names[index]);
+
+    return buildSample();
+}
+
+size_t LayersWithAbsorptionBuilder::size()
+{
+    return ff_components().size();
+}
+
+FormFactorComponents& LayersWithAbsorptionBuilder::ff_components()
+{
+    static FormFactorComponents result = FormFactorComponents();
+    return result;
+}
+

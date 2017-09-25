@@ -7291,40 +7291,6 @@ class IMultiLayerBuilder(IParameterized):
         return _libBornAgainCore.IMultiLayerBuilder_buildSample(self)
 
 
-    def set_subtest(self, subtest_item):
-        """
-        set_subtest(IMultiLayerBuilder self, IParameterized subtest_item)
-
-        void IMultiLayerBuilder::set_subtest(const IParameterized *subtest_item)
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_set_subtest(self, subtest_item)
-
-    __swig_setmethods__["m_subtest_item"] = _libBornAgainCore.IMultiLayerBuilder_m_subtest_item_set
-    __swig_getmethods__["m_subtest_item"] = _libBornAgainCore.IMultiLayerBuilder_m_subtest_item_get
-    if _newclass:
-        m_subtest_item = _swig_property(_libBornAgainCore.IMultiLayerBuilder_m_subtest_item_get, _libBornAgainCore.IMultiLayerBuilder_m_subtest_item_set)
-
-    def formFactor(self):
-        """
-        formFactor(IMultiLayerBuilder self) -> IFormFactor
-
-        const IFormFactor * IMultiLayerBuilder::formFactor() const 
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_formFactor(self)
-
-
-    def getFTDistribution2D(self):
-        """
-        getFTDistribution2D(IMultiLayerBuilder self) -> IFTDistribution2D
-
-        const IFTDistribution2D * IMultiLayerBuilder::getFTDistribution2D() const 
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_getFTDistribution2D(self)
-
-
     def onChange(self):
         """
         onChange(IMultiLayerBuilder self)
@@ -7335,6 +7301,19 @@ class IMultiLayerBuilder(IParameterized):
 
         """
         return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
+
+
+    def createSample(self, index=0):
+        """
+        createSample(IMultiLayerBuilder self, size_t index=0) -> MultiLayer
+        createSample(IMultiLayerBuilder self) -> MultiLayer
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_createSample(self, index)
+
+
+    def size(self):
+        """size(IMultiLayerBuilder self) -> size_t"""
+        return _libBornAgainCore.IMultiLayerBuilder_size(self)
 
 
     def registerParameter(self, name, parpointer):

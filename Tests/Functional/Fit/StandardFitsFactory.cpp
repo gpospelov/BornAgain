@@ -79,20 +79,6 @@ StandardFitsFactory::StandardFitsFactory()
                 "Test of standalone fit of arbitrary functions");
 }
 
-StandardFitsFactory::~StandardFitsFactory() = default;
-
-std::unique_ptr<IFunctionalTest> StandardFitsFactory::createTest(const std::string& test_name)
-{
-    auto result = create(test_name);
-    result->setDescription(m_descriptions[test_name]);
-    return result;
-}
-
-bool StandardFitsFactory::isValidTest(const std::string& test_name)
-{
-    return m_callbacks.find(test_name) != m_callbacks.end();
-}
-
 void StandardFitsFactory::printCatalogue(std::ostream& ostr)
 {
     for(DescriptionMap_t::iterator it=m_descriptions.begin(); it!=m_descriptions.end(); ++it) {

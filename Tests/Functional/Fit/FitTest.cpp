@@ -27,7 +27,7 @@ int main(int argc, char **argv)
         test_name = std::string(argv[1]);
 
     StandardFitsFactory catalogue;
-    if (!catalogue.isValidTest(test_name)) {
+    if (!catalogue.contains(test_name)) {
         std::cout << "fit_functional_test() -> Non existing test with name '" << test_name << "', "
                   << "use argument from the list of defined tests" << std::endl;
         catalogue.printCatalogue(std::cout);

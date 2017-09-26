@@ -78,7 +78,8 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     registerTag(T_BASIS_PARTICLE, 0, 1, QStringList() << Constants::ParticleType
                                                       << Constants::ParticleCoreShellType
-                                                      << Constants::ParticleCompositionType);
+                                                      << Constants::ParticleCompositionType
+                                                      << Constants::MesoCrystalType);
     setDefaultTag(T_BASIS_PARTICLE);
 
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
@@ -144,6 +145,9 @@ std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const
         } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
             auto *particlecomposition_item = static_cast<ParticleCompositionItem*>(children[i]);
             return particlecomposition_item->createParticleComposition();
+        } else if (children[i]->modelType() == Constants::MesoCrystalType) {
+            auto *mesocrystal_item = static_cast<MesoCrystalItem*>(children[i]);
+            return mesocrystal_item->createMesoCrystal();
         }
     }
     return {};

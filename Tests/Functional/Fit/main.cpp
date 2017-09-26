@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/FitTest.cpp
+//! @file      Tests/Functional/Fit/main.cpp
 //! @brief     Implements program FitTest to run fit functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,27 +13,12 @@
 //
 // ************************************************************************** //
 
-#include "IFunctionalTest.h"
+#include "TestService.h"
 #include "StandardFitsFactory.h"
-#include <memory>
-#include <iostream>
 
 //! Runs functional tests.
 
 int main(int argc, char **argv)
 {
-    std::string test_name;
-    if(argc > 1)
-        test_name = std::string(argv[1]);
-
-    StandardFitsFactory catalogue;
-    if (!catalogue.contains(test_name)) {
-        std::cout << "fit_functional_test() -> Non existing test with name '" << test_name << "', "
-                  << "use argument from the list of defined tests" << std::endl;
-        catalogue.printCatalogue(std::cout);
-        return 1;
-    }
-
-    const std::unique_ptr<IFunctionalTest> test(catalogue.createTest(test_name));
-    return test->execute() ? 0 : 1;
+    return TestService<StandardFitsFactory>().execute(argc, argv) ? 0 : 1;
 }

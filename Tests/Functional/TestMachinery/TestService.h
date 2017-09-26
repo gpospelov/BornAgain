@@ -27,11 +27,10 @@
 //! Test name is obtained from command line parameters and then constructed via templated factory.
 
 template<typename T>
-class BA_CORE_API_ TestService : public ITestService
+class TestService : public ITestService
 {
 public:
     TestService(){}
-    virtual ~TestService() = default;
 
     bool execute(int argc, char** argv)
     {

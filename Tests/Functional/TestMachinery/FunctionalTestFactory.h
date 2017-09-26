@@ -21,7 +21,7 @@
 
 //! Simple factory to hold packs of functional tests.
 
-class FunctionalTestFactory : public IFactory<std::string, IFunctionalTest>
+class BA_CORE_API_ FunctionalTestFactory : public IFactory<std::string, IFunctionalTest>
 {
 public:
     std::unique_ptr<IFunctionalTest> createTest(std::string& test_name);

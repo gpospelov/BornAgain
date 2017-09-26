@@ -65,10 +65,8 @@ public:
     //! @param z: z-coordinate in nanometers
     void setPosition(double x, double y, double z) { m_position = kvector_t(x, y, z); }
 
-    //! Applies extra translation by adding it to the current one
-    void applyTranslation(kvector_t displacement);
-
-    void translateZ(double offset) override;
+    //! Translates the particle
+    void translate(kvector_t translation) override;
 
     //! Returns rotation object
     const IRotation* rotation() const;
@@ -77,7 +75,7 @@ public:
     void setRotation(const IRotation& rotation);
 
     //! Applies transformation by composing it with the existing one
-    void applyRotation(const IRotation& rotation);
+    void rotate(const IRotation& rotation);
 
     std::vector<const INode*> getChildren() const override;
 

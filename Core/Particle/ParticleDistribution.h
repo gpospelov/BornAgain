@@ -33,7 +33,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
-    void translateZ(double offset) final override;
+    void translate(kvector_t translation) final override;
 
     //! Returns list of new particles generated according to a distribution.
     std::vector<const IParticle*> generateParticles() const;

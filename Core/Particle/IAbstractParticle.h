@@ -17,6 +17,7 @@
 #define IABSTRACTPARTICLE_H
 
 #include "ISample.h"
+#include "Vectors3D.h"
 
 //! Interface for a generic particle.
 //!
@@ -41,8 +42,8 @@ public:
     //! total number of particles in the layout.
     void setAbundance(double abundance) { m_abundance = abundance; }
 
-    //! Applies a translation in the z-direction
-    virtual void translateZ(double offset) =0;
+    //! Translates the particle with the given vector
+    virtual void translate(kvector_t translation) =0;
 
 protected:
     double m_abundance;

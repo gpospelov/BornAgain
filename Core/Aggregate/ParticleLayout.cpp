@@ -88,7 +88,7 @@ ParticleLayout* ParticleLayout::cloneWithOffset(double offset) const
     for (auto p_particle : m_particles)
     {
         auto p_particle_clone = p_particle->clone();
-        p_particle_clone->translateZ(offset);
+        p_particle_clone->translate(kvector_t(0.0, 0.0, offset));
         p_result->addAndRegisterAbstractParticle(p_particle_clone);
     }
 
@@ -127,7 +127,7 @@ void ParticleLayout::addParticle(const IParticle& particle, double abundance,
     std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
     P_particle_clone->setAbundance(abundance);
     if (position != kvector_t(0,0,0))
-        P_particle_clone->applyTranslation(position);
+        P_particle_clone->translate(position);
     addAndRegisterAbstractParticle(P_particle_clone.release());
 }
 
@@ -142,9 +142,9 @@ void ParticleLayout::addParticle(const IParticle& particle, double abundance,
     std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
     P_particle_clone->setAbundance(abundance);
     if (!rotation.isIdentity())
-        P_particle_clone->applyRotation(rotation);
+        P_particle_clone->rotate(rotation);
     if(position != kvector_t(0,0,0))
-        P_particle_clone->applyTranslation(position);
+        P_particle_clone->translate(position);
     addAndRegisterAbstractParticle(P_particle_clone.release());
 }
 

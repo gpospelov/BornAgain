@@ -22809,18 +22809,6 @@ class MesoCrystal(IParticle):
         return _libBornAgainCore.MesoCrystal_createSlicedParticle(self, limits)
 
 
-    def clusteredParticles(self):
-        """
-        clusteredParticles(MesoCrystal self) -> IClusteredParticles
-
-        const IClusteredParticles* MesoCrystal::clusteredParticles() const
-
-        get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
-
-        """
-        return _libBornAgainCore.MesoCrystal_clusteredParticles(self)
-
-
     def getChildren(self):
         """
         getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector

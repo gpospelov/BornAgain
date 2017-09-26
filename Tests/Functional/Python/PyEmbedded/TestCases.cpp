@@ -19,21 +19,9 @@
 #include "BAVersion.h"
 #include <iostream>
 
-bool FunctionCall::runTest()
-{
-    bool success(false);
-    try {
-        success = test();
-    } catch (std::exception &ex) {
-        std::cout << "FunctionCall::runTest() -> Error. Exception was caught '"
-                  << ex.what() << "'" << std::endl;
-    }
-    return success;
-}
-
 //! Comparing results of GetVersionNumber() function obtained in "embedded" and "native C++" ways.
 
-bool FunctionCall::test()
+bool FunctionCall::runTest()
 {
     Py_Initialize();
 

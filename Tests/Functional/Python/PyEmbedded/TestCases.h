@@ -22,11 +22,8 @@
 
 class FunctionCall : public IFunctionalTest
 {
-public:
+protected:
     bool runTest();
-
-private:
-    bool test();
 };
 
 #endif

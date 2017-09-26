@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MesoCrystalBuilder.h"
+#include "BornAgainNamespace.h"
 #include "Crystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"

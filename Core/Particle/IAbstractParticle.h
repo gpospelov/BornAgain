@@ -17,11 +17,6 @@
 #define IABSTRACTPARTICLE_H
 
 #include "ISample.h"
-#include "Vectors3D.h"
-#include "BornAgainNamespace.h"
-#include <memory>
-
-class HomogeneousMaterial;
 
 //! Interface for a generic particle.
 //!

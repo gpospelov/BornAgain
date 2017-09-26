@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParaCrystalBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"
 #include "InterferenceFunction2DParaCrystal.h"

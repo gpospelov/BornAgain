@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "RipplesBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorRipple1.h"
 #include "FormFactorRipple2.h"
 #include "HomogeneousMaterial.h"

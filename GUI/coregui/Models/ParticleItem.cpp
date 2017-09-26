@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "ParticleItem.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorItems.h"
 #include "GUIHelpers.h"
 #include "MaterialUtils.h"

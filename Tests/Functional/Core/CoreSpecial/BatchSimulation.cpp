@@ -1,3 +1,19 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tests/Functional/Core/CoreSpecial/BatchSimulation.h
+//! @brief     Defines BatchSimulation class.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#include "BatchSimulation.h"
 #include "GISASSimulation.h"
 #include "SimulationFactory.h"
 #include "IFunctionalTest.h"
@@ -6,7 +22,7 @@
 #include <iostream>
 #include <memory>
 
-bool TestBatchSimulation()
+bool BatchSimulation::runTest()
 {
     SimulationFactory sim_registry;
     const std::unique_ptr<GISASSimulation> simulation = sim_registry.create("MiniGISAS");
@@ -40,10 +56,4 @@ bool TestBatchSimulation()
               << " " << (diff>threshold ? "[FAILED]" : "[OK]") << "\n";
 
     return diff <= threshold;
-}
-
-
-int main(int, char**)
-{
-    return TestBatchSimulation() ? 0 : 1;
 }

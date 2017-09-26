@@ -53,7 +53,9 @@ inline void TestParticleDistributionItem::test_InitialState()
 
     QCOMPARE(distItem->acceptableDefaultItemTypes(),
              QVector<QString>() << Constants::ParticleType
-             << Constants::ParticleCoreShellType << Constants::ParticleCompositionType);
+                                << Constants::ParticleCoreShellType
+                                << Constants::ParticleCompositionType
+                                << Constants::MesoCrystalType);
 
     ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                     .value<ComboProperty>();

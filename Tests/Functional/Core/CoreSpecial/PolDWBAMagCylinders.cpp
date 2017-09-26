@@ -76,5 +76,5 @@ bool PolDWBAMagCylinders::runTest()
     std::cout << " diff " << diff << std::endl;
     std::cout << "polmagcylinders2" << " " << "Magnetic cylinders with non-zero magnetic field"
               << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
-    return status_ok ? 0 : 1;
+    return status_ok;
 }

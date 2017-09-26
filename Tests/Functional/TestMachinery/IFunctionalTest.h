@@ -30,14 +30,15 @@ public:
         : INamed(name), m_description(description) {}
     virtual ~IFunctionalTest();
 
-    virtual bool runTest() = 0; //!< Returns true when successful
     bool execute();
 
     std::string description() const { return m_description; }
     void setDescription(const std::string& description) { m_description = description; }
 
     using INamed::setName;
+
 protected:
+    virtual bool runTest() = 0; //!< Returns true when successful
 
     std::string m_description;
 };

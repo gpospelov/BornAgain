@@ -36,7 +36,7 @@ bool PyEmbeddedTest::execute(int argc, char** argv)
     }
 
     auto test = m_tests.createTest(test_name);
-    bool result = test->runTest();
+    bool result = test->execute();
 
     std::cout << boost::format("%-15s | %-50s -> %-5s\n") %
                  test->getName() % test->description() %

@@ -71,7 +71,7 @@ bool StandardTestServiceBase::execute(int argc, char** argv)
             std::cout << "IStandardTest::execute() -> " << test_name << " " << sample_index+1
                       << "/" << n_subtests << " (" << builder->getName() << ")\n";
 
-        if(!test->runTest())
+        if(!test->execute())
             ++number_of_failed_tests;
 
     }

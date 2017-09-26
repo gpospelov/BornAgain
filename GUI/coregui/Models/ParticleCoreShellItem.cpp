@@ -49,7 +49,8 @@ ParticleCoreShellItem::ParticleCoreShellItem()
 
     registerTag(T_CORE, 0, 1, QStringList() << Constants::ParticleType);
     registerTag(T_SHELL, 0, 1, QStringList() << Constants::ParticleType);
-    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
+    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
+                QStringList() << Constants::TransformationType);
 
     addTranslator(PositionTranslator());
     addTranslator(RotationTranslator());
@@ -59,7 +60,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     {
         if (newParent) {
             if (parent()->modelType() == Constants::ParticleCompositionType
-                || parent()->modelType() == Constants::ParticleDistributionType) {
+             || parent()->modelType() == Constants::ParticleDistributionType) {
                 setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
                 getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
             }

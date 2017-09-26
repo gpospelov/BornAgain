@@ -16,6 +16,8 @@
 
 #include "ParticleCompositionItem.h"
 #include "GUIHelpers.h"
+#include "MesoCrystal.h"
+#include "MesoCrystalItem.h"
 #include "ModelPath.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
@@ -47,10 +49,13 @@ ParticleCompositionItem::ParticleCompositionItem()
 
     addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
 
-    registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType <<
-                Constants::ParticleCoreShellType << Constants::ParticleCompositionType);
+    registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType
+                                                  << Constants::ParticleCoreShellType
+                                                  << Constants::ParticleCompositionType
+                                                  << Constants::MesoCrystalType);
     setDefaultTag(T_PARTICLES);
-    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
+    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
+                QStringList() << Constants::TransformationType);
 
     addTranslator(PositionTranslator());
     addTranslator(RotationTranslator());
@@ -92,11 +97,12 @@ std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComp
             if (P_child_composition) {
                 P_composition->addParticle(*P_child_composition);
             }
-        } else if (children[i]->modelType() == Constants::TransformationType) {
-            continue;
-        } else {
-//            throw GUIHelpers::Error("ParticleCompositionItem::createParticleComposition()"
-//                                    " -> Error! Not implemented");
+        } else if (children[i]->modelType() == Constants::MesoCrystalType) {
+            auto *mesocrystal_item = static_cast<MesoCrystalItem*>(children[i]);
+            auto P_child_meso = mesocrystal_item->createMesoCrystal();
+            if (P_child_meso) {
+                P_composition->addParticle(*P_child_meso);
+            }
         }
     }
     TransformToDomain::setTransformationInfo(P_composition.get(), *this);

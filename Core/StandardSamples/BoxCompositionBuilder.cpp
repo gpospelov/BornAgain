@@ -107,7 +107,7 @@ MultiLayer* BoxCompositionRotateZandYBuilder::buildSample() const
     composition.addParticle(box, kvector_t(0.0, 0.0, 0.0));
     composition.addParticle(box, kvector_t(m_length/2.0, 0.0, 0.0));
     composition.setRotation(RotationZ(90.0*Units::degree));
-    composition.applyRotation(RotationY(90.0*Units::degree));
+    composition.rotate(RotationY(90.0*Units::degree));
     composition.setPosition(kvector_t(0.0, 0.0, -m_layer_thickness/2.0 ));
     return createMultiLayer(composition);
 }

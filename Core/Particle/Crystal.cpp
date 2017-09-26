@@ -46,8 +46,8 @@ IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form
     Lattice transformed_lattice = transformedLattice(p_rotation);
     std::unique_ptr<IParticle> P_basis_clone { mp_lattice_basis->clone() };
     if (p_rotation)
-        P_basis_clone->applyRotation(*p_rotation);
-    P_basis_clone->applyTranslation(translation);
+        P_basis_clone->rotate(*p_rotation);
+    P_basis_clone->translate(translation);
     const std::unique_ptr<IFormFactor> P_basis_ff(P_basis_clone->createFormFactor());
     std::unique_ptr<FormFactorCrystal> P_ff_crystal(
         new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor));

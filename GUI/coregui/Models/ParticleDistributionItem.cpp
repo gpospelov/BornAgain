@@ -52,7 +52,8 @@ ParticleDistributionItem::ParticleDistributionItem()
 
     registerTag(T_PARTICLES, 0, 1, QStringList() << Constants::ParticleType
                                                  << Constants::ParticleCoreShellType
-                                                 << Constants::ParticleCompositionType);
+                                                 << Constants::ParticleCompositionType
+                                                 << Constants::MesoCrystalType);
     setDefaultTag(T_PARTICLES);
 
     ComboProperty par_prop;

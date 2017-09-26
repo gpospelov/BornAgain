@@ -49,7 +49,7 @@ void SlicedFormFactorList::addParticle(IParticle& particle,
     for (size_t i=layer_indices.first; i<layer_indices.second+1; ++i)
     {
         kvector_t translation(0.0, 0.0, -ZDifference(multilayer, i, ref_layer_index));
-        particle.applyTranslation(translation);
+        particle.translate(translation);
         // if particle is contained in this layer, set limits to infinite:
         ZLimits limits = single_layer ? ZLimits()
                                       : LayerZLimits(multilayer, i);

@@ -22,7 +22,7 @@ class SessionItem;
 
 class IPathTranslator {
 public:
-    virtual ~IPathTranslator()=default;
+    virtual ~IPathTranslator();
 
     virtual IPathTranslator* clone() const=0;
 

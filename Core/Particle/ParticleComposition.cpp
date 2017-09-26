@@ -71,7 +71,7 @@ void ParticleComposition::addParticle(const IParticle& particle, kvector_t posit
 {
     checkParticleType(particle);
     IParticle* np = particle.clone();
-    np->applyTranslation(position);
+    np->translate(position);
     addParticlePointer(np);
 }
 
@@ -111,8 +111,8 @@ SafePointerVector<IParticle> ParticleComposition::decompose() const
         auto sublist = P_particle->decompose();
         for (auto p_subparticle : sublist) {
             if (p_rotation)
-                p_subparticle->applyRotation(*p_rotation);
-            p_subparticle->applyTranslation(translation);
+                p_subparticle->rotate(*p_rotation);
+            p_subparticle->translate(translation);
             result.push_back(p_subparticle->clone());
         }
     }

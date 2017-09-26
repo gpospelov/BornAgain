@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MultipleLayoutBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
 #include "HomogeneousMaterial.h"

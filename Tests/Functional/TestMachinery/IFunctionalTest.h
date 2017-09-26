@@ -34,6 +34,7 @@ public:
     std::string description() const { return m_description; }
     void setDescription(const std::string& description) { m_description = description; }
 
+    using INamed::setName;
 protected:
     std::string m_description;
 };

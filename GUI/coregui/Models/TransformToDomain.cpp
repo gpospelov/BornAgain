@@ -38,6 +38,8 @@
 #include "LayerRoughnessItems.h"
 #include "MaskItems.h"
 #include "MaterialUtils.h"
+#include "MesoCrystal.h"
+#include "MesoCrystalItem.h"
 #include "MultiLayerItem.h"
 #include "ParameterPattern.h"
 #include "ParticleCompositionItem.h"
@@ -135,6 +137,9 @@ std::unique_ptr<IParticle> TransformToDomain::createIParticle(const SessionItem&
     } else if (item.modelType() == Constants::ParticleCompositionType) {
         auto& particle_composition_item = static_cast<const ParticleCompositionItem&>(item);
         P_particle = particle_composition_item.createParticleComposition();
+    } else if (item.modelType() == Constants::MesoCrystalType) {
+        auto& mesocrystal_item = static_cast<const MesoCrystalItem&>(item);
+        P_particle = mesocrystal_item.createMesoCrystal();
     }
     return P_particle;
 }

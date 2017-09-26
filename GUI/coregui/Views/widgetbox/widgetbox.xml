@@ -280,6 +280,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Meso Crystal" icon="images/ParticleComposition.png">
+            <widget class="MesoCrystal">
+                <property name="objectName">
+                     <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
         <categoryentry name="Distributed particle" icon="images/SizeDistribution.png">
             <widget class="ParticleDistribution">
                 <property name="objectName">

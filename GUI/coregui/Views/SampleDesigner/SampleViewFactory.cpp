@@ -19,6 +19,7 @@
 #include "InterferenceFunctionViews.h"
 #include "LayerView.h"
 #include "MultiLayerView.h"
+#include "MesoCrystalView.h"
 #include "ParticleCompositionView.h"
 #include "ParticleCoreShellView.h"
 #include "ParticleDistributionView.h"
@@ -35,6 +36,7 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::TransformationType
         << Constants::ParticleCoreShellType
         << Constants::ParticleCompositionType
+        << Constants::MesoCrystalType
         << Constants::ParticleDistributionType
         << Constants::InterferenceFunctionRadialParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType
@@ -74,6 +76,9 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     }
     else if (name==Constants::ParticleCompositionType) {
         return new ParticleCompositionView();
+    }
+    else if (name==Constants::MesoCrystalType) {
+        return new MesoCrystalView();
     }
     else if (name==Constants::ParticleDistributionType) {
         return new ParticleDistributionView();

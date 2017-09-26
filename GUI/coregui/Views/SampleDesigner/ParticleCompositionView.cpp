@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "ParticleCompositionView.h"
-#include "ParticleCompositionItem.h"
 #include "ParticleItem.h"
 #include "SessionItem.h"
 

@@ -2,7 +2,7 @@ set(test CoreSpecial)
 
 set(test_cases
     BatchSimulation
-    PolDWBAMagCylinders2
+    PolDWBAMagCylinders
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

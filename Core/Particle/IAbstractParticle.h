@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Particle/IAbstractParticle.h
-//! @brief     Defines interface IAParticle.
+//! @brief     Defines interface IAbstractParticle.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -32,12 +32,12 @@ class HomogeneousMaterial;
 class BA_CORE_API_ IAbstractParticle : public ISample
 {
 public:
-    IAbstractParticle() : m_abundance(1.0) {}
-    virtual ~IAbstractParticle() {}
+    IAbstractParticle();
+    virtual ~IAbstractParticle();
 
     virtual IAbstractParticle* clone() const =0;
 
-    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const;
 
     double abundance() const { return m_abundance; }
 

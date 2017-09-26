@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2016
 //! @authors   Scientific Computing Group at MLZ Garching
 //! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @authors   Walter Van Herck, Joachim Wuttke, Dmitry Yurov
 //
 // ************************************************************************** //
 

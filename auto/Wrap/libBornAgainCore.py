@@ -26348,6 +26348,11 @@ class SampleBuilderFactoryTemp(_object):
         """
         return _libBornAgainCore.SampleBuilderFactoryTemp_registerItem(self, *args)
 
+
+    def contains(self, item_key):
+        """contains(SampleBuilderFactoryTemp self, std::string const & item_key) -> bool"""
+        return _libBornAgainCore.SampleBuilderFactoryTemp_contains(self, item_key)
+
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactoryTemp
     __del__ = lambda self: None
 
@@ -26479,6 +26484,11 @@ class SimulationFactoryTemp(_object):
 
         """
         return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, *args)
+
+
+    def contains(self, item_key):
+        """contains(SimulationFactoryTemp self, std::string const & item_key) -> bool"""
+        return _libBornAgainCore.SimulationFactoryTemp_contains(self, item_key)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
     __del__ = lambda self: None

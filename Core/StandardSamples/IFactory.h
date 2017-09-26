@@ -67,6 +67,11 @@ public:
         return m_callbacks.insert(make_pair(item_key, CreateFn)).second;
     }
 
+    bool contains(const Key& item_key)
+    {
+        return m_callbacks.find(item_key) != m_callbacks.end();
+    }
+
     ~IFactory() {}
 
     //! Returns number of registered objects

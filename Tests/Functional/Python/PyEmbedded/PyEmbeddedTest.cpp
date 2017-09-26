@@ -23,6 +23,9 @@ PyEmbeddedTest::PyEmbeddedTest()
     m_tests.registerItem("FunctionCall",
                          create_new<FunctionCall>,
                          "Calling function from embedded Python");
+    m_tests.registerItem("MethodCall",
+                         create_new<MethodCall>,
+                         "Creating object embedded and calling its methods.");
 }
 
 bool PyEmbeddedTest::execute(int argc, char** argv)

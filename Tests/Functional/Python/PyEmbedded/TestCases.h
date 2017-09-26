@@ -26,4 +26,13 @@ protected:
     bool runTest();
 };
 
+//! Checks method call in embedded Python interpreter.
+
+class MethodCall : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
+
 #endif

@@ -2,6 +2,7 @@ set(test PyEmbedded)
 
 set(test_cases
     FunctionCall
+    MethodCall
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

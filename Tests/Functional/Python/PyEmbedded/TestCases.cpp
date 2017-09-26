@@ -58,3 +58,63 @@ bool FunctionCall::runTest()
 
     return str == BornAgain::GetVersionNumber();
 }
+
+//! Creating instance of FormFactorCylinder and calling its method in embedded Python.
+
+bool MethodCall::runTest()
+{
+    const double radius(5.0), height(6.0);
+    Py_Initialize();
+
+    PyObject *sysPath = PySys_GetObject((char*)"path");
+    PyList_Append(sysPath, PyString_FromString("."));
+
+    PyObject *pmod = PyImport_ImportModule("bornagain");
+    if (!pmod)
+        throw std::runtime_error("Can't load module");
+
+    PyObject* pclass = PyObject_GetAttrString(pmod, "FormFactorCylinder");
+    Py_DECREF(pmod);
+    if (!pclass)
+        throw std::runtime_error("Can't get a class");
+
+    PyObject* pargs = Py_BuildValue("(dd)", radius, height);
+    if (!pargs) {
+        Py_DECREF(pclass);
+        throw std::runtime_error("Can't build arguments list");
+    }
+
+    PyObject* pinst  = PyEval_CallObject(pclass, pargs);
+    Py_DECREF(pclass);
+    Py_DECREF(pargs);
+
+    if(!pinst)
+        throw std::runtime_error("Error while creating object");
+
+    // result of FormFactorCylinder
+    PyObject* pmeth  = PyObject_GetAttrString(pinst, "getHeight");
+    Py_DECREF(pinst);
+    if (!pmeth)
+        throw std::runtime_error("Can't fetch FormFactorCylinder.getHeight");
+
+    PyObject* pargs2 = Py_BuildValue("()");
+    if (!pargs2) {
+        Py_DECREF(pmeth);
+        throw std::runtime_error("Can't build arguments list");
+    }
+
+    PyObject* pres = PyEval_CallObject(pmeth, pargs2);
+    Py_DECREF(pmeth);
+    Py_DECREF(pargs);
+
+    if (!pres)
+        throw std::runtime_error("Error calling FormFactorCylinder.getHeight()");
+
+    double value(0);
+    if (!PyArg_Parse(pres, "d", &value))
+       throw std::runtime_error("Can't convert class method result");
+
+    Py_DECREF(pres);
+
+    return value == height;
+}

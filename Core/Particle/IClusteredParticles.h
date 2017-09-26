@@ -41,9 +41,6 @@ public:
     //! Creates region information with volumetric densities instead of absolute volume
     //! These densities need to be multiplied by the total mesocrystal volume
     virtual std::vector<HomogeneousRegion> homogeneousRegions() const =0;
-
-    //! Composes transformation with existing one
-    virtual void applyRotation(const IRotation&) =delete;
 };
 
 #endif // ICLUSTEREDPARTICLES_H

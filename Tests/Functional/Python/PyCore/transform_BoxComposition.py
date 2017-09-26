@@ -184,7 +184,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         composition.addParticle(box, kvector_t(0.0, 0.0, 0.0))
         composition.addParticle(box, kvector_t(comp_length/2.0, 0.0, 0.0))
         composition.setRotation(RotationZ(90*deg))
-        composition.applyRotation(RotationY(90*deg))
+        composition.rotate(RotationY(90*deg))
         composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.))
 
         data = self.get_intensity_data(composition)

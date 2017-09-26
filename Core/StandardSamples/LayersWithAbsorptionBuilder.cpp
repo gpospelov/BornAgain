@@ -46,8 +46,8 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 
     Particle particle(mParticle, *m_ff);
     particle.setRotation(RotationZ(10.0*Units::degree));
-    particle.applyRotation(RotationY(10.0*Units::degree));
-    particle.applyRotation(RotationX(10.0*Units::degree));
+    particle.rotate(RotationY(10.0*Units::degree));
+    particle.rotate(RotationX(10.0*Units::degree));
     particle.setPosition(kvector_t(0.0, 0.0, -middle_layer_thickness/2.0 ));
 
     ParticleLayout layout;

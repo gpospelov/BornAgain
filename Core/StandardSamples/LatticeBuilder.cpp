@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "LatticeBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FTDecayFunctions.h"
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"

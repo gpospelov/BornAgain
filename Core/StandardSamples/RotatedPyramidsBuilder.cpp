@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "RotatedPyramidsBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorPyramid.h"
 #include "HomogeneousMaterial.h"
 #include "Layer.h"

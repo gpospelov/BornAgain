@@ -1,4 +1,5 @@
 #include "MagneticLayersBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorFullSphere.h"
 #include "HomogeneousMaterial.h"
 #include "Layer.h"

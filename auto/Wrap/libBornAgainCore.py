@@ -18762,16 +18762,9 @@ class IAbstractParticle(ISample):
         return _libBornAgainCore.IAbstractParticle_setAbundance(self, abundance)
 
 
-    def translateZ(self, offset):
-        """
-        translateZ(IAbstractParticle self, double offset)
-
-        virtual void IAbstractParticle::translateZ(double offset)=0
-
-        Applies a translation in the z-direction. 
-
-        """
-        return _libBornAgainCore.IAbstractParticle_translateZ(self, offset)
+    def translate(self, translation):
+        """translate(IAbstractParticle self, kvector_t translation)"""
+        return _libBornAgainCore.IAbstractParticle_translate(self, translation)
 
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
 IAbstractParticle_swigregister(IAbstractParticle)
@@ -18997,28 +18990,9 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_setPosition(self, *args)
 
 
-    def applyTranslation(self, displacement):
-        """
-        applyTranslation(IParticle self, kvector_t displacement)
-
-        void IParticle::applyTranslation(kvector_t displacement)
-
-        Applies extra translation by adding it to the current one. 
-
-        """
-        return _libBornAgainCore.IParticle_applyTranslation(self, displacement)
-
-
-    def translateZ(self, offset):
-        """
-        translateZ(IParticle self, double offset)
-
-        void IParticle::translateZ(double offset) override
-
-        Applies a translation in the z-direction. 
-
-        """
-        return _libBornAgainCore.IParticle_translateZ(self, offset)
+    def translate(self, translation):
+        """translate(IParticle self, kvector_t translation)"""
+        return _libBornAgainCore.IParticle_translate(self, translation)
 
 
     def rotation(self):
@@ -19045,16 +19019,9 @@ class IParticle(IAbstractParticle):
         return _libBornAgainCore.IParticle_setRotation(self, rotation)
 
 
-    def applyRotation(self, rotation):
-        """
-        applyRotation(IParticle self, IRotation rotation)
-
-        void IParticle::applyRotation(const IRotation &rotation)
-
-        Applies transformation by composing it with the existing one. 
-
-        """
-        return _libBornAgainCore.IParticle_applyRotation(self, rotation)
+    def rotate(self, rotation):
+        """rotate(IParticle self, IRotation rotation)"""
+        return _libBornAgainCore.IParticle_rotate(self, rotation)
 
 
     def getChildren(self):
@@ -22842,18 +22809,6 @@ class MesoCrystal(IParticle):
         return _libBornAgainCore.MesoCrystal_createSlicedParticle(self, limits)
 
 
-    def clusteredParticles(self):
-        """
-        clusteredParticles(MesoCrystal self) -> IClusteredParticles
-
-        const IClusteredParticles* MesoCrystal::clusteredParticles() const
-
-        get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
-
-        """
-        return _libBornAgainCore.MesoCrystal_clusteredParticles(self)
-
-
     def getChildren(self):
         """
         getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector
@@ -24978,16 +24933,9 @@ class ParticleDistribution(IAbstractParticle):
         return _libBornAgainCore.ParticleDistribution_accept(self, visitor)
 
 
-    def translateZ(self, offset):
-        """
-        translateZ(ParticleDistribution self, double offset)
-
-        void ParticleDistribution::translateZ(double offset) finaloverride
-
-        Applies a translation in the z-direction. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_translateZ(self, offset)
+    def translate(self, translation):
+        """translate(ParticleDistribution self, kvector_t translation)"""
+        return _libBornAgainCore.ParticleDistribution_translate(self, translation)
 
 
     def generateParticles(self):

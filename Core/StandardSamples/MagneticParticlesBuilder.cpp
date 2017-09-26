@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MagneticParticlesBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
 #include "Layer.h"
 #include "LayerInterface.h"

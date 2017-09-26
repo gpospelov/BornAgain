@@ -14,5 +14,19 @@
 // ************************************************************************** //
 
 #include "IFunctionalTest.h"
+#include <iostream>
 
 IFunctionalTest::~IFunctionalTest() = default;
+
+bool IFunctionalTest::execute()
+{
+    bool success(false);
+
+    try {
+        success = runTest();
+    } catch (std::exception &ex) {
+        std::cout << "IFunctionalTest::execute() -> Error. Exception was caught '"
+                  << ex.what() << "'" << std::endl;
+    }
+    return success;
+}

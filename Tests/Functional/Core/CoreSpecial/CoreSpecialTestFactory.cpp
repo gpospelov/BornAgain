@@ -16,6 +16,7 @@
 #include "CoreSpecialTestFactory.h"
 #include "BatchSimulation.h"
 #include "PolDWBAMagCylinders.h"
+#include "CoreIOTest.h"
 
 CoreSpecialTestFactory::CoreSpecialTestFactory()
 {
@@ -26,4 +27,8 @@ CoreSpecialTestFactory::CoreSpecialTestFactory()
     registerItem("PolDWBAMagCylinders",
                  create_new<PolDWBAMagCylinders>,
                  "Special test for polarized materials");
+
+    registerItem("CoreIO",
+                 create_new<CoreIOTest>,
+                 "Input/output of heavy files");
 }

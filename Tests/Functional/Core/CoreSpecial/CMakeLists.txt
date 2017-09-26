@@ -3,6 +3,7 @@ set(test CoreSpecial)
 set(test_cases
     BatchSimulation
     PolDWBAMagCylinders
+    CoreIO
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

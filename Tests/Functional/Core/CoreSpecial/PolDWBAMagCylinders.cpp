@@ -1,3 +1,19 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tests/Functional/Core/CoreSpecial/PolDWBAMagCylinders.cpp
+//! @brief     Implements PolDWBAMagCylinders class.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#include "PolDWBAMagCylinders.h"
 #include "GISASSimulation.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
@@ -5,7 +21,8 @@
 #include "FileSystemUtils.h"
 #include <memory>
 
-int main(int, char**)
+
+bool PolDWBAMagCylinders::runTest()
 {
     const std::string trunc = FileSystemUtils::jointPath(CORE_SPECIAL_REF_DIR,
                                                              "/polmagcylinders2_reference_");

@@ -70,7 +70,7 @@ public:
     ~IFactory() {}
 
     //! Returns number of registered objects
-    size_t getNumberOfRegistered() const { return m_callbacks.size(); }
+    size_t size() const { return m_callbacks.size(); }
 
     const_iterator begin() const { return m_descriptions.begin(); }
     const_iterator end() const { return m_descriptions.end(); }

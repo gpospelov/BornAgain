@@ -19,7 +19,7 @@ int main(int, char**)
         P_reference11(IntensityDataIOFactory::readOutputData(trunc + "11.int.gz"));
 
     SimulationFactory sim_registry;
-    GISASSimulation* simulation = sim_registry.createItem("polmagcylinders2");
+    auto simulation = sim_registry.create("polmagcylinders2");
     kvector_t zplus(0.0, 0.0, 1.0);
     kvector_t zmin(0.0, 0.0, -1.0);
 
@@ -50,8 +50,6 @@ int main(int, char**)
     diff += IntensityDataFunctions::getRelativeDifference(*P_data10, *P_reference10);
     diff += IntensityDataFunctions::getRelativeDifference(*P_data11, *P_reference11);
     diff /= 4.;
-
-    delete simulation;
 
     // Assess result.
     bool status_ok(true);

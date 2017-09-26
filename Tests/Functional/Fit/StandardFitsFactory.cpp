@@ -76,12 +76,14 @@ StandardFitsFactory::StandardFitsFactory()
     registerItem(
         "StandaloneFit",
         create_new<StandaloneFitTest>,
-        "Test of standalone fit of arbitrary functions");
+                "Test of standalone fit of arbitrary functions");
 }
 
-IFunctionalTest* StandardFitsFactory::createTest(const std::string& test_name)
+StandardFitsFactory::~StandardFitsFactory() = default;
+
+std::unique_ptr<IFunctionalTest> StandardFitsFactory::createTest(const std::string& test_name)
 {
-    IFunctionalTest* result = createItem(test_name);
+    auto result = create(test_name);
     result->setDescription(m_descriptions[test_name]);
     return result;
 }

@@ -45,7 +45,7 @@ GUITranslationTest::GUITranslationTest(const std::string& simName, const std::st
     , m_sampleName(sampleName)
 {
     SimulationFactory simFactory;
-    m_simulation.reset(simFactory.createItem(m_simulationName));
+    m_simulation = simFactory.create(m_simulationName);
 
     SampleBuilderFactory sampleFactory;
     m_simulation->setSample(*sampleFactory.createSample(m_sampleName));

@@ -20,6 +20,7 @@
 #include <functional>
 #include <map>
 #include <sstream>
+#include <memory>
 
 //! Base class for all factories.
 //! @ingroup tools_internal
@@ -52,6 +53,19 @@ public:
         }
         return (it->second)();
     }
+
+#ifndef SWIG
+    std::unique_ptr<AbstractProduct> create(const Key& item_key) {
+        auto it = m_callbacks.find(item_key);
+        if( it == m_callbacks.end() ) {
+            std::ostringstream message;
+            message << "IFactory::createItem() -> Error. Unknown item key '"
+                    << item_key << "'";
+            throw Exceptions::RuntimeErrorException(message.str());
+        }
+        return std::unique_ptr<AbstractProduct>((it->second)());
+    }
+#endif
 
     //! Registers object's creation function and store object description
     bool registerItem(const Key& item_key, CreateItemCallback CreateFn,

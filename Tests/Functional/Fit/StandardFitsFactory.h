@@ -17,6 +17,7 @@
 #define STANDARDFITSFACTORY_H
 
 #include "IFactory.h"
+#include <memory>
 
 class IFunctionalTest;
 
@@ -28,8 +29,9 @@ class StandardFitsFactory : public IFactory<std::string, IFunctionalTest>
 {
 public:
     StandardFitsFactory();
+    ~StandardFitsFactory();
 
-    IFunctionalTest *createTest(const std::string &test_name);
+    std::unique_ptr<IFunctionalTest> createTest(const std::string &test_name);
 
     bool isValidTest(const std::string &test_name);
 

@@ -72,7 +72,7 @@ void ItemComboWidget::setPresentation(const QString& presentationType)
     SessionItemWidget* widget = m_presentationTypeToWidget[presentationType];
 
     if (!widget) {
-        widget = m_widgetFactory.createItem(presentationType);
+        widget = m_widgetFactory.create(presentationType).release();
         m_stackedWidget->addWidget(widget);
         m_presentationTypeToWidget[presentationType] = widget;
         widget->setItem(m_currentItem);

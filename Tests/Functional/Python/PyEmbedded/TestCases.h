@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Python/PyEmbedded/main.cpp
-//! @brief     Implements program PyEmbedded to run functional tests
+//! @file      Tests/Functional/Python/PyEmbedded/TestCases.h
+//! @brief     Defines TestCases class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,10 +13,20 @@
 //
 // ************************************************************************** //
 
-#include "PyEmbeddedTest.h"
+#ifndef TESTCASES_H
+#define TESTCASES_H
 
-//! Runs PyEmbedded functional test.
-int main(int argc, char** argv)
+#include "IFunctionalTest.h"
+
+//! Checks function call in embeded Python interpreter.
+
+class FunctionCall : public IFunctionalTest
 {
-    return PyEmbeddedTest().execute(argc, argv) ? 0 : 1;
-}
+public:
+    bool runTest();
+
+private:
+    bool test();
+};
+
+#endif

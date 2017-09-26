@@ -66,7 +66,7 @@ public:
     void setPosition(double x, double y, double z) { m_position = kvector_t(x, y, z); }
 
     //! Translates the particle
-    void translate(kvector_t translation) override;
+    void translate(kvector_t translation) override final;
 
     //! Returns rotation object
     const IRotation* rotation() const;

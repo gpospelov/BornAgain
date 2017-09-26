@@ -13,10 +13,11 @@
 //
 // ************************************************************************** //
 
-#include "PyEmbeddedTest.h"
+#include "TestService.h"
+#include "PyEmbeddedTestFactory.h"
 
 //! Runs PyEmbedded functional test.
 int main(int argc, char** argv)
 {
-    return PyEmbeddedTest().execute(argc, argv) ? 0 : 1;
+    return TestService<PyEmbeddedTestFactory>().execute(argc, argv) ? 0 : 1;
 }

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/TestService.h
-//! @brief     Defines class TestService.
+//! @file      Tests/Functional/TestMachinery/StandardTestService.h
+//! @brief     Defines class StandardTestService.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTSERVICE_H
-#define TESTSERVICE_H
+#ifndef STANDARDTESTSERVICE_H
+#define STANDARDTESTSERVICE_H
 
 #include "WinDllMacros.h"
 #include <string>
@@ -22,7 +22,7 @@
 class IFunctionalTest;
 class GISASSimulation;
 
-//! @class TestServiceBase
+//! @class StandardTestServiceBase
 //! @ingroup standard_samples
 //! @brief Main class to run standard functional test from standalone executable.
 
@@ -39,7 +39,7 @@ private:
 };
 
 
-//! @class TestService
+//! @class StandardTestService
 //! @ingroup standard_samples
 //! @brief Extends main class to run standard functional test from standalone executable.
 //! Concrete test type is templated.
@@ -62,4 +62,4 @@ private:
     }
 };
 
-#endif // TESTSERVICE_H
+#endif // STANDARDTESTSERVICE_H

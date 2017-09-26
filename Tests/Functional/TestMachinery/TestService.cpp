@@ -43,7 +43,7 @@ std::string fullTestName(const std::string& test_name, const std::string& builde
 
 //! Runs test corresponding to given command line parameters, returns true if success.
 
-bool TestServiceBase::execute(int argc, char** argv)
+bool StandardTestServiceBase::execute(int argc, char** argv)
 {
     StandardTestInfo info = TestUtils::testInfo(argc, argv);
     if (info.m_test_name.empty())

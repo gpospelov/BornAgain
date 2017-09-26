@@ -26,10 +26,10 @@ class GISASSimulation;
 //! @ingroup standard_samples
 //! @brief Main class to run standard functional test from standalone executable.
 
-class BA_CORE_API_ TestServiceBase
+class BA_CORE_API_ StandardTestServiceBase
 {
 public:
-    virtual ~TestServiceBase() = default;
+    virtual ~StandardTestServiceBase() = default;
     bool execute(int argc, char** argv);
 
 private:
@@ -45,7 +45,7 @@ private:
 //! Concrete test type is templated.
 
 template<typename T>
-class TestService : public TestServiceBase
+class StandardTestService : public StandardTestServiceBase
 {
 
 private:

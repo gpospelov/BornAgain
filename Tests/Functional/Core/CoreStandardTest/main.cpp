@@ -20,5 +20,5 @@
 
 int main(int argc, char** argv)
 {
-    return TestService<CoreStandardTest>().execute(argc, argv) ? 0 : 1;
+    return StandardTestService<CoreStandardTest>().execute(argc, argv) ? 0 : 1;
 }

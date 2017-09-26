@@ -20,5 +20,5 @@
 
 int main(int argc, char** argv)
 {
-    return TestService<PyStandardTest>().execute(argc, argv) ? 0 : 1;
+    return StandardTestService<PyStandardTest>().execute(argc, argv) ? 0 : 1;
 }

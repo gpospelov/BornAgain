@@ -21,6 +21,27 @@
 
 //! Comparing results of GetVersionNumber() function obtained in "embedded" and "native C++" ways.
 
+#if PY_MAJOR_VERSION >= 3
+
+#define PyString_FromString PyUnicode_FromString
+#define PyString_AsString PyBytes_AsString
+#endif
+
+namespace {
+
+const char* asString(PyObject* object)
+{
+#if PY_MAJOR_VERSION >= 3
+    PyObject* pyStr = PyUnicode_AsEncodedString(object, "utf-8", "Error ~");
+    return PyBytes_AsString(pyStr);
+#else
+    return PyString_AsString(object);
+#endif
+}
+
+}
+
+
 bool FunctionCall::runTest()
 {
     Py_Initialize();
@@ -49,7 +70,7 @@ bool FunctionCall::runTest()
     if(!result)
         throw std::runtime_error("Error while calling function");
 
-    char* cstr = PyString_AsString(result);
+    const char* cstr = asString(result);
     if(!cstr)
         throw std::runtime_error("Error in return type");
 

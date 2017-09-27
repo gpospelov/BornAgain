@@ -46,6 +46,7 @@ bool FunctionCall::runTest()
 
     PyObject *sysPath = PySys_GetObject((char*)"path");
     PyList_Append(sysPath, PyString_FromString("."));
+    PyList_Append(sysPath, PyString_FromString(BUILD_LIB_DIR));
 
     PyObject *pmod = PyImport_ImportModule("bornagain");
     if (!pmod)
@@ -87,6 +88,7 @@ bool MethodCall::runTest()
 
     PyObject *sysPath = PySys_GetObject((char*)"path");
     PyList_Append(sysPath, PyString_FromString("."));
+    PyList_Append(sysPath, PyString_FromString(BUILD_LIB_DIR));
 
     PyObject *pmod = PyImport_ImportModule("bornagain");
     if (!pmod)

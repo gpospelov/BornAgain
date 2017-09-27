@@ -42,6 +42,8 @@ const char* asString(PyObject* object)
 
 bool FunctionCall::runTest()
 {
+    throw std::runtime_error("XXX");
+
     Py_Initialize();
 
     PyObject *sysPath = PySys_GetObject((char*)"path");

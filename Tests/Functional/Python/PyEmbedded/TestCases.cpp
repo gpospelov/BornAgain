@@ -22,9 +22,7 @@
 //! Comparing results of GetVersionNumber() function obtained in "embedded" and "native C++" ways.
 
 #if PY_MAJOR_VERSION >= 3
-
 #define PyString_FromString PyUnicode_FromString
-#define PyString_AsString PyBytes_AsString
 #endif
 
 namespace {

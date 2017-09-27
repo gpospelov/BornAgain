@@ -29,11 +29,14 @@ std::string PyEmbeddedUtils::toString(PyObject* obj, bool decref)
 
     if (decref)
         Py_DECREF(obj);
+
+    return result;
 }
 
 std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj, bool decref)
 {
     std::vector<std::string> result;
+
     if (PyTuple_Check(obj)) {
         for (Py_ssize_t i = 0; i < PyTuple_Size(obj); i++) {
             PyObject *value = PyTuple_GetItem(obj, i);

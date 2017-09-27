@@ -14,6 +14,7 @@ endif()
 
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
+    ${Boost_INCLUDE_DIRS}
     ${PYTHON_INCLUDE_DIRS} ${NUMPY_INCLUDE_DIR}
     ${EIGEN3_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../TestMachinery

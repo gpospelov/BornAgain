@@ -18,6 +18,9 @@
 
 PyEmbeddedTestFactory::PyEmbeddedTestFactory()
 {
+    registerItem("SysPath",
+                 create_new<SysPath>,
+                 "Content of sys.path variable");
     registerItem("FunctionCall",
                  create_new<FunctionCall>,
                  "Calling function from embedded Python");

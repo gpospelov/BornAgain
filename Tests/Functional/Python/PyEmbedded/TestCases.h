@@ -18,6 +18,14 @@
 
 #include "IFunctionalTest.h"
 
+//! Checks system path for embedded enterpreter.
+
+class SysPath : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
 //! Checks function call in embeded Python interpreter.
 
 class FunctionCall : public IFunctionalTest

@@ -13,35 +13,38 @@
 //
 // ************************************************************************** //
 
-#include <Python.h>
 #include "TestCases.h"
+#include "PyEmbeddedUtils.h"
 #include "BornAgainNamespace.h"
 #include "BAVersion.h"
+#include "SysUtils.h"
 #include <iostream>
+
+//! Accessing to the content of path.sys variable.
+
+bool SysPath::runTest()
+{
+    std::cout << "PYTHONPATH: " << SysUtils::getenv("PYTHONPATH") << std::endl;
+    std::cout << "PYTHONHOME: " << SysUtils::getenv("PYTHONHOME") << std::endl;
+    std::cout << "BUILD_LIB_DIR: " << std::string(BUILD_LIB_DIR) << std::endl;
+
+    Py_Initialize();
+
+    PyObject *sysPath = PySys_GetObject((char*)"path");
+    auto content = PyEmbeddedUtils::toVectorString(sysPath);
+    for (auto s : content)
+        std::cout << s << std::endl;
+
+    Py_Finalize();
+
+    return !content.empty();
+}
 
 //! Comparing results of GetVersionNumber() function obtained in "embedded" and "native C++" ways.
 
-#if PY_MAJOR_VERSION >= 3
-#define PyString_FromString PyUnicode_FromString
-#endif
-
-namespace {
-
-const char* asString(PyObject* object)
-{
-#if PY_MAJOR_VERSION >= 3
-    PyObject* pyStr = PyUnicode_AsEncodedString(object, "utf-8", "Error ~");
-    return PyBytes_AsString(pyStr);
-#else
-    return PyString_AsString(object);
-#endif
-}
-
-}
-
-
 bool FunctionCall::runTest()
 {
+
     throw std::runtime_error("XXX");
 
     Py_Initialize();
@@ -71,12 +74,9 @@ bool FunctionCall::runTest()
     if(!result)
         throw std::runtime_error("Error while calling function");
 
-    const char* cstr = asString(result);
-    if(!cstr)
-        throw std::runtime_error("Error in return type");
+    auto str = PyEmbeddedUtils::toString(result);
 
-    std::string str(cstr);
-    Py_DECREF(result);
+    Py_Finalize();
 
     return str == BornAgain::GetVersionNumber();
 }
@@ -139,5 +139,8 @@ bool MethodCall::runTest()
 
     Py_DECREF(pres);
 
+    Py_Finalize();
+
     return value == height;
 }
+

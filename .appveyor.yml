@@ -14,6 +14,7 @@ environment:
   MYOTHER: "C:\\Program Files (x86)\\CMake\\bin;C:\\Program Files\\7-Zip"
   MYMSVC: "C:\\Program Files (x86)\\MSBuild\\14.0\\Bin;"
   PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYGIT%;%MYOTHER%"
+  PYTHONHOME: "C:\\Miniconda-x64\\lib"
 build:
   parallel: true
 
@@ -37,6 +38,8 @@ build_script:
 
 test_script:
 - ps: >-
+    echo %PYTHONHOME%
+
     ctest -LE Examples --output-on-failure
 
     if (-not $?) { 

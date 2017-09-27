@@ -21,8 +21,9 @@ std::string PyEmbeddedUtils::toString(PyObject* obj, bool decref)
 {
     std::string result;
 #if PY_MAJOR_VERSION >= 3
-    PyObject* pyStr = PyUnicode_AsEncodedString(object, "utf-8", "Error ~");
+    PyObject* pyStr = PyUnicode_AsEncodedString(obj, "utf-8", "Error ~");
     result = std::string(PyBytes_AsString(pyStr));
+    Py_DECREF(pyStr);
 #else
     result = std::string(PyString_AsString(obj));
 #endif

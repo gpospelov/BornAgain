@@ -37,8 +37,12 @@ build_script:
 
 test_script:
 - ps: >-
-    ctest -LE Examples
+    ctest -LE Examples --output-on-failure
+
     if (-not $?) { 
-      type Testing/Temporary/LastTest.log
-      throw "tests failed" 
+
+        type Testing/Temporary/LastTest.log
+
+        throw "tests failed" 
+
     }

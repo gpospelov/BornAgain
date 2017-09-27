@@ -26,6 +26,14 @@ protected:
     bool runTest();
 };
 
+//! Tries to import numpy and access its version string.
+
+class ImportNumpy : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
 //! Checks function call in embeded Python interpreter.
 
 class FunctionCall : public IFunctionalTest
@@ -41,6 +49,5 @@ class MethodCall : public IFunctionalTest
 protected:
     bool runTest();
 };
-
 
 #endif

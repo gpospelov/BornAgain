@@ -21,7 +21,7 @@
 #include "SysUtils.h"
 #include <iostream>
 
-//! Accessing to the content of path.sys variable.
+//! Accessing to the information about Python used during the build, content of path.sys variable.
 
 bool SysPath::runTest()
 {
@@ -52,6 +52,29 @@ bool SysPath::runTest()
     Py_Finalize();
 
     return !content.empty();
+}
+
+//! Importing numpy and accessing its version string.
+
+bool ImportNumpy::runTest()
+{
+    Py_Initialize();
+
+    PyObject *pmod = PyImport_ImportModule("numpy");
+    if (!pmod)
+        throw std::runtime_error("Can't load numpy");
+
+    PyObject* pvar = PyObject_GetAttrString(pmod, "__version__");
+    Py_DECREF(pmod);
+    if (!pvar)
+        throw std::runtime_error("Can't get a variable");
+
+    auto version_string = PyEmbeddedUtils::toString(pvar);
+    std::cout << "numpy_version_string=" << version_string << std::endl;
+
+    Py_Finalize();
+
+    return !version_string.empty();
 }
 
 //! Comparing results of GetVersionNumber() function obtained in "embedded" and "native C++" ways.
@@ -157,4 +180,3 @@ bool MethodCall::runTest()
 
     return value == height;
 }
-

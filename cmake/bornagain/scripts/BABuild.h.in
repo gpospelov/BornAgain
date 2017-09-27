@@ -22,7 +22,7 @@ namespace BABuild
 std::string cmakeBinaryDir() { return "@CMAKE_BINARY_DIR@"; }
 std::string buildLibDir() { return "@CMAKE_BINARY_DIR@/lib"; }
 std::string buildBinDir() { return "@CMAKE_BINARY_DIR@/bin"; }
-
+std::string pythonExecutable() { return "@PYTHON_EXECUTABLE@"; }
 }
 
 #endif

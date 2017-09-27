@@ -51,16 +51,15 @@ bool TestUtils::isTheSame(const OutputData<double>& dat, const OutputData<double
 }
 
 
-#ifdef PYTHON_EXECUTABLE
 //! Runs a python command, prints messages, returns true unless the system call failed.
 bool TestUtils::runPython(const std::string& py_command)
 {
 #ifndef _WIN32
     std::string sys_command = std::string("PYTHONPATH=") + BABuild::buildLibDir() + " " +
-        PYTHON_EXECUTABLE + " -B " + py_command;
+        BABuild::pythonExecutable() + " -B " + py_command;
 #else
     std::string sys_command = std::string("set PYTHONPATH=") + BABuild::buildLibDir() + " & " +
-        PYTHON_EXECUTABLE + " -B " + py_command;
+        BABuild::pythonExecutable() + " -B " + py_command;
 #endif
     std::cout << sys_command << std::endl/*sic*/; // flush output before calling std::system
     int ret = std::system(sys_command.c_str());
@@ -70,4 +69,3 @@ bool TestUtils::runPython(const std::string& py_command)
     }
     return true;
 }
-#endif

@@ -11,6 +11,7 @@ endif()
 # --- source and include files ---------
 set(include_dirs
     ${EIGEN3_INCLUDE_DIR}
+    ${Boost_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
     ${BornAgainCore_INCLUDE_DIRS}
     )

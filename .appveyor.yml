@@ -36,5 +36,9 @@ build_script:
 - cmake --build . --config Release
 
 test_script:
-- ctest -LE Examples
-
+- ps: >-
+    ctest -LE Examples
+    if (-not $?) { 
+      type Testing/Temporary/LastTest.log
+      throw "tests failed" 
+    }

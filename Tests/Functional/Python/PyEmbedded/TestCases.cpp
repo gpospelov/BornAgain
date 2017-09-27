@@ -17,6 +17,7 @@
 #include "PyEmbeddedUtils.h"
 #include "BornAgainNamespace.h"
 #include "BAVersion.h"
+#include "BABuild.h"
 #include "SysUtils.h"
 #include <iostream>
 
@@ -26,7 +27,7 @@ bool SysPath::runTest()
 {
     std::cout << "PYTHONPATH: " << SysUtils::getenv("PYTHONPATH") << std::endl;
     std::cout << "PYTHONHOME: " << SysUtils::getenv("PYTHONHOME") << std::endl;
-    std::cout << "BUILD_LIB_DIR: " << std::string(BUILD_LIB_DIR) << std::endl;
+    std::cout << "BUILD_LIB_DIR: " << BABuild::buildLibDir() << std::endl;
 
     Py_Initialize();
 
@@ -51,7 +52,7 @@ bool FunctionCall::runTest()
 
     PyObject *sysPath = PySys_GetObject((char*)"path");
     PyList_Append(sysPath, PyString_FromString("."));
-    PyList_Append(sysPath, PyString_FromString(BUILD_LIB_DIR));
+    PyList_Append(sysPath, PyString_FromString(BABuild::buildLibDir().c_str()));
 
     PyObject *pmod = PyImport_ImportModule("bornagain");
     if (!pmod)
@@ -90,7 +91,7 @@ bool MethodCall::runTest()
 
     PyObject *sysPath = PySys_GetObject((char*)"path");
     PyList_Append(sysPath, PyString_FromString("."));
-    PyList_Append(sysPath, PyString_FromString(BUILD_LIB_DIR));
+    PyList_Append(sysPath, PyString_FromString(BABuild::buildLibDir().c_str()));
 
     PyObject *pmod = PyImport_ImportModule("bornagain");
     if (!pmod)

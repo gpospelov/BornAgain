@@ -1,0 +1,29 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/BABuild.h
+//! @brief     Defines functions for access build related info.
+//!
+//! @homepage  http://bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#ifndef BABUILD_H
+#define BABUILD_H
+
+namespace BABuild
+{
+
+std::string cmakeBinaryDir() { return "@CMAKE_BINARY_DIR@"; }
+std::string buildLibDir() { return "@CMAKE_BINARY_DIR@/lib"; }
+std::string buildBinDir() { return "@CMAKE_BINARY_DIR@/bin"; }
+
+}
+
+#endif
+

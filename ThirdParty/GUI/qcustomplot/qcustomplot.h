@@ -2183,10 +2183,10 @@ protected:
   virtual void selectEvent(QMouseEvent *event, bool additive, const QVariant &details, bool *selectionStateChanged) Q_DECL_OVERRIDE;
   virtual void deselectEvent(bool *selectionStateChanged) Q_DECL_OVERRIDE;
   // mouse events:
-  virtual void mousePressEvent(QMouseEvent *event, const QVariant &details);
-  virtual void mouseMoveEvent(QMouseEvent *event, const QPointF &startPos);
-  virtual void mouseReleaseEvent(QMouseEvent *event, const QPointF &startPos);
-  virtual void wheelEvent(QWheelEvent *event);
+  virtual void mousePressEvent(QMouseEvent *event, const QVariant &details) override;
+  virtual void mouseMoveEvent(QMouseEvent *event, const QPointF &startPos) override;
+  virtual void mouseReleaseEvent(QMouseEvent *event, const QPointF &startPos) override;
+  virtual void wheelEvent(QWheelEvent *event) override;
   
   // non-virtual methods:
   void setupTickVectors();

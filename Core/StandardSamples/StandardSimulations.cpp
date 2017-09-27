@@ -37,7 +37,8 @@ namespace {
 GISASSimulation* StandardSimulations::PolarizedDWBAMagCylinders2()
 {
     SampleBuilderFactory factory;
-    std::shared_ptr<IMultiLayerBuilder> builder(factory.createItem("MagneticCylindersBuilder"));
+    std::shared_ptr<IMultiLayerBuilder> builder(
+                factory.create("MagneticCylindersBuilder").release());
 
     GISASSimulation* result = new GISASSimulation();
 

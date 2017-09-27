@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/PyCore/export/PyExportStandardTest.cpp
-//! @brief     Implements program PyExportStandardTest, to run functional tests
+//! @file      Tests/Functional/Python/PyStandard/main.cpp
+//! @brief     Implements program PyStandardTest, to run functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,12 +13,12 @@
 //
 // ************************************************************************** //
 
-#include "TestService.h"
+#include "StandardTestService.h"
 #include "PyStandardTest.h"
 
 //! Runs PyStandardTest on a standard simulation indicated by argv[1].
 
 int main(int argc, char** argv)
 {
-    return TestService<PyStandardTest>().execute(argc, argv) ? 0 : 1;
+    return StandardTestService<PyStandardTest>().execute(argc, argv) ? 0 : 1;
 }

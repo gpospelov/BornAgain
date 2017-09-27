@@ -26296,19 +26296,17 @@ class SampleBuilderFactoryTemp(_object):
         """
         return _libBornAgainCore.SampleBuilderFactoryTemp_registerItem(self, *args)
 
+
+    def contains(self, item_key):
+        """contains(SampleBuilderFactoryTemp self, std::string const & item_key) -> bool"""
+        return _libBornAgainCore.SampleBuilderFactoryTemp_contains(self, item_key)
+
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactoryTemp
     __del__ = lambda self: None
 
-    def getNumberOfRegistered(self):
-        """
-        getNumberOfRegistered(SampleBuilderFactoryTemp self) -> size_t
-
-        size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
-
-        Returns number of registered objects. 
-
-        """
-        return _libBornAgainCore.SampleBuilderFactoryTemp_getNumberOfRegistered(self)
+    def size(self):
+        """size(SampleBuilderFactoryTemp self) -> size_t"""
+        return _libBornAgainCore.SampleBuilderFactoryTemp_size(self)
 
 
     def begin(self):
@@ -26435,19 +26433,17 @@ class SimulationFactoryTemp(_object):
         """
         return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, *args)
 
+
+    def contains(self, item_key):
+        """contains(SimulationFactoryTemp self, std::string const & item_key) -> bool"""
+        return _libBornAgainCore.SimulationFactoryTemp_contains(self, item_key)
+
     __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
     __del__ = lambda self: None
 
-    def getNumberOfRegistered(self):
-        """
-        getNumberOfRegistered(SimulationFactoryTemp self) -> size_t
-
-        size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
-
-        Returns number of registered objects. 
-
-        """
-        return _libBornAgainCore.SimulationFactoryTemp_getNumberOfRegistered(self)
+    def size(self):
+        """size(SimulationFactoryTemp self) -> size_t"""
+        return _libBornAgainCore.SimulationFactoryTemp_size(self)
 
 
     def begin(self):

@@ -20,6 +20,7 @@
 #include "BABuild.h"
 #include "SysUtils.h"
 #include <iostream>
+#include <sstream>
 
 //! Accessing to the information about Python used during the build, content of path.sys variable.
 
@@ -179,4 +180,74 @@ bool MethodCall::runTest()
     Py_Finalize();
 
     return value == height;
+}
+
+//! From https://www.awasu.com/weblog/embedding-python/calling-python-code-from-your-program/
+
+bool CompiledFunction::runTest()
+{
+    Py_Initialize();
+
+    // compile our function
+    std::stringstream buf ;
+    buf << "def add( n1 , n2 ) :" << std::endl
+        << "    return n1+n2" << std::endl ;
+
+    PyObject* pCompiledFn = Py_CompileString( buf.str().c_str() , "" , Py_file_input ) ;
+    if (!pCompiledFn)
+        throw std::runtime_error("Can't compile a function");
+
+    // create a module
+    PyObject* pModule = PyImport_ExecCodeModule( "test" , pCompiledFn ) ;
+    if (!pModule)
+        throw std::runtime_error("Can't exec module");
+
+    // locate the "add" function (it's an attribute of the module)
+    PyObject* pAddFn = PyObject_GetAttrString( pModule , "add" ) ;
+    if (!pAddFn)
+        throw std::runtime_error("Can't locate compiled functione");
+
+    // clean up
+    Py_DecRef( pAddFn ) ;
+    Py_DecRef( pModule ) ;
+    Py_DecRef( pCompiledFn ) ;
+
+    // ------------------------
+    // using compiled function
+    // ------------------------
+
+    // create a new tuple with 2 elements
+    PyObject* pPosArgs = PyTuple_New( 2 ) ;
+
+    PyObject* pVal1 = PyInt_FromLong( 10) ;
+    if (!pVal1)
+        throw std::runtime_error("Can't create PyInt");
+    int rc = PyTuple_SetItem( pPosArgs , 0 , pVal1 ) ; // nb: tuple position 0
+    if (rc!=0)
+        throw std::runtime_error("Can't add to tuple");
+
+    PyObject* pVal2 = PyInt_FromLong( 20) ;
+    if (!pVal2)
+        throw std::runtime_error("Can't create PyInt");
+    rc = PyTuple_SetItem( pPosArgs , 1 , pVal2 ) ; // nb: tuple position 0
+    if (rc!=0)
+        throw std::runtime_error("Can't add to tuple");
+
+    // create a new dictionary
+    PyObject* pKywdArgs = PyDict_New() ;
+    if (!pKywdArgs)
+        throw std::runtime_error("Can't create dictionary");
+
+    // call our function
+    PyObject* pResult = PyObject_Call( pAddFn , pPosArgs , pKywdArgs ) ;
+    if (!pResult)
+        throw std::runtime_error("Can't get result out of function");
+
+    // convert the result to a string
+    PyObject* pResultRepr = PyObject_Repr( pResult ) ;
+    std::string result = PyEmbeddedUtils::toString(pResultRepr);
+
+    Py_Finalize();
+
+    return result == "30";
 }

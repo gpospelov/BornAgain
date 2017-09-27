@@ -1,8 +1,11 @@
 set(test PyEmbedded)
 
 set(test_cases
+    SysPath
+    ImportNumpy
     FunctionCall
     MethodCall
+    CompiledFunction
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

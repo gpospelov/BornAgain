@@ -30,4 +30,7 @@ PyEmbeddedTestFactory::PyEmbeddedTestFactory()
     registerItem("MethodCall",
                   create_new<MethodCall>,
                   "Creating object embedded and calling its methods.");
+    registerItem("CompiledFunction",
+                  create_new<CompiledFunction>,
+                  "Compiling function from multi line string.");
 }

@@ -50,4 +50,12 @@ protected:
     bool runTest();
 };
 
+//! Compiling function from multi line string.
+
+class CompiledFunction : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
 #endif

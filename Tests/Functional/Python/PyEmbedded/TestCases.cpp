@@ -25,12 +25,25 @@
 
 bool SysPath::runTest()
 {
+    // Python build info
+    std::cout << "pythonExecutable():" << BABuild::pythonExecutable() << std::endl;
+    std::cout << "pythonVersionString():" << BABuild::pythonVersionString() << std::endl;
+    std::cout << "pythonLibraries():" << BABuild::pythonLibraries() << std::endl;
+    std::cout << "pythonIncludeDirs():" << BABuild::pythonIncludeDirs() << std::endl;
+    std::cout << "pythonLibsVersionString():" << BABuild::pythonLibsVersionString() << std::endl;
+    std::cout << "numpyIncludeDir():" << BABuild::numpyIncludeDir() << std::endl;
+    std::cout << "numpyVersionString():" << BABuild::numpyVersionString() << std::endl;
+
+    // BornAgain build
+    std::cout << "buildLibDir(): " << BABuild::buildLibDir() << std::endl;
+
+    // Runtime environment
     std::cout << "PYTHONPATH: " << SysUtils::getenv("PYTHONPATH") << std::endl;
     std::cout << "PYTHONHOME: " << SysUtils::getenv("PYTHONHOME") << std::endl;
-    std::cout << "BUILD_LIB_DIR: " << BABuild::buildLibDir() << std::endl;
 
     Py_Initialize();
 
+    // Runtime Python's sys.path
     PyObject *sysPath = PySys_GetObject((char*)"path");
     auto content = PyEmbeddedUtils::toVectorString(sysPath);
     for (auto s : content)

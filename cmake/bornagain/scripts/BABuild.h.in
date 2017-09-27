@@ -22,7 +22,17 @@ namespace BABuild
 std::string cmakeBinaryDir() { return "@CMAKE_BINARY_DIR@"; }
 std::string buildLibDir() { return "@CMAKE_BINARY_DIR@/lib"; }
 std::string buildBinDir() { return "@CMAKE_BINARY_DIR@/bin"; }
+
+//! Methods to access info about Python used during the build.
+
 std::string pythonExecutable() { return "@PYTHON_EXECUTABLE@"; }
+std::string pythonVersionString() { return "@PYTHON_VERSION_STRING@"; }
+std::string pythonLibraries() { return "@PYTHON_LIBRARIES@"; }
+std::string pythonIncludeDirs() { return "@PYTHON_INCLUDE_DIRS@"; }
+std::string pythonLibsVersionString() { return "@PYTHONLIBS_VERSION_STRING@"; }
+std::string numpyIncludeDir() { return "@NUMPY_INCLUDE_DIR@"; }
+std::string numpyVersionString() { return "@NUMPY_VERSION_STRING@"; }
+
 }
 
 #endif

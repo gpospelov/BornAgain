@@ -31,6 +31,7 @@ else()
             OUTPUT_VARIABLE numpy_version_number
             RESULT_VARIABLE numpy_return_value
             OUTPUT_STRIP_TRAILING_WHITESPACE)
+        set (NUMPY_VERSION_STRING ${numpy_version_number})
     endif()
 endif()
 
@@ -46,3 +47,4 @@ endif()
 
 
 MARK_AS_ADVANCED (NUMPY_INCLUDE_DIR)
+MARK_AS_ADVANCED (NUMPY_VERSION_STRING)

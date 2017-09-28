@@ -23,6 +23,6 @@ include_directories(
 )
 
 add_subdirectory(GUIStandardTest)
-add_subdirectory(GUITranslationTest)
+add_subdirectory(GUISpecial)
 #add_subdirectory(GUIPerformanceTest)
 

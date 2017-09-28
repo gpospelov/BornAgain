@@ -16,10 +16,11 @@
 #ifndef BENCHMARK_H
 #define BENCHMARK_H
 
-#include <string>
-#include <map>
 #include "TimeInterval.h"
 #include "OrderedMap.h"
+#include <string>
+#include <map>
+#include <functional>
 
 class Duration {
 public:
@@ -46,6 +47,8 @@ public:
     void stop(const std::string& name);
     double runTime(const std::string& name);
     std::string report() const;
+
+    void test_method(const std::string& name, std::function<void(void)> f, int ntries);
 
 private:
     OrderedMap<std::string, Duration* > m_data;

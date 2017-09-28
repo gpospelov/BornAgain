@@ -95,9 +95,6 @@ bool ImportNumpy::runTest()
 
 bool FunctionCall::runTest()
 {
-
-    throw std::runtime_error("XXX");
-
     Py_Initialize();
 
     PyObject *sysPath = PySys_GetObject((char*)"path");
@@ -211,7 +208,7 @@ bool CompiledFunction::runTest()
         throw std::runtime_error("Can't compile a function");
 
     // create a module
-    PyObject* pModule = PyImport_ExecCodeModule( "test" , pCompiledFn ) ;
+    PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
     if (!pModule)
         throw std::runtime_error("Can't exec module");
 

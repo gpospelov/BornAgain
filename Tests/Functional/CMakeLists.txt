@@ -10,6 +10,7 @@ add_subdirectory(Core)
 add_subdirectory(Fit)
 
 if(BORNAGAIN_PYTHON)
+    add_definitions(-DBORNAGAIN_PYTHON)
     add_subdirectory(Python)
 endif()
 

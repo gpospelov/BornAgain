@@ -16,6 +16,8 @@
 #ifndef BABUILD_H
 #define BABUILD_H
 
+#include <string>
+
 namespace BABuild
 {
 

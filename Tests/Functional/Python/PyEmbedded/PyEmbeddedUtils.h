@@ -16,7 +16,7 @@
 #ifndef PYEMBEDDEDUTILS_H
 #define PYEMBEDDEDUTILS_H
 
-#include <Python.h>
+#include "PythonCore.h"
 #include <string>
 #include <vector>
 

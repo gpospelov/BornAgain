@@ -60,3 +60,11 @@ std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj, bool dec
     return result;
 }
 
+
+std::string PyEmbeddedUtils::toString(char* c)
+{
+    if (c)
+        return std::string(c);
+    else
+        return std::string();
+}

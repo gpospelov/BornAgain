@@ -27,28 +27,41 @@
 bool SysPath::runTest()
 {
     // Python build info
-    std::cout << "pythonExecutable():" << BABuild::pythonExecutable() << std::endl;
-    std::cout << "pythonVersionString():" << BABuild::pythonVersionString() << std::endl;
-    std::cout << "pythonLibraries():" << BABuild::pythonLibraries() << std::endl;
-    std::cout << "pythonIncludeDirs():" << BABuild::pythonIncludeDirs() << std::endl;
-    std::cout << "pythonLibsVersionString():" << BABuild::pythonLibsVersionString() << std::endl;
-    std::cout << "numpyIncludeDir():" << BABuild::numpyIncludeDir() << std::endl;
-    std::cout << "numpyVersionString():" << BABuild::numpyVersionString() << std::endl;
+    std::cout << "pythonExecutable(): " << BABuild::pythonExecutable() << std::endl;
+    std::cout << "pythonVersionString(): " << BABuild::pythonVersionString() << std::endl;
+    std::cout << "pythonLibraries(): " << BABuild::pythonLibraries() << std::endl;
+    std::cout << "pythonIncludeDirs(): " << BABuild::pythonIncludeDirs() << std::endl;
+    std::cout << "pythonLibsVersionString(): " << BABuild::pythonLibsVersionString() << std::endl;
+    std::cout << "numpyIncludeDir(): " << BABuild::numpyIncludeDir() << std::endl;
+    std::cout << "numpyVersionString(): " << BABuild::numpyVersionString() << std::endl;
 
     // BornAgain build
     std::cout << "buildLibDir(): " << BABuild::buildLibDir() << std::endl;
 
     // Runtime environment
+    std::cout << "PATH: " << SysUtils::getenv("PATH") << std::endl;
     std::cout << "PYTHONPATH: " << SysUtils::getenv("PYTHONPATH") << std::endl;
     std::cout << "PYTHONHOME: " << SysUtils::getenv("PYTHONHOME") << std::endl;
 
     Py_Initialize();
 
+    // Embedded Python details
+    std::cout << "Py_GetProgramName(): "
+              << PyEmbeddedUtils::toString(Py_GetProgramName()) << std::endl;
+    std::cout << "Py_GetPath(): "
+              << PyEmbeddedUtils::toString(Py_GetPath()) << std::endl;
+    std::cout << "Py_GetProgramFullPath(): "
+              << PyEmbeddedUtils::toString(Py_GetProgramFullPath()) << std::endl;
+    std::cout << "Py_GetPythonHome(): "
+              << PyEmbeddedUtils::toString(Py_GetPythonHome()) << std::endl;
+
     // Runtime Python's sys.path
     PyObject *sysPath = PySys_GetObject((char*)"path");
     auto content = PyEmbeddedUtils::toVectorString(sysPath);
+    std::cout << "sys.path: ";
     for (auto s : content)
-        std::cout << s << std::endl;
+        std::cout << s << ",";
+    std::cout << std::endl;
 
     Py_Finalize();
 

@@ -34,6 +34,9 @@ std::string toString(PyObject* obj, bool decref = true);
 //! @param decref To automatically decrease reference counter after data is processed.
 std::vector<std::string> toVectorString(PyObject* obj, bool decref = true);
 
+//! Converts char to string. In the case of nullptr will return an empty string.
+std::string toString(char* c);
+
 }
 
 #endif

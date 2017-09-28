@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUITranslationTest/GUITranslationTest.h
+//! @file      Tests/Functional/GUI/GUISpecial/GUITranslationTest.h
 //! @brief     Defines GUI translation functional test.
 //!
 //! @homepage  http://www.bornagainproject.org

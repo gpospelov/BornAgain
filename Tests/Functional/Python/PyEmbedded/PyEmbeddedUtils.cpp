@@ -41,13 +41,13 @@ std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj, bool dec
     if (PyTuple_Check(obj)) {
         for (Py_ssize_t i = 0; i < PyTuple_Size(obj); i++) {
             PyObject *value = PyTuple_GetItem(obj, i);
-            result.push_back( toString(value) );
+            result.push_back( toString(value, false) );
         }
 
     } else if (PyList_Check(obj)) {
         for (Py_ssize_t i = 0; i < PyList_Size(obj); i++) {
             PyObject *value = PyList_GetItem(obj, i);
-            result.push_back( toString(value) );
+            result.push_back( toString(value, false) );
         }
 
     } else {
@@ -67,4 +67,16 @@ std::string PyEmbeddedUtils::toString(char* c)
         return std::string(c);
     else
         return std::string();
+}
+
+
+std::string PyEmbeddedUtils::toString(wchar_t* c)
+{
+    if (c) {
+        std::wstring wstr(c);
+        std::string result( wstr.begin(), wstr.end() );
+        return result;
+    } else {
+        return std::string();
+    }
 }

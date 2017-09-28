@@ -22,6 +22,7 @@
 
 #if PY_MAJOR_VERSION >= 3
 #define PyString_FromString PyUnicode_FromString
+#define PyInt_FromLong PyLong_FromLong
 #endif
 
 namespace PyEmbeddedUtils {
@@ -36,6 +37,7 @@ std::vector<std::string> toVectorString(PyObject* obj, bool decref = true);
 
 //! Converts char to string. In the case of nullptr will return an empty string.
 std::string toString(char* c);
+std::string toString(wchar_t* c);
 
 }
 

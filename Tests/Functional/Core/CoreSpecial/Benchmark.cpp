@@ -64,3 +64,21 @@ std::string Benchmark::report() const
 
     return result.str();
 }
+
+//! Tests method by running it several times.
+
+void Benchmark::test_method(const std::string& name, std::function<void ()> f, int ntries)
+{
+    std::cout << "   " << name << " trying " << std::to_string(ntries) << " times\n";
+
+    // warming up
+    for(int i=0; i<ntries/10; ++i)
+        f();
+
+    start(name);
+
+    for(int i=0; i<ntries; ++i)
+        f();
+
+    stop(name);
+}

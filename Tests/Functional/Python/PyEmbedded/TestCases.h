@@ -18,6 +18,22 @@
 
 #include "IFunctionalTest.h"
 
+//! Checks system path for embedded enterpreter.
+
+class SysPath : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
+//! Tries to import numpy and access its version string.
+
+class ImportNumpy : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
 //! Checks function call in embeded Python interpreter.
 
 class FunctionCall : public IFunctionalTest
@@ -34,5 +50,12 @@ protected:
     bool runTest();
 };
 
+//! Compiling function from multi line string.
+
+class CompiledFunction : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
 
 #endif

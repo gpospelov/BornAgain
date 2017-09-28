@@ -38,7 +38,6 @@ bool PyStandardTest::runTest()
     pythonFile.close();
 
     // Run Python script
-    assert(std::string(BUILD_LIB_DIR)!="");
     if (!TestUtils::runPython(pyscript_filename + " " + output_path))
         return false;
 

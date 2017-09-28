@@ -18,10 +18,19 @@
 
 PyEmbeddedTestFactory::PyEmbeddedTestFactory()
 {
+    registerItem("SysPath",
+                 create_new<SysPath>,
+                 "Content of sys.path variable");
+    registerItem("ImportNumpy",
+                 create_new<ImportNumpy>,
+                 "Import numpy and check its version");
     registerItem("FunctionCall",
                  create_new<FunctionCall>,
                  "Calling function from embedded Python");
     registerItem("MethodCall",
                   create_new<MethodCall>,
                   "Creating object embedded and calling its methods.");
+    registerItem("CompiledFunction",
+                  create_new<CompiledFunction>,
+                  "Compiling function from multi line string.");
 }

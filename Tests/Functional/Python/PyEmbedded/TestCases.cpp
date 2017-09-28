@@ -13,32 +13,85 @@
 //
 // ************************************************************************** //
 
-#include <Python.h>
 #include "TestCases.h"
+#include "PyEmbeddedUtils.h"
 #include "BornAgainNamespace.h"
 #include "BAVersion.h"
+#include "BABuild.h"
+#include "SysUtils.h"
 #include <iostream>
+#include <sstream>
+
+//! Accessing to the information about Python used during the build, content of path.sys variable.
+
+bool SysPath::runTest()
+{
+    // Python build info
+    std::cout << "pythonExecutable(): " << BABuild::pythonExecutable() << std::endl;
+    std::cout << "pythonVersionString(): " << BABuild::pythonVersionString() << std::endl;
+    std::cout << "pythonLibraries(): " << BABuild::pythonLibraries() << std::endl;
+    std::cout << "pythonIncludeDirs(): " << BABuild::pythonIncludeDirs() << std::endl;
+    std::cout << "pythonLibsVersionString(): " << BABuild::pythonLibsVersionString() << std::endl;
+    std::cout << "numpyIncludeDir(): " << BABuild::numpyIncludeDir() << std::endl;
+    std::cout << "numpyVersionString(): " << BABuild::numpyVersionString() << std::endl;
+
+    // BornAgain build
+    std::cout << "buildLibDir(): " << BABuild::buildLibDir() << std::endl;
+
+    // Runtime environment
+    std::cout << "PATH: " << SysUtils::getenv("PATH") << std::endl;
+    std::cout << "PYTHONPATH: " << SysUtils::getenv("PYTHONPATH") << std::endl;
+    std::cout << "PYTHONHOME: " << SysUtils::getenv("PYTHONHOME") << std::endl;
+
+    Py_Initialize();
+
+    // Embedded Python details
+    std::cout << "Py_GetProgramName(): "
+              << PyEmbeddedUtils::toString(Py_GetProgramName()) << std::endl;
+    std::cout << "Py_GetPath(): "
+              << PyEmbeddedUtils::toString(Py_GetPath()) << std::endl;
+    std::cout << "Py_GetProgramFullPath(): "
+              << PyEmbeddedUtils::toString(Py_GetProgramFullPath()) << std::endl;
+    std::cout << "Py_GetPythonHome(): "
+              << PyEmbeddedUtils::toString(Py_GetPythonHome()) << std::endl;
+
+    // Runtime Python's sys.path
+    PyObject *sysPath = PySys_GetObject((char*)"path");
+    auto content = PyEmbeddedUtils::toVectorString(sysPath);
+    std::cout << "sys.path: ";
+    for (auto s : content)
+        std::cout << s << ",";
+    std::cout << std::endl;
+
+    Py_Finalize();
+
+    return !content.empty();
+}
+
+//! Importing numpy and accessing its version string.
+
+bool ImportNumpy::runTest()
+{
+    Py_Initialize();
+
+    PyObject *pmod = PyImport_ImportModule("numpy");
+    if (!pmod)
+        throw std::runtime_error("Can't load numpy");
+
+    PyObject* pvar = PyObject_GetAttrString(pmod, "__version__");
+    Py_DECREF(pmod);
+    if (!pvar)
+        throw std::runtime_error("Can't get a variable");
+
+    auto version_string = PyEmbeddedUtils::toString(pvar);
+    std::cout << "numpy_version_string=" << version_string << std::endl;
+
+    Py_Finalize();
+
+    return !version_string.empty();
+}
 
 //! Comparing results of GetVersionNumber() function obtained in "embedded" and "native C++" ways.
-
-#if PY_MAJOR_VERSION >= 3
-#define PyString_FromString PyUnicode_FromString
-#endif
-
-namespace {
-
-const char* asString(PyObject* object)
-{
-#if PY_MAJOR_VERSION >= 3
-    PyObject* pyStr = PyUnicode_AsEncodedString(object, "utf-8", "Error ~");
-    return PyBytes_AsString(pyStr);
-#else
-    return PyString_AsString(object);
-#endif
-}
-
-}
-
 
 bool FunctionCall::runTest()
 {
@@ -46,7 +99,7 @@ bool FunctionCall::runTest()
 
     PyObject *sysPath = PySys_GetObject((char*)"path");
     PyList_Append(sysPath, PyString_FromString("."));
-    PyList_Append(sysPath, PyString_FromString(BUILD_LIB_DIR));
+    PyList_Append(sysPath, PyString_FromString(BABuild::buildLibDir().c_str()));
 
     PyObject *pmod = PyImport_ImportModule("bornagain");
     if (!pmod)
@@ -69,12 +122,9 @@ bool FunctionCall::runTest()
     if(!result)
         throw std::runtime_error("Error while calling function");
 
-    const char* cstr = asString(result);
-    if(!cstr)
-        throw std::runtime_error("Error in return type");
+    auto str = PyEmbeddedUtils::toString(result);
 
-    std::string str(cstr);
-    Py_DECREF(result);
+    Py_Finalize();
 
     return str == BornAgain::GetVersionNumber();
 }
@@ -88,7 +138,7 @@ bool MethodCall::runTest()
 
     PyObject *sysPath = PySys_GetObject((char*)"path");
     PyList_Append(sysPath, PyString_FromString("."));
-    PyList_Append(sysPath, PyString_FromString(BUILD_LIB_DIR));
+    PyList_Append(sysPath, PyString_FromString(BABuild::buildLibDir().c_str()));
 
     PyObject *pmod = PyImport_ImportModule("bornagain");
     if (!pmod)
@@ -137,5 +187,77 @@ bool MethodCall::runTest()
 
     Py_DECREF(pres);
 
+    Py_Finalize();
+
     return value == height;
+}
+
+//! From https://www.awasu.com/weblog/embedding-python/calling-python-code-from-your-program/
+
+bool CompiledFunction::runTest()
+{
+    Py_Initialize();
+
+    // compile our function
+    std::stringstream buf ;
+    buf << "def add( n1 , n2 ) :" << std::endl
+        << "    return n1+n2" << std::endl ;
+
+    PyObject* pCompiledFn = Py_CompileString( buf.str().c_str() , "" , Py_file_input ) ;
+    if (!pCompiledFn)
+        throw std::runtime_error("Can't compile a function");
+
+    // create a module
+    PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
+    if (!pModule)
+        throw std::runtime_error("Can't exec module");
+
+    // locate the "add" function (it's an attribute of the module)
+    PyObject* pAddFn = PyObject_GetAttrString( pModule , "add" ) ;
+    if (!pAddFn)
+        throw std::runtime_error("Can't locate compiled functione");
+
+    // clean up
+    Py_DecRef( pAddFn ) ;
+    Py_DecRef( pModule ) ;
+    Py_DecRef( pCompiledFn ) ;
+
+    // ------------------------
+    // using compiled function
+    // ------------------------
+
+    // create a new tuple with 2 elements
+    PyObject* pPosArgs = PyTuple_New( 2 ) ;
+
+    PyObject* pVal1 = PyInt_FromLong( 10) ;
+    if (!pVal1)
+        throw std::runtime_error("Can't create PyInt");
+    int rc = PyTuple_SetItem( pPosArgs , 0 , pVal1 ) ; // nb: tuple position 0
+    if (rc!=0)
+        throw std::runtime_error("Can't add to tuple");
+
+    PyObject* pVal2 = PyInt_FromLong( 20) ;
+    if (!pVal2)
+        throw std::runtime_error("Can't create PyInt");
+    rc = PyTuple_SetItem( pPosArgs , 1 , pVal2 ) ; // nb: tuple position 0
+    if (rc!=0)
+        throw std::runtime_error("Can't add to tuple");
+
+    // create a new dictionary
+    PyObject* pKywdArgs = PyDict_New() ;
+    if (!pKywdArgs)
+        throw std::runtime_error("Can't create dictionary");
+
+    // call our function
+    PyObject* pResult = PyObject_Call( pAddFn , pPosArgs , pKywdArgs ) ;
+    if (!pResult)
+        throw std::runtime_error("Can't get result out of function");
+
+    // convert the result to a string
+    PyObject* pResultRepr = PyObject_Repr( pResult ) ;
+    std::string result = PyEmbeddedUtils::toString(pResultRepr);
+
+    Py_Finalize();
+
+    return result == "30";
 }

@@ -26,9 +26,11 @@ namespace SysUtils {
 
     BA_CORE_API_ std::string getCurrentDateAndTime();
 
-    //! enables exception throw in the case of NaN, Inf
+    //! Enables exception throw in the case of NaN, Inf.
     BA_CORE_API_ void enableFloatingPointExceptions();
 
+    //! Returns    environment variable
+    BA_CORE_API_ std::string getenv(const std::string& name);
 } // namespace SysUtils
 
 #endif // SYSUTILS_H

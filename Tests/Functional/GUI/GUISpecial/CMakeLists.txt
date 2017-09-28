@@ -14,6 +14,7 @@ set(test_cases
     Lattice1DTranslation
     Lattice2DTranslation
     TwoLayerRoughnessTranslation
+#    GUIPerformanceTest  # too heavy, call manually when necessary
 )
 
 file(GLOB source_files "*.cpp")

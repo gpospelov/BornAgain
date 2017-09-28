@@ -31,11 +31,12 @@ public:
     GUIPerformanceTest();
     ~GUIPerformanceTest();
 
-    bool runTest();
-
     void test_domain_to_gui();
     void test_gui_to_domain();
     void test_real_time();
+
+protected:
+    bool runTest();
 
 private:
     std::unique_ptr<ApplicationModels> m_models;

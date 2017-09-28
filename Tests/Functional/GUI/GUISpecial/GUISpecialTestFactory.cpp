@@ -15,6 +15,7 @@
 
 #include "GUISpecialTestFactory.h"
 #include "TranslationCases.h"
+#include "GUIPerformanceTest.h"
 
 GUISpecialTestFactory::GUISpecialTestFactory()
 {
@@ -69,5 +70,9 @@ GUISpecialTestFactory::GUISpecialTestFactory()
     registerItem("TwoLayerRoughnessTranslation",
                  create_new<TwoLayerRoughnessTranslationTest>,
                  "TwoLayerRoughnessTranslation test");
+
+    registerItem("GUIPerformance",
+                 create_new<GUIPerformanceTest>,
+                 "Measuring GUI performance on typical tasks.");
 
 }

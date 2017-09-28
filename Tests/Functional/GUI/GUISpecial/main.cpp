@@ -16,9 +16,11 @@
 
 #include "TestService.h"
 #include "GUISpecialTestFactory.h"
+#include <QCoreApplication>
 
 //! Runs PyEmbedded functional test.
 int main(int argc, char** argv)
 {
+    QCoreApplication a(argc, argv);
     return TestService<GUISpecialTestFactory>().execute(argc, argv) ? 0 : 1;
 }

@@ -67,11 +67,11 @@ bool GUIPerformanceTest::runTest()
     std::cout << "GUIPerformanceTest -> Running ..." << mult << std::endl;
     Benchmark bench;
 
-    bench.test("domain2gui", [this]() { test_domain_to_gui();}, 300*mult);
-    bench.test("gui2domain", [this]() { test_gui_to_domain();}, 100*mult);
-    bench.test("realTime", [this]() { test_real_time();}, 2*mult);
+    bench.test_method("domain2gui", [this]() { test_domain_to_gui();}, 300*mult);
+    bench.test_method("gui2domain", [this]() { test_gui_to_domain();}, 100*mult);
+    bench.test_method("realTime", [this]() { test_real_time();}, 2*mult);
 
-    std::cout << bench.report().toStdString() << std::endl;
+    std::cout << bench.report() << std::endl;
     return true;
 }
 

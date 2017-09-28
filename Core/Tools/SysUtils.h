@@ -29,9 +29,6 @@ namespace SysUtils {
     //! Enables exception throw in the case of NaN, Inf.
     BA_CORE_API_ void enableFloatingPointExceptions();
 
-    //! Enables exception throw in the case of NaN, Inf.
-    BA_CORE_API_ void enableFloatingPointExceptions();
-
     //! Returns    environment variable
     BA_CORE_API_ std::string getenv(const std::string& name);
 } // namespace SysUtils

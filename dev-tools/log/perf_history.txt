@@ -616,3 +616,10 @@ Size      | format     | data  | create  read    write   | diff
 # Just before release 1.9.0
 | 2017-06-29 18:06:12 | scgsun   | Linux x86_64 | 2.7    | 98.1438   | 15.2983    | 0.5190     | 0.4992          | 3.1110          | 0.3896    | 2.1185        | 0.5087            | 2.5292         | 0.8423 | 2.0272      | 1.9672    | 0.7864    |
 29.06.2017 18:12:19 | domain2gui 1354 msec | gui2domain 1510 msec | realTime 1293 msec | 
+
+# Before deep SWIG changes
+
+compile time: real 4m18.371s, user 24m2.298s, sys 1m56.004s
+ctest time:   real 0m45.376s, user 1m10.176s, sys 0m3.583s
+| 2017-09-29 12:33:18 | scgsun   | Linux x86_64 | 2.7    | 97.9540   | 15.4191    | 0.5813     | 0.5248          | 3.1319          | 0.3585    | 2.1234        | 0.5118            | 2.5499         | 0.8501 | 2.0469      | 1.9635    | 0.7772    |
+GUI Performance: domain2gui 1.412 | gui2domain 1.534 |realTime 1.303

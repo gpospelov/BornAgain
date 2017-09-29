@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUITranslationTest/main.cpp
-//! @brief     Implements main to run GUI performance tests.
+//! @file      Tests/Functional/GUI/GUISpecial/main.cpp
+//! @brief     Implements main to run GUI special tests.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,22 +14,13 @@
 //
 // ************************************************************************** //
 
-#include <iostream>
-#include "GUIPerformanceTest.h"
+#include "TestService.h"
+#include "GUISpecialTestFactory.h"
 #include <QCoreApplication>
 
-bool run_tests() {
-
-    GUIPerformanceTest test;
-    return test.runTest();
-}
-
+//! Runs PyEmbedded functional test.
 int main(int argc, char** argv)
 {
     QCoreApplication a(argc, argv);
-
-//    run_tests();
-    return run_tests() == true ? 0 : 1;
-
-//    return a.exec();
+    return TestService<GUISpecialTestFactory>().execute(argc, argv) ? 0 : 1;
 }

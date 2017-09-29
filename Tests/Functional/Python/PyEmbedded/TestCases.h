@@ -58,4 +58,28 @@ protected:
     bool runTest();
 };
 
+//! Extracting object created in Python into C++.
+
+class ObjectExtract : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
+//! Building embedding MultiLayer.
+
+class EmbeddedMultiLayer : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
+//! Export of standard multilayer to Python code and casting back.
+
+class ExportToPythonAndBack : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
 #endif

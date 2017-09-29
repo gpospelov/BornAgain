@@ -17,13 +17,9 @@
 #define PYEMBEDDEDUTILS_H
 
 #include "PythonCore.h"
+#include "swig_runtime.h"
 #include <string>
 #include <vector>
-
-#if PY_MAJOR_VERSION >= 3
-#define PyString_FromString PyUnicode_FromString
-#define PyInt_FromLong PyLong_FromLong
-#endif
 
 namespace PyEmbeddedUtils {
 

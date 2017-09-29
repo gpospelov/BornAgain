@@ -16,12 +16,14 @@
 #ifndef BENCHMARK_H
 #define BENCHMARK_H
 
-#include <string>
-#include <map>
+#include "WinDllMacros.h"
 #include "TimeInterval.h"
 #include "OrderedMap.h"
+#include <string>
+#include <map>
+#include <functional>
 
-class Duration {
+class BA_CORE_API_ Duration {
 public:
     Duration() : m_totalTime(0){}
 
@@ -36,7 +38,7 @@ private:
 
 //! Benchmark tool to measure duration of several processes.
 
-class Benchmark
+class BA_CORE_API_ Benchmark
 {
 public:
     Benchmark() {}
@@ -46,6 +48,8 @@ public:
     void stop(const std::string& name);
     double runTime(const std::string& name);
     std::string report() const;
+
+    void test_method(const std::string& name, std::function<void(void)> f, int ntries);
 
 private:
     OrderedMap<std::string, Duration* > m_data;

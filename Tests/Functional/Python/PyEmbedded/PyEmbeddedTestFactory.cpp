@@ -33,4 +33,14 @@ PyEmbeddedTestFactory::PyEmbeddedTestFactory()
     registerItem("CompiledFunction",
                   create_new<CompiledFunction>,
                   "Compiling function from multi line string.");
+    registerItem("ObjectExtract",
+                  create_new<ObjectExtract>,
+                  "Extracting object created in Python into C++.");
+    registerItem("EmbeddedMultiLayer",
+                  create_new<EmbeddedMultiLayer>,
+                  "Building embedding MultiLayer.");
+    registerItem("ExportToPythonAndBack",
+                  create_new<ExportToPythonAndBack>,
+                  "Export of standard multilayer to Python code and casting back.");
+
 }

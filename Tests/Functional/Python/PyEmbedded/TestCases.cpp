@@ -266,6 +266,7 @@ bool CompiledFunction::runTest()
 }
 
 //! Creating FormFactor in Python and extract object to C++.
+//! https://stackoverflow.com/questions/9040669/how-can-i-implement-a-c-class-in-python-to-be-called-by-c/
 
 bool ObjectExtract::runTest()
 {
@@ -300,4 +301,66 @@ bool ObjectExtract::runTest()
     Py_Finalize();
 
     return multilayer->getName() == BornAgain::MultiLayerType;
+}
+
+bool EmbeddedMultiLayer::runTest()
+{
+    Py_Initialize();
+
+    PyObject *sysPath = PySys_GetObject((char*)"path");
+    PyList_Append(sysPath, PyString_FromString(BABuild::buildLibDir().c_str()));
+
+    PyObject* pmod = PyImport_ImportModule("bornagain");
+    if (!pmod)
+        throw std::runtime_error("Can't load bornagain");
+
+    // compile our function
+    std::stringstream buf ;
+    buf << "import bornagain as ba                                        \n";
+    buf << "                                                              \n";
+    buf << "def get_simulation():                                         \n";
+    buf << "    m_ambience = ba.HomogeneousMaterial(\"Air\", 0.0, 0.0)    \n";
+    buf << "    air_layer = ba.Layer(m_ambience)                          \n";
+    buf << "    multilayer = ba.MultiLayer()                              \n";
+    buf << "    multilayer.addLayer(air_layer)                            \n";
+    buf << "    return multilayer                                         \n";
+
+    PyObject* pCompiledFn = Py_CompileString( buf.str().c_str() , "" , Py_file_input ) ;
+    if (!pCompiledFn)
+        throw std::runtime_error("Can't compile a function");
+
+    // create a module
+    PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
+    if (!pModule)
+        throw std::runtime_error("Can't exec module");
+
+    // locate the "get_simulation" function (it's an attribute of the module)
+    PyObject* pAddFn = PyObject_GetAttrString( pModule , "get_simulation" ) ;
+    if (!pAddFn)
+        throw std::runtime_error("Can't locate compiled functione");
+
+    PyObject *instance =  PyObject_CallFunctionObjArgs(pAddFn, NULL);
+    if (!instance)
+        throw std::runtime_error("Can't call function");
+
+    // clean up
+    Py_DecRef( pAddFn ) ;
+    Py_DecRef( pModule ) ;
+    Py_DecRef( pCompiledFn ) ;
+
+    void *argp1 = 0;
+    swig_type_info * pTypeInfo = SWIG_TypeQuery("MultiLayer *");
+
+    const int res = SWIG_ConvertPtr(instance, &argp1,pTypeInfo, 0);
+    if (!SWIG_IsOK(res))
+        throw std::runtime_error("SWIG failed extract object");
+
+    MultiLayer* multilayer = reinterpret_cast<MultiLayer*>(argp1);
+    size_t n_layers = multilayer->numberOfLayers();
+
+    Py_DECREF(instance);
+
+    Py_Finalize();
+
+    return n_layers == 1;
 }

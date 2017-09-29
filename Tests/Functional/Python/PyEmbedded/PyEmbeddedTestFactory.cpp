@@ -36,4 +36,8 @@ PyEmbeddedTestFactory::PyEmbeddedTestFactory()
     registerItem("ObjectExtract",
                   create_new<ObjectExtract>,
                   "Extracting object created in Python into C++.");
+    registerItem("EmbeddedMultiLayer",
+                  create_new<EmbeddedMultiLayer>,
+                  "Building embedding MultiLayer.");
+
 }

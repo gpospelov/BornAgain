@@ -66,4 +66,12 @@ protected:
     bool runTest();
 };
 
+//! Building embedding MultiLayer.
+
+class EmbeddedMultiLayer : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
 #endif

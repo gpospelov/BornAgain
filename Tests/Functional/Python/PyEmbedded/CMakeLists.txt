@@ -6,6 +6,7 @@ set(test_cases
     FunctionCall
     MethodCall
     CompiledFunction
+    ObjectExtract
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

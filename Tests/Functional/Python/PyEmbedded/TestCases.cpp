@@ -261,3 +261,34 @@ bool CompiledFunction::runTest()
 
     return result == "30";
 }
+
+//! Creating FormFactor in Python and extract object to C++.
+
+bool ObjectExtract::runTest()
+{
+    Py_Initialize();
+
+    PyObject *sysPath = PySys_GetObject((char*)"path");
+    PyList_Append(sysPath, PyString_FromString(BABuild::buildLibDir().c_str()));
+
+    PyObject* pmod = PyImport_ImportModule("bornagain");
+    if (!pmod)
+        throw std::runtime_error("Can't load bornagain");
+
+    PyObject *ml = PyObject_GetAttrString(pmod, "MultiLayer");
+    Py_DECREF(pmod);
+    if (!ml)
+        throw std::runtime_error("Can't get MultiLayer attribute.");
+
+    PyObject *instance = PyObject_CallFunctionObjArgs(ml, NULL);
+
+//    myif *inst = python2interface(instance);
+//    std::cout << inst->myfunc(input) << std::endl;
+
+    Py_DECREF(instance);
+    Py_DECREF(ml);
+
+    Py_Finalize();
+
+    return true;
+}

@@ -33,4 +33,7 @@ PyEmbeddedTestFactory::PyEmbeddedTestFactory()
     registerItem("CompiledFunction",
                   create_new<CompiledFunction>,
                   "Compiling function from multi line string.");
+    registerItem("ObjectExtract",
+                  create_new<ObjectExtract>,
+                  "Extracting object created in Python into C++.");
 }

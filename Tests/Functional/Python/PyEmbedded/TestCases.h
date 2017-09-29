@@ -58,4 +58,12 @@ protected:
     bool runTest();
 };
 
+//! Extracting object created in Python into C++.
+
+class ObjectExtract : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
 #endif

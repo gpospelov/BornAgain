@@ -7,6 +7,7 @@ set(test_cases
     MethodCall
     CompiledFunction
     ObjectExtract
+    ExportToPythonAndBack
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

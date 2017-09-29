@@ -19,7 +19,6 @@
 #include "BAVersion.h"
 #include "BABuild.h"
 #include "SysUtils.h"
-#include "swig_runtime.h"
 #include "MultiLayer.h"
 #include "BornAgainNamespace.h"
 #include "SampleBuilderFactory.h"
@@ -430,7 +429,7 @@ bool ExportToPythonAndBack::runTest()
 
     MultiLayer* multilayer = reinterpret_cast<MultiLayer*>(argp1);
 
-    auto new_code = PythonFormatting::generateSampleCode(*multilayer)+"x";
+    auto new_code = PythonFormatting::generateSampleCode(*multilayer);
 
     return code == new_code;
 }

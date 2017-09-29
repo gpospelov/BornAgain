@@ -17,6 +17,7 @@
 #include <stdexcept>
 #include <iostream>
 
+
 std::string PyEmbeddedUtils::toString(PyObject* obj, bool decref)
 {
     std::string result;

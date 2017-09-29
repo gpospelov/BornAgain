@@ -74,4 +74,12 @@ protected:
     bool runTest();
 };
 
+//! Export of standard multilayer to Python code and casting back.
+
+class ExportToPythonAndBack : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
 #endif

@@ -39,5 +39,8 @@ PyEmbeddedTestFactory::PyEmbeddedTestFactory()
     registerItem("EmbeddedMultiLayer",
                   create_new<EmbeddedMultiLayer>,
                   "Building embedding MultiLayer.");
+    registerItem("ExportToPythonAndBack",
+                  create_new<ExportToPythonAndBack>,
+                  "Export of standard multilayer to Python code and casting back.");
 
 }

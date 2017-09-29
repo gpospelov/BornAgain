@@ -19,6 +19,9 @@
 #include "BAVersion.h"
 #include "BABuild.h"
 #include "SysUtils.h"
+#include "swig_runtime.h"
+#include "MultiLayer.h"
+#include "BornAgainNamespace.h"
 #include <iostream>
 #include <sstream>
 
@@ -282,13 +285,19 @@ bool ObjectExtract::runTest()
 
     PyObject *instance = PyObject_CallFunctionObjArgs(ml, NULL);
 
-//    myif *inst = python2interface(instance);
-//    std::cout << inst->myfunc(input) << std::endl;
+    void *argp1 = 0;
+    swig_type_info * pTypeInfo = SWIG_TypeQuery("MultiLayer *");
+
+    const int res = SWIG_ConvertPtr(instance, &argp1,pTypeInfo, 0);
+    if (!SWIG_IsOK(res))
+        throw std::runtime_error("SWIG failed extract object");
+
+    MultiLayer* multilayer = reinterpret_cast<MultiLayer*>(argp1);
 
     Py_DECREF(instance);
     Py_DECREF(ml);
 
     Py_Finalize();
 
-    return true;
+    return multilayer->getName() == BornAgain::MultiLayerType;
 }

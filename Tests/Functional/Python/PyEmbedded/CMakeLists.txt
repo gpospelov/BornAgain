@@ -20,6 +20,7 @@ include_directories(
     ${PYTHON_INCLUDE_DIRS} ${NUMPY_INCLUDE_DIR}
     ${EIGEN3_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../TestMachinery
+    ${CMAKE_SOURCE_DIR}/auto/Wrap
 )
 
 file(GLOB source_files "*.cpp")

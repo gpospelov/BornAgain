@@ -26,77 +26,65 @@
 #include <QSettings>
 #include <QShortcut>
 
-ActionManager::ActionManager(MainWindow *parent)
+ActionManager::ActionManager(MainWindow* parent)
     : QObject(parent)
     , m_mainWindow(parent)
-    , m_newAction(0)
-    , m_openAction(0)
-    , m_saveAction(0)
-    , m_saveAsAction(0)
-    , m_menuBar(0)
-    , m_fileMenu(0)
-    , m_settingsMenu(0)
-    , m_helpMenu(0)
-    , m_runSimulationShortcut(0)
+    , m_newAction(nullptr)
+    , m_openAction(nullptr)
+    , m_saveAction(nullptr)
+    , m_saveAsAction(nullptr)
+    , m_menuBar(nullptr)
+    , m_fileMenu(nullptr)
+    , m_settingsMenu(nullptr)
+    , m_helpMenu(nullptr)
+    , m_runSimulationShortcut(nullptr)
 {
-    setParent(parent);
     createActions();
     createMenus();
     createGlobalShortcuts();
 }
 
-
-
 void ActionManager::createActions()
 {
-    ProjectManager *projectManager = m_mainWindow->projectManager();
+    ProjectManager* projectManager = m_mainWindow->projectManager();
     Q_ASSERT(projectManager);
 
     // new project action
-//    QIcon icon = QIcon::fromTheme(QLatin1String("document-new"), QIcon(QLatin1String(Constants::ICON_NEWFILE)));
     m_newAction = new QAction("&New Project", m_mainWindow);
     m_newAction->setShortcuts(QKeySequence::New);
     m_newAction->setStatusTip("Create a new project");
-    connect(m_newAction, SIGNAL(triggered()), projectManager, SLOT(newProject()) );
+    connect(m_newAction, SIGNAL(triggered()), projectManager, SLOT(newProject()));
 
     // open project action
-//    icon = QIcon::fromTheme(QLatin1String("document-open"), QIcon(QLatin1String(Constants::ICON_OPENFILE)));
     m_openAction = new QAction("&Open Project", m_mainWindow);
     m_openAction->setShortcuts(QKeySequence::Open);
     m_openAction->setStatusTip("Open an existing project");
-    connect(m_openAction, SIGNAL(triggered()), projectManager, SLOT(openProject()) );
+    connect(m_openAction, SIGNAL(triggered()), projectManager, SLOT(openProject()));
 
     // save project action
-//    icon = QIcon::fromTheme(QLatin1String("document-save"), QIcon(QLatin1String(Constants::ICON_SAVEFILE)));
     m_saveAction = new QAction("&Save Project", m_mainWindow);
     m_saveAction->setShortcuts(QKeySequence::Save);
     m_saveAction->setStatusTip("Save project");
     m_saveAction->setShortcutContext(Qt::ApplicationShortcut);
-    connect(m_saveAction, SIGNAL(triggered()), projectManager, SLOT(saveProject()) );
+    connect(m_saveAction, SIGNAL(triggered()), projectManager, SLOT(saveProject()));
 
     // save-as project action
-//    icon = QIcon::fromTheme(QLatin1String("document-save-as"));
     m_saveAsAction = new QAction("Save &As...", m_mainWindow);
     m_saveAsAction->setShortcuts(QKeySequence::SaveAs);
     m_saveAsAction->setStatusTip("Save project under different name");
-    connect(m_saveAsAction, SIGNAL(triggered()), projectManager, SLOT(saveProjectAs()) );
+    connect(m_saveAsAction, SIGNAL(triggered()), projectManager, SLOT(saveProjectAs()));
 
     // exit application action
-//    icon = QIcon::fromTheme(QLatin1String("application-exit"));
     m_exitAction = new QAction("E&xit Application", this);
     m_exitAction->setShortcuts(QKeySequence::Quit);
     m_exitAction->setStatusTip("Exit the application");
     connect(m_exitAction, SIGNAL(triggered()), m_mainWindow, SLOT(close()));
 
     // about application action
-//    icon = QIcon::fromTheme(QLatin1String("help-about"));
     m_aboutAction = new QAction("About &BornAgain", this);
-    //m_aboutAction->setShortcuts(QKeySequence::HelpContents);
     m_aboutAction->setStatusTip("About the application");
     connect(m_aboutAction, SIGNAL(triggered()), m_mainWindow, SLOT(onAboutApplication()));
-
 }
-
 
 void ActionManager::createMenus()
 {
@@ -122,7 +110,8 @@ void ActionManager::createMenus()
 
     // Settings Menu
     m_settingsMenu = new QMenu("Settings", m_mainWindow);
-    aboutToShowSettings(); // MacOS feature: action should exist already, otherwise menuBar will not add menu
+    aboutToShowSettings(); // MacOS feature: action should exist already, otherwise menuBar will not
+                           // add menu
     connect(m_settingsMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowSettings()));
     m_menuBar->addMenu(m_settingsMenu);
 
@@ -131,39 +120,35 @@ void ActionManager::createMenus()
     m_helpMenu->addAction(m_aboutAction);
 }
 
-
 void ActionManager::createGlobalShortcuts()
 {
-    m_runSimulationShortcut =  new QShortcut(QKeySequence("Ctrl+r"), m_mainWindow);
+    m_runSimulationShortcut = new QShortcut(QKeySequence("Ctrl+r"), m_mainWindow);
     m_runSimulationShortcut->setContext((Qt::ApplicationShortcut));
-    connect(m_runSimulationShortcut, SIGNAL(activated()),
-            m_mainWindow, SLOT(onRunSimulationShortcut()));
+    connect(m_runSimulationShortcut, SIGNAL(activated()), m_mainWindow,
+            SLOT(onRunSimulationShortcut()));
 }
-
 
 void ActionManager::aboutToShowRecentProjects()
 {
     m_recentProjectsMenu->clear();
 
     bool hasRecentProjects = false;
-    foreach(QString file, m_mainWindow->projectManager()->recentProjects() ) {
+    foreach (QString file, m_mainWindow->projectManager()->recentProjects()) {
         hasRecentProjects = true;
-        QAction *action = m_recentProjectsMenu->addAction(
+        QAction* action = m_recentProjectsMenu->addAction(
             QDir::toNativeSeparators(GUI_StringUtils::withTildeHomePath(file)));
         action->setData(qVariantFromValue(file));
         connect(action, SIGNAL(triggered()), m_mainWindow, SLOT(openRecentProject()));
-
     }
 
     m_recentProjectsMenu->setEnabled(hasRecentProjects);
 
     if (hasRecentProjects) {
         m_recentProjectsMenu->addSeparator();
-        QAction *action = m_recentProjectsMenu->addAction("Clear Menu");
-        connect(action, SIGNAL(triggered()),
-                m_mainWindow->projectManager(), SLOT(clearRecentProjects()));
+        QAction* action = m_recentProjectsMenu->addAction("Clear Menu");
+        connect(action, SIGNAL(triggered()), m_mainWindow->projectManager(),
+                SLOT(clearRecentProjects()));
     }
-
 }
 
 void ActionManager::aboutToShowSettings()
@@ -172,7 +157,7 @@ void ActionManager::aboutToShowSettings()
     QSettings settings;
 
     settings.beginGroup(Constants::S_UPDATES);
-    QAction *action = m_settingsMenu->addAction("Check for Updates");
+    QAction* action = m_settingsMenu->addAction("Check for Updates");
     action->setToolTip("Checks for updates available on GUI startup.");
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
@@ -192,11 +177,10 @@ void ActionManager::aboutToShowSettings()
                        "When opening project, recover option will be suggested, if possible.");
     action->setCheckable(true);
     action->setChecked(m_mainWindow->projectManager()->isAutosaveEnabled());
-    connect(action, SIGNAL(toggled(bool)),
-            m_mainWindow->projectManager(), SLOT(setAutosaveEnabled(bool)));
+    connect(action, SIGNAL(toggled(bool)), m_mainWindow->projectManager(),
+            SLOT(setAutosaveEnabled(bool)));
 
     m_settingsMenu->setToolTipsVisible(true);
-
 }
 
 void ActionManager::toggleCheckForUpdates(bool status)

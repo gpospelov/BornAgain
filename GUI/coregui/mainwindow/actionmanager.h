@@ -39,6 +39,7 @@ private slots:
     void aboutToShowSettings();
     void toggleCheckForUpdates(bool status);
     void setSessionModelViewActive(bool status);
+    void onAboutApplication();
     void onImportFromPythonScript();
 
 private:

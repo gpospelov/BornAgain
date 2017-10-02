@@ -21,6 +21,8 @@
 #include "mainwindow_constants.h"
 #include "projectmanager.h"
 #include "qstringutils.h"
+#include "aboutapplicationdialog.h"
+#include "PyImportAssistant.h"
 #include <QDir>
 #include <QMenuBar>
 #include <QSettings>
@@ -89,7 +91,7 @@ void ActionManager::createActions()
     // about application action
     m_aboutAction = new QAction("About &BornAgain", this);
     m_aboutAction->setStatusTip("About the application");
-    connect(m_aboutAction, &QAction::triggered, m_mainWindow, &MainWindow::onAboutApplication);
+    connect(m_aboutAction, &QAction::triggered, this, &ActionManager::onAboutApplication);
 }
 
 void ActionManager::createMenus()
@@ -215,7 +217,14 @@ void ActionManager::setSessionModelViewActive(bool status)
     m_mainWindow->onSessionModelViewActive(status);
 }
 
+void ActionManager::onAboutApplication()
+{
+    AboutApplicationDialog dialog(m_mainWindow);
+    dialog.exec();
+}
+
 void ActionManager::onImportFromPythonScript()
 {
-
+    PyImportAssistant assistant(m_mainWindow);
+    assistant.exec();
 }

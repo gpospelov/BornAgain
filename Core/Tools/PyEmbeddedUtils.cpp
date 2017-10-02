@@ -86,16 +86,19 @@ std::string PyEmbeddedUtils::toString(wchar_t* c)
 
 void PyEmbeddedUtils::import_bornagain(const std::string& path)
 {
-    if (!Py_IsInitialized())
+    if (!Py_IsInitialized()) {
         Py_Initialize();
 
-    if (!path.empty()) {
-        PyObject *sysPath = PySys_GetObject((char*)"path");
-        PyList_Append(sysPath, PyString_FromString(path.c_str()));
-    }
+        if (!path.empty()) {
+            PyObject *sysPath = PySys_GetObject((char*)"path");
+            PyList_Append(sysPath, PyString_FromString(path.c_str()));
+        }
 
-    PyObject* pmod = PyImport_ImportModule("bornagain");
-    if (!pmod)
-        throw std::runtime_error("Can't load bornagain");
+        PyObject* pmod = PyImport_ImportModule("bornagain");
+        if (!pmod) {
+            PyErr_Print();
+            throw std::runtime_error("Can't load bornagain");
+        }
+    }
 
 }

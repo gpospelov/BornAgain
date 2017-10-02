@@ -56,7 +56,5 @@ std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script
     MultiLayer* multilayer = reinterpret_cast<MultiLayer*>(argp1);
     std::unique_ptr<MultiLayer> result(multilayer->clone());
 
-    Py_Finalize();
-
     return result;
 }

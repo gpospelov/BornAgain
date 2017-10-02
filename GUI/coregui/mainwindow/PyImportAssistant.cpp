@@ -22,6 +22,7 @@
 #include "PyImport.h"
 #include "MultiLayer.h"
 #include "BABuild.h"
+#include "GUIObjectBuilder.h"
 #include <QFileDialog>
 #include <QTextStream>
 #include <QDebug>
@@ -47,6 +48,9 @@ void PyImportAssistant::exec()
     auto snippet = readFile(fileName);
     auto multilayer = PyImport::createFromPython(snippet.toStdString(),
                                                  "get_sample", BABuild::buildLibDir());
+
+    GUIObjectBuilder guiBuilder;
+    guiBuilder.populateSampleModel(m_mainWindow->sampleModel(), *multilayer, "xxx");
 }
 
 QString PyImportAssistant::fileNameToOpen()

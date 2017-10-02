@@ -19,6 +19,9 @@
 #include "mainwindow.h"
 #include "projectmanager.h"
 #include "GUIHelpers.h"
+#include "PyImport.h"
+#include "MultiLayer.h"
+#include "BABuild.h"
 #include <QFileDialog>
 #include <QTextStream>
 #include <QDebug>
@@ -40,6 +43,10 @@ void PyImportAssistant::exec()
     qDebug() << "onImportFromPythonScript()" << fileName;
 
     qDebug() << readFile(fileName);
+
+    auto snippet = readFile(fileName);
+    auto multilayer = PyImport::createFromPython(snippet.toStdString(),
+                                                 "get_sample", BABuild::buildLibDir());
 }
 
 QString PyImportAssistant::fileNameToOpen()

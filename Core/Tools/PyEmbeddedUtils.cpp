@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Python/PyEmbedded/PyEmbeddedUtils.cpp
+//! @file      Core/Tools/PyEmbeddedUtils.h
 //! @brief     IOmplements various functions from PyEmbeddedUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,6 +14,8 @@
 // ************************************************************************** //
 
 #include "PyEmbeddedUtils.h"
+#include "PythonFormatting.h"
+#include "MultiLayer.h"
 #include <stdexcept>
 #include <iostream>
 
@@ -80,4 +82,20 @@ std::string PyEmbeddedUtils::toString(wchar_t* c)
     } else {
         return std::string();
     }
+}
+
+void PyEmbeddedUtils::import_bornagain(const std::string& path)
+{
+    if (!Py_IsInitialized())
+        Py_Initialize();
+
+    if (!path.empty()) {
+        PyObject *sysPath = PySys_GetObject((char*)"path");
+        PyList_Append(sysPath, PyString_FromString(path.c_str()));
+    }
+
+    PyObject* pmod = PyImport_ImportModule("bornagain");
+    if (!pmod)
+        throw std::runtime_error("Can't load bornagain");
+
 }

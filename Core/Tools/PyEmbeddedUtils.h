@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Python/PyEmbedded/PyEmbeddedUtils.h
+//! @file      Core/Tools/PyEmbeddedUtils.h
 //! @brief     Defines PyEmbeddedUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,22 +18,29 @@
 
 #include "PythonCore.h"
 #include "swig_runtime.h"
+#include "WinDllMacros.h"
 #include <string>
 #include <vector>
+#include <memory>
+
+class MultiLayer;
 
 namespace PyEmbeddedUtils {
 
 //! Converts PyObject into string, if possible, or throws exception.
 //! @param decref To automatically decrease reference counter after data is processed.
-std::string toString(PyObject* obj, bool decref = true);
+BA_CORE_API_ std::string toString(PyObject* obj, bool decref = true);
 
 //! Converts PyObject into vector of strings, if possible, or throws exception.
 //! @param decref To automatically decrease reference counter after data is processed.
-std::vector<std::string> toVectorString(PyObject* obj, bool decref = true);
+BA_CORE_API_ std::vector<std::string> toVectorString(PyObject* obj, bool decref = true);
 
 //! Converts char to string. In the case of nullptr will return an empty string.
-std::string toString(char* c);
-std::string toString(wchar_t* c);
+BA_CORE_API_ std::string toString(char* c);
+BA_CORE_API_ std::string toString(wchar_t* c);
+
+//! Imports BornAgain from given location. If path is empty, tries to rely on PYTHONPATH.
+BA_CORE_API_ void import_bornagain(const std::string& path = std::string());
 
 }
 

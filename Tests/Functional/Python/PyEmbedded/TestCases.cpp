@@ -15,6 +15,7 @@
 
 #include "TestCases.h"
 #include "PyEmbeddedUtils.h"
+#include "PyImport.h"
 #include "BornAgainNamespace.h"
 #include "BAVersion.h"
 #include "BABuild.h"
@@ -388,47 +389,8 @@ bool ExportToPythonAndBack::runTest()
     snippet << "from bornagain import deg, angstrom, nm                     \n\n";
     snippet << code;
 
-    Py_Initialize();
-
-    PyObject *sysPath = PySys_GetObject((char*)"path");
-    PyList_Append(sysPath, PyString_FromString(BABuild::buildLibDir().c_str()));
-
-    PyObject* pmod = PyImport_ImportModule("bornagain");
-    if (!pmod)
-        throw std::runtime_error("Can't load bornagain");
-
-    PyObject* pCompiledFn = Py_CompileString( snippet.str().c_str() , "" , Py_file_input ) ;
-    if (!pCompiledFn)
-        throw std::runtime_error("Can't compile a function");
-
-    // create a module
-    PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
-    if (!pModule)
-        throw std::runtime_error("Can't exec module");
-
-    // locate the "get_simulation" function (it's an attribute of the module)
-    PyObject* pAddFn = PyObject_GetAttrString( pModule , "getSample" ) ;
-    if (!pAddFn)
-        throw std::runtime_error("Can't locate compiled functione");
-
-    PyObject *instance =  PyObject_CallFunctionObjArgs(pAddFn, NULL);
-    if (!instance)
-        throw std::runtime_error("Can't call function");
-
-    // clean up
-    Py_DecRef( pAddFn ) ;
-    Py_DecRef( pModule ) ;
-    Py_DecRef( pCompiledFn ) ;
-
-    void *argp1 = 0;
-    swig_type_info * pTypeInfo = SWIG_TypeQuery("MultiLayer *");
-
-    const int res = SWIG_ConvertPtr(instance, &argp1,pTypeInfo, 0);
-    if (!SWIG_IsOK(res))
-        throw std::runtime_error("SWIG failed extract object");
-
-    MultiLayer* multilayer = reinterpret_cast<MultiLayer*>(argp1);
-
+    auto multilayer = PyImport::createFromPython(snippet.str(), "getSample",
+                                                 BABuild::buildLibDir());
     auto new_code = PythonFormatting::generateSampleCode(*multilayer);
 
     return code == new_code;

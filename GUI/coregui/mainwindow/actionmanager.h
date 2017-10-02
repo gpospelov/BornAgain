@@ -34,11 +34,12 @@ class BA_CORE_API_ ActionManager : public QObject
 public:
     ActionManager(MainWindow* parent);
 
-public slots:
-    void aboutToShowRecentProjects();
+private slots:
+    void aboutToShowFileMenu();
     void aboutToShowSettings();
     void toggleCheckForUpdates(bool status);
     void setSessionModelViewActive(bool status);
+    void onImportFromPythonScript();
 
 private:
     MainWindow* m_mainWindow;
@@ -55,6 +56,7 @@ private:
     QMenu* m_settingsMenu;
     QMenu* m_recentProjectsMenu;
     QMenu* m_helpMenu;
+    QMenu* m_importMenu;
 
     QShortcut* m_runSimulationShortcut;
 

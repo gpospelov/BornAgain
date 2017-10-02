@@ -33,10 +33,14 @@ ActionManager::ActionManager(MainWindow* parent)
     , m_openAction(nullptr)
     , m_saveAction(nullptr)
     , m_saveAsAction(nullptr)
+    , m_exitAction(nullptr)
+    , m_aboutAction(nullptr)
     , m_menuBar(nullptr)
     , m_fileMenu(nullptr)
     , m_settingsMenu(nullptr)
+    , m_recentProjectsMenu(nullptr)
     , m_helpMenu(nullptr)
+    , m_importMenu(nullptr)
     , m_runSimulationShortcut(nullptr)
 {
     createActions();
@@ -53,37 +57,39 @@ void ActionManager::createActions()
     m_newAction = new QAction("&New Project", m_mainWindow);
     m_newAction->setShortcuts(QKeySequence::New);
     m_newAction->setStatusTip("Create a new project");
-    connect(m_newAction, SIGNAL(triggered()), projectManager, SLOT(newProject()));
+    connect(m_newAction, &QAction::triggered, projectManager, &ProjectManager::newProject);
 
     // open project action
     m_openAction = new QAction("&Open Project", m_mainWindow);
     m_openAction->setShortcuts(QKeySequence::Open);
     m_openAction->setStatusTip("Open an existing project");
-    connect(m_openAction, SIGNAL(triggered()), projectManager, SLOT(openProject()));
+    connect(m_openAction, &QAction::triggered,
+            projectManager, [projectManager]() { projectManager->openProject(); });
 
     // save project action
     m_saveAction = new QAction("&Save Project", m_mainWindow);
     m_saveAction->setShortcuts(QKeySequence::Save);
     m_saveAction->setStatusTip("Save project");
     m_saveAction->setShortcutContext(Qt::ApplicationShortcut);
-    connect(m_saveAction, SIGNAL(triggered()), projectManager, SLOT(saveProject()));
+    connect(m_saveAction, &QAction::triggered,
+            projectManager, [projectManager]() { projectManager->saveProject(); });
 
     // save-as project action
     m_saveAsAction = new QAction("Save &As...", m_mainWindow);
     m_saveAsAction->setShortcuts(QKeySequence::SaveAs);
     m_saveAsAction->setStatusTip("Save project under different name");
-    connect(m_saveAsAction, SIGNAL(triggered()), projectManager, SLOT(saveProjectAs()));
+    connect(m_saveAsAction, &QAction::triggered, projectManager, &ProjectManager::saveProjectAs);
 
     // exit application action
     m_exitAction = new QAction("E&xit Application", this);
     m_exitAction->setShortcuts(QKeySequence::Quit);
     m_exitAction->setStatusTip("Exit the application");
-    connect(m_exitAction, SIGNAL(triggered()), m_mainWindow, SLOT(close()));
+    connect(m_exitAction, &QAction::triggered, m_mainWindow, &MainWindow::close);
 
     // about application action
     m_aboutAction = new QAction("About &BornAgain", this);
     m_aboutAction->setStatusTip("About the application");
-    connect(m_aboutAction, SIGNAL(triggered()), m_mainWindow, SLOT(onAboutApplication()));
+    connect(m_aboutAction, &QAction::triggered, m_mainWindow, &MainWindow::onAboutApplication);
 }
 
 void ActionManager::createMenus()
@@ -97,13 +103,21 @@ void ActionManager::createMenus()
     m_fileMenu = m_menuBar->addMenu("&File");
     m_fileMenu->addAction(m_newAction);
     m_fileMenu->addAction(m_openAction);
-    connect(m_fileMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowRecentProjects()));
+    connect(m_fileMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowFileMenu()));
 
     m_recentProjectsMenu = m_fileMenu->addMenu("Recent Projects");
 
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_saveAction);
     m_fileMenu->addAction(m_saveAsAction);
+
+    // Import submenu
+    m_fileMenu->addSeparator();
+    m_importMenu = m_fileMenu->addMenu("Import");
+    m_importMenu->setToolTipsVisible(true);
+    QAction* action = m_importMenu->addAction("Import from Python script");
+    action->setToolTip("Import sample from Python script");
+    connect(action, &QAction::triggered, this, &ActionManager::onImportFromPythonScript);
 
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);
@@ -128,7 +142,7 @@ void ActionManager::createGlobalShortcuts()
             SLOT(onRunSimulationShortcut()));
 }
 
-void ActionManager::aboutToShowRecentProjects()
+void ActionManager::aboutToShowFileMenu()
 {
     m_recentProjectsMenu->clear();
 
@@ -199,4 +213,9 @@ void ActionManager::setSessionModelViewActive(bool status)
     settings.setValue(Constants::S_VIEWISACTIVE, status);
     settings.endGroup();
     m_mainWindow->onSessionModelViewActive(status);
+}
+
+void ActionManager::onImportFromPythonScript()
+{
+
 }

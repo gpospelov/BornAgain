@@ -72,4 +72,22 @@ protected:
     bool eventFilter(QObject* obj, QEvent* event);
 };
 
+//! Event filter for global tracking of shortcodes.
+
+class BA_CORE_API_ ShortcodeFilter : public QObject
+{
+    Q_OBJECT
+public:
+
+    ShortcodeFilter(const char* m, QObject *parent = 0);
+
+signals:
+   void found();
+
+protected:
+    bool eventFilter(QObject* obj, QEvent* event);
+    QByteArray m_shortcode;
+    int m_index;
+};
+
 #endif // CUSTOMEVENTFILTERS_H

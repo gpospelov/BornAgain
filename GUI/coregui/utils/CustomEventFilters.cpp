@@ -94,3 +94,31 @@ bool LostFocusFilter::eventFilter(QObject* obj, QEvent* event)
 
     return QObject::eventFilter(obj, event);
 }
+
+// ----------------------------------------------------------------------------
+
+bool ShortcodeFilter::eventFilter(QObject* obj, QEvent* event)
+{
+    Q_UNUSED(obj);
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        int key = keyEvent->key();
+        if (m_shortcode.data()[m_index] == keyEvent->text()) {
+            m_index++;
+            if (m_index == m_shortcode.length()) {
+                emit found();
+                m_index = 0;
+            }
+        } else {
+            int right = m_index;
+            while (m_index > 0) {
+                if (m_shortcode.data()[m_index - 1] == key
+                    && m_shortcode.left(m_index - 1)
+                           == m_shortcode.mid(right - m_index + 1, m_index - 1))
+                    break;
+                m_index--;
+            }
+        }
+    }
+    return false;
+}

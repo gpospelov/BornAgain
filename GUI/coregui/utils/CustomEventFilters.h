@@ -26,13 +26,11 @@ class BA_CORE_API_ SpaceKeyEater : public QObject
 {
     Q_OBJECT
 public:
-
-    SpaceKeyEater(QObject *parent = 0);
+    SpaceKeyEater(QObject* parent = 0);
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject* obj, QEvent* event);
 };
-
 
 //! Event filter to install on combo boxes and spin boxes to not
 //! to react on wheel events during scrolling of InstrumentComponentWidget.
@@ -41,11 +39,10 @@ class BA_CORE_API_ WheelEventEater : public QObject
 {
     Q_OBJECT
 public:
-
-    WheelEventEater(QObject *parent = 0);
+    WheelEventEater(QObject* parent = 0);
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject* obj, QEvent* event);
 };
 
 //! Lisens for press-del-key events
@@ -54,13 +51,13 @@ class DeleteEventFilter : public QObject
 {
     Q_OBJECT
 public:
-  DeleteEventFilter( QObject *parent = 0 ) : QObject( parent ) {}
+    DeleteEventFilter(QObject* parent = 0) : QObject(parent) {}
 
 protected:
-  bool eventFilter( QObject *dist, QEvent *event );
+    bool eventFilter(QObject* dist, QEvent* event);
 
 signals:
-  void removeItem();
+    void removeItem();
 };
 
 //! Event filter to prevent lost of focus by custom material editor.
@@ -69,13 +66,10 @@ class BA_CORE_API_ LostFocusFilter : public QObject
 {
     Q_OBJECT
 public:
-
-    LostFocusFilter(QObject *parent = 0);
+    LostFocusFilter(QObject* parent = 0);
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject* obj, QEvent* event);
 };
-
-
 
 #endif // CUSTOMEVENTFILTERS_H

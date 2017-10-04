@@ -26,28 +26,7 @@
 #include "Units.h"
 
 CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
-    : m_cylinder_height(5*Units::nanometer)
-    , m_cylinder_radius(5*Units::nanometer)
-    , m_prism_height(5*Units::nanometer)
-    , m_prism_length(10*Units::nanometer)
-    , m_cylinder_weight(0.5)
-{
-    init_parameters();
-}
-
-void CylindersAndPrismsBuilder::init_parameters()
-{
-
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("prism_height", &m_prism_height).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("prism_length", &m_prism_length).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("cylinder_weight", &m_cylinder_weight).setNonnegative();
-}
+{}
 
 MultiLayer* CylindersAndPrismsBuilder::buildSample() const
 {
@@ -62,14 +41,14 @@ MultiLayer* CylindersAndPrismsBuilder::buildSample() const
 
     ParticleLayout particle_layout;
 
-    FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
+    FormFactorCylinder ff_cylinder(5.0, 5.0);
     Particle cylinder(particle_material, ff_cylinder);
 
-    FormFactorPrism3 ff_prism3(m_prism_length, m_prism_height);
+    FormFactorPrism3 ff_prism3(10.0, 5.0);
     Particle prism3(particle_material, ff_prism3);
 
-    particle_layout.addParticle(cylinder, m_cylinder_weight);
-    particle_layout.addParticle(prism3, 1.0-m_cylinder_weight);
+    particle_layout.addParticle(cylinder, 0.5);
+    particle_layout.addParticle(prism3, 0.5);
 
     air_layer.addLayout(particle_layout);
 

@@ -33,6 +33,7 @@ QMap<QString, QString > init_NameToRegistry()
     result["example07"] = "RotatedPyramidsBuilder";
     result["example08"] = "CylindersWithSizeDistributionBuilder";
     result["example09"] = "ParticleCompositionBuilder";
+    result["example10"] = "MesoCrystalBuilder";
 
     // temporary for testing
     //result["example09"] = "MultipleLayoutBuilder";

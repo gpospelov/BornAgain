@@ -34,19 +34,19 @@ public:
     GUIObjectBuilder();
     virtual ~GUIObjectBuilder(){}
 
-    SessionItem* populateSampleModel(SampleModel* sampleModel,
+    SessionItem* populateSampleModel(SampleModel* sample_model,
                                      const GISASSimulation &simulation,
-                                     const QString &sampleName=QString());
+                                     const QString &sample_name=QString());
 
-    SessionItem* populateSampleModel(SampleModel* sampleModel,
+    SessionItem* populateSampleModel(SampleModel* sample_model,
                                      const ISample &sample,
-                                     const QString &sampleName=QString());
+                                     const QString &sample_name=QString());
 
-    SessionItem* populateInstrumentModel(InstrumentModel* instrumentModel,
+    SessionItem* populateInstrumentModel(InstrumentModel* p_instrument_model,
                                          const GISASSimulation &simulation,
-                                               const QString &instrumentName=QString());
+                                               const QString &instrument_name=QString());
 
-    SessionItem* populateDocumentModel(DocumentModel* documentModel,
+    SessionItem* populateDocumentModel(DocumentModel* p_documentModel,
                                        const GISASSimulation &simulation);
 
 

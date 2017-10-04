@@ -7698,9 +7698,10 @@ class Crystal(IClusteredParticles):
         return _libBornAgainCore.Crystal_homogeneousRegions(self)
 
 
-    def transformedLattice(self, p_rotation):
+    def transformedLattice(self, p_rotation=None):
         """
-        transformedLattice(Crystal self, IRotation p_rotation) -> Lattice
+        transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice
+        transformedLattice(Crystal self) -> Lattice
 
         Lattice Crystal::transformedLattice(const IRotation *p_rotation) const 
 

@@ -79,7 +79,7 @@ class BA_CORE_API_ ShortcodeFilter : public QObject
     Q_OBJECT
 public:
 
-    ShortcodeFilter(const char* m, QObject *parent = 0);
+    ShortcodeFilter(QByteArray shortcode, QObject *parent = 0);
 
 signals:
    void found();

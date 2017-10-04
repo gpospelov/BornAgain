@@ -42,5 +42,8 @@ PyEmbeddedTestFactory::PyEmbeddedTestFactory()
     registerItem("ExportToPythonAndBack",
                   create_new<ExportToPythonAndBack>,
                   "Export of standard multilayer to Python code and casting back.");
+    registerItem("ModuleFunctionsList",
+                  create_new<ModuleFunctionsList>,
+                  "Explores the content of imported module for the list of defined functions.");
 
 }

@@ -58,3 +58,39 @@ std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script
 
     return result;
 }
+
+std::vector<std::string> PyImport::listOfFunctions(const std::string& script,
+                                                   const std::string& path)
+{
+    PyEmbeddedUtils::import_bornagain(path);
+
+    PyObject* pCompiledFn = Py_CompileString( script.c_str() , "" , Py_file_input ) ;
+    if (!pCompiledFn)
+        throw std::runtime_error("Can't compile a function");
+
+    // create a module
+    PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
+    if (!pModule)
+        throw std::runtime_error("Can't exec module");
+
+     PyObject *dict = PyModule_GetDict(pModule);
+     if (!dict)
+         throw std::runtime_error("Can't get dictionary from module");
+
+     std::vector<std::string> result;
+     PyObject *key, *value;
+     Py_ssize_t pos = 0;
+     while (PyDict_Next(dict, &pos, &key, &value)) {
+         if(PyCallable_Check(value)) {
+            std::string func_name = PyEmbeddedUtils::toString(key);
+            if (func_name.find("__") == std::string::npos)
+                 result.push_back(func_name);
+         }
+     }
+
+     Py_DecRef( dict ) ;
+     Py_DecRef( pModule ) ;
+     Py_DecRef( pCompiledFn ) ;
+
+     return result;
+}

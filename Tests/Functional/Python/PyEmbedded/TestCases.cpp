@@ -395,3 +395,25 @@ bool ExportToPythonAndBack::runTest()
 
     return code == new_code;
 }
+
+//! Retrieves list of functions from the imported script and checks, that there is
+//! one function in a dictioonary with name "get_simulation".
+
+bool ModuleFunctionsList::runTest()
+{
+    // compile our function
+    std::stringstream buf ;
+    buf << "import bornagain as ba                                        \n";
+    buf << "                                                              \n";
+    buf << "def get_simulation():                                         \n";
+    buf << "    m_ambience = ba.HomogeneousMaterial(\"Air\", 0.0, 0.0)    \n";
+    buf << "    air_layer = ba.Layer(m_ambience)                          \n";
+    buf << "    multilayer = ba.MultiLayer()                              \n";
+    buf << "    multilayer.addLayer(air_layer)                            \n";
+    buf << "    return multilayer                                         \n";
+
+    auto listOfFunc = PyImport::listOfFunctions(buf.str(), BABuild::buildLibDir());
+    for(auto s: listOfFunc)
+        std::cout << "AAA" << s << std::endl;
+    return listOfFunc.size() == 1 && listOfFunc.at(0) == "get_simulation";
+}

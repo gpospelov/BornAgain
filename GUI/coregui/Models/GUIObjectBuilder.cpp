@@ -204,45 +204,9 @@ void GUIObjectBuilder::visit(const MultiLayer* p_sample)
 
 void GUIObjectBuilder::visit(const Particle* p_sample)
 {
-    SessionItem* p_parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(p_parent);
-
-    SessionItem* p_particle_item(0);
-    if (p_parent->modelType() == Constants::ParticleCoreShellType) {
-        const ParticleCoreShell* p_coreshell
-            = dynamic_cast<const ParticleCoreShell*>(m_itemToSample[p_parent]);
-        Q_ASSERT(p_coreshell);
-        if (p_sample == p_coreshell->coreParticle()) {
-            p_particle_item = m_sampleModel->insertNewItem(Constants::ParticleType,
-                                                        m_sampleModel->indexOfItem(p_parent), -1,
-                                                        ParticleCoreShellItem::T_CORE);
-            Q_ASSERT(p_particle_item);
-        } else if (p_sample == p_coreshell->shellParticle()) {
-            p_particle_item = m_sampleModel->insertNewItem(Constants::ParticleType,
-                                                        m_sampleModel->indexOfItem(p_parent), -1,
-                                                        ParticleCoreShellItem::T_SHELL);
-            Q_ASSERT(p_particle_item);
-        } else {
-            throw GUIHelpers::Error(
-                "GUIObjectBuilder::visit"
-                "(const Particle* p_sample) -> Error. Logically should not be here");
-        }
-    } else if (p_parent->modelType() == Constants::ParticleCompositionType
-               || p_parent->modelType() == Constants::ParticleLayoutType
-               || p_parent->modelType() == Constants::ParticleDistributionType) {
-        p_particle_item = m_sampleModel->insertNewItem(Constants::ParticleType,
-                                                    m_sampleModel->indexOfItem(p_parent));
-    } else {
-        throw GUIHelpers::Error("GUIObjectBuilder::visit"
-                                "(const Particle* p_sample) -> Logic error.");
-    }
-
-    buildPositionInfo(p_particle_item, p_sample);
-
-    p_particle_item->setItemValue(ParticleItem::P_ABUNDANCE, p_sample->abundance());
+    auto p_particle_item = InsertIParticle(p_sample, Constants::ParticleType);
     p_particle_item->setItemValue(ParticleItem::P_MATERIAL,
         createMaterialFromDomain(p_sample->material()).getVariant());
-    m_levelToParentItem[depth()] = p_particle_item;
 }
 
 void GUIObjectBuilder::visit(const ParticleDistribution* p_sample)
@@ -261,45 +225,17 @@ void GUIObjectBuilder::visit(const ParticleDistribution* p_sample)
 
 void GUIObjectBuilder::visit(const ParticleCoreShell* p_sample)
 {
-    SessionItem* p_parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(p_parent);
-
-    SessionItem* p_coreshell_item = m_sampleModel->insertNewItem(
-        Constants::ParticleCoreShellType, m_sampleModel->indexOfItem(p_parent));
-    p_coreshell_item->setItemValue(ParticleItem::P_ABUNDANCE, p_sample->abundance());
-
-    buildPositionInfo(p_coreshell_item, p_sample);
-
-    m_levelToParentItem[depth()] = p_coreshell_item;
-    m_itemToSample[p_coreshell_item] = p_sample;
+    InsertIParticle(p_sample, Constants::ParticleCoreShellType);
 }
 
 void GUIObjectBuilder::visit(const ParticleComposition* p_sample)
 {
-    SessionItem* p_parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(p_parent);
-    SessionItem* p_particle_composition_item = m_sampleModel->insertNewItem(
-        Constants::ParticleCompositionType, m_sampleModel->indexOfItem(p_parent));
-    p_particle_composition_item->setItemValue(ParticleItem::P_ABUNDANCE, p_sample->abundance());
-
-    buildPositionInfo(p_particle_composition_item, p_sample);
-
-    m_levelToParentItem[depth()] = p_particle_composition_item;
-    m_itemToSample[p_particle_composition_item] = p_sample;
+    InsertIParticle(p_sample, Constants::ParticleCompositionType);
 }
 
 void GUIObjectBuilder::visit(const MesoCrystal* p_sample)
 {
-    SessionItem* p_parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(p_parent);
-    SessionItem* p_mesocrystal_item = m_sampleModel->insertNewItem(
-        Constants::MesoCrystalType, m_sampleModel->indexOfItem(p_parent));
-    p_mesocrystal_item->setItemValue(MesoCrystalItem::P_ABUNDANCE, p_sample->abundance());
-
-    buildPositionInfo(p_mesocrystal_item, p_sample);
-
-    m_levelToParentItem[depth()] = p_mesocrystal_item;
-    m_itemToSample[p_mesocrystal_item] = p_sample;
+    InsertIParticle(p_sample, Constants::MesoCrystalType);
 }
 
 void GUIObjectBuilder::visit(const Crystal* p_sample)
@@ -331,6 +267,9 @@ void GUIObjectBuilder::visit(const Crystal* p_sample)
     p_vector_c_item->setItemValue(VectorItem::P_X, vector_c.x());
     p_vector_c_item->setItemValue(VectorItem::P_Y, vector_c.y());
     p_vector_c_item->setItemValue(VectorItem::P_Z, vector_c.z());
+
+    // Since there is no CrystalItem, set the parent map to the MesoCrystalItem
+    m_levelToParentItem[depth()] = p_mesocrystal_item;
 }
 
 void GUIObjectBuilder::visit(const FormFactorAnisoPyramid* p_sample)
@@ -680,6 +619,42 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
         throw GUIHelpers::Error("GUIObjectBuilder::createMaterialFromDomain()"
                                 " -> Not implemented.");
     }
+}
+
+SessionItem* GUIObjectBuilder::InsertIParticle(const IParticle* p_particle, QString model_type)
+{
+    auto p_parent = m_levelToParentItem[depth() - 1];
+    Q_ASSERT(p_parent);
+
+    QString tag;
+    auto parent_type = p_parent->modelType();
+    if (model_type==Constants::ParticleType) {
+        if (parent_type==Constants::ParticleCoreShellType) {
+            const ParticleCoreShell* p_coreshell
+                = dynamic_cast<const ParticleCoreShell*>(m_itemToSample[p_parent]);
+            Q_ASSERT(p_coreshell);
+            if (p_particle == p_coreshell->coreParticle()) {
+                tag = ParticleCoreShellItem::T_CORE;
+            } else if (p_particle == p_coreshell->shellParticle()) {
+                tag = ParticleCoreShellItem::T_SHELL;
+            } else {
+                throw GUIHelpers::Error(
+                    "GUIObjectBuilder::InsertIParticle:"
+                    "Particle not found in parent ParticleCoreShell");
+            }
+        }
+    }
+    SessionItem* p_particle_item = m_sampleModel->insertNewItem(model_type,
+                                       m_sampleModel->indexOfItem(p_parent), -1, tag);
+
+    Q_ASSERT(p_particle_item);
+    p_particle_item->setItemValue(ParticleItem::P_ABUNDANCE, p_particle->abundance());
+    buildPositionInfo(p_particle_item, p_particle);
+
+    m_levelToParentItem[depth()] = p_particle_item;
+    m_itemToSample[p_particle_item] = p_particle;
+
+    return p_particle_item;
 }
 
 namespace {

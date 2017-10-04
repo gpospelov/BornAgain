@@ -102,6 +102,7 @@ private:
     void buildAbundanceInfo(SessionItem* particleItem);
     void buildPositionInfo(SessionItem* particleItem, const IParticle* sample);
     MaterialProperty createMaterialFromDomain(const HomogeneousMaterial*);
+    SessionItem* InsertIParticle(const IParticle* p_particle, QString model_type);
 
     SampleModel* m_sampleModel;
 

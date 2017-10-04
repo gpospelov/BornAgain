@@ -28,7 +28,6 @@ class BA_CORE_API_ MesoCrystalItem : public SessionGraphicsItem
 {
 public:
     static const QString P_FORM_FACTOR;
-    static const QString P_ABUNDANCE;
     static const QString T_BASIS_PARTICLE;
     static const QString P_VECTOR_A;
     static const QString P_VECTOR_B;

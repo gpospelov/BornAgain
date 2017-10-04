@@ -54,7 +54,6 @@ const QString density_tooltip =
 }
 
 const QString MesoCrystalItem::P_FORM_FACTOR = "Outer Shape";
-const QString MesoCrystalItem::P_ABUNDANCE = QString::fromStdString(BornAgain::Abundance);
 const QString MesoCrystalItem::T_BASIS_PARTICLE = "Basis Particle";
 const QString MesoCrystalItem::P_VECTOR_A = "First lattice vector";
 const QString MesoCrystalItem::P_VECTOR_B = "Second lattice vector";
@@ -67,7 +66,7 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
 
-    addProperty(P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0)).setDecimals(3)
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0)).setDecimals(3)
         .setToolTip(abundance_tooltip);
 
     addGroupProperty(P_VECTOR_A, Constants::VectorType)->setToolTip(lattice_vector1_tooltip);

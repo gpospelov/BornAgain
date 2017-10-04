@@ -56,7 +56,6 @@ const QString density_tooltip =
 const QString MesoCrystalItem::P_FORM_FACTOR = "Outer Shape";
 const QString MesoCrystalItem::P_ABUNDANCE = QString::fromStdString(BornAgain::Abundance);
 const QString MesoCrystalItem::T_BASIS_PARTICLE = "Basis Particle";
-const QString MesoCrystalItem::P_LATTICE = "Lattice";
 const QString MesoCrystalItem::P_VECTOR_1 = "First lattice vector";
 const QString MesoCrystalItem::P_VECTOR_2 = "Second lattice vector";
 const QString MesoCrystalItem::P_VECTOR_3 = "Third lattice vector";

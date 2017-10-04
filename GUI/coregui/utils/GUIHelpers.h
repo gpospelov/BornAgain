@@ -39,7 +39,7 @@ public:
     Error(Error&&) =default;
     Error& operator=(Error&&) =default;
 
-    virtual const char* what() const noexcept;
+    const char* what() const noexcept override;
 
 private:
     QString message;

@@ -62,6 +62,7 @@ public:
     void visit(const ParticleDistribution*);
     void visit(const ParticleCoreShell*);
     void visit(const ParticleComposition*);
+    void visit(const MesoCrystal*);
 
     void visit(const FormFactorAnisoPyramid*);
     void visit(const FormFactorBox*);

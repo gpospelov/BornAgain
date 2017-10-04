@@ -34,6 +34,7 @@
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
 #include "MaterialUtils.h"
+#include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "MultiLayerItem.h"
 #include "ParticleComposition.h"
@@ -283,6 +284,20 @@ void GUIObjectBuilder::visit(const ParticleComposition* sample)
 
     m_levelToParentItem[depth()] = particle_composition_item;
     m_itemToSample[particle_composition_item] = sample;
+}
+
+void GUIObjectBuilder::visit(const MesoCrystal* sample)
+{
+    SessionItem* parent = m_levelToParentItem[depth() - 1];
+    Q_ASSERT(parent);
+    SessionItem* mesocrystal_item = m_sampleModel->insertNewItem(
+        Constants::MesoCrystalType, m_sampleModel->indexOfItem(parent));
+    mesocrystal_item->setItemValue(ParticleItem::P_ABUNDANCE, sample->abundance());
+
+    buildPositionInfo(mesocrystal_item, sample);
+
+    m_levelToParentItem[depth()] = mesocrystal_item;
+    m_itemToSample[mesocrystal_item] = sample;
 }
 
 void GUIObjectBuilder::visit(const FormFactorAnisoPyramid* sample)

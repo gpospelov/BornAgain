@@ -30,7 +30,6 @@ public:
     static const QString P_FORM_FACTOR;
     static const QString P_ABUNDANCE;
     static const QString T_BASIS_PARTICLE;
-    static const QString P_LATTICE;
     static const QString P_VECTOR_1;
     static const QString P_VECTOR_2;
     static const QString P_VECTOR_3;

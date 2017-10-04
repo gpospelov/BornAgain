@@ -44,6 +44,10 @@ const QMap<QString, QString> invalidCharacterMap = initializeCharacterMap();
 
 namespace GUIHelpers {
 
+Error::~Error() noexcept =default;
+
+const char* Error::what() const noexcept { return message.toLatin1().data(); }
+
 void information(QWidget *parent, const QString &title, const QString &text, const QString &detailedText)
 {
     QScopedPointer<QMessageBox> messageBox(new QMessageBox(parent));

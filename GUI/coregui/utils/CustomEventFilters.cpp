@@ -101,6 +101,7 @@ bool LostFocusFilter::eventFilter(QObject* obj, QEvent* event)
 ShortcodeFilter::ShortcodeFilter(const QString& shortcode, QObject* parent)
     : QObject(parent)
     , m_shortcode(shortcode)
+    , m_index(0)
 {
 
 }

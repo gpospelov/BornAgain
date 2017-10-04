@@ -105,7 +105,7 @@ void ActionManager::createMenus()
     m_fileMenu = m_menuBar->addMenu("&File");
     m_fileMenu->addAction(m_newAction);
     m_fileMenu->addAction(m_openAction);
-    connect(m_fileMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowFileMenu()));
+    connect(m_fileMenu, &QMenu::aboutToShow, this, &ActionManager::aboutToShowFileMenu);
 
     m_recentProjectsMenu = m_fileMenu->addMenu("Recent Projects");
 
@@ -128,7 +128,7 @@ void ActionManager::createMenus()
     m_settingsMenu = new QMenu("Settings", m_mainWindow);
     aboutToShowSettings(); // MacOS feature: action should exist already, otherwise menuBar will not
                            // add menu
-    connect(m_settingsMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowSettings()));
+    connect(m_settingsMenu, &QMenu::aboutToShow, this, &ActionManager::aboutToShowSettings);
     m_menuBar->addMenu(m_settingsMenu);
 
     // Help Menu
@@ -140,8 +140,8 @@ void ActionManager::createGlobalShortcuts()
 {
     m_runSimulationShortcut = new QShortcut(QKeySequence("Ctrl+r"), m_mainWindow);
     m_runSimulationShortcut->setContext((Qt::ApplicationShortcut));
-    connect(m_runSimulationShortcut, SIGNAL(activated()), m_mainWindow,
-            SLOT(onRunSimulationShortcut()));
+    connect(m_runSimulationShortcut, &QShortcut::activated, m_mainWindow,
+            &MainWindow::onRunSimulationShortcut);
 }
 
 void ActionManager::aboutToShowFileMenu()
@@ -154,7 +154,7 @@ void ActionManager::aboutToShowFileMenu()
         QAction* action = m_recentProjectsMenu->addAction(
             QDir::toNativeSeparators(GUI_StringUtils::withTildeHomePath(file)));
         action->setData(qVariantFromValue(file));
-        connect(action, SIGNAL(triggered()), m_mainWindow, SLOT(openRecentProject()));
+        connect(action, &QAction::triggered, m_mainWindow, &MainWindow::openRecentProject);
     }
 
     m_recentProjectsMenu->setEnabled(hasRecentProjects);
@@ -162,8 +162,8 @@ void ActionManager::aboutToShowFileMenu()
     if (hasRecentProjects) {
         m_recentProjectsMenu->addSeparator();
         QAction* action = m_recentProjectsMenu->addAction("Clear Menu");
-        connect(action, SIGNAL(triggered()), m_mainWindow->projectManager(),
-                SLOT(clearRecentProjects()));
+        connect(action, &QAction::triggered, m_mainWindow->projectManager(),
+                &ProjectManager::clearRecentProjects);
     }
 }
 
@@ -177,7 +177,7 @@ void ActionManager::aboutToShowSettings()
     action->setToolTip("Checks for updates available on GUI startup.");
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
-    connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleCheckForUpdates(bool)));
+    connect(action, &QAction::toggled, this, &ActionManager::toggleCheckForUpdates);
     settings.endGroup();
 
     settings.beginGroup(Constants::S_SESSIONMODELVIEW);
@@ -185,7 +185,7 @@ void ActionManager::aboutToShowSettings()
     action->setToolTip("Additional developer's view will appear in left control tab bar");
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_VIEWISACTIVE, false).toBool());
-    connect(action, SIGNAL(toggled(bool)), this, SLOT(setSessionModelViewActive(bool)));
+    connect(action, &QAction::toggled, this, &ActionManager::setSessionModelViewActive);
     settings.endGroup();
 
     action = m_settingsMenu->addAction("Enable autosave");
@@ -193,8 +193,8 @@ void ActionManager::aboutToShowSettings()
                        "When opening project, recover option will be suggested, if possible.");
     action->setCheckable(true);
     action->setChecked(m_mainWindow->projectManager()->isAutosaveEnabled());
-    connect(action, SIGNAL(toggled(bool)), m_mainWindow->projectManager(),
-            SLOT(setAutosaveEnabled(bool)));
+    connect(action, &QAction::toggled, m_mainWindow->projectManager(),
+            &ProjectManager::setAutosaveEnabled);
 
     m_settingsMenu->setToolTipsVisible(true);
 }

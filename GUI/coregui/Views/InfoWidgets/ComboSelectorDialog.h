@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/mainwindow/aboutapplicationdialog.h
-//! @brief     Defines class AboutApplicationDialog
+//! @file      GUI/coregui/Views/InfoWidgets/ComboSelectorDialog.h
+//! @brief     Defines class ComboSelectorDialog
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,26 +14,39 @@
 //
 // ************************************************************************** //
 
-#ifndef ABOUTAPPLICATIONDIALOG_H
-#define ABOUTAPPLICATIONDIALOG_H
+#ifndef COMBOSELECTORDIALOG_H
+#define COMBOSELECTORDIALOG_H
 
 #include "WinDllMacros.h"
 #include <QDialog>
+#include <QString>
 
+class QLabel;
+class QComboBox;
 class QBoxLayout;
 
-//! About BornAgain dialog.
+//! A dialog similar to standard QMessageBox with combo box selector.
 
-class BA_CORE_API_ AboutApplicationDialog : public QDialog
+class BA_CORE_API_ ComboSelectorDialog : public QDialog
 {
     Q_OBJECT
 public:
-    AboutApplicationDialog(QWidget *parent = 0);
+    ComboSelectorDialog(QWidget *parent = 0);
+
+    void addItems(const QStringList& selection, const QString& currentItem = QString());
+    void setTextTop(const QString& text);
+    void setTextBottom(const QString& text);
+
+    QString currentText() const;
 
 private:
     QBoxLayout* createLogoLayout();
-    QBoxLayout* createTextLayout();
+    QBoxLayout* createInfoLayout();
     QBoxLayout* createButtonLayout();
+
+    QLabel* m_topLabel;
+    QComboBox* m_comboSelector;
+    QLabel* m_bottomLabel;
 };
 
-#endif // ABOUTAPPLICATIONDIALOG_H
+#endif

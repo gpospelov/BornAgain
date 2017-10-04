@@ -26,18 +26,36 @@
 #include "ProjectUtils.h"
 #include "SysUtils.h"
 #include "BornAgainNamespace.h"
+#include "ComboSelectorDialog.h"
 #include <QFileDialog>
 #include <QTextStream>
+#include <QApplication>
 #include <QDebug>
 
 namespace {
 
+//! Returns directory with BornAgain library. If PYTHONPATH is not empty,
+//! returns an empty string.
+
 std::string bornagainDir() {
-
     std::string pythonPath = SysUtils::getenv("PYTHONPATH");
-    std::cout << "XXX pythonPath" << pythonPath << std::endl;
-
     return pythonPath.empty() ? BABuild::buildLibDir() : std::string();
+}
+
+//! Returns a name from the list which looks like a function name intended for sample
+//! creation.
+
+QString getCandidate(const QStringList& funcNames) {
+    if (funcNames.isEmpty())
+        return QString();
+
+    for(auto str : funcNames) {
+        QString name = str.toLower();
+        if (name.contains(QStringLiteral("sample")) || name.contains(QStringLiteral("multilayer")))
+            return str;
+    }
+
+    return funcNames.front();
 }
 
 }
@@ -104,6 +122,7 @@ QString PyImportAssistant::readFile(const QString& fileName)
 
     try {
         result = ProjectUtils::readTextFile(fileName);
+
     } catch (const std::exception& ex) {
         QString message("Can't read the file. \n\n");
         message += QString::fromStdString(std::string(ex.what()));
@@ -118,27 +137,45 @@ QString PyImportAssistant::readFile(const QString& fileName)
 
 QString PyImportAssistant::getPySampleFunctionName(const QString& snippet)
 {
-    QString result;
+    QStringList funcList;
 
-    std::vector<std::string> funcList;
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     try {
-        funcList = PyImport::listOfFunctions(snippet.toStdString(), bornagainDir());
-        for (auto s: funcList)
-            qDebug() << "funcList:" << QString::fromStdString(s);
+        auto funcs = PyImport::listOfFunctions(snippet.toStdString(), bornagainDir());
+        funcList = GUIHelpers::fromStdStrings(funcs);
 
     } catch (const std::exception& ex) {
         QString message("Exception thrown while executing a Python code.\n\n");
         message += QString::fromStdString(std::string(ex.what()));
         GUIHelpers::warning(m_mainWindow, "Python failure",  message);
     }
+    QApplication::restoreOverrideCursor();
 
-    if (funcList.empty()) {
+    return selectPySampleFunction(funcList);
+}
+
+//! Lets user select a function name which generates a MultiLayer.
+
+QString PyImportAssistant::selectPySampleFunction(const QStringList& funcNames)
+{
+    QString result;
+
+    if(funcNames.empty()) {
         QString message("Python code doesn't contain any functions.\n\n");
         GUIHelpers::warning(m_mainWindow, "Python failure", message);
-    }
 
-    if (!funcList.empty())
-        result = QString::fromStdString(funcList.front());
+    } else if(funcNames.size() == 1) {
+        return funcNames.front();
+
+    } else {
+        ComboSelectorDialog dialog;
+        dialog.addItems(funcNames, getCandidate(funcNames));
+        dialog.setTextTop("Python code contains a few functions. Do you know by chance, "
+                          "which one is intended to produce a valid MultiLayer?");
+        dialog.setTextBottom("Please select a valid function in combo box and press OK to continue.");
+        if(dialog.exec() == QDialog::Accepted)
+            result = dialog.currentText();
+    }
 
     return result;
 }
@@ -151,6 +188,7 @@ std::unique_ptr<MultiLayer> PyImportAssistant::createMultiLayer(const QString& s
 {
     std::unique_ptr<MultiLayer> result;
 
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     try {
         result = PyImport::createFromPython(snippet.toStdString(),
                                             funcName.toStdString(), bornagainDir());
@@ -160,6 +198,7 @@ std::unique_ptr<MultiLayer> PyImportAssistant::createMultiLayer(const QString& s
         message += QString::fromStdString(std::string(ex.what()));
         GUIHelpers::warning(m_mainWindow, "Python failure",  message);
     }
+    QApplication::restoreOverrideCursor();
 
     return result;
 }
@@ -171,10 +210,11 @@ void PyImportAssistant::populateModels(const MultiLayer& multilayer, const QStri
     try {
         QString name = sampleName;
         if (multilayer.getName() != BornAgain::MultiLayerType)
-            name = sampleName;
+            name = QString::fromStdString(multilayer.getName());
 
         GUIObjectBuilder guiBuilder;
         guiBuilder.populateSampleModel(m_mainWindow->sampleModel(), multilayer, name);
+
     } catch(const std::exception& ex) {
         QString message("Exception thrown while trying to build GUI models.\n\n");
         message += QString::fromStdString(std::string(ex.what()));

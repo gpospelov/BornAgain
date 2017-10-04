@@ -87,18 +87,25 @@ std::string PyEmbeddedUtils::toString(wchar_t* c)
 void PyEmbeddedUtils::import_bornagain(const std::string& path)
 {
     if (!Py_IsInitialized()) {
-        Py_Initialize();
+        Py_InitializeEx(0);
 
         if (!path.empty()) {
             PyObject *sysPath = PySys_GetObject((char*)"path");
             PyList_Append(sysPath, PyString_FromString(path.c_str()));
         }
 
+        // Stores signal handler before numpy's mess it up.
+        // This is to make ctrl-c working from terminal.
+        PyOS_sighandler_t sighandler = PyOS_getsig(SIGINT);
+
         PyObject* pmod = PyImport_ImportModule("bornagain");
         if (!pmod) {
             PyErr_Print();
             throw std::runtime_error("Can't load bornagain");
         }
+
+        // restores single handler to make ctr-c alive.
+        PyOS_setsig(SIGINT,sighandler);
     }
 
 }

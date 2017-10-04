@@ -59,6 +59,7 @@ BA_CORE_API_ QString getBornAgainVersionString();
 BA_CORE_API_ QString getValidFileName(const QString& proposed_name);
 
 BA_CORE_API_ QString fileDir(const QString& fileName);
+BA_CORE_API_ QString baseName(const QString& fileName);
 
 BA_CORE_API_ void createSubdir(const QString& parentName, const QString& subdirName);
 
@@ -79,6 +80,8 @@ template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)
 }
 
 BA_CORE_API_ QString createUuid();
+
+BA_CORE_API_ QString readTextFile(const QString& fileName);
 
 } // namespace GUIHelpers
 

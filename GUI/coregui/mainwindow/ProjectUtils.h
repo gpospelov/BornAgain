@@ -62,6 +62,9 @@ BA_CORE_API_ bool removeFiles(const QString& dirname, const QStringList& filenam
 //! Returns list of string from lhs, which are not in rhs.
 BA_CORE_API_ QStringList substract(const QStringList& lhs, const QStringList& rhs);
 
+//! Returns multi-lione string representing content of text file.
+QString readTextFile(const QString& fileName);
+
 }
 
 #endif // PROJECTUTILS_H

@@ -122,3 +122,14 @@ QStringList ProjectUtils::substract(const QStringList &lhs, const QStringList &r
     QSet<QString> diff = lhs.toSet().subtract(rhs.toSet());
     return diff.toList();
 }
+
+QString ProjectUtils::readTextFile(const QString& fileName)
+{
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        throw GUIHelpers::Error("ProjectUtils::readTextFile -> Error. Can't open the file '"+
+                                fileName+"' for reading.");
+    QTextStream in(&file);
+    return in.readAll();
+}
+

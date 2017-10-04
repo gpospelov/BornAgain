@@ -25,6 +25,9 @@ class MultiLayer;
 
 namespace PyImport {
 
+////! Returns directory name
+//std::string bornagainPythonDir();
+
 //! Creates a multi layer by running python code in embedded interpreter.
 //! @param script: Python script
 //! @param functionName: A function name in this script which produces a MultiLayer

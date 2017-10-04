@@ -19,8 +19,10 @@
 
 #include "WinDllMacros.h"
 #include <QObject>
+#include <memory>
 
 class MainWindow;
+class MultiLayer;
 
 //! Assists in importing Python object to GUI models.
 
@@ -36,6 +38,9 @@ private:
     QString fileNameToOpen();
     void saveImportDir(const QString& fileName);
     QString readFile(const QString& fileName);
+    QString getPySampleFunctionName(const QString& snippet);
+    std::unique_ptr<MultiLayer> createMultiLayer(const QString& snippet, const QString& funcName);
+    void populateModels(const MultiLayer& multilayer, const QString& sampleName);
 
     MainWindow* m_mainWindow;
 };

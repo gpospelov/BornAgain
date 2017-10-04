@@ -79,14 +79,14 @@ class BA_CORE_API_ ShortcodeFilter : public QObject
     Q_OBJECT
 public:
 
-    ShortcodeFilter(QByteArray shortcode, QObject *parent = 0);
+    ShortcodeFilter(const QString& shortcode, QObject *parent = 0);
 
 signals:
    void found();
 
 protected:
     bool eventFilter(QObject* obj, QEvent* event);
-    QByteArray m_shortcode;
+    QString m_shortcode;
     int m_index;
 };
 

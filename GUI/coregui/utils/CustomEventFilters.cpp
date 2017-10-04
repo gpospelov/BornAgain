@@ -17,6 +17,7 @@
 #include "CustomEventFilters.h"
 #include <QComboBox>
 #include <QKeyEvent>
+#include <QString>
 
 SpaceKeyEater::SpaceKeyEater(QObject* parent) : QObject(parent) {}
 
@@ -97,7 +98,7 @@ bool LostFocusFilter::eventFilter(QObject* obj, QEvent* event)
 
 // ----------------------------------------------------------------------------
 
-ShortcodeFilter::ShortcodeFilter(QByteArray shortcode, QObject* parent)
+ShortcodeFilter::ShortcodeFilter(const QString& shortcode, QObject* parent)
     : QObject(parent)
     , m_shortcode(shortcode)
 {
@@ -109,7 +110,6 @@ bool ShortcodeFilter::eventFilter(QObject* obj, QEvent* event)
     Q_UNUSED(obj);
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
-        int key = keyEvent->key();
         if (m_shortcode.at(m_index) == keyEvent->text()) {
             m_index++;
             if (m_index == m_shortcode.length()) {
@@ -119,7 +119,7 @@ bool ShortcodeFilter::eventFilter(QObject* obj, QEvent* event)
         } else {
             int right = m_index;
             while (m_index > 0) {
-                if (m_shortcode.at(m_index - 1) == key
+                if (m_shortcode.at(m_index - 1) == keyEvent->text()
                     && m_shortcode.left(m_index - 1)
                            == m_shortcode.mid(right - m_index + 1, m_index - 1))
                     break;

@@ -23,6 +23,7 @@
 #include <QDir>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QTextStream>
 #include <QUuid>
 
 namespace {
@@ -191,6 +192,14 @@ QString fileDir(const QString &fileName)
     return QString();
 }
 
+//! Returns base name of file.
+
+QString baseName(const QString& fileName)
+{
+    QFileInfo info(fileName);
+    return info.baseName();
+}
+
 //! Creates sub directory in given parent directory (should exist).
 //! If sub-directory already exists, no action will be taken.
 
@@ -239,5 +248,16 @@ QString createUuid()
 {
     return  QUuid::createUuid().toString();
 }
+
+QString readTextFile(const QString& fileName)
+{
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        throw GUIHelpers::Error("PyImportAssistant::readFile() -> Error. Can't read file '"+
+                                fileName+"'");
+    QTextStream in(&file);
+    return in.readAll();
+}
+
 
 } // namespace GUIHelpers

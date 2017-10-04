@@ -23131,7 +23131,7 @@ class MultiLayer(ISample):
 
     def indexOfLayer(self, p_layer):
         """
-        indexOfLayer(MultiLayer self, Layer p_layer) -> int
+        indexOfLayer(MultiLayer self, Layer p_layer) -> size_t
 
         int MultiLayer::indexOfLayer(const Layer *p_layer) const
 

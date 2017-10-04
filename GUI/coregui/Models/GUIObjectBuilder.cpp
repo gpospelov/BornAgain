@@ -174,7 +174,7 @@ void GUIObjectBuilder::visit(const Layer* p_sample)
 
     auto p_multilayer = dynamic_cast<const MultiLayer*>(m_itemToSample[p_parent]);
     Q_ASSERT(p_multilayer);
-    int layer_index = p_multilayer->indexOfLayer(p_sample);
+    size_t layer_index = p_multilayer->indexOfLayer(p_sample);
     Q_ASSERT(layer_index != -1);
     const LayerInterface* p_interface = p_multilayer->layerTopInterface(layer_index);
 

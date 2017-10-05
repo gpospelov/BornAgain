@@ -85,6 +85,16 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     addTranslator(PositionTranslator());
     addTranslator(RotationTranslator());
+
+    mapper()->setOnParentChange(
+                [this](SessionItem *parent) {
+        if (parent && parent->modelType() != Constants::ParticleLayoutType) {
+            setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
+        } else {
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
+        }
+    });
 }
 
 std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const

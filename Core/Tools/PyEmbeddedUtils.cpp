@@ -129,10 +129,10 @@ std::string PyEmbeddedUtils::pythonRuntimeInfo()
     // Embedded Python details
     result << "Py_GetProgramName(): "
            << PyEmbeddedUtils::toString(Py_GetProgramName()) << "\n";
-    result << "Py_GetPath(): "
-           << PyEmbeddedUtils::toString(Py_GetPath()) << "\n";
     result << "Py_GetProgramFullPath(): "
            << PyEmbeddedUtils::toString(Py_GetProgramFullPath()) << "\n";
+    result << "Py_GetPath(): "
+           << PyEmbeddedUtils::toString(Py_GetPath()) << "\n";
     result << "Py_GetPythonHome(): "
            << PyEmbeddedUtils::toString(Py_GetPythonHome()) << "\n";
 

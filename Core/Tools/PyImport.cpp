@@ -17,6 +17,20 @@
 #include "PyEmbeddedUtils.h"
 #include "MultiLayer.h"
 
+namespace {
+
+std::string error_description(const std::string& title)
+{
+    std::stringstream buf;
+    buf << title << "\n";
+    buf << PyEmbeddedUtils::pythonStackTrace() << "\n";
+    PyErr_Print(); // to terminal
+    return buf.str();
+}
+
+}
+
+
 std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script,
                                                        const std::string& functionName,
                                                        const std::string& path)
@@ -25,21 +39,21 @@ std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script
 
     PyObject* pCompiledFn = Py_CompileString( script.c_str() , "" , Py_file_input ) ;
     if (!pCompiledFn)
-        throw std::runtime_error("Can't compile a function");
+        throw std::runtime_error(error_description("Can't compile snippet"));
 
     // create a module
     PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
     if (!pModule)
-        throw std::runtime_error("Can't exec module");
+        throw std::runtime_error(error_description("Can't exec module"));
 
     // locate the "get_simulation" function (it's an attribute of the module)
     PyObject* pAddFn = PyObject_GetAttrString( pModule , functionName.c_str() ) ;
     if (!pAddFn)
-        throw std::runtime_error("Can't locate compiled functione");
+        throw std::runtime_error("Can't locate compiled function");
 
     PyObject *instance =  PyObject_CallFunctionObjArgs(pAddFn, NULL);
     if (!instance)
-        throw std::runtime_error("Can't call function");
+        throw std::runtime_error(error_description("Can't call function"));
 
     // clean up
     Py_DecRef( pAddFn ) ;
@@ -51,7 +65,7 @@ std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script
 
     const int res = SWIG_ConvertPtr(instance, &argp1,pTypeInfo, 0);
     if (!SWIG_IsOK(res))
-        throw std::runtime_error("SWIG failed extract object");
+        throw std::runtime_error("SWIG failed to extract a MultiLayer.");
 
     MultiLayer* multilayer = reinterpret_cast<MultiLayer*>(argp1);
     std::unique_ptr<MultiLayer> result(multilayer->clone());
@@ -66,17 +80,12 @@ std::vector<std::string> PyImport::listOfFunctions(const std::string& script,
 
     PyObject* pCompiledFn = Py_CompileString( script.c_str() , "" , Py_file_input ) ;
     if (!pCompiledFn)
-        throw std::runtime_error("Can't compile a function");
+        throw std::runtime_error(error_description("Can't compile snippet"));
 
     // create a module
     PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
-    if (!pModule) {
-        std::stringstream buf;
-        buf << "Can't exec module" << "\n";
-        buf << PyEmbeddedUtils::pythonStackTrace() << "\n";
-        PyErr_Print(); // to terminal
-        throw std::runtime_error(buf.str());
-    }
+    if (!pModule)
+        throw std::runtime_error(error_description("Can't exec module"));
 
      PyObject *dict = PyModule_GetDict(pModule);
      if (!dict)

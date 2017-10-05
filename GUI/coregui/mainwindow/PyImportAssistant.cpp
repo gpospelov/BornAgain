@@ -149,7 +149,7 @@ QString PyImportAssistant::getPySampleFunctionName(const QString& snippet)
         QApplication::restoreOverrideCursor();
         QString message("Exception thrown while executing a Python code.\n\n");
         QString details = QString::fromStdString(std::string(ex.what()));
-        DetailedMessageBox warning(nullptr, "Python failure", message, details);
+        DetailedMessageBox warning(m_mainWindow, "Python failure", message, details);
         warning.exec();
 
         return QString();
@@ -199,9 +199,11 @@ std::unique_ptr<MultiLayer> PyImportAssistant::createMultiLayer(const QString& s
                                             funcName.toStdString(), bornagainDir());
 
     } catch (const std::exception& ex) {
+        QApplication::restoreOverrideCursor();
         QString message("Exception thrown while executing a Python code.\n\n");
-        message += QString::fromStdString(std::string(ex.what()));
-        GUIHelpers::warning(m_mainWindow, "Python failure",  message);
+        QString details = QString::fromStdString(std::string(ex.what()));
+        DetailedMessageBox warning(m_mainWindow, "Python failure", message, details);
+        warning.exec();
     }
     QApplication::restoreOverrideCursor();
 

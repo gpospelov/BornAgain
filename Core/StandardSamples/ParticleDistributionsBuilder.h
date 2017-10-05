@@ -27,9 +27,6 @@ public:
     CylindersWithSizeDistributionBuilder();
     MultiLayer* buildSample() const;
 
-protected:
-    void init_parameters();
-
 private:
     double m_height;
     double m_radius;
@@ -44,9 +41,6 @@ class BA_CORE_API_ TwoTypesCylindersDistributionBuilder : public IMultiLayerBuil
 public:
     TwoTypesCylindersDistributionBuilder();
     MultiLayer* buildSample() const;
-
-protected:
-    void init_parameters();
 
 private:
     double m_radius1;

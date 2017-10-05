@@ -33,9 +33,7 @@ RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     , m_corr_length(1e3*Units::nanometer)
     , m_cylinder_height(5*Units::nanometer)
     , m_cylinder_radius(5*Units::nanometer)
-{
-    init_parameters();
-}
+{}
 
 MultiLayer* RadialParaCrystalBuilder::buildSample() const
 {
@@ -66,20 +64,6 @@ MultiLayer* RadialParaCrystalBuilder::buildSample() const
     return multi_layer;
 }
 
-void RadialParaCrystalBuilder::init_parameters()
-{
-    registerParameter("corr_peak_distance", &m_corr_peak_distance).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("corr_width", &m_corr_width).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("corr_length", &m_corr_length).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-}
-
 // -----------------------------------------------------------------------------
 // Basic2DParaCrystalBuilder
 // -----------------------------------------------------------------------------
@@ -89,9 +73,7 @@ Basic2DParaCrystalBuilder::Basic2DParaCrystalBuilder()
     , m_pdf2(new FTDistribution2DCauchy(0.3*Units::nanometer, 0.4*Units::nanometer))
 {}
 
-Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
-{
-}
+Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder() {}
 
 MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
 {
@@ -165,9 +147,7 @@ HexParaCrystalBuilder::HexParaCrystalBuilder()
     , m_domain_size_2(20.0*Units::micrometer)
     , m_cylinder_height(5*Units::nanometer)
     , m_cylinder_radius(5*Units::nanometer)
-{
-    init_parameters();
-}
+{}
 
 MultiLayer* HexParaCrystalBuilder::buildSample() const
 {
@@ -198,23 +178,6 @@ MultiLayer* HexParaCrystalBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
-}
-
-void HexParaCrystalBuilder::init_parameters()
-{
-
-    registerParameter("m_peak_distance", &m_peak_distance).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("m_corr_length", &m_corr_length).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("m_domain_size_1", &m_domain_size_1).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("m_domain_size_2", &m_domain_size_2).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
 }
 
 // -----------------------------------------------------------------------------

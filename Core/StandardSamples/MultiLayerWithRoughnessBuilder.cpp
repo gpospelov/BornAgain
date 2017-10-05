@@ -29,23 +29,7 @@ MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
     , m_hurst(0.3)
     , m_lateralCorrLength(5.0*Units::nanometer)
     , m_crossCorrLength(10.0*Units::nanometer)
-{
-    init_parameters();
-}
-
-
-void MultiLayerWithRoughnessBuilder::init_parameters()
-{
-    registerParameter("thicknessA", &m_thicknessA).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("thicknessB", &m_thicknessB).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("sigma", &m_sigma).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("hurst", &m_hurst);
-    registerParameter("lateralCorrLength", &m_lateralCorrLength).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("crossCorrLength", &m_crossCorrLength).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-}
-
+{}
 
 MultiLayer* MultiLayerWithRoughnessBuilder::buildSample() const
 {

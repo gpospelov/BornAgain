@@ -34,17 +34,7 @@
 CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
     : m_height(5*Units::nanometer)
     , m_radius(5*Units::nanometer)
-{
-    init_parameters();
-}
-
-
-void CylindersWithSizeDistributionBuilder::init_parameters()
-{
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-}
-
+{}
 
 MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 {
@@ -89,21 +79,7 @@ TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
     , m_height2(10*Units::nanometer)
     , m_sigma1_ratio(0.2)
     , m_sigma2_ratio(0.02)
-{
-    init_parameters();
-}
-
-
-void TwoTypesCylindersDistributionBuilder::init_parameters()
-{
-    registerParameter("radius1", &m_radius1).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("radius2", &m_radius2).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("height1", &m_height1).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("height2", &m_height2).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("sigma1_ratio", &m_sigma1_ratio).setNonnegative();
-    registerParameter("sigma2_ratio", &m_sigma2_ratio).setNonnegative();
-}
-
+{}
 
 MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
 {
@@ -158,9 +134,7 @@ RotatedPyramidsDistributionBuilder::RotatedPyramidsDistributionBuilder()
     , m_height(5*Units::nanometer)
     , m_alpha(Units::deg2rad(54.73 ))
     , m_zangle(45.*Units::degree)
-{
-
-}
+{}
 
 MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
 {

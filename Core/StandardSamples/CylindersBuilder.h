@@ -29,9 +29,6 @@ public:
     CylindersInDWBABuilder();
     MultiLayer* buildSample() const;
 
-protected:
-    void init_parameters();
-
 private:
     double m_height;
     double m_radius;
@@ -45,9 +42,6 @@ class BA_CORE_API_ CylindersInBABuilder : public IMultiLayerBuilder
 public:
     CylindersInBABuilder();
     MultiLayer* buildSample() const;
-
-protected:
-    void init_parameters();
 
 private:
     double m_height;
@@ -63,9 +57,6 @@ public:
     LargeCylindersInDWBABuilder();
     MultiLayer* buildSample() const;
 
-protected:
-    void init_parameters();
-
 private:
     double m_height;
     double m_radius;
@@ -79,9 +70,6 @@ class BA_CORE_API_ RotatedCylindersBuilder : public IMultiLayerBuilder
 public:
     RotatedCylindersBuilder();
     MultiLayer* buildSample() const;
-
-protected:
-    void init_parameters();
 
 private:
     double m_height;

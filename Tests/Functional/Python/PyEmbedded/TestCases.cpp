@@ -43,32 +43,8 @@ bool SysPath::runTest()
     // BornAgain build
     std::cout << "buildLibDir(): " << BABuild::buildLibDir() << std::endl;
 
-    // Runtime environment
-    std::cout << "PATH: " << SysUtils::getenv("PATH") << std::endl;
-    std::cout << "PYTHONPATH: " << SysUtils::getenv("PYTHONPATH") << std::endl;
-    std::cout << "PYTHONHOME: " << SysUtils::getenv("PYTHONHOME") << std::endl;
-
-    Py_Initialize();
-
-    // Embedded Python details
-    std::cout << "Py_GetProgramName(): "
-              << PyEmbeddedUtils::toString(Py_GetProgramName()) << std::endl;
-    std::cout << "Py_GetPath(): "
-              << PyEmbeddedUtils::toString(Py_GetPath()) << std::endl;
-    std::cout << "Py_GetProgramFullPath(): "
-              << PyEmbeddedUtils::toString(Py_GetProgramFullPath()) << std::endl;
-    std::cout << "Py_GetPythonHome(): "
-              << PyEmbeddedUtils::toString(Py_GetPythonHome()) << std::endl;
-
-    // Runtime Python's sys.path
-    PyObject *sysPath = PySys_GetObject((char*)"path");
-    auto content = PyEmbeddedUtils::toVectorString(sysPath);
-    std::cout << "sys.path: ";
-    for (auto s : content)
-        std::cout << s << ",";
-    std::cout << std::endl;
-
-    Py_Finalize();
+    // Runtime info
+    auto content = PyEmbeddedUtils::pythonRuntimeInfo();
 
     return !content.empty();
 }

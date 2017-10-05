@@ -33,7 +33,7 @@ BA_CORE_API_ std::string toString(PyObject* obj, bool decref = true);
 
 //! Converts PyObject into vector of strings, if possible, or throws exception.
 //! @param decref To automatically decrease reference counter after data is processed.
-BA_CORE_API_ std::vector<std::string> toVectorString(PyObject* obj, bool decref = true);
+BA_CORE_API_ std::vector<std::string> toVectorString(PyObject* obj);
 
 //! Converts char to string. In the case of nullptr will return an empty string.
 BA_CORE_API_ std::string toString(char* c);
@@ -42,6 +42,11 @@ BA_CORE_API_ std::string toString(wchar_t* c);
 //! Imports BornAgain from given location. If path is empty, tries to rely on PYTHONPATH.
 BA_CORE_API_ void import_bornagain(const std::string& path = std::string());
 
+//! Returns multi-line string representing PATH, PYTHONPATH, sys.path and other info.
+BA_CORE_API_ std::string pythonRuntimeInfo();
+
+//! Returns string representing python stack trace.
+BA_CORE_API_ std::string pythonStackTrace();
 }
 
 #endif

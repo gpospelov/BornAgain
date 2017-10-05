@@ -145,6 +145,7 @@ QString PyImportAssistant::getPySampleFunctionName(const QString& snippet)
         funcList = GUIHelpers::fromStdStrings(funcs);
 
     } catch (const std::exception& ex) {
+        QApplication::restoreOverrideCursor();
         QString message("Exception thrown while executing a Python code.\n\n");
         message += QString::fromStdString(std::string(ex.what()));
         GUIHelpers::warning(m_mainWindow, "Python failure",  message);

@@ -70,8 +70,12 @@ std::vector<std::string> PyImport::listOfFunctions(const std::string& script,
 
     // create a module
     PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
-    if (!pModule)
-        throw std::runtime_error("Can't exec module");
+    if (!pModule) {
+        std::stringstream buf;
+        buf << "Can't exec module" << "\n";
+        buf << PyEmbeddedUtils::pythonStackTrace() << "\n";
+        throw std::runtime_error(buf.str());
+    }
 
      PyObject *dict = PyModule_GetDict(pModule);
      if (!dict)

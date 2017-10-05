@@ -38,7 +38,7 @@ std::string PyEmbeddedUtils::toString(PyObject* obj, bool decref)
     return result;
 }
 
-std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj, bool decref)
+std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj)
 {
     std::vector<std::string> result;
 
@@ -57,9 +57,6 @@ std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj, bool dec
     } else {
         throw std::runtime_error("PyEmbeddedUtils::toVectorString() -> Error. Unexpected object.");
     }
-
-    if (decref)
-        Py_DECREF(obj);
 
     return result;
 }
@@ -115,4 +112,80 @@ void PyEmbeddedUtils::import_bornagain(const std::string& path)
 
     }
 
+}
+
+std::string PyEmbeddedUtils::pythonRuntimeInfo()
+{
+    Py_InitializeEx(0);
+
+    std::stringstream result;
+
+    // Runtime environment
+    result << std::string(60, '=') << "\n";
+    result << "PATH: " << SysUtils::getenv("PATH") << "\n";
+    result << "PYTHONPATH: " << SysUtils::getenv("PYTHONPATH") << "\n";
+    result << "PYTHONHOME: " << SysUtils::getenv("PYTHONHOME") << "\n";
+
+    // Embedded Python details
+    result << "Py_GetProgramName(): "
+           << PyEmbeddedUtils::toString(Py_GetProgramName()) << "\n";
+    result << "Py_GetPath(): "
+           << PyEmbeddedUtils::toString(Py_GetPath()) << "\n";
+    result << "Py_GetProgramFullPath(): "
+           << PyEmbeddedUtils::toString(Py_GetProgramFullPath()) << "\n";
+    result << "Py_GetPythonHome(): "
+           << PyEmbeddedUtils::toString(Py_GetPythonHome()) << "\n";
+
+    // Runtime Python's sys.path
+    PyObject *sysPath = PySys_GetObject((char*)"path");
+    auto content = PyEmbeddedUtils::toVectorString(sysPath);
+    result << "sys.path: ";
+    for (auto s : content)
+        result << s << ",";
+    result << "\n";
+
+    return result.str();
+}
+
+// Attempt to retrieve Python stack trace
+// https://stackoverflow.com/questions/1796510/accessing-a-python-traceback-from-the-c-api
+
+std::string PyEmbeddedUtils::pythonStackTrace()
+{
+    std::stringstream result;
+
+    if (PyErr_Occurred()) {
+        PyObject *ptype, *pvalue, *ptraceback, *pystr;
+
+        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+        pystr = PyObject_Str(pvalue);
+        if (char* str = PyString_AsString(pystr))
+            result << std::string(str) << "\n";
+
+        PyObject* module_name = PyString_FromString("traceback");
+        PyObject* pyth_module = PyImport_Import(module_name);
+        Py_DECREF(module_name);
+
+        if (pyth_module) {
+            result << "\n";
+            PyObject* pyth_func = PyObject_GetAttrString(pyth_module, "format_exception");
+            if (pyth_func && PyCallable_Check(pyth_func)) {
+                PyObject* pyth_val;
+
+                pyth_val = PyObject_CallFunctionObjArgs(pyth_func, ptype, pvalue, ptraceback, NULL);
+
+                pystr = PyObject_Str(pyth_val);
+                if (char* str = PyString_AsString(pystr))
+                    result << std::string(str);
+                Py_DECREF(pyth_val);
+            }
+            result << "\n";
+        }
+    }
+
+    result << "\n";
+    result << pythonRuntimeInfo();
+    result << "\n";
+
+    return result.str();
 }

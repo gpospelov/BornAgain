@@ -83,22 +83,15 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
 
 void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
 {
-    if (newParent) {
+    if (newParent && !parentIsParticleLayout()) {
+        setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
+        getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         if (isShellParticle()) {
-            setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
-            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
             SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
             positionItem->setItemValue(VectorItem::P_X, 0.0);
             positionItem->setItemValue(VectorItem::P_Y, 0.0);
             positionItem->setItemValue(VectorItem::P_Z, 0.0);
             positionItem->setEnabled(false);
-        } else if(isCoreParticle()) {
-            setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
-            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
-
-        } else if(isDistributionContext() || isCompositionContext()) {
-            setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
-            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         }
     } else {
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
@@ -117,33 +110,12 @@ bool ParticleItem::isShellParticle() const
             && parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL;
 }
 
-//! Returns true if this particle is a core particle.
+//! Returns true if this particle is directly connected to a ParticleLayout
 
-bool ParticleItem::isCoreParticle() const
+bool ParticleItem::parentIsParticleLayout() const
 {
     if (!parent())
         return false;
 
-    return parent()->modelType() == Constants::ParticleCoreShellType
-            && parent()->tagFromItem(this) == ParticleCoreShellItem::T_CORE;
-}
-
-//! Returns true if this particle attached to particle distribution.
-
-bool ParticleItem::isDistributionContext() const
-{
-    if (!parent())
-        return false;
-
-    return parent()->modelType() == Constants::ParticleDistributionType;
-}
-
-//! Returns true if this particle attached to composition.
-
-bool ParticleItem::isCompositionContext() const
-{
-    if (!parent())
-        return false;
-
-    return parent()->modelType() == Constants::ParticleCompositionType;
+    return parent()->modelType() == Constants::ParticleLayoutType;
 }

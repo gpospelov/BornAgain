@@ -57,9 +57,10 @@ bool IsIParticleName(QString name);
 
 const QString MesoCrystalItem::P_FORM_FACTOR = "Outer Shape";
 const QString MesoCrystalItem::T_BASIS_PARTICLE = "Basis Particle";
-const QString MesoCrystalItem::P_VECTOR_A = "First lattice vector";
-const QString MesoCrystalItem::P_VECTOR_B = "Second lattice vector";
-const QString MesoCrystalItem::P_VECTOR_C = "Third lattice vector";
+const QString MesoCrystalItem::LATTICE_VECTOR = "lattice vector";
+const QString MesoCrystalItem::P_VECTOR_A = "First " + MesoCrystalItem::LATTICE_VECTOR;
+const QString MesoCrystalItem::P_VECTOR_B = "Second " + MesoCrystalItem::LATTICE_VECTOR;
+const QString MesoCrystalItem::P_VECTOR_C = "Third " + MesoCrystalItem::LATTICE_VECTOR;
 
 
 MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalType)
@@ -87,7 +88,7 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     addTranslator(PositionTranslator());
     addTranslator(RotationTranslator());
-//    addTranslator(MesoCrystalTranslator());
+    addTranslator(MesoCrystalTranslator());
 
     mapper()->setOnParentChange(
                 [this](SessionItem *parent) {

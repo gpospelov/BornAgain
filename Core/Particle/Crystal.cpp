@@ -26,6 +26,7 @@ Crystal::Crystal(const IParticle& lattice_basis, const Lattice& lattice)
     setName(BornAgain::CrystalType);
     mp_lattice_basis.reset(lattice_basis.clone());
     registerChild(mp_lattice_basis.get());
+    registerChild(&m_lattice);
 }
 
 Crystal::~Crystal()
@@ -85,7 +86,7 @@ Lattice Crystal::transformedLattice(const IRotation* p_rotation) const
 
 std::vector<const INode*> Crystal::getChildren() const
 {
-    return std::vector<const INode*>() << mp_lattice_basis;
+    return std::vector<const INode*>() << mp_lattice_basis << &m_lattice;
 }
 
 Crystal::Crystal(IParticle* p_lattice_basis, const Lattice& lattice)
@@ -94,4 +95,5 @@ Crystal::Crystal(IParticle* p_lattice_basis, const Lattice& lattice)
     setName(BornAgain::CrystalType);
     mp_lattice_basis.reset(p_lattice_basis);
     registerChild(mp_lattice_basis.get());
+    registerChild(&m_lattice);
 }

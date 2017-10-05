@@ -21,7 +21,7 @@
 #include <iostream>
 
 
-std::string PyEmbeddedUtils::toString(PyObject* obj, bool decref)
+std::string PyEmbeddedUtils::toString(PyObject* obj)
 {
     std::string result;
 #if PY_MAJOR_VERSION >= 3
@@ -31,9 +31,6 @@ std::string PyEmbeddedUtils::toString(PyObject* obj, bool decref)
 #else
     result = std::string(PyString_AsString(obj));
 #endif
-
-    if (decref)
-        Py_DECREF(obj);
 
     return result;
 }
@@ -45,13 +42,13 @@ std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj)
     if (PyTuple_Check(obj)) {
         for (Py_ssize_t i = 0; i < PyTuple_Size(obj); i++) {
             PyObject *value = PyTuple_GetItem(obj, i);
-            result.push_back( toString(value, false) );
+            result.push_back( toString(value) );
         }
 
     } else if (PyList_Check(obj)) {
         for (Py_ssize_t i = 0; i < PyList_Size(obj); i++) {
             PyObject *value = PyList_GetItem(obj, i);
-            result.push_back( toString(value, false) );
+            result.push_back( toString(value) );
         }
 
     } else {

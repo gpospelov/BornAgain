@@ -28,11 +28,9 @@ class MultiLayer;
 namespace PyEmbeddedUtils {
 
 //! Converts PyObject into string, if possible, or throws exception.
-//! @param decref To automatically decrease reference counter after data is processed.
-BA_CORE_API_ std::string toString(PyObject* obj, bool decref = true);
+BA_CORE_API_ std::string toString(PyObject* obj);
 
 //! Converts PyObject into vector of strings, if possible, or throws exception.
-//! @param decref To automatically decrease reference counter after data is processed.
 BA_CORE_API_ std::vector<std::string> toVectorString(PyObject* obj);
 
 //! Converts char to string. In the case of nullptr will return an empty string.

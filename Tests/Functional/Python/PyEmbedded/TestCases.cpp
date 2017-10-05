@@ -65,6 +65,7 @@ bool ImportNumpy::runTest()
         throw std::runtime_error("Can't get a variable");
 
     auto version_string = PyEmbeddedUtils::toString(pvar);
+    Py_DECREF(pvar);
     std::cout << "numpy_version_string=" << version_string << std::endl;
 
     Py_Finalize();
@@ -104,6 +105,7 @@ bool FunctionCall::runTest()
         throw std::runtime_error("Error while calling function");
 
     auto str = PyEmbeddedUtils::toString(result);
+    Py_DECREF(result);
 
     Py_Finalize();
 
@@ -237,6 +239,7 @@ bool CompiledFunction::runTest()
     // convert the result to a string
     PyObject* pResultRepr = PyObject_Repr( pResult ) ;
     std::string result = PyEmbeddedUtils::toString(pResultRepr);
+    Py_DECREF(pResultRepr);
 
     Py_Finalize();
 

@@ -57,9 +57,6 @@ public:
 private:
     size_t check_index(size_t index) const;
 
-    //! Returns true if particle's type is suitable for adding
-    void checkParticleType(const IParticle& p_particle);
-
     //! For internal use
     void addParticlePointer(IParticle* p_particle);
 

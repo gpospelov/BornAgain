@@ -60,12 +60,12 @@ bool ImportNumpy::runTest()
         throw std::runtime_error("Can't load numpy");
 
     PyObject* pvar = PyObject_GetAttrString(pmod, "__version__");
-    Py_DECREF(pmod);
+    Py_DecRef(pmod);
     if (!pvar)
         throw std::runtime_error("Can't get a variable");
 
     auto version_string = PyEmbeddedUtils::toString(pvar);
-    Py_DECREF(pvar);
+    Py_DecRef(pvar);
     std::cout << "numpy_version_string=" << version_string << std::endl;
 
     Py_Finalize();
@@ -88,24 +88,24 @@ bool FunctionCall::runTest()
         throw std::runtime_error("Can't load module");
 
     PyObject* pfun = PyObject_GetAttrString(pmod, "GetVersionNumber");
-    Py_DECREF(pmod);
+    Py_DecRef(pmod);
     if (!pfun)
         throw std::runtime_error("Can't get a function");
 
     PyObject* pargs = Py_BuildValue("()");
     if (!pargs) {
-        Py_DECREF(pfun);
+        Py_DecRef(pfun);
         throw std::runtime_error("Can't build arguments list");
     }
 
     PyObject* result  = PyEval_CallObject(pfun, pargs);
-    Py_DECREF(pfun);
-    Py_DECREF(pargs);
-    if(!result)
+    Py_DecRef(pfun);
+    Py_DecRef(pargs);
+    if (!result)
         throw std::runtime_error("Error while calling function");
 
     auto str = PyEmbeddedUtils::toString(result);
-    Py_DECREF(result);
+    Py_DecRef(result);
 
     Py_Finalize();
 
@@ -128,26 +128,26 @@ bool MethodCall::runTest()
         throw std::runtime_error("Can't load module");
 
     PyObject* pclass = PyObject_GetAttrString(pmod, "FormFactorCylinder");
-    Py_DECREF(pmod);
+    Py_DecRef(pmod);
     if (!pclass)
         throw std::runtime_error("Can't get a class");
 
     PyObject* pargs = Py_BuildValue("(dd)", radius, height);
     if (!pargs) {
-        Py_DECREF(pclass);
+        Py_DecRef(pclass);
         throw std::runtime_error("Can't build arguments list");
     }
 
     PyObject* pinst  = PyEval_CallObject(pclass, pargs);
-    Py_DECREF(pclass);
-    Py_DECREF(pargs);
+    Py_DecRef(pclass);
+    Py_DecRef(pargs);
 
     if(!pinst)
         throw std::runtime_error("Error while creating object");
 
     // result of FormFactorCylinder
     PyObject* pmeth  = PyObject_GetAttrString(pinst, "getHeight");
-    Py_DECREF(pinst);
+    Py_DecRef(pinst);
     if (!pmeth)
         throw std::runtime_error("Can't fetch FormFactorCylinder.getHeight");
 
@@ -158,8 +158,8 @@ bool MethodCall::runTest()
     }
 
     PyObject* pres = PyEval_CallObject(pmeth, pargs2);
-    Py_DECREF(pmeth);
-    Py_DECREF(pargs);
+    Py_DecRef(pmeth);
+    Py_DecRef(pargs);
 
     if (!pres)
         throw std::runtime_error("Error calling FormFactorCylinder.getHeight()");
@@ -168,7 +168,7 @@ bool MethodCall::runTest()
     if (!PyArg_Parse(pres, "d", &value))
        throw std::runtime_error("Can't convert class method result");
 
-    Py_DECREF(pres);
+    Py_DecRef(pres);
 
     Py_Finalize();
 
@@ -239,7 +239,7 @@ bool CompiledFunction::runTest()
     // convert the result to a string
     PyObject* pResultRepr = PyObject_Repr( pResult ) ;
     std::string result = PyEmbeddedUtils::toString(pResultRepr);
-    Py_DECREF(pResultRepr);
+    Py_DecRef(pResultRepr);
 
     Py_Finalize();
 
@@ -261,7 +261,7 @@ bool ObjectExtract::runTest()
         throw std::runtime_error("Can't load bornagain");
 
     PyObject *ml = PyObject_GetAttrString(pmod, "MultiLayer");
-    Py_DECREF(pmod);
+    Py_DecRef(pmod);
     if (!ml)
         throw std::runtime_error("Can't get MultiLayer attribute.");
 
@@ -277,8 +277,8 @@ bool ObjectExtract::runTest()
     MultiLayer* multilayer = reinterpret_cast<MultiLayer*>(argp1);
     std::string name = multilayer->getName();
 
-    Py_DECREF(instance);
-    Py_DECREF(ml);
+    Py_DecRef(instance);
+    Py_DecRef(ml);
 
     Py_Finalize();
 
@@ -343,7 +343,7 @@ bool EmbeddedMultiLayer::runTest()
     MultiLayer* multilayer = reinterpret_cast<MultiLayer*>(argp1);
     size_t n_layers = multilayer->numberOfLayers();
 
-    Py_DECREF(instance);
+    Py_DecRef(instance);
 
     Py_Finalize();
 

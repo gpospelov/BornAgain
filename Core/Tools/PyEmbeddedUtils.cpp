@@ -27,7 +27,7 @@ std::string PyEmbeddedUtils::toString(PyObject* obj)
 #if PY_MAJOR_VERSION >= 3
     PyObject* pyStr = PyUnicode_AsEncodedString(obj, "utf-8", "Error ~");
     result = std::string(PyBytes_AsString(pyStr));
-    Py_DECREF(pyStr);
+    Py_DecRef(pyStr);
 #else
     result = std::string(PyString_AsString(obj));
 #endif
@@ -161,7 +161,7 @@ std::string PyEmbeddedUtils::pythonStackTrace()
 
         PyObject* module_name = PyString_FromString("traceback");
         PyObject* pyth_module = PyImport_Import(module_name);
-        Py_DECREF(module_name);
+        Py_DecRef(module_name);
 
         if (pyth_module) {
             result << "\n";
@@ -172,7 +172,7 @@ std::string PyEmbeddedUtils::pythonStackTrace()
                     pystr = PyObject_Str(pyth_val);
                     if (char* str = PyString_AsString(pystr))
                         result << std::string(str);
-                    Py_DECREF(pyth_val);
+                    Py_DecRef(pyth_val);
                 }
             }
             result << "\n";

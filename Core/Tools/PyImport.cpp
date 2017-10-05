@@ -43,8 +43,10 @@ std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script
 
     // create a module
     PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
-    if (!pModule)
+    if (!pModule) {
+        Py_DecRef( pCompiledFn ) ;
         throw std::runtime_error(error_description("Can't exec module"));
+    }
 
     // locate the "get_simulation" function (it's an attribute of the module)
     PyObject* pAddFn = PyObject_GetAttrString( pModule , functionName.c_str() ) ;
@@ -52,8 +54,12 @@ std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script
         throw std::runtime_error("Can't locate compiled function");
 
     PyObject *instance =  PyObject_CallFunctionObjArgs(pAddFn, NULL);
-    if (!instance)
+    if (!instance) {
+        Py_DecRef( pAddFn ) ;
+        Py_DecRef( pModule ) ;
+        Py_DecRef( pCompiledFn ) ;
         throw std::runtime_error(error_description("Can't call function"));
+    }
 
     // clean up
     Py_DecRef( pAddFn ) ;
@@ -64,11 +70,15 @@ std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script
     swig_type_info * pTypeInfo = SWIG_TypeQuery("MultiLayer *");
 
     const int res = SWIG_ConvertPtr(instance, &argp1,pTypeInfo, 0);
-    if (!SWIG_IsOK(res))
+    if (!SWIG_IsOK(res)) {
+        Py_DecRef(instance);
         throw std::runtime_error("SWIG failed to extract a MultiLayer.");
+    }
 
     MultiLayer* multilayer = reinterpret_cast<MultiLayer*>(argp1);
     std::unique_ptr<MultiLayer> result(multilayer->clone());
+
+    Py_DecRef(instance);
 
     return result;
 }
@@ -84,8 +94,10 @@ std::vector<std::string> PyImport::listOfFunctions(const std::string& script,
 
     // create a module
     PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
-    if (!pModule)
+    if (!pModule) {
+        Py_DecRef( pCompiledFn ) ;
         throw std::runtime_error(error_description("Can't exec module"));
+    }
 
      PyObject *dict = PyModule_GetDict(pModule);
      if (!dict)

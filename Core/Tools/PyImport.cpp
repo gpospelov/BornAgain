@@ -74,6 +74,7 @@ std::vector<std::string> PyImport::listOfFunctions(const std::string& script,
         std::stringstream buf;
         buf << "Can't exec module" << "\n";
         buf << PyEmbeddedUtils::pythonStackTrace() << "\n";
+        PyErr_Print(); // to terminal
         throw std::runtime_error(buf.str());
     }
 

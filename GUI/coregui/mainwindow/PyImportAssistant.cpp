@@ -27,6 +27,7 @@
 #include "SysUtils.h"
 #include "BornAgainNamespace.h"
 #include "ComboSelectorDialog.h"
+#include "DetailedMessageBox.h"
 #include <QFileDialog>
 #include <QTextStream>
 #include <QApplication>
@@ -147,8 +148,11 @@ QString PyImportAssistant::getPySampleFunctionName(const QString& snippet)
     } catch (const std::exception& ex) {
         QApplication::restoreOverrideCursor();
         QString message("Exception thrown while executing a Python code.\n\n");
-        message += QString::fromStdString(std::string(ex.what()));
-        GUIHelpers::warning(m_mainWindow, "Python failure",  message);
+        QString details = QString::fromStdString(std::string(ex.what()));
+        DetailedMessageBox warning(nullptr, "Python failure", message, details);
+        warning.exec();
+
+        return QString();
     }
     QApplication::restoreOverrideCursor();
 

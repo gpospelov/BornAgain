@@ -16,6 +16,7 @@
 #include "PyEmbeddedUtils.h"
 #include "PythonFormatting.h"
 #include "MultiLayer.h"
+#include "SysUtils.h"
 #include <stdexcept>
 #include <iostream>
 
@@ -94,9 +95,12 @@ void PyEmbeddedUtils::import_bornagain(const std::string& path)
             PyList_Append(sysPath, PyString_FromString(path.c_str()));
         }
 
+
         // Stores signal handler before numpy's mess it up.
         // This is to make ctrl-c working from terminal.
-        PyOS_sighandler_t sighandler = PyOS_getsig(SIGINT);
+        PyOS_sighandler_t sighandler;
+        if (!SysUtils::isWindowsHost())
+            sighandler = PyOS_getsig(SIGINT);
 
         PyObject* pmod = PyImport_ImportModule("bornagain");
         if (!pmod) {
@@ -105,7 +109,8 @@ void PyEmbeddedUtils::import_bornagain(const std::string& path)
         }
 
         // restores single handler to make ctr-c alive.
-        PyOS_setsig(SIGINT,sighandler);
+        if (!SysUtils::isWindowsHost())
+            PyOS_setsig(SIGINT, sighandler);
     }
 
 }

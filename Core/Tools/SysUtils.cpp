@@ -55,3 +55,12 @@ std::string SysUtils::getenv(const std::string& name)
     else
         return std::string();
 }
+
+bool SysUtils::isWindowsHost()
+{
+#ifdef _WIN32
+    return true;
+#else
+    return false;
+#endif
+}

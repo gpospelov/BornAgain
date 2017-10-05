@@ -25,6 +25,7 @@ Crystal::Crystal(const IParticle& lattice_basis, const Lattice& lattice)
 {
     setName(BornAgain::CrystalType);
     mp_lattice_basis.reset(lattice_basis.clone());
+    mp_lattice_basis->registerAbundance(false);
     registerChild(mp_lattice_basis.get());
     registerChild(&m_lattice);
 }

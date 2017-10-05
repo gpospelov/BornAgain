@@ -51,6 +51,8 @@ const QString position_tooltip =
 const QString density_tooltip =
     "Number of mesocrystals per square nanometer (particle surface density).\n "
     "Should be defined for disordered and 1d-ordered particle collections.";
+
+bool IsIParticleName(QString name);
 }
 
 const QString MesoCrystalItem::P_FORM_FACTOR = "Outer Shape";
@@ -85,6 +87,7 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     addTranslator(PositionTranslator());
     addTranslator(RotationTranslator());
+//    addTranslator(MesoCrystalTranslator());
 
     mapper()->setOnParentChange(
                 [this](SessionItem *parent) {
@@ -121,6 +124,17 @@ std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
     TransformToDomain::setTransformationInfo(P_result.get(), *this);
 
     return P_result;
+}
+
+QStringList MesoCrystalItem::translateList(const QStringList& list) const
+{
+    QStringList result = list;
+    // Add CrystalType to path name of basis particle
+    if (IsIParticleName(list.back())) {
+        result << QString::fromStdString(BornAgain::CrystalType);
+    }
+    result = SessionItem::translateList(result);
+    return result;
 }
 
 Lattice MesoCrystalItem::getLattice() const
@@ -165,4 +179,13 @@ std::unique_ptr<IFormFactor> MesoCrystalItem::getOuterShape() const
 {
     auto& ff_item = groupItem<FormFactorItem>(MesoCrystalItem::P_FORM_FACTOR);
     return ff_item.createFormFactor();
+}
+
+namespace {
+bool IsIParticleName(QString name) {
+    return (name.startsWith(Constants::ParticleType)
+         || name.startsWith(Constants::ParticleCompositionType)
+         || name.startsWith(Constants::ParticleCoreShellType)
+         || name.startsWith(Constants::MesoCrystalType));
+}
 }

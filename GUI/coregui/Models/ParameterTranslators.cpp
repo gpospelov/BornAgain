@@ -115,3 +115,10 @@ int RoughnessTranslator::numberOfLayers() const
     QVector<SessionItem*> list = mp_parent->getChildrenOfType(Constants::LayerType);
     return list.size();
 }
+
+//! Translates the basis vector coordinates
+
+QStringList MesoCrystalTranslator::translate(const QStringList& list) const
+{
+    return list;
+}

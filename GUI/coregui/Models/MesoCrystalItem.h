@@ -37,6 +37,8 @@ public:
 
     std::unique_ptr<MesoCrystal> createMesoCrystal() const;
 
+    QStringList translateList(const QStringList& list) const override;
+
 private:
     Lattice getLattice() const;
     std::unique_ptr<IParticle> getBasis() const;

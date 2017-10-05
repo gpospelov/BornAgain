@@ -372,6 +372,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Mesocrystal" icon="images/sample_layers2.png">
+            <widget class="example10">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
 
     </category>
 

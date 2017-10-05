@@ -29,9 +29,6 @@ public:
     BoxesSquareLatticeBuilder();
     MultiLayer* buildSample() const;
 
-protected:
-    void init_parameters();
-
 private:
     double m_length;
     double m_height;

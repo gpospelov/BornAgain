@@ -32,9 +32,6 @@ public:
     RadialParaCrystalBuilder();
     MultiLayer* buildSample() const;
 
-protected:
-    void init_parameters();
-
 private:
     double m_corr_peak_distance;
     double m_corr_width;
@@ -71,9 +68,6 @@ class BA_CORE_API_ HexParaCrystalBuilder : public IMultiLayerBuilder
 public:
     HexParaCrystalBuilder();
     virtual MultiLayer* buildSample() const;
-
-protected:
-    virtual void init_parameters();
 
 private:
     double m_peak_distance;

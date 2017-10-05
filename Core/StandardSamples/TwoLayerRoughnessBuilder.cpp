@@ -26,19 +26,7 @@ TwoLayerRoughnessBuilder::TwoLayerRoughnessBuilder()
     : m_sigma(1.0*Units::nanometer)
     , m_hurst(0.3)
     , m_lateralCorrLength(5.0*Units::nanometer)
-{
-    init_parameters();
-}
-
-
-void TwoLayerRoughnessBuilder::init_parameters()
-{
-    registerParameter("sigma", &m_sigma).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("hurst", &m_hurst);
-    registerParameter("lateralCorrLength", &m_lateralCorrLength).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-}
-
+{}
 
 MultiLayer* TwoLayerRoughnessBuilder::buildSample() const
 {

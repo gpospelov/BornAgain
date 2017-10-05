@@ -32,9 +32,7 @@
 CylindersInDWBABuilder::CylindersInDWBABuilder()
     : m_height(5*Units::nanometer)
     , m_radius(5*Units::nanometer)
-{
-    init_parameters();
-}
+{}
 
 MultiLayer* CylindersInDWBABuilder::buildSample() const
 {
@@ -60,21 +58,13 @@ MultiLayer* CylindersInDWBABuilder::buildSample() const
     return multi_layer;
 }
 
-void CylindersInDWBABuilder::init_parameters()
-{
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-}
-
 // -----------------------------------------------------------------------------
 // Cylinders in BA
 // -----------------------------------------------------------------------------
 CylindersInBABuilder::CylindersInBABuilder()
     : m_height(5*Units::nanometer)
     , m_radius(5*Units::nanometer)
-{
-    init_parameters();
-}
+{}
 
 MultiLayer* CylindersInBABuilder::buildSample() const
 {
@@ -96,21 +86,13 @@ MultiLayer* CylindersInBABuilder::buildSample() const
     return multi_layer;
 }
 
-void CylindersInBABuilder::init_parameters()
-{
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-}
-
 // -----------------------------------------------------------------------------
 // Large cylinders in DWBA
 // -----------------------------------------------------------------------------
 LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
     : m_height(1000*Units::nanometer)
     , m_radius(500*Units::nanometer)
-{
-    init_parameters();
-}
+{}
 
 MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 {
@@ -136,22 +118,13 @@ MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
     return multi_layer;
 }
 
-void LargeCylindersInDWBABuilder::init_parameters()
-{
-
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-}
-
 // -----------------------------------------------------------------------------
 // Rotated cylinders in DWBA
 // -----------------------------------------------------------------------------
 RotatedCylindersBuilder::RotatedCylindersBuilder()
     : m_height(5*Units::nanometer)
     , m_radius(5*Units::nanometer)
-{
-    init_parameters();
-}
+{}
 
 MultiLayer* RotatedCylindersBuilder::buildSample() const
 {
@@ -177,10 +150,4 @@ MultiLayer* RotatedCylindersBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
-}
-
-void RotatedCylindersBuilder::init_parameters()
-{
-    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
 }

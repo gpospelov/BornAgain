@@ -34,19 +34,19 @@ public:
     GUIObjectBuilder();
     virtual ~GUIObjectBuilder(){}
 
-    SessionItem* populateSampleModel(SampleModel* sampleModel,
+    SessionItem* populateSampleModel(SampleModel* sample_model,
                                      const GISASSimulation &simulation,
-                                     const QString &sampleName=QString());
+                                     const QString &sample_name=QString());
 
-    SessionItem* populateSampleModel(SampleModel* sampleModel,
+    SessionItem* populateSampleModel(SampleModel* sample_model,
                                      const ISample &sample,
-                                     const QString &sampleName=QString());
+                                     const QString &sample_name=QString());
 
-    SessionItem* populateInstrumentModel(InstrumentModel* instrumentModel,
+    SessionItem* populateInstrumentModel(InstrumentModel* p_instrument_model,
                                          const GISASSimulation &simulation,
-                                               const QString &instrumentName=QString());
+                                               const QString &instrument_name=QString());
 
-    SessionItem* populateDocumentModel(DocumentModel* documentModel,
+    SessionItem* populateDocumentModel(DocumentModel* p_documentModel,
                                        const GISASSimulation &simulation);
 
 
@@ -62,6 +62,8 @@ public:
     void visit(const ParticleDistribution*);
     void visit(const ParticleCoreShell*);
     void visit(const ParticleComposition*);
+    void visit(const MesoCrystal*);
+    void visit(const Crystal*);
 
     void visit(const FormFactorAnisoPyramid*);
     void visit(const FormFactorBox*);
@@ -100,6 +102,7 @@ private:
     void buildAbundanceInfo(SessionItem* particleItem);
     void buildPositionInfo(SessionItem* particleItem, const IParticle* sample);
     MaterialProperty createMaterialFromDomain(const HomogeneousMaterial*);
+    SessionItem* InsertIParticle(const IParticle* p_particle, QString model_type);
 
     SampleModel* m_sampleModel;
 

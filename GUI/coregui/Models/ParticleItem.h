@@ -37,9 +37,7 @@ public:
 private:
     void updatePropertiesAppearance(SessionItem* newParent);
     bool isShellParticle() const;
-    bool isCoreParticle() const;
-    bool isDistributionContext() const;
-    bool isCompositionContext() const;
+    bool parentIsParticleLayout() const;
 };
 
 #endif // PARTICLEITEM_H

@@ -163,12 +163,12 @@ double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k
     return corr;
 }
 
-int MultiLayer::indexOfLayer(const Layer* p_layer) const
+size_t MultiLayer::indexOfLayer(const Layer* p_layer) const
 {
     for (size_t i=0; i<numberOfLayers(); ++i)
         if (p_layer == m_layers[i])
-            return static_cast<int>(i);
-    return -1;
+            return i;
+    throw std::out_of_range("MultiLayer::indexOfLayer: layer not found");
 }
 
 bool MultiLayer::containsMagneticMaterial() const

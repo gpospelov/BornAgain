@@ -40,7 +40,7 @@ public:
 
     std::vector<HomogeneousRegion> homogeneousRegions() const override final;
 
-    Lattice transformedLattice(const IRotation* p_rotation) const;
+    Lattice transformedLattice(const IRotation* p_rotation=nullptr) const;
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 

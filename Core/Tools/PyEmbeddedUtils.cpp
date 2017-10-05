@@ -167,14 +167,13 @@ std::string PyEmbeddedUtils::pythonStackTrace()
             result << "\n";
             PyObject* pyth_func = PyObject_GetAttrString(pyth_module, "format_exception");
             if (pyth_func && PyCallable_Check(pyth_func)) {
-                PyObject* pyth_val;
-
-                pyth_val = PyObject_CallFunctionObjArgs(pyth_func, ptype, pvalue, ptraceback, NULL);
-
-                pystr = PyObject_Str(pyth_val);
-                if (char* str = PyString_AsString(pystr))
-                    result << std::string(str);
-                Py_DECREF(pyth_val);
+                PyObject* pyth_val = PyObject_CallFunctionObjArgs(pyth_func, ptype, pvalue, ptraceback, NULL);
+                if (pyth_val) {
+                    pystr = PyObject_Str(pyth_val);
+                    if (char* str = PyString_AsString(pystr))
+                        result << std::string(str);
+                    Py_DECREF(pyth_val);
+                }
             }
             result << "\n";
         }

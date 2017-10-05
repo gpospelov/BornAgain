@@ -79,3 +79,8 @@ TwoLayerRoughnessTranslationTest::TwoLayerRoughnessTranslationTest()
     : GUITranslationTest("BasicGISAS", "TwoLayerRoughnessBuilder"){}
 
 TwoLayerRoughnessTranslationTest::~TwoLayerRoughnessTranslationTest() = default;
+
+MesoCrystalTranslationTest::MesoCrystalTranslationTest()
+    : GUITranslationTest("BasicGISAS", "MesoCrystalBuilder"){}
+
+MesoCrystalTranslationTest::~MesoCrystalTranslationTest() = default;

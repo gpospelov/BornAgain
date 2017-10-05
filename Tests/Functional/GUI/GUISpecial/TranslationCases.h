@@ -111,4 +111,11 @@ public:
     ~TwoLayerRoughnessTranslationTest();
 };
 
+class MesoCrystalTranslationTest : public GUITranslationTest
+{
+public:
+    MesoCrystalTranslationTest();
+    ~MesoCrystalTranslationTest();
+};
+
 #endif // TRANSLATIONCASES_H

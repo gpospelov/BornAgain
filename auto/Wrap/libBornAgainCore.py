@@ -21473,7 +21473,7 @@ class IsGISAXSDetector(SphericalDetector):
 IsGISAXSDetector_swigregister = _libBornAgainCore.IsGISAXSDetector_swigregister
 IsGISAXSDetector_swigregister(IsGISAXSDetector)
 
-class Lattice(_object):
+class Lattice(INode):
     """
 
 
@@ -21484,8 +21484,12 @@ class Lattice(_object):
     """
 
     __swig_setmethods__ = {}
+    for _s in [INode]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, Lattice, name, value)
     __swig_getmethods__ = {}
+    for _s in [INode]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Lattice, name)
     __repr__ = _swig_repr
 
@@ -21504,6 +21508,18 @@ class Lattice(_object):
             self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_Lattice
     __del__ = lambda self: None
+
+    def accept(self, visitor):
+        """
+        accept(Lattice self, INodeVisitor visitor)
+
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.Lattice_accept(self, visitor)
+
 
     def createTransformedLattice(self, transform):
         """
@@ -21652,6 +21668,18 @@ class Lattice(_object):
     if _newclass:
         createTrigonalLattice = staticmethod(createTrigonalLattice)
     __swig_getmethods__["createTrigonalLattice"] = lambda x: createTrigonalLattice
+
+    def onChange(self):
+        """
+        onChange(Lattice self)
+
+        virtual void IParameterized::onChange()
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.Lattice_onChange(self)
+
 Lattice_swigregister = _libBornAgainCore.Lattice_swigregister
 Lattice_swigregister(Lattice)
 

@@ -42,7 +42,7 @@ public:
     ~IParticle() {}
     IParticle* clone() const  override=0;
 
-    void accept(INodeVisitor* visitor) const  override{ visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     //! Create a form factor for this particle
     virtual IFormFactor* createFormFactor() const;

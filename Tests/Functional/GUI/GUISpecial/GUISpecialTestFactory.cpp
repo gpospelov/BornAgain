@@ -71,6 +71,10 @@ GUISpecialTestFactory::GUISpecialTestFactory()
                  create_new<TwoLayerRoughnessTranslationTest>,
                  "TwoLayerRoughnessTranslation test");
 
+    registerItem("MesoCrystalTranslation",
+                 create_new<MesoCrystalTranslationTest>,
+                 "MesoCrystalTranslation test");
+
     registerItem("GUIPerformance",
                  create_new<GUIPerformanceTest>,
                  "Measuring GUI performance on typical tasks.");

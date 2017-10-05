@@ -2,17 +2,18 @@ set(test GUISpecial)
 
 set(test_cases
     BasicTranslation
-    RadialParaTranslation
-    HexParaTranslation
-    CoreShellTranslation
-    RoughnessTranslation
-    SquareLatticeTranslation
-    RotationTranslation
-    SizeDistributionTranslation
     CompositionTranslation
-    Para2DTranslation
+    CoreShellTranslation
+    HexParaTranslation
     Lattice1DTranslation
     Lattice2DTranslation
+    MesoCrystalTranslation
+    Para2DTranslation
+    SizeDistributionTranslation
+    SquareLatticeTranslation
+    RadialParaTranslation
+    RotationTranslation
+    RoughnessTranslation
     TwoLayerRoughnessTranslation
 #    GUIPerformanceTest  # too heavy, call manually when necessary
 )

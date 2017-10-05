@@ -70,4 +70,13 @@ private:
     const SessionItem* mp_parent;
 };
 
+class MesoCrystalTranslator : public IPathTranslator {
+public:
+    ~MesoCrystalTranslator() override {}
+
+    MesoCrystalTranslator* clone() const override { return new MesoCrystalTranslator; }
+
+    virtual QStringList translate(const QStringList& list) const override;
+};
+
 #endif // PARAMETERTRANSLATORS_H

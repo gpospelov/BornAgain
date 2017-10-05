@@ -62,14 +62,12 @@ IFormFactor* ParticleComposition::createFormFactor() const
 
 void ParticleComposition::addParticle(const IParticle &particle)
 {
-    checkParticleType(particle);
     IParticle* np = particle.clone();
     addParticlePointer(np);
 }
 
 void ParticleComposition::addParticle(const IParticle& particle, kvector_t position)
 {
-    checkParticleType(particle);
     IParticle* np = particle.clone();
     np->translate(position);
     addParticlePointer(np);
@@ -136,14 +134,6 @@ size_t ParticleComposition::check_index(size_t index) const
 {
     return index < m_particles.size() ? index : throw Exceptions::OutOfBoundsException(
         "ParticleComposition::check_index() -> Index is out of bounds");
-}
-
-void ParticleComposition::checkParticleType(const IParticle &p_particle)
-{
-    const ParticleDistribution* p_distr = dynamic_cast<const ParticleDistribution*>(&p_particle);
-    if (p_distr)
-        throw Exceptions::ClassInitializationException("ParticleComposition::checkParticleType: "
-                                                       "cannot add ParticleDistribution!");
 }
 
 void ParticleComposition::addParticlePointer(IParticle* p_particle)

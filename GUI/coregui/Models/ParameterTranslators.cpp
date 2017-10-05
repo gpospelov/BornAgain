@@ -16,9 +16,10 @@
 
 #include "ParameterTranslators.h"
 #include "BornAgainNamespace.h"
+#include "GUIHelpers.h"
+#include "MesoCrystalItem.h"
 #include "ParticleItem.h"
 #include "VectorItem.h"
-#include "GUIHelpers.h"
 
 namespace {
 const QStringList expectedRoughnessPars = QStringList() << QString::fromStdString(BornAgain::Sigma)
@@ -114,4 +115,47 @@ int RoughnessTranslator::numberOfLayers() const
 {
     QVector<SessionItem*> list = mp_parent->getChildrenOfType(Constants::LayerType);
     return list.size();
+}
+
+//! Translates the basis vector coordinates
+
+QStringList MesoCrystalTranslator::translate(const QStringList& list) const
+{
+    if (list.size()!=2)
+        return list;
+    if (!list.back().contains(MesoCrystalItem::LATTICE_VECTOR))
+        return list;
+    QString basis_coordinate;
+    if (list.back()==MesoCrystalItem::P_VECTOR_A) {
+        if (list.front()==VectorItem::P_X) {
+            basis_coordinate = QString::fromStdString(BornAgain::BasisVector_AX);
+        } else if  (list.front()==VectorItem::P_Y) {
+            basis_coordinate = QString::fromStdString(BornAgain::BasisVector_AY);
+        } else if  (list.front()==VectorItem::P_Z) {
+            basis_coordinate = QString::fromStdString(BornAgain::BasisVector_AZ);
+        }
+    } else if (list.back()==MesoCrystalItem::P_VECTOR_B) {
+        if (list.front()==VectorItem::P_X) {
+            basis_coordinate = QString::fromStdString(BornAgain::BasisVector_BX);
+        } else if  (list.front()==VectorItem::P_Y) {
+            basis_coordinate = QString::fromStdString(BornAgain::BasisVector_BY);
+        } else if  (list.front()==VectorItem::P_Z) {
+            basis_coordinate = QString::fromStdString(BornAgain::BasisVector_BZ);
+        }
+    } else if (list.back()==MesoCrystalItem::P_VECTOR_C) {
+        if (list.front()==VectorItem::P_X) {
+            basis_coordinate = QString::fromStdString(BornAgain::BasisVector_CX);
+        } else if  (list.front()==VectorItem::P_Y) {
+            basis_coordinate = QString::fromStdString(BornAgain::BasisVector_CY);
+        } else if  (list.front()==VectorItem::P_Z) {
+            basis_coordinate = QString::fromStdString(BornAgain::BasisVector_CZ);
+        }
+    }
+    if (basis_coordinate.isEmpty())
+        return list;
+    QStringList result;
+    result << basis_coordinate
+           << QString::fromStdString(BornAgain::LatticeType)
+           << QString::fromStdString(BornAgain::CrystalType);
+    return result;
 }

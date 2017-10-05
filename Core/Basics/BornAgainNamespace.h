@@ -68,6 +68,7 @@ const std::string InterferenceFunction1DLatticeType = "Interference1DLattice";
 const std::string InterferenceFunction2DLatticeType = "Interference2DLattice";
 
 const std::string CrystalType = "Crystal";
+const std::string LatticeType = "Lattice";
 const std::string MesoCrystalType = "MesoCrystal";
 
 const std::string FFAnisoPyramidType = "AnisoPyramid";
@@ -157,6 +158,15 @@ const std::string Abundance = "Abundance";
 const std::string PositionX = "PositionX";
 const std::string PositionY = "PositionY";
 const std::string PositionZ = "PositionZ";
+const std::string BasisVector_AX = "BasisAX";
+const std::string BasisVector_AY = "BasisAY";
+const std::string BasisVector_AZ = "BasisAZ";
+const std::string BasisVector_BX = "BasisBX";
+const std::string BasisVector_BY = "BasisBY";
+const std::string BasisVector_BZ = "BasisBZ";
+const std::string BasisVector_CX = "BasisCX";
+const std::string BasisVector_CY = "BasisCY";
+const std::string BasisVector_CZ = "BasisCZ";
 const std::string Radius = "Radius";
 const std::string RadiusX = "RadiusX";
 const std::string RadiusY = "RadiusY";

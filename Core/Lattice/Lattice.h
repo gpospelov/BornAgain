@@ -16,6 +16,7 @@
 #ifndef LATTICE_H
 #define LATTICE_H
 
+#include "INode.h"
 #include "Vectors3D.h"
 #include <vector>
 
@@ -25,13 +26,15 @@ class Transform3D;
 //! A lattice with three basis vectors.
 //! @ingroup samples
 
-class BA_CORE_API_ Lattice
+class BA_CORE_API_ Lattice : public INode
 {
 public:
     Lattice() =delete;
     Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3);
     Lattice(const Lattice& lattice);
     ~Lattice();
+
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     //! Create transformed lattice
     Lattice createTransformedLattice(const Transform3D& transform) const;
@@ -40,13 +43,13 @@ public:
     void initialize() const;
 
     //! Returns basis vector a
-    kvector_t getBasisVectorA() const { return m_a1; }
+    kvector_t getBasisVectorA() const { return m_a; }
 
     //! Returns basis vector b
-    kvector_t getBasisVectorB() const { return m_a2; }
+    kvector_t getBasisVectorB() const { return m_b; }
 
     //! Returns basis vector c
-    kvector_t getBasisVectorC() const { return m_a3; }
+    kvector_t getBasisVectorC() const { return m_c; }
 
     //! Returns the volume of the unit cell
     double volume() const;
@@ -71,8 +74,12 @@ public:
 
     static Lattice createTrigonalLattice(double a, double c);
 
+    void onChange() override;
+
 private:
     Lattice& operator=(const Lattice& lattice);
+
+    void registerBasisVectors();
 
     std::vector<kvector_t> vectorsWithinRadius(
         const kvector_t input_vector, const ivector_t& nearest_coords, double radius,
@@ -84,8 +91,8 @@ private:
         const kvector_t v1, const kvector_t v2, const kvector_t v3,
         kvector_t o1, kvector_t o2, kvector_t o3);
     ISelectionRule *mp_selection_rule;
-    kvector_t m_a1, m_a2, m_a3; //!< Basis vectors in real space
-    mutable kvector_t m_b1, m_b2, m_b3; //!< Cache of basis vectors in reciprocal space
+    kvector_t m_a, m_b, m_c; //!< Basis vectors in real space
+    mutable kvector_t m_ra, m_rb, m_rc; //!< Cache of basis vectors in reciprocal space
     //! Boolean indicating if the reciprocal vectors are already initialized in the cache
     mutable bool m_cache_ok;
 };

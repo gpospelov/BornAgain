@@ -62,8 +62,7 @@ ParticleCompositionItem::ParticleCompositionItem()
 
     mapper()->setOnParentChange(
                 [this](SessionItem *parent) {
-        if (parent && (parent->modelType() == Constants::ParticleCompositionType
-            || parent->modelType() == Constants::ParticleDistributionType)) {
+        if (parent && parent->modelType() != Constants::ParticleLayoutType) {
             setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {

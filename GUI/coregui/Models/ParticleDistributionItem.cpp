@@ -67,14 +67,6 @@ ParticleDistributionItem::ParticleDistributionItem()
             return;
         updateParameterList();
     });
-
-    // Temporarily disabled because of cloning problem
-//    mapper()->setOnPropertyChange([this](const QString &name)
-//    {
-//        if(name == P_DISTRIBUTED_PARAMETER)
-//            initDistributionItem();
-//    }, this);
-
 }
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
@@ -146,41 +138,12 @@ void ParticleDistributionItem::updateParameterList()
 
     // we first set parameter, and then clear the cache name, to not to allow
     // initDistributionItem to override limits obtained from the domain
-
     if(prop != newProp)
         setItemValue(P_DISTRIBUTED_PARAMETER, newProp.getVariant());
 
     if(make_cache_clear)
         m_domain_cache_name.clear();
 }
-
-//! Provides reasonable initialization of the distribution item (mean value of the distributed
-//! parameter, limits). Called on every distributed parameter name change.
-
-//void ParticleDistributionItem::initDistributionItem()
-//{
-//    qDebug() << "BBB";
-//    if(!m_domain_cache_name.isEmpty())
-//        return;
-
-//    ComboProperty prop = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
-//    if(prop.getValue() == NO_SELECTION)
-//        return;
-
-//    SessionItem *linkedItem = ParameterTreeUtils::parameterNameToLinkedItem(prop.getValue(),
-//                                                                            childParticle());
-//    Q_ASSERT(linkedItem);
-
-//    double value = linkedItem->value().toDouble();
-//    RealLimits limits = linkedItem->limits();
-
-//    auto distr_item = dynamic_cast<DistributionItem*>(
-//                getGroupItem(ParticleDistributionItem::P_DISTRIBUTION));
-//    Q_ASSERT(distr_item);
-
-//    distr_item->setItemValue(DistributionItem::P_IS_INITIALIZED, false);
-//    distr_item->init_parameters(value, limits);
-//}
 
 QStringList ParticleDistributionItem::childParameterNames() const
 {

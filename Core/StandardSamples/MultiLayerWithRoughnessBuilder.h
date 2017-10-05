@@ -29,9 +29,6 @@ public:
     MultiLayerWithRoughnessBuilder();
     MultiLayer* buildSample() const;
 
-protected:
-    void init_parameters();
-
 private:
     double m_thicknessA;
     double m_thicknessB;

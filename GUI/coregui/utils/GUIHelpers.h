@@ -31,11 +31,15 @@ namespace GUIHelpers
 class BA_CORE_API_ Error : public std::exception
 {
 public:
-    explicit Error(const QString& message) throw()
-        : message(message) {}
-    virtual ~Error() throw() {}
+    explicit Error(const QString& message) noexcept : message(message) {}
+    virtual ~Error() noexcept;
 
-    virtual const char* what() const throw() { return message.toLatin1().data(); }
+    Error(const Error&) =default;
+    Error& operator=(const Error&) =default;
+    Error(Error&&) =default;
+    Error& operator=(Error&&) =default;
+
+    const char* what() const noexcept override;
 
 private:
     QString message;

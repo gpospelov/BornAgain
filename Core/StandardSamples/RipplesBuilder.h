@@ -26,17 +26,6 @@ class BA_CORE_API_ CosineRippleBuilder : public IMultiLayerBuilder
 public:
     CosineRippleBuilder();
     MultiLayer* buildSample() const;
-
-protected:
-    void init_parameters();
-
-private:
-    double m_w; //width
-    double m_h; //heigth
-    double m_l; //length
-
-    double m_interf_distance;
-    double m_interf_width;
 };
 
 
@@ -53,12 +42,7 @@ protected:
     void init_parameters();
 
 private:
-    double m_w; //width
-    double m_h; //heigth
-    double m_l; //length
-    double m_d; //asymetry
-    double m_interf_distance;
-    double m_interf_width;
+    double m_d;
 };
 
 class BA_CORE_API_ AsymRippleBuilder : public IMultiLayerBuilder

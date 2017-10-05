@@ -114,7 +114,7 @@ public:
     double crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
 
     //! returns layer index
-    int indexOfLayer(const Layer* p_layer) const;
+    size_t indexOfLayer(const Layer* p_layer) const;
 
     //! returns true if contains magnetic materials and matrix calculations are required
     bool requiresMatrixRTCoefficients() const;

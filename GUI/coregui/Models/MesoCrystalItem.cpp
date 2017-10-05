@@ -54,12 +54,10 @@ const QString density_tooltip =
 }
 
 const QString MesoCrystalItem::P_FORM_FACTOR = "Outer Shape";
-const QString MesoCrystalItem::P_ABUNDANCE = QString::fromStdString(BornAgain::Abundance);
 const QString MesoCrystalItem::T_BASIS_PARTICLE = "Basis Particle";
-const QString MesoCrystalItem::P_LATTICE = "Lattice";
-const QString MesoCrystalItem::P_VECTOR_1 = "First lattice vector";
-const QString MesoCrystalItem::P_VECTOR_2 = "Second lattice vector";
-const QString MesoCrystalItem::P_VECTOR_3 = "Third lattice vector";
+const QString MesoCrystalItem::P_VECTOR_A = "First lattice vector";
+const QString MesoCrystalItem::P_VECTOR_B = "Second lattice vector";
+const QString MesoCrystalItem::P_VECTOR_C = "Third lattice vector";
 
 
 MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalType)
@@ -68,12 +66,12 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
 
-    addProperty(P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0)).setDecimals(3)
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0)).setDecimals(3)
         .setToolTip(abundance_tooltip);
 
-    addGroupProperty(P_VECTOR_1, Constants::VectorType)->setToolTip(lattice_vector1_tooltip);
-    addGroupProperty(P_VECTOR_2, Constants::VectorType)->setToolTip(lattice_vector2_tooltip);
-    addGroupProperty(P_VECTOR_3, Constants::VectorType)->setToolTip(lattice_vector3_tooltip);
+    addGroupProperty(P_VECTOR_A, Constants::VectorType)->setToolTip(lattice_vector1_tooltip);
+    addGroupProperty(P_VECTOR_B, Constants::VectorType)->setToolTip(lattice_vector2_tooltip);
+    addGroupProperty(P_VECTOR_C, Constants::VectorType)->setToolTip(lattice_vector3_tooltip);
     addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
 
     registerTag(T_BASIS_PARTICLE, 0, 1, QStringList() << Constants::ParticleType
@@ -87,6 +85,16 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     addTranslator(PositionTranslator());
     addTranslator(RotationTranslator());
+
+    mapper()->setOnParentChange(
+                [this](SessionItem *parent) {
+        if (parent && parent->modelType() != Constants::ParticleLayoutType) {
+            setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
+        } else {
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
+        }
+    });
 }
 
 std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
@@ -117,9 +125,9 @@ std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
 
 Lattice MesoCrystalItem::getLattice() const
 {
-    SessionItem* lattice_vector1_item = getItem(P_VECTOR_1);
-    SessionItem* lattice_vector2_item = getItem(P_VECTOR_2);
-    SessionItem* lattice_vector3_item = getItem(P_VECTOR_3);
+    SessionItem* lattice_vector1_item = getItem(P_VECTOR_A);
+    SessionItem* lattice_vector2_item = getItem(P_VECTOR_B);
+    SessionItem* lattice_vector3_item = getItem(P_VECTOR_C);
     kvector_t a1(lattice_vector1_item->getItemValue(VectorItem::P_X).toDouble(),
                  lattice_vector1_item->getItemValue(VectorItem::P_Y).toDouble(),
                  lattice_vector1_item->getItemValue(VectorItem::P_Z).toDouble());

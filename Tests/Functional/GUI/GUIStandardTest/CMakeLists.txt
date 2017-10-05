@@ -19,13 +19,13 @@ set(test_cases
     CoreShellParticle
     CosineRipple
     CylindersAndPrisms
-#    CylindersInSSCA # no yet implemented (linked parameter)
     CylindersWithSizeDistribution
     DetectorResolution
     FormFactors
     HexParaCrystal
     LargeCylindersMonteCarlo
     Lattice1D
+    MesoCrystal
     MultiLayerWithRoughness
     MultipleLayout
     ParticleComposition

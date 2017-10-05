@@ -28,16 +28,6 @@ class BA_CORE_API_ CylindersAndPrismsBuilder : public IMultiLayerBuilder
 public:
     CylindersAndPrismsBuilder();
     MultiLayer* buildSample() const;
-
-protected:
-    void init_parameters();
-
-private:
-    double m_cylinder_height;
-    double m_cylinder_radius;
-    double m_prism_height;
-    double m_prism_length;
-    double m_cylinder_weight;
 };
 
 #endif // CYLINDERSANDPRISMSBUILDER_H

@@ -56,19 +56,15 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange(
-                [this](SessionItem* newParent)
+                [this](SessionItem* parent)
     {
-        if (newParent) {
-            if (parent()->modelType() == Constants::ParticleCompositionType
-             || parent()->modelType() == Constants::ParticleDistributionType) {
-                setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
-                getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
-            }
+        if (parent && parent->modelType() != Constants::ParticleLayoutType) {
+            setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
+            getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
         }
     });
-
 }
 
 std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const

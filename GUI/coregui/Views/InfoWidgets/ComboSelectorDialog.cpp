@@ -35,13 +35,13 @@ ComboSelectorDialog::ComboSelectorDialog(QWidget* parent)
     setAutoFillBackground(true);
     setPalette(palette);
 
-    setFixedSize(550, 250);
+    setFixedSize(500, 250);
     setWindowTitle("Please make a selection");
     setWindowFlags( Qt::Dialog );
 
     auto topLayout = new QHBoxLayout;
-    topLayout->addLayout(createLogoLayout());
-    topLayout->addLayout(createInfoLayout());
+    topLayout->addLayout(createLogoLayout(), 0);
+    topLayout->addLayout(createInfoLayout(), 1);
 
     auto mainLayout = new QVBoxLayout;
     mainLayout->addLayout(topLayout);
@@ -85,7 +85,8 @@ QBoxLayout* ComboSelectorDialog::createLogoLayout()
     label->setPixmap(icon.pixmap(100));
 
     result->addWidget(label);
-    result->setContentsMargins(5, 5, 0, 5);
+    result->addStretch(1);
+    result->setContentsMargins(0, 5, 0, 5);
 
     return result;
 }

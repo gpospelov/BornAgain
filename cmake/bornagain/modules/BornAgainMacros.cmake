@@ -65,7 +65,7 @@ print(s.get_config_var('LDVERSION') or s.get_config_var('VERSION'));
                 message(STATUS "----> Will use library from ${ALT_PYTHON_LIBRARIES} instead")
                 set(PYTHON_LIBRARIES ${ALT_PYTHON_LIBRARIES} PARENT_SCOPE)
             else()
-                message(STATUS "---> There is inconcistency between versions of interpreter and library. Don't know how to handle, compilation might fail.")
+                message(STATUS "---> There is inconcistency between versions of interpreter and library.")
             endif()
 
         endif()

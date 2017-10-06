@@ -27,7 +27,7 @@
 **
 ****************************************************************************/
 
-#include "stringutils.h"
+#include "settingsutils.h"
 
 #include <QString>
 #include <QStringList>

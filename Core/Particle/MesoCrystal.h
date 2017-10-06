@@ -38,10 +38,6 @@ public:
 
     std::vector<const INode*> getChildren() const override final;
 
-    const IClusteredParticles* getStructure() const { return mp_particle_structure.get(); }
-
-    const IFormFactor* getOuterShape() const { return mp_meso_form_factor.get(); }
-
 private:
     MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor);
     void initialize();

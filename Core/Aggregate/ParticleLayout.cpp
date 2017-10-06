@@ -148,15 +148,6 @@ void ParticleLayout::addParticle(const IParticle& particle, double abundance,
     addAndRegisterAbstractParticle(P_particle_clone.release());
 }
 
-//! Returns particle info
-const IAbstractParticle* ParticleLayout::particle(size_t index) const
-{
-    if (index>=m_particles.size())
-        throw Exceptions::OutOfBoundsException(
-            "ParticleLayout::particle() -> Error! Not so many particles in this decoration.");
-    return m_particles[index];
-}
-
 //! Returns information on all particles (type and abundance)
 //! and generates new particles if an IAbstractParticle denotes a collection
 SafePointerVector<const IParticle> ParticleLayout::particles() const
@@ -173,17 +164,6 @@ SafePointerVector<const IParticle> ParticleLayout::particles() const
         }
     }
     return particle_vector;
-}
-
-//! Returns the abundance fraction of particle at given index.
-double ParticleLayout::abundanceOfParticle(size_t index) const
-{
-    return m_particles[index]->abundance();
-}
-
-const IInterferenceFunction*ParticleLayout::interferenceFunction() const
-{
-    return mP_interference_function.get();
 }
 
 //! Adds interference functions

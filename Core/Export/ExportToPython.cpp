@@ -21,6 +21,7 @@
 #include "GISASSimulation.h"
 #include "HomogeneousMaterial.h"
 #include "IFormFactor.h"
+#include "INodeUtils.h"
 #include "InterferenceFunctions.h"
 #include "Layer.h"
 #include "LayerInterface.h"
@@ -50,6 +51,7 @@ class IFormFactor;
 class LayerRoughness;
 
 using namespace PythonFormatting;
+using namespace INodeUtils;
 
 namespace {
 
@@ -270,9 +272,12 @@ std::string ExportToPython::defineParticles() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const Particle* p_particle = it->first;
         std::string particle_name = it->second;
+        auto p_ff = OnlyChildOfType<IFormFactor>(*p_particle);
+        if (!p_ff)
+            continue;
         result << indent() << particle_name << " = ba.Particle("
                << m_label->labelMaterial(p_particle->material()) << ", "
-               << m_label->labelFormFactor(p_particle->formFactor()) << ")\n";
+               << m_label->labelFormFactor(p_ff) << ")\n";
         setRotationInformation(p_particle, particle_name, result);
         setPositionInformation(p_particle, particle_name, result);
     }
@@ -311,8 +316,9 @@ std::string ExportToPython::defineParticleDistributions() const
 
     int index(1);
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
-        std::string units = ParameterUtils::mainParUnits(*it->first);
-        ParameterDistribution par_distr = it->first->parameterDistribution();
+        const ParticleDistribution* p_particle_distr = it->first;
+        std::string units = ParameterUtils::mainParUnits(*p_particle_distr);
+        ParameterDistribution par_distr = p_particle_distr->parameterDistribution();
 
         // building distribution functions
         std::string s_distr = "distr_" + std::to_string(index);
@@ -334,8 +340,11 @@ std::string ExportToPython::defineParticleDistributions() const
             result << "\n";
         }
 
+        auto p_particle = OnlyChildOfType<IParticle>(*p_particle_distr);
+        if (!p_particle)
+            continue;
         result << indent() << it->second << " = ba.ParticleDistribution("
-               << m_label->labelParticle(it->first->particle())
+               << m_label->labelParticle(p_particle)
                << ", " << s_par_distr << ")\n";
         index++;
     }
@@ -354,9 +363,10 @@ std::string ExportToPython::defineParticleCompositions() const
         const ParticleComposition* p_particle_composition = it->first;
         std::string particle_composition_name = it->second;
         result << indent() << particle_composition_name << " = ba.ParticleComposition()\n";
-        for (size_t i = 0; i < p_particle_composition->nbrParticles(); ++i) {
+        auto particle_list = ChildNodesOfType<IParticle>(*p_particle_composition);
+        for (auto p_particle : particle_list) {
             result << indent() << particle_composition_name << ".addParticle("
-                   << m_label->labelParticle(p_particle_composition->particle(i))
+                   << m_label->labelParticle(p_particle)
             << ")\n";
         }
         setRotationInformation(p_particle_composition, particle_composition_name, result);
@@ -407,8 +417,8 @@ std::string ExportToPython::defineCrystals() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const Crystal* p_crystal = it->first;
         std::string crystal_name = it->second;
-        const Lattice* p_lattice = p_crystal->lattice();
-        const IParticle* p_basis = p_crystal->basis();
+        auto p_lattice = OnlyChildOfType<Lattice>(*p_crystal);
+        auto p_basis = OnlyChildOfType<IParticle>(*p_crystal);
         if (!p_lattice || !p_basis)
             continue;
         result << indent() << crystal_name << " = ba.Crystal(";
@@ -429,12 +439,13 @@ std::string ExportToPython::defineMesoCrystals() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const MesoCrystal* p_mesocrystal = it->first;
         std::string mesocrystal_name = it->second;
-        const Crystal *p_crystal = dynamic_cast<const Crystal*>(p_mesocrystal->getStructure());
-        if (!p_crystal)
+        auto p_crystal = OnlyChildOfType<Crystal>(*p_mesocrystal);
+        auto p_outer_shape = OnlyChildOfType<IFormFactor>(*p_mesocrystal);
+        if (!p_crystal || ! p_outer_shape)
             continue;
         result << indent() << mesocrystal_name << " = ba.MesoCrystal(";
         result << m_label->labelCrystal(p_crystal) << ", ";
-        result << m_label->labelFormFactor(p_mesocrystal->getOuterShape()) << ")\n";
+        result << m_label->labelFormFactor(p_outer_shape) << ")\n";
         setRotationInformation(p_mesocrystal, mesocrystal_name, result);
         setPositionInformation(p_mesocrystal, mesocrystal_name, result);
     }
@@ -455,14 +466,14 @@ std::string ExportToPython::defineInterferenceFunctions() const
         if (dynamic_cast<const InterferenceFunctionNone*>(interference))
             result << indent() << it->second << " = ba.InterferenceFunctionNone()\n";
 
-        else if (const auto* oneDLattice
+        else if (auto p_lattice_1d
                  = dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
-            const Lattice1DParameters latticeParameters = oneDLattice->getLatticeParameters();
+            const Lattice1DParameters latticeParameters = p_lattice_1d->getLatticeParameters();
             result << indent() << it->second << " = ba.InterferenceFunction1DLattice("
                    << printNm(latticeParameters.m_length) << ", "
                    << printDegrees(latticeParameters.m_xi) << ")\n";
 
-            const IFTDecayFunction1D* pdf = oneDLattice->decayFunction();
+            auto pdf = OnlyChildOfType<IFTDecayFunction1D>(*p_lattice_1d);
 
             if (pdf->decayLength() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
@@ -470,21 +481,21 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
         }
 
-        else if (const auto* oneDParaCrystal
+        else if (auto p_para_radial
                  = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
-                   << printNm(oneDParaCrystal->peakDistance()) << ", "
-                   << printNm(oneDParaCrystal->dampingLength()) << ")\n";
+                   << printNm(p_para_radial->peakDistance()) << ", "
+                   << printNm(p_para_radial->dampingLength()) << ")\n";
 
-            if (oneDParaCrystal->kappa() != 0.0)
+            if (p_para_radial->kappa() != 0.0)
                 result << indent() << it->second << ".setKappa("
-                       << printDouble(oneDParaCrystal->kappa()) << ")\n";
+                       << printDouble(p_para_radial->kappa()) << ")\n";
 
-            if (oneDParaCrystal->domainSize() != 0.0)
+            if (p_para_radial->domainSize() != 0.0)
                 result << indent() << it->second << ".setDomainSize("
-                       << printDouble(oneDParaCrystal->domainSize()) << ")\n";
+                       << printDouble(p_para_radial->domainSize()) << ")\n";
 
-            const IFTDistribution1D* pdf = oneDParaCrystal->probabilityDistribution();
+            auto pdf = OnlyChildOfType<IFTDistribution1D>(*p_para_radial);
 
             if (pdf->omega() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
@@ -493,29 +504,29 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << "_pdf)\n";
         }
 
-        else if (const auto* twoDLattice
+        else if (auto p_lattice_2d
                  = dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
-            const Lattice2D& lattice = twoDLattice->lattice();
+            const Lattice2D& lattice = p_lattice_2d->lattice();
             result << indent() << it->second << " = ba.InterferenceFunction2DLattice("
                    << printNm(lattice.length1()) << ", "
                    << printNm(lattice.length2()) << ", "
                    << printDegrees(lattice.latticeAngle()) << ", "
                    << printDegrees(lattice.rotationAngle()) << ")\n";
 
-            const IFTDecayFunction2D* pdf = twoDLattice->decayFunction();
+            auto pdf = OnlyChildOfType<IFTDecayFunction2D>(*p_lattice_2d);
 
             result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                    << "(" << argumentList(pdf) << ")\n"
                    << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
 
-            if (twoDLattice->integrationOverXi() == true)
+            if (p_lattice_2d->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
         }
 
-        else if (const auto* twoDParaCrystal
+        else if (auto p_para_2d
                  = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
-            std::vector<double> domainSize = twoDParaCrystal->domainSizes();
-            const Lattice2D& lattice = twoDParaCrystal->lattice();
+            std::vector<double> domainSize = p_para_2d->domainSizes();
+            const Lattice2D& lattice = p_para_2d->lattice();
             result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
                    << printNm(lattice.length1())
                    << ", "
@@ -525,18 +536,19 @@ std::string ExportToPython::defineInterferenceFunctions() const
                    << ", "
                    << printDegrees(lattice.rotationAngle())
                    << ", "
-                   << printNm(twoDParaCrystal->dampingLength()) << ")\n";
+                   << printNm(p_para_2d->dampingLength()) << ")\n";
 
             if (domainSize[0] != 0.0 || domainSize[1] != 0.0)
                 result << indent() << it->second << ".setDomainSizes("
                        << printNm(domainSize[0]) << ", "
                                                  << printNm(domainSize[1]) << ")\n";
 
-            if (twoDParaCrystal->integrationOverXi() == true)
+            if (p_para_2d->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
 
-            std::vector<const IFTDistribution2D*> pdf_vector
-                = twoDParaCrystal->probabilityDistributions();
+            auto pdf_vector = ChildNodesOfType<IFTDistribution2D>(*p_para_2d);
+            if (pdf_vector.size()!=2)
+                continue;
             const IFTDistribution2D* pdf = pdf_vector[0];
 
             result << indent() << it->second << "_pdf_1  = ba." << pdf->getName()
@@ -571,19 +583,16 @@ std::string ExportToPython::defineParticleLayouts() const
         const ILayout* iLayout = it->first;
         if (const ParticleLayout* particleLayout = dynamic_cast<const ParticleLayout*>(iLayout)) {
             result << indent() << it->second << " = ba.ParticleLayout()\n";
-            size_t numberOfParticles = particleLayout->numberOfParticles();
-            size_t particleIndex = 0;
+            auto particles = ChildNodesOfType<IAbstractParticle>(*particleLayout);
 
-            while (particleIndex != numberOfParticles) {
-                const IAbstractParticle* p_particle = particleLayout->particle(particleIndex);
-                double abundance = particleLayout->abundanceOfParticle(particleIndex);
+            for (auto p_particle : particles) {
+                double abundance = p_particle->abundance();
                 result << indent() << it->second << ".addParticle("
                        << m_label->labelParticle(p_particle) << ", "
                        << printDouble(abundance) << ")\n";
-                particleIndex++;
             }
 
-            if( const IInterferenceFunction* p_iff = particleLayout->interferenceFunction() )
+            if( auto p_iff = OnlyChildOfType<IInterferenceFunction>(*particleLayout) )
                 result << indent() << it->second << ".setInterferenceFunction("
                        << m_label->labelInterferenceFunction(p_iff) << ")\n";
 

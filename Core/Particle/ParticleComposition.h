@@ -44,11 +44,6 @@ public:
     //! Returns number of different particles
     size_t nbrParticles() const { return m_particles.size(); }
 
-    //! Returns particle with given index
-    const IParticle* particle(size_t index) const;
-
-    kvector_t particlePosition(size_t index) const;
-
     std::vector<const INode*> getChildren() const override final;
 
     SafePointerVector<IParticle> decompose() const override final;

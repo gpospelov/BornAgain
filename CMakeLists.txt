@@ -50,6 +50,7 @@ endif()
 
 #--- Include CMake macros and functions ---
 include(GetFilenameComponent) # overwrite CMake command
+include(BornAgainMacros)
 include(SearchInstalledSoftware)
 include(CheckCompiler)
 if(ZERO_TOLERANCE)

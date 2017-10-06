@@ -8,6 +8,7 @@ set(test_cases
     CompiledFunction
     ObjectExtract
     ExportToPythonAndBack
+    ModuleFunctionsList
 )
 
 # for some reason these flags doesn't propagated here by SetUpWindows.cmake

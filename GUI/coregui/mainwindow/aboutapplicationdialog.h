@@ -20,7 +20,10 @@
 #include "WinDllMacros.h"
 #include <QDialog>
 
-//! new project dialog window
+class QBoxLayout;
+
+//! About BornAgain dialog.
+
 class BA_CORE_API_ AboutApplicationDialog : public QDialog
 {
     Q_OBJECT
@@ -28,8 +31,9 @@ public:
     AboutApplicationDialog(QWidget *parent = 0);
 
 private:
-    QPushButton *m_closeButton;
+    QBoxLayout* createLogoLayout();
+    QBoxLayout* createTextLayout();
+    QBoxLayout* createButtonLayout();
 };
-
 
 #endif // ABOUTAPPLICATIONDIALOG_H

@@ -24,13 +24,17 @@
 
 namespace SysUtils {
 
-    BA_CORE_API_ std::string getCurrentDateAndTime();
+BA_CORE_API_ std::string getCurrentDateAndTime();
 
-    //! Enables exception throw in the case of NaN, Inf.
-    BA_CORE_API_ void enableFloatingPointExceptions();
+//! Enables exception throw in the case of NaN, Inf.
+BA_CORE_API_ void enableFloatingPointExceptions();
 
-    //! Returns    environment variable
-    BA_CORE_API_ std::string getenv(const std::string& name);
+//! Returns environment variable.
+BA_CORE_API_ std::string getenv(const std::string& name);
+
+//! Returns true if operation system is Windows.
+BA_CORE_API_ bool isWindowsHost();
+
 } // namespace SysUtils
 
 #endif // SYSUTILS_H

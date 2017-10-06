@@ -82,4 +82,12 @@ protected:
     bool runTest();
 };
 
+//! Explores the content of imported module for the list of defined functions.
+
+class ModuleFunctionsList : public IFunctionalTest
+{
+protected:
+    bool runTest();
+};
+
 #endif

@@ -92,9 +92,9 @@ void PyEmbeddedUtils::import_bornagain(const std::string& path)
 
         // Stores signal handler before numpy's mess it up.
         // This is to make ctrl-c working from terminal.
-        PyOS_sighandler_t sighandler;
 #ifndef _WIN32
-            sighandler = PyOS_getsig(SIGINT);
+        PyOS_sighandler_t sighandler;
+        sighandler = PyOS_getsig(SIGINT);
 #endif
         PyObject* pmod = PyImport_ImportModule("bornagain");
         if (!pmod) {
@@ -104,7 +104,7 @@ void PyEmbeddedUtils::import_bornagain(const std::string& path)
 
         // restores single handler to make ctr-c alive.
 #ifndef _WIN32
-            PyOS_setsig(SIGINT, sighandler);
+        PyOS_setsig(SIGINT, sighandler);
 #endif
 
     }

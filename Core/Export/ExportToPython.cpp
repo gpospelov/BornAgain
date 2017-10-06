@@ -133,31 +133,34 @@ void ExportToPython::initSample(const MultiLayer& multilayer)
 
     for( auto x: multilayer.containedMaterials() )
         m_label->insertMaterial(x);
-    for( auto x: multilayer.containedSubclass<Layer>() )
+    for( auto x: multilayer.descendantsOfType<Layer>() )
         m_label->insertLayer(x);
-    for( auto x: multilayer.containedSubclass<LayerRoughness>() )
+    for( auto x: multilayer.descendantsOfType<LayerRoughness>() )
         m_label->insertRoughness(x);
-    for( auto x: multilayer.containedSubclass<MultiLayer>() )
+    for( auto x: multilayer.descendantsOfType<MultiLayer>() )
         m_label->insertMultiLayer(x);
-    for( auto x: multilayer.containedSubclass<IFormFactor>() )
+    for( auto x: multilayer.descendantsOfType<IFormFactor>() )
         m_label->insertFormFactor(x);
-    for( auto x: multilayer.containedSubclass<IInterferenceFunction>() )
-        m_label->insertInterferenceFunction(x);
-    for( auto x: multilayer.containedSubclass<Particle>() )
-        m_label->insertParticle(x);
-    for( auto x: multilayer.containedSubclass<ParticleCoreShell>() )
-        m_label->insertParticleCoreShell(x);
-    for( auto x: multilayer.containedSubclass<ParticleComposition>() )
-        m_label->insertParticleComposition(x);
-    for( auto x: multilayer.containedSubclass<ParticleDistribution>() )
-        m_label->insertParticleDistribution(x);
-    for( auto x: multilayer.containedSubclass<ILayout>() )
+    for( auto x: multilayer.descendantsOfType<ILayout>() )
         m_label->insertLayout(x);
-    for( auto x: multilayer.containedSubclass<IRotation>() )
+    for( auto x: multilayer.descendantsOfType<IInterferenceFunction>() )
+        m_label->insertInterferenceFunction(x);
+    for( auto x: multilayer.descendantsOfType<Particle>() )
+        m_label->insertParticle(x);
+    for( auto x: multilayer.descendantsOfType<ParticleCoreShell>() )
+        m_label->insertParticleCoreShell(x);
+    for( auto x: multilayer.descendantsOfType<ParticleComposition>() )
+        m_label->insertParticleComposition(x);
+    for( auto x: multilayer.descendantsOfType<ParticleDistribution>() )
+        m_label->insertParticleDistribution(x);
+    for( auto x: multilayer.descendantsOfType<Lattice>() )
+        m_label->insertLattice(x);
+    for( auto x: multilayer.descendantsOfType<Crystal>() )
+        m_label->insertCrystal(x);
+    for( auto x: multilayer.descendantsOfType<MesoCrystal>() )
+        m_label->insertMesoCrystal(x);
+    for( auto x: multilayer.descendantsOfType<IRotation>() )
         m_label->insertRotation(x);
-    if( multilayer.containedSubclass<MesoCrystal>().size() )
-        throw Exceptions::NotImplementedException(
-            "ExportToPython: class MesoCrystal not yet supported!");
 }
 
 std::string ExportToPython::defineGetSample() const
@@ -169,6 +172,9 @@ std::string ExportToPython::defineGetSample() const
         + defineParticles()
         + defineCoreShellParticles()
         + defineParticleCompositions()
+        + defineLattices()
+        + defineCrystals()
+        + defineMesoCrystals()
         + defineParticleDistributions()
         + defineInterferenceFunctions()
         + defineParticleLayouts()
@@ -355,6 +361,82 @@ std::string ExportToPython::defineParticleCompositions() const
         }
         setRotationInformation(p_particle_composition, particle_composition_name, result);
         setPositionInformation(p_particle_composition, particle_composition_name, result);
+    }
+    return result.str();
+}
+
+std::string ExportToPython::defineLattices() const
+{
+    const auto themap = m_label->latticeMap();
+    if (themap->size() == 0)
+        return "";
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n" << indent() << "# Defining 3D lattices\n";
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
+        const Lattice* p_lattice = it->first;
+        std::string lattice_name = it->second;
+        kvector_t bas_a = p_lattice->getBasisVectorA();
+        kvector_t bas_b = p_lattice->getBasisVectorB();
+        kvector_t bas_c = p_lattice->getBasisVectorC();
+        result << indent() << lattice_name << " = ba.Lattice(\n";
+        result << indent() << indent() << "ba.kvector_t("
+               << printNm(bas_a.x()) << ", "
+               << printNm(bas_a.y()) << ", "
+               << printNm(bas_a.z()) << "),\n";
+        result << indent() << indent() << "ba.kvector_t("
+               << printNm(bas_b.x()) << ", "
+               << printNm(bas_b.y()) << ", "
+               << printNm(bas_b.z()) << "),\n";
+        result << indent() << indent() << "ba.kvector_t("
+               << printNm(bas_c.x()) << ", "
+               << printNm(bas_c.y()) << ", "
+               << printNm(bas_c.z()) << "))\n";
+    }
+    return result.str();
+}
+
+std::string ExportToPython::defineCrystals() const
+{
+    const auto themap = m_label->crystalMap();
+    if (themap->size() == 0)
+        return "";
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n" << indent() << "# Defining crystals: basis particle + lattice\n";
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
+        const Crystal* p_crystal = it->first;
+        std::string crystal_name = it->second;
+        const Lattice* p_lattice = p_crystal->lattice();
+        const IParticle* p_basis = p_crystal->basis();
+        if (!p_lattice || !p_basis)
+            continue;
+        result << indent() << crystal_name << " = ba.Crystal(";
+        result << m_label->labelParticle(p_basis) << ", ";
+        result << m_label->labelLattice(p_lattice) << ")\n";
+    }
+    return result.str();
+}
+
+std::string ExportToPython::defineMesoCrystals() const
+{
+    const auto themap = m_label->mesocrystalMap();
+    if (themap->size() == 0)
+        return "";
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n" << indent() << "# Defining mesocrystals\n";
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
+        const MesoCrystal* p_mesocrystal = it->first;
+        std::string mesocrystal_name = it->second;
+        const Crystal *p_crystal = dynamic_cast<const Crystal*>(p_mesocrystal->getStructure());
+        if (!p_crystal)
+            continue;
+        result << indent() << mesocrystal_name << " = ba.MesoCrystal(";
+        result << m_label->labelCrystal(p_crystal) << ", ";
+        result << m_label->labelFormFactor(p_mesocrystal->getOuterShape()) << ")\n";
+        setRotationInformation(p_mesocrystal, mesocrystal_name, result);
+        setPositionInformation(p_mesocrystal, mesocrystal_name, result);
     }
     return result.str();
 }

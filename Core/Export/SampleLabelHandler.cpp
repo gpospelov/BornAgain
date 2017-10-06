@@ -25,6 +25,11 @@
 #include "ParticleDistribution.h"
 #include <set>
 
+std::string SampleLabelHandler::labelCrystal(const Crystal* cr)
+{
+    return m_CrystalLabel[cr];
+}
+
 std::string SampleLabelHandler::labelFormFactor(const IFormFactor* ff)
 {
     return m_FormFactorLabel[ff];
@@ -48,6 +53,11 @@ std::string SampleLabelHandler::labelLayout(const ILayout* layout)
 std::string SampleLabelHandler::labelMaterial(const HomogeneousMaterial* mat)
 {
     return m_MaterialLabel[mat];
+}
+
+std::string SampleLabelHandler::labelLattice(const Lattice* lat)
+{
+    return m_LatticeLabel[lat];
 }
 
 std::string SampleLabelHandler::labelMultiLayer(const MultiLayer* ml)
@@ -79,6 +89,12 @@ std::string SampleLabelHandler::labelRotation(const IRotation* rot)
 std::string SampleLabelHandler::labelRoughness(const LayerRoughness* roughness)
 {
     return m_LayerRoughnessLabel[roughness];
+}
+
+void SampleLabelHandler::insertCrystal(const Crystal* sample)
+{
+    std::string label = "crystal_" + std::to_string(m_CrystalLabel.size()+1);
+    m_CrystalLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertFormFactor(const IFormFactor* sample)
@@ -120,6 +136,12 @@ void SampleLabelHandler::insertMaterial(const HomogeneousMaterial* mat)
 
     std::string label = "material_" + std::to_string(unique_labels.size()+1);
     m_MaterialLabel.insert(mat, label);
+}
+
+void SampleLabelHandler::insertLattice(const Lattice* sample)
+{
+    std::string label = "lattice_" + std::to_string(m_LatticeLabel.size()+1);
+    m_LatticeLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertMesoCrystal(const MesoCrystal* sample)

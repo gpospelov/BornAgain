@@ -54,9 +54,24 @@ public:
     //! Creates new parameter pool, with all local parameters and those of its children.
     ParameterPool* createParameterTree() const;
 
+    template<class T> std::vector<const T*> descendantsOfType() const;
 private:
     const INode* m_parent;
 };
+
+//! Returns vector of children of type T.
+template<class T>
+std::vector<const T*> INode::descendantsOfType() const
+{
+    std::vector<const T*> result;
+    if( const T* t = dynamic_cast<const T*>(this))
+        result.push_back(t);
+    for(auto child: getChildren() ) {
+        for(const T* t: child->descendantsOfType<T>())
+            result.push_back(t);
+    }
+    return result;
+}
 
 template <class T>
 std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node,

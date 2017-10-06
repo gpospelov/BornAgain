@@ -7730,6 +7730,16 @@ class Crystal(IClusteredParticles):
         """
         return _libBornAgainCore.Crystal_getChildren(self)
 
+
+    def lattice(self):
+        """lattice(Crystal self) -> Lattice"""
+        return _libBornAgainCore.Crystal_lattice(self)
+
+
+    def basis(self):
+        """basis(Crystal self) -> IParticle"""
+        return _libBornAgainCore.Crystal_basis(self)
+
 Crystal_swigregister = _libBornAgainCore.Crystal_swigregister
 Crystal_swigregister(Crystal)
 
@@ -22848,6 +22858,16 @@ class MesoCrystal(IParticle):
 
         """
         return _libBornAgainCore.MesoCrystal_getChildren(self)
+
+
+    def getStructure(self):
+        """getStructure(MesoCrystal self) -> IClusteredParticles"""
+        return _libBornAgainCore.MesoCrystal_getStructure(self)
+
+
+    def getOuterShape(self):
+        """getOuterShape(MesoCrystal self) -> IFormFactor"""
+        return _libBornAgainCore.MesoCrystal_getOuterShape(self)
 
 MesoCrystal_swigregister = _libBornAgainCore.MesoCrystal_swigregister
 MesoCrystal_swigregister(MesoCrystal)

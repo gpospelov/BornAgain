@@ -54,6 +54,9 @@ private:
     std::string defineCoreShellParticles() const;
     std::string defineParticleDistributions() const;
     std::string defineParticleCompositions() const;
+    std::string defineLattices() const;
+    std::string defineCrystals() const;
+    std::string defineMesoCrystals() const;
     std::string defineInterferenceFunctions() const;
     std::string defineParticleLayouts() const;
     std::string defineRoughnesses() const;

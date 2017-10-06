@@ -46,6 +46,10 @@ public:
 
     std::vector<const INode*> getChildren() const override final;
 
+    const Lattice* lattice() const { return &m_lattice; }
+
+    const IParticle* basis() const { return mp_lattice_basis.get(); }
+
 private:
     Crystal(IParticle* p_lattice_basis, const Lattice& lattice);
 

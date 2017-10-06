@@ -79,8 +79,8 @@ IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, 
     // creating index mapping
     std::function<void(std::vector<int>&)> index_mapping;
     if (n == 2) {
-        const int end_bin_x = x_axis.size() - 1;
-        const int end_bin_y = y_axis.size() - 1;
+        const int end_bin_x = static_cast<int>(x_axis.size()) - 1;
+        const int end_bin_y = static_cast<int>(y_axis.size()) - 1;
         index_mapping = [end_bin_x, end_bin_y](std::vector<int>& inds) {
             inds[0] = end_bin_x - inds[0];
             inds[1] = end_bin_y - inds[1];
@@ -91,7 +91,7 @@ IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, 
         index_mapping = [rev_axis_i, end_bin](std::vector<int>& inds) {
             const int tmp_index = inds[rev_axis_i];
             inds[rev_axis_i] = inds[rev_axis_i ^ 1];
-            inds[rev_axis_i ^ 1] = end_bin - tmp_index;
+            inds[rev_axis_i ^ 1] = static_cast<int>(end_bin) - tmp_index;
         };
     }
 
@@ -177,11 +177,11 @@ double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis& axi
     if(index < 0) {
         Bin1D bin = axis.getBin(0);
         result = bin.m_lower + value*bin.getBinSize();
-    } else if(index >= (int)axis.size()) {
+    } else if(index >= static_cast<int>(axis.size())) {
         Bin1D bin = axis.getBin(axis.size()-1);
         result = bin.m_upper + (value-axis.size())*bin.getBinSize();
     } else {
-        Bin1D bin = axis.getBin(index);
+        Bin1D bin = axis.getBin(static_cast<size_t>(index));
         result = bin.m_lower + (value - static_cast<double>(index))*bin.getBinSize();
     }
 

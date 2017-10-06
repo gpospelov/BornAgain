@@ -32,7 +32,6 @@ public:
 private:
     double m_length;
     double m_xi;
-    double m_corr_length;
     double m_cylinder_height;
     double m_cylinder_radius;
 };

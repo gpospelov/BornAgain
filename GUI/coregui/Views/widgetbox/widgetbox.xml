@@ -280,7 +280,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Meso Crystal" icon="images/ParticleComposition.png">
+        <categoryentry name="Meso Crystal" icon="images/ff_Mesocrystal_32.png">
             <widget class="MesoCrystal">
                 <property name="objectName">
                      <string notr="true">somestring</string>

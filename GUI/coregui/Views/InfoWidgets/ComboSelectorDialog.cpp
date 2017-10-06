@@ -85,8 +85,7 @@ QBoxLayout* ComboSelectorDialog::createLogoLayout()
     label->setPixmap(icon.pixmap(100));
 
     result->addWidget(label);
-    result->addStretch(1);
-    result->setContentsMargins(5, 5, 5, 5);
+    result->setContentsMargins(5, 5, 0, 5);
 
     return result;
 }

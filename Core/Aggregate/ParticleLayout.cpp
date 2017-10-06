@@ -166,6 +166,15 @@ SafePointerVector<const IParticle> ParticleLayout::particles() const
     return particle_vector;
 }
 
+double ParticleLayout::getTotalAbundance() const
+{
+    double result = 0.0;
+    for (auto p_particle : m_particles) {
+        result += p_particle->abundance();
+    }
+    return result;
+}
+
 //! Adds interference functions
 void ParticleLayout::setInterferenceFunction(const IInterferenceFunction& interference_function)
 {

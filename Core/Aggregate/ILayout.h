@@ -48,7 +48,7 @@ public:
     virtual SafePointerVector<const IParticle> particles() const =0;
 
     /// Get total abundance of all particles
-    double getTotalAbundance() const;
+    virtual double getTotalAbundance() const =0;
 
     //! Returns surface density of all particles
     virtual double totalParticleSurfaceDensity() const =0;

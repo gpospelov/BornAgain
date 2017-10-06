@@ -15,18 +15,4 @@
 
 #include "ILayout.h"
 
-#include "IAbstractParticle.h"
-#include "INodeUtils.h"
-
-
 ILayout::~ILayout() =default;
-
-double ILayout::getTotalAbundance() const
-{
-    double total_abundance = 0.0;
-    auto particles = INodeUtils::ChildNodesOfType<IAbstractParticle>(*this);
-    for (auto p_particle : particles) {
-        total_abundance += p_particle->abundance();
-    }
-    return total_abundance;
-}

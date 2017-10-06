@@ -133,35 +133,35 @@ void ExportToPython::initSample(const MultiLayer& multilayer)
 {
     m_label.reset(new SampleLabelHandler());
 
+    m_label->insertMultiLayer(&multilayer);
+
     for( auto x: multilayer.containedMaterials() )
         m_label->insertMaterial(x);
-    for( auto x: multilayer.descendantsOfType<Layer>() )
+    for( auto x: AllDescendantsOfType<Layer>(multilayer) )
         m_label->insertLayer(x);
-    for( auto x: multilayer.descendantsOfType<LayerRoughness>() )
+    for( auto x: AllDescendantsOfType<LayerRoughness>(multilayer) )
         m_label->insertRoughness(x);
-    for( auto x: multilayer.descendantsOfType<MultiLayer>() )
-        m_label->insertMultiLayer(x);
-    for( auto x: multilayer.descendantsOfType<IFormFactor>() )
+    for( auto x: AllDescendantsOfType<IFormFactor>(multilayer) )
         m_label->insertFormFactor(x);
-    for( auto x: multilayer.descendantsOfType<ILayout>() )
+    for( auto x: AllDescendantsOfType<ILayout>(multilayer) )
         m_label->insertLayout(x);
-    for( auto x: multilayer.descendantsOfType<IInterferenceFunction>() )
+    for( auto x: AllDescendantsOfType<IInterferenceFunction>(multilayer) )
         m_label->insertInterferenceFunction(x);
-    for( auto x: multilayer.descendantsOfType<Particle>() )
+    for( auto x: AllDescendantsOfType<Particle>(multilayer) )
         m_label->insertParticle(x);
-    for( auto x: multilayer.descendantsOfType<ParticleCoreShell>() )
+    for( auto x: AllDescendantsOfType<ParticleCoreShell>(multilayer) )
         m_label->insertParticleCoreShell(x);
-    for( auto x: multilayer.descendantsOfType<ParticleComposition>() )
+    for( auto x: AllDescendantsOfType<ParticleComposition>(multilayer) )
         m_label->insertParticleComposition(x);
-    for( auto x: multilayer.descendantsOfType<ParticleDistribution>() )
+    for( auto x: AllDescendantsOfType<ParticleDistribution>(multilayer) )
         m_label->insertParticleDistribution(x);
-    for( auto x: multilayer.descendantsOfType<Lattice>() )
+    for( auto x: AllDescendantsOfType<Lattice>(multilayer) )
         m_label->insertLattice(x);
-    for( auto x: multilayer.descendantsOfType<Crystal>() )
+    for( auto x: AllDescendantsOfType<Crystal>(multilayer) )
         m_label->insertCrystal(x);
-    for( auto x: multilayer.descendantsOfType<MesoCrystal>() )
+    for( auto x: AllDescendantsOfType<MesoCrystal>(multilayer) )
         m_label->insertMesoCrystal(x);
-    for( auto x: multilayer.descendantsOfType<IRotation>() )
+    for( auto x: AllDescendantsOfType<IRotation>(multilayer) )
         m_label->insertRotation(x);
 }
 

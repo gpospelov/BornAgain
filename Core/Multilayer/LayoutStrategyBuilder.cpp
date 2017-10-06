@@ -21,7 +21,6 @@
 #include "FormFactorDWBAPol.h"
 #include "IFresnelMap.h"
 #include "ILayout.h"
-#include "INodeUtils.h"
 #include "IParticle.h"
 #include "InterferenceFunctionNone.h"
 #include "MultiLayer.h"
@@ -62,7 +61,13 @@ std::map<size_t, std::vector<HomogeneousRegion> > LayoutStrategyBuilder::regionM
 void LayoutStrategyBuilder::createStrategy()
 {
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
-    auto p_iff = INodeUtils::OnlyChildOfType<IInterferenceFunction>(*mp_layout);
+
+    // TODO: this needs to be updated (no dynamic_cast or unnecessary accessors)
+    const IInterferenceFunction* p_iff { nullptr };
+    for (auto p_child : mp_layout->getChildren()) {
+        if ( (p_iff = dynamic_cast<const IInterferenceFunction*>(p_child)) )
+            break;
+    }
 
     switch (mp_layout->getApproximation())
     {
@@ -70,6 +75,10 @@ void LayoutStrategyBuilder::createStrategy()
         mP_strategy.reset( new DecouplingApproximationStrategy(m_sim_params, m_polarized) );
         break;
     case ILayout::SSCA:
+        if (!p_iff)
+            throw Exceptions::ClassInitializationException(
+                "LayoutStrategyBuilder::createStrategy: "
+                "layout does not contain an interference function for SSCA");
         double kappa = p_iff->kappa();
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(

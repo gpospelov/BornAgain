@@ -7459,7 +7459,7 @@ Calls the  INodeVisitor's visit method.
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
 
-%feature("docstring")  ILayout::getTotalAbundance "double ILayout::getTotalAbundance() const
+%feature("docstring")  ILayout::getTotalAbundance "virtual double ILayout::getTotalAbundance() const =0
 
 Get total abundance of all particles. 
 ";
@@ -7611,16 +7611,6 @@ Returns display name, composed from the name of node and it's copy number.
 %feature("docstring")  INode::createParameterTree "ParameterPool * INode::createParameterTree() const
 
 Creates new parameter pool, with all local parameters and those of its children. 
-";
-
-%feature("docstring")  INode::descendantsOfType "std::vector< const T * > INode::descendantsOfType() const
-
-Returns vector of descendants of type T. 
-";
-
-%feature("docstring")  INode::childrenOfType "std::vector< const T * > INode::childrenOfType() const
-
-Returns vector of direct children of type T. 
 ";
 
 
@@ -11435,6 +11425,11 @@ rotation:
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
 
+%feature("docstring")  ParticleLayout::getTotalAbundance "double ParticleLayout::getTotalAbundance() const finaloverride
+
+Get total abundance of all particles. 
+";
+
 %feature("docstring")  ParticleLayout::setInterferenceFunction "void ParticleLayout::setInterferenceFunction(const IInterferenceFunction &interference_function)
 
 Adds interference functions. 
@@ -14401,6 +14396,9 @@ Validates all fit parameters for conflicts (steering same sample parameters).
 ";
 
 %feature("docstring")  INodeUtils::OnlyChildOfType "const T* INodeUtils::OnlyChildOfType(const INode &node)
+";
+
+%feature("docstring")  INodeUtils::AllDescendantsOfType "std::vector<const T*> INodeUtils::AllDescendantsOfType(const INode &node)
 ";
 
 

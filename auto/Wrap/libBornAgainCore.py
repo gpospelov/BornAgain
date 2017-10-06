@@ -18586,7 +18586,7 @@ class ILayout(ISample):
         """
         getTotalAbundance(ILayout self) -> double
 
-        double ILayout::getTotalAbundance() const
+        virtual double ILayout::getTotalAbundance() const =0
 
         Get total abundance of all particles. 
 
@@ -25053,6 +25053,18 @@ class ParticleLayout(ILayout):
 
         """
         return _libBornAgainCore.ParticleLayout_particles(self)
+
+
+    def getTotalAbundance(self):
+        """
+        getTotalAbundance(ParticleLayout self) -> double
+
+        double ParticleLayout::getTotalAbundance() const finaloverride
+
+        Get total abundance of all particles. 
+
+        """
+        return _libBornAgainCore.ParticleLayout_getTotalAbundance(self)
 
 
     def setInterferenceFunction(self, interference_function):

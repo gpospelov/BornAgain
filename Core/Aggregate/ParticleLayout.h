@@ -48,6 +48,8 @@ public:
 
     SafePointerVector<const IParticle> particles() const final override;
 
+    double getTotalAbundance() const final override;
+
     void setInterferenceFunction(const IInterferenceFunction& interference_function);
 
     double totalParticleSurfaceDensity() const final override;

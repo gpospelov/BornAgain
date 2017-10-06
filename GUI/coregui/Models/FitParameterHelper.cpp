@@ -124,7 +124,7 @@ ParameterItem *FitParameterHelper::getParameterItem(FitParameterContainerItem *c
     while (cur && cur->modelType() != Constants::JobItemType) {
         cur = cur->parent();
     }
-    Q_ASSERT(cur->modelType() == Constants::JobItemType);
+    Q_ASSERT(cur && cur->modelType() == Constants::JobItemType);
     JobItem *jobItem = dynamic_cast<JobItem *>(cur);
     Q_ASSERT(jobItem);
     return dynamic_cast<ParameterItem *>(

@@ -17,6 +17,7 @@
 #include "IInterferenceFunction.h"
 #include "HomogeneousMaterial.h"
 #include "LayerRoughness.h"
+#include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleComposition.h"
@@ -34,19 +35,19 @@ std::string SampleLabelHandler::labelInterferenceFunction(const IInterferenceFun
     return m_InterferenceFunctionLabel[iff];
 }
 
-std::string SampleLabelHandler::labelMaterial(const HomogeneousMaterial* mat)
-{
-    return m_MaterialLabel[mat];
-}
-
 std::string SampleLabelHandler::labelLayer(const Layer* layer)
 {
     return m_LayerLabel[layer];
 }
 
-std::string SampleLabelHandler::labelRoughness(const LayerRoughness* roughness)
+std::string SampleLabelHandler::labelLayout(const ILayout* layout)
 {
-    return m_LayerRoughnessLabel[roughness];
+    return m_ILayoutLabel[layout];
+}
+
+std::string SampleLabelHandler::labelMaterial(const HomogeneousMaterial* mat)
+{
+    return m_MaterialLabel[mat];
 }
 
 std::string SampleLabelHandler::labelMultiLayer(const MultiLayer* ml)
@@ -64,33 +65,44 @@ std::string SampleLabelHandler::labelParticle(const IAbstractParticle* abspartic
         return m_ParticleDistributionLabel[particle];
     if (const auto lattice_basis = dynamic_cast<const ParticleComposition*>(absparticle))
         return m_ParticleCompositionLabel[lattice_basis];
+    if (const auto mesocrystal = dynamic_cast<const MesoCrystal*>(absparticle))
+        return m_MesoCrystalLabel[mesocrystal];
     throw Exceptions::NotImplementedException(
         "SampleLabelHandler::getLabel: called for unknown IParticle type");
-}
-
-std::string SampleLabelHandler::labelParticleCoreShell(const ParticleCoreShell* pcs)
-{
-    return m_ParticleCoreShellLabel[pcs];
-}
-
-std::string SampleLabelHandler::labelParticleDistribution(const ParticleDistribution* pd)
-{
-    return m_ParticleDistributionLabel[pd];
-}
-
-std::string SampleLabelHandler::labelLayout(const ILayout* layout)
-{
-    return m_ILayoutLabel[layout];
-}
-
-std::string SampleLabelHandler::labelParticleComposition(const ParticleComposition* pc)
-{
-    return m_ParticleCompositionLabel[pc];
 }
 
 std::string SampleLabelHandler::labelRotation(const IRotation* rot)
 {
     return m_RotationsLabel[rot];
+}
+
+std::string SampleLabelHandler::labelRoughness(const LayerRoughness* roughness)
+{
+    return m_LayerRoughnessLabel[roughness];
+}
+
+void SampleLabelHandler::insertFormFactor(const IFormFactor* sample)
+{
+    std::string label = "formFactor_" + std::to_string(m_FormFactorLabel.size()+1);
+    m_FormFactorLabel.insert(sample, label);
+}
+
+void SampleLabelHandler::insertInterferenceFunction(const IInterferenceFunction* sample)
+{
+    std::string label = "interference_" + std::to_string(m_InterferenceFunctionLabel.size()+1);
+    m_InterferenceFunctionLabel.insert(sample, label);
+}
+
+void SampleLabelHandler::insertLayer(const Layer* sample)
+{
+    std::string label = "layer_" + std::to_string(m_LayerLabel.size()+1);
+    m_LayerLabel.insert(sample, label);
+}
+
+void SampleLabelHandler::insertLayout(const ILayout* sample)
+{
+    std::string label = "layout_" + std::to_string(m_ILayoutLabel.size()+1);
+    m_ILayoutLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertMaterial(const HomogeneousMaterial* mat)
@@ -110,44 +122,30 @@ void SampleLabelHandler::insertMaterial(const HomogeneousMaterial* mat)
     m_MaterialLabel.insert(mat, label);
 }
 
-void SampleLabelHandler::insertFormFactor(const IFormFactor* sample)
+void SampleLabelHandler::insertMesoCrystal(const MesoCrystal* sample)
 {
-    std::string label = "formFactor_" + std::to_string(m_FormFactorLabel.size()+1);
-    m_FormFactorLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertInterferenceFunction(const IInterferenceFunction* sample)
-{
-    std::string label = "interference_" + std::to_string(m_InterferenceFunctionLabel.size()+1);
-    m_InterferenceFunctionLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertLayout(const ILayout* sample)
-{
-    std::string label = "layout_" + std::to_string(m_ILayoutLabel.size()+1);
-    m_ILayoutLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertLayer(const Layer* sample)
-{
-    std::string label = "layer_" + std::to_string(m_LayerLabel.size()+1);
-    m_LayerLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertRoughness(const LayerRoughness* sample)
-{
-    if (sample->getSigma() != 0 &&
-        sample->getHurstParameter() != 0 &&
-        sample->getLatteralCorrLength() != 0) {
-        std::string label = "layerRoughness_" + std::to_string(m_LayerRoughnessLabel.size()+1);
-        m_LayerRoughnessLabel.insert(sample, label);
-    }
+    std::string label = "mesocrystal_" + std::to_string(m_MesoCrystalLabel.size()+1);
+    m_MesoCrystalLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertMultiLayer(const MultiLayer* sample)
 {
     std::string label = "multiLayer_" + std::to_string(m_MultiLayerLabel.size()+1);
     m_MultiLayerLabel.insert(sample, label);
+}
+
+void SampleLabelHandler::insertParticleComposition(const ParticleComposition* sample)
+{
+    std::string label = "particleComposition_" +
+            std::to_string(m_ParticleCompositionLabel.size()+1);
+    m_ParticleCompositionLabel.insert(sample, label);
+}
+
+void SampleLabelHandler::insertParticleDistribution(const ParticleDistribution* sample)
+{
+    std::string label = "particleDistribution_" +
+            std::to_string(m_ParticleDistributionLabel.size()+1);
+    m_ParticleDistributionLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertParticle(const Particle* sample)
@@ -162,22 +160,18 @@ void SampleLabelHandler::insertParticleCoreShell(const ParticleCoreShell* sample
     m_ParticleCoreShellLabel.insert(sample, label);
 }
 
-void SampleLabelHandler::insertParticleDistribution(const ParticleDistribution* sample)
-{
-    std::string label = "particleDistribution_" +
-            std::to_string(m_ParticleDistributionLabel.size()+1);
-    m_ParticleDistributionLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertParticleComposition(const ParticleComposition* sample)
-{
-    std::string label = "particleComposition_" +
-            std::to_string(m_ParticleCompositionLabel.size()+1);
-    m_ParticleCompositionLabel.insert(sample, label);
-}
-
 void SampleLabelHandler::insertRotation(const IRotation* sample)
 {
     std::string label = "rotation_" + std::to_string(m_RotationsLabel.size()+1);
     m_RotationsLabel.insert(sample, label);
+}
+
+void SampleLabelHandler::insertRoughness(const LayerRoughness* sample)
+{
+    if (sample->getSigma() != 0 &&
+        sample->getHurstParameter() != 0 &&
+        sample->getLatteralCorrLength() != 0) {
+        std::string label = "layerRoughness_" + std::to_string(m_LayerRoughnessLabel.size()+1);
+        m_LayerRoughnessLabel.insert(sample, label);
+    }
 }

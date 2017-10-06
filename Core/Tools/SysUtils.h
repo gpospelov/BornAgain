@@ -17,7 +17,6 @@
 #define SYSUTILS_H
 
 #include "WinDllMacros.h"
-#include "StringUtils.h"
 #include <string>
 
 //! Utility functions getCurrentDateAndTime, enableFloatingPointExceptions.

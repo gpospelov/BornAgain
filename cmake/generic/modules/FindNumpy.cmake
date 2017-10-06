@@ -26,7 +26,6 @@ else()
         message(STATUS "Can't find numpy/arrayobject.h, please install python-numpy-devel package")
     else()
         set (NUMPY_FOUND TRUE)
-        set (NUMPY_INCLUDE_DIR ${NUMPY_INCLUDE_DIR} CACHE STRING "Numpy include path")
         execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import numpy; print(numpy.__version__)"
             OUTPUT_VARIABLE numpy_version_number
             RESULT_VARIABLE numpy_return_value
@@ -45,6 +44,9 @@ else()
     endif()
 endif()
 
+if(WIN32)
+  STRING(REGEX REPLACE "\\\\" "/" NUMPY_INCLUDE_DIR ${NUMPY_INCLUDE_DIR})
+endif()
 
 MARK_AS_ADVANCED (NUMPY_INCLUDE_DIR)
 MARK_AS_ADVANCED (NUMPY_VERSION_STRING)

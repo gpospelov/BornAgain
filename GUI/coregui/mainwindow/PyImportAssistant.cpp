@@ -222,15 +222,17 @@ void PyImportAssistant::populateModels(const MultiLayer& multilayer, const QStri
         GUIObjectBuilder guiBuilder;
         guiBuilder.populateSampleModel(m_mainWindow->sampleModel(), multilayer, name);
 
+        QString message("Seems that import was successfull.\n\n"
+                        "Check SampleView for new sample and material editor for new materials.");
+        GUIHelpers::information(m_mainWindow, "PyImport", message);
+
     } catch(const std::exception& ex) {
-        QString message("Exception thrown while trying to build GUI models.\n\n");
-        message += QString::fromStdString(std::string(ex.what()));
-        GUIHelpers::warning(m_mainWindow, "GUIObjectBuilder failure",  message);
+        QString message("Exception thrown while trying to build GUI models.\n"
+                        "GUI models might be in unconsistent state.\n\n");
+        QString details = QString::fromStdString(std::string(ex.what()));
+        DetailedMessageBox warning(m_mainWindow, "GUIObjectBuilder failure", message, details);
+        warning.exec();
     }
 
-    QString message("Seems that import was successfull.\n\n"
-                    "Check SampleView for new sample and material editor for new materials.");
-
-    GUIHelpers::information(m_mainWindow, "PyImport", message);
 }
 

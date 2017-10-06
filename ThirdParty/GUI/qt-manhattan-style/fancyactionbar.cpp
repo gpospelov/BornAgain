@@ -31,7 +31,7 @@
 #include "coreconstants.h"
 
 #include "stylehelper.h"
-#include "stringutils.h"
+#include "settingsutils.h"
 
 
 #include <QHBoxLayout>

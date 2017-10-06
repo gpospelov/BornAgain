@@ -81,16 +81,6 @@ void ParticleComposition::addParticles(const IParticle& particle, std::vector<kv
         addParticle(particle, positions[i]);
 }
 
-const IParticle* ParticleComposition::particle(size_t index) const
-{
-    return m_particles[check_index(index)].get();
-}
-
-kvector_t ParticleComposition::particlePosition(size_t index) const
-{
-    return m_particles[check_index(index)]->position();
-}
-
 std::vector<const INode*> ParticleComposition::getChildren() const
 {
     std::vector<const INode*> result = IParticle::getChildren();

@@ -74,6 +74,12 @@ C++ includes: ParaCrystalBuilder.h
 %feature("docstring")  Basic2DParaCrystalBuilder::buildSample "MultiLayer * Basic2DParaCrystalBuilder::buildSample() const 
 ";
 
+%feature("docstring")  Basic2DParaCrystalBuilder::createSample "MultiLayer * Basic2DParaCrystalBuilder::createSample(size_t index=0)
+";
+
+%feature("docstring")  Basic2DParaCrystalBuilder::size "size_t Basic2DParaCrystalBuilder::size()
+";
+
 
 // File: classBasicLattice.xml
 %feature("docstring") BasicLattice "";
@@ -806,7 +812,7 @@ A crystal structure with a  ParticleComposition as a basis. Used in  MesoCrystal
 C++ includes: Crystal.h
 ";
 
-%feature("docstring")  Crystal::Crystal "Crystal::Crystal(const ParticleComposition &lattice_basis, const Lattice &lattice)
+%feature("docstring")  Crystal::Crystal "Crystal::Crystal(const IParticle &lattice_basis, const Lattice &lattice)
 ";
 
 %feature("docstring")  Crystal::~Crystal "Crystal::~Crystal()
@@ -832,10 +838,7 @@ Creates a total form factor for the mesocrystal with a specific shape and conten
 Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
 ";
 
-%feature("docstring")  Crystal::transformedLattice "Lattice Crystal::transformedLattice(const IRotation *p_rotation) const 
-";
-
-%feature("docstring")  Crystal::latticeBasis "const ParticleComposition* Crystal::latticeBasis() const 
+%feature("docstring")  Crystal::transformedLattice "Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const 
 ";
 
 %feature("docstring")  Crystal::setDWFactor "void Crystal::setDWFactor(double dw_factor)
@@ -2789,6 +2792,18 @@ C++ includes: FormFactorCoherentSum.h
 ";
 
 %feature("docstring")  FormFactorCoherentSum::radialExtension "double FormFactorCoherentSum::radialExtension() const 
+";
+
+
+// File: classFormFactorComponents.xml
+%feature("docstring") FormFactorComponents "
+
+Predefined form factors for functional tests.
+
+C++ includes: SampleComponents.h
+";
+
+%feature("docstring")  FormFactorComponents::FormFactorComponents "FormFactorComponents::FormFactorComponents()
 ";
 
 
@@ -5248,6 +5263,18 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
+// File: classFTDistribution2DComponents.xml
+%feature("docstring") FTDistribution2DComponents "
+
+Predefined Fourier transformed distributions for functional tests.
+
+C++ includes: SampleComponents.h
+";
+
+%feature("docstring")  FTDistribution2DComponents::FTDistribution2DComponents "FTDistribution2DComponents::FTDistribution2DComponents()
+";
+
+
 // File: classFTDistribution2DCone.xml
 %feature("docstring") FTDistribution2DCone "
 
@@ -5920,7 +5947,7 @@ C++ includes: IAbstractParticle.h
 %feature("docstring")  IAbstractParticle::IAbstractParticle "IAbstractParticle::IAbstractParticle()
 ";
 
-%feature("docstring")  IAbstractParticle::~IAbstractParticle "virtual IAbstractParticle::~IAbstractParticle()
+%feature("docstring")  IAbstractParticle::~IAbstractParticle "IAbstractParticle::~IAbstractParticle()
 ";
 
 %feature("docstring")  IAbstractParticle::clone "virtual IAbstractParticle* IAbstractParticle::clone() const =0
@@ -5928,7 +5955,7 @@ C++ includes: IAbstractParticle.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IAbstractParticle::accept "virtual void IAbstractParticle::accept(INodeVisitor *visitor) const
+%feature("docstring")  IAbstractParticle::accept "void IAbstractParticle::accept(INodeVisitor *visitor) const
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -5947,9 +5974,9 @@ abundance:
 proportion of this type of particles normalized to the total number of particles in the layout. 
 ";
 
-%feature("docstring")  IAbstractParticle::translateZ "virtual void IAbstractParticle::translateZ(double offset)=0
+%feature("docstring")  IAbstractParticle::translate "virtual void IAbstractParticle::translate(kvector_t translation)=0
 
-Applies a translation in the z-direction. 
+Translates the particle with the given vector. 
 ";
 
 
@@ -6149,11 +6176,6 @@ Creates a total form factor for the mesocrystal with a specific shape and conten
 %feature("docstring")  IClusteredParticles::homogeneousRegions "virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const =0
 
 Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
-";
-
-%feature("docstring")  IClusteredParticles::applyRotation "virtual void IClusteredParticles::applyRotation(const IRotation &)=delete
-
-Composes transformation with existing one. 
 ";
 
 
@@ -6470,15 +6492,21 @@ C++ includes: IFactory.h
 Creates object by calling creation function corresponded to given identifier. 
 ";
 
+%feature("docstring")  IFactory::create "std::unique_ptr<AbstractProduct> IFactory< Key, AbstractProduct >::create(const Key &item_key)
+";
+
 %feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription=\"\")
 
 Registers object's creation function and store object description. 
 ";
 
+%feature("docstring")  IFactory::contains "bool IFactory< Key, AbstractProduct >::contains(const Key &item_key)
+";
+
 %feature("docstring")  IFactory::~IFactory "IFactory< Key, AbstractProduct >::~IFactory()
 ";
 
-%feature("docstring")  IFactory::getNumberOfRegistered "size_t IFactory< Key, AbstractProduct >::getNumberOfRegistered() const
+%feature("docstring")  IFactory::size "size_t IFactory< Key, AbstractProduct >::size() const
 
 Returns number of registered objects. 
 ";
@@ -7410,7 +7438,7 @@ C++ includes: ILayout.h
 %feature("docstring")  ILayout::ILayout "ILayout::ILayout()
 ";
 
-%feature("docstring")  ILayout::~ILayout "virtual ILayout::~ILayout()
+%feature("docstring")  ILayout::~ILayout "ILayout::~ILayout()
 ";
 
 %feature("docstring")  ILayout::clone "virtual ILayout* ILayout::clone() const =0
@@ -7426,34 +7454,14 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ILayout::numberOfParticles "virtual size_t ILayout::numberOfParticles() const =0
-
-Returns number of particles. 
-";
-
-%feature("docstring")  ILayout::particle "virtual const IAbstractParticle* ILayout::particle(size_t index) const =0
-
-Returns information about particle with index. 
-";
-
 %feature("docstring")  ILayout::particles "virtual SafePointerVector<const IParticle> ILayout::particles() const =0
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
 
-%feature("docstring")  ILayout::abundanceOfParticle "virtual double ILayout::abundanceOfParticle(size_t index) const =0
-
-Get abundance fraction of particle with index. 
-";
-
-%feature("docstring")  ILayout::getTotalAbundance "double ILayout::getTotalAbundance() const
+%feature("docstring")  ILayout::getTotalAbundance "virtual double ILayout::getTotalAbundance() const =0
 
 Get total abundance of all particles. 
-";
-
-%feature("docstring")  ILayout::interferenceFunction "virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
-
-Returns interference function. 
 ";
 
 %feature("docstring")  ILayout::totalParticleSurfaceDensity "virtual double ILayout::totalParticleSurfaceDensity() const =0
@@ -7491,18 +7499,15 @@ C++ includes: IMultiLayerBuilder.h
 %feature("docstring")  IMultiLayerBuilder::buildSample "virtual MultiLayer* IMultiLayerBuilder::buildSample() const =0
 ";
 
-%feature("docstring")  IMultiLayerBuilder::set_subtest "void IMultiLayerBuilder::set_subtest(const IParameterized *subtest_item)
-";
-
-%feature("docstring")  IMultiLayerBuilder::formFactor "const IFormFactor * IMultiLayerBuilder::formFactor() const 
-";
-
-%feature("docstring")  IMultiLayerBuilder::getFTDistribution2D "const IFTDistribution2D * IMultiLayerBuilder::getFTDistribution2D() const 
-";
-
 %feature("docstring")  IMultiLayerBuilder::onChange "virtual void IMultiLayerBuilder::onChange()
 
 Action to be taken in inherited class when a parameter has changed. 
+";
+
+%feature("docstring")  IMultiLayerBuilder::createSample "virtual MultiLayer* IMultiLayerBuilder::createSample(size_t index=0)
+";
+
+%feature("docstring")  IMultiLayerBuilder::size "virtual size_t IMultiLayerBuilder::size()
 ";
 
 
@@ -7520,7 +7525,7 @@ C++ includes: INamed.h
 %feature("docstring")  INamed::INamed "INamed::INamed(const std::string &name)
 ";
 
-%feature("docstring")  INamed::~INamed "virtual INamed::~INamed()
+%feature("docstring")  INamed::~INamed "INamed::~INamed()
 ";
 
 %feature("docstring")  INamed::getName "std::string INamed::getName() const 
@@ -8351,9 +8356,6 @@ one-dimensional decay function in reciprocal space
 %feature("docstring")  InterferenceFunction1DLattice::getLatticeParameters "Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const 
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::decayFunction "const IFTDecayFunction1D* InterferenceFunction1DLattice::decayFunction() const 
-";
-
 %feature("docstring")  InterferenceFunction1DLattice::evaluate "double InterferenceFunction1DLattice::evaluate(const kvector_t q) const final
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
@@ -8418,9 +8420,6 @@ Parameters:
 
 decay: 
 two-dimensional decay function in reciprocal space 
-";
-
-%feature("docstring")  InterferenceFunction2DLattice::decayFunction "const IFTDecayFunction2D* InterferenceFunction2DLattice::decayFunction() const 
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::evaluate "double InterferenceFunction2DLattice::evaluate(const kvector_t q) const final
@@ -8545,9 +8544,6 @@ Evaluates the interference function for a given wavevector transfer (only the re
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::domainSizes "std::vector< double > InterferenceFunction2DParaCrystal::domainSizes() const 
-";
-
-%feature("docstring")  InterferenceFunction2DParaCrystal::probabilityDistributions "std::vector< const IFTDistribution2D * > InterferenceFunction2DParaCrystal::probabilityDistributions() const 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::setIntegrationOverXi "void InterferenceFunction2DParaCrystal::setIntegrationOverXi(bool integrate_xi)
@@ -8687,9 +8683,6 @@ Parameters:
 
 pdf: 
 probability distribution (Fourier transform of probability density) 
-";
-
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::probabilityDistribution "const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::probabilityDistribution() const 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::peakDistance "double InterferenceFunctionRadialParaCrystal::peakDistance() const 
@@ -8926,14 +8919,9 @@ z:
 z-coordinate in nanometers 
 ";
 
-%feature("docstring")  IParticle::applyTranslation "void IParticle::applyTranslation(kvector_t displacement)
+%feature("docstring")  IParticle::translate "void IParticle::translate(kvector_t translation) overridefinal
 
-Applies extra translation by adding it to the current one. 
-";
-
-%feature("docstring")  IParticle::translateZ "void IParticle::translateZ(double offset) override
-
-Applies a translation in the z-direction. 
+Translates the particle. 
 ";
 
 %feature("docstring")  IParticle::rotation "const IRotation * IParticle::rotation() const
@@ -8946,7 +8934,7 @@ Returns rotation object.
 Sets transformation. 
 ";
 
-%feature("docstring")  IParticle::applyRotation "void IParticle::applyRotation(const IRotation &rotation)
+%feature("docstring")  IParticle::rotate "void IParticle::rotate(const IRotation &rotation)
 
 Applies transformation by composing it with the existing one. 
 ";
@@ -8999,6 +8987,24 @@ C++ includes: IPixel.h
 ";
 
 %feature("docstring")  IPixel::getSolidAngle "virtual double IPixel::getSolidAngle() const =0
+";
+
+
+// File: classIRegistry.xml
+%feature("docstring") IRegistry "
+
+Templated object registry.
+
+C++ includes: IRegistry.h
+";
+
+%feature("docstring")  IRegistry::getItem "const ValueType* IRegistry< ValueType >::getItem(const std::string &key) const 
+";
+
+%feature("docstring")  IRegistry::keys "std::vector<std::string> IRegistry< ValueType >::keys()
+";
+
+%feature("docstring")  IRegistry::size "size_t IRegistry< ValueType >::size() const 
 ";
 
 
@@ -9078,11 +9084,6 @@ Returns nullptr, unless overwritten to return a specific material.
 %feature("docstring")  ISample::containedMaterials "std::vector< const HomogeneousMaterial * > ISample::containedMaterials() const
 
 Returns set of unique materials contained in this  ISample. 
-";
-
-%feature("docstring")  ISample::containedSubclass "std::vector< const T * > ISample::containedSubclass() const
-
-Returns vector of children of type T. 
 ";
 
 
@@ -9337,6 +9338,11 @@ C++ includes: Lattice.h
 %feature("docstring")  Lattice::~Lattice "Lattice::~Lattice()
 ";
 
+%feature("docstring")  Lattice::accept "void Lattice::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
 %feature("docstring")  Lattice::createTransformedLattice "Lattice Lattice::createTransformedLattice(const Transform3D &transform) const
 
 Create transformed lattice. 
@@ -9390,6 +9396,11 @@ Computes a list of reciprocal lattice vectors within a specified distance of a g
 %feature("docstring")  Lattice::setSelectionRule "void Lattice::setSelectionRule(const ISelectionRule &p_selection_rule)
 
 Sets a selection rule for the reciprocal vectors. 
+";
+
+%feature("docstring")  Lattice::onChange "void Lattice::onChange() override
+
+Action to be taken in inherited class when a parameter has changed. 
 ";
 
 
@@ -9488,15 +9499,12 @@ thickness of a layer in nanometers
 %feature("docstring")  Layer::~Layer "Layer::~Layer()
 ";
 
-%feature("docstring")  Layer::clone "Layer* Layer::clone() const overridefinal
+%feature("docstring")  Layer::clone "Layer * Layer::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  Layer::cloneInvertB "Layer * Layer::cloneInvertB() const 
-";
-
-%feature("docstring")  Layer::cloneSliced "SafePointerVector< Layer > Layer::cloneSliced(ZLimits limits, ELayerType layer_type) const 
 ";
 
 %feature("docstring")  Layer::accept "void Layer::accept(INodeVisitor *visitor) const overridefinal
@@ -9549,6 +9557,9 @@ Returns a vector of children (const).
 ";
 
 %feature("docstring")  Layer::numberOfSlices "unsigned int Layer::numberOfSlices() const 
+";
+
+%feature("docstring")  Layer::slice "SafePointerVector< Layer > Layer::slice(ZLimits limits, ELayerType layer_type) const 
 ";
 
 %feature("docstring")  Layer::scalarReducedPotential "complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
@@ -9730,10 +9741,16 @@ C++ includes: LayersWithAbsorptionBuilder.h
 %feature("docstring")  LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder "LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
 ";
 
-%feature("docstring")  LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder "virtual LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
+%feature("docstring")  LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder "LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder()
 ";
 
 %feature("docstring")  LayersWithAbsorptionBuilder::buildSample "MultiLayer * LayersWithAbsorptionBuilder::buildSample() const 
+";
+
+%feature("docstring")  LayersWithAbsorptionBuilder::createSample "MultiLayer * LayersWithAbsorptionBuilder::createSample(size_t index=0)
+";
+
+%feature("docstring")  LayersWithAbsorptionBuilder::size "size_t LayersWithAbsorptionBuilder::size()
 ";
 
 
@@ -10029,11 +10046,6 @@ Calls the  INodeVisitor's visit method.
 Create a sliced form factor for this particle. 
 ";
 
-%feature("docstring")  MesoCrystal::clusteredParticles "const IClusteredParticles* MesoCrystal::clusteredParticles() const
-
-get the internal structure, which is in principle unbounded in space (e.g. an infinite crystal) 
-";
-
 %feature("docstring")  MesoCrystal::getChildren "std::vector< const INode * > MesoCrystal::getChildren() const overridefinal
 
 Returns a vector of children (const). 
@@ -10043,15 +10055,12 @@ Returns a vector of children (const).
 // File: classMesoCrystalBuilder.xml
 %feature("docstring") MesoCrystalBuilder "
 
-Builds sample: mesocrystals of cylindrical shape composed by spherical nanoparticles.
+Builds sample: cylindrical mesocrystal composed of spheres in a cubic lattice.
 
 C++ includes: MesoCrystalBuilder.h
 ";
 
 %feature("docstring")  MesoCrystalBuilder::MesoCrystalBuilder "MesoCrystalBuilder::MesoCrystalBuilder()
-";
-
-%feature("docstring")  MesoCrystalBuilder::~MesoCrystalBuilder "virtual MesoCrystalBuilder::~MesoCrystalBuilder()
 ";
 
 %feature("docstring")  MesoCrystalBuilder::buildSample "MultiLayer * MesoCrystalBuilder::buildSample() const 
@@ -10188,7 +10197,7 @@ Fourier transform of the correlation function of roughnesses between the interfa
 Fourier transform of the correlation function of roughnesses between the interfaces j,k - indexes of layers in multilayer whose bottom interfaces we are considering 
 ";
 
-%feature("docstring")  MultiLayer::indexOfLayer "int MultiLayer::indexOfLayer(const Layer *p_layer) const
+%feature("docstring")  MultiLayer::indexOfLayer "size_t MultiLayer::indexOfLayer(const Layer *p_layer) const
 
 returns layer index 
 ";
@@ -11125,9 +11134,6 @@ Returns nullptr, unless overwritten to return a specific material.
 %feature("docstring")  Particle::setFormFactor "void Particle::setFormFactor(const IFormFactor &form_factor)
 ";
 
-%feature("docstring")  Particle::formFactor "const IFormFactor* Particle::formFactor() const 
-";
-
 %feature("docstring")  Particle::getChildren "std::vector< const INode * > Particle::getChildren() const overridefinal
 
 Returns a vector of children (const). 
@@ -11151,14 +11157,19 @@ C++ includes: ParticleComposition.h
 %feature("docstring")  ParticleComposition::~ParticleComposition "ParticleComposition::~ParticleComposition()
 ";
 
-%feature("docstring")  ParticleComposition::clone "ParticleComposition * ParticleComposition::clone() const override
+%feature("docstring")  ParticleComposition::clone "ParticleComposition * ParticleComposition::clone() const overridefinal
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ParticleComposition::accept "void ParticleComposition::accept(INodeVisitor *visitor) const override
+%feature("docstring")  ParticleComposition::accept "void ParticleComposition::accept(INodeVisitor *visitor) const overridefinal
 
 Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  ParticleComposition::createFormFactor "IFormFactor * ParticleComposition::createFormFactor() const overridefinal
+
+Create a form factor for this particle. 
 ";
 
 %feature("docstring")  ParticleComposition::addParticle "void ParticleComposition::addParticle(const IParticle &particle)
@@ -11170,33 +11181,22 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  ParticleComposition::addParticles "void ParticleComposition::addParticles(const IParticle &particle, std::vector< kvector_t > positions)
 ";
 
-%feature("docstring")  ParticleComposition::createTransformedFormFactor "IFormFactor * ParticleComposition::createTransformedFormFactor(const IRotation *p_rotation, kvector_t translation) const 
-";
-
 %feature("docstring")  ParticleComposition::nbrParticles "size_t ParticleComposition::nbrParticles() const
 
 Returns number of different particles. 
 ";
 
-%feature("docstring")  ParticleComposition::particle "const IParticle * ParticleComposition::particle(size_t index) const
-
-Returns particle with given index. 
-";
-
-%feature("docstring")  ParticleComposition::particlePosition "kvector_t ParticleComposition::particlePosition(size_t index) const 
-";
-
-%feature("docstring")  ParticleComposition::getChildren "std::vector< const INode * > ParticleComposition::getChildren() const override
+%feature("docstring")  ParticleComposition::getChildren "std::vector< const INode * > ParticleComposition::getChildren() const overridefinal
 
 Returns a vector of children (const). 
 ";
 
-%feature("docstring")  ParticleComposition::decompose "SafePointerVector< IParticle > ParticleComposition::decompose() const override
+%feature("docstring")  ParticleComposition::decompose "SafePointerVector< IParticle > ParticleComposition::decompose() const overridefinal
 
 Decompose in constituent  IParticle objects. 
 ";
 
-%feature("docstring")  ParticleComposition::bottomTopZ "ParticleLimits ParticleComposition::bottomTopZ() const override
+%feature("docstring")  ParticleComposition::bottomTopZ "ParticleLimits ParticleComposition::bottomTopZ() const overridefinal
 
 Top and bottom z-coordinate. 
 ";
@@ -11279,9 +11279,9 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ParticleDistribution::translateZ "void ParticleDistribution::translateZ(double offset) finaloverride
+%feature("docstring")  ParticleDistribution::translate "void ParticleDistribution::translate(kvector_t translation) finaloverride
 
-Applies a translation in the z-direction. 
+Translates the particle with the given vector. 
 ";
 
 %feature("docstring")  ParticleDistribution::generateParticles "std::vector< const IParticle * > ParticleDistribution::generateParticles() const
@@ -11291,14 +11291,14 @@ Returns list of new particles generated according to a distribution.
 Returns particle clones with parameter values drawn from distribution. 
 ";
 
+%feature("docstring")  ParticleDistribution::prototype "const IParticle& ParticleDistribution::prototype() const
+
+Returns the prototype particle, used for generating multiple ones. 
+";
+
 %feature("docstring")  ParticleDistribution::parameterDistribution "ParameterDistribution ParticleDistribution::parameterDistribution() const
 
 Returns the distributed parameter data. 
-";
-
-%feature("docstring")  ParticleDistribution::particle "const IParticle* ParticleDistribution::particle() const
-
-Returns particle. 
 ";
 
 %feature("docstring")  ParticleDistribution::getChildren "std::vector< const INode * > ParticleDistribution::getChildren() const finaloverride
@@ -11318,10 +11318,16 @@ C++ includes: ParticleInTheAirBuilder.h
 %feature("docstring")  ParticleInTheAirBuilder::ParticleInTheAirBuilder "ParticleInTheAirBuilder::ParticleInTheAirBuilder()
 ";
 
-%feature("docstring")  ParticleInTheAirBuilder::~ParticleInTheAirBuilder "virtual ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
+%feature("docstring")  ParticleInTheAirBuilder::~ParticleInTheAirBuilder "ParticleInTheAirBuilder::~ParticleInTheAirBuilder()
 ";
 
 %feature("docstring")  ParticleInTheAirBuilder::buildSample "MultiLayer * ParticleInTheAirBuilder::buildSample() const 
+";
+
+%feature("docstring")  ParticleInTheAirBuilder::createSample "MultiLayer * ParticleInTheAirBuilder::createSample(size_t index=0)
+";
+
+%feature("docstring")  ParticleInTheAirBuilder::size "size_t ParticleInTheAirBuilder::size()
 ";
 
 
@@ -11414,29 +11420,14 @@ rotation:
  Particle rotation 
 ";
 
-%feature("docstring")  ParticleLayout::numberOfParticles "size_t ParticleLayout::numberOfParticles() const finaloverride
-
-Returns number of particles. 
-";
-
-%feature("docstring")  ParticleLayout::particle "const IAbstractParticle * ParticleLayout::particle(size_t index) const finaloverride
-
-Returns particle info. 
-";
-
 %feature("docstring")  ParticleLayout::particles "SafePointerVector< const IParticle > ParticleLayout::particles() const finaloverride
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
 
-%feature("docstring")  ParticleLayout::abundanceOfParticle "double ParticleLayout::abundanceOfParticle(size_t index) const finaloverride
+%feature("docstring")  ParticleLayout::getTotalAbundance "double ParticleLayout::getTotalAbundance() const finaloverride
 
-Returns the abundance fraction of particle at given index. 
-";
-
-%feature("docstring")  ParticleLayout::interferenceFunction "const IInterferenceFunction * ParticleLayout::interferenceFunction() const finaloverride
-
-Returns interference function. 
+Get total abundance of all particles. 
 ";
 
 %feature("docstring")  ParticleLayout::setInterferenceFunction "void ParticleLayout::setInterferenceFunction(const IInterferenceFunction &interference_function)
@@ -12504,6 +12495,9 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::SampleLabelHandler "SampleLabelHandler::SampleLabelHandler()
 ";
 
+%feature("docstring")  SampleLabelHandler::crystalMap "crystals_t* SampleLabelHandler::crystalMap()
+";
+
 %feature("docstring")  SampleLabelHandler::formFactorMap "formfactors_t* SampleLabelHandler::formFactorMap()
 ";
 
@@ -12517,6 +12511,12 @@ C++ includes: SampleLabelHandler.h
 ";
 
 %feature("docstring")  SampleLabelHandler::materialMap "materials_t* SampleLabelHandler::materialMap()
+";
+
+%feature("docstring")  SampleLabelHandler::latticeMap "lattices_t* SampleLabelHandler::latticeMap()
+";
+
+%feature("docstring")  SampleLabelHandler::mesocrystalMap "mesocrystals_t* SampleLabelHandler::mesocrystalMap()
 ";
 
 %feature("docstring")  SampleLabelHandler::multiLayerMap "multilayers_t* SampleLabelHandler::multiLayerMap()
@@ -12540,7 +12540,7 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::layerRoughnessMap "roughnesses_t* SampleLabelHandler::layerRoughnessMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::labelParticle "std::string SampleLabelHandler::labelParticle(const IAbstractParticle *sample)
+%feature("docstring")  SampleLabelHandler::labelCrystal "std::string SampleLabelHandler::labelCrystal(const Crystal *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::labelFormFactor "std::string SampleLabelHandler::labelFormFactor(const IFormFactor *sample)
@@ -12549,34 +12549,31 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::labelInterferenceFunction "std::string SampleLabelHandler::labelInterferenceFunction(const IInterferenceFunction *sample)
 ";
 
+%feature("docstring")  SampleLabelHandler::labelLayer "std::string SampleLabelHandler::labelLayer(const Layer *sample)
+";
+
 %feature("docstring")  SampleLabelHandler::labelLayout "std::string SampleLabelHandler::labelLayout(const ILayout *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::labelMaterial "std::string SampleLabelHandler::labelMaterial(const HomogeneousMaterial *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::labelRotation "std::string SampleLabelHandler::labelRotation(const IRotation *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelLayer "std::string SampleLabelHandler::labelLayer(const Layer *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelRoughness "std::string SampleLabelHandler::labelRoughness(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::labelLattice "std::string SampleLabelHandler::labelLattice(const Lattice *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::labelMultiLayer "std::string SampleLabelHandler::labelMultiLayer(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::labelParticleComposition "std::string SampleLabelHandler::labelParticleComposition(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::labelParticle "std::string SampleLabelHandler::labelParticle(const IAbstractParticle *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::labelParticleCoreShell "std::string SampleLabelHandler::labelParticleCoreShell(const ParticleCoreShell *sample)
+%feature("docstring")  SampleLabelHandler::labelRotation "std::string SampleLabelHandler::labelRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::labelParticleDistribution "std::string SampleLabelHandler::labelParticleDistribution(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::labelRoughness "std::string SampleLabelHandler::labelRoughness(const LayerRoughness *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const HomogeneousMaterial *sample)
+%feature("docstring")  SampleLabelHandler::insertCrystal "void SampleLabelHandler::insertCrystal(const Crystal *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertFormFactor "void SampleLabelHandler::insertFormFactor(const IFormFactor *sample)
@@ -12585,31 +12582,40 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::insertInterferenceFunction "void SampleLabelHandler::insertInterferenceFunction(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertLayout "void SampleLabelHandler::insertLayout(const ILayout *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertRotation "void SampleLabelHandler::insertRotation(const IRotation *sample)
-";
-
 %feature("docstring")  SampleLabelHandler::insertLayer "void SampleLabelHandler::insertLayer(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertRoughness "void SampleLabelHandler::insertRoughness(const LayerRoughness *sample)
+%feature("docstring")  SampleLabelHandler::insertLayout "void SampleLabelHandler::insertLayout(const ILayout *sample)
+";
+
+%feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const HomogeneousMaterial *sample)
+";
+
+%feature("docstring")  SampleLabelHandler::insertLattice "void SampleLabelHandler::insertLattice(const Lattice *sample)
+";
+
+%feature("docstring")  SampleLabelHandler::insertMesoCrystal "void SampleLabelHandler::insertMesoCrystal(const MesoCrystal *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertMultiLayer "void SampleLabelHandler::insertMultiLayer(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertParticle "void SampleLabelHandler::insertParticle(const Particle *sample)
+%feature("docstring")  SampleLabelHandler::insertParticleComposition "void SampleLabelHandler::insertParticleComposition(const ParticleComposition *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertParticleComposition "void SampleLabelHandler::insertParticleComposition(const ParticleComposition *sample)
+%feature("docstring")  SampleLabelHandler::insertParticleDistribution "void SampleLabelHandler::insertParticleDistribution(const ParticleDistribution *sample)
+";
+
+%feature("docstring")  SampleLabelHandler::insertParticle "void SampleLabelHandler::insertParticle(const Particle *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertParticleCoreShell "void SampleLabelHandler::insertParticleCoreShell(const ParticleCoreShell *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertParticleDistribution "void SampleLabelHandler::insertParticleDistribution(const ParticleDistribution *sample)
+%feature("docstring")  SampleLabelHandler::insertRotation "void SampleLabelHandler::insertRotation(const IRotation *sample)
+";
+
+%feature("docstring")  SampleLabelHandler::insertRoughness "void SampleLabelHandler::insertRoughness(const LayerRoughness *sample)
 ";
 
 
@@ -13251,9 +13257,6 @@ C++ includes: SlicedFormFactorList.h
 ";
 
 %feature("docstring")  SlicedFormFactorList::~SlicedFormFactorList "SlicedFormFactorList::~SlicedFormFactorList()=default
-";
-
-%feature("docstring")  SlicedFormFactorList::addParticle "void SlicedFormFactorList::addParticle(IParticle &particle, const MultiLayer &multilayer, size_t ref_layer_index)
 ";
 
 %feature("docstring")  SlicedFormFactorList::size "size_t SlicedFormFactorList::size() const 
@@ -14136,67 +14139,70 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D146.xml
+// File: namespace_0D149.xml
 
 
-// File: namespace_0D187.xml
+// File: namespace_0D190.xml
 
 
-// File: namespace_0D205.xml
+// File: namespace_0D208.xml
 
 
-// File: namespace_0D22.xml
+// File: namespace_0D23.xml
 
 
-// File: namespace_0D246.xml
+// File: namespace_0D249.xml
 
 
-// File: namespace_0D272.xml
+// File: namespace_0D275.xml
 
 
-// File: namespace_0D278.xml
+// File: namespace_0D281.xml
 
 
-// File: namespace_0D293.xml
+// File: namespace_0D296.xml
 
 
-// File: namespace_0D301.xml
-
-
-// File: namespace_0D307.xml
+// File: namespace_0D304.xml
 
 
 // File: namespace_0D310.xml
 
 
-// File: namespace_0D312.xml
+// File: namespace_0D313.xml
 
 
-// File: namespace_0D333.xml
+// File: namespace_0D315.xml
 
 
-// File: namespace_0D342.xml
+// File: namespace_0D336.xml
 
 
-// File: namespace_0D374.xml
+// File: namespace_0D345.xml
 
 
-// File: namespace_0D381.xml
+// File: namespace_0D378.xml
 
 
-// File: namespace_0D484.xml
+// File: namespace_0D385.xml
 
 
-// File: namespace_0D54.xml
+// File: namespace_0D491.xml
 
 
-// File: namespace_0D60.xml
+// File: namespace_0D514.xml
 
 
-// File: namespace_0D74.xml
+// File: namespace_0D56.xml
+
+
+// File: namespace_0D62.xml
 
 
 // File: namespace_0D76.xml
+
+
+// File: namespace_0D79.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -14385,6 +14391,17 @@ Validates all fit parameters for conflicts (steering same sample parameters).
 ";
 
 
+// File: namespaceINodeUtils.xml
+%feature("docstring")  INodeUtils::ChildNodesOfType "std::vector<const T*> INodeUtils::ChildNodesOfType(const INode &node)
+";
+
+%feature("docstring")  INodeUtils::OnlyChildOfType "const T* INodeUtils::OnlyChildOfType(const INode &node)
+";
+
+%feature("docstring")  INodeUtils::AllDescendantsOfType "std::vector<const T*> INodeUtils::AllDescendantsOfType(const INode &node)
+";
+
+
 // File: namespaceIntensityDataFunctions.xml
 %feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref)
 
@@ -14395,6 +14412,11 @@ Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 ";
 
 %feature("docstring")  IntensityDataFunctions::createRelativeDifferenceData "OutputData< double > * IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
+";
+
+%feature("docstring")  IntensityDataFunctions::createRearrangedDataSet "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createRearrangedDataSet(const OutputData< double > &data, int n)
+
+Returns a pointer to new object with input data rotated by n*90 deg counterclockwise (n > 0) or clockwise (n < 0) Axes are swapped if the data is effectively rotated by 90 or 270 degrees Applicable to 2D arrays only 
 ";
 
 %feature("docstring")  IntensityDataFunctions::createClippedDataSet "OutputData< double > * IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
@@ -14577,6 +14599,74 @@ Returns units of main parameter.
 %feature("docstring")  ParameterUtils::poolParameterUnits "std::string ParameterUtils::poolParameterUnits(const IParameterized &node, const std::string &parName)
 
 Returns units of main parameter. 
+";
+
+
+// File: namespacePyEmbeddedUtils.xml
+%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(PyObject *obj)
+
+Converts PyObject into string, if possible, or throws exception. 
+";
+
+%feature("docstring")  PyEmbeddedUtils::toVectorString "std::vector< std::string > PyEmbeddedUtils::toVectorString(PyObject *obj)
+
+Converts PyObject into vector of strings, if possible, or throws exception. 
+";
+
+%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(char *c)
+
+Converts char to string. In the case of nullptr will return an empty string. 
+";
+
+%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(wchar_t *c)
+";
+
+%feature("docstring")  PyEmbeddedUtils::import_bornagain "void PyEmbeddedUtils::import_bornagain(const std::string &path=std::string())
+
+Imports  BornAgain from given location. If path is empty, tries to rely on PYTHONPATH. 
+";
+
+%feature("docstring")  PyEmbeddedUtils::pythonRuntimeInfo "std::string PyEmbeddedUtils::pythonRuntimeInfo()
+
+Returns multi-line string representing PATH, PYTHONPATH, sys.path and other info. 
+";
+
+%feature("docstring")  PyEmbeddedUtils::pythonStackTrace "std::string PyEmbeddedUtils::pythonStackTrace()
+
+Returns string representing python stack trace. 
+";
+
+
+// File: namespacePyImport.xml
+%feature("docstring")  PyImport::createFromPython "std::unique_ptr< MultiLayer > PyImport::createFromPython(const std::string &script, const std::string &functionName, const std::string &path=std::string())
+
+Creates a multi layer by running python code in embedded interpreter.
+
+Parameters:
+-----------
+
+script: 
+Python script
+
+functionName: 
+A function name in this script which produces a  MultiLayer
+
+path: 
+A path to import  BornAgain library. If empty, relies on PYTHONPATH 
+";
+
+%feature("docstring")  PyImport::listOfFunctions "std::vector< std::string > PyImport::listOfFunctions(const std::string &script, const std::string &path=std::string())
+
+Returns list of functions defined in the script.
+
+Parameters:
+-----------
+
+script: 
+Python script
+
+path: 
+A path to import  BornAgain library. If empty, relies on PYTHONPATH 
 ";
 
 
@@ -14775,7 +14865,19 @@ GISAS simulation with rectangular detector, region of interest and mask.
 
 %feature("docstring")  SysUtils::enableFloatingPointExceptions "void SysUtils::enableFloatingPointExceptions()
 
+Enables exception throw in the case of NaN, Inf.
+
 enables exception throw in the case of NaN, Inf 
+";
+
+%feature("docstring")  SysUtils::getenv "std::string SysUtils::getenv(const std::string &name)
+
+Returns environment variable. 
+";
+
+%feature("docstring")  SysUtils::isWindowsHost "bool SysUtils::isWindowsHost()
+
+Returns true if operation system is Windows. 
 ";
 
 
@@ -14818,6 +14920,9 @@ enables exception throw in the case of NaN, Inf
 
 
 // File: IInterferenceFunction_8h.xml
+
+
+// File: ILayout_8cpp.xml
 
 
 // File: ILayout_8h.xml
@@ -14881,6 +14986,9 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: ICloneable_8h.xml
+
+
+// File: INamed_8cpp.xml
 
 
 // File: INamed_8h.xml
@@ -15042,6 +15150,9 @@ Add element vector to element vector with weight.
 
 
 // File: ExportToPython_8h.xml
+
+
+// File: INodeUtils_8h.xml
 
 
 // File: PythonFormatting_8cpp.xml
@@ -15952,6 +16063,9 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 // File: FormFactorWeighted_8h.xml
 
 
+// File: IAbstractParticle_8cpp.xml
+
+
 // File: IAbstractParticle_8h.xml
 
 
@@ -15995,17 +16109,9 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 
 
 // File: SlicedFormFactorList_8cpp.xml
-%feature("docstring")  CreateSlicedFormFactors "SlicedFormFactorList CreateSlicedFormFactors(const IParticle &particle, const MultiLayer &multilayer, size_t ref_layer_index)
-
-Global function that creates a  SlicedFormFactorList from an  IParticle in a multilayer 
-";
 
 
 // File: SlicedFormFactorList_8h.xml
-%feature("docstring")  CreateSlicedFormFactors "SlicedFormFactorList CreateSlicedFormFactors(const IParticle &particle, const MultiLayer &multilayer, size_t ref_layer_index)
-
-Global function that creates a  SlicedFormFactorList from an  IParticle in a multilayer 
-";
 
 
 // File: SlicedParticle_8cpp.xml
@@ -16308,6 +16414,9 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 ";
 
 
+// File: IRegistry_8h.xml
+
+
 // File: LatticeBuilder_8cpp.xml
 
 
@@ -16390,6 +16499,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SampleBuilderFactory_8h.xml
+
+
+// File: SampleComponents_8cpp.xml
+
+
+// File: SampleComponents_8h.xml
 
 
 // File: SimulationFactory_8cpp.xml
@@ -16497,6 +16612,18 @@ Template function to create an integrator object.
 
 
 // File: Precomputed_8h.xml
+
+
+// File: PyEmbeddedUtils_8cpp.xml
+
+
+// File: PyEmbeddedUtils_8h.xml
+
+
+// File: PyImport_8cpp.xml
+
+
+// File: PyImport_8h.xml
 
 
 // File: PythonCore_8h.xml

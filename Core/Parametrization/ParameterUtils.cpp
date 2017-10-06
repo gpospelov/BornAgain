@@ -44,17 +44,12 @@ bool ParameterUtils::isAngleRelated(const std::string& par_name)
         if (par_name.find(par) != std::string::npos)
             return true;
     }
-
     return false;
-
 }
 
 std::string ParameterUtils::mainParUnits(const ParticleDistribution& distr)
 {
-    if (distr.particle() == nullptr)
-        return BornAgain::UnitsNone;
-
-    return poolParameterUnits(*distr.particle(),
+    return poolParameterUnits(distr.prototype(),
                               distr.parameterDistribution().getMainParameterName());
 }
 

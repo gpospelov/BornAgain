@@ -46,15 +46,10 @@ public:
     void addParticle(const IParticle& particle, double abundance,
                      const kvector_t position, const IRotation& rotation);
 
-    size_t numberOfParticles() const final override { return m_particles.size(); }
-
-    const IAbstractParticle* particle(size_t index) const final override;
-
     SafePointerVector<const IParticle> particles() const final override;
 
-    double abundanceOfParticle(size_t index) const final override;
+    double getTotalAbundance() const final override;
 
-    const IInterferenceFunction* interferenceFunction() const final override;
     void setInterferenceFunction(const IInterferenceFunction& interference_function);
 
     double totalParticleSurfaceDensity() const final override;

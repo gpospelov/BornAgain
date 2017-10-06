@@ -43,7 +43,6 @@ public:
     complex_t FTPDF(double qpar) const;
 
     void setProbabilityDistribution(const IFTDistribution1D& pdf);
-    const IFTDistribution1D* probabilityDistribution() const { return mP_pdf.get(); }
 
     double peakDistance() const { return m_peak_distance; }
 

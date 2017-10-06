@@ -7307,12 +7307,20 @@ class IMultiLayerBuilder(IParameterized):
         """
         createSample(IMultiLayerBuilder self, size_t index=0) -> MultiLayer
         createSample(IMultiLayerBuilder self) -> MultiLayer
+
+        virtual MultiLayer* IMultiLayerBuilder::createSample(size_t index=0)
+
         """
         return _libBornAgainCore.IMultiLayerBuilder_createSample(self, index)
 
 
     def size(self):
-        """size(IMultiLayerBuilder self) -> size_t"""
+        """
+        size(IMultiLayerBuilder self) -> size_t
+
+        virtual size_t IMultiLayerBuilder::size()
+
+        """
         return _libBornAgainCore.IMultiLayerBuilder_size(self)
 
 
@@ -7639,7 +7647,7 @@ class Crystal(IClusteredParticles):
         """
         __init__(Crystal self, IParticle lattice_basis, Lattice lattice) -> Crystal
 
-        Crystal::Crystal(const ParticleComposition &lattice_basis, const Lattice &lattice)
+        Crystal::Crystal(const IParticle &lattice_basis, const Lattice &lattice)
 
         """
         this = _libBornAgainCore.new_Crystal(lattice_basis, lattice)
@@ -7703,7 +7711,7 @@ class Crystal(IClusteredParticles):
         transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice
         transformedLattice(Crystal self) -> Lattice
 
-        Lattice Crystal::transformedLattice(const IRotation *p_rotation) const 
+        Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const 
 
         """
         return _libBornAgainCore.Crystal_transformedLattice(self, p_rotation)
@@ -18562,30 +18570,6 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_accept(self, visitor)
 
 
-    def numberOfParticles(self):
-        """
-        numberOfParticles(ILayout self) -> size_t
-
-        virtual size_t ILayout::numberOfParticles() const =0
-
-        Returns number of particles. 
-
-        """
-        return _libBornAgainCore.ILayout_numberOfParticles(self)
-
-
-    def particle(self, index):
-        """
-        particle(ILayout self, size_t index) -> IAbstractParticle
-
-        virtual const IAbstractParticle* ILayout::particle(size_t index) const =0
-
-        Returns information about particle with index. 
-
-        """
-        return _libBornAgainCore.ILayout_particle(self, index)
-
-
     def particles(self):
         """
         particles(ILayout self) -> SafePointerVector< IParticle const >
@@ -18598,40 +18582,16 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_particles(self)
 
 
-    def abundanceOfParticle(self, index):
-        """
-        abundanceOfParticle(ILayout self, size_t index) -> double
-
-        virtual double ILayout::abundanceOfParticle(size_t index) const =0
-
-        Get abundance fraction of particle with index. 
-
-        """
-        return _libBornAgainCore.ILayout_abundanceOfParticle(self, index)
-
-
     def getTotalAbundance(self):
         """
         getTotalAbundance(ILayout self) -> double
 
-        double ILayout::getTotalAbundance() const
+        virtual double ILayout::getTotalAbundance() const =0
 
         Get total abundance of all particles. 
 
         """
         return _libBornAgainCore.ILayout_getTotalAbundance(self)
-
-
-    def interferenceFunction(self):
-        """
-        interferenceFunction(ILayout self) -> IInterferenceFunction
-
-        virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
-
-        Returns interference function. 
-
-        """
-        return _libBornAgainCore.ILayout_interferenceFunction(self)
 
 
     def totalParticleSurfaceDensity(self):
@@ -18727,7 +18687,7 @@ class IAbstractParticle(ISample):
         """
         accept(IAbstractParticle self, INodeVisitor visitor)
 
-        virtual void IAbstractParticle::accept(INodeVisitor *visitor) const
+        void IAbstractParticle::accept(INodeVisitor *visitor) const
 
         Calls the  INodeVisitor's visit method. 
 
@@ -18764,7 +18724,14 @@ class IAbstractParticle(ISample):
 
 
     def translate(self, translation):
-        """translate(IAbstractParticle self, kvector_t translation)"""
+        """
+        translate(IAbstractParticle self, kvector_t translation)
+
+        virtual void IAbstractParticle::translate(kvector_t translation)=0
+
+        Translates the particle with the given vector. 
+
+        """
         return _libBornAgainCore.IAbstractParticle_translate(self, translation)
 
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
@@ -18992,7 +18959,14 @@ class IParticle(IAbstractParticle):
 
 
     def translate(self, translation):
-        """translate(IParticle self, kvector_t translation)"""
+        """
+        translate(IParticle self, kvector_t translation)
+
+        void IParticle::translate(kvector_t translation) overridefinal
+
+        Translates the particle. 
+
+        """
         return _libBornAgainCore.IParticle_translate(self, translation)
 
 
@@ -19021,7 +18995,14 @@ class IParticle(IAbstractParticle):
 
 
     def rotate(self, rotation):
-        """rotate(IParticle self, IRotation rotation)"""
+        """
+        rotate(IParticle self, IRotation rotation)
+
+        void IParticle::rotate(const IRotation &rotation)
+
+        Applies transformation by composing it with the existing one. 
+
+        """
         return _libBornAgainCore.IParticle_rotate(self, rotation)
 
 
@@ -20335,16 +20316,6 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction1DLattice_getLatticeParameters(self)
 
 
-    def decayFunction(self):
-        """
-        decayFunction(InterferenceFunction1DLattice self) -> IFTDecayFunction1D
-
-        const IFTDecayFunction1D* InterferenceFunction1DLattice::decayFunction() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction1DLattice_decayFunction(self)
-
-
     def evaluate(self, q):
         """
         evaluate(InterferenceFunction1DLattice self, kvector_t q) -> double
@@ -20538,16 +20509,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setProbabilityDistribution(self, pdf)
 
 
-    def probabilityDistribution(self):
-        """
-        probabilityDistribution(InterferenceFunctionRadialParaCrystal self) -> IFTDistribution1D
-
-        const IFTDistribution1D* InterferenceFunctionRadialParaCrystal::probabilityDistribution() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_probabilityDistribution(self)
-
-
     def peakDistance(self):
         """
         peakDistance(InterferenceFunctionRadialParaCrystal self) -> double
@@ -20700,16 +20661,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_setDecayFunction(self, decay)
-
-
-    def decayFunction(self):
-        """
-        decayFunction(InterferenceFunction2DLattice self) -> IFTDecayFunction2D
-
-        const IFTDecayFunction2D* InterferenceFunction2DLattice::decayFunction() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DLattice_decayFunction(self)
 
 
     def evaluate(self, q):
@@ -20997,16 +20948,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_domainSizes(self)
-
-
-    def probabilityDistributions(self):
-        """
-        probabilityDistributions(InterferenceFunction2DParaCrystal self) -> std::vector< IFTDistribution2D const *,std::allocator< IFTDistribution2D const * > >
-
-        std::vector< const IFTDistribution2D * > InterferenceFunction2DParaCrystal::probabilityDistributions() const 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_probabilityDistributions(self)
 
 
     def setIntegrationOverXi(self, integrate_xi):
@@ -21513,7 +21454,7 @@ class Lattice(INode):
         """
         accept(Lattice self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void Lattice::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21673,7 +21614,7 @@ class Lattice(INode):
         """
         onChange(Lattice self)
 
-        virtual void IParameterized::onChange()
+        void Lattice::onChange() override
 
         Action to be taken in inherited class when a parameter has changed. 
 
@@ -22176,7 +22117,7 @@ class Layer(ISample):
         """
         clone(Layer self) -> Layer
 
-        Layer* Layer::clone() const overridefinal
+        Layer * Layer::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -22346,7 +22287,12 @@ class Layer(ISample):
 
 
     def slice(self, limits, layer_type):
-        """slice(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >"""
+        """
+        slice(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >
+
+        SafePointerVector< Layer > Layer::slice(ZLimits limits, ELayerType layer_type) const 
+
+        """
         return _libBornAgainCore.Layer_slice(self, limits, layer_type)
 
 
@@ -23161,7 +23107,7 @@ class MultiLayer(ISample):
         """
         indexOfLayer(MultiLayer self, Layer p_layer) -> size_t
 
-        int MultiLayer::indexOfLayer(const Layer *p_layer) const
+        size_t MultiLayer::indexOfLayer(const Layer *p_layer) const
 
         returns layer index 
 
@@ -24608,16 +24554,6 @@ class Particle(IParticle):
         return _libBornAgainCore.Particle_setFormFactor(self, form_factor)
 
 
-    def formFactor(self):
-        """
-        formFactor(Particle self) -> IFormFactor
-
-        const IFormFactor* Particle::formFactor() const 
-
-        """
-        return _libBornAgainCore.Particle_formFactor(self)
-
-
     def getChildren(self):
         """
         getChildren(Particle self) -> swig_dummy_type_const_inode_vector
@@ -24674,7 +24610,7 @@ class ParticleComposition(IParticle):
         """
         clone(ParticleComposition self) -> ParticleComposition
 
-        ParticleComposition * ParticleComposition::clone() const override
+        ParticleComposition * ParticleComposition::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -24686,7 +24622,7 @@ class ParticleComposition(IParticle):
         """
         accept(ParticleComposition self, INodeVisitor visitor)
 
-        void ParticleComposition::accept(INodeVisitor *visitor) const override
+        void ParticleComposition::accept(INodeVisitor *visitor) const overridefinal
 
         Calls the  INodeVisitor's visit method. 
 
@@ -24698,7 +24634,7 @@ class ParticleComposition(IParticle):
         """
         createFormFactor(ParticleComposition self) -> IFormFactor
 
-        IFormFactor * IParticle::createFormFactor() const
+        IFormFactor * ParticleComposition::createFormFactor() const overridefinal
 
         Create a form factor for this particle. 
 
@@ -24739,33 +24675,11 @@ class ParticleComposition(IParticle):
         return _libBornAgainCore.ParticleComposition_nbrParticles(self)
 
 
-    def particle(self, index):
-        """
-        particle(ParticleComposition self, size_t index) -> IParticle
-
-        const IParticle * ParticleComposition::particle(size_t index) const
-
-        Returns particle with given index. 
-
-        """
-        return _libBornAgainCore.ParticleComposition_particle(self, index)
-
-
-    def particlePosition(self, index):
-        """
-        particlePosition(ParticleComposition self, size_t index) -> kvector_t
-
-        kvector_t ParticleComposition::particlePosition(size_t index) const 
-
-        """
-        return _libBornAgainCore.ParticleComposition_particlePosition(self, index)
-
-
     def getChildren(self):
         """
         getChildren(ParticleComposition self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleComposition::getChildren() const override
+        std::vector< const INode * > ParticleComposition::getChildren() const overridefinal
 
         Returns a vector of children (const). 
 
@@ -24777,7 +24691,7 @@ class ParticleComposition(IParticle):
         """
         decompose(ParticleComposition self) -> SafePointerVector< IParticle >
 
-        SafePointerVector< IParticle > ParticleComposition::decompose() const override
+        SafePointerVector< IParticle > ParticleComposition::decompose() const overridefinal
 
         Decompose in constituent  IParticle objects. 
 
@@ -24789,7 +24703,7 @@ class ParticleComposition(IParticle):
         """
         bottomTopZ(ParticleComposition self) -> ParticleLimits
 
-        ParticleLimits ParticleComposition::bottomTopZ() const override
+        ParticleLimits ParticleComposition::bottomTopZ() const overridefinal
 
         Top and bottom z-coordinate. 
 
@@ -24963,7 +24877,14 @@ class ParticleDistribution(IAbstractParticle):
 
 
     def translate(self, translation):
-        """translate(ParticleDistribution self, kvector_t translation)"""
+        """
+        translate(ParticleDistribution self, kvector_t translation)
+
+        void ParticleDistribution::translate(kvector_t translation) finaloverride
+
+        Translates the particle with the given vector. 
+
+        """
         return _libBornAgainCore.ParticleDistribution_translate(self, translation)
 
 
@@ -24981,6 +24902,18 @@ class ParticleDistribution(IAbstractParticle):
         return _libBornAgainCore.ParticleDistribution_generateParticles(self)
 
 
+    def prototype(self):
+        """
+        prototype(ParticleDistribution self) -> IParticle
+
+        const IParticle& ParticleDistribution::prototype() const
+
+        Returns the prototype particle, used for generating multiple ones. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_prototype(self)
+
+
     def parameterDistribution(self):
         """
         parameterDistribution(ParticleDistribution self) -> ParameterDistribution
@@ -24991,18 +24924,6 @@ class ParticleDistribution(IAbstractParticle):
 
         """
         return _libBornAgainCore.ParticleDistribution_parameterDistribution(self)
-
-
-    def particle(self):
-        """
-        particle(ParticleDistribution self) -> IParticle
-
-        const IParticle* ParticleDistribution::particle() const
-
-        Returns particle. 
-
-        """
-        return _libBornAgainCore.ParticleDistribution_particle(self)
 
 
     def getChildren(self):
@@ -25122,30 +25043,6 @@ class ParticleLayout(ILayout):
         return _libBornAgainCore.ParticleLayout_addParticle(self, *args)
 
 
-    def numberOfParticles(self):
-        """
-        numberOfParticles(ParticleLayout self) -> size_t
-
-        size_t ParticleLayout::numberOfParticles() const finaloverride
-
-        Returns number of particles. 
-
-        """
-        return _libBornAgainCore.ParticleLayout_numberOfParticles(self)
-
-
-    def particle(self, index):
-        """
-        particle(ParticleLayout self, size_t index) -> IAbstractParticle
-
-        const IAbstractParticle * ParticleLayout::particle(size_t index) const finaloverride
-
-        Returns particle info. 
-
-        """
-        return _libBornAgainCore.ParticleLayout_particle(self, index)
-
-
     def particles(self):
         """
         particles(ParticleLayout self) -> SafePointerVector< IParticle const >
@@ -25158,28 +25055,16 @@ class ParticleLayout(ILayout):
         return _libBornAgainCore.ParticleLayout_particles(self)
 
 
-    def abundanceOfParticle(self, index):
+    def getTotalAbundance(self):
         """
-        abundanceOfParticle(ParticleLayout self, size_t index) -> double
+        getTotalAbundance(ParticleLayout self) -> double
 
-        double ParticleLayout::abundanceOfParticle(size_t index) const finaloverride
+        double ParticleLayout::getTotalAbundance() const finaloverride
 
-        Returns the abundance fraction of particle at given index. 
-
-        """
-        return _libBornAgainCore.ParticleLayout_abundanceOfParticle(self, index)
-
-
-    def interferenceFunction(self):
-        """
-        interferenceFunction(ParticleLayout self) -> IInterferenceFunction
-
-        const IInterferenceFunction * ParticleLayout::interferenceFunction() const finaloverride
-
-        Returns interference function. 
+        Get total abundance of all particles. 
 
         """
-        return _libBornAgainCore.ParticleLayout_interferenceFunction(self)
+        return _libBornAgainCore.ParticleLayout_getTotalAbundance(self)
 
 
     def setInterferenceFunction(self, interference_function):
@@ -26327,14 +26212,26 @@ class SampleBuilderFactoryTemp(_object):
 
 
     def contains(self, item_key):
-        """contains(SampleBuilderFactoryTemp self, std::string const & item_key) -> bool"""
+        """
+        contains(SampleBuilderFactoryTemp self, std::string const & item_key) -> bool
+
+        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key)
+
+        """
         return _libBornAgainCore.SampleBuilderFactoryTemp_contains(self, item_key)
 
     __swig_destroy__ = _libBornAgainCore.delete_SampleBuilderFactoryTemp
     __del__ = lambda self: None
 
     def size(self):
-        """size(SampleBuilderFactoryTemp self) -> size_t"""
+        """
+        size(SampleBuilderFactoryTemp self) -> size_t
+
+        size_t IFactory< Key, AbstractProduct >::size() const
+
+        Returns number of registered objects. 
+
+        """
         return _libBornAgainCore.SampleBuilderFactoryTemp_size(self)
 
 
@@ -26464,14 +26361,26 @@ class SimulationFactoryTemp(_object):
 
 
     def contains(self, item_key):
-        """contains(SimulationFactoryTemp self, std::string const & item_key) -> bool"""
+        """
+        contains(SimulationFactoryTemp self, std::string const & item_key) -> bool
+
+        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key)
+
+        """
         return _libBornAgainCore.SimulationFactoryTemp_contains(self, item_key)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
     __del__ = lambda self: None
 
     def size(self):
-        """size(SimulationFactoryTemp self) -> size_t"""
+        """
+        size(SimulationFactoryTemp self) -> size_t
+
+        size_t IFactory< Key, AbstractProduct >::size() const
+
+        Returns number of registered objects. 
+
+        """
         return _libBornAgainCore.SimulationFactoryTemp_size(self)
 
 

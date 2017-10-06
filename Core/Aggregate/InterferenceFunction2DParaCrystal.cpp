@@ -268,12 +268,6 @@ std::vector<double> InterferenceFunction2DParaCrystal::domainSizes() const
     return {m_domain_sizes[0], m_domain_sizes[1]};
 }
 
-std::vector<const IFTDistribution2D*>
-InterferenceFunction2DParaCrystal::probabilityDistributions() const
-{
-    return {m_pdf1.get(), m_pdf2.get()};
-}
-
 //! Enables/disables averaging over the lattice rotation angle.
 //! @param integrate_xi: integration flag
 

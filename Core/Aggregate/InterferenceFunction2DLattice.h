@@ -41,8 +41,6 @@ public:
 
     void setDecayFunction(const IFTDecayFunction2D& decay);
 
-    const IFTDecayFunction2D* decayFunction() const { return m_decay.get(); }
-
     double evaluate(const kvector_t q) const final;
 
     void setIntegrationOverXi(bool integrate_xi);

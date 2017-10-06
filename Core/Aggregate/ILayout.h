@@ -36,31 +36,19 @@ public:
     enum EInterferenceApproximation { DA, SSCA };
 
     ILayout() : me_approx(DA) {}
-    virtual ~ILayout() {}
+    virtual ~ILayout();
 
     virtual ILayout* clone() const =0;
     virtual ILayout* cloneWithOffset(double offset) const =0;
 
     virtual void accept(INodeVisitor* visitor) const=0;
 
-    //! Returns number of particles
-    virtual size_t numberOfParticles() const =0;
-
-    //! Returns information about particle with index
-    virtual const IAbstractParticle* particle(size_t index) const =0;
-
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
     virtual SafePointerVector<const IParticle> particles() const =0;
 
-    /// Get abundance fraction of particle with index
-    virtual double abundanceOfParticle(size_t index) const =0;
-
     /// Get total abundance of all particles
-    double getTotalAbundance() const; // implemented below
-
-    //! Returns interference function
-    virtual const IInterferenceFunction* interferenceFunction() const =0;
+    virtual double getTotalAbundance() const =0;
 
     //! Returns surface density of all particles
     virtual double totalParticleSurfaceDensity() const =0;
@@ -81,12 +69,6 @@ private:
 };
 
 
-inline double ILayout::getTotalAbundance() const
-{
-    double total_abundance = 0.0;
-    for (size_t i=0; i<numberOfParticles(); ++i)
-        total_abundance += abundanceOfParticle(i);
-    return total_abundance;
-}
+
 
 #endif // ILAYOUT_H

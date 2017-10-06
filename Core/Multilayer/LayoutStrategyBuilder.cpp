@@ -62,14 +62,24 @@ void LayoutStrategyBuilder::createStrategy()
 {
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
 
+    // TODO: this needs to be updated (no dynamic_cast or unnecessary accessors)
+    const IInterferenceFunction* p_iff { nullptr };
+    for (auto p_child : mp_layout->getChildren()) {
+        if ( (p_iff = dynamic_cast<const IInterferenceFunction*>(p_child)) )
+            break;
+    }
+
     switch (mp_layout->getApproximation())
     {
     case ILayout::DA:
         mP_strategy.reset( new DecouplingApproximationStrategy(m_sim_params, m_polarized) );
         break;
     case ILayout::SSCA:
-        double kappa = mp_layout ? mp_layout->interferenceFunction()->kappa()
-                                 : 0.0;
+        if (!p_iff)
+            throw Exceptions::ClassInitializationException(
+                "LayoutStrategyBuilder::createStrategy: "
+                "layout does not contain an interference function for SSCA");
+        double kappa = p_iff->kappa();
         if (kappa<=0.0)
             throw Exceptions::ClassInitializationException(
                 "SSCA requires a nontrivial interference function "
@@ -79,7 +89,7 @@ void LayoutStrategyBuilder::createStrategy()
     }
     if (!mP_strategy)
         throw Exceptions::ClassInitializationException("Could not create appropriate strategy");
-    mP_strategy->init(ff_wrappers, mp_layout->interferenceFunction());
+    mP_strategy->init(ff_wrappers, p_iff);
     return;
 }
 

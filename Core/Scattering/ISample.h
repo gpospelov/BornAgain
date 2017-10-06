@@ -36,24 +36,6 @@ public:
 
     //! Returns set of unique materials contained in this ISample.
     std::vector<const HomogeneousMaterial*> containedMaterials() const;
-
-    template<class T> std::vector<const T*> containedSubclass() const;
 };
-
-//! Returns vector of children of type T.
-template<class T>
-std::vector<const T*> ISample::containedSubclass() const
-{
-    std::vector<const T*> result;
-    if( const T* t = dynamic_cast<const T*>(this) )
-        result.push_back( t );
-    for(auto child: getChildren() ) {
-        if(const ISample *sample = dynamic_cast<const ISample *>(child)) {
-            for( const T* t: sample->containedSubclass<T>() )
-                result.push_back( t );
-        }
-    }
-    return result;
-}
 
 #endif // ISAMPLE_H

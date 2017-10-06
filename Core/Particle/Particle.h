@@ -45,7 +45,6 @@ public:
     complex_t refractiveIndex() const;
 
     void setFormFactor(const IFormFactor& form_factor);
-    const IFormFactor* formFactor() const { return mP_form_factor.get(); }
 
     std::vector<const INode*> getChildren() const override final;
 

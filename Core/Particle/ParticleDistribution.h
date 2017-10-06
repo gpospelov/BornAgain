@@ -38,11 +38,11 @@ public:
     //! Returns list of new particles generated according to a distribution.
     std::vector<const IParticle*> generateParticles() const;
 
+    //! Returns the prototype particle, used for generating multiple ones
+    const IParticle& prototype() const { return *mP_particle.get(); }
+
     //! Returns the distributed parameter data
     ParameterDistribution parameterDistribution() const { return m_par_distribution; }
-
-    //! Returns particle.
-    const IParticle* particle() const { return mP_particle.get(); }
 
     std::vector<const INode*> getChildren() const final override;
 

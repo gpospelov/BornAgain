@@ -402,7 +402,7 @@ def fix_apple_bundle():
     print '-'*80
     # # copy_python_framework()
     # FIXME provide automatic recognition of Qt dependency type (@rpath or hard coded)
-    # copy_qt_libraries() # this line should be uncommented for macport based builds
+    copy_qt_libraries() # this line should be uncommented for macport based builds
     copy_qt_plugins()
     copy_dependencies()
     validate_dependencies()

@@ -68,7 +68,7 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
      set(EXEEXT "")
      set(SOEXT "so")
 
-  elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL Clang)
+  elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL Clang OR ${CMAKE_CXX_COMPILER_ID} STREQUAL AppleClang)
 
      message(STATUS "Found LLVM compiler collection")
      execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)

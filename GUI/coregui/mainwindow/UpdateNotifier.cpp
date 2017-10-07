@@ -60,8 +60,7 @@ void UpdateNotifier::replyFinished(QNetworkReply *reply)
             // Testwise degrade version
             // QString myVersion = QString("1.3.0");
 
-            int compareResult = versionString.compare(myVersion);
-            if (compareResult > 0) {
+            if (GUIHelpers::versionCode(versionString) > GUIHelpers::versionCode(myVersion)) {
                 QString message("New version is available: <a href=\"");
                 message.append(Constants::S_DOWNLOAD_LINK);
                 message.append("\">");

@@ -49,7 +49,7 @@ QLabel* createCopyrightLabel()
 
 QLabel* createLogoLabel()
 {
-    QPixmap logo(":/images/about_icon.awk");
+    QPixmap logo(":/images/about_icon.awk", "JPG");
     auto result = new QLabel;
     result->setPixmap(logo.scaled(656, 674, Qt::KeepAspectRatio));
     return result;

@@ -17,5 +17,7 @@ config.vm.provider "virtualbox" do |vb|
   vb.customize ["modifyvm", :id, "--audio", "none", "--usb", "on", "--usbehci", "off"]
 end
 
+config.vm.provision :shell, path: "build_bornagain.sh", privileged: false
+
 end
 

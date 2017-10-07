@@ -5627,7 +5627,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/home/pospelov/software/local/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -22918,7 +22918,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_minimizerName", _wrap_IMinimizer_minimizerName, METH_VARARGS, (char *)"\n"
 		"IMinimizer_minimizerName(IMinimizer self) -> std::string\n"
 		"\n"
-		"virtual std::string IMinimizer::minimizerName() const =0\n"
+		"virtual std::string IMinimizer::minimizerName() const  =0\n"
 		"\n"
 		"return name of the minimizer \n"
 		"\n"
@@ -22926,7 +22926,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_algorithmName", _wrap_IMinimizer_algorithmName, METH_VARARGS, (char *)"\n"
 		"IMinimizer_algorithmName(IMinimizer self) -> std::string\n"
 		"\n"
-		"virtual std::string IMinimizer::algorithmName() const =0\n"
+		"virtual std::string IMinimizer::algorithmName() const  =0\n"
 		"\n"
 		"return name of the minimization algorithm \n"
 		"\n"
@@ -22978,7 +22978,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IMinimizer_reportOutcome", _wrap_IMinimizer_reportOutcome, METH_VARARGS, (char *)"\n"
 		"IMinimizer_reportOutcome(IMinimizer self) -> std::string\n"
 		"\n"
-		"virtual std::string IMinimizer::reportOutcome() const =0\n"
+		"virtual std::string IMinimizer::reportOutcome() const  =0\n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_propagateResults", _wrap_IMinimizer_propagateResults, METH_VARARGS, (char *)"\n"

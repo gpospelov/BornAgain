@@ -2008,7 +2008,7 @@ class IMinimizer(_object):
         """
         minimizerName(IMinimizer self) -> std::string
 
-        virtual std::string IMinimizer::minimizerName() const =0
+        virtual std::string IMinimizer::minimizerName() const  =0
 
         return name of the minimizer 
 
@@ -2020,7 +2020,7 @@ class IMinimizer(_object):
         """
         algorithmName(IMinimizer self) -> std::string
 
-        virtual std::string IMinimizer::algorithmName() const =0
+        virtual std::string IMinimizer::algorithmName() const  =0
 
         return name of the minimization algorithm 
 
@@ -2100,7 +2100,7 @@ class IMinimizer(_object):
         """
         reportOutcome(IMinimizer self) -> std::string
 
-        virtual std::string IMinimizer::reportOutcome() const =0
+        virtual std::string IMinimizer::reportOutcome() const  =0
 
         """
         return _libBornAgainFit.IMinimizer_reportOutcome(self)

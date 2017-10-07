@@ -1,4 +1,6 @@
 BornAgain-1.10.0, released 2017.10.09
+  > MacOS specific
+    1) 10.9(Mavericks) is not supported anymore. Minimum supported 10.10(Yosemite).
   > API changes
     1) FormFactorTrivial renamed to FormFactorDot
     2) IParticle: applyTranslation -> translate; applyRotation -> rotate

@@ -70,6 +70,8 @@ BA_CORE_API_ void createSubdir(const QString& parentName, const QString& subdirN
 BA_CORE_API_ bool parseVersion(
     const QString& version, int& major_num, int& minor_num, int& patch_num);
 
+BA_CORE_API_ int versionCode(const QString& version);
+
 BA_CORE_API_ bool isVersionMatchMinimal(const QString& version, const QString& minimal_version);
 
 BA_CORE_API_ QString currentDateTime();

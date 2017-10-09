@@ -23,6 +23,8 @@
 #include "qstringutils.h"
 #include "aboutapplicationdialog.h"
 #include "PyImportAssistant.h"
+#include "hostosinfo.h"
+#include "SysUtils.h"
 #include <QDir>
 #include <QMenuBar>
 #include <QSettings>
@@ -117,9 +119,14 @@ void ActionManager::createMenus()
     m_fileMenu->addSeparator();
     m_importMenu = m_fileMenu->addMenu("Import");
     m_importMenu->setToolTipsVisible(true);
-    QAction* action = m_importMenu->addAction("Import from Python script");
-    action->setToolTip("Import sample from Python script");
+    QAction* action = m_importMenu->addAction("Import from Python script (experimental)");
+    action->setToolTip("Import sample from Python script.\n The script should contain a function "
+                       "returning a valid multi-layer.");
     connect(action, &QAction::triggered, this, &ActionManager::onImportFromPythonScript);
+
+    if (GUI_OS_Utils::HostOsInfo::isMacHost())
+        if (SysUtils::getenv("PYTHONHOME").empty())
+            action->setEnabled(false);
 
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);

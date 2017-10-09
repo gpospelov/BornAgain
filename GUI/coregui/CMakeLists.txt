@@ -168,4 +168,8 @@ if(WIN32)
     ${QTDIR}/plugins/iconengines/qsvgicon.dll
     DESTINATION bin/iconengines COMPONENT Libraries)
 
+    install(FILES
+    ${QTDIR}/plugins/imageformats/qjpeg.dll
+    DESTINATION bin/imageformats COMPONENT Libraries)
+
 endif()

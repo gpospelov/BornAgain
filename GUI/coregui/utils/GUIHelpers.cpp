@@ -169,21 +169,24 @@ bool parseVersion(const QString &version, int &major_num, int &minor_num, int &p
     return success;
 }
 
+int versionCode(const QString& version)
+{
+    int result(-1);
+
+    int ba_major(0), ba_minor(0), ba_patch(0);
+    if(!parseVersion(version, ba_major, ba_minor, ba_patch))
+        return result;
+
+    result = ba_major*10000 + ba_minor*100 + ba_patch;
+
+    return result;
+}
+
 
 //! returns true if current BornAgain version match minimal required version
 bool isVersionMatchMinimal(const QString &version, const QString &minimal_version)
 {
-    int ba_major(0), ba_minor(0), ba_patch(0);
-    if(!parseVersion(version, ba_major, ba_minor, ba_patch))
-        return false;
-
-    int minv_major(0), minv_minor(0), minv_patch(0);
-    if(!parseVersion(minimal_version, minv_major, minv_minor, minv_patch))
-        return false;
-
-    int ba = ba_major*10000 + ba_minor*100 + ba_patch;
-    int minv = minv_major*10000 + minv_minor*100 + minv_patch;
-    return ba >= minv;
+    return versionCode(version) >= versionCode(minimal_version);
 }
 
 //! Returns file directory from the full file path
@@ -262,6 +265,7 @@ QString readTextFile(const QString& fileName)
     QTextStream in(&file);
     return in.readAll();
 }
+
 
 
 } // namespace GUIHelpers

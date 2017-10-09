@@ -1,6 +1,56 @@
+BornAgain-1.10.0, released 2017.10.09
+  > MacOS specific
+    1) 10.9 (Mavericks) is not supported anymore. Minimum supported 10.10 (Yosemite).
   > API changes
     1) FormFactorTrivial renamed to FormFactorDot
     2) IParticle: applyTranslation -> translate; applyRotation -> rotate
+  > Summary:
+    1) Integration over rotation angle for square and hexagonal lattices.
+    2) Trapezoid resolution function to describe instruments with neutron velocity selector.
+    3) GUI: possibility to rotate imported experimental data.
+    4) GUI: support for mesocrystals.
+    5) GUI: added form factor of a dot.
+    6) GUI: import of sample from Python script to GUI (experimental).
+    7) Bugfixes.
+
+  * Bug #1509: Version string should be different for executables generated from 'develop', from feature branches, or from 'master'
+  * Bug #1626: Specular calculation gives weird results below critical angle in presence of top layer absorption
+  * Bug #1788: Numerical instability in triangular ripple form factor
+  * Bug #1806: GUI: Zoom of imported data does not work after applying a mask or ROI
+  * Bug #1815: GUI: FitView sometimes stops fit progress update
+  * Bug #1827: GUI: fix SessionModelDelegate for group property
+  * Bug #1828: Simulation cloning might lead to segfault if SampleBuiler present
+  * Bug #1830: Integration over xi is not translated to Python for square and hexagonal lattices
+  * Bug #1832: Fitting example FitSphereInHexLattice runs suspiciously long
+  * Bug #1834: Python examples do not work in Jupiter notebook
+  * Bug #1845: GUI: add and implement correct translators for the parameters of MesoCrystalItem
+  * Feature #1257: GUI: provide import into GUI model from python script
+  * Feature #1579: provide trapezoid resolution function to describe instruments with neutron velocity selector
+  * Feature #1617: Implement rotation of 2D OutputData on 90 deg
+  * Feature #1618: Implement rotation of imported data in ImportData view
+  * Feature #1684: nicer layout for newsletter@bornagainproject.org
+  * Feature #1691: Decrease number of warnings produced by Windows build
+  * Feature #1780: CMake: provide check for Python configuration consistency
+  * Feature #1795: GUI: make parametrization of FormFactorTruncatedSphere and FormFactorTruncatedSpheroid as in Core
+  * Feature #1803: Make plot_intensity_data util aware of current axes units
+  * Feature #1804: Implement FormFactorTrivial in GUI
+  * Feature #1807: Provide integration over xi for 2d lattice interference function
+  * Feature #1808: GUI: restore all form factor tooltips
+  * Feature #1819: Review custom form factors after graded layer approximation
+  * Feature #1824: Revise current Python examples
+  * Feature #1825: GUI: revise all tooltips of SampleView
+  * Feature #1829: Revise fresnel coefficients calculations in the case of Monte-Carlo integration
+  * Feature #1836: GUI: update qcustomplot library
+  * Feature #1838: Create simplified MesoCrystal user example
+  * Feature #1839: Provide export to python script for domain objects containing mesocrystals
+  * Feature #1840: Implement mesocrystals in GUI
+  * Feature #1841: Implement transform from domain to GUI for mesocrystals
+  * Feature #1843: Create icon for MesoCrystal in GUI (widget)
+  * Documentation #1823: Revise current list of Redmine issues
+  * Documentation #1831: Add top cap removal parameterization to documentation of truncated sphere and spheroid form factor
+  * Documentation #1833: Create prototype of hugo-based documentation website.
+  * Refactoring #1835: Review/refactor slicing machinery
+  * Refactoring #1844: Verify composition hierarchy of IParticle types in GUI and core
 
 BornAgain-1.9.0, released 2017.07.04
   > No API changes

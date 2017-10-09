@@ -1,6 +1,6 @@
 BornAgain-1.10.0, released 2017.10.09
   > MacOS specific
-    1) 10.9(Mavericks) is not supported anymore. Minimum supported 10.10(Yosemite).
+    1) 10.9 (Mavericks) is not supported anymore. Minimum supported 10.10 (Yosemite).
   > API changes
     1) FormFactorTrivial renamed to FormFactorDot
     2) IParticle: applyTranslation -> translate; applyRotation -> rotate
@@ -8,8 +8,8 @@ BornAgain-1.10.0, released 2017.10.09
     1) Integration over rotation angle for square and hexagonal lattices.
     2) Trapezoid resolution function to describe instruments with neutron velocity selector.
     3) GUI: possibility to rotate imported experimental data.
-    4) GUI: mesocrystals.
-    5) GUI: form factor of dot.
+    4) GUI: support for mesocrystals.
+    5) GUI: added form factor of a dot.
     6) GUI: import of sample from Python script to GUI (experimental).
     7) Bugfixes.
 

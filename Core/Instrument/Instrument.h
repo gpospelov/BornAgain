@@ -95,6 +95,10 @@ public:
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
             IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const;
 
+    //! Returns histogram representing intensity map in requested axes units
+    Histogram2D* createIntensityData(const std::vector<SimulationElement> &elements,
+            IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+
     //! Returns empty detector map in given axes units.
     virtual OutputData<double>* createDetectorMap(
             IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const;

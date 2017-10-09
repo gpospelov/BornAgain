@@ -96,10 +96,16 @@ void MainComputation::runProtected()
 
 IFresnelMap* MainComputation::createFresnelMap()
 {
-        if (!mP_multi_layer->requiresMatrixRTCoefficients())
-            return new ScalarFresnelMap();
-        else
-            return new MatrixFresnelMap();
+    std::unique_ptr<IFresnelMap> P_result;
+    if (!mP_multi_layer->requiresMatrixRTCoefficients())
+        P_result.reset(new ScalarFresnelMap());
+    else
+        P_result.reset(new MatrixFresnelMap());
+    // Disable caching of R,T coefficients when using Monte Carlo integration
+    if (P_result && m_sim_options.isIntegrate()) {
+        P_result->disableCaching();
+    }
+    return P_result.release();
 }
 
 std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer() const

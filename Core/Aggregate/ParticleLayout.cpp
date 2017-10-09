@@ -88,7 +88,7 @@ ParticleLayout* ParticleLayout::cloneWithOffset(double offset) const
     for (auto p_particle : m_particles)
     {
         auto p_particle_clone = p_particle->clone();
-        p_particle_clone->translateZ(offset);
+        p_particle_clone->translate(kvector_t(0.0, 0.0, offset));
         p_result->addAndRegisterAbstractParticle(p_particle_clone);
     }
 
@@ -127,7 +127,7 @@ void ParticleLayout::addParticle(const IParticle& particle, double abundance,
     std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
     P_particle_clone->setAbundance(abundance);
     if (position != kvector_t(0,0,0))
-        P_particle_clone->applyTranslation(position);
+        P_particle_clone->translate(position);
     addAndRegisterAbstractParticle(P_particle_clone.release());
 }
 
@@ -142,19 +142,10 @@ void ParticleLayout::addParticle(const IParticle& particle, double abundance,
     std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
     P_particle_clone->setAbundance(abundance);
     if (!rotation.isIdentity())
-        P_particle_clone->applyRotation(rotation);
+        P_particle_clone->rotate(rotation);
     if(position != kvector_t(0,0,0))
-        P_particle_clone->applyTranslation(position);
+        P_particle_clone->translate(position);
     addAndRegisterAbstractParticle(P_particle_clone.release());
-}
-
-//! Returns particle info
-const IAbstractParticle* ParticleLayout::particle(size_t index) const
-{
-    if (index>=m_particles.size())
-        throw Exceptions::OutOfBoundsException(
-            "ParticleLayout::particle() -> Error! Not so many particles in this decoration.");
-    return m_particles[index];
 }
 
 //! Returns information on all particles (type and abundance)
@@ -175,15 +166,13 @@ SafePointerVector<const IParticle> ParticleLayout::particles() const
     return particle_vector;
 }
 
-//! Returns the abundance fraction of particle at given index.
-double ParticleLayout::abundanceOfParticle(size_t index) const
+double ParticleLayout::getTotalAbundance() const
 {
-    return m_particles[index]->abundance();
-}
-
-const IInterferenceFunction*ParticleLayout::interferenceFunction() const
-{
-    return mP_interference_function.get();
+    double result = 0.0;
+    for (auto p_particle : m_particles) {
+        result += p_particle->abundance();
+    }
+    return result;
 }
 
 //! Adds interference functions
@@ -197,6 +186,13 @@ double ParticleLayout::totalParticleSurfaceDensity() const
     double iff_density =
         mP_interference_function ? mP_interference_function->getParticleDensity() : 0.0;
     return iff_density > 0.0 ? iff_density : m_total_particle_density;
+}
+
+//! Sets total particle surface density.
+//! @params particle_density: number of particles per square nanometer
+void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
+{
+    m_total_particle_density = particle_density;
 }
 
 std::vector<const INode*> ParticleLayout::getChildren() const

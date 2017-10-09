@@ -22,6 +22,11 @@
 #include <memory>
 #include <utility>
 
+namespace {
+bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
+                              const IRotation& rot, kvector_t translation);
+}
+
 IFormFactor::~IFormFactor() {}
 
 IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation& rot,
@@ -53,23 +58,9 @@ bool IFormFactor::canSliceAnalytically(const IRotation&) const
     return false;
 }
 
-IFormFactor*IFormFactor::sliceFormFactor(ZLimits, const IRotation&, kvector_t) const
+IFormFactor* IFormFactor::sliceFormFactor(ZLimits, const IRotation&, kvector_t) const
 {
     throw std::runtime_error(getName() + "::sliceFormFactor error: not implemented!");
-}
-
-bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
-                              const IRotation& rot, kvector_t translation)
-{
-    double zbottom = formfactor.bottomZ(rot) + translation.z();
-    double ztop = formfactor.topZ(rot) + translation.z();
-    OneSidedLimit lower_limit = limits.lowerLimit();
-    OneSidedLimit upper_limit = limits.upperLimit();
-    if (!upper_limit.m_limitless && ztop > upper_limit.m_value)
-        return false;
-    if (!lower_limit.m_limitless && zbottom < lower_limit.m_value)
-        return false;
-    return true;
 }
 
 IFormFactor* CreateTransformedFormFactor(const IFormFactor& formfactor, const IRotation& rot,
@@ -85,4 +76,20 @@ IFormFactor* CreateTransformedFormFactor(const IFormFactor& formfactor, const IR
     else
         std::swap(P_fftemp, P_result);
     return P_result.release();
+}
+
+namespace {
+bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
+                              const IRotation& rot, kvector_t translation)
+{
+    double zbottom = formfactor.bottomZ(rot) + translation.z();
+    double ztop = formfactor.topZ(rot) + translation.z();
+    OneSidedLimit lower_limit = limits.lowerLimit();
+    OneSidedLimit upper_limit = limits.upperLimit();
+    if (!upper_limit.m_limitless && ztop > upper_limit.m_value)
+        return false;
+    if (!lower_limit.m_limitless && zbottom < lower_limit.m_value)
+        return false;
+    return true;
+}
 }

@@ -60,7 +60,7 @@ set(test_cases
     ConesWithLimitsDistribution
     )
 
-add_executable(CoreStandardTest CoreStandardTest.cpp CoreTest.h CoreTest.cpp)
+add_executable(CoreStandardTest main.cpp CoreStandardTest.h CoreStandardTest.cpp)
 target_link_libraries(CoreStandardTest BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})
     add_test(CoreStandardTest/${test_case}

@@ -52,16 +52,16 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
 
     // core
     std::unique_ptr<Particle> P_core(mp_core->clone());
-    P_core->applyRotation(*P_rotation);
-    P_core->applyTranslation(m_position);
+    P_core->rotate(*P_rotation);
+    P_core->translate(m_position);
     auto sliced_core = P_core->createSlicedParticle(limits);
     if (!sliced_core.mP_slicedff || sliced_core.m_regions.size()!=1)
         return {};
 
     // shell
     std::unique_ptr<Particle> P_shell(mp_shell->clone());
-    P_shell->applyRotation(*P_rotation);
-    P_shell->applyTranslation(m_position);
+    P_shell->rotate(*P_rotation);
+    P_shell->translate(m_position);
     auto sliced_shell = P_shell->createSlicedParticle(limits);
     if (!sliced_shell.mP_slicedff)
         return {};
@@ -92,7 +92,7 @@ void ParticleCoreShell::addAndRegisterCore(const Particle& core,
                                            kvector_t relative_core_position)
 {
     mp_core.reset(core.clone());
-    mp_core->applyTranslation(relative_core_position);
+    mp_core->translate(relative_core_position);
     registerChild(mp_core.get());
     mp_core->registerAbundance(false);
 }

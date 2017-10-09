@@ -1858,16 +1858,19 @@ They must fulfill
 \end{displaymath}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
-\begin{align*}
-F &=L W
-\sinc\left(\frac{q_xL}{2}\right)\times \\ &
-\int_0^H \!\d z\,
-\left(1-\frac{z}{H}\right)
- \sinc\left[\frac{q_y
-    W}{2}\left(1-\frac{z}{H}\right)\right]
-\exp\left\{ i\left[q_zz -
-    q_yd\left(1-\frac{z}{H}\right)\right]\right\}
-\end{align*}
+\begin{equation*}
+  F = \frac{L H}{q_y}
+  \sinc\left(\frac{q_xL}{2}\right)
+  i\e^{-i q_y d}
+  \left[
+    \e^{i \alpha_{-}/2} \sinc\left( \frac{\alpha_{+}}{2} \right)
+    - \e^{i \alpha_{+}/2} \sinc\left( \frac{\alpha_{-}}{2} \right)
+  \right],
+\end{equation*}
+\begin{equation*}
+  \alpha_{+} = H q_z + \frac{q_y W}{2} + q_y d, \quad
+  \alpha_{-} = H q_z - \frac{q_y W}{2} + q_y d,
+\end{equation*}
 \begin{equation*}
   V = \dfrac{L W H}{2},
 \end{equation*}

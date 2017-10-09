@@ -22,6 +22,7 @@
 #include "Instrument.h"
 #include "ProgressHandler.h"
 #include "SimulationOptions.h"
+#include "SampleProvider.h"
 
 template<class T> class OutputData;
 class Computation;
@@ -64,10 +65,9 @@ public:
                                double total_transmission);
 
     void setSample(const MultiLayer& sample);
-    MultiLayer* sample() const { return mP_multilayer.get(); }
+    const MultiLayer* sample() const;
 
     void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    std::shared_ptr<IMultiLayerBuilder> sampleBuilder() const { return mP_sample_builder; }
 
     virtual size_t numberOfSimulationElements() const=0;
 
@@ -117,16 +117,15 @@ protected:
     //! Returns the end iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
-    std::unique_ptr<MultiLayer> mP_multilayer;
-    std::shared_ptr<IMultiLayerBuilder> mP_sample_builder;
+    SampleProvider m_sample_provider;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
     ProgressHandler m_progress;
     std::vector<SimulationElement> m_sim_elements;
     Instrument m_instrument;
-    OutputData<double> m_intensity_map;
 
 private:
+    void initialize();
     void imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch);
 };
 

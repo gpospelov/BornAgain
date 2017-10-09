@@ -1,0 +1,41 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/BABuild.h
+//! @brief     Defines functions for access build related info.
+//!
+//! @homepage  http://bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2015
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
+#ifndef BABUILD_H
+#define BABUILD_H
+
+#include <string>
+
+namespace BABuild
+{
+
+std::string cmakeBinaryDir() { return "@CMAKE_BINARY_DIR@"; }
+std::string buildLibDir() { return "@CMAKE_BINARY_DIR@/lib"; }
+std::string buildBinDir() { return "@CMAKE_BINARY_DIR@/bin"; }
+
+//! Methods to access info about Python used during the build.
+
+std::string pythonExecutable() { return "@PYTHON_EXECUTABLE@"; }
+std::string pythonVersionString() { return "@PYTHON_VERSION_STRING@"; }
+std::string pythonLibraries() { return "@PYTHON_LIBRARIES@"; }
+std::string pythonIncludeDirs() { return "@PYTHON_INCLUDE_DIRS@"; }
+std::string pythonLibsVersionString() { return "@PYTHONLIBS_VERSION_STRING@"; }
+std::string numpyIncludeDir() { return "@NUMPY_INCLUDE_DIR@"; }
+std::string numpyVersionString() { return "@NUMPY_VERSION_STRING@"; }
+
+}
+
+#endif
+

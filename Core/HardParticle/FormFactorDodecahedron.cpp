@@ -39,6 +39,8 @@ const PolyhedralTopology FormFactorDodecahedron::topology = {
     }, true };
 
 
+//! Constructor of a dodecahedron.
+//! @param edge: length of the edge in nanometers
 FormFactorDodecahedron::FormFactorDodecahedron(double edge)
     : FormFactorPolyhedron()
     , m_edge(edge)

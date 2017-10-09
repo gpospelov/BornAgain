@@ -115,9 +115,13 @@ void ColorMapUtils::setLogz(QCPAxis* axis, bool isLogz)
         axis->setNumberFormat("eb");
         axis->setNumberPrecision(0);
         axis->setScaleType(QCPAxis::stLogarithmic);
+        QSharedPointer<QCPAxisTicker> ticker(new QCPAxisTickerLog);
+        axis->setTicker(ticker);
     } else  {
         axis->setNumberFormat("f");
         axis->setNumberPrecision(0);
         axis->setScaleType(QCPAxis::stLinear);
+        QSharedPointer<QCPAxisTicker> ticker(new QCPAxisTicker);
+        axis->setTicker(ticker);
     }
 }

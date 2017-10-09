@@ -32,7 +32,7 @@ public:
     typedef typename std::vector<T*>::const_iterator const_iterator;
     SafePointerVector() {}
     SafePointerVector(const SafePointerVector& other);
-    virtual ~SafePointerVector() { clear(); }
+    ~SafePointerVector() { clear(); }
 
     SafePointerVector& operator=(const SafePointerVector& right);
     size_t size() const { return m_pointers.size(); }

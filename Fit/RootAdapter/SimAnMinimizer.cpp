@@ -16,10 +16,18 @@
 #include "SimAnMinimizer.h"
 #include "GSLMultiMinimizer.h"
 #include "MinimizerConstants.h"
+
+#ifdef _WIN32
+#pragma warning ( push )
+#pragma warning ( disable: 4267 )
+#include "Math/PatchedGSLSimAnMinimizer.h"
+#pragma warning ( pop )
+#else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include "Math/PatchedGSLSimAnMinimizer.h"
 #pragma GCC diagnostic pop
+#endif
 
 SimAnMinimizer::SimAnMinimizer()
     : RootMinimizerAdapter(MinimizerInfo::buildGSLSimAnInfo())

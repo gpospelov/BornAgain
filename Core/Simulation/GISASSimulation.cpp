@@ -66,8 +66,9 @@ OutputData<double>* GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnit
 
 Histogram2D* GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type) const
 {
-    const std::unique_ptr<OutputData<double>> data(getDetectorIntensity(units_type));
-    return new Histogram2D(*data);
+    std::unique_ptr<Histogram2D> result(
+        m_instrument.createIntensityData(m_sim_elements, units_type));
+    return result.release();
 }
 
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)

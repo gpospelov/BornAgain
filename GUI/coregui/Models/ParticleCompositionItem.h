@@ -20,14 +20,11 @@
 #include "SessionGraphicsItem.h"
 #include "ParticleComposition.h"
 
-
 class BA_CORE_API_ ParticleCompositionItem : public SessionGraphicsItem
 {
-
 public:
     const static QString T_PARTICLES;
-    explicit ParticleCompositionItem();
-    virtual ~ParticleCompositionItem() {}
+    ParticleCompositionItem();
     std::unique_ptr<ParticleComposition> createParticleComposition() const;
 };
 

@@ -15,6 +15,7 @@ TEST_F(CrystalTest, getChildren)
     Crystal crystal(composition, lattice);
 
     std::vector<const INode*> children = crystal.getChildren();
-    EXPECT_EQ(children.size(), 1u);
+    ASSERT_EQ(children.size(), 2u);
     EXPECT_EQ(children.at(0)->getName(), BornAgain::ParticleCompositionType);
+    EXPECT_EQ(children.at(1)->getName(), BornAgain::LatticeType);
 }

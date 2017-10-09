@@ -14,30 +14,36 @@
 // ************************************************************************** //
 
 #include "Lattice.h"
+#include "BornAgainNamespace.h"
 #include "ISelectionRule.h"
 #include "MathConstants.h"
+#include "RealParameter.h"
 #include "Transform3D.h"
 #include <gsl/gsl_linalg.h>
 
 Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
 : mp_selection_rule(0)
-, m_a1(a1)
-, m_a2(a2)
-, m_a3(a3)
+, m_a(a1)
+, m_b(a2)
+, m_c(a3)
 , m_cache_ok(false)
 {
+    setName(BornAgain::LatticeType);
     initialize();
+    registerBasisVectors();
 }
 
 Lattice::Lattice(const Lattice& lattice)
 : mp_selection_rule(0)
-, m_a1(lattice.m_a1)
-, m_a2(lattice.m_a2)
-, m_a3(lattice.m_a3)
+, m_a(lattice.m_a)
+, m_b(lattice.m_b)
+, m_c(lattice.m_c)
 , m_cache_ok(false)
 {
+    setName(BornAgain::LatticeType);
     initialize();
     if( lattice.mp_selection_rule ) setSelectionRule(*lattice.mp_selection_rule);
+    registerBasisVectors();
 }
 
 Lattice::~Lattice()
@@ -47,9 +53,9 @@ Lattice::~Lattice()
 
 Lattice Lattice::createTransformedLattice(const Transform3D& transform) const
 {
-    kvector_t a1 = transform.transformed(m_a1);
-    kvector_t a2 = transform.transformed(m_a2);
-    kvector_t a3 = transform.transformed(m_a3);
+    kvector_t a1 = transform.transformed(m_a);
+    kvector_t a2 = transform.transformed(m_b);
+    kvector_t a3 = transform.transformed(m_c);
     Lattice result = Lattice(a1, a2, a3);
     if (mp_selection_rule) result.setSelectionRule(*mp_selection_rule);
     return result;
@@ -63,7 +69,7 @@ void Lattice::initialize() const
 
 double Lattice::volume() const
 {
-    return std::abs(m_a1.dot( m_a2.cross(m_a3)));
+    return std::abs(m_a.dot( m_b.cross(m_c)));
 }
 
 void Lattice::getReciprocalLatticeBasis(kvector_t b1, kvector_t b2,
@@ -72,17 +78,17 @@ void Lattice::getReciprocalLatticeBasis(kvector_t b1, kvector_t b2,
     if (!m_cache_ok) {
         initialize();
     }
-    b1 = m_b1;
-    b2 = m_b2;
-    b3 = m_b3;
+    b1 = m_ra;
+    b2 = m_rb;
+    b3 = m_rc;
     return;
 }
 
 ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
 {
-    double a1_coord = vector_in.dot(m_b1)/M_TWOPI;
-    double a2_coord = vector_in.dot(m_b2)/M_TWOPI;
-    double a3_coord = vector_in.dot(m_b3)/M_TWOPI;
+    double a1_coord = vector_in.dot(m_ra)/M_TWOPI;
+    double a2_coord = vector_in.dot(m_rb)/M_TWOPI;
+    double a3_coord = vector_in.dot(m_rc)/M_TWOPI;
     int c1 = (int)std::floor(a1_coord + 0.5);
     int c2 = (int)std::floor(a2_coord + 0.5);
     int c3 = (int)std::floor(a3_coord + 0.5);
@@ -91,9 +97,9 @@ ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in)
 
 ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
 {
-    double b1_coord = vector_in.dot(m_a1)/M_TWOPI;
-    double b2_coord = vector_in.dot(m_a2)/M_TWOPI;
-    double b3_coord = vector_in.dot(m_a3)/M_TWOPI;
+    double b1_coord = vector_in.dot(m_a)/M_TWOPI;
+    double b2_coord = vector_in.dot(m_b)/M_TWOPI;
+    double b3_coord = vector_in.dot(m_c)/M_TWOPI;
     int c1 = (int)std::floor(b1_coord + 0.5);
     int c2 = (int)std::floor(b2_coord + 0.5);
     int c3 = (int)std::floor(b3_coord + 0.5);
@@ -107,7 +113,7 @@ std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(
         initialize();
     ivector_t nearest_coords = getNearestReciprocalLatticeVectorCoordinates(input_vector);
     return vectorsWithinRadius(
-        input_vector, nearest_coords, radius, m_b1, m_b2, m_b3, m_a1, m_a2, m_a3);
+        input_vector, nearest_coords, radius, m_ra, m_rb, m_rc, m_a, m_b, m_c);
 }
 
 Lattice Lattice::createFCCLattice(double a)
@@ -127,14 +133,34 @@ Lattice Lattice::createTrigonalLattice(double a, double c)
     return Lattice(a1, a2, a3);
 }
 
+void Lattice::onChange()
+{
+    m_cache_ok = false;
+}
+
+void Lattice::registerBasisVectors()
+{
+    if(!parameter(BornAgain::BasisVector_AX)) {
+        registerParameter(BornAgain::BasisVector_AX, &m_a[0]).setUnit(BornAgain::UnitsNm);
+        registerParameter(BornAgain::BasisVector_AY, &m_a[1]).setUnit(BornAgain::UnitsNm);
+        registerParameter(BornAgain::BasisVector_AZ, &m_a[2]).setUnit(BornAgain::UnitsNm);
+        registerParameter(BornAgain::BasisVector_BX, &m_b[0]).setUnit(BornAgain::UnitsNm);
+        registerParameter(BornAgain::BasisVector_BY, &m_b[1]).setUnit(BornAgain::UnitsNm);
+        registerParameter(BornAgain::BasisVector_BZ, &m_b[2]).setUnit(BornAgain::UnitsNm);
+        registerParameter(BornAgain::BasisVector_CX, &m_c[0]).setUnit(BornAgain::UnitsNm);
+        registerParameter(BornAgain::BasisVector_CY, &m_c[1]).setUnit(BornAgain::UnitsNm);
+        registerParameter(BornAgain::BasisVector_CZ, &m_c[2]).setUnit(BornAgain::UnitsNm);
+    }
+}
+
 void Lattice::computeReciprocalVectors() const
 {
-    kvector_t a23 = m_a2.cross(m_a3);
-    kvector_t a31 = m_a3.cross(m_a1);
-    kvector_t a12 = m_a1.cross(m_a2);
-    m_b1 = M_TWOPI/m_a1.dot(a23)*a23;
-    m_b2 = M_TWOPI/m_a2.dot(a31)*a31;
-    m_b3 = M_TWOPI/m_a3.dot(a12)*a12;
+    kvector_t a23 = m_b.cross(m_c);
+    kvector_t a31 = m_c.cross(m_a);
+    kvector_t a12 = m_a.cross(m_b);
+    m_ra = M_TWOPI/m_a.dot(a23)*a23;
+    m_rb = M_TWOPI/m_b.dot(a31)*a31;
+    m_rc = M_TWOPI/m_c.dot(a12)*a12;
 }
 
 std::vector<kvector_t> Lattice::vectorsWithinRadius(

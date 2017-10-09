@@ -30,15 +30,9 @@ SlicedParticle IParticle::createSlicedParticle(ZLimits) const
                              "not implemented!");
 }
 
-void IParticle::applyTranslation(kvector_t displacement)
+void IParticle::translate(kvector_t translation)
 {
-    m_position += displacement;
-}
-
-void IParticle::translateZ(double offset)
-{
-    kvector_t translation(0, 0, offset);
-    applyTranslation(translation);
+    m_position += translation;
 }
 
 const IRotation* IParticle::rotation() const
@@ -52,7 +46,7 @@ void IParticle::setRotation(const IRotation& rotation)
     registerChild(mP_rotation.get());
 }
 
-void IParticle::applyRotation(const IRotation& rotation)
+void IParticle::rotate(const IRotation& rotation)
 {
     if (mP_rotation) {
         mP_rotation.reset(createProduct(rotation, *mP_rotation));

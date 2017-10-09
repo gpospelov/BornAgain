@@ -27,6 +27,7 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::CuboctahedronType, "Cuboctahedron");
     info.add(Constants::CylinderType, "Cylinder");
     info.add(Constants::DodecahedronType, "Dodecahedron");
+    info.add(Constants::DotType, "Dot");
     info.add(Constants::EllipsoidalCylinderType, "Ellipsoidal Cylinder");
     info.add(Constants::FullSphereType, "Full Sphere");
     info.add(Constants::FullSpheroidType, "Full Spheroid");
@@ -70,6 +71,7 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::DistributionGaussianType, "Gaussian distribution");
     info.add(Constants::DistributionLogNormalType, "Log Normal distribution");
     info.add(Constants::DistributionCosineType, "Cosine distribution");
+    info.add(Constants::DistributionTrapezoidType, "Trapezoid distribution");
     info.setDefaultType(Constants::DistributionGaussianType);
     addInfo(info);
 
@@ -80,6 +82,7 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::DistributionGaussianType, "Gaussian");
     info.add(Constants::DistributionLogNormalType, "Log Normal");
     info.add(Constants::DistributionCosineType, "Cosine");
+    info.add(Constants::DistributionTrapezoidType, "Trapezoid");
     info.setDefaultType(Constants::DistributionNoneType);
     addInfo(info);
 

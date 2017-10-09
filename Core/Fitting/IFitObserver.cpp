@@ -37,7 +37,7 @@ void IFitObserver::notify(IObservable* subject)
     if(fit_suite->fitStrategies()->size() &&
             m_current_strategy_index != (int)fit_suite->currentStrategyIndex()) {
         needs_update = true;
-        m_current_strategy_index = fit_suite->currentStrategyIndex();
+        m_current_strategy_index = static_cast<int>(fit_suite->currentStrategyIndex());
         m_strategy_has_changed = true;
     } else {
         m_strategy_has_changed = false;

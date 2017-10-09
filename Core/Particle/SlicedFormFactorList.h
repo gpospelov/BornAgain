@@ -36,8 +36,9 @@ public:
     SlicedFormFactorList& operator=(SlicedFormFactorList&& other) = default;
     ~SlicedFormFactorList() = default;
 
-    void addParticle(IParticle& particle, const MultiLayer& multilayer,
-                       size_t ref_layer_index);
+    static SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
+                                                 const MultiLayer& multilayer,
+                                                 size_t ref_layer_index);
 
     size_t size() const;
 
@@ -45,16 +46,10 @@ public:
 
     std::map<size_t, std::vector<HomogeneousRegion>> regionMap() const;
 private:
+    void addParticle(IParticle& particle, const MultiLayer& multilayer,
+                       size_t ref_layer_index);
     std::vector<std::pair<std::unique_ptr<IFormFactor>, size_t>> m_ff_list;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
-
-//! Global function that creates a SlicedFormFactorList from an IParticle in a multilayer
-//!
-//! @ingroup intern
-SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
-                                             const MultiLayer& multilayer,
-                                             size_t ref_layer_index);
-
 
 #endif // SLICEDFORMFACTORLIST_H

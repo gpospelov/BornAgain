@@ -18,6 +18,7 @@
 
 #include "WinDllMacros.h"
 #include <string>
+#include <memory>
 
 class GISASSimulation;
 class IParticle;
@@ -29,13 +30,21 @@ class SampleLabelHandler;
 class BA_CORE_API_ ExportToPython
 {
 public:
-    ExportToPython(const MultiLayer& multilayer);
+    enum EMainType
+    {
+        RUN_SIMULATION, //!< main function runs simulation
+        SAVE_DATA       //!< main function saves intensity data
+    };
+
+    ExportToPython();
     virtual ~ExportToPython();
 
-    std::string simulationToPythonLowlevel(const GISASSimulation* simulation);
-    std::string defineGetSample() const;
+    std::string generateSampleCode(const MultiLayer& multilayer);
+    std::string generateSimulationCode(const GISASSimulation& simulation, EMainType mainType);
 
 private:
+    void initSample(const MultiLayer& multilayer);
+    std::string defineGetSample() const;
     std::string definePreamble() const;
     std::string defineGetSimulation(const GISASSimulation* simulation) const;
     std::string defineMaterials() const;
@@ -45,6 +54,9 @@ private:
     std::string defineCoreShellParticles() const;
     std::string defineParticleDistributions() const;
     std::string defineParticleCompositions() const;
+    std::string defineLattices() const;
+    std::string defineCrystals() const;
+    std::string defineMesoCrystals() const;
     std::string defineInterferenceFunctions() const;
     std::string defineParticleLayouts() const;
     std::string defineRoughnesses() const;
@@ -56,6 +68,7 @@ private:
     std::string defineParameterDistributions(const GISASSimulation* simulation) const;
     std::string defineMasks(const GISASSimulation* simulation) const;
     std::string defineSimulationOptions(const GISASSimulation* simulation) const;
+    std::string defineMain(EMainType mainType = RUN_SIMULATION);
 
     std::string indent() const;
 
@@ -64,7 +77,7 @@ private:
     void setPositionInformation(const IParticle* particle, std::string particle_name,
                                 std::ostringstream& result) const;
 
-    SampleLabelHandler* m_label;
+    std::unique_ptr<SampleLabelHandler> m_label;
 };
 
 #endif // EXPORTTOPYTHON_H

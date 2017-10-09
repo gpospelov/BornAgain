@@ -100,7 +100,7 @@ FixedBinAxis *FixedBinAxis::createClippedAxis(double left, double right) const
 
 void FixedBinAxis::print(std::ostream& ostr) const
 {
-    ostr << "FixedBinAxis(\"" << m_name << "\", " << size() << ", "
+    ostr << "FixedBinAxis(\"" << getName() << "\", " << size() << ", "
          << std::setprecision(std::numeric_limits<double>::digits10+2) << getMin() << ", "
          << getMax() << ")";
 }

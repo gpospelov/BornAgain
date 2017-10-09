@@ -73,7 +73,7 @@ def get_simulation():
     """
     Returns a GISAXS simulation with beam and detector defined.
     IMPORTANT NOTE:
-    Multithreading should be deactivated by putting ThreadInfo.n_threads to -1
+    Multithreading should be deactivated by invoking setNumberOfThreads(-1)
     """
     simulation = ba.GISASSimulation()
     simulation.getOptions().setNumberOfThreads(-1)

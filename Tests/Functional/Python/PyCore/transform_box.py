@@ -64,7 +64,7 @@ class BoxTransformationsTest(unittest.TestCase):
         height = 10
         box = ba.Particle(mParticle, ba.FormFactorBox(length, width, height))
         box.setRotation(ba.RotationZ(90*deg))
-        box.applyRotation(ba.RotationY(90*deg))
+        box.rotate(ba.RotationY(90*deg))
         box.setPosition(kvector_t(0, 0, -layer_thickness/2))
 
         data = self.get_intensity_data(box)

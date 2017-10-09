@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "RipplesBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorRipple1.h"
 #include "FormFactorRipple2.h"
 #include "HomogeneousMaterial.h"
@@ -26,25 +27,7 @@
 #include "Units.h"
 
 CosineRippleBuilder::CosineRippleBuilder()
-    : m_w(20.0*Units::nanometer)
-    , m_h(4.0*Units::nanometer)
-    , m_l(100.0*Units::nanometer)
-    , m_interf_distance(20.0*Units::nanometer)
-    , m_interf_width(4.0*Units::nanometer)
-{
-    init_parameters();
-}
-
-void CosineRippleBuilder::init_parameters()
-{
-    registerParameter("width", &m_w).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("height", &m_h).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("length", &m_l).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("interf_distance", &m_interf_distance).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("interf_width", &m_interf_width).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-}
+{}
 
 MultiLayer* CosineRippleBuilder::buildSample() const
 {
@@ -55,14 +38,13 @@ MultiLayer* CosineRippleBuilder::buildSample() const
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
-    FormFactorRipple1 ff_ripple1(m_l, m_w, m_h);
+    FormFactorRipple1 ff_ripple1(100.0, 20.0, 4.0);
     Particle ripple(particle_material, ff_ripple1);
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(ripple,1.0);
-    InterferenceFunctionRadialParaCrystal interference_function(m_interf_distance,
-                                                                1e7 * Units::nanometer);
-    FTDistribution1DGauss pdf(m_interf_width);
+    InterferenceFunctionRadialParaCrystal interference_function(20.0, 1e7);
+    FTDistribution1DGauss pdf(4.0);
     interference_function.setProbabilityDistribution(pdf);
     particle_layout.setInterferenceFunction(interference_function);
 
@@ -79,27 +61,9 @@ MultiLayer* CosineRippleBuilder::buildSample() const
 // ----------------------------------------------------------------------------
 
 TriangularRippleBuilder::TriangularRippleBuilder()
-    : m_w(20.0*Units::nanometer)
-    , m_h(4.0*Units::nanometer)
-    , m_l(100.0*Units::nanometer)
-    , m_d(0.0*Units::nanometer)
-    , m_interf_distance(20.0*Units::nanometer)
-    , m_interf_width(4.0*Units::nanometer)
+    : m_d(0.0*Units::nanometer)
 {
     init_parameters();
-}
-
-void TriangularRippleBuilder::init_parameters()
-{
-
-    registerParameter("width", &m_w).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("height", &m_h).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("length", &m_l).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("asymetry", &m_d);
-    registerParameter("interf_distance", &m_interf_distance).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("interf_width", &m_interf_width).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
 }
 
 MultiLayer* TriangularRippleBuilder::buildSample() const
@@ -111,14 +75,13 @@ MultiLayer* TriangularRippleBuilder::buildSample() const
     HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
-    FormFactorRipple2 ff_ripple2(m_l, m_w, m_h, m_d);
+    FormFactorRipple2 ff_ripple2(100.0, 20.0, 4.0, m_d);
     Particle ripple(particle_material, ff_ripple2 );
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(ripple,1.0);
-    InterferenceFunctionRadialParaCrystal interference_function(m_interf_distance,
-                                                                1e7 * Units::nanometer);
-    FTDistribution1DGauss pdf(m_interf_width);
+    InterferenceFunctionRadialParaCrystal interference_function(20.0, 1e7);
+    FTDistribution1DGauss pdf(4.0);
     interference_function.setProbabilityDistribution(pdf);
     particle_layout.setInterferenceFunction(interference_function);
 
@@ -131,6 +94,13 @@ MultiLayer* TriangularRippleBuilder::buildSample() const
 
     return p_multi_layer;
 }
+
+void TriangularRippleBuilder::init_parameters()
+{
+    registerParameter("asymetry", &m_d);
+}
+
+// ----------------------------------------------------------------------------
 
 MultiLayer* AsymRippleBuilder::buildSample() const
 {

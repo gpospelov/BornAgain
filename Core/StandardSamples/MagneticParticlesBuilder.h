@@ -29,9 +29,6 @@ public:
     MagneticParticleZeroFieldBuilder();
     MultiLayer* buildSample() const;
 
-protected:
-    void init_parameters();
-
 private:
     double m_cylinder_radius;
     double m_cylinder_height;
@@ -45,9 +42,6 @@ class BA_CORE_API_ MagneticCylindersBuilder : public IMultiLayerBuilder
 public:
     MagneticCylindersBuilder();
     MultiLayer* buildSample() const;
-
-protected:
-    void init_parameters();
 
 private:
     double m_cylinder_radius;

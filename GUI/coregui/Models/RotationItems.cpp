@@ -16,56 +16,64 @@
 
 #include "RotationItems.h"
 #include "Units.h"
+#include "Rotations.h"
+#include "GUIHelpers.h"
 
-/* ------------------------------------------------ */
+// ----------------------------------------------------------------------------
 
 const QString XRotationItem::P_ANGLE = "Angle";
 
 XRotationItem::XRotationItem()
     : RotationItem(Constants::XRotationType)
 {
-    addProperty(P_ANGLE, 0.0);
+    setToolTip(QStringLiteral("Particle rotation around x-axis"));
+    addProperty(P_ANGLE, 0.0)->setToolTip(
+        QStringLiteral("Rotation angle around x-axis in degrees"));
 }
 
-IRotation *XRotationItem::createRotation() const
+std::unique_ptr<IRotation> XRotationItem::createRotation() const
 {
-    double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble() );
-    return new RotationX(alpha);
+    double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble());
+    return GUIHelpers::make_unique<RotationX>(alpha);
 }
 
-/* ------------------------------------------------ */
+// ----------------------------------------------------------------------------
 
 const QString YRotationItem::P_ANGLE = "Angle";
 
 YRotationItem::YRotationItem()
     : RotationItem(Constants::YRotationType)
 {
-    addProperty(P_ANGLE, 0.0);
+    setToolTip(QStringLiteral("Particle rotation around y-axis"));
+    addProperty(P_ANGLE, 0.0)->setToolTip(
+        QStringLiteral("Rotation angle around y-axis in degrees"));
 }
 
-IRotation *YRotationItem::createRotation() const
+std::unique_ptr<IRotation> YRotationItem::createRotation() const
 {
     double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble() );
-    return new RotationY(alpha);
+    return GUIHelpers::make_unique<RotationY>(alpha);
 }
 
-/* ------------------------------------------------ */
+// ----------------------------------------------------------------------------
 
 const QString ZRotationItem::P_ANGLE = "Angle";
 
 ZRotationItem::ZRotationItem()
     : RotationItem(Constants::ZRotationType)
 {
-    addProperty(P_ANGLE, 0.0);
+    setToolTip(QStringLiteral("Particle rotation around z-axis"));
+    addProperty(P_ANGLE, 0.0)->setToolTip(
+        QStringLiteral("Rotation angle around z-axis in degrees"));
 }
 
-IRotation *ZRotationItem::createRotation() const
+std::unique_ptr<IRotation> ZRotationItem::createRotation() const
 {
     double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble() );
-    return new RotationZ(alpha);
+    return GUIHelpers::make_unique<RotationZ>(alpha);
 }
 
-/* ------------------------------------------------ */
+// ----------------------------------------------------------------------------
 
 const QString EulerRotationItem::P_ALPHA = "Alpha";
 const QString EulerRotationItem::P_BETA = "Beta";
@@ -74,15 +82,20 @@ const QString EulerRotationItem::P_GAMMA = "Gamma";
 EulerRotationItem::EulerRotationItem()
     : RotationItem(Constants::EulerRotationType)
 {
-    addProperty(P_ALPHA, 0.0);
-    addProperty(P_BETA, 0.0);
-    addProperty(P_GAMMA, 0.0);
+    setToolTip(QStringLiteral("Sequence of three rotations following Euler angles \n"
+                              "notation z-x'-z'"));
+    addProperty(P_ALPHA, 0.0)->setToolTip(
+        QStringLiteral("First Euler anle in z-x'-z' sequence in degrees"));
+    addProperty(P_BETA, 0.0)->setToolTip(
+        QStringLiteral("Second Euler anle in z-x'-z' sequence in degrees"));
+    addProperty(P_GAMMA, 0.0)->setToolTip(
+        QStringLiteral("Third Euler anle in z-x'-z' sequence in degrees"));
 }
 
-IRotation *EulerRotationItem::createRotation() const
+std::unique_ptr<IRotation> EulerRotationItem::createRotation() const
 {
     double alpha = Units::deg2rad(getItemValue(P_ALPHA).toDouble() );
     double beta = Units::deg2rad(getItemValue(P_BETA).toDouble() );
     double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
-    return new RotationEuler(alpha, beta, gamma);
+    return GUIHelpers::make_unique<RotationEuler>(alpha, beta, gamma);
 }

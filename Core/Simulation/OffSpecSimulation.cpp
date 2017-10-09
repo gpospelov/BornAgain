@@ -46,6 +46,7 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
 {
     if(other.mp_alpha_i_axis)
         mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
+    m_intensity_map.copyFrom(other.m_intensity_map);
     initialize();
 }
 
@@ -131,7 +132,7 @@ void OffSpecSimulation::updateIntensityMap()
     m_intensity_map.setAllTo(0.);
 }
 
-void OffSpecSimulation::transferDetectorImage(int index)
+void OffSpecSimulation::transferDetectorImage(size_t index)
 {
     OutputData<double> detector_image;
     size_t detector_dimension = m_instrument.getDetectorDimension();

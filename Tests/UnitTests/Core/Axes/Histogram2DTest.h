@@ -51,25 +51,25 @@ TEST_F(Histogram2DTest, VariableHist)
     EXPECT_EQ(hist->getYmax(), 4.0);
 
     // globalbin -> axes indices
-    EXPECT_EQ(hist->getXaxisIndex(0), 0);
-    EXPECT_EQ(hist->getXaxisIndex(1), 0);
-    EXPECT_EQ(hist->getXaxisIndex(2), 0);
-    EXPECT_EQ(hist->getXaxisIndex(3), 1);
-    EXPECT_EQ(hist->getXaxisIndex(4), 1);
-    EXPECT_EQ(hist->getXaxisIndex(5), 1);
-    EXPECT_EQ(hist->getXaxisIndex(9), 3);
-    EXPECT_EQ(hist->getXaxisIndex(10), 3);
-    EXPECT_EQ(hist->getXaxisIndex(11), 3);
+    EXPECT_EQ(hist->getXaxisIndex(0), 0u);
+    EXPECT_EQ(hist->getXaxisIndex(1), 0u);
+    EXPECT_EQ(hist->getXaxisIndex(2), 0u);
+    EXPECT_EQ(hist->getXaxisIndex(3), 1u);
+    EXPECT_EQ(hist->getXaxisIndex(4), 1u);
+    EXPECT_EQ(hist->getXaxisIndex(5), 1u);
+    EXPECT_EQ(hist->getXaxisIndex(9), 3u);
+    EXPECT_EQ(hist->getXaxisIndex(10), 3u);
+    EXPECT_EQ(hist->getXaxisIndex(11), 3u);
 
-    EXPECT_EQ(hist->getYaxisIndex(0), 0);
-    EXPECT_EQ(hist->getYaxisIndex(1), 1);
-    EXPECT_EQ(hist->getYaxisIndex(2), 2);
-    EXPECT_EQ(hist->getYaxisIndex(3), 0);
-    EXPECT_EQ(hist->getYaxisIndex(4), 1);
-    EXPECT_EQ(hist->getYaxisIndex(5), 2);
-    EXPECT_EQ(hist->getYaxisIndex(9), 0);
-    EXPECT_EQ(hist->getYaxisIndex(10), 1);
-    EXPECT_EQ(hist->getYaxisIndex(11), 2);
+    EXPECT_EQ(hist->getYaxisIndex(0), 0u);
+    EXPECT_EQ(hist->getYaxisIndex(1), 1u);
+    EXPECT_EQ(hist->getYaxisIndex(2), 2u);
+    EXPECT_EQ(hist->getYaxisIndex(3), 0u);
+    EXPECT_EQ(hist->getYaxisIndex(4), 1u);
+    EXPECT_EQ(hist->getYaxisIndex(5), 2u);
+    EXPECT_EQ(hist->getYaxisIndex(9), 0u);
+    EXPECT_EQ(hist->getYaxisIndex(10), 1u);
+    EXPECT_EQ(hist->getYaxisIndex(11), 2u);
 
     // axes indices -> global bin
     EXPECT_EQ(hist->getGlobalBin(0,0), size_t(0));
@@ -132,7 +132,7 @@ TEST_F(Histogram2DTest, VariableHistFill)
     // check bin content using axes bins
     for(size_t binx=0; binx<hist->getXaxis().size(); ++binx){
         for(size_t biny=0; biny<hist->getYaxis().size(); ++biny){
-            int globalbin = hist->getGlobalBin(binx, biny);
+            size_t globalbin = hist->getGlobalBin(binx, biny);
             EXPECT_EQ(globalbin*10.0, hist->getBinContent(binx, biny));
             EXPECT_EQ(1.0, hist->getBinNumberOfEntries(binx, biny));
         }
@@ -384,7 +384,7 @@ TEST_F(Histogram2DTest, CreateOutputData)
 
     for(size_t nx=0; nx<hist.getNbinsX(); ++nx) {
         for(size_t ny=0; ny<hist.getNbinsY(); ++ny) {
-            double value(ny + nx*hist.getNbinsY());
+            double value(1.0*ny + nx*hist.getNbinsY());
             size_t globalbin = hist.getGlobalBin(nx, ny);
             hist.fill(hist.getXaxisValue(globalbin), hist.getYaxisValue(globalbin), value);
         }

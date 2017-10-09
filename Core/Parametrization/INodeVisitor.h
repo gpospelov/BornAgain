@@ -27,6 +27,7 @@ class DistributionGate;
 class DistributionGaussian;
 class DistributionLogNormal;
 class DistributionLorentz;
+class DistributionTrapezoid;
 class FitObject;
 class FitSuiteObjects;
 class FormFactorAnisoPyramid;
@@ -61,7 +62,7 @@ class FormFactorRipple2;
 class FormFactorSphereGaussianRadius;
 class FormFactorSphereLogNormalRadius;
 class FormFactorTetrahedron;
-class FormFactorTrivial;
+class FormFactorDot;
 class FormFactorTruncatedCube;
 class FormFactorTruncatedSphere;
 class FormFactorTruncatedSpheroid;
@@ -146,6 +147,7 @@ public:
     virtual void visit(const DistributionGaussian*) {}
     virtual void visit(const DistributionLogNormal*) {}
     virtual void visit(const DistributionLorentz*) {}
+    virtual void visit(const DistributionTrapezoid*) {}
     virtual void visit(const FitObject*) {}
     virtual void visit(const FitSuiteObjects*) {}
     virtual void visit(const FormFactorAnisoPyramid*) {}
@@ -180,7 +182,7 @@ public:
     virtual void visit(const FormFactorSphereGaussianRadius*) {}
     virtual void visit(const FormFactorSphereLogNormalRadius*) {}
     virtual void visit(const FormFactorTetrahedron*) {}
-    virtual void visit(const FormFactorTrivial*) {}
+    virtual void visit(const FormFactorDot*) {}
     virtual void visit(const FormFactorTruncatedCube*) {}
     virtual void visit(const FormFactorTruncatedSphere*) {}
     virtual void visit(const FormFactorTruncatedSpheroid*) {}

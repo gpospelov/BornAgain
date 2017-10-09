@@ -24,10 +24,14 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
     setName(Constants::ParticleCoreShellType);
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleCoreShellType));
-    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);
-    addPort("core", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR);
-    addPort("shell", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR);
-    addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
+        ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
+    addPort("core", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
+        ->setToolTip(QStringLiteral("Connect particle which will play the role of core."));
+    addPort("shell", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
+        ->setToolTip(QStringLiteral("Connect particle which will play the role of shell."));
+    addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
+        ->setToolTip(QStringLiteral("Connect particle rotation to this port, if necessary"));
 
     m_roundpar = 5;
     m_label_vspace = 45;

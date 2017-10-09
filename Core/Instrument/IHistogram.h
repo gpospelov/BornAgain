@@ -96,10 +96,10 @@ public:
 
     //! Returns x-axis bin index for given globalbin. For 1D histograms returned value conicide
     //! with globalbin value.
-    int getXaxisIndex(size_t i) const;
+	size_t getXaxisIndex(size_t i) const;
 
     //! Returns y-axis bin index for given globalbin (for 2D histograms).
-    int getYaxisIndex(size_t i) const;
+	size_t getYaxisIndex(size_t i) const;
 
     //! @brief Returns the value on x-axis corresponding to the global bin index.
     //! @param globalbin The global bin index
@@ -211,6 +211,10 @@ public:
     //! Only bin content will be loaded, histogram axes remain the same.
     void load(const std::string& filename);
 
+    //! Sets axes units
+    void setAxesUnits(const std::string& name);
+    std::string axesUnits() const;
+
 protected:
     void check_x_axis() const;
     void check_y_axis() const;
@@ -219,6 +223,7 @@ protected:
     std::vector<double> getDataVector(DataType dataType) const;
     void copyContentFrom(const IHistogram& other);
     OutputData<CumulativeValue> m_data;
+    std::string m_axes_units;
 };
 
 #endif // IHISTOGRAM_H

@@ -90,6 +90,7 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+    virtual void setParent(INode const *newParent);
 
 /* Internal director utilities */
 public:
@@ -120,7 +121,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[5];
+    mutable swig::SwigVar_PyObject vtable[6];
 #endif
 
 };
@@ -138,6 +139,7 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+    virtual void setParent(INode const *newParent);
     virtual HomogeneousMaterial const *material() const;
 
 /* Internal director utilities */
@@ -169,7 +171,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[8];
+    mutable swig::SwigVar_PyObject vtable[9];
 #endif
 
 };
@@ -268,10 +270,9 @@ public:
     virtual ~SwigDirector_IMultiLayerBuilder();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
-    virtual void accept(INodeVisitor *visitor) const;
-    virtual std::string treeToString() const;
-    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual MultiLayer *buildSample() const;
+    virtual MultiLayer *createSample(size_t index = 0);
+    virtual size_t size();
 
 /* Internal director utilities */
 public:
@@ -320,6 +321,7 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+    virtual void setParent(INode const *newParent);
     virtual HomogeneousMaterial const *material() const;
     virtual void setAmbientMaterial(HomogeneousMaterial arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
@@ -366,7 +368,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[17];
+    mutable swig::SwigVar_PyObject vtable[18];
 #endif
 
 };
@@ -384,6 +386,7 @@ public:
     virtual void accept(INodeVisitor *visitor) const;
     virtual std::string treeToString() const;
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+    virtual void setParent(INode const *newParent);
     virtual HomogeneousMaterial const *material() const;
     virtual void setAmbientMaterial(HomogeneousMaterial arg0);
     virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
@@ -431,7 +434,60 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[18];
+    mutable swig::SwigVar_PyObject vtable[19];
+#endif
+
+};
+
+
+class SwigDirector_IInterferenceFunction : public IInterferenceFunction, public Swig::Director {
+
+public:
+    SwigDirector_IInterferenceFunction(PyObject *self);
+    virtual ~SwigDirector_IInterferenceFunction();
+    virtual IInterferenceFunction *clone() const;
+    virtual void transferToCPP();
+    virtual ParameterPool *createParameterTree() const;
+    virtual void onChange();
+    virtual void accept(INodeVisitor *visitor) const;
+    virtual std::string treeToString() const;
+    virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
+    virtual void setParent(INode const *newParent);
+    virtual HomogeneousMaterial const *material() const;
+    virtual double evaluate(kvector_t const q) const;
+    virtual double kappa() const;
+    virtual double getParticleDensity() const;
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+/* VTable implementation */
+    PyObject *swig_get_method(size_t method_index, const char *method_name) const {
+      PyObject *method = vtable[method_index];
+      if (!method) {
+        swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
+        method = PyObject_GetAttr(swig_get_self(), name);
+        if (!method) {
+          std::string msg = "Method in class IInterferenceFunction doesn't exist, undefined ";
+          msg += method_name;
+          Swig::DirectorMethodException::raise(msg.c_str());
+        }
+        vtable[method_index] = method;
+      }
+      return method;
+    }
+private:
+    mutable swig::SwigVar_PyObject vtable[12];
 #endif
 
 };

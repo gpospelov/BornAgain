@@ -32,9 +32,7 @@
 BoxesSquareLatticeBuilder::BoxesSquareLatticeBuilder()
     : m_length(5*Units::nanometer)
     , m_height(10*Units::nanometer)
-{
-    init_parameters();
-}
+{}
 
 MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
 {
@@ -67,10 +65,4 @@ MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
-}
-
-void BoxesSquareLatticeBuilder::init_parameters()
-{
-    registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
 }

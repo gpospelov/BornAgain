@@ -62,11 +62,11 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
     OutputData<double>* result = new OutputData<double>;
     result->addAxis("x", ncols, 0.0, double(ncols));
     result->addAxis("y", nrows, 0.0, double(nrows));
-    std::vector<int> axes_indices(2);
-    for(size_t row=0; row<nrows; row++) {
-        for(size_t col=0; col<ncols; col++) {
+    std::vector<unsigned> axes_indices(2);
+    for(unsigned row=0; row<nrows; row++) {
+        for(unsigned col=0; col<ncols; col++) {
             axes_indices[0] = col;
-            axes_indices[1] = nrows - 1 - row;
+            axes_indices[1] = static_cast<unsigned>(nrows) - 1 - row;
             size_t global_index = result->toGlobalIndex(axes_indices);
             (*result)[global_index] = data[row][col];
         }

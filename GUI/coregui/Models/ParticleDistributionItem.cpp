@@ -27,6 +27,12 @@
 #include "ParameterUtils.h"
 #include "Units.h"
 
+namespace {
+const QString abundance_tooltip =
+    "Proportion of this type of particles normalized to the \n"
+    "total number of particles in the layout";
+}
+
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
 const QString ParticleDistributionItem::NO_SELECTION = "None";
@@ -35,19 +41,25 @@ const QString ParticleDistributionItem::T_PARTICLES = "Particle Tag";
 ParticleDistributionItem::ParticleDistributionItem()
     : SessionGraphicsItem(Constants::ParticleDistributionType)
 {
-    addProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    getItem(ParticleItem::P_ABUNDANCE)->setLimits(RealLimits::limited(0.0, 1.0));
-    getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
+    setToolTip(QStringLiteral("Collection of particles obtained via parametric distribution "
+                              "of particle prototype"));
 
-    addGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup);
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0))
+        .setDecimals(3).setToolTip(abundance_tooltip);
+
+    addGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup)->setToolTip(
+        QStringLiteral("Distribution to apply to the specified parameter"));
 
     registerTag(T_PARTICLES, 0, 1, QStringList() << Constants::ParticleType
                                                  << Constants::ParticleCoreShellType
-                                                 << Constants::ParticleCompositionType);
+                                                 << Constants::ParticleCompositionType
+                                                 << Constants::MesoCrystalType);
     setDefaultTag(T_PARTICLES);
 
     ComboProperty par_prop;
-    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant());
+    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant())->setToolTip(
+        QStringLiteral("Parameter to distribute"));
+
     updateParameterList();
     mapper()->setOnAnyChildChange([this](SessionItem* item) {
         // prevent infinit loop when item changes its own properties
@@ -55,14 +67,6 @@ ParticleDistributionItem::ParticleDistributionItem()
             return;
         updateParameterList();
     });
-
-    // Temporarily disabled because of cloning problem
-//    mapper()->setOnPropertyChange([this](const QString &name)
-//    {
-//        if(name == P_DISTRIBUTED_PARAMETER)
-//            initDistributionItem();
-//    }, this);
-
 }
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
@@ -134,41 +138,12 @@ void ParticleDistributionItem::updateParameterList()
 
     // we first set parameter, and then clear the cache name, to not to allow
     // initDistributionItem to override limits obtained from the domain
-
     if(prop != newProp)
         setItemValue(P_DISTRIBUTED_PARAMETER, newProp.getVariant());
 
     if(make_cache_clear)
         m_domain_cache_name.clear();
 }
-
-//! Provides reasonable initialization of the distribution item (mean value of the distributed
-//! parameter, limits). Called on every distributed parameter name change.
-
-//void ParticleDistributionItem::initDistributionItem()
-//{
-//    qDebug() << "BBB";
-//    if(!m_domain_cache_name.isEmpty())
-//        return;
-
-//    ComboProperty prop = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
-//    if(prop.getValue() == NO_SELECTION)
-//        return;
-
-//    SessionItem *linkedItem = ParameterTreeUtils::parameterNameToLinkedItem(prop.getValue(),
-//                                                                            childParticle());
-//    Q_ASSERT(linkedItem);
-
-//    double value = linkedItem->value().toDouble();
-//    RealLimits limits = linkedItem->limits();
-
-//    auto distr_item = dynamic_cast<DistributionItem*>(
-//                getGroupItem(ParticleDistributionItem::P_DISTRIBUTION));
-//    Q_ASSERT(distr_item);
-
-//    distr_item->setItemValue(DistributionItem::P_IS_INITIALIZED, false);
-//    distr_item->init_parameters(value, limits);
-//}
 
 QStringList ParticleDistributionItem::childParameterNames() const
 {

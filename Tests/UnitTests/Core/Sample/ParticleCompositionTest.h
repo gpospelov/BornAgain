@@ -33,11 +33,13 @@ TEST_F(ParticleCompositionTest, ParticleCompositionClone)
     std::unique_ptr<ParticleComposition> clone(composition.clone());
 
     EXPECT_EQ(clone->getName(), composition.getName());
+    std::vector<const INode*> children = clone->getChildren();
+    EXPECT_EQ(children.size(), 1u);
+    auto p_particle = dynamic_cast<const IParticle*>(children[0]);
 
-    EXPECT_EQ(clone->particle(0)->getName(), composition.particle(0)->getName());
-    EXPECT_EQ(clone->particle(0)->rotation(), nullptr);
-    EXPECT_EQ(position, clone->particlePosition(0));
-
+    EXPECT_EQ(p_particle->getName(), particle.getName());
+    EXPECT_EQ(p_particle->rotation(), nullptr);
+    EXPECT_EQ(p_particle->position(), position);
 }
 
 TEST_F(ParticleCompositionTest, getChildren)

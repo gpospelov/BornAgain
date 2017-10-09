@@ -6,15 +6,13 @@ In the fit we are trying to find cylinder radius and height,
 scale and background factors.
 """
 
-from __future__ import print_function
+import numpy as np
 from matplotlib import pyplot as plt
-import math
-import random
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
 
-def get_sample(radius=5*nm, height=10*nm):
+def get_sample(radius=5.0*nm, height=10.0*nm):
     """
     Build the sample representing cylinders on top of substrate without interference.
     """
@@ -59,27 +57,21 @@ def create_real_data():
     scale, background factors.
     """
     sample = get_sample(5.0*nm, 10.0*nm)
-
     simulation = get_simulation()
     simulation.setSample(sample)
-
     simulation.runSimulation()
-    real_data = simulation.getIntensityData()
+
+    # retrieving simulated data in the form of numpy array
+    real_data = simulation.getIntensityData().getArray()
 
     scale = 2.0
     background = 100
-    real_data.scale(scale)
 
-    # spoil simulated data with the noise, and add background to produce "real" data
-    noise_factor = 1.0
-    for i in range(0, real_data.getTotalNumberOfBins()):
-        amplitude = real_data.getBinContent(i)
-        sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = random.gauss(amplitude, sigma)
-        if noisy_amplitude < 1.0:
-            noisy_amplitude = 1.0
-        real_data.setBinContent(i, noisy_amplitude + background)
-    return real_data
+    # spoiling simulated data with the noise to produce "real" data
+    real_data *= scale
+    noise_factor = 0.1
+    noisy = background + np.random.normal(real_data, noise_factor*np.sqrt(real_data))
+    return noisy
 
 
 def run_fitting():

@@ -22,7 +22,7 @@ class SessionItem;
 
 class IPathTranslator {
 public:
-    virtual ~IPathTranslator()=default;
+    virtual ~IPathTranslator();
 
     virtual IPathTranslator* clone() const=0;
 
@@ -68,6 +68,15 @@ private:
     int getLayerIndex(QString layerName) const;
     int numberOfLayers() const;
     const SessionItem* mp_parent;
+};
+
+class MesoCrystalTranslator : public IPathTranslator {
+public:
+    ~MesoCrystalTranslator() override {}
+
+    MesoCrystalTranslator* clone() const override { return new MesoCrystalTranslator; }
+
+    virtual QStringList translate(const QStringList& list) const override;
 };
 
 #endif // PARAMETERTRANSLATORS_H

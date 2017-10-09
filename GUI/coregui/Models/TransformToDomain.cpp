@@ -38,6 +38,8 @@
 #include "LayerRoughnessItems.h"
 #include "MaskItems.h"
 #include "MaterialUtils.h"
+#include "MesoCrystal.h"
+#include "MesoCrystalItem.h"
 #include "MultiLayerItem.h"
 #include "ParameterPattern.h"
 #include "ParticleCompositionItem.h"
@@ -48,8 +50,10 @@
 #include "RotationItems.h"
 #include "SimulationOptionsItem.h"
 #include "TransformationItem.h"
+#include "Particle.h"
 #include "Units.h"
 #include "VectorItem.h"
+#include "ParticleCoreShell.h"
 
 std::unique_ptr<HomogeneousMaterial> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
@@ -133,6 +137,9 @@ std::unique_ptr<IParticle> TransformToDomain::createIParticle(const SessionItem&
     } else if (item.modelType() == Constants::ParticleCompositionType) {
         auto& particle_composition_item = static_cast<const ParticleCompositionItem&>(item);
         P_particle = particle_composition_item.createParticleComposition();
+    } else if (item.modelType() == Constants::MesoCrystalType) {
+        auto& mesocrystal_item = static_cast<const MesoCrystalItem&>(item);
+        P_particle = mesocrystal_item.createMesoCrystal();
     }
     return P_particle;
 }
@@ -220,9 +227,9 @@ void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& it
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::TransformationType) {
             auto& rot_item = children[i]->groupItem<RotationItem>(TransformationItem::P_ROT);
-            std::unique_ptr<IRotation> P_rotation(rot_item.createRotation());
-            if (P_rotation)
-                result->setRotation(*P_rotation);
+            auto rotation = rot_item.createRotation();
+            if (rotation)
+                result->setRotation(*rotation);
             break;
         }
     }

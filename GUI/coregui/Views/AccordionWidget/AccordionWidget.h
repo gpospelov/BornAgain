@@ -294,12 +294,6 @@ public:
     void getActiveContentPaneIndex(std::vector<int> &indexVector);
 
     /**
-     * @brief Get the number of content panes
-     * @return Number of content panes
-     */
-    int getNumberOfContentPanes();
-
-    /**
      * @brief Allow multiple ContentPane to be open
      * @param status
      *

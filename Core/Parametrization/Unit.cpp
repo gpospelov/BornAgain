@@ -19,7 +19,5 @@
 
 void Unit::setUnit(const std::string& name)
 {
-    if (! (name=="" || name == BornAgain::UnitsNm || name == BornAgain::UnitsRad ) )
-        throw std::runtime_error("Bug: call to Unit::Unit with unexpected name "+name);
     setName(name);
 }

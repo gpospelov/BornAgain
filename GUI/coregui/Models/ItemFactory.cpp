@@ -39,6 +39,7 @@
 #include "MagneticFieldItem.h"
 #include "MaskItems.h"
 #include "MaterialItem.h"
+#include "MesoCrystalItem.h"
 #include "MinimizerItem.h"
 #include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
@@ -73,6 +74,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::ParticleCoreShellType] = &createInstance<ParticleCoreShellItem>;
     result[Constants::ParticleCompositionType] = &createInstance<ParticleCompositionItem>;
     result[Constants::ParticleDistributionType] = &createInstance<ParticleDistributionItem>;
+    result[Constants::MesoCrystalType] = &createInstance<MesoCrystalItem>;
     result[Constants::InterferenceFunctionRadialParaCrystalType] = &createInstance<InterferenceFunctionRadialParaCrystalItem>;
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;
     result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;
@@ -88,6 +90,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::Cone6Type] = &createInstance<Cone6Item>;
     result[Constants::CuboctahedronType] = &createInstance<CuboctahedronItem>;
     result[Constants::DodecahedronType] = &createInstance<DodecahedronItem>;
+    result[Constants::DotType] = &createInstance<DotItem>;
     result[Constants::CylinderType] = &createInstance<CylinderItem>;
     result[Constants::EllipsoidalCylinderType] = &createInstance<EllipsoidalCylinderItem>;
     result[Constants::FullSphereType] = &createInstance<FullSphereItem>;
@@ -121,6 +124,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::DistributionGaussianType] = &createInstance<DistributionGaussianItem>;
     result[Constants::DistributionLogNormalType] = &createInstance<DistributionLogNormalItem>;
     result[Constants::DistributionCosineType] = &createInstance<DistributionCosineItem>;
+    result[Constants::DistributionTrapezoidType] = &createInstance<DistributionTrapezoidItem>;
 
     result[Constants::FTDistribution1DCauchyType] = &createInstance<FTDistribution1DCauchyItem>;
     result[Constants::FTDistribution1DGaussType] = &createInstance<FTDistribution1DGaussItem>;
@@ -223,6 +227,7 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
         << Constants::ParticleType
         << Constants::ParticleCoreShellType
         << Constants::ParticleCompositionType
+        << Constants::MesoCrystalType
         << Constants::ParticleDistributionType
         << Constants::TransformationType
         << Constants::InterferenceFunctionRadialParaCrystalType

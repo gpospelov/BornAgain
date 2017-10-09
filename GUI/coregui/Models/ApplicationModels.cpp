@@ -19,7 +19,6 @@
 #include "GISASSimulation.h"
 #include "GUIObjectBuilder.h"
 #include "ISample.h"
-#include "IconProvider.h"
 #include "InstrumentModel.h"
 #include "JobItem.h"
 #include "JobModel.h"
@@ -173,7 +172,6 @@ void ApplicationModels::createInstrumentModel()
     delete m_instrumentModel;
     m_instrumentModel = new InstrumentModel(this);
     connectModel(m_instrumentModel);
-    m_instrumentModel->setIconProvider(new IconProvider());
 }
 
 void ApplicationModels::createRealDataModel()
@@ -234,8 +232,7 @@ void ApplicationModels::createTestRealData()
     std::unique_ptr<OutputData<double>> data(
                 IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int"));
 
-    ImportDataAssistant assistant;
-    OutputData<double> *simplified = assistant.createSimlifiedOutputData(*data.get());
+    OutputData<double> *simplified = ImportDataAssistant::createSimplifiedOutputData(*data.get());
     realDataItem->setOutputData(simplified);
 }
 

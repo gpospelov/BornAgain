@@ -80,7 +80,7 @@ MultiLayer* CoreShellBoxRotateZandYBuilder::buildSample() const
     Particle shell(mShell, FormFactorBox(shell_length, shell_width, shell_height));
     ParticleCoreShell coreshell(shell, core, kvector_t(0.0, 0.0, (shell_height-core_height)/2.0));
     coreshell.setRotation(RotationZ(90.0*Units::degree));
-    coreshell.applyRotation(RotationY(90.0*Units::degree));
+    coreshell.rotate(RotationY(90.0*Units::degree));
     coreshell.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0));
 
     ParticleLayout layout;

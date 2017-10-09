@@ -19,6 +19,9 @@
 #include "RealParameter.h"
 #include <iostream>
 
+//! Constructor of a prism with an equilaterial triangle base.
+//! @param base_edge: length of the base edge in nanometers
+//! @param height: height in nanometers
 FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
     : FormFactorPolygonalPrism( height ), m_base_edge( base_edge )
 {

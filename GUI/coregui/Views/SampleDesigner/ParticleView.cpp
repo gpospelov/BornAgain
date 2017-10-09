@@ -19,6 +19,7 @@
 #include "GroupItem.h"
 #include "GroupProperty.h"
 #include "ParticleItem.h"
+#include "FormFactorItems.h"
 #include <QObject>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -29,9 +30,10 @@ ParticleView::ParticleView(QGraphicsItem *parent) : ConnectableView(parent)
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(
         DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
-    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR);
-    addPort("transformation", NodeEditorPort::INPUT,
-            NodeEditorPort::TRANSFORMATION);
+    addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
+        ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
+    addPort("transformation", NodeEditorPort::INPUT,NodeEditorPort::TRANSFORMATION)
+        ->setToolTip(QStringLiteral("Connect particle rotation to this port, if necessary"));
     m_roundpar = 5;
     m_label_vspace = 45;
 }
@@ -72,10 +74,8 @@ void ParticleView::paint(QPainter *painter,
 
 void ParticleView::onPropertyChange(const QString &propertyName)
 {
-    if (propertyName == ParticleItem::P_FORM_FACTOR) {
-//        updatePixmap();
+    if (propertyName == ParticleItem::P_FORM_FACTOR)
         update_appearance();
-    }
 
     IView::onPropertyChange(propertyName);
 }
@@ -93,12 +93,25 @@ void ParticleView::addView(IView *childView, int /*row*/)
 void ParticleView::update_appearance()
 {
     updatePixmap();
+    updateToolTip();
     ConnectableView::update_appearance();
 }
 
 void ParticleView::updatePixmap()
 {
+    if (!getItem())
+        return;
+
     QString ff_type = getItem()->item<GroupItem>(ParticleItem::P_FORM_FACTOR).currentType();
     QString filename = QString(":/widgetbox/images/ff_%1_32.png").arg(ff_type);
     m_pixmap = QPixmap(filename);
+}
+
+void ParticleView::updateToolTip()
+{
+    if (!getItem())
+        return;
+
+    auto ffItem = getItem()->item<GroupItem>(ParticleItem::P_FORM_FACTOR).currentItem();
+    setToolTip(ffItem->toolTip());
 }

@@ -29,9 +29,6 @@ public:
     Lattice1DBuilder();
     MultiLayer* buildSample() const;
 
-protected:
-    void init_parameters();
-
 private:
     double m_length;
     double m_xi;

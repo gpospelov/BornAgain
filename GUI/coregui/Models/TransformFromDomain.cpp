@@ -32,6 +32,7 @@
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
 #include "InfinitePlane.h"
+#include "INodeUtils.h"
 #include "InterferenceFunctionItems.h"
 #include "InterferenceFunctions.h"
 #include "Lattice2DItems.h"
@@ -59,7 +60,11 @@
 #include "InstrumentItem.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "ParameterUtils.h"
+#include "Particle.h"
+#include "ParticleDistribution.h"
 #include <limits>
+
+using namespace INodeUtils;
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);
 void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_name);
@@ -83,7 +88,7 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
     item->setItemValue(InterferenceFunctionRadialParaCrystalItem::P_KAPPA,
                                 sample->kappa());
 
-    const IFTDistribution1D* ipdf = sample->probabilityDistribution();
+    auto ipdf = OnlyChildOfType<IFTDistribution1D>(*sample);
     QString group_name = InterferenceFunctionRadialParaCrystalItem::P_PDF;
     SetPDF1D(item, ipdf, group_name);
 }
@@ -102,11 +107,11 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION,
                                 sample->integrationOverXi());
 
-    std::vector<const IFTDistribution2D*> pdfs = sample->probabilityDistributions();
+    auto pdfs = ChildNodesOfType<IFTDistribution2D>(*sample);
     QStringList group_names;
     group_names << InterferenceFunction2DParaCrystalItem::P_PDF1
                 << InterferenceFunction2DParaCrystalItem::P_PDF2;
-    for (size_t i = 0; i < pdfs.size(); ++i)
+    for (unsigned i = 0; i < pdfs.size(); ++i)
         setPDF2D(item, pdfs[i], group_names[i]);
 }
 
@@ -119,7 +124,7 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
     item->setItemValue(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
                                 Units::rad2deg(lattice_params.m_xi));
 
-    const IFTDecayFunction1D* pdf = sample->decayFunction();
+    auto pdf = OnlyChildOfType<IFTDecayFunction1D>(*sample);
     QString group_name = InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION;
     SetDecayFunction1D(item, pdf, group_name);
 }
@@ -129,7 +134,10 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
 {
     set2DLatticeParameters(item, sample->lattice());
 
-    const IFTDecayFunction2D* p_pdf = sample->decayFunction();
+    item->setItemValue(InterferenceFunction2DLatticeItem::P_XI_INTEGRATION,
+                                sample->integrationOverXi());
+
+    auto p_pdf = OnlyChildOfType<IFTDecayFunction2D>(*sample);
     QString group_name = InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION;
     SetDecayFunction2D(item, p_pdf, group_name);
 }
@@ -752,6 +760,14 @@ void setDistribution(SessionItem* partDistrItem, ParameterDistribution par_distr
         item = partDistrItem->setGroupProperty(group_name, Constants::DistributionCosineType);
         item->setItemValue(DistributionCosineItem::P_MEAN, factor*distr->getMean());
         item->setItemValue(DistributionCosineItem::P_SIGMA, factor*distr->getSigma());
+    } else if (const DistributionTrapezoid* distr
+               = dynamic_cast<const DistributionTrapezoid*>(p_distribution)) {
+        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionTrapezoidType);
+        item->setItemValue(DistributionTrapezoidItem::P_CENTER, factor*distr->getMean());
+        item->setItemValue(DistributionTrapezoidItem::P_LEFTWIDTH, factor*distr->getLeftWidth());
+        item->setItemValue(DistributionTrapezoidItem::P_MIDDLEWIDTH,
+                           factor*distr->getMiddleWidth());
+        item->setItemValue(DistributionTrapezoidItem::P_RIGHTWIDTH, factor*distr->getRightWidth());
     } else {
         throw GUIHelpers::Error("TransformFromDomain::setDistribution: -> unknown distribution");
     }

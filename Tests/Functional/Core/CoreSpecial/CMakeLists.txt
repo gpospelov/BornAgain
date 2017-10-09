@@ -1,15 +1,17 @@
-############################################################################
-# Tests/Functional/Core/CMakeLists.txt
-############################################################################
+set(test CoreSpecial)
 
-set(other_tests
+set(test_cases
     BatchSimulation
-    PolDWBAMagCylinders2
-    )
+    PolDWBAMagCylinders
+#    CoreIO
+)
 
-# Setup other tests:
-foreach(test ${other_tests})
-    add_executable(${test} ${test}.cpp)
-    target_link_libraries(${test} BornAgainFit BornAgainCore)
-    add_test(CoreSpecial/${test} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test})
+file(GLOB source_files "*.cpp")
+file(GLOB include_files "*.h")
+
+add_executable(${test} ${include_files} ${source_files})
+target_link_libraries(${test} BornAgainCore BornAgainTestMachinery)
+
+foreach(test_case ${test_cases})
+    add_test(${test}/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test} ${test_case})
 endforeach()

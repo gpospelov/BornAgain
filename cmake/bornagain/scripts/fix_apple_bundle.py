@@ -298,7 +298,7 @@ def copy_python_framework():
 
 def copy_qt_libraries():
     print "--> Copying Qt libraries"
-    libs = ['QtCore', 'QtDBus', 'QtDesigner', 'QtGui', 'QtPrintSupport', 'QtWidgets', 'QtXml', 'QtSvg', 'QtNetwork']
+    libs = ['QtCore', 'QtDBus', 'QtDesigner', 'QtGui', 'QtPrintSupport', 'QtWidgets', 'QtXml', 'QtSvg', 'QtNetwork', 'QtOpenGL']
     print "   ",
     for libname in libs:
         print libname,
@@ -311,7 +311,7 @@ def copy_qt_libraries():
 
 def copy_qt_plugins():
     print "--> Copying Qt plugins"
-    plugins = ['platforms/libqcocoa.dylib', 'iconengines/libqsvgicon.dylib']
+    plugins = ['platforms/libqcocoa.dylib', 'iconengines/libqsvgicon.dylib', 'imageformats/libqjpeg.dylib']
     print "   ",
     for name in plugins:
         print name,
@@ -402,7 +402,7 @@ def fix_apple_bundle():
     print '-'*80
     # # copy_python_framework()
     # FIXME provide automatic recognition of Qt dependency type (@rpath or hard coded)
-    # copy_qt_libraries() # this line should be uncommented for macport based builds
+    copy_qt_libraries() # this line should be uncommented for macport based builds
     copy_qt_plugins()
     copy_dependencies()
     validate_dependencies()

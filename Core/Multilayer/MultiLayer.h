@@ -41,7 +41,6 @@ class LayerRoughness;
 //!  ---------   interface #2
 //!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
 
-
 class BA_CORE_API_ MultiLayer : public ISample
 {
 public:
@@ -54,7 +53,7 @@ public:
     size_t numberOfInterfaces() const { return m_interfaces.size(); }
 
     //! Adds object to multilayer
-    void addLayer(const Layer& p_child);
+    void addLayer(const Layer& layer);
 
     //! Adds layer with top roughness
     void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);
@@ -115,7 +114,7 @@ public:
     double crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
 
     //! returns layer index
-    int indexOfLayer(const Layer* p_layer) const;
+    size_t indexOfLayer(const Layer* p_layer) const;
 
     //! returns true if contains magnetic materials and matrix calculations are required
     bool requiresMatrixRTCoefficients() const;
@@ -159,7 +158,7 @@ private:
     size_t check_interface_index(size_t i_interface) const;
 
     //! Shared implementation for different clones
-    MultiLayer* cloneGeneric(const std::function<Layer*(const Layer*)>& layer_clone) const;
+    MultiLayer* genericClone(const std::function<Layer*(const Layer*)>& layer_clone) const;
 
     //! Calculates the z-region in each layer that holds particles
     std::vector<ZLimits> calculateLayerZLimits() const;

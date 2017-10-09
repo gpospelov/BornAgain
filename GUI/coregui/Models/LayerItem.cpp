@@ -19,7 +19,7 @@
 #include "MaterialUtils.h"
 
 namespace {
-const QString layer_nslices_toolitp =
+const QString layer_nslices_tooltip =
     "Number of horizontal slices.\n"
     "Used for Average Layer Material calculations \n"
     "when corresponding Simulation option set.";
@@ -36,13 +36,13 @@ LayerItem::LayerItem()
 {
     setToolTip(QStringLiteral("A layer with thickness and material"));
     addProperty(P_THICKNESS, 0.0)->setLimits(RealLimits::lowerLimited(0.0))
-        .setToolTip(QStringLiteral("Thickness of Layer in nm"));
+        .setToolTip(QStringLiteral("Thickness of a layer in nanometers"));
 
     addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant())
-            ->setToolTip(QStringLiteral("Layer material"));
+            ->setToolTip(QStringLiteral("Material the layer is made of"));
 
     addProperty(P_NSLICES, 1)->setLimits(RealLimits::lowerLimited(0.0))
-            .setToolTip(layer_nslices_toolitp);
+            .setToolTip(layer_nslices_tooltip);
 
     addGroupProperty(P_ROUGHNESS, Constants::LayerRoughnessGroup)
         ->setToolTip(QStringLiteral("Roughness of top interface"));

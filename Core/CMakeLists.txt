@@ -8,6 +8,12 @@ if(POLICY CMP0042)
     cmake_policy(SET CMP0042 NEW)
 endif()
 
+if(BORNAGAIN_TIDY)
+#    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,readability-*,-readability-braces-around-statements")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,clang-analyzer-*,readability-*,-readability-braces-around-statements,modernize-*")
+#set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*,-google-*,-misc-macro-parentheses,-readability-braces-around-statements,-readability-named-parameter,-llvm-namespace-comment")
+endif()
+
 # --- source and include files ---------
 include(GlobDirectories)
 GLOB_DIRECTORIES(CORE_SUBDIRS)
@@ -16,9 +22,6 @@ set(CORE_SOURCE_DIRS "")
 foreach(subdir ${CORE_SUBDIRS})
     list(APPEND CORE_SOURCE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/${subdir}")
 endforeach()
-
-# export for use in functional tests:
-set(CORE_SOURCE_DIRS ${CORE_SOURCE_DIRS} ${EIGEN3_INCLUDE_DIR} PARENT_SCOPE)
 
 set(include_dirs
     ${BUILD_INC_DIR}
@@ -62,6 +65,7 @@ if(BORNAGAIN_PYTHON)
         set(swig_dependencies ${swig_dependencies} ${AUTO_DIR}/doxygen_core.i)
 
         set(SWIG_FLAGS "-c++;-python;-o;${AUTO_DIR}/libBornAgainCore_wrap.cpp;-outdir;${TMP_DIR}")
+        set(SWIG_RUNTIME_FLAGS "-c++;-python;-external-runtime;${AUTO_DIR}/swig_runtime.h")
         foreach(dir ${include_dirs})
             list(APPEND SWIG_FLAGS "-I${dir}")
         endforeach(dir)
@@ -81,6 +85,12 @@ if(BORNAGAIN_PYTHON)
             DEPENDS ${swig_dependencies} ${include_files}
             )
 
+        add_custom_command (
+            OUTPUT ${AUTO_DIR}/swig_runtime.h
+            COMMAND ${SWIG_EXECUTABLE} ${SWIG_RUNTIME_FLAGS}
+            DEPENDS ${swig_dependencies} ${include_files}
+            )
+
     endif(BORNAGAIN_GENERATE_BINDINGS)
 
     add_custom_target (
@@ -90,7 +100,10 @@ if(BORNAGAIN_PYTHON)
         DEPENDS ${AUTO_DIR}/libBornAgainCore.py
         )
 
+    add_custom_target(${library_name}_runtime DEPENDS ${AUTO_DIR}/swig_runtime.h)
+
     list(APPEND source_files "${AUTO_DIR}/libBornAgainCore_wrap.cpp")
+    list(APPEND include_files "${AUTO_DIR}/swig_runtime.h")
 
     configure_file(${WRAP_DIR}/python/plot_utils.py
                    ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
@@ -120,7 +133,7 @@ set(${library_name}_LIBRARY_TYPE SHARED)
 
 
 if(BORNAGAIN_PYTHON)
-    add_dependencies(${library_name} ${library_name}_python)
+    add_dependencies(${library_name} ${library_name}_python ${library_name}_runtime)
 endif()
 
 # exposing library name and list of include directories outside

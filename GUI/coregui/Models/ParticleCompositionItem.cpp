@@ -16,33 +16,53 @@
 
 #include "ParticleCompositionItem.h"
 #include "GUIHelpers.h"
+#include "MesoCrystal.h"
+#include "MesoCrystalItem.h"
 #include "ModelPath.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
+#include "Particle.h"
 #include "TransformToDomain.h"
+#include "ParticleCoreShell.h"
+
+namespace {
+const QString abundance_tooltip =
+    "Proportion of this type of particles normalized to the \n"
+    "total number of particles in the layout";
+
+const QString position_tooltip =
+    "Relative position of the particle's reference point \n"
+    "in the coordinate system of the parent";
+}
 
 const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";
+
+// TODO make ParticleCoreShellItem and ParticleItem to derive from common base.
 
 ParticleCompositionItem::ParticleCompositionItem()
     : SessionGraphicsItem(Constants::ParticleCompositionType)
 {
-    addProperty(ParticleItem::P_ABUNDANCE, 1.0);
-    getItem(ParticleItem::P_ABUNDANCE)->setLimits(RealLimits::limited(0.0, 1.0));
-    getItem(ParticleItem::P_ABUNDANCE)->setDecimals(3);
-    addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType);
+    setToolTip(QStringLiteral("Composition of particles with fixed positions"));
 
-    registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType <<
-                Constants::ParticleCoreShellType << Constants::ParticleCompositionType);
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0))
+        .setDecimals(3).setToolTip(abundance_tooltip);
+
+    addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
+
+    registerTag(T_PARTICLES, 0, -1, QStringList() << Constants::ParticleType
+                                                  << Constants::ParticleCoreShellType
+                                                  << Constants::ParticleCompositionType
+                                                  << Constants::MesoCrystalType);
     setDefaultTag(T_PARTICLES);
-    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
+    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
+                QStringList() << Constants::TransformationType);
 
     addTranslator(PositionTranslator());
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange(
                 [this](SessionItem *parent) {
-        if (parent && (parent->modelType() == Constants::ParticleCompositionType
-            || parent->modelType() == Constants::ParticleDistributionType)) {
+        if (parent && parent->modelType() != Constants::ParticleLayoutType) {
             setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {
@@ -76,11 +96,12 @@ std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComp
             if (P_child_composition) {
                 P_composition->addParticle(*P_child_composition);
             }
-        } else if (children[i]->modelType() == Constants::TransformationType) {
-            continue;
-        } else {
-//            throw GUIHelpers::Error("ParticleCompositionItem::createParticleComposition()"
-//                                    " -> Error! Not implemented");
+        } else if (children[i]->modelType() == Constants::MesoCrystalType) {
+            auto *mesocrystal_item = static_cast<MesoCrystalItem*>(children[i]);
+            auto P_child_meso = mesocrystal_item->createMesoCrystal();
+            if (P_child_meso) {
+                P_composition->addParticle(*P_child_meso);
+            }
         }
     }
     TransformToDomain::setTransformationInfo(P_composition.get(), *this);

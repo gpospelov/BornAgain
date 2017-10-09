@@ -29,6 +29,7 @@ const ModelType Yes = "Yes";
 const ModelType No = "No";
 
 const ModelType LayerType = "Layer";
+const ModelType MesoCrystalType = "MesoCrystal";
 const ModelType MultiLayerType = "MultiLayer";
 const ModelType ParticleType = "Particle";
 const ModelType ParticleLayoutType = "ParticleLayout";
@@ -52,6 +53,7 @@ const ModelType Cone6Type = "Cone6";
 const ModelType CuboctahedronType = "Cuboctahedron";
 const ModelType CylinderType = "Cylinder";
 const ModelType DodecahedronType = "Dodecahedron";
+const ModelType DotType = "Dot";
 const ModelType EllipsoidalCylinderType = "EllipsoidalCylinder";
 const ModelType FullSphereType = "FullSphere";
 const ModelType FullSpheroidType = "FullSpheroid";
@@ -88,6 +90,7 @@ const ModelType DistributionLorentzType = "DistributionLorentz";
 const ModelType DistributionGaussianType = "DistributionGaussian";
 const ModelType DistributionLogNormalType = "DistributionLogNormal";
 const ModelType DistributionCosineType = "DistributionCosine";
+const ModelType DistributionTrapezoidType = "DistributionTrapezoid";
 
 const ModelType FTDistribution1DCauchyType = "FTDistribution1DCauchy";
 const ModelType FTDistribution1DGaussType = "FTDistribution1DGauss";

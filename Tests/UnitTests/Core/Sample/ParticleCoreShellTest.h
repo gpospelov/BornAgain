@@ -83,19 +83,10 @@ TEST_F(ParticleCoreShellTest, getChildren)
     ParticleCoreShell coreshell(shell, core);
 
     std::vector<const INode*> children = coreshell.getChildren();
-    EXPECT_EQ(children.size(), 2u);
-    EXPECT_EQ(dynamic_cast<const Particle*>(
-                  children.at(0))->formFactor()->getName(), BornAgain::FFBoxType);
-    EXPECT_EQ(dynamic_cast<const Particle*>(
-                  children.at(1))->formFactor()->getName(), BornAgain::FFFullSphereType);
+    ASSERT_EQ(children.size(), 2u);
 
     // adding rotation and checking children again
     coreshell.setRotation(RotationZ(0.1));
     children = coreshell.getChildren();
     EXPECT_EQ(children.size(), 3u);
-    EXPECT_EQ(children.at(0)->getName(), BornAgain::ZRotationType);
-    EXPECT_EQ(dynamic_cast<const Particle*>(
-                  children.at(1))->formFactor()->getName(), BornAgain::FFBoxType);
-    EXPECT_EQ(dynamic_cast<const Particle*>(
-                  children.at(2))->formFactor()->getName(), BornAgain::FFFullSphereType);
 }

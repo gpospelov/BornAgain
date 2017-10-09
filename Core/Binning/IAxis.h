@@ -87,11 +87,12 @@ public:
 protected:
     virtual void print(std::ostream& ostr) const=0;
     virtual bool equals(const IAxis& other) const; // overloaded in child classes
-    std::string m_name;  //!< axis label
 
 private:
     IAxis(const IAxis&);
     IAxis& operator=(const IAxis&);
+
+    std::string m_name;  //!< axis name
 };
 
 //! global helper function for comparison of axes

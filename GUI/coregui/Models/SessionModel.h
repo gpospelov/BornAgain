@@ -22,7 +22,6 @@
 #include <QStringList>
 #include <QtCore/QXmlStreamWriter>
 
-class IconProvider;
 
 class BA_CORE_API_ SessionModel : public QAbstractItemModel
 {
@@ -98,8 +97,6 @@ public:
                                              SessionItem *new_parent = 0,
                                              const QString &tag = QString());
 
-    void setIconProvider(IconProvider *icon_provider);
-
     virtual SessionModel *createCopy(SessionItem *parent = 0);
 
     SessionItem *topItem(const QString &model_type = QString(),
@@ -122,7 +119,6 @@ private:
     QString m_dragged_item_type;
     QString m_name;      //!< model name
     QString m_model_tag; //!< model tag (SampleModel, InstrumentModel)
-    std::unique_ptr<IconProvider> m_iconProvider;
 };
 
 inline bool SessionModel::setHeaderData(int, Qt::Orientation, const QVariant &, int)

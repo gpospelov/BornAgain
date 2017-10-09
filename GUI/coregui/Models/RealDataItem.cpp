@@ -137,13 +137,11 @@ void RealDataItem::updateToInstrument()
         item->setYaxisTitle("Y [nbins]");
         MaskUnitsConverter converter;
         converter.convertToNbins(intensityDataItem());
-        item->setOutputData(ImportDataAssistant::createSimlifiedOutputData(*item->getOutputData()));
+        item->setOutputData(ImportDataAssistant::createSimplifiedOutputData(*item->getOutputData()));
         item->setAxesRangeToData();
         converter.convertFromNbins(intensityDataItem());
     }
-
     else {
         JobItemUtils::setIntensityItemAxesUnits(item, m_linkedInstrument);
     }
-
 }

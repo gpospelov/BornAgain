@@ -190,9 +190,8 @@ void PythonSyntaxHighlighter::highlightBlock(const QString &text)
     setCurrentBlockState(0);
 
     // Do multi-line strings
-    bool isInMultilne = matchMultiline(text, triSingleQuote, 1, basicStyles.value("string2"));
-    if (!isInMultilne)
-        isInMultilne = matchMultiline(text, triDoubleQuote, 2, basicStyles.value("string2"));
+    if(!matchMultiline(text, triSingleQuote, 1, basicStyles.value("string2")))
+        matchMultiline(text, triDoubleQuote, 2, basicStyles.value("string2"));
 }
 
 bool PythonSyntaxHighlighter::matchMultiline(const QString &text, const QRegExp &delimiter,

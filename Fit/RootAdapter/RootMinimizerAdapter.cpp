@@ -49,7 +49,7 @@ std::string RootMinimizerAdapter::algorithmName() const
 
 void RootMinimizerAdapter::setParameters(const FitParameterSet &parameters)
 {
-    m_obj_func->setNumberOfParameters(parameters.size());
+    m_obj_func->setNumberOfParameters(static_cast<int>(parameters.size()));
 
     // Genetic minimizer requires SetFunction before setParameters, others don't care
     if( isGradientBasedAgorithm() ) {
@@ -62,7 +62,7 @@ void RootMinimizerAdapter::setParameters(const FitParameterSet &parameters)
     for (auto par: parameters)
         setParameter(index++, par );
 
-    if( (int)parameters.size() != fitDimension())  {
+    if( parameters.size() != fitDimension())  {
         std::ostringstream ostr;
         ostr << "BasicMinimizer::setParameters() -> Error! Unconsistency in fit parameter number: ";
         ostr << "fitParameterCount = " << fitDimension() << ",";
@@ -127,9 +127,9 @@ void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters)
         FitParameterSet::corr_matrix_t matrix;
         matrix.resize(fitDimension());
 
-        for(size_t i=0; i<(size_t)fitDimension(); ++i) {
+        for(unsigned i=0; i<(size_t)fitDimension(); ++i) {
             matrix[i].resize(fitDimension(), 0.0);
-            for(size_t j=0; j<(size_t)fitDimension(); ++j)
+            for(unsigned j=0; j<(size_t)fitDimension(); ++j)
                 matrix[i][j] = rootMinimizer()->Correlation(i,j);
         }
         parameters.setCorrelationMatrix(matrix);
@@ -190,7 +190,7 @@ void RootMinimizerAdapter::setParameter(size_t index, const IFitParameter *par)
 
 //! Returns number of fit parameters defined (i.e. dimension of the function to be minimized).
 
-int RootMinimizerAdapter::fitDimension() const
+size_t RootMinimizerAdapter::fitDimension() const
 {
     return rootMinimizer()->NDim();
 }

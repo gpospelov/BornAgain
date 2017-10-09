@@ -29,6 +29,18 @@ ZLimits LayerZLimits(const MultiLayer& multilayer, size_t layer_index);
 void ScaleRegions(std::vector<HomogeneousRegion>& regions, double factor);
 }
 
+SlicedFormFactorList SlicedFormFactorList::CreateSlicedFormFactors(const IParticle& particle,
+                                                                   const MultiLayer& multilayer,
+                                                                   size_t ref_layer_index)
+{
+    SlicedFormFactorList result;
+    auto particles = particle.decompose();
+    for (auto p_particle : particles) {
+        result.addParticle(*p_particle, multilayer, ref_layer_index);
+    }
+    return result;
+}
+
 void SlicedFormFactorList::addParticle(IParticle& particle,
                                        const MultiLayer& multilayer, size_t ref_layer_index)
 {
@@ -37,7 +49,7 @@ void SlicedFormFactorList::addParticle(IParticle& particle,
     for (size_t i=layer_indices.first; i<layer_indices.second+1; ++i)
     {
         kvector_t translation(0.0, 0.0, -ZDifference(multilayer, i, ref_layer_index));
-        particle.applyTranslation(translation);
+        particle.translate(translation);
         // if particle is contained in this layer, set limits to infinite:
         ZLimits limits = single_layer ? ZLimits()
                                       : LayerZLimits(multilayer, i);
@@ -67,17 +79,6 @@ std::pair<const IFormFactor*, size_t> SlicedFormFactorList::operator[](size_t in
 std::map<size_t, std::vector<HomogeneousRegion>> SlicedFormFactorList::regionMap() const
 {
     return m_region_map;
-}
-
-SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
-                                             const MultiLayer& multilayer, size_t ref_layer_index)
-{
-    SlicedFormFactorList result;
-    auto particles = particle.decompose();
-    for (auto p_particle : particles) {
-        result.addParticle(*p_particle, multilayer, ref_layer_index);
-    }
-    return result;
 }
 
 namespace {

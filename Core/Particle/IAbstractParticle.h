@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Particle/IAbstractParticle.h
-//! @brief     Defines interface IAParticle.
+//! @brief     Defines interface IAbstractParticle.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,10 +18,6 @@
 
 #include "ISample.h"
 #include "Vectors3D.h"
-#include "BornAgainNamespace.h"
-#include <memory>
-
-class HomogeneousMaterial;
 
 //! Interface for a generic particle.
 //!
@@ -32,18 +28,22 @@ class HomogeneousMaterial;
 class BA_CORE_API_ IAbstractParticle : public ISample
 {
 public:
-    IAbstractParticle() : m_abundance(1.0) {}
-    virtual ~IAbstractParticle() {}
+    IAbstractParticle();
+    virtual ~IAbstractParticle();
 
     virtual IAbstractParticle* clone() const =0;
 
-    virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+    virtual void accept(INodeVisitor* visitor) const;
 
     double abundance() const { return m_abundance; }
+
+    //! Sets particle abundance.
+    //! @param abundance: proportion of this type of particles normalized to the
+    //! total number of particles in the layout.
     void setAbundance(double abundance) { m_abundance = abundance; }
 
-    //! Applies a translation in the z-direction
-    virtual void translateZ(double offset) =0;
+    //! Translates the particle with the given vector
+    virtual void translate(kvector_t translation) =0;
 
 protected:
     double m_abundance;

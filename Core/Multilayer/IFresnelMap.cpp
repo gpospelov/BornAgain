@@ -16,10 +16,17 @@
 #include "IFresnelMap.h"
 #include "MultiLayer.h"
 
-IFresnelMap::IFresnelMap() {}
+IFresnelMap::IFresnelMap()
+    : m_use_cache(true)
+{}
 IFresnelMap::~IFresnelMap() {}
 
 void IFresnelMap::setMultilayer(const MultiLayer& multilayer)
 {
     mP_multilayer.reset(multilayer.clone());
+}
+
+void IFresnelMap::disableCaching()
+{
+    m_use_cache = false;
 }

@@ -41,7 +41,7 @@ public:
     //! Returns a vector of children (const).
     virtual std::vector<const INode*> getChildren() const;
 
-    void setParent(const INode* parent);
+    virtual void setParent(const INode* newParent);
     const INode* parent() const;
     INode* parent();
 
@@ -73,6 +73,20 @@ std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
 {
     if (node)
         v_node.push_back(node.get());
+    return v_node;
+}
+
+inline std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node,
+                                             const INode* node)
+{
+    v_node.push_back(node);
+    return v_node;
+}
+
+inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
+                                             const INode* node)
+{
+    v_node.push_back(node);
     return v_node;
 }
 

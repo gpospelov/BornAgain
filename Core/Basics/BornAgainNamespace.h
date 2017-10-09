@@ -68,6 +68,7 @@ const std::string InterferenceFunction1DLatticeType = "Interference1DLattice";
 const std::string InterferenceFunction2DLatticeType = "Interference2DLattice";
 
 const std::string CrystalType = "Crystal";
+const std::string LatticeType = "Lattice";
 const std::string MesoCrystalType = "MesoCrystal";
 
 const std::string FFAnisoPyramidType = "AnisoPyramid";
@@ -77,6 +78,7 @@ const std::string FFCone6Type = "Cone6";
 const std::string FFCuboctahedronType = "Cuboctahedron";
 const std::string FFCylinderType = "Cylinder";
 const std::string FFDodecahedronType = "Dodecahedron";
+const std::string FFDotType = "Dot";
 const std::string FFEllipsoidalCylinderType = "EllipsoidalCylinder";
 const std::string FFFullSphereType = "FullSphere";
 const std::string FFFullSpheroidType = "FullSpheroid";
@@ -104,7 +106,6 @@ const std::string FormFactorCrystalType = "FormFactorCrystal";
 const std::string FormFactorSphereGaussianRadiusType = "FormFactorSphereGaussianRadius";
 const std::string FormFactorSphereLogNormalRadiusType = "FormFactorSphereLogNormalRadius";
 const std::string FormFactorSphereUniformRadiusType = "FormFactorSphereUniformRadius";
-const std::string FormFactorTrivialType = "FormFactorTrivial";
 const std::string FormFactorDWBAType = "FormFactorDWBA";
 const std::string FormFactorPolarizedDWBAType = "FormFactorDWBAPol";
 
@@ -126,6 +127,7 @@ const std::string DistributionLorentzType = "DistributionLorentz";
 const std::string DistributionGaussianType = "DistributionGaussian";
 const std::string DistributionLogNormalType = "DistributionLogNormal";
 const std::string DistributionCosineType = "DistributionCosine";
+const std::string DistributionTrapezoidType = "DistributionTrapezoid";
 
 const std::string FTDistribution1DCauchyType = "FTDistribution1DCauchy";
 const std::string FTDistribution1DGaussType = "FTDistribution1DGauss";
@@ -149,11 +151,22 @@ const std::string FTDecayFunction2DCauchyType = "FTDecayFunction2DCauchy";
 const std::string FTDecayFunction2DGaussType = "FTDecayFunction2DGauss";
 const std::string FTDecayFunction2DVoigtType = "FTDecayFunction2DVoigt";
 
+const std::string SampleBuilderType = "SampleBuilder";
+
 // Parameter names (dimensions, angles, ...)
 const std::string Abundance = "Abundance";
 const std::string PositionX = "PositionX";
 const std::string PositionY = "PositionY";
 const std::string PositionZ = "PositionZ";
+const std::string BasisVector_AX = "BasisAX";
+const std::string BasisVector_AY = "BasisAY";
+const std::string BasisVector_AZ = "BasisAZ";
+const std::string BasisVector_BX = "BasisBX";
+const std::string BasisVector_BY = "BasisBY";
+const std::string BasisVector_BZ = "BasisBZ";
+const std::string BasisVector_CX = "BasisCX";
+const std::string BasisVector_CY = "BasisCY";
+const std::string BasisVector_CZ = "BasisCZ";
 const std::string Radius = "Radius";
 const std::string RadiusX = "RadiusX";
 const std::string RadiusY = "RadiusY";
@@ -165,6 +178,10 @@ const std::string BaseEdge = "BaseEdge";
 const std::string Length = "Length";
 const std::string RemovedLength = "RemovedLength";
 const std::string Width = "Width";
+const std::string LeftWidth = "LeftWidth";
+const std::string MiddleWidth = "MiddleWidth";
+const std::string RightWidth = "RightWidth";
+const std::string Center = "Center";
 const std::string Height = "Height";
 const std::string HeightRatio = "HeightRatio";
 const std::string HeightFlattening = "HeightFlattening";

@@ -16,24 +16,16 @@
 #ifndef STANDARDFITSFACTORY_H
 #define STANDARDFITSFACTORY_H
 
-#include "IFactory.h"
-
-class IFunctionalTest;
+#include "FunctionalTestFactory.h"
 
 //! @class StandardFitsFactory
 //! @ingroup standard_samples
 //! @brief Factory to create predefined functional fit tests
 
-class StandardFitsFactory : public IFactory<std::string, IFunctionalTest>
+class StandardFitsFactory : public FunctionalTestFactory
 {
 public:
     StandardFitsFactory();
-
-    IFunctionalTest *createTest(const std::string &test_name);
-
-    bool isValidTest(const std::string &test_name);
-
-    void printCatalogue(std::ostream &ostr);
 };
 
 #endif // STANDARDFITSFACTORY_H

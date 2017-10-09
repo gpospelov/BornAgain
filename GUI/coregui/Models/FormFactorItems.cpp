@@ -30,10 +30,15 @@ const QString AnisoPyramidItem::P_ALPHA = QString::fromStdString(BornAgain::Alph
 AnisoPyramidItem::AnisoPyramidItem()
     : FormFactorItem(Constants::AnisoPyramidType)
 {
-    addProperty(P_LENGTH, 20.0);
-    addProperty(P_WIDTH, 16.0);
-    addProperty(P_HEIGHT, 13.0);
-    addProperty(P_ALPHA, 60.0);
+    setToolTip(QStringLiteral("A truncated pyramid with a rectangular base"));
+    addProperty(P_LENGTH, 20.0)
+        ->setToolTip(QStringLiteral("Length of the rectangular base in nanometers"));
+    addProperty(P_WIDTH, 16.0)
+        ->setToolTip(QStringLiteral("Width of the rectangular base in nanometers"));
+    addProperty(P_HEIGHT, 13.0)
+        ->setToolTip(QStringLiteral("Height of pyramid in nanometers"));
+    addProperty(P_ALPHA, 60.0)->setToolTip(
+        QStringLiteral("Dihedral angle in degrees between base and facet"));
 }
 
 std::unique_ptr<IFormFactor> AnisoPyramidItem::createFormFactor() const
@@ -55,9 +60,13 @@ const QString BoxItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 BoxItem::BoxItem()
     : FormFactorItem(Constants::BoxType)
 {
-    addProperty(P_LENGTH, 20.0);
-    addProperty(P_WIDTH, 16.0);
-    addProperty(P_HEIGHT, 13.0);
+    setToolTip(QStringLiteral("Rectangular cuboid"));
+    addProperty(P_LENGTH, 20.0)
+        ->setToolTip(QStringLiteral("Length of the base in nanometers"));
+    addProperty(P_WIDTH, 16.0)
+        ->setToolTip(QStringLiteral("Width of the base in nanometers"));
+    addProperty(P_HEIGHT, 13.0)
+        ->setToolTip(QStringLiteral("Height of the box in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> BoxItem::createFormFactor() const
@@ -78,9 +87,13 @@ const QString ConeItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 ConeItem::ConeItem()
     : FormFactorItem(Constants::ConeType)
 {
-    addProperty(P_RADIUS, 10.0);
-    addProperty(P_HEIGHT, 13.0);
-    addProperty(P_ALPHA, 60.0);
+    setToolTip(QStringLiteral("Truncated cone with circular base"));
+    addProperty(P_RADIUS, 10.0)
+        ->setToolTip(QStringLiteral("Radius of the base in nanometers"));
+    addProperty(P_HEIGHT, 13.0)
+        ->setToolTip(QStringLiteral("Height of the cone in nanometers"));
+    addProperty(P_ALPHA, 60.0)
+        ->setToolTip(QStringLiteral("Angle between the base and the side surface in degrees"));
 }
 
 std::unique_ptr<IFormFactor> ConeItem::createFormFactor() const
@@ -101,9 +114,14 @@ const QString Cone6Item::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 Cone6Item::Cone6Item()
     : FormFactorItem(Constants::Cone6Type)
 {
-    addProperty(P_BASEEDGE, 10.0);
-    addProperty(P_HEIGHT, 13.0);
-    addProperty(P_ALPHA, 60.0);
+    setToolTip(QStringLiteral("A truncated pyramid, based on a regular hexagon"));
+    addProperty(P_BASEEDGE, 10.0)
+        ->setToolTip(QStringLiteral("Edge of the regular hexagonal base in nanometers"));
+    addProperty(P_HEIGHT, 13.0)
+        ->setToolTip(QStringLiteral("Height of a truncated pyramid in nanometers"));
+    addProperty(P_ALPHA, 60.0)->setToolTip(
+        QStringLiteral("Dihedral angle in degrees between base and facet"));
+
 }
 
 std::unique_ptr<IFormFactor> Cone6Item::createFormFactor() const
@@ -125,10 +143,16 @@ const QString CuboctahedronItem::P_ALPHA = QString::fromStdString(BornAgain::Alp
 CuboctahedronItem::CuboctahedronItem()
     : FormFactorItem(Constants::CuboctahedronType)
 {
-    addProperty(P_LENGTH, 20.0);
-    addProperty(P_HEIGHT, 13.0);
-    addProperty(P_HEIGHT_RATIO, 0.7)->setLimits(RealLimits::lowerLimited(0.0));
-    addProperty(P_ALPHA, 60.0);
+    setToolTip(QStringLiteral("Compound of two truncated pyramids with a common square base \n"
+                              "and opposite orientations"));
+    addProperty(P_LENGTH, 20.0)
+        ->setToolTip(QStringLiteral("Side length of the common square base in nanometers"));
+    addProperty(P_HEIGHT, 13.0)
+        ->setToolTip(QStringLiteral("Height of the lower pyramid in nanometers"));
+    addProperty(P_HEIGHT_RATIO, 0.7)->setLimits(RealLimits::lowerLimited(0.0))
+        .setToolTip(QStringLiteral("Ratio of heights of top to bottom pyramids"));
+    addProperty(P_ALPHA, 60.0)->setToolTip(
+        QStringLiteral("Dihedral angle in degrees between base and facets"));
 }
 
 std::unique_ptr<IFormFactor> CuboctahedronItem::createFormFactor() const
@@ -149,8 +173,11 @@ const QString CylinderItem::P_HEIGHT = QString::fromStdString(BornAgain::Height)
 CylinderItem::CylinderItem()
     : FormFactorItem(Constants::CylinderType)
 {
-    addProperty(P_RADIUS, 8.0);
-    addProperty(P_HEIGHT, 16.0);
+    setToolTip(QStringLiteral("Cylinder with a circular base"));
+    addProperty(P_RADIUS, 8.0)
+        ->setToolTip(QStringLiteral("Radius of the circular base in nanometers"));
+    addProperty(P_HEIGHT, 16.0)
+        ->setToolTip(QStringLiteral("Height of the cylinder in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> CylinderItem::createFormFactor() const
@@ -168,7 +195,9 @@ const QString DodecahedronItem::P_EDGE = QString::fromStdString(BornAgain::Edge)
 DodecahedronItem::DodecahedronItem()
     : FormFactorItem(Constants::DodecahedronType)
 {
-    addProperty(P_EDGE, 10.0);
+    setToolTip(QStringLiteral("Dodecahedron"));
+    addProperty(P_EDGE, 10.0)
+        ->setToolTip(QStringLiteral("Length of the edge in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> DodecahedronItem::createFormFactor() const
@@ -178,6 +207,18 @@ std::unique_ptr<IFormFactor> DodecahedronItem::createFormFactor() const
                 );
 }
 
+/* ------------------------------------------------ */
+
+DotItem::DotItem()
+    : FormFactorItem(Constants::DotType)
+{
+    setToolTip(QStringLiteral("A dot, with trivial formfactor F(q)=1"));
+}
+
+std::unique_ptr<IFormFactor> DotItem::createFormFactor() const
+{
+    return GUIHelpers::make_unique<FormFactorDot>();
+}
 
 /* ------------------------------------------------ */
 
@@ -188,9 +229,13 @@ const QString EllipsoidalCylinderItem::P_HEIGHT = QString::fromStdString(BornAga
 EllipsoidalCylinderItem::EllipsoidalCylinderItem()
     : FormFactorItem(Constants::EllipsoidalCylinderType)
 {
-    addProperty(P_RADIUS_X, 8.0);
-    addProperty(P_RADIUS_Y, 13.0);
-    addProperty(P_HEIGHT, 16.0);
+    setToolTip(QStringLiteral("Cylinder with an ellipse cross section"));
+    addProperty(P_RADIUS_X, 8.0)->setToolTip(QStringLiteral(
+        "Radius of the ellipse base in the x-direction, in nanometers"));
+    addProperty(P_RADIUS_Y, 13.0)->setToolTip(QStringLiteral(
+        "Radius of the ellipse base in the y-direction, in nanometers"));
+    addProperty(P_HEIGHT, 16.0)
+        ->setToolTip(QStringLiteral("Height of the ellipsoidal cylinder in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> EllipsoidalCylinderItem::createFormFactor() const
@@ -209,7 +254,8 @@ const QString FullSphereItem::P_RADIUS = QString::fromStdString(BornAgain::Radiu
 FullSphereItem::FullSphereItem()
     : FormFactorItem(Constants::FullSphereType)
 {
-    addProperty(P_RADIUS, 8.0);
+    setToolTip(QStringLiteral("Full sphere"));
+    addProperty(P_RADIUS, 8.0)->setToolTip(QStringLiteral("Radius of the sphere in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> FullSphereItem::createFormFactor() const
@@ -227,8 +273,12 @@ const QString FullSpheroidItem::P_HEIGHT = QString::fromStdString(BornAgain::Hei
 FullSpheroidItem::FullSpheroidItem()
     : FormFactorItem(Constants::FullSpheroidType)
 {
-    addProperty(P_RADIUS, 10.0);
-    addProperty(P_HEIGHT, 13.0);
+    setToolTip(QStringLiteral(
+        "Full spheroid, generated by rotating an ellipse around the vertical axis"));
+    addProperty(P_RADIUS, 10.0)
+        ->setToolTip(QStringLiteral("Radius of the circular cross section in nanometers"));
+    addProperty(P_HEIGHT, 13.0)
+        ->setToolTip(QStringLiteral("Height of the full spheroid in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> FullSpheroidItem::createFormFactor() const
@@ -248,9 +298,14 @@ const QString HemiEllipsoidItem::P_HEIGHT = QString::fromStdString(BornAgain::He
 HemiEllipsoidItem::HemiEllipsoidItem()
     : FormFactorItem(Constants::HemiEllipsoidType)
 {
-    addProperty(P_RADIUS_X, 10.0);
-    addProperty(P_RADIUS_Y, 6.0);
-    addProperty(P_HEIGHT, 8.0);
+    setToolTip(QStringLiteral(
+               "An horizontally oriented ellipsoid, truncated at the central plane"));
+    addProperty(P_RADIUS_X, 10.0)->setToolTip(QStringLiteral(
+        "Radius of the ellipse base in the x-direction, in nanometers"));
+    addProperty(P_RADIUS_Y, 6.0)->setToolTip(QStringLiteral(
+        "Radius of the ellipse base in the y-direction, in nanometers"));
+    addProperty(P_HEIGHT, 8.0)
+        ->setToolTip(QStringLiteral("Height of the hemi ellipsoid in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> HemiEllipsoidItem::createFormFactor() const
@@ -269,7 +324,9 @@ const QString IcosahedronItem::P_EDGE = QString::fromStdString(BornAgain::Edge);
 IcosahedronItem::IcosahedronItem()
     : FormFactorItem(Constants::IcosahedronType)
 {
-    addProperty(P_EDGE, 10.0);
+    setToolTip(QStringLiteral("Icosahedron"));
+    addProperty(P_EDGE, 10.0)
+        ->setToolTip(QStringLiteral("Length of the edge in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> IcosahedronItem::createFormFactor() const
@@ -288,8 +345,11 @@ const QString Prism3Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 Prism3Item::Prism3Item()
     : FormFactorItem(Constants::Prism3Type)
 {
-    addProperty(P_BASEEDGE, 10.0);
-    addProperty(P_HEIGHT, 13.0);
+    setToolTip(QStringLiteral("Prism with an equilaterial triangle base"));
+    addProperty(P_BASEEDGE, 10.0)
+        ->setToolTip(QStringLiteral("Length of the base edge in nanometers"));
+    addProperty(P_HEIGHT, 13.0)
+        ->setToolTip(QStringLiteral("Height in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> Prism3Item::createFormFactor() const
@@ -308,8 +368,11 @@ const QString Prism6Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 Prism6Item::Prism6Item()
     : FormFactorItem(Constants::Prism6Type)
 {
-    addProperty(P_BASEEDGE, 5.0);
-    addProperty(P_HEIGHT, 11.0);
+    setToolTip(QStringLiteral("Prism with a regular hexagonal base"));
+    addProperty(P_BASEEDGE, 5.0)
+        ->setToolTip(QStringLiteral("Length of the hexagonal base in nanometers"));
+    addProperty(P_HEIGHT, 11.0)
+        ->setToolTip(QStringLiteral("Height in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> Prism6Item::createFormFactor() const
@@ -329,9 +392,13 @@ const QString PyramidItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha);
 PyramidItem::PyramidItem()
     : FormFactorItem(Constants::PyramidType)
 {
-    addProperty(P_BASEEDGE, 18.0);
-    addProperty(P_HEIGHT, 13.0);
-    addProperty(P_ALPHA, 60.0);
+    setToolTip(QStringLiteral("Truncated pyramid with a square base"));
+    addProperty(P_BASEEDGE, 18.0)
+        ->setToolTip(QStringLiteral("Length of the square base in nanometers"));
+    addProperty(P_HEIGHT, 13.0)
+        ->setToolTip(QStringLiteral("Height of the pyramid in nanometers"));
+    addProperty(P_ALPHA, 60.0)->setToolTip(QStringLiteral(
+       "Dihedral angle between the base and a side face in degrees"));
 }
 
 std::unique_ptr<IFormFactor> PyramidItem::createFormFactor() const
@@ -352,9 +419,13 @@ const QString Ripple1Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 Ripple1Item::Ripple1Item()
     : FormFactorItem(Constants::Ripple1Type)
 {
-    addProperty(P_LENGTH, 27.0);
-    addProperty(P_WIDTH, 20.0);
-    addProperty(P_HEIGHT, 14.0);
+    setToolTip(QStringLiteral("Particle with a cosine profile and a rectangular base"));
+    addProperty(P_LENGTH, 27.0)
+        ->setToolTip(QStringLiteral("Length of the rectangular base in nanometers"));
+    addProperty(P_WIDTH, 20.0)
+        ->setToolTip(QStringLiteral("Width of the rectangular base in nanometers"));
+    addProperty(P_HEIGHT, 14.0)
+        ->setToolTip(QStringLiteral("Height of the ripple in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> Ripple1Item::createFormFactor() const
@@ -376,10 +447,16 @@ const QString Ripple2Item::P_ASYMMETRY = QString::fromStdString(BornAgain::Asymm
 Ripple2Item::Ripple2Item()
     : FormFactorItem(Constants::Ripple2Type)
 {
-    addProperty(P_LENGTH, 36.0);
-    addProperty(P_WIDTH, 25.0);
-    addProperty(P_HEIGHT, 14.0);
-    addProperty(P_ASYMMETRY, 3.0);
+    setToolTip(QStringLiteral(
+        "Particle with an asymmetric triangle profile and a rectangular base"));
+    addProperty(P_LENGTH, 36.0)
+        ->setToolTip(QStringLiteral("Length of the rectangular base in nanometers"));
+    addProperty(P_WIDTH, 25.0)
+        ->setToolTip(QStringLiteral("Width of the rectangular base in nanometers"));
+    addProperty(P_HEIGHT, 14.0)
+        ->setToolTip(QStringLiteral("Height of the ripple in nanometers"));
+    addProperty(P_ASYMMETRY, 3.0)
+        ->setToolTip(QStringLiteral("Asymmetry length of the triangular profile in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> Ripple2Item::createFormFactor() const
@@ -401,9 +478,13 @@ const QString TetrahedronItem::P_ALPHA = QString::fromStdString(BornAgain::Alpha
 TetrahedronItem::TetrahedronItem()
     : FormFactorItem(Constants::TetrahedronType)
 {
-    addProperty(P_BASEEDGE, 15.0);
-    addProperty(P_HEIGHT, 6.0);
-    addProperty(P_ALPHA, 60.0);
+    setToolTip(QStringLiteral("A truncated tethrahedron"));
+    addProperty(P_BASEEDGE, 15.0)->setToolTip(QStringLiteral(
+        "Length of one edge of the equilateral triangular base in nanometers"));
+    addProperty(P_HEIGHT, 6.0)
+        ->setToolTip(QStringLiteral("Height of the tetrahedron in nanometers"));
+    addProperty(P_ALPHA, 60.0)->setToolTip(QStringLiteral(
+        "Dihedral angle in degrees between base and facet"));
 }
 
 std::unique_ptr<IFormFactor> TetrahedronItem::createFormFactor() const
@@ -424,8 +505,11 @@ const QString TruncatedCubeItem::P_REMOVED_LENGTH = QString::fromStdString(BornA
 TruncatedCubeItem::TruncatedCubeItem()
     : FormFactorItem(Constants::TruncatedCubeType)
 {
-    addProperty(P_LENGTH, 15.0);
-    addProperty(P_REMOVED_LENGTH, 6.0);
+    setToolTip(QStringLiteral("A cube whose eight vertices have been removed"));
+    addProperty(P_LENGTH, 15.0)
+        ->setToolTip(QStringLiteral("Length of the full cube's edge in nanometers"));
+    addProperty(P_REMOVED_LENGTH, 6.0)->setToolTip(
+       QStringLiteral("Removed length from each edge of the cube in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> TruncatedCubeItem::createFormFactor() const
@@ -440,19 +524,26 @@ std::unique_ptr<IFormFactor> TruncatedCubeItem::createFormFactor() const
 
 const QString TruncatedSphereItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
 const QString TruncatedSphereItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString TruncatedSphereItem::P_REMOVED_TOP = QString::fromStdString(BornAgain::DeltaHeight);
 
 TruncatedSphereItem::TruncatedSphereItem()
     : FormFactorItem(Constants::TruncatedSphereType)
 {
-    addProperty(P_RADIUS, 5.0);
-    addProperty(P_HEIGHT, 7.0);
+    setToolTip(QStringLiteral("Spherical dome"));
+    addProperty(P_RADIUS, 5.0)
+        ->setToolTip(QStringLiteral("Radius of the truncated sphere in nanometers"));
+    addProperty(P_HEIGHT, 7.0)
+        ->setToolTip(QStringLiteral("Height of the truncated sphere in nanometers"));
+    addProperty(P_REMOVED_TOP, 0.0)
+        ->setToolTip(QStringLiteral("Height of the removed top cap in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> TruncatedSphereItem::createFormFactor() const
 {
     return GUIHelpers::make_unique<FormFactorTruncatedSphere>(
                 getItemValue(P_RADIUS).toDouble(),
-                getItemValue(P_HEIGHT).toDouble()
+                getItemValue(P_HEIGHT).toDouble(),
+                getItemValue(P_REMOVED_TOP).toDouble()
                 );
 }
 
@@ -461,13 +552,20 @@ std::unique_ptr<IFormFactor> TruncatedSphereItem::createFormFactor() const
 const QString TruncatedSpheroidItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
 const QString TruncatedSpheroidItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
 const QString TruncatedSpheroidItem::P_HFC = QString::fromStdString(BornAgain::HeightFlattening);
+const QString TruncatedSpheroidItem::P_REMOVED_TOP = QString::fromStdString(BornAgain::DeltaHeight);
 
 TruncatedSpheroidItem::TruncatedSpheroidItem()
     : FormFactorItem(Constants::TruncatedSpheroidType)
 {
-    addProperty(P_RADIUS, 7.5);
-    addProperty(P_HEIGHT, 9.0);
-    addProperty(P_HFC, 1.2);
+    setToolTip(QStringLiteral("Spheroidal dome"));
+    addProperty(P_RADIUS, 7.5)
+        ->setToolTip(QStringLiteral("Radius of the truncated spheroid in nanometers"));
+    addProperty(P_HEIGHT, 9.0)
+        ->setToolTip(QStringLiteral("Height of the truncated spheroid in nanometers"));
+    addProperty(P_HFC, 1.2)->setToolTip(
+        QStringLiteral("Ratio of the height of the corresponding full spheroid to its diameter"));
+    addProperty(P_REMOVED_TOP, 0.0)
+        ->setToolTip(QStringLiteral("Height of the removed top cap in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> TruncatedSpheroidItem::createFormFactor() const
@@ -475,6 +573,8 @@ std::unique_ptr<IFormFactor> TruncatedSpheroidItem::createFormFactor() const
     return GUIHelpers::make_unique<FormFactorTruncatedSpheroid>(
                 getItemValue(P_RADIUS).toDouble(),
                 getItemValue(P_HEIGHT).toDouble(),
-                getItemValue(P_HFC).toDouble()
+                getItemValue(P_HFC).toDouble(),
+                getItemValue(P_REMOVED_TOP).toDouble()
                 );
 }
+

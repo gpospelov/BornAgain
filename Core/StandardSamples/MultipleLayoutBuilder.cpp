@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "MultipleLayoutBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
 #include "HomogeneousMaterial.h"
@@ -30,20 +31,7 @@ MultipleLayoutBuilder::MultipleLayoutBuilder()
     , m_prism_height(5*Units::nanometer)
     , m_prism_length(10*Units::nanometer)
     , m_cylinder_weight(0.5)
-{
-    init_parameters();
-}
-
-void MultipleLayoutBuilder::init_parameters()
-{
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("prism_height", &m_prism_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("prism_length", &m_prism_length).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("cylinder_weight", &m_cylinder_weight).setUnit(BornAgain::UnitsNm).setNonnegative();
-}
+{}
 
 MultiLayer* MultipleLayoutBuilder::buildSample() const
 {

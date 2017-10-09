@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUIStandardTest.cpp
+//! @file      Tests/Functional/GUI/GUIStandardTest/main.cpp
 //! @brief     Implements program GUIStandardTest to run gui functional tests
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,20 +14,12 @@
 //
 // ************************************************************************** //
 
-#include "IStandardTest.h"
-#include "GUIReferencedTest.h"
+#include "StandardTestService.h"
+#include "GUIStandardTest.h"
 
-//! Provides a GUITest through a callback mechanism explained in IStandardTest.h.
-class GUIStandardTest : public IStandardTest
-{
-public:
-    GUIStandardTest() : IStandardTest("GUIStandardTest") {}
-    std::unique_ptr<IFunctionalTest> getTest() const { return std::unique_ptr<IFunctionalTest>
-            (new GUIReferencedTest(getName(), getTestDescription(), getSimulation(), getTestThreshold())); }
-};
+//! Runs GUIStandardTest on a standard simulation indicated by argv[1].
 
-//! Runs GUITest on a standard simulation indicated by argv[1].
 int main(int argc, char** argv)
 {
-    return GUIStandardTest().execute(argc, argv) ? 0 : 1;
+    return StandardTestService<GUIStandardTest>().execute(argc, argv) ? 0 : 1;
 }

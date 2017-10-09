@@ -88,9 +88,9 @@ size_t IHistogram::getNbinsY() const
 
 size_t IHistogram::getGlobalBin(size_t binx, size_t biny) const
 {
-    std::vector<int > axes_indices;
-    axes_indices.push_back(binx);
-    if(getRank() == 2) axes_indices.push_back(biny);
+    std::vector<unsigned> axes_indices;
+    axes_indices.push_back(static_cast<unsigned>(binx));
+    if(getRank() == 2) axes_indices.push_back(static_cast<unsigned>(biny));
     return m_data.toGlobalIndex(axes_indices);
 }
 
@@ -102,12 +102,12 @@ size_t IHistogram::findGlobalBin(double x, double y) const
     return m_data.findGlobalIndex(coordinates);
 }
 
-int IHistogram::getXaxisIndex(size_t i) const
+size_t IHistogram::getXaxisIndex(size_t i) const
 {
     return m_data.getAxisBinIndex(i, 0);
 }
 
-int IHistogram::getYaxisIndex(size_t i) const
+size_t IHistogram::getYaxisIndex(size_t i) const
 {
     return m_data.getAxisBinIndex(i, 1);
 }
@@ -387,4 +387,14 @@ void IHistogram::load(const std::string& filename)
 {
     const std::unique_ptr<IHistogram> hist(IntensityDataIOFactory::readIntensityData(filename));
     copyContentFrom(*hist);
+}
+
+void IHistogram::setAxesUnits(const std::string& name)
+{
+    m_axes_units = name;
+}
+
+std::string IHistogram::axesUnits() const
+{
+    return m_axes_units;
 }

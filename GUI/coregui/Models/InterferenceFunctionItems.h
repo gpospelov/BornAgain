@@ -75,8 +75,11 @@ class BA_CORE_API_ InterferenceFunction2DLatticeItem : public InterferenceFuncti
 public:
     static const QString P_LATTICE_TYPE;
     static const QString P_DECAY_FUNCTION;
+    static const QString P_XI_INTEGRATION;
     InterferenceFunction2DLatticeItem();
     std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
+private:
+    void update_rotation_availability();
 };
 
 #endif // INTERFERENCEFUNCTIONITEMS_H

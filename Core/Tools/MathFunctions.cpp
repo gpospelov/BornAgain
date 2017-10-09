@@ -377,7 +377,7 @@ double MathFunctions::GenerateNormalRandom(double average, double std_dev)
 
 double MathFunctions::GenerateStandardNormalRandom() // using c++11 standard library
 {
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    unsigned seed = static_cast<unsigned>(std::chrono::system_clock::now().time_since_epoch().count());
     std::default_random_engine generator(seed);
     std::normal_distribution<double> distribution(0.0, 1.0);
     return distribution(generator);

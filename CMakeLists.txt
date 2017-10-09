@@ -4,6 +4,12 @@
 
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
+if(APPLE)
+if(POLICY CMP0025)
+    cmake_policy(SET CMP0025 NEW)
+endif()
+endif()
+
 set(CMAKE_MODULE_PATH
     ${CMAKE_SOURCE_DIR}/cmake/generic/modules
     ${CMAKE_SOURCE_DIR}/cmake/bornagain/modules)
@@ -40,6 +46,7 @@ option(BORNAGAIN_COVERAGE "Build with test coverage information" OFF)
 option(BORNAGAIN_DEBUG_OPTIMIZATION "Build with debug optimization (gcc only)" OFF)
 option(BORNAGAIN_OPENGL "Build additional modules for 3D in GUI" ON)
 option(BORNAGAIN_BUILDBOT_SERVER "Special option for the buildbot server" OFF)
+option(BORNAGAIN_TIDY "Invokes clang-tidy" OFF)
 
 if(AUTOGENERATE)
     set(BORNAGAIN_MANPAGE ON)
@@ -49,6 +56,7 @@ endif()
 
 #--- Include CMake macros and functions ---
 include(GetFilenameComponent) # overwrite CMake command
+include(BornAgainMacros)
 include(SearchInstalledSoftware)
 include(CheckCompiler)
 if(ZERO_TOLERANCE)

@@ -31,11 +31,15 @@ namespace GUIHelpers
 class BA_CORE_API_ Error : public std::exception
 {
 public:
-    explicit Error(const QString& message) throw()
-        : message(message) {}
-    virtual ~Error() throw() {}
+    explicit Error(const QString& message) noexcept : message(message) {}
+    virtual ~Error() noexcept;
 
-    virtual const char* what() const throw() { return message.toLatin1().data(); }
+    Error(const Error&) =default;
+    Error& operator=(const Error&) =default;
+    Error(Error&&) =default;
+    Error& operator=(Error&&) =default;
+
+    const char* what() const noexcept override;
 
 private:
     QString message;
@@ -59,11 +63,14 @@ BA_CORE_API_ QString getBornAgainVersionString();
 BA_CORE_API_ QString getValidFileName(const QString& proposed_name);
 
 BA_CORE_API_ QString fileDir(const QString& fileName);
+BA_CORE_API_ QString baseName(const QString& fileName);
 
 BA_CORE_API_ void createSubdir(const QString& parentName, const QString& subdirName);
 
 BA_CORE_API_ bool parseVersion(
     const QString& version, int& major_num, int& minor_num, int& patch_num);
+
+BA_CORE_API_ int versionCode(const QString& version);
 
 BA_CORE_API_ bool isVersionMatchMinimal(const QString& version, const QString& minimal_version);
 
@@ -79,6 +86,8 @@ template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)
 }
 
 BA_CORE_API_ QString createUuid();
+
+BA_CORE_API_ QString readTextFile(const QString& fileName);
 
 } // namespace GUIHelpers
 

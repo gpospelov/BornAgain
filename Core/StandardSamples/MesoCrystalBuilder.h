@@ -24,37 +24,14 @@ class ISample;
 class Lattice;
 class MesoCrystal;
 
-//! Builds sample: mesocrystals of cylindrical shape composed by spherical nanoparticles.
+//! Builds sample: cylindrical mesocrystal composed of spheres in a cubic lattice.
 //! @ingroup standard_samples
 
 class BA_CORE_API_ MesoCrystalBuilder : public IMultiLayerBuilder
 {
 public:
     MesoCrystalBuilder();
-
-    virtual ~MesoCrystalBuilder(){}
-    virtual MultiLayer* buildSample() const;
-
-protected:
-    virtual void init_parameters();
-
-private:
-    MesoCrystal* createMesoCrystal(
-        double stacking_radius_a, double stacking_radius_c,
-        complex_t n_particle, const IFormFactor* p_meso_form_factor) const;
-    const Lattice* createLattice(double stacking_radius_a, double stacking_radius_c) const;
-    double m_lattice_length_a;
-    double m_lattice_length_c;
-    double m_nanoparticle_radius;
-    double m_sigma_nanoparticle_radius;
-    double m_meso_height;
-    double m_meso_radius;
-    double m_sigma_meso_height;
-    double m_sigma_meso_radius;
-    double m_sigma_lattice_length_a;
-    double m_surface_filling_ratio;
-    double m_roughness;
-    double m_nphi_rotations;
+    MultiLayer* buildSample() const;
 };
 
 #endif // MESOCRYSTALBUILDER_H

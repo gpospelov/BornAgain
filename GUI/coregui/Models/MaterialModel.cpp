@@ -15,34 +15,30 @@
 // ************************************************************************** //
 
 #include "MaterialModel.h"
-#include "IconProvider.h"
 #include "MaterialUtils.h"
 #include "RefractiveIndexItem.h"
 #include "GUIHelpers.h"
 
-MaterialModel::MaterialModel(QObject *parent)
-    : SessionModel(SessionXML::MaterialModelTag, parent)
+MaterialModel::MaterialModel(QObject* parent) : SessionModel(SessionXML::MaterialModelTag, parent)
 {
     setObjectName(SessionXML::MaterialModelTag);
-    setIconProvider(new IconProvider());
 }
 
-MaterialModel *MaterialModel::createCopy(SessionItem *parent)
+MaterialModel* MaterialModel::createCopy(SessionItem* parent)
 {
-    MaterialModel *result = new MaterialModel();
+    MaterialModel* result = new MaterialModel();
     result->initFrom(this, parent);
     return result;
 }
 
-MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, double beta)
+MaterialItem* MaterialModel::addMaterial(const QString& name, double delta, double beta)
 {
-    MaterialItem *materialItem = dynamic_cast<MaterialItem *>(
-                                     insertNewItem(Constants::HomogeneousMaterialType));
+    MaterialItem* materialItem
+        = dynamic_cast<MaterialItem*>(insertNewItem(Constants::HomogeneousMaterialType));
     materialItem->setItemName(name);
 
-    RefractiveIndexItem *refractiveIndexItem =
-            dynamic_cast<RefractiveIndexItem *>(
-                materialItem->getItem(MaterialItem::P_REFRACTIVE_INDEX));
+    RefractiveIndexItem* refractiveIndexItem = dynamic_cast<RefractiveIndexItem*>(
+        materialItem->getItem(MaterialItem::P_REFRACTIVE_INDEX));
     Q_ASSERT(refractiveIndexItem);
 
     refractiveIndexItem->setDelta(delta);
@@ -54,53 +50,55 @@ MaterialItem *MaterialModel::addMaterial(const QString &name, double delta, doub
     return materialItem;
 }
 
-void MaterialModel::removeMaterial(MaterialItem *item)
+void MaterialModel::removeMaterial(MaterialItem* item)
 {
     QModelIndex materialIndex = indexOfItem(item);
     removeRows(materialIndex.row(), 1, materialIndex.parent());
 }
 
-MaterialItem *MaterialModel::getMaterial(const QModelIndex &index)
+MaterialItem* MaterialModel::getMaterial(const QModelIndex& index)
 {
-    return dynamic_cast<MaterialItem *>(itemForIndex(index));
+    return dynamic_cast<MaterialItem*>(itemForIndex(index));
 }
 
-MaterialItem *MaterialModel::getMaterial(const MaterialProperty &property)
+MaterialItem* MaterialModel::getMaterial(const MaterialProperty& property)
 {
     QModelIndex parentIndex;
-    for( int i_row = 0; i_row < rowCount( parentIndex ); ++i_row) {
-         QModelIndex itemIndex = index( i_row, 0, parentIndex );
+    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
+        QModelIndex itemIndex = index(i_row, 0, parentIndex);
 
-         if (MaterialItem *material = dynamic_cast<MaterialItem *>(itemForIndex(itemIndex))){
-             if(material->getIdentifier() == property.getIdentifier()) return material;
-         }
+        if (MaterialItem* material = dynamic_cast<MaterialItem*>(itemForIndex(itemIndex))) {
+            if (material->getIdentifier() == property.getIdentifier())
+                return material;
+        }
     }
-    return 0;
+    return nullptr;
 }
 
-MaterialItem *MaterialModel::getMaterial(const QString &material_name)
+MaterialItem* MaterialModel::getMaterial(const QString& material_name)
 {
     QModelIndex parentIndex;
-    for( int i_row = 0; i_row < rowCount( parentIndex ); ++i_row) {
-         QModelIndex itemIndex = index( i_row, 0, parentIndex );
+    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
+        QModelIndex itemIndex = index(i_row, 0, parentIndex);
 
-         if (MaterialItem *material = dynamic_cast<MaterialItem *>(itemForIndex(itemIndex))){
-             if(material->itemName() == material_name) return material;
-         }
+        if (MaterialItem* material = dynamic_cast<MaterialItem*>(itemForIndex(itemIndex))) {
+            if (material->itemName() == material_name)
+                return material;
+        }
     }
-    return 0;
+    return nullptr;
 }
 
 //! Returns clone of material with given index.
 
-MaterialItem *MaterialModel::cloneMaterial(const QModelIndex &index)
+MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
 {
-    const MaterialItem *origMaterial = getMaterial(index);
-    if(!origMaterial)
+    const MaterialItem* origMaterial = getMaterial(index);
+    if (!origMaterial)
         return nullptr;
 
-    SessionItem *clonedMaterial = copyParameterizedItem(origMaterial, 0);
+    SessionItem* clonedMaterial = copyParameterizedItem(origMaterial, 0);
     clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, GUIHelpers::createUuid());
-    clonedMaterial->setItemName(origMaterial->itemName()+" (clone)");
-    return dynamic_cast<MaterialItem *>(clonedMaterial);
+    clonedMaterial->setItemName(origMaterial->itemName() + " (clone)");
+    return dynamic_cast<MaterialItem*>(clonedMaterial);
 }

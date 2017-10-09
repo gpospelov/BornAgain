@@ -47,3 +47,20 @@ void SysUtils::enableFloatingPointExceptions()
         "Can't enable floating point exceptions. Available in debug mode only.\n";
 #endif
 }
+
+std::string SysUtils::getenv(const std::string& name)
+{
+    if(char* c = std::getenv(name.c_str()))
+       return std::string(c);
+    else
+        return std::string();
+}
+
+bool SysUtils::isWindowsHost()
+{
+#ifdef _WIN32
+    return true;
+#else
+    return false;
+#endif
+}

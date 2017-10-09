@@ -22,8 +22,9 @@
 #include "TruncatedEllipsoid.h"
 #include <limits>
 
-//! @param radius of the two equal axes
-//! @param height total height of the spheroid, i.e. twice the radius of the third axis
+//! Constructor of full spheroid.
+//! @param radius: radius of the circular cross section in nanometers
+//! @param height: height of the full spheroid in nanometers
 FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
     : m_radius(radius), m_height(height)
 {

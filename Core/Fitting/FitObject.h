@@ -70,6 +70,8 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
+    std::string getDefaultAxisUnits() const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters() {}

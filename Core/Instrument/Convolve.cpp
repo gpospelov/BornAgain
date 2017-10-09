@@ -355,7 +355,7 @@ bool Convolve::is_optimal(int n)
 {
     if(n==1)
         return false;
-    int ntest = n;
+    size_t ntest = n;
     for(size_t i=0; i<m_implemented_factors.size(); i++){
         while( (ntest%m_implemented_factors[i]) == 0 ) {
             ntest = ntest/m_implemented_factors[i];

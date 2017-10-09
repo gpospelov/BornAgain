@@ -51,6 +51,7 @@ public slots:
     void onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType);
     void onSavePlotRequest();
     void onResetViewRequest();
+    void onRotateDataRequest();
 
 private:
     bool isAxisRangeMatchData() const;

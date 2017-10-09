@@ -1,4 +1,5 @@
 #include "MagneticLayersBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorFullSphere.h"
 #include "HomogeneousMaterial.h"
 #include "Layer.h"
@@ -11,9 +12,7 @@
 
 MagneticSubstrateZeroFieldBuilder::MagneticSubstrateZeroFieldBuilder()
     : m_sphere_radius(5*Units::nanometer)
-{
-    init_parameters();
-}
+{}
 
 MultiLayer*MagneticSubstrateZeroFieldBuilder::buildSample() const
 {
@@ -40,17 +39,9 @@ MultiLayer*MagneticSubstrateZeroFieldBuilder::buildSample() const
     return multi_layer;
 }
 
-void MagneticSubstrateZeroFieldBuilder::init_parameters()
-{
-    registerParameter("sphere_radius", &m_sphere_radius).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-}
-
 MagneticRotationBuilder::MagneticRotationBuilder()
     : m_sphere_radius(5*Units::nanometer)
-{
-    init_parameters();
-}
+{}
 
 MultiLayer* MagneticRotationBuilder::buildSample() const
 {
@@ -76,10 +67,4 @@ MultiLayer* MagneticRotationBuilder::buildSample() const
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
-}
-
-void MagneticRotationBuilder::init_parameters()
-{
-    registerParameter("sphere_radius", &m_sphere_radius).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
 }

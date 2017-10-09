@@ -10,3 +10,4 @@
 %feature("director") IFormFactorBorn;
 %feature("director") IFitObserver;
 %feature("director") IObservable;
+%feature("director") IInterferenceFunction;

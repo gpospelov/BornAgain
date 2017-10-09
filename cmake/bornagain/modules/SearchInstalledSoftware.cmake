@@ -58,6 +58,11 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
         message(FATAL_ERROR "No Python library has been found")
     endif()
     message(STATUS "Found Python libraries version ${PYTHONLIBS_VERSION_STRING} at ${PYTHON_LIBRARIES}; includes at ${PYTHON_INCLUDE_DIRS}")
+
+    if(NOT WIN32)
+        ValidatePythonInstallation()
+    endif()
+
     find_package(Numpy REQUIRED)
     find_package(PyYaml REQUIRED)
 endif()

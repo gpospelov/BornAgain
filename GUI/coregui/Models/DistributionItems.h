@@ -110,4 +110,17 @@ public:
     virtual void init_distribution(double value);
 };
 
+class BA_CORE_API_ DistributionTrapezoidItem : public DistributionItem
+{
+public:
+    static const QString P_CENTER;
+    static const QString P_LEFTWIDTH;
+    static const QString P_MIDDLEWIDTH;
+    static const QString P_RIGHTWIDTH;
+    DistributionTrapezoidItem();
+
+    virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const;
+    virtual void init_distribution(double value);
+};
+
 #endif // DISTRIBUTIONITEMS_H

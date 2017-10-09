@@ -47,6 +47,9 @@ BA_CORE_API_ std::string removeSubstring(const std::string& text, const std::str
 //! Returns scientific string representing given value of any numeric type.
 template <typename T> std::string scientific(const T value, int n = 10); // implementation below
 
+//! Returns new string which is lower case of text.
+BA_CORE_API_ std::string to_lower(std::string text);
+
 } // namespace StringUtils
 
 // ************************************************************************** //

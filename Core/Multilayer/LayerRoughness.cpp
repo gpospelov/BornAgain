@@ -26,6 +26,11 @@ LayerRoughness::LayerRoughness()
     initialize();
 }
 
+//! Constructor of layer roughness.
+//! @param sigma: rms of the roughness in nanometers
+//! @param hurstParameter: hurst parameter which describes how jagged the interface,
+//! dimensionless [0.0, 1.0], where 0.0 gives more spikes, 1.0 more smoothness
+//! @param lateralCorrLength: lateral correlation length of the roughness in nanometers
 LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)
     : m_sigma(sigma)
     , m_hurstParameter(hurstParameter)

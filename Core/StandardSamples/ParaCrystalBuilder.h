@@ -21,6 +21,7 @@
 
 class IFTDistribution2D;
 class ISample;
+class FTDistribution2DComponents;
 
 //! @ingroup standard_samples
 //! Builds sample: cylinders with 1DDL structure factor (IsGISAXS example #4).
@@ -30,9 +31,6 @@ class BA_CORE_API_ RadialParaCrystalBuilder : public IMultiLayerBuilder
 public:
     RadialParaCrystalBuilder();
     MultiLayer* buildSample() const;
-
-protected:
-    void init_parameters();
 
 private:
     double m_corr_peak_distance;
@@ -52,7 +50,12 @@ public:
     Basic2DParaCrystalBuilder();
     virtual ~Basic2DParaCrystalBuilder();
     virtual MultiLayer* buildSample() const;
+
+    MultiLayer* createSample(size_t index=0);
+    size_t size();
+
 private:
+    FTDistribution2DComponents& pdf_components();
     std::unique_ptr<IFTDistribution2D> m_pdf1;
     std::unique_ptr<IFTDistribution2D> m_pdf2;
 };
@@ -65,9 +68,6 @@ class BA_CORE_API_ HexParaCrystalBuilder : public IMultiLayerBuilder
 public:
     HexParaCrystalBuilder();
     virtual MultiLayer* buildSample() const;
-
-protected:
-    virtual void init_parameters();
 
 private:
     double m_peak_distance;

@@ -71,7 +71,6 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
     fit_suite.initPrint(10)
     fit_suite.addSimulationAndRealData(simulation, real_data)
-    print("1.8")
 
     # setting fitting parameters with starting values
     fit_suite.addFitParameter(

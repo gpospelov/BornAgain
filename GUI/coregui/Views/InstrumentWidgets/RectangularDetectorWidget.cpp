@@ -106,10 +106,10 @@ void RectangularDetectorWidget::setColumnResizer(ColumnResizer* columnResizer)
     if (m_columnResizer) {
         connect(m_columnResizer, SIGNAL(destroyed(QObject*)), this,
                 SLOT(onColumnResizerDestroyed(QObject*)));
+        m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
+        m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
+        m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
     }
-    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
-    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
-    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
 }
 
 //! create various editors to hold RectangularDetector properties

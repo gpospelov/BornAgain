@@ -20,6 +20,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 #include <QItemSelectionModel>
+#include <memory>
 
 class SessionModel;
 class SessionItem;
@@ -27,6 +28,7 @@ class QItemSelection;
 class QModelIndex;
 class QAbstractItemDelegate;
 class QListView;
+class SessionDecorationModel;
 
 //! The ItemSelectorWidget class holds QListView to show top level items of SessionModel.
 //! Used in InstrumentView, ImportDataView, JobSelectorView to switch between items.
@@ -37,6 +39,7 @@ class BA_CORE_API_ ItemSelectorWidget : public QWidget
 
 public:
     ItemSelectorWidget(QWidget* parent = 0);
+    ~ItemSelectorWidget();
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -67,6 +70,7 @@ protected:
 
     QListView* m_listView;
     SessionModel* m_model;
+    std::unique_ptr<SessionDecorationModel> m_decorationModel;
 };
 
 #endif // ITEMSELECTORWIDGET_H

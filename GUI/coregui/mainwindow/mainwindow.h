@@ -73,7 +73,6 @@ public slots:
     void onFocusRequest(int index);
     void openRecentProject();
     void onRunSimulationShortcut();
-    void onAboutApplication();
     void onSessionModelViewActive(bool isActive);
 
 protected:

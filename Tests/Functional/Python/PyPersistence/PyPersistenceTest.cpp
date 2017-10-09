@@ -21,6 +21,7 @@
 #include "PythonFormatting.h"
 #include "SimulationFactory.h"
 #include "StringUtils.h"
+#include "TestUtils.h"
 #include <yaml-cpp/yaml.h>
 #include <cstdio>
 #include <fstream>
@@ -29,8 +30,9 @@
 
 PyPersistenceTest::PyPersistenceTest(
     const std::string& path, const std::string& name, double threshold)
-    : IReferencedTest(name, "persistence test on script "+name, threshold)
+    : IFunctionalTest(name, "persistence test on script "+name)
     , m_path(path)
+    , m_threshold(threshold)
 {}
 
 //! Runs a Python script, and returns true if the output of the script agrees with reference data.
@@ -45,7 +47,7 @@ bool PyPersistenceTest::runTest()
 
     // Run Python script, which writes output to PYPERSIST_OUT_DIR.
     std::string dat_stem = FileSystemUtils::jointPath(PYPERSIST_OUT_DIR, getName());
-    if (!runPython(m_path + " " + dat_stem))
+    if (!TestUtils::runPython(m_path + " " + dat_stem))
         return false;
 
     // Retrieve new output and reference files
@@ -125,7 +127,7 @@ bool PyPersistenceTest::compareIntensityPair(
 {
     const OutputData<double>* dat = IntensityDataIOFactory::readOutputData( dat_fpath );
     const OutputData<double>* ref = IntensityDataIOFactory::readOutputData( ref_fpath );
-    return compareIntensityMaps(*dat, *ref);
+    return TestUtils::isTheSame(*dat, *ref, m_threshold);
 }
 
 //! Returns true if YAML files from test output and reference agree.

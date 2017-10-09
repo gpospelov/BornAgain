@@ -1,5 +1,5 @@
 #include "FormFactorCoherentSum.h"
-#include "FormFactorTrivial.h"
+#include "FormFactorDot.h"
 #include "Exceptions.h"
 
 class FormFactorCoherentSumTest : public ::testing::Test
@@ -12,7 +12,7 @@ protected:
 TEST_F(FormFactorCoherentSumTest, RelAbundance)
 {
     const double epsilon=1e-12;
-    auto p_ff = new FormFactorTrivial();
+    auto p_ff = new FormFactorDot();
     FormFactorCoherentSum ffw(1.0);
     FormFactorCoherentPart part(p_ff);
     ffw.addCoherentPart(part);
@@ -24,7 +24,7 @@ TEST_F(FormFactorCoherentSumTest, RelAbundance)
 
 TEST_F(FormFactorCoherentSumTest, FormFactor)
 {
-    auto p_ff = new FormFactorTrivial();
+    auto p_ff = new FormFactorDot();
     FormFactorCoherentSum ffw(1.0);
     FormFactorCoherentPart part(p_ff);
     ffw.addCoherentPart(part);

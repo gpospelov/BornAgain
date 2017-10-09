@@ -118,7 +118,7 @@ public:
             const Beam& beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
 
     //! Returns empty detector map in given axes units.
-    virtual OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
+    OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
 
     //! Inits axes of OutputData to match the detector and sets values to zero.
     virtual void initOutputData(OutputData<double> &data) const;
@@ -155,9 +155,6 @@ protected:
     //! Create an IPixel for the given OutputData object and index
     virtual IPixel* createPixel(size_t index) const=0;
 
-    //! Registers some class members for later access via parameter pool.
-    virtual void init_parameters() {}
-
     //! Generates an axis with correct name and default binning for given index
     virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const=0;
 
@@ -189,6 +186,8 @@ protected:
 private:
     void setDataToDetectorMap(OutputData<double> &detectorMap,
                               const std::vector<SimulationElement> &elements) const;
+    void check_axes_units(EAxesUnits units) const;
+
     std::unique_ptr<RegionOfInterest> m_region_of_interest;
     DetectionProperties m_detection_properties;
 };

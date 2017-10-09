@@ -40,9 +40,8 @@ public:
 
     ~Layer();
 
-    Layer* clone() const override final { return new Layer(*this); }
+    Layer* clone() const override final;
     Layer* cloneInvertB() const;
-    SafePointerVector<Layer> cloneSliced(ZLimits limits, ELayerType layer_type) const;
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
@@ -66,6 +65,8 @@ public:
     void setNumberOfSlices(unsigned int n_slices) { m_n_slices = n_slices; }
     unsigned int numberOfSlices() const { return m_n_slices; }
 
+    SafePointerVector<Layer> slice(ZLimits limits, ELayerType layer_type) const;
+
     //! Return the potential term that is used in the one-dimensional Fresnel calculations
     complex_t scalarReducedPotential(kvector_t k, double n_ref) const;
 
@@ -81,11 +82,8 @@ public:
     static constexpr double Magnetic_Permeability = 4e-7 * M_PI;
 
 private:
-    Layer(const Layer& other);
     //! Clone the layer without its layouts
-    Layer* emptyClone() const;
-    //! Clones and offsets the particles in the z-direction
-    Layer* cloneWithOffset(double offset) const;
+    Layer* shallowClone() const;
 
     //! Return the magnetic B-field in this layer
     kvector_t bField() const;

@@ -21,14 +21,12 @@
 IsGISAXSDetector::IsGISAXSDetector()
 {
     setName(BornAgain::IsGISAXSDetectorType);
-    init_parameters();
 }
 
 IsGISAXSDetector::IsGISAXSDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha,
                                    double alpha_min, double alpha_max)
 {
     setName(BornAgain::IsGISAXSDetectorType);
-    init_parameters();
     setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 }
 
@@ -36,7 +34,6 @@ IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector &other)
     : SphericalDetector(other)
 {
     setName(BornAgain::IsGISAXSDetectorType);
-    init_parameters();
 }
 
 IsGISAXSDetector *IsGISAXSDetector::clone() const
@@ -56,7 +53,7 @@ IAxis *IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min, dou
     }    return new CustomBinAxis(getAxisName(index), n_bins, min, max);
 }
 
-size_t IsGISAXSDetector::getIndexOfSpecular(const Beam&) const
+size_t IsGISAXSDetector::getIndexOfSpecular(const Beam& /*beam*/) const
 {
     return getTotalSize();
 }

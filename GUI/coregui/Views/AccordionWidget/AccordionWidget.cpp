@@ -57,7 +57,7 @@ AccordionWidget::AccordionWidget(QWidget *parent) : QWidget(parent)
                      &AccordionWidget::numberOfPanesChanged);
 }
 
-int AccordionWidget::numberOfContentPanes() { return this->contentPanes.size(); }
+int AccordionWidget::numberOfContentPanes() { return static_cast<int>(contentPanes.size()); }
 
 int AccordionWidget::addContentPane(QString header)
 {
@@ -207,8 +207,6 @@ void AccordionWidget::getActiveContentPaneIndex(std::vector<int> &indexVector)
                   });
 }
 
-int AccordionWidget::getNumberOfContentPanes() { return this->contentPanes.size(); }
-
 void AccordionWidget::setMultiActive(bool status) { this->multiActive = status; }
 
 bool AccordionWidget::getMultiActive() { return this->multiActive; }
@@ -242,9 +240,9 @@ int AccordionWidget::internalAddContentPane(QString header, QFrame *cframe,
     QObject::connect(cpane, &ContentPane::clicked,
                      [this, cpane]() { this->handleClickedSignal(cpane); });
 
-    emit numberOfContentPanesChanged(this->contentPanes.size());
+    emit numberOfContentPanesChanged(numberOfContentPanes());
 
-    return this->contentPanes.size() - 1;
+    return numberOfContentPanes() - 1;
 }
 
 bool AccordionWidget::internalInsertContentPane(uint index, QString header,
@@ -277,7 +275,7 @@ bool AccordionWidget::internalInsertContentPane(uint index, QString header,
     QObject::connect(cpane, &ContentPane::clicked,
                      [this, cpane]() { this->handleClickedSignal(cpane); });
 
-    emit numberOfContentPanesChanged(this->contentPanes.size());
+    emit numberOfContentPanesChanged(numberOfContentPanes());
 
     return true;
 }
@@ -313,7 +311,7 @@ bool AccordionWidget::internalRemoveContentPane(bool deleteOject, int index,
 
     this->contentPanes.erase(this->contentPanes.begin() + index);
 
-    emit numberOfContentPanesChanged(this->contentPanes.size());
+    emit numberOfContentPanesChanged(numberOfContentPanes());
 
     return true;
 }
@@ -366,13 +364,13 @@ bool AccordionWidget::checkIndexError(uint index, bool sizeIndexAllowed,
     // Update, I removed the 0 exclusion in the second if statement. Really a
     // fix??
     if (sizeIndexAllowed) {
-        if (index != 0 && index > this->contentPanes.size()) {
+        if (index != 0 && static_cast<int>(index) > numberOfContentPanes()) {
             qDebug() << Q_FUNC_INFO << errMessage;
             this->errorString = errMessage;
             return true;
         }
     } else {
-        if (index >= this->contentPanes.size()) {
+        if (static_cast<int>(index) >= numberOfContentPanes()) {
             qDebug() << Q_FUNC_INFO << errMessage;
             this->errorString = errMessage;
             return true;

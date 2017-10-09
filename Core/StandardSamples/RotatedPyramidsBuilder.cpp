@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "RotatedPyramidsBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorPyramid.h"
 #include "HomogeneousMaterial.h"
 #include "Layer.h"
@@ -28,17 +29,7 @@ RotatedPyramidsBuilder::RotatedPyramidsBuilder()
     , m_height(5*Units::nanometer)
     , m_alpha(Units::deg2rad(54.73 ))
     , m_zangle(45.*Units::degree)
-{
-    init_parameters();
-}
-
-void RotatedPyramidsBuilder::init_parameters()
-{
-    registerParameter("length", &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("height", &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-    registerParameter("alpha", &m_alpha  ).setUnit(BornAgain::UnitsRad);
-    registerParameter("zangle", &m_zangle).setUnit(BornAgain::UnitsRad);
-}
+{}
 
 MultiLayer* RotatedPyramidsBuilder::buildSample() const
 {

@@ -127,6 +127,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Dot" icon="images/ff_Dot_32.png">
+            <widget class="FormFactorDot">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
         <categoryentry name="Ellipsoidal cylinder" icon="images/ff_EllipsoidalCylinder_32.png">
             <widget class="FormFactorEllipsoidalCylinder">
                 <property name="objectName">
@@ -272,6 +280,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry name="Meso Crystal" icon="images/ff_Mesocrystal_32.png">
+            <widget class="MesoCrystal">
+                <property name="objectName">
+                     <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
         <categoryentry name="Distributed particle" icon="images/SizeDistribution.png">
             <widget class="ParticleDistribution">
                 <property name="objectName">
@@ -350,6 +366,14 @@
 
         <categoryentry name="Hexagonal lattice with basis" icon="images/sample_layers2.png">
             <widget class="example09">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry name="Mesocrystal" icon="images/sample_layers2.png">
+            <widget class="example10">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>

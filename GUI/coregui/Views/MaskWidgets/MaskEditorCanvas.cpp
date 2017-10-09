@@ -14,6 +14,7 @@
 //
 // ************************************************************************** //
 
+#include "GUIHelpers.h"
 #include "MaskEditorCanvas.h"
 #include "MaskGraphicsProxy.h"
 #include "MaskGraphicsScene.h"
@@ -26,10 +27,49 @@
 #include "projectmanager.h"
 #include "ColorMap.h"
 #include "IntensityDataItem.h"
+#include "RealDataItem.h"
+#include "IntensityDataFunctions.h"
 #include "MaskItems.h"
 #include <QGraphicsRectItem>
 #include <QModelIndex>
 #include <QVBoxLayout>
+
+namespace {
+bool openRotateWarningDialog(QWidget* parent) {
+    const QString title("Rotate data");
+
+    const QString message("Rotation will break the link between the data and the instrument. "
+                          "Detector masks, if they exist, will be removed.");
+
+    return GUIHelpers::question(parent, title, message, "Do you wish to rotate the data?",
+        "Yes, please rotate", "No, cancel data rotation");
+}
+
+//! Returns true, if rotation will affect linked instrument or mask presence.
+
+bool rotationAffectsSetup(IntensityDataItem& intensityItem) {
+    if (intensityItem.parent()->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool())
+        return true;
+
+    if (intensityItem.maskContainerItem() && intensityItem.maskContainerItem()->hasChildren())
+        return true;
+
+    return false;
+}
+
+//! Resets linked instruments and masks.
+
+void resetSetup(IntensityDataItem& intensityItem) {
+
+    auto data_parent = intensityItem.parent();
+    if (data_parent->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool())
+        data_parent->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
+
+    if (auto maskContainer = intensityItem.maskContainerItem())
+        maskContainer->model()->removeRows(0, maskContainer->rowCount(), maskContainer->index());
+}
+
+}
 
 
 MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
@@ -107,6 +147,26 @@ void MaskEditorCanvas::onResetViewRequest()
     } else {
         m_intensityDataItem->resetView();
     }
+}
+
+
+void MaskEditorCanvas::onRotateDataRequest()
+{
+    Q_ASSERT(m_intensityDataItem);
+
+    if (rotationAffectsSetup(*m_intensityDataItem)) {
+        if (!openRotateWarningDialog(this))
+            return;
+
+        resetSetup(*m_intensityDataItem);
+    }
+
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    const auto input = m_intensityDataItem->getOutputData();
+    m_intensityDataItem->setOutputData(
+        IntensityDataFunctions::createRearrangedDataSet(*input, 1).release());
+    m_intensityDataItem->setAxesRangeToData();
+    QApplication::restoreOverrideCursor();
 }
 
 //! Returns true if IntensityData is currently at 100% zoom level

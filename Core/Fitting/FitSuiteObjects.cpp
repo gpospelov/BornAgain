@@ -136,6 +136,11 @@ std::vector<const INode*> FitSuiteObjects::getChildren() const
     return result;
 }
 
+std::string FitSuiteObjects::getDefaultAxesUnits(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->getDefaultAxisUnits();
+}
+
 double FitSuiteObjects::calculateChiSquaredValue()
 {
     m_chi2_module->processFitElements(m_fit_elements.begin(), m_fit_elements.end());
@@ -144,7 +149,7 @@ double FitSuiteObjects::calculateChiSquaredValue()
     for (auto it = m_fit_elements.begin(); it != m_fit_elements.end(); ++it)
         result += it->getSquaredDifference();
 
-    int fnorm = m_fit_elements.size() - m_nfree_parameters;
+    int fnorm = static_cast<int>(m_fit_elements.size()) - m_nfree_parameters;
     if (fnorm <= 0)
         throw Exceptions::LogicErrorException(
             "FitSuiteObjects::calculateChiSquaredValue() -> Error. Normalization is 0");

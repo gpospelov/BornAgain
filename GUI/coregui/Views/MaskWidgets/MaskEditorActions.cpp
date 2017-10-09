@@ -65,6 +65,12 @@ MaskEditorActions::MaskEditorActions(QWidget *parent)
     m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
     m_togglePanelAction->setToolTip("Toggle Property Panel");
     connect(m_togglePanelAction, SIGNAL(triggered()), this, SIGNAL(propertyPanelRequest()));
+
+    m_rotateDataAction = new QAction(this);
+    m_rotateDataAction->setText("Rotate");
+    m_rotateDataAction->setIcon(QIcon(":/images/toolbar16light_rotate.svg"));
+    m_rotateDataAction->setToolTip("Rotate intensity data by 90 deg counterclockwise");
+    connect(m_rotateDataAction, SIGNAL(triggered()), this, SIGNAL(rotateDataRequest()));
 }
 
 void MaskEditorActions::setModel(SessionModel *maskModel, const QModelIndex &rootIndex)
@@ -90,7 +96,7 @@ QAction *MaskEditorActions::bringToFrontAction()
 
 QList<QAction *> MaskEditorActions::topToolBarActions()
 {
-    return QList<QAction*>() << m_resetViewAction << m_savePlotAction << m_togglePanelAction;
+    return QList<QAction*>() << m_resetViewAction << m_savePlotAction << m_togglePanelAction << m_rotateDataAction;
 }
 
 //! Constructs MaskItem context menu following the request from MaskGraphicsScene

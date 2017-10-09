@@ -26,7 +26,6 @@
 #include "SimulationView.h"
 #include "UpdateNotifier.h"
 #include "WelcomeView.h"
-#include "aboutapplicationdialog.h"
 #include "actionmanager.h"
 #include "fancytabwidget.h"
 #include "hostosinfo.h"
@@ -153,12 +152,6 @@ void MainWindow::openRecentProject()
 void MainWindow::onRunSimulationShortcut()
 {
     m_simulationView->onRunSimulationShortcut();
-}
-
-void MainWindow::onAboutApplication()
-{
-    AboutApplicationDialog dialog(this);
-    dialog.exec();
 }
 
 //! Inserts/removes developers SessionModelView on the left fancy tabbar.

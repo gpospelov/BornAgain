@@ -29,9 +29,6 @@ public:
     MagneticSubstrateZeroFieldBuilder();
     MultiLayer* buildSample() const;
 
-protected:
-    void init_parameters();
-
 private:
     double m_sphere_radius;
 };
@@ -44,9 +41,6 @@ class BA_CORE_API_ MagneticRotationBuilder : public IMultiLayerBuilder
 public:
     MagneticRotationBuilder();
     MultiLayer* buildSample() const;
-
-protected:
-    void init_parameters();
 
 private:
     double m_sphere_radius;

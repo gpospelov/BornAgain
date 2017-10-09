@@ -42,10 +42,10 @@ public:
     ~IParticle() {}
     IParticle* clone() const  override=0;
 
-    void accept(INodeVisitor* visitor) const  override{ visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     //! Create a form factor for this particle
-    IFormFactor* createFormFactor() const;
+    virtual IFormFactor* createFormFactor() const;
 
     //! Create a sliced form factor for this particle
     virtual SlicedParticle createSlicedParticle(ZLimits limits) const;
@@ -53,16 +53,20 @@ public:
     //! Returns particle position.
     kvector_t position() const { return m_position; }
 
-    //! Sets particle position.
+    //! Sets relative position of the particle's reference point in the
+    //! coordinate system of parent.
+    //! @param position: relative position vector (components are in nanometers)
     void setPosition(kvector_t position) { m_position = position; }
 
-    //! Sets particle position.
+    //! Sets relative position of the particle's reference point in the
+    //! coordinate system of parent.
+    //! @param x: x-coordinate in nanometers
+    //! @param y: y-coordinate in nanometers
+    //! @param z: z-coordinate in nanometers
     void setPosition(double x, double y, double z) { m_position = kvector_t(x, y, z); }
 
-    //! Applies extra translation by adding it to the current one
-    void applyTranslation(kvector_t displacement);
-
-    void translateZ(double offset) override;
+    //! Translates the particle
+    void translate(kvector_t translation) override final;
 
     //! Returns rotation object
     const IRotation* rotation() const;
@@ -71,7 +75,7 @@ public:
     void setRotation(const IRotation& rotation);
 
     //! Applies transformation by composing it with the existing one
-    void applyRotation(const IRotation& rotation);
+    void rotate(const IRotation& rotation);
 
     std::vector<const INode*> getChildren() const override;
 

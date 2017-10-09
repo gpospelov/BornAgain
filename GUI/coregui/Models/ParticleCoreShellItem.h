@@ -18,20 +18,16 @@
 #define PARTICLECORESHELLITEM_H
 
 #include "SessionGraphicsItem.h"
-#include "ParticleCoreShell.h"
 
+class ParticleCoreShell;
 
 class BA_CORE_API_ ParticleCoreShellItem : public SessionGraphicsItem
 {
-
 public:
     const static QString T_CORE;
     const static QString T_SHELL;
-    enum ECoreShell { CORE, SHELL};
-    explicit ParticleCoreShellItem();
-    virtual ~ParticleCoreShellItem() {}
+    ParticleCoreShellItem();
     std::unique_ptr<ParticleCoreShell> createParticleCoreShell() const;
-
 };
 
 #endif // PARTICLECORESHELLITEM_H

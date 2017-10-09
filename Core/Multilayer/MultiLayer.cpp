@@ -44,12 +44,12 @@ void MultiLayer::init_parameters()
 
 MultiLayer* MultiLayer::clone() const
 {
-    return cloneGeneric( [](const Layer* p_layer) { return p_layer->clone(); } );
+    return genericClone( [](const Layer* p_layer) { return p_layer->clone(); } );
 }
 
 MultiLayer* MultiLayer::cloneInvertB() const
 {
-    return cloneGeneric( [](const Layer* p_layer) { return p_layer->cloneInvertB(); } );
+    return genericClone( [](const Layer* p_layer) { return p_layer->cloneInvertB(); } );
 }
 
 MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
@@ -69,7 +69,7 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
                         : (i==numberOfLayers()-1) ? Layer::BOTTOMLAYER
                         : Layer::INTERMEDIATELAYER;
         SafePointerVector<Layer> sliced_layers =
-                m_layers[i]->cloneSliced(layer_limits[i], layer_type);
+                m_layers[i]->slice(layer_limits[i], layer_type);
         if (sliced_layers.size()==0)
             throw std::runtime_error("MultiLayer::cloneSliced: slicing layer produced empty list,");
         if (i>0 && p_interface->getRoughness())
@@ -86,13 +86,13 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
 //! nInterfaces = nLayers-1, first layer in multilayer doesn't have interface.
 const LayerInterface* MultiLayer::layerTopInterface(size_t i_layer) const
 {
-    return i_layer>0 ? m_interfaces[ check_interface_index(i_layer-1) ] : 0;
+    return i_layer>0 ? m_interfaces[ check_interface_index(i_layer-1) ] : nullptr;
 }
 
 //! Returns pointer to the bottom interface of the layer.
 const LayerInterface* MultiLayer::layerBottomInterface(size_t i_layer) const
 {
-    return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
+    return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : nullptr;
 }
 
 HomogeneousMaterial MultiLayer::layerMaterial(size_t i_layer) const
@@ -113,7 +113,7 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
     if (numberOfLayers()) {
         // not the top layer
         const Layer* p_last_layer = m_layers.back();
-        LayerInterface* interface(0);
+        LayerInterface* interface(nullptr);
         if (roughness.getSigma() != 0.0)
             interface = LayerInterface::createRoughInterface(p_last_layer, p_new_layer, roughness);
         else
@@ -163,12 +163,12 @@ double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k
     return corr;
 }
 
-int MultiLayer::indexOfLayer(const Layer* p_layer) const
+size_t MultiLayer::indexOfLayer(const Layer* p_layer) const
 {
     for (size_t i=0; i<numberOfLayers(); ++i)
         if (p_layer == m_layers[i])
             return i;
-    return -1;
+    throw std::out_of_range("MultiLayer::indexOfLayer: layer not found");
 }
 
 bool MultiLayer::containsMagneticMaterial() const
@@ -256,7 +256,7 @@ size_t MultiLayer::check_interface_index(size_t i_interface) const
     return i_interface;
 }
 
-MultiLayer* MultiLayer::cloneGeneric(const std::function<Layer*(const Layer*)>& layer_clone) const
+MultiLayer* MultiLayer::genericClone(const std::function<Layer*(const Layer*)>& layer_clone) const
 {
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());

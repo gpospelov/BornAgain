@@ -126,8 +126,7 @@ std::unique_ptr<MultiLayer> IMinimizerTest::createSample()
 std::unique_ptr<GISASSimulation> IMinimizerTest::createSimulation()
 {
     SimulationFactory simRegistry;
-    std::unique_ptr<GISASSimulation> result(simRegistry.createItem(m_simulation_name));
-    return result;
+    return simRegistry.create(m_simulation_name);
 }
 
 std::unique_ptr<OutputData<double> > IMinimizerTest::createOutputData(

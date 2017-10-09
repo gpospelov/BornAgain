@@ -21,7 +21,7 @@ TEST_F(Histogram1DTest, FixedBinConstructor)
     EXPECT_THROW(hist.getYaxis(), Exceptions::LogicErrorException);
     for(size_t index=0; index<hist.getTotalNumberOfBins(); ++index) {
         EXPECT_EQ(index, hist.getGlobalBin(index));
-        EXPECT_EQ(int(index), hist.getXaxisIndex(index));
+        EXPECT_EQ(index, hist.getXaxisIndex(index));
     }
 }
 
@@ -122,7 +122,7 @@ TEST_F(Histogram1DTest, crop)
     Histogram1D hist(4, xedges);
 
     for(size_t i=0; i<xvalues.size(); ++i) {
-        hist.fill(xvalues[i], i*10);
+        hist.fill(xvalues[i], i*10.0);
     }
 
     std::unique_ptr<Histogram1D > crop(hist.crop(-0.49, 0.99));

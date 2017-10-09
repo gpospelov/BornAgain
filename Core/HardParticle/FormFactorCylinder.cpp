@@ -20,6 +20,9 @@
 #include "MathConstants.h"
 #include "RealParameter.h"
 
+//! Constructor of a cylinder with a circular base.
+//! @param radius: radius of the circular base in nanometers
+//! @param height: height of the cylinder in nanometers
 FormFactorCylinder::FormFactorCylinder(double radius, double height)
     : m_radius(radius), m_height(height)
 {

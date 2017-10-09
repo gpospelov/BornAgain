@@ -76,6 +76,7 @@ std::string StringUtils::join(const std::vector<std::string>& joinable, const st
 {
     std::string result;
     size_t n = joinable.size();
+    if (n==0) return result;
     for(size_t i=0; i<n-1; ++i)
         result += joinable[i] + joint;
     result += joinable[n-1];
@@ -88,4 +89,10 @@ std::string StringUtils::removeSubstring(const std::string &text, const std::str
     for(std::string::size_type i=result.find(substr); i!=std::string::npos; i=result.find(substr))
         result.erase(i, substr.length());
     return result;
+}
+
+std::string StringUtils::to_lower(std::string text)
+{
+    boost::to_lower(text);
+    return text;
 }

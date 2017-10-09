@@ -24,7 +24,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../../TestMachinery
 )
 
-add_executable(PyPersistenceTest RunPyPersistenceTest.cpp PyPersistenceTest.h PyPersistenceTest.cpp)
+add_executable(PyPersistenceTest main.cpp PyPersistenceTest.h PyPersistenceTest.cpp)
 target_link_libraries(PyPersistenceTest BornAgainCore BornAgainTestMachinery)
 
 # Python persistence test

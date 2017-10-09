@@ -33,6 +33,7 @@ public:
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
+    double getRemovedTop() const { return m_dh; }
 
     double radialExtension() const override final { return m_radius; }
 

@@ -116,6 +116,13 @@ void MaskEditor::setup_connections()
             SLOT(onSavePlotRequest())
             );
 
+    // rotate data request is propagated from editorActions to intensity data in editor canvas
+    connect(m_editorActions,
+            SIGNAL(rotateDataRequest()),
+            m_editorCanvas,
+            SLOT(onRotateDataRequest())
+            );
+
     // selection/drawing activity is propagated from ToolBar to graphics scene
     connect(m_toolBar,
             SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),

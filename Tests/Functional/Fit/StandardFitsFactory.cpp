@@ -19,7 +19,6 @@
 #include "AdjustMinimizerStrategyTest.h"
 #include "StandaloneFitTest.h"
 #include "MultiPatternFitTest.h"
-#include <boost/format.hpp>
 
 StandardFitsFactory::StandardFitsFactory()
 {
@@ -76,24 +75,5 @@ StandardFitsFactory::StandardFitsFactory()
     registerItem(
         "StandaloneFit",
         create_new<StandaloneFitTest>,
-        "Test of standalone fit of arbitrary functions");
-}
-
-IFunctionalTest* StandardFitsFactory::createTest(const std::string& test_name)
-{
-    IFunctionalTest* result = createItem(test_name);
-    result->setDescription(m_descriptions[test_name]);
-    return result;
-}
-
-bool StandardFitsFactory::isValidTest(const std::string& test_name)
-{
-    return m_callbacks.find(test_name) != m_callbacks.end();
-}
-
-void StandardFitsFactory::printCatalogue(std::ostream& ostr)
-{
-    for(DescriptionMap_t::iterator it=m_descriptions.begin(); it!=m_descriptions.end(); ++it) {
-        ostr << boost::format("%-35s | %-50s\n") % it->first % it->second;
-    }
+                "Test of standalone fit of arbitrary functions");
 }

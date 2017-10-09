@@ -17,6 +17,7 @@
 #include "ItemSelectorWidget.h"
 #include "SessionItem.h"
 #include "SessionModel.h"
+#include "SessionDecorationModel.h"
 #include "mainwindow_constants.h"
 #include <QListView>
 #include <QVBoxLayout>
@@ -37,6 +38,11 @@ ItemSelectorWidget::ItemSelectorWidget(QWidget* parent)
 
     connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint&)), this,
             SLOT(onCustomContextMenuRequested(const QPoint&)));
+}
+
+ItemSelectorWidget::~ItemSelectorWidget()
+{
+
 }
 
 QSize ItemSelectorWidget::sizeHint() const
@@ -112,7 +118,8 @@ void ItemSelectorWidget::connectModel()
     if (!m_model)
         return;
 
-    m_listView->setModel(m_model);
+    m_decorationModel.reset(new SessionDecorationModel(nullptr, m_model));
+    m_listView->setModel(m_decorationModel.get());
 
     connect(m_listView->selectionModel(),
             SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this,

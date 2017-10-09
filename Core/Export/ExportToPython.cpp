@@ -21,6 +21,7 @@
 #include "GISASSimulation.h"
 #include "HomogeneousMaterial.h"
 #include "IFormFactor.h"
+#include "INodeUtils.h"
 #include "InterferenceFunctions.h"
 #include "Layer.h"
 #include "LayerInterface.h"
@@ -50,6 +51,7 @@ class IFormFactor;
 class LayerRoughness;
 
 using namespace PythonFormatting;
+using namespace INodeUtils;
 
 namespace {
 
@@ -68,11 +70,6 @@ namespace {
         "    return simulation.getIntensityData()\n"
         "\n\n";
 
-    const std::string mainProgram =
-        "if __name__ == '__main__': \n"
-        "    result = run_simulation()\n"
-        "    ba.plot_intensity_data(result)\n";
-
     //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
     std::function<std::string(double)> printFunc(const IDetector2D* detector)
     {
@@ -86,52 +83,34 @@ namespace {
 
 } // namespace
 
-ExportToPython::ExportToPython(const MultiLayer& multilayer)
-    : m_label(new SampleLabelHandler())
-{
-    for( auto x: multilayer.containedMaterials() )
-        m_label->insertMaterial(x);
-    for( auto x: multilayer.containedSubclass<Layer>() )
-        m_label->insertLayer(x);
-    for( auto x: multilayer.containedSubclass<LayerRoughness>() )
-        m_label->insertRoughness(x);
-    for( auto x: multilayer.containedSubclass<MultiLayer>() )
-        m_label->insertMultiLayer(x);
-    for( auto x: multilayer.containedSubclass<IFormFactor>() )
-        m_label->insertFormFactor(x);
-    for( auto x: multilayer.containedSubclass<IInterferenceFunction>() )
-        m_label->insertInterferenceFunction(x);
-    for( auto x: multilayer.containedSubclass<Particle>() )
-        m_label->insertParticle(x);
-    for( auto x: multilayer.containedSubclass<ParticleCoreShell>() )
-        m_label->insertParticleCoreShell(x);
-    for( auto x: multilayer.containedSubclass<ParticleComposition>() )
-        m_label->insertParticleComposition(x);
-    for( auto x: multilayer.containedSubclass<ParticleDistribution>() )
-        m_label->insertParticleDistribution(x);
-    for( auto x: multilayer.containedSubclass<ILayout>() )
-        m_label->insertLayout(x);
-    for( auto x: multilayer.containedSubclass<IRotation>() )
-        m_label->insertRotation(x);
-    if( multilayer.containedSubclass<MesoCrystal>().size() )
-        throw Exceptions::NotImplementedException(
-            "ExportToPython: class MesoCrystal not yet supported!");
-}
+ExportToPython::ExportToPython(){}
 
 ExportToPython::~ExportToPython()
 {
-    delete m_label;
+}
+
+std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer)
+{
+    initSample(multilayer);
+    return defineGetSample();
 }
 
 //! Returns a Python script that sets up a simulation and runs it if invoked as main program.
 
-std::string ExportToPython::simulationToPythonLowlevel(const GISASSimulation* simulation)
+std::string ExportToPython::generateSimulationCode(const GISASSimulation& simulation,
+                                                   EMainType mainType)
 {
+    if (simulation.sample() == nullptr)
+        throw std::runtime_error("ExportToPython::generateSimulationCode() -> Error. "
+                                 "Simulation is not initialized.");
+
+    initSample(*simulation.sample());
+
     return preamble
         + defineGetSample()
-        + defineGetSimulation(simulation)
+        + defineGetSimulation(&simulation)
         + defineSimulate
-        + mainProgram;
+        + defineMain(mainType);
 }
 
 std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulation) const
@@ -150,6 +129,42 @@ std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulatio
     return result.str();
 }
 
+void ExportToPython::initSample(const MultiLayer& multilayer)
+{
+    m_label.reset(new SampleLabelHandler());
+
+    m_label->insertMultiLayer(&multilayer);
+
+    for( auto x: multilayer.containedMaterials() )
+        m_label->insertMaterial(x);
+    for( auto x: AllDescendantsOfType<Layer>(multilayer) )
+        m_label->insertLayer(x);
+    for( auto x: AllDescendantsOfType<LayerRoughness>(multilayer) )
+        m_label->insertRoughness(x);
+    for( auto x: AllDescendantsOfType<IFormFactor>(multilayer) )
+        m_label->insertFormFactor(x);
+    for( auto x: AllDescendantsOfType<ILayout>(multilayer) )
+        m_label->insertLayout(x);
+    for( auto x: AllDescendantsOfType<IInterferenceFunction>(multilayer) )
+        m_label->insertInterferenceFunction(x);
+    for( auto x: AllDescendantsOfType<Particle>(multilayer) )
+        m_label->insertParticle(x);
+    for( auto x: AllDescendantsOfType<ParticleCoreShell>(multilayer) )
+        m_label->insertParticleCoreShell(x);
+    for( auto x: AllDescendantsOfType<ParticleComposition>(multilayer) )
+        m_label->insertParticleComposition(x);
+    for( auto x: AllDescendantsOfType<ParticleDistribution>(multilayer) )
+        m_label->insertParticleDistribution(x);
+    for( auto x: AllDescendantsOfType<Lattice>(multilayer) )
+        m_label->insertLattice(x);
+    for( auto x: AllDescendantsOfType<Crystal>(multilayer) )
+        m_label->insertCrystal(x);
+    for( auto x: AllDescendantsOfType<MesoCrystal>(multilayer) )
+        m_label->insertMesoCrystal(x);
+    for( auto x: AllDescendantsOfType<IRotation>(multilayer) )
+        m_label->insertRotation(x);
+}
+
 std::string ExportToPython::defineGetSample() const
 {
     return "def getSample():\n"
@@ -159,13 +174,16 @@ std::string ExportToPython::defineGetSample() const
         + defineParticles()
         + defineCoreShellParticles()
         + defineParticleCompositions()
+        + defineLattices()
+        + defineCrystals()
+        + defineMesoCrystals()
         + defineParticleDistributions()
         + defineInterferenceFunctions()
         + defineParticleLayouts()
         + defineRoughnesses()
         + addLayoutsToLayers()
         + defineMultiLayers()
-        + "\n";
+            + "\n";
 }
 
 std::string ExportToPython::defineMaterials() const
@@ -254,9 +272,12 @@ std::string ExportToPython::defineParticles() const
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
         const Particle* p_particle = it->first;
         std::string particle_name = it->second;
+        auto p_ff = OnlyChildOfType<IFormFactor>(*p_particle);
+        if (!p_ff)
+            continue;
         result << indent() << particle_name << " = ba.Particle("
                << m_label->labelMaterial(p_particle->material()) << ", "
-               << m_label->labelFormFactor(p_particle->formFactor()) << ")\n";
+               << m_label->labelFormFactor(p_ff) << ")\n";
         setRotationInformation(p_particle, particle_name, result);
         setPositionInformation(p_particle, particle_name, result);
     }
@@ -295,8 +316,9 @@ std::string ExportToPython::defineParticleDistributions() const
 
     int index(1);
     for (auto it=themap->begin(); it!=themap->end(); ++it) {
-        std::string units = ParameterUtils::mainParUnits(*it->first);
-        ParameterDistribution par_distr = it->first->parameterDistribution();
+        const ParticleDistribution* p_particle_distr = it->first;
+        std::string units = ParameterUtils::mainParUnits(*p_particle_distr);
+        ParameterDistribution par_distr = p_particle_distr->parameterDistribution();
 
         // building distribution functions
         std::string s_distr = "distr_" + std::to_string(index);
@@ -318,8 +340,11 @@ std::string ExportToPython::defineParticleDistributions() const
             result << "\n";
         }
 
+        auto p_particle = OnlyChildOfType<IParticle>(*p_particle_distr);
+        if (!p_particle)
+            continue;
         result << indent() << it->second << " = ba.ParticleDistribution("
-               << m_label->labelParticle(it->first->particle())
+               << m_label->labelParticle(p_particle)
                << ", " << s_par_distr << ")\n";
         index++;
     }
@@ -338,13 +363,91 @@ std::string ExportToPython::defineParticleCompositions() const
         const ParticleComposition* p_particle_composition = it->first;
         std::string particle_composition_name = it->second;
         result << indent() << particle_composition_name << " = ba.ParticleComposition()\n";
-        for (size_t i = 0; i < p_particle_composition->nbrParticles(); ++i) {
+        auto particle_list = ChildNodesOfType<IParticle>(*p_particle_composition);
+        for (auto p_particle : particle_list) {
             result << indent() << particle_composition_name << ".addParticle("
-                   << m_label->labelParticle(p_particle_composition->particle(i))
+                   << m_label->labelParticle(p_particle)
             << ")\n";
         }
         setRotationInformation(p_particle_composition, particle_composition_name, result);
         setPositionInformation(p_particle_composition, particle_composition_name, result);
+    }
+    return result.str();
+}
+
+std::string ExportToPython::defineLattices() const
+{
+    const auto themap = m_label->latticeMap();
+    if (themap->size() == 0)
+        return "";
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n" << indent() << "# Defining 3D lattices\n";
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
+        const Lattice* p_lattice = it->first;
+        std::string lattice_name = it->second;
+        kvector_t bas_a = p_lattice->getBasisVectorA();
+        kvector_t bas_b = p_lattice->getBasisVectorB();
+        kvector_t bas_c = p_lattice->getBasisVectorC();
+        result << indent() << lattice_name << " = ba.Lattice(\n";
+        result << indent() << indent() << "ba.kvector_t("
+               << printNm(bas_a.x()) << ", "
+               << printNm(bas_a.y()) << ", "
+               << printNm(bas_a.z()) << "),\n";
+        result << indent() << indent() << "ba.kvector_t("
+               << printNm(bas_b.x()) << ", "
+               << printNm(bas_b.y()) << ", "
+               << printNm(bas_b.z()) << "),\n";
+        result << indent() << indent() << "ba.kvector_t("
+               << printNm(bas_c.x()) << ", "
+               << printNm(bas_c.y()) << ", "
+               << printNm(bas_c.z()) << "))\n";
+    }
+    return result.str();
+}
+
+std::string ExportToPython::defineCrystals() const
+{
+    const auto themap = m_label->crystalMap();
+    if (themap->size() == 0)
+        return "";
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n" << indent() << "# Defining crystals: basis particle + lattice\n";
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
+        const Crystal* p_crystal = it->first;
+        std::string crystal_name = it->second;
+        auto p_lattice = OnlyChildOfType<Lattice>(*p_crystal);
+        auto p_basis = OnlyChildOfType<IParticle>(*p_crystal);
+        if (!p_lattice || !p_basis)
+            continue;
+        result << indent() << crystal_name << " = ba.Crystal(";
+        result << m_label->labelParticle(p_basis) << ", ";
+        result << m_label->labelLattice(p_lattice) << ")\n";
+    }
+    return result.str();
+}
+
+std::string ExportToPython::defineMesoCrystals() const
+{
+    const auto themap = m_label->mesocrystalMap();
+    if (themap->size() == 0)
+        return "";
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n" << indent() << "# Defining mesocrystals\n";
+    for (auto it=themap->begin(); it!=themap->end(); ++it) {
+        const MesoCrystal* p_mesocrystal = it->first;
+        std::string mesocrystal_name = it->second;
+        auto p_crystal = OnlyChildOfType<Crystal>(*p_mesocrystal);
+        auto p_outer_shape = OnlyChildOfType<IFormFactor>(*p_mesocrystal);
+        if (!p_crystal || ! p_outer_shape)
+            continue;
+        result << indent() << mesocrystal_name << " = ba.MesoCrystal(";
+        result << m_label->labelCrystal(p_crystal) << ", ";
+        result << m_label->labelFormFactor(p_outer_shape) << ")\n";
+        setRotationInformation(p_mesocrystal, mesocrystal_name, result);
+        setPositionInformation(p_mesocrystal, mesocrystal_name, result);
     }
     return result.str();
 }
@@ -363,14 +466,14 @@ std::string ExportToPython::defineInterferenceFunctions() const
         if (dynamic_cast<const InterferenceFunctionNone*>(interference))
             result << indent() << it->second << " = ba.InterferenceFunctionNone()\n";
 
-        else if (const auto* oneDLattice
+        else if (auto p_lattice_1d
                  = dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
-            const Lattice1DParameters latticeParameters = oneDLattice->getLatticeParameters();
+            const Lattice1DParameters latticeParameters = p_lattice_1d->getLatticeParameters();
             result << indent() << it->second << " = ba.InterferenceFunction1DLattice("
                    << printNm(latticeParameters.m_length) << ", "
                    << printDegrees(latticeParameters.m_xi) << ")\n";
 
-            const IFTDecayFunction1D* pdf = oneDLattice->decayFunction();
+            auto pdf = OnlyChildOfType<IFTDecayFunction1D>(*p_lattice_1d);
 
             if (pdf->decayLength() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
@@ -378,21 +481,21 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
         }
 
-        else if (const auto* oneDParaCrystal
+        else if (auto p_para_radial
                  = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
-                   << printNm(oneDParaCrystal->peakDistance()) << ", "
-                   << printNm(oneDParaCrystal->dampingLength()) << ")\n";
+                   << printNm(p_para_radial->peakDistance()) << ", "
+                   << printNm(p_para_radial->dampingLength()) << ")\n";
 
-            if (oneDParaCrystal->kappa() != 0.0)
+            if (p_para_radial->kappa() != 0.0)
                 result << indent() << it->second << ".setKappa("
-                       << printDouble(oneDParaCrystal->kappa()) << ")\n";
+                       << printDouble(p_para_radial->kappa()) << ")\n";
 
-            if (oneDParaCrystal->domainSize() != 0.0)
+            if (p_para_radial->domainSize() != 0.0)
                 result << indent() << it->second << ".setDomainSize("
-                       << printDouble(oneDParaCrystal->domainSize()) << ")\n";
+                       << printDouble(p_para_radial->domainSize()) << ")\n";
 
-            const IFTDistribution1D* pdf = oneDParaCrystal->probabilityDistribution();
+            auto pdf = OnlyChildOfType<IFTDistribution1D>(*p_para_radial);
 
             if (pdf->omega() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName()
@@ -401,72 +504,51 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << "_pdf)\n";
         }
 
-        else if (const auto* twoDLattice
+        else if (auto p_lattice_2d
                  = dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
-            const Lattice2D& lattice = twoDLattice->lattice();
+            const Lattice2D& lattice = p_lattice_2d->lattice();
             result << indent() << it->second << " = ba.InterferenceFunction2DLattice("
                    << printNm(lattice.length1()) << ", "
                    << printNm(lattice.length2()) << ", "
                    << printDegrees(lattice.latticeAngle()) << ", "
                    << printDegrees(lattice.rotationAngle()) << ")\n";
 
-            const IFTDecayFunction2D* pdf = twoDLattice->decayFunction();
+            auto pdf = OnlyChildOfType<IFTDecayFunction2D>(*p_lattice_2d);
 
             result << indent() << it->second << "_pdf  = ba." << pdf->getName()
                    << "(" << argumentList(pdf) << ")\n"
                    << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
+
+            if (p_lattice_2d->integrationOverXi() == true)
+                result << indent() << it->second << ".setIntegrationOverXi(True)\n";
         }
 
-        else if (const auto* twoDParaCrystal
+        else if (auto p_para_2d
                  = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
-            std::vector<double> domainSize = twoDParaCrystal->domainSizes();
-            const Lattice2D& lattice = twoDParaCrystal->lattice();
+            std::vector<double> domainSize = p_para_2d->domainSizes();
+            const Lattice2D& lattice = p_para_2d->lattice();
+            result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
+                   << printNm(lattice.length1())
+                   << ", "
+                   << printNm(lattice.length2())
+                   << ", "
+                   << printDegrees(lattice.latticeAngle())
+                   << ", "
+                   << printDegrees(lattice.rotationAngle())
+                   << ", "
+                   << printNm(p_para_2d->dampingLength()) << ")\n";
 
-            if(lattice.getName() == BornAgain::SquareLatticeType) {
-                result << indent() << it->second
-                       << " = ba.InterferenceFunction2DParaCrystal.createSquare("
-                       << printNm(lattice.length1())
-                       << ", "
-                       << printNm(twoDParaCrystal->dampingLength()) << ", "
+            if (domainSize[0] != 0.0 || domainSize[1] != 0.0)
+                result << indent() << it->second << ".setDomainSizes("
                        << printNm(domainSize[0]) << ", "
-                       << printNm(domainSize[1]) << ")\n";
+                                                 << printNm(domainSize[1]) << ")\n";
 
-            }
+            if (p_para_2d->integrationOverXi() == true)
+                result << indent() << it->second << ".setIntegrationOverXi(True)\n";
 
-            else if(lattice.getName() == BornAgain::HexagonalLatticeType) {
-                result << indent() << it->second
-                       << " = ba.InterferenceFunction2DParaCrystal.createHexagonal("
-                       << printNm(lattice.length1())
-                       << ", "
-                       << printNm(twoDParaCrystal->dampingLength()) << ", "
-                       << printNm(domainSize[0]) << ", "
-                       << printNm(domainSize[1]) << ")\n";
-
-            }
-
-            else {
-                result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
-                       << printNm(lattice.length1())
-                       << ", "
-                       << printNm(lattice.length2())
-                       << ", "
-                       << printDegrees(lattice.latticeAngle())
-                       << ", "
-                       << printDegrees(lattice.rotationAngle())
-                       << ", "
-                       << printNm(twoDParaCrystal->dampingLength()) << ")\n";
-
-                if (domainSize[0] != 0 || domainSize[1] != 0)
-                    result << indent() << it->second << ".setDomainSizes("
-                           << printNm(domainSize[0]) << ", "
-                           << printNm(domainSize[1]) << ")\n";
-
-                if (twoDParaCrystal->integrationOverXi() == true)
-                    result << indent() << it->second << ".setIntegrationOverXi(True)\n";
-            }
-
-            std::vector<const IFTDistribution2D*> pdf_vector
-                = twoDParaCrystal->probabilityDistributions();
+            auto pdf_vector = ChildNodesOfType<IFTDistribution2D>(*p_para_2d);
+            if (pdf_vector.size()!=2)
+                continue;
             const IFTDistribution2D* pdf = pdf_vector[0];
 
             result << indent() << it->second << "_pdf_1  = ba." << pdf->getName()
@@ -501,19 +583,16 @@ std::string ExportToPython::defineParticleLayouts() const
         const ILayout* iLayout = it->first;
         if (const ParticleLayout* particleLayout = dynamic_cast<const ParticleLayout*>(iLayout)) {
             result << indent() << it->second << " = ba.ParticleLayout()\n";
-            size_t numberOfParticles = particleLayout->numberOfParticles();
-            size_t particleIndex = 0;
+            auto particles = ChildNodesOfType<IAbstractParticle>(*particleLayout);
 
-            while (particleIndex != numberOfParticles) {
-                const IAbstractParticle* p_particle = particleLayout->particle(particleIndex);
-                double abundance = particleLayout->abundanceOfParticle(particleIndex);
+            for (auto p_particle : particles) {
+                double abundance = p_particle->abundance();
                 result << indent() << it->second << ".addParticle("
                        << m_label->labelParticle(p_particle) << ", "
                        << printDouble(abundance) << ")\n";
-                particleIndex++;
             }
 
-            if( const IInterferenceFunction* p_iff = particleLayout->interferenceFunction() )
+            if( auto p_iff = OnlyChildOfType<IInterferenceFunction>(*particleLayout) )
                 result << indent() << it->second << ".setInterferenceFunction("
                        << m_label->labelInterferenceFunction(p_iff) << ")\n";
 
@@ -797,6 +876,27 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
     if (options.includeSpecular())
         result << indent() << "simulation.getOptions().setIncludeSpecular(True)\n";
     return result.str();
+}
+
+std::string ExportToPython::defineMain(ExportToPython::EMainType mainType)
+{
+    std::string result;
+    if(mainType == RUN_SIMULATION) {
+        result = "if __name__ == '__main__': \n"
+                 "    result = run_simulation()\n"
+                 "    ba.plot_intensity_data(result)\n";
+    } else if(mainType == SAVE_DATA) {
+        result = "if __name__ == '__main__': \n"
+                 "    result = run_simulation()\n"
+                 "    import sys\n"
+                 "    if len(sys.argv)<2:\n"
+                 "        exit(\"File name is required\")\n"
+                 "    ba.IntensityDataIOFactory.writeIntensityData(result, sys.argv[1])\n";
+    } else {
+        throw std::runtime_error("ExportToPython::defineMain() -> Error. Unknown main type.");
+    }
+
+    return result;
 }
 
 std::string ExportToPython::indent() const

@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "ParaCrystalBuilder.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
 #include "HomogeneousMaterial.h"
 #include "InterferenceFunction2DParaCrystal.h"
@@ -24,6 +25,7 @@
 #include "ParticleLayout.h"
 #include "RealParameter.h"
 #include "Units.h"
+#include "SampleComponents.h"
 
 RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     : m_corr_peak_distance(20.0*Units::nanometer)
@@ -31,9 +33,7 @@ RadialParaCrystalBuilder::RadialParaCrystalBuilder()
     , m_corr_length(1e3*Units::nanometer)
     , m_cylinder_height(5*Units::nanometer)
     , m_cylinder_radius(5*Units::nanometer)
-{
-    init_parameters();
-}
+{}
 
 MultiLayer* RadialParaCrystalBuilder::buildSample() const
 {
@@ -64,20 +64,6 @@ MultiLayer* RadialParaCrystalBuilder::buildSample() const
     return multi_layer;
 }
 
-void RadialParaCrystalBuilder::init_parameters()
-{
-    registerParameter("corr_peak_distance", &m_corr_peak_distance).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("corr_width", &m_corr_width).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("corr_length", &m_corr_length).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-}
-
 // -----------------------------------------------------------------------------
 // Basic2DParaCrystalBuilder
 // -----------------------------------------------------------------------------
@@ -87,9 +73,7 @@ Basic2DParaCrystalBuilder::Basic2DParaCrystalBuilder()
     , m_pdf2(new FTDistribution2DCauchy(0.3*Units::nanometer, 0.4*Units::nanometer))
 {}
 
-Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder()
-{
-}
+Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder() {}
 
 MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
 {
@@ -109,11 +93,7 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     interference_function.setDomainSizes(20.0*Units::micrometer,
             40.0*Units::micrometer);
 
-    if(const IFTDistribution2D* pdf2 = getFTDistribution2D())
-        interference_function.setProbabilityDistributions(*m_pdf1, *pdf2);
-    else
-        interference_function.setProbabilityDistributions(*m_pdf1, *m_pdf2);
-
+    interference_function.setProbabilityDistributions(*m_pdf1, *m_pdf2);
 
     FormFactorCylinder ff_cylinder(5.0*Units::nanometer, 5.0*Units::nanometer);
 
@@ -129,6 +109,31 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     return multi_layer;
 }
 
+MultiLayer* Basic2DParaCrystalBuilder::createSample(size_t index)
+{
+    if(index >= size())
+        throw std::runtime_error("Basic2DParaCrystalBuilder::createSample() -> Error. "
+                                 "Sample index is out of range.");
+
+    auto names = pdf_components().keys();
+    m_pdf2.reset(pdf_components().getItem(names[index])->clone());
+
+    setName(names[index]);
+
+    return buildSample();
+}
+
+size_t Basic2DParaCrystalBuilder::size()
+{
+    return pdf_components().size();
+}
+
+FTDistribution2DComponents& Basic2DParaCrystalBuilder::pdf_components()
+{
+    static FTDistribution2DComponents result = FTDistribution2DComponents();
+    return result;
+}
+
 
 
 // -----------------------------------------------------------------------------
@@ -142,9 +147,7 @@ HexParaCrystalBuilder::HexParaCrystalBuilder()
     , m_domain_size_2(20.0*Units::micrometer)
     , m_cylinder_height(5*Units::nanometer)
     , m_cylinder_radius(5*Units::nanometer)
-{
-    init_parameters();
-}
+{}
 
 MultiLayer* HexParaCrystalBuilder::buildSample() const
 {
@@ -175,23 +178,6 @@ MultiLayer* HexParaCrystalBuilder::buildSample() const
     multi_layer->addLayer(substrate_layer);
 
     return multi_layer;
-}
-
-void HexParaCrystalBuilder::init_parameters()
-{
-
-    registerParameter("m_peak_distance", &m_peak_distance).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("m_corr_length", &m_corr_length).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("m_domain_size_1", &m_domain_size_1).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("m_domain_size_2", &m_domain_size_2).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("cylinder_height", &m_cylinder_height).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter("cylinder_radius", &m_cylinder_radius).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
 }
 
 // -----------------------------------------------------------------------------

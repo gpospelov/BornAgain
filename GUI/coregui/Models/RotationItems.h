@@ -19,54 +19,48 @@
 
 #include "WinDllMacros.h"
 #include "SessionItem.h"
-#include "Rotations.h"
+
+class IRotation;
 
 class BA_CORE_API_ RotationItem : public SessionItem
 {
-
 public:
-    explicit RotationItem(const QString name) : SessionItem(name){}
-    virtual IRotation *createRotation() const{ return 0;}
-    virtual ~RotationItem(){}
+    explicit RotationItem(const QString& name) : SessionItem(name){}
+    virtual std::unique_ptr<IRotation> createRotation() const = 0;
 };
-
 
 class BA_CORE_API_ XRotationItem : public RotationItem
 {
-
-public:
+public:   
     static const QString P_ANGLE;
-    explicit XRotationItem();
-    IRotation *createRotation() const;
+    XRotationItem();
+    std::unique_ptr<IRotation> createRotation() const;
 };
 
 class BA_CORE_API_ YRotationItem : public RotationItem
 {
-
 public:
     static const QString P_ANGLE;
-    explicit YRotationItem();
-    IRotation *createRotation() const;
+    YRotationItem();
+    std::unique_ptr<IRotation> createRotation() const;
 };
 
 class BA_CORE_API_ ZRotationItem : public RotationItem
 {
-
 public:
     static const QString P_ANGLE;
-    explicit ZRotationItem();
-    IRotation *createRotation() const;
+    ZRotationItem();
+    std::unique_ptr<IRotation> createRotation() const;
 };
 
 class BA_CORE_API_ EulerRotationItem : public RotationItem
 {
-
 public:
     static const QString P_ALPHA;
     static const QString P_BETA;
     static const QString P_GAMMA;
-    explicit EulerRotationItem();
-    IRotation *createRotation() const;
+    EulerRotationItem();
+    std::unique_ptr<IRotation> createRotation() const;
 };
 
 #endif // ROTATIONITEMS_H

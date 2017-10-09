@@ -24,11 +24,11 @@
 #include "RegionOfInterest.h"
 #include "Exceptions.h"
 #include "ConvolutionDetectorResolution.h"
+#include "DetectorFunctions.h"
 
 IDetector2D::IDetector2D()
     : m_axes()
 {
-    init_parameters();
 }
 
 IDetector2D::IDetector2D(const IDetector2D &other)
@@ -41,7 +41,6 @@ IDetector2D::IDetector2D(const IDetector2D &other)
         setDetectorResolution(*other.mP_detector_resolution);
     if(other.regionOfInterest())
         m_region_of_interest.reset(other.regionOfInterest()->clone());
-    init_parameters();
 }
 
 IDetector2D::~IDetector2D() {}
@@ -97,15 +96,15 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
     if (mP_detector_resolution) {
         if(units_type != DEFAULT) {
             std::unique_ptr<OutputData<double>> defaultMap(createDetectorMap(beam, DEFAULT));
-            setDataToDetectorMap(*defaultMap.get(), elements);
+            setDataToDetectorMap(*defaultMap, elements);
             applyDetectorResolution(defaultMap.get());
             detectorMap->setRawDataVector(defaultMap->getRawDataVector());
         } else {
-            setDataToDetectorMap(*detectorMap.get(), elements);
+            setDataToDetectorMap(*detectorMap, elements);
             applyDetectorResolution(detectorMap.get());
         }
     } else {
-        setDataToDetectorMap(*detectorMap.get(), elements);
+        setDataToDetectorMap(*detectorMap, elements);
     }
 
     return detectorMap.release();
@@ -113,6 +112,8 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
 
 OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits units) const
 {
+    check_axes_units(units);
+
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     result->addAxis(*constructAxis(BornAgain::X_AXIS_INDEX, beam, units));
     result->addAxis(*constructAxis(BornAgain::Y_AXIS_INDEX, beam, units));
@@ -175,11 +176,7 @@ const DetectorMask *IDetector2D::getDetectorMask() const
 
 size_t IDetector2D::numberOfMaskedChannels() const
 {
-    if (getDetectorMask()) {
-        return getDetectorMask()->numberOfMaskedChannels();
-    } else {
-        return 0;
-    }
+    return getDetectorMask() ? getDetectorMask()->numberOfMaskedChannels() : 0;
 }
 
 bool IDetector2D::isMasked(size_t index) const
@@ -236,7 +233,7 @@ size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
     for (size_t i=0; i<getDimension(); ++i)
     {
         size_t i_axis = getDimension()-1-i;
-        int result = remainder % m_axes[i_axis]->size();
+		size_t result = remainder % m_axes[i_axis]->size();
         if(selected_axis == i_axis ) return result;
         remainder /= m_axes[i_axis]->size();
     }
@@ -272,11 +269,10 @@ std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam 
     std::unique_ptr<IAxis> result(new FixedBinAxis(getAxisName(axis_index),
                                                    getAxis(axis_index).size(), amin, amax));
 
-    if(m_region_of_interest) {
-        return m_region_of_interest->clipAxisToRoi(axis_index, *result.get());
-    } else {
-        return result;
-    }
+    if (m_region_of_interest)
+        return m_region_of_interest->clipAxisToRoi(axis_index, *result);
+
+    return result;
 }
 
 void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
@@ -386,3 +382,23 @@ bool IDetector2D::isCorrectAxisIndex(size_t index) const
 {
     return index < getDimension();
 }
+
+//! Checks if given unit is valid for the detector. Throws exception if it is not the case.
+void IDetector2D::check_axes_units(IDetector2D::EAxesUnits units) const
+{
+    if(units == DEFAULT)
+        return;
+
+    auto validUnits = getValidAxesUnits();
+    if(std::find(validUnits.begin(), validUnits.end(), units) == validUnits.end()) {
+        std::ostringstream message;
+        message << "IDetector2D::createDetectorMap() -> Error. Unknown axes unit " << units << "\n";
+        message << "Available units for this detector type \n";
+        for(size_t i=0; i<validUnits.size(); ++i)
+        for(auto unit : validUnits)
+            message << unit << " ";
+        message << "\n";
+        throw std::runtime_error(message.str());
+    }
+}
+

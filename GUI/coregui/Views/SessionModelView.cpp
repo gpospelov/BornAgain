@@ -20,69 +20,25 @@
 #include "MaterialModel.h"
 #include "RealDataModel.h"
 #include "SampleModel.h"
-#include "SessionModelDelegate.h"
+#include "ModelTreeView.h"
 #include "mainwindow.h"
+#include "SessionModelDelegate.h"
 #include <QToolBar>
 #include <QToolButton>
-#include <QTreeView>
 #include <QVBoxLayout>
-
-
-SessionModelView::ModelTree::ModelTree(SessionModel *model, QTreeView *tree)
-    : m_model(model), m_tree(tree), m_is_expanded(false)
-{
-    Q_ASSERT(m_model);
-    Q_ASSERT(m_tree);
-    m_tree->setModel(m_model);
-    if(model->rowCount(QModelIndex()) > 0) {
-        setExpanded(true);
-    }
-}
-
-void SessionModelView::ModelTree::toggleExpanded()
-{
-    setExpanded(!isExpanded());
-}
-
-void SessionModelView::ModelTree::setExpanded(bool expanded)
-{
-    Q_ASSERT(m_tree);
-    if(expanded) {
-        m_tree->expandAll();
-        m_tree->resizeColumnToContents(0);
-        m_tree->resizeColumnToContents(1);
-    } else {
-        m_tree->collapseAll();
-    }
-    m_is_expanded = expanded;
-}
-
-void SessionModelView::ModelTree::setActive(bool is_active)
-{
-    if(is_active) {
-        if(m_tree->model()) return;
-        m_tree->setModel(m_model);
-        setExpanded(true);
-    } else {
-        if(!m_tree->model()) return;
-        m_tree->setModel(0);
-    }
-}
-
 
 SessionModelView::SessionModelView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
-    , m_toolBar(new QToolBar(this))
-    , m_tabs(new QTabWidget(this))
-    , m_expandCollapseButton(0)
+    , m_toolBar(new QToolBar)
+    , m_tabs(new QTabWidget)
+    , m_expandCollapseButton(new QToolButton)
     , m_delegate(new SessionModelDelegate(this))
 {
-    QVBoxLayout *layout = new QVBoxLayout;
+    auto layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
 
-    m_expandCollapseButton = new QToolButton;
     m_expandCollapseButton->setText("Expand / collapse tree");
     m_expandCollapseButton->setIcon(QIcon(":/images/toolbar_expand_collapse_tree.svg"));
     m_expandCollapseButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -95,35 +51,37 @@ SessionModelView::SessionModelView(MainWindow *mainWindow)
     setLayout(layout);
 
     init_tabs();
-
-    //setViewActive(false);
-
-}
-
-//! Sets given view to enabled/disable state. If disabled, all trees will be disconnected from models
-void SessionModelView::setViewActive(bool is_active)
-{
-    for(int i=0; i<m_content.size(); ++i) {
-        m_content[i].setActive(is_active);
-    }
 }
 
 void SessionModelView::onExpandCollapseTree()
 {
-    m_content[m_tabs->currentIndex()].toggleExpanded();
+    m_content.at(m_tabs->currentIndex())->toggleExpanded();
 }
+
+//! Creates content for tab widget.
 
 void SessionModelView::init_tabs()
 {
-    m_content.clear();
-    m_content.push_back(ModelTree(m_mainWindow->instrumentModel(), new QTreeView(this)));
-    m_content.push_back(ModelTree(m_mainWindow->sampleModel(), new QTreeView(this)));
-    m_content.push_back(ModelTree(m_mainWindow->realDataModel(), new QTreeView(this)));
-    m_content.push_back(ModelTree(m_mainWindow->materialModel(), new QTreeView(this)));
-    m_content.push_back(ModelTree(m_mainWindow->jobModel(), new QTreeView(this)));
-    for(int i=0; i<m_content.size(); ++i) {
-        m_tabs->addTab(m_content[i].m_tree, m_content[i].m_model->getModelTag());
-        m_content[i].m_tree->setItemDelegate(m_delegate);
+    Q_ASSERT(m_content.empty());
+
+    for (auto model : modelsForTabs()) {
+        auto treeView = new ModelTreeView(this, model);
+        treeView->setItemDelegate(m_delegate);
+        m_tabs->addTab(treeView, treeView->objectName());
+        m_content.push_back(treeView);
     }
+}
+
+//! Returns list of models to show in tabs.
+
+QList<SessionModel*> SessionModelView::modelsForTabs()
+{
+    QList<SessionModel*> result = QList<SessionModel*>()
+            << m_mainWindow->instrumentModel()
+            << m_mainWindow->sampleModel()
+            << m_mainWindow->realDataModel()
+            << m_mainWindow->materialModel()
+            << m_mainWindow->jobModel();
+    return result;
 }
 

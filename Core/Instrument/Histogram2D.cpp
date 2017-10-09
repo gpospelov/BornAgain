@@ -65,37 +65,37 @@ int Histogram2D::fill(double x, double y, double weight)
 
 Histogram1D* Histogram2D::projectionX()
 {
-    return create_projectionX(0, getXaxis().size()-1);
+    return create_projectionX(0, static_cast<int>(getXaxis().size())-1);
 }
 
 Histogram1D* Histogram2D::projectionX(double yvalue)
 {
-    int ybin_selected = getYaxis().findClosestIndex(yvalue);
+    int ybin_selected = static_cast<int>(getYaxis().findClosestIndex(yvalue));
     return create_projectionX(ybin_selected, ybin_selected);
 }
 
 Histogram1D* Histogram2D::projectionX(double ylow, double yup)
 {
-    int ybinlow = getYaxis().findClosestIndex(ylow);
-    int ybinup = getYaxis().findClosestIndex(yup);
+    int ybinlow = static_cast<int>(getYaxis().findClosestIndex(ylow));
+    int ybinup = static_cast<int>(getYaxis().findClosestIndex(yup));
     return create_projectionX(ybinlow, ybinup);
 }
 
 Histogram1D* Histogram2D::projectionY()
 {
-    return create_projectionY(0, getXaxis().size()-1);
+    return create_projectionY(0, static_cast<int>(getXaxis().size())-1);
 }
 
 Histogram1D* Histogram2D::projectionY(double xvalue)
 {
-    int xbin_selected = getXaxis().findClosestIndex(xvalue);
+    int xbin_selected = static_cast<int>(getXaxis().findClosestIndex(xvalue));
     return create_projectionY(xbin_selected, xbin_selected);
 }
 
 Histogram1D* Histogram2D::projectionY(double xlow, double xup)
 {
-    int xbinlow = getXaxis().findClosestIndex(xlow);
-    int xbinup = getXaxis().findClosestIndex(xup);
+    int xbinlow = static_cast<int>(getXaxis().findClosestIndex(xlow));
+    int xbinup = static_cast<int>(getXaxis().findClosestIndex(xup));
     return create_projectionY(xbinlow, xbinup);
 }
 
@@ -156,7 +156,7 @@ Histogram1D* Histogram2D::create_projectionX(int ybinlow, int ybinup)
 
     for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
 
-        int ybin = getYaxisIndex(index);
+        int ybin = static_cast<int>(getYaxisIndex(index));
 
         if(ybin >= ybinlow && ybin <= ybinup) {
             result->fill(getXaxisValue(index), getBinContent(index));
@@ -171,7 +171,7 @@ Histogram1D* Histogram2D::create_projectionY(int xbinlow, int xbinup)
 
     for(size_t index=0; index<getTotalNumberOfBins(); ++index) {
 
-        int xbin = getXaxisIndex(index);
+        int xbin = static_cast<int>(getXaxisIndex(index));
 
         if(xbin >= xbinlow && xbin <= xbinup) {
             result->fill(getYaxisValue(index), getBinContent(index));

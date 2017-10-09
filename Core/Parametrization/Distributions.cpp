@@ -392,3 +392,63 @@ bool DistributionCosine::checkInitialization() const
     }
     return true;
 }
+
+// ************************************************************************** //
+// class DistributionTrapezoidal
+// ************************************************************************** //
+
+DistributionTrapezoid::DistributionTrapezoid(double center, double left_width,
+                                             double middle_width, double right_width)
+    : m_center(center)
+    , m_left(left_width)
+    , m_middle(middle_width)
+    , m_right(right_width)
+{
+    setName(BornAgain::DistributionTrapezoidType);
+    checkInitialization();
+    init_parameters();
+}
+
+double DistributionTrapezoid::probabilityDensity(double x) const
+{
+    double height = 2.0/(m_left + 2.0*m_middle + m_right);
+    double min = m_center - m_middle/2.0 - m_left;
+    if (x < min) return 0.0;
+    if (x < min + m_left) return (x - min)*height/m_left;
+    if (x < min + m_left + m_middle) return height;
+    if (x < min + m_left + m_middle + m_right) {
+        return height - (x - min -m_left - m_middle)*height/m_right;
+    }
+    return 0.0;
+}
+
+std::vector<double> DistributionTrapezoid::equidistantPoints(
+        size_t nbr_samples, double, const RealLimits& limits) const
+{
+    double xmin = m_center - m_middle/2.0 - m_left;
+    double xmax = xmin + m_left + m_middle + m_right;
+    adjustMinMaxForLimits(xmin, xmax, limits);
+    return equidistantPointsInRange(nbr_samples, xmin, xmax);
+}
+
+bool DistributionTrapezoid::isDelta() const
+{
+    return (m_left + m_middle +m_right)==0.0;
+}
+
+void DistributionTrapezoid::init_parameters()
+{
+    registerParameter(BornAgain::Center, &m_center);
+    registerParameter(BornAgain::LeftWidth, &m_left);
+    registerParameter(BornAgain::MiddleWidth, &m_middle);
+    registerParameter(BornAgain::RightWidth, &m_right);
+}
+
+bool DistributionTrapezoid::checkInitialization() const
+{
+    if (m_left< 0.0 || m_middle < 0.0 || m_right < 0.0) {
+        SignalBadInitialization(BornAgain::DistributionTrapezoidType);
+        return false;
+    }
+    return true;
+}

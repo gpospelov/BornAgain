@@ -63,7 +63,6 @@ public:
     double evaluate(const kvector_t q) const final;
 
     std::vector<double> domainSizes() const;
-    std::vector<const IFTDistribution2D*> probabilityDistributions() const;
 
     void setIntegrationOverXi(bool integrate_xi);
     bool integrationOverXi() const { return m_integrate_xi; }

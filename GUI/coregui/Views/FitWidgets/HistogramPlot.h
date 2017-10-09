@@ -25,21 +25,18 @@ class BA_CORE_API_ HistogramPlot : public QWidget
 {
     Q_OBJECT
 public:
-    explicit HistogramPlot(QWidget *parent = 0);
+    explicit HistogramPlot(QWidget* parent = 0);
 
 public slots:
-//    bool addData(double x, double y);
-
     void addData(double x, double y);
-    void addData(const QVector<double> &x, const QVector<double> y);
-    void setData(const QVector<double> &x, const QVector<double> y);
-
+    void addData(const QVector<double>& x, const QVector<double>& y);
+    void setData(const QVector<double>& x, const QVector<double>& y);
     void clearData();
 
 private:
+    void initGraph();
 
-    QCustomPlot *m_customPlot;
-
+    QCustomPlot* m_customPlot;
 };
 
 #endif // HISTOGRAMPLOT_H

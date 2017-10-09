@@ -232,6 +232,7 @@ InterferenceFunction1DLatticeItem::createInterferenceFunction() const
 
 const QString InterferenceFunction2DLatticeItem::P_LATTICE_TYPE = "LatticeType";
 const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = "DecayFunction";
+const QString InterferenceFunction2DLatticeItem::P_XI_INTEGRATION = "Integration_over_xi";
 
 InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()
     : InterferenceFunctionItem(Constants::InterferenceFunction2DLatticeType)
@@ -240,6 +241,20 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()
     addGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup)->setToolTip("Type of lattice");
     addGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction2DGroup)
         ->setToolTip("Two-dimensional decay function (finite size effects)");
+    addProperty(P_XI_INTEGRATION, false)->setToolTip(
+        QStringLiteral("Enables/disables averaging over the lattice rotation angle."));
+
+    mapper()->setOnPropertyChange([this](const QString& name) {
+        if (name == P_XI_INTEGRATION && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
+            update_rotation_availability();
+        }
+    });
+    mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString&) {
+        if (item->modelType() == Constants::GroupItemType && item->displayName() ==
+            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE) {
+            update_rotation_availability();
+        }
+    });
 }
 
 std::unique_ptr<IInterferenceFunction>
@@ -251,6 +266,16 @@ InterferenceFunction2DLatticeItem::createInterferenceFunction() const
 
     auto& pdfItem = groupItem<FTDecayFunction2DItem>(P_DECAY_FUNCTION);
     result->setDecayFunction(*pdfItem.createFTDecayFunction());
+    result->setIntegrationOverXi(getItemValue(P_XI_INTEGRATION).toBool());
 
     return std::move(result);
+}
+
+void InterferenceFunction2DLatticeItem::update_rotation_availability()
+{
+    auto p_lattice_item = getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
+    if (p_lattice_item) {
+        auto angle_item = p_lattice_item->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
+        angle_item->setEnabled(!getItemValue(P_XI_INTEGRATION).toBool());
+    }
 }

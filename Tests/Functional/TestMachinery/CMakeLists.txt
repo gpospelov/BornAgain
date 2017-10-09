@@ -9,9 +9,11 @@ if(POLICY CMP0042)
 endif()
 
 # --- source and include files ---------
-set(include_dirs ${BUILD_INC_DIR} ${CORE_SOURCE_DIRS} ${GSL_INCLUDE_DIR}
-    ${CMAKE_SOURCE_DIR}/Fit/Parameters # for INamed.h
-    ${CMAKE_SOURCE_DIR}/Fit/Utils
+set(include_dirs
+    ${EIGEN3_INCLUDE_DIR}
+    ${Boost_INCLUDE_DIRS}
+    ${GSL_INCLUDE_DIR}
+    ${BornAgainCore_INCLUDE_DIRS}
     )
 
 include_directories(${include_dirs})

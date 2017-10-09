@@ -102,24 +102,33 @@ void FitSuite::runFit()
     m_impl->runFit();
 }
 
-int FitSuite::numberOfFitObjects() const
+size_t FitSuite::numberOfFitObjects() const
 {
     return m_impl->fitObjects()->size();
 }
 
 IHistogram* FitSuite::getRealData(size_t i_item) const
 {
-    return IHistogram::createHistogram(m_impl->fitObjects()->getRealData(i_item));
+    std::unique_ptr<IHistogram> result(IHistogram::createHistogram(
+            m_impl->fitObjects()->getRealData(i_item)));
+    result->setAxesUnits(m_impl->fitObjects()->getDefaultAxesUnits());
+    return result.release();
 }
 
 IHistogram* FitSuite::getSimulationData(size_t i_item) const
 {
-    return IHistogram::createHistogram(m_impl->fitObjects()->getSimulationData(i_item));
+    std::unique_ptr<IHistogram> result(IHistogram::createHistogram(
+            m_impl->fitObjects()->getSimulationData(i_item)));
+    result->setAxesUnits(m_impl->fitObjects()->getDefaultAxesUnits());
+    return result.release();
 }
 
 IHistogram* FitSuite::getChiSquaredMap(size_t i_item) const
 {
-    return IHistogram::createHistogram(m_impl->fitObjects()->getChiSquaredMap(i_item));
+    std::unique_ptr<IHistogram> result(IHistogram::createHistogram(
+            m_impl->fitObjects()->getChiSquaredMap(i_item)));
+    result->setAxesUnits(m_impl->fitObjects()->getDefaultAxesUnits());
+    return result.release();
 }
 
 const OutputData<double>* FitSuite::getRealOutputData(size_t i_item) const

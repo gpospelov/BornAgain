@@ -23,9 +23,12 @@ const QString VectorItem::P_Z = "Z";
 VectorItem::VectorItem()
     : SessionItem(Constants::VectorType)
 {
-    addProperty(P_X, 0.0)->setLimits(RealLimits::limitless());
-    addProperty(P_Y, 0.0)->setLimits(RealLimits::limitless());
-    addProperty(P_Z, 0.0)->setLimits(RealLimits::limitless());
+    addProperty(P_X, 0.0)->setLimits(RealLimits::limitless())
+        .setToolTip(QStringLiteral("x-coordinate in nanometers"));
+    addProperty(P_Y, 0.0)->setLimits(RealLimits::limitless())
+        .setToolTip(QStringLiteral("y-coordinate in nanometers"));
+    addProperty(P_Z, 0.0)->setLimits(RealLimits::limitless())
+        .setToolTip(QStringLiteral("z-coordinate in nanometers"));
 
     mapper()->setOnPropertyChange(
         [this](const QString &){

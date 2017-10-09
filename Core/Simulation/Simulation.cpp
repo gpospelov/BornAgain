@@ -21,51 +21,44 @@
 #include "ParameterSample.h"
 #include "SimulationElement.h"
 #include "StringUtils.h"
-#include <gsl/gsl_errno.h>
 #include <thread>
+#include <gsl/gsl_errno.h>
 #include <iomanip>
 #include <iostream>
 
 Simulation::Simulation()
 {
-    registerChild(&m_instrument);
+    initialize();
 }
 
 Simulation::Simulation(const MultiLayer& p_sample)
 {
-    setSample(p_sample);
-    registerChild(&m_instrument);
+    initialize();
+    m_sample_provider.setSample(p_sample);
 }
 
 Simulation::Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : mP_sample_builder(p_sample_builder)
 {
-    registerChild(&m_instrument);
-    registerChild(p_sample_builder.get());
+    initialize();
+    m_sample_provider.setSampleBuilder(p_sample_builder);
 }
 
 Simulation::Simulation(const Simulation& other)
-    : mP_sample_builder(other.mP_sample_builder)
+    : m_sample_provider(other.m_sample_provider)
     , m_options(other.m_options)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)
     , m_instrument(other.m_instrument)
-    , m_intensity_map()
 {
-    if (other.mP_multilayer)
-        setSample(*other.mP_multilayer);
-    registerChild(&m_instrument);
-    if(mP_sample_builder)
-        registerChild(mP_sample_builder.get());
-    m_intensity_map.copyFrom(other.m_intensity_map);
+    initialize();
 }
 
-Simulation::~Simulation() {} // forward class declaration prevents move to .h
+Simulation::~Simulation() {}
 
 //! Initializes a progress monitor that prints to stdout.
 void Simulation::setTerminalProgressMonitor()
 {
-    m_progress.subscribe( [] (int percentage_done) -> bool {
+    m_progress.subscribe( [] (size_t percentage_done) -> bool {
             if (percentage_done<100)
                 std::cout << std::setprecision(2)
                           << "\r... " << percentage_done << "%" << std::flush;
@@ -110,23 +103,20 @@ void Simulation::setBeamPolarization(const kvector_t bloch_vector)
 
 void Simulation::prepareSimulation()
 {
+    updateSample();
     gsl_set_error_handler_off();
 }
 
 //! Run simulation with possible averaging over parameter distributions
 void Simulation::runSimulation()
 {
-    updateSample();
-    if (!mP_multilayer)
-        throw Exceptions::NullPointerException("Simulation::runSimulation() -> Error! No sample.");
-
     prepareSimulation();
 
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
     m_progress.reset();
-    size_t prefactor = ( mP_multilayer->totalNofLayouts()>0 ? 1 : 0 )
-        + ( mP_multilayer->hasRoughness() ? 1 : 0 );
+    size_t prefactor = ( sample()->totalNofLayouts()>0 ? 1 : 0 )
+        + ( sample()->hasRoughness() ? 1 : 0 );
     m_progress.setExpectedNTicks(prefactor*param_combinations*numberOfSimulationElements());
 
     // no averaging needed:
@@ -169,30 +159,24 @@ void Simulation::setInstrument(const Instrument& instrument)
 //! The MultiLayer object will not be owned by the Simulation object
 void Simulation::setSample(const MultiLayer& sample)
 {
-    mP_multilayer.reset(sample.clone());
-    registerChild(mP_multilayer.get());
+    m_sample_provider.setSample(sample);
+}
+
+const MultiLayer* Simulation::sample() const
+{
+    return m_sample_provider.sample();
 }
 
 void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder)
 {
-    if (!p_sample_builder)
-        throw Exceptions::NullPointerException("Simulation::setSampleBuilder() -> "
-                                   "Error! Attempt to set null sample builder.");
-
-    mP_sample_builder = p_sample_builder;
-    registerChild(mP_sample_builder.get());
-    mP_multilayer.reset(nullptr);
+    m_sample_provider.setSampleBuilder(p_sample_builder);
 }
 
 std::vector<const INode*> Simulation::getChildren() const
 {
     std::vector<const INode*> result;
     result.push_back(&m_instrument);
-    if(mP_sample_builder) {
-        result.push_back(mP_sample_builder.get());
-    } else {
-        result << mP_multilayer;
-    }
+    result << m_sample_provider.getChildren();
     return result;
 }
 
@@ -211,20 +195,14 @@ void Simulation::addParameterDistribution(const ParameterDistribution& par_distr
 
 void Simulation::updateSample()
 {
-    if (!mP_sample_builder)
-        return;
-    if (mP_sample_builder->isPythonBuilder()) {
-        mP_multilayer.reset( mP_sample_builder->buildSample()->clone() );
-    } else {
-        mP_multilayer.reset( mP_sample_builder->buildSample() );
-    }
+    m_sample_provider.updateSample();
 }
 
 //! Runs a single simulation with fixed parameter values.
 //! If desired, the simulation is run in several threads.
 void Simulation::runSingleSimulation()
 {
-    updateSample();
+    prepareSimulation();
     initSimulationElementVector();
 
     // restrict calculation to current batch
@@ -237,7 +215,7 @@ void Simulation::runSingleSimulation()
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
         std::unique_ptr<MainComputation> P_computation(
-            new MainComputation(*mP_multilayer, m_options, m_progress, batch_start, batch_end));
+            new MainComputation(*sample(), m_options, m_progress, batch_start, batch_end));
         P_computation->run(); // the work is done here
         if (!P_computation->isCompleted()) {
             std::string message = P_computation->errorMessage();
@@ -251,8 +229,8 @@ void Simulation::runSingleSimulation()
         std::vector<std::unique_ptr<MainComputation>> computations;
 
         // Initialize n computations.
-        int total_batch_elements = batch_end - batch_start;
-        int element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
+        auto total_batch_elements = batch_end - batch_start;
+        auto element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
         if (total_batch_elements % m_options.getNumberOfThreads()) // there is a remainder
             ++element_thread_step;
 
@@ -262,13 +240,13 @@ void Simulation::runSingleSimulation()
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;
             std::vector<SimulationElement>::iterator end_it;
-            int end_thread_index = (i_thread+1) * element_thread_step;
+            auto end_thread_index = (i_thread+1) * element_thread_step;
             if (end_thread_index >= total_batch_elements)
                 end_it = batch_end;
             else
                 end_it = batch_start + end_thread_index;
             computations.emplace_back(
-                new MainComputation(*mP_multilayer, m_options, m_progress, begin_it, end_it));
+                new MainComputation(*sample(), m_options, m_progress, begin_it, end_it));
         }
 
         // Run simulations in n threads.
@@ -313,7 +291,7 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
 std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches, int current_batch)
 {
     imposeConsistencyOfBatchNumbers(n_batches, current_batch);
-    int total_size = m_sim_elements.size();
+    int total_size = static_cast<int>(m_sim_elements.size());
     int size_per_batch = total_size/n_batches;
     if (total_size%n_batches)
         ++size_per_batch;
@@ -325,7 +303,7 @@ std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches
 std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, int current_batch)
 {
     imposeConsistencyOfBatchNumbers(n_batches, current_batch);
-    int total_size = m_sim_elements.size();
+    int total_size = static_cast<int>(m_sim_elements.size());
     int size_per_batch = total_size/n_batches;
     if (total_size%n_batches)
         ++size_per_batch;
@@ -333,6 +311,12 @@ std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, 
     if (end_index >= total_size)
         return m_sim_elements.end();
     return m_sim_elements.begin() + end_index;
+}
+
+void Simulation::initialize()
+{
+    registerChild(&m_instrument);
+    registerChild(&m_sample_provider);
 }
 
 void Simulation::imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch)

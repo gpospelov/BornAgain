@@ -19,9 +19,10 @@
 #include "MathFunctions.h"
 #include "RealParameter.h"
 
-//! @param length of rectangular base
-//! @param width  of rectangular base
-//! @param height of prism
+//! Constructor of a rectangular cuboid.
+//! @param length: length of the base in nanometers
+//! @param width: width of the base in nanometers
+//! @param height: height of the box in nanometers
 FormFactorBox::FormFactorBox(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
 {

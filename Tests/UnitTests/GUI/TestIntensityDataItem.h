@@ -21,19 +21,19 @@ inline void TestIntensityDataItem::test_lastModified()
     item->setLastModified(time);
     QVERIFY(time == item->lastModified());
 
-    const int nap_time(10);
+    const int nap_time(20);
     QTest::qSleep(nap_time);
 
     // changing item (file name)
     item->setItemValue(IntensityDataItem::P_FILE_NAME, "name.txt");
     QDateTime time2 = item->lastModified();
-    QVERIFY(time.msecsTo(time2) >= nap_time);
+    QVERIFY(time.msecsTo(time2) > nap_time/2);
 
     QTest::qSleep(nap_time);
 
     // changing item (OutputData)
     item->emitDataChanged();
     QDateTime time3 = item->lastModified();
-    QVERIFY(time2.msecsTo(time3) >= nap_time);
+    QVERIFY(time2.msecsTo(time3) > nap_time/2);
 }
 

@@ -361,6 +361,9 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
     } else if (connection->getParentView()->getItem()->modelType() == Constants::ParticleCompositionType) {
         if (connection->inputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
             tag = ParticleItem::T_TRANSFORMATION;
+    } else if (connection->getParentView()->getItem()->modelType() == Constants::MesoCrystalType) {
+        if (connection->inputPort()->getPortType() == NodeEditorPort::TRANSFORMATION)
+            tag = ParticleItem::T_TRANSFORMATION;
     }
     delete connection; // deleting just created connection because it will be recreated from the
                        // model

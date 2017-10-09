@@ -276,7 +276,6 @@ void DistributionWidget::plotBars(const QVector<double>& xbars, const QVector<do
 
     bars->setWidth(barWidth);
     bars->setData(xbars, ybars);
-    m_plot->addPlottable(bars);
 }
 
 void DistributionWidget::plotFunction(const QVector<double>& xFunc, const QVector<double>& yFunc)
@@ -298,7 +297,6 @@ void DistributionWidget::plotVerticalLine(double xMin, double yMin, double xMax,
     line->setPen(pen);
     line->setSelectable(true);
 
-    m_plot->addItem(line);
     line->start->setCoords(xMin, yMin);
     line->end->setCoords(xMax, yMax);
 }

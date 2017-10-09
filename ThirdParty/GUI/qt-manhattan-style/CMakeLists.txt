@@ -14,7 +14,7 @@ set(SRCS
     stylehelper.cpp
     styledbar.cpp
     styleanimator.cpp
-    stringutils.cpp
+    settingsutils.cpp
     qtcolorbutton.cpp
     qtcassert.cpp
     progressbar.cpp
@@ -30,7 +30,7 @@ set(SRCS
     stylehelper.h
     styledbar.h
     styleanimator.h
-    stringutils.h
+    settingsutils.h
     qtcolorbutton.h
     qtcolorbutton_p.h
     qtcassert.h

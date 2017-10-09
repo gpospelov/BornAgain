@@ -18,11 +18,16 @@
 
 #include "KernelTypes.h"
 
+#ifdef _WIN32
+#include "Math/Functor.h"
+#include "Math/FitMethodFunction.h"
+#else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include "Math/Functor.h"
 #include "Math/FitMethodFunction.h"
 #pragma GCC diagnostic pop
+#endif
 
 //! The chi2 function for use in minimizers.
 //! @ingroup fitting_internal

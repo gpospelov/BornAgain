@@ -1,4 +1,4 @@
-image: Visual Studio 2015
+image: Previous Visual Studio 2015
 
 matrix:
   fast_finish: true
@@ -14,6 +14,7 @@ environment:
   MYOTHER: "C:\\Program Files (x86)\\CMake\\bin;C:\\Program Files\\7-Zip"
   MYMSVC: "C:\\Program Files (x86)\\MSBuild\\14.0\\Bin;"
   PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYGIT%;%MYOTHER%"
+  PYTHONPATH: "C:\\Miniconda-x64;C:\\Miniconda-x64\\Lib;C:\\Miniconda-x64\\Lib\\site-packages;C:\\Miniconda-x64\\DLLs"
 build:
   parallel: true
 
@@ -36,5 +37,17 @@ build_script:
 - cmake --build . --config Release
 
 test_script:
-- ctest -LE Examples
+- echo "BornAgain test_script"
+- echo %PATH%
+- echo %PYTHONPATH%
+- echo %PYTHONHOME%
+- ps: >-
+    ctest -LE Examples --output-on-failure
 
+    if (-not $?) { 
+
+        type Testing/Temporary/LastTest.log
+
+        throw "tests failed" 
+
+    }

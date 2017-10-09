@@ -15,3 +15,9 @@ TEST_F(StringUtilsTest, removeSubstring)
     std::string result = StringUtils::removeSubstring(target, "one");
     EXPECT_EQ(result, " two three five ");
 }
+
+TEST_F(StringUtilsTest, toLower)
+{
+    std::string target("QyQz");
+    EXPECT_EQ(StringUtils::to_lower(target), std::string("qyqz"));
+}

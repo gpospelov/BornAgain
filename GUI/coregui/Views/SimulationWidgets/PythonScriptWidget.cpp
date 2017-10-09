@@ -85,11 +85,11 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
     m_warningSign->clear();
 
     try {
-        const std::unique_ptr<GISASSimulation> P_simulation(
+        const std::unique_ptr<GISASSimulation> simulation(
             DomainSimulationBuilder::getSimulation(sampleItem, instrumentItem, optionItem));
 
         QString code = QString::fromStdString(
-            PythonFormatting::simulationToPython(P_simulation.get()));
+            PythonFormatting::generateSimulationCode(*simulation));
         m_textEdit->clear();
         m_textEdit->setText(code);
 

@@ -82,9 +82,6 @@ protected:
     //! Create an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
 
-    //! Registers some class members for later access via parameter pool.
-    void init_parameters() override {}
-
     //! Generates an axis with correct name and default binning for given index
     IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const override;
 

@@ -65,6 +65,8 @@ bool IsZRotation(const IRotation& rot)
 
 // --- RotationX --------------------------------------------------------------
 
+//! Constructor of rotation around x-axis
+//! @param angle: rotation angle around x-axis in radians
 RotationX::RotationX(double angle)
     : m_angle(angle)
 {
@@ -79,6 +81,8 @@ Transform3D RotationX::getTransform3D() const
 
 // --- RotationY --------------------------------------------------------------
 
+//! Constructor of rotation around y-axis
+//! @param angle: rotation angle around y-axis in radians
 RotationY::RotationY(double angle)
     : m_angle(angle)
 {
@@ -93,6 +97,8 @@ Transform3D RotationY::getTransform3D() const
 
 // --- RotationZ --------------------------------------------------------------
 
+//! Constructor of rotation around z-axis
+//! @param angle: rotation angle around z-axis in radians
 RotationZ::RotationZ(double angle)
     : m_angle(angle)
 {
@@ -107,6 +113,11 @@ Transform3D RotationZ::getTransform3D() const
 
 // --- RotationEuler ----------------------------------------------------------
 
+//! Constructor of Euler rotation (sequence of three rotations following Euler angles
+//! notation z-x'-z').
+//! @param alpha: first Euler angle in radians
+//! @param beta: second Euler angle in radians
+//! @param gamma: third Euler angle in radians
 RotationEuler::RotationEuler(double alpha, double beta, double gamma)
     : m_alpha(alpha), m_beta(beta), m_gamma(gamma)
 {

@@ -74,7 +74,7 @@ CustomBinAxis *CustomBinAxis::createClippedAxis(double /* left */, double /* rig
 
 void CustomBinAxis::print(std::ostream &ostr) const
 {
-    ostr << "CustomBinAxis(\"" << m_name << "\", " << size() << ", "
+    ostr << "CustomBinAxis(\"" << getName() << "\", " << size() << ", "
          << std::setprecision(std::numeric_limits<double>::digits10+2)
          << m_start << ", " << m_end << ")";
 }

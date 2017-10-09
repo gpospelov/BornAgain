@@ -26,46 +26,45 @@ class QMenuBar;
 class MainWindow;
 class QShortcut;
 
-
 //! Class to handle MainWindow's menu and corresponding actions
 
 class BA_CORE_API_ ActionManager : public QObject
 {
     Q_OBJECT
 public:
-    ActionManager(MainWindow *parent);
+    ActionManager(MainWindow* parent);
 
-public slots:
-    void aboutToShowRecentProjects();
+private slots:
+    void aboutToShowFileMenu();
     void aboutToShowSettings();
     void toggleCheckForUpdates(bool status);
     void setSessionModelViewActive(bool status);
+    void onAboutApplication();
+    void onImportFromPythonScript();
 
 private:
-    MainWindow *m_mainWindow;
+    MainWindow* m_mainWindow;
 
-    QAction *m_newAction;
-    QAction *m_openAction;
-    QAction *m_saveAction;
-    QAction *m_saveAsAction;
-    QAction *m_exitAction;
-    QAction *m_aboutAction;
-    QList<QAction *> m_recentProjectActions;
+    QAction* m_newAction;
+    QAction* m_openAction;
+    QAction* m_saveAction;
+    QAction* m_saveAsAction;
+    QAction* m_exitAction;
+    QAction* m_aboutAction;
 
-    QMenuBar *m_menuBar;
-    QMenu *m_fileMenu;
-    QMenu *m_settingsMenu;
-    QMenu *m_recentProjectsMenu;
-    QMenu *m_helpMenu;
+    QMenuBar* m_menuBar;
+    QMenu* m_fileMenu;
+    QMenu* m_settingsMenu;
+    QMenu* m_recentProjectsMenu;
+    QMenu* m_helpMenu;
+    QMenu* m_importMenu;
 
-    QShortcut *m_runSimulationShortcut;
+    QShortcut* m_runSimulationShortcut;
 
     void createActions();
     void createMenus();
     void createGlobalShortcuts();
-
 };
-
 
 #endif // ACTIONMANAGER_H
 

@@ -20,6 +20,11 @@
 #include "RealParameter.h"
 #include "RippleSawtooth.h"
 
+//! @brief Constructor of a triangular ripple.
+//! @param length: length of the rectangular base in nanometers
+//! @param width: width of the rectangular base in nanometers
+//! @param height: height of the ripple in nanometers
+//! @param asymmetry: asymmetry length of the triangular profile in nanometers
 FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymmetry)
     : m_length(length), m_width(width), m_height(height), m_d(asymmetry)
 {
@@ -40,30 +45,30 @@ double FormFactorRipple2::radialExtension() const
 //! Complex formfactor.
 complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const
 {
-    complex_t factor = m_length * MathFunctions::sinc(q.x() * m_length * 0.5) * m_width;
-    complex_t result = 0;
-    complex_t iqzH = mul_I( q.z() * m_height );
-    complex_t iqyW = mul_I( q.y() * m_width );
-    complex_t aaa = 2.0 * (m_d * q.y() + m_height * q.z());
+    complex_t factor = m_length * MathFunctions::sinc(q.x()*m_length/2.) * m_height * m_width;
+    complex_t result;
+    const complex_t qyW2 = q.y() * m_width * 0.5;
+    const complex_t qyd = q.y() * m_d;
+    const complex_t qzH = q.z() * m_height;
+    const complex_t a = qzH + qyd;
+    // dimensionless scale factors
+    const double a_scale = std::abs(a);
+    const double w_scale = std::abs(qyW2);
 
-    if (0.0 == q.y() && 0.0 == q.z())
-        result = m_height * 0.5;
-    else if (0.0 == q.y())
-        result = (1.0 - std::exp(iqzH) + iqzH) / (m_height * q.z() * q.z());
-    else if (1.0 == aaa / (q.y() * m_width))
-        result = m_height * std::exp(iqzH) * (1.0 - std::exp(-1.0 * iqyW) - iqyW)
-                 / (q.y() * q.y() * m_width * m_width);
-    else if (-1.0 == aaa / (q.y() * m_width))
-        result = m_height * std::exp(iqzH) * (1.0 - std::exp(-1.0 * iqyW) + iqyW)
-                 / (q.y() * q.y() * m_width * m_width);
-    else {
-        complex_t iHqzdqy = complex_t(0.0, 1.0) * (q.z() * m_height + q.y() * m_d);
-        complex_t Hqzdqy = q.z() * m_height + q.y() * m_d;
-        result = std::cos(q.y() * m_width * 0.5)
-                 + 2.0 * iHqzdqy * std::sin(q.y() * m_width * 0.5) / (m_width * q.y());
-        result = result * std::exp(-1.0 * iHqzdqy) - 1.0;
-        result = result * 4.0 * m_height * std::exp(iqzH)
-                 / (4.0 * Hqzdqy * Hqzdqy - q.y() * q.y() * m_width * m_width);
+    if (w_scale < 1.e-5) { // |q_y*W| << 1
+        if (a_scale < 1e-5) { // |q_y*W| << 1 && |q_z*H + q_y*d| << 1
+            // relative error is O((q_y*W)^2) and O((q_z*H + q_y*d)^2)
+            result = exp_I(-qyd)*(0.5 + mul_I(a)/6.);
+        } else {
+            // relative error is O((q_y*W)^2)
+            result = exp_I(-qyd)*(1.0 + mul_I(a) - exp_I(a)) / (a * a);
+        }
+    } else {
+        const complex_t gamma_p = (a + qyW2) * 0.5;
+        const complex_t gamma_m = (a - qyW2) * 0.5;
+        result = exp_I(gamma_m) * MathFunctions::sinc(gamma_p)
+               - exp_I(gamma_p) * MathFunctions::sinc(gamma_m);
+        result = mul_I(exp_I(-qyd)*result / (qyW2*2.));
     }
     return factor * result;
 }

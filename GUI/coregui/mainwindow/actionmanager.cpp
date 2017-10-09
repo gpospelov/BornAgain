@@ -21,82 +21,80 @@
 #include "mainwindow_constants.h"
 #include "projectmanager.h"
 #include "qstringutils.h"
+#include "aboutapplicationdialog.h"
+#include "PyImportAssistant.h"
+#include "hostosinfo.h"
+#include "SysUtils.h"
 #include <QDir>
 #include <QMenuBar>
 #include <QSettings>
 #include <QShortcut>
 
-ActionManager::ActionManager(MainWindow *parent)
+ActionManager::ActionManager(MainWindow* parent)
     : QObject(parent)
     , m_mainWindow(parent)
-    , m_newAction(0)
-    , m_openAction(0)
-    , m_saveAction(0)
-    , m_saveAsAction(0)
-    , m_menuBar(0)
-    , m_fileMenu(0)
-    , m_settingsMenu(0)
-    , m_helpMenu(0)
-    , m_runSimulationShortcut(0)
+    , m_newAction(nullptr)
+    , m_openAction(nullptr)
+    , m_saveAction(nullptr)
+    , m_saveAsAction(nullptr)
+    , m_exitAction(nullptr)
+    , m_aboutAction(nullptr)
+    , m_menuBar(nullptr)
+    , m_fileMenu(nullptr)
+    , m_settingsMenu(nullptr)
+    , m_recentProjectsMenu(nullptr)
+    , m_helpMenu(nullptr)
+    , m_importMenu(nullptr)
+    , m_runSimulationShortcut(nullptr)
 {
-    setParent(parent);
     createActions();
     createMenus();
     createGlobalShortcuts();
 }
 
-
-
 void ActionManager::createActions()
 {
-    ProjectManager *projectManager = m_mainWindow->projectManager();
+    ProjectManager* projectManager = m_mainWindow->projectManager();
     Q_ASSERT(projectManager);
 
     // new project action
-//    QIcon icon = QIcon::fromTheme(QLatin1String("document-new"), QIcon(QLatin1String(Constants::ICON_NEWFILE)));
     m_newAction = new QAction("&New Project", m_mainWindow);
     m_newAction->setShortcuts(QKeySequence::New);
     m_newAction->setStatusTip("Create a new project");
-    connect(m_newAction, SIGNAL(triggered()), projectManager, SLOT(newProject()) );
+    connect(m_newAction, &QAction::triggered, projectManager, &ProjectManager::newProject);
 
     // open project action
-//    icon = QIcon::fromTheme(QLatin1String("document-open"), QIcon(QLatin1String(Constants::ICON_OPENFILE)));
     m_openAction = new QAction("&Open Project", m_mainWindow);
     m_openAction->setShortcuts(QKeySequence::Open);
     m_openAction->setStatusTip("Open an existing project");
-    connect(m_openAction, SIGNAL(triggered()), projectManager, SLOT(openProject()) );
+    connect(m_openAction, &QAction::triggered,
+            projectManager, [projectManager]() { projectManager->openProject(); });
 
     // save project action
-//    icon = QIcon::fromTheme(QLatin1String("document-save"), QIcon(QLatin1String(Constants::ICON_SAVEFILE)));
     m_saveAction = new QAction("&Save Project", m_mainWindow);
     m_saveAction->setShortcuts(QKeySequence::Save);
     m_saveAction->setStatusTip("Save project");
     m_saveAction->setShortcutContext(Qt::ApplicationShortcut);
-    connect(m_saveAction, SIGNAL(triggered()), projectManager, SLOT(saveProject()) );
+    connect(m_saveAction, &QAction::triggered,
+            projectManager, [projectManager]() { projectManager->saveProject(); });
 
     // save-as project action
-//    icon = QIcon::fromTheme(QLatin1String("document-save-as"));
     m_saveAsAction = new QAction("Save &As...", m_mainWindow);
     m_saveAsAction->setShortcuts(QKeySequence::SaveAs);
     m_saveAsAction->setStatusTip("Save project under different name");
-    connect(m_saveAsAction, SIGNAL(triggered()), projectManager, SLOT(saveProjectAs()) );
+    connect(m_saveAsAction, &QAction::triggered, projectManager, &ProjectManager::saveProjectAs);
 
     // exit application action
-//    icon = QIcon::fromTheme(QLatin1String("application-exit"));
     m_exitAction = new QAction("E&xit Application", this);
     m_exitAction->setShortcuts(QKeySequence::Quit);
     m_exitAction->setStatusTip("Exit the application");
-    connect(m_exitAction, SIGNAL(triggered()), m_mainWindow, SLOT(close()));
+    connect(m_exitAction, &QAction::triggered, m_mainWindow, &MainWindow::close);
 
     // about application action
-//    icon = QIcon::fromTheme(QLatin1String("help-about"));
     m_aboutAction = new QAction("About &BornAgain", this);
-    //m_aboutAction->setShortcuts(QKeySequence::HelpContents);
     m_aboutAction->setStatusTip("About the application");
-    connect(m_aboutAction, SIGNAL(triggered()), m_mainWindow, SLOT(onAboutApplication()));
-
+    connect(m_aboutAction, &QAction::triggered, this, &ActionManager::onAboutApplication);
 }
-
 
 void ActionManager::createMenus()
 {
@@ -109,7 +107,7 @@ void ActionManager::createMenus()
     m_fileMenu = m_menuBar->addMenu("&File");
     m_fileMenu->addAction(m_newAction);
     m_fileMenu->addAction(m_openAction);
-    connect(m_fileMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowRecentProjects()));
+    connect(m_fileMenu, &QMenu::aboutToShow, this, &ActionManager::aboutToShowFileMenu);
 
     m_recentProjectsMenu = m_fileMenu->addMenu("Recent Projects");
 
@@ -117,13 +115,27 @@ void ActionManager::createMenus()
     m_fileMenu->addAction(m_saveAction);
     m_fileMenu->addAction(m_saveAsAction);
 
+    // Import submenu
+    m_fileMenu->addSeparator();
+    m_importMenu = m_fileMenu->addMenu("Import");
+    m_importMenu->setToolTipsVisible(true);
+    QAction* action = m_importMenu->addAction("Import from Python script (experimental)");
+    action->setToolTip("Import sample from Python script.\n The script should contain a function "
+                       "returning a valid multi-layer.");
+    connect(action, &QAction::triggered, this, &ActionManager::onImportFromPythonScript);
+
+    if (GUI_OS_Utils::HostOsInfo::isMacHost())
+        if (SysUtils::getenv("PYTHONHOME").empty())
+            action->setEnabled(false);
+
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);
 
     // Settings Menu
     m_settingsMenu = new QMenu("Settings", m_mainWindow);
-    aboutToShowSettings(); // MacOS feature: action should exist already, otherwise menuBar will not add menu
-    connect(m_settingsMenu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowSettings()));
+    aboutToShowSettings(); // MacOS feature: action should exist already, otherwise menuBar will not
+                           // add menu
+    connect(m_settingsMenu, &QMenu::aboutToShow, this, &ActionManager::aboutToShowSettings);
     m_menuBar->addMenu(m_settingsMenu);
 
     // Help Menu
@@ -131,39 +143,35 @@ void ActionManager::createMenus()
     m_helpMenu->addAction(m_aboutAction);
 }
 
-
 void ActionManager::createGlobalShortcuts()
 {
-    m_runSimulationShortcut =  new QShortcut(QKeySequence("Ctrl+r"), m_mainWindow);
+    m_runSimulationShortcut = new QShortcut(QKeySequence("Ctrl+r"), m_mainWindow);
     m_runSimulationShortcut->setContext((Qt::ApplicationShortcut));
-    connect(m_runSimulationShortcut, SIGNAL(activated()),
-            m_mainWindow, SLOT(onRunSimulationShortcut()));
+    connect(m_runSimulationShortcut, &QShortcut::activated, m_mainWindow,
+            &MainWindow::onRunSimulationShortcut);
 }
 
-
-void ActionManager::aboutToShowRecentProjects()
+void ActionManager::aboutToShowFileMenu()
 {
     m_recentProjectsMenu->clear();
 
     bool hasRecentProjects = false;
-    foreach(QString file, m_mainWindow->projectManager()->recentProjects() ) {
+    foreach (QString file, m_mainWindow->projectManager()->recentProjects()) {
         hasRecentProjects = true;
-        QAction *action = m_recentProjectsMenu->addAction(
+        QAction* action = m_recentProjectsMenu->addAction(
             QDir::toNativeSeparators(GUI_StringUtils::withTildeHomePath(file)));
         action->setData(qVariantFromValue(file));
-        connect(action, SIGNAL(triggered()), m_mainWindow, SLOT(openRecentProject()));
-
+        connect(action, &QAction::triggered, m_mainWindow, &MainWindow::openRecentProject);
     }
 
     m_recentProjectsMenu->setEnabled(hasRecentProjects);
 
     if (hasRecentProjects) {
         m_recentProjectsMenu->addSeparator();
-        QAction *action = m_recentProjectsMenu->addAction("Clear Menu");
-        connect(action, SIGNAL(triggered()),
-                m_mainWindow->projectManager(), SLOT(clearRecentProjects()));
+        QAction* action = m_recentProjectsMenu->addAction("Clear Menu");
+        connect(action, &QAction::triggered, m_mainWindow->projectManager(),
+                &ProjectManager::clearRecentProjects);
     }
-
 }
 
 void ActionManager::aboutToShowSettings()
@@ -172,11 +180,11 @@ void ActionManager::aboutToShowSettings()
     QSettings settings;
 
     settings.beginGroup(Constants::S_UPDATES);
-    QAction *action = m_settingsMenu->addAction("Check for Updates");
+    QAction* action = m_settingsMenu->addAction("Check for Updates");
     action->setToolTip("Checks for updates available on GUI startup.");
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
-    connect(action, SIGNAL(toggled(bool)), this, SLOT(toggleCheckForUpdates(bool)));
+    connect(action, &QAction::toggled, this, &ActionManager::toggleCheckForUpdates);
     settings.endGroup();
 
     settings.beginGroup(Constants::S_SESSIONMODELVIEW);
@@ -184,7 +192,7 @@ void ActionManager::aboutToShowSettings()
     action->setToolTip("Additional developer's view will appear in left control tab bar");
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_VIEWISACTIVE, false).toBool());
-    connect(action, SIGNAL(toggled(bool)), this, SLOT(setSessionModelViewActive(bool)));
+    connect(action, &QAction::toggled, this, &ActionManager::setSessionModelViewActive);
     settings.endGroup();
 
     action = m_settingsMenu->addAction("Enable autosave");
@@ -192,11 +200,10 @@ void ActionManager::aboutToShowSettings()
                        "When opening project, recover option will be suggested, if possible.");
     action->setCheckable(true);
     action->setChecked(m_mainWindow->projectManager()->isAutosaveEnabled());
-    connect(action, SIGNAL(toggled(bool)),
-            m_mainWindow->projectManager(), SLOT(setAutosaveEnabled(bool)));
+    connect(action, &QAction::toggled, m_mainWindow->projectManager(),
+            &ProjectManager::setAutosaveEnabled);
 
     m_settingsMenu->setToolTipsVisible(true);
-
 }
 
 void ActionManager::toggleCheckForUpdates(bool status)
@@ -215,4 +222,16 @@ void ActionManager::setSessionModelViewActive(bool status)
     settings.setValue(Constants::S_VIEWISACTIVE, status);
     settings.endGroup();
     m_mainWindow->onSessionModelViewActive(status);
+}
+
+void ActionManager::onAboutApplication()
+{
+    AboutApplicationDialog dialog(m_mainWindow);
+    dialog.exec();
+}
+
+void ActionManager::onImportFromPythonScript()
+{
+    PyImportAssistant assistant(m_mainWindow);
+    assistant.exec();
 }

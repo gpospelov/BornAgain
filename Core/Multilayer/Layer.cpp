@@ -22,6 +22,9 @@
 
 #include <set>
 
+//! Constructor of a layer with thickness and material
+//! @param material: material the layer is made of
+//! @param thickness: thickness of a layer in nanometers
 Layer::Layer(HomogeneousMaterial material, double thickness)
     : m_material(std::move(material))
     , m_thickness(thickness)
@@ -33,47 +36,20 @@ Layer::Layer(HomogeneousMaterial material, double thickness)
 Layer::~Layer()
 {}
 
-Layer* Layer::cloneInvertB() const
+Layer* Layer::clone() const
 {
-    Layer* p_clone = new Layer(m_material.inverted(), m_thickness);
-    p_clone->m_B_field = - m_B_field;
-    return p_clone;
+    Layer* p_result = shallowClone();
+    p_result->m_n_slices = m_n_slices;
+    for (auto p_layout : layouts())
+        p_result->addLayout(*p_layout);
+    return p_result;
 }
 
-SafePointerVector<Layer> Layer::cloneSliced(ZLimits limits, Layer::ELayerType layer_type) const
+Layer* Layer::cloneInvertB() const
 {
-    SafePointerVector<Layer> result;
-    // no slicing when there are no limits or #slices is zero
-    if (!limits.isFinite() || m_n_slices==0 || layer_type==ONLYLAYER) {
-        result.push_back(clone());
-        return result;
-    }
-    double bottom = limits.lowerLimit().m_value;
-    double top = limits.upperLimit().m_value;
-    double slice_thickness = (top-bottom)/m_n_slices;
-    // empty top layer
-    double empty_top_thickness = (layer_type==TOPLAYER) ? 0 : -top;
-    if (empty_top_thickness>0 || layer_type==TOPLAYER)
-    {
-        result.push_back(new Layer(m_material, empty_top_thickness));
-    }
-    // slices containing particles
-    double offset = -top;
-    for (size_t i=0; i<m_n_slices; ++i)
-    {
-        Layer* p_layer = (i==0) ? cloneWithOffset(offset)
-                                : emptyClone();
-        p_layer->setThickness(slice_thickness);
-        result.push_back(p_layer);
-    }
-    // empty bottom layer
-    double layer_thickness = (layer_type==INTERMEDIATELAYER) ? thickness() : 0;
-    double empty_bottom_thickness = (layer_type==BOTTOMLAYER) ? 0 : bottom + layer_thickness;
-    if (empty_bottom_thickness>0 || layer_type==BOTTOMLAYER)
-    {
-        result.push_back(new Layer(m_material, empty_bottom_thickness));
-    }
-    return result;
+    Layer* p_result = shallowClone();
+    p_result->m_B_field = -m_B_field;
+    return p_result;
 }
 
 //! Sets layer thickness in nanometers.
@@ -133,6 +109,48 @@ void Layer::registerThickness(bool make_registered)
     }
 }
 
+SafePointerVector<Layer> Layer::slice(ZLimits limits, Layer::ELayerType layer_type) const
+{
+    SafePointerVector<Layer> result;
+    // no slicing when there are no limits or #slices is zero
+    if (!limits.isFinite() || m_n_slices==0 || layer_type==ONLYLAYER) {
+        result.push_back(clone());
+        return result;
+    }
+    double bottom = limits.lowerLimit().m_value;
+    double top = limits.upperLimit().m_value;
+    double slice_thickness = (top-bottom)/m_n_slices;
+    // empty top layer
+    double empty_top_thickness = (layer_type==TOPLAYER) ? 0 : -top;
+    if (empty_top_thickness>0 || layer_type==TOPLAYER)
+    {
+        result.push_back(new Layer(m_material, empty_top_thickness));
+    }
+    // slices containing particles
+    double offset = -top;
+    for (size_t i=0; i<m_n_slices; ++i)
+    {
+        Layer* p_layer = shallowClone();
+        if (i==0) {
+            for (auto p_layout : layouts())
+            {
+                std::unique_ptr<ILayout> P_layout_offset { p_layout->cloneWithOffset(offset) };
+                p_layer->addLayout(*P_layout_offset);
+            }
+        }
+        p_layer->setThickness(slice_thickness);
+        result.push_back(p_layer);
+    }
+    // empty bottom layer
+    double layer_thickness = (layer_type==INTERMEDIATELAYER) ? thickness() : 0;
+    double empty_bottom_thickness = (layer_type==BOTTOMLAYER) ? 0 : bottom + layer_thickness;
+    if (empty_bottom_thickness>0 || layer_type==BOTTOMLAYER)
+    {
+        result.push_back(new Layer(m_material, empty_bottom_thickness));
+    }
+    return result;
+}
+
 complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
 {
     complex_t n = m_material.refractiveIndex();
@@ -152,36 +170,11 @@ void Layer::initBField(kvector_t h_field, double b_z)
     m_B_field.setZ(b_z);
 }
 
-Layer::Layer(const Layer& other)
-    : m_material(other.m_material)
-{
-    setName(other.getName());
-    m_thickness = other.m_thickness;
-    m_n_slices = other.m_n_slices;
-    m_B_field = other.m_B_field;
-    for (auto p_layout : other.layouts())
-        addLayout(*p_layout);
-    registerThickness();
-}
-
-Layer* Layer::emptyClone() const
+Layer* Layer::shallowClone() const
 {
     Layer* p_result = new Layer(m_material, m_thickness);
     p_result->setName(getName());
     p_result->m_B_field = m_B_field;
-    return p_result;
-}
-
-Layer* Layer::cloneWithOffset(double offset) const
-{
-    Layer* p_result = emptyClone();
-    for (size_t i=0; i<numberOfLayouts();++i)
-    for (auto p_layout : layouts())
-    {
-        ILayout* p_layout_offset = p_layout->cloneWithOffset(offset);
-        p_result->m_layouts.push_back(p_layout_offset);
-        p_result->registerChild(p_layout_offset);
-    }
     return p_result;
 }
 

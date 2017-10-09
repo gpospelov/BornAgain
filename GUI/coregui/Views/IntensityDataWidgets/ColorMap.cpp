@@ -265,7 +265,6 @@ void ColorMap::unsubscribeFromItem()
 void ColorMap::initColorMap()
 {
     m_colorMap = new QCPColorMap(m_customPlot->xAxis, m_customPlot->yAxis);
-    m_customPlot->addPlottable(m_colorMap);
     m_colorScale = new QCPColorScale(m_customPlot);
     m_colorMap->setColorScale(m_colorScale);
 

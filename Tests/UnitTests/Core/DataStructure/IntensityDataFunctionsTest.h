@@ -20,7 +20,7 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetFixed)
     data.addAxis(axis1);
 
     for(size_t i=0; i<data.getAllocatedSize(); ++i) {
-        data[i] = i;
+        data[i] = static_cast<double>(i);
     }
 
     OutputData<double> *clip = IntensityDataFunctions::createClippedDataSet(data, -5.0, 0.0, -1.5, 1.5);
@@ -46,7 +46,7 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
     data.addAxis(axis1);
 
     for(size_t i=0; i<data.getAllocatedSize(); ++i) {
-        data[i] = i;
+        data[i] = static_cast<double>(i);
     }
 
     OutputData<double> *clip = IntensityDataFunctions::createClippedDataSet(data, -0.5, 0.5, 0.99, 2.0);
@@ -139,6 +139,62 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
 //    }
 //}
 
+TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
+{
+    OutputData<double> input_data;
+    input_data.addAxis("axis0", 2, 1.0, 2.0);
+    input_data.addAxis("axis1", 3, 3.0, 4.0);
+    input_data.setRawDataVector(std::vector<double>{1.0, 2.0, 3.0, 4.0, 5.0, 6.0});
+
+    std::unique_ptr<OutputData<double>> output_data
+        = IntensityDataFunctions::createRearrangedDataSet(input_data, 5);
+
+    EXPECT_EQ(3.0, output_data->getAxis(0).getBinBoundaries().front());
+    EXPECT_EQ(4.0, output_data->getAxis(0).getBinBoundaries().back());
+    EXPECT_EQ(1.0, output_data->getAxis(1).getBinBoundaries().front());
+    EXPECT_EQ(2.0, output_data->getAxis(1).getBinBoundaries().back());
+    EXPECT_EQ(size_t(3), output_data->getAxis(0).size());
+    EXPECT_EQ(size_t(2), output_data->getAxis(1).size());
+
+    EXPECT_EQ(input_data[2], (*output_data)[0]);
+    EXPECT_EQ(input_data[5], (*output_data)[1]);
+    EXPECT_EQ(input_data[1], (*output_data)[2]);
+    EXPECT_EQ(input_data[4], (*output_data)[3]);
+    EXPECT_EQ(input_data[0], (*output_data)[4]);
+    EXPECT_EQ(input_data[3], (*output_data)[5]);
+
+    output_data = IntensityDataFunctions::createRearrangedDataSet(input_data, -6);
+
+    EXPECT_EQ(1.0, output_data->getAxis(0).getBinBoundaries().front());
+    EXPECT_EQ(2.0, output_data->getAxis(0).getBinBoundaries().back());
+    EXPECT_EQ(3.0, output_data->getAxis(1).getBinBoundaries().front());
+    EXPECT_EQ(4.0, output_data->getAxis(1).getBinBoundaries().back());
+    EXPECT_EQ(size_t(2), output_data->getAxis(0).size());
+    EXPECT_EQ(size_t(3), output_data->getAxis(1).size());
+
+    EXPECT_EQ(input_data[5], (*output_data)[0]);
+    EXPECT_EQ(input_data[4], (*output_data)[1]);
+    EXPECT_EQ(input_data[3], (*output_data)[2]);
+    EXPECT_EQ(input_data[2], (*output_data)[3]);
+    EXPECT_EQ(input_data[1], (*output_data)[4]);
+    EXPECT_EQ(input_data[0], (*output_data)[5]);
+
+    output_data = IntensityDataFunctions::createRearrangedDataSet(input_data, 3);
+
+    EXPECT_EQ(3.0, output_data->getAxis(0).getBinBoundaries().front());
+    EXPECT_EQ(4.0, output_data->getAxis(0).getBinBoundaries().back());
+    EXPECT_EQ(1.0, output_data->getAxis(1).getBinBoundaries().front());
+    EXPECT_EQ(2.0, output_data->getAxis(1).getBinBoundaries().back());
+    EXPECT_EQ(size_t(3), output_data->getAxis(0).size());
+    EXPECT_EQ(size_t(2), output_data->getAxis(1).size());
+
+    EXPECT_EQ(input_data[3], (*output_data)[0]);
+    EXPECT_EQ(input_data[0], (*output_data)[1]);
+    EXPECT_EQ(input_data[4], (*output_data)[2]);
+    EXPECT_EQ(input_data[1], (*output_data)[3]);
+    EXPECT_EQ(input_data[5], (*output_data)[4]);
+    EXPECT_EQ(input_data[2], (*output_data)[5]);
+}
 
 TEST_F(IntensityDataFunctionsTest, coordinateToFromBinf)
 {
@@ -176,13 +232,13 @@ TEST_F(IntensityDataFunctionsTest, outputDataCoordinatesToFromBinf)
     double x(-4.5), y(2.5);
     IntensityDataFunctions::coordinateToBinf(x, y, data1);
     IntensityDataFunctions::coordinateFromBinf(x, y, data2);
-    EXPECT_FLOAT_EQ(x, -5.0);
-    EXPECT_FLOAT_EQ(y, -5.0);
+    EXPECT_DOUBLE_EQ(x, -5.0);
+	EXPECT_DOUBLE_EQ(y, -5.0);
 
     x = 3.1; y = 5.1;
     IntensityDataFunctions::coordinateToBinf(x, y, data1);
     IntensityDataFunctions::coordinateFromBinf(x, y, data2);
-    EXPECT_FLOAT_EQ(x, 71.0);
-    EXPECT_FLOAT_EQ(y, 21.0);
+	EXPECT_DOUBLE_EQ(x, 71.0);
+	EXPECT_DOUBLE_EQ(y, 21.0);
 
 }

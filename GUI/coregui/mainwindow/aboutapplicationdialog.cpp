@@ -17,27 +17,85 @@
 #include "aboutapplicationdialog.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
+#include "CustomEventFilters.h"
 #include <QDate>
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
 
-
-AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
-    : QDialog(parent)
+namespace
 {
-    QColor bgColor(240,240,240,255);
+
+QLabel* createLinkLabel()
+{
+    auto result = new QLabel();
+    result->setTextFormat(Qt::RichText);
+    result->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    result->setText("<a href=\"http://www.bornagainproject.org\">www.bornagainproject.org</a>");
+    result->setOpenExternalLinks(true);
+    return result;
+}
+
+QLabel* createCopyrightLabel()
+{
+    QDate date = QDate::currentDate();
+    QString copyright
+        = QString("Copyright: Forschungszentrum Jülich GmbH ").append(date.toString("yyyy"));
+
+    auto result = new QLabel(copyright);
+    result->setContentsMargins(0, 0, 0, 15);
+    return result;
+}
+
+QLabel* createLogoLabel()
+{
+    QPixmap logo(":/images/about_icon.awk", "JPG");
+    auto result = new QLabel;
+    result->setPixmap(logo.scaled(656, 674, Qt::KeepAspectRatio));
+    return result;
+}
+}
+
+AboutApplicationDialog::AboutApplicationDialog(QWidget* parent) : QDialog(parent)
+{
+    QColor bgColor(240, 240, 240, 255);
     QPalette palette;
     palette.setColor(QPalette::Background, bgColor);
     setAutoFillBackground(true);
     setPalette(palette);
 
-    setFixedSize(550, 250);
     setWindowTitle("About BornAgain");
+    setWindowFlags(Qt::Dialog);
 
-    //setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
-    setWindowFlags( Qt::Dialog );
+    QHBoxLayout* detailsLayout = new QHBoxLayout;
+    detailsLayout->addLayout(createLogoLayout());
+    detailsLayout->addLayout(createTextLayout());
 
+    QVBoxLayout* mainLayout = new QVBoxLayout;
+    mainLayout->addLayout(detailsLayout);
+    mainLayout->addLayout(createButtonLayout());
+
+    setLayout(mainLayout);
+}
+
+QBoxLayout* AboutApplicationDialog::createLogoLayout()
+{
+    auto result = new QVBoxLayout;
+
+    QPixmap logo(":/images/about_icon.png");
+    auto label = new QLabel;
+    label->setPixmap(logo.scaled(120, 120, Qt::KeepAspectRatio));
+
+    result->addWidget(label);
+    result->addStretch(1);
+    result->setContentsMargins(5, 5, 5, 5);
+
+    return result;
+}
+
+QBoxLayout* AboutApplicationDialog::createTextLayout()
+{
+    auto result = new QVBoxLayout;
 
     QFont titleFont;
     titleFont.setPointSize(DesignerHelper::getLabelFontSize() + 2);
@@ -47,69 +105,49 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget *parent)
     normalFont.setPointSize(DesignerHelper::getLabelFontSize());
     normalFont.setBold(false);
 
-
-    QPixmap logo(":/images/about_icon.png");
-    QLabel *logoLabel = new QLabel;
-    logoLabel->setPixmap(logo.scaled(120,120,Qt::KeepAspectRatio));
-
-
-    QLabel *aboutTitleLabel = new QLabel(QString("BornAgain version ")
-                                         .append(GUIHelpers::getBornAgainVersionString()));
+    // title
+    auto aboutTitleLabel
+        = new QLabel(QString("BornAgain version ").append(GUIHelpers::getBornAgainVersionString()));
     aboutTitleLabel->setFont(titleFont);
-    aboutTitleLabel->setContentsMargins(0,0,0,15);
+    aboutTitleLabel->setContentsMargins(0, 0, 0, 15);
 
-    QDate date = QDate::currentDate();
-
-    QString copyright = QString("Copyright: Forschungszentrum Jülich GmbH ").append(date.toString("yyyy"));
-    QLabel *copyrightLabel = new QLabel(copyright);
+    // copyright
+    auto copyrightLabel = createCopyrightLabel();
     copyrightLabel->setFont(normalFont);
-    //copyrightLabel->setWordWrap(true);
-    copyrightLabel->setContentsMargins(0,0,0,15);
 
-    QString description = "A software to simulate and fit grazing-incidence small-angle scattering (GISAS) using distorted wave Born approximation (DWBA).";
-    QLabel *descriptionLabel = new QLabel(description);
+    // description
+    QString description = "A software to simulate and fit grazing-incidence small-angle "
+                          "scattering (GISAS) using distorted wave Born approximation (DWBA).";
+    auto descriptionLabel = new QLabel(description);
     descriptionLabel->setFont(normalFont);
     descriptionLabel->setWordWrap(true);
 
+    result->addWidget(aboutTitleLabel);
+    result->addWidget(descriptionLabel);
+    result->addStretch(1);
+    result->addWidget(copyrightLabel);
+    result->addWidget(createLinkLabel());
+    result->addStretch(1);
+    result->setContentsMargins(0, 5, 5, 5);
 
-    QLabel *linkLabel = new QLabel();
-    linkLabel->setTextFormat(Qt::RichText);
-    linkLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-    linkLabel->setText("<a href=\"http://www.bornagainproject.org\">www.bornagainproject.org</a>");
-    linkLabel->setOpenExternalLinks(true);
+    return result;
+}
 
+QBoxLayout* AboutApplicationDialog::createButtonLayout()
+{
+    auto result = new QHBoxLayout;
 
-    QVBoxLayout *logoLayout = new QVBoxLayout;
-    logoLayout->addWidget(logoLabel);
-    logoLayout->addStretch(1);
-    logoLayout->setContentsMargins(5,5,5,5);
+    auto closeButton = new QPushButton("Close");
+    connect(closeButton, &QPushButton::clicked, this, &QDialog::reject);
 
-    QVBoxLayout *textLayout = new QVBoxLayout;
-    textLayout->addWidget(aboutTitleLabel);
-    textLayout->addWidget(descriptionLabel);
-    textLayout->addStretch(1);
-    textLayout->addWidget(copyrightLabel);
-    textLayout->addWidget(linkLabel);
-    textLayout->addStretch(1);
-    textLayout->setContentsMargins(0,5,5,5);
+    result->addStretch(1);
+    result->addWidget(closeButton);
 
+    static const char mydata[] = {0x62, 0x65, 0x65, 0x72};
+    QByteArray b = QByteArray::fromRawData(mydata, sizeof(mydata));
+    auto f = new ShortcodeFilter(b, this);
+    connect(f, &ShortcodeFilter::found, this, [=]() { layout()->addWidget(createLogoLabel());});
+    installEventFilter(f);
 
-    QHBoxLayout *detailsLayout = new QHBoxLayout;
-    detailsLayout->addLayout(logoLayout);
-    detailsLayout->addLayout(textLayout);
-
-
-    m_closeButton = new QPushButton("Close");
-    connect(m_closeButton, SIGNAL(clicked()), this, SLOT(reject()));
-
-    QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    buttonsLayout->addStretch(1);
-    buttonsLayout->addWidget(m_closeButton);
-
-
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(detailsLayout);
-    mainLayout->addLayout(buttonsLayout);
-
-    setLayout(mainLayout);
+    return result;
 }

@@ -29,9 +29,6 @@ public:
     TwoLayerRoughnessBuilder();
     MultiLayer* buildSample() const;
 
-protected:
-    void init_parameters();
-
 private:
     double m_sigma;
     double m_hurst;

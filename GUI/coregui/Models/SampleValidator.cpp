@@ -64,10 +64,6 @@ void SampleValidator::validateItem(const SessionItem *item)
         diagnosis = validateParticleCompositionItem(item);
     }
 
-    else if(item->modelType() == Constants::ParticleCompositionType) {
-        diagnosis = validateParticleCompositionItem(item);
-    }
-
     else if(item->modelType() == Constants::ParticleDistributionType) {
         diagnosis = validateParticleDistributionItem(item);
     }

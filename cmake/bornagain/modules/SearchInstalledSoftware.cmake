@@ -13,6 +13,7 @@ find_package(YamlCpp05 REQUIRED)
 
 set(EIGEN3_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/ThirdParty/Core/eigen3" CACHE INTERNAL "")
 if(NOT EXISTS "${EIGEN3_INCLUDE_DIR}/signature_of_eigen3_matrix_library")
+    unset(EIGEN3_INCLUDE_DIR CACHE)
     find_package(Eigen3 REQUIRED)
 endif()
 

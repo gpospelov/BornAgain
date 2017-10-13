@@ -5,10 +5,17 @@
 find_package(Threads REQUIRED)
 
 # --- math packages ---
-find_package(Eigen3 REQUIRED)
 find_package(FFTW REQUIRED)
 find_package(GSL REQUIRED) # revert this when issue 1404 is resolved
 find_package(YamlCpp05 REQUIRED)
+
+# --- Eigen3 is a git submodule; use system eigen if this submodule was not properly cloned ---
+
+set(EIGEN3_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/ThirdParty/Core/eigen3" CACHE INTERNAL "")
+if(NOT EXISTS "${EIGEN3_INCLUDE_DIR}/signature_of_eigen3_matrix_library")
+    unset(EIGEN3_INCLUDE_DIR CACHE)
+    find_package(Eigen3 REQUIRED)
+endif()
 
 # --- Boost ---
 set(Boost_NO_BOOST_CMAKE ON) # prevent shortcut

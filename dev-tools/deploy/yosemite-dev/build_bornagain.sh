@@ -7,8 +7,8 @@ export PATH=/usr/local/bin:$QTDIR/bin/:$PATH
 export WORKDIR=/Users/vagrant/build
 rm -r -f $WORKDIR; mkdir -p $WORKDIR; cd $WORKDIR;
 
-#git clone -b develop https://github.com/scgmlz/BornAgain.git
-git clone -b release-1.10.0 https://github.com/gpospelov/BornAgain.git
+git clone --recurse-submodules -b develop https://github.com/scgmlz/BornAgain.git
+#git clone -b release-1.10.0 https://github.com/gpospelov/BornAgain.git
 #git clone -b develop https://github.com/gpospelov/BornAgain.git
 
 mkdir BornAgain-build

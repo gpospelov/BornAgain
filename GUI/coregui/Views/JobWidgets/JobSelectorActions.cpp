@@ -18,14 +18,18 @@
 #include "JobItem.h"
 #include "JobModel.h"
 #include "StyledToolBar.h"
+#include "IntensityDataItem.h"
 #include <QAction>
 #include <QItemSelectionModel>
+#include <QSignalMapper>
 #include <QMenu>
+#include <memory>
 
 JobSelectorActions::JobSelectorActions(JobModel* jobModel, QObject* parent)
     : QObject(parent)
     , m_runJobAction(nullptr)
     , m_removeJobAction(nullptr)
+    , m_signalMapper(new QSignalMapper(this))
     , m_selectionModel(nullptr)
     , m_jobModel(jobModel)
 {
@@ -38,6 +42,9 @@ JobSelectorActions::JobSelectorActions(JobModel* jobModel, QObject* parent)
     m_removeJobAction->setIcon(QIcon(":/images/toolbar16dark_recycle.svg"));
     m_removeJobAction->setToolTip("Remove currently selected job.");
     connect(m_removeJobAction, &QAction::triggered, this, &JobSelectorActions::onRemoveJob);
+
+    connect(m_signalMapper, SIGNAL(mapped(int)), this, SLOT(equalizeSelectedToJob(int)));
+
 }
 
 void JobSelectorActions::setSelectionModel(QItemSelectionModel* selectionModel)
@@ -78,8 +85,42 @@ void JobSelectorActions::onContextMenuRequest(const QPoint& point, const QModelI
     setAllActionsEnabled(true);
 }
 
+//! Puts all IntensityDataItem axes range to the selected job
+
+void JobSelectorActions::equalizeSelectedToJob(int selected_id)
+{
+    QModelIndexList selectedList = m_selectionModel->selectedIndexes();
+
+    if (selected_id >= selectedList.size())
+        return;
+
+    JobItem* referenceItem = m_jobModel->getJobItemForIndex(selectedList.at(selected_id));
+    Q_ASSERT(referenceItem);
+
+    IntensityDataItem* referenceDataItem = referenceItem->intensityDataItem();
+    if (!referenceDataItem)
+        return;
+
+    foreach (QModelIndex index, selectedList) {
+        JobItem* jobItem = m_jobModel->getJobItemForIndex(index);
+        if (jobItem == referenceItem)
+            continue;
+
+        if (IntensityDataItem* dataItem = jobItem->intensityDataItem()) {
+            dataItem->setLowerX(referenceDataItem->getLowerX());
+            dataItem->setUpperX(referenceDataItem->getUpperX());
+            dataItem->setLowerY(referenceDataItem->getLowerY());
+            dataItem->setUpperY(referenceDataItem->getUpperY());
+            dataItem->setLowerZ(referenceDataItem->getLowerZ());
+            dataItem->setUpperZ(referenceDataItem->getUpperZ());
+        }
+    }
+}
+
 void JobSelectorActions::initItemContextMenu(QMenu& menu, const QModelIndex& indexAtPoint)
 {
+    menu.setToolTipsVisible(true);
+
     menu.addAction(m_runJobAction);
     menu.addAction(m_removeJobAction);
 
@@ -92,6 +133,27 @@ void JobSelectorActions::initItemContextMenu(QMenu& menu, const QModelIndex& ind
 
     m_runJobAction->setEnabled(canRunJob(targetIndex));
     m_removeJobAction->setEnabled(canRemoveJob(targetIndex));
+
+    // menu for equalization of selected plots
+    menu.addSeparator();
+
+    m_equialize_menu.reset(new QMenu("Equalize selected plots"));
+    m_equialize_menu->setToolTip(
+        "All plots from the list of selected jobs will be equalized to the one.");
+
+    QModelIndexList selected = m_selectionModel->selectedIndexes();
+    if (selected.size() <= 1)
+        m_equialize_menu->setDisabled(true);
+
+    for (int i = 0; i < selected.count(); ++i) {
+        JobItem* jobItem = m_jobModel->getJobItemForIndex(selected.at(i));
+        QAction* action = new QAction(QString("to ").append(jobItem->itemName()), this);
+        connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
+        m_signalMapper->setMapping(action, i);
+        m_equialize_menu->addAction(action);
+    }
+
+    menu.addMenu(m_equialize_menu.get());
 }
 
 void JobSelectorActions::setAllActionsEnabled(bool value)

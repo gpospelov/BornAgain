@@ -20,11 +20,12 @@
 #include "WinDllMacros.h"
 #include <QModelIndex>
 #include <QObject>
-
+#include <memory>
 class QAction;
 class JobModel;
 class QItemSelectionModel;
 class QModelIndex;
+class QSignalMapper;
 
 //! The JobSelectorActions class contains actions to run/remove jobs. Actions are used by the
 //! toolbar and JobSelectorList's context menu.
@@ -41,6 +42,7 @@ public slots:
     void onRunJob();
     void onRemoveJob();
     void onContextMenuRequest(const QPoint& point, const QModelIndex& indexAtPoint = QModelIndex());
+    void equalizeSelectedToJob(int selected_id);
 
 private:
     void initItemContextMenu(class QMenu& menu, const QModelIndex& indexAtPoint);
@@ -50,8 +52,10 @@ private:
 
     QAction* m_runJobAction;
     QAction* m_removeJobAction;
+    QSignalMapper* m_signalMapper;
     QItemSelectionModel* m_selectionModel;
     JobModel* m_jobModel;
+    std::unique_ptr<QMenu> m_equialize_menu;
 };
 
 #endif // JOBSELECTORACTIONS_H

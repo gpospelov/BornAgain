@@ -42,7 +42,6 @@ JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
     setWindowTitle(Constants::JobSelectorWidgetName);
 
     m_splitter->setOrientation(Qt::Vertical);
-    m_splitter->addWidget(m_toolBar);
     m_splitter->addWidget(m_jobListWidget);
     m_splitter->addWidget(m_jobProperties);
     m_splitter->setChildrenCollapsible(true);
@@ -51,6 +50,7 @@ JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
 

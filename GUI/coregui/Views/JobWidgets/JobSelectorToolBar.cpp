@@ -23,6 +23,8 @@ JobSelectorToolBar::JobSelectorToolBar(JobSelectorActions* actions, QWidget* par
     , m_runJobButton(new QToolButton)
     , m_removeJobButton(new QToolButton)
 {
+    setMinimumSize(minimumHeight(), minimumHeight());
+
     m_runJobButton->setText(QStringLiteral("Run"));
     m_runJobButton->setIcon(QIcon(":/images/toolbar16light_run.svg"));
     m_runJobButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);

@@ -30,29 +30,29 @@ class JobRealTimeWidget;
 class FitActivityPanel;
 class JobMessagePanel;
 
-
 //! The JobViewDocks class assists JobView in holding all main job widgets and corresponding
 //! dock containers.
 
 //! It's main method setActivity handles visibility logic for all of (JobSelectorWidget,
 //! JobOutputDataWidget, JobRealTimeWidget and FitPanelWidget).
 
-class BA_CORE_API_ JobViewDocks : public QObject {
+class BA_CORE_API_ JobViewDocks : public QObject
+{
     Q_OBJECT
 
 public:
-    JobViewDocks(JobView *parent = 0);
+    JobViewDocks(JobView* parent = 0);
 
-    void initViews(class JobModel *jobModel);
+    void initViews(class JobModel* jobModel);
 
-    class JobRealTimeWidget *jobRealTimeWidget() { return m_jobRealTimeWidget;}
-    class FitActivityPanel *fitActivityPanel() { return m_fitActivityPanel; }
-    class JobSelectorWidget *jobSelector() { return m_jobSelector; }
-    class JobOutputDataWidget *jobOutputDataWidget() { return m_jobOutputDataWidget; }
-    class JobMessagePanel *jobMessagePanel() { return m_jobMessagePanel; }
+    JobRealTimeWidget* jobRealTimeWidget();
+    FitActivityPanel* fitActivityPanel();
+    JobSelectorWidget* jobSelector();
+    JobOutputDataWidget* jobOutputDataWidget();
+    JobMessagePanel* jobMessagePanel();
 
     void setActivity(int activity);
-    void setItem(class JobItem *jobItem);
+    void setItem(class JobItem* jobItem);
 
 public slots:
     void onResetLayout();
@@ -64,31 +64,30 @@ public slots:
 private:
     //! Stores sizes of dock widget
     struct DockSizeInfo {
-        DockSizeInfo():m_dock(0){}
-        QDockWidget *m_dock;
+        DockSizeInfo() : m_dock(0) {}
+        QDockWidget* m_dock;
         QSize m_min_size;
         QSize m_max_size;
     };
 
-    QWidget *jobWidget(JobViewFlags::Dock dockId);
-    QDockWidget *dock(JobViewFlags::Dock dockId);
-    QWidget *centralWidget();
-    void initJobWidgets(class JobModel *jobModel);
+    QWidget* jobWidget(JobViewFlags::Dock dockId);
+    QDockWidget* dock(JobViewFlags::Dock dockId);
+    QWidget* centralWidget();
+    void initJobWidgets(class JobModel* jobModel);
     void initDocks();
-    QDockWidget *findDock(QWidget *widget);
+    QDockWidget* findDock(QWidget* widget);
 
-    JobSelectorWidget *m_jobSelector;
-    JobOutputDataWidget *m_jobOutputDataWidget;
-    JobRealTimeWidget *m_jobRealTimeWidget;
-    FitActivityPanel *m_fitActivityPanel;
-    JobMessagePanel *m_jobMessagePanel;
+    JobSelectorWidget* m_jobSelector;
+    JobOutputDataWidget* m_jobOutputDataWidget;
+    JobRealTimeWidget* m_jobRealTimeWidget;
+    FitActivityPanel* m_fitActivityPanel;
+    JobMessagePanel* m_jobMessagePanel;
 
-    QVector<QWidget *> m_jobWidgets;
-    QVector<QDockWidget *> m_dockWidgets;
+    QVector<QWidget*> m_jobWidgets;
+    QVector<QDockWidget*> m_dockWidgets;
 
-    JobView *m_jobView;
+    JobView* m_jobView;
     DockSizeInfo m_dock_info;
-
 };
 
 #endif // JOBVIEWDOCKS_H

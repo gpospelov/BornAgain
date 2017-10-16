@@ -28,26 +28,51 @@
 #include <QDockWidget>
 #include <QTimer>
 
-namespace {
+namespace
+{
 const JobViewFlags::Activity default_activity = JobViewFlags::JOB_VIEW_ACTIVITY;
 }
 
-JobViewDocks::JobViewDocks(JobView *parent)
+JobViewDocks::JobViewDocks(JobView* parent)
     : QObject(parent)
-    , m_jobSelector(0)
-    , m_jobOutputDataWidget(0)
-    , m_jobRealTimeWidget(0)
-    , m_fitActivityPanel(0)
-    , m_jobMessagePanel(0)
+    , m_jobSelector(nullptr)
+    , m_jobOutputDataWidget(nullptr)
+    , m_jobRealTimeWidget(nullptr)
+    , m_fitActivityPanel(nullptr)
+    , m_jobMessagePanel(nullptr)
     , m_jobView(parent)
 {
-
 }
 
-void JobViewDocks::initViews(class JobModel *jobModel)
+void JobViewDocks::initViews(class JobModel* jobModel)
 {
     initJobWidgets(jobModel);
     initDocks();
+}
+
+JobRealTimeWidget* JobViewDocks::jobRealTimeWidget()
+{
+    return m_jobRealTimeWidget;
+}
+
+FitActivityPanel* JobViewDocks::fitActivityPanel()
+{
+    return m_fitActivityPanel;
+}
+
+JobSelectorWidget* JobViewDocks::jobSelector()
+{
+    return m_jobSelector;
+}
+
+JobOutputDataWidget* JobViewDocks::jobOutputDataWidget()
+{
+    return m_jobOutputDataWidget;
+}
+
+JobMessagePanel* JobViewDocks::jobMessagePanel()
+{
+    return m_jobMessagePanel;
 }
 
 //! Sets docks visibility so they match the activity flag.
@@ -55,19 +80,18 @@ void JobViewDocks::initViews(class JobModel *jobModel)
 void JobViewDocks::setActivity(int activity)
 {
     QVector<JobViewFlags::Dock> docksToShow
-            = JobViewActivities::activeDocks(JobViewFlags::Activity(activity));
+        = JobViewActivities::activeDocks(JobViewFlags::Activity(activity));
 
     for (int i = 0; i < JobViewFlags::NUMBER_OF_DOCKS; i++) {
-        JobViewFlags::Dock id = (JobViewFlags::Dock)i;
-        if(docksToShow.contains(id)) {
-            m_dockWidgets[id]->show();
-        } else {
-            m_dockWidgets[id]->hide();
-        }
+        JobViewFlags::Dock id = static_cast<JobViewFlags::Dock>(i);
+        if (docksToShow.contains(id))
+            m_dockWidgets[i]->show();
+        else
+            m_dockWidgets[i]->hide();
     }
 }
 
-void JobViewDocks::setItem(JobItem *jobItem)
+void JobViewDocks::setItem(JobItem* jobItem)
 {
     jobOutputDataWidget()->setItem(jobItem);
     jobRealTimeWidget()->setItem(jobItem);
@@ -79,8 +103,8 @@ void JobViewDocks::setItem(JobItem *jobItem)
 void JobViewDocks::onResetLayout()
 {
     m_jobView->setTrackingEnabled(false);
-    QList<QDockWidget *> dockWidgetList = m_jobView->dockWidgets();
-    foreach (QDockWidget *dockWidget, dockWidgetList) {
+    QList<QDockWidget*> dockWidgetList = m_jobView->dockWidgets();
+    foreach (QDockWidget* dockWidget, dockWidgetList) {
         dockWidget->setFloating(false);
         m_jobView->removeDockWidget(dockWidget);
     }
@@ -90,19 +114,19 @@ void JobViewDocks::onResetLayout()
     m_jobView->addDockWidget(Qt::RightDockWidgetArea, dock(JobViewFlags::FIT_PANEL_DOCK));
     m_jobView->addDockWidget(Qt::BottomDockWidgetArea, dock(JobViewFlags::JOB_MESSAGE_DOCK));
 
-    foreach (QDockWidget *dockWidget, dockWidgetList)
+    foreach (QDockWidget* dockWidget, dockWidgetList)
         dockWidget->show();
 
     m_jobView->setTrackingEnabled(true);
 
-    setActivity(default_activity);
+    setActivity(static_cast<int>(default_activity));
 }
 
 //! Shows/hides JobSelectorWidget.
 
 void JobViewDocks::onToggleJobSelector()
 {
-    QDockWidget *selectorDock = dock(JobViewFlags::JOB_LIST_DOCK);
+    QDockWidget* selectorDock = dock(JobViewFlags::JOB_LIST_DOCK);
     selectorDock->setHidden(!selectorDock->isHidden());
 }
 
@@ -116,41 +140,30 @@ void JobViewDocks::onToggleJobSelector()
 
 void JobViewDocks::setDockHeightForWidget(int height)
 {
-    QWidget *widget = qobject_cast<QWidget *>(sender());
+    QWidget* widget = qobject_cast<QWidget*>(sender());
     Q_ASSERT(widget);
-    QDockWidget *dock = findDock(widget);
+    QDockWidget* dock = findDock(widget);
     Q_ASSERT(dock);
 
     m_dock_info.m_dock = dock;
     m_dock_info.m_min_size = dock->minimumSize();
     m_dock_info.m_max_size = dock->maximumSize();
 
-    if(height >0) {
-        if(dock->height() < height) {
+    if (height > 0) {
+        if (dock->height() < height)
             dock->setMinimumHeight(height);
-        } else {
+        else
             dock->setMaximumHeight(height);
-        }
     }
 
-// Pity, lambda functions doesn't compile for QTimer under Qt5.3.1
-//    QTimer::singleShot(1, this, [=]() {
-//        Q_ASSERT(m_dock_info.m_dock);
-//        m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
-//        m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
-//        m_dock_info.m_dock = 0;
-//    });
-
-    QTimer::singleShot(1, this, SLOT(dockToMinMaxSizes()));
-
-
+    QTimer::singleShot(1, this, &JobViewDocks::dockToMinMaxSizes);
 }
 
 void JobViewDocks::onWidgetCloseRequest()
 {
-    QWidget *widget = qobject_cast<QWidget *>(sender());
+    QWidget* widget = qobject_cast<QWidget*>(sender());
     Q_ASSERT(widget);
-    QDockWidget *dock = findDock(widget);
+    QDockWidget* dock = findDock(widget);
     Q_ASSERT(dock);
 
     dock->toggleViewAction()->trigger();
@@ -161,31 +174,30 @@ void JobViewDocks::dockToMinMaxSizes()
     Q_ASSERT(m_dock_info.m_dock);
     m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
     m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
-    m_dock_info.m_dock = 0;
+    m_dock_info.m_dock = nullptr;
 }
 
 //! Returns job widget with given Id.
 
-QWidget *JobViewDocks::jobWidget(JobViewFlags::Dock dockId)
+QWidget* JobViewDocks::jobWidget(JobViewFlags::Dock dockId)
 {
     return m_jobWidgets.at(static_cast<int>(dockId));
 }
 
 //! Returns dock with given id.
 
-QDockWidget *JobViewDocks::dock(JobViewFlags::Dock dockId)
+QDockWidget* JobViewDocks::dock(JobViewFlags::Dock dockId)
 {
     return m_dockWidgets.at(static_cast<int>(dockId));
 }
 
-QWidget *JobViewDocks::centralWidget()
-{
+QWidget* JobViewDocks::centralWidget() {
     return m_jobOutputDataWidget;
 }
 
 //! Inits all main JobWidgets.
 
-void JobViewDocks::initJobWidgets(JobModel *jobModel)
+void JobViewDocks::initJobWidgets(JobModel* jobModel)
 {
     m_jobWidgets.resize(JobViewFlags::NUMBER_OF_DOCKS);
     m_dockWidgets.resize(JobViewFlags::NUMBER_OF_DOCKS);
@@ -202,8 +214,10 @@ void JobViewDocks::initJobWidgets(JobModel *jobModel)
     m_jobWidgets[JobViewFlags::FIT_PANEL_DOCK] = m_fitActivityPanel;
 
     m_jobMessagePanel = new JobMessagePanel(m_jobView);
-    connect(m_jobMessagePanel, SIGNAL(widgetHeightRequest(int)), this, SLOT(setDockHeightForWidget(int)));
-    connect(m_jobMessagePanel, SIGNAL(widgetCloseRequest()), this, SLOT(onWidgetCloseRequest()));
+    connect(m_jobMessagePanel, &JobMessagePanel::widgetHeightRequest,
+            this, &JobViewDocks::setDockHeightForWidget);
+    connect(m_jobMessagePanel, &JobMessagePanel::widgetCloseRequest,
+            this, &JobViewDocks::onWidgetCloseRequest);
 
     m_jobWidgets[JobViewFlags::JOB_MESSAGE_DOCK] = m_jobMessagePanel;
 
@@ -223,26 +237,22 @@ void JobViewDocks::initDocks()
     m_jobView->setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
     for (int i = 0; i < JobViewFlags::NUMBER_OF_DOCKS; i++) {
-        QWidget *subWindow = jobWidget(JobViewFlags::Dock(i));
+        QWidget* subWindow = jobWidget(JobViewFlags::Dock(i));
         m_dockWidgets[i] = m_jobView->addDockForWidget(subWindow);
-        //m_dockWidgets[i]->setMinimumSize(QSize());
+        // m_dockWidgets[i]->setMinimumSize(QSize());
 
         // Since we have 1-pixel splitters, we generally want to remove
         // frames around item views. So we apply this hack for now.
-        QList<QAbstractItemView*> frames =
-                subWindow->findChildren<QAbstractItemView*>();
-        for (int i = 0 ; i< frames.count(); ++i)
+        QList<QAbstractItemView*> frames = subWindow->findChildren<QAbstractItemView*>();
+        for (int i = 0; i < frames.count(); ++i)
             frames[i]->setFrameStyle(QFrame::NoFrame);
-
     }
 
     onResetLayout();
 }
 
-QDockWidget *JobViewDocks::findDock(QWidget *widget)
+QDockWidget* JobViewDocks::findDock(QWidget* widget)
 {
     int index = m_jobWidgets.indexOf(widget);
-    if(index>=0)
-        return m_dockWidgets[index];
-    return nullptr;
+    return index>=0 ? m_dockWidgets[index] : nullptr;
 }

@@ -50,5 +50,6 @@
         <file>images/toolbar16dark_cloneitem.svg</file>
         <file>images/toolbar16dark_recycle.svg</file>
         <file>images/about_icon.awk</file>
+        <file>images/toolbar16dark_run.svg</file>
     </qresource>
 </RCC>

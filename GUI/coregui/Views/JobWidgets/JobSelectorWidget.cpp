@@ -25,15 +25,14 @@
 #include "minisplitter.h"
 #include <QHBoxLayout>
 
-
-JobSelectorWidget::JobSelectorWidget(JobModel *jobModel, QWidget *parent)
+JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
     : QWidget(parent)
     , m_splitter(new Manhattan::MiniSplitter)
     , m_toolBar(new StyledToolBar)
     , m_jobSelectorActions(new JobSelectorActions(jobModel, this))
     , m_jobListWidget(new JobListWidget)
     , m_jobProperties(new JobPropertiesWidget)
-    , m_jobModel(0)
+    , m_jobModel(nullptr)
 {
     setModel(jobModel);
 
@@ -47,42 +46,40 @@ JobSelectorWidget::JobSelectorWidget(JobModel *jobModel, QWidget *parent)
     m_splitter->addWidget(m_jobProperties);
     m_splitter->setChildrenCollapsible(true);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
 
     m_jobSelectorActions->setSelectionModel(m_jobListWidget->selectionModel());
     m_jobSelectorActions->setToolBar(m_toolBar);
 
-    connect(m_jobListWidget, SIGNAL(contextMenuRequest(const QPoint &, const QModelIndex &)),
-            m_jobSelectorActions, SLOT(onContextMenuRequest(const QPoint &, const QModelIndex &)));
-    connect(m_jobListWidget, SIGNAL(selectionChanged(JobItem*)),
-            this, SLOT(onSelectionChanged(JobItem*)));
+    connect(m_jobListWidget, &JobListWidget::contextMenuRequest,
+            m_jobSelectorActions, &JobSelectorActions::onContextMenuRequest);
+    connect(m_jobListWidget, &JobListWidget::selectionChanged, this,
+            &JobSelectorWidget::onSelectionChanged);
 }
 
-void JobSelectorWidget::setModel(JobModel *jobModel)
+void JobSelectorWidget::setModel(JobModel* jobModel)
 {
     m_jobModel = jobModel;
     m_jobListWidget->setModel(m_jobModel);
 }
 
-const JobItem *JobSelectorWidget::currentJobItem() const
+const JobItem* JobSelectorWidget::currentJobItem() const
 {
     return m_jobListWidget->currentJobItem();
 }
 
-void JobSelectorWidget::makeJobItemSelected(JobItem *item)
+void JobSelectorWidget::makeJobItemSelected(JobItem* item)
 {
     Q_ASSERT(item);
-//    QModelIndex index = m_jobModel->indexOfItem(item);
-//    Q_ASSERT(index.isValid());
     m_jobListWidget->makeJobItemSelected(item);
 }
 
-void JobSelectorWidget::onSelectionChanged(JobItem *jobItem)
+void JobSelectorWidget::onSelectionChanged(JobItem* jobItem)
 {
     m_jobProperties->setItem(jobItem);
     emit selectionChanged(jobItem);

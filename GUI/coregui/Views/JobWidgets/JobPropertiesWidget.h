@@ -17,8 +17,7 @@
 #ifndef JOBPROPERTIESWIDGET_H
 #define JOBPROPERTIESWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "SessionItemWidget.h"
 
 class JobItem;
 class QTextEdit;
@@ -28,29 +27,30 @@ class ComponentEditor;
 //! The JobPropertiesWidget class holds component editor for JobItem. Part of JobSelectorWidget,
 //! resides at lower left corner of JobView.
 
-class BA_CORE_API_ JobPropertiesWidget : public QWidget
+class BA_CORE_API_ JobPropertiesWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
     enum ETabId { JOB_PROPERTIES, JOB_COMMENTS };
-    explicit JobPropertiesWidget(QWidget *parent = 0);
+    explicit JobPropertiesWidget(QWidget* parent = 0);
 
     QSize sizeHint() const { return QSize(64, 256); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
-public slots:
-    void setItem(JobItem *item);
+protected:
+    virtual void subscribeToItem();
+    virtual void unsubscribeFromItem();
 
 private slots:
     void onTextChanged();
 
 private:
-    void updateItem(JobItem *item);
+    void updateItem();
+    JobItem* jobItem();
 
-    JobItem *m_currentItem;
-    QTabWidget *m_tabWidget;
-    ComponentEditor *m_propertyEditor;
-    QTextEdit *m_commentsEditor;
+    QTabWidget* m_tabWidget;
+    ComponentEditor* m_propertyEditor;
+    QTextEdit* m_commentsEditor;
     bool m_block_update;
 };
 

@@ -23,9 +23,8 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 
-JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_currentItem(0)
+JobPropertiesWidget::JobPropertiesWidget(QWidget* parent)
+    : SessionItemWidget(parent)
     , m_tabWidget(new QTabWidget)
     , m_propertyEditor(new ComponentEditor)
     , m_commentsEditor(new QTextEdit)
@@ -34,10 +33,10 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle(Constants::JobPropertiesWidgetName);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
     m_tabWidget->setTabPosition(QTabWidget::South);
     m_tabWidget->insertTab(JOB_PROPERTIES, m_propertyEditor, "Job Properties");
@@ -46,54 +45,50 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget *parent)
     mainLayout->addWidget(m_tabWidget);
     setLayout(mainLayout);
 
-    connect(m_commentsEditor, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
+    connect(m_commentsEditor, &QTextEdit::textChanged, this, &JobPropertiesWidget::onTextChanged);
 }
 
-void JobPropertiesWidget::setItem(JobItem *jobItem)
+void JobPropertiesWidget::subscribeToItem()
 {
-    m_propertyEditor->setItem(jobItem);
-
-    if (m_currentItem == jobItem) {
-        return;
-
-    } else {
-        if(m_currentItem)
-            m_currentItem->mapper()->unsubscribe(this);
-
-        m_currentItem = jobItem;
-        if (!m_currentItem) return;
-
-        updateItem(m_currentItem);
-
-        m_currentItem->mapper()->setOnPropertyChange(
-                    [this](const QString &name)
-        {
-            if(name == JobItem::P_COMMENTS) {
-                updateItem(m_currentItem);
-            }
+    currentItem()->mapper()->setOnPropertyChange(
+        [this](const QString& name) {
+            if (name == JobItem::P_COMMENTS)
+                updateItem();
         }, this);
-    }
+
+    m_propertyEditor->setItem(currentItem());
+
+    updateItem();
+}
+
+void JobPropertiesWidget::unsubscribeFromItem()
+{
+    m_propertyEditor->setItem(nullptr);
 }
 
 void JobPropertiesWidget::onTextChanged()
 {
     m_block_update = true;
-    Q_ASSERT(m_currentItem);
-
-    m_currentItem->setComments(m_commentsEditor->toPlainText());
+    jobItem()->setComments(m_commentsEditor->toPlainText());
     m_block_update = false;
 }
 
-void JobPropertiesWidget::updateItem(JobItem *jobItem)
+void JobPropertiesWidget::updateItem()
 {
-    if(m_block_update) return;
+    if (m_block_update)
+        return;
 
-    if(jobItem) {
-        if(jobItem->getStatus() == Constants::STATUS_FAILED) {
+    if (JobItem* item = jobItem()) {
+        if (item->getStatus() == Constants::STATUS_FAILED)
             m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::red);
-        } else {
+        else
             m_tabWidget->tabBar()->setTabTextColor(JOB_COMMENTS, Qt::black);
-        }
-        m_commentsEditor->setText(jobItem->getComments());
+
+        m_commentsEditor->setText(item->getComments());
     }
+}
+
+JobItem* JobPropertiesWidget::jobItem()
+{
+    return dynamic_cast<JobItem*>(currentItem());
 }

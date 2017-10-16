@@ -27,11 +27,14 @@ class BA_CORE_API_ StyledToolBar : public QToolBar
     Q_OBJECT
 
 public:
-    explicit StyledToolBar(QWidget *parent = 0);
+    explicit StyledToolBar(QWidget* parent = nullptr);
     void addStyledSeparator();
     void addStyledExpand();
 
     int minimumHeight() const;
+
+protected:
+    void contextMenuEvent(QContextMenuEvent*);
 };
 
 #endif // STYLEDTOOLBAR_H

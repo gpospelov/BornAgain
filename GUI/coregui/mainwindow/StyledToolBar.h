@@ -30,6 +30,8 @@ public:
     explicit StyledToolBar(QWidget *parent = 0);
     void addStyledSeparator();
     void addStyledExpand();
+
+    int minimumHeight() const;
 };
 
 #endif // STYLEDTOOLBAR_H

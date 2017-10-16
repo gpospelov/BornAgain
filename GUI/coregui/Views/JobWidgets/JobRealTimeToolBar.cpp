@@ -21,7 +21,7 @@ JobRealTimeToolBar::JobRealTimeToolBar(QWidget* parent)
     : StyledToolBar(parent)
     , m_resetParametersButton(new QToolButton)
 {
-    setMinimumSize(25, 25);
+    setMinimumSize(minimumHeight(), minimumHeight());
 
     m_resetParametersButton->setText("Reset values");
     m_resetParametersButton->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));

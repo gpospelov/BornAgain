@@ -18,6 +18,10 @@
 #include <QLabel>
 #include <QStyle>
 
+namespace {
+const int fixed_height = 25;
+}
+
 StyledToolBar::StyledToolBar(QWidget *parent)
     : QToolBar(parent)
 {
@@ -41,4 +45,9 @@ void StyledToolBar::addStyledExpand()
     QWidget* empty = new QWidget();
     empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     addWidget(empty);
+}
+
+int StyledToolBar::minimumHeight() const
+{
+    return fixed_height;
 }

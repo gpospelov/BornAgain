@@ -66,6 +66,11 @@ void JobPropertiesWidget::unsubscribeFromItem()
     m_propertyEditor->setItem(nullptr);
 }
 
+void JobPropertiesWidget::contextMenuEvent(QContextMenuEvent*)
+{
+    // Reimplemented to suppress menu from main window
+}
+
 void JobPropertiesWidget::onTextChanged()
 {
     m_block_update = true;

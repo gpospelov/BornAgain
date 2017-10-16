@@ -32,14 +32,15 @@ class BA_CORE_API_ JobPropertiesWidget : public SessionItemWidget
     Q_OBJECT
 public:
     enum ETabId { JOB_PROPERTIES, JOB_COMMENTS };
-    explicit JobPropertiesWidget(QWidget* parent = 0);
+    explicit JobPropertiesWidget(QWidget* parent = nullptr);
 
     QSize sizeHint() const { return QSize(64, 256); }
     QSize minimumSizeHint() const { return QSize(64, 64); }
 
 protected:
-    virtual void subscribeToItem();
-    virtual void unsubscribeFromItem();
+    void subscribeToItem();
+    void unsubscribeFromItem();
+    void contextMenuEvent(QContextMenuEvent *);
 
 private slots:
     void onTextChanged();

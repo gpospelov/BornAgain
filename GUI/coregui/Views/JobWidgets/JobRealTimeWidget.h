@@ -39,13 +39,10 @@ public:
 
 public slots:
     void setItem(JobItem *jobItem);
-    void onResetParameters();
 
 private:
-    ParameterTuningWidget *currentParameterTuningWidget();
     bool isValidJobItem(JobItem *item);
 
-    class JobRealTimeToolBar *m_toolBar;
     ItemStackPresenter<ParameterTuningWidget> *m_stackedWidget;
 };
 

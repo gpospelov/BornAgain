@@ -17,17 +17,19 @@
 #include "JobRealTimeToolBar.h"
 #include <QToolButton>
 
-//! main tool bar on top of SampleView window
-JobRealTimeToolBar::JobRealTimeToolBar(QWidget *parent)
+JobRealTimeToolBar::JobRealTimeToolBar(QWidget* parent)
     : StyledToolBar(parent)
-    , m_resetParametersButton(0)
+    , m_resetParametersButton(new QToolButton)
 {
-    m_resetParametersButton = new QToolButton;
-    m_resetParametersButton->setText("Reset Values");
+    setMinimumSize(25, 25);
+
+    m_resetParametersButton->setText("Reset values");
     m_resetParametersButton->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
     m_resetParametersButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_resetParametersButton->setToolTip("Reset parameter tree to initial values");
-    connect(m_resetParametersButton, SIGNAL(clicked()), this, SIGNAL(resetParameters()));
     addWidget(m_resetParametersButton);
+
+    connect(m_resetParametersButton, &QToolButton::clicked,
+            this, &JobRealTimeToolBar::resetParameters);
 }
 

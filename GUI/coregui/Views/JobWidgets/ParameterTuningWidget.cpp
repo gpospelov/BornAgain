@@ -17,6 +17,7 @@
 #include "ParameterTuningWidget.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
+#include "JobRealTimeToolBar.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
@@ -41,6 +42,7 @@
 
 ParameterTuningWidget::ParameterTuningWidget(QWidget *parent)
     : QWidget(parent)
+    , m_toolBar(new JobRealTimeToolBar(this))
     , m_jobModel(0)
     , m_currentJobItem(0)
     , m_parameterTuningModel(0)
@@ -71,6 +73,7 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget *parent)
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
+    mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_sliderSettingsWidget);
     mainLayout->addWidget(m_treeView);
     setLayout(mainLayout);
@@ -83,6 +86,7 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget *parent)
             this, SLOT(onCurrentLinkChanged(SessionItem*)));
     connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(onCustomContextMenuRequested(const QPoint &)));
+    connect(m_toolBar, SIGNAL(resetParameters()), this, SLOT(restoreModelsOfCurrentJobItem()));
 }
 
 void ParameterTuningWidget::setItem(JobItem *item)

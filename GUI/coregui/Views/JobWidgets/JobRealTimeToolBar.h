@@ -19,20 +19,22 @@
 
 #include "StyledToolBar.h"
 
-//! The JobRealTimeToolBar class represents a toolbar with buttons for JobRealTimeWidget.
+class QToolButton;
+
+//! Represents a toolbar with buttons for ParameterTuningWidget.
 
 class BA_CORE_API_ JobRealTimeToolBar : public StyledToolBar
 {
     Q_OBJECT
 
 public:
-    explicit JobRealTimeToolBar(QWidget *parent = 0);
+    explicit JobRealTimeToolBar(QWidget *parent = nullptr);
 
 signals:
     void resetParameters();
 
 private:
-    class QToolButton *m_resetParametersButton;
+    QToolButton* m_resetParametersButton;
 };
 
 #endif // JOBREALTIMETOOLBAR_H

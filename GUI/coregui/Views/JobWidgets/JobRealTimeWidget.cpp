@@ -24,7 +24,6 @@
 
 JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
-    , m_toolBar(new JobRealTimeToolBar)
     , m_stackedWidget(new ItemStackPresenter<ParameterTuningWidget>)
 {
     setWindowTitle(Constants::JobRealTimeWidgetName);
@@ -34,13 +33,11 @@ JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
-    mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_stackedWidget);
 
     setLayout(mainLayout);
 
     m_stackedWidget->setModel(jobModel);
-    connect(m_toolBar, SIGNAL(resetParameters()), this, SLOT(onResetParameters()));
 }
 
 ParameterTuningWidget *JobRealTimeWidget::parameterTuningWidget(JobItem *jobItem)
@@ -73,17 +70,6 @@ void JobRealTimeWidget::setItem(JobItem * jobItem)
         Q_ASSERT(widget);
         widget->setItem(jobItem);
     }
-}
-
-void JobRealTimeWidget::onResetParameters()
-{
-    if(auto widget = currentParameterTuningWidget())
-        widget->restoreModelsOfCurrentJobItem();
-}
-
-ParameterTuningWidget *JobRealTimeWidget::currentParameterTuningWidget()
-{
-    return m_stackedWidget->currentWidget();
 }
 
 //! Returns true if JobItem is valid for real time simulation.

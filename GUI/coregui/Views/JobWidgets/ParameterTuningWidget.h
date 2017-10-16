@@ -20,6 +20,7 @@
 #include <QWidget>
 #include <memory>
 
+class JobRealTimeToolBar;
 class JobModel;
 class JobItem;
 class SessionItem;
@@ -69,6 +70,7 @@ private:
     void setTuningDelegateEnabled(bool enabled);
     void closeActiveEditors();
 
+    JobRealTimeToolBar *m_toolBar;
     JobModel *m_jobModel;
     JobItem *m_currentJobItem;
     ParameterTuningModel *m_parameterTuningModel;

@@ -29,30 +29,29 @@ class QModelIndex;
 //! The JobSelectorActions class contains actions to run/remove jobs. Actions are used by the
 //! toolbar and JobSelectorList's context menu.
 
-class BA_CORE_API_ JobSelectorActions : public QObject {
+class BA_CORE_API_ JobSelectorActions : public QObject
+{
     Q_OBJECT
 public:
-    JobSelectorActions(JobModel *jobModel, QObject *parent = 0);
+    JobSelectorActions(JobModel* jobModel, QObject* parent = 0);
 
-    void setSelectionModel(QItemSelectionModel *selectionModel);
-    void setToolBar(class StyledToolBar *toolBar);
+    void setSelectionModel(QItemSelectionModel* selectionModel);
 
 public slots:
     void onRunJob();
     void onRemoveJob();
-    void onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint = QModelIndex());
+    void onContextMenuRequest(const QPoint& point, const QModelIndex& indexAtPoint = QModelIndex());
 
 private:
-    void initItemContextMenu(class QMenu &menu, const QModelIndex &indexAtPoint);
+    void initItemContextMenu(class QMenu& menu, const QModelIndex& indexAtPoint);
     void setAllActionsEnabled(bool value);
-    bool canRunJob(const QModelIndex &index) const;
-    bool canRemoveJob(const QModelIndex &index) const;
+    bool canRunJob(const QModelIndex& index) const;
+    bool canRemoveJob(const QModelIndex& index) const;
 
-    QAction *m_runJobAction;
-    QAction *m_removeJobAction;
-    //QSignalMapper *m_signalMapper;
-    QItemSelectionModel *m_selectionModel;
-    JobModel *m_jobModel;
+    QAction* m_runJobAction;
+    QAction* m_removeJobAction;
+    QItemSelectionModel* m_selectionModel;
+    JobModel* m_jobModel;
 };
 
 #endif // JOBSELECTORACTIONS_H

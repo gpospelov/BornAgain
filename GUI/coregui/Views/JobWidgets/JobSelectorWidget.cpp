@@ -19,6 +19,7 @@
 #include "JobListWidget.h"
 #include "JobModel.h"
 #include "JobPropertiesWidget.h"
+#include "JobSelectorToolBar.h"
 #include "JobSelectorActions.h"
 #include "StyledToolBar.h"
 #include "mainwindow_constants.h"
@@ -28,8 +29,8 @@
 JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
     : QWidget(parent)
     , m_splitter(new Manhattan::MiniSplitter)
-    , m_toolBar(new StyledToolBar)
     , m_jobSelectorActions(new JobSelectorActions(jobModel, this))
+    , m_toolBar(new JobSelectorToolBar(m_jobSelectorActions, this))
     , m_jobListWidget(new JobListWidget)
     , m_jobProperties(new JobPropertiesWidget)
     , m_jobModel(nullptr)
@@ -54,7 +55,6 @@ JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
     setLayout(mainLayout);
 
     m_jobSelectorActions->setSelectionModel(m_jobListWidget->selectionModel());
-    m_jobSelectorActions->setToolBar(m_toolBar);
 
     connect(m_jobListWidget, &JobListWidget::contextMenuRequest,
             m_jobSelectorActions, &JobSelectorActions::onContextMenuRequest);

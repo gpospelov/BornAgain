@@ -22,7 +22,7 @@
 
 class JobModel;
 class JobItem;
-class StyledToolBar;
+class JobSelectorToolBar;
 class JobSelectorActions;
 class JobListWidget;
 class JobPropertiesWidget;
@@ -40,7 +40,7 @@ class BA_CORE_API_ JobSelectorWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit JobSelectorWidget(JobModel* jobModel, QWidget* parent = 0);
+    explicit JobSelectorWidget(JobModel* jobModel, QWidget* parent = nullptr);
 
     void setModel(JobModel* jobModel);
 
@@ -60,8 +60,8 @@ private slots:
 
 private:
     Manhattan::MiniSplitter* m_splitter;
-    StyledToolBar* m_toolBar;
     JobSelectorActions* m_jobSelectorActions;
+    JobSelectorToolBar* m_toolBar;
     JobListWidget* m_jobListWidget;
     JobPropertiesWidget* m_jobProperties;
     JobModel* m_jobModel;

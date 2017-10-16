@@ -18,37 +18,34 @@
 #include "IntensityDataItem.h"
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataCanvas.h"
-#include "RealDataItem.h"
-#include "SessionItem.h"
 #include "JobItem.h"
-#include <QAction>
 #include <QBoxLayout>
 #include <QMenu>
-#include <QLabel>
 
-IntensityDataWidget::IntensityDataWidget(QWidget *parent)
+IntensityDataWidget::IntensityDataWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_intensityCanvas(new IntensityDataCanvas)
     , m_propertyWidget(new IntensityDataPropertyWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QHBoxLayout *hlayout = new QHBoxLayout;
+    auto hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
-
     hlayout->addWidget(m_intensityCanvas);
     hlayout->addWidget(m_propertyWidget);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-
     mainLayout->addLayout(hlayout);
+
     setLayout(mainLayout);
 
-    connect(m_intensityCanvas, SIGNAL(customContextMenuRequested(const QPoint &)),
-            this, SLOT(onContextMenuRequest(const QPoint &)));
+    connect(m_intensityCanvas, &IntensityDataCanvas::customContextMenuRequested, this,
+            &IntensityDataWidget::onContextMenuRequest);
+
+    m_propertyWidget->setVisible(false);
 }
 
 void IntensityDataWidget::setItem(SessionItem* jobItem)
@@ -73,8 +70,5 @@ void IntensityDataWidget::onContextMenuRequest(const QPoint& point)
 
 IntensityDataItem* IntensityDataWidget::intensityDataItem()
 {
-    IntensityDataItem* result
-        = dynamic_cast<IntensityDataItem*>(currentItem()->getItem(JobItem::T_OUTPUT));
-    Q_ASSERT(result);
-    return result;
+    return &currentItem()->item<IntensityDataItem>(JobItem::T_OUTPUT);
 }

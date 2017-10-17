@@ -64,9 +64,6 @@ void JobRealTimeWidget::setItem(JobItem* jobItem)
     }
 
     m_stackedWidget->setItem(jobItem);
-    if (auto widget = m_stackedWidget->currentWidget())
-        widget->setItem(jobItem);
-
 }
 
 //! Returns true if JobItem is valid for real time simulation.

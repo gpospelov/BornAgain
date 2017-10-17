@@ -134,26 +134,33 @@ void JobSelectorActions::initItemContextMenu(QMenu& menu, const QModelIndex& ind
     m_runJobAction->setEnabled(canRunJob(targetIndex));
     m_removeJobAction->setEnabled(canRemoveJob(targetIndex));
 
-    // menu for equalization of selected plots
+    setupEqualizeMenu(menu);
+}
+
+void JobSelectorActions::setupEqualizeMenu(QMenu& menu)
+{
     menu.addSeparator();
 
-    m_equialize_menu.reset(new QMenu("Equalize selected plots"));
-    m_equialize_menu->setToolTip(
+    QMenu* equalize_menu = menu.addMenu("Equalize selected plots");
+    equalize_menu->setToolTipsVisible(true);
+    equalize_menu->setToolTip(
         "All plots from the list of selected jobs will be equalized to the one.");
-
     QModelIndexList selected = m_selectionModel->selectedIndexes();
-    if (selected.size() <= 1)
-        m_equialize_menu->setDisabled(true);
+
+    if (selected.size() <= 1) {
+        equalize_menu->setDisabled(true);
+        return;
+    }
+
+    std::sort(selected.begin(), selected.end(),
+              [](const QModelIndex& a, const QModelIndex& b) { return a.row() < b.row(); });
 
     for (int i = 0; i < selected.count(); ++i) {
         JobItem* jobItem = m_jobModel->getJobItemForIndex(selected.at(i));
-        QAction* action = new QAction(QString("to ").append(jobItem->itemName()), this);
+        QAction* action = equalize_menu->addAction(QString("to ").append(jobItem->itemName()));
         connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
         m_signalMapper->setMapping(action, i);
-        m_equialize_menu->addAction(action);
     }
-
-    menu.addMenu(m_equialize_menu.get());
 }
 
 void JobSelectorActions::setAllActionsEnabled(bool value)

@@ -45,8 +45,6 @@ FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     , m_fitResultsWidget(new FitResultsWidget)
     , m_currentItem(0)
     , m_fitSuiteManager(new FitSuiteManager(this))
-    , m_runFitManager(new RunFitManager(parent))
-    , m_observer(new GUIFitObserver())
     , m_block_progress_update(false)
 {
     QVBoxLayout *layout = new QVBoxLayout;
@@ -106,8 +104,8 @@ void FitSuiteWidget::onError(const QString &)
 
 void FitSuiteWidget::onPlotsUpdate()
 {
-    m_currentItem->intensityDataItem()->setRawDataVector(m_observer->simulationData());
-    m_observer->finishedPlotting();
+    m_currentItem->intensityDataItem()->setRawDataVector(m_fitSuiteManager->fitObserver()->simulationData());
+    m_fitSuiteManager->fitObserver()->finishedPlotting();
 }
 
 //! Propagates fit progress as reported by GUIFitObserver back to JobItem.
@@ -140,12 +138,12 @@ void FitSuiteWidget::startFitting()
 
 
     try {
-        m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(
+        m_fitSuiteManager->fitObserver()->setInterval(m_currentItem->fitSuiteItem()->getItemValue(
                                     FitSuiteItem::P_UPDATE_INTERVAL).toInt());
         std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_currentItem));
-        fitSuite->attachObserver(m_observer);
-        m_observer->finishedPlotting();
-        m_runFitManager->runFitting(fitSuite);
+        fitSuite->attachObserver(m_fitSuiteManager->fitObserver());
+        m_fitSuiteManager->fitObserver()->finishedPlotting();
+        m_fitSuiteManager->runFitManager()->runFitting(fitSuite);
     } catch(std::exception& e) {
         m_currentItem->setStatus(Constants::STATUS_FAILED);
         m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
@@ -158,7 +156,7 @@ void FitSuiteWidget::startFitting()
 
 void FitSuiteWidget::stopFitting()
 {
-    m_runFitManager->interruptFitting();
+    m_fitSuiteManager->runFitManager()->interruptFitting();
 }
 
 void FitSuiteWidget::onFittingStarted()
@@ -178,7 +176,7 @@ void FitSuiteWidget::onFittingFinished()
         m_currentItem->setStatus(Constants::STATUS_COMPLETED);
     m_currentItem->setEndTime(GUIHelpers::currentDateTime());
     m_currentItem->setProgress(100);
-    m_currentItem->setDuration(m_runFitManager->getDuration());
+    m_currentItem->setDuration(m_fitSuiteManager->runFitManager()->getDuration());
     m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
     emit fittingFinished(m_currentItem);
 }
@@ -187,7 +185,7 @@ void FitSuiteWidget::onFittingFinished()
 void FitSuiteWidget::onFitSuitePropertyChange(const QString &name)
 {
     if(name == FitSuiteItem::P_UPDATE_INTERVAL) {
-        m_observer->setInterval(m_currentItem->fitSuiteItem()->getItemValue(
+        m_fitSuiteManager->fitObserver()->setInterval(m_currentItem->fitSuiteItem()->getItemValue(
                                     FitSuiteItem::P_UPDATE_INTERVAL).toInt());
 
     }
@@ -202,19 +200,19 @@ void FitSuiteWidget::processFittingError(const QString &text)
 
 void FitSuiteWidget::connectSignals()
 {
-    connect(m_runFitManager, SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
-    connect(m_runFitManager, SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
-    connect(m_runFitManager, SIGNAL(fittingError(QString)),
+    connect(m_fitSuiteManager->runFitManager(), SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
+    connect(m_fitSuiteManager->runFitManager(), SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
+    connect(m_fitSuiteManager->runFitManager(), SIGNAL(fittingError(QString)),
             this, SLOT(processFittingError(QString)));
 
-    connect(m_observer.get(), SIGNAL(plotsUpdate()), this, SLOT(onPlotsUpdate()));
+    connect(m_fitSuiteManager->fitObserver().get(), SIGNAL(plotsUpdate()), this, SLOT(onPlotsUpdate()));
 
 
-    connect(m_observer.get(), SIGNAL(logInfoUpdate(QString)),
+    connect(m_fitSuiteManager->fitObserver().get(), SIGNAL(logInfoUpdate(QString)),
             this, SIGNAL(fittingLog(QString)));
 
 
-    connect(m_observer.get(), SIGNAL(progressInfoUpdate(const FitProgressInfo&)),
+    connect(m_fitSuiteManager->fitObserver().get(), SIGNAL(progressInfoUpdate(const FitProgressInfo&)),
             this, SLOT(onProgressInfoUpdate(const FitProgressInfo&)));
 
 }

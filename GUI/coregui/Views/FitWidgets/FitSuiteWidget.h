@@ -30,8 +30,6 @@ class FitParameterWidget;
 class MinimizerSettingsWidget;
 class FitResultsWidget;
 class ParameterTuningWidget;
-class RunFitManager;
-class GUIFitObserver;
 template <class T> class OutputData;
 //class FitProgressInfo;
 class FitSuiteManager;
@@ -87,8 +85,6 @@ private:
     FitResultsWidget *m_fitResultsWidget;
     JobItem *m_currentItem;
     FitSuiteManager* m_fitSuiteManager;
-    RunFitManager *m_runFitManager;
-    std::shared_ptr<GUIFitObserver> m_observer;
     bool m_block_progress_update;
 };
 

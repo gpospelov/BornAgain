@@ -65,7 +65,7 @@ QSize InstrumentEditorWidget::sizeHint() const
     return QSize(600, 600);
 }
 
-void InstrumentEditorWidget::setInstrumentItem(SessionItem* instrument)
+void InstrumentEditorWidget::setItem(SessionItem* instrument)
 {
     m_currentItem = instrument;
     updateWidgets();

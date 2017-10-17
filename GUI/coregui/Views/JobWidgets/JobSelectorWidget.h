@@ -22,13 +22,14 @@
 
 class JobModel;
 class JobItem;
-class StyledToolBar;
+class JobSelectorToolBar;
 class JobSelectorActions;
 class JobListWidget;
 class JobPropertiesWidget;
 
-namespace Manhattan {
-    class MiniSplitter;
+namespace Manhattan
+{
+class MiniSplitter;
 }
 
 //! The JobSelectorWidget class represents left panel of JobView. Contains a tree to select jobs
@@ -39,31 +40,31 @@ class BA_CORE_API_ JobSelectorWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit JobSelectorWidget(JobModel *jobModel, QWidget *parent = 0);
+    explicit JobSelectorWidget(JobModel* jobModel, QWidget* parent = nullptr);
 
-    void setModel(JobModel *jobModel);
+    void setModel(JobModel* jobModel);
 
     QSize sizeHint() const { return QSize(210, 600); }
     QSize minimumSizeHint() const { return QSize(64, 300); }
 
-    const JobItem *currentJobItem() const;
+    const JobItem* currentJobItem() const;
 
 signals:
-    void selectionChanged(JobItem *);
+    void selectionChanged(JobItem*);
 
 public slots:
-    void makeJobItemSelected(JobItem *);
+    void makeJobItemSelected(JobItem*);
 
 private slots:
-    void onSelectionChanged(JobItem *jobItem);
+    void onSelectionChanged(JobItem* jobItem);
 
 private:
-    Manhattan::MiniSplitter *m_splitter;
-    StyledToolBar *m_toolBar;
-    JobSelectorActions *m_jobSelectorActions;
-    JobListWidget *m_jobListWidget;
-    JobPropertiesWidget *m_jobProperties;
-    JobModel *m_jobModel;
+    Manhattan::MiniSplitter* m_splitter;
+    JobSelectorActions* m_jobSelectorActions;
+    JobSelectorToolBar* m_toolBar;
+    JobListWidget* m_jobListWidget;
+    JobPropertiesWidget* m_jobProperties;
+    JobModel* m_jobModel;
 };
 
 #endif // JOBSELECTORWIDGET_H

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/mainwindow/StyledToolBar.h
-//! @brief     Defines class StyledToolBar
+//! @file      GUI/coregui/Views/JobWidgets/JobSelectorToolBar.h
+//! @brief     Defines class JobSelectorToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,27 +14,28 @@
 //
 // ************************************************************************** //
 
-#ifndef STYLEDTOOLBAR_H
-#define STYLEDTOOLBAR_H
+#ifndef JOBSELECTORTOOLBAR_H
+#define JOBSELECTORTOOLBAR_H
 
-#include "WinDllMacros.h"
-#include <QToolBar>
+#include "StyledToolBar.h"
 
-//! The StyledToolBar class represents our standard narrow toolbar with the height 24 pixels.
+class QAction;
+class QToolButton;
+class JobSelectorActions;
 
-class BA_CORE_API_ StyledToolBar : public QToolBar
+//! Styled tool bar on top of JobSelector with run/remove job buttons.
+
+class BA_CORE_API_ JobSelectorToolBar : public StyledToolBar
 {
     Q_OBJECT
 
 public:
-    explicit StyledToolBar(QWidget* parent = nullptr);
-    void addStyledSeparator();
-    void addStyledExpand();
+    explicit JobSelectorToolBar(JobSelectorActions* actions, QWidget* parent = nullptr);
 
-    int minimumHeight() const;
-
-protected:
-    void contextMenuEvent(QContextMenuEvent*);
+private:
+    QToolButton* m_runJobButton;
+    QToolButton* m_removeJobButton;
 };
 
-#endif // STYLEDTOOLBAR_H
+#endif // INSTRUMENTVIEWTOOLBAR_H
+

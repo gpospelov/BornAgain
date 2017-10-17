@@ -39,10 +39,6 @@ public:
 
     void setModel(SessionModel* model);
 
-    //! Shows the widget for given item (and hides previous one).
-    //! If no widget yet exists, it will be created (flag isNew will become 'true' in this case).
-    virtual void setItem(SessionItem* item, bool* isNew = 0) = 0;
-
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
@@ -51,7 +47,6 @@ public:
 public slots:
     virtual void onModelAboutToBeReset();
     virtual void onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int);
-    virtual void onSelectionChanged(SessionItem* item);
 
 protected:
     void connectModel();

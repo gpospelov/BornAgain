@@ -38,7 +38,7 @@ public:
 
     QSize sizeHint() const;
 
-    void setInstrumentItem(SessionItem* instrument);
+    void setItem(SessionItem* instrument);
 
 signals:
     void extendedDetectorEditorRequest(DetectorItem*);

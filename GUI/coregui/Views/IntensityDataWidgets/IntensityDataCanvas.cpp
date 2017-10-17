@@ -37,13 +37,13 @@ QString interpolation_setting_name() { return group_name()+IntensityDataItem::P_
 
 IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
     : SessionItemWidget(parent)
-    , m_colorMap(new ColorMapCanvas(this))
+    , m_colorMap(new ColorMapCanvas)
     , m_resetViewAction(nullptr)
     , m_savePlotAction(nullptr)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    auto layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addWidget(m_colorMap);
@@ -53,8 +53,8 @@ IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
 
     initActions();
 
-    connect(m_colorMap->customPlot(), SIGNAL(mousePress(QMouseEvent*)),
-            this, SLOT(onMousePress(QMouseEvent*)), Qt::UniqueConnection);
+    connect(m_colorMap->customPlot(), &QCustomPlot::mousePress,
+            this, &IntensityDataCanvas::onMousePress, Qt::UniqueConnection);
 }
 
 void IntensityDataCanvas::setItem(SessionItem* intensityItem)
@@ -120,14 +120,15 @@ void IntensityDataCanvas::initActions()
     m_resetViewAction = new QAction(this);
     m_resetViewAction->setText("Reset");
     m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
-    m_resetViewAction->setToolTip("Reset View");
-    connect(m_resetViewAction, SIGNAL(triggered()), this, SLOT(onResetViewAction()));
+    m_resetViewAction->setToolTip("Reset view\n"
+                                  "x,y,z axes range will be set to default");
+    connect(m_resetViewAction, &QAction::triggered, this, &IntensityDataCanvas::onResetViewAction);
 
     m_savePlotAction = new QAction(this);
     m_savePlotAction->setText("Save");
     m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
-    m_savePlotAction->setToolTip("Save Plot");
-    connect(m_savePlotAction, SIGNAL(triggered()), this, SLOT(onSavePlotAction()));
+    m_savePlotAction->setToolTip("Save plot");
+    connect(m_savePlotAction, &QAction::triggered, this, &IntensityDataCanvas::onSavePlotAction);
 }
 
 //! Reads gradient/ interpolation settings from IntensityDataItem and writes to persistant

@@ -24,7 +24,7 @@ class IntensityDataCanvas;
 class IntensityDataPropertyWidget;
 class IntensityDataItem;
 class QAction;
-class TestWidget;
+class QContextMenuEvent;
 
 //! A common widget to display color map (IntensityDataCanvas) and properties
 //! (IntensityDataPropertyWidget) of intensity data item.

@@ -18,15 +18,17 @@
 #include <QLabel>
 #include <QStyle>
 
-StyledToolBar::StyledToolBar(QWidget *parent)
-    : QToolBar(parent)
+namespace {
+const int fixed_height = 25;
+}
+
+StyledToolBar::StyledToolBar(QWidget* parent) : QToolBar(parent)
 {
-//    setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     setMovable(false);
     const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
     setIconSize(QSize(size, size));
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-    setContentsMargins(0,0,0,0);
+    setContentsMargins(0, 0, 0, 0);
 }
 
 void StyledToolBar::addStyledSeparator()
@@ -41,4 +43,14 @@ void StyledToolBar::addStyledExpand()
     QWidget* empty = new QWidget();
     empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     addWidget(empty);
+}
+
+int StyledToolBar::minimumHeight() const
+{
+    return fixed_height;
+}
+
+void StyledToolBar::contextMenuEvent(QContextMenuEvent*)
+{
+    // Context menu reimplemented to suppress the default one
 }

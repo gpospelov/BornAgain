@@ -29,7 +29,7 @@ JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))
     , m_jobActivityStatusBar(new JobActivityStatusBar(mainWindow))
     , m_progressAssistant(new JobProgressAssistant(mainWindow))
-    , m_currentItem(0)
+    , m_currentItem(nullptr)
     , m_mainWindow(mainWindow)
 {
     setObjectName("JobView");
@@ -38,9 +38,9 @@ JobView::JobView(MainWindow *mainWindow)
     connectSignals();
 }
 
-void JobView::onFocusRequest(JobItem *jobItem)
+void JobView::onFocusRequest(JobItem* jobItem)
 {
-    if(jobItem->runInBackground())
+    if (jobItem->runInBackground())
         return;
 
     setAppropriateActivityForJob(jobItem);
@@ -61,33 +61,28 @@ void JobView::setActivity(int activity)
 
 void JobView::onDockMenuRequest()
 {
-    QMenu *menu = createPopupMenu();
+    std::unique_ptr<QMenu> menu(createPopupMenu());
     menu->exec(QCursor::pos());
-    delete menu;
 }
 
 //! Propagates change in JobItem's selection down into main widgets.
 
-void JobView::onSelectionChanged(JobItem *jobItem)
-{
-    m_docks->setItem(jobItem);
-}
+void JobView::onSelectionChanged(JobItem* jobItem) { m_docks->setItem(jobItem); }
 
-void JobView::showEvent(QShowEvent *)
+void JobView::showEvent(QShowEvent*)
 {
-    if(isVisible())
+    if (isVisible())
         m_jobActivityStatusBar->show();
 }
 
-void JobView::hideEvent(QHideEvent *)
+void JobView::hideEvent(QHideEvent*)
 {
-    if(isHidden())
+    if (isHidden())
         m_jobActivityStatusBar->hide();
 }
 
-
 void JobView::connectSignals()
-{    
+{
     connectActivityRelated();
     connectLayoutRelated();
     connectJobRelated();
@@ -98,32 +93,31 @@ void JobView::connectSignals()
 void JobView::connectActivityRelated()
 {
     // Change activity requests: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, SIGNAL(changeActivityRequest(int)),
-            this, SLOT(setActivity(int)));
+    connect(m_jobActivityStatusBar, &JobActivityStatusBar::changeActivityRequest,
+            this, &JobView::setActivity);
 
     // Activity was changed: this -> JobActivityStatusBar
-    connect(this, SIGNAL(activityChanged(int)),
-            m_jobActivityStatusBar, SLOT(onActivityChanged(int)));
+    connect(this, &JobView::activityChanged,
+            m_jobActivityStatusBar, &JobActivityStatusBar::onActivityChanged);
 
     // Activity was changed: this -> JobOutputDataWidget
-    connect(this, SIGNAL(activityChanged(int)),
-            m_docks->jobOutputDataWidget(), SLOT(onActivityChanged(int)));
-
+    connect(this, &JobView::activityChanged,
+            m_docks->jobOutputDataWidget(), &JobOutputDataWidget::onActivityChanged);
 }
 
 //! Connects signals related to dock layout.
 
 void JobView::connectLayoutRelated()
 {
-    connect(this, SIGNAL(resetLayout()), m_docks, SLOT(onResetLayout()));
+    connect(this, &JobView::resetLayout, m_docks, &JobViewDocks::onResetLayout);
 
     // Toggling of JobSelector request: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, SIGNAL(toggleJobSelectorRequest()),
-            m_docks, SLOT(onToggleJobSelector()));
+    connect(m_jobActivityStatusBar, &JobActivityStatusBar::toggleJobSelectorRequest,
+            m_docks, &JobViewDocks::onToggleJobSelector);
 
     // Dock menu request: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, SIGNAL(dockMenuRequest()),
-            this, SLOT(onDockMenuRequest()));
+    connect(m_jobActivityStatusBar, &JobActivityStatusBar::dockMenuRequest,
+            this, &JobView::onDockMenuRequest);
 }
 
 //! Connects signals related to JobItem
@@ -131,23 +125,19 @@ void JobView::connectLayoutRelated()
 void JobView::connectJobRelated()
 {
     // Focus request: JobModel -> this
-    connect(m_mainWindow->jobModel(), SIGNAL(focusRequest(JobItem *)),
-            this, SLOT(onFocusRequest(JobItem *)));
+    connect(m_mainWindow->jobModel(), &JobModel::focusRequest, this, &JobView::onFocusRequest);
 
     // JobItem selection: JobSelectorWidget -> this
-    connect(m_docks->jobSelector(), SIGNAL(selectionChanged(JobItem*)),
-            this, SLOT(onSelectionChanged(JobItem*)));
-
+    connect(m_docks->jobSelector(), &JobSelectorWidget::selectionChanged,
+            this, &JobView::onSelectionChanged);
 }
 
 //! Sets appropriate activity for new JobItem
 
-void JobView::setAppropriateActivityForJob(JobItem *jobItem)
+void JobView::setAppropriateActivityForJob(JobItem* jobItem)
 {
-    if(m_docks->jobSelector()->currentJobItem() != jobItem) {
-        if(jobItem->isValidForFitting())
+    if (m_docks->jobSelector()->currentJobItem() != jobItem) {
+        if (jobItem->isValidForFitting())
             setActivity(JobViewFlags::FITTING_ACTIVITY);
-//        else
-//            setActivity(JobViewFlags::JOB_VIEW_ACTIVITY);
     }
 }

@@ -63,9 +63,6 @@ void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem* detectorItem)
 void InstrumentView::onItemSelectionChanged(SessionItem* instrumentItem)
 {
     m_instrumentEditor->setItem(instrumentItem);
-
-    if (auto widget = m_instrumentEditor->currentWidget())
-        widget->setInstrumentItem(instrumentItem);
 }
 
 void InstrumentView::showEvent(QShowEvent*)

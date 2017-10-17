@@ -47,7 +47,6 @@ public:
 public slots:
     virtual void onModelAboutToBeReset();
     virtual void onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int);
-//    virtual void onSelectionChanged(SessionItem* item);
 
 protected:
     void connectModel();

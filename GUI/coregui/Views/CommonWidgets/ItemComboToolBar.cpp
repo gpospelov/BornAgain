@@ -45,6 +45,7 @@ void ItemComboToolBar::setPresentationList(const QStringList& presentationList,
     Q_ASSERT(presentationList.size());
 
     setComboConnected(false);
+    m_comboBox->clear();
     m_comboBox->addItems(presentationList);
 
     if(!activeList.isEmpty())

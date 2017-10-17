@@ -55,7 +55,6 @@ private:
     FitSuiteWidget *currentFitSuiteWidget();
 
     ItemStackPresenter<FitSuiteWidget> *m_stackedWidget;
-    RunFitControlWidget *m_controlWidget;
     JobRealTimeWidget *m_realTimeWidget;
     JobMessagePanel *m_jobMessagePanel;
 };

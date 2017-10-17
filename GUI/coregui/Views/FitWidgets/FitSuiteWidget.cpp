@@ -33,12 +33,14 @@
 #include "RunFitManager.h"
 #include "mainwindow_constants.h"
 #include "FitSuiteManager.h"
+#include "RunFitControlWidget.h"
 #include <QMessageBox>
 #include <QTabWidget>
 #include <QVBoxLayout>
 
 FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     : QWidget(parent)
+    , m_controlWidget(new RunFitControlWidget)
     , m_tabWidget(new QTabWidget)
     , m_fitParametersWidget(new FitParameterWidget)
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
@@ -62,6 +64,7 @@ FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     //m_tabWidget->addTab(m_fitResultsWidget, "Fit Results");
 
     layout->addWidget(m_tabWidget);
+    layout->addWidget(m_controlWidget);
 
     setLayout(layout);
     connectSignals();
@@ -79,6 +82,7 @@ void FitSuiteWidget::setItem(JobItem *jobItem)
     m_fitParametersWidget->setItem(jobItem);
     m_minimizerSettingsWidget->setItem(jobItem);
     m_fitSuiteManager->setItem(jobItem);
+    m_controlWidget->setItem(jobItem);
 }
 
 void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
@@ -188,8 +192,30 @@ void FitSuiteWidget::processFittingError(const QString &text)
     emit fittingError(text);
 }
 
+void FitSuiteWidget::onStartFittingRequest()
+{
+    startFitting();
+}
+
+void FitSuiteWidget::onStopFittingRequest()
+{
+    stopFitting();
+}
+
 void FitSuiteWidget::connectSignals()
 {
+    connect(m_controlWidget, SIGNAL(startFittingPushed()), this, SLOT(onStartFittingRequest()));
+    connect(m_controlWidget, SIGNAL(stopFittingPushed()), this, SLOT(onStopFittingRequest()));
+
+    connect(this, SIGNAL(fittingStarted(JobItem *)), m_controlWidget,
+            SLOT(onFittingStarted(JobItem *)), Qt::UniqueConnection);
+    connect(this, SIGNAL(fittingFinished(JobItem *)), m_controlWidget,
+            SLOT(onFittingFinished(JobItem *)), Qt::UniqueConnection);
+    connect(this, SIGNAL(fittingError(QString)), m_controlWidget,
+            SLOT(onFittingError(QString)), Qt::UniqueConnection);
+    connect(this, SIGNAL(fittingLog(QString)), m_controlWidget,
+            SLOT(onFittingLog(QString)), Qt::UniqueConnection);
+
     connect(m_fitSuiteManager->runFitManager(), SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
     connect(m_fitSuiteManager->runFitManager(), SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
     connect(m_fitSuiteManager->runFitManager(), SIGNAL(fittingError(QString)),

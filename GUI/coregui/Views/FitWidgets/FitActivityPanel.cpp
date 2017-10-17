@@ -28,7 +28,6 @@
 FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
     , m_stackedWidget(new ItemStackPresenter<FitSuiteWidget>)
-    , m_controlWidget(new RunFitControlWidget)
     , m_realTimeWidget(0)
     , m_jobMessagePanel(0)
 {
@@ -40,12 +39,8 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     mainLayout->setSpacing(0);
 
     mainLayout->addWidget(m_stackedWidget);
-    mainLayout->addWidget(m_controlWidget);
 
     setLayout(mainLayout);
-
-    connect(m_controlWidget, SIGNAL(startFittingPushed()), this, SLOT(onStartFittingRequest()));
-    connect(m_controlWidget, SIGNAL(stopFittingPushed()), this, SLOT(onStopFittingRequest()));
 
     m_stackedWidget->setModel(jobModel);
 }
@@ -59,7 +54,6 @@ void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget *realTimeWidget)
 void FitActivityPanel::setJobMessagePanel(JobMessagePanel *jobMessagePanel)
 {
     m_jobMessagePanel = jobMessagePanel;
-    m_controlWidget->setJobMessagePanel(jobMessagePanel);
 }
 
 QSize FitActivityPanel::sizeHint() const {
@@ -72,7 +66,6 @@ QSize FitActivityPanel::minimumSizeHint() const {
 
 void FitActivityPanel::setItem(JobItem *item)
 {
-    m_controlWidget->setItem(item);
 
     if(!isValidJobItem(item)) {
         m_stackedWidget->hideWidgets();
@@ -87,14 +80,8 @@ void FitActivityPanel::setItem(JobItem *item)
         Q_ASSERT(widget);
         widget->setItem(item);
         widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
-        connect(widget, SIGNAL(fittingStarted(JobItem *)), m_controlWidget,
-                SLOT(onFittingStarted(JobItem *)), Qt::UniqueConnection);
-        connect(widget, SIGNAL(fittingFinished(JobItem *)), m_controlWidget,
-                SLOT(onFittingFinished(JobItem *)), Qt::UniqueConnection);
-        connect(widget, SIGNAL(fittingError(QString)), m_controlWidget,
-                SLOT(onFittingError(QString)), Qt::UniqueConnection);
-        connect(widget, SIGNAL(fittingLog(QString)), m_controlWidget,
-                SLOT(onFittingLog(QString)), Qt::UniqueConnection);
+        widget->runFitControlWidget()->setJobMessagePanel(m_jobMessagePanel);
+
     }
 }
 

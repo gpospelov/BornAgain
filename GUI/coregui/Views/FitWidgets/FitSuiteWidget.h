@@ -33,6 +33,7 @@ class ParameterTuningWidget;
 template <class T> class OutputData;
 //class FitProgressInfo;
 class FitSuiteManager;
+class RunFitControlWidget;
 
 
 //! The FitSuiteWidget contains all fit settings for given JobItem (fit parameters,
@@ -53,6 +54,8 @@ public:
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
+    RunFitControlWidget* runFitControlWidget() { return m_controlWidget; }
+
 signals:
     void fittingStarted(JobItem *jobItem);
     void fittingFinished(JobItem *jobItem);
@@ -70,6 +73,8 @@ private slots:
     void onFittingFinished();
     void onFitSuitePropertyChange(const QString &name);
     void processFittingError(const QString &text);
+    void onStartFittingRequest();
+    void onStopFittingRequest();
 
 private:
     void connectSignals();
@@ -77,6 +82,7 @@ private:
     void updateTuningWidgetParameterValues(const FitProgressInfo &info);
     void updateLog(const FitProgressInfo &info);
 
+    RunFitControlWidget *m_controlWidget;
     QTabWidget *m_tabWidget;
     FitParameterWidget *m_fitParametersWidget;
     MinimizerSettingsWidget *m_minimizerSettingsWidget;

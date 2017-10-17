@@ -18,45 +18,37 @@
 #include "FitSuite.h"
 #include "FittingWorker.h"
 #include <QThread>
-#include <memory>
 
-RunFitManager::RunFitManager(QObject *parent)
+RunFitManager::RunFitManager(QObject* parent)
     : QObject(parent)
-    , m_fitSuite(nullptr)
-    , m_is_fit_running{false}
+    , m_is_fit_running(false)
     , m_duration(0)
 {
 }
 
-void RunFitManager::setFitSuite(std::shared_ptr<FitSuite> suite)
-{
-    m_fitSuite = suite;
-}
-
 // start fitting in separate thread
-void RunFitManager::runFitting()
+void RunFitManager::runFitting(std::shared_ptr<FitSuite> suite)
 {
-    if (!m_fitSuite || m_is_fit_running)
+    if (!suite || m_is_fit_running)
         return;
 
-    QThread *thread = new QThread();
-    FittingWorker *fw = new FittingWorker(m_fitSuite);
+    auto thread = new QThread();
+    auto fw = new FittingWorker(suite);
     fw->moveToThread(thread);
 
     // start fitting when thread starts
-    connect(thread, SIGNAL(started()), fw, SLOT(startFit()));
-    connect(fw, SIGNAL(started()), this, SLOT(intern_workerStarted()));
+    connect(thread, &QThread::started, fw, &FittingWorker::startFit);
+    connect(fw, &FittingWorker::started, this, &RunFitManager::intern_workerStarted);
 
-    connect(this, SIGNAL(intern_interruptFittingWorker()), fw, SLOT(interruptFitting()),
-            Qt::DirectConnection);
+    connect(this, &RunFitManager::intern_interruptFittingWorker,
+            fw, &FittingWorker::interruptFitting, Qt::DirectConnection);
 
-    connect(fw, SIGNAL(error(QString)), this, SLOT(intern_error(QString)));
-
-    connect(fw, SIGNAL(finished(int)), this, SLOT(intern_workerFinished(int)));
+    connect(fw, &FittingWorker::error, this, &RunFitManager::intern_error);
+    connect(fw, &FittingWorker::finished, this, &RunFitManager::intern_workerFinished);
 
     // delete fitting worker and thread when done
     connect(fw, SIGNAL(finished(int)), fw, SLOT(deleteLater()));
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 
     m_is_fit_running = true;
     thread->start();
@@ -71,16 +63,14 @@ int RunFitManager::getDuration()
 
 void RunFitManager::interruptFitting()
 {
-    if (m_is_fit_running) {
+    if (m_is_fit_running)
         emit intern_interruptFittingWorker();
-    }
 }
 
 void RunFitManager::intern_workerFinished(int duration)
 {
     m_is_fit_running = false;
     m_duration = duration;
-    m_fitSuite.reset();
     emit finishedFitting();
 }
 
@@ -89,7 +79,7 @@ void RunFitManager::intern_workerStarted()
     emit startedFitting();
 }
 
-void RunFitManager::intern_error(const QString &mesg)
+void RunFitManager::intern_error(const QString& mesg)
 {
     emit fittingError(mesg);
 }

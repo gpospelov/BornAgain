@@ -139,9 +139,8 @@ void FitSuiteWidget::startFitting()
                                     FitSuiteItem::P_UPDATE_INTERVAL).toInt());
         std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_currentItem));
         fitSuite->attachObserver(m_observer);
-        m_runFitManager->setFitSuite(fitSuite);
         m_observer->finishedPlotting();
-        m_runFitManager->runFitting();
+        m_runFitManager->runFitting(fitSuite);
     } catch(std::exception& e) {
         m_currentItem->setStatus(Constants::STATUS_FAILED);
         m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);

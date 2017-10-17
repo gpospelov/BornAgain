@@ -148,11 +148,6 @@ void FitSuiteWidget::startFitting()
 
 }
 
-void FitSuiteWidget::stopFitting()
-{
-    m_fitSuiteManager->runFitManager()->interruptFitting();
-}
-
 void FitSuiteWidget::onFittingStarted()
 {
     m_currentItem->setStatus(Constants::STATUS_FITTING);
@@ -197,15 +192,10 @@ void FitSuiteWidget::onStartFittingRequest()
     startFitting();
 }
 
-void FitSuiteWidget::onStopFittingRequest()
-{
-    stopFitting();
-}
-
 void FitSuiteWidget::connectSignals()
 {
     connect(m_controlWidget, SIGNAL(startFittingPushed()), this, SLOT(onStartFittingRequest()));
-    connect(m_controlWidget, SIGNAL(stopFittingPushed()), this, SLOT(onStopFittingRequest()));
+    connect(m_controlWidget, SIGNAL(stopFittingPushed()), m_fitSuiteManager, SLOT(onStopFittingRequest()));
 
     connect(this, SIGNAL(fittingStarted(JobItem *)), m_controlWidget,
             SLOT(onFittingStarted(JobItem *)), Qt::UniqueConnection);

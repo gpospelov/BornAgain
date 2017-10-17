@@ -51,6 +51,11 @@ std::shared_ptr<GUIFitObserver> FitSuiteManager::fitObserver()
     return m_observer;
 }
 
+void FitSuiteManager::onStopFittingRequest()
+{
+    m_runFitManager->interruptFitting();
+}
+
 void FitSuiteManager::onPlotsUpdate()
 {
     m_jobItem->intensityDataItem()->setRawDataVector(m_observer->simulationData());

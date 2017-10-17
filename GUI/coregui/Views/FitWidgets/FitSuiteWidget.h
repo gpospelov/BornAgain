@@ -64,9 +64,7 @@ signals:
 
 public slots:
     void onProgressInfoUpdate(const FitProgressInfo &info);
-
     void startFitting();
-    void stopFitting();
 
 private slots:
     void onFittingStarted();
@@ -74,7 +72,6 @@ private slots:
     void onFitSuitePropertyChange(const QString &name);
     void processFittingError(const QString &text);
     void onStartFittingRequest();
-    void onStopFittingRequest();
 
 private:
     void connectSignals();

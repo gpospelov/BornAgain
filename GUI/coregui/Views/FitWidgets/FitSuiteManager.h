@@ -41,6 +41,9 @@ public:
     RunFitManager* runFitManager();
     std::shared_ptr<GUIFitObserver> fitObserver();
 
+public slots:
+    void onStopFittingRequest();
+
 private slots:
     void onPlotsUpdate();
 

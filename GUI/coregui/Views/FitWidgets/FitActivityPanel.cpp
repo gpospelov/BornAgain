@@ -85,18 +85,6 @@ void FitActivityPanel::setItem(JobItem *item)
     }
 }
 
-void FitActivityPanel::onStartFittingRequest()
-{
-    if(FitSuiteWidget *widget = currentFitSuiteWidget())
-        widget->startFitting();
-}
-
-void FitActivityPanel::onStopFittingRequest()
-{
-    if(FitSuiteWidget *widget = currentFitSuiteWidget())
-        widget->stopFitting();
-}
-
 bool FitActivityPanel::isValidJobItem(JobItem *item)
 {
     if(!item) return false;

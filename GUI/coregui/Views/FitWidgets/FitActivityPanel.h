@@ -46,10 +46,6 @@ public:
 public slots:
     void setItem(JobItem *item);
 
-private slots:
-    void onStartFittingRequest();
-    void onStopFittingRequest();
-
 private:
     bool isValidJobItem(JobItem *item);
     FitSuiteWidget *currentFitSuiteWidget();

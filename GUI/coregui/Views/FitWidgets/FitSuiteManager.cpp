@@ -18,6 +18,9 @@
 #include "RunFitManager.h"
 #include "GUIFitObserver.h"
 #include "JobItem.h"
+#include "FitSuiteItem.h"
+#include "DomainFittingBuilder.h"
+#include "FitSuite.h"
 #include "IntensityDataItem.h"
 
 FitSuiteManager::FitSuiteManager(QObject* parent)
@@ -34,10 +37,37 @@ void FitSuiteManager::setItem(JobItem* item)
     m_jobItem = item;
 }
 
-void FitSuiteManager::startFitting()
+void FitSuiteManager::onStartFittingRequest()
 {
-    if (!m_jobItem)
+    if(!m_jobItem)
         return;
+
+    m_jobItem->fitSuiteItem()->mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        // Propagates update interval from FitSuiteItem to fit observer.
+
+        if(name == FitSuiteItem::P_UPDATE_INTERVAL) {
+            m_observer->setInterval(m_jobItem->fitSuiteItem()->getItemValue(
+                                        FitSuiteItem::P_UPDATE_INTERVAL).toInt());
+
+        }
+
+    }, this);
+
+
+    try {
+        m_observer->setInterval(m_jobItem->fitSuiteItem()->getItemValue(
+                                    FitSuiteItem::P_UPDATE_INTERVAL).toInt());
+        std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_jobItem));
+        fitSuite->attachObserver(m_observer);
+        m_observer->finishedPlotting();
+        m_runFitManager->runFitting(fitSuite);
+    } catch(std::exception& e) {
+        m_jobItem->setStatus(Constants::STATUS_FAILED);
+        m_jobItem->fitSuiteItem()->mapper()->unsubscribe(this);
+        emit fittingError(QString::fromStdString(e.what()));
+    }
 
 }
 

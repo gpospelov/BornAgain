@@ -117,35 +117,6 @@ void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
     m_block_progress_update = false;
 }
 
-void FitSuiteWidget::startFitting()
-{
-    m_fitSuiteManager->startFitting();
-
-    if(!m_currentItem)
-        return;
-
-    m_currentItem->fitSuiteItem()->mapper()->setOnPropertyChange(
-                [this](const QString &name)
-    {
-        onFitSuitePropertyChange(name);
-    }, this);
-
-
-    try {
-        m_fitSuiteManager->fitObserver()->setInterval(m_currentItem->fitSuiteItem()->getItemValue(
-                                    FitSuiteItem::P_UPDATE_INTERVAL).toInt());
-        std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_currentItem));
-        fitSuite->attachObserver(m_fitSuiteManager->fitObserver());
-        m_fitSuiteManager->fitObserver()->finishedPlotting();
-        m_fitSuiteManager->runFitManager()->runFitting(fitSuite);
-    } catch(std::exception& e) {
-        m_currentItem->setStatus(Constants::STATUS_FAILED);
-        m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
-        emit m_fitSuiteManager->fittingError(QString::fromStdString(e.what()));
-    }
-
-
-}
 
 void FitSuiteWidget::onFittingStarted()
 {
@@ -169,25 +140,9 @@ void FitSuiteWidget::onFittingFinished()
     emit fittingFinished(m_currentItem);
 }
 
-//! Propagates update interval from FitSuiteItem to fit observer.
-void FitSuiteWidget::onFitSuitePropertyChange(const QString &name)
-{
-    if(name == FitSuiteItem::P_UPDATE_INTERVAL) {
-        m_fitSuiteManager->fitObserver()->setInterval(m_currentItem->fitSuiteItem()->getItemValue(
-                                    FitSuiteItem::P_UPDATE_INTERVAL).toInt());
-
-    }
-
-}
-
-void FitSuiteWidget::onStartFittingRequest()
-{
-    startFitting();
-}
-
 void FitSuiteWidget::connectSignals()
 {
-    connect(m_controlWidget, SIGNAL(startFittingPushed()), this, SLOT(onStartFittingRequest()));
+    connect(m_controlWidget, SIGNAL(startFittingPushed()), m_fitSuiteManager, SLOT(onStartFittingRequest()));
     connect(m_controlWidget, SIGNAL(stopFittingPushed()), m_fitSuiteManager, SLOT(onStopFittingRequest()));
 
     connect(this, SIGNAL(fittingStarted(JobItem *)), m_controlWidget,

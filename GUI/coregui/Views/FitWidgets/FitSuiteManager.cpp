@@ -17,12 +17,15 @@
 #include "FitSuiteManager.h"
 #include "RunFitManager.h"
 #include "GUIFitObserver.h"
+#include "JobItem.h"
+#include "IntensityDataItem.h"
 
 FitSuiteManager::FitSuiteManager(QObject* parent)
     : QObject(parent)
     , m_runFitManager(new RunFitManager(this))
     , m_observer(new GUIFitObserver)
 {
+    connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this, &FitSuiteManager::onPlotsUpdate);
 
 }
 
@@ -46,4 +49,10 @@ RunFitManager* FitSuiteManager::runFitManager()
 std::shared_ptr<GUIFitObserver> FitSuiteManager::fitObserver()
 {
     return m_observer;
+}
+
+void FitSuiteManager::onPlotsUpdate()
+{
+    m_jobItem->intensityDataItem()->setRawDataVector(m_observer->simulationData());
+    m_observer->finishedPlotting();
 }

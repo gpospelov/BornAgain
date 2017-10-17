@@ -60,8 +60,6 @@ signals:
     void fittingLog(const QString &text);
 
 public slots:
-    void onError(const QString &text);
-    void onPlotsUpdate();
     void onProgressInfoUpdate(const FitProgressInfo &info);
 
     void startFitting();

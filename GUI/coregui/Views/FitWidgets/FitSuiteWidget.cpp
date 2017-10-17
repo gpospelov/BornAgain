@@ -98,16 +98,6 @@ QSize FitSuiteWidget::minimumSizeHint() const
     return QSize(25, 25);
 }
 
-void FitSuiteWidget::onError(const QString &)
-{
-}
-
-void FitSuiteWidget::onPlotsUpdate()
-{
-    m_currentItem->intensityDataItem()->setRawDataVector(m_fitSuiteManager->fitObserver()->simulationData());
-    m_fitSuiteManager->fitObserver()->finishedPlotting();
-}
-
 //! Propagates fit progress as reported by GUIFitObserver back to JobItem.
 
 void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
@@ -205,12 +195,9 @@ void FitSuiteWidget::connectSignals()
     connect(m_fitSuiteManager->runFitManager(), SIGNAL(fittingError(QString)),
             this, SLOT(processFittingError(QString)));
 
-    connect(m_fitSuiteManager->fitObserver().get(), SIGNAL(plotsUpdate()), this, SLOT(onPlotsUpdate()));
-
 
     connect(m_fitSuiteManager->fitObserver().get(), SIGNAL(logInfoUpdate(QString)),
             this, SIGNAL(fittingLog(QString)));
-
 
     connect(m_fitSuiteManager->fitObserver().get(), SIGNAL(progressInfoUpdate(const FitProgressInfo&)),
             this, SLOT(onProgressInfoUpdate(const FitProgressInfo&)));

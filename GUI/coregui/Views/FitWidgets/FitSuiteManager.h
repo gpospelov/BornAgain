@@ -41,6 +41,9 @@ public:
     RunFitManager* runFitManager();
     std::shared_ptr<GUIFitObserver> fitObserver();
 
+signals:
+    void fittingError(const QString& message);
+
 public slots:
     void onStopFittingRequest();
 

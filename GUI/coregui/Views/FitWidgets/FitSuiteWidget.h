@@ -59,7 +59,6 @@ public:
 signals:
     void fittingStarted(JobItem *jobItem);
     void fittingFinished(JobItem *jobItem);
-    void fittingError(const QString &what);
     void fittingLog(const QString &text);
 
 public slots:
@@ -70,7 +69,6 @@ private slots:
     void onFittingStarted();
     void onFittingFinished();
     void onFitSuitePropertyChange(const QString &name);
-    void processFittingError(const QString &text);
     void onStartFittingRequest();
 
 private:

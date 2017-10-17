@@ -26,7 +26,7 @@ FitSuiteManager::FitSuiteManager(QObject* parent)
     , m_observer(new GUIFitObserver)
 {
     connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this, &FitSuiteManager::onPlotsUpdate);
-
+    connect(m_runFitManager, &RunFitManager::fittingError, this, &FitSuiteManager::fittingError);
 }
 
 void FitSuiteManager::setItem(JobItem* item)

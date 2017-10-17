@@ -17,30 +17,31 @@
 #include "JobRealTimeWidget.h"
 #include "JobItem.h"
 #include "JobModel.h"
-#include "JobRealTimeToolBar.h"
 #include "ParameterTuningWidget.h"
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
 
-JobRealTimeWidget::JobRealTimeWidget(JobModel *jobModel, QWidget *parent)
+namespace {
+const bool reuse_widget = true;
+}
+
+JobRealTimeWidget::JobRealTimeWidget(JobModel* jobModel, QWidget* parent)
     : QWidget(parent)
-    , m_stackedWidget(new ItemStackPresenter<ParameterTuningWidget>)
+    , m_stackedWidget(new ItemStackPresenter<ParameterTuningWidget>(reuse_widget))
 {
     setWindowTitle(Constants::JobRealTimeWidgetName);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-
     mainLayout->addWidget(m_stackedWidget);
-
     setLayout(mainLayout);
 
     m_stackedWidget->setModel(jobModel);
 }
 
-ParameterTuningWidget *JobRealTimeWidget::parameterTuningWidget(JobItem *jobItem)
+ParameterTuningWidget* JobRealTimeWidget::parameterTuningWidget(JobItem* jobItem)
 {
     return m_stackedWidget->itemWidget(jobItem);
 }
@@ -55,28 +56,25 @@ QSize JobRealTimeWidget::minimumSizeHint() const
     return QSize(100, 100);
 }
 
-void JobRealTimeWidget::setItem(JobItem * jobItem)
+void JobRealTimeWidget::setItem(JobItem* jobItem)
 {
-    if(!isValidJobItem(jobItem)) {
+    if (!isValidJobItem(jobItem)) {
         m_stackedWidget->hideWidgets();
         return;
     }
 
-    bool isNew(false);
-    m_stackedWidget->setItem(jobItem, &isNew);
-
-    if(isNew) {
-        ParameterTuningWidget *widget = m_stackedWidget->currentWidget();
-        Q_ASSERT(widget);
+    m_stackedWidget->setItem(jobItem);
+    if (auto widget = m_stackedWidget->currentWidget())
         widget->setItem(jobItem);
-    }
+
 }
 
 //! Returns true if JobItem is valid for real time simulation.
 
-bool JobRealTimeWidget::isValidJobItem(JobItem *item)
+bool JobRealTimeWidget::isValidJobItem(JobItem* item)
 {
-    if(!item) return false;
-    if(item->isCompleted() || item->isCanceled() || item->isFailed()) return true;
+    if (item && (item->isCompleted() || item->isCanceled() || item->isFailed()))
+        return true;
+
     return false;
 }

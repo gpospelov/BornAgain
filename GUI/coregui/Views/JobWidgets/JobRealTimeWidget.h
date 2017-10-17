@@ -30,20 +30,20 @@ class BA_CORE_API_ JobRealTimeWidget : public QWidget
 {
     Q_OBJECT
 public:
-    JobRealTimeWidget(JobModel *jobModel, QWidget *parent = 0);
+    JobRealTimeWidget(JobModel* jobModel, QWidget* parent = nullptr);
 
-    ParameterTuningWidget *parameterTuningWidget(JobItem *jobItem);
+    ParameterTuningWidget* parameterTuningWidget(JobItem* jobItem);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
 public slots:
-    void setItem(JobItem *jobItem);
+    void setItem(JobItem* jobItem);
 
 private:
-    bool isValidJobItem(JobItem *item);
+    bool isValidJobItem(JobItem* item);
 
-    ItemStackPresenter<ParameterTuningWidget> *m_stackedWidget;
+    ItemStackPresenter<ParameterTuningWidget>* m_stackedWidget;
 };
 
 #endif // JOBREALTIMEWIDGET_H

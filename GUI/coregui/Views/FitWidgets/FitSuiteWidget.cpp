@@ -32,6 +32,7 @@
 #include "ParameterTreeItems.h"
 #include "RunFitManager.h"
 #include "mainwindow_constants.h"
+#include "FitSuiteManager.h"
 #include <QMessageBox>
 #include <QTabWidget>
 #include <QVBoxLayout>
@@ -43,6 +44,7 @@ FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
     , m_fitResultsWidget(new FitResultsWidget)
     , m_currentItem(0)
+    , m_fitSuiteManager(new FitSuiteManager(this))
     , m_runFitManager(new RunFitManager(parent))
     , m_observer(new GUIFitObserver())
     , m_block_progress_update(false)
@@ -78,6 +80,7 @@ void FitSuiteWidget::setItem(JobItem *jobItem)
     m_currentItem = jobItem;
     m_fitParametersWidget->setItem(jobItem);
     m_minimizerSettingsWidget->setItem(jobItem);
+    m_fitSuiteManager->setItem(jobItem);
 }
 
 void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
@@ -124,6 +127,8 @@ void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
 
 void FitSuiteWidget::startFitting()
 {
+    m_fitSuiteManager->startFitting();
+
     if(!m_currentItem)
         return;
 

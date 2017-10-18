@@ -134,8 +134,6 @@ void FitSuiteWidget::onFittingStarted()
     m_currentItem->setDuration(0);
 
     m_jobMessagePanel->onClearLog();
-
-    emit fittingStarted(m_currentItem);
 }
 
 void FitSuiteWidget::onFittingFinished()
@@ -149,8 +147,6 @@ void FitSuiteWidget::onFittingFinished()
 
     if(m_currentItem->isCompleted())
         m_jobMessagePanel->onMessage(QStringLiteral("Done"), QColor(Qt::darkBlue));
-
-    emit fittingFinished(m_currentItem);
 }
 
 void FitSuiteWidget::onFittingLogUpdate(const QString& text)
@@ -172,11 +168,6 @@ void FitSuiteWidget::connectSignals()
 {
     connect(m_controlWidget, SIGNAL(startFittingPushed()), m_fitSuiteManager, SLOT(onStartFittingRequest()));
     connect(m_controlWidget, SIGNAL(stopFittingPushed()), m_fitSuiteManager, SLOT(onStopFittingRequest()));
-
-    connect(this, SIGNAL(fittingStarted(JobItem *)), m_controlWidget,
-            SLOT(onFittingStarted(JobItem *)), Qt::UniqueConnection);
-    connect(this, SIGNAL(fittingFinished(JobItem *)), m_controlWidget,
-            SLOT(onFittingFinished(JobItem *)), Qt::UniqueConnection);
 
     connect(m_fitSuiteManager->runFitManager(), SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
     connect(m_fitSuiteManager->runFitManager(), SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
@@ -225,6 +216,6 @@ void FitSuiteWidget::updateLog(const FitProgressInfo &info)
     }
 
 //    message.append("\n");
-    emit fittingLog(message);
+    m_jobMessagePanel->onMessage(message);
 }
 

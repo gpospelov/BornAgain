@@ -37,24 +37,27 @@ class BA_CORE_API_ RunFitControlWidget : public SessionItemWidget
 public:
     RunFitControlWidget(QWidget *parent = 0);
 
-    void setItem(SessionItem *sessionItem);
+//    void setItem(SessionItem *sessionItem);
 
 signals:
     void startFittingPushed();
     void stopFittingPushed();
 
 public slots:
-    void onFittingStarted(JobItem *jobItem);
-    void onFittingFinished(JobItem *jobItem);
     void onFittingError(const QString &what);
 
 private slots:
     void onSliderValueChanged(int value);
     void onFitSuitePropertyChange(const QString &name);
 
+protected:
+    virtual void subscribeToItem();
+    virtual void unsubscribeFromItem();
+
 private:
     int sliderUpdateInterval();
     int sliderValueToUpdateInterval(int value);
+    void updateButtons();
     JobItem* jobItem();
     FitSuiteItem *fitSuiteItem();
     bool isValidJobItem(JobItem *jobItem);

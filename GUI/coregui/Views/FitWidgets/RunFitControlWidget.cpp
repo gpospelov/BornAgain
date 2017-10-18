@@ -91,59 +91,6 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     setEnabled(false);
 }
 
-void RunFitControlWidget::setItem(SessionItem* sessionItem)
-{
-    SessionItemWidget::setItem(sessionItem);
-
-    JobItem* item = jobItem();
-
-    // If item is not suitable for fitting, disable widget
-    if(!isValidJobItem(item)) {
-        setEnabled(false);
-        return;
-    }
-
-    // if item is ready for fitting, or already has fitting running, enable widget
-    if(m_currentItem == 0 || m_currentItem == item) {
-        setEnabled(true);
-        return;
-    }
-
-    // it's not possible to run new fitting if old is running
-    setEnabled(false);
-}
-
-void RunFitControlWidget::onFittingStarted(JobItem *jobItem)
-{
-    m_currentItem = jobItem;
-    m_warningSign->clear();
-    m_startButton->setEnabled(false);
-    m_stopButton->setEnabled(true);
-
-    Q_ASSERT(fitSuiteItem());
-
-    fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, sliderUpdateInterval());
-
-    fitSuiteItem()->mapper()->setOnPropertyChange(
-                [this](const QString &name)
-    {
-        onFitSuitePropertyChange(name);
-    }, this);
-
-    onFitSuitePropertyChange(FitSuiteItem::P_ITERATION_COUNT);
-
-}
-
-void RunFitControlWidget::onFittingFinished(JobItem *jobItem)
-{
-    Q_ASSERT(jobItem = m_currentItem);
-
-    m_startButton->setEnabled(true);
-    m_stopButton->setEnabled(false);
-    fitSuiteItem()->mapper()->unsubscribe(this);
-    m_currentItem = 0;
-}
-
 void RunFitControlWidget::onFittingError(const QString &what)
 {
     m_warningSign->clear();
@@ -167,6 +114,36 @@ void RunFitControlWidget::onFitSuitePropertyChange(const QString &name)
     }
 }
 
+void RunFitControlWidget::subscribeToItem()
+{
+    updateButtons();
+
+    fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, sliderUpdateInterval());
+
+    fitSuiteItem()->mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        onFitSuitePropertyChange(name);
+    }, this);
+
+    onFitSuitePropertyChange(FitSuiteItem::P_ITERATION_COUNT);
+
+    jobItem()->mapper()->setOnPropertyChange(
+                [this](const QString &name)
+    {
+        if (name == JobItem::P_STATUS)
+            updateButtons();
+    }, this);
+
+}
+
+void RunFitControlWidget::unsubscribeFromItem()
+{
+    setEnabled(false);
+    if (fitSuiteItem())
+        fitSuiteItem()->mapper()->unsubscribe(this);
+}
+
 int RunFitControlWidget::sliderUpdateInterval()
 {
     return sliderValueToUpdateInterval(m_intervalSlider->value());
@@ -181,6 +158,22 @@ int RunFitControlWidget::sliderValueToUpdateInterval(int value)
     return default_update_interval;
 }
 
+//! Updates button "enabled" status depending of current job conditions.
+
+void RunFitControlWidget::updateButtons()
+{
+    setEnabled(isValidJobItem(jobItem()));
+
+    if (jobItem()->getStatus() == Constants::STATUS_FITTING) {
+        m_startButton->setEnabled(false);
+        m_stopButton->setEnabled(true);
+        m_warningSign->clear();
+    } else {
+        m_startButton->setEnabled(true);
+        m_stopButton->setEnabled(false);
+    }
+}
+
 JobItem* RunFitControlWidget::jobItem()
 {
     return dynamic_cast<JobItem*>(currentItem());
@@ -188,10 +181,7 @@ JobItem* RunFitControlWidget::jobItem()
 
 FitSuiteItem *RunFitControlWidget::fitSuiteItem()
 {
-    if(m_currentItem)
-        return m_currentItem->fitSuiteItem();
-
-    return nullptr;
+    return jobItem() ? jobItem()->fitSuiteItem() : nullptr;
 }
 
 bool RunFitControlWidget::isValidJobItem(JobItem *jobItem)

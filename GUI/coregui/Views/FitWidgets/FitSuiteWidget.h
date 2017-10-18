@@ -56,13 +56,6 @@ public:
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
-    RunFitControlWidget* runFitControlWidget() { return m_controlWidget; }
-
-signals:
-    void fittingStarted(JobItem *jobItem);
-    void fittingFinished(JobItem *jobItem);
-    void fittingLog(const QString &text);
-
 public slots:
     void onProgressInfoUpdate(const FitProgressInfo &info);
 

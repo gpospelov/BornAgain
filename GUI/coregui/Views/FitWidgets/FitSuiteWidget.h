@@ -43,7 +43,7 @@ public:
 
     void setItem(JobItem* jobItem);
     void setModelTuningWidget(ParameterTuningWidget* tuningWidget);
-    void setJobMessagePanel(JobMessagePanel* jobMessagePanel);
+    void setFitSuiteManager(FitSuiteManager* fitSuiteManager);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -52,8 +52,6 @@ private slots:
     void onFittingError(const QString& text);
 
 private:
-    void connectSignals();
-
     QTabWidget* m_tabWidget;
     RunFitControlWidget* m_controlWidget;
     FitParameterWidget* m_fitParametersWidget;

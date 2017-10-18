@@ -22,7 +22,6 @@
 #include "mainwindow_constants.h"
 #include "FitSuiteManager.h"
 #include "RunFitControlWidget.h"
-#include "FitLog.h"
 #include <QTabWidget>
 #include <QVBoxLayout>
 
@@ -33,7 +32,7 @@ FitSuiteWidget::FitSuiteWidget(QWidget* parent)
     , m_fitParametersWidget(new FitParameterWidget)
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
     , m_fitResultsWidget(new FitResultsWidget)
-    , m_fitSuiteManager(new FitSuiteManager(this))
+    , m_fitSuiteManager(nullptr)
 {
     auto layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
@@ -48,7 +47,6 @@ FitSuiteWidget::FitSuiteWidget(QWidget* parent)
     layout->addWidget(m_controlWidget);
 
     setLayout(layout);
-    connectSignals();
 }
 
 void FitSuiteWidget::setItem(JobItem* jobItem)
@@ -56,7 +54,7 @@ void FitSuiteWidget::setItem(JobItem* jobItem)
     Q_ASSERT(jobItem);
     m_fitParametersWidget->setItem(jobItem);
     m_minimizerSettingsWidget->setItem(jobItem);
-    m_fitSuiteManager->setItem(jobItem);
+//    m_fitSuiteManager->setItem(jobItem);
     m_controlWidget->setItem(jobItem);
 }
 
@@ -67,9 +65,27 @@ void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget* tuningWidget)
     m_fitParametersWidget->setParameterTuningWidget(tuningWidget);
 }
 
-void FitSuiteWidget::setJobMessagePanel(JobMessagePanel* jobMessagePanel)
+void FitSuiteWidget::setFitSuiteManager(FitSuiteManager* fitSuiteManager)
 {
-    m_fitSuiteManager->fitLog()->setMessagePanel(jobMessagePanel);
+    if (m_fitSuiteManager) {
+        disconnect(m_fitSuiteManager, &FitSuiteManager::fittingError,
+                   this, &FitSuiteWidget::onFittingError);
+        disconnect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
+                m_fitSuiteManager, &FitSuiteManager::onStartFittingRequest);
+        disconnect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
+                m_fitSuiteManager, &FitSuiteManager::onStopFittingRequest);
+    }
+
+    m_fitSuiteManager = fitSuiteManager;
+
+    if (m_fitSuiteManager) {
+        connect(m_fitSuiteManager, &FitSuiteManager::fittingError,
+                this, &FitSuiteWidget::onFittingError);
+        connect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
+                m_fitSuiteManager, &FitSuiteManager::onStartFittingRequest);
+        connect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
+                m_fitSuiteManager, &FitSuiteManager::onStopFittingRequest);
+    }
 }
 
 QSize FitSuiteWidget::sizeHint() const
@@ -87,12 +103,3 @@ void FitSuiteWidget::onFittingError(const QString& text)
     m_controlWidget->onFittingError(text);
 }
 
-void FitSuiteWidget::connectSignals()
-{
-    connect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
-            m_fitSuiteManager, &FitSuiteManager::onStartFittingRequest);
-    connect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
-            m_fitSuiteManager, &FitSuiteManager::onStopFittingRequest);
-    connect(m_fitSuiteManager, &FitSuiteManager::fittingError,
-            this, &FitSuiteWidget::onFittingError);
-}

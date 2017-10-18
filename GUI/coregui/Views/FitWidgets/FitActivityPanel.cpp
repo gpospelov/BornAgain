@@ -22,6 +22,7 @@
 #include "JobRealTimeWidget.h"
 #include "RunFitControlWidget.h"
 #include "mainwindow_constants.h"
+#include "FitActivityManager.h"
 #include <QPushButton>
 #include <QVBoxLayout>
 
@@ -30,6 +31,7 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     , m_stackedWidget(new ItemStackPresenter<FitSuiteWidget>)
     , m_realTimeWidget(0)
     , m_jobMessagePanel(0)
+    , m_fitActivityManager(new FitActivityManager(this))
 {
     setWindowTitle(Constants::JobFitPanelName);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -54,6 +56,7 @@ void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget *realTimeWidget)
 void FitActivityPanel::setJobMessagePanel(JobMessagePanel *jobMessagePanel)
 {
     m_jobMessagePanel = jobMessagePanel;
+    m_fitActivityManager->setMessagePanel(m_jobMessagePanel);
 }
 
 QSize FitActivityPanel::sizeHint() const {
@@ -80,9 +83,10 @@ void FitActivityPanel::setItem(JobItem *item)
         Q_ASSERT(widget);
         widget->setItem(item);
         widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
-        widget->setJobMessagePanel(m_jobMessagePanel);
-
     }
+
+    if (FitSuiteWidget* widget = m_stackedWidget->currentWidget())
+        widget->setFitSuiteManager(m_fitActivityManager->manager(item));
 }
 
 bool FitActivityPanel::isValidJobItem(JobItem *item)

@@ -19,7 +19,6 @@
 #include "FitLog.h"
 #include "JobItem.h"
 #include "GUIHelpers.h"
-#include <QDebug>
 
 FitActivityManager::FitActivityManager(QObject* parent)
     : QObject(parent)
@@ -36,10 +35,19 @@ void FitActivityManager::setMessagePanel(JobMessagePanel* messagePanel)
 
 FitSuiteManager* FitActivityManager::manager(JobItem* item)
 {
-    if (m_item_to_manager.find(item) == m_item_to_manager.end())
-        return createManager(item);
+    FitSuiteManager* result(nullptr);
 
-    return m_item_to_manager[item];
+    auto it = m_item_to_manager.find(item);
+    if (it == m_item_to_manager.end()) {
+        result = createManager(item);
+        m_item_to_manager.insert(item, result);
+    } else {
+        result = it.value();
+    }
+
+    result->fitLog()->setMessagePanel(m_jobMessagePanel);
+
+    return result;
 }
 
 
@@ -49,7 +57,6 @@ FitSuiteManager* FitActivityManager::createManager(JobItem* jobItem)
 
     auto result = new FitSuiteManager(this);
     result->setItem(jobItem);
-    result->fitLog()->setMessagePanel(m_jobMessagePanel);
     return result;
 }
 
@@ -57,8 +64,6 @@ FitSuiteManager* FitActivityManager::createManager(JobItem* jobItem)
 
 void FitActivityManager::removeManager(SessionItem* jobItem)
 {
-    qDebug() << "FitActivityManager::removeManager" << jobItem;
-
     auto it = m_item_to_manager.find(jobItem);
     if (it == m_item_to_manager.end())
         throw GUIHelpers::Error("FitActivityManager::removeManager() -> Error. Can't fine item");

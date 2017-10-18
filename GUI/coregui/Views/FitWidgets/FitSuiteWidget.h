@@ -59,7 +59,6 @@ private:
     FitParameterWidget* m_fitParametersWidget;
     MinimizerSettingsWidget* m_minimizerSettingsWidget;
     FitResultsWidget* m_fitResultsWidget;
-    JobItem* m_currentItem;
     FitSuiteManager* m_fitSuiteManager;
 };
 

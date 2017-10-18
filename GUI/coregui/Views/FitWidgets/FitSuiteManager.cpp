@@ -28,6 +28,7 @@
 
 FitSuiteManager::FitSuiteManager(QObject* parent)
     : QObject(parent)
+    , m_jobItem(nullptr)
     , m_runFitManager(new RunFitManager(this))
     , m_observer(new GUIFitObserver)
     , m_fitlog(new FitLog)
@@ -49,30 +50,39 @@ FitSuiteManager::FitSuiteManager(QObject* parent)
     connect(m_runFitManager, &RunFitManager::fittingError, this, &FitSuiteManager::onFittingError);
 }
 
-FitSuiteManager::~FitSuiteManager() = default;
+FitSuiteManager::~FitSuiteManager()
+{
+    if (m_jobItem)
+        m_jobItem->mapper()->unsubscribe(this);
+}
 
 void FitSuiteManager::setItem(JobItem* item)
 {
+    if (m_jobItem && m_jobItem != item)
+        throw GUIHelpers::Error("FitSuiteManager::setItem() -> Item was already set.");
+
     m_jobItem = item;
+    Q_ASSERT(m_jobItem);
+
+    m_jobItem->mapper()->setOnItemDestroy([this](SessionItem*) {m_jobItem = 0;}, this);
+
+    // Propagates update interval from FitSuiteItem to fit observer.
+    m_jobItem->fitSuiteItem()->mapper()->setOnPropertyChange(
+        [this](const QString& name) {
+            if (name == FitSuiteItem::P_UPDATE_INTERVAL) {
+                m_observer->setInterval(m_jobItem->fitSuiteItem()
+                                            ->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL)
+                                            .toInt());
+            }
+        },
+        this);
+
 }
 
 void FitSuiteManager::onStartFittingRequest()
 {
     if (!m_jobItem)
         return;
-
-    m_jobItem->fitSuiteItem()->mapper()->setOnPropertyChange(
-        [this](const QString& name) {
-            // Propagates update interval from FitSuiteItem to fit observer.
-
-            if (name == FitSuiteItem::P_UPDATE_INTERVAL) {
-                m_observer->setInterval(m_jobItem->fitSuiteItem()
-                                            ->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL)
-                                            .toInt());
-            }
-
-        },
-        this);
 
     try {
         m_observer->setInterval(
@@ -83,7 +93,6 @@ void FitSuiteManager::onStartFittingRequest()
         m_runFitManager->runFitting(fitSuite);
     } catch (std::exception& e) {
         m_jobItem->setStatus(Constants::STATUS_FAILED);
-        m_jobItem->fitSuiteItem()->mapper()->unsubscribe(this);
         m_fitlog->append(e.what(), FitLogFlags::ERROR);
         emit fittingError(QString::fromStdString(e.what()));
     }
@@ -125,7 +134,6 @@ void FitSuiteManager::onFittingFinished()
     m_jobItem->setEndTime(GUIHelpers::currentDateTime());
     m_jobItem->setProgress(100);
     m_jobItem->setDuration(m_runFitManager->getDuration());
-    m_jobItem->fitSuiteItem()->mapper()->unsubscribe(this);
 
     if (m_jobItem->isCompleted())
         m_fitlog->append("Done", FitLogFlags::SUCCESS);

@@ -33,7 +33,6 @@ FitSuiteWidget::FitSuiteWidget(QWidget* parent)
     , m_fitParametersWidget(new FitParameterWidget)
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
     , m_fitResultsWidget(new FitResultsWidget)
-    , m_currentItem(nullptr)
     , m_fitSuiteManager(new FitSuiteManager(this))
 {
     auto layout = new QVBoxLayout;
@@ -55,7 +54,6 @@ FitSuiteWidget::FitSuiteWidget(QWidget* parent)
 void FitSuiteWidget::setItem(JobItem* jobItem)
 {
     Q_ASSERT(jobItem);
-    m_currentItem = jobItem;
     m_fitParametersWidget->setItem(jobItem);
     m_minimizerSettingsWidget->setItem(jobItem);
     m_fitSuiteManager->setItem(jobItem);

@@ -39,15 +39,12 @@ public:
 
     void setItem(JobItem* item);
 
-    RunFitManager* runFitManager();
-    std::shared_ptr<GUIFitObserver> fitObserver();
     FitLog* fitLog();
 
 signals:
     void fittingStarted();
     void fittingFinished();
     void fittingError(const QString& message);
-//    void fittingMessage(const QString& message);
 
 public slots:
     void onStartFittingRequest();
@@ -58,14 +55,14 @@ private slots:
     void onFittingStarted();
     void onFittingFinished();
     void onFittingError(const QString& text);
-    void onProgressInfoUpdate(const FitProgressInfo &info);
-    void updateIterationCount(const FitProgressInfo &info);
-    void updateFitParameterValues(const FitProgressInfo &info);
-    void updateLog(const FitProgressInfo &info);
+    void onProgressInfoUpdate(const FitProgressInfo& info);
+    void updateIterationCount(const FitProgressInfo& info);
+    void updateFitParameterValues(const FitProgressInfo& info);
+    void updateLog(const FitProgressInfo& info);
 
 private:
     JobItem* m_jobItem;
-    RunFitManager *m_runFitManager;
+    RunFitManager* m_runFitManager;
     std::shared_ptr<GUIFitObserver> m_observer;
     std::unique_ptr<FitLog> m_fitlog;
     bool m_block_progress_update;

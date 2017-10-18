@@ -20,55 +20,46 @@
 #include "FitProgressInfo.h"
 #include "WinDllMacros.h"
 #include <QWidget>
-#include <memory>
 
 class QTabWidget;
-class JobModel;
+class RunFitControlWidget;
 class JobItem;
-class SessionItem;
 class FitParameterWidget;
 class MinimizerSettingsWidget;
 class FitResultsWidget;
 class ParameterTuningWidget;
-template <class T> class OutputData;
-//class FitProgressInfo;
 class FitSuiteManager;
-class RunFitControlWidget;
 class JobMessagePanel;
 
-
 //! The FitSuiteWidget contains all fit settings for given JobItem (fit parameters,
-//! minimizer settings) and all logic to communicate with fit observers.
-//! Controlled by FitActivityPanel.
+//! minimizer settings). Controlled by FitActivityPanel.
 
 class BA_CORE_API_ FitSuiteWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    FitSuiteWidget(QWidget *parent = 0);
-    ~FitSuiteWidget();
+    FitSuiteWidget(QWidget* parent = nullptr);
 
-    void setItem(JobItem *jobItem);
-    void setModelTuningWidget(ParameterTuningWidget *tuningWidget);
-    void setJobMessagePanel(JobMessagePanel *jobMessagePanel);
+    void setItem(JobItem* jobItem);
+    void setModelTuningWidget(ParameterTuningWidget* tuningWidget);
+    void setJobMessagePanel(JobMessagePanel* jobMessagePanel);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
 private slots:
-    void onFittingError(const QString &text);
+    void onFittingError(const QString& text);
 
 private:
     void connectSignals();
 
-    RunFitControlWidget *m_controlWidget;
-    QTabWidget *m_tabWidget;
-    FitParameterWidget *m_fitParametersWidget;
-    MinimizerSettingsWidget *m_minimizerSettingsWidget;
-    FitResultsWidget *m_fitResultsWidget;
-    JobItem *m_currentItem;
-    JobMessagePanel* m_jobMessagePanel;
+    QTabWidget* m_tabWidget;
+    RunFitControlWidget* m_controlWidget;
+    FitParameterWidget* m_fitParametersWidget;
+    MinimizerSettingsWidget* m_minimizerSettingsWidget;
+    FitResultsWidget* m_fitResultsWidget;
+    JobItem* m_currentItem;
     FitSuiteManager* m_fitSuiteManager;
 };
 

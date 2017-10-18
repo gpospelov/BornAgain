@@ -15,55 +15,35 @@
 // ************************************************************************** //
 
 #include "FitSuiteWidget.h"
-#include "DomainFittingBuilder.h"
-#include "FitParameterItems.h"
 #include "FitParameterWidget.h"
-#include "FitProgressInfo.h"
 #include "FitResultsWidget.h"
-#include "FitSuite.h"
-#include "FitSuiteItem.h"
-#include "GUIFitObserver.h"
-#include "GUIHelpers.h"
-#include "IntensityDataItem.h"
 #include "JobItem.h"
-#include "JobModel.h"
 #include "MinimizerSettingsWidget.h"
-#include "ModelPath.h"
-#include "ParameterTreeItems.h"
-#include "RunFitManager.h"
 #include "mainwindow_constants.h"
 #include "FitSuiteManager.h"
 #include "RunFitControlWidget.h"
-#include "JobMessagePanel.h"
 #include "FitLog.h"
-#include <QMessageBox>
 #include <QTabWidget>
 #include <QVBoxLayout>
 
-FitSuiteWidget::FitSuiteWidget(QWidget *parent)
+FitSuiteWidget::FitSuiteWidget(QWidget* parent)
     : QWidget(parent)
-    , m_controlWidget(new RunFitControlWidget)
     , m_tabWidget(new QTabWidget)
+    , m_controlWidget(new RunFitControlWidget)
     , m_fitParametersWidget(new FitParameterWidget)
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
     , m_fitResultsWidget(new FitResultsWidget)
-    , m_currentItem(0)
-    , m_jobMessagePanel(nullptr)
+    , m_currentItem(nullptr)
     , m_fitSuiteManager(new FitSuiteManager(this))
 {
-    QVBoxLayout *layout = new QVBoxLayout;
+    auto layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setMargin(0);
     layout->setSpacing(0);
 
-//    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-//    m_tabWidget->setMinimumSize(25, 25);
-//    m_tabWidget->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred);
-
     m_tabWidget->addTab(m_fitParametersWidget, "Fit Parameters");
     m_tabWidget->addTab(m_minimizerSettingsWidget, "Minimizer");
-    //m_tabWidget->addTab(m_fitResultsWidget, "Fit Results");
+    // m_tabWidget->addTab(m_fitResultsWidget, "Fit Results");
 
     layout->addWidget(m_tabWidget);
     layout->addWidget(m_controlWidget);
@@ -72,12 +52,7 @@ FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     connectSignals();
 }
 
-FitSuiteWidget::~FitSuiteWidget()
-{
-
-}
-
-void FitSuiteWidget::setItem(JobItem *jobItem)
+void FitSuiteWidget::setItem(JobItem* jobItem)
 {
     Q_ASSERT(jobItem);
     m_currentItem = jobItem;
@@ -87,7 +62,7 @@ void FitSuiteWidget::setItem(JobItem *jobItem)
     m_controlWidget->setItem(jobItem);
 }
 
-void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
+void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget* tuningWidget)
 {
     Q_ASSERT(m_fitParametersWidget);
     Q_ASSERT(tuningWidget);
@@ -96,8 +71,7 @@ void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
 
 void FitSuiteWidget::setJobMessagePanel(JobMessagePanel* jobMessagePanel)
 {
-    m_jobMessagePanel = jobMessagePanel;
-    m_fitSuiteManager->fitLog()->setMessagePanel(m_jobMessagePanel);
+    m_fitSuiteManager->fitLog()->setMessagePanel(jobMessagePanel);
 }
 
 QSize FitSuiteWidget::sizeHint() const
@@ -110,7 +84,6 @@ QSize FitSuiteWidget::minimumSizeHint() const
     return QSize(25, 25);
 }
 
-
 void FitSuiteWidget::onFittingError(const QString& text)
 {
     m_controlWidget->onFittingError(text);
@@ -118,10 +91,10 @@ void FitSuiteWidget::onFittingError(const QString& text)
 
 void FitSuiteWidget::connectSignals()
 {
-    connect(m_controlWidget, SIGNAL(startFittingPushed()), m_fitSuiteManager, SLOT(onStartFittingRequest()));
-    connect(m_controlWidget, SIGNAL(stopFittingPushed()), m_fitSuiteManager, SLOT(onStopFittingRequest()));
-
-    connect(m_fitSuiteManager, SIGNAL(fittingError(QString)),
-            this, SLOT(onFittingError(QString)));
+    connect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
+            m_fitSuiteManager, &FitSuiteManager::onStartFittingRequest);
+    connect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
+            m_fitSuiteManager, &FitSuiteManager::onStopFittingRequest);
+    connect(m_fitSuiteManager, &FitSuiteManager::fittingError,
+            this, &FitSuiteWidget::onFittingError);
 }
-

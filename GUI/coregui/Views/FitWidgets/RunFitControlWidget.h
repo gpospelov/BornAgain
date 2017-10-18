@@ -29,26 +29,24 @@ class FitSuiteItem;
 class JobMessagePanel;
 
 //! The RunFitControlWidget contains elements to start/stop fitting and to provide minimal
-//! diagnostic. Part of FitActivityPanel.
+//! diagnostic. Part of FitSuiteWidget.
 
 class BA_CORE_API_ RunFitControlWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    RunFitControlWidget(QWidget *parent = 0);
-
-//    void setItem(SessionItem *sessionItem);
+    RunFitControlWidget(QWidget* parent = 0);
 
 signals:
     void startFittingPushed();
     void stopFittingPushed();
 
 public slots:
-    void onFittingError(const QString &what);
+    void onFittingError(const QString& what);
 
 private slots:
     void onSliderValueChanged(int value);
-    void onFitSuitePropertyChange(const QString &name);
+    void onFitSuitePropertyChange(const QString& name);
 
 protected:
     virtual void subscribeToItem();
@@ -57,18 +55,17 @@ protected:
 private:
     int sliderUpdateInterval();
     int sliderValueToUpdateInterval(int value);
-    void updateButtons();
+    void updateControlElements();
     JobItem* jobItem();
-    FitSuiteItem *fitSuiteItem();
-    bool isValidJobItem(JobItem *jobItem);
+    FitSuiteItem* fitSuiteItem();
+    bool isValidJobItem();
 
-    QPushButton *m_startButton;
-    QPushButton *m_stopButton;
-    QSlider *m_intervalSlider;
-    QLabel *m_updateIntervalLabel;
-    QLabel *m_iterationsCountLabel;
-    JobItem *m_currentItem;
-    WarningSign *m_warningSign;
+    QPushButton* m_startButton;
+    QPushButton* m_stopButton;
+    QSlider* m_intervalSlider;
+    QLabel* m_updateIntervalLabel;
+    QLabel* m_iterationsCountLabel;
+    WarningSign* m_warningSign;
 };
 
 #endif // RUNFITCONTROLWIDGET_H

@@ -17,7 +17,7 @@
 #ifndef RUNFITCONTROLWIDGET_H
 #define RUNFITCONTROLWIDGET_H
 
-#include "WinDllMacros.h"
+#include "SessionItemWidget.h"
 #include <QWidget>
 
 class JobItem;
@@ -31,13 +31,15 @@ class JobMessagePanel;
 //! The RunFitControlWidget contains elements to start/stop fitting and to provide minimal
 //! diagnostic. Part of FitActivityPanel.
 
-class BA_CORE_API_ RunFitControlWidget : public QWidget
+class BA_CORE_API_ RunFitControlWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
     RunFitControlWidget(QWidget *parent = 0);
 
     void setJobMessagePanel(JobMessagePanel *jobMessagePanel);
+
+    void setItem(SessionItem *sessionItem);
 
 signals:
     void startFittingPushed();
@@ -48,7 +50,6 @@ public slots:
     void onFittingFinished(JobItem *jobItem);
     void onFittingError(const QString &what);
     void onFittingLog(const QString &text);
-    void setItem(JobItem *item);
 
 private slots:
     void onSliderValueChanged(int value);
@@ -57,6 +58,7 @@ private slots:
 private:
     int sliderUpdateInterval();
     int sliderValueToUpdateInterval(int value);
+    JobItem* jobItem();
     FitSuiteItem *fitSuiteItem();
     bool isValidJobItem(JobItem *jobItem);
 

@@ -34,7 +34,7 @@ const QString slider_tooltip = "Updates fit progress every Nth iteration";
 }
 
 RunFitControlWidget::RunFitControlWidget(QWidget *parent)
-    : QWidget(parent)
+    : SessionItemWidget(parent)
     , m_startButton(new QPushButton)
     , m_stopButton(new QPushButton)
     , m_intervalSlider(new QSlider)
@@ -98,6 +98,28 @@ void RunFitControlWidget::setJobMessagePanel(JobMessagePanel *jobMessagePanel)
     m_jobMessagePanel = jobMessagePanel;
 }
 
+void RunFitControlWidget::setItem(SessionItem* sessionItem)
+{
+    SessionItemWidget::setItem(sessionItem);
+
+    JobItem* item = jobItem();
+
+    // If item is not suitable for fitting, disable widget
+    if(!isValidJobItem(item)) {
+        setEnabled(false);
+        return;
+    }
+
+    // if item is ready for fitting, or already has fitting running, enable widget
+    if(m_currentItem == 0 || m_currentItem == item) {
+        setEnabled(true);
+        return;
+    }
+
+    // it's not possible to run new fitting if old is running
+    setEnabled(false);
+}
+
 void RunFitControlWidget::onFittingStarted(JobItem *jobItem)
 {
     m_currentItem = jobItem;
@@ -152,25 +174,6 @@ void RunFitControlWidget::onFittingLog(const QString &text)
     m_jobMessagePanel->onMessage(text);
 }
 
-void RunFitControlWidget::setItem(JobItem *item)
-{
-    Q_UNUSED(item);
-    // If item is not suitable for fitting, disable widget
-    if(!isValidJobItem(item)) {
-        setEnabled(false);
-        return;
-    }
-
-    // if item is ready for fitting, or already has fitting running, enable widget
-    if(m_currentItem == 0 || m_currentItem == item) {
-        setEnabled(true);
-        return;
-    }
-
-    // it's not possible to run new fitting if old is running
-    setEnabled(false);
-}
-
 void RunFitControlWidget::onSliderValueChanged(int value)
 {
     int interval = sliderValueToUpdateInterval(value);
@@ -199,6 +202,11 @@ int RunFitControlWidget::sliderValueToUpdateInterval(int value)
         return slider_to_interval[value];
 
     return default_update_interval;
+}
+
+JobItem* RunFitControlWidget::jobItem()
+{
+    return dynamic_cast<JobItem*>(currentItem());
 }
 
 FitSuiteItem *RunFitControlWidget::fitSuiteItem()

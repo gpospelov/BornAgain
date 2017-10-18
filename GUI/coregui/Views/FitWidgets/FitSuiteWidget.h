@@ -56,20 +56,15 @@ public:
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
-public slots:
-    void onProgressInfoUpdate(const FitProgressInfo &info);
-
 private slots:
     void onFittingStarted();
     void onFittingFinished();
     void onFittingLogUpdate(const QString &text);
     void onFittingError(const QString &text);
+    void onFittingMessage(const QString &text);
 
 private:
     void connectSignals();
-    void updateIterationCount(const FitProgressInfo &info);
-    void updateTuningWidgetParameterValues(const FitProgressInfo &info);
-    void updateLog(const FitProgressInfo &info);
 
     RunFitControlWidget *m_controlWidget;
     QTabWidget *m_tabWidget;
@@ -79,7 +74,6 @@ private:
     JobItem *m_currentItem;
     JobMessagePanel* m_jobMessagePanel;
     FitSuiteManager* m_fitSuiteManager;
-    bool m_block_progress_update;
 };
 
 #endif // FITSUITEWIDGET_H

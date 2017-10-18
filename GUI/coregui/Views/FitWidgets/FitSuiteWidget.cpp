@@ -49,7 +49,6 @@ FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     , m_currentItem(0)
     , m_jobMessagePanel(nullptr)
     , m_fitSuiteManager(new FitSuiteManager(this))
-    , m_block_progress_update(false)
 {
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
@@ -111,18 +110,18 @@ QSize FitSuiteWidget::minimumSizeHint() const
 
 //! Propagates fit progress as reported by GUIFitObserver back to JobItem.
 
-void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
-{
-    if(m_block_progress_update) return;
+//void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
+//{
+//    if(m_block_progress_update) return;
 
-    m_block_progress_update = true;
+//    m_block_progress_update = true;
 
-    updateIterationCount(info);
-    updateTuningWidgetParameterValues(info);
-    updateLog(info);
+//    updateIterationCount(info);
+//    updateTuningWidgetParameterValues(info);
+//    updateLog(info);
 
-    m_block_progress_update = false;
-}
+//    m_block_progress_update = false;
+//}
 
 
 void FitSuiteWidget::onFittingStarted()
@@ -152,6 +151,11 @@ void FitSuiteWidget::onFittingError(const QString& text)
     m_controlWidget->onFittingError(message);
 }
 
+void FitSuiteWidget::onFittingMessage(const QString& text)
+{
+    m_jobMessagePanel->onMessage(text);
+}
+
 void FitSuiteWidget::connectSignals()
 {
     connect(m_controlWidget, SIGNAL(startFittingPushed()), m_fitSuiteManager, SLOT(onStartFittingRequest()));
@@ -160,50 +164,14 @@ void FitSuiteWidget::connectSignals()
     connect(m_fitSuiteManager, SIGNAL(fittingStarted()), this, SLOT(onFittingStarted()));
     connect(m_fitSuiteManager, SIGNAL(fittingFinished()), this, SLOT(onFittingFinished()));
 
+    connect(m_fitSuiteManager, SIGNAL(fittingMessage(QString)),
+            this, SLOT(onFittingMessage(QString)));
+
     connect(m_fitSuiteManager, SIGNAL(fittingError(QString)),
             this, SLOT(onFittingError(QString)));
 
     connect(m_fitSuiteManager->fitObserver().get(), SIGNAL(logInfoUpdate(QString)),
             this, SLOT(onFittingLogUpdate(QString)));
 
-    connect(m_fitSuiteManager->fitObserver().get(), SIGNAL(progressInfoUpdate(const FitProgressInfo&)),
-            this, SLOT(onProgressInfoUpdate(const FitProgressInfo&)));
-
-}
-
-//! Propagates current number of iteration to FitSuiteItem to make FitControlWidget informed.
-
-void FitSuiteWidget::updateIterationCount(const FitProgressInfo &info)
-{
-    FitSuiteItem *fitSuiteItem = m_currentItem->fitSuiteItem();
-    fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, info.iterationCount());
-    fitSuiteItem->setItemValue(FitSuiteItem::P_CHI2, info.chi2());
-}
-
-void FitSuiteWidget::updateTuningWidgetParameterValues(const FitProgressInfo &info)
-{
-    QVector<double> values = info.parValues();
-    FitParameterContainerItem *fitParContainer = m_currentItem->fitParameterContainerItem();
-    fitParContainer->setValuesInParameterContainer(values, m_currentItem->parameterContainerItem());
-}
-
-// FIXME provide normal print on log update
-
-void FitSuiteWidget::updateLog(const FitProgressInfo &info)
-{
-    QString message = QString("NCalls:%1 chi2:%2 \n").arg(info.iterationCount()).arg(info.chi2());
-    FitParameterContainerItem *fitParContainer = m_currentItem->fitParameterContainerItem();
-    int index(0);
-    QVector<double> values = info.parValues();
-    foreach(SessionItem *item,
-            fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
-        if(item->getItems(FitParameterItem::T_LINK).size()==0)
-            continue;
-        QString parinfo = QString("      %1 %2\n").arg(item->displayName()).arg(values[index++]);
-        message.append(parinfo);
-    }
-
-//    message.append("\n");
-    m_jobMessagePanel->onMessage(message);
 }
 

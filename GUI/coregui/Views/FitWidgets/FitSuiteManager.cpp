@@ -22,14 +22,20 @@
 #include "DomainFittingBuilder.h"
 #include "FitSuite.h"
 #include "IntensityDataItem.h"
+#include "FitParameterItems.h"
 #include "GUIHelpers.h"
 
 FitSuiteManager::FitSuiteManager(QObject* parent)
     : QObject(parent)
     , m_runFitManager(new RunFitManager(this))
     , m_observer(new GUIFitObserver)
+    , m_block_progress_update(false)
 {
     connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this, &FitSuiteManager::onPlotsUpdate);
+
+    connect(m_observer.get(), &GUIFitObserver::progressInfoUpdate,
+            this, &FitSuiteManager::onProgressInfoUpdate);
+
     connect(m_runFitManager, &RunFitManager::fittingStarted,
             this, &FitSuiteManager::onFittingStarted);
     connect(m_runFitManager, &RunFitManager::fittingFinished,
@@ -119,4 +125,49 @@ void FitSuiteManager::onFittingFinished()
     m_jobItem->fitSuiteItem()->mapper()->unsubscribe(this);
 
     emit fittingFinished();
+}
+
+void FitSuiteManager::onProgressInfoUpdate(const FitProgressInfo& info)
+{
+    if(m_block_progress_update)
+        return;
+
+    m_block_progress_update = true;
+
+    updateIterationCount(info);
+    updateFitParameterValues(info);
+    updateLog(info);
+
+    m_block_progress_update = false;
+}
+
+void FitSuiteManager::updateIterationCount(const FitProgressInfo& info)
+{
+    FitSuiteItem *fitSuiteItem = m_jobItem->fitSuiteItem();
+    fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, info.iterationCount());
+    fitSuiteItem->setItemValue(FitSuiteItem::P_CHI2, info.chi2());
+}
+
+void FitSuiteManager::updateFitParameterValues(const FitProgressInfo& info)
+{
+    QVector<double> values = info.parValues();
+    FitParameterContainerItem *fitParContainer = m_jobItem->fitParameterContainerItem();
+    fitParContainer->setValuesInParameterContainer(values, m_jobItem->parameterContainerItem());
+}
+
+void FitSuiteManager::updateLog(const FitProgressInfo& info)
+{
+    QString message = QString("NCalls:%1 chi2:%2 \n").arg(info.iterationCount()).arg(info.chi2());
+    FitParameterContainerItem *fitParContainer = m_jobItem->fitParameterContainerItem();
+    int index(0);
+    QVector<double> values = info.parValues();
+    foreach(SessionItem *item,
+            fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        if(item->getItems(FitParameterItem::T_LINK).size()==0)
+            continue;
+        QString parinfo = QString("      %1 %2\n").arg(item->displayName()).arg(values[index++]);
+        message.append(parinfo);
+    }
+
+    emit fittingMessage(message);
 }

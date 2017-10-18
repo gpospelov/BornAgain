@@ -24,6 +24,7 @@
 class JobItem;
 class RunFitManager;
 class GUIFitObserver;
+class FitProgressInfo;
 
 //! Handles all activity related to the single fitting task for JobItem.
 //! Provides interaction between FitSuiteWidget and fit observers.
@@ -43,6 +44,7 @@ signals:
     void fittingStarted();
     void fittingFinished();
     void fittingError(const QString& message);
+    void fittingMessage(const QString& message);
 
 public slots:
     void onStartFittingRequest();
@@ -52,11 +54,16 @@ private slots:
     void onPlotsUpdate();
     void onFittingStarted();
     void onFittingFinished();
+    void onProgressInfoUpdate(const FitProgressInfo &info);
+    void updateIterationCount(const FitProgressInfo &info);
+    void updateFitParameterValues(const FitProgressInfo &info);
+    void updateLog(const FitProgressInfo &info);
 
 private:
     JobItem* m_jobItem;
     RunFitManager *m_runFitManager;
     std::shared_ptr<GUIFitObserver> m_observer;
+    bool m_block_progress_update;
 };
 
 #endif

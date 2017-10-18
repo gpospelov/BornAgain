@@ -127,23 +127,11 @@ void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
 
 void FitSuiteWidget::onFittingStarted()
 {
-    m_currentItem->setStatus(Constants::STATUS_FITTING);
-    m_currentItem->setProgress(0);
-    m_currentItem->setBeginTime(GUIHelpers::currentDateTime());
-    m_currentItem->setEndTime(QString());
-    m_currentItem->setDuration(0);
-
     m_jobMessagePanel->onClearLog();
 }
 
 void FitSuiteWidget::onFittingFinished()
 {
-    if(m_currentItem->getStatus() != Constants::STATUS_FAILED)
-        m_currentItem->setStatus(Constants::STATUS_COMPLETED);
-    m_currentItem->setEndTime(GUIHelpers::currentDateTime());
-    m_currentItem->setProgress(100);
-    m_currentItem->setDuration(m_fitSuiteManager->runFitManager()->getDuration());
-    m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
 
     if(m_currentItem->isCompleted())
         m_jobMessagePanel->onMessage(QStringLiteral("Done"), QColor(Qt::darkBlue));
@@ -169,8 +157,8 @@ void FitSuiteWidget::connectSignals()
     connect(m_controlWidget, SIGNAL(startFittingPushed()), m_fitSuiteManager, SLOT(onStartFittingRequest()));
     connect(m_controlWidget, SIGNAL(stopFittingPushed()), m_fitSuiteManager, SLOT(onStopFittingRequest()));
 
-    connect(m_fitSuiteManager->runFitManager(), SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
-    connect(m_fitSuiteManager->runFitManager(), SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
+    connect(m_fitSuiteManager, SIGNAL(fittingStarted()), this, SLOT(onFittingStarted()));
+    connect(m_fitSuiteManager, SIGNAL(fittingFinished()), this, SLOT(onFittingFinished()));
 
     connect(m_fitSuiteManager, SIGNAL(fittingError(QString)),
             this, SLOT(onFittingError(QString)));

@@ -39,8 +39,8 @@ public slots:
     void interruptFitting();
 
 signals:
-    void finishedFitting();
-    void startedFitting();
+    void fittingStarted();
+    void fittingFinished();
     void fittingError(const QString& message);
     void intern_interruptFittingWorker();
 

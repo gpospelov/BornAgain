@@ -71,12 +71,12 @@ void RunFitManager::intern_workerFinished(int duration)
 {
     m_is_fit_running = false;
     m_duration = duration;
-    emit finishedFitting();
+    emit fittingFinished();
 }
 
 void RunFitManager::intern_workerStarted()
 {
-    emit startedFitting();
+    emit fittingStarted();
 }
 
 void RunFitManager::intern_error(const QString& mesg)

@@ -40,6 +40,8 @@ public:
     std::shared_ptr<GUIFitObserver> fitObserver();
 
 signals:
+    void fittingStarted();
+    void fittingFinished();
     void fittingError(const QString& message);
 
 public slots:
@@ -48,6 +50,8 @@ public slots:
 
 private slots:
     void onPlotsUpdate();
+    void onFittingStarted();
+    void onFittingFinished();
 
 private:
     JobItem* m_jobItem;

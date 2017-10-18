@@ -22,6 +22,7 @@
 #include "DomainFittingBuilder.h"
 #include "FitSuite.h"
 #include "IntensityDataItem.h"
+#include "GUIHelpers.h"
 
 FitSuiteManager::FitSuiteManager(QObject* parent)
     : QObject(parent)
@@ -29,7 +30,12 @@ FitSuiteManager::FitSuiteManager(QObject* parent)
     , m_observer(new GUIFitObserver)
 {
     connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this, &FitSuiteManager::onPlotsUpdate);
-    connect(m_runFitManager, &RunFitManager::fittingError, this, &FitSuiteManager::fittingError);
+    connect(m_runFitManager, &RunFitManager::fittingStarted,
+            this, &FitSuiteManager::onFittingStarted);
+    connect(m_runFitManager, &RunFitManager::fittingFinished,
+            this, &FitSuiteManager::onFittingFinished);
+    connect(m_runFitManager, &RunFitManager::fittingError,
+            this, &FitSuiteManager::fittingError);
 }
 
 void FitSuiteManager::setItem(JobItem* item)
@@ -90,4 +96,27 @@ void FitSuiteManager::onPlotsUpdate()
 {
     m_jobItem->intensityDataItem()->setRawDataVector(m_observer->simulationData());
     m_observer->finishedPlotting();
+}
+
+void FitSuiteManager::onFittingStarted()
+{
+    m_jobItem->setStatus(Constants::STATUS_FITTING);
+    m_jobItem->setProgress(0);
+    m_jobItem->setBeginTime(GUIHelpers::currentDateTime());
+    m_jobItem->setEndTime(QString());
+    m_jobItem->setDuration(0);
+
+    emit fittingStarted();
+}
+
+void FitSuiteManager::onFittingFinished()
+{
+    if(m_jobItem->getStatus() != Constants::STATUS_FAILED)
+        m_jobItem->setStatus(Constants::STATUS_COMPLETED);
+    m_jobItem->setEndTime(GUIHelpers::currentDateTime());
+    m_jobItem->setProgress(100);
+    m_jobItem->setDuration(m_runFitManager->getDuration());
+    m_jobItem->fitSuiteItem()->mapper()->unsubscribe(this);
+
+    emit fittingFinished();
 }

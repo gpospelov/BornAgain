@@ -34,6 +34,7 @@
 #include "mainwindow_constants.h"
 #include "FitSuiteManager.h"
 #include "RunFitControlWidget.h"
+#include "JobMessagePanel.h"
 #include <QMessageBox>
 #include <QTabWidget>
 #include <QVBoxLayout>
@@ -46,6 +47,7 @@ FitSuiteWidget::FitSuiteWidget(QWidget *parent)
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
     , m_fitResultsWidget(new FitResultsWidget)
     , m_currentItem(0)
+    , m_jobMessagePanel(nullptr)
     , m_fitSuiteManager(new FitSuiteManager(this))
     , m_block_progress_update(false)
 {
@@ -92,6 +94,11 @@ void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
     m_fitParametersWidget->setParameterTuningWidget(tuningWidget);
 }
 
+void FitSuiteWidget::setJobMessagePanel(JobMessagePanel* jobMessagePanel)
+{
+    m_jobMessagePanel = jobMessagePanel;
+}
+
 QSize FitSuiteWidget::sizeHint() const
 {
     return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, Constants::FIT_SUITE_WIDGET_HEIGHT);
@@ -126,6 +133,8 @@ void FitSuiteWidget::onFittingStarted()
     m_currentItem->setEndTime(QString());
     m_currentItem->setDuration(0);
 
+    m_jobMessagePanel->onClearLog();
+
     emit fittingStarted(m_currentItem);
 }
 
@@ -137,7 +146,26 @@ void FitSuiteWidget::onFittingFinished()
     m_currentItem->setProgress(100);
     m_currentItem->setDuration(m_fitSuiteManager->runFitManager()->getDuration());
     m_currentItem->fitSuiteItem()->mapper()->unsubscribe(this);
+
+    if(m_currentItem->isCompleted())
+        m_jobMessagePanel->onMessage(QStringLiteral("Done"), QColor(Qt::darkBlue));
+
     emit fittingFinished(m_currentItem);
+}
+
+void FitSuiteWidget::onFittingLogUpdate(const QString& text)
+{
+    m_jobMessagePanel->onMessage(text);
+}
+
+void FitSuiteWidget::onFittingError(const QString& text)
+{
+    QString message;
+    message.append("Current settings cause fitting failure.\n\n");
+    message.append(text);
+    m_jobMessagePanel->onMessage(message, QColor(Qt::darkRed));
+
+    m_controlWidget->onFittingError(message);
 }
 
 void FitSuiteWidget::connectSignals()
@@ -149,16 +177,15 @@ void FitSuiteWidget::connectSignals()
             SLOT(onFittingStarted(JobItem *)), Qt::UniqueConnection);
     connect(this, SIGNAL(fittingFinished(JobItem *)), m_controlWidget,
             SLOT(onFittingFinished(JobItem *)), Qt::UniqueConnection);
-    connect(this, SIGNAL(fittingLog(QString)), m_controlWidget,
-            SLOT(onFittingLog(QString)), Qt::UniqueConnection);
 
     connect(m_fitSuiteManager->runFitManager(), SIGNAL(startedFitting()), this, SLOT(onFittingStarted()));
     connect(m_fitSuiteManager->runFitManager(), SIGNAL(finishedFitting()), this, SLOT(onFittingFinished()));
+
     connect(m_fitSuiteManager, SIGNAL(fittingError(QString)),
-            m_controlWidget, SLOT(onFittingError(QString)));
+            this, SLOT(onFittingError(QString)));
 
     connect(m_fitSuiteManager->fitObserver().get(), SIGNAL(logInfoUpdate(QString)),
-            this, SIGNAL(fittingLog(QString)));
+            this, SLOT(onFittingLogUpdate(QString)));
 
     connect(m_fitSuiteManager->fitObserver().get(), SIGNAL(progressInfoUpdate(const FitProgressInfo&)),
             this, SLOT(onProgressInfoUpdate(const FitProgressInfo&)));

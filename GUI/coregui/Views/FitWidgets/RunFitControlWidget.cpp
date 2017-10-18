@@ -18,7 +18,6 @@
 #include "DesignerHelper.h"
 #include "FitSuiteItem.h"
 #include "JobItem.h"
-#include "JobMessagePanel.h"
 #include "WarningSign.h"
 #include "mainwindow_constants.h"
 #include <QFont>
@@ -42,7 +41,6 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     , m_iterationsCountLabel(new QLabel)
     , m_currentItem(0)
     , m_warningSign(new WarningSign(this))
-    , m_jobMessagePanel(0)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setFixedHeight(Constants::RUN_FIT_CONTROL_WIDGET_HEIGHT);
@@ -93,11 +91,6 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     setEnabled(false);
 }
 
-void RunFitControlWidget::setJobMessagePanel(JobMessagePanel *jobMessagePanel)
-{
-    m_jobMessagePanel = jobMessagePanel;
-}
-
 void RunFitControlWidget::setItem(SessionItem* sessionItem)
 {
     SessionItemWidget::setItem(sessionItem);
@@ -139,16 +132,11 @@ void RunFitControlWidget::onFittingStarted(JobItem *jobItem)
 
     onFitSuitePropertyChange(FitSuiteItem::P_ITERATION_COUNT);
 
-    Q_ASSERT(m_jobMessagePanel);
-    m_jobMessagePanel->onClearLog();
 }
 
 void RunFitControlWidget::onFittingFinished(JobItem *jobItem)
 {
     Q_ASSERT(jobItem = m_currentItem);
-
-    if(jobItem->isCompleted())
-        m_jobMessagePanel->onMessage(QStringLiteral("Done"), QColor(Qt::darkBlue));
 
     m_startButton->setEnabled(true);
     m_stopButton->setEnabled(false);
@@ -160,18 +148,7 @@ void RunFitControlWidget::onFittingError(const QString &what)
 {
     m_warningSign->clear();
     m_iterationsCountLabel->setText("");
-
-    QString message;
-    message.append("Current settings cause fitting failure.\n\n");
-    message.append(what);
-    m_warningSign->setWarningMessage(message);
-    m_jobMessagePanel->onMessage(message, QColor(Qt::darkRed));
-}
-
-void RunFitControlWidget::onFittingLog(const QString &text)
-{
-    Q_ASSERT(m_jobMessagePanel);
-    m_jobMessagePanel->onMessage(text);
+    m_warningSign->setWarningMessage(what);
 }
 
 void RunFitControlWidget::onSliderValueChanged(int value)

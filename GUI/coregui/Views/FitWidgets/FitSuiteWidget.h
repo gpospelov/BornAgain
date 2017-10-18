@@ -34,6 +34,7 @@ template <class T> class OutputData;
 //class FitProgressInfo;
 class FitSuiteManager;
 class RunFitControlWidget;
+class JobMessagePanel;
 
 
 //! The FitSuiteWidget contains all fit settings for given JobItem (fit parameters,
@@ -50,6 +51,7 @@ public:
 
     void setItem(JobItem *jobItem);
     void setModelTuningWidget(ParameterTuningWidget *tuningWidget);
+    void setJobMessagePanel(JobMessagePanel *jobMessagePanel);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -67,6 +69,8 @@ public slots:
 private slots:
     void onFittingStarted();
     void onFittingFinished();
+    void onFittingLogUpdate(const QString &text);
+    void onFittingError(const QString &text);
 
 private:
     void connectSignals();
@@ -80,6 +84,7 @@ private:
     MinimizerSettingsWidget *m_minimizerSettingsWidget;
     FitResultsWidget *m_fitResultsWidget;
     JobItem *m_currentItem;
+    JobMessagePanel* m_jobMessagePanel;
     FitSuiteManager* m_fitSuiteManager;
     bool m_block_progress_update;
 };

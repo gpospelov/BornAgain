@@ -80,7 +80,7 @@ void FitActivityPanel::setItem(JobItem *item)
         Q_ASSERT(widget);
         widget->setItem(item);
         widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
-        widget->runFitControlWidget()->setJobMessagePanel(m_jobMessagePanel);
+        widget->setJobMessagePanel(m_jobMessagePanel);
 
     }
 }

@@ -37,8 +37,6 @@ class BA_CORE_API_ RunFitControlWidget : public SessionItemWidget
 public:
     RunFitControlWidget(QWidget *parent = 0);
 
-    void setJobMessagePanel(JobMessagePanel *jobMessagePanel);
-
     void setItem(SessionItem *sessionItem);
 
 signals:
@@ -49,7 +47,6 @@ public slots:
     void onFittingStarted(JobItem *jobItem);
     void onFittingFinished(JobItem *jobItem);
     void onFittingError(const QString &what);
-    void onFittingLog(const QString &text);
 
 private slots:
     void onSliderValueChanged(int value);
@@ -69,7 +66,6 @@ private:
     QLabel *m_iterationsCountLabel;
     JobItem *m_currentItem;
     WarningSign *m_warningSign;
-    JobMessagePanel *m_jobMessagePanel;
 };
 
 #endif // RUNFITCONTROLWIDGET_H

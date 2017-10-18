@@ -35,6 +35,7 @@
 #include "FitSuiteManager.h"
 #include "RunFitControlWidget.h"
 #include "JobMessagePanel.h"
+#include "FitLog.h"
 #include <QMessageBox>
 #include <QTabWidget>
 #include <QVBoxLayout>
@@ -96,6 +97,7 @@ void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget *tuningWidget)
 void FitSuiteWidget::setJobMessagePanel(JobMessagePanel* jobMessagePanel)
 {
     m_jobMessagePanel = jobMessagePanel;
+    m_fitSuiteManager->fitLog()->setMessagePanel(m_jobMessagePanel);
 }
 
 QSize FitSuiteWidget::sizeHint() const
@@ -108,52 +110,10 @@ QSize FitSuiteWidget::minimumSizeHint() const
     return QSize(25, 25);
 }
 
-//! Propagates fit progress as reported by GUIFitObserver back to JobItem.
-
-//void FitSuiteWidget::onProgressInfoUpdate(const FitProgressInfo &info)
-//{
-//    if(m_block_progress_update) return;
-
-//    m_block_progress_update = true;
-
-//    updateIterationCount(info);
-//    updateTuningWidgetParameterValues(info);
-//    updateLog(info);
-
-//    m_block_progress_update = false;
-//}
-
-
-void FitSuiteWidget::onFittingStarted()
-{
-    m_jobMessagePanel->onClearLog();
-}
-
-void FitSuiteWidget::onFittingFinished()
-{
-
-    if(m_currentItem->isCompleted())
-        m_jobMessagePanel->onMessage(QStringLiteral("Done"), QColor(Qt::darkBlue));
-}
-
-void FitSuiteWidget::onFittingLogUpdate(const QString& text)
-{
-    m_jobMessagePanel->onMessage(text);
-}
 
 void FitSuiteWidget::onFittingError(const QString& text)
 {
-    QString message;
-    message.append("Current settings cause fitting failure.\n\n");
-    message.append(text);
-    m_jobMessagePanel->onMessage(message, QColor(Qt::darkRed));
-
-    m_controlWidget->onFittingError(message);
-}
-
-void FitSuiteWidget::onFittingMessage(const QString& text)
-{
-    m_jobMessagePanel->onMessage(text);
+    m_controlWidget->onFittingError(text);
 }
 
 void FitSuiteWidget::connectSignals()
@@ -161,17 +121,7 @@ void FitSuiteWidget::connectSignals()
     connect(m_controlWidget, SIGNAL(startFittingPushed()), m_fitSuiteManager, SLOT(onStartFittingRequest()));
     connect(m_controlWidget, SIGNAL(stopFittingPushed()), m_fitSuiteManager, SLOT(onStopFittingRequest()));
 
-    connect(m_fitSuiteManager, SIGNAL(fittingStarted()), this, SLOT(onFittingStarted()));
-    connect(m_fitSuiteManager, SIGNAL(fittingFinished()), this, SLOT(onFittingFinished()));
-
-    connect(m_fitSuiteManager, SIGNAL(fittingMessage(QString)),
-            this, SLOT(onFittingMessage(QString)));
-
     connect(m_fitSuiteManager, SIGNAL(fittingError(QString)),
             this, SLOT(onFittingError(QString)));
-
-    connect(m_fitSuiteManager->fitObserver().get(), SIGNAL(logInfoUpdate(QString)),
-            this, SLOT(onFittingLogUpdate(QString)));
-
 }
 

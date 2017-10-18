@@ -24,11 +24,14 @@
 #include "IntensityDataItem.h"
 #include "FitParameterItems.h"
 #include "GUIHelpers.h"
+#include "FitLog.h"
+#include <QTextEdit>
 
 FitSuiteManager::FitSuiteManager(QObject* parent)
     : QObject(parent)
     , m_runFitManager(new RunFitManager(this))
     , m_observer(new GUIFitObserver)
+    , m_fitlog(new FitLog)
     , m_block_progress_update(false)
 {
     connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this, &FitSuiteManager::onPlotsUpdate);
@@ -36,13 +39,20 @@ FitSuiteManager::FitSuiteManager(QObject* parent)
     connect(m_observer.get(), &GUIFitObserver::progressInfoUpdate,
             this, &FitSuiteManager::onProgressInfoUpdate);
 
+    connect(m_observer.get(), &GUIFitObserver::logInfoUpdate,
+            [&](const QString& text) {
+        m_fitlog->append(text.toStdString(), FitLogFlags::DEFAULT);});
+
     connect(m_runFitManager, &RunFitManager::fittingStarted,
             this, &FitSuiteManager::onFittingStarted);
     connect(m_runFitManager, &RunFitManager::fittingFinished,
             this, &FitSuiteManager::onFittingFinished);
     connect(m_runFitManager, &RunFitManager::fittingError,
-            this, &FitSuiteManager::fittingError);
+            this, &FitSuiteManager::onFittingError);
+
 }
+
+FitSuiteManager::~FitSuiteManager() = default;
 
 void FitSuiteManager::setItem(JobItem* item)
 {
@@ -78,6 +88,7 @@ void FitSuiteManager::onStartFittingRequest()
     } catch(std::exception& e) {
         m_jobItem->setStatus(Constants::STATUS_FAILED);
         m_jobItem->fitSuiteItem()->mapper()->unsubscribe(this);
+        m_fitlog->append(e.what(), FitLogFlags::ERROR);
         emit fittingError(QString::fromStdString(e.what()));
     }
 
@@ -93,6 +104,11 @@ std::shared_ptr<GUIFitObserver> FitSuiteManager::fitObserver()
     return m_observer;
 }
 
+FitLog* FitSuiteManager::fitLog()
+{
+    return m_fitlog.get();
+}
+
 void FitSuiteManager::onStopFittingRequest()
 {
     m_runFitManager->interruptFitting();
@@ -106,6 +122,8 @@ void FitSuiteManager::onPlotsUpdate()
 
 void FitSuiteManager::onFittingStarted()
 {
+    m_fitlog->clearLog();
+
     m_jobItem->setStatus(Constants::STATUS_FITTING);
     m_jobItem->setProgress(0);
     m_jobItem->setBeginTime(GUIHelpers::currentDateTime());
@@ -124,8 +142,23 @@ void FitSuiteManager::onFittingFinished()
     m_jobItem->setDuration(m_runFitManager->getDuration());
     m_jobItem->fitSuiteItem()->mapper()->unsubscribe(this);
 
+    if(m_jobItem->isCompleted())
+        m_fitlog->append("Done", FitLogFlags::SUCCESS);
+
     emit fittingFinished();
 }
+
+void FitSuiteManager::onFittingError(const QString& text)
+{
+    QString message;
+    message.append("Current settings cause fitting failure.\n\n");
+    message.append(text);
+    m_fitlog->append(message.toStdString(), FitLogFlags::ERROR);
+
+    emit fittingError(message);
+}
+
+//! Propagates fit progress as reported by GUIFitObserver back to JobItem.
 
 void FitSuiteManager::onProgressInfoUpdate(const FitProgressInfo& info)
 {
@@ -169,5 +202,7 @@ void FitSuiteManager::updateLog(const FitProgressInfo& info)
         message.append(parinfo);
     }
 
-    emit fittingMessage(message);
+    m_fitlog->append(message.toStdString(), FitLogFlags::DEFAULT);
+
+//    emit fittingMessage(message);
 }

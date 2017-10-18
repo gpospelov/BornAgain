@@ -57,11 +57,7 @@ public:
     QSize minimumSizeHint() const;
 
 private slots:
-    void onFittingStarted();
-    void onFittingFinished();
-    void onFittingLogUpdate(const QString &text);
     void onFittingError(const QString &text);
-    void onFittingMessage(const QString &text);
 
 private:
     void connectSignals();

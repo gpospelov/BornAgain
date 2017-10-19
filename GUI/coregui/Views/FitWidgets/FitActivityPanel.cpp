@@ -77,6 +77,7 @@ void FitActivityPanel::setItem(JobItem *item)
     if(!isValidJobItem(item)) {
         m_jobMessagePanel->onClearLog();
         m_stackedWidget->hideWidgets();
+        m_fitActivityManager->disableLogging();
         return;
     }
 

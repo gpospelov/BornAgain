@@ -39,6 +39,8 @@ public:
 
     FitSuiteManager* manager(JobItem* item);
 
+    void disableLogging();
+
 private:
     FitSuiteManager* createManager(JobItem* jobItem);
     void removeManager(SessionItem* jobItem);

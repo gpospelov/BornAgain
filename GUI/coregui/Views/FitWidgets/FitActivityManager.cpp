@@ -19,6 +19,7 @@
 #include "FitLog.h"
 #include "JobItem.h"
 #include "GUIHelpers.h"
+#include "JobMessagePanel.h"
 
 FitActivityManager::FitActivityManager(QObject* parent)
     : QObject(parent)
@@ -45,9 +46,20 @@ FitSuiteManager* FitActivityManager::manager(JobItem* item)
         result = it.value();
     }
 
+    disableLogging();
+
     result->fitLog()->setMessagePanel(m_jobMessagePanel);
+    m_activeManager = result;
 
     return result;
+}
+
+void FitActivityManager::disableLogging()
+{
+    if (m_activeManager)
+        m_activeManager->fitLog()->setMessagePanel(nullptr);
+
+    m_jobMessagePanel->onClearLog();
 }
 
 

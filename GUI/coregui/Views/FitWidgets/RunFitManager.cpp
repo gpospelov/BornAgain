@@ -16,7 +16,7 @@
 
 #include "RunFitManager.h"
 #include "FitSuite.h"
-#include "FittingWorker.h"
+#include "FitWorker.h"
 #include <QThread>
 
 RunFitManager::RunFitManager(QObject* parent)

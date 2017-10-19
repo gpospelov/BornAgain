@@ -26,9 +26,13 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
+namespace {
+const bool reuse_widget = true;
+}
+
 FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
-    , m_stackedWidget(new ItemStackPresenter<FitSuiteWidget>)
+    , m_stackedWidget(new ItemStackPresenter<FitSuiteWidget>(reuse_widget))
     , m_realTimeWidget(0)
     , m_jobMessagePanel(0)
     , m_fitActivityManager(new FitActivityManager(this))

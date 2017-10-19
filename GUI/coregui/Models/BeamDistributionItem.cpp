@@ -16,7 +16,6 @@
 
 #include "BeamDistributionItem.h"
 #include "Distributions.h"
-#include "GUIHelpers.h"
 #include "GroupItem.h"
 #include "ParameterDistribution.h"
 #include "ParameterTranslators.h"
@@ -63,7 +62,7 @@ BeamDistributionItem::getParameterDistributionForName(const std::string& paramet
 
             RealLimits limits = limitsItem->createRealLimits(scaleFactor());
 
-            P_par_distr = GUIHelpers::make_unique<ParameterDistribution>(
+            P_par_distr = std::make_unique<ParameterDistribution>(
                 parameter_name, *P_distribution, nbr_samples, sigma_factor, limits);
         }
     }

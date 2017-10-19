@@ -17,7 +17,6 @@
 #include "FTDecayFunctionItems.h"
 #include "Units.h"
 #include "BornAgainNamespace.h"
-#include "GUIHelpers.h"
 
 // --------------------------------------------------------------------------------------------- //
 
@@ -45,7 +44,7 @@ FTDecayFunction1DCauchyItem::FTDecayFunction1DCauchyItem()
 
 std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DCauchyItem::createFTDecayFunction() const
 {
-    return GUIHelpers::make_unique<FTDecayFunction1DCauchy>(
+    return std::make_unique<FTDecayFunction1DCauchy>(
         getItemValue(P_DECAY_LENGTH).toDouble());
 }
 
@@ -60,7 +59,7 @@ FTDecayFunction1DGaussItem::FTDecayFunction1DGaussItem()
 
 std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DGaussItem::createFTDecayFunction() const
 {
-    return GUIHelpers::make_unique<FTDecayFunction1DGauss>(getItemValue(P_DECAY_LENGTH).toDouble());
+    return std::make_unique<FTDecayFunction1DGauss>(getItemValue(P_DECAY_LENGTH).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -74,7 +73,7 @@ FTDecayFunction1DTriangleItem::FTDecayFunction1DTriangleItem()
 
 std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DTriangleItem::createFTDecayFunction() const
 {
-    return GUIHelpers::make_unique<FTDecayFunction1DTriangle>(
+    return std::make_unique<FTDecayFunction1DTriangle>(
         getItemValue(P_DECAY_LENGTH).toDouble());
 }
 
@@ -93,7 +92,7 @@ FTDecayFunction1DVoigtItem::FTDecayFunction1DVoigtItem()
 
 std::unique_ptr<IFTDecayFunction1D> FTDecayFunction1DVoigtItem::createFTDecayFunction() const
 {
-    return GUIHelpers::make_unique<FTDecayFunction1DVoigt>(
+    return std::make_unique<FTDecayFunction1DVoigt>(
                 getItemValue(P_DECAY_LENGTH).toDouble(),
                 getItemValue(P_ETA).toDouble() );
 }
@@ -143,7 +142,7 @@ FTDecayFunction2DCauchyItem::FTDecayFunction2DCauchyItem()
 
 std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DCauchyItem::createFTDecayFunction() const
 {
-    auto result = GUIHelpers::make_unique<FTDecayFunction2DCauchy>(
+    auto result = std::make_unique<FTDecayFunction2DCauchy>(
         getItemValue(P_DECAY_LENGTH_X).toDouble(), getItemValue(P_DECAY_LENGTH_Y).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
 
@@ -162,7 +161,7 @@ FTDecayFunction2DGaussItem::FTDecayFunction2DGaussItem()
 
 std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DGaussItem::createFTDecayFunction() const
 {
-    auto result = GUIHelpers::make_unique<FTDecayFunction2DGauss>(
+    auto result = std::make_unique<FTDecayFunction2DGauss>(
         getItemValue(P_DECAY_LENGTH_X).toDouble(), getItemValue(P_DECAY_LENGTH_Y).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
 
@@ -185,7 +184,7 @@ FTDecayFunction2DVoigtItem::FTDecayFunction2DVoigtItem()
 
 std::unique_ptr<IFTDecayFunction2D> FTDecayFunction2DVoigtItem::createFTDecayFunction() const
 {
-    auto result = GUIHelpers::make_unique<FTDecayFunction2DVoigt>(
+    auto result = std::make_unique<FTDecayFunction2DVoigt>(
         getItemValue(P_DECAY_LENGTH_X).toDouble(), getItemValue(P_DECAY_LENGTH_Y).toDouble(),
         getItemValue(P_ETA).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()));

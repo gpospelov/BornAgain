@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "PropertyBrowserUtils.h"
-#include "GUIHelpers.h"
 #include "MaterialSvc.h"
 #include "CustomEventFilters.h"
 #include <QColorDialog>

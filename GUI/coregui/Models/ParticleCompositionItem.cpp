@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "ParticleCompositionItem.h"
-#include "GUIHelpers.h"
 #include "MesoCrystal.h"
 #include "MesoCrystalItem.h"
 #include "ModelPath.h"
@@ -74,7 +73,7 @@ ParticleCompositionItem::ParticleCompositionItem()
 std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComposition() const
 {
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
-    auto P_composition = GUIHelpers::make_unique<ParticleComposition>();
+    auto P_composition = std::make_unique<ParticleComposition>();
     P_composition->setAbundance(abundance);
     QVector<SessionItem *> children = childItems();
     for (int i = 0; i < children.size(); ++i) {

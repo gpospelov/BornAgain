@@ -18,7 +18,6 @@
 #include "RealDataItem.h"
 #include "SessionModel.h"
 #include "LinkInstrumentManager.h"
-#include "GUIHelpers.h"
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QComboBox>

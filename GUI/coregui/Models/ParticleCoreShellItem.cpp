@@ -82,7 +82,7 @@ std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShel
     if (!P_core || !P_shell)
         throw GUIHelpers::Error("ParticleCoreShellItem::createParticleCoreShell -> Error. Either "
                                 "core or shell particle is undefined.");
-    auto P_coreshell = GUIHelpers::make_unique<ParticleCoreShell>(*P_shell, *P_core);
+    auto P_coreshell = std::make_unique<ParticleCoreShell>(*P_shell, *P_core);
     P_coreshell->setAbundance(abundance);
     TransformToDomain::setTransformationInfo(P_coreshell.get(), *this);
     return P_coreshell;

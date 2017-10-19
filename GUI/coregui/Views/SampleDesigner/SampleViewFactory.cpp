@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "SampleViewFactory.h"
-#include "GUIHelpers.h"
 #include "InterferenceFunctionViews.h"
 #include "LayerView.h"
 #include "MultiLayerView.h"
@@ -95,9 +94,5 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     else if (name==Constants::InterferenceFunction2DLatticeType) {
         return new InterferenceFunction2DLatticeView();
     }
-    else {
-//        throw GUIHelpers::Error("SampleViewFactory::createSampleView() -> Error! Can't create a view for " + name);
-    }
-
     return 0;
 }

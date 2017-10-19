@@ -20,7 +20,6 @@
 #include "ScientificDoubleProperty.h"
 #include "BeamWavelengthItem.h"
 #include "BeamAngleItems.h"
-#include "GUIHelpers.h"
 #include "Units.h"
 #include "Beam.h"
 
@@ -111,7 +110,7 @@ void BeamItem::setAzimuthalAngle(double value, const QString &distribution_name)
 
 std::unique_ptr<Beam> BeamItem::createBeam() const
 {
-    auto result = GUIHelpers::make_unique<Beam>();
+    auto result = std::make_unique<Beam>();
 
     result->setIntensity(getIntensity());
     double lambda = getWavelength();

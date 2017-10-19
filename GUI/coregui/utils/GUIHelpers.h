@@ -80,11 +80,6 @@ BA_CORE_API_ QStringList fromStdStrings(const std::vector<std::string>& containe
 
 BA_CORE_API_ QVector<double> fromStdVector(const std::vector<double>& data);
 
-template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)
-{
-    return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
-}
-
 BA_CORE_API_ QString createUuid();
 
 BA_CORE_API_ QString readTextFile(const QString& fileName);

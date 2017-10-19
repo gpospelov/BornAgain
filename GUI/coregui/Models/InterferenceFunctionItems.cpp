@@ -18,7 +18,6 @@
 #include "BornAgainNamespace.h"
 #include "Lattice2DItems.h"
 #include "ModelPath.h"
-#include "GUIHelpers.h"
 #include "Units.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDecayFunctions.h"
@@ -76,7 +75,7 @@ InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystal
 std::unique_ptr<IInterferenceFunction>
 InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const
 {
-    auto result = GUIHelpers::make_unique<InterferenceFunctionRadialParaCrystal>(
+    auto result = std::make_unique<InterferenceFunctionRadialParaCrystal>(
         getItemValue(P_PEAK_DISTANCE).toDouble(), getItemValue(P_DAMPING_LENGTH).toDouble());
     result->setDomainSize(getItemValue(P_DOMAIN_SIZE).toDouble());
     result->setKappa(getItemValue(P_KAPPA).toDouble());
@@ -219,7 +218,7 @@ InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
 std::unique_ptr<IInterferenceFunction>
 InterferenceFunction1DLatticeItem::createInterferenceFunction() const
 {
-    auto result = GUIHelpers::make_unique<InterferenceFunction1DLattice>(
+    auto result = std::make_unique<InterferenceFunction1DLattice>(
         getItemValue(P_LENGTH).toDouble(),
         Units::deg2rad(getItemValue(P_ROTATION_ANGLE).toDouble()));
     auto pdfItem = dynamic_cast<FTDecayFunction1DItem*>(

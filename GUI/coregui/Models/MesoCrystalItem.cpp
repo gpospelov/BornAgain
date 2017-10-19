@@ -121,7 +121,7 @@ std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
                                 "No outer shape defined");
     }
 
-    auto P_result = GUIHelpers::make_unique<MesoCrystal>(crystal, *P_ff);
+    auto P_result = std::make_unique<MesoCrystal>(crystal, *P_ff);
     TransformToDomain::setTransformationInfo(P_result.get(), *this);
 
     return P_result;

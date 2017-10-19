@@ -16,7 +16,6 @@
 
 #include "MaskEditor.h"
 #include "GISASSimulation.h"
-#include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "MaskEditorActions.h"
 #include "MaskEditorCanvas.h"

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/RunFitManager.cpp
-//! @brief     Implements class RunFitManager
+//! @file      GUI/coregui/Views/FitWidgets/FitWorkerLauncher.cpp
+//! @brief     Implements class FitWorkerLauncher
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,7 @@
 #include "FitWorker.h"
 #include <QThread>
 
-RunFitManager::RunFitManager(QObject* parent)
+FitWorkerLauncher::FitWorkerLauncher(QObject* parent)
     : QObject(parent)
     , m_is_fit_running(false)
     , m_duration(0)
@@ -27,7 +27,7 @@ RunFitManager::RunFitManager(QObject* parent)
 }
 
 // start fitting in separate thread
-void RunFitManager::runFitting(std::shared_ptr<FitSuite> suite)
+void FitWorkerLauncher::runFitting(std::shared_ptr<FitSuite> suite)
 {
     if (!suite || m_is_fit_running)
         return;
@@ -38,13 +38,13 @@ void RunFitManager::runFitting(std::shared_ptr<FitSuite> suite)
 
     // start fitting when thread starts
     connect(thread, &QThread::started, fw, &FitWorker::startFit);
-    connect(fw, &FitWorker::started, this, &RunFitManager::intern_workerStarted);
+    connect(fw, &FitWorker::started, this, &FitWorkerLauncher::intern_workerStarted);
 
-    connect(this, &RunFitManager::intern_interruptFittingWorker,
+    connect(this, &FitWorkerLauncher::intern_interruptFittingWorker,
             fw, &FitWorker::interruptFitting, Qt::DirectConnection);
 
-    connect(fw, &FitWorker::error, this, &RunFitManager::intern_error);
-    connect(fw, &FitWorker::finished, this, &RunFitManager::intern_workerFinished);
+    connect(fw, &FitWorker::error, this, &FitWorkerLauncher::intern_error);
+    connect(fw, &FitWorker::finished, this, &FitWorkerLauncher::intern_workerFinished);
 
     // delete fitting worker and thread when done
     connect(fw, SIGNAL(finished(int)), fw, SLOT(deleteLater()));
@@ -56,30 +56,30 @@ void RunFitManager::runFitting(std::shared_ptr<FitSuite> suite)
 
 //! Returns duration of fit in msec.
 
-int RunFitManager::getDuration()
+int FitWorkerLauncher::getDuration()
 {
     return m_duration;
 }
 
-void RunFitManager::interruptFitting()
+void FitWorkerLauncher::interruptFitting()
 {
     if (m_is_fit_running)
         emit intern_interruptFittingWorker();
 }
 
-void RunFitManager::intern_workerFinished(int duration)
+void FitWorkerLauncher::intern_workerFinished(int duration)
 {
     m_is_fit_running = false;
     m_duration = duration;
     emit fittingFinished();
 }
 
-void RunFitManager::intern_workerStarted()
+void FitWorkerLauncher::intern_workerStarted()
 {
     emit fittingStarted();
 }
 
-void RunFitManager::intern_error(const QString& mesg)
+void FitWorkerLauncher::intern_error(const QString& mesg)
 {
     emit fittingError(mesg);
 }

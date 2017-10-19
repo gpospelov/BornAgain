@@ -29,7 +29,7 @@
 FitSuiteManager::FitSuiteManager(QObject* parent)
     : QObject(parent)
     , m_jobItem(nullptr)
-    , m_runFitManager(new RunFitManager(this))
+    , m_runFitManager(new FitWorkerLauncher(this))
     , m_observer(new GUIFitObserver)
     , m_fitlog(new FitLog)
     , m_block_progress_update(false)
@@ -43,11 +43,11 @@ FitSuiteManager::FitSuiteManager(QObject* parent)
         m_fitlog->append(text.toStdString(), FitLogFlags::DEFAULT);
     });
 
-    connect(m_runFitManager, &RunFitManager::fittingStarted, this,
+    connect(m_runFitManager, &FitWorkerLauncher::fittingStarted, this,
             &FitSuiteManager::onFittingStarted);
-    connect(m_runFitManager, &RunFitManager::fittingFinished, this,
+    connect(m_runFitManager, &FitWorkerLauncher::fittingFinished, this,
             &FitSuiteManager::onFittingFinished);
-    connect(m_runFitManager, &RunFitManager::fittingError, this, &FitSuiteManager::onFittingError);
+    connect(m_runFitManager, &FitWorkerLauncher::fittingError, this, &FitSuiteManager::onFittingError);
 }
 
 FitSuiteManager::~FitSuiteManager()

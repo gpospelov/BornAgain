@@ -22,7 +22,7 @@
 #include <memory>
 
 class JobItem;
-class RunFitManager;
+class FitWorkerLauncher;
 class GUIFitObserver;
 class FitProgressInfo;
 class FitLog;
@@ -62,7 +62,7 @@ private slots:
 
 private:
     JobItem* m_jobItem;
-    RunFitManager* m_runFitManager;
+    FitWorkerLauncher* m_runFitManager;
     std::shared_ptr<GUIFitObserver> m_observer;
     std::unique_ptr<FitLog> m_fitlog;
     bool m_block_progress_update;

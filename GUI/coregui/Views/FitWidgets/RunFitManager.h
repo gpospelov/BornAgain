@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/RunFitManager.h
-//! @brief     Implements class RunFitManager
+//! @file      GUI/coregui/Views/FitWidgets/FitWorkerLauncher.h
+//! @brief     Implements class FitWorkerLauncher
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef RUNFITMANAGER_H
-#define RUNFITMANAGER_H
+#ifndef FITWORKERLAUNCHER_H
+#define FITWORKERLAUNCHER_H
 
 #include "WinDllMacros.h"
 #include <QObject>
@@ -24,12 +24,12 @@
 
 class FitSuite;
 
-class BA_CORE_API_ RunFitManager : public QObject
+class BA_CORE_API_ FitWorkerLauncher : public QObject
 {
     Q_OBJECT
 
 public:
-    RunFitManager(QObject* parent);
+    FitWorkerLauncher(QObject* parent);
 
     void runFitting(std::shared_ptr<FitSuite> suite);
 
@@ -56,4 +56,4 @@ private:
     int m_duration;
 };
 
-#endif // RUNFITMANAGER_H
+#endif // FITWORKERLAUNCHER_H

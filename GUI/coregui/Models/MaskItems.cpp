@@ -77,7 +77,7 @@ std::unique_ptr<IShape2D> RectangleItem::createShape(double scale) const
     double ylow = scale*getItemValue(P_YLOW).toDouble();
     double xup = scale*getItemValue(P_XUP).toDouble();
     double yup = scale*getItemValue(P_YUP).toDouble();
-    return GUIHelpers::make_unique<Rectangle>(xlow, ylow, xup, yup);
+    return std::make_unique<Rectangle>(xlow, ylow, xup, yup);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -122,7 +122,7 @@ std::unique_ptr<IShape2D> PolygonItem::createShape(double scale) const
         x.push_back(scale*item->getItemValue(PolygonPointItem::P_POSX).toDouble());
         y.push_back(scale*item->getItemValue(PolygonPointItem::P_POSY).toDouble());
     }
-    return GUIHelpers::make_unique<Polygon>(x, y);
+    return std::make_unique<Polygon>(x, y);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -137,7 +137,7 @@ VerticalLineItem::VerticalLineItem()
 
 std::unique_ptr<IShape2D> VerticalLineItem::createShape(double scale) const
 {
-    return GUIHelpers::make_unique<VerticalLine>(
+    return std::make_unique<VerticalLine>(
                 scale*getItemValue(VerticalLineItem::P_POSX).toDouble());
 }
 
@@ -153,7 +153,7 @@ HorizontalLineItem::HorizontalLineItem()
 
 std::unique_ptr<IShape2D> HorizontalLineItem::createShape(double scale) const
 {
-    return GUIHelpers::make_unique<HorizontalLine>(
+    return std::make_unique<HorizontalLine>(
                 scale*getItemValue(HorizontalLineItem::P_POSY).toDouble());
 }
 
@@ -184,7 +184,7 @@ std::unique_ptr<IShape2D> EllipseItem::createShape(double scale) const
     double yradius = scale*getItemValue(EllipseItem::P_YRADIUS).toDouble();
     double angle = scale*getItemValue(EllipseItem::P_ANGLE).toDouble();
 
-    return GUIHelpers::make_unique<Ellipse>(xcenter, ycenter, xradius, yradius, angle);
+    return std::make_unique<Ellipse>(xcenter, ycenter, xradius, yradius, angle);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -199,6 +199,6 @@ MaskAllItem::MaskAllItem()
 std::unique_ptr<IShape2D> MaskAllItem::createShape(double scale) const
 {
     Q_UNUSED(scale);
-    return GUIHelpers::make_unique<InfinitePlane>();
+    return std::make_unique<InfinitePlane>();
 }
 

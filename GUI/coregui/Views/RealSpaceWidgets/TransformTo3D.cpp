@@ -22,7 +22,6 @@
 #include "VectorItem.h"
 #include "LayerItem.h"
 #include "MultiLayerItem.h"
-#include "GUIHelpers.h"
 
 namespace {
     const double layer_size = 50.0;
@@ -67,7 +66,7 @@ std::unique_ptr<ba3d::Layer> TransformTo3D::createLayer(const SessionItem& layer
     double ztop = origin.z() + thickness;
     double zbottom = origin.z();
 
-    std::unique_ptr<ba3d::Layer> result = GUIHelpers::make_unique<ba3d::Layer>(
+    std::unique_ptr<ba3d::Layer> result = std::make_unique<ba3d::Layer>(
         ba3d::dxyz(ba3d::dr(-s2,+s2), ba3d::dr(-s2,+s2), ba3d::dr(ztop, zbottom)));
 
     QColor color = layerItem.getItemValue(LayerItem::P_MATERIAL).value<MaterialProperty>().getColor();
@@ -92,14 +91,14 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
     if(ffItem->modelType() == Constants::CylinderType) {
         double radius = ffItem->getItemValue(CylinderItem::P_RADIUS).toDouble();
         double height = ffItem->getItemValue(CylinderItem::P_HEIGHT).toDouble();
-        result = GUIHelpers::make_unique<ba3d::particle::Cylinder>(radius, height);
+        result = std::make_unique<ba3d::particle::Cylinder>(radius, height);
     }
 
     else if(ffItem->modelType() == Constants::BoxType) {
         double length = ffItem->getItemValue(BoxItem::P_LENGTH).toDouble();
         double width = ffItem->getItemValue(BoxItem::P_WIDTH).toDouble();
         double height = ffItem->getItemValue(BoxItem::P_HEIGHT).toDouble();
-        result = GUIHelpers::make_unique<ba3d::particle::Box>(length, width, height);
+        result = std::make_unique<ba3d::particle::Box>(length, width, height);
     }
 
     if(result) {

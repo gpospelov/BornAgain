@@ -17,7 +17,6 @@
 #include "RotationItems.h"
 #include "Units.h"
 #include "Rotations.h"
-#include "GUIHelpers.h"
 
 // ----------------------------------------------------------------------------
 
@@ -34,7 +33,7 @@ XRotationItem::XRotationItem()
 std::unique_ptr<IRotation> XRotationItem::createRotation() const
 {
     double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble());
-    return GUIHelpers::make_unique<RotationX>(alpha);
+    return std::make_unique<RotationX>(alpha);
 }
 
 // ----------------------------------------------------------------------------
@@ -52,7 +51,7 @@ YRotationItem::YRotationItem()
 std::unique_ptr<IRotation> YRotationItem::createRotation() const
 {
     double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble() );
-    return GUIHelpers::make_unique<RotationY>(alpha);
+    return std::make_unique<RotationY>(alpha);
 }
 
 // ----------------------------------------------------------------------------
@@ -70,7 +69,7 @@ ZRotationItem::ZRotationItem()
 std::unique_ptr<IRotation> ZRotationItem::createRotation() const
 {
     double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble() );
-    return GUIHelpers::make_unique<RotationZ>(alpha);
+    return std::make_unique<RotationZ>(alpha);
 }
 
 // ----------------------------------------------------------------------------
@@ -97,5 +96,5 @@ std::unique_ptr<IRotation> EulerRotationItem::createRotation() const
     double alpha = Units::deg2rad(getItemValue(P_ALPHA).toDouble() );
     double beta = Units::deg2rad(getItemValue(P_BETA).toDouble() );
     double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble() );
-    return GUIHelpers::make_unique<RotationEuler>(alpha, beta, gamma);
+    return std::make_unique<RotationEuler>(alpha, beta, gamma);
 }

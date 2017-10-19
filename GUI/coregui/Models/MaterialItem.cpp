@@ -59,6 +59,6 @@ std::unique_ptr<HomogeneousMaterial> MaterialItem::createMaterial() const
     double delta = refractiveIndexItem->getDelta();
     double beta = refractiveIndexItem->getBeta();
 
-    return GUIHelpers::make_unique<HomogeneousMaterial>(
+    return std::make_unique<HomogeneousMaterial>(
                 itemName().toStdString(), delta, beta);
 }

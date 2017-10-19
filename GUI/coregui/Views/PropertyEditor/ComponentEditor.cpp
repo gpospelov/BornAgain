@@ -15,7 +15,6 @@
 // ************************************************************************** //
 #include "ComponentEditor.h"
 #include "ComponentEditorPrivate.h"
-#include "GUIHelpers.h"
 #include "GroupItem.h"
 #include "GroupProperty.h"
 #include "SessionItem.h"

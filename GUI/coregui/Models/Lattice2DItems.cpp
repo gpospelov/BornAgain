@@ -16,7 +16,6 @@
 
 #include "Lattice2DItems.h"
 #include "BornAgainNamespace.h"
-#include "GUIHelpers.h"
 #include "Lattice2D.h"
 #include "Units.h"
 
@@ -57,7 +56,7 @@ BasicLatticeItem::BasicLatticeItem()
 
 std::unique_ptr<Lattice2D> BasicLatticeItem::createLattice() const
 {
-    return GUIHelpers::make_unique<BasicLattice>(
+    return std::make_unique<BasicLattice>(
                 getItemValue(P_LATTICE_LENGTH1).toDouble(),
                 getItemValue(P_LATTICE_LENGTH2).toDouble(),
                 Units::deg2rad(getItemValue(P_LATTICE_ANGLE).toDouble()),
@@ -80,7 +79,7 @@ SquareLatticeItem::SquareLatticeItem()
 
 std::unique_ptr<Lattice2D> SquareLatticeItem::createLattice() const
 {
-    return GUIHelpers::make_unique<SquareLattice>(
+    return std::make_unique<SquareLattice>(
                 getItemValue(P_LATTICE_LENGTH).toDouble(),
                 Units::deg2rad(getItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE).toDouble())
                 );
@@ -101,7 +100,7 @@ HexagonalLatticeItem::HexagonalLatticeItem()
 
 std::unique_ptr<Lattice2D> HexagonalLatticeItem::createLattice() const
 {
-    return GUIHelpers::make_unique<HexagonalLattice>(
+    return std::make_unique<HexagonalLattice>(
                 getItemValue(P_LATTICE_LENGTH).toDouble(),
                 Units::deg2rad(getItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE).toDouble())
                 );

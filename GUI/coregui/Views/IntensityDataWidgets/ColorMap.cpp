@@ -18,7 +18,6 @@
 #include "AxesItems.h"
 #include "ColorMapEvent.h"
 #include "ColorMapUtils.h"
-#include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "MathConstants.h"
 #include "UpdateTimer.h"

@@ -17,7 +17,6 @@
 #include "ResolutionFunctionItems.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "BornAgainNamespace.h"
-#include "GUIHelpers.h"
 
 ResolutionFunctionItem::ResolutionFunctionItem(const QString& name)
     : SessionItem(name)
@@ -53,7 +52,7 @@ ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem()
 std::unique_ptr<IResolutionFunction2D>
 ResolutionFunction2DGaussianItem::createResolutionFunction(double scale) const
 {
-    return GUIHelpers::make_unique<ResolutionFunction2DGaussian>(
+    return std::make_unique<ResolutionFunction2DGaussian>(
                 scale*getItemValue(P_SIGMA_X).toDouble(),
                 scale*getItemValue(P_SIGMA_Y).toDouble());
 }

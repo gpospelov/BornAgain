@@ -46,10 +46,9 @@ const QString style_sheet =
 
 
 ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
-    : QWidget(parent)
+    : SessionItemWidget(parent)
     , m_toolBar(new JobRealTimeToolBar(this))
     , m_jobModel(nullptr)
-    , m_currentJobItem(nullptr)
     , m_parameterTuningModel(nullptr)
     , m_sliderSettingsWidget(new SliderSettingsWidget(this))
     , m_treeView(new QTreeView)
@@ -84,31 +83,6 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
             this, &ParameterTuningWidget::restoreModelsOfCurrentJobItem);
 }
 
-void ParameterTuningWidget::setItem(JobItem* item)
-{
-    if (m_currentJobItem == item) {
-        return;
-
-    } else {
-        if (m_currentJobItem)
-            m_currentJobItem->mapper()->unsubscribe(this);
-
-        m_currentJobItem = item;
-        if (!m_currentJobItem)
-            return;
-
-        m_jobModel = dynamic_cast<JobModel*>(m_currentJobItem->model());
-
-        updateParameterModel();
-        updateDragAndDropSettings();
-
-        m_currentJobItem->mapper()->setOnPropertyChange(
-            [this](const QString& name) { onPropertyChanged(name); }, this);
-
-        onPropertyChanged(JobItem::P_STATUS);
-    }
-}
-
 QItemSelectionModel* ParameterTuningWidget::selectionModel()
 {
     Q_ASSERT(m_treeView);
@@ -130,14 +104,14 @@ QVector<ParameterItem*> ParameterTuningWidget::getSelectedParameters()
 
 void ParameterTuningWidget::onCurrentLinkChanged(SessionItem* item)
 {
-    Q_ASSERT(m_currentJobItem);
+    Q_ASSERT(jobItem());
 
-    if (m_currentJobItem->isRunning())
+    if (jobItem()->isRunning())
         return;
 
     if (item) {
         // link.updateItem(); // FIXME circular dependency if uncomment
-        m_jobModel->runJob(m_currentJobItem->index());
+        m_jobModel->runJob(jobItem()->index());
     }
 }
 
@@ -148,9 +122,9 @@ void ParameterTuningWidget::onSliderValueChanged(double value)
 
 void ParameterTuningWidget::onLockZValueChanged(bool value)
 {
-    if (!m_currentJobItem)
+    if (!jobItem())
         return;
-    if (IntensityDataItem* intensityDataItem = m_currentJobItem->intensityDataItem())
+    if (IntensityDataItem* intensityDataItem = jobItem()->intensityDataItem())
         intensityDataItem->setZAxisLocked(value);
 }
 
@@ -158,10 +132,10 @@ void ParameterTuningWidget::updateParameterModel()
 {
     Q_ASSERT(m_jobModel);
 
-    if (!m_currentJobItem)
+    if (!jobItem())
         return;
 
-    if (!m_currentJobItem->multiLayerItem() || !m_currentJobItem->instrumentItem())
+    if (!jobItem()->multiLayerItem() || !jobItem()->instrumentItem())
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
 
@@ -171,7 +145,7 @@ void ParameterTuningWidget::updateParameterModel()
 
     m_treeView->setModel(m_parameterTuningModel);
     m_treeView->setRootIndex(
-        m_parameterTuningModel->mapFromSource(m_currentJobItem->parameterContainerItem()->index()));
+        m_parameterTuningModel->mapFromSource(jobItem()->parameterContainerItem()->index()));
     if (m_treeView->columnWidth(0) < 170)
         m_treeView->setColumnWidth(0, 170);
     m_treeView->expandAll();
@@ -185,15 +159,15 @@ void ParameterTuningWidget::onCustomContextMenuRequested(const QPoint& point)
 void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
 {
     Q_ASSERT(m_jobModel);
-    Q_ASSERT(m_currentJobItem);
+    Q_ASSERT(jobItem());
 
-    if (m_currentJobItem->isRunning())
+    if (jobItem()->isRunning())
         return;
 
     closeActiveEditors();
 
-    m_jobModel->restore(m_currentJobItem);
-    m_jobModel->runJob(m_currentJobItem->index());
+    m_jobModel->restore(jobItem());
+    m_jobModel->runJob(jobItem()->index());
 }
 
 void ParameterTuningWidget::makeSelected(ParameterItem* item)
@@ -215,15 +189,28 @@ void ParameterTuningWidget::contextMenuEvent(QContextMenuEvent* )
     // reimplemented to suppress context menu from QMainWindow
 }
 
+void ParameterTuningWidget::subscribeToItem()
+{
+    m_jobModel = dynamic_cast<JobModel*>(jobItem()->model());
+
+    updateParameterModel();
+    updateDragAndDropSettings();
+
+    jobItem()->mapper()->setOnPropertyChange(
+        [this](const QString& name) { onPropertyChanged(name); }, this);
+
+    onPropertyChanged(JobItem::P_STATUS);
+}
+
 void ParameterTuningWidget::onPropertyChanged(const QString& property_name)
 {
     if (property_name == JobItem::P_STATUS) {
         m_warningSign->clear();
 
-        if (m_currentJobItem->isFailed()) {
+        if (jobItem()->isFailed()) {
             QString message;
             message.append("Current parameter values cause simulation failure.\n\n");
-            message.append(m_currentJobItem->getComments());
+            message.append(jobItem()->getComments());
             m_warningSign->setWarningMessage(message);
         }
 
@@ -231,17 +218,23 @@ void ParameterTuningWidget::onPropertyChanged(const QString& property_name)
     }
 }
 
+JobItem* ParameterTuningWidget::jobItem()
+{
+    return dynamic_cast<JobItem*>(currentItem());
+}
+
+
 //! Disable drag-and-drop abilities, if job is in fit running state.
 
 void ParameterTuningWidget::updateDragAndDropSettings()
 {
-    Q_ASSERT(m_currentJobItem);
-    if (m_currentJobItem->getStatus() == Constants::STATUS_FITTING) {
+    Q_ASSERT(jobItem());
+    if (jobItem()->getStatus() == Constants::STATUS_FITTING) {
         setTuningDelegateEnabled(false);
         m_treeView->setDragDropMode(QAbstractItemView::NoDragDrop);
     } else {
         setTuningDelegateEnabled(true);
-        if (m_currentJobItem->isValidForFitting())
+        if (jobItem()->isValidForFitting())
             m_treeView->setDragDropMode(QAbstractItemView::DragOnly);
     }
 }

@@ -15,37 +15,42 @@
 // ************************************************************************** //
 
 #include "ParameterTuningWidget.h"
-#include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include "JobRealTimeToolBar.h"
-#include "InstrumentModel.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "JobModel.h"
-#include "JobQueueData.h"
-#include "ParameterTreeUtils.h"
 #include "ParameterTreeItems.h"
 #include "ParameterTuningDelegate.h"
 #include "ParameterTuningModel.h"
-#include "SampleModel.h"
 #include "SliderSettingsWidget.h"
 #include "WarningSign.h"
-#include <QApplication>
-#include <QItemSelectionModel>
-#include <QKeyEvent>
-#include <QLabel>
-#include <QScrollBar>
-#include <QStandardItemModel>
-#include <QToolButton>
 #include <QTreeView>
 #include <QVBoxLayout>
 
-ParameterTuningWidget::ParameterTuningWidget(QWidget *parent)
+namespace {
+const QString style_sheet =
+    "QTreeView::branch {background: "
+    "palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
+    "{border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:"
+    "adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:"
+    "!has-children:!has-siblings:adjoins-item {border-image: "
+    "url(:/images/treeview-branch-end.png) "
+    "0;}QTreeView::branch:has-children:!has-siblings:closed"
+    ",QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: "
+    "url(:/images/"
+    "treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
+    "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
+    "url(:/images/treeview-branch-open.png);}";
+}
+
+
+ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
     : QWidget(parent)
     , m_toolBar(new JobRealTimeToolBar(this))
-    , m_jobModel(0)
-    , m_currentJobItem(0)
-    , m_parameterTuningModel(0)
+    , m_jobModel(nullptr)
+    , m_currentJobItem(nullptr)
+    , m_parameterTuningModel(nullptr)
     , m_sliderSettingsWidget(new SliderSettingsWidget(this))
     , m_treeView(new QTreeView)
     , m_delegate(new ParameterTuningDelegate(this))
@@ -53,24 +58,13 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget *parent)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_treeView->setStyleSheet(
-        "QTreeView::branch {background: palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
-        "{border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:"
-        "adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:"
-        "!has-children:!has-siblings:adjoins-item {border-image: "
-        "url(:/images/treeview-branch-end.png) 0;}QTreeView::branch:has-children:!has-siblings:closed"
-        ",QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: "
-        "url(:/images/treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
-        "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
-        "url(:/images/treeview-branch-open.png);}");
-
+    m_treeView->setStyleSheet(style_sheet);
     m_treeView->setItemDelegate(m_delegate);
-    //m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_treeView->setDragDropMode(QAbstractItemView::NoDragDrop);
     m_treeView->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(m_toolBar);
@@ -78,45 +72,44 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget *parent)
     mainLayout->addWidget(m_treeView);
     setLayout(mainLayout);
 
-    connect(m_sliderSettingsWidget, SIGNAL(sliderRangeFactorChanged(double)),
-            this, SLOT(onSliderValueChanged(double)));
-    connect(m_sliderSettingsWidget, SIGNAL(lockzChanged(bool)),
-            this, SLOT(onLockZValueChanged(bool)));
-    connect(m_delegate, SIGNAL(currentLinkChanged(SessionItem*)),
-            this, SLOT(onCurrentLinkChanged(SessionItem*)));
-    connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
-            this, SLOT(onCustomContextMenuRequested(const QPoint &)));
-    connect(m_toolBar, SIGNAL(resetParameters()), this, SLOT(restoreModelsOfCurrentJobItem()));
+    connect(m_sliderSettingsWidget, &SliderSettingsWidget::sliderRangeFactorChanged,
+            this, &ParameterTuningWidget::onSliderValueChanged);
+    connect(m_sliderSettingsWidget, &SliderSettingsWidget::lockzChanged,
+            this, &ParameterTuningWidget::onLockZValueChanged);
+    connect(m_delegate, &ParameterTuningDelegate::currentLinkChanged,
+            this, &ParameterTuningWidget::onCurrentLinkChanged);
+    connect(m_treeView, &QTreeView::customContextMenuRequested,
+            this, &ParameterTuningWidget::onCustomContextMenuRequested);
+    connect(m_toolBar, &JobRealTimeToolBar::resetParameters,
+            this, &ParameterTuningWidget::restoreModelsOfCurrentJobItem);
 }
 
-void ParameterTuningWidget::setItem(JobItem *item)
+void ParameterTuningWidget::setItem(JobItem* item)
 {
     if (m_currentJobItem == item) {
         return;
 
     } else {
-        if(m_currentJobItem)
+        if (m_currentJobItem)
             m_currentJobItem->mapper()->unsubscribe(this);
 
         m_currentJobItem = item;
-        if (!m_currentJobItem) return;
+        if (!m_currentJobItem)
+            return;
 
-        m_jobModel = dynamic_cast<JobModel *>(m_currentJobItem->model());
+        m_jobModel = dynamic_cast<JobModel*>(m_currentJobItem->model());
 
         updateParameterModel();
         updateDragAndDropSettings();
 
         m_currentJobItem->mapper()->setOnPropertyChange(
-                [this](const QString &name)
-        {
-            onPropertyChanged(name);
-        }, this);
+            [this](const QString& name) { onPropertyChanged(name); }, this);
 
         onPropertyChanged(JobItem::P_STATUS);
     }
 }
 
-QItemSelectionModel *ParameterTuningWidget::selectionModel()
+QItemSelectionModel* ParameterTuningWidget::selectionModel()
 {
     Q_ASSERT(m_treeView);
     return m_treeView->selectionModel();
@@ -124,26 +117,26 @@ QItemSelectionModel *ParameterTuningWidget::selectionModel()
 
 //! Returns list of ParameterItem's currently selected in parameter tree
 
-QVector<ParameterItem *> ParameterTuningWidget::getSelectedParameters()
+QVector<ParameterItem*> ParameterTuningWidget::getSelectedParameters()
 {
-    QVector<ParameterItem *> result;
+    QVector<ParameterItem*> result;
     QModelIndexList proxyIndexes = selectionModel()->selectedIndexes();
-    foreach(QModelIndex proxyIndex, proxyIndexes) {
-        if(ParameterItem *parItem = m_parameterTuningModel->getParameterItem(proxyIndex))
+    foreach (QModelIndex proxyIndex, proxyIndexes) {
+        if (ParameterItem* parItem = m_parameterTuningModel->getParameterItem(proxyIndex))
             result.push_back(parItem);
     }
     return result;
 }
 
-void ParameterTuningWidget::onCurrentLinkChanged(SessionItem *item)
+void ParameterTuningWidget::onCurrentLinkChanged(SessionItem* item)
 {
     Q_ASSERT(m_currentJobItem);
 
-    if(m_currentJobItem->isRunning())
+    if (m_currentJobItem->isRunning())
         return;
 
     if (item) {
-//        link.updateItem();
+        // link.updateItem(); // FIXME circular dependency if uncomment
         m_jobModel->runJob(m_currentJobItem->index());
     }
 }
@@ -155,19 +148,20 @@ void ParameterTuningWidget::onSliderValueChanged(double value)
 
 void ParameterTuningWidget::onLockZValueChanged(bool value)
 {
-    if(!m_currentJobItem) return;
-    if(IntensityDataItem *intensityDataItem = m_currentJobItem->intensityDataItem()) {
+    if (!m_currentJobItem)
+        return;
+    if (IntensityDataItem* intensityDataItem = m_currentJobItem->intensityDataItem())
         intensityDataItem->setZAxisLocked(value);
-    }
 }
 
 void ParameterTuningWidget::updateParameterModel()
 {
     Q_ASSERT(m_jobModel);
 
-    if(!m_currentJobItem) return;
+    if (!m_currentJobItem)
+        return;
 
-    if(!m_currentJobItem->multiLayerItem() || !m_currentJobItem->instrumentItem())
+    if (!m_currentJobItem->multiLayerItem() || !m_currentJobItem->instrumentItem())
         throw GUIHelpers::Error("ModelTuningWidget::updateParameterModel() -> Error."
                                 "JobItem doesn't have sample or instrument model.");
 
@@ -183,9 +177,9 @@ void ParameterTuningWidget::updateParameterModel()
     m_treeView->expandAll();
 }
 
-void ParameterTuningWidget::onCustomContextMenuRequested(const QPoint &point)
+void ParameterTuningWidget::onCustomContextMenuRequested(const QPoint& point)
 {
-    emit itemContextMenuRequest(m_treeView->mapToGlobal(point+ QPoint(2, 22)));
+    emit itemContextMenuRequest(m_treeView->mapToGlobal(point + QPoint(2, 22)));
 }
 
 void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
@@ -193,7 +187,7 @@ void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
     Q_ASSERT(m_jobModel);
     Q_ASSERT(m_currentJobItem);
 
-    if(m_currentJobItem->isRunning())
+    if (m_currentJobItem->isRunning())
         return;
 
     closeActiveEditors();
@@ -202,33 +196,31 @@ void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
     m_jobModel->runJob(m_currentJobItem->index());
 }
 
-void ParameterTuningWidget::makeSelected(ParameterItem *item)
+void ParameterTuningWidget::makeSelected(ParameterItem* item)
 {
     QModelIndex proxyIndex = m_parameterTuningModel->mapFromSource(item->index());
-    if(proxyIndex.isValid()) {
-       selectionModel()->select(proxyIndex, QItemSelectionModel::Select);
-    }
+    if (proxyIndex.isValid())
+        selectionModel()->select(proxyIndex, QItemSelectionModel::Select);
 }
 
-void ParameterTuningWidget::resizeEvent(QResizeEvent *event)
+void ParameterTuningWidget::resizeEvent(QResizeEvent* event)
 {
     Q_UNUSED(event);
-    if(m_treeView)
-        m_treeView->setColumnWidth(0, width()*0.5);
+    if (m_treeView)
+        m_treeView->setColumnWidth(0, width()/2);
 }
 
-//! Context menu reimplemented to suppress the default one
-void ParameterTuningWidget::contextMenuEvent(QContextMenuEvent *event)
+void ParameterTuningWidget::contextMenuEvent(QContextMenuEvent* )
 {
-    Q_UNUSED(event);
+    // reimplemented to suppress context menu from QMainWindow
 }
 
-void ParameterTuningWidget::onPropertyChanged(const QString &property_name)
+void ParameterTuningWidget::onPropertyChanged(const QString& property_name)
 {
-    if(property_name == JobItem::P_STATUS) {
+    if (property_name == JobItem::P_STATUS) {
         m_warningSign->clear();
 
-        if(m_currentJobItem->isFailed()) {
+        if (m_currentJobItem->isFailed()) {
             QString message;
             message.append("Current parameter values cause simulation failure.\n\n");
             message.append(m_currentJobItem->getComments());
@@ -244,12 +236,12 @@ void ParameterTuningWidget::onPropertyChanged(const QString &property_name)
 void ParameterTuningWidget::updateDragAndDropSettings()
 {
     Q_ASSERT(m_currentJobItem);
-    if(m_currentJobItem->getStatus() == Constants::STATUS_FITTING) {
+    if (m_currentJobItem->getStatus() == Constants::STATUS_FITTING) {
         setTuningDelegateEnabled(false);
         m_treeView->setDragDropMode(QAbstractItemView::NoDragDrop);
     } else {
         setTuningDelegateEnabled(true);
-        if(m_currentJobItem->isValidForFitting())
+        if (m_currentJobItem->isValidForFitting())
             m_treeView->setDragDropMode(QAbstractItemView::DragOnly);
     }
 }
@@ -259,9 +251,8 @@ void ParameterTuningWidget::updateDragAndDropSettings()
 //! editing widget, it will be forced to close.
 void ParameterTuningWidget::setTuningDelegateEnabled(bool enabled)
 {
-    if(enabled) {
+    if (enabled) {
         m_delegate->setReadOnly(false);
-
     } else {
         m_delegate->setReadOnly(true);
         closeActiveEditors();
@@ -271,11 +262,10 @@ void ParameterTuningWidget::setTuningDelegateEnabled(bool enabled)
 void ParameterTuningWidget::closeActiveEditors()
 {
     QModelIndex index = m_treeView->currentIndex();
-    QWidget *editor = m_treeView->indexWidget(index);
-    if(editor) {
-        //m_delegate->commitData(editor);
+    QWidget* editor = m_treeView->indexWidget(index);
+    if (editor) {
+        // m_delegate->commitData(editor);
         m_delegate->closeEditor(editor, QAbstractItemDelegate::NoHint);
     }
     m_treeView->selectionModel()->clearSelection();
 }
-

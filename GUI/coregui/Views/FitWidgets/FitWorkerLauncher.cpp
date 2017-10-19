@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "RunFitManager.h"
+#include "FitWorkerLauncher.h"
 #include "FitSuite.h"
 #include "FitWorker.h"
 #include <QThread>

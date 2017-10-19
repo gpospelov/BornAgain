@@ -23,10 +23,16 @@
 #include "Units.h"
 #include "Beam.h"
 
+namespace {
+const QString polarization_tooltip =
+        "Polarization of the beam, given as the Bloch vector";
+}
+
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
 const QString BeamItem::P_WAVELENGTH = QString::fromStdString(BornAgain::Wavelength);
 const QString BeamItem::P_INCLINATION_ANGLE = QString::fromStdString(BornAgain::Inclination);
 const QString BeamItem::P_AZIMUTHAL_ANGLE = QString::fromStdString(BornAgain::Azimuth);
+const QString BeamItem::P_POLARIZATION = QString("Polarization");
 
 BeamItem::BeamItem() : SessionItem(Constants::BeamType)
 {
@@ -36,6 +42,7 @@ BeamItem::BeamItem() : SessionItem(Constants::BeamType)
     addGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
+    addGroupProperty(P_POLARIZATION, Constants::VectorType)->setToolTip(polarization_tooltip);
 }
 
 BeamItem::~BeamItem(){}

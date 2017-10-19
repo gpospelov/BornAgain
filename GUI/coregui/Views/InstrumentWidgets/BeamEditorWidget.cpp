@@ -46,7 +46,7 @@ BeamEditorWidget::BeamEditorWidget(QWidget* parent)
     m_gridLayout->addWidget(m_wavelengthPresenter, 1, 0);
     m_gridLayout->addWidget(m_inclinationAnglePresenter, 1, 1);
     m_gridLayout->addWidget(m_azimuthalAnglePresenter, 1, 2);
-    m_gridLayout->addWidget(m_polarizationPresenter, 2, 0);
+    m_gridLayout->addWidget(m_polarizationPresenter, 1, 3);
 
     QGroupBox* groupBox = new QGroupBox(QStringLiteral("Beam Parameters"));
     QVBoxLayout* groupLayout = new QVBoxLayout;

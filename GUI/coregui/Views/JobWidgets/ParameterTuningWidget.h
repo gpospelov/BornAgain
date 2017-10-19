@@ -58,8 +58,7 @@ public slots:
 protected:
     void resizeEvent(QResizeEvent* event);
     void contextMenuEvent(QContextMenuEvent*);
-    virtual void subscribeToItem();
-    virtual void unsubscribeFromItem();
+    void subscribeToItem();
 
 private slots:
     void onPropertyChanged(const QString& property_name);

@@ -2,7 +2,7 @@
 # top-level CMakeLists.txt for building BornAgain
 ############################################################################
 
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 if(APPLE)
 if(POLICY CMP0025)

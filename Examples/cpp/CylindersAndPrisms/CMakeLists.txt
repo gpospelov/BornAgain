@@ -9,7 +9,7 @@
 #  @authors   Scientific Computing Group at MLZ Garching
 #  @authors   J. Burle, C. Durniak, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 project(CylindersAndPrisms)
 

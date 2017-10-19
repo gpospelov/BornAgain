@@ -33,18 +33,18 @@ void RunFitManager::runFitting(std::shared_ptr<FitSuite> suite)
         return;
 
     auto thread = new QThread();
-    auto fw = new FittingWorker(suite);
+    auto fw = new FitWorker(suite);
     fw->moveToThread(thread);
 
     // start fitting when thread starts
-    connect(thread, &QThread::started, fw, &FittingWorker::startFit);
-    connect(fw, &FittingWorker::started, this, &RunFitManager::intern_workerStarted);
+    connect(thread, &QThread::started, fw, &FitWorker::startFit);
+    connect(fw, &FitWorker::started, this, &RunFitManager::intern_workerStarted);
 
     connect(this, &RunFitManager::intern_interruptFittingWorker,
-            fw, &FittingWorker::interruptFitting, Qt::DirectConnection);
+            fw, &FitWorker::interruptFitting, Qt::DirectConnection);
 
-    connect(fw, &FittingWorker::error, this, &RunFitManager::intern_error);
-    connect(fw, &FittingWorker::finished, this, &RunFitManager::intern_workerFinished);
+    connect(fw, &FitWorker::error, this, &RunFitManager::intern_error);
+    connect(fw, &FitWorker::finished, this, &RunFitManager::intern_workerFinished);
 
     // delete fitting worker and thread when done
     connect(fw, SIGNAL(finished(int)), fw, SLOT(deleteLater()));

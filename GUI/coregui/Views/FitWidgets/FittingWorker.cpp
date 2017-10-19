@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FittingWorker.cpp
-//! @brief     Implements class FittingWorker
+//! @file      GUI/coregui/Views/FitWidgets/FitWorker.cpp
+//! @brief     Implements class FitWorker
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,7 @@
 #include "FitSuite.h"
 #include <QDateTime>
 
-void FittingWorker::startFit()
+void FitWorker::startFit()
 {
     int duration(0);
     QDateTime beginTime = QDateTime::currentDateTime();
@@ -29,22 +29,21 @@ void FittingWorker::startFit()
         m_fitsuite->runFit();
         duration = durationSince(beginTime);
 
-    } catch(const std::exception& ex) {
+    } catch (const std::exception& ex) {
         duration = durationSince(beginTime);
         emit error(QString::fromLatin1(ex.what()));
     }
     emit finished(duration);
 }
 
-void FittingWorker::interruptFitting()
+void FitWorker::interruptFitting()
 {
     if (m_fitsuite)
         m_fitsuite->interruptFitting();
 }
 
-int FittingWorker::durationSince(const QDateTime &since)
+int FitWorker::durationSince(const QDateTime& since)
 {
     QDateTime endTime = QDateTime::currentDateTime();
     return int(since.msecsTo(endTime));
 }
-

@@ -142,6 +142,4 @@ void JobView::setAppropriateActivityForJob(JobItem* jobItem)
 
     if (jobItem->isValidForFitting())
         setActivity(JobViewFlags::FITTING_ACTIVITY);
-    else
-        setActivity(JobViewFlags::JOB_VIEW_ACTIVITY);
 }

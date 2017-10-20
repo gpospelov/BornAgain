@@ -44,7 +44,7 @@ struct ReciprocalFactorial
 };
 
 template<template<size_t> class F, size_t... I>
-constexpr std::array<double, sizeof...(I)> GenerateArrayHelper(std::integer_sequence<size_t, I...>)
+constexpr std::array<double, sizeof...(I)> GenerateArrayHelper(std::index_sequence<I...>)
 {
     return { F<I>::value... };
 };
@@ -60,6 +60,10 @@ constexpr std::array<double, N> GenerateReciprocalFactorialArray()
 {
     return GenerateArrayHelper<ReciprocalFactorial>(Indices{});
 };
+
+static constexpr auto FactorialArray = GenerateFactorialArray<171>();
+static constexpr auto ReciprocalFactorialArray = GenerateReciprocalFactorialArray<171>();
+
 }  // namespace Precomputed
 
 #endif // PRECOMPUTED_H

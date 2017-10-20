@@ -49,16 +49,12 @@ TEST_F(ParticleTest, Constructors)
     std::unique_ptr<Particle> p2(new Particle(mat, sphere));
     EXPECT_EQ(mat, *p2->material());
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(p2->createFormFactor()));
-    EXPECT_EQ(complex_t(1,0), dynamic_cast<FormFactorDecoratorMaterial *>(
-                      p2->createFormFactor())->getAmbientRefractiveIndex());
     EXPECT_EQ( nullptr, p2->rotation());
 
     // construction with transformation
     std::unique_ptr<Particle> p3(new Particle(mat, sphere, transform));
     EXPECT_EQ(mat, *p3->material());
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(p3->createFormFactor()));
-    EXPECT_EQ(complex_t(1,0), dynamic_cast<FormFactorDecoratorMaterial *>(
-                      p3->createFormFactor())->getAmbientRefractiveIndex());
     EXPECT_EQ(BornAgain::ZRotationType, p3->rotation()->getName());
 }
 

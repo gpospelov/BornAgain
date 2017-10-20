@@ -47,11 +47,6 @@ void FormFactorDecoratorMaterial::setAmbientMaterial(HomogeneousMaterial materia
     m_ambient_material = std::move(material);
 }
 
-complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const
-{
-    return m_ambient_material.refractiveIndex();
-}
-
 complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const
 {
     return getRefractiveIndexFactor(wavevectors)*mp_form_factor->evaluate(wavevectors);

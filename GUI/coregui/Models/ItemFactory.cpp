@@ -36,7 +36,6 @@
 #include "Lattice2DItems.h"
 #include "LayerItem.h"
 #include "LayerRoughnessItems.h"
-#include "MagneticFieldItem.h"
 #include "MaskItems.h"
 #include "MaterialItem.h"
 #include "MesoCrystalItem.h"
@@ -155,8 +154,6 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::HomogeneousMaterialType] = &createInstance<MaterialItem>;
 
     result[Constants::MaterialDataType] = &createInstance<MaterialDataItem>;
-
-    result[Constants::MagneticFieldType] = &createInstance<MagneticFieldItem>;
 
     result[Constants::JobItemType] = &createInstance<JobItem>;
 

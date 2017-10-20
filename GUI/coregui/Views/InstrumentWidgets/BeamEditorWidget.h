@@ -44,6 +44,7 @@ private:
     ComponentInfoBox* m_wavelengthPresenter;
     ComponentInfoBox* m_inclinationAnglePresenter;
     ComponentInfoBox* m_azimuthalAnglePresenter;
+    ComponentBoxEditor* m_polarizationPresenter;
     QGridLayout* m_gridLayout;
     BeamItem* m_beamItem;
 };

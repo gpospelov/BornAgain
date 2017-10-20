@@ -29,6 +29,9 @@ class BA_CORE_API_ DetectorItem : public SessionItem
 public:
     static const QString T_MASKS;
     static const QString P_RESOLUTION_FUNCTION;
+    static const QString P_ANALYZER_DIRECTION;
+    static const QString P_ANALYZER_EFFICIENCY;
+    static const QString P_ANALYZER_TOTAL_TRANSMISSION;
     explicit DetectorItem(const QString& modelType);
 
     std::unique_ptr<IDetector2D> createDetector() const;

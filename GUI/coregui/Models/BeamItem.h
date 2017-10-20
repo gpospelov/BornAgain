@@ -29,6 +29,7 @@ public:
     static const QString P_WAVELENGTH;
     static const QString P_INCLINATION_ANGLE;
     static const QString P_AZIMUTHAL_ANGLE;
+    static const QString P_POLARIZATION;
     BeamItem();
     virtual ~BeamItem();
 

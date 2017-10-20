@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "GUITranslationTest.h"
+#include "BeamItem.h"
 #include "SimulationFactory.h"
 #include "SampleBuilderFactory.h"
 #include "GISASSimulation.h"
@@ -143,6 +144,14 @@ bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
     return true;
 }
 
+bool GUITranslationTest::isValidGUIName(const std::string& guiName) const
+{
+    std::string beam_polarization = BeamItem::P_POLARIZATION.toStdString();
+    if(guiName.find(beam_polarization)!=std::string::npos)
+        return false;
+    return true;
+}
+
 //! Validates GUI translations against simulation parameters. Tries to retrieve fit parameter
 //! from domain parameter pool using translated name.
 
@@ -155,6 +164,8 @@ bool GUITranslationTest::checkExistingTranslations()
     std::unique_ptr<ParameterPool> pool(m_simulation->createParameterTree());
     std::vector<ParItem> wrong_translations;
     for(auto guiPar : m_translations) {
+        if (!isValidGUIName(guiPar.parPath))
+            continue;
         try {
             pool->getMatchedParameters(guiPar.translatedName);
         } catch (const std::runtime_error &/*ex*/) {

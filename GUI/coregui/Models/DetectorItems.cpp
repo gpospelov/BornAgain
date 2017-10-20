@@ -23,22 +23,32 @@
 #include "ResolutionFunction2DGaussian.h"
 
 namespace {
-    const QString res_func_group_label = "Type";
+const QString res_func_group_label = "Type";
+const QString analyzer_direction_tooltip = "Direction of the polarization analysis";
+const QString analyzer_efficiency_tooltip = "Efficiency of the polarization analysis";
+const QString analyzer_transmission_tooltip = "Total transmission of the polarization analysis";
 }
 
 const QString DetectorItem::T_MASKS = "Masks";
 const QString DetectorItem::P_RESOLUTION_FUNCTION = "ResolutionFunctions";
+const QString DetectorItem::P_ANALYZER_DIRECTION = "Analyzer direction";
+const QString DetectorItem::P_ANALYZER_EFFICIENCY = "Analyzer efficiency";
+const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION = "Total transmission";
 
 DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
 {
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
 
+    addGroupProperty(P_ANALYZER_DIRECTION, Constants::VectorType)->setToolTip(
+                analyzer_direction_tooltip);
+    addProperty(P_ANALYZER_EFFICIENCY, 0.0)->setToolTip(analyzer_efficiency_tooltip);
+    addProperty(P_ANALYZER_TOTAL_TRANSMISSION, 1.0)->setToolTip(analyzer_transmission_tooltip);
+
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_RESOLUTION_FUNCTION)
             update_resolution_function_tooltips();
     });
-
 }
 
 std::unique_ptr<IDetector2D> DetectorItem::createDetector() const

@@ -28,11 +28,13 @@ SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer* columnResizer,
     , m_phiAxisEditor(new ComponentBoxEditor)
     , m_alphaAxisEditor(new ComponentBoxEditor)
     , m_resolutionFunctionEditor(new ComponentBoxEditor)
+    , m_polarizationAnalysisEditor(new ComponentBoxEditor)
     , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
     m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
     m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
+    m_gridLayout->addWidget(m_polarizationAnalysisEditor, 1, 3);
 
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
@@ -56,6 +58,7 @@ SphericalDetectorWidget::~SphericalDetectorWidget()
     m_phiAxisEditor->clearEditor();
     m_alphaAxisEditor->clearEditor();
     m_resolutionFunctionEditor->clearEditor();
+    m_polarizationAnalysisEditor->clearEditor();
     if (m_columnResizer)
         m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
 }
@@ -65,6 +68,7 @@ void SphericalDetectorWidget::setDetectorItem(SessionItem* detectorItem)
     m_phiAxisEditor->clearEditor();
     m_alphaAxisEditor->clearEditor();
     m_resolutionFunctionEditor->clearEditor();
+    m_polarizationAnalysisEditor->clearEditor();
 
     if (!detectorItem)
         return;
@@ -80,6 +84,14 @@ void SphericalDetectorWidget::setDetectorItem(SessionItem* detectorItem)
     SessionItem* resFuncGroup = detectorItem->getItem(SphericalDetectorItem::P_RESOLUTION_FUNCTION);
     m_resolutionFunctionEditor->addPropertyItems(resFuncGroup,
                                                  QStringLiteral("Resolution function"));
+
+    SessionItem* analysisDirection = detectorItem->getItem(DetectorItem::P_ANALYZER_DIRECTION);
+    m_polarizationAnalysisEditor->addPropertyItems(
+        analysisDirection, QStringLiteral("Analyzer orientation"));
+    m_polarizationAnalysisEditor->addItem(
+        detectorItem->getItem(DetectorItem::P_ANALYZER_EFFICIENCY));
+    m_polarizationAnalysisEditor->addItem(
+        detectorItem->getItem(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION));
 }
 
 void SphericalDetectorWidget::onColumnResizerDestroyed(QObject* object)

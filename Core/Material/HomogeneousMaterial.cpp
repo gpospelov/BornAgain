@@ -72,12 +72,12 @@ HomogeneousMaterial HomogeneousMaterial::inverted() const
     return result;
 }
 
-complex_t HomogeneousMaterial::refractiveIndex() const
+complex_t HomogeneousMaterial::refractiveIndex(double) const
 {
     return m_refractive_index;
 }
 
-complex_t HomogeneousMaterial::refractiveIndex2() const
+complex_t HomogeneousMaterial::refractiveIndex2(double) const
 {
     return m_refractive_index*m_refractive_index;
 }
@@ -96,8 +96,7 @@ complex_t HomogeneousMaterial::scalarSubtrSLD(const WavevectorInfo& wavevectors)
 {
     double wavelength = wavevectors.getWavelength();
     double prefactor = M_PI/wavelength/wavelength;
-    complex_t refractive_index = refractiveIndex();
-    return prefactor * refractive_index * refractive_index;
+    return prefactor * refractiveIndex2(wavelength);
 }
 
 Eigen::Matrix2cd HomogeneousMaterial::polarizedSubtrSLD(const WavevectorInfo& wavevectors) const

@@ -47,8 +47,8 @@ public:
     //! Constructs a material with inverted magnetization
     HomogeneousMaterial inverted() const;
 
-    complex_t refractiveIndex() const;
-    complex_t refractiveIndex2() const;
+    complex_t refractiveIndex(double wavelength) const;
+    complex_t refractiveIndex2(double wavelength) const;
 
     //! Indicates whether the interaction with the material is scalar.
     //! This means that different polarization states will be diffracted equally

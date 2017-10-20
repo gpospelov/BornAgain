@@ -22,9 +22,13 @@
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
 
+namespace {
+const bool reuse_widget = true;
+}
+
 JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
-    , m_stackedWidget(new ItemStackPresenter<JobResultsPresenter>)
+    , m_stackedWidget(new ItemStackPresenter<JobResultsPresenter>(reuse_widget))
 {
     setWindowTitle(QLatin1String("Job OutputData"));
 
@@ -50,17 +54,19 @@ void JobOutputDataWidget::setItem(JobItem * jobItem)
         return;
     }
 
-    bool isNew(false);
-    m_stackedWidget->setItem(jobItem, &isNew);
+//    bool isNew(false);
+//    m_stackedWidget->setItem(jobItem, &isNew);
 
-    if(isNew) {
-        JobResultsPresenter *widget = m_stackedWidget->currentWidget();
-        Q_ASSERT(widget);
-        widget->setItem(jobItem);
-        if(jobItem->isValidForFitting())
-            widget->setPresentation(Constants::FitComparisonWidgetName);
+//    if(isNew) {
+//        JobResultsPresenter *widget = m_stackedWidget->currentWidget();
+//        Q_ASSERT(widget);
+//        widget->setItem(jobItem);
+//        if(jobItem->isValidForFitting())
+//            widget->setPresentation(Constants::FitComparisonWidgetName);
 
-    }
+//    }
+
+    m_stackedWidget->setItem(jobItem);
 }
 
 void JobOutputDataWidget::onActivityChanged(int activity)

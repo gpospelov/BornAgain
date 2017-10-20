@@ -75,9 +75,9 @@ void ItemComboWidget::setPresentation(const QString& presentationType)
         widget = m_widgetFactory.create(presentationType).release();
         m_stackedWidget->addWidget(widget);
         m_presentationTypeToWidget[presentationType] = widget;
-        widget->setItem(m_currentItem);
     }
     Q_ASSERT(widget);
+    widget->setItem(m_currentItem);
     m_toolBar->setActionList(widget->actionList());
     m_stackedWidget->setCurrentWidget(widget);
     if (widget->isHidden())

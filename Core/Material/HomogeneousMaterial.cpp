@@ -82,11 +82,6 @@ complex_t HomogeneousMaterial::refractiveIndex2() const
     return m_refractive_index*m_refractive_index;
 }
 
-void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
-{
-    m_refractive_index = refractive_index;
-}
-
 bool HomogeneousMaterial::isScalarMaterial() const
 {
     return m_magnetization == kvector_t {};
@@ -95,11 +90,6 @@ bool HomogeneousMaterial::isScalarMaterial() const
 kvector_t HomogeneousMaterial::magnetization() const
 {
     return m_magnetization;
-}
-
-void HomogeneousMaterial::setMagnetization(const kvector_t magnetic_field)
-{
-    m_magnetization = magnetic_field;
 }
 
 complex_t HomogeneousMaterial::scalarSubtrSLD(const WavevectorInfo& wavevectors) const

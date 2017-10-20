@@ -49,7 +49,6 @@ public:
 
     complex_t refractiveIndex() const;
     complex_t refractiveIndex2() const;
-    void setRefractiveIndex(const complex_t refractive_index);
 
     //! Indicates whether the interaction with the material is scalar.
     //! This means that different polarization states will be diffracted equally
@@ -59,9 +58,6 @@ public:
 
     //! Get the magnetization (in A/m)
     kvector_t magnetization() const;
-
-    //! Set the magnetizationd (in A/m)
-    void setMagnetization(const kvector_t magnetization);
 
     //! Returns \pi/(wl*wl) - sld, with wl being the wavelength
     complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const;

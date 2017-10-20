@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FitSuiteWidget.h
-//! @brief     Defines class FitSuiteWidget
+//! @file      GUI/coregui/Views/FitWidgets/FitSessionWidget.h
+//! @brief     Defines class FitSessionWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSUITEWIDGET_H
-#define FITSUITEWIDGET_H
+#ifndef FITSESSIONWIDGET_H
+#define FITSESSIONWIDGET_H
 
 #include "FitProgressInfo.h"
 #include "WinDllMacros.h"
@@ -31,15 +31,15 @@ class ParameterTuningWidget;
 class FitSuiteManager;
 class JobMessagePanel;
 
-//! The FitSuiteWidget contains all fit settings for given JobItem (fit parameters,
+//! Contains all fit settings for given JobItem (fit parameters,
 //! minimizer settings). Controlled by FitActivityPanel.
 
-class BA_CORE_API_ FitSuiteWidget : public QWidget
+class BA_CORE_API_ FitSessionWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    FitSuiteWidget(QWidget* parent = nullptr);
+    FitSessionWidget(QWidget* parent = nullptr);
 
     void setItem(JobItem* jobItem);
     void setModelTuningWidget(ParameterTuningWidget* tuningWidget);

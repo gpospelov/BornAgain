@@ -22,7 +22,7 @@
 
 class JobModel;
 class JobItem;
-class FitSuiteWidget;
+class FitSessionWidget;
 class JobRealTimeWidget;
 class RunFitControlWidget;
 class JobMessagePanel;
@@ -49,9 +49,9 @@ public slots:
 
 private:
     bool isValidJobItem(JobItem *item);
-    FitSuiteWidget *currentFitSuiteWidget();
+    FitSessionWidget *currentFitSuiteWidget();
 
-    ItemStackPresenter<FitSuiteWidget> *m_stackedWidget;
+    ItemStackPresenter<FitSessionWidget> *m_stackedWidget;
     JobRealTimeWidget *m_realTimeWidget;
     JobMessagePanel *m_jobMessagePanel;
     FitActivityManager* m_fitActivityManager;

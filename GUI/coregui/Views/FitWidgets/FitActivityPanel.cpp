@@ -32,7 +32,7 @@ const bool reuse_widget = true;
 
 FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
-    , m_stackedWidget(new ItemStackPresenter<FitSuiteWidget>(reuse_widget))
+    , m_stackedWidget(new ItemStackPresenter<FitSessionWidget>(reuse_widget))
     , m_realTimeWidget(0)
     , m_jobMessagePanel(0)
     , m_fitActivityManager(new FitActivityManager(this))
@@ -85,13 +85,13 @@ void FitActivityPanel::setItem(JobItem *item)
     m_stackedWidget->setItem(item, &isNew);
 
     if(isNew) {
-        FitSuiteWidget *widget = m_stackedWidget->currentWidget();
+        FitSessionWidget *widget = m_stackedWidget->currentWidget();
         Q_ASSERT(widget);
         widget->setItem(item);
         widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
     }
 
-    if (FitSuiteWidget* widget = m_stackedWidget->currentWidget())
+    if (FitSessionWidget* widget = m_stackedWidget->currentWidget())
         widget->setFitSuiteManager(m_fitActivityManager->manager(item));
 }
 
@@ -101,7 +101,7 @@ bool FitActivityPanel::isValidJobItem(JobItem *item)
     return item->isValidForFitting();
 }
 
-FitSuiteWidget *FitActivityPanel::currentFitSuiteWidget()
+FitSessionWidget *FitActivityPanel::currentFitSuiteWidget()
 {
     return m_stackedWidget->currentWidget();
 }

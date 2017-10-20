@@ -25,7 +25,7 @@
 #include <QTabWidget>
 #include <QVBoxLayout>
 
-FitSuiteWidget::FitSuiteWidget(QWidget* parent)
+FitSessionWidget::FitSessionWidget(QWidget* parent)
     : QWidget(parent)
     , m_tabWidget(new QTabWidget)
     , m_controlWidget(new RunFitControlWidget)
@@ -49,7 +49,7 @@ FitSuiteWidget::FitSuiteWidget(QWidget* parent)
     setLayout(layout);
 }
 
-void FitSuiteWidget::setItem(JobItem* jobItem)
+void FitSessionWidget::setItem(JobItem* jobItem)
 {
     Q_ASSERT(jobItem);
     m_fitParametersWidget->setItem(jobItem);
@@ -58,18 +58,18 @@ void FitSuiteWidget::setItem(JobItem* jobItem)
     m_controlWidget->setItem(jobItem);
 }
 
-void FitSuiteWidget::setModelTuningWidget(ParameterTuningWidget* tuningWidget)
+void FitSessionWidget::setModelTuningWidget(ParameterTuningWidget* tuningWidget)
 {
     Q_ASSERT(m_fitParametersWidget);
     Q_ASSERT(tuningWidget);
     m_fitParametersWidget->setParameterTuningWidget(tuningWidget);
 }
 
-void FitSuiteWidget::setFitSuiteManager(FitSuiteManager* fitSuiteManager)
+void FitSessionWidget::setFitSuiteManager(FitSuiteManager* fitSuiteManager)
 {
     if (m_fitSuiteManager) {
         disconnect(m_fitSuiteManager, &FitSuiteManager::fittingError,
-                   this, &FitSuiteWidget::onFittingError);
+                   this, &FitSessionWidget::onFittingError);
         disconnect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
                 m_fitSuiteManager, &FitSuiteManager::onStartFittingRequest);
         disconnect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
@@ -80,7 +80,7 @@ void FitSuiteWidget::setFitSuiteManager(FitSuiteManager* fitSuiteManager)
 
     if (m_fitSuiteManager) {
         connect(m_fitSuiteManager, &FitSuiteManager::fittingError,
-                this, &FitSuiteWidget::onFittingError);
+                this, &FitSessionWidget::onFittingError);
         connect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
                 m_fitSuiteManager, &FitSuiteManager::onStartFittingRequest);
         connect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
@@ -88,17 +88,17 @@ void FitSuiteWidget::setFitSuiteManager(FitSuiteManager* fitSuiteManager)
     }
 }
 
-QSize FitSuiteWidget::sizeHint() const
+QSize FitSessionWidget::sizeHint() const
 {
     return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, Constants::FIT_SUITE_WIDGET_HEIGHT);
 }
 
-QSize FitSuiteWidget::minimumSizeHint() const
+QSize FitSessionWidget::minimumSizeHint() const
 {
     return QSize(25, 25);
 }
 
-void FitSuiteWidget::onFittingError(const QString& text)
+void FitSessionWidget::onFittingError(const QString& text)
 {
     m_controlWidget->onFittingError(text);
 }

@@ -54,18 +54,6 @@ void JobOutputDataWidget::setItem(JobItem * jobItem)
         return;
     }
 
-//    bool isNew(false);
-//    m_stackedWidget->setItem(jobItem, &isNew);
-
-//    if(isNew) {
-//        JobResultsPresenter *widget = m_stackedWidget->currentWidget();
-//        Q_ASSERT(widget);
-//        widget->setItem(jobItem);
-//        if(jobItem->isValidForFitting())
-//            widget->setPresentation(Constants::FitComparisonWidgetName);
-
-//    }
-
     m_stackedWidget->setItem(jobItem);
 }
 
@@ -73,11 +61,11 @@ void JobOutputDataWidget::onActivityChanged(int activity)
 {
     if(auto widget = m_stackedWidget->currentWidget()) {
         if(activity == JobViewFlags::FITTING_ACTIVITY) {
-            widget->setPresentation(Constants::FitComparisonWidgetName);
+            widget->setPresentation(Constants::FitComparisonPresentation);
         } else if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
-            widget->setPresentation(Constants::IntensityDataWidgetName);
+            widget->setPresentation(Constants::IntensityDataPresentation);
         } else if(activity == JobViewFlags::JOB_VIEW_ACTIVITY) {
-            widget->setPresentation(Constants::IntensityDataWidgetName);
+            widget->setPresentation(Constants::IntensityDataPresentation);
         }
     }
 }

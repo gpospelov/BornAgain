@@ -129,8 +129,6 @@ void ProjectionsEditorCanvas::onActivityModeChanged(MaskEditorFlags::Activity va
 
 void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap)
 {
-    qDebug() << "ProjectionsEditorCanvas::setContext" << m_scene->colorMap();
-
     Q_ASSERT(colorMap);
     setConnected(false);
 

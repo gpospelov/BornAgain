@@ -47,18 +47,20 @@ public:
 
     void registerWidget(const QString& presentationType, factory_function_t);
 
-    void setPresentation(const QString& presentationType);
+    virtual void setPresentation(const QString& presentationType);
 
 protected:
     virtual QStringList activePresentationList(SessionItem* item);
     virtual QStringList presentationList(SessionItem* item);
+    virtual QString itemPresentation() const;
+    QString selectedPresentation() const;
+    SessionItem* currentItem();
+    const SessionItem* currentItem() const;
 
 private slots:
     void onComboChanged(const QString& name);
 
 private:
-    QString currentPresentation() const;
-
     ItemComboToolBar* m_toolBar;
     QStackedWidget* m_stackedWidget;
     SessionItem* m_currentItem;

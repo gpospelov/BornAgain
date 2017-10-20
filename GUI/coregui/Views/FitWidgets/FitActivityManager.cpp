@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "FitActivityManager.h"
-#include "FitSuiteManager.h"
+#include "FitSessionActivity.h"
 #include "FitLog.h"
 #include "JobItem.h"
 #include "GUIHelpers.h"

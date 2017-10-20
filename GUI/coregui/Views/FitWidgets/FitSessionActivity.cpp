@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FitSuiteManager.cpp
-//! @brief     Implements class FitSuiteManager
+//! @file      GUI/coregui/Views/FitWidgets/FitSessionActivity.cpp
+//! @brief     Implements class FitSessionActivity
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "FitSuiteManager.h"
+#include "FitSessionActivity.h"
 #include "FitWorkerLauncher.h"
 #include "GUIFitObserver.h"
 #include "JobItem.h"

@@ -36,37 +36,37 @@ class BA_CORE_API_ FitComparisonWidget : public SessionItemWidget
     Q_OBJECT
 
 public:
-    explicit FitComparisonWidget(QWidget *parent = 0);
+    explicit FitComparisonWidget(QWidget* parent = 0);
     ~FitComparisonWidget();
 
-    virtual QList<QAction *> actionList();
+    virtual QList<QAction*> actionList();
 
 private slots:
     void onResetViewAction();
 
 protected:
-    virtual void subscribeToItem();
-    virtual void unsubscribeFromItem();
+    void subscribeToItem();
+    void unsubscribeFromItem();
 
 private:
-    IntensityDataItem *createRelativeDifferenceItem();
+    IntensityDataItem* createRelativeDifferenceItem();
     void calculateRelativeDifference();
-    void restoreLabels(IntensityDataItem *intensityItem);
-    void removeLabels(IntensityDataItem *intensityItem);
+    void restoreLabels(IntensityDataItem* intensityItem);
+    void removeLabels(IntensityDataItem* intensityItem);
 
     JobItem* jobItem();
     IntensityDataItem* realDataItem();
     IntensityDataItem* simulatedDataItem();
 
-    ColorMapCanvas *m_realDataPlot;
-    ColorMapCanvas *m_simulatedDataPlot;
-    ColorMapCanvas *m_relativeDiffPlot;
-    FitFlowWidget *m_fitFlowWidget;
-    ColorMapLabel *m_statusLabel;
+    ColorMapCanvas* m_realDataPlot;
+    ColorMapCanvas* m_simulatedDataPlot;
+    ColorMapCanvas* m_relativeDiffPlot;
+    FitFlowWidget* m_fitFlowWidget;
+    ColorMapLabel* m_statusLabel;
 
-    IntensityDataItem *m_relativeDiffItem;
-    QAction *m_resetViewAction;
-    SessionModel *m_tempIntensityDataModel;
+    IntensityDataItem* m_relativeDiffItem;
+    QAction* m_resetViewAction;
+    SessionModel* m_tempIntensityDataModel;
 };
 
 #endif // FITCOMPARISONWIDGET_H

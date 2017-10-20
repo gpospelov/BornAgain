@@ -43,9 +43,6 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_relativeDiffPlot(new ColorMapCanvas)
     , m_fitFlowWidget(new FitFlowWidget)
     , m_statusLabel(new ColorMapLabel(0, this))
-//    , m_currentJobItem(0)
-//    , m_realDataItem(0)
-//    , m_simulatedDataItem(0)
     , m_relativeDiffItem(0)
     , m_resetViewAction(0)
     , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel"))
@@ -79,38 +76,26 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     m_relativeDiffPlot->setItem(m_relativeDiffItem);
 }
 
-FitComparisonWidget::~FitComparisonWidget()
-{
-    // FIXME unclear corrupter memory on aplication exist (comment lines below to reproduce)
-    m_relativeDiffPlot->setItem(0);
-    delete m_tempIntensityDataModel;
-}
+FitComparisonWidget::~FitComparisonWidget() { delete m_tempIntensityDataModel; }
 
-QList<QAction *> FitComparisonWidget::actionList()
-{
-    return QList<QAction *>() << m_resetViewAction;
-}
+QList<QAction*> FitComparisonWidget::actionList() { return QList<QAction*>() << m_resetViewAction; }
 
 void FitComparisonWidget::subscribeToItem()
 {
-    if(!jobItem()->isValidForFitting())
+    if (!jobItem()->isValidForFitting())
         return;
 
     jobItem()->mapper()->setOnPropertyChange(
-                [this](const QString &name)
-    {
-        if(name == JobItem::P_STATUS) {
-            if(jobItem()->isCompleted())
-                onResetViewAction();
-        }
-    }, this);
+        [this](const QString& name) {
+            if (name == JobItem::P_STATUS) {
+                if (jobItem()->isCompleted())
+                    onResetViewAction();
+            }
+        },
+        this);
 
-    if(auto simItem = simulatedDataItem()) {
-        simItem->mapper()->setOnValueChange(
-            [this]()
-        {
-            calculateRelativeDifference();
-        }, this);
+    if (auto simItem = simulatedDataItem()) {
+        simItem->mapper()->setOnValueChange([this]() { calculateRelativeDifference(); }, this);
     }
 
     calculateRelativeDifference();
@@ -127,22 +112,22 @@ void FitComparisonWidget::subscribeToItem()
 
 void FitComparisonWidget::unsubscribeFromItem()
 {
-    if(!currentItem())
+    if (!currentItem())
         return;
 
-    if(simulatedDataItem())
+    if (simulatedDataItem())
         simulatedDataItem()->mapper()->unsubscribe(this);
 }
 
 void FitComparisonWidget::onResetViewAction()
 {
-    if(auto item = realDataItem())
+    if (auto item = realDataItem())
         item->resetView();
 
-    if(auto item = simulatedDataItem())
+    if (auto item = simulatedDataItem())
         item->resetView();
 
-    if(m_relativeDiffItem) {
+    if (m_relativeDiffItem) {
         m_relativeDiffItem->resetView();
         m_relativeDiffItem->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
     }
@@ -151,11 +136,11 @@ void FitComparisonWidget::onResetViewAction()
 //! Creates an IntensityDataItem which will hold relative difference map between simulation
 //! and real data.
 
-IntensityDataItem *FitComparisonWidget::createRelativeDifferenceItem()
+IntensityDataItem* FitComparisonWidget::createRelativeDifferenceItem()
 {
     m_tempIntensityDataModel->clear();
 
-    IntensityDataItem *result = dynamic_cast<IntensityDataItem *>(
+    IntensityDataItem* result = dynamic_cast<IntensityDataItem*>(
         m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
 
     return result;
@@ -163,28 +148,26 @@ IntensityDataItem *FitComparisonWidget::createRelativeDifferenceItem()
 
 void FitComparisonWidget::calculateRelativeDifference()
 {
-    if(!simulatedDataItem()->getOutputData()) // job failed
+    if (!simulatedDataItem()->getOutputData()) // job failed
         return;
 
     Q_ASSERT(realDataItem());
     Q_ASSERT(simulatedDataItem());
     Q_ASSERT(m_relativeDiffItem);
 
-    m_relativeDiffItem->setOutputData(
-        IntensityDataFunctions::createRelativeDifferenceData(*simulatedDataItem()->getOutputData(),
-                *realDataItem()->getOutputData()));
+    m_relativeDiffItem->setOutputData(IntensityDataFunctions::createRelativeDifferenceData(
+        *simulatedDataItem()->getOutputData(), *realDataItem()->getOutputData()));
 
     m_relativeDiffItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
     m_relativeDiffItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
     m_relativeDiffItem->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
-
 }
 
 //! Restores item labels from the backup (FIXME currently unused. Do we need to hide labels?).
 
-void FitComparisonWidget::restoreLabels(IntensityDataItem *intensityItem)
+void FitComparisonWidget::restoreLabels(IntensityDataItem* intensityItem)
 {
-    if(!intensityItem)
+    if (!intensityItem)
         return;
 
     intensityItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, true);
@@ -193,9 +176,9 @@ void FitComparisonWidget::restoreLabels(IntensityDataItem *intensityItem)
 
 //! Removes axes label from item. This is because they occupy too much space on this dense widget.
 
-void FitComparisonWidget::removeLabels(IntensityDataItem *intensityItem)
+void FitComparisonWidget::removeLabels(IntensityDataItem* intensityItem)
 {
-    if(!intensityItem)
+    if (!intensityItem)
         return;
 
     intensityItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, false);
@@ -204,7 +187,7 @@ void FitComparisonWidget::removeLabels(IntensityDataItem *intensityItem)
 
 JobItem* FitComparisonWidget::jobItem()
 {
-    JobItem *jobItem = dynamic_cast<JobItem *>(currentItem());
+    JobItem* jobItem = dynamic_cast<JobItem*>(currentItem());
     Q_ASSERT(jobItem);
     return jobItem;
 }

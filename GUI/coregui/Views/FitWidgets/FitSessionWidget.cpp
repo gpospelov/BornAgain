@@ -32,7 +32,7 @@ FitSessionWidget::FitSessionWidget(QWidget* parent)
     , m_fitParametersWidget(new FitParameterWidget)
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
     , m_fitResultsWidget(new FitResultsWidget)
-    , m_fitSuiteManager(nullptr)
+    , m_fitSessionActivity(nullptr)
 {
     auto layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
@@ -54,7 +54,6 @@ void FitSessionWidget::setItem(JobItem* jobItem)
     Q_ASSERT(jobItem);
     m_fitParametersWidget->setItem(jobItem);
     m_minimizerSettingsWidget->setItem(jobItem);
-//    m_fitSuiteManager->setItem(jobItem);
     m_controlWidget->setItem(jobItem);
 }
 
@@ -65,26 +64,26 @@ void FitSessionWidget::setModelTuningWidget(ParameterTuningWidget* tuningWidget)
     m_fitParametersWidget->setParameterTuningWidget(tuningWidget);
 }
 
-void FitSessionWidget::setFitSuiteManager(FitSessionActivity* fitSuiteManager)
+void FitSessionWidget::setFitSessionActivity(FitSessionActivity* fitSessionActivity)
 {
-    if (m_fitSuiteManager) {
-        disconnect(m_fitSuiteManager, &FitSessionActivity::fittingError,
+    if (m_fitSessionActivity) {
+        disconnect(m_fitSessionActivity, &FitSessionActivity::fittingError,
                    this, &FitSessionWidget::onFittingError);
         disconnect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
-                m_fitSuiteManager, &FitSessionActivity::onStartFittingRequest);
+                m_fitSessionActivity, &FitSessionActivity::onStartFittingRequest);
         disconnect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
-                m_fitSuiteManager, &FitSessionActivity::onStopFittingRequest);
+                m_fitSessionActivity, &FitSessionActivity::onStopFittingRequest);
     }
 
-    m_fitSuiteManager = fitSuiteManager;
+    m_fitSessionActivity = fitSessionActivity;
 
-    if (m_fitSuiteManager) {
-        connect(m_fitSuiteManager, &FitSessionActivity::fittingError,
+    if (m_fitSessionActivity) {
+        connect(m_fitSessionActivity, &FitSessionActivity::fittingError,
                 this, &FitSessionWidget::onFittingError);
         connect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
-                m_fitSuiteManager, &FitSessionActivity::onStartFittingRequest);
+                m_fitSessionActivity, &FitSessionActivity::onStartFittingRequest);
         connect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
-                m_fitSuiteManager, &FitSessionActivity::onStopFittingRequest);
+                m_fitSessionActivity, &FitSessionActivity::onStopFittingRequest);
     }
 }
 

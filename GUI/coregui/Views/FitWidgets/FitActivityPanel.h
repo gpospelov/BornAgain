@@ -36,24 +36,24 @@ class BA_CORE_API_ FitActivityPanel : public QWidget
 {
     Q_OBJECT
 public:
-    FitActivityPanel(JobModel *jobModel, QWidget *parent = 0);
+    FitActivityPanel(JobModel* jobModel, QWidget* parent = 0);
 
-    void setRealTimeWidget(JobRealTimeWidget *realTimeWidget);
-    void setJobMessagePanel(JobMessagePanel *jobMessagePanel);
+    void setRealTimeWidget(JobRealTimeWidget* realTimeWidget);
+    void setJobMessagePanel(JobMessagePanel* jobMessagePanel);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
 public slots:
-    void setItem(JobItem *item);
+    void setItem(JobItem* item);
 
 private:
-    bool isValidJobItem(JobItem *item);
-    FitSessionWidget *currentFitSuiteWidget();
+    bool isValidJobItem(JobItem* item);
+    FitSessionWidget* currentFitSuiteWidget();
 
-    ItemStackPresenter<FitSessionWidget> *m_stackedWidget;
-    JobRealTimeWidget *m_realTimeWidget;
-    JobMessagePanel *m_jobMessagePanel;
+    ItemStackPresenter<FitSessionWidget>* m_stackedWidget;
+    JobRealTimeWidget* m_realTimeWidget;
+    JobMessagePanel* m_jobMessagePanel;
     FitActivityManager* m_fitActivityManager;
 };
 

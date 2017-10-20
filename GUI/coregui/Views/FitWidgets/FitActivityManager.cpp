@@ -23,7 +23,7 @@
 
 FitActivityManager::FitActivityManager(QObject* parent)
     : QObject(parent)
-    , m_activeManager(nullptr)
+    , m_activeSession(nullptr)
     , m_jobMessagePanel(nullptr)
 {
 
@@ -34,14 +34,14 @@ void FitActivityManager::setMessagePanel(JobMessagePanel* messagePanel)
     m_jobMessagePanel = messagePanel;
 }
 
-FitSessionActivity* FitActivityManager::manager(JobItem* item)
+FitSessionActivity* FitActivityManager::sessionActivity(JobItem* item)
 {
     FitSessionActivity* result(nullptr);
 
-    auto it = m_item_to_manager.find(item);
-    if (it == m_item_to_manager.end()) {
-        result = createManager(item);
-        m_item_to_manager.insert(item, result);
+    auto it = m_item_to_session.find(item);
+    if (it == m_item_to_session.end()) {
+        result = createFitSession(item);
+        m_item_to_session.insert(item, result);
     } else {
         result = it.value();
     }
@@ -49,23 +49,23 @@ FitSessionActivity* FitActivityManager::manager(JobItem* item)
     disableLogging();
 
     result->fitLog()->setMessagePanel(m_jobMessagePanel);
-    m_activeManager = result;
+    m_activeSession = result;
 
     return result;
 }
 
 void FitActivityManager::disableLogging()
 {
-    if (m_activeManager)
-        m_activeManager->fitLog()->setMessagePanel(nullptr);
+    if (m_activeSession)
+        m_activeSession->fitLog()->setMessagePanel(nullptr);
 
     m_jobMessagePanel->onClearLog();
 }
 
 
-FitSessionActivity* FitActivityManager::createManager(JobItem* jobItem)
+FitSessionActivity* FitActivityManager::createFitSession(JobItem* jobItem)
 {
-    jobItem->mapper()->setOnItemDestroy([this](SessionItem* item) {removeManager(item);}, this);
+    jobItem->mapper()->setOnItemDestroy([this](SessionItem* item) {removeFitSession(item);}, this);
 
     auto result = new FitSessionActivity(this);
     result->setItem(jobItem);
@@ -74,12 +74,13 @@ FitSessionActivity* FitActivityManager::createManager(JobItem* jobItem)
 
 //! Removes manager for given jobItem
 
-void FitActivityManager::removeManager(SessionItem* jobItem)
+void FitActivityManager::removeFitSession(SessionItem* jobItem)
 {
-    auto it = m_item_to_manager.find(jobItem);
-    if (it == m_item_to_manager.end())
-        throw GUIHelpers::Error("FitActivityManager::removeManager() -> Error. Can't fine item");
+    auto it = m_item_to_session.find(jobItem);
+    if (it == m_item_to_session.end())
+        throw GUIHelpers::Error("FitActivityManager::removeFitSession() -> Error. "
+                                "Can't find fit session");
 
     it.value()->deleteLater();
-    m_item_to_manager.erase(it);
+    m_item_to_session.erase(it);
 }

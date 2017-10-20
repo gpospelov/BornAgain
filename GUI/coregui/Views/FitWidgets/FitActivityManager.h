@@ -37,17 +37,18 @@ public:
 
     void setMessagePanel(JobMessagePanel* messagePanel);
 
-    FitSessionActivity* manager(JobItem* item);
+    FitSessionActivity* sessionActivity(JobItem* item);
 
     void disableLogging();
 
 private:
-    FitSessionActivity* createManager(JobItem* jobItem);
-    void removeManager(SessionItem* jobItem);
+    FitSessionActivity* createFitSession(JobItem* jobItem);
+    void removeFitSession(SessionItem* jobItem);
 
-    FitSessionActivity* m_activeManager;
+    //!< Fit session which is currently attached to jobMessagePanel
+    FitSessionActivity* m_activeSession;
     JobMessagePanel* m_jobMessagePanel;
-    QMap<SessionItem*, FitSessionActivity*> m_item_to_manager;
+    QMap<SessionItem*, FitSessionActivity*> m_item_to_session;
 };
 
 #endif

@@ -43,7 +43,7 @@ public:
 
     void setItem(JobItem* jobItem);
     void setModelTuningWidget(ParameterTuningWidget* tuningWidget);
-    void setFitSuiteManager(FitSessionActivity* fitSuiteManager);
+    void setFitSessionActivity(FitSessionActivity* fitSessionActivity);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -57,7 +57,7 @@ private:
     FitParameterWidget* m_fitParametersWidget;
     MinimizerSettingsWidget* m_minimizerSettingsWidget;
     FitResultsWidget* m_fitResultsWidget;
-    FitSessionActivity* m_fitSuiteManager;
+    FitSessionActivity* m_fitSessionActivity;
 };
 
 #endif // FITSUITEWIDGET_H

@@ -33,14 +33,14 @@ const bool reuse_widget = true;
 FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     : QWidget(parent)
     , m_stackedWidget(new ItemStackPresenter<FitSessionWidget>(reuse_widget))
-    , m_realTimeWidget(0)
-    , m_jobMessagePanel(0)
+    , m_realTimeWidget(nullptr)
+    , m_jobMessagePanel(nullptr)
     , m_fitActivityManager(new FitActivityManager(this))
 {
     setWindowTitle(Constants::JobFitPanelName);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
@@ -51,30 +51,32 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     m_stackedWidget->setModel(jobModel);
 }
 
-void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget *realTimeWidget)
+void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget* realTimeWidget)
 {
     Q_ASSERT(realTimeWidget);
     m_realTimeWidget = realTimeWidget;
 }
 
-void FitActivityPanel::setJobMessagePanel(JobMessagePanel *jobMessagePanel)
+void FitActivityPanel::setJobMessagePanel(JobMessagePanel* jobMessagePanel)
 {
     m_jobMessagePanel = jobMessagePanel;
     m_fitActivityManager->setMessagePanel(m_jobMessagePanel);
 }
 
-QSize FitActivityPanel::sizeHint() const {
+QSize FitActivityPanel::sizeHint() const
+{
     return QSize(Constants::REALTIME_WIDGET_WIDTH_HINT, Constants::FIT_ACTIVITY_PANEL_HEIGHT);
 }
 
-QSize FitActivityPanel::minimumSizeHint() const {
+QSize FitActivityPanel::minimumSizeHint() const
+{
     return QSize(80, 80);
 }
 
-void FitActivityPanel::setItem(JobItem *item)
+void FitActivityPanel::setItem(JobItem* item)
 {
 
-    if(!isValidJobItem(item)) {
+    if (!isValidJobItem(item)) {
         m_jobMessagePanel->onClearLog();
         m_stackedWidget->hideWidgets();
         m_fitActivityManager->disableLogging();
@@ -84,24 +86,21 @@ void FitActivityPanel::setItem(JobItem *item)
     bool isNew(false);
     m_stackedWidget->setItem(item, &isNew);
 
-    if(isNew) {
-        FitSessionWidget *widget = m_stackedWidget->currentWidget();
-        Q_ASSERT(widget);
-        widget->setItem(item);
+    if (isNew) {
+        FitSessionWidget* widget = m_stackedWidget->currentWidget();
         widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
     }
 
     if (FitSessionWidget* widget = m_stackedWidget->currentWidget())
-        widget->setFitSuiteManager(m_fitActivityManager->manager(item));
+        widget->setFitSessionActivity(m_fitActivityManager->sessionActivity(item));
 }
 
-bool FitActivityPanel::isValidJobItem(JobItem *item)
+bool FitActivityPanel::isValidJobItem(JobItem* item)
 {
-    if(!item) return false;
-    return item->isValidForFitting();
+    return item ? item->isValidForFitting() : false;
 }
 
-FitSessionWidget *FitActivityPanel::currentFitSuiteWidget()
+FitSessionWidget* FitActivityPanel::currentFitSuiteWidget()
 {
     return m_stackedWidget->currentWidget();
 }

@@ -49,7 +49,7 @@ void ItemComboToolBar::setPresentationList(const QStringList& presentationList,
     setComboConnected(false);
     m_comboBox->clear();
     m_comboBox->addItems(presentationList);
-    if (presentationList.contains(previous))
+    if (activeList.contains(previous))
         m_comboBox->setCurrentText(previous);
 
     if(!activeList.isEmpty())

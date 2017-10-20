@@ -83,16 +83,10 @@ void FitActivityPanel::setItem(JobItem* item)
         return;
     }
 
-    bool isNew(false);
-    m_stackedWidget->setItem(item, &isNew);
-
-    if (isNew) {
-        FitSessionWidget* widget = m_stackedWidget->currentWidget();
-        widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
-    }
-
-    if (FitSessionWidget* widget = m_stackedWidget->currentWidget())
-        widget->setFitSessionActivity(m_fitActivityManager->sessionActivity(item));
+    m_stackedWidget->setItem(item);
+    FitSessionWidget* widget = m_stackedWidget->currentWidget();
+    widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
+    widget->setFitSessionActivity(m_fitActivityManager->sessionActivity(item));
 }
 
 bool FitActivityPanel::isValidJobItem(JobItem* item)

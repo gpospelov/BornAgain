@@ -43,8 +43,8 @@ void JobView::onFocusRequest(JobItem* jobItem)
     if (jobItem->runInBackground())
         return;
 
-    setAppropriateActivityForJob(jobItem);
     m_docks->jobSelector()->makeJobItemSelected(jobItem);
+    setAppropriateActivityForJob(jobItem);
 
     emit focusRequest(MainWindow::JOB);
 }
@@ -67,7 +67,9 @@ void JobView::onDockMenuRequest()
 
 //! Propagates change in JobItem's selection down into main widgets.
 
-void JobView::onSelectionChanged(JobItem* jobItem) { m_docks->setItem(jobItem); }
+void JobView::onSelectionChanged(JobItem* jobItem) {
+    m_docks->setItem(jobItem);
+}
 
 void JobView::showEvent(QShowEvent*)
 {
@@ -136,8 +138,10 @@ void JobView::connectJobRelated()
 
 void JobView::setAppropriateActivityForJob(JobItem* jobItem)
 {
-    if (m_docks->jobSelector()->currentJobItem() != jobItem) {
-        if (jobItem->isValidForFitting())
-            setActivity(JobViewFlags::FITTING_ACTIVITY);
-    }
+    if (!jobItem) return;
+
+    if (jobItem->isValidForFitting())
+        setActivity(JobViewFlags::FITTING_ACTIVITY);
+    else
+        setActivity(JobViewFlags::JOB_VIEW_ACTIVITY);
 }

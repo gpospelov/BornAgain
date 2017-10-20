@@ -53,6 +53,7 @@ private:
     std::string translationResultsToString() const;
 
     bool isValidDomainName(const std::string& domainName) const;
+    bool isValidGUIName(const std::string& guiName) const;
 
     bool checkExistingTranslations();
     bool checkMissedTranslations();

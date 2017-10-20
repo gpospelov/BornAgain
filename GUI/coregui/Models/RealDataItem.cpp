@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "RealDataItem.h"
-#include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "ComboProperty.h"
 #include "SessionModel.h"

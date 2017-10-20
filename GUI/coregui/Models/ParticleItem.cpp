@@ -17,7 +17,6 @@
 #include "ParticleItem.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorItems.h"
-#include "GUIHelpers.h"
 #include "MaterialUtils.h"
 #include "ModelPath.h"
 #include "ParticleCoreShellItem.h"
@@ -66,7 +65,7 @@ ParticleItem::ParticleItem()
 std::unique_ptr<Particle> ParticleItem::createParticle() const
 {
     auto P_material = TransformToDomain::createDomainMaterial(*this);
-    auto P_particle = GUIHelpers::make_unique<Particle>(*P_material);
+    auto P_particle = std::make_unique<Particle>(*P_material);
 
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     P_particle->setAbundance(abundance);

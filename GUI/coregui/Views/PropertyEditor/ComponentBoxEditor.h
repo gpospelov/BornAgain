@@ -35,10 +35,9 @@ public:
     void updateItem(SessionItem *item, QtVariantProperty *parentProperty);
 
 public slots:
-    void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
+    void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
+                       const QVector<int> &roles);
     void onRowsInserted(const QModelIndex &, int, int);
-
 };
-
 
 #endif // COMPONENTBOXEDITOR_H

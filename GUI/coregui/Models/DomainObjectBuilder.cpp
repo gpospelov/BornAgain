@@ -131,7 +131,7 @@ DomainObjectBuilder::buildInterferenceFunction(const SessionItem& item) const
 
 std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const InstrumentItem& instrumentItem) const
 {
-    auto instrument = GUIHelpers::make_unique<Instrument>();
+    auto instrument = std::make_unique<Instrument>();
 
     auto beam = instrumentItem.beamItem()->createBeam();
     instrument->setBeam(*beam);

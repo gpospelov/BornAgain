@@ -101,7 +101,7 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
                           distr_item.getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble() :
                           0.0;
     ParameterDistribution par_distr(domain_par, *P_distribution, nbr_samples, sigma_factor, limits);
-    auto result = GUIHelpers::make_unique<ParticleDistribution>(*P_particle, par_distr);
+    auto result = std::make_unique<ParticleDistribution>(*P_particle, par_distr);
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     result->setAbundance(abundance);
     return result;

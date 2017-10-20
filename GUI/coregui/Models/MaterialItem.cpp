@@ -21,8 +21,14 @@
 #include "RefractiveIndexItem.h"
 
 
+namespace {
+const QString magnetization_tooltip =
+        "Magnetization (A/m)";
+}
+
 const QString MaterialItem::P_COLOR = "Color";
 const QString MaterialItem::P_REFRACTIVE_INDEX = "Refractive index";
+const QString MaterialItem::P_MAGNETIZATION = "Magnetization";
 const QString MaterialItem::P_IDENTIFIER = "Identifier";
 
 MaterialItem::MaterialItem()
@@ -33,6 +39,7 @@ MaterialItem::MaterialItem()
     ColorProperty color;
     addProperty(P_COLOR, color.getVariant());
     addGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
+    addGroupProperty(P_MAGNETIZATION, Constants::VectorType)->setToolTip(magnetization_tooltip);
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid());
     getItem(P_IDENTIFIER)->setVisible(false);
 }
@@ -59,6 +66,6 @@ std::unique_ptr<HomogeneousMaterial> MaterialItem::createMaterial() const
     double delta = refractiveIndexItem->getDelta();
     double beta = refractiveIndexItem->getBeta();
 
-    return GUIHelpers::make_unique<HomogeneousMaterial>(
+    return std::make_unique<HomogeneousMaterial>(
                 itemName().toStdString(), delta, beta);
 }

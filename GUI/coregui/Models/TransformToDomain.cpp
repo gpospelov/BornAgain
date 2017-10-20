@@ -75,7 +75,7 @@ std::unique_ptr<HomogeneousMaterial> TransformToDomain::createDomainMaterial(con
 
 std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionItem& item)
 {
-    auto P_multilayer = GUIHelpers::make_unique<MultiLayer>();
+    auto P_multilayer = std::make_unique<MultiLayer>();
     auto cross_corr_length
         = item.getItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if (cross_corr_length > 0)
@@ -85,7 +85,7 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionIte
 
 std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem& item)
 {
-    auto P_layer = GUIHelpers::make_unique<Layer>(
+    auto P_layer = std::make_unique<Layer>(
         *createDomainMaterial(item),
         item.getItemValue(LayerItem::P_THICKNESS).toDouble());
     P_layer->setNumberOfSlices(item.getItemValue(LayerItem::P_NSLICES).toUInt());
@@ -98,7 +98,7 @@ TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem)
     if (roughnessItem.modelType() == Constants::LayerZeroRoughnessType) {
         return nullptr;
     } else if (roughnessItem.modelType() == Constants::LayerBasicRoughnessType) {
-        return GUIHelpers::make_unique<LayerRoughness>(
+        return std::make_unique<LayerRoughness>(
             roughnessItem.getItemValue(LayerBasicRoughnessItem::P_SIGMA).toDouble(),
             roughnessItem.getItemValue(LayerBasicRoughnessItem::P_HURST).toDouble(),
             roughnessItem.getItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH)
@@ -111,7 +111,7 @@ TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem)
 std::unique_ptr<ParticleLayout>
 TransformToDomain::createParticleLayout(const SessionItem& item)
 {
-    auto P_layout = GUIHelpers::make_unique<ParticleLayout>();
+    auto P_layout = std::make_unique<ParticleLayout>();
     auto prop = item.getItemValue(ParticleLayoutItem::P_APPROX).value<ComboProperty>();
     QString approximation = prop.getValue();
     if (approximation == Constants::LAYOUT_DA) {

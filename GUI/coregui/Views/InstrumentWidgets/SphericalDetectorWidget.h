@@ -45,6 +45,7 @@ private:
     ComponentBoxEditor* m_phiAxisEditor;
     ComponentBoxEditor* m_alphaAxisEditor;
     ComponentBoxEditor* m_resolutionFunctionEditor;
+    ComponentBoxEditor* m_polarizationAnalysisEditor;
     QGridLayout* m_gridLayout;
 };
 

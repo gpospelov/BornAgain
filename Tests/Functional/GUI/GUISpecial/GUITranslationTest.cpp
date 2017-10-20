@@ -15,24 +15,26 @@
 // ************************************************************************** //
 
 #include "GUITranslationTest.h"
-#include "SimulationFactory.h"
-#include "SampleBuilderFactory.h"
-#include "GISASSimulation.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "GUIObjectBuilder.h"
 #include "ApplicationModels.h"
-#include "JobModel.h"
+#include "BeamItem.h"
 #include "DocumentModel.h"
-#include "JobItem.h"
-#include "ParameterTreeUtils.h"
-#include "ParameterTreeItems.h"
-#include "ParameterPool.h"
 #include "FitParameterHelper.h"
+#include "GISASSimulation.h"
 #include "GUIHelpers.h"
-#include "StringUtils.h"
-#include "MultiLayer.h"
+#include "GUIObjectBuilder.h"
+#include "InstrumentModel.h"
+#include "JobItem.h"
+#include "JobModel.h"
 #include "ModelPath.h"
+#include "MultiLayer.h"
+#include "MultiLayerItem.h"
+#include "ParameterPool.h"
+#include "ParameterTreeItems.h"
+#include "ParameterTreeUtils.h"
+#include "SampleBuilderFactory.h"
+#include "SampleModel.h"
+#include "SimulationFactory.h"
+#include "StringUtils.h"
 #include <QStack>
 
 namespace {
@@ -143,6 +145,17 @@ bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
     return true;
 }
 
+bool GUITranslationTest::isValidGUIName(const std::string& guiName) const
+{
+    std::string beam_polarization = BeamItem::P_POLARIZATION.toStdString();
+    std::string external_field = MultiLayerItem::P_EXTERNAL_FIELD.toStdString();
+    if(guiName.find(beam_polarization)!=std::string::npos)
+        return false;
+    if(guiName.find(external_field)!=std::string::npos)
+        return false;
+    return true;
+}
+
 //! Validates GUI translations against simulation parameters. Tries to retrieve fit parameter
 //! from domain parameter pool using translated name.
 
@@ -155,6 +168,8 @@ bool GUITranslationTest::checkExistingTranslations()
     std::unique_ptr<ParameterPool> pool(m_simulation->createParameterTree());
     std::vector<ParItem> wrong_translations;
     for(auto guiPar : m_translations) {
+        if (!isValidGUIName(guiPar.parPath))
+            continue;
         try {
             pool->getMatchedParameters(guiPar.translatedName);
         } catch (const std::runtime_error &/*ex*/) {

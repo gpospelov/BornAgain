@@ -29,11 +29,11 @@ class BA_CORE_API_ FitFlowWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    explicit FitFlowWidget(QWidget *parent = 0);
+    explicit FitFlowWidget(QWidget *parent = nullptr);
 
 protected:
-    virtual void subscribeToItem();
-    virtual void unsubscribeFromItem();
+    void subscribeToItem();
+    void unsubscribeFromItem();
 
 private:
     FitSuiteItem* fitSuiteItem();

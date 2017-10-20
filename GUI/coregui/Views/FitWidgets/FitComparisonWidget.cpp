@@ -75,6 +75,8 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
 
     m_relativeDiffItem = createRelativeDifferenceItem();
     m_relativeDiffPlot->setItem(m_relativeDiffItem);
+
+    setStyleSheet("background-color:white;");
 }
 
 FitComparisonWidget::~FitComparisonWidget() { delete m_tempIntensityDataModel; }

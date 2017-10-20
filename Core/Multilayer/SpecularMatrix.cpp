@@ -49,7 +49,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
     coeff.clear();
     coeff.resize(N);
 
-    double n_ref = sample.layer(0)->refractiveIndex().real();
+    double n_ref = sample.layer(0)->material()->refractiveIndex(2 * M_PI / k.mag()).real();
 
     // Calculate refraction angle, expressed as lambda or k_z, for each layer.
     double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;

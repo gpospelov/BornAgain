@@ -24,6 +24,7 @@
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
+#include "FitSuiteItem.h"
 #include <QAction>
 #include <QGridLayout>
 #include <QLabel>

@@ -47,9 +47,9 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     setLayout(mainLayout);
 }
 
-void JobOutputDataWidget::setItem(JobItem * jobItem)
+void JobOutputDataWidget::setItem(JobItem* jobItem)
 {
-    if(!isValidJobItem(jobItem)) {
+    if (!isValidJobItem(jobItem)) {
         m_stackedWidget->hideWidgets();
         return;
     }
@@ -59,12 +59,12 @@ void JobOutputDataWidget::setItem(JobItem * jobItem)
 
 void JobOutputDataWidget::onActivityChanged(int activity)
 {
-    if(auto widget = m_stackedWidget->currentWidget()) {
-        if(activity == JobViewFlags::FITTING_ACTIVITY) {
+    if (auto widget = m_stackedWidget->currentWidget()) {
+        if (activity == JobViewFlags::FITTING_ACTIVITY) {
             widget->setPresentation(Constants::FitComparisonPresentation);
-        } else if(activity == JobViewFlags::REAL_TIME_ACTIVITY) {
+        } else if (activity == JobViewFlags::REAL_TIME_ACTIVITY) {
             widget->setPresentation(Constants::IntensityDataPresentation);
-        } else if(activity == JobViewFlags::JOB_VIEW_ACTIVITY) {
+        } else if (activity == JobViewFlags::JOB_VIEW_ACTIVITY) {
             widget->setPresentation(Constants::IntensityDataPresentation);
         }
     }
@@ -72,7 +72,9 @@ void JobOutputDataWidget::onActivityChanged(int activity)
 
 bool JobOutputDataWidget::isValidJobItem(JobItem *item)
 {
-    if(!item) return false;
-    if(item->isCompleted() || item->isCanceled() || item->isFailed()) return true;
-    return false;
+    if(!item)
+        return false;
+
+    // do not show running job items, the rest (canceled, fitted, etc) are shown
+    return item->isRunning() ? false: true;
 }

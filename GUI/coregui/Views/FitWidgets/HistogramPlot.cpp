@@ -67,6 +67,7 @@ void HistogramPlot::clearData()
 {
     m_customPlot->removeGraph(m_customPlot->graph());
     initGraph();
+    m_customPlot->replot();
 }
 
 void HistogramPlot::initGraph()

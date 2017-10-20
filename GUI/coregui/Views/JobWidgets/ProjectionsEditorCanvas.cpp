@@ -57,6 +57,9 @@ void ProjectionsEditorCanvas::setContext(SessionModel* model,
                                          const QModelIndex& shapeContainerIndex,
                                          IntensityDataItem* intensityItem)
 {
+    setConnected(false);
+    m_colorMap = nullptr;
+
     m_model = model;
     m_scene->setMaskContext(model, shapeContainerIndex, intensityItem);
     m_view->updateSize(m_view->size());
@@ -126,6 +129,8 @@ void ProjectionsEditorCanvas::onActivityModeChanged(MaskEditorFlags::Activity va
 
 void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap)
 {
+    qDebug() << "ProjectionsEditorCanvas::setContext" << m_scene->colorMap();
+
     Q_ASSERT(colorMap);
     setConnected(false);
 

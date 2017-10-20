@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "FitActivityPanel.h"
-#include "FitSuiteWidget.h"
+#include "FitSessionWidget.h"
 #include "JobItem.h"
 #include "JobMessagePanel.h"
 #include "JobModel.h"

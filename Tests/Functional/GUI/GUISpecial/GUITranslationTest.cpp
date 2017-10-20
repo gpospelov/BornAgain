@@ -15,25 +15,26 @@
 // ************************************************************************** //
 
 #include "GUITranslationTest.h"
-#include "BeamItem.h"
-#include "SimulationFactory.h"
-#include "SampleBuilderFactory.h"
-#include "GISASSimulation.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "GUIObjectBuilder.h"
 #include "ApplicationModels.h"
-#include "JobModel.h"
+#include "BeamItem.h"
 #include "DocumentModel.h"
-#include "JobItem.h"
-#include "ParameterTreeUtils.h"
-#include "ParameterTreeItems.h"
-#include "ParameterPool.h"
 #include "FitParameterHelper.h"
+#include "GISASSimulation.h"
 #include "GUIHelpers.h"
-#include "StringUtils.h"
-#include "MultiLayer.h"
+#include "GUIObjectBuilder.h"
+#include "InstrumentModel.h"
+#include "JobItem.h"
+#include "JobModel.h"
 #include "ModelPath.h"
+#include "MultiLayer.h"
+#include "MultiLayerItem.h"
+#include "ParameterPool.h"
+#include "ParameterTreeItems.h"
+#include "ParameterTreeUtils.h"
+#include "SampleBuilderFactory.h"
+#include "SampleModel.h"
+#include "SimulationFactory.h"
+#include "StringUtils.h"
 #include <QStack>
 
 namespace {
@@ -147,7 +148,10 @@ bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
 bool GUITranslationTest::isValidGUIName(const std::string& guiName) const
 {
     std::string beam_polarization = BeamItem::P_POLARIZATION.toStdString();
+    std::string external_field = MultiLayerItem::P_EXTERNAL_FIELD.toStdString();
     if(guiName.find(beam_polarization)!=std::string::npos)
+        return false;
+    if(guiName.find(external_field)!=std::string::npos)
         return false;
     return true;
 }

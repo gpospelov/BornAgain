@@ -27,6 +27,8 @@
 namespace {
     const complex_t I = {0.,1.};
     const double eps = 2e-16;
+    constexpr auto factorials = Precomputed::GenerateFactorialArray<171>();
+    constexpr auto reciprocal_factorials = Precomputed::GenerateReciprocalFactorialArray<171>();
 }
 
 double PolyhedralFace::qpa_limit_series = 3e-2;
@@ -60,25 +62,24 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
         std::cout<<std::scientific<<std::showpos<<std::setprecision(16)<<"contrib: u="<<u<<
             " v1="<<v1<<" v2="<<v2<<"\n";
 #endif
-    static auto& precomputed = Precomputed::instance();
     if( v==0. ) { // only 2l=M contributes
         if( M&1 ) // M is odd
             return 0.;
         else
-            return precomputed.reciprocal_factorial[M] * ( pow(u, M)/(M+1.) - pow(v1, M) );
+            return reciprocal_factorials[M] * ( pow(u, M)/(M+1.) - pow(v1, M) );
     }
     complex_t ret = 0;
     // the l=0 term, minus (qperp.R)^M, which cancels under the sum over E*contrib()
     if        ( v1==0. ) {
-        ret = precomputed.reciprocal_factorial[M] * pow(v2, M);
+        ret = reciprocal_factorials[M] * pow(v2, M);
     } else if ( v2==0. ) {
         ; // leave ret=0
     } else {
         // binomial expansion
         for( int mm=1; mm<=M; ++mm ) {
             complex_t term =
-                precomputed.reciprocal_factorial[mm] *
-                precomputed.reciprocal_factorial[M-mm] *
+                reciprocal_factorials[mm] *
+                reciprocal_factorials[M-mm] *
                 pow(v2, mm) * pow(v1, M-mm);
             ret += term;
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -91,8 +92,8 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
         return ret;
     for( int l=1; l<=M/2; ++l ) {
         complex_t term =
-            precomputed.reciprocal_factorial[M-2*l] *
-            precomputed.reciprocal_factorial[2*l+1] *
+            reciprocal_factorials[M-2*l] *
+            reciprocal_factorials[2*l+1] *
             pow(u, 2*l) * pow(v, M-2*l);
         ret += term;
 #ifdef POLYHEDRAL_DIAGNOSTIC
@@ -250,9 +251,8 @@ complex_t PolyhedralFace::ff_n( int n, cvector_t q ) const
     cvector_t qpa;
     decompose_q( q, qperp, qpa );
     double qpa_mag2 = qpa.mag2();
-    static auto& precomputed = Precomputed::instance();
     if ( qpa_mag2==0. ) {
-        return qn * pow(qperp*m_rperp, n) * m_area / precomputed.factorial[n];
+        return qn * pow(qperp*m_rperp, n) * m_area / factorials[n];
     } else if ( sym_S2 ) {
         return qn * ( ff_n_core( n, qpa, qperp ) + ff_n_core( n, -qpa, qperp ) ) / qpa_mag2;
     } else {

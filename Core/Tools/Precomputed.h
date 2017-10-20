@@ -18,18 +18,48 @@
 
 #include "WinDllMacros.h"
 #include "ISingleton.h"
+#include <array>
+#include <utility>
 #include <vector>
 
-//! This class contains precomputed constants.
-
-class BA_CORE_API_ Precomputed : public ISingleton<Precomputed>
+//! Compile-time generated std::arrays of factorials and their reciprocals
+namespace Precomputed
 {
-    friend class ISingleton<Precomputed>;
-public:
-    std::vector<double> factorial; //!< factorial[k] = k! for k=0,1,...,170 (for IEEE double).
-    std::vector<double> reciprocal_factorial; //!< 1/k!
-private:
-    Precomputed(); //!< Constructor, precomputes everything.
+template<size_t N>
+struct Factorial
+{
+    static constexpr double value = N*Factorial<N - 1>::value;
 };
+
+template<>
+struct Factorial<0>
+{
+    static constexpr double value = 1.0;
+};
+
+template<size_t N>
+struct ReciprocalFactorial
+{
+    static constexpr double value = 1.0/Factorial<N>::value;
+};
+
+template<template<size_t> class F, size_t... I>
+constexpr std::array<double, sizeof...(I)> GenerateArrayHelper(std::integer_sequence<size_t, I...>)
+{
+    return { F<I>::value... };
+};
+
+template<size_t N, typename Indices = std::make_index_sequence<N>>
+constexpr std::array<double, N> GenerateFactorialArray()
+{
+    return GenerateArrayHelper<Factorial>(Indices{});
+};
+
+template<size_t N, typename Indices = std::make_index_sequence<N>>
+constexpr std::array<double, N> GenerateReciprocalFactorialArray()
+{
+    return GenerateArrayHelper<ReciprocalFactorial>(Indices{});
+};
+}  // namespace Precomputed
 
 #endif // PRECOMPUTED_H

@@ -34,9 +34,9 @@ void FitActivityManager::setMessagePanel(JobMessagePanel* messagePanel)
     m_jobMessagePanel = messagePanel;
 }
 
-FitSuiteManager* FitActivityManager::manager(JobItem* item)
+FitSessionActivity* FitActivityManager::manager(JobItem* item)
 {
-    FitSuiteManager* result(nullptr);
+    FitSessionActivity* result(nullptr);
 
     auto it = m_item_to_manager.find(item);
     if (it == m_item_to_manager.end()) {
@@ -63,11 +63,11 @@ void FitActivityManager::disableLogging()
 }
 
 
-FitSuiteManager* FitActivityManager::createManager(JobItem* jobItem)
+FitSessionActivity* FitActivityManager::createManager(JobItem* jobItem)
 {
     jobItem->mapper()->setOnItemDestroy([this](SessionItem* item) {removeManager(item);}, this);
 
-    auto result = new FitSuiteManager(this);
+    auto result = new FitSessionActivity(this);
     result->setItem(jobItem);
     return result;
 }

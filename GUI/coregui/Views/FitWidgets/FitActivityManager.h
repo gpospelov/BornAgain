@@ -24,7 +24,7 @@
 class JobModel;
 class SessionItem;
 class JobItem;
-class FitSuiteManager;
+class FitSessionActivity;
 class JobMessagePanel;
 
 //! Handles all activity related to the simultaneous running of fitting jobs.
@@ -37,17 +37,17 @@ public:
 
     void setMessagePanel(JobMessagePanel* messagePanel);
 
-    FitSuiteManager* manager(JobItem* item);
+    FitSessionActivity* manager(JobItem* item);
 
     void disableLogging();
 
 private:
-    FitSuiteManager* createManager(JobItem* jobItem);
+    FitSessionActivity* createManager(JobItem* jobItem);
     void removeManager(SessionItem* jobItem);
 
-    FitSuiteManager* m_activeManager;
+    FitSessionActivity* m_activeManager;
     JobMessagePanel* m_jobMessagePanel;
-    QMap<SessionItem*, FitSuiteManager*> m_item_to_manager;
+    QMap<SessionItem*, FitSessionActivity*> m_item_to_manager;
 };
 
 #endif

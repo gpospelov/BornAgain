@@ -26,7 +26,7 @@
 #include "GUIHelpers.h"
 #include "FitLog.h"
 
-FitSuiteManager::FitSuiteManager(QObject* parent)
+FitSessionActivity::FitSessionActivity(QObject* parent)
     : QObject(parent)
     , m_jobItem(nullptr)
     , m_runFitManager(new FitWorkerLauncher(this))
@@ -34,29 +34,29 @@ FitSuiteManager::FitSuiteManager(QObject* parent)
     , m_fitlog(new FitLog)
     , m_block_progress_update(false)
 {
-    connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this, &FitSuiteManager::onPlotsUpdate);
+    connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this, &FitSessionActivity::onPlotsUpdate);
 
     connect(m_observer.get(), &GUIFitObserver::progressInfoUpdate, this,
-            &FitSuiteManager::onProgressInfoUpdate);
+            &FitSessionActivity::onProgressInfoUpdate);
 
     connect(m_observer.get(), &GUIFitObserver::logInfoUpdate, [&](const QString& text) {
         m_fitlog->append(text.toStdString(), FitLogFlags::DEFAULT);
     });
 
     connect(m_runFitManager, &FitWorkerLauncher::fittingStarted, this,
-            &FitSuiteManager::onFittingStarted);
+            &FitSessionActivity::onFittingStarted);
     connect(m_runFitManager, &FitWorkerLauncher::fittingFinished, this,
-            &FitSuiteManager::onFittingFinished);
-    connect(m_runFitManager, &FitWorkerLauncher::fittingError, this, &FitSuiteManager::onFittingError);
+            &FitSessionActivity::onFittingFinished);
+    connect(m_runFitManager, &FitWorkerLauncher::fittingError, this, &FitSessionActivity::onFittingError);
 }
 
-FitSuiteManager::~FitSuiteManager()
+FitSessionActivity::~FitSessionActivity()
 {
     if (m_jobItem)
         m_jobItem->mapper()->unsubscribe(this);
 }
 
-void FitSuiteManager::setItem(JobItem* item)
+void FitSessionActivity::setItem(JobItem* item)
 {
     if (m_jobItem && m_jobItem != item)
         throw GUIHelpers::Error("FitSuiteManager::setItem() -> Item was already set.");
@@ -79,7 +79,7 @@ void FitSuiteManager::setItem(JobItem* item)
 
 }
 
-void FitSuiteManager::onStartFittingRequest()
+void FitSessionActivity::onStartFittingRequest()
 {
     if (!m_jobItem)
         return;
@@ -98,23 +98,23 @@ void FitSuiteManager::onStartFittingRequest()
     }
 }
 
-FitLog* FitSuiteManager::fitLog()
+FitLog* FitSessionActivity::fitLog()
 {
     return m_fitlog.get();
 }
 
-void FitSuiteManager::onStopFittingRequest()
+void FitSessionActivity::onStopFittingRequest()
 {
     m_runFitManager->interruptFitting();
 }
 
-void FitSuiteManager::onPlotsUpdate()
+void FitSessionActivity::onPlotsUpdate()
 {
     m_jobItem->intensityDataItem()->setRawDataVector(m_observer->simulationData());
     m_observer->finishedPlotting();
 }
 
-void FitSuiteManager::onFittingStarted()
+void FitSessionActivity::onFittingStarted()
 {
     m_fitlog->clearLog();
 
@@ -127,7 +127,7 @@ void FitSuiteManager::onFittingStarted()
     emit fittingStarted();
 }
 
-void FitSuiteManager::onFittingFinished()
+void FitSessionActivity::onFittingFinished()
 {
     if (m_jobItem->getStatus() != Constants::STATUS_FAILED)
         m_jobItem->setStatus(Constants::STATUS_COMPLETED);
@@ -141,7 +141,7 @@ void FitSuiteManager::onFittingFinished()
     emit fittingFinished();
 }
 
-void FitSuiteManager::onFittingError(const QString& text)
+void FitSessionActivity::onFittingError(const QString& text)
 {
     QString message;
     message.append("Current settings cause fitting failure.\n\n");
@@ -153,7 +153,7 @@ void FitSuiteManager::onFittingError(const QString& text)
 
 //! Propagates fit progress as reported by GUIFitObserver back to JobItem.
 
-void FitSuiteManager::onProgressInfoUpdate(const FitProgressInfo& info)
+void FitSessionActivity::onProgressInfoUpdate(const FitProgressInfo& info)
 {
     if (m_block_progress_update)
         return;
@@ -167,21 +167,21 @@ void FitSuiteManager::onProgressInfoUpdate(const FitProgressInfo& info)
     m_block_progress_update = false;
 }
 
-void FitSuiteManager::updateIterationCount(const FitProgressInfo& info)
+void FitSessionActivity::updateIterationCount(const FitProgressInfo& info)
 {
     FitSuiteItem* fitSuiteItem = m_jobItem->fitSuiteItem();
     fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, info.iterationCount());
     fitSuiteItem->setItemValue(FitSuiteItem::P_CHI2, info.chi2());
 }
 
-void FitSuiteManager::updateFitParameterValues(const FitProgressInfo& info)
+void FitSessionActivity::updateFitParameterValues(const FitProgressInfo& info)
 {
     QVector<double> values = info.parValues();
     FitParameterContainerItem* fitParContainer = m_jobItem->fitParameterContainerItem();
     fitParContainer->setValuesInParameterContainer(values, m_jobItem->parameterContainerItem());
 }
 
-void FitSuiteManager::updateLog(const FitProgressInfo& info)
+void FitSessionActivity::updateLog(const FitProgressInfo& info)
 {
     QString message = QString("NCalls:%1 chi2:%2 \n").arg(info.iterationCount()).arg(info.chi2());
     FitParameterContainerItem* fitParContainer = m_jobItem->fitParameterContainerItem();

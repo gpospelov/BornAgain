@@ -65,26 +65,26 @@ void FitSessionWidget::setModelTuningWidget(ParameterTuningWidget* tuningWidget)
     m_fitParametersWidget->setParameterTuningWidget(tuningWidget);
 }
 
-void FitSessionWidget::setFitSuiteManager(FitSuiteManager* fitSuiteManager)
+void FitSessionWidget::setFitSuiteManager(FitSessionActivity* fitSuiteManager)
 {
     if (m_fitSuiteManager) {
-        disconnect(m_fitSuiteManager, &FitSuiteManager::fittingError,
+        disconnect(m_fitSuiteManager, &FitSessionActivity::fittingError,
                    this, &FitSessionWidget::onFittingError);
         disconnect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
-                m_fitSuiteManager, &FitSuiteManager::onStartFittingRequest);
+                m_fitSuiteManager, &FitSessionActivity::onStartFittingRequest);
         disconnect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
-                m_fitSuiteManager, &FitSuiteManager::onStopFittingRequest);
+                m_fitSuiteManager, &FitSessionActivity::onStopFittingRequest);
     }
 
     m_fitSuiteManager = fitSuiteManager;
 
     if (m_fitSuiteManager) {
-        connect(m_fitSuiteManager, &FitSuiteManager::fittingError,
+        connect(m_fitSuiteManager, &FitSessionActivity::fittingError,
                 this, &FitSessionWidget::onFittingError);
         connect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
-                m_fitSuiteManager, &FitSuiteManager::onStartFittingRequest);
+                m_fitSuiteManager, &FitSessionActivity::onStartFittingRequest);
         connect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
-                m_fitSuiteManager, &FitSuiteManager::onStopFittingRequest);
+                m_fitSuiteManager, &FitSessionActivity::onStopFittingRequest);
     }
 }
 

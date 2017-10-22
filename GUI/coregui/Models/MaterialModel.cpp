@@ -16,8 +16,8 @@
 
 #include "MaterialModel.h"
 #include "MaterialUtils.h"
-#include "RefractiveIndexItem.h"
 #include "GUIHelpers.h"
+#include "MaterialDataItem.h"
 
 MaterialModel::MaterialModel(QObject* parent) : SessionModel(SessionXML::MaterialModelTag, parent)
 {
@@ -31,18 +31,18 @@ MaterialModel* MaterialModel::createCopy(SessionItem* parent)
     return result;
 }
 
-MaterialItem* MaterialModel::addMaterial(const QString& name, double delta, double beta)
+MaterialItem* MaterialModel::addMaterial(const QString& name, double material_data_real, double material_data_imag)
 {
     MaterialItem* materialItem
         = dynamic_cast<MaterialItem*>(insertNewItem(Constants::HomogeneousMaterialType));
     materialItem->setItemName(name);
 
-    RefractiveIndexItem* refractiveIndexItem = dynamic_cast<RefractiveIndexItem*>(
-        materialItem->getItem(MaterialItem::P_REFRACTIVE_INDEX));
-    Q_ASSERT(refractiveIndexItem);
+    MaterialDataItem* materialDataItem = dynamic_cast<MaterialDataItem*>(
+        materialItem->getItem(MaterialItem::P_MATERIAL_DATA));
+    Q_ASSERT(materialDataItem);
 
-    refractiveIndexItem->setDelta(delta);
-    refractiveIndexItem->setBeta(beta);
+    materialDataItem->setReal(material_data_real);
+    materialDataItem->setImag(material_data_imag);
 
     materialItem->setItemValue(MaterialItem::P_COLOR,
                                MaterialUtils::suggestMaterialColorProperty(name).getVariant());

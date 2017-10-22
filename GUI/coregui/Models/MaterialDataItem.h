@@ -14,26 +14,26 @@
 //
 // ************************************************************************** //
 
-#ifndef REFRACTIVEINDEXITEM_H
-#define REFRACTIVEINDEXITEM_H
+#ifndef MATERIALDATAITEM_H
+#define MATERIALDATAITEM_H
 
 #include "SessionItem.h"
 
-class BA_CORE_API_ RefractiveIndexItem : public SessionItem
+class BA_CORE_API_ MaterialDataItem : public SessionItem
 {
 
 public:
-    static const QString P_DELTA;
-    static const QString P_BETA;
-    explicit RefractiveIndexItem();
-    virtual ~RefractiveIndexItem(){}
+    static const QString P_REAL;
+    static const QString P_IMAG;
+    explicit MaterialDataItem();
+    virtual ~MaterialDataItem(){}
     virtual QString itemLabel() const;
 
-    double getDelta() const;
-    void setDelta(double delta);
+    double getReal() const;
+    void setReal(double real);
 
-    double getBeta() const;
-    void setBeta(double beta);
+    double getImag() const;
+    void setImag(double imag);
 };
 
-#endif // REFRACTIVEINDEXITEM_H
+#endif // MATERIALDATAITEM_H

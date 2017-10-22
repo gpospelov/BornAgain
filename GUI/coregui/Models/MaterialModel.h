@@ -32,7 +32,7 @@ public:
 
     virtual MaterialModel* createCopy(SessionItem* parent = 0);
 
-    MaterialItem* addMaterial(const QString& name, double delta = 0.0, double beta = 0.0);
+    MaterialItem* addMaterial(const QString& name, double material_data_real = 0.0, double material_data_imag = 0.0);
     void removeMaterial(MaterialItem*);
 
     MaterialItem* getMaterial(const QModelIndex& index);

@@ -1,6 +1,6 @@
 #include "MaterialModel.h"
 #include "MaterialItem.h"
-#include "RefractiveIndexItem.h"
+#include "MaterialDataItem.h"
 #include <QtTest>
 #include <memory>
 
@@ -27,10 +27,10 @@ inline void TestMaterialModel::test_addMaterial()
     QCOMPARE(model->rowCount(QModelIndex()), 1);
 
     QCOMPARE(item->itemName(), name);
-    const RefractiveIndexItem *refIndex = dynamic_cast<const RefractiveIndexItem *>(
-        item->getItem(MaterialItem::P_REFRACTIVE_INDEX));
-    QCOMPARE(refIndex->getDelta(), delta);
-    QCOMPARE(refIndex->getBeta(), beta);
+    const MaterialDataItem *refIndex = dynamic_cast<const MaterialDataItem *>(
+        item->getItem(MaterialItem::P_MATERIAL_DATA));
+    QCOMPARE(refIndex->getReal(), delta);
+    QCOMPARE(refIndex->getImag(), beta);
 
 }
 
@@ -57,10 +57,10 @@ inline void TestMaterialModel::test_cloneMaterial()
     // checking name of cloned material
     QCOMPARE(item->itemName()+" (clone)", clonedMaterial->itemName());
 
-    const RefractiveIndexItem *refIndex = dynamic_cast<const RefractiveIndexItem *>(
-        clonedMaterial->getItem(MaterialItem::P_REFRACTIVE_INDEX));
-    QCOMPARE(refIndex->getDelta(), delta);
-    QCOMPARE(refIndex->getBeta(), beta);
+    const MaterialDataItem *refIndex = dynamic_cast<const MaterialDataItem *>(
+        clonedMaterial->getItem(MaterialItem::P_MATERIAL_DATA));
+    QCOMPARE(refIndex->getReal(), delta);
+    QCOMPARE(refIndex->getImag(), beta);
 
 
 }

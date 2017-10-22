@@ -200,14 +200,14 @@ std::string ExportToPython::defineMaterials() const
             continue;
         visitedMaterials.insert(it->second);
         const HomogeneousMaterial* p_material = it->first;
-        complex_t ri = p_material->refractiveIndex();
-        double delta = 1.0 - std::real(ri);
-        double beta = std::imag(ri);
+        complex_t material_data = p_material->materialData();
+        double real = std::real(material_data);
+        double imag = std::imag(material_data);
         if (p_material->isScalarMaterial()) {
             result << indent() << m_label->labelMaterial(p_material)
                    << " = ba.HomogeneousMaterial(\"" << p_material->getName()
-                   << "\", " << printDouble(delta) << ", "
-                   << printDouble(beta) << ")\n";
+                   << "\", " << printDouble(real) << ", "
+                   << printDouble(imag) << ")\n";
         } else {
             kvector_t magnetic_field = p_material->magnetization();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
@@ -215,8 +215,8 @@ std::string ExportToPython::defineMaterials() const
                    << ")\n";
             result << indent() << m_label->labelMaterial(p_material)
                    << " = ba.HomogeneousMaterial(\"" << p_material->getName();
-            result << "\", " << printDouble(delta) << ", "
-                   << printDouble(beta) << ", "
+            result << "\", " << printDouble(real) << ", "
+                   << printDouble(imag) << ", "
                    << "magnetic_field)\n";
         }
     }

@@ -17,8 +17,8 @@
 #include "MaterialItem.h"
 #include "GUIHelpers.h"
 #include "HomogeneousMaterial.h"
+#include "MaterialDataItem.h"
 #include "MaterialUtils.h"
-#include "RefractiveIndexItem.h"
 
 
 namespace {
@@ -27,7 +27,7 @@ const QString magnetization_tooltip =
 }
 
 const QString MaterialItem::P_COLOR = "Color";
-const QString MaterialItem::P_REFRACTIVE_INDEX = "Refractive index";
+const QString MaterialItem::P_MATERIAL_DATA = "Material data";
 const QString MaterialItem::P_MAGNETIZATION = "Magnetization";
 const QString MaterialItem::P_IDENTIFIER = "Identifier";
 
@@ -38,7 +38,7 @@ MaterialItem::MaterialItem()
 
     ColorProperty color;
     addProperty(P_COLOR, color.getVariant());
-    addGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
+    addGroupProperty(P_MATERIAL_DATA, Constants::MaterialDataType);
     addGroupProperty(P_MAGNETIZATION, Constants::VectorType)->setToolTip(magnetization_tooltip);
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid());
     getItem(P_IDENTIFIER)->setVisible(false);
@@ -57,15 +57,13 @@ QColor MaterialItem::getColor() const
 
 std::unique_ptr<HomogeneousMaterial> MaterialItem::createMaterial() const
 {
-    const RefractiveIndexItem *refractiveIndexItem
-        = dynamic_cast<const RefractiveIndexItem *>(
-            getItem(MaterialItem::P_REFRACTIVE_INDEX));
+    const MaterialDataItem* materialDataItem
+        = dynamic_cast<const MaterialDataItem*>(getItem(MaterialItem::P_MATERIAL_DATA));
 
-    Q_ASSERT(refractiveIndexItem);
+    Q_ASSERT(materialDataItem);
 
-    double delta = refractiveIndexItem->getDelta();
-    double beta = refractiveIndexItem->getBeta();
+    double real = materialDataItem->getReal();
+    double imag = materialDataItem->getImag();
 
-    return std::make_unique<HomogeneousMaterial>(
-                itemName().toStdString(), delta, beta);
+    return std::make_unique<HomogeneousMaterial>(itemName().toStdString(), real, imag);
 }

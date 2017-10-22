@@ -59,6 +59,9 @@ public:
     //! Get the magnetization (in A/m)
     kvector_t magnetization() const;
 
+    //! Returns underlying material data
+    complex_t materialData() const;
+
     //! Returns \pi/(wl*wl) - sld, with wl being the wavelength
     complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const;
 

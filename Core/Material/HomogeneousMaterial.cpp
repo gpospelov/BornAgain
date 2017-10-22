@@ -68,7 +68,8 @@ HomogeneousMaterial HomogeneousMaterial::inverted() const
 {
     std::string name = isScalarMaterial() ? getName()
                                           : getName()+"_inv";
-    HomogeneousMaterial result(name, refractiveIndex(), -magnetization());
+    complex_t material_data = materialData();
+    HomogeneousMaterial result(name, material_data.real(), material_data.imag(), -magnetization());
     return result;
 }
 
@@ -90,6 +91,11 @@ bool HomogeneousMaterial::isScalarMaterial() const
 kvector_t HomogeneousMaterial::magnetization() const
 {
     return m_magnetization;
+}
+
+complex_t HomogeneousMaterial::materialData() const
+{
+    return complex_t(1.0 - m_refractive_index.real(), m_refractive_index.imag());
 }
 
 complex_t HomogeneousMaterial::scalarSubtrSLD(const WavevectorInfo& wavevectors) const
@@ -114,7 +120,8 @@ Eigen::Matrix2cd HomogeneousMaterial::polarizedSubtrSLD(const WavevectorInfo& wa
 HomogeneousMaterial HomogeneousMaterial::transformedMaterial(const Transform3D& transform) const
 {
     kvector_t transformed_field = transform.transformed(m_magnetization);
-    return HomogeneousMaterial(getName(), refractiveIndex(), transformed_field);
+    complex_t material_data = materialData();
+    return HomogeneousMaterial(getName(), material_data.real(), material_data.imag(), transformed_field);
 }
 
 void HomogeneousMaterial::print(std::ostream& ostr) const
@@ -150,8 +157,8 @@ Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field,
 bool operator==(const HomogeneousMaterial& left, const HomogeneousMaterial& right)
 {
     if (left.getName() != right.getName()) return false;
-    if (left.refractiveIndex() != right.refractiveIndex()) return false;
     if (left.magnetization() != right.magnetization()) return false;
+    if (left.materialData() != right.materialData()) return false;
     return true;
 }
 

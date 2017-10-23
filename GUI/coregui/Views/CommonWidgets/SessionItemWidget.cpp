@@ -74,8 +74,11 @@ void SessionItemWidget::subscribe()
 
 void SessionItemWidget::unsubscribe()
 {
-    if (m_currentItem)
+    if (m_currentItem) {
         m_currentItem->mapper()->unsubscribe(this);
+        // should keep setOnItemDestroy alive to track item destruction while widget is hidden
+        m_currentItem->mapper()->setOnItemDestroy([this](SessionItem*) { m_currentItem = 0; }, this);
+    }
 
     unsubscribeFromItem();
 

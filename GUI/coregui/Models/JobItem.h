@@ -42,6 +42,7 @@ public:
     static const QString P_DURATION;
     static const QString P_COMMENTS;
     static const QString P_PROGRESS;
+    static const QString P_PRESENTATION_TYPE;
     static const QString T_SAMPLE;
     static const QString T_INSTRUMENT;
     static const QString T_OUTPUT;
@@ -100,6 +101,8 @@ public:
 
     FitParameterContainerItem *fitParameterContainerItem();
     RealDataItem *realDataItem();
+
+    QString presentationType();
 
 private:
     void updateIntensityDataFileName();

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FittingWorker.h
-//! @brief     Implements class FittingWorker
+//! @file      GUI/coregui/Views/FitWidgets/FitWorker.h
+//! @brief     Implements class FitWorker
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITTINGWORKER_H
-#define FITTINGWORKER_H
+#ifndef FITWORKER_H
+#define FITWORKER_H
 
 #include "WinDllMacros.h"
 #include <QObject>
@@ -23,13 +23,12 @@
 
 class FitSuite;
 
-class BA_CORE_API_ FittingWorker : public QObject
+class BA_CORE_API_ FitWorker : public QObject
 {
     Q_OBJECT
 
 public:
-
-    FittingWorker(std::shared_ptr<FitSuite> suite) {m_fitsuite = suite;}
+    FitWorker(std::shared_ptr<FitSuite> suite) { m_fitsuite = suite; }
 
 public slots:
 
@@ -43,12 +42,11 @@ signals:
 
     void finished(int duration);
 
-    void error(const QString &message);
+    void error(const QString& message);
 
 private:
-    int durationSince(const class QDateTime &since);
+    int durationSince(const class QDateTime& since);
     std::shared_ptr<FitSuite> m_fitsuite;
-
 };
 
-#endif // FITTINGWORKER_H
+#endif // FITWORKER_H

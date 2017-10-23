@@ -75,10 +75,19 @@ void ColorMapLabel::setColorMapLabelEnabled(ColorMap* colorMap, bool flag)
 
 void ColorMapLabel::setConnected(ColorMap* colorMap, bool flag)
 {
-    if (flag)
+    if (flag) {
         connect(colorMap, SIGNAL(statusString(const QString&)), this,
                 SLOT(onColorMapStatusString(const QString&)), Qt::UniqueConnection);
-    else
+        connect(colorMap, &ColorMap::destroyed, this, &ColorMapLabel::onColorMapDestroyed);
+    } else {
         disconnect(colorMap, SIGNAL(statusString(const QString&)), this,
                    SLOT(onColorMapStatusString(const QString&)));
+    }
+}
+
+void ColorMapLabel::onColorMapDestroyed(QObject* obj)
+{
+    auto it = std::remove_if(m_colorMaps.begin(), m_colorMaps.end(),
+                          [obj](ColorMap* cm){return cm == obj;});
+    m_colorMaps.erase(it, m_colorMaps.end());
 }

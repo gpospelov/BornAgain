@@ -18,7 +18,6 @@
 #include "DesignerHelper.h"
 #include "FitSuiteItem.h"
 #include "JobItem.h"
-#include "JobMessagePanel.h"
 #include "WarningSign.h"
 #include "mainwindow_constants.h"
 #include <QFont>
@@ -28,41 +27,34 @@
 #include <QSlider>
 
 namespace {
-const int default_update_interval = 10;
+const int default_interval = 10;
 const std::vector<int> slider_to_interval = {1,2,3,4,5,10,15,20,25,30,50,100,200,500,1000};
 const QString slider_tooltip = "Updates fit progress every Nth iteration";
 }
 
-RunFitControlWidget::RunFitControlWidget(QWidget *parent)
-    : QWidget(parent)
+RunFitControlWidget::RunFitControlWidget(QWidget* parent)
+    : SessionItemWidget(parent)
     , m_startButton(new QPushButton)
     , m_stopButton(new QPushButton)
     , m_intervalSlider(new QSlider)
-    , m_updateIntervalLabel(new QLabel("25"))
+    , m_updateIntervalLabel(new QLabel)
     , m_iterationsCountLabel(new QLabel)
-    , m_currentItem(0)
     , m_warningSign(new WarningSign(this))
-    , m_jobMessagePanel(0)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setFixedHeight(Constants::RUN_FIT_CONTROL_WIDGET_HEIGHT);
 
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->setSpacing(0);
-
     m_startButton->setText("Run");
     m_startButton->setToolTip("Run fitting");
     m_startButton->setMaximumWidth(80);
-//    m_startButton->setMinimumHeight(50);
 
     m_stopButton->setText("Stop");
     m_stopButton->setToolTip("Interrupt fitting");
     m_stopButton->setMaximumWidth(80);
-//    m_stopButton->setEnabled(false);
 
     m_intervalSlider->setToolTip(slider_tooltip);
     m_intervalSlider->setOrientation(Qt::Horizontal);
-    m_intervalSlider->setRange(0, static_cast<int>(slider_to_interval.size())-1);
+    m_intervalSlider->setRange(0, static_cast<int>(slider_to_interval.size()) - 1);
     m_intervalSlider->setMaximumWidth(120);
     m_intervalSlider->setMinimumWidth(120);
     m_intervalSlider->setFocusPolicy(Qt::NoFocus);
@@ -74,6 +66,8 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     m_updateIntervalLabel->setFont(font);
     m_updateIntervalLabel->setText(QString::number(sliderUpdateInterval()));
 
+    auto layout = new QHBoxLayout;
+    layout->setSpacing(0);
     layout->addWidget(m_startButton);
     layout->addSpacing(5);
     layout->addWidget(m_stopButton);
@@ -86,105 +80,61 @@ RunFitControlWidget::RunFitControlWidget(QWidget *parent)
     layout->addWidget(m_iterationsCountLabel);
     setLayout(layout);
 
-    connect(m_startButton, SIGNAL(clicked(bool)), this, SIGNAL(startFittingPushed()));
-    connect(m_stopButton, SIGNAL(clicked(bool)), this, SIGNAL(stopFittingPushed()));
-    connect(m_intervalSlider, SIGNAL(valueChanged(int)), this, SLOT(onSliderValueChanged(int)));
+    connect(m_startButton, &QPushButton::clicked, [&](){startFittingPushed();});
+    connect(m_stopButton, &QPushButton::clicked, this, [&](){stopFittingPushed();});
+    connect(m_intervalSlider, &QSlider::valueChanged,
+            this, &RunFitControlWidget::onSliderValueChanged);
 
     setEnabled(false);
 }
 
-void RunFitControlWidget::setJobMessagePanel(JobMessagePanel *jobMessagePanel)
-{
-    m_jobMessagePanel = jobMessagePanel;
-}
-
-void RunFitControlWidget::onFittingStarted(JobItem *jobItem)
-{
-    m_currentItem = jobItem;
-    m_warningSign->clear();
-    m_startButton->setEnabled(false);
-    m_stopButton->setEnabled(true);
-
-    Q_ASSERT(fitSuiteItem());
-
-    fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, sliderUpdateInterval());
-
-    fitSuiteItem()->mapper()->setOnPropertyChange(
-                [this](const QString &name)
-    {
-        onFitSuitePropertyChange(name);
-    }, this);
-
-    onFitSuitePropertyChange(FitSuiteItem::P_ITERATION_COUNT);
-
-    Q_ASSERT(m_jobMessagePanel);
-    m_jobMessagePanel->onClearLog();
-}
-
-void RunFitControlWidget::onFittingFinished(JobItem *jobItem)
-{
-    Q_ASSERT(jobItem = m_currentItem);
-
-    if(jobItem->isCompleted())
-        m_jobMessagePanel->onMessage(QStringLiteral("Done"), QColor(Qt::darkBlue));
-
-    m_startButton->setEnabled(true);
-    m_stopButton->setEnabled(false);
-    fitSuiteItem()->mapper()->unsubscribe(this);
-    m_currentItem = 0;
-}
-
-void RunFitControlWidget::onFittingError(const QString &what)
+void RunFitControlWidget::onFittingError(const QString& what)
 {
     m_warningSign->clear();
     m_iterationsCountLabel->setText("");
-
-    QString message;
-    message.append("Current settings cause fitting failure.\n\n");
-    message.append(what);
-    m_warningSign->setWarningMessage(message);
-    m_jobMessagePanel->onMessage(message, QColor(Qt::darkRed));
-}
-
-void RunFitControlWidget::onFittingLog(const QString &text)
-{
-    Q_ASSERT(m_jobMessagePanel);
-    m_jobMessagePanel->onMessage(text);
-}
-
-void RunFitControlWidget::setItem(JobItem *item)
-{
-    Q_UNUSED(item);
-    // If item is not suitable for fitting, disable widget
-    if(!isValidJobItem(item)) {
-        setEnabled(false);
-        return;
-    }
-
-    // if item is ready for fitting, or already has fitting running, enable widget
-    if(m_currentItem == 0 || m_currentItem == item) {
-        setEnabled(true);
-        return;
-    }
-
-    // it's not possible to run new fitting if old is running
-    setEnabled(false);
+    m_warningSign->setWarningMessage(what);
 }
 
 void RunFitControlWidget::onSliderValueChanged(int value)
 {
     int interval = sliderValueToUpdateInterval(value);
     m_updateIntervalLabel->setText(QString::number(interval));
-    if(fitSuiteItem())
+    if (fitSuiteItem())
         fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, interval);
 }
 
-void RunFitControlWidget::onFitSuitePropertyChange(const QString &name)
+void RunFitControlWidget::onFitSuitePropertyChange(const QString& name)
 {
-    if(name == FitSuiteItem::P_ITERATION_COUNT) {
+    if (name == FitSuiteItem::P_ITERATION_COUNT) {
         int niter = fitSuiteItem()->getItemValue(FitSuiteItem::P_ITERATION_COUNT).toInt();
         m_iterationsCountLabel->setText(QString::number(niter));
     }
+}
+
+void RunFitControlWidget::subscribeToItem()
+{
+    updateControlElements();
+
+    fitSuiteItem()->setItemValue(FitSuiteItem::P_UPDATE_INTERVAL, sliderUpdateInterval());
+
+    fitSuiteItem()->mapper()->setOnPropertyChange(
+        [this](const QString& name) { onFitSuitePropertyChange(name); }, this);
+
+    onFitSuitePropertyChange(FitSuiteItem::P_ITERATION_COUNT);
+
+    jobItem()->mapper()->setOnPropertyChange(
+        [this](const QString& name) {
+            if (name == JobItem::P_STATUS)
+                updateControlElements();
+        },
+        this);
+}
+
+void RunFitControlWidget::unsubscribeFromItem()
+{
+    setEnabled(false);
+    if (fitSuiteItem())
+        fitSuiteItem()->mapper()->unsubscribe(this);
 }
 
 int RunFitControlWidget::sliderUpdateInterval()
@@ -193,24 +143,40 @@ int RunFitControlWidget::sliderUpdateInterval()
 }
 
 //! converts slider value (1-15) to update interval to be propagated to FitSuiteWidget
+
 int RunFitControlWidget::sliderValueToUpdateInterval(int value)
 {
-    if(value < (int)slider_to_interval.size())
-        return slider_to_interval[value];
-
-    return default_update_interval;
+    size_t svalue = static_cast<size_t>(value);
+    return svalue < slider_to_interval.size() ? slider_to_interval[svalue] : default_interval;
 }
 
-FitSuiteItem *RunFitControlWidget::fitSuiteItem()
-{
-    if(m_currentItem)
-        return m_currentItem->fitSuiteItem();
+//! Updates button "enabled" status and warning status depending on current job conditions.
 
-    return nullptr;
+void RunFitControlWidget::updateControlElements()
+{
+    setEnabled(isValidJobItem());
+
+    if (jobItem()->getStatus() == Constants::STATUS_FITTING) {
+        m_startButton->setEnabled(false);
+        m_stopButton->setEnabled(true);
+        m_warningSign->clear();
+    } else {
+        m_startButton->setEnabled(true);
+        m_stopButton->setEnabled(false);
+    }
 }
 
-bool RunFitControlWidget::isValidJobItem(JobItem *jobItem)
+JobItem* RunFitControlWidget::jobItem()
 {
-    if(!jobItem) return false;
-    return jobItem->isValidForFitting();
+    return dynamic_cast<JobItem*>(currentItem());
+}
+
+FitSuiteItem* RunFitControlWidget::fitSuiteItem()
+{
+    return jobItem() ? jobItem()->fitSuiteItem() : nullptr;
+}
+
+bool RunFitControlWidget::isValidJobItem()
+{
+    return jobItem() ? jobItem()->isValidForFitting() : false;
 }

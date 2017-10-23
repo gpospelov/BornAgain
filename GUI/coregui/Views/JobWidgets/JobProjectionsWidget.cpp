@@ -51,10 +51,7 @@ QList<QAction*> JobProjectionsWidget::actionList()
 
 IntensityDataItem* JobProjectionsWidget::intensityDataItem()
 {
-    IntensityDataItem* result
-        = dynamic_cast<IntensityDataItem*>(currentItem()->getItem(JobItem::T_OUTPUT));
-    Q_ASSERT(result);
-    return result;
+    return &currentItem()->item<IntensityDataItem>(JobItem::T_OUTPUT);
 }
 
 ProjectionContainerItem*

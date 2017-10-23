@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/RunFitManager.h
-//! @brief     Implements class RunFitManager
+//! @file      GUI/coregui/Views/FitWidgets/FitWorkerLauncher.h
+//! @brief     Implements class FitWorkerLauncher
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef RUNFITMANAGER_H
-#define RUNFITMANAGER_H
+#ifndef FITWORKERLAUNCHER_H
+#define FITWORKERLAUNCHER_H
 
 #include "WinDllMacros.h"
 #include <QObject>
@@ -24,16 +24,14 @@
 
 class FitSuite;
 
-class BA_CORE_API_ RunFitManager : public QObject
+class BA_CORE_API_ FitWorkerLauncher : public QObject
 {
     Q_OBJECT
 
 public:
-    RunFitManager(QObject *parent);
+    FitWorkerLauncher(QObject* parent);
 
-    void setFitSuite(std::shared_ptr<FitSuite> suite);
-
-    void runFitting();
+    void runFitting(std::shared_ptr<FitSuite> suite);
 
     int getDuration();
 
@@ -41,25 +39,21 @@ public slots:
     void interruptFitting();
 
 signals:
-    void finishedFitting();
-    void startedFitting();
-    void fittingError(const QString &message);
+    void fittingStarted();
+    void fittingFinished();
+    void fittingError(const QString& message);
+    void intern_interruptFittingWorker();
 
-// only used by manager for communication with FittingWorker
 private slots:
     void intern_workerFinished(int duration);
 
     void intern_workerStarted();
 
-    void intern_error(const QString &mesg);
-
-signals:
-    void intern_interruptFittingWorker();
+    void intern_error(const QString& mesg);
 
 private:
-    std::shared_ptr<FitSuite> m_fitSuite;
     std::atomic<bool> m_is_fit_running;
     int m_duration;
 };
 
-#endif // RUNFITMANAGER_H
+#endif // FITWORKERLAUNCHER_H

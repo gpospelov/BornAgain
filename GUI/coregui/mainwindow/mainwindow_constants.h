@@ -76,12 +76,6 @@ const QString JobViewActivityName = "Job View Activity";
 const QString JobRealTimeActivityName = "Real Time Activity";
 const QString JobFittingActivityName = "Fitting Activity";
 
-//
-const QString IntensityDataWidgetName = "Color Map";
-const QString JobProjectionsWidgetName = "Projections";
-
-const QString FitComparisonWidgetName = "Fit Data";
-
 const int toolbar_icon_size = 32;
 
 const int styled_toolbar_height = 25;

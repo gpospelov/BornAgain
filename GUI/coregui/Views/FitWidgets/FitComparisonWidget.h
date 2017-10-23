@@ -27,6 +27,7 @@ class SessionModel;
 class FitFlowWidget;
 class ColorMapLabel;
 class QAction;
+class IntensityDataPropertyWidget;
 class PropertyRepeater;
 
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
@@ -64,6 +65,7 @@ private:
     ColorMapCanvas* m_relativeDiffPlot;
     FitFlowWidget* m_fitFlowWidget;
     ColorMapLabel* m_statusLabel;
+    IntensityDataPropertyWidget* m_propertyWidget;
     PropertyRepeater* m_repeater;
 
     IntensityDataItem* m_relativeDiffItem;

@@ -26,6 +26,7 @@
 #include "SessionModel.h"
 #include "FitSuiteItem.h"
 #include "PropertyRepeater.h"
+#include "IntensityDataPropertyWidget.h"
 #include <QAction>
 #include <QGridLayout>
 #include <QLabel>
@@ -45,6 +46,7 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_relativeDiffPlot(new ColorMapCanvas)
     , m_fitFlowWidget(new FitFlowWidget)
     , m_statusLabel(new ColorMapLabel(0, this))
+    , m_propertyWidget(new IntensityDataPropertyWidget)
     , m_repeater(new PropertyRepeater(this))
     , m_relativeDiffItem(0)
     , m_resetViewAction(0)
@@ -58,8 +60,6 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     gridLayout->setMargin(0);
     gridLayout->setSpacing(0);
 
-    setStyleSheet("background-color:white;");
-
     gridLayout->addWidget(m_realDataPlot, 0, 0);
     gridLayout->addWidget(m_simulatedDataPlot, 0, 1);
     gridLayout->addWidget(m_relativeDiffPlot, 1, 0);
@@ -67,7 +67,13 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
 
     vlayout->addLayout(gridLayout);
     vlayout->addWidget(m_statusLabel);
-    setLayout(vlayout);
+
+    auto hlayout = new QHBoxLayout;
+    hlayout->setMargin(0);
+    hlayout->setSpacing(0);
+    hlayout->addLayout(vlayout);
+    hlayout->addWidget(m_propertyWidget);
+    setLayout(hlayout);
 
     m_resetViewAction = new QAction(this);
     m_resetViewAction->setText("Reset View");
@@ -78,12 +84,15 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     m_relativeDiffItem = createRelativeDifferenceItem();
     m_relativeDiffPlot->setItem(m_relativeDiffItem);
 
-    setStyleSheet("background-color:white;");
+    m_propertyWidget->setVisible(false);
 }
 
 FitComparisonWidget::~FitComparisonWidget() { delete m_tempIntensityDataModel; }
 
-QList<QAction*> FitComparisonWidget::actionList() { return QList<QAction*>() << m_resetViewAction; }
+QList<QAction*> FitComparisonWidget::actionList()
+{
+    return QList<QAction*>() << m_resetViewAction << m_propertyWidget->actionList();
+}
 
 void FitComparisonWidget::subscribeToItem()
 {
@@ -116,6 +125,8 @@ void FitComparisonWidget::subscribeToItem()
 
     m_repeater->addItem(realDataItem());
     m_repeater->addItem(simulatedDataItem());
+
+    m_propertyWidget->setItem(simulatedDataItem());
 }
 
 void FitComparisonWidget::unsubscribeFromItem()

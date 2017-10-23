@@ -40,7 +40,7 @@ void PropertyRepeater::addItem(IntensityDataItem* intensityItem)
         [this](const QString& name) { onPropertyChanged(name); }, this);
 
     intensityItem->mapper()->setOnChildPropertyChange(
-        [this](SessionItem* item, const QString name) {
+        [this](SessionItem* item, const QString& name) {
             setOnChildPropertyChange(item, name);
         }, this);
 

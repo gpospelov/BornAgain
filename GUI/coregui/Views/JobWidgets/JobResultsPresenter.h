@@ -29,9 +29,12 @@ class BA_CORE_API_ JobResultsPresenter : public ItemComboWidget
 public:
     explicit JobResultsPresenter(QWidget* parent = 0);
 
+    void setPresentation(const QString& presentationType) override;
+
 protected:
-    QStringList activePresentationList(SessionItem* item);
-    virtual QStringList presentationList(SessionItem* item);
+    QString itemPresentation() const override;
+    QStringList activePresentationList(SessionItem* item) override;
+    virtual QStringList presentationList(SessionItem* item) override;
 };
 
 #endif // JOBRESULTSPRESENTER_H

@@ -45,6 +45,9 @@ public:
 public slots:
     void onColorMapStatusString(const QString& text);
 
+private slots:
+    void onColorMapDestroyed(QObject* obj);
+
 private:
     void setColorMapLabelEnabled(ColorMap* colorMap, bool flag);
     void setConnected(ColorMap* colorMap, bool flag);

@@ -254,6 +254,12 @@ const ModelType LAYOUT_SSCA = "Size Space Coupling Approximation";
 const ModelType AMBIENT_LAYER_MATERIAL = "Ambient Layer Material";
 const ModelType AVERAGE_LAYER_MATERIAL = "Average Layer Material";
 
+// --- Presentation types ----------------------------------------------------------
+
+const QString IntensityDataPresentation = "Color Map";
+const QString JobProjectionsPresentation = "Projections";
+const QString FitComparisonPresentation = "Fit Data";
+
 // --- Custom variants ----------------------------------------------------------
 
 const ModelType ScientificDoublePropertyType = "ScientificDoubleProperty";

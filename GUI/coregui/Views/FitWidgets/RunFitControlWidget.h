@@ -17,7 +17,7 @@
 #ifndef RUNFITCONTROLWIDGET_H
 #define RUNFITCONTROLWIDGET_H
 
-#include "WinDllMacros.h"
+#include "SessionItemWidget.h"
 #include <QWidget>
 
 class JobItem;
@@ -29,45 +29,43 @@ class FitSuiteItem;
 class JobMessagePanel;
 
 //! The RunFitControlWidget contains elements to start/stop fitting and to provide minimal
-//! diagnostic. Part of FitActivityPanel.
+//! diagnostic. Part of FitSuiteWidget.
 
-class BA_CORE_API_ RunFitControlWidget : public QWidget
+class BA_CORE_API_ RunFitControlWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    RunFitControlWidget(QWidget *parent = 0);
-
-    void setJobMessagePanel(JobMessagePanel *jobMessagePanel);
+    RunFitControlWidget(QWidget* parent = 0);
 
 signals:
     void startFittingPushed();
     void stopFittingPushed();
 
 public slots:
-    void onFittingStarted(JobItem *jobItem);
-    void onFittingFinished(JobItem *jobItem);
-    void onFittingError(const QString &what);
-    void onFittingLog(const QString &text);
-    void setItem(JobItem *item);
+    void onFittingError(const QString& what);
 
 private slots:
     void onSliderValueChanged(int value);
-    void onFitSuitePropertyChange(const QString &name);
+    void onFitSuitePropertyChange(const QString& name);
+
+protected:
+    virtual void subscribeToItem();
+    virtual void unsubscribeFromItem();
 
 private:
     int sliderUpdateInterval();
     int sliderValueToUpdateInterval(int value);
-    FitSuiteItem *fitSuiteItem();
-    bool isValidJobItem(JobItem *jobItem);
+    void updateControlElements();
+    JobItem* jobItem();
+    FitSuiteItem* fitSuiteItem();
+    bool isValidJobItem();
 
-    QPushButton *m_startButton;
-    QPushButton *m_stopButton;
-    QSlider *m_intervalSlider;
-    QLabel *m_updateIntervalLabel;
-    QLabel *m_iterationsCountLabel;
-    JobItem *m_currentItem;
-    WarningSign *m_warningSign;
-    JobMessagePanel *m_jobMessagePanel;
+    QPushButton* m_startButton;
+    QPushButton* m_stopButton;
+    QSlider* m_intervalSlider;
+    QLabel* m_updateIntervalLabel;
+    QLabel* m_iterationsCountLabel;
+    WarningSign* m_warningSign;
 };
 
 #endif // RUNFITCONTROLWIDGET_H

@@ -50,7 +50,7 @@ void ItemComboWidget::setItem(SessionItem* item)
 
     m_currentItem = item;
 
-    setPresentation(currentPresentation());
+    setPresentation(itemPresentation());
 }
 
 void ItemComboWidget::registerWidget(const QString& presentationType, factory_function_t f)
@@ -75,9 +75,9 @@ void ItemComboWidget::setPresentation(const QString& presentationType)
         widget = m_widgetFactory.create(presentationType).release();
         m_stackedWidget->addWidget(widget);
         m_presentationTypeToWidget[presentationType] = widget;
-        widget->setItem(m_currentItem);
     }
     Q_ASSERT(widget);
+    widget->setItem(m_currentItem);
     m_toolBar->setActionList(widget->actionList());
     m_stackedWidget->setCurrentWidget(widget);
     if (widget->isHidden())
@@ -101,12 +101,31 @@ QStringList ItemComboWidget::presentationList(SessionItem* item)
     return activePresentationList(item);
 }
 
-void ItemComboWidget::onComboChanged(const QString&)
+//! Presentation which should be shown for current item.
+
+QString ItemComboWidget::itemPresentation() const
 {
-    setPresentation(currentPresentation());
+    return selectedPresentation();
 }
 
-QString ItemComboWidget::currentPresentation() const
+//! Presentation selected in combo selector.
+
+QString ItemComboWidget::selectedPresentation() const
 {
     return m_toolBar->currentPresentation();
+}
+
+SessionItem* ItemComboWidget::currentItem()
+{
+    return const_cast<SessionItem*>(static_cast<const ItemComboWidget*>(this)->currentItem());
+}
+
+const SessionItem* ItemComboWidget::currentItem() const
+{
+    return m_currentItem;
+}
+
+void ItemComboWidget::onComboChanged(const QString&)
+{
+    setPresentation(selectedPresentation());
 }

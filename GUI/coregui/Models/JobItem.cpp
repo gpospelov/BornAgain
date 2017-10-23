@@ -28,6 +28,7 @@
 #include "IntensityDataItem.h"
 #include "JobItemFunctions.h"
 #include "MaskUnitsConverter.h"
+#include "item_constants.h"
 
 const QString JobItem::P_IDENTIFIER = "Identifier";
 const QString JobItem::P_SAMPLE_NAME = "Sample";
@@ -39,6 +40,7 @@ const QString JobItem::P_END_TIME = "End Time";
 const QString JobItem::P_DURATION = "Duration";
 const QString JobItem::P_COMMENTS = "Comments";
 const QString JobItem::P_PROGRESS = "Progress";
+const QString JobItem::P_PRESENTATION_TYPE = "Presentation Type";
 const QString JobItem::T_SAMPLE = "Sample Tag";
 const QString JobItem::T_INSTRUMENT = "Instrument Tag";
 const QString JobItem::T_OUTPUT = "Output Tag";
@@ -67,6 +69,7 @@ JobItem::JobItem()
 
     addProperty(P_COMMENTS, QString())->setVisible(false);
     addProperty(P_PROGRESS, 0)->setVisible(false);
+    addProperty(P_PRESENTATION_TYPE, Constants::IntensityDataPresentation)->setVisible(false);
 
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
     registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::InstrumentType);
@@ -283,6 +286,11 @@ FitParameterContainerItem *JobItem::fitParameterContainerItem()
 RealDataItem *JobItem::realDataItem()
 {
     return dynamic_cast<RealDataItem*>(getItem(JobItem::T_REALDATA));
+}
+
+QString JobItem::presentationType()
+{
+    return getItemValue(P_PRESENTATION_TYPE).toString();
 }
 
 //! Updates the name of file to store intensity data.

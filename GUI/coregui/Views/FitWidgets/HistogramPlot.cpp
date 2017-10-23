@@ -23,8 +23,10 @@ HistogramPlot::HistogramPlot(QWidget* parent) : QWidget(parent), m_customPlot(ne
     QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->setMargin(0);
     vlayout->setSpacing(0);
+    vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->addWidget(m_customPlot);
     setLayout(vlayout);
+    setStyleSheet("background-color:white;");
 
     initGraph();
 
@@ -67,6 +69,7 @@ void HistogramPlot::clearData()
 {
     m_customPlot->removeGraph(m_customPlot->graph());
     initGraph();
+    m_customPlot->replot();
 }
 
 void HistogramPlot::initGraph()
@@ -77,4 +80,10 @@ void HistogramPlot::initGraph()
     m_customPlot->graph()->setLineStyle(QCPGraph::lsLine);
     m_customPlot->graph()->setPen(pen);
     m_customPlot->graph()->setBrush(QBrush(QColor(255 / 4, 160, 50, 150)));
+
+    QFontMetrics fontMetric(font());
+    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
+    auto* axisRectangle = m_customPlot->axisRect();
+    axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
+    axisRectangle->setMargins(QMargins(em*4, fontAscent*2, em*2, fontAscent*2));
 }

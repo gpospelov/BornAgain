@@ -22,10 +22,11 @@
 
 class JobModel;
 class JobItem;
-class FitSuiteWidget;
+class FitSessionWidget;
 class JobRealTimeWidget;
 class RunFitControlWidget;
 class JobMessagePanel;
+class FitActivityManager;
 
 //! The FitActivityPanel class is a main widget to run the fitting.
 //! Occupies bottom right corner of JobView, contains stack of FitSuiteWidgets for every
@@ -35,29 +36,25 @@ class BA_CORE_API_ FitActivityPanel : public QWidget
 {
     Q_OBJECT
 public:
-    FitActivityPanel(JobModel *jobModel, QWidget *parent = 0);
+    FitActivityPanel(JobModel* jobModel, QWidget* parent = 0);
 
-    void setRealTimeWidget(JobRealTimeWidget *realTimeWidget);
-    void setJobMessagePanel(JobMessagePanel *jobMessagePanel);
+    void setRealTimeWidget(JobRealTimeWidget* realTimeWidget);
+    void setJobMessagePanel(JobMessagePanel* jobMessagePanel);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
 public slots:
-    void setItem(JobItem *item);
-
-private slots:
-    void onStartFittingRequest();
-    void onStopFittingRequest();
+    void setItem(JobItem* item);
 
 private:
-    bool isValidJobItem(JobItem *item);
-    FitSuiteWidget *currentFitSuiteWidget();
+    bool isValidJobItem(JobItem* item);
+    FitSessionWidget* currentFitSuiteWidget();
 
-    ItemStackPresenter<FitSuiteWidget> *m_stackedWidget;
-    RunFitControlWidget *m_controlWidget;
-    JobRealTimeWidget *m_realTimeWidget;
-    JobMessagePanel *m_jobMessagePanel;
+    ItemStackPresenter<FitSessionWidget>* m_stackedWidget;
+    JobRealTimeWidget* m_realTimeWidget;
+    JobMessagePanel* m_jobMessagePanel;
+    FitActivityManager* m_fitActivityManager;
 };
 
 #endif // FITACTIVITYPANEL_H

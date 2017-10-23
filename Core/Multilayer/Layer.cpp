@@ -65,16 +65,6 @@ void Layer::setMaterial(HomogeneousMaterial material)
     m_material = std::move(material);
 }
 
-complex_t Layer::refractiveIndex() const
-{
-    return m_material.refractiveIndex();
-}
-
-complex_t Layer::refractiveIndex2() const
-{
-    return m_material.refractiveIndex2();
-}
-
 void Layer::addLayout(const ILayout& layout)
 {
     ILayout* clone = layout.clone();
@@ -153,13 +143,13 @@ SafePointerVector<Layer> Layer::slice(ZLimits limits, Layer::ELayerType layer_ty
 
 complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
 {
-    complex_t n = m_material.refractiveIndex();
+    complex_t n = m_material.refractiveIndex(2.0 * M_PI / k.mag());
     return ScalarReducedPotential(n, k, n_ref);
 }
 
 Eigen::Matrix2cd Layer::polarizedReducedPotential(kvector_t k, double n_ref) const
 {
-    complex_t n = m_material.refractiveIndex();
+    complex_t n = m_material.refractiveIndex(2.0 * M_PI / k.mag());
     kvector_t b_field = bField();
     return PolarizedReducedPotential(n, b_field, k, n_ref);
 }

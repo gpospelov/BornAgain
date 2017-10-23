@@ -85,11 +85,6 @@ void Particle::setMaterial(HomogeneousMaterial material)
     m_material = std::move(material);
 }
 
-complex_t Particle::refractiveIndex() const
-{
-    return m_material.refractiveIndex();
-}
-
 void Particle::setFormFactor(const IFormFactor& form_factor)
 {
     if (&form_factor != mP_form_factor.get()) {

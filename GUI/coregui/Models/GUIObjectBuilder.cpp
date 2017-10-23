@@ -610,9 +610,9 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
     MaterialModel* model = MaterialSvc::getMaterialModel();
 
     if(material->isScalarMaterial()) {
-        complex_t rindex = material->refractiveIndex();
+        complex_t material_data = material->materialData();
         MaterialItem* materialItem  =
-            model->addMaterial(materialName, 1-rindex.real(),rindex.imag());
+            model->addMaterial(materialName, material_data.real(),material_data.imag());
         return MaterialProperty(materialItem->getIdentifier());
     } else {
         throw GUIHelpers::Error("GUIObjectBuilder::createMaterialFromDomain()"

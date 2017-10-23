@@ -50,13 +50,13 @@
 #include "ParticleLayoutItem.h"
 #include "PropertyItem.h"
 #include "RealDataItem.h"
-#include "RefractiveIndexItem.h"
 #include "ResolutionFunctionItems.h"
 #include "RotationItems.h"
 #include "SimulationOptionsItem.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
 #include "LinkInstrumentItem.h"
+#include "MaterialDataItem.h"
 #include "RealLimitsItems.h"
 #include "ProjectionItems.h"
 
@@ -154,7 +154,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
 
     result[Constants::HomogeneousMaterialType] = &createInstance<MaterialItem>;
 
-    result[Constants::RefractiveIndexType] = &createInstance<RefractiveIndexItem>;
+    result[Constants::MaterialDataType] = &createInstance<MaterialDataItem>;
 
     result[Constants::MagneticFieldType] = &createInstance<MagneticFieldItem>;
 

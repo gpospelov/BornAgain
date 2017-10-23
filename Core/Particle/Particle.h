@@ -42,8 +42,6 @@ public:
     void setMaterial(HomogeneousMaterial material);
     const HomogeneousMaterial* material() const override final { return &m_material; }
 
-    complex_t refractiveIndex() const;
-
     void setFormFactor(const IFormFactor& form_factor);
 
     std::vector<const INode*> getChildren() const override final;

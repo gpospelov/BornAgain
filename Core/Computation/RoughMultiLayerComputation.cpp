@@ -77,7 +77,7 @@ double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element
     std::vector<complex_t > sterm( mp_multilayer->numberOfLayers()-1 );
 
     for (size_t i=0; i<mp_multilayer->numberOfLayers()-1; i++){
-        rterm[i] = get_refractive_term(i);
+        rterm[i] = get_refractive_term(i, wavelength);
         sterm[i] = get_sum8terms(i, sim_element);
     }
 
@@ -104,10 +104,10 @@ double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element
     return (autocorr+crosscorr.real())*M_PI/4./wavelength/wavelength;
 }
 
-complex_t RoughMultiLayerComputation::get_refractive_term(size_t ilayer) const
+complex_t RoughMultiLayerComputation::get_refractive_term(size_t ilayer, double wavelength) const
 {
-    return mp_multilayer->layer(ilayer  )->refractiveIndex2() -
-           mp_multilayer->layer(ilayer+1)->refractiveIndex2();
+    return mp_multilayer->layer(ilayer  )->material()->refractiveIndex2(wavelength) -
+           mp_multilayer->layer(ilayer+1)->material()->refractiveIndex2(wavelength);
 }
 
 complex_t RoughMultiLayerComputation::get_sum8terms(

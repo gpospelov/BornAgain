@@ -25,6 +25,7 @@
 #include "RealDataItem.h"
 #include "SessionModel.h"
 #include "FitSuiteItem.h"
+#include "PropertyRepeater.h"
 #include <QAction>
 #include <QGridLayout>
 #include <QLabel>
@@ -44,6 +45,7 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_relativeDiffPlot(new ColorMapCanvas)
     , m_fitFlowWidget(new FitFlowWidget)
     , m_statusLabel(new ColorMapLabel(0, this))
+    , m_repeater(new PropertyRepeater(this))
     , m_relativeDiffItem(0)
     , m_resetViewAction(0)
     , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel"))
@@ -111,6 +113,9 @@ void FitComparisonWidget::subscribeToItem()
     m_statusLabel->addColorMap(m_realDataPlot);
     m_statusLabel->addColorMap(m_simulatedDataPlot);
     m_statusLabel->addColorMap(m_relativeDiffPlot);
+
+    m_repeater->addItem(realDataItem());
+    m_repeater->addItem(simulatedDataItem());
 }
 
 void FitComparisonWidget::unsubscribeFromItem()
@@ -120,6 +125,8 @@ void FitComparisonWidget::unsubscribeFromItem()
 
     if (simulatedDataItem())
         simulatedDataItem()->mapper()->unsubscribe(this);
+
+    m_repeater->clear();
 }
 
 void FitComparisonWidget::onResetViewAction()

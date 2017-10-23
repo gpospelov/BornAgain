@@ -10,9 +10,7 @@ platform:
 environment:
   QTDIR: "C:\\Qt\\5.9.1\\msvc2017_64"
   MYCONDA: "C:\\Miniconda-x64;C:\\Miniconda-x64\\Scripts;C:\\Miniconda-x64\\Library\\bin"
-  MYGIT: "C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\usr\\bin;"
-  MYOTHER: "C:\\Program Files\\7-Zip"
-  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYGIT%;%MYOTHER%;%PATH%"
+  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%PATH%"
   PYTHONPATH: "C:\\Miniconda-x64;C:\\Miniconda-x64\\Lib;C:\\Miniconda-x64\\Lib\\site-packages;C:\\Miniconda-x64\\DLLs"
 build:
   parallel: true
@@ -35,8 +33,8 @@ before_build:
 build_script:
 - mkdir build
 - cd build
-- cmd: cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_INCLUDE_PATH=C:/opt/local_x64/include -DCMAKE_LIBRARY_PATH=C:/opt/local_x64/lib ..
-- cmd: cmake --build . --config Release
+- cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_INCLUDE_PATH=C:/opt/local_x64/include -DCMAKE_LIBRARY_PATH=C:/opt/local_x64/lib ..
+- cmake --build . --config Release
 
 test_script:
 - echo "BornAgain test_script"

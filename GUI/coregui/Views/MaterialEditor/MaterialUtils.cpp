@@ -21,7 +21,6 @@
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include "HomogeneousMaterial.h"
-#include "MagneticFieldItem.h"
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
 #include "ParticleItem.h"

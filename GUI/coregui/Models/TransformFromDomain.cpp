@@ -335,20 +335,10 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_GENERIC);
 
         kvector_t normal = detector.getNormalVector();
-        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
-            VectorItem::P_X, normal.x());
-        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
-            VectorItem::P_Y, normal.y());
-        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
-            VectorItem::P_Z, normal.z());
+        detectorItem->setVectorItem(RectangularDetectorItem::P_NORMAL, normal);
 
         kvector_t direction = detector.getDirectionVector();
-        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
-            VectorItem::P_X, direction.x());
-        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
-            VectorItem::P_Y, direction.y());
-        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
-            VectorItem::P_Z, direction.z());
+        detectorItem->setVectorItem(RectangularDetectorItem::P_DIRECTION, direction);
 
         detectorItem->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());
         detectorItem->setItemValue(RectangularDetectorItem::P_V0, detector.getV0());

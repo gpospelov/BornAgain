@@ -125,5 +125,7 @@ std::unique_ptr<Beam> BeamItem::createBeam() const
     double azimuthal_angle = Units::deg2rad(getAzimuthalAngle());
     result->setCentralK(lambda, inclination_angle, azimuthal_angle);
 
+    result->setPolarization(getVectorItem(P_POLARIZATION));
+
     return result;
 }

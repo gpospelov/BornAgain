@@ -140,18 +140,9 @@ QStringList MesoCrystalItem::translateList(const QStringList& list) const
 
 Lattice MesoCrystalItem::getLattice() const
 {
-    SessionItem* lattice_vector1_item = getItem(P_VECTOR_A);
-    SessionItem* lattice_vector2_item = getItem(P_VECTOR_B);
-    SessionItem* lattice_vector3_item = getItem(P_VECTOR_C);
-    kvector_t a1(lattice_vector1_item->getItemValue(VectorItem::P_X).toDouble(),
-                 lattice_vector1_item->getItemValue(VectorItem::P_Y).toDouble(),
-                 lattice_vector1_item->getItemValue(VectorItem::P_Z).toDouble());
-    kvector_t a2(lattice_vector2_item->getItemValue(VectorItem::P_X).toDouble(),
-                 lattice_vector2_item->getItemValue(VectorItem::P_Y).toDouble(),
-                 lattice_vector2_item->getItemValue(VectorItem::P_Z).toDouble());
-    kvector_t a3(lattice_vector3_item->getItemValue(VectorItem::P_X).toDouble(),
-                 lattice_vector3_item->getItemValue(VectorItem::P_Y).toDouble(),
-                 lattice_vector3_item->getItemValue(VectorItem::P_Z).toDouble());
+    kvector_t a1 = getVectorItem(P_VECTOR_A);
+    kvector_t a2 = getVectorItem(P_VECTOR_B);
+    kvector_t a3 = getVectorItem(P_VECTOR_C);
     return Lattice(a1, a2, a3);
 }
 

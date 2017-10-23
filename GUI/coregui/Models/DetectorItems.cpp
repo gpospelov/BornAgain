@@ -59,6 +59,12 @@ std::unique_ptr<IDetector2D> DetectorItem::createDetector() const
     if (auto resFunc = createResolutionFunction())
         result->setResolutionFunction(*resFunc);
 
+    kvector_t analyzer_dir = getVectorItem(P_ANALYZER_DIRECTION);
+    double analyzer_eff = getItemValue(P_ANALYZER_EFFICIENCY).toDouble();
+    double analyzer_total_trans = getItemValue(P_ANALYZER_TOTAL_TRANSMISSION).toDouble();
+    if (analyzer_dir.mag() > 0.0)
+        result->setAnalyzerProperties(analyzer_dir, analyzer_eff, analyzer_total_trans);
+
     return result;
 }
 

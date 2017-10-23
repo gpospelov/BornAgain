@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FitActivityManager.cpp
-//! @brief     Implements class FitActivityManager
+//! @file      GUI/coregui/Views/FitWidgets/FitSessionManager.cpp
+//! @brief     Implements class FitSessionManager
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -21,20 +21,20 @@
 #include "GUIHelpers.h"
 #include "JobMessagePanel.h"
 
-FitActivityManager::FitActivityManager(QObject* parent)
+FitSessionManager::FitSessionManager(QObject* parent)
     : QObject(parent)
-    , m_activeSession(nullptr)
+    , m_activeController(nullptr)
     , m_jobMessagePanel(nullptr)
 {
 
 }
 
-void FitActivityManager::setMessagePanel(JobMessagePanel* messagePanel)
+void FitSessionManager::setMessagePanel(JobMessagePanel* messagePanel)
 {
     m_jobMessagePanel = messagePanel;
 }
 
-FitSessionController* FitActivityManager::sessionController(JobItem* item)
+FitSessionController* FitSessionManager::sessionController(JobItem* item)
 {
     FitSessionController* result(nullptr);
 
@@ -49,21 +49,21 @@ FitSessionController* FitActivityManager::sessionController(JobItem* item)
     disableLogging();
 
     result->fitLog()->setMessagePanel(m_jobMessagePanel);
-    m_activeSession = result;
+    m_activeController = result;
 
     return result;
 }
 
-void FitActivityManager::disableLogging()
+void FitSessionManager::disableLogging()
 {
-    if (m_activeSession)
-        m_activeSession->fitLog()->setMessagePanel(nullptr);
+    if (m_activeController)
+        m_activeController->fitLog()->setMessagePanel(nullptr);
 
     m_jobMessagePanel->onClearLog();
 }
 
 
-FitSessionController* FitActivityManager::createController(JobItem* jobItem)
+FitSessionController* FitSessionManager::createController(JobItem* jobItem)
 {
     jobItem->mapper()->setOnItemDestroy([this](SessionItem* item) {removeController(item);}, this);
 
@@ -74,7 +74,7 @@ FitSessionController* FitActivityManager::createController(JobItem* jobItem)
 
 //! Removes manager for given jobItem
 
-void FitActivityManager::removeController(SessionItem* jobItem)
+void FitSessionManager::removeController(SessionItem* jobItem)
 {
     auto it = m_item_to_controller.find(jobItem);
     if (it == m_item_to_controller.end())

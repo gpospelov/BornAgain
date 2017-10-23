@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FitActivityManager.h
-//! @brief     Defines class FitActivityManager
+//! @file      GUI/coregui/Views/FitWidgets/FitSessionManager.h
+//! @brief     Defines class FitSessionManager
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITACTIVITYMANAGER_H
-#define FITACTIVITYMANAGER_H
+#ifndef FITSESSIONMANAGEER_H
+#define FITSESSIONMANAGEER_H
 
 #include "WinDllMacros.h"
 #include <QObject>
@@ -29,11 +29,11 @@ class JobMessagePanel;
 
 //! Handles all activity related to the simultaneous running of fitting jobs.
 
-class BA_CORE_API_ FitActivityManager : public QObject
+class BA_CORE_API_ FitSessionManager : public QObject
 {
     Q_OBJECT
 public:
-    FitActivityManager(QObject* parent = nullptr);
+    FitSessionManager(QObject* parent = nullptr);
 
     void setMessagePanel(JobMessagePanel* messagePanel);
 
@@ -45,10 +45,11 @@ private:
     FitSessionController* createController(JobItem* jobItem);
     void removeController(SessionItem* jobItem);
 
-    //!< Fit session which is currently attached to jobMessagePanel
-    FitSessionController* m_activeSession;
+    //!< Fit controller which is currently attached to jobMessagePanel
+    FitSessionController* m_activeController;
     JobMessagePanel* m_jobMessagePanel;
     QMap<SessionItem*, FitSessionController*> m_item_to_controller;
 };
 
-#endif
+#endif // FITSESSIONMANAGEER_H
+

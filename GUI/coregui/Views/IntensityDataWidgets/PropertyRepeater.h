@@ -37,7 +37,7 @@ public:
 
     void clear();
 private:
-    void onPropertyChanged(const QString& propertyName);
+    void onPropertyChanged(SessionItem* item, const QString& propertyName);
     void setOnChildPropertyChange(SessionItem* item, const QString& propertyName);
     QVector<SessionItem*> targetItems(SessionItem* sourceItem);
 

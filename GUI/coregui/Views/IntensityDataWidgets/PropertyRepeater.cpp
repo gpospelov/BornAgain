@@ -37,7 +37,7 @@ void PropertyRepeater::addItem(IntensityDataItem* intensityItem)
     }, this);
 
     intensityItem->mapper()->setOnPropertyChange(
-        [this](const QString& name) { onPropertyChanged(name); }, this);
+        [this](SessionItem* item, const QString& name) { onPropertyChanged(item, name); }, this);
 
     intensityItem->mapper()->setOnChildPropertyChange(
         [this](SessionItem* item, const QString& name) {
@@ -56,17 +56,23 @@ void PropertyRepeater::clear()
     m_dataItems.clear();
 }
 
-void PropertyRepeater::onPropertyChanged(const QString& propertyName)
+void PropertyRepeater::onPropertyChanged(SessionItem* item, const QString& propertyName)
 {
     if (m_block_repeater)
         return;
 
     m_block_repeater = true;
 
-    Q_UNUSED(propertyName);
+    QVariant value = item->getItemValue(propertyName);
+    qDebug() << item->modelType() << propertyName << value;
+
+    for (auto target : targetItems(item))
+        target->setItemValue(propertyName, value);
 
     m_block_repeater = false;
+
 }
+
 
 void PropertyRepeater::setOnChildPropertyChange(SessionItem* item, const QString& propertyName)
 {

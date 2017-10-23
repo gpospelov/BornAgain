@@ -12,7 +12,7 @@ environment:
   MYCONDA: "C:\\Miniconda-x64;C:\\Miniconda-x64\\Scripts;C:\\Miniconda-x64\\Library\\bin"
   MYGIT: "C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\usr\\bin;"
   MYOTHER: "C:\\Program Files\\7-Zip"
-  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYGIT%;%MYOTHER%"
+  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYGIT%;%MYOTHER%;%PATH%"
   PYTHONPATH: "C:\\Miniconda-x64;C:\\Miniconda-x64\\Lib;C:\\Miniconda-x64\\Lib\\site-packages;C:\\Miniconda-x64\\DLLs"
 build:
   parallel: true

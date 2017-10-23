@@ -20,7 +20,7 @@
 #include "JobItem.h"
 #include "MinimizerSettingsWidget.h"
 #include "mainwindow_constants.h"
-#include "FitSessionActivity.h"
+#include "FitSessionController.h"
 #include "RunFitControlWidget.h"
 #include <QTabWidget>
 #include <QVBoxLayout>

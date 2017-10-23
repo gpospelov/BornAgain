@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "FitSessionActivity.h"
+#include "FitSessionController.h"
 #include "FitWorkerLauncher.h"
 #include "GUIFitObserver.h"
 #include "JobItem.h"

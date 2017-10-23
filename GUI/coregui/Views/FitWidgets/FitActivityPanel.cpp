@@ -22,7 +22,7 @@
 #include "JobRealTimeWidget.h"
 #include "RunFitControlWidget.h"
 #include "mainwindow_constants.h"
-#include "FitActivityManager.h"
+#include "FitSessionManager.h"
 #include <QPushButton>
 #include <QVBoxLayout>
 

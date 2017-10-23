@@ -251,21 +251,9 @@ void GUIObjectBuilder::visit(const Crystal* p_sample)
     auto vector_b = lattice.getBasisVectorB();
     auto vector_c = lattice.getBasisVectorC();
 
-    SessionItem* p_vector_a_item = p_mesocrystal_item->getItem(MesoCrystalItem::P_VECTOR_A);
-    SessionItem* p_vector_b_item = p_mesocrystal_item->getItem(MesoCrystalItem::P_VECTOR_B);
-    SessionItem* p_vector_c_item = p_mesocrystal_item->getItem(MesoCrystalItem::P_VECTOR_C);
-    Q_ASSERT(p_vector_a_item);
-    Q_ASSERT(p_vector_b_item);
-    Q_ASSERT(p_vector_c_item);
-    p_vector_a_item->setItemValue(VectorItem::P_X, vector_a.x());
-    p_vector_a_item->setItemValue(VectorItem::P_Y, vector_a.y());
-    p_vector_a_item->setItemValue(VectorItem::P_Z, vector_a.z());
-    p_vector_b_item->setItemValue(VectorItem::P_X, vector_b.x());
-    p_vector_b_item->setItemValue(VectorItem::P_Y, vector_b.y());
-    p_vector_b_item->setItemValue(VectorItem::P_Z, vector_b.z());
-    p_vector_c_item->setItemValue(VectorItem::P_X, vector_c.x());
-    p_vector_c_item->setItemValue(VectorItem::P_Y, vector_c.y());
-    p_vector_c_item->setItemValue(VectorItem::P_Z, vector_c.z());
+    p_mesocrystal_item->setVectorItem(MesoCrystalItem::P_VECTOR_A, vector_a);
+    p_mesocrystal_item->setVectorItem(MesoCrystalItem::P_VECTOR_B, vector_b);
+    p_mesocrystal_item->setVectorItem(MesoCrystalItem::P_VECTOR_C, vector_c);
 
     // Since there is no CrystalItem, set the parent map to the MesoCrystalItem
     m_levelToParentItem[depth()] = p_mesocrystal_item;
@@ -592,11 +580,7 @@ void GUIObjectBuilder::visit(const RotationEuler* p_sample)
 void GUIObjectBuilder::buildPositionInfo(SessionItem* p_particle_item, const IParticle* p_sample)
 {
     kvector_t position = p_sample->position();
-    SessionItem* positionItem = p_particle_item->getItem(ParticleItem::P_POSITION);
-    Q_ASSERT(positionItem);
-    positionItem->setItemValue(VectorItem::P_X, position.x());
-    positionItem->setItemValue(VectorItem::P_Y, position.y());
-    positionItem->setItemValue(VectorItem::P_Z, position.z());
+    p_particle_item->setVectorItem(ParticleItem::P_POSITION, position);
 }
 
 MaterialProperty GUIObjectBuilder::createMaterialFromDomain(

@@ -27,10 +27,10 @@ inline void TestParticleCoreShell::test_propertyAppearance()
     QVERIFY(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     QCOMPARE(coreshell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
     QVERIFY(coreshell->getItem(ParticleItem::P_POSITION)->isEnabled() == true);
-    SessionItem* positionItem = coreshell->getItem(ParticleItem::P_POSITION);
-    QCOMPARE(positionItem->getItemValue(VectorItem::P_X).toDouble(), 0.0);
-    QCOMPARE(positionItem->getItemValue(VectorItem::P_Y).toDouble(), 0.0);
-    QCOMPARE(positionItem->getItemValue(VectorItem::P_Z).toDouble(), 0.0);
+    kvector_t pos = coreshell->getVectorItem(ParticleItem::P_POSITION);
+    QCOMPARE(pos.x(), 0.0);
+    QCOMPARE(pos.y(), 0.0);
+    QCOMPARE(pos.z(), 0.0);
 
     // adding core, and checking that abundance is disabled
     SessionItem* core = model.insertNewItem(Constants::ParticleType, coreshell->index(), -1,
@@ -46,7 +46,7 @@ inline void TestParticleCoreShell::test_propertyAppearance()
 
     // creating shell (not yet attached to the coreshell)
     SessionItem* shell = model.insertNewItem(Constants::ParticleType);
-    positionItem = shell->getItem(ParticleItem::P_POSITION);
+    SessionItem* positionItem = shell->getItem(ParticleItem::P_POSITION);
     // putting some values to position and abundance
     shell->setItemValue(ParticleItem::P_ABUNDANCE, 0.2);
     positionItem->setItemValue(VectorItem::P_X, 1.0);

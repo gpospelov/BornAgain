@@ -452,7 +452,15 @@ void SessionItem::setItemValue(const QString& tag, const QVariant& variant)
     if (!isTag(tag))
         throw GUIHelpers::Error("Property not existing!");
 
-     getItem(tag)->setValue(variant);
+    getItem(tag)->setValue(variant);
+}
+
+void SessionItem::setVectorItem(const QString& name, kvector_t value)
+{
+    auto p_vector_item = getItem(name);
+    p_vector_item->setItemValue(VectorItem::P_X, value.x());
+    p_vector_item->setItemValue(VectorItem::P_Y, value.y());
+    p_vector_item->setItemValue(VectorItem::P_Z, value.z());
 }
 
 //! Creates new group item and register new tag, returns GroupItem.

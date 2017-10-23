@@ -35,8 +35,8 @@ before_build:
 build_script:
 - mkdir build
 - cd build
-- cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_INCLUDE_PATH=C:/opt/local_x64/include -DCMAKE_LIBRARY_PATH=C:/opt/local_x64/lib ..
-- cmake --build . --config Release
+- cmd: cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_INCLUDE_PATH=C:/opt/local_x64/include -DCMAKE_LIBRARY_PATH=C:/opt/local_x64/lib ..
+- cmd: cmake --build . --config Release
 
 test_script:
 - echo "BornAgain test_script"

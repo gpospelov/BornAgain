@@ -80,6 +80,8 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionIte
         = item.getItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if (cross_corr_length > 0)
         P_multilayer->setCrossCorrLength(cross_corr_length);
+    auto external_field = item.getVectorItem(MultiLayerItem::P_EXTERNAL_FIELD);
+    P_multilayer->setExternalField(external_field);
     return P_multilayer;
 }
 

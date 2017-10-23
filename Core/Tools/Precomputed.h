@@ -22,25 +22,19 @@
 #include <utility>
 #include <vector>
 
-//! Compile-time generated std::arrays of factorials and their reciprocals
+//! Compile-time generated std::array of reciprocal factorials
 namespace Precomputed
 {
 template<size_t N>
-struct Factorial
+struct ReciprocalFactorial
 {
-    static constexpr double value = N*Factorial<N - 1>::value;
+    static constexpr double value = ReciprocalFactorial<N-1>::value/N;
 };
 
 template<>
-struct Factorial<0>
+struct ReciprocalFactorial<0>
 {
     static constexpr double value = 1.0;
-};
-
-template<size_t N>
-struct ReciprocalFactorial
-{
-    static constexpr double value = 1.0/Factorial<N>::value;
 };
 
 template<template<size_t> class F, size_t... I>
@@ -50,20 +44,10 @@ constexpr std::array<double, sizeof...(I)> GenerateArrayHelper(std::index_sequen
 };
 
 template<size_t N, typename Indices = std::make_index_sequence<N>>
-constexpr std::array<double, N> GenerateFactorialArray()
-{
-    return GenerateArrayHelper<Factorial>(Indices{});
-};
-
-template<size_t N, typename Indices = std::make_index_sequence<N>>
 constexpr std::array<double, N> GenerateReciprocalFactorialArray()
 {
     return GenerateArrayHelper<ReciprocalFactorial>(Indices{});
 };
-
-static constexpr auto FactorialArray = GenerateFactorialArray<171>();
-static constexpr auto ReciprocalFactorialArray = GenerateReciprocalFactorialArray<171>();
-
 }  // namespace Precomputed
 
 #endif // PRECOMPUTED_H

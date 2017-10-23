@@ -28,7 +28,7 @@ class FitParameterWidget;
 class MinimizerSettingsWidget;
 class FitResultsWidget;
 class ParameterTuningWidget;
-class FitSessionActivity;
+class FitSessionController;
 class JobMessagePanel;
 
 //! Contains all fit settings for given JobItem (fit parameters,
@@ -43,7 +43,7 @@ public:
 
     void setItem(JobItem* jobItem);
     void setModelTuningWidget(ParameterTuningWidget* tuningWidget);
-    void setFitSessionActivity(FitSessionActivity* fitSessionActivity);
+    void setSessionController(FitSessionController* sessionController);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -57,7 +57,7 @@ private:
     FitParameterWidget* m_fitParametersWidget;
     MinimizerSettingsWidget* m_minimizerSettingsWidget;
     FitResultsWidget* m_fitResultsWidget;
-    FitSessionActivity* m_fitSessionActivity;
+    FitSessionController* m_sessionController;
 };
 
 #endif // FITSUITEWIDGET_H

@@ -86,7 +86,7 @@ void FitActivityPanel::setItem(JobItem* item)
     m_stackedWidget->setItem(item);
     FitSessionWidget* widget = m_stackedWidget->currentWidget();
     widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
-    widget->setFitSessionActivity(m_fitActivityManager->sessionActivity(item));
+    widget->setSessionController(m_fitActivityManager->sessionController(item));
 }
 
 bool FitActivityPanel::isValidJobItem(JobItem* item)

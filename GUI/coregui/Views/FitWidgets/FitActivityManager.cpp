@@ -34,14 +34,14 @@ void FitActivityManager::setMessagePanel(JobMessagePanel* messagePanel)
     m_jobMessagePanel = messagePanel;
 }
 
-FitSessionActivity* FitActivityManager::sessionActivity(JobItem* item)
+FitSessionController* FitActivityManager::sessionController(JobItem* item)
 {
-    FitSessionActivity* result(nullptr);
+    FitSessionController* result(nullptr);
 
-    auto it = m_item_to_session.find(item);
-    if (it == m_item_to_session.end()) {
-        result = createFitSession(item);
-        m_item_to_session.insert(item, result);
+    auto it = m_item_to_controller.find(item);
+    if (it == m_item_to_controller.end()) {
+        result = createController(item);
+        m_item_to_controller.insert(item, result);
     } else {
         result = it.value();
     }
@@ -63,24 +63,24 @@ void FitActivityManager::disableLogging()
 }
 
 
-FitSessionActivity* FitActivityManager::createFitSession(JobItem* jobItem)
+FitSessionController* FitActivityManager::createController(JobItem* jobItem)
 {
-    jobItem->mapper()->setOnItemDestroy([this](SessionItem* item) {removeFitSession(item);}, this);
+    jobItem->mapper()->setOnItemDestroy([this](SessionItem* item) {removeController(item);}, this);
 
-    auto result = new FitSessionActivity(this);
+    auto result = new FitSessionController(this);
     result->setItem(jobItem);
     return result;
 }
 
 //! Removes manager for given jobItem
 
-void FitActivityManager::removeFitSession(SessionItem* jobItem)
+void FitActivityManager::removeController(SessionItem* jobItem)
 {
-    auto it = m_item_to_session.find(jobItem);
-    if (it == m_item_to_session.end())
+    auto it = m_item_to_controller.find(jobItem);
+    if (it == m_item_to_controller.end())
         throw GUIHelpers::Error("FitActivityManager::removeFitSession() -> Error. "
                                 "Can't find fit session");
 
     it.value()->deleteLater();
-    m_item_to_session.erase(it);
+    m_item_to_controller.erase(it);
 }

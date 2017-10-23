@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FitSessionActivity.h
-//! @brief     Defines class FitSessionActivity
+//! @file      GUI/coregui/Views/FitWidgets/FitSessionController.h
+//! @brief     Defines class FitSessionController
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FITSESSIONACTIVITY_H
-#define FITSESSIONACTIVITY_H
+#ifndef FITSESSIONCONTROLLER_H
+#define FITSESSIONCONTROLLER_H
 
 #include "WinDllMacros.h"
 #include <QObject>
@@ -27,15 +27,15 @@ class GUIFitObserver;
 class FitProgressInfo;
 class FitLog;
 
-//! Handles all activity related to the single fitting task for JobItem.
+//! Controls all activity related to the single fitting task for JobItem.
 //! Provides interaction between FitSessionWidget and fit observers.
 
-class BA_CORE_API_ FitSessionActivity : public QObject
+class BA_CORE_API_ FitSessionController : public QObject
 {
     Q_OBJECT
 public:
-    FitSessionActivity(QObject* parent = nullptr);
-    ~FitSessionActivity();
+    FitSessionController(QObject* parent = nullptr);
+    ~FitSessionController();
 
     void setItem(JobItem* item);
 
@@ -68,4 +68,4 @@ private:
     bool m_block_progress_update;
 };
 
-#endif // FITSESSIONACTIVITY_H
+#endif // FITSESSIONCONTROLLER_H

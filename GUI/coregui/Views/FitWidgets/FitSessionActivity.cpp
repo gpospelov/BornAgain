@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FitSessionActivity.cpp
-//! @brief     Implements class FitSessionActivity
+//! @file      GUI/coregui/Views/FitWidgets/FitSessionController.cpp
+//! @brief     Implements class FitSessionController
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,7 +26,7 @@
 #include "GUIHelpers.h"
 #include "FitLog.h"
 
-FitSessionActivity::FitSessionActivity(QObject* parent)
+FitSessionController::FitSessionController(QObject* parent)
     : QObject(parent)
     , m_jobItem(nullptr)
     , m_runFitManager(new FitWorkerLauncher(this))
@@ -34,29 +34,29 @@ FitSessionActivity::FitSessionActivity(QObject* parent)
     , m_fitlog(new FitLog)
     , m_block_progress_update(false)
 {
-    connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this, &FitSessionActivity::onPlotsUpdate);
+    connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this, &FitSessionController::onPlotsUpdate);
 
     connect(m_observer.get(), &GUIFitObserver::progressInfoUpdate, this,
-            &FitSessionActivity::onProgressInfoUpdate);
+            &FitSessionController::onProgressInfoUpdate);
 
     connect(m_observer.get(), &GUIFitObserver::logInfoUpdate, [&](const QString& text) {
         m_fitlog->append(text.toStdString(), FitLogFlags::DEFAULT);
     });
 
     connect(m_runFitManager, &FitWorkerLauncher::fittingStarted, this,
-            &FitSessionActivity::onFittingStarted);
+            &FitSessionController::onFittingStarted);
     connect(m_runFitManager, &FitWorkerLauncher::fittingFinished, this,
-            &FitSessionActivity::onFittingFinished);
-    connect(m_runFitManager, &FitWorkerLauncher::fittingError, this, &FitSessionActivity::onFittingError);
+            &FitSessionController::onFittingFinished);
+    connect(m_runFitManager, &FitWorkerLauncher::fittingError, this, &FitSessionController::onFittingError);
 }
 
-FitSessionActivity::~FitSessionActivity()
+FitSessionController::~FitSessionController()
 {
     if (m_jobItem)
         m_jobItem->mapper()->unsubscribe(this);
 }
 
-void FitSessionActivity::setItem(JobItem* item)
+void FitSessionController::setItem(JobItem* item)
 {
     if (m_jobItem && m_jobItem != item)
         throw GUIHelpers::Error("FitSuiteManager::setItem() -> Item was already set.");
@@ -79,7 +79,7 @@ void FitSessionActivity::setItem(JobItem* item)
 
 }
 
-void FitSessionActivity::onStartFittingRequest()
+void FitSessionController::onStartFittingRequest()
 {
     if (!m_jobItem)
         return;
@@ -98,23 +98,23 @@ void FitSessionActivity::onStartFittingRequest()
     }
 }
 
-FitLog* FitSessionActivity::fitLog()
+FitLog* FitSessionController::fitLog()
 {
     return m_fitlog.get();
 }
 
-void FitSessionActivity::onStopFittingRequest()
+void FitSessionController::onStopFittingRequest()
 {
     m_runFitManager->interruptFitting();
 }
 
-void FitSessionActivity::onPlotsUpdate()
+void FitSessionController::onPlotsUpdate()
 {
     m_jobItem->intensityDataItem()->setRawDataVector(m_observer->simulationData());
     m_observer->finishedPlotting();
 }
 
-void FitSessionActivity::onFittingStarted()
+void FitSessionController::onFittingStarted()
 {
     m_fitlog->clearLog();
 
@@ -127,7 +127,7 @@ void FitSessionActivity::onFittingStarted()
     emit fittingStarted();
 }
 
-void FitSessionActivity::onFittingFinished()
+void FitSessionController::onFittingFinished()
 {
     if (m_jobItem->getStatus() != Constants::STATUS_FAILED)
         m_jobItem->setStatus(Constants::STATUS_COMPLETED);
@@ -141,7 +141,7 @@ void FitSessionActivity::onFittingFinished()
     emit fittingFinished();
 }
 
-void FitSessionActivity::onFittingError(const QString& text)
+void FitSessionController::onFittingError(const QString& text)
 {
     QString message;
     message.append("Current settings cause fitting failure.\n\n");
@@ -153,7 +153,7 @@ void FitSessionActivity::onFittingError(const QString& text)
 
 //! Propagates fit progress as reported by GUIFitObserver back to JobItem.
 
-void FitSessionActivity::onProgressInfoUpdate(const FitProgressInfo& info)
+void FitSessionController::onProgressInfoUpdate(const FitProgressInfo& info)
 {
     if (m_block_progress_update)
         return;
@@ -167,21 +167,21 @@ void FitSessionActivity::onProgressInfoUpdate(const FitProgressInfo& info)
     m_block_progress_update = false;
 }
 
-void FitSessionActivity::updateIterationCount(const FitProgressInfo& info)
+void FitSessionController::updateIterationCount(const FitProgressInfo& info)
 {
     FitSuiteItem* fitSuiteItem = m_jobItem->fitSuiteItem();
     fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, info.iterationCount());
     fitSuiteItem->setItemValue(FitSuiteItem::P_CHI2, info.chi2());
 }
 
-void FitSessionActivity::updateFitParameterValues(const FitProgressInfo& info)
+void FitSessionController::updateFitParameterValues(const FitProgressInfo& info)
 {
     QVector<double> values = info.parValues();
     FitParameterContainerItem* fitParContainer = m_jobItem->fitParameterContainerItem();
     fitParContainer->setValuesInParameterContainer(values, m_jobItem->parameterContainerItem());
 }
 
-void FitSessionActivity::updateLog(const FitProgressInfo& info)
+void FitSessionController::updateLog(const FitProgressInfo& info)
 {
     QString message = QString("NCalls:%1 chi2:%2 \n").arg(info.iterationCount()).arg(info.chi2());
     FitParameterContainerItem* fitParContainer = m_jobItem->fitParameterContainerItem();

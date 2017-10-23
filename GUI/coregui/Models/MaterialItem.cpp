@@ -65,5 +65,8 @@ std::unique_ptr<HomogeneousMaterial> MaterialItem::createMaterial() const
     double real = materialDataItem->getReal();
     double imag = materialDataItem->getImag();
 
-    return std::make_unique<HomogeneousMaterial>(itemName().toStdString(), real, imag);
+    auto magnetization = getVectorItem(P_MAGNETIZATION);
+
+    return std::make_unique<HomogeneousMaterial>(itemName().toStdString(), real, imag,
+                                                 magnetization);
 }

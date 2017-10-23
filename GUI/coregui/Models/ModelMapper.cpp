@@ -39,7 +39,17 @@ void ModelMapper::setOnValueChange(std::function<void(void)> f, const void* call
 
 void ModelMapper::setOnPropertyChange(std::function<void(QString)> f, const void* caller)
 {
-    m_onPropertyChange.push_back(call_str_t(f, caller));
+    auto ff = [=](SessionItem* item, const QString& property) {
+        (void)item;
+        f(property);
+    };
+    m_onPropertyChange.push_back(call_item_str_t(ff, caller));
+}
+
+void ModelMapper::setOnPropertyChange(std::function<void (SessionItem*, QString)> f,
+                                      const void* caller)
+{
+    m_onPropertyChange.push_back(call_item_str_t(f, caller));
 }
 
 //! Calls back on child property change, report childItem and property name.
@@ -149,7 +159,7 @@ void ModelMapper::callOnPropertyChange(const QString& name)
 {
     if (m_active)
         for (auto f : m_onPropertyChange)
-            f.first(name);
+            f.first(m_item, name);
 }
 
 void ModelMapper::callOnChildPropertyChange(SessionItem* item, const QString& name)

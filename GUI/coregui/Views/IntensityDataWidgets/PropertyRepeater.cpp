@@ -25,7 +25,7 @@ PropertyRepeater::PropertyRepeater(QObject* parent)
 
 }
 
-void PropertyRepeater::addItem(IntensityDataItem* intensityItem)
+void PropertyRepeater::addItem(SessionItem* intensityItem)
 {
     if (!intensityItem || m_dataItems.contains(intensityItem))
         return;

@@ -22,7 +22,6 @@
 #include <QVector>
 
 class SessionItem;
-class IntensityDataItem;
 
 //! Tracks property change (axes range, units etc) for the collection of IntensityDataItems
 //! and sets same properties for all of them.
@@ -33,7 +32,7 @@ class BA_CORE_API_ PropertyRepeater : public QObject
 public:
     explicit PropertyRepeater(QObject* parent = nullptr);
 
-    void addItem(IntensityDataItem* item);
+    void addItem(SessionItem* item);
 
     void clear();
 

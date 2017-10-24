@@ -64,6 +64,7 @@ private:
     std::string defineMultiLayers() const;
     std::string defineDetector(const GISASSimulation* simulation) const;
     std::string defineDetectorResolutionFunction(const GISASSimulation* simulation) const;
+    std::string defineDetectorPolarizationAnalysis(const GISASSimulation* simulation) const;
     std::string defineBeam(const GISASSimulation* simulation) const;
     std::string defineParameterDistributions(const GISASSimulation* simulation) const;
     std::string defineMasks(const GISASSimulation* simulation) const;

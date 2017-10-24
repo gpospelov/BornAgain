@@ -272,10 +272,13 @@ void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instru
                 SessionItem* item
                     = detector_item->setGroupProperty(DetectorItem::P_RESOLUTION_FUNCTION,
                                                      Constants::ResolutionFunction2DGaussianType);
+                double scale(1.0);
+                if(detector_item->modelType() == Constants::SphericalDetectorType)
+                    scale = 1./Units::degree;
                 item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_X,
-                                            Units::rad2deg(resfunc->getSigmaX()));
+                                   scale*resfunc->getSigmaX());
                 item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
-                                            Units::rad2deg(resfunc->getSigmaY()));
+                                   scale*resfunc->getSigmaY());
             } else {
                 throw GUIHelpers::Error("TransformFromDomain::setInstrumentDetectorFromSample("
                                         "InstrumentItem* instrumentItem, const GISASSimulation& "

@@ -56,6 +56,11 @@ void PropertyRepeater::clear()
     m_dataItems.clear();
 }
 
+void PropertyRepeater::setActive(bool isActive)
+{
+    m_block_repeater = !isActive;
+}
+
 void PropertyRepeater::onPropertyChanged(SessionItem* item, const QString& propertyName)
 {
     if (m_block_repeater)

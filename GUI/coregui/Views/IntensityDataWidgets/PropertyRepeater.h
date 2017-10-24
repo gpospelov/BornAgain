@@ -36,6 +36,8 @@ public:
     void addItem(IntensityDataItem* item);
 
     void clear();
+
+    void setActive(bool isActive);
 private:
     void onPropertyChanged(SessionItem* item, const QString& propertyName);
     void setOnChildPropertyChange(SessionItem* item, const QString& propertyName);

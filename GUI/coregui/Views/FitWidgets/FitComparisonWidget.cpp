@@ -110,6 +110,12 @@ void FitComparisonWidget::subscribeToItem()
 
     if (auto simItem = simulatedDataItem()) {
         simItem->mapper()->setOnValueChange([this]() { calculateRelativeDifference(); }, this);
+//        simItem->mapper()->setOnPropertyChange([this](const QString& name)
+//        {
+//            if (name == IntensityDataItem::P_AXES_UNITS) {
+//                calculateRelativeDifference();
+//            }
+//        }, this);
     }
 
     calculateRelativeDifference();
@@ -125,6 +131,7 @@ void FitComparisonWidget::subscribeToItem()
 
     m_repeater->addItem(realDataItem());
     m_repeater->addItem(simulatedDataItem());
+    m_repeater->addItem(m_relativeDiffItem);
 
     m_propertyWidget->setItem(simulatedDataItem());
 }
@@ -142,6 +149,8 @@ void FitComparisonWidget::unsubscribeFromItem()
 
 void FitComparisonWidget::onResetViewAction()
 {
+    m_repeater->setActive(false);
+
     if (auto item = realDataItem())
         item->resetView();
 
@@ -152,6 +161,8 @@ void FitComparisonWidget::onResetViewAction()
         m_relativeDiffItem->resetView();
         m_relativeDiffItem->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
     }
+
+    m_repeater->setActive(true);
 }
 
 //! Creates an IntensityDataItem which will hold relative difference map between simulation

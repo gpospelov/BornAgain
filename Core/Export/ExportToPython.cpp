@@ -208,8 +208,7 @@ std::string ExportToPython::defineMaterials() const
         } else {
             kvector_t magnetic_field = p_material->magnetization();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
-                   << magnetic_field.y() << ", " << magnetic_field.z() << ", "
-                   << ")\n";
+                   << magnetic_field.y() << ", " << magnetic_field.z() << ")\n";
             result << indent() << m_label->labelMaterial(p_material)
                    << " = ba.HomogeneousMaterial(\"" << p_material->getName();
             result << "\", " << printDouble(real) << ", "

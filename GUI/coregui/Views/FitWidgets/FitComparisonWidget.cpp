@@ -29,6 +29,7 @@
 #include "IntensityDataPropertyWidget.h"
 #include "AxesItems.h"
 #include "FitComparisonController.h"
+#include "JobItemUtils.h"
 #include <QAction>
 #include <QGridLayout>
 #include <QLabel>
@@ -49,14 +50,14 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_fitFlowWidget(new FitFlowWidget)
     , m_statusLabel(new ColorMapLabel(0, this))
     , m_propertyWidget(new IntensityDataPropertyWidget)
-    , m_resetViewAction(0)
+    , m_resetViewAction(new QAction(this))
     , m_comparisonController(new FitComparisonController(this))
 {
-    QVBoxLayout *vlayout = new QVBoxLayout;
+    auto vlayout = new QVBoxLayout;
     vlayout->setMargin(0);
     vlayout->setSpacing(0);
 
-    QGridLayout *gridLayout = new QGridLayout;
+    auto gridLayout = new QGridLayout;
     gridLayout->setMargin(0);
     gridLayout->setSpacing(0);
 
@@ -75,14 +76,12 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     hlayout->addWidget(m_propertyWidget);
     setLayout(hlayout);
 
-    m_resetViewAction = new QAction(this);
     m_resetViewAction->setText("Reset View");
     m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
     m_resetViewAction->setToolTip("Reset View");
-    connect(m_resetViewAction, SIGNAL(triggered()), this, SLOT(onResetViewAction()));
+    connect(m_resetViewAction, &QAction::triggered, this, &FitComparisonWidget::onResetViewAction);
 
     m_relativeDiffPlot->setItem(m_comparisonController->diffItem());
-
     m_propertyWidget->setVisible(false);
 }
 
@@ -108,12 +107,6 @@ void FitComparisonWidget::subscribeToItem()
 
     if (auto simItem = simulatedDataItem()) {
         simItem->mapper()->setOnValueChange([this]() { calculateRelativeDifference(); }, this);
-//        simItem->mapper()->setOnPropertyChange([this](const QString& name)
-//        {
-//            if (name == IntensityDataItem::P_AXES_UNITS) {
-//                calculateRelativeDifference();
-//            }
-//        }, this);
     }
 
     calculateRelativeDifference();
@@ -129,6 +122,15 @@ void FitComparisonWidget::subscribeToItem()
 
     m_comparisonController->setItems(realDataItem(), simulatedDataItem());
 
+    if (auto diff_item = diffItem()) {
+        diff_item->mapper()->setOnPropertyChange([this](const QString& name)
+        {
+            if (name == IntensityDataItem::P_AXES_UNITS) {
+                JobItemUtils::updateDataAxes(diffItem(), jobItem()->instrumentItem());
+            }
+        }, this);
+    }
+
     m_propertyWidget->setItem(simulatedDataItem());
 }
 
@@ -140,11 +142,16 @@ void FitComparisonWidget::unsubscribeFromItem()
     if (simulatedDataItem())
         simulatedDataItem()->mapper()->unsubscribe(this);
 
+    if (diffItem())
+        diffItem()->mapper()->unsubscribe(this);
+
     m_comparisonController->clear();
 }
 
 void FitComparisonWidget::onResetViewAction()
 {
+    m_comparisonController->setActive(false);
+
     if (auto item = realDataItem())
         item->resetView();
 
@@ -155,6 +162,8 @@ void FitComparisonWidget::onResetViewAction()
         diffItem()->resetView();
         diffItem()->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
     }
+
+    m_comparisonController->setActive(true);
 }
 
 void FitComparisonWidget::calculateRelativeDifference()
@@ -172,6 +181,8 @@ void FitComparisonWidget::calculateRelativeDifference()
     diffItem()->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getXaxisTitle());
     diffItem()->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getYaxisTitle());
     diffItem()->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
+    diffItem()->setAxesRangeToData();
+
 }
 
 JobItem* FitComparisonWidget::jobItem()

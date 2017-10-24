@@ -39,10 +39,12 @@ public:
 
     void clear();
 
+    void setActive(bool isActive);
+
 private:
     void createRelativeDifferenceItem();
 
-    PropertyRepeater* m_propertyRepeater;
+    PropertyRepeater* m_appearanceRepeater;
     PropertyRepeater* m_xAxisRepeater;
     PropertyRepeater* m_yAxisRepeater;
     PropertyRepeater* m_zAxisRepeater;

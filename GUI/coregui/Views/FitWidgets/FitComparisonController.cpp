@@ -22,7 +22,7 @@
 
 FitComparisonController::FitComparisonController(QObject* parent)
     : QObject(parent)
-    , m_propertyRepeater(new PropertyRepeater(this))
+    , m_appearanceRepeater(new PropertyRepeater(this))
     , m_xAxisRepeater(new PropertyRepeater(this))
     , m_yAxisRepeater(new PropertyRepeater(this))
     , m_zAxisRepeater(new PropertyRepeater(this))
@@ -40,6 +40,10 @@ IntensityDataItem* FitComparisonController::diffItem()
 void FitComparisonController::setItems(IntensityDataItem* realDataItem,
                                        IntensityDataItem* simDataItem)
 {
+    m_appearanceRepeater->addItem(realDataItem);
+    m_appearanceRepeater->addItem(simDataItem);
+    m_appearanceRepeater->addItem(diffItem());
+
     m_xAxisRepeater->addItem(realDataItem->xAxisItem());
     m_xAxisRepeater->addItem(simDataItem->xAxisItem());
     m_xAxisRepeater->addItem(diffItem()->xAxisItem());
@@ -54,11 +58,19 @@ void FitComparisonController::setItems(IntensityDataItem* realDataItem,
 
 void FitComparisonController::clear()
 {
-    m_propertyRepeater->clear();
+    m_appearanceRepeater->clear();
 
     m_xAxisRepeater->clear();
     m_yAxisRepeater->clear();
     m_zAxisRepeater->clear();
+}
+
+void FitComparisonController::setActive(bool isActive)
+{
+    m_appearanceRepeater->setActive(isActive);
+    m_xAxisRepeater->setActive(isActive);
+    m_yAxisRepeater->setActive(isActive);
+    m_zAxisRepeater->setActive(isActive);
 }
 
 void FitComparisonController::createRelativeDifferenceItem()

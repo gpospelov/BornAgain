@@ -32,6 +32,7 @@ class BA_CORE_API_ PropertyRepeater : public QObject
     Q_OBJECT
 public:
     explicit PropertyRepeater(QObject* parent = nullptr, bool repeat_child_properties = false);
+    ~PropertyRepeater();
 
     void addItem(SessionItem* sessionItem, const QStringList& activeProperties = QStringList());
 

@@ -25,6 +25,12 @@ PropertyRepeater::PropertyRepeater(QObject* parent, bool repeat_child_properties
 
 }
 
+PropertyRepeater::~PropertyRepeater()
+{
+    for (auto item : m_dataItems)
+        item->mapper()->unsubscribe(this);
+}
+
 void PropertyRepeater::addItem(SessionItem* sessionItem, const QStringList& activeProperties)
 {
     if (!sessionItem || m_dataItems.contains(sessionItem))
@@ -34,6 +40,7 @@ void PropertyRepeater::addItem(SessionItem* sessionItem, const QStringList& acti
     sessionItem->mapper()->setOnItemDestroy([this](SessionItem* item)
     {
         m_dataItems.removeAll(item);
+        m_itemProperties.remove(item);
     }, this);
 
     sessionItem->mapper()->setOnPropertyChange(

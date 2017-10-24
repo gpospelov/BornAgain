@@ -597,15 +597,11 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
 
     MaterialModel* model = MaterialSvc::getMaterialModel();
 
-    if(material->isScalarMaterial()) {
-        complex_t material_data = material->materialData();
-        MaterialItem* materialItem  =
+    complex_t material_data = material->materialData();
+    MaterialItem* materialItem  =
             model->addMaterial(materialName, material_data.real(),material_data.imag());
-        return MaterialProperty(materialItem->getIdentifier());
-    } else {
-        throw GUIHelpers::Error("GUIObjectBuilder::createMaterialFromDomain()"
-                                " -> Not implemented.");
-    }
+    materialItem->setVectorItem(MaterialItem::P_MAGNETIZATION, material->magnetization());
+    return MaterialProperty(materialItem->getIdentifier());
 }
 
 SessionItem* GUIObjectBuilder::InsertIParticle(const IParticle* p_particle, QString model_type)

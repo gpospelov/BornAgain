@@ -17,6 +17,14 @@
 #include "Exceptions.h"
 #include "Complex.h"
 
+namespace {
+// Calculates the vector 2*T*E*d from an analyzer operator, where
+//     T: total transmission
+//     E: efficiency
+//     d: unit vector (if non-zero) of analyzer direction
+kvector_t CalculateDifferenceTimesDirection(Eigen::Matrix2cd analyzer_op);
+}
+
 DetectionProperties::DetectionProperties()
 {
     initPolarizationOperator();
@@ -35,6 +43,29 @@ void DetectionProperties::setAnalyzerProperties(const kvector_t direction, doubl
 Eigen::Matrix2cd DetectionProperties::analyzerOperator() const
 {
     return m_analyzer_operator;
+}
+
+kvector_t DetectionProperties::analyzerDirection() const
+{
+    double T = analyzerTotalTransmission();
+    auto diffdir = CalculateDifferenceTimesDirection(m_analyzer_operator);
+    if (T<=0.0 || diffdir.mag()==0.0)
+        return {};
+    return diffdir.unit();
+}
+
+double DetectionProperties::analyzerEfficiency() const
+{
+    double T = analyzerTotalTransmission();
+    if (T<=0.0)
+        return 0.0;
+    auto diffdir = CalculateDifferenceTimesDirection(m_analyzer_operator);
+    return diffdir.mag()/T/2.0;
+}
+
+double DetectionProperties::analyzerTotalTransmission() const
+{
+    return std::abs(m_analyzer_operator.trace())/2.0;
 }
 
 void DetectionProperties::initPolarizationOperator()
@@ -72,3 +103,14 @@ Eigen::Matrix2cd DetectionProperties::calculateAnalyzerOperator(
     result(1, 1) = (sum - diff*z) / 2.0;
     return result;
 }
+
+namespace {
+kvector_t CalculateDifferenceTimesDirection(Eigen::Matrix2cd analyzer_op)
+{
+    double x = 2.0*analyzer_op(0, 1).real();
+    double y = 2.0*analyzer_op(1, 0).imag();
+    double z = (analyzer_op(0, 0) - analyzer_op(1, 1)).real();
+    return { x, y, z };
+}
+}
+

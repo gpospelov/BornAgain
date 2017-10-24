@@ -243,16 +243,16 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
 void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrumentItem,
                                             const GISASSimulation& simulation)
 {
-    const IDetector2D* iDetector = simulation.getInstrument().getDetector();
+    const IDetector2D* p_detector = simulation.getInstrument().getDetector();
     DetectorItem* detector_item;
 
-    if(auto detector = dynamic_cast<const SphericalDetector*>(iDetector)) {
+    if(auto detector = dynamic_cast<const SphericalDetector*>(p_detector)) {
         instrumentItem->setDetectorGroup(Constants::SphericalDetectorType);
         detector_item = instrumentItem->detectorItem();
         auto item = dynamic_cast<SphericalDetectorItem*>(detector_item);
         setItemFromSample(item, *detector);
     }
-    else if(auto detector = dynamic_cast<const RectangularDetector*>(iDetector)) {
+    else if(auto detector = dynamic_cast<const RectangularDetector*>(p_detector)) {
         instrumentItem->setDetectorGroup(Constants::RectangularDetectorType);
         detector_item = instrumentItem->detectorItem();
         auto item = dynamic_cast<RectangularDetectorItem*>(detector_item);
@@ -263,7 +263,7 @@ void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instru
             "TransformFromDomain::setInstrumentDetectorFromSample(DetectorItem*) -> Unknown detector type.");
     }
     // detector resolution
-    if (const IDetectorResolution* p_resfunc = iDetector->detectorResolution()) {
+    if (const IDetectorResolution* p_resfunc = p_detector->detectorResolution()) {
         if (const ConvolutionDetectorResolution* p_convfunc
             = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (const ResolutionFunction2DGaussian* resfunc
@@ -289,6 +289,8 @@ void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instru
                 "ConvolutionDetectorResolution function");
         }
     }
+    // polarization analysis parameters
+
 }
 
 void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,

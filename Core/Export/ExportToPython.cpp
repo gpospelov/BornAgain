@@ -654,6 +654,16 @@ std::string ExportToPython::defineMultiLayers() const
         double ccl = it->first->crossCorrLength();
         if (ccl > 0.0)
             result << indent() << it->second << ".setCrossCorrLength(" << ccl << ")\n";
+        auto external_field = it->first->externalField();
+        if (external_field.mag()>0.0) {
+            std::string field_name = it->second + "_external_field";
+            result << indent() << field_name << " = kvector_t("
+                   << printDouble(external_field.x()) << ", "
+                   << printDouble(external_field.y()) << ", "
+                   << printDouble(external_field.z()) << ")\n";
+            result << indent() << it->second << ".setExternalField("
+                   << field_name << ")\n";
+        }
 
         size_t numberOfLayers = it->first->numberOfLayers();
 

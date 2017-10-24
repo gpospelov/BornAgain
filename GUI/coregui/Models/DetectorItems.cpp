@@ -30,7 +30,7 @@ const QString analyzer_transmission_tooltip = "Total transmission of the polariz
 }
 
 const QString DetectorItem::T_MASKS = "Masks";
-const QString DetectorItem::P_RESOLUTION_FUNCTION = "ResolutionFunctions";
+const QString DetectorItem::P_RESOLUTION_FUNCTION = "Resolution function";
 const QString DetectorItem::P_ANALYZER_DIRECTION = "Analyzer direction";
 const QString DetectorItem::P_ANALYZER_EFFICIENCY = "Analyzer efficiency";
 const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION = "Total transmission";

@@ -244,28 +244,52 @@ void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instru
                                             const GISASSimulation& simulation)
 {
     const IDetector2D* iDetector = simulation.getInstrument().getDetector();
+    DetectorItem* detector_item;
 
     if(auto detector = dynamic_cast<const SphericalDetector*>(iDetector)) {
         instrumentItem->setDetectorGroup(Constants::SphericalDetectorType);
-        auto item = dynamic_cast<SphericalDetectorItem*> (instrumentItem->detectorItem());
+        detector_item = instrumentItem->detectorItem();
+        auto item = dynamic_cast<SphericalDetectorItem*>(detector_item);
         setItemFromSample(item, *detector);
     }
-
     else if(auto detector = dynamic_cast<const RectangularDetector*>(iDetector)) {
         instrumentItem->setDetectorGroup(Constants::RectangularDetectorType);
-        auto item = dynamic_cast<RectangularDetectorItem*> (instrumentItem->detectorItem());
+        detector_item = instrumentItem->detectorItem();
+        auto item = dynamic_cast<RectangularDetectorItem*>(detector_item);
         setItemFromSample(item, *detector);
-
-        Q_ASSERT(item);
-        setItemFromSample(item,* detector);
     }
-
     else {
         throw GUIHelpers::Error(
             "TransformFromDomain::setInstrumentDetectorFromSample(DetectorItem*) -> Unknown detector type.");
     }
+    // detector resolution
+    if (const IDetectorResolution* p_resfunc = iDetector->detectorResolution()) {
+        if (const ConvolutionDetectorResolution* p_convfunc
+            = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
+            if (const ResolutionFunction2DGaussian* resfunc
+                = dynamic_cast<const ResolutionFunction2DGaussian*>(
+                    p_convfunc->getResolutionFunction2D())) {
+                SessionItem* item
+                    = detector_item->setGroupProperty(DetectorItem::P_RESOLUTION_FUNCTION,
+                                                     Constants::ResolutionFunction2DGaussianType);
+                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_X,
+                                            Units::rad2deg(resfunc->getSigmaX()));
+                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
+                                            Units::rad2deg(resfunc->getSigmaY()));
+            } else {
+                throw GUIHelpers::Error("TransformFromDomain::setInstrumentDetectorFromSample("
+                                        "InstrumentItem* instrumentItem, const GISASSimulation& "
+                                        "simulation) -> Error, unknown detector resolution "
+                                        "function");
+            }
+        } else {
+            throw GUIHelpers::Error(
+                "TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* "
+                "instrumentItem, const GISASSimulation& simulation) -> Error, not a "
+                "ConvolutionDetectorResolution function");
+        }
+    }
 }
-
 
 void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
                                             const SphericalDetector& detector)
@@ -287,34 +311,6 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
     alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.size());
     alphaAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
     alphaAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
-
-    // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
-        if (const ConvolutionDetectorResolution* p_convfunc
-            = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
-            if (const ResolutionFunction2DGaussian* resfunc
-                = dynamic_cast<const ResolutionFunction2DGaussian*>(
-                    p_convfunc->getResolutionFunction2D())) {
-                SessionItem* item
-                    = detectorItem->setGroupProperty(SphericalDetectorItem::P_RESOLUTION_FUNCTION,
-                                                     Constants::ResolutionFunction2DGaussianType);
-                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_X,
-                                            Units::rad2deg(resfunc->getSigmaX()));
-                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
-                                            Units::rad2deg(resfunc->getSigmaY()));
-            } else {
-                throw GUIHelpers::Error("TransformFromDomain::setItemFromSample("
-                                        "SphericalDetectorItem* detectorItem, const GISASSimulation "
-                                        "&simulation) -> Error, unknown detector resolution "
-                                        "function");
-            }
-        } else {
-            throw GUIHelpers::Error(
-                "TransformFromDomain::setItemFromSample(SphericalDetectorItem "
-                "*detectorItem, const GISASSimulation& simulation) -> Error, not a "
-                "ConvolutionDetectorResolution function");
-        }
-    }
 }
 
 
@@ -385,37 +381,10 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
             "TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorItem "
             "Error. Unknown detector arrangement");
     }
-
-    // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
-        if (const ConvolutionDetectorResolution* p_convfunc
-            = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
-            if (const ResolutionFunction2DGaussian* resfunc
-                = dynamic_cast<const ResolutionFunction2DGaussian*>(
-                    p_convfunc->getResolutionFunction2D())) {
-                SessionItem* item
-                    = detectorItem->setGroupProperty(RectangularDetectorItem::P_RESOLUTION_FUNCTION,
-                                                     Constants::ResolutionFunction2DGaussianType);
-                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_X,
-                                            resfunc->getSigmaX());
-                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
-                                            resfunc->getSigmaY());
-            } else {
-                throw GUIHelpers::Error("TransformFromDomain::setItemFromSample("
-                                        "RectangularDetectorItem* detectorItem, const GISASSimulation "
-                                        "&simulation) -> Error, unknown detector resolution "
-                                        "function");
-            }
-        } else {
-            throw GUIHelpers::Error(
-                "TransformFromDomain::setItemFromSample(RectangularDetectorItem "
-                "*detectorItem, const GISASSimulation& simulation) -> Error, not a "
-                "ConvolutionDetectorResolution function");
-        }
-    }
 }
 
-void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GISASSimulation& simulation)
+void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem,
+                                           const GISASSimulation& simulation)
 {
     const IDetector2D* detector = simulation.getInstrument().getDetector();
     if( (detector->getDetectorMask() && detector->getDetectorMask()->numberOfMasks()) ||

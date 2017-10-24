@@ -43,6 +43,7 @@ private:
     void setOnChildPropertyChange(SessionItem* item, const QString& propertyName);
     QVector<SessionItem*> targetItems(SessionItem* sourceItem);
     bool isPropertyBroadcastAllowed(SessionItem* item, const QString& propertyName);
+    bool isPropertyReceiveAllowed(SessionItem* item, const QString& propertyName);
 
     QVector<SessionItem*> m_dataItems;
     //! List of properties which item is allowed to report to others and receive updates.

@@ -76,8 +76,8 @@ void PropertyRepeater::onPropertyChanged(SessionItem* item, const QString& prope
         qDebug() << item->modelType() << propertyName << value;
 
         for (auto target : targetItems(item))
-            target->setItemValue(propertyName, value);
-
+            if (isPropertyReceiveAllowed(target, propertyName))
+                target->setItemValue(propertyName, value);
     }
 
     m_block_repeater = false;
@@ -104,7 +104,8 @@ void PropertyRepeater::setOnChildPropertyChange(SessionItem* item, const QString
         qDebug() << "tag:" << tag << m_dataItems.size();
 
         for (auto target : targetItems(sourceItem))
-            target->getItem(tag)->setItemValue(propertyName, value);
+            if (isPropertyReceiveAllowed(target, propertyName))
+                target->getItem(tag)->setItemValue(propertyName, value);
     }
 
     m_block_repeater = false;
@@ -128,4 +129,11 @@ bool PropertyRepeater::isPropertyBroadcastAllowed(SessionItem* item, const QStri
         return true; // no special wishes, broadcast is allowed
 
     return it.value().contains(propertyName) ? true : false;
+}
+
+bool PropertyRepeater::isPropertyReceiveAllowed(SessionItem* item, const QString& propertyName)
+{
+    // for the moment item which is allowed to send notifications on property update
+    // is also allowed to received updates from other properties
+    return isPropertyBroadcastAllowed(item, propertyName);
 }

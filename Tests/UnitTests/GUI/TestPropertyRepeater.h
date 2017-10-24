@@ -22,7 +22,8 @@ private:
 private slots:
     void test_twoItems();
     void test_threeItems();
-    void test_filterRepeater();
+    void test_repeaterFilteredBroadcast();
+    void test_repeaterFilteredReceive();
 };
 
 //! Repeater handles two items.
@@ -91,7 +92,7 @@ inline void TestPropertyRepeater::test_threeItems()
 
 //! Checks if item with active properties specified receives updates only for these properties.
 
-inline void TestPropertyRepeater::test_filterRepeater()
+inline void TestPropertyRepeater::test_repeaterFilteredBroadcast()
 {
     SessionModel model("test");
 
@@ -121,3 +122,33 @@ inline void TestPropertyRepeater::test_filterRepeater()
     QCOMPARE(item3->getUpperX(), 3.0);
 }
 
+inline void TestPropertyRepeater::test_repeaterFilteredReceive()
+{
+    SessionModel model("test");
+
+    IntensityDataItem* item1 = createItem(model);
+    IntensityDataItem* item2 = createItem(model);
+    IntensityDataItem* item3 = createItem(model);
+
+    item1->xAxisItem()->setItemValue(BasicAxisItem::P_MIN, 0.0);
+    item2->xAxisItem()->setItemValue(BasicAxisItem::P_MIN, 0.0);
+    item3->xAxisItem()->setItemValue(BasicAxisItem::P_MIN, 0.0);
+    item1->xAxisItem()->setItemValue(BasicAxisItem::P_MAX, 1.0);
+    item2->xAxisItem()->setItemValue(BasicAxisItem::P_MAX, 1.0);
+    item3->xAxisItem()->setItemValue(BasicAxisItem::P_MAX, 1.0);
+
+    QStringList activeProperties = QStringList() << BasicAxisItem::P_MAX;
+    PropertyRepeater repeater;
+    repeater.addItem(item1);
+    repeater.addItem(item2, activeProperties);
+    repeater.addItem(item3);
+
+    // changing two properties in item1 and checking that P_MIN of item2 remain intact
+    item1->xAxisItem()->setItemValue(BasicAxisItem::P_MIN, 2.0);
+    item1->xAxisItem()->setItemValue(BasicAxisItem::P_MAX, 3.0);
+    QCOMPARE(item2->getLowerX(), 0.0); // remain intact
+    QCOMPARE(item2->getUpperX(), 3.0);
+    QCOMPARE(item3->getLowerX(), 2.0);
+    QCOMPARE(item3->getUpperX(), 3.0);
+
+}

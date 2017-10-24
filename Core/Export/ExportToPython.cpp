@@ -54,7 +54,6 @@ using namespace PythonFormatting;
 using namespace INodeUtils;
 
 namespace {
-
     const std::string preamble =
         "import numpy\n"
         "import bornagain as ba\n"
@@ -80,14 +79,11 @@ namespace {
         throw Exceptions::RuntimeErrorException(
             "ExportToPython::defineMasks() -> Error. Unknown detector units.");
     }
-
 } // namespace
 
 ExportToPython::ExportToPython(){}
 
-ExportToPython::~ExportToPython()
-{
-}
+ExportToPython::~ExportToPython(){}
 
 std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer)
 {
@@ -121,6 +117,7 @@ std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulatio
     result << indent() << "simulation = ba.GISASSimulation()\n";
     result << defineDetector(simulation);
     result << defineDetectorResolutionFunction(simulation);
+    result << defineDetectorPolarizationAnalysis(simulation);
     result << defineBeam(simulation);
     result << defineParameterDistributions(simulation);
     result << defineMasks(simulation);
@@ -183,7 +180,7 @@ std::string ExportToPython::defineGetSample() const
         + defineRoughnesses()
         + addLayoutsToLayers()
         + defineMultiLayers()
-            + "\n";
+        + "\n";
 }
 
 std::string ExportToPython::defineMaterials() const
@@ -465,7 +462,6 @@ std::string ExportToPython::defineInterferenceFunctions() const
 
         if (dynamic_cast<const InterferenceFunctionNone*>(interference))
             result << indent() << it->second << " = ba.InterferenceFunctionNone()\n";
-
         else if (auto p_lattice_1d
                  = dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
             const Lattice1DParameters latticeParameters = p_lattice_1d->getLatticeParameters();
@@ -480,7 +476,6 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << "(" << argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
         }
-
         else if (auto p_para_radial
                  = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
@@ -503,7 +498,6 @@ std::string ExportToPython::defineInterferenceFunctions() const
                        << indent() << it->second << ".setProbabilityDistribution(" << it->second
                        << "_pdf)\n";
         }
-
         else if (auto p_lattice_2d
                  = dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
             const Lattice2D& lattice = p_lattice_2d->lattice();
@@ -522,7 +516,6 @@ std::string ExportToPython::defineInterferenceFunctions() const
             if (p_lattice_2d->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
         }
-
         else if (auto p_para_2d
                  = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
             std::vector<double> domainSize = p_para_2d->domainSizes();
@@ -542,7 +535,6 @@ std::string ExportToPython::defineInterferenceFunctions() const
                 result << indent() << it->second << ".setDomainSizes("
                        << printNm(domainSize[0]) << ", "
                                                  << printNm(domainSize[1]) << ")\n";
-
             if (p_para_2d->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
 
@@ -558,11 +550,9 @@ std::string ExportToPython::defineInterferenceFunctions() const
 
             result << indent() << it->second << "_pdf_2  = ba." << pdf->getName()
                    << "(" << argumentList(pdf) << ")\n";
-
             result << indent() << it->second << ".setProbabilityDistributions(" << it->second
                    << "_pdf_1, " << it->second << "_pdf_2)\n";
         }
-
         else
             throw Exceptions::NotImplementedException(
                 "Bug: ExportToPython::defineInterferenceFunctions() called with unexpected "
@@ -591,7 +581,6 @@ std::string ExportToPython::defineParticleLayouts() const
                        << m_label->labelParticle(p_particle) << ", "
                        << printDouble(abundance) << ")\n";
             }
-
             if( auto p_iff = OnlyChildOfType<IInterferenceFunction>(*particleLayout) )
                 result << indent() << it->second << ".setInterferenceFunction("
                        << m_label->labelInterferenceFunction(p_iff) << ")\n";
@@ -664,9 +653,7 @@ std::string ExportToPython::defineMultiLayers() const
             result << indent() << it->second << ".setExternalField("
                    << field_name << ")\n";
         }
-
         size_t numberOfLayers = it->first->numberOfLayers();
-
         if (numberOfLayers) {
             result << indent() << it->second << ".addLayer("
                    << m_label->labelLayer(it->first->layer(0)) << ")\n";
@@ -697,7 +684,6 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
     if (iDetector->getDimension() != 2)
         throw Exceptions::RuntimeErrorException("ExportToPython::defineDetector: "
                                                 "detector must be two-dimensional for GISAS");
-
     std::ostringstream result;
     result << std::setprecision(12);
 
@@ -710,7 +696,6 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
                    << printDegrees(detector->getAxis(index).getMax());
         }
         result << ")\n";
-
     } else if(auto detector = dynamic_cast<const RectangularDetector*>(iDetector)) {
         result << indent() << "\n";
         result << indent() << "detector = ba.RectangularDetector("
@@ -726,29 +711,24 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
             if(!isDefaultDirection(detector->getDirectionVector()))
                 result << ", " << printKvector(detector->getDirectionVector());
             result << ")\n";
-
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {
             result << indent() << "detector.setPerpendicularToSampleX("
                    << printDouble(detector->getDistance()) << ", "
                    << printDouble(detector->getU0()) << ", "
                    << printDouble(detector->getV0()) << ")\n";
-
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_DIRECT_BEAM) {
             result << indent() << "detector.setPerpendicularToDirectBeam("
                    << printDouble(detector->getDistance()) << ", "
                    << printDouble(detector->getU0()) << ", "
                    << printDouble(detector->getV0()) << ")\n";
-
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM) {
             result << indent() << "detector.setPerpendicularToReflectedBeam("
                    << printDouble(detector->getDistance()) << ", "
                    << printDouble(detector->getU0()) << ", "
                    << printDouble(detector->getV0()) << ")\n";
-
-
         } else if (detector->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
             result << indent() << "detector.setPerpendicularToReflectedBeam("
@@ -756,16 +736,13 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
             result << indent() << "detector.setDirectBeamPosition("
                    << printDouble(detector->getDirectBeamU0()) << ", "
                    << printDouble(detector->getDirectBeamV0()) << ")\n";
-
         } else
             throw Exceptions::RuntimeErrorException(
                 "ExportToPython::defineDetector: unknown alignment");
 
         result << indent() << "simulation.setDetector(detector)\n";
-
     } else
         throw Exceptions::RuntimeErrorException("ExportToPython::defineDetector: unknown detector");
-
     if(iDetector->regionOfInterest()) {
         result << indent() << "simulation.setRegionOfInterest("
                << printFunc(iDetector)(iDetector->regionOfInterest()->getXlow()) << ", "
@@ -774,7 +751,6 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
                << printFunc(iDetector)(iDetector->regionOfInterest()->getYup()) << ")\n";
     }
     result << indent() << "\n";
-
     return result.str();
 }
 
@@ -801,7 +777,29 @@ std::string ExportToPython::defineDetectorResolutionFunction(
                 "ExportToPython::defineDetectorResolutionFunction() -> Error. "
                 "Not a ConvolutionDetectorResolution function");
     }
+    return result.str();
+}
 
+std::string ExportToPython::defineDetectorPolarizationAnalysis(
+        const GISASSimulation* simulation) const
+{
+    std::ostringstream result;
+    const IDetector2D* detector = simulation->getInstrument().getDetector();
+    kvector_t analyzer_direction = detector->analyzerDirection();
+    double analyzer_efficiency = detector->analyzerEfficiency();
+    double analyzer_total_transmission = detector->analyzerTotalTransmission();
+
+    if (analyzer_direction.mag()>0.0) {
+        std::string direction_name = "analyzer_direction";
+        result << indent() << direction_name << " = kvector_t("
+               << printDouble(analyzer_direction.x()) << ", "
+               << printDouble(analyzer_direction.y()) << ", "
+               << printDouble(analyzer_direction.z()) << ")\n";
+        result << indent() << "simulation.setAnalyzerProperties("
+               << direction_name << ", "
+               << printDouble(analyzer_efficiency) << ", "
+               << printDouble(analyzer_total_transmission) << ")\n";
+    }
     return result.str();
 }
 
@@ -875,7 +873,6 @@ std::string ExportToPython::defineMasks(const GISASSimulation* simulation) const
         }
         result << "\n";
     }
-
     return result.str();
 }
 
@@ -915,7 +912,6 @@ std::string ExportToPython::defineMain(ExportToPython::EMainType mainType)
     } else {
         throw std::runtime_error("ExportToPython::defineMain() -> Error. Unknown main type.");
     }
-
     return result;
 }
 

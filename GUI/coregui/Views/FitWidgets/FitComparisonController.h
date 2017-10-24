@@ -43,6 +43,9 @@ private:
     void createRelativeDifferenceItem();
 
     PropertyRepeater* m_propertyRepeater;
+    PropertyRepeater* m_xAxisRepeater;
+    PropertyRepeater* m_yAxisRepeater;
+    PropertyRepeater* m_zAxisRepeater;
     IntensityDataItem* m_relativeDiffItem;
     SessionModel* m_tempIntensityDataModel;
 };

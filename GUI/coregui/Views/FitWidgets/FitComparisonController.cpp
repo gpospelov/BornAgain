@@ -18,10 +18,14 @@
 #include "SessionModel.h"
 #include "IntensityDataItem.h"
 #include "PropertyRepeater.h"
+#include "AxesItems.h"
 
 FitComparisonController::FitComparisonController(QObject* parent)
     : QObject(parent)
     , m_propertyRepeater(new PropertyRepeater(this))
+    , m_xAxisRepeater(new PropertyRepeater(this))
+    , m_yAxisRepeater(new PropertyRepeater(this))
+    , m_zAxisRepeater(new PropertyRepeater(this))
     , m_relativeDiffItem(nullptr)
     , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
 {
@@ -36,13 +40,25 @@ IntensityDataItem* FitComparisonController::diffItem()
 void FitComparisonController::setItems(IntensityDataItem* realDataItem,
                                        IntensityDataItem* simDataItem)
 {
-    m_propertyRepeater->addItem(realDataItem);
-    m_propertyRepeater->addItem(simDataItem);
+    m_xAxisRepeater->addItem(realDataItem->xAxisItem());
+    m_xAxisRepeater->addItem(simDataItem->xAxisItem());
+    m_xAxisRepeater->addItem(diffItem()->xAxisItem());
+
+    m_yAxisRepeater->addItem(realDataItem->yAxisItem());
+    m_yAxisRepeater->addItem(simDataItem->yAxisItem());
+    m_yAxisRepeater->addItem(diffItem()->yAxisItem());
+
+    m_zAxisRepeater->addItem(realDataItem->zAxisItem());
+    m_zAxisRepeater->addItem(simDataItem->zAxisItem());
 }
 
 void FitComparisonController::clear()
 {
     m_propertyRepeater->clear();
+
+    m_xAxisRepeater->clear();
+    m_yAxisRepeater->clear();
+    m_zAxisRepeater->clear();
 }
 
 void FitComparisonController::createRelativeDifferenceItem()

@@ -27,6 +27,8 @@
 #include "FitSuiteItem.h"
 #include "PropertyRepeater.h"
 #include "IntensityDataPropertyWidget.h"
+#include "AxesItems.h"
+#include "FitComparisonController.h"
 #include <QAction>
 #include <QGridLayout>
 #include <QLabel>
@@ -51,6 +53,7 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_relativeDiffItem(0)
     , m_resetViewAction(0)
     , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel"))
+    , m_comparisonController(new FitComparisonController(this))
 {
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->setMargin(0);
@@ -82,7 +85,7 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     connect(m_resetViewAction, SIGNAL(triggered()), this, SLOT(onResetViewAction()));
 
     m_relativeDiffItem = createRelativeDifferenceItem();
-    m_relativeDiffPlot->setItem(m_relativeDiffItem);
+    m_relativeDiffPlot->setItem(diffItem());
 
     m_propertyWidget->setVisible(false);
 }
@@ -131,7 +134,9 @@ void FitComparisonWidget::subscribeToItem()
 
     m_repeater->addItem(realDataItem());
     m_repeater->addItem(simulatedDataItem());
-    m_repeater->addItem(m_relativeDiffItem);
+
+    QStringList activeProperties = QStringList() << BasicAxisItem::P_MIN << BasicAxisItem::P_MAX;
+    m_repeater->addItem(diffItem(), activeProperties);
 
     m_propertyWidget->setItem(simulatedDataItem());
 }
@@ -149,7 +154,7 @@ void FitComparisonWidget::unsubscribeFromItem()
 
 void FitComparisonWidget::onResetViewAction()
 {
-    m_repeater->setActive(false);
+//    m_repeater->setActive(false);
 
     if (auto item = realDataItem())
         item->resetView();
@@ -157,12 +162,12 @@ void FitComparisonWidget::onResetViewAction()
     if (auto item = simulatedDataItem())
         item->resetView();
 
-    if (m_relativeDiffItem) {
-        m_relativeDiffItem->resetView();
-        m_relativeDiffItem->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
+    if (diffItem()) {
+        diffItem()->resetView();
+        diffItem()->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
     }
 
-    m_repeater->setActive(true);
+//    m_repeater->setActive(true);
 }
 
 //! Creates an IntensityDataItem which will hold relative difference map between simulation
@@ -185,14 +190,14 @@ void FitComparisonWidget::calculateRelativeDifference()
 
     Q_ASSERT(realDataItem());
     Q_ASSERT(simulatedDataItem());
-    Q_ASSERT(m_relativeDiffItem);
+    Q_ASSERT(diffItem());
 
-    m_relativeDiffItem->setOutputData(IntensityDataFunctions::createRelativeDifferenceData(
+    diffItem()->setOutputData(IntensityDataFunctions::createRelativeDifferenceData(
         *simulatedDataItem()->getOutputData(), *realDataItem()->getOutputData()));
 
-    m_relativeDiffItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getXaxisTitle());
-    m_relativeDiffItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getYaxisTitle());
-    m_relativeDiffItem->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
+    diffItem()->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getXaxisTitle());
+    diffItem()->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getYaxisTitle());
+    diffItem()->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
 }
 
 JobItem* FitComparisonWidget::jobItem()
@@ -210,4 +215,9 @@ IntensityDataItem* FitComparisonWidget::realDataItem()
 IntensityDataItem* FitComparisonWidget::simulatedDataItem()
 {
     return jobItem()->intensityDataItem();
+}
+
+IntensityDataItem* FitComparisonWidget::diffItem()
+{
+    return m_relativeDiffItem;
 }

@@ -29,6 +29,7 @@ class ColorMapLabel;
 class QAction;
 class IntensityDataPropertyWidget;
 class PropertyRepeater;
+class FitComparisonController;
 
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
@@ -57,6 +58,7 @@ private:
     JobItem* jobItem();
     IntensityDataItem* realDataItem();
     IntensityDataItem* simulatedDataItem();
+    IntensityDataItem* diffItem();
 
     ColorMapCanvas* m_realDataPlot;
     ColorMapCanvas* m_simulatedDataPlot;
@@ -69,6 +71,7 @@ private:
     IntensityDataItem* m_relativeDiffItem;
     QAction* m_resetViewAction;
     SessionModel* m_tempIntensityDataModel;
+    FitComparisonController* m_comparisonController;
 };
 
 #endif // FITCOMPARISONWIDGET_H

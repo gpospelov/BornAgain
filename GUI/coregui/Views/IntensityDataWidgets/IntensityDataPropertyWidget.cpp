@@ -70,7 +70,9 @@ void IntensityDataPropertyWidget::subscribeToItem()
 
 void IntensityDataPropertyWidget::unsubscribeFromItem()
 {
-    m_componentEditor->setItem(nullptr);
+    // FIXME Flaw in ComponentEditor design: setItem(nullptr) involves usage of old item
+    if (currentItem())
+        m_componentEditor->setItem(nullptr);
 }
 
 void IntensityDataPropertyWidget::contextMenuEvent(QContextMenuEvent*)

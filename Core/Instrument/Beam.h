@@ -47,6 +47,8 @@ public:
     //! Sets the polarization density matrix according to the given Bloch vector
     void setPolarization(const kvector_t bloch_vector);
 
+    kvector_t getBlochVector() const;
+
 #ifndef SWIG
     //! Returns the polarization density matrix (in spin basis along z-axis)
     Eigen::Matrix2cd getPolarization() const  { return m_polarization; }

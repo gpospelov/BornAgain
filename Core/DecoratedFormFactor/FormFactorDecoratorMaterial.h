@@ -41,8 +41,6 @@ public:
     //! Sets the ambient material
     void setAmbientMaterial(HomogeneousMaterial material) override;
 
-    complex_t getAmbientRefractiveIndex() const;
-
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 #ifndef SWIG
     //! Returns scattering amplitude for matrix interactions

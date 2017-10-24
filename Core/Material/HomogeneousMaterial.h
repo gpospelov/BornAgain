@@ -47,9 +47,8 @@ public:
     //! Constructs a material with inverted magnetization
     HomogeneousMaterial inverted() const;
 
-    complex_t refractiveIndex() const;
-    complex_t refractiveIndex2() const;
-    void setRefractiveIndex(const complex_t refractive_index);
+    complex_t refractiveIndex(double wavelength) const;
+    complex_t refractiveIndex2(double wavelength) const;
 
     //! Indicates whether the interaction with the material is scalar.
     //! This means that different polarization states will be diffracted equally
@@ -60,14 +59,15 @@ public:
     //! Get the magnetization (in A/m)
     kvector_t magnetization() const;
 
-    //! Set the magnetizationd (in A/m)
-    void setMagnetization(const kvector_t magnetization);
+    //! Returns underlying material data
+    complex_t materialData() const;
 
-    complex_t scalarSLD(const WavevectorInfo& wavevectors) const;
+    //! Returns \pi/(wl*wl) - sld, with wl being the wavelength
+    complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const;
 
 #ifndef SWIG
-    //! Get the scattering matrix for a material defined by its magnetization
-    Eigen::Matrix2cd polarizedSLD(const WavevectorInfo& wavevectors) const;
+    //! Returns \pi/(wl*wl) - sld matrix with magnetization corrections. wl denotes the wavelength
+    Eigen::Matrix2cd polarizedSubtrSLD(const WavevectorInfo& wavevectors) const;
 #endif
 
     HomogeneousMaterial transformedMaterial(const Transform3D& transform) const;

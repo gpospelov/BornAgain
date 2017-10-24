@@ -30,7 +30,7 @@ const QString analyzer_transmission_tooltip = "Total transmission of the polariz
 }
 
 const QString DetectorItem::T_MASKS = "Masks";
-const QString DetectorItem::P_RESOLUTION_FUNCTION = "ResolutionFunctions";
+const QString DetectorItem::P_RESOLUTION_FUNCTION = "Resolution function";
 const QString DetectorItem::P_ANALYZER_DIRECTION = "Analyzer direction";
 const QString DetectorItem::P_ANALYZER_EFFICIENCY = "Analyzer efficiency";
 const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION = "Total transmission";
@@ -58,6 +58,12 @@ std::unique_ptr<IDetector2D> DetectorItem::createDetector() const
 
     if (auto resFunc = createResolutionFunction())
         result->setResolutionFunction(*resFunc);
+
+    kvector_t analyzer_dir = getVectorItem(P_ANALYZER_DIRECTION);
+    double analyzer_eff = getItemValue(P_ANALYZER_EFFICIENCY).toDouble();
+    double analyzer_total_trans = getItemValue(P_ANALYZER_TOTAL_TRANSMISSION).toDouble();
+    if (analyzer_dir.mag() > 0.0)
+        result->setAnalyzerProperties(analyzer_dir, analyzer_eff, analyzer_total_trans);
 
     return result;
 }

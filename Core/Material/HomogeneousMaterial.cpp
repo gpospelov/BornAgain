@@ -68,23 +68,19 @@ HomogeneousMaterial HomogeneousMaterial::inverted() const
 {
     std::string name = isScalarMaterial() ? getName()
                                           : getName()+"_inv";
-    HomogeneousMaterial result(name, refractiveIndex(), -magnetization());
+    complex_t material_data = materialData();
+    HomogeneousMaterial result(name, material_data.real(), material_data.imag(), -magnetization());
     return result;
 }
 
-complex_t HomogeneousMaterial::refractiveIndex() const
+complex_t HomogeneousMaterial::refractiveIndex(double) const
 {
     return m_refractive_index;
 }
 
-complex_t HomogeneousMaterial::refractiveIndex2() const
+complex_t HomogeneousMaterial::refractiveIndex2(double) const
 {
     return m_refractive_index*m_refractive_index;
-}
-
-void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
-{
-    m_refractive_index = refractive_index;
 }
 
 bool HomogeneousMaterial::isScalarMaterial() const
@@ -97,23 +93,22 @@ kvector_t HomogeneousMaterial::magnetization() const
     return m_magnetization;
 }
 
-void HomogeneousMaterial::setMagnetization(const kvector_t magnetic_field)
+complex_t HomogeneousMaterial::materialData() const
 {
-    m_magnetization = magnetic_field;
+    return complex_t(1.0 - m_refractive_index.real(), m_refractive_index.imag());
 }
 
-complex_t HomogeneousMaterial::scalarSLD(const WavevectorInfo& wavevectors) const
+complex_t HomogeneousMaterial::scalarSubtrSLD(const WavevectorInfo& wavevectors) const
 {
     double wavelength = wavevectors.getWavelength();
     double prefactor = M_PI/wavelength/wavelength;
-    complex_t refractive_index = refractiveIndex();
-    return prefactor * refractive_index * refractive_index;
+    return prefactor * refractiveIndex2(wavelength);
 }
 
-Eigen::Matrix2cd HomogeneousMaterial::polarizedSLD(const WavevectorInfo& wavevectors) const
+Eigen::Matrix2cd HomogeneousMaterial::polarizedSubtrSLD(const WavevectorInfo& wavevectors) const
 {
     cvector_t mag_ortho = OrthogonalToBaseVector(wavevectors.getQ(), m_magnetization);
-    complex_t unit_factor = scalarSLD(wavevectors);
+    complex_t unit_factor = scalarSubtrSLD(wavevectors);
     Eigen::Matrix2cd result;
     result = unit_factor*Unit_Matrix
             + Magnetization_Prefactor*Pauli_X*mag_ortho[0]
@@ -125,7 +120,8 @@ Eigen::Matrix2cd HomogeneousMaterial::polarizedSLD(const WavevectorInfo& wavevec
 HomogeneousMaterial HomogeneousMaterial::transformedMaterial(const Transform3D& transform) const
 {
     kvector_t transformed_field = transform.transformed(m_magnetization);
-    return HomogeneousMaterial(getName(), refractiveIndex(), transformed_field);
+    complex_t material_data = materialData();
+    return HomogeneousMaterial(getName(), material_data.real(), material_data.imag(), transformed_field);
 }
 
 void HomogeneousMaterial::print(std::ostream& ostr) const
@@ -161,8 +157,8 @@ Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field,
 bool operator==(const HomogeneousMaterial& left, const HomogeneousMaterial& right)
 {
     if (left.getName() != right.getName()) return false;
-    if (left.refractiveIndex() != right.refractiveIndex()) return false;
     if (left.magnetization() != right.magnetization()) return false;
+    if (left.materialData() != right.materialData()) return false;
     return true;
 }
 

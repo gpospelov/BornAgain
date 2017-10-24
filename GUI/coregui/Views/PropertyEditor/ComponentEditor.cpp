@@ -193,7 +193,7 @@ ComponentEditor::componentItems(SessionItem *item) const
             result.append(child);
         }
 
-        else if (child->modelType() == Constants::RefractiveIndexType) {
+        else if (child->modelType() == Constants::MaterialDataType) {
             result.append(child);
         }
 

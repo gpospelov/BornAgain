@@ -235,34 +235,74 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
             setItemFromSample(azimuthalAngle, distributions[i]);
         }
     }
+
+    // polarization parameters
+    beamItem->setVectorItem(BeamItem::P_POLARIZATION, beam.getBlochVector());
 }
 
 void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrumentItem,
                                             const GISASSimulation& simulation)
 {
-    const IDetector2D* iDetector = simulation.getInstrument().getDetector();
+    const IDetector2D* p_detector = simulation.getInstrument().getDetector();
+    DetectorItem* detector_item;
 
-    if(auto detector = dynamic_cast<const SphericalDetector*>(iDetector)) {
+    if(auto detector = dynamic_cast<const SphericalDetector*>(p_detector)) {
         instrumentItem->setDetectorGroup(Constants::SphericalDetectorType);
-        auto item = dynamic_cast<SphericalDetectorItem*> (instrumentItem->detectorItem());
+        detector_item = instrumentItem->detectorItem();
+        auto item = dynamic_cast<SphericalDetectorItem*>(detector_item);
         setItemFromSample(item, *detector);
     }
-
-    else if(auto detector = dynamic_cast<const RectangularDetector*>(iDetector)) {
+    else if(auto detector = dynamic_cast<const RectangularDetector*>(p_detector)) {
         instrumentItem->setDetectorGroup(Constants::RectangularDetectorType);
-        auto item = dynamic_cast<RectangularDetectorItem*> (instrumentItem->detectorItem());
+        detector_item = instrumentItem->detectorItem();
+        auto item = dynamic_cast<RectangularDetectorItem*>(detector_item);
         setItemFromSample(item, *detector);
-
-        Q_ASSERT(item);
-        setItemFromSample(item,* detector);
     }
-
     else {
         throw GUIHelpers::Error(
             "TransformFromDomain::setInstrumentDetectorFromSample(DetectorItem*) -> Unknown detector type.");
     }
+    // detector resolution
+    if (const IDetectorResolution* p_resfunc = p_detector->detectorResolution()) {
+        if (const ConvolutionDetectorResolution* p_convfunc
+            = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
+            if (const ResolutionFunction2DGaussian* resfunc
+                = dynamic_cast<const ResolutionFunction2DGaussian*>(
+                    p_convfunc->getResolutionFunction2D())) {
+                SessionItem* item
+                    = detector_item->setGroupProperty(DetectorItem::P_RESOLUTION_FUNCTION,
+                                                     Constants::ResolutionFunction2DGaussianType);
+                double scale(1.0);
+                if(detector_item->modelType() == Constants::SphericalDetectorType)
+                    scale = 1./Units::degree;
+                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_X,
+                                   scale*resfunc->getSigmaX());
+                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
+                                   scale*resfunc->getSigmaY());
+            } else {
+                throw GUIHelpers::Error("TransformFromDomain::setInstrumentDetectorFromSample("
+                                        "InstrumentItem* instrumentItem, const GISASSimulation& "
+                                        "simulation) -> Error, unknown detector resolution "
+                                        "function");
+            }
+        } else {
+            throw GUIHelpers::Error(
+                "TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* "
+                "instrumentItem, const GISASSimulation& simulation) -> Error, not a "
+                "ConvolutionDetectorResolution function");
+        }
+    }
+    // polarization analysis parameters
+    double total_transmission = p_detector->analyzerTotalTransmission();
+    if (total_transmission>0.0) {
+        kvector_t analyzer_dir = p_detector->analyzerDirection();
+        double efficiency = p_detector->analyzerEfficiency();
+        detector_item->setVectorItem(DetectorItem::P_ANALYZER_DIRECTION, analyzer_dir);
+        detector_item->setItemValue(DetectorItem::P_ANALYZER_EFFICIENCY, efficiency);
+        detector_item->setItemValue(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION,
+                                    total_transmission);
+    }
 }
-
 
 void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
                                             const SphericalDetector& detector)
@@ -284,34 +324,6 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
     alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.size());
     alphaAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
     alphaAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(alpha_axis.getMax()));
-
-    // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
-        if (const ConvolutionDetectorResolution* p_convfunc
-            = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
-            if (const ResolutionFunction2DGaussian* resfunc
-                = dynamic_cast<const ResolutionFunction2DGaussian*>(
-                    p_convfunc->getResolutionFunction2D())) {
-                SessionItem* item
-                    = detectorItem->setGroupProperty(SphericalDetectorItem::P_RESOLUTION_FUNCTION,
-                                                     Constants::ResolutionFunction2DGaussianType);
-                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_X,
-                                            Units::rad2deg(resfunc->getSigmaX()));
-                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
-                                            Units::rad2deg(resfunc->getSigmaY()));
-            } else {
-                throw GUIHelpers::Error("TransformFromDomain::setItemFromSample("
-                                        "SphericalDetectorItem* detectorItem, const GISASSimulation "
-                                        "&simulation) -> Error, unknown detector resolution "
-                                        "function");
-            }
-        } else {
-            throw GUIHelpers::Error(
-                "TransformFromDomain::setItemFromSample(SphericalDetectorItem "
-                "*detectorItem, const GISASSimulation& simulation) -> Error, not a "
-                "ConvolutionDetectorResolution function");
-        }
-    }
 }
 
 
@@ -335,20 +347,10 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_GENERIC);
 
         kvector_t normal = detector.getNormalVector();
-        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
-            VectorItem::P_X, normal.x());
-        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
-            VectorItem::P_Y, normal.y());
-        detectorItem->getItem(RectangularDetectorItem::P_NORMAL)->setItemValue(
-            VectorItem::P_Z, normal.z());
+        detectorItem->setVectorItem(RectangularDetectorItem::P_NORMAL, normal);
 
         kvector_t direction = detector.getDirectionVector();
-        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
-            VectorItem::P_X, direction.x());
-        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
-            VectorItem::P_Y, direction.y());
-        detectorItem->getItem(RectangularDetectorItem::P_DIRECTION)->setItemValue(
-            VectorItem::P_Z, direction.z());
+        detectorItem->setVectorItem(RectangularDetectorItem::P_DIRECTION, direction);
 
         detectorItem->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());
         detectorItem->setItemValue(RectangularDetectorItem::P_V0, detector.getV0());
@@ -392,37 +394,10 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
             "TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorItem "
             "Error. Unknown detector arrangement");
     }
-
-    // detector resolution
-    if (const IDetectorResolution* p_resfunc = detector.detectorResolution()) {
-        if (const ConvolutionDetectorResolution* p_convfunc
-            = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
-            if (const ResolutionFunction2DGaussian* resfunc
-                = dynamic_cast<const ResolutionFunction2DGaussian*>(
-                    p_convfunc->getResolutionFunction2D())) {
-                SessionItem* item
-                    = detectorItem->setGroupProperty(RectangularDetectorItem::P_RESOLUTION_FUNCTION,
-                                                     Constants::ResolutionFunction2DGaussianType);
-                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_X,
-                                            resfunc->getSigmaX());
-                item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
-                                            resfunc->getSigmaY());
-            } else {
-                throw GUIHelpers::Error("TransformFromDomain::setItemFromSample("
-                                        "RectangularDetectorItem* detectorItem, const GISASSimulation "
-                                        "&simulation) -> Error, unknown detector resolution "
-                                        "function");
-            }
-        } else {
-            throw GUIHelpers::Error(
-                "TransformFromDomain::setItemFromSample(RectangularDetectorItem "
-                "*detectorItem, const GISASSimulation& simulation) -> Error, not a "
-                "ConvolutionDetectorResolution function");
-        }
-    }
 }
 
-void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem, const GISASSimulation& simulation)
+void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem,
+                                           const GISASSimulation& simulation)
 {
     const IDetector2D* detector = simulation.getInstrument().getDetector();
     if( (detector->getDetectorMask() && detector->getDetectorMask()->numberOfMasks()) ||

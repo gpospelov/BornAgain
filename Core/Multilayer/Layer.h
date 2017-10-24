@@ -51,9 +51,6 @@ public:
     const HomogeneousMaterial* material() const override final { return &m_material; }
     void setMaterial(HomogeneousMaterial material);
 
-    complex_t refractiveIndex() const;
-    complex_t refractiveIndex2() const; //!< squared refractive index
-
     void addLayout(const ILayout& decoration);
     size_t numberOfLayouts() const { return m_layouts.size(); }
     std::vector<const ILayout*> layouts() const;

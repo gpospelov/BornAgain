@@ -40,7 +40,7 @@ public:
 
 private:
     double evaluate(const SimulationElement& sim_element) const;
-    complex_t get_refractive_term(size_t ilayer) const;
+    complex_t get_refractive_term(size_t ilayer, double wavelength) const;
     complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element) const;
 };
 

@@ -18,17 +18,18 @@
 #include "GroupItem.h"
 #include "GroupPropertyRegistry.h"
 #include "ItemFactory.h"
-#include "SessionModel.h"
 #include "ParameterTranslators.h"
+#include "SessionModel.h"
+#include "VectorItem.h"
 
 class SessionItemData
 {
 public:
     inline SessionItemData() : role(-1) {}
-    inline SessionItemData(int r, const QVariant &v) : role(r), value(v) {}
+    inline SessionItemData(int r, const QVariant& v) : role(r), value(v) {}
     int role;
     QVariant value;
-    inline bool operator==(const SessionItemData &other) const {
+    inline bool operator==(const SessionItemData& other) const {
         return role == other.role && value == other.value;
     }
 };
@@ -37,7 +38,7 @@ const QString SessionItem::P_NAME = "Name";
 
 //! Constructs new item with given model type. The type must be defined.
 
-SessionItem::SessionItem(const QString &modelType)
+SessionItem::SessionItem(const QString& modelType)
     : m_parent(nullptr)
     , m_model(nullptr)
 {
@@ -58,7 +59,7 @@ SessionItem::~SessionItem()
 
     QVector<SessionItem*>::const_iterator it;
     for (it = m_children.constBegin(); it != m_children.constEnd(); ++it) {
-        SessionItem *child = *it;
+        SessionItem* child = *it;
         if (child)
             child->setModel(nullptr);
         delete child;
@@ -72,7 +73,7 @@ SessionItem::~SessionItem()
 }
 
 //! internal
-void SessionItem::childDeleted(SessionItem *child)
+void SessionItem::childDeleted(SessionItem* child)
 {
     int index = rowOfChild(child);
     Q_ASSERT(index != -1);
@@ -80,21 +81,21 @@ void SessionItem::childDeleted(SessionItem *child)
 }
 
 //! internal
-void SessionItem::setParentAndModel(SessionItem *parent, SessionModel *model)
+void SessionItem::setParentAndModel(SessionItem* parent, SessionModel* model)
 {
     setModel(model);
     m_parent = parent;
 }
 
 //! internal
-void SessionItem::setModel(SessionModel *model)
+void SessionItem::setModel(SessionModel* model)
 {
     m_model = model;
     if (m_mapper) {
         m_mapper->setItem(this);
     }
     // process children as well
-    for (auto &child : m_children) {
+    for (auto& child : m_children) {
         child->setModel(model);
     }
 }
@@ -103,14 +104,14 @@ void SessionItem::setModel(SessionModel *model)
 
 //! Returns model of this item.
 
-SessionModel *SessionItem::model() const
+SessionModel* SessionItem::model() const
 {
     return m_model;
 }
 
 //! Returns parent of this item.
 
-SessionItem *SessionItem::parent() const
+SessionItem* SessionItem::parent() const
 {
     return m_parent;
 }
@@ -141,7 +142,7 @@ int SessionItem::rowCount() const
 
 //! Returns vector of all children.
 
-QVector<SessionItem *> SessionItem::childItems() const
+QVector<SessionItem*> SessionItem::childItems() const
 {
     return m_children;
 }
@@ -149,14 +150,14 @@ QVector<SessionItem *> SessionItem::childItems() const
 
 //! Returns the child at the given row.
 
-SessionItem *SessionItem::childAt(int row) const
+SessionItem* SessionItem::childAt(int row) const
 {
     return m_children.value(row, nullptr);
 }
 
 //! Returns row index of given child.
 
-int SessionItem::rowOfChild(SessionItem *child) const
+int SessionItem::rowOfChild(SessionItem* child) const
 {
     return m_children.indexOf(child);
 }
@@ -172,7 +173,7 @@ int SessionItem::parentRow() const
 }
 
 //! Returns the first child with the given name.
-SessionItem *SessionItem::getChildByName(const QString &name) const
+SessionItem* SessionItem::getChildByName(const QString& name) const
 {
     for (auto child : m_children) {
         if (child->itemName() == name) return child;
@@ -182,7 +183,7 @@ SessionItem *SessionItem::getChildByName(const QString &name) const
 
 //! Returns the first child of the given type.
 
-SessionItem *SessionItem::getChildOfType(const QString &type) const
+SessionItem* SessionItem::getChildOfType(const QString& type) const
 {
     for (auto child : m_children) {
         if (child->modelType() == type) return child;
@@ -192,9 +193,9 @@ SessionItem *SessionItem::getChildOfType(const QString &type) const
 
 //! Returns a vector of all children of the given type.
 
-QVector<SessionItem *> SessionItem::getChildrenOfType(const QString &model_type) const
+QVector<SessionItem*> SessionItem::getChildrenOfType(const QString& model_type) const
 {
-    QVector<SessionItem *> result;
+    QVector<SessionItem*> result;
     for (auto child : m_children) {
         if (child->modelType() == model_type)
             result.append(child);
@@ -204,9 +205,9 @@ QVector<SessionItem *> SessionItem::getChildrenOfType(const QString &model_type)
 
 //! Removes row from item and returns the item.
 
-SessionItem *SessionItem::takeRow(int row)
+SessionItem* SessionItem::takeRow(int row)
 {
-    SessionItem *item = childAt(row);
+    SessionItem* item = childAt(row);
     QString tag = tagFromItem(item);
     auto items = getItems(tag);
     return takeItem(items.indexOf(item), tag);
@@ -215,7 +216,7 @@ SessionItem *SessionItem::takeRow(int row)
 //! Add new tag to this item with given name, min, max and types.
 //! max = -1 -> unlimited, modelTypes empty -> all types allowed
 
-bool SessionItem::registerTag(const QString &name, int min, int max, QStringList modelTypes)
+bool SessionItem::registerTag(const QString& name, int min, int max, QStringList modelTypes)
 {
     if (min < 0 || (min > max && max >= 0))
         return false;
@@ -227,14 +228,14 @@ bool SessionItem::registerTag(const QString &name, int min, int max, QStringList
 
 //! Returns true if tag is available.
 
-bool SessionItem::isTag(const QString &name) const
+bool SessionItem::isTag(const QString& name) const
 {
     return getTagInfo(name).isValid();
 }
 
 //! Returns the tag name of given item when existing.
 
-QString SessionItem::tagFromItem(const SessionItem *item) const
+QString SessionItem::tagFromItem(const SessionItem* item) const
 {
     int index = m_children.indexOf(const_cast<SessionItem*>(item));
     if (index == -1)
@@ -253,7 +254,7 @@ QString SessionItem::tagFromItem(const SessionItem *item) const
 
 //! Returns corresponding tag info.
 
-SessionTagInfo SessionItem::getTagInfo(const QString &tag) const
+SessionTagInfo SessionItem::getTagInfo(const QString& tag) const
 {
     QString tagName = tag.isEmpty() ? defaultTag() : tag;
     QVector<SessionTagInfo>::const_iterator it;
@@ -267,7 +268,7 @@ SessionTagInfo SessionItem::getTagInfo(const QString &tag) const
 
 //! Returns true if model type can be added to default tag.
 
-bool SessionItem::acceptsAsDefaultItem(const QString &item_name) const
+bool SessionItem::acceptsAsDefaultItem(const QString& item_name) const
 {
     return getTagInfo(defaultTag()).modelTypes.contains(item_name);
 }
@@ -280,7 +281,7 @@ QVector<QString> SessionItem::acceptableDefaultItemTypes() const
 }
 
 //! internal
-int SessionItem::tagStartIndex(const QString &name) const
+int SessionItem::tagStartIndex(const QString& name) const
 {
     int index = 0;
     QVector<SessionTagInfo>::const_iterator it;
@@ -297,7 +298,7 @@ int SessionItem::tagStartIndex(const QString &name) const
 
 //! Returns item in given row of given tag.
 
-SessionItem *SessionItem::getItem(const QString &tag, int row) const
+SessionItem* SessionItem::getItem(const QString& tag, int row) const
 {
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
     SessionTagInfo tagInfo = getTagInfo(tagName);
@@ -314,7 +315,7 @@ SessionItem *SessionItem::getItem(const QString &tag, int row) const
 
 //! Returns vector of all items of given tag.
 
-QVector<SessionItem *> SessionItem::getItems(const QString &tag) const
+QVector<SessionItem*> SessionItem::getItems(const QString& tag) const
 {
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
     SessionTagInfo tagInfo = getTagInfo(tagName);
@@ -327,7 +328,7 @@ QVector<SessionItem *> SessionItem::getItems(const QString &tag) const
 
 //! Insert item into given tag into given row.
 
-bool SessionItem::insertItem(int row, SessionItem *item, const QString &tag)
+bool SessionItem::insertItem(int row, SessionItem* item, const QString& tag)
 {
     if (!item)
         return false;
@@ -373,7 +374,7 @@ bool SessionItem::insertItem(int row, SessionItem *item, const QString &tag)
 
 //! Remove item from given row from given tag.
 
-SessionItem *SessionItem::takeItem(int row, const QString &tag)
+SessionItem* SessionItem::takeItem(int row, const QString& tag)
 {
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
     SessionTagInfo tagInfo = getTagInfo(tagName);
@@ -387,7 +388,7 @@ SessionItem *SessionItem::takeItem(int row, const QString &tag)
     Q_ASSERT(index >= 0 && index <= m_children.size());
     if (m_model)
             m_model->beginRemoveRows(this->index(),index, index);
-    SessionItem *result = m_children.takeAt(index);
+    SessionItem* result = m_children.takeAt(index);
     result->setParentAndModel(nullptr, nullptr);
 
     QVector<SessionTagInfo>::iterator it;
@@ -405,14 +406,14 @@ SessionItem *SessionItem::takeItem(int row, const QString &tag)
 
 //! Add new property item and register new tag.
 
-SessionItem *SessionItem::addProperty(const QString &name, const QVariant &variant)
+SessionItem* SessionItem::addProperty(const QString& name, const QVariant& variant)
 {
     if (isTag(name))
         throw GUIHelpers::Error(
             "ParameterizedItem::registerProperty() -> Error. Already existing property " + name);
 
     const QString property_type = Constants::PropertyType;
-    SessionItem *property = ItemFactory::createItem(property_type);
+    SessionItem* property = ItemFactory::createItem(property_type);
     property->setDisplayName(name);
     registerTag(name, 1, 1, QStringList() << property_type);
     if(!insertItem(0, property, name)) {
@@ -424,7 +425,7 @@ SessionItem *SessionItem::addProperty(const QString &name, const QVariant &varia
 
 //! Directly access value of item under given tag.
 
-QVariant SessionItem::getItemValue(const QString &tag) const
+QVariant SessionItem::getItemValue(const QString& tag) const
 {
     if (!isTag(tag))
         throw GUIHelpers::Error(
@@ -434,26 +435,44 @@ QVariant SessionItem::getItemValue(const QString &tag) const
     return getItem(tag)->value();
 }
 
+kvector_t SessionItem::getVectorItem(const QString& name) const
+{
+    SessionItem* vectorItem = getItem(name);
+    Q_ASSERT(vectorItem);
+    double x = vectorItem->getItemValue(VectorItem::P_X).toDouble();
+    double y = vectorItem->getItemValue(VectorItem::P_Y).toDouble();
+    double z = vectorItem->getItemValue(VectorItem::P_Z).toDouble();
+    return { x, y, z };
+}
+
 //! Directly set value of item under given tag.
 
-void SessionItem::setItemValue(const QString &tag, const QVariant &variant)
+void SessionItem::setItemValue(const QString& tag, const QVariant& variant)
 {
     if (!isTag(tag))
         throw GUIHelpers::Error("Property not existing!");
 
-     getItem(tag)->setValue(variant);
+    getItem(tag)->setValue(variant);
+}
+
+void SessionItem::setVectorItem(const QString& name, kvector_t value)
+{
+    auto p_vector_item = getItem(name);
+    p_vector_item->setItemValue(VectorItem::P_X, value.x());
+    p_vector_item->setItemValue(VectorItem::P_Y, value.y());
+    p_vector_item->setItemValue(VectorItem::P_Z, value.z());
 }
 
 //! Creates new group item and register new tag, returns GroupItem.
 
-SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QString &groupType)
+SessionItem* SessionItem::addGroupProperty(const QString& groupName, const QString& groupType)
 {
-    SessionItem *result(0);
+    SessionItem* result(0);
 
     if(GroupPropertyRegistry::isValidGroup(groupType)) {
         // create group item
         GroupProperty_t group_property = GroupPropertyRegistry::createGroupProperty(groupType);
-        GroupItem *groupItem = dynamic_cast<GroupItem *>(
+        GroupItem* groupItem = dynamic_cast<GroupItem*>(
                     ItemFactory::createItem(Constants::GroupItemType));
         Q_ASSERT(groupItem);
         groupItem->setGroup(group_property);
@@ -478,14 +497,14 @@ SessionItem *SessionItem::addGroupProperty(const QString &groupName, const QStri
 
 //! Access subitem of group item.
 
-SessionItem *SessionItem::getGroupItem(const QString &groupName) const
+SessionItem* SessionItem::getGroupItem(const QString& groupName) const
 {
     return item<GroupItem>(groupName).currentItem();
 }
 
 //! Set the current type of group item.
 
-SessionItem *SessionItem::setGroupProperty(const QString &groupName, const QString &value) const
+SessionItem* SessionItem::setGroupProperty(const QString& groupName, const QString& value) const
 {
     return item<GroupItem>(groupName).setCurrentType(value);
 }
@@ -505,7 +524,7 @@ QVariant SessionItem::data(int role) const
 
 //! Set variant to role, create role if not present yet.
 
-bool SessionItem::setData(int role, const QVariant &value)
+bool SessionItem::setData(int role, const QVariant& value)
 {
     role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
     QVector<SessionItemData>::iterator it;
@@ -615,7 +634,7 @@ QString SessionItem::defaultTag() const
 
 //! Set default tag
 
-void SessionItem::setDefaultTag(const QString &tag)
+void SessionItem::setDefaultTag(const QString& tag)
 {
     setData(SessionModel::DefaultTagRole, tag);
 }
@@ -650,13 +669,13 @@ QString SessionItem::displayName() const
 
 //! Set display name
 
-void SessionItem::setDisplayName(const QString &display_name)
+void SessionItem::setDisplayName(const QString& display_name)
 {
     setData(SessionModel::DisplayNameRole, display_name);
 }
 
 //! internal
-int SessionItem::getCopyNumberOfChild(const SessionItem *item) const
+int SessionItem::getCopyNumberOfChild(const SessionItem* item) const
 {
     if (!item) return -1;
     int result = -1;
@@ -689,7 +708,7 @@ QString SessionItem::itemName() const
 
 //! Set item name, add property if necessary.
 
-void SessionItem::setItemName(const QString &name)
+void SessionItem::setItemName(const QString& name)
 {
     if (isTag(P_NAME)) {
         setItemValue(P_NAME, name);
@@ -697,7 +716,7 @@ void SessionItem::setItemName(const QString &name)
         addProperty(P_NAME, name);
         // when name changes, than parent should be notified about it
         mapper()->setOnPropertyChange(
-                    [this] (const QString &name)
+                    [this] (const QString& name)
         {
             if (name == P_NAME)
                 emitDataChanged();
@@ -746,7 +765,7 @@ RealLimits SessionItem::limits() const
     return data(SessionModel::LimitsRole).value<RealLimits>();
 }
 
-SessionItem& SessionItem::setLimits(const RealLimits &value)
+SessionItem& SessionItem::setLimits(const RealLimits& value)
 {
     this->setData(SessionModel::LimitsRole, QVariant::fromValue<RealLimits>(value));
     return *this;
@@ -768,7 +787,7 @@ QString SessionItem::toolTip() const
     return data(Qt::ToolTipRole).toString();
 }
 
-SessionItem& SessionItem::setToolTip(const QString &tooltip)
+SessionItem& SessionItem::setToolTip(const QString& tooltip)
 {
     setData(Qt::ToolTipRole, tooltip);
     return *this;
@@ -783,7 +802,7 @@ QString SessionItem::itemLabel() const
 
 //! Returns the current model mapper of this item. Creates new one if necessary.
 
-ModelMapper *SessionItem::mapper()
+ModelMapper* SessionItem::mapper()
 {
     if (!m_mapper) {
         m_mapper = std::unique_ptr<ModelMapper>(new ModelMapper);

@@ -83,6 +83,11 @@ public:
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission);
 
+    //! Get analyzer properties
+    kvector_t analyzerDirection() const;
+    double analyzerEfficiency() const;  //!< will always return a positive number
+    double analyzerTotalTransmission() const;
+
     //! Removes all masks from the detector
     void removeMasks();
 

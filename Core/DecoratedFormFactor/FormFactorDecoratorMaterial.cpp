@@ -47,11 +47,6 @@ void FormFactorDecoratorMaterial::setAmbientMaterial(HomogeneousMaterial materia
     m_ambient_material = std::move(material);
 }
 
-complex_t FormFactorDecoratorMaterial::getAmbientRefractiveIndex() const
-{
-    return m_ambient_material.refractiveIndex();
-}
-
 complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const
 {
     return getRefractiveIndexFactor(wavevectors)*mp_form_factor->evaluate(wavevectors);
@@ -66,13 +61,13 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& 
     time_reverse_conj(1, 0) = -1.0;
     // the interaction and time reversal taken together:
     Eigen::Matrix2cd V_eff = time_reverse_conj
-                             * (  m_material.polarizedSLD(wavevectors)
-                                - m_ambient_material.polarizedSLD(wavevectors) );
+                             * (  m_material.polarizedSubtrSLD(wavevectors)
+                                - m_ambient_material.polarizedSubtrSLD(wavevectors) );
     return mp_form_factor->evaluate(wavevectors) * V_eff;
 }
 
 complex_t FormFactorDecoratorMaterial::getRefractiveIndexFactor(
         const WavevectorInfo& wavevectors) const
 {
-    return m_material.scalarSLD(wavevectors) - m_ambient_material.scalarSLD(wavevectors);
+    return m_material.scalarSubtrSLD(wavevectors) - m_ambient_material.scalarSubtrSLD(wavevectors);
 }

@@ -3774,6 +3774,11 @@ class Beam(INode):
         return _libBornAgainCore.Beam_setPolarization(self, bloch_vector)
 
 
+    def getBlochVector(self):
+        """getBlochVector(Beam self) -> kvector_t"""
+        return _libBornAgainCore.Beam_getBlochVector(self)
+
+
     def getWavelength(self):
         """
         getWavelength(Beam self) -> double
@@ -17824,34 +17829,24 @@ class HomogeneousMaterial(INamed):
         return _libBornAgainCore.HomogeneousMaterial_inverted(self)
 
 
-    def refractiveIndex(self):
+    def refractiveIndex(self, wavelength):
         """
-        refractiveIndex(HomogeneousMaterial self) -> complex_t
+        refractiveIndex(HomogeneousMaterial self, double wavelength) -> complex_t
 
         complex_t HomogeneousMaterial::refractiveIndex() const 
 
         """
-        return _libBornAgainCore.HomogeneousMaterial_refractiveIndex(self)
+        return _libBornAgainCore.HomogeneousMaterial_refractiveIndex(self, wavelength)
 
 
-    def refractiveIndex2(self):
+    def refractiveIndex2(self, wavelength):
         """
-        refractiveIndex2(HomogeneousMaterial self) -> complex_t
+        refractiveIndex2(HomogeneousMaterial self, double wavelength) -> complex_t
 
         complex_t HomogeneousMaterial::refractiveIndex2() const 
 
         """
-        return _libBornAgainCore.HomogeneousMaterial_refractiveIndex2(self)
-
-
-    def setRefractiveIndex(self, refractive_index):
-        """
-        setRefractiveIndex(HomogeneousMaterial self, complex_t const refractive_index)
-
-        void HomogeneousMaterial::setRefractiveIndex(const complex_t refractive_index)
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_setRefractiveIndex(self, refractive_index)
+        return _libBornAgainCore.HomogeneousMaterial_refractiveIndex2(self, wavelength)
 
 
     def isScalarMaterial(self):
@@ -17888,26 +17883,14 @@ class HomogeneousMaterial(INamed):
         return _libBornAgainCore.HomogeneousMaterial_magnetization(self)
 
 
-    def setMagnetization(self, magnetization):
-        """
-        setMagnetization(HomogeneousMaterial self, kvector_t magnetization)
-
-        void HomogeneousMaterial::setMagnetization(const kvector_t magnetization)
-
-        Set the magnetizationd (in A/m) 
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_setMagnetization(self, magnetization)
+    def materialData(self):
+        """materialData(HomogeneousMaterial self) -> complex_t"""
+        return _libBornAgainCore.HomogeneousMaterial_materialData(self)
 
 
-    def scalarSLD(self, wavevectors):
-        """
-        scalarSLD(HomogeneousMaterial self, WavevectorInfo wavevectors) -> complex_t
-
-        complex_t HomogeneousMaterial::scalarSLD(const WavevectorInfo &wavevectors) const 
-
-        """
-        return _libBornAgainCore.HomogeneousMaterial_scalarSLD(self, wavevectors)
+    def scalarSubtrSLD(self, wavevectors):
+        """scalarSubtrSLD(HomogeneousMaterial self, WavevectorInfo wavevectors) -> complex_t"""
+        return _libBornAgainCore.HomogeneousMaterial_scalarSubtrSLD(self, wavevectors)
 
 
     def transformedMaterial(self, transform):
@@ -18114,6 +18097,21 @@ class IDetector2D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IDetector2D_setAnalyzerProperties(self, direction, efficiency, total_transmission)
+
+
+    def analyzerDirection(self):
+        """analyzerDirection(IDetector2D self) -> kvector_t"""
+        return _libBornAgainCore.IDetector2D_analyzerDirection(self)
+
+
+    def analyzerEfficiency(self):
+        """analyzerEfficiency(IDetector2D self) -> double"""
+        return _libBornAgainCore.IDetector2D_analyzerEfficiency(self)
+
+
+    def analyzerTotalTransmission(self):
+        """analyzerTotalTransmission(IDetector2D self) -> double"""
+        return _libBornAgainCore.IDetector2D_analyzerTotalTransmission(self)
 
 
     def removeMasks(self):
@@ -22191,28 +22189,6 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_setMaterial(self, material)
 
 
-    def refractiveIndex(self):
-        """
-        refractiveIndex(Layer self) -> complex_t
-
-        complex_t Layer::refractiveIndex() const 
-
-        """
-        return _libBornAgainCore.Layer_refractiveIndex(self)
-
-
-    def refractiveIndex2(self):
-        """
-        refractiveIndex2(Layer self) -> complex_t
-
-        complex_t Layer::refractiveIndex2() const
-
-        squared refractive index 
-
-        """
-        return _libBornAgainCore.Layer_refractiveIndex2(self)
-
-
     def addLayout(self, decoration):
         """
         addLayout(Layer self, ILayout decoration)
@@ -24532,16 +24508,6 @@ class Particle(IParticle):
 
         """
         return _libBornAgainCore.Particle_material(self)
-
-
-    def refractiveIndex(self):
-        """
-        refractiveIndex(Particle self) -> complex_t
-
-        complex_t Particle::refractiveIndex() const 
-
-        """
-        return _libBornAgainCore.Particle_refractiveIndex(self)
 
 
     def setFormFactor(self, form_factor):

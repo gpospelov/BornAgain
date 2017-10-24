@@ -25,7 +25,7 @@ class BA_CORE_API_ MaterialItem : public SessionItem
 {
 public:
     static const QString P_COLOR;
-    static const QString P_REFRACTIVE_INDEX;
+    static const QString P_MATERIAL_DATA;
     static const QString P_MAGNETIZATION;
     static const QString P_IDENTIFIER;
     explicit MaterialItem();

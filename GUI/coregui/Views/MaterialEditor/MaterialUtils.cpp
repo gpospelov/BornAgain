@@ -15,14 +15,14 @@
 // ************************************************************************** //
 
 #include "MaterialUtils.h"
+
+#include "MaterialDataItem.h"
 #include "ComboProperty.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include "HomogeneousMaterial.h"
-#include "MagneticFieldItem.h"
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
-#include "RefractiveIndexItem.h"
 #include "ParticleItem.h"
 #include "LayerItem.h"
 

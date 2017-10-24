@@ -49,7 +49,6 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_fitFlowWidget(new FitFlowWidget)
     , m_statusLabel(new ColorMapLabel(0, this))
     , m_propertyWidget(new IntensityDataPropertyWidget)
-    , m_repeater(new PropertyRepeater(this))
     , m_resetViewAction(0)
     , m_comparisonController(new FitComparisonController(this))
 {
@@ -128,11 +127,7 @@ void FitComparisonWidget::subscribeToItem()
     m_statusLabel->addColorMap(m_simulatedDataPlot);
     m_statusLabel->addColorMap(m_relativeDiffPlot);
 
-    m_repeater->addItem(realDataItem());
-    m_repeater->addItem(simulatedDataItem());
-
-//    QStringList activeProperties = QStringList() << BasicAxisItem::P_MIN << BasicAxisItem::P_MAX;
-//    m_repeater->addItem(diffItem(), activeProperties);
+    m_comparisonController->setItems(realDataItem(), simulatedDataItem());
 
     m_propertyWidget->setItem(simulatedDataItem());
 }
@@ -145,13 +140,11 @@ void FitComparisonWidget::unsubscribeFromItem()
     if (simulatedDataItem())
         simulatedDataItem()->mapper()->unsubscribe(this);
 
-    m_repeater->clear();
+    m_comparisonController->clear();
 }
 
 void FitComparisonWidget::onResetViewAction()
 {
-//    m_repeater->setActive(false);
-
     if (auto item = realDataItem())
         item->resetView();
 
@@ -162,8 +155,6 @@ void FitComparisonWidget::onResetViewAction()
         diffItem()->resetView();
         diffItem()->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
     }
-
-//    m_repeater->setActive(true);
 }
 
 void FitComparisonWidget::calculateRelativeDifference()

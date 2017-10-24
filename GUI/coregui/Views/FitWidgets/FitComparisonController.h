@@ -22,6 +22,7 @@
 
 class SessionModel;
 class IntensityDataItem;
+class PropertyRepeater;
 
 //! Provides syncronization between certain properties of fit related IntensityDataItems.
 //! Part of FitComparisonWidget.
@@ -34,9 +35,14 @@ public:
 
     IntensityDataItem* diffItem();
 
+    void setItems(IntensityDataItem* realDataItem, IntensityDataItem* simDataItem);
+
+    void clear();
+
 private:
     void createRelativeDifferenceItem();
 
+    PropertyRepeater* m_propertyRepeater;
     IntensityDataItem* m_relativeDiffItem;
     SessionModel* m_tempIntensityDataModel;
 };

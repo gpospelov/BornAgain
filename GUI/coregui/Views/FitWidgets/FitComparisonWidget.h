@@ -64,7 +64,6 @@ private:
     FitFlowWidget* m_fitFlowWidget;
     ColorMapLabel* m_statusLabel;
     IntensityDataPropertyWidget* m_propertyWidget;
-    PropertyRepeater* m_repeater;
 
     QAction* m_resetViewAction;
     FitComparisonController* m_comparisonController;

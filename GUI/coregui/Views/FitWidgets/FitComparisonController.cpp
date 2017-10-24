@@ -17,9 +17,11 @@
 #include "FitComparisonController.h"
 #include "SessionModel.h"
 #include "IntensityDataItem.h"
+#include "PropertyRepeater.h"
 
 FitComparisonController::FitComparisonController(QObject* parent)
     : QObject(parent)
+    , m_propertyRepeater(new PropertyRepeater(this))
     , m_relativeDiffItem(nullptr)
     , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
 {
@@ -29,6 +31,18 @@ FitComparisonController::FitComparisonController(QObject* parent)
 IntensityDataItem* FitComparisonController::diffItem()
 {
     return m_relativeDiffItem;
+}
+
+void FitComparisonController::setItems(IntensityDataItem* realDataItem,
+                                       IntensityDataItem* simDataItem)
+{
+    m_propertyRepeater->addItem(realDataItem);
+    m_propertyRepeater->addItem(simDataItem);
+}
+
+void FitComparisonController::clear()
+{
+    m_propertyRepeater->clear();
 }
 
 void FitComparisonController::createRelativeDifferenceItem()

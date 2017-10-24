@@ -290,7 +290,15 @@ void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instru
         }
     }
     // polarization analysis parameters
-
+    double total_transmission = p_detector->analyzerTotalTransmission();
+    if (total_transmission>0.0) {
+        kvector_t analyzer_dir = p_detector->analyzerDirection();
+        double efficiency = p_detector->analyzerEfficiency();
+        detector_item->setVectorItem(DetectorItem::P_ANALYZER_DIRECTION, analyzer_dir);
+        detector_item->setItemValue(DetectorItem::P_ANALYZER_EFFICIENCY, efficiency);
+        detector_item->setItemValue(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION,
+                                    total_transmission);
+    }
 }
 
 void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,

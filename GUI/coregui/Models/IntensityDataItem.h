@@ -32,8 +32,6 @@ public:
     static const QString P_TITLE;
     static const QString P_IS_INTERPOLATED;
     static const QString P_GRADIENT;
-    static const QString P_ZAXIS_MIN;
-    static const QString P_ZAXIS_MAX;
     static const QString P_AXES_UNITS;
     static const QString P_XAXIS;
     static const QString P_YAXIS;
@@ -94,6 +92,8 @@ public:
     BasicAxisItem* xAxisItem();
     const BasicAxisItem* yAxisItem() const;
     BasicAxisItem* yAxisItem();
+    const BasicAxisItem* zAxisItem() const;
+    BasicAxisItem* zAxisItem();
 
     void resetView();
 

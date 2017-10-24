@@ -16,11 +16,11 @@
 
 #include "PropertyRepeater.h"
 #include "IntensityDataItem.h"
-#include <QDebug>
 
-PropertyRepeater::PropertyRepeater(QObject* parent)
+PropertyRepeater::PropertyRepeater(QObject* parent, bool repeat_child_properties)
     : QObject(parent)
     , m_block_repeater(false)
+    , m_repeat_child_properties(repeat_child_properties)
 {
 
 }
@@ -39,11 +39,12 @@ void PropertyRepeater::addItem(SessionItem* sessionItem, const QStringList& acti
     sessionItem->mapper()->setOnPropertyChange(
         [this](SessionItem* item, const QString& name) { onPropertyChanged(item, name); }, this);
 
-    sessionItem->mapper()->setOnChildPropertyChange(
-        [this](SessionItem* item, const QString& name) {
-            setOnChildPropertyChange(item, name);
-        }, this);
-
+    if (m_repeat_child_properties) {
+        sessionItem->mapper()->setOnChildPropertyChange(
+            [this](SessionItem* item, const QString& name) {
+                setOnChildPropertyChange(item, name);
+            }, this);
+    }
 
     m_dataItems.push_back(sessionItem);
     if (!activeProperties.isEmpty())
@@ -73,7 +74,6 @@ void PropertyRepeater::onPropertyChanged(SessionItem* item, const QString& prope
 
     if (isPropertyBroadcastAllowed(item, propertyName)) {
         QVariant value = item->getItemValue(propertyName);
-        qDebug() << item->modelType() << propertyName << value;
 
         for (auto target : targetItems(item))
             if (isPropertyReceiveAllowed(target, propertyName))
@@ -97,11 +97,6 @@ void PropertyRepeater::setOnChildPropertyChange(SessionItem* item, const QString
     if (isPropertyBroadcastAllowed(sourceItem, propertyName)) {
         QString tag = sourceItem->tagFromItem(item);
         QVariant value = item->getItemValue(propertyName);
-
-        qDebug() << "PropertyRepeater: " << item << item->modelType() << item->itemName()
-                 << " parent:" << item->parent() << item->parent()->modelType() << item->parent()->itemName()
-                 << " propertyName:" << propertyName;
-        qDebug() << "tag:" << tag << m_dataItems.size();
 
         for (auto target : targetItems(sourceItem))
             if (isPropertyReceiveAllowed(target, propertyName))

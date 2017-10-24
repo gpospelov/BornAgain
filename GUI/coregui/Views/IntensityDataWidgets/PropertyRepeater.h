@@ -31,7 +31,7 @@ class BA_CORE_API_ PropertyRepeater : public QObject
 {
     Q_OBJECT
 public:
-    explicit PropertyRepeater(QObject* parent = nullptr);
+    explicit PropertyRepeater(QObject* parent = nullptr, bool repeat_child_properties = false);
 
     void addItem(SessionItem* sessionItem, const QStringList& activeProperties = QStringList());
 
@@ -49,6 +49,7 @@ private:
     //! List of properties which item is allowed to report to others and receive updates.
     QMap<SessionItem*, QStringList> m_itemProperties;
     bool m_block_repeater;
+    bool m_repeat_child_properties;
 };
 
 #endif // PROPERTYREPEATER_H

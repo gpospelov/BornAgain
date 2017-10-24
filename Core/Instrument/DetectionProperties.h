@@ -31,9 +31,13 @@ public:
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission);
 
-    //! Gets the polarization density matrix (in spin basis along z-axis)
+    //! Return the polarization density matrix (in spin basis along z-axis)
     Eigen::Matrix2cd analyzerOperator() const;
 
+    //! Retrieve the analyzer characteristics
+    kvector_t analyzerDirection() const;
+    double analyzerEfficiency() const;
+    double analyzerTotalTransmission() const;
 private:
     //! Initialize polarization
     void initPolarizationOperator();

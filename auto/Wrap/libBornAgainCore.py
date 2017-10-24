@@ -3774,6 +3774,11 @@ class Beam(INode):
         return _libBornAgainCore.Beam_setPolarization(self, bloch_vector)
 
 
+    def getBlochVector(self):
+        """getBlochVector(Beam self) -> kvector_t"""
+        return _libBornAgainCore.Beam_getBlochVector(self)
+
+
     def getWavelength(self):
         """
         getWavelength(Beam self) -> double
@@ -18092,6 +18097,21 @@ class IDetector2D(ICloneable, INode):
 
         """
         return _libBornAgainCore.IDetector2D_setAnalyzerProperties(self, direction, efficiency, total_transmission)
+
+
+    def analyzerDirection(self):
+        """analyzerDirection(IDetector2D self) -> kvector_t"""
+        return _libBornAgainCore.IDetector2D_analyzerDirection(self)
+
+
+    def analyzerEfficiency(self):
+        """analyzerEfficiency(IDetector2D self) -> double"""
+        return _libBornAgainCore.IDetector2D_analyzerEfficiency(self)
+
+
+    def analyzerTotalTransmission(self):
+        """analyzerTotalTransmission(IDetector2D self) -> double"""
+        return _libBornAgainCore.IDetector2D_analyzerTotalTransmission(self)
 
 
     def removeMasks(self):

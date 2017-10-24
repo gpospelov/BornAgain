@@ -21,8 +21,7 @@ class SphericalDetectorTest : public ::testing::Test
     virtual ~SphericalDetectorTest(){}
 };
 
-//! Default detector construction
-
+// Default detector construction
 TEST_F(SphericalDetectorTest, initialState)
 {
     SphericalDetector detector;
@@ -53,8 +52,7 @@ TEST_F(SphericalDetectorTest, initialState)
                  Exceptions::NullPointerException);
 }
 
-//! Construction of the detector with axes.
-
+// Construction of the detector with axes.
 TEST_F(SphericalDetectorTest, constructionWithAxes)
 {
     SphericalDetector detector;
@@ -77,8 +75,7 @@ TEST_F(SphericalDetectorTest, constructionWithAxes)
     EXPECT_EQ(0u, detector.getDimension());
 }
 
-//! Construction of the detector via classical constructor.
-
+// Construction of the detector via classical constructor.
 TEST_F(SphericalDetectorTest, constructionWithParameters)
 {
     SphericalDetector detector(10, -1.0, 1.0, 20, 0.0, 2.0);
@@ -92,8 +89,7 @@ TEST_F(SphericalDetectorTest, constructionWithParameters)
     EXPECT_EQ(BornAgain::ALPHA_AXIS_NAME, detector.getAxis(1).getName());
 }
 
-//! Init external data with detector axes.
-
+// Init external data with detector axes.
 TEST_F(SphericalDetectorTest, initOutputData)
 {
     SphericalDetector detector(10, -1.0, 1.0, 20, 0.0, 2.0);
@@ -112,8 +108,7 @@ TEST_F(SphericalDetectorTest, initOutputData)
     EXPECT_EQ(BornAgain::ALPHA_AXIS_NAME, data.getAxis(1).getName());
 }
 
-//! Creation of the detector map with axes in given units
-
+// Creation of the detector map with axes in given units
 TEST_F(SphericalDetectorTest, createDetectorMap)
 {
     SphericalDetector detector(10, -1.0*Units::deg, 1.0*Units::deg,
@@ -135,24 +130,23 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
     // creating map in degrees and checking axes
     data.reset(detector.createDetectorMap(beam, IDetector2D::DEGREES));
     EXPECT_EQ(data->getAxis(0).size(), 10u);
-	EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), -1.0);
-	EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 1.0);
+    EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), -1.0);
+    EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 1.0);
     EXPECT_EQ(data->getAxis(1).size(), 20u);
-	EXPECT_DOUBLE_EQ(data->getAxis(1).getMin(), 0.0);
-	EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 2.0);
+    EXPECT_DOUBLE_EQ(data->getAxis(1).getMin(), 0.0);
+    EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 2.0);
 
     // creating map in nbins and checking axes
     data.reset(detector.createDetectorMap(beam, IDetector2D::NBINS));
     EXPECT_EQ(data->getAxis(0).size(), 10u);
-	EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), 0.0);
-	EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 10.0);
+    EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), 0.0);
+    EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 10.0);
     EXPECT_EQ(data->getAxis(1).size(), 20u);
-	EXPECT_DOUBLE_EQ(data->getAxis(1).getMin(), 0.0);
-	EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 20.0);
+    EXPECT_DOUBLE_EQ(data->getAxis(1).getMin(), 0.0);
+    EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 20.0);
 }
 
-//! Testing region of interest.
-
+// Testing region of interest.
 TEST_F(SphericalDetectorTest, regionOfInterest)
 {
     SphericalDetector detector;
@@ -181,8 +175,7 @@ TEST_F(SphericalDetectorTest, regionOfInterest)
     EXPECT_TRUE(nullptr == detector.regionOfInterest());
 }
 
-//! Init external data with detector axes when region of interest is present.
-
+// Init external data with detector axes when region of interest is present.
 TEST_F(SphericalDetectorTest, regionOfInterestAndData)
 {
     SphericalDetector detector;
@@ -205,8 +198,7 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndData)
     EXPECT_EQ(data.getAxis(1).getMax(), 4.0);
 }
 
-//! Create detector map in the presence of region of interest.
-
+// Create detector map in the presence of region of interest.
 TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
 {
     SphericalDetector detector(6, -1.0*Units::deg, 5.0*Units::deg,
@@ -237,8 +229,7 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
     EXPECT_EQ(data->getAxis(1).getMax(), 3.0);
 }
 
-//! Checking IDetector2D::getIntensityData in the presence of region of interest.
-
+// Checking IDetector2D::getIntensityData in the presence of region of interest.
 TEST_F(SphericalDetectorTest, getIntensityData)
 {
     SphericalDetector detector(6, -1.0*Units::deg, 5.0*Units::deg,
@@ -320,8 +311,7 @@ TEST_F(SphericalDetectorTest, MaskOfDetector)
     }
 }
 
-//! Checking clone in the presence of ROI and masks.
-
+// Checking clone in the presence of ROI and masks.
 TEST_F(SphericalDetectorTest, Clone)
 {
     Beam beam;
@@ -379,3 +369,83 @@ TEST_F(SphericalDetectorTest, nameToUnitTranslation)
     EXPECT_THROW(DetectorFunctions::detectorUnits("xxx"), std::runtime_error);
 }
 
+// Test retrieval of analyzer properties
+TEST_F(SphericalDetectorTest, AnalyzerProperties)
+{
+    SphericalDetector detector(6, -1.0*Units::deg, 5.0*Units::deg,
+                               4, 0.0*Units::deg, 4.0*Units::deg);
+
+    kvector_t direction;
+    double efficiency = 0.0;
+    double total_transmission = 1.0;
+    kvector_t unit_direction;
+
+    // if direction is the zero vector, an exception is thrown
+    EXPECT_THROW(detector.setAnalyzerProperties(direction, efficiency, total_transmission),
+                 Exceptions::ClassInitializationException);
+
+    // zero efficiency
+    direction = kvector_t(1.0, 0.0, 0.0);
+    unit_direction = direction.unit();
+    detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+
+    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
+    // direction vector returned is zero vector because efficiency is zero
+    EXPECT_NEAR(detector.analyzerDirection().x(), 0.0, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().y(), 0.0, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().z(), 0.0, 1e-8);
+
+    // intermediate efficiency
+    direction = kvector_t(1.0, 0.0, 0.0);
+    efficiency = 0.5;
+    total_transmission = 0.6;
+    unit_direction = direction.unit();
+    detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+
+    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().x(), unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().y(), unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().z(), unit_direction.z(), 1e-8);
+
+    // maximum efficiency
+    direction = kvector_t(1.0, 0.0, 0.0);
+    efficiency = 1.0;
+    total_transmission = 0.5;
+    unit_direction = direction.unit();
+    detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+
+    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().x(), unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().y(), unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().z(), unit_direction.z(), 1e-8);
+
+    // non-axis direction
+    direction = kvector_t(1.0, 2.0, 3.0);
+    efficiency = 1.0;
+    total_transmission = 0.5;
+    unit_direction = direction.unit();
+    detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+
+    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().x(), unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().y(), unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().z(), unit_direction.z(), 1e-8);
+
+    // maximum efficiency and negative efficiency (calculated efficiency will always be positive
+    // and the returned direction will be inverted)
+    direction = kvector_t(0.0, -1.0, -1.0);
+    efficiency = -1.0;
+    total_transmission = 0.5;
+    unit_direction = direction.unit();
+    detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+
+    EXPECT_NEAR(detector.analyzerEfficiency(), -efficiency, 1e-8);
+    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().x(), -unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().y(), -unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().z(), -unit_direction.z(), 1e-8);
+}

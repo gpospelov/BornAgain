@@ -258,3 +258,83 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
     EXPECT_DOUBLE_EQ(phi(k), phi(element));
     EXPECT_NEAR(alpha(k), alpha(element), 1e-10*std::abs(alpha(k)));
 }
+
+// Test retrieval of analyzer properties
+TEST_F(RectangularDetectorTest, AnalyzerProperties)
+{
+    RectangularDetector detector(50, 10.0, 60, 20.0);
+
+    kvector_t direction;
+    double efficiency = 0.0;
+    double total_transmission = 1.0;
+    kvector_t unit_direction;
+
+    // if direction is the zero vector, an exception is thrown
+    EXPECT_THROW(detector.setAnalyzerProperties(direction, efficiency, total_transmission),
+                 Exceptions::ClassInitializationException);
+
+    // zero efficiency
+    direction = kvector_t(1.0, 0.0, 0.0);
+    unit_direction = direction.unit();
+    detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+
+    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
+    // direction vector returned is zero vector because efficiency is zero
+    EXPECT_NEAR(detector.analyzerDirection().x(), 0.0, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().y(), 0.0, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().z(), 0.0, 1e-8);
+
+    // intermediate efficiency
+    direction = kvector_t(1.0, 0.0, 0.0);
+    efficiency = 0.5;
+    total_transmission = 0.6;
+    unit_direction = direction.unit();
+    detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+
+    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().x(), unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().y(), unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().z(), unit_direction.z(), 1e-8);
+
+    // maximum efficiency
+    direction = kvector_t(1.0, 0.0, 0.0);
+    efficiency = 1.0;
+    total_transmission = 0.5;
+    unit_direction = direction.unit();
+    detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+
+    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().x(), unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().y(), unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().z(), unit_direction.z(), 1e-8);
+
+    // non-axis direction
+    direction = kvector_t(1.0, 2.0, 3.0);
+    efficiency = 1.0;
+    total_transmission = 0.5;
+    unit_direction = direction.unit();
+    detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+
+    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().x(), unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().y(), unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().z(), unit_direction.z(), 1e-8);
+
+    // maximum efficiency and negative efficiency (calculated efficiency will always be positive
+    // and the returned direction will be inverted)
+    direction = kvector_t(0.0, -1.0, -1.0);
+    efficiency = -1.0;
+    total_transmission = 0.5;
+    unit_direction = direction.unit();
+    detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+
+    EXPECT_NEAR(detector.analyzerEfficiency(), -efficiency, 1e-8);
+    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().x(), -unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().y(), -unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().z(), -unit_direction.z(), 1e-8);
+}

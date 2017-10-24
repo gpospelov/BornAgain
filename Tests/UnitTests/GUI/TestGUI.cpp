@@ -29,10 +29,29 @@
 #include "TestIntensityDataItem.h"
 #include "TestProjectUtils.h"
 #include "TestParticleCoreShell.h"
+#include <memory>
 
-inline bool TestResult(QObject *testObject, int argc = 0, char **argv = Q_NULLPTR) {
-	return QTest::qExec(testObject, argc, argv) != 0;
-}
+class GUITestFactory {
+public:
+    using create_t = std::function<QObject*()>;
+
+    template<typename T> void add() {
+        creators.push_back([](){return new T();});
+    }
+
+    int runAll(int argc, char** argv)
+    {
+        int result(0);
+        for(auto f : creators) {
+            std::unique_ptr<QObject> obj(f());
+            result +=  QTest::qExec(obj.get(), argc, argv);
+        }
+        return result;
+    }
+
+private:
+    std::vector<create_t> creators;
+};
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
@@ -40,65 +59,36 @@ int main(int argc, char** argv) {
 
     QMetaType::registerComparators<ComboProperty>();
 
-    TestFormFactorItems testFormFactorItems;
-    TestFTDistributionItems testFTDistributionItems;
-    TestParameterizedItem testParameterizedItem;
-    TestParticleItem testParticleItem;
-    TestLayerRoughnessItems testLayerRoughnessItems;
-    TestParaCrystalItems testParaCrystalItems;
-    TestSessionModel testSessionModel;
-    TestGUICoreObjectCorrespondence testGUICoreObjectCorrespondence;
-    TestSessionItem testSessionItem;
-    TestMapperCases testMapperCases;
-    TestMapperForItem testMapperForItem;
-    TestGUIHelpers testGUIHelpers;
-    TestFitParameterModel testFitParameterModel;
-    TestMaterialModel testMaterialModel;
-    TestComboProperty testComboProperty;
-    TestTranslations testTranslations;
-    TestGroupProperty testGroupProperty;
-    TestParticleDistributionItem testParticleDistributionItem;
-    TestParameterTreeUtils testParameterTreeUtils;
-    TestDetectorItems testDetectorItems;
-    TestLinkInstrument testLinkInstrument;
-    TestUpdateTimer testUpdateTimer;
-    TestProjectDocument testProjectDocument;
-    TestSaveService testSaveService;
-    TestOutputDataIOService testIO;
-    TestIntensityDataItem testIntensityData;
-    TestProjectUtils testProjectUtils;
-    TestParticleCoreShell testParticleCoreShell;
+    GUITestFactory tests;
 
-    bool status(false);
+    tests.add<TestFormFactorItems>();
+    tests.add<TestFTDistributionItems>();
+    tests.add<TestParameterizedItem>();
+    tests.add<TestParticleItem>();
+    tests.add<TestLayerRoughnessItems>();
+    tests.add<TestParaCrystalItems>();
+    tests.add<TestSessionModel>();
+    tests.add<TestGUICoreObjectCorrespondence>();
+    tests.add<TestSessionItem>();
+    tests.add<TestMapperCases>();
+    tests.add<TestMapperForItem>();
+    tests.add<TestGUIHelpers>();
+    tests.add<TestFitParameterModel>();
+    tests.add<TestMaterialModel>();
+    tests.add<TestComboProperty>();
+    tests.add<TestTranslations>();
+    tests.add<TestGroupProperty>();
+    tests.add<TestParticleDistributionItem>();
+    tests.add<TestParameterTreeUtils>();
+    tests.add<TestDetectorItems>();
+    tests.add<TestLinkInstrument>();
+    tests.add<TestUpdateTimer>();
+    tests.add<TestProjectDocument>();
+    tests.add<TestSaveService>();
+    tests.add<TestOutputDataIOService>();
+    tests.add<TestIntensityDataItem>();
+    tests.add<TestProjectUtils>();
+    tests.add<TestParticleCoreShell>();
 
-    status |= TestResult(&testFormFactorItems, argc, argv);
-    status |= TestResult(&testFTDistributionItems, argc, argv);
-    status |= TestResult(&testParameterizedItem, argc, argv);
-    status |= TestResult(&testParticleItem, argc, argv);
-    status |= TestResult(&testLayerRoughnessItems, argc, argv);
-    status |= TestResult(&testParaCrystalItems, argc, argv);
-    status |= TestResult(&testSessionModel, argc, argv);
-    status |= TestResult(&testGUICoreObjectCorrespondence, argc, argv);
-    status |= TestResult(&testSessionItem);
-    status |= TestResult(&testMapperCases, argc, argv);
-    status |= TestResult(&testSessionModel, argc, argv);
-    status |= TestResult(&testMapperForItem, argc, argv);
-    status |= TestResult(&testGUIHelpers, argc, argv);
-    status |= TestResult(&testFitParameterModel, argc, argv);
-    status |= TestResult(&testMaterialModel, argc, argv);
-    status |= TestResult(&testComboProperty, argc, argv);
-    status |= TestResult(&testTranslations, argc, argv);
-    status |= TestResult(&testGroupProperty, argc, argv);
-    status |= TestResult(&testParticleDistributionItem, argc, argv);
-    status |= TestResult(&testParameterTreeUtils, argc, argv);
-    status |= TestResult(&testDetectorItems, argc, argv);
-    status |= TestResult(&testLinkInstrument, argc, argv);
-    status |= TestResult(&testUpdateTimer, argc, argv);
-    status |= TestResult(&testProjectDocument, argc, argv);
-    status |= TestResult(&testSaveService, argc, argv);
-    status |= TestResult(&testIO, argc, argv);
-    status |= TestResult(&testIntensityData, argc, argv);
-    status |= TestResult(&testProjectUtils, argc, argv);
-
-    return status;
+    return tests.runAll(argc, argv);
 }

@@ -82,6 +82,14 @@ void Beam::setPolarization(const kvector_t bloch_vector)
     m_polarization = calculatePolarization(bloch_vector);
 }
 
+kvector_t Beam::getBlochVector() const
+{
+    double x = 2.0*m_polarization(0, 1).real();
+    double y = 2.0*m_polarization(1, 0).imag();
+    double z = (m_polarization(0, 0) - m_polarization(1, 1)).real();
+    return { x, y, z };
+}
+
 Eigen::Matrix2cd Beam::calculatePolarization(const kvector_t bloch_vector) const
 {
     Eigen::Matrix2cd result;

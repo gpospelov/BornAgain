@@ -235,6 +235,9 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
             setItemFromSample(azimuthalAngle, distributions[i]);
         }
     }
+
+    // polarization parameters
+    beamItem->setVectorItem(BeamItem::P_POLARIZATION, beam.getBlochVector());
 }
 
 void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrumentItem,

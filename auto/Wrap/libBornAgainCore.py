@@ -3774,6 +3774,11 @@ class Beam(INode):
         return _libBornAgainCore.Beam_setPolarization(self, bloch_vector)
 
 
+    def getBlochVector(self):
+        """getBlochVector(Beam self) -> kvector_t"""
+        return _libBornAgainCore.Beam_getBlochVector(self)
+
+
     def getWavelength(self):
         """
         getWavelength(Beam self) -> double

@@ -130,7 +130,8 @@ SessionItem* GUIObjectBuilder::populateDocumentModel(DocumentModel* p_document_m
     Q_ASSERT(p_options_item);
     if (simulation.getOptions().isIntegrate()) {
         p_options_item->setComputationMethod(Constants::SIMULATION_MONTECARLO);
-        p_options_item->setNumberOfMonteCarloPoints(static_cast<int>(simulation.getOptions().getMcPoints()));
+        p_options_item->setNumberOfMonteCarloPoints(
+                    static_cast<int>(simulation.getOptions().getMcPoints()));
     }
     if (simulation.getOptions().useAvgMaterials()) {
         p_options_item->setFresnelMaterialMethod(Constants::AVERAGE_LAYER_MATERIAL);
@@ -196,7 +197,10 @@ void GUIObjectBuilder::visit(const MultiLayer* p_sample)
     SessionItem* p_multilayer_item =
             m_sampleModel->insertNewItem(Constants::MultiLayerType);
     p_multilayer_item->setItemName(p_sample->getName().c_str());
-    p_multilayer_item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH, p_sample->crossCorrLength());
+    p_multilayer_item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH,
+                                    p_sample->crossCorrLength());
+    p_multilayer_item->setVectorItem(MultiLayerItem::P_EXTERNAL_FIELD,
+                                     p_sample->externalField());
     m_levelToParentItem[depth()] = p_multilayer_item;
     m_itemToSample[p_multilayer_item] = p_sample;
 }
@@ -571,7 +575,7 @@ void GUIObjectBuilder::visit(const RotationEuler* p_sample)
     Q_ASSERT(transformation_item);
     SessionItem* p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::EulerRotationType);
-    p_rotationItem->setItemValue(EulerRotationItem::P_ALPHA,  Units::rad2deg(p_sample->getAlpha()) );
+    p_rotationItem->setItemValue(EulerRotationItem::P_ALPHA, Units::rad2deg(p_sample->getAlpha()) );
     p_rotationItem->setItemValue(EulerRotationItem::P_BETA, Units::rad2deg(p_sample->getBeta()) );
     p_rotationItem->setItemValue(EulerRotationItem::P_GAMMA, Units::rad2deg(p_sample->getGamma()) );
     m_levelToParentItem[depth()] = transformation_item;

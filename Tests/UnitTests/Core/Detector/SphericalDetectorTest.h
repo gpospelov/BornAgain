@@ -443,9 +443,9 @@ TEST_F(SphericalDetectorTest, AnalyzerProperties)
     unit_direction = direction.unit();
     detector.setAnalyzerProperties(direction, efficiency, total_transmission);
 
-    EXPECT_NEAR(detector.analyzerEfficiency(), -efficiency, 1e-8);
+    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
     EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().x(), -unit_direction.x(), 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().y(), -unit_direction.y(), 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().z(), -unit_direction.z(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().x(), unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().y(), unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detector.analyzerDirection().z(), unit_direction.z(), 1e-8);
 }

@@ -39,17 +39,13 @@ public:
     double analyzerEfficiency() const;
     double analyzerTotalTransmission() const;
 private:
-    //! Initialize polarization
-    void initPolarizationOperator();
-
-    Eigen::Matrix2cd calculateAnalyzerOperator(
-        const kvector_t direction, double efficiency, double total_transmission = 1.0) const;
-
     //! Verify if the given analyzer properties are physical
     bool checkAnalyzerProperties(const kvector_t direction, double efficiency,
                                  double total_transmission) const;
 
-    Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
+    kvector_t m_direction;  //!< direction of polarization analysis
+    double m_efficiency;  //!< efficiency of polarization analysis
+    double m_total_transmission;  //!< total transmission of polarization analysis
 };
 
 #endif // DETECTIONPROPERTIES_H

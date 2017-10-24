@@ -50,9 +50,7 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_statusLabel(new ColorMapLabel(0, this))
     , m_propertyWidget(new IntensityDataPropertyWidget)
     , m_repeater(new PropertyRepeater(this))
-    , m_relativeDiffItem(0)
     , m_resetViewAction(0)
-    , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel"))
     , m_comparisonController(new FitComparisonController(this))
 {
     QVBoxLayout *vlayout = new QVBoxLayout;
@@ -84,13 +82,11 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     m_resetViewAction->setToolTip("Reset View");
     connect(m_resetViewAction, SIGNAL(triggered()), this, SLOT(onResetViewAction()));
 
-    m_relativeDiffItem = createRelativeDifferenceItem();
-    m_relativeDiffPlot->setItem(diffItem());
+    m_relativeDiffPlot->setItem(m_comparisonController->diffItem());
 
     m_propertyWidget->setVisible(false);
 }
 
-FitComparisonWidget::~FitComparisonWidget() { delete m_tempIntensityDataModel; }
 
 QList<QAction*> FitComparisonWidget::actionList()
 {
@@ -135,8 +131,8 @@ void FitComparisonWidget::subscribeToItem()
     m_repeater->addItem(realDataItem());
     m_repeater->addItem(simulatedDataItem());
 
-    QStringList activeProperties = QStringList() << BasicAxisItem::P_MIN << BasicAxisItem::P_MAX;
-    m_repeater->addItem(diffItem(), activeProperties);
+//    QStringList activeProperties = QStringList() << BasicAxisItem::P_MIN << BasicAxisItem::P_MAX;
+//    m_repeater->addItem(diffItem(), activeProperties);
 
     m_propertyWidget->setItem(simulatedDataItem());
 }
@@ -168,19 +164,6 @@ void FitComparisonWidget::onResetViewAction()
     }
 
 //    m_repeater->setActive(true);
-}
-
-//! Creates an IntensityDataItem which will hold relative difference map between simulation
-//! and real data.
-
-IntensityDataItem* FitComparisonWidget::createRelativeDifferenceItem()
-{
-    m_tempIntensityDataModel->clear();
-
-    IntensityDataItem* result = dynamic_cast<IntensityDataItem*>(
-        m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
-
-    return result;
 }
 
 void FitComparisonWidget::calculateRelativeDifference()
@@ -219,5 +202,5 @@ IntensityDataItem* FitComparisonWidget::simulatedDataItem()
 
 IntensityDataItem* FitComparisonWidget::diffItem()
 {
-    return m_relativeDiffItem;
+    return m_comparisonController->diffItem();
 }

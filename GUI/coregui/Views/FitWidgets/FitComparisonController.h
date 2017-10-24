@@ -20,6 +20,9 @@
 #include "WinDllMacros.h"
 #include <QObject>
 
+class SessionModel;
+class IntensityDataItem;
+
 //! Provides syncronization between certain properties of fit related IntensityDataItems.
 //! Part of FitComparisonWidget.
 
@@ -29,8 +32,13 @@ class BA_CORE_API_ FitComparisonController : public QObject
 public:
     explicit FitComparisonController(QObject* parent = nullptr);
 
-private:
+    IntensityDataItem* diffItem();
 
+private:
+    void createRelativeDifferenceItem();
+
+    IntensityDataItem* m_relativeDiffItem;
+    SessionModel* m_tempIntensityDataModel;
 };
 
 #endif  // FITCOMPARISONCONTROLLER_H

@@ -15,9 +15,26 @@
 // ************************************************************************** //
 
 #include "FitComparisonController.h"
+#include "SessionModel.h"
+#include "IntensityDataItem.h"
 
 FitComparisonController::FitComparisonController(QObject* parent)
     : QObject(parent)
+    , m_relativeDiffItem(nullptr)
+    , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
 {
+    createRelativeDifferenceItem();
+}
 
+IntensityDataItem* FitComparisonController::diffItem()
+{
+    return m_relativeDiffItem;
+}
+
+void FitComparisonController::createRelativeDifferenceItem()
+{
+    m_tempIntensityDataModel->clear();
+
+    m_relativeDiffItem = dynamic_cast<IntensityDataItem*>(
+        m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
 }

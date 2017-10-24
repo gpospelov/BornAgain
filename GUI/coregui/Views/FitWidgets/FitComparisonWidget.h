@@ -40,7 +40,6 @@ class BA_CORE_API_ FitComparisonWidget : public SessionItemWidget
 
 public:
     explicit FitComparisonWidget(QWidget* parent = 0);
-    ~FitComparisonWidget();
 
     virtual QList<QAction*> actionList();
 
@@ -52,7 +51,6 @@ protected:
     void unsubscribeFromItem();
 
 private:
-    IntensityDataItem* createRelativeDifferenceItem();
     void calculateRelativeDifference();
 
     JobItem* jobItem();
@@ -68,9 +66,7 @@ private:
     IntensityDataPropertyWidget* m_propertyWidget;
     PropertyRepeater* m_repeater;
 
-    IntensityDataItem* m_relativeDiffItem;
     QAction* m_resetViewAction;
-    SessionModel* m_tempIntensityDataModel;
     FitComparisonController* m_comparisonController;
 };
 

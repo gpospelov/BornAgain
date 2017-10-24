@@ -20,6 +20,7 @@
 #include "WinDllMacros.h"
 #include <QObject>
 #include <QVector>
+#include <QMap>
 
 class SessionItem;
 
@@ -32,7 +33,7 @@ class BA_CORE_API_ PropertyRepeater : public QObject
 public:
     explicit PropertyRepeater(QObject* parent = nullptr);
 
-    void addItem(SessionItem* item);
+    void addItem(SessionItem* sessionItem, const QStringList& activeProperties = QStringList());
 
     void clear();
 
@@ -41,8 +42,11 @@ private:
     void onPropertyChanged(SessionItem* item, const QString& propertyName);
     void setOnChildPropertyChange(SessionItem* item, const QString& propertyName);
     QVector<SessionItem*> targetItems(SessionItem* sourceItem);
+    bool isPropertyBroadcastAllowed(SessionItem* item, const QString& propertyName);
 
     QVector<SessionItem*> m_dataItems;
+    //! List of properties which item is allowed to report to others and receive updates.
+    QMap<SessionItem*, QStringList> m_itemProperties;
     bool m_block_repeater;
 };
 

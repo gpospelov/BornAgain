@@ -658,9 +658,9 @@ std::string ExportToPython::defineMultiLayers() const
         if (external_field.mag()>0.0) {
             std::string field_name = it->second + "_external_field";
             result << indent() << field_name << " = kvector_t("
-                   << printDouble(external_field.x()) << ", "
-                   << printDouble(external_field.y()) << ", "
-                   << printDouble(external_field.z()) << ")\n";
+                   << printScientificDouble(external_field.x()) << ", "
+                   << printScientificDouble(external_field.y()) << ", "
+                   << printScientificDouble(external_field.z()) << ")\n";
             result << indent() << it->second << ".setExternalField("
                    << field_name << ")\n";
         }
@@ -815,6 +815,16 @@ std::string ExportToPython::defineBeam(const GISASSimulation* simulation) const
            << printNm(beam.getWavelength()) << ", "
            << printDegrees(beam.getAlpha()) << ", "
            << printDegrees(beam.getPhi()) << ")\n";
+    auto bloch_vector = beam.getBlochVector();
+    if (bloch_vector.mag()>0.0) {
+        std::string beam_polarization = "beam_polarization";
+        result << indent() << beam_polarization << " = kvector_t("
+               << printDouble(bloch_vector.x()) << ", "
+               << printDouble(bloch_vector.y()) << ", "
+               << printDouble(bloch_vector.z()) << ")\n";
+        result << indent() << "simulation.setBeamPolarization("
+               << beam_polarization << ")\n";
+    }
     double beam_intensity = beam.getIntensity();
     if(beam_intensity > 0.0)
         result << indent() << "simulation.setBeamIntensity("

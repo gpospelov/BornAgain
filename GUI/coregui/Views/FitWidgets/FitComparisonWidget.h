@@ -53,8 +53,6 @@ protected:
 private:
     IntensityDataItem* createRelativeDifferenceItem();
     void calculateRelativeDifference();
-    void restoreLabels(IntensityDataItem* intensityItem);
-    void removeLabels(IntensityDataItem* intensityItem);
 
     JobItem* jobItem();
     IntensityDataItem* realDataItem();

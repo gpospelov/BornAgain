@@ -179,31 +179,9 @@ void FitComparisonWidget::calculateRelativeDifference()
     m_relativeDiffItem->setOutputData(IntensityDataFunctions::createRelativeDifferenceData(
         *simulatedDataItem()->getOutputData(), *realDataItem()->getOutputData()));
 
-    m_relativeDiffItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
-    m_relativeDiffItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, QString());
+    m_relativeDiffItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getXaxisTitle());
+    m_relativeDiffItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getYaxisTitle());
     m_relativeDiffItem->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
-}
-
-//! Restores item labels from the backup (FIXME currently unused. Do we need to hide labels?).
-
-void FitComparisonWidget::restoreLabels(IntensityDataItem* intensityItem)
-{
-    if (!intensityItem)
-        return;
-
-    intensityItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, true);
-    intensityItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, true);
-}
-
-//! Removes axes label from item. This is because they occupy too much space on this dense widget.
-
-void FitComparisonWidget::removeLabels(IntensityDataItem* intensityItem)
-{
-    if (!intensityItem)
-        return;
-
-    intensityItem->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, false);
-    intensityItem->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE, false);
 }
 
 JobItem* FitComparisonWidget::jobItem()

@@ -29,6 +29,7 @@
 #include "TestIntensityDataItem.h"
 #include "TestProjectUtils.h"
 #include "TestParticleCoreShell.h"
+#include "TestPropertyRepeater.h"
 #include <memory>
 
 class GUITestFactory {
@@ -89,6 +90,7 @@ int main(int argc, char** argv) {
     tests.add<TestIntensityDataItem>();
     tests.add<TestProjectUtils>();
     tests.add<TestParticleCoreShell>();
+    tests.add<TestPropertyRepeater>();
 
     return tests.runAll(argc, argv);
 }

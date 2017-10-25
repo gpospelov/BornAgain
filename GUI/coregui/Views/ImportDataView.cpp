@@ -24,12 +24,16 @@
 #include "minisplitter.h"
 #include <QVBoxLayout>
 
+namespace {
+const bool reuse_widget = true;
+}
+
 ImportDataView::ImportDataView(MainWindow* mainWindow)
     : QWidget(mainWindow)
     , m_toolBar(new ImportDataToolBar(this))
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new RealDataSelectorWidget)
-    , m_stackedWidget(new ItemStackPresenter<RealDataMaskWidget>)
+    , m_stackedWidget(new ItemStackPresenter<RealDataMaskWidget>(reuse_widget))
     , m_realDataModel(mainWindow->realDataModel())
 {
     auto mainLayout = new QVBoxLayout;

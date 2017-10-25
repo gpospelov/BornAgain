@@ -86,6 +86,6 @@ MesoCrystalTranslationTest::MesoCrystalTranslationTest()
 MesoCrystalTranslationTest::~MesoCrystalTranslationTest() = default;
 
 MagneticSpheresTranslationTest::MagneticSpheresTranslationTest()
-    : GUITranslationTest ("BasicGISAS", "MagneticSpheresBuilder"){}
+    : GUITranslationTest ("BasicPolarizedGISAS", "MagneticSpheresBuilder"){}
 
 MagneticSpheresTranslationTest::~MagneticSpheresTranslationTest() = default;

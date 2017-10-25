@@ -72,6 +72,17 @@ GISASSimulation* StandardSimulations::BasicGISAS00()
     return result;
 }
 
+//! Basic GISAS simulation for spin flip channel.
+
+GISASSimulation*StandardSimulations::BasicPolarizedGISAS()
+{
+    GISASSimulation* result = BasicGISAS();
+    kvector_t zplus(0.0, 0.0, 1.0);
+    result->setBeamPolarization(zplus);
+    result->setAnalyzerProperties(zplus, -1.0, 0.5);
+    return result;
+}
+
 //! GISAS simulation with small detector and phi[-2,2], theta[0,2].
 
 GISASSimulation* StandardSimulations::MiniGISAS()

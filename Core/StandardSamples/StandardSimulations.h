@@ -28,6 +28,7 @@ GISASSimulation* PolarizedDWBAMagCylinders2();
 // CoreSuite tests:
 GISASSimulation* BasicGISAS();
 GISASSimulation* BasicGISAS00();
+GISASSimulation* BasicPolarizedGISAS();
 GISASSimulation* MiniGISAS();
 GISASSimulation* MiniGISAS_v2();
 GISASSimulation* MiniGISASBeamDivergence();

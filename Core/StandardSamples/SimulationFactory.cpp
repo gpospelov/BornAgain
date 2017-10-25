@@ -28,6 +28,10 @@ SimulationFactory::SimulationFactory()
                  StandardSimulations::BasicGISAS00,
                  "Basic GISAS for polarization studies");
 
+    registerItem("BasicPolarizedGISAS",
+                 StandardSimulations::BasicPolarizedGISAS,
+                 "Basic GISAS for spin flip channel");
+
     registerItem("MiniGISAS",
                  StandardSimulations::MiniGISAS,
                  "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2]");

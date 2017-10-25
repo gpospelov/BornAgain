@@ -275,6 +275,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "MagneticRotationBuilder",
         2e-10);
 
+    add("MagneticSpheres",
+        "Magnetic spheres inside substrate",
+        "MiniGISASSpinFlipZ",
+        "MagneticSpheresBuilder",
+        2e-10);
+
     add("TransformBox",
         "Rotated/translated box in 3 layers system",
         "MiniGISAS",

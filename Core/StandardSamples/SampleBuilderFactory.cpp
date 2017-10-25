@@ -181,6 +181,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Rotated magnetic particle in magnetic substrate");
 
     registerItem(
+         "MagneticSpheresBuilder",
+         create_new<MagneticSpheresBuilder>,
+         "Spheres with magnetization inside substrate");
+
+    registerItem(
         "MultiLayerWithRoughnessBuilder",
         create_new<MultiLayerWithRoughnessBuilder>,
         "Layer with correlated roughness");

@@ -7,6 +7,7 @@ set(test_cases
     HexParaTranslation
     Lattice1DTranslation
     Lattice2DTranslation
+    MagneticSpheresTranslation
     MesoCrystalTranslation
     Para2DTranslation
     SizeDistributionTranslation

@@ -38,7 +38,9 @@ bool CoreStandardTest::runTest()
     const std::unique_ptr<OutputData<double>> result_data(m_reference_simulation->getDetectorIntensity());
 
     // Compare with reference if available.
-    bool success = TestUtils::isTheSame(*result_data, *reference, m_threshold) ? true : false;
+    bool success = false;
+    if (reference)
+        success = TestUtils::isTheSame(*result_data, *reference, m_threshold) ? true : false;
 
     // Save simulation if different from reference.
     if (!success) {

@@ -21,6 +21,7 @@
 #include "OutputData.h"
 #include <QAction>
 #include <QItemSelectionModel>
+#include <QMenu>
 
 RealDataSelectorActions::RealDataSelectorActions(QObject* parent)
     : QObject(parent)
@@ -29,14 +30,14 @@ RealDataSelectorActions::RealDataSelectorActions(QObject* parent)
     , m_realDataModel(nullptr)
     , m_selectionModel(nullptr)
 {
-    m_importDataAction = new QAction(QStringLiteral("Import"), parent);
-    m_importDataAction->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
+    m_importDataAction = new QAction(QStringLiteral("Import data"), parent);
+    m_importDataAction->setIcon(QIcon(":/images/toolbar16dark_newitem.svg"));
     m_importDataAction->setToolTip(QStringLiteral("Import data"));
     connect(m_importDataAction, &QAction::triggered,
             this, &RealDataSelectorActions::onImportDataAction);
 
-    m_removeDataAction = new QAction(QStringLiteral("Remove"), parent);
-    m_removeDataAction->setIcon(QIcon(":/images/toolbar16light_recycle.svg"));
+    m_removeDataAction = new QAction(QStringLiteral("Remove this data"), parent);
+    m_removeDataAction->setIcon(QIcon(":/images/toolbar16dark_recycle.svg"));
     m_removeDataAction->setToolTip(QStringLiteral("Remove selected data"));
     connect(m_removeDataAction, &QAction::triggered,
             this, &RealDataSelectorActions::onRemoveDataAction);
@@ -75,5 +76,38 @@ void RealDataSelectorActions::onRemoveDataAction()
 {
     QModelIndex currentIndex = m_selectionModel->currentIndex();
     if (currentIndex.isValid())
-        m_realDataModel->removeRows(currentIndex.row(), 1, currentIndex.parent());
+        m_realDataModel->removeRows(currentIndex.row(), 1, QModelIndex());
+
+    updateSelection();
+}
+
+void RealDataSelectorActions::onContextMenuRequest(const QPoint& point,
+                                                   const QModelIndex& indexAtPoint)
+{
+    QMenu menu;
+
+    setAllActionsEnabled(indexAtPoint.isValid());
+
+    m_importDataAction->setEnabled(true);
+
+    menu.addAction(m_removeDataAction);
+    menu.addSeparator();
+    menu.addAction(m_importDataAction);
+    menu.exec(point);
+}
+
+void RealDataSelectorActions::setAllActionsEnabled(bool value)
+{
+    m_importDataAction->setEnabled(value);
+    m_removeDataAction->setEnabled(value);
+}
+
+void RealDataSelectorActions::updateSelection()
+{
+    if (!m_selectionModel->hasSelection()) {
+        // select last item
+        QModelIndex itemIndex
+            = m_realDataModel->index(m_realDataModel->rowCount(QModelIndex()) - 1, 0, QModelIndex());
+        m_selectionModel->select(itemIndex, QItemSelectionModel::ClearAndSelect);
+    }
 }

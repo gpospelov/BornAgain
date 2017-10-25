@@ -49,6 +49,9 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
 
+    connect(m_selectorWidget, &ItemSelectorWidget::contextMenuRequest,
+            m_selectorActions,&RealDataSelectorActions::onContextMenuRequest);
+
     connect(m_selectorWidget, &ItemSelectorWidget::selectionChanged,
             this, &RealDataSelectorWidget::onSelectionChanged);
 }

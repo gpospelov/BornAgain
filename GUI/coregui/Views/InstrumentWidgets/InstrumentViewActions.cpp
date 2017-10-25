@@ -88,9 +88,10 @@ void InstrumentViewActions::onContextMenuRequest(const QPoint& point,
 
     m_addInstrumentAction->setEnabled(true);
 
-    menu.addAction(m_addInstrumentAction);
-    menu.addAction(m_removeInstrumentAction);
     menu.addAction(m_cloneInstrumentAction);
+    menu.addAction(m_removeInstrumentAction);
+    menu.addSeparator();
+    menu.addAction(m_addInstrumentAction);
     menu.exec(point);
 }
 

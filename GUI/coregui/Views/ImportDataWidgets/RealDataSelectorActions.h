@@ -38,8 +38,12 @@ public:
 public slots:
     void onImportDataAction();
     void onRemoveDataAction();
+    void onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint);
 
 private:
+    void setAllActionsEnabled(bool value);
+    void updateSelection();
+
     QAction* m_importDataAction;
     QAction* m_removeDataAction;
     RealDataModel* m_realDataModel;

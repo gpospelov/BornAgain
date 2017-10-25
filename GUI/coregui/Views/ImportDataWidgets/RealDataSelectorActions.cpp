@@ -56,6 +56,7 @@ void RealDataSelectorActions::setSelectionModel(QItemSelectionModel* selectionMo
 void RealDataSelectorActions::onImportDataAction()
 {
     Q_ASSERT(m_realDataModel);
+    Q_ASSERT(m_selectionModel);
     ImportDataAssistant assistant;
     QString baseNameOfImportedFile;
 

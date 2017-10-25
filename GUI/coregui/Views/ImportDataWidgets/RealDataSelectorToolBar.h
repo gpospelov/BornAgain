@@ -19,11 +19,8 @@
 
 #include "StyledToolBar.h"
 
-class QAction;
-class RealDataModel;
-class InstrumentModel;
-class QItemSelectionModel;
-class RealDataItem;
+class RealDataSelectorActions;
+class QToolButton;
 
 //! The RealDataSelectorToolBar class represents a narrow toolbar on top of
 //! RealDataSelectorWidget (ImportDataView)
@@ -32,24 +29,11 @@ class BA_CORE_API_ RealDataSelectorToolBar : public StyledToolBar
 {
     Q_OBJECT
 public:
-    RealDataSelectorToolBar(QWidget* parent = 0);
-
-    void setRealDataModel(RealDataModel* model);
-    void setInstrumentModel(InstrumentModel* model);
-    void setSelectionModel(QItemSelectionModel* selectionModel);
-    void setActionList(const QList<QAction*>& actionList);
-
-private slots:
-    void onImportDataAction();
-    void onRemoveDataAction();
+    RealDataSelectorToolBar(RealDataSelectorActions* actions, QWidget* parent = 0);
 
 private:
-    QAction* m_importDataAction;
-    QAction* m_removeDataAction;
-
-    RealDataModel* m_realDataModel;
-    InstrumentModel* m_instrumentModel;
-    QItemSelectionModel* m_selectionModel;
+    QToolButton* m_importDataButton;
+    QToolButton* m_removeDataButton;
 };
 
 #endif // REALDATASELECTORTOOLBAR_H

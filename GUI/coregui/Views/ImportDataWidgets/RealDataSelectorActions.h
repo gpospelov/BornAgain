@@ -35,7 +35,7 @@ public:
     void setRealDataModel(RealDataModel* model);
     void setSelectionModel(QItemSelectionModel* selectionModel);
 
-private slots:
+public slots:
     void onImportDataAction();
     void onRemoveDataAction();
 

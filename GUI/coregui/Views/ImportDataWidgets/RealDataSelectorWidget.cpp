@@ -27,7 +27,7 @@
 RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
     : QWidget(parent)
     , m_selectorActions(new RealDataSelectorActions(this))
-    , m_toolBar(new RealDataSelectorToolBar(this))
+    , m_toolBar(new RealDataSelectorToolBar(m_selectorActions, this))
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new ItemSelectorWidget)
     , m_propertiesWidget(new RealDataPropertiesWidget)
@@ -48,8 +48,6 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
     mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
-
-    m_selectorActions->setSelectionModel(m_selectorWidget->selectionModel());
 
     connect(m_selectorWidget, &ItemSelectorWidget::selectionChanged,
             this, &RealDataSelectorWidget::onSelectionChanged);
@@ -72,10 +70,7 @@ void RealDataSelectorWidget::setModels(InstrumentModel* instrumentModel,
     m_propertiesWidget->setModels(instrumentModel, realDataModel);
 
     m_selectorActions->setRealDataModel(realDataModel);
-
-    m_toolBar->setRealDataModel(realDataModel);
-    m_toolBar->setInstrumentModel(instrumentModel);
-    m_toolBar->setSelectionModel(m_selectorWidget->selectionModel());
+    m_selectorActions->setSelectionModel(m_selectorWidget->selectionModel());
 }
 
 void RealDataSelectorWidget::onSelectionChanged(SessionItem* item)

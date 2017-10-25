@@ -2,14 +2,14 @@
 #include "WavevectorInfo.h"
 #include "Transform3D.h"
 #include "MaterialUtils.h"
+#include "PhysicalConstants.h"
 
-static const double Thomson_Scattering_Length = 2.8179403227e-15;
-static const double Bohr_Magneton = 9.274009994e-24;
-// The neutron's magnetic moment is Gamma_Neutron times the nuclear magneton
-static const double Gamma_Neutron = 1.91304272;
-// The factor 1e-18 is here to have unit: m/A*nm^-2
-static const double Magnetization_Prefactor = (Gamma_Neutron*Thomson_Scattering_Length
-                                               /2.0/Bohr_Magneton)*1e-18;
+using PhysConsts::mu_B;
+using PhysConsts::gamma_n;
+using PhysConsts::r_e;
+ // The factor 1e-18 is here to have unit: m/A*nm^-2
+constexpr double magnetization_prefactor
+    = (gamma_n * r_e / 2.0 / mu_B) * 1e-18;
 
 namespace {
 // Used in experimental calculation of scattering matrix:
@@ -86,7 +86,7 @@ Eigen::Matrix2cd HomogeneousMaterial::polarizedSubtrSLD(const WavevectorInfo& wa
 {
     cvector_t mag_ortho = OrthogonalToBaseVector(wavevectors.getQ(), m_magnetization);
     complex_t unit_factor = scalarSubtrSLD(wavevectors);
-    return MagnetizationCorrection(unit_factor, Magnetization_Prefactor, mag_ortho);
+    return MagnetizationCorrection(unit_factor, magnetization_prefactor, mag_ortho);
 }
 
 HomogeneousMaterial HomogeneousMaterial::transformedMaterial(const Transform3D& transform) const

@@ -25,7 +25,7 @@
 
 RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
     : QWidget(parent)
-    , m_toolBar(new ImportDataToolBar(this))
+    , m_toolBar(new RealDataSelectorToolBar(this))
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new ItemSelectorWidget)
     , m_propertiesWidget(new RealDataPropertiesWidget)

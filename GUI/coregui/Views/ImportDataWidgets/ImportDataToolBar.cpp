@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/ImportDataWidgets/ImportDataToolBar.cpp
-//! @brief     Implements class ImportDataToolBar
+//! @file      GUI/coregui/Views/ImportDataWidgets/RealDataSelectorToolBar.cpp
+//! @brief     Implements class RealDataSelectorToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include "ImportDataToolBar.h"
 #include "ImportDataToolBar.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
@@ -33,7 +32,7 @@
 #include <QAction>
 #include <QItemSelectionModel>
 
-ImportDataToolBar::ImportDataToolBar(QWidget* parent)
+RealDataSelectorToolBar::RealDataSelectorToolBar(QWidget* parent)
     : StyledToolBar(parent), m_importDataAction(0), m_removeDataAction(0), m_realDataModel(0),
       m_instrumentModel(0), m_selectionModel(0)
 {
@@ -52,18 +51,18 @@ ImportDataToolBar::ImportDataToolBar(QWidget* parent)
     connect(m_removeDataAction, SIGNAL(triggered()), this, SLOT(onRemoveDataAction()));
 }
 
-void ImportDataToolBar::setRealDataModel(RealDataModel* model) { m_realDataModel = model; }
+void RealDataSelectorToolBar::setRealDataModel(RealDataModel* model) { m_realDataModel = model; }
 
-void ImportDataToolBar::setInstrumentModel(InstrumentModel* model) { m_instrumentModel = model; }
+void RealDataSelectorToolBar::setInstrumentModel(InstrumentModel* model) { m_instrumentModel = model; }
 
-void ImportDataToolBar::setSelectionModel(QItemSelectionModel* selectionModel)
+void RealDataSelectorToolBar::setSelectionModel(QItemSelectionModel* selectionModel)
 {
     m_selectionModel = selectionModel;
 }
 
 //! Sets action to toolbar, preserving own toolbar's actions.
 
-void ImportDataToolBar::setActionList(const QList<QAction*>& actionList)
+void RealDataSelectorToolBar::setActionList(const QList<QAction*>& actionList)
 {
     clear();
 
@@ -76,7 +75,7 @@ void ImportDataToolBar::setActionList(const QList<QAction*>& actionList)
         addAction(action);
 }
 
-void ImportDataToolBar::onImportDataAction()
+void RealDataSelectorToolBar::onImportDataAction()
 {
     Q_ASSERT(m_realDataModel);
     ImportDataAssistant assistant;
@@ -93,7 +92,7 @@ void ImportDataToolBar::onImportDataAction()
     }
 }
 
-void ImportDataToolBar::onRemoveDataAction()
+void RealDataSelectorToolBar::onRemoveDataAction()
 {
     QModelIndex currentIndex = m_selectionModel->currentIndex();
     if (currentIndex.isValid())

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/ImportDataWidgets/ImportDataToolBar.h
-//! @brief     Defines class ImportDataToolBar
+//! @file      GUI/coregui/Views/ImportDataWidgets/RealDataSelectorToolBar.h
+//! @brief     Defines class RealDataSelectorToolBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IMPORTDATATOOLBAR_H
-#define IMPORTDATATOOLBAR_H
+#ifndef REALDATASELECTORTOOLBAR_H
+#define REALDATASELECTORTOOLBAR_H
 
 #include "StyledToolBar.h"
 
@@ -25,14 +25,14 @@ class InstrumentModel;
 class QItemSelectionModel;
 class RealDataItem;
 
-//! The ImportDataToolBar class represents a narrow toolbar on top of ImportDataView. Contains
-//! all action's logic to import, clone and remove data set.
+//! The RealDataSelectorToolBar class represents a narrow toolbar on top of
+//! RealDataSelectorWidget (ImportDataView)
 
-class BA_CORE_API_ ImportDataToolBar : public StyledToolBar
+class BA_CORE_API_ RealDataSelectorToolBar : public StyledToolBar
 {
     Q_OBJECT
 public:
-    ImportDataToolBar(QWidget* parent = 0);
+    RealDataSelectorToolBar(QWidget* parent = 0);
 
     void setRealDataModel(RealDataModel* model);
     void setInstrumentModel(InstrumentModel* model);
@@ -52,4 +52,4 @@ private:
     QItemSelectionModel* m_selectionModel;
 };
 
-#endif // IMPORTDATATOOLBAR_H
+#endif // REALDATASELECTORTOOLBAR_H

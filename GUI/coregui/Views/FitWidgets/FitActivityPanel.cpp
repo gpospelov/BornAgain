@@ -22,7 +22,7 @@
 #include "JobRealTimeWidget.h"
 #include "RunFitControlWidget.h"
 #include "mainwindow_constants.h"
-#include "FitActivityManager.h"
+#include "FitSessionManager.h"
 #include <QPushButton>
 #include <QVBoxLayout>
 
@@ -35,7 +35,7 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     , m_stackedWidget(new ItemStackPresenter<FitSessionWidget>(reuse_widget))
     , m_realTimeWidget(nullptr)
     , m_jobMessagePanel(nullptr)
-    , m_fitActivityManager(new FitActivityManager(this))
+    , m_fitSessionManager(new FitSessionManager(this))
 {
     setWindowTitle(Constants::JobFitPanelName);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -60,7 +60,7 @@ void FitActivityPanel::setRealTimeWidget(JobRealTimeWidget* realTimeWidget)
 void FitActivityPanel::setJobMessagePanel(JobMessagePanel* jobMessagePanel)
 {
     m_jobMessagePanel = jobMessagePanel;
-    m_fitActivityManager->setMessagePanel(m_jobMessagePanel);
+    m_fitSessionManager->setMessagePanel(m_jobMessagePanel);
 }
 
 QSize FitActivityPanel::sizeHint() const
@@ -79,14 +79,14 @@ void FitActivityPanel::setItem(JobItem* item)
     if (!isValidJobItem(item)) {
         m_jobMessagePanel->onClearLog();
         m_stackedWidget->hideWidgets();
-        m_fitActivityManager->disableLogging();
+        m_fitSessionManager->disableLogging();
         return;
     }
 
     m_stackedWidget->setItem(item);
     FitSessionWidget* widget = m_stackedWidget->currentWidget();
     widget->setModelTuningWidget(m_realTimeWidget->parameterTuningWidget(item));
-    widget->setFitSessionActivity(m_fitActivityManager->sessionActivity(item));
+    widget->setSessionController(m_fitSessionManager->sessionController(item));
 }
 
 bool FitActivityPanel::isValidJobItem(JobItem* item)

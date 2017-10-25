@@ -26,7 +26,7 @@ class FitSessionWidget;
 class JobRealTimeWidget;
 class RunFitControlWidget;
 class JobMessagePanel;
-class FitActivityManager;
+class FitSessionManager;
 
 //! The FitActivityPanel class is a main widget to run the fitting.
 //! Occupies bottom right corner of JobView, contains stack of FitSuiteWidgets for every
@@ -54,7 +54,7 @@ private:
     ItemStackPresenter<FitSessionWidget>* m_stackedWidget;
     JobRealTimeWidget* m_realTimeWidget;
     JobMessagePanel* m_jobMessagePanel;
-    FitActivityManager* m_fitActivityManager;
+    FitSessionManager* m_fitSessionManager;
 };
 
 #endif // FITACTIVITYPANEL_H

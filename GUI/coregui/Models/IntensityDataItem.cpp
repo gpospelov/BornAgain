@@ -390,6 +390,16 @@ BasicAxisItem* IntensityDataItem::yAxisItem()
     return const_cast<BasicAxisItem*>(static_cast<const IntensityDataItem*>(this)->yAxisItem());
 }
 
+const BasicAxisItem* IntensityDataItem::zAxisItem() const
+{
+    return dynamic_cast<const BasicAxisItem*>(getItem(P_ZAXIS));
+}
+
+BasicAxisItem* IntensityDataItem::zAxisItem()
+{
+    return const_cast<BasicAxisItem*>(static_cast<const IntensityDataItem*>(this)->zAxisItem());
+}
+
 //! Set axes viewport to original data.
 
 void IntensityDataItem::resetView()

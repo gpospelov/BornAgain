@@ -41,7 +41,9 @@ void SessionItemWidget::setItem(SessionItem* item)
     if (!m_currentItem)
         return;
 
-    if(!isHidden())
+    if (isHidden())
+        m_currentItem->mapper()->setOnItemDestroy([this](SessionItem*) { m_currentItem = 0; }, this);
+    else
         subscribe();
 }
 

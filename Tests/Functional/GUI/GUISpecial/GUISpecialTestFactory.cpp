@@ -75,6 +75,10 @@ GUISpecialTestFactory::GUISpecialTestFactory()
                  create_new<MesoCrystalTranslationTest>,
                  "MesoCrystalTranslation test");
 
+    registerItem("MagneticSpheresTranslation",
+                 create_new<MagneticSpheresTranslationTest>,
+                 "MagneticSpheresTranslation test");
+
     registerItem("GUIPerformance",
                  create_new<GUIPerformanceTest>,
                  "Measuring GUI performance on typical tasks.");

@@ -118,4 +118,11 @@ public:
     ~MesoCrystalTranslationTest();
 };
 
+class MagneticSpheresTranslationTest : public GUITranslationTest
+{
+public:
+    MagneticSpheresTranslationTest();
+    ~MagneticSpheresTranslationTest();
+};
+
 #endif // TRANSLATIONCASES_H

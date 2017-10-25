@@ -30,6 +30,7 @@ set(test_cases
     LargeCylindersMonteCarlo
     Lattice1D
     MagneticParticleZeroField
+    MagneticSpheres
     MagneticSubstrateZeroField
     MagneticRotation
     MesoCrystal

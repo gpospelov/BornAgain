@@ -30,6 +30,7 @@ set(test_cases
     HexParaCrystal
     LargeCylindersMonteCarlo
     Lattice1D
+    MagneticSpheres
     MultiLayerWithRoughness
     MultipleLayout
     ParticleComposition

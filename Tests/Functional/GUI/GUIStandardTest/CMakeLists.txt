@@ -25,6 +25,7 @@ set(test_cases
     HexParaCrystal
     LargeCylindersMonteCarlo
     Lattice1D
+    MagneticSpheres
     MesoCrystal
     MultiLayerWithRoughness
     MultipleLayout

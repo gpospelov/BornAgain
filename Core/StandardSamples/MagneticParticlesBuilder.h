@@ -48,4 +48,17 @@ private:
     double m_cylinder_height;
 };
 
+//! Builds sample: spheres with magnetization inside substrate.
+//! @ingroup standard_samples
+
+class BA_CORE_API_ MagneticSpheresBuilder : public IMultiLayerBuilder
+{
+public:
+    MagneticSpheresBuilder();
+    MultiLayer* buildSample() const;
+
+private:
+    double m_sphere_radius;
+};
+
 #endif // MAGNETICPARTICLESBUILDER_H

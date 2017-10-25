@@ -16,6 +16,7 @@
 #include "MagneticParticlesBuilder.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
+#include "FormFactorFullSphere.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
@@ -29,7 +30,6 @@
 // ----------------------------------------------------------------------------
 // Magnetic cylinders and zero magnetic field
 // ----------------------------------------------------------------------------
-
 MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
     :  m_cylinder_radius(5*Units::nanometer)
     ,  m_cylinder_height(5*Units::nanometer)
@@ -85,6 +85,37 @@ MultiLayer* MagneticCylindersBuilder::buildSample() const
     ParticleLayout particle_layout(particle);
 
     air_layer.addLayout(particle_layout);
+
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+    return multi_layer;
+}
+
+// ----------------------------------------------------------------------------
+// Magnetic spheres inside substrate
+// ----------------------------------------------------------------------------
+MagneticSpheresBuilder::MagneticSpheresBuilder()
+    : m_sphere_radius(5*Units::nanometer)
+{}
+
+MultiLayer* MagneticSpheresBuilder::buildSample() const
+{
+    MultiLayer* multi_layer = new MultiLayer();
+    kvector_t magnetization(0.0, 0.0, 1e7);
+    HomogeneousMaterial particle_material("Particle", 2e-5, 4e-7, magnetization);
+    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    HomogeneousMaterial substrate_material("Substrate", 7e-6, 1.8e-7);
+
+    FormFactorFullSphere ff_sphere(m_sphere_radius);
+    Particle particle(particle_material, ff_sphere);
+    kvector_t position(0.0, 0.0, -2.0*m_sphere_radius);
+
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(particle, 1.0, position);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+    substrate_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);

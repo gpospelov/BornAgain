@@ -13212,21 +13212,6 @@ C++ includes: SizeDistributionModelsBuilder.h
 ";
 
 
-// File: classSlice.xml
-%feature("docstring") Slice "
-
-Represents a single slice, constructed from the division of a layer into (possibly) multiple slices.
-
-C++ includes: Slice.h
-";
-
-%feature("docstring")  Slice::Slice "Slice::Slice(const HomogeneousMaterial &material, double thickness, const LayerRoughness *top_roughness=nullptr)
-";
-
-%feature("docstring")  Slice::~Slice "Slice::~Slice()
-";
-
-
 // File: classSlicedCompositionBuilder.xml
 %feature("docstring") SlicedCompositionBuilder "
 

@@ -81,14 +81,6 @@ private:
     kvector_t m_magnetization; //!< magnetization
 };
 
-// Functions for calculating the reduced potential, used for obtaining the Fresnel coefficients:
-complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref);
-
-#ifndef SWIG
-Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field,
-                                           kvector_t k, double n_ref);
-#endif
-
 // Comparison operators:
 BA_CORE_API_ bool operator==(const HomogeneousMaterial& left, const HomogeneousMaterial& right);
 BA_CORE_API_ bool operator!=(const HomogeneousMaterial& left, const HomogeneousMaterial& right);

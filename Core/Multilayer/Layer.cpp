@@ -19,6 +19,7 @@
 #include "ILayout.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
+#include "MaterialUtils.h"
 
 #include <set>
 

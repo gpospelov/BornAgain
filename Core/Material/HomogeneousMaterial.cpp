@@ -1,38 +1,15 @@
 #include "HomogeneousMaterial.h"
 #include "WavevectorInfo.h"
 #include "Transform3D.h"
+#include "MaterialUtils.h"
+#include "PhysicalConstants.h"
 
-// this prefactor is equal to m_n*g_n*mu_N / (hbar^2), with
-// m_n: neutron mass
-// g_n: neutron g-factor (-3.826)
-// mu_N: nuclear magneton
-// hbar: reduced Planck constant
-// Units are: 1/(nm^2 * T)
-static const double Magnetic_Prefactor = -2.91042993836710484e-3;
-
-static const double Thomson_Scattering_Length = 2.8179403227e-15;
-static const double Bohr_Magneton = 9.274009994e-24;
-// The neutron's magnetic moment is Gamma_Neutron times the nuclear magneton
-static const double Gamma_Neutron = 1.91304272;
-// The factor 1e-18 is here to have unit: m/A*nm^-2
-static const double Magnetization_Prefactor = (Gamma_Neutron*Thomson_Scattering_Length
-                                               /2.0/Bohr_Magneton)*1e-18;
-
-// Unit 2x2 matrix
-static const Eigen::Matrix2cd Unit_Matrix(Eigen::Matrix2cd::Identity());
-
-// Imaginary unit
-namespace {
-    const complex_t I(0,1);
-}
-
-// Pauli matrices
-static const Eigen::Matrix2cd Pauli_X((Eigen::Matrix2cd() << 0,  1,
-                                                             1,  0).finished());
-static const Eigen::Matrix2cd Pauli_Y((Eigen::Matrix2cd() << 0, -I,
-                                                             I,  0).finished());
-static const Eigen::Matrix2cd Pauli_Z((Eigen::Matrix2cd() << 1,  0,
-                                                             0, -1).finished());
+using PhysConsts::mu_B;
+using PhysConsts::gamma_n;
+using PhysConsts::r_e;
+ // The factor 1e-18 is here to have unit: m/A*nm^-2
+constexpr double magnetization_prefactor
+    = (gamma_n * r_e / 2.0 / mu_B) * 1e-18;
 
 namespace {
 // Used in experimental calculation of scattering matrix:
@@ -109,12 +86,7 @@ Eigen::Matrix2cd HomogeneousMaterial::polarizedSubtrSLD(const WavevectorInfo& wa
 {
     cvector_t mag_ortho = OrthogonalToBaseVector(wavevectors.getQ(), m_magnetization);
     complex_t unit_factor = scalarSubtrSLD(wavevectors);
-    Eigen::Matrix2cd result;
-    result = unit_factor*Unit_Matrix
-            + Magnetization_Prefactor*Pauli_X*mag_ortho[0]
-            + Magnetization_Prefactor*Pauli_Y*mag_ortho[1]
-            + Magnetization_Prefactor*Pauli_Z*mag_ortho[2];
-    return result;
+    return MagnetizationCorrection(unit_factor, magnetization_prefactor, mag_ortho);
 }
 
 HomogeneousMaterial HomogeneousMaterial::transformedMaterial(const Transform3D& transform) const
@@ -134,24 +106,6 @@ std::ostream& operator<<(std::ostream& ostr, const HomogeneousMaterial& m)
 {
     m.print(ostr);
     return ostr;
-}
-
-complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
-{
-    return n*n - n_ref*n_ref*k.sin2Theta();
-}
-
-Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field,
-                                           kvector_t k, double n_ref)
-{
-    Eigen::Matrix2cd result;
-    double factor = Magnetic_Prefactor/k.mag2();
-    complex_t unit_factor = ScalarReducedPotential(n, k, n_ref);
-    result = unit_factor*Unit_Matrix
-            + factor*Pauli_X*b_field[0]
-            + factor*Pauli_Y*b_field[1]
-            + factor*Pauli_Z*b_field[2];
-    return result;
 }
 
 bool operator==(const HomogeneousMaterial& left, const HomogeneousMaterial& right)

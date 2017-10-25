@@ -26,6 +26,7 @@ class RealDataPropertiesWidget;
 class InstrumentModel;
 class RealDataModel;
 class SessionItem;
+class RealDataSelectorActions;
 class RealDataSelectorToolBar;
 namespace Manhattan { class MiniSplitter;}
 
@@ -52,6 +53,7 @@ public slots:
     void onSelectionChanged(SessionItem* item);
 
 private:
+    RealDataSelectorActions* m_selectorActions;
     RealDataSelectorToolBar* m_toolBar;
     Manhattan::MiniSplitter* m_splitter;
     ItemSelectorWidget* m_selectorWidget;

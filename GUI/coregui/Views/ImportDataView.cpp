@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "ImportDataView.h"
-#include "ImportDataToolBar.h"
 #include "ItemSelectorWidget.h"
 #include "RealDataModel.h"
 #include "RealDataSelectorWidget.h"
@@ -24,19 +23,21 @@
 #include "minisplitter.h"
 #include <QVBoxLayout>
 
-ImportDataView::ImportDataView(MainWindow *mainWindow)
+namespace {
+const bool reuse_widget = true;
+}
+
+ImportDataView::ImportDataView(MainWindow* mainWindow)
     : QWidget(mainWindow)
-    , m_toolBar(new ImportDataToolBar(this))
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new RealDataSelectorWidget)
-//    , m_stackedWidget(new ItemStackPresenter<RealDataEditorWidget>)
-    , m_stackedWidget(new ItemStackPresenter<RealDataMaskWidget>)
+    , m_stackedWidget(new ItemStackPresenter<RealDataPresenter>(reuse_widget))
     , m_realDataModel(mainWindow->realDataModel())
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
     m_stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_selectorWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
@@ -48,9 +49,8 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
     m_splitter->setCollapsible(1, false);
 
     m_splitter->setSizes(QList<int>() << Constants::ITEM_SELECTOR_WIDGET_WIDTH
-                         << Constants::ITEM_SELECTOR_WIDGET_WIDTH*7);
+                                      << Constants::ITEM_SELECTOR_WIDGET_WIDTH * 7);
 
-    mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_splitter);
 
     setLayout(mainLayout);
@@ -59,29 +59,15 @@ ImportDataView::ImportDataView(MainWindow *mainWindow)
 
     m_selectorWidget->setModels(mainWindow->instrumentModel(), mainWindow->realDataModel());
     m_stackedWidget->setModel(mainWindow->realDataModel());
-    m_toolBar->setRealDataModel(mainWindow->realDataModel());
-    m_toolBar->setInstrumentModel(mainWindow->instrumentModel());
-    m_toolBar->setSelectionModel(m_selectorWidget->selectionModel());
 }
 
-void ImportDataView::onSelectionChanged(SessionItem *item)
+void ImportDataView::onSelectionChanged(SessionItem* item)
 {
-    if(!item) return;
-
-    bool isNew(false);
-    m_stackedWidget->setItem(item, &isNew);
-    if(isNew) {
-//        RealDataEditorWidget *widget = m_stackedWidget->currentWidget();
-        RealDataMaskWidget *widget = m_stackedWidget->currentWidget();
-        Q_ASSERT(widget);
-        widget->setItem(item);
-    }
-    m_toolBar->setActionList(m_stackedWidget->currentWidget()->actionList());
-
+    m_stackedWidget->setItem(item);
 }
 
 void ImportDataView::setupConnections()
 {
-    connect(m_selectorWidget, SIGNAL(selectionChanged(SessionItem *)),
-        this, SLOT(onSelectionChanged(SessionItem *)));
+    connect(m_selectorWidget, &RealDataSelectorWidget::selectionChanged,
+            this, &ImportDataView::onSelectionChanged);
 }

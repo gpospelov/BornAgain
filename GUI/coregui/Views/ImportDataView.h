@@ -18,9 +18,8 @@
 #define IMPORTDATAVIEW_H
 
 #include "ItemStackPresenter.h"
-#include "RealDataMaskWidget.h"
+#include "RealDataPresenter.h"
 
-class ImportDataToolBar;
 class RealDataModel;
 class RealDataSelectorWidget;
 namespace Manhattan { class MiniSplitter; }
@@ -32,19 +31,18 @@ class BA_CORE_API_ ImportDataView : public QWidget
     Q_OBJECT
 
 public:
-    ImportDataView(class MainWindow *mainWindow);
+    ImportDataView(class MainWindow* mainWindow);
 
 public slots:
-    void onSelectionChanged(SessionItem *item);
+    void onSelectionChanged(SessionItem* item);
 
 private:
     void setupConnections();
 
-    ImportDataToolBar *m_toolBar;
-    Manhattan::MiniSplitter *m_splitter;
-    RealDataSelectorWidget *m_selectorWidget;
-    ItemStackPresenter<RealDataMaskWidget> *m_stackedWidget;
-    RealDataModel *m_realDataModel;
+    Manhattan::MiniSplitter* m_splitter;
+    RealDataSelectorWidget* m_selectorWidget;
+    ItemStackPresenter<RealDataPresenter>* m_stackedWidget;
+    RealDataModel* m_realDataModel;
 };
 
 #endif // IMPORTDATAVIEW_H

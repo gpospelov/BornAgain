@@ -20,7 +20,6 @@
 #include "ItemStackPresenter.h"
 #include "RealDataPresenter.h"
 
-class ImportDataToolBar;
 class RealDataModel;
 class RealDataSelectorWidget;
 namespace Manhattan { class MiniSplitter; }
@@ -40,7 +39,6 @@ public slots:
 private:
     void setupConnections();
 
-    ImportDataToolBar* m_toolBar;
     Manhattan::MiniSplitter* m_splitter;
     RealDataSelectorWidget* m_selectorWidget;
     ItemStackPresenter<RealDataPresenter>* m_stackedWidget;

@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "ImportDataView.h"
-#include "ImportDataToolBar.h"
 #include "ItemSelectorWidget.h"
 #include "RealDataModel.h"
 #include "RealDataSelectorWidget.h"
@@ -30,7 +29,6 @@ const bool reuse_widget = true;
 
 ImportDataView::ImportDataView(MainWindow* mainWindow)
     : QWidget(mainWindow)
-    , m_toolBar(new ImportDataToolBar(this))
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new RealDataSelectorWidget)
     , m_stackedWidget(new ItemStackPresenter<RealDataPresenter>(reuse_widget))
@@ -53,7 +51,6 @@ ImportDataView::ImportDataView(MainWindow* mainWindow)
     m_splitter->setSizes(QList<int>() << Constants::ITEM_SELECTOR_WIDGET_WIDTH
                                       << Constants::ITEM_SELECTOR_WIDGET_WIDTH * 7);
 
-    mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_splitter);
 
     setLayout(mainLayout);
@@ -62,9 +59,6 @@ ImportDataView::ImportDataView(MainWindow* mainWindow)
 
     m_selectorWidget->setModels(mainWindow->instrumentModel(), mainWindow->realDataModel());
     m_stackedWidget->setModel(mainWindow->realDataModel());
-    m_toolBar->setRealDataModel(mainWindow->realDataModel());
-    m_toolBar->setInstrumentModel(mainWindow->instrumentModel());
-    m_toolBar->setSelectionModel(m_selectorWidget->selectionModel());
 }
 
 void ImportDataView::onSelectionChanged(SessionItem* item)
@@ -73,7 +67,6 @@ void ImportDataView::onSelectionChanged(SessionItem* item)
         return;
 
     m_stackedWidget->setItem(item);
-    m_toolBar->setActionList(m_stackedWidget->currentWidget()->actionList());
 }
 
 void ImportDataView::setupConnections()

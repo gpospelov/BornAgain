@@ -259,6 +259,7 @@ const ModelType AVERAGE_LAYER_MATERIAL = "Average Layer Material";
 const QString IntensityDataPresentation = "Color Map";
 const QString JobProjectionsPresentation = "Projections";
 const QString FitComparisonPresentation = "Fit Data";
+const QString MaskEditorPresentation = "Mask Editor";
 
 // --- Custom variants ----------------------------------------------------------
 

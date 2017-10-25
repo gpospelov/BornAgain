@@ -33,7 +33,7 @@ ImportDataView::ImportDataView(MainWindow* mainWindow)
     , m_toolBar(new ImportDataToolBar(this))
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new RealDataSelectorWidget)
-    , m_stackedWidget(new ItemStackPresenter<RealDataMaskWidget>(reuse_widget))
+    , m_stackedWidget(new ItemStackPresenter<RealDataPresenter>(reuse_widget))
     , m_realDataModel(mainWindow->realDataModel())
 {
     auto mainLayout = new QVBoxLayout;

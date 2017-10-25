@@ -63,9 +63,6 @@ ImportDataView::ImportDataView(MainWindow* mainWindow)
 
 void ImportDataView::onSelectionChanged(SessionItem* item)
 {
-    if (!item)
-        return;
-
     m_stackedWidget->setItem(item);
 }
 

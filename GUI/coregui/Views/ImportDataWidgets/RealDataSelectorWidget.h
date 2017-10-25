@@ -26,7 +26,6 @@ class RealDataPropertiesWidget;
 class InstrumentModel;
 class RealDataModel;
 class SessionItem;
-class QItemSelectionModel;
 class ImportDataToolBar;
 namespace Manhattan { class MiniSplitter;}
 
@@ -39,26 +38,24 @@ class BA_CORE_API_ RealDataSelectorWidget : public QWidget
     Q_OBJECT
 
 public:
-    RealDataSelectorWidget(QWidget *parent = 0);
+    RealDataSelectorWidget(QWidget* parent = 0);
 
-    QSize sizeHint() const { return QSize(200, 400); }
-    QSize minimumSizeHint() const { return QSize(128, 200); }
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
 
-    void setModels(InstrumentModel *instrumentModel, RealDataModel *realDataModel);
-
-    QItemSelectionModel *selectionModel();
+    void setModels(InstrumentModel* instrumentModel, RealDataModel* realDataModel);
 
 signals:
-    void selectionChanged(SessionItem *);
+    void selectionChanged(SessionItem*);
 
 public slots:
-    void onSelectionChanged(SessionItem *item);
+    void onSelectionChanged(SessionItem* item);
 
 private:
     ImportDataToolBar* m_toolBar;
-    Manhattan::MiniSplitter *m_splitter;
-    ItemSelectorWidget *m_selectorWidget;
-    RealDataPropertiesWidget *m_propertiesWidget;
+    Manhattan::MiniSplitter* m_splitter;
+    ItemSelectorWidget* m_selectorWidget;
+    RealDataPropertiesWidget* m_propertiesWidget;
 };
 
 #endif // REALDATASELECTORWIDGET_H

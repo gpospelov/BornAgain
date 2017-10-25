@@ -19,6 +19,8 @@
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataCanvas.h"
 #include "JobItem.h"
+#include "RealDataItem.h"
+#include "GUIHelpers.h"
 #include <QBoxLayout>
 #include <QMenu>
 
@@ -70,5 +72,17 @@ void IntensityDataWidget::onContextMenuRequest(const QPoint& point)
 
 IntensityDataItem* IntensityDataWidget::intensityDataItem()
 {
-    return &currentItem()->item<IntensityDataItem>(JobItem::T_OUTPUT);
+    if (!currentItem())
+        throw GUIHelpers::Error("IntensityDataWidget::intensityDataItem() -> Error. "
+                                "Not initialized.");
+
+    if (currentItem()->modelType() == Constants::JobItemType)
+        return &currentItem()->item<IntensityDataItem>(JobItem::T_OUTPUT);
+    else if(currentItem()->modelType() == Constants::RealDataType)
+        return &currentItem()->item<IntensityDataItem>(RealDataItem::T_INTENSITY_DATA);
+    else if(currentItem()->modelType() == Constants::IntensityDataType)
+        return dynamic_cast<IntensityDataItem *>(currentItem());
+    else
+        throw GUIHelpers::Error("IntensityDataWidget::intensityDataItem() -> Error. "
+                                "Unexpected item.");
 }

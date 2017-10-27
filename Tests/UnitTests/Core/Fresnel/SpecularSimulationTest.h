@@ -1,9 +1,9 @@
 #include "SpecularSimulation.h"
-#include "HomogeneousMaterial.h"
 #include "IMultiLayerBuilder.h"
 #include "Exceptions.h"
 #include "FixedBinAxis.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Units.h"
 #include <iostream>
@@ -17,9 +17,9 @@ class SpecularSimulationTest : public ::testing::Test
 
 SpecularSimulationTest::SpecularSimulationTest()
 {
-    HomogeneousMaterial mat0("ambience", 0.0, 0.0);
-    HomogeneousMaterial mat1("PartA", 5e-6, 0.0);
-    HomogeneousMaterial mat2("substrate", 15e-6, 0.0);
+    Material mat0 = HomogeneousMaterial("ambience", 0.0, 0.0);
+    Material mat1 = HomogeneousMaterial("PartA", 5e-6, 0.0);
+    Material mat2 = HomogeneousMaterial("substrate", 15e-6, 0.0);
 
     Layer layer0(mat0);
     Layer layer1(mat1, 10*Units::nanometer);

@@ -17,11 +17,11 @@
 #include "Units.h"
 #include "MultiLayer.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "FormFactorCylinder.h"
 #include "InterferenceFunction2DLattice.h"
-#include "HomogeneousMaterial.h"
 #include "GISASSimulation.h"
 
 namespace {

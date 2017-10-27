@@ -131,6 +131,11 @@ TEST_F(MaterialTest, EqualityTest)
     EXPECT_DOUBLE_EQ(material.materialData().real(), material3.materialData().real());
     EXPECT_DOUBLE_EQ(material.materialData().imag(), material3.materialData().imag());
     EXPECT_TRUE(material.dataType() == material3.dataType());
+
+    EXPECT_EQ(HomogeneousMaterial().getName(), MaterialBySLD().getName());
+    EXPECT_EQ(HomogeneousMaterial().materialData(), MaterialBySLD().materialData());
+    EXPECT_EQ(HomogeneousMaterial().magnetization(), MaterialBySLD().magnetization());
+    EXPECT_FALSE(HomogeneousMaterial() == MaterialBySLD());
 }
 
 TEST_F(MaterialTest, MaterialCopy)

@@ -20,6 +20,13 @@ Material HomogeneousMaterial(const std::string& name, double delta, double beta,
     return Material(std::move(mat_impl));
 }
 
+Material HomogeneousMaterial()
+{
+    std::unique_ptr<RefractiveCoefMaterial> mat_impl(
+        new RefractiveCoefMaterial("vacuum", 0.0, 0.0, kvector_t{}));
+    return Material(std::move(mat_impl));
+}
+
 Material MaterialBySLD(const std::string& name, double sld, double abs_term,
                        kvector_t magnetization)
 {
@@ -34,5 +41,12 @@ Material MaterialByAbsCX(const std::string& name, double sld, double abs_cx,
 {
     std::unique_ptr<WavelengthIndependentMaterial> mat_impl(
         new WavelengthIndependentMaterial(name, sld, abs_cx / basic_wavelength, magnetization));
+    return Material(std::move(mat_impl));
+}
+
+Material MaterialBySLD()
+{
+    std::unique_ptr<WavelengthIndependentMaterial> mat_impl(
+        new WavelengthIndependentMaterial("vacuum", 0.0, 0.0, kvector_t{}));
     return Material(std::move(mat_impl));
 }

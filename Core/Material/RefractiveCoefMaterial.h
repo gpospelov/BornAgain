@@ -30,6 +30,8 @@ public:
     friend BA_CORE_API_ Material HomogeneousMaterial(const std::string&, double, double,
                                                          kvector_t);
 
+    friend BA_CORE_API_ Material HomogeneousMaterial();
+
     virtual ~RefractiveCoefMaterial();
 
     //! Returns pointer to a copy of material

@@ -5,6 +5,7 @@
 #include "TRangeTest.h"
 #include "Shape2DTest.h"
 #include "HomogeneousMaterialTest.h"
+#include "MaterialTest.h"
 #include "GISASSimulationTest.h"
 #include "ZLimitsTest.h"
 #include "ThreadInfoTest.h"

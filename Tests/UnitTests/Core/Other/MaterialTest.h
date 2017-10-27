@@ -20,12 +20,12 @@ TEST_F(MaterialTest, MaterialConstruction)
     complex_t refIndex = complex_t(1.0 - material_data.real(), material_data.imag());
     kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
 
-    Material material = RefractiveIndexMaterial("MagMaterial", refIndex, magnetism);
+    Material material = HomogeneousMaterial("MagMaterial", refIndex, magnetism);
     EXPECT_EQ("MagMaterial", material.getName());
     EXPECT_EQ(material_data, material.materialData());
     EXPECT_EQ(magnetism, material.magnetization());
 
-    Material material2 = RefractiveIndexMaterial("MagMaterial", material_data.real(),
+    Material material2 = HomogeneousMaterial("MagMaterial", material_data.real(),
                                                  material_data.imag(), magnetism);
     EXPECT_EQ("MagMaterial", material2.getName());
     EXPECT_EQ(material_data, material2.materialData());
@@ -39,13 +39,13 @@ TEST_F(MaterialTest, MaterialConstruction)
 
     kvector_t default_magnetism = kvector_t{};
 
-    Material material4 = RefractiveIndexMaterial("Material", refIndex);
+    Material material4 = HomogeneousMaterial("Material", refIndex);
     EXPECT_EQ("Material", material4.getName());
     EXPECT_EQ(material_data, material4.materialData());
     EXPECT_EQ(default_magnetism, material4.magnetization());
 
     Material material5
-        = RefractiveIndexMaterial("Material", material_data.real(), material_data.imag());
+        = HomogeneousMaterial("Material", material_data.real(), material_data.imag());
     EXPECT_EQ("Material", material5.getName());
     EXPECT_EQ(material_data, material5.materialData());
     EXPECT_EQ(default_magnetism, material5.magnetization());
@@ -65,7 +65,7 @@ TEST_F(MaterialTest, MaterialTransform)
     RotationZ transform(90. * Units::degree);
     kvector_t transformed_mag = transform.getTransform3D().transformed(magnetism);
 
-    Material material = RefractiveIndexMaterial("Material", refIndex, magnetism);
+    Material material = HomogeneousMaterial("Material", refIndex, magnetism);
     Material material2 = material.transformedMaterial(transform.getTransform3D());
 
     EXPECT_EQ("Material", material2.getName());
@@ -111,7 +111,7 @@ TEST_F(MaterialTest, ComputationTest)
     const complex_t refr_index = material.refractiveIndex(2.0 * basic_wavelength);
     WavevectorInfo wv_info(cvector_t{}, cvector_t{}, 2.0 * basic_wavelength);
 
-    Material material2 = RefractiveIndexMaterial("Fe", 1.0 - refr_index.real(), std::abs(refr_index.imag()));
+    Material material2 = HomogeneousMaterial("Fe", 1.0 - refr_index.real(), std::abs(refr_index.imag()));
     const complex_t subtrSLD = material2.scalarSubtrSLD(wv_info);
     const complex_t subtrSLDWlIndep = material.scalarSubtrSLD(wv_info);
     EXPECT_FLOAT_EQ(subtrSLD.real(), subtrSLDWlIndep.real());
@@ -121,7 +121,7 @@ TEST_F(MaterialTest, ComputationTest)
 TEST_F(MaterialTest, EqualityTest)
 {
     Material material = MaterialBySLD("Material", 1.0, 1.0);
-    Material material2 = RefractiveIndexMaterial("Material", 1.0, 1.0);
+    Material material2 = HomogeneousMaterial("Material", 1.0, 1.0);
     EXPECT_FALSE(material == material2);
 
     constexpr double basic_wavelength = 0.1798197; // nm
@@ -138,7 +138,7 @@ TEST_F(MaterialTest, MaterialCopy)
     complex_t material_data = complex_t(0.0, 2.0);
     complex_t refIndex = complex_t(1.0 - material_data.real(), material_data.imag());
     kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
-    Material material = RefractiveIndexMaterial("MagMaterial", refIndex, magnetism);
+    Material material = HomogeneousMaterial("MagMaterial", refIndex, magnetism);
 
     Material copy = material;
 
@@ -153,7 +153,7 @@ TEST_F(MaterialTest, MaterialMove)
     complex_t material_data = complex_t(0.0, 2.0);
     complex_t refIndex = complex_t(1.0 - material_data.real(), material_data.imag());
     kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
-    Material material = RefractiveIndexMaterial("MagMaterial", refIndex, magnetism);
+    Material material = HomogeneousMaterial("MagMaterial", refIndex, magnetism);
 
     Material move(std::move(material));
     EXPECT_EQ("MagMaterial", move.getName());

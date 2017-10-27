@@ -22,7 +22,7 @@
 
 //! Constructs a material with _name_ and _refractive_index_.
 //! @param magnetization: magnetization (in A/m)
-BA_CORE_API_ Material RefractiveIndexMaterial(const std::string& name, complex_t refractive_index,
+BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
                                               kvector_t magnetization = kvector_t());
 
 //! @ingroup materials
@@ -30,7 +30,7 @@ BA_CORE_API_ Material RefractiveIndexMaterial(const std::string& name, complex_t
 //! Constructs a material with _name_ and refractive_index parameters
 //! \f$\delta\f$ and \f$\beta\f$ for refractive index \f$n = 1 - \delta + i \beta\f$.
 //! @param magnetization: magnetization (in A/m)
-BA_CORE_API_ Material RefractiveIndexMaterial(const std::string& name, double delta, double beta,
+BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, double delta, double beta,
                                               kvector_t magnetization = kvector_t());
 
 //! @ingroup materials

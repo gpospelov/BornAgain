@@ -2,7 +2,7 @@
 #include "RefractiveCoefMaterial.h"
 #include "WavelengthIndependentMaterial.h"
 
-Material RefractiveIndexMaterial(const std::string& name, complex_t refractive_index,
+Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
                                  kvector_t magnetization)
 {
     const double delta = 1.0 - refractive_index.real();
@@ -12,7 +12,7 @@ Material RefractiveIndexMaterial(const std::string& name, complex_t refractive_i
     return Material(std::move(mat_impl));
 }
 
-Material RefractiveIndexMaterial(const std::string& name, double delta, double beta,
+Material HomogeneousMaterial(const std::string& name, double delta, double beta,
                                  kvector_t magnetization)
 {
     std::unique_ptr<RefractiveCoefMaterial> mat_impl(

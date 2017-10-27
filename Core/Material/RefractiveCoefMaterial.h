@@ -25,9 +25,9 @@
 class BA_CORE_API_ RefractiveCoefMaterial : public BaseMaterialImpl
 {
 public:
-    friend BA_CORE_API_ Material RefractiveIndexMaterial(const std::string&, complex_t, kvector_t);
+    friend BA_CORE_API_ Material HomogeneousMaterial(const std::string&, complex_t, kvector_t);
 
-    friend BA_CORE_API_ Material RefractiveIndexMaterial(const std::string&, double, double,
+    friend BA_CORE_API_ Material HomogeneousMaterial(const std::string&, double, double,
                                                          kvector_t);
 
     virtual ~RefractiveCoefMaterial();

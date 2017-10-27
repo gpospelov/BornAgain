@@ -16,8 +16,8 @@
 
 #include "MaterialItem.h"
 #include "GUIHelpers.h"
-#include "HomogeneousMaterial.h"
 #include "MaterialDataItem.h"
+#include "MaterialFactoryFuncs.h"
 #include "MaterialUtils.h"
 
 
@@ -55,7 +55,8 @@ QColor MaterialItem::getColor() const
     return property.getColor();
 }
 
-std::unique_ptr<HomogeneousMaterial> MaterialItem::createMaterial() const
+//TODO: make this function create proper type of material (refractive index m-l or wl-indp. mat-l)
+std::unique_ptr<Material> MaterialItem::createMaterial() const
 {
     const MaterialDataItem* materialDataItem
         = dynamic_cast<const MaterialDataItem*>(getItem(MaterialItem::P_MATERIAL_DATA));
@@ -67,6 +68,6 @@ std::unique_ptr<HomogeneousMaterial> MaterialItem::createMaterial() const
 
     auto magnetization = getVectorItem(P_MAGNETIZATION);
 
-    return std::make_unique<HomogeneousMaterial>(itemName().toStdString(), real, imag,
-                                                 magnetization);
+    return std::make_unique<Material>(HomogeneousMaterial(itemName().toStdString(), real, imag,
+                                                 magnetization));
 }

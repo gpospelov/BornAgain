@@ -19,6 +19,9 @@
 #include "BaseMaterialImpl.h"
 #include "Material.h"
 
+//! Material implementation based on wavelength-independent data (valid for a range of wavelengths)
+//! @ingroup materials
+
 class BA_CORE_API_ WavelengthIndependentMaterial : public BaseMaterialImpl
 {
 public:
@@ -31,13 +34,16 @@ public:
     //! Returns pointer to a copy of material
     virtual WavelengthIndependentMaterial* clone() const override;
 
+    //! Returns refractive index
     virtual complex_t refractiveIndex(double wavelength) const override;
+
+    //! Returns squared refractive index
     virtual complex_t refractiveIndex2(double wavelength) const override;
 
     //! Returns underlying material data
     virtual complex_t materialData() const override;
 
-    //! Returns \pi/(wl*wl) - sld, with wl being the wavelength
+    //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density
     virtual complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const override;
 
     //! Prints object data

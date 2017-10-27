@@ -24,7 +24,8 @@
 class Transform3D;
 class WavevectorInfo;
 
-//! A wrapper for homogeneous and wavelength-independent materials
+//! A basic implementation for homogeneous and wavelength-independent materials.
+//! Incorporates data and methods required to handle material magnetization.
 //! @ingroup materials
 
 class BA_CORE_API_ BaseMaterialImpl : public INamed
@@ -56,11 +57,11 @@ public:
     //! Returns underlying material data
     virtual complex_t materialData() const = 0;
 
-    //! Returns \pi/(wl*wl) - sld, with wl being the wavelength
+    //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld being the scattering length density
     virtual complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const = 0;
 
 #ifndef SWIG
-    //! Returns \pi/(wl*wl) - sld matrix with magnetization corrections. wl denotes the wavelength
+    //! Returns (\f$ \pi/\lambda^2 \f$ - sld) matrix with magnetization corrections
     Eigen::Matrix2cd polarizedSubtrSLD(const WavevectorInfo& wavevectors) const;
 #endif
 
@@ -70,7 +71,6 @@ public:
     virtual void print(std::ostream &ostr) const = 0;
 
 private:
-    //! Sets the magnetization (in A/m)
     void setMagnetization(kvector_t magnetization)
     {
         m_magnetization = magnetization;

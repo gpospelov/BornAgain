@@ -26,7 +26,7 @@
 class Transform3D;
 class WavevectorInfo;
 
-//! A wrapper for homogeneous and wavelength-independent materials
+//! A wrapper for underlying material implementation
 //! @ingroup materials
 
 class BA_CORE_API_ Material
@@ -46,7 +46,10 @@ public:
     //! Constructs a material with inverted magnetization
     Material inverted() const;
 
+    //! Returns refractive index
     complex_t refractiveIndex(double wavelength) const;
+
+    //! Returns squared refractive index
     complex_t refractiveIndex2(double wavelength) const;
 
     //! Indicates whether the interaction with the material is scalar.
@@ -67,13 +70,14 @@ public:
     //! Returns underlying material data
     complex_t materialData() const;
 
+    //! Returns true if material underlying data is nullptr
     bool isEmpty() {return !m_material_impl;}
 
-    //! Returns \pi/(wl*wl) - sld, with wl being the wavelength
+    //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density
     complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const;
 
 #ifndef SWIG
-    //! Returns \pi/(wl*wl) - sld matrix with magnetization corrections. wl denotes the wavelength
+    //! Returns (\f$ \pi/\lambda^2 \f$ - sld) matrix with magnetization corrections
     Eigen::Matrix2cd polarizedSubtrSLD(const WavevectorInfo& wavevectors) const;
 #endif
 

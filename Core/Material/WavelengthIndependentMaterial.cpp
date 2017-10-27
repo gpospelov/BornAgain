@@ -5,9 +5,9 @@ namespace
 {
 // Returns SLD-like complex value, where real part is SLD and imaginary one is
 // wavelength-independent absorptive term
-inline complex_t getSLD(double delta_factor, double beta_factor)
+inline complex_t getSLD(double sld, double abs_term)
 {
-    return complex_t(delta_factor, -beta_factor / 2.0);
+    return complex_t(sld, -abs_term / 2.0);
 }
 
 inline double getWlPrefactor(double wavelength)

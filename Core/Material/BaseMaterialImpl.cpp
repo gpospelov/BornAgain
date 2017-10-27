@@ -13,7 +13,6 @@ constexpr double magnetization_prefactor
     = (gamma_n * r_e / 2.0 / mu_B) * 1e-18;
 
 namespace {
-// Used in experimental calculation of scattering matrix:
 cvector_t OrthogonalToBaseVector(cvector_t base, const kvector_t vector)
 {
     if (base.mag2()==0.0) return cvector_t {};

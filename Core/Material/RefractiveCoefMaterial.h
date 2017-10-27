@@ -19,14 +19,14 @@
 #include "BaseMaterialImpl.h"
 #include "Material.h"
 
+//! Material implementation based on refractive coefficiencts (valid for one wavelength value only)
+//! @ingroup materials
+
 class BA_CORE_API_ RefractiveCoefMaterial : public BaseMaterialImpl
 {
 public:
-    //! Constructs a material with _name_ and _refractive_index_.
     friend BA_CORE_API_ Material RefractiveIndexMaterial(const std::string&, complex_t, kvector_t);
 
-    //! Constructs a material with _name_ and refractive_index parameters
-    //! \f$\delta\f$ and \f$\beta\f$ for refractive index \f$n = 1 - \delta + i \beta\f$.
     friend BA_CORE_API_ Material RefractiveIndexMaterial(const std::string&, double, double,
                                                          kvector_t);
 
@@ -35,13 +35,23 @@ public:
     //! Returns pointer to a copy of material
     virtual RefractiveCoefMaterial* clone() const override;
 
+    //! Returns refractive index
+    //! For this particular implementation returned value does not depend
+    //! on passed wavelength
     virtual complex_t refractiveIndex(double wavelength) const override;
+
+    //! Returns squared refractive index.
+    //! For this particular implementation returned value does not depend
+    //! on passed wavelength.
     virtual complex_t refractiveIndex2(double wavelength) const override;
 
     //! Returns underlying material data
     virtual complex_t materialData() const override;
 
-    //! Returns \pi/(wl*wl) - sld, with wl being the wavelength
+    //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density.
+    //! If the wavelength associated with passed wavevector is different from the one
+    //! associated with refractive coefficients used during the object construction,
+    //! provided result is inconsistent.
     virtual complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const override;
 
     //! Prints object data

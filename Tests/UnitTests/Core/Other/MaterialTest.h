@@ -160,12 +160,4 @@ TEST_F(MaterialTest, MaterialMove)
     EXPECT_EQ(material_data, move.materialData());
     EXPECT_EQ(magnetism, move.magnetization());
     EXPECT_TRUE(material.isEmpty());
-
-    Material material2
-        = MaterialBySLD("Material", material_data.real(), material_data.imag());
-    Material move_op = std::move(material2);
-    EXPECT_EQ("Material", move_op.getName());
-    EXPECT_EQ(material_data, move_op.materialData());
-    EXPECT_EQ(kvector_t{}, move_op.magnetization());
-    EXPECT_TRUE(material2.isEmpty());
 }

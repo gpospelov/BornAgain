@@ -145,6 +145,9 @@ bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
     return true;
 }
 
+//! Returns true, if it makes sence to look for domain translation for given GUI name.
+//! Intended to supress warnings about not-yet implemented translations.
+
 bool GUITranslationTest::isValidGUIName(const std::string& guiName) const
 {
     std::string beam_polarization = BeamItem::P_POLARIZATION.toStdString();

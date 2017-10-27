@@ -47,9 +47,9 @@ double FormFactorCoreShell::topZ(const IRotation& rotation) const
     return mP_shell->topZ(rotation);
 }
 
-void FormFactorCoreShell::setAmbientMaterial(HomogeneousMaterial material)
+void FormFactorCoreShell::setAmbientMaterial(Material material)
 {
-    mP_shell->setAmbientMaterial(material);
+    mP_shell->setAmbientMaterial(std::move(material));
 }
 
 complex_t FormFactorCoreShell::evaluate(const WavevectorInfo& wavevectors) const

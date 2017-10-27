@@ -81,10 +81,10 @@ public:
     const LayerInterface* layerBottomInterface(size_t i_layer) const;
 
     //! Returns layer material
-    HomogeneousMaterial layerMaterial(size_t i_layer) const;
+    Material layerMaterial(size_t i_layer) const;
 
     //! Changes a layer's material
-    void setLayerMaterial(size_t i_layer, HomogeneousMaterial material);
+    void setLayerMaterial(size_t i_layer, Material material);
 
     //! Returns a clone of multilayer with clones of all layers and recreated
     //! interfaces between layers

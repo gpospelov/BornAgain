@@ -34,8 +34,8 @@ public:
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    void setAmbientMaterial(HomogeneousMaterial material) override {
-        mp_basis_form_factor->setAmbientMaterial(material);
+    void setAmbientMaterial(Material material) override {
+        mp_basis_form_factor->setAmbientMaterial(std::move(material));
     }
 
     double volume() const override final { return mp_meso_form_factor->volume(); }

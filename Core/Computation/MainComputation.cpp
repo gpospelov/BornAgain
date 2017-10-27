@@ -28,7 +28,7 @@
 
 namespace
 {
-HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_mat,
+Material CalculateAverageMaterial(const Material& layer_mat,
                                              double wavelength,
                                              const std::vector<HomogeneousRegion>& regions);
 }
@@ -161,7 +161,7 @@ bool MainComputation::checkRegions(const std::vector<HomogeneousRegion>& regions
 
 namespace
 {
-HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_mat,
+Material CalculateAverageMaterial(const Material& layer_mat,
                                              double wavelength,
                                              const std::vector<HomogeneousRegion>& regions)
 {
@@ -177,7 +177,7 @@ HomogeneousMaterial CalculateAverageMaterial(const HomogeneousMaterial& layer_ma
         refr_index2_avg += region.m_volume*(refr_index2_region - refr_index2_layer);
     }
     complex_t refr_index_avg = std::sqrt(refr_index2_avg);
-    HomogeneousMaterial result(layer_mat.getName()+"_avg", refr_index_avg, magnetization_avg);
+    Material result(layer_mat.getName()+"_avg", refr_index_avg, magnetization_avg);
     return result;
 }
 }

@@ -16,7 +16,6 @@
 #include "ParticleCoreShell.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorCoreShell.h"
-#include "HomogeneousMaterial.h"
 #include "Particle.h"
 
 ParticleCoreShell::ParticleCoreShell(

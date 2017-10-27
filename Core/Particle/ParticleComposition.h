@@ -19,8 +19,6 @@
 #include "IParticle.h"
 #include <memory>
 
-class HomogeneousMaterial;
-
 //! A composition of particles at fixed positions
 //! @ingroup samples
 

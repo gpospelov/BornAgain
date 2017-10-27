@@ -14,10 +14,10 @@
 // ************************************************************************** //
 
 #include "ParticleDistributionsBuilder.h"
+#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
 #include "FormFactorCylinder.h"
-#include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "MultiLayer.h"
 #include "ParameterPattern.h"
@@ -40,8 +40,8 @@ MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
 
@@ -85,8 +85,8 @@ MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
 
@@ -138,9 +138,9 @@ RotatedPyramidsDistributionBuilder::RotatedPyramidsDistributionBuilder()
 
 MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
 {
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     // particle
     FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
@@ -173,9 +173,9 @@ MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
 
 MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
 {
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     // particle
     FormFactorFullSphere ff(3.0*Units::nm);
@@ -208,9 +208,9 @@ MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
 
 MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
 {
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     // particle
     FormFactorCone ff(10.0*Units::nm, 13.0*Units::nm, 60.0*Units::deg);

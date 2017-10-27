@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "SlicedParticleBuilder.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Layer.h"
 #include "FormFactorFullSphere.h"
@@ -21,7 +22,6 @@
 #include "ParticleComposition.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "HomogeneousMaterial.h"
 #include "Transform3D.h"
 #include "Units.h"
 
@@ -29,10 +29,10 @@ MultiLayer* SlicedCompositionBuilder::buildSample() const
 {
     MultiLayer* p_multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 3.212e-6, 3.244e-8);
-    HomogeneousMaterial topCupMaterial("Ag", 1.245e-5, 5.419e-7);
-    HomogeneousMaterial bottomCupMaterial("Teflon", 2.900e-6, 6.019e-9);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8);
+    Material topCupMaterial = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
+    Material bottomCupMaterial = HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9);
 
     const double sphere_radius = 10.0;
     const double bottom_cup_height = 4.0;

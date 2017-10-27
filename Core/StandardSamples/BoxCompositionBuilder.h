@@ -17,7 +17,7 @@
 #define BOXCOMPOSITIONBUILDER_H
 
 #include "IMultiLayerBuilder.h"
-#include "HomogeneousMaterial.h"
+#include "Material.h"
 
 class MultiLayer;
 class ParticleComposition;
@@ -34,7 +34,7 @@ public:
 
 protected:
     MultiLayer* createMultiLayer(const ParticleComposition& composition) const;
-    const HomogeneousMaterial m_particleMaterial;
+    const Material m_particleMaterial;
     const double m_layer_thickness;
     const double m_length;
     const double m_width;

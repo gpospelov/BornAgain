@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "CustomMorphologyBuilder.h"
+#include "MaterialFactoryFuncs.h"
 #include "FormFactorBox.h"
-#include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "MultiLayer.h"
 #include "Particle.h"
@@ -27,8 +27,8 @@ MultiLayer* CustomMorphologyBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
 

@@ -43,6 +43,12 @@ public:
     Material(std::unique_ptr<BaseMaterialImpl> material_impl);
 #endif //SWIG
 
+    //! Material copy assignment
+    Material& operator=(const Material& other);
+
+    //! Material move assignment
+    Material& operator=(Material&& other) = default;
+
     //! Constructs a material with inverted magnetization
     Material inverted() const;
 

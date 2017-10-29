@@ -12,6 +12,12 @@ Material::Material(std::unique_ptr<BaseMaterialImpl> material_impl)
     : m_material_impl(std::move(material_impl))
 {}
 
+Material& Material::operator=(const Material& other)
+{
+    m_material_impl.reset(other.m_material_impl->clone());
+    return *this;
+}
+
 Material Material::inverted() const
 {
     std::unique_ptr<BaseMaterialImpl> material_impl(m_material_impl->inverted());

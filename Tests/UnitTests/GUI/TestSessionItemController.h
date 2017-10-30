@@ -79,6 +79,7 @@ private slots:
     void test_onItemDestroyWidgetVisible();
     void test_onItemDestroyWidgetHidden();
     void test_onTwoItems();
+    void test_onTwoItemsWhenHidden();
     void test_deleteWidget();
 };
 
@@ -271,6 +272,39 @@ inline void TestSessionItemController::test_onTwoItems()
     // changing the value of new item, widget should react
     item2->setItemValue(BasicAxisItem::P_MAX, 6.0);
     QCOMPARE(listener.m_onPropertyChangeCount, 2);
+}
+
+//! Settings two items one after another, when widget stays hidden
+
+inline void TestSessionItemController::test_onTwoItemsWhenHidden()
+{
+    TestListener listener;
+    TestObject object(&listener);
+    SessionModel model("TestModel");
+    SessionItem* item1 = model.insertNewItem(Constants::BasicAxisType);
+    SessionItem* item2 = model.insertNewItem(Constants::BasicAxisType);
+
+    object.setVisible(false);
+
+    object.setItem(item1);
+    QCOMPARE(object.currentItem(), item1);
+
+    item1->setItemValue(BasicAxisItem::P_MAX, 4.0);
+    QCOMPARE(listener.m_onItemDestroyedCount, 0);
+    QCOMPARE(listener.m_onPropertyChangeCount, 0);
+
+    // changing the item
+    object.setItem(item2);
+    QCOMPARE(object.currentItem(), item2);
+
+    // changing the value of previous item, widget shouldn't react
+    item1->setItemValue(BasicAxisItem::P_MAX, 5.0);
+    QCOMPARE(listener.m_onItemDestroyedCount, 0);
+    QCOMPARE(listener.m_onPropertyChangeCount, 0);
+
+    // changing the value of new item, widget shouldn't react
+    item2->setItemValue(BasicAxisItem::P_MAX, 6.0);
+    QCOMPARE(listener.m_onPropertyChangeCount, 0);
 }
 
 //! Deleting the widget when item still alive.

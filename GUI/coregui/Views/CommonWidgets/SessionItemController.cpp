@@ -81,7 +81,9 @@ void SessionItemController::unsubscribe()
     if (!m_item)
         return;
 
-    unsubscribeParent();
+    if (m_parent_subscribed)
+        unsubscribeParent();
+
     m_item->mapper()->unsubscribe(parent());
 }
 

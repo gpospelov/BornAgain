@@ -16,35 +16,27 @@
 
 #include "SessionItemWidget.h"
 #include "SessionItem.h"
+#include "SessionItemController.h"
 
 SessionItemWidget::SessionItemWidget(QWidget* parent)
     : QWidget(parent)
-    , m_currentItem(nullptr)
-    , is_subscribed(false)
+    , m_itemController(new SessionItemController(this))
 {
-
+    m_itemController->setSubscribeCallback([this](){subscribeToItem();});
+    m_itemController->setUnsubscribeCallback([this](){unsubscribeFromItem();});
 }
 
-SessionItemWidget::~SessionItemWidget()
-{
-    unsubscribe();
-}
+SessionItemWidget::~SessionItemWidget() = default;
 
+#include <QDebug>
 void SessionItemWidget::setItem(SessionItem* item)
 {
-    if(m_currentItem == item)
-        return;
+    qDebug() << "SessionItemController::setItem()" << item << isVisible();
 
-    unsubscribe(); // from previous item
+    m_itemController->setItem(item);
 
-    m_currentItem = item;
-    if (!m_currentItem)
-        return;
-
-    if (isHidden())
-        m_currentItem->mapper()->setOnItemDestroy([this](SessionItem*) { m_currentItem = 0; }, this);
-    else
-        subscribe();
+    if (isVisible())
+        m_itemController->subscribe();
 }
 
 QList<QAction*> SessionItemWidget::actionList()
@@ -52,37 +44,17 @@ QList<QAction*> SessionItemWidget::actionList()
     return QList<QAction *>();
 }
 
+SessionItem* SessionItemWidget::currentItem()
+{
+    return m_itemController->currentItem();
+}
+
 void SessionItemWidget::showEvent(QShowEvent*)
 {
-    subscribe();
+    m_itemController->subscribe();
 }
 
 void SessionItemWidget::hideEvent(QHideEvent*)
 {
-    unsubscribe();
-}
-
-void SessionItemWidget::subscribe()
-{
-    if (!m_currentItem || is_subscribed)
-        return;
-
-    m_currentItem->mapper()->setOnItemDestroy([this](SessionItem*) { m_currentItem = 0; }, this);
-
-    subscribeToItem();
-
-    is_subscribed = true;
-}
-
-void SessionItemWidget::unsubscribe()
-{
-    if (m_currentItem) {
-        m_currentItem->mapper()->unsubscribe(this);
-        // should keep setOnItemDestroy alive to track item destruction while widget is hidden
-        m_currentItem->mapper()->setOnItemDestroy([this](SessionItem*) { m_currentItem = 0; }, this);
-    }
-
-    unsubscribeFromItem();
-
-    is_subscribed = false;
+    m_itemController->unsubscribe();
 }

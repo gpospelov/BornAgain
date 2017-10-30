@@ -23,6 +23,7 @@
 class SessionItem;
 class QShowEvent;
 class QHideEvent;
+class SessionItemController;
 
 //! The SessionItemWidget class is a base for all widgets representing the content
 //! of SessionItem. It provides subscribe/unsibscribe mechanism on show/hide events.
@@ -39,7 +40,7 @@ public:
     virtual void setItem(SessionItem* item);
     virtual QList<QAction*> actionList();
 
-    SessionItem* currentItem() { return m_currentItem; }
+    SessionItem* currentItem();
 
 protected:
     virtual void subscribeToItem() {}
@@ -48,10 +49,7 @@ protected:
     virtual void hideEvent(QHideEvent*);
 
 private:
-    void subscribe();
-    void unsubscribe();
-    SessionItem* m_currentItem;
-    bool is_subscribed;
+    SessionItemController* m_itemController;
 };
 
 #endif // SESSIONITEMWIDGET_H

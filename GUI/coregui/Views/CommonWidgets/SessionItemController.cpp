@@ -63,6 +63,8 @@ void SessionItemController::setUnsubscribeCallback(callback_t fun)
     m_unsubscribe_callback = fun;
 }
 
+//! Subscribe parent to item's signals.
+
 void SessionItemController::subscribe()
 {
     if (!m_item)
@@ -71,12 +73,16 @@ void SessionItemController::subscribe()
     subscribeParent();
 }
 
+//! Fully unsubscribes the parent from listening item's signals.
+//! Controller stays active to track item destruction.
+
 void SessionItemController::unsubscribe()
 {
     if (!m_item)
         return;
 
     unsubscribeParent();
+    m_item->mapper()->unsubscribe(parent());
 }
 
 void SessionItemController::onItemDestroy()
@@ -105,6 +111,8 @@ void SessionItemController::subscribeParent()
     m_subscribe_callback();
     m_parent_subscribed = true;
 }
+
+//! Calls additional callback on un
 
 void SessionItemController::unsubscribeParent()
 {

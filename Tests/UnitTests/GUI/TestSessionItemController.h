@@ -4,6 +4,8 @@
 #include <QtTest>
 #include <QDebug>
 
+//! Helper class to test object behaviour after their death.
+
 class TestListener
 {
 public:
@@ -18,6 +20,8 @@ public:
     int m_onPropertyChangeCount;
     int m_onWidgetDestroyed;
 };
+
+//! Helper class to test SessionItemController usage in widget context.
 
 class TestObject : public QObject
 {
@@ -74,6 +78,7 @@ private slots:
     void test_onPropertyChange();
     void test_onItemDestroyWidgetVisible();
     void test_onItemDestroyWidgetHidden();
+    void test_onTwoItems();
     void test_deleteWidget();
 };
 
@@ -134,7 +139,7 @@ inline void TestSessionItemController::test_setItemAndSubscribeItem()
     QCOMPARE(listener.m_onPropertyChangeCount, 0);
 }
 
-//! Setting item properties when widget is in hidden/shown state
+//! Setting item properties when widget is in hidden/shown state.
 
 inline void TestSessionItemController::test_onPropertyChange()
 {
@@ -167,15 +172,15 @@ inline void TestSessionItemController::test_onPropertyChange()
     item->setItemValue(BasicAxisItem::P_MAX, 4.1);
     QCOMPARE(listener.m_onPropertyChangeCount, 2);
 
-    // setting invisible and changing item
+    // setting invisible and changing item, no reaction on item value change expected
     object.setVisible(false);
     QCOMPARE(object.m_is_subscribed, false);
     item->setItemValue(BasicAxisItem::P_MAX, 5.0);
     QCOMPARE(listener.m_onItemDestroyedCount, 0);
-    QCOMPARE(listener.m_onPropertyChangeCount, 3);
+    QCOMPARE(listener.m_onPropertyChangeCount, 2);
 }
 
-//! Deleting item when widget is visible
+//! Deleting item when widget is visible.
 
 inline void TestSessionItemController::test_onItemDestroyWidgetVisible()
 {
@@ -191,6 +196,7 @@ inline void TestSessionItemController::test_onItemDestroyWidgetVisible()
     QCOMPARE(listener.m_onItemDestroyedCount, 0);
     QCOMPARE(listener.m_onPropertyChangeCount, 1);
 
+    // item deletion should lead to automatic unsubscription
     delete item->parent()->takeRow(0);
     QCOMPARE(listener.m_onItemDestroyedCount, 1);
     QCOMPARE(object.m_is_subscribed, false);
@@ -218,18 +224,56 @@ inline void TestSessionItemController::test_onItemDestroyWidgetHidden()
 
     object.setVisible(false);
 
+    // Deleting item when widget is hidden.
+    // Widget itself shouldn't notice onItemDestroy because of hidden state.
+    // But the controller should notice, and unsubscribe the widget.
+
     delete item->parent()->takeRow(0);
-    QCOMPARE(listener.m_onItemDestroyedCount, 1);
-    QCOMPARE(listener.m_onItemDestroyedCount, 1);
+    QCOMPARE(listener.m_onItemDestroyedCount, 0);
     QCOMPARE(object.m_is_subscribed, false);
     QCOMPARE(object.currentItem(), nullptr);
 
     object.setVisible(true);
-    QCOMPARE(listener.m_onItemDestroyedCount, 1);
-    QCOMPARE(listener.m_onItemDestroyedCount, 1);
+    QCOMPARE(listener.m_onItemDestroyedCount, 0);
     QCOMPARE(object.m_is_subscribed, false);
     QCOMPARE(object.currentItem(), nullptr);
 }
+
+//! Typical scenario when one item follows the other.
+
+inline void TestSessionItemController::test_onTwoItems()
+{
+    TestListener listener;
+    TestObject object(&listener);
+    SessionModel model("TestModel");
+    SessionItem* item1 = model.insertNewItem(Constants::BasicAxisType);
+    SessionItem* item2 = model.insertNewItem(Constants::BasicAxisType);
+
+    object.setItem(item1);
+    QCOMPARE(object.currentItem(), item1);
+    object.setVisible(true);
+
+    item1->setItemValue(BasicAxisItem::P_MAX, 4.0);
+    QCOMPARE(listener.m_onItemDestroyedCount, 0);
+    QCOMPARE(listener.m_onPropertyChangeCount, 1);
+
+    // changing the item
+    object.setItem(item2);
+    QCOMPARE(object.currentItem(), item2);
+    // since by design setting the item doesn't lead to automatic subscription, we have to subscribe
+    object.setVisible(true);
+
+    // changing the value of previous item, widget shouldn't react
+    item1->setItemValue(BasicAxisItem::P_MAX, 5.0);
+    QCOMPARE(listener.m_onItemDestroyedCount, 0);
+    QCOMPARE(listener.m_onPropertyChangeCount, 1);
+
+    // changing the value of new item, widget should react
+    item2->setItemValue(BasicAxisItem::P_MAX, 6.0);
+    QCOMPARE(listener.m_onPropertyChangeCount, 2);
+}
+
+//! Deleting the widget when item still alive.
 
 inline void TestSessionItemController::test_deleteWidget()
 {

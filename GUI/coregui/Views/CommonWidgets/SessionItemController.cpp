@@ -70,7 +70,8 @@ void SessionItemController::subscribe()
     if (!m_item)
         return;
 
-    subscribeParent();
+    if (!m_parent_subscribed)
+        subscribeParent();
 }
 
 //! Fully unsubscribes the parent from listening item's signals.

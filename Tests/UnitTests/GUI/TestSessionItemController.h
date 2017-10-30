@@ -173,12 +173,18 @@ inline void TestSessionItemController::test_onPropertyChange()
     item->setItemValue(BasicAxisItem::P_MAX, 4.1);
     QCOMPARE(listener.m_onPropertyChangeCount, 2);
 
+    // setting same item once again, setting visible, and then checking that no double subscription
+    object.setItem(item);
+    object.setVisible(true);
+    item->setItemValue(BasicAxisItem::P_MAX, 4.2);
+    QCOMPARE(listener.m_onPropertyChangeCount, 3);
+
     // setting invisible and changing item, no reaction on item value change expected
     object.setVisible(false);
     QCOMPARE(object.m_is_subscribed, false);
     item->setItemValue(BasicAxisItem::P_MAX, 5.0);
     QCOMPARE(listener.m_onItemDestroyedCount, 0);
-    QCOMPARE(listener.m_onPropertyChangeCount, 2);
+    QCOMPARE(listener.m_onPropertyChangeCount, 3);
 }
 
 //! Deleting item when widget is visible.

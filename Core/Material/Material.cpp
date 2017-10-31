@@ -39,6 +39,10 @@ bool Material::isScalarMaterial() const
     return m_material_impl->isScalarMaterial();
 }
 
+bool Material::isMagneticMaterial() const {
+    return m_material_impl->isMagneticMaterial();
+}
+
 std::string Material::getName() const
 {
     return m_material_impl->getName();

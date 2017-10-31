@@ -217,7 +217,6 @@
 #include "IIntensityFunction.h"
 #include "IIntensityNormalizer.h"
 #include "ISquaredFunction.h"
-#include "MathFunctions.h"
 #include "AdjustMinimizerStrategy.h"
 %}
 
@@ -393,7 +392,6 @@
 %include "Line.h"
 %include "Material.h"
 %include "MaterialFactoryFuncs.h"
-%include "MathFunctions.h"
 %include "MesoCrystal.h"
 %include "MultiLayer.h"
 %include "OffSpecSimulation.h"

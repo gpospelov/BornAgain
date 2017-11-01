@@ -77,7 +77,7 @@ public:
     complex_t materialData() const;
 
     //! Returns true if material underlying data is nullptr
-    bool isEmpty() {return !m_material_impl;}
+    bool isEmpty() const {return !m_material_impl;}
 
     //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density
     complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const;

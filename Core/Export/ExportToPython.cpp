@@ -202,7 +202,7 @@ std::string ExportToPython::defineMaterials() const
         double imag = std::imag(material_data);
         if (p_material->isScalarMaterial()) {
             result << indent() << m_label->labelMaterial(p_material)
-                   << " = ba.Material(\"" << p_material->getName()
+                   << " = ba.HomogeneousMaterial(\"" << p_material->getName()
                    << "\", " << printDouble(real) << ", "
                    << printDouble(imag) << ")\n";
         } else {
@@ -210,7 +210,7 @@ std::string ExportToPython::defineMaterials() const
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ")\n";
             result << indent() << m_label->labelMaterial(p_material)
-                   << " = ba.Material(\"" << p_material->getName();
+                   << " = ba.HomogeneousMaterial(\"" << p_material->getName();
             result << "\", " << printDouble(real) << ", "
                    << printDouble(imag) << ", "
                    << "magnetic_field)\n";

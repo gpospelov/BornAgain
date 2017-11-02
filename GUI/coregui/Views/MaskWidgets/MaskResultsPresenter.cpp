@@ -40,6 +40,11 @@ void MaskResultsPresenter::setMaskContext(SessionModel *maskModel,
     m_intensityDataItem = intensityItem;
 }
 
+void MaskResultsPresenter::resetContext()
+{
+    setMaskContext(nullptr, QModelIndex(), nullptr);
+}
+
 void MaskResultsPresenter::updatePresenter(MaskEditorFlags::PresentationType presentationType)
 {
     if(!m_maskContainerIndex.isValid())

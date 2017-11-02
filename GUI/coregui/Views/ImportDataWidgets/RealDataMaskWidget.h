@@ -34,13 +34,15 @@ class BA_CORE_API_ RealDataMaskWidget : public SessionItemWidget
 public:
     RealDataMaskWidget(QWidget* parent = 0);
 
-    void setItem(SessionItem* realDataItem);
-
     QList<QAction*> actionList();
+
+protected:
+    void subscribeToItem();
+    void unsubscribeFromItem();
 
 private:
     IntensityDataItem* intensityDataItem();
-    MaskContainerItem* createMaskContainer(IntensityDataItem* intensityData);
+    MaskContainerItem* maskContainer(IntensityDataItem* intensityData);
 
     MaskEditor* m_maskEditor;
 };

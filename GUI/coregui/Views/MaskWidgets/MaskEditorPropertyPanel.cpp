@@ -88,13 +88,24 @@ void MaskEditorPropertyPanel::setMaskContext(SessionModel* model,
     m_intensityDataItem = intensityItem;
 
     m_listView->setModel(m_maskModel);
-    m_listView->setRootIndex(m_rootIndex);
     m_listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
+    m_listView->setRootIndex(m_rootIndex);
+
     connect(m_listView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &MaskEditorPropertyPanel::onSelectionChanged);
+            this, &MaskEditorPropertyPanel::onSelectionChanged, Qt::UniqueConnection);
 
     m_plotPropertyEditor->setItem(m_intensityDataItem);
+}
+
+void MaskEditorPropertyPanel::resetContext()
+{
+    m_maskModel = nullptr;
+    m_rootIndex = QModelIndex();
+    m_intensityDataItem = nullptr;
+    m_listView->setModel(nullptr);
+    m_maskPropertyEditor->setItem(nullptr);
+    m_plotPropertyEditor->setItem(nullptr);
 }
 
 QItemSelectionModel* MaskEditorPropertyPanel::selectionModel()

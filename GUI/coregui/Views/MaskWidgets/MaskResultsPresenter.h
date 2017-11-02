@@ -38,6 +38,8 @@ public:
     void setMaskContext(SessionModel *maskModel, const QModelIndex &maskContainerIndex,
                         IntensityDataItem *intensityItem);
 
+    void resetContext();
+
     void updatePresenter(MaskEditorFlags::PresentationType mode);
 
 private:

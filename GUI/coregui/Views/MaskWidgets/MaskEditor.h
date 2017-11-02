@@ -46,6 +46,8 @@ public slots:
     void setMaskContext(SessionModel* model, const QModelIndex& maskContainerIndex,
                         IntensityDataItem* intensityItem);
 
+    void resetContext();
+
     void onPropertyPanelRequest();
 
     QList<QAction*> topToolBarActions();

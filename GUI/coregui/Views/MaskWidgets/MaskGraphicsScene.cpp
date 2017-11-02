@@ -105,6 +105,26 @@ void MaskGraphicsScene::setMaskContext(SessionModel *model, const QModelIndex &m
     }
 }
 
+void MaskGraphicsScene::resetContext()
+{
+    m_intensityItem = nullptr;
+    if (m_maskModel) {
+        disconnect(m_maskModel, SIGNAL(modelAboutToBeReset()),
+                   this, SLOT(resetScene()));
+        disconnect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
+                   this, SLOT(onRowsInserted(QModelIndex, int, int)));
+        disconnect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)),
+                   this, SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
+        disconnect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
+                   this, SLOT(onRowsRemoved(QModelIndex, int, int)));
+        disconnect(m_maskModel, SIGNAL(modelReset()),
+                   this, SLOT(updateScene()));
+    }
+    m_maskModel = nullptr;
+    m_maskContainerIndex = QModelIndex();
+    resetScene();
+}
+
 void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
 {
     Q_ASSERT(model);

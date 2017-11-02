@@ -43,6 +43,8 @@ public:
     void setMaskContext(SessionModel* model, const QModelIndex& maskContainerIndex,
                         IntensityDataItem* intensityItem);
 
+    void resetContext();
+
     QItemSelectionModel* selectionModel();
 
     void setPanelHidden(bool value);

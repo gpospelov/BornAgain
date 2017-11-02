@@ -65,6 +65,12 @@ void MaskEditor::setMaskContext(SessionModel* model, const QModelIndex& maskCont
     m_editorActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
 }
 
+void MaskEditor::resetContext()
+{
+    m_editorPropertyPanel->resetContext();
+    m_editorCanvas->resetContext();
+}
+
 //! shows/hides right panel with properties
 void MaskEditor::onPropertyPanelRequest()
 {

@@ -104,7 +104,15 @@ void MaskEditorCanvas::setMaskContext(SessionModel *model, const QModelIndex &ma
     m_scene->setMaskContext(model, maskContainerIndex, intensityItem);
     m_resultsPresenter->setMaskContext(model, maskContainerIndex, intensityItem);
     m_view->updateSize(m_view->size());
+
     m_statusLabel->addColorMap(m_scene->colorMap());
+}
+
+void MaskEditorCanvas::resetContext()
+{
+    m_intensityDataItem = nullptr;
+    m_scene->resetContext();
+    m_statusLabel->reset();
 }
 
 void MaskEditorCanvas::setSelectionModel(QItemSelectionModel *model)

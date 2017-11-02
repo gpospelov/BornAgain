@@ -39,6 +39,9 @@ public:
     MaskEditorCanvas(QWidget *parent = 0);
 
     void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex, IntensityDataItem *intensityItem);
+
+    void resetContext();
+
     void setSelectionModel(QItemSelectionModel *model);
 
     MaskGraphicsScene *getScene();

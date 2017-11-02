@@ -2,11 +2,15 @@
 #include "BaseMaterialImpl.h"
 #include "WavevectorInfo.h"
 #include "Transform3D.h"
+#include "Exceptions.h"
 #include <typeinfo>
 
 Material::Material(const Material& material)
-    : m_material_impl(material.m_material_impl->clone())
-{}
+{
+    if (material.isEmpty())
+        throw Exceptions::NullPointerException("Material: Error! Attempt to initialize material with nullptr.");
+    m_material_impl.reset(material.m_material_impl->clone());
+}
 
 Material::Material(std::unique_ptr<BaseMaterialImpl> material_impl)
     : m_material_impl(std::move(material_impl))
@@ -14,6 +18,8 @@ Material::Material(std::unique_ptr<BaseMaterialImpl> material_impl)
 
 Material& Material::operator=(const Material& other)
 {
+    if (other.isEmpty())
+        throw Exceptions::NullPointerException("Material: Error! Attempt to assign nullptr to material.");
     m_material_impl.reset(other.m_material_impl->clone());
     return *this;
 }

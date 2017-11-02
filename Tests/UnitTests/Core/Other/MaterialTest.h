@@ -2,6 +2,7 @@
 #include "WavevectorInfo.h"
 #include "Rotations.h"
 #include "Units.h"
+#include "Exceptions.h"
 
 class MaterialTest : public ::testing::Test
 {
@@ -55,6 +56,25 @@ TEST_F(MaterialTest, MaterialConstruction)
     EXPECT_EQ("Material", material6.getName());
     EXPECT_EQ(material_data, material6.materialData());
     EXPECT_EQ(default_magnetism, material6.magnetization());
+
+    Material material7 = HomogeneousMaterial();
+    EXPECT_EQ(material7.getName(), HomogeneousMaterial().getName());
+    EXPECT_EQ(material7.getName(), MaterialBySLD().getName());
+    EXPECT_EQ(material7.materialData(), HomogeneousMaterial().materialData());
+    EXPECT_EQ(material7.materialData(), MaterialBySLD().materialData());
+    EXPECT_EQ(material7.magnetization(), HomogeneousMaterial().magnetization());
+    EXPECT_EQ(material7.magnetization(), MaterialBySLD().magnetization());
+    EXPECT_TRUE(material7.dataType() == HomogeneousMaterial().dataType());
+    EXPECT_FALSE(material7.dataType() == MaterialBySLD().dataType());
+
+    constexpr double basic_wavelength = 0.1798197; // nm
+    Material material8 = MaterialByAbsCX("Material", material_data.real(),
+                                         material_data.imag() * basic_wavelength);
+    EXPECT_TRUE(material8.getName() == material6.getName());
+    EXPECT_TRUE(material8.magnetization() == material6.magnetization());
+    EXPECT_DOUBLE_EQ(material8.materialData().real(), material6.materialData().real());
+    EXPECT_DOUBLE_EQ(material8.materialData().imag(), material6.materialData().imag());
+    EXPECT_TRUE(material8.dataType() == material6.dataType());
 }
 
 TEST_F(MaterialTest, MaterialTransform)
@@ -118,24 +138,24 @@ TEST_F(MaterialTest, ComputationTest)
     EXPECT_FLOAT_EQ(subtrSLD.imag(), subtrSLDWlIndep.imag());
 }
 
-TEST_F(MaterialTest, EqualityTest)
+TEST_F(MaterialTest, MaterialComparison)
 {
     Material material = MaterialBySLD("Material", 1.0, 1.0);
     Material material2 = HomogeneousMaterial("Material", 1.0, 1.0);
+    EXPECT_TRUE(material == material);
+    EXPECT_FALSE(material != material);
     EXPECT_FALSE(material == material2);
 
-    constexpr double basic_wavelength = 0.1798197; // nm
-    Material material3 = MaterialByAbsCX("Material", 1.0, 1.0 * basic_wavelength);
-    EXPECT_TRUE(material.getName() == material3.getName());
-    EXPECT_TRUE(material.magnetization() == material3.magnetization());
-    EXPECT_DOUBLE_EQ(material.materialData().real(), material3.materialData().real());
-    EXPECT_DOUBLE_EQ(material.materialData().imag(), material3.materialData().imag());
-    EXPECT_TRUE(material.dataType() == material3.dataType());
+    Material material3 = HomogeneousMaterial("Material3", 2.0, 2.0);
+    EXPECT_FALSE(material3 == material2);
+    EXPECT_TRUE(material3 != material2);
 
-    EXPECT_EQ(HomogeneousMaterial().getName(), MaterialBySLD().getName());
-    EXPECT_EQ(HomogeneousMaterial().materialData(), MaterialBySLD().materialData());
-    EXPECT_EQ(HomogeneousMaterial().magnetization(), MaterialBySLD().magnetization());
+    Material material4 = HomogeneousMaterial("Material", 1.0, 1.0, kvector_t{1.0, 2.0, 3.0});
+    EXPECT_FALSE(material4 == material2);
+    EXPECT_TRUE(material4 != material2);
+
     EXPECT_FALSE(HomogeneousMaterial() == MaterialBySLD());
+    EXPECT_TRUE(HomogeneousMaterial() != MaterialBySLD());
 }
 
 TEST_F(MaterialTest, MaterialCopy)
@@ -165,4 +185,20 @@ TEST_F(MaterialTest, MaterialMove)
     EXPECT_EQ(material_data, move.materialData());
     EXPECT_EQ(magnetism, move.magnetization());
     EXPECT_TRUE(material.isEmpty());
+}
+
+TEST_F(MaterialTest, MaterialAssignment)
+{
+    Material material = MaterialBySLD("Material", 1.0, 1.0);
+    Material material_ref = MaterialBySLD("Material", 1.0, 1.0);
+
+    material = material;
+    EXPECT_TRUE(material == material_ref);
+
+    material = std::move(material);
+    EXPECT_TRUE(material == material_ref);
+
+    Material material2 = std::move(material);
+    EXPECT_TRUE(material.isEmpty());
+    EXPECT_THROW(material2 = material, Exceptions::NullPointerException);
 }

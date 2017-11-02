@@ -92,18 +92,18 @@ inline void TestSessionItemController::test_InitialState()
     QCOMPARE(listener.m_onPropertyChangeCount, 0);
 
     TestObject object(&listener);
-    QCOMPARE(object.currentItem(), nullptr);
+    QVERIFY(object.currentItem() == nullptr);
     QCOMPARE(object.m_is_subscribed, false);
 
     // setting null item
     object.setItem(nullptr);
     QCOMPARE(listener.m_onItemDestroyedCount, 0);
     QCOMPARE(listener.m_onPropertyChangeCount, 0);
-    QCOMPARE(object.currentItem(), nullptr);
+    QVERIFY(object.currentItem() == nullptr);
     QCOMPARE(object.m_is_subscribed, false);
 
     object.setVisible(true);
-    QCOMPARE(object.currentItem(), nullptr);
+    QVERIFY(object.currentItem() == nullptr);
     QCOMPARE(object.m_is_subscribed, false);
 }
 
@@ -207,12 +207,12 @@ inline void TestSessionItemController::test_onItemDestroyWidgetVisible()
     delete item->parent()->takeRow(0);
     QCOMPARE(listener.m_onItemDestroyedCount, 1);
     QCOMPARE(object.m_is_subscribed, false);
-    QCOMPARE(object.currentItem(), nullptr);
+    QVERIFY(object.currentItem() == nullptr);
 
     object.setVisible(false);
     QCOMPARE(listener.m_onItemDestroyedCount, 1);
     QCOMPARE(object.m_is_subscribed, false);
-    QCOMPARE(object.currentItem(), nullptr);
+    QVERIFY(object.currentItem() == nullptr);
 }
 
 inline void TestSessionItemController::test_onItemDestroyWidgetHidden()
@@ -238,12 +238,12 @@ inline void TestSessionItemController::test_onItemDestroyWidgetHidden()
     delete item->parent()->takeRow(0);
     QCOMPARE(listener.m_onItemDestroyedCount, 0);
     QCOMPARE(object.m_is_subscribed, false);
-    QCOMPARE(object.currentItem(), nullptr);
+    QVERIFY(object.currentItem() == nullptr);
 
     object.setVisible(true);
     QCOMPARE(listener.m_onItemDestroyedCount, 0);
     QCOMPARE(object.m_is_subscribed, false);
-    QCOMPARE(object.currentItem(), nullptr);
+    QVERIFY(object.currentItem() == nullptr);
 }
 
 //! Typical scenario when one item follows the other.

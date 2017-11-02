@@ -17,7 +17,7 @@
 #include "RealDataPresenter.h"
 #include "RealDataMaskWidget.h"
 #include "IntensityDataWidget.h"
-#include "JobProjectionsWidget.h"
+#include "IntensityDataProjectionsWidget.h"
 #include "item_constants.h"
 #include <QAction>
 

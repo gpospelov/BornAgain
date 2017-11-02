@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "JobResultsPresenter.h"
-#include "JobProjectionsWidget.h"
+#include "IntensityDataProjectionsWidget.h"
 #include "FitComparisonWidget.h"
 #include "JobItem.h"
 #include "IntensityDataWidget.h"

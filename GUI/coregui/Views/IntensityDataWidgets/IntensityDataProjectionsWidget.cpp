@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/JobWidgets/IntensityDataProjectionsWidget.h
+//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataProjectionsWidget.h
 //! @brief     Defines class IntensityDataProjectionsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "JobProjectionsWidget.h"
+#include "IntensityDataProjectionsWidget.h"
 #include "IntensityDataItem.h"
 #include "ProjectionItems.h"
 #include "SessionModel.h"

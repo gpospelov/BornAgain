@@ -1,8 +1,8 @@
 #include "Layer.h"
 #include "LayerInterface.h"
-#include "HomogeneousMaterial.h"
 #include "LayerRoughness.h"
 #include "BornAgainNamespace.h"
+#include "MaterialFactoryFuncs.h"
 #include <memory>
 
 class LayerInterfaceTest : public ::testing::Test

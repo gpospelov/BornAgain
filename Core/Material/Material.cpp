@@ -2,15 +2,27 @@
 #include "BaseMaterialImpl.h"
 #include "WavevectorInfo.h"
 #include "Transform3D.h"
+#include "Exceptions.h"
 #include <typeinfo>
 
 Material::Material(const Material& material)
-    : m_material_impl(material.m_material_impl->clone())
-{}
+{
+    if (material.isEmpty())
+        throw Exceptions::NullPointerException("Material: Error! Attempt to initialize material with nullptr.");
+    m_material_impl.reset(material.m_material_impl->clone());
+}
 
 Material::Material(std::unique_ptr<BaseMaterialImpl> material_impl)
     : m_material_impl(std::move(material_impl))
 {}
+
+Material& Material::operator=(const Material& other)
+{
+    if (other.isEmpty())
+        throw Exceptions::NullPointerException("Material: Error! Attempt to assign nullptr to material.");
+    m_material_impl.reset(other.m_material_impl->clone());
+    return *this;
+}
 
 Material Material::inverted() const
 {
@@ -31,6 +43,10 @@ complex_t Material::refractiveIndex2(double wavelength) const
 bool Material::isScalarMaterial() const
 {
     return m_material_impl->isScalarMaterial();
+}
+
+bool Material::isMagneticMaterial() const {
+    return m_material_impl->isMagneticMaterial();
 }
 
 std::string Material::getName() const
@@ -83,5 +99,10 @@ bool operator==(const Material& left, const Material& right)
     if (left.materialData() != right.materialData()) return false;
     if (left.dataType() != right.dataType()) return false;
     return true;
+}
+
+bool operator!=(const Material& left, const Material& right)
+{
+    return !(left == right);
 }
 

@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "MultiLayerWithRoughnessBuilder.h"
-#include "HomogeneousMaterial.h"
+#include "MaterialFactoryFuncs.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
 #include "MultiLayer.h"
@@ -34,10 +34,10 @@ MultiLayerWithRoughnessBuilder::MultiLayerWithRoughnessBuilder()
 MultiLayer* MultiLayerWithRoughnessBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
-    HomogeneousMaterial air_material("Air", 0., 0.);
-    HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
-    HomogeneousMaterial part_a_material("PartA", 5e-6, 0.0);
-    HomogeneousMaterial part_b_material("PartB", 10e-6, 0.0);
+    Material air_material = HomogeneousMaterial("Air", 0., 0.);
+    Material substrate_material = HomogeneousMaterial("Substrate", 15e-6, 0.0);
+    Material part_a_material = HomogeneousMaterial("PartA", 5e-6, 0.0);
+    Material part_b_material = HomogeneousMaterial("PartB", 10e-6, 0.0);
 
     Layer air_layer(air_material, 0);
     Layer partA_layer(part_a_material, m_thicknessA);

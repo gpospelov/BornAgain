@@ -43,6 +43,12 @@ public:
     Material(std::unique_ptr<BaseMaterialImpl> material_impl);
 #endif //SWIG
 
+    //! Material copy assignment
+    Material& operator=(const Material& other);
+
+    //! Material move assignment
+    Material& operator=(Material&& other) = default;
+
     //! Constructs a material with inverted magnetization
     Material inverted() const;
 
@@ -71,7 +77,7 @@ public:
     complex_t materialData() const;
 
     //! Returns true if material underlying data is nullptr
-    bool isEmpty() {return !m_material_impl;}
+    bool isEmpty() const {return !m_material_impl;}
 
     //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density
     complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const;
@@ -90,7 +96,10 @@ private:
     std::unique_ptr<BaseMaterialImpl> m_material_impl;
 };
 
-//! Comparison operator for material wrapper
+//! Comparison operator for material wrapper (equality check)
 BA_CORE_API_ bool operator==(const Material& left, const Material& right);
+
+//! Comparison operator for material wrapper (inequality check)
+BA_CORE_API_ bool operator!=(const Material& left, const Material& right);
 
 #endif /* MATERIAL_H_ */

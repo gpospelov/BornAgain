@@ -7,7 +7,7 @@
 #include "ParticleDistribution.h"
 #include "TransformFromDomain.h"
 #include "Particle.h"
-#include "HomogeneousMaterial.h"
+#include "MaterialFactoryFuncs.h"
 #include "MaterialModel.h"
 #include "DistributionItems.h"
 #include "MaterialEditor.h"

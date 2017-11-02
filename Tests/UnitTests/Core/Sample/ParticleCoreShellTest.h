@@ -1,8 +1,8 @@
 #include "HardParticles.h"
 #include "ParticleCoreShell.h"
 #include "BornAgainNamespace.h"
+#include "MaterialFactoryFuncs.h"
 #include "MathConstants.h"
-#include "HomogeneousMaterial.h"
 #include "Particle.h"
 #include "Rotations.h"
 
@@ -53,8 +53,8 @@ TEST_F(ParticleCoreShellTest, Clone)
 
 TEST_F(ParticleCoreShellTest, ComplexCoreShellClone)
 {
-    HomogeneousMaterial mCore("Ag", 1.245e-5, 5.419e-7);
-    HomogeneousMaterial mShell("AgO2", 8.600e-6, 3.442e-7);
+    Material mCore = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
+    Material mShell = HomogeneousMaterial("AgO2", 8.600e-6, 3.442e-7);
 
     double shell_length(50);
     double shell_width(20);
@@ -77,7 +77,7 @@ TEST_F(ParticleCoreShellTest, ComplexCoreShellClone)
 
 TEST_F(ParticleCoreShellTest, getChildren)
 {
-    HomogeneousMaterial mat("mat", 0.0, 0.0);
+    Material mat = HomogeneousMaterial("mat", 0.0, 0.0);
     Particle core(mat, FormFactorBox(1.0, 1.0, 1.0));
     Particle shell(mat, FormFactorFullSphere(1.0));
     ParticleCoreShell coreshell(shell, core);

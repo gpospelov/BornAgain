@@ -21,7 +21,7 @@
 #include "LayerFillLimits.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "HomogeneousMaterial.h"
+#include "Material.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <iomanip>
@@ -95,15 +95,15 @@ const LayerInterface* MultiLayer::layerBottomInterface(size_t i_layer) const
     return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : nullptr;
 }
 
-HomogeneousMaterial MultiLayer::layerMaterial(size_t i_layer) const
+Material MultiLayer::layerMaterial(size_t i_layer) const
 {
     return *layer(i_layer)->material();
 }
 
-void MultiLayer::setLayerMaterial(size_t i_layer, HomogeneousMaterial material)
+void MultiLayer::setLayerMaterial(size_t i_layer, Material material)
 {
     auto p_layer = m_layers[check_layer_index(i_layer)];
-    p_layer->setMaterial(material);
+    p_layer->setMaterial(std::move(material));
 }
 
 //! Adds layer with top roughness
@@ -173,7 +173,7 @@ size_t MultiLayer::indexOfLayer(const Layer* p_layer) const
 
 bool MultiLayer::containsMagneticMaterial() const
 {
-    for (const HomogeneousMaterial* mat: containedMaterials())
+    for (const Material* mat: containedMaterials())
         if (mat->isMagneticMaterial())
             return true;
     return false;

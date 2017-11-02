@@ -1,8 +1,8 @@
 #ifndef MATRIXSPECULARINFOMAPTEST_H
 #define MATRIXSPECULARINFOMAPTEST_H
 
-#include "HomogeneousMaterial.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MatrixRTCoefficients.h"
 #include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
@@ -24,8 +24,8 @@ MatrixSpecularInfoMapTest::MatrixSpecularInfoMapTest()
 {
     mp_multilayer = new MultiLayer;
 
-    HomogeneousMaterial air_material("Air", 0., 0.);
-    HomogeneousMaterial substrate_material("Substrate", 0.2, 0.02);
+    Material air_material = HomogeneousMaterial("Air", 0., 0.);
+    Material substrate_material = HomogeneousMaterial("Substrate", 0.2, 0.02);
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);

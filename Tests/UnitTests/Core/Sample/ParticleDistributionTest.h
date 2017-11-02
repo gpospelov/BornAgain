@@ -1,6 +1,6 @@
 #include "Particle.h"
 #include "ParticleDistribution.h"
-#include "HomogeneousMaterial.h"
+#include "MaterialFactoryFuncs.h"
 #include "Distributions.h"
 #include "BornAgainNamespace.h"
 #include "ParameterUtils.h"
@@ -26,7 +26,7 @@ TEST_F(ParticleDistributionTest, getChildren)
 
 TEST_F(ParticleDistributionTest, mainParameterUnits)
 {
-    HomogeneousMaterial mat("Air",0.0, 0.0);
+    Material mat = HomogeneousMaterial("Air",0.0, 0.0);
     DistributionGate gate(1.0, 2.0);
 
     ParameterDistribution par("/Particle/FullSphere/Radius", gate, 5);

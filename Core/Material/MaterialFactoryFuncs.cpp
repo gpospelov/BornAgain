@@ -2,7 +2,7 @@
 #include "RefractiveCoefMaterial.h"
 #include "WavelengthIndependentMaterial.h"
 
-Material RefractiveIndexMaterial(const std::string& name, complex_t refractive_index,
+Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
                                  kvector_t magnetization)
 {
     const double delta = 1.0 - refractive_index.real();
@@ -12,11 +12,18 @@ Material RefractiveIndexMaterial(const std::string& name, complex_t refractive_i
     return Material(std::move(mat_impl));
 }
 
-Material RefractiveIndexMaterial(const std::string& name, double delta, double beta,
+Material HomogeneousMaterial(const std::string& name, double delta, double beta,
                                  kvector_t magnetization)
 {
     std::unique_ptr<RefractiveCoefMaterial> mat_impl(
         new RefractiveCoefMaterial(name, delta, beta, magnetization));
+    return Material(std::move(mat_impl));
+}
+
+Material HomogeneousMaterial()
+{
+    std::unique_ptr<RefractiveCoefMaterial> mat_impl(
+        new RefractiveCoefMaterial("vacuum", 0.0, 0.0, kvector_t{}));
     return Material(std::move(mat_impl));
 }
 
@@ -34,5 +41,12 @@ Material MaterialByAbsCX(const std::string& name, double sld, double abs_cx,
 {
     std::unique_ptr<WavelengthIndependentMaterial> mat_impl(
         new WavelengthIndependentMaterial(name, sld, abs_cx / basic_wavelength, magnetization));
+    return Material(std::move(mat_impl));
+}
+
+Material MaterialBySLD()
+{
+    std::unique_ptr<WavelengthIndependentMaterial> mat_impl(
+        new WavelengthIndependentMaterial("vacuum", 0.0, 0.0, kvector_t{}));
     return Material(std::move(mat_impl));
 }

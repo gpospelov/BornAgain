@@ -15,8 +15,8 @@
 
 #include "SampleLabelHandler.h"
 #include "IInterferenceFunction.h"
-#include "HomogeneousMaterial.h"
 #include "LayerRoughness.h"
+#include "Material.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "Particle.h"
@@ -50,7 +50,7 @@ std::string SampleLabelHandler::labelLayout(const ILayout* layout)
     return m_ILayoutLabel[layout];
 }
 
-std::string SampleLabelHandler::labelMaterial(const HomogeneousMaterial* mat)
+std::string SampleLabelHandler::labelMaterial(const Material* mat)
 {
     return m_MaterialLabel[mat];
 }
@@ -121,7 +121,7 @@ void SampleLabelHandler::insertLayout(const ILayout* sample)
     m_ILayoutLabel.insert(sample, label);
 }
 
-void SampleLabelHandler::insertMaterial(const HomogeneousMaterial* mat)
+void SampleLabelHandler::insertMaterial(const Material* mat)
 {
     for (auto it=m_MaterialLabel.begin(); it!=m_MaterialLabel.end(); ++it) {
         if( *(it->first) == *mat ) {

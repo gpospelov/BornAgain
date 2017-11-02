@@ -14,8 +14,8 @@
 // ************************************************************************** //
 
 #include "LayersWithAbsorptionBuilder.h"
+#include "MaterialFactoryFuncs.h"
 #include "Exceptions.h"
-#include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
@@ -37,10 +37,10 @@ LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder() = default;
 
 MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 {
-    HomogeneousMaterial mAmbience("Air", 0.0, 0.0);
-    HomogeneousMaterial mMiddle("Teflon", 2.900e-6, 6.019e-9);
-    HomogeneousMaterial mSubstrate("Substrate", 3.212e-6, 3.244e-8);
-    HomogeneousMaterial mParticle("Ag", 1.245e-5, 5.419e-7);
+    Material mAmbience = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material mMiddle = HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9);
+    Material mSubstrate = HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8);
+    Material mParticle = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
 
     const double middle_layer_thickness(60.0*Units::nanometer);
 

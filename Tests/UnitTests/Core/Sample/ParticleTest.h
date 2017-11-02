@@ -1,7 +1,7 @@
 #include "Particle.h"
 #include "BornAgainNamespace.h"
+#include "MaterialFactoryFuncs.h"
 #include "MathConstants.h"
-#include "HomogeneousMaterial.h"
 #include "FormFactorFullSphere.h"
 
 #include <iostream>
@@ -15,8 +15,7 @@ protected:
 TEST_F(ParticleTest, InitialState)
 {
     Particle particle;
-    HomogeneousMaterial vacuum;
-    EXPECT_EQ(vacuum, *particle.material());
+    EXPECT_EQ(HomogeneousMaterial(), *particle.material());
     EXPECT_EQ(nullptr, particle.createFormFactor());
     EXPECT_EQ(nullptr, particle.rotation());
     EXPECT_EQ(BornAgain::ParticleType, particle.getName());
@@ -25,9 +24,8 @@ TEST_F(ParticleTest, InitialState)
 TEST_F(ParticleTest, Clone)
 {
     Particle particle;
-    HomogeneousMaterial vacuum;
     std::unique_ptr<Particle> clone(particle.clone());
-    EXPECT_EQ(vacuum, *clone->material());
+    EXPECT_EQ(HomogeneousMaterial(), *clone->material());
     EXPECT_EQ(nullptr, clone->createFormFactor());
     EXPECT_EQ(nullptr, clone->rotation());
     EXPECT_EQ(BornAgain::ParticleType, clone->getName());
@@ -35,7 +33,7 @@ TEST_F(ParticleTest, Clone)
 
 TEST_F(ParticleTest, Constructors)
 {
-    HomogeneousMaterial mat("Air",0,0);
+    Material mat = HomogeneousMaterial("Air",0,0);
     FormFactorFullSphere sphere(1.0);
     RotationZ transform(45.*Units::degree);
 
@@ -60,12 +58,12 @@ TEST_F(ParticleTest, Constructors)
 
 TEST_F(ParticleTest, setters)
 {
-    HomogeneousMaterial mat("Air",0,0);
+    Material mat = HomogeneousMaterial("Air",0,0);
     FormFactorFullSphere sphere(2.1);
     RotationY transform(45.*Units::degree);
 
     Particle particle;
-    HomogeneousMaterial vacuum;
+    Material vacuum = HomogeneousMaterial();
     EXPECT_EQ(vacuum, *particle.material());
     EXPECT_EQ(nullptr, particle.rotation());
 
@@ -80,7 +78,7 @@ TEST_F(ParticleTest, setters)
 
 TEST_F(ParticleTest, getChildren)
 {
-    HomogeneousMaterial mat("Air",0,0);
+    Material mat = HomogeneousMaterial("Air",0,0);
     FormFactorFullSphere sphere(2.1);
 
     // Checking children of particle (no rotation)

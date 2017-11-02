@@ -19,7 +19,7 @@
 #include "Histogram2D.h"
 #include "IntensityDataIOFactory.h"
 #include "Layer.h"
-#include "Materials.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
@@ -29,14 +29,14 @@
 int main()
 {
     // Define the sample
-    HomogeneousMaterial air_material("Air", 0., 0.);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0., 0.);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
 
     ParticleLayout particle_layout;
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Particle cylinder(particle_material,
                       FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer));

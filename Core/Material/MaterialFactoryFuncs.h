@@ -22,7 +22,7 @@
 
 //! Constructs a material with _name_ and _refractive_index_.
 //! @param magnetization: magnetization (in A/m)
-BA_CORE_API_ Material RefractiveIndexMaterial(const std::string& name, complex_t refractive_index,
+BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
                                               kvector_t magnetization = kvector_t());
 
 //! @ingroup materials
@@ -30,8 +30,16 @@ BA_CORE_API_ Material RefractiveIndexMaterial(const std::string& name, complex_t
 //! Constructs a material with _name_ and refractive_index parameters
 //! \f$\delta\f$ and \f$\beta\f$ for refractive index \f$n = 1 - \delta + i \beta\f$.
 //! @param magnetization: magnetization (in A/m)
-BA_CORE_API_ Material RefractiveIndexMaterial(const std::string& name, double delta, double beta,
+BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, double delta, double beta,
                                               kvector_t magnetization = kvector_t());
+
+//! @ingroup materials
+
+//! Constructs vacuum material based on refractive coefficients.
+//! Though in practice there is no difference between vacuum materials
+//! produced with MaterialBySLD() and HomogeneousMaterial(), they are not equal because of
+//! the difference in the type of underlying data
+BA_CORE_API_ Material HomogeneousMaterial();
 
 //! @ingroup materials
 
@@ -59,5 +67,13 @@ BA_CORE_API_ Material MaterialBySLD(const std::string& name, double sld, double 
 //! @param magnetization: magnetization (in A/m)
 BA_CORE_API_ Material MaterialByAbsCX(const std::string& name, double sld, double abs_cx,
                                       kvector_t magnetization = kvector_t());
+
+//! @ingroup materials
+
+//! Constructs wavelength-independent vacuum material.
+//! Though in practice there is no difference between vacuum materials
+//! produced with MaterialBySLD() and HomogeneousMaterial(), they are not equal because of
+//! the difference in the type of underlying data
+BA_CORE_API_ Material MaterialBySLD();
 
 #endif /* MATERIALFACTORYFUNCS_H_ */

@@ -1,5 +1,5 @@
 #include "Layer.h"
-#include "HomogeneousMaterial.h"
+#include "MaterialFactoryFuncs.h"
 #include "ParticleLayout.h"
 #include "Units.h"
 
@@ -12,7 +12,7 @@ class LayerTest : public ::testing::Test
 
 TEST_F(LayerTest, LayerGetAndSet)
 {
-    HomogeneousMaterial air("air",0,0);
+    Material air = HomogeneousMaterial("air",0,0);
     Layer layer(air, 10*Units::nanometer);
     EXPECT_EQ(air, *layer.material());
     EXPECT_EQ(0u, layer.layouts().size());
@@ -36,7 +36,7 @@ TEST_F(LayerTest, LayerGetAndSet)
 
 TEST_F(LayerTest, LayerAndDecoration)
 {
-    HomogeneousMaterial air("air",0,0);
+    Material air = HomogeneousMaterial("air",0,0);
     std::unique_ptr<ParticleLayout> layout1(new ParticleLayout());
 
     Layer layer(air, 10*Units::nanometer);

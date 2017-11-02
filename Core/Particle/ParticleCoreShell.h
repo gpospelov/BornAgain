@@ -18,7 +18,6 @@
 
 #include "IParticle.h"
 
-class HomogeneousMaterial;
 class Particle;
 
 //! A particle with a core/shell geometry.

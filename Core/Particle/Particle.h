@@ -17,9 +17,9 @@
 #define PARTICLE_H
 
 #include "IParticle.h"
-#include "HomogeneousMaterial.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorRotation.h"
+#include "Material.h"
 
 //! A particle with a form factor and refractive index.
 //! @ingroup samples
@@ -28,9 +28,9 @@ class BA_CORE_API_ Particle : public IParticle
 {
 public:
     Particle();
-    Particle(HomogeneousMaterial material);
-    Particle(HomogeneousMaterial material, const IFormFactor& form_factor);
-    Particle(HomogeneousMaterial material, const IFormFactor& form_factor,
+    Particle(Material material);
+    Particle(Material material, const IFormFactor& form_factor);
+    Particle(Material material, const IFormFactor& form_factor,
              const IRotation& rotation);
 
     Particle* clone() const override final;
@@ -39,15 +39,15 @@ public:
 
     SlicedParticle createSlicedParticle(ZLimits limits) const override final;
 
-    void setMaterial(HomogeneousMaterial material);
-    const HomogeneousMaterial* material() const override final { return &m_material; }
+    void setMaterial(Material material);
+    const Material* material() const override final { return &m_material; }
 
     void setFormFactor(const IFormFactor& form_factor);
 
     std::vector<const INode*> getChildren() const override final;
 
 protected:
-    HomogeneousMaterial m_material;
+    Material m_material;
     std::unique_ptr<IFormFactor> mP_form_factor;
 private:
     void initialize();

@@ -14,13 +14,13 @@
 // ************************************************************************** //
 
 #include "MagneticParticlesBuilder.h"
+#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorFullSphere.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
@@ -39,10 +39,10 @@ MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     kvector_t magnetic_field(0.0, 0.0, 0.0);
-    HomogeneousMaterial particle_material("MagParticle", 6e-4, 2e-8, magnetic_field);
+    Material particle_material = HomogeneousMaterial("MagParticle", 6e-4, 2e-8, magnetic_field);
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
@@ -71,10 +71,10 @@ MultiLayer* MagneticCylindersBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 15e-6, 0.0);
     kvector_t magnetization(0.0, 1e6, 0.0);
-    HomogeneousMaterial particle_material("MagParticle2", 5e-6, 0.0, magnetization);
+    Material particle_material = HomogeneousMaterial("MagParticle2", 5e-6, 0.0, magnetization);
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
@@ -102,9 +102,9 @@ MultiLayer* MagneticSpheresBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
     kvector_t magnetization(0.0, 0.0, 1e7);
-    HomogeneousMaterial particle_material("Particle", 2e-5, 4e-7, magnetization);
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 7e-6, 1.8e-7);
+    Material particle_material = HomogeneousMaterial("Particle", 2e-5, 4e-7, magnetization);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 7e-6, 1.8e-7);
 
     FormFactorFullSphere ff_sphere(m_sphere_radius);
     Particle particle(particle_material, ff_sphere);

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Material/RefractiveIndexMaterial.h
-//! @brief     Defines class RefractiveIndexMaterial.
+//! @file      Core/Material/RefractiveCoefMaterial.h
+//! @brief     Defines class RefractiveCoefMaterial.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -96,7 +96,10 @@ private:
     std::unique_ptr<BaseMaterialImpl> m_material_impl;
 };
 
-//! Comparison operator for material wrapper
+//! Comparison operator for material wrapper (equality check)
 BA_CORE_API_ bool operator==(const Material& left, const Material& right);
+
+//! Comparison operator for material wrapper (inequality check)
+BA_CORE_API_ bool operator!=(const Material& left, const Material& right);
 
 #endif /* MATERIAL_H_ */

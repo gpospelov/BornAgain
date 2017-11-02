@@ -95,3 +95,8 @@ bool operator==(const Material& left, const Material& right)
     return true;
 }
 
+bool operator!=(const Material& left, const Material& right)
+{
+    return !(left == right);
+}
+

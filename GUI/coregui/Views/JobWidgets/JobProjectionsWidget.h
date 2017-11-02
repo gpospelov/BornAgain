@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/JobWidgets/IntensityProjectionsWidget.h
-//! @brief     Defines class IntensityProjectionsWidget
+//! @file      GUI/coregui/Views/JobWidgets/IntensityDataProjectionsWidget.h
+//! @brief     Defines class IntensityDataProjectionsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBPROJECTIONSWIDGET_H
-#define JOBPROJECTIONSWIDGET_H
+#ifndef INTENSITYDATAPROJECTIONSWIDGET_H
+#define INTENSITYDATAPROJECTIONSWIDGET_H
 
 #include "SessionItemWidget.h"
 
@@ -23,15 +23,15 @@ class ProjectionsEditor;
 class IntensityDataItem;
 class ProjectionContainerItem;
 
-//! A common widget to display color map (IntensityDataCanvas) and properties
-//! (IntensityDataPropertyWidget) of intensity data item.
+//! Main widget to embed projections editor for IntensityDataItem.
+//! Part of RealDataPresenter and JobResultsPresenter.
 
-class BA_CORE_API_ JobProjectionsWidget : public SessionItemWidget
+class BA_CORE_API_ IntensityDataProjectionsWidget : public SessionItemWidget
 {
     Q_OBJECT
 
 public:
-    JobProjectionsWidget(QWidget* parent = 0);
+    IntensityDataProjectionsWidget(QWidget* parent = 0);
 
     void setItem(SessionItem* jobItem);
 
@@ -44,4 +44,4 @@ private:
     ProjectionsEditor* m_projectionsEditor;
 };
 
-#endif // JOBPROJECTIONSWIDGET_H
+#endif // INTENSITYDATAPROJECTIONSWIDGET_H

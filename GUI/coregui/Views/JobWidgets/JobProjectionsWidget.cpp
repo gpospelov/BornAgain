@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/JobWidgets/IntensityProjectionsWidget.h
-//! @brief     Defines class IntensityProjectionsWidget
+//! @file      GUI/coregui/Views/JobWidgets/IntensityDataProjectionsWidget.h
+//! @brief     Defines class IntensityDataProjectionsWidget
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,7 +23,7 @@
 #include "IntensityDataItemUtils.h"
 #include <QVBoxLayout>
 
-JobProjectionsWidget::JobProjectionsWidget(QWidget* parent)
+IntensityDataProjectionsWidget::IntensityDataProjectionsWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_projectionsEditor(new ProjectionsEditor)
 {
@@ -35,7 +35,7 @@ JobProjectionsWidget::JobProjectionsWidget(QWidget* parent)
     setLayout(vlayout);
 }
 
-void JobProjectionsWidget::setItem(SessionItem* jobItem)
+void IntensityDataProjectionsWidget::setItem(SessionItem* jobItem)
 {
     SessionItemWidget::setItem(jobItem);
 
@@ -45,18 +45,18 @@ void JobProjectionsWidget::setItem(SessionItem* jobItem)
                                     projectionContainer->index(), intensityDataItem());
 }
 
-QList<QAction*> JobProjectionsWidget::actionList()
+QList<QAction*> IntensityDataProjectionsWidget::actionList()
 {
     return m_projectionsEditor->topToolBarActions();
 }
 
-IntensityDataItem* JobProjectionsWidget::intensityDataItem()
+IntensityDataItem* IntensityDataProjectionsWidget::intensityDataItem()
 {
     return IntensityDataItemUtils::intensityDataItem(currentItem());
 }
 
 ProjectionContainerItem*
-JobProjectionsWidget::createProjectionContainer(IntensityDataItem* intensityItem)
+IntensityDataProjectionsWidget::createProjectionContainer(IntensityDataItem* intensityItem)
 {
     Q_ASSERT(intensityItem);
 

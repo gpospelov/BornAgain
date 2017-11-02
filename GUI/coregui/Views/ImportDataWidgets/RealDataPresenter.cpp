@@ -25,7 +25,7 @@ RealDataPresenter::RealDataPresenter(QWidget* parent)
     : ItemComboWidget(parent)
 {
     registerWidget(Constants::IntensityDataPresentation, create_new<IntensityDataWidget>);
-    registerWidget(Constants::JobProjectionsPresentation, create_new<JobProjectionsWidget>);
+    registerWidget(Constants::IntensityProjectionsPresentation, create_new<IntensityDataProjectionsWidget>);
     registerWidget(Constants::MaskEditorPresentation, create_new<RealDataMaskWidget>);
 }
 
@@ -37,6 +37,6 @@ QList<QAction*> RealDataPresenter::actionList()
 QStringList RealDataPresenter::activePresentationList(SessionItem*)
 {
     return QStringList() << Constants::IntensityDataPresentation
-                         << Constants::JobProjectionsPresentation
+                         << Constants::IntensityProjectionsPresentation
                          << Constants::MaskEditorPresentation;
 }

@@ -15,23 +15,15 @@
 // ************************************************************************** //
 
 #include "MaskEditor.h"
-#include "GISASSimulation.h"
-#include "IntensityDataItem.h"
 #include "MaskEditorActions.h"
 #include "MaskEditorCanvas.h"
 #include "MaskEditorPropertyPanel.h"
 #include "MaskEditorToolBar.h"
 #include "MaskGraphicsScene.h"
-#include "MaskGraphicsView.h"
-#include "MaskItems.h"
-#include "MultiLayer.h"
-#include "SampleBuilderFactory.h"
 #include "SessionModel.h"
-#include "SimulationFactory.h"
 #include "minisplitter.h"
 #include <QBoxLayout>
 #include <QContextMenuEvent>
-#include <QMenu>
 
 MaskEditor::MaskEditor(QWidget* parent)
     : QMainWindow(parent)
@@ -57,7 +49,7 @@ MaskEditor::MaskEditor(QWidget* parent)
     m_editorPropertyPanel->setPanelHidden(true);
 }
 
-void MaskEditor::setMaskContext(SessionModel* model, const QModelIndex &maskContainerIndex,
+void MaskEditor::setMaskContext(SessionModel* model, const QModelIndex& maskContainerIndex,
                                 IntensityDataItem* intensityItem)
 {
     m_editorPropertyPanel->setMaskContext(model, maskContainerIndex, intensityItem);
@@ -87,7 +79,7 @@ void MaskEditor::contextMenuEvent(QContextMenuEvent* event)
 
 //! Returns list of actions intended for styled toolbar (on the top).
 
-QList<QAction *> MaskEditor::topToolBarActions()
+QList<QAction*> MaskEditor::topToolBarActions()
 {
     return m_editorActions->topToolBarActions();
 }
@@ -95,79 +87,46 @@ QList<QAction *> MaskEditor::topToolBarActions()
 void MaskEditor::setup_connections()
 {
     // reset view request is propagated from editorActions to graphics view
-    connect(m_editorActions,
-            SIGNAL(resetViewRequest()),
-            m_editorCanvas,
-            SLOT(onResetViewRequest())
-            );
+    connect(m_editorActions, &MaskEditorActions::resetViewRequest,
+            m_editorCanvas, &MaskEditorCanvas::onResetViewRequest);
 
     // tool panel request is propagated from editorActions to this MaskEditor
-    connect(m_editorActions,
-            SIGNAL(propertyPanelRequest()),
-            this,
-            SLOT(onPropertyPanelRequest())
-            );
+    connect(m_editorActions, &MaskEditorActions::propertyPanelRequest,
+            this, &MaskEditor::onPropertyPanelRequest);
 
     // save plot request is propagated from editorActions to graphics scene
-    connect(m_editorActions,
-            SIGNAL(savePlotRequest()),
-            m_editorCanvas,
-            SLOT(onSavePlotRequest())
-            );
+    connect(m_editorActions, &MaskEditorActions::savePlotRequest,
+            m_editorCanvas, &MaskEditorCanvas::onSavePlotRequest);
 
     // rotate data request is propagated from editorActions to intensity data in editor canvas
-    connect(m_editorActions,
-            SIGNAL(rotateDataRequest()),
-            m_editorCanvas,
-            SLOT(onRotateDataRequest())
-            );
+    connect(m_editorActions, &MaskEditorActions::rotateDataRequest,
+            m_editorCanvas, &MaskEditorCanvas::onRotateDataRequest);
 
     // selection/drawing activity is propagated from ToolBar to graphics scene
-    connect(m_toolBar,
-            SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
-            m_editorCanvas->getScene(),
-            SLOT(onActivityModeChanged(MaskEditorFlags::Activity))
-            );
+    connect(m_toolBar, &MaskEditorToolBar::activityModeChanged,
+            m_editorCanvas->getScene(), &MaskGraphicsScene::onActivityModeChanged);
 
     // mask value is propagated from ToolBar to graphics scene
-    connect(m_toolBar,
-            SIGNAL(maskValueChanged(MaskEditorFlags::MaskValue)),
-            m_editorCanvas->getScene(),
-            SLOT(onMaskValueChanged(MaskEditorFlags::MaskValue))
-            );
+    connect(m_toolBar, &MaskEditorToolBar::maskValueChanged,
+            m_editorCanvas->getScene(), &MaskGraphicsScene::onMaskValueChanged);
 
     // show results request is propagated from ToolBar to Canvas
-    connect(m_toolBar,
-            SIGNAL(presentationTypeRequest(MaskEditorFlags::PresentationType)),
-            m_editorCanvas,
-            SLOT(onPresentationTypeRequest(MaskEditorFlags::PresentationType))
-            );
+    connect(m_toolBar, &MaskEditorToolBar::presentationTypeRequest,
+            m_editorCanvas, &MaskEditorCanvas::onPresentationTypeRequest);
 
     // space bar push (request for zoom mode) is propagated from graphics view to ToolBar
-    connect(m_editorCanvas,
-            SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
-            m_toolBar,
-            SLOT(onChangeActivityRequest(MaskEditorFlags::Activity))
-            );
+    connect(m_editorCanvas, &MaskEditorCanvas::changeActivityRequest,
+            m_toolBar, &MaskEditorToolBar::onChangeActivityRequest);
 
     // Delete request is propagated from canvas to actions
-    connect(m_editorCanvas,
-            SIGNAL(deleteSelectedRequest()),
-            m_editorActions,
-            SLOT(onDeleteMaskAction())
-            );
+    connect(m_editorCanvas, &MaskEditorCanvas::deleteSelectedRequest,
+            m_editorActions, &MaskEditorActions::onDeleteMaskAction);
 
     // context menu request is propagated from graphics scene to MaskEditorActions
-    connect(m_editorCanvas->getScene(),
-            SIGNAL(itemContextMenuRequest(QPoint)),
-            m_editorActions,
-            SLOT(onItemContextMenuRequest(QPoint))
-            );
+    connect(m_editorCanvas->getScene(), &MaskGraphicsScene::itemContextMenuRequest,
+            m_editorActions, &MaskEditorActions::onItemContextMenuRequest);
 
     // context menu request is propagated from PropertyPanel to MaskEditorActions
-    connect(m_editorPropertyPanel,
-            SIGNAL(itemContextMenuRequest(QPoint)),
-            m_editorActions,
-            SLOT(onItemContextMenuRequest(QPoint))
-            );
+    connect(m_editorPropertyPanel, &MaskEditorPropertyPanel::itemContextMenuRequest,
+            m_editorActions, &MaskEditorActions::onItemContextMenuRequest);
 }

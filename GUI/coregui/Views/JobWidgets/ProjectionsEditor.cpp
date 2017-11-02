@@ -75,6 +75,13 @@ void ProjectionsEditor::setContext(SessionModel* model, const QModelIndex& shape
     m_editorActions->setSelectionModel(m_selectionModel);
 }
 
+void ProjectionsEditor::resetContext()
+{
+    m_propertyPanel->setItem(nullptr);
+    m_projectionsCanvas->resetContext();
+    m_projectionsWidget->setItem(nullptr);
+}
+
 QList<QAction*> ProjectionsEditor::topToolBarActions()
 {
     return m_editorActions->topToolBarActions();

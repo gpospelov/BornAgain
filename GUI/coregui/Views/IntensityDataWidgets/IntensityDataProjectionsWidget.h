@@ -33,13 +33,15 @@ class BA_CORE_API_ IntensityDataProjectionsWidget : public SessionItemWidget
 public:
     IntensityDataProjectionsWidget(QWidget* parent = 0);
 
-    void setItem(SessionItem* jobItem);
-
     QList<QAction*> actionList();
+
+protected:
+    void subscribeToItem();
+    void unsubscribeFromItem();
 
 private:
     IntensityDataItem* intensityDataItem();
-    ProjectionContainerItem* createProjectionContainer(IntensityDataItem* intensityItem);
+    ProjectionContainerItem* projectionContainer(IntensityDataItem* intensityItem);
 
     ProjectionsEditor* m_projectionsEditor;
 };

@@ -47,6 +47,8 @@ public:
     void setContext(SessionModel* model, const QModelIndex& shapeContainerIndex,
                     IntensityDataItem* intensityItem);
 
+    void resetContext();
+
     void setSelectionModel(QItemSelectionModel *model);
 
     MaskGraphicsScene *getScene() { return m_scene; }

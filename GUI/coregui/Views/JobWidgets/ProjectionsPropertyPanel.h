@@ -32,8 +32,8 @@ public:
     QSize minimumSizeHint() const;
 
 protected:
-    virtual void subscribeToItem();
-    virtual void unsubscribeFromItem();
+    void subscribeToItem();
+    void unsubscribeFromItem();
 
 private:
     ComponentEditor* m_componentEditor;

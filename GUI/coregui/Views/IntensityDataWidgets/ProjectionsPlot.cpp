@@ -55,12 +55,6 @@ ProjectionsPlot::~ProjectionsPlot()
     unsubscribeFromChildren();
 }
 
-void ProjectionsPlot::setItem(SessionItem* intensityItem)
-{
-    Q_ASSERT(intensityItem);
-    SessionItemWidget::setItem(intensityItem);
-}
-
 void ProjectionsPlot::onMarginsChanged(double left, double right)
 {
     QMargins orig = m_customPlot->axisRect()->margins();

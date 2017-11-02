@@ -35,19 +35,22 @@ IntensityDataProjectionsWidget::IntensityDataProjectionsWidget(QWidget* parent)
     setLayout(vlayout);
 }
 
-void IntensityDataProjectionsWidget::setItem(SessionItem* jobItem)
-{
-    SessionItemWidget::setItem(jobItem);
-
-    auto projectionContainer = createProjectionContainer(intensityDataItem());
-
-    m_projectionsEditor->setContext(intensityDataItem()->model(),
-                                    projectionContainer->index(), intensityDataItem());
-}
-
 QList<QAction*> IntensityDataProjectionsWidget::actionList()
 {
     return m_projectionsEditor->topToolBarActions();
+}
+
+void IntensityDataProjectionsWidget::subscribeToItem()
+{
+    auto container = projectionContainer(intensityDataItem());
+
+    m_projectionsEditor->setContext(intensityDataItem()->model(),
+                                    container->index(), intensityDataItem());
+}
+
+void IntensityDataProjectionsWidget::unsubscribeFromItem()
+{
+    m_projectionsEditor->resetContext();
 }
 
 IntensityDataItem* IntensityDataProjectionsWidget::intensityDataItem()
@@ -56,7 +59,7 @@ IntensityDataItem* IntensityDataProjectionsWidget::intensityDataItem()
 }
 
 ProjectionContainerItem*
-IntensityDataProjectionsWidget::createProjectionContainer(IntensityDataItem* intensityItem)
+IntensityDataProjectionsWidget::projectionContainer(IntensityDataItem* intensityItem)
 {
     Q_ASSERT(intensityItem);
 

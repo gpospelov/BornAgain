@@ -45,6 +45,8 @@ public:
     void setContext(SessionModel* model, const QModelIndex& shapeContainerIndex,
                     IntensityDataItem* intensityItem);
 
+    void resetContext();
+
     QList<QAction *> topToolBarActions();
 
 private:

@@ -145,14 +145,14 @@ SafePointerVector<Layer> Layer::slice(ZLimits limits, Layer::ELayerType layer_ty
 complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
 {
     complex_t n = m_material.refractiveIndex(2.0 * M_PI / k.mag());
-    return ScalarReducedPotential(n, k, n_ref);
+    return MaterialUtils::ScalarReducedPotential(n, k, n_ref);
 }
 
 Eigen::Matrix2cd Layer::polarizedReducedPotential(kvector_t k, double n_ref) const
 {
     complex_t n = m_material.refractiveIndex(2.0 * M_PI / k.mag());
     kvector_t b_field = bField();
-    return PolarizedReducedPotential(n, b_field, k, n_ref);
+    return MaterialUtils::PolarizedReducedPotential(n, b_field, k, n_ref);
 }
 
 void Layer::initBField(kvector_t h_field, double b_z)

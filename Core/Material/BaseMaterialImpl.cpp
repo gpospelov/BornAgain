@@ -43,7 +43,7 @@ Eigen::Matrix2cd BaseMaterialImpl::polarizedSubtrSLD(const WavevectorInfo& wavev
 {
     cvector_t mag_ortho = OrthogonalToBaseVector(wavevectors.getQ(), m_magnetization);
     complex_t unit_factor = scalarSubtrSLD(wavevectors);
-    return MagnetizationCorrection(unit_factor, magnetization_prefactor, mag_ortho);
+    return MaterialUtils::MagnetizationCorrection(unit_factor, magnetization_prefactor, mag_ortho);
 }
 
 BaseMaterialImpl* BaseMaterialImpl::transformedMaterial(const Transform3D& transform) const

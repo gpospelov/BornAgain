@@ -20,8 +20,7 @@
 #include "SessionModel.h"
 #include "JobItem.h"
 #include "ProjectionsEditor.h"
-#include "RealDataItem.h"
-#include "GUIHelpers.h"
+#include "IntensityDataItemUtils.h"
 #include <QVBoxLayout>
 
 JobProjectionsWidget::JobProjectionsWidget(QWidget* parent)
@@ -53,19 +52,7 @@ QList<QAction*> JobProjectionsWidget::actionList()
 
 IntensityDataItem* JobProjectionsWidget::intensityDataItem()
 {
-    if (!currentItem())
-        throw GUIHelpers::Error("JobProjectionsWidget::intensityDataItem() -> Error. "
-                                "Not initialized.");
-
-    if (currentItem()->modelType() == Constants::JobItemType)
-        return &currentItem()->item<IntensityDataItem>(JobItem::T_OUTPUT);
-    else if(currentItem()->modelType() == Constants::RealDataType)
-        return &currentItem()->item<IntensityDataItem>(RealDataItem::T_INTENSITY_DATA);
-    else if(currentItem()->modelType() == Constants::IntensityDataType)
-        return dynamic_cast<IntensityDataItem *>(currentItem());
-    else
-        throw GUIHelpers::Error("JobProjectionsWidget::intensityDataItem() -> Error. "
-                                "Unexpected item.");
+    return IntensityDataItemUtils::intensityDataItem(currentItem());
 }
 
 ProjectionContainerItem*

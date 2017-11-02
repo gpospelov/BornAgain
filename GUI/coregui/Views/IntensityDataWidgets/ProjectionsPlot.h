@@ -53,6 +53,7 @@ private:
     ProjectionContainerItem* projectionContainerItem();
     QVector<SessionItem*> projectionItems();
     QCPGraph* graphForItem(SessionItem* item);
+    void unsubscribeFromChildren();
 
     void updateProjectionsData();
     void updateProjections();

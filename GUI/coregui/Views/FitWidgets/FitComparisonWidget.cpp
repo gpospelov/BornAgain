@@ -85,6 +85,11 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     m_propertyWidget->setVisible(false);
 }
 
+FitComparisonWidget::~FitComparisonWidget()
+{
+    unsubscribeFromChildren();
+}
+
 
 QList<QAction*> FitComparisonWidget::actionList()
 {
@@ -139,11 +144,7 @@ void FitComparisonWidget::unsubscribeFromItem()
     if (!currentItem())
         return;
 
-    if (simulatedDataItem())
-        simulatedDataItem()->mapper()->unsubscribe(this);
-
-    if (diffItem())
-        diffItem()->mapper()->unsubscribe(this);
+    unsubscribeFromChildren();
 
     m_comparisonController->clear();
 }
@@ -183,6 +184,15 @@ void FitComparisonWidget::calculateRelativeDifference()
     diffItem()->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
     diffItem()->setAxesRangeToData();
 
+}
+
+void FitComparisonWidget::unsubscribeFromChildren()
+{
+    if (simulatedDataItem())
+        simulatedDataItem()->mapper()->unsubscribe(this);
+
+    if (diffItem())
+        diffItem()->mapper()->unsubscribe(this);
 }
 
 JobItem* FitComparisonWidget::jobItem()

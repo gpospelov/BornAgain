@@ -52,7 +52,7 @@ ProjectionsPlot::ProjectionsPlot(const QString& projectionType, QWidget* parent)
 
 ProjectionsPlot::~ProjectionsPlot()
 {
-
+    unsubscribeFromChildren();
 }
 
 void ProjectionsPlot::setItem(SessionItem* intensityItem)
@@ -116,8 +116,7 @@ void ProjectionsPlot::subscribeToItem()
 
 void ProjectionsPlot::unsubscribeFromItem()
 {
-    if(currentItem())
-        projectionContainerItem()->mapper()->unsubscribe(this);
+    unsubscribeFromChildren();
 }
 
 void ProjectionsPlot::onProjectionPropertyChanged(SessionItem* item, const QString& property)
@@ -174,6 +173,12 @@ QCPGraph* ProjectionsPlot::graphForItem(SessionItem* item)
     }
 
     return graph;
+}
+
+void ProjectionsPlot::unsubscribeFromChildren()
+{
+    if(currentItem())
+        projectionContainerItem()->mapper()->unsubscribe(this);
 }
 
 //! Creates cached 2D histogram for later projection calculations.

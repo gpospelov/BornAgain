@@ -30,6 +30,7 @@
 #include "TestProjectUtils.h"
 #include "TestParticleCoreShell.h"
 #include "TestPropertyRepeater.h"
+#include "TestSessionItemController.h"
 #include <memory>
 
 class GUITestFactory {
@@ -91,6 +92,7 @@ int main(int argc, char** argv) {
     tests.add<TestProjectUtils>();
     tests.add<TestParticleCoreShell>();
     tests.add<TestPropertyRepeater>();
+    tests.add<TestSessionItemController>();
 
     return tests.runAll(argc, argv);
 }

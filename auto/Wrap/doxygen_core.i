@@ -14637,6 +14637,23 @@ Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes co
 ";
 
 
+// File: namespaceMaterialUtils.xml
+%feature("docstring")  MaterialUtils::ScalarReducedPotential "complex_t MaterialUtils::ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
+
+Function for calculating the reduced potential, used for obtaining the Fresnel coefficients (non-polarized material case) 
+";
+
+%feature("docstring")  MaterialUtils::PolarizedReducedPotential "Eigen::Matrix2cd MaterialUtils::PolarizedReducedPotential(complex_t n, kvector_t b_field, kvector_t k, double n_ref)
+
+Function for calculating the reduced potential, used for obtaining the Fresnel coefficients (polarized material case) 
+";
+
+%feature("docstring")  MaterialUtils::MagnetizationCorrection "BA_CORE_API_ Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, BasicVector3D< T > polarization)
+
+Utility to compute magnetization correction for reduced potential and scattering length density. 
+";
+
+
 // File: namespaceMathFunctions.xml
 %feature("docstring")  MathFunctions::Bessel_J0_PowSer "complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
 
@@ -16104,43 +16121,8 @@ Constructs wavelength-independent vacuum material. Though in practice there is n
 %feature("docstring")  Unit_Matrix "const Eigen::Matrix2cd Unit_Matrix(Eigen::Matrix2cd::Identity())
 ";
 
-%feature("docstring")  MagnetizationCorrection "Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, BasicVector3D< T > polarization)
-
-Utility to compute magnetization correction for reduced potential and scattering length density. 
-";
-
-%feature("docstring")  MagnetizationCorrection "template Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, kvector_t polarization)
-";
-
-%feature("docstring")  MagnetizationCorrection "template Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, cvector_t polarization)
-";
-
-%feature("docstring")  ScalarReducedPotential "complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
-
-Function for calculating the reduced potential, used for obtaining the Fresnel coefficients (non-polarized material case) 
-";
-
-%feature("docstring")  PolarizedReducedPotential "Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field, kvector_t k, double n_ref)
-
-Function for calculating the reduced potential, used for obtaining the Fresnel coefficients (polarized material case) 
-";
-
 
 // File: MaterialUtils_8h.xml
-%feature("docstring")  ScalarReducedPotential "complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
-
-Function for calculating the reduced potential, used for obtaining the Fresnel coefficients (non-polarized material case) 
-";
-
-%feature("docstring")  PolarizedReducedPotential "Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field, kvector_t k, double n_ref)
-
-Function for calculating the reduced potential, used for obtaining the Fresnel coefficients (polarized material case) 
-";
-
-%feature("docstring")  MagnetizationCorrection "BA_CORE_API_ Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, BasicVector3D< T > polarization)
-
-Utility to compute magnetization correction for reduced potential and scattering length density. 
-";
 
 
 // File: RefractiveCoefMaterial_8cpp.xml

@@ -97,6 +97,7 @@ private:
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
     void setInPanAndZoomMode(bool value);
+    void updateCursors();
 
     void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event);
 

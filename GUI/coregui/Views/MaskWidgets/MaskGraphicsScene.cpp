@@ -159,6 +159,8 @@ void MaskGraphicsScene::onActivityModeChanged(MaskEditorFlags::Activity value)
 
     m_context.setActivityType(value);
     setInPanAndZoomMode(m_context.isInZoomMode());
+
+    updateCursors();
 }
 
 void MaskGraphicsScene::onMaskValueChanged(MaskEditorFlags::MaskValue value)
@@ -565,6 +567,19 @@ void MaskGraphicsScene::setInPanAndZoomMode(bool value)
         view->setAcceptedMouseButtons(acceptedButton);
 
     m_proxy->setInZoomMode(value);
+}
+
+//! Change cursor to stress that hovered item is movable (when not in PanZoom mode)
+
+void MaskGraphicsScene::updateCursors()
+{
+    for (auto it = m_ItemToView.begin(); it != m_ItemToView.end(); ++it) {
+        if (it.key()->modelType() == Constants::VerticalLineMaskType) {
+            it.value()->setCursor(m_context.isInZoomMode() ? Qt::ArrowCursor : Qt::SizeHorCursor);
+        } else if(it.key()->modelType() == Constants::HorizontalLineMaskType) {
+            it.value()->setCursor(m_context.isInZoomMode() ? Qt::ArrowCursor : Qt::SizeVerCursor);
+        }
+    }
 }
 
 void MaskGraphicsScene::makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event)

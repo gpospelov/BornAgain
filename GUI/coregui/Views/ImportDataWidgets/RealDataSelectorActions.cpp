@@ -19,14 +19,67 @@
 #include "RealDataItem.h"
 #include "RealDataModel.h"
 #include "OutputData.h"
+#include "IntensityDataItem.h"
+#include "MaskItems.h"
+#include "GUIHelpers.h"
+#include "ProjectionItems.h"
+#include "IntensityDataFunctions.h"
 #include <QAction>
+#include <QApplication>
 #include <QItemSelectionModel>
 #include <QMenu>
+
+namespace {
+bool openRotateWarningDialog(QWidget* parent) {
+    const QString title("Rotate data");
+
+    const QString message("Rotation will break the link between the data and the instrument. "
+                          "Detector masks or profiles, if they exist, will be removed.");
+
+    return GUIHelpers::question(parent, title, message, "Do you wish to rotate the data?",
+        "Yes, please rotate", "No, cancel data rotation");
+}
+
+//! Returns true, if rotation will affect linked instrument or mask presence.
+
+bool rotationAffectsSetup(IntensityDataItem& intensityItem) {
+    if (intensityItem.parent()->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool())
+        return true;
+
+    if (intensityItem.maskContainerItem() && intensityItem.maskContainerItem()->hasChildren())
+        return true;
+
+    if (intensityItem.projectionContainerItem() &&
+        intensityItem.projectionContainerItem()->hasChildren())
+        return true;
+
+    return false;
+}
+
+//! Resets linked instruments and masks.
+
+void resetSetup(IntensityDataItem& intensityItem) {
+
+    auto data_parent = intensityItem.parent();
+    if (data_parent->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool())
+        data_parent->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
+
+    if (auto maskContainer = intensityItem.maskContainerItem())
+        maskContainer->model()->removeRows(0, maskContainer->rowCount(), maskContainer->index());
+
+    if (auto projectionsContainer = intensityItem.projectionContainerItem())
+        projectionsContainer->model()->removeRows(0, projectionsContainer->rowCount(),
+                                                  projectionsContainer->index());
+}
+
+}
+
 
 RealDataSelectorActions::RealDataSelectorActions(QObject* parent)
     : QObject(parent)
     , m_importDataAction(nullptr)
     , m_removeDataAction(nullptr)
+    , m_rotateDataAction(new QAction(this))
     , m_realDataModel(nullptr)
     , m_selectionModel(nullptr)
 {
@@ -41,6 +94,12 @@ RealDataSelectorActions::RealDataSelectorActions(QObject* parent)
     m_removeDataAction->setToolTip(QStringLiteral("Remove selected data"));
     connect(m_removeDataAction, &QAction::triggered,
             this, &RealDataSelectorActions::onRemoveDataAction);
+
+    m_rotateDataAction->setText("Rotate this data");
+    m_rotateDataAction->setIcon(QIcon(":/images/toolbar16light_rotate.svg"));
+    m_rotateDataAction->setToolTip("Rotate intensity data by 90 deg counterclockwise");
+    connect(m_rotateDataAction, &QAction::triggered,
+            this, &RealDataSelectorActions::onRotateDataRequest);
 }
 
 void RealDataSelectorActions::setRealDataModel(RealDataModel* model)
@@ -81,16 +140,44 @@ void RealDataSelectorActions::onRemoveDataAction()
     updateSelection();
 }
 
+void RealDataSelectorActions::onRotateDataRequest()
+{
+    QModelIndex currentIndex = m_selectionModel->currentIndex();
+    if (!currentIndex.isValid())
+        return;
+
+    RealDataItem* dataItem = dynamic_cast<RealDataItem*>(m_realDataModel->itemForIndex(currentIndex));
+    Q_ASSERT(dataItem);
+    auto intensityItem = dataItem->intensityDataItem();
+    Q_ASSERT(intensityItem);
+
+    if (rotationAffectsSetup(*intensityItem)) {
+        if (!openRotateWarningDialog(nullptr))
+            return;
+
+        resetSetup(*intensityItem);
+    }
+
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    const auto input = intensityItem->getOutputData();
+    intensityItem->setOutputData(
+        IntensityDataFunctions::createRearrangedDataSet(*input, 1).release());
+    intensityItem->setAxesRangeToData();
+    QApplication::restoreOverrideCursor();
+}
+
 void RealDataSelectorActions::onContextMenuRequest(const QPoint& point,
                                                    const QModelIndex& indexAtPoint)
 {
     QMenu menu;
+    menu.setToolTipsVisible(true);
 
     setAllActionsEnabled(indexAtPoint.isValid());
 
     m_importDataAction->setEnabled(true);
 
     menu.addAction(m_removeDataAction);
+    menu.addAction(m_rotateDataAction);
     menu.addSeparator();
     menu.addAction(m_importDataAction);
     menu.exec(point);
@@ -99,6 +186,7 @@ void RealDataSelectorActions::onContextMenuRequest(const QPoint& point,
 void RealDataSelectorActions::setAllActionsEnabled(bool value)
 {
     m_importDataAction->setEnabled(value);
+    m_rotateDataAction->setEnabled(value);
     m_removeDataAction->setEnabled(value);
 }
 

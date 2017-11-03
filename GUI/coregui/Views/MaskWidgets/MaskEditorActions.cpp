@@ -30,7 +30,6 @@ MaskEditorActions::MaskEditorActions(QWidget* parent)
     , m_resetViewAction(new QAction(this))
     , m_savePlotAction(new QAction(this))
     , m_togglePanelAction(new QAction(this))
-    , m_rotateDataAction(new QAction(this))
     , m_maskModel(nullptr)
     , m_selectionModel(nullptr)
 
@@ -72,11 +71,6 @@ MaskEditorActions::MaskEditorActions(QWidget* parent)
     connect(m_togglePanelAction, &QAction::triggered,
             this, &MaskEditorActions::propertyPanelRequest);
 
-    m_rotateDataAction->setText("Rotate");
-    m_rotateDataAction->setIcon(QIcon(":/images/toolbar16light_rotate.svg"));
-    m_rotateDataAction->setToolTip("Rotate intensity data by 90 deg counterclockwise");
-    connect(m_rotateDataAction, &QAction::triggered,
-            this, &MaskEditorActions::rotateDataRequest);
 }
 
 void MaskEditorActions::setModel(SessionModel* maskModel, const QModelIndex& rootIndex)
@@ -102,8 +96,7 @@ QAction* MaskEditorActions::bringToFrontAction()
 
 QList<QAction*> MaskEditorActions::topToolBarActions()
 {
-    return QList<QAction*>() << m_resetViewAction << m_savePlotAction << m_togglePanelAction
-                             << m_rotateDataAction;
+    return QList<QAction*>() << m_resetViewAction << m_savePlotAction << m_togglePanelAction;
 }
 
 //! Constructs MaskItem context menu following the request from MaskGraphicsScene

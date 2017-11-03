@@ -38,6 +38,7 @@ public:
 public slots:
     void onImportDataAction();
     void onRemoveDataAction();
+    void onRotateDataRequest();
     void onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint);
 
 private:
@@ -46,6 +47,7 @@ private:
 
     QAction* m_importDataAction;
     QAction* m_removeDataAction;
+    QAction* m_rotateDataAction;
     RealDataModel* m_realDataModel;
     QItemSelectionModel* m_selectionModel;
 };

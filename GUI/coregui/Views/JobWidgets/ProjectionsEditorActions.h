@@ -51,9 +51,9 @@ private:
     QAction* m_resetViewAction;
     QAction* m_togglePanelAction;
     QAction* m_deleteAction;
-    SessionModel *m_model;
+    SessionModel* m_model;
     QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem
-    QItemSelectionModel *m_selectionModel;
+    QItemSelectionModel* m_selectionModel;
 };
 
 #endif // PROJECTIONSEDITORACTIONS_H

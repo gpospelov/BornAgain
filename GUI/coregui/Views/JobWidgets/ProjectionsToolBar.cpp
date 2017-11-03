@@ -49,6 +49,17 @@ void ProjectionsToolBar::onChangeActivityRequest(MaskEditorFlags::Activity value
     emit activityModeChanged(currentActivity());
 }
 
+//! Change activity only if current activity is one of drawing mode (horizontal, vertical
+//! projections drawing).
+void ProjectionsToolBar::onProjectionTabChange(MaskEditorFlags::Activity value)
+{
+    if (currentActivity() == MaskEditorFlags::HORIZONTAL_LINE_MODE ||
+        currentActivity() == MaskEditorFlags::VERTICAL_LINE_MODE) {
+        onChangeActivityRequest(value);
+    }
+
+}
+
 void ProjectionsToolBar::onActivityGroupChange(int)
 {
     emit activityModeChanged(currentActivity());

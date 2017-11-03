@@ -101,6 +101,10 @@ void ProjectionsEditor::setup_connections()
     connect(m_toolBar, &ProjectionsToolBar::activityModeChanged,
             m_projectionsWidget, &ProjectionsWidget::onActivityModeChanged);
 
+    // click on projections tab is propagated to tool bar
+    connect(m_projectionsWidget, &ProjectionsWidget::changeActivityRequest,
+            m_toolBar, &ProjectionsToolBar::onProjectionTabChange);
+
     // Delete request is propagated from canvas to actions
     connect(m_projectionsCanvas, &ProjectionsEditorCanvas::deleteSelectedRequest,
             m_editorActions,  &ProjectionsEditorActions::onDeleteAction);

@@ -35,11 +35,19 @@ public:
     ProjectionsWidget(QWidget* parent = 0);
     void setItem(SessionItem* intensityItem);
 
+signals:
+    void changeActivityRequest(MaskEditorFlags::Activity value);
+
 public slots:
     void onActivityModeChanged(MaskEditorFlags::Activity value);
     void onMarginsChanged(double left, double right);
 
+private slots:
+    void onTabChanged(int tab_index);
+
 private:
+    void setConnected(bool isConnected);
+
     ProjectionsPlot* m_xProjection;
     ProjectionsPlot* m_yProjection;
     QTabWidget* m_tabWidget;

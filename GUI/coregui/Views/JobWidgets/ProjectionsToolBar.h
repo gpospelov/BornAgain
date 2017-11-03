@@ -36,6 +36,7 @@ public:
 
 public slots:
     void onChangeActivityRequest(MaskEditorFlags::Activity value);
+    void onProjectionTabChange(MaskEditorFlags::Activity value);
 
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);

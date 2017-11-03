@@ -96,7 +96,7 @@ QAction* MaskEditorActions::bringToFrontAction()
 
 QList<QAction*> MaskEditorActions::topToolBarActions()
 {
-    return QList<QAction*>() << m_resetViewAction << m_savePlotAction << m_togglePanelAction;
+    return QList<QAction*>() << m_resetViewAction << m_togglePanelAction;
 }
 
 //! Constructs MaskItem context menu following the request from MaskGraphicsScene

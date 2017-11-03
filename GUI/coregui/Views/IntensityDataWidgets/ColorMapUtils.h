@@ -21,8 +21,10 @@
 #include "qcustomplot.h"
 #include <QMap>
 #include <QString>
+#include <QMargins>
 
 class IntensityDataItem;
+class ColorMap;
 
 //! Provides few helper functions for ColorMapPlot.
 
@@ -52,6 +54,10 @@ BA_CORE_API_ QCPRange itemDataZoom(const IntensityDataItem* item);
 
 BA_CORE_API_ void setLogz(QCPColorScale* scale, bool isLogz);
 BA_CORE_API_ void setLogz(QCPAxis* axis, bool isLogz);
+
+//! Sets default margins for axes rectangle plot.
+BA_CORE_API_ void setDefaultMargins(QCustomPlot* customPlot);
+
 }
 
 #endif // COLORMAPUTILS_H

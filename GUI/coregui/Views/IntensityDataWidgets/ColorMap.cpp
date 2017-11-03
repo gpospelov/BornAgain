@@ -327,11 +327,7 @@ void ColorMap::setUpdateTimerConnected(bool isConnected)
 //! to make fixed margins for whole colormap (change in axes labels wont affect axes rectangle)
 void ColorMap::setFixedColorMapMargins()
 {
-    QFontMetrics fontMetric(font());
-    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
-    auto* axisRectangle = m_customPlot->axisRect();
-    axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
-    axisRectangle->setMargins(QMargins(6.0 * em, fontAscent * 1.5, em * 1.2, 4.5 * fontAscent));
+    ColorMapUtils::setDefaultMargins(m_customPlot);
 }
 
 //! Sets initial state of ColorMap to match given intensity item.

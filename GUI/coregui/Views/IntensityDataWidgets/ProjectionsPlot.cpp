@@ -111,6 +111,7 @@ void ProjectionsPlot::subscribeToItem()
 void ProjectionsPlot::unsubscribeFromItem()
 {
     unsubscribeFromChildren();
+    clearProjections();
 }
 
 void ProjectionsPlot::onProjectionPropertyChanged(SessionItem* item, const QString& property)

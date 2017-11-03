@@ -190,10 +190,17 @@ void MaskGraphicsScene::cancelCurrentDrawing()
 
 void MaskGraphicsScene::resetScene()
 {
+    Q_ASSERT(m_selectionModel);
+    m_block_selection = true;
+    m_selectionModel->clearSelection();
+    clearSelection();
+
     clear();
     m_ItemToView.clear();
     m_proxy = 0;
     m_adaptor.reset(new ColorMapSceneAdaptor);
+
+    m_block_selection = false;
 }
 
 //! Main method to update scene on various changes in the model.

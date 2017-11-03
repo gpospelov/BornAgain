@@ -40,23 +40,23 @@ class BA_CORE_API_ ProjectionsEditor : public QMainWindow
     Q_OBJECT
 
 public:
-    ProjectionsEditor(QWidget* parent = 0);
+    ProjectionsEditor(QWidget* parent = nullptr);
 
     void setContext(SessionModel* model, const QModelIndex& shapeContainerIndex,
                     IntensityDataItem* intensityItem);
 
     void resetContext();
 
-    QList<QAction *> topToolBarActions();
+    QList<QAction*> topToolBarActions();
 
 private:
     void setup_connections();
 
     ProjectionsEditorActions* m_editorActions;
-    ProjectionsToolBar* m_toolBar; //! main tool bar with bottoms at the right
+    ProjectionsToolBar* m_toolBar;                //! main tool bar with bottoms at the right
     ProjectionsEditorCanvas* m_projectionsCanvas; //! canvas with color map at the top
-    ProjectionsWidget* m_projectionsWidget; //! bottom widget to draw projections plot
-    ProjectionsPropertyPanel* m_propertyPanel; //! pannel at the right with properties
+    ProjectionsWidget* m_projectionsWidget;       //! bottom widget to draw projections plot
+    ProjectionsPropertyPanel* m_propertyPanel;    //! pannel at the right with properties
     QItemSelectionModel* m_selectionModel;
     Manhattan::MiniSplitter* m_rightSplitter;
     QSplitter* m_bottomSplitter;

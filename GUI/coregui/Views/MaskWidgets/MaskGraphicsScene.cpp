@@ -128,19 +128,9 @@ void MaskGraphicsScene::resetContext()
 void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
 {
     Q_ASSERT(model);
-
-    if (model != m_selectionModel) {
-
-        if (m_selectionModel)
-            disconnect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-                       this, SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
-
-        m_selectionModel = model;
-
-        if (m_selectionModel)
-            connect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-                    this, SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
-    }
+    m_selectionModel = model;
+    connect(m_selectionModel, &QItemSelectionModel::selectionChanged,
+            this, &MaskGraphicsScene::onSessionSelectionChanged, Qt::UniqueConnection);
 }
 
 ColorMap *MaskGraphicsScene::colorMap()

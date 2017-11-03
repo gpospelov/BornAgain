@@ -31,13 +31,14 @@ ProjectionsEditorActions::ProjectionsEditorActions(QWidget* parent)
     // Actions for top toolbar
     m_resetViewAction->setText("Reset");
     m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
-    m_resetViewAction->setToolTip("Reset View");
+    m_resetViewAction->setToolTip("Reset view\n"
+                                  "x,y,z axes range will be set to default");
     connect(m_resetViewAction, &QAction::triggered,
             this, &ProjectionsEditorActions::resetViewRequest);
 
     m_togglePanelAction->setText("Properties");
     m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
-    m_togglePanelAction->setToolTip("Toggle Property Panel");
+    m_togglePanelAction->setToolTip("Toggle property panel");
     connect(m_togglePanelAction, &QAction::triggered,
             this, &ProjectionsEditorActions::propertyPanelRequest);
 

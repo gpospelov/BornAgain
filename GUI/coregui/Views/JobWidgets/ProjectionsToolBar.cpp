@@ -22,6 +22,25 @@
 #include <QToolButton>
 #include <QLabel>
 
+namespace {
+const QString pan_zoom_tooltip =
+        "Pan/zoom mode (space)\n"
+        "Drag axes with the mouse, use mouse wheel to zoom in/out";
+
+const QString reset_view_tooltip =
+        "Reset view\nx,y,z axes range will be set to default";
+
+const QString selection_mode_tooltip =
+        "Selection mode\nYou can select existing projections and move them around";
+
+const QString horizontal_mode_tooltip =
+        "Horizontal projections mode\nCreate projection along x-axis by clicking on color map";
+
+const QString vertical_mode_tooltip =
+        "Vertical projections mode\nCreate projection along y-axis by clicking on color map";
+
+}
+
 ProjectionsToolBar::ProjectionsToolBar(ProjectionsEditorActions* editorActions, QWidget* parent)
     : QToolBar(parent), m_editorActions(editorActions),
       m_activityButtonGroup(new QButtonGroup(this))
@@ -54,10 +73,8 @@ void ProjectionsToolBar::onChangeActivityRequest(MaskEditorFlags::Activity value
 void ProjectionsToolBar::onProjectionTabChange(MaskEditorFlags::Activity value)
 {
     if (currentActivity() == MaskEditorFlags::HORIZONTAL_LINE_MODE ||
-        currentActivity() == MaskEditorFlags::VERTICAL_LINE_MODE) {
+        currentActivity() == MaskEditorFlags::VERTICAL_LINE_MODE)
         onChangeActivityRequest(value);
-    }
-
 }
 
 void ProjectionsToolBar::onActivityGroupChange(int)
@@ -67,25 +84,25 @@ void ProjectionsToolBar::onActivityGroupChange(int)
 
 void ProjectionsToolBar::setup_selection_group()
 {
-    QToolButton* panButton = new QToolButton(this);
+    auto panButton = new QToolButton(this);
     panButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_hand.svg"));
-    panButton->setToolTip("Pan/zoom mode (space)");
+    panButton->setToolTip(pan_zoom_tooltip);
     panButton->setCheckable(true);
     panButton->setChecked(true);
     addWidget(panButton);
 
-    QToolButton* resetViewButton = new QToolButton(this);
+    auto resetViewButton = new QToolButton(this);
     resetViewButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_refresh.svg"));
-    resetViewButton->setToolTip("Reset pan/zoom to initial state");
+    resetViewButton->setToolTip(reset_view_tooltip);
     addWidget(resetViewButton);
-
-    connect(resetViewButton, SIGNAL(clicked()), m_editorActions, SIGNAL(resetViewRequest()));
+    connect(resetViewButton, &QToolButton::clicked,
+            m_editorActions, &ProjectionsEditorActions::resetViewRequest);
 
     add_separator();
 
     QToolButton* selectionButton = new QToolButton(this);
     selectionButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_arrow.svg"));
-    selectionButton->setToolTip("Select/modify mask");
+    selectionButton->setToolTip(selection_mode_tooltip);
     selectionButton->setCheckable(true);
     addWidget(selectionButton);
 
@@ -95,15 +112,15 @@ void ProjectionsToolBar::setup_selection_group()
 
 void ProjectionsToolBar::setup_shapes_group()
 {
-    QToolButton* horizontalLineButton = new QToolButton(this);
+    auto horizontalLineButton = new QToolButton(this);
     horizontalLineButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_horizontalline.svg"));
-    horizontalLineButton->setToolTip("Create horizontal line mask");
+    horizontalLineButton->setToolTip(horizontal_mode_tooltip);
     horizontalLineButton->setCheckable(true);
     addWidget(horizontalLineButton);
 
-    QToolButton* verticalLineButton = new QToolButton(this);
+    auto verticalLineButton = new QToolButton(this);
     verticalLineButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_verticalline.svg"));
-    verticalLineButton->setToolTip("Create vertical line mask");
+    verticalLineButton->setToolTip(vertical_mode_tooltip);
     verticalLineButton->setCheckable(true);
     addWidget(verticalLineButton);
 
@@ -125,5 +142,6 @@ MaskEditorFlags::Activity ProjectionsToolBar::currentActivity() const
 
 void ProjectionsToolBar::setCurrentActivity(MaskEditorFlags::Activity value)
 {
-    m_activityButtonGroup->button(value)->setChecked(true);
+    int button_index = static_cast<int>(value);
+    m_activityButtonGroup->button(button_index)->setChecked(true);
 }

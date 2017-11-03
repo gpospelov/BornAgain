@@ -42,6 +42,7 @@ public:
 
 public slots:
     void onDeleteAction();
+    void onSaveAction();
 
 signals:
     void resetViewRequest();

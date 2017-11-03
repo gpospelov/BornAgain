@@ -50,6 +50,7 @@ ProjectionsToolBar::ProjectionsToolBar(ProjectionsEditorActions* editorActions, 
 
     setup_selection_group();
     setup_shapes_group();
+    setup_extratools_group();
 
     connect(m_activityButtonGroup, SIGNAL(buttonClicked(int)), this,
             SLOT(onActivityGroupChange(int)));
@@ -126,6 +127,18 @@ void ProjectionsToolBar::setup_shapes_group()
 
     m_activityButtonGroup->addButton(verticalLineButton, MaskEditorFlags::VERTICAL_LINE_MODE);
     m_activityButtonGroup->addButton(horizontalLineButton, MaskEditorFlags::HORIZONTAL_LINE_MODE);
+
+    add_separator();
+}
+
+void ProjectionsToolBar::setup_extratools_group()
+{
+    auto saveButton = new QToolButton(this);
+    saveButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_save.svg"));
+    saveButton->setToolTip("Save created projections in multi-column ASCII file.");
+    addWidget(saveButton);
+    connect(saveButton, &QToolButton::clicked,
+            m_editorActions, &ProjectionsEditorActions::onSaveAction);
 }
 
 void ProjectionsToolBar::add_separator()

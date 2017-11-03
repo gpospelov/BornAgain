@@ -17,6 +17,8 @@
 #include "projectdocument.h"
 #include "GUIHelpers.h"
 #include "JobItemFunctions.h"
+#include "AppSvc.h"
+#include "projectmanager.h"
 #include <QFileInfo>
 #include <QDateTime>
 #include <QDir>
@@ -133,3 +135,8 @@ QString ProjectUtils::readTextFile(const QString& fileName)
     return in.readAll();
 }
 
+
+QString ProjectUtils::userExportDir()
+{
+    return AppSvc::projectManager()->userExportDir();
+}

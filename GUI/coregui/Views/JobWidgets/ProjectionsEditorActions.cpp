@@ -16,6 +16,8 @@
 
 #include "ProjectionsEditorActions.h"
 #include "SessionModel.h"
+#include "SaveProjectionsAssistant.h"
+#include "IntensityDataItemUtils.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QModelIndexList>
@@ -73,4 +75,14 @@ void ProjectionsEditorActions::onDeleteAction()
         m_model->removeRows(indexes.back().row(), 1, indexes.back().parent());
         indexes = m_selectionModel->selectedIndexes();
     }
+}
+
+//! Performs saving of projections in ascii file
+void ProjectionsEditorActions::onSaveAction()
+{
+    if (!m_rootIndex.isValid())
+        return;
+
+    SaveProjectionsAssistant assistant;
+    assistant.saveProjections(nullptr);
 }

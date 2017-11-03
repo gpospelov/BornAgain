@@ -38,6 +38,15 @@ void StyledToolBar::addStyledSeparator()
     addWidget(new QLabel(" "));
 }
 
+//! Width of the spacing between buttons
+
+void StyledToolBar::addSpacing(int width)
+{
+    QString space;
+    space.resize(width, ' ');
+    addWidget(new QLabel(space));
+}
+
 void StyledToolBar::addStyledExpand()
 {
     QWidget* empty = new QWidget();

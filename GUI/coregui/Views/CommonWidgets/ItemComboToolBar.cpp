@@ -72,7 +72,7 @@ void ItemComboToolBar::setActionList(const QList<QAction*>& actionList)
 
     foreach (QAction* action, actionList) {
         addAction(action);
-        addStyledSeparator();
+        addSpacing();
     }
 
     addStyledExpand();

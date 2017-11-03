@@ -155,6 +155,7 @@ void RealDataSelectorActions::onRotateDataRequest()
         if (!openRotateWarningDialog(nullptr))
             return;
 
+        m_selectionModel->select(currentIndex, QItemSelectionModel::Clear);
         resetSetup(*intensityItem);
     }
 
@@ -163,6 +164,8 @@ void RealDataSelectorActions::onRotateDataRequest()
     intensityItem->setOutputData(
         IntensityDataFunctions::createRearrangedDataSet(*input, 1).release());
     intensityItem->setAxesRangeToData();
+
+    m_selectionModel->select(currentIndex, QItemSelectionModel::Select);
     QApplication::restoreOverrideCursor();
 }
 

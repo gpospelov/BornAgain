@@ -58,6 +58,9 @@ public:
     //! Returns underlying material data
     virtual complex_t materialData() const = 0;
 
+    //! Returns type of material implementation
+    virtual size_t typeID() const = 0;
+
     //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld being the scattering length density
     virtual complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const = 0;
 
@@ -69,7 +72,19 @@ public:
     //! Prints object data
     virtual void print(std::ostream &ostr) const = 0;
 
+    template <class T> static size_t g_typeID();
 
+protected:
+    enum MATERIAL_TYPES : size_t {
+        VacuumMaterial = 0,
+        RefractiveCoefMaterial,
+        WavelengthIndependentMaterial
+    };
 };
+
+template<class T>
+size_t BaseMaterialImpl::g_typeID() {
+    return T::g_typeID();
+}
 
 #endif /* IMATERIALIMPL_H_ */

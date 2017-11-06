@@ -67,7 +67,7 @@ public:
     //! Returns the name of material
     std::string getName() const;
 
-    //! Returns hash code of underlying material implementation
+    //! Returns the type of underlying material implementation
     size_t typeID() const;
 
     //! Get the magnetization (in A/m)
@@ -92,9 +92,16 @@ public:
     friend BA_CORE_API_ std::ostream& operator<<(
             std::ostream& ostr, const Material& mat);
 
+    template <class T> static size_t g_typeID();
+
 private:
     std::unique_ptr<BaseMaterialImpl> m_material_impl;
 };
+
+template <class T> size_t Material::g_typeID()
+{
+    return BaseMaterialImpl::g_typeID<T>();
+}
 
 //! Comparison operator for material wrapper (equality check)
 BA_CORE_API_ bool operator==(const Material& left, const Material& right);

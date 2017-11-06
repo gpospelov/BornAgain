@@ -46,6 +46,12 @@ public:
     //! Returns underlying material data
     virtual complex_t materialData() const override;
 
+    //! Returns type of material implementation
+    virtual size_t typeID() const override
+    {
+        return g_typeID();
+    }
+
     //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density.
     //! If the wavelength associated with passed wavevector is different from the one
     //! associated with refractive coefficients used during the object construction,
@@ -54,6 +60,11 @@ public:
 
     //! Prints object data
     virtual void print(std::ostream &ostr) const override;
+
+    static size_t g_typeID()
+    {
+        return MATERIAL_TYPES::RefractiveCoefMaterial;
+    }
 
 private:
     RefractiveCoefMaterial(const std::string& name, double delta, double beta,

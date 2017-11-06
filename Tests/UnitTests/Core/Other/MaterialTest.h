@@ -59,24 +59,14 @@ TEST_F(MaterialTest, MaterialConstruction)
     EXPECT_EQ(material_data, material6.materialData());
     EXPECT_EQ(default_magnetism, material6.magnetization());
 
-    Material material7 = HomogeneousMaterial();
-    EXPECT_EQ(material7.getName(), HomogeneousMaterial().getName());
-    EXPECT_EQ(material7.getName(), MaterialBySLD().getName());
-    EXPECT_EQ(material7.materialData(), HomogeneousMaterial().materialData());
-    EXPECT_EQ(material7.materialData(), MaterialBySLD().materialData());
-    EXPECT_EQ(material7.magnetization(), HomogeneousMaterial().magnetization());
-    EXPECT_EQ(material7.magnetization(), MaterialBySLD().magnetization());
-    EXPECT_TRUE(material7.typeID() == HomogeneousMaterial().typeID());
-    EXPECT_FALSE(material7.typeID() == MaterialBySLD().typeID());
-
     constexpr double basic_wavelength = 0.1798197; // nm
-    Material material8 = MaterialByAbsCX("Material", material_data.real(),
+    Material material7 = MaterialByAbsCX("Material", material_data.real(),
                                          material_data.imag() * basic_wavelength);
-    EXPECT_TRUE(material8.getName() == material6.getName());
-    EXPECT_TRUE(material8.magnetization() == material6.magnetization());
-    EXPECT_DOUBLE_EQ(material8.materialData().real(), material6.materialData().real());
-    EXPECT_DOUBLE_EQ(material8.materialData().imag(), material6.materialData().imag());
-    EXPECT_TRUE(material8.typeID() == material6.typeID());
+    EXPECT_TRUE(material7.getName() == material6.getName());
+    EXPECT_TRUE(material7.magnetization() == material6.magnetization());
+    EXPECT_DOUBLE_EQ(material7.materialData().real(), material6.materialData().real());
+    EXPECT_DOUBLE_EQ(material7.materialData().imag(), material6.materialData().imag());
+    EXPECT_TRUE(material7.typeID() == material6.typeID());
 }
 
 TEST_F(MaterialTest, MaterialTransform)
@@ -100,6 +90,28 @@ TEST_F(MaterialTest, MaterialTransform)
     EXPECT_EQ("Material", material4.getName());
     EXPECT_EQ(material_data, material4.materialData());
     EXPECT_EQ(transformed_mag, material4.magnetization());
+}
+
+TEST_F(MaterialTest, DefaultMaterials)
+{
+    Material material = HomogeneousMaterial();
+    const double dummy_wavelength = 1.0;
+
+    EXPECT_EQ(material.getName(), std::string("vacuum"));
+    EXPECT_EQ(material.getName(), MaterialBySLD().getName());
+
+    EXPECT_EQ(material.materialData(), complex_t());
+    EXPECT_EQ(material.materialData(), MaterialBySLD().materialData());
+
+    EXPECT_EQ(material.magnetization(), kvector_t{});
+    EXPECT_EQ(material.magnetization(), MaterialBySLD().magnetization());
+
+    EXPECT_EQ(material.refractiveIndex(dummy_wavelength), complex_t(1.0, 0.0));
+    EXPECT_EQ(material.refractiveIndex(dummy_wavelength),
+              MaterialBySLD().refractiveIndex(dummy_wavelength));
+
+    EXPECT_TRUE(material.typeID() == HomogeneousMaterial().typeID());
+    EXPECT_FALSE(material.typeID() == MaterialBySLD().typeID());
 }
 
 TEST_F(MaterialTest, ComputationTest)

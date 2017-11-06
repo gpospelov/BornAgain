@@ -15,13 +15,14 @@
 // ************************************************************************** //
 
 #include "BeamItem.h"
+#include "Beam.h"
+#include "BeamAngleItems.h"
 #include "BeamDistributionItem.h"
+#include "BeamWavelengthItem.h"
 #include "BornAgainNamespace.h"
 #include "ScientificDoubleProperty.h"
-#include "BeamWavelengthItem.h"
-#include "BeamAngleItems.h"
+#include "SessionItemUtils.h"
 #include "Units.h"
-#include "Beam.h"
 
 namespace {
 const QString polarization_tooltip =
@@ -125,7 +126,7 @@ std::unique_ptr<Beam> BeamItem::createBeam() const
     double azimuthal_angle = Units::deg2rad(getAzimuthalAngle());
     result->setCentralK(lambda, inclination_angle, azimuthal_angle);
 
-    result->setPolarization(getVectorItem(P_POLARIZATION));
+    result->setPolarization(SessionItemUtils::GetVectorItem(*this, P_POLARIZATION));
 
     return result;
 }

@@ -27,6 +27,7 @@
 #include "ParticleCoreShell.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
+#include "SessionItemUtils.h"
 #include "TransformToDomain.h"
 #include "VectorItem.h"
 
@@ -140,9 +141,9 @@ QStringList MesoCrystalItem::translateList(const QStringList& list) const
 
 Lattice MesoCrystalItem::getLattice() const
 {
-    kvector_t a1 = getVectorItem(P_VECTOR_A);
-    kvector_t a2 = getVectorItem(P_VECTOR_B);
-    kvector_t a3 = getVectorItem(P_VECTOR_C);
+    kvector_t a1 = SessionItemUtils::GetVectorItem(*this, P_VECTOR_A);
+    kvector_t a2 = SessionItemUtils::GetVectorItem(*this, P_VECTOR_B);
+    kvector_t a3 = SessionItemUtils::GetVectorItem(*this, P_VECTOR_C);
     return Lattice(a1, a2, a3);
 }
 

@@ -435,16 +435,6 @@ QVariant SessionItem::getItemValue(const QString& tag) const
     return getItem(tag)->value();
 }
 
-kvector_t SessionItem::getVectorItem(const QString& name) const
-{
-    SessionItem* vectorItem = getItem(name);
-    Q_ASSERT(vectorItem);
-    double x = vectorItem->getItemValue(VectorItem::P_X).toDouble();
-    double y = vectorItem->getItemValue(VectorItem::P_Y).toDouble();
-    double z = vectorItem->getItemValue(VectorItem::P_Z).toDouble();
-    return { x, y, z };
-}
-
 //! Directly set value of item under given tag.
 
 void SessionItem::setItemValue(const QString& tag, const QVariant& variant)

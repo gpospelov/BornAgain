@@ -15,12 +15,12 @@
 // ************************************************************************** //
 
 #include "DetectorItems.h"
-#include "MaskItems.h"
-#include "DetectorItems.h"
-#include "SessionModel.h"
 #include "IDetector2D.h"
+#include "MaskItems.h"
 #include "ResolutionFunctionItems.h"
 #include "ResolutionFunction2DGaussian.h"
+#include "SessionItemUtils.h"
+#include "SessionModel.h"
 
 namespace {
 const QString res_func_group_label = "Type";
@@ -59,7 +59,7 @@ std::unique_ptr<IDetector2D> DetectorItem::createDetector() const
     if (auto resFunc = createResolutionFunction())
         result->setResolutionFunction(*resFunc);
 
-    kvector_t analyzer_dir = getVectorItem(P_ANALYZER_DIRECTION);
+    kvector_t analyzer_dir = SessionItemUtils::GetVectorItem(*this, P_ANALYZER_DIRECTION);
     double analyzer_eff = getItemValue(P_ANALYZER_EFFICIENCY).toDouble();
     double analyzer_total_trans = getItemValue(P_ANALYZER_TOTAL_TRANSMISSION).toDouble();
     if (analyzer_dir.mag() > 0.0)

@@ -42,18 +42,19 @@
 #include "MesoCrystalItem.h"
 #include "MultiLayerItem.h"
 #include "ParameterPattern.h"
+#include "Particle.h"
 #include "ParticleCompositionItem.h"
+#include "ParticleCoreShell.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
 #include "ParticleLayoutItem.h"
 #include "RotationItems.h"
+#include "SessionItemUtils.h"
 #include "SimulationOptionsItem.h"
 #include "TransformationItem.h"
-#include "Particle.h"
 #include "Units.h"
 #include "VectorItem.h"
-#include "ParticleCoreShell.h"
 
 std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
@@ -80,7 +81,7 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionIte
         = item.getItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if (cross_corr_length > 0)
         P_multilayer->setCrossCorrLength(cross_corr_length);
-    auto external_field = item.getVectorItem(MultiLayerItem::P_EXTERNAL_FIELD);
+    auto external_field = SessionItemUtils::GetVectorItem(item, MultiLayerItem::P_EXTERNAL_FIELD);
     P_multilayer->setExternalField(external_field);
     return P_multilayer;
 }
@@ -215,7 +216,7 @@ void TransformToDomain::setTransformationInfo(IParticle* result, const SessionIt
 
 void TransformToDomain::setPositionInfo(IParticle* result, const SessionItem& item)
 {
-    kvector_t pos = item.getVectorItem(ParticleItem::P_POSITION);
+    kvector_t pos = SessionItemUtils::GetVectorItem(item, ParticleItem::P_POSITION);
     result->setPosition(pos.x(), pos.y(), pos.z());
 }
 

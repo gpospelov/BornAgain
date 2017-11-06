@@ -14,10 +14,10 @@
 // ************************************************************************** //
 
 #include "RipplesBuilder.h"
+#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorRipple1.h"
 #include "FormFactorRipple2.h"
-#include "HomogeneousMaterial.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "Layer.h"
 #include "MultiLayer.h"
@@ -33,9 +33,9 @@ MultiLayer* CosineRippleBuilder::buildSample() const
 {
     MultiLayer* p_multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
     FormFactorRipple1 ff_ripple1(100.0, 20.0, 4.0);
@@ -70,9 +70,9 @@ MultiLayer* TriangularRippleBuilder::buildSample() const
 {
     MultiLayer* p_multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
     FormFactorRipple2 ff_ripple2(100.0, 20.0, 4.0, m_d);

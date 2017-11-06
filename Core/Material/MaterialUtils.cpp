@@ -27,8 +27,10 @@ const Eigen::Matrix2cd Pauli_Z((Eigen::Matrix2cd() << 1,  0,
 }
 
 template <typename T>
-Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, double magnetic_factor,
-                                                      BasicVector3D<T> polarization){
+Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor,
+                                                        double magnetic_factor,
+                                                        BasicVector3D<T> polarization)
+{
     Eigen::Matrix2cd result = unit_factor * Unit_Matrix +
         magnetic_factor * (
             Pauli_X * polarization[0] +
@@ -37,17 +39,19 @@ Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, double magnetic_
         );
     return result;
 }
-template Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, double magnetic_factor,
-                                                  kvector_t polarization);
-template Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, double magnetic_factor,
-                                                  cvector_t polarization);
+template Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor,
+                                                                 double magnetic_factor,
+                                                                 kvector_t polarization);
+template Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor,
+                                                                 double magnetic_factor,
+                                                                 cvector_t polarization);
 
-complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
+complex_t MaterialUtils::ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)
 {
     return n*n - n_ref*n_ref*k.sin2Theta();
 }
 
-Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field,
+Eigen::Matrix2cd MaterialUtils::PolarizedReducedPotential(complex_t n, kvector_t b_field,
                                            kvector_t k, double n_ref)
 {
     Eigen::Matrix2cd result;

@@ -1,11 +1,11 @@
 //! Numeric tests of scalar RT computation.
 
 #include "BornAgainNamespace.h"
-#include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
+#include "MaterialFactoryFuncs.h"
 #include "MathConstants.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
@@ -31,10 +31,10 @@ protected:
         EXPECT_NEAR(coeff1.t_r(1).real(), coeff2.t_r(1).real(), 1e-10);
         EXPECT_NEAR(coeff1.t_r(1).imag(), coeff2.t_r(1).imag(), 1e-10);
     }
-    const HomogeneousMaterial air {"air", 1e-8, 1e-8};
-    const HomogeneousMaterial amat {"material A", 2e-6, 8e-7};
-    const HomogeneousMaterial bmat {"material B (high absorption)", 3e-5, 2e-4};
-    const HomogeneousMaterial stone {"substrate material", 1e-6, 1e-7};
+    const Material air = HomogeneousMaterial("air", 1e-8, 1e-8);
+    const Material amat = HomogeneousMaterial("material A", 2e-6, 8e-7);
+    const Material bmat = HomogeneousMaterial("material B (high absorption)", 3e-5, 2e-4);
+    const Material stone = HomogeneousMaterial("substrate material", 1e-6, 1e-7);
     const Layer topLayer {air, 0};
     const Layer substrate {stone, 0};
     const kvector_t k { 1, 0, 1e-3 };

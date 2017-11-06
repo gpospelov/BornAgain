@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Material/Material.h
+//! @file      Core/Material/MaterialUtils.h
 //! @brief     materials-related global functions and utilities
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -20,15 +20,19 @@
 #include "Vectors3D.h"
 #include "EigenCore.h"
 
+//! A number of helper functions for internal use
+//! @ingroup materials
+
+namespace MaterialUtils {
 //! Function for calculating the reduced potential, used for obtaining the Fresnel coefficients
 //! (non-polarized material case)
-complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref);
+BA_CORE_API_ complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref);
 
 #ifndef SWIG
 //! Function for calculating the reduced potential, used for obtaining the Fresnel coefficients
 //! (polarized material case)
-Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field,
-                                           kvector_t k, double n_ref);
+BA_CORE_API_ Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field, kvector_t k,
+                                                        double n_ref);
 
 //! Utility to compute magnetization correction for reduced potential and scattering length density
 template <typename T>
@@ -36,5 +40,6 @@ BA_CORE_API_ Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, dou
                                                       BasicVector3D<T> polarization);
 
 #endif /* SWIG */
+}
 
 #endif /* MATERIALUTILS_H_ */

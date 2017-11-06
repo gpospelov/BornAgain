@@ -24,7 +24,7 @@
 #include <QString>
 #include <memory>
 
-class HomogeneousMaterial;
+class Material;
 
 namespace MaterialUtils
 {
@@ -32,7 +32,7 @@ namespace MaterialUtils
 BA_CORE_API_ QColor suggestMaterialColor(const QString &name);
 BA_CORE_API_ MaterialProperty getDefaultMaterialProperty();
 BA_CORE_API_ ColorProperty suggestMaterialColorProperty(const QString &name);
-BA_CORE_API_ std::unique_ptr<HomogeneousMaterial> createDomainMaterial(
+BA_CORE_API_ std::unique_ptr<Material> createDomainMaterial(
         const MaterialProperty &material_property);
 
 BA_CORE_API_ QString materialTag(const SessionItem &item);

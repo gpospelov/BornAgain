@@ -1,11 +1,11 @@
 //! Trivial construct/clone/get tests for class MultiLayer. No physics tested here.
 
 #include "BornAgainNamespace.h"
-#include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
+#include "MaterialFactoryFuncs.h"
 #include "MathConstants.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
@@ -15,10 +15,10 @@ class MultiLayerTest : public ::testing::Test
 protected:
     MultiLayerTest()
         // The following delta, beta are all unphysical. Values don't matter here.
-        : air("air", 1e-6, 9e-4)
-        , iron("iron", 2e-5, 8e-5)
-        , chromium("chromium", 3e-7, 7e-6)
-        , stone("stone", 4e-4, 8e-7)
+        : air(HomogeneousMaterial("air", 1e-6, 9e-4))
+        , iron(HomogeneousMaterial("iron", 2e-5, 8e-5))
+        , chromium(HomogeneousMaterial("chromium", 3e-7, 7e-6))
+        , stone(HomogeneousMaterial("stone", 4e-4, 8e-7))
         , topLayer(air, 0*Units::nanometer)
         , layer1(iron, 20*Units::nanometer)
         , layer2(chromium, 40*Units::nanometer)
@@ -31,7 +31,7 @@ protected:
     }
 
     MultiLayer mLayer;
-    const HomogeneousMaterial air, iron, chromium, stone;
+    const Material air, iron, chromium, stone;
     Layer topLayer, layer1, layer2, substrate;
 };
 
@@ -434,8 +434,8 @@ TEST_F(MultiLayerTest, CloneInvertBWithRoughness)
 TEST_F(MultiLayerTest, WithMagneticMaterial)
 {
     kvector_t magnetic_field(0.0, 0.0, 1.0);
-    HomogeneousMaterial magMaterial0("MagMat0", 6e-4, 2e-8, magnetic_field);
-    HomogeneousMaterial magMaterial1("MagMat1", -5.6, 10, magnetic_field);
+    Material magMaterial0 = HomogeneousMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);
+    Material magMaterial1 = HomogeneousMaterial("MagMat1", -5.6, 10, magnetic_field);
 
     Layer layer1(iron, 20*Units::nanometer);
     Layer layer2(stone, 30*Units::nanometer);
@@ -455,7 +455,7 @@ TEST_F(MultiLayerTest, WithMagneticMaterial)
 TEST_F(MultiLayerTest, CloneWithMagneticMaterial)
 {
     kvector_t magnetic_field(1.1, 2.1, -5.1);
-    HomogeneousMaterial magMaterial0("MagMat0", 6e-4, 2e-8, magnetic_field);
+    Material magMaterial0 = HomogeneousMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);
 
     Layer layer1(iron, 20*Units::nanometer);
     Layer layer2(magMaterial0, 20*Units::nanometer);
@@ -471,7 +471,7 @@ TEST_F(MultiLayerTest, CloneWithMagneticMaterial)
 TEST_F(MultiLayerTest, CloneInvertBMagneticMaterial)
 {
     kvector_t magnetic_field(0.0, 0.0, 1.0);
-    HomogeneousMaterial magMaterial0("MagMat0", 6e-4, 2e-8, magnetic_field);
+    Material magMaterial0 = HomogeneousMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);
 
     Layer layer1(iron, 20*Units::nanometer);
     Layer layer2(magMaterial0, 20*Units::nanometer);
@@ -489,8 +489,8 @@ TEST_F(MultiLayerTest, MultiLayerCompositeTest)
 {
     MultiLayer mLayer;
     kvector_t magnetic_field(0.0, 0.0, 0.0);
-    HomogeneousMaterial magMaterial0("MagMat0", 6e-4, 2e-8, magnetic_field);
-    HomogeneousMaterial magMaterial1("MagMat1", -5.6, 10, magnetic_field);
+    Material magMaterial0 = HomogeneousMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);
+    Material magMaterial1 = HomogeneousMaterial("MagMat1", -5.6, 10, magnetic_field);
 
     Layer layer1(iron, 10*Units::nanometer);
     Layer layer2(magMaterial0, 20*Units::nanometer);

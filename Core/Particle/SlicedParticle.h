@@ -29,7 +29,7 @@
 struct HomogeneousRegion
 {
     double m_volume;
-    HomogeneousMaterial m_material;
+    Material m_material;
 };
 
 //! Struct that contains information on a sliced particle.

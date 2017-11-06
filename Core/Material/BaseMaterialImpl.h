@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Material/IMaterialImpl.h
-//! @brief     Defines and implements material implementation interface.
+//! @file      Core/Material/BaseMaterialImpl.h
+//! @brief     Defines material implementation interface.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

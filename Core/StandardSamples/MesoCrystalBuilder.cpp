@@ -14,12 +14,12 @@
 // ************************************************************************** //
 
 #include "MesoCrystalBuilder.h"
+#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "Crystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "HomogeneousMaterial.h"
 #include "ISelectionRule.h"
 #include "Layer.h"
 #include "LayerInterface.h"

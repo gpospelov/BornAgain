@@ -19,7 +19,6 @@
 #include "Crystal.h"
 #include "Distributions.h"
 #include "GISASSimulation.h"
-#include "HomogeneousMaterial.h"
 #include "IFormFactor.h"
 #include "INodeUtils.h"
 #include "InterferenceFunctions.h"
@@ -29,6 +28,7 @@
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "MainComputation.h"
+#include "Material.h"
 #include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleCoreShell.h"
@@ -196,7 +196,7 @@ std::string ExportToPython::defineMaterials() const
         if (visitedMaterials.find(it->second) != visitedMaterials.end())
             continue;
         visitedMaterials.insert(it->second);
-        const HomogeneousMaterial* p_material = it->first;
+        const Material* p_material = it->first;
         complex_t material_data = p_material->materialData();
         double real = std::real(material_data);
         double imag = std::imag(material_data);

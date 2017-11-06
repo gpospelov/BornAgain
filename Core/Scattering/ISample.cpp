@@ -20,14 +20,14 @@
 #include <algorithm>
 #include <sstream>
 
-std::vector<const HomogeneousMaterial*> ISample::containedMaterials() const
+std::vector<const Material*> ISample::containedMaterials() const
 {
-    std::vector<const HomogeneousMaterial*> result;
-    if( const HomogeneousMaterial* p_material = material() )
+    std::vector<const Material*> result;
+    if( const Material* p_material = material() )
         result.push_back( p_material );
     for(auto child: getChildren() ) {
         if(const ISample* sample = dynamic_cast<const ISample *>(child)) {
-            for( const HomogeneousMaterial* p_material: sample->containedMaterials() )
+            for( const Material* p_material: sample->containedMaterials() )
                 result.push_back( p_material );
         }
     }

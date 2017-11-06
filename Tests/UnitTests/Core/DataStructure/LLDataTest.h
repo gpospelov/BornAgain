@@ -1,6 +1,5 @@
 #include "LLData.h"
 #include <algorithm>
-#include "HomogeneousMaterial.h"
 #include "Complex.h"
 
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Material/RefractiveIndexMaterial.h
-//! @brief     Defines class RefractiveIndexMaterial.
+//! @file      Core/Material/RefractiveCoefMaterial.h
+//! @brief     Defines class RefractiveCoefMaterial.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,10 +25,12 @@
 class BA_CORE_API_ RefractiveCoefMaterial : public BaseMaterialImpl
 {
 public:
-    friend BA_CORE_API_ Material RefractiveIndexMaterial(const std::string&, complex_t, kvector_t);
+    friend BA_CORE_API_ Material HomogeneousMaterial(const std::string&, complex_t, kvector_t);
 
-    friend BA_CORE_API_ Material RefractiveIndexMaterial(const std::string&, double, double,
+    friend BA_CORE_API_ Material HomogeneousMaterial(const std::string&, double, double,
                                                          kvector_t);
+
+    friend BA_CORE_API_ Material HomogeneousMaterial();
 
     virtual ~RefractiveCoefMaterial();
 

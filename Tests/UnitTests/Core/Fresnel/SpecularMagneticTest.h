@@ -1,6 +1,6 @@
 #include "SpecularMatrix.h"
 #include "SpecularMagnetic.h"
-#include "HomogeneousMaterial.h"
+#include "MaterialFactoryFuncs.h"
 #include "Units.h"
 
 class SpecularMagneticTest : public ::testing :: Test
@@ -22,7 +22,7 @@ TEST_F(SpecularMagneticTest, initial)
     //matrix.execute(mLayer, v, coeff);
 
 
-    HomogeneousMaterial air("air",0,1.0);
+    Material air = HomogeneousMaterial("air",0,1.0);
     Layer layer0(air, 0*Units::nanometer);
     mLayer.addLayer(layer0);
 
@@ -34,21 +34,20 @@ TEST_F(SpecularMagneticTest, zerofield)
     double eps = 1e-10;
 
     kvector_t substr_field(0.0, 0.0, 0.0);
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
     kvector_t k1 = vecOfLambdaAlphaPhi(1.0, -0.1*Units::deg, 0.0);
     kvector_t k2 = vecOfLambdaAlphaPhi(1.0, -2.0*Units::deg, 0.0);
     kvector_t k3 = vecOfLambdaAlphaPhi(1.0, -10.0*Units::deg, 0.0);
 
     MultiLayer multi_layer_scalar;
-    HomogeneousMaterial substr_material_scalar("Substrate", 7e-6, 2e-8);
-    Layer air_layer(air_material);
+    Material substr_material_scalar = HomogeneousMaterial("Substrate", 7e-6, 2e-8);
+    Layer air_layer(HomogeneousMaterial("Air", 0.0, 0.0));
     Layer substr_layer_scalar(substr_material_scalar);
     multi_layer_scalar.addLayer(air_layer);
     multi_layer_scalar.addLayer(substr_layer_scalar);
     std::vector<ScalarRTCoefficients> coeffs_scalar;
 
     MultiLayer multi_layer_zerofield;
-    HomogeneousMaterial substr_material_zerofield("Substrate", 7e-6, 2e-8, substr_field);
+    Material substr_material_zerofield = HomogeneousMaterial("Substrate", 7e-6, 2e-8, substr_field);
     Layer substr_layer_zerofield(substr_material_zerofield);
     multi_layer_zerofield.addLayer(air_layer);
     multi_layer_zerofield.addLayer(substr_layer_zerofield);

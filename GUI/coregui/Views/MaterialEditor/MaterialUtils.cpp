@@ -15,12 +15,11 @@
 // ************************************************************************** //
 
 #include "MaterialUtils.h"
-
 #include "MaterialDataItem.h"
 #include "ComboProperty.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
-#include "HomogeneousMaterial.h"
+#include "Material.h"
 #include "MaterialModel.h"
 #include "MaterialSvc.h"
 #include "ParticleItem.h"
@@ -61,7 +60,7 @@ ColorProperty MaterialUtils::suggestMaterialColorProperty(const QString &name)
     return ColorProperty(MaterialUtils::suggestMaterialColor(name));
 }
 
-std::unique_ptr<HomogeneousMaterial>
+std::unique_ptr<Material>
 MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
 {
     MaterialItem *materialItem

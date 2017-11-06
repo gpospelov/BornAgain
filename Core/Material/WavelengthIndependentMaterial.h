@@ -29,6 +29,8 @@ public:
 
     friend BA_CORE_API_ Material MaterialByAbsCX(const std::string&, double, double, kvector_t);
 
+    friend BA_CORE_API_ Material MaterialBySLD();
+
     virtual ~WavelengthIndependentMaterial();
 
     //! Returns pointer to a copy of material

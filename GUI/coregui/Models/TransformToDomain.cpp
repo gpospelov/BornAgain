@@ -55,7 +55,7 @@
 #include "VectorItem.h"
 #include "ParticleCoreShell.h"
 
-std::unique_ptr<HomogeneousMaterial> TransformToDomain::createDomainMaterial(const SessionItem& item)
+std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
     MaterialProperty material_property;
     if (item.modelType() == Constants::ParticleType) {

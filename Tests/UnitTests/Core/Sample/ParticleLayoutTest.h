@@ -131,7 +131,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     particleDecoration.addParticle(particle3, 1.0, kvector_t(0,0,0), transform3);
     particleDecoration.addParticle(particle4, 4.0, kvector_t(0,0,0), transform4);
 
-    HomogeneousMaterial mat5("core", 0, 0);
+    Material mat5 = HomogeneousMaterial("core", 0, 0);
     Particle particle5(mat5);
     particleDecoration.addParticle(particle5, 0.0);
 

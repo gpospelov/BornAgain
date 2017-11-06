@@ -43,7 +43,7 @@ void StyledToolBar::addStyledSeparator()
 void StyledToolBar::addSpacing(int width)
 {
     QString space;
-    space.resize(width, ' ');
+    space.fill(' ', width);
     addWidget(new QLabel(space));
 }
 

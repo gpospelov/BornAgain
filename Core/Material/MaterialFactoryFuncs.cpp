@@ -1,6 +1,6 @@
 #include "MaterialFactoryFuncs.h"
-#include "RefractiveCoefMaterial.h"
-#include "WavelengthIndependentMaterial.h"
+#include "MaterialBySLDImpl.h"
+#include "RefractiveMaterialImpl.h"
 
 Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
                                  kvector_t magnetization)
@@ -13,8 +13,8 @@ Material HomogeneousMaterial(const std::string& name, complex_t refractive_index
 Material HomogeneousMaterial(const std::string& name, double delta, double beta,
                                  kvector_t magnetization)
 {
-    std::unique_ptr<RefractiveCoefMaterial> mat_impl(
-        new RefractiveCoefMaterial(name, delta, beta, magnetization));
+    std::unique_ptr<RefractiveMaterialImpl> mat_impl(
+        new RefractiveMaterialImpl(name, delta, beta, magnetization));
     return Material(std::move(mat_impl));
 }
 
@@ -26,8 +26,8 @@ Material HomogeneousMaterial()
 Material MaterialBySLD(const std::string& name, double sld, double abs_term,
                        kvector_t magnetization)
 {
-    std::unique_ptr<WavelengthIndependentMaterial> mat_impl(
-        new WavelengthIndependentMaterial(name, sld, abs_term, magnetization));
+    std::unique_ptr<MaterialBySLDImpl> mat_impl(
+        new MaterialBySLDImpl(name, sld, abs_term, magnetization));
     return Material(std::move(mat_impl));
 }
 

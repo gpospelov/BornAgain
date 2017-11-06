@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Material/WavelengthIndependentMaterial.h
-//! @brief     Defines class WavelengthIndependentMaterial.
+//! @file      Core/Material/MaterialBySLDImpl.h
+//! @brief     Defines class MaterialBySLDImpl.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef WAVELENGTHINDEPENDENTMATERIAL_H_
-#define WAVELENGTHINDEPENDENTMATERIAL_H_
+#ifndef MATERIALBYSLDIMPL_H_
+#define MATERIALBYSLDIMPL_H_
 
 #include "MagneticMaterialImpl.h"
 #include "Material.h"
@@ -22,15 +22,15 @@
 //! Material implementation based on wavelength-independent data (valid for a range of wavelengths)
 //! @ingroup materials
 
-class BA_CORE_API_ WavelengthIndependentMaterial : public MagneticMaterialImpl
+class BA_CORE_API_ MaterialBySLDImpl : public MagneticMaterialImpl
 {
 public:
     friend BA_CORE_API_ Material MaterialBySLD(const std::string&, double, double, kvector_t);
 
-    virtual ~WavelengthIndependentMaterial() = default;
+    virtual ~MaterialBySLDImpl() = default;
 
     //! Returns pointer to a copy of material
-    virtual WavelengthIndependentMaterial* clone() const override;
+    virtual MaterialBySLDImpl* clone() const override;
 
     //! Returns refractive index
     virtual complex_t refractiveIndex(double wavelength) const override;
@@ -54,7 +54,7 @@ public:
     virtual void print(std::ostream &ostr) const override;
 
 private:
-    WavelengthIndependentMaterial(const std::string& name, double sld, double abs_term,
+    MaterialBySLDImpl(const std::string& name, double sld, double abs_term,
                                   kvector_t magnetization);
 
     double m_sld; //!< product of number density and coherent scattering length
@@ -63,4 +63,4 @@ private:
                         //!< absorption cross-section normalized to wavelength
 };
 
-#endif /* WAVELENGTHINDEPENDENTMATERIAL_H_ */
+#endif /* MATERIALBYSLDIMPL_H_ */

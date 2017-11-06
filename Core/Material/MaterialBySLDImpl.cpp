@@ -1,4 +1,4 @@
-#include "WavelengthIndependentMaterial.h"
+#include "MaterialBySLDImpl.h"
 #include "WavevectorInfo.h"
 
 namespace
@@ -16,41 +16,41 @@ inline double getWlPrefactor(double wavelength)
 }
 }
 
-WavelengthIndependentMaterial::WavelengthIndependentMaterial(const std::string& name, double sld,
+MaterialBySLDImpl::MaterialBySLDImpl(const std::string& name, double sld,
                                                              double abs_term,
                                                              kvector_t magnetization)
     : MagneticMaterialImpl(name, magnetization), m_sld(sld), m_abs_term(abs_term)
 {}
 
-WavelengthIndependentMaterial* WavelengthIndependentMaterial::clone() const
+MaterialBySLDImpl* MaterialBySLDImpl::clone() const
 {
-    return new WavelengthIndependentMaterial(*this);
+    return new MaterialBySLDImpl(*this);
 }
 
-complex_t WavelengthIndependentMaterial::refractiveIndex(double wavelength) const
+complex_t MaterialBySLDImpl::refractiveIndex(double wavelength) const
 {
     return std::sqrt(refractiveIndex2(wavelength));
 }
 
-complex_t WavelengthIndependentMaterial::refractiveIndex2(double wavelength) const
+complex_t MaterialBySLDImpl::refractiveIndex2(double wavelength) const
 {
     return 1.0 - getWlPrefactor(wavelength) * getSLD(m_sld, m_abs_term);
 }
 
-complex_t WavelengthIndependentMaterial::materialData() const
+complex_t MaterialBySLDImpl::materialData() const
 {
     return complex_t(m_sld, m_abs_term);
 }
 
-complex_t WavelengthIndependentMaterial::scalarSubtrSLD(const WavevectorInfo& wavevectors) const
+complex_t MaterialBySLDImpl::scalarSubtrSLD(const WavevectorInfo& wavevectors) const
 {
     double wavelength = wavevectors.getWavelength();
     return 1.0 / getWlPrefactor(wavelength) - getSLD(m_sld, m_abs_term);
 }
 
-void WavelengthIndependentMaterial::print(std::ostream& ostr) const
+void MaterialBySLDImpl::print(std::ostream& ostr) const
 {
-    ostr << "WavelengthIndependentMaterial:" << getName() << "<" << this << ">{ "
+    ostr << "MaterialBySLD:" << getName() << "<" << this << ">{ "
          << "sld=" << m_sld << ", absorp_term=" << m_abs_term
          << ", B=" << magnetization() << "}";
 }

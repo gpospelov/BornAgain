@@ -1,6 +1,6 @@
 #include "MaterialFactoryFuncs.h"
-#include "WavelengthIndependentMaterial.h"
-#include "RefractiveCoefMaterial.h"
+#include "MaterialBySLDImpl.h"
+#include "RefractiveMaterialImpl.h"
 #include "WavevectorInfo.h"
 #include "Rotations.h"
 #include "Units.h"

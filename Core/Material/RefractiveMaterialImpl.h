@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Material/RefractiveCoefMaterial.h
-//! @brief     Defines class RefractiveCoefMaterial.
+//! @file      Core/Material/RefractiveMaterialImpl.h
+//! @brief     Defines class RefractiveMaterialImpl.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef REFRACTIVECOEFMATERIAL_H_
-#define REFRACTIVECOEFMATERIAL_H_
+#ifndef REFRACTIVEMATERIALIMPL_H_
+#define REFRACTIVEMATERIALIMPL_H_
 
 #include "MagneticMaterialImpl.h"
 #include "Material.h"
@@ -22,16 +22,16 @@
 //! Material implementation based on refractive coefficiencts (valid for one wavelength value only)
 //! @ingroup materials
 
-class BA_CORE_API_ RefractiveCoefMaterial : public MagneticMaterialImpl
+class BA_CORE_API_ RefractiveMaterialImpl : public MagneticMaterialImpl
 {
 public:
     friend BA_CORE_API_ Material HomogeneousMaterial(const std::string&, double, double,
                                                          kvector_t);
 
-    virtual ~RefractiveCoefMaterial() = default;
+    virtual ~RefractiveMaterialImpl() = default;
 
     //! Returns pointer to a copy of material
-    virtual RefractiveCoefMaterial* clone() const override;
+    virtual RefractiveMaterialImpl* clone() const override;
 
     //! Returns refractive index
     //! For this particular implementation returned value does not depend
@@ -62,11 +62,11 @@ public:
     virtual void print(std::ostream &ostr) const override;
 
 private:
-    RefractiveCoefMaterial(const std::string& name, double delta, double beta,
+    RefractiveMaterialImpl(const std::string& name, double delta, double beta,
                            kvector_t magnetization);
 
     double m_delta; //!< \f$\delta\f$ coefficient for refractive index \f$n = 1 - \delta + i \beta\f$
     double m_beta; //!< \f$\beta\f$ coefficient for refractive index \f$n = 1 - \delta + i \beta\f$
 };
 
-#endif /* REFRACTIVECOEFMATERIAL_H_ */
+#endif /* REFRACTIVEMATERIALIMPL_H_ */

@@ -54,7 +54,7 @@ std::string Material::getName() const
     return m_material_impl->getName();
 }
 
-size_t Material::typeID() const
+MATERIAL_TYPES Material::typeID() const
 {
     return m_material_impl->typeID();
 }

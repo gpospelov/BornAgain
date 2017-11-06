@@ -144,8 +144,8 @@ TEST_F(MaterialTest, TypeIdsTest)
 {
     Material material = MaterialBySLD("Material", 1.0, 1.0);
     Material material2 = HomogeneousMaterial("Material", 1.0, 1.0);
-    EXPECT_TRUE(material.typeID() == Material::g_typeID<WavelengthIndependentMaterial>());
-    EXPECT_TRUE(material2.typeID() == Material::g_typeID<RefractiveCoefMaterial>());
+    EXPECT_TRUE(material.typeID() == MATERIAL_TYPES::WavelengthIndependentMaterial);
+    EXPECT_TRUE(material2.typeID() == MATERIAL_TYPES::RefractiveCoefMaterial);
     EXPECT_TRUE(material.typeID() != material2.typeID());
     Material material3 = MaterialBySLD("Material", 1.0, 1.0);
     EXPECT_TRUE(material.typeID() == material3.typeID());

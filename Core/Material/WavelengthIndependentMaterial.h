@@ -44,9 +44,9 @@ public:
     virtual complex_t materialData() const override;
 
     //! Returns type of material implementation
-    virtual size_t typeID() const override
+    virtual MATERIAL_TYPES typeID() const override
     {
-        return g_typeID();
+        return MATERIAL_TYPES::WavelengthIndependentMaterial;
     }
 
     //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density
@@ -54,11 +54,6 @@ public:
 
     //! Prints object data
     virtual void print(std::ostream &ostr) const override;
-
-    static size_t g_typeID()
-    {
-        return MATERIAL_TYPES::WavelengthIndependentMaterial;
-    }
 
 private:
     WavelengthIndependentMaterial(const std::string& name, double sld, double abs_term,

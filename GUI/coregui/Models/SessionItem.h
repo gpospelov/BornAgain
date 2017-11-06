@@ -94,7 +94,6 @@ public:
     SessionItem* addProperty(const QString& name, const QVariant& variant);
     QVariant getItemValue(const QString& tag) const;
     void setItemValue(const QString& tag, const QVariant& variant);
-    void setVectorItem(const QString& name, kvector_t value);
     SessionItem* addGroupProperty(const QString& groupName, const QString& groupType);
 
     SessionItem* setGroupProperty(const QString& name, const QString& value) const;

@@ -54,14 +54,15 @@
 #include "RectangularDetector.h"
 #include "ResolutionFunctionItems.h"
 #include "SphericalDetector.h"
-#include "Units.h"
-#include "VectorItem.h"
 #include "ParameterTreeUtils.h"
 #include "InstrumentItem.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "ParameterUtils.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"
+#include "SessionItemUtils.h"
+#include "Units.h"
+#include "VectorItem.h"
 #include <limits>
 
 using namespace INodeUtils;
@@ -237,7 +238,7 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
     }
 
     // polarization parameters
-    beamItem->setVectorItem(BeamItem::P_POLARIZATION, beam.getBlochVector());
+    SessionItemUtils::SetVectorItem(*beamItem, BeamItem::P_POLARIZATION, beam.getBlochVector());
 }
 
 void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrumentItem,
@@ -297,7 +298,8 @@ void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instru
     if (total_transmission>0.0) {
         kvector_t analyzer_dir = p_detector->analyzerDirection();
         double efficiency = p_detector->analyzerEfficiency();
-        detector_item->setVectorItem(DetectorItem::P_ANALYZER_DIRECTION, analyzer_dir);
+        SessionItemUtils::SetVectorItem(*detector_item, DetectorItem::P_ANALYZER_DIRECTION,
+                                        analyzer_dir);
         detector_item->setItemValue(DetectorItem::P_ANALYZER_EFFICIENCY, efficiency);
         detector_item->setItemValue(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION,
                                     total_transmission);
@@ -347,10 +349,11 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_GENERIC);
 
         kvector_t normal = detector.getNormalVector();
-        detectorItem->setVectorItem(RectangularDetectorItem::P_NORMAL, normal);
+        SessionItemUtils::SetVectorItem(*detectorItem, RectangularDetectorItem::P_NORMAL, normal);
 
         kvector_t direction = detector.getDirectionVector();
-        detectorItem->setVectorItem(RectangularDetectorItem::P_DIRECTION, direction);
+        SessionItemUtils::SetVectorItem(*detectorItem, RectangularDetectorItem::P_DIRECTION,
+                                        direction);
 
         detectorItem->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());
         detectorItem->setItemValue(RectangularDetectorItem::P_V0, detector.getV0());

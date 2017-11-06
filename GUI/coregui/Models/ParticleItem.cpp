@@ -19,10 +19,11 @@
 #include "FormFactorItems.h"
 #include "MaterialItemUtils.h"
 #include "ModelPath.h"
+#include "Particle.h"
 #include "ParticleCoreShellItem.h"
+#include "SessionItemUtils.h"
 #include "TransformToDomain.h"
 #include "VectorItem.h"
-#include "Particle.h"
 
 namespace {
 const QString abundance_tooltip =
@@ -87,7 +88,7 @@ void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         if (isShellParticle()) {
             kvector_t zero_vector;
-            setVectorItem(ParticleItem::P_POSITION, zero_vector);
+            SessionItemUtils::SetVectorItem(*this, ParticleItem::P_POSITION, zero_vector);
             SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
             positionItem->setEnabled(false);
         }

@@ -27,3 +27,11 @@ kvector_t SessionItemUtils::GetVectorItem(const SessionItem& item, const QString
     double z = vectorItem->getItemValue(VectorItem::P_Z).toDouble();
     return { x, y, z };
 }
+
+void SessionItemUtils::SetVectorItem(const SessionItem& item, const QString& name, kvector_t value)
+{
+    auto p_vector_item = item.getItem(name);
+    p_vector_item->setItemValue(VectorItem::P_X, value.x());
+    p_vector_item->setItemValue(VectorItem::P_Y, value.y());
+    p_vector_item->setItemValue(VectorItem::P_Z, value.z());
+}

@@ -16,6 +16,8 @@
 
 #include "ProjectionsEditorActions.h"
 #include "SessionModel.h"
+#include "SaveProjectionsAssistant.h"
+#include "IntensityDataItemUtils.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QModelIndexList>
@@ -24,27 +26,27 @@ ProjectionsEditorActions::ProjectionsEditorActions(QWidget* parent)
     : QObject(parent)
     , m_resetViewAction(new QAction(this))
     , m_togglePanelAction(new QAction(this))
+    , m_deleteAction(new QAction("Remove selected", this))
     , m_model(nullptr)
     , m_selectionModel(nullptr)
 {
     // Actions for top toolbar
-    m_resetViewAction = new QAction(this);
     m_resetViewAction->setText("Reset");
     m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
-    m_resetViewAction->setToolTip("Reset View");
-    connect(m_resetViewAction, SIGNAL(triggered()), this, SIGNAL(resetViewRequest()));
+    m_resetViewAction->setToolTip("Reset view\n"
+                                  "x,y,z axes range will be set to default");
+    connect(m_resetViewAction, &QAction::triggered,
+            this, &ProjectionsEditorActions::resetViewRequest);
 
-    m_togglePanelAction = new QAction(this);
     m_togglePanelAction->setText("Properties");
     m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
-    m_togglePanelAction->setToolTip("Toggle Property Panel");
-    connect(m_togglePanelAction, SIGNAL(triggered()), this, SIGNAL(propertyPanelRequest()));
+    m_togglePanelAction->setToolTip("Toggle property panel");
+    connect(m_togglePanelAction, &QAction::triggered,
+            this, &ProjectionsEditorActions::propertyPanelRequest);
 
-    m_deleteAction = new QAction(QStringLiteral("Remove selected"), parent);
     m_deleteAction->setToolTip("Remove selected (Del)");
     m_deleteAction->setShortcuts(QKeySequence::Delete);
-    parent->addAction(m_deleteAction);
-    connect(m_deleteAction, SIGNAL(triggered()), this, SLOT(onDeleteAction()));
+    connect(m_deleteAction, &QAction::triggered, this, &ProjectionsEditorActions::onDeleteAction);
 }
 
 void ProjectionsEditorActions::setModel(SessionModel* maskModel, const QModelIndex& rootIndex)
@@ -73,4 +75,14 @@ void ProjectionsEditorActions::onDeleteAction()
         m_model->removeRows(indexes.back().row(), 1, indexes.back().parent());
         indexes = m_selectionModel->selectedIndexes();
     }
+}
+
+//! Performs saving of projections in ascii file
+void ProjectionsEditorActions::onSaveAction()
+{
+    if (!m_rootIndex.isValid())
+        return;
+
+    SaveProjectionsAssistant assistant;
+    assistant.saveProjections(nullptr);
 }

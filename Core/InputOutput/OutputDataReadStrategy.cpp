@@ -54,6 +54,11 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
     size_t nrows = data.size();
     size_t ncols(0);
     if(nrows) ncols = data[0].size();
+
+    if (ncols == 0)
+        throw std::runtime_error("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "
+                                 "Can't parse file");
+
     for(size_t row=0; row<nrows; row++) {
         if(data[row].size() != ncols)
             throw std::runtime_error("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "

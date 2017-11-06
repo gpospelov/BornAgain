@@ -23,11 +23,9 @@
 
 class QListView;
 class SessionModel;
-class QModelIndex;
 class ComponentEditor;
 class QItemSelection;
 class QItemSelectionModel;
-class QButtonGroup;
 class IntensityDataItem;
 class AccordionWidget;
 
@@ -37,37 +35,39 @@ class MaskEditorPropertyPanel : public QWidget
 {
     Q_OBJECT
 public:
-    MaskEditorPropertyPanel(QWidget *parent = 0);
+    MaskEditorPropertyPanel(QWidget* parent = nullptr);
 
-    QSize sizeHint() const { return QSize(128, 128); }
-    QSize minimumSizeHint() const { return QSize(128, 128); }
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
 
-    void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
-                        IntensityDataItem *intensityItem);
+    void setMaskContext(SessionModel* model, const QModelIndex& maskContainerIndex,
+                        IntensityDataItem* intensityItem);
+
+    void resetContext();
 
     QItemSelectionModel* selectionModel();
 
     void setPanelHidden(bool value);
 
 signals:
-    void itemContextMenuRequest(const QPoint &point);
+    void itemContextMenuRequest(const QPoint& point);
 
 private slots:
-    void onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
-    void onCustomContextMenuRequested(const QPoint &point);
+    void onSelectionChanged(const QItemSelection& selected, const QItemSelection&);
+    void onCustomContextMenuRequested(const QPoint& point);
 
 private:
-    void setup_MaskStack(AccordionWidget *accordion);
-    void setup_MaskProperties(AccordionWidget *accordion);
-    void setup_PlotProperties(AccordionWidget *accordion);
+    void setup_MaskStack(AccordionWidget* accordion);
+    void setup_MaskProperties(AccordionWidget* accordion);
+    void setup_PlotProperties(AccordionWidget* accordion);
 
-    QListView *m_listView;
-    ComponentEditor *m_maskPropertyEditor;
-    ComponentEditor *m_plotPropertyEditor;
-    AccordionWidget *m_accordion;
-    SessionModel *m_maskModel;
+    QListView* m_listView;
+    ComponentEditor* m_maskPropertyEditor;
+    ComponentEditor* m_plotPropertyEditor;
+    AccordionWidget* m_accordion;
+    SessionModel* m_maskModel;
     QModelIndex m_rootIndex;
-    IntensityDataItem *m_intensityDataItem;
+    IntensityDataItem* m_intensityDataItem;
 };
 
 #endif // MASKEDITORPROPERTYPANEL_H

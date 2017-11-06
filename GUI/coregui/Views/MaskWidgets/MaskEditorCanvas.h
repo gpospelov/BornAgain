@@ -39,6 +39,9 @@ public:
     MaskEditorCanvas(QWidget *parent = 0);
 
     void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex, IntensityDataItem *intensityItem);
+
+    void resetContext();
+
     void setSelectionModel(QItemSelectionModel *model);
 
     MaskGraphicsScene *getScene();
@@ -51,7 +54,6 @@ public slots:
     void onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType);
     void onSavePlotRequest();
     void onResetViewRequest();
-    void onRotateDataRequest();
 
 private:
     bool isAxisRangeMatchData() const;

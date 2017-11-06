@@ -36,6 +36,7 @@ public:
 
 public slots:
     void onChangeActivityRequest(MaskEditorFlags::Activity value);
+    void onProjectionTabChange(MaskEditorFlags::Activity value);
 
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);
@@ -46,6 +47,7 @@ private slots:
 private:
     void setup_selection_group();
     void setup_shapes_group();
+    void setup_extratools_group();
     void add_separator();
     MaskEditorFlags::Activity currentActivity() const;
     void setCurrentActivity(MaskEditorFlags::Activity value);

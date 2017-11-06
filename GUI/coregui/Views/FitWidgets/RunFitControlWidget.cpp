@@ -88,6 +88,11 @@ RunFitControlWidget::RunFitControlWidget(QWidget* parent)
     setEnabled(false);
 }
 
+RunFitControlWidget::~RunFitControlWidget()
+{
+    unsubscribeFromChildren();
+}
+
 void RunFitControlWidget::onFittingError(const QString& what)
 {
     m_warningSign->clear();
@@ -133,8 +138,7 @@ void RunFitControlWidget::subscribeToItem()
 void RunFitControlWidget::unsubscribeFromItem()
 {
     setEnabled(false);
-    if (fitSuiteItem())
-        fitSuiteItem()->mapper()->unsubscribe(this);
+    unsubscribeFromChildren();
 }
 
 int RunFitControlWidget::sliderUpdateInterval()
@@ -179,4 +183,10 @@ FitSuiteItem* RunFitControlWidget::fitSuiteItem()
 bool RunFitControlWidget::isValidJobItem()
 {
     return jobItem() ? jobItem()->isValidForFitting() : false;
+}
+
+void RunFitControlWidget::unsubscribeFromChildren()
+{
+    if (fitSuiteItem())
+        fitSuiteItem()->mapper()->unsubscribe(this);
 }

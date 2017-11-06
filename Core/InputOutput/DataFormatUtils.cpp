@@ -208,9 +208,13 @@ std::vector<double> DataFormatUtils::parse_doubles(const std::string& str)
     std::istringstream iss(str);
     DataFormatUtils::readLineOfDoubles(result, iss);
     if( result.empty() ) {
-        std::cout << "StringUtils::parse_doubles -> "
-            "Warning! No parsed values in 1d vector of doubles." << std::endl;
-        std::cout << "Line '" << str << "'" << std::endl;
+        std::string out = str;
+        const size_t max_string_length(10);
+        if(out.size() > max_string_length)
+            out.resize(max_string_length, ' ');
+        out += " ...";
+        throw std::runtime_error("DataFormatUtils::parse_doubles -> Error! Can't parse double "
+                                 "values from a string '"+out+"'");
     }
     return result;
 }

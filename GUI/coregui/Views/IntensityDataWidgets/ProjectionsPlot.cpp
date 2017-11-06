@@ -42,23 +42,12 @@ ProjectionsPlot::ProjectionsPlot(const QString& projectionType, QWidget* parent)
     m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
     m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
 
-    QFontMetrics fontMetric(font());
-    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
-    auto* axisRectangle = m_customPlot->axisRect();
-    axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
-    axisRectangle->setMargins(QMargins(3.5 * em, fontAscent * 1.5, em * 5.8, 4.5 * fontAscent));
-
+    ColorMapUtils::setDefaultMargins(m_customPlot);
 }
 
 ProjectionsPlot::~ProjectionsPlot()
 {
-
-}
-
-void ProjectionsPlot::setItem(SessionItem* intensityItem)
-{
-    Q_ASSERT(intensityItem);
-    SessionItemWidget::setItem(intensityItem);
+    unsubscribeFromChildren();
 }
 
 void ProjectionsPlot::onMarginsChanged(double left, double right)
@@ -116,8 +105,8 @@ void ProjectionsPlot::subscribeToItem()
 
 void ProjectionsPlot::unsubscribeFromItem()
 {
-    if(currentItem())
-        projectionContainerItem()->mapper()->unsubscribe(this);
+    unsubscribeFromChildren();
+    clearProjections();
 }
 
 void ProjectionsPlot::onProjectionPropertyChanged(SessionItem* item, const QString& property)
@@ -174,6 +163,12 @@ QCPGraph* ProjectionsPlot::graphForItem(SessionItem* item)
     }
 
     return graph;
+}
+
+void ProjectionsPlot::unsubscribeFromChildren()
+{
+    if(currentItem())
+        projectionContainerItem()->mapper()->unsubscribe(this);
 }
 
 //! Creates cached 2D histogram for later projection calculations.

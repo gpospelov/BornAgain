@@ -77,6 +77,10 @@ OutputData<double> *ImportDataAssistant::importData(QString &baseNameOfLoadedFil
 
 OutputData<double> *ImportDataAssistant::createSimplifiedOutputData(const OutputData<double> &data)
 {
+    if (data.getRank() != 2)
+        throw std::runtime_error("ImportDataAssistant::createSimplifiedOutputData() -> Error. "
+                                 "Not a two-dimensional data");
+
     double xmin(0.0), ymin(0.0);
 
     const IAxis &aX = data.getAxis(BornAgain::X_AXIS_INDEX);

@@ -35,9 +35,7 @@ class BA_CORE_API_ ProjectionsPlot : public SessionItemWidget
 
 public:
     ProjectionsPlot(const QString& projectionType, QWidget* parent = 0);
-    virtual ~ProjectionsPlot();
-
-    void setItem(SessionItem* intensityItem);
+    ~ProjectionsPlot();
 
 public slots:
     void onMarginsChanged(double left, double right);
@@ -53,6 +51,7 @@ private:
     ProjectionContainerItem* projectionContainerItem();
     QVector<SessionItem*> projectionItems();
     QCPGraph* graphForItem(SessionItem* item);
+    void unsubscribeFromChildren();
 
     void updateProjectionsData();
     void updateProjections();

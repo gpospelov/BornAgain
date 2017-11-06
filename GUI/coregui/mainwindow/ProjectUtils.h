@@ -65,6 +65,9 @@ BA_CORE_API_ QStringList substract(const QStringList& lhs, const QStringList& rh
 //! Returns multi-lione string representing content of text file.
 QString readTextFile(const QString& fileName);
 
+//! Returns directory which user is normally using to export files.
+BA_CORE_API_ QString userExportDir();
+
 }
 
 #endif // PROJECTUTILS_H

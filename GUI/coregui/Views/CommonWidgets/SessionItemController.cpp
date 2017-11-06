@@ -99,10 +99,6 @@ void SessionItemController::onControllerDestroy()
 {
     if (m_item) {
         m_item->mapper()->unsubscribe(this);
-
-        if (m_parent_subscribed)
-            unsubscribeParent();
-
         m_item->mapper()->unsubscribe(parent());
     }
 }

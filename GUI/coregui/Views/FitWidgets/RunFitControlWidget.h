@@ -36,6 +36,7 @@ class BA_CORE_API_ RunFitControlWidget : public SessionItemWidget
     Q_OBJECT
 public:
     RunFitControlWidget(QWidget* parent = 0);
+    ~RunFitControlWidget();
 
 signals:
     void startFittingPushed();
@@ -59,6 +60,7 @@ private:
     JobItem* jobItem();
     FitSuiteItem* fitSuiteItem();
     bool isValidJobItem();
+    void unsubscribeFromChildren();
 
     QPushButton* m_startButton;
     QPushButton* m_stopButton;

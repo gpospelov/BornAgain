@@ -23,12 +23,8 @@
 #include "minisplitter.h"
 #include "SessionModel.h"
 #include "IntensityDataItem.h"
-#include "MaskEditorFlags.h"
-#include "MaskGraphicsScene.h"
 #include <QItemSelectionModel>
 #include <QSplitter>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 
 ProjectionsEditor::ProjectionsEditor(QWidget* parent)
     : QMainWindow(parent)
@@ -67,12 +63,19 @@ void ProjectionsEditor::setContext(SessionModel* model, const QModelIndex& shape
     m_selectionModel = new QItemSelectionModel(model, this);
 
     m_propertyPanel->setItem(intensityItem);
-    m_projectionsCanvas->setContext(model, shapeContainerIndex, intensityItem);
     m_projectionsCanvas->setSelectionModel(m_selectionModel);
+    m_projectionsCanvas->setContext(model, shapeContainerIndex, intensityItem);
     m_projectionsWidget->setItem(intensityItem);
 
     m_editorActions->setModel(model, shapeContainerIndex);
     m_editorActions->setSelectionModel(m_selectionModel);
+}
+
+void ProjectionsEditor::resetContext()
+{
+    m_propertyPanel->setItem(nullptr);
+    m_projectionsCanvas->resetContext();
+    m_projectionsWidget->setItem(nullptr);
 }
 
 QList<QAction*> ProjectionsEditor::topToolBarActions()
@@ -83,32 +86,36 @@ QList<QAction*> ProjectionsEditor::topToolBarActions()
 void ProjectionsEditor::setup_connections()
 {
     // tool panel request is propagated from editorActions to this MaskEditor
-    connect(m_editorActions, SIGNAL(resetViewRequest()),
-            m_projectionsCanvas, SLOT(onResetViewRequest()));
+    connect(m_editorActions, &ProjectionsEditorActions::resetViewRequest,
+            m_projectionsCanvas, &ProjectionsEditorCanvas::onResetViewRequest);
 
     // tool panel request is propagated from editorActions to this MaskEditor
     connect(m_editorActions, &ProjectionsEditorActions::propertyPanelRequest,
             [=](){m_propertyPanel->setHidden(!m_propertyPanel->isHidden());});
 
     // selection/drawing activity is propagated from ToolBar to graphics scene
-    connect(m_toolBar, SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
-            m_projectionsCanvas, SLOT(onActivityModeChanged(MaskEditorFlags::Activity)));
+    connect(m_toolBar, &ProjectionsToolBar::activityModeChanged,
+            m_projectionsCanvas, &ProjectionsEditorCanvas::onActivityModeChanged);
 
     // selection/drawing activity is propagated from ToolBar to Projections Widget
-    connect(m_toolBar, SIGNAL(activityModeChanged(MaskEditorFlags::Activity)),
-            m_projectionsWidget, SLOT(onActivityModeChanged(MaskEditorFlags::Activity)));
+    connect(m_toolBar, &ProjectionsToolBar::activityModeChanged,
+            m_projectionsWidget, &ProjectionsWidget::onActivityModeChanged);
+
+    // click on projections tab is propagated to tool bar
+    connect(m_projectionsWidget, &ProjectionsWidget::changeActivityRequest,
+            m_toolBar, &ProjectionsToolBar::onProjectionTabChange);
 
     // Delete request is propagated from canvas to actions
-    connect(m_projectionsCanvas, SIGNAL(deleteSelectedRequest()),
-            m_editorActions, SLOT(onDeleteAction()));
+    connect(m_projectionsCanvas, &ProjectionsEditorCanvas::deleteSelectedRequest,
+            m_editorActions,  &ProjectionsEditorActions::onDeleteAction);
 
     // space bar push (request for zoom mode) is propagated from graphics view to ToolBar
-    connect(m_projectionsCanvas, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
-            m_toolBar, SLOT(onChangeActivityRequest(MaskEditorFlags::Activity)));
+    connect(m_projectionsCanvas, &ProjectionsEditorCanvas::changeActivityRequest,
+            m_toolBar, &ProjectionsToolBar::onChangeActivityRequest);
 
     // ColorMap margins changed, canvas -> projection widget
-    connect(m_projectionsCanvas, SIGNAL(marginsChanged(double,double)),
-            m_projectionsWidget, SLOT(onMarginsChanged(double,double)));
+    connect(m_projectionsCanvas, &ProjectionsEditorCanvas::marginsChanged,
+            m_projectionsWidget, &ProjectionsWidget::onMarginsChanged);
 
     m_toolBar->onChangeActivityRequest(MaskEditorFlags::HORIZONTAL_LINE_MODE);
 }

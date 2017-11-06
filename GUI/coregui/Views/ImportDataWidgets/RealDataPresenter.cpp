@@ -17,6 +17,7 @@
 #include "RealDataPresenter.h"
 #include "RealDataMaskWidget.h"
 #include "IntensityDataWidget.h"
+#include "IntensityDataProjectionsWidget.h"
 #include "item_constants.h"
 #include <QAction>
 
@@ -24,6 +25,7 @@ RealDataPresenter::RealDataPresenter(QWidget* parent)
     : ItemComboWidget(parent)
 {
     registerWidget(Constants::IntensityDataPresentation, create_new<IntensityDataWidget>);
+    registerWidget(Constants::IntensityProjectionsPresentation, create_new<IntensityDataProjectionsWidget>);
     registerWidget(Constants::MaskEditorPresentation, create_new<RealDataMaskWidget>);
 }
 
@@ -35,5 +37,6 @@ QList<QAction*> RealDataPresenter::actionList()
 QStringList RealDataPresenter::activePresentationList(SessionItem*)
 {
     return QStringList() << Constants::IntensityDataPresentation
+                         << Constants::IntensityProjectionsPresentation
                          << Constants::MaskEditorPresentation;
 }

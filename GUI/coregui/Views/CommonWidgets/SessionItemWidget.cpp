@@ -28,11 +28,8 @@ SessionItemWidget::SessionItemWidget(QWidget* parent)
 
 SessionItemWidget::~SessionItemWidget() = default;
 
-#include <QDebug>
 void SessionItemWidget::setItem(SessionItem* item)
 {
-    qDebug() << "SessionItemController::setItem()" << item << isVisible();
-
     m_itemController->setItem(item);
 
     if (isVisible())

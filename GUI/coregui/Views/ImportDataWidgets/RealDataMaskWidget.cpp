@@ -43,19 +43,22 @@ RealDataMaskWidget::RealDataMaskWidget(QWidget *parent)
     setLayout(mainLayout);
 }
 
-void RealDataMaskWidget::setItem(SessionItem* realDataItem)
+QList<QAction*> RealDataMaskWidget::actionList()
 {
-    SessionItemWidget::setItem(realDataItem);
+    return m_maskEditor->topToolBarActions();
+}
 
+void RealDataMaskWidget::subscribeToItem()
+{
     auto intensityItem = intensityDataItem();
-    auto container = createMaskContainer(intensityItem);
+    auto container = maskContainer(intensityItem);
     m_maskEditor->setMaskContext(intensityItem->model(), container->index(), intensityItem);
     m_maskEditor->update();
 }
 
-QList<QAction*> RealDataMaskWidget::actionList()
+void RealDataMaskWidget::unsubscribeFromItem()
 {
-    return m_maskEditor->topToolBarActions();
+    m_maskEditor->resetContext();
 }
 
 IntensityDataItem* RealDataMaskWidget::intensityDataItem()
@@ -66,7 +69,7 @@ IntensityDataItem* RealDataMaskWidget::intensityDataItem()
     return result;
 }
 
-MaskContainerItem* RealDataMaskWidget::createMaskContainer(IntensityDataItem* intensityData)
+MaskContainerItem* RealDataMaskWidget::maskContainer(IntensityDataItem* intensityData)
 {
     auto containerItem = intensityData->getItem(IntensityDataItem::T_MASKS);
     if (!containerItem)

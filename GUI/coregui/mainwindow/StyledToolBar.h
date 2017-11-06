@@ -29,6 +29,7 @@ class BA_CORE_API_ StyledToolBar : public QToolBar
 public:
     explicit StyledToolBar(QWidget* parent = nullptr);
     void addStyledSeparator();
+    void addSpacing(int width = 2);
     void addStyledExpand();
 
     int minimumHeight() const;

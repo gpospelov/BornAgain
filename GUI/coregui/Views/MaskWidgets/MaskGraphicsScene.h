@@ -50,6 +50,8 @@ public:
     void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
                         IntensityDataItem *intensityItem);
 
+    void resetContext();
+
     void setSelectionModel(QItemSelectionModel *model);
 
     ColorMap *colorMap();
@@ -95,6 +97,7 @@ private:
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
     void setInPanAndZoomMode(bool value);
+    void updateCursors();
 
     void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event);
 

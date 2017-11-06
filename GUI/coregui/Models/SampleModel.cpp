@@ -20,7 +20,7 @@
 #include "MultiLayerItem.h"
 #include "MaterialProperty.h"
 #include "MaterialSvc.h"
-#include "MaterialUtils.h"
+#include "MaterialItemUtils.h"
 
 SampleModel::SampleModel(QObject *parent)
     : SessionModel(SessionXML::SampleModelTag, parent)
@@ -58,7 +58,7 @@ void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
         QModelIndex itemIndex = index(i_row, 0, parentIndex);
         if (SessionItem *item = itemForIndex(itemIndex)) {
 
-            QString materialTag = MaterialUtils::materialTag(*item);
+            QString materialTag = MaterialItemUtils::materialTag(*item);
 
             if(materialTag.size()) {
                 // TODO take care of the case, when material doesn't exist anymore and

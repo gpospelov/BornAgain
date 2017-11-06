@@ -59,6 +59,7 @@ private:
     QModelIndex m_containerIndex; //!< Index of container with projections
     IntensityDataItem* m_intensityDataItem;
     QItemSelectionModel* m_selectionModel;
+    QWidget* m_parent;
 };
 
 #endif // PROJECTIONSEDITORACTIONS_H

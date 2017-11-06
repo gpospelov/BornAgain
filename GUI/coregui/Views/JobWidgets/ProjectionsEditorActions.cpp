@@ -30,6 +30,7 @@ ProjectionsEditorActions::ProjectionsEditorActions(QWidget* parent)
     , m_model(nullptr)
     , m_intensityDataItem(nullptr)
     , m_selectionModel(nullptr)
+    , m_parent(parent)
 {
     // Actions for top toolbar
     m_resetViewAction->setText("Reset");
@@ -84,9 +85,9 @@ void ProjectionsEditorActions::onDeleteAction()
 //! Performs saving of projections in ascii file
 void ProjectionsEditorActions::onSaveAction()
 {
-    if (!m_containerIndex.isValid())
+    if (!m_intensityDataItem)
         return;
 
     SaveProjectionsAssistant assistant;
-    assistant.saveProjections(nullptr);
+    assistant.saveProjections(m_parent, m_intensityDataItem);
 }

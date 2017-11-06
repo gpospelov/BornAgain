@@ -25,6 +25,7 @@
 class IntensityDataItem;
 class QWidget;
 class Histogram2D;
+class SessionItem;
 
 //! Assistant class which save all projections of IndensityDataItem into ASCII file.
 
@@ -53,6 +54,9 @@ private:
     std::unique_ptr<Histogram2D> m_hist2d;
     ProjectionsData projectionsData(const QString& projectionsType,
                                             IntensityDataItem* intensityItem);
+    QVector<SessionItem*> projectionItems(const QString& projectionsType,
+                                          IntensityDataItem* intensityItem);
+
     QString projectionFileHeader(ProjectionsData& projectionsData);
 };
 

@@ -49,6 +49,8 @@ QString to_double(double value)
 SaveProjectionsAssistant::SaveProjectionsAssistant() = default;
 SaveProjectionsAssistant::~SaveProjectionsAssistant() = default;
 
+//! Calls file open dialog and writes projection data as ASCII
+
 void SaveProjectionsAssistant::saveProjections(QWidget* parent, IntensityDataItem* intensityItem)
 {
     Q_ASSERT(intensityItem);
@@ -74,9 +76,12 @@ void SaveProjectionsAssistant::saveProjections(QWidget* parent, IntensityDataIte
 
     out << "# Projections along y-axis (vertical projections) \n";
     out << projectionsToString(Constants::VerticalLineMaskType, intensityItem);
+    out << "\n";
 
     file.close();
 }
+
+//! Generates multi-line string with projections data of given type (horizontal, vertical).
 
 QString SaveProjectionsAssistant::projectionsToString(const QString& projectionsType,
                                                       IntensityDataItem* intensityItem)
@@ -104,7 +109,7 @@ QString SaveProjectionsAssistant::projectionsToString(const QString& projections
     return result;
 }
 
-//! Returns 2D array of projections data.
+//! Returns projections data for all projections of given type (horizontal, vertical).
 
 SaveProjectionsAssistant::ProjectionsData
 SaveProjectionsAssistant::projectionsData(const QString& projectionsType,
@@ -114,10 +119,7 @@ SaveProjectionsAssistant::projectionsData(const QString& projectionsType,
     projectionsType == Constants::VerticalLineMaskType ? result.is_horizontal = false
                                                        : result.is_horizontal = true;
 
-    auto projections = intensityItem->projectionContainerItem();
-
-    auto horizontalProjections = projections->getChildrenOfType(projectionsType);
-    for (auto item : horizontalProjections) {
+    for (auto item : projectionItems(projectionsType, intensityItem)) {
         std::unique_ptr<Histogram1D> hist;
         SaveProjectionsAssistant::Projection data;
 
@@ -138,6 +140,27 @@ SaveProjectionsAssistant::projectionsData(const QString& projectionsType,
 
     return result;
 }
+
+//! Returns vector of ProjectionItems sorted according to axis value.
+
+QVector<SessionItem*> SaveProjectionsAssistant::projectionItems(const QString& projectionsType,
+                                                                IntensityDataItem* intensityItem)
+{
+    auto result = intensityItem->projectionContainerItem()->getChildrenOfType(projectionsType);
+    std::sort(result.begin(), result.end(), [=](SessionItem* item1, SessionItem* item2) {
+        QString propertyName = HorizontalLineItem::P_POSY;
+        if (projectionsType != Constants::HorizontalLineMaskType)
+            propertyName = VerticalLineItem::P_POSX;
+
+        return item1->getItemValue(propertyName).toDouble()
+               < item2->getItemValue(propertyName).toDouble();
+    });
+
+    return result;
+}
+
+//! Returns projections header. For projections along x it will be
+//! "# x         y=6.0194            y=33.5922           y=61.9417"
 
 QString SaveProjectionsAssistant::projectionFileHeader(ProjectionsData& projectionsData)
 {

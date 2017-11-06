@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IMATERIALIMPL_H_
-#define IMATERIALIMPL_H_
+#ifndef BASEMATERIALIMPL_H_
+#define BASEMATERIALIMPL_H_
 
 #include "INamed.h"
 #include "Vectors3D.h"
@@ -25,8 +25,7 @@ class Transform3D;
 class WavevectorInfo;
 
 enum class MATERIAL_TYPES {
-    VacuumMaterial = 0,
-    RefractiveCoefMaterial,
+    RefractiveCoefMaterial = 0,
     WavelengthIndependentMaterial
 };
 
@@ -79,4 +78,4 @@ public:
     virtual void print(std::ostream &ostr) const = 0;
 };
 
-#endif /* IMATERIALIMPL_H_ */
+#endif /* BASEMATERIALIMPL_H_ */

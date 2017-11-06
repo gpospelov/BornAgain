@@ -67,8 +67,10 @@ public:
     //! Returns the name of material
     std::string getName() const;
 
-    //! Returns hash code of underlying material implementation
-    size_t dataType() const;
+#ifndef SWIG
+    //! Returns the type of underlying material implementation
+    MATERIAL_TYPES typeID() const;
+#endif //SWIG
 
     //! Get the magnetization (in A/m)
     kvector_t magnetization() const;

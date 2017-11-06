@@ -3,7 +3,7 @@
 
 RefractiveCoefMaterial::RefractiveCoefMaterial(const std::string& name, double delta, double beta,
                                                  kvector_t magnetization)
-    : BaseMaterialImpl(name, magnetization)
+    : MagneticMaterialImpl(name, magnetization)
     , m_delta(delta)
     , m_beta(beta)
 {}

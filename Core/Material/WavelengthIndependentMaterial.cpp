@@ -19,7 +19,7 @@ inline double getWlPrefactor(double wavelength)
 WavelengthIndependentMaterial::WavelengthIndependentMaterial(const std::string& name, double sld,
                                                              double abs_term,
                                                              kvector_t magnetization)
-    : BaseMaterialImpl(name, magnetization), m_sld(sld), m_abs_term(abs_term)
+    : MagneticMaterialImpl(name, magnetization), m_sld(sld), m_abs_term(abs_term)
 {}
 
 WavelengthIndependentMaterial::~WavelengthIndependentMaterial()

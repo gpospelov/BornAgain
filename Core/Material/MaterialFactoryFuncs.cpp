@@ -7,9 +7,7 @@ Material HomogeneousMaterial(const std::string& name, complex_t refractive_index
 {
     const double delta = 1.0 - refractive_index.real();
     const double beta = refractive_index.imag();
-    std::unique_ptr<RefractiveCoefMaterial> mat_impl(
-        new RefractiveCoefMaterial(name, delta, beta, magnetization));
-    return Material(std::move(mat_impl));
+    return HomogeneousMaterial(name, delta, beta, magnetization);
 }
 
 Material HomogeneousMaterial(const std::string& name, double delta, double beta,
@@ -22,9 +20,7 @@ Material HomogeneousMaterial(const std::string& name, double delta, double beta,
 
 Material HomogeneousMaterial()
 {
-    std::unique_ptr<RefractiveCoefMaterial> mat_impl(
-        new RefractiveCoefMaterial("vacuum", 0.0, 0.0, kvector_t{}));
-    return Material(std::move(mat_impl));
+    return HomogeneousMaterial("vacuum", 0.0, 0.0, kvector_t{});
 }
 
 Material MaterialBySLD(const std::string& name, double sld, double abs_term,
@@ -46,7 +42,5 @@ Material MaterialByAbsCX(const std::string& name, double sld, double abs_cx,
 
 Material MaterialBySLD()
 {
-    std::unique_ptr<WavelengthIndependentMaterial> mat_impl(
-        new WavelengthIndependentMaterial("vacuum", 0.0, 0.0, kvector_t{}));
-    return Material(std::move(mat_impl));
+    return MaterialBySLD("vacuum", 0.0, 0.0, kvector_t{});
 }

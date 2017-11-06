@@ -37,7 +37,7 @@
 #include "LayerItem.h"
 #include "LayerRoughnessItems.h"
 #include "MaskItems.h"
-#include "MaterialUtils.h"
+#include "MaterialItemUtils.h"
 #include "MesoCrystal.h"
 #include "MesoCrystalItem.h"
 #include "MultiLayerItem.h"
@@ -70,7 +70,7 @@ std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionI
             "TransformToDomain::createDomainMaterial() -> Error. Can't create material "
             "for item '"+item.displayName()+"'.");
 
-    return MaterialUtils::createDomainMaterial(material_property);
+    return MaterialItemUtils::createDomainMaterial(material_property);
 }
 
 std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionItem& item)

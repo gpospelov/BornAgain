@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/MaterialEditor/MaterialUtils.h
-//! @brief     Defines class MaterialUtils
+//! @file      GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h
+//! @brief     Defines class MaterialItemUtils
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALUTILS_H
-#define MATERIALUTILS_H
+#ifndef MATERIALITEMUTILS_H
+#define MATERIALITEMUTILS_H
 
 #include "ColorProperty.h"
 #include "MaterialItem.h"
@@ -26,7 +26,7 @@
 
 class Material;
 
-namespace MaterialUtils
+namespace MaterialItemUtils
 {
 
 BA_CORE_API_ QColor suggestMaterialColor(const QString &name);
@@ -39,4 +39,4 @@ BA_CORE_API_ QString materialTag(const SessionItem &item);
 }
 
 
-#endif // MATERIALUTILS_H
+#endif // MATERIALITEMUTILS_H

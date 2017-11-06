@@ -17,7 +17,7 @@
 #include "MaterialEditorDialog.h"
 #include "MaterialEditor.h"
 #include "MaterialModel.h"
-#include "MaterialUtils.h"
+#include "MaterialItem.h"
 #include "mainwindow_constants.h"
 #include <QAction>
 #include <QPushButton>

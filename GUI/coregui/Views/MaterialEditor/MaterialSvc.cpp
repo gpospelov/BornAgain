@@ -18,7 +18,6 @@
 #include "MaterialEditorDialog.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
-#include "MaterialUtils.h"
 #include "SessionModel.h"
 
 MaterialSvc *MaterialSvc::m_instance = 0;

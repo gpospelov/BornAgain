@@ -15,11 +15,10 @@
 // ************************************************************************** //
 
 #include "MaterialItem.h"
+#include "ColorProperty.h"
 #include "GUIHelpers.h"
 #include "MaterialDataItem.h"
 #include "MaterialFactoryFuncs.h"
-#include "MaterialUtils.h"
-
 
 namespace {
 const QString magnetization_tooltip =

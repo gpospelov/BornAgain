@@ -64,7 +64,7 @@ public:
     QModelIndex index() const;
     bool hasChildren() const;
     int rowCount() const;
-    QVector<SessionItem*> childItems() const;
+    QVector<SessionItem*> children() const;
     SessionItem* childAt(int row) const;
     int rowOfChild(SessionItem* child) const;
     int parentRow() const;

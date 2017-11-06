@@ -65,7 +65,7 @@ void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const Sessi
         }
 
     }
-    foreach (SessionItem *child_item, item->childItems()) {
+    foreach (SessionItem *child_item, item->children()) {
         writeItemAndChildItems(writer, child_item);
     }
     if (item->parent()) {

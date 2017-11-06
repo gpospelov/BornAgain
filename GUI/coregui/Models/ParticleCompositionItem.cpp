@@ -75,28 +75,28 @@ std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComp
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     auto P_composition = std::make_unique<ParticleComposition>();
     P_composition->setAbundance(abundance);
-    QVector<SessionItem *> children = childItems();
-    for (int i = 0; i < children.size(); ++i) {
-        if (children[i]->modelType() == Constants::ParticleType) {
-            auto *particle_item = static_cast<ParticleItem*>(children[i]);
+    QVector<SessionItem *> childlist = children();
+    for (int i = 0; i < childlist.size(); ++i) {
+        if (childlist[i]->modelType() == Constants::ParticleType) {
+            auto *particle_item = static_cast<ParticleItem*>(childlist[i]);
             auto P_particle = particle_item->createParticle();
             if (P_particle) {
                 P_composition->addParticle(*P_particle);
             }
-        } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
-            auto *particle_coreshell_item = static_cast<ParticleCoreShellItem*>(children[i]);
+        } else if (childlist[i]->modelType() == Constants::ParticleCoreShellType) {
+            auto *particle_coreshell_item = static_cast<ParticleCoreShellItem*>(childlist[i]);
             auto P_particle_coreshell = particle_coreshell_item->createParticleCoreShell();
             if (P_particle_coreshell) {
                 P_composition->addParticle(*P_particle_coreshell);
             }
-        } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
-            auto *particlecomposition_item = static_cast<ParticleCompositionItem*>(children[i]);
+        } else if (childlist[i]->modelType() == Constants::ParticleCompositionType) {
+            auto *particlecomposition_item = static_cast<ParticleCompositionItem*>(childlist[i]);
             auto P_child_composition = particlecomposition_item->createParticleComposition();
             if (P_child_composition) {
                 P_composition->addParticle(*P_child_composition);
             }
-        } else if (children[i]->modelType() == Constants::MesoCrystalType) {
-            auto *mesocrystal_item = static_cast<MesoCrystalItem*>(children[i]);
+        } else if (childlist[i]->modelType() == Constants::MesoCrystalType) {
+            auto *mesocrystal_item = static_cast<MesoCrystalItem*>(childlist[i]);
             auto P_child_meso = mesocrystal_item->createMesoCrystal();
             if (P_child_meso) {
                 P_composition->addParticle(*P_child_meso);

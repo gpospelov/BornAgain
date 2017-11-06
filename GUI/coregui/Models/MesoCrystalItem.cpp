@@ -149,19 +149,19 @@ Lattice MesoCrystalItem::getLattice() const
 
 std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const
 {
-    QVector<SessionItem *> children = childItems();
-    for (int i = 0; i < children.size(); ++i) {
-        if (children[i]->modelType() == Constants::ParticleType) {
-            auto *particle_item = static_cast<ParticleItem*>(children[i]);
+    QVector<SessionItem *> childlist = children();
+    for (int i = 0; i < childlist.size(); ++i) {
+        if (childlist[i]->modelType() == Constants::ParticleType) {
+            auto *particle_item = static_cast<ParticleItem*>(childlist[i]);
             return particle_item->createParticle();
-        } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
-            auto *particle_coreshell_item = static_cast<ParticleCoreShellItem*>(children[i]);
+        } else if (childlist[i]->modelType() == Constants::ParticleCoreShellType) {
+            auto *particle_coreshell_item = static_cast<ParticleCoreShellItem*>(childlist[i]);
             return particle_coreshell_item->createParticleCoreShell();
-        } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
-            auto *particlecomposition_item = static_cast<ParticleCompositionItem*>(children[i]);
+        } else if (childlist[i]->modelType() == Constants::ParticleCompositionType) {
+            auto *particlecomposition_item = static_cast<ParticleCompositionItem*>(childlist[i]);
             return particlecomposition_item->createParticleComposition();
-        } else if (children[i]->modelType() == Constants::MesoCrystalType) {
-            auto *mesocrystal_item = static_cast<MesoCrystalItem*>(children[i]);
+        } else if (childlist[i]->modelType() == Constants::MesoCrystalType) {
+            auto *mesocrystal_item = static_cast<MesoCrystalItem*>(childlist[i]);
             return mesocrystal_item->createMesoCrystal();
         }
     }

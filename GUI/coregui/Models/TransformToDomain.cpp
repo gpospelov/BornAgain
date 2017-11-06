@@ -222,7 +222,7 @@ void TransformToDomain::setPositionInfo(IParticle* result, const SessionItem& it
 
 void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& item)
 {
-    QVector<SessionItem*> children = item.childItems();
+    QVector<SessionItem*> children = item.children();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::TransformationType) {
             auto& rot_item = children[i]->groupItem<RotationItem>(TransformationItem::P_ROT);

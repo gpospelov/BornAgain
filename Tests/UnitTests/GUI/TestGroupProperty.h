@@ -65,13 +65,13 @@ inline void TestGroupProperty::test_CreateGroup()
     QCOMPARE(property->currentType(), Constants::DistributionGaussianType);
 
     GroupItem groupItem;
-    QCOMPARE(groupItem.childItems().size(), 0);
+    QCOMPARE(groupItem.children().size(), 0);
     QVERIFY(groupItem.currentItem() == nullptr);
 
     // setting group property and checking currentItem
     groupItem.setGroup(property);
-    QCOMPARE(groupItem.childItems().size(), 1);
-    QCOMPARE(groupItem.childItems()[0], groupItem.currentItem());
+    QCOMPARE(groupItem.children().size(), 1);
+    QCOMPARE(groupItem.children()[0], groupItem.currentItem());
     SessionItem *cosineItem = groupItem.currentItem();
     QCOMPARE(cosineItem->modelType(), Constants::DistributionGaussianType);
     QCOMPARE(property->currentItem(), cosineItem);
@@ -83,12 +83,12 @@ inline void TestGroupProperty::test_CreateGroup()
     SessionItem *newItem = groupItem.setCurrentType(Constants::DistributionNoneType);
     QCOMPARE(newItem, groupItem.currentItem());
     QCOMPARE(newItem->modelType(), Constants::DistributionNoneType);
-    QCOMPARE(groupItem.childItems().size(), 2);
+    QCOMPARE(groupItem.children().size(), 2);
 
     // returning back to previous item
     QCOMPARE(groupItem.setCurrentType(Constants::DistributionGaussianType), cosineItem);
     QCOMPARE(groupItem.currentItem(), cosineItem);
-    QCOMPARE(groupItem.childItems().size(), 2);
+    QCOMPARE(groupItem.children().size(), 2);
 }
 
 //! Checking that GroupProperty stays functional if displayName of currentItem is changed.

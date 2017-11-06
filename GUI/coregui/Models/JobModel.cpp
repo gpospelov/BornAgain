@@ -202,6 +202,6 @@ void JobModel::restoreItem(SessionItem *item)
     if (ParameterItem *parameter = dynamic_cast<ParameterItem*>(item))
         parameter->restoreFromBackup();
 
-    for (auto child : item->childItems())
+    for (auto child : item->children())
         restoreItem(child);
 }

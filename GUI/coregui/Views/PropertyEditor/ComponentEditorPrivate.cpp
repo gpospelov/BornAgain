@@ -238,7 +238,7 @@ void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *propert
 //! removes properties of all child items
 void ComponentEditorPrivate::cleanChildren(SessionItem *item)
 {
-    foreach(SessionItem *child, item->childItems()) {
+    foreach(SessionItem *child, item->children()) {
         if (QtVariantProperty *property = getPropertyForItem(child)) {
             removeQtVariantProperty(property);
         }

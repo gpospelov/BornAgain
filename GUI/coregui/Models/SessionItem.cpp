@@ -118,10 +118,10 @@ SessionItem* SessionItem::parent() const
 
 //! Returns model index of this item.
 
- QModelIndex SessionItem::index() const
+QModelIndex SessionItem::index() const
 {
-    if (m_model) {
-        return m_model->indexOfItem(const_cast<SessionItem*>(this));
+    if (model()) {
+        return model()->indexOfItem(const_cast<SessionItem*>(this));
     }
     return QModelIndex();
 }
@@ -142,11 +142,10 @@ int SessionItem::rowCount() const
 
 //! Returns vector of all children.
 
-QVector<SessionItem*> SessionItem::childItems() const
+QVector<SessionItem*> SessionItem::children() const
 {
     return m_children;
 }
-
 
 //! Returns the child at the given row.
 

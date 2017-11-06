@@ -70,7 +70,6 @@ ParticleCoreShellItem::ParticleCoreShellItem()
 std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const
 {
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
-    auto children = childItems();
     std::unique_ptr<Particle> P_core {};
     std::unique_ptr<Particle> P_shell {};
     auto core_item = dynamic_cast<ParticleItem*>(getItem(T_CORE));

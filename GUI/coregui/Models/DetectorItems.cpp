@@ -129,8 +129,8 @@ void DetectorItem::addMasksToDomain(IDetector2D* detector) const
 
     const double scale = axesToDomainUnitsFactor();
 
-    for (int i_row = maskContainer->childItems().size(); i_row > 0; --i_row) {
-        if (auto maskItem = dynamic_cast<MaskItem*>(maskContainer->childItems().at(i_row - 1))) {
+    for (int i_row = maskContainer->children().size(); i_row > 0; --i_row) {
+        if (auto maskItem = dynamic_cast<MaskItem*>(maskContainer->children().at(i_row - 1))) {
 
             if (maskItem->modelType() == Constants::RegionOfInterestType) {
                 double xlow = scale * maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();

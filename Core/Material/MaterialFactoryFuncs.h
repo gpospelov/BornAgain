@@ -35,10 +35,7 @@ BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, double delta,
 
 //! @ingroup materials
 
-//! Constructs vacuum material based on refractive coefficients.
-//! Though in practice there is no difference between vacuum materials
-//! produced with MaterialBySLD() and HomogeneousMaterial(), they are not equal because of
-//! the difference in the type of underlying data
+//! Constructs material with zero refractive coefficients and zero magnetization.
 BA_CORE_API_ Material HomogeneousMaterial();
 
 //! @ingroup materials
@@ -70,10 +67,7 @@ BA_CORE_API_ Material MaterialByAbsCX(const std::string& name, double sld, doubl
 
 //! @ingroup materials
 
-//! Constructs wavelength-independent vacuum material.
-//! Though in practice there is no difference between vacuum materials
-//! produced with MaterialBySLD() and HomogeneousMaterial(), they are not equal because of
-//! the difference in the type of underlying data
+//! Constructs wavelength-independent material with zero sld and zero magnetization.
 BA_CORE_API_ Material MaterialBySLD();
 
 #endif /* MATERIALFACTORYFUNCS_H_ */

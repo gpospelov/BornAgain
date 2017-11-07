@@ -25,24 +25,9 @@
 #include "ParameterTuningModel.h"
 #include "SliderSettingsWidget.h"
 #include "WarningSign.h"
+#include "StyleUtils.h"
 #include <QTreeView>
 #include <QVBoxLayout>
-
-namespace {
-const QString style_sheet =
-    "QTreeView::branch {background: "
-    "palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
-    "{border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:"
-    "adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:"
-    "!has-children:!has-siblings:adjoins-item {border-image: "
-    "url(:/images/treeview-branch-end.png) "
-    "0;}QTreeView::branch:has-children:!has-siblings:closed"
-    ",QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: "
-    "url(:/images/"
-    "treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
-    "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
-    "url(:/images/treeview-branch-open.png);}";
-}
 
 
 ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
@@ -57,7 +42,7 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_treeView->setStyleSheet(style_sheet);
+    m_treeView->setStyleSheet(StyleUtils::realtimeTreeStyle());
     m_treeView->setItemDelegate(m_delegate);
     m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_treeView->setDragDropMode(QAbstractItemView::NoDragDrop);

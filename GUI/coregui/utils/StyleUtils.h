@@ -1,0 +1,34 @@
+//* ************************************************************************* //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/coregui/utils/StyleUtils.h
+//! @brief     DefinesStyleUtils namespace
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2016
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
+//! @authors   Walter Van Herck, Joachim Wuttke
+//
+//* ************************************************************************* //
+
+#ifndef STYLEUTILS_H
+#define STYLEUTILS_H
+
+#include "WinDllMacros.h"
+#include <QString>
+
+namespace StyleUtils
+{
+
+//! Returns string representing the style of QTreeView intended for property editor.
+BA_CORE_API_ QString propertyTreeStyle();
+
+//! Returns string representing the style of QTreeView intended for real time view.
+BA_CORE_API_ QString realtimeTreeStyle();
+
+}
+
+#endif

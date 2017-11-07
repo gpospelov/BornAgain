@@ -17,6 +17,7 @@
 #include "SessionDecorationModel.h"
 #include "SessionModel.h"
 #include "GUIHelpers.h"
+#include "StyleUtils.h"
 #include <QVBoxLayout>
 #include <QTreeView>
 
@@ -36,29 +37,7 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
    layout->setSpacing(0);
    layout->addWidget(m_tree);
 
-   QString styleSheet;
-
-   // lines arount cell content
-   styleSheet += "QTreeView::item {"
-                 "    border-bottom: 1px solid #c7c8c9; "
-                 "    border-right: 1px solid #c7c8c9;}"
-                 "QTreeView::branch {border-bottom: 1px solid #c7c8c9;}";
-
-   // styling of branch to restore open/closed signs eliminated by previous styling
-   styleSheet += "QTreeView::branch:has-children:!has-siblings:closed,"
-                 "QTreeView::branch:closed:has-children:has-siblings {"
-                 "padding:2px 2px 2px 2px;border-image: none;"
-                 "image: url(:/images/caret-right.svg);}"
-                 "QTreeView::branch:open:has-children:!has-siblings,"
-                 "QTreeView::branch:open:has-children:has-siblings  {"
-                 "padding:2px 2px 2px 2px;border-image: none; image: url(:/images/caret-down.svg);"
-           "}";
-
-   // background of selected rows restored
-   styleSheet += "QTreeView::item:selected{"
-                 " background:#3daee9;}";
-
-   m_tree->setStyleSheet(styleSheet);
+   m_tree->setStyleSheet(StyleUtils::propertyTreeStyle());
    m_tree->setAlternatingRowColors(true);
 
    m_decorationProxy->setSessionModel(model);

@@ -44,6 +44,10 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
                  "    border-right: 1px solid #c7c8c9;}"
                  "QTreeView::branch {border-bottom: 1px solid #c7c8c9;}";
 
+   // background of selected rows
+   styleSheet += "QTreeView::item:selected{"
+                 " background:#3daee9;}";
+
    m_tree->setStyleSheet(styleSheet);
    m_tree->setAlternatingRowColors(true);
 

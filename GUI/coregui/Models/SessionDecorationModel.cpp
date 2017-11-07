@@ -67,6 +67,10 @@ QVariant SessionDecorationModel::data(const QModelIndex& index, int role) const
             return result;
     }
 
+    if (role == Qt::SizeHintRole) {
+        return  QSize(28, 28);
+    }
+
     return QIdentityProxyModel::data(index, role);
 }
 

@@ -17,6 +17,7 @@
 #include "SessionDecorationModel.h"
 #include "SessionModel.h"
 #include "GUIHelpers.h"
+#include "StyleUtils.h"
 #include <QVBoxLayout>
 #include <QTreeView>
 
@@ -36,9 +37,11 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
    layout->setSpacing(0);
    layout->addWidget(m_tree);
 
+   m_tree->setStyleSheet(StyleUtils::propertyTreeStyle());
+   m_tree->setAlternatingRowColors(true);
+
    m_decorationProxy->setSessionModel(model);
    m_tree->setModel(m_decorationProxy);
-
 
    if (m_decorationProxy->rowCount(QModelIndex()) > 0)
        setExpanded(true);

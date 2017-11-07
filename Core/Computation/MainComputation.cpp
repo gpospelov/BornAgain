@@ -29,7 +29,7 @@
 
 namespace
 {
-Material CalculateAverageMaterial(const Material& layer_mat, double wavelength,
+Material CalculateAverageMaterial(const Material& layer_mat,
                                   const std::vector<HomogeneousRegion>& regions);
 }
 
@@ -129,8 +129,7 @@ std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer() const
         if (!checkRegions(entry.second))
             throw std::runtime_error("MainComputation::getAveragedMultilayer: "
                                      "total volumetric fraction of particles exceeds 1!");
-        double beam_wavelength = m_instrument.getBeam().getWavelength();
-        auto new_mat = CalculateAverageMaterial(layer_mat, beam_wavelength, entry.second);
+        auto new_mat = CalculateAverageMaterial(layer_mat, entry.second);
         P_result->setLayerMaterial(i_layer, new_mat);
     }
     return P_result;
@@ -162,17 +161,17 @@ bool MainComputation::checkRegions(const std::vector<HomogeneousRegion>& regions
 namespace
 {
 // TODO: make this procedure correct for all types of materials
-Material CalculateAverageMaterial(const Material& layer_mat, double wavelength,
+Material CalculateAverageMaterial(const Material& layer_mat,
                                   const std::vector<HomogeneousRegion>& regions)
 {
     kvector_t magnetization_layer = layer_mat.magnetization();
-    complex_t refr_index2_layer = layer_mat.refractiveIndex2(wavelength);
+    complex_t refr_index2_layer = layer_mat.refractiveIndex2();
     kvector_t magnetization_avg = magnetization_layer;
     complex_t refr_index2_avg = refr_index2_layer;
     for (auto& region : regions)
     {
         kvector_t magnetization_region = region.m_material.magnetization();
-        complex_t refr_index2_region = region.m_material.refractiveIndex2(wavelength);
+        complex_t refr_index2_region = region.m_material.refractiveIndex2();
         magnetization_avg += region.m_volume*(magnetization_region - magnetization_layer);
         refr_index2_avg += region.m_volume*(refr_index2_region - refr_index2_layer);
     }

@@ -1,6 +1,7 @@
 #include "MaterialFactoryFuncs.h"
 #include "MaterialBySLDImpl.h"
 #include "RefractiveMaterialImpl.h"
+#include "SlicedParticle.h"
 #include "WavevectorInfo.h"
 #include "Rotations.h"
 #include "Units.h"
@@ -150,6 +151,40 @@ TEST_F(MaterialTest, ComputationTest)
     const complex_t subtrSLDWlIndep = material.scalarSubtrSLD(wv_info);
     EXPECT_FLOAT_EQ(subtrSLD.real(), subtrSLDWlIndep.real());
     EXPECT_FLOAT_EQ(subtrSLD.imag(), subtrSLDWlIndep.imag());
+}
+
+TEST_F(MaterialTest, AveragedMaterialTest)
+{
+    kvector_t magnetization = kvector_t {1.0, 0.0, 0.0};
+    const Material material = HomogeneousMaterial("Material", 0.5, 0.5, magnetization);
+    const std::vector<HomogeneousRegion> regions = {HomogeneousRegion{0.25, material},
+                                                    HomogeneousRegion{0.25, material}};
+
+    const Material material_avr = createAveragedMaterial(material, regions);
+    EXPECT_EQ(material_avr.getName(), material.getName() + "_avg");
+    EXPECT_EQ(material_avr.magnetization(), magnetization);
+    EXPECT_EQ(material_avr.materialData(), complex_t(0.5, 0.5));
+    EXPECT_TRUE(material_avr.typeID() == MATERIAL_TYPES::RefractiveCoefMaterial);
+
+    const Material material2 = MaterialBySLD();
+    const Material material_avr2 = createAveragedMaterial(material2, regions);
+    const complex_t expected_res = std::conj(1.0 - std::sqrt(complex_t(0.5, 0.25)));
+    EXPECT_DOUBLE_EQ(material_avr2.materialData().real(), expected_res.real());
+    EXPECT_DOUBLE_EQ(material_avr2.materialData().imag(), expected_res.imag());
+    EXPECT_EQ(material_avr2.magnetization(), kvector_t(0.5, 0.0, 0.0));
+    EXPECT_TRUE(material_avr2.typeID() == MATERIAL_TYPES::RefractiveCoefMaterial);
+
+    const Material material3 = MaterialBySLD("Material3", 0.5, 0.5, magnetization);
+    EXPECT_THROW(createAveragedMaterial(material3, regions), std::runtime_error);
+
+    const Material material4 = HomogeneousMaterial();
+    const std::vector<HomogeneousRegion> regions2
+        = {HomogeneousRegion{0.25, material3}, HomogeneousRegion{0.25, material3}};
+    const Material material_avr3 = createAveragedMaterial(material4, regions2);
+    EXPECT_DOUBLE_EQ(material_avr3.materialData().real(), 0.25);
+    EXPECT_DOUBLE_EQ(material_avr3.materialData().imag(), 0.25);
+    EXPECT_EQ(material_avr3.magnetization(), kvector_t(0.5, 0.0, 0.0));
+    EXPECT_TRUE(material_avr3.typeID() == MATERIAL_TYPES::WavelengthIndependentMaterial);
 }
 
 TEST_F(MaterialTest, TypeIdsTest)

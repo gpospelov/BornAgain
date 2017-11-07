@@ -66,7 +66,7 @@ Material createAveragedMaterial(const Material& layer_mat,
         = [](const Material& mat) { return mat.magnetization(); };
     const kvector_t mag_avr = averageData(layer_mat, regions, avrMag);
 
-    if (avr_material_type == MATERIAL_TYPES::RefractiveCoefMaterial) {
+    if (avr_material_type == MATERIAL_TYPES::RefractiveMaterial) {
         // avrData returns (1 - mdc)^2 - 1, where mdc is material data conjugate
         complex_t (*avrData)(const Material&) = [](const Material& mat) -> complex_t {
             const complex_t mdc = std::conj(mat.materialData());
@@ -75,7 +75,7 @@ Material createAveragedMaterial(const Material& layer_mat,
         const complex_t avr_mat_data
             = std::conj(1.0 - std::sqrt(1.0 + averageData(layer_mat, regions, avrData)));
         return HomogeneousMaterial(avr_mat_name, avr_mat_data.real(), avr_mat_data.imag(), mag_avr);
-    } else if (avr_material_type == MATERIAL_TYPES::WavelengthIndependentMaterial) {
+    } else if (avr_material_type == MATERIAL_TYPES::MaterialBySLD) {
         complex_t (*avrData)(const Material&)
             = [](const Material& mat) { return mat.materialData(); };
         const complex_t avr_mat_data = averageData(layer_mat, regions, avrData);

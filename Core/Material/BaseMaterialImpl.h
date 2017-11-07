@@ -25,8 +25,8 @@ class Transform3D;
 class WavevectorInfo;
 
 enum class MATERIAL_TYPES {
-    RefractiveCoefMaterial = 0,
-    WavelengthIndependentMaterial
+    RefractiveMaterial = 0,
+    MaterialBySLD
 };
 
 //! @ingroup materials

@@ -49,7 +49,7 @@ public:
     //! Returns type of material implementation
     virtual MATERIAL_TYPES typeID() const override
     {
-        return MATERIAL_TYPES::RefractiveCoefMaterial;
+        return MATERIAL_TYPES::RefractiveMaterial;
     }
 
     //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density.

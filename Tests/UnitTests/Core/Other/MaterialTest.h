@@ -164,7 +164,7 @@ TEST_F(MaterialTest, AveragedMaterialTest)
     EXPECT_EQ(material_avr.getName(), material.getName() + "_avg");
     EXPECT_EQ(material_avr.magnetization(), magnetization);
     EXPECT_EQ(material_avr.materialData(), complex_t(0.5, 0.5));
-    EXPECT_TRUE(material_avr.typeID() == MATERIAL_TYPES::RefractiveCoefMaterial);
+    EXPECT_TRUE(material_avr.typeID() == MATERIAL_TYPES::RefractiveMaterial);
 
     const Material material2 = MaterialBySLD();
     const Material material_avr2 = createAveragedMaterial(material2, regions);
@@ -172,7 +172,7 @@ TEST_F(MaterialTest, AveragedMaterialTest)
     EXPECT_DOUBLE_EQ(material_avr2.materialData().real(), expected_res.real());
     EXPECT_DOUBLE_EQ(material_avr2.materialData().imag(), expected_res.imag());
     EXPECT_EQ(material_avr2.magnetization(), kvector_t(0.5, 0.0, 0.0));
-    EXPECT_TRUE(material_avr2.typeID() == MATERIAL_TYPES::RefractiveCoefMaterial);
+    EXPECT_TRUE(material_avr2.typeID() == MATERIAL_TYPES::RefractiveMaterial);
 
     const Material material3 = MaterialBySLD("Material3", 0.5, 0.5, magnetization);
     EXPECT_THROW(createAveragedMaterial(material3, regions), std::runtime_error);
@@ -184,15 +184,15 @@ TEST_F(MaterialTest, AveragedMaterialTest)
     EXPECT_DOUBLE_EQ(material_avr3.materialData().real(), 0.25);
     EXPECT_DOUBLE_EQ(material_avr3.materialData().imag(), 0.25);
     EXPECT_EQ(material_avr3.magnetization(), kvector_t(0.5, 0.0, 0.0));
-    EXPECT_TRUE(material_avr3.typeID() == MATERIAL_TYPES::WavelengthIndependentMaterial);
+    EXPECT_TRUE(material_avr3.typeID() == MATERIAL_TYPES::MaterialBySLD);
 }
 
 TEST_F(MaterialTest, TypeIdsTest)
 {
     Material material = MaterialBySLD("Material", 1.0, 1.0);
     Material material2 = HomogeneousMaterial("Material", 1.0, 1.0);
-    EXPECT_TRUE(material.typeID() == MATERIAL_TYPES::WavelengthIndependentMaterial);
-    EXPECT_TRUE(material2.typeID() == MATERIAL_TYPES::RefractiveCoefMaterial);
+    EXPECT_TRUE(material.typeID() == MATERIAL_TYPES::MaterialBySLD);
+    EXPECT_TRUE(material2.typeID() == MATERIAL_TYPES::RefractiveMaterial);
     EXPECT_TRUE(material.typeID() != material2.typeID());
     Material material3 = MaterialBySLD("Material", 1.0, 1.0);
     EXPECT_TRUE(material.typeID() == material3.typeID());

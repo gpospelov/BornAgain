@@ -29,6 +29,7 @@ public:
     TestView(MainWindow* mainWindow = 0);
 
 private:
+    void test_ComponentProxyModel();
     void test_MaterialEditor();
     void test_MinimizerSettings();
     void test_AccordionWidget();

@@ -21,6 +21,10 @@
 #include "MaterialEditor.h"
 #include "MinimizerItem.h"
 #include "MinimizerSettingsWidget.h"
+#include "ApplicationModels.h"
+#include "SampleModel.h"
+#include "ComponentProxyModel.h"
+#include <QTreeView>
 #include "mainwindow.h"
 
 #ifdef BORNAGAIN_OPENGL
@@ -34,11 +38,32 @@ TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
 {
+    test_ComponentProxyModel();
 //    test_MaterialEditor();
 //    test_MinimizerSettings();
 //    test_AccordionWidget();
 //    test_RunFitWidget();
-    test_ba3d();
+//    test_ba3d();
+}
+
+void TestView::test_ComponentProxyModel()
+{
+    auto layout = new QHBoxLayout();
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
+    auto tree1 = new QTreeView;
+    tree1->setModel(m_mainWindow->sampleModel());
+
+    auto tree2 = new QTreeView;
+    auto proxy = new ComponentProxyModel(this);
+    proxy->setSessionModel(m_mainWindow->sampleModel());
+    tree2->setModel(proxy);
+
+    layout->addWidget(tree1);
+    layout->addWidget(tree2);
+
+    setLayout(layout);
 }
 
 

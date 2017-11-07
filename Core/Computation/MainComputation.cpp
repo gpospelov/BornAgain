@@ -17,7 +17,6 @@
 #include "ParticleLayoutComputation.h"
 #include "Layer.h"
 #include "IFresnelMap.h"
-#include "Instrument.h"
 #include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "RoughMultiLayerComputation.h"
@@ -35,13 +34,11 @@ Material CalculateAverageMaterial(const Material& layer_mat,
 
 MainComputation::MainComputation(
     const MultiLayer& multilayer,
-    const Instrument& instrument,
     const SimulationOptions& options,
     ProgressHandler& progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it)
     : mP_multi_layer(multilayer.cloneSliced(options.useAvgMaterials()))
-    , m_instrument(instrument)
     , m_sim_options(options)
     , m_progress(&progress)
     , m_begin_it(begin_it)

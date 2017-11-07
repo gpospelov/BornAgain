@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/MaterialEditor/MaterialUtils.cpp
-//! @brief     Implements class MaterialUtils
+//! @file      GUI/coregui/Views/MaterialEditor/MaterialItemUtils.cpp
+//! @brief     Implements class MaterialItemUtils
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "MaterialUtils.h"
+#include "MaterialItemUtils.h"
 #include "MaterialDataItem.h"
 #include "ComboProperty.h"
 #include "DesignerHelper.h"
@@ -26,7 +26,7 @@
 #include "LayerItem.h"
 
 
-QColor MaterialUtils::suggestMaterialColor(const QString &name)
+QColor MaterialItemUtils::suggestMaterialColor(const QString &name)
 {
     if(name.contains("Air") ) {
         return QColor(179, 242, 255);
@@ -46,7 +46,7 @@ QColor MaterialUtils::suggestMaterialColor(const QString &name)
 }
 
 
-MaterialProperty MaterialUtils::getDefaultMaterialProperty()
+MaterialProperty MaterialItemUtils::getDefaultMaterialProperty()
 {
     if(MaterialSvc::instance()) {
         return MaterialSvc::getDefaultMaterialProperty();
@@ -55,13 +55,13 @@ MaterialProperty MaterialUtils::getDefaultMaterialProperty()
 }
 
 
-ColorProperty MaterialUtils::suggestMaterialColorProperty(const QString &name)
+ColorProperty MaterialItemUtils::suggestMaterialColorProperty(const QString &name)
 {
-    return ColorProperty(MaterialUtils::suggestMaterialColor(name));
+    return ColorProperty(MaterialItemUtils::suggestMaterialColor(name));
 }
 
 std::unique_ptr<Material>
-MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
+MaterialItemUtils::createDomainMaterial(const MaterialProperty &material_property)
 {
     MaterialItem *materialItem
         = MaterialSvc::getMaterial(material_property);
@@ -75,7 +75,7 @@ MaterialUtils::createDomainMaterial(const MaterialProperty &material_property)
 
 //! Returns material tag for given item. Returns empty string, if item doesn't have materials.
 
-QString MaterialUtils::materialTag(const SessionItem &item)
+QString MaterialItemUtils::materialTag(const SessionItem &item)
 {
     QString result;
     if (item.modelType() == Constants::ParticleType) {

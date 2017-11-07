@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "MaterialModel.h"
-#include "MaterialUtils.h"
+#include "MaterialItemUtils.h"
 #include "GUIHelpers.h"
 #include "MaterialDataItem.h"
 
@@ -45,7 +45,7 @@ MaterialItem* MaterialModel::addMaterial(const QString& name, double material_da
     materialDataItem->setImag(material_data_imag);
 
     materialItem->setItemValue(MaterialItem::P_COLOR,
-                               MaterialUtils::suggestMaterialColorProperty(name).getVariant());
+                               MaterialItemUtils::suggestMaterialColorProperty(name).getVariant());
 
     return materialItem;
 }

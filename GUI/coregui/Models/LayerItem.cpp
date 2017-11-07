@@ -16,7 +16,7 @@
 
 #include "LayerItem.h"
 #include "BornAgainNamespace.h"
-#include "MaterialUtils.h"
+#include "MaterialItemUtils.h"
 
 namespace {
 const QString layer_nslices_tooltip =
@@ -38,7 +38,7 @@ LayerItem::LayerItem()
     addProperty(P_THICKNESS, 0.0)->setLimits(RealLimits::lowerLimited(0.0))
         .setToolTip(QStringLiteral("Thickness of a layer in nanometers"));
 
-    addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant())
+    addProperty(P_MATERIAL, MaterialItemUtils::getDefaultMaterialProperty().getVariant())
             ->setToolTip(QStringLiteral("Material the layer is made of"));
 
     addProperty(P_NSLICES, 1)->setLimits(RealLimits::lowerLimited(0.0))

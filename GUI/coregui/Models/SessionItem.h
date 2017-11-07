@@ -32,19 +32,15 @@ class IPathTranslator;
 class SessionTagInfo
 {
 public:
-    inline SessionTagInfo() : name(QString()), min(0), max(-1), childCount(0) {}
-    inline SessionTagInfo(QString n, int mi, int ma, QStringList mt = QStringList())
-        :name(n)
-        , min(mi)
-        , max(ma)
-        , childCount(0)
-        , modelTypes(mt) {}
+    SessionTagInfo() : name(QString()), min(0), max(-1), childCount(0) {}
+    SessionTagInfo(QString n, int mi, int ma, QStringList mt = QStringList())
+        :name(n), min(mi), max(ma), childCount(0), modelTypes(mt) {}
+    bool isValid() { return !name.isEmpty(); }
     QString name;
     int min;
     int max;
     int childCount;
     QStringList modelTypes;
-    inline bool isValid() { return !name.isEmpty(); }
 };
 
 

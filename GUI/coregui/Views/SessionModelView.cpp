@@ -23,9 +23,14 @@
 #include "ModelTreeView.h"
 #include "mainwindow.h"
 #include "SessionModelDelegate.h"
+#include "TestView.h"
 #include <QToolBar>
 #include <QToolButton>
 #include <QVBoxLayout>
+
+namespace {
+const bool show_test_view = true;
+}
 
 SessionModelView::SessionModelView(MainWindow *mainWindow)
     : QWidget(mainWindow)
@@ -51,6 +56,9 @@ SessionModelView::SessionModelView(MainWindow *mainWindow)
     setLayout(layout);
 
     init_tabs();
+
+    if (show_test_view)
+        init_test_view();
 }
 
 void SessionModelView::onExpandCollapseTree()
@@ -83,5 +91,12 @@ QList<SessionModel*> SessionModelView::modelsForTabs()
             << m_mainWindow->materialModel()
             << m_mainWindow->jobModel();
     return result;
+}
+
+void SessionModelView::init_test_view()
+{
+    auto view = new TestView(m_mainWindow);
+    int index = m_tabs->addTab(view, "Test View");
+    m_tabs->setCurrentIndex(index);
 }
 

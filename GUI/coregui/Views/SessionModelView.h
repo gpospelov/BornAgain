@@ -47,6 +47,7 @@ private slots:
 private:
     void init_tabs();
     QList<SessionModel*> modelsForTabs();
+    void init_test_view();
 
     MainWindow* m_mainWindow;
     QToolBar* m_toolBar;

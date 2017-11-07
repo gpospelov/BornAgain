@@ -44,7 +44,17 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
                  "    border-right: 1px solid #c7c8c9;}"
                  "QTreeView::branch {border-bottom: 1px solid #c7c8c9;}";
 
-   // background of selected rows
+   // styling of branch to restore open/closed signs eliminated by previous styling
+   styleSheet += "QTreeView::branch:has-children:!has-siblings:closed,"
+                 "QTreeView::branch:closed:has-children:has-siblings {"
+                 "border-image: none;"
+                 "image: url(:/images/treeview-branch-closed.png);}"
+                 "QTreeView::branch:open:has-children:!has-siblings,"
+                 "QTreeView::branch:open:has-children:has-siblings  {"
+                 "border-image: none;image: url(:/images/treeview-branch-open.png);"
+           "}";
+
+   // background of selected rows restored
    styleSheet += "QTreeView::item:selected{"
                  " background:#3daee9;}";
 

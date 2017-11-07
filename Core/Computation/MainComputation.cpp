@@ -26,12 +26,6 @@
 #include "SimulationElement.h"
 #include "MaterialFactoryFuncs.h"
 
-namespace
-{
-Material CalculateAverageMaterial(const Material& layer_mat,
-                                  const std::vector<HomogeneousRegion>& regions);
-}
-
 MainComputation::MainComputation(
     const MultiLayer& multilayer,
     const SimulationOptions& options,
@@ -126,7 +120,7 @@ std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer() const
         if (!checkRegions(entry.second))
             throw std::runtime_error("MainComputation::getAveragedMultilayer: "
                                      "total volumetric fraction of particles exceeds 1!");
-        auto new_mat = CalculateAverageMaterial(layer_mat, entry.second);
+        auto new_mat = createAveragedMaterial(layer_mat, entry.second);
         P_result->setLayerMaterial(i_layer, new_mat);
     }
     return P_result;
@@ -153,26 +147,4 @@ bool MainComputation::checkRegions(const std::vector<HomogeneousRegion>& regions
     for (auto& region : regions)
         total_fraction += region.m_volume;
     return (total_fraction >= 0 && total_fraction <= 1);
-}
-
-namespace
-{
-// TODO: make this procedure correct for all types of materials
-Material CalculateAverageMaterial(const Material& layer_mat,
-                                  const std::vector<HomogeneousRegion>& regions)
-{
-    kvector_t magnetization_layer = layer_mat.magnetization();
-    complex_t refr_index2_layer = layer_mat.refractiveIndex2();
-    kvector_t magnetization_avg = magnetization_layer;
-    complex_t refr_index2_avg = refr_index2_layer;
-    for (auto& region : regions)
-    {
-        kvector_t magnetization_region = region.m_material.magnetization();
-        complex_t refr_index2_region = region.m_material.refractiveIndex2();
-        magnetization_avg += region.m_volume*(magnetization_region - magnetization_layer);
-        refr_index2_avg += region.m_volume*(refr_index2_region - refr_index2_layer);
-    }
-    complex_t refr_index_avg = std::sqrt(refr_index2_avg);
-    return HomogeneousMaterial(layer_mat.getName() + "_avg", refr_index_avg, magnetization_avg);
-}
 }

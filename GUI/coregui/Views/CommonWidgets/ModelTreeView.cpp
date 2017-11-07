@@ -36,9 +36,19 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
    layout->setSpacing(0);
    layout->addWidget(m_tree);
 
+   QString styleSheet;
+
+   // lines arount cell content
+   styleSheet += "QTreeView::item {"
+                 "    border-bottom: 1px solid #c7c8c9; "
+                 "    border-right: 1px solid #c7c8c9;}"
+                 "QTreeView::branch {border-bottom: 1px solid #c7c8c9;}";
+
+   m_tree->setStyleSheet(styleSheet);
+   m_tree->setAlternatingRowColors(true);
+
    m_decorationProxy->setSessionModel(model);
    m_tree->setModel(m_decorationProxy);
-
 
    if (m_decorationProxy->rowCount(QModelIndex()) > 0)
        setExpanded(true);

@@ -47,11 +47,11 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
    // styling of branch to restore open/closed signs eliminated by previous styling
    styleSheet += "QTreeView::branch:has-children:!has-siblings:closed,"
                  "QTreeView::branch:closed:has-children:has-siblings {"
-                 "border-image: none;"
-                 "image: url(:/images/treeview-branch-closed.png);}"
+                 "padding:2px 2px 2px 2px;border-image: none;"
+                 "image: url(:/images/caret-right.svg);}"
                  "QTreeView::branch:open:has-children:!has-siblings,"
                  "QTreeView::branch:open:has-children:has-siblings  {"
-                 "border-image: none;image: url(:/images/treeview-branch-open.png);"
+                 "padding:2px 2px 2px 2px;border-image: none; image: url(:/images/caret-down.svg);"
            "}";
 
    // background of selected rows restored

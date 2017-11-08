@@ -17,12 +17,12 @@
 namespace {
     const QStringList expectedCylinderParams = {
         "None", "Particle/Cylinder/Radius", "Particle/Cylinder/Height",
-        "Particle/Position/X", "Particle/Position/Y", "Particle/Position/Z"};
+        "Particle/Position Offset/X", "Particle/Position Offset/Y", "Particle/Position Offset/Z"};
 
     const QStringList expectedBoxParams = {
         "None", "Particle/Box/Length", "Particle/Box/Width",
-        "Particle/Box/Height", "Particle/Position/X",
-        "Particle/Position/Y", "Particle/Position/Z"};
+        "Particle/Box/Height", "Particle/Position Offset/X",
+        "Particle/Position Offset/Y", "Particle/Position Offset/Z"};
 }
 
 

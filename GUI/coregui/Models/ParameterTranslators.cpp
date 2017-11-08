@@ -148,29 +148,30 @@ QStringList MesoCrystalTranslator::translate(const QStringList& list) const
     return result;
 }
 
-VectorParameterTranslator::VectorParameterTranslator(QString base_name)
-    : m_base_name { base_name }
+VectorParameterTranslator::VectorParameterTranslator(QString gui_name, std::string base_name)
+    : m_gui_name { gui_name }
+    , m_base_name { base_name }
 {}
 
 VectorParameterTranslator*VectorParameterTranslator::clone() const
 {
-    return new VectorParameterTranslator(m_base_name);
+    return new VectorParameterTranslator(m_gui_name, m_base_name);
 }
 
 QStringList VectorParameterTranslator::translate(const QStringList& list) const
 {
-    if(list.back() != m_base_name)
+    if(list.back() != m_gui_name)
         return list;
 
     Q_ASSERT(list.size() == 2);
 
     QStringList result;
     if (list.front() == VectorItem::P_X) {
-        result << QString::fromStdString(IParameterized::XComponentName(m_base_name.toStdString()));
+        result << QString::fromStdString(IParameterized::XComponentName(m_base_name));
     } else if (list.front() == VectorItem::P_Y) {
-        result << QString::fromStdString(IParameterized::YComponentName(m_base_name.toStdString()));
+        result << QString::fromStdString(IParameterized::YComponentName(m_base_name));
     } else if (list.front() == VectorItem::P_Z) {
-        result << QString::fromStdString(IParameterized::ZComponentName(m_base_name.toStdString()));
+        result << QString::fromStdString(IParameterized::ZComponentName(m_base_name));
     } else {
         GUIHelpers::Error("VectorParameterTranslator::translate() -> Unexpected list structure");
     }

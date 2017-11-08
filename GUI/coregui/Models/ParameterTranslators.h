@@ -73,14 +73,15 @@ public:
 
 class VectorParameterTranslator : public IPathTranslator {
 public:
-    VectorParameterTranslator(QString base_name);
+    VectorParameterTranslator(QString gui_name, std::string base_name);
     ~VectorParameterTranslator() override {}
 
     VectorParameterTranslator* clone() const override;
 
     virtual QStringList translate(const QStringList& list) const override;
 private:
-    QString m_base_name;
+    QString m_gui_name;
+    std::string m_base_name;
 };
 
 

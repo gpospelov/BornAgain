@@ -21,7 +21,7 @@
 #include "LayerFillLimits.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "Material.h"
+#include "MaterialUtils.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <iomanip>
@@ -177,6 +177,12 @@ bool MultiLayer::containsMagneticMaterial() const
         if (mat->isMagneticMaterial())
             return true;
     return false;
+}
+
+bool MultiLayer::containsCompliantMaterials() const
+{
+    return MaterialUtils::checkMaterialTypes(containedMaterials())
+           != MATERIAL_TYPES::InvalidMaterialType;
 }
 
 void MultiLayer::initBFields()

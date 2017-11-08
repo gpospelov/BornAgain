@@ -28,9 +28,14 @@ ComponentProxyModel::ComponentProxyModel(QObject* parent)
 
 void ComponentProxyModel::setSessionModel(SessionModel* model)
 {
+    beginResetModel();
+
+    QAbstractProxyModel::setSourceModel(model);
+
+    endResetModel();
+
     m_model = model;
     buildModelMap();
-    QAbstractProxyModel::setSourceModel(model);
 }
 
 QModelIndex ComponentProxyModel::mapToSource(const QModelIndex& proxyIndex) const

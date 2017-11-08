@@ -53,6 +53,6 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
 void TestComponentView::onUpdateRequest()
 {
     qDebug() << "TestComponentView::onUpdateRequest() ->";
-    m_proxyModel->setSessionModel(m_mainWindow->sampleModel());
     m_proxyTree->setModel(m_proxyModel);
+    m_proxyModel->setSessionModel(m_mainWindow->sampleModel());
 }

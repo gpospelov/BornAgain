@@ -23,9 +23,9 @@
 #include "MinimizerSettingsWidget.h"
 #include "ApplicationModels.h"
 #include "SampleModel.h"
-#include "ComponentProxyModel.h"
-#include <QTreeView>
+#include "TestComponentView.h"
 #include "mainwindow.h"
+#include <QTreeView>
 
 #ifdef BORNAGAIN_OPENGL
 #include "RealSpaceWidget.h"
@@ -52,16 +52,7 @@ void TestView::test_ComponentProxyModel()
     layout->setMargin(0);
     layout->setSpacing(0);
 
-    auto tree1 = new QTreeView;
-    tree1->setModel(m_mainWindow->sampleModel());
-
-    auto tree2 = new QTreeView;
-    auto proxy = new ComponentProxyModel(this);
-    proxy->setSessionModel(m_mainWindow->sampleModel());
-    tree2->setModel(proxy);
-
-    layout->addWidget(tree1);
-    layout->addWidget(tree2);
+    layout->addWidget(new TestComponentView(m_mainWindow));
 
     setLayout(layout);
 }

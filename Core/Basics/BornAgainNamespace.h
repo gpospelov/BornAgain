@@ -155,18 +155,10 @@ const std::string SampleBuilderType = "SampleBuilder";
 
 // Parameter names (dimensions, angles, ...)
 const std::string Abundance = "Abundance";
-const std::string PositionX = "PositionX";
-const std::string PositionY = "PositionY";
-const std::string PositionZ = "PositionZ";
-const std::string BasisVector_AX = "BasisAX";
-const std::string BasisVector_AY = "BasisAY";
-const std::string BasisVector_AZ = "BasisAZ";
-const std::string BasisVector_BX = "BasisBX";
-const std::string BasisVector_BY = "BasisBY";
-const std::string BasisVector_BZ = "BasisBZ";
-const std::string BasisVector_CX = "BasisCX";
-const std::string BasisVector_CY = "BasisCY";
-const std::string BasisVector_CZ = "BasisCZ";
+const std::string Position = "Position";
+const std::string BasisVector_A = "BasisA";
+const std::string BasisVector_B = "BasisB";
+const std::string BasisVector_C = "BasisC";
 const std::string Radius = "Radius";
 const std::string RadiusX = "RadiusX";
 const std::string RadiusY = "RadiusY";

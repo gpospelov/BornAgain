@@ -91,8 +91,10 @@ void SpecularSimulation::prepareSimulation()
             "SpecularSimulation::checkSimulation() -> Error. No sample set");
 
     // Check if the sample provided contains non-default materials of the same type.
-    // TODO: replace with Multilayer::containsCompliantMaterials when working on SpecularSimulation class
-    if (MaterialUtils::checkMaterialTypes(mP_sample->containedMaterials()) == MATERIAL_TYPES::InvalidMaterialType)
+    // TODO: replace with Multilayer::containsCompatibleMaterials when working on SpecularSimulation
+    // class
+    if (MaterialUtils::checkMaterialTypes(mP_sample->containedMaterials())
+        == MATERIAL_TYPES::InvalidMaterialType)
         throw std::runtime_error("Error in SpecularSimulation::prepareSimulation(): non-default "
                                  "materials of several types in the sample provided");
 

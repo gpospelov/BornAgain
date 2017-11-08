@@ -10439,6 +10439,11 @@ returns layer index corresponding to given global z coordinate The top interface
 %feature("docstring")  MultiLayer::containsMagneticMaterial "bool MultiLayer::containsMagneticMaterial() const
 ";
 
+%feature("docstring")  MultiLayer::containsCompliantMaterials "bool MultiLayer::containsCompliantMaterials() const
+
+Returns true if the multilayer contains non-default materials of one type only. 
+";
+
 %feature("docstring")  MultiLayer::initBFields "void MultiLayer::initBFields()
 
 precalculate the magnetic B fields in each layer 
@@ -14718,6 +14723,11 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 %feature("docstring")  MaterialUtils::MagnetizationCorrection "BA_CORE_API_ Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, BasicVector3D< T > polarization)
 
 Utility to compute magnetization correction for reduced potential and scattering length density. 
+";
+
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
+
+Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
 
 

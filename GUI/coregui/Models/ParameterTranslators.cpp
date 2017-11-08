@@ -96,66 +96,16 @@ int RoughnessTranslator::numberOfLayers() const
     return list.size();
 }
 
-//! Translates the basis vector coordinates
-
-QStringList MesoCrystalTranslator::translate(const QStringList& list) const
-{
-    if (list.size()!=2)
-        return list;
-    if (!list.back().contains(MesoCrystalItem::LATTICE_VECTOR))
-        return list;
-    QString basis_coordinate;
-    if (list.back()==MesoCrystalItem::P_VECTOR_A) {
-        if (list.front()==VectorItem::P_X) {
-            basis_coordinate = QString::fromStdString(
-                                   IParameterized::XComponentName(BornAgain::BasisVector_A));
-        } else if  (list.front()==VectorItem::P_Y) {
-            basis_coordinate = QString::fromStdString(
-                                   IParameterized::YComponentName(BornAgain::BasisVector_A));
-        } else if  (list.front()==VectorItem::P_Z) {
-            basis_coordinate = QString::fromStdString(
-                                   IParameterized::ZComponentName(BornAgain::BasisVector_A));
-        }
-    } else if (list.back()==MesoCrystalItem::P_VECTOR_B) {
-        if (list.front()==VectorItem::P_X) {
-            basis_coordinate = QString::fromStdString(
-                                   IParameterized::XComponentName(BornAgain::BasisVector_B));
-        } else if  (list.front()==VectorItem::P_Y) {
-            basis_coordinate = QString::fromStdString(
-                                   IParameterized::YComponentName(BornAgain::BasisVector_B));
-        } else if  (list.front()==VectorItem::P_Z) {
-            basis_coordinate = QString::fromStdString(
-                                   IParameterized::ZComponentName(BornAgain::BasisVector_B));
-        }
-    } else if (list.back()==MesoCrystalItem::P_VECTOR_C) {
-        if (list.front()==VectorItem::P_X) {
-            basis_coordinate = QString::fromStdString(
-                                   IParameterized::XComponentName(BornAgain::BasisVector_C));
-        } else if  (list.front()==VectorItem::P_Y) {
-            basis_coordinate = QString::fromStdString(
-                                   IParameterized::YComponentName(BornAgain::BasisVector_C));
-        } else if  (list.front()==VectorItem::P_Z) {
-            basis_coordinate = QString::fromStdString(
-                                   IParameterized::ZComponentName(BornAgain::BasisVector_C));
-        }
-    }
-    if (basis_coordinate.isEmpty())
-        return list;
-    QStringList result;
-    result << basis_coordinate
-           << QString::fromStdString(BornAgain::LatticeType)
-           << QString::fromStdString(BornAgain::CrystalType);
-    return result;
-}
-
-VectorParameterTranslator::VectorParameterTranslator(QString gui_name, std::string base_name)
-    : m_gui_name { gui_name }
-    , m_base_name { base_name }
+VectorParameterTranslator::VectorParameterTranslator(QString gui_name, std::string base_name,
+                                                     QStringList additional_names)
+    : m_gui_name { std::move(gui_name) }
+    , m_base_name { std::move(base_name) }
+    , m_additional_names { std::move(additional_names) }
 {}
 
-VectorParameterTranslator*VectorParameterTranslator::clone() const
+VectorParameterTranslator* VectorParameterTranslator::clone() const
 {
-    return new VectorParameterTranslator(m_gui_name, m_base_name);
+    return new VectorParameterTranslator(m_gui_name, m_base_name, m_additional_names);
 }
 
 QStringList VectorParameterTranslator::translate(const QStringList& list) const
@@ -174,6 +124,9 @@ QStringList VectorParameterTranslator::translate(const QStringList& list) const
         result << QString::fromStdString(IParameterized::ZComponentName(m_base_name));
     } else {
         GUIHelpers::Error("VectorParameterTranslator::translate() -> Unexpected list structure");
+    }
+    for (auto add_name : m_additional_names ) {
+        result << add_name;
     }
     return result;
 }

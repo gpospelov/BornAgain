@@ -61,19 +61,10 @@ private:
     const SessionItem* mp_parent;
 };
 
-class MesoCrystalTranslator : public IPathTranslator {
-public:
-    ~MesoCrystalTranslator() override {}
-
-    MesoCrystalTranslator* clone() const override { return new MesoCrystalTranslator; }
-
-    virtual QStringList translate(const QStringList& list) const override;
-};
-
-
 class VectorParameterTranslator : public IPathTranslator {
 public:
-    VectorParameterTranslator(QString gui_name, std::string base_name);
+    VectorParameterTranslator(QString gui_name, std::string base_name,
+                              QStringList additional_names=QStringList());
     ~VectorParameterTranslator() override {}
 
     VectorParameterTranslator* clone() const override;
@@ -82,6 +73,7 @@ public:
 private:
     QString m_gui_name;
     std::string m_base_name;
+    QStringList m_additional_names;
 };
 
 

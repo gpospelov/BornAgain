@@ -89,7 +89,14 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, BornAgain::Position));
     addTranslator(RotationTranslator());
-    addTranslator(MesoCrystalTranslator());
+    QStringList additional_names { QString::fromStdString(BornAgain::LatticeType),
+                                   QString::fromStdString(BornAgain::CrystalType) };
+    addTranslator(VectorParameterTranslator(P_VECTOR_A, BornAgain::BasisVector_A,
+                                            additional_names));
+    addTranslator(VectorParameterTranslator(P_VECTOR_B, BornAgain::BasisVector_B,
+                                            additional_names));
+    addTranslator(VectorParameterTranslator(P_VECTOR_C, BornAgain::BasisVector_C,
+                                            additional_names));
 
     mapper()->setOnParentChange(
                 [this](SessionItem *parent) {

@@ -20,7 +20,7 @@
 #include "RealParameter.h"
 #include "MathConstants.h"
 
-Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(0.0)
+Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(1.0)
 {
     setName(BornAgain::BeamType);
     init_parameters();

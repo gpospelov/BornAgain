@@ -25,7 +25,7 @@ InstrumentTest::~InstrumentTest()
 
 TEST_F(InstrumentTest, InstrumentInitialState)
 {
-    EXPECT_EQ( 0.0, m_instrument.getBeam().getIntensity());
+    EXPECT_EQ( 1.0, m_instrument.getBeamIntensity());
 }
 
 
@@ -49,5 +49,5 @@ TEST_F(InstrumentTest, InstrumentClone)
 {
     Instrument clone(m_instrument);
     EXPECT_EQ( size_t(0), clone.getDetectorDimension() );
-    EXPECT_EQ( 0.0, clone.getBeamIntensity() );
+    EXPECT_EQ( 1.0, clone.getBeamIntensity() );
 }

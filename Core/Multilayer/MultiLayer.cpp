@@ -179,7 +179,7 @@ bool MultiLayer::containsMagneticMaterial() const
     return false;
 }
 
-bool MultiLayer::containsCompliantMaterials() const
+bool MultiLayer::containsCompatibleMaterials() const
 {
     return MaterialUtils::checkMaterialTypes(containedMaterials())
            != MATERIAL_TYPES::InvalidMaterialType;

@@ -38,7 +38,7 @@ const QString position_tooltip =
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
 const QString ParticleItem::P_ABUNDANCE = QString::fromStdString(BornAgain::Abundance);
 const QString ParticleItem::P_MATERIAL = "Material";
-const QString ParticleItem::P_POSITION = "Position Offset";
+const QString ParticleItem::P_POSITION = QString::fromStdString(BornAgain::Position);
 const QString ParticleItem::T_TRANSFORMATION = "Transformation Tag";
 
 ParticleItem::ParticleItem()
@@ -55,7 +55,7 @@ ParticleItem::ParticleItem()
     registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
     setDefaultTag(T_TRANSFORMATION);
 
-    addTranslator(PositionTranslator());
+    addTranslator(VectorParameterTranslator(P_POSITION));
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange([this](SessionItem* newParent) {

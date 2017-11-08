@@ -29,27 +29,6 @@ const QStringList expectedRoughnessPars = QStringList() << QString::fromStdStrin
 
 IPathTranslator::~IPathTranslator() {}
 
-QStringList PositionTranslator::translate(const QStringList& list) const
-{
-    if(list.back() != ParticleItem::P_POSITION)
-        return list;
-
-    Q_ASSERT(list.size() == 2);
-
-    QStringList result;
-    if (list.front() == VectorItem::P_X) {
-        result << QString::fromStdString(IParameterized::XComponentName(BornAgain::Position));
-    } else if (list.front() == VectorItem::P_Y) {
-        result << QString::fromStdString(IParameterized::YComponentName(BornAgain::Position));
-    } else if (list.front() == VectorItem::P_Z) {
-        result << QString::fromStdString(IParameterized::ZComponentName(BornAgain::Position));
-    } else {
-        GUIHelpers::Error("NewPositionTranslator::translate() -> Unexpected list structure");
-    }
-
-    return result;
-}
-
 QStringList RotationTranslator::translate(const QStringList& list) const
 {
     if(list.back() != Constants::TransformationType)
@@ -166,5 +145,34 @@ QStringList MesoCrystalTranslator::translate(const QStringList& list) const
     result << basis_coordinate
            << QString::fromStdString(BornAgain::LatticeType)
            << QString::fromStdString(BornAgain::CrystalType);
+    return result;
+}
+
+VectorParameterTranslator::VectorParameterTranslator(QString base_name)
+    : m_base_name { base_name }
+{}
+
+VectorParameterTranslator*VectorParameterTranslator::clone() const
+{
+    return new VectorParameterTranslator(m_base_name);
+}
+
+QStringList VectorParameterTranslator::translate(const QStringList& list) const
+{
+    if(list.back() != m_base_name)
+        return list;
+
+    Q_ASSERT(list.size() == 2);
+
+    QStringList result;
+    if (list.front() == VectorItem::P_X) {
+        result << QString::fromStdString(IParameterized::XComponentName(m_base_name.toStdString()));
+    } else if (list.front() == VectorItem::P_Y) {
+        result << QString::fromStdString(IParameterized::YComponentName(m_base_name.toStdString()));
+    } else if (list.front() == VectorItem::P_Z) {
+        result << QString::fromStdString(IParameterized::ZComponentName(m_base_name.toStdString()));
+    } else {
+        GUIHelpers::Error("VectorParameterTranslator::translate() -> Unexpected list structure");
+    }
     return result;
 }

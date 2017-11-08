@@ -29,15 +29,6 @@ public:
     virtual QStringList translate(const QStringList& list) const=0;
 };
 
-class PositionTranslator : public IPathTranslator {
-public:
-    ~PositionTranslator() override {}
-
-    PositionTranslator* clone() const override { return new PositionTranslator; }
-
-    virtual QStringList translate(const QStringList& list) const override;
-};
-
 class RotationTranslator : public IPathTranslator {
 public:
     ~RotationTranslator() override {}
@@ -78,5 +69,19 @@ public:
 
     virtual QStringList translate(const QStringList& list) const override;
 };
+
+
+class VectorParameterTranslator : public IPathTranslator {
+public:
+    VectorParameterTranslator(QString base_name);
+    ~VectorParameterTranslator() override {}
+
+    VectorParameterTranslator* clone() const override;
+
+    virtual QStringList translate(const QStringList& list) const override;
+private:
+    QString m_base_name;
+};
+
 
 #endif // PARAMETERTRANSLATORS_H

@@ -87,7 +87,7 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
                 QStringList() << Constants::TransformationType);
 
-    addTranslator(PositionTranslator());
+    addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION));
     addTranslator(RotationTranslator());
     addTranslator(MesoCrystalTranslator());
 

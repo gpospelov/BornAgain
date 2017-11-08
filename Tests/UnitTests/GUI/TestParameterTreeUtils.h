@@ -10,7 +10,7 @@
 namespace {
     const QStringList expectedParticleParameterNames = {
         "Particle/Cylinder/Radius", "Particle/Cylinder/Height", "Particle/Abundance",
-        "Particle/Position Offset/X", "Particle/Position Offset/Y", "Particle/Position Offset/Z"};
+        "Particle/Position/X", "Particle/Position/Y", "Particle/Position/Z"};
 
     const QStringList expectedParticleParameterTranslations = {
         "Particle/Cylinder/Radius", "Particle/Cylinder/Height", "Particle/Abundance",
@@ -71,5 +71,5 @@ inline void TestParameterTreeUtils::test_linkItemFromParameterName()
         ffItem->getItem(CylinderItem::P_HEIGHT),
         ParameterTreeUtils::parameterNameToLinkedItem("Particle/Cylinder/Height", particle));
     QCOMPARE(particle->getItem(ParticleItem::P_POSITION)->getItem(VectorItem::P_X),
-             ParameterTreeUtils::parameterNameToLinkedItem("Particle/Position Offset/X", particle));
+             ParameterTreeUtils::parameterNameToLinkedItem("Particle/Position/X", particle));
 }

@@ -52,7 +52,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
                 QStringList() << Constants::TransformationType);
 
-    addTranslator(PositionTranslator());
+    addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION));
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange(

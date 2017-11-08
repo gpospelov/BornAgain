@@ -22713,6 +22713,18 @@ class Material(_object):
         return _libBornAgainCore.Material_isEmpty(self)
 
 
+    def isDefaultMaterial(self):
+        """
+        isDefaultMaterial(Material self) -> bool
+
+        bool Material::isDefaultMaterial() const
+
+        Returns true if material has refractive index of (1.0, 0.0) and zero magnetization. 
+
+        """
+        return _libBornAgainCore.Material_isDefaultMaterial(self)
+
+
     def scalarSubtrSLD(self, wavevectors):
         """
         scalarSubtrSLD(Material self, WavevectorInfo wavevectors) -> complex_t
@@ -22750,7 +22762,7 @@ def HomogeneousMaterial(*args):
 
     BA_CORE_API_ Material HomogeneousMaterial()
 
-    Constructs vacuum material based on refractive coefficients. Though in practice there is no difference between vacuum materials produced with  MaterialBySLD() and  HomogeneousMaterial(), they are not equal because of the difference in the type of underlying data 
+    Constructs material with zero refractive coefficients and zero magnetization. 
 
     """
     return _libBornAgainCore.HomogeneousMaterial(*args)
@@ -22787,10 +22799,21 @@ def MaterialBySLD(*args):
 
     BA_CORE_API_ Material MaterialBySLD()
 
-    Constructs wavelength-independent vacuum material. Though in practice there is no difference between vacuum materials produced with  MaterialBySLD() and  HomogeneousMaterial(), they are not equal because of the difference in the type of underlying data 
+    Constructs wavelength-independent material with zero sld and zero magnetization. 
 
     """
     return _libBornAgainCore.MaterialBySLD(*args)
+
+def createAveragedMaterial(layer_mat, regions):
+    """
+    createAveragedMaterial(Material layer_mat, std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > > const & regions) -> Material
+
+    BA_CORE_API_ Material createAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
+
+    Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
+
+    """
+    return _libBornAgainCore.createAveragedMaterial(layer_mat, regions)
 class MesoCrystal(IParticle):
     """
 

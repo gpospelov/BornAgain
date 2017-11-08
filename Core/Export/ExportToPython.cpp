@@ -45,6 +45,7 @@
 #include "ParameterUtils.h"
 #include <iomanip>
 #include <set>
+#include <map>
 #include <functional>
 
 class IFormFactor;
@@ -183,6 +184,10 @@ std::string ExportToPython::defineGetSample() const
         + "\n";
 }
 
+const std::map<MATERIAL_TYPES, std::string> factory_names{
+    {MATERIAL_TYPES::RefractiveMaterial, "HomogeneousMaterial"},
+    {MATERIAL_TYPES::MaterialBySLD, "MaterialBySLD"}};
+
 std::string ExportToPython::defineMaterials() const
 {
     const auto themap = m_label->materialMap();
@@ -197,22 +202,24 @@ std::string ExportToPython::defineMaterials() const
             continue;
         visitedMaterials.insert(it->second);
         const Material* p_material = it->first;
-        complex_t material_data = p_material->materialData();
-        double real = std::real(material_data);
-        double imag = std::imag(material_data);
+        const auto factory_name = factory_names.find(p_material->typeID());
+        if (factory_name == factory_names.cend())
+            throw std::runtime_error(
+                "Error in ExportToPython::defineMaterials(): unknown material type");
+        const complex_t& material_data = p_material->materialData();
         if (p_material->isScalarMaterial()) {
-            result << indent() << m_label->labelMaterial(p_material)
-                   << " = ba.HomogeneousMaterial(\"" << p_material->getName()
-                   << "\", " << printDouble(real) << ", "
-                   << printDouble(imag) << ")\n";
+            result << indent() << m_label->labelMaterial(p_material) << " = ba."
+                   << factory_name->second << "(\"" << p_material->getName() << "\", "
+                   << printDouble(material_data.real()) << ", " << printDouble(material_data.imag())
+                   << ")\n";
         } else {
             kvector_t magnetic_field = p_material->magnetization();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ")\n";
-            result << indent() << m_label->labelMaterial(p_material)
-                   << " = ba.HomogeneousMaterial(\"" << p_material->getName();
-            result << "\", " << printDouble(real) << ", "
-                   << printDouble(imag) << ", "
+            result << indent() << m_label->labelMaterial(p_material) << " = ba."
+                   << factory_name->second << "(\"" << p_material->getName();
+            result << "\", " << printDouble(material_data.real()) << ", "
+                   << printDouble(material_data.imag()) << ", "
                    << "magnetic_field)\n";
         }
     }

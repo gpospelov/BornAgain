@@ -1,5 +1,6 @@
 #include "MaterialUtils.h"
 #include "PhysicalConstants.h"
+#include "Material.h"
 
 using PhysConsts::m_n;
 using PhysConsts::g_factor_n;
@@ -58,4 +59,19 @@ Eigen::Matrix2cd MaterialUtils::PolarizedReducedPotential(complex_t n, kvector_t
     double factor = magnetic_prefactor / k.mag2();
     complex_t unit_factor = ScalarReducedPotential(n, k, n_ref);
     return MagnetizationCorrection(unit_factor, factor, b_field);
+}
+
+MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector<const Material*>& materials) {
+    MATERIAL_TYPES result = MATERIAL_TYPES::RefractiveMaterial;
+    bool isDefault = true;
+    for (const Material* mat : materials) {
+        if (isDefault) {
+            result = mat->typeID();
+            isDefault = mat->isDefaultMaterial();
+            continue;
+        }
+        if (mat->typeID() != result && !mat->isDefaultMaterial())
+            return MATERIAL_TYPES::InvalidMaterialType;
+    }
+    return result;
 }

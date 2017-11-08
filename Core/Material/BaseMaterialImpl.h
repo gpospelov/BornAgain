@@ -25,6 +25,7 @@ class Transform3D;
 class WavevectorInfo;
 
 enum class MATERIAL_TYPES {
+    InvalidMaterialType = -1,
     RefractiveMaterial = 0,
     MaterialBySLD
 };

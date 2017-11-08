@@ -23262,6 +23262,18 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_containsMagneticMaterial(self)
 
 
+    def containsCompliantMaterials(self):
+        """
+        containsCompliantMaterials(MultiLayer self) -> bool
+
+        bool MultiLayer::containsCompliantMaterials() const
+
+        Returns true if the multilayer contains non-default materials of one type only. 
+
+        """
+        return _libBornAgainCore.MultiLayer_containsCompliantMaterials(self)
+
+
     def initBFields(self):
         """
         initBFields(MultiLayer self)

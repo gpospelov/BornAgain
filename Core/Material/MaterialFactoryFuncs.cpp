@@ -2,13 +2,13 @@
 #include "MaterialBySLDImpl.h"
 #include "RefractiveMaterialImpl.h"
 #include "SlicedParticle.h"
+#include "MaterialUtils.h"
 
-namespace {
-MATERIAL_TYPES checkMaterialTypes(const Material& layer_mat,
-                                  const std::vector<HomogeneousRegion>& regions);
-
+namespace
+{
 template <class T>
-T averageData(const Material& layer_mat, const std::vector<HomogeneousRegion>& regions, T (*func_ptr) (const Material&));
+T averageData(const Material& layer_mat, const std::vector<HomogeneousRegion>& regions,
+              T (*func_ptr)(const Material&));
 }
 
 Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
@@ -56,7 +56,14 @@ Material createAveragedMaterial(const Material& layer_mat,
                                 const std::vector<HomogeneousRegion>& regions)
 {
     // determine the type of returned material
-    const MATERIAL_TYPES avr_material_type = checkMaterialTypes(layer_mat, regions);
+    std::vector<const Material*> materials(regions.size() + 1);
+    materials[0] = &layer_mat;
+    for (size_t i = 0, regions_size = regions.size(); i < regions_size; ++i)
+        materials[i + 1] = &regions[i].m_material;
+    const MATERIAL_TYPES avr_material_type = MaterialUtils::checkMaterialTypes(materials);
+    if (avr_material_type == MATERIAL_TYPES::InvalidMaterialType)
+        throw std::runtime_error("Error in createAveragedMaterial(): non-default materials of "
+                                 "different types used simultaneously.");
 
     // create the name of returned material
     const std::string avr_mat_name = layer_mat.getName() + "_avg";
@@ -86,25 +93,9 @@ Material createAveragedMaterial(const Material& layer_mat,
 
 namespace
 {
-MATERIAL_TYPES checkMaterialTypes(const Material& layer_mat, const std::vector<HomogeneousRegion>& regions)
-{
-    MATERIAL_TYPES result = layer_mat.typeID();
-    bool isDefault = layer_mat.isDefaultMaterial();
-    for (auto& region : regions) {
-        if (isDefault) {
-            result = region.m_material.typeID();
-            isDefault = region.m_material.isDefaultMaterial();
-            continue;
-        }
-        if (region.m_material.typeID() != result && !region.m_material.isDefaultMaterial())
-            throw std::runtime_error("Error in checkMaterialTypes(): non-default materials of "
-                                     "different types used simultaneously.");
-    }
-    return result;
-}
-
 template <class T>
-T averageData(const Material& layer_mat, const std::vector<HomogeneousRegion>& regions, T (*func_ptr) (const Material&))
+T averageData(const Material& layer_mat, const std::vector<HomogeneousRegion>& regions,
+              T (*func_ptr)(const Material&))
 {
     const T layer_data = func_ptr(layer_mat);
     T average = layer_data;

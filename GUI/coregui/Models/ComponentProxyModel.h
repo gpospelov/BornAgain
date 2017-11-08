@@ -19,6 +19,8 @@
 
 #include "WinDllMacros.h"
 #include <QAbstractProxyModel>
+#include <QPersistentModelIndex>
+#include <QMap>
 
 class SessionModel;
 
@@ -45,6 +47,12 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 private:
+    void buildModelMap();
+
+    //!< Mapping of proxy model indices to indices in source model
+    QMap<QPersistentModelIndex, QPersistentModelIndex> m_sourceToProxy;
+    //!< Mapping of proxy model indices to indices of parent in source model
+    QMap<QPersistentModelIndex, QPersistentModelIndex> m_proxySourceParent;
     SessionModel* m_model;
 };
 

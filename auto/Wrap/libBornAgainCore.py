@@ -1972,6 +1972,14 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_registerParameter(self, name, parpointer)
 
 
+    def registerVector(self, *args):
+        """
+        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec, std::string const & units)
+        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec)
+        """
+        return _libBornAgainCore.IParameterized_registerVector(self, *args)
+
+
     def setParameterValue(self, name, value):
         """
         setParameterValue(IParameterized self, std::string const & name, double value)
@@ -1980,6 +1988,11 @@ class IParameterized(INamed):
 
         """
         return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
+
+
+    def setVectorValue(self, base_name, value):
+        """setVectorValue(IParameterized self, std::string const & base_name, kvector_t value)"""
+        return _libBornAgainCore.IParameterized_setVectorValue(self, base_name, value)
 
 
     def parameter(self, name):
@@ -2015,12 +2028,53 @@ class IParameterized(INamed):
         """
         return _libBornAgainCore.IParameterized_removeParameter(self, name)
 
+
+    def removeVector(self, base_name):
+        """removeVector(IParameterized self, std::string const & base_name)"""
+        return _libBornAgainCore.IParameterized_removeVector(self, base_name)
+
+
+    def XCoordinateName(base_name):
+        """XCoordinateName(std::string const & base_name) -> std::string"""
+        return _libBornAgainCore.IParameterized_XCoordinateName(base_name)
+
+    if _newclass:
+        XCoordinateName = staticmethod(XCoordinateName)
+    __swig_getmethods__["XCoordinateName"] = lambda x: XCoordinateName
+
+    def YCoordinateName(base_name):
+        """YCoordinateName(std::string const & base_name) -> std::string"""
+        return _libBornAgainCore.IParameterized_YCoordinateName(base_name)
+
+    if _newclass:
+        YCoordinateName = staticmethod(YCoordinateName)
+    __swig_getmethods__["YCoordinateName"] = lambda x: YCoordinateName
+
+    def ZCoordinateName(base_name):
+        """ZCoordinateName(std::string const & base_name) -> std::string"""
+        return _libBornAgainCore.IParameterized_ZCoordinateName(base_name)
+
+    if _newclass:
+        ZCoordinateName = staticmethod(ZCoordinateName)
+    __swig_getmethods__["ZCoordinateName"] = lambda x: ZCoordinateName
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IParameterized(self)
         return weakref_proxy(self)
 IParameterized_swigregister = _libBornAgainCore.IParameterized_swigregister
 IParameterized_swigregister(IParameterized)
+
+def IParameterized_XCoordinateName(base_name):
+    """IParameterized_XCoordinateName(std::string const & base_name) -> std::string"""
+    return _libBornAgainCore.IParameterized_XCoordinateName(base_name)
+
+def IParameterized_YCoordinateName(base_name):
+    """IParameterized_YCoordinateName(std::string const & base_name) -> std::string"""
+    return _libBornAgainCore.IParameterized_YCoordinateName(base_name)
+
+def IParameterized_ZCoordinateName(base_name):
+    """IParameterized_ZCoordinateName(std::string const & base_name) -> std::string"""
+    return _libBornAgainCore.IParameterized_ZCoordinateName(base_name)
 
 class INode(IParameterized):
     """

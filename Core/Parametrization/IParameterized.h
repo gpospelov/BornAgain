@@ -17,6 +17,8 @@
 #define IPARAMETERIZED_H
 
 #include "INamed.h"
+#include "Vectors3D.h"
+#include "BornAgainNamespace.h"
 
 class RealLimits;
 class ParameterPool;
@@ -45,7 +47,12 @@ public:
 
     RealParameter& registerParameter(const std::string& name, double* parpointer);
 
+    void registerVector(const std::string& base_name, kvector_t* p_vec,
+                        const std::string& units=BornAgain::UnitsNm);
+
     void setParameterValue(const std::string& name, double value);
+
+    void setVectorValue(const std::string& base_name, kvector_t value);
 
     RealParameter* parameter(const std::string& name) const;
 
@@ -54,6 +61,11 @@ public:
 
     void removeParameter(const std::string& name);
 
+    void removeVector(const std::string& base_name);
+
+    static std::string XComponentName(const std::string& base_name);
+    static std::string YComponentName(const std::string& base_name);
+    static std::string ZComponentName(const std::string& base_name);
 private:
     ParameterPool* m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };

@@ -19,7 +19,7 @@ TEST_F(BeamTest, BeamInitialState)
     EXPECT_DOUBLE_EQ(M_TWOPI, m_empty_beam.getCentralK()[0]);
     EXPECT_EQ(0.0, m_empty_beam.getCentralK()[1]);
     EXPECT_EQ(0.0, m_empty_beam.getCentralK()[2]);
-    EXPECT_EQ(0.0, m_empty_beam.getIntensity());
+    EXPECT_EQ(1.0, m_empty_beam.getIntensity());
     /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ(size_t(4), m_empty_beam.getParameterPool()->size());
     EXPECT_EQ(0.0, m_empty_beam.getParameterPool()->getParameter(BornAgain::Intensity).getValue());

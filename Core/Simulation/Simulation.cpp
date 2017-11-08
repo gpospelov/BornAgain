@@ -104,6 +104,9 @@ void Simulation::setBeamPolarization(const kvector_t bloch_vector)
 void Simulation::prepareSimulation()
 {
     updateSample();
+    if (!m_sample_provider.sample()->containsCompliantMaterials())
+        throw std::runtime_error("Error in Simulation::prepareSimulation(): non-default materials of "
+                                 "several types are used in the sample provided");
     gsl_set_error_handler_off();
 }
 

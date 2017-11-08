@@ -18,6 +18,7 @@
 #include "mainwindow.h"
 #include "ComponentProxyModel.h"
 #include "SampleModel.h"
+#include "item_constants.h"
 #include <QTreeView>
 #include <QBoxLayout>
 #include <QPushButton>
@@ -25,6 +26,7 @@
 
 TestComponentView::TestComponentView(MainWindow* mainWindow)
     : m_mainWindow(mainWindow)
+    , m_sourceModel(nullptr)
     , m_proxyModel(new ComponentProxyModel(this))
     , m_sourceTree(new QTreeView)
     , m_proxyTree(new QTreeView)
@@ -47,12 +49,22 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
 
     setLayout(vlayout);
 
-    m_sourceTree->setModel(m_mainWindow->sampleModel());
+    init_source();
+
 }
 
 void TestComponentView::onUpdateRequest()
 {
     qDebug() << "TestComponentView::onUpdateRequest() ->";
     m_proxyTree->setModel(m_proxyModel);
-    m_proxyModel->setSessionModel(m_mainWindow->sampleModel());
+    m_proxyModel->setSessionModel(m_sourceModel);
+}
+
+void TestComponentView::init_source()
+{
+    m_sourceModel = new SessionModel("TestModel");
+    SessionItem* item = m_sourceModel->insertNewItem(Constants::PropertyType);
+    item->setDisplayName("PropertyItem");
+    item->setValue(42.0);
+    m_sourceTree->setModel(m_sourceModel);
 }

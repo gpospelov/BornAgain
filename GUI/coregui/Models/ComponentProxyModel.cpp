@@ -84,15 +84,15 @@ int ComponentProxyModel::rowCount(const QModelIndex& parent) const
     QModelIndex sourceParent;
     if (parent.isValid())
         sourceParent = mapToSource(parent);
-    int count = 0;
     QMapIterator<QPersistentModelIndex, QPersistentModelIndex> it(m_proxySourceParent);
 
+    QSet<int> rows;
     while (it.hasNext()) {
         it.next();
         if (it.value() == sourceParent)
-            count++;
+            rows.insert(it.value().row());
     }
-    return count;
+    return rows.size();
 }
 
 int ComponentProxyModel::columnCount(const QModelIndex& parent) const
@@ -115,11 +115,10 @@ void ComponentProxyModel::buildModelMap()
        m_sourceToProxy.insert(QPersistentModelIndex(index), proxy);
 
        QPersistentModelIndex sourceParent;
-       if (item->parent())
-           sourceParent = item->parent()->index();
+       if (index.parent().isValid())
+           sourceParent = index.parent();
 
        m_proxySourceParent.insert(proxy, sourceParent);
     });
 
 }
-

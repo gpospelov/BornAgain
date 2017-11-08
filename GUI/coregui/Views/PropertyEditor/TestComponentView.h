@@ -24,6 +24,7 @@ class MainWindow;
 class QPushButton;
 class ComponentProxyModel;
 class QTreeView;
+class SessionModel;
 
 //! View to tests QListView working with ComponentProxyModel.
 
@@ -37,7 +38,10 @@ private slots:
     void onUpdateRequest();
 
 private:
+    void init_source();
+
     MainWindow* m_mainWindow;
+    SessionModel* m_sourceModel;
     ComponentProxyModel* m_proxyModel;
     QTreeView* m_sourceTree;
     QTreeView* m_proxyTree;

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/TestComponentView.cpp
-//! @brief     Implements class TestComponentView
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoleteTestComponentView.cpp
+//! @brief     Implements class ObsoleteTestComponentView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,14 +13,14 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
-#include "TestComponentView.h"
+#include "ObsoleteTestComponentView.h"
 #include "ComponentEditor.h"
 #include "SampleModel.h"
 #include "mainwindow.h"
 #include <QHBoxLayout>
 #include <QTreeView>
 
-TestComponentView::TestComponentView(MainWindow *mainWindow)
+ObsoleteTestComponentView::ObsoleteTestComponentView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
     , m_model(new SampleModel(this))
@@ -51,7 +51,7 @@ TestComponentView::TestComponentView(MainWindow *mainWindow)
     init_editors();
 }
 
-void TestComponentView::onSelectionChanged(const QItemSelection &selected, const QItemSelection &)
+void ObsoleteTestComponentView::onSelectionChanged(const QItemSelection &selected, const QItemSelection &)
 {
     QModelIndexList indices = selected.indexes();
 
@@ -68,7 +68,7 @@ void TestComponentView::onSelectionChanged(const QItemSelection &selected, const
 
 }
 
-void TestComponentView::init_editors()
+void ObsoleteTestComponentView::init_editors()
 {
     // sample model
 //    SampleBuilderFactory factory;

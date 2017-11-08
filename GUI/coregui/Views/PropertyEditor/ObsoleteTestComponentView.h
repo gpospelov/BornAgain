@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/TestComponentView.h
-//! @brief     Defines class TestComponentView
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoleteTestComponentView.h
+//! @brief     Defines class ObsoleteTestComponentView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTCOMPONENTVIEW_H
-#define TESTCOMPONENTVIEW_H
+#ifndef OBSOLETETESTCOMPONENTVIEW_H
+#define OBSOLETETESTCOMPONENTVIEW_H
 
 #include <QWidget>
 
@@ -25,11 +25,11 @@ class ComponentEditor;
 class QTreeView;
 class QItemSelection;
 
-class TestComponentView : public QWidget
+class ObsoleteTestComponentView : public QWidget
 {
     Q_OBJECT
 public:
-    TestComponentView(MainWindow *mainWindow = 0);
+    ObsoleteTestComponentView(MainWindow *mainWindow = 0);
 
 private slots:
     void onSelectionChanged(const QItemSelection &, const QItemSelection &);

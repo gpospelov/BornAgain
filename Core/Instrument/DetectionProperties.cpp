@@ -16,12 +16,18 @@
 #include "DetectionProperties.h"
 #include "Exceptions.h"
 #include "Complex.h"
+#include "RealParameter.h"
 
 DetectionProperties::DetectionProperties()
     : m_direction {}
     , m_efficiency {}
     , m_total_transmission { 1.0 }
-{}
+{
+    setName(BornAgain::DetectorAnalyzer);
+    init_parameters();
+}
+
+DetectionProperties::~DetectionProperties() =default;
 
 void DetectionProperties::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                                double total_transmission)
@@ -70,6 +76,13 @@ double DetectionProperties::analyzerEfficiency() const
 double DetectionProperties::analyzerTotalTransmission() const
 {
     return m_total_transmission;
+}
+
+void DetectionProperties::init_parameters()
+{
+    registerVector(BornAgain::Direction, &m_direction, BornAgain::UnitsNone);
+    registerParameter(BornAgain::Efficiency, &m_efficiency);
+    registerParameter(BornAgain::Transmission, &m_total_transmission).setNonnegative();
 }
 
 bool DetectionProperties::checkAnalyzerProperties(

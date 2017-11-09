@@ -42,6 +42,7 @@ const std::string SphericalDetectorType = "SphericalDetector";
 const std::string RectangularDetectorType = "RectangularDetector";
 const std::string IsGISAXSDetectorType = "IsGISAXSDetector";
 const std::string BeamType = "Beam";
+const std::string DetectorAnalyzer = "Analyzer";
 
 // ISample object types
 const std::string MultiLayerType = "MultiLayer";
@@ -226,6 +227,9 @@ const std::string Azimuth = "AzimuthalAngle";
 const std::string TotalParticleDensity = "TotalParticleDensity";
 const std::string ExternalField = "ExternalField";
 const std::string BlochVector = "BlochVector";
+const std::string Direction = "Direction";
+const std::string Efficiency = "Efficiency";
+const std::string Transmission = "Transmission";
 
 const std::string UnitsRad = "rad";
 const std::string UnitsNm = "nm";

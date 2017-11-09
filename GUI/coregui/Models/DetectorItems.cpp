@@ -32,8 +32,9 @@ const QString analyzer_transmission_tooltip = "Total transmission of the polariz
 const QString DetectorItem::T_MASKS = "Masks";
 const QString DetectorItem::P_RESOLUTION_FUNCTION = "Resolution function";
 const QString DetectorItem::P_ANALYZER_DIRECTION = "Analyzer direction";
-const QString DetectorItem::P_ANALYZER_EFFICIENCY = "Analyzer efficiency";
-const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION = "Total transmission";
+const QString DetectorItem::P_ANALYZER_EFFICIENCY = QString::fromStdString(BornAgain::Efficiency);
+const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION =
+        QString::fromStdString(BornAgain::Transmission);
 
 DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
 {

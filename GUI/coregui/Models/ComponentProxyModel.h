@@ -46,6 +46,10 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
+private slots:
+    void onSourcedataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
+                             const QVector<int> &roles = QVector<int>());
+
 private:
     void buildModelMap();
 

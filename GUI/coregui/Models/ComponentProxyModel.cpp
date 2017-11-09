@@ -30,7 +30,17 @@ void ComponentProxyModel::setSessionModel(SessionModel* model)
 {
     beginResetModel();
 
+    if (sourceModel()) {
+        disconnect(sourceModel(), &QAbstractItemModel::dataChanged,
+                   this, &ComponentProxyModel::onSourcedataChanged);
+    }
+
     QAbstractProxyModel::setSourceModel(model);
+
+    if (sourceModel()) {
+        connect(sourceModel(), &QAbstractItemModel::dataChanged,
+                   this, &ComponentProxyModel::onSourcedataChanged);
+    }
 
     endResetModel();
 
@@ -101,6 +111,16 @@ int ComponentProxyModel::columnCount(const QModelIndex& parent) const
     return SessionModel::MAX_COLUMNS;
 }
 
+void ComponentProxyModel::onSourcedataChanged(const QModelIndex& topLeft,
+                                              const QModelIndex& bottomRight,
+                                              const QVector<int>& roles)
+{
+    Q_ASSERT(topLeft.isValid() ? topLeft.model() == sourceModel() : true);
+    Q_ASSERT(bottomRight.isValid() ? bottomRight.model() == sourceModel() : true);
+//    emit dataChanged(mapFromSource(topLeft), mapFromSource(bottomRight), roles);
+    dataChanged(mapFromSource(topLeft), mapFromSource(bottomRight), roles);
+}
+
 //! Main method to build the map of persistent indeses.
 
 void ComponentProxyModel::buildModelMap()
@@ -111,7 +131,7 @@ void ComponentProxyModel::buildModelMap()
     ModelUtils::iterate(QModelIndex(), m_model, [=](const QModelIndex& index){
        SessionItem* item = m_model->itemForIndex(index);
 
-       qDebug() << "XXX index" << index << "index.parent" << index.parent();
+//       qDebug() << "XXX index" << index << "index.parent" << index.parent();
        QPersistentModelIndex proxy = createIndex(index.row(), index.column(), item);
        m_sourceToProxy.insert(QPersistentModelIndex(index), proxy);
 
@@ -119,9 +139,9 @@ void ComponentProxyModel::buildModelMap()
        if (index.parent().isValid())
            sourceParent = index.parent();
 
-       qDebug() << "YYY proxy" << proxy << "sourceParent" << sourceParent;
+//       qDebug() << "YYY proxy" << proxy << "sourceParent" << sourceParent;
        m_proxySourceParent.insert(proxy, sourceParent);
-       qDebug() << " ";
+//       qDebug() << " ";
     });
 
 }

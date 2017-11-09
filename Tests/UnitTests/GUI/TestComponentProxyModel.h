@@ -18,6 +18,7 @@ private slots:
     void test_setModelWithItem();
     void test_setModelWithVector();
     void test_displayRole();
+    void test_setData();
 };
 
 //! Empty proxy model.
@@ -144,4 +145,45 @@ inline void TestComponentProxyModel::test_displayRole()
 
     QCOMPARE(proxy.data(proxy.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 1.0);
     QCOMPARE(proxy.data(proxy.index(1, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 2.0);
+}
+
+//! Set model with item to proxy. Changing the data on source and checking change propagation.
+
+inline void TestComponentProxyModel::test_setData()
+{
+    SessionModel model("TestModel");
+    SessionItem* item = model.insertNewItem(Constants::PropertyType);
+    item->setValue(1.0);
+
+    ComponentProxyModel proxy;
+    proxy.setSessionModel(&model);
+
+    // checking initial data
+    QCOMPARE(model.data(model.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 1.0);
+    QCOMPARE(proxy.data(proxy.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 1.0);
+
+    // changing data in source and listening
+    QSignalSpy spySource(&model, &SessionModel::dataChanged);
+    QSignalSpy spyProxy(&proxy, &ComponentProxyModel::dataChanged);
+    QVERIFY(model.setData(model.index(0, 1, QModelIndex()), 2.0, Qt::DisplayRole));
+    QCOMPARE(item->value().toDouble(), 2.0);
+
+    // checking signaling of source
+    QCOMPARE(spySource.count(), 1);
+    QList<QVariant> arguments = spySource.takeFirst();
+    QCOMPARE(arguments.size(), 3);
+    QCOMPARE(arguments[0].toModelIndex(), model.index(0, 0, QModelIndex()));
+    QCOMPARE(arguments[1].toModelIndex(), model.index(0, 1, QModelIndex()));
+
+    // checking signaling of proxy
+    QCOMPARE(spyProxy.count(), 1);
+    QCOMPARE(proxy.data(proxy.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 2.0);
+
+    // changing data in proxy
+    QVERIFY(proxy.setData(proxy.index(0, 1, QModelIndex()), 3.0, Qt::DisplayRole));
+    QCOMPARE(item->value().toDouble(), 3.0);
+    QCOMPARE(spySource.count(), 1); // ?, sould be 2
+    QCOMPARE(spyProxy.count(), 2);
+    QCOMPARE(model.data(model.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 3.0);
+    QCOMPARE(proxy.data(proxy.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 3.0);
 }

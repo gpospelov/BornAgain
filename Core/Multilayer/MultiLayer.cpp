@@ -40,6 +40,7 @@ void MultiLayer::init_parameters()
     parameterPool()->clear(); // non-trivially needed
     registerParameter(BornAgain::CrossCorrelationLength, &m_crossCorrLength).
         setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerVector(BornAgain::ExternalField, &m_ext_field, BornAgain::UnitsNone);
 }
 
 MultiLayer* MultiLayer::clone() const

@@ -224,6 +224,7 @@ const std::string CrossCorrelationLength = "CrossCorrelationLength";
 const std::string Inclination = "InclinationAngle";
 const std::string Azimuth = "AzimuthalAngle";
 const std::string TotalParticleDensity = "TotalParticleDensity";
+const std::string ExternalField = "ExternalField";
 
 const std::string UnitsRad = "rad";
 const std::string UnitsNm = "nm";

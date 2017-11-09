@@ -151,10 +151,7 @@ bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
 bool GUITranslationTest::isValidGUIName(const std::string& guiName) const
 {
     std::string beam_polarization = BeamItem::P_POLARIZATION.toStdString();
-    std::string external_field = MultiLayerItem::P_EXTERNAL_FIELD.toStdString();
     if(guiName.find(beam_polarization)!=std::string::npos)
-        return false;
-    if(guiName.find(external_field)!=std::string::npos)
         return false;
     return true;
 }

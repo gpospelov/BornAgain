@@ -44,6 +44,7 @@ MultiLayerItem::MultiLayerItem()
     setDefaultTag(T_LAYERS);
 
     addTranslator(RoughnessTranslator(this));
+    addTranslator(VectorParameterTranslator(P_EXTERNAL_FIELD, BornAgain::ExternalField));
 
     mapper()->setOnChildrenChange(
                 [this](SessionItem*)

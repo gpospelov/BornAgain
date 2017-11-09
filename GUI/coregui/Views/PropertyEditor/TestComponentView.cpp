@@ -63,8 +63,9 @@ void TestComponentView::onUpdateRequest()
 void TestComponentView::init_source()
 {
     m_sourceModel = new SessionModel("TestModel");
-    SessionItem* item = m_sourceModel->insertNewItem(Constants::PropertyType);
-    item->setDisplayName("PropertyItem");
-    item->setValue(42.0);
+//    SessionItem* item = m_sourceModel->insertNewItem(Constants::PropertyType);
+//    item->setDisplayName("PropertyItem");
+//    item->setValue(42.0);
+    m_sourceModel->insertNewItem(Constants::VectorType);
     m_sourceTree->setModel(m_sourceModel);
 }

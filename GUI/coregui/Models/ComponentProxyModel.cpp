@@ -90,7 +90,7 @@ int ComponentProxyModel::rowCount(const QModelIndex& parent) const
     while (it.hasNext()) {
         it.next();
         if (it.value() == sourceParent)
-            rows.insert(it.value().row());
+            rows.insert(it.key().row());
     }
     return rows.size();
 }
@@ -111,6 +111,7 @@ void ComponentProxyModel::buildModelMap()
     ModelUtils::iterate(QModelIndex(), m_model, [=](const QModelIndex& index){
        SessionItem* item = m_model->itemForIndex(index);
 
+       qDebug() << "XXX index" << index << "index.parent" << index.parent();
        QPersistentModelIndex proxy = createIndex(index.row(), index.column(), item);
        m_sourceToProxy.insert(QPersistentModelIndex(index), proxy);
 
@@ -118,7 +119,9 @@ void ComponentProxyModel::buildModelMap()
        if (index.parent().isValid())
            sourceParent = index.parent();
 
+       qDebug() << "YYY proxy" << proxy << "sourceParent" << sourceParent;
        m_proxySourceParent.insert(proxy, sourceParent);
+       qDebug() << " ";
     });
 
 }

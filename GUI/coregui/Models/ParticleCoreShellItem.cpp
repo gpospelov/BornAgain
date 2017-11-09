@@ -50,7 +50,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     registerTag(T_CORE, 0, 1, QStringList() << Constants::ParticleType);
     registerTag(T_SHELL, 0, 1, QStringList() << Constants::ParticleType);
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
-                QStringList() << Constants::TransformationType);
+                QStringList() << Constants::RotationType);
 
     addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, BornAgain::Position));
     addTranslator(RotationTranslator());

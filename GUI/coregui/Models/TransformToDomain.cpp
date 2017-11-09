@@ -224,7 +224,7 @@ void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& it
 {
     QVector<SessionItem*> children = item.children();
     for (int i = 0; i < children.size(); ++i) {
-        if (children[i]->modelType() == Constants::TransformationType) {
+        if (children[i]->modelType() == Constants::RotationType) {
             auto& rot_item = children[i]->groupItem<RotationItem>(TransformationItem::P_ROT);
             auto rotation = rot_item.createRotation();
             if (rotation)

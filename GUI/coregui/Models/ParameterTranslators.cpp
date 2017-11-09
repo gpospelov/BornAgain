@@ -31,7 +31,7 @@ IPathTranslator::~IPathTranslator() {}
 
 QStringList RotationTranslator::translate(const QStringList& list) const
 {
-    if(list.back() != Constants::TransformationType)
+    if(list.back() != Constants::RotationType)
         return list;
 
     Q_ASSERT(list.size() == 3);

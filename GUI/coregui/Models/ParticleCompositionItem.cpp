@@ -54,7 +54,7 @@ ParticleCompositionItem::ParticleCompositionItem()
                                                   << Constants::MesoCrystalType);
     setDefaultTag(T_PARTICLES);
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
-                QStringList() << Constants::TransformationType);
+                QStringList() << Constants::RotationType);
 
     addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, BornAgain::Position));
     addTranslator(RotationTranslator());

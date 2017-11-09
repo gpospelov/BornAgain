@@ -528,7 +528,7 @@ void GUIObjectBuilder::visit(const RotationX* p_sample)
     Q_ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+        Constants::RotationType, m_sampleModel->indexOfItem(parent),
                 -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::XRotationType);
@@ -543,7 +543,7 @@ void GUIObjectBuilder::visit(const RotationY* p_sample)
     Q_ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+        Constants::RotationType, m_sampleModel->indexOfItem(parent),
                 -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* p_rotationItem = transformation_item->setGroupProperty(
         TransformationItem::P_ROT, Constants::YRotationType);
@@ -557,7 +557,7 @@ void GUIObjectBuilder::visit(const RotationZ* p_sample)
     Q_ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+        Constants::RotationType, m_sampleModel->indexOfItem(parent),
                 -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::ZRotationType);
@@ -571,7 +571,7 @@ void GUIObjectBuilder::visit(const RotationEuler* p_sample)
     Q_ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+        Constants::RotationType, m_sampleModel->indexOfItem(parent),
                 -1, ParticleItem::T_TRANSFORMATION);
     Q_ASSERT(transformation_item);
     SessionItem* p_rotationItem = transformation_item->setGroupProperty(

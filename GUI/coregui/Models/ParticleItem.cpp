@@ -52,7 +52,7 @@ ParticleItem::ParticleItem()
         .setToolTip(abundance_tooltip);
     addGroupProperty(P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
 
-    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
+    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::RotationType);
     setDefaultTag(T_TRANSFORMATION);
 
     addTranslator(VectorParameterTranslator(P_POSITION, BornAgain::Position));

@@ -100,7 +100,7 @@ void Beam::init_parameters()
         .setLimited(0, M_PI_2);
     registerParameter(BornAgain::Azimuth, &m_phi).setUnit(BornAgain::UnitsRad)
         .setLimited(-M_PI_2, M_PI_2);
-//    registerVector(BornAgain::BlochVector, &m_bloch_vector, BornAgain::UnitsNone);
+    registerVector(BornAgain::BlochVector, &m_bloch_vector, BornAgain::UnitsNone);
 }
 
 void Beam::swapContent(Beam& other)

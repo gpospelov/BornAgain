@@ -20,6 +20,7 @@
 #include "BeamDistributionItem.h"
 #include "BeamWavelengthItem.h"
 #include "BornAgainNamespace.h"
+#include "ParameterTranslators.h"
 #include "ScientificDoubleProperty.h"
 #include "SessionItemUtils.h"
 #include "Units.h"
@@ -44,6 +45,8 @@ BeamItem::BeamItem() : SessionItem(Constants::BeamType)
     addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
     addGroupProperty(P_POLARIZATION, Constants::VectorType)->setToolTip(polarization_tooltip);
+
+    addTranslator(VectorParameterTranslator(P_POLARIZATION, BornAgain::BlochVector));
 }
 
 BeamItem::~BeamItem(){}

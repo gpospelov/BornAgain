@@ -36,6 +36,7 @@ public:
 
 private slots:
     void onUpdateRequest();
+    void onAddItemRequest();
 
 private:
     void init_source();
@@ -46,6 +47,7 @@ private:
     QTreeView* m_sourceTree;
     QTreeView* m_proxyTree;
     QPushButton* m_updateButton;
+    QPushButton* m_addItemButton;
 };
 
 #endif // TESTCOMPONENTVIEW_H

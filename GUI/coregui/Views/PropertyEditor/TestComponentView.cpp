@@ -31,26 +31,29 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     , m_sourceTree(new QTreeView)
     , m_proxyTree(new QTreeView)
     , m_updateButton(new QPushButton("Update models"))
+    , m_addItemButton(new QPushButton("Add item"))
 {
-    auto layout = new QHBoxLayout();
+    auto buttonLayout = new QHBoxLayout;
+    buttonLayout->addWidget(m_updateButton);
+    buttonLayout->addWidget(m_addItemButton);
+    buttonLayout->addStretch();
+
+    auto widgetLayout = new QHBoxLayout;
+    widgetLayout->addWidget(m_sourceTree);
+    widgetLayout->addWidget(m_proxyTree);
+
+    auto layout = new QVBoxLayout();
     layout->setMargin(0);
     layout->setSpacing(0);
+    layout->addLayout(buttonLayout);
+    layout->addLayout(widgetLayout);
 
-    layout->addWidget(m_sourceTree);
-    layout->addWidget(m_proxyTree);
-
-    // vertical layout
-    auto vlayout = new QVBoxLayout;
-    auto button = new QPushButton("Update models");
-    connect(button, &QPushButton::clicked, this, &TestComponentView::onUpdateRequest);
-
-    vlayout->addWidget(button);
-    vlayout->addLayout(layout);
-
-    setLayout(vlayout);
+    setLayout(layout);
 
     init_source();
 
+    connect(m_updateButton, &QPushButton::clicked, this, &TestComponentView::onUpdateRequest);
+    connect(m_addItemButton, &QPushButton::clicked, this, &TestComponentView::onAddItemRequest);
 }
 
 void TestComponentView::onUpdateRequest()
@@ -58,6 +61,11 @@ void TestComponentView::onUpdateRequest()
     qDebug() << "TestComponentView::onUpdateRequest() ->";
     m_proxyTree->setModel(m_proxyModel);
     m_proxyModel->setSessionModel(m_sourceModel);
+}
+
+void TestComponentView::onAddItemRequest()
+{
+    m_sourceModel->insertNewItem(Constants::ParticleType);
 }
 
 void TestComponentView::init_source()

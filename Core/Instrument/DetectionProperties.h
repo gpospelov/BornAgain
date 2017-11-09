@@ -27,6 +27,7 @@
 class BA_CORE_API_ DetectionProperties : public INode {
 public:
     DetectionProperties();
+    DetectionProperties(const DetectionProperties& other);
 
     virtual ~DetectionProperties();
 

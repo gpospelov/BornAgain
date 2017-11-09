@@ -141,7 +141,14 @@ std::string GUITranslationTest::translationResultsToString() const
 
 bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
 {
-    (void)domainName;
+    std::vector<std::string> invalidNames {
+        BornAgain::Direction,
+        BornAgain::Efficiency,
+        BornAgain::Transmission };
+    for (auto name : invalidNames) {
+        if (domainName.find(name) != std::string::npos)
+            return false;
+    }
     return true;
 }
 

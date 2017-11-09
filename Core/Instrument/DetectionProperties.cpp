@@ -27,6 +27,15 @@ DetectionProperties::DetectionProperties()
     init_parameters();
 }
 
+DetectionProperties::DetectionProperties(const DetectionProperties& other)
+    : m_direction { other.m_direction }
+    , m_efficiency { other.m_efficiency }
+    , m_total_transmission { other.m_total_transmission }
+{
+    setName(other.getName());
+    init_parameters();
+}
+
 DetectionProperties::~DetectionProperties() =default;
 
 void DetectionProperties::setAnalyzerProperties(const kvector_t direction, double efficiency,

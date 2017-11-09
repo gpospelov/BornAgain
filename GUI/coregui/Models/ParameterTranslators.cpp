@@ -29,6 +29,26 @@ const QStringList expectedRoughnessPars = QStringList() << QString::fromStdStrin
 
 IPathTranslator::~IPathTranslator() {}
 
+AddElementTranslator::AddElementTranslator(QString gui_name, QString additional_name)
+    : m_gui_name { std::move(gui_name) }
+    , m_additional_name { std::move(additional_name) }
+{}
+
+AddElementTranslator*AddElementTranslator::clone() const
+{
+    return new AddElementTranslator(m_gui_name, m_additional_name);
+}
+
+QStringList AddElementTranslator::translate(const QStringList& list) const
+{
+    if(list.back() != m_gui_name)
+        return list;
+
+    QStringList result = list;
+    result << m_additional_name;
+    return result;
+}
+
 QStringList RotationTranslator::translate(const QStringList& list) const
 {
     if(list.back() != Constants::RotationType)

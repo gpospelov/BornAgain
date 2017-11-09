@@ -17,6 +17,7 @@
 #include "DetectorItems.h"
 #include "IDetector2D.h"
 #include "MaskItems.h"
+#include "ParameterTranslators.h"
 #include "ResolutionFunctionItems.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "SessionItemUtils.h"
@@ -45,6 +46,12 @@ DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
                 analyzer_direction_tooltip);
     addProperty(P_ANALYZER_EFFICIENCY, 0.0)->setToolTip(analyzer_efficiency_tooltip);
     addProperty(P_ANALYZER_TOTAL_TRANSMISSION, 1.0)->setToolTip(analyzer_transmission_tooltip);
+
+    QString additional_name = QString::fromStdString(BornAgain::DetectorAnalyzer);
+    addTranslator(VectorParameterTranslator(P_ANALYZER_DIRECTION, BornAgain::Direction,
+                                            { additional_name }));
+    addTranslator(AddElementTranslator(P_ANALYZER_EFFICIENCY, additional_name));
+    addTranslator(AddElementTranslator(P_ANALYZER_TOTAL_TRANSMISSION, additional_name));
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_RESOLUTION_FUNCTION)

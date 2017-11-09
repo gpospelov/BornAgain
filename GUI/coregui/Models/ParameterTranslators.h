@@ -29,6 +29,19 @@ public:
     virtual QStringList translate(const QStringList& list) const=0;
 };
 
+class AddElementTranslator : public IPathTranslator {
+public:
+    AddElementTranslator(QString gui_name, QString additional_name);
+    ~AddElementTranslator() override {}
+
+    AddElementTranslator* clone() const override;
+
+    virtual QStringList translate(const QStringList& list) const override;
+private:
+    QString m_gui_name;
+    QString m_additional_name;
+};
+
 class RotationTranslator : public IPathTranslator {
 public:
     ~RotationTranslator() override {}

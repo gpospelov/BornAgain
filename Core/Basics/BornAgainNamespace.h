@@ -33,6 +33,7 @@ const size_t Y_AXIS_INDEX = 1;
 // Simulation types
 const std::string GISASSimulationType = "GISASSimulation";
 const std::string OffSpecSimulationType = "OffSpecSimulation";
+const std::string SpecularSimulationType = "SpecularSimulation";
 
 // Instrument related constants
 const std::string InstrumentType = "Instrument";

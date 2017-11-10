@@ -157,8 +157,6 @@ private:
     QVector<IPathTranslator*> m_translators;
 };
 
-Q_DECLARE_METATYPE(SessionItem*) // INVESTIGATE something requires sessionitem be declared as meta type
-
 template<typename T>
 T& SessionItem::item(const QString& tag) const
 {

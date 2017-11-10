@@ -24,7 +24,8 @@
 ComponentProxyModel::ComponentProxyModel(QObject* parent)
     : QAbstractProxyModel(parent)
     , m_model(nullptr)
-    , m_proxyStrategy(new IndentityProxyStrategy)
+//    , m_proxyStrategy(new IndentityProxyStrategy)
+    , m_proxyStrategy(new ComponentProxyStrategy)
 {
 }
 
@@ -65,6 +66,14 @@ void ComponentProxyModel::setSessionModel(SessionModel* model)
 
     m_model = model;
     buildModelMap();
+}
+
+void ComponentProxyModel::setProxyStrategy(ProxyModelStrategy* strategy)
+{
+    m_proxyStrategy.reset(strategy);
+
+    if (m_model)
+        buildModelMap();
 }
 
 QModelIndex ComponentProxyModel::mapToSource(const QModelIndex& proxyIndex) const
@@ -126,7 +135,9 @@ int ComponentProxyModel::rowCount(const QModelIndex& parent) const
 
 int ComponentProxyModel::columnCount(const QModelIndex& parent) const
 {
-    Q_UNUSED(parent);
+    QModelIndex sourceParent = mapToSource(parent);
+    if (sourceParent.isValid() && sourceParent.column() != 0)
+        return 0;
     return SessionModel::MAX_COLUMNS;
 }
 

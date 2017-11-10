@@ -19,6 +19,7 @@
 #include "ComponentProxyModel.h"
 #include "SessionModel.h"
 #include "SessionItem.h"
+#include "ModelPath.h"
 
 void ProxyModelStrategy::buildModelMap(SessionModel* source, ComponentProxyModel* proxy)
 {
@@ -72,7 +73,7 @@ void ComponentProxyStrategy::processSourceIndex(SessionModel* model, ComponentPr
 
     SessionItem* item = model->itemForIndex(index);
 
-    if (item->parent() && item->parent()->modelType() == Constants::GroupItemType) {
+    if (isGroupChildren(item)) {
         // do parent substitution here
     } else {
         m_sourceToProxy.insert(QPersistentModelIndex(index), proxyIndex);
@@ -83,4 +84,17 @@ void ComponentProxyStrategy::processSourceIndex(SessionModel* model, ComponentPr
 
         m_proxySourceParent.insert(proxyIndex, sourceParent);
     }
+}
+
+bool ComponentProxyStrategy::isGroupChildren(SessionItem* item)
+{
+    if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
+        return true;
+
+    if (const SessionItem* ancestor = ModelPath::ancestor(item, Constants::GroupItemType)) {
+        if (ancestor != item)
+            return true;
+    }
+
+    return false;
 }

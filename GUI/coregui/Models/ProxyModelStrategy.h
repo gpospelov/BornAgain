@@ -22,6 +22,7 @@
 
 class SessionModel;
 class ComponentProxyModel;
+class SessionItem;
 
 //! Base class for proxy strategies in ComponentProxyModel.
 
@@ -63,6 +64,8 @@ class BA_CORE_API_ ComponentProxyStrategy : public ProxyModelStrategy
 public:
     void processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
                             const QModelIndex& index);
+private:
+    bool isGroupChildren(SessionItem* item);
 };
 
 #endif  // ProxyModelStrategy

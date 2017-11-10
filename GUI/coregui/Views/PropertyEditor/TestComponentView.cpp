@@ -71,6 +71,7 @@ void TestComponentView::onUpdateRequest()
 {
     qDebug() << "TestComponentView::onUpdateRequest() ->";
     m_proxyModel->setSessionModel(m_sourceModel);
+    m_proxyTree->reset();
 }
 
 void TestComponentView::onAddItemRequest()

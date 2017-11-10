@@ -4,6 +4,8 @@
 #include "item_constants.h"
 #include "ComponentProxyModel.h"
 #include "VectorItem.h"
+#include "ProxyModelStrategy.h"
+#include "ParticleItem.h"
 #include <QSignalSpy>
 #include <QDebug>
 
@@ -20,6 +22,7 @@ private slots:
     void test_displayRole();
     void test_setData();
     void test_insertRows();
+    void test_componentStrategy();
 };
 
 //! Empty proxy model.
@@ -207,5 +210,25 @@ inline void TestComponentProxyModel::test_insertRows()
     model.insertNewItem(Constants::PropertyType);
     QCOMPARE(spyProxy.count(), 1);
     QCOMPARE(proxy.rowCount(QModelIndex()), 1);
+}
+
+inline void TestComponentProxyModel::test_componentStrategy()
+{
+    SessionModel model("TestModel");
+
+    ComponentProxyModel proxy;
+    proxy.setProxyStrategy(new ComponentProxyStrategy);
+    proxy.setSessionModel(&model);
+
+    // inserting particle
+    SessionItem* item = model.insertNewItem(Constants::ParticleType);
+    SessionItem* group = item->getItem(ParticleItem::P_FORM_FACTOR);
+    SessionItem* ffItem = item->getGroupItem(ParticleItem::P_FORM_FACTOR);
+    QVERIFY(ffItem->parent() == group);
+    QVERIFY(ffItem->modelType() == Constants::CylinderType);
+
+    auto groupProxyIndex = proxy.mapFromSource(model.indexOfItem(group));
+    QCOMPARE(proxy.rowCount(groupProxyIndex), 0);
+//    QCOMPARE(proxy.columnCount(groupProxyIndex), 1);
 }
 

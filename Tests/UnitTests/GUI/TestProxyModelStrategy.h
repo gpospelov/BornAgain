@@ -18,6 +18,7 @@ public:
 private slots:
     void test_identityStrategy();
     void test_identityStrategyParticle();
+    void test_componentProxyStrategy();
 };
 
 //! Checking the mapping in the case of PropertyItem inserted in the source.
@@ -98,5 +99,10 @@ inline void TestProxyModelStrategy::test_identityStrategyParticle()
     auto radiusProxyIndex = strategy.sourceToProxy().value(model.indexOfItem(radiusItem));
     parentOfProxy = strategy.proxySourceParent().value(radiusProxyIndex);
     QVERIFY(parentOfProxy == model.indexOfItem(ffItem));
+}
+
+inline void TestProxyModelStrategy::test_componentProxyStrategy()
+{
+
 }
 

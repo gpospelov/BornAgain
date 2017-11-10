@@ -171,7 +171,6 @@ void ComponentProxyModel::sourceRowsInserted(const QModelIndex& parent, int star
 
     qDebug() << "ComponentProxyModel::sourceRowsInserted";
     buildModelMap();
-    layoutChanged();
 }
 
 //! Main method to build the map of persistent indeses.
@@ -197,4 +196,5 @@ void ComponentProxyModel::buildModelMap()
 //       qDebug() << " ";
     });
 
+    layoutChanged();
 }

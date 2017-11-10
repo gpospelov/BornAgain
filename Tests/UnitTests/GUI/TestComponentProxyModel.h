@@ -19,6 +19,7 @@ private slots:
     void test_setModelWithVector();
     void test_displayRole();
     void test_setData();
+    void test_insertRows();
 };
 
 //! Empty proxy model.
@@ -187,3 +188,24 @@ inline void TestComponentProxyModel::test_setData()
     QCOMPARE(model.data(model.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 3.0);
     QCOMPARE(proxy.data(proxy.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 3.0);
 }
+
+//! Checks norification of proxy model then source inserts rows.
+
+inline void TestComponentProxyModel::test_insertRows()
+{
+    SessionModel model("TestModel");
+
+    ComponentProxyModel proxy;
+    proxy.setSessionModel(&model);
+
+    QVERIFY(model.hasChildren(QModelIndex()) == false);
+    QVERIFY(proxy.hasChildren(QModelIndex()) == false);
+
+    QSignalSpy spyProxy(&proxy, &ComponentProxyModel::layoutChanged);
+
+    // inserting item in the source
+    model.insertNewItem(Constants::PropertyType);
+    QCOMPARE(spyProxy.count(), 1);
+    QCOMPARE(proxy.rowCount(QModelIndex()), 1);
+}
+

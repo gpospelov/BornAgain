@@ -21,6 +21,8 @@
 #include <QFile>
 #include <QMimeData>
 
+using SessionItemUtils::ParentRow;
+
 namespace
 {
 const int MaxCompression = 9;
@@ -136,7 +138,7 @@ QModelIndex SessionModel::parent(const QModelIndex& child) const
             if (parent_item == m_root_item)
                 return QModelIndex();
 
-            return createIndex(SessionItemUtils::ParentRow(*parent_item), 0, parent_item);
+            return createIndex(ParentRow(*parent_item), 0, parent_item);
         }
     }
     return QModelIndex();

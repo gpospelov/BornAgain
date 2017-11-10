@@ -30,7 +30,7 @@
 #include <QItemSelectionModel>
 #include <QMenu>
 
-using namespace SessionItemUtils;
+using SessionItemUtils::HasCHildren;
 
 namespace {
 bool openRotateWarningDialog(QWidget* parent) {

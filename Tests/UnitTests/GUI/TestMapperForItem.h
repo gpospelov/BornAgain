@@ -7,6 +7,7 @@
 #include <memory>
 #include <QtTest>
 
+using SessionItemUtils::ParentRow;
 
 //! Test Widget which logs calling activity of ModelMapper
 class Widget
@@ -207,7 +208,7 @@ inline void TestMapperForItem::test_onParentChange()
     // Mapper is looking on child; changing child's parent
     setItem(layer, &w);
     QVERIFY(m_mapped_item == layer);
-    multilayer->takeRow(SessionItemUtils::ParentRow(*layer));
+    multilayer->takeRow(ParentRow(*layer));
 
     QCOMPARE(w.m_onPropertyChangeCount, 0);
     QCOMPARE(w.m_onChildPropertyChangeCount, 0);

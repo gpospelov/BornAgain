@@ -25,6 +25,8 @@
 #include "TransformToDomain.h"
 #include "VectorItem.h"
 
+using SessionItemUtils::SetVectorItem;
+
 namespace {
 const QString abundance_tooltip =
     "Proportion of this type of particles normalized to the \n"
@@ -88,7 +90,7 @@ void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         if (isShellParticle()) {
             kvector_t zero_vector;
-            SessionItemUtils::SetVectorItem(*this, ParticleItem::P_POSITION, zero_vector);
+            SetVectorItem(*this, ParticleItem::P_POSITION, zero_vector);
             SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
             positionItem->setEnabled(false);
         }

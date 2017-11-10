@@ -56,6 +56,8 @@
 #include "Units.h"
 #include "VectorItem.h"
 
+using SessionItemUtils::GetVectorItem;
+
 std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
     MaterialProperty material_property;
@@ -81,7 +83,7 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionIte
         = item.getItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if (cross_corr_length > 0)
         P_multilayer->setCrossCorrLength(cross_corr_length);
-    auto external_field = SessionItemUtils::GetVectorItem(item, MultiLayerItem::P_EXTERNAL_FIELD);
+    auto external_field = GetVectorItem(item, MultiLayerItem::P_EXTERNAL_FIELD);
     P_multilayer->setExternalField(external_field);
     return P_multilayer;
 }
@@ -216,7 +218,7 @@ void TransformToDomain::setTransformationInfo(IParticle* result, const SessionIt
 
 void TransformToDomain::setPositionInfo(IParticle* result, const SessionItem& item)
 {
-    kvector_t pos = SessionItemUtils::GetVectorItem(item, ParticleItem::P_POSITION);
+    kvector_t pos = GetVectorItem(item, ParticleItem::P_POSITION);
     result->setPosition(pos.x(), pos.y(), pos.z());
 }
 

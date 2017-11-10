@@ -23,6 +23,7 @@
 #include "SessionItemUtils.h"
 #include <QMimeData>
 
+using SessionItemUtils::ParentRow;
 
 FitParameterProxyModel::FitParameterProxyModel(FitParameterContainerItem* fitParContainer,
                                                QObject* parent)
@@ -119,7 +120,7 @@ QModelIndex FitParameterProxyModel::parent(const QModelIndex& child) const
             if(parent_item->modelType()==Constants::FitParameterLinkType) {
                 SessionItem* fitPar = parent_item->parent();
                 if(!isValidSourceItem(fitPar)) return QModelIndex();
-                return createIndex(SessionItemUtils::ParentRow(*fitPar), 0, fitPar);
+                return createIndex(ParentRow(*fitPar), 0, fitPar);
             }
         }
     }
@@ -340,7 +341,7 @@ QModelIndex FitParameterProxyModel::indexOfItem(SessionItem* item) const
     if(SessionItem* parent_item = item->parent()) {
         if(parent_item->modelType() == Constants::FitParameterContainerType) {
             if(item->modelType() == Constants::FitParameterType) {
-                return createIndex(SessionItemUtils::ParentRow(*item), 0, item);
+                return createIndex(ParentRow(*item), 0, item);
             }
         }
         else if(parent_item->modelType() == Constants::FitParameterType) {
@@ -348,7 +349,7 @@ QModelIndex FitParameterProxyModel::indexOfItem(SessionItem* item) const
             QString tag = parent_item->tagFromItem(item);
             int col = m_columnNames.key(tag, -1);
             if(col > 0) {
-                return createIndex(SessionItemUtils::ParentRow(*parent_item), col, item);
+                return createIndex(ParentRow(*parent_item), col, item);
             }
         }
         else if(parent_item->modelType() == Constants::FitParameterLinkType) {

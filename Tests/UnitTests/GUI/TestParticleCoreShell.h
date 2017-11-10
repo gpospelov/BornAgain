@@ -7,6 +7,8 @@
 #include "VectorItem.h"
 #include <QtTest>
 
+using namespace SessionItemUtils;
+
 class TestParticleCoreShell : public QObject {
     Q_OBJECT
 
@@ -28,7 +30,7 @@ inline void TestParticleCoreShell::test_propertyAppearance()
     QVERIFY(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     QCOMPARE(coreshell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
     QVERIFY(coreshell->getItem(ParticleItem::P_POSITION)->isEnabled() == true);
-    kvector_t pos = SessionItemUtils::GetVectorItem(*coreshell, ParticleItem::P_POSITION);
+    kvector_t pos = GetVectorItem(*coreshell, ParticleItem::P_POSITION);
     QCOMPARE(pos.x(), 0.0);
     QCOMPARE(pos.y(), 0.0);
     QCOMPARE(pos.z(), 0.0);
@@ -40,7 +42,7 @@ inline void TestParticleCoreShell::test_propertyAppearance()
     QVERIFY(core->getItem(ParticleItem::P_POSITION)->isEnabled() == true);
 
     // removing core, checking that abundance restored
-    coreshell->takeRow(SessionItemUtils::ParentRow(*core));
+    coreshell->takeRow(ParentRow(*core));
     QVERIFY(core->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     QVERIFY(core->getItem(ParticleItem::P_POSITION)->isEnabled() == true);
     delete core;
@@ -61,7 +63,7 @@ inline void TestParticleCoreShell::test_propertyAppearance()
     QCOMPARE(shell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
 
     // removing shell and checking abundance, position restored
-    coreshell->takeRow(SessionItemUtils::ParentRow(*shell));
+    coreshell->takeRow(ParentRow(*shell));
     QVERIFY(shell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     QVERIFY(shell->getItem(ParticleItem::P_POSITION)->isEnabled() == true);
     delete shell;
@@ -87,7 +89,7 @@ inline void TestParticleCoreShell::test_distributionContext()
     QCOMPARE(coreshell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
 
     // removing coreshell
-    distribution->takeRow(SessionItemUtils::ParentRow(*coreshell));
+    distribution->takeRow(ParentRow(*coreshell));
     QVERIFY(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     delete coreshell;
 }
@@ -112,7 +114,7 @@ inline void TestParticleCoreShell::test_compositionContext()
     QCOMPARE(coreshell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
 
     // removing coreshell
-    composition->takeRow(SessionItemUtils::ParentRow(*coreshell));
+    composition->takeRow(ParentRow(*coreshell));
     QVERIFY(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     delete coreshell;
 }

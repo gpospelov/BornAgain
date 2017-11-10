@@ -7,6 +7,8 @@
 #include "SimulationOptionsItem.h"
 #include <QtTest>
 
+using SessionItemUtils::ParentRow;
+
 class TestMapperCases : public QObject
 {
     Q_OBJECT
@@ -35,7 +37,7 @@ inline void TestMapperCases::test_ParticeleCompositionUpdate()
         = model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
     QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
 
-    composition = distribution->takeRow(SessionItemUtils::ParentRow(*composition));
+    composition = distribution->takeRow(ParentRow(*composition));
     QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     delete composition;
 }

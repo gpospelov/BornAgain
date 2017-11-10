@@ -7,6 +7,8 @@
 #include "SessionItemUtils.h"
 #include <QtTest>
 
+using namespace SessionItemUtils;
+
 class TestParticleItem : public QObject
 {
     Q_OBJECT
@@ -48,7 +50,7 @@ inline void TestParticleItem::test_compositionContext()
     QCOMPARE(particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
 
     // removing particle, checking that abundance is enabled again
-    composition->takeRow(SessionItemUtils::ParentRow(*particle));
+    composition->takeRow(ParentRow(*particle));
     QVERIFY(particle->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     delete particle;
 }
@@ -68,7 +70,7 @@ inline void TestParticleItem::test_distributionContext()
     QCOMPARE(particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
 
     // removing particle, checking that abundance is enabled again
-    distribution->takeRow(SessionItemUtils::ParentRow(*particle));
+    distribution->takeRow(ParentRow(*particle));
     QVERIFY(particle->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     delete particle;
 }

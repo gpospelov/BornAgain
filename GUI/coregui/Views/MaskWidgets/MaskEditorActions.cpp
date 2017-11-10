@@ -191,7 +191,7 @@ bool MaskEditorActions::isSendToBackPossible() const
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
     if (indexes.size() == 1) {
         SessionItem* item = m_maskModel->itemForIndex(indexes.front());
-        if (indexes.front().row() != item->parent()->rowCount() - 1)
+        if (indexes.front().row() != item->parent()->numberOfChildren() - 1)
             result = true;
     }
     return result;

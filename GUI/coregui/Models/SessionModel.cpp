@@ -105,7 +105,7 @@ int SessionModel::rowCount(const QModelIndex& parent) const
     if (parent.isValid() && parent.column() != 0)
         return 0;
     SessionItem* parent_item = itemForIndex(parent);
-    return parent_item ? parent_item->rowCount() : 0;
+    return parent_item ? parent_item->numberOfChildren() : 0;
 }
 
 int SessionModel::columnCount(const QModelIndex& parent) const
@@ -227,7 +227,7 @@ bool SessionModel::dropMimeData(const QMimeData* data, Qt::DropAction action, in
         QByteArray xml_data = qUncompress(data->data(SessionXML::ItemMimeType));
         QXmlStreamReader reader(xml_data);
         if (row == -1)
-            row = item->rowCount();
+            row = item->numberOfChildren();
         beginInsertRows(parent, row, row);
         // this code block is currently not in use. The row parameter of the reader is removed
         //SessionReader::readItems(&reader, item, row);
@@ -252,7 +252,7 @@ SessionItem* SessionModel::insertNewItem(QString model_type, const QModelIndex& 
     SessionItem* parent_item = itemForIndex(parent);
     if (!parent_item)
         parent_item = m_root_item;
-    if (row > parent_item->rowCount())
+    if (row > parent_item->numberOfChildren())
         return nullptr;
     if (parent_item != m_root_item) {
         if (tag.isEmpty())

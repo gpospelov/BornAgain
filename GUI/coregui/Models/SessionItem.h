@@ -58,8 +58,7 @@ public:
 
     // these functions work without tags and operate on all children
     QModelIndex index() const;
-    bool hasChildren() const;
-    int rowCount() const;
+    int numberOfChildren() const;
     QVector<SessionItem*> children() const;
     SessionItem* childAt(int row) const;
     int rowOfChild(SessionItem* child) const;
@@ -80,17 +79,17 @@ public:
     // access tagged items
     SessionItem* getItem(const QString& tag = QString(), int row = 0) const;
     template<typename T> T& item(const QString& tag) const;
-
     QVector<SessionItem*> getItems(const QString& tag = QString()) const;
     bool insertItem(int row, SessionItem* item, const QString& tag = QString());
     SessionItem* takeItem(int row, const QString& tag);
 
-    // convenience functions for properties and groups
+    // convenience functions for properties
     SessionItem* addProperty(const QString& name, const QVariant& variant);
     QVariant getItemValue(const QString& tag) const;
     void setItemValue(const QString& tag, const QVariant& variant);
-    SessionItem* addGroupProperty(const QString& groupName, const QString& groupType);
 
+    // convenience functions for groups
+    SessionItem* addGroupProperty(const QString& groupName, const QString& groupType);
     SessionItem* setGroupProperty(const QString& name, const QString& value) const;
     SessionItem* getGroupItem(const QString& groupName) const;
     template<typename T> T& groupItem(const QString& groupName) const;

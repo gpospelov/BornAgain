@@ -138,7 +138,7 @@ int FitParameterProxyModel::rowCount(const QModelIndex& parent) const
         return 0;
 
     if(parent_item->modelType() == Constants::FitParameterContainerType) {
-        return parent_item->rowCount();
+        return parent_item->numberOfChildren();
     }
     else if(parent_item->modelType() == Constants::FitParameterType) {
         return parent_item->getItems(FitParameterItem::T_LINK).size();

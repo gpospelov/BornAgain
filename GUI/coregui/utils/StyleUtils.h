@@ -20,8 +20,13 @@
 #include "WinDllMacros.h"
 #include <QString>
 
+class QTreeView;
+
 namespace StyleUtils
 {
+
+//! Sets style for the tree to use in property editors.
+BA_CORE_API_ void setPropertyStyle(QTreeView* tree);
 
 //! Returns string representing the style of QTreeView intended for property editor.
 BA_CORE_API_ QString propertyTreeStyle();

@@ -15,6 +15,14 @@
 //* ************************************************************************* //
 
 #include "StyleUtils.h"
+#include <QTreeView>
+
+void StyleUtils::setPropertyStyle(QTreeView* tree)
+{
+    Q_ASSERT(tree);
+    tree->setStyleSheet(StyleUtils::propertyTreeStyle());
+    tree->setAlternatingRowColors(true);
+}
 
 QString StyleUtils::propertyTreeStyle()
 {

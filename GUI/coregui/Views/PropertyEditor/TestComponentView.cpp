@@ -60,13 +60,11 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
 
     m_sourceTree->setModel(m_sourceModel);
     m_sourceTree->setItemDelegate(m_delegate);
-    m_sourceTree->setStyleSheet(StyleUtils::propertyTreeStyle());
-    m_sourceTree->setAlternatingRowColors(true);
+    StyleUtils::setPropertyStyle(m_sourceTree);
 
     m_proxyTree->setModel(m_proxyModel);
     m_proxyTree->setItemDelegate(m_delegate);
-    m_proxyTree->setStyleSheet(StyleUtils::propertyTreeStyle());
-    m_proxyTree->setAlternatingRowColors(true);
+    StyleUtils::setPropertyStyle(m_proxyTree);
 }
 
 void TestComponentView::onUpdateRequest()

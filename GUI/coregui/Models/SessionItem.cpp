@@ -161,16 +161,6 @@ int SessionItem::rowOfChild(SessionItem* child) const
     return m_children.indexOf(child);
 }
 
-
-//! Returns the index of this item within its parent, returns -1 when no parent is set.
-
-int SessionItem::parentRow() const
-{
-    if (m_parent)
-        return m_parent->rowOfChild(const_cast<SessionItem*>(this));
-    return -1;
-}
-
 //! Returns the first child with the given name.
 SessionItem* SessionItem::getChildByName(const QString& name) const
 {

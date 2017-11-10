@@ -1,8 +1,9 @@
-#include "SampleModel.h"
-#include "ParticleItem.h"
-#include "ParticleLayoutItem.h"
 #include "ComboProperty.h"
 #include "DocumentModel.h"
+#include "ParticleItem.h"
+#include "ParticleLayoutItem.h"
+#include "SampleModel.h"
+#include "SessionItemUtils.h"
 #include "SimulationOptionsItem.h"
 #include <QtTest>
 
@@ -34,7 +35,7 @@ inline void TestMapperCases::test_ParticeleCompositionUpdate()
         = model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
     QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
 
-    composition = distribution->takeRow(composition->parentRow());
+    composition = distribution->takeRow(SessionItemUtils::ParentRow(*composition));
     QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     delete composition;
 }

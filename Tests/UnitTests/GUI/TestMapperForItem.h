@@ -1,8 +1,9 @@
-#include "SessionItem.h"
-#include "SampleModel.h"
+#include "item_constants.h"
 #include "LayerItem.h"
 #include "MultiLayerItem.h"
-#include "item_constants.h"
+#include "SampleModel.h"
+#include "SessionItem.h"
+#include "SessionItemUtils.h"
 #include <memory>
 #include <QtTest>
 
@@ -206,7 +207,7 @@ inline void TestMapperForItem::test_onParentChange()
     // Mapper is looking on child; changing child's parent
     setItem(layer, &w);
     QVERIFY(m_mapped_item == layer);
-    multilayer->takeRow(layer->parentRow());
+    multilayer->takeRow(SessionItemUtils::ParentRow(*layer));
 
     QCOMPARE(w.m_onPropertyChangeCount, 0);
     QCOMPARE(w.m_onChildPropertyChangeCount, 0);

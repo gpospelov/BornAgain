@@ -1,4 +1,3 @@
-#include <QtTest>
 #include "ParticleItem.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistributionItem.h"
@@ -6,6 +5,7 @@
 #include "SampleModel.h"
 #include "SessionItemUtils.h"
 #include "VectorItem.h"
+#include <QtTest>
 
 class TestParticleCoreShell : public QObject {
     Q_OBJECT
@@ -40,7 +40,7 @@ inline void TestParticleCoreShell::test_propertyAppearance()
     QVERIFY(core->getItem(ParticleItem::P_POSITION)->isEnabled() == true);
 
     // removing core, checking that abundance restored
-    coreshell->takeRow(core->parentRow());
+    coreshell->takeRow(SessionItemUtils::ParentRow(*core));
     QVERIFY(core->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     QVERIFY(core->getItem(ParticleItem::P_POSITION)->isEnabled() == true);
     delete core;
@@ -61,7 +61,7 @@ inline void TestParticleCoreShell::test_propertyAppearance()
     QCOMPARE(shell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
 
     // removing shell and checking abundance, position restored
-    coreshell->takeRow(shell->parentRow());
+    coreshell->takeRow(SessionItemUtils::ParentRow(*shell));
     QVERIFY(shell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     QVERIFY(shell->getItem(ParticleItem::P_POSITION)->isEnabled() == true);
     delete shell;
@@ -87,7 +87,7 @@ inline void TestParticleCoreShell::test_distributionContext()
     QCOMPARE(coreshell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
 
     // removing coreshell
-    distribution->takeRow(coreshell->parentRow());
+    distribution->takeRow(SessionItemUtils::ParentRow(*coreshell));
     QVERIFY(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     delete coreshell;
 }
@@ -112,7 +112,7 @@ inline void TestParticleCoreShell::test_compositionContext()
     QCOMPARE(coreshell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
 
     // removing coreshell
-    composition->takeRow(coreshell->parentRow());
+    composition->takeRow(SessionItemUtils::ParentRow(*coreshell));
     QVERIFY(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     delete coreshell;
 }

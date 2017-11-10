@@ -63,7 +63,6 @@ public:
     QVector<SessionItem*> children() const;
     SessionItem* childAt(int row) const;
     int rowOfChild(SessionItem* child) const;
-    int parentRow() const;
     SessionItem* getChildByName(const QString& name) const;
     SessionItem* getChildOfType(const QString& type) const;
     QVector<SessionItem*> getChildrenOfType(const QString& model_type) const;

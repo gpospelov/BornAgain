@@ -1,6 +1,7 @@
 #include "SpecularSimulation.h"
 #include "IMultiLayerBuilder.h"
 #include "Exceptions.h"
+#include "VariableBinAxis.h"
 #include "FixedBinAxis.h"
 #include "Layer.h"
 #include "MaterialFactoryFuncs.h"
@@ -33,13 +34,12 @@ SpecularSimulationTest::SpecularSimulationTest()
 TEST_F(SpecularSimulationTest, InitialState)
 {
     SpecularSimulation sim;
-    ASSERT_THROW( sim.runSimulation(), Exceptions::ClassInitializationException);
+    ASSERT_THROW( sim.runSimulation(), std::runtime_error);
     EXPECT_EQ(nullptr, sim.getAlphaAxis());
     EXPECT_EQ(nullptr, sim.sample());
-    EXPECT_EQ(nullptr, sim.sampleBuilder().get());
-    ASSERT_THROW( sim.getScalarR(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( sim.getScalarT(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( sim.getScalarKz(0), Exceptions::ClassInitializationException);
+    ASSERT_THROW( sim.getScalarR(0), std::runtime_error);
+    ASSERT_THROW( sim.getScalarT(0), std::runtime_error);
+    ASSERT_THROW( sim.getScalarKz(0), std::runtime_error);
 }
 
 TEST_F(SpecularSimulationTest, CloneOfEmpty)
@@ -47,13 +47,12 @@ TEST_F(SpecularSimulationTest, CloneOfEmpty)
     SpecularSimulation sim;
 
     SpecularSimulation *clone = sim.clone();
-    ASSERT_THROW( clone->runSimulation(), Exceptions::ClassInitializationException);
+    ASSERT_THROW( clone->runSimulation(), std::runtime_error);
     EXPECT_EQ(nullptr, clone->getAlphaAxis());
     EXPECT_EQ(nullptr, clone->sample());
-    EXPECT_EQ(nullptr, clone->sampleBuilder().get());
-    ASSERT_THROW( clone->getScalarR(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( clone->getScalarT(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( clone->getScalarKz(0), Exceptions::ClassInitializationException);
+    ASSERT_THROW( clone->getScalarR(0), std::runtime_error);
+    ASSERT_THROW( clone->getScalarT(0), std::runtime_error);
+    ASSERT_THROW( clone->getScalarKz(0), std::runtime_error);
     delete clone;
 }
 
@@ -61,16 +60,19 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
 {
     SpecularSimulation sim;
 
-    sim.setBeamParameters(1.0, 10, -2.0, 3.0);
-    EXPECT_EQ(size_t(10), sim.getAlphaAxis()->size());
-    EXPECT_EQ(-2.0, sim.getAlphaAxis()->getMin());
-    EXPECT_EQ(3.0, sim.getAlphaAxis()->getMax());
-
-    FixedBinAxis axis("axis",2, -1.0, 2.0);
+    VariableBinAxis axis("axis",2, std::vector<double>{1.0, 2.0, 3.0});
     sim.setBeamParameters(1.0, axis);
     EXPECT_EQ(size_t(2), sim.getAlphaAxis()->size());
-    EXPECT_EQ(-1.0, sim.getAlphaAxis()->getMin());
-    EXPECT_EQ(2.0, sim.getAlphaAxis()->getMax());
+    EXPECT_EQ(1.0, sim.getAlphaAxis()->getMin());
+    EXPECT_EQ(3.0, sim.getAlphaAxis()->getMax());
+
+    sim.setBeamParameters(1.0, 10, 1.0, 10.0);
+    EXPECT_EQ(size_t(10), sim.getAlphaAxis()->size());
+    EXPECT_EQ(1.0, sim.getAlphaAxis()->getMin());
+    EXPECT_EQ(10.0, sim.getAlphaAxis()->getMax());
+
+    EXPECT_THROW(sim.setBeamParameters(1.0, 10, -2.0, 3.0),
+                 Exceptions::ClassInitializationException);
 }
 
 TEST_F(SpecularSimulationTest, ConstructSimulation)
@@ -78,20 +80,20 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     SpecularSimulation sim;
     sim.setBeamParameters(1.0, 10, 0.0*Units::degree, 2.0*Units::degree);
     sim.setSample(multilayer);
-    EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(sim.sample())->numberOfLayers());
+    EXPECT_EQ( size_t(3), sim.sample()->numberOfLayers());
 
-    ASSERT_THROW( sim.getScalarR(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( sim.getScalarT(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( sim.getScalarKz(0), Exceptions::ClassInitializationException);
+    ASSERT_THROW( sim.getScalarR(0), std::runtime_error);
+    ASSERT_THROW( sim.getScalarT(0), std::runtime_error);
+    ASSERT_THROW( sim.getScalarKz(0), std::runtime_error);
 
     sim.runSimulation();
     EXPECT_EQ(size_t(10), sim.getScalarR(0).size());
     EXPECT_EQ(size_t(10), sim.getScalarT(0).size());
     EXPECT_EQ(size_t(10), sim.getScalarKz(0).size());
 
-    ASSERT_THROW( sim.getScalarR(3), Exceptions::OutOfBoundsException);
-    ASSERT_THROW( sim.getScalarT(3), Exceptions::OutOfBoundsException);
-    ASSERT_THROW( sim.getScalarKz(3), Exceptions::OutOfBoundsException);
+    ASSERT_THROW( sim.getScalarR(3), std::runtime_error);
+    ASSERT_THROW( sim.getScalarT(3), std::runtime_error);
+    ASSERT_THROW( sim.getScalarKz(3), std::runtime_error);
 
 }
 
@@ -103,11 +105,11 @@ TEST_F(SpecularSimulationTest, SimulationClone)
 
     SpecularSimulation *clone = sim.clone();
 
-    EXPECT_EQ( size_t(3), dynamic_cast<MultiLayer *>(clone->sample())->numberOfLayers());
+    EXPECT_EQ( size_t(3), clone->sample()->numberOfLayers());
 
-    ASSERT_THROW( clone->getScalarR(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( clone->getScalarT(0), Exceptions::ClassInitializationException);
-    ASSERT_THROW( clone->getScalarKz(0), Exceptions::ClassInitializationException);
+    ASSERT_THROW( clone->getScalarR(0), std::runtime_error);
+    ASSERT_THROW( clone->getScalarT(0), std::runtime_error);
+    ASSERT_THROW( clone->getScalarKz(0), std::runtime_error);
     delete clone;
 
     sim.runSimulation();

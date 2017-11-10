@@ -21,7 +21,11 @@
 #include "MaterialEditor.h"
 #include "MinimizerItem.h"
 #include "MinimizerSettingsWidget.h"
+#include "ApplicationModels.h"
+#include "SampleModel.h"
+#include "TestComponentView.h"
 #include "mainwindow.h"
+#include <QTreeView>
 
 #ifdef BORNAGAIN_OPENGL
 #include "RealSpaceWidget.h"
@@ -34,11 +38,23 @@ TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
 {
+    test_ComponentProxyModel();
 //    test_MaterialEditor();
 //    test_MinimizerSettings();
 //    test_AccordionWidget();
 //    test_RunFitWidget();
-    test_ba3d();
+//    test_ba3d();
+}
+
+void TestView::test_ComponentProxyModel()
+{
+    auto layout = new QHBoxLayout();
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
+    layout->addWidget(new TestComponentView(m_mainWindow));
+
+    setLayout(layout);
 }
 
 

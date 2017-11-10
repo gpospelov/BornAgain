@@ -31,6 +31,8 @@
 #include "TestParticleCoreShell.h"
 #include "TestPropertyRepeater.h"
 #include "TestSessionItemController.h"
+#include "TestModelUtils.h"
+#include "TestComponentProxyModel.h"
 #include <memory>
 
 class GUITestFactory {
@@ -63,36 +65,38 @@ int main(int argc, char** argv) {
 
     GUITestFactory tests;
 
-    tests.add<TestFormFactorItems>();
-    tests.add<TestFTDistributionItems>();
-    tests.add<TestParameterizedItem>();
-    tests.add<TestParticleItem>();
-    tests.add<TestLayerRoughnessItems>();
-    tests.add<TestParaCrystalItems>();
-    tests.add<TestSessionModel>();
-    tests.add<TestGUICoreObjectCorrespondence>();
-    tests.add<TestSessionItem>();
-    tests.add<TestMapperCases>();
-    tests.add<TestMapperForItem>();
-    tests.add<TestGUIHelpers>();
-    tests.add<TestFitParameterModel>();
-    tests.add<TestMaterialModel>();
-    tests.add<TestComboProperty>();
-    tests.add<TestTranslations>();
-    tests.add<TestGroupProperty>();
-    tests.add<TestParticleDistributionItem>();
-    tests.add<TestParameterTreeUtils>();
-    tests.add<TestDetectorItems>();
-    tests.add<TestLinkInstrument>();
-    tests.add<TestUpdateTimer>();
-    tests.add<TestProjectDocument>();
-    tests.add<TestSaveService>();
-    tests.add<TestOutputDataIOService>();
-    tests.add<TestIntensityDataItem>();
-    tests.add<TestProjectUtils>();
-    tests.add<TestParticleCoreShell>();
-    tests.add<TestPropertyRepeater>();
-    tests.add<TestSessionItemController>();
+//    tests.add<TestFormFactorItems>();
+//    tests.add<TestFTDistributionItems>();
+//    tests.add<TestParameterizedItem>();
+//    tests.add<TestParticleItem>();
+//    tests.add<TestLayerRoughnessItems>();
+//    tests.add<TestParaCrystalItems>();
+//    tests.add<TestSessionModel>();
+//    tests.add<TestGUICoreObjectCorrespondence>();
+//    tests.add<TestSessionItem>();
+//    tests.add<TestMapperCases>();
+//    tests.add<TestMapperForItem>();
+//    tests.add<TestGUIHelpers>();
+//    tests.add<TestFitParameterModel>();
+//    tests.add<TestMaterialModel>();
+//    tests.add<TestComboProperty>();
+//    tests.add<TestTranslations>();
+//    tests.add<TestGroupProperty>();
+//    tests.add<TestParticleDistributionItem>();
+//    tests.add<TestParameterTreeUtils>();
+//    tests.add<TestDetectorItems>();
+//    tests.add<TestLinkInstrument>();
+//    tests.add<TestUpdateTimer>();
+//    tests.add<TestProjectDocument>();
+//    tests.add<TestSaveService>();
+//    tests.add<TestOutputDataIOService>();
+//    tests.add<TestIntensityDataItem>();
+//    tests.add<TestProjectUtils>();
+//    tests.add<TestParticleCoreShell>();
+//    tests.add<TestPropertyRepeater>();
+//    tests.add<TestSessionItemController>();
+    tests.add<TestModelUtils>();
+    tests.add<TestComponentProxyModel>();
 
     return tests.runAll(argc, argv);
 }

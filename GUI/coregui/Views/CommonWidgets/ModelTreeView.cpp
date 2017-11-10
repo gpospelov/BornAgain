@@ -37,8 +37,7 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
    layout->setSpacing(0);
    layout->addWidget(m_tree);
 
-   m_tree->setStyleSheet(StyleUtils::propertyTreeStyle());
-   m_tree->setAlternatingRowColors(true);
+   StyleUtils::setPropertyStyle(m_tree);
 
    m_decorationProxy->setSessionModel(model);
    m_tree->setModel(m_decorationProxy);

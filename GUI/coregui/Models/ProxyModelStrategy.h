@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <QPersistentModelIndex>
 
-class QAbstractItemModel;
+class SessionModel;
 class ComponentProxyModel;
 
 //! Base class for proxy strategies in ComponentProxyModel.
@@ -31,13 +31,15 @@ public:
     using map_t = QMap<QPersistentModelIndex, QPersistentModelIndex>;
 
     virtual ~ProxyModelStrategy() = default;
-    virtual void buildModelMap(QAbstractItemModel* source, ComponentProxyModel* proxy) = 0;
+    void buildModelMap(SessionModel* source, ComponentProxyModel* proxy);
 
     const map_t& sourceToProxy();
     const map_t& proxySourceParent();
 
 protected:
-    QModelIndex createIndex(ComponentProxyModel* proxy, int nrow, int ncol, void* adata);
+    QModelIndex createProxyIndex(ComponentProxyModel* proxy, int nrow, int ncol, void* adata);
+    virtual void processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
+                                    const QModelIndex& index) = 0;
 
     //!< Mapping of proxy model indices to indices in source model
     QMap<QPersistentModelIndex, QPersistentModelIndex> m_sourceToProxy;
@@ -49,8 +51,9 @@ protected:
 
 class BA_CORE_API_ IndentityProxyStrategy : public ProxyModelStrategy
 {
-public:
-    void buildModelMap(QAbstractItemModel* source, ComponentProxyModel* proxy);
+protected:
+    void processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
+                            const QModelIndex& index);
 };
 
 #endif  // ProxyModelStrategy

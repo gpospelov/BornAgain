@@ -56,4 +56,13 @@ protected:
                             const QModelIndex& index);
 };
 
+//! Strategy for ComponentProxyModel which hides extra level of GroupProperty.
+
+class BA_CORE_API_ ComponentProxyStrategy : public ProxyModelStrategy
+{
+public:
+    void processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
+                            const QModelIndex& index);
+};
+
 #endif  // ProxyModelStrategy

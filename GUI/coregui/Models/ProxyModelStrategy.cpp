@@ -18,6 +18,7 @@
 #include "ModelUtils.h"
 #include "ComponentProxyModel.h"
 #include "SessionModel.h"
+#include "SessionItem.h"
 
 void ProxyModelStrategy::buildModelMap(SessionModel* source, ComponentProxyModel* proxy)
 {
@@ -61,4 +62,25 @@ void IndentityProxyStrategy::processSourceIndex(SessionModel* model, ComponentPr
         sourceParent = index.parent();
 
     m_proxySourceParent.insert(proxyIndex, sourceParent);
+}
+
+void ComponentProxyStrategy::processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
+                                                const QModelIndex& index)
+{
+    QPersistentModelIndex proxyIndex
+        = createProxyIndex(proxy, index.row(), index.column(), index.internalPointer());
+
+    SessionItem* item = model->itemForIndex(index);
+
+    if (item->parent() && item->parent()->modelType() == Constants::GroupItemType) {
+        // do parent substitution here
+    } else {
+        m_sourceToProxy.insert(QPersistentModelIndex(index), proxyIndex);
+
+        QPersistentModelIndex sourceParent;
+        if (index.parent().isValid())
+            sourceParent = index.parent();
+
+        m_proxySourceParent.insert(proxyIndex, sourceParent);
+    }
 }

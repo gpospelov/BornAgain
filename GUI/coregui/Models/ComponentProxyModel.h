@@ -18,11 +18,14 @@
 #define COMPONENTPROXYMODEL_H
 
 #include "WinDllMacros.h"
+#include "ProxyModelStrategy.h"
 #include <QAbstractProxyModel>
 #include <QPersistentModelIndex>
 #include <QMap>
+#include <memory>
 
 class SessionModel;
+class ProxyModelStrategy;
 
 //! Proxy model to adjust SessionModel for component editor (right bottom corner of SampleView
 //! and similar).
@@ -33,6 +36,8 @@ class SessionModel;
 class BA_CORE_API_ ComponentProxyModel : public QAbstractProxyModel
 {
     Q_OBJECT
+
+    friend class ProxyModelStrategy;
 public:
     ComponentProxyModel(QObject* parent = nullptr);
 
@@ -60,11 +65,8 @@ private slots:
 private:
     void buildModelMap();
 
-    //!< Mapping of proxy model indices to indices in source model
-    QMap<QPersistentModelIndex, QPersistentModelIndex> m_sourceToProxy;
-    //!< Mapping of proxy model indices to indices of parent in source model
-    QMap<QPersistentModelIndex, QPersistentModelIndex> m_proxySourceParent;
     SessionModel* m_model;
+    std::unique_ptr<ProxyModelStrategy> m_proxyStrategy;
 };
 
 #endif  // COMPONENTPROXYMODEL_H

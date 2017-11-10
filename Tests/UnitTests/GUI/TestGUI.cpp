@@ -33,6 +33,7 @@
 #include "TestSessionItemController.h"
 #include "TestModelUtils.h"
 #include "TestComponentProxyModel.h"
+#include "TestProxyModelStrategy.h"
 #include <memory>
 
 class GUITestFactory {
@@ -95,8 +96,9 @@ int main(int argc, char** argv) {
 //    tests.add<TestParticleCoreShell>();
 //    tests.add<TestPropertyRepeater>();
 //    tests.add<TestSessionItemController>();
-    tests.add<TestModelUtils>();
+//    tests.add<TestModelUtils>();
     tests.add<TestComponentProxyModel>();
+    tests.add<TestProxyModelStrategy>();
 
     return tests.runAll(argc, argv);
 }

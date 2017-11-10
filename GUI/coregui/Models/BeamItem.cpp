@@ -15,13 +15,15 @@
 // ************************************************************************** //
 
 #include "BeamItem.h"
-#include "BeamDistributionItem.h"
-#include "BornAgainNamespace.h"
-#include "ScientificDoubleProperty.h"
-#include "BeamWavelengthItem.h"
-#include "BeamAngleItems.h"
-#include "Units.h"
 #include "Beam.h"
+#include "BeamAngleItems.h"
+#include "BeamDistributionItem.h"
+#include "BeamWavelengthItem.h"
+#include "BornAgainNamespace.h"
+#include "ParameterTranslators.h"
+#include "ScientificDoubleProperty.h"
+#include "SessionItemUtils.h"
+#include "Units.h"
 
 namespace {
 const QString polarization_tooltip =
@@ -43,6 +45,8 @@ BeamItem::BeamItem() : SessionItem(Constants::BeamType)
     addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
     addGroupProperty(P_POLARIZATION, Constants::VectorType)->setToolTip(polarization_tooltip);
+
+    addTranslator(VectorParameterTranslator(P_POLARIZATION, BornAgain::BlochVector));
 }
 
 BeamItem::~BeamItem(){}
@@ -125,7 +129,7 @@ std::unique_ptr<Beam> BeamItem::createBeam() const
     double azimuthal_angle = Units::deg2rad(getAzimuthalAngle());
     result->setCentralK(lambda, inclination_angle, azimuthal_angle);
 
-    result->setPolarization(getVectorItem(P_POLARIZATION));
+    result->setPolarization(SessionItemUtils::GetVectorItem(*this, P_POLARIZATION));
 
     return result;
 }

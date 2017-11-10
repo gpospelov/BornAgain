@@ -156,7 +156,7 @@ TEST_F(SampleProviderTest, sampleInSimulationContext)
 
     // checking parameter pool
     std::unique_ptr<ParameterPool> pool(sim2.createParameterTree());
-    ASSERT_EQ(pool->size(), 1u);
+    ASSERT_EQ(pool->size(), 4u);
     EXPECT_TRUE(pool->parameter("/TestSimulation/MultiLayer/CrossCorrelationLength") != nullptr);
 
 }

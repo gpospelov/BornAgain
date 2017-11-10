@@ -44,7 +44,7 @@ inline void TestTranslations::test_TranslateRotation()
     SessionItem *particle = model.insertNewItem(Constants::ParticleType, layout->index());
 
     SessionItem* transformation= model.insertNewItem(
-        Constants::TransformationType, particle->index(), -1, ParticleItem::T_TRANSFORMATION);
+        Constants::RotationType, particle->index(), -1, ParticleItem::T_TRANSFORMATION);
 
     SessionItem* rotationItem = transformation->setGroupProperty(
                 TransformationItem::P_ROT, Constants::XRotationType);

@@ -19,6 +19,7 @@
 #include "GUIHelpers.h"
 #include "MaterialDataItem.h"
 #include "MaterialFactoryFuncs.h"
+#include "SessionItemUtils.h"
 
 namespace {
 const QString magnetization_tooltip =
@@ -65,7 +66,7 @@ std::unique_ptr<Material> MaterialItem::createMaterial() const
     double real = materialDataItem->getReal();
     double imag = materialDataItem->getImag();
 
-    auto magnetization = getVectorItem(P_MAGNETIZATION);
+    auto magnetization = SessionItemUtils::GetVectorItem(*this, P_MAGNETIZATION);
 
     return std::make_unique<Material>(HomogeneousMaterial(itemName().toStdString(), real, imag,
                                                  magnetization));

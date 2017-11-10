@@ -1,10 +1,11 @@
 #include <QtTest>
 #include "ParticleItem.h"
 #include "ParticleCoreShellItem.h"
-#include "SampleModel.h"
-#include "VectorItem.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleCompositionItem.h"
+#include "SampleModel.h"
+#include "SessionItemUtils.h"
+#include "VectorItem.h"
 
 class TestParticleCoreShell : public QObject {
     Q_OBJECT
@@ -27,7 +28,7 @@ inline void TestParticleCoreShell::test_propertyAppearance()
     QVERIFY(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == true);
     QCOMPARE(coreshell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
     QVERIFY(coreshell->getItem(ParticleItem::P_POSITION)->isEnabled() == true);
-    kvector_t pos = coreshell->getVectorItem(ParticleItem::P_POSITION);
+    kvector_t pos = SessionItemUtils::GetVectorItem(*coreshell, ParticleItem::P_POSITION);
     QCOMPARE(pos.x(), 0.0);
     QCOMPARE(pos.y(), 0.0);
     QCOMPARE(pos.z(), 0.0);

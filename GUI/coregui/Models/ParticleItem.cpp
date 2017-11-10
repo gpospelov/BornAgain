@@ -19,10 +19,11 @@
 #include "FormFactorItems.h"
 #include "MaterialItemUtils.h"
 #include "ModelPath.h"
+#include "Particle.h"
 #include "ParticleCoreShellItem.h"
+#include "SessionItemUtils.h"
 #include "TransformToDomain.h"
 #include "VectorItem.h"
-#include "Particle.h"
 
 namespace {
 const QString abundance_tooltip =
@@ -51,10 +52,10 @@ ParticleItem::ParticleItem()
         .setToolTip(abundance_tooltip);
     addGroupProperty(P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
 
-    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
+    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::RotationType);
     setDefaultTag(T_TRANSFORMATION);
 
-    addTranslator(PositionTranslator());
+    addTranslator(VectorParameterTranslator(P_POSITION, BornAgain::Position));
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange([this](SessionItem* newParent) {
@@ -87,7 +88,7 @@ void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         if (isShellParticle()) {
             kvector_t zero_vector;
-            setVectorItem(ParticleItem::P_POSITION, zero_vector);
+            SessionItemUtils::SetVectorItem(*this, ParticleItem::P_POSITION, zero_vector);
             SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
             positionItem->setEnabled(false);
         }

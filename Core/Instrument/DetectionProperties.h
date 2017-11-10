@@ -18,14 +18,18 @@
 
 #include "WinDllMacros.h"
 #include "EigenCore.h"
+#include "INode.h"
 #include "Vectors3D.h"
 
 //! Detector properties (efficiency, transmission).
 //! @ingroup simulation
 
-class BA_CORE_API_ DetectionProperties {
+class BA_CORE_API_ DetectionProperties : public INode {
 public:
     DetectionProperties();
+    DetectionProperties(const DetectionProperties& other);
+
+    virtual ~DetectionProperties();
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
@@ -38,7 +42,11 @@ public:
     kvector_t analyzerDirection() const;
     double analyzerEfficiency() const;
     double analyzerTotalTransmission() const;
+
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
 private:
+    void init_parameters();
     //! Verify if the given analyzer properties are physical
     bool checkAnalyzerProperties(const kvector_t direction, double efficiency,
                                  double total_transmission) const;

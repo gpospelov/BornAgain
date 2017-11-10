@@ -71,8 +71,7 @@ ParticleDistributionItem::ParticleDistributionItem()
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
 {
-    auto children = childItems();
-    if (children.size() == 0)
+    if (children().size() == 0)
         return nullptr;
     std::unique_ptr<IParticle> P_particle = TransformToDomain::createIParticle(*getItem());
     if (!P_particle)

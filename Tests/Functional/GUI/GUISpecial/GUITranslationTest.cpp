@@ -141,18 +141,22 @@ std::string GUITranslationTest::translationResultsToString() const
 
 bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
 {
-    (void)domainName;
+    std::vector<std::string> invalidNames {
+        BornAgain::Direction,
+        BornAgain::Efficiency,
+        BornAgain::Transmission };
+    for (auto name : invalidNames) {
+        if (domainName.find(name) != std::string::npos)
+            return false;
+    }
     return true;
 }
 
-bool GUITranslationTest::isValidGUIName(const std::string& guiName) const
+//! Returns true, if it makes sence to look for domain translation for given GUI name.
+//! Intended to supress warnings about not-yet implemented translations.
+
+bool GUITranslationTest::isValidGUIName(const std::string&) const
 {
-    std::string beam_polarization = BeamItem::P_POLARIZATION.toStdString();
-    std::string external_field = MultiLayerItem::P_EXTERNAL_FIELD.toStdString();
-    if(guiName.find(beam_polarization)!=std::string::npos)
-        return false;
-    if(guiName.find(external_field)!=std::string::npos)
-        return false;
     return true;
 }
 

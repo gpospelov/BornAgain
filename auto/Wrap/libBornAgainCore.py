@@ -1972,6 +1972,14 @@ class IParameterized(INamed):
         return _libBornAgainCore.IParameterized_registerParameter(self, name, parpointer)
 
 
+    def registerVector(self, *args):
+        """
+        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec, std::string const & units)
+        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec)
+        """
+        return _libBornAgainCore.IParameterized_registerVector(self, *args)
+
+
     def setParameterValue(self, name, value):
         """
         setParameterValue(IParameterized self, std::string const & name, double value)
@@ -1980,6 +1988,11 @@ class IParameterized(INamed):
 
         """
         return _libBornAgainCore.IParameterized_setParameterValue(self, name, value)
+
+
+    def setVectorValue(self, base_name, value):
+        """setVectorValue(IParameterized self, std::string const & base_name, kvector_t value)"""
+        return _libBornAgainCore.IParameterized_setVectorValue(self, base_name, value)
 
 
     def parameter(self, name):
@@ -2015,12 +2028,53 @@ class IParameterized(INamed):
         """
         return _libBornAgainCore.IParameterized_removeParameter(self, name)
 
+
+    def removeVector(self, base_name):
+        """removeVector(IParameterized self, std::string const & base_name)"""
+        return _libBornAgainCore.IParameterized_removeVector(self, base_name)
+
+
+    def XComponentName(base_name):
+        """XComponentName(std::string const & base_name) -> std::string"""
+        return _libBornAgainCore.IParameterized_XComponentName(base_name)
+
+    if _newclass:
+        XComponentName = staticmethod(XComponentName)
+    __swig_getmethods__["XComponentName"] = lambda x: XComponentName
+
+    def YComponentName(base_name):
+        """YComponentName(std::string const & base_name) -> std::string"""
+        return _libBornAgainCore.IParameterized_YComponentName(base_name)
+
+    if _newclass:
+        YComponentName = staticmethod(YComponentName)
+    __swig_getmethods__["YComponentName"] = lambda x: YComponentName
+
+    def ZComponentName(base_name):
+        """ZComponentName(std::string const & base_name) -> std::string"""
+        return _libBornAgainCore.IParameterized_ZComponentName(base_name)
+
+    if _newclass:
+        ZComponentName = staticmethod(ZComponentName)
+    __swig_getmethods__["ZComponentName"] = lambda x: ZComponentName
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IParameterized(self)
         return weakref_proxy(self)
 IParameterized_swigregister = _libBornAgainCore.IParameterized_swigregister
 IParameterized_swigregister(IParameterized)
+
+def IParameterized_XComponentName(base_name):
+    """IParameterized_XComponentName(std::string const & base_name) -> std::string"""
+    return _libBornAgainCore.IParameterized_XComponentName(base_name)
+
+def IParameterized_YComponentName(base_name):
+    """IParameterized_YComponentName(std::string const & base_name) -> std::string"""
+    return _libBornAgainCore.IParameterized_YComponentName(base_name)
+
+def IParameterized_ZComponentName(base_name):
+    """IParameterized_ZComponentName(std::string const & base_name) -> std::string"""
+    return _libBornAgainCore.IParameterized_ZComponentName(base_name)
 
 class INode(IParameterized):
     """

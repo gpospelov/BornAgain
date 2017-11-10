@@ -177,7 +177,7 @@ QList<SessionItem *>
 ComponentEditor::componentItems(SessionItem *item) const
 {
     QList<SessionItem *> result;
-    foreach (SessionItem *child, item->childItems()) {
+    foreach (SessionItem *child, item->children()) {
         if (!child->isVisible())
             continue;
 
@@ -203,7 +203,7 @@ ComponentEditor::componentItems(SessionItem *item) const
         }
 
         if (item->modelType() == Constants::GroupItemType) {
-            foreach (SessionItem *childOfChild, child->childItems()) {
+            foreach (SessionItem *childOfChild, child->children()) {
                 if (childOfChild->isVisible())
                     result.append(childOfChild);
             }

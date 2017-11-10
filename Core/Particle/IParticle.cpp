@@ -75,15 +75,11 @@ void IParticle::registerAbundance(bool make_registered)
 void IParticle::registerPosition(bool make_registered)
 {
     if(make_registered) {
-        if(!parameter(BornAgain::PositionX)) {
-            registerParameter(BornAgain::PositionX, &m_position[0]).setUnit(BornAgain::UnitsNm);
-            registerParameter(BornAgain::PositionY, &m_position[1]).setUnit(BornAgain::UnitsNm);
-            registerParameter(BornAgain::PositionZ, &m_position[2]).setUnit(BornAgain::UnitsNm);
+        if(!parameter(XComponentName(BornAgain::Position))) {
+            registerVector(BornAgain::Position, &m_position, BornAgain::UnitsNm);
         }
     } else {
-        removeParameter(BornAgain::PositionX);
-        removeParameter(BornAgain::PositionY);
-        removeParameter(BornAgain::PositionZ);
+        removeVector(BornAgain::Position);
     }
 }
 

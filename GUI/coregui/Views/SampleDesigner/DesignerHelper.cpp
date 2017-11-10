@@ -155,7 +155,7 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
         return QRectF(0, 0, getDefaultLayerWidth(), getDefaultLayerHeight());
     } else if (name == Constants::ParticleLayoutType) {
         return QRectF(0, 0, getDefaultParticleLayoutWidth(), getDefaultParticleLayoutHeight());
-    } else if (name == Constants::TransformationType) {
+    } else if (name == Constants::RotationType) {
         return QRectF(0, 0, getDefaultTransformationWidth(), getDefaultTransformationHeight());
     } else if (name.startsWith(Constants::FormFactorType) || name == Constants::ParticleType
                || name == Constants::ParticleCoreShellType

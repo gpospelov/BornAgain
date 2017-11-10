@@ -74,7 +74,7 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem(Constants::Partic
 void ParticleLayoutItem::updateDensityAppearance(SessionItem* item)
 {
     int count = 0;
-    for (auto child_item : childItems())
+    for (auto child_item : children())
         if (isInterference2D(child_item->modelType()))
             count++;
 

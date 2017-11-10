@@ -50,9 +50,9 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     registerTag(T_CORE, 0, 1, QStringList() << Constants::ParticleType);
     registerTag(T_SHELL, 0, 1, QStringList() << Constants::ParticleType);
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
-                QStringList() << Constants::TransformationType);
+                QStringList() << Constants::RotationType);
 
-    addTranslator(PositionTranslator());
+    addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, BornAgain::Position));
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange(
@@ -70,7 +70,6 @@ ParticleCoreShellItem::ParticleCoreShellItem()
 std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const
 {
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
-    auto children = childItems();
     std::unique_ptr<Particle> P_core {};
     std::unique_ptr<Particle> P_shell {};
     auto core_item = dynamic_cast<ParticleItem*>(getItem(T_CORE));

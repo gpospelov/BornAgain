@@ -35,7 +35,7 @@ std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(
     const SessionItem& multilayer_item) const
 {
     auto P_multilayer = TransformToDomain::createMultiLayer(multilayer_item);
-    QVector<SessionItem *> children = multilayer_item.childItems();
+    QVector<SessionItem *> children = multilayer_item.children();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::LayerType) {
             auto P_layer = buildLayer(*children[i]);
@@ -57,7 +57,7 @@ std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(
 std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const SessionItem& item) const
 {
     auto P_layer = TransformToDomain::createLayer(item);
-    QVector<SessionItem *> children = item.childItems();
+    QVector<SessionItem *> children = item.children();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleLayoutType) {
             auto P_layout = buildParticleLayout(*children[i]);

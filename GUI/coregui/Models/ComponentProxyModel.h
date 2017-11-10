@@ -47,8 +47,15 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 private slots:
-    void onSourcedataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
+    void sourceDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
                              const QVector<int> &roles = QVector<int>());
+    void sourceLayoutAboutToBeChanged(const QList<QPersistentModelIndex> &sourceParents,
+                                      QAbstractItemModel::LayoutChangeHint hint);
+    void sourceLayoutChanged(const QList<QPersistentModelIndex> &sourceParents,
+                             QAbstractItemModel::LayoutChangeHint hint);
+
+    void sourceRowsAboutToBeInserted(const QModelIndex &parent, int start, int end);
+    void sourceRowsInserted(const QModelIndex &parent, int start, int end);
 
 private:
     void buildModelMap();

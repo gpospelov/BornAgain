@@ -25,6 +25,7 @@ class QPushButton;
 class ComponentProxyModel;
 class QTreeView;
 class SessionModel;
+class SessionModelDelegate;
 
 //! View to tests QListView working with ComponentProxyModel.
 
@@ -48,6 +49,7 @@ private:
     QTreeView* m_proxyTree;
     QPushButton* m_updateButton;
     QPushButton* m_addItemButton;
+    SessionModelDelegate* m_delegate;
 };
 
 #endif // TESTCOMPONENTVIEW_H

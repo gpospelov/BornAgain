@@ -32,14 +32,31 @@ void ComponentProxyModel::setSessionModel(SessionModel* model)
 
     if (sourceModel()) {
         disconnect(sourceModel(), &QAbstractItemModel::dataChanged,
-                   this, &ComponentProxyModel::onSourcedataChanged);
+                   this, &ComponentProxyModel::sourceDataChanged);
+        disconnect(sourceModel(), &QAbstractItemModel::layoutAboutToBeChanged,
+                   this, &ComponentProxyModel::sourceLayoutAboutToBeChanged);
+        disconnect(sourceModel(), &QAbstractItemModel::layoutChanged,
+                   this, &ComponentProxyModel::sourceLayoutChanged);
+        disconnect(sourceModel(), &QAbstractItemModel::rowsAboutToBeInserted,
+                   this, &ComponentProxyModel::sourceRowsAboutToBeInserted);
+        disconnect(sourceModel(), &QAbstractItemModel::rowsInserted,
+                   this, &ComponentProxyModel::sourceRowsInserted);
+
     }
 
     QAbstractProxyModel::setSourceModel(model);
 
     if (sourceModel()) {
         connect(sourceModel(), &QAbstractItemModel::dataChanged,
-                   this, &ComponentProxyModel::onSourcedataChanged);
+                   this, &ComponentProxyModel::sourceDataChanged);
+        connect(sourceModel(), &QAbstractItemModel::layoutAboutToBeChanged,
+                   this, &ComponentProxyModel::sourceLayoutAboutToBeChanged);
+        connect(sourceModel(), &QAbstractItemModel::layoutChanged,
+                   this, &ComponentProxyModel::sourceLayoutChanged);
+        connect(sourceModel(), &QAbstractItemModel::rowsAboutToBeInserted,
+                   this, &ComponentProxyModel::sourceRowsAboutToBeInserted);
+        connect(sourceModel(), &QAbstractItemModel::rowsInserted,
+                   this, &ComponentProxyModel::sourceRowsInserted);
     }
 
     endResetModel();
@@ -111,14 +128,50 @@ int ComponentProxyModel::columnCount(const QModelIndex& parent) const
     return SessionModel::MAX_COLUMNS;
 }
 
-void ComponentProxyModel::onSourcedataChanged(const QModelIndex& topLeft,
+void ComponentProxyModel::sourceDataChanged(const QModelIndex& topLeft,
                                               const QModelIndex& bottomRight,
                                               const QVector<int>& roles)
 {
     Q_ASSERT(topLeft.isValid() ? topLeft.model() == sourceModel() : true);
     Q_ASSERT(bottomRight.isValid() ? bottomRight.model() == sourceModel() : true);
-//    emit dataChanged(mapFromSource(topLeft), mapFromSource(bottomRight), roles);
     dataChanged(mapFromSource(topLeft), mapFromSource(bottomRight), roles);
+}
+
+void ComponentProxyModel::sourceLayoutAboutToBeChanged(
+    const QList<QPersistentModelIndex>& sourceParents, QAbstractItemModel::LayoutChangeHint hint)
+{
+    Q_UNUSED(sourceParents);
+    Q_UNUSED(hint);
+    qDebug() << "ComponentProxyModel::sourceLayoutAboutToBeChanged";
+}
+
+void ComponentProxyModel::sourceLayoutChanged(const QList<QPersistentModelIndex>& sourceParents,
+                                              QAbstractItemModel::LayoutChangeHint hint)
+{
+    Q_UNUSED(sourceParents);
+    Q_UNUSED(hint);
+    qDebug() << "ComponentProxyModel::sourceLayoutChanged";
+}
+
+void ComponentProxyModel::sourceRowsAboutToBeInserted(const QModelIndex& parent, int start, int end)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(start);
+    Q_UNUSED(end);
+
+    qDebug() << "ComponentProxyModel::sourceRowsAboutToBeInserted";
+//    buildModelMap();
+}
+
+void ComponentProxyModel::sourceRowsInserted(const QModelIndex& parent, int start, int end)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(start);
+    Q_UNUSED(end);
+
+    qDebug() << "ComponentProxyModel::sourceRowsInserted";
+    buildModelMap();
+    layoutChanged();
 }
 
 //! Main method to build the map of persistent indeses.

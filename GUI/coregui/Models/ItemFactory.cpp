@@ -69,7 +69,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::LayerType] = &createInstance<LayerItem>;
     result[Constants::ParticleLayoutType] = &createInstance<ParticleLayoutItem>;
     result[Constants::ParticleType] = &createInstance<ParticleItem>;
-    result[Constants::TransformationType] = &createInstance<TransformationItem>;
+    result[Constants::RotationType] = &createInstance<TransformationItem>;
     result[Constants::ParticleCoreShellType] = &createInstance<ParticleCoreShellItem>;
     result[Constants::ParticleCompositionType] = &createInstance<ParticleCompositionItem>;
     result[Constants::ParticleDistributionType] = &createInstance<ParticleDistributionItem>;
@@ -226,7 +226,7 @@ QStringList ItemFactory::m_valid_top_item_names = QStringList()
         << Constants::ParticleCompositionType
         << Constants::MesoCrystalType
         << Constants::ParticleDistributionType
-        << Constants::TransformationType
+        << Constants::RotationType
         << Constants::InterferenceFunctionRadialParaCrystalType
         << Constants::InterferenceFunction2DParaCrystalType
         << Constants::InterferenceFunction2DLatticeType;

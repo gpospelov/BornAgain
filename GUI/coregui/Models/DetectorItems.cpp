@@ -15,12 +15,13 @@
 // ************************************************************************** //
 
 #include "DetectorItems.h"
-#include "MaskItems.h"
-#include "DetectorItems.h"
-#include "SessionModel.h"
 #include "IDetector2D.h"
+#include "MaskItems.h"
+#include "ParameterTranslators.h"
 #include "ResolutionFunctionItems.h"
 #include "ResolutionFunction2DGaussian.h"
+#include "SessionItemUtils.h"
+#include "SessionModel.h"
 
 namespace {
 const QString res_func_group_label = "Type";
@@ -32,8 +33,9 @@ const QString analyzer_transmission_tooltip = "Total transmission of the polariz
 const QString DetectorItem::T_MASKS = "Masks";
 const QString DetectorItem::P_RESOLUTION_FUNCTION = "Resolution function";
 const QString DetectorItem::P_ANALYZER_DIRECTION = "Analyzer direction";
-const QString DetectorItem::P_ANALYZER_EFFICIENCY = "Analyzer efficiency";
-const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION = "Total transmission";
+const QString DetectorItem::P_ANALYZER_EFFICIENCY = QString::fromStdString(BornAgain::Efficiency);
+const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION =
+        QString::fromStdString(BornAgain::Transmission);
 
 DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
 {
@@ -44,6 +46,12 @@ DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
                 analyzer_direction_tooltip);
     addProperty(P_ANALYZER_EFFICIENCY, 0.0)->setToolTip(analyzer_efficiency_tooltip);
     addProperty(P_ANALYZER_TOTAL_TRANSMISSION, 1.0)->setToolTip(analyzer_transmission_tooltip);
+
+    QString additional_name = QString::fromStdString(BornAgain::DetectorAnalyzer);
+    addTranslator(VectorParameterTranslator(P_ANALYZER_DIRECTION, BornAgain::Direction,
+                                            { additional_name }));
+    addTranslator(AddElementTranslator(P_ANALYZER_EFFICIENCY, additional_name));
+    addTranslator(AddElementTranslator(P_ANALYZER_TOTAL_TRANSMISSION, additional_name));
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_RESOLUTION_FUNCTION)
@@ -59,7 +67,7 @@ std::unique_ptr<IDetector2D> DetectorItem::createDetector() const
     if (auto resFunc = createResolutionFunction())
         result->setResolutionFunction(*resFunc);
 
-    kvector_t analyzer_dir = getVectorItem(P_ANALYZER_DIRECTION);
+    kvector_t analyzer_dir = SessionItemUtils::GetVectorItem(*this, P_ANALYZER_DIRECTION);
     double analyzer_eff = getItemValue(P_ANALYZER_EFFICIENCY).toDouble();
     double analyzer_total_trans = getItemValue(P_ANALYZER_TOTAL_TRANSMISSION).toDouble();
     if (analyzer_dir.mag() > 0.0)
@@ -129,8 +137,8 @@ void DetectorItem::addMasksToDomain(IDetector2D* detector) const
 
     const double scale = axesToDomainUnitsFactor();
 
-    for (int i_row = maskContainer->childItems().size(); i_row > 0; --i_row) {
-        if (auto maskItem = dynamic_cast<MaskItem*>(maskContainer->childItems().at(i_row - 1))) {
+    for (int i_row = maskContainer->children().size(); i_row > 0; --i_row) {
+        if (auto maskItem = dynamic_cast<MaskItem*>(maskContainer->children().at(i_row - 1))) {
 
             if (maskItem->modelType() == Constants::RegionOfInterestType) {
                 double xlow = scale * maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();

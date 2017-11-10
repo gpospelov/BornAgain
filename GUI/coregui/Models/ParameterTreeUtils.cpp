@@ -256,7 +256,7 @@ void handleItem(SessionItem* tree, const SessionItem* source)
         return;
     }
 
-    for (SessionItem* child : source->childItems()) {
+    for (SessionItem* child : source->children()) {
         if (child->isVisible() && child->isEnabled()) {
             if (child->modelType() == Constants::PropertyType) {
                 if (child->value().type() == QVariant::Double) {

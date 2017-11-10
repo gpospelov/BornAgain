@@ -129,6 +129,9 @@ public:
 
     bool containsMagneticMaterial() const;
 
+    //! Returns true if the multilayer contains non-default materials of one type only
+    bool containsCompatibleMaterials() const;
+
     //! precalculate the magnetic B fields in each layer
     void initBFields();
 

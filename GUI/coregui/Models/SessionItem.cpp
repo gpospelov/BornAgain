@@ -118,10 +118,10 @@ SessionItem* SessionItem::parent() const
 
 //! Returns model index of this item.
 
- QModelIndex SessionItem::index() const
+QModelIndex SessionItem::index() const
 {
-    if (m_model) {
-        return m_model->indexOfItem(const_cast<SessionItem*>(this));
+    if (model()) {
+        return model()->indexOfItem(const_cast<SessionItem*>(this));
     }
     return QModelIndex();
 }
@@ -142,11 +142,10 @@ int SessionItem::rowCount() const
 
 //! Returns vector of all children.
 
-QVector<SessionItem*> SessionItem::childItems() const
+QVector<SessionItem*> SessionItem::children() const
 {
     return m_children;
 }
-
 
 //! Returns the child at the given row.
 
@@ -435,16 +434,6 @@ QVariant SessionItem::getItemValue(const QString& tag) const
     return getItem(tag)->value();
 }
 
-kvector_t SessionItem::getVectorItem(const QString& name) const
-{
-    SessionItem* vectorItem = getItem(name);
-    Q_ASSERT(vectorItem);
-    double x = vectorItem->getItemValue(VectorItem::P_X).toDouble();
-    double y = vectorItem->getItemValue(VectorItem::P_Y).toDouble();
-    double z = vectorItem->getItemValue(VectorItem::P_Z).toDouble();
-    return { x, y, z };
-}
-
 //! Directly set value of item under given tag.
 
 void SessionItem::setItemValue(const QString& tag, const QVariant& variant)
@@ -453,14 +442,6 @@ void SessionItem::setItemValue(const QString& tag, const QVariant& variant)
         throw GUIHelpers::Error("Property not existing!");
 
     getItem(tag)->setValue(variant);
-}
-
-void SessionItem::setVectorItem(const QString& name, kvector_t value)
-{
-    auto p_vector_item = getItem(name);
-    p_vector_item->setItemValue(VectorItem::P_X, value.x());
-    p_vector_item->setItemValue(VectorItem::P_Y, value.y());
-    p_vector_item->setItemValue(VectorItem::P_Z, value.z());
 }
 
 //! Creates new group item and register new tag, returns GroupItem.

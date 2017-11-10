@@ -32,7 +32,7 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::LayerType
         << Constants::ParticleLayoutType
         << Constants::ParticleType
-        << Constants::TransformationType
+        << Constants::RotationType
         << Constants::ParticleCoreShellType
         << Constants::ParticleCompositionType
         << Constants::MesoCrystalType
@@ -67,7 +67,7 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     else if (name==Constants::ParticleType) {
         return new ParticleView();
     }
-    else if (name==Constants::TransformationType) {
+    else if (name==Constants::RotationType) {
         return new TransformationView();
     }
     else if (name==Constants::ParticleCoreShellType) {

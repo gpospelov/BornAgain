@@ -47,6 +47,7 @@
 #include "RectangularDetector.h"
 #include "RotationItems.h"
 #include "SampleModel.h"
+#include "SessionItemUtils.h"
 #include "SimulationOptionsItem.h"
 #include "SphericalDetector.h"
 #include "TransformFromDomain.h"
@@ -199,7 +200,7 @@ void GUIObjectBuilder::visit(const MultiLayer* p_sample)
     p_multilayer_item->setItemName(p_sample->getName().c_str());
     p_multilayer_item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH,
                                     p_sample->crossCorrLength());
-    p_multilayer_item->setVectorItem(MultiLayerItem::P_EXTERNAL_FIELD,
+    SessionItemUtils::SetVectorItem(*p_multilayer_item, MultiLayerItem::P_EXTERNAL_FIELD,
                                      p_sample->externalField());
     m_levelToParentItem[depth()] = p_multilayer_item;
     m_itemToSample[p_multilayer_item] = p_sample;
@@ -255,9 +256,9 @@ void GUIObjectBuilder::visit(const Crystal* p_sample)
     auto vector_b = lattice.getBasisVectorB();
     auto vector_c = lattice.getBasisVectorC();
 
-    p_mesocrystal_item->setVectorItem(MesoCrystalItem::P_VECTOR_A, vector_a);
-    p_mesocrystal_item->setVectorItem(MesoCrystalItem::P_VECTOR_B, vector_b);
-    p_mesocrystal_item->setVectorItem(MesoCrystalItem::P_VECTOR_C, vector_c);
+    SessionItemUtils::SetVectorItem(*p_mesocrystal_item, MesoCrystalItem::P_VECTOR_A, vector_a);
+    SessionItemUtils::SetVectorItem(*p_mesocrystal_item, MesoCrystalItem::P_VECTOR_B, vector_b);
+    SessionItemUtils::SetVectorItem(*p_mesocrystal_item, MesoCrystalItem::P_VECTOR_C, vector_c);
 
     // Since there is no CrystalItem, set the parent map to the MesoCrystalItem
     m_levelToParentItem[depth()] = p_mesocrystal_item;
@@ -527,7 +528,7 @@ void GUIObjectBuilder::visit(const RotationX* p_sample)
     Q_ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+        Constants::RotationType, m_sampleModel->indexOfItem(parent),
                 -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::XRotationType);
@@ -542,7 +543,7 @@ void GUIObjectBuilder::visit(const RotationY* p_sample)
     Q_ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+        Constants::RotationType, m_sampleModel->indexOfItem(parent),
                 -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* p_rotationItem = transformation_item->setGroupProperty(
         TransformationItem::P_ROT, Constants::YRotationType);
@@ -556,7 +557,7 @@ void GUIObjectBuilder::visit(const RotationZ* p_sample)
     Q_ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+        Constants::RotationType, m_sampleModel->indexOfItem(parent),
                 -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* p_rotationItem = transformation_item->setGroupProperty(
                 TransformationItem::P_ROT, Constants::ZRotationType);
@@ -570,7 +571,7 @@ void GUIObjectBuilder::visit(const RotationEuler* p_sample)
     Q_ASSERT(parent);
 
     SessionItem* transformation_item = m_sampleModel->insertNewItem(
-        Constants::TransformationType, m_sampleModel->indexOfItem(parent),
+        Constants::RotationType, m_sampleModel->indexOfItem(parent),
                 -1, ParticleItem::T_TRANSFORMATION);
     Q_ASSERT(transformation_item);
     SessionItem* p_rotationItem = transformation_item->setGroupProperty(
@@ -584,7 +585,7 @@ void GUIObjectBuilder::visit(const RotationEuler* p_sample)
 void GUIObjectBuilder::buildPositionInfo(SessionItem* p_particle_item, const IParticle* p_sample)
 {
     kvector_t position = p_sample->position();
-    p_particle_item->setVectorItem(ParticleItem::P_POSITION, position);
+    SessionItemUtils::SetVectorItem(*p_particle_item, ParticleItem::P_POSITION, position);
 }
 
 MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
@@ -600,7 +601,8 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
     complex_t material_data = material->materialData();
     MaterialItem* materialItem  =
             model->addMaterial(materialName, material_data.real(),material_data.imag());
-    materialItem->setVectorItem(MaterialItem::P_MAGNETIZATION, material->magnetization());
+    SessionItemUtils::SetVectorItem(*materialItem, MaterialItem::P_MAGNETIZATION,
+                                    material->magnetization());
     return MaterialProperty(materialItem->getIdentifier());
 }
 

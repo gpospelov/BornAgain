@@ -30,7 +30,7 @@ public:
     Beam(const Beam& other);
     Beam& operator=(const Beam& other);
 
-    virtual ~Beam() {}
+    virtual ~Beam();
 
     //! Returns the wavevector
     kvector_t getCentralK() const;
@@ -51,7 +51,7 @@ public:
 
 #ifndef SWIG
     //! Returns the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getPolarization() const  { return m_polarization; }
+    Eigen::Matrix2cd getPolarization() const;
 #endif
 
     double getWavelength() const { return m_wavelength; }
@@ -65,18 +65,9 @@ private:
 
     void swapContent(Beam& other);
 
-    //! Initializes polarization (for constructors).
-    void initPolarization();
-
-#ifndef SWIG
-    Eigen::Matrix2cd calculatePolarization(const kvector_t bloch_vector) const;
-#endif
-
     double m_wavelength, m_alpha, m_phi; //!< wavelength and angles of beam
     double m_intensity;                  //!< beam intensity (neutrons/sec)
-#ifndef SWIG
-    Eigen::Matrix2cd m_polarization;     //!< polarization density matrix
-#endif
+    kvector_t m_bloch_vector;               //!< Bloch vector encoding the beam's polarization
 };
 
 #endif // BEAM_H

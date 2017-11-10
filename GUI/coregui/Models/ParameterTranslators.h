@@ -29,13 +29,17 @@ public:
     virtual QStringList translate(const QStringList& list) const=0;
 };
 
-class PositionTranslator : public IPathTranslator {
+class AddElementTranslator : public IPathTranslator {
 public:
-    ~PositionTranslator() override {}
+    AddElementTranslator(QString gui_name, QString additional_name);
+    ~AddElementTranslator() override {}
 
-    PositionTranslator* clone() const override { return new PositionTranslator; }
+    AddElementTranslator* clone() const override;
 
     virtual QStringList translate(const QStringList& list) const override;
+private:
+    QString m_gui_name;
+    QString m_additional_name;
 };
 
 class RotationTranslator : public IPathTranslator {
@@ -70,13 +74,20 @@ private:
     const SessionItem* mp_parent;
 };
 
-class MesoCrystalTranslator : public IPathTranslator {
+class VectorParameterTranslator : public IPathTranslator {
 public:
-    ~MesoCrystalTranslator() override {}
+    VectorParameterTranslator(QString gui_name, std::string base_name,
+                              QStringList additional_names=QStringList());
+    ~VectorParameterTranslator() override {}
 
-    MesoCrystalTranslator* clone() const override { return new MesoCrystalTranslator; }
+    VectorParameterTranslator* clone() const override;
 
     virtual QStringList translate(const QStringList& list) const override;
+private:
+    QString m_gui_name;
+    std::string m_base_name;
+    QStringList m_additional_names;
 };
+
 
 #endif // PARAMETERTRANSLATORS_H

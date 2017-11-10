@@ -36,7 +36,7 @@ void SampleValidator::initValidator()
 
 void SampleValidator::iterateItems(const SessionItem *parentItem)
 {
-    foreach(const SessionItem *child, parentItem->childItems()) {
+    foreach(const SessionItem *child, parentItem->children()) {
         validateItem(child);
         iterateItems(child);
     }

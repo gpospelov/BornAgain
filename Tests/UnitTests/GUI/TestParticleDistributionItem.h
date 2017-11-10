@@ -47,7 +47,7 @@ inline void TestParticleDistributionItem::test_InitialState()
     QCOMPARE(distItem->displayName(), distItem->itemName());
 
     // xpos, ypos, P_ABUNDANCE, P_DISTRIBUTION, P_DISTRIBUTED_PARAMETER
-    QCOMPARE(distItem->childItems().size(), 5);
+    QCOMPARE(distItem->children().size(), 5);
 
     QCOMPARE(distItem->defaultTag(), ParticleDistributionItem::T_PARTICLES);
 

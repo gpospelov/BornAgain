@@ -21,7 +21,7 @@
 #include "LayerFillLimits.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "Material.h"
+#include "MaterialUtils.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <iomanip>
@@ -40,6 +40,7 @@ void MultiLayer::init_parameters()
     parameterPool()->clear(); // non-trivially needed
     registerParameter(BornAgain::CrossCorrelationLength, &m_crossCorrLength).
         setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerVector(BornAgain::ExternalField, &m_ext_field, BornAgain::UnitsNone);
 }
 
 MultiLayer* MultiLayer::clone() const
@@ -177,6 +178,12 @@ bool MultiLayer::containsMagneticMaterial() const
         if (mat->isMagneticMaterial())
             return true;
     return false;
+}
+
+bool MultiLayer::containsCompatibleMaterials() const
+{
+    return MaterialUtils::checkMaterialTypes(containedMaterials())
+           != MATERIAL_TYPES::InvalidMaterialType;
 }
 
 void MultiLayer::initBFields()

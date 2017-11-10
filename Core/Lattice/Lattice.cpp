@@ -140,16 +140,10 @@ void Lattice::onChange()
 
 void Lattice::registerBasisVectors()
 {
-    if(!parameter(BornAgain::BasisVector_AX)) {
-        registerParameter(BornAgain::BasisVector_AX, &m_a[0]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_AY, &m_a[1]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_AZ, &m_a[2]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_BX, &m_b[0]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_BY, &m_b[1]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_BZ, &m_b[2]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_CX, &m_c[0]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_CY, &m_c[1]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_CZ, &m_c[2]).setUnit(BornAgain::UnitsNm);
+    if(!parameter(XComponentName(BornAgain::BasisVector_A))) {
+        registerVector(BornAgain::BasisVector_A, &m_a, BornAgain::UnitsNm);
+        registerVector(BornAgain::BasisVector_B, &m_b, BornAgain::UnitsNm);
+        registerVector(BornAgain::BasisVector_C, &m_c, BornAgain::UnitsNm);
     }
 }
 

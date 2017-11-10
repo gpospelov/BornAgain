@@ -32,19 +32,15 @@ class IPathTranslator;
 class SessionTagInfo
 {
 public:
-    inline SessionTagInfo() : name(QString()), min(0), max(-1), childCount(0) {}
-    inline SessionTagInfo(QString n, int mi, int ma, QStringList mt = QStringList())
-        :name(n)
-        , min(mi)
-        , max(ma)
-        , childCount(0)
-        , modelTypes(mt) {}
+    SessionTagInfo() : name(QString()), min(0), max(-1), childCount(0) {}
+    SessionTagInfo(QString n, int mi, int ma, QStringList mt = QStringList())
+        :name(n), min(mi), max(ma), childCount(0), modelTypes(mt) {}
+    bool isValid() { return !name.isEmpty(); }
     QString name;
     int min;
     int max;
     int childCount;
     QStringList modelTypes;
-    inline bool isValid() { return !name.isEmpty(); }
 };
 
 
@@ -64,7 +60,7 @@ public:
     QModelIndex index() const;
     bool hasChildren() const;
     int rowCount() const;
-    QVector<SessionItem*> childItems() const;
+    QVector<SessionItem*> children() const;
     SessionItem* childAt(int row) const;
     int rowOfChild(SessionItem* child) const;
     int parentRow() const;
@@ -93,9 +89,7 @@ public:
     // convenience functions for properties and groups
     SessionItem* addProperty(const QString& name, const QVariant& variant);
     QVariant getItemValue(const QString& tag) const;
-    kvector_t getVectorItem(const QString& name) const;
     void setItemValue(const QString& tag, const QVariant& variant);
-    void setVectorItem(const QString& name, kvector_t value);
     SessionItem* addGroupProperty(const QString& groupName, const QString& groupType);
 
     SessionItem* setGroupProperty(const QString& name, const QString& value) const;

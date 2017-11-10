@@ -42,6 +42,7 @@ const std::string SphericalDetectorType = "SphericalDetector";
 const std::string RectangularDetectorType = "RectangularDetector";
 const std::string IsGISAXSDetectorType = "IsGISAXSDetector";
 const std::string BeamType = "Beam";
+const std::string DetectorAnalyzer = "Analyzer";
 
 // ISample object types
 const std::string MultiLayerType = "MultiLayer";
@@ -155,18 +156,10 @@ const std::string SampleBuilderType = "SampleBuilder";
 
 // Parameter names (dimensions, angles, ...)
 const std::string Abundance = "Abundance";
-const std::string PositionX = "PositionX";
-const std::string PositionY = "PositionY";
-const std::string PositionZ = "PositionZ";
-const std::string BasisVector_AX = "BasisAX";
-const std::string BasisVector_AY = "BasisAY";
-const std::string BasisVector_AZ = "BasisAZ";
-const std::string BasisVector_BX = "BasisBX";
-const std::string BasisVector_BY = "BasisBY";
-const std::string BasisVector_BZ = "BasisBZ";
-const std::string BasisVector_CX = "BasisCX";
-const std::string BasisVector_CY = "BasisCY";
-const std::string BasisVector_CZ = "BasisCZ";
+const std::string Position = "Position";
+const std::string BasisVector_A = "BasisA";
+const std::string BasisVector_B = "BasisB";
+const std::string BasisVector_C = "BasisC";
 const std::string Radius = "Radius";
 const std::string RadiusX = "RadiusX";
 const std::string RadiusY = "RadiusY";
@@ -232,6 +225,11 @@ const std::string CrossCorrelationLength = "CrossCorrelationLength";
 const std::string Inclination = "InclinationAngle";
 const std::string Azimuth = "AzimuthalAngle";
 const std::string TotalParticleDensity = "TotalParticleDensity";
+const std::string ExternalField = "ExternalField";
+const std::string BlochVector = "BlochVector";
+const std::string Direction = "Direction";
+const std::string Efficiency = "Efficiency";
+const std::string Transmission = "Transmission";
 
 const std::string UnitsRad = "rad";
 const std::string UnitsNm = "nm";

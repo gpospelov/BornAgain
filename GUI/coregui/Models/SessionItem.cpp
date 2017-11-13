@@ -115,15 +115,6 @@ int SessionItem::rowOfChild(SessionItem* child) const
     return m_children.indexOf(child);
 }
 
-//! Returns the first child with the given name.
-SessionItem* SessionItem::getChildByName(const QString& name) const
-{
-    for (auto child : m_children) {
-        if (child->itemName() == name) return child;
-    }
-    return nullptr;
-}
-
 //! Returns the first child of the given type.
 SessionItem* SessionItem::getChildOfType(const QString& type) const
 {

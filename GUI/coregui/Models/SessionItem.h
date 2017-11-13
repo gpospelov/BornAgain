@@ -62,7 +62,6 @@ public:
     QVector<SessionItem*> children() const;
     SessionItem* childAt(int row) const;
     int rowOfChild(SessionItem* child) const;
-    SessionItem* getChildByName(const QString& name) const;
     SessionItem* getChildOfType(const QString& type) const;
     QVector<SessionItem*> getChildrenOfType(const QString& model_type) const;
     SessionItem* takeRow(int row);
@@ -130,7 +129,6 @@ public:
 
     QString toolTip() const;
     SessionItem& setToolTip(const QString& tooltip);
-
 
     // helper functions
     virtual QString itemLabel() const;

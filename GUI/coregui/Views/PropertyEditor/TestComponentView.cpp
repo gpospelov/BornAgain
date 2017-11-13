@@ -21,6 +21,11 @@
 #include "item_constants.h"
 #include "SessionModelDelegate.h"
 #include "StyleUtils.h"
+#include "SampleBuilderFactory.h"
+#include "ISample.h"
+#include "GUIObjectBuilder.h"
+#include "MultiLayer.h"
+#include "SampleModel.h"
 #include <QTreeView>
 #include <QBoxLayout>
 #include <QPushButton>
@@ -28,7 +33,7 @@
 
 TestComponentView::TestComponentView(MainWindow* mainWindow)
     : m_mainWindow(mainWindow)
-    , m_sourceModel(new SessionModel("TestModel", this))
+    , m_sourceModel(new SampleModel(this))
     , m_proxyModel(new ComponentProxyModel(this))
     , m_sourceTree(new QTreeView)
     , m_proxyTree(new QTreeView)
@@ -83,5 +88,10 @@ void TestComponentView::onAddItemRequest()
 
 void TestComponentView::init_source()
 {
+    SampleBuilderFactory factory;
+    const std::unique_ptr<ISample> sample(factory.createSample("CylindersAndPrismsBuilder"));
+    GUIObjectBuilder guiBuilder;
+    guiBuilder.populateSampleModel(m_sourceModel, *sample);
+
     m_sourceModel->insertNewItem(Constants::VectorType);
 }

@@ -28,6 +28,7 @@
 #include "SampleModel.h"
 #include <QTreeView>
 #include <QBoxLayout>
+#include <QItemSelectionModel>
 #include <QPushButton>
 #include <QDebug>
 
@@ -39,12 +40,14 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     , m_proxyTree(new QTreeView)
     , m_updateButton(new QPushButton("Update models"))
     , m_addItemButton(new QPushButton("Add item"))
+    , m_expandButton(new QPushButton("Expand tree"))
     , m_delegate(new SessionModelDelegate(this))
+    , m_isExpaned(false)
 {
     auto buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget(m_updateButton);
     buttonLayout->addWidget(m_addItemButton);
-    buttonLayout->addStretch();
+    buttonLayout->addWidget(m_expandButton);
 
     auto widgetLayout = new QHBoxLayout;
     widgetLayout->addWidget(m_sourceTree);
@@ -62,13 +65,17 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
 
     connect(m_updateButton, &QPushButton::clicked, this, &TestComponentView::onUpdateRequest);
     connect(m_addItemButton, &QPushButton::clicked, this, &TestComponentView::onAddItemRequest);
+    connect(m_expandButton, &QPushButton::clicked, this, &TestComponentView::onExpandRequest);
 
     m_sourceTree->setModel(m_sourceModel);
     m_sourceTree->setItemDelegate(m_delegate);
     StyleUtils::setPropertyStyle(m_sourceTree);
+    connect(m_sourceTree->selectionModel(), &QItemSelectionModel::selectionChanged,
+            this, &TestComponentView::onSelectionChanged);
 
     m_proxyTree->setModel(m_proxyModel);
     m_proxyTree->setItemDelegate(m_delegate);
+    m_proxyTree->setRootIsDecorated(false);
     StyleUtils::setPropertyStyle(m_proxyTree);
 }
 
@@ -84,6 +91,22 @@ void TestComponentView::onAddItemRequest()
     m_sourceModel->insertNewItem(Constants::ParticleType);
 }
 
+void TestComponentView::onExpandRequest()
+{
+    if (!m_isExpaned) {
+        m_sourceTree->expandAll();
+        m_sourceTree->resizeColumnToContents(0);
+        m_sourceTree->resizeColumnToContents(1);
+        m_proxyTree->expandAll();
+        m_proxyTree->resizeColumnToContents(0);
+        m_proxyTree->resizeColumnToContents(1);
+    } else {
+        m_sourceTree->collapseAll();
+        m_proxyTree->collapseAll();
+    }
+    m_isExpaned = !m_isExpaned;
+}
+
 //! Inserts test items into source model.
 
 void TestComponentView::init_source()
@@ -94,4 +117,22 @@ void TestComponentView::init_source()
     guiBuilder.populateSampleModel(m_sourceModel, *sample);
 
     m_sourceModel->insertNewItem(Constants::VectorType);
+}
+
+void TestComponentView::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)
+{
+    QModelIndexList indexes = selected.indexes();
+
+    if (indexes.size()) {
+        QModelIndex selectedIndex = indexes.front();
+        SessionItem* item = m_sourceModel->itemForIndex(selectedIndex);
+        QString modelType = item->modelType();
+        if (modelType ==  Constants::PropertyType || modelType == Constants::GroupItemType
+            || modelType == Constants::VectorType)
+            selectedIndex = selectedIndex.parent();
+
+        if (selectedIndex.isValid())
+            m_proxyTree->setRootIndex(m_proxyModel->mapFromSource(selectedIndex));
+    }
+
 }

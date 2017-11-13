@@ -26,6 +26,7 @@ class ComponentProxyModel;
 class QTreeView;
 class SampleModel;
 class SessionModelDelegate;
+class QItemSelection;
 
 //! View to tests QListView working with ComponentProxyModel.
 
@@ -38,9 +39,11 @@ public:
 private slots:
     void onUpdateRequest();
     void onAddItemRequest();
+    void onExpandRequest();
 
 private:
     void init_source();
+    void onSelectionChanged(const QItemSelection& selected, const QItemSelection&);
 
     MainWindow* m_mainWindow;
     SampleModel* m_sourceModel;
@@ -49,7 +52,9 @@ private:
     QTreeView* m_proxyTree;
     QPushButton* m_updateButton;
     QPushButton* m_addItemButton;
+    QPushButton* m_expandButton;
     SessionModelDelegate* m_delegate;
+    bool m_isExpaned;
 };
 
 #endif // TESTCOMPONENTVIEW_H

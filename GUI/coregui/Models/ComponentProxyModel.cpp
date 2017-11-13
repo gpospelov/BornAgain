@@ -155,6 +155,7 @@ void ComponentProxyModel::sourceDataChanged(const QModelIndex& topLeft,
 {
     Q_ASSERT(topLeft.isValid() ? topLeft.model() == sourceModel() : true);
     Q_ASSERT(bottomRight.isValid() ? bottomRight.model() == sourceModel() : true);
+    updateModelMap();
     dataChanged(mapFromSource(topLeft), mapFromSource(bottomRight), roles);
 }
 
@@ -200,4 +201,9 @@ void ComponentProxyModel::buildModelMap()
 {
     m_proxyStrategy->buildModelMap(m_model, this);
     layoutChanged();
+}
+
+void ComponentProxyModel::updateModelMap()
+{
+    m_proxyStrategy->onDataChanged(m_model, this);
 }

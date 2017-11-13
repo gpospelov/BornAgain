@@ -32,7 +32,9 @@ public:
     using map_t = QMap<QPersistentModelIndex, QPersistentModelIndex>;
 
     virtual ~ProxyModelStrategy() = default;
+
     void buildModelMap(SessionModel* source, ComponentProxyModel* proxy);
+    virtual void onDataChanged(SessionModel* source, ComponentProxyModel* proxy);
 
     const map_t& sourceToProxy();
     const map_t& proxySourceParent();
@@ -62,6 +64,9 @@ protected:
 class BA_CORE_API_ ComponentProxyStrategy : public ProxyModelStrategy
 {
 public:
+    void onDataChanged(SessionModel* source, ComponentProxyModel* proxy);
+
+protected:
     void processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
                             const QModelIndex& index);
 private:

@@ -25,6 +25,7 @@ private slots:
     void test_setData();
     void test_insertRows();
     void test_componentStrategy();
+    void test_componentStrategyFormFactorChanges();
 };
 
 //! Empty proxy model.
@@ -243,6 +244,9 @@ inline void TestComponentProxyModel::test_insertRows()
     QCOMPARE(proxy.rowCount(QModelIndex()), 1);
 }
 
+//! Checking the mapping of ComponentProxyStrategy in the case of ParticleItem inserted in
+//! the source.
+
 inline void TestComponentProxyModel::test_componentStrategy()
 {
     SessionModel model("TestModel");
@@ -268,12 +272,14 @@ inline void TestComponentProxyModel::test_componentStrategy()
     QModelIndex particleProxyIndex = proxy.mapFromSource(particleIndex);
     QVERIFY(particleProxyIndex.isValid());
 
+    // Properties of CylinderItem should belong to group property
     QModelIndex groupProxyIndex = proxy.mapFromSource(groupIndex);
     QVERIFY(groupProxyIndex.isValid());
     QVERIFY(groupProxyIndex.parent() == particleProxyIndex);
-    QCOMPARE(proxy.rowCount(groupProxyIndex), 2);
+    QCOMPARE(proxy.rowCount(groupProxyIndex), 2); // ff radius and height
     QCOMPARE(proxy.columnCount(groupProxyIndex), 2);
 
+    // CylinderItem shouldn't exist anymore in proxy
     QModelIndex ffProxyIndex =  proxy.mapFromSource(ffIndex);
     QVERIFY(ffProxyIndex.isValid() == false);
 
@@ -282,3 +288,35 @@ inline void TestComponentProxyModel::test_componentStrategy()
     QVERIFY(radiusProxyIndex.parent() == groupProxyIndex);
 }
 
+//! Checking the mapping of ComponentProxyStrategy in the case of ParticleItem inserted in
+//! the source. We are changing Particle's formfactor back and forth and checking for change
+//! in GroupProperty.
+
+inline void TestComponentProxyModel::test_componentStrategyFormFactorChanges()
+{
+    SessionModel model("TestModel");
+
+    ComponentProxyModel proxy;
+    proxy.setProxyStrategy(new ComponentProxyStrategy);
+    proxy.setSessionModel(&model);
+
+    // inserting particle
+    SessionItem* item = model.insertNewItem(Constants::ParticleType);
+    auto group = dynamic_cast<GroupItem*>(item->getItem(ParticleItem::P_FORM_FACTOR));
+    SessionItem* ffItem = item->getGroupItem(ParticleItem::P_FORM_FACTOR);
+    QVERIFY(ffItem->parent() == group);
+    QVERIFY(ffItem->modelType() == Constants::CylinderType);
+
+    // changing form factor type
+    group->setCurrentType(Constants::FullSphereType);
+
+    QModelIndex groupProxyIndex = proxy.mapFromSource(model.indexOfItem(group));
+    QCOMPARE(proxy.rowCount(groupProxyIndex), 1); // sphere radius
+    QCOMPARE(proxy.columnCount(groupProxyIndex), 2);
+
+    // changing back to Cylinder
+    group->setCurrentType(Constants::CylinderType);
+    groupProxyIndex = proxy.mapFromSource(model.indexOfItem(group));
+    QCOMPARE(proxy.rowCount(groupProxyIndex), 2); // cylinder radius, length
+    QCOMPARE(proxy.columnCount(groupProxyIndex), 2);
+}

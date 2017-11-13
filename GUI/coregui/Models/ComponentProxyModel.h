@@ -68,6 +68,7 @@ private slots:
 
 private:
     void buildModelMap();
+    void updateModelMap();
 
     SessionModel* m_model;
     std::unique_ptr<ProxyModelStrategy> m_proxyStrategy;

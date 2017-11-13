@@ -32,6 +32,13 @@ void ProxyModelStrategy::buildModelMap(SessionModel* source, ComponentProxyModel
     });
 }
 
+void ProxyModelStrategy::onDataChanged(SessionModel* source, ComponentProxyModel* proxy)
+{
+    Q_UNUSED(source);
+    Q_UNUSED(proxy);
+    // we do not expect here change of model layout
+}
+
 const ProxyModelStrategy::map_t& ProxyModelStrategy::sourceToProxy() { return m_sourceToProxy; }
 
 const ProxyModelStrategy::map_t& ProxyModelStrategy::proxySourceParent()
@@ -64,6 +71,12 @@ void IndentityProxyStrategy::processSourceIndex(SessionModel* model, ComponentPr
         sourceParent = index.parent();
 
     m_proxySourceParent.insert(proxyIndex, sourceParent);
+}
+
+void ComponentProxyStrategy::onDataChanged(SessionModel* source, ComponentProxyModel* proxy)
+{
+    buildModelMap(source, proxy);
+    proxy->layoutChanged();
 }
 
 void ComponentProxyStrategy::processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,

@@ -84,6 +84,7 @@ void TestComponentView::onUpdateRequest()
 {
     qDebug() << "TestComponentView::onUpdateRequest() ->";
     m_proxyModel->setSessionModel(m_sourceModel);
+    m_proxyModel->setRootIndex(QModelIndex());
     m_proxyTree->reset();
 }
 
@@ -112,15 +113,17 @@ void TestComponentView::onExpandRequest()
 
 void TestComponentView::init_source()
 {
-//    SampleBuilderFactory factory;
-//    const std::unique_ptr<ISample> sample(factory.createSample("CylindersAndPrismsBuilder"));
-//    GUIObjectBuilder guiBuilder;
-//    guiBuilder.populateSampleModel(m_sourceModel, *sample);
-//    m_sourceModel->insertNewItem(Constants::VectorType);
+    SampleBuilderFactory factory;
+    const std::unique_ptr<ISample> sample(factory.createSample("CylindersAndPrismsBuilder"));
+    GUIObjectBuilder guiBuilder;
+    guiBuilder.populateSampleModel(m_sourceModel, *sample);
+    m_sourceModel->insertNewItem(Constants::VectorType);
 
-    SessionItem* multilayer = m_sourceModel->insertNewItem(Constants::MultiLayerType);
-    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));
-    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));
+//    SessionItem* multilayer = m_sourceModel->insertNewItem(Constants::MultiLayerType);
+//    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));
+//    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));
+
+//    m_sourceModel->insertNewItem(Constants::VectorType);
 }
 
 void TestComponentView::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)
@@ -129,19 +132,8 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
 
     if (indexes.size()) {
         QModelIndex selectedIndex = indexes.front();
-        SessionItem* item = m_sourceModel->itemForIndex(selectedIndex);
-        QString modelType = item->modelType();
-//        if (modelType ==  Constants::PropertyType || modelType == Constants::GroupItemType
-//            || modelType == Constants::VectorType)
-//            selectedIndex = selectedIndex.parent();
-
-//        if (item->parent()) {
-            //m_proxyTree->setRootIndex(m_proxyModel->mapFromSource(selectedIndex));
-            //m_proxyTree->setRootIndex(selectedIndex);
-        qDebug() << "!!!" << item->modelType();
-            m_proxyModel->setRootIndex(selectedIndex);
-            m_proxyTree->expandAll();
-//        }
+        m_proxyModel->setRootIndex(selectedIndex);
+        m_proxyTree->expandAll();
     }
 
 }

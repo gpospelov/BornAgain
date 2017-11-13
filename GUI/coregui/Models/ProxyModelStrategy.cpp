@@ -30,6 +30,10 @@ void ProxyModelStrategy::buildModelMap(SessionModel* source, ComponentProxyModel
     ModelUtils::iterate(m_sourceRootIndex, source, [=](const QModelIndex& index) {
         processSourceIndex(source, proxy, index);
     });
+
+    // kind of hack since we have to visit col=1 which has QModelIndex() parent
+    if (m_sourceRootIndex.isValid())
+        processSourceIndex(source, proxy, m_sourceRootIndex.sibling(m_sourceRootIndex.row(), 1));
 }
 
 void ProxyModelStrategy::onDataChanged(SessionModel* source, ComponentProxyModel* proxy)

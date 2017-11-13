@@ -26,7 +26,8 @@ private slots:
     void test_insertRows();
     void test_componentStrategy();
     void test_componentStrategyFormFactorChanges();
-    void test_setRootIndex();
+    void test_setRootPropertyItem();
+    void test_setRootIndexLayer();
 };
 
 //! Empty proxy model.
@@ -323,9 +324,42 @@ inline void TestComponentProxyModel::test_componentStrategyFormFactorChanges()
 }
 
 //! Checking setRootIndex: proxy model should contain only items corresponding
-//! to rootIndex and its children.
+//! to rootIndex and its children. Adding simple PropertyItem.
 
-inline void TestComponentProxyModel::test_setRootIndex()
+inline void TestComponentProxyModel::test_setRootPropertyItem()
+{
+    const int ncols = static_cast<int>(SessionModel::MAX_COLUMNS);
+    SessionModel model("TestModel");
+
+    ComponentProxyModel proxy;
+    proxy.setProxyStrategy(new ComponentProxyStrategy);
+    proxy.setSessionModel(&model);
+
+    // inserting simple property item
+    SessionItem* item = model.insertNewItem(Constants::PropertyType);
+    item->setValue(42.0);
+    proxy.setRootIndex(model.indexOfItem(item));
+
+    QCOMPARE(model.rowCount(QModelIndex()), 1);
+    QCOMPARE(model.columnCount(QModelIndex()), ncols);
+    QCOMPARE(proxy.rowCount(QModelIndex()), 1);
+    QCOMPARE(proxy.columnCount(QModelIndex()), ncols);
+
+    QVERIFY(proxy.index(0,0,QModelIndex()) == proxy.mapFromSource(model.index(0,0,QModelIndex())));
+    QVERIFY(proxy.index(0,1,QModelIndex()) == proxy.mapFromSource(model.index(0,1,QModelIndex())));
+    QVERIFY(model.index(0,0,QModelIndex()) == proxy.mapToSource(proxy.index(0,0,QModelIndex())));
+    QVERIFY(proxy.index(0,1,QModelIndex()).isValid());
+    QVERIFY(model.index(0,1,QModelIndex()) == proxy.mapToSource(proxy.index(0,1,QModelIndex())));
+
+    QCOMPARE(model.data(model.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 42.0);
+    QCOMPARE(proxy.data(proxy.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 42.0);
+}
+
+//! Checking setRootIndex: proxy model should contain only items corresponding
+//! to rootIndex and its children. Adding MultiLayer with two layers and setting rootIndex
+//! to one of the layer.
+
+inline void TestComponentProxyModel::test_setRootIndexLayer()
 {
 
     SessionModel model("TestModel");
@@ -340,12 +374,15 @@ inline void TestComponentProxyModel::test_setRootIndex()
     model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
 
     proxy.setRootIndex(model.indexOfItem(layer1));
+    QCOMPARE(proxy.rowCount(QModelIndex()), 1);
+    QCOMPARE(proxy.columnCount(QModelIndex()), 2);
 
     QModelIndex multilayerProxyIndex = proxy.mapFromSource(model.indexOfItem(multilayer));
     QVERIFY(multilayerProxyIndex.isValid() == false);
 
     QModelIndex layerProxyIndex = proxy.mapFromSource(model.indexOfItem(layer1));
+    QCOMPARE(proxy.rowCount(layerProxyIndex), 6); // thickness, roughness, etc
+    QCOMPARE(proxy.columnCount(layerProxyIndex), 2);
     QVERIFY(layerProxyIndex.isValid());
     QVERIFY(layerProxyIndex.parent() == QModelIndex());
-    QCOMPARE(proxy.rowCount(QModelIndex()), 1);
 }

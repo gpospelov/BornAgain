@@ -25,6 +25,9 @@ class SessionItem;
 
 namespace SessionItemUtils
 {
+//! Returns the index of the given item within its parent. Returns -1 when no parent is set.
+BA_CORE_API_ int ParentRow(const SessionItem& item);
+
 //! Returns a VectorType group property's value as a kvector_t
 BA_CORE_API_ kvector_t GetVectorItem(const SessionItem& item, const QString& name);
 

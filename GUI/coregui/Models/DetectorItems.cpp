@@ -23,6 +23,8 @@
 #include "SessionItemUtils.h"
 #include "SessionModel.h"
 
+using SessionItemUtils::GetVectorItem;
+
 namespace {
 const QString res_func_group_label = "Type";
 const QString analyzer_direction_tooltip = "Direction of the polarization analysis";
@@ -67,7 +69,7 @@ std::unique_ptr<IDetector2D> DetectorItem::createDetector() const
     if (auto resFunc = createResolutionFunction())
         result->setResolutionFunction(*resFunc);
 
-    kvector_t analyzer_dir = SessionItemUtils::GetVectorItem(*this, P_ANALYZER_DIRECTION);
+    kvector_t analyzer_dir = GetVectorItem(*this, P_ANALYZER_DIRECTION);
     double analyzer_eff = getItemValue(P_ANALYZER_EFFICIENCY).toDouble();
     double analyzer_total_trans = getItemValue(P_ANALYZER_TOTAL_TRANSMISSION).toDouble();
     if (analyzer_dir.mag() > 0.0)

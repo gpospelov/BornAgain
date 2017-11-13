@@ -29,7 +29,7 @@ const QString abundance_tooltip =
 
 const QString position_tooltip =
     "Relative position of the particle's reference point \n"
-    "in the coordinate system of the parent";
+    "in the coordinate system of the parent (nm)";
 }
 
 const QString ParticleCoreShellItem::T_CORE = "Core Tag";

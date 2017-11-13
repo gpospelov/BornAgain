@@ -25,6 +25,8 @@
 #include "SessionItemUtils.h"
 #include "Units.h"
 
+using SessionItemUtils::GetVectorItem;
+
 namespace {
 const QString polarization_tooltip =
         "Polarization of the beam, given as the Bloch vector";
@@ -129,7 +131,7 @@ std::unique_ptr<Beam> BeamItem::createBeam() const
     double azimuthal_angle = Units::deg2rad(getAzimuthalAngle());
     result->setCentralK(lambda, inclination_angle, azimuthal_angle);
 
-    result->setPolarization(SessionItemUtils::GetVectorItem(*this, P_POLARIZATION));
+    result->setPolarization(GetVectorItem(*this, P_POLARIZATION));
 
     return result;
 }

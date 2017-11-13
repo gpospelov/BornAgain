@@ -48,7 +48,7 @@ QModelIndex ModelPath::getIndexFromPath(const SessionModel* model, const QString
                 t = t->getItem(JobItem::T_INSTRUMENT);
                 continue;
             }
-            for (int j = 0; j < t->rowCount(); j++) {
+            for (int j = 0; j < t->numberOfChildren(); j++) {
                 if (t->childAt(j)->itemName() == parts[i]) {
                     t = t->childAt(j);
                     break;

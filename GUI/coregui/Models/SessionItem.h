@@ -58,6 +58,7 @@ public:
 
     // these functions work without tags and operate on all children
     QModelIndex index() const;
+    bool hasChildren() const;
     int numberOfChildren() const;
     QVector<SessionItem*> children() const;
     SessionItem* childAt(int row) const;

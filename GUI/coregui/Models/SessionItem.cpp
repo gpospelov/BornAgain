@@ -91,6 +91,12 @@ QModelIndex SessionItem::index() const
     return QModelIndex();
 }
 
+//! Indicates whether this SessionItem has any child items
+bool SessionItem::hasChildren() const
+{
+    return numberOfChildren() > 0;
+}
+
 //! Returns total number of children.
 int SessionItem::numberOfChildren() const
 {

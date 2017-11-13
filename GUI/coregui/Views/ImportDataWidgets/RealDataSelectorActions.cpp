@@ -24,13 +24,10 @@
 #include "ProjectionItems.h"
 #include "RealDataItem.h"
 #include "RealDataModel.h"
-#include "SessionItemUtils.h"
 #include <QAction>
 #include <QApplication>
 #include <QItemSelectionModel>
 #include <QMenu>
-
-using SessionItemUtils::HasCHildren;
 
 namespace {
 bool openRotateWarningDialog(QWidget* parent) {
@@ -49,11 +46,11 @@ bool rotationAffectsSetup(IntensityDataItem& intensityItem) {
     if (intensityItem.parent()->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool())
         return true;
 
-    if (intensityItem.maskContainerItem() && HasCHildren(*intensityItem.maskContainerItem()))
+    if (intensityItem.maskContainerItem() && intensityItem.maskContainerItem()->hasChildren())
         return true;
 
     if (intensityItem.projectionContainerItem()
-        && HasCHildren(*intensityItem.projectionContainerItem()))
+        && intensityItem.projectionContainerItem()->hasChildren())
         return true;
 
     return false;

@@ -25,11 +25,6 @@ int SessionItemUtils::ParentRow(const SessionItem& item)
     return -1;
 }
 
-bool SessionItemUtils::HasCHildren(const SessionItem& item)
-{
-    return item.numberOfChildren() > 0;
-}
-
 kvector_t SessionItemUtils::GetVectorItem(const SessionItem& item, const QString& name)
 {
     SessionItem* vectorItem = item.getItem(name);

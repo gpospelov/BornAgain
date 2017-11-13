@@ -20,6 +20,7 @@
 #include "SessionModel.h"
 #include "SessionItem.h"
 #include "ModelPath.h"
+#include "GroupItem.h"
 
 void ProxyModelStrategy::buildModelMap(SessionModel* source, ComponentProxyModel* proxy)
 {
@@ -68,6 +69,7 @@ void IndentityProxyStrategy::processSourceIndex(SessionModel* model, ComponentPr
 void ComponentProxyStrategy::processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
                                                 const QModelIndex& index)
 {
+    QPersistentModelIndex sourceIndex = QPersistentModelIndex(index);
     QPersistentModelIndex proxyIndex
         = createProxyIndex(proxy, index.row(), index.column(), index.internalPointer());
 
@@ -75,8 +77,9 @@ void ComponentProxyStrategy::processSourceIndex(SessionModel* model, ComponentPr
 
     if (isGroupChildren(item)) {
         // do parent substitution here
+        processGroupItem(item, sourceIndex, proxyIndex);
     } else {
-        m_sourceToProxy.insert(QPersistentModelIndex(index), proxyIndex);
+        m_sourceToProxy.insert(sourceIndex, proxyIndex);
 
         QPersistentModelIndex sourceParent;
         if (index.parent().isValid())
@@ -97,4 +100,21 @@ bool ComponentProxyStrategy::isGroupChildren(SessionItem* item)
     }
 
     return false;
+}
+
+void ComponentProxyStrategy::processGroupItem(SessionItem* item,
+                                              const QPersistentModelIndex& sourceIndex,
+                                              const QPersistentModelIndex& proxyIndex)
+{
+    if (const SessionItem* ancestor = ModelPath::ancestor(item, Constants::GroupItemType)) {
+        if (ancestor == item)
+            return;
+
+        auto groupItem = dynamic_cast<const GroupItem*>(ancestor);
+        if (item->parent() == groupItem->currentItem()) {
+            m_sourceToProxy.insert(sourceIndex, proxyIndex);
+            m_proxySourceParent.insert(proxyIndex, groupItem->index());
+        }
+
+    }
 }

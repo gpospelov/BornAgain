@@ -6,6 +6,8 @@
 #include "VectorItem.h"
 #include "ProxyModelStrategy.h"
 #include "ParticleItem.h"
+#include "FormFactorItems.h"
+#include "GroupItem.h"
 #include <QSignalSpy>
 #include <QDebug>
 
@@ -251,29 +253,32 @@ inline void TestComponentProxyModel::test_componentStrategy()
 
     // inserting particle
     SessionItem* item = model.insertNewItem(Constants::ParticleType);
-    SessionItem* group = item->getItem(ParticleItem::P_FORM_FACTOR);
+    auto group = dynamic_cast<GroupItem*>(item->getItem(ParticleItem::P_FORM_FACTOR));
     SessionItem* ffItem = item->getGroupItem(ParticleItem::P_FORM_FACTOR);
     QVERIFY(ffItem->parent() == group);
     QVERIFY(ffItem->modelType() == Constants::CylinderType);
 
-    auto particleIndex = model.indexOfItem(item);
-    auto groupIndex = model.indexOfItem(group);
+    // original indices
+    QModelIndex particleIndex = model.indexOfItem(item);
+    QModelIndex groupIndex = model.indexOfItem(group);
+    QModelIndex ffIndex = model.indexOfItem(ffItem);
+    QModelIndex radiusIndex = model.indexOfItem(ffItem->getItem(CylinderItem::P_RADIUS));
 
-    auto particleProxyIndex = proxy.mapFromSource(particleIndex);
-    auto groupProxyIndex = proxy.mapFromSource(groupIndex);
-    QVERIFY(proxy.hasChildren(groupProxyIndex) == false);
-    QVERIFY(proxy.parent(groupProxyIndex) == particleProxyIndex);
-    QCOMPARE(proxy.rowCount(groupProxyIndex), 0);
+    // proxy indices
+    QModelIndex particleProxyIndex = proxy.mapFromSource(particleIndex);
+    QVERIFY(particleProxyIndex.isValid());
+
+    QModelIndex groupProxyIndex = proxy.mapFromSource(groupIndex);
+    QVERIFY(groupProxyIndex.isValid());
+    QVERIFY(groupProxyIndex.parent() == particleProxyIndex);
+    QCOMPARE(proxy.rowCount(groupProxyIndex), 2);
     QCOMPARE(proxy.columnCount(groupProxyIndex), 2);
 
-    // second row
-    auto groupProxyIndex2 = groupProxyIndex.sibling(groupProxyIndex.row(), 1);
-    QVERIFY(groupProxyIndex2.isValid());
-    QVERIFY(proxy.parent(groupProxyIndex2) == particleProxyIndex);
-    QCOMPARE(proxy.rowCount(groupProxyIndex2), 0);
-    QCOMPARE(proxy.columnCount(groupProxyIndex2), 0);
+    QModelIndex ffProxyIndex =  proxy.mapFromSource(ffIndex);
+    QVERIFY(ffProxyIndex.isValid() == false);
 
-    // Changing form factor type
-
+    QModelIndex radiusProxyIndex = proxy.mapFromSource(radiusIndex);
+    QVERIFY(radiusProxyIndex.isValid() == true);
+    QVERIFY(radiusProxyIndex.parent() == groupProxyIndex);
 }
 

@@ -18,7 +18,7 @@ public:
 private slots:
     void test_identityStrategy();
     void test_identityStrategyParticle();
-    void test_componentProxyStrategy();
+    void test_componentStrategyParticle();
 };
 
 //! Checking the mapping in the case of PropertyItem inserted in the source.
@@ -81,7 +81,7 @@ inline void TestProxyModelStrategy::test_identityStrategyParticle()
 
     SessionItem* item = model.insertNewItem(Constants::ParticleType);
 
-    // building the map of empty source
+    // building the map of source
     strategy.buildModelMap(&model, &proxy);
     SessionItem* group = item->getItem(ParticleItem::P_FORM_FACTOR);
     SessionItem* ffItem = item->getGroupItem(ParticleItem::P_FORM_FACTOR);
@@ -101,8 +101,43 @@ inline void TestProxyModelStrategy::test_identityStrategyParticle()
     QVERIFY(parentOfProxy == model.indexOfItem(ffItem));
 }
 
-inline void TestProxyModelStrategy::test_componentProxyStrategy()
-{
+//! Checking the mapping of ComponentProxyStrategy in the case of ParticleItem inserted in
+//! the source.
 
+inline void TestProxyModelStrategy::test_componentStrategyParticle()
+{
+    SessionModel model("TestModel");
+    ComponentProxyModel proxy;
+    ComponentProxyStrategy strategy;
+
+    SessionItem* item = model.insertNewItem(Constants::ParticleType);
+
+    // building the map of  source
+    strategy.buildModelMap(&model, &proxy);
+    SessionItem* group = item->getItem(ParticleItem::P_FORM_FACTOR);
+    SessionItem* ffItem = item->getGroupItem(ParticleItem::P_FORM_FACTOR);
+    QVERIFY(ffItem->parent() == group);
+    QVERIFY(ffItem->modelType() == Constants::CylinderType);
+
+    // original indices
+    QModelIndex particleIndex = model.indexOfItem(item);
+    QModelIndex groupIndex = model.indexOfItem(group);
+    QModelIndex ffIndex = model.indexOfItem(ffItem);
+    QModelIndex radiusIndex = model.indexOfItem(ffItem->getItem(CylinderItem::P_RADIUS));
+
+    // proxy indices
+    QModelIndex particleProxyIndex = strategy.sourceToProxy().value(particleIndex);
+    QModelIndex groupProxyIndex = strategy.sourceToProxy().value(groupIndex);
+    QModelIndex ffProxyIndex = strategy.sourceToProxy().value(ffIndex);
+    QModelIndex radiusProxyIndex = strategy.sourceToProxy().value(radiusIndex);
+    QVERIFY(particleProxyIndex.isValid());
+    QVERIFY(groupProxyIndex.isValid());
+    QVERIFY(ffProxyIndex.isValid() == false); // ff is excluded from hierarchy
+    QVERIFY(radiusProxyIndex.isValid());
+
+    // Checking "real" parents of indices
+    QVERIFY(strategy.proxySourceParent().value(ffProxyIndex) == QModelIndex());
+    QVERIFY(strategy.proxySourceParent().value(radiusProxyIndex) == groupIndex);
+    QVERIFY(strategy.proxySourceParent().value(groupProxyIndex) == particleIndex);
 }
 

@@ -66,6 +66,9 @@ public:
                             const QModelIndex& index);
 private:
     bool isGroupChildren(SessionItem* item);
+    void processGroupItem(SessionItem* item, const QPersistentModelIndex& sourceIndex,
+                          const QPersistentModelIndex& proxyIndex);
+
 };
 
 #endif  // ProxyModelStrategy

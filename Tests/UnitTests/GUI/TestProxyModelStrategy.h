@@ -19,6 +19,7 @@ private slots:
     void test_identityStrategy();
     void test_identityStrategyParticle();
     void test_componentStrategyParticle();
+    void test_setRootIndex();
 };
 
 //! Checking the mapping in the case of PropertyItem inserted in the source.
@@ -139,5 +140,46 @@ inline void TestProxyModelStrategy::test_componentStrategyParticle()
     QVERIFY(strategy.proxySourceParent().value(ffProxyIndex) == QModelIndex());
     QVERIFY(strategy.proxySourceParent().value(radiusProxyIndex) == groupIndex);
     QVERIFY(strategy.proxySourceParent().value(groupProxyIndex) == particleIndex);
+}
+
+//! Checking setRootIndex: proxy model should contain only items corresponding
+//! to rootIndex and its children.
+
+inline void TestProxyModelStrategy::test_setRootIndex()
+{
+    SessionModel model("TestModel");
+    ComponentProxyModel proxy;
+    ComponentProxyStrategy strategy;
+
+    SessionItem* item = model.insertNewItem(Constants::ParticleType);
+    SessionItem* group = item->getItem(ParticleItem::P_FORM_FACTOR);
+    SessionItem* ffItem = item->getGroupItem(ParticleItem::P_FORM_FACTOR);
+
+    QModelIndex particleIndex = model.indexOfItem(item);
+    QModelIndex groupIndex = model.indexOfItem(group);
+    QModelIndex ffIndex = model.indexOfItem(ffItem);
+    QModelIndex radiusIndex = model.indexOfItem(ffItem->getItem(CylinderItem::P_RADIUS));
+
+    // building the map of  source, groupItem will be rootIndex
+    strategy.setRootIndex(model.indexOfItem(group));
+    strategy.buildModelMap(&model, &proxy);
+
+    // proxy indices
+    QModelIndex particleProxyIndex = strategy.sourceToProxy().value(particleIndex);
+    QModelIndex groupProxyIndex = strategy.sourceToProxy().value(groupIndex);
+    QModelIndex ffProxyIndex = strategy.sourceToProxy().value(ffIndex);
+    QModelIndex radiusProxyIndex = strategy.sourceToProxy().value(radiusIndex);
+    QVERIFY(particleProxyIndex.isValid() == false); // particle is not in a tree
+    QVERIFY(groupProxyIndex.isValid());
+    QCOMPARE(groupProxyIndex.row(), 0);
+    QCOMPARE(groupProxyIndex.column(), 0);
+    QVERIFY(groupProxyIndex.parent() == QModelIndex());
+    QVERIFY(ffProxyIndex.isValid() == false); // ff is excluded from hierarchy
+    QVERIFY(radiusProxyIndex.isValid());
+
+    // checking that new parent of groupItem is root
+    QVERIFY(strategy.proxySourceParent().value(groupProxyIndex) == QModelIndex());
+    QVERIFY(strategy.proxySourceParent().value(ffProxyIndex) == QModelIndex());
+    QVERIFY(strategy.proxySourceParent().value(radiusProxyIndex) == groupIndex);
 }
 

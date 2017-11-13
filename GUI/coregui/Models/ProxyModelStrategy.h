@@ -39,6 +39,8 @@ public:
     const map_t& sourceToProxy();
     const map_t& proxySourceParent();
 
+    void setRootIndex(const QModelIndex& sourceRootIndex);
+
 protected:
     QModelIndex createProxyIndex(ComponentProxyModel* proxy, int nrow, int ncol, void* adata);
     virtual void processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
@@ -48,6 +50,8 @@ protected:
     QMap<QPersistentModelIndex, QPersistentModelIndex> m_sourceToProxy;
     //!< Mapping of proxy model indices to indices of parent in source model
     QMap<QPersistentModelIndex, QPersistentModelIndex> m_proxySourceParent;
+
+    QModelIndex m_sourceRootIndex;
 };
 
 //! Strategy for ComponentProxyModel which makes it identical to source model.

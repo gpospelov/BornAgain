@@ -26,6 +26,7 @@ private slots:
     void test_insertRows();
     void test_componentStrategy();
     void test_componentStrategyFormFactorChanges();
+    void test_setRootIndex();
 };
 
 //! Empty proxy model.
@@ -319,4 +320,32 @@ inline void TestComponentProxyModel::test_componentStrategyFormFactorChanges()
     groupProxyIndex = proxy.mapFromSource(model.indexOfItem(group));
     QCOMPARE(proxy.rowCount(groupProxyIndex), 2); // cylinder radius, length
     QCOMPARE(proxy.columnCount(groupProxyIndex), 2);
+}
+
+//! Checking setRootIndex: proxy model should contain only items corresponding
+//! to rootIndex and its children.
+
+inline void TestComponentProxyModel::test_setRootIndex()
+{
+
+    SessionModel model("TestModel");
+
+    ComponentProxyModel proxy;
+    proxy.setProxyStrategy(new ComponentProxyStrategy);
+    proxy.setSessionModel(&model);
+
+    // inserting multilayer with two layers
+    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
+    SessionItem* layer1 = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+
+    proxy.setRootIndex(model.indexOfItem(layer1));
+
+    QModelIndex multilayerProxyIndex = proxy.mapFromSource(model.indexOfItem(multilayer));
+    QVERIFY(multilayerProxyIndex.isValid() == false);
+
+    QModelIndex layerProxyIndex = proxy.mapFromSource(model.indexOfItem(layer1));
+    QVERIFY(layerProxyIndex.isValid());
+    QVERIFY(layerProxyIndex.parent() == QModelIndex());
+    QCOMPARE(proxy.rowCount(QModelIndex()), 1);
 }

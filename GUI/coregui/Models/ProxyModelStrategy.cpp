@@ -27,7 +27,7 @@ void ProxyModelStrategy::buildModelMap(SessionModel* source, ComponentProxyModel
     m_sourceToProxy.clear();
     m_proxySourceParent.clear();
 
-    ModelUtils::iterate(QModelIndex(), source, [=](const QModelIndex& index) {
+    ModelUtils::iterate(m_sourceRootIndex, source, [=](const QModelIndex& index) {
         processSourceIndex(source, proxy, index);
     });
 }
@@ -44,6 +44,11 @@ const ProxyModelStrategy::map_t& ProxyModelStrategy::sourceToProxy() { return m_
 const ProxyModelStrategy::map_t& ProxyModelStrategy::proxySourceParent()
 {
     return m_proxySourceParent;
+}
+
+void ProxyModelStrategy::setRootIndex(const QModelIndex& sourceRootIndex)
+{
+    m_sourceRootIndex = sourceRootIndex;
 }
 
 //! Method to ask proxy to create an index using friendship of ProxyModelStrategy
@@ -88,7 +93,13 @@ void ComponentProxyStrategy::processSourceIndex(SessionModel* model, ComponentPr
 
     SessionItem* item = model->itemForIndex(index);
 
-    if (isGroupChildren(item)) {
+    if (item->index() == m_sourceRootIndex) {
+        // if index is desired new source
+        proxyIndex = createProxyIndex(proxy, 0, index.column(), index.internalPointer());
+        m_sourceToProxy.insert(sourceIndex, proxyIndex);
+        m_proxySourceParent.insert(proxyIndex, QModelIndex()); // new parent will be root
+
+    } else if (isGroupChildren(item)) {
         // do parent substitution here
         processGroupItem(item, sourceIndex, proxyIndex);
     } else {

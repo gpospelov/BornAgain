@@ -43,6 +43,8 @@ public:
 
     void setSessionModel(SessionModel* model);
 
+    void setRootIndex(const QModelIndex& sourceRootIndex);
+
     void setProxyStrategy(ProxyModelStrategy* strategy);
 
     QModelIndex mapToSource(const QModelIndex &proxyIndex) const;

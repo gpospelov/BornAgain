@@ -68,6 +68,13 @@ void ComponentProxyModel::setSessionModel(SessionModel* model)
     buildModelMap();
 }
 
+void ComponentProxyModel::setRootIndex(const QModelIndex& sourceRootIndex)
+{
+    Q_ASSERT(m_model);
+    m_proxyStrategy->setRootIndex(sourceRootIndex);
+    buildModelMap();
+}
+
 void ComponentProxyModel::setProxyStrategy(ProxyModelStrategy* strategy)
 {
     m_proxyStrategy.reset(strategy);

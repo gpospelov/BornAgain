@@ -74,6 +74,7 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
             this, &TestComponentView::onSelectionChanged);
 
     m_proxyTree->setModel(m_proxyModel);
+//    m_proxyTree->setModel(m_sourceModel);
     m_proxyTree->setItemDelegate(m_delegate);
     m_proxyTree->setRootIsDecorated(false);
     StyleUtils::setPropertyStyle(m_proxyTree);
@@ -111,12 +112,15 @@ void TestComponentView::onExpandRequest()
 
 void TestComponentView::init_source()
 {
-    SampleBuilderFactory factory;
-    const std::unique_ptr<ISample> sample(factory.createSample("CylindersAndPrismsBuilder"));
-    GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_sourceModel, *sample);
+//    SampleBuilderFactory factory;
+//    const std::unique_ptr<ISample> sample(factory.createSample("CylindersAndPrismsBuilder"));
+//    GUIObjectBuilder guiBuilder;
+//    guiBuilder.populateSampleModel(m_sourceModel, *sample);
+//    m_sourceModel->insertNewItem(Constants::VectorType);
 
-    m_sourceModel->insertNewItem(Constants::VectorType);
+    SessionItem* multilayer = m_sourceModel->insertNewItem(Constants::MultiLayerType);
+    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));
+    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));
 }
 
 void TestComponentView::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)
@@ -127,12 +131,17 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
         QModelIndex selectedIndex = indexes.front();
         SessionItem* item = m_sourceModel->itemForIndex(selectedIndex);
         QString modelType = item->modelType();
-        if (modelType ==  Constants::PropertyType || modelType == Constants::GroupItemType
-            || modelType == Constants::VectorType)
-            selectedIndex = selectedIndex.parent();
+//        if (modelType ==  Constants::PropertyType || modelType == Constants::GroupItemType
+//            || modelType == Constants::VectorType)
+//            selectedIndex = selectedIndex.parent();
 
-        if (selectedIndex.isValid())
-            m_proxyTree->setRootIndex(m_proxyModel->mapFromSource(selectedIndex));
+//        if (item->parent()) {
+            //m_proxyTree->setRootIndex(m_proxyModel->mapFromSource(selectedIndex));
+            //m_proxyTree->setRootIndex(selectedIndex);
+        qDebug() << "!!!" << item->modelType();
+            m_proxyModel->setRootIndex(selectedIndex);
+            m_proxyTree->expandAll();
+//        }
     }
 
 }

@@ -16,9 +16,8 @@
 #ifndef SPECULARSIMULATION_H
 #define SPECULARSIMULATION_H
 
-#include "ICloneable.h"
+#include "Simulation.h"
 #include "ILayerRTCoefficients.h"
-#include "IParameterized.h"
 #include "OutputData.h"
 #include <memory>
 
@@ -30,39 +29,30 @@ class MultiLayer;
 //! Main class to run a specular simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ SpecularSimulation : public ICloneable, public IParameterized
+class BA_CORE_API_ SpecularSimulation : public Simulation
 {
 public:
-    typedef std::shared_ptr<const ILayerRTCoefficients> LayerRTCoefficients_t;
-    typedef std::vector<LayerRTCoefficients_t> MultiLayerRTCoefficients_t;
-
     SpecularSimulation();
-    SpecularSimulation(const ISample& sample);
+    SpecularSimulation(const MultiLayer& sample);
     SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    virtual ~SpecularSimulation();
+    virtual ~SpecularSimulation() override = default;
 
-    SpecularSimulation* clone() const;
+    virtual SpecularSimulation* clone() const override;
 
-    //! Run a simulation with the current parameter settings
-    void runSimulation();
+    //! Put into a clean state for running a simulation
+    virtual void prepareSimulation() override;
 
-    //! Sets the sample to be tested
-    void setSample(const ISample& sample);
+    //! Run a simulation, possibly averaged over parameter distributions
+    virtual void runSimulation() override;
 
-    //! Returns the sample
-    ISample* sample() const { return mP_sample.get(); }
-
-    //! Sets the sample builder
-    void setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sample_builder);
-
-    //! return sample builder
-    std::shared_ptr<IMultiLayerBuilder> sampleBuilder() const { return mP_sample_builder; }
+    virtual void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
 
     //! Sets beam parameters with alpha_i of the beam defined in the range
-    void setBeamParameters(double lambda, const IAxis& alpha_axis);
-    void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max);
+    void setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i = 0.0);
+    void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max,
+                           double phi_i = 0.0);
 
-    //! returns alpha_i axis
+    //! Returns a pointer to incident angle axis.
     const IAxis* getAlphaAxis() const;
 
     //! returns vector of reflection coefficients for all alpha_i angles for given layer index
@@ -74,19 +64,20 @@ public:
     //! returns vector of Kz coefficients for all alpha_i angles for given layer index
     std::vector<complex_t> getScalarKz(size_t i_layer) const;
 
-    LayerRTCoefficients_t getLayerRTCoefficients(size_t i_alpha, size_t i_layer) const;
+private:
+    typedef std::shared_ptr<const ILayerRTCoefficients> LayerRTCoefficients_t;
+    typedef std::vector<LayerRTCoefficients_t> MultiLayerRTCoefficients_t;
 
-    //! Put into a clean state for running a simulation
-    void prepareSimulation();
-
-protected:
     SpecularSimulation(const SpecularSimulation& other);
 
-    //! Registers some class members for later access via parameter pool
-    void init_parameters() {}
-
-    //! Update the sample by calling the sample builder, if present
-    void updateSample();
+    // unused methods
+    virtual void initSimulationElementVector() override {}
+    virtual void transferResultsToIntensityMap() override {}
+    virtual void updateIntensityMap() override {}
+    virtual size_t numberOfSimulationElements() const override {return 1;}
+    // must pass default parameter because of SWIG
+    virtual OutputData<double>* getDetectorIntensity(IDetector2D::EAxesUnits units_type
+                                                     = IDetector2D::DEFAULT) const override;
 
     //! calculates RT coefficients for multilayer without magnetic materials
     void collectRTCoefficientsScalar(const MultiLayer* multilayer);
@@ -97,17 +88,14 @@ protected:
     //! check if simulation was run already and has valid coefficients
     void checkCoefficients(size_t i_layer) const;
 
-    //! update data axes
-    void updateCoefficientDataAxes();
+    //! Checks if simulation was properly initialized
+    void checkInitialization() const;
 
-    std::unique_ptr<ISample> mP_sample;
-    std::shared_ptr<IMultiLayerBuilder> mP_sample_builder;
-    std::unique_ptr<IAxis> mP_alpha_i_axis;
-    double m_lambda = 0.0;  //!< wavelength in vacuum
+    //! Initializes simulation
+    void initialize();
 
-#ifndef SWIG
-    OutputData<MultiLayerRTCoefficients_t> m_data;
-#endif
+    OutputData<MultiLayerRTCoefficients_t> m_RT_coefficients;
+    std::unique_ptr<IAxis> m_alpha_i_axis;
 };
 
 #endif // SPECULARSIMULATION_H

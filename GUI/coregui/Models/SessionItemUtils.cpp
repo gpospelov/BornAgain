@@ -18,6 +18,13 @@
 #include "SessionItem.h"
 #include "VectorItem.h"
 
+int SessionItemUtils::ParentRow(const SessionItem& item)
+{
+    if (item.parent())
+        return item.parent()->rowOfChild(const_cast<SessionItem*>(&item));
+    return -1;
+}
+
 kvector_t SessionItemUtils::GetVectorItem(const SessionItem& item, const QString& name)
 {
     SessionItem* vectorItem = item.getItem(name);

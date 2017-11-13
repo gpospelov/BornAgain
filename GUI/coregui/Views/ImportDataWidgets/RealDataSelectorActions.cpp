@@ -15,15 +15,15 @@
 // ************************************************************************** //
 
 #include "RealDataSelectorActions.h"
+#include "GUIHelpers.h"
 #include "ImportDataAssistant.h"
-#include "RealDataItem.h"
-#include "RealDataModel.h"
-#include "OutputData.h"
+#include "IntensityDataFunctions.h"
 #include "IntensityDataItem.h"
 #include "MaskItems.h"
-#include "GUIHelpers.h"
+#include "OutputData.h"
 #include "ProjectionItems.h"
-#include "IntensityDataFunctions.h"
+#include "RealDataItem.h"
+#include "RealDataModel.h"
 #include <QAction>
 #include <QApplication>
 #include <QItemSelectionModel>
@@ -49,8 +49,8 @@ bool rotationAffectsSetup(IntensityDataItem& intensityItem) {
     if (intensityItem.maskContainerItem() && intensityItem.maskContainerItem()->hasChildren())
         return true;
 
-    if (intensityItem.projectionContainerItem() &&
-        intensityItem.projectionContainerItem()->hasChildren())
+    if (intensityItem.projectionContainerItem()
+        && intensityItem.projectionContainerItem()->hasChildren())
         return true;
 
     return false;
@@ -65,10 +65,10 @@ void resetSetup(IntensityDataItem& intensityItem) {
         data_parent->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
 
     if (auto maskContainer = intensityItem.maskContainerItem())
-        maskContainer->model()->removeRows(0, maskContainer->rowCount(), maskContainer->index());
+        maskContainer->model()->removeRows(0, maskContainer->numberOfChildren(), maskContainer->index());
 
     if (auto projectionsContainer = intensityItem.projectionContainerItem())
-        projectionsContainer->model()->removeRows(0, projectionsContainer->rowCount(),
+        projectionsContainer->model()->removeRows(0, projectionsContainer->numberOfChildren(),
                                                   projectionsContainer->index());
 }
 

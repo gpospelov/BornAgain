@@ -66,6 +66,7 @@
 #include <limits>
 
 using namespace INodeUtils;
+using SessionItemUtils::SetVectorItem;
 
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);
 void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_name);
@@ -238,7 +239,7 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
     }
 
     // polarization parameters
-    SessionItemUtils::SetVectorItem(*beamItem, BeamItem::P_POLARIZATION, beam.getBlochVector());
+    SetVectorItem(*beamItem, BeamItem::P_POLARIZATION, beam.getBlochVector());
 }
 
 void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrumentItem,
@@ -298,7 +299,7 @@ void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instru
     if (total_transmission>0.0) {
         kvector_t analyzer_dir = p_detector->analyzerDirection();
         double efficiency = p_detector->analyzerEfficiency();
-        SessionItemUtils::SetVectorItem(*detector_item, DetectorItem::P_ANALYZER_DIRECTION,
+        SetVectorItem(*detector_item, DetectorItem::P_ANALYZER_DIRECTION,
                                         analyzer_dir);
         detector_item->setItemValue(DetectorItem::P_ANALYZER_EFFICIENCY, efficiency);
         detector_item->setItemValue(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION,
@@ -349,10 +350,10 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
         detectorItem->setDetectorAlignment(Constants::ALIGNMENT_GENERIC);
 
         kvector_t normal = detector.getNormalVector();
-        SessionItemUtils::SetVectorItem(*detectorItem, RectangularDetectorItem::P_NORMAL, normal);
+        SetVectorItem(*detectorItem, RectangularDetectorItem::P_NORMAL, normal);
 
         kvector_t direction = detector.getDirectionVector();
-        SessionItemUtils::SetVectorItem(*detectorItem, RectangularDetectorItem::P_DIRECTION,
+        SetVectorItem(*detectorItem, RectangularDetectorItem::P_DIRECTION,
                                         direction);
 
         detectorItem->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());

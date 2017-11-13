@@ -59,12 +59,12 @@ BeamEditorWidget::BeamEditorWidget(QWidget* parent)
     mainLayout->addStretch();
     setLayout(mainLayout);
 
-    connect(m_wavelengthPresenter, SIGNAL(onDialogRequest(SessionItem*, QString)),
-            this, SLOT(onDialogRequest(SessionItem*, QString)));
-    connect(m_inclinationAnglePresenter, SIGNAL(onDialogRequest(SessionItem*, QString)),
-            this, SLOT(onDialogRequest(SessionItem*, QString)));
-    connect(m_azimuthalAnglePresenter, SIGNAL(onDialogRequest(SessionItem*, QString)),
-            this, SLOT(onDialogRequest(SessionItem*, QString)));
+    connect(m_wavelengthPresenter, &ComponentInfoBox::onDialogRequest,
+            this, &BeamEditorWidget::onDialogRequest);
+    connect(m_inclinationAnglePresenter, &ComponentInfoBox::onDialogRequest,
+            this, &BeamEditorWidget::onDialogRequest);
+    connect(m_azimuthalAnglePresenter, &ComponentInfoBox::onDialogRequest,
+            this, &BeamEditorWidget::onDialogRequest);
 }
 
 void BeamEditorWidget::setBeamItem(BeamItem* beamItem)

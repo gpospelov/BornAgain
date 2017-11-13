@@ -31,6 +31,8 @@
 #include "TransformToDomain.h"
 #include "VectorItem.h"
 
+using SessionItemUtils::GetVectorItem;
+
 namespace {
 const QString abundance_tooltip =
     "Proportion of this type of mesocrystal normalized to the \n"
@@ -47,7 +49,7 @@ const QString lattice_vector3_tooltip =
 
 const QString position_tooltip =
     "Relative position of the mesocrystal's reference point \n"
-    "in the coordinate system of the parent";
+    "in the coordinate system of the parent (nm)";
 
 const QString density_tooltip =
     "Number of mesocrystals per square nanometer (particle surface density).\n "
@@ -148,9 +150,9 @@ QStringList MesoCrystalItem::translateList(const QStringList& list) const
 
 Lattice MesoCrystalItem::getLattice() const
 {
-    kvector_t a1 = SessionItemUtils::GetVectorItem(*this, P_VECTOR_A);
-    kvector_t a2 = SessionItemUtils::GetVectorItem(*this, P_VECTOR_B);
-    kvector_t a3 = SessionItemUtils::GetVectorItem(*this, P_VECTOR_C);
+    kvector_t a1 = GetVectorItem(*this, P_VECTOR_A);
+    kvector_t a2 = GetVectorItem(*this, P_VECTOR_B);
+    kvector_t a3 = GetVectorItem(*this, P_VECTOR_C);
     return Lattice(a1, a2, a3);
 }
 

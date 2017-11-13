@@ -102,6 +102,18 @@ inline void TestComponentProxyModel::test_setModelWithVector()
     QCOMPARE(proxy.rowCount(proxyVector), 3); // x,y,z
     QCOMPARE(proxy.columnCount(proxyVector), ncols);
 
+    // second col for VectorItem
+    QModelIndex sourceVector1 = model.index(0, 1, QModelIndex());
+    QModelIndex proxyVector1 = proxy.index(0, 1, QModelIndex());
+    QVERIFY(sourceVector1 != proxyVector1);
+    QVERIFY(sourceVector1.internalPointer() == proxyVector1.internalPointer());
+    QCOMPARE(proxyVector1, proxy.mapFromSource(sourceVector1));
+    QCOMPARE(sourceVector1, proxy.mapToSource(proxyVector1));
+    QCOMPARE(model.rowCount(sourceVector1), 0);
+    QCOMPARE(model.columnCount(sourceVector1), 0);
+    QCOMPARE(proxy.rowCount(proxyVector1), 0);
+    QCOMPARE(proxy.columnCount(proxyVector1), 0);
+
     // mapFromSource, mapToSource for P_X
     QModelIndex sourceX = model.index(0, 0, sourceVector);
     QModelIndex proxyX = proxy.index(0, 0, proxyVector);
@@ -109,12 +121,29 @@ inline void TestComponentProxyModel::test_setModelWithVector()
     QVERIFY(sourceX.internalPointer() == proxyX.internalPointer());
     QCOMPARE(proxyX, proxy.mapFromSource(sourceX));
     QCOMPARE(sourceX, proxy.mapToSource(proxyX));
+    QVERIFY(model.parent(sourceX) == sourceVector);
+    QVERIFY(proxy.parent(proxyX) == proxyVector);
 
     // rows, cols of P_X
     QCOMPARE(model.rowCount(sourceX), 0);
     QCOMPARE(model.columnCount(sourceX), ncols);
     QCOMPARE(proxy.rowCount(proxyX), 0);
     QCOMPARE(proxy.columnCount(proxyX), ncols);
+
+    // second col for P_X
+    QModelIndex sourceX1 = model.index(0, 1, sourceVector);
+    QModelIndex proxyX1 = proxy.index(0, 1, proxyVector);
+    QVERIFY(sourceX1 != proxyX1);
+    QVERIFY(sourceX1.internalPointer() == proxyX1.internalPointer());
+    QCOMPARE(proxyX1, proxy.mapFromSource(sourceX1));
+    QCOMPARE(sourceX1, proxy.mapToSource(proxyX1));
+    QCOMPARE(model.rowCount(sourceX1), 0);
+    QCOMPARE(model.columnCount(sourceX1), 0);
+    QCOMPARE(proxy.rowCount(proxyX1), 0);
+    QCOMPARE(proxy.columnCount(proxyX1), 0);
+
+    QVERIFY(sourceX.sibling(sourceX.row(), 1) == sourceX1);
+    QVERIFY(proxyX.sibling(proxyX.row(), 1) == proxyX1);
 
     // mapFromSource, mapToSource for P_Z
     QModelIndex sourceZ = model.index(2, 0, sourceVector);
@@ -227,8 +256,24 @@ inline void TestComponentProxyModel::test_componentStrategy()
     QVERIFY(ffItem->parent() == group);
     QVERIFY(ffItem->modelType() == Constants::CylinderType);
 
-    auto groupProxyIndex = proxy.mapFromSource(model.indexOfItem(group));
+    auto particleIndex = model.indexOfItem(item);
+    auto groupIndex = model.indexOfItem(group);
+
+    auto particleProxyIndex = proxy.mapFromSource(particleIndex);
+    auto groupProxyIndex = proxy.mapFromSource(groupIndex);
+    QVERIFY(proxy.hasChildren(groupProxyIndex) == false);
+    QVERIFY(proxy.parent(groupProxyIndex) == particleProxyIndex);
     QCOMPARE(proxy.rowCount(groupProxyIndex), 0);
-//    QCOMPARE(proxy.columnCount(groupProxyIndex), 1);
+    QCOMPARE(proxy.columnCount(groupProxyIndex), 2);
+
+    // second row
+    auto groupProxyIndex2 = groupProxyIndex.sibling(groupProxyIndex.row(), 1);
+    QVERIFY(groupProxyIndex2.isValid());
+    QVERIFY(proxy.parent(groupProxyIndex2) == particleProxyIndex);
+    QCOMPARE(proxy.rowCount(groupProxyIndex2), 0);
+    QCOMPARE(proxy.columnCount(groupProxyIndex2), 0);
+
+    // Changing form factor type
+
 }
 

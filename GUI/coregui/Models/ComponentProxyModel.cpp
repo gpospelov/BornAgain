@@ -135,10 +135,18 @@ int ComponentProxyModel::rowCount(const QModelIndex& parent) const
 
 int ComponentProxyModel::columnCount(const QModelIndex& parent) const
 {
-    QModelIndex sourceParent = mapToSource(parent);
-    if (sourceParent.isValid() && sourceParent.column() != 0)
+    if (parent.isValid() && parent.column() != 0)
         return 0;
     return SessionModel::MAX_COLUMNS;
+}
+
+bool ComponentProxyModel::hasChildren(const QModelIndex& parent) const
+{
+    QModelIndex source_parent = mapToSource(parent);
+    if (parent.isValid() && !source_parent.isValid())
+        return false;
+
+    return rowCount(parent) != 0;
 }
 
 void ComponentProxyModel::sourceDataChanged(const QModelIndex& topLeft,

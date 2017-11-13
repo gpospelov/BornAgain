@@ -49,7 +49,7 @@ const QString lattice_vector3_tooltip =
 
 const QString position_tooltip =
     "Relative position of the mesocrystal's reference point \n"
-    "in the coordinate system of the parent";
+    "in the coordinate system of the parent (nm)";
 
 const QString density_tooltip =
     "Number of mesocrystals per square nanometer (particle surface density).\n "

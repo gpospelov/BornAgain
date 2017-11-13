@@ -47,7 +47,7 @@ public:
     virtual void prepareSimulation();
 
     //! Run a simulation, possibly averaged over parameter distributions
-    void runSimulation();
+    virtual void runSimulation();
 
     void setInstrument(const Instrument& instrument);
     const Instrument& getInstrument() const { return m_instrument; }

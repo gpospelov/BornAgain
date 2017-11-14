@@ -30,29 +30,37 @@ void ComponentProxyStrategy::onDataChanged(SessionModel* source, ComponentProxyM
 void ComponentProxyStrategy::processSourceIndex(const QModelIndex& index)
 {
     QPersistentModelIndex sourceIndex = QPersistentModelIndex(index);
-    QPersistentModelIndex proxyIndex
-        = createProxyIndex(index.row(), index.column(), index.internalPointer());
 
     SessionItem* item = m_source->itemForIndex(index);
 
-    if (item->index() == m_sourceRootIndex) {
-        // if index is desired new source
-        proxyIndex = createProxyIndex(0, index.column(), index.internalPointer());
-        m_sourceToProxy.insert(sourceIndex, proxyIndex);
-        m_proxySourceParent.insert(proxyIndex, QModelIndex()); // new parent will be root
+    if (isNewRootItem(item)) {
+        processRootItem(item, sourceIndex);
 
     } else if (isGroupChildren(item)) {
-        // do parent substitution here
-        processGroupItem(item, sourceIndex, proxyIndex);
+        processGroupItem(item, sourceIndex);
+
     } else {
-        m_sourceToProxy.insert(sourceIndex, proxyIndex);
-
-        QPersistentModelIndex sourceParent;
-        if (index.parent().isValid())
-            sourceParent = index.parent();
-
-        m_proxySourceParent.insert(proxyIndex, sourceParent);
+        processDefaultItem(item, sourceIndex);
     }
+}
+
+//! Returns true if item should become new root item.
+//! This is used when we want to show single item (Layer, Particle) on top of the tree.
+
+bool ComponentProxyStrategy::isNewRootItem(SessionItem* item)
+{
+    return item->index() == m_sourceRootIndex;
+}
+
+//! Makes SessionItem to be come the only one item in a tree.
+
+void ComponentProxyStrategy::processRootItem(SessionItem* item,
+                                             const QPersistentModelIndex& sourceIndex)
+{
+    const int nrows = 0; // invisible root item will contain only single item
+    QPersistentModelIndex proxyIndex = createProxyIndex(nrows, sourceIndex.column(), item);
+    m_sourceToProxy.insert(sourceIndex, proxyIndex);
+    m_proxySourceParent.insert(proxyIndex, QModelIndex()); // new parent will be root
 }
 
 bool ComponentProxyStrategy::isGroupChildren(SessionItem* item)
@@ -69,8 +77,7 @@ bool ComponentProxyStrategy::isGroupChildren(SessionItem* item)
 }
 
 void ComponentProxyStrategy::processGroupItem(SessionItem* item,
-                                              const QPersistentModelIndex& sourceIndex,
-                                              const QPersistentModelIndex& proxyIndex)
+                                              const QPersistentModelIndex& sourceIndex)
 {
     if (const SessionItem* ancestor = ModelPath::ancestor(item, Constants::GroupItemType)) {
         if (ancestor == item)
@@ -78,9 +85,27 @@ void ComponentProxyStrategy::processGroupItem(SessionItem* item,
 
         auto groupItem = dynamic_cast<const GroupItem*>(ancestor);
         if (item->parent() == groupItem->currentItem()) {
+            QPersistentModelIndex proxyIndex
+                = createProxyIndex(sourceIndex.row(), sourceIndex.column(), sourceIndex.internalPointer());
+
             m_sourceToProxy.insert(sourceIndex, proxyIndex);
             m_proxySourceParent.insert(proxyIndex, groupItem->index());
         }
 
     }
+}
+
+void ComponentProxyStrategy::processDefaultItem(SessionItem* item,
+                                                const QPersistentModelIndex& sourceIndex)
+{
+    QPersistentModelIndex proxyIndex
+        = createProxyIndex(sourceIndex.row(), sourceIndex.column(), item);
+
+    m_sourceToProxy.insert(sourceIndex, proxyIndex);
+
+    QPersistentModelIndex sourceParent;
+    if (sourceIndex.parent().isValid())
+        sourceParent = sourceIndex.parent();
+
+    m_proxySourceParent.insert(proxyIndex, sourceParent);
 }

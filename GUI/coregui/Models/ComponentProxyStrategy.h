@@ -29,9 +29,11 @@ public:
 protected:
     void processSourceIndex(const QModelIndex& index);
 private:
+    bool isNewRootItem(SessionItem* item);
+    void processRootItem(SessionItem* item, const QPersistentModelIndex& sourceIndex);
     bool isGroupChildren(SessionItem* item);
-    void processGroupItem(SessionItem* item, const QPersistentModelIndex& sourceIndex,
-                          const QPersistentModelIndex& proxyIndex);
+    void processGroupItem(SessionItem* item, const QPersistentModelIndex& sourceIndex);
+    void processDefaultItem(SessionItem* item, const QPersistentModelIndex& sourceIndex);
 };
 
 #endif  //  COMPONENTPROXYSTRATEGY_H

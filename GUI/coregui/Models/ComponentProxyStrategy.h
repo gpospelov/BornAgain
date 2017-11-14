@@ -27,8 +27,7 @@ public:
     void onDataChanged(SessionModel* source, ComponentProxyModel* proxy);
 
 protected:
-    void processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
-                            const QModelIndex& index);
+    void processSourceIndex(const QModelIndex& index);
 private:
     bool isGroupChildren(SessionItem* item);
     void processGroupItem(SessionItem* item, const QPersistentModelIndex& sourceIndex,

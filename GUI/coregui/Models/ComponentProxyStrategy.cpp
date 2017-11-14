@@ -27,18 +27,17 @@ void ComponentProxyStrategy::onDataChanged(SessionModel* source, ComponentProxyM
     proxy->layoutChanged();
 }
 
-void ComponentProxyStrategy::processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
-                                                const QModelIndex& index)
+void ComponentProxyStrategy::processSourceIndex(const QModelIndex& index)
 {
     QPersistentModelIndex sourceIndex = QPersistentModelIndex(index);
     QPersistentModelIndex proxyIndex
-        = createProxyIndex(proxy, index.row(), index.column(), index.internalPointer());
+        = createProxyIndex(index.row(), index.column(), index.internalPointer());
 
-    SessionItem* item = model->itemForIndex(index);
+    SessionItem* item = m_source->itemForIndex(index);
 
     if (item->index() == m_sourceRootIndex) {
         // if index is desired new source
-        proxyIndex = createProxyIndex(proxy, 0, index.column(), index.internalPointer());
+        proxyIndex = createProxyIndex(0, index.column(), index.internalPointer());
         m_sourceToProxy.insert(sourceIndex, proxyIndex);
         m_proxySourceParent.insert(proxyIndex, QModelIndex()); // new parent will be root
 

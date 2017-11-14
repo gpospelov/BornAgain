@@ -19,18 +19,27 @@
 #include "ComponentProxyModel.h"
 #include "SessionModel.h"
 
+ProxyModelStrategy::ProxyModelStrategy()
+    : m_source(nullptr)
+    , m_proxy(nullptr)
+{
+
+}
+
 void ProxyModelStrategy::buildModelMap(SessionModel* source, ComponentProxyModel* proxy)
 {
     m_sourceToProxy.clear();
     m_proxySourceParent.clear();
+    m_source = source;
+    m_proxy = proxy;
 
     ModelUtils::iterate(m_sourceRootIndex, source, [=](const QModelIndex& index) {
-        processSourceIndex(source, proxy, index);
+        processSourceIndex(index);
     });
 
     // kind of hack since we have to visit col=1 which has QModelIndex() parent
     if (m_sourceRootIndex.isValid())
-        processSourceIndex(source, proxy, m_sourceRootIndex.sibling(m_sourceRootIndex.row(), 1));
+        processSourceIndex(m_sourceRootIndex.sibling(m_sourceRootIndex.row(), 1));
 }
 
 void ProxyModelStrategy::onDataChanged(SessionModel* source, ComponentProxyModel* proxy)
@@ -55,21 +64,18 @@ void ProxyModelStrategy::setRootIndex(const QModelIndex& sourceRootIndex)
 //! Method to ask proxy to create an index using friendship of ProxyModelStrategy
 //! and ComponentProxyModel.
 
-QModelIndex ProxyModelStrategy::createProxyIndex(ComponentProxyModel* proxy, int nrow, int ncol,
-                                                 void* adata)
+QModelIndex ProxyModelStrategy::createProxyIndex(int nrow, int ncol, void* adata)
 {
-    return proxy->createIndex(nrow, ncol, adata);
+    Q_ASSERT(m_proxy);
+    return m_proxy->createIndex(nrow, ncol, adata);
 }
 
 //! Builds one-to-one mapping for source and proxy.
 
-void IndentityProxyStrategy::processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
-                                                const QModelIndex& index)
+void IndentityProxyStrategy::processSourceIndex(const QModelIndex& index)
 {
-    Q_UNUSED(model);
-
     QPersistentModelIndex proxyIndex
-        = createProxyIndex(proxy, index.row(), index.column(), index.internalPointer());
+        = createProxyIndex(index.row(), index.column(), index.internalPointer());
     m_sourceToProxy.insert(QPersistentModelIndex(index), proxyIndex);
 
     QPersistentModelIndex sourceParent;

@@ -5,6 +5,7 @@
 #include "ComponentProxyModel.h"
 #include "VectorItem.h"
 #include "ProxyModelStrategy.h"
+#include "ComponentProxyStrategy.h"
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
 #include "GroupItem.h"

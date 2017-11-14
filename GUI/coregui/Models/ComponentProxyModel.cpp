@@ -17,7 +17,7 @@
 #include "ComponentProxyModel.h"
 #include "SessionModel.h"
 #include "ModelUtils.h"
-#include "ProxyModelStrategy.h"
+#include "ComponentProxyStrategy.h"
 #include <functional>
 #include <QDebug>
 

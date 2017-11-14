@@ -18,9 +18,6 @@
 #include "ModelUtils.h"
 #include "ComponentProxyModel.h"
 #include "SessionModel.h"
-#include "SessionItem.h"
-#include "ModelPath.h"
-#include "GroupItem.h"
 
 void ProxyModelStrategy::buildModelMap(SessionModel* source, ComponentProxyModel* proxy)
 {
@@ -80,69 +77,4 @@ void IndentityProxyStrategy::processSourceIndex(SessionModel* model, ComponentPr
         sourceParent = index.parent();
 
     m_proxySourceParent.insert(proxyIndex, sourceParent);
-}
-
-void ComponentProxyStrategy::onDataChanged(SessionModel* source, ComponentProxyModel* proxy)
-{
-    buildModelMap(source, proxy);
-    proxy->layoutChanged();
-}
-
-void ComponentProxyStrategy::processSourceIndex(SessionModel* model, ComponentProxyModel* proxy,
-                                                const QModelIndex& index)
-{
-    QPersistentModelIndex sourceIndex = QPersistentModelIndex(index);
-    QPersistentModelIndex proxyIndex
-        = createProxyIndex(proxy, index.row(), index.column(), index.internalPointer());
-
-    SessionItem* item = model->itemForIndex(index);
-
-    if (item->index() == m_sourceRootIndex) {
-        // if index is desired new source
-        proxyIndex = createProxyIndex(proxy, 0, index.column(), index.internalPointer());
-        m_sourceToProxy.insert(sourceIndex, proxyIndex);
-        m_proxySourceParent.insert(proxyIndex, QModelIndex()); // new parent will be root
-
-    } else if (isGroupChildren(item)) {
-        // do parent substitution here
-        processGroupItem(item, sourceIndex, proxyIndex);
-    } else {
-        m_sourceToProxy.insert(sourceIndex, proxyIndex);
-
-        QPersistentModelIndex sourceParent;
-        if (index.parent().isValid())
-            sourceParent = index.parent();
-
-        m_proxySourceParent.insert(proxyIndex, sourceParent);
-    }
-}
-
-bool ComponentProxyStrategy::isGroupChildren(SessionItem* item)
-{
-    if (item->parent() && item->parent()->modelType() == Constants::GroupItemType)
-        return true;
-
-    if (const SessionItem* ancestor = ModelPath::ancestor(item, Constants::GroupItemType)) {
-        if (ancestor != item)
-            return true;
-    }
-
-    return false;
-}
-
-void ComponentProxyStrategy::processGroupItem(SessionItem* item,
-                                              const QPersistentModelIndex& sourceIndex,
-                                              const QPersistentModelIndex& proxyIndex)
-{
-    if (const SessionItem* ancestor = ModelPath::ancestor(item, Constants::GroupItemType)) {
-        if (ancestor == item)
-            return;
-
-        auto groupItem = dynamic_cast<const GroupItem*>(ancestor);
-        if (item->parent() == groupItem->currentItem()) {
-            m_sourceToProxy.insert(sourceIndex, proxyIndex);
-            m_proxySourceParent.insert(proxyIndex, groupItem->index());
-        }
-
-    }
 }

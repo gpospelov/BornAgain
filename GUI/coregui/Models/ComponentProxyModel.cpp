@@ -17,12 +17,15 @@
 #include "ComponentProxyModel.h"
 #include "SessionModel.h"
 #include "ModelUtils.h"
+#include "ProxyModelStrategy.h"
 #include <functional>
 #include <QDebug>
 
 ComponentProxyModel::ComponentProxyModel(QObject* parent)
     : QAbstractProxyModel(parent)
     , m_model(nullptr)
+//    , m_proxyStrategy(new IndentityProxyStrategy)
+    , m_proxyStrategy(new ComponentProxyStrategy)
 {
 }
 
@@ -65,12 +68,27 @@ void ComponentProxyModel::setSessionModel(SessionModel* model)
     buildModelMap();
 }
 
+void ComponentProxyModel::setRootIndex(const QModelIndex& sourceRootIndex)
+{
+    Q_ASSERT(m_model);
+    m_proxyStrategy->setRootIndex(sourceRootIndex);
+    buildModelMap();
+}
+
+void ComponentProxyModel::setProxyStrategy(ProxyModelStrategy* strategy)
+{
+    m_proxyStrategy.reset(strategy);
+
+    if (m_model)
+        buildModelMap();
+}
+
 QModelIndex ComponentProxyModel::mapToSource(const QModelIndex& proxyIndex) const
 {
     if (!proxyIndex.isValid())
         return QModelIndex();
 
-    return m_sourceToProxy.key(proxyIndex);
+    return m_proxyStrategy->sourceToProxy().key(proxyIndex);
 }
 
 QModelIndex ComponentProxyModel::mapFromSource(const QModelIndex& sourceIndex) const
@@ -78,7 +96,7 @@ QModelIndex ComponentProxyModel::mapFromSource(const QModelIndex& sourceIndex) c
     if (!sourceIndex.isValid())
         return QModelIndex();
 
-    return m_sourceToProxy.value(sourceIndex);
+    return m_proxyStrategy->sourceToProxy().value(sourceIndex);
 }
 
 QModelIndex ComponentProxyModel::index(int row, int column, const QModelIndex& parent) const
@@ -87,7 +105,7 @@ QModelIndex ComponentProxyModel::index(int row, int column, const QModelIndex& p
     if (parent.isValid())
         sourceParent = mapToSource(parent);
 
-    QMapIterator<QPersistentModelIndex, QPersistentModelIndex> it(m_proxySourceParent);
+    QMapIterator<QPersistentModelIndex, QPersistentModelIndex> it(m_proxyStrategy->proxySourceParent());
     while (it.hasNext()) {
         it.next();
         if (it.value() == sourceParent && it.key().row() == row &&
@@ -99,7 +117,7 @@ QModelIndex ComponentProxyModel::index(int row, int column, const QModelIndex& p
 
 QModelIndex ComponentProxyModel::parent(const QModelIndex& child) const
 {
-    QModelIndex sourceParent = m_proxySourceParent.value(child);
+    QModelIndex sourceParent = m_proxyStrategy->proxySourceParent().value(child);
     if (sourceParent.isValid())
         return mapFromSource(sourceParent);
 
@@ -111,7 +129,7 @@ int ComponentProxyModel::rowCount(const QModelIndex& parent) const
     QModelIndex sourceParent;
     if (parent.isValid())
         sourceParent = mapToSource(parent);
-    QMapIterator<QPersistentModelIndex, QPersistentModelIndex> it(m_proxySourceParent);
+    QMapIterator<QPersistentModelIndex, QPersistentModelIndex> it(m_proxyStrategy->proxySourceParent());
 
     QSet<int> rows;
     while (it.hasNext()) {
@@ -124,8 +142,18 @@ int ComponentProxyModel::rowCount(const QModelIndex& parent) const
 
 int ComponentProxyModel::columnCount(const QModelIndex& parent) const
 {
-    Q_UNUSED(parent);
+    if (parent.isValid() && parent.column() != 0)
+        return 0;
     return SessionModel::MAX_COLUMNS;
+}
+
+bool ComponentProxyModel::hasChildren(const QModelIndex& parent) const
+{
+    QModelIndex source_parent = mapToSource(parent);
+    if (parent.isValid() && !source_parent.isValid())
+        return false;
+
+    return rowCount(parent) != 0;
 }
 
 void ComponentProxyModel::sourceDataChanged(const QModelIndex& topLeft,
@@ -134,6 +162,7 @@ void ComponentProxyModel::sourceDataChanged(const QModelIndex& topLeft,
 {
     Q_ASSERT(topLeft.isValid() ? topLeft.model() == sourceModel() : true);
     Q_ASSERT(bottomRight.isValid() ? bottomRight.model() == sourceModel() : true);
+    updateModelMap();
     dataChanged(mapFromSource(topLeft), mapFromSource(bottomRight), roles);
 }
 
@@ -177,24 +206,11 @@ void ComponentProxyModel::sourceRowsInserted(const QModelIndex& parent, int star
 
 void ComponentProxyModel::buildModelMap()
 {
-    m_sourceToProxy.clear();
-    m_proxySourceParent.clear();
-
-    ModelUtils::iterate(QModelIndex(), m_model, [=](const QModelIndex& index){
-       SessionItem* item = m_model->itemForIndex(index);
-
-//       qDebug() << "XXX index" << index << "index.parent" << index.parent();
-       QPersistentModelIndex proxy = createIndex(index.row(), index.column(), item);
-       m_sourceToProxy.insert(QPersistentModelIndex(index), proxy);
-
-       QPersistentModelIndex sourceParent;
-       if (index.parent().isValid())
-           sourceParent = index.parent();
-
-//       qDebug() << "YYY proxy" << proxy << "sourceParent" << sourceParent;
-       m_proxySourceParent.insert(proxy, sourceParent);
-//       qDebug() << " ";
-    });
-
+    m_proxyStrategy->buildModelMap(m_model, this);
     layoutChanged();
+}
+
+void ComponentProxyModel::updateModelMap()
+{
+    m_proxyStrategy->onDataChanged(m_model, this);
 }

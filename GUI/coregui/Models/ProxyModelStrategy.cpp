@@ -33,7 +33,7 @@ void ProxyModelStrategy::buildModelMap(SessionModel* source, ComponentProxyModel
     m_source = source;
     m_proxy = proxy;
 
-    ModelUtils::iterate(m_sourceRootIndex, source, [=](const QModelIndex& index) {
+    ModelUtils::iterate_if(m_sourceRootIndex, source, [=](const QModelIndex& index) -> bool {
         return processSourceIndex(index);
     });
 

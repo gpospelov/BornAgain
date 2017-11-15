@@ -67,7 +67,9 @@ bool ComponentProxyStrategy::processSourceIndex(const QModelIndex& index)
 bool ComponentProxyStrategy::isPropertyRelated(SessionItem* item)
 {
     static QStringList propertyRelated = propertyRelatedTypes();
-    if (m_sourceRootIndex.isValid() && item->parent()->index() == m_sourceRootIndex)
+
+    if (m_sourceRootIndex.isValid() && item->parent()->index() == m_sourceRootIndex &&
+        item->parent()->modelType() != Constants::GroupItemType)
         return propertyRelated.contains(item->modelType()) ? true : false;
 
     return true;

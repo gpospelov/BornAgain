@@ -71,6 +71,14 @@ void SpecularSimulation::runSimulation()
                                                : collectRTCoefficientsScalar(multilayer);
 }
 
+size_t SpecularSimulation::numberOfSimulationElements() const
+{
+    if (!m_alpha_i_axis)
+        std::runtime_error("Error in SpecularSimulation::numberOfSimulationElements:"
+                           "angle range was not initialized.");
+    return m_alpha_i_axis->size();
+}
+
 void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i)
 {
     if (alpha_axis.size() < 1)

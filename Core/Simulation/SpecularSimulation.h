@@ -48,6 +48,8 @@ public:
 
     virtual void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
 
+    virtual size_t numberOfSimulationElements() const override;
+
     //! Sets beam parameters with alpha_i of the beam defined in the range.
     void setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i = 0.0);
     void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max,
@@ -91,7 +93,6 @@ private:
     virtual void initSimulationElementVector() override {}
     virtual void transferResultsToIntensityMap() override {}
     virtual void updateIntensityMap() override {}
-    virtual size_t numberOfSimulationElements() const override {return 1;}
 
     //! calculates RT coefficients for multilayer without magnetic materials
     void collectRTCoefficientsScalar(const MultiLayer* multilayer);

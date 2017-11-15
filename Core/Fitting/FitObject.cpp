@@ -29,8 +29,7 @@ FitObject::FitObject(const Simulation& simulation, const OutputData<double >& re
 
 {
     setName("FitObject");
-    m_fit_elements_count =
-            m_simulation->getInstrument().getDetector()->numberOfSimulationElements();
+    m_fit_elements_count = m_simulation->numberOfSimulationElements();
     registerChild(m_simulation.get());
     init_dataset(real_data);
 }

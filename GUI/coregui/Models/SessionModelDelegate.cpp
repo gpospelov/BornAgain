@@ -170,6 +170,14 @@ void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& ind
     }
 }
 
+QSize SessionModelDelegate::sizeHint(const QStyleOptionViewItem& option,
+                                     const QModelIndex& index) const
+{
+    QSize result = QStyledItemDelegate::sizeHint(option, index);
+    result.setHeight(static_cast<int>(result.height() * 1.2));
+    return result;
+}
+
 void SessionModelDelegate::onComboPropertyChanged(const ComboProperty& /*property*/)
 {
     ComboPropertyEdit* editor = qobject_cast<ComboPropertyEdit*>(sender());

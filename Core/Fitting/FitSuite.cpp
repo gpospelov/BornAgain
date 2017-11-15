@@ -47,10 +47,25 @@ void FitSuite::addSimulationAndRealData(const Simulation& simulation,
                               const std::vector<std::vector<double>>& real_data,
                               double weight)
 {
+    // TODO: provide a way to construct OutputData<double> right from numpy array
     std::unique_ptr<IHistogram> data(IHistogram::createFrom(real_data));
-    addSimulationAndRealData(simulation, *data.get(), weight);
+    addSimulationAndRealData(simulation, *data, weight);
 }
 
+void FitSuite::addSimulationAndRealData(const Simulation& simulation,
+                                        const std::vector<double>& real_data,
+                                        double weight)
+{
+    const size_t data_size = real_data.size();
+    if (data_size == 0)
+        throw std::runtime_error("Error in FitSuite::addSimulationAndRealData: real_data array"
+                                 "is of zero size.");
+    std::unique_ptr<OutputData<double>> data_container(new OutputData<double>);
+    data_container->addAxis("x-axis", data_size, 0.0, static_cast<double>(data_size - 1));
+    for (size_t i = 0; i < data_size; ++i)
+        (*data_container)[i] = real_data[i];
+    addSimulationAndRealData(simulation, *data_container, weight);
+}
 
 FitParameter *FitSuite::addFitParameter(const std::string& pattern, double value,
                                const AttLimits& limits, double step)

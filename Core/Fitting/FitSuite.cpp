@@ -30,20 +30,20 @@ FitSuite::FitSuite()
 FitSuite::~FitSuite()
 {}
 
-void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
+void FitSuite::addSimulationAndRealData(const Simulation& simulation,
                                         const OutputData<double>& real_data, double weight)
 {
     m_impl->addSimulationAndRealData(simulation, real_data, weight);
 }
 
-void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
+void FitSuite::addSimulationAndRealData(const Simulation& simulation,
                                         const IHistogram& real_data, double weight)
 {
     const std::unique_ptr<OutputData<double>> data(real_data.createOutputData());
     m_impl->addSimulationAndRealData(simulation, *data, weight);
 }
 
-void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
+void FitSuite::addSimulationAndRealData(const Simulation& simulation,
                               const std::vector<std::vector<double>>& real_data,
                               double weight)
 {

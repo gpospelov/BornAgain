@@ -15,13 +15,13 @@
 
 #include "FitObject.h"
 #include "FitElement.h"
-#include "GISASSimulation.h"
+#include "Simulation.h"
 #include "IIntensityNormalizer.h"
 #include "SimulationArea.h"
 #include "BornAgainNamespace.h"
 #include "DetectorFunctions.h"
 
-FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
+FitObject::FitObject(const Simulation& simulation, const OutputData<double >& real_data,
     double weight)
     : m_simulation(simulation.clone())
     , m_weight(weight)
@@ -53,7 +53,7 @@ const OutputData<double>& FitObject::chiSquaredMap() const
     return *m_chi2_data.get();
 }
 
-const GISASSimulation& FitObject::simulation() const
+const Simulation& FitObject::simulation() const
 {
     return *m_simulation.get();
 }

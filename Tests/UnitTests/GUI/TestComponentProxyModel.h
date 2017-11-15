@@ -5,6 +5,7 @@
 #include "ComponentProxyModel.h"
 #include "VectorItem.h"
 #include "ProxyModelStrategy.h"
+#include "ComponentProxyStrategy.h"
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
 #include "GroupItem.h"
@@ -369,8 +370,9 @@ inline void TestComponentProxyModel::test_setRootIndexLayer()
     proxy.setSessionModel(&model);
 
     // inserting multilayer with two layers
-    SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
-    SessionItem* layer1 = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    auto multilayer = model.insertNewItem(Constants::MultiLayerType);
+    auto layer1 = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    auto layout = model.insertNewItem(Constants::ParticleLayoutType, model.indexOfItem(layer1));
     model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
 
     proxy.setRootIndex(model.indexOfItem(layer1));
@@ -381,8 +383,13 @@ inline void TestComponentProxyModel::test_setRootIndexLayer()
     QVERIFY(multilayerProxyIndex.isValid() == false);
 
     QModelIndex layerProxyIndex = proxy.mapFromSource(model.indexOfItem(layer1));
-    QCOMPARE(proxy.rowCount(layerProxyIndex), 6); // thickness, roughness, etc
+    QCOMPARE(proxy.rowCount(layerProxyIndex), 4); // thickness, material, slices, roughness
     QCOMPARE(proxy.columnCount(layerProxyIndex), 2);
     QVERIFY(layerProxyIndex.isValid());
     QVERIFY(layerProxyIndex.parent() == QModelIndex());
+
+    // ParticleLayout should be excluded from proxy tree
+    QModelIndex layoutProxyIndex = proxy.mapFromSource(model.indexOfItem(layout));
+    QVERIFY(layoutProxyIndex.isValid() == false);
+
 }

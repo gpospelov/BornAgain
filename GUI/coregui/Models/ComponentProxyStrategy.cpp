@@ -20,6 +20,7 @@
 #include "SessionItem.h"
 #include "ModelPath.h"
 #include "GroupItem.h"
+#include "SessionItemUtils.h"
 
 void ComponentProxyStrategy::onDataChanged(SessionModel* source, ComponentProxyModel* proxy)
 {
@@ -52,7 +53,7 @@ bool ComponentProxyStrategy::isNewRootItem(SessionItem* item)
     return item->index() == m_sourceRootIndex;
 }
 
-//! Makes SessionItem to be come the only one item in a tree.
+//! Makes SessionItem to become the only one item in a tree.
 
 void ComponentProxyStrategy::processRootItem(SessionItem* item,
                                              const QPersistentModelIndex& sourceIndex)
@@ -62,6 +63,8 @@ void ComponentProxyStrategy::processRootItem(SessionItem* item,
     m_sourceToProxy.insert(sourceIndex, proxyIndex);
     m_proxySourceParent.insert(proxyIndex, QModelIndex()); // new parent will be root
 }
+
+//! Returns true if item is a children/grandchildrent of some group item.
 
 bool ComponentProxyStrategy::isGroupChildren(SessionItem* item)
 {
@@ -75,6 +78,8 @@ bool ComponentProxyStrategy::isGroupChildren(SessionItem* item)
 
     return false;
 }
+
+//! All properties of current item of group item
 
 void ComponentProxyStrategy::processGroupItem(SessionItem* item,
                                               const QPersistentModelIndex& sourceIndex)
@@ -98,8 +103,12 @@ void ComponentProxyStrategy::processGroupItem(SessionItem* item,
 void ComponentProxyStrategy::processDefaultItem(SessionItem* item,
                                                 const QPersistentModelIndex& sourceIndex)
 {
+    Q_ASSERT(item);
+    if (!item->isVisible())
+        return;
+
     QPersistentModelIndex proxyIndex
-        = createProxyIndex(sourceIndex.row(), sourceIndex.column(), item);
+        = createProxyIndex(SessionItemUtils::ParentVisibleRow(*item), sourceIndex.column(), item);
 
     m_sourceToProxy.insert(sourceIndex, proxyIndex);
 

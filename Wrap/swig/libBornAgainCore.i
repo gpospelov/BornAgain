@@ -354,6 +354,7 @@
 %include "IHistogram.h"
 %include "Histogram1D.h"
 %include "Histogram2D.h"
+%include "IDetector.h"
 %include "IDetector2D.h"
 %include "IDetectorResolution.h"
 %include "Distributions.h"

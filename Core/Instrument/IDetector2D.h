@@ -16,8 +16,7 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
-#include "INode.h"
-#include "ICloneable.h"
+#include "IDetector.h"
 #include "Beam.h"
 #include "DetectorMask.h"
 #include "SafePointerVector.h"
@@ -35,10 +34,10 @@ class IShape2D;
 class RegionOfInterest;
 class SimulationElement;
 
-//! Pure virtual detector interface.
+//! Abstract 2D detector interface.
 //! @ingroup simulation
 
-class BA_CORE_API_ IDetector2D :  public ICloneable, public INode
+class BA_CORE_API_ IDetector2D :  public IDetector
 {
 public:
     enum EAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
@@ -51,14 +50,6 @@ public:
 
     //! Inits detector with the beam settings
     virtual void init(const Beam&) {}
-
-    void addAxis(const IAxis& axis);
-
-    const IAxis& getAxis(size_t index) const;
-
-    size_t getDimension() const;
-
-    void clear();
 
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
@@ -143,12 +134,6 @@ public:
     //! Resets region of interest making whole detector plane available for the simulation.
     void resetRegionOfInterest();
 
-    //! Returns total number of pixels
-    size_t getTotalSize() const;
-
-    //! Calculate axis index for given global index
-    size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
-
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
 
@@ -174,8 +159,6 @@ protected:
     //! Returns the name for the axis with given index
     virtual std::string getAxisName(size_t index) const=0;
 
-    bool isCorrectAxisIndex(size_t index) const;
-
     //! Calculate global index from two axis indices
     size_t getGlobalIndex(size_t x, size_t y) const;
 
@@ -184,7 +167,6 @@ protected:
     //! returned. This corresponds to an overflow index.
     virtual size_t getIndexOfSpecular(const Beam& beam) const=0;
 
-    SafePointerVector<IAxis> m_axes;
     std::unique_ptr<IDetectorResolution> mP_detector_resolution;
     DetectorMask m_detector_mask;
 

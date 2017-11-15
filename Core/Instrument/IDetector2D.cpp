@@ -27,13 +27,12 @@
 #include "DetectorFunctions.h"
 
 IDetector2D::IDetector2D()
-    : m_axes()
 {
     registerChild(&m_detection_properties);
 }
 
 IDetector2D::IDetector2D(const IDetector2D &other)
-    : m_axes(other.m_axes)
+    : IDetector(other)
     , m_detector_mask(other.m_detector_mask)
     , m_detection_properties(other.m_detection_properties)
 {
@@ -46,13 +45,6 @@ IDetector2D::IDetector2D(const IDetector2D &other)
 }
 
 IDetector2D::~IDetector2D() {}
-
-const IAxis &IDetector2D::getAxis(size_t index) const
-{
-    if (isCorrectAxisIndex(index))
-        return *m_axes[index];
-    throw Exceptions::OutOfBoundsException("Not so many axes in this detector.");
-}
 
 void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
                                         size_t n_y, double y_min, double y_max)
@@ -181,7 +173,7 @@ void IDetector2D::addMask(const IShape2D &shape, bool mask_value)
 
 void IDetector2D::maskAll()
 {
-    if(m_axes.size() != 2) return;
+    if(getDimension() != 2) return;
     m_detector_mask.removeMasks();
     addMask(InfinitePlane(), true);
 }
@@ -242,20 +234,6 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
     double phi_i = beam.getPhi();
     return SimulationElement(wavelength, alpha_i, phi_i,
                              std::unique_ptr<IPixel>(createPixel(index)));
-}
-
-size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
-{
-    size_t remainder(index);
-    for (size_t i=0; i<getDimension(); ++i)
-    {
-        size_t i_axis = getDimension()-1-i;
-        size_t result = remainder % m_axes[i_axis]->size();
-        if(selected_axis == i_axis ) return result;
-        remainder /= m_axes[i_axis]->size();
-    }
-    throw Exceptions::LogicErrorException("IDetector2D::getAxisBinIndex() -> "
-                                          "Error! No axis with given number");
 }
 
 size_t IDetector2D::numberOfSimulationElements() const
@@ -333,19 +311,9 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
 
 size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
 {
-    if (getDimension()!=2) return getTotalSize();
-    return x*m_axes[1]->size()+y;
-}
-
-size_t IDetector2D::getTotalSize() const
-{
-    if (getDimension()==0) return 0;
-    size_t result = 1;
-    for (size_t i_axis=0; i_axis<getDimension(); ++i_axis)
-    {
-        result *= m_axes[i_axis]->size();
-    }
-    return result;
+    if (getDimension() != 2)
+        return getTotalSize();
+    return x * getAxis(1).size() + y;
 }
 
 void IDetector2D::setDataToDetectorMap(OutputData<double> &detectorMap,
@@ -357,21 +325,6 @@ void IDetector2D::setDataToDetectorMap(OutputData<double> &detectorMap,
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
         detectorMap[it.roiIndex()] = elements[it.elementIndex()].getIntensity();
 
-}
-
-void IDetector2D::addAxis(const IAxis& axis)
-{
-    m_axes.push_back(axis.clone());
-}
-
-size_t IDetector2D::getDimension() const
-{
-    return m_axes.size();
-}
-
-void IDetector2D::clear()
-{
-    m_axes.clear();
 }
 
 void IDetector2D::setDetectorResolution(const IDetectorResolution& p_detector_resolution)
@@ -394,11 +347,6 @@ void IDetector2D::removeDetectorResolution()
 const IDetectorResolution* IDetector2D::detectorResolution() const
 {
     return mP_detector_resolution.get();
-}
-
-bool IDetector2D::isCorrectAxisIndex(size_t index) const
-{
-    return index < getDimension();
 }
 
 //! Checks if given unit is valid for the detector. Throws exception if it is not the case.

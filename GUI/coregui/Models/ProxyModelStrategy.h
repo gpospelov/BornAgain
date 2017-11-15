@@ -44,7 +44,7 @@ public:
 
 protected:
     QModelIndex createProxyIndex(int nrow, int ncol, void* adata);
-    virtual void processSourceIndex(const QModelIndex& index) = 0;
+    virtual bool processSourceIndex(const QModelIndex& index) = 0;
 
     //!< Mapping of proxy model indices to indices in source model
     QMap<QPersistentModelIndex, QPersistentModelIndex> m_sourceToProxy;
@@ -61,7 +61,7 @@ protected:
 class BA_CORE_API_ IndentityProxyStrategy : public ProxyModelStrategy
 {
 protected:
-    void processSourceIndex(const QModelIndex& index);
+    bool processSourceIndex(const QModelIndex& index);
 };
 
 #endif  // ProxyModelStrategy

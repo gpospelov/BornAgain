@@ -27,8 +27,9 @@ public:
     void onDataChanged(SessionModel* source, ComponentProxyModel* proxy);
 
 protected:
-    void processSourceIndex(const QModelIndex& index);
+    bool processSourceIndex(const QModelIndex& index);
 private:
+    bool isPropertyRelated(SessionItem* item);
     bool isNewRootItem(SessionItem* item);
     void processRootItem(SessionItem* item, const QPersistentModelIndex& sourceIndex);
     bool isGroupChildren(SessionItem* item);

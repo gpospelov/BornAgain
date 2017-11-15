@@ -34,7 +34,7 @@ void ProxyModelStrategy::buildModelMap(SessionModel* source, ComponentProxyModel
     m_proxy = proxy;
 
     ModelUtils::iterate(m_sourceRootIndex, source, [=](const QModelIndex& index) {
-        processSourceIndex(index);
+        return processSourceIndex(index);
     });
 
     // kind of hack since we have to visit col=1 which has QModelIndex() parent
@@ -72,7 +72,7 @@ QModelIndex ProxyModelStrategy::createProxyIndex(int nrow, int ncol, void* adata
 
 //! Builds one-to-one mapping for source and proxy.
 
-void IndentityProxyStrategy::processSourceIndex(const QModelIndex& index)
+bool IndentityProxyStrategy::processSourceIndex(const QModelIndex& index)
 {
     QPersistentModelIndex proxyIndex
         = createProxyIndex(index.row(), index.column(), index.internalPointer());
@@ -83,4 +83,6 @@ void IndentityProxyStrategy::processSourceIndex(const QModelIndex& index)
         sourceParent = index.parent();
 
     m_proxySourceParent.insert(proxyIndex, sourceParent);
+
+    return true;
 }

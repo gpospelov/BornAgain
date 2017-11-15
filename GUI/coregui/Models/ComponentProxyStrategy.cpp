@@ -22,17 +22,31 @@
 #include "GroupItem.h"
 #include "SessionItemUtils.h"
 
+namespace
+{
+QStringList propertyRelatedTypes()
+{
+    QStringList result = QStringList() << Constants::PropertyType << Constants::GroupItemType
+                                       << Constants::VectorType << Constants::BasicAxisType
+                                       << Constants::AmplitudeAxisType;
+    return result;
+}
+}
+
 void ComponentProxyStrategy::onDataChanged(SessionModel* source, ComponentProxyModel* proxy)
 {
     buildModelMap(source, proxy);
     proxy->layoutChanged();
 }
 
-void ComponentProxyStrategy::processSourceIndex(const QModelIndex& index)
+bool ComponentProxyStrategy::processSourceIndex(const QModelIndex& index)
 {
     QPersistentModelIndex sourceIndex = QPersistentModelIndex(index);
 
     SessionItem* item = m_source->itemForIndex(index);
+
+    if ( !isPropertyRelated(item))
+        return false; // not going to visit non-property items
 
     if (isNewRootItem(item)) {
         processRootItem(item, sourceIndex);
@@ -43,6 +57,20 @@ void ComponentProxyStrategy::processSourceIndex(const QModelIndex& index)
     } else {
         processDefaultItem(item, sourceIndex);
     }
+
+    return true;
+}
+
+//! Returns true if item is property related to exclude top level items (ParticleLayout, Particle
+//! etc from the tree).
+
+bool ComponentProxyStrategy::isPropertyRelated(SessionItem* item)
+{
+    static QStringList propertyRelated = propertyRelatedTypes();
+    if (m_sourceRootIndex.isValid() && item->parent()->index() == m_sourceRootIndex)
+        return propertyRelated.contains(item->modelType()) ? true : false;
+
+    return true;
 }
 
 //! Returns true if item should become new root item.

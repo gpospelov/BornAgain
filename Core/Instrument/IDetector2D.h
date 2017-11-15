@@ -70,15 +70,6 @@ public:
 
     const IDetectorResolution* detectorResolution() const;
 
-    //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t direction, double efficiency,
-                               double total_transmission);
-
-    //! Get analyzer properties
-    kvector_t analyzerDirection() const;
-    double analyzerEfficiency() const;  //!< will always return a positive number
-    double analyzerTotalTransmission() const;
-
     //! Removes all masks from the detector
     void removeMasks();
 
@@ -137,7 +128,7 @@ public:
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
 
-    std::vector<const INode*> getChildren() const;
+    virtual std::vector<const INode*> getChildren() const override;
 
 protected:
     IDetector2D(const IDetector2D& other);
@@ -176,7 +167,6 @@ private:
     void check_axes_units(EAxesUnits units) const;
 
     std::unique_ptr<RegionOfInterest> m_region_of_interest;
-    DetectionProperties m_detection_properties;
 };
 
 #endif // IDETECTOR2D_H

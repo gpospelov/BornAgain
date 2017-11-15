@@ -26,22 +26,16 @@
 #include "ConvolutionDetectorResolution.h"
 #include "DetectorFunctions.h"
 
-IDetector2D::IDetector2D()
-{
-    registerChild(&m_detection_properties);
-}
+IDetector2D::IDetector2D() = default;
 
 IDetector2D::IDetector2D(const IDetector2D &other)
     : IDetector(other)
     , m_detector_mask(other.m_detector_mask)
-    , m_detection_properties(other.m_detection_properties)
 {
-    setName(other.getName());
     if(other.mP_detector_resolution)
         setDetectorResolution(*other.mP_detector_resolution);
     if(other.regionOfInterest())
         m_region_of_interest.reset(other.regionOfInterest()->clone());
-    registerChild(&m_detection_properties);
 }
 
 IDetector2D::~IDetector2D() {}
@@ -70,27 +64,6 @@ void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) c
                                    "Error! Null pointer to intensity map");
     if (mP_detector_resolution)
         mP_detector_resolution->applyDetectorResolution(p_intensity_map);
-}
-
-void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                        double total_transmission)
-{
-    m_detection_properties.setAnalyzerProperties(direction, efficiency, total_transmission);
-}
-
-kvector_t IDetector2D::analyzerDirection() const
-{
-    return m_detection_properties.analyzerDirection();
-}
-
-double IDetector2D::analyzerEfficiency() const
-{
-    return m_detection_properties.analyzerEfficiency();
-}
-
-double IDetector2D::analyzerTotalTransmission() const
-{
-    return m_detection_properties.analyzerTotalTransmission();
 }
 
 OutputData<double> *IDetector2D::createDetectorIntensity(
@@ -206,7 +179,7 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
     double phi_i = beam.getPhi();
     Eigen::Matrix2cd beam_polarization = beam.getPolarization();
-    Eigen::Matrix2cd analyzer_operator = m_detection_properties.analyzerOperator();
+    Eigen::Matrix2cd analyzer_operator = detectionProperties().analyzerOperator();
 
     if (!hasMasks())
         m_detector_mask.initMaskData(*this);
@@ -252,8 +225,9 @@ size_t IDetector2D::numberOfSimulationElements() const
 
 std::vector<const INode*> IDetector2D::getChildren() const
 {
-    return std::vector<const INode*>() << mP_detector_resolution
-                                       << &m_detection_properties;
+    std::vector<const INode*> result = IDetector::getChildren();
+    result << mP_detector_resolution;
+    return result;
 }
 
 std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam &beam,

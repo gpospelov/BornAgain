@@ -16,17 +16,18 @@
 #ifndef IDETECTOR_H_
 #define IDETECTOR_H_
 
-#include "INode.h"
-#include "ICloneable.h"
-#include "SafePointerVector.h"
+#include "DetectionProperties.h"
 #include "IAxis.h"
+#include "ICloneable.h"
+#include "INode.h"
+#include "SafePointerVector.h"
 
 //! Abstract detector interface.
 //! @ingroup simulation
 
 class BA_CORE_API_ IDetector :  public ICloneable, public INode {
 public:
-    IDetector() = default;
+    IDetector();
 
     virtual ~IDetector() = default;
 
@@ -44,6 +45,18 @@ public:
     //! Returns total number of pixels
     size_t getTotalSize() const;
 
+    //! Sets the polarization analyzer characteristics of the detector
+    void setAnalyzerProperties(const kvector_t direction, double efficiency,
+                               double total_transmission);
+
+    //! Get analyzer properties
+    kvector_t analyzerDirection() const;
+    double analyzerEfficiency() const;  //!< will always return a positive number
+    double analyzerTotalTransmission() const;
+    const DetectionProperties& detectionProperties() {return m_detection_properties;}
+
+    virtual std::vector<const INode*> getChildren() const;
+
 protected:
     IDetector(const IDetector& other);
 
@@ -51,6 +64,7 @@ protected:
 
 private:
     SafePointerVector<IAxis> m_axes;
+    DetectionProperties m_detection_properties;
 };
 
 #endif /* IDETECTOR_H_ */

@@ -34,6 +34,7 @@
 #include "TestModelUtils.h"
 #include "TestComponentProxyModel.h"
 #include "TestProxyModelStrategy.h"
+#include "TestSessionItemUtils.h"
 #include <memory>
 
 class GUITestFactory {
@@ -99,6 +100,7 @@ int main(int argc, char** argv) {
     tests.add<TestModelUtils>();
     tests.add<TestComponentProxyModel>();
     tests.add<TestProxyModelStrategy>();
+    tests.add<TestSessionItemUtils>();
 
     return tests.runAll(argc, argv);
 }

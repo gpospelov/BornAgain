@@ -48,6 +48,9 @@ public:
 
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
+    void updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option,
+                              const QModelIndex& index) const;
+
 private slots:
     void onComboPropertyChanged(const ComboProperty&);
     void onGroupPropertyChanged(const GroupProperty_t&);

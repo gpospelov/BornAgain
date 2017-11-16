@@ -82,3 +82,12 @@ QVariant SessionItemUtils::ToolTipRole(const SessionItem& item, int ncol)
 
     return QVariant(result);
 }
+
+
+QVariant SessionItemUtils::DecorationRole(const SessionItem& item)
+{
+    if (item.value().canConvert<MaterialProperty>())
+        return QIcon(item.value().value<MaterialProperty>().getPixmap());
+
+    return QVariant();
+}

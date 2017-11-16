@@ -178,6 +178,17 @@ QSize SessionModelDelegate::sizeHint(const QStyleOptionViewItem& option,
     return result;
 }
 
+//! Makes an editor occupying whole available space in a cell. If cell contains an icon
+//! as a decoration (i.e. icon of material property), it will be hidden as soon as editor
+//! up and running.
+
+void SessionModelDelegate::updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option,
+                                                const QModelIndex& index) const
+{
+    QStyledItemDelegate::updateEditorGeometry(editor, option, index);
+    editor->setGeometry(option.rect);
+}
+
 void SessionModelDelegate::onComboPropertyChanged(const ComboProperty& /*property*/)
 {
     ComboPropertyEdit* editor = qobject_cast<ComboPropertyEdit*>(sender());

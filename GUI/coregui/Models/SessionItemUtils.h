@@ -45,6 +45,9 @@ BA_CORE_API_ QVariant TextColorRole(const SessionItem& item);
 //! Returns tooltip for given item.
 BA_CORE_API_ QVariant ToolTipRole(const SessionItem& item, int ncol=0);
 
+//! Returns tooltip for given item.
+BA_CORE_API_ QVariant DecorationRole(const SessionItem& item);
+
 }  // namespace SessionItemUtils
 
 #endif // SESSIONITEMUTILS_H

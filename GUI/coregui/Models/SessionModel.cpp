@@ -81,7 +81,7 @@ QVariant SessionModel::data(const QModelIndex& index, int role) const
             if (index.column() == ITEM_NAME)
                 return item->itemName();
         } else if(role == Qt::ToolTipRole) {
-            return item->displayName();
+            return SessionItemUtils::ToolTipRole(*item, index.column());
 
         } else if(role == Qt::TextColorRole) {
             return SessionItemUtils::TextColorRole(*item);

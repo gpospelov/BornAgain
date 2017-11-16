@@ -70,3 +70,15 @@ QVariant SessionItemUtils::TextColorRole(const SessionItem& item)
 {
     return item.isEnabled() ? QVariant() : QColor(Qt::gray);
 }
+
+QVariant SessionItemUtils::ToolTipRole(const SessionItem& item, int ncol)
+{
+    QString result = item.toolTip();
+    if (result.isEmpty()) {
+        result = item.displayName();
+        if (ncol == 1 && item.value().canConvert<QString>())
+            result = item.value().toString();
+    }
+
+    return QVariant(result);
+}

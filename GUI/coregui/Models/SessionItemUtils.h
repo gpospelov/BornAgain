@@ -42,6 +42,9 @@ BA_CORE_API_ int ParentVisibleRow(const SessionItem& item);
 //! Returns text color for given item.
 BA_CORE_API_ QVariant TextColorRole(const SessionItem& item);
 
+//! Returns tooltip for given item.
+BA_CORE_API_ QVariant ToolTipRole(const SessionItem& item, int ncol=0);
+
 }  // namespace SessionItemUtils
 
 #endif // SESSIONITEMUTILS_H

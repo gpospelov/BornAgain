@@ -57,21 +57,6 @@ void IDetector::setAnalyzerProperties(const kvector_t direction, double efficien
     m_detection_properties.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
-kvector_t IDetector::analyzerDirection() const
-{
-    return m_detection_properties.analyzerDirection();
-}
-
-double IDetector::analyzerEfficiency() const
-{
-    return m_detection_properties.analyzerEfficiency();
-}
-
-double IDetector::analyzerTotalTransmission() const
-{
-    return m_detection_properties.analyzerTotalTransmission();
-}
-
 std::vector<const INode*> IDetector::getChildren() const
 {
     return std::vector<const INode*>() << &m_detection_properties;

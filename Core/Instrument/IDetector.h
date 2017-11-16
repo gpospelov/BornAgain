@@ -49,11 +49,8 @@ public:
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission);
 
-    //! Get analyzer properties
-    kvector_t analyzerDirection() const;
-    double analyzerEfficiency() const;  //!< will always return a positive number
-    double analyzerTotalTransmission() const;
-    const DetectionProperties& detectionProperties() {return m_detection_properties;}
+    //! Returns detection properties
+    const DetectionProperties& detectionProperties() const {return m_detection_properties;}
 
     virtual std::vector<const INode*> getChildren() const;
 

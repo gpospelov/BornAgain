@@ -791,9 +791,9 @@ std::string ExportToPython::defineDetectorPolarizationAnalysis(
 {
     std::ostringstream result;
     const IDetector2D* detector = simulation->getInstrument().getDetector();
-    kvector_t analyzer_direction = detector->analyzerDirection();
-    double analyzer_efficiency = detector->analyzerEfficiency();
-    double analyzer_total_transmission = detector->analyzerTotalTransmission();
+    kvector_t analyzer_direction = detector->detectionProperties().analyzerDirection();
+    double analyzer_efficiency = detector->detectionProperties().analyzerEfficiency();
+    double analyzer_total_transmission = detector->detectionProperties().analyzerTotalTransmission();
 
     if (analyzer_direction.mag()>0.0) {
         std::string direction_name = "analyzer_direction";

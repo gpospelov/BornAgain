@@ -32,15 +32,20 @@ class IShape2D;
 class RegionOfInterest;
 class SimulationElement;
 
-//! Detector axis' units.
+//! Wrapper for detector axes units, required for a better representation of
+//! detector axes units in python
 //! @ingroup simulation
 
-enum class BA_CORE_API_ DetectorAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
+// workaround for SWIG (instead of just writing enum class DetectorAxesUnits...)
+struct BA_CORE_API_ DetectorAxesUnitsWrap {
+    enum DetectorAxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ };
+};
+typedef DetectorAxesUnitsWrap::DetectorAxesUnits DetectorAxesUnits;
 
 //! Abstract 2D detector interface.
 //! @ingroup simulation
 
-class BA_CORE_API_ IDetector2D :  public IDetector
+class BA_CORE_API_ IDetector2D : public IDetector
 {
 public:
 

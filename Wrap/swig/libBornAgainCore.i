@@ -262,6 +262,9 @@
 %template(cvector_t) BasicVector3D<std::complex<double>>;
 %template(vector_cvector_t) std::vector<BasicVector3D<std::complex<double>>>;
 
+// SWIG workaround for using axes units the same way as they are used in cpp files
+%rename(DetectorAxesUnits) DetectorAxesUnitsWrap;
+
 %include "Complex.h"
 %include "Units.h"
 %include "Vectors3D.h"

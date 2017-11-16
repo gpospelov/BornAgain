@@ -27,6 +27,9 @@ class SampleModel;
 class SessionModelDelegate;
 class QItemSelection;
 class ComponentTreeView;
+namespace Manhattan { class MiniSplitter; }
+class QBoxLayout;
+class ComponentEditor;
 
 //! View to tests QListView working with ComponentProxyModel.
 
@@ -44,6 +47,7 @@ private slots:
 private:
     void init_source();
     void onSelectionChanged(const QItemSelection& selected, const QItemSelection&);
+    QWidget* rightPanelWidget();
 
     MainWindow* m_mainWindow;
     SampleModel* m_sourceModel;
@@ -52,6 +56,8 @@ private:
     QPushButton* m_updateButton;
     QPushButton* m_addItemButton;
     QPushButton* m_expandButton;
+    ComponentEditor *m_obsoleteEditor;
+    Manhattan::MiniSplitter* m_splitter;
     SessionModelDelegate* m_delegate;
     bool m_isExpaned;
 };

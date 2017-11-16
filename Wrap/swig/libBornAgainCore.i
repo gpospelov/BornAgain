@@ -222,11 +222,11 @@
 
 // ownership
 
-%newobject GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
-%newobject GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+%newobject GISASSimulation::getIntensityData(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+%newobject GISASSimulation::getDetectorIntensity(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
 
-%newobject OffSpecSimulation::getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
-%newobject OffSpecSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+%newobject OffSpecSimulation::getIntensityData(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+%newobject OffSpecSimulation::getDetectorIntensity(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
 
 %newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
 %newobject IntensityDataIOFactory::readIntensityData(const std::string& file_name);

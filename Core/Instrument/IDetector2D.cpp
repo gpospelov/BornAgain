@@ -38,7 +38,7 @@ IDetector2D::IDetector2D(const IDetector2D &other)
         m_region_of_interest.reset(other.regionOfInterest()->clone());
 }
 
-IDetector2D::~IDetector2D() {}
+IDetector2D::~IDetector2D() = default;
 
 void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
                                         size_t n_y, double y_min, double y_max)
@@ -68,7 +68,7 @@ void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) c
 
 OutputData<double> *IDetector2D::createDetectorIntensity(
         const std::vector<SimulationElement> &elements,
-        const Beam &beam, IDetector2D::EAxesUnits units_type) const
+        const Beam &beam, DetectorAxesUnits units_type) const
 {
     std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
     if(!detectorMap)
@@ -76,8 +76,8 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
                                                 "can't create detector map.");
 
     if (mP_detector_resolution) {
-        if(units_type != DEFAULT) {
-            std::unique_ptr<OutputData<double>> defaultMap(createDetectorMap(beam, DEFAULT));
+        if(units_type != DetectorAxesUnits::DEFAULT) {
+            std::unique_ptr<OutputData<double>> defaultMap(createDetectorMap(beam, DetectorAxesUnits::DEFAULT));
             setDataToDetectorMap(*defaultMap, elements);
             applyDetectorResolution(defaultMap.get());
             detectorMap->setRawDataVector(defaultMap->getRawDataVector());
@@ -92,7 +92,7 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
     return detectorMap.release();
 }
 
-OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits units) const
+OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, DetectorAxesUnits units) const
 {
     check_axes_units(units);
 
@@ -103,9 +103,9 @@ OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits 
     return result.release();
 }
 
-std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
+std::vector<DetectorAxesUnits> IDetector2D::getValidAxesUnits() const
 {
-    std::vector<EAxesUnits> result = {NBINS};
+    std::vector<DetectorAxesUnits> result = {DetectorAxesUnits::NBINS};
     return result;
 }
 
@@ -224,7 +224,7 @@ std::vector<const INode*> IDetector2D::getChildren() const
 }
 
 std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam &beam,
-                                                  IDetector2D::EAxesUnits units) const
+                                                  DetectorAxesUnits units) const
 {
     double amin(0), amax(0);
     calculateAxisRange(axis_index, beam, units, amin, amax);
@@ -239,19 +239,19 @@ std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam 
 }
 
 void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
-        IDetector2D::EAxesUnits units, double &amin, double &amax) const
+        DetectorAxesUnits units, double &amin, double &amax) const
 {
     amin = 0.0; amax=0.0;
 
-    if(units == DEFAULT) {
+    if(units == DetectorAxesUnits::DEFAULT) {
         amin = getAxis(axis_index).getMin();
         amax = getAxis(axis_index).getMax();
 
-    }else if(units == NBINS) {
+    }else if(units == DetectorAxesUnits::NBINS) {
         amin = 0.0;
         amax = static_cast<double>(getAxis(axis_index).size());
 
-    } else if(units == QYQZ && axis_index == BornAgain::X_AXIS_INDEX) {
+    } else if(units == DetectorAxesUnits::QYQZ && axis_index == BornAgain::X_AXIS_INDEX) {
         const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
         SimulationElement el_left_bottom
             = getSimulationElement(getGlobalIndex(0, 0), beam);
@@ -260,7 +260,7 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
         amin = el_left_bottom.getQ(0.0, 0.0).y();
         amax = el_right_bottom.getQ(1.0, 0.0).y();
 
-    } else if(units == QYQZ && axis_index == BornAgain::Y_AXIS_INDEX) {
+    } else if(units == DetectorAxesUnits::QYQZ && axis_index == BornAgain::Y_AXIS_INDEX) {
         const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
         const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
         SimulationElement el_center_bottom
@@ -272,7 +272,7 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
 
     } else {
         throw Exceptions::RuntimeErrorException("IDetector2D::calculateAxisRange() -> Error. "
-                                                "Unknown units " +std::to_string(units));
+                                                "Unknown units " +std::to_string(static_cast<int>(units)));
     }
 }
 
@@ -317,19 +317,19 @@ const IDetectorResolution* IDetector2D::detectorResolution() const
 }
 
 //! Checks if given unit is valid for the detector. Throws exception if it is not the case.
-void IDetector2D::check_axes_units(IDetector2D::EAxesUnits units) const
+void IDetector2D::check_axes_units(DetectorAxesUnits units) const
 {
-    if(units == DEFAULT)
+    if(units == DetectorAxesUnits::DEFAULT)
         return;
 
     auto validUnits = getValidAxesUnits();
     if(std::find(validUnits.begin(), validUnits.end(), units) == validUnits.end()) {
         std::ostringstream message;
-        message << "IDetector2D::createDetectorMap() -> Error. Unknown axes unit " << units << "\n";
+        message << "IDetector2D::createDetectorMap() -> Error. Unknown axes unit " << static_cast<int>(units) << "\n";
         message << "Available units for this detector type \n";
         for(size_t i=0; i<validUnits.size(); ++i)
         for(auto unit : validUnits)
-            message << unit << " ";
+            message << static_cast<int>(unit) << " ";
         message << "\n";
         throw std::runtime_error(message.str());
     }

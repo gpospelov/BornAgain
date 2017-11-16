@@ -57,14 +57,14 @@ size_t GISASSimulation::numberOfSimulationElements() const
     return getInstrument().getDetector()->numberOfSimulationElements();
 }
 
-OutputData<double>* GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type) const
+OutputData<double>* GISASSimulation::getDetectorIntensity(DetectorAxesUnits units_type) const
 {
     std::unique_ptr<OutputData<double>> result(
         m_instrument.createDetectorIntensity(m_sim_elements, units_type));
     return result.release();
 }
 
-Histogram2D* GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type) const
+Histogram2D* GISASSimulation::getIntensityData(DetectorAxesUnits units_type) const
 {
     std::unique_ptr<Histogram2D> result(
         m_instrument.createIntensityData(m_sim_elements, units_type));

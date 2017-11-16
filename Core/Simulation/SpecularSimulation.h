@@ -60,8 +60,8 @@ public:
 
     //! Returns reflectivity values \f$Reflectivity = \|R\|^2\f$ from the upper layer in the form of
     //! OutputData<double>.
-    virtual OutputData<double>* getDetectorIntensity(IDetector2D::EAxesUnits units_type
-                                                     = IDetector2D::DEFAULT) const override;
+    virtual OutputData<double>* getDetectorIntensity(DetectorAxesUnits units_type
+                                                     = DetectorAxesUnits::DEFAULT) const override;
 
     //! Returns reflectivity values \f$Reflectivity = |R|^2\f$ in the form of 1D Histogram
     //! for the upper sample layer.

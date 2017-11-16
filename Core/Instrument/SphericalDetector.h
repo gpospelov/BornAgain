@@ -47,17 +47,17 @@ public:
     ~SphericalDetector() override {}
 
     //! returns vector of valid axes units
-    std::vector<EAxesUnits> getValidAxesUnits() const override;
+    std::vector<DetectorAxesUnits> getValidAxesUnits() const override;
 
     //! return default axes units
-    EAxesUnits getDefaultAxesUnits() const override;
+    DetectorAxesUnits getDefaultAxesUnits() const override;
 
 protected:
     //! Create an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
+    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, DetectorAxesUnits units,
                                     double &amin, double &amax) const override;
 
     //! Returns the name for the axis with given index

@@ -32,13 +32,17 @@ class IShape2D;
 class RegionOfInterest;
 class SimulationElement;
 
+//! Detector axis' units.
+//! @ingroup simulation
+
+enum class BA_CORE_API_ DetectorAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
+
 //! Abstract 2D detector interface.
 //! @ingroup simulation
 
 class BA_CORE_API_ IDetector2D :  public IDetector
 {
 public:
-    enum EAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
 
     IDetector2D();
 
@@ -100,16 +104,16 @@ public:
 
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
-            const Beam& beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
+            const Beam& beam, DetectorAxesUnits units_type=DetectorAxesUnits::DEFAULT) const;
 
     //! Returns empty detector map in given axes units.
-    OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
+    OutputData<double>* createDetectorMap(const Beam& beam, DetectorAxesUnits units) const;
 
     //! Returns vector of valid axes units
-    virtual std::vector<EAxesUnits> getValidAxesUnits() const;
+    virtual std::vector<DetectorAxesUnits> getValidAxesUnits() const;
 
     //! Return default axes units
-    virtual EAxesUnits getDefaultAxesUnits() const { return DEFAULT; }
+    virtual DetectorAxesUnits getDefaultAxesUnits() const { return DetectorAxesUnits::DEFAULT; }
 
     //! Returns region of  interest if exists.
     const RegionOfInterest* regionOfInterest() const;
@@ -133,10 +137,10 @@ protected:
 
     //! Constructs axis with min,max corresponding to selected units
     std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
-                                         EAxesUnits units) const;
+                                         DetectorAxesUnits units) const;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
+    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, DetectorAxesUnits units,
                                     double &amin, double &amax) const;
 
     //! Calculate global index from two axis indices
@@ -153,7 +157,7 @@ protected:
 private:
     void setDataToDetectorMap(OutputData<double> &detectorMap,
                               const std::vector<SimulationElement> &elements) const;
-    void check_axes_units(EAxesUnits units) const;
+    void check_axes_units(DetectorAxesUnits units) const;
 
     std::unique_ptr<RegionOfInterest> m_region_of_interest;
 };

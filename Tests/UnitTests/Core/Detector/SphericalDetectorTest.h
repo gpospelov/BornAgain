@@ -28,11 +28,11 @@ TEST_F(SphericalDetectorTest, initialState)
 
     // checking size
     EXPECT_EQ(0u, detector.getDimension());
-    EXPECT_EQ(IDetector2D::RADIANS, detector.getDefaultAxesUnits());
+    EXPECT_EQ(DetectorAxesUnits::RADIANS, detector.getDefaultAxesUnits());
 
     // detector units
-    std::vector<IDetector2D::EAxesUnits> validUnits =
-        {IDetector2D::NBINS, IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::QYQZ};
+    std::vector<DetectorAxesUnits> validUnits =
+        {DetectorAxesUnits::NBINS, DetectorAxesUnits::RADIANS, DetectorAxesUnits::DEGREES, DetectorAxesUnits::QYQZ};
     EXPECT_EQ(validUnits, detector.getValidAxesUnits());
 
     // masks
@@ -119,7 +119,7 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
 
     // creating map in default units, which are radians and checking axes
     std::unique_ptr<OutputData<double>> data(
-                detector.createDetectorMap(beam, IDetector2D::DEFAULT));
+                detector.createDetectorMap(beam, DetectorAxesUnits::DEFAULT));
     EXPECT_EQ(data->getAxis(0).size(), 10u);
     EXPECT_EQ(data->getAxis(0).getMin(), -1.0*Units::deg);
     EXPECT_EQ(data->getAxis(0).getMax(), 1.0*Units::deg);
@@ -128,7 +128,7 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
     EXPECT_EQ(data->getAxis(1).getMax(), 2.0*Units::deg);
 
     // creating map in degrees and checking axes
-    data.reset(detector.createDetectorMap(beam, IDetector2D::DEGREES));
+    data.reset(detector.createDetectorMap(beam, DetectorAxesUnits::DEGREES));
     EXPECT_EQ(data->getAxis(0).size(), 10u);
     EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), -1.0);
     EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 1.0);
@@ -137,7 +137,7 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
     EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 2.0);
 
     // creating map in nbins and checking axes
-    data.reset(detector.createDetectorMap(beam, IDetector2D::NBINS));
+    data.reset(detector.createDetectorMap(beam, DetectorAxesUnits::NBINS));
     EXPECT_EQ(data->getAxis(0).size(), 10u);
     EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), 0.0);
     EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 10.0);
@@ -211,7 +211,7 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
     // Creating map in default units, which are radians and checking that axes are clipped
     // to region of interest.
     std::unique_ptr<OutputData<double>> data(
-                detector.createDetectorMap(beam, IDetector2D::DEFAULT));
+                detector.createDetectorMap(beam, DetectorAxesUnits::DEFAULT));
     EXPECT_EQ(data->getAxis(0).size(), 4u);
     EXPECT_EQ(data->getAxis(0).getMin(), 0.0*Units::deg);
     EXPECT_EQ(data->getAxis(0).getMax(), 4.0*Units::deg);
@@ -220,7 +220,7 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
     EXPECT_EQ(data->getAxis(1).getMax(), 3.0*Units::deg);
 
     // Creating map with axes in degrees, and checking that it is clipped to the region of interest
-    data.reset(detector.createDetectorMap(beam, IDetector2D::DEGREES));
+    data.reset(detector.createDetectorMap(beam, DetectorAxesUnits::DEGREES));
     EXPECT_EQ(data->getAxis(0).size(), 4u);
     EXPECT_EQ(data->getAxis(0).getMin(), 0.0);
     EXPECT_EQ(data->getAxis(0).getMax(), 4.0);
@@ -251,7 +251,7 @@ TEST_F(SphericalDetectorTest, getIntensityData)
     // region of interest.
 
 //    std::unique_ptr<OutputData<double>> detectorIntensity(
-//                detector.getDetectorIntensity(intensityData, beam, IDetector2D::DEGREES));
+//                detector.getDetectorIntensity(intensityData, beam, DetectorAxesUnits::DEGREES));
 
 //    EXPECT_EQ(detectorIntensity->getAllocatedSize(), 8);
 //    EXPECT_EQ((*detectorIntensity)[0], 5.0);
@@ -328,7 +328,7 @@ TEST_F(SphericalDetectorTest, Clone)
     std::unique_ptr<SphericalDetector> clone(detector.clone());
 
     std::unique_ptr<OutputData<double>> data(
-                clone->createDetectorMap(beam, IDetector2D::DEGREES));
+                clone->createDetectorMap(beam, DetectorAxesUnits::DEGREES));
     EXPECT_EQ(data->getAxis(0).size(), 4u);
     EXPECT_EQ(data->getAxis(0).getMin(), 0.0);
     EXPECT_EQ(data->getAxis(0).getMax(), 4.0);
@@ -357,15 +357,15 @@ TEST_F(SphericalDetectorTest, Clone)
 
 TEST_F(SphericalDetectorTest, nameToUnitTranslation)
 {
-    EXPECT_EQ(DetectorFunctions::detectorUnits(""), IDetector2D::DEFAULT);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("QyQz"), IDetector2D::QYQZ);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("qyqz"), IDetector2D::QYQZ);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("MM"), IDetector2D::MM);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("mm"), IDetector2D::MM);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("radians"), IDetector2D::RADIANS);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("rad"), IDetector2D::RADIANS);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("degrees"), IDetector2D::DEGREES);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("deg"), IDetector2D::DEGREES);
+    EXPECT_EQ(DetectorFunctions::detectorUnits(""), DetectorAxesUnits::DEFAULT);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("QyQz"), DetectorAxesUnits::QYQZ);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("qyqz"), DetectorAxesUnits::QYQZ);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("MM"), DetectorAxesUnits::MM);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("mm"), DetectorAxesUnits::MM);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("radians"), DetectorAxesUnits::RADIANS);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("rad"), DetectorAxesUnits::RADIANS);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("degrees"), DetectorAxesUnits::DEGREES);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("deg"), DetectorAxesUnits::DEGREES);
     EXPECT_THROW(DetectorFunctions::detectorUnits("xxx"), std::runtime_error);
 }
 

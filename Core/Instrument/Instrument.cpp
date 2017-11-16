@@ -112,25 +112,25 @@ void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) co
 }
 
 OutputData<double> *Instrument::createDetectorIntensity(
-        const std::vector<SimulationElement> &elements, IDetector2D::EAxesUnits units) const
+        const std::vector<SimulationElement> &elements, DetectorAxesUnits units) const
 {
     return mP_detector->createDetectorIntensity(elements, m_beam, units);
 }
 
 Histogram2D* Instrument::createIntensityData(const std::vector<SimulationElement>& elements,
-                                         IDetector2D::EAxesUnits units_type) const
+                                         DetectorAxesUnits units_type) const
 {
     const std::unique_ptr<OutputData<double>> data(createDetectorIntensity(elements, units_type));
     std::unique_ptr<Histogram2D> result(new Histogram2D(*data));
 
-    if (units_type == IDetector2D::DEFAULT)
+    if (units_type == DetectorAxesUnits::DEFAULT)
         units_type = mP_detector->getDefaultAxesUnits();
 
     result->setAxesUnits(DetectorFunctions::detectorUnitsName(units_type));
     return result.release();
 }
 
-OutputData<double> *Instrument::createDetectorMap(IDetector2D::EAxesUnits units) const
+OutputData<double> *Instrument::createDetectorMap(DetectorAxesUnits units) const
 {
     return mP_detector->createDetectorMap(m_beam, units);
 }

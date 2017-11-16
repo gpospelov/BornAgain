@@ -16,6 +16,7 @@
 
 #include "SessionModelDelegate.h"
 #include "PropertyBrowserUtils.h"
+#include "SessionItem.h"
 #include <QApplication>
 
 namespace {
@@ -45,6 +46,11 @@ bool isScientificDoubleProperty(const QModelIndex& index)
     return index.data().canConvert<ScientificDoubleProperty>();
 }
 
+}
+
+bool isDoubleProperty(const QModelIndex& index)
+{
+    return index.data().type() == QVariant::Double;
 }
 
 SessionModelDelegate::SessionModelDelegate(QWidget* parent)
@@ -77,6 +83,9 @@ void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& 
     } else if (isScientificDoubleProperty(index)) {
         ScientificDoubleProperty property = prop_value.value<ScientificDoubleProperty>();
         paintCustomLabel(painter, option, index, property.getText());
+
+    } else if (isDoubleProperty(index)) {
+        paintCustomDouble(painter, option, index);
 
     } else {
         QStyledItemDelegate::paint(painter, option, index);
@@ -234,6 +243,20 @@ void SessionModelDelegate::paintCustomLabel(QPainter* painter, const QStyleOptio
     QStyleOptionViewItem opt = option;
     initStyleOption(&opt, index); // calling original method to take into accounts colors etc
     opt.text = displayText(text, option.locale); // by overriding text with ours
+    const QWidget* widget = opt.widget;
+    QStyle* style = widget ? widget->style() : QApplication::style();
+    style->drawControl(QStyle::CE_ItemViewItem, &opt, painter, widget);
+}
+
+void SessionModelDelegate::paintCustomDouble(QPainter* painter,
+                                             const QStyleOptionViewItem& option,
+                                             const QModelIndex& index) const
+{
+    SessionItem* item = static_cast<SessionItem*>(index.internalPointer());
+
+    QStyleOptionViewItem opt = option;
+    initStyleOption(&opt, index);
+    opt.text = opt.locale.toString(item->value().toDouble(), 'f', item->decimals());
     const QWidget* widget = opt.widget;
     QStyle* style = widget ? widget->style() : QApplication::style();
     style->drawControl(QStyle::CE_ItemViewItem, &opt, painter, widget);

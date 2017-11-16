@@ -61,6 +61,10 @@ private slots:
 private:
     void paintCustomLabel(QPainter* painter, const QStyleOptionViewItem& option,
                           const QModelIndex& index, const QString& text) const;
+
+    void paintCustomDouble(QPainter* painter, const QStyleOptionViewItem& option,
+                          const QModelIndex& index) const;
+
 };
 
 #endif // SESSIONMODELDELEGATE_H

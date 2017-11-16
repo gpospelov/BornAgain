@@ -57,7 +57,7 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex& index) const
         result_flags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled
                         | Qt::ItemIsDragEnabled;
         SessionItem* item = itemForIndex(index);
-        if (index.column() == ITEM_VALUE && item->value().isValid() && item->isEditable())
+        if (index.column() == ITEM_VALUE && item->value().isValid() && item->isEditable() && item->isEnabled())
             result_flags |= Qt::ItemIsEditable;
         QVector<QString> acceptable_child_items = getAcceptableDefaultItemTypes(index);
         if (acceptable_child_items.contains(m_dragged_item_type)) {

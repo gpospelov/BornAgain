@@ -17,6 +17,11 @@
 #include "SessionItemUtils.h"
 #include "SessionItem.h"
 #include "VectorItem.h"
+#include "MaterialItem.h"
+#include "MaterialProperty.h"
+#include <QColor>
+#include <QIcon>
+#include <QPixmap>
 
 int SessionItemUtils::ParentRow(const SessionItem& item)
 {
@@ -59,4 +64,9 @@ int SessionItemUtils::ParentVisibleRow(const SessionItem& item)
     }
 
     return result;
+}
+
+QVariant SessionItemUtils::TextColorRole(const SessionItem& item)
+{
+    return item.isEnabled() ? QVariant() : QColor(Qt::gray);
 }

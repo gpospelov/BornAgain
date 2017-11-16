@@ -20,6 +20,7 @@
 #include "Vectors3D.h"
 #include "WinDllMacros.h"
 #include <QString>
+#include <QVariant>
 
 class SessionItem;
 
@@ -36,8 +37,10 @@ BA_CORE_API_ void SetVectorItem(const SessionItem& item, const QString& name, kv
 
 //! Returns the row of the given item within its parent not accounting for all hidden items
 //! above. Returns -1 when no parent set or item is hidden.
-
 BA_CORE_API_ int ParentVisibleRow(const SessionItem& item);
+
+//! Returns text color for given item.
+BA_CORE_API_ QVariant TextColorRole(const SessionItem& item);
 
 }  // namespace SessionItemUtils
 

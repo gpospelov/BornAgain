@@ -23,9 +23,7 @@
 #include "DetectionProperties.h"
 #include <memory>
 
-template<class T> class OutputData;
 class Beam;
-class DetectionProperties;
 class IAxis;
 class IDetectorResolution;
 class IResolutionFunction2D;
@@ -107,9 +105,6 @@ public:
     //! Returns empty detector map in given axes units.
     OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
 
-    //! Inits axes of OutputData to match the detector and sets values to zero.
-    virtual void initOutputData(OutputData<double> &data) const;
-
     //! Returns vector of valid axes units
     virtual std::vector<EAxesUnits> getValidAxesUnits() const;
 
@@ -136,9 +131,6 @@ protected:
     //! Create an IPixel for the given OutputData object and index
     virtual IPixel* createPixel(size_t index) const=0;
 
-    //! Generates an axis with correct name and default binning for given index
-    virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const=0;
-
     //! Constructs axis with min,max corresponding to selected units
     std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
                                          EAxesUnits units) const;
@@ -146,9 +138,6 @@ protected:
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
                                     double &amin, double &amax) const;
-
-    //! Returns the name for the axis with given index
-    virtual std::string getAxisName(size_t index) const=0;
 
     //! Calculate global index from two axis indices
     size_t getGlobalIndex(size_t x, size_t y) const;

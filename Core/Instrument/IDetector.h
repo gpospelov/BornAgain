@@ -22,6 +22,8 @@
 #include "INode.h"
 #include "SafePointerVector.h"
 
+template<class T> class OutputData;
+
 //! Abstract detector interface.
 //! @ingroup simulation
 
@@ -52,12 +54,21 @@ public:
     //! Returns detection properties
     const DetectionProperties& detectionProperties() const {return m_detection_properties;}
 
+    //! Inits axes of OutputData to match the detector and sets values to zero.
+    virtual void initOutputData(OutputData<double> &data) const;
+
     virtual std::vector<const INode*> getChildren() const;
 
 protected:
     IDetector(const IDetector& other);
 
     bool isCorrectAxisIndex(size_t index) const {return index < getDimension();}
+
+    //! Returns the name for the axis with given index
+    virtual std::string getAxisName(size_t index) const = 0;
+
+    //! Generates an axis with correct name and default binning for given index
+    virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const;
 
 private:
     SafePointerVector<IAxis> m_axes;

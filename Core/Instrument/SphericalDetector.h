@@ -56,9 +56,6 @@ protected:
     //! Create an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
 
-    //! Generates an axis with correct name and default binning for given index
-    IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const override;
-
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
                                     double &amin, double &amax) const override;

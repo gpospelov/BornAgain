@@ -50,7 +50,8 @@ IAxis *IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min, dou
     if (n_bins == 0) {
         throw Exceptions::LogicErrorException(
             "IsGISAXSDetector::createAxis() -> Error! Number n_bins can't be zero.");
-    }    return new CustomBinAxis(getAxisName(index), n_bins, min, max);
+    }
+    return new CustomBinAxis(getAxisName(index), n_bins, min, max);
 }
 
 size_t IsGISAXSDetector::getIndexOfSpecular(const Beam& /*beam*/) const

@@ -1,4 +1,5 @@
 #include "IDetector.h"
+#include "OutputData.h"
 
 IDetector::IDetector()
 {
@@ -39,6 +40,17 @@ size_t IDetector::getAxisBinIndex(size_t index, size_t selected_axis) const
                              "Error! No axis with given number");
 }
 
+IAxis* IDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
+{
+    if (max <= min)
+        throw Exceptions::LogicErrorException(
+            "IDetector::createAxis() -> Error! max <= min");
+    if (n_bins == 0)
+        throw Exceptions::LogicErrorException(
+            "IDetector::createAxis() -> Error! Number n_bins can't be zero.");
+    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
+}
+
 size_t IDetector::getTotalSize() const
 {
     const size_t dimension = getDimension();
@@ -55,6 +67,13 @@ void IDetector::setAnalyzerProperties(const kvector_t direction, double efficien
                                         double total_transmission)
 {
     m_detection_properties.setAnalyzerProperties(direction, efficiency, total_transmission);
+}
+
+void IDetector::initOutputData(OutputData<double> &data) const {
+  data.clear();
+  for (size_t i = 0; i < getDimension(); ++i)
+      data.addAxis(getAxis(i));
+  data.setAllTo(0.);
 }
 
 std::vector<const INode*> IDetector::getChildren() const

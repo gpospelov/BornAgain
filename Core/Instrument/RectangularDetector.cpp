@@ -192,17 +192,6 @@ IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
     return IDetector2D::MM;
 }
 
-IAxis *RectangularDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
-{
-    if (max <= min)
-        throw Exceptions::LogicErrorException(
-            "RectangularDetector::createAxis() -> Error! max <= min");
-    if (n_bins == 0)
-        throw Exceptions::LogicErrorException(
-            "RectangularDetector::createAxis() -> Error! Number n_bins can't be zero.");
-    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
-}
-
 void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam &beam,
     IDetector2D::EAxesUnits units, double &amin, double &amax) const
 {

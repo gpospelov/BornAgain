@@ -103,13 +103,6 @@ OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, EAxesUnits 
     return result.release();
 }
 
-void IDetector2D::initOutputData(OutputData<double> &data) const {
-  data.clear();
-  for (size_t i = 0; i < getDimension(); ++i)
-      data.addAxis(getAxis(i));
-  data.setAllTo(0.);
-}
-
 std::vector<IDetector2D::EAxesUnits> IDetector2D::getValidAxesUnits() const
 {
     std::vector<EAxesUnits> result = {NBINS};

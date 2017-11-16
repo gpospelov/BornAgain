@@ -70,17 +70,6 @@ IPixel* SphericalDetector::createPixel(size_t index) const
     return new SphericalPixel(alpha_bin, phi_bin);
 }
 
-IAxis* SphericalDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
-{
-    if (max <= min)
-        throw Exceptions::LogicErrorException(
-            "SphericalDetector::createAxis() -> Error! max <= min");
-    if (n_bins == 0)
-        throw Exceptions::LogicErrorException(
-            "SphericalDetector::createAxis() -> Error! Number n_bins can't be zero.");
-    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
-}
-
 void SphericalDetector::calculateAxisRange(size_t axis_index, const Beam &beam,
         IDetector2D::EAxesUnits units, double &amin, double &amax) const
 {

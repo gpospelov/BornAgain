@@ -32,7 +32,7 @@ FitSuiteObjects::~FitSuiteObjects()
 }
 
 FitObject* FitSuiteObjects::add(
-    const GISASSimulation& simulation, const OutputData<double>& real_data, double weight)
+    const Simulation& simulation, const OutputData<double>& real_data, double weight)
 {
     m_total_weight += weight;
     FitObject *result = new FitObject(simulation, real_data, weight);

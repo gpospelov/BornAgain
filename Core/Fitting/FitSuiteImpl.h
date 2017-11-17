@@ -27,7 +27,7 @@
 #endif
 
 class AttLimits;
-class GISASSimulation;
+class Simulation;
 class IMinimizer;
 class FitKernel;
 class FitParameter;
@@ -47,7 +47,7 @@ class BA_CORE_API_ FitSuiteImpl
     void clear();
 
     //! Adds pair of (simulation, real data) for consecutive simulation
-    FitObject* addSimulationAndRealData(const GISASSimulation& simulation,
+    FitObject* addSimulationAndRealData(const Simulation& simulation,
                                   const OutputData<double>& real_data,
                                   double weight);
 

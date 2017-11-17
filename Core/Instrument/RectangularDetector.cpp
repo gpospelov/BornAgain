@@ -178,41 +178,30 @@ RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrang
     return m_detector_arrangement;
 }
 
-std::vector<IDetector2D::EAxesUnits> RectangularDetector::getValidAxesUnits() const
+std::vector<DetectorAxesUnits> RectangularDetector::getValidAxesUnits() const
 {
-    std::vector<IDetector2D::EAxesUnits> result = IDetector2D::getValidAxesUnits();
-    std::vector<IDetector2D::EAxesUnits> addon =
-        { IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::MM, IDetector2D::QYQZ };
+    std::vector<DetectorAxesUnits> result = IDetector2D::getValidAxesUnits();
+    std::vector<DetectorAxesUnits> addon =
+        { DetectorAxesUnits::RADIANS, DetectorAxesUnits::DEGREES, DetectorAxesUnits::MM, DetectorAxesUnits::QYQZ };
     result.insert(result.end(), addon.begin(), addon.end());
     return result;
 }
 
-IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
+DetectorAxesUnits RectangularDetector::getDefaultAxesUnits() const
 {
-    return IDetector2D::MM;
-}
-
-IAxis *RectangularDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
-{
-    if (max <= min)
-        throw Exceptions::LogicErrorException(
-            "RectangularDetector::createAxis() -> Error! max <= min");
-    if (n_bins == 0)
-        throw Exceptions::LogicErrorException(
-            "RectangularDetector::createAxis() -> Error! Number n_bins can't be zero.");
-    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
+    return DetectorAxesUnits::MM;
 }
 
 void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam &beam,
-    IDetector2D::EAxesUnits units, double &amin, double &amax) const
+    DetectorAxesUnits units, double &amin, double &amax) const
 {
     amin = 0.0; amax=0.0;
-    if(units == MM) {
+    if(units == DetectorAxesUnits::MM) {
         amin = getAxis(axis_index).getMin();
         amax = getAxis(axis_index).getMax();
-    }else if(units == RADIANS || units == DEGREES) {
+    }else if(units == DetectorAxesUnits::RADIANS || units == DetectorAxesUnits::DEGREES) {
         double scale(1.0);
-        if (units == DEGREES)
+        if (units == DetectorAxesUnits::DEGREES)
             scale = 1. / Units::degree;
 
         if(axis_index == BornAgain::X_AXIS_INDEX) {

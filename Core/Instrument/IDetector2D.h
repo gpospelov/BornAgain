@@ -16,17 +16,14 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
-#include "INode.h"
-#include "ICloneable.h"
+#include "IDetector.h"
 #include "Beam.h"
 #include "DetectorMask.h"
 #include "SafePointerVector.h"
 #include "DetectionProperties.h"
 #include <memory>
 
-template<class T> class OutputData;
 class Beam;
-class DetectionProperties;
 class IAxis;
 class IDetectorResolution;
 class IResolutionFunction2D;
@@ -35,13 +32,22 @@ class IShape2D;
 class RegionOfInterest;
 class SimulationElement;
 
-//! Pure virtual detector interface.
+//! Wrapper for detector axes units, required for a better representation of
+//! detector axes units in python
 //! @ingroup simulation
 
-class BA_CORE_API_ IDetector2D :  public ICloneable, public INode
+// workaround for SWIG (instead of just writing enum class DetectorAxesUnits...)
+struct BA_CORE_API_ DetectorAxesUnitsWrap {
+    enum DetectorAxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ };
+};
+typedef DetectorAxesUnitsWrap::DetectorAxesUnits DetectorAxesUnits;
+
+//! Abstract 2D detector interface.
+//! @ingroup simulation
+
+class BA_CORE_API_ IDetector2D : public IDetector
 {
 public:
-    enum EAxesUnits {DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ};
 
     IDetector2D();
 
@@ -51,14 +57,6 @@ public:
 
     //! Inits detector with the beam settings
     virtual void init(const Beam&) {}
-
-    void addAxis(const IAxis& axis);
-
-    const IAxis& getAxis(size_t index) const;
-
-    size_t getDimension() const;
-
-    void clear();
 
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
@@ -78,15 +76,6 @@ public:
     void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
     const IDetectorResolution* detectorResolution() const;
-
-    //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t direction, double efficiency,
-                               double total_transmission);
-
-    //! Get analyzer properties
-    kvector_t analyzerDirection() const;
-    double analyzerEfficiency() const;  //!< will always return a positive number
-    double analyzerTotalTransmission() const;
 
     //! Removes all masks from the detector
     void removeMasks();
@@ -120,19 +109,16 @@ public:
 
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
-            const Beam& beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const;
+            const Beam& beam, DetectorAxesUnits units_type=DetectorAxesUnits::DEFAULT) const;
 
     //! Returns empty detector map in given axes units.
-    OutputData<double>* createDetectorMap(const Beam& beam, EAxesUnits units) const;
-
-    //! Inits axes of OutputData to match the detector and sets values to zero.
-    virtual void initOutputData(OutputData<double> &data) const;
+    OutputData<double>* createDetectorMap(const Beam& beam, DetectorAxesUnits units) const;
 
     //! Returns vector of valid axes units
-    virtual std::vector<EAxesUnits> getValidAxesUnits() const;
+    virtual std::vector<DetectorAxesUnits> getValidAxesUnits() const;
 
     //! Return default axes units
-    virtual EAxesUnits getDefaultAxesUnits() const { return DEFAULT; }
+    virtual DetectorAxesUnits getDefaultAxesUnits() const { return DetectorAxesUnits::DEFAULT; }
 
     //! Returns region of  interest if exists.
     const RegionOfInterest* regionOfInterest() const;
@@ -143,16 +129,10 @@ public:
     //! Resets region of interest making whole detector plane available for the simulation.
     void resetRegionOfInterest();
 
-    //! Returns total number of pixels
-    size_t getTotalSize() const;
-
-    //! Calculate axis index for given global index
-    size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
-
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
 
-    std::vector<const INode*> getChildren() const;
+    virtual std::vector<const INode*> getChildren() const override;
 
 protected:
     IDetector2D(const IDetector2D& other);
@@ -160,21 +140,13 @@ protected:
     //! Create an IPixel for the given OutputData object and index
     virtual IPixel* createPixel(size_t index) const=0;
 
-    //! Generates an axis with correct name and default binning for given index
-    virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const=0;
-
     //! Constructs axis with min,max corresponding to selected units
     std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
-                                         EAxesUnits units) const;
+                                         DetectorAxesUnits units) const;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
+    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, DetectorAxesUnits units,
                                     double &amin, double &amax) const;
-
-    //! Returns the name for the axis with given index
-    virtual std::string getAxisName(size_t index) const=0;
-
-    bool isCorrectAxisIndex(size_t index) const;
 
     //! Calculate global index from two axis indices
     size_t getGlobalIndex(size_t x, size_t y) const;
@@ -184,17 +156,15 @@ protected:
     //! returned. This corresponds to an overflow index.
     virtual size_t getIndexOfSpecular(const Beam& beam) const=0;
 
-    SafePointerVector<IAxis> m_axes;
     std::unique_ptr<IDetectorResolution> mP_detector_resolution;
     DetectorMask m_detector_mask;
 
 private:
     void setDataToDetectorMap(OutputData<double> &detectorMap,
                               const std::vector<SimulationElement> &elements) const;
-    void check_axes_units(EAxesUnits units) const;
+    void check_axes_units(DetectorAxesUnits units) const;
 
     std::unique_ptr<RegionOfInterest> m_region_of_interest;
-    DetectionProperties m_detection_properties;
 };
 
 #endif // IDETECTOR2D_H

@@ -52,11 +52,6 @@ const OutputData<double>& FitObject::chiSquaredMap() const
     return *m_chi2_data.get();
 }
 
-const Simulation& FitObject::simulation() const
-{
-    return *m_simulation.get();
-}
-
 std::vector<const INode*> FitObject::getChildren() const
 {
     return std::vector<const INode*>() << m_simulation;

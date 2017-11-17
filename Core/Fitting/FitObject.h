@@ -52,9 +52,6 @@ public:
     //! Returns chi2 map.
     const OutputData<double>& chiSquaredMap() const;
 
-    //! Returns simulation
-    const Simulation& simulation() const;
-
     //! Returns weight of data set in chi2 calculations.
     double weight() const { return m_weight; }
 

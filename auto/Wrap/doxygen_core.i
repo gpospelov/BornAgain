@@ -1844,11 +1844,6 @@ Returns simulated data.
 Returns chi2 map. 
 ";
 
-%feature("docstring")  FitObject::simulation "const Simulation & FitObject::simulation() const
-
-Returns simulation. 
-";
-
 %feature("docstring")  FitObject::weight "double FitObject::weight() const
 
 Returns weight of data set in chi2 calculations. 

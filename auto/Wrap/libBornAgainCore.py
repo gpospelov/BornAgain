@@ -6107,18 +6107,6 @@ class FitObject(INode, INoncopyable):
         return _libBornAgainCore.FitObject_chiSquaredMap(self)
 
 
-    def simulation(self):
-        """
-        simulation(FitObject self) -> Simulation
-
-        const Simulation & FitObject::simulation() const
-
-        Returns simulation. 
-
-        """
-        return _libBornAgainCore.FitObject_simulation(self)
-
-
     def weight(self):
         """
         weight(FitObject self) -> double

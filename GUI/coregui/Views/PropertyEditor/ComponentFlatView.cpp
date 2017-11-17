@@ -19,6 +19,7 @@
 #include "PropertyEditorFactory.h"
 #include "SessionItem.h"
 #include "SessionModel.h"
+#include "LayoutUtils.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QGridLayout>
@@ -26,19 +27,17 @@
 
 ComponentFlatView::ComponentFlatView(QWidget* parent)
     : QWidget(parent)
-    , m_gridLayout(new QGridLayout)
+    , m_mainLayout(new QVBoxLayout)
+    , m_gridLayout(nullptr)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    auto layout = new QVBoxLayout;
-    layout->setMargin(10);
-    layout->setSpacing(0);
+    m_mainLayout->setMargin(10);
+    m_mainLayout->setSpacing(0);
 
-    m_gridLayout->setSpacing(6);
-    layout->addLayout(m_gridLayout);
-    layout->addStretch(1);
+    initGridLayout();
 
-    setLayout(layout);
+    setLayout(m_mainLayout);
 }
 
 void ComponentFlatView::addItemProperties(SessionItem* item)
@@ -49,11 +48,12 @@ void ComponentFlatView::addItemProperties(SessionItem* item)
 
     int nrow(0);
     for (auto child : ComponentUtils::componentItems(*item)) {
-        auto editor = PropertyEditorFactory::CreateEditor(*child, this);
+        auto editor = PropertyEditorFactory::CreateEditor(*child);
         if (!editor)
             continue;
 
-        auto label = new QLabel(child->displayName(), this);
+        auto label = new QLabel(child->displayName());
+
         label->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
         m_gridLayout->addWidget(label, nrow, 0);
         m_gridLayout->addWidget(editor, nrow, 1);
@@ -72,9 +72,21 @@ void ComponentFlatView::addItemProperties(SessionItem* item)
 
 void ComponentFlatView::clearLayout()
 {
-    for(int idx = 0; idx < m_gridLayout->count(); ++idx) {
-        auto layoutItem = m_gridLayout->takeAt(idx);
-        delete layoutItem->widget();
-        delete layoutItem;
-    }
+    Q_ASSERT(m_gridLayout);
+    LayoutUtils::clearLayout(m_gridLayout);
+//    initGridLayout();
+//    for(int idx = 0; idx < m_gridLayout->count(); ++idx) {
+//        auto layoutItem = m_gridLayout->takeAt(idx);
+//        delete layoutItem->widget();
+//        delete layoutItem;
+    //    }
+}
+
+void ComponentFlatView::initGridLayout()
+{
+    delete m_gridLayout;
+    m_gridLayout = new QGridLayout;
+    m_gridLayout->setSpacing(6);
+    m_mainLayout->addLayout(m_gridLayout);
+    m_mainLayout->addStretch(1);
 }

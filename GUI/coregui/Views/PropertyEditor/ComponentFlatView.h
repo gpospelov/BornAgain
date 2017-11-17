@@ -22,6 +22,7 @@
 
 class SessionItem;
 class QGridLayout;
+class QBoxLayout;
 
 //! Component property widget for SessionItems. On the contrary to ComponentTreeView
 //! properties are presented as widgets in grid layout.
@@ -37,7 +38,9 @@ public:
 
 private:
     void clearLayout();
+    void initGridLayout();
 
+    QBoxLayout* m_mainLayout;
     QGridLayout* m_gridLayout;
 };
 

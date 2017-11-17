@@ -32,16 +32,6 @@ class IShape2D;
 class RegionOfInterest;
 class SimulationElement;
 
-//! Wrapper for detector axes units, required for a better representation of
-//! detector axes units in python
-//! @ingroup simulation
-
-// workaround for SWIG (instead of just writing enum class DetectorAxesUnits...)
-struct BA_CORE_API_ DetectorAxesUnitsWrap {
-    enum DetectorAxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ };
-};
-typedef DetectorAxesUnitsWrap::DetectorAxesUnits DetectorAxesUnits;
-
 //! Abstract 2D detector interface.
 //! @ingroup simulation
 
@@ -114,12 +104,6 @@ public:
     //! Returns empty detector map in given axes units.
     OutputData<double>* createDetectorMap(const Beam& beam, DetectorAxesUnits units) const;
 
-    //! Returns vector of valid axes units
-    virtual std::vector<DetectorAxesUnits> getValidAxesUnits() const;
-
-    //! Return default axes units
-    virtual DetectorAxesUnits getDefaultAxesUnits() const { return DetectorAxesUnits::DEFAULT; }
-
     //! Returns region of  interest if exists.
     const RegionOfInterest* regionOfInterest() const;
 
@@ -162,7 +146,6 @@ protected:
 private:
     void setDataToDetectorMap(OutputData<double> &detectorMap,
                               const std::vector<SimulationElement> &elements) const;
-    void check_axes_units(DetectorAxesUnits units) const;
 
     std::unique_ptr<RegionOfInterest> m_region_of_interest;
 };

@@ -94,19 +94,13 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
 
 OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, DetectorAxesUnits units) const
 {
-    check_axes_units(units);
+    checkAxesUnits(units);
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     result->addAxis(*constructAxis(BornAgain::X_AXIS_INDEX, beam, units));
     result->addAxis(*constructAxis(BornAgain::Y_AXIS_INDEX, beam, units));
     result->setAllTo(0.);
     return result.release();
-}
-
-std::vector<DetectorAxesUnits> IDetector2D::getValidAxesUnits() const
-{
-    std::vector<DetectorAxesUnits> result = {DetectorAxesUnits::NBINS};
-    return result;
 }
 
 const RegionOfInterest *IDetector2D::regionOfInterest() const
@@ -314,24 +308,5 @@ void IDetector2D::removeDetectorResolution()
 const IDetectorResolution* IDetector2D::detectorResolution() const
 {
     return mP_detector_resolution.get();
-}
-
-//! Checks if given unit is valid for the detector. Throws exception if it is not the case.
-void IDetector2D::check_axes_units(DetectorAxesUnits units) const
-{
-    if(units == DetectorAxesUnits::DEFAULT)
-        return;
-
-    auto validUnits = getValidAxesUnits();
-    if(std::find(validUnits.begin(), validUnits.end(), units) == validUnits.end()) {
-        std::ostringstream message;
-        message << "IDetector2D::createDetectorMap() -> Error. Unknown axes unit " << static_cast<int>(units) << "\n";
-        message << "Available units for this detector type \n";
-        for(size_t i=0; i<validUnits.size(); ++i)
-        for(auto unit : validUnits)
-            message << static_cast<int>(unit) << " ";
-        message << "\n";
-        throw std::runtime_error(message.str());
-    }
 }
 

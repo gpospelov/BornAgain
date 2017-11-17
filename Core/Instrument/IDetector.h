@@ -24,6 +24,16 @@
 
 template<class T> class OutputData;
 
+//! Wrapper for detector axes units, required for a better representation of
+//! detector axes units in python
+//! @ingroup simulation
+
+// workaround for SWIG (instead of just writing enum class DetectorAxesUnits...)
+struct BA_CORE_API_ DetectorAxesUnitsWrap {
+    enum DetectorAxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ };
+};
+typedef DetectorAxesUnitsWrap::DetectorAxesUnits DetectorAxesUnits;
+
 //! Abstract detector interface.
 //! @ingroup simulation
 
@@ -55,7 +65,13 @@ public:
     const DetectionProperties& detectionProperties() const {return m_detection_properties;}
 
     //! Inits axes of OutputData to match the detector and sets values to zero.
-    virtual void initOutputData(OutputData<double> &data) const;
+    virtual void initOutputData(OutputData<double>& data) const;
+
+    //! Return default axes units
+    virtual DetectorAxesUnits getDefaultAxesUnits() const {return DetectorAxesUnits::DEFAULT;}
+
+    //! Returns vector of valid axes units
+    virtual std::vector<DetectorAxesUnits> getValidAxesUnits() const {return {DetectorAxesUnits::NBINS};}
 
     virtual std::vector<const INode*> getChildren() const;
 
@@ -69,6 +85,9 @@ protected:
 
     //! Generates an axis with correct name and default binning for given index
     virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const;
+
+    //! Checks if given unit is valid for the detector. Throws exception if it is not the case.
+    void checkAxesUnits(DetectorAxesUnits units) const;
 
 private:
     SafePointerVector<IAxis> m_axes;

@@ -76,6 +76,24 @@ void IDetector::initOutputData(OutputData<double> &data) const {
   data.setAllTo(0.);
 }
 
+void IDetector::checkAxesUnits(DetectorAxesUnits units) const
+{
+    if(units == DetectorAxesUnits::DEFAULT)
+        return;
+
+    auto validUnits = getValidAxesUnits();
+    if(std::find(validUnits.begin(), validUnits.end(), units) == validUnits.end()) {
+        std::ostringstream message;
+        message << "IDetector::createDetectorMap() -> Error. Unknown axes unit " << static_cast<int>(units) << "\n";
+        message << "Available units for this detector type \n";
+        for(size_t i=0; i<validUnits.size(); ++i)
+        for(auto unit : validUnits)
+            message << static_cast<int>(unit) << " ";
+        message << "\n";
+        throw std::runtime_error(message.str());
+    }
+}
+
 std::vector<const INode*> IDetector::getChildren() const
 {
     return std::vector<const INode*>() << &m_detection_properties;

@@ -28,6 +28,8 @@
 #include "ComponentTreeView.h"
 #include "ComponentEditor.h"
 #include "minisplitter.h"
+#include "ComponentBoxEditor.h"
+#include "ComponentFlatView.h"
 #include <QTreeView>
 #include <QBoxLayout>
 #include <QItemSelectionModel>
@@ -39,10 +41,12 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     , m_sourceModel(new SampleModel(this))
     , m_sourceTree(new QTreeView)
     , m_componentTree(new ComponentTreeView)
+    , m_componentFlat(new ComponentFlatView)
     , m_updateButton(new QPushButton("Update models"))
     , m_addItemButton(new QPushButton("Add item"))
     , m_expandButton(new QPushButton("Expand tree"))
     , m_obsoleteEditor(new ComponentEditor)
+    , m_obsoleteBoxEditor(new ComponentBoxEditor)
     , m_splitter(new Manhattan::MiniSplitter)
     , m_delegate(new SessionModelDelegate(this))
     , m_isExpaned(false)
@@ -53,7 +57,8 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     buttonLayout->addWidget(m_expandButton);
 
     m_splitter->addWidget(m_sourceTree);
-    m_splitter->addWidget(rightPanelWidget());
+    m_splitter->addWidget(componentTreePanel());
+    m_splitter->addWidget(componentBoxPanel());
 
     auto layout = new QVBoxLayout();
     layout->setMargin(0);
@@ -100,6 +105,10 @@ void TestComponentView::onExpandRequest()
         m_sourceTree->collapseAll();
         m_componentTree->treeView()->collapseAll();
     }
+
+    QList<int> sizes = {1, 1, 1};
+    m_splitter->setSizes(sizes);
+
     m_isExpaned = !m_isExpaned;
 }
 
@@ -131,14 +140,24 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
 
         auto item = m_sourceModel->itemForIndex(indices.front());
         m_obsoleteEditor->setItem(item, item->modelType());
+        m_obsoleteBoxEditor->clearEditor();
+        m_obsoleteBoxEditor->addPropertyItems(item);
     }
 
 }
 
-QWidget* TestComponentView::rightPanelWidget()
+QWidget* TestComponentView::componentTreePanel()
 {
     Manhattan::MiniSplitter* result = new Manhattan::MiniSplitter(Qt::Vertical);
     result->addWidget(m_componentTree);
     result->addWidget(m_obsoleteEditor);
+    return result;
+}
+
+QWidget* TestComponentView::componentBoxPanel()
+{
+    Manhattan::MiniSplitter* result = new Manhattan::MiniSplitter(Qt::Vertical);
+    result->addWidget(m_componentFlat);
+    result->addWidget(m_obsoleteBoxEditor);
     return result;
 }

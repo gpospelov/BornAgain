@@ -59,12 +59,12 @@ void ComponentFlatView::addItemProperties(SessionItem* item)
         m_gridLayout->addWidget(editor, nrow, 1);
 
         auto mapper = new QDataWidgetMapper(this);
+
         mapper->setModel(child->model());
         mapper->setRootIndex(child->parent()->index()); // item might be != child->parent()
         mapper->setCurrentModelIndex(child->index());
         mapper->addMapping(label, 0);
         mapper->addMapping(editor, 1);
-        mapper->toFirst();
 
         ++nrow;
     }
@@ -74,12 +74,6 @@ void ComponentFlatView::clearLayout()
 {
     Q_ASSERT(m_gridLayout);
     LayoutUtils::clearLayout(m_gridLayout);
-//    initGridLayout();
-//    for(int idx = 0; idx < m_gridLayout->count(); ++idx) {
-//        auto layoutItem = m_gridLayout->takeAt(idx);
-//        delete layoutItem->widget();
-//        delete layoutItem;
-    //    }
 }
 
 void ComponentFlatView::initGridLayout()

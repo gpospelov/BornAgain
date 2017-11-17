@@ -20,6 +20,9 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+class SessionItem;
+class QGridLayout;
+
 //! Component property widget for SessionItems. On the contrary to ComponentTreeView
 //! properties are presented as widgets in grid layout.
 //! Shows only PropertyItems and current items of GroupProperties.
@@ -30,6 +33,12 @@ class BA_CORE_API_ ComponentFlatView : public QWidget
 public:
     ComponentFlatView(QWidget* parent = nullptr);
 
+    void addItemProperties(SessionItem* item);
+
+private:
+    void clearLayout();
+
+    QGridLayout* m_gridLayout;
 };
 
 #endif

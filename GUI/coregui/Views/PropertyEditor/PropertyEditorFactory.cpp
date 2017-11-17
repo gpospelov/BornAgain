@@ -45,7 +45,7 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
         result = createCustomDoubleEditor(item);
     }
 
-    if (parent)
+    if (parent && result)
         result->setParent(parent);
 
     return result;

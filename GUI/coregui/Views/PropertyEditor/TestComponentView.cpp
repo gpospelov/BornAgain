@@ -35,6 +35,7 @@
 #include <QItemSelectionModel>
 #include <QPushButton>
 #include <QDebug>
+#include <limits>
 
 TestComponentView::TestComponentView(MainWindow* mainWindow)
     : m_mainWindow(mainWindow)
@@ -106,8 +107,9 @@ void TestComponentView::onExpandRequest()
         m_componentTree->treeView()->collapseAll();
     }
 
-    QList<int> sizes = {1, 1, 1};
-    m_splitter->setSizes(sizes);
+//    const auto imax = std::numeric_limits<int>::max();
+//    QList<int> sizes = {imax, imax, imax};
+//    m_splitter->setSizes(sizes);
 
     m_isExpaned = !m_isExpaned;
 }
@@ -143,6 +145,8 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
         m_obsoleteEditor->setItem(item, item->modelType());
         m_obsoleteBoxEditor->clearEditor();
         m_obsoleteBoxEditor->addPropertyItems(item);
+
+        m_componentFlat->addItemProperties(item);
     }
 
 }

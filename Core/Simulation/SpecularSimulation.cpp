@@ -112,7 +112,7 @@ SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
     return output_ptr;
 }
 
-OutputData<double>* SpecularSimulation::getDetectorIntensity(DetectorAxesUnits) const
+OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits) const
 {
     return getData(0, &ILayerRTCoefficients::getScalarR).release();
 }

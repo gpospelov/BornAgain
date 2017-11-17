@@ -76,9 +76,9 @@ void IDetector::initOutputData(OutputData<double> &data) const {
   data.setAllTo(0.);
 }
 
-void IDetector::checkAxesUnits(DetectorAxesUnits units) const
+void IDetector::checkAxesUnits(AxesUnits units) const
 {
-    if(units == DetectorAxesUnits::DEFAULT)
+    if(units == AxesUnits::DEFAULT)
         return;
 
     auto validUnits = getValidAxesUnits();

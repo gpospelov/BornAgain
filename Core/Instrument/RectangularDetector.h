@@ -73,17 +73,17 @@ public:
     EDetectorArrangement getDetectorArrangment() const;
 
     //! returns vector of valid axes units
-    std::vector<DetectorAxesUnits> getValidAxesUnits() const override;
+    std::vector<AxesUnits> getValidAxesUnits() const override;
 
     //! return default axes units
-    DetectorAxesUnits getDefaultAxesUnits() const override;
+    AxesUnits getDefaultAxesUnits() const override;
 
 protected:
     //! Create an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, DetectorAxesUnits units,
+    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
                                     double &amin, double &amax) const override;
 
     //! Returns the name for the axis with given index

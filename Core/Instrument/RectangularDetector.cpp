@@ -178,30 +178,30 @@ RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrang
     return m_detector_arrangement;
 }
 
-std::vector<DetectorAxesUnits> RectangularDetector::getValidAxesUnits() const
+std::vector<AxesUnits> RectangularDetector::getValidAxesUnits() const
 {
-    std::vector<DetectorAxesUnits> result = IDetector2D::getValidAxesUnits();
-    std::vector<DetectorAxesUnits> addon =
-        { DetectorAxesUnits::RADIANS, DetectorAxesUnits::DEGREES, DetectorAxesUnits::MM, DetectorAxesUnits::QYQZ };
+    std::vector<AxesUnits> result = IDetector2D::getValidAxesUnits();
+    std::vector<AxesUnits> addon =
+        { AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::MM, AxesUnits::QYQZ };
     result.insert(result.end(), addon.begin(), addon.end());
     return result;
 }
 
-DetectorAxesUnits RectangularDetector::getDefaultAxesUnits() const
+AxesUnits RectangularDetector::getDefaultAxesUnits() const
 {
-    return DetectorAxesUnits::MM;
+    return AxesUnits::MM;
 }
 
 void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam &beam,
-    DetectorAxesUnits units, double &amin, double &amax) const
+    AxesUnits units, double &amin, double &amax) const
 {
     amin = 0.0; amax=0.0;
-    if(units == DetectorAxesUnits::MM) {
+    if(units == AxesUnits::MM) {
         amin = getAxis(axis_index).getMin();
         amax = getAxis(axis_index).getMax();
-    }else if(units == DetectorAxesUnits::RADIANS || units == DetectorAxesUnits::DEGREES) {
+    }else if(units == AxesUnits::RADIANS || units == AxesUnits::DEGREES) {
         double scale(1.0);
-        if (units == DetectorAxesUnits::DEGREES)
+        if (units == AxesUnits::DEGREES)
             scale = 1. / Units::degree;
 
         if(axis_index == BornAgain::X_AXIS_INDEX) {

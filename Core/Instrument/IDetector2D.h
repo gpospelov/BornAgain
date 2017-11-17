@@ -99,10 +99,10 @@ public:
 
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
-            const Beam& beam, DetectorAxesUnits units_type=DetectorAxesUnits::DEFAULT) const;
+            const Beam& beam, AxesUnits units_type=AxesUnits::DEFAULT) const;
 
     //! Returns empty detector map in given axes units.
-    OutputData<double>* createDetectorMap(const Beam& beam, DetectorAxesUnits units) const;
+    OutputData<double>* createDetectorMap(const Beam& beam, AxesUnits units) const;
 
     //! Returns region of  interest if exists.
     const RegionOfInterest* regionOfInterest() const;
@@ -126,10 +126,10 @@ protected:
 
     //! Constructs axis with min,max corresponding to selected units
     std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
-                                         DetectorAxesUnits units) const;
+                                         AxesUnits units) const;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, DetectorAxesUnits units,
+    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
                                     double &amin, double &amax) const;
 
     //! Calculate global index from two axis indices

@@ -44,18 +44,18 @@ SphericalDetector* SphericalDetector::clone() const
     return new SphericalDetector(*this);
 }
 
-std::vector<DetectorAxesUnits> SphericalDetector::getValidAxesUnits() const
+std::vector<AxesUnits> SphericalDetector::getValidAxesUnits() const
 {
-    std::vector<DetectorAxesUnits> result = IDetector2D::getValidAxesUnits();
-    std::vector<DetectorAxesUnits> addon =
-        { DetectorAxesUnits::RADIANS, DetectorAxesUnits::DEGREES, DetectorAxesUnits::QYQZ };
+    std::vector<AxesUnits> result = IDetector2D::getValidAxesUnits();
+    std::vector<AxesUnits> addon =
+        { AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QYQZ };
     result.insert(result.end(), addon.begin(), addon.end());
     return result;
 }
 
-DetectorAxesUnits SphericalDetector::getDefaultAxesUnits() const
+AxesUnits SphericalDetector::getDefaultAxesUnits() const
 {
-    return DetectorAxesUnits::RADIANS;
+    return AxesUnits::RADIANS;
 }
 
 IPixel* SphericalDetector::createPixel(size_t index) const
@@ -71,13 +71,13 @@ IPixel* SphericalDetector::createPixel(size_t index) const
 }
 
 void SphericalDetector::calculateAxisRange(size_t axis_index, const Beam &beam,
-        DetectorAxesUnits units, double &amin, double &amax) const
+        AxesUnits units, double &amin, double &amax) const
 {
     amin = 0.0; amax=0.0;
-    if(units == DetectorAxesUnits::DEGREES) {
+    if(units == AxesUnits::DEGREES) {
         amin = getAxis(axis_index).getMin()/Units::degree;
         amax = getAxis(axis_index).getMax()/Units::degree;
-    }else if(units == DetectorAxesUnits::RADIANS) {
+    }else if(units == AxesUnits::RADIANS) {
         amin = getAxis(axis_index).getMin();
         amax = getAxis(axis_index).getMax();
     } else {

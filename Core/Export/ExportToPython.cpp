@@ -73,9 +73,9 @@ namespace {
     //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
     std::function<std::string(double)> printFunc(const IDetector2D* detector)
     {
-        if (detector->getDefaultAxesUnits() == DetectorAxesUnits::MM)
+        if (detector->getDefaultAxesUnits() == AxesUnits::MM)
             return PythonFormatting::printDouble;
-        if (detector->getDefaultAxesUnits() == DetectorAxesUnits::RADIANS)
+        if (detector->getDefaultAxesUnits() == AxesUnits::RADIANS)
             return PythonFormatting::printDegrees;
         throw Exceptions::RuntimeErrorException(
             "ExportToPython::defineMasks() -> Error. Unknown detector units.");

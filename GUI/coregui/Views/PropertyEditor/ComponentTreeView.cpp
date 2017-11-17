@@ -40,6 +40,7 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
     m_tree->setRootIsDecorated(false);
     m_tree->setModel(m_proxyModel);
     m_tree->setItemDelegate(m_delegate);
+    m_tree->setEditTriggers(QAbstractItemView::AllEditTriggers);
 }
 
 void ComponentTreeView::setModel(SessionModel* model)

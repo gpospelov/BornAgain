@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include "AngleProperty.h"
 #include "ColorProperty.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
@@ -137,14 +136,6 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
             writer->writeAttribute(SessionXML::ColorGreenAttribute, QString::number(g));
             writer->writeAttribute(SessionXML::ColorBlueAttribute, QString::number(b));
             writer->writeAttribute(SessionXML::ColorAlphaAttribute, QString::number(a));
-        }
-
-        else if (type_name == Constants::AnglePropertyType) {
-            double value = variant.value<AngleProperty>().getValueInRadians();
-            writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                   QString::number(value, 'g'));
-            writer->writeAttribute(SessionXML::AngleUnitsAttribute,
-                                   variant.value<AngleProperty>().getUnits());
 
         } else {
             throw GUIHelpers::Error("SessionModel::writeProperty: Parameter type not supported " + type_name);
@@ -344,15 +335,6 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
         int a = reader->attributes().value(SessionXML::ColorAlphaAttribute).toInt();
         ColorProperty color(QColor(r, g, b, a));
         variant = color.getVariant();
-    }
-
-    else if (parameter_type == Constants::AnglePropertyType) {
-        double parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
-        QString units = reader->attributes().value(SessionXML::AngleUnitsAttribute).toString();
-        AngleProperty angle_property(parameter_value, Constants::UnitsRadians);
-        angle_property.setUnits(units);
-        variant = angle_property.getVariant();
     }
 
     else {

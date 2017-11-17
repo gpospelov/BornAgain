@@ -228,6 +228,10 @@
 %newobject OffSpecSimulation::getIntensityData(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
 %newobject OffSpecSimulation::getDetectorIntensity(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
 
+%newobject SpecularSimulation::getDetectorIntensity(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+%newobject SpecularSimulation::reflectivity() const;
+%newobject SpecularSimulation::transmissivity() const;
+
 %newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
 %newobject IntensityDataIOFactory::readIntensityData(const std::string& file_name);
 

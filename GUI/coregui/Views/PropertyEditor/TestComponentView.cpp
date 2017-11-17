@@ -26,6 +26,8 @@
 #include "MultiLayer.h"
 #include "SampleModel.h"
 #include "ComponentTreeView.h"
+#include "ComponentEditor.h"
+#include "minisplitter.h"
 #include <QTreeView>
 #include <QBoxLayout>
 #include <QItemSelectionModel>
@@ -40,6 +42,8 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     , m_updateButton(new QPushButton("Update models"))
     , m_addItemButton(new QPushButton("Add item"))
     , m_expandButton(new QPushButton("Expand tree"))
+    , m_obsoleteEditor(new ComponentEditor)
+    , m_splitter(new Manhattan::MiniSplitter)
     , m_delegate(new SessionModelDelegate(this))
     , m_isExpaned(false)
 {
@@ -48,15 +52,14 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     buttonLayout->addWidget(m_addItemButton);
     buttonLayout->addWidget(m_expandButton);
 
-    auto widgetLayout = new QHBoxLayout;
-    widgetLayout->addWidget(m_sourceTree);
-    widgetLayout->addWidget(m_componentTree);
+    m_splitter->addWidget(m_sourceTree);
+    m_splitter->addWidget(rightPanelWidget());
 
     auto layout = new QVBoxLayout();
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addLayout(buttonLayout);
-    layout->addLayout(widgetLayout);
+    layout->addWidget(m_splitter);
 
     setLayout(layout);
 
@@ -119,12 +122,23 @@ void TestComponentView::init_source()
 
 void TestComponentView::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)
 {
-    QModelIndexList indexes = selected.indexes();
+    QModelIndexList indices = selected.indexes();
 
-    if (indexes.size()) {
-        QModelIndex selectedIndex = indexes.front();
+    if (indices.size()) {
+        QModelIndex selectedIndex = indices.front();
         m_componentTree->setRootIndex(selectedIndex);
         m_componentTree->treeView()->expandAll();
+
+        auto item = m_sourceModel->itemForIndex(indices.front());
+        m_obsoleteEditor->setItem(item, item->modelType());
     }
 
+}
+
+QWidget* TestComponentView::rightPanelWidget()
+{
+    Manhattan::MiniSplitter* result = new Manhattan::MiniSplitter(Qt::Vertical);
+    result->addWidget(m_componentTree);
+    result->addWidget(m_obsoleteEditor);
+    return result;
 }

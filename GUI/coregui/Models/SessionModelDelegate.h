@@ -46,6 +46,11 @@ public:
 
     void setEditorData(QWidget* editor, const QModelIndex& index) const;
 
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+    void updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option,
+                              const QModelIndex& index) const;
+
 private slots:
     void onComboPropertyChanged(const ComboProperty&);
     void onGroupPropertyChanged(const GroupProperty_t&);
@@ -56,6 +61,10 @@ private slots:
 private:
     void paintCustomLabel(QPainter* painter, const QStyleOptionViewItem& option,
                           const QModelIndex& index, const QString& text) const;
+
+    void paintCustomDouble(QPainter* painter, const QStyleOptionViewItem& option,
+                          const QModelIndex& index) const;
+
 };
 
 #endif // SESSIONMODELDELEGATE_H

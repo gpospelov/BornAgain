@@ -17,6 +17,11 @@
 #include "SessionItemUtils.h"
 #include "SessionItem.h"
 #include "VectorItem.h"
+#include "MaterialItem.h"
+#include "MaterialProperty.h"
+#include <QColor>
+#include <QIcon>
+#include <QPixmap>
 
 int SessionItemUtils::ParentRow(const SessionItem& item)
 {
@@ -59,4 +64,30 @@ int SessionItemUtils::ParentVisibleRow(const SessionItem& item)
     }
 
     return result;
+}
+
+QVariant SessionItemUtils::TextColorRole(const SessionItem& item)
+{
+    return item.isEnabled() ? QVariant() : QColor(Qt::gray);
+}
+
+QVariant SessionItemUtils::ToolTipRole(const SessionItem& item, int ncol)
+{
+    QString result = item.toolTip();
+    if (result.isEmpty()) {
+        result = item.displayName();
+        if (ncol == 1 && item.value().canConvert<QString>())
+            result = item.value().toString();
+    }
+
+    return QVariant(result);
+}
+
+
+QVariant SessionItemUtils::DecorationRole(const SessionItem& item)
+{
+    if (item.value().canConvert<MaterialProperty>())
+        return QIcon(item.value().value<MaterialProperty>().getPixmap());
+
+    return QVariant();
 }

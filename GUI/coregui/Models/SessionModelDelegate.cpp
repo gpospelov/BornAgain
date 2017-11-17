@@ -17,6 +17,7 @@
 #include "SessionModelDelegate.h"
 #include "PropertyBrowserUtils.h"
 #include "SessionItem.h"
+#include "PropertyEditorFactory.h"
 #include <QDoubleSpinBox>
 #include <QApplication>
 
@@ -52,11 +53,6 @@ bool isDoubleProperty(const QModelIndex& index)
     return index.data().type() == QVariant::Double;
 }
 
-//! Single step for QDoubleSpinBox.
-//! For item with decimals=3 (i.e. 0.001) single step will be 0.1
-double singleStep(const SessionItem& item) {
-    return 1. / std::pow(10., item.decimals() - 1);
-}
 }
 
 SessionModelDelegate::SessionModelDelegate(QWidget* parent)
@@ -139,17 +135,8 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 
     } else if (isDoubleProperty(index)) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
+        return PropertyEditorFactory::CreateEditor(*item, parent);
 
-        auto editor = new QDoubleSpinBox(parent);
-        editor->setDecimals(item->decimals());
-        editor->setSingleStep(singleStep(*item));
-        RealLimits limits = item->limits();
-        if (limits.hasLowerLimit())
-            editor->setMinimum(item->limits().getLowerLimit());
-        if (limits.hasUpperLimit())
-            editor->setMaximum(item->limits().getUpperLimit());
-
-        return editor;
     } else {
         return QStyledItemDelegate::createEditor(parent, option, index);
     }

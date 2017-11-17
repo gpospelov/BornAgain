@@ -21,17 +21,7 @@
 #include "ModelPath.h"
 #include "GroupItem.h"
 #include "SessionItemUtils.h"
-
-namespace
-{
-QStringList propertyRelatedTypes()
-{
-    QStringList result = QStringList() << Constants::PropertyType << Constants::GroupItemType
-                                       << Constants::VectorType << Constants::BasicAxisType
-                                       << Constants::AmplitudeAxisType;
-    return result;
-}
-}
+#include "ComponentUtils.h"
 
 void ComponentProxyStrategy::onDataChanged(SessionModel* source, ComponentProxyModel* proxy)
 {
@@ -66,7 +56,7 @@ bool ComponentProxyStrategy::processSourceIndex(const QModelIndex& index)
 
 bool ComponentProxyStrategy::isPropertyRelated(SessionItem* item)
 {
-    static QStringList propertyRelated = propertyRelatedTypes();
+    static QStringList propertyRelated = ComponentUtils::propertyRelatedTypes();
 
     if (m_sourceRootIndex.isValid() && item->parent()->index() == m_sourceRootIndex &&
         item->parent()->modelType() != Constants::GroupItemType)

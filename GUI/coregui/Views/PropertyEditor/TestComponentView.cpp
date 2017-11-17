@@ -121,6 +121,7 @@ void TestComponentView::init_source()
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sourceModel, *sample);
     m_sourceModel->insertNewItem(Constants::VectorType);
+    m_sourceModel->insertNewItem(Constants::BeamType);
 
 //    SessionItem* multilayer = m_sourceModel->insertNewItem(Constants::MultiLayerType);
 //    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));

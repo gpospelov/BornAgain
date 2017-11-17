@@ -16,11 +16,38 @@
 
 #include "ComponentUtils.h"
 #include "item_constants.h"
+#include "SessionItem.h"
 
 QStringList ComponentUtils::propertyRelatedTypes()
 {
     QStringList result = QStringList() << Constants::PropertyType << Constants::GroupItemType
                                        << Constants::VectorType << Constants::BasicAxisType
-                                       << Constants::AmplitudeAxisType;
+                                       << Constants::AmplitudeAxisType
+                                       << Constants::MaterialDataType;
+    return result;
+}
+
+QList<SessionItem*> ComponentUtils::componentItems(const SessionItem& item)
+{
+    static QStringList propertyRelated = ComponentUtils::propertyRelatedTypes();
+
+    QList<SessionItem*> result;
+
+    for (auto child : item.children()) {
+        if (!child->isVisible())
+            continue;
+
+        if (propertyRelated.contains(child->modelType()))
+            result.append(child);
+
+        if (child->modelType() == Constants::GroupItemType) {
+            for (auto grandchild : child->children()) {
+                if (grandchild->isVisible())
+                    result+= ComponentUtils::componentItems(*grandchild);
+            }
+        }
+
+    }
+
     return result;
 }

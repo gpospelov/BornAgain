@@ -18,7 +18,10 @@
 #define COMPONENTUTILS_H
 
 #include "WinDllMacros.h"
+#include <QList>
 #include <QStringList>
+
+class SessionItem;
 
 //! Contains collection of utility functions to support editing of SessionItem's components.
 
@@ -27,6 +30,9 @@ namespace ComponentUtils
 
 //! Returns list of strings representing modelTypes suitable for editing in component editors.
 BA_CORE_API_ QStringList propertyRelatedTypes();
+
+//! Returns list of SessionItem's children suitable for editing in property editors.
+BA_CORE_API_ QList<SessionItem*> componentItems(const SessionItem& item);
 
 }
 

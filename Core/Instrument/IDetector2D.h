@@ -127,7 +127,7 @@ protected:
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
-                                    double &amin, double &amax) const;
+                                    double &amin, double &amax) const override;
 
     //! Calculate global index from two axis indices
     size_t getGlobalIndex(size_t x, size_t y) const;

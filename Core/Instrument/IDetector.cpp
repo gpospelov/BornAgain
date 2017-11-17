@@ -94,6 +94,22 @@ void IDetector::checkAxesUnits(AxesUnits units) const
     }
 }
 
+void IDetector::calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
+                                   double& amin, double& amax) const
+{
+    if (units == AxesUnits::DEFAULT) {
+        amin = getAxis(axis_index).getMin();
+        amax = getAxis(axis_index).getMax();
+    } else if (units == AxesUnits::NBINS) {
+        amin = 0.0;
+        amax = static_cast<double>(getAxis(axis_index).size());
+    } else {
+        throw std::runtime_error("IDetector::calculateAxisRange() -> Error. "
+                                 "Unknown units "
+                                 + std::to_string(static_cast<int>(units)));
+    }
+}
+
 std::unique_ptr<OutputData<double>> IDetector::createDetectorMap(const Beam& beam,
                                                                  AxesUnits units) const
 {

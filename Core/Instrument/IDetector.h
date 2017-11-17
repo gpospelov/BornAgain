@@ -87,6 +87,10 @@ protected:
     //! Returns the name for the axis with given index
     virtual std::string getAxisName(size_t index) const = 0;
 
+    //! Calculates axis range from original detector axes in given units (mm, rad, etc)
+    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
+                                    double& amin, double& amax) const;
+
     //! Constructs axis with min, max corresponding to selected units
     virtual std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
                                                  AxesUnits units) const = 0;

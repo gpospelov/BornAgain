@@ -34,7 +34,7 @@ class BA_CORE_API_ SessionModelDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    SessionModelDelegate(QWidget* parent);
+    SessionModelDelegate(QObject* parent);
 
     void paint(QPainter* painter, const QStyleOptionViewItem& option,
                const QModelIndex& index) const;

@@ -25,6 +25,7 @@ class QWiget;
 class QDataWidgetMapper;
 class QGridLayout;
 class SessionItem;
+class SessionModelDelegate;
 
 //! Container to hold label and editor for PropertyItem.
 //! Contains also logic to map editor to SessionModel.
@@ -43,6 +44,7 @@ private:
     QLabel* m_label;
     QWidget* m_editor;
     QDataWidgetMapper* m_dataMapper;
+    SessionModelDelegate* m_delegate;
 };
 
 #endif

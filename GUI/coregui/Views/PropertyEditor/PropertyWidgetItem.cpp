@@ -18,6 +18,7 @@
 #include "SessionItem.h"
 #include "SessionModel.h"
 #include "SessionItemUtils.h"
+#include "SessionModelDelegate.h"
 #include <QLabel>
 #include <QWidget>
 #include <QDataWidgetMapper>
@@ -28,6 +29,7 @@ PropertyWidgetItem::PropertyWidgetItem(QWidget* parent)
     , m_label(new QLabel)
     , m_editor(nullptr)
     , m_dataMapper(new QDataWidgetMapper(this))
+    , m_delegate(new SessionModelDelegate(this))
 {
     m_label->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 }
@@ -50,6 +52,7 @@ void PropertyWidgetItem::setItemEditor(SessionItem* item, QWidget* editor)
     m_dataMapper->setCurrentModelIndex(item->index());
     m_dataMapper->addMapping(m_label, 0);
     m_dataMapper->addMapping(m_editor, 1);
+    m_dataMapper->setItemDelegate(m_delegate);
 
     m_label->setEnabled(item->isEnabled());
     m_editor->setEnabled(item->isEnabled());

@@ -61,7 +61,7 @@ bool isIntProperty(const QModelIndex& index)
 
 }
 
-SessionModelDelegate::SessionModelDelegate(QWidget* parent)
+SessionModelDelegate::SessionModelDelegate(QObject* parent)
     : QStyledItemDelegate(parent)
 {
 

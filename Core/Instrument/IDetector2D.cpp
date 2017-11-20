@@ -91,21 +91,6 @@ const DetectorMask* IDetector2D::detectorMask() const
     return &m_detector_mask;
 }
 
-size_t IDetector2D::numberOfMaskedChannels() const
-{
-    return detectorMask() ? detectorMask()->numberOfMaskedChannels() : 0;
-}
-
-bool IDetector2D::isMasked(size_t index) const
-{
-    return m_detector_mask.isMasked(index);
-}
-
-bool IDetector2D::hasMasks() const
-{
-    return m_detector_mask.hasMasks();
-}
-
 std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam &beam)
 {
     std::vector<SimulationElement> result;
@@ -116,7 +101,7 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     Eigen::Matrix2cd beam_polarization = beam.getPolarization();
     Eigen::Matrix2cd analyzer_operator = detectionProperties().analyzerOperator();
 
-    if (!hasMasks())
+    if (!detectorMask()->hasMasks())
         m_detector_mask.initMaskData(*this);
     size_t spec_index = getIndexOfSpecular(beam);
 

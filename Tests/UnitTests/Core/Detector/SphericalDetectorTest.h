@@ -36,8 +36,8 @@ TEST_F(SphericalDetectorTest, initialState)
     EXPECT_EQ(validUnits, detector.validAxesUnits());
 
     // masks
-    EXPECT_FALSE(detector.hasMasks());
-    EXPECT_EQ(0u, detector.numberOfMaskedChannels());
+    EXPECT_FALSE(detector.detectorMask()->hasMasks());
+    EXPECT_EQ(0, detector.detectorMask()->numberOfMaskedChannels());
 
     // resolution function
     EXPECT_EQ(nullptr, detector.detectorResolution());
@@ -279,9 +279,9 @@ TEST_F(SphericalDetectorTest, MaskOfDetector)
         double x = mask->getAxisValue(index, 0);
         double y = mask->getAxisValue(index, 1);
         if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
-            EXPECT_TRUE(detector.isMasked(index));
+            EXPECT_TRUE(detector.detectorMask()->isMasked(index));
         } else {
-            EXPECT_FALSE(detector.isMasked(index));
+            EXPECT_FALSE(detector.detectorMask()->isMasked(index));
         }
     }
 
@@ -291,9 +291,9 @@ TEST_F(SphericalDetectorTest, MaskOfDetector)
         double x = mask->getAxisValue(index, 0);
         double y = mask->getAxisValue(index, 1);
         if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
-            EXPECT_TRUE(detector2.isMasked(index));
+            EXPECT_TRUE(detector2.detectorMask()->isMasked(index));
         } else {
-            EXPECT_FALSE(detector2.isMasked(index));
+            EXPECT_FALSE(detector2.detectorMask()->isMasked(index));
         }
     }
 
@@ -302,9 +302,9 @@ TEST_F(SphericalDetectorTest, MaskOfDetector)
         double x = mask->getAxisValue(index, 0);
         double y = mask->getAxisValue(index, 1);
         if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
-            EXPECT_TRUE(detector.isMasked(index));
+            EXPECT_TRUE(detector.detectorMask()->isMasked(index));
         } else {
-            EXPECT_FALSE(detector.isMasked(index));
+            EXPECT_FALSE(detector.detectorMask()->isMasked(index));
         }
     }
 }
@@ -336,7 +336,7 @@ TEST_F(SphericalDetectorTest, Clone)
     EXPECT_EQ(std::string("ConvolutionDetectorResolution"),
               clone->detectorResolution()->getName());
 
-    EXPECT_EQ(clone->numberOfMaskedChannels(), 8u);
+    EXPECT_EQ(clone->detectorMask()->numberOfMaskedChannels(), 8);
 
     // checking iteration over the map of cloned detector
     SimulationArea area(clone.get());

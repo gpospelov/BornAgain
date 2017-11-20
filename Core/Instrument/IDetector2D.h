@@ -62,13 +62,6 @@ public:
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
     void maskAll();
 
-    size_t numberOfMaskedChannels() const;
-
-    bool isMasked(size_t index) const;
-
-    //! return true if has masks
-    bool hasMasks() const;
-
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the detector and its mask
     std::vector<SimulationElement> createSimulationElements(const Beam& beam);

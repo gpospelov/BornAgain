@@ -17,6 +17,8 @@
 #include "PropertyEditorFactory.h"
 #include "SessionItem.h"
 #include "RealLimits.h"
+#include "MaterialProperty.h"
+#include "CustomEditors.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 
@@ -41,6 +43,11 @@ bool isIntProperty(const QVariant& variant)
     return variant.type() == QVariant::Int;
 }
 
+bool isMaterialProperty(const QVariant& variant)
+{
+    return variant.canConvert<MaterialProperty>();
+}
+
 }
 
 
@@ -54,6 +61,12 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
 
     else if(isIntProperty(item.value())) {
         result = createCustomIntEditor(item);
+    }
+
+    else if(isMaterialProperty(item.value())) {
+        auto editor = new MaterialPropertyEditor;
+        editor->setData(item.value());
+        result = editor;
     }
 
     if (parent && result)

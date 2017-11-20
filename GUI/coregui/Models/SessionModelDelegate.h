@@ -57,6 +57,7 @@ private slots:
     void onMaterialPropertyChanged(const MaterialProperty&);
     void onColorPropertyChanged(const ColorProperty&);
     void onScientificDoublePropertyChanged(const ScientificDoubleProperty&);
+    void onCustomEditorDataChanged(const QVariant&);
 
 private:
     void paintCustomLabel(QPainter* painter, const QStyleOptionViewItem& option,

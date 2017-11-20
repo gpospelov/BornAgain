@@ -18,6 +18,7 @@
 #include "PropertyBrowserUtils.h"
 #include "SessionItem.h"
 #include "PropertyEditorFactory.h"
+#include "CustomEditors.h"
 #include <QDoubleSpinBox>
 #include <QApplication>
 
@@ -118,11 +119,14 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
         return editor;
 
     } else if (isMaterialProperty(index)) {
-        MaterialPropertyEdit* editor = new MaterialPropertyEdit(parent);
-        editor->setMaterialProperty(index.data().value<MaterialProperty>());
-        connect(editor, &MaterialPropertyEdit::materialPropertyChanged,
-                this, &SessionModelDelegate::onMaterialPropertyChanged);
-        return editor;
+        auto item = static_cast<SessionItem*>(index.internalPointer());
+        auto editor = PropertyEditorFactory::CreateEditor(*item, parent);
+        auto customEditor = dynamic_cast<CustomEditor*>(editor);
+        Q_ASSERT(customEditor);
+        customEditor->setData(index.data());
+        connect(customEditor, &CustomEditor::dataChanged,
+                this, &SessionModelDelegate::onCustomEditorDataChanged);
+        return customEditor;
 
     } else if (isColorProperty(index)) {
         ColorPropertyEdit* editor = new ColorPropertyEdit(parent);
@@ -164,9 +168,9 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
                        QVariant::fromValue<GroupProperty_t>(groupEditor->getGroupProperty()));
 
     } else if (isMaterialProperty(index)) {
-        MaterialPropertyEdit* matEditor = qobject_cast<MaterialPropertyEdit*>(editor);
-        model->setData(index,
-                       QVariant::fromValue<MaterialProperty>(matEditor->getMaterialProperty()));
+        MaterialPropertyEditor* matEditor = qobject_cast<MaterialPropertyEditor*>(editor);
+        Q_ASSERT(matEditor);
+        model->setData(index, matEditor->editorData());
 
     } else if (isColorProperty(index)) {
         ColorPropertyEdit* colorEditor = qobject_cast<ColorPropertyEdit*>(editor);
@@ -186,9 +190,13 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
 
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    if (isComboProperty(index) || isGroupProperty(index) || isMaterialProperty(index)
+    if (isComboProperty(index) || isGroupProperty(index)
         || isScientificDoubleProperty(index) || isColorProperty(index)) {
         // as using custom widget(s), doing nothing here
+    } else if (isMaterialProperty(index)) {
+        auto customEditor = dynamic_cast<CustomEditor*>(editor);
+        Q_ASSERT(customEditor);
+        customEditor->setData(index.data());
     } else {
         QStyledItemDelegate::setEditorData(editor, index);
     }
@@ -247,7 +255,13 @@ void SessionModelDelegate::onScientificDoublePropertyChanged(const ScientificDou
     ScientificDoublePropertyEdit* editor = qobject_cast<ScientificDoublePropertyEdit*>(sender());
     Q_ASSERT(editor);
     emit commitData(editor);
+}
 
+void SessionModelDelegate::onCustomEditorDataChanged(const QVariant& )
+{
+    CustomEditor* editor = qobject_cast<CustomEditor*>(sender());
+    Q_ASSERT(editor);
+    emit commitData(editor);
 }
 
 //! Paints custom text in a a place corresponding given index.

@@ -24,8 +24,8 @@
 #include <QSpinBox>
 
 namespace {
-QWidget* createCustomDoubleEditor(SessionItem& item);
-QWidget* createCustomIntEditor(SessionItem& item);
+QDoubleSpinBox* createCustomDoubleEditor(SessionItem& item);
+QSpinBox* createCustomIntEditor(SessionItem& item);
 
 //! Single step for QDoubleSpinBox.
 
@@ -62,11 +62,15 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
     QWidget* result(nullptr);
 
     if (isDoubleProperty(item.value())) {
-        result = createCustomDoubleEditor(item);
+        auto editor = createCustomDoubleEditor(item);
+        editor->setValue(item.value().toDouble());
+        result = editor;
     }
 
     else if(isIntProperty(item.value())) {
-        result = createCustomIntEditor(item);
+        auto editor = createCustomIntEditor(item);
+        editor->setValue(item.value().toInt());
+        result = editor;
     }
 
     else if(isMaterialProperty(item.value())) {
@@ -91,7 +95,7 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
 
 namespace {
 
-QWidget* createCustomDoubleEditor(SessionItem& item)
+QDoubleSpinBox* createCustomDoubleEditor(SessionItem& item)
 {
     auto result = new QDoubleSpinBox;
 
@@ -107,7 +111,7 @@ QWidget* createCustomDoubleEditor(SessionItem& item)
     return result;
 }
 
-QWidget* createCustomIntEditor(SessionItem& item)
+QSpinBox* createCustomIntEditor(SessionItem& item)
 {
     auto result = new QSpinBox;
 

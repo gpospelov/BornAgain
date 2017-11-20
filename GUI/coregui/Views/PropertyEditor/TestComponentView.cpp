@@ -147,8 +147,8 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
 
         auto item = m_sourceModel->itemForIndex(indices.front());
         m_obsoleteEditor->setItem(item, item->modelType());
-//        m_obsoleteBoxEditor->clearEditor();
-//        m_obsoleteBoxEditor->addPropertyItems(item);
+        m_obsoleteBoxEditor->clearEditor();
+        m_obsoleteBoxEditor->addPropertyItems(item);
 
         m_componentFlat->addItemProperties(item);
     }

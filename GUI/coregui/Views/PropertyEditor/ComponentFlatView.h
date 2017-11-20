@@ -21,6 +21,7 @@
 #include <QWidget>
 
 class SessionItem;
+class SessionModel;
 class QGridLayout;
 class QBoxLayout;
 class PropertyWidgetItem;
@@ -37,7 +38,13 @@ public:
 
     void addItemProperties(SessionItem* item);
 
+    void setModel(SessionModel* model);
+
+public slots:
+    void onDataChanged(const QModelIndex &topLeft, const QModelIndex &, const QVector<int> &);
+
 private:
+    void updateItemProperties(SessionItem* item);
     void clearLayout();
     void initGridLayout();
     PropertyWidgetItem* createWidget(SessionItem* item);
@@ -45,6 +52,8 @@ private:
     QBoxLayout* m_mainLayout;
     QGridLayout* m_gridLayout;
     QVector<PropertyWidgetItem*> m_widgetItems;
+    SessionItem* m_currentItem;
+    SessionModel* m_model;
 };
 
 #endif

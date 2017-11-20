@@ -30,6 +30,8 @@ ComponentFlatView::ComponentFlatView(QWidget* parent)
     : QWidget(parent)
     , m_mainLayout(new QVBoxLayout)
     , m_gridLayout(nullptr)
+    , m_currentItem(nullptr)
+    , m_model(nullptr)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -45,6 +47,40 @@ void ComponentFlatView::addItemProperties(SessionItem* item)
 {
     Q_ASSERT(item);
 
+    m_currentItem = item;
+    setModel(m_currentItem->model());
+
+    updateItemProperties(m_currentItem);
+}
+
+void ComponentFlatView::setModel(SessionModel* model)
+{
+    if (m_model) {
+        disconnect(m_model, &SessionModel::dataChanged, this, &ComponentFlatView::onDataChanged);
+
+    }
+
+    m_model = model;
+
+    if (m_model) {
+        connect(m_model, &SessionModel::dataChanged, this, &ComponentFlatView::onDataChanged);
+    }
+
+}
+
+void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIndex&,
+                                      const QVector<int>& )
+{
+    SessionItem *item = m_model->itemForIndex(topLeft);
+    Q_ASSERT(item);
+    if (item->modelType() == Constants::GroupItemType)
+        updateItemProperties(m_currentItem);
+}
+
+void ComponentFlatView::updateItemProperties(SessionItem* item)
+{
+    Q_ASSERT(item);
+
     clearLayout();
 
     int nrow(0);
@@ -57,6 +93,7 @@ void ComponentFlatView::addItemProperties(SessionItem* item)
         widget->addToGrid(m_gridLayout, ++nrow);
         m_widgetItems.push_back(widget);
     }
+
 }
 
 void ComponentFlatView::clearLayout()

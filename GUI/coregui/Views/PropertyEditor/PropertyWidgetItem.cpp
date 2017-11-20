@@ -37,12 +37,14 @@ PropertyWidgetItem::PropertyWidgetItem(QWidget* parent)
 PropertyWidgetItem::~PropertyWidgetItem()
 {
     delete m_label;
-    delete m_editor;
+    // if editor's action leads to deletion of the editor itself, we have to give him chance to
+    // send all signals
+    m_editor->deleteLater();
 }
 
 void PropertyWidgetItem::setItemEditor(SessionItem* item, QWidget* editor)
 {
-    delete m_editor;
+    Q_ASSERT(m_editor == nullptr);
     m_editor = editor;
 
     m_label->setText(item->displayName());

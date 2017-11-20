@@ -78,7 +78,7 @@ void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& 
 
     } else if (isGroupProperty(index)) {
         GroupProperty_t property = prop_value.value<GroupProperty_t>();
-        paintCustomLabel(painter, option, index, property->currentType());
+        paintCustomLabel(painter, option, index, property->currentLabel());
 
     } else if (isMaterialProperty(index)) {
         MaterialProperty property = prop_value.value<MaterialProperty>();

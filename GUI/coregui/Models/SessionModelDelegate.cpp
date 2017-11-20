@@ -104,12 +104,14 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
                                             const QModelIndex& index) const
 {
     if (isComboProperty(index)) {
-        ComboPropertyEdit* editor = new ComboPropertyEdit(parent);
-        ComboProperty combo = index.data().value<ComboProperty>();
-        editor->setComboProperty(combo);
-        connect(editor, &ComboPropertyEdit::comboPropertyChanged,
-                this, &SessionModelDelegate::onComboPropertyChanged);
-        return editor;
+        auto item = static_cast<SessionItem*>(index.internalPointer());
+        auto editor = PropertyEditorFactory::CreateEditor(*item, parent);
+        auto customEditor = dynamic_cast<CustomEditor*>(editor);
+        Q_ASSERT(customEditor);
+        customEditor->setData(index.data());
+        connect(customEditor, &CustomEditor::dataChanged,
+                this, &SessionModelDelegate::onCustomEditorDataChanged);
+        return customEditor;
 
     } else if (isGroupProperty(index)) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
@@ -162,8 +164,9 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
                                         const QModelIndex& index) const
 {
     if (isComboProperty(index)) {
-        ComboPropertyEdit* comboEditor = qobject_cast<ComboPropertyEdit*>(editor);
-        model->setData(index, comboEditor->getComboProperty().getVariant());
+        ComboPropertyEditor* comboEditor = qobject_cast<ComboPropertyEditor*>(editor);
+        Q_ASSERT(comboEditor);
+        model->setData(index, comboEditor->editorData());
 
     } else if (isGroupProperty(index)) {
         GroupPropertyEditor* groupEditor = qobject_cast<GroupPropertyEditor*>(editor);
@@ -193,9 +196,12 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
 
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    if (isComboProperty(index)
-        || isScientificDoubleProperty(index) || isColorProperty(index)) {
+    if (isScientificDoubleProperty(index) || isColorProperty(index)) {
         // as using custom widget(s), doing nothing here
+    } else if (isComboProperty(index)) {
+        auto customEditor = dynamic_cast<CustomEditor*>(editor);
+        Q_ASSERT(customEditor);
+        customEditor->setData(index.data());
     } else if (isGroupProperty(index)) {
         auto customEditor = dynamic_cast<CustomEditor*>(editor);
         Q_ASSERT(customEditor);
@@ -226,14 +232,6 @@ void SessionModelDelegate::updateEditorGeometry(QWidget* editor, const QStyleOpt
 {
     QStyledItemDelegate::updateEditorGeometry(editor, option, index);
     editor->setGeometry(option.rect);
-}
-
-void SessionModelDelegate::onComboPropertyChanged(const ComboProperty& /*property*/)
-{
-    ComboPropertyEdit* editor = qobject_cast<ComboPropertyEdit*>(sender());
-    Q_ASSERT(editor);
-    emit commitData(editor);
-    // emit closeEditor(editor); // Qt by default leaves editor alive after editing finished
 }
 
 void SessionModelDelegate::onColorPropertyChanged(const ColorProperty& /*property*/)

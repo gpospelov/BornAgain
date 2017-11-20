@@ -75,8 +75,25 @@ class BA_CORE_API_ GroupPropertyEditor : public CustomEditor
 public:
     explicit GroupPropertyEditor(QWidget *parent = nullptr);
 
-    QSize sizeHint() const;
-    QSize minimumSizeHint() const;
+public slots:
+    void setData(const QVariant& data);
+
+private slots:
+    void onIndexChanged(int index);
+
+private:
+    void setConnected(bool isConnected);
+
+    QComboBox* m_box;
+};
+
+//! Editor for ComboProperty variant.
+
+class BA_CORE_API_ ComboPropertyEditor : public CustomEditor
+{
+    Q_OBJECT
+public:
+    explicit ComboPropertyEditor(QWidget *parent = nullptr);
 
 public slots:
     void setData(const QVariant& data);

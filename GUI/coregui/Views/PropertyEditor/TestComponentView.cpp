@@ -57,6 +57,9 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     buttonLayout->addWidget(m_addItemButton);
     buttonLayout->addWidget(m_expandButton);
 
+    m_sourceTree->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    m_sourceTree->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
     m_splitter->addWidget(m_sourceTree);
     m_splitter->addWidget(componentTreePanel());
     m_splitter->addWidget(componentBoxPanel());
@@ -108,8 +111,9 @@ void TestComponentView::onExpandRequest()
     }
 
 //    const auto imax = std::numeric_limits<int>::max();
-//    QList<int> sizes = {imax, imax, imax};
-//    m_splitter->setSizes(sizes);
+    const int imax = 1;
+    QList<int> sizes = {imax, imax, imax};
+    m_splitter->setSizes(sizes);
 
     m_isExpaned = !m_isExpaned;
 }
@@ -143,8 +147,8 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
 
         auto item = m_sourceModel->itemForIndex(indices.front());
         m_obsoleteEditor->setItem(item, item->modelType());
-        m_obsoleteBoxEditor->clearEditor();
-        m_obsoleteBoxEditor->addPropertyItems(item);
+//        m_obsoleteBoxEditor->clearEditor();
+//        m_obsoleteBoxEditor->addPropertyItems(item);
 
         m_componentFlat->addItemProperties(item);
     }
@@ -156,6 +160,9 @@ QWidget* TestComponentView::componentTreePanel()
     Manhattan::MiniSplitter* result = new Manhattan::MiniSplitter(Qt::Vertical);
     result->addWidget(m_componentTree);
     result->addWidget(m_obsoleteEditor);
+
+    m_componentTree->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    m_obsoleteEditor->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     return result;
 }
 
@@ -164,5 +171,9 @@ QWidget* TestComponentView::componentBoxPanel()
     Manhattan::MiniSplitter* result = new Manhattan::MiniSplitter(Qt::Vertical);
     result->addWidget(m_componentFlat);
     result->addWidget(m_obsoleteBoxEditor);
+
+    m_componentFlat->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    m_obsoleteBoxEditor->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
     return result;
 }

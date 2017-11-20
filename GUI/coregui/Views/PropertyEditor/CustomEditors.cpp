@@ -19,6 +19,7 @@
 #include "MaterialProperty.h"
 #include "MaterialSvc.h"
 #include "GroupProperty.h"
+#include "ComboProperty.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QToolButton>
@@ -101,7 +102,6 @@ GroupPropertyEditor::GroupPropertyEditor(QWidget* parent)
     , m_box(new QComboBox)
 {
     setAutoFillBackground(true);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     auto layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -110,16 +110,6 @@ GroupPropertyEditor::GroupPropertyEditor(QWidget* parent)
 
     setLayout(layout);
     setConnected(true);
-}
-
-QSize GroupPropertyEditor::sizeHint() const
-{
-    return m_box->sizeHint();
-}
-
-QSize GroupPropertyEditor::minimumSizeHint() const
-{
-    return m_box->minimumSizeHint();
 }
 
 void GroupPropertyEditor::setData(const QVariant& data)
@@ -156,4 +146,57 @@ void GroupPropertyEditor::setConnected(bool isConnected)
     else
         disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
                 this, &GroupPropertyEditor::onIndexChanged);
+}
+
+// --- ComboPropertyEditor ---
+
+ComboPropertyEditor::ComboPropertyEditor(QWidget* parent)
+    : CustomEditor(parent)
+    , m_box(new QComboBox)
+{
+    setAutoFillBackground(true);
+
+    auto layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(m_box);
+
+    setLayout(layout);
+    setConnected(true);
+}
+
+void ComboPropertyEditor::setData(const QVariant& data)
+{
+    Q_ASSERT(data.canConvert<ComboProperty>());
+    CustomEditor::setData(data);
+
+    setConnected(false);
+
+    ComboProperty comboProperty = m_data.value<ComboProperty>();
+    m_box->clear();
+    m_box->insertItems(0, comboProperty.getValues());
+    m_box->setCurrentIndex(comboProperty.currentIndex());
+
+    setConnected(true);
+}
+
+void ComboPropertyEditor::onIndexChanged(int index)
+{
+    ComboProperty comboProperty = m_data.value<ComboProperty>();
+
+    if (comboProperty.currentIndex() != index) {
+        comboProperty.setCurrentIndex(index);
+        setDataIntern(QVariant::fromValue<ComboProperty>(comboProperty));
+    }
+
+}
+
+void ComboPropertyEditor::setConnected(bool isConnected)
+{
+    if (isConnected)
+        connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+                this, &ComboPropertyEditor::onIndexChanged, Qt::UniqueConnection);
+    else
+        disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+                this, &ComboPropertyEditor::onIndexChanged);
 }

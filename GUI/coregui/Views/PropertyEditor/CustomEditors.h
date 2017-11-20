@@ -67,44 +67,61 @@ private:
     LostFocusFilter* m_focusFilter;
 };
 
-//! Editor for GroupProperty variant.
+//! Common editor for QComboBox-like cystim editors.
 
-class BA_CORE_API_ GroupPropertyEditor : public CustomEditor
+class BA_CORE_API_ CustomComboEditor : public CustomEditor
 {
     Q_OBJECT
 public:
-    explicit GroupPropertyEditor(QWidget *parent = nullptr);
+    explicit CustomComboEditor(QWidget *parent = nullptr);
+
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
 
 public slots:
     void setData(const QVariant& data);
 
-private slots:
-    void onIndexChanged(int index);
+protected slots:
+    virtual void onIndexChanged(int index);
 
-private:
+protected:
+    virtual QStringList internLabels();
+    virtual int internIndex();
     void setConnected(bool isConnected);
 
     QComboBox* m_box;
 };
 
+//! Editor for GroupProperty variant.
+
+class BA_CORE_API_ GroupPropertyEditor : public CustomComboEditor
+{
+    Q_OBJECT
+public:
+    explicit GroupPropertyEditor(QWidget *parent = nullptr);
+
+protected slots:
+    virtual void onIndexChanged(int index);
+
+protected:
+    QStringList internLabels();
+    int internIndex();
+};
+
 //! Editor for ComboProperty variant.
 
-class BA_CORE_API_ ComboPropertyEditor : public CustomEditor
+class BA_CORE_API_ ComboPropertyEditor : public CustomComboEditor
 {
     Q_OBJECT
 public:
     explicit ComboPropertyEditor(QWidget *parent = nullptr);
 
-public slots:
-    void setData(const QVariant& data);
-
-private slots:
+protected slots:
     void onIndexChanged(int index);
 
-private:
-    void setConnected(bool isConnected);
-
-    QComboBox* m_box;
+protected:
+    QStringList internLabels();
+    int internIndex();
 };
 
 #endif  //  CUSTOMEDITORS_H

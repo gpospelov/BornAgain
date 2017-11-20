@@ -95,13 +95,14 @@ void MaterialPropertyEditor::buttonClicked()
         setDataIntern(mat.getVariant());
 }
 
-// --- GroupPropertyEditor ---
+// --- CustomComboEditor ---
 
-GroupPropertyEditor::GroupPropertyEditor(QWidget* parent)
+CustomComboEditor::CustomComboEditor(QWidget* parent)
     : CustomEditor(parent)
     , m_box(new QComboBox)
 {
     setAutoFillBackground(true);
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     auto layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -112,19 +113,62 @@ GroupPropertyEditor::GroupPropertyEditor(QWidget* parent)
     setConnected(true);
 }
 
-void GroupPropertyEditor::setData(const QVariant& data)
+QSize CustomComboEditor::sizeHint() const
 {
-    Q_ASSERT(data.canConvert<GroupProperty_t>());
+    return m_box->sizeHint();
+}
+
+QSize CustomComboEditor::minimumSizeHint() const
+{
+    return m_box->minimumSizeHint();
+}
+
+void CustomComboEditor::setData(const QVariant& data)
+{
     CustomEditor::setData(data);
 
     setConnected(false);
 
-    GroupProperty_t groupProperty = m_data.value<GroupProperty_t>();
     m_box->clear();
-    m_box->insertItems(0, groupProperty->itemLabels());
-    m_box->setCurrentIndex(groupProperty->currentIndex());
+    m_box->insertItems(0, internLabels());
+    m_box->setCurrentIndex(internIndex());
 
     setConnected(true);
+}
+
+void CustomComboEditor::onIndexChanged(int)
+{
+}
+
+//! Returns list of labels for QComboBox
+
+QStringList CustomComboEditor::internLabels()
+{
+    return QStringList();
+}
+
+//! Returns index for QComboBox.
+
+int CustomComboEditor::internIndex()
+{
+    return -1;
+}
+
+void CustomComboEditor::setConnected(bool isConnected)
+{
+    if (isConnected)
+        connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+                this, &CustomComboEditor::onIndexChanged, Qt::UniqueConnection);
+    else
+        disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+                this, &CustomComboEditor::onIndexChanged);
+}
+
+// --- GroupPropertyEditor ---
+
+GroupPropertyEditor::GroupPropertyEditor(QWidget* parent)
+    : CustomComboEditor(parent)
+{
 }
 
 void GroupPropertyEditor::onIndexChanged(int index)
@@ -135,49 +179,27 @@ void GroupPropertyEditor::onIndexChanged(int index)
         groupProperty->setCurrentIndex(index);
         setDataIntern(QVariant::fromValue<GroupProperty_t>(groupProperty));
     }
-
 }
 
-void GroupPropertyEditor::setConnected(bool isConnected)
+QStringList GroupPropertyEditor::internLabels()
 {
-    if (isConnected)
-        connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-                this, &GroupPropertyEditor::onIndexChanged, Qt::UniqueConnection);
-    else
-        disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-                this, &GroupPropertyEditor::onIndexChanged);
+    Q_ASSERT(m_data.canConvert<GroupProperty_t>());
+    GroupProperty_t groupProperty = m_data.value<GroupProperty_t>();
+    return groupProperty->itemLabels();
+}
+
+int GroupPropertyEditor::internIndex()
+{
+    Q_ASSERT(m_data.canConvert<GroupProperty_t>());
+    GroupProperty_t groupProperty = m_data.value<GroupProperty_t>();
+    return groupProperty->currentIndex();
 }
 
 // --- ComboPropertyEditor ---
 
 ComboPropertyEditor::ComboPropertyEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_box(new QComboBox)
+    : CustomComboEditor(parent)
 {
-    setAutoFillBackground(true);
-
-    auto layout = new QVBoxLayout;
-    layout->setMargin(0);
-    layout->setSpacing(0);
-    layout->addWidget(m_box);
-
-    setLayout(layout);
-    setConnected(true);
-}
-
-void ComboPropertyEditor::setData(const QVariant& data)
-{
-    Q_ASSERT(data.canConvert<ComboProperty>());
-    CustomEditor::setData(data);
-
-    setConnected(false);
-
-    ComboProperty comboProperty = m_data.value<ComboProperty>();
-    m_box->clear();
-    m_box->insertItems(0, comboProperty.getValues());
-    m_box->setCurrentIndex(comboProperty.currentIndex());
-
-    setConnected(true);
 }
 
 void ComboPropertyEditor::onIndexChanged(int index)
@@ -188,15 +210,18 @@ void ComboPropertyEditor::onIndexChanged(int index)
         comboProperty.setCurrentIndex(index);
         setDataIntern(QVariant::fromValue<ComboProperty>(comboProperty));
     }
-
 }
 
-void ComboPropertyEditor::setConnected(bool isConnected)
+QStringList ComboPropertyEditor::internLabels()
 {
-    if (isConnected)
-        connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-                this, &ComboPropertyEditor::onIndexChanged, Qt::UniqueConnection);
-    else
-        disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-                this, &ComboPropertyEditor::onIndexChanged);
+    Q_ASSERT(m_data.canConvert<ComboProperty>());
+    ComboProperty comboProperty = m_data.value<ComboProperty>();
+    return comboProperty.getValues();
+}
+
+int ComboPropertyEditor::internIndex()
+{
+    Q_ASSERT(m_data.canConvert<ComboProperty>());
+    ComboProperty comboProperty = m_data.value<ComboProperty>();
+    return comboProperty.currentIndex();
 }

@@ -23,6 +23,7 @@
 
 class QLabel;
 class LostFocusFilter;
+class QComboBox;
 
 //! Base class for all custom variants editors.
 
@@ -52,7 +53,7 @@ class BA_CORE_API_ MaterialPropertyEditor : public CustomEditor
 {
     Q_OBJECT
 public:
-    MaterialPropertyEditor(QWidget* parent = nullptr);
+    explicit MaterialPropertyEditor(QWidget* parent = nullptr);
 
 public slots:
     void setData(const QVariant& data);
@@ -64,6 +65,29 @@ private:
     QLabel* m_textLabel;
     QLabel* m_pixmapLabel;
     LostFocusFilter* m_focusFilter;
+};
+
+//! Editor for GroupProperty variant.
+
+class BA_CORE_API_ GroupPropertyEditor : public CustomEditor
+{
+    Q_OBJECT
+public:
+    explicit GroupPropertyEditor(QWidget *parent = nullptr);
+
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
+
+public slots:
+    void setData(const QVariant& data);
+
+private slots:
+    void onIndexChanged(int index);
+
+private:
+    void setConnected(bool isConnected);
+
+    QComboBox* m_box;
 };
 
 #endif  //  CUSTOMEDITORS_H

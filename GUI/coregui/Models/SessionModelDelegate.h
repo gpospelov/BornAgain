@@ -53,8 +53,6 @@ public:
 
 private slots:
     void onComboPropertyChanged(const ComboProperty&);
-    void onGroupPropertyChanged(const GroupProperty_t&);
-    void onMaterialPropertyChanged(const MaterialProperty&);
     void onColorPropertyChanged(const ColorProperty&);
     void onScientificDoublePropertyChanged(const ScientificDoubleProperty&);
     void onCustomEditorDataChanged(const QVariant&);

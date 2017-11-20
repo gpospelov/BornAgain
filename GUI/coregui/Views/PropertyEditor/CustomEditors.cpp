@@ -18,9 +18,11 @@
 #include "CustomEventFilters.h"
 #include "MaterialProperty.h"
 #include "MaterialSvc.h"
+#include "GroupProperty.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QToolButton>
+#include <QComboBox>
 
 //! Sets the data from the model to editor.
 
@@ -29,7 +31,7 @@ void CustomEditor::setData(const QVariant& data)
     m_data = data;
 }
 
-//! Sets the data from editor and inform external delegates.
+//! Saves the data from editor and inform external delegates.
 
 void CustomEditor::setDataIntern(const QVariant& data)
 {
@@ -37,6 +39,7 @@ void CustomEditor::setDataIntern(const QVariant& data)
     dataChanged(m_data);
 }
 
+// --- MaterialPropertyEditor ---
 
 MaterialPropertyEditor::MaterialPropertyEditor(QWidget* parent)
     : CustomEditor(parent)
@@ -56,8 +59,7 @@ MaterialPropertyEditor::MaterialPropertyEditor(QWidget* parent)
     m_pixmapLabel->setPixmap(defProperty.getPixmap());
 
     auto button = new QToolButton;
-    button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,
-                                      QSizePolicy::Preferred));
+    button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
     button->setText(QLatin1String("..."));
     layout->addWidget(m_pixmapLabel, Qt::AlignLeft);
     layout->addWidget(m_textLabel, Qt::AlignLeft);
@@ -90,4 +92,68 @@ void MaterialPropertyEditor::buttonClicked()
 
     if(mat.isDefined() )
         setDataIntern(mat.getVariant());
+}
+
+// --- GroupPropertyEditor ---
+
+GroupPropertyEditor::GroupPropertyEditor(QWidget* parent)
+    : CustomEditor(parent)
+    , m_box(new QComboBox)
+{
+    setAutoFillBackground(true);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    auto layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(m_box);
+
+    setLayout(layout);
+    setConnected(true);
+}
+
+QSize GroupPropertyEditor::sizeHint() const
+{
+    return m_box->sizeHint();
+}
+
+QSize GroupPropertyEditor::minimumSizeHint() const
+{
+    return m_box->minimumSizeHint();
+}
+
+void GroupPropertyEditor::setData(const QVariant& data)
+{
+    Q_ASSERT(data.canConvert<GroupProperty_t>());
+    CustomEditor::setData(data);
+
+    setConnected(false);
+
+    GroupProperty_t groupProperty = m_data.value<GroupProperty_t>();
+    m_box->clear();
+    m_box->insertItems(0, groupProperty->itemLabels());
+    m_box->setCurrentIndex(groupProperty->currentIndex());
+
+    setConnected(true);
+}
+
+void GroupPropertyEditor::onIndexChanged(int index)
+{
+    GroupProperty_t groupProperty = m_data.value<GroupProperty_t>();
+
+    if (groupProperty->currentIndex() != index) {
+        groupProperty->setCurrentIndex(index);
+        setDataIntern(QVariant::fromValue<GroupProperty_t>(groupProperty));
+    }
+
+}
+
+void GroupPropertyEditor::setConnected(bool isConnected)
+{
+    if (isConnected)
+        connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+                this, &GroupPropertyEditor::onIndexChanged, Qt::UniqueConnection);
+    else
+        disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+                this, &GroupPropertyEditor::onIndexChanged);
 }

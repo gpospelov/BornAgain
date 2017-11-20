@@ -18,6 +18,7 @@
 #include "SessionItem.h"
 #include "RealLimits.h"
 #include "MaterialProperty.h"
+#include "GroupProperty.h"
 #include "CustomEditors.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
@@ -48,6 +49,11 @@ bool isMaterialProperty(const QVariant& variant)
     return variant.canConvert<MaterialProperty>();
 }
 
+bool isGroupProperty(const QVariant& variant)
+{
+    return variant.canConvert<GroupProperty_t>();
+}
+
 }
 
 
@@ -65,6 +71,12 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
 
     else if(isMaterialProperty(item.value())) {
         auto editor = new MaterialPropertyEditor;
+        editor->setData(item.value());
+        result = editor;
+    }
+
+    else if(isGroupProperty(item.value())) {
+        auto editor = new GroupPropertyEditor;
         editor->setData(item.value());
         result = editor;
     }

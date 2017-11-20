@@ -20,6 +20,7 @@
 #include "SessionItem.h"
 #include "SessionModel.h"
 #include "LayoutUtils.h"
+#include "PropertyWidgetItem.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QGridLayout>
@@ -48,32 +49,26 @@ void ComponentFlatView::addItemProperties(SessionItem* item)
 
     int nrow(0);
     for (auto child : ComponentUtils::componentItems(*item)) {
-        auto editor = PropertyEditorFactory::CreateEditor(*child);
-        if (!editor)
+
+        auto widget = createWidget(child);
+        if (!widget)
             continue;
 
-        auto label = new QLabel(child->displayName());
-
-        label->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-        m_gridLayout->addWidget(label, nrow, 0);
-        m_gridLayout->addWidget(editor, nrow, 1);
-
-        auto mapper = new QDataWidgetMapper(this);
-
-        mapper->setModel(child->model());
-        mapper->setRootIndex(child->parent()->index()); // item might be != child->parent()
-        mapper->setCurrentModelIndex(child->index());
-        mapper->addMapping(label, 0);
-        mapper->addMapping(editor, 1);
-
-        ++nrow;
+        widget->addToGrid(m_gridLayout, ++nrow);
+        m_widgetItems.push_back(widget);
     }
 }
 
 void ComponentFlatView::clearLayout()
-{
+{    
     Q_ASSERT(m_gridLayout);
-    LayoutUtils::clearLayout(m_gridLayout);
+    LayoutUtils::clearLayout(m_gridLayout, false);
+
+    for(auto widget: m_widgetItems)
+        delete widget;
+
+    m_widgetItems.clear();
+
 }
 
 void ComponentFlatView::initGridLayout()
@@ -83,4 +78,16 @@ void ComponentFlatView::initGridLayout()
     m_gridLayout->setSpacing(6);
     m_mainLayout->addLayout(m_gridLayout);
     m_mainLayout->addStretch(1);
+}
+
+PropertyWidgetItem* ComponentFlatView::createWidget(SessionItem* item)
+{
+    auto editor = PropertyEditorFactory::CreateEditor(*item);
+    if (!editor)
+        return nullptr;
+
+    auto result = new PropertyWidgetItem(this);
+    result->setItemEditor(item, editor);
+
+    return result;
 }

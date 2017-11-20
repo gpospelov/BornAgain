@@ -34,7 +34,7 @@ BA_CORE_API_ void removeRow(QGridLayout *layout, int row, bool deleteWidgets = t
 BA_CORE_API_ void removeColumn(QGridLayout *layout, int column, bool deleteWidgets = true);
 
 //! Clear layout completely.
-BA_CORE_API_ void clearLayout(QGridLayout* layout);
+BA_CORE_API_ void clearLayout(QGridLayout* layout, bool deleteWidgets = true);
 }
 
 #endif

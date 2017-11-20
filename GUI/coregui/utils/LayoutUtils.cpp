@@ -63,10 +63,10 @@ void LayoutUtils::removeColumn(QGridLayout* layout, int column, bool deleteWidge
     layout->setColumnStretch(column, 0);
 }
 
-void LayoutUtils::clearLayout(QGridLayout* layout)
+void LayoutUtils::clearLayout(QGridLayout* layout, bool deleteWidgets)
 {
     for (int i_row = 0; i_row<layout->rowCount(); ++i_row) {
-        LayoutUtils::removeRow(layout, i_row);
+        LayoutUtils::removeRow(layout, i_row, deleteWidgets);
     }
 }
 

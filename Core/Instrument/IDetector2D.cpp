@@ -15,7 +15,6 @@
 
 #include "IDetector2D.h"
 #include "Beam.h"
-#include "IDetectorResolution.h"
 #include "InfinitePlane.h"
 #include "SimulationElement.h"
 #include "SimulationArea.h"
@@ -23,7 +22,6 @@
 #include "Units.h"
 #include "RegionOfInterest.h"
 #include "Exceptions.h"
-#include "ConvolutionDetectorResolution.h"
 #include "DetectorFunctions.h"
 
 IDetector2D::IDetector2D() = default;
@@ -32,8 +30,6 @@ IDetector2D::IDetector2D(const IDetector2D &other)
     : IDetector(other)
     , m_detector_mask(other.m_detector_mask)
 {
-    if(other.mP_detector_resolution)
-        setDetectorResolution(*other.mP_detector_resolution);
     if(other.regionOfInterest())
         m_region_of_interest.reset(other.regionOfInterest()->clone());
 }
@@ -53,41 +49,6 @@ void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
     clear();
     addAxis(axis0);
     addAxis(axis1);
-}
-
-void IDetector2D::applyDetectorResolution(OutputData<double> *p_intensity_map) const
-{
-    if (!p_intensity_map)
-        throw Exceptions::NullPointerException("IDetector2D::applyDetectorResolution() -> "
-                                   "Error! Null pointer to intensity map");
-    if (mP_detector_resolution)
-        mP_detector_resolution->applyDetectorResolution(p_intensity_map);
-}
-
-OutputData<double> *IDetector2D::createDetectorIntensity(
-        const std::vector<SimulationElement> &elements,
-        const Beam &beam, AxesUnits units_type) const
-{
-    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
-    if(!detectorMap)
-        throw Exceptions::RuntimeErrorException("Instrument::createDetectorIntensity:"
-                                                "can't create detector map.");
-
-    if (mP_detector_resolution) {
-        if(units_type != AxesUnits::DEFAULT) {
-            std::unique_ptr<OutputData<double>> defaultMap(createDetectorMap(beam, AxesUnits::DEFAULT));
-            setDataToDetectorMap(*defaultMap, elements);
-            applyDetectorResolution(defaultMap.get());
-            detectorMap->setRawDataVector(defaultMap->getRawDataVector());
-        } else {
-            setDataToDetectorMap(*detectorMap, elements);
-            applyDetectorResolution(detectorMap.get());
-        }
-    } else {
-        setDataToDetectorMap(*detectorMap, elements);
-    }
-
-    return detectorMap.release();
 }
 
 const RegionOfInterest *IDetector2D::regionOfInterest() const
@@ -197,13 +158,6 @@ size_t IDetector2D::numberOfSimulationElements() const
     return result;
 }
 
-std::vector<const INode*> IDetector2D::getChildren() const
-{
-    std::vector<const INode*> result = IDetector::getChildren();
-    result << mP_detector_resolution;
-    return result;
-}
-
 std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam &beam,
                                                   AxesUnits units) const
 {
@@ -261,27 +215,5 @@ void IDetector2D::setDataToDetectorMap(OutputData<double> &detectorMap,
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
         detectorMap[it.roiIndex()] = elements[it.elementIndex()].getIntensity();
 
-}
-
-void IDetector2D::setDetectorResolution(const IDetectorResolution& p_detector_resolution)
-{
-    mP_detector_resolution.reset(p_detector_resolution.clone());
-    registerChild(mP_detector_resolution.get());
-}
-
-void IDetector2D::setResolutionFunction(const IResolutionFunction2D& resFunc)
-{
-    ConvolutionDetectorResolution convFunc(resFunc);
-    setDetectorResolution(convFunc);
-}
-
-void IDetector2D::removeDetectorResolution()
-{
-    mP_detector_resolution.reset();
-}
-
-const IDetectorResolution* IDetector2D::detectorResolution() const
-{
-    return mP_detector_resolution.get();
 }
 

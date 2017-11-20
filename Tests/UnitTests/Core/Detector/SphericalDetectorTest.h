@@ -49,7 +49,7 @@ TEST_F(SphericalDetectorTest, initialState)
     ASSERT_THROW(detector.getAxis(0), std::runtime_error);
     OutputData<double>* p_intensity_map(nullptr);
     ASSERT_THROW(detector.applyDetectorResolution(p_intensity_map),
-                 Exceptions::NullPointerException);
+                 std::runtime_error);
 }
 
 // Construction of the detector with axes.

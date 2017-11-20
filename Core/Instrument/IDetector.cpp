@@ -1,5 +1,8 @@
+#include "IAxis.h"
 #include "IDetector.h"
 #include "OutputData.h"
+#include "IDetectorResolution.h"
+#include "ConvolutionDetectorResolution.h"
 
 IDetector::IDetector()
 {
@@ -10,9 +13,13 @@ IDetector::IDetector(const IDetector& other)
     : m_axes(other.m_axes)
     , m_detection_properties(other.m_detection_properties)
 {
+    if(other.mP_detector_resolution)
+        setDetectorResolution(*other.mP_detector_resolution);
     setName(other.getName());
     registerChild(&m_detection_properties);
 }
+
+IDetector::~IDetector() = default;
 
 void IDetector::addAxis(const IAxis& axis)
 {
@@ -69,11 +76,70 @@ void IDetector::setAnalyzerProperties(const kvector_t direction, double efficien
     m_detection_properties.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
+void IDetector::setDetectorResolution(const IDetectorResolution& p_detector_resolution)
+{
+    mP_detector_resolution.reset(p_detector_resolution.clone());
+    registerChild(mP_detector_resolution.get());
+}
+
+// TODO: pass dimension-independent argument to this function
+void IDetector::setResolutionFunction(const IResolutionFunction2D& resFunc)
+{
+    ConvolutionDetectorResolution convFunc(resFunc);
+    setDetectorResolution(convFunc);
+}
+
+void IDetector::applyDetectorResolution(OutputData<double> *p_intensity_map) const
+{
+    if (!p_intensity_map)
+        throw std::runtime_error("IDetector::applyDetectorResolution() -> "
+                                   "Error! Null pointer to intensity map");
+    if (mP_detector_resolution)
+        mP_detector_resolution->applyDetectorResolution(p_intensity_map);
+}
+
+void IDetector::removeDetectorResolution()
+{
+    mP_detector_resolution.reset();
+}
+
+const IDetectorResolution* IDetector::detectorResolution() const
+{
+    return mP_detector_resolution.get();
+}
+
 void IDetector::initOutputData(OutputData<double> &data) const {
   data.clear();
   for (size_t i = 0; i < dimension(); ++i)
       data.addAxis(getAxis(i));
   data.setAllTo(0.);
+}
+
+OutputData<double>*
+IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements, const Beam& beam,
+                                   AxesUnits units_type) const
+{
+    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
+    if (!detectorMap)
+        throw Exceptions::RuntimeErrorException("Instrument::createDetectorIntensity:"
+                                                "can't create detector map.");
+
+    if (mP_detector_resolution) {
+        if (units_type != AxesUnits::DEFAULT) {
+            std::unique_ptr<OutputData<double>> defaultMap(
+                createDetectorMap(beam, AxesUnits::DEFAULT));
+            setDataToDetectorMap(*defaultMap, elements);
+            applyDetectorResolution(defaultMap.get());
+            detectorMap->setRawDataVector(defaultMap->getRawDataVector());
+        } else {
+            setDataToDetectorMap(*detectorMap, elements);
+            applyDetectorResolution(detectorMap.get());
+        }
+    } else {
+        setDataToDetectorMap(*detectorMap, elements);
+    }
+
+    return detectorMap.release();
 }
 
 void IDetector::checkAxesUnits(AxesUnits units) const
@@ -94,7 +160,7 @@ void IDetector::checkAxesUnits(AxesUnits units) const
     }
 }
 
-void IDetector::calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
+void IDetector::calculateAxisRange(size_t axis_index, const Beam&, AxesUnits units,
                                    double& amin, double& amax) const
 {
     if (units == AxesUnits::DEFAULT) {
@@ -128,6 +194,5 @@ std::unique_ptr<OutputData<double>> IDetector::createDetectorMap(const Beam& bea
 
 std::vector<const INode*> IDetector::getChildren() const
 {
-    return std::vector<const INode*>() << &m_detection_properties;
+    return std::vector<const INode*>() << &m_detection_properties << mP_detector_resolution;
 }
-

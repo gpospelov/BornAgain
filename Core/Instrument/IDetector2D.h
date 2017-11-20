@@ -19,18 +19,12 @@
 #include "IDetector.h"
 #include "Beam.h"
 #include "DetectorMask.h"
-#include "SafePointerVector.h"
-#include "DetectionProperties.h"
 #include <memory>
 
 class Beam;
-class IAxis;
-class IDetectorResolution;
-class IResolutionFunction2D;
 class IPixel;
 class IShape2D;
 class RegionOfInterest;
-class SimulationElement;
 
 //! Abstract 2D detector interface.
 //! @ingroup simulation
@@ -54,18 +48,6 @@ public:
 
     //! Sets detector parameters using axes
     void setDetectorAxes(const IAxis& axis0, const IAxis& axis1);
-
-    //! Sets the detector resolution
-    void setDetectorResolution(const IDetectorResolution& p_detector_resolution);
-    void setResolutionFunction(const IResolutionFunction2D& resFunc);
-
-    //! Removes detector resolution function.
-    void removeDetectorResolution();
-
-    //! Applies the detector resolution to the given intensity maps
-    void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
-
-    const IDetectorResolution* detectorResolution() const;
 
     //! Removes all masks from the detector
     void removeMasks();
@@ -97,10 +79,6 @@ public:
     SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
 #endif
 
-    //! Returns new intensity map with detector resolution applied and axes in requested units
-    OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
-            const Beam& beam, AxesUnits units_type=AxesUnits::DEFAULT) const;
-
     //! Returns region of  interest if exists.
     const RegionOfInterest* regionOfInterest() const;
 
@@ -112,8 +90,6 @@ public:
 
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
-
-    virtual std::vector<const INode*> getChildren() const override;
 
 protected:
     IDetector2D(const IDetector2D& other);
@@ -137,12 +113,12 @@ protected:
     //! returned. This corresponds to an overflow index.
     virtual size_t getIndexOfSpecular(const Beam& beam) const=0;
 
-    std::unique_ptr<IDetectorResolution> mP_detector_resolution;
     DetectorMask m_detector_mask;
 
 private:
-    void setDataToDetectorMap(OutputData<double> &detectorMap,
-                              const std::vector<SimulationElement> &elements) const;
+    virtual void
+    setDataToDetectorMap(OutputData<double>& detectorMap,
+                         const std::vector<SimulationElement>& elements) const override;
 
     std::unique_ptr<RegionOfInterest> m_region_of_interest;
 };

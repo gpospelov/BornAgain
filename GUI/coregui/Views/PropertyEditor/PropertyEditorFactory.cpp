@@ -21,6 +21,7 @@
 #include "GroupProperty.h"
 #include "CustomEditors.h"
 #include "ComboProperty.h"
+#include "ColorProperty.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 
@@ -48,6 +49,11 @@ bool isIntProperty(const QVariant& variant)
 bool isMaterialProperty(const QVariant& variant)
 {
     return variant.canConvert<MaterialProperty>();
+}
+
+bool isColorProperty(const QVariant& variant)
+{
+    return variant.canConvert<ColorProperty>();
 }
 
 bool isGroupProperty(const QVariant& variant)
@@ -81,6 +87,12 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
 
     else if(isMaterialProperty(item.value())) {
         auto editor = new MaterialPropertyEditor;
+        editor->setData(item.value());
+        result = editor;
+    }
+
+    else if(isColorProperty(item.value())) {
+        auto editor = new ColorPropertyEditor;
         editor->setData(item.value());
         result = editor;
     }

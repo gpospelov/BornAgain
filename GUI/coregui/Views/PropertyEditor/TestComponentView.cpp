@@ -30,6 +30,9 @@
 #include "minisplitter.h"
 #include "ComponentBoxEditor.h"
 #include "ComponentFlatView.h"
+#include "MaterialItem.h"
+#include "MaterialDataItem.h"
+#include "MaterialItemUtils.h"
 #include <QTreeView>
 #include <QBoxLayout>
 #include <QItemSelectionModel>
@@ -128,6 +131,18 @@ void TestComponentView::init_source()
     guiBuilder.populateSampleModel(m_sourceModel, *sample);
     m_sourceModel->insertNewItem(Constants::VectorType);
     m_sourceModel->insertNewItem(Constants::BeamType);
+
+    // adding material to the test model
+    MaterialItem* materialItem
+        = dynamic_cast<MaterialItem*>(m_sourceModel->insertNewItem(Constants::HomogeneousMaterialType));
+    materialItem->setItemName("air");
+    MaterialDataItem* materialDataItem = dynamic_cast<MaterialDataItem*>(
+        materialItem->getItem(MaterialItem::P_MATERIAL_DATA));
+    Q_ASSERT(materialDataItem);
+    materialDataItem->setReal(1e-3);
+    materialDataItem->setImag(1e-5);
+    materialItem->setItemValue(MaterialItem::P_COLOR,
+                               MaterialItemUtils::suggestMaterialColorProperty("air").getVariant());
 
 //    SessionItem* multilayer = m_sourceModel->insertNewItem(Constants::MultiLayerType);
 //    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));

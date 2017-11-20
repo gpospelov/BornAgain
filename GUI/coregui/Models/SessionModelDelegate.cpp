@@ -134,11 +134,14 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
         return customEditor;
 
     } else if (isColorProperty(index)) {
-        ColorPropertyEdit* editor = new ColorPropertyEdit(parent);
-        editor->setColorProperty(index.data().value<ColorProperty>());
-        connect(editor, &ColorPropertyEdit::colorPropertyChanged,
-                this, &SessionModelDelegate::onColorPropertyChanged);
-        return editor;
+        auto item = static_cast<SessionItem*>(index.internalPointer());
+        auto editor = PropertyEditorFactory::CreateEditor(*item, parent);
+        auto customEditor = dynamic_cast<CustomEditor*>(editor);
+        Q_ASSERT(customEditor);
+        customEditor->setData(index.data());
+        connect(customEditor, &CustomEditor::dataChanged,
+                this, &SessionModelDelegate::onCustomEditorDataChanged);
+        return customEditor;
 
     } else if (isScientificDoubleProperty(index)) {
         ScientificDoublePropertyEdit* editor = new ScientificDoublePropertyEdit(parent);
@@ -179,9 +182,9 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
         model->setData(index, matEditor->editorData());
 
     } else if (isColorProperty(index)) {
-        ColorPropertyEdit* colorEditor = qobject_cast<ColorPropertyEdit*>(editor);
-        model->setData(index,
-                       QVariant::fromValue<ColorProperty>(colorEditor->getColorProperty()));
+        ColorPropertyEditor* colorEditor = qobject_cast<ColorPropertyEditor*>(editor);
+        Q_ASSERT(colorEditor);
+        model->setData(index, colorEditor->editorData());
 
     } else if (isScientificDoubleProperty(index)) {
         ScientificDoublePropertyEdit* doubleEditor
@@ -196,7 +199,7 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
 
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    if (isScientificDoubleProperty(index) || isColorProperty(index)) {
+    if (isScientificDoubleProperty(index)) {
         // as using custom widget(s), doing nothing here
     } else if (isComboProperty(index)) {
         auto customEditor = dynamic_cast<CustomEditor*>(editor);
@@ -207,6 +210,10 @@ void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& ind
         Q_ASSERT(customEditor);
         customEditor->setData(index.data());
     } else if (isMaterialProperty(index)) {
+        auto customEditor = dynamic_cast<CustomEditor*>(editor);
+        Q_ASSERT(customEditor);
+        customEditor->setData(index.data());
+    } else if (isColorProperty(index)) {
         auto customEditor = dynamic_cast<CustomEditor*>(editor);
         Q_ASSERT(customEditor);
         customEditor->setData(index.data());
@@ -232,13 +239,6 @@ void SessionModelDelegate::updateEditorGeometry(QWidget* editor, const QStyleOpt
 {
     QStyledItemDelegate::updateEditorGeometry(editor, option, index);
     editor->setGeometry(option.rect);
-}
-
-void SessionModelDelegate::onColorPropertyChanged(const ColorProperty& /*property*/)
-{
-    ColorPropertyEdit* editor = qobject_cast<ColorPropertyEdit*>(sender());
-    Q_ASSERT(editor);
-    emit commitData(editor);
 }
 
 void SessionModelDelegate::onScientificDoublePropertyChanged(const ScientificDoubleProperty&)

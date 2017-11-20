@@ -52,7 +52,6 @@ public:
                               const QModelIndex& index) const;
 
 private slots:
-    void onColorPropertyChanged(const ColorProperty&);
     void onScientificDoublePropertyChanged(const ScientificDoubleProperty&);
     void onCustomEditorDataChanged(const QVariant&);
 

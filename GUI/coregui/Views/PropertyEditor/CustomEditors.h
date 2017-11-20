@@ -67,6 +67,27 @@ private:
     LostFocusFilter* m_focusFilter;
 };
 
+//! Editor for ColorProperty variant (TODO Replace ColorPropertyEditor and MaterialPropertyEditor
+//! with universal one).
+
+class BA_CORE_API_ ColorPropertyEditor : public CustomEditor
+{
+    Q_OBJECT
+public:
+    explicit ColorPropertyEditor(QWidget* parent = nullptr);
+
+public slots:
+    void setData(const QVariant& data);
+
+private slots:
+    void buttonClicked();
+
+private:
+    QLabel* m_textLabel;
+    QLabel* m_pixmapLabel;
+    LostFocusFilter* m_focusFilter;
+};
+
 //! Common editor for QComboBox-like cystim editors.
 
 class BA_CORE_API_ CustomComboEditor : public CustomEditor

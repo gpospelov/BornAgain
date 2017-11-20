@@ -20,10 +20,12 @@
 #include "MaterialSvc.h"
 #include "GroupProperty.h"
 #include "ComboProperty.h"
+#include "ColorProperty.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QToolButton>
 #include <QComboBox>
+#include <QColorDialog>
 
 //! Sets the data from the model to editor.
 
@@ -93,6 +95,63 @@ void MaterialPropertyEditor::buttonClicked()
 
     if(mat.isDefined() )
         setDataIntern(mat.getVariant());
+}
+
+// --- ColorPropertyEditor ---
+
+ColorPropertyEditor::ColorPropertyEditor(QWidget* parent)
+    : CustomEditor(parent)
+    , m_textLabel(new QLabel)
+    , m_pixmapLabel(new QLabel)
+    , m_focusFilter(new LostFocusFilter(this))
+{
+    setMouseTracking(true);
+    setAutoFillBackground(true);
+
+    auto layout = new QHBoxLayout;
+    layout->setMargin(2);
+    layout->setSpacing(0);
+
+    ColorProperty defProperty; // to get label and pixmap of undefined material
+    m_textLabel->setText(defProperty.getText());
+    m_pixmapLabel->setPixmap(defProperty.getPixmap());
+
+    auto button = new QToolButton;
+    button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
+    button->setText(QLatin1String("..."));
+    layout->addWidget(m_pixmapLabel, Qt::AlignLeft);
+    layout->addWidget(m_textLabel, Qt::AlignLeft);
+    layout->addStretch(1);
+    layout->addWidget(button);
+    setFocusPolicy(Qt::StrongFocus);
+    setAttribute(Qt::WA_InputMethodEnabled);
+    connect(button, &QToolButton::clicked, this, &ColorPropertyEditor::buttonClicked);
+
+    setLayout(layout);
+}
+
+void ColorPropertyEditor::setData(const QVariant& data)
+{
+    Q_ASSERT(data.canConvert<ColorProperty>());
+    CustomEditor::setData(data);
+
+    ColorProperty colorProperty = m_data.value<ColorProperty>();
+    m_textLabel->setText(colorProperty.getText());
+    m_pixmapLabel->setPixmap(colorProperty.getPixmap());
+}
+
+void ColorPropertyEditor::buttonClicked()
+{
+    ColorProperty colorProperty = m_data.value<ColorProperty>();
+
+    bool ok = false;
+    QRgb oldRgba = colorProperty.getColor().rgba();
+    QRgb newRgba = QColorDialog::getRgba(oldRgba, &ok, this);
+    if (ok && newRgba != oldRgba) {
+        colorProperty.setColor(QColor::fromRgba(newRgba));
+        m_pixmapLabel->setPixmap(colorProperty.getPixmap());
+        setDataIntern(colorProperty.getVariant());
+    }
 }
 
 // --- CustomComboEditor ---

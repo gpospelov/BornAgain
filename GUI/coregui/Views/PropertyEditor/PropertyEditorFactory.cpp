@@ -18,9 +18,11 @@
 #include "SessionItem.h"
 #include "RealLimits.h"
 #include <QDoubleSpinBox>
+#include <QSpinBox>
 
 namespace {
 QWidget* createCustomDoubleEditor(SessionItem& item);
+QWidget* createCustomIntEditor(SessionItem& item);
 
 //! Single step for QDoubleSpinBox.
 
@@ -34,6 +36,11 @@ bool isDoubleProperty(const QVariant& variant)
     return variant.type() == QVariant::Double;
 }
 
+bool isIntProperty(const QVariant& variant)
+{
+    return variant.type() == QVariant::Int;
+}
+
 }
 
 
@@ -43,6 +50,10 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
 
     if (isDoubleProperty(item.value())) {
         result = createCustomDoubleEditor(item);
+    }
+
+    else if(isIntProperty(item.value())) {
+        result = createCustomIntEditor(item);
     }
 
     if (parent && result)
@@ -64,9 +75,22 @@ QWidget* createCustomDoubleEditor(SessionItem& item)
 
     RealLimits limits = item.limits();
     if (limits.hasLowerLimit())
-        result->setMinimum(item.limits().getLowerLimit());
+        result->setMinimum(limits.getLowerLimit());
     if (limits.hasUpperLimit())
-        result->setMaximum(item.limits().getUpperLimit());
+        result->setMaximum(limits.getUpperLimit());
+
+    return result;
+}
+
+QWidget* createCustomIntEditor(SessionItem& item)
+{
+    auto result = new QSpinBox;
+
+    RealLimits limits = item.limits();
+    if (limits.hasLowerLimit())
+        result->setMinimum(static_cast<int>(limits.getLowerLimit()));
+    if (limits.hasUpperLimit())
+        result->setMaximum(static_cast<int>(limits.getUpperLimit()));
 
     return result;
 }

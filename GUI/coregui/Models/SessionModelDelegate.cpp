@@ -53,6 +53,11 @@ bool isDoubleProperty(const QModelIndex& index)
     return index.data().type() == QVariant::Double;
 }
 
+bool isIntProperty(const QModelIndex& index)
+{
+    return index.data().type() == QVariant::Int;
+}
+
 }
 
 SessionModelDelegate::SessionModelDelegate(QWidget* parent)
@@ -134,6 +139,10 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
         return editor;
 
     } else if (isDoubleProperty(index)) {
+        auto item = static_cast<SessionItem*>(index.internalPointer());
+        return PropertyEditorFactory::CreateEditor(*item, parent);
+
+    } else if (isIntProperty(index)) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
         return PropertyEditorFactory::CreateEditor(*item, parent);
 

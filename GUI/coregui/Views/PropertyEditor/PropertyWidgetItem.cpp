@@ -17,6 +17,7 @@
 #include "PropertyWidgetItem.h"
 #include "SessionItem.h"
 #include "SessionModel.h"
+#include "SessionItemUtils.h"
 #include <QLabel>
 #include <QWidget>
 #include <QDataWidgetMapper>
@@ -52,6 +53,9 @@ void PropertyWidgetItem::setItemEditor(SessionItem* item, QWidget* editor)
 
     m_label->setEnabled(item->isEnabled());
     m_editor->setEnabled(item->isEnabled());
+
+    m_label->setToolTip(SessionItemUtils::ToolTipRole(*item).toString());
+    m_editor->setToolTip(SessionItemUtils::ToolTipRole(*item).toString());
 }
 
 void PropertyWidgetItem::addToGrid(QGridLayout* gridLayout, int nrow)

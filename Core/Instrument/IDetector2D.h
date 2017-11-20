@@ -37,9 +37,6 @@ public:
 
     virtual ~IDetector2D();
 
-    //! Inits detector with the beam settings
-    virtual void init(const Beam&) {}
-
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
                                size_t n_y, double y_min, double y_max);
@@ -64,10 +61,7 @@ public:
 
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the detector and its mask
-    std::vector<SimulationElement> createSimulationElements(const Beam& beam);
-
-    //! Creates single simulation element.
-    SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
+    virtual std::vector<SimulationElement> createSimulationElements(const Beam& beam) override;
 #endif
 
     //! Returns region of  interest if exists.
@@ -78,9 +72,6 @@ public:
 
     //! Resets region of interest making whole detector plane available for the simulation.
     void resetRegionOfInterest();
-
-    //! Returns number of simulation elements.
-    size_t numberOfSimulationElements() const;
 
 protected:
     IDetector2D(const IDetector2D& other);
@@ -100,13 +91,11 @@ protected:
     //! returned. This corresponds to an overflow index.
     virtual size_t getIndexOfSpecular(const Beam& beam) const=0;
 
-    DetectorMask m_detector_mask;
+    //! Creates single simulation element.
+    SimulationElement getSimulationElement(size_t index, const Beam& beam) const;
 
 private:
-    virtual void
-    setDataToDetectorMap(OutputData<double>& detectorMap,
-                         const std::vector<SimulationElement>& elements) const override;
-
+    DetectorMask m_detector_mask;
     std::unique_ptr<RegionOfInterest> m_region_of_interest;
 };
 

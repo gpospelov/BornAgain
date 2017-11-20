@@ -47,7 +47,12 @@ class BA_CORE_API_ IDetector :  public ICloneable, public INode {
 public:
     IDetector();
 
+    virtual IDetector* clone() const =0;
+
     virtual ~IDetector();
+
+    //! Inits detector with the beam settings
+    virtual void init(const Beam&) {}
 
     void clear() {m_axes.clear();}
 
@@ -87,6 +92,9 @@ public:
 #ifndef SWIG
     //! Returns empty detector map in given axes units.
     std::unique_ptr<OutputData<double>> createDetectorMap(const Beam& beam, AxesUnits units) const;
+
+    //! Create a vector of SimulationElement objects according to the detector and its mask
+    virtual std::vector<SimulationElement> createSimulationElements(const Beam& beam) = 0;
 #endif // SWIG
 
     //! Returns region of  interest if exists.
@@ -108,6 +116,9 @@ public:
 
     //! Returns vector of valid axes units
     virtual std::vector<AxesUnits> validAxesUnits() const {return {AxesUnits::NBINS};}
+
+    //! Returns number of simulation elements.
+    size_t numberOfSimulationElements() const;
 
     virtual std::vector<const INode*> getChildren() const override;
 
@@ -133,9 +144,8 @@ private:
     //! Checks if given unit is valid for the detector. Throws exception if it is not the case.
     void checkAxesUnits(AxesUnits units) const;
 
-    virtual void
-    setDataToDetectorMap(OutputData<double>& detectorMap,
-                         const std::vector<SimulationElement>& elements) const = 0;
+    void setDataToDetectorMap(OutputData<double>& detectorMap,
+                              const std::vector<SimulationElement>& elements) const;
 
     SafePointerVector<IAxis> m_axes;
     DetectionProperties m_detection_properties;

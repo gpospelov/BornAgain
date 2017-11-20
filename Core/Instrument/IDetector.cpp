@@ -4,6 +4,8 @@
 #include "IDetectorResolution.h"
 #include "OutputData.h"
 #include "RegionOfInterest.h"
+#include "SimulationArea.h"
+#include "SimulationElement.h"
 
 IDetector::IDetector()
 {
@@ -205,6 +207,28 @@ std::unique_ptr<OutputData<double>> IDetector::createDetectorMap(const Beam& bea
     for (size_t i = 0; i < dim; ++i)
         result->addAxis(*translateAxisToUnits(i, beam, units));
     result->setAllTo(0.);
+    return result;
+}
+
+void IDetector::setDataToDetectorMap(OutputData<double> &detectorMap,
+                                       const std::vector<SimulationElement> &elements) const
+{
+    if(elements.empty())
+        return;
+    SimulationArea area(this);
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+        detectorMap[it.roiIndex()] = elements[it.elementIndex()].getIntensity();
+
+}
+
+size_t IDetector::numberOfSimulationElements() const
+{
+    size_t result(0);
+    if (this->dimension() != 0) {
+        SimulationArea area(this);
+        for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it)
+            ++result;
+    }
     return result;
 }
 

@@ -129,17 +129,6 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
                              std::unique_ptr<IPixel>(createPixel(index)));
 }
 
-size_t IDetector2D::numberOfSimulationElements() const
-{
-    size_t result(0);
-    if (this->dimension() != 0) {
-        SimulationArea area(this);
-        for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it)
-            ++result;
-    }
-    return result;
-}
-
 void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
         AxesUnits units, double &amin, double &amax) const
 {
@@ -171,16 +160,5 @@ size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
     if (dimension() != 2)
         return totalSize();
     return x * getAxis(1).size() + y;
-}
-
-void IDetector2D::setDataToDetectorMap(OutputData<double> &detectorMap,
-                                       const std::vector<SimulationElement> &elements) const
-{
-    if(elements.empty())
-        return;
-    SimulationArea area(this);
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
-        detectorMap[it.roiIndex()] = elements[it.elementIndex()].getIntensity();
-
 }
 

@@ -43,6 +43,17 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
     m_tree->setEditTriggers(QAbstractItemView::AllEditTriggers);
 }
 
+void ComponentTreeView::setItem(SessionItem* item)
+{
+    if (!item) {
+        setModel(nullptr);
+        return;
+    }
+    setModel(item->model());
+    setRootIndex(item->index());
+    m_tree->expandAll();
+}
+
 void ComponentTreeView::setModel(SessionModel* model)
 {
     m_proxyModel->setSessionModel(model);

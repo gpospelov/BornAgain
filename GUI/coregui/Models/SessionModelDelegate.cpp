@@ -144,11 +144,14 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
         return customEditor;
 
     } else if (isScientificDoubleProperty(index)) {
-        ScientificDoublePropertyEdit* editor = new ScientificDoublePropertyEdit(parent);
-        editor->setScientificDoubleProperty(index.data().value<ScientificDoubleProperty>());
-        connect(editor, &ScientificDoublePropertyEdit::scientificDoublePropertyChanged,
-                this, &SessionModelDelegate::onScientificDoublePropertyChanged);
-        return editor;
+        auto item = static_cast<SessionItem*>(index.internalPointer());
+        auto editor = PropertyEditorFactory::CreateEditor(*item, parent);
+        auto customEditor = dynamic_cast<CustomEditor*>(editor);
+        Q_ASSERT(customEditor);
+        customEditor->setData(index.data());
+        connect(customEditor, &CustomEditor::dataChanged,
+                this, &SessionModelDelegate::onCustomEditorDataChanged);
+        return customEditor;
 
     } else if (isDoubleProperty(index)) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
@@ -187,11 +190,10 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
         model->setData(index, colorEditor->editorData());
 
     } else if (isScientificDoubleProperty(index)) {
-        ScientificDoublePropertyEdit* doubleEditor
-                = qobject_cast<ScientificDoublePropertyEdit*>(editor);
-        model->setData(index, QVariant::fromValue<
-                ScientificDoubleProperty>(doubleEditor->getScientificDoubleProperty()));
-
+        ScientificDoublePropertyEditor* doubleEditor =
+                qobject_cast<ScientificDoublePropertyEditor*>(editor);
+        Q_ASSERT(doubleEditor);
+        model->setData(index, doubleEditor->editorData());
     } else {
         QStyledItemDelegate::setModelData(editor, model, index);
     }
@@ -200,7 +202,9 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
     if (isScientificDoubleProperty(index)) {
-        // as using custom widget(s), doing nothing here
+        auto customEditor = dynamic_cast<CustomEditor*>(editor);
+        Q_ASSERT(customEditor);
+        customEditor->setData(index.data());
     } else if (isComboProperty(index)) {
         auto customEditor = dynamic_cast<CustomEditor*>(editor);
         Q_ASSERT(customEditor);

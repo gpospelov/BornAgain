@@ -21,11 +21,13 @@
 #include "GroupProperty.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
+#include "ScientificDoubleProperty.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QToolButton>
 #include <QComboBox>
 #include <QColorDialog>
+#include <QLineEdit>
 
 //! Sets the data from the model to editor.
 
@@ -283,4 +285,49 @@ int ComboPropertyEditor::internIndex()
     Q_ASSERT(m_data.canConvert<ComboProperty>());
     ComboProperty comboProperty = m_data.value<ComboProperty>();
     return comboProperty.currentIndex();
+}
+
+// --- ScientificDoublePropertyEditor ---
+
+ScientificDoublePropertyEditor::ScientificDoublePropertyEditor(QWidget* parent)
+    : CustomEditor(parent)
+    , m_lineEdit(new QLineEdit)
+    , m_validator(nullptr)
+{
+    setAutoFillBackground(true);
+
+    auto layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
+    layout->addWidget(m_lineEdit);
+
+    m_validator  = new QDoubleValidator(0.0, 1e+100, 1000, this);
+    m_validator->setNotation(QDoubleValidator::ScientificNotation);
+    m_lineEdit->setValidator(m_validator);
+
+    connect(m_lineEdit, &QLineEdit::editingFinished,
+            this, &ScientificDoublePropertyEditor::onEditingFinished);
+
+    setLayout(layout);
+}
+
+void ScientificDoublePropertyEditor::setData(const QVariant& data)
+{
+    Q_ASSERT(data.canConvert<ScientificDoubleProperty>());
+    CustomEditor::setData(data);
+
+    ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
+    m_lineEdit->setText(doubleProperty.getText());
+}
+
+void ScientificDoublePropertyEditor::onEditingFinished()
+{
+    double new_value = m_lineEdit->text().toDouble();
+    ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
+
+    if(new_value != doubleProperty.getValue()) {
+        doubleProperty.setValue(new_value);
+        setDataIntern(doubleProperty.getVariant());
+    }
 }

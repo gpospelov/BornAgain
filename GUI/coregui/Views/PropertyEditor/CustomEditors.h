@@ -145,4 +145,26 @@ protected:
     int internIndex();
 };
 
+//! Editor for ScientificDoubleProperty variant.
+
+class QLineEdit;
+class QDoubleValidator;
+
+class BA_CORE_API_ ScientificDoublePropertyEditor : public CustomEditor
+{
+    Q_OBJECT
+public:
+    ScientificDoublePropertyEditor(QWidget *parent = nullptr);
+
+public slots:
+    void setData(const QVariant& data);
+
+private slots:
+    void onEditingFinished();
+
+private:
+    QLineEdit* m_lineEdit;
+    QDoubleValidator* m_validator;
+};
+
 #endif  //  CUSTOMEDITORS_H

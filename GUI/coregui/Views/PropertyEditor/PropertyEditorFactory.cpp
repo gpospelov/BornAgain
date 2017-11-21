@@ -22,6 +22,7 @@
 #include "CustomEditors.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
+#include "ScientificDoubleProperty.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 
@@ -66,6 +67,11 @@ bool isComboProperty(const QVariant& variant)
     return variant.canConvert<ComboProperty>();
 }
 
+bool isScientificDoubleProperty(const QVariant& variant)
+{
+    return variant.canConvert<ScientificDoubleProperty>();
+}
+
 }
 
 
@@ -105,6 +111,12 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
 
     else if(isComboProperty(item.value())) {
         auto editor = new ComboPropertyEditor;
+        editor->setData(item.value());
+        result = editor;
+    }
+
+    else if(isScientificDoubleProperty(item.value())) {
+        auto editor = new ScientificDoublePropertyEditor;
         editor->setData(item.value());
         result = editor;
     }

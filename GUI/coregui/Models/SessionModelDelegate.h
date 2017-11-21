@@ -34,7 +34,7 @@ class BA_CORE_API_ SessionModelDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    SessionModelDelegate(QWidget* parent);
+    SessionModelDelegate(QObject* parent);
 
     void paint(QPainter* painter, const QStyleOptionViewItem& option,
                const QModelIndex& index) const;
@@ -52,11 +52,8 @@ public:
                               const QModelIndex& index) const;
 
 private slots:
-    void onComboPropertyChanged(const ComboProperty&);
-    void onGroupPropertyChanged(const GroupProperty_t&);
-    void onMaterialPropertyChanged(const MaterialProperty&);
-    void onColorPropertyChanged(const ColorProperty&);
     void onScientificDoublePropertyChanged(const ScientificDoubleProperty&);
+    void onCustomEditorDataChanged(const QVariant&);
 
 private:
     void paintCustomLabel(QPainter* painter, const QStyleOptionViewItem& option,

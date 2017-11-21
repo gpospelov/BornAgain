@@ -36,13 +36,14 @@ public:
     QVariant editorData() { return m_data; }
 
 public slots:
-    virtual void setData(const QVariant& data);
+    void setData(const QVariant& data);
 
 signals:
     //! Signal emit then user changed the data through the editor
     void dataChanged(const QVariant& data);
 
 protected:
+    virtual void initEditor();
     void setDataIntern(const QVariant& data);
     QVariant m_data;
 };
@@ -55,11 +56,11 @@ class BA_CORE_API_ MaterialPropertyEditor : public CustomEditor
 public:
     explicit MaterialPropertyEditor(QWidget* parent = nullptr);
 
-public slots:
-    void setData(const QVariant& data);
-
 private slots:
     void buttonClicked();
+
+protected:
+    void initEditor();
 
 private:
     QLabel* m_textLabel;
@@ -76,11 +77,11 @@ class BA_CORE_API_ ColorPropertyEditor : public CustomEditor
 public:
     explicit ColorPropertyEditor(QWidget* parent = nullptr);
 
-public slots:
-    void setData(const QVariant& data);
-
 private slots:
     void buttonClicked();
+
+protected:
+    void initEditor();
 
 private:
     QLabel* m_textLabel;
@@ -99,13 +100,11 @@ public:
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
-public slots:
-    void setData(const QVariant& data);
-
 protected slots:
     virtual void onIndexChanged(int index);
 
 protected:
+    void initEditor();
     virtual QStringList internLabels();
     virtual int internIndex();
     void setConnected(bool isConnected);
@@ -156,11 +155,11 @@ class BA_CORE_API_ ScientificDoublePropertyEditor : public CustomEditor
 public:
     ScientificDoublePropertyEditor(QWidget *parent = nullptr);
 
-public slots:
-    void setData(const QVariant& data);
-
 private slots:
     void onEditingFinished();
+
+protected:
+    void initEditor();
 
 private:
     QLineEdit* m_lineEdit;

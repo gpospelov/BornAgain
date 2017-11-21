@@ -21,12 +21,14 @@
 #include "SessionModel.h"
 #include <QTreeView>
 #include <QBoxLayout>
+#include <QStandardItemModel>
 
 ComponentTreeView::ComponentTreeView(QWidget* parent)
     : QWidget(parent)
     , m_tree(new QTreeView)
     , m_delegate(new SessionModelDelegate(this))
     , m_proxyModel(new ComponentProxyModel(this))
+    , m_placeHolderModel(new QStandardItemModel)
 {
     auto layout = new QVBoxLayout;
 
@@ -36,9 +38,12 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
 
     setLayout(layout);
 
+    QStringList labels = {"Name", "Value"};
+    m_placeHolderModel->setHorizontalHeaderLabels(labels);
+
     StyleUtils::setPropertyStyle(m_tree);
     m_tree->setRootIsDecorated(false);
-    m_tree->setModel(m_proxyModel);
+    m_tree->setModel(m_placeHolderModel);
     m_tree->setItemDelegate(m_delegate);
     m_tree->setEditTriggers(QAbstractItemView::AllEditTriggers);
 }
@@ -57,6 +62,11 @@ void ComponentTreeView::setItem(SessionItem* item)
 void ComponentTreeView::setModel(SessionModel* model)
 {
     m_proxyModel->setSessionModel(model);
+    if (model)
+        m_tree->setModel(m_proxyModel);
+    else
+        m_tree->setModel(m_placeHolderModel);
+
 }
 
 void ComponentTreeView::setRootIndex(const QModelIndex& index)

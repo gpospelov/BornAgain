@@ -26,6 +26,7 @@ class SessionModelDelegate;
 class ComponentProxyModel;
 class QModelIndex;
 class SessionItem;
+class QStandardItemModel;
 
 //! Component property tree for SessionItems.
 //! Shows only PropertyItems and current items of GroupProperties.
@@ -46,6 +47,7 @@ private:
     QTreeView* m_tree;
     SessionModelDelegate* m_delegate;
     ComponentProxyModel* m_proxyModel;
+    QStandardItemModel* m_placeHolderModel;
 };
 
 #endif  //  COMPONENTTREEVIEW_H

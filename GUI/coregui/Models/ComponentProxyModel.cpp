@@ -159,7 +159,11 @@ void ComponentProxyModel::sourceDataChanged(const QModelIndex& topLeft,
 {
     Q_ASSERT(topLeft.isValid() ? topLeft.model() == sourceModel() : true);
     Q_ASSERT(bottomRight.isValid() ? bottomRight.model() == sourceModel() : true);
-    updateModelMap();
+
+    if (SessionItem* item = m_model->itemForIndex(mapFromSource(topLeft))) {
+        if (item->modelType() == Constants::GroupItemType)
+            updateModelMap();
+    }
     dataChanged(mapFromSource(topLeft), mapFromSource(bottomRight), roles);
 }
 

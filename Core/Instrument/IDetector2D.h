@@ -18,9 +18,9 @@
 
 #include "DetectorMask.h"
 #include "IDetector.h"
-#include "Beam.h"
 #include <memory>
 
+class Beam;
 class IPixel;
 class IShape2D;
 

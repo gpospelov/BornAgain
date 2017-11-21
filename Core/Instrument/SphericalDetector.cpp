@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "Beam.h"
 #include "SphericalDetector.h"
 #include "BornAgainNamespace.h"
 #include "IDetectorResolution.h"

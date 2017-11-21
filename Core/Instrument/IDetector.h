@@ -16,6 +16,7 @@
 #ifndef IDETECTOR_H_
 #define IDETECTOR_H_
 
+#include "IAxis.h"
 #include "ICloneable.h"
 #include "INode.h"
 #include "DetectionProperties.h"
@@ -23,7 +24,6 @@
 
 class Beam;
 class DetectorMask;
-class IAxis;
 class IDetectorResolution;
 class IResolutionFunction2D;
 template<class T> class OutputData;

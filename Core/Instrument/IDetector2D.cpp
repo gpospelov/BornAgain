@@ -21,7 +21,6 @@
 #include "BornAgainNamespace.h"
 #include "Units.h"
 #include "RegionOfInterest.h"
-#include "Exceptions.h"
 #include "DetectorFunctions.h"
 
 IDetector2D::IDetector2D() = default;

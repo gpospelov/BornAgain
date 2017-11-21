@@ -1,5 +1,4 @@
 #include "ConvolutionDetectorResolution.h"
-#include "IAxis.h"
 #include "IDetector.h"
 #include "IDetectorResolution.h"
 #include "OutputData.h"

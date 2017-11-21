@@ -16,6 +16,7 @@
 #ifndef INSTRUMENT_H
 #define INSTRUMENT_H
 
+#include "IDetector.h"
 #include "INode.h"
 #include "Beam.h"
 #include <memory>
@@ -24,7 +25,6 @@ template<class T> class OutputData;
 class Histogram2D;
 class DetectorMask;
 class IAxis;
-class IDetector;
 class IDetector2D;
 class IResolutionFunction2D;
 class SimulationElement;

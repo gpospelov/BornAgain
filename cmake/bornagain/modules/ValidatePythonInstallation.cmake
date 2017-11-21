@@ -1,4 +1,3 @@
-
 function(ValidatePythonInstallation)
     message(STATUS "--> Validating Python installation corresponding to the interpreter ${PYTHON_EXECUTABLE}")
 

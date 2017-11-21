@@ -25,10 +25,13 @@
 #include "ScientificDoubleProperty.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
+#include <QLineEdit>
+#include <QLabel>
 
 namespace {
-QDoubleSpinBox* createCustomDoubleEditor(SessionItem& item);
-QSpinBox* createCustomIntEditor(SessionItem& item);
+QWidget* createCustomDoubleEditor(SessionItem& item);
+QWidget* createCustomIntEditor(SessionItem& item);
+QWidget* createCustomStringEditor(SessionItem& item);
 
 //! Single step for QDoubleSpinBox.
 
@@ -72,6 +75,11 @@ bool isScientificDoubleProperty(const QVariant& variant)
     return variant.canConvert<ScientificDoubleProperty>();
 }
 
+bool isStringProperty(const QVariant& variant)
+{
+    return variant.type() == QVariant::String;
+}
+
 }
 
 
@@ -80,15 +88,15 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
     QWidget* result(nullptr);
 
     if (isDoubleProperty(item.value())) {
-        auto editor = createCustomDoubleEditor(item);
-        editor->setValue(item.value().toDouble());
-        result = editor;
+        result = createCustomDoubleEditor(item);
     }
 
     else if(isIntProperty(item.value())) {
-        auto editor = createCustomIntEditor(item);
-        editor->setValue(item.value().toInt());
-        result = editor;
+        result = createCustomIntEditor(item);
+    }
+
+    else if(isStringProperty(item.value())) {
+        result = createCustomStringEditor(item);
     }
 
     else if(isMaterialProperty(item.value())) {
@@ -131,7 +139,7 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
 
 namespace {
 
-QDoubleSpinBox* createCustomDoubleEditor(SessionItem& item)
+QWidget* createCustomDoubleEditor(SessionItem& item)
 {
     auto result = new QDoubleSpinBox;
 
@@ -144,10 +152,11 @@ QDoubleSpinBox* createCustomDoubleEditor(SessionItem& item)
     if (limits.hasUpperLimit())
         result->setMaximum(limits.getUpperLimit());
 
+    result->setValue(item.value().toDouble());
     return result;
 }
 
-QSpinBox* createCustomIntEditor(SessionItem& item)
+QWidget* createCustomIntEditor(SessionItem& item)
 {
     auto result = new QSpinBox;
 
@@ -156,6 +165,25 @@ QSpinBox* createCustomIntEditor(SessionItem& item)
         result->setMinimum(static_cast<int>(limits.getLowerLimit()));
     if (limits.hasUpperLimit())
         result->setMaximum(static_cast<int>(limits.getUpperLimit()));
+
+    result->setValue(item.value().toInt());
+
+    return result;
+}
+
+QWidget* createCustomStringEditor(SessionItem& item)
+{
+    QWidget* result(nullptr);
+
+    if (item.isEditable()) {
+        auto editor = new QLineEdit;
+        editor->setText(item.value().toString());
+        result = editor;
+    } else {
+        auto editor = new QLabel;
+        editor->setText(item.value().toString());
+        result = editor;
+    }
 
     return result;
 }

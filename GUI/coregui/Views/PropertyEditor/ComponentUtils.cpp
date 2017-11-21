@@ -33,6 +33,9 @@ QList<const SessionItem*> ComponentUtils::componentItems(const SessionItem& item
 
     QList<const SessionItem*> result;
 
+    if (item.modelType() == Constants::PropertyType)
+        result.push_back(&item);
+
     for (auto child : item.children()) {
         if (!child->isVisible())
             continue;

@@ -337,6 +337,7 @@ BoolEditor::BoolEditor(QWidget* parent)
     : CustomEditor(parent)
     , m_checkBox(new QCheckBox)
 {
+    setAutoFillBackground(true);
     auto layout = new QHBoxLayout;
     layout->setContentsMargins(4, 0, 0, 0);
     layout->addWidget(m_checkBox);

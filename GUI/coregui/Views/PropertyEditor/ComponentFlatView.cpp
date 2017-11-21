@@ -73,8 +73,8 @@ void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIn
 {
     SessionItem *item = m_model->itemForIndex(topLeft);
     Q_ASSERT(item);
-    if (item->modelType() == Constants::GroupItemType)
-        updateItemProperties(m_currentItem);
+//    if (item->modelType() == Constants::GroupItemType)
+//        updateItemProperties(m_currentItem);
 }
 
 void ComponentFlatView::updateItemProperties(SessionItem* item)

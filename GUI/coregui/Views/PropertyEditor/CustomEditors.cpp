@@ -221,7 +221,7 @@ void CustomComboEditor::setConnected(bool isConnected)
                 this, &CustomComboEditor::onIndexChanged, Qt::UniqueConnection);
     else
         disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-                this, &CustomComboEditor::onIndexChanged);
+                   this, &CustomComboEditor::onIndexChanged);
 }
 
 // --- GroupPropertyEditor ---
@@ -269,6 +269,7 @@ void ComboPropertyEditor::onIndexChanged(int index)
     if (comboProperty.currentIndex() != index) {
         comboProperty.setCurrentIndex(index);
         setDataIntern(QVariant::fromValue<ComboProperty>(comboProperty));
+        currentIndexChanged(index);
     }
 }
 

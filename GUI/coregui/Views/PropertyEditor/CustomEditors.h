@@ -89,7 +89,7 @@ private:
     LostFocusFilter* m_focusFilter;
 };
 
-//! Common editor for QComboBox-like cystim editors.
+//! Common editor for QComboBox-like custom editors.
 
 class BA_CORE_API_ CustomComboEditor : public CustomEditor
 {
@@ -109,7 +109,7 @@ protected:
     virtual int internIndex();
     void setConnected(bool isConnected);
 
-    QComboBox* m_box;
+    QComboBox* m_box;    
 };
 
 //! Editor for GroupProperty variant.
@@ -132,9 +132,14 @@ protected:
 
 class BA_CORE_API_ ComboPropertyEditor : public CustomComboEditor
 {
-    Q_OBJECT
+    Q_OBJECT    
 public:
     explicit ComboPropertyEditor(QWidget *parent = nullptr);
+
+
+signals:
+    //! Signal which is used only in the context of ComponentFlatView
+    void currentIndexChanged(int);
 
 protected slots:
     void onIndexChanged(int index);

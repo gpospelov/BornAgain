@@ -19,10 +19,13 @@
 #include "SessionModel.h"
 #include "SessionItemUtils.h"
 #include "SessionModelDelegate.h"
+#include "CustomEditors.h"
 #include <QLabel>
 #include <QWidget>
 #include <QDataWidgetMapper>
 #include <QGridLayout>
+#include <QComboBox>
+#include <QDebug>
 
 PropertyWidgetItem::PropertyWidgetItem(QWidget* parent)
     : QObject(parent)
@@ -55,6 +58,10 @@ void PropertyWidgetItem::setItemEditor(SessionItem* item, QWidget* editor)
     m_dataMapper->addMapping(m_label, 0);
     m_dataMapper->addMapping(m_editor, 1);
     m_dataMapper->setItemDelegate(m_delegate);
+
+    // Hack: QDataWidgetMapper doesn't listen for the widget (QComboBox is somewhat special).
+    if (auto combo = dynamic_cast<ComboPropertyEditor*>(editor))
+        connect(combo, &ComboPropertyEditor::currentIndexChanged, [=]{m_delegate->commitData(combo);});
 
     m_label->setEnabled(item->isEnabled());
     m_editor->setEnabled(item->isEnabled());

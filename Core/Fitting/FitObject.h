@@ -22,7 +22,7 @@
 #include <memory>
 
 class FitElement;
-class GISASSimulation;
+class Simulation;
 class IIntensityNormalizer;
 
 //! Holds simulation description and real data to run the fit.
@@ -36,7 +36,7 @@ public:
     //! @param real_data The real data
     //! @param weight Weight of dataset in chi2 calculations
     //! @param adjust_detector_to_data Detector axes will be adjusted to real data axes, if true
-    FitObject(const GISASSimulation& simulation, const OutputData<double>& real_data,
+    FitObject(const Simulation& simulation, const OutputData<double>& real_data,
               double weight = 1);
 
     virtual ~FitObject();
@@ -51,9 +51,6 @@ public:
 
     //! Returns chi2 map.
     const OutputData<double>& chiSquaredMap() const;
-
-    //! Returns simulation
-    const GISASSimulation& simulation() const;
 
     //! Returns weight of data set in chi2 calculations.
     double weight() const { return m_weight; }
@@ -80,7 +77,7 @@ private:
     void init_dataset(const OutputData<double>& real_data);
     void process_realdata(const OutputData<double>& real_data);
 
-    std::unique_ptr<GISASSimulation> m_simulation;
+    std::unique_ptr<Simulation> m_simulation;
     std::unique_ptr<OutputData<double>> m_real_data;
     std::unique_ptr<OutputData<double>> m_simulation_data;
     std::unique_ptr<OutputData<double>> m_chi2_data;

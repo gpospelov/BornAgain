@@ -26,28 +26,28 @@
 
 namespace
 {
-std::map<std::string, IDetector2D::EAxesUnits> init_name_to_units_map()
+std::map<std::string, DetectorAxesUnits> init_name_to_units_map()
 {
-    std::map<std::string, IDetector2D::EAxesUnits> result;
-    result["nbins"] = IDetector2D::NBINS;
-    result["radians"] = IDetector2D::RADIANS;
-    result["rad"] = IDetector2D::RADIANS;
-    result["degrees"] = IDetector2D::DEGREES;
-    result["deg"] = IDetector2D::DEGREES;
-    result["mm"] = IDetector2D::MM;
-    result["qyqz"] = IDetector2D::QYQZ;
+    std::map<std::string, DetectorAxesUnits> result;
+    result["nbins"] = DetectorAxesUnits::NBINS;
+    result["radians"] = DetectorAxesUnits::RADIANS;
+    result["rad"] = DetectorAxesUnits::RADIANS;
+    result["degrees"] = DetectorAxesUnits::DEGREES;
+    result["deg"] = DetectorAxesUnits::DEGREES;
+    result["mm"] = DetectorAxesUnits::MM;
+    result["qyqz"] = DetectorAxesUnits::QYQZ;
     return result;
 }
 
-std::map<IDetector2D::EAxesUnits, std::string> init_units_to_name_map()
+std::map<DetectorAxesUnits, std::string> init_units_to_name_map()
 {
-    std::map<IDetector2D::EAxesUnits, std::string> result;
-    result[IDetector2D::NBINS] = "nbins";
-    result[IDetector2D::RADIANS] = "rad";
-    result[IDetector2D::DEGREES] = "deg";
-    result[IDetector2D::MM] = "mm";
-    result[IDetector2D::QYQZ] = "qyqz";
-    result[IDetector2D::DEFAULT] = "";
+    std::map<DetectorAxesUnits, std::string> result;
+    result[DetectorAxesUnits::NBINS] = "nbins";
+    result[DetectorAxesUnits::RADIANS] = "rad";
+    result[DetectorAxesUnits::DEGREES] = "deg";
+    result[DetectorAxesUnits::MM] = "mm";
+    result[DetectorAxesUnits::QYQZ] = "qyqz";
+    result[DetectorAxesUnits::DEFAULT] = "";
     return result;
 }
 
@@ -97,7 +97,7 @@ std::string DetectorFunctions::axesToString(const OutputData<double> &data)
 }
 
 std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instrument &instrument,
-    const OutputData<double> &data, bool put_masked_areas_to_zero, IDetector2D::EAxesUnits units)
+    const OutputData<double> &data, bool put_masked_areas_to_zero, DetectorAxesUnits units)
 {
     if(!DetectorFunctions::hasSameDimensions(*instrument.getDetector(), data)){
         std::ostringstream message;
@@ -127,10 +127,10 @@ std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instr
     return result;
 }
 
-IDetector2D::EAxesUnits DetectorFunctions::detectorUnits(const std::string& unitName)
+DetectorAxesUnits DetectorFunctions::detectorUnits(const std::string& unitName)
 {
     if(unitName.empty())
-        return IDetector2D::DEFAULT;
+        return DetectorAxesUnits::DEFAULT;
 
     static auto units_map = init_name_to_units_map();
 
@@ -143,12 +143,12 @@ IDetector2D::EAxesUnits DetectorFunctions::detectorUnits(const std::string& unit
     return it->second;
 }
 
-std::string DetectorFunctions::detectorUnitsName(IDetector2D::EAxesUnits units)
+std::string DetectorFunctions::detectorUnitsName(DetectorAxesUnits units)
 {
     static auto units_map = init_units_to_name_map();
     auto it = units_map.find(units);
     if(it == units_map.end())
         throw std::runtime_error("DetectorFunctions::detectorUnitsName() -> Error. No such "
-                                 "detector unit '"+std::to_string(units)+"'");
+                                 "detector unit '"+std::to_string(static_cast<int>(units))+"'");
     return it->second;
 }

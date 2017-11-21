@@ -25,6 +25,7 @@ class IAxis;
 class ISample;
 class IMultiLayerBuilder;
 class MultiLayer;
+class Histogram1D;
 
 //! Main class to run a specular simulation.
 //! @ingroup simulation
@@ -39,15 +40,17 @@ public:
 
     virtual SpecularSimulation* clone() const override;
 
-    //! Put into a clean state for running a simulation
+    //! Put into a clean state for running a simulation.
     virtual void prepareSimulation() override;
 
-    //! Run a simulation, possibly averaged over parameter distributions
+    //! Run a simulation, possibly averaged over parameter distributions.
     virtual void runSimulation() override;
 
     virtual void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
 
-    //! Sets beam parameters with alpha_i of the beam defined in the range
+    virtual size_t numberOfSimulationElements() const override;
+
+    //! Sets beam parameters with alpha_i of the beam defined in the range.
     void setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i = 0.0);
     void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max,
                            double phi_i = 0.0);
@@ -55,29 +58,41 @@ public:
     //! Returns a pointer to incident angle axis.
     const IAxis* getAlphaAxis() const;
 
-    //! returns vector of reflection coefficients for all alpha_i angles for given layer index
+    //! Returns reflectivity values \f$Reflectivity = \|R\|^2\f$ from the upper layer in the form of
+    //! OutputData<double>.
+    virtual OutputData<double>* getDetectorIntensity(DetectorAxesUnits units_type
+                                                     = DetectorAxesUnits::DEFAULT) const override;
+
+    //! Returns reflectivity values \f$Reflectivity = |R|^2\f$ in the form of 1D Histogram
+    //! for the upper sample layer.
+    Histogram1D* reflectivity() const;
+
+    //! Returns transmissivity values \f$Transmissivity = |T|^2\f$ in the form of 1D Histogram
+    //! for the sample bottom layer.
+    Histogram1D* transmissivity() const;
+
+    //! Returns vector of reflection coefficients (\f$R\f$) for all alpha_i angles for given layer index.
     std::vector<complex_t> getScalarR(size_t i_layer) const;
 
-    //! returns vector of transmission coefficients for all alpha_i angles for given layer index
+    //! Returns vector of transmission coefficients for all alpha_i angles for given layer index.
     std::vector<complex_t> getScalarT(size_t i_layer) const;
 
-    //! returns vector of Kz coefficients for all alpha_i angles for given layer index
+    //! Returns vector of Kz coefficients for all alpha_i angles for given layer index.
     std::vector<complex_t> getScalarKz(size_t i_layer) const;
 
 private:
     typedef std::shared_ptr<const ILayerRTCoefficients> LayerRTCoefficients_t;
     typedef std::vector<LayerRTCoefficients_t> MultiLayerRTCoefficients_t;
+    typedef complex_t (ILayerRTCoefficients::*DataGetter)() const;
 
     SpecularSimulation(const SpecularSimulation& other);
+
+    std::unique_ptr<OutputData<double>> getData(size_t i_layer, DataGetter fn_ptr) const;
 
     // unused methods
     virtual void initSimulationElementVector() override {}
     virtual void transferResultsToIntensityMap() override {}
     virtual void updateIntensityMap() override {}
-    virtual size_t numberOfSimulationElements() const override {return 1;}
-    // must pass default parameter because of SWIG
-    virtual OutputData<double>* getDetectorIntensity(IDetector2D::EAxesUnits units_type
-                                                     = IDetector2D::DEFAULT) const override;
 
     //! calculates RT coefficients for multilayer without magnetic materials
     void collectRTCoefficientsScalar(const MultiLayer* multilayer);
@@ -87,9 +102,6 @@ private:
 
     //! check if simulation was run already and has valid coefficients
     void checkCoefficients(size_t i_layer) const;
-
-    //! Checks if simulation was properly initialized
-    void checkInitialization() const;
 
     //! Initializes simulation
     void initialize();

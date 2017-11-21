@@ -222,11 +222,15 @@
 
 // ownership
 
-%newobject GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
-%newobject GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+%newobject GISASSimulation::getIntensityData(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+%newobject GISASSimulation::getDetectorIntensity(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
 
-%newobject OffSpecSimulation::getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
-%newobject OffSpecSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+%newobject OffSpecSimulation::getIntensityData(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+%newobject OffSpecSimulation::getDetectorIntensity(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+
+%newobject SpecularSimulation::getDetectorIntensity(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+%newobject SpecularSimulation::reflectivity() const;
+%newobject SpecularSimulation::transmissivity() const;
 
 %newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
 %newobject IntensityDataIOFactory::readIntensityData(const std::string& file_name);
@@ -261,6 +265,9 @@
 %template(vector_kvector_t) std::vector<BasicVector3D<double>>;
 %template(cvector_t) BasicVector3D<std::complex<double>>;
 %template(vector_cvector_t) std::vector<BasicVector3D<std::complex<double>>>;
+
+// SWIG workaround for using axes units the same way as they are used in cpp files
+%rename(DetectorAxesUnits) DetectorAxesUnitsWrap;
 
 %include "Complex.h"
 %include "Units.h"
@@ -354,6 +361,7 @@
 %include "IHistogram.h"
 %include "Histogram1D.h"
 %include "Histogram2D.h"
+%include "IDetector.h"
 %include "IDetector2D.h"
 %include "IDetectorResolution.h"
 %include "Distributions.h"

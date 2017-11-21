@@ -50,7 +50,7 @@ void FitSuiteImpl::clear()
 }
 
 //! Adds pair of (simulation, real data) for consecutive simulation
-FitObject* FitSuiteImpl::addSimulationAndRealData(const GISASSimulation& simulation,
+FitObject* FitSuiteImpl::addSimulationAndRealData(const Simulation& simulation,
                                          const OutputData<double>& real_data, double weight)
 {
     return m_fit_objects.add(simulation, real_data, weight);

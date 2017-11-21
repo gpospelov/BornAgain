@@ -15,13 +15,13 @@
 
 #include "FitObject.h"
 #include "FitElement.h"
-#include "GISASSimulation.h"
+#include "Simulation.h"
 #include "IIntensityNormalizer.h"
 #include "SimulationArea.h"
 #include "BornAgainNamespace.h"
 #include "DetectorFunctions.h"
 
-FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
+FitObject::FitObject(const Simulation& simulation, const OutputData<double >& real_data,
     double weight)
     : m_simulation(simulation.clone())
     , m_weight(weight)
@@ -29,8 +29,7 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
 
 {
     setName("FitObject");
-    m_fit_elements_count =
-            m_simulation->getInstrument().getDetector()->numberOfSimulationElements();
+    m_fit_elements_count = m_simulation->numberOfSimulationElements();
     registerChild(m_simulation.get());
     init_dataset(real_data);
 }
@@ -51,11 +50,6 @@ const OutputData<double>& FitObject::simulationData() const
 const OutputData<double>& FitObject::chiSquaredMap() const
 {
     return *m_chi2_data.get();
-}
-
-const GISASSimulation& FitObject::simulation() const
-{
-    return *m_simulation.get();
 }
 
 std::vector<const INode*> FitObject::getChildren() const

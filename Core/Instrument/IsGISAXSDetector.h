@@ -35,7 +35,7 @@ public:
 
 protected:
     //! Generates an axis with correct name and default binning for given index
-    IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const override;
+    virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const override;
 
     //! Returns index of pixel that contains the specular wavevector.
     //! If no pixel contains this specular wavevector, the number of pixels is

@@ -29,7 +29,7 @@ TEST_F(GISASSimulationTest, SimulationInitialState)
     EXPECT_EQ( BornAgain::GISASSimulationType, m_simulation.getName());
     EXPECT_EQ( nullptr, m_simulation.sample());
     EXPECT_EQ(0u, m_simulation.numberOfSimulationElements());
-    EXPECT_THROW(m_simulation.getDetectorIntensity(), Exceptions::OutOfBoundsException);
+    EXPECT_THROW(m_simulation.getDetectorIntensity(), std::runtime_error);
     EXPECT_EQ(1u, m_simulation.getChildren().size());
 }
 
@@ -40,7 +40,7 @@ TEST_F(GISASSimulationTest, SimulationConstruction)
     EXPECT_EQ( BornAgain::GISASSimulationType, simulation.getName());
     EXPECT_NE( nullptr, simulation.sample());
     EXPECT_EQ(0u, simulation.numberOfSimulationElements());
-    EXPECT_THROW(simulation.getDetectorIntensity(), Exceptions::OutOfBoundsException);
+    EXPECT_THROW(simulation.getDetectorIntensity(), std::runtime_error);
     EXPECT_EQ(2u, simulation.getChildren().size());
 
     simulation.setDetectorParameters(10, -2.0, 2.0, 20, 0.0, 2.0);
@@ -57,7 +57,7 @@ TEST_F(GISASSimulationTest, SimulationClone)
     EXPECT_EQ( BornAgain::GISASSimulationType, p_clone->getName());
     EXPECT_EQ( nullptr, p_clone->sample());
     EXPECT_EQ(0u, p_clone->numberOfSimulationElements());
-    EXPECT_THROW(p_clone->getDetectorIntensity(), Exceptions::OutOfBoundsException);
+    EXPECT_THROW(p_clone->getDetectorIntensity(), std::runtime_error);
     EXPECT_EQ(1u, p_clone->getChildren().size());
     delete p_clone;
 

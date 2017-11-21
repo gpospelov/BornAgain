@@ -28,25 +28,25 @@
 
 namespace
 {
-QMap<QString, IDetector2D::EAxesUnits> init_units_to_description_map()
+QMap<QString, DetectorAxesUnits> init_units_to_description_map()
 {
-    QMap<QString, IDetector2D::EAxesUnits> result;
-    result[Constants::UnitsNbins] = IDetector2D::NBINS;
-    result[Constants::UnitsRadians] = IDetector2D::RADIANS;
-    result[Constants::UnitsDegrees] = IDetector2D::DEGREES;
-    result[Constants::UnitsMm] = IDetector2D::MM;
-    result[Constants::UnitsQyQz] = IDetector2D::QYQZ;
+    QMap<QString, DetectorAxesUnits> result;
+    result[Constants::UnitsNbins] = DetectorAxesUnits::NBINS;
+    result[Constants::UnitsRadians] = DetectorAxesUnits::RADIANS;
+    result[Constants::UnitsDegrees] = DetectorAxesUnits::DEGREES;
+    result[Constants::UnitsMm] = DetectorAxesUnits::MM;
+    result[Constants::UnitsQyQz] = DetectorAxesUnits::QYQZ;
     return result;
 }
 
-QMap<IDetector2D::EAxesUnits, QString> init_description_to_units_map()
+QMap<DetectorAxesUnits, QString> init_description_to_units_map()
 {
-    QMap<IDetector2D::EAxesUnits, QString> result;
-    result[IDetector2D::NBINS] = Constants::UnitsNbins;
-    result[IDetector2D::RADIANS] = Constants::UnitsRadians;
-    result[IDetector2D::DEGREES] = Constants::UnitsDegrees;
-    result[IDetector2D::MM] = Constants::UnitsMm;
-    result[IDetector2D::QYQZ] = Constants::UnitsQyQz;
+    QMap<DetectorAxesUnits, QString> result;
+    result[DetectorAxesUnits::NBINS] = Constants::UnitsNbins;
+    result[DetectorAxesUnits::RADIANS] = Constants::UnitsRadians;
+    result[DetectorAxesUnits::DEGREES] = Constants::UnitsDegrees;
+    result[DetectorAxesUnits::MM] = Constants::UnitsMm;
+    result[DetectorAxesUnits::QYQZ] = Constants::UnitsQyQz;
     return result;
 }
 }
@@ -80,7 +80,7 @@ void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
     if (!intensityItem->getOutputData())
         return;
 
-    IDetector2D::EAxesUnits requested_units
+    DetectorAxesUnits requested_units
         = axesUnitsFromName(intensityItem->selectedAxesUnits());
 
     OutputData<double>* newData = createDetectorMap(instrumentItem, requested_units);
@@ -115,17 +115,17 @@ void JobItemUtils::saveIntensityData(IntensityDataItem* intensityItem, const QSt
 
 //! Correspondance of domain detector axes types to their gui counterpart.
 
-QString JobItemUtils::nameFromAxesUnits(IDetector2D::EAxesUnits units)
+QString JobItemUtils::nameFromAxesUnits(DetectorAxesUnits units)
 {
-    static QMap<IDetector2D::EAxesUnits, QString> units_to_name = init_description_to_units_map();
+    static QMap<DetectorAxesUnits, QString> units_to_name = init_description_to_units_map();
     return units_to_name[units];
 }
 
 //! Correspondance of GUI axes units names to their domain counterpart.
 
-IDetector2D::EAxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
+DetectorAxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
 {
-    static QMap<QString, IDetector2D::EAxesUnits> name_to_units = init_units_to_description_map();
+    static QMap<QString, DetectorAxesUnits> name_to_units = init_units_to_description_map();
     return name_to_units[name];
 }
 
@@ -133,13 +133,13 @@ IDetector2D::EAxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
 //! SphericalDetector's default units (RADIANS) will be converted to DEGREES
 //! RectangularDetector's default units (MM) will remain the same
 
-IDetector2D::EAxesUnits JobItemUtils::preferableGUIAxesUnits(IDetector2D::EAxesUnits default_units)
+DetectorAxesUnits JobItemUtils::preferableGUIAxesUnits(DetectorAxesUnits default_units)
 {
-    if (default_units == IDetector2D::RADIANS)
-        return IDetector2D::DEGREES;
+    if (default_units == DetectorAxesUnits::RADIANS)
+        return DetectorAxesUnits::DEGREES;
 
-    if (default_units == IDetector2D::MM)
-        return IDetector2D::MM;
+    if (default_units == DetectorAxesUnits::MM)
+        return DetectorAxesUnits::MM;
 
     return default_units;
 }
@@ -165,7 +165,7 @@ void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
     foreach (auto units, detector->getValidAxesUnits())
         combo << nameFromAxesUnits(units);
 
-    IDetector2D::EAxesUnits preferrable_units
+    DetectorAxesUnits preferrable_units
         = preferableGUIAxesUnits(detector->getDefaultAxesUnits());
 
     combo.setValue(nameFromAxesUnits(preferrable_units));
@@ -199,7 +199,7 @@ void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
     DomainObjectBuilder builder;
     auto instrument = builder.buildInstrument(*instrumentItem);
     instrument->initDetector();
-    IDetector2D::EAxesUnits units = instrument->getDetector()->getDefaultAxesUnits();
+    DetectorAxesUnits units = instrument->getDetector()->getDefaultAxesUnits();
     auto detector = instrument->getDetector();
     setIntensityItemAxesUnits(intensityItem, detector);
     updateAxesTitle(intensityItem);
@@ -209,13 +209,13 @@ void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
 
 //! creates detector map from instrument description with axes corresponding to given units
 OutputData<double>* JobItemUtils::createDetectorMap(const InstrumentItem* instrumentItem,
-                                                     IDetector2D::EAxesUnits units)
+                                                     DetectorAxesUnits units)
 {
     DomainObjectBuilder builder;
     auto instrument = builder.buildInstrument(*instrumentItem);
     instrument->initDetector();
 
-    if (units == IDetector2D::DEFAULT)
+    if (units == DetectorAxesUnits::DEFAULT)
         units = instrument->getDetector()->getDefaultAxesUnits();
 
     OutputData<double>* result

@@ -21,7 +21,7 @@
 #include "AttLimits.h"
 #include <vector>
 
-class GISASSimulation;
+class Simulation;
 class IHistogram;
 class IChiSquaredModule;
 class IFitStrategy;
@@ -49,19 +49,26 @@ public:
     // ------------------------------------------------------------------------
 
     //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
-    void addSimulationAndRealData(const GISASSimulation& simulation,
+    void addSimulationAndRealData(const Simulation& simulation,
                                   const OutputData<double>& real_data, double weight=1);
 
     //! Assigns pair of (simulation, real data) for fitting. More than one pair can be added.
-    void addSimulationAndRealData(const GISASSimulation& simulation,
+    void addSimulationAndRealData(const Simulation& simulation,
                                   const IHistogram& real_data, double weight=1);
 
-    //! Assigns pair of (simulation, real data) for fitting. Numpy array is used to provide
-    //! intensities. Shape of array (nrows, ncols) should coinside with detector's axes
-    //! (n_alpha, n_phi).
-    void addSimulationAndRealData(const GISASSimulation& simulation,
+    //! Assigns pair of (simulation, real data) for fitting. A version for the _real_data_
+    //! represented as a two-dimensional numpy array. Simulation output must agree in dimensions
+    //! with _real_data_.
+    void addSimulationAndRealData(const Simulation& simulation,
                                   const std::vector<std::vector<double>>& real_data,
                                   double weight=1);
+
+    //! Assigns pair of (simulation, real_data) for fitting. A version for the _real_data_
+    //! represented as a one-dimensional numpy array. Simulation output must agree in dimensions
+    //! with _real_data_.
+    void addSimulationAndRealData(const Simulation& simulation,
+                                  const std::vector<double>& real_data,
+                                  double weight = 1);
 
     //! Adds fit parameter
     //! @param name The name of sample parameter(s) to fit (may contain wildcards).

@@ -147,13 +147,10 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
 size_t IDetector2D::numberOfSimulationElements() const
 {
     size_t result(0);
-    try {
+    if (this->dimension() != 0) {
         SimulationArea area(this);
-        for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+        for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it)
             ++result;
-    } catch (Exceptions::RuntimeErrorException e)
-    {
-        (void)e;  // do nothing, just return zero
     }
     return result;
 }

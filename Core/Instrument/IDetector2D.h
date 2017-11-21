@@ -16,9 +16,9 @@
 #ifndef IDETECTOR2D_H
 #define IDETECTOR2D_H
 
+#include "DetectorMask.h"
 #include "IDetector.h"
 #include "Beam.h"
-#include "DetectorMask.h"
 #include <memory>
 
 class IPixel;
@@ -50,6 +50,8 @@ public:
     //! Removes all masks from the detector
     void removeMasks();
 
+    virtual const DetectorMask* detectorMask() const override;
+
     //! Adds mask of given shape to the stack of detector masks. The mask value 'true' means
     //! that the channel will be excluded from the simulation. The mask which is added last
     //! has priority.
@@ -59,8 +61,6 @@ public:
 
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
     void maskAll();
-
-    const DetectorMask* detectorMask() const;
 
     size_t numberOfMaskedChannels() const;
 

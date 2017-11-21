@@ -86,7 +86,7 @@ void IDetector2D::maskAll()
     addMask(InfinitePlane(), true);
 }
 
-const DetectorMask *IDetector2D::detectorMask() const
+const DetectorMask* IDetector2D::detectorMask() const
 {
     return &m_detector_mask;
 }

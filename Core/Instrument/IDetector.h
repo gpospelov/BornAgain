@@ -16,16 +16,17 @@
 #ifndef IDETECTOR_H_
 #define IDETECTOR_H_
 
-#include "DetectionProperties.h"
 #include "ICloneable.h"
 #include "INode.h"
+#include "DetectionProperties.h"
 #include "SafePointerVector.h"
 
-template<class T> class OutputData;
 class Beam;
+class DetectorMask;
 class IAxis;
 class IDetectorResolution;
 class IResolutionFunction2D;
+template<class T> class OutputData;
 class SimulationElement;
 class RegionOfInterest;
 
@@ -62,6 +63,9 @@ public:
 
     //! Returns total number of pixels
     size_t totalSize() const;
+
+    //! Returns detector masks container
+    virtual const DetectorMask* detectorMask() const = 0;
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,

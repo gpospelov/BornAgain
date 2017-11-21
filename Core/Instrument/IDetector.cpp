@@ -1,8 +1,8 @@
+#include "ConvolutionDetectorResolution.h"
 #include "IAxis.h"
 #include "IDetector.h"
-#include "OutputData.h"
 #include "IDetectorResolution.h"
-#include "ConvolutionDetectorResolution.h"
+#include "OutputData.h"
 #include "RegionOfInterest.h"
 
 IDetector::IDetector()

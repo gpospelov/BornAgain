@@ -82,6 +82,39 @@ bool isStringProperty(const QVariant& variant)
 
 }
 
+bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
+{
+    if (isMaterialProperty(variant))
+        return true;
+    if (isColorProperty(variant))
+        return true;
+    if (isGroupProperty(variant))
+        return true;
+    if (isComboProperty(variant))
+        return true;
+    if (isScientificDoubleProperty(variant))
+        return true;
+
+    return false;
+}
+
+// TODO replace with template method when custom variants refactored
+QString PropertyEditorFactory::ToString(const QVariant& variant)
+{
+    if (isMaterialProperty(variant))
+        return variant.value<MaterialProperty>().getName();
+    if (isColorProperty(variant))
+        return variant.value<ColorProperty>().getText();
+    if (isGroupProperty(variant))
+        return variant.value<GroupProperty_t>()->currentLabel();
+    if (isComboProperty(variant))
+        return variant.value<ComboProperty>().getValue();
+    if (isScientificDoubleProperty(variant))
+        return variant.value<ScientificDoubleProperty>().getText();
+
+    return QString();
+}
+
 
 QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
 {
@@ -189,3 +222,4 @@ QWidget* createCustomStringEditor(SessionItem& item)
 }
 
 }
+

@@ -19,35 +19,10 @@
 #include "SessionItem.h"
 #include "PropertyEditorFactory.h"
 #include "CustomEditors.h"
-#include <QDoubleSpinBox>
 #include <QApplication>
+#include <QLocale>
 
 namespace {
-
-bool isComboProperty(const QModelIndex& index)
-{
-    return index.data().canConvert<ComboProperty>();
-}
-
-bool isGroupProperty(const QModelIndex& index)
-{
-    return index.data().canConvert<GroupProperty_t>();
-}
-
-bool isMaterialProperty(const QModelIndex& index)
-{
-    return index.data().canConvert<MaterialProperty>();
-}
-
-bool isColorProperty(const QModelIndex& index)
-{
-    return index.data().canConvert<ColorProperty>();
-}
-
-bool isScientificDoubleProperty(const QModelIndex& index)
-{
-    return index.data().canConvert<ScientificDoubleProperty>();
-}
 
 bool isDoubleProperty(const QModelIndex& index)
 {
@@ -70,30 +45,15 @@ SessionModelDelegate::SessionModelDelegate(QObject* parent)
 void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,
                                  const QModelIndex& index) const
 {
-    QVariant prop_value = index.model()->data(index, Qt::EditRole);
-
-    if (isComboProperty(index)) {
-        ComboProperty property = prop_value.value<ComboProperty>();
-        paintCustomLabel(painter, option, index, property.getValue());
-
-    } else if (isGroupProperty(index)) {
-        GroupProperty_t property = prop_value.value<GroupProperty_t>();
-        paintCustomLabel(painter, option, index, property->currentLabel());
-
-    } else if (isMaterialProperty(index)) {
-        MaterialProperty property = prop_value.value<MaterialProperty>();
-        paintCustomLabel(painter, option, index, property.getName());
-
-    } else if (isColorProperty(index)) {
-        ColorProperty property = prop_value.value<ColorProperty>();
-        paintCustomLabel(painter, option, index, property.getText());
-
-    } else if (isScientificDoubleProperty(index)) {
-        ScientificDoubleProperty property = prop_value.value<ScientificDoubleProperty>();
-        paintCustomLabel(painter, option, index, property.getText());
+    if (PropertyEditorFactory::IsCustomVariant(index.data())) {
+        QString text = PropertyEditorFactory::ToString(index.data());
+        paintCustomLabel(painter, option, index, text);
 
     } else if (isDoubleProperty(index)) {
-        paintCustomDouble(painter, option, index);
+        auto locale = QLocale::system();
+        auto item = static_cast<SessionItem*>(index.internalPointer());
+        QString text = locale.toString(item->value().toDouble(), 'f', item->decimals());
+        paintCustomLabel(painter, option, index, text);
 
     } else {
         QStyledItemDelegate::paint(painter, option, index);
@@ -103,7 +63,9 @@ void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& 
 QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option,
                                             const QModelIndex& index) const
 {
-    if (isComboProperty(index)) {
+    if (PropertyEditorFactory::IsCustomVariant(index.data())) {
+        // Custom variant requires an editor based on CustomEditor.
+
         auto item = static_cast<SessionItem*>(index.internalPointer());
         auto editor = PropertyEditorFactory::CreateEditor(*item, parent);
         auto customEditor = dynamic_cast<CustomEditor*>(editor);
@@ -113,111 +75,39 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
                 this, &SessionModelDelegate::onCustomEditorDataChanged);
         return customEditor;
 
-    } else if (isGroupProperty(index)) {
-        auto item = static_cast<SessionItem*>(index.internalPointer());
-        auto editor = PropertyEditorFactory::CreateEditor(*item, parent);
-        auto customEditor = dynamic_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
-        customEditor->setData(index.data());
-        connect(customEditor, &CustomEditor::dataChanged,
-                this, &SessionModelDelegate::onCustomEditorDataChanged);
-        return customEditor;
+    } else if (isDoubleProperty(index) || isIntProperty(index)) {
+        // Int and Double will be handled by standard spin boxes specially tunded for limits
 
-    } else if (isMaterialProperty(index)) {
-        auto item = static_cast<SessionItem*>(index.internalPointer());
-        auto editor = PropertyEditorFactory::CreateEditor(*item, parent);
-        auto customEditor = dynamic_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
-        customEditor->setData(index.data());
-        connect(customEditor, &CustomEditor::dataChanged,
-                this, &SessionModelDelegate::onCustomEditorDataChanged);
-        return customEditor;
-
-    } else if (isColorProperty(index)) {
-        auto item = static_cast<SessionItem*>(index.internalPointer());
-        auto editor = PropertyEditorFactory::CreateEditor(*item, parent);
-        auto customEditor = dynamic_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
-        customEditor->setData(index.data());
-        connect(customEditor, &CustomEditor::dataChanged,
-                this, &SessionModelDelegate::onCustomEditorDataChanged);
-        return customEditor;
-
-    } else if (isScientificDoubleProperty(index)) {
-        auto item = static_cast<SessionItem*>(index.internalPointer());
-        auto editor = PropertyEditorFactory::CreateEditor(*item, parent);
-        auto customEditor = dynamic_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
-        customEditor->setData(index.data());
-        connect(customEditor, &CustomEditor::dataChanged,
-                this, &SessionModelDelegate::onCustomEditorDataChanged);
-        return customEditor;
-
-    } else if (isDoubleProperty(index)) {
-        auto item = static_cast<SessionItem*>(index.internalPointer());
-        return PropertyEditorFactory::CreateEditor(*item, parent);
-
-    } else if (isIntProperty(index)) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
         return PropertyEditorFactory::CreateEditor(*item, parent);
 
     } else {
+        // the rest, like editors for QString, bool etc will be processed by parent delegate
+
         return QStyledItemDelegate::createEditor(parent, option, index);
     }
 }
 
+//! Propagates changed data from the editor to the model.
+
 void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                                         const QModelIndex& index) const
 {
-    if (isComboProperty(index)) {
-        ComboPropertyEditor* comboEditor = qobject_cast<ComboPropertyEditor*>(editor);
-        Q_ASSERT(comboEditor);
-        model->setData(index, comboEditor->editorData());
+    if (PropertyEditorFactory::IsCustomVariant(index.data())) {
+        CustomEditor* customEditor = qobject_cast<CustomEditor*>(editor);
+        Q_ASSERT(customEditor);
+        model->setData(index, customEditor->editorData());
 
-    } else if (isGroupProperty(index)) {
-        GroupPropertyEditor* groupEditor = qobject_cast<GroupPropertyEditor*>(editor);
-        Q_ASSERT(groupEditor);
-        model->setData(index, groupEditor->editorData());
-
-    } else if (isMaterialProperty(index)) {
-        MaterialPropertyEditor* matEditor = qobject_cast<MaterialPropertyEditor*>(editor);
-        Q_ASSERT(matEditor);
-        model->setData(index, matEditor->editorData());
-
-    } else if (isColorProperty(index)) {
-        ColorPropertyEditor* colorEditor = qobject_cast<ColorPropertyEditor*>(editor);
-        Q_ASSERT(colorEditor);
-        model->setData(index, colorEditor->editorData());
-
-    } else if (isScientificDoubleProperty(index)) {
-        ScientificDoublePropertyEditor* doubleEditor =
-                qobject_cast<ScientificDoublePropertyEditor*>(editor);
-        Q_ASSERT(doubleEditor);
-        model->setData(index, doubleEditor->editorData());
     } else {
         QStyledItemDelegate::setModelData(editor, model, index);
     }
 }
 
+//! Propagates the data change from the model to the editor (if it is still opened).
+
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    if (isScientificDoubleProperty(index)) {
-        auto customEditor = dynamic_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
-        customEditor->setData(index.data());
-    } else if (isComboProperty(index)) {
-        auto customEditor = dynamic_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
-        customEditor->setData(index.data());
-    } else if (isGroupProperty(index)) {
-        auto customEditor = dynamic_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
-        customEditor->setData(index.data());
-    } else if (isMaterialProperty(index)) {
-        auto customEditor = dynamic_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
-        customEditor->setData(index.data());
-    } else if (isColorProperty(index)) {
+    if (PropertyEditorFactory::IsCustomVariant(index.data())) {
         auto customEditor = dynamic_cast<CustomEditor*>(editor);
         Q_ASSERT(customEditor);
         customEditor->setData(index.data());
@@ -225,6 +115,8 @@ void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& ind
         QStyledItemDelegate::setEditorData(editor, index);
     }
 }
+
+//! Increases height of the row by 20% wrt the default.
 
 QSize SessionModelDelegate::sizeHint(const QStyleOptionViewItem& option,
                                      const QModelIndex& index) const
@@ -245,12 +137,7 @@ void SessionModelDelegate::updateEditorGeometry(QWidget* editor, const QStyleOpt
     editor->setGeometry(option.rect);
 }
 
-void SessionModelDelegate::onScientificDoublePropertyChanged(const ScientificDoubleProperty&)
-{
-    ScientificDoublePropertyEdit* editor = qobject_cast<ScientificDoublePropertyEdit*>(sender());
-    Q_ASSERT(editor);
-    emit commitData(editor);
-}
+//! Notifies everyone that the editor has completed editing the data.
 
 void SessionModelDelegate::onCustomEditorDataChanged(const QVariant& )
 {
@@ -267,20 +154,6 @@ void SessionModelDelegate::paintCustomLabel(QPainter* painter, const QStyleOptio
     QStyleOptionViewItem opt = option;
     initStyleOption(&opt, index); // calling original method to take into accounts colors etc
     opt.text = displayText(text, option.locale); // by overriding text with ours
-    const QWidget* widget = opt.widget;
-    QStyle* style = widget ? widget->style() : QApplication::style();
-    style->drawControl(QStyle::CE_ItemViewItem, &opt, painter, widget);
-}
-
-void SessionModelDelegate::paintCustomDouble(QPainter* painter,
-                                             const QStyleOptionViewItem& option,
-                                             const QModelIndex& index) const
-{
-    SessionItem* item = static_cast<SessionItem*>(index.internalPointer());
-
-    QStyleOptionViewItem opt = option;
-    initStyleOption(&opt, index);
-    opt.text = opt.locale.toString(item->value().toDouble(), 'f', item->decimals());
     const QWidget* widget = opt.widget;
     QStyle* style = widget ? widget->style() : QApplication::style();
     style->drawControl(QStyle::CE_ItemViewItem, &opt, painter, widget);

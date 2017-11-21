@@ -687,7 +687,7 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
 {
     const IDetector2D* iDetector = simulation->getInstrument().getDetector();
 
-    if (iDetector->getDimension() != 2)
+    if (iDetector->dimension() != 2)
         throw Exceptions::RuntimeErrorException("ExportToPython::defineDetector: "
                                                 "detector must be two-dimensional for GISAS");
     std::ostringstream result;
@@ -695,7 +695,7 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
 
     if(auto detector = dynamic_cast<const SphericalDetector*>(iDetector)) {
         result << indent() << "simulation.setDetectorParameters(";
-        for(size_t index=0; index<detector->getDimension(); ++index) {
+        for(size_t index=0; index<detector->dimension(); ++index) {
             if (index != 0) result << ", ";
             result << detector->getAxis(index).size() << ", "
                    << printDegrees(detector->getAxis(index).getMin()) << ", "

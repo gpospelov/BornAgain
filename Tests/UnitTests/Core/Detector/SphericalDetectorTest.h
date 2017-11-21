@@ -27,7 +27,7 @@ TEST_F(SphericalDetectorTest, initialState)
     SphericalDetector detector;
 
     // checking size
-    EXPECT_EQ(0u, detector.getDimension());
+    EXPECT_EQ(0u, detector.dimension());
     EXPECT_EQ(AxesUnits::RADIANS, detector.getDefaultAxesUnits());
 
     // detector units
@@ -62,7 +62,7 @@ TEST_F(SphericalDetectorTest, constructionWithAxes)
     detector.addAxis(axis1);
 
     // checking dimension and axes
-    EXPECT_EQ(2u, detector.getDimension());
+    EXPECT_EQ(2u, detector.dimension());
     EXPECT_EQ(axis0.getMin(), detector.getAxis(0).getMin() );
     EXPECT_EQ(axis0.getMax(), detector.getAxis(0).getMax() );
     EXPECT_EQ(axis0.getName(), detector.getAxis(0).getName() );
@@ -72,7 +72,7 @@ TEST_F(SphericalDetectorTest, constructionWithAxes)
 
     // clearing detector
     detector.clear();
-    EXPECT_EQ(0u, detector.getDimension());
+    EXPECT_EQ(0u, detector.dimension());
 }
 
 // Construction of the detector via classical constructor.

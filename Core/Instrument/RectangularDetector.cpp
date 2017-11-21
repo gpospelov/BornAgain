@@ -244,7 +244,7 @@ std::string RectangularDetector::getAxisName(size_t index) const
 
 size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
 {
-    if (getDimension()!=2) return getTotalSize();
+    if (dimension()!=2) return getTotalSize();
     double alpha = beam.getAlpha();
     double phi = beam.getPhi();
     kvector_t k_spec = vecOfLambdaAlphaPhi(beam.getWavelength(), alpha, phi);

@@ -100,7 +100,7 @@ std::string SphericalDetector::getAxisName(size_t index) const
 
 size_t SphericalDetector::getIndexOfSpecular(const Beam& beam) const
 {
-    if (getDimension()!=2) return getTotalSize();
+    if (dimension()!=2) return getTotalSize();
     double alpha = beam.getAlpha();
     double phi = beam.getPhi();
     const IAxis& phi_axis = getAxis(BornAgain::X_AXIS_INDEX);

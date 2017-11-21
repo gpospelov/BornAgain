@@ -184,7 +184,7 @@ const IAxis& Instrument::getDetectorAxis(size_t index) const
 
 size_t Instrument::getDetectorDimension() const
 {
-    return mP_detector->getDimension();
+    return mP_detector->dimension();
 }
 
 void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency,

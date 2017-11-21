@@ -133,7 +133,7 @@ void IDetector2D::addMask(const IShape2D &shape, bool mask_value)
 
 void IDetector2D::maskAll()
 {
-    if(getDimension() != 2) return;
+    if(dimension() != 2) return;
     m_detector_mask.removeMasks();
     addMask(InfinitePlane(), true);
 }
@@ -272,7 +272,7 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
 
 size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
 {
-    if (getDimension() != 2)
+    if (dimension() != 2)
         return getTotalSize();
     return x * getAxis(1).size() + y;
 }

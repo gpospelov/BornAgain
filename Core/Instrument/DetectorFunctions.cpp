@@ -56,10 +56,10 @@ std::map<AxesUnits, std::string> init_units_to_name_map()
 bool DetectorFunctions::hasSameDimensions(const IDetector2D &detector,
                                           const OutputData<double> &data)
 {
-    if (data.getRank() != detector.getDimension())
+    if (data.getRank() != detector.dimension())
         return false;
 
-    for (size_t i = 0; i < detector.getDimension(); ++i)
+    for (size_t i = 0; i < detector.dimension(); ++i)
         if(data.getAxis(i).size() != detector.getAxis(i).size())
             return false;
 
@@ -71,9 +71,9 @@ std::string DetectorFunctions::axesToString(const IDetector2D &detector)
     std::ostringstream result;
 
     result << "(";
-    for (size_t i = 0; i < detector.getDimension(); ++i) {
+    for (size_t i = 0; i < detector.dimension(); ++i) {
         result << detector.getAxis(i).size();
-        if(i!=detector.getDimension()-1)
+        if(i!=detector.dimension()-1)
             result << ",";
     }
     result << ")";

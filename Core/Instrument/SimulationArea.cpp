@@ -30,7 +30,7 @@ SimulationArea::SimulationArea(const IDetector2D* detector)
         throw Exceptions::RuntimeErrorException("SimulationArea::SimulationArea: nullpointer passed"
                                                 " as detector");
 
-    if (m_detector->getDimension()!=2)
+    if (m_detector->dimension()!=2)
         throw Exceptions::RuntimeErrorException(
             "SimulationArea::SimulationArea: detector is not two-dimensional");
 

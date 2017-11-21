@@ -54,14 +54,14 @@ void DetectorMask::addMask(const IShape2D& shape, bool mask_value)
 
 void DetectorMask::initMaskData(const IDetector2D& detector)
 {
-    if(detector.getDimension() != 2)
+    if(detector.dimension() != 2)
         throw Exceptions::RuntimeErrorException("DetectorMask::initMaskData() -> Error. Attempt "
                                                 "to add masks to uninitialized detector.");
 
     assert(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();
 
-    for (size_t dim=0; dim<detector.getDimension(); ++dim) {
+    for (size_t dim=0; dim<detector.dimension(); ++dim) {
         const IAxis &axis = detector.getAxis(dim);
         m_mask_data.addAxis(axis);
     }

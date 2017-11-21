@@ -49,7 +49,8 @@ public:
 
     const IAxis& getAxis(size_t index) const;
 
-    size_t getDimension() const {return m_axes.size();}
+    //! Returns actual dimensionality of the detector (number of defined axes)
+    size_t dimension() const {return m_axes.size();}
 
     //! Calculate axis index for given global index
     size_t getAxisBinIndex(size_t index, size_t selected_axis) const;

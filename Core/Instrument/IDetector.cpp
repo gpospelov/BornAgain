@@ -21,7 +21,7 @@ void IDetector::addAxis(const IAxis& axis)
 
 const IAxis& IDetector::getAxis(size_t index) const
 {
-    if (isCorrectAxisIndex(index))
+    if (index < dimension())
         return *m_axes[index];
     throw std::runtime_error("Error in IDetector::getAxis: not so many axes in this detector.");
 }
@@ -29,9 +29,9 @@ const IAxis& IDetector::getAxis(size_t index) const
 size_t IDetector::getAxisBinIndex(size_t index, size_t selected_axis) const
 {
     size_t remainder(index);
-    for (size_t i=0; i<getDimension(); ++i)
+    for (size_t i=0; i<dimension(); ++i)
     {
-        size_t i_axis = getDimension()-1-i;
+        size_t i_axis = dimension()-1-i;
         size_t result = remainder % m_axes[i_axis]->size();
         if(selected_axis == i_axis ) return result;
         remainder /= m_axes[i_axis]->size();
@@ -53,11 +53,11 @@ IAxis* IDetector::createAxis(size_t index, size_t n_bins, double min, double max
 
 size_t IDetector::getTotalSize() const
 {
-    const size_t dimension = getDimension();
-    if (dimension == 0)
+    const size_t dim = dimension();
+    if (dim == 0)
         return 0;
     size_t result = 1;
-    for (size_t i_axis = 0; i_axis < dimension; ++i_axis) {
+    for (size_t i_axis = 0; i_axis < dim; ++i_axis) {
         result *= m_axes[i_axis]->size();
     }
     return result;
@@ -71,7 +71,7 @@ void IDetector::setAnalyzerProperties(const kvector_t direction, double efficien
 
 void IDetector::initOutputData(OutputData<double> &data) const {
   data.clear();
-  for (size_t i = 0; i < getDimension(); ++i)
+  for (size_t i = 0; i < dimension(); ++i)
       data.addAxis(getAxis(i));
   data.setAllTo(0.);
 }

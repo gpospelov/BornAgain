@@ -24,28 +24,26 @@ class QItemSelectionModel;
 class QItemSelection;
 class ComponentTreeView;
 
-//! Property editor to modify property of the objectcurrently selected on the
-//! graphics scene, located in the bottom right corner of SampleView.
+//! Property editor to modify property of the object currently selected on the
+//! graphics scene. Located in the bottom right corner of SampleView.
+
 class BA_CORE_API_ SamplePropertyWidget : public QWidget
 {
     Q_OBJECT
 public:
-    SamplePropertyWidget(QItemSelectionModel *selection_model,
-                         QWidget *parent = 0);
+    SamplePropertyWidget(QItemSelectionModel* selection_model, QWidget* parent = nullptr);
 
-    QSize sizeHint() const { return QSize(230, 256); }
-    QSize minimumSizeHint() const { return QSize(230, 64); }
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
 
-    void setSelectionModel(QItemSelectionModel *selection_model);
+    void setSelectionModel(QItemSelectionModel* selection_model);
 
 public slots:
-    //! show property of currently selected object (triggered by graphics scene)
-    void selectionChanged(const QItemSelection & selected,
-                          const QItemSelection & deselected);
+    void selectionChanged(const QItemSelection& selected, const QItemSelection&);
 
 private:
-    QItemSelectionModel *m_selection_model;
-    ComponentTreeView *m_propertyEditor;
+    QItemSelectionModel* m_selection_model;
+    ComponentTreeView* m_propertyEditor;
 };
 
 #endif // SAMPLEPROPERTYWIDGET_H

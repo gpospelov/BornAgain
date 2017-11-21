@@ -40,7 +40,7 @@ size_t IDetector::getAxisBinIndex(size_t index, size_t selected_axis) const
                              "Error! No axis with given number");
 }
 
-IAxis* IDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
+std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
     if (max <= min)
         throw Exceptions::LogicErrorException(
@@ -48,7 +48,7 @@ IAxis* IDetector::createAxis(size_t index, size_t n_bins, double min, double max
     if (n_bins == 0)
         throw Exceptions::LogicErrorException(
             "IDetector::createAxis() -> Error! Number n_bins can't be zero.");
-    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
+    return std::make_unique<FixedBinAxis>(getAxisName(index), n_bins, min, max);
 }
 
 size_t IDetector::getTotalSize() const

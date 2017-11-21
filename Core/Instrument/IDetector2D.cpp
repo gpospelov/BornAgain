@@ -44,10 +44,8 @@ void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
                                         size_t n_y, double y_min, double y_max)
 {
     clear();
-    const std::unique_ptr<IAxis> P_axis0(createAxis(0, n_x, x_min, x_max));
-    const std::unique_ptr<IAxis> P_axis1(createAxis(1, n_y, y_min, y_max));
-    addAxis(*P_axis0);
-    addAxis(*P_axis1);
+    addAxis(*createAxis(BornAgain::X_AXIS_INDEX, n_x, x_min, x_max));
+    addAxis(*createAxis(BornAgain::Y_AXIS_INDEX, n_y, y_min, y_max));
 }
 
 void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)

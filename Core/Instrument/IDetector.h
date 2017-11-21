@@ -85,7 +85,8 @@ protected:
     virtual std::string getAxisName(size_t index) const = 0;
 
     //! Generates an axis with correct name and default binning for given index
-    virtual IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const;
+    virtual std::unique_ptr<IAxis> createAxis(size_t index, size_t n_bins, double min,
+                                              double max) const;
 
     //! Checks if given unit is valid for the detector. Throws exception if it is not the case.
     void checkAxesUnits(AxesUnits units) const;

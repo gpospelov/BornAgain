@@ -60,6 +60,9 @@ public:
     const IDetector2D* getDetector() const;
     IDetector2D* getDetector();
 
+    //! Returns 2D detector data if detector is truly 2D. Otherwise returns nullptr
+    IDetector2D* detector2D();
+
     const DetectorMask *getDetectorMask() const;
 
     //! Returns a detector axis
@@ -70,13 +73,6 @@ public:
 
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
-
-    //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_x, double x_min, double x_max,
-                               size_t n_y, double y_min, double y_max);
-
-    //! Sets detector parameters using axes
-    void setDetectorAxes(const IAxis& axis0, const IAxis& axis1);
 
     //! Sets detector resolution function
     void setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function);

@@ -62,17 +62,6 @@ void Instrument::setDetector(const IDetector2D& detector)
     initDetector();
 }
 
-void Instrument::setDetectorParameters(size_t n_x, double x_min, double x_max,
-                                       size_t n_y, double y_min, double y_max)
-{
-    mP_detector->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
-}
-
-void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
-{
-    mP_detector->setDetectorAxes(axis0, axis1);
-}
-
 void Instrument::initDetector()
 {
     if(!mP_detector)
@@ -175,6 +164,11 @@ const IDetector2D* Instrument::getDetector() const
 IDetector2D* Instrument::getDetector()
 {
     return mP_detector.get();
+}
+
+IDetector2D* Instrument::detector2D()
+{
+    return dynamic_cast<IDetector2D*>(mP_detector.get());
 }
 
 const IAxis& Instrument::getDetectorAxis(size_t index) const

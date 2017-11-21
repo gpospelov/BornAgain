@@ -3,6 +3,7 @@
 #include "OutputData.h"
 #include "IDetectorResolution.h"
 #include "ConvolutionDetectorResolution.h"
+#include "RegionOfInterest.h"
 
 IDetector::IDetector()
 {
@@ -45,6 +46,21 @@ size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
     }
     throw std::runtime_error("IDetector::getAxisBinIndex() -> "
                              "Error! No axis with given number");
+}
+
+std::unique_ptr<IAxis> IDetector::translateAxisToUnits(size_t axis_index, const Beam &beam,
+                                                  AxesUnits units) const
+{
+    double amin(0), amax(0);
+    calculateAxisRange(axis_index, beam, units, amin, amax);
+
+    std::unique_ptr<IAxis> result(new FixedBinAxis(axisName(axis_index),
+                                                   getAxis(axis_index).size(), amin, amax));
+
+    if (regionOfInterest())
+        return regionOfInterest()->clipAxisToRoi(axis_index, *result);
+
+    return result;
 }
 
 std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
@@ -187,7 +203,7 @@ std::unique_ptr<OutputData<double>> IDetector::createDetectorMap(const Beam& bea
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i = 0; i < dim; ++i)
-        result->addAxis(*constructAxis(i, beam, units));
+        result->addAxis(*translateAxisToUnits(i, beam, units));
     result->setAllTo(0.);
     return result;
 }

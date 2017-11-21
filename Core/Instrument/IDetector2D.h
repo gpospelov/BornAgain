@@ -21,10 +21,8 @@
 #include "DetectorMask.h"
 #include <memory>
 
-class Beam;
 class IPixel;
 class IShape2D;
-class RegionOfInterest;
 
 //! Abstract 2D detector interface.
 //! @ingroup simulation
@@ -80,7 +78,7 @@ public:
 #endif
 
     //! Returns region of  interest if exists.
-    const RegionOfInterest* regionOfInterest() const;
+    virtual const RegionOfInterest* regionOfInterest() const override;
 
     //! Sets rectangular region of interest with lower left and upper right corners defined.
     void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
@@ -96,10 +94,6 @@ protected:
 
     //! Create an IPixel for the given OutputData object and index
     virtual IPixel* createPixel(size_t index) const=0;
-
-    //! Constructs axis with min,max corresponding to selected units
-    virtual std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
-                                                 AxesUnits units) const override;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,

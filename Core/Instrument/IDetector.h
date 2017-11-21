@@ -22,10 +22,12 @@
 #include "SafePointerVector.h"
 
 template<class T> class OutputData;
+class Beam;
 class IAxis;
 class IDetectorResolution;
 class IResolutionFunction2D;
 class SimulationElement;
+class RegionOfInterest;
 
 //! Wrapper for detector axes units, required for a better representation of
 //! detector axes units in python
@@ -83,6 +85,9 @@ public:
     std::unique_ptr<OutputData<double>> createDetectorMap(const Beam& beam, AxesUnits units) const;
 #endif // SWIG
 
+    //! Returns region of  interest if exists.
+    virtual const RegionOfInterest* regionOfInterest() const = 0;
+
     //! Returns detection properties
     const DetectionProperties& detectionProperties() const {return m_detection_properties;}
 
@@ -113,8 +118,8 @@ protected:
                                     double& amin, double& amax) const;
 
     //! Constructs axis with min, max corresponding to selected units
-    virtual std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
-                                                 AxesUnits units) const = 0;
+    std::unique_ptr<IAxis> translateAxisToUnits(size_t axis_index, const Beam& beam,
+                                                 AxesUnits units) const;
 
     //! Generates an axis with correct name and default binning for given index
     virtual std::unique_ptr<IAxis> createAxis(size_t index, size_t n_bins, double min,

@@ -158,21 +158,6 @@ size_t IDetector2D::numberOfSimulationElements() const
     return result;
 }
 
-std::unique_ptr<IAxis> IDetector2D::constructAxis(size_t axis_index, const Beam &beam,
-                                                  AxesUnits units) const
-{
-    double amin(0), amax(0);
-    calculateAxisRange(axis_index, beam, units, amin, amax);
-
-    std::unique_ptr<IAxis> result(new FixedBinAxis(getAxisName(axis_index),
-                                                   getAxis(axis_index).size(), amin, amax));
-
-    if (m_region_of_interest)
-        return m_region_of_interest->clipAxisToRoi(axis_index, *result);
-
-    return result;
-}
-
 void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
         AxesUnits units, double &amin, double &amax) const
 {

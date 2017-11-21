@@ -62,6 +62,11 @@ public:
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission);
 
+#ifndef SWIG
+    //! Returns empty detector map in given axes units.
+    std::unique_ptr<OutputData<double>> createDetectorMap(const Beam& beam, AxesUnits units) const;
+#endif // SWIG
+
     //! Returns detection properties
     const DetectionProperties& detectionProperties() const {return m_detection_properties;}
 
@@ -79,19 +84,21 @@ public:
 protected:
     IDetector(const IDetector& other);
 
-    bool isCorrectAxisIndex(size_t index) const {return index < getDimension();}
-
     //! Returns the name for the axis with given index
     virtual std::string getAxisName(size_t index) const = 0;
+
+    //! Constructs axis with min, max corresponding to selected units
+    virtual std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
+                                                 AxesUnits units) const = 0;
 
     //! Generates an axis with correct name and default binning for given index
     virtual std::unique_ptr<IAxis> createAxis(size_t index, size_t n_bins, double min,
                                               double max) const;
 
+private:
     //! Checks if given unit is valid for the detector. Throws exception if it is not the case.
     void checkAxesUnits(AxesUnits units) const;
 
-private:
     SafePointerVector<IAxis> m_axes;
     DetectionProperties m_detection_properties;
 };

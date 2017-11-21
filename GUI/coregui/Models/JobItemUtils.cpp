@@ -203,8 +203,9 @@ void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
     auto detector = instrument->getDetector();
     setIntensityItemAxesUnits(intensityItem, detector);
     updateAxesTitle(intensityItem);
-    intensityItem->setOutputData(detector->createDetectorMap(instrument->getBeam(),
-                                                             preferableGUIAxesUnits(units)));
+    intensityItem->setOutputData(
+        detector->createDetectorMap(instrument->getBeam(), preferableGUIAxesUnits(units))
+            .release());
 }
 
 //! creates detector map from instrument description with axes corresponding to given units
@@ -218,14 +219,12 @@ OutputData<double>* JobItemUtils::createDetectorMap(const InstrumentItem* instru
     if (units == AxesUnits::DEFAULT)
         units = instrument->getDetector()->getDefaultAxesUnits();
 
-    OutputData<double>* result
-        = instrument->getDetector()->createDetectorMap(instrument->getBeam(), units);
-
+    auto result = instrument->getDetector()->createDetectorMap(instrument->getBeam(), units);
     if (!result) {
         throw GUIHelpers::Error("JobResultsPresenter::createDetectorMap -> Error. "
                                 "Can't create detector map.");
     }
 
-    return result;
+    return result.release();
 }
 

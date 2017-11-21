@@ -94,6 +94,22 @@ void IDetector::checkAxesUnits(AxesUnits units) const
     }
 }
 
+std::unique_ptr<OutputData<double>> IDetector::createDetectorMap(const Beam& beam,
+                                                                 AxesUnits units) const
+{
+    checkAxesUnits(units);
+    const size_t dim = dimension();
+    if (dim == 0)
+        throw std::runtime_error(
+            "Error in IDetector::createDetectorMap: dimensions of the detector are undefined");
+
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    for (size_t i = 0; i < dim; ++i)
+        result->addAxis(*constructAxis(i, beam, units));
+    result->setAllTo(0.);
+    return result;
+}
+
 std::vector<const INode*> IDetector::getChildren() const
 {
     return std::vector<const INode*>() << &m_detection_properties;

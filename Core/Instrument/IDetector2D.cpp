@@ -90,17 +90,6 @@ OutputData<double> *IDetector2D::createDetectorIntensity(
     return detectorMap.release();
 }
 
-OutputData<double>* IDetector2D::createDetectorMap(const Beam& beam, AxesUnits units) const
-{
-    checkAxesUnits(units);
-
-    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    result->addAxis(*constructAxis(BornAgain::X_AXIS_INDEX, beam, units));
-    result->addAxis(*constructAxis(BornAgain::Y_AXIS_INDEX, beam, units));
-    result->setAllTo(0.);
-    return result.release();
-}
-
 const RegionOfInterest *IDetector2D::regionOfInterest() const
 {
     return m_region_of_interest.get();

@@ -101,9 +101,6 @@ public:
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
             const Beam& beam, AxesUnits units_type=AxesUnits::DEFAULT) const;
 
-    //! Returns empty detector map in given axes units.
-    OutputData<double>* createDetectorMap(const Beam& beam, AxesUnits units) const;
-
     //! Returns region of  interest if exists.
     const RegionOfInterest* regionOfInterest() const;
 
@@ -125,8 +122,8 @@ protected:
     virtual IPixel* createPixel(size_t index) const=0;
 
     //! Constructs axis with min,max corresponding to selected units
-    std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
-                                         AxesUnits units) const;
+    virtual std::unique_ptr<IAxis> constructAxis(size_t axis_index, const Beam& beam,
+                                                 AxesUnits units) const override;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,

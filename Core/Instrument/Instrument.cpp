@@ -132,7 +132,7 @@ Histogram2D* Instrument::createIntensityData(const std::vector<SimulationElement
 
 OutputData<double> *Instrument::createDetectorMap(AxesUnits units) const
 {
-    return mP_detector->createDetectorMap(m_beam, units);
+    return mP_detector->createDetectorMap(m_beam, units).release();
 }
 
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)

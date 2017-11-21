@@ -62,7 +62,7 @@ public:
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
     void maskAll();
 
-    const DetectorMask* getDetectorMask() const;
+    const DetectorMask* detectorMask() const;
 
     size_t numberOfMaskedChannels() const;
 

@@ -60,7 +60,7 @@ std::vector<const INode*> FitObject::getChildren() const
 std::string FitObject::getDefaultAxisUnits() const
 {
     return DetectorFunctions::detectorUnitsName(
-        m_simulation->getInstrument().getDetector()->getDefaultAxesUnits());
+        m_simulation->getInstrument().getDetector()->defaultAxesUnits());
 }
 
 //! Initialize detector, if necessary, to match experimental data

@@ -73,9 +73,9 @@ namespace {
     //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
     std::function<std::string(double)> printFunc(const IDetector2D* detector)
     {
-        if (detector->getDefaultAxesUnits() == AxesUnits::MM)
+        if (detector->defaultAxesUnits() == AxesUnits::MM)
             return PythonFormatting::printDouble;
-        if (detector->getDefaultAxesUnits() == AxesUnits::RADIANS)
+        if (detector->defaultAxesUnits() == AxesUnits::RADIANS)
             return PythonFormatting::printDegrees;
         throw Exceptions::RuntimeErrorException(
             "ExportToPython::defineMasks() -> Error. Unknown detector units.");
@@ -869,7 +869,7 @@ std::string ExportToPython::defineMasks(const GISASSimulation* simulation) const
     result << std::setprecision(12);
 
     const IDetector2D* detector = simulation->getInstrument().getDetector();
-    const DetectorMask* detectorMask = detector->getDetectorMask();
+    const DetectorMask* detectorMask = detector->detectorMask();
     if(detectorMask && detectorMask->numberOfMasks()) {
         result << "\n";
         for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {

@@ -28,12 +28,12 @@ TEST_F(SphericalDetectorTest, initialState)
 
     // checking size
     EXPECT_EQ(0u, detector.dimension());
-    EXPECT_EQ(AxesUnits::RADIANS, detector.getDefaultAxesUnits());
+    EXPECT_EQ(AxesUnits::RADIANS, detector.defaultAxesUnits());
 
     // detector units
     std::vector<AxesUnits> validUnits =
         {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QYQZ};
-    EXPECT_EQ(validUnits, detector.getValidAxesUnits());
+    EXPECT_EQ(validUnits, detector.validAxesUnits());
 
     // masks
     EXPECT_FALSE(detector.hasMasks());
@@ -274,7 +274,7 @@ TEST_F(SphericalDetectorTest, MaskOfDetector)
     Polygon polygon(x, y);
     detector.addMask(polygon, true);
 
-    const OutputData<bool> *mask = detector.getDetectorMask()->getMaskData();
+    const OutputData<bool> *mask = detector.detectorMask()->getMaskData();
     for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
         double x = mask->getAxisValue(index, 0);
         double y = mask->getAxisValue(index, 1);
@@ -286,7 +286,7 @@ TEST_F(SphericalDetectorTest, MaskOfDetector)
     }
 
     SphericalDetector detector2(detector);
-    mask = detector2.getDetectorMask()->getMaskData();
+    mask = detector2.detectorMask()->getMaskData();
     for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
         double x = mask->getAxisValue(index, 0);
         double y = mask->getAxisValue(index, 1);
@@ -297,7 +297,7 @@ TEST_F(SphericalDetectorTest, MaskOfDetector)
         }
     }
 
-    mask = detector.getDetectorMask()->getMaskData();
+    mask = detector.detectorMask()->getMaskData();
     for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
         double x = mask->getAxisValue(index, 0);
         double y = mask->getAxisValue(index, 1);

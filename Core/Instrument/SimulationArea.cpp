@@ -37,7 +37,7 @@ SimulationArea::SimulationArea(const IDetector2D* detector)
     if(m_detector->regionOfInterest())
         m_max_index = m_detector->regionOfInterest()->roiSize();
     else
-        m_max_index = m_detector->getTotalSize();
+        m_max_index = m_detector->totalSize();
 }
 
 SimulationAreaIterator SimulationArea::begin()
@@ -59,7 +59,7 @@ bool SimulationArea::isMasked(size_t index) const
         throw Exceptions::RuntimeErrorException(message.str());
     }
 
-    return m_detector->getDetectorMask()->isMasked(detectorIndex(index));
+    return m_detector->detectorMask()->isMasked(detectorIndex(index));
 }
 
 size_t SimulationArea::roiIndex(size_t index) const

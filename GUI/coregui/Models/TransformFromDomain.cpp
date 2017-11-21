@@ -404,7 +404,7 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem,
                                            const GISASSimulation& simulation)
 {
     const IDetector2D* detector = simulation.getInstrument().getDetector();
-    if( (detector->getDetectorMask() && detector->getDetectorMask()->numberOfMasks()) ||
+    if( (detector->detectorMask() && detector->detectorMask()->numberOfMasks()) ||
         detector->regionOfInterest()) {
         detectorItem->createMaskContainer();
 
@@ -419,7 +419,7 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem,
 void TransformFromDomain::setDetectorMasks(MaskContainerItem* containerItem,
                                            const IDetector2D& detector, double scale)
 {
-    auto detectorMask = detector.getDetectorMask();
+    auto detectorMask = detector.detectorMask();
     for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {
         bool mask_value(false);
         const IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);

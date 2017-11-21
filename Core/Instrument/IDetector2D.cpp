@@ -86,14 +86,14 @@ void IDetector2D::maskAll()
     addMask(InfinitePlane(), true);
 }
 
-const DetectorMask *IDetector2D::getDetectorMask() const
+const DetectorMask *IDetector2D::detectorMask() const
 {
     return &m_detector_mask;
 }
 
 size_t IDetector2D::numberOfMaskedChannels() const
 {
-    return getDetectorMask() ? getDetectorMask()->numberOfMaskedChannels() : 0;
+    return detectorMask() ? detectorMask()->numberOfMaskedChannels() : 0;
 }
 
 bool IDetector2D::isMasked(size_t index) const
@@ -202,7 +202,7 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
 size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
 {
     if (dimension() != 2)
-        return getTotalSize();
+        return totalSize();
     return x * getAxis(1).size() + y;
 }
 

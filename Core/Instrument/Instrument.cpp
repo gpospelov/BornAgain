@@ -124,7 +124,7 @@ Histogram2D* Instrument::createIntensityData(const std::vector<SimulationElement
     std::unique_ptr<Histogram2D> result(new Histogram2D(*data));
 
     if (units_type == AxesUnits::DEFAULT)
-        units_type = mP_detector->getDefaultAxesUnits();
+        units_type = mP_detector->defaultAxesUnits();
 
     result->setAxesUnits(DetectorFunctions::detectorUnitsName(units_type));
     return result.release();
@@ -143,7 +143,7 @@ void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi
 
 const DetectorMask *Instrument::getDetectorMask() const
 {
-    return getDetector()->getDetectorMask();
+    return getDetector()->detectorMask();
 }
 
 void Instrument::setBeam(const Beam &beam)

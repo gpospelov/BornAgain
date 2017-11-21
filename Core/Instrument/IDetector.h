@@ -56,10 +56,10 @@ public:
     size_t dimension() const {return m_axes.size();}
 
     //! Calculate axis index for given global index
-    size_t getAxisBinIndex(size_t index, size_t selected_axis) const;
+    size_t axisBinIndex(size_t index, size_t selected_axis) const;
 
     //! Returns total number of pixels
-    size_t getTotalSize() const;
+    size_t totalSize() const;
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
@@ -95,10 +95,10 @@ public:
                                                 AxesUnits units_type = AxesUnits::DEFAULT) const;
 
     //! Return default axes units
-    virtual AxesUnits getDefaultAxesUnits() const {return AxesUnits::DEFAULT;}
+    virtual AxesUnits defaultAxesUnits() const {return AxesUnits::DEFAULT;}
 
     //! Returns vector of valid axes units
-    virtual std::vector<AxesUnits> getValidAxesUnits() const {return {AxesUnits::NBINS};}
+    virtual std::vector<AxesUnits> validAxesUnits() const {return {AxesUnits::NBINS};}
 
     virtual std::vector<const INode*> getChildren() const override;
 
@@ -106,7 +106,7 @@ protected:
     IDetector(const IDetector& other);
 
     //! Returns the name for the axis with given index
-    virtual std::string getAxisName(size_t index) const = 0;
+    virtual std::string axisName(size_t index) const = 0;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,

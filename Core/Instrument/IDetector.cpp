@@ -33,7 +33,7 @@ const IAxis& IDetector::getAxis(size_t index) const
     throw std::runtime_error("Error in IDetector::getAxis: not so many axes in this detector.");
 }
 
-size_t IDetector::getAxisBinIndex(size_t index, size_t selected_axis) const
+size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
 {
     size_t remainder(index);
     for (size_t i=0; i<dimension(); ++i)
@@ -55,10 +55,10 @@ std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins, double
     if (n_bins == 0)
         throw Exceptions::LogicErrorException(
             "IDetector::createAxis() -> Error! Number n_bins can't be zero.");
-    return std::make_unique<FixedBinAxis>(getAxisName(index), n_bins, min, max);
+    return std::make_unique<FixedBinAxis>(axisName(index), n_bins, min, max);
 }
 
-size_t IDetector::getTotalSize() const
+size_t IDetector::totalSize() const
 {
     const size_t dim = dimension();
     if (dim == 0)
@@ -147,7 +147,7 @@ void IDetector::checkAxesUnits(AxesUnits units) const
     if(units == AxesUnits::DEFAULT)
         return;
 
-    auto validUnits = getValidAxesUnits();
+    auto validUnits = validAxesUnits();
     if(std::find(validUnits.begin(), validUnits.end(), units) == validUnits.end()) {
         std::ostringstream message;
         message << "IDetector::createDetectorMap() -> Error. Unknown axes unit " << static_cast<int>(units) << "\n";

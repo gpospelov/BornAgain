@@ -162,11 +162,11 @@ void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
 {
     ComboProperty combo;
 
-    foreach (auto units, detector->getValidAxesUnits())
+    foreach (auto units, detector->validAxesUnits())
         combo << nameFromAxesUnits(units);
 
     AxesUnits preferrable_units
-        = preferableGUIAxesUnits(detector->getDefaultAxesUnits());
+        = preferableGUIAxesUnits(detector->defaultAxesUnits());
 
     combo.setValue(nameFromAxesUnits(preferrable_units));
     intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
@@ -199,7 +199,7 @@ void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
     DomainObjectBuilder builder;
     auto instrument = builder.buildInstrument(*instrumentItem);
     instrument->initDetector();
-    AxesUnits units = instrument->getDetector()->getDefaultAxesUnits();
+    AxesUnits units = instrument->getDetector()->defaultAxesUnits();
     auto detector = instrument->getDetector();
     setIntensityItemAxesUnits(intensityItem, detector);
     updateAxesTitle(intensityItem);
@@ -217,7 +217,7 @@ OutputData<double>* JobItemUtils::createDetectorMap(const InstrumentItem* instru
     instrument->initDetector();
 
     if (units == AxesUnits::DEFAULT)
-        units = instrument->getDetector()->getDefaultAxesUnits();
+        units = instrument->getDetector()->defaultAxesUnits();
 
     auto result = instrument->getDetector()->createDetectorMap(instrument->getBeam(), units);
     if (!result) {

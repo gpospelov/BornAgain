@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "SamplePropertyWidget.h"
+#include "ComponentTreeView.h"
 #include "ComponentEditor.h"
 #include "SessionItem.h"
 #include <QItemSelection>
@@ -25,6 +26,7 @@
 SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model, QWidget *parent)
     : QWidget(parent)
     , m_selection_model(0)
+    , m_propertyEditor(new ComponentTreeView)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle(QLatin1String("Property Editor"));
@@ -35,8 +37,6 @@ SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model,
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-
-    m_propertyEditor = new ComponentEditor;
 
     mainLayout->addWidget(m_propertyEditor);
     setLayout(mainLayout);
@@ -78,8 +78,9 @@ void SamplePropertyWidget::selectionChanged(const QItemSelection & selected,
         SessionItem *item = static_cast<SessionItem *>(
                 index.internalPointer());
 //        m_propertyEditor->setItem(item, item->modelType());
-        if (item)
-            m_propertyEditor->setItem(item, item->modelType());
+        if (item) {
+            m_propertyEditor->setItem(item);
+        }
     } else {
         m_propertyEditor->setItem(0);
     }

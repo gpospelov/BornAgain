@@ -45,7 +45,7 @@ PropertyWidgetItem::~PropertyWidgetItem()
     m_editor->deleteLater();
 }
 
-void PropertyWidgetItem::setItemEditor(SessionItem* item, QWidget* editor)
+void PropertyWidgetItem::setItemEditor(const SessionItem* item, QWidget* editor)
 {
     Q_ASSERT(m_editor == nullptr);
     m_editor = editor;

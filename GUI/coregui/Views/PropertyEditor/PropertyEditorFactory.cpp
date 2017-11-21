@@ -29,9 +29,9 @@
 #include <QLabel>
 
 namespace {
-QWidget* createCustomDoubleEditor(SessionItem& item);
-QWidget* createCustomIntEditor(SessionItem& item);
-QWidget* createCustomStringEditor(SessionItem& item);
+QWidget* createCustomDoubleEditor(const SessionItem& item);
+QWidget* createCustomIntEditor(const SessionItem& item);
+QWidget* createCustomStringEditor(const SessionItem& item);
 
 //! Single step for QDoubleSpinBox.
 
@@ -116,7 +116,7 @@ QString PropertyEditorFactory::ToString(const QVariant& variant)
 }
 
 
-QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
+QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* parent)
 {
     QWidget* result(nullptr);
 
@@ -172,7 +172,7 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
 
 namespace {
 
-QWidget* createCustomDoubleEditor(SessionItem& item)
+QWidget* createCustomDoubleEditor(const SessionItem& item)
 {
     auto result = new QDoubleSpinBox;
 
@@ -189,7 +189,7 @@ QWidget* createCustomDoubleEditor(SessionItem& item)
     return result;
 }
 
-QWidget* createCustomIntEditor(SessionItem& item)
+QWidget* createCustomIntEditor(const SessionItem& item)
 {
     auto result = new QSpinBox;
 
@@ -204,7 +204,7 @@ QWidget* createCustomIntEditor(SessionItem& item)
     return result;
 }
 
-QWidget* createCustomStringEditor(SessionItem& item)
+QWidget* createCustomStringEditor(const SessionItem& item)
 {
     QWidget* result(nullptr);
 

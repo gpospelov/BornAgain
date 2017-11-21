@@ -36,7 +36,7 @@ BA_CORE_API_ bool IsCustomVariant(const QVariant& variant);
 BA_CORE_API_ QString ToString(const QVariant& variant);
 
 //! Creates an editor suitable for editing of item.value()
-BA_CORE_API_ QWidget* CreateEditor(SessionItem& item, QWidget* parent = nullptr);
+BA_CORE_API_ QWidget* CreateEditor(const SessionItem& item, QWidget* parent = nullptr);
 
 }
 

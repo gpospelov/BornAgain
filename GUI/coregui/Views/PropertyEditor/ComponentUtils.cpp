@@ -27,11 +27,11 @@ QStringList ComponentUtils::propertyRelatedTypes()
     return result;
 }
 
-QList<SessionItem*> ComponentUtils::componentItems(const SessionItem& item)
+QList<const SessionItem*> ComponentUtils::componentItems(const SessionItem& item)
 {
     static QStringList propertyRelated = ComponentUtils::propertyRelatedTypes();
 
-    QList<SessionItem*> result;
+    QList<const SessionItem*> result;
 
     for (auto child : item.children()) {
         if (!child->isVisible())

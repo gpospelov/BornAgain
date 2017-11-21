@@ -117,7 +117,7 @@ void ComponentFlatView::initGridLayout()
     m_mainLayout->addStretch(1);
 }
 
-PropertyWidgetItem* ComponentFlatView::createWidget(SessionItem* item)
+PropertyWidgetItem* ComponentFlatView::createWidget(const SessionItem* item)
 {
     auto editor = PropertyEditorFactory::CreateEditor(*item);
     if (!editor)

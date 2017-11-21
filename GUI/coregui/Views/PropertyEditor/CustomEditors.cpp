@@ -28,6 +28,7 @@
 #include <QComboBox>
 #include <QColorDialog>
 #include <QLineEdit>
+#include <QCheckBox>
 
 //! Sets the data from the model to editor.
 
@@ -328,4 +329,37 @@ void ScientificDoublePropertyEditor::initEditor()
     Q_ASSERT(m_data.canConvert<ScientificDoubleProperty>());
     ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
     m_lineEdit->setText(doubleProperty.getText());
+}
+
+// --- BoolEditor ---
+
+BoolEditor::BoolEditor(QWidget* parent)
+    : CustomEditor(parent)
+    , m_checkBox(new QCheckBox)
+{
+    auto layout = new QHBoxLayout;
+    layout->setContentsMargins(4, 0, 0, 0);
+    layout->addWidget(m_checkBox);
+    setLayout(layout);
+
+    connect(m_checkBox, &QCheckBox::toggled, this, &BoolEditor::onCheckBoxChange);
+    setFocusProxy(m_checkBox);
+    m_checkBox->setText(tr("True"));
+}
+
+void BoolEditor::onCheckBoxChange(bool value)
+{
+    if(value != m_data.toBool())
+        setDataIntern(QVariant(value));
+}
+
+void BoolEditor::initEditor()
+{
+    Q_ASSERT(m_data.type() == QVariant::Bool);
+    bool value = m_data.toBool();
+
+    m_checkBox->blockSignals(true);
+    m_checkBox->setChecked(value);
+    m_checkBox->setText(value ? "True" : "False");
+    m_checkBox->blockSignals(false);
 }

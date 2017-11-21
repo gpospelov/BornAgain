@@ -21,6 +21,7 @@
 
 class IntensityDataItem;
 class ComponentEditor;
+class ComponentTreeView;
 class SessionItem;
 
 //! The IntensityDataPropertyWidget shows ComponentEditor for given IntensityDataItem.
@@ -47,6 +48,7 @@ protected:
 private:
     QAction* m_togglePanelAction;
     ComponentEditor* m_componentEditor;
+    ComponentTreeView* m_componentEditor2;
 };
 
 #endif // INTENSITYDATAPROPERTYWIDGET_H

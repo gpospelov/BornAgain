@@ -171,4 +171,25 @@ private:
     QDoubleValidator* m_validator;
 };
 
+//! Editor for boolean.
+
+class QCheckBox;
+
+class BA_CORE_API_ BoolEditor : public CustomEditor
+{
+    Q_OBJECT
+public:
+    BoolEditor(QWidget* parent = nullptr);
+
+private slots:
+    void onCheckBoxChange(bool value);
+
+protected:
+    void initEditor();
+
+private:
+    QCheckBox *m_checkBox;
+};
+
+
 #endif  //  CUSTOMEDITORS_H

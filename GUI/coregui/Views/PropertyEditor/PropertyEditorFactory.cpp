@@ -80,6 +80,11 @@ bool isStringProperty(const QVariant& variant)
     return variant.type() == QVariant::String;
 }
 
+bool isBoolProperty(const QVariant& variant)
+{
+    return variant.type() == QVariant::Bool;
+}
+
 }
 
 bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
@@ -93,6 +98,8 @@ bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
     if (isComboProperty(variant))
         return true;
     if (isScientificDoubleProperty(variant))
+        return true;
+    if (isBoolProperty(variant))
         return true;
 
     return false;
@@ -111,6 +118,8 @@ QString PropertyEditorFactory::ToString(const QVariant& variant)
         return variant.value<ComboProperty>().getValue();
     if (isScientificDoubleProperty(variant))
         return variant.value<ScientificDoubleProperty>().getText();
+    if (isBoolProperty(variant))
+        return variant.toBool() ? "True" : "False";
 
     return QString();
 }
@@ -126,6 +135,12 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
 
     else if(isIntProperty(item.value())) {
         result = createCustomIntEditor(item);
+    }
+
+    else if(isBoolProperty(item.value())) {
+        auto editor = new BoolEditor;
+        editor->setData(item.value());
+        result = editor;
     }
 
     else if(isStringProperty(item.value())) {

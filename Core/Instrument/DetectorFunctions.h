@@ -17,11 +17,10 @@
 #define DETECTORFUNCTIONS_H
 
 #include "WinDllMacros.h"
-#include "IDetector2D.h"
+#include "IDetector.h"
 #include <string>
 #include <memory>
 template<class T> class OutputData;
-class IDetector2D;
 class Instrument;
 
 
@@ -31,13 +30,13 @@ class Instrument;
 namespace DetectorFunctions {
 
 //! Returns true if the data has same axes size (nx,ny) with the detector.
-BA_CORE_API_ bool hasSameDimensions(const IDetector2D& detector, const OutputData<double>& data);
+BA_CORE_API_ bool hasSameDimensions(const IDetector& detector, const OutputData<double>& data);
 
 // TODO replace two functions below with the template function after change of
 // OutputData::getAxis signature
 
 //! Returns string representation of axes dimension in the form "(nx,ny)"
-BA_CORE_API_ std::string axesToString(const IDetector2D& detector);
+BA_CORE_API_ std::string axesToString(const IDetector& detector);
 
 //! Returns string representation of axes dimension in the form "(nx,ny)"
 BA_CORE_API_ std::string axesToString(const OutputData<double>& data);

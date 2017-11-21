@@ -17,7 +17,7 @@
 #ifndef JOBITEMUTILS_H
 #define JOBITEMUTILS_H
 
-#include "IDetector2D.h"
+#include "IDetector.h"
 #include <QMap>
 
 class GISASSimulation;
@@ -57,7 +57,7 @@ BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
                                             const InstrumentItem* instrumentItem);
 
 BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
-                                            const IDetector2D* detector);
+                                            const IDetector* detector);
 
 BA_CORE_API_ void updateAxesTitle(IntensityDataItem* intensityItem);
 

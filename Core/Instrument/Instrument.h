@@ -18,11 +18,14 @@
 
 #include "INode.h"
 #include "Beam.h"
-#include "IDetector2D.h"
 #include <memory>
 
 template<class T> class OutputData;
+class Histogram2D;
+class DetectorMask;
 class IAxis;
+class IDetector;
+class IDetector2D;
 class IResolutionFunction2D;
 class SimulationElement;
 
@@ -57,13 +60,13 @@ public:
     double getBeamIntensity() const;
 
     //! Returns the detector data
-    const IDetector2D* getDetector() const;
-    IDetector2D* getDetector();
+    const IDetector* getDetector() const;
+    IDetector* getDetector();
 
     //! Returns 2D detector data if detector is truly 2D. Otherwise returns nullptr
     IDetector2D* detector2D();
 
-    const DetectorMask *getDetectorMask() const;
+    const DetectorMask* getDetectorMask() const;
 
     //! Returns a detector axis
     const IAxis& getDetectorAxis(size_t index) const;
@@ -72,7 +75,7 @@ public:
     size_t getDetectorDimension() const;
 
     //! Sets the detector (axes can be overwritten later)
-    void setDetector(const IDetector2D& detector);
+    void setDetector(const IDetector& detector);
 
     //! Sets detector resolution function
     void setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function);
@@ -113,7 +116,7 @@ protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters() {}
 
-    std::unique_ptr<IDetector2D> mP_detector;
+    std::unique_ptr<IDetector> mP_detector;
     Beam m_beam;
 };
 

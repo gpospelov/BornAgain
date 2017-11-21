@@ -15,7 +15,6 @@
 
 #include "DetectorFunctions.h"
 #include "OutputData.h"
-#include "IDetector2D.h"
 #include "Instrument.h"
 #include "SimulationArea.h"
 #include "StringUtils.h"
@@ -53,8 +52,7 @@ std::map<AxesUnits, std::string> init_units_to_name_map()
 
 }
 
-bool DetectorFunctions::hasSameDimensions(const IDetector2D &detector,
-                                          const OutputData<double> &data)
+bool DetectorFunctions::hasSameDimensions(const IDetector& detector, const OutputData<double>& data)
 {
     if (data.getRank() != detector.dimension())
         return false;
@@ -66,7 +64,7 @@ bool DetectorFunctions::hasSameDimensions(const IDetector2D &detector,
     return true;
 }
 
-std::string DetectorFunctions::axesToString(const IDetector2D &detector)
+std::string DetectorFunctions::axesToString(const IDetector& detector)
 {
     std::ostringstream result;
 

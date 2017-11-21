@@ -54,7 +54,7 @@ QMap<AxesUnits, QString> init_description_to_units_map()
 void JobItemUtils::setResults(IntensityDataItem* intensityItem, const GISASSimulation* simulation)
 {
     if (intensityItem->getOutputData() == nullptr) {
-        const IDetector2D* detector = simulation->getInstrument().getDetector();
+        const IDetector* detector = simulation->getInstrument().getDetector();
         setIntensityItemAxesUnits(intensityItem, detector);
         auto selected_units = axesUnitsFromName(intensityItem->selectedAxesUnits());
         updateAxesTitle(intensityItem);
@@ -158,7 +158,7 @@ void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
 //! Sets axes units suitable for given detector. Currently selected units will  be preserved.
 
 void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
-                                              const IDetector2D* detector)
+                                              const IDetector* detector)
 {
     ComboProperty combo;
 

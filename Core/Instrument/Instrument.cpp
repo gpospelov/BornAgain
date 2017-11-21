@@ -15,7 +15,6 @@
 
 #include "Instrument.h"
 #include "Beam.h"
-#include "IDetector2D.h"
 #include "IResolutionFunction2D.h"
 #include "SimulationElement.h"
 #include "SphericalDetector.h"
@@ -55,7 +54,7 @@ Instrument &Instrument::operator=(const Instrument &other)
     return *this;
 }
 
-void Instrument::setDetector(const IDetector2D& detector)
+void Instrument::setDetector(const IDetector& detector)
 {
     mP_detector.reset(detector.clone());
     registerChild(mP_detector.get());
@@ -156,12 +155,12 @@ double Instrument::getBeamIntensity() const
     return m_beam.getIntensity();
 }
 
-const IDetector2D* Instrument::getDetector() const
+const IDetector* Instrument::getDetector() const
 {
     return mP_detector.get();
 }
 
-IDetector2D* Instrument::getDetector()
+IDetector* Instrument::getDetector()
 {
     return mP_detector.get();
 }

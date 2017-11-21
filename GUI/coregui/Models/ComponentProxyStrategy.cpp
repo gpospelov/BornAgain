@@ -109,9 +109,9 @@ void ComponentProxyStrategy::processGroupItem(SessionItem* item,
             return;
 
         auto groupItem = dynamic_cast<const GroupItem*>(ancestor);
-        if (item->parent() == groupItem->currentItem()) {
+        if (item->parent() == groupItem->currentItem() && item->isVisible()) {
             QPersistentModelIndex proxyIndex
-                = createProxyIndex(sourceIndex.row(), sourceIndex.column(), sourceIndex.internalPointer());
+                = createProxyIndex(SessionItemUtils::ParentVisibleRow(*item), sourceIndex.column(), sourceIndex.internalPointer());
 
             m_sourceToProxy.insert(sourceIndex, proxyIndex);
             m_proxySourceParent.insert(proxyIndex, groupItem->index());

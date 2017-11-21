@@ -144,6 +144,9 @@ void TestComponentView::init_source()
     materialItem->setItemValue(MaterialItem::P_COLOR,
                                MaterialItemUtils::suggestMaterialColorProperty("air").getVariant());
 
+    // adding intensity data item
+    m_sourceModel->insertNewItem(Constants::IntensityDataType);
+
 //    SessionItem* multilayer = m_sourceModel->insertNewItem(Constants::MultiLayerType);
 //    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));
 //    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));

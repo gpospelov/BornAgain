@@ -50,6 +50,8 @@ void ComponentTreeView::setModel(SessionModel* model)
 
 void ComponentTreeView::setRootIndex(const QModelIndex& index)
 {
+    if (QWidget* editor = m_tree->indexWidget(m_tree->currentIndex()))
+        m_delegate->closeEditor(editor, QAbstractItemDelegate::NoHint);
     Q_ASSERT(m_proxyModel);
     m_proxyModel->setRootIndex(index);
 }

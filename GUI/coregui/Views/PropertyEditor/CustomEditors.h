@@ -36,13 +36,14 @@ public:
     QVariant editorData() { return m_data; }
 
 public slots:
-    virtual void setData(const QVariant& data);
+    void setData(const QVariant& data);
 
 signals:
     //! Signal emit then user changed the data through the editor
     void dataChanged(const QVariant& data);
 
 protected:
+    virtual void initEditor();
     void setDataIntern(const QVariant& data);
     QVariant m_data;
 };
@@ -55,11 +56,11 @@ class BA_CORE_API_ MaterialPropertyEditor : public CustomEditor
 public:
     explicit MaterialPropertyEditor(QWidget* parent = nullptr);
 
-public slots:
-    void setData(const QVariant& data);
-
 private slots:
     void buttonClicked();
+
+protected:
+    void initEditor();
 
 private:
     QLabel* m_textLabel;
@@ -76,11 +77,11 @@ class BA_CORE_API_ ColorPropertyEditor : public CustomEditor
 public:
     explicit ColorPropertyEditor(QWidget* parent = nullptr);
 
-public slots:
-    void setData(const QVariant& data);
-
 private slots:
     void buttonClicked();
+
+protected:
+    void initEditor();
 
 private:
     QLabel* m_textLabel;
@@ -88,7 +89,7 @@ private:
     LostFocusFilter* m_focusFilter;
 };
 
-//! Common editor for QComboBox-like cystim editors.
+//! Common editor for QComboBox-like custom editors.
 
 class BA_CORE_API_ CustomComboEditor : public CustomEditor
 {
@@ -99,18 +100,16 @@ public:
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
-public slots:
-    void setData(const QVariant& data);
-
 protected slots:
     virtual void onIndexChanged(int index);
 
 protected:
+    void initEditor();
     virtual QStringList internLabels();
     virtual int internIndex();
     void setConnected(bool isConnected);
 
-    QComboBox* m_box;
+    QComboBox* m_box;    
 };
 
 //! Editor for GroupProperty variant.
@@ -133,9 +132,14 @@ protected:
 
 class BA_CORE_API_ ComboPropertyEditor : public CustomComboEditor
 {
-    Q_OBJECT
+    Q_OBJECT    
 public:
     explicit ComboPropertyEditor(QWidget *parent = nullptr);
+
+
+signals:
+    //! Signal which is used only in the context of ComponentFlatView
+    void currentIndexChanged(int);
 
 protected slots:
     void onIndexChanged(int index);
@@ -143,6 +147,28 @@ protected slots:
 protected:
     QStringList internLabels();
     int internIndex();
+};
+
+//! Editor for ScientificDoubleProperty variant.
+
+class QLineEdit;
+class QDoubleValidator;
+
+class BA_CORE_API_ ScientificDoublePropertyEditor : public CustomEditor
+{
+    Q_OBJECT
+public:
+    ScientificDoublePropertyEditor(QWidget *parent = nullptr);
+
+private slots:
+    void onEditingFinished();
+
+protected:
+    void initEditor();
+
+private:
+    QLineEdit* m_lineEdit;
+    QDoubleValidator* m_validator;
 };
 
 #endif  //  CUSTOMEDITORS_H

@@ -47,7 +47,7 @@ private:
     void updateItemProperties(SessionItem* item);
     void clearLayout();
     void initGridLayout();
-    PropertyWidgetItem* createWidget(SessionItem* item);
+    PropertyWidgetItem* createWidget(const SessionItem* item);
 
     QBoxLayout* m_mainLayout;
     QGridLayout* m_gridLayout;

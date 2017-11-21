@@ -37,7 +37,7 @@ public:
     explicit PropertyWidgetItem(QWidget* parent = nullptr);
     ~PropertyWidgetItem();
 
-    void setItemEditor(SessionItem* item, QWidget* editor);
+    void setItemEditor(const SessionItem* item, QWidget* editor);
     void addToGrid(QGridLayout* gridLayout, int nrow);
 
 private:

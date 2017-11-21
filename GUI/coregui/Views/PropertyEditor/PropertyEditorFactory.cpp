@@ -22,12 +22,16 @@
 #include "CustomEditors.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
+#include "ScientificDoubleProperty.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
+#include <QLineEdit>
+#include <QLabel>
 
 namespace {
-QDoubleSpinBox* createCustomDoubleEditor(SessionItem& item);
-QSpinBox* createCustomIntEditor(SessionItem& item);
+QWidget* createCustomDoubleEditor(const SessionItem& item);
+QWidget* createCustomIntEditor(const SessionItem& item);
+QWidget* createCustomStringEditor(const SessionItem& item);
 
 //! Single step for QDoubleSpinBox.
 
@@ -66,23 +70,66 @@ bool isComboProperty(const QVariant& variant)
     return variant.canConvert<ComboProperty>();
 }
 
+bool isScientificDoubleProperty(const QVariant& variant)
+{
+    return variant.canConvert<ScientificDoubleProperty>();
+}
+
+bool isStringProperty(const QVariant& variant)
+{
+    return variant.type() == QVariant::String;
+}
+
+}
+
+bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
+{
+    if (isMaterialProperty(variant))
+        return true;
+    if (isColorProperty(variant))
+        return true;
+    if (isGroupProperty(variant))
+        return true;
+    if (isComboProperty(variant))
+        return true;
+    if (isScientificDoubleProperty(variant))
+        return true;
+
+    return false;
+}
+
+// TODO replace with template method when custom variants refactored
+QString PropertyEditorFactory::ToString(const QVariant& variant)
+{
+    if (isMaterialProperty(variant))
+        return variant.value<MaterialProperty>().getName();
+    if (isColorProperty(variant))
+        return variant.value<ColorProperty>().getText();
+    if (isGroupProperty(variant))
+        return variant.value<GroupProperty_t>()->currentLabel();
+    if (isComboProperty(variant))
+        return variant.value<ComboProperty>().getValue();
+    if (isScientificDoubleProperty(variant))
+        return variant.value<ScientificDoubleProperty>().getText();
+
+    return QString();
 }
 
 
-QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
+QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* parent)
 {
     QWidget* result(nullptr);
 
     if (isDoubleProperty(item.value())) {
-        auto editor = createCustomDoubleEditor(item);
-        editor->setValue(item.value().toDouble());
-        result = editor;
+        result = createCustomDoubleEditor(item);
     }
 
     else if(isIntProperty(item.value())) {
-        auto editor = createCustomIntEditor(item);
-        editor->setValue(item.value().toInt());
-        result = editor;
+        result = createCustomIntEditor(item);
+    }
+
+    else if(isStringProperty(item.value())) {
+        result = createCustomStringEditor(item);
     }
 
     else if(isMaterialProperty(item.value())) {
@@ -109,6 +156,12 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
         result = editor;
     }
 
+    else if(isScientificDoubleProperty(item.value())) {
+        auto editor = new ScientificDoublePropertyEditor;
+        editor->setData(item.value());
+        result = editor;
+    }
+
     if (parent && result)
         result->setParent(parent);
 
@@ -119,7 +172,7 @@ QWidget* PropertyEditorFactory::CreateEditor(SessionItem& item, QWidget* parent)
 
 namespace {
 
-QDoubleSpinBox* createCustomDoubleEditor(SessionItem& item)
+QWidget* createCustomDoubleEditor(const SessionItem& item)
 {
     auto result = new QDoubleSpinBox;
 
@@ -132,10 +185,11 @@ QDoubleSpinBox* createCustomDoubleEditor(SessionItem& item)
     if (limits.hasUpperLimit())
         result->setMaximum(limits.getUpperLimit());
 
+    result->setValue(item.value().toDouble());
     return result;
 }
 
-QSpinBox* createCustomIntEditor(SessionItem& item)
+QWidget* createCustomIntEditor(const SessionItem& item)
 {
     auto result = new QSpinBox;
 
@@ -145,7 +199,27 @@ QSpinBox* createCustomIntEditor(SessionItem& item)
     if (limits.hasUpperLimit())
         result->setMaximum(static_cast<int>(limits.getUpperLimit()));
 
+    result->setValue(item.value().toInt());
+
+    return result;
+}
+
+QWidget* createCustomStringEditor(const SessionItem& item)
+{
+    QWidget* result(nullptr);
+
+    if (item.isEditable()) {
+        auto editor = new QLineEdit;
+        editor->setText(item.value().toString());
+        result = editor;
+    } else {
+        auto editor = new QLabel;
+        editor->setText(item.value().toString());
+        result = editor;
+    }
+
     return result;
 }
 
 }
+

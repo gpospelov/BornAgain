@@ -21,24 +21,31 @@
 #include "GroupProperty.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
+#include "ScientificDoubleProperty.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QToolButton>
 #include <QComboBox>
 #include <QColorDialog>
+#include <QLineEdit>
 
 //! Sets the data from the model to editor.
 
 void CustomEditor::setData(const QVariant& data)
 {
     m_data = data;
+    initEditor();
 }
 
-//! Saves the data from editor and inform external delegates.
+//! Inits editor widgets from m_data.
+
+void CustomEditor::initEditor() {}
+
+//! Saves the data from the editor and informs external delegates.
 
 void CustomEditor::setDataIntern(const QVariant& data)
 {
-    setData(data);
+    m_data = data;
     dataChanged(m_data);
 }
 
@@ -75,16 +82,6 @@ MaterialPropertyEditor::MaterialPropertyEditor(QWidget* parent)
     setLayout(layout);
 }
 
-void MaterialPropertyEditor::setData(const QVariant& data)
-{
-    Q_ASSERT(data.canConvert<MaterialProperty>());
-    CustomEditor::setData(data);
-
-    MaterialProperty materialProperty = m_data.value<MaterialProperty>();
-    m_textLabel->setText(materialProperty.getName());
-    m_pixmapLabel->setPixmap(materialProperty.getPixmap());
-}
-
 void MaterialPropertyEditor::buttonClicked()
 {
     // temporarily installing filter to prevent loss of focus caused by too insistent dialog
@@ -95,6 +92,14 @@ void MaterialPropertyEditor::buttonClicked()
 
     if(mat.isDefined() )
         setDataIntern(mat.getVariant());
+}
+
+void MaterialPropertyEditor::initEditor()
+{
+    Q_ASSERT(m_data.canConvert<MaterialProperty>());
+    MaterialProperty materialProperty = m_data.value<MaterialProperty>();
+    m_textLabel->setText(materialProperty.getName());
+    m_pixmapLabel->setPixmap(materialProperty.getPixmap());
 }
 
 // --- ColorPropertyEditor ---
@@ -130,16 +135,6 @@ ColorPropertyEditor::ColorPropertyEditor(QWidget* parent)
     setLayout(layout);
 }
 
-void ColorPropertyEditor::setData(const QVariant& data)
-{
-    Q_ASSERT(data.canConvert<ColorProperty>());
-    CustomEditor::setData(data);
-
-    ColorProperty colorProperty = m_data.value<ColorProperty>();
-    m_textLabel->setText(colorProperty.getText());
-    m_pixmapLabel->setPixmap(colorProperty.getPixmap());
-}
-
 void ColorPropertyEditor::buttonClicked()
 {
     ColorProperty colorProperty = m_data.value<ColorProperty>();
@@ -152,6 +147,14 @@ void ColorPropertyEditor::buttonClicked()
         m_pixmapLabel->setPixmap(colorProperty.getPixmap());
         setDataIntern(colorProperty.getVariant());
     }
+}
+
+void ColorPropertyEditor::initEditor()
+{
+    Q_ASSERT(m_data.canConvert<ColorProperty>());
+    ColorProperty colorProperty = m_data.value<ColorProperty>();
+    m_textLabel->setText(colorProperty.getText());
+    m_pixmapLabel->setPixmap(colorProperty.getPixmap());
 }
 
 // --- CustomComboEditor ---
@@ -182,10 +185,12 @@ QSize CustomComboEditor::minimumSizeHint() const
     return m_box->minimumSizeHint();
 }
 
-void CustomComboEditor::setData(const QVariant& data)
+void CustomComboEditor::onIndexChanged(int)
 {
-    CustomEditor::setData(data);
+}
 
+void CustomComboEditor::initEditor()
+{
     setConnected(false);
 
     m_box->clear();
@@ -193,10 +198,6 @@ void CustomComboEditor::setData(const QVariant& data)
     m_box->setCurrentIndex(internIndex());
 
     setConnected(true);
-}
-
-void CustomComboEditor::onIndexChanged(int)
-{
 }
 
 //! Returns list of labels for QComboBox
@@ -220,7 +221,7 @@ void CustomComboEditor::setConnected(bool isConnected)
                 this, &CustomComboEditor::onIndexChanged, Qt::UniqueConnection);
     else
         disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-                this, &CustomComboEditor::onIndexChanged);
+                   this, &CustomComboEditor::onIndexChanged);
 }
 
 // --- GroupPropertyEditor ---
@@ -268,6 +269,7 @@ void ComboPropertyEditor::onIndexChanged(int index)
     if (comboProperty.currentIndex() != index) {
         comboProperty.setCurrentIndex(index);
         setDataIntern(QVariant::fromValue<ComboProperty>(comboProperty));
+        currentIndexChanged(index);
     }
 }
 
@@ -283,4 +285,47 @@ int ComboPropertyEditor::internIndex()
     Q_ASSERT(m_data.canConvert<ComboProperty>());
     ComboProperty comboProperty = m_data.value<ComboProperty>();
     return comboProperty.currentIndex();
+}
+
+// --- ScientificDoublePropertyEditor ---
+
+ScientificDoublePropertyEditor::ScientificDoublePropertyEditor(QWidget* parent)
+    : CustomEditor(parent)
+    , m_lineEdit(new QLineEdit)
+    , m_validator(nullptr)
+{
+    setAutoFillBackground(true);
+
+    auto layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
+    layout->addWidget(m_lineEdit);
+
+    m_validator  = new QDoubleValidator(0.0, 1e+100, 1000, this);
+    m_validator->setNotation(QDoubleValidator::ScientificNotation);
+    m_lineEdit->setValidator(m_validator);
+
+    connect(m_lineEdit, &QLineEdit::editingFinished,
+            this, &ScientificDoublePropertyEditor::onEditingFinished);
+
+    setLayout(layout);
+}
+
+void ScientificDoublePropertyEditor::onEditingFinished()
+{
+    double new_value = m_lineEdit->text().toDouble();
+    ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
+
+    if(new_value != doubleProperty.getValue()) {
+        doubleProperty.setValue(new_value);
+        setDataIntern(doubleProperty.getVariant());
+    }
+}
+
+void ScientificDoublePropertyEditor::initEditor()
+{
+    Q_ASSERT(m_data.canConvert<ScientificDoubleProperty>());
+    ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
+    m_lineEdit->setText(doubleProperty.getText());
 }

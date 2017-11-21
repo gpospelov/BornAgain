@@ -27,7 +27,7 @@ inline void TestComponentUtils::test_componentItems()
     SessionItem* group = particle->getItem(ParticleItem::P_FORM_FACTOR);
     SessionItem* ffItem = particle->getGroupItem(ParticleItem::P_FORM_FACTOR);
 
-    QList<SessionItem*> expectedList = QList<SessionItem*> ()
+    QList<const SessionItem*> expectedList = QList<const SessionItem*> ()
             << group
             << ffItem->getItem(CylinderItem::P_RADIUS)
             << ffItem->getItem(CylinderItem::P_HEIGHT)
@@ -50,7 +50,7 @@ inline void TestComponentUtils::test_componentItemsFFChange()
     particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::FullSphereType);
     SessionItem* sphereItem = particle->getGroupItem(ParticleItem::P_FORM_FACTOR);
 
-    QList<SessionItem*> expectedList = QList<SessionItem*> ()
+    QList<const SessionItem*> expectedList = QList<const SessionItem*> ()
             << group
             << sphereItem->getItem(FullSphereItem::P_RADIUS)
             << particle->getItem(ParticleItem::P_MATERIAL)

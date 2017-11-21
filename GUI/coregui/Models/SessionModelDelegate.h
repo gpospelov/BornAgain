@@ -52,15 +52,11 @@ public:
                               const QModelIndex& index) const;
 
 private slots:
-    void onScientificDoublePropertyChanged(const ScientificDoubleProperty&);
     void onCustomEditorDataChanged(const QVariant&);
 
 private:
     void paintCustomLabel(QPainter* painter, const QStyleOptionViewItem& option,
                           const QModelIndex& index, const QString& text) const;
-
-    void paintCustomDouble(QPainter* painter, const QStyleOptionViewItem& option,
-                          const QModelIndex& index) const;
 
 };
 

@@ -67,6 +67,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     message(STATUS "Found Python libraries version ${PYTHONLIBS_VERSION_STRING} at ${PYTHON_LIBRARIES}; includes at ${PYTHON_INCLUDE_DIRS}")
 
     if(NOT WIN32)
+        include(ValidatePythonInstallation)
         ValidatePythonInstallation()
     endif()
 

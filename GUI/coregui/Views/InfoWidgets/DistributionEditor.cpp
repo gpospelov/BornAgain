@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "DistributionEditor.h"
-#include "ComponentBoxEditor.h"
+#include "ComponentFlatView.h"
 #include "DistributionWidget.h"
 #include "GroupItem.h"
 #include "SessionItem.h"
@@ -29,7 +29,7 @@ int minimum_width = 250;
 
 DistributionEditor::DistributionEditor(QWidget* parent)
     : SessionItemWidget(parent)
-    , m_propertyEditor(new ComponentBoxEditor)
+    , m_propertyEditor(new ComponentFlatView)
     , m_item(nullptr)
     , m_plotwidget(new DistributionWidget)
     , m_box(new QGroupBox)
@@ -53,21 +53,21 @@ DistributionEditor::DistributionEditor(QWidget* parent)
     setLayout(mainLayout);
 }
 
-void DistributionEditor::onPropertyChanged(const QString& property_name)
-{
-    if (property_name == GroupItem::T_ITEMS)
-        m_plotwidget->setItem(distributionItem());
-}
-
 void DistributionEditor::subscribeToItem()
 {
     m_propertyEditor->clearEditor();
-    m_propertyEditor->addPropertyItems(currentItem());
+    m_propertyEditor->addItemProperties(currentItem());
 
     currentItem()->mapper()->setOnPropertyChange(
         [this](const QString& name) { onPropertyChanged(name); }, this);
 
     m_plotwidget->setItem(distributionItem());
+}
+
+void DistributionEditor::onPropertyChanged(const QString& property_name)
+{
+    if (property_name == GroupItem::T_ITEMS)
+        m_plotwidget->setItem(distributionItem());
 }
 
 GroupItem* DistributionEditor::groupItem()

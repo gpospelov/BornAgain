@@ -191,6 +191,7 @@ namespace {
 QWidget* createCustomDoubleEditor(const SessionItem& item)
 {
     auto result = new QDoubleSpinBox;
+    result->setKeyboardTracking(false);
 
     result->setDecimals(item.decimals());
     result->setSingleStep(singleStep(item));
@@ -210,6 +211,7 @@ QWidget* createCustomIntEditor(const SessionItem& item)
     auto result = new QSpinBox;
 
     result->setMaximum(std::numeric_limits<int>::max());
+    result->setKeyboardTracking(false);
 
     RealLimits limits = item.limits();
     if (limits.hasLowerLimit())

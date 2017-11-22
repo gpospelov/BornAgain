@@ -22,7 +22,7 @@
 class QGroupBox;
 class GroupItem;
 class DistributionWidget;
-class ComponentBoxEditor;
+class ComponentFlatView;
 class DistributionItem;
 
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
@@ -36,17 +36,15 @@ public:
 
     void setNameOfEditor(QString name);
 
-private slots:
-    void onPropertyChanged(const QString& property_name);
-
 protected:
     void subscribeToItem();
 
 private:
+    void onPropertyChanged(const QString& property_name);
     GroupItem* groupItem();
     DistributionItem* distributionItem();
 
-    ComponentBoxEditor* m_propertyEditor;
+    ComponentFlatView* m_propertyEditor;
     GroupItem* m_item;
     DistributionWidget* m_plotwidget;
     QString m_nameOfEditor;

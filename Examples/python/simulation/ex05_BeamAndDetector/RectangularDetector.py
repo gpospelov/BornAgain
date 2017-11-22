@@ -116,7 +116,7 @@ def run_simulation():
     # runs simulation for spherical detector
     simulation.setDetector(get_spherical_detector())
     simulation.runSimulation()
-    results['spherical'] = simulation.getIntensityData(ba.DetectorAxesUnits.DEGREES)
+    results['spherical'] = simulation.getIntensityData(ba.AxesUnits.DEGREES)
 
     # runs simulation for rectangular detector
     simulation.setDetector(get_rectangular_detector())

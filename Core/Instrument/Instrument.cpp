@@ -15,7 +15,6 @@
 
 #include "Instrument.h"
 #include "Beam.h"
-#include "IDetector2D.h"
 #include "IResolutionFunction2D.h"
 #include "SimulationElement.h"
 #include "SphericalDetector.h"
@@ -55,22 +54,11 @@ Instrument &Instrument::operator=(const Instrument &other)
     return *this;
 }
 
-void Instrument::setDetector(const IDetector2D& detector)
+void Instrument::setDetector(const IDetector& detector)
 {
     mP_detector.reset(detector.clone());
     registerChild(mP_detector.get());
     initDetector();
-}
-
-void Instrument::setDetectorParameters(size_t n_x, double x_min, double x_max,
-                                       size_t n_y, double y_min, double y_max)
-{
-    mP_detector->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
-}
-
-void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
-{
-    mP_detector->setDetectorAxes(axis0, axis1);
 }
 
 void Instrument::initDetector()
@@ -112,27 +100,27 @@ void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) co
 }
 
 OutputData<double> *Instrument::createDetectorIntensity(
-        const std::vector<SimulationElement> &elements, DetectorAxesUnits units) const
+        const std::vector<SimulationElement> &elements, AxesUnits units) const
 {
     return mP_detector->createDetectorIntensity(elements, m_beam, units);
 }
 
 Histogram2D* Instrument::createIntensityData(const std::vector<SimulationElement>& elements,
-                                         DetectorAxesUnits units_type) const
+                                         AxesUnits units_type) const
 {
     const std::unique_ptr<OutputData<double>> data(createDetectorIntensity(elements, units_type));
     std::unique_ptr<Histogram2D> result(new Histogram2D(*data));
 
-    if (units_type == DetectorAxesUnits::DEFAULT)
-        units_type = mP_detector->getDefaultAxesUnits();
+    if (units_type == AxesUnits::DEFAULT)
+        units_type = mP_detector->defaultAxesUnits();
 
     result->setAxesUnits(DetectorFunctions::detectorUnitsName(units_type));
     return result.release();
 }
 
-OutputData<double> *Instrument::createDetectorMap(DetectorAxesUnits units) const
+OutputData<double> *Instrument::createDetectorMap(AxesUnits units) const
 {
-    return mP_detector->createDetectorMap(m_beam, units);
+    return mP_detector->createDetectorMap(m_beam, units).release();
 }
 
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)
@@ -143,7 +131,7 @@ void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi
 
 const DetectorMask *Instrument::getDetectorMask() const
 {
-    return getDetector()->getDetectorMask();
+    return getDetector()->detectorMask();
 }
 
 void Instrument::setBeam(const Beam &beam)
@@ -167,14 +155,19 @@ double Instrument::getBeamIntensity() const
     return m_beam.getIntensity();
 }
 
-const IDetector2D* Instrument::getDetector() const
+const IDetector* Instrument::getDetector() const
 {
     return mP_detector.get();
 }
 
-IDetector2D* Instrument::getDetector()
+IDetector* Instrument::getDetector()
 {
     return mP_detector.get();
+}
+
+IDetector2D* Instrument::detector2D()
+{
+    return dynamic_cast<IDetector2D*>(mP_detector.get());
 }
 
 const IAxis& Instrument::getDetectorAxis(size_t index) const
@@ -184,7 +177,7 @@ const IAxis& Instrument::getDetectorAxis(size_t index) const
 
 size_t Instrument::getDetectorDimension() const
 {
-    return mP_detector->getDimension();
+    return mP_detector->dimension();
 }
 
 void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency,

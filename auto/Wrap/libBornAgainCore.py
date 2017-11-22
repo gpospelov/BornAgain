@@ -16392,10 +16392,10 @@ class Simulation(ICloneable, INode):
 
     def getDetectorIntensity(self, *args):
         """
-        getDetectorIntensity(Simulation self, DetectorAxesUnits units_type) -> IntensityData
+        getDetectorIntensity(Simulation self, AxesUnits units_type) -> IntensityData
         getDetectorIntensity(Simulation self) -> IntensityData
 
-        virtual OutputData<double>* Simulation::getDetectorIntensity(DetectorAxesUnits units_type=DetectorAxesUnits::DEFAULT) const =0
+        virtual OutputData<double>* Simulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const =0
 
         Clone simulated intensity map. 
 
@@ -16767,10 +16767,10 @@ class GISASSimulation(Simulation):
 
     def getDetectorIntensity(self, *args):
         """
-        getDetectorIntensity(GISASSimulation self, DetectorAxesUnits units_type) -> IntensityData
+        getDetectorIntensity(GISASSimulation self, AxesUnits units_type) -> IntensityData
         getDetectorIntensity(GISASSimulation self) -> IntensityData
 
-        OutputData< double > * GISASSimulation::getDetectorIntensity(DetectorAxesUnits units_type=DetectorAxesUnits::DEFAULT) const
+        OutputData< double > * GISASSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const
 
         Returns clone of the detector intensity map with detector resolution applied. 
 
@@ -16780,10 +16780,10 @@ class GISASSimulation(Simulation):
 
     def getIntensityData(self, *args):
         """
-        getIntensityData(GISASSimulation self, DetectorAxesUnits units_type) -> Histogram2D
+        getIntensityData(GISASSimulation self, AxesUnits units_type) -> Histogram2D
         getIntensityData(GISASSimulation self) -> Histogram2D
 
-        Histogram2D * GISASSimulation::getIntensityData(DetectorAxesUnits units_type=DetectorAxesUnits::DEFAULT) const
+        Histogram2D * GISASSimulation::getIntensityData(AxesUnits units_type=AxesUnits::DEFAULT) const
 
         Returns histogram representing intensity map in requested axes units. 
 
@@ -17838,6 +17838,35 @@ def Histogram2D_dynamicCast(pHistogram):
     """Histogram2D_dynamicCast(IHistogram pHistogram) -> Histogram2D"""
     return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
 
+class AxesUnits(_object):
+    """
+
+
+    Wrapper for detector axes units, required for a better representation of detector axes units in python
+
+    C++ includes: IDetector.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, AxesUnits, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, AxesUnits, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    DEFAULT = _libBornAgainCore.AxesUnits_DEFAULT
+    NBINS = _libBornAgainCore.AxesUnits_NBINS
+    RADIANS = _libBornAgainCore.AxesUnits_RADIANS
+    DEGREES = _libBornAgainCore.AxesUnits_DEGREES
+    MM = _libBornAgainCore.AxesUnits_MM
+    QYQZ = _libBornAgainCore.AxesUnits_QYQZ
+    __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
+    __del__ = lambda self: None
+AxesUnits_swigregister = _libBornAgainCore.AxesUnits_swigregister
+AxesUnits_swigregister(AxesUnits)
+
 class IDetector(ICloneable, INode):
     """
 
@@ -17860,8 +17889,30 @@ class IDetector(ICloneable, INode):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def clone(self):
+        """
+        clone(IDetector self) -> IDetector
+
+        virtual IDetector* IDetector::clone() const =0
+
+        """
+        return _libBornAgainCore.IDetector_clone(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_IDetector
     __del__ = lambda self: None
+
+    def init(self, arg2):
+        """
+        init(IDetector self, Beam arg2)
+
+        virtual void IDetector::init(const Beam &)
+
+        Inits detector with the beam settings. 
+
+        """
+        return _libBornAgainCore.IDetector_init(self, arg2)
+
 
     def clear(self):
         """
@@ -17893,38 +17944,52 @@ class IDetector(ICloneable, INode):
         return _libBornAgainCore.IDetector_getAxis(self, index)
 
 
-    def getDimension(self):
+    def dimension(self):
         """
-        getDimension(IDetector self) -> size_t
+        dimension(IDetector self) -> size_t
 
-        size_t IDetector::getDimension() const
+        size_t IDetector::dimension() const
+
+        Returns actual dimensionality of the detector (number of defined axes) 
 
         """
-        return _libBornAgainCore.IDetector_getDimension(self)
+        return _libBornAgainCore.IDetector_dimension(self)
 
 
-    def getAxisBinIndex(self, index, selected_axis):
+    def axisBinIndex(self, index, selected_axis):
         """
-        getAxisBinIndex(IDetector self, size_t index, size_t selected_axis) -> size_t
+        axisBinIndex(IDetector self, size_t index, size_t selected_axis) -> size_t
 
-        size_t IDetector::getAxisBinIndex(size_t index, size_t selected_axis) const
+        size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
 
         Calculate axis index for given global index. 
 
         """
-        return _libBornAgainCore.IDetector_getAxisBinIndex(self, index, selected_axis)
+        return _libBornAgainCore.IDetector_axisBinIndex(self, index, selected_axis)
 
 
-    def getTotalSize(self):
+    def totalSize(self):
         """
-        getTotalSize(IDetector self) -> size_t
+        totalSize(IDetector self) -> size_t
 
-        size_t IDetector::getTotalSize() const
+        size_t IDetector::totalSize() const
 
         Returns total number of pixels. 
 
         """
-        return _libBornAgainCore.IDetector_getTotalSize(self)
+        return _libBornAgainCore.IDetector_totalSize(self)
+
+
+    def detectorMask(self):
+        """
+        detectorMask(IDetector self) -> DetectorMask
+
+        virtual const DetectorMask* IDetector::detectorMask() const =0
+
+        Returns detector masks container. 
+
+        """
+        return _libBornAgainCore.IDetector_detectorMask(self)
 
 
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
@@ -17937,6 +18002,76 @@ class IDetector(ICloneable, INode):
 
         """
         return _libBornAgainCore.IDetector_setAnalyzerProperties(self, direction, efficiency, total_transmission)
+
+
+    def setDetectorResolution(self, p_detector_resolution):
+        """
+        setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)
+
+        void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
+
+        Sets the detector resolution. 
+
+        """
+        return _libBornAgainCore.IDetector_setDetectorResolution(self, p_detector_resolution)
+
+
+    def setResolutionFunction(self, resFunc):
+        """
+        setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)
+
+        void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
+
+        """
+        return _libBornAgainCore.IDetector_setResolutionFunction(self, resFunc)
+
+
+    def applyDetectorResolution(self, p_intensity_map):
+        """
+        applyDetectorResolution(IDetector self, IntensityData p_intensity_map)
+
+        void IDetector::applyDetectorResolution(OutputData< double > *p_intensity_map) const
+
+        Applies the detector resolution to the given intensity maps. 
+
+        """
+        return _libBornAgainCore.IDetector_applyDetectorResolution(self, p_intensity_map)
+
+
+    def removeDetectorResolution(self):
+        """
+        removeDetectorResolution(IDetector self)
+
+        void IDetector::removeDetectorResolution()
+
+        Removes detector resolution function. 
+
+        """
+        return _libBornAgainCore.IDetector_removeDetectorResolution(self)
+
+
+    def detectorResolution(self):
+        """
+        detectorResolution(IDetector self) -> IDetectorResolution
+
+        const IDetectorResolution * IDetector::detectorResolution() const
+
+        Returns a pointer to detector resolution object. 
+
+        """
+        return _libBornAgainCore.IDetector_detectorResolution(self)
+
+
+    def regionOfInterest(self):
+        """
+        regionOfInterest(IDetector self) -> RegionOfInterest const *
+
+        virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
+
+        Returns region of interest if exists. 
+
+        """
+        return _libBornAgainCore.IDetector_regionOfInterest(self)
 
 
     def detectionProperties(self):
@@ -17963,11 +18098,60 @@ class IDetector(ICloneable, INode):
         return _libBornAgainCore.IDetector_initOutputData(self, data)
 
 
+    def createDetectorIntensity(self, *args):
+        """
+        createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam, AxesUnits units_type) -> IntensityData
+        createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
+
+        OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, AxesUnits units_type=AxesUnits::DEFAULT) const
+
+        Returns new intensity map with detector resolution applied and axes in requested units. 
+
+        """
+        return _libBornAgainCore.IDetector_createDetectorIntensity(self, *args)
+
+
+    def defaultAxesUnits(self):
+        """
+        defaultAxesUnits(IDetector self) -> AxesUnits
+
+        virtual AxesUnits IDetector::defaultAxesUnits() const
+
+        Return default axes units. 
+
+        """
+        return _libBornAgainCore.IDetector_defaultAxesUnits(self)
+
+
+    def validAxesUnits(self):
+        """
+        validAxesUnits(IDetector self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
+
+        virtual std::vector<AxesUnits> IDetector::validAxesUnits() const
+
+        Returns vector of valid axes units. 
+
+        """
+        return _libBornAgainCore.IDetector_validAxesUnits(self)
+
+
+    def numberOfSimulationElements(self):
+        """
+        numberOfSimulationElements(IDetector self) -> size_t
+
+        size_t IDetector::numberOfSimulationElements() const
+
+        Returns number of simulation elements. 
+
+        """
+        return _libBornAgainCore.IDetector_numberOfSimulationElements(self)
+
+
     def getChildren(self):
         """
         getChildren(IDetector self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > IDetector::getChildren() const
+        std::vector< const INode * > IDetector::getChildren() const override
 
         Returns a vector of children (const). 
 
@@ -17976,35 +18160,6 @@ class IDetector(ICloneable, INode):
 
 IDetector_swigregister = _libBornAgainCore.IDetector_swigregister
 IDetector_swigregister(IDetector)
-
-class DetectorAxesUnits(_object):
-    """
-
-
-    Wrapper for detector axes units, required for a better representation of detector axes units in python
-
-    C++ includes: IDetector2D.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, DetectorAxesUnits, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, DetectorAxesUnits, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined")
-    __repr__ = _swig_repr
-    DEFAULT = _libBornAgainCore.DetectorAxesUnits_DEFAULT
-    NBINS = _libBornAgainCore.DetectorAxesUnits_NBINS
-    RADIANS = _libBornAgainCore.DetectorAxesUnits_RADIANS
-    DEGREES = _libBornAgainCore.DetectorAxesUnits_DEGREES
-    MM = _libBornAgainCore.DetectorAxesUnits_MM
-    QYQZ = _libBornAgainCore.DetectorAxesUnits_QYQZ
-    __swig_destroy__ = _libBornAgainCore.delete_DetectorAxesUnits
-    __del__ = lambda self: None
-DetectorAxesUnits_swigregister = _libBornAgainCore.DetectorAxesUnits_swigregister
-DetectorAxesUnits_swigregister(DetectorAxesUnits)
 
 class IDetector2D(IDetector):
     """
@@ -18041,18 +18196,6 @@ class IDetector2D(IDetector):
     __swig_destroy__ = _libBornAgainCore.delete_IDetector2D
     __del__ = lambda self: None
 
-    def init(self, arg2):
-        """
-        init(IDetector2D self, Beam arg2)
-
-        virtual void IDetector2D::init(const Beam &)
-
-        Inits detector with the beam settings. 
-
-        """
-        return _libBornAgainCore.IDetector2D_init(self, arg2)
-
-
     def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
         """
         setDetectorParameters(IDetector2D self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
@@ -18077,62 +18220,6 @@ class IDetector2D(IDetector):
         return _libBornAgainCore.IDetector2D_setDetectorAxes(self, axis0, axis1)
 
 
-    def setDetectorResolution(self, p_detector_resolution):
-        """
-        setDetectorResolution(IDetector2D self, IDetectorResolution p_detector_resolution)
-
-        void IDetector2D::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
-
-        Sets the detector resolution. 
-
-        """
-        return _libBornAgainCore.IDetector2D_setDetectorResolution(self, p_detector_resolution)
-
-
-    def setResolutionFunction(self, resFunc):
-        """
-        setResolutionFunction(IDetector2D self, IResolutionFunction2D resFunc)
-
-        void IDetector2D::setResolutionFunction(const IResolutionFunction2D &resFunc)
-
-        """
-        return _libBornAgainCore.IDetector2D_setResolutionFunction(self, resFunc)
-
-
-    def removeDetectorResolution(self):
-        """
-        removeDetectorResolution(IDetector2D self)
-
-        void IDetector2D::removeDetectorResolution()
-
-        Removes detector resolution function. 
-
-        """
-        return _libBornAgainCore.IDetector2D_removeDetectorResolution(self)
-
-
-    def applyDetectorResolution(self, p_intensity_map):
-        """
-        applyDetectorResolution(IDetector2D self, IntensityData p_intensity_map)
-
-        void IDetector2D::applyDetectorResolution(OutputData< double > *p_intensity_map) const
-
-        Applies the detector resolution to the given intensity maps. 
-
-        """
-        return _libBornAgainCore.IDetector2D_applyDetectorResolution(self, p_intensity_map)
-
-
-    def detectorResolution(self):
-        """
-        detectorResolution(IDetector2D self) -> IDetectorResolution
-
-        const IDetectorResolution * IDetector2D::detectorResolution() const
-
-        """
-        return _libBornAgainCore.IDetector2D_detectorResolution(self)
-
-
     def removeMasks(self):
         """
         removeMasks(IDetector2D self)
@@ -18143,6 +18230,18 @@ class IDetector2D(IDetector):
 
         """
         return _libBornAgainCore.IDetector2D_removeMasks(self)
+
+
+    def detectorMask(self):
+        """
+        detectorMask(IDetector2D self) -> DetectorMask
+
+        const DetectorMask * IDetector2D::detectorMask() const override
+
+        Returns detector masks container. 
+
+        """
+        return _libBornAgainCore.IDetector2D_detectorMask(self)
 
 
     def addMask(self, shape, mask_value=True):
@@ -18179,102 +18278,11 @@ class IDetector2D(IDetector):
         return _libBornAgainCore.IDetector2D_maskAll(self)
 
 
-    def getDetectorMask(self):
-        """
-        getDetectorMask(IDetector2D self) -> DetectorMask
-
-        const DetectorMask * IDetector2D::getDetectorMask() const
-
-        """
-        return _libBornAgainCore.IDetector2D_getDetectorMask(self)
-
-
-    def numberOfMaskedChannels(self):
-        """
-        numberOfMaskedChannels(IDetector2D self) -> size_t
-
-        size_t IDetector2D::numberOfMaskedChannels() const
-
-        """
-        return _libBornAgainCore.IDetector2D_numberOfMaskedChannels(self)
-
-
-    def isMasked(self, index):
-        """
-        isMasked(IDetector2D self, size_t index) -> bool
-
-        bool IDetector2D::isMasked(size_t index) const
-
-        """
-        return _libBornAgainCore.IDetector2D_isMasked(self, index)
-
-
-    def hasMasks(self):
-        """
-        hasMasks(IDetector2D self) -> bool
-
-        bool IDetector2D::hasMasks() const
-
-        return true if has masks 
-
-        """
-        return _libBornAgainCore.IDetector2D_hasMasks(self)
-
-
-    def createDetectorIntensity(self, *args):
-        """
-        createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam, DetectorAxesUnits units_type) -> IntensityData
-        createDetectorIntensity(IDetector2D self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
-
-        OutputData< double > * IDetector2D::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, DetectorAxesUnits units_type=DetectorAxesUnits::DEFAULT) const
-
-        Returns new intensity map with detector resolution applied and axes in requested units. 
-
-        """
-        return _libBornAgainCore.IDetector2D_createDetectorIntensity(self, *args)
-
-
-    def createDetectorMap(self, beam, units):
-        """
-        createDetectorMap(IDetector2D self, Beam beam, DetectorAxesUnits units) -> IntensityData
-
-        OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, DetectorAxesUnits units) const
-
-        Returns empty detector map in given axes units. 
-
-        """
-        return _libBornAgainCore.IDetector2D_createDetectorMap(self, beam, units)
-
-
-    def getValidAxesUnits(self):
-        """
-        getValidAxesUnits(IDetector2D self) -> std::vector< DetectorAxesUnits,std::allocator< DetectorAxesUnits > >
-
-        std::vector< DetectorAxesUnits > IDetector2D::getValidAxesUnits() const
-
-        Returns vector of valid axes units. 
-
-        """
-        return _libBornAgainCore.IDetector2D_getValidAxesUnits(self)
-
-
-    def getDefaultAxesUnits(self):
-        """
-        getDefaultAxesUnits(IDetector2D self) -> DetectorAxesUnits
-
-        virtual DetectorAxesUnits IDetector2D::getDefaultAxesUnits() const
-
-        Return default axes units. 
-
-        """
-        return _libBornAgainCore.IDetector2D_getDefaultAxesUnits(self)
-
-
     def regionOfInterest(self):
         """
         regionOfInterest(IDetector2D self) -> RegionOfInterest const *
 
-        const RegionOfInterest * IDetector2D::regionOfInterest() const
+        const RegionOfInterest * IDetector2D::regionOfInterest() const override
 
         Returns region of interest if exists. 
 
@@ -18304,30 +18312,6 @@ class IDetector2D(IDetector):
 
         """
         return _libBornAgainCore.IDetector2D_resetRegionOfInterest(self)
-
-
-    def numberOfSimulationElements(self):
-        """
-        numberOfSimulationElements(IDetector2D self) -> size_t
-
-        size_t IDetector2D::numberOfSimulationElements() const
-
-        Returns number of simulation elements. 
-
-        """
-        return _libBornAgainCore.IDetector2D_numberOfSimulationElements(self)
-
-
-    def getChildren(self):
-        """
-        getChildren(IDetector2D self) -> swig_dummy_type_const_inode_vector
-
-        std::vector< const INode * > IDetector2D::getChildren() const override
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.IDetector2D_getChildren(self)
 
 IDetector2D_swigregister = _libBornAgainCore.IDetector2D_swigregister
 IDetector2D_swigregister(IDetector2D)
@@ -19857,13 +19841,25 @@ class Instrument(INode):
 
     def getDetector(self, *args):
         """
-        getDetector(Instrument self) -> IDetector2D
-        getDetector(Instrument self) -> IDetector2D
+        getDetector(Instrument self) -> IDetector
+        getDetector(Instrument self) -> IDetector
 
-        IDetector2D * Instrument::getDetector()
+        IDetector * Instrument::getDetector()
 
         """
         return _libBornAgainCore.Instrument_getDetector(self, *args)
+
+
+    def detector2D(self):
+        """
+        detector2D(Instrument self) -> IDetector2D
+
+        IDetector2D * Instrument::detector2D()
+
+        Returns 2D detector data if detector is truly 2D. Otherwise returns nullptr. 
+
+        """
+        return _libBornAgainCore.Instrument_detector2D(self)
 
 
     def getDetectorMask(self):
@@ -19902,38 +19898,14 @@ class Instrument(INode):
 
     def setDetector(self, detector):
         """
-        setDetector(Instrument self, IDetector2D detector)
+        setDetector(Instrument self, IDetector detector)
 
-        void Instrument::setDetector(const IDetector2D &detector)
+        void Instrument::setDetector(const IDetector &detector)
 
         Sets the detector (axes can be overwritten later) 
 
         """
         return _libBornAgainCore.Instrument_setDetector(self, detector)
-
-
-    def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
-        """
-        setDetectorParameters(Instrument self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
-
-        void Instrument::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
-
-        Sets detector parameters using angle ranges. 
-
-        """
-        return _libBornAgainCore.Instrument_setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max)
-
-
-    def setDetectorAxes(self, axis0, axis1):
-        """
-        setDetectorAxes(Instrument self, IAxis axis0, IAxis axis1)
-
-        void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
-
-        Sets detector parameters using axes. 
-
-        """
-        return _libBornAgainCore.Instrument_setDetectorAxes(self, axis0, axis1)
 
 
     def setDetectorResolutionFunction(self, p_resolution_function):
@@ -19986,10 +19958,10 @@ class Instrument(INode):
 
     def createDetectorIntensity(self, *args):
         """
-        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, DetectorAxesUnits units) -> IntensityData
+        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, AxesUnits units) -> IntensityData
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
 
-        OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, DetectorAxesUnits units=DetectorAxesUnits::DEFAULT) const
+        OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, AxesUnits units=AxesUnits::DEFAULT) const
 
         Returns new intensity map with detector resolution applied and axes in requested units. 
 
@@ -19999,10 +19971,10 @@ class Instrument(INode):
 
     def createIntensityData(self, *args):
         """
-        createIntensityData(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, DetectorAxesUnits units_type) -> Histogram2D
+        createIntensityData(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, AxesUnits units_type) -> Histogram2D
         createIntensityData(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> Histogram2D
 
-        Histogram2D * Instrument::createIntensityData(const std::vector< SimulationElement > &elements, DetectorAxesUnits units_type=DetectorAxesUnits::DEFAULT) const
+        Histogram2D * Instrument::createIntensityData(const std::vector< SimulationElement > &elements, AxesUnits units_type=AxesUnits::DEFAULT) const
 
         Returns histogram representing intensity map in requested axes units. 
 
@@ -20012,10 +19984,10 @@ class Instrument(INode):
 
     def createDetectorMap(self, *args):
         """
-        createDetectorMap(Instrument self, DetectorAxesUnits units) -> IntensityData
+        createDetectorMap(Instrument self, AxesUnits units) -> IntensityData
         createDetectorMap(Instrument self) -> IntensityData
 
-        OutputData< double > * Instrument::createDetectorMap(DetectorAxesUnits units=DetectorAxesUnits::DEFAULT) const
+        OutputData< double > * Instrument::createDetectorMap(AxesUnits units=AxesUnits::DEFAULT) const
 
         Returns empty detector map in given axes units. 
 
@@ -21228,28 +21200,28 @@ class SphericalDetector(IDetector2D):
     __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
     __del__ = lambda self: None
 
-    def getValidAxesUnits(self):
+    def validAxesUnits(self):
         """
-        getValidAxesUnits(SphericalDetector self) -> std::vector< DetectorAxesUnits,std::allocator< DetectorAxesUnits > >
+        validAxesUnits(SphericalDetector self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
 
-        std::vector< DetectorAxesUnits > SphericalDetector::getValidAxesUnits() const override
+        std::vector< AxesUnits > SphericalDetector::validAxesUnits() const override
 
         returns vector of valid axes units 
 
         """
-        return _libBornAgainCore.SphericalDetector_getValidAxesUnits(self)
+        return _libBornAgainCore.SphericalDetector_validAxesUnits(self)
 
 
-    def getDefaultAxesUnits(self):
+    def defaultAxesUnits(self):
         """
-        getDefaultAxesUnits(SphericalDetector self) -> DetectorAxesUnits
+        defaultAxesUnits(SphericalDetector self) -> AxesUnits
 
-        DetectorAxesUnits SphericalDetector::getDefaultAxesUnits() const override
+        AxesUnits SphericalDetector::defaultAxesUnits() const override
 
         return default axes units 
 
         """
-        return _libBornAgainCore.SphericalDetector_getDefaultAxesUnits(self)
+        return _libBornAgainCore.SphericalDetector_defaultAxesUnits(self)
 
 SphericalDetector_swigregister = _libBornAgainCore.SphericalDetector_swigregister
 SphericalDetector_swigregister(SphericalDetector)
@@ -23502,10 +23474,10 @@ class OffSpecSimulation(Simulation):
 
     def getDetectorIntensity(self, *args):
         """
-        getDetectorIntensity(OffSpecSimulation self, DetectorAxesUnits units_type) -> IntensityData
+        getDetectorIntensity(OffSpecSimulation self, AxesUnits units_type) -> IntensityData
         getDetectorIntensity(OffSpecSimulation self) -> IntensityData
 
-        OutputData<double>* OffSpecSimulation::getDetectorIntensity(DetectorAxesUnits units_type=DetectorAxesUnits::DEFAULT) const
+        OutputData<double>* OffSpecSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const
 
         Returns clone of the detector intensity map. 
 
@@ -25918,28 +25890,28 @@ class RectangularDetector(IDetector2D):
         return _libBornAgainCore.RectangularDetector_getDetectorArrangment(self)
 
 
-    def getValidAxesUnits(self):
+    def validAxesUnits(self):
         """
-        getValidAxesUnits(RectangularDetector self) -> std::vector< DetectorAxesUnits,std::allocator< DetectorAxesUnits > >
+        validAxesUnits(RectangularDetector self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
 
-        std::vector< DetectorAxesUnits > RectangularDetector::getValidAxesUnits() const override
+        std::vector< AxesUnits > RectangularDetector::validAxesUnits() const override
 
         returns vector of valid axes units 
 
         """
-        return _libBornAgainCore.RectangularDetector_getValidAxesUnits(self)
+        return _libBornAgainCore.RectangularDetector_validAxesUnits(self)
 
 
-    def getDefaultAxesUnits(self):
+    def defaultAxesUnits(self):
         """
-        getDefaultAxesUnits(RectangularDetector self) -> DetectorAxesUnits
+        defaultAxesUnits(RectangularDetector self) -> AxesUnits
 
-        DetectorAxesUnits RectangularDetector::getDefaultAxesUnits() const override
+        AxesUnits RectangularDetector::defaultAxesUnits() const override
 
         return default axes units 
 
         """
-        return _libBornAgainCore.RectangularDetector_getDefaultAxesUnits(self)
+        return _libBornAgainCore.RectangularDetector_defaultAxesUnits(self)
 
 RectangularDetector_swigregister = _libBornAgainCore.RectangularDetector_swigregister
 RectangularDetector_swigregister(RectangularDetector)
@@ -26233,10 +26205,10 @@ class SpecularSimulation(Simulation):
 
     def getDetectorIntensity(self, *args):
         """
-        getDetectorIntensity(SpecularSimulation self, DetectorAxesUnits units_type) -> IntensityData
+        getDetectorIntensity(SpecularSimulation self, AxesUnits units_type) -> IntensityData
         getDetectorIntensity(SpecularSimulation self) -> IntensityData
 
-        OutputData< double > * SpecularSimulation::getDetectorIntensity(DetectorAxesUnits units_type=DetectorAxesUnits::DEFAULT) const override
+        OutputData< double > * SpecularSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
 
         Returns reflectivity values  $Reflectivity = \\|R\\|^2$ from the upper layer in the form of  OutputData<double>. 
 

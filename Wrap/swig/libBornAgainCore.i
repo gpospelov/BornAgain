@@ -222,13 +222,13 @@
 
 // ownership
 
-%newobject GISASSimulation::getIntensityData(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
-%newobject GISASSimulation::getDetectorIntensity(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+%newobject GISASSimulation::getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
+%newobject GISASSimulation::getDetectorIntensity(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
-%newobject OffSpecSimulation::getIntensityData(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
-%newobject OffSpecSimulation::getDetectorIntensity(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+%newobject OffSpecSimulation::getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
+%newobject OffSpecSimulation::getDetectorIntensity(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
-%newobject SpecularSimulation::getDetectorIntensity(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+%newobject SpecularSimulation::getDetectorIntensity(AxesUnits units_type = AxesUnits::DEFAULT) const;
 %newobject SpecularSimulation::reflectivity() const;
 %newobject SpecularSimulation::transmissivity() const;
 
@@ -267,7 +267,7 @@
 %template(vector_cvector_t) std::vector<BasicVector3D<std::complex<double>>>;
 
 // SWIG workaround for using axes units the same way as they are used in cpp files
-%rename(DetectorAxesUnits) DetectorAxesUnitsWrap;
+%rename(AxesUnits) AxesUnitsWrap;
 
 %include "Complex.h"
 %include "Units.h"

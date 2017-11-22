@@ -13,6 +13,7 @@
 //
 // ************************************************************************** //
 
+#include "Beam.h"
 #include "SphericalDetector.h"
 #include "BornAgainNamespace.h"
 #include "IDetectorResolution.h"
@@ -44,26 +45,26 @@ SphericalDetector* SphericalDetector::clone() const
     return new SphericalDetector(*this);
 }
 
-std::vector<DetectorAxesUnits> SphericalDetector::getValidAxesUnits() const
+std::vector<AxesUnits> SphericalDetector::validAxesUnits() const
 {
-    std::vector<DetectorAxesUnits> result = IDetector2D::getValidAxesUnits();
-    std::vector<DetectorAxesUnits> addon =
-        { DetectorAxesUnits::RADIANS, DetectorAxesUnits::DEGREES, DetectorAxesUnits::QYQZ };
+    std::vector<AxesUnits> result = IDetector2D::validAxesUnits();
+    std::vector<AxesUnits> addon =
+        { AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QYQZ };
     result.insert(result.end(), addon.begin(), addon.end());
     return result;
 }
 
-DetectorAxesUnits SphericalDetector::getDefaultAxesUnits() const
+AxesUnits SphericalDetector::defaultAxesUnits() const
 {
-    return DetectorAxesUnits::RADIANS;
+    return AxesUnits::RADIANS;
 }
 
 IPixel* SphericalDetector::createPixel(size_t index) const
 {
     const IAxis& phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis& alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
-    size_t phi_index = getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
-    size_t alpha_index = getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
+    size_t phi_index = axisBinIndex(index, BornAgain::X_AXIS_INDEX);
+    size_t alpha_index = axisBinIndex(index, BornAgain::Y_AXIS_INDEX);
 
     Bin1D alpha_bin = alpha_axis.getBin(alpha_index);
     Bin1D phi_bin = phi_axis.getBin(phi_index);
@@ -71,13 +72,13 @@ IPixel* SphericalDetector::createPixel(size_t index) const
 }
 
 void SphericalDetector::calculateAxisRange(size_t axis_index, const Beam &beam,
-        DetectorAxesUnits units, double &amin, double &amax) const
+        AxesUnits units, double &amin, double &amax) const
 {
     amin = 0.0; amax=0.0;
-    if(units == DetectorAxesUnits::DEGREES) {
+    if(units == AxesUnits::DEGREES) {
         amin = getAxis(axis_index).getMin()/Units::degree;
         amax = getAxis(axis_index).getMax()/Units::degree;
-    }else if(units == DetectorAxesUnits::RADIANS) {
+    }else if(units == AxesUnits::RADIANS) {
         amin = getAxis(axis_index).getMin();
         amax = getAxis(axis_index).getMax();
     } else {
@@ -85,7 +86,7 @@ void SphericalDetector::calculateAxisRange(size_t axis_index, const Beam &beam,
     }
 }
 
-std::string SphericalDetector::getAxisName(size_t index) const
+std::string SphericalDetector::axisName(size_t index) const
 {
     switch (index) {
     case 0:
@@ -100,7 +101,7 @@ std::string SphericalDetector::getAxisName(size_t index) const
 
 size_t SphericalDetector::getIndexOfSpecular(const Beam& beam) const
 {
-    if (getDimension()!=2) return getTotalSize();
+    if (dimension()!=2) return totalSize();
     double alpha = beam.getAlpha();
     double phi = beam.getPhi();
     const IAxis& phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
@@ -110,7 +111,7 @@ size_t SphericalDetector::getIndexOfSpecular(const Beam& beam) const
     if (phi_index < phi_axis.size() && alpha_index < alpha_axis.size()) {
         return getGlobalIndex(phi_index, alpha_index);
     }
-    return getTotalSize();
+    return totalSize();
 }
 
 SphericalPixel::SphericalPixel(Bin1D alpha_bin, Bin1D phi_bin)

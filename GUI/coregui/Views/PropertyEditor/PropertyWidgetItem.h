@@ -44,6 +44,8 @@ public:
 
     const SessionItem* item();
 private:
+    void connectEditor(QWidget* editor);
+
     QLabel* m_label;
     QWidget* m_editor;
     QDataWidgetMapper* m_dataMapper;

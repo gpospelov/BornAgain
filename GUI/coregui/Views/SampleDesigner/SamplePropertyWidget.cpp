@@ -86,7 +86,7 @@ void SamplePropertyWidget::selectionChanged(const QItemSelection& selected,
 
         SessionItem* item = static_cast<SessionItem*>(index.internalPointer());
         if (item)
-            m_propertyEditor->setItem(item);
+            m_propertyEditor->setItem(item, true);
 
     } else {
         m_propertyEditor->setItem(nullptr);

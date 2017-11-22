@@ -38,7 +38,7 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
 
     setLayout(layout);
 
-    QStringList labels = {"Name", "Value"};
+    QStringList labels = {"Property", "Value"};
     m_placeHolderModel->setHorizontalHeaderLabels(labels);
 
     StyleUtils::setPropertyStyle(m_tree);
@@ -48,14 +48,18 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
     m_tree->setEditTriggers(QAbstractItemView::AllEditTriggers);
 }
 
-void ComponentTreeView::setItem(SessionItem* item)
+//! Sets item to show in the tree together with its properties and group properties.
+//! @param item: Item to show in a tree.
+//! @param show_root_item: Tree will starts from item itself, if true.
+
+void ComponentTreeView::setItem(SessionItem* item, bool show_root_item)
 {
     if (!item) {
         setModel(nullptr);
         return;
     }
     setModel(item->model());
-    setRootIndex(item->index());
+    setRootIndex(item->index(), show_root_item);
     m_tree->expandAll();
 }
 
@@ -66,15 +70,16 @@ void ComponentTreeView::setModel(SessionModel* model)
         m_tree->setModel(m_proxyModel);
     else
         m_tree->setModel(m_placeHolderModel);
-
 }
 
-void ComponentTreeView::setRootIndex(const QModelIndex& index)
+void ComponentTreeView::setRootIndex(const QModelIndex& index, bool show_root_item)
 {
     if (QWidget* editor = m_tree->indexWidget(m_tree->currentIndex()))
         m_delegate->closeEditor(editor, QAbstractItemDelegate::NoHint);
     Q_ASSERT(m_proxyModel);
     m_proxyModel->setRootIndex(index);
+    if (!show_root_item)
+        m_tree->setRootIndex(m_proxyModel->mapFromSource(index));
 }
 
 QTreeView* ComponentTreeView::treeView()

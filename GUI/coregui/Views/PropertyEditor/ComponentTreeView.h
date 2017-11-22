@@ -37,9 +37,10 @@ class BA_CORE_API_ ComponentTreeView : public QWidget
 public:
     ComponentTreeView(QWidget* parent = nullptr);
 
-    void setItem(SessionItem* item);
+    void setItem(SessionItem* item, bool show_root_item = false);
+
     void setModel(SessionModel* model);
-    void setRootIndex(const QModelIndex& index);
+    void setRootIndex(const QModelIndex& index, bool show_root_item = false);
 
     QTreeView* treeView();
 

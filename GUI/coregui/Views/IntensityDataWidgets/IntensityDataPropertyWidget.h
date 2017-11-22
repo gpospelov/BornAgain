@@ -20,7 +20,6 @@
 #include "SessionItemWidget.h"
 
 class IntensityDataItem;
-class ComponentEditor;
 class ComponentTreeView;
 class SessionItem;
 
@@ -47,8 +46,7 @@ protected:
 
 private:
     QAction* m_togglePanelAction;
-    ComponentEditor* m_componentEditor;
-    ComponentTreeView* m_componentEditor2;
+    ComponentTreeView* m_componentEditor;
 };
 
 #endif // INTENSITYDATAPROPERTYWIDGET_H

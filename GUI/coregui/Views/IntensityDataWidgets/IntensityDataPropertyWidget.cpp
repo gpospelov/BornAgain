@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "IntensityDataPropertyWidget.h"
-#include "ComponentEditor.h"
 #include "IntensityDataItem.h"
 #include "JobModel.h"
 #include "ComponentTreeView.h"
@@ -25,8 +24,7 @@
 IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_togglePanelAction(new QAction(this))
-    , m_componentEditor(new ComponentEditor)
-    , m_componentEditor2(new ComponentTreeView)
+    , m_componentEditor(new ComponentTreeView)
 {
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     setWindowTitle(QLatin1String("Intensity Data Properties"));
@@ -36,7 +34,6 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget* parent)
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(m_componentEditor);
-    mainLayout->addWidget(m_componentEditor2);
     setLayout(mainLayout);
 
     m_togglePanelAction->setText("Properties");
@@ -69,16 +66,11 @@ void IntensityDataPropertyWidget::onTogglePanelAction()
 void IntensityDataPropertyWidget::subscribeToItem()
 {
     m_componentEditor->setItem(currentItem());
-    m_componentEditor2->setItem(currentItem());
 }
 
 void IntensityDataPropertyWidget::unsubscribeFromItem()
 {
-    // FIXME Flaw in ComponentEditor design: setItem(nullptr) involves usage of old item
-    if (currentItem()) {
-        m_componentEditor->setItem(nullptr);
-        m_componentEditor2->setItem(nullptr);
-    }
+    m_componentEditor->setItem(nullptr);
 }
 
 void IntensityDataPropertyWidget::contextMenuEvent(QContextMenuEvent*)

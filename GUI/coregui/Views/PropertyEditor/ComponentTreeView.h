@@ -44,6 +44,8 @@ public:
 
     QTreeView* treeView();
 
+    void setHeaderHidden(bool hide);
+
 private:
     QTreeView* m_tree;
     SessionModelDelegate* m_delegate;

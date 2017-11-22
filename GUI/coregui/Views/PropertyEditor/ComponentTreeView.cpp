@@ -87,3 +87,8 @@ QTreeView* ComponentTreeView::treeView()
     return m_tree;
 }
 
+void ComponentTreeView::setHeaderHidden(bool hide)
+{
+    m_tree->setHeaderHidden(hide);
+}
+

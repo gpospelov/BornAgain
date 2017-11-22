@@ -91,3 +91,10 @@ QVariant SessionItemUtils::DecorationRole(const SessionItem& item)
 
     return QVariant();
 }
+
+QVariant SessionItemUtils::CheckStateRole(const SessionItem& item)
+{
+    if (item.value().type() == QVariant::Bool)
+        return item.value().toBool() ? Qt::Checked : Qt::Unchecked;
+    return QVariant();
+}

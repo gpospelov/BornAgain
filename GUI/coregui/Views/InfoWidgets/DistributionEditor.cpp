@@ -15,16 +15,12 @@
 // ************************************************************************** //
 
 #include "DistributionEditor.h"
-#include "BeamWavelengthItem.h"
 #include "ComponentBoxEditor.h"
-#include "DistributionDialog.h"
 #include "DistributionWidget.h"
-#include "Distributions.h"
-#include "GroupInfoBox.h"
 #include "GroupItem.h"
 #include "SessionItem.h"
-#include "qcustomplot.h"
-#include <QVBoxLayout>
+#include "DistributionItems.h"
+#include <QBoxLayout>
 
 namespace
 {
@@ -32,7 +28,7 @@ int minimum_width = 250;
 }
 
 DistributionEditor::DistributionEditor(QWidget* parent)
-    : QWidget(parent)
+    : SessionItemWidget(parent)
     , m_propertyEditor(new ComponentBoxEditor)
     , m_item(nullptr)
     , m_plotwidget(new DistributionWidget)
@@ -57,44 +53,35 @@ DistributionEditor::DistributionEditor(QWidget* parent)
     setLayout(mainLayout);
 }
 
-DistributionEditor::~DistributionEditor()
-{
-    if (m_item)
-        m_item->mapper()->unsubscribe(this);
-}
-
-void DistributionEditor::setItem(SessionItem* item)
-{
-    m_propertyEditor->clearEditor();
-    m_propertyEditor->addPropertyItems(item);
-
-    if (m_item == item) {
-        return;
-
-    } else {
-        if (m_item)
-            m_item->mapper()->unsubscribe(this);
-
-        m_item = dynamic_cast<GroupItem*>(item);
-        if (!m_item)
-            return;
-
-        m_item->mapper()->setOnPropertyChange(
-            [this](const QString& name) { onPropertyChanged(name); }, this);
-
-        DistributionItem* distrItem = dynamic_cast<DistributionItem*>(m_item->currentItem());
-        Q_ASSERT(distrItem);
-        m_plotwidget->setItem(distrItem);
-    }
-}
-
 void DistributionEditor::onPropertyChanged(const QString& property_name)
 {
-    if (property_name == GroupItem::T_ITEMS) {
-        DistributionItem* distrItem = dynamic_cast<DistributionItem*>(m_item->currentItem());
-        Q_ASSERT(distrItem);
-        m_plotwidget->setItem(distrItem);
-    }
+    if (property_name == GroupItem::T_ITEMS)
+        m_plotwidget->setItem(distributionItem());
+}
+
+void DistributionEditor::subscribeToItem()
+{
+    m_propertyEditor->clearEditor();
+    m_propertyEditor->addPropertyItems(currentItem());
+
+    currentItem()->mapper()->setOnPropertyChange(
+        [this](const QString& name) { onPropertyChanged(name); }, this);
+
+    m_plotwidget->setItem(distributionItem());
+}
+
+GroupItem* DistributionEditor::groupItem()
+{
+    auto result = dynamic_cast<GroupItem*>(currentItem());
+    Q_ASSERT(result);
+    return result;
+}
+
+DistributionItem* DistributionEditor::distributionItem()
+{
+    auto result = dynamic_cast<DistributionItem*>(groupItem()->currentItem());
+    Q_ASSERT(result);
+    return result;
 }
 
 void DistributionEditor::setNameOfEditor(QString name)

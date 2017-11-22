@@ -17,34 +17,35 @@
 #ifndef DISTRIBUTIONEDITOR_H
 #define DISTRIBUTIONEDITOR_H
 
-#include "SessionItem.h"
-#include "qcustomplot.h"
-#include <QWidget>
-#include <memory>
+#include "SessionItemWidget.h"
 
 class QGroupBox;
-class DistributionWidget;
 class GroupItem;
+class DistributionWidget;
 class ComponentBoxEditor;
+class DistributionItem;
 
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
 //! to show Distribution1D and property editor to change distribution parameters.
 
-class DistributionEditor : public QWidget
+class BA_CORE_API_ DistributionEditor : public SessionItemWidget
 {
     Q_OBJECT
 public:
     DistributionEditor(QWidget* parent = nullptr);
-    virtual ~DistributionEditor();
 
-    void setItem(SessionItem* item);
-    void plotItem(SessionItem* item);
     void setNameOfEditor(QString name);
 
 private slots:
     void onPropertyChanged(const QString& property_name);
 
+protected:
+    void subscribeToItem();
+
 private:
+    GroupItem* groupItem();
+    DistributionItem* distributionItem();
+
     ComponentBoxEditor* m_propertyEditor;
     GroupItem* m_item;
     DistributionWidget* m_plotwidget;

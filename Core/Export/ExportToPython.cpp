@@ -71,11 +71,11 @@ namespace {
         "\n\n";
 
     //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
-    std::function<std::string(double)> printFunc(const IDetector2D* detector)
+    std::function<std::string(double)> printFunc(const IDetector* detector)
     {
-        if (detector->getDefaultAxesUnits() == DetectorAxesUnits::MM)
+        if (detector->defaultAxesUnits() == AxesUnits::MM)
             return PythonFormatting::printDouble;
-        if (detector->getDefaultAxesUnits() == DetectorAxesUnits::RADIANS)
+        if (detector->defaultAxesUnits() == AxesUnits::RADIANS)
             return PythonFormatting::printDegrees;
         throw Exceptions::RuntimeErrorException(
             "ExportToPython::defineMasks() -> Error. Unknown detector units.");
@@ -685,9 +685,9 @@ std::string ExportToPython::defineMultiLayers() const
 
 std::string ExportToPython::defineDetector(const GISASSimulation* simulation) const
 {
-    const IDetector2D* iDetector = simulation->getInstrument().getDetector();
+    const IDetector* iDetector = simulation->getInstrument().getDetector();
 
-    if (iDetector->getDimension() != 2)
+    if (iDetector->dimension() != 2)
         throw Exceptions::RuntimeErrorException("ExportToPython::defineDetector: "
                                                 "detector must be two-dimensional for GISAS");
     std::ostringstream result;
@@ -695,7 +695,7 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
 
     if(auto detector = dynamic_cast<const SphericalDetector*>(iDetector)) {
         result << indent() << "simulation.setDetectorParameters(";
-        for(size_t index=0; index<detector->getDimension(); ++index) {
+        for(size_t index=0; index<detector->dimension(); ++index) {
             if (index != 0) result << ", ";
             result << detector->getAxis(index).size() << ", "
                    << printDegrees(detector->getAxis(index).getMin()) << ", "
@@ -764,7 +764,7 @@ std::string ExportToPython::defineDetectorResolutionFunction(
     const GISASSimulation* simulation) const
 {
     std::ostringstream result;
-    const IDetector2D* detector = simulation->getInstrument().getDetector();
+    const IDetector* detector = simulation->getInstrument().getDetector();
 
     if (const IDetectorResolution* p_resfunc = detector->detectorResolution()) {
         if ( auto* p_convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
@@ -790,7 +790,7 @@ std::string ExportToPython::defineDetectorPolarizationAnalysis(
         const GISASSimulation* simulation) const
 {
     std::ostringstream result;
-    const IDetector2D* detector = simulation->getInstrument().getDetector();
+    const IDetector* detector = simulation->getInstrument().getDetector();
     kvector_t analyzer_direction = detector->detectionProperties().analyzerDirection();
     double analyzer_efficiency = detector->detectionProperties().analyzerEfficiency();
     double analyzer_total_transmission = detector->detectionProperties().analyzerTotalTransmission();
@@ -868,8 +868,8 @@ std::string ExportToPython::defineMasks(const GISASSimulation* simulation) const
     std::ostringstream result;
     result << std::setprecision(12);
 
-    const IDetector2D* detector = simulation->getInstrument().getDetector();
-    const DetectorMask* detectorMask = detector->getDetectorMask();
+    const IDetector* detector = simulation->getInstrument().getDetector();
+    const DetectorMask* detectorMask = detector->detectorMask();
     if(detectorMask && detectorMask->numberOfMasks()) {
         result << "\n";
         for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {

@@ -57,14 +57,14 @@ size_t GISASSimulation::numberOfSimulationElements() const
     return getInstrument().getDetector()->numberOfSimulationElements();
 }
 
-OutputData<double>* GISASSimulation::getDetectorIntensity(DetectorAxesUnits units_type) const
+OutputData<double>* GISASSimulation::getDetectorIntensity(AxesUnits units_type) const
 {
     std::unique_ptr<OutputData<double>> result(
         m_instrument.createDetectorIntensity(m_sim_elements, units_type));
     return result.release();
 }
 
-Histogram2D* GISASSimulation::getIntensityData(DetectorAxesUnits units_type) const
+Histogram2D* GISASSimulation::getIntensityData(AxesUnits units_type) const
 {
     std::unique_ptr<Histogram2D> result(
         m_instrument.createIntensityData(m_sim_elements, units_type));
@@ -84,35 +84,49 @@ void GISASSimulation::setDetector(const IDetector2D& detector)
     m_instrument.setDetector(detector);
 }
 
+namespace
+{
+IDetector2D* detector2D(Instrument& instrument)
+{
+    IDetector2D* detector = instrument.detector2D();
+    if (!detector)
+        throw std::runtime_error(
+            "Error in GISASSimulation: wrong detector type");
+    return detector;
+}
+}
+
 void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
                                             size_t n_alpha, double alpha_min, double alpha_max)
 {
-    m_instrument.setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
+    detector2D(m_instrument)
+        ->setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 }
 
 void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
-    m_instrument.getDetector()->setRegionOfInterest(xlow, ylow, xup, yup);
+    detector2D(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
 }
 
 void GISASSimulation::resetRegionOfInterest()
 {
-    m_instrument.getDetector()->resetRegionOfInterest();
+
+    detector2D(m_instrument)->resetRegionOfInterest();
 }
 
 void GISASSimulation::removeMasks()
 {
-    m_instrument.getDetector()->removeMasks();
+    detector2D(m_instrument)->removeMasks();
 }
 
 void GISASSimulation::addMask(const IShape2D& shape, bool mask_value)
 {
-    m_instrument.getDetector()->addMask(shape, mask_value);
+    detector2D(m_instrument)->addMask(shape, mask_value);
 }
 
 void GISASSimulation::maskAll()
 {
-    m_instrument.getDetector()->maskAll();
+    detector2D(m_instrument)->maskAll();
 }
 
 void GISASSimulation::initSimulationElementVector()

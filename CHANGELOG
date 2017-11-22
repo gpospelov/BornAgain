@@ -1,5 +1,5 @@
   > API changes
-    1) detector axes units (e.g. ba.IDetector2D.NBINS) now accessed through DetectorAxesUnits (e.g. ba.DetectorAxesUnits.NBINS)
+    1) detector axes units (e.g. ba.IDetector2D.NBINS) now accessed through AxesUnits (e.g. ba.AxesUnits.NBINS)
 
 BornAgain-1.10.0, released 2017.10.09
   > MacOS specific

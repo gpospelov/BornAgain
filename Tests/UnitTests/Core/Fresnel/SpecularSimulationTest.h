@@ -49,7 +49,7 @@ TEST_F(SpecularSimulationTest, CloneOfEmpty)
 {
     SpecularSimulation sim;
 
-    SpecularSimulation *clone = sim.clone();
+    std::unique_ptr<SpecularSimulation> clone(sim.clone());
     ASSERT_THROW(clone->runSimulation(), std::runtime_error);
     EXPECT_EQ(nullptr, clone->getAlphaAxis());
     EXPECT_EQ(nullptr, clone->sample());
@@ -58,7 +58,6 @@ TEST_F(SpecularSimulationTest, CloneOfEmpty)
     ASSERT_THROW(clone->getScalarKz(0), std::runtime_error);
     ASSERT_THROW(clone->reflectivity(), std::runtime_error);
     ASSERT_THROW(clone->transmissivity(), std::runtime_error);
-    delete clone;
 }
 
 TEST_F(SpecularSimulationTest, SetBeamParameters)
@@ -98,29 +97,25 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     EXPECT_EQ(10u, sim.getScalarT(0).size());
     EXPECT_EQ(10u, sim.getScalarKz(0).size());
 
-    Histogram1D* reflectivity = sim.reflectivity();
+    std::unique_ptr<Histogram1D> reflectivity(sim.reflectivity());
     EXPECT_EQ(10u, reflectivity->getTotalNumberOfBins());
     EXPECT_EQ(1u, reflectivity->getRank());
     EXPECT_EQ(0.0, reflectivity->getXaxis().getMin());
     EXPECT_EQ(2.0*Units::degree, reflectivity->getXaxis().getMax());
     EXPECT_DOUBLE_EQ(std::norm(sim.getScalarR(0)[5]), reflectivity->getBinValues()[5]);
 
-    const OutputData<double>* output = sim.getDetectorIntensity();
+    const std::unique_ptr<OutputData<double>> output(sim.getDetectorIntensity());
     EXPECT_EQ(reflectivity->getTotalNumberOfBins(), output->getAllocatedSize());
     EXPECT_EQ(reflectivity->getRank(), output->getRank());
     EXPECT_EQ(reflectivity->getXaxis().getMin(), output->getAxis(0).getMin());
     EXPECT_EQ(reflectivity->getXaxis().getMax(), output->getAxis(0).getMax());
 
-    Histogram1D* transmissivity = sim.transmissivity();
+    std::unique_ptr<Histogram1D> transmissivity(sim.transmissivity());
     EXPECT_EQ(10u, transmissivity->getTotalNumberOfBins());
     EXPECT_EQ(1u, transmissivity->getRank());
     EXPECT_EQ(0.0, transmissivity->getXaxis().getMin());
     EXPECT_EQ(2.0*Units::degree, transmissivity->getXaxis().getMax());
     EXPECT_DOUBLE_EQ(std::norm(sim.getScalarT(2)[5]), transmissivity->getBinValues()[5]);
-
-    delete reflectivity;
-    delete transmissivity;
-    delete output;
 
     ASSERT_THROW(sim.getScalarR(3), std::runtime_error);
     ASSERT_THROW(sim.getScalarT(3), std::runtime_error);
@@ -134,7 +129,7 @@ TEST_F(SpecularSimulationTest, SimulationClone)
     sim.setBeamParameters(1.0, 10, 0.0*Units::degree, 2.0*Units::degree);
     sim.setSample(multilayer);
 
-    SpecularSimulation *clone = sim.clone();
+    std::unique_ptr<SpecularSimulation> clone(sim.clone());
 
     EXPECT_EQ(3u, clone->sample()->numberOfLayers());
 
@@ -144,20 +139,17 @@ TEST_F(SpecularSimulationTest, SimulationClone)
     ASSERT_THROW(clone->reflectivity(), std::runtime_error);
     ASSERT_THROW(clone->transmissivity(), std::runtime_error);
     ASSERT_THROW(clone->getDetectorIntensity(), std::runtime_error);
-    delete clone;
 
     sim.runSimulation();
 
-    clone = sim.clone();
-    EXPECT_EQ(10u, clone->getScalarR(0).size());
-    EXPECT_EQ(10u, clone->getScalarT(0).size());
-    EXPECT_EQ(10u, clone->getScalarKz(0).size());
+    std::unique_ptr<SpecularSimulation> clone2(sim.clone());
+    EXPECT_EQ(10u, clone2->getScalarR(0).size());
+    EXPECT_EQ(10u, clone2->getScalarT(0).size());
+    EXPECT_EQ(10u, clone2->getScalarKz(0).size());
 
-    Histogram1D* output = clone->reflectivity();
+    std::unique_ptr<Histogram1D> output(clone2->reflectivity());
     EXPECT_EQ(10u, output->getTotalNumberOfBins());
-    delete output;
 
-    output = clone->transmissivity();
-    EXPECT_EQ(10u, output->getTotalNumberOfBins());
-    delete output;
+    std::unique_ptr<Histogram1D> output2(clone2->transmissivity());
+    EXPECT_EQ(10u, output2->getTotalNumberOfBins());
 }

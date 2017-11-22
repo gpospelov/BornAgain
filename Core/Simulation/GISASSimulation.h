@@ -47,10 +47,10 @@ public:
 
     //! Returns clone of the detector intensity map with detector resolution applied
     OutputData<double>* getDetectorIntensity(
-            DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+            AxesUnits units_type = AxesUnits::DEFAULT) const;
 
     //! Returns histogram representing intensity map in requested axes units
-    Histogram2D* getIntensityData(DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const;
+    Histogram2D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);

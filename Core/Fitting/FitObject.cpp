@@ -60,7 +60,7 @@ std::vector<const INode*> FitObject::getChildren() const
 std::string FitObject::getDefaultAxisUnits() const
 {
     return DetectorFunctions::detectorUnitsName(
-        m_simulation->getInstrument().getDetector()->getDefaultAxesUnits());
+        m_simulation->getInstrument().getDetector()->defaultAxesUnits());
 }
 
 //! Initialize detector, if necessary, to match experimental data
@@ -79,7 +79,7 @@ void FitObject::init_dataset(const OutputData<double>& real_data)
 // If size of real_data and the detector is different, it is assumed that it is already cropped
 void FitObject::process_realdata(const OutputData<double> &real_data)
 {
-    const IDetector2D *detector = m_simulation->getInstrument().getDetector();
+    const IDetector* detector = m_simulation->getInstrument().getDetector();
     if(!DetectorFunctions::hasSameDimensions(*detector, real_data)){
         std::unique_ptr<OutputData<double>> detectorMap(
                     m_simulation->getInstrument().createDetectorMap());

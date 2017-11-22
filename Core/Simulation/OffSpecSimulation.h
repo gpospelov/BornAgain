@@ -43,7 +43,7 @@ public:
 
     //! Returns clone of the detector intensity map
     OutputData<double>* getDetectorIntensity(
-        DetectorAxesUnits units_type = DetectorAxesUnits::DEFAULT) const {
+        AxesUnits units_type = AxesUnits::DEFAULT) const {
         (void) units_type; return m_intensity_map.clone(); }
 
     //! Returns clone of the detector intensity map in the form of 2D histogram.

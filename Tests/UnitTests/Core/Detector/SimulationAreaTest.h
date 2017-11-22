@@ -30,7 +30,7 @@ TEST_F(SimulationAreaTest, iteratorOperations)
 
     // end iterator
     SimulationArea::iterator it_end = area.end();
-    EXPECT_EQ(it_end.index(), detector.getTotalSize());
+    EXPECT_EQ(it_end.index(), detector.totalSize());
     EXPECT_EQ(it_end.elementIndex(), 0u); // has initial value
 
     // begin/end comparison
@@ -54,8 +54,8 @@ TEST_F(SimulationAreaTest, iteratorOperations)
 
     // incrementing well behind the end
     for(size_t i=0; i<100; ++i) ++it;
-    EXPECT_EQ(it.index(), detector.getTotalSize());
-    EXPECT_EQ(it.elementIndex(), detector.getTotalSize());
+    EXPECT_EQ(it.index(), detector.totalSize());
+    EXPECT_EQ(it.elementIndex(), detector.totalSize());
 }
 
 //! Iteration over non-masked detector

@@ -14,30 +14,31 @@
 // ************************************************************************** //
 
 #include "SimulationArea.h"
-#include "IDetector2D.h"
+#include "IDetector.h"
 #include "Exceptions.h"
+#include "DetectorMask.h"
 #include "Rectangle.h"
 #include "IntensityDataFunctions.h"
 #include "BornAgainNamespace.h"
 #include "RegionOfInterest.h"
 #include <sstream>
 
-SimulationArea::SimulationArea(const IDetector2D* detector)
+SimulationArea::SimulationArea(const IDetector* detector)
     : m_detector(detector)
     , m_max_index(0)
 {
-    if(m_detector==nullptr)
-        throw Exceptions::RuntimeErrorException("SimulationArea::SimulationArea: nullpointer passed"
-                                                " as detector");
+    if (m_detector == nullptr)
+        throw std::runtime_error("SimulationArea::SimulationArea: null pointer passed"
+                                 " as detector");
 
-    if (m_detector->getDimension()!=2)
-        throw Exceptions::RuntimeErrorException(
-            "SimulationArea::SimulationArea: detector is not two-dimensional");
+    if (m_detector->dimension() == 0)
+        throw std::runtime_error(
+            "SimulationArea::SimulationArea: detector of unspecified dimensionality");
 
     if(m_detector->regionOfInterest())
         m_max_index = m_detector->regionOfInterest()->roiSize();
     else
-        m_max_index = m_detector->getTotalSize();
+        m_max_index = m_detector->totalSize();
 }
 
 SimulationAreaIterator SimulationArea::begin()
@@ -56,10 +57,11 @@ bool SimulationArea::isMasked(size_t index) const
         std::ostringstream message;
         message << "SimulationArea::isActive: index " << index << " is out of range, "
                 << "total size = " << totalSize();
-        throw Exceptions::RuntimeErrorException(message.str());
+        throw std::runtime_error(message.str());
     }
 
-    return m_detector->getDetectorMask()->isMasked(detectorIndex(index));
+    return (m_detector->detectorMask()
+            && m_detector->detectorMask()->isMasked(detectorIndex(index)));
 }
 
 size_t SimulationArea::roiIndex(size_t index) const
@@ -77,7 +79,7 @@ size_t SimulationArea::detectorIndex(size_t index) const
 
 // --------------------------------------------------------------------------------------
 
-SimulationRoiArea::SimulationRoiArea(const IDetector2D *detector)
+SimulationRoiArea::SimulationRoiArea(const IDetector *detector)
     : SimulationArea(detector)
 {}
 

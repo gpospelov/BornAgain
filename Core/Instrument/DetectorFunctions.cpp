@@ -15,7 +15,6 @@
 
 #include "DetectorFunctions.h"
 #include "OutputData.h"
-#include "IDetector2D.h"
 #include "Instrument.h"
 #include "SimulationArea.h"
 #include "StringUtils.h"
@@ -26,54 +25,53 @@
 
 namespace
 {
-std::map<std::string, IDetector2D::EAxesUnits> init_name_to_units_map()
+std::map<std::string, AxesUnits> init_name_to_units_map()
 {
-    std::map<std::string, IDetector2D::EAxesUnits> result;
-    result["nbins"] = IDetector2D::NBINS;
-    result["radians"] = IDetector2D::RADIANS;
-    result["rad"] = IDetector2D::RADIANS;
-    result["degrees"] = IDetector2D::DEGREES;
-    result["deg"] = IDetector2D::DEGREES;
-    result["mm"] = IDetector2D::MM;
-    result["qyqz"] = IDetector2D::QYQZ;
+    std::map<std::string, AxesUnits> result;
+    result["nbins"] = AxesUnits::NBINS;
+    result["radians"] = AxesUnits::RADIANS;
+    result["rad"] = AxesUnits::RADIANS;
+    result["degrees"] = AxesUnits::DEGREES;
+    result["deg"] = AxesUnits::DEGREES;
+    result["mm"] = AxesUnits::MM;
+    result["qyqz"] = AxesUnits::QYQZ;
     return result;
 }
 
-std::map<IDetector2D::EAxesUnits, std::string> init_units_to_name_map()
+std::map<AxesUnits, std::string> init_units_to_name_map()
 {
-    std::map<IDetector2D::EAxesUnits, std::string> result;
-    result[IDetector2D::NBINS] = "nbins";
-    result[IDetector2D::RADIANS] = "rad";
-    result[IDetector2D::DEGREES] = "deg";
-    result[IDetector2D::MM] = "mm";
-    result[IDetector2D::QYQZ] = "qyqz";
-    result[IDetector2D::DEFAULT] = "";
+    std::map<AxesUnits, std::string> result;
+    result[AxesUnits::NBINS] = "nbins";
+    result[AxesUnits::RADIANS] = "rad";
+    result[AxesUnits::DEGREES] = "deg";
+    result[AxesUnits::MM] = "mm";
+    result[AxesUnits::QYQZ] = "qyqz";
+    result[AxesUnits::DEFAULT] = "";
     return result;
 }
 
 }
 
-bool DetectorFunctions::hasSameDimensions(const IDetector2D &detector,
-                                          const OutputData<double> &data)
+bool DetectorFunctions::hasSameDimensions(const IDetector& detector, const OutputData<double>& data)
 {
-    if (data.getRank() != detector.getDimension())
+    if (data.getRank() != detector.dimension())
         return false;
 
-    for (size_t i = 0; i < detector.getDimension(); ++i)
+    for (size_t i = 0; i < detector.dimension(); ++i)
         if(data.getAxis(i).size() != detector.getAxis(i).size())
             return false;
 
     return true;
 }
 
-std::string DetectorFunctions::axesToString(const IDetector2D &detector)
+std::string DetectorFunctions::axesToString(const IDetector& detector)
 {
     std::ostringstream result;
 
     result << "(";
-    for (size_t i = 0; i < detector.getDimension(); ++i) {
+    for (size_t i = 0; i < detector.dimension(); ++i) {
         result << detector.getAxis(i).size();
-        if(i!=detector.getDimension()-1)
+        if(i!=detector.dimension()-1)
             result << ",";
     }
     result << ")";
@@ -97,7 +95,7 @@ std::string DetectorFunctions::axesToString(const OutputData<double> &data)
 }
 
 std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instrument &instrument,
-    const OutputData<double> &data, bool put_masked_areas_to_zero, IDetector2D::EAxesUnits units)
+    const OutputData<double> &data, bool put_masked_areas_to_zero, AxesUnits units)
 {
     if(!DetectorFunctions::hasSameDimensions(*instrument.getDetector(), data)){
         std::ostringstream message;
@@ -127,10 +125,10 @@ std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instr
     return result;
 }
 
-IDetector2D::EAxesUnits DetectorFunctions::detectorUnits(const std::string& unitName)
+AxesUnits DetectorFunctions::detectorUnits(const std::string& unitName)
 {
     if(unitName.empty())
-        return IDetector2D::DEFAULT;
+        return AxesUnits::DEFAULT;
 
     static auto units_map = init_name_to_units_map();
 
@@ -143,12 +141,12 @@ IDetector2D::EAxesUnits DetectorFunctions::detectorUnits(const std::string& unit
     return it->second;
 }
 
-std::string DetectorFunctions::detectorUnitsName(IDetector2D::EAxesUnits units)
+std::string DetectorFunctions::detectorUnitsName(AxesUnits units)
 {
     static auto units_map = init_units_to_name_map();
     auto it = units_map.find(units);
     if(it == units_map.end())
         throw std::runtime_error("DetectorFunctions::detectorUnitsName() -> Error. No such "
-                                 "detector unit '"+std::to_string(units)+"'");
+                                 "detector unit '"+std::to_string(static_cast<int>(units))+"'");
     return it->second;
 }

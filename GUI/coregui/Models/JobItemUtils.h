@@ -17,7 +17,7 @@
 #ifndef JOBITEMUTILS_H
 #define JOBITEMUTILS_H
 
-#include "IDetector2D.h"
+#include "IDetector.h"
 #include <QMap>
 
 class GISASSimulation;
@@ -45,19 +45,19 @@ BA_CORE_API_ void loadIntensityData(IntensityDataItem* intensityItem, const QStr
 BA_CORE_API_ void saveIntensityData(IntensityDataItem* intensityItem, const QString& projectDir);
 
 //! returns axes units names from their domain counterpart
-BA_CORE_API_ QString nameFromAxesUnits(IDetector2D::EAxesUnits units);
+BA_CORE_API_ QString nameFromAxesUnits(AxesUnits units);
 
 //! returns domain axes units type from their GUI name
-BA_CORE_API_ IDetector2D::EAxesUnits axesUnitsFromName(const QString& name);
+BA_CORE_API_ AxesUnits axesUnitsFromName(const QString& name);
 
 //! converts detector default axes units into units most suitable for GUI
-BA_CORE_API_ IDetector2D::EAxesUnits preferableGUIAxesUnits(IDetector2D::EAxesUnits default_units);
+BA_CORE_API_ AxesUnits preferableGUIAxesUnits(AxesUnits default_units);
 
 BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
                                             const InstrumentItem* instrumentItem);
 
 BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
-                                            const IDetector2D* detector);
+                                            const IDetector* detector);
 
 BA_CORE_API_ void updateAxesTitle(IntensityDataItem* intensityItem);
 
@@ -65,7 +65,7 @@ BA_CORE_API_ void createDefaultDetectorMap(IntensityDataItem* intensityItem,
                                            const InstrumentItem* instrumentItem);
 
 BA_CORE_API_ OutputData<double>* createDetectorMap(const InstrumentItem* instrumentItem,
-                                                   IDetector2D::EAxesUnits units);
+                                                   AxesUnits units);
 }
 
 #endif // JOBITEMUTILS_H

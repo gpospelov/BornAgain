@@ -8,7 +8,7 @@ platform:
 
 # http://www.appveyor.com/docs/installed-software
 environment:
-  QTDIR: "C:\\Qt\\5.9.1\\msvc2017_64"
+  QTDIR: "C:\\Qt\\5.9.2\\msvc2017_64"
   MYCONDA: "C:\\Miniconda-x64;C:\\Miniconda-x64\\Scripts;C:\\Miniconda-x64\\Library\\bin"
   PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%PATH%"
   PYTHONPATH: "C:\\Miniconda-x64;C:\\Miniconda-x64\\Lib;C:\\Miniconda-x64\\Lib\\site-packages;C:\\Miniconda-x64\\DLLs"

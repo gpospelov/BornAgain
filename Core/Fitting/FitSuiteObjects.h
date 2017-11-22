@@ -35,7 +35,7 @@ class BA_CORE_API_ FitSuiteObjects : public INode, public INoncopyable
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     //! Adds to kit pair of (simulation, real data) for consecutive simulation
-    FitObject* add(const GISASSimulation& simulation, const OutputData<double>& real_data,
+    FitObject* add(const Simulation& simulation, const OutputData<double>& real_data,
              double weight = 1.0);
 
     //! Returns total number of data points (number of all non-masked channels in all fit objects)

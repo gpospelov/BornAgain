@@ -17,6 +17,11 @@
 #include "SessionItemUtils.h"
 #include "SessionItem.h"
 #include "VectorItem.h"
+#include "MaterialItem.h"
+#include "MaterialProperty.h"
+#include <QColor>
+#include <QIcon>
+#include <QPixmap>
 
 int SessionItemUtils::ParentRow(const SessionItem& item)
 {
@@ -41,4 +46,48 @@ void SessionItemUtils::SetVectorItem(const SessionItem& item, const QString& nam
     p_vector_item->setItemValue(VectorItem::P_X, value.x());
     p_vector_item->setItemValue(VectorItem::P_Y, value.y());
     p_vector_item->setItemValue(VectorItem::P_Z, value.z());
+}
+
+int SessionItemUtils::ParentVisibleRow(const SessionItem& item)
+{
+    int result(-1);
+
+    if (!item.parent() || !item.isVisible())
+        return result;
+
+    for(auto child : item.parent()->children()) {
+        if (child->isVisible())
+            ++result;
+
+        if (&item == child)
+            return result;
+    }
+
+    return result;
+}
+
+QVariant SessionItemUtils::TextColorRole(const SessionItem& item)
+{
+    return item.isEnabled() ? QVariant() : QColor(Qt::gray);
+}
+
+QVariant SessionItemUtils::ToolTipRole(const SessionItem& item, int ncol)
+{
+    QString result = item.toolTip();
+    if (result.isEmpty()) {
+        result = item.displayName();
+        if (ncol == 1 && item.value().canConvert<QString>())
+            result = item.value().toString();
+    }
+
+    return QVariant(result);
+}
+
+
+QVariant SessionItemUtils::DecorationRole(const SessionItem& item)
+{
+    if (item.value().canConvert<MaterialProperty>())
+        return QIcon(item.value().value<MaterialProperty>().getPixmap());
+
+    return QVariant();
 }

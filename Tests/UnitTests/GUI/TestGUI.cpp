@@ -34,6 +34,8 @@
 #include "TestModelUtils.h"
 #include "TestComponentProxyModel.h"
 #include "TestProxyModelStrategy.h"
+#include "TestSessionItemUtils.h"
+#include "TestComponentUtils.h"
 #include <memory>
 
 class GUITestFactory {
@@ -63,6 +65,7 @@ int main(int argc, char** argv) {
     Q_UNUSED(app);
 
     QMetaType::registerComparators<ComboProperty>();
+    qRegisterMetaType<QAbstractItemModel::LayoutChangeHint>("LayoutChangeHint");
 
     GUITestFactory tests;
 
@@ -96,9 +99,11 @@ int main(int argc, char** argv) {
 //    tests.add<TestParticleCoreShell>();
 //    tests.add<TestPropertyRepeater>();
 //    tests.add<TestSessionItemController>();
-//    tests.add<TestModelUtils>();
+    tests.add<TestModelUtils>();
     tests.add<TestComponentProxyModel>();
     tests.add<TestProxyModelStrategy>();
+    tests.add<TestSessionItemUtils>();
+    tests.add<TestComponentUtils>();
 
     return tests.runAll(argc, argv);
 }

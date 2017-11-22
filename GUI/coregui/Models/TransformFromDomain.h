@@ -40,7 +40,7 @@ class SphericalDetector;
 class SphericalDetectorItem;
 class DetectorItem;
 class MaskContainerItem;
-class IDetector2D;
+class IDetector;
 class InstrumentItem;
 
 namespace TransformFromDomain
@@ -87,7 +87,7 @@ BA_CORE_API_ void setDetectorMasks(DetectorItem *detectorItem,
                                    const GISASSimulation &simulation);
 
 BA_CORE_API_ void setDetectorMasks(MaskContainerItem *containerItem,
-                                   const IDetector2D &detector, double scale);
+                                   const IDetector &detector, double scale);
 
 BA_CORE_API_ void setItemFromSample(BeamDistributionItem *beamDistributionItem,
                                     const ParameterDistribution &parameterDistribution);

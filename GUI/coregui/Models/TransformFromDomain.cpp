@@ -245,7 +245,7 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
 void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrumentItem,
                                             const GISASSimulation& simulation)
 {
-    const IDetector2D* p_detector = simulation.getInstrument().getDetector();
+    const IDetector* p_detector = simulation.getInstrument().getDetector();
     DetectorItem* detector_item;
 
     if(auto detector = dynamic_cast<const SphericalDetector*>(p_detector)) {
@@ -295,10 +295,10 @@ void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instru
         }
     }
     // polarization analysis parameters
-    double total_transmission = p_detector->analyzerTotalTransmission();
+    double total_transmission = p_detector->detectionProperties().analyzerTotalTransmission();
     if (total_transmission>0.0) {
-        kvector_t analyzer_dir = p_detector->analyzerDirection();
-        double efficiency = p_detector->analyzerEfficiency();
+        kvector_t analyzer_dir = p_detector->detectionProperties().analyzerDirection();
+        double efficiency = p_detector->detectionProperties().analyzerEfficiency();
         SetVectorItem(*detector_item, DetectorItem::P_ANALYZER_DIRECTION,
                                         analyzer_dir);
         detector_item->setItemValue(DetectorItem::P_ANALYZER_EFFICIENCY, efficiency);
@@ -403,8 +403,8 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
 void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem,
                                            const GISASSimulation& simulation)
 {
-    const IDetector2D* detector = simulation.getInstrument().getDetector();
-    if( (detector->getDetectorMask() && detector->getDetectorMask()->numberOfMasks()) ||
+    const IDetector* detector = simulation.getInstrument().getDetector();
+    if( (detector->detectorMask() && detector->detectorMask()->numberOfMasks()) ||
         detector->regionOfInterest()) {
         detectorItem->createMaskContainer();
 
@@ -417,9 +417,9 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem,
 }
 
 void TransformFromDomain::setDetectorMasks(MaskContainerItem* containerItem,
-                                           const IDetector2D& detector, double scale)
+                                           const IDetector& detector, double scale)
 {
-    auto detectorMask = detector.getDetectorMask();
+    auto detectorMask = detector.detectorMask();
     for(size_t i_mask=0; i_mask<detectorMask->numberOfMasks(); ++i_mask) {
         bool mask_value(false);
         const IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);

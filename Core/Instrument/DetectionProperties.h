@@ -40,7 +40,7 @@ public:
 
     //! Retrieve the analyzer characteristics
     kvector_t analyzerDirection() const;
-    double analyzerEfficiency() const;
+    double analyzerEfficiency() const; //!< will always return positive value
     double analyzerTotalTransmission() const;
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

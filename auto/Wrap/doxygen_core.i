@@ -42,6 +42,15 @@ C++ includes: AdjustMinimizerStrategy.h
 ";
 
 
+// File: structAxesUnitsWrap.xml
+%feature("docstring") AxesUnitsWrap "
+
+Wrapper for detector axes units, required for a better representation of detector axes units in python
+
+C++ includes: IDetector.h
+";
+
+
 // File: classBaseMaterialImpl.xml
 %feature("docstring") BaseMaterialImpl "";
 
@@ -1171,6 +1180,8 @@ Retrieve the analyzer characteristics.
 ";
 
 %feature("docstring")  DetectionProperties::analyzerEfficiency "double DetectionProperties::analyzerEfficiency() const
+
+will always return positive value 
 ";
 
 %feature("docstring")  DetectionProperties::analyzerTotalTransmission "double DetectionProperties::analyzerTotalTransmission() const
@@ -1790,7 +1801,7 @@ Holds simulation description and real data to run the fit.
 C++ includes: FitObject.h
 ";
 
-%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1)
+%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const Simulation &simulation, const OutputData< double > &real_data, double weight=1)
 
 FitObject constructor
 
@@ -1831,11 +1842,6 @@ Returns simulated data.
 %feature("docstring")  FitObject::chiSquaredMap "const OutputData< double > & FitObject::chiSquaredMap() const
 
 Returns chi2 map. 
-";
-
-%feature("docstring")  FitObject::simulation "const GISASSimulation & FitObject::simulation() const
-
-Returns simulation. 
 ";
 
 %feature("docstring")  FitObject::weight "double FitObject::weight() const
@@ -2062,19 +2068,24 @@ C++ includes: FitSuite.h
 %feature("docstring")  FitSuite::~FitSuite "FitSuite::~FitSuite()
 ";
 
-%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1)
+%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const Simulation &simulation, const OutputData< double > &real_data, double weight=1)
 
 Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
 ";
 
-%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const IHistogram &real_data, double weight=1)
+%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const Simulation &simulation, const IHistogram &real_data, double weight=1)
 
 Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
 ";
 
-%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const GISASSimulation &simulation, const std::vector< std::vector< double >> &real_data, double weight=1)
+%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const Simulation &simulation, const std::vector< std::vector< double >> &real_data, double weight=1)
 
-Assigns pair of (simulation, real data) for fitting. Numpy array is used to provide intensities. Shape of array (nrows, ncols) should coinside with detector's axes (n_alpha, n_phi). 
+Assigns pair of (simulation, real data) for fitting. A version for the  real_data represented as a two-dimensional numpy array.  Simulation output must agree in dimensions with  real_data. 
+";
+
+%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const Simulation &simulation, const std::vector< double > &real_data, double weight=1)
+
+Assigns pair of (simulation, real_data) for fitting. A version for the  real_data represented as a one-dimensional numpy array.  Simulation output must agree in dimensions with  real_data. 
 ";
 
 %feature("docstring")  FitSuite::addFitParameter "FitParameter * FitSuite::addFitParameter(const std::string &pattern, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
@@ -2352,7 +2363,7 @@ Resets most state variables, to get prepared for the next fit.
 Clears all data. 
 ";
 
-%feature("docstring")  FitSuiteImpl::addSimulationAndRealData "FitObject * FitSuiteImpl::addSimulationAndRealData(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight)
+%feature("docstring")  FitSuiteImpl::addSimulationAndRealData "FitObject * FitSuiteImpl::addSimulationAndRealData(const Simulation &simulation, const OutputData< double > &real_data, double weight)
 
 Adds pair of (simulation, real data) for consecutive simulation. 
 ";
@@ -2477,7 +2488,7 @@ C++ includes: FitSuiteObjects.h
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FitSuiteObjects::add "FitObject * FitSuiteObjects::add(const GISASSimulation &simulation, const OutputData< double > &real_data, double weight=1.0)
+%feature("docstring")  FitSuiteObjects::add "FitObject * FitSuiteObjects::add(const Simulation &simulation, const OutputData< double > &real_data, double weight=1.0)
 
 Adds to kit pair of (simulation, real data) for consecutive simulation. 
 ";
@@ -5528,12 +5539,12 @@ Put into a clean state for running a simulation.
 Gets the number of elements this simulation needs to calculate. 
 ";
 
-%feature("docstring")  GISASSimulation::getDetectorIntensity "OutputData< double > * GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+%feature("docstring")  GISASSimulation::getDetectorIntensity "OutputData< double > * GISASSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const
 
 Returns clone of the detector intensity map with detector resolution applied. 
 ";
 
-%feature("docstring")  GISASSimulation::getIntensityData "Histogram2D * GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+%feature("docstring")  GISASSimulation::getIntensityData "Histogram2D * GISASSimulation::getIntensityData(AxesUnits units_type=AxesUnits::DEFAULT) const
 
 Returns histogram representing intensity map in requested axes units. 
 ";
@@ -6239,10 +6250,140 @@ Merges its region map into the given one (notice non-const reference parameter)
 ";
 
 
+// File: classIDetector.xml
+%feature("docstring") IDetector "
+
+Abstract detector interface.
+
+C++ includes: IDetector.h
+";
+
+%feature("docstring")  IDetector::IDetector "IDetector::IDetector()
+";
+
+%feature("docstring")  IDetector::clone "virtual IDetector* IDetector::clone() const =0
+";
+
+%feature("docstring")  IDetector::~IDetector "IDetector::~IDetector()
+";
+
+%feature("docstring")  IDetector::init "virtual void IDetector::init(const Beam &)
+
+Inits detector with the beam settings. 
+";
+
+%feature("docstring")  IDetector::clear "void IDetector::clear()
+";
+
+%feature("docstring")  IDetector::addAxis "void IDetector::addAxis(const IAxis &axis)
+";
+
+%feature("docstring")  IDetector::getAxis "const IAxis & IDetector::getAxis(size_t index) const
+";
+
+%feature("docstring")  IDetector::dimension "size_t IDetector::dimension() const
+
+Returns actual dimensionality of the detector (number of defined axes) 
+";
+
+%feature("docstring")  IDetector::axisBinIndex "size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
+
+Calculate axis index for given global index. 
+";
+
+%feature("docstring")  IDetector::totalSize "size_t IDetector::totalSize() const
+
+Returns total number of pixels. 
+";
+
+%feature("docstring")  IDetector::detectorMask "virtual const DetectorMask* IDetector::detectorMask() const =0
+
+Returns detector masks container. 
+";
+
+%feature("docstring")  IDetector::setAnalyzerProperties "void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
+
+Sets the polarization analyzer characteristics of the detector. 
+";
+
+%feature("docstring")  IDetector::setDetectorResolution "void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
+
+Sets the detector resolution. 
+";
+
+%feature("docstring")  IDetector::setResolutionFunction "void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
+";
+
+%feature("docstring")  IDetector::applyDetectorResolution "void IDetector::applyDetectorResolution(OutputData< double > *p_intensity_map) const
+
+Applies the detector resolution to the given intensity maps. 
+";
+
+%feature("docstring")  IDetector::removeDetectorResolution "void IDetector::removeDetectorResolution()
+
+Removes detector resolution function. 
+";
+
+%feature("docstring")  IDetector::detectorResolution "const IDetectorResolution * IDetector::detectorResolution() const
+
+Returns a pointer to detector resolution object. 
+";
+
+%feature("docstring")  IDetector::createDetectorMap "std::unique_ptr< OutputData< double > > IDetector::createDetectorMap(const Beam &beam, AxesUnits units) const
+
+Returns empty detector map in given axes units. 
+";
+
+%feature("docstring")  IDetector::createSimulationElements "virtual std::vector<SimulationElement> IDetector::createSimulationElements(const Beam &beam)=0
+
+Create a vector of  SimulationElement objects according to the detector and its mask. 
+";
+
+%feature("docstring")  IDetector::regionOfInterest "virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
+
+Returns region of interest if exists. 
+";
+
+%feature("docstring")  IDetector::detectionProperties "const DetectionProperties& IDetector::detectionProperties() const
+
+Returns detection properties. 
+";
+
+%feature("docstring")  IDetector::initOutputData "void IDetector::initOutputData(OutputData< double > &data) const
+
+Inits axes of  OutputData to match the detector and sets values to zero. 
+";
+
+%feature("docstring")  IDetector::createDetectorIntensity "OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, AxesUnits units_type=AxesUnits::DEFAULT) const
+
+Returns new intensity map with detector resolution applied and axes in requested units. 
+";
+
+%feature("docstring")  IDetector::defaultAxesUnits "virtual AxesUnits IDetector::defaultAxesUnits() const
+
+Return default axes units. 
+";
+
+%feature("docstring")  IDetector::validAxesUnits "virtual std::vector<AxesUnits> IDetector::validAxesUnits() const
+
+Returns vector of valid axes units. 
+";
+
+%feature("docstring")  IDetector::numberOfSimulationElements "size_t IDetector::numberOfSimulationElements() const
+
+Returns number of simulation elements. 
+";
+
+%feature("docstring")  IDetector::getChildren "std::vector< const INode * > IDetector::getChildren() const override
+
+Returns a vector of children (const). 
+";
+
+
 // File: classIDetector2D.xml
 %feature("docstring") IDetector2D "
 
-Pure virtual detector interface.
+Abstract 2D detector interface.
 
 C++ includes: IDetector2D.h
 ";
@@ -6256,23 +6397,6 @@ C++ includes: IDetector2D.h
 %feature("docstring")  IDetector2D::~IDetector2D "IDetector2D::~IDetector2D()
 ";
 
-%feature("docstring")  IDetector2D::init "virtual void IDetector2D::init(const Beam &)
-
-Inits detector with the beam settings. 
-";
-
-%feature("docstring")  IDetector2D::addAxis "void IDetector2D::addAxis(const IAxis &axis)
-";
-
-%feature("docstring")  IDetector2D::getAxis "const IAxis & IDetector2D::getAxis(size_t index) const
-";
-
-%feature("docstring")  IDetector2D::getDimension "size_t IDetector2D::getDimension() const
-";
-
-%feature("docstring")  IDetector2D::clear "void IDetector2D::clear()
-";
-
 %feature("docstring")  IDetector2D::setDetectorParameters "void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
 
 Sets detector parameters using angle ranges. 
@@ -6283,48 +6407,14 @@ Sets detector parameters using angle ranges.
 Sets detector parameters using axes. 
 ";
 
-%feature("docstring")  IDetector2D::setDetectorResolution "void IDetector2D::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
-
-Sets the detector resolution. 
-";
-
-%feature("docstring")  IDetector2D::setResolutionFunction "void IDetector2D::setResolutionFunction(const IResolutionFunction2D &resFunc)
-";
-
-%feature("docstring")  IDetector2D::removeDetectorResolution "void IDetector2D::removeDetectorResolution()
-
-Removes detector resolution function. 
-";
-
-%feature("docstring")  IDetector2D::applyDetectorResolution "void IDetector2D::applyDetectorResolution(OutputData< double > *p_intensity_map) const
-
-Applies the detector resolution to the given intensity maps. 
-";
-
-%feature("docstring")  IDetector2D::detectorResolution "const IDetectorResolution * IDetector2D::detectorResolution() const
-";
-
-%feature("docstring")  IDetector2D::setAnalyzerProperties "void IDetector2D::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
-
-Sets the polarization analyzer characteristics of the detector. 
-";
-
-%feature("docstring")  IDetector2D::analyzerDirection "kvector_t IDetector2D::analyzerDirection() const
-
-Get analyzer properties. 
-";
-
-%feature("docstring")  IDetector2D::analyzerEfficiency "double IDetector2D::analyzerEfficiency() const
-
-will always return a positive number 
-";
-
-%feature("docstring")  IDetector2D::analyzerTotalTransmission "double IDetector2D::analyzerTotalTransmission() const
-";
-
 %feature("docstring")  IDetector2D::removeMasks "void IDetector2D::removeMasks()
 
 Removes all masks from the detector. 
+";
+
+%feature("docstring")  IDetector2D::detectorMask "const DetectorMask * IDetector2D::detectorMask() const override
+
+Returns detector masks container. 
 ";
 
 %feature("docstring")  IDetector2D::addMask "void IDetector2D::addMask(const IShape2D &shape, bool mask_value=true)
@@ -6346,56 +6436,12 @@ The value of mask
 Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
 ";
 
-%feature("docstring")  IDetector2D::getDetectorMask "const DetectorMask * IDetector2D::getDetectorMask() const
-";
-
-%feature("docstring")  IDetector2D::numberOfMaskedChannels "size_t IDetector2D::numberOfMaskedChannels() const
-";
-
-%feature("docstring")  IDetector2D::isMasked "bool IDetector2D::isMasked(size_t index) const
-";
-
-%feature("docstring")  IDetector2D::hasMasks "bool IDetector2D::hasMasks() const
-
-return true if has masks 
-";
-
-%feature("docstring")  IDetector2D::createSimulationElements "std::vector< SimulationElement > IDetector2D::createSimulationElements(const Beam &beam)
+%feature("docstring")  IDetector2D::createSimulationElements "std::vector< SimulationElement > IDetector2D::createSimulationElements(const Beam &beam) override
 
 Create a vector of  SimulationElement objects according to the detector and its mask. 
 ";
 
-%feature("docstring")  IDetector2D::getSimulationElement "SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &beam) const
-
-Creates single simulation element. 
-";
-
-%feature("docstring")  IDetector2D::createDetectorIntensity "OutputData< double > * IDetector2D::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
-
-Returns new intensity map with detector resolution applied and axes in requested units. 
-";
-
-%feature("docstring")  IDetector2D::createDetectorMap "OutputData< double > * IDetector2D::createDetectorMap(const Beam &beam, EAxesUnits units) const
-
-Returns empty detector map in given axes units. 
-";
-
-%feature("docstring")  IDetector2D::initOutputData "void IDetector2D::initOutputData(OutputData< double > &data) const
-
-Inits axes of  OutputData to match the detector and sets values to zero. 
-";
-
-%feature("docstring")  IDetector2D::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > IDetector2D::getValidAxesUnits() const
-
-Returns vector of valid axes units. 
-";
-
-%feature("docstring")  IDetector2D::getDefaultAxesUnits "virtual EAxesUnits IDetector2D::getDefaultAxesUnits() const
-
-Return default axes units. 
-";
-
-%feature("docstring")  IDetector2D::regionOfInterest "const RegionOfInterest * IDetector2D::regionOfInterest() const
+%feature("docstring")  IDetector2D::regionOfInterest "const RegionOfInterest * IDetector2D::regionOfInterest() const override
 
 Returns region of interest if exists. 
 ";
@@ -6408,26 +6454,6 @@ Sets rectangular region of interest with lower left and upper right corners defi
 %feature("docstring")  IDetector2D::resetRegionOfInterest "void IDetector2D::resetRegionOfInterest()
 
 Resets region of interest making whole detector plane available for the simulation. 
-";
-
-%feature("docstring")  IDetector2D::getTotalSize "size_t IDetector2D::getTotalSize() const
-
-Returns total number of pixels. 
-";
-
-%feature("docstring")  IDetector2D::getAxisBinIndex "size_t IDetector2D::getAxisBinIndex(size_t index, size_t selected_axis) const
-
-Calculate axis index for given global index. 
-";
-
-%feature("docstring")  IDetector2D::numberOfSimulationElements "size_t IDetector2D::numberOfSimulationElements() const
-
-Returns number of simulation elements. 
-";
-
-%feature("docstring")  IDetector2D::getChildren "std::vector< const INode * > IDetector2D::getChildren() const
-
-Returns a vector of children (const). 
 ";
 
 
@@ -8074,12 +8100,17 @@ Sets the beam's polarization according to the given Bloch vector.
 Returns the beam's intensity. 
 ";
 
-%feature("docstring")  Instrument::getDetector "const IDetector2D * Instrument::getDetector() const
+%feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
 
 Returns the detector data. 
 ";
 
-%feature("docstring")  Instrument::getDetector "IDetector2D * Instrument::getDetector()
+%feature("docstring")  Instrument::getDetector "IDetector * Instrument::getDetector()
+";
+
+%feature("docstring")  Instrument::detector2D "IDetector2D * Instrument::detector2D()
+
+Returns 2D detector data if detector is truly 2D. Otherwise returns nullptr. 
 ";
 
 %feature("docstring")  Instrument::getDetectorMask "const DetectorMask * Instrument::getDetectorMask() const
@@ -8095,19 +8126,9 @@ Returns a detector axis.
 Returns the detector's dimension. 
 ";
 
-%feature("docstring")  Instrument::setDetector "void Instrument::setDetector(const IDetector2D &detector)
+%feature("docstring")  Instrument::setDetector "void Instrument::setDetector(const IDetector &detector)
 
 Sets the detector (axes can be overwritten later) 
-";
-
-%feature("docstring")  Instrument::setDetectorParameters "void Instrument::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
-
-Sets detector parameters using angle ranges. 
-";
-
-%feature("docstring")  Instrument::setDetectorAxes "void Instrument::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
-
-Sets detector parameters using axes. 
 ";
 
 %feature("docstring")  Instrument::setDetectorResolutionFunction "void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function)
@@ -8130,17 +8151,17 @@ Sets the polarization analyzer characteristics of the detector.
 apply the detector resolution to the given intensity map 
 ";
 
-%feature("docstring")  Instrument::createDetectorIntensity "OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const
+%feature("docstring")  Instrument::createDetectorIntensity "OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, AxesUnits units=AxesUnits::DEFAULT) const
 
 Returns new intensity map with detector resolution applied and axes in requested units. 
 ";
 
-%feature("docstring")  Instrument::createIntensityData "Histogram2D * Instrument::createIntensityData(const std::vector< SimulationElement > &elements, IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+%feature("docstring")  Instrument::createIntensityData "Histogram2D * Instrument::createIntensityData(const std::vector< SimulationElement > &elements, AxesUnits units_type=AxesUnits::DEFAULT) const
 
 Returns histogram representing intensity map in requested axes units. 
 ";
 
-%feature("docstring")  Instrument::createDetectorMap "OutputData< double > * Instrument::createDetectorMap(IDetector2D::EAxesUnits units=IDetector2D::DEFAULT) const
+%feature("docstring")  Instrument::createDetectorMap "OutputData< double > * Instrument::createDetectorMap(AxesUnits units=AxesUnits::DEFAULT) const
 
 Returns empty detector map in given axes units. 
 ";
@@ -10595,7 +10616,7 @@ Put into a clean state for running a simulation.
 Gets the number of elements this simulation needs to calculate. 
 ";
 
-%feature("docstring")  OffSpecSimulation::getDetectorIntensity "OutputData<double>* OffSpecSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const
+%feature("docstring")  OffSpecSimulation::getDetectorIntensity "OutputData<double>* OffSpecSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const
 
 Returns clone of the detector intensity map. 
 ";
@@ -12205,12 +12226,12 @@ Inits detector with the beam settings.
 %feature("docstring")  RectangularDetector::getDetectorArrangment "RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
 ";
 
-%feature("docstring")  RectangularDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > RectangularDetector::getValidAxesUnits() const override
+%feature("docstring")  RectangularDetector::validAxesUnits "std::vector< AxesUnits > RectangularDetector::validAxesUnits() const override
 
 returns vector of valid axes units 
 ";
 
-%feature("docstring")  RectangularDetector::getDefaultAxesUnits "IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const override
+%feature("docstring")  RectangularDetector::defaultAxesUnits "AxesUnits RectangularDetector::defaultAxesUnits() const override
 
 return default axes units 
 ";
@@ -13147,7 +13168,7 @@ The  MultiLayer object will not be owned by the  Simulation object.
 %feature("docstring")  Simulation::numberOfSimulationElements "virtual size_t Simulation::numberOfSimulationElements() const =0
 ";
 
-%feature("docstring")  Simulation::getDetectorIntensity "virtual OutputData<double>* Simulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type=IDetector2D::DEFAULT) const =0
+%feature("docstring")  Simulation::getDetectorIntensity "virtual OutputData<double>* Simulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const =0
 
 Clone simulated intensity map. 
 ";
@@ -13192,7 +13213,7 @@ Holds iteration logic over active detector channels in the presence of masked ar
 C++ includes: SimulationArea.h
 ";
 
-%feature("docstring")  SimulationArea::SimulationArea "SimulationArea::SimulationArea(const IDetector2D *detector)
+%feature("docstring")  SimulationArea::SimulationArea "SimulationArea::SimulationArea(const IDetector *detector)
 ";
 
 %feature("docstring")  SimulationArea::~SimulationArea "virtual SimulationArea::~SimulationArea()
@@ -13206,7 +13227,7 @@ C++ includes: SimulationArea.h
 
 %feature("docstring")  SimulationArea::isMasked "bool SimulationArea::isMasked(size_t index) const
 
-returns trus if given iterator index correspond to masked detector channel 
+returns true if given iterator index correspond to masked detector channel 
 ";
 
 %feature("docstring")  SimulationArea::totalSize "size_t SimulationArea::totalSize() const
@@ -13446,12 +13467,12 @@ Holds iteration logic over active detector channels in the presence of ROI. On t
 C++ includes: SimulationArea.h
 ";
 
-%feature("docstring")  SimulationRoiArea::SimulationRoiArea "SimulationRoiArea::SimulationRoiArea(const IDetector2D *detector)
+%feature("docstring")  SimulationRoiArea::SimulationRoiArea "SimulationRoiArea::SimulationRoiArea(const IDetector *detector)
 ";
 
 %feature("docstring")  SimulationRoiArea::isMasked "bool SimulationRoiArea::isMasked(size_t) const
 
-returns trus if given iterator index correspond to masked detector channel 
+returns true if given iterator index correspond to masked detector channel 
 ";
 
 
@@ -13630,6 +13651,9 @@ Run a simulation, possibly averaged over parameter distributions.
 Calls the  INodeVisitor's visit method. 
 ";
 
+%feature("docstring")  SpecularSimulation::numberOfSimulationElements "size_t SpecularSimulation::numberOfSimulationElements() const override
+";
+
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, double phi_i=0.0)
 
 Sets beam parameters with alpha_i of the beam defined in the range. 
@@ -13643,19 +13667,34 @@ Sets beam parameters with alpha_i of the beam defined in the range.
 Returns a pointer to incident angle axis. 
 ";
 
+%feature("docstring")  SpecularSimulation::getDetectorIntensity "OutputData< double > * SpecularSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
+
+Returns reflectivity values  $Reflectivity = \\\\|R\\\\|^2$ from the upper layer in the form of  OutputData<double>. 
+";
+
+%feature("docstring")  SpecularSimulation::reflectivity "Histogram1D * SpecularSimulation::reflectivity() const
+
+Returns reflectivity values  $Reflectivity = |R|^2$ in the form of 1D Histogram for the upper sample layer. 
+";
+
+%feature("docstring")  SpecularSimulation::transmissivity "Histogram1D * SpecularSimulation::transmissivity() const
+
+Returns transmissivity values  $Transmissivity = |T|^2$ in the form of 1D Histogram for the sample bottom layer. 
+";
+
 %feature("docstring")  SpecularSimulation::getScalarR "std::vector< complex_t > SpecularSimulation::getScalarR(size_t i_layer) const
 
-returns vector of reflection coefficients for all alpha_i angles for given layer index 
+Returns vector of reflection coefficients (  $R$) for all alpha_i angles for given layer index. 
 ";
 
 %feature("docstring")  SpecularSimulation::getScalarT "std::vector< complex_t > SpecularSimulation::getScalarT(size_t i_layer) const
 
-returns vector of transmission coefficients for all alpha_i angles for given layer index 
+Returns vector of transmission coefficients for all alpha_i angles for given layer index. 
 ";
 
 %feature("docstring")  SpecularSimulation::getScalarKz "std::vector< complex_t > SpecularSimulation::getScalarKz(size_t i_layer) const
 
-returns vector of Kz coefficients for all alpha_i angles for given layer index 
+Returns vector of Kz coefficients for all alpha_i angles for given layer index. 
 ";
 
 
@@ -13725,12 +13764,12 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  SphericalDetector::~SphericalDetector "SphericalDetector::~SphericalDetector() override
 ";
 
-%feature("docstring")  SphericalDetector::getValidAxesUnits "std::vector< IDetector2D::EAxesUnits > SphericalDetector::getValidAxesUnits() const override
+%feature("docstring")  SphericalDetector::validAxesUnits "std::vector< AxesUnits > SphericalDetector::validAxesUnits() const override
 
 returns vector of valid axes units 
 ";
 
-%feature("docstring")  SphericalDetector::getDefaultAxesUnits "IDetector2D::EAxesUnits SphericalDetector::getDefaultAxesUnits() const override
+%feature("docstring")  SphericalDetector::defaultAxesUnits "AxesUnits SphericalDetector::defaultAxesUnits() const override
 
 return default axes units 
 ";
@@ -14406,13 +14445,10 @@ C++ includes: ZLimits.h
 // File: namespace_0D23.xml
 
 
-// File: namespace_0D249.xml
+// File: namespace_0D251.xml
 
 
-// File: namespace_0D276.xml
-
-
-// File: namespace_0D280.xml
+// File: namespace_0D278.xml
 
 
 // File: namespace_0D282.xml
@@ -14421,40 +14457,46 @@ C++ includes: ZLimits.h
 // File: namespace_0D284.xml
 
 
-// File: namespace_0D292.xml
+// File: namespace_0D286.xml
 
 
-// File: namespace_0D307.xml
+// File: namespace_0D294.xml
 
 
-// File: namespace_0D315.xml
+// File: namespace_0D309.xml
 
 
-// File: namespace_0D321.xml
+// File: namespace_0D317.xml
 
 
-// File: namespace_0D324.xml
+// File: namespace_0D323.xml
 
 
 // File: namespace_0D326.xml
 
 
-// File: namespace_0D347.xml
+// File: namespace_0D328.xml
 
 
-// File: namespace_0D356.xml
+// File: namespace_0D349.xml
 
 
-// File: namespace_0D389.xml
+// File: namespace_0D358.xml
 
 
-// File: namespace_0D396.xml
+// File: namespace_0D391.xml
 
 
-// File: namespace_0D502.xml
+// File: namespace_0D398.xml
 
 
-// File: namespace_0D524.xml
+// File: namespace_0D436.xml
+
+
+// File: namespace_0D504.xml
+
+
+// File: namespace_0D526.xml
 
 
 // File: namespace_0D63.xml
@@ -14562,12 +14604,12 @@ Parse double values from string to vector of double.
 
 
 // File: namespaceDetectorFunctions.xml
-%feature("docstring")  DetectorFunctions::hasSameDimensions "bool DetectorFunctions::hasSameDimensions(const IDetector2D &detector, const OutputData< double > &data)
+%feature("docstring")  DetectorFunctions::hasSameDimensions "bool DetectorFunctions::hasSameDimensions(const IDetector &detector, const OutputData< double > &data)
 
 Returns true if the data has same axes size (nx,ny) with the detector. 
 ";
 
-%feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const IDetector2D &detector)
+%feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const IDetector &detector)
 
 Returns string representation of axes dimension in the form \"(nx,ny)\". 
 ";
@@ -14577,17 +14619,17 @@ Returns string representation of axes dimension in the form \"(nx,ny)\".
 Returns string representation of axes dimension in the form \"(nx,ny)\". 
 ";
 
-%feature("docstring")  DetectorFunctions::createDataSet "std::unique_ptr< OutputData< double > > DetectorFunctions::createDataSet(const Instrument &instrument, const OutputData< double > &data, bool put_masked_areas_to_zero=true, IDetector2D::EAxesUnits units=IDetector2D::DEFAULT)
+%feature("docstring")  DetectorFunctions::createDataSet "std::unique_ptr< OutputData< double > > DetectorFunctions::createDataSet(const Instrument &instrument, const OutputData< double > &data, bool put_masked_areas_to_zero=true, AxesUnits units=AxesUnits::DEFAULT)
 
 Creates real data containing original user data clipped to the ROI area of the detector. If put_masked_areas_to_zero==true: resulting data will have 0.0 in all masked areas If put_masked_areas_to_zero==false: resulting data will be only cropped, masked areas will still contain intensities TODO: what users will like more (this appears on FitSuitePlotObserver)? 
 ";
 
-%feature("docstring")  DetectorFunctions::detectorUnits "IDetector2D::EAxesUnits DetectorFunctions::detectorUnits(const std::string &unitName)
+%feature("docstring")  DetectorFunctions::detectorUnits "AxesUnits DetectorFunctions::detectorUnits(const std::string &unitName)
 
 Translates the name of detector axes units into corresponding enum. 
 ";
 
-%feature("docstring")  DetectorFunctions::detectorUnitsName "std::string DetectorFunctions::detectorUnitsName(IDetector2D::EAxesUnits units)
+%feature("docstring")  DetectorFunctions::detectorUnitsName "std::string DetectorFunctions::detectorUnitsName(AxesUnits units)
 
 Translate detector axes units enum into string. 
 ";
@@ -15875,6 +15917,12 @@ Add element vector to element vector with weight.
 
 
 // File: IChiSquaredModule_8h.xml
+
+
+// File: IDetector_8cpp.xml
+
+
+// File: IDetector_8h.xml
 
 
 // File: IDetector2D_8cpp.xml

@@ -47,24 +47,21 @@ public:
     ~SphericalDetector() override {}
 
     //! returns vector of valid axes units
-    std::vector<EAxesUnits> getValidAxesUnits() const override;
+    std::vector<AxesUnits> validAxesUnits() const override;
 
     //! return default axes units
-    EAxesUnits getDefaultAxesUnits() const override;
+    AxesUnits defaultAxesUnits() const override;
 
 protected:
     //! Create an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
 
-    //! Generates an axis with correct name and default binning for given index
-    IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const override;
-
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
+    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
                                     double &amin, double &amax) const override;
 
     //! Returns the name for the axis with given index
-    std::string getAxisName(size_t index) const override;
+    std::string axisName(size_t index) const override;
 
     //! Returns index of pixel that contains the specular wavevector.
     //! If no pixel contains this specular wavevector, the number of pixels is

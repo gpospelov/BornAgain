@@ -15,13 +15,13 @@
 
 #include "FitObject.h"
 #include "FitElement.h"
-#include "GISASSimulation.h"
+#include "Simulation.h"
 #include "IIntensityNormalizer.h"
 #include "SimulationArea.h"
 #include "BornAgainNamespace.h"
 #include "DetectorFunctions.h"
 
-FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
+FitObject::FitObject(const Simulation& simulation, const OutputData<double >& real_data,
     double weight)
     : m_simulation(simulation.clone())
     , m_weight(weight)
@@ -29,8 +29,7 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
 
 {
     setName("FitObject");
-    m_fit_elements_count =
-            m_simulation->getInstrument().getDetector()->numberOfSimulationElements();
+    m_fit_elements_count = m_simulation->numberOfSimulationElements();
     registerChild(m_simulation.get());
     init_dataset(real_data);
 }
@@ -53,11 +52,6 @@ const OutputData<double>& FitObject::chiSquaredMap() const
     return *m_chi2_data.get();
 }
 
-const GISASSimulation& FitObject::simulation() const
-{
-    return *m_simulation.get();
-}
-
 std::vector<const INode*> FitObject::getChildren() const
 {
     return std::vector<const INode*>() << m_simulation;
@@ -66,7 +60,7 @@ std::vector<const INode*> FitObject::getChildren() const
 std::string FitObject::getDefaultAxisUnits() const
 {
     return DetectorFunctions::detectorUnitsName(
-        m_simulation->getInstrument().getDetector()->getDefaultAxesUnits());
+        m_simulation->getInstrument().getDetector()->defaultAxesUnits());
 }
 
 //! Initialize detector, if necessary, to match experimental data
@@ -85,7 +79,7 @@ void FitObject::init_dataset(const OutputData<double>& real_data)
 // If size of real_data and the detector is different, it is assumed that it is already cropped
 void FitObject::process_realdata(const OutputData<double> &real_data)
 {
-    const IDetector2D *detector = m_simulation->getInstrument().getDetector();
+    const IDetector* detector = m_simulation->getInstrument().getDetector();
     if(!DetectorFunctions::hasSameDimensions(*detector, real_data)){
         std::unique_ptr<OutputData<double>> detectorMap(
                     m_simulation->getInstrument().createDetectorMap());

@@ -4,6 +4,7 @@
 #include "item_constants.h"
 #include "ComponentProxyModel.h"
 #include "ProxyModelStrategy.h"
+#include "ComponentProxyStrategy.h"
 #include "VectorItem.h"
 #include "ParticleItem.h"
 #include "FormFactorItems.h"

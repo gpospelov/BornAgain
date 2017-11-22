@@ -104,8 +104,8 @@ IPixel *RectangularDetector::createPixel(size_t index) const
 {
     const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
-    size_t u_index = getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
-    size_t v_index = getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
+    size_t u_index = axisBinIndex(index, BornAgain::X_AXIS_INDEX);
+    size_t v_index = axisBinIndex(index, BornAgain::Y_AXIS_INDEX);
 
     Bin1D u_bin = u_axis.getBin(u_index);
     Bin1D v_bin = v_axis.getBin(v_index);
@@ -178,41 +178,30 @@ RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrang
     return m_detector_arrangement;
 }
 
-std::vector<IDetector2D::EAxesUnits> RectangularDetector::getValidAxesUnits() const
+std::vector<AxesUnits> RectangularDetector::validAxesUnits() const
 {
-    std::vector<IDetector2D::EAxesUnits> result = IDetector2D::getValidAxesUnits();
-    std::vector<IDetector2D::EAxesUnits> addon =
-        { IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::MM, IDetector2D::QYQZ };
+    std::vector<AxesUnits> result = IDetector2D::validAxesUnits();
+    std::vector<AxesUnits> addon =
+        { AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::MM, AxesUnits::QYQZ };
     result.insert(result.end(), addon.begin(), addon.end());
     return result;
 }
 
-IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
+AxesUnits RectangularDetector::defaultAxesUnits() const
 {
-    return IDetector2D::MM;
-}
-
-IAxis *RectangularDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
-{
-    if (max <= min)
-        throw Exceptions::LogicErrorException(
-            "RectangularDetector::createAxis() -> Error! max <= min");
-    if (n_bins == 0)
-        throw Exceptions::LogicErrorException(
-            "RectangularDetector::createAxis() -> Error! Number n_bins can't be zero.");
-    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
+    return AxesUnits::MM;
 }
 
 void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam &beam,
-    IDetector2D::EAxesUnits units, double &amin, double &amax) const
+    AxesUnits units, double &amin, double &amax) const
 {
     amin = 0.0; amax=0.0;
-    if(units == MM) {
+    if(units == AxesUnits::MM) {
         amin = getAxis(axis_index).getMin();
         amax = getAxis(axis_index).getMax();
-    }else if(units == RADIANS || units == DEGREES) {
+    }else if(units == AxesUnits::RADIANS || units == AxesUnits::DEGREES) {
         double scale(1.0);
-        if (units == DEGREES)
+        if (units == AxesUnits::DEGREES)
             scale = 1. / Units::degree;
 
         if(axis_index == BornAgain::X_AXIS_INDEX) {
@@ -240,7 +229,7 @@ void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam &beam
 
 }
 
-std::string RectangularDetector::getAxisName(size_t index) const
+std::string RectangularDetector::axisName(size_t index) const
 {
     switch (index) {
     case 0:
@@ -255,13 +244,13 @@ std::string RectangularDetector::getAxisName(size_t index) const
 
 size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
 {
-    if (getDimension()!=2) return getTotalSize();
+    if (dimension()!=2) return totalSize();
     double alpha = beam.getAlpha();
     double phi = beam.getPhi();
     kvector_t k_spec = vecOfLambdaAlphaPhi(beam.getWavelength(), alpha, phi);
     kvector_t normal_unit = m_normal_to_detector.unit();
     double kd = k_spec.dot(normal_unit);
-    if (kd<=0.0) return getTotalSize();
+    if (kd<=0.0) return totalSize();
     kvector_t k_orth = (k_spec/kd - normal_unit)*m_distance;
     double u = k_orth.dot(m_u_unit) + m_u0;
     double v = k_orth.dot(m_v_unit) + m_v0;
@@ -272,7 +261,7 @@ size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
     if (u_index < u_axis.size() && v_index < v_axis.size()) {
         return getGlobalIndex(u_index, v_index);
     }
-    return getTotalSize();
+    return totalSize();
 }
 
 void RectangularDetector::setDistanceAndOffset(double distance, double u0, double v0)

@@ -73,7 +73,7 @@ public:
 
     //! Clone simulated intensity map
     virtual OutputData<double>* getDetectorIntensity(
-        IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const=0;
+        AxesUnits units_type = AxesUnits::DEFAULT) const=0;
 
     void addParameterDistribution(
         const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,

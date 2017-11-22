@@ -268,7 +268,6 @@ const ModelType MaterialPropertyType = "MaterialProperty";
 const ModelType ComboPropertyType = "ComboProperty";
 const ModelType ColorPropertyType = "ColorProperty";
 const ModelType GroupPropertyType = "GroupProperty_t";
-const ModelType AnglePropertyType = "AngleProperty";
 
 }
 

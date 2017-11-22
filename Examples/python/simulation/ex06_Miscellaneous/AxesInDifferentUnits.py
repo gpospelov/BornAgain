@@ -69,9 +69,9 @@ def run_simulation():
 
     results = {}
     results['mm'] = simulation.getIntensityData()
-    results['nbins'] = simulation.getIntensityData(ba.IDetector2D.NBINS)
-    results['deg'] = simulation.getIntensityData(ba.IDetector2D.DEGREES)
-    results['qyqz'] = simulation.getIntensityData(ba.IDetector2D.QYQZ)
+    results['nbins'] = simulation.getIntensityData(ba.AxesUnits.NBINS)
+    results['deg'] = simulation.getIntensityData(ba.AxesUnits.DEGREES)
+    results['qyqz'] = simulation.getIntensityData(ba.AxesUnits.QYQZ)
 
     return results
 

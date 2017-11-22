@@ -27,17 +27,17 @@ TEST_F(SphericalDetectorTest, initialState)
     SphericalDetector detector;
 
     // checking size
-    EXPECT_EQ(0u, detector.getDimension());
-    EXPECT_EQ(IDetector2D::RADIANS, detector.getDefaultAxesUnits());
+    EXPECT_EQ(0u, detector.dimension());
+    EXPECT_EQ(AxesUnits::RADIANS, detector.defaultAxesUnits());
 
     // detector units
-    std::vector<IDetector2D::EAxesUnits> validUnits =
-        {IDetector2D::NBINS, IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::QYQZ};
-    EXPECT_EQ(validUnits, detector.getValidAxesUnits());
+    std::vector<AxesUnits> validUnits =
+        {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QYQZ};
+    EXPECT_EQ(validUnits, detector.validAxesUnits());
 
     // masks
-    EXPECT_FALSE(detector.hasMasks());
-    EXPECT_EQ(0u, detector.numberOfMaskedChannels());
+    EXPECT_FALSE(detector.detectorMask()->hasMasks());
+    EXPECT_EQ(0, detector.detectorMask()->numberOfMaskedChannels());
 
     // resolution function
     EXPECT_EQ(nullptr, detector.detectorResolution());
@@ -46,10 +46,10 @@ TEST_F(SphericalDetectorTest, initialState)
     EXPECT_EQ(nullptr, detector.regionOfInterest());
 
     // behavior
-    ASSERT_THROW(detector.getAxis(0), Exceptions::OutOfBoundsException);
+    ASSERT_THROW(detector.getAxis(0), std::runtime_error);
     OutputData<double>* p_intensity_map(nullptr);
     ASSERT_THROW(detector.applyDetectorResolution(p_intensity_map),
-                 Exceptions::NullPointerException);
+                 std::runtime_error);
 }
 
 // Construction of the detector with axes.
@@ -62,7 +62,7 @@ TEST_F(SphericalDetectorTest, constructionWithAxes)
     detector.addAxis(axis1);
 
     // checking dimension and axes
-    EXPECT_EQ(2u, detector.getDimension());
+    EXPECT_EQ(2u, detector.dimension());
     EXPECT_EQ(axis0.getMin(), detector.getAxis(0).getMin() );
     EXPECT_EQ(axis0.getMax(), detector.getAxis(0).getMax() );
     EXPECT_EQ(axis0.getName(), detector.getAxis(0).getName() );
@@ -72,7 +72,7 @@ TEST_F(SphericalDetectorTest, constructionWithAxes)
 
     // clearing detector
     detector.clear();
-    EXPECT_EQ(0u, detector.getDimension());
+    EXPECT_EQ(0u, detector.dimension());
 }
 
 // Construction of the detector via classical constructor.
@@ -118,8 +118,7 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
     beam.setCentralK(1.0*Units::angstrom, 0.4*Units::deg, 0.0);
 
     // creating map in default units, which are radians and checking axes
-    std::unique_ptr<OutputData<double>> data(
-                detector.createDetectorMap(beam, IDetector2D::DEFAULT));
+    auto data = detector.createDetectorMap(beam, AxesUnits::DEFAULT);
     EXPECT_EQ(data->getAxis(0).size(), 10u);
     EXPECT_EQ(data->getAxis(0).getMin(), -1.0*Units::deg);
     EXPECT_EQ(data->getAxis(0).getMax(), 1.0*Units::deg);
@@ -128,7 +127,7 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
     EXPECT_EQ(data->getAxis(1).getMax(), 2.0*Units::deg);
 
     // creating map in degrees and checking axes
-    data.reset(detector.createDetectorMap(beam, IDetector2D::DEGREES));
+    data = detector.createDetectorMap(beam, AxesUnits::DEGREES);
     EXPECT_EQ(data->getAxis(0).size(), 10u);
     EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), -1.0);
     EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 1.0);
@@ -137,7 +136,7 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
     EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 2.0);
 
     // creating map in nbins and checking axes
-    data.reset(detector.createDetectorMap(beam, IDetector2D::NBINS));
+    data = detector.createDetectorMap(beam, AxesUnits::NBINS);
     EXPECT_EQ(data->getAxis(0).size(), 10u);
     EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), 0.0);
     EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 10.0);
@@ -210,8 +209,7 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
 
     // Creating map in default units, which are radians and checking that axes are clipped
     // to region of interest.
-    std::unique_ptr<OutputData<double>> data(
-                detector.createDetectorMap(beam, IDetector2D::DEFAULT));
+    auto data = detector.createDetectorMap(beam, AxesUnits::DEFAULT);
     EXPECT_EQ(data->getAxis(0).size(), 4u);
     EXPECT_EQ(data->getAxis(0).getMin(), 0.0*Units::deg);
     EXPECT_EQ(data->getAxis(0).getMax(), 4.0*Units::deg);
@@ -220,7 +218,7 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
     EXPECT_EQ(data->getAxis(1).getMax(), 3.0*Units::deg);
 
     // Creating map with axes in degrees, and checking that it is clipped to the region of interest
-    data.reset(detector.createDetectorMap(beam, IDetector2D::DEGREES));
+    data = detector.createDetectorMap(beam, AxesUnits::DEGREES);
     EXPECT_EQ(data->getAxis(0).size(), 4u);
     EXPECT_EQ(data->getAxis(0).getMin(), 0.0);
     EXPECT_EQ(data->getAxis(0).getMax(), 4.0);
@@ -251,7 +249,7 @@ TEST_F(SphericalDetectorTest, getIntensityData)
     // region of interest.
 
 //    std::unique_ptr<OutputData<double>> detectorIntensity(
-//                detector.getDetectorIntensity(intensityData, beam, IDetector2D::DEGREES));
+//                detector.getDetectorIntensity(intensityData, beam, DetectorAxesUnits::DEGREES));
 
 //    EXPECT_EQ(detectorIntensity->getAllocatedSize(), 8);
 //    EXPECT_EQ((*detectorIntensity)[0], 5.0);
@@ -276,37 +274,37 @@ TEST_F(SphericalDetectorTest, MaskOfDetector)
     Polygon polygon(x, y);
     detector.addMask(polygon, true);
 
-    const OutputData<bool> *mask = detector.getDetectorMask()->getMaskData();
+    const OutputData<bool> *mask = detector.detectorMask()->getMaskData();
     for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
         double x = mask->getAxisValue(index, 0);
         double y = mask->getAxisValue(index, 1);
         if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
-            EXPECT_TRUE(detector.isMasked(index));
+            EXPECT_TRUE(detector.detectorMask()->isMasked(index));
         } else {
-            EXPECT_FALSE(detector.isMasked(index));
+            EXPECT_FALSE(detector.detectorMask()->isMasked(index));
         }
     }
 
     SphericalDetector detector2(detector);
-    mask = detector2.getDetectorMask()->getMaskData();
+    mask = detector2.detectorMask()->getMaskData();
     for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
         double x = mask->getAxisValue(index, 0);
         double y = mask->getAxisValue(index, 1);
         if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
-            EXPECT_TRUE(detector2.isMasked(index));
+            EXPECT_TRUE(detector2.detectorMask()->isMasked(index));
         } else {
-            EXPECT_FALSE(detector2.isMasked(index));
+            EXPECT_FALSE(detector2.detectorMask()->isMasked(index));
         }
     }
 
-    mask = detector.getDetectorMask()->getMaskData();
+    mask = detector.detectorMask()->getMaskData();
     for(size_t index=0; index<mask->getAllocatedSize(); ++index) {
         double x = mask->getAxisValue(index, 0);
         double y = mask->getAxisValue(index, 1);
         if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
-            EXPECT_TRUE(detector.isMasked(index));
+            EXPECT_TRUE(detector.detectorMask()->isMasked(index));
         } else {
-            EXPECT_FALSE(detector.isMasked(index));
+            EXPECT_FALSE(detector.detectorMask()->isMasked(index));
         }
     }
 }
@@ -327,8 +325,7 @@ TEST_F(SphericalDetectorTest, Clone)
 
     std::unique_ptr<SphericalDetector> clone(detector.clone());
 
-    std::unique_ptr<OutputData<double>> data(
-                clone->createDetectorMap(beam, IDetector2D::DEGREES));
+    auto data = clone->createDetectorMap(beam, AxesUnits::DEGREES);
     EXPECT_EQ(data->getAxis(0).size(), 4u);
     EXPECT_EQ(data->getAxis(0).getMin(), 0.0);
     EXPECT_EQ(data->getAxis(0).getMax(), 4.0);
@@ -339,7 +336,7 @@ TEST_F(SphericalDetectorTest, Clone)
     EXPECT_EQ(std::string("ConvolutionDetectorResolution"),
               clone->detectorResolution()->getName());
 
-    EXPECT_EQ(clone->numberOfMaskedChannels(), 8u);
+    EXPECT_EQ(clone->detectorMask()->numberOfMaskedChannels(), 8);
 
     // checking iteration over the map of cloned detector
     SimulationArea area(clone.get());
@@ -357,15 +354,15 @@ TEST_F(SphericalDetectorTest, Clone)
 
 TEST_F(SphericalDetectorTest, nameToUnitTranslation)
 {
-    EXPECT_EQ(DetectorFunctions::detectorUnits(""), IDetector2D::DEFAULT);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("QyQz"), IDetector2D::QYQZ);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("qyqz"), IDetector2D::QYQZ);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("MM"), IDetector2D::MM);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("mm"), IDetector2D::MM);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("radians"), IDetector2D::RADIANS);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("rad"), IDetector2D::RADIANS);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("degrees"), IDetector2D::DEGREES);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("deg"), IDetector2D::DEGREES);
+    EXPECT_EQ(DetectorFunctions::detectorUnits(""), AxesUnits::DEFAULT);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("QyQz"), AxesUnits::QYQZ);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("qyqz"), AxesUnits::QYQZ);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("MM"), AxesUnits::MM);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("mm"), AxesUnits::MM);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("radians"), AxesUnits::RADIANS);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("rad"), AxesUnits::RADIANS);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("degrees"), AxesUnits::DEGREES);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("deg"), AxesUnits::DEGREES);
     EXPECT_THROW(DetectorFunctions::detectorUnits("xxx"), std::runtime_error);
 }
 
@@ -388,13 +385,14 @@ TEST_F(SphericalDetectorTest, AnalyzerProperties)
     direction = kvector_t(1.0, 0.0, 0.0);
     unit_direction = direction.unit();
     detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+    const DetectionProperties& detect_properties = detector.detectionProperties();
 
-    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
-    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detect_properties.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detect_properties.analyzerTotalTransmission(), total_transmission, 1e-8);
     // direction vector returned is zero vector because efficiency is zero
-    EXPECT_NEAR(detector.analyzerDirection().x(), 0.0, 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().y(), 0.0, 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().z(), 0.0, 1e-8);
+    EXPECT_NEAR(detect_properties.analyzerDirection().x(), 0.0, 1e-8);
+    EXPECT_NEAR(detect_properties.analyzerDirection().y(), 0.0, 1e-8);
+    EXPECT_NEAR(detect_properties.analyzerDirection().z(), 0.0, 1e-8);
 
     // intermediate efficiency
     direction = kvector_t(1.0, 0.0, 0.0);
@@ -402,12 +400,13 @@ TEST_F(SphericalDetectorTest, AnalyzerProperties)
     total_transmission = 0.6;
     unit_direction = direction.unit();
     detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+    const DetectionProperties& detect_properties2 = detector.detectionProperties();
 
-    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
-    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().x(), unit_direction.x(), 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().y(), unit_direction.y(), 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().z(), unit_direction.z(), 1e-8);
+    EXPECT_NEAR(detect_properties2.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detect_properties2.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detect_properties2.analyzerDirection().x(), unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detect_properties2.analyzerDirection().y(), unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detect_properties2.analyzerDirection().z(), unit_direction.z(), 1e-8);
 
     // maximum efficiency
     direction = kvector_t(1.0, 0.0, 0.0);
@@ -415,12 +414,13 @@ TEST_F(SphericalDetectorTest, AnalyzerProperties)
     total_transmission = 0.5;
     unit_direction = direction.unit();
     detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+    const DetectionProperties& detect_properties3 = detector.detectionProperties();
 
-    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
-    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().x(), unit_direction.x(), 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().y(), unit_direction.y(), 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().z(), unit_direction.z(), 1e-8);
+    EXPECT_NEAR(detect_properties3.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detect_properties3.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detect_properties3.analyzerDirection().x(), unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detect_properties3.analyzerDirection().y(), unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detect_properties3.analyzerDirection().z(), unit_direction.z(), 1e-8);
 
     // non-axis direction
     direction = kvector_t(1.0, 2.0, 3.0);
@@ -428,12 +428,13 @@ TEST_F(SphericalDetectorTest, AnalyzerProperties)
     total_transmission = 0.5;
     unit_direction = direction.unit();
     detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+    const DetectionProperties& detect_properties4 = detector.detectionProperties();
 
-    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
-    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().x(), unit_direction.x(), 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().y(), unit_direction.y(), 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().z(), unit_direction.z(), 1e-8);
+    EXPECT_NEAR(detect_properties4.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detect_properties4.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detect_properties4.analyzerDirection().x(), unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detect_properties4.analyzerDirection().y(), unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detect_properties4.analyzerDirection().z(), unit_direction.z(), 1e-8);
 
     // maximum efficiency and negative efficiency
     direction = kvector_t(0.0, -1.0, -1.0);
@@ -441,10 +442,11 @@ TEST_F(SphericalDetectorTest, AnalyzerProperties)
     total_transmission = 0.5;
     unit_direction = direction.unit();
     detector.setAnalyzerProperties(direction, efficiency, total_transmission);
+    const DetectionProperties& detect_properties5 = detector.detectionProperties();
 
-    EXPECT_NEAR(detector.analyzerEfficiency(), efficiency, 1e-8);
-    EXPECT_NEAR(detector.analyzerTotalTransmission(), total_transmission, 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().x(), unit_direction.x(), 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().y(), unit_direction.y(), 1e-8);
-    EXPECT_NEAR(detector.analyzerDirection().z(), unit_direction.z(), 1e-8);
+    EXPECT_NEAR(detect_properties5.analyzerEfficiency(), efficiency, 1e-8);
+    EXPECT_NEAR(detect_properties5.analyzerTotalTransmission(), total_transmission, 1e-8);
+    EXPECT_NEAR(detect_properties5.analyzerDirection().x(), unit_direction.x(), 1e-8);
+    EXPECT_NEAR(detect_properties5.analyzerDirection().y(), unit_direction.y(), 1e-8);
+    EXPECT_NEAR(detect_properties5.analyzerDirection().z(), unit_direction.z(), 1e-8);
 }

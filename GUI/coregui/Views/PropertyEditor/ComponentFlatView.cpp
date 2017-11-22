@@ -68,13 +68,17 @@ void ComponentFlatView::setModel(SessionModel* model)
 
 }
 
-void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIndex&,
-                                      const QVector<int>& )
+void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIndex&bottomRight,
+                                      const QVector<int>& roles)
 {
+    Q_UNUSED(bottomRight);
     SessionItem *item = m_model->itemForIndex(topLeft);
     Q_ASSERT(item);
     if (item->modelType() == Constants::GroupItemType)
         updateItemProperties(m_currentItem);
+
+    if (roles.contains(SessionModel::FlagRole))
+        updateItemRoles(item);
 }
 
 void ComponentFlatView::updateItemProperties(SessionItem* item)
@@ -94,6 +98,13 @@ void ComponentFlatView::updateItemProperties(SessionItem* item)
         m_widgetItems.push_back(widget);
     }
 
+}
+
+void ComponentFlatView::updateItemRoles(SessionItem* item)
+{
+    for(auto widget: m_widgetItems)
+        if (widget->item() == item)
+            widget->updateItemRoles();
 }
 
 void ComponentFlatView::clearLayout()

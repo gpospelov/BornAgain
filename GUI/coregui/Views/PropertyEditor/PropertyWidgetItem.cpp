@@ -33,6 +33,7 @@ PropertyWidgetItem::PropertyWidgetItem(QWidget* parent)
     , m_editor(nullptr)
     , m_dataMapper(new QDataWidgetMapper(this))
     , m_delegate(new SessionModelDelegate(this))
+    , m_item(nullptr)
 {
     m_label->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 }
@@ -47,7 +48,8 @@ PropertyWidgetItem::~PropertyWidgetItem()
 
 void PropertyWidgetItem::setItemEditor(const SessionItem* item, QWidget* editor)
 {
-    Q_ASSERT(m_editor == nullptr);
+    Q_ASSERT(m_item == nullptr);
+    m_item = item;
     m_editor = editor;
 
     m_label->setText(item->displayName());
@@ -63,11 +65,7 @@ void PropertyWidgetItem::setItemEditor(const SessionItem* item, QWidget* editor)
     if (auto combo = dynamic_cast<ComboPropertyEditor*>(editor))
         connect(combo, &ComboPropertyEditor::currentIndexChanged, [=]{m_delegate->commitData(combo);});
 
-    m_label->setEnabled(item->isEnabled());
-    m_editor->setEnabled(item->isEnabled());
-
-    m_label->setToolTip(SessionItemUtils::ToolTipRole(*item).toString());
-    m_editor->setToolTip(SessionItemUtils::ToolTipRole(*item).toString());
+    updateItemRoles();
 }
 
 void PropertyWidgetItem::addToGrid(QGridLayout* gridLayout, int nrow)
@@ -77,4 +75,18 @@ void PropertyWidgetItem::addToGrid(QGridLayout* gridLayout, int nrow)
 
     gridLayout->addWidget(m_label, nrow, 0);
     gridLayout->addWidget(m_editor, nrow, 1);
+}
+
+void PropertyWidgetItem::updateItemRoles()
+{
+    Q_ASSERT(m_item);
+    m_label->setEnabled(m_item->isEnabled());
+    m_editor->setEnabled(m_item->isEnabled());
+    m_label->setToolTip(SessionItemUtils::ToolTipRole(*m_item).toString());
+    m_editor->setToolTip(SessionItemUtils::ToolTipRole(*m_item).toString());
+}
+
+const SessionItem* PropertyWidgetItem::item()
+{
+    return m_item;
 }

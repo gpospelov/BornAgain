@@ -40,11 +40,15 @@ public:
     void setItemEditor(const SessionItem* item, QWidget* editor);
     void addToGrid(QGridLayout* gridLayout, int nrow);
 
+    void updateItemRoles();
+
+    const SessionItem* item();
 private:
     QLabel* m_label;
     QWidget* m_editor;
     QDataWidgetMapper* m_dataMapper;
     SessionModelDelegate* m_delegate;
+    const SessionItem* m_item;
 };
 
 #endif

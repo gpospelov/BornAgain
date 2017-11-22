@@ -138,10 +138,10 @@ TEST_F(MaterialTest, ComputationTest)
     const complex_t sld_res_2200 = (1.0 - material.refractiveIndex2(basic_wavelength)) / wl_factor_2200;
     const complex_t sld_res_1100 = (1.0 - material.refractiveIndex2(2.0 * basic_wavelength)) / wl_factor_1100;
 
-    EXPECT_NEAR(0.0, (sld_ref.real() - sld_res_2200.real()) / sld_ref.real(), 1.e-3);
-    EXPECT_NEAR(0.0, (sld_ref.imag() - sld_res_2200.imag()) / sld_ref.imag(), 1.e-3);
-    EXPECT_NEAR(0.0, (sld_ref.real() - sld_res_1100.real()) / sld_ref.real(), 1.e-3);
-    EXPECT_NEAR(0.0, (sld_ref.imag() - sld_res_1100.imag()) / sld_ref.imag(), 1.e-3);
+    EXPECT_NEAR(0.0, (sld_ref.real() - sld_res_2200.real()) / sld_ref.real(), 1e-3);
+    EXPECT_NEAR(0.0, (sld_ref.imag() - sld_res_2200.imag()) / sld_ref.imag(), 1e-3);
+    EXPECT_NEAR(0.0, (sld_ref.real() - sld_res_1100.real()) / sld_ref.real(), 1e-3);
+    EXPECT_NEAR(0.0, (sld_ref.imag() - sld_res_1100.imag()) / sld_ref.imag(), 1e-3);
 
     const complex_t refr_index = material.refractiveIndex(2.0 * basic_wavelength);
     WavevectorInfo wv_info(cvector_t{}, cvector_t{}, 2.0 * basic_wavelength);
@@ -149,8 +149,8 @@ TEST_F(MaterialTest, ComputationTest)
     Material material2 = HomogeneousMaterial("Fe", 1.0 - refr_index.real(), std::abs(refr_index.imag()));
     const complex_t subtrSLD = material2.scalarSubtrSLD(wv_info);
     const complex_t subtrSLDWlIndep = material.scalarSubtrSLD(wv_info);
-    EXPECT_FLOAT_EQ(subtrSLD.real(), subtrSLDWlIndep.real());
-    EXPECT_FLOAT_EQ(subtrSLD.imag(), subtrSLDWlIndep.imag());
+    EXPECT_NEAR(subtrSLD.real(), subtrSLDWlIndep.real(), 1e-10);
+    EXPECT_NEAR(subtrSLD.imag(), subtrSLDWlIndep.imag(), 1e-10);
 }
 
 TEST_F(MaterialTest, AveragedMaterialTest)

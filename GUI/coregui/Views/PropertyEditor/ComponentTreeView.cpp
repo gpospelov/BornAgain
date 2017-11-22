@@ -38,7 +38,7 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
 
     setLayout(layout);
 
-    QStringList labels = {"Property", "Value"};
+    QStringList labels = {"Name", "Value"};
     m_placeHolderModel->setHorizontalHeaderLabels(labels);
 
     StyleUtils::setPropertyStyle(m_tree);

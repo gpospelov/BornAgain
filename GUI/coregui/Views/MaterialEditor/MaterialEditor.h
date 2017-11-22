@@ -24,7 +24,7 @@ class MaterialModel;
 class MaterialEditorToolBar;
 class QSplitter;
 class QListView;
-class ComponentEditor;
+class ComponentTreeView;
 class QItemSelection;
 class QItemSelectionModel;
 class MaterialItem;
@@ -37,9 +37,9 @@ class BA_CORE_API_ MaterialEditor : public QWidget
     Q_OBJECT
 
 public:
-    MaterialEditor(MaterialModel* materialModel, QWidget* parent = 0);
+    MaterialEditor(MaterialModel* materialModel, QWidget* parent = nullptr);
 
-    QItemSelectionModel* getSelectionModel();
+    QItemSelectionModel* selectionModel();
 
     MaterialItem* getSelectedMaterial();
 
@@ -63,7 +63,7 @@ private:
     MaterialEditorToolBar* m_toolBar;
     QSplitter* m_splitter;
     QListView* m_listView;
-    ComponentEditor* m_componentEditor;
+    ComponentTreeView* m_componentEditor;
     bool m_model_was_modified;
 };
 

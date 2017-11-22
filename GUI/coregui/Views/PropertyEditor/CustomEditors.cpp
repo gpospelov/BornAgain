@@ -62,8 +62,7 @@ MaterialPropertyEditor::MaterialPropertyEditor(QWidget* parent)
     setAutoFillBackground(true);
 
     auto layout = new QHBoxLayout;
-    layout->setMargin(2);
-    layout->setSpacing(0);
+    layout->setContentsMargins(4, 0, 0, 0);
 
     MaterialProperty defProperty; // to get label and pixmap of undefined material
     m_textLabel->setText(defProperty.getName());
@@ -71,9 +70,10 @@ MaterialPropertyEditor::MaterialPropertyEditor(QWidget* parent)
 
     auto button = new QToolButton;
     button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
-    button->setText(QLatin1String("..."));
-    layout->addWidget(m_pixmapLabel, Qt::AlignLeft);
-    layout->addWidget(m_textLabel, Qt::AlignLeft);
+    button->setText(QLatin1String(" . . . "));
+    button->setToolTip("Material selector");
+    layout->addWidget(m_pixmapLabel);
+    layout->addWidget(m_textLabel);
     layout->addStretch(1);
     layout->addWidget(button);
     setFocusPolicy(Qt::StrongFocus);
@@ -115,8 +115,7 @@ ColorPropertyEditor::ColorPropertyEditor(QWidget* parent)
     setAutoFillBackground(true);
 
     auto layout = new QHBoxLayout;
-    layout->setMargin(2);
-    layout->setSpacing(0);
+    layout->setContentsMargins(4, 0, 0, 0);
 
     ColorProperty defProperty; // to get label and pixmap of undefined material
     m_textLabel->setText(defProperty.getText());
@@ -124,9 +123,10 @@ ColorPropertyEditor::ColorPropertyEditor(QWidget* parent)
 
     auto button = new QToolButton;
     button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
-    button->setText(QLatin1String("..."));
-    layout->addWidget(m_pixmapLabel, Qt::AlignLeft);
-    layout->addWidget(m_textLabel, Qt::AlignLeft);
+    button->setText(QLatin1String(" . . . "));
+    button->setToolTip("Color selector");
+    layout->addWidget(m_pixmapLabel);
+    layout->addWidget(m_textLabel);
     layout->addStretch(1);
     layout->addWidget(button);
     setFocusPolicy(Qt::StrongFocus);

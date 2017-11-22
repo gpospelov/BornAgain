@@ -19,6 +19,7 @@
 #include "VectorItem.h"
 #include "MaterialItem.h"
 #include "MaterialProperty.h"
+#include "ColorProperty.h"
 #include <QColor>
 #include <QIcon>
 #include <QPixmap>
@@ -88,6 +89,9 @@ QVariant SessionItemUtils::DecorationRole(const SessionItem& item)
 {
     if (item.value().canConvert<MaterialProperty>())
         return QIcon(item.value().value<MaterialProperty>().getPixmap());
+
+    if (item.value().canConvert<ColorProperty>())
+        return QIcon(item.value().value<ColorProperty>().getPixmap());
 
     return QVariant();
 }

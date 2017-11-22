@@ -28,27 +28,28 @@
 
 namespace
 {
-int minimumWidth_of_AwesomePropertyEditor = 250;
+int minimum_width = 250;
 }
 
-DistributionEditor::DistributionEditor(QWidget *parent)
-    : QWidget(parent), m_item(0), m_plotwidget(0), m_box(new QGroupBox)
-
+DistributionEditor::DistributionEditor(QWidget* parent)
+    : QWidget(parent)
+    , m_propertyEditor(new ComponentBoxEditor)
+    , m_item(nullptr)
+    , m_plotwidget(new DistributionWidget)
+    , m_box(new QGroupBox)
 {
-    m_plotwidget = new DistributionWidget(this);
-    m_propertyEditor = new ComponentBoxEditor;
 
-    QVBoxLayout *boxLayout = new QVBoxLayout;
-    m_propertyEditor->setMaximumWidth(minimumWidth_of_AwesomePropertyEditor);
+    auto boxLayout = new QVBoxLayout;
+    m_propertyEditor->setMaximumWidth(minimum_width);
     boxLayout->addWidget(m_propertyEditor);
     boxLayout->setContentsMargins(0, 0, 0, 0);
     m_box->setLayout(boxLayout);
 
-    QVBoxLayout *verticalLayout = new QVBoxLayout;
+    auto verticalLayout = new QVBoxLayout;
     verticalLayout->addWidget(m_box);
     verticalLayout->addStretch(1);
 
-    QHBoxLayout *mainLayout = new QHBoxLayout;
+    auto mainLayout = new QHBoxLayout;
     mainLayout->addWidget(m_plotwidget, 1);
     mainLayout->addSpacing(5);
     mainLayout->addLayout(verticalLayout);
@@ -58,10 +59,11 @@ DistributionEditor::DistributionEditor(QWidget *parent)
 
 DistributionEditor::~DistributionEditor()
 {
-    if(m_item) m_item->mapper()->unsubscribe(this);
+    if (m_item)
+        m_item->mapper()->unsubscribe(this);
 }
 
-void DistributionEditor::setItem(SessionItem *item)
+void DistributionEditor::setItem(SessionItem* item)
 {
     m_propertyEditor->clearEditor();
     m_propertyEditor->addPropertyItems(item);
@@ -70,30 +72,26 @@ void DistributionEditor::setItem(SessionItem *item)
         return;
 
     } else {
-        if(m_item)
+        if (m_item)
             m_item->mapper()->unsubscribe(this);
 
-        m_item = dynamic_cast<GroupItem *>(item);
-        if(!m_item) return;
+        m_item = dynamic_cast<GroupItem*>(item);
+        if (!m_item)
+            return;
 
         m_item->mapper()->setOnPropertyChange(
-                    [this](const QString &name)
-        {
-            onPropertyChanged(name);
-        }, this);
+            [this](const QString& name) { onPropertyChanged(name); }, this);
 
-        DistributionItem *distrItem = dynamic_cast<DistributionItem *>(
-            m_item->currentItem());
+        DistributionItem* distrItem = dynamic_cast<DistributionItem*>(m_item->currentItem());
         Q_ASSERT(distrItem);
         m_plotwidget->setItem(distrItem);
     }
 }
 
-void DistributionEditor::onPropertyChanged(const QString &property_name)
+void DistributionEditor::onPropertyChanged(const QString& property_name)
 {
     if (property_name == GroupItem::T_ITEMS) {
-        DistributionItem *distrItem = dynamic_cast<DistributionItem *>(
-            m_item->currentItem());
+        DistributionItem* distrItem = dynamic_cast<DistributionItem*>(m_item->currentItem());
         Q_ASSERT(distrItem);
         m_plotwidget->setItem(distrItem);
     }
@@ -104,4 +102,3 @@ void DistributionEditor::setNameOfEditor(QString name)
     m_box->setTitle(name);
     m_plotwidget->setXAxisName(name);
 }
-

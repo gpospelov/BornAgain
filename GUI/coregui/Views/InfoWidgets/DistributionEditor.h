@@ -28,27 +28,28 @@ class GroupItem;
 class ComponentBoxEditor;
 
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
-//! to show Distribution1D and awesome property editor to change distribution parameters
+//! to show Distribution1D and property editor to change distribution parameters.
+
 class DistributionEditor : public QWidget
 {
     Q_OBJECT
 public:
-    DistributionEditor(QWidget *parent = 0);
+    DistributionEditor(QWidget* parent = nullptr);
     virtual ~DistributionEditor();
 
-    void setItem(SessionItem *item);
-    void plotItem(SessionItem *item);
+    void setItem(SessionItem* item);
+    void plotItem(SessionItem* item);
     void setNameOfEditor(QString name);
 
 private slots:
-    void onPropertyChanged(const QString &property_name);
+    void onPropertyChanged(const QString& property_name);
 
 private:
-    ComponentBoxEditor *m_propertyEditor;
-    GroupItem *m_item;
-    DistributionWidget *m_plotwidget;
+    ComponentBoxEditor* m_propertyEditor;
+    GroupItem* m_item;
+    DistributionWidget* m_plotwidget;
     QString m_nameOfEditor;
-    QGroupBox *m_box;
+    QGroupBox* m_box;
 };
 
 #endif // DISTRIBUTIONEDITOR_H

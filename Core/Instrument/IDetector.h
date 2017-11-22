@@ -47,7 +47,7 @@ class BA_CORE_API_ IDetector :  public ICloneable, public INode {
 public:
     IDetector();
 
-    virtual IDetector* clone() const =0;
+    virtual IDetector* clone() const override = 0;
 
     virtual ~IDetector();
 

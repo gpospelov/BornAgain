@@ -86,7 +86,7 @@ void GISASSimulation::setDetector(const IDetector2D& detector)
 
 namespace
 {
-IDetector2D* invoke2DDetector(Instrument& instrument)
+IDetector2D* detector2D(Instrument& instrument)
 {
     IDetector2D* detector = instrument.detector2D();
     if (!detector)
@@ -99,34 +99,34 @@ IDetector2D* invoke2DDetector(Instrument& instrument)
 void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
                                             size_t n_alpha, double alpha_min, double alpha_max)
 {
-    invoke2DDetector(m_instrument)
+    detector2D(m_instrument)
         ->setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 }
 
 void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
-    invoke2DDetector(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
+    detector2D(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
 }
 
 void GISASSimulation::resetRegionOfInterest()
 {
 
-    invoke2DDetector(m_instrument)->resetRegionOfInterest();
+    detector2D(m_instrument)->resetRegionOfInterest();
 }
 
 void GISASSimulation::removeMasks()
 {
-    invoke2DDetector(m_instrument)->removeMasks();
+    detector2D(m_instrument)->removeMasks();
 }
 
 void GISASSimulation::addMask(const IShape2D& shape, bool mask_value)
 {
-    invoke2DDetector(m_instrument)->addMask(shape, mask_value);
+    detector2D(m_instrument)->addMask(shape, mask_value);
 }
 
 void GISASSimulation::maskAll()
 {
-    invoke2DDetector(m_instrument)->maskAll();
+    detector2D(m_instrument)->maskAll();
 }
 
 void GISASSimulation::initSimulationElementVector()

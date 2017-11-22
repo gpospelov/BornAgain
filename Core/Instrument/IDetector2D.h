@@ -33,7 +33,7 @@ public:
 
     IDetector2D();
 
-    virtual IDetector2D* clone() const =0;
+    virtual IDetector2D* clone() const override = 0;
 
     virtual ~IDetector2D();
 

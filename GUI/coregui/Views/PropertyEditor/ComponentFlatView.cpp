@@ -68,6 +68,18 @@ void ComponentFlatView::setModel(SessionModel* model)
 
 }
 
+void ComponentFlatView::clearEditor()
+{
+    Q_ASSERT(m_gridLayout);
+    LayoutUtils::clearLayout(m_gridLayout, false);
+
+    for(auto widget: m_widgetItems)
+        delete widget;
+
+    m_widgetItems.clear();
+
+}
+
 void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIndex&bottomRight,
                                       const QVector<int>& roles)
 {
@@ -85,7 +97,7 @@ void ComponentFlatView::updateItemProperties(SessionItem* item)
 {
     Q_ASSERT(item);
 
-    clearLayout();
+    clearEditor();
 
     int nrow(0);
     for (auto child : ComponentUtils::componentItems(*item)) {
@@ -105,18 +117,6 @@ void ComponentFlatView::updateItemRoles(SessionItem* item)
     for(auto widget: m_widgetItems)
         if (widget->item() == item)
             widget->updateItemRoles();
-}
-
-void ComponentFlatView::clearLayout()
-{    
-    Q_ASSERT(m_gridLayout);
-    LayoutUtils::clearLayout(m_gridLayout, false);
-
-    for(auto widget: m_widgetItems)
-        delete widget;
-
-    m_widgetItems.clear();
-
 }
 
 void ComponentFlatView::initGridLayout()

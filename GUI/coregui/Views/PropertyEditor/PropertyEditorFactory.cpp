@@ -27,6 +27,7 @@
 #include <QSpinBox>
 #include <QLineEdit>
 #include <QLabel>
+#include <limits>
 
 namespace {
 QWidget* createCustomDoubleEditor(const SessionItem& item);
@@ -207,6 +208,8 @@ QWidget* createCustomDoubleEditor(const SessionItem& item)
 QWidget* createCustomIntEditor(const SessionItem& item)
 {
     auto result = new QSpinBox;
+
+    result->setMaximum(std::numeric_limits<int>::max());
 
     RealLimits limits = item.limits();
     if (limits.hasLowerLimit())

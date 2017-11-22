@@ -21,7 +21,7 @@
 #include <QWidget>
 
 class QTreeView;
-class ComponentEditor;
+class ComponentTreeView;
 class SampleModel;
 class FilterPropertyProxy;
 class QItemSelection;
@@ -33,7 +33,7 @@ class BA_CORE_API_ RealSpacePanel : public QWidget
     Q_OBJECT
 
 public:
-    RealSpacePanel(QWidget* parent = 0);
+    RealSpacePanel(QWidget* parent = nullptr);
 
     void setModel(SampleModel* model);
 
@@ -48,7 +48,7 @@ public slots:
 
 private:
     QTreeView* m_treeView;
-    ComponentEditor* m_componentEditor;
+    ComponentTreeView* m_componentEditor;
     SampleModel* m_model;
     FilterPropertyProxy* m_proxy;
 };

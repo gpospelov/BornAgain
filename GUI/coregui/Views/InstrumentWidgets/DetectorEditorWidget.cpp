@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "DetectorEditorWidget.h"
-#include "ObsoleteComponentBoxEditor.h"
+#include "ComponentEditor.h"
 #include "DetectorItems.h"
 #include "SphericalDetectorItem.h"
 #include "RectangularDetectorItem.h"
@@ -35,7 +35,7 @@
 DetectorEditorWidget::DetectorEditorWidget(ColumnResizer* columnResizer, QWidget* parent)
     : SessionItemWidget(parent)
     , m_columnResizer(columnResizer)
-    , m_detectorTypeEditor(new ObsoleteComponentBoxEditor)
+    , m_detectorTypeEditor(new ComponentEditor(ComponentEditor::PlainWidget |ComponentEditor::W_NoChildren))
     , m_groupBox(new GroupInfoBox("Detector Parameters"))
     , m_currentDetector(nullptr)
     , m_subDetectorWidget(nullptr)
@@ -69,7 +69,7 @@ void DetectorEditorWidget::subscribeToItem()
         }, this);
 
     m_detectorTypeEditor->clearEditor();
-    m_detectorTypeEditor->addItem(instrumentItem()->detectorGroup());
+    m_detectorTypeEditor->setItem(instrumentItem()->detectorGroup());
 
     init_SubDetector_Widget();
 }

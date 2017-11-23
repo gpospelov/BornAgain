@@ -74,5 +74,4 @@ private:
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ComponentEditor::EditorType)
 
-
 #endif  // COMPONENTEDITOR_H

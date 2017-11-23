@@ -26,6 +26,8 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QDataWidgetMapper>
+#include <QSpinBox>
+#include <QComboBox>
 
 ComponentFlatView::ComponentFlatView(QWidget* parent)
     : ComponentView(parent)
@@ -152,11 +154,25 @@ PropertyWidgetItem* ComponentFlatView::createWidget(const SessionItem* item)
     if (!editor)
         return nullptr;
 
-    editor->installEventFilter(m_wheel_event_filter.get());
-    editor->setFocusPolicy(Qt::StrongFocus);
+    install_custom_filters(editor);
 
     auto result = new PropertyWidgetItem(this);
     result->setItemEditor(item, editor);
 
     return result;
+}
+
+void ComponentFlatView::install_custom_filters(QWidget* editor)
+{
+    editor->installEventFilter(m_wheel_event_filter.get());
+    editor->setFocusPolicy(Qt::StrongFocus);
+
+    for(auto w : editor->findChildren<QAbstractSpinBox *>()) {
+        w->installEventFilter(m_wheel_event_filter.get());
+        w->setFocusPolicy(Qt::StrongFocus);
+    }
+
+    for(auto w : editor->findChildren<QComboBox *>())
+        w->installEventFilter(m_wheel_event_filter.get());
+
 }

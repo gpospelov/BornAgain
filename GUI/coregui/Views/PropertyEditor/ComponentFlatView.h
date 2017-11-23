@@ -56,6 +56,8 @@ private:
     void initGridLayout();
     PropertyWidgetItem* createWidget(const SessionItem* item);
 
+    void install_custom_filters(QWidget* editor);
+
     QBoxLayout* m_mainLayout;
     QGridLayout* m_gridLayout;
     QVector<PropertyWidgetItem*> m_widgetItems;

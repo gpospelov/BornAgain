@@ -44,23 +44,26 @@ ComponentEditor::ComponentEditor(EditorType editorType, const QString& title)
     m_componentView = createComponentView();
 
     auto mainLayout = new QVBoxLayout;
-    mainLayout->setMargin(4);
     mainLayout->setSpacing(0);
+    mainLayout->setMargin(0);
 
     if (m_type.testFlag(GroupLayout)) {
         auto box = createGroupBox<QGroupBox>(m_componentView, title);
         mainLayout->addWidget(box);
+        mainLayout->setMargin(4);
+        mainLayout->addStretch();
 
     } else if(m_type.testFlag(InfoLayout)) {
         auto box = createGroupBox<GroupInfoBox>(m_componentView, title);
         connect(box, &GroupInfoBox::clicked, this, &ComponentEditor::onDialogRequest);
         mainLayout->addWidget(box);
+        mainLayout->setMargin(4);
+        mainLayout->addStretch();
 
     } else {
         mainLayout->addWidget(m_componentView);
     }
 
-    mainLayout->addStretch();
     setLayout(mainLayout);
 }
 

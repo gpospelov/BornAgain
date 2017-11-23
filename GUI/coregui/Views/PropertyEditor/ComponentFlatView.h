@@ -38,6 +38,7 @@ public:
     ComponentFlatView(QWidget* parent = nullptr);
 
     void setItem(SessionItem* item);
+    void addItem(SessionItem* item);
 
     void setModel(SessionModel* model);
 
@@ -50,8 +51,8 @@ public slots:
                        const QVector<int> &roles);
 
 private:
-    void addItemProperties(SessionItem* item);
-    void updateItemProperties(SessionItem* item);
+    void clearLayout();
+    void updateItemProperties();
     void updateItemRoles(SessionItem* item);
     void initGridLayout();
     PropertyWidgetItem* createWidget(const SessionItem* item);
@@ -61,10 +62,10 @@ private:
     QBoxLayout* m_mainLayout;
     QGridLayout* m_gridLayout;
     QVector<PropertyWidgetItem*> m_widgetItems;
-    SessionItem* m_currentItem;
     SessionModel* m_model;
     bool m_show_children;
     std::unique_ptr<WheelEventEater> m_wheel_event_filter;
+    QVector<const SessionItem*> m_topItems;
 };
 
 #endif

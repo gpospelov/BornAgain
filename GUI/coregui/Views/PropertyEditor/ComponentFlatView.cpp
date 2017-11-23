@@ -33,7 +33,6 @@ ComponentFlatView::ComponentFlatView(QWidget* parent)
     : ComponentView(parent)
     , m_mainLayout(new QVBoxLayout)
     , m_gridLayout(nullptr)
-    , m_currentItem(nullptr)
     , m_model(nullptr)
     , m_show_children(true)
     , m_wheel_event_filter(new WheelEventEater)
@@ -50,7 +49,22 @@ ComponentFlatView::ComponentFlatView(QWidget* parent)
 
 void ComponentFlatView::setItem(SessionItem* item)
 {
-    addItemProperties(item);
+    clearEditor();
+
+    m_topItems.push_back(item);
+    setModel(item->model());
+    updateItemProperties();
+}
+
+void ComponentFlatView::addItem(SessionItem* item)
+{
+    if (m_topItems.isEmpty()) {
+        setItem(item);
+        return;
+    }
+
+    m_topItems.push_back(item);
+    updateItemProperties();
 }
 
 void ComponentFlatView::setModel(SessionModel* model)
@@ -68,9 +82,10 @@ void ComponentFlatView::setModel(SessionModel* model)
 
 }
 
-void ComponentFlatView::clearEditor()
+void ComponentFlatView::clearLayout()
 {
     Q_ASSERT(m_gridLayout);
+
     LayoutUtils::clearLayout(m_gridLayout, false);
 
     for(auto widget: m_widgetItems)
@@ -93,31 +108,30 @@ void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIn
     SessionItem *item = m_model->itemForIndex(topLeft);
     Q_ASSERT(item);
     if (item->modelType() == Constants::GroupItemType)
-        updateItemProperties(m_currentItem);
+        updateItemProperties();
 
     if (roles.contains(SessionModel::FlagRole))
         updateItemRoles(item);
 }
 
-void ComponentFlatView::addItemProperties(SessionItem* item)
+void ComponentFlatView::clearEditor()
 {
-    Q_ASSERT(item);
-
-    m_currentItem = item;
-    setModel(m_currentItem->model());
-
-    updateItemProperties(m_currentItem);
+    m_topItems.clear();
+    clearLayout();
 }
 
+void ComponentFlatView::updateItemProperties()
+{    
 
-void ComponentFlatView::updateItemProperties(SessionItem* item)
-{
-    Q_ASSERT(item);
+    clearLayout();
 
-    clearEditor();
+    QList<const SessionItem*> allitems;
+
+    for (auto item : m_topItems)
+        allitems += ComponentUtils::componentItems(*item);
 
     int nrow(0);
-    for (auto child : ComponentUtils::componentItems(*item)) {
+    for (auto child : allitems) {
 
         auto widget = createWidget(child);
         if (!widget)

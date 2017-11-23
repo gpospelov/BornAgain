@@ -35,12 +35,13 @@ public:
         Tree      = 0x1000,
         Widget    = 0x2000,
 
-        PlainLayout  = 0x0010,
-        GroupLayout  = 0x0020,
-        InfoLayout   = 0x0040,
+        PlainLayout  = 0x0010, // editor embedded in standard box layout
+        GroupLayout  = 0x0020, // editor embedded in QGroupBox
+        InfoLayout   = 0x0040, // editor embedded in GroupInfoBox
 
-        T_Header     = 0x0100,
-        T_Root       = 0x0200,
+        T_Header     = 0x0100, // to show QTreeView header (Tree mode only)
+        T_Root       = 0x0200, // to show root item  (Tree mode only)
+        W_NoChildren = 0x0400, // show no children (Widget mode only)
 
         FullTree     = Tree | PlainLayout | T_Header | T_Root,
         HeaderTree   = Tree | PlainLayout | T_Header,
@@ -70,5 +71,8 @@ private:
     SessionItem* m_item;
     QString m_title;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(ComponentEditor::EditorType)
+
 
 #endif  // COMPONENTEDITOR_H

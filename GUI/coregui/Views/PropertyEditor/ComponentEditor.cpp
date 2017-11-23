@@ -92,6 +92,7 @@ ComponentView* ComponentEditor::createComponentView()
         result = view;
     } else {
         auto view = new ComponentFlatView;
+        view->setShowChildren(!m_type.testFlag(W_NoChildren));
         result = view;
     }
 

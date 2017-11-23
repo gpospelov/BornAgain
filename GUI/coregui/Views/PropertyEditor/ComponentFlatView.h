@@ -42,6 +42,8 @@ public:
 
     void clearEditor();
 
+    void setShowChildren(bool show);
+
 public slots:
     void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
                        const QVector<int> &roles);
@@ -57,6 +59,7 @@ private:
     QVector<PropertyWidgetItem*> m_widgetItems;
     SessionItem* m_currentItem;
     SessionModel* m_model;
+    bool m_show_children;
 };
 
 #endif

@@ -32,6 +32,7 @@ ComponentFlatView::ComponentFlatView(QWidget* parent)
     , m_gridLayout(nullptr)
     , m_currentItem(nullptr)
     , m_model(nullptr)
+    , m_show_children(true)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -85,6 +86,12 @@ void ComponentFlatView::clearEditor()
 
 }
 
+void ComponentFlatView::setShowChildren(bool show)
+{
+    m_show_children = show;
+
+}
+
 void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIndex&bottomRight,
                                       const QVector<int>& roles)
 {
@@ -113,6 +120,9 @@ void ComponentFlatView::updateItemProperties(SessionItem* item)
 
         widget->addToGrid(m_gridLayout, ++nrow);
         m_widgetItems.push_back(widget);
+
+        if (!m_show_children)
+            break;
     }
 
 }

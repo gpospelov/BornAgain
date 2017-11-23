@@ -18,12 +18,14 @@
 #define COMPONENTFLATVIEW_H
 
 #include "ComponentView.h"
+#include <memory>
 
 class SessionItem;
 class SessionModel;
 class QGridLayout;
 class QBoxLayout;
 class PropertyWidgetItem;
+class WheelEventEater;
 
 //! Component property widget for SessionItems. On the contrary to ComponentTreeView
 //! properties are presented as widgets in grid layout.
@@ -60,6 +62,7 @@ private:
     SessionItem* m_currentItem;
     SessionModel* m_model;
     bool m_show_children;
+    std::unique_ptr<WheelEventEater> m_wheel_event_filter;
 };
 
 #endif

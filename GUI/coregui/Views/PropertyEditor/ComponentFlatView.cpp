@@ -21,6 +21,7 @@
 #include "SessionModel.h"
 #include "LayoutUtils.h"
 #include "PropertyWidgetItem.h"
+#include "CustomEventFilters.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QGridLayout>
@@ -33,6 +34,7 @@ ComponentFlatView::ComponentFlatView(QWidget* parent)
     , m_currentItem(nullptr)
     , m_model(nullptr)
     , m_show_children(true)
+    , m_wheel_event_filter(new WheelEventEater)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -148,6 +150,9 @@ PropertyWidgetItem* ComponentFlatView::createWidget(const SessionItem* item)
     auto editor = PropertyEditorFactory::CreateEditor(*item);
     if (!editor)
         return nullptr;
+
+    editor->installEventFilter(m_wheel_event_filter.get());
+    editor->setFocusPolicy(Qt::StrongFocus);
 
     auto result = new PropertyWidgetItem(this);
     result->setItemEditor(item, editor);

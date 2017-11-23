@@ -41,5 +41,5 @@ SimulationOptionsWidget::SimulationOptionsWidget(QWidget *parent)
 void SimulationOptionsWidget::setItem(SimulationOptionsItem* item)
 {
     m_boxEditor->clearEditor();
-    m_boxEditor->addItemProperties(item);
+    m_boxEditor->setItem(item);
 }

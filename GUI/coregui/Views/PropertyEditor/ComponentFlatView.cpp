@@ -51,16 +51,6 @@ void ComponentFlatView::setItem(SessionItem* item)
     addItemProperties(item);
 }
 
-void ComponentFlatView::addItemProperties(SessionItem* item)
-{
-    Q_ASSERT(item);
-
-    m_currentItem = item;
-    setModel(m_currentItem->model());
-
-    updateItemProperties(m_currentItem);
-}
-
 void ComponentFlatView::setModel(SessionModel* model)
 {
     if (m_model) {
@@ -106,6 +96,17 @@ void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIn
     if (roles.contains(SessionModel::FlagRole))
         updateItemRoles(item);
 }
+
+void ComponentFlatView::addItemProperties(SessionItem* item)
+{
+    Q_ASSERT(item);
+
+    m_currentItem = item;
+    setModel(m_currentItem->model());
+
+    updateItemProperties(m_currentItem);
+}
+
 
 void ComponentFlatView::updateItemProperties(SessionItem* item)
 {

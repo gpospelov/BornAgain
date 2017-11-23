@@ -56,7 +56,7 @@ DistributionEditor::DistributionEditor(QWidget* parent)
 void DistributionEditor::subscribeToItem()
 {
     m_propertyEditor->clearEditor();
-    m_propertyEditor->addItemProperties(currentItem());
+    m_propertyEditor->setItem(currentItem());
 
     currentItem()->mapper()->setOnPropertyChange(
         [this](const QString& name) { onPropertyChanged(name); }, this);

@@ -38,7 +38,6 @@ public:
     ComponentFlatView(QWidget* parent = nullptr);
 
     void setItem(SessionItem* item);
-    void addItemProperties(SessionItem* item);
 
     void setModel(SessionModel* model);
 
@@ -51,6 +50,7 @@ public slots:
                        const QVector<int> &roles);
 
 private:
+    void addItemProperties(SessionItem* item);
     void updateItemProperties(SessionItem* item);
     void updateItemRoles(SessionItem* item);
     void initGridLayout();

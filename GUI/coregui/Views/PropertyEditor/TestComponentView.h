@@ -26,6 +26,7 @@ class QTreeView;
 class SampleModel;
 class SessionModelDelegate;
 class QItemSelection;
+class ComponentEditor;
 class ComponentTreeView;
 namespace Manhattan { class MiniSplitter; }
 class QBoxLayout;
@@ -55,8 +56,8 @@ private:
     MainWindow* m_mainWindow;
     SampleModel* m_sourceModel;
     QTreeView* m_sourceTree;
-    ComponentTreeView* m_componentTree;
-    ComponentFlatView* m_componentFlat;
+    ComponentEditor* m_componentTree;
+    ComponentEditor* m_componentFlat;
     QPushButton* m_updateButton;
     QPushButton* m_addItemButton;
     QPushButton* m_expandButton;

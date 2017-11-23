@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "JobPropertiesWidget.h"
-#include "ComponentTreeView.h"
+#include "ComponentEditor.h"
 #include "JobItem.h"
 #include "mainwindow_constants.h"
 #include <QTabBar>
@@ -26,7 +26,7 @@
 JobPropertiesWidget::JobPropertiesWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_tabWidget(new QTabWidget)
-    , m_propertyEditor(new ComponentTreeView)
+    , m_componentEditor(new ComponentEditor)
     , m_commentsEditor(new QTextEdit)
     , m_block_update(false)
 {
@@ -39,7 +39,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget* parent)
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
     m_tabWidget->setTabPosition(QTabWidget::South);
-    m_tabWidget->insertTab(JOB_PROPERTIES, m_propertyEditor, "Job Properties");
+    m_tabWidget->insertTab(JOB_PROPERTIES, m_componentEditor, "Job Properties");
     m_tabWidget->insertTab(JOB_COMMENTS, m_commentsEditor, "Details");
 
     mainLayout->addWidget(m_tabWidget);
@@ -56,14 +56,14 @@ void JobPropertiesWidget::subscribeToItem()
                 updateItem();
         }, this);
 
-    m_propertyEditor->setItem(currentItem());
+    m_componentEditor->setItem(currentItem());
 
     updateItem();
 }
 
 void JobPropertiesWidget::unsubscribeFromItem()
 {
-    m_propertyEditor->setItem(nullptr);
+    m_componentEditor->setItem(nullptr);
 }
 
 void JobPropertiesWidget::contextMenuEvent(QContextMenuEvent*)

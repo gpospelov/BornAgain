@@ -24,7 +24,7 @@ class MaterialModel;
 class MaterialEditorToolBar;
 class QSplitter;
 class QListView;
-class ComponentTreeView;
+class ComponentEditor;
 class QItemSelection;
 class QItemSelectionModel;
 class MaterialItem;
@@ -63,7 +63,7 @@ private:
     MaterialEditorToolBar* m_toolBar;
     QSplitter* m_splitter;
     QListView* m_listView;
-    ComponentTreeView* m_componentEditor;
+    ComponentEditor* m_componentEditor;
     bool m_model_was_modified;
 };
 

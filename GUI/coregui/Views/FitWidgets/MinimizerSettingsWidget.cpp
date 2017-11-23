@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "MinimizerSettingsWidget.h"
-#include "ComponentTreeView.h"
+#include "ComponentEditor.h"
 #include "FitSuiteItem.h"
 #include "JobItem.h"
 #include "MinimizerItem.h"
@@ -25,7 +25,7 @@
 MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget *parent)
     : QWidget(parent)
     , m_currentItem(nullptr)
-    , m_propertyEditor(new ComponentTreeView)
+    , m_componentEditor(new ComponentEditor)
 {
     setWindowTitle(QLatin1String("Minimizer Settings"));
 
@@ -33,7 +33,7 @@ MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget *parent)
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(m_propertyEditor);
+    layout->addWidget(m_componentEditor);
 
     setLayout(layout);
 }
@@ -53,5 +53,5 @@ void MinimizerSettingsWidget::setItem(MinimizerContainerItem* minimizerItem)
 {
     Q_ASSERT(minimizerItem);
     m_currentItem = minimizerItem;
-    m_propertyEditor->setItem(minimizerItem);
+    m_componentEditor->setItem(minimizerItem);
 }

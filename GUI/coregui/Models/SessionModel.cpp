@@ -87,6 +87,8 @@ QVariant SessionModel::data(const QModelIndex& index, int role) const
             return SessionItemUtils::TextColorRole(*item);
         } else if(role == Qt::DecorationRole && index.column() == ITEM_VALUE) {
             return SessionItemUtils::DecorationRole(*item);
+        } else if(role == Qt::CheckStateRole && index.column() == ITEM_VALUE) {
+            return SessionItemUtils::CheckStateRole(*item);
         } else {
             return item->data(role);
         }

@@ -16,7 +16,7 @@
 
 #include "MaskEditorPropertyPanel.h"
 #include "AccordionWidget.h"
-#include "ComponentEditor.h"
+#include "ComponentTreeView.h"
 #include "ContentPane.h"
 #include "IntensityDataItem.h"
 #include "SessionModel.h"
@@ -42,16 +42,20 @@ public:
 };
 
 MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget* parent)
-    : QWidget(parent), m_listView(new QListView), m_maskPropertyEditor(new ComponentEditor),
-      m_plotPropertyEditor(new ComponentEditor), m_accordion(new AccordionWidget), m_maskModel(0),
-      m_intensityDataItem(0)
+    : QWidget(parent)
+    , m_listView(new QListView)
+    , m_maskPropertyEditor(new ComponentTreeView)
+    , m_plotPropertyEditor(new ComponentTreeView)
+    , m_accordion(new AccordionWidget)
+    , m_maskModel(nullptr)
+    , m_intensityDataItem(nullptr)
 {
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     setObjectName(QLatin1String("MaskEditorToolPanel"));
 
     m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint&)), this,
-            SLOT(onCustomContextMenuRequested(const QPoint&)));
+    connect(m_listView, &QListView::customContextMenuRequested,
+            this, &MaskEditorPropertyPanel::onCustomContextMenuRequested);
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -123,8 +127,8 @@ void MaskEditorPropertyPanel::setPanelHidden(bool value)
         return;
 
     if (value) {
-        m_maskPropertyEditor->setItem(0);
-        m_plotPropertyEditor->setItem(0);
+        m_maskPropertyEditor->setItem(nullptr);
+        m_plotPropertyEditor->setItem(nullptr);
     } else {
         QModelIndexList indexes = selectionModel()->selectedIndexes();
         if (indexes.size())
@@ -140,7 +144,7 @@ void MaskEditorPropertyPanel::onSelectionChanged(const QItemSelection& selected,
     if (selected.size())
         m_maskPropertyEditor->setItem(m_maskModel->itemForIndex(selected.indexes().front()));
     else
-        m_maskPropertyEditor->setItem(0);
+        m_maskPropertyEditor->setItem(nullptr);
 }
 
 void MaskEditorPropertyPanel::onCustomContextMenuRequested(const QPoint& point)

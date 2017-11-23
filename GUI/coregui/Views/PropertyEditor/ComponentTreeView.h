@@ -25,6 +25,8 @@ class SessionModel;
 class SessionModelDelegate;
 class ComponentProxyModel;
 class QModelIndex;
+class SessionItem;
+class QStandardItemModel;
 
 //! Component property tree for SessionItems.
 //! Shows only PropertyItems and current items of GroupProperties.
@@ -35,15 +37,20 @@ class BA_CORE_API_ ComponentTreeView : public QWidget
 public:
     ComponentTreeView(QWidget* parent = nullptr);
 
+    void setItem(SessionItem* item, bool show_root_item = false);
+
     void setModel(SessionModel* model);
-    void setRootIndex(const QModelIndex& index);
+    void setRootIndex(const QModelIndex& index, bool show_root_item = false);
 
     QTreeView* treeView();
+
+    void setHeaderHidden(bool hide);
 
 private:
     QTreeView* m_tree;
     SessionModelDelegate* m_delegate;
     ComponentProxyModel* m_proxyModel;
+    QStandardItemModel* m_placeHolderModel;
 };
 
 #endif  //  COMPONENTTREEVIEW_H

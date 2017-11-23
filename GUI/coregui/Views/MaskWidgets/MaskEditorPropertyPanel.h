@@ -23,7 +23,7 @@
 
 class QListView;
 class SessionModel;
-class ComponentEditor;
+class ComponentTreeView;
 class QItemSelection;
 class QItemSelectionModel;
 class IntensityDataItem;
@@ -62,8 +62,8 @@ private:
     void setup_PlotProperties(AccordionWidget* accordion);
 
     QListView* m_listView;
-    ComponentEditor* m_maskPropertyEditor;
-    ComponentEditor* m_plotPropertyEditor;
+    ComponentTreeView* m_maskPropertyEditor;
+    ComponentTreeView* m_plotPropertyEditor;
     AccordionWidget* m_accordion;
     SessionModel* m_maskModel;
     QModelIndex m_rootIndex;

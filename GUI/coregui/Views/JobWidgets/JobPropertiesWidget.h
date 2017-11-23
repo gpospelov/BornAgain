@@ -22,7 +22,7 @@
 class JobItem;
 class QTextEdit;
 class QTabWidget;
-class ComponentEditor;
+class ComponentTreeView;
 
 //! The JobPropertiesWidget class holds component editor for JobItem. Part of JobSelectorWidget,
 //! resides at lower left corner of JobView.
@@ -50,7 +50,7 @@ private:
     JobItem* jobItem();
 
     QTabWidget* m_tabWidget;
-    ComponentEditor* m_propertyEditor;
+    ComponentTreeView* m_propertyEditor;
     QTextEdit* m_commentsEditor;
     bool m_block_update;
 };

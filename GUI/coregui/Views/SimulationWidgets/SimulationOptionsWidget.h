@@ -21,8 +21,7 @@
 #include <QWidget>
 
 class SimulationOptionsItem;
-class ComponentBoxEditor;
-//class ComponentEditor;
+class ComponentFlatView;
 
 //! Holds widgets related to the setup of simulation/job options (nthreads, run policy,
 //! computation method). Part of SimulationView/SimulationSetupWidet
@@ -32,13 +31,12 @@ class BA_CORE_API_ SimulationOptionsWidget : public QWidget
     Q_OBJECT
 
 public:
-    SimulationOptionsWidget(QWidget *parent = 0);
+    SimulationOptionsWidget(QWidget* parent = nullptr);
 
-    void setItem(SimulationOptionsItem *item);
+    void setItem(SimulationOptionsItem* item);
 
 private:
-    ComponentBoxEditor *m_boxEditor;
-//    ComponentEditor *m_boxEditor;
+    ComponentFlatView *m_boxEditor;
 };
 
 #endif // SIMULATIONOPTIONSWIDGET_H

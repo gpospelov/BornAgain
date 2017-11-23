@@ -19,14 +19,14 @@
 
 #include "SessionItemWidget.h"
 
-class ComponentEditor;
+class ComponentTreeView;
 
 class BA_CORE_API_ ProjectionsPropertyPanel : public SessionItemWidget
 {
     Q_OBJECT
 
 public:
-    ProjectionsPropertyPanel(QWidget* parent = 0);
+    ProjectionsPropertyPanel(QWidget* parent = nullptr);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -36,7 +36,7 @@ protected:
     void unsubscribeFromItem();
 
 private:
-    ComponentEditor* m_componentEditor;
+    ComponentTreeView* m_componentEditor;
 };
 
 #endif // PROJECTIONSPROPERTYPANEL_H

@@ -15,16 +15,16 @@
 // ************************************************************************** //
 
 #include "IntensityDataPropertyWidget.h"
-#include "ComponentEditor.h"
 #include "IntensityDataItem.h"
 #include "JobModel.h"
+#include "ComponentTreeView.h"
 #include <QAction>
 #include <QVBoxLayout>
 
 IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_togglePanelAction(new QAction(this))
-    , m_componentEditor(new ComponentEditor)
+    , m_componentEditor(new ComponentTreeView)
 {
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     setWindowTitle(QLatin1String("Intensity Data Properties"));
@@ -70,9 +70,7 @@ void IntensityDataPropertyWidget::subscribeToItem()
 
 void IntensityDataPropertyWidget::unsubscribeFromItem()
 {
-    // FIXME Flaw in ComponentEditor design: setItem(nullptr) involves usage of old item
-    if (currentItem())
-        m_componentEditor->setItem(nullptr);
+    m_componentEditor->setItem(nullptr);
 }
 
 void IntensityDataPropertyWidget::contextMenuEvent(QContextMenuEvent*)

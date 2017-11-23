@@ -48,6 +48,9 @@ BA_CORE_API_ QVariant ToolTipRole(const SessionItem& item, int ncol=0);
 //! Returns tooltip for given item.
 BA_CORE_API_ QVariant DecorationRole(const SessionItem& item);
 
+//! Returns check state for given item.
+BA_CORE_API_ QVariant CheckStateRole(const SessionItem& item);
+
 }  // namespace SessionItemUtils
 
 #endif // SESSIONITEMUTILS_H

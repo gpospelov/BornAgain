@@ -40,12 +40,15 @@ public:
 
     void setModel(SessionModel* model);
 
+    void clearEditor();
+
 public slots:
-    void onDataChanged(const QModelIndex &topLeft, const QModelIndex &, const QVector<int> &);
+    void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
+                       const QVector<int> &roles);
 
 private:
     void updateItemProperties(SessionItem* item);
-    void clearLayout();
+    void updateItemRoles(SessionItem* item);
     void initGridLayout();
     PropertyWidgetItem* createWidget(const SessionItem* item);
 

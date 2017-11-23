@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "JobPropertiesWidget.h"
-#include "ComponentEditor.h"
+#include "ComponentTreeView.h"
 #include "JobItem.h"
 #include "mainwindow_constants.h"
 #include <QTabBar>
@@ -26,7 +26,7 @@
 JobPropertiesWidget::JobPropertiesWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_tabWidget(new QTabWidget)
-    , m_propertyEditor(new ComponentEditor)
+    , m_propertyEditor(new ComponentTreeView)
     , m_commentsEditor(new QTextEdit)
     , m_block_update(false)
 {

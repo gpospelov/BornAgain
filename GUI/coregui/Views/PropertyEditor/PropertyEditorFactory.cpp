@@ -27,6 +27,7 @@
 #include <QSpinBox>
 #include <QLineEdit>
 #include <QLabel>
+#include <limits>
 
 namespace {
 QWidget* createCustomDoubleEditor(const SessionItem& item);
@@ -80,6 +81,11 @@ bool isStringProperty(const QVariant& variant)
     return variant.type() == QVariant::String;
 }
 
+bool isBoolProperty(const QVariant& variant)
+{
+    return variant.type() == QVariant::Bool;
+}
+
 }
 
 bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
@@ -93,6 +99,8 @@ bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
     if (isComboProperty(variant))
         return true;
     if (isScientificDoubleProperty(variant))
+        return true;
+    if (isBoolProperty(variant))
         return true;
 
     return false;
@@ -111,6 +119,8 @@ QString PropertyEditorFactory::ToString(const QVariant& variant)
         return variant.value<ComboProperty>().getValue();
     if (isScientificDoubleProperty(variant))
         return variant.value<ScientificDoubleProperty>().getText();
+    if (isBoolProperty(variant))
+        return variant.toBool() ? "True" : "False";
 
     return QString();
 }
@@ -126,6 +136,12 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
 
     else if(isIntProperty(item.value())) {
         result = createCustomIntEditor(item);
+    }
+
+    else if(isBoolProperty(item.value())) {
+        auto editor = new BoolEditor;
+        editor->setData(item.value());
+        result = editor;
     }
 
     else if(isStringProperty(item.value())) {
@@ -175,6 +191,7 @@ namespace {
 QWidget* createCustomDoubleEditor(const SessionItem& item)
 {
     auto result = new QDoubleSpinBox;
+    result->setKeyboardTracking(false);
 
     result->setDecimals(item.decimals());
     result->setSingleStep(singleStep(item));
@@ -192,6 +209,9 @@ QWidget* createCustomDoubleEditor(const SessionItem& item)
 QWidget* createCustomIntEditor(const SessionItem& item)
 {
     auto result = new QSpinBox;
+
+    result->setMaximum(std::numeric_limits<int>::max());
+    result->setKeyboardTracking(false);
 
     RealLimits limits = item.limits();
     if (limits.hasLowerLimit())

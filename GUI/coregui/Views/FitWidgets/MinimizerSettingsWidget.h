@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class ComponentEditor;
+class ComponentTreeView;
 class JobItem;
 class MinimizerContainerItem;
 
@@ -32,17 +32,17 @@ class BA_CORE_API_ MinimizerSettingsWidget : public QWidget
     Q_OBJECT
 
 public:
-    MinimizerSettingsWidget(QWidget *parent = 0);
+    MinimizerSettingsWidget(QWidget* parent = nullptr);
 
     QSize minimumSizeHint() const;
 
 public slots:
-    void setItem(JobItem *jobItem);
-    void setItem(MinimizerContainerItem *minimizerItem);
+    void setItem(JobItem* jobItem);
+    void setItem(MinimizerContainerItem* minimizerItem);
 
 private:
-    MinimizerContainerItem *m_currentItem;
-    ComponentEditor *m_propertyEditor;
+    MinimizerContainerItem* m_currentItem;
+    ComponentTreeView* m_propertyEditor;
 };
 
 #endif // MINIMIZERSETTINGSWIDGET_H

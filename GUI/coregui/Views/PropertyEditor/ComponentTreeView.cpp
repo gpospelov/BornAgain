@@ -21,12 +21,14 @@
 #include "SessionModel.h"
 #include <QTreeView>
 #include <QBoxLayout>
+#include <QStandardItemModel>
 
 ComponentTreeView::ComponentTreeView(QWidget* parent)
     : QWidget(parent)
     , m_tree(new QTreeView)
     , m_delegate(new SessionModelDelegate(this))
     , m_proxyModel(new ComponentProxyModel(this))
+    , m_placeHolderModel(new QStandardItemModel)
 {
     auto layout = new QVBoxLayout;
 
@@ -36,28 +38,57 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
 
     setLayout(layout);
 
+    QStringList labels = {"Name", "Value"};
+    m_placeHolderModel->setHorizontalHeaderLabels(labels);
+
     StyleUtils::setPropertyStyle(m_tree);
     m_tree->setRootIsDecorated(false);
-    m_tree->setModel(m_proxyModel);
+    m_tree->setModel(m_placeHolderModel);
     m_tree->setItemDelegate(m_delegate);
     m_tree->setEditTriggers(QAbstractItemView::AllEditTriggers);
+}
+
+//! Sets item to show in the tree together with its properties and group properties.
+//! @param item: Item to show in a tree.
+//! @param show_root_item: Tree will starts from item itself, if true.
+
+void ComponentTreeView::setItem(SessionItem* item, bool show_root_item)
+{
+    if (!item) {
+        setModel(nullptr);
+        return;
+    }
+    setModel(item->model());
+    setRootIndex(item->index(), show_root_item);
+    m_tree->expandAll();
 }
 
 void ComponentTreeView::setModel(SessionModel* model)
 {
     m_proxyModel->setSessionModel(model);
+    if (model)
+        m_tree->setModel(m_proxyModel);
+    else
+        m_tree->setModel(m_placeHolderModel);
 }
 
-void ComponentTreeView::setRootIndex(const QModelIndex& index)
+void ComponentTreeView::setRootIndex(const QModelIndex& index, bool show_root_item)
 {
     if (QWidget* editor = m_tree->indexWidget(m_tree->currentIndex()))
         m_delegate->closeEditor(editor, QAbstractItemDelegate::NoHint);
     Q_ASSERT(m_proxyModel);
     m_proxyModel->setRootIndex(index);
+    if (!show_root_item)
+        m_tree->setRootIndex(m_proxyModel->mapFromSource(index));
 }
 
 QTreeView* ComponentTreeView::treeView()
 {
     return m_tree;
+}
+
+void ComponentTreeView::setHeaderHidden(bool hide)
+{
+    m_tree->setHeaderHidden(hide);
 }
 

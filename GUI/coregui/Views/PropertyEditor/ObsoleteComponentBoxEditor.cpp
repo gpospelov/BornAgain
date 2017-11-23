@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/ComponentBoxEditor.cpp
-//! @brief     Implements class ComponentBoxEditor
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoleteComponentBoxEditor.cpp
+//! @brief     Implements class ObsoleteComponentBoxEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,27 +13,27 @@
 //! @authors   Walter Van Herck, Joachim Wuttke
 //
 // ************************************************************************** //
-#include "ComponentBoxEditor.h"
-#include "ComponentEditorPrivate.h"
+#include "ObsoleteComponentBoxEditor.h"
+#include "ObsoleteComponentEditorPrivate.h"
 #include "CustomEventFilters.h"
 #include "SessionModel.h"
 #include <QModelIndex>
 
-ComponentBoxEditor::ComponentBoxEditor(QWidget *parent)
-    : ComponentEditor(ComponentEditorFlags::BROWSER_GROUPBOX, parent)
+ObsoleteComponentBoxEditor::ObsoleteComponentBoxEditor(QWidget *parent)
+    : ObsoleteComponentEditor(ObsoleteComponentEditorFlags::BROWSER_GROUPBOX, parent)
 {
 
 }
 
 ////! adds all property items to thr PropertyGroup with given name
-void ComponentBoxEditor::addPropertyItems(SessionItem *item, const QString &group_name)
+void ObsoleteComponentBoxEditor::addPropertyItems(SessionItem *item, const QString &group_name)
 {
     Q_ASSERT(item);
     QtVariantProperty *groupProperty = m_d->processPropertyGroupForName(group_name);
     updatePropertyItems(item, groupProperty);
 }
 
-void ComponentBoxEditor::updatePropertyItems(SessionItem *item, QtVariantProperty *parentProperty)
+void ObsoleteComponentBoxEditor::updatePropertyItems(SessionItem *item, QtVariantProperty *parentProperty)
 {
     if(item->modelType() == Constants::PropertyType ||
             item->modelType() == Constants::GroupItemType) {
@@ -41,7 +41,7 @@ void ComponentBoxEditor::updatePropertyItems(SessionItem *item, QtVariantPropert
     }
 
     if(m_d->m_item_to_insert_mode.contains(item)) {
-        if(m_d->m_item_to_insert_mode[item] == ComponentEditorFlags::SINGLE) return;
+        if(m_d->m_item_to_insert_mode[item] == ObsoleteComponentEditorFlags::SINGLE) return;
     }
     foreach (SessionItem *childItem, componentItems(item)) {
         updateItem(childItem, parentProperty);
@@ -50,22 +50,22 @@ void ComponentBoxEditor::updatePropertyItems(SessionItem *item, QtVariantPropert
 }
 
 //! add single item to property group with given name
-void ComponentBoxEditor::addItem(SessionItem *item, const QString &group_name)
+void ObsoleteComponentBoxEditor::addItem(SessionItem *item, const QString &group_name)
 {
     Q_ASSERT(item);
     QtVariantProperty *groupProperty = m_d->processPropertyGroupForName(group_name);
     updateItem(item, groupProperty);
-    m_d->m_item_to_insert_mode[item] = ComponentEditorFlags::SINGLE;
+    m_d->m_item_to_insert_mode[item] = ObsoleteComponentEditorFlags::SINGLE;
 }
 
-void ComponentBoxEditor::updateItem(SessionItem *item, QtVariantProperty *parentProperty)
+void ObsoleteComponentBoxEditor::updateItem(SessionItem *item, QtVariantProperty *parentProperty)
 {
     connectModel(item->model());
     m_d->processPropertyForItem(item, parentProperty);
 
 }
 
-void ComponentBoxEditor::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+void ObsoleteComponentBoxEditor::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
 {
     Q_UNUSED(bottomRight);
 //    if (topLeft != bottomRight)
@@ -99,7 +99,7 @@ void ComponentBoxEditor::onDataChanged(const QModelIndex &topLeft, const QModelI
 
 }
 
-void ComponentBoxEditor::onRowsInserted(const QModelIndex &, int , int )
+void ObsoleteComponentBoxEditor::onRowsInserted(const QModelIndex &, int , int )
 {
     // intentionally empty
 }

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/ComponentEditor.h
-//! @brief     Defines class ComponentEditor
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoleteComponentEditor.h
+//! @brief     Defines class ObsoleteComponentEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,27 +14,27 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTEDITOR_H
-#define COMPONENTEDITOR_H
+#ifndef OBSOLETECOMPONENTEDITOR_H
+#define OBSOLETECOMPONENTEDITOR_H
 
-#include "ComponentEditorFlags.h"
+#include "ObsoleteComponentEditorFlags.h"
 #include "WinDllMacros.h"
 #include <QWidget>
 #include <memory>
 
-class ComponentEditorPrivate;
+class ObsoleteComponentEditorPrivate;
 class SessionItem;
 class SessionModel;
 class QtVariantProperty;
 class QtProperty;
 
-class BA_CORE_API_ ComponentEditor : public QWidget
+class BA_CORE_API_ ObsoleteComponentEditor : public QWidget
 {
     Q_OBJECT
 public:
-    ComponentEditor(ComponentEditorFlags::PresentationType flags = ComponentEditorFlags::BROWSER_TABLE, QWidget *parent = 0);
+    ObsoleteComponentEditor(ObsoleteComponentEditorFlags::PresentationType flags = ObsoleteComponentEditorFlags::BROWSER_TABLE, QWidget *parent = 0);
 
-    virtual ~ComponentEditor();
+    virtual ~ObsoleteComponentEditor();
 
     void setItem(SessionItem *item, const QString &group_name=QString());
 
@@ -60,8 +60,8 @@ protected:
     void disconnectManager();
     void connectManager();
 
-    std::unique_ptr<ComponentEditorPrivate> m_d;
+    std::unique_ptr<ObsoleteComponentEditorPrivate> m_d;
 };
 
 
-#endif // COMPONENTEDITOR_H
+#endif // OBSOLETECOMPONENTEDITOR_H

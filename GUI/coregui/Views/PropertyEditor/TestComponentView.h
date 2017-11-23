@@ -29,8 +29,8 @@ class QItemSelection;
 class ComponentTreeView;
 namespace Manhattan { class MiniSplitter; }
 class QBoxLayout;
-class ComponentEditor;
-class ComponentBoxEditor;
+class ObsoleteComponentEditor;
+class ObsoleteComponentBoxEditor;
 class ComponentFlatView;
 
 //! View to tests QListView working with ComponentProxyModel.
@@ -60,8 +60,8 @@ private:
     QPushButton* m_updateButton;
     QPushButton* m_addItemButton;
     QPushButton* m_expandButton;
-    ComponentEditor *m_obsoleteEditor;
-    ComponentBoxEditor* m_obsoleteBoxEditor;
+    ObsoleteComponentEditor *m_obsoleteEditor;
+    ObsoleteComponentBoxEditor* m_obsoleteBoxEditor;
     Manhattan::MiniSplitter* m_splitter;
     SessionModelDelegate* m_delegate;
     bool m_isExpaned;

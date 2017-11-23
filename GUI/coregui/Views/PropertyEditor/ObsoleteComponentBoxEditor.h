@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/ComponentBoxEditor.h
-//! @brief     Defines class ComponentBoxEditor
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoleteComponentBoxEditor.h
+//! @brief     Defines class ObsoleteComponentBoxEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,19 +14,19 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTBOXEDITOR_H
-#define COMPONENTBOXEDITOR_H
+#ifndef OBSOLETECOMPONENTBOXEDITOR_H
+#define OBSOLETECOMPONENTBOXEDITOR_H
 
-#include "ComponentEditor.h"
+#include "ObsoleteComponentEditor.h"
 #include "WinDllMacros.h"
 
 //! Special version of editor to show property item as standard qt widgets
 
-class BA_CORE_API_ ComponentBoxEditor : public ComponentEditor
+class BA_CORE_API_ ObsoleteComponentBoxEditor : public ObsoleteComponentEditor
 {
     Q_OBJECT
 public:
-    ComponentBoxEditor(QWidget *parent = 0);
+    ObsoleteComponentBoxEditor(QWidget *parent = 0);
 
     void addPropertyItems(SessionItem *item, const QString &group_name=QString());
     void updatePropertyItems(SessionItem *item, QtVariantProperty *parentProperty=0);
@@ -40,4 +40,4 @@ public slots:
     void onRowsInserted(const QModelIndex &, int, int);
 };
 
-#endif // COMPONENTBOXEDITOR_H
+#endif // OBSOLETECOMPONENTBOXEDITOR_H

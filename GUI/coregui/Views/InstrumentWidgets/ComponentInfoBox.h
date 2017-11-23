@@ -21,7 +21,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class ComponentBoxEditor;
+class ObsoleteComponentBoxEditor;
 class SessionItem;
 
 //! The ComponentEditorBox is a widget to display ComponentEditor inside
@@ -46,7 +46,7 @@ private slots:
 
 private:
     GroupInfoBox* m_groupBox;
-    ComponentBoxEditor* m_editor;
+    ObsoleteComponentBoxEditor* m_editor;
     SessionItem* m_item;
     QString m_title;
 };

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/PropertyVariantFactory.cpp
-//! @brief     Implements class PropertyVariantFactory
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoletePropertyVariantFactory.cpp
+//! @brief     Implements class ObsoletePropertyVariantFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,44 +14,44 @@
 //
 // ************************************************************************** //
 
-#include "PropertyVariantFactory.h"
-#include "PropertyBrowserUtils.h"
-#include "PropertyVariantManager.h"
+#include "ObsoletePropertyVariantFactory.h"
+#include "ObsoletePropertyBrowserUtils.h"
+#include "ObsoletePropertyVariantManager.h"
 
-PropertyVariantFactory::~PropertyVariantFactory()
+ObsoletePropertyVariantFactory::~ObsoletePropertyVariantFactory()
 {
-    QList<MaterialPropertyEdit *> mat_editors =
+    QList<ObsoleteMaterialPropertyEdit *> mat_editors =
             m_material_editor_to_property.keys();
-    QListIterator<MaterialPropertyEdit *> mat_it(mat_editors);
+    QListIterator<ObsoleteMaterialPropertyEdit *> mat_it(mat_editors);
     while (mat_it.hasNext())
         delete mat_it.next();
 
-    QList<ColorPropertyEdit *> color_editors =
+    QList<ObsoleteColorPropertyEdit *> color_editors =
             m_color_editor_to_property.keys();
-    QListIterator<ColorPropertyEdit *> color_it(color_editors);
+    QListIterator<ObsoleteColorPropertyEdit *> color_it(color_editors);
     while (color_it.hasNext())
         delete color_it.next();
 
-    QList<ScientificDoublePropertyEdit *> scdouble_editors =
+    QList<ObsoleteScientificDoublePropertyEdit *> scdouble_editors =
             m_scdouble_editor_to_property.keys();
-    QListIterator<ScientificDoublePropertyEdit *> scdouble_it(scdouble_editors);
+    QListIterator<ObsoleteScientificDoublePropertyEdit *> scdouble_it(scdouble_editors);
     while (scdouble_it.hasNext())
         delete scdouble_it.next();
 
-    QList<GroupPropertyEdit *> fancy_editors =
+    QList<ObsoleteGroupPropertyEdit *> fancy_editors =
             m_fancygroup_editor_to_property.keys();
-    QListIterator<GroupPropertyEdit *> fancy_it(fancy_editors);
+    QListIterator<ObsoleteGroupPropertyEdit *> fancy_it(fancy_editors);
     while (fancy_it.hasNext())
         delete fancy_it.next();
 
-    QList<ComboPropertyEdit *> combo_editors =
+    QList<ObsoleteComboPropertyEdit *> combo_editors =
             m_combo_editor_to_property.keys();
-    QListIterator<ComboPropertyEdit *> combo_it(combo_editors);
+    QListIterator<ObsoleteComboPropertyEdit *> combo_it(combo_editors);
     while (combo_it.hasNext())
         delete combo_it.next();
 }
 
-void PropertyVariantFactory::connectPropertyManager(
+void ObsoletePropertyVariantFactory::connectPropertyManager(
         QtVariantPropertyManager *manager)
 {
     connect(manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
@@ -65,12 +65,12 @@ void PropertyVariantFactory::connectPropertyManager(
 }
 
 
-QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
+QWidget *ObsoletePropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
         QtProperty *property, QWidget *parent)
 {
     if (manager->propertyType(property) ==
-            PropertyVariantManager::materialTypeId()) {
-        MaterialPropertyEdit *editor = new MaterialPropertyEdit(parent);
+            ObsoletePropertyVariantManager::materialTypeId()) {
+        ObsoleteMaterialPropertyEdit *editor = new ObsoleteMaterialPropertyEdit(parent);
         QVariant var = manager->value(property);
         MaterialProperty mat = var.value<MaterialProperty>();
         editor->setMaterialProperty(mat);
@@ -86,8 +86,8 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
     }
 
     if (manager->propertyType(property) ==
-            PropertyVariantManager::colorPropertyTypeId()) {
-        ColorPropertyEdit *editor = new ColorPropertyEdit(parent);
+            ObsoletePropertyVariantManager::colorPropertyTypeId()) {
+        ObsoleteColorPropertyEdit *editor = new ObsoleteColorPropertyEdit(parent);
         QVariant var = manager->value(property);
         ColorProperty mat = var.value<ColorProperty>();
         editor->setColorProperty(mat);
@@ -103,8 +103,8 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
     }
 
     if (manager->propertyType(property) ==
-            PropertyVariantManager::scientificDoubleTypeId()) {
-        ScientificDoublePropertyEdit *editor = new ScientificDoublePropertyEdit(parent);
+            ObsoletePropertyVariantManager::scientificDoubleTypeId()) {
+        ObsoleteScientificDoublePropertyEdit *editor = new ObsoleteScientificDoublePropertyEdit(parent);
         QVariant var = manager->value(property);
         ScientificDoubleProperty sc = var.value<ScientificDoubleProperty>();
         editor->setScientificDoubleProperty(sc);
@@ -121,8 +121,8 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
     }
 
     if (manager->propertyType(property) ==
-            PropertyVariantManager::fancyGroupTypeId()) {
-        GroupPropertyEdit *editor = new GroupPropertyEdit(parent);
+            ObsoletePropertyVariantManager::fancyGroupTypeId()) {
+        ObsoleteGroupPropertyEdit *editor = new ObsoleteGroupPropertyEdit(parent);
         QVariant var = manager->value(property);
         GroupProperty_t ff = var.value<GroupProperty_t>();
         editor->setGroupProperty(ff);
@@ -140,8 +140,8 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
     }
 
     if (manager->propertyType(property) ==
-            PropertyVariantManager::comboPropertyTypeId()) {
-        ComboPropertyEdit *editor = new ComboPropertyEdit(parent);
+            ObsoletePropertyVariantManager::comboPropertyTypeId()) {
+        ObsoleteComboPropertyEdit *editor = new ObsoleteComboPropertyEdit(parent);
 
         QVariant var = manager->value(property);
         ComboProperty combo = var.value<ComboProperty>();
@@ -161,7 +161,7 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
 }
 
 
-void PropertyVariantFactory::disconnectPropertyManager(
+void ObsoletePropertyVariantFactory::disconnectPropertyManager(
         QtVariantPropertyManager *manager)
 {
     disconnect(manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
@@ -174,49 +174,49 @@ void PropertyVariantFactory::disconnectPropertyManager(
 }
 
 
-void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
+void ObsoletePropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 const QVariant &value)
 {
     if (m_property_to_material_editors.contains(property)) {
-        QList<MaterialPropertyEdit *> editors =
+        QList<ObsoleteMaterialPropertyEdit *> editors =
                 m_property_to_material_editors[property];
-        QListIterator<MaterialPropertyEdit *> itEditor(editors);
+        QListIterator<ObsoleteMaterialPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
             MaterialProperty mat = value.value<MaterialProperty>();
             itEditor.next()->setMaterialProperty(mat);
         }
     }
     else if (m_property_to_color_editors.contains(property)) {
-        QList<ColorPropertyEdit *> editors =
+        QList<ObsoleteColorPropertyEdit *> editors =
                 m_property_to_color_editors[property];
-        QListIterator<ColorPropertyEdit *> itEditor(editors);
+        QListIterator<ObsoleteColorPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
             ColorProperty mat = value.value<ColorProperty>();
             itEditor.next()->setColorProperty(mat);
         }
     }
     else if (m_property_to_scdouble_editors.contains(property)) {
-        QList<ScientificDoublePropertyEdit *> editors =
+        QList<ObsoleteScientificDoublePropertyEdit *> editors =
                 m_property_to_scdouble_editors[property];
-        QListIterator<ScientificDoublePropertyEdit *> itEditor(editors);
+        QListIterator<ObsoleteScientificDoublePropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
             ScientificDoubleProperty mat = value.value<ScientificDoubleProperty>();
             itEditor.next()->setScientificDoubleProperty(mat);
         }
     }
     else if (m_property_to_fancygroup_editors.contains(property)) {
-        QList<GroupPropertyEdit *> editors =
+        QList<ObsoleteGroupPropertyEdit *> editors =
                 m_property_to_fancygroup_editors[property];
-        QListIterator<GroupPropertyEdit *> itEditor(editors);
+        QListIterator<ObsoleteGroupPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
             GroupProperty_t mat = value.value<GroupProperty_t>();
             itEditor.next()->setGroupProperty(mat);
         }
     }
     else if (m_property_to_combo_editors.contains(property)) {
-        QList<ComboPropertyEdit *> editors =
+        QList<ObsoleteComboPropertyEdit *> editors =
                 m_property_to_combo_editors[property];
-        QListIterator<ComboPropertyEdit *> itEditor(editors);
+        QListIterator<ObsoleteComboPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
             ComboProperty combo = value.value<ComboProperty>();
             itEditor.next()->setComboProperty(combo);
@@ -225,10 +225,10 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
 }
 
 
-void PropertyVariantFactory::slotSetValue(const MaterialProperty &value)
+void ObsoletePropertyVariantFactory::slotSetValue(const MaterialProperty &value)
 {
     QObject *object = sender();
-    QMap<MaterialPropertyEdit *, QtProperty *>::ConstIterator itEditor =
+    QMap<ObsoleteMaterialPropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_material_editor_to_property.constBegin();
     while (itEditor != m_material_editor_to_property.constEnd()) {
         if (itEditor.key() == object) {
@@ -244,10 +244,10 @@ void PropertyVariantFactory::slotSetValue(const MaterialProperty &value)
     }
 }
 
-void PropertyVariantFactory::slotSetValue(const ColorProperty &value)
+void ObsoletePropertyVariantFactory::slotSetValue(const ColorProperty &value)
 {
     QObject *object = sender();
-    QMap<ColorPropertyEdit *, QtProperty *>::ConstIterator itEditor =
+    QMap<ObsoleteColorPropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_color_editor_to_property.constBegin();
     while (itEditor != m_color_editor_to_property.constEnd()) {
         if (itEditor.key() == object) {
@@ -263,10 +263,10 @@ void PropertyVariantFactory::slotSetValue(const ColorProperty &value)
     }
 }
 
-void PropertyVariantFactory::slotSetValue(const ScientificDoubleProperty &value)
+void ObsoletePropertyVariantFactory::slotSetValue(const ScientificDoubleProperty &value)
 {
     QObject *object = sender();
-    QMap<ScientificDoublePropertyEdit *, QtProperty *>::ConstIterator itEditor =
+    QMap<ObsoleteScientificDoublePropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_scdouble_editor_to_property.constBegin();
     while (itEditor != m_scdouble_editor_to_property.constEnd()) {
         if (itEditor.key() == object) {
@@ -282,10 +282,10 @@ void PropertyVariantFactory::slotSetValue(const ScientificDoubleProperty &value)
     }
 }
 
-void PropertyVariantFactory::slotSetValue(const GroupProperty_t &value)
+void ObsoletePropertyVariantFactory::slotSetValue(const GroupProperty_t &value)
 {
     QObject *object = sender();
-    QMap<GroupPropertyEdit *, QtProperty *>::ConstIterator itEditor =
+    QMap<ObsoleteGroupPropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_fancygroup_editor_to_property.constBegin();
     while (itEditor != m_fancygroup_editor_to_property.constEnd()) {
         if (itEditor.key() == object) {
@@ -301,10 +301,10 @@ void PropertyVariantFactory::slotSetValue(const GroupProperty_t &value)
     }
 }
 
-void PropertyVariantFactory::slotSetValue(const ComboProperty &value)
+void ObsoletePropertyVariantFactory::slotSetValue(const ComboProperty &value)
 {
     QObject *object = sender();
-    QMap<ComboPropertyEdit *, QtProperty *>::ConstIterator itEditor =
+    QMap<ObsoleteComboPropertyEdit *, QtProperty *>::ConstIterator itEditor =
                 m_combo_editor_to_property.constBegin();
     while (itEditor != m_combo_editor_to_property.constEnd()) {
         if (itEditor.key() == object) {
@@ -322,13 +322,13 @@ void PropertyVariantFactory::slotSetValue(const ComboProperty &value)
     }
 }
 
-void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
+void ObsoletePropertyVariantFactory::slotEditorDestroyed(QObject *object)
 {
-    QMap<MaterialPropertyEdit *, QtProperty *>::ConstIterator mat_it_editor =
+    QMap<ObsoleteMaterialPropertyEdit *, QtProperty *>::ConstIterator mat_it_editor =
                 m_material_editor_to_property.constBegin();
     while (mat_it_editor != m_material_editor_to_property.constEnd()) {
         if (mat_it_editor.key() == object) {
-            MaterialPropertyEdit *editor = mat_it_editor.key();
+            ObsoleteMaterialPropertyEdit *editor = mat_it_editor.key();
             QtProperty *property = mat_it_editor.value();
             m_material_editor_to_property.remove(editor);
             m_property_to_material_editors[property].removeAll(editor);
@@ -339,11 +339,11 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
         mat_it_editor++;
     }
 
-    QMap<ColorPropertyEdit *, QtProperty *>::ConstIterator color_it_editor =
+    QMap<ObsoleteColorPropertyEdit *, QtProperty *>::ConstIterator color_it_editor =
                 m_color_editor_to_property.constBegin();
     while (color_it_editor != m_color_editor_to_property.constEnd()) {
         if (color_it_editor.key() == object) {
-            ColorPropertyEdit *editor = color_it_editor.key();
+            ObsoleteColorPropertyEdit *editor = color_it_editor.key();
             QtProperty *property = color_it_editor.value();
             m_color_editor_to_property.remove(editor);
             m_property_to_color_editors[property].removeAll(editor);
@@ -354,11 +354,11 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
         color_it_editor++;
     }
 
-    QMap<ScientificDoublePropertyEdit *, QtProperty *>::ConstIterator scdouble_it_editor =
+    QMap<ObsoleteScientificDoublePropertyEdit *, QtProperty *>::ConstIterator scdouble_it_editor =
                 m_scdouble_editor_to_property.constBegin();
     while (scdouble_it_editor != m_scdouble_editor_to_property.constEnd()) {
         if (scdouble_it_editor.key() == object) {
-            ScientificDoublePropertyEdit *editor = scdouble_it_editor.key();
+            ObsoleteScientificDoublePropertyEdit *editor = scdouble_it_editor.key();
             QtProperty *property = scdouble_it_editor.value();
             m_scdouble_editor_to_property.remove(editor);
             m_property_to_scdouble_editors[property].removeAll(editor);
@@ -369,11 +369,11 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
         scdouble_it_editor++;
     }
 
-    QMap<GroupPropertyEdit *, QtProperty *>::ConstIterator fancygroup_editor_it =
+    QMap<ObsoleteGroupPropertyEdit *, QtProperty *>::ConstIterator fancygroup_editor_it =
                 m_fancygroup_editor_to_property.constBegin();
     while (fancygroup_editor_it != m_fancygroup_editor_to_property.constEnd()) {
         if (fancygroup_editor_it.key() == object) {
-            GroupPropertyEdit *editor = fancygroup_editor_it.key();
+            ObsoleteGroupPropertyEdit *editor = fancygroup_editor_it.key();
             QtProperty *property = fancygroup_editor_it.value();
             m_fancygroup_editor_to_property.remove(editor);
             m_property_to_fancygroup_editors[property].removeAll(editor);
@@ -384,11 +384,11 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
         fancygroup_editor_it++;
     }
 
-    QMap<ComboPropertyEdit *, QtProperty *>::ConstIterator combo_it_editor =
+    QMap<ObsoleteComboPropertyEdit *, QtProperty *>::ConstIterator combo_it_editor =
                 m_combo_editor_to_property.constBegin();
     while (combo_it_editor != m_combo_editor_to_property.constEnd()) {
         if (combo_it_editor.key() == object) {
-            ComboPropertyEdit *editor = combo_it_editor.key();
+            ObsoleteComboPropertyEdit *editor = combo_it_editor.key();
             QtProperty *property = combo_it_editor.value();
             m_combo_editor_to_property.remove(editor);
             m_property_to_combo_editors[property].removeAll(editor);
@@ -400,7 +400,7 @@ void PropertyVariantFactory::slotEditorDestroyed(QObject *object)
     }
 }
 
-void PropertyVariantFactory::slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &)
+void ObsoletePropertyVariantFactory::slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &)
 {
 
 }

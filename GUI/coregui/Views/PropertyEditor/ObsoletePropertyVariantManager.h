@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/PropertyVariantManager.h
-//! @brief     Defines class PropertyVariantManager
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoletePropertyVariantManager.h
+//! @brief     Defines class ObsoletePropertyVariantManager
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROPERTYVARIANTMANAGER_H
-#define PROPERTYVARIANTMANAGER_H
+#ifndef OBSOLETEPROPERTYVARIANTMANAGER_H
+#define OBSOLETEPROPERTYVARIANTMANAGER_H
 
 //! collection of classes extending QtPropertyBrowser functionality
 
@@ -30,11 +30,11 @@ class QObject;
 
 //! The ObjectVariantManager class provides and manages user defined
 //! QVariant based properties.
-class BA_CORE_API_ PropertyVariantManager : public QtVariantPropertyManager
+class BA_CORE_API_ ObsoletePropertyVariantManager : public QtVariantPropertyManager
 {
     Q_OBJECT
 public:
-    PropertyVariantManager(QObject *parent = 0);
+    ObsoletePropertyVariantManager(QObject *parent = 0);
 
     virtual QVariant value(const QtProperty *property) const;
     using QtVariantPropertyManager::valueType;
@@ -63,4 +63,4 @@ private:
     QMap<const QtProperty *, ComboProperty> m_theComboValues;
 };
 
-#endif // PROPERTYVARIANTMANAGER_H
+#endif // OBSOLETEPROPERTYVARIANTMANAGER_H

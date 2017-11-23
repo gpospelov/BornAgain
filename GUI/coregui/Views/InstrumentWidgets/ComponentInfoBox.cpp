@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "ComponentInfoBox.h"
-#include "ComponentBoxEditor.h"
+#include "ObsoleteComponentBoxEditor.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <iostream>
@@ -23,7 +23,7 @@
 ComponentInfoBox::ComponentInfoBox(const QString &title, QWidget *parent)
     : QWidget(parent)
     , m_groupBox(new GroupInfoBox(title))
-    , m_editor(new ComponentBoxEditor)
+    , m_editor(new ObsoleteComponentBoxEditor)
     , m_item(0)
     , m_title(title)
 {

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/PropertyVariantManager.cpp
-//! @brief     Implements class PropertyVariantManager
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoletePropertyVariantManager.cpp
+//! @brief     Implements class ObsoletePropertyVariantManager
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,48 +14,48 @@
 //
 // ************************************************************************** //
 
-#include "PropertyVariantManager.h"
+#include "ObsoletePropertyVariantManager.h"
 #include "DesignerHelper.h"
 #include "SessionItem.h"
 
-PropertyVariantManager::PropertyVariantManager(QObject *parent)
+ObsoletePropertyVariantManager::ObsoletePropertyVariantManager(QObject *parent)
     : QtVariantPropertyManager(parent)
 {
 
 }
 
 
-int PropertyVariantManager::materialTypeId()
+int ObsoletePropertyVariantManager::materialTypeId()
 {
     int result = qMetaTypeId<MaterialProperty>();
     return result;
 }
 
-int PropertyVariantManager::colorPropertyTypeId()
+int ObsoletePropertyVariantManager::colorPropertyTypeId()
 {
     int result = qMetaTypeId<ColorProperty>();
     return result;
 }
 
-int PropertyVariantManager::scientificDoubleTypeId()
+int ObsoletePropertyVariantManager::scientificDoubleTypeId()
 {
     int result = qMetaTypeId<ScientificDoubleProperty>();
     return result;
 }
 
-int PropertyVariantManager::fancyGroupTypeId()
+int ObsoletePropertyVariantManager::fancyGroupTypeId()
 {
     int result = qMetaTypeId<GroupProperty_t>();
     return result;
 }
 
-int PropertyVariantManager::comboPropertyTypeId()
+int ObsoletePropertyVariantManager::comboPropertyTypeId()
 {
     int result = qMetaTypeId<ComboProperty>();
     return result;
 }
 
-bool PropertyVariantManager::isPropertyTypeSupported(int propertyType) const
+bool ObsoletePropertyVariantManager::isPropertyTypeSupported(int propertyType) const
 {
     if (propertyType == materialTypeId())
         return true;
@@ -71,7 +71,7 @@ bool PropertyVariantManager::isPropertyTypeSupported(int propertyType) const
 }
 
 
-int PropertyVariantManager::valueType(int propertyType) const
+int ObsoletePropertyVariantManager::valueType(int propertyType) const
 {
     if (propertyType == materialTypeId())
         return materialTypeId();
@@ -87,7 +87,7 @@ int PropertyVariantManager::valueType(int propertyType) const
 }
 
 
-QVariant PropertyVariantManager::value(const QtProperty *property) const
+QVariant ObsoletePropertyVariantManager::value(const QtProperty *property) const
 {
     if (m_theMaterialValues.contains(property)) {
         QVariant v;
@@ -119,7 +119,7 @@ QVariant PropertyVariantManager::value(const QtProperty *property) const
 }
 
 
-QString PropertyVariantManager::valueText(const QtProperty *property) const
+QString ObsoletePropertyVariantManager::valueText(const QtProperty *property) const
 {
     if (m_theMaterialValues.contains(property)) {
         return m_theMaterialValues[property].getName();
@@ -140,7 +140,7 @@ QString PropertyVariantManager::valueText(const QtProperty *property) const
 }
 
 
-QIcon PropertyVariantManager::valueIcon(const QtProperty *property) const
+QIcon ObsoletePropertyVariantManager::valueIcon(const QtProperty *property) const
 {
     if (m_theMaterialValues.contains(property)) {
         return QIcon(m_theMaterialValues[property].getPixmap());
@@ -152,7 +152,7 @@ QIcon PropertyVariantManager::valueIcon(const QtProperty *property) const
 }
 
 
-void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
+void ObsoletePropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
 {
     if (m_theMaterialValues.contains(property)) {
         if( val.userType() != materialTypeId() ) return;
@@ -209,7 +209,7 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
 }
 
 
-void PropertyVariantManager::initializeProperty(QtProperty *property)
+void ObsoletePropertyVariantManager::initializeProperty(QtProperty *property)
 {
     if (propertyType(property) == materialTypeId()) {
         MaterialProperty m;
@@ -236,7 +236,7 @@ void PropertyVariantManager::initializeProperty(QtProperty *property)
 }
 
 
-void PropertyVariantManager::uninitializeProperty(QtProperty *property)
+void ObsoletePropertyVariantManager::uninitializeProperty(QtProperty *property)
 {
     m_theMaterialValues.remove(property);
     m_theColorValues.remove(property);

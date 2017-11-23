@@ -17,7 +17,7 @@
 #include "BeamEditorWidget.h"
 #include "BeamDistributionItem.h"
 #include "BeamItem.h"
-#include "ComponentBoxEditor.h"
+#include "ObsoleteComponentBoxEditor.h"
 #include "ComponentInfoBox.h"
 #include "DistributionDialog.h"
 #include <QGridLayout>
@@ -31,11 +31,11 @@ const QString name_of_groupbox_azimuthal("Azimuthal angle [deg]");
 
 BeamEditorWidget::BeamEditorWidget(QWidget* parent)
     : QWidget(parent)
-    , m_intensityEditor(new ComponentBoxEditor)
+    , m_intensityEditor(new ObsoleteComponentBoxEditor)
     , m_wavelengthPresenter(new ComponentInfoBox(name_of_groupbox_wavenlength))
     , m_inclinationAnglePresenter(new ComponentInfoBox(name_of_groupbox_inclination))
     , m_azimuthalAnglePresenter(new ComponentInfoBox(name_of_groupbox_azimuthal))
-    , m_polarizationPresenter(new ComponentBoxEditor)
+    , m_polarizationPresenter(new ObsoleteComponentBoxEditor)
     , m_gridLayout(new QGridLayout)
     , m_beamItem(nullptr)
 {

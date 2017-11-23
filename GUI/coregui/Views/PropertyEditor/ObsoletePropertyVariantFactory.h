@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/PropertyVariantFactory.h
-//! @brief     Defines class PropertyVariantFactory
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoletePropertyVariantFactory.h
+//! @brief     Defines class ObsoletePropertyVariantFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,27 +22,27 @@
 #include "GroupProperty.h"
 #include <QtVariantEditorFactory>
 
-class MaterialPropertyEdit;
+class ObsoleteMaterialPropertyEdit;
 class MaterialProperty;
-class ColorPropertyEdit;
+class ObsoleteColorPropertyEdit;
 class ColorProperty;
-class ScientificDoublePropertyEdit;
+class ObsoleteScientificDoublePropertyEdit;
 class ScientificDoubleProperty;
-class GroupPropertyEdit;
-class ComboPropertyEdit;
+class ObsoleteGroupPropertyEdit;
+class ObsoleteComboPropertyEdit;
 class ComboProperty;
 
 //! The PropertyVariantFactory class provides and manages user defined
 //! QVariant based properties.
-class BA_CORE_API_ PropertyVariantFactory : public QtVariantEditorFactory
+class BA_CORE_API_ ObsoletePropertyVariantFactory : public QtVariantEditorFactory
 {
     Q_OBJECT
 public:
-    PropertyVariantFactory(QObject *parent = 0)
+    ObsoletePropertyVariantFactory(QObject *parent = 0)
         : QtVariantEditorFactory(parent)
             { }
 
-    virtual ~PropertyVariantFactory();
+    virtual ~ObsoletePropertyVariantFactory();
 protected:
     virtual void connectPropertyManager(QtVariantPropertyManager *manager);
     using QtVariantEditorFactory::createEditor;
@@ -60,29 +60,29 @@ private slots:
     void slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &);
 
 private:
-    QMap<QtProperty *, QList<MaterialPropertyEdit *> >
+    QMap<QtProperty *, QList<ObsoleteMaterialPropertyEdit *> >
         m_property_to_material_editors;
-    QMap<MaterialPropertyEdit *, QtProperty *>
+    QMap<ObsoleteMaterialPropertyEdit *, QtProperty *>
         m_material_editor_to_property;
 
-    QMap<QtProperty *, QList<ColorPropertyEdit *> >
+    QMap<QtProperty *, QList<ObsoleteColorPropertyEdit *> >
         m_property_to_color_editors;
-    QMap<ColorPropertyEdit *, QtProperty *>
+    QMap<ObsoleteColorPropertyEdit *, QtProperty *>
         m_color_editor_to_property;
 
-    QMap<QtProperty *, QList<ScientificDoublePropertyEdit *> >
+    QMap<QtProperty *, QList<ObsoleteScientificDoublePropertyEdit *> >
         m_property_to_scdouble_editors;
-    QMap<ScientificDoublePropertyEdit *, QtProperty *>
+    QMap<ObsoleteScientificDoublePropertyEdit *, QtProperty *>
         m_scdouble_editor_to_property;
 
-    QMap<QtProperty *, QList<GroupPropertyEdit *> >
+    QMap<QtProperty *, QList<ObsoleteGroupPropertyEdit *> >
         m_property_to_fancygroup_editors;
-    QMap<GroupPropertyEdit *, QtProperty *>
+    QMap<ObsoleteGroupPropertyEdit *, QtProperty *>
         m_fancygroup_editor_to_property;
 
-    QMap<QtProperty *, QList<ComboPropertyEdit *> >
+    QMap<QtProperty *, QList<ObsoleteComboPropertyEdit *> >
         m_property_to_combo_editors;
-    QMap<ComboPropertyEdit *, QtProperty *>
+    QMap<ObsoleteComboPropertyEdit *, QtProperty *>
         m_combo_editor_to_property;
 
 };

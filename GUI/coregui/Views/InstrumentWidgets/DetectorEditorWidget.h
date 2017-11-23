@@ -21,7 +21,7 @@
 
 class GroupInfoBox;
 class DetectorItem;
-class ComponentBoxEditor;
+class ObsoleteComponentBoxEditor;
 class QGridLayout;
 class ColumnResizer;
 class InstrumentItem;
@@ -48,7 +48,7 @@ private:
     InstrumentItem* instrumentItem();
 
     ColumnResizer* m_columnResizer;
-    ComponentBoxEditor* m_detectorTypeEditor;
+    ObsoleteComponentBoxEditor* m_detectorTypeEditor;
     GroupInfoBox* m_groupBox;
     DetectorItem* m_currentDetector;
     QWidget* m_subDetectorWidget;

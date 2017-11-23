@@ -16,7 +16,6 @@
 
 #include "SamplePropertyWidget.h"
 #include "ComponentTreeView.h"
-#include "ComponentEditor.h"
 #include "SessionItem.h"
 #include <QItemSelection>
 #include <QModelIndexList>

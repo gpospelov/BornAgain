@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/PropertyBrowserUtils.cpp
-//! @brief     Implements class PropertyBrowserUtils
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoletePropertyBrowserUtils.cpp
+//! @brief     Implements class ObsoletePropertyBrowserUtils
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "PropertyBrowserUtils.h"
+#include "ObsoletePropertyBrowserUtils.h"
 #include "MaterialSvc.h"
 #include "CustomEventFilters.h"
 #include <QColorDialog>
@@ -34,7 +34,7 @@
 // MaterialPropertyEdit
 // -----------------------------------------------------------------------------
 
-MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
+ObsoleteMaterialPropertyEdit::ObsoleteMaterialPropertyEdit(QWidget *parent)
     : QWidget(parent)
     , m_focusFilter(new LostFocusFilter(this))
 {
@@ -66,7 +66,7 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
     setLayout(layout);
 }
 
-void MaterialPropertyEdit::buttonClicked()
+void ObsoleteMaterialPropertyEdit::buttonClicked()
 {
     // temporarily installing filter to prevent loss of focus caused by too  insistent dialog
     installEventFilter(m_focusFilter);
@@ -80,7 +80,7 @@ void MaterialPropertyEdit::buttonClicked()
 }
 
 
-void MaterialPropertyEdit::setMaterialProperty(
+void ObsoleteMaterialPropertyEdit::setMaterialProperty(
         const MaterialProperty &materialProperty)
 {
     m_materialProperty = materialProperty;
@@ -92,7 +92,7 @@ void MaterialPropertyEdit::setMaterialProperty(
 // -----------------------------------------------------------------------------
 // GroupPropertyEdit
 // -----------------------------------------------------------------------------
-GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
+ObsoleteGroupPropertyEdit::ObsoleteGroupPropertyEdit(QWidget *parent)
     : QWidget(parent)
     , m_box(new QComboBox())
     , m_label(new QLabel())
@@ -114,11 +114,11 @@ GroupPropertyEdit::GroupPropertyEdit(QWidget *parent)
     setLayout(layout);
 }
 
-GroupPropertyEdit::~GroupPropertyEdit()
+ObsoleteGroupPropertyEdit::~ObsoleteGroupPropertyEdit()
 {
 }
 
-void GroupPropertyEdit::setGroupProperty(GroupProperty_t groupProperty)
+void ObsoleteGroupPropertyEdit::setGroupProperty(GroupProperty_t groupProperty)
 {
     if(groupProperty) {
         m_groupProperty = groupProperty;
@@ -126,7 +126,7 @@ void GroupPropertyEdit::setGroupProperty(GroupProperty_t groupProperty)
     }
 }
 
-void GroupPropertyEdit::processGroup()
+void ObsoleteGroupPropertyEdit::processGroup()
 {
     disconnect(m_box, SIGNAL(currentIndexChanged(int)),
             this, SLOT(indexChanged(int)));
@@ -141,12 +141,12 @@ void GroupPropertyEdit::processGroup()
             this, SLOT(indexChanged(int)), Qt::UniqueConnection);
 }
 
-void GroupPropertyEdit::indexChanged(int index)
+void ObsoleteGroupPropertyEdit::indexChanged(int index)
 {
     m_groupProperty->setCurrentIndex(index);
 }
 
-QSize GroupPropertyEdit::sizeHint() const
+QSize ObsoleteGroupPropertyEdit::sizeHint() const
 {
     if(m_box)
         return m_box->sizeHint();
@@ -157,7 +157,7 @@ QSize GroupPropertyEdit::sizeHint() const
     return QSize(100,10);
 }
 
-QSize GroupPropertyEdit::minimumSizeHint() const
+QSize ObsoleteGroupPropertyEdit::minimumSizeHint() const
 {
     if(m_box)
         return m_box->minimumSizeHint();
@@ -168,12 +168,12 @@ QSize GroupPropertyEdit::minimumSizeHint() const
     return QSize(100,10);
 }
 
-GroupProperty_t GroupPropertyEdit::group() const
+GroupProperty_t ObsoleteGroupPropertyEdit::group() const
 {
     return m_groupProperty;
 }
 
-void GroupPropertyEdit::setGroup(GroupProperty_t group)
+void ObsoleteGroupPropertyEdit::setGroup(GroupProperty_t group)
 {
     setGroupProperty(group);
 }
@@ -183,7 +183,7 @@ void GroupPropertyEdit::setGroup(GroupProperty_t group)
 // ColorPropertyEdit
 // -----------------------------------------------------------------------------
 
-ColorPropertyEdit::ColorPropertyEdit(QWidget *parent)
+ObsoleteColorPropertyEdit::ObsoleteColorPropertyEdit(QWidget *parent)
     : QWidget(parent)
 {
     setAutoFillBackground(true);
@@ -215,7 +215,7 @@ ColorPropertyEdit::ColorPropertyEdit(QWidget *parent)
 }
 
 
-void ColorPropertyEdit::buttonClicked()
+void ObsoleteColorPropertyEdit::buttonClicked()
 {
     bool ok = false;
     QRgb oldRgba = m_colorProperty.getColor().rgba();
@@ -228,7 +228,7 @@ void ColorPropertyEdit::buttonClicked()
 
 }
 
-void ColorPropertyEdit::setColorProperty(
+void ObsoleteColorPropertyEdit::setColorProperty(
         const ColorProperty &colorProperty)
 {
     m_colorProperty = colorProperty;
@@ -236,7 +236,7 @@ void ColorPropertyEdit::setColorProperty(
     m_pixmapLabel->setPixmap(m_colorProperty.getPixmap());
 }
 
-QString ColorPropertyEdit::colorValueText(const QColor &c)
+QString ObsoleteColorPropertyEdit::colorValueText(const QColor &c)
 {
     return QString("[%1, %2, %3] (%4)")
            .arg(c.red()).arg(c.green()).arg(c.blue()).arg(c.alpha());
@@ -248,7 +248,7 @@ QString ColorPropertyEdit::colorValueText(const QColor &c)
 // -----------------------------------------------------------------------------
 
 
-ScientificDoublePropertyEdit::ScientificDoublePropertyEdit(QWidget *parent)
+ObsoleteScientificDoublePropertyEdit::ObsoleteScientificDoublePropertyEdit(QWidget *parent)
     : QWidget(parent)
 {
     setAutoFillBackground(true);
@@ -271,14 +271,14 @@ ScientificDoublePropertyEdit::ScientificDoublePropertyEdit(QWidget *parent)
     setLayout(layout);
 }
 
-void ScientificDoublePropertyEdit::setScientificDoubleProperty(
+void ObsoleteScientificDoublePropertyEdit::setScientificDoubleProperty(
         const ScientificDoubleProperty &doubleProperty)
 {
     m_lineEdit->setText(doubleProperty.getText());
     m_scientificDoubleProperty = doubleProperty;
 }
 
-void ScientificDoublePropertyEdit::onEditingFinished()
+void ObsoleteScientificDoublePropertyEdit::onEditingFinished()
 {
     double new_value = m_lineEdit->text().toDouble();
     if(new_value != m_scientificDoubleProperty.getValue()) {
@@ -288,12 +288,12 @@ void ScientificDoublePropertyEdit::onEditingFinished()
     }
 }
 
-QSize ScientificDoublePropertyEdit::sizeHint() const
+QSize ObsoleteScientificDoublePropertyEdit::sizeHint() const
 {
     return m_lineEdit->sizeHint();
 }
 
-QSize ScientificDoublePropertyEdit::minimumSizeHint() const
+QSize ObsoleteScientificDoublePropertyEdit::minimumSizeHint() const
 {
     return m_lineEdit->minimumSizeHint();
 }
@@ -309,7 +309,7 @@ QSize ScientificDoublePropertyEdit::minimumSizeHint() const
 //    m_comboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 //}
 
-ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
+ObsoleteComboPropertyEdit::ObsoleteComboPropertyEdit(QWidget *parent)
     : QComboBox(parent)
 {
     setAutoFillBackground(true);
@@ -319,7 +319,7 @@ ComboPropertyEdit::ComboPropertyEdit(QWidget *parent)
 //{
 //}
 
-void ComboPropertyEdit::setComboProperty(
+void ObsoleteComboPropertyEdit::setComboProperty(
         const ComboProperty &combo_property)
 {
     m_combo_property = combo_property;
@@ -348,7 +348,7 @@ void ComboPropertyEdit::setComboProperty(
             this, SLOT(onCurrentIndexChanged(QString)));
 }
 
-QString ComboPropertyEdit::comboValueText()
+QString ObsoleteComboPropertyEdit::comboValueText()
 {
     return m_combo_property.getValue();
 }
@@ -366,7 +366,7 @@ QString ComboPropertyEdit::comboValueText()
 //    return m_comboBox->minimumSizeHint();
 //}
 
-void ComboPropertyEdit::onCurrentIndexChanged(QString current_value)
+void ObsoleteComboPropertyEdit::onCurrentIndexChanged(QString current_value)
 {
     m_combo_property.setValue(current_value);
     emit comboPropertyChanged(m_combo_property);

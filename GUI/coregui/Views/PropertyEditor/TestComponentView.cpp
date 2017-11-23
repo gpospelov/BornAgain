@@ -26,9 +26,9 @@
 #include "MultiLayer.h"
 #include "SampleModel.h"
 #include "ComponentTreeView.h"
-#include "ComponentEditor.h"
+#include "ObsoleteComponentEditor.h"
 #include "minisplitter.h"
-#include "ComponentBoxEditor.h"
+#include "ObsoleteComponentBoxEditor.h"
 #include "ComponentFlatView.h"
 #include "MaterialItem.h"
 #include "MaterialDataItem.h"
@@ -49,8 +49,8 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     , m_updateButton(new QPushButton("Update models"))
     , m_addItemButton(new QPushButton("Add item"))
     , m_expandButton(new QPushButton("Expand tree"))
-    , m_obsoleteEditor(new ComponentEditor)
-    , m_obsoleteBoxEditor(new ComponentBoxEditor)
+    , m_obsoleteEditor(new ObsoleteComponentEditor)
+    , m_obsoleteBoxEditor(new ObsoleteComponentBoxEditor)
     , m_splitter(new Manhattan::MiniSplitter)
     , m_delegate(new SessionModelDelegate(this))
     , m_isExpaned(false)

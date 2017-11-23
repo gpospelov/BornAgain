@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "SphericalDetectorWidget.h"
-#include "ComponentBoxEditor.h"
+#include "ObsoleteComponentBoxEditor.h"
 #include "SphericalDetectorItem.h"
 #include "ColumnResizer.h"
 #include <QGroupBox>
@@ -25,10 +25,10 @@ SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer* columnResizer,
                                                  SessionItem* detectorItem, QWidget* parent)
     : QWidget(parent)
     , m_columnResizer(columnResizer)
-    , m_phiAxisEditor(new ComponentBoxEditor)
-    , m_alphaAxisEditor(new ComponentBoxEditor)
-    , m_resolutionFunctionEditor(new ComponentBoxEditor)
-    , m_polarizationAnalysisEditor(new ComponentBoxEditor)
+    , m_phiAxisEditor(new ObsoleteComponentBoxEditor)
+    , m_alphaAxisEditor(new ObsoleteComponentBoxEditor)
+    , m_resolutionFunctionEditor(new ObsoleteComponentBoxEditor)
+    , m_polarizationAnalysisEditor(new ObsoleteComponentBoxEditor)
     , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);

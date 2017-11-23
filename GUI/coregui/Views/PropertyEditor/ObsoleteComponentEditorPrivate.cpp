@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/ComponentEditorPrivate.cpp
-//! @brief     Implements class ComponentEditorPrivate
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoleteComponentEditorPrivate.cpp
+//! @brief     Implements class ObsoleteComponentEditorPrivate
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,31 +14,31 @@
 //
 // ************************************************************************** //
 
-#include "ComponentEditorPrivate.h"
+#include "ObsoleteComponentEditorPrivate.h"
 #include "CustomEventFilters.h"
 #include "GUIHelpers.h"
 #include <QComboBox>
 #include <QString>
 #include <cmath>
 
-ComponentEditorPrivate::ComponentEditorPrivate(ComponentEditorFlags::PresentationType flags, QWidget *parent)
+ObsoleteComponentEditorPrivate::ObsoleteComponentEditorPrivate(ObsoleteComponentEditorFlags::PresentationType flags, QWidget *parent)
     : m_browser(0), m_manager(0), m_read_only_manager(0)
-    , m_propertyFactory(new PropertyVariantFactory(parent))
+    , m_propertyFactory(new ObsoletePropertyVariantFactory(parent))
     , m_presentationType(flags)
     , m_wheel_event_filter(new WheelEventEater)
     , m_topItem(0)
 {
-    m_read_only_manager = new PropertyVariantManager(parent);
-    m_manager = new PropertyVariantManager(parent);
+    m_read_only_manager = new ObsoletePropertyVariantManager(parent);
+    m_manager = new ObsoletePropertyVariantManager(parent);
     init_browser();
 }
 
-ComponentEditorPrivate::~ComponentEditorPrivate()
+ObsoleteComponentEditorPrivate::~ObsoleteComponentEditorPrivate()
 {
     clear();
 }
 
-void ComponentEditorPrivate::clear()
+void ObsoleteComponentEditorPrivate::clear()
 {
     m_browser->clear();
 
@@ -56,23 +56,23 @@ void ComponentEditorPrivate::clear()
     m_changedItems.clear();
 }
 
-void ComponentEditorPrivate::init_browser()
+void ObsoleteComponentEditorPrivate::init_browser()
 {
     delete m_browser;
     m_browser = 0;
 
-    if (m_presentationType & ComponentEditorFlags::BROWSER_TABLE) {
+    if (m_presentationType & ObsoleteComponentEditorFlags::BROWSER_TABLE) {
         QtTreePropertyBrowser *browser = new QtTreePropertyBrowser;
         browser->setResizeMode(QtTreePropertyBrowser::Interactive);
         browser->setRootIsDecorated(false);
         m_browser = browser;
     }
 
-    else if (m_presentationType & ComponentEditorFlags::BROWSER_GROUPBOX) {
+    else if (m_presentationType & ObsoleteComponentEditorFlags::BROWSER_GROUPBOX) {
         m_browser = new QtGroupBoxPropertyBrowser;
     }
 
-    else if (m_presentationType & ComponentEditorFlags::BROWSER_BUTTON) {
+    else if (m_presentationType & ObsoleteComponentEditorFlags::BROWSER_BUTTON) {
         m_browser = new QtButtonPropertyBrowser;
 
     } else {
@@ -86,7 +86,7 @@ void ComponentEditorPrivate::init_browser()
 }
 
 //! Creates, if necessary, qtVariantProperty for given item and place it in the editor
-QtVariantProperty *ComponentEditorPrivate::
+QtVariantProperty *ObsoleteComponentEditorPrivate::
     processPropertyForItem(SessionItem *item, QtVariantProperty *parentProperty)
 {
     QtVariantProperty *itemProperty = getPropertyForItem(item);
@@ -113,7 +113,7 @@ QtVariantProperty *ComponentEditorPrivate::
 }
 
 //! Returns QtVariantProperty representing given item in ComponentEditor.
-QtVariantProperty *ComponentEditorPrivate::getPropertyForItem(SessionItem *item)
+QtVariantProperty *ObsoleteComponentEditorPrivate::getPropertyForItem(SessionItem *item)
 {
     if (m_item_to_qtvariantproperty.contains(item)) {
         return m_item_to_qtvariantproperty[item];
@@ -122,7 +122,7 @@ QtVariantProperty *ComponentEditorPrivate::getPropertyForItem(SessionItem *item)
 }
 
 //! Returns SessionItem corresponding to QtVariantProperty representation
-SessionItem *ComponentEditorPrivate::getItemForProperty(QtProperty *property)
+SessionItem *ObsoleteComponentEditorPrivate::getItemForProperty(QtProperty *property)
 {
     if (m_qtproperty_to_item.contains(property)) {
         return m_qtproperty_to_item[property];
@@ -131,7 +131,7 @@ SessionItem *ComponentEditorPrivate::getItemForProperty(QtProperty *property)
 }
 
 //! creates QtVariantProperty for given SessionItem's property
-QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(SessionItem *item)
+QtVariantProperty *ObsoleteComponentEditorPrivate::createQtVariantProperty(SessionItem *item)
 {
     QtVariantProperty *result(0);
 
@@ -162,7 +162,7 @@ QtVariantProperty *ComponentEditorPrivate::createQtVariantProperty(SessionItem *
     return result;
 }
 
-QtVariantProperty *ComponentEditorPrivate::processPropertyGroupForName(const QString &name)
+QtVariantProperty *ObsoleteComponentEditorPrivate::processPropertyGroupForName(const QString &name)
 {
     QtVariantProperty *result = getPropertyForGroupName(name);
     if(result == nullptr && name.size()) {
@@ -173,7 +173,7 @@ QtVariantProperty *ComponentEditorPrivate::processPropertyGroupForName(const QSt
     return result;
 }
 
-QtVariantProperty *ComponentEditorPrivate::getPropertyForGroupName(const QString &name)
+QtVariantProperty *ObsoleteComponentEditorPrivate::getPropertyForGroupName(const QString &name)
 {
     if (m_groupname_to_qtvariant.contains(name)) {
         return m_groupname_to_qtvariant[name];
@@ -182,7 +182,7 @@ QtVariantProperty *ComponentEditorPrivate::getPropertyForGroupName(const QString
 }
 
 //! removes given qtVariantProperty from browser and all maps
-void ComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property)
+void ObsoleteComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property)
 {
     m_browser->removeProperty(property);
     delete property;
@@ -197,7 +197,7 @@ void ComponentEditorPrivate::removeQtVariantProperty(QtVariantProperty *property
 }
 
 //! update visual apperance of qtVariantProperty using SessionItem's attribute
-void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *property,
+void ObsoleteComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *property,
                                                       SessionItem* item)
 {
     Q_ASSERT(property);
@@ -236,7 +236,7 @@ void ComponentEditorPrivate::updatePropertyAppearance(QtVariantProperty *propert
 }
 
 //! removes properties of all child items
-void ComponentEditorPrivate::cleanChildren(SessionItem *item)
+void ObsoleteComponentEditorPrivate::cleanChildren(SessionItem *item)
 {
     foreach(SessionItem *child, item->children()) {
         if (QtVariantProperty *property = getPropertyForItem(child)) {
@@ -249,9 +249,9 @@ void ComponentEditorPrivate::cleanChildren(SessionItem *item)
 //! installs WheelEventEater on all comboxes
 // hack to change behaviour of ComboBoxes and SpinBoxes produced by QtGroupBoxPropertyBrowser
 // with the goal to react on mouse wheel event only when there is keyboard focus
-void ComponentEditorPrivate::install_custom_filters()
+void ObsoleteComponentEditorPrivate::install_custom_filters()
 {
-    if(m_presentationType & ComponentEditorFlags::BROWSER_GROUPBOX) {
+    if(m_presentationType & ObsoleteComponentEditorFlags::BROWSER_GROUPBOX) {
         QList<QAbstractSpinBox*> spinboxes = m_browser->findChildren<QAbstractSpinBox *>();
         QList<QComboBox*> comboboxes = m_browser->findChildren<QComboBox *>();
         foreach(QAbstractSpinBox *w, spinboxes) {

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/ComponentEditorPrivate.h
-//! @brief     Defines class ComponentEditorPrivate
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoleteComponentEditorPrivate.h
+//! @brief     Defines class ObsoleteComponentEditorPrivate
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,12 +14,12 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTEDITORPRIVATE_H
-#define COMPONENTEDITORPRIVATE_H
+#ifndef OBSOLETECOMPONENTEDITORPRIVATE_H
+#define OBSOLETECOMPONENTEDITORPRIVATE_H
 
-#include "ComponentEditorFlags.h"
-#include "PropertyVariantFactory.h"
-#include "PropertyVariantManager.h"
+#include "ObsoleteComponentEditorFlags.h"
+#include "ObsoletePropertyVariantFactory.h"
+#include "ObsoletePropertyVariantManager.h"
 #include "SessionItem.h"
 #include "WinDllMacros.h"
 #include "qtbuttonpropertybrowser.h"
@@ -32,15 +32,15 @@ class WheelEventEater;
 
 //! Holds logic for ComponentEditor
 
-class BA_CORE_API_ ComponentEditorPrivate
+class BA_CORE_API_ ObsoleteComponentEditorPrivate
 {
 public:
-    ComponentEditorPrivate(ComponentEditorFlags::PresentationType flags
-                           = ComponentEditorFlags::BROWSER_TABLE,
+    ObsoleteComponentEditorPrivate(ObsoleteComponentEditorFlags::PresentationType flags
+                           = ObsoleteComponentEditorFlags::BROWSER_TABLE,
                            QWidget *parent = 0);
 
 
-    ~ComponentEditorPrivate();
+    ~ObsoleteComponentEditorPrivate();
 
     void clear();
     void init_browser();
@@ -65,18 +65,18 @@ public:
     QtAbstractPropertyBrowser *m_browser;
     QtVariantPropertyManager *m_manager;
     QtVariantPropertyManager *m_read_only_manager;
-    PropertyVariantFactory *m_propertyFactory;
+    ObsoletePropertyVariantFactory *m_propertyFactory;
 
     QMap<QtProperty *, SessionItem *> m_qtproperty_to_item;
     QMap<SessionItem *, QtVariantProperty *> m_item_to_qtvariantproperty;
     QMap<QString, QtVariantProperty *> m_groupname_to_qtvariant;
     QMap<SessionItem *, QtVariantProperty *> m_item_to_qtparent;
-    QMap<SessionItem *, ComponentEditorFlags::InsertMode> m_item_to_insert_mode;
+    QMap<SessionItem *, ObsoleteComponentEditorFlags::InsertMode> m_item_to_insert_mode;
 
-    ComponentEditorFlags::PresentationType m_presentationType;
+    ObsoleteComponentEditorFlags::PresentationType m_presentationType;
     QList<SessionItem *> m_changedItems;
     std::unique_ptr<WheelEventEater> m_wheel_event_filter;
     SessionItem *m_topItem;
 };
 
-#endif // COMPONENTEDITORPRIVATE_H
+#endif // OBSOLETECOMPONENTEDITORPRIVATE_H

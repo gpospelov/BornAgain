@@ -16,8 +16,8 @@
 
 #include "RectangularDetectorWidget.h"
 #include "ComboProperty.h"
-#include "ComponentBoxEditor.h"
-#include "ComponentEditor.h"
+#include "ObsoleteComponentBoxEditor.h"
+#include "ObsoleteComponentEditor.h"
 #include "DetectorItems.h"
 #include "RectangularDetectorItem.h"
 #include "ExtendedDetectorDialog.h"
@@ -116,27 +116,27 @@ void RectangularDetectorWidget::setColumnResizer(ColumnResizer* columnResizer)
 void RectangularDetectorWidget::create_editors()
 {
     // axes and resolution function editors
-    m_xAxisEditor = new ComponentBoxEditor;
+    m_xAxisEditor = new ObsoleteComponentBoxEditor;
     m_gridLayout->addWidget(m_xAxisEditor, 1, 0);
 
-    m_yAxisEditor = new ComponentBoxEditor;
+    m_yAxisEditor = new ObsoleteComponentBoxEditor;
     m_gridLayout->addWidget(m_yAxisEditor, 1, 1);
 
-    m_resolutionFunctionEditor = new ComponentBoxEditor;
+    m_resolutionFunctionEditor = new ObsoleteComponentBoxEditor;
     m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
 
     // alignment selector editors
-    m_alignmentEditor = new ComponentBoxEditor;
+    m_alignmentEditor = new ObsoleteComponentBoxEditor;
     m_gridLayout->addWidget(m_alignmentEditor, 2, 0);
 
     // editors for various positions
-    m_positionsEditor = new ComponentBoxEditor;
+    m_positionsEditor = new ObsoleteComponentBoxEditor;
     m_gridLayout->addWidget(m_positionsEditor, 3, 0);
 
-    m_normalEditor = new ComponentBoxEditor;
+    m_normalEditor = new ObsoleteComponentBoxEditor;
     m_gridLayout->addWidget(m_normalEditor, 3, 1);
 
-    m_directionEditor = new ComponentBoxEditor;
+    m_directionEditor = new ObsoleteComponentBoxEditor;
     m_gridLayout->addWidget(m_directionEditor, 3, 2);
 }
 

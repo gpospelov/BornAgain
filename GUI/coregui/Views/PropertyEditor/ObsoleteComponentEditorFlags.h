@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/ComponentEditorFlags.h
-//! @brief     Defines class ComponentEditorFlags
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoleteComponentEditorFlags.h
+//! @brief     Defines class ObsoleteComponentEditorFlags
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTEDITORFLAGS_H
-#define COMPONENTEDITORFLAGS_H
+#ifndef OBSOLETECOMPONENTEDITORFLAGS_H
+#define OBSOLETECOMPONENTEDITORFLAGS_H
 
 #include "WinDllMacros.h"
 #include <QObject>
 
-class BA_CORE_API_ ComponentEditorFlags
+class BA_CORE_API_ ObsoleteComponentEditorFlags
 {
 public:
     enum EPresentationType {
@@ -39,7 +39,7 @@ public:
 
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(ComponentEditorFlags::PresentationType)
+Q_DECLARE_OPERATORS_FOR_FLAGS(ObsoleteComponentEditorFlags::PresentationType)
 
 
-#endif // COMPONENTEDITORFLAGS_H
+#endif // OBSOLETECOMPONENTEDITORFLAGS_H

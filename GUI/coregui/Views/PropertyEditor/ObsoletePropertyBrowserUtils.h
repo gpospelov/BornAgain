@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/PropertyBrowserUtils.h
-//! @brief     Defines class PropertyBrowserUtils
+//! @file      GUI/coregui/Views/PropertyEditor/ObsoletePropertyBrowserUtils.h
+//! @brief     Defines class ObsoletePropertyBrowserUtils
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PROPERTYBROWSERUTILS_H
-#define PROPERTYBROWSERUTILS_H
+#ifndef OBSOLETEPROPERTYBROWSERUTILS_H
+#define OBSOLETEPROPERTYBROWSERUTILS_H
 
 #include <QWidget>
 #include "MaterialProperty.h"
@@ -33,11 +33,11 @@ class LostFocusFilter;
 
 //! The MaterialPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for MaterialProperty.
-class BA_CORE_API_ MaterialPropertyEdit : public QWidget
+class BA_CORE_API_ ObsoleteMaterialPropertyEdit : public QWidget
 {
     Q_OBJECT
 public:
-    MaterialPropertyEdit(QWidget *parent = 0);
+    ObsoleteMaterialPropertyEdit(QWidget *parent = 0);
 
     void setMaterialProperty(const MaterialProperty &materialProperty);
     MaterialProperty getMaterialProperty() const {return m_materialProperty; }
@@ -53,15 +53,15 @@ private:
 };
 
 
-class BA_CORE_API_ GroupPropertyEdit : public QWidget
+class BA_CORE_API_ ObsoleteGroupPropertyEdit : public QWidget
 {
     Q_OBJECT
 
     Q_PROPERTY(GroupProperty_t group READ group WRITE setGroup USER true)
 
 public:
-    GroupPropertyEdit(QWidget *parent = 0);
-    virtual ~GroupPropertyEdit();
+    ObsoleteGroupPropertyEdit(QWidget *parent = 0);
+    virtual ~ObsoleteGroupPropertyEdit();
 
     void setGroupProperty(GroupProperty_t groupProperty);
     GroupProperty_t getGroupProperty() const;
@@ -85,7 +85,7 @@ private:
     GroupProperty_t m_groupProperty;
 };
 
-inline GroupProperty_t GroupPropertyEdit::getGroupProperty() const
+inline GroupProperty_t ObsoleteGroupPropertyEdit::getGroupProperty() const
 {
     return m_groupProperty;
 }
@@ -93,11 +93,11 @@ inline GroupProperty_t GroupPropertyEdit::getGroupProperty() const
 
 //! The ColorPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for ColorProperty
-class BA_CORE_API_ ColorPropertyEdit : public QWidget
+class BA_CORE_API_ ObsoleteColorPropertyEdit : public QWidget
 {
     Q_OBJECT
 public:
-    ColorPropertyEdit(QWidget *parent = 0);
+    ObsoleteColorPropertyEdit(QWidget *parent = 0);
 
     void setColorProperty(const ColorProperty &colorProperty);
     ColorProperty getColorProperty() const {return m_colorProperty; }
@@ -118,11 +118,11 @@ private:
 
 //! The ScientificDoublePropertyEdit class provides PropertyVariantFactory with editing
 //! widget for ScientificDoubleProperty
-class BA_CORE_API_ ScientificDoublePropertyEdit : public QWidget
+class BA_CORE_API_ ObsoleteScientificDoublePropertyEdit : public QWidget
 {
     Q_OBJECT
 public:
-    ScientificDoublePropertyEdit(QWidget *parent = 0);
+    ObsoleteScientificDoublePropertyEdit(QWidget *parent = 0);
 
     void setScientificDoubleProperty(const ScientificDoubleProperty &doubleProperty);
     ScientificDoubleProperty getScientificDoubleProperty() const {
@@ -146,11 +146,11 @@ private:
 
 //! The ComboPropertyEdit class provides PropertyVariantFactory with editing
 //! widget for ComboProperty
-class BA_CORE_API_ ComboPropertyEdit : public QComboBox
+class BA_CORE_API_ ObsoleteComboPropertyEdit : public QComboBox
 {
     Q_OBJECT
 public:
-    ComboPropertyEdit(QWidget *parent = 0);
+    ObsoleteComboPropertyEdit(QWidget *parent = 0);
 
     void setComboProperty(const ComboProperty &combo_property);
     ComboProperty getComboProperty() const {return m_combo_property; }
@@ -166,4 +166,4 @@ private:
     ComboProperty m_combo_property;
 };
 
-#endif // PROPERTYBROWSERUTILS_H
+#endif // OBSOLETEPROPERTYBROWSERUTILS_H

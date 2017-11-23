@@ -37,23 +37,20 @@ public:
     ComponentTreeView(QWidget* parent = nullptr);
 
     void setItem(SessionItem* item);
-    void setItemIntern(SessionItem* item, bool show_root_item = true);
     void clearEditor();
 
-    void setModel(SessionModel* model);
-    void setRootIndex(const QModelIndex& index, bool show_root_item = true);
-
-    QTreeView* treeView();
-
-    void setHeaderHidden(bool hide);
+    void setShowHeader(bool show);
     void setShowRootItem(bool show);
 
 private:
+    void setModel(SessionModel* model);
+    void setRootIndex(const QModelIndex& index, bool show_root_item = true);
+
     QTreeView* m_tree;
     SessionModelDelegate* m_delegate;
     ComponentProxyModel* m_proxyModel;
     QStandardItemModel* m_placeHolderModel;
-    bool m_show_root_item;
+    bool m_show_root_item; //!< Tree will starts from item itself, if true.
 };
 
 #endif  //  COMPONENTTREEVIEW_H

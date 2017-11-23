@@ -62,7 +62,7 @@ ComponentView* ComponentEditor::createComponentView()
 
     if (m_type.testFlag(Tree)) {
         auto view = new ComponentTreeView;
-        view->setHeaderHidden(!m_type.testFlag(T_Header));
+        view->setShowHeader(m_type.testFlag(T_Header));
         view->setShowRootItem(m_type.testFlag(T_Root));
 
         result = view;

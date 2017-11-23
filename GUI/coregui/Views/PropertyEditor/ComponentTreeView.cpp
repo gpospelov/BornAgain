@@ -51,21 +51,12 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
 
 void ComponentTreeView::setItem(SessionItem* item)
 {
-    setItemIntern(item, m_show_root_item);
-}
-
-//! Sets item to show in the tree together with its properties and group properties.
-//! @param item: Item to show in a tree.
-//! @param show_root_item: Tree will starts from item itself, if true.
-
-void ComponentTreeView::setItemIntern(SessionItem* item, bool show_root_item)
-{
     if (!item) {
         setModel(nullptr);
         return;
     }
     setModel(item->model());
-    setRootIndex(item->index(), show_root_item);
+    setRootIndex(item->index(), m_show_root_item);
     m_tree->expandAll();
 }
 
@@ -93,14 +84,9 @@ void ComponentTreeView::setRootIndex(const QModelIndex& index, bool show_root_it
         m_tree->setRootIndex(m_proxyModel->mapFromSource(index));
 }
 
-QTreeView* ComponentTreeView::treeView()
+void ComponentTreeView::setShowHeader(bool show)
 {
-    return m_tree;
-}
-
-void ComponentTreeView::setHeaderHidden(bool hide)
-{
-    m_tree->setHeaderHidden(hide);
+    m_tree->setHeaderHidden(!show);
 }
 
 void ComponentTreeView::setShowRootItem(bool show)

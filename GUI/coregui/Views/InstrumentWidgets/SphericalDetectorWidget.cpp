@@ -15,20 +15,27 @@
 // ************************************************************************** //
 
 #include "SphericalDetectorWidget.h"
-#include "ObsoleteComponentBoxEditor.h"
+#include "ComponentEditor.h"
 #include "SphericalDetectorItem.h"
 #include "ColumnResizer.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 
+namespace {
+const QString phi_axis_title = "Phi axis";
+const QString alpha_axis_title = "Alpha axis";
+const QString resolution_title = "Resolution function";
+const QString polarization_title = "Analyzer orientation";
+}
+
 SphericalDetectorWidget::SphericalDetectorWidget(ColumnResizer* columnResizer,
                                                  SessionItem* detectorItem, QWidget* parent)
     : QWidget(parent)
     , m_columnResizer(columnResizer)
-    , m_phiAxisEditor(new ObsoleteComponentBoxEditor)
-    , m_alphaAxisEditor(new ObsoleteComponentBoxEditor)
-    , m_resolutionFunctionEditor(new ObsoleteComponentBoxEditor)
-    , m_polarizationAnalysisEditor(new ObsoleteComponentBoxEditor)
+    , m_phiAxisEditor(new ComponentEditor(ComponentEditor::GroupWidget, phi_axis_title))
+    , m_alphaAxisEditor(new ComponentEditor(ComponentEditor::GroupWidget, alpha_axis_title))
+    , m_resolutionFunctionEditor(new ComponentEditor(ComponentEditor::GroupWidget, resolution_title))
+    , m_polarizationAnalysisEditor(new ComponentEditor(ComponentEditor::GroupWidget, polarization_title))
     , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
@@ -76,22 +83,25 @@ void SphericalDetectorWidget::setDetectorItem(SessionItem* detectorItem)
     Q_ASSERT(detectorItem->modelType() == Constants::SphericalDetectorType);
 
     SessionItem* phiAxisItem = detectorItem->getItem(SphericalDetectorItem::P_PHI_AXIS);
-    m_phiAxisEditor->addPropertyItems(phiAxisItem, QStringLiteral("Phi axis"));
+    m_phiAxisEditor->setItem(phiAxisItem);
 
     SessionItem* alphaAxisItem = detectorItem->getItem(SphericalDetectorItem::P_ALPHA_AXIS);
-    m_alphaAxisEditor->addPropertyItems(alphaAxisItem, QStringLiteral("Alpha axis"));
+    m_alphaAxisEditor->setItem(alphaAxisItem);
 
     SessionItem* resFuncGroup = detectorItem->getItem(SphericalDetectorItem::P_RESOLUTION_FUNCTION);
-    m_resolutionFunctionEditor->addPropertyItems(resFuncGroup,
-                                                 QStringLiteral("Resolution function"));
+    m_resolutionFunctionEditor->setItem(resFuncGroup);
 
     SessionItem* analysisDirection = detectorItem->getItem(DetectorItem::P_ANALYZER_DIRECTION);
-    m_polarizationAnalysisEditor->addPropertyItems(
-        analysisDirection, QStringLiteral("Analyzer orientation"));
-    m_polarizationAnalysisEditor->addItem(
-        detectorItem->getItem(DetectorItem::P_ANALYZER_EFFICIENCY));
-    m_polarizationAnalysisEditor->addItem(
-        detectorItem->getItem(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION));
+    m_polarizationAnalysisEditor->setItem(analysisDirection);
+
+// TODO FIXME together with rectangular detector
+// Provide method ComponentEditor::addItem or better make separate AnalyzerItem
+// to enable editors for P_ANALYZER_EFFICIENCY and P_ANALYZER_TOTAL_TRANSMISSION
+
+//    m_polarizationAnalysisEditor->addItem(
+//        detectorItem->getItem(DetectorItem::P_ANALYZER_EFFICIENCY));
+//    m_polarizationAnalysisEditor->addItem(
+//        detectorItem->getItem(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION));
 }
 
 void SphericalDetectorWidget::onColumnResizerDestroyed(QObject* object)

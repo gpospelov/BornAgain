@@ -18,42 +18,67 @@
 #include "ComponentView.h"
 #include "ComponentTreeView.h"
 #include "ComponentFlatView.h"
+#include "GroupInfoBox.h"
 #include <QGroupBox>
 #include <QBoxLayout>
 
-ComponentEditor::ComponentEditor(EditorType editorType)
+namespace {
+
+template<typename T> T* createGroupBox(ComponentView* componentView, QString title)
+{
+    auto box = new T(title);
+    auto boxlayout = new QVBoxLayout;
+    boxlayout->setContentsMargins( 0, 0, 0, 0 );
+    boxlayout->addWidget(componentView);
+    box->setLayout(boxlayout);
+    return box;
+}
+}
+
+ComponentEditor::ComponentEditor(EditorType editorType, const QString& title)
     : m_type(editorType)
     , m_componentView(nullptr)
+    , m_item(nullptr)
+    , m_title(title)
 {
     m_componentView = createComponentView();
 
     auto mainLayout = new QVBoxLayout;
-    mainLayout->setMargin(0);
+    mainLayout->setMargin(4);
     mainLayout->setSpacing(0);
 
     if (m_type.testFlag(GroupLayout)) {
-        auto box = new QGroupBox("Title");
-        auto boxlayout = new QVBoxLayout;
-
-        boxlayout->addWidget(m_componentView);
-        box->setLayout(boxlayout);
-
+        auto box = createGroupBox<QGroupBox>(m_componentView, title);
         mainLayout->addWidget(box);
+
+    } else if(m_type.testFlag(InfoLayout)) {
+        auto box = createGroupBox<GroupInfoBox>(m_componentView, title);
+        connect(box, &GroupInfoBox::clicked, this, &ComponentEditor::onDialogRequest);
+        mainLayout->addWidget(box);
+
     } else {
         mainLayout->addWidget(m_componentView);
     }
 
+    mainLayout->addStretch();
     setLayout(mainLayout);
 }
 
 void ComponentEditor::setItem(SessionItem* item)
 {
+    m_item = item;
     m_componentView->setItem(item);
 }
 
 void ComponentEditor::clearEditor()
 {
+    m_item = nullptr;
     m_componentView->clearEditor();
+}
+
+void ComponentEditor::onDialogRequest()
+{
+    emit dialogRequest(m_item, m_title);
 }
 
 ComponentView* ComponentEditor::createComponentView()
@@ -64,7 +89,6 @@ ComponentView* ComponentEditor::createComponentView()
         auto view = new ComponentTreeView;
         view->setShowHeader(m_type.testFlag(T_Header));
         view->setShowRootItem(m_type.testFlag(T_Root));
-
         result = view;
     } else {
         auto view = new ComponentFlatView;

@@ -51,16 +51,24 @@ public:
     };
     Q_DECLARE_FLAGS(EditorType, EditorFlags)
 
-    ComponentEditor(EditorType editorType = HeaderTree);
+    ComponentEditor(EditorType editorType = HeaderTree, const QString& title = QString());
 
     void setItem(SessionItem* item);
     void clearEditor();
+
+signals:
+    void dialogRequest(SessionItem* item, const QString& names);
+
+private slots:
+    void onDialogRequest();
 
 private:
     ComponentView* createComponentView();
 
     EditorType m_type;
     ComponentView* m_componentView;
+    SessionItem* m_item;
+    QString m_title;
 };
 
 #endif  // COMPONENTEDITOR_H

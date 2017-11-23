@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InstrumentWidgets/ComponentInfoBox.h
-//! @brief     Defines class ComponentInfoBox
+//! @file      GUI/coregui/Views/InstrumentWidgets/ObsoleteComponentInfoBox.h
+//! @brief     Defines class ObsoleteComponentInfoBox
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COMPONENTINFOBOX_H
-#define COMPONENTINFOBOX_H
+#ifndef OBSOLETECOMPONENTINFOBOX_H
+#define OBSOLETECOMPONENTINFOBOX_H
 
 #include "GroupInfoBox.h"
 #include "WinDllMacros.h"
@@ -28,11 +28,11 @@ class SessionItem;
 //! custom group box equipped with help sign functionality
 //! (used to summon DistributionEditor)
 
-class BA_CORE_API_ ComponentInfoBox : public QWidget
+class BA_CORE_API_ ObsoleteComponentInfoBox : public QWidget
 {
     Q_OBJECT
 public:
-    ComponentInfoBox(const QString& title, QWidget* parent = 0);
+    ObsoleteComponentInfoBox(const QString& title, QWidget* parent = 0);
 
     void addPropertyItems(SessionItem* item);
 
@@ -51,4 +51,4 @@ private:
     QString m_title;
 };
 
-#endif // COMPONENTINFOBOX_H
+#endif // OBSOLETECOMPONENTINFOBOX_H

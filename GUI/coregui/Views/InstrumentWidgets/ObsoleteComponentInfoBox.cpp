@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InstrumentWidgets/ComponentInfoBox.cpp
-//! @brief     Implements class ComponentInfoBox
+//! @file      GUI/coregui/Views/InstrumentWidgets/ObsoleteComponentInfoBox.cpp
+//! @brief     Implements class ObsoleteComponentInfoBox
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,13 +14,13 @@
 //
 // ************************************************************************** //
 
-#include "ComponentInfoBox.h"
+#include "ObsoleteComponentInfoBox.h"
 #include "ObsoleteComponentBoxEditor.h"
 #include <QGroupBox>
 #include <QVBoxLayout>
 #include <iostream>
 
-ComponentInfoBox::ComponentInfoBox(const QString &title, QWidget *parent)
+ObsoleteComponentInfoBox::ObsoleteComponentInfoBox(const QString &title, QWidget *parent)
     : QWidget(parent)
     , m_groupBox(new GroupInfoBox(title))
     , m_editor(new ObsoleteComponentBoxEditor)
@@ -42,19 +42,19 @@ ComponentInfoBox::ComponentInfoBox(const QString &title, QWidget *parent)
     setLayout(mainLayout);
 }
 
-void ComponentInfoBox::addPropertyItems(SessionItem *item)
+void ObsoleteComponentInfoBox::addPropertyItems(SessionItem *item)
 {
     m_editor->addPropertyItems(item);
     m_item = item;
 }
 
-void ComponentInfoBox::clearEditor()
+void ObsoleteComponentInfoBox::clearEditor()
 {
     m_editor->clearEditor();
     m_item = 0;
 }
 
-void ComponentInfoBox::dialogRequest()
+void ObsoleteComponentInfoBox::dialogRequest()
 {
     emit onDialogRequest(m_item, m_title);
 }

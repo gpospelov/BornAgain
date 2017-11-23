@@ -94,14 +94,10 @@ void SphericalDetectorWidget::setDetectorItem(SessionItem* detectorItem)
     SessionItem* analysisDirection = detectorItem->getItem(DetectorItem::P_ANALYZER_DIRECTION);
     m_polarizationAnalysisEditor->setItem(analysisDirection);
 
-// TODO FIXME together with rectangular detector
-// Provide method ComponentEditor::addItem or better make separate AnalyzerItem
-// to enable editors for P_ANALYZER_EFFICIENCY and P_ANALYZER_TOTAL_TRANSMISSION
-
-//    m_polarizationAnalysisEditor->addItem(
-//        detectorItem->getItem(DetectorItem::P_ANALYZER_EFFICIENCY));
-//    m_polarizationAnalysisEditor->addItem(
-//        detectorItem->getItem(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION));
+    m_polarizationAnalysisEditor->addItem(
+        detectorItem->getItem(DetectorItem::P_ANALYZER_EFFICIENCY));
+    m_polarizationAnalysisEditor->addItem(
+        detectorItem->getItem(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION));
 }
 
 void SphericalDetectorWidget::onColumnResizerDestroyed(QObject* object)

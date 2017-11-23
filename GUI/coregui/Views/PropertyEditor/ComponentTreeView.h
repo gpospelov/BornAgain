@@ -17,8 +17,7 @@
 #ifndef COMPONENTTREEVIEW_H
 #define COMPONENTTREEVIEW_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "ComponentView.h"
 
 class QTreeView;
 class SessionModel;
@@ -31,26 +30,30 @@ class QStandardItemModel;
 //! Component property tree for SessionItems.
 //! Shows only PropertyItems and current items of GroupProperties.
 
-class BA_CORE_API_ ComponentTreeView : public QWidget
+class BA_CORE_API_ ComponentTreeView : public ComponentView
 {
     Q_OBJECT
 public:
     ComponentTreeView(QWidget* parent = nullptr);
 
-    void setItem(SessionItem* item, bool show_root_item = false);
+    void setItem(SessionItem* item);
+    void setItemIntern(SessionItem* item, bool show_root_item = true);
+    void clearEditor();
 
     void setModel(SessionModel* model);
-    void setRootIndex(const QModelIndex& index, bool show_root_item = false);
+    void setRootIndex(const QModelIndex& index, bool show_root_item = true);
 
     QTreeView* treeView();
 
     void setHeaderHidden(bool hide);
+    void setShowRootItem(bool show);
 
 private:
     QTreeView* m_tree;
     SessionModelDelegate* m_delegate;
     ComponentProxyModel* m_proxyModel;
     QStandardItemModel* m_placeHolderModel;
+    bool m_show_root_item;
 };
 
 #endif  //  COMPONENTTREEVIEW_H

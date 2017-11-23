@@ -27,7 +27,7 @@
 #include <QDataWidgetMapper>
 
 ComponentFlatView::ComponentFlatView(QWidget* parent)
-    : QWidget(parent)
+    : ComponentView(parent)
     , m_mainLayout(new QVBoxLayout)
     , m_gridLayout(nullptr)
     , m_currentItem(nullptr)
@@ -41,6 +41,11 @@ ComponentFlatView::ComponentFlatView(QWidget* parent)
     initGridLayout();
 
     setLayout(m_mainLayout);
+}
+
+void ComponentFlatView::setItem(SessionItem* item)
+{
+    addItemProperties(item);
 }
 
 void ComponentFlatView::addItemProperties(SessionItem* item)

@@ -17,8 +17,7 @@
 #ifndef COMPONENTFLATVIEW_H
 #define COMPONENTFLATVIEW_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "ComponentView.h"
 
 class SessionItem;
 class SessionModel;
@@ -30,12 +29,13 @@ class PropertyWidgetItem;
 //! properties are presented as widgets in grid layout.
 //! Shows only PropertyItems and current items of GroupProperties.
 
-class BA_CORE_API_ ComponentFlatView : public QWidget
+class BA_CORE_API_ ComponentFlatView : public ComponentView
 {
     Q_OBJECT
 public:
     ComponentFlatView(QWidget* parent = nullptr);
 
+    void setItem(SessionItem* item);
     void addItemProperties(SessionItem* item);
 
     void setModel(SessionModel* model);

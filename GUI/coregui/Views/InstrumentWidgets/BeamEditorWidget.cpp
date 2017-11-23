@@ -17,25 +17,26 @@
 #include "BeamEditorWidget.h"
 #include "BeamDistributionItem.h"
 #include "BeamItem.h"
-#include "ObsoleteComponentBoxEditor.h"
-#include "ComponentInfoBox.h"
+#include "ComponentEditor.h"
 #include "DistributionDialog.h"
 #include <QGridLayout>
+#include <QGroupBox>
 
 namespace
 {
 const QString name_of_groupbox_wavenlength("Wavelength [nm]");
 const QString name_of_groupbox_inclination("Inclination angle [deg]");
 const QString name_of_groupbox_azimuthal("Azimuthal angle [deg]");
+const QString name_of_polarization_presenter("Polarization (Bloch vector)");
 }
 
 BeamEditorWidget::BeamEditorWidget(QWidget* parent)
     : QWidget(parent)
-    , m_intensityEditor(new ObsoleteComponentBoxEditor)
-    , m_wavelengthPresenter(new ComponentInfoBox(name_of_groupbox_wavenlength))
-    , m_inclinationAnglePresenter(new ComponentInfoBox(name_of_groupbox_inclination))
-    , m_azimuthalAnglePresenter(new ComponentInfoBox(name_of_groupbox_azimuthal))
-    , m_polarizationPresenter(new ObsoleteComponentBoxEditor)
+    , m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget))
+    , m_wavelengthPresenter(new ComponentEditor(ComponentEditor::InfoWidget, name_of_groupbox_wavenlength))
+    , m_inclinationAnglePresenter(new ComponentEditor(ComponentEditor::InfoWidget, name_of_groupbox_inclination))
+    , m_azimuthalAnglePresenter(new ComponentEditor(ComponentEditor::InfoWidget, name_of_groupbox_azimuthal))
+    , m_polarizationPresenter(new ComponentEditor(ComponentEditor::GroupWidget, name_of_polarization_presenter))
     , m_gridLayout(new QGridLayout)
     , m_beamItem(nullptr)
 {
@@ -59,11 +60,11 @@ BeamEditorWidget::BeamEditorWidget(QWidget* parent)
     mainLayout->addStretch();
     setLayout(mainLayout);
 
-    connect(m_wavelengthPresenter, &ComponentInfoBox::onDialogRequest,
+    connect(m_wavelengthPresenter, &ComponentEditor::dialogRequest,
             this, &BeamEditorWidget::onDialogRequest);
-    connect(m_inclinationAnglePresenter, &ComponentInfoBox::onDialogRequest,
+    connect(m_inclinationAnglePresenter, &ComponentEditor::dialogRequest,
             this, &BeamEditorWidget::onDialogRequest);
-    connect(m_azimuthalAnglePresenter, &ComponentInfoBox::onDialogRequest,
+    connect(m_azimuthalAnglePresenter, &ComponentEditor::dialogRequest,
             this, &BeamEditorWidget::onDialogRequest);
 }
 
@@ -79,23 +80,22 @@ void BeamEditorWidget::setBeamItem(BeamItem* beamItem)
     if (!m_beamItem)
         return;
 
-    m_intensityEditor->addItem(m_beamItem->getItem(BeamItem::P_INTENSITY));
+    m_intensityEditor->setItem(m_beamItem->getItem(BeamItem::P_INTENSITY));
 
     SessionItem* wavelengthItem = m_beamItem->getItem(BeamItem::P_WAVELENGTH);
-    m_wavelengthPresenter->addPropertyItems(
+    m_wavelengthPresenter->setItem(
         wavelengthItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 
     SessionItem* inclinationAngleItem = m_beamItem->getItem(BeamItem::P_INCLINATION_ANGLE);
-    m_inclinationAnglePresenter->addPropertyItems(
+    m_inclinationAnglePresenter->setItem(
         inclinationAngleItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 
     SessionItem* azimuthalAngleItem = m_beamItem->getItem(BeamItem::P_AZIMUTHAL_ANGLE);
-    m_azimuthalAnglePresenter->addPropertyItems(
+    m_azimuthalAnglePresenter->setItem(
         azimuthalAngleItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 
     SessionItem* polarizationItem = m_beamItem->getItem(BeamItem::P_POLARIZATION);
-    m_polarizationPresenter->addPropertyItems(
-        polarizationItem, QStringLiteral("Polarization (Bloch vector)"));
+    m_polarizationPresenter->setItem(polarizationItem);
 }
 
 void BeamEditorWidget::onDialogRequest(SessionItem* item, const QString& name)

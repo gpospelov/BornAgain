@@ -29,7 +29,7 @@ class BA_CORE_API_ BeamEditorWidget : public QWidget
 {
     Q_OBJECT
 public:
-    BeamEditorWidget(QWidget* parent = 0);
+    BeamEditorWidget(QWidget* parent = nullptr);
 
     void setBeamItem(BeamItem* beamItem);
 
@@ -38,10 +38,10 @@ public:
 private:
     void onDialogRequest(SessionItem* item, const QString& name);
     ComponentEditor* m_intensityEditor;
-    ComponentEditor* m_wavelengthPresenter;
-    ComponentEditor* m_inclinationAnglePresenter;
-    ComponentEditor* m_azimuthalAnglePresenter;
-    ComponentEditor* m_polarizationPresenter;
+    ComponentEditor* m_wavelengthEditor;
+    ComponentEditor* m_inclinationEditor;
+    ComponentEditor* m_azimuthalEditor;
+    ComponentEditor* m_polarizationEditor;
     QGridLayout* m_gridLayout;
     BeamItem* m_beamItem;
 };

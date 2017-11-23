@@ -56,6 +56,7 @@ public:
 
     void setItem(SessionItem* item);
     void clearEditor();
+    void addItem(SessionItem* item);
 
 signals:
     void dialogRequest(SessionItem* item, const QString& names);

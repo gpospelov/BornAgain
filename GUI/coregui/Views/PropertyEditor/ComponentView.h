@@ -32,6 +32,7 @@ public:
 
     virtual void clearEditor() = 0;
     virtual void setItem(SessionItem* item) = 0;
+    virtual void addItem(SessionItem*) {}
 };
 
 #endif  // COMPONENTVIEW_H

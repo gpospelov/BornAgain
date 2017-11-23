@@ -79,6 +79,12 @@ void ComponentEditor::clearEditor()
     m_componentView->clearEditor();
 }
 
+void ComponentEditor::addItem(SessionItem* item)
+{
+    m_item = item;
+    m_componentView->addItem(item);
+}
+
 void ComponentEditor::onDialogRequest()
 {
     emit dialogRequest(m_item, m_title);

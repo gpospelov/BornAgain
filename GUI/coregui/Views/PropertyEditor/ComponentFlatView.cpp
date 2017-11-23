@@ -47,6 +47,8 @@ ComponentFlatView::ComponentFlatView(QWidget* parent)
     setLayout(m_mainLayout);
 }
 
+ComponentFlatView::~ComponentFlatView() = default;
+
 void ComponentFlatView::setItem(SessionItem* item)
 {
     clearEditor();

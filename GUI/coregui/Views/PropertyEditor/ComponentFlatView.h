@@ -36,6 +36,7 @@ class BA_CORE_API_ ComponentFlatView : public ComponentView
     Q_OBJECT
 public:
     ComponentFlatView(QWidget* parent = nullptr);
+    ~ComponentFlatView();
 
     void setItem(SessionItem* item);
     void addItem(SessionItem* item);

@@ -16,27 +16,22 @@
 #ifndef MAINCOMPUTATION_H
 #define MAINCOMPUTATION_H
 
-#include "ComputationStatus.h"
+#include "IComputation.h"
 #include "Complex.h"
 #include "SimulationOptions.h"
-#include <memory>
-#include <vector>
 
 class IFresnelMap;
 class MultiLayer;
 struct HomogeneousRegion;
 class IComputationTerm;
-class ProgressHandler;
-class SimulationElement;
 
-//! Performs a single-threaded DWBA computation with given sample and simulation parameters,
-//! for a given span of detector bins.
+//! Performs a single-threaded DWBA computation with given sample and simulation parameters.
 //!
 //! Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
 //!
 //! @ingroup algorithms_internal
 
-class MainComputation
+class MainComputation : public IComputation
 {
 public:
     MainComputation(
@@ -48,9 +43,6 @@ public:
     ~MainComputation();
 
     void run();
-
-    bool isCompleted() const { return m_status.isCompleted(); }
-    std::string errorMessage() const { return m_status.errorMessage(); }
 
     static_assert(std::is_copy_constructible<MainComputation>::value==false,
                   "MainComputation should not be copy constructable");
@@ -70,15 +62,11 @@ private:
 
     std::unique_ptr<MultiLayer> mP_multi_layer;
     SimulationOptions m_sim_options;
-    ProgressHandler* m_progress;
-    //! these iterators define the span of detector bins this simulation will work on
-    std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
 
     //! contains the information, necessary to calculate the Fresnel coefficients
     std::unique_ptr<IFresnelMap> mP_fresnel_map;
 
     std::vector<std::unique_ptr<IComputationTerm>> m_computation_terms;
-    ComputationStatus m_status;
 };
 
 #endif // MAINCOMPUTATION_H

@@ -1743,46 +1743,7 @@ def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
 
     """
     return _libBornAgainCore.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
-class INoncopyable(_object):
-    """
-
-
-    Mix-in for objects that must not be copied.
-
-    This virtual base class disables the copy constructor and the operator= in all its child classes.
-
-    C++ includes: INoncopyable.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, INoncopyable, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, INoncopyable, name)
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(INoncopyable self) -> INoncopyable
-
-        INoncopyable::INoncopyable(const INoncopyable &)=delete
-
-        """
-        this = _libBornAgainCore.new_INoncopyable()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_INoncopyable
-    __del__ = lambda self: None
-INoncopyable_swigregister = _libBornAgainCore.INoncopyable_swigregister
-INoncopyable_swigregister(INoncopyable)
-cvar = _libBornAgainCore.cvar
-major_version_number = cvar.major_version_number
-minor_version_number = cvar.minor_version_number
-patch_version_number = cvar.patch_version_number
-
-class ICloneable(INoncopyable):
+class ICloneable(_object):
     """
 
 
@@ -1795,17 +1756,15 @@ class ICloneable(INoncopyable):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INoncopyable]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ICloneable, name, value)
     __swig_getmethods__ = {}
-    for _s in [INoncopyable]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ICloneable, name)
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ICloneable
+    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -1828,10 +1787,12 @@ class ICloneable(INoncopyable):
         """
         return self.__disown__()
 
-    __swig_destroy__ = _libBornAgainCore.delete_ICloneable
-    __del__ = lambda self: None
 ICloneable_swigregister = _libBornAgainCore.ICloneable_swigregister
 ICloneable_swigregister(ICloneable)
+cvar = _libBornAgainCore.cvar
+major_version_number = cvar.major_version_number
+minor_version_number = cvar.minor_version_number
+patch_version_number = cvar.patch_version_number
 
 class INamed(_object):
     """
@@ -6006,7 +5967,7 @@ class ChiSquaredModule(IChiSquaredModule):
 ChiSquaredModule_swigregister = _libBornAgainCore.ChiSquaredModule_swigregister
 ChiSquaredModule_swigregister(ChiSquaredModule)
 
-class FitObject(INode, INoncopyable):
+class FitObject(INode):
     """
 
 
@@ -6017,11 +5978,11 @@ class FitObject(INode, INoncopyable):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INode, INoncopyable]:
+    for _s in [INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitObject, name, value)
     __swig_getmethods__ = {}
-    for _s in [INode, INoncopyable]:
+    for _s in [INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
     __repr__ = _swig_repr
@@ -6802,7 +6763,7 @@ class FitSuite(IObservable):
 FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
 
-class FitSuiteObjects(INode, INoncopyable):
+class FitSuiteObjects(INode):
     """
 
 
@@ -6813,11 +6774,11 @@ class FitSuiteObjects(INode, INoncopyable):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INode, INoncopyable]:
+    for _s in [INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuiteObjects, name, value)
     __swig_getmethods__ = {}
-    for _s in [INode, INoncopyable]:
+    for _s in [INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitSuiteObjects, name)
     __repr__ = _swig_repr
@@ -18702,7 +18663,7 @@ class IAbstractParticle(ISample):
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
 IAbstractParticle_swigregister(IAbstractParticle)
 
-class IParameterReal(INamed, INoncopyable):
+class IParameterReal(INamed):
     """
 
 
@@ -18713,11 +18674,11 @@ class IParameterReal(INamed, INoncopyable):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INamed, INoncopyable]:
+    for _s in [INamed]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterReal, name, value)
     __swig_getmethods__ = {}
-    for _s in [INamed, INoncopyable]:
+    for _s in [INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IParameterReal, name)
 

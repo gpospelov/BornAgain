@@ -18,7 +18,6 @@
 
 #include "ComputationStatus.h"
 #include "Complex.h"
-#include "INoncopyable.h"
 #include "SimulationOptions.h"
 #include <memory>
 #include <vector>
@@ -37,7 +36,7 @@ class SimulationElement;
 //!
 //! @ingroup algorithms_internal
 
-class MainComputation final : public INoncopyable
+class MainComputation
 {
 public:
     MainComputation(
@@ -53,6 +52,10 @@ public:
     bool isCompleted() const { return m_status.isCompleted(); }
     std::string errorMessage() const { return m_status.errorMessage(); }
 
+    static_assert(std::is_copy_constructible<MainComputation>::value==false,
+                  "MainComputation should not be copy constructable");
+    static_assert(std::is_copy_assignable<MainComputation>::value==false,
+                  "MainComputation should not be copy assignable");
 private:
     void runProtected();
     IFresnelMap* createFresnelMap();

@@ -148,7 +148,6 @@
 #include "ILayout.h"
 #include "INamed.h"
 #include "INode.h"
-#include "INoncopyable.h"
 #include "IObserver.h"
 #include "IParameterized.h"
 #include "IParticle.h"
@@ -250,7 +249,6 @@
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"
-%include "INoncopyable.h"
 %include "ICloneable.h"
 %include "INamed.h"
 %include "IParameterized.h"

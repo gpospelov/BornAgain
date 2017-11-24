@@ -25,12 +25,13 @@
 #include "SampleProvider.h"
 
 template<class T> class OutputData;
-class Computation;
+class MainComputation;
 class MultiLayer;
 class IMultiLayerBuilder;
 
-//! Pure virtual base class of OffSpecularSimulation and GISASSimulation,
-//! holds common infrastructure to run a simulation.
+//! Pure virtual base class of OffSpecularSimulation, GISASSimulation and SpecularSimulation.
+//! Holds the common infrastructure to run a simulation: multithreading, batch processing,
+//! weighting over parameter distributions, ...
 //! @ingroup simulation
 
 class BA_CORE_API_ Simulation : public ICloneable, public INode
@@ -101,6 +102,11 @@ protected:
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();
+
+    //! Generate a single threaded computation for a given range of SimulationElement's
+    virtual std::unique_ptr<MainComputation> generateSingleThreadedComputation(
+            std::vector<SimulationElement>::iterator start,
+            std::vector<SimulationElement>::iterator end);
 
     void runSingleSimulation();
 

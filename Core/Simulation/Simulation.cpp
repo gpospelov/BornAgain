@@ -201,6 +201,13 @@ void Simulation::updateSample()
     m_sample_provider.updateSample();
 }
 
+std::unique_ptr<MainComputation> Simulation::generateSingleThreadedComputation(
+        std::vector<SimulationElement>::iterator start,
+        std::vector<SimulationElement>::iterator end)
+{
+    return std::make_unique<MainComputation>(*sample(), m_options, m_progress, start, end);
+}
+
 //! Runs a single simulation with fixed parameter values.
 //! If desired, the simulation is run in several threads.
 void Simulation::runSingleSimulation()
@@ -217,8 +224,7 @@ void Simulation::runSingleSimulation()
 
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
-        std::unique_ptr<MainComputation> P_computation(
-            new MainComputation(*sample(), m_options, m_progress, batch_start, batch_end));
+        auto P_computation = generateSingleThreadedComputation(batch_start, batch_end);
         P_computation->run(); // the work is done here
         if (!P_computation->isCompleted()) {
             std::string message = P_computation->errorMessage();
@@ -248,8 +254,7 @@ void Simulation::runSingleSimulation()
                 end_it = batch_end;
             else
                 end_it = batch_start + end_thread_index;
-            computations.emplace_back(
-                new MainComputation(*sample(), m_options, m_progress, begin_it, end_it));
+            computations.push_back(generateSingleThreadedComputation(begin_it, end_it));
         }
 
         // Run simulations in n threads.

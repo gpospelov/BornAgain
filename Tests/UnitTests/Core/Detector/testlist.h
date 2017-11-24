@@ -5,6 +5,7 @@
 #include "SpecialFunctionsTest.h"
 #include "RectangularDetectorTest.h"
 #include "PrecomputedTest.h"
+#include "SpecularDetector1DTest.h"
 #include "SphericalDetectorTest.h"
 #include "SimulationAreaTest.h"
 #include "RegionOfInterestTest.h"

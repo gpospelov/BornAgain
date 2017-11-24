@@ -104,7 +104,7 @@ public:
     const DetectionProperties& detectionProperties() const {return m_detection_properties;}
 
     //! Inits axes of OutputData to match the detector and sets values to zero.
-    virtual void initOutputData(OutputData<double>& data) const;
+    void initOutputData(OutputData<double>& data) const;
 
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement>& elements,

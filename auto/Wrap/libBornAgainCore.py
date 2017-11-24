@@ -16341,6 +16341,11 @@ class Simulation(ICloneable, INode):
         return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
 
 
+    def setBackGround(self, bg):
+        """setBackGround(Simulation self, IBackGround const & bg)"""
+        return _libBornAgainCore.Simulation_setBackGround(self, bg)
+
+
     def numberOfSimulationElements(self):
         """
         numberOfSimulationElements(Simulation self) -> size_t

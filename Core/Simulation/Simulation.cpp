@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "Simulation.h"
+#include "IBackGround.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "IComputation.h"
@@ -175,6 +176,11 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder
     m_sample_provider.setSampleBuilder(p_sample_builder);
 }
 
+void Simulation::setBackGround(const IBackGround& bg)
+{
+    m_background.reset(bg.clone());
+}
+
 std::vector<const INode*> Simulation::getChildren() const
 {
     std::vector<const INode*> result;
@@ -279,6 +285,7 @@ void Simulation::runSingleSimulation()
                 "Messages: " + StringUtils::join(failure_messages, " --- "));
     }
     normalize(batch_start, batch_end);
+    addBackGroundIntensity(batch_start, batch_end);
 }
 
 //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
@@ -293,6 +300,14 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
         if (sin_alpha_i==0.0) sin_alpha_i = 1.0;
         double solid_angle = it->getSolidAngle();
         it->setIntensity(it->getIntensity()*beam_intensity*solid_angle/sin_alpha_i);
+    }
+}
+
+void Simulation::addBackGroundIntensity(std::vector<SimulationElement>::iterator begin_it,
+                                        std::vector<SimulationElement>::iterator end_it) const
+{
+    if (m_background) {
+        m_background->addBackGround(begin_it, end_it);
     }
 }
 

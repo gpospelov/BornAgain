@@ -25,9 +25,10 @@
 #include "SampleProvider.h"
 
 template<class T> class OutputData;
+class IBackGround;
 class IComputation;
-class MultiLayer;
 class IMultiLayerBuilder;
+class MultiLayer;
 
 //! Pure virtual base class of OffSpecularSimulation, GISASSimulation and SpecularSimulation.
 //! Holds the common infrastructure to run a simulation: multithreading, batch processing,
@@ -69,6 +70,8 @@ public:
     const MultiLayer* sample() const;
 
     void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
+
+    void setBackGround(const IBackGround& bg);
 
     virtual size_t numberOfSimulationElements() const=0;
 
@@ -115,6 +118,9 @@ protected:
 #ifndef SWIG
     void normalize(std::vector<SimulationElement>::iterator begin_it,
                    std::vector<SimulationElement>::iterator end_it) const;
+
+    void addBackGroundIntensity(std::vector<SimulationElement>::iterator begin_it,
+                                std::vector<SimulationElement>::iterator end_it) const;
 #endif
 
     //! Returns the start iterator of simulation elements for the current batch
@@ -129,6 +135,7 @@ protected:
     ProgressHandler m_progress;
     std::vector<SimulationElement> m_sim_elements;
     Instrument m_instrument;
+    std::unique_ptr<IBackGround> m_background;
 
 private:
     void initialize();

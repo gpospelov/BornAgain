@@ -16,14 +16,23 @@
 #ifndef IBACKGROUND_H
 #define IBACKGROUND_H
 
+#include "ICloneable.h"
+#include <vector>
+
+class SimulationElement;
+
 //! Interface for a simulating the background signal
 //!
 //! @ingroup algorithms_internal
 
-class IBackGround
+class IBackGround : public ICloneable
 {
 public:
     virtual ~IBackGround();
+    virtual IBackGround* clone() const =0;
+
+    virtual void addBackGround(std::vector<SimulationElement>::iterator start,
+                               std::vector<SimulationElement>::iterator end) const =0;
 };
 
 #endif // IBACKGROUND_H

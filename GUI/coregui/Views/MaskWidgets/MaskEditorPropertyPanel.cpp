@@ -16,7 +16,7 @@
 
 #include "MaskEditorPropertyPanel.h"
 #include "AccordionWidget.h"
-#include "ComponentTreeView.h"
+#include "ComponentEditor.h"
 #include "ContentPane.h"
 #include "IntensityDataItem.h"
 #include "SessionModel.h"
@@ -44,8 +44,8 @@ public:
 MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget* parent)
     : QWidget(parent)
     , m_listView(new QListView)
-    , m_maskPropertyEditor(new ComponentTreeView)
-    , m_plotPropertyEditor(new ComponentTreeView)
+    , m_maskPropertyEditor(new ComponentEditor)
+    , m_plotPropertyEditor(new ComponentEditor(ComponentEditor::MiniTree))
     , m_accordion(new AccordionWidget)
     , m_maskModel(nullptr)
     , m_intensityDataItem(nullptr)
@@ -69,8 +69,6 @@ MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget* parent)
     mainLayout->addWidget(m_accordion);
 
     setLayout(mainLayout);
-
-    m_plotPropertyEditor->setHeaderHidden(true);
 }
 
 QSize MaskEditorPropertyPanel::sizeHint() const

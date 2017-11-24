@@ -22,7 +22,7 @@
 
 class QGridLayout;
 class ColumnResizer;
-class ComponentBoxEditor;
+class ComponentEditor;
 class SessionItem;
 
 //! Widget for editing a spherical detector settings
@@ -42,10 +42,10 @@ public slots:
 
 private:
     ColumnResizer* m_columnResizer;
-    ComponentBoxEditor* m_phiAxisEditor;
-    ComponentBoxEditor* m_alphaAxisEditor;
-    ComponentBoxEditor* m_resolutionFunctionEditor;
-    ComponentBoxEditor* m_polarizationAnalysisEditor;
+    ComponentEditor* m_phiAxisEditor;
+    ComponentEditor* m_alphaAxisEditor;
+    ComponentEditor* m_resolutionFunctionEditor;
+    ComponentEditor* m_polarizationAnalysisEditor;
     QGridLayout* m_gridLayout;
 };
 

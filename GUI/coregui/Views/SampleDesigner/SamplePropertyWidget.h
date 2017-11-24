@@ -22,7 +22,7 @@
 
 class QItemSelectionModel;
 class QItemSelection;
-class ComponentTreeView;
+class ComponentEditor;
 
 //! Property editor to modify property of the object currently selected on the
 //! graphics scene. Located in the bottom right corner of SampleView.
@@ -43,7 +43,7 @@ public slots:
 
 private:
     QItemSelectionModel* m_selection_model;
-    ComponentTreeView* m_propertyEditor;
+    ComponentEditor* m_propertyEditor;
 };
 
 #endif // SAMPLEPROPERTYWIDGET_H

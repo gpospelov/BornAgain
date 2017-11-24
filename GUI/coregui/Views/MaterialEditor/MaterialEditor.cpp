@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "MaterialEditor.h"
-#include "ComponentTreeView.h"
+#include "ComponentEditor.h"
 #include "MaterialEditorToolBar.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
@@ -30,7 +30,7 @@ MaterialEditor::MaterialEditor(MaterialModel* materialModel, QWidget* parent)
     , m_toolBar(new MaterialEditorToolBar(materialModel, this))
     , m_splitter(new QSplitter)
     , m_listView(new QListView)
-    , m_componentEditor(new ComponentTreeView)
+    , m_componentEditor(new ComponentEditor)
     , m_model_was_modified(false)
 {
     setWindowTitle("MaterialEditorWidget");

@@ -22,15 +22,14 @@
 #include <QWidget>
 
 class BeamItem;
-class ComponentBoxEditor;
-class ComponentInfoBox;
+class ComponentEditor;
 class QGridLayout;
 
 class BA_CORE_API_ BeamEditorWidget : public QWidget
 {
     Q_OBJECT
 public:
-    BeamEditorWidget(QWidget* parent = 0);
+    BeamEditorWidget(QWidget* parent = nullptr);
 
     void setBeamItem(BeamItem* beamItem);
 
@@ -38,11 +37,11 @@ public:
 
 private:
     void onDialogRequest(SessionItem* item, const QString& name);
-    ComponentBoxEditor* m_intensityEditor;
-    ComponentInfoBox* m_wavelengthPresenter;
-    ComponentInfoBox* m_inclinationAnglePresenter;
-    ComponentInfoBox* m_azimuthalAnglePresenter;
-    ComponentBoxEditor* m_polarizationPresenter;
+    ComponentEditor* m_intensityEditor;
+    ComponentEditor* m_wavelengthEditor;
+    ComponentEditor* m_inclinationEditor;
+    ComponentEditor* m_azimuthalEditor;
+    ComponentEditor* m_polarizationEditor;
     QGridLayout* m_gridLayout;
     BeamItem* m_beamItem;
 };

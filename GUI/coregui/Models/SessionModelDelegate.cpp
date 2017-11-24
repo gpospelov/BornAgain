@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "SessionModelDelegate.h"
-#include "PropertyBrowserUtils.h"
 #include "SessionItem.h"
 #include "PropertyEditorFactory.h"
 #include "CustomEditors.h"

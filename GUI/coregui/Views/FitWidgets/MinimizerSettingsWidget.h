@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class ComponentTreeView;
+class ComponentEditor;
 class JobItem;
 class MinimizerContainerItem;
 
@@ -42,7 +42,7 @@ public slots:
 
 private:
     MinimizerContainerItem* m_currentItem;
-    ComponentTreeView* m_propertyEditor;
+    ComponentEditor* m_componentEditor;
 };
 
 #endif // MINIMIZERSETTINGSWIDGET_H

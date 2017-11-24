@@ -16,7 +16,7 @@
 
 #include "RealSpacePanel.h"
 #include "mainwindow_constants.h"
-#include "ComponentTreeView.h"
+#include "ComponentEditor.h"
 #include "FilterPropertyProxy.h"
 #include "SampleModel.h"
 #include <QTreeView>
@@ -27,7 +27,7 @@
 RealSpacePanel::RealSpacePanel(QWidget* parent)
     : QWidget(parent)
     , m_treeView(new QTreeView)
-    , m_componentEditor(new ComponentTreeView)
+    , m_componentEditor(new ComponentEditor)
     , m_model(nullptr)
     , m_proxy(nullptr)
 {

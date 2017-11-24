@@ -21,17 +21,21 @@
 #include "SessionModel.h"
 #include "LayoutUtils.h"
 #include "PropertyWidgetItem.h"
+#include "CustomEventFilters.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QDataWidgetMapper>
+#include <QSpinBox>
+#include <QComboBox>
 
 ComponentFlatView::ComponentFlatView(QWidget* parent)
-    : QWidget(parent)
+    : ComponentView(parent)
     , m_mainLayout(new QVBoxLayout)
     , m_gridLayout(nullptr)
-    , m_currentItem(nullptr)
     , m_model(nullptr)
+    , m_show_children(true)
+    , m_wheel_event_filter(new WheelEventEater)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -43,14 +47,26 @@ ComponentFlatView::ComponentFlatView(QWidget* parent)
     setLayout(m_mainLayout);
 }
 
-void ComponentFlatView::addItemProperties(SessionItem* item)
+ComponentFlatView::~ComponentFlatView() = default;
+
+void ComponentFlatView::setItem(SessionItem* item)
 {
-    Q_ASSERT(item);
+    clearEditor();
 
-    m_currentItem = item;
-    setModel(m_currentItem->model());
+    m_topItems.push_back(item);
+    setModel(item->model());
+    updateItemProperties();
+}
 
-    updateItemProperties(m_currentItem);
+void ComponentFlatView::addItem(SessionItem* item)
+{
+    if (m_topItems.isEmpty()) {
+        setItem(item);
+        return;
+    }
+
+    m_topItems.push_back(item);
+    updateItemProperties();
 }
 
 void ComponentFlatView::setModel(SessionModel* model)
@@ -68,15 +84,22 @@ void ComponentFlatView::setModel(SessionModel* model)
 
 }
 
-void ComponentFlatView::clearEditor()
+void ComponentFlatView::clearLayout()
 {
     Q_ASSERT(m_gridLayout);
+
     LayoutUtils::clearLayout(m_gridLayout, false);
 
     for(auto widget: m_widgetItems)
         delete widget;
 
     m_widgetItems.clear();
+
+}
+
+void ComponentFlatView::setShowChildren(bool show)
+{
+    m_show_children = show;
 
 }
 
@@ -87,20 +110,30 @@ void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIn
     SessionItem *item = m_model->itemForIndex(topLeft);
     Q_ASSERT(item);
     if (item->modelType() == Constants::GroupItemType)
-        updateItemProperties(m_currentItem);
+        updateItemProperties();
 
     if (roles.contains(SessionModel::FlagRole))
         updateItemRoles(item);
 }
 
-void ComponentFlatView::updateItemProperties(SessionItem* item)
+void ComponentFlatView::clearEditor()
 {
-    Q_ASSERT(item);
+    m_topItems.clear();
+    clearLayout();
+}
 
-    clearEditor();
+void ComponentFlatView::updateItemProperties()
+{    
+
+    clearLayout();
+
+    QList<const SessionItem*> allitems;
+
+    for (auto item : m_topItems)
+        allitems += ComponentUtils::componentItems(*item);
 
     int nrow(0);
-    for (auto child : ComponentUtils::componentItems(*item)) {
+    for (auto child : allitems) {
 
         auto widget = createWidget(child);
         if (!widget)
@@ -108,6 +141,9 @@ void ComponentFlatView::updateItemProperties(SessionItem* item)
 
         widget->addToGrid(m_gridLayout, ++nrow);
         m_widgetItems.push_back(widget);
+
+        if (!m_show_children)
+            break;
     }
 
 }
@@ -134,8 +170,25 @@ PropertyWidgetItem* ComponentFlatView::createWidget(const SessionItem* item)
     if (!editor)
         return nullptr;
 
+    install_custom_filters(editor);
+
     auto result = new PropertyWidgetItem(this);
     result->setItemEditor(item, editor);
 
     return result;
+}
+
+void ComponentFlatView::install_custom_filters(QWidget* editor)
+{
+    editor->installEventFilter(m_wheel_event_filter.get());
+    editor->setFocusPolicy(Qt::StrongFocus);
+
+    for(auto w : editor->findChildren<QAbstractSpinBox *>()) {
+        w->installEventFilter(m_wheel_event_filter.get());
+        w->setFocusPolicy(Qt::StrongFocus);
+    }
+
+    for(auto w : editor->findChildren<QComboBox *>())
+        w->installEventFilter(m_wheel_event_filter.get());
+
 }

@@ -19,7 +19,7 @@
 
 #include "SessionItemWidget.h"
 
-class ComponentTreeView;
+class ComponentEditor;
 
 class BA_CORE_API_ ProjectionsPropertyPanel : public SessionItemWidget
 {
@@ -36,7 +36,7 @@ protected:
     void unsubscribeFromItem();
 
 private:
-    ComponentTreeView* m_componentEditor;
+    ComponentEditor* m_componentEditor;
 };
 
 #endif // PROJECTIONSPROPERTYPANEL_H

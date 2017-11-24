@@ -17,14 +17,14 @@
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataItem.h"
 #include "JobModel.h"
-#include "ComponentTreeView.h"
+#include "ComponentEditor.h"
 #include <QAction>
 #include <QVBoxLayout>
 
 IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_togglePanelAction(new QAction(this))
-    , m_componentEditor(new ComponentTreeView)
+    , m_componentEditor(new ComponentEditor)
 {
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     setWindowTitle(QLatin1String("Intensity Data Properties"));

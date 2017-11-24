@@ -26,13 +26,14 @@
 #include "MultiLayer.h"
 #include "SampleModel.h"
 #include "ComponentTreeView.h"
-#include "ComponentEditor.h"
+#include "ObsoleteComponentEditor.h"
 #include "minisplitter.h"
-#include "ComponentBoxEditor.h"
+#include "ObsoleteComponentBoxEditor.h"
 #include "ComponentFlatView.h"
 #include "MaterialItem.h"
 #include "MaterialDataItem.h"
 #include "MaterialItemUtils.h"
+#include "ComponentEditor.h"
 #include <QTreeView>
 #include <QBoxLayout>
 #include <QItemSelectionModel>
@@ -44,13 +45,13 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     : m_mainWindow(mainWindow)
     , m_sourceModel(new SampleModel(this))
     , m_sourceTree(new QTreeView)
-    , m_componentTree(new ComponentTreeView)
-    , m_componentFlat(new ComponentFlatView)
+    , m_componentTree(new ComponentEditor(ComponentEditor::FullTree))
+    , m_componentFlat(new ComponentEditor(ComponentEditor::PlainWidget))
     , m_updateButton(new QPushButton("Update models"))
     , m_addItemButton(new QPushButton("Add item"))
     , m_expandButton(new QPushButton("Expand tree"))
-    , m_obsoleteEditor(new ComponentEditor)
-    , m_obsoleteBoxEditor(new ComponentBoxEditor)
+    , m_obsoleteEditor(new ObsoleteComponentEditor)
+    , m_obsoleteBoxEditor(new ObsoleteComponentBoxEditor)
     , m_splitter(new Manhattan::MiniSplitter)
     , m_delegate(new SessionModelDelegate(this))
     , m_isExpaned(false)
@@ -91,7 +92,7 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
 
 void TestComponentView::onUpdateRequest()
 {
-    m_componentTree->setModel(m_sourceModel);
+//    m_componentTree->setModel(m_sourceModel);
 }
 
 void TestComponentView::onAddItemRequest()
@@ -105,12 +106,12 @@ void TestComponentView::onExpandRequest()
         m_sourceTree->expandAll();
         m_sourceTree->resizeColumnToContents(0);
         m_sourceTree->resizeColumnToContents(1);
-        m_componentTree->treeView()->expandAll();
-        m_componentTree->treeView()->resizeColumnToContents(0);
-        m_componentTree->treeView()->resizeColumnToContents(1);
+//        m_componentTree->treeView()->expandAll();
+//        m_componentTree->treeView()->resizeColumnToContents(0);
+//        m_componentTree->treeView()->resizeColumnToContents(1);
     } else {
         m_sourceTree->collapseAll();
-        m_componentTree->treeView()->collapseAll();
+//        m_componentTree->treeView()->collapseAll();
     }
 
 //    const auto imax = std::numeric_limits<int>::max();
@@ -159,16 +160,17 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
     QModelIndexList indices = selected.indexes();
 
     if (indices.size()) {
-        QModelIndex selectedIndex = indices.front();
-        m_componentTree->setRootIndex(selectedIndex);
-        m_componentTree->treeView()->expandAll();
+//        QModelIndex selectedIndex = indices.front();
+//        m_componentTree->setRootIndex(selectedIndex);
+//        m_componentTree->treeView()->expandAll();
 
         auto item = m_sourceModel->itemForIndex(indices.front());
+        m_componentTree->setItem(item);
         m_obsoleteEditor->setItem(item, item->modelType());
         m_obsoleteBoxEditor->clearEditor();
         m_obsoleteBoxEditor->addPropertyItems(item);
 
-        m_componentFlat->addItemProperties(item);
+        m_componentFlat->setItem(item);
     }
 
 }

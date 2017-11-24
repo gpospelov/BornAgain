@@ -15,12 +15,12 @@
 // ************************************************************************** //
 
 #include "ProjectionsPropertyPanel.h"
-#include "ComponentTreeView.h"
+#include "ComponentEditor.h"
 #include <QVBoxLayout>
 
 ProjectionsPropertyPanel::ProjectionsPropertyPanel(QWidget* parent)
     : SessionItemWidget(parent)
-    , m_componentEditor(new ComponentTreeView)
+    , m_componentEditor(new ComponentEditor)
 {
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 

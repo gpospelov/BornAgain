@@ -21,7 +21,7 @@
 #include <QWidget>
 
 class QTreeView;
-class ComponentTreeView;
+class ComponentEditor;
 class SampleModel;
 class FilterPropertyProxy;
 class QItemSelection;
@@ -48,7 +48,7 @@ public slots:
 
 private:
     QTreeView* m_treeView;
-    ComponentTreeView* m_componentEditor;
+    ComponentEditor* m_componentEditor;
     SampleModel* m_model;
     FilterPropertyProxy* m_proxy;
 };

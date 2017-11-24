@@ -193,6 +193,8 @@ QWidget* createCustomDoubleEditor(const SessionItem& item)
     auto result = new QDoubleSpinBox;
     result->setKeyboardTracking(false);
 
+    result->setMaximum(std::numeric_limits<double>::max());
+
     result->setDecimals(item.decimals());
     result->setSingleStep(singleStep(item));
 

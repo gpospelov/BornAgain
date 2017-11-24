@@ -25,7 +25,7 @@
 #include "SampleProvider.h"
 
 template<class T> class OutputData;
-class DWBAComputation;
+class IComputation;
 class MultiLayer;
 class IMultiLayerBuilder;
 
@@ -104,7 +104,7 @@ protected:
     void updateSample();
 
     //! Generate a single threaded computation for a given range of SimulationElement's
-    virtual std::unique_ptr<DWBAComputation> generateSingleThreadedComputation(
+    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(
             std::vector<SimulationElement>::iterator start,
             std::vector<SimulationElement>::iterator end);
 

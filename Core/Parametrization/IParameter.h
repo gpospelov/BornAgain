@@ -46,9 +46,9 @@ public:
     bool hasSameData(const IParameter& other);
 
     static_assert(std::is_copy_constructible<IParameter<T>>::value==false,
-                  "MainComputation should not be copy constructable");
+                  "IParameter should not be copy constructable");
     static_assert(std::is_copy_assignable<IParameter<T>>::value==false,
-                  "MainComputation should not be copy assignable");
+                  "IParameter should not be copy assignable");
 protected:
     T* m_data;
     std::string m_parent_name;

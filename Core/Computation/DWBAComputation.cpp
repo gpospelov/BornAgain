@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/MainComputation.cpp
-//! @brief     Implements class MainComputation.
+//! @file      Core/Computation/DWBAComputation.cpp
+//! @brief     Implements class DWBAComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,7 +13,7 @@
 //
 // ************************************************************************** //
 
-#include "MainComputation.h"
+#include "DWBAComputation.h"
 #include "ParticleLayoutComputation.h"
 #include "Layer.h"
 #include "IFresnelMap.h"
@@ -26,7 +26,7 @@
 #include "SimulationElement.h"
 #include "MaterialFactoryFuncs.h"
 
-MainComputation::MainComputation(
+DWBAComputation::DWBAComputation(
     const MultiLayer& multilayer,
     const SimulationOptions& options,
     ProgressHandler& progress,
@@ -57,9 +57,9 @@ MainComputation::MainComputation(
     initFresnelMap();
 }
 
-MainComputation::~MainComputation() {}
+DWBAComputation::~DWBAComputation() {}
 
-void MainComputation::run()
+void DWBAComputation::run()
 {
     m_status.setRunning();
     try {
@@ -76,7 +76,7 @@ void MainComputation::run()
 // For roughness: (scattering cross-section of area S)/S
 // For specular peak: |R|^2 * sin(alpha_i) / solid_angle
 // This allows them to be added and normalized together to the beam afterwards
-void MainComputation::runProtected()
+void DWBAComputation::runProtected()
 {
     // add intensity of all IComputationTerms:
     for (auto& comp: m_computation_terms) {
@@ -86,7 +86,7 @@ void MainComputation::runProtected()
     }
 }
 
-IFresnelMap* MainComputation::createFresnelMap()
+IFresnelMap* DWBAComputation::createFresnelMap()
 {
     std::unique_ptr<IFresnelMap> P_result;
     if (!mP_multi_layer->requiresMatrixRTCoefficients())
@@ -100,7 +100,7 @@ IFresnelMap* MainComputation::createFresnelMap()
     return P_result.release();
 }
 
-std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer() const
+std::unique_ptr<MultiLayer> DWBAComputation::getAveragedMultilayer() const
 {
     std::map<size_t, std::vector<HomogeneousRegion>> region_map;
     for (auto& comp: m_computation_terms) {
@@ -115,7 +115,7 @@ std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer() const
             continue;  // skip semi-infinite layers
         auto layer_mat = P_result->layerMaterial(i_layer);
         if (!checkRegions(entry.second))
-            throw std::runtime_error("MainComputation::getAveragedMultilayer: "
+            throw std::runtime_error("DWBAComputation::getAveragedMultilayer: "
                                      "total volumetric fraction of particles exceeds 1!");
         auto new_mat = createAveragedMaterial(layer_mat, entry.second);
         P_result->setLayerMaterial(i_layer, new_mat);
@@ -123,7 +123,7 @@ std::unique_ptr<MultiLayer> MainComputation::getAveragedMultilayer() const
     return P_result;
 }
 
-std::unique_ptr<MultiLayer> MainComputation::getMultilayerForFresnel() const
+std::unique_ptr<MultiLayer> DWBAComputation::getMultilayerForFresnel() const
 {
     std::unique_ptr<MultiLayer> P_result = m_sim_options.useAvgMaterials()
                                            ? getAveragedMultilayer()
@@ -132,13 +132,13 @@ std::unique_ptr<MultiLayer> MainComputation::getMultilayerForFresnel() const
     return P_result;
 }
 
-void MainComputation::initFresnelMap()
+void DWBAComputation::initFresnelMap()
 {
     auto multilayer = getMultilayerForFresnel();
     mP_fresnel_map->setMultilayer(*multilayer);
 }
 
-bool MainComputation::checkRegions(const std::vector<HomogeneousRegion>& regions) const
+bool DWBAComputation::checkRegions(const std::vector<HomogeneousRegion>& regions) const
 {
     double total_fraction = 0;
     for (auto& region : regions)

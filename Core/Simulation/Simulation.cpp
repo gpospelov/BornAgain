@@ -16,7 +16,7 @@
 #include "Simulation.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
-#include "MainComputation.h"
+#include "DWBAComputation.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "SimulationElement.h"
@@ -201,11 +201,11 @@ void Simulation::updateSample()
     m_sample_provider.updateSample();
 }
 
-std::unique_ptr<MainComputation> Simulation::generateSingleThreadedComputation(
+std::unique_ptr<DWBAComputation> Simulation::generateSingleThreadedComputation(
         std::vector<SimulationElement>::iterator start,
         std::vector<SimulationElement>::iterator end)
 {
-    return std::make_unique<MainComputation>(*sample(), m_options, m_progress, start, end);
+    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, start, end);
 }
 
 //! Runs a single simulation with fixed parameter values.
@@ -235,7 +235,7 @@ void Simulation::runSingleSimulation()
     } else {
         // Multithreading.
         std::vector<std::unique_ptr<std::thread>> threads;
-        std::vector<std::unique_ptr<MainComputation>> computations;
+        std::vector<std::unique_ptr<DWBAComputation>> computations;
 
         // Initialize n computations.
         auto total_batch_elements = batch_end - batch_start;

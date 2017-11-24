@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/MainComputation.h
-//! @brief     Defines class MainComputation.
+//! @file      Core/Computation/DWBAComputation.h
+//! @brief     Defines class DWBAComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -31,23 +31,23 @@ class IComputationTerm;
 //!
 //! @ingroup algorithms_internal
 
-class MainComputation : public IComputation
+class DWBAComputation : public IComputation
 {
 public:
-    MainComputation(
+    DWBAComputation(
         const MultiLayer& multilayer,
         const SimulationOptions& options,
         ProgressHandler& progress,
         const std::vector<SimulationElement>::iterator& begin_it,
         const std::vector<SimulationElement>::iterator& end_it);
-    ~MainComputation();
+    ~DWBAComputation();
 
     void run();
 
-    static_assert(std::is_copy_constructible<MainComputation>::value==false,
-                  "MainComputation should not be copy constructable");
-    static_assert(std::is_copy_assignable<MainComputation>::value==false,
-                  "MainComputation should not be copy assignable");
+    static_assert(std::is_copy_constructible<DWBAComputation>::value==false,
+                  "DWBAComputation should not be copy constructable");
+    static_assert(std::is_copy_assignable<DWBAComputation>::value==false,
+                  "DWBAComputation should not be copy assignable");
 private:
     void runProtected();
     IFresnelMap* createFresnelMap();

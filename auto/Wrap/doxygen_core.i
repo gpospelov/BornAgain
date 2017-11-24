@@ -1649,6 +1649,26 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
+// File: classDWBAComputation.xml
+%feature("docstring") DWBAComputation "
+
+Performs a single-threaded DWBA computation with given sample and simulation parameters.
+
+Controlled by the multi-threading machinery in  Simulation::runSingleSimulation().
+
+C++ includes: DWBAComputation.h
+";
+
+%feature("docstring")  DWBAComputation::DWBAComputation "DWBAComputation::DWBAComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+";
+
+%feature("docstring")  DWBAComputation::~DWBAComputation "DWBAComputation::~DWBAComputation()
+";
+
+%feature("docstring")  DWBAComputation::run "void DWBAComputation::run()
+";
+
+
 // File: classEllipse.xml
 %feature("docstring") Ellipse "
 
@@ -6247,7 +6267,7 @@ C++ includes: IComputation.h
 // File: classIComputationTerm.xml
 %feature("docstring") IComputationTerm "
 
-Computes an independent term of the scattering intensity. Controlled by  MainComputation, which adds up all contributions from subclasses of  IComputationTerm
+Computes an independent term of the scattering intensity. Used by  DWBAComputation, which adds up all contributions from subclasses of  IComputationTerm
 
 C++ includes: IComputationTerm.h
 ";
@@ -10044,26 +10064,6 @@ C++ includes: MagneticLayersBuilder.h
 ";
 
 
-// File: classMainComputation.xml
-%feature("docstring") MainComputation "
-
-Performs a single-threaded DWBA computation with given sample and simulation parameters.
-
-Controlled by the multi-threading machinery in  Simulation::runSingleSimulation().
-
-C++ includes: MainComputation.h
-";
-
-%feature("docstring")  MainComputation::MainComputation "MainComputation::MainComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
-";
-
-%feature("docstring")  MainComputation::~MainComputation "MainComputation::~MainComputation()
-";
-
-%feature("docstring")  MainComputation::run "void MainComputation::run()
-";
-
-
 // File: classMaterial.xml
 %feature("docstring") Material "
 
@@ -11719,7 +11719,7 @@ Returns a vector of children (const).
 // File: classParticleLayoutComputation.xml
 %feature("docstring") ParticleLayoutComputation "
 
-Computes the scattering contribution from one particle layout. Controlled by  MainComputation.
+Computes the scattering contribution from one particle layout. Used by  DWBAComputation.
 
 C++ includes: ParticleLayoutComputation.h
 ";
@@ -12662,7 +12662,7 @@ Returns transformation.
 // File: classRoughMultiLayerComputation.xml
 %feature("docstring") RoughMultiLayerComputation "
 
-Computes the diffuse reflection from the rough interfaces of a multilayer. Controlled by  MainComputation.
+Computes the diffuse reflection from the rough interfaces of a multilayer. Used by  DWBAComputation.
 
 C++ includes: RoughMultiLayerComputation.h
 ";
@@ -13584,7 +13584,7 @@ C++ includes: IFormFactorBorn.h
 // File: classSpecularComputation.xml
 %feature("docstring") SpecularComputation "
 
-Computes the specular scattering. Controlled by  MainComputation.
+Computes the specular scattering. Used by  DWBAComputation.
 
 C++ includes: SpecularComputation.h
 ";
@@ -15478,6 +15478,12 @@ Add element vector to element vector with weight.
 // File: DelayedProgressCounter_8h.xml
 
 
+// File: DWBAComputation_8cpp.xml
+
+
+// File: DWBAComputation_8h.xml
+
+
 // File: IComputation_8cpp.xml
 
 
@@ -15488,12 +15494,6 @@ Add element vector to element vector with weight.
 
 
 // File: IComputationTerm_8h.xml
-
-
-// File: MainComputation_8cpp.xml
-
-
-// File: MainComputation_8h.xml
 
 
 // File: ParticleLayoutComputation_8cpp.xml

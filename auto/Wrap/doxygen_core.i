@@ -5968,6 +5968,21 @@ Add to values in histograms channels from numpy array,.
 ";
 
 
+// File: classHomogeneousMultilayerBuilder.xml
+%feature("docstring") HomogeneousMultilayerBuilder "
+
+Builds a sample with 10 interchanging homogeneous layers of Ti and Ni on silicone substrate. Ti is 70 angstroms thick, Ni is 30 angstroms thick. No absorption, no roughness, target wavelength is 1.54 angstroms.
+
+C++ includes: HomogeneousMultilayerBuilder.h
+";
+
+%feature("docstring")  HomogeneousMultilayerBuilder::HomogeneousMultilayerBuilder "HomogeneousMultilayerBuilder::HomogeneousMultilayerBuilder()
+";
+
+%feature("docstring")  HomogeneousMultilayerBuilder::buildSample "MultiLayer * HomogeneousMultilayerBuilder::buildSample() const
+";
+
+
 // File: structHomogeneousRegion.xml
 %feature("docstring") HomogeneousRegion "
 
@@ -14608,10 +14623,10 @@ C++ includes: ZLimits.h
 // File: namespace_0D444.xml
 
 
-// File: namespace_0D512.xml
+// File: namespace_0D514.xml
 
 
-// File: namespace_0D534.xml
+// File: namespace_0D536.xml
 
 
 // File: namespace_0D69.xml
@@ -15312,6 +15327,9 @@ GISAS simulation with spherical detector, region of interest and mask.
 %feature("docstring")  StandardSimulations::RectDetWithRoi "GISASSimulation * StandardSimulations::RectDetWithRoi()
 
 GISAS simulation with rectangular detector, region of interest and mask. 
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecular "SpecularSimulation * StandardSimulations::BasicSpecular()
 ";
 
 
@@ -17046,6 +17064,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: CylindersBuilder_8h.xml
+
+
+// File: HomogeneousMultilayerBuilder_8cpp.xml
+
+
+// File: HomogeneousMultilayerBuilder_8h.xml
 
 
 // File: IFactory_8h.xml

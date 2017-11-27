@@ -21,7 +21,6 @@
 #include "GroupProperty.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
-#include "ScientificDoubleProperty.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QToolButton>
@@ -315,35 +314,17 @@ ScientificDoublePropertyEditor::ScientificDoublePropertyEditor(QWidget* parent)
 
 void ScientificDoublePropertyEditor::onEditingFinished()
 {
-    if (m_data.canConvert<ScientificDoubleProperty>()) {
-        // TODO Remove this branch as soon ScientificDoubleProperty is gone
-        double new_value = m_lineEdit->text().toDouble();
-        ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
+    double new_value = m_lineEdit->text().toDouble();
 
-        if(new_value != doubleProperty.getValue()) {
-            doubleProperty.setValue(new_value);
-            setDataIntern(doubleProperty.getVariant());
-        }
-    } else {
-        double new_value = m_lineEdit->text().toDouble();
-
-        if(new_value != m_data.toDouble()) {
-            setDataIntern(QVariant::fromValue(new_value));
-        }
-
-    }
+    if(new_value != m_data.toDouble())
+        setDataIntern(QVariant::fromValue(new_value));
 
 }
 
 void ScientificDoublePropertyEditor::initEditor()
 {
-    if (m_data.canConvert<ScientificDoubleProperty>()) {
-        // TODO Remove this branch as soon ScientificDoubleProperty is gone
-        ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
-        m_lineEdit->setText(doubleProperty.getText());
-    } else {
-        m_lineEdit->setText(QString::number(m_data.toDouble(), 'g'));
-    }
+    Q_ASSERT(m_data.type() == QVariant::Double);
+    m_lineEdit->setText(QString::number(m_data.toDouble(), 'g'));
 }
 
 // --- BoolEditor ---

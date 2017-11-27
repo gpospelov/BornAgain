@@ -79,10 +79,6 @@ public:
 
     std::string getDefaultAxesUnits(size_t i_item = 0) const;
 
-    static_assert(std::is_copy_constructible<FitSuiteObjects>::value==false,
-                  "FitSuiteObjects should not be copy constructable");
-    static_assert(std::is_copy_assignable<FitSuiteObjects>::value==false,
-                  "FitSuiteObjects should not be copy assignable");
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters() {}

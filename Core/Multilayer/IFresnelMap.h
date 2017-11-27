@@ -49,10 +49,6 @@ public:
     //! Disables caching of previously computed Fresnel coefficients
     void disableCaching();
 
-    static_assert(std::is_copy_constructible<IFresnelMap>::value==false,
-                  "IFresnelMap should not be copy constructable");
-    static_assert(std::is_copy_assignable<IFresnelMap>::value==false,
-                  "IFresnelMap should not be copy assignable");
 protected:
     bool m_use_cache;
     std::unique_ptr<MultiLayer> mP_multilayer;

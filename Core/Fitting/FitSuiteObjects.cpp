@@ -16,6 +16,11 @@
 #include "FitSuiteObjects.h"
 #include "ChiSquaredModule.h"
 
+static_assert(std::is_copy_constructible<FitSuiteObjects>::value == false,
+	"FitSuiteObjects should not be copy constructable");
+static_assert(std::is_copy_assignable<FitSuiteObjects>::value == false,
+	"FitSuiteObjects should not be copy assignable");
+
 FitSuiteObjects::FitSuiteObjects()
   : m_total_weight(0)
    ,m_nfree_parameters(0)

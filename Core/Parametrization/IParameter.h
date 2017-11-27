@@ -45,10 +45,6 @@ public:
 
     bool hasSameData(const IParameter& other);
 
-    static_assert(std::is_copy_constructible<IParameter<T>>::value==false,
-                  "IParameter should not be copy constructable");
-    static_assert(std::is_copy_assignable<IParameter<T>>::value==false,
-                  "IParameter should not be copy assignable");
 protected:
     T* m_data;
     std::string m_parent_name;
@@ -67,7 +63,6 @@ IParameter<T>::IParameter(const std::string& name, T* data,
     , m_parent_name(parent_name)
     , m_onChange(onChange)
 {
-
     if(!m_data)
         throw std::runtime_error("Attempt to construct an IParameter with null data pointer");
 }

@@ -44,10 +44,6 @@ public:
 
     void run();
 
-    static_assert(std::is_copy_constructible<DWBAComputation>::value==false,
-                  "DWBAComputation should not be copy constructable");
-    static_assert(std::is_copy_assignable<DWBAComputation>::value==false,
-                  "DWBAComputation should not be copy assignable");
 private:
     void runProtected();
     IFresnelMap* createFresnelMap();

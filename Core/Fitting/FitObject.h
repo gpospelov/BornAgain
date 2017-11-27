@@ -68,10 +68,6 @@ public:
 
     std::string getDefaultAxisUnits() const;
 
-    static_assert(std::is_copy_constructible<FitObject>::value==false,
-                  "FitObject should not be copy constructable");
-    static_assert(std::is_copy_assignable<FitObject>::value==false,
-                  "FitObject should not be copy assignable");
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters() {}

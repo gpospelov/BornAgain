@@ -16,4 +16,5 @@
 #include "ICloneable.h"
 
 // To emit vtable in this translation unit (see warning weak-vtables):
+ICloneable::ICloneable() =default;
 ICloneable::~ICloneable() =default;

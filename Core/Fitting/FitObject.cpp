@@ -21,6 +21,11 @@
 #include "BornAgainNamespace.h"
 #include "DetectorFunctions.h"
 
+static_assert(std::is_copy_constructible<FitObject>::value == false,
+	"FitObject should not be copy constructable");
+static_assert(std::is_copy_assignable<FitObject>::value == false,
+	"FitObject should not be copy assignable");
+
 FitObject::FitObject(const Simulation& simulation, const OutputData<double >& real_data,
     double weight)
     : m_simulation(simulation.clone())

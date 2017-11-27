@@ -20,6 +20,7 @@
 #include "SessionItemUtils.h"
 #include <QFile>
 #include <QMimeData>
+#include <QtCore/QXmlStreamWriter>
 
 using SessionItemUtils::ParentRow;
 

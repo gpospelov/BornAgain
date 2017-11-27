@@ -23,6 +23,7 @@
 #include "ScientificDoubleProperty.h"
 #include "SessionModel.h"
 #include "WarningMessageService.h"
+#include <QtCore/QXmlStreamWriter>
 
 namespace
 {

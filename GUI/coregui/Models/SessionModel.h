@@ -21,7 +21,6 @@
 #include "SessionXML.h"
 #include "SessionFlags.h"
 #include <QStringList>
-#include <QtCore/QXmlStreamWriter>
 
 
 class BA_CORE_API_ SessionModel : public QAbstractItemModel

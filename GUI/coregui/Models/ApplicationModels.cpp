@@ -34,6 +34,8 @@
 #include "IntensityDataItem.h"
 #include "ImportDataAssistant.h"
 #include "StandardSimulations.h"
+#include <QtCore/QXmlStreamWriter>
+
 
 ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)

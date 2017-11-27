@@ -156,7 +156,7 @@ void ApplicationModels::createMaterialModel()
     delete m_materialModel;
     m_materialModel = new MaterialModel(this);
     connectModel(m_materialModel);
-    m_materialSvc = new MaterialSvc(m_materialModel);
+    m_materialSvc = new MaterialSvc;
 }
 
 void ApplicationModels::createSampleModel()

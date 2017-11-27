@@ -30,7 +30,7 @@ class BA_CORE_API_ MaterialSvc : public QObject
 {
     Q_OBJECT
 public:
-    MaterialSvc(MaterialModel *materialModel);
+    MaterialSvc();
     virtual ~MaterialSvc();
 
     static MaterialSvc *instance();
@@ -39,19 +39,15 @@ public:
     static MaterialProperty selectMaterialProperty(const MaterialProperty &previousMaterial=MaterialProperty());
     static MaterialProperty getDefaultMaterialProperty();
 
-    static MaterialModel *getMaterialModel();
-
     static MaterialItem *getMaterial(const MaterialProperty &property);
 
 private:
     MaterialProperty this_selectMaterialProperty(const MaterialProperty &previousMaterial);
     MaterialProperty this_getMaterialProperty(const QString &name);
     MaterialProperty this_getDefaultMaterialProperty();
-    MaterialModel *this_getMaterialModel();
     MaterialItem *this_getMaterial(const MaterialProperty &property);
 
     static MaterialSvc *m_instance;
-    MaterialModel *m_materialModel;
 };
 
 

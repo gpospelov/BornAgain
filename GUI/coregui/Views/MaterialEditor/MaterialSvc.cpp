@@ -19,11 +19,11 @@
 #include "MaterialItem.h"
 #include "MaterialModel.h"
 #include "SessionModel.h"
+#include "AppSvc.h"
 
 MaterialSvc *MaterialSvc::m_instance = 0;
 
-MaterialSvc::MaterialSvc(MaterialModel *materialModel)
-    : m_materialModel(materialModel)
+MaterialSvc::MaterialSvc()
 {
     Q_ASSERT(!m_instance);
     m_instance = this;
@@ -52,7 +52,7 @@ MaterialSvc::selectMaterialProperty(const MaterialProperty &previousMaterial)
 MaterialProperty
 MaterialSvc::this_selectMaterialProperty(const MaterialProperty &previousMaterial)
 {
-    MaterialEditorDialog dialog(m_materialModel);
+    MaterialEditorDialog dialog(AppSvc::materialModel());
     dialog.setInitialMaterialProperty(previousMaterial);
     if(dialog.exec() == QDialog::Accepted) {
         return dialog.getSelectedMaterialProperty();
@@ -71,7 +71,7 @@ MaterialProperty MaterialSvc::getMaterialProperty(const QString &name)
 
 MaterialProperty MaterialSvc::this_getMaterialProperty(const QString &name)
 {
-    MaterialItem *material = m_materialModel->getMaterial(name);
+    MaterialItem *material = AppSvc::materialModel()->getMaterial(name);
     if(material)
         return MaterialProperty(material->getIdentifier());
 
@@ -89,10 +89,9 @@ MaterialProperty MaterialSvc::getDefaultMaterialProperty()
 //! MaterialItem in the model.
 MaterialProperty MaterialSvc::this_getDefaultMaterialProperty()
 {
-    Q_ASSERT(m_materialModel);
-    if((m_materialModel->rowCount( QModelIndex() ) ) ) {
-        QModelIndex firstIndex = m_materialModel->index(0, 0, QModelIndex());
-        MaterialItem *material = dynamic_cast<MaterialItem *>(m_materialModel->itemForIndex(firstIndex));
+    if((AppSvc::materialModel()->rowCount( QModelIndex() ) ) ) {
+        QModelIndex firstIndex = AppSvc::materialModel()->index(0, 0, QModelIndex());
+        MaterialItem *material = dynamic_cast<MaterialItem *>(AppSvc::materialModel()->itemForIndex(firstIndex));
         Q_ASSERT(material);
         return MaterialProperty(material->getIdentifier());
     } else {
@@ -101,12 +100,6 @@ MaterialProperty MaterialSvc::this_getDefaultMaterialProperty()
 }
 
 
-MaterialModel *MaterialSvc::getMaterialModel()
-{
-    Q_ASSERT(m_instance);
-    return m_instance->this_getMaterialModel();
-}
-
 MaterialItem *MaterialSvc::getMaterial(const MaterialProperty &property)
 {
     Q_ASSERT(m_instance);
@@ -114,13 +107,8 @@ MaterialItem *MaterialSvc::getMaterial(const MaterialProperty &property)
 }
 
 
-MaterialModel *MaterialSvc::this_getMaterialModel()
-{
-    return m_materialModel;
-}
-
 MaterialItem *MaterialSvc::this_getMaterial(const MaterialProperty &property)
 {
-    return this_getMaterialModel()->getMaterial(property);
+    return AppSvc::materialModel()->getMaterial(property);
 }
 

@@ -199,7 +199,7 @@ inline void TestParticleDistributionItem::test_FromDomainWithLimits()
 inline void TestParticleDistributionItem::test_Clone()
 {
     std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
-    std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc(P_materialModel.get()));
+    std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc);
 
     SampleModel model1;
     SessionItem *dist = model1.insertNewItem(Constants::ParticleDistributionType);

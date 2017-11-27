@@ -58,6 +58,7 @@
 #include "VectorItem.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
+#include "AppSvc.h"
 
 using SessionItemUtils::SetVectorItem;
 
@@ -597,7 +598,7 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
     MaterialProperty materialProperty = MaterialSvc::getMaterialProperty(materialName);
     if(materialProperty.isDefined()) return materialProperty;
 
-    MaterialModel* model = MaterialSvc::getMaterialModel();
+    MaterialModel* model = AppSvc::materialModel();
 
     complex_t material_data = material->materialData();
     MaterialItem* materialItem  =

@@ -23,7 +23,7 @@ private slots:
 inline void TestSessionModel::test_SampleModel_CreateCopy()
 {
     std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
-    std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc(P_materialModel.get()));
+    std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc);
 
     SampleModel *model1 = new SampleModel();
     SessionItem *multilayer = model1->insertNewItem(Constants::MultiLayerType);
@@ -50,7 +50,7 @@ inline void TestSessionModel::test_SampleModel_CreateCopy()
 inline void TestSessionModel::test_SampleModel_CreatePartialCopy()
 {
     std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
-    std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc(P_materialModel.get()));
+    std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc);
 
     SampleModel *model1 = new SampleModel();
     SessionItem *multilayer1 = model1->insertNewItem(Constants::MultiLayerType);
@@ -128,7 +128,7 @@ inline void TestSessionModel::test_InstrumentModel_CreatePartialCopy()
 inline void TestSessionModel::test_copyParameterizedItem()
 {
     std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
-    std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc(P_materialModel.get()));
+    std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc);
 
     SampleModel *sampleModel = new SampleModel();
     SessionItem *multilayer1 = sampleModel->insertNewItem(Constants::MultiLayerType);

@@ -22,7 +22,6 @@
 #include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
 #include "SampleModel.h"
-#include "ScientificDoubleProperty.h"
 #include "GUIHelpers.h"
 #include "FitParameterHelper.h"
 #include "SampleModel.h"
@@ -238,11 +237,6 @@ void handleItem(SessionItem* tree, const SessionItem* source)
         tree->setDisplayName(source->itemName());
 
         double sourceValue = source->value().toDouble();
-        if (source->value().typeName() == Constants::ScientificDoublePropertyType) {
-            ScientificDoubleProperty intensity = source->value().value<ScientificDoubleProperty>();
-            sourceValue = intensity.getValue();
-        }
-
         tree->setValue(QVariant(sourceValue));
         QString path = ModelPath::getPathFromIndex(source->index());
         int firstSlash = path.indexOf('/');
@@ -260,10 +254,6 @@ void handleItem(SessionItem* tree, const SessionItem* source)
         if (child->isVisible() && child->isEnabled()) {
             if (child->modelType() == Constants::PropertyType) {
                 if (child->value().type() == QVariant::Double) {
-                    SessionItem* branch
-                        = tree->model()->insertNewItem(Constants::ParameterType, tree->index());
-                    handleItem(branch, child);
-                } else if (child->value().typeName() == Constants::ScientificDoublePropertyType) {
                     SessionItem* branch
                         = tree->model()->insertNewItem(Constants::ParameterType, tree->index());
                     handleItem(branch, child);

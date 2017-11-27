@@ -20,7 +20,6 @@
 #include "GroupItem.h"
 #include "ItemFactory.h"
 #include "MaterialProperty.h"
-#include "ScientificDoubleProperty.h"
 #include "SessionModel.h"
 #include "WarningMessageService.h"
 #include <QtCore/QXmlStreamWriter>
@@ -115,12 +114,6 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
                                    QString::number(currentIndex));
             writer->writeAttribute(SessionXML::ParameterExtAttribute,
                                    variant.value<ComboProperty>().stringOfValues());
-
-        }
-
-        else if (type_name == Constants::ScientificDoublePropertyType) {
-            writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                   variant.value<ScientificDoubleProperty>().getText());
 
         }
 
@@ -302,16 +295,6 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
         combo_property.setCurrentIndex(parameter_value);
 
         variant = combo_property.getVariant();
-    }
-
-    else if (parameter_type == Constants::ScientificDoublePropertyType) {
-        double parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
-
-        ScientificDoubleProperty scdouble_property(parameter_value);
-        QVariant v;
-        v.setValue(scdouble_property);
-        variant = v;
     }
 
     else if (parameter_type == Constants::GroupPropertyType) {

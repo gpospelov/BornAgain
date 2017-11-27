@@ -22,8 +22,8 @@ const QString MaterialDataItem::P_IMAG = "imag";
 MaterialDataItem::MaterialDataItem()
     : SessionItem(Constants::MaterialDataType)
 {
-    addProperty(P_REAL, 0.0)->setEditorType(Constants::ScientificDoublePropertyType);
-    addProperty(P_IMAG, 0.0)->setEditorType(Constants::ScientificDoublePropertyType);
+    addProperty(P_REAL, 0.0)->setEditorType(Constants::ScientificEditorType);
+    addProperty(P_IMAG, 0.0)->setEditorType(Constants::ScientificEditorType);
 
     mapper()->setOnPropertyChange(
         [this](const QString &){

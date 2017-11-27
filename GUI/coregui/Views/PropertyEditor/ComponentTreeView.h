@@ -18,6 +18,7 @@
 #define COMPONENTTREEVIEW_H
 
 #include "ComponentView.h"
+#include <memory>
 
 class QTreeView;
 class SessionModel;
@@ -26,6 +27,7 @@ class ComponentProxyModel;
 class QModelIndex;
 class SessionItem;
 class QStandardItemModel;
+class RightMouseButtonEater;
 
 //! Component property tree for SessionItems.
 //! Shows only PropertyItems and current items of GroupProperties.
@@ -42,6 +44,9 @@ public:
     void setShowHeader(bool show);
     void setShowRootItem(bool show);
 
+private slots:
+    void onCustomContextMenuRequested(const QPoint &pos);
+
 private:
     void setModel(SessionModel* model);
     void setRootIndex(const QModelIndex& index, bool show_root_item = true);
@@ -50,6 +55,7 @@ private:
     SessionModelDelegate* m_delegate;
     ComponentProxyModel* m_proxyModel;
     QStandardItemModel* m_placeHolderModel;
+    std::unique_ptr<RightMouseButtonEater> m_eventFilter;
     bool m_show_root_item; //!< Tree will starts from item itself, if true.
 };
 

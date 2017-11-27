@@ -51,6 +51,8 @@ Simulation::Simulation(const Simulation& other)
     , m_progress(other.m_progress)
     , m_instrument(other.m_instrument)
 {
+    if (other.m_background)
+        setBackGround(*other.m_background);
     initialize();
 }
 

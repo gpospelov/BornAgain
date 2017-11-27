@@ -19,6 +19,7 @@
 
 #include "SessionItem.h"
 #include "SessionXML.h"
+#include "SessionFlags.h"
 #include <QStringList>
 #include <QtCore/QXmlStreamWriter>
 
@@ -32,18 +33,7 @@ public:
     virtual ~SessionModel();
     void createRootItem(); //NEW
 
-    enum EColumn {ITEM_NAME, ITEM_VALUE, MAX_COLUMNS}; // NEW column usage
-
-    enum ERoles {ModelTypeRole = Qt::UserRole + 1, FlagRole, DisplayNameRole, LimitsRole,
-                 DecimalRole, DefaultTagRole, EndSessionRoles}; // NEW roles
-
-    enum EAppearance {
-        VISIBLE = 0x001,
-        ENABLED = 0x002,
-        EDITABLE = 0x004
-    };
-
-//    // Begin overriden methods from QAbstractItemModel
+    // Begin overriden methods from QAbstractItemModel
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;

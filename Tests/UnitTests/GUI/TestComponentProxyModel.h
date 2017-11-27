@@ -37,7 +37,7 @@ inline void TestComponentProxyModel::test_emptyModel()
 {
     ComponentProxyModel proxy;
     QCOMPARE(proxy.rowCount(QModelIndex()), 0);
-    QCOMPARE(proxy.columnCount(QModelIndex()), static_cast<int>(SessionModel::MAX_COLUMNS));
+    QCOMPARE(proxy.columnCount(QModelIndex()), static_cast<int>(SessionFlags::MAX_COLUMNS));
     QVERIFY(proxy.sourceModel() == nullptr);
 }
 
@@ -53,7 +53,7 @@ inline void TestComponentProxyModel::test_setModel()
 
     QCOMPARE(spy.count(), 1);
     QCOMPARE(proxy.rowCount(QModelIndex()), 0);
-    QCOMPARE(proxy.columnCount(QModelIndex()), static_cast<int>(SessionModel::MAX_COLUMNS));
+    QCOMPARE(proxy.columnCount(QModelIndex()), static_cast<int>(SessionFlags::MAX_COLUMNS));
     QCOMPARE(proxy.sourceModel(), &model);
 }
 
@@ -68,16 +68,16 @@ inline void TestComponentProxyModel::test_setModelWithItem()
     proxy.setSessionModel(&model);
 
     QCOMPARE(model.rowCount(QModelIndex()), 1);
-    QCOMPARE(model.columnCount(QModelIndex()), static_cast<int>(SessionModel::MAX_COLUMNS));
+    QCOMPARE(model.columnCount(QModelIndex()), static_cast<int>(SessionFlags::MAX_COLUMNS));
     QCOMPARE(proxy.rowCount(QModelIndex()), 1);
-    QCOMPARE(proxy.columnCount(QModelIndex()), static_cast<int>(SessionModel::MAX_COLUMNS));
+    QCOMPARE(proxy.columnCount(QModelIndex()), static_cast<int>(SessionFlags::MAX_COLUMNS));
 }
 
 //! Set model to proxy. Model already contains VectorItem.
 
 inline void TestComponentProxyModel::test_setModelWithVector()
 {
-    const int ncols = static_cast<int>(SessionModel::MAX_COLUMNS);
+    const int ncols = static_cast<int>(SessionFlags::MAX_COLUMNS);
 
     SessionModel model("TestModel");
     SessionItem* item = model.insertNewItem(Constants::VectorType);
@@ -329,7 +329,7 @@ inline void TestComponentProxyModel::test_componentStrategyFormFactorChanges()
 
 inline void TestComponentProxyModel::test_setRootPropertyItem()
 {
-    const int ncols = static_cast<int>(SessionModel::MAX_COLUMNS);
+    const int ncols = static_cast<int>(SessionFlags::MAX_COLUMNS);
     SessionModel model("TestModel");
 
     ComponentProxyModel proxy;

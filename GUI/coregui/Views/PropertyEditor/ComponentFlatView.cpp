@@ -112,7 +112,7 @@ void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIn
     if (item->modelType() == Constants::GroupItemType)
         updateItemProperties();
 
-    if (roles.contains(SessionModel::FlagRole))
+    if (roles.contains(SessionFlags::FlagRole))
         updateItemRoles(item);
 }
 

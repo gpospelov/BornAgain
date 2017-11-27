@@ -32,9 +32,9 @@ Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex &proxyIndex) const
 
     QModelIndex sourceIndex = toSourceIndex(proxyIndex);
     if(sourceIndex.isValid()) {
-        if (sourceIndex.column() == SessionModel::ITEM_VALUE) result |= Qt::ItemIsEditable;
+        if (sourceIndex.column() == SessionFlags::ITEM_VALUE) result |= Qt::ItemIsEditable;
 
-        const QString modelType = sourceIndex.data(SessionModel::ModelTypeRole).toString();
+        const QString modelType = sourceIndex.data(SessionFlags::ModelTypeRole).toString();
         if(modelType == Constants::ParameterType) {
             if(ParameterItem *parameterItem = getParameterItem(proxyIndex)) {
                 if(parameterItem->isFittable())

@@ -56,7 +56,7 @@ void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const Sessi
         if (tag == item->parent()->defaultTag())
             tag = "";
         writer->writeAttribute(SessionXML::TagAttribute, tag);
-        writer->writeAttribute(SessionXML::DisplayNameAttribute, item->data(SessionModel::DisplayNameRole).toString());
+        writer->writeAttribute(SessionXML::DisplayNameAttribute, item->data(SessionFlags::DisplayNameRole).toString());
         QVector<int> roles = item->getRoles();
         foreach(int role, roles) {
             if (role == Qt::DisplayRole || role == Qt::EditRole)

@@ -122,7 +122,7 @@ void ObsoleteComponentEditor::onDataChanged(const QModelIndex &topLeft,
 
     if (QtVariantProperty *property = m_d->getPropertyForItem(item)) {
         // updating editor's property appearance (tooltips, limits)
-        if (roles.contains(SessionModel::FlagRole)) {
+        if (roles.contains(SessionFlags::FlagRole)) {
             m_d->updatePropertyAppearance(property, item);
         }
 

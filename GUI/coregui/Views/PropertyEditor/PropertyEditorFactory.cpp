@@ -131,7 +131,13 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
     QWidget* result(nullptr);
 
     if (isDoubleProperty(item.value())) {
-        result = createCustomDoubleEditor(item);
+        if (item.editorType() == Constants::ScientificEditorType) {
+            auto editor = new ScientificDoublePropertyEditor;
+            editor->setData(item.value());
+            result = editor;
+        } else {
+            result = createCustomDoubleEditor(item);
+        }
     }
 
     else if(isIntProperty(item.value())) {

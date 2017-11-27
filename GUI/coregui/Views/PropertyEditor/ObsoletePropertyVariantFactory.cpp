@@ -106,15 +106,15 @@ QWidget *ObsoletePropertyVariantFactory::createEditor(QtVariantPropertyManager *
             ObsoletePropertyVariantManager::scientificDoubleTypeId()) {
         ObsoleteScientificDoublePropertyEdit *editor = new ObsoleteScientificDoublePropertyEdit(parent);
         QVariant var = manager->value(property);
-        ScientificDoubleProperty sc = var.value<ScientificDoubleProperty>();
+        ObsoleteScientificDoubleProperty sc = var.value<ObsoleteScientificDoubleProperty>();
         editor->setScientificDoubleProperty(sc);
 
         m_property_to_scdouble_editors[property].append(editor);
         m_scdouble_editor_to_property[editor] = property;
 
         connect(editor,
-                SIGNAL(scientificDoublePropertyChanged(const ScientificDoubleProperty &)),
-                this, SLOT(slotSetValue(const ScientificDoubleProperty &)));
+                SIGNAL(scientificDoublePropertyChanged(const ObsoleteScientificDoubleProperty &)),
+                this, SLOT(slotSetValue(const ObsoleteScientificDoubleProperty &)));
         connect(editor, SIGNAL(destroyed(QObject *)),
                 this, SLOT(slotEditorDestroyed(QObject *)));
         return editor;
@@ -200,7 +200,7 @@ void ObsoletePropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 m_property_to_scdouble_editors[property];
         QListIterator<ObsoleteScientificDoublePropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
-            ScientificDoubleProperty mat = value.value<ScientificDoubleProperty>();
+            ObsoleteScientificDoubleProperty mat = value.value<ObsoleteScientificDoubleProperty>();
             itEditor.next()->setScientificDoubleProperty(mat);
         }
     }
@@ -263,7 +263,7 @@ void ObsoletePropertyVariantFactory::slotSetValue(const ColorProperty &value)
     }
 }
 
-void ObsoletePropertyVariantFactory::slotSetValue(const ScientificDoubleProperty &value)
+void ObsoletePropertyVariantFactory::slotSetValue(const ObsoleteScientificDoubleProperty &value)
 {
     QObject *object = sender();
     QMap<ObsoleteScientificDoublePropertyEdit *, QtProperty *>::ConstIterator itEditor =

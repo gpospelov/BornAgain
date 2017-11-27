@@ -20,7 +20,7 @@
 #include <QWidget>
 #include "MaterialProperty.h"
 #include "ColorProperty.h"
-#include "ScientificDoubleProperty.h"
+#include "ObsoleteScientificDoubleProperty.h"
 #include "GroupProperty.h"
 #include "ComboProperty.h"
 
@@ -124,8 +124,8 @@ class BA_CORE_API_ ObsoleteScientificDoublePropertyEdit : public QWidget
 public:
     ObsoleteScientificDoublePropertyEdit(QWidget *parent = 0);
 
-    void setScientificDoubleProperty(const ScientificDoubleProperty &doubleProperty);
-    ScientificDoubleProperty getScientificDoubleProperty() const {
+    void setScientificDoubleProperty(const ObsoleteScientificDoubleProperty &doubleProperty);
+    ObsoleteScientificDoubleProperty getScientificDoubleProperty() const {
         return m_scientificDoubleProperty;
     }
 
@@ -133,13 +133,13 @@ public:
     QSize minimumSizeHint() const;
 
 signals:
-    void scientificDoublePropertyChanged(const ScientificDoubleProperty &doubleProperty);
+    void scientificDoublePropertyChanged(const ObsoleteScientificDoubleProperty &doubleProperty);
 private slots:
     void onEditingFinished();
 private:
     QLineEdit *m_lineEdit;
     QDoubleValidator *m_validator;
-    ScientificDoubleProperty m_scientificDoubleProperty;
+    ObsoleteScientificDoubleProperty m_scientificDoubleProperty;
 };
 
 #include <QComboBox>

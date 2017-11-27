@@ -131,6 +131,9 @@ public:
     QString toolTip() const;
     SessionItem& setToolTip(const QString& tooltip);
 
+    QString editorType() const;
+    SessionItem& setEditorType(const QString& editorType);
+
     // helper functions
     virtual QString itemLabel() const;
     ModelMapper* mapper();

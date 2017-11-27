@@ -21,7 +21,6 @@
 #include "BeamWavelengthItem.h"
 #include "BornAgainNamespace.h"
 #include "ParameterTranslators.h"
-#include "ScientificDoubleProperty.h"
 #include "SessionItemUtils.h"
 #include "Units.h"
 
@@ -40,9 +39,10 @@ const QString BeamItem::P_POLARIZATION = QString("Polarization");
 
 BeamItem::BeamItem() : SessionItem(Constants::BeamType)
 {
-    ScientificDoubleProperty intensity(1e+08);
-    addProperty(P_INTENSITY, intensity.getVariant())->setLimits(RealLimits::limited(0.0, 1e+32))
-            .setToolTip("Beam intensity in neutrons (or gammas) per sec.");
+    addProperty(P_INTENSITY, 1e+08)->setLimits(RealLimits::limited(0.0, 1e+32))
+            .setToolTip("Beam intensity in neutrons (or gammas) per sec.")
+            .setEditorType(Constants::ScientificEditorType);
+
     addGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
@@ -55,17 +55,12 @@ BeamItem::~BeamItem(){}
 
 double BeamItem::getIntensity() const
 {
-    ScientificDoubleProperty intensity
-        = getItemValue(P_INTENSITY).value<ScientificDoubleProperty>();
-    return intensity.getValue();
+    return getItemValue(P_INTENSITY).toDouble();
 }
 
 void BeamItem::setIntensity(double value)
 {
-    ScientificDoubleProperty intensity
-        = getItemValue(P_INTENSITY).value<ScientificDoubleProperty>();
-    intensity.setValue(value);
-    setItemValue(P_INTENSITY, intensity.getVariant());
+    setItemValue(P_INTENSITY, value);
 }
 
 double BeamItem::getWavelength() const

@@ -140,9 +140,9 @@ inline void TestSessionItem::test_data_roles()
     QVERIFY(item->data(Qt::DisplayRole) == 5432);
     QVERIFY(item->data(Qt::EditRole) == 5432);
     for (int i = 0; i < 10; i++) {
-        QVERIFY(item->data(SessionModel::EndSessionRoles + i).isValid() == false);
-        item->setData(SessionModel::EndSessionRoles + i, i);
-        QVERIFY(item->data(SessionModel::EndSessionRoles + i) == i);
+        QVERIFY(item->data(SessionFlags::EndSessionRoles + i).isValid() == false);
+        item->setData(SessionFlags::EndSessionRoles + i, i);
+        QVERIFY(item->data(SessionFlags::EndSessionRoles + i) == i);
     }
 }
 

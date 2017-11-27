@@ -20,9 +20,9 @@
 #include "GroupItem.h"
 #include "ItemFactory.h"
 #include "MaterialProperty.h"
-#include "ScientificDoubleProperty.h"
 #include "SessionModel.h"
 #include "WarningMessageService.h"
+#include <QtCore/QXmlStreamWriter>
 
 namespace
 {
@@ -56,7 +56,7 @@ void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const Sessi
         if (tag == item->parent()->defaultTag())
             tag = "";
         writer->writeAttribute(SessionXML::TagAttribute, tag);
-        writer->writeAttribute(SessionXML::DisplayNameAttribute, item->data(SessionModel::DisplayNameRole).toString());
+        writer->writeAttribute(SessionXML::DisplayNameAttribute, item->data(SessionFlags::DisplayNameRole).toString());
         QVector<int> roles = item->getRoles();
         foreach(int role, roles) {
             if (role == Qt::DisplayRole || role == Qt::EditRole)
@@ -114,12 +114,6 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
                                    QString::number(currentIndex));
             writer->writeAttribute(SessionXML::ParameterExtAttribute,
                                    variant.value<ComboProperty>().stringOfValues());
-
-        }
-
-        else if (type_name == Constants::ScientificDoublePropertyType) {
-            writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                   variant.value<ScientificDoubleProperty>().getText());
 
         }
 
@@ -301,16 +295,6 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
         combo_property.setCurrentIndex(parameter_value);
 
         variant = combo_property.getVariant();
-    }
-
-    else if (parameter_type == Constants::ScientificDoublePropertyType) {
-        double parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
-
-        ScientificDoubleProperty scdouble_property(parameter_value);
-        QVariant v;
-        v.setValue(scdouble_property);
-        variant = v;
     }
 
     else if (parameter_type == Constants::GroupPropertyType) {

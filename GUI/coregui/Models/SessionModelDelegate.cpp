@@ -28,9 +28,21 @@ bool isDoubleProperty(const QModelIndex& index)
     return index.data().type() == QVariant::Double;
 }
 
-bool isIntProperty(const QModelIndex& index)
+//! Returns text representation of double value depending on user defined editor type.
+//! FIXME Remove this temporary function after getting rid from ScientificDoubleProperty
+QString doubleToString(const SessionItem& item)
 {
-    return index.data().type() == QVariant::Int;
+    QString result;
+
+    Q_ASSERT(item.value().type() == QVariant::Double);
+    if (item.editorType() == Constants::ScientificEditorType) {
+        result = QString::number(item.value().toDouble(), 'g');
+    } else {
+        auto locale = QLocale::system();
+        result = locale.toString(item.value().toDouble(), 'f', item.decimals());
+    }
+
+    return result;
 }
 
 }
@@ -49,10 +61,8 @@ void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& 
         paintCustomLabel(painter, option, index, text);
 
     } else if (isDoubleProperty(index)) {
-        auto locale = QLocale::system();
         auto item = static_cast<SessionItem*>(index.internalPointer());
-        QString text = locale.toString(item->value().toDouble(), 'f', item->decimals());
-        paintCustomLabel(painter, option, index, text);
+        paintCustomLabel(painter, option, index, doubleToString(*item));
 
     } else {
         QStyledItemDelegate::paint(painter, option, index);
@@ -62,29 +72,25 @@ void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& 
 QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option,
                                             const QModelIndex& index) const
 {
-    if (PropertyEditorFactory::IsCustomVariant(index.data())) {
-        // Custom variant requires an editor based on CustomEditor.
 
-        auto item = static_cast<SessionItem*>(index.internalPointer());
-        auto editor = PropertyEditorFactory::CreateEditor(*item, parent);
-        auto customEditor = dynamic_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
-        customEditor->setData(index.data());
-        connect(customEditor, &CustomEditor::dataChanged,
-                this, &SessionModelDelegate::onCustomEditorDataChanged);
-        return customEditor;
+    auto item = static_cast<SessionItem*>(index.internalPointer());
+    auto result = PropertyEditorFactory::CreateEditor(*item, parent);
 
-    } else if (isDoubleProperty(index) || isIntProperty(index)) {
-        // Int and Double will be handled by standard spin boxes specially tunded for limits
-
-        auto item = static_cast<SessionItem*>(index.internalPointer());
-        return PropertyEditorFactory::CreateEditor(*item, parent);
+    if (result) {
+        if(auto customEditor = dynamic_cast<CustomEditor*>(result)) {
+            customEditor->setData(index.data());
+            connect(customEditor, &CustomEditor::dataChanged,
+                    this, &SessionModelDelegate::onCustomEditorDataChanged);
+        } else {
+            // Int and Double will be handled by standard spin boxes
+            // QStyledItemDelegate already knows how to handle it, no special connections are required
+        }
 
     } else {
-        // the rest, like editors for QString, bool etc will be processed by parent delegate
-
-        return QStyledItemDelegate::createEditor(parent, option, index);
+        result = QStyledItemDelegate::createEditor(parent, option, index);
     }
+
+    return result;
 }
 
 //! Propagates changed data from the editor to the model.
@@ -92,27 +98,20 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                                         const QModelIndex& index) const
 {
-    if (PropertyEditorFactory::IsCustomVariant(index.data())) {
-        CustomEditor* customEditor = qobject_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
+    if (auto customEditor = qobject_cast<CustomEditor*>(editor))
         model->setData(index, customEditor->editorData());
-
-    } else {
+    else
         QStyledItemDelegate::setModelData(editor, model, index);
-    }
 }
 
 //! Propagates the data change from the model to the editor (if it is still opened).
 
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    if (PropertyEditorFactory::IsCustomVariant(index.data())) {
-        auto customEditor = dynamic_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
+    if (auto customEditor = dynamic_cast<CustomEditor*>(editor))
         customEditor->setData(index.data());
-    } else {
+    else
         QStyledItemDelegate::setEditorData(editor, index);
-    }
 }
 
 //! Increases height of the row by 20% wrt the default.

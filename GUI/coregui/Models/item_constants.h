@@ -263,12 +263,14 @@ const QString MaskEditorPresentation = "Mask Editor";
 
 // --- Custom variants ----------------------------------------------------------
 
-const ModelType ScientificDoublePropertyType = "ScientificDoubleProperty";
 const ModelType MaterialPropertyType = "MaterialProperty";
 const ModelType ComboPropertyType = "ComboProperty";
 const ModelType ColorPropertyType = "ColorProperty";
 const ModelType GroupPropertyType = "GroupProperty_t";
 
+// --- Custom editors for variant propertues ---
+const ModelType DefaultEditorType = "Default";
+const ModelType ScientificEditorType = "SceintificDouble";
 }
 
 #endif // ITEM_CONSTANTS_H

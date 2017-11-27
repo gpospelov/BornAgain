@@ -21,11 +21,6 @@
 #include "GroupProperty.h"
 #include <QStyledItemDelegate>
 
-class ComboProperty;
-class MaterialProperty;
-class ColorProperty;
-class ScientificDoubleProperty;
-
 //! The SessionModelDelegate class presents the content of SessionModel items in
 //! standard QTreeView. Extents base QItemDelegate with possibility to show/edit
 //! our custom QVariant's.

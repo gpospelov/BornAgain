@@ -90,4 +90,17 @@ protected:
     int m_index;
 };
 
+//! Filter out right mouse button events.
+
+class BA_CORE_API_ RightMouseButtonEater : public QObject
+{
+    Q_OBJECT
+public:
+    RightMouseButtonEater(QObject* parent = 0);
+
+protected:
+    bool eventFilter(QObject* obj, QEvent* event);
+};
+
+
 #endif // CUSTOMEVENTFILTERS_H

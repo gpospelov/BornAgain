@@ -21,7 +21,6 @@
 #include "GroupProperty.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
-#include "ScientificDoubleProperty.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QToolButton>
@@ -316,19 +315,16 @@ ScientificDoublePropertyEditor::ScientificDoublePropertyEditor(QWidget* parent)
 void ScientificDoublePropertyEditor::onEditingFinished()
 {
     double new_value = m_lineEdit->text().toDouble();
-    ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
 
-    if(new_value != doubleProperty.getValue()) {
-        doubleProperty.setValue(new_value);
-        setDataIntern(doubleProperty.getVariant());
-    }
+    if(new_value != m_data.toDouble())
+        setDataIntern(QVariant::fromValue(new_value));
+
 }
 
 void ScientificDoublePropertyEditor::initEditor()
 {
-    Q_ASSERT(m_data.canConvert<ScientificDoubleProperty>());
-    ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
-    m_lineEdit->setText(doubleProperty.getText());
+    Q_ASSERT(m_data.type() == QVariant::Double);
+    m_lineEdit->setText(QString::number(m_data.toDouble(), 'g'));
 }
 
 // --- BoolEditor ---

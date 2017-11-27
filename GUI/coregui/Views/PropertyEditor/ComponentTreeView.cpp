@@ -19,6 +19,8 @@
 #include "StyleUtils.h"
 #include "SessionModelDelegate.h"
 #include "SessionModel.h"
+#include "CustomEventFilters.h"
+#include "ComponentTreeActions.h"
 #include <QTreeView>
 #include <QBoxLayout>
 #include <QStandardItemModel>
@@ -29,6 +31,8 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
     , m_delegate(new SessionModelDelegate(this))
     , m_proxyModel(new ComponentProxyModel(this))
     , m_placeHolderModel(new QStandardItemModel)
+    , m_eventFilter(new RightMouseButtonEater)
+    , m_actions(new ComponentTreeActions(this))
     , m_show_root_item(false)
 {
     auto layout = new QVBoxLayout;
@@ -46,8 +50,19 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
     m_tree->setRootIsDecorated(false);
     m_tree->setModel(m_placeHolderModel);
     m_tree->setItemDelegate(m_delegate);
+
+    // provide one click editing, but still keeping custom context menu alive
     m_tree->setEditTriggers(QAbstractItemView::AllEditTriggers);
+    m_tree->viewport()->installEventFilter(m_eventFilter.get());
+
+    // custom context menu setup
+    m_tree->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_tree, &QTreeView::customContextMenuRequested,
+            this, &ComponentTreeView::onCustomContextMenuRequested);
+
 }
+
+ComponentTreeView::~ComponentTreeView() = default;
 
 void ComponentTreeView::setItem(SessionItem* item)
 {
@@ -93,4 +108,17 @@ void ComponentTreeView::setShowRootItem(bool show)
 {
     m_show_root_item = show;
 }
+
+void ComponentTreeView::onCustomContextMenuRequested(const QPoint& pos)
+{
+    auto point = m_tree->mapToGlobal(pos);
+    auto index = m_proxyModel->mapToSource(m_tree->indexAt(pos));
+
+    SessionItem* item = static_cast<SessionItem*>(index.internalPointer());
+    if (item->value().type() != QVariant::Double)
+        return;
+
+    m_actions->onCustomContextMenuRequested(point, *item);
+}
+
 

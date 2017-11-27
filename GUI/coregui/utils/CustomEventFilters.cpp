@@ -130,3 +130,25 @@ bool ShortcodeFilter::eventFilter(QObject* obj, QEvent* event)
     }
     return false;
 }
+
+RightMouseButtonEater::RightMouseButtonEater(QObject* parent)
+    : QObject(parent)
+{
+}
+
+bool RightMouseButtonEater::eventFilter(QObject* obj, QEvent* event)
+{
+    if (event->type() == QEvent::MouseButtonPress) {
+        QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+        if (mouseEvent->button() == Qt::RightButton) {
+            event->ignore();
+            return true;
+        } else {
+            event->accept();
+            return false;
+        }
+    } else {
+        // standard event processing
+        return QObject::eventFilter(obj, event);
+    }
+}

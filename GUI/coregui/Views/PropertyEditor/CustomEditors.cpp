@@ -315,20 +315,35 @@ ScientificDoublePropertyEditor::ScientificDoublePropertyEditor(QWidget* parent)
 
 void ScientificDoublePropertyEditor::onEditingFinished()
 {
-    double new_value = m_lineEdit->text().toDouble();
-    ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
+    if (m_data.canConvert<ScientificDoubleProperty>()) {
+        // TODO Remove this branch as soon ScientificDoubleProperty is gone
+        double new_value = m_lineEdit->text().toDouble();
+        ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
 
-    if(new_value != doubleProperty.getValue()) {
-        doubleProperty.setValue(new_value);
-        setDataIntern(doubleProperty.getVariant());
+        if(new_value != doubleProperty.getValue()) {
+            doubleProperty.setValue(new_value);
+            setDataIntern(doubleProperty.getVariant());
+        }
+    } else {
+        double new_value = m_lineEdit->text().toDouble();
+
+        if(new_value != m_data.toDouble()) {
+            setDataIntern(QVariant::fromValue(new_value));
+        }
+
     }
+
 }
 
 void ScientificDoublePropertyEditor::initEditor()
 {
-    Q_ASSERT(m_data.canConvert<ScientificDoubleProperty>());
-    ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
-    m_lineEdit->setText(doubleProperty.getText());
+    if (m_data.canConvert<ScientificDoubleProperty>()) {
+        // TODO Remove this branch as soon ScientificDoubleProperty is gone
+        ScientificDoubleProperty doubleProperty = m_data.value<ScientificDoubleProperty>();
+        m_lineEdit->setText(doubleProperty.getText());
+    } else {
+        m_lineEdit->setText(QString::number(m_data.toDouble(), 'g'));
+    }
 }
 
 // --- BoolEditor ---

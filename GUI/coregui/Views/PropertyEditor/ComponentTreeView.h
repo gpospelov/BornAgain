@@ -28,6 +28,7 @@ class QModelIndex;
 class SessionItem;
 class QStandardItemModel;
 class RightMouseButtonEater;
+class ComponentTreeActions;
 
 //! Component property tree for SessionItems.
 //! Shows only PropertyItems and current items of GroupProperties.
@@ -56,6 +57,7 @@ private:
     ComponentProxyModel* m_proxyModel;
     QStandardItemModel* m_placeHolderModel;
     std::unique_ptr<RightMouseButtonEater> m_eventFilter;
+    ComponentTreeActions* m_actions;
     bool m_show_root_item; //!< Tree will starts from item itself, if true.
 };
 

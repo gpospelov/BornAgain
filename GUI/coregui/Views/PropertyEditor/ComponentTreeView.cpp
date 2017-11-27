@@ -20,6 +20,7 @@
 #include "SessionModelDelegate.h"
 #include "SessionModel.h"
 #include "CustomEventFilters.h"
+#include "ComponentTreeActions.h"
 #include <QTreeView>
 #include <QBoxLayout>
 #include <QStandardItemModel>
@@ -31,6 +32,7 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
     , m_proxyModel(new ComponentProxyModel(this))
     , m_placeHolderModel(new QStandardItemModel)
     , m_eventFilter(new RightMouseButtonEater)
+    , m_actions(new ComponentTreeActions(this))
     , m_show_root_item(false)
 {
     auto layout = new QVBoxLayout;
@@ -105,11 +107,16 @@ void ComponentTreeView::setShowRootItem(bool show)
     m_show_root_item = show;
 }
 
-#include <QDebug>
-
 void ComponentTreeView::onCustomContextMenuRequested(const QPoint& pos)
 {
-    qDebug() << "ComponentTreeView::onContextMenuRequest";
+    auto point = m_tree->mapToGlobal(pos);
+    auto index = m_proxyModel->mapToSource(m_tree->indexAt(pos));
+
+    SessionItem* item = static_cast<SessionItem*>(index.internalPointer());
+    if (item->value().type() != QVariant::Double)
+        return;
+
+    m_actions->onCustomContextMenuRequested(point, *item);
 }
 
 

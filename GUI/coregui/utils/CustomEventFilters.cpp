@@ -136,13 +136,11 @@ RightMouseButtonEater::RightMouseButtonEater(QObject* parent)
 {
 }
 
-#include <QDebug>
 bool RightMouseButtonEater::eventFilter(QObject* obj, QEvent* event)
 {
     if (event->type() == QEvent::MouseButtonPress) {
         QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
         if (mouseEvent->button() == Qt::RightButton) {
-            qDebug() << "Ignoring right mouse";
             event->ignore();
             return true;
         } else {

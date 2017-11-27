@@ -43,7 +43,7 @@ SessionItem::SessionItem(const QString& modelType)
 {
     Q_ASSERT(!modelType.isEmpty());
 
-    setData(SessionModel::ModelTypeRole, modelType);
+    setData(SessionFlags::ModelTypeRole, modelType);
     setDisplayName(modelType);
     setDecimals(3);
     setLimits(RealLimits::nonnegative());
@@ -452,7 +452,7 @@ void SessionItem::emitDataChanged(int role)
 //! Get model type
 QString SessionItem::modelType() const
 {
-    return data(SessionModel::ModelTypeRole).toString();
+    return data(SessionFlags::ModelTypeRole).toString();
 }
 
 //! Get value
@@ -480,19 +480,19 @@ bool SessionItem::setValue(QVariant value)
 //! Get default tag
 QString SessionItem::defaultTag() const
 {
-    return data(SessionModel::DefaultTagRole).toString();
+    return data(SessionFlags::DefaultTagRole).toString();
 }
 
 //! Set default tag
 void SessionItem::setDefaultTag(const QString& tag)
 {
-    setData(SessionModel::DefaultTagRole, tag);
+    setData(SessionFlags::DefaultTagRole, tag);
 }
 
 //! Get display name of item, append index if ambigue.
 QString SessionItem::displayName() const
 {
-    QString result = data(SessionModel::DisplayNameRole).toString();
+    QString result = data(SessionFlags::DisplayNameRole).toString();
 
     if(modelType() == Constants::PropertyType || modelType() == Constants::GroupItemType ||
        modelType() == Constants::ParameterType || modelType() == Constants::ParameterLabelType)
@@ -517,7 +517,7 @@ QString SessionItem::displayName() const
 //! Set display name
 void SessionItem::setDisplayName(const QString& display_name)
 {
-    setData(SessionModel::DisplayNameRole, display_name);
+    setData(SessionFlags::DisplayNameRole, display_name);
 }
 
 //! Get item name, return display name if no name is set.
@@ -551,55 +551,55 @@ void SessionItem::setItemName(const QString& name)
 
 void SessionItem::setVisible(bool enabled)
 {
-    changeFlags(enabled, SessionModel::VISIBLE);
+    changeFlags(enabled, SessionFlags::VISIBLE);
 }
 
 void SessionItem::setEnabled(bool enabled)
 {
-    changeFlags(enabled, SessionModel::ENABLED);
+    changeFlags(enabled, SessionFlags::ENABLED);
 }
 
 void SessionItem::setEditable(bool enabled)
 {
-    changeFlags(enabled, SessionModel::EDITABLE);
+    changeFlags(enabled, SessionFlags::EDITABLE);
 }
 
 bool SessionItem::isVisible() const
 {
-    return flags() & SessionModel::VISIBLE;
+    return flags() & SessionFlags::VISIBLE;
 }
 
 bool SessionItem::isEnabled() const
 {
-    return flags() & SessionModel::ENABLED;
+    return flags() & SessionFlags::ENABLED;
 }
 
 bool SessionItem::isEditable() const
 {
-    return flags() & SessionModel::EDITABLE;
+    return flags() & SessionFlags::EDITABLE;
 }
 
 // more roles
 
 RealLimits SessionItem::limits() const
 {
-    return data(SessionModel::LimitsRole).value<RealLimits>();
+    return data(SessionFlags::LimitsRole).value<RealLimits>();
 }
 
 SessionItem& SessionItem::setLimits(const RealLimits& value)
 {
-    this->setData(SessionModel::LimitsRole, QVariant::fromValue<RealLimits>(value));
+    this->setData(SessionFlags::LimitsRole, QVariant::fromValue<RealLimits>(value));
     return *this;
 }
 
 int SessionItem::decimals() const
 {
-    return data(SessionModel::DecimalRole).toInt();
+    return data(SessionFlags::DecimalRole).toInt();
 }
 
 SessionItem& SessionItem::setDecimals(int n)
 {
-    setData(SessionModel::DecimalRole, n);
+    setData(SessionFlags::DecimalRole, n);
     return *this;
 }
 
@@ -611,6 +611,18 @@ QString SessionItem::toolTip() const
 SessionItem& SessionItem::setToolTip(const QString& tooltip)
 {
     setData(Qt::ToolTipRole, tooltip);
+    return *this;
+}
+
+QString SessionItem::editorType() const
+{
+    auto variant = data(SessionFlags::CustomEditorRole);
+    return variant.isValid() ? variant.toString() : Constants::DefaultEditorType;
+}
+
+SessionItem& SessionItem::setEditorType(const QString& editorType)
+{
+    setData(SessionFlags::CustomEditorRole, editorType);
     return *this;
 }
 
@@ -691,9 +703,9 @@ int SessionItem::tagStartIndex(const QString& name) const
 //! internal
 int SessionItem::flags() const
 {
-    QVariant flags = data(SessionModel::FlagRole);
+    QVariant flags = data(SessionFlags::FlagRole);
     if (!flags.isValid())
-        return SessionModel::VISIBLE | SessionModel::EDITABLE | SessionModel::ENABLED;
+        return SessionFlags::VISIBLE | SessionFlags::EDITABLE | SessionFlags::ENABLED;
 
     return flags.toInt();
 }
@@ -707,7 +719,7 @@ void SessionItem::changeFlags(bool enabled, int flag)
     } else {
         flags &= ~flag;
     }
-    setData(SessionModel::FlagRole, flags);
+    setData(SessionFlags::FlagRole, flags);
 }
 
 //! internal

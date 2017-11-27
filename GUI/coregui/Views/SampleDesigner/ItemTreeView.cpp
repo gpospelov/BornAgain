@@ -18,6 +18,7 @@
 #include "SessionModel.h"
 #include <QDragMoveEvent>
 #include <QMimeData>
+#include <QtCore/QXmlStreamWriter>
 
 ItemTreeView::ItemTreeView(QWidget *parent)
     : QTreeView(parent)

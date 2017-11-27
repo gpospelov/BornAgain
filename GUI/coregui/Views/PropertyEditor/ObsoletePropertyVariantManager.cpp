@@ -39,7 +39,7 @@ int ObsoletePropertyVariantManager::colorPropertyTypeId()
 
 int ObsoletePropertyVariantManager::scientificDoubleTypeId()
 {
-    int result = qMetaTypeId<ScientificDoubleProperty>();
+    int result = qMetaTypeId<ObsoleteScientificDoubleProperty>();
     return result;
 }
 
@@ -176,7 +176,7 @@ void ObsoletePropertyVariantManager::setValue(QtProperty *property, const QVaria
     }
     if (m_theScientificDoubleValues.contains(property)) {
         if( val.userType() != scientificDoubleTypeId() ) return;
-        ScientificDoubleProperty double_prop = val.value<ScientificDoubleProperty>();
+        ObsoleteScientificDoubleProperty double_prop = val.value<ObsoleteScientificDoubleProperty>();
         m_theScientificDoubleValues[property] = double_prop;
         QVariant v2;
         v2.setValue(double_prop);
@@ -220,7 +220,7 @@ void ObsoletePropertyVariantManager::initializeProperty(QtProperty *property)
         m_theColorValues[property] = m;
     }
     if (propertyType(property) == scientificDoubleTypeId()) {
-        ScientificDoubleProperty m;
+        ObsoleteScientificDoubleProperty m;
         m_theScientificDoubleValues[property] = m;
     }
     if (propertyType(property) == fancyGroupTypeId()) {

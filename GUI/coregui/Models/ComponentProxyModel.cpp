@@ -141,7 +141,7 @@ int ComponentProxyModel::columnCount(const QModelIndex& parent) const
 {
     if (parent.isValid() && parent.column() != 0)
         return 0;
-    return SessionModel::MAX_COLUMNS;
+    return SessionFlags::MAX_COLUMNS;
 }
 
 bool ComponentProxyModel::hasChildren(const QModelIndex& parent) const

@@ -16,21 +16,14 @@
 
 #include "MaterialDataItem.h"
 
-#include "ScientificDoubleProperty.h"
-
-
 const QString MaterialDataItem::P_REAL = "real";
 const QString MaterialDataItem::P_IMAG = "imag";
-
 
 MaterialDataItem::MaterialDataItem()
     : SessionItem(Constants::MaterialDataType)
 {
-    ScientificDoubleProperty real(0.0);
-    addProperty(P_REAL, real.getVariant());
-
-    ScientificDoubleProperty imag(0.0);
-    addProperty(P_IMAG, imag.getVariant());
+    addProperty(P_REAL, 0.0)->setEditorType(Constants::ScientificEditorType);
+    addProperty(P_IMAG, 0.0)->setEditorType(Constants::ScientificEditorType);
 
     mapper()->setOnPropertyChange(
         [this](const QString &){
@@ -49,24 +42,20 @@ QString MaterialDataItem::itemLabel() const
 
 double MaterialDataItem::getReal() const
 {
-    return getItemValue(P_REAL).value<ScientificDoubleProperty>().getValue();
+    return getItemValue(P_REAL).toDouble();
 }
 
 void MaterialDataItem::setReal(double real)
 {
-    ScientificDoubleProperty property = getItemValue(P_REAL).value<ScientificDoubleProperty>();
-    property.setValue(real);
-    setItemValue(P_REAL, property.getVariant());
+    setItemValue(P_REAL, real);
 }
 
 double MaterialDataItem::getImag() const
 {
-    return getItemValue(P_IMAG).value<ScientificDoubleProperty>().getValue();
+    return getItemValue(P_IMAG).toDouble();
 }
 
 void MaterialDataItem::setImag(double imag)
 {
-    ScientificDoubleProperty property = getItemValue(P_IMAG).value<ScientificDoubleProperty>();
-    property.setValue(imag);
-    setItemValue(P_IMAG, property.getVariant());
+    setItemValue(P_IMAG, imag);
 }

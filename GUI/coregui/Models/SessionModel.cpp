@@ -20,6 +20,7 @@
 #include "SessionItemUtils.h"
 #include <QFile>
 #include <QMimeData>
+#include <QtCore/QXmlStreamWriter>
 
 using SessionItemUtils::ParentRow;
 
@@ -57,7 +58,7 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex& index) const
         result_flags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled
                         | Qt::ItemIsDragEnabled;
         SessionItem* item = itemForIndex(index);
-        if (index.column() == ITEM_VALUE && item->value().isValid() && item->isEditable() && item->isEnabled())
+        if (index.column() == SessionFlags::ITEM_VALUE && item->value().isValid() && item->isEditable() && item->isEnabled())
             result_flags |= Qt::ItemIsEditable;
         QVector<QString> acceptable_child_items = getAcceptableDefaultItemTypes(index);
         if (acceptable_child_items.contains(m_dragged_item_type)) {
@@ -76,18 +77,18 @@ QVariant SessionModel::data(const QModelIndex& index, int role) const
     }
     if (SessionItem* item = itemForIndex(index)) {
         if (role == Qt::DisplayRole || role == Qt::EditRole) {
-            if (index.column() == ITEM_VALUE)
+            if (index.column() == SessionFlags::ITEM_VALUE)
                 return item->data(Qt::DisplayRole);
-            if (index.column() == ITEM_NAME)
+            if (index.column() == SessionFlags::ITEM_NAME)
                 return item->itemName();
         } else if(role == Qt::ToolTipRole) {
             return SessionItemUtils::ToolTipRole(*item, index.column());
 
         } else if(role == Qt::TextColorRole) {
             return SessionItemUtils::TextColorRole(*item);
-        } else if(role == Qt::DecorationRole && index.column() == ITEM_VALUE) {
+        } else if(role == Qt::DecorationRole && index.column() == SessionFlags::ITEM_VALUE) {
             return SessionItemUtils::DecorationRole(*item);
-        } else if(role == Qt::CheckStateRole && index.column() == ITEM_VALUE) {
+        } else if(role == Qt::CheckStateRole && index.column() == SessionFlags::ITEM_VALUE) {
             return SessionItemUtils::CheckStateRole(*item);
         } else {
             return item->data(role);
@@ -100,9 +101,9 @@ QVariant SessionModel::headerData(int section, Qt::Orientation orientation, int 
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section) {
-        case ITEM_NAME:
+        case SessionFlags::ITEM_NAME:
             return "Name";
-        case ITEM_VALUE:
+        case SessionFlags::ITEM_VALUE:
             return "Value";
         }
     }
@@ -121,7 +122,7 @@ int SessionModel::columnCount(const QModelIndex& parent) const
 {
     if (parent.isValid() && parent.column() != 0)
         return 0;
-    return MAX_COLUMNS;
+    return SessionFlags::MAX_COLUMNS;
 }
 
 QModelIndex SessionModel::index(int row, int column, const QModelIndex& parent) const

@@ -18,7 +18,6 @@
 #include "ModelPath.h"
 #include "SessionModel.h"
 #include "FitParameterHelper.h"
-#include "ScientificDoubleProperty.h"
 
 // ----------------------------------------------------------------------------
 

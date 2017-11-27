@@ -272,7 +272,7 @@ ObsoleteScientificDoublePropertyEdit::ObsoleteScientificDoublePropertyEdit(QWidg
 }
 
 void ObsoleteScientificDoublePropertyEdit::setScientificDoubleProperty(
-        const ScientificDoubleProperty &doubleProperty)
+        const ObsoleteScientificDoubleProperty &doubleProperty)
 {
     m_lineEdit->setText(doubleProperty.getText());
     m_scientificDoubleProperty = doubleProperty;
@@ -282,7 +282,7 @@ void ObsoleteScientificDoublePropertyEdit::onEditingFinished()
 {
     double new_value = m_lineEdit->text().toDouble();
     if(new_value != m_scientificDoubleProperty.getValue()) {
-        ScientificDoubleProperty doubleProperty(new_value);
+        ObsoleteScientificDoubleProperty doubleProperty(new_value);
         setScientificDoubleProperty(doubleProperty);
         emit scientificDoublePropertyChanged(m_scientificDoubleProperty);
     }

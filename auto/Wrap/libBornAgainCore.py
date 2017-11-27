@@ -16342,7 +16342,7 @@ class Simulation(ICloneable, INode):
 
 
     def setBackGround(self, bg):
-        """setBackGround(Simulation self, IBackground const & bg)"""
+        """setBackGround(Simulation self, IBackground bg)"""
         return _libBornAgainCore.Simulation_setBackGround(self, bg)
 
 
@@ -17803,6 +17803,81 @@ Histogram2D_swigregister(Histogram2D)
 def Histogram2D_dynamicCast(pHistogram):
     """Histogram2D_dynamicCast(IHistogram pHistogram) -> Histogram2D"""
     return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
+
+class IBackground(ICloneable):
+    """Proxy of C++ IBackground class."""
+
+    __swig_setmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IBackground, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IBackground, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IBackground
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IBackground self) -> IBackground
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainCore.IBackground_clone(self)
+
+
+    def addBackGround(self, start, end):
+        """addBackGround(IBackground self, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator start, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator end)"""
+        return _libBornAgainCore.IBackground_addBackGround(self, start, end)
+
+IBackground_swigregister = _libBornAgainCore.IBackground_swigregister
+IBackground_swigregister(IBackground)
+
+class ConstantBackground(IBackground):
+    """Proxy of C++ ConstantBackground class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IBackground]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ConstantBackground, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IBackground]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, ConstantBackground, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, background_value):
+        """__init__(ConstantBackground self, double background_value) -> ConstantBackground"""
+        this = _libBornAgainCore.new_ConstantBackground(background_value)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_ConstantBackground
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(ConstantBackground self) -> ConstantBackground
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainCore.ConstantBackground_clone(self)
+
+
+    def addBackGround(self, start, end):
+        """addBackGround(ConstantBackground self, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator start, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator end)"""
+        return _libBornAgainCore.ConstantBackground_addBackGround(self, start, end)
+
+ConstantBackground_swigregister = _libBornAgainCore.ConstantBackground_swigregister
+ConstantBackground_swigregister(ConstantBackground)
 
 class AxesUnits(_object):
     """

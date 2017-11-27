@@ -25,7 +25,7 @@ class SimulationElement;
 //!
 //! @ingroup algorithms_internal
 
-class IBackground : public ICloneable
+class BA_CORE_API_ IBackground : public ICloneable
 {
 public:
     virtual ~IBackground();

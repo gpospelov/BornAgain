@@ -51,8 +51,8 @@ Simulation::Simulation(const Simulation& other)
     , m_progress(other.m_progress)
     , m_instrument(other.m_instrument)
 {
-    if (other.m_background)
-        setBackGround(*other.m_background);
+    if (other.mP_background)
+        setBackGround(*other.mP_background);
     initialize();
 }
 
@@ -180,7 +180,8 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder
 
 void Simulation::setBackGround(const IBackground& bg)
 {
-    m_background.reset(bg.clone());
+    mP_background.reset(bg.clone());
+//    registerChild(m_background.get());
 }
 
 std::vector<const INode*> Simulation::getChildren() const
@@ -308,8 +309,8 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
 void Simulation::addBackGroundIntensity(std::vector<SimulationElement>::iterator begin_it,
                                         std::vector<SimulationElement>::iterator end_it) const
 {
-    if (m_background) {
-        m_background->addBackGround(begin_it, end_it);
+    if (mP_background) {
+        mP_background->addBackGround(begin_it, end_it);
     }
 }
 

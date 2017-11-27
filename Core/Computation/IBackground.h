@@ -17,6 +17,7 @@
 #define IBACKGROUND_H
 
 #include "ICloneable.h"
+#include "INode.h"
 #include <vector>
 
 class SimulationElement;
@@ -25,7 +26,7 @@ class SimulationElement;
 //!
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ IBackground : public ICloneable
+class BA_CORE_API_ IBackground : public ICloneable, public INode
 {
 public:
     virtual ~IBackground();

@@ -7419,6 +7419,7 @@ class INodeVisitor(_object):
         """
         visit(INodeVisitor self, BasicLattice arg2)
         visit(INodeVisitor self, Beam arg2)
+        visit(INodeVisitor self, ConstantBackground arg2)
         visit(INodeVisitor self, ConvolutionDetectorResolution const * arg2)
         visit(INodeVisitor self, Crystal arg2)
         visit(INodeVisitor self, DistributionCosine arg2)
@@ -17804,15 +17805,15 @@ def Histogram2D_dynamicCast(pHistogram):
     """Histogram2D_dynamicCast(IHistogram pHistogram) -> Histogram2D"""
     return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
 
-class IBackground(ICloneable):
+class IBackground(ICloneable, INode):
     """Proxy of C++ IBackground class."""
 
     __swig_setmethods__ = {}
-    for _s in [ICloneable]:
+    for _s in [ICloneable, INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IBackground, name, value)
     __swig_getmethods__ = {}
-    for _s in [ICloneable]:
+    for _s in [ICloneable, INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IBackground, name)
 
@@ -17870,6 +17871,18 @@ class ConstantBackground(IBackground):
 
         """
         return _libBornAgainCore.ConstantBackground_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(ConstantBackground self, INodeVisitor visitor)
+
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.ConstantBackground_accept(self, visitor)
 
 
     def addBackGround(self, start, end):

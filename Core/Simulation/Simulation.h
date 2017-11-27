@@ -135,7 +135,7 @@ protected:
     ProgressHandler m_progress;
     std::vector<SimulationElement> m_sim_elements;
     Instrument m_instrument;
-    std::unique_ptr<IBackground> m_background;
+    std::unique_ptr<IBackground> mP_background;
 
 private:
     void initialize();

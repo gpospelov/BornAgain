@@ -22,7 +22,6 @@
 #include "CustomEditors.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
-#include "ScientificDoubleProperty.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 #include <QLineEdit>
@@ -71,11 +70,6 @@ bool isComboProperty(const QVariant& variant)
     return variant.canConvert<ComboProperty>();
 }
 
-bool isScientificDoubleProperty(const QVariant& variant)
-{
-    return variant.canConvert<ScientificDoubleProperty>();
-}
-
 bool isStringProperty(const QVariant& variant)
 {
     return variant.type() == QVariant::String;
@@ -98,8 +92,6 @@ bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
         return true;
     if (isComboProperty(variant))
         return true;
-    if (isScientificDoubleProperty(variant))
-        return true;
     if (isBoolProperty(variant))
         return true;
 
@@ -117,8 +109,6 @@ QString PropertyEditorFactory::ToString(const QVariant& variant)
         return variant.value<GroupProperty_t>()->currentLabel();
     if (isComboProperty(variant))
         return variant.value<ComboProperty>().getValue();
-    if (isScientificDoubleProperty(variant))
-        return variant.value<ScientificDoubleProperty>().getText();
     if (isBoolProperty(variant))
         return variant.toBool() ? "True" : "False";
 
@@ -174,12 +164,6 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
 
     else if(isComboProperty(item.value())) {
         auto editor = new ComboPropertyEditor;
-        editor->setData(item.value());
-        result = editor;
-    }
-
-    else if(isScientificDoubleProperty(item.value())) {
-        auto editor = new ScientificDoublePropertyEditor;
         editor->setData(item.value());
         result = editor;
     }

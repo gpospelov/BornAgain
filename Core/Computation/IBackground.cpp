@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/IBackGround.cpp
-//! @brief     Implements interface IBackGround.
+//! @file      Core/Computation/IBackground.cpp
+//! @brief     Implements interface IBackground.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,6 +13,6 @@
 //
 // ************************************************************************** //
 
-#include "IBackGround.h"
+#include "IBackground.h"
 
-IBackGround::~IBackGround() {}
+IBackground::~IBackground() {}

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/IBackGround.h
-//! @brief     Defines interface IBackGround.
+//! @file      Core/Computation/IBackground.h
+//! @brief     Defines interface IBackground.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,11 +25,11 @@ class SimulationElement;
 //!
 //! @ingroup algorithms_internal
 
-class IBackGround : public ICloneable
+class IBackground : public ICloneable
 {
 public:
-    virtual ~IBackGround();
-    virtual IBackGround* clone() const =0;
+    virtual ~IBackground();
+    virtual IBackground* clone() const =0;
 
     virtual void addBackGround(std::vector<SimulationElement>::iterator start,
                                std::vector<SimulationElement>::iterator end) const =0;

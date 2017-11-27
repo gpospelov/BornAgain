@@ -27,11 +27,7 @@
 class BA_CORE_API_ ICloneable
 {
 public:
-//    ICloneable() =default;
     virtual ~ICloneable();
-
-//    ICloneable(const ICloneable&) =delete;
-//    ICloneable& operator=(const ICloneable&) =delete;
 
     virtual ICloneable* clone() const =0;
     virtual void transferToCPP() {} //!< Used for Python overriding of clone (see swig/tweaks.py)

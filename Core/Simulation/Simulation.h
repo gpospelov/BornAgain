@@ -25,7 +25,7 @@
 #include "SampleProvider.h"
 
 template<class T> class OutputData;
-class IBackGround;
+class IBackground;
 class IComputation;
 class IMultiLayerBuilder;
 class MultiLayer;
@@ -71,7 +71,7 @@ public:
 
     void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
 
-    void setBackGround(const IBackGround& bg);
+    void setBackGround(const IBackground& bg);
 
     virtual size_t numberOfSimulationElements() const=0;
 
@@ -135,7 +135,7 @@ protected:
     ProgressHandler m_progress;
     std::vector<SimulationElement> m_sim_elements;
     Instrument m_instrument;
-    std::unique_ptr<IBackGround> m_background;
+    std::unique_ptr<IBackground> m_background;
 
 private:
     void initialize();

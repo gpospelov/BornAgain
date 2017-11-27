@@ -16342,7 +16342,7 @@ class Simulation(ICloneable, INode):
 
 
     def setBackGround(self, bg):
-        """setBackGround(Simulation self, IBackGround const & bg)"""
+        """setBackGround(Simulation self, IBackground const & bg)"""
         return _libBornAgainCore.Simulation_setBackGround(self, bg)
 
 

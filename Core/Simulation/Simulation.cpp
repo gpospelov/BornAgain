@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "Simulation.h"
-#include "IBackGround.h"
+#include "IBackground.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "IComputation.h"
@@ -176,7 +176,7 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder
     m_sample_provider.setSampleBuilder(p_sample_builder);
 }
 
-void Simulation::setBackGround(const IBackGround& bg)
+void Simulation::setBackGround(const IBackground& bg)
 {
     m_background.reset(bg.clone());
 }

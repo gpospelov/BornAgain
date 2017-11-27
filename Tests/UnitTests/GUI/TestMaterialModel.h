@@ -10,6 +10,7 @@ class TestMaterialModel : public QObject {
 private slots:
     void test_addMaterial();
     void test_cloneMaterial();
+    void test_materialItemFromIdentifier();
 };
 
 inline void TestMaterialModel::test_addMaterial()
@@ -61,6 +62,16 @@ inline void TestMaterialModel::test_cloneMaterial()
         clonedMaterial->getItem(MaterialItem::P_MATERIAL_DATA));
     QCOMPARE(refIndex->getReal(), delta);
     QCOMPARE(refIndex->getImag(), beta);
+}
 
+//! Checks the method which returns MaterialItem from known identifier.
 
+inline void TestMaterialModel::test_materialItemFromIdentifier()
+{
+    MaterialModel model;
+    MaterialItem* mat1 = model.addMaterial("aaa", 1.0, 2.0);
+    MaterialItem* mat2 = model.addMaterial("bbb", 3.0, 4.0);
+    QVERIFY(mat1 == model.materialFromIdentifier(mat1->getIdentifier()));
+    QVERIFY(mat2 == model.materialFromIdentifier(mat2->getIdentifier()));
+    QVERIFY(nullptr == model.materialFromIdentifier("non-existing-identifier"));
 }

@@ -40,6 +40,9 @@ public:
     MaterialItem* getMaterial(const QString& material_name);
 
     MaterialItem* cloneMaterial(const QModelIndex& index);
+
+    MaterialItem* materialFromIdentifier(const QString& identifier);
+
 };
 
 #endif // MATERIALMODEL_H

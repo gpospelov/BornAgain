@@ -110,3 +110,15 @@ MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
     clonedMaterial->setItemName(origMaterial->itemName() + " (clone)");
     return dynamic_cast<MaterialItem*>(clonedMaterial);
 }
+
+MaterialItem* MaterialModel::materialFromIdentifier(const QString& identifier)
+{
+    for(auto item : topItems()) {
+        auto materialItem = dynamic_cast<MaterialItem*>(item);
+        Q_ASSERT(materialItem);
+        if (materialItem->getIdentifier() == identifier)
+            return materialItem;
+    }
+
+    return nullptr;
+}

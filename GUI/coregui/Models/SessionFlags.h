@@ -44,6 +44,7 @@ public:
         LimitsRole,
         DecimalRole,
         DefaultTagRole,
+        CustomEditorRole,
         EndSessionRoles
     };
     Q_DECLARE_FLAGS(ItemDataRole, ERoles)

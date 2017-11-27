@@ -614,6 +614,18 @@ SessionItem& SessionItem::setToolTip(const QString& tooltip)
     return *this;
 }
 
+QString SessionItem::editorType() const
+{
+    auto variant = data(SessionFlags::CustomEditorRole);
+    return variant.isValid() ? variant.toString() : Constants::DefaultEditorType;
+}
+
+SessionItem& SessionItem::setEditorType(const QString& editorType)
+{
+    setData(SessionFlags::CustomEditorRole, editorType);
+    return *this;
+}
+
 //! Returns label of item shown in property editor.
 QString SessionItem::itemLabel() const
 {

@@ -181,7 +181,7 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder
 void Simulation::setBackGround(const IBackground& bg)
 {
     mP_background.reset(bg.clone());
-//    registerChild(m_background.get());
+    registerChild(mP_background.get());
 }
 
 std::vector<const INode*> Simulation::getChildren() const
@@ -189,6 +189,8 @@ std::vector<const INode*> Simulation::getChildren() const
     std::vector<const INode*> result;
     result.push_back(&m_instrument);
     result << m_sample_provider.getChildren();
+    if (mP_background)
+        result.push_back(mP_background.get());
     return result;
 }
 

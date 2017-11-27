@@ -34,6 +34,8 @@ public:
     void addBackGround(std::vector<SimulationElement>::iterator start,
                        std::vector<SimulationElement>::iterator end) const override final;
 private:
+    void init_parameters();
+
     double m_background_value;
 };
 

@@ -14,12 +14,16 @@
 // ************************************************************************** //
 
 #include "ConstantBackground.h"
+#include "RealParameter.h"
 #include "SimulationElement.h"
 
 
 ConstantBackground::ConstantBackground(double background_value)
     : m_background_value(background_value)
-{}
+{
+    setName(BornAgain::ConstantBackgroundType);
+    init_parameters();
+}
 
 ConstantBackground::~ConstantBackground() =default;
 
@@ -34,4 +38,9 @@ void ConstantBackground::addBackGround(std::vector<SimulationElement>::iterator 
     for (auto it=start; it != end; it++) {
         it->addIntensity(m_background_value);
     }
+}
+
+void ConstantBackground::init_parameters()
+{
+    registerParameter(BornAgain::BackgroundValue, &m_background_value).setNonnegative();
 }

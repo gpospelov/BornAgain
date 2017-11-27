@@ -18,10 +18,18 @@
 #include "MaterialItemUtils.h"
 #include "GUIHelpers.h"
 #include "MaterialDataItem.h"
+#include "AppSvc.h"
+
 
 MaterialModel::MaterialModel(QObject* parent) : SessionModel(SessionXML::MaterialModelTag, parent)
 {
     setObjectName(SessionXML::MaterialModelTag);
+    AppSvc::subscribe(this);
+}
+
+MaterialModel::~MaterialModel()
+{
+    AppSvc::unsubscribe(this);
 }
 
 MaterialModel* MaterialModel::createCopy(SessionItem* parent)

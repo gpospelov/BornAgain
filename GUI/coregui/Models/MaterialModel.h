@@ -28,7 +28,7 @@ class BA_CORE_API_ MaterialModel : public SessionModel
 
 public:
     explicit MaterialModel(QObject* parent = 0);
-    virtual ~MaterialModel() {}
+    ~MaterialModel();
 
     virtual MaterialModel* createCopy(SessionItem* parent = 0);
 

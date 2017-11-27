@@ -28,11 +28,6 @@ bool isDoubleProperty(const QModelIndex& index)
     return index.data().type() == QVariant::Double;
 }
 
-bool isIntProperty(const QModelIndex& index)
-{
-    return index.data().type() == QVariant::Int;
-}
-
 //! Returns text representation of double value depending on user defined editor type.
 //! FIXME Remove this temporary function after getting rid from ScientificDoubleProperty
 QString doubleToString(const SessionItem& item)
@@ -103,27 +98,20 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                                         const QModelIndex& index) const
 {
-    if (PropertyEditorFactory::IsCustomVariant(index.data())) {
-        CustomEditor* customEditor = qobject_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
+    if (auto customEditor = qobject_cast<CustomEditor*>(editor))
         model->setData(index, customEditor->editorData());
-
-    } else {
+    else
         QStyledItemDelegate::setModelData(editor, model, index);
-    }
 }
 
 //! Propagates the data change from the model to the editor (if it is still opened).
 
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    if (PropertyEditorFactory::IsCustomVariant(index.data())) {
-        auto customEditor = dynamic_cast<CustomEditor*>(editor);
-        Q_ASSERT(customEditor);
+    if (auto customEditor = dynamic_cast<CustomEditor*>(editor))
         customEditor->setData(index.data());
-    } else {
+    else
         QStyledItemDelegate::setEditorData(editor, index);
-    }
 }
 
 //! Increases height of the row by 20% wrt the default.

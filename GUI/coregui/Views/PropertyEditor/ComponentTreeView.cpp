@@ -62,6 +62,8 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
 
 }
 
+ComponentTreeView::~ComponentTreeView() = default;
+
 void ComponentTreeView::setItem(SessionItem* item)
 {
     if (!item) {

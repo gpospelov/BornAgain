@@ -38,6 +38,7 @@ class BA_CORE_API_ ComponentTreeView : public ComponentView
     Q_OBJECT
 public:
     ComponentTreeView(QWidget* parent = nullptr);
+    ~ComponentTreeView();
 
     void setItem(SessionItem* item);
     void clearEditor();

@@ -51,12 +51,11 @@ std::unique_ptr<GISASSimulation> createDomainSimulation(const GISASSimulation& o
 
 }
 
-
 bool GUIStandardTest::runTest()
 {
     m_reference_simulation->runSimulation();
 
-    auto domain_simulation = createDomainSimulation(*m_reference_simulation);
+    auto domain_simulation = createDomainSimulation(*gisasSimulation());
     domain_simulation->runSimulation();
 
     const std::unique_ptr<OutputData<double> > domain_data(

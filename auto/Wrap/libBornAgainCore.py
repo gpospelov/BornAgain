@@ -1743,69 +1743,28 @@ def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
 
     """
     return _libBornAgainCore.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
-class INoncopyable(_object):
+class ICloneable(_object):
     """
 
 
-    Mix-in for objects that must not be copied.
+    Interface for polymorphic classes that should not be copied, except by explicit cloning.
 
-    This virtual base class disables the copy constructor and the operator= in all its child classes.
-
-    C++ includes: INoncopyable.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, INoncopyable, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, INoncopyable, name)
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(INoncopyable self) -> INoncopyable
-
-        INoncopyable::INoncopyable(const INoncopyable &)=delete
-
-        """
-        this = _libBornAgainCore.new_INoncopyable()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_INoncopyable
-    __del__ = lambda self: None
-INoncopyable_swigregister = _libBornAgainCore.INoncopyable_swigregister
-INoncopyable_swigregister(INoncopyable)
-cvar = _libBornAgainCore.cvar
-major_version_number = cvar.major_version_number
-minor_version_number = cvar.minor_version_number
-patch_version_number = cvar.patch_version_number
-
-class ICloneable(INoncopyable):
-    """
-
-
-    Mix-in for objects that must not be copied, except by cloning.
-
-    The base class  INoncopyable disables the copy constructor and the operator= in all its child classes. Child classes of  ICloneable must provide clone().
+    Child classes of  ICloneable must provide clone().
 
     C++ includes: ICloneable.h
 
     """
 
     __swig_setmethods__ = {}
-    for _s in [INoncopyable]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, ICloneable, name, value)
     __swig_getmethods__ = {}
-    for _s in [INoncopyable]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ICloneable, name)
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ICloneable
+    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -1828,10 +1787,12 @@ class ICloneable(INoncopyable):
         """
         return self.__disown__()
 
-    __swig_destroy__ = _libBornAgainCore.delete_ICloneable
-    __del__ = lambda self: None
 ICloneable_swigregister = _libBornAgainCore.ICloneable_swigregister
 ICloneable_swigregister(ICloneable)
+cvar = _libBornAgainCore.cvar
+major_version_number = cvar.major_version_number
+minor_version_number = cvar.minor_version_number
+patch_version_number = cvar.patch_version_number
 
 class INamed(_object):
     """
@@ -6006,7 +5967,7 @@ class ChiSquaredModule(IChiSquaredModule):
 ChiSquaredModule_swigregister = _libBornAgainCore.ChiSquaredModule_swigregister
 ChiSquaredModule_swigregister(ChiSquaredModule)
 
-class FitObject(INode, INoncopyable):
+class FitObject(INode):
     """
 
 
@@ -6017,11 +5978,11 @@ class FitObject(INode, INoncopyable):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INode, INoncopyable]:
+    for _s in [INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitObject, name, value)
     __swig_getmethods__ = {}
-    for _s in [INode, INoncopyable]:
+    for _s in [INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
     __repr__ = _swig_repr
@@ -6802,7 +6763,7 @@ class FitSuite(IObservable):
 FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
 
-class FitSuiteObjects(INode, INoncopyable):
+class FitSuiteObjects(INode):
     """
 
 
@@ -6813,11 +6774,11 @@ class FitSuiteObjects(INode, INoncopyable):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INode, INoncopyable]:
+    for _s in [INode]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuiteObjects, name, value)
     __swig_getmethods__ = {}
-    for _s in [INode, INoncopyable]:
+    for _s in [INode]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitSuiteObjects, name)
     __repr__ = _swig_repr
@@ -7458,6 +7419,7 @@ class INodeVisitor(_object):
         """
         visit(INodeVisitor self, BasicLattice arg2)
         visit(INodeVisitor self, Beam arg2)
+        visit(INodeVisitor self, ConstantBackground arg2)
         visit(INodeVisitor self, ConvolutionDetectorResolution const * arg2)
         visit(INodeVisitor self, Crystal arg2)
         visit(INodeVisitor self, DistributionCosine arg2)
@@ -16206,7 +16168,7 @@ class Simulation(ICloneable, INode):
     """
 
 
-    Pure virtual base class of OffSpecularSimulation and  GISASSimulation, holds common infrastructure to run a simulation.
+    Pure virtual base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
 
     C++ includes: Simulation.h
 
@@ -16378,6 +16340,16 @@ class Simulation(ICloneable, INode):
 
         """
         return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
+
+
+    def setBackGround(self, bg):
+        """
+        setBackGround(Simulation self, IBackground bg)
+
+        void Simulation::setBackGround(const IBackground &bg)
+
+        """
+        return _libBornAgainCore.Simulation_setBackGround(self, bg)
 
 
     def numberOfSimulationElements(self):
@@ -16904,18 +16876,6 @@ class GISASSimulation(Simulation):
 
         """
         return _libBornAgainCore.GISASSimulation_setRegionOfInterest(self, xlow, ylow, xup, yup)
-
-
-    def resetRegionOfInterest(self):
-        """
-        resetRegionOfInterest(GISASSimulation self)
-
-        void GISASSimulation::resetRegionOfInterest()
-
-        Resets region of interest making whole detector plane available for the simulation. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_resetRegionOfInterest(self)
 
 GISASSimulation_swigregister = _libBornAgainCore.GISASSimulation_swigregister
 GISASSimulation_swigregister(GISASSimulation)
@@ -17838,6 +17798,122 @@ def Histogram2D_dynamicCast(pHistogram):
     """Histogram2D_dynamicCast(IHistogram pHistogram) -> Histogram2D"""
     return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
 
+class IBackground(ICloneable, INode):
+    """
+
+
+    Interface for a simulating the background signal
+
+    C++ includes: IBackground.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [ICloneable, INode]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IBackground, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ICloneable, INode]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IBackground, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IBackground
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IBackground self) -> IBackground
+
+        virtual IBackground* IBackground::clone() const =0
+
+        """
+        return _libBornAgainCore.IBackground_clone(self)
+
+
+    def addBackGround(self, start, end):
+        """
+        addBackGround(IBackground self, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator start, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator end)
+
+        virtual void IBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const =0
+
+        """
+        return _libBornAgainCore.IBackground_addBackGround(self, start, end)
+
+IBackground_swigregister = _libBornAgainCore.IBackground_swigregister
+IBackground_swigregister(IBackground)
+
+class ConstantBackground(IBackground):
+    """
+
+
+    Class representing a constant background signal
+
+    C++ includes: ConstantBackground.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IBackground]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ConstantBackground, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IBackground]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, ConstantBackground, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, background_value):
+        """
+        __init__(ConstantBackground self, double background_value) -> ConstantBackground
+
+        ConstantBackground::ConstantBackground(double background_value)
+
+        """
+        this = _libBornAgainCore.new_ConstantBackground(background_value)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_ConstantBackground
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(ConstantBackground self) -> ConstantBackground
+
+        ConstantBackground * ConstantBackground::clone() const override final
+
+        """
+        return _libBornAgainCore.ConstantBackground_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(ConstantBackground self, INodeVisitor visitor)
+
+        void ConstantBackground::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.ConstantBackground_accept(self, visitor)
+
+
+    def addBackGround(self, start, end):
+        """
+        addBackGround(ConstantBackground self, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator start, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator end)
+
+        void ConstantBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const override final
+
+        """
+        return _libBornAgainCore.ConstantBackground_addBackGround(self, start, end)
+
+ConstantBackground_swigregister = _libBornAgainCore.ConstantBackground_swigregister
+ConstantBackground_swigregister(ConstantBackground)
+
 class AxesUnits(_object):
     """
 
@@ -17894,7 +17970,7 @@ class IDetector(ICloneable, INode):
         """
         clone(IDetector self) -> IDetector
 
-        virtual IDetector* IDetector::clone() const =0
+        virtual IDetector* IDetector::clone() const override=0
 
         """
         return _libBornAgainCore.IDetector_clone(self)
@@ -18074,6 +18150,18 @@ class IDetector(ICloneable, INode):
         return _libBornAgainCore.IDetector_regionOfInterest(self)
 
 
+    def resetRegionOfInterest(self):
+        """
+        resetRegionOfInterest(IDetector self)
+
+        virtual void IDetector::resetRegionOfInterest()=0
+
+        Resets region of interest making whole detector plane available for the simulation. 
+
+        """
+        return _libBornAgainCore.IDetector_resetRegionOfInterest(self)
+
+
     def detectionProperties(self):
         """
         detectionProperties(IDetector self) -> DetectionProperties const &
@@ -18188,7 +18276,7 @@ class IDetector2D(IDetector):
         """
         clone(IDetector2D self) -> IDetector2D
 
-        virtual IDetector2D* IDetector2D::clone() const =0
+        virtual IDetector2D* IDetector2D::clone() const override=0
 
         """
         return _libBornAgainCore.IDetector2D_clone(self)
@@ -18306,7 +18394,7 @@ class IDetector2D(IDetector):
         """
         resetRegionOfInterest(IDetector2D self)
 
-        void IDetector2D::resetRegionOfInterest()
+        void IDetector2D::resetRegionOfInterest() override
 
         Resets region of interest making whole detector plane available for the simulation. 
 
@@ -18702,7 +18790,7 @@ class IAbstractParticle(ISample):
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
 IAbstractParticle_swigregister(IAbstractParticle)
 
-class IParameterReal(INamed, INoncopyable):
+class IParameterReal(INamed):
     """
 
 
@@ -18713,11 +18801,11 @@ class IParameterReal(INamed, INoncopyable):
     """
 
     __swig_setmethods__ = {}
-    for _s in [INamed, INoncopyable]:
+    for _s in [INamed]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, IParameterReal, name, value)
     __swig_getmethods__ = {}
-    for _s in [INamed, INoncopyable]:
+    for _s in [INamed]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IParameterReal, name)
 
@@ -26499,7 +26587,7 @@ class SimulationFactoryTemp(_object):
 
     def __init__(self):
         """
-        __init__(IFactory<(std::string,GISASSimulation)> self) -> SimulationFactoryTemp
+        __init__(IFactory<(std::string,Simulation)> self) -> SimulationFactoryTemp
 
         IFactory< Key, AbstractProduct >::IFactory()
 
@@ -26512,7 +26600,7 @@ class SimulationFactoryTemp(_object):
 
     def createItem(self, item_key):
         """
-        createItem(SimulationFactoryTemp self, std::string const & item_key) -> GISASSimulation
+        createItem(SimulationFactoryTemp self, std::string const & item_key) -> Simulation
 
         AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key)
 
@@ -26524,8 +26612,8 @@ class SimulationFactoryTemp(_object):
 
     def registerItem(self, *args):
         """
-        registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
-        registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,GISASSimulation >::CreateItemCallback CreateFn) -> bool
+        registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,Simulation >::CreateItemCallback CreateFn, std::string const & itemDescription) -> bool
+        registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,Simulation >::CreateItemCallback CreateFn) -> bool
 
         bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription="")
 
@@ -26561,7 +26649,7 @@ class SimulationFactoryTemp(_object):
 
     def begin(self):
         """
-        begin(SimulationFactoryTemp self) -> IFactory< std::string,GISASSimulation >::const_iterator
+        begin(SimulationFactoryTemp self) -> IFactory< std::string,Simulation >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::begin() const
 
@@ -26571,7 +26659,7 @@ class SimulationFactoryTemp(_object):
 
     def end(self):
         """
-        end(SimulationFactoryTemp self) -> IFactory< std::string,GISASSimulation >::const_iterator
+        end(SimulationFactoryTemp self) -> IFactory< std::string,Simulation >::const_iterator
 
         const_iterator IFactory< Key, AbstractProduct >::end() const
 

@@ -721,6 +721,32 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
+// File: classConstantBackground.xml
+%feature("docstring") ConstantBackground "
+
+Class representing a constant background signal
+
+C++ includes: ConstantBackground.h
+";
+
+%feature("docstring")  ConstantBackground::ConstantBackground "ConstantBackground::ConstantBackground(double background_value)
+";
+
+%feature("docstring")  ConstantBackground::~ConstantBackground "ConstantBackground::~ConstantBackground()
+";
+
+%feature("docstring")  ConstantBackground::clone "ConstantBackground * ConstantBackground::clone() const override final
+";
+
+%feature("docstring")  ConstantBackground::accept "void ConstantBackground::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  ConstantBackground::addBackGround "void ConstantBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const override final
+";
+
+
 // File: classConstKBinAxis.xml
 %feature("docstring") ConstKBinAxis "
 
@@ -1646,6 +1672,26 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  DoubleEllipse::~DoubleEllipse "DoubleEllipse::~DoubleEllipse()
+";
+
+
+// File: classDWBAComputation.xml
+%feature("docstring") DWBAComputation "
+
+Performs a single-threaded DWBA computation with given sample and simulation parameters.
+
+Controlled by the multi-threading machinery in  Simulation::runSingleSimulation().
+
+C++ includes: DWBAComputation.h
+";
+
+%feature("docstring")  DWBAComputation::DWBAComputation "DWBAComputation::DWBAComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+";
+
+%feature("docstring")  DWBAComputation::~DWBAComputation "DWBAComputation::~DWBAComputation()
+";
+
+%feature("docstring")  DWBAComputation::run "void DWBAComputation::run()
 ";
 
 
@@ -5614,11 +5660,6 @@ Put the mask for all detector channels (i.e. exclude whole detector from the ana
 Sets rectangular region of interest with lower left and upper right corners defined. 
 ";
 
-%feature("docstring")  GISASSimulation::resetRegionOfInterest "void GISASSimulation::resetRegionOfInterest()
-
-Resets region of interest making whole detector plane available for the simulation. 
-";
-
 
 // File: classHash2Doubles.xml
 %feature("docstring") Hash2Doubles "";
@@ -5927,6 +5968,21 @@ Add to values in histograms channels from numpy array,.
 ";
 
 
+// File: classHomogeneousMultilayerBuilder.xml
+%feature("docstring") HomogeneousMultilayerBuilder "
+
+Builds a sample with 10 interchanging homogeneous layers of Ti and Ni on silicone substrate. Ti is 70 angstroms thick, Ni is 30 angstroms thick. No absorption, no roughness, target wavelength is 1.54 angstroms.
+
+C++ includes: HomogeneousMultilayerBuilder.h
+";
+
+%feature("docstring")  HomogeneousMultilayerBuilder::HomogeneousMultilayerBuilder "HomogeneousMultilayerBuilder::HomogeneousMultilayerBuilder()
+";
+
+%feature("docstring")  HomogeneousMultilayerBuilder::buildSample "MultiLayer * HomogeneousMultilayerBuilder::buildSample() const
+";
+
+
 // File: structHomogeneousRegion.xml
 %feature("docstring") HomogeneousRegion "
 
@@ -6104,6 +6160,24 @@ Returns true if axis contains given point.
 ";
 
 
+// File: classIBackground.xml
+%feature("docstring") IBackground "
+
+Interface for a simulating the background signal
+
+C++ includes: IBackground.h
+";
+
+%feature("docstring")  IBackground::~IBackground "IBackground::~IBackground()
+";
+
+%feature("docstring")  IBackground::clone "virtual IBackground* IBackground::clone() const =0
+";
+
+%feature("docstring")  IBackground::addBackGround "virtual void IBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const =0
+";
+
+
 // File: classIChiSquaredModule.xml
 %feature("docstring") IChiSquaredModule "
 
@@ -6170,11 +6244,20 @@ Sets data rescaler.
 // File: classICloneable.xml
 %feature("docstring") ICloneable "
 
-Mix-in for objects that must not be copied, except by cloning.
+Interface for polymorphic classes that should not be copied, except by explicit cloning.
 
-The base class  INoncopyable disables the copy constructor and the operator= in all its child classes. Child classes of  ICloneable must provide clone().
+Child classes of  ICloneable must provide clone().
 
 C++ includes: ICloneable.h
+";
+
+%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable()
+";
+
+%feature("docstring")  ICloneable::~ICloneable "ICloneable::~ICloneable()
+";
+
+%feature("docstring")  ICloneable::ICloneable "ICloneable::ICloneable(const ICloneable &)=delete
 ";
 
 %feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
@@ -6215,10 +6298,36 @@ Creates region information with volumetric densities instead of absolute volume 
 ";
 
 
+// File: classIComputation.xml
+%feature("docstring") IComputation "
+
+Interface for a single-threaded computation with given range of SimulationElements and  ProgressHandler.
+
+Controlled by the multi-threading machinery in  Simulation::runSingleSimulation().
+
+C++ includes: IComputation.h
+";
+
+%feature("docstring")  IComputation::IComputation "IComputation::IComputation(ProgressHandler &progress, const std::vector< SimulationElement >::iterator &start, const std::vector< SimulationElement >::iterator &end)
+";
+
+%feature("docstring")  IComputation::~IComputation "IComputation::~IComputation()
+";
+
+%feature("docstring")  IComputation::run "virtual void IComputation::run()=0
+";
+
+%feature("docstring")  IComputation::isCompleted "bool IComputation::isCompleted() const
+";
+
+%feature("docstring")  IComputation::errorMessage "std::string IComputation::errorMessage() const
+";
+
+
 // File: classIComputationTerm.xml
 %feature("docstring") IComputationTerm "
 
-Computes an independent term of the scattering intensity. Controlled by  MainComputation, which adds up all contributions from subclasses of  IComputationTerm
+Computes an independent term of the scattering intensity. Used by  DWBAComputation, which adds up all contributions from subclasses of  IComputationTerm
 
 C++ includes: IComputationTerm.h
 ";
@@ -6261,7 +6370,7 @@ C++ includes: IDetector.h
 %feature("docstring")  IDetector::IDetector "IDetector::IDetector()
 ";
 
-%feature("docstring")  IDetector::clone "virtual IDetector* IDetector::clone() const =0
+%feature("docstring")  IDetector::clone "virtual IDetector* IDetector::clone() const override=0
 ";
 
 %feature("docstring")  IDetector::~IDetector "IDetector::~IDetector()
@@ -6344,6 +6453,11 @@ Create a vector of  SimulationElement objects according to the detector and its 
 Returns region of interest if exists. 
 ";
 
+%feature("docstring")  IDetector::resetRegionOfInterest "virtual void IDetector::resetRegionOfInterest()=0
+
+Resets region of interest making whole detector plane available for the simulation. 
+";
+
 %feature("docstring")  IDetector::detectionProperties "const DetectionProperties& IDetector::detectionProperties() const
 
 Returns detection properties. 
@@ -6391,7 +6505,7 @@ C++ includes: IDetector2D.h
 %feature("docstring")  IDetector2D::IDetector2D "IDetector2D::IDetector2D()
 ";
 
-%feature("docstring")  IDetector2D::clone "virtual IDetector2D* IDetector2D::clone() const =0
+%feature("docstring")  IDetector2D::clone "virtual IDetector2D* IDetector2D::clone() const override=0
 ";
 
 %feature("docstring")  IDetector2D::~IDetector2D "IDetector2D::~IDetector2D()
@@ -6451,7 +6565,7 @@ Returns region of interest if exists.
 Sets rectangular region of interest with lower left and upper right corners defined. 
 ";
 
-%feature("docstring")  IDetector2D::resetRegionOfInterest "void IDetector2D::resetRegionOfInterest()
+%feature("docstring")  IDetector2D::resetRegionOfInterest "void IDetector2D::resetRegionOfInterest() override
 
 Resets region of interest making whole detector plane available for the simulation. 
 ";
@@ -7700,6 +7814,9 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const Beam *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ConstantBackground *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ConvolutionDetectorResolution *)
 ";
 
@@ -8026,26 +8143,6 @@ Returns depth of the visitor in the composite hierarchy.
 %feature("docstring")  INodeVisitor::setDepth "void INodeVisitor::setDepth(int depth)
 
 Sets depth of the visitor in the composite hierarchy. 
-";
-
-
-// File: classINoncopyable.xml
-%feature("docstring") INoncopyable "
-
-Mix-in for objects that must not be copied.
-
-This virtual base class disables the copy constructor and the operator= in all its child classes.
-
-C++ includes: INoncopyable.h
-";
-
-%feature("docstring")  INoncopyable::INoncopyable "INoncopyable::INoncopyable()
-";
-
-%feature("docstring")  INoncopyable::~INoncopyable "virtual INoncopyable::~INoncopyable()
-";
-
-%feature("docstring")  INoncopyable::INoncopyable "INoncopyable::INoncopyable(const INoncopyable &)=delete
 ";
 
 
@@ -10035,32 +10132,6 @@ C++ includes: MagneticLayersBuilder.h
 ";
 
 
-// File: classMainComputation.xml
-%feature("docstring") MainComputation "
-
-Performs a single-threaded DWBA computation with given sample and simulation parameters, for a given span of detector bins.
-
-Controlled by the multi-threading machinery in  Simulation::runSingleSimulation().
-
-C++ includes: MainComputation.h
-";
-
-%feature("docstring")  MainComputation::MainComputation "MainComputation::MainComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
-";
-
-%feature("docstring")  MainComputation::~MainComputation "MainComputation::~MainComputation()
-";
-
-%feature("docstring")  MainComputation::run "void MainComputation::run()
-";
-
-%feature("docstring")  MainComputation::isCompleted "bool MainComputation::isCompleted() const
-";
-
-%feature("docstring")  MainComputation::errorMessage "std::string MainComputation::errorMessage() const
-";
-
-
 // File: classMaterial.xml
 %feature("docstring") Material "
 
@@ -11716,7 +11787,7 @@ Returns a vector of children (const).
 // File: classParticleLayoutComputation.xml
 %feature("docstring") ParticleLayoutComputation "
 
-Computes the scattering contribution from one particle layout. Controlled by  MainComputation.
+Computes the scattering contribution from one particle layout. Used by  DWBAComputation.
 
 C++ includes: ParticleLayoutComputation.h
 ";
@@ -12659,7 +12730,7 @@ Returns transformation.
 // File: classRoughMultiLayerComputation.xml
 %feature("docstring") RoughMultiLayerComputation "
 
-Computes the diffuse reflection from the rough interfaces of a multilayer. Controlled by  MainComputation.
+Computes the diffuse reflection from the rough interfaces of a multilayer. Used by  DWBAComputation.
 
 C++ includes: RoughMultiLayerComputation.h
 ";
@@ -13091,7 +13162,7 @@ C++ includes: ISelectionRule.h
 // File: classSimulation.xml
 %feature("docstring") Simulation "
 
-Pure virtual base class of OffSpecularSimulation and  GISASSimulation, holds common infrastructure to run a simulation.
+Pure virtual base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
 
 C++ includes: Simulation.h
 ";
@@ -13163,6 +13234,9 @@ The  MultiLayer object will not be owned by the  Simulation object.
 ";
 
 %feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
+";
+
+%feature("docstring")  Simulation::setBackGround "void Simulation::setBackGround(const IBackground &bg)
 ";
 
 %feature("docstring")  Simulation::numberOfSimulationElements "virtual size_t Simulation::numberOfSimulationElements() const =0
@@ -13581,7 +13655,7 @@ C++ includes: IFormFactorBorn.h
 // File: classSpecularComputation.xml
 %feature("docstring") SpecularComputation "
 
-Computes the specular scattering. Controlled by  MainComputation.
+Computes the specular scattering. Used by  DWBAComputation.
 
 C++ includes: SpecularComputation.h
 ";
@@ -13592,6 +13666,59 @@ C++ includes: SpecularComputation.h
 %feature("docstring")  SpecularComputation::eval "void SpecularComputation::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
 
 Calculate scattering intensity for each  SimulationElement returns false if nothing needed to be calculated 
+";
+
+
+// File: classSpecularDetector1D.xml
+%feature("docstring") SpecularDetector1D "
+
+1D detector for specular simulations
+
+C++ includes: SpecularDetector1D.h
+";
+
+%feature("docstring")  SpecularDetector1D::SpecularDetector1D "SpecularDetector1D::SpecularDetector1D(const IAxis &axis)
+";
+
+%feature("docstring")  SpecularDetector1D::~SpecularDetector1D "SpecularDetector1D::~SpecularDetector1D()
+";
+
+%feature("docstring")  SpecularDetector1D::clone "SpecularDetector1D * SpecularDetector1D::clone() const override
+";
+
+%feature("docstring")  SpecularDetector1D::accept "virtual void SpecularDetector1D::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  SpecularDetector1D::detectorMask "virtual const DetectorMask* SpecularDetector1D::detectorMask() const override
+
+Returns detector masks container. 
+";
+
+%feature("docstring")  SpecularDetector1D::createSimulationElements "std::vector< SimulationElement > SpecularDetector1D::createSimulationElements(const Beam &beam) override
+
+Create a vector of  SimulationElement objects according to the detector and its mask. 
+";
+
+%feature("docstring")  SpecularDetector1D::regionOfInterest "virtual const RegionOfInterest* SpecularDetector1D::regionOfInterest() const override
+
+Returns region of interest if exists. 
+";
+
+%feature("docstring")  SpecularDetector1D::resetRegionOfInterest "virtual void SpecularDetector1D::resetRegionOfInterest() override
+
+Resets region of interest making whole detector plane available for the simulation. 
+";
+
+%feature("docstring")  SpecularDetector1D::defaultAxesUnits "AxesUnits SpecularDetector1D::defaultAxesUnits() const override
+
+Return default axes units. 
+";
+
+%feature("docstring")  SpecularDetector1D::validAxesUnits "std::vector< AxesUnits > SpecularDetector1D::validAxesUnits() const override
+
+Returns vector of valid axes units. 
 ";
 
 
@@ -14433,79 +14560,82 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D149.xml
+// File: namespace_0D155.xml
 
 
-// File: namespace_0D190.xml
+// File: namespace_0D196.xml
 
 
-// File: namespace_0D208.xml
+// File: namespace_0D214.xml
 
 
 // File: namespace_0D23.xml
 
 
-// File: namespace_0D251.xml
+// File: namespace_0D257.xml
 
 
-// File: namespace_0D278.xml
-
-
-// File: namespace_0D282.xml
-
-
-// File: namespace_0D284.xml
+// File: namespace_0D265.xml
 
 
 // File: namespace_0D286.xml
 
 
+// File: namespace_0D290.xml
+
+
+// File: namespace_0D292.xml
+
+
 // File: namespace_0D294.xml
 
 
-// File: namespace_0D309.xml
+// File: namespace_0D302.xml
 
 
 // File: namespace_0D317.xml
 
 
-// File: namespace_0D323.xml
+// File: namespace_0D325.xml
 
 
-// File: namespace_0D326.xml
+// File: namespace_0D331.xml
 
 
-// File: namespace_0D328.xml
+// File: namespace_0D334.xml
 
 
-// File: namespace_0D349.xml
+// File: namespace_0D336.xml
 
 
-// File: namespace_0D358.xml
+// File: namespace_0D357.xml
 
 
-// File: namespace_0D391.xml
+// File: namespace_0D366.xml
 
 
-// File: namespace_0D398.xml
+// File: namespace_0D399.xml
 
 
-// File: namespace_0D436.xml
+// File: namespace_0D406.xml
 
 
-// File: namespace_0D504.xml
+// File: namespace_0D444.xml
 
 
-// File: namespace_0D526.xml
+// File: namespace_0D514.xml
 
 
-// File: namespace_0D63.xml
+// File: namespace_0D536.xml
 
 
-// File: namespace_0D76.xml
+// File: namespace_0D69.xml
 
 
-// File: namespace_0D79.xml
+// File: namespace_0D82.xml
+
+
+// File: namespace_0D85.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -15199,6 +15329,9 @@ GISAS simulation with spherical detector, region of interest and mask.
 GISAS simulation with rectangular detector, region of interest and mask. 
 ";
 
+%feature("docstring")  StandardSimulations::BasicSpecular "SpecularSimulation * StandardSimulations::BasicSpecular()
+";
+
 
 // File: namespaceSysUtils.xml
 %feature("docstring")  SysUtils::getCurrentDateAndTime "std::string SysUtils::getCurrentDateAndTime()
@@ -15326,6 +15459,9 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: Exceptions_8h.xml
 
 
+// File: ICloneable_8cpp.xml
+
+
 // File: ICloneable_8h.xml
 
 
@@ -15333,9 +15469,6 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: INamed_8h.xml
-
-
-// File: INoncopyable_8h.xml
 
 
 // File: ISingleton_8h.xml
@@ -15418,22 +15551,40 @@ Add element vector to element vector with weight.
 // File: ComputationStatus_8h.xml
 
 
+// File: ConstantBackground_8cpp.xml
+
+
+// File: ConstantBackground_8h.xml
+
+
 // File: DelayedProgressCounter_8cpp.xml
 
 
 // File: DelayedProgressCounter_8h.xml
 
 
+// File: DWBAComputation_8cpp.xml
+
+
+// File: DWBAComputation_8h.xml
+
+
+// File: IBackground_8cpp.xml
+
+
+// File: IBackground_8h.xml
+
+
+// File: IComputation_8cpp.xml
+
+
+// File: IComputation_8h.xml
+
+
 // File: IComputationTerm_8cpp.xml
 
 
 // File: IComputationTerm_8h.xml
-
-
-// File: MainComputation_8cpp.xml
-
-
-// File: MainComputation_8h.xml
 
 
 // File: ParticleLayoutComputation_8cpp.xml
@@ -16040,6 +16191,12 @@ make Swappable
 
 
 // File: SimulationAreaIterator_8h.xml
+
+
+// File: SpecularDetector1D_8cpp.xml
+
+
+// File: SpecularDetector1D_8h.xml
 
 
 // File: SphericalDetector_8cpp.xml
@@ -16907,6 +17064,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: CylindersBuilder_8h.xml
+
+
+// File: HomogeneousMultilayerBuilder_8cpp.xml
+
+
+// File: HomogeneousMultilayerBuilder_8h.xml
 
 
 // File: IFactory_8h.xml

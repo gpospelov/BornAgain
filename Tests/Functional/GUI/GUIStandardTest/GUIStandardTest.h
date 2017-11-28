@@ -19,6 +19,9 @@
 
 #include "IStandardTest.h"
 
+class Simulation;
+class GISASSimulation;
+
 //! A functional test of the BornAgain GUI.
 //! Performs a given standard simulation directly, and through domain->GUI->domain,
 //! and compares results.

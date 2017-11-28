@@ -43,7 +43,8 @@ typedef AxesUnitsWrap::AxesUnits AxesUnits;
 //! Abstract detector interface.
 //! @ingroup simulation
 
-class BA_CORE_API_ IDetector :  public ICloneable, public INode {
+class BA_CORE_API_ IDetector :  public ICloneable, public INode
+{
 public:
     IDetector();
 
@@ -99,6 +100,9 @@ public:
 
     //! Returns region of  interest if exists.
     virtual const RegionOfInterest* regionOfInterest() const = 0;
+
+    //! Resets region of interest making whole detector plane available for the simulation.
+    virtual void resetRegionOfInterest() = 0;
 
     //! Returns detection properties
     const DetectionProperties& detectionProperties() const {return m_detection_properties;}

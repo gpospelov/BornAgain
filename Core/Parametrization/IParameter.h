@@ -16,7 +16,6 @@
 #ifndef IPARAMETER_H
 #define IPARAMETER_H
 
-#include "INoncopyable.h"
 #include "INamed.h"
 #include <functional>
 #include <stdexcept>
@@ -29,7 +28,8 @@
 //! @ingroup tools_internal
 
 template<class T>
-class IParameter : public INamed, public INoncopyable {
+class IParameter : public INamed
+{
 public:
     IParameter() =delete;
     IParameter(const std::string& name, T* data, const std::string& parent_name,
@@ -63,7 +63,6 @@ IParameter<T>::IParameter(const std::string& name, T* data,
     , m_parent_name(parent_name)
     , m_onChange(onChange)
 {
-
     if(!m_data)
         throw std::runtime_error("Attempt to construct an IParameter with null data pointer");
 }

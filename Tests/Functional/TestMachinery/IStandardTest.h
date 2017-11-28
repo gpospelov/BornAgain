@@ -20,6 +20,7 @@
 #include <string>
 #include <memory>
 
+class Simulation;
 class GISASSimulation;
 
 //! Base class for tests that compare results with reference data.
@@ -29,14 +30,16 @@ class BA_CORE_API_ IStandardTest : public IFunctionalTest
 {
 public:
     IStandardTest(const std::string& name, const std::string& description,
-                  const GISASSimulation& simulation, double threshold);
+                  const Simulation& simulation, double threshold);
 
     ~IStandardTest();
 
     bool runTest() =0;
 
 protected:
-    std::unique_ptr<GISASSimulation> m_reference_simulation;
+    GISASSimulation* gisasSimulation();
+
+    std::unique_ptr<Simulation> m_reference_simulation;
     double m_threshold;
 };
 

@@ -16,6 +16,11 @@
 #include "IFresnelMap.h"
 #include "MultiLayer.h"
 
+static_assert(std::is_copy_constructible<IFresnelMap>::value == false,
+	"IFresnelMap should not be copy constructable");
+static_assert(std::is_copy_assignable<IFresnelMap>::value == false,
+	"IFresnelMap should not be copy assignable");
+
 IFresnelMap::IFresnelMap()
     : m_use_cache(true)
 {}

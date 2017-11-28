@@ -21,7 +21,6 @@
 
 class IAbstractParticle;
 class IInterferenceFunction;
-class ILayout;
 
 //! Pure virtual interface class to equip a sample layer with scattering properties.
 //! Currently only inherited by ParticleLayout; in the future also by domain structure.

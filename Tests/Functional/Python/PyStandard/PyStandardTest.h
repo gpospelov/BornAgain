@@ -18,6 +18,9 @@
 
 #include "IStandardTest.h"
 
+class Simulation;
+class GISASSimulation;
+
 //! A functional test of PyCore (the Python wrapper of BornAgain/Core).
 //! Performs a given standard simulation, both directly and from a Python dump.
 

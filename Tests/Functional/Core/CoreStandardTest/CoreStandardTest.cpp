@@ -15,9 +15,9 @@
 
 #include "CoreStandardTest.h"
 #include "FileSystemUtils.h"
-#include "GISASSimulation.h"
 #include "IntensityDataIOFactory.h"
 #include "TestUtils.h"
+#include "Simulation.h"
 #include "BABuild.h"
 
 bool CoreStandardTest::runTest()
@@ -49,9 +49,9 @@ bool CoreStandardTest::runTest()
         IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
         std::cout << "New simulation result stored in " << out_fname << ".\n"
                   << "To visualize an intensity map, use "
-                  << BABuild::buildBinDir() << "/view1.py;"
+                  << BABuild::buildBinDir() << "/plot_intensity_data.py;"
                   << "   to plot a difference image, use "
-                  << BABuild::buildBinDir() << "/view2.py.\n"
+                  << BABuild::buildBinDir() << "/plot_intensity_data_diff.py.\n"
                   << "If the new result is correct, then gzip it and move it to "
                   << CORE_STD_REF_DIR << "/.\n";
     }

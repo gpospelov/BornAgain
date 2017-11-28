@@ -428,6 +428,6 @@
 %include "ThreadInfo.h"
 %template(SampleBuilderFactoryTemp) IFactory<std::string, IMultiLayerBuilder>;
 %include "SampleBuilderFactory.h"
-%template(SimulationFactoryTemp) IFactory<std::string, GISASSimulation>;
+%template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 %include "SimulationFactory.h"
 

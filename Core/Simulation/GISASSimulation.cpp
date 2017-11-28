@@ -111,12 +111,6 @@ void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, 
     Detector2D(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
 }
 
-void GISASSimulation::resetRegionOfInterest()
-{
-
-    Detector2D(m_instrument)->resetRegionOfInterest();
-}
-
 std::unique_ptr<IComputation> GISASSimulation::generateSingleThreadedComputation(
         std::vector<SimulationElement>::iterator start,
         std::vector<SimulationElement>::iterator end)

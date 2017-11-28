@@ -16,7 +16,7 @@
 #ifndef IFRESNELMAP_H
 #define IFRESNELMAP_H
 
-#include "INoncopyable.h"
+#include "WinDllMacros.h"
 #include <cstddef>
 #include <memory>
 
@@ -29,11 +29,11 @@ class SimulationElement;
 //! (these amplitudes correspond to the specular part of the wavefunction).
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ IFresnelMap : public INoncopyable
+class BA_CORE_API_ IFresnelMap
 {
 public:
     IFresnelMap();
-    ~IFresnelMap();
+    virtual ~IFresnelMap();
 
     //! Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
     virtual const ILayerRTCoefficients* getOutCoefficients(

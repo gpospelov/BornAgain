@@ -18,7 +18,6 @@
 
 #include "INode.h"
 #include "OutputData.h"
-#include <INoncopyable.h>
 #include <memory>
 
 class FitElement;
@@ -28,7 +27,7 @@ class IIntensityNormalizer;
 //! Holds simulation description and real data to run the fit.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitObject : public INode, public INoncopyable
+class BA_CORE_API_ FitObject : public INode
 {
 public:
     //! FitObject constructor

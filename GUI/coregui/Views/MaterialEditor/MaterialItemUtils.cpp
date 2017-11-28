@@ -85,3 +85,12 @@ QString MaterialItemUtils::materialTag(const SessionItem &item)
     }
     return result;
 }
+
+MaterialProperty MaterialItemUtils::materialProperty(const SessionItem& materialItem)
+{
+    MaterialProperty result(materialItem.getItemValue(MaterialItem::P_IDENTIFIER).toString());
+
+    // TODO add handling of material name and color after MaterialSvc gone
+
+    return result;
+}

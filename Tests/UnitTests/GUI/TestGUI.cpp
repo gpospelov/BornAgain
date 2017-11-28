@@ -37,6 +37,7 @@
 #include "TestSessionItemUtils.h"
 #include "TestComponentUtils.h"
 #include "TestLayerItems.h"
+#include "TestMaterialPropertyController.h"
 #include <memory>
 
 class GUITestFactory {
@@ -85,6 +86,8 @@ int main(int argc, char** argv) {
 //    tests.add<TestFitParameterModel>();
     tests.add<TestMaterialModel>();
     tests.add<TestLayerItems>();
+    tests.add<TestMaterialPropertyController>();
+
 //    tests.add<TestComboProperty>();
 //    tests.add<TestTranslations>();
 //    tests.add<TestGroupProperty>();

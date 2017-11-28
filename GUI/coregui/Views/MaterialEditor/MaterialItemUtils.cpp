@@ -87,6 +87,14 @@ QString MaterialItemUtils::materialTag(const SessionItem &item)
     return result;
 }
 
+//! Returns list of model types which contains registered MaterialProperty.
+
+QStringList MaterialItemUtils::materialRelatedModelTypes()
+{
+    return {Constants::ParticleType, Constants::LayerType};
+}
+
+
 MaterialProperty MaterialItemUtils::materialProperty(const SessionItem& materialItem)
 {
     MaterialProperty result(materialItem.getItemValue(MaterialItem::P_IDENTIFIER).toString());
@@ -108,3 +116,4 @@ MaterialProperty MaterialItemUtils::selectMaterialProperty(const MaterialPropert
 
     return MaterialProperty();
 }
+

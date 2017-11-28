@@ -36,6 +36,7 @@ BA_CORE_API_ std::unique_ptr<Material> createDomainMaterial(
         const MaterialProperty &material_property);
 
 BA_CORE_API_ QString materialTag(const SessionItem &item);
+BA_CORE_API_ QStringList materialRelatedModelTypes();
 
 //! Constructs material property corresponding to given material.
 BA_CORE_API_ MaterialProperty materialProperty(const SessionItem& materialItem);

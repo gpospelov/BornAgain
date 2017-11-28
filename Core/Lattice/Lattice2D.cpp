@@ -45,6 +45,7 @@ void Lattice2D::onChange()
 }
 
 Lattice2D::Lattice2D(const Lattice2D& other)
+    : ICloneable()
 {
     m_xi = other.m_xi;
     setName(other.getName());

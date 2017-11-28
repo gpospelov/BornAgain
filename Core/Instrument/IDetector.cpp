@@ -12,7 +12,8 @@ IDetector::IDetector()
 }
 
 IDetector::IDetector(const IDetector& other)
-    : m_axes(other.m_axes)
+    : ICloneable()
+    , m_axes(other.m_axes)
     , m_detection_properties(other.m_detection_properties)
 {
     if(other.mP_detector_resolution)

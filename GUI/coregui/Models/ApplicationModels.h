@@ -28,22 +28,20 @@ class InstrumentModel;
 class RealDataModel;
 class SampleModel;
 class JobModel;
-class ObsoleteFitModel;
 
 class BA_CORE_API_ ApplicationModels : public QObject
 {
     Q_OBJECT
 public:
-    explicit ApplicationModels(QObject *parent = 0);
+    explicit ApplicationModels(QObject* parent = nullptr);
     ~ApplicationModels();
 
-    DocumentModel *documentModel();
-    MaterialModel *materialModel();
-    InstrumentModel *instrumentModel();
-    SampleModel *sampleModel();
-    RealDataModel *realDataModel();
-    JobModel *jobModel();
-    ObsoleteFitModel *fitModel();
+    DocumentModel* documentModel();
+    MaterialModel* materialModel();
+    InstrumentModel* instrumentModel();
+    SampleModel* sampleModel();
+    RealDataModel* realDataModel();
+    JobModel* jobModel();
 
     void resetModels();
 
@@ -51,10 +49,10 @@ public:
     void createTestJob();
     void createTestRealData();
 
-    void writeTo(class QXmlStreamWriter *writer);
-    void readFrom(class QXmlStreamReader *reader, class WarningMessageService *messageService);
+    void writeTo(class QXmlStreamWriter* writer);
+    void readFrom(class QXmlStreamReader* reader, class WarningMessageService* messageService);
 
-    QList<SessionModel *> modelList();
+    QList<SessionModel*> modelList();
 
     QVector<SessionItem*> nonXMLData() const;
 
@@ -70,15 +68,15 @@ private:
     void createRealDataModel();
     void createJobModel();
 
-    void disconnectModel(SessionModel *model);
-    void connectModel(SessionModel *model);
+    void disconnectModel(SessionModel* model);
+    void connectModel(SessionModel* model);
 
-    DocumentModel *m_documentModel;
-    MaterialModel *m_materialModel;
-    InstrumentModel *m_instrumentModel;
-    SampleModel *m_sampleModel;
-    RealDataModel *m_realDataModel;
-    JobModel *m_jobModel;
+    DocumentModel* m_documentModel;
+    MaterialModel* m_materialModel;
+    InstrumentModel* m_instrumentModel;
+    SampleModel* m_sampleModel;
+    RealDataModel* m_realDataModel;
+    JobModel* m_jobModel;
 };
 
 #endif // APPLICATIONMODELS_H

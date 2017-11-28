@@ -28,6 +28,7 @@ class InstrumentModel;
 class RealDataModel;
 class SampleModel;
 class JobModel;
+class MaterialPropertyController;
 
 class BA_CORE_API_ ApplicationModels : public QObject
 {
@@ -77,6 +78,7 @@ private:
     SampleModel* m_sampleModel;
     RealDataModel* m_realDataModel;
     JobModel* m_jobModel;
+    MaterialPropertyController* m_materialPropertyController;
 };
 
 #endif // APPLICATIONMODELS_H

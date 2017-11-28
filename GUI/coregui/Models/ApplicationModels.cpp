@@ -31,6 +31,7 @@
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
 #include "ImportDataAssistant.h"
+#include "MaterialPropertyController.h"
 #include <QtCore/QXmlStreamWriter>
 
 ApplicationModels::ApplicationModels(QObject* parent)
@@ -41,6 +42,7 @@ ApplicationModels::ApplicationModels(QObject* parent)
     , m_sampleModel(nullptr)
     , m_realDataModel(nullptr)
     , m_jobModel(nullptr)
+    , m_materialPropertyController(new MaterialPropertyController(this))
 {
     createModels();
     // createTestSample();
@@ -112,6 +114,8 @@ void ApplicationModels::createModels()
     createRealDataModel();
     createJobModel();
     resetModels();
+
+    m_materialPropertyController->setModels(materialModel(), sampleModel());
 }
 
 void ApplicationModels::createDocumentModel()
@@ -134,8 +138,6 @@ void ApplicationModels::createSampleModel()
     delete m_sampleModel;
     m_sampleModel = new SampleModel(this);
     connectModel(m_sampleModel);
-    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)), m_sampleModel,
-            SLOT(onMaterialModelChanged(QModelIndex, QModelIndex)));
 }
 
 void ApplicationModels::createInstrumentModel()

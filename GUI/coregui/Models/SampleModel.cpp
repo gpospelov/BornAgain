@@ -15,59 +15,22 @@
 // ************************************************************************** //
 
 #include "SampleModel.h"
-#include "LayerItem.h"
-#include "ParticleItem.h"
 #include "MultiLayerItem.h"
-#include "MaterialProperty.h"
-#include "MaterialItemUtils.h"
 
-SampleModel::SampleModel(QObject *parent)
+SampleModel::SampleModel(QObject* parent)
     : SessionModel(SessionXML::SampleModelTag, parent)
-    , m_block_explore_for_material(false)
 {
     setObjectName(SessionXML::SampleModelTag);
 }
 
-SampleModel *SampleModel::createCopy(SessionItem *parent)
+SampleModel* SampleModel::createCopy(SessionItem* parent)
 {
-    SampleModel *result = new SampleModel();
+    SampleModel* result = new SampleModel();
     result->initFrom(this, parent);
     return result;
 }
 
-MultiLayerItem *SampleModel::multiLayerItem(const QString &item_name)
+MultiLayerItem* SampleModel::multiLayerItem(const QString& item_name)
 {
-    return dynamic_cast<MultiLayerItem *>(topItem(Constants::MultiLayerType, item_name));
-}
-
-void SampleModel::onMaterialModelChanged(const QModelIndex &, const QModelIndex &)
-{
-    if(m_block_explore_for_material)
-        return;
-
-    m_block_explore_for_material = true;
-    exploreForMaterials();
-    m_block_explore_for_material = false;
-}
-
-void SampleModel::exploreForMaterials(const QModelIndex &parentIndex)
-{
-
-    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = index(i_row, 0, parentIndex);
-        if (SessionItem *item = itemForIndex(itemIndex)) {
-
-            QString materialTag = MaterialItemUtils::materialTag(*item);
-
-            if(materialTag.size()) {
-                // TODO take care of the case, when material doesn't exist anymore and
-                // we should delete identifier on Layer, Particle side.
-
-                // we pretend here that MaterialProperty changed to update IView colors
-                item->getItem(materialTag)->emitDataChanged();
-            }
-
-        }
-        exploreForMaterials(itemIndex);
-    }
+    return dynamic_cast<MultiLayerItem*>(topItem(Constants::MultiLayerType, item_name));
 }

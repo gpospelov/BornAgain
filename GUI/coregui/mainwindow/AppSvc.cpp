@@ -92,6 +92,11 @@ void AppSvc::this_unsubscribe(ProjectManager* projectManager)
 
 void AppSvc::this_subscribe(MaterialModel* materialModel)
 {
+
+    //! TODO FIXME PANIC Remove after MaterialSvc gone
+    if (m_materialModel)
+        return;
+
     if (m_materialModel != nullptr)
         throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to subscribe "
                                 "MaterialModel twice.");
@@ -101,6 +106,11 @@ void AppSvc::this_subscribe(MaterialModel* materialModel)
 
 void AppSvc::this_unsubscribe(MaterialModel* materialModel)
 {
+
+    //! TODO FIXME PANIC Remove after MaterialSvc gone
+    if (m_materialModel != materialModel)
+        return;
+
     if (m_materialModel != materialModel)
         throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to unsubscribe "
                                 "MaterialModel before it was subscribed.");

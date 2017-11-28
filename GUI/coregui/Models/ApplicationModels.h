@@ -24,7 +24,6 @@ class SessionModel;
 class SessionItem;
 class DocumentModel;
 class MaterialModel;
-class MaterialSvc;
 class InstrumentModel;
 class RealDataModel;
 class SampleModel;
@@ -76,7 +75,6 @@ private:
 
     DocumentModel *m_documentModel;
     MaterialModel *m_materialModel;
-    MaterialSvc *m_materialSvc;
     InstrumentModel *m_instrumentModel;
     SampleModel *m_sampleModel;
     RealDataModel *m_realDataModel;

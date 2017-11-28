@@ -33,7 +33,6 @@
 #include "Material.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
-#include "MaterialSvc.h"
 #include "MesoCrystal.h"
 #include "MesoCrystalItem.h"
 #include "MultiLayer.h"

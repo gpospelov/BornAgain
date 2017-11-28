@@ -2,7 +2,6 @@
 #include "MaterialItem.h"
 #include "MaterialDataItem.h"
 #include "MaterialItemUtils.h"
-#include "MaterialSvc.h"
 #include <QtTest>
 #include <memory>
 
@@ -98,7 +97,6 @@ inline void TestMaterialModel::test_materialItemFromName()
 inline void TestMaterialModel::test_materialPropertyFromMaterial()
 {
     MaterialModel model;
-    MaterialSvc svc; // FIXME remove after MaterialSvc gone.
     MaterialItem* mat = model.addMaterial("Something", 1.0, 2.0);
 
     MaterialProperty property = MaterialItemUtils::materialProperty(*mat);
@@ -112,7 +110,6 @@ inline void TestMaterialModel::test_materialPropertyFromMaterial()
 inline void TestMaterialModel::test_defaultMaterialProperty()
 {
     MaterialModel model;
-    MaterialSvc svc; // FIXME remove after MaterialSvc gone.
 
     // testing default constructed material property
     MaterialProperty property;

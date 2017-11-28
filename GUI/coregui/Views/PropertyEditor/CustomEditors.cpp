@@ -17,7 +17,6 @@
 #include "CustomEditors.h"
 #include "CustomEventFilters.h"
 #include "MaterialProperty.h"
-#include "MaterialSvc.h"
 #include "GroupProperty.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"

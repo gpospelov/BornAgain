@@ -19,7 +19,6 @@
 #include "ParticleItem.h"
 #include "MultiLayerItem.h"
 #include "MaterialProperty.h"
-#include "MaterialSvc.h"
 #include "MaterialItemUtils.h"
 
 SampleModel::SampleModel(QObject *parent)

@@ -17,7 +17,6 @@
 #include "SampleToolBar.h"
 #include "DesignerView.h"
 #include "MaterialProperty.h"
-#include "MaterialSvc.h"
 #include "MaterialItemUtils.h"
 #include <QAction>
 #include <QButtonGroup>

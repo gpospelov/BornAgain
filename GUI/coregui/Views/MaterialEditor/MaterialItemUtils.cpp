@@ -21,7 +21,6 @@
 #include "GUIHelpers.h"
 #include "Material.h"
 #include "MaterialModel.h"
-#include "MaterialSvc.h"
 #include "ParticleItem.h"
 #include "LayerItem.h"
 #include "MaterialEditorDialog.h"

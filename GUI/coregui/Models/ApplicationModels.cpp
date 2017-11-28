@@ -23,7 +23,6 @@
 #include "JobItem.h"
 #include "JobModel.h"
 #include "MaterialModel.h"
-#include "MaterialSvc.h"
 #include "MultiLayer.h"
 #include "RealDataModel.h"
 #include "SampleBuilderFactory.h"
@@ -41,7 +40,6 @@ ApplicationModels::ApplicationModels(QObject *parent)
     : QObject(parent)
     , m_documentModel(0)
     , m_materialModel(0)
-    , m_materialSvc(0)
     , m_instrumentModel(0)
     , m_sampleModel(0)
     , m_realDataModel(0)
@@ -60,7 +58,6 @@ ApplicationModels::ApplicationModels(QObject *parent)
 
 ApplicationModels::~ApplicationModels()
 {
-    delete m_materialSvc;
 }
 
 DocumentModel *ApplicationModels::documentModel()
@@ -156,7 +153,6 @@ void ApplicationModels::createMaterialModel()
     delete m_materialModel;
     m_materialModel = new MaterialModel(this);
     connectModel(m_materialModel);
-    m_materialSvc = new MaterialSvc;
 }
 
 void ApplicationModels::createSampleModel()

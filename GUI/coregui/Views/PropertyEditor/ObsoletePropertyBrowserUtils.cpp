@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "ObsoletePropertyBrowserUtils.h"
-#include "MaterialSvc.h"
 #include "CustomEventFilters.h"
 #include "MaterialItemUtils.h"
 #include <QColorDialog>

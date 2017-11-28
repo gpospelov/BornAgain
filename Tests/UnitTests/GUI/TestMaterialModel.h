@@ -13,6 +13,7 @@ private slots:
     void test_addMaterial();
     void test_cloneMaterial();
     void test_materialItemFromIdentifier();
+    void test_materialItemFromName();
     void test_materialPropertyFromMaterial();
     void test_defaultMaterialProperty();
 };
@@ -78,6 +79,18 @@ inline void TestMaterialModel::test_materialItemFromIdentifier()
     QVERIFY(mat1 == model.materialFromIdentifier(mat1->getIdentifier()));
     QVERIFY(mat2 == model.materialFromIdentifier(mat2->getIdentifier()));
     QVERIFY(nullptr == model.materialFromIdentifier("non-existing-identifier"));
+}
+
+//! Checks the method which returns MaterialItem from material name.
+
+inline void TestMaterialModel::test_materialItemFromName()
+{
+    MaterialModel model;
+    MaterialItem* mat1 = model.addMaterial("aaa", 1.0, 2.0);
+    MaterialItem* mat2 = model.addMaterial("bbb", 3.0, 4.0);
+    QVERIFY(mat1 == model.materialFromName(mat1->itemName()));
+    QVERIFY(mat2 == model.materialFromName(mat2->itemName()));
+    QVERIFY(nullptr == model.materialFromName("non-existing-name"));
 }
 
 //! Checks the method which construct MaterialProperty from MaterialItem.

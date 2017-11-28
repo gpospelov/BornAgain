@@ -62,23 +62,6 @@ MaterialSvc::this_selectMaterialProperty(const MaterialProperty &previousMateria
 }
 
 
-MaterialProperty MaterialSvc::getMaterialProperty(const QString &name)
-{
-    Q_ASSERT(m_instance);
-    return m_instance->this_getMaterialProperty(name);
-}
-
-
-MaterialProperty MaterialSvc::this_getMaterialProperty(const QString &name)
-{
-    MaterialItem *material = AppSvc::materialModel()->getMaterial(name);
-    if(material)
-        return MaterialProperty(material->getIdentifier());
-
-    return MaterialProperty();
-}
-
-
 MaterialProperty MaterialSvc::getDefaultMaterialProperty()
 {
     Q_ASSERT(m_instance);

@@ -83,20 +83,6 @@ MaterialItem* MaterialModel::getMaterial(const MaterialProperty& property)
     return nullptr;
 }
 
-MaterialItem* MaterialModel::getMaterial(const QString& material_name)
-{
-    QModelIndex parentIndex;
-    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = index(i_row, 0, parentIndex);
-
-        if (MaterialItem* material = dynamic_cast<MaterialItem*>(itemForIndex(itemIndex))) {
-            if (material->itemName() == material_name)
-                return material;
-        }
-    }
-    return nullptr;
-}
-
 //! Returns clone of material with given index.
 
 MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
@@ -109,6 +95,18 @@ MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
     clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, GUIHelpers::createUuid());
     clonedMaterial->setItemName(origMaterial->itemName() + " (clone)");
     return dynamic_cast<MaterialItem*>(clonedMaterial);
+}
+
+MaterialItem* MaterialModel::materialFromName(const QString& material_name)
+{
+    for(auto item : topItems()) {
+        auto materialItem = dynamic_cast<MaterialItem*>(item);
+        Q_ASSERT(materialItem);
+        if (materialItem->itemName() == material_name)
+            return materialItem;
+    }
+
+    return nullptr;
 }
 
 MaterialItem* MaterialModel::materialFromIdentifier(const QString& identifier)

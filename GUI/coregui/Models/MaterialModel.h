@@ -37,10 +37,10 @@ public:
 
     MaterialItem* getMaterial(const QModelIndex& index);
     MaterialItem* getMaterial(const MaterialProperty& property);
-    MaterialItem* getMaterial(const QString& material_name);
 
     MaterialItem* cloneMaterial(const QModelIndex& index);
 
+    MaterialItem* materialFromName(const QString& material_name);
     MaterialItem* materialFromIdentifier(const QString& identifier);
 
 };

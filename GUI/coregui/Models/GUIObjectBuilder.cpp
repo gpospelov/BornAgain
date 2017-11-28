@@ -59,6 +59,7 @@
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "AppSvc.h"
+#include "MaterialItemUtils.h"
 
 using SessionItemUtils::SetVectorItem;
 
@@ -595,16 +596,16 @@ MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
 {
     QString materialName = m_topSampleName + QString("_") + QString(material->getName().c_str());
 
-    MaterialProperty materialProperty = MaterialSvc::getMaterialProperty(materialName);
-    if(materialProperty.isDefined()) return materialProperty;
-
     MaterialModel* model = AppSvc::materialModel();
+
+    if (auto material = model->materialFromName(materialName))
+        return MaterialItemUtils::materialProperty(*material);
 
     complex_t material_data = material->materialData();
     MaterialItem* materialItem  =
             model->addMaterial(materialName, material_data.real(),material_data.imag());
     SetVectorItem(*materialItem, MaterialItem::P_MAGNETIZATION, material->magnetization());
-    return MaterialProperty(materialItem->getIdentifier());
+    return MaterialItemUtils::materialProperty(*materialItem);
 }
 
 SessionItem* GUIObjectBuilder::InsertIParticle(const IParticle* p_particle, QString model_type)

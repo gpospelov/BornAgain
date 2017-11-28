@@ -48,12 +48,11 @@ QColor MaterialItemUtils::suggestMaterialColor(const QString &name)
 }
 
 
-MaterialProperty MaterialItemUtils::getDefaultMaterialProperty()
+MaterialProperty MaterialItemUtils::defaultMaterialProperty()
 {
-    if(MaterialSvc::instance()) {
-        return MaterialSvc::getDefaultMaterialProperty();
-    }
-    return MaterialProperty();
+    auto materials = AppSvc::materialModel()->topItems();
+    return materials.isEmpty() ? MaterialProperty() :
+                                 MaterialItemUtils::materialProperty(*materials.front());
 }
 
 

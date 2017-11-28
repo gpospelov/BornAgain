@@ -40,28 +40,6 @@ MaterialSvc *MaterialSvc::instance()
     return m_instance;
 }
 
-
-MaterialProperty MaterialSvc::getDefaultMaterialProperty()
-{
-    Q_ASSERT(m_instance);
-    return m_instance->this_getDefaultMaterialProperty();
-}
-
-//! Returns default MaterialProperty which is the signature of the first
-//! MaterialItem in the model.
-MaterialProperty MaterialSvc::this_getDefaultMaterialProperty()
-{
-    if((AppSvc::materialModel()->rowCount( QModelIndex() ) ) ) {
-        QModelIndex firstIndex = AppSvc::materialModel()->index(0, 0, QModelIndex());
-        MaterialItem *material = dynamic_cast<MaterialItem *>(AppSvc::materialModel()->itemForIndex(firstIndex));
-        Q_ASSERT(material);
-        return MaterialProperty(material->getIdentifier());
-    } else {
-        return MaterialProperty();
-    }
-}
-
-
 MaterialItem *MaterialSvc::getMaterial(const MaterialProperty &property)
 {
     Q_ASSERT(m_instance);

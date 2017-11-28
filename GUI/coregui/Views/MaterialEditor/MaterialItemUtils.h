@@ -30,7 +30,7 @@ namespace MaterialItemUtils
 {
 
 BA_CORE_API_ QColor suggestMaterialColor(const QString &name);
-BA_CORE_API_ MaterialProperty getDefaultMaterialProperty();
+BA_CORE_API_ MaterialProperty defaultMaterialProperty();
 BA_CORE_API_ ColorProperty suggestMaterialColorProperty(const QString &name);
 BA_CORE_API_ std::unique_ptr<Material> createDomainMaterial(
         const MaterialProperty &material_property);

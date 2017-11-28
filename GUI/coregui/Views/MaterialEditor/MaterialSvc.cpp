@@ -41,27 +41,6 @@ MaterialSvc *MaterialSvc::instance()
 }
 
 
-MaterialProperty
-MaterialSvc::selectMaterialProperty(const MaterialProperty &previousMaterial)
-{
-    Q_ASSERT(m_instance);
-    return m_instance->this_selectMaterialProperty(previousMaterial);
-}
-
-
-MaterialProperty
-MaterialSvc::this_selectMaterialProperty(const MaterialProperty &previousMaterial)
-{
-    MaterialEditorDialog dialog(AppSvc::materialModel());
-    dialog.setInitialMaterialProperty(previousMaterial);
-    if(dialog.exec() == QDialog::Accepted) {
-        return dialog.getSelectedMaterialProperty();
-    }
-
-    return MaterialProperty();
-}
-
-
 MaterialProperty MaterialSvc::getDefaultMaterialProperty()
 {
     Q_ASSERT(m_instance);

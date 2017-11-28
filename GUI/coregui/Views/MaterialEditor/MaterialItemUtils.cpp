@@ -24,6 +24,8 @@
 #include "MaterialSvc.h"
 #include "ParticleItem.h"
 #include "LayerItem.h"
+#include "MaterialEditorDialog.h"
+#include "AppSvc.h"
 
 
 QColor MaterialItemUtils::suggestMaterialColor(const QString &name)
@@ -93,4 +95,15 @@ MaterialProperty MaterialItemUtils::materialProperty(const SessionItem& material
     // TODO add handling of material name and color after MaterialSvc gone
 
     return result;
+}
+
+MaterialProperty MaterialItemUtils::selectMaterialProperty(const MaterialProperty& previousMaterial)
+{
+    MaterialEditorDialog dialog(AppSvc::materialModel());
+    dialog.setInitialMaterialProperty(previousMaterial);
+    if(dialog.exec() == QDialog::Accepted) {
+        return dialog.getSelectedMaterialProperty();
+    }
+
+    return MaterialProperty();
 }

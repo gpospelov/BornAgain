@@ -35,13 +35,11 @@ public:
 
     static MaterialSvc *instance();
 
-    static MaterialProperty selectMaterialProperty(const MaterialProperty &previousMaterial=MaterialProperty());
     static MaterialProperty getDefaultMaterialProperty();
 
     static MaterialItem *getMaterial(const MaterialProperty &property);
 
 private:
-    MaterialProperty this_selectMaterialProperty(const MaterialProperty &previousMaterial);
     MaterialProperty this_getDefaultMaterialProperty();
     MaterialItem *this_getMaterial(const MaterialProperty &property);
 

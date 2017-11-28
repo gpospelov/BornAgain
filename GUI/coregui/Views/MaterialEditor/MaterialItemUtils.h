@@ -39,6 +39,10 @@ BA_CORE_API_ QString materialTag(const SessionItem &item);
 
 //! Constructs material property corresponding to given material.
 BA_CORE_API_ MaterialProperty materialProperty(const SessionItem& materialItem);
+
+//! Calls material selector dialog.
+BA_CORE_API_ MaterialProperty selectMaterialProperty(const MaterialProperty &previousMaterial=MaterialProperty());
+
 }
 
 

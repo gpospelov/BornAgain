@@ -22,16 +22,6 @@
 #include <fstream>
 #include <iostream>
 
-PyStandardTest::PyStandardTest(const std::string& name, const std::string& description,
-                               const Simulation& simulation, double threshold)
-    : IStandardTest(name, description, threshold)
-{
-    if (const auto gisas = dynamic_cast<const GISASSimulation*>(&simulation))
-        m_reference_simulation.reset(gisas->clone());
-    else
-        throw std::runtime_error("Error in PyStandardTest: wrong simulation type.");
-}
-
 //! Runs simulation via a Python script and directly, and returns true if the results agree.
 bool PyStandardTest::runTest()
 {
@@ -44,7 +34,7 @@ bool PyStandardTest::runTest()
     // Generate Python script
     std::string pyscript_filename = FileSystemUtils::jointPath(PYEXPORT_TMP_DIR, getName() + ".py");
     std::ofstream pythonFile(pyscript_filename);
-    pythonFile << PythonFormatting::generatePyExportTest(*m_reference_simulation);
+    pythonFile << PythonFormatting::generatePyExportTest(*gisasSimulation());
     pythonFile.close();
 
     // Run Python script

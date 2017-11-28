@@ -26,13 +26,9 @@ class Simulation;
 class CoreStandardTest : public IStandardTest
 {
 public:
-    CoreStandardTest(const std::string& name, const std::string& description,
-                     const Simulation& simulation, double threshold);
+    using IStandardTest::IStandardTest;
 
     bool runTest() final;
-
-private:
-    std::unique_ptr<Simulation> m_reference_simulation;
 };
 
 #endif // CORESTANDARDTEST_H

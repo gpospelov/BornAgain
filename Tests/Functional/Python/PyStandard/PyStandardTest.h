@@ -27,13 +27,9 @@ class GISASSimulation;
 class PyStandardTest : public IStandardTest
 {
 public:
-    PyStandardTest(const std::string& name, const std::string& description,
-                   const Simulation& simulation, double threshold);
+    using IStandardTest::IStandardTest;
 
     bool runTest() final;
-
-private:
-    std::unique_ptr<GISASSimulation> m_reference_simulation;
 };
 
 #endif // PYSTANDARDTEST_H

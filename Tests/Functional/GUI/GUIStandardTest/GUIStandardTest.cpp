@@ -51,21 +51,11 @@ std::unique_ptr<GISASSimulation> createDomainSimulation(const GISASSimulation& o
 
 }
 
-GUIStandardTest::GUIStandardTest(const std::string& name, const std::string& description,
-                 const Simulation& simulation, double threshold)
-    : IStandardTest(name, description, threshold)
-{
-    if (const auto gisas = dynamic_cast<const GISASSimulation*>(&simulation))
-        m_reference_simulation.reset(gisas->clone());
-    else
-        throw std::runtime_error("Error in GUIStandardTest: wrong simulation type.");
-}
-
 bool GUIStandardTest::runTest()
 {
     m_reference_simulation->runSimulation();
 
-    auto domain_simulation = createDomainSimulation(*m_reference_simulation);
+    auto domain_simulation = createDomainSimulation(*gisasSimulation());
     domain_simulation->runSimulation();
 
     const std::unique_ptr<OutputData<double> > domain_data(

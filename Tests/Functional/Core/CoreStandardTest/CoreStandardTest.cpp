@@ -15,16 +15,10 @@
 
 #include "CoreStandardTest.h"
 #include "FileSystemUtils.h"
-#include "GISASSimulation.h"
 #include "IntensityDataIOFactory.h"
 #include "TestUtils.h"
+#include "Simulation.h"
 #include "BABuild.h"
-
-CoreStandardTest::CoreStandardTest(const std::string& name, const std::string& description,
-                 const Simulation& simulation, double threshold)
-    : IStandardTest(name, description, threshold)
-    , m_reference_simulation(simulation.clone())
-{}
 
 bool CoreStandardTest::runTest()
 {

@@ -14,14 +14,23 @@
 // ************************************************************************** //
 
 #include "IStandardTest.h"
+#include "GISASSimulation.h"
 
 IStandardTest::IStandardTest(const std::string& name, const std::string& description,
-                             double threshold)
+                             const Simulation& simulation, double threshold)
     : IFunctionalTest(name, description)
+    , m_reference_simulation(simulation.clone())
     , m_threshold(threshold)
-{
-
-}
+{}
 
 IStandardTest::~IStandardTest() = default;
+
+GISASSimulation* IStandardTest::gisasSimulation()
+{
+    if (GISASSimulation* gisas = dynamic_cast<GISASSimulation*>(m_reference_simulation.get())) {
+        return gisas;
+    } else
+        throw std::runtime_error("Error in IStandardTest: cannot downcast Simulation to "
+                                 "GISASSimulation. Wrong simulation type is used.");
+}
 

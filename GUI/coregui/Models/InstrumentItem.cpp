@@ -25,6 +25,7 @@
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
 const QString InstrumentItem::P_BEAM = "Beam";
 const QString InstrumentItem::P_DETECTOR = "Detector";
+const QString InstrumentItem::P_BACKGROUND = "Background";
 
 InstrumentItem::InstrumentItem()
     : SessionItem(Constants::InstrumentType)
@@ -38,6 +39,8 @@ InstrumentItem::InstrumentItem()
     addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
 
     setDefaultTag(P_DETECTOR);
+
+    addGroupProperty(P_BACKGROUND, Constants::BackgroundType);
 }
 
 BeamItem *InstrumentItem::beamItem() const

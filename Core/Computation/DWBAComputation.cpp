@@ -31,17 +31,13 @@ static_assert(std::is_copy_constructible<DWBAComputation>::value == false,
 static_assert(std::is_copy_assignable<DWBAComputation>::value == false,
     "DWBAComputation should not be copy assignable");
 
-DWBAComputation::DWBAComputation(
-    const MultiLayer& multilayer,
-    const SimulationOptions& options,
-    ProgressHandler& progress,
-    const std::vector<SimulationElement>::iterator& begin_it,
-    const std::vector<SimulationElement>::iterator& end_it)
-    : IComputation (progress, begin_it, end_it)
-    , mP_multi_layer(multilayer.cloneSliced(options.useAvgMaterials()))
-    , m_sim_options(options)
+DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationOptions& options,
+                                 ProgressHandler& progress,
+                                 const std::vector<SimulationElement>::iterator& begin_it,
+                                 const std::vector<SimulationElement>::iterator& end_it)
+    : IComputation(options, progress, begin_it, end_it, multilayer)
 {
-    mP_fresnel_map.reset(createFresnelMap());
+    mP_fresnel_map = createFresnelMap();
     bool polarized = mP_multi_layer->containsMagneticMaterial();
     size_t nLayers = mP_multi_layer->numberOfLayers();
     for (size_t i=0; i<nLayers; ++i) {
@@ -62,19 +58,7 @@ DWBAComputation::DWBAComputation(
     initFresnelMap();
 }
 
-DWBAComputation::~DWBAComputation() {}
-
-void DWBAComputation::run()
-{
-    m_status.setRunning();
-    try {
-        runProtected();
-        m_status.setCompleted();
-    } catch(const std::exception &ex) {
-        m_status.setErrorMessage(std::string(ex.what()));
-        m_status.setFailed();
-    }
-}
+DWBAComputation::~DWBAComputation() = default;
 
 // The normalization of the calculated scattering intensities is:
 // For nanoparticles: rho * (scattering cross-section/scattering particle)
@@ -91,7 +75,7 @@ void DWBAComputation::runProtected()
     }
 }
 
-IFresnelMap* DWBAComputation::createFresnelMap()
+std::unique_ptr<IFresnelMap> DWBAComputation::createFresnelMap()
 {
     std::unique_ptr<IFresnelMap> P_result;
     if (!mP_multi_layer->requiresMatrixRTCoefficients())
@@ -102,7 +86,7 @@ IFresnelMap* DWBAComputation::createFresnelMap()
     if (P_result && m_sim_options.isIntegrate()) {
         P_result->disableCaching();
     }
-    return P_result.release();
+    return P_result;
 }
 
 std::unique_ptr<MultiLayer> DWBAComputation::getAveragedMultilayer() const

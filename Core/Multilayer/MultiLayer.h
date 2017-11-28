@@ -93,9 +93,11 @@ public:
     //! Returns a clone with inverted magnetic fields
     MultiLayer* cloneInvertB() const;
 
+#ifndef SWIG
     //! Returns a clone of multilayer where the original layers may be sliced into several sublayers
     //! for usage with the graded layer approximation
-    MultiLayer* cloneSliced(bool use_average_layers) const;
+    std::unique_ptr<MultiLayer> cloneSliced(bool use_average_layers) const;
+#endif // SWIG
 
     //! Sets cross correlation length of roughnesses between interfaces
     void setCrossCorrLength(double crossCorrLength);

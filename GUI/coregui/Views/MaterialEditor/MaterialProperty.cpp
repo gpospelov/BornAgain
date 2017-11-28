@@ -17,30 +17,32 @@
 #include "MaterialProperty.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
-#include "MaterialSvc.h"
+
+MaterialProperty::MaterialProperty(const QString& identifier)
+    : m_identifier(identifier)
+    , m_name("Undefined")
+    , m_color(Qt::red)
+{}
 
 QString MaterialProperty::getName() const
 {
-    MaterialProperty property(getIdentifier());
-    MaterialItem *materialItem = MaterialSvc::getMaterial(property);
-    if(materialItem) {
-        return materialItem->itemName();
-    } else {
-        return QString("Undefined");
-    }
+    return m_name;
+}
+
+void MaterialProperty::setName(const QString& name)
+{
+    m_name = name;
 }
 
 
 QColor MaterialProperty::getColor() const
 {
-    MaterialProperty property(getIdentifier());
-    MaterialItem *materialItem = MaterialSvc::getMaterial(property);
-    if(materialItem) {
-        return materialItem->getColor();
-    } else {
-        return QColor(Qt::red);
-    }
+    return m_color;
+}
 
+void MaterialProperty::setColor(const QColor& color)
+{
+    m_color = color;
 }
 
 

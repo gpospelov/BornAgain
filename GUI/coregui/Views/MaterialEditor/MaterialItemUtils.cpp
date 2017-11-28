@@ -26,6 +26,7 @@
 #include "LayerItem.h"
 #include "MaterialEditorDialog.h"
 #include "AppSvc.h"
+#include "MaterialItem.h"
 
 
 QColor MaterialItemUtils::suggestMaterialColor(const QString &name)
@@ -63,9 +64,9 @@ ColorProperty MaterialItemUtils::suggestMaterialColorProperty(const QString &nam
 
 std::unique_ptr<Material>
 MaterialItemUtils::createDomainMaterial(const MaterialProperty &material_property)
-{
+{    
     MaterialItem *materialItem
-        = MaterialSvc::getMaterial(material_property);
+        = AppSvc::materialModel()->materialFromIdentifier(material_property.getIdentifier());
 
     if(!materialItem)
         throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Can't create "
@@ -91,7 +92,9 @@ MaterialProperty MaterialItemUtils::materialProperty(const SessionItem& material
 {
     MaterialProperty result(materialItem.getItemValue(MaterialItem::P_IDENTIFIER).toString());
 
-    // TODO add handling of material name and color after MaterialSvc gone
+    ColorProperty colorProperty = materialItem.getItemValue(MaterialItem::P_COLOR).value<ColorProperty>();
+    result.setColor(colorProperty.getColor());
+    result.setName(materialItem.itemName());
 
     return result;
 }

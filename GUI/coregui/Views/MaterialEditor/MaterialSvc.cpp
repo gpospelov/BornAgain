@@ -40,15 +40,3 @@ MaterialSvc *MaterialSvc::instance()
     return m_instance;
 }
 
-MaterialItem *MaterialSvc::getMaterial(const MaterialProperty &property)
-{
-    Q_ASSERT(m_instance);
-    return m_instance->this_getMaterial(property);
-}
-
-
-MaterialItem *MaterialSvc::this_getMaterial(const MaterialProperty &property)
-{
-    return AppSvc::materialModel()->getMaterial(property);
-}
-

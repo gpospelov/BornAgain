@@ -35,11 +35,7 @@ public:
 
     static MaterialSvc *instance();
 
-    static MaterialItem *getMaterial(const MaterialProperty &property);
-
 private:
-    MaterialItem *this_getMaterial(const MaterialProperty &property);
-
     static MaterialSvc *m_instance;
 };
 

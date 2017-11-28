@@ -105,12 +105,6 @@ inline void TestMaterialModel::test_materialPropertyFromMaterial()
     QCOMPARE(property.getName(), QString("Something"));
     QCOMPARE(property.getColor(), mat->getColor());
     QCOMPARE(property.getIdentifier(), mat->getIdentifier());
-
-    // FIXME remove checks below after MaterialSvc gone
-
-    // setting new name of material
-    mat->setItemName("newname");
-    QCOMPARE(property.getName(), QString("newname"));
 }
 
 //! Default MaterialProperty construction.

@@ -15,11 +15,13 @@
 // ************************************************************************** //
 
 #include "DomainSimulationBuilder.h"
+#include "BackgroundItem.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
+#include "IBackground.h"
 #include "InstrumentItem.h"
 #include "MultiLayer.h"
 #include "MultiLayerItem.h"
@@ -41,8 +43,12 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sa
     GISASSimulation *result = new GISASSimulation;
     auto P_multilayer = builder.buildMultiLayer(*sampleItem);
     auto P_instrument = builder.buildInstrument(*instrumentItem);
+    auto P_background = instrumentItem->backgroundItem()->createBackground();
     result->setSample(*P_multilayer);
     result->setInstrument(*P_instrument);
+    if (P_background) {
+        result->setBackGround(*P_background);
+    }
 
     TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->beamItem(),
                                                              result);

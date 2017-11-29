@@ -48,5 +48,7 @@ void BackgroundItem::setBackgroundValue(double value)
 
 std::unique_ptr<IBackground> BackgroundItem::createBackground() const
 {
-    return std::make_unique<ConstantBackground>(getBackgroundValue());
+    if (getBackgroundValue()>0.0)
+        return std::make_unique<ConstantBackground>(getBackgroundValue());
+    return {};
 }

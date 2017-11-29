@@ -39,6 +39,9 @@ void MaterialPropertyController::setModels(MaterialModel* materialModel, SampleM
 
     connect(m_materialModel, &MaterialModel::rowsAboutToBeRemoved, this,
             &MaterialPropertyController::onMaterialRowsAboutToBeRemoved);
+
+    connect(m_materialModel, &MaterialModel::createdFromCopy, this,
+            &MaterialPropertyController::onMaterialModelCopy);
 }
 
 //! On MaterialItem change: updates corresponding MaterialProperty in sample items.
@@ -87,6 +90,26 @@ void MaterialPropertyController::onMaterialRowsAboutToBeRemoved(const QModelInde
 
         MaterialProperty property = sampleItem->getItemValue(tag).value<MaterialProperty>();
         if (identifiersToDelete.contains(property.getIdentifier())) {
+            MaterialProperty undefined;
+            sampleItem->setItemValue(tag, undefined.getVariant());
+        }
+    }
+}
+
+//! Special case when original MaterialModel was fully rebuild from MaterialEditor.
+//! Full update of MaterialProperties.
+
+void MaterialPropertyController::onMaterialModelCopy()
+{
+    for (auto sampleItem : relatedSampleItems()) {
+        QString tag = MaterialItemUtils::materialTag(*sampleItem);
+        Q_ASSERT(!tag.isEmpty());
+
+        MaterialProperty property = sampleItem->getItemValue(tag).value<MaterialProperty>();
+        if (MaterialItem* material = m_materialModel->materialFromIdentifier(property.getIdentifier())) {
+            MaterialProperty new_property = MaterialItemUtils::materialProperty(*material);
+            sampleItem->setItemValue(tag, new_property.getVariant());
+        } else {
             MaterialProperty undefined;
             sampleItem->setItemValue(tag, undefined.getVariant());
         }

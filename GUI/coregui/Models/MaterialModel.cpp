@@ -120,3 +120,13 @@ MaterialItem* MaterialModel::materialFromIdentifier(const QString& identifier)
 
     return nullptr;
 }
+
+QVector<MaterialItem*> MaterialModel::materialItems()
+{
+    QVector<MaterialItem*> result;
+    for(auto item : topItems()) {
+        if (auto materialItem = dynamic_cast<MaterialItem*>(item))
+            result.push_back(materialItem);
+    }
+    return result;
+}

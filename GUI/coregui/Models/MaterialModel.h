@@ -43,6 +43,10 @@ public:
     MaterialItem* materialFromName(const QString& material_name);
     MaterialItem* materialFromIdentifier(const QString& identifier);
 
+    QVector<MaterialItem*> materialItems();
+signals:
+    void createdFromCopy();
+
 };
 
 #endif // MATERIALMODEL_H

@@ -16,6 +16,7 @@
 
 #include "TransformFromDomain.h"
 #include "AxesItems.h"
+#include "BackgroundItem.h"
 #include "Beam.h"
 #include "BeamAngleItems.h"
 #include "BeamItem.h"
@@ -69,6 +70,7 @@
 using namespace INodeUtils;
 using SessionItemUtils::SetVectorItem;
 
+namespace {
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);
 void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_name);
 void SetDecayFunction1D(SessionItem* item, const IFTDecayFunction1D* pdf, QString group_name);
@@ -78,6 +80,7 @@ void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice);
 
 void setDistribution(SessionItem* item, ParameterDistribution par_distr,
                      QString group_name, double factor = 1.0);
+}
 
 void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const InterferenceFunctionRadialParaCrystal* sample)
@@ -244,7 +247,7 @@ void TransformFromDomain::setItemFromSample(BeamItem* beam_item, const GISASSimu
 }
 
 void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrument_item,
-                                            const GISASSimulation& simulation)
+                                                          const GISASSimulation& simulation)
 {
     const IDetector* p_detector = simulation.getInstrument().getDetector();
     DetectorItem* detector_item;
@@ -523,6 +526,18 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribut
     setDistribution(beam_distribution_item, parameter_distribution, group_name, unit_factor);
 }
 
+void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
+                                        const GISASSimulation& simulation)
+{
+    auto p_bg = simulation.background();
+    const ConstantBackground* p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg);
+    if (p_constant_bg) {
+        double value = p_constant_bg->backgroundValue();
+        instrument_item->backgroundItem()->setBackgroundValue(value);
+    }
+}
+
+namespace {
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_name)
 {
     if (const FTDistribution1DCauchy* pdf = dynamic_cast<const FTDistribution1DCauchy*>(ipdf)) {
@@ -765,3 +780,4 @@ void setDistribution(SessionItem* part_distr_item, ParameterDistribution par_dis
         distItem->init_limits_group(par_distr.getLimits(), factor);
 
 }
+}  // unnamed namespace

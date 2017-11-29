@@ -75,7 +75,7 @@ BA_CORE_API_ void setItemFromSample(BeamItem* beam_item,
                                     const GISASSimulation& simulation);
 
 BA_CORE_API_ void setInstrumentDetectorFromSample(InstrumentItem* detector_item,
-                                    const GISASSimulation& simulation);
+                                                  const GISASSimulation& simulation);
 
 BA_CORE_API_ void setItemFromSample(SphericalDetectorItem* detector_item,
                                     const SphericalDetector &detector);
@@ -89,15 +89,11 @@ BA_CORE_API_ void setDetectorMasks(DetectorItem* detector_item,
 BA_CORE_API_ void setDetectorMasks(MaskContainerItem* container_item,
                                    const IDetector& detector, double scale);
 
+BA_CORE_API_ void setItemFromSample(BeamDistributionItem* beam_distribution_item,
+                                    const ParameterDistribution& parameter_distribution);
+
 BA_CORE_API_ void setBackground(InstrumentItem* instrument_item,
                                 const GISASSimulation& simulation);
-
-BA_CORE_API_ void setItemFromSample(BeamDistributionItem* beam_distribution_item,
-                                    const ParameterDistribution& parameter_distribution);
-
-BA_CORE_API_ void setItemFromSample(BeamDistributionItem* beam_distribution_item,
-                                    const ParameterDistribution& parameter_distribution);
-
 }
 
 #endif // TRANSFORMFROMDOMAIN_H

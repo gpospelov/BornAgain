@@ -56,11 +56,6 @@ MaterialProperty MaterialItemUtils::defaultMaterialProperty()
 }
 
 
-ColorProperty MaterialItemUtils::suggestMaterialColorProperty(const QString &name)
-{
-    return ColorProperty(MaterialItemUtils::suggestMaterialColor(name));
-}
-
 std::unique_ptr<Material>
 MaterialItemUtils::createDomainMaterial(const MaterialProperty &material_property)
 {    

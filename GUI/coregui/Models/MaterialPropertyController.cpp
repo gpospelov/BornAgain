@@ -106,7 +106,8 @@ void MaterialPropertyController::onMaterialModelCopy()
         Q_ASSERT(!tag.isEmpty());
 
         MaterialProperty property = sampleItem->getItemValue(tag).value<MaterialProperty>();
-        if (MaterialItem* material = m_materialModel->materialFromIdentifier(property.getIdentifier())) {
+        if (MaterialItem* material
+            = m_materialModel->materialFromIdentifier(property.getIdentifier())) {
             MaterialProperty new_property = MaterialItemUtils::materialProperty(*material);
             sampleItem->setItemValue(tag, new_property.getVariant());
         } else {

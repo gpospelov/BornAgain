@@ -142,8 +142,6 @@ void TestComponentView::init_source()
     Q_ASSERT(materialDataItem);
     materialDataItem->setReal(1e-3);
     materialDataItem->setImag(1e-5);
-    materialItem->setItemValue(MaterialItem::P_COLOR,
-                               MaterialItemUtils::suggestMaterialColorProperty("air").getVariant());
 
     // adding intensity data item
     m_sourceModel->insertNewItem(Constants::IntensityDataType);

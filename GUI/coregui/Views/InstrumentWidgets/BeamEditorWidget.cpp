@@ -24,7 +24,7 @@
 
 namespace
 {
-const QString wavenlength_title("Wavelength [nm]");
+const QString wavelength_title("Wavelength [nm]");
 const QString inclination_title("Inclination angle [deg]");
 const QString azimuthal_title("Azimuthal angle [deg]");
 const QString polarization_title("Polarization (Bloch vector)");
@@ -33,7 +33,7 @@ const QString polarization_title("Polarization (Bloch vector)");
 BeamEditorWidget::BeamEditorWidget(QWidget* parent)
     : QWidget(parent)
     , m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget)),
-      m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavenlength_title)),
+      m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title)),
       m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title)),
       m_azimuthalEditor(new ComponentEditor(ComponentEditor::InfoWidget, azimuthal_title)),
       m_polarizationEditor(new ComponentEditor(ComponentEditor::GroupWidget, polarization_title)),
@@ -60,12 +60,12 @@ BeamEditorWidget::BeamEditorWidget(QWidget* parent)
     mainLayout->addStretch();
     setLayout(mainLayout);
 
-    connect(m_wavelengthEditor, &ComponentEditor::dialogRequest, this,
-            &BeamEditorWidget::onDialogRequest);
-    connect(m_inclinationEditor, &ComponentEditor::dialogRequest, this,
-            &BeamEditorWidget::onDialogRequest);
-    connect(m_azimuthalEditor, &ComponentEditor::dialogRequest, this,
-            &BeamEditorWidget::onDialogRequest);
+    connect(m_wavelengthEditor, &ComponentEditor::dialogRequest,
+            this, &BeamEditorWidget::onDialogRequest);
+    connect(m_inclinationEditor, &ComponentEditor::dialogRequest,
+            this, &BeamEditorWidget::onDialogRequest);
+    connect(m_azimuthalEditor, &ComponentEditor::dialogRequest,
+            this, &BeamEditorWidget::onDialogRequest);
 }
 
 void BeamEditorWidget::setBeamItem(BeamItem* beamItem)

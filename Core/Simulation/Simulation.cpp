@@ -45,7 +45,8 @@ Simulation::Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builde
 }
 
 Simulation::Simulation(const Simulation& other)
-    : m_sample_provider(other.m_sample_provider)
+    : ICloneable()
+    , m_sample_provider(other.m_sample_provider)
     , m_options(other.m_options)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)

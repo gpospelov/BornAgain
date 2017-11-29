@@ -27,9 +27,9 @@
 #include "MaterialFactoryFuncs.h"
 
 static_assert(std::is_copy_constructible<DWBAComputation>::value == false,
-	"DWBAComputation should not be copy constructable");
+    "DWBAComputation should not be copy constructable");
 static_assert(std::is_copy_assignable<DWBAComputation>::value == false,
-	"DWBAComputation should not be copy assignable");
+    "DWBAComputation should not be copy assignable");
 
 DWBAComputation::DWBAComputation(
     const MultiLayer& multilayer,

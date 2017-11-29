@@ -50,6 +50,7 @@ GISASSimulation* RectDetectorPerpToReflectedBeamDpos();
 GISASSimulation* MiniGISASMonteCarlo();
 GISASSimulation* SphericalDetWithRoi();
 GISASSimulation* RectDetWithRoi();
+GISASSimulation* ConstantBackgroundGISAS();
 
 // Specular simulation tests:
 SpecularSimulation* BasicSpecular();

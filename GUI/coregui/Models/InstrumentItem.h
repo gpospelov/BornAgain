@@ -44,6 +44,8 @@ public:
     void clearMasks();
 
     void importMasks(MaskContainerItem* maskContainer);
+
+    QStringList translateList(const QStringList& list) const override;
 };
 
 #endif // INSTRUMENTITEM_H

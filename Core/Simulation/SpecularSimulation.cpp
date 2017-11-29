@@ -21,6 +21,7 @@
 #include "Histogram1D.h"
 #include "SimulationElement.h"
 #include "SpecularComputation.h"
+#include "SpecularDetector1D.h"
 
 SpecularSimulation::SpecularSimulation() : Simulation()
 {
@@ -41,11 +42,10 @@ SpecularSimulation::SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder>
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
     : Simulation(other)
 {
-    if (other.m_alpha_i_axis)
-	m_alpha_i_axis.reset(other.m_alpha_i_axis->clone());
-    m_RT_coefficients.copyFrom(other.m_RT_coefficients);
     initialize();
 }
+
+SpecularSimulation::~SpecularSimulation() = default;
 
 SpecularSimulation* SpecularSimulation::clone() const
 {
@@ -54,38 +54,18 @@ SpecularSimulation* SpecularSimulation::clone() const
 
 void SpecularSimulation::prepareSimulation()
 {
-    if (!m_alpha_i_axis || m_alpha_i_axis->size() < 1)
-        throw std::runtime_error("Error in SpecularSimulation::prepareSimulation(): "
-                                 "Incoming alpha range not configured.");
-
     Simulation::prepareSimulation();
-    m_RT_coefficients.clear();
-    m_RT_coefficients.addAxis(*m_alpha_i_axis);
-}
-
-void SpecularSimulation::runSimulation()
-{
-    prepareSimulation();
-
-    const MultiLayer* multilayer = m_sample_provider.sample();
-    multilayer->requiresMatrixRTCoefficients() ? collectRTCoefficientsMatrix(multilayer)
-                                               : collectRTCoefficientsScalar(multilayer);
 }
 
 size_t SpecularSimulation::numberOfSimulationElements() const
 {
-    if (!m_alpha_i_axis)
-        std::runtime_error("Error in SpecularSimulation::numberOfSimulationElements:"
-                           "angle range was not initialized.");
-    return m_alpha_i_axis->size();
+    return getInstrument().getDetector()->numberOfSimulationElements();
 }
 
 void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i)
 {
-    if (alpha_axis.size() < 1)
-        throw std::runtime_error("Error in SpecularSimulation::setBeamParameters(): "
-                                 "incoming angle range size < 1.");
-    m_alpha_i_axis.reset(alpha_axis.clone());
+    SpecularDetector1D detector(alpha_axis);
+    m_instrument.setDetector(detector);
     m_instrument.setBeamParameters(lambda, alpha_axis[0], phi_i);
 }
 
@@ -98,18 +78,31 @@ void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alph
 
 const IAxis* SpecularSimulation::getAlphaAxis() const
 {
-    return m_alpha_i_axis.get();
+    return &m_instrument.getDetector()->getAxis(0);
+}
+
+std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
+{
+    validityCheck(i_layer);
+    std::vector<complex_t> result;
+    const size_t data_size = m_sim_elements.size();
+    result.resize(data_size);
+    for (size_t i = 0; i < data_size; ++i) {
+        const SpecularData* specular_data = m_sim_elements[i].specularData();
+        result[i] = ((*specular_data)[i_layer].*fn_ptr)();
+    }
+    return result;
 }
 
 std::unique_ptr<OutputData<double>>
-SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
+SpecularSimulation::getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const
 {
-    checkCoefficients(i_layer);
     std::unique_ptr<OutputData<double>> output_ptr = std::make_unique<OutputData<double>>();
-    output_ptr->copyShapeFrom(m_RT_coefficients);
+    output_ptr->addAxis(*getAlphaAxis());
+    const std::vector<complex_t> complex_data = getData(i_layer, fn_ptr);
     OutputData<double>& output = *output_ptr.get();
-    for (size_t i = 0; i < m_RT_coefficients.getAllocatedSize(); ++i)
-        output[i] = std::norm((m_RT_coefficients[i][i_layer].get()->*fn_ptr)());
+    for (size_t i = 0; i < complex_data.size(); ++i)
+        output[i] = std::norm(complex_data[i]);
     return output_ptr;
 }
 
@@ -119,100 +112,38 @@ std::unique_ptr<IComputation> SpecularSimulation::generateSingleThreadedComputat
     return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, start, end);
 }
 
-OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits) const
+OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_type) const
 {
-    return getData(0, &ILayerRTCoefficients::getScalarR).release();
+    const size_t i_layer = 0; // detector intensity is proportional to reflectivity from the zeroth layer
+    validityCheck(i_layer);
+    return m_instrument.createDetectorIntensity(m_sim_elements, units_type);
 }
 
 Histogram1D* SpecularSimulation::reflectivity() const
 {
-    return new Histogram1D(*getData(0, &ILayerRTCoefficients::getScalarR).get());
+    return new Histogram1D(*getDataByAbsValue(0, &ILayerRTCoefficients::getScalarR));
 }
 
 Histogram1D* SpecularSimulation::transmissivity() const
 {
-    const size_t i_layer = m_RT_coefficients.isInitialized() && m_RT_coefficients[0].size() != 0
-                               ? static_cast<size_t>(m_RT_coefficients[0].size() - 1)
-                               : 0;
-    return new Histogram1D(*getData(i_layer, &ILayerRTCoefficients::getScalarT).get());
+    const MultiLayer* current_sample = sample();
+    const size_t i_layer = current_sample ? static_cast<size_t>(current_sample->numberOfLayers() - 1) : 0;
+    return new Histogram1D(*getDataByAbsValue(i_layer, &ILayerRTCoefficients::getScalarT));
 }
 
 std::vector<complex_t> SpecularSimulation::getScalarR(size_t i_layer) const
 {
-    checkCoefficients(i_layer);
-    std::vector<complex_t> result;
-    result.resize(m_RT_coefficients.getAllocatedSize());
-    for (size_t i = 0; i < m_RT_coefficients.getAllocatedSize(); ++i) {
-        result[i] = m_RT_coefficients[i][i_layer]->getScalarR();
-    }
-    return result;
+    return getData(i_layer, &ILayerRTCoefficients::getScalarR);
 }
 
 std::vector<complex_t> SpecularSimulation::getScalarT(size_t i_layer) const
 {
-    checkCoefficients(i_layer);
-    std::vector<complex_t> result;
-    result.resize(m_RT_coefficients.getAllocatedSize());
-    for (size_t i = 0; i < m_RT_coefficients.getAllocatedSize(); ++i) {
-        result[i] = m_RT_coefficients[i][i_layer]->getScalarT();
-    }
-    return result;
+    return getData(i_layer, &ILayerRTCoefficients::getScalarT);
 }
 
 std::vector<complex_t> SpecularSimulation::getScalarKz(size_t i_layer) const
 {
-    checkCoefficients(i_layer);
-    std::vector<complex_t> result;
-    result.resize(m_RT_coefficients.getAllocatedSize());
-    for (size_t i = 0; i < m_RT_coefficients.getAllocatedSize(); ++i) {
-        result[i] = m_RT_coefficients[i][i_layer]->getScalarKz();
-    }
-    return result;
-}
-
-void SpecularSimulation::collectRTCoefficientsScalar(const MultiLayer *multilayer)
-{
-    OutputData<MultiLayerRTCoefficients_t>::iterator it = m_RT_coefficients.begin();
-    while (it != m_RT_coefficients.end()) {
-        double alpha_i = m_RT_coefficients.getAxisValue(it.getIndex(), 0);
-        kvector_t kvec = vecOfLambdaAlphaPhi(m_instrument.getBeam().getWavelength(), -alpha_i, 0.0);
-
-        std::vector<ScalarRTCoefficients> coeffs;
-        SpecularMatrix::execute(*multilayer, kvec, coeffs);
-
-        MultiLayerRTCoefficients_t ml_coeffs;
-        ml_coeffs.resize(coeffs.size());
-        for (size_t i_layer = 0; i_layer < coeffs.size(); ++i_layer) {
-            ml_coeffs[i_layer] = LayerRTCoefficients_t(new ScalarRTCoefficients(coeffs[i_layer]));
-        }
-
-        *it = ml_coeffs;
-        ++it;
-
-    } // alpha_i
-}
-
-void SpecularSimulation::collectRTCoefficientsMatrix(const MultiLayer* /*multilayer*/)
-{
-    throw std::runtime_error(
-        "SpecularSimulation::collectRTCoefficientsMatrix() -> Error. Not implemented.");
-}
-
-void SpecularSimulation::checkCoefficients(size_t i_layer) const
-{
-    if (!m_RT_coefficients.isInitialized() || m_RT_coefficients[0].size() == 0)
-        throw std::runtime_error(
-            "SpecularSimulation::checkCoefficients() -> Error. "
-            "No coefficients found, check that (1) you have set beam parameters "
-            "(2) you have run your simulation.");
-
-    if (i_layer >= m_RT_coefficients[0].size()) {
-        std::ostringstream message;
-        message << "SpecularSimulation::checkCoefficients() -> Error. Requested layer index "
-                << i_layer << " is large than or equal to the total number of layers "
-                << m_RT_coefficients[0].size() << std::endl;
-        throw std::runtime_error(message.str());
-    }
+    return getData(i_layer, &ILayerRTCoefficients::getScalarKz);
 }
 
 void SpecularSimulation::normalize(std::vector<SimulationElement>::iterator begin_it,
@@ -223,6 +154,31 @@ void SpecularSimulation::normalize(std::vector<SimulationElement>::iterator begi
         return; // no normalization when beam intensity is zero
     for(auto it=begin_it; it!=end_it; ++it) {
         it->setIntensity(it->getIntensity()*beam_intensity);
+    }
+}
+
+void SpecularSimulation::validityCheck(size_t i_layer) const
+{
+    const MultiLayer* current_sample = sample();
+    if (!current_sample)
+        throw std::runtime_error(
+            "Error in SpecularSimulation::validityCheck: no sample found in the simulation.");
+    if (i_layer >= current_sample->numberOfLayers())
+        throw std::runtime_error("Error in SpecularSimulation::validityCheck: passed layer number "
+                                 "exceeds the number of layers in the sample.");
+
+    const size_t data_size = m_sim_elements.size();
+    if (data_size != getAlphaAxis()->size())
+        throw std::runtime_error("Error in SpecularSimulation::validityCheck: length of simulation "
+                                 "element vector is not equal to the length of detector axis");
+
+    for (size_t i = 0; i < data_size; ++i) {
+        const SpecularData* specular_data = m_sim_elements[i].specularData();
+        if (!specular_data || !specular_data->isInited()) {
+            std::ostringstream message;
+            message << "Error in SpecularSimulation::validityCheck: simulation element " << i << "does not contain specular info";
+            throw std::runtime_error(message.str());
+        }
     }
 }
 

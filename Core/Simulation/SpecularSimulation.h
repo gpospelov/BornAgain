@@ -36,15 +36,12 @@ public:
     SpecularSimulation();
     SpecularSimulation(const MultiLayer& sample);
     SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    virtual ~SpecularSimulation() override = default;
+    virtual ~SpecularSimulation();
 
     virtual SpecularSimulation* clone() const override;
 
     //! Put into a clean state for running a simulation.
     virtual void prepareSimulation() override;
-
-    //! Run a simulation, possibly averaged over parameter distributions.
-    virtual void runSimulation() override;
 
     virtual void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
 
@@ -81,13 +78,13 @@ public:
     std::vector<complex_t> getScalarKz(size_t i_layer) const;
 
 private:
-    typedef std::shared_ptr<const ILayerRTCoefficients> LayerRTCoefficients_t;
-    typedef std::vector<LayerRTCoefficients_t> MultiLayerRTCoefficients_t;
     typedef complex_t (ILayerRTCoefficients::*DataGetter)() const;
 
     SpecularSimulation(const SpecularSimulation& other);
 
-    std::unique_ptr<OutputData<double>> getData(size_t i_layer, DataGetter fn_ptr) const;
+    std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
+
+    std::unique_ptr<OutputData<double>> getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const;
 
     // unused methods
     virtual void transferResultsToIntensityMap() override {}
@@ -98,24 +95,15 @@ private:
     generateSingleThreadedComputation(std::vector<SimulationElement>::iterator start,
                                       std::vector<SimulationElement>::iterator end) override;
 
-    //! calculates RT coefficients for multilayer without magnetic materials
-    void collectRTCoefficientsScalar(const MultiLayer* multilayer);
-
-    //! calculates RT coefficients for multilayer with magnetic materials
-    void collectRTCoefficientsMatrix(const MultiLayer* multilayer);
-
-    //! check if simulation was run already and has valid coefficients
-    void checkCoefficients(size_t i_layer) const;
-
     //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
     virtual void normalize(std::vector<SimulationElement>::iterator begin_it,
                            std::vector<SimulationElement>::iterator end_it) const override;
 
+    //! Checks if simulation data is ready for retrieval
+    void validityCheck(size_t i_layer) const;
+
     //! Initializes simulation
     void initialize();
-
-    OutputData<MultiLayerRTCoefficients_t> m_RT_coefficients;
-    std::unique_ptr<IAxis> m_alpha_i_axis;
 };
 
 #endif // SPECULARSIMULATION_H

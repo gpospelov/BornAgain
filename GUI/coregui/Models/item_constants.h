@@ -44,6 +44,7 @@ const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
 const ModelType InstrumentType = "Instrument";
 //const ModelType DetectorContainerType = "DetectorContainer";
 const ModelType BeamType = "Beam";
+const ModelType BackgroundType = "Background";
 
 const ModelType FormFactorType = "FormFactor";
 const ModelType AnisoPyramidType = "AnisoPyramid";

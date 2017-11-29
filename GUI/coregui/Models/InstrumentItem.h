@@ -19,6 +19,7 @@
 
 #include "SessionItem.h"
 
+class BackgroundItem;
 class BeamItem;
 class DetectorItem;
 class MaskContainerItem;
@@ -26,15 +27,17 @@ class GroupItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
-public:    
+public:
     static const QString P_IDENTIFIER;
     static const QString P_BEAM;
     static const QString P_DETECTOR;
+    static const QString P_BACKGROUND;
     InstrumentItem();
 
     BeamItem *beamItem() const;
     DetectorItem *detectorItem() const;
     GroupItem* detectorGroup();
+    BackgroundItem* backgroundItem() const;
 
     void setDetectorGroup(const QString& modelType);
 

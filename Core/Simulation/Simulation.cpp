@@ -213,13 +213,6 @@ void Simulation::updateSample()
     m_sample_provider.updateSample();
 }
 
-std::unique_ptr<IComputation> Simulation::generateSingleThreadedComputation(
-        std::vector<SimulationElement>::iterator,
-        std::vector<SimulationElement>::iterator)
-{
-    return {};
-}
-
 //! Runs a single simulation with fixed parameter values.
 //! If desired, the simulation is run in several threads.
 void Simulation::runSingleSimulation()

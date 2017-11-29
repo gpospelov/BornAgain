@@ -19,9 +19,9 @@
 #include "Simulation.h"
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
-#include <memory>
 
 class IAxis;
+class IComputation;
 class ISample;
 class IMultiLayerBuilder;
 class MultiLayer;
@@ -93,6 +93,11 @@ private:
     virtual void initSimulationElementVector() override {}
     virtual void transferResultsToIntensityMap() override {}
     virtual void updateIntensityMap() override {}
+
+    //! Generate a single threaded computation for a given range of SimulationElement's
+    virtual std::unique_ptr<IComputation>
+    generateSingleThreadedComputation(std::vector<SimulationElement>::iterator start,
+                                      std::vector<SimulationElement>::iterator end) override;
 
     //! calculates RT coefficients for multilayer without magnetic materials
     void collectRTCoefficientsScalar(const MultiLayer* multilayer);

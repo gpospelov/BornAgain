@@ -19,7 +19,7 @@
 #include "SpecularMatrix.h"
 #include "MaterialUtils.h"
 #include "Histogram1D.h"
-#include <memory>
+#include "SpecularComputation.h"
 
 SpecularSimulation::SpecularSimulation() : Simulation()
 {
@@ -110,6 +110,12 @@ SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
     for (size_t i = 0; i < m_RT_coefficients.getAllocatedSize(); ++i)
         output[i] = std::norm((m_RT_coefficients[i][i_layer].get()->*fn_ptr)());
     return output_ptr;
+}
+
+std::unique_ptr<IComputation> SpecularSimulation::generateSingleThreadedComputation(
+    std::vector<SimulationElement>::iterator start, std::vector<SimulationElement>::iterator end)
+{
+    return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, start, end);
 }
 
 OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits) const

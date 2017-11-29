@@ -110,7 +110,7 @@ protected:
     //! Generate a single threaded computation for a given range of SimulationElement's
     virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(
             std::vector<SimulationElement>::iterator start,
-            std::vector<SimulationElement>::iterator end);
+            std::vector<SimulationElement>::iterator end) = 0;
 
     void runSingleSimulation();
 

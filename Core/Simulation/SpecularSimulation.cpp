@@ -19,6 +19,7 @@
 #include "SpecularMatrix.h"
 #include "MaterialUtils.h"
 #include "Histogram1D.h"
+#include "SimulationElement.h"
 #include "SpecularComputation.h"
 
 SpecularSimulation::SpecularSimulation() : Simulation()
@@ -211,6 +212,17 @@ void SpecularSimulation::checkCoefficients(size_t i_layer) const
                 << i_layer << " is large than or equal to the total number of layers "
                 << m_RT_coefficients[0].size() << std::endl;
         throw std::runtime_error(message.str());
+    }
+}
+
+void SpecularSimulation::normalize(std::vector<SimulationElement>::iterator begin_it,
+                           std::vector<SimulationElement>::iterator end_it) const
+{
+    double beam_intensity = getBeamIntensity();
+    if (beam_intensity==0.0)
+        return; // no normalization when beam intensity is zero
+    for(auto it=begin_it; it!=end_it; ++it) {
+        it->setIntensity(it->getIntensity()*beam_intensity);
     }
 }
 

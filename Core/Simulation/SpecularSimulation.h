@@ -107,6 +107,10 @@ private:
     //! check if simulation was run already and has valid coefficients
     void checkCoefficients(size_t i_layer) const;
 
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
+    virtual void normalize(std::vector<SimulationElement>::iterator begin_it,
+                           std::vector<SimulationElement>::iterator end_it) const override;
+
     //! Initializes simulation
     void initialize();
 

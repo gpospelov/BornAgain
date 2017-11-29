@@ -117,13 +117,11 @@ protected:
 
     virtual void updateIntensityMap() =0;
 
-#ifndef SWIG
-    void normalize(std::vector<SimulationElement>::iterator begin_it,
+    virtual void normalize(std::vector<SimulationElement>::iterator begin_it,
                    std::vector<SimulationElement>::iterator end_it) const;
 
     void addBackGroundIntensity(std::vector<SimulationElement>::iterator begin_it,
                                 std::vector<SimulationElement>::iterator end_it) const;
-#endif
 
     //! Returns the start iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);

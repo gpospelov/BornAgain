@@ -17,44 +17,92 @@
 #include "AppSvc.h"
 #include "GUIHelpers.h"
 
-ProjectManager *AppSvc::projectManager()
+ProjectManager* AppSvc::projectManager()
 {
     return instance().this_projectManager();
 }
 
-void AppSvc::subscribe(ProjectManager *projectManager)
+void AppSvc::subscribe(ProjectManager* projectManager)
 {
     return instance().this_subscribe(projectManager);
 }
 
-void AppSvc::unsubscribe(ProjectManager *projectManager)
+void AppSvc::unsubscribe(ProjectManager* projectManager)
 {
     instance().this_unsubscribe(projectManager);
 }
 
-ProjectManager *AppSvc::this_projectManager()
+MaterialModel* AppSvc::materialModel()
 {
-    if(!m_projectManager) {
+    return instance().this_materialModel();
+}
+
+void AppSvc::subscribe(MaterialModel* materialModel)
+{
+    return instance().this_subscribe(materialModel);
+}
+
+void AppSvc::unsubscribe(MaterialModel* materialModel)
+{
+    instance().this_unsubscribe(materialModel);
+}
+
+AppSvc::AppSvc()
+    : m_projectManager(nullptr)
+    , m_materialModel(nullptr)
+{
+
+}
+
+ProjectManager* AppSvc::this_projectManager()
+{
+    if (!m_projectManager)
         throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to access "
                                 "non existing ProjectManager.");
-    }
+
     return m_projectManager;
 }
 
-void AppSvc::this_subscribe(ProjectManager *projectManager)
+MaterialModel* AppSvc::this_materialModel()
 {
-    if(m_projectManager != nullptr) {
+    if (!m_materialModel)
+        throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to access "
+                                "non existing MaterialModel.");
+
+    return m_materialModel;
+}
+
+void AppSvc::this_subscribe(ProjectManager* projectManager)
+{
+    if (m_projectManager != nullptr)
         throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to subscribe "
                                 "ProjectManager twice.");
-    }
+
     m_projectManager = projectManager;
 }
 
-void AppSvc::this_unsubscribe(ProjectManager *projectManager)
+void AppSvc::this_unsubscribe(ProjectManager* projectManager)
 {
-    if(m_projectManager != projectManager) {
+    if (m_projectManager != projectManager)
         throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to unsubscribe "
                                 "ProjectManager before it was subscribed.");
-    }
+
     m_projectManager = nullptr;
+}
+
+void AppSvc::this_subscribe(MaterialModel* materialModel)
+{
+    // MaterialModel created first will be subscribed
+    if (m_materialModel)
+        return;
+
+    m_materialModel = materialModel;
+}
+
+void AppSvc::this_unsubscribe(MaterialModel* materialModel)
+{
+    if (m_materialModel != materialModel)
+        return;
+
+    m_materialModel = nullptr;
 }

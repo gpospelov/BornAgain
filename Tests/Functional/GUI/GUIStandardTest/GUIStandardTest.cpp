@@ -21,7 +21,6 @@
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
 #include "MaterialModel.h"
-#include "MaterialSvc.h"
 #include "SampleModel.h"
 #include "TestUtils.h"
 
@@ -34,7 +33,6 @@ std::unique_ptr<GISASSimulation> createDomainSimulation(const GISASSimulation& o
     const std::unique_ptr<SampleModel> sampleModel(new SampleModel);
     const std::unique_ptr<InstrumentModel> instrumentModel(new InstrumentModel);
     const std::unique_ptr<MaterialModel> materialModel(new MaterialModel);
-    const std::unique_ptr<MaterialSvc> materialSvc(new MaterialSvc(materialModel.get()));
 
     // populating GUI models from domain
     GUIObjectBuilder guiBuilder;

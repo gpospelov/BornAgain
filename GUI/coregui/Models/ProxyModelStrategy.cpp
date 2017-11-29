@@ -58,7 +58,7 @@ const ProxyModelStrategy::map_t& ProxyModelStrategy::proxySourceParent()
 
 void ProxyModelStrategy::setRootIndex(const QModelIndex& sourceRootIndex)
 {
-    m_sourceRootIndex = sourceRootIndex;
+    m_sourceRootIndex = QPersistentModelIndex(sourceRootIndex);
 }
 
 //! Method to ask proxy to create an index using friendship of ProxyModelStrategy

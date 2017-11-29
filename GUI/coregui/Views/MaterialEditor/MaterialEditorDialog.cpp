@@ -19,59 +19,48 @@
 #include "MaterialModel.h"
 #include "MaterialItem.h"
 #include "mainwindow_constants.h"
+#include "MaterialProperty.h"
+#include "MaterialItemUtils.h"
 #include <QAction>
 #include <QPushButton>
 #include <QSettings>
 #include <QVBoxLayout>
 
-namespace {
+namespace
+{
 const QSize default_dialog_size(512, 400);
 }
 
-MaterialEditorDialog::MaterialEditorDialog(MaterialModel *materialModel, QWidget *parent)
+MaterialEditorDialog::MaterialEditorDialog(MaterialModel* materialModel, QWidget* parent)
     : QDialog(parent)
     , m_origMaterialModel(materialModel)
-    , m_materialEditor(0)
+    , m_materialEditor(nullptr)
 {
     setWindowTitle("Material Editor");
     setMinimumSize(128, 128);
-    resize(default_dialog_size);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     init_material_editor();
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0,0,0,0);
+    auto layout = new QVBoxLayout;
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_materialEditor);
+    layout->addLayout(createButtonLayout());
 
-    QPushButton *okButton = new QPushButton("OK");
-    connect(okButton, SIGNAL(clicked()), this, SLOT(onOKButton()));
-    QPushButton *cancelButton = new QPushButton("Cancel");
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(onCancelButton()));
-
-    QHBoxLayout *buttonsLayout = new QHBoxLayout;
-    buttonsLayout->setMargin(10);
-    buttonsLayout->setSpacing(5);
-
-    buttonsLayout->addStretch(1);
-    buttonsLayout->addWidget(okButton);
-    buttonsLayout->addWidget(cancelButton);
-
-    layout->addLayout(buttonsLayout);
     setLayout(layout);
 }
 
 //! replaces original material model with the model modified by MaterialEditor
 void MaterialEditorDialog::onOKButton()
 {
-    if(m_materialEditor->isModelWasModified()) {
+    if (m_materialEditor->modelWasChanged()) {
         m_origMaterialModel->clear();
         m_origMaterialModel->initFrom(m_tmpMaterialModel.get(), 0);
+        m_origMaterialModel->createdFromCopy();
     }
     writeSettings();
     accept();
 }
-
 
 void MaterialEditorDialog::onCancelButton()
 {
@@ -79,14 +68,30 @@ void MaterialEditorDialog::onCancelButton()
     reject();
 }
 
+QBoxLayout* MaterialEditorDialog::createButtonLayout()
+{
+    auto result = new QHBoxLayout;
+
+    auto okButton = new QPushButton("OK");
+    connect(okButton, &QPushButton::clicked, this, &MaterialEditorDialog::onOKButton);
+    auto cancelButton = new QPushButton("Cancel");
+    connect(cancelButton, &QPushButton::clicked, this, &MaterialEditorDialog::onCancelButton);
+
+    result->setMargin(10);
+    result->setSpacing(5);
+    result->addStretch(1);
+    result->addWidget(okButton);
+    result->addWidget(cancelButton);
+
+    return result;
+}
+
 void MaterialEditorDialog::init_material_editor()
 {
     Q_ASSERT(m_origMaterialModel);
     m_tmpMaterialModel.reset(m_origMaterialModel->createCopy());
     m_materialEditor = new MaterialEditor(m_tmpMaterialModel.get(), this);
-    //    m_materialEditor = new MaterialEditor(m_origMaterialModel, this);
     readSettings();
-
 }
 
 void MaterialEditorDialog::readSettings()
@@ -95,11 +100,10 @@ void MaterialEditorDialog::readSettings()
     if (settings.childGroups().contains(Constants::S_MATERIALEDITOR)) {
         settings.beginGroup(Constants::S_MATERIALEDITOR);
         resize(settings.value(Constants::S_WINDOWSIZE, default_dialog_size).toSize());
-        if(settings.contains(Constants::S_WINDOWPOSITION)) {
+        if (settings.contains(Constants::S_WINDOWPOSITION)) {
             move(settings.value(Constants::S_WINDOWPOSITION).toPoint());
         }
-    }
-    else {
+    } else {
         resize(default_dialog_size);
     }
 }
@@ -113,21 +117,18 @@ void MaterialEditorDialog::writeSettings()
     settings.endGroup();
 }
 
-MaterialProperty MaterialEditorDialog::getSelectedMaterialProperty()
+MaterialProperty MaterialEditorDialog::selectedMaterialProperty()
 {
-    if(MaterialItem *material = m_materialEditor->getSelectedMaterial()) {
-        return MaterialProperty(material->getIdentifier());
-    }
+    if (MaterialItem* material = m_materialEditor->selectedMaterial())
+        return MaterialItemUtils::materialProperty(*material);
 
     return MaterialProperty();
 }
 
 //!
-void MaterialEditorDialog::setInitialMaterialProperty(const MaterialProperty &matProperty)
+void MaterialEditorDialog::setMaterialProperty(const MaterialProperty& matProperty)
 {
     Q_ASSERT(m_materialEditor);
 
     m_materialEditor->setInitialMaterialProperty(matProperty);
-
 }
-

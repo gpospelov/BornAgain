@@ -29,8 +29,7 @@
 class BA_CORE_API_ MaterialProperty
 {
 public:
-    explicit MaterialProperty(const QString &identifier=QString())
-        : m_identifier(identifier){}
+    explicit MaterialProperty(const QString &identifier=QString());
 
     QString getIdentifier() const {
         return m_identifier;
@@ -44,13 +43,19 @@ public:
     }
 
     QString getName() const;
+    void setName(const QString& name);
+
     QColor getColor() const;
+    void setColor(const QColor& color);
+
     QPixmap getPixmap() const;
 
     bool isDefined() const;
 
 private:
     QString m_identifier;
+    QString m_name;
+    QColor m_color;
 };
 
 Q_DECLARE_METATYPE(MaterialProperty)

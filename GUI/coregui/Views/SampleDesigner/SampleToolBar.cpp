@@ -17,7 +17,7 @@
 #include "SampleToolBar.h"
 #include "DesignerView.h"
 #include "MaterialProperty.h"
-#include "MaterialSvc.h"
+#include "MaterialItemUtils.h"
 #include <QAction>
 #include <QButtonGroup>
 #include <QComboBox>
@@ -142,5 +142,5 @@ void SampleToolBar::onScaleComboChanged(const QString &scale_string)
 
 void SampleToolBar::onMaterialEditorCall()
 {
-    MaterialProperty mp = MaterialSvc::selectMaterialProperty();
+    MaterialProperty mp = MaterialItemUtils::selectMaterialProperty();
 }

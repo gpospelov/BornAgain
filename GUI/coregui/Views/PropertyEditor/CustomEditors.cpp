@@ -17,10 +17,10 @@
 #include "CustomEditors.h"
 #include "CustomEventFilters.h"
 #include "MaterialProperty.h"
-#include "MaterialSvc.h"
 #include "GroupProperty.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
+#include "MaterialItemUtils.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QToolButton>
@@ -87,7 +87,7 @@ void MaterialPropertyEditor::buttonClicked()
     // temporarily installing filter to prevent loss of focus caused by too insistent dialog
     installEventFilter(m_focusFilter);
     MaterialProperty materialProperty = m_data.value<MaterialProperty>();
-    MaterialProperty mat = MaterialSvc::selectMaterialProperty(materialProperty);
+    MaterialProperty mat = MaterialItemUtils::selectMaterialProperty(materialProperty);
     removeEventFilter(m_focusFilter);
 
     if(mat.isDefined() )

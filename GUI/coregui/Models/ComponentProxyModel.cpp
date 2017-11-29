@@ -19,7 +19,7 @@
 #include "ModelUtils.h"
 #include "ComponentProxyStrategy.h"
 #include <functional>
-#include <QDebug>
+#include <QSet>
 
 ComponentProxyModel::ComponentProxyModel(QObject* parent)
     : QAbstractProxyModel(parent)
@@ -36,14 +36,10 @@ void ComponentProxyModel::setSessionModel(SessionModel* model)
     if (sourceModel()) {
         disconnect(sourceModel(), &QAbstractItemModel::dataChanged,
                    this, &ComponentProxyModel::sourceDataChanged);
-        disconnect(sourceModel(), &QAbstractItemModel::layoutAboutToBeChanged,
-                   this, &ComponentProxyModel::sourceLayoutAboutToBeChanged);
-        disconnect(sourceModel(), &QAbstractItemModel::layoutChanged,
-                   this, &ComponentProxyModel::sourceLayoutChanged);
-        disconnect(sourceModel(), &QAbstractItemModel::rowsAboutToBeInserted,
-                   this, &ComponentProxyModel::sourceRowsAboutToBeInserted);
         disconnect(sourceModel(), &QAbstractItemModel::rowsInserted,
                    this, &ComponentProxyModel::sourceRowsInserted);
+        disconnect(sourceModel(), &QAbstractItemModel::rowsRemoved,
+                   this, &ComponentProxyModel::sourceRowsRemoved);
 
     }
 
@@ -52,14 +48,10 @@ void ComponentProxyModel::setSessionModel(SessionModel* model)
     if (sourceModel()) {
         connect(sourceModel(), &QAbstractItemModel::dataChanged,
                    this, &ComponentProxyModel::sourceDataChanged);
-        connect(sourceModel(), &QAbstractItemModel::layoutAboutToBeChanged,
-                   this, &ComponentProxyModel::sourceLayoutAboutToBeChanged);
-        connect(sourceModel(), &QAbstractItemModel::layoutChanged,
-                   this, &ComponentProxyModel::sourceLayoutChanged);
-        connect(sourceModel(), &QAbstractItemModel::rowsAboutToBeInserted,
-                   this, &ComponentProxyModel::sourceRowsAboutToBeInserted);
         connect(sourceModel(), &QAbstractItemModel::rowsInserted,
                    this, &ComponentProxyModel::sourceRowsInserted);
+        connect(sourceModel(), &QAbstractItemModel::rowsRemoved,
+                   this, &ComponentProxyModel::sourceRowsRemoved);
     }
 
     endResetModel();
@@ -167,39 +159,19 @@ void ComponentProxyModel::sourceDataChanged(const QModelIndex& topLeft,
     dataChanged(mapFromSource(topLeft), mapFromSource(bottomRight), roles);
 }
 
-void ComponentProxyModel::sourceLayoutAboutToBeChanged(
-    const QList<QPersistentModelIndex>& sourceParents, QAbstractItemModel::LayoutChangeHint hint)
-{
-    Q_UNUSED(sourceParents);
-    Q_UNUSED(hint);
-    qDebug() << "ComponentProxyModel::sourceLayoutAboutToBeChanged";
-}
-
-void ComponentProxyModel::sourceLayoutChanged(const QList<QPersistentModelIndex>& sourceParents,
-                                              QAbstractItemModel::LayoutChangeHint hint)
-{
-    Q_UNUSED(sourceParents);
-    Q_UNUSED(hint);
-    qDebug() << "ComponentProxyModel::sourceLayoutChanged";
-}
-
-void ComponentProxyModel::sourceRowsAboutToBeInserted(const QModelIndex& parent, int start, int end)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(start);
-    Q_UNUSED(end);
-
-    qDebug() << "ComponentProxyModel::sourceRowsAboutToBeInserted";
-//    buildModelMap();
-}
-
 void ComponentProxyModel::sourceRowsInserted(const QModelIndex& parent, int start, int end)
 {
     Q_UNUSED(parent);
     Q_UNUSED(start);
     Q_UNUSED(end);
+    buildModelMap();
+}
 
-    qDebug() << "ComponentProxyModel::sourceRowsInserted";
+void ComponentProxyModel::sourceRowsRemoved(const QModelIndex& parent, int start, int end)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(start);
+    Q_UNUSED(end);
     buildModelMap();
 }
 

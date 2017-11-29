@@ -12,7 +12,6 @@
 #include "DistributionItems.h"
 #include "MaterialEditor.h"
 #include "RealLimitsItems.h"
-#include "MaterialSvc.h"
 
 namespace {
     const QStringList expectedCylinderParams = {
@@ -199,7 +198,6 @@ inline void TestParticleDistributionItem::test_FromDomainWithLimits()
 inline void TestParticleDistributionItem::test_Clone()
 {
     std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
-    std::unique_ptr<MaterialSvc> P_materialEditor(new MaterialSvc(P_materialModel.get()));
 
     SampleModel model1;
     SessionItem *dist = model1.insertNewItem(Constants::ParticleDistributionType);

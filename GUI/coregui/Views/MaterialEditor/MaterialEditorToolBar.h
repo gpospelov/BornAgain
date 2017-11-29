@@ -26,17 +26,18 @@ class QItemSelectionModel;
 class QPoint;
 class QMenu;
 
-//! Main widget of MaterialEditor
+//! Toolbar for MaterialEditor.
+
 class BA_CORE_API_ MaterialEditorToolBar : public QToolBar
 {
     Q_OBJECT
 public:
-    MaterialEditorToolBar(MaterialModel *materialModel, QWidget *parent = 0);
+    MaterialEditorToolBar(MaterialModel* materialModel, QWidget* parent = nullptr);
 
-    void setSelectionModel(QItemSelectionModel *selectionModel);
+    void setSelectionModel(QItemSelectionModel* selectionModel);
 
 public slots:
-    void onCustomContextMenuRequested(const QPoint &point);
+    void onCustomContextMenuRequested(const QPoint& point);
 
 private slots:
     void onNewMaterialAction();
@@ -44,13 +45,13 @@ private slots:
     void onRemoveMaterialAction();
 
 private:
-    void initItemContextMenu(QMenu &menu);
+    void initItemContextMenu(QMenu& menu);
 
-    MaterialModel *m_materialModel;
-    QItemSelectionModel *m_selectionModel;
-    QAction *m_newMaterialAction;
-    QAction *m_cloneMaterialAction;
-    QAction *m_removeMaterialAction;
+    MaterialModel* m_materialModel;
+    QItemSelectionModel* m_selectionModel;
+    QAction* m_newMaterialAction;
+    QAction* m_cloneMaterialAction;
+    QAction* m_removeMaterialAction;
 };
 
 #endif // MATERIALEDITORTOOLBAR_H

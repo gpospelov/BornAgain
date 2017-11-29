@@ -109,9 +109,9 @@ MaterialProperty MaterialItemUtils::materialProperty(const SessionItem& material
 MaterialProperty MaterialItemUtils::selectMaterialProperty(const MaterialProperty& previousMaterial)
 {
     MaterialEditorDialog dialog(AppSvc::materialModel());
-    dialog.setInitialMaterialProperty(previousMaterial);
+    dialog.setMaterialProperty(previousMaterial);
     if(dialog.exec() == QDialog::Accepted) {
-        return dialog.getSelectedMaterialProperty();
+        return dialog.selectedMaterialProperty();
     }
 
     return MaterialProperty();

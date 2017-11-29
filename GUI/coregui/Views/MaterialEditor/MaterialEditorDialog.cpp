@@ -53,7 +53,7 @@ MaterialEditorDialog::MaterialEditorDialog(MaterialModel* materialModel, QWidget
 //! replaces original material model with the model modified by MaterialEditor
 void MaterialEditorDialog::onOKButton()
 {
-    if (m_materialEditor->isModelWasModified()) {
+    if (m_materialEditor->modelWasChanged()) {
         m_origMaterialModel->clear();
         m_origMaterialModel->initFrom(m_tmpMaterialModel.get(), 0);
     }
@@ -116,16 +116,16 @@ void MaterialEditorDialog::writeSettings()
     settings.endGroup();
 }
 
-MaterialProperty MaterialEditorDialog::getSelectedMaterialProperty()
+MaterialProperty MaterialEditorDialog::selectedMaterialProperty()
 {
-    if (MaterialItem* material = m_materialEditor->getSelectedMaterial())
+    if (MaterialItem* material = m_materialEditor->selectedMaterial())
         return MaterialItemUtils::materialProperty(*material);
 
     return MaterialProperty();
 }
 
 //!
-void MaterialEditorDialog::setInitialMaterialProperty(const MaterialProperty& matProperty)
+void MaterialEditorDialog::setMaterialProperty(const MaterialProperty& matProperty)
 {
     Q_ASSERT(m_materialEditor);
 

@@ -41,14 +41,14 @@ public:
 
     QItemSelectionModel* selectionModel();
 
-    MaterialItem* getSelectedMaterial();
+    MaterialItem* selectedMaterial();
 
     void setInitialMaterialProperty(const MaterialProperty& matProperty);
 
-    bool isModelWasModified() const;
+    bool modelWasChanged() const;
 
 private slots:
-    void onSelectionChanged(const QItemSelection& selected, const QItemSelection&);
+    void onSelectionChanged(const QItemSelection&selected, const QItemSelection&);
     void onDataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&);
     void onRowsInserted(const QModelIndex&, int, int);
     void onRowsRemoved(const QModelIndex&, int, int);

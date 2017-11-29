@@ -60,12 +60,6 @@ public:
 private slots:
     void sourceDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
                              const QVector<int> &roles = QVector<int>());
-    void sourceLayoutAboutToBeChanged(const QList<QPersistentModelIndex> &sourceParents,
-                                      QAbstractItemModel::LayoutChangeHint hint);
-    void sourceLayoutChanged(const QList<QPersistentModelIndex> &sourceParents,
-                             QAbstractItemModel::LayoutChangeHint hint);
-
-    void sourceRowsAboutToBeInserted(const QModelIndex &parent, int start, int end);
     void sourceRowsInserted(const QModelIndex &parent, int start, int end);
     void sourceRowsRemoved(const QModelIndex &parent, int start, int end);
 

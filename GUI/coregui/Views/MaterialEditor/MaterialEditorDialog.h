@@ -37,9 +37,9 @@ class BA_CORE_API_ MaterialEditorDialog : public QDialog
 public:
     MaterialEditorDialog(MaterialModel* materialModel, QWidget* parent = nullptr);
 
-    MaterialProperty getSelectedMaterialProperty();
+    MaterialProperty selectedMaterialProperty();
 
-    void setInitialMaterialProperty(const MaterialProperty& matProperty);
+    void setMaterialProperty(const MaterialProperty& matProperty);
 
 public slots:
     void onOKButton();

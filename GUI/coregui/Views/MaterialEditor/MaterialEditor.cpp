@@ -60,10 +60,10 @@ QItemSelectionModel* MaterialEditor::selectionModel()
     return m_listView->selectionModel();
 }
 
-MaterialItem* MaterialEditor::getSelectedMaterial()
+MaterialItem* MaterialEditor::selectedMaterial()
 {
-    QModelIndexList selected = selectionModel()->selectedIndexes();
-    return selected.empty() ? nullptr : m_materialModel->getMaterial(selected.front());
+    auto selected = selectionModel()->currentIndex();
+    return selected.isValid() ? m_materialModel->getMaterial(selected) : nullptr;
 }
 
 //! Sets selection corresponding to initial material property
@@ -75,7 +75,7 @@ void MaterialEditor::setInitialMaterialProperty(const MaterialProperty& matPrope
     }
 }
 
-bool MaterialEditor::isModelWasModified() const
+bool MaterialEditor::modelWasChanged() const
 {
     return m_model_was_modified;
 }
@@ -115,7 +115,6 @@ void MaterialEditor::contextMenuEvent(QContextMenuEvent* event)
 
 void MaterialEditor::init_views()
 {
-    // connecting to the model
     connect(m_materialModel, &MaterialModel::dataChanged, this, &MaterialEditor::onDataChanged);
     connect(m_materialModel, &MaterialModel::rowsInserted, this, &MaterialEditor::onRowsInserted);
     connect(m_materialModel, &MaterialModel::rowsRemoved, this, &MaterialEditor::onRowsRemoved);
@@ -135,7 +134,7 @@ void MaterialEditor::init_views()
     // making first material selected
     if (!selectionModel()->hasSelection()) {
         QModelIndex itemIndex = m_materialModel->index(0, 0, QModelIndex());
-        selectionModel()->select(itemIndex, QItemSelectionModel::Select);
+        selectionModel()->select(itemIndex, QItemSelectionModel::ClearAndSelect);
     }
 
     connect(m_listView, &QListView::customContextMenuRequested,

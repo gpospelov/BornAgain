@@ -16342,14 +16342,14 @@ class Simulation(ICloneable, INode):
         return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
 
 
-    def setBackGround(self, bg):
-        """
-        setBackGround(Simulation self, IBackground bg)
+    def setBackground(self, bg):
+        """setBackground(Simulation self, IBackground bg)"""
+        return _libBornAgainCore.Simulation_setBackground(self, bg)
 
-        void Simulation::setBackGround(const IBackground &bg)
 
-        """
-        return _libBornAgainCore.Simulation_setBackGround(self, bg)
+    def background(self):
+        """background(Simulation self) -> IBackground"""
+        return _libBornAgainCore.Simulation_background(self)
 
 
     def numberOfSimulationElements(self):
@@ -17888,6 +17888,11 @@ class ConstantBackground(IBackground):
 
         """
         return _libBornAgainCore.ConstantBackground_clone(self)
+
+
+    def backgroundValue(self):
+        """backgroundValue(ConstantBackground self) -> double"""
+        return _libBornAgainCore.ConstantBackground_backgroundValue(self)
 
 
     def accept(self, visitor):

@@ -124,6 +124,7 @@ std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulatio
     result << defineParameterDistributions(simulation);
     result << defineMasks(simulation);
     result << defineSimulationOptions(simulation);
+    result << defineBackground(simulation);
     result << indent() << "return simulation\n\n\n";
     return result.str();
 }
@@ -911,6 +912,7 @@ std::string ExportToPython::defineBackground(const GISASSimulation* simulation) 
     if (p_constant_bg && p_constant_bg->backgroundValue()>0.0) {
         result << indent() << "background = ba.ConstantBackground("
                << printScientificDouble(p_constant_bg->backgroundValue()) << ")\n";
+        result << indent() << "simulation.setBackground(background)\n";
     }
     return result.str();
 }

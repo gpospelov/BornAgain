@@ -46,11 +46,11 @@ InstrumentView::InstrumentView(MainWindow* mainWindow)
     m_actions->setModel(m_instrumentModel);
     m_actions->setSelectionModel(m_instrumentSelector->selectionModel());
 
-    connect(m_instrumentSelector, SIGNAL(contextMenuRequest(const QPoint&, const QModelIndex&)),
-            m_actions, SLOT(onContextMenuRequest(const QPoint&, const QModelIndex&)));
+    connect(m_instrumentSelector, &InstrumentSelectorWidget::contextMenuRequest,
+            m_actions, &InstrumentViewActions::onContextMenuRequest);
 
-    connect(m_instrumentSelector, SIGNAL(selectionChanged(SessionItem*)), this,
-            SLOT(onItemSelectionChanged(SessionItem*)));
+    connect(m_instrumentSelector, &InstrumentSelectorWidget::selectionChanged,
+            this, &InstrumentView::onItemSelectionChanged);
 }
 
 void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem* detectorItem)

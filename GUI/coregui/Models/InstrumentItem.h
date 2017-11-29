@@ -19,6 +19,7 @@
 
 #include "SessionItem.h"
 
+class BackgroundItem;
 class BeamItem;
 class DetectorItem;
 class MaskContainerItem;
@@ -36,6 +37,7 @@ public:
     BeamItem *beamItem() const;
     DetectorItem *detectorItem() const;
     GroupItem* detectorGroup();
+    BackgroundItem* backgroundItem() const;
 
     void setDetectorGroup(const QString& modelType);
 

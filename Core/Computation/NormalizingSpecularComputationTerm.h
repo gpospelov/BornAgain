@@ -16,20 +16,20 @@
 #ifndef NORMALIZINGSPECULARCOMPUTATIONTERM_H
 #define NORMALIZINGSPECULARCOMPUTATIONTERM_H
 
-#include "IComputationTerm.h"
+#include "SpecularComputationTerm.h"
 
 //! Computes the specular scattering.
-//! Used by DWBAComputation.
+//! Used by DWBAComputation. Differs from SpecularComputationTerm by multilying intensity by
+//! normalization factor \f$sin \alpha / \Omega\f$.
 //! @ingroup algorithms_internal
 
-class NormalizingSpecularComputationTerm final : public IComputationTerm
+class NormalizingSpecularComputationTerm final : public SpecularComputationTerm
 {
 public:
     NormalizingSpecularComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
-    void eval(ProgressHandler* progress,
-              const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it) const override;
+private:
+    virtual void evalSingle(const std::vector<SimulationElement>::iterator& iter) const override;
 };
 
 #endif // NORMALIZINGSPECULARCOMPUTATIONTERM_H

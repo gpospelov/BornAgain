@@ -67,6 +67,7 @@ private slots:
 
     void sourceRowsAboutToBeInserted(const QModelIndex &parent, int start, int end);
     void sourceRowsInserted(const QModelIndex &parent, int start, int end);
+    void sourceRowsRemoved(const QModelIndex &parent, int start, int end);
 
 private:
     void buildModelMap();

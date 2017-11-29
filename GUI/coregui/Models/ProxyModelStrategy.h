@@ -51,7 +51,7 @@ protected:
     //!< Mapping of proxy model indices to indices of parent in source model
     QMap<QPersistentModelIndex, QPersistentModelIndex> m_proxySourceParent;
 
-    QModelIndex m_sourceRootIndex;
+    QPersistentModelIndex m_sourceRootIndex;
     SessionModel* m_source;
     ComponentProxyModel* m_proxy;
 };

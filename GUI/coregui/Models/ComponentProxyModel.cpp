@@ -44,6 +44,8 @@ void ComponentProxyModel::setSessionModel(SessionModel* model)
                    this, &ComponentProxyModel::sourceRowsAboutToBeInserted);
         disconnect(sourceModel(), &QAbstractItemModel::rowsInserted,
                    this, &ComponentProxyModel::sourceRowsInserted);
+        disconnect(sourceModel(), &QAbstractItemModel::rowsRemoved,
+                   this, &ComponentProxyModel::sourceRowsRemoved);
 
     }
 
@@ -60,6 +62,8 @@ void ComponentProxyModel::setSessionModel(SessionModel* model)
                    this, &ComponentProxyModel::sourceRowsAboutToBeInserted);
         connect(sourceModel(), &QAbstractItemModel::rowsInserted,
                    this, &ComponentProxyModel::sourceRowsInserted);
+        connect(sourceModel(), &QAbstractItemModel::rowsRemoved,
+                   this, &ComponentProxyModel::sourceRowsRemoved);
     }
 
     endResetModel();
@@ -200,6 +204,12 @@ void ComponentProxyModel::sourceRowsInserted(const QModelIndex& parent, int star
     Q_UNUSED(end);
 
     qDebug() << "ComponentProxyModel::sourceRowsInserted";
+    buildModelMap();
+}
+
+void ComponentProxyModel::sourceRowsRemoved(const QModelIndex& parent, int start, int end)
+{
+    qDebug() << "ComponentProxyModel::sourceRowsRemoved";
     buildModelMap();
 }
 

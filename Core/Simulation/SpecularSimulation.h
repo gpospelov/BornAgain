@@ -90,7 +90,6 @@ private:
     std::unique_ptr<OutputData<double>> getData(size_t i_layer, DataGetter fn_ptr) const;
 
     // unused methods
-    virtual void initSimulationElementVector() override {}
     virtual void transferResultsToIntensityMap() override {}
     virtual void updateIntensityMap() override {}
 

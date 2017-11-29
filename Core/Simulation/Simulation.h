@@ -98,7 +98,8 @@ public:
 protected:
     Simulation(const Simulation& other);
 
-    virtual void initSimulationElementVector() =0;
+    //! Initializes the vector of Simulation elements
+    virtual void initSimulationElementVector();
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects

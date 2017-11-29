@@ -60,12 +60,12 @@ BeamEditorWidget::BeamEditorWidget(QWidget* parent)
     mainLayout->addStretch();
     setLayout(mainLayout);
 
-    connect(m_wavelengthEditor, &ComponentEditor::dialogRequest, this,
-            &BeamEditorWidget::onDialogRequest);
-    connect(m_inclinationEditor, &ComponentEditor::dialogRequest, this,
-            &BeamEditorWidget::onDialogRequest);
-    connect(m_azimuthalEditor, &ComponentEditor::dialogRequest, this,
-            &BeamEditorWidget::onDialogRequest);
+    connect(m_wavelengthEditor, &ComponentEditor::dialogRequest,
+            this, &BeamEditorWidget::onDialogRequest);
+    connect(m_inclinationEditor, &ComponentEditor::dialogRequest,
+            this, &BeamEditorWidget::onDialogRequest);
+    connect(m_azimuthalEditor, &ComponentEditor::dialogRequest,
+            this, &BeamEditorWidget::onDialogRequest);
 }
 
 void BeamEditorWidget::setBeamItem(BeamItem* beamItem)

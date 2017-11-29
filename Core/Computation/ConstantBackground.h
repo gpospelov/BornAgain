@@ -29,6 +29,8 @@ public:
     ~ConstantBackground();
     ConstantBackground* clone() const override final;
 
+    double backgroundValue() const { return m_background_value; }
+
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void addBackGround(std::vector<SimulationElement>::iterator start,

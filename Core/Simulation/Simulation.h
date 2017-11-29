@@ -72,6 +72,7 @@ public:
     void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
 
     void setBackGround(const IBackground& bg);
+    const IBackground* background() const { return mP_background.get(); }
 
     virtual size_t numberOfSimulationElements() const=0;
 

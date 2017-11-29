@@ -15,6 +15,7 @@
 
 #include "ExportToPython.h"
 #include "Beam.h"
+#include "ConstantBackground.h"
 #include "ConvolutionDetectorResolution.h"
 #include "Crystal.h"
 #include "Distributions.h"
@@ -898,6 +899,19 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
         result << indent() << "simulation.getOptions().setUseAvgMaterials(True)\n";
     if (options.includeSpecular())
         result << indent() << "simulation.getOptions().setIncludeSpecular(True)\n";
+    return result.str();
+}
+
+std::string ExportToPython::defineBackground(const GISASSimulation* simulation) const
+{
+    std::ostringstream result;
+
+    auto p_bg = simulation->background();
+    const ConstantBackground* p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg);
+    if (p_constant_bg && p_constant_bg->backgroundValue()>0.0) {
+        result << indent() << "background = ba.ConstantBackground("
+               << printScientificDouble(p_constant_bg->backgroundValue()) << ")\n";
+    }
     return result.str();
 }
 

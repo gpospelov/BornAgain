@@ -15,7 +15,6 @@
 // ************************************************************************** //
 
 #include "DomainObjectBuilder.h"
-#include "BackgroundItem.h"
 #include "BeamItem.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"

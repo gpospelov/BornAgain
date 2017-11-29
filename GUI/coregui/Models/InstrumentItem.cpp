@@ -15,6 +15,7 @@
 // ************************************************************************** //
 
 #include "InstrumentItem.h"
+#include "BackgroundItem.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "GUIHelpers.h"
@@ -25,6 +26,7 @@
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
 const QString InstrumentItem::P_BEAM = "Beam";
 const QString InstrumentItem::P_DETECTOR = "Detector";
+const QString InstrumentItem::P_BACKGROUND = "Background";
 
 InstrumentItem::InstrumentItem()
     : SessionItem(Constants::InstrumentType)
@@ -38,11 +40,13 @@ InstrumentItem::InstrumentItem()
     addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
 
     setDefaultTag(P_DETECTOR);
+
+    addGroupProperty(P_BACKGROUND, Constants::BackgroundType);
 }
 
 BeamItem *InstrumentItem::beamItem() const
 {
-    return &item<BeamItem>(InstrumentItem::P_BEAM);
+    return &item<BeamItem>(P_BEAM);
 }
 
 DetectorItem* InstrumentItem::detectorItem() const
@@ -53,6 +57,11 @@ DetectorItem* InstrumentItem::detectorItem() const
 GroupItem* InstrumentItem::detectorGroup()
 {
     return &item<GroupItem>(P_DETECTOR);
+}
+
+BackgroundItem* InstrumentItem::backgroundItem() const
+{
+    return &item<BackgroundItem>(P_BACKGROUND);
 }
 
 void InstrumentItem::setDetectorGroup(const QString& modelType)

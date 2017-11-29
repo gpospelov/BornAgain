@@ -184,6 +184,7 @@ QWidget* createCustomDoubleEditor(const SessionItem& item)
     result->setKeyboardTracking(false);
 
     result->setMaximum(std::numeric_limits<double>::max());
+    result->setMinimum(std::numeric_limits<double>::lowest());
 
     result->setDecimals(item.decimals());
     result->setSingleStep(singleStep(item));

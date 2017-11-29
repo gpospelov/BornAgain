@@ -16,6 +16,7 @@
 
 #include "ItemFactory.h"
 #include "AxesItems.h"
+#include "BackgroundItem.h"
 #include "BeamAngleItems.h"
 #include "BeamItem.h"
 #include "BeamWavelengthItem.h"
@@ -80,6 +81,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::InterferenceFunction1DLatticeType] = &createInstance<InterferenceFunction1DLatticeItem>;
     result[Constants::InstrumentType] = &createInstance<InstrumentItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
+    result[Constants::BackgroundType] = &createInstance<BackgroundItem>;
     result[Constants::VectorType] = &createInstance<VectorItem>;
     result[Constants::PropertyType] = &createInstance<PropertyItem>;
 
@@ -243,7 +245,6 @@ SessionItem *ItemFactory::createItem(const QString &model_name,
     if(parent) {
         parent->insertItem(-1, result);
     }
-
     return result;
 }
 

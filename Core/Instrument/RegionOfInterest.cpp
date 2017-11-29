@@ -54,7 +54,8 @@ RegionOfInterest *RegionOfInterest::clone() const
 RegionOfInterest::~RegionOfInterest() {}
 
 RegionOfInterest::RegionOfInterest(const RegionOfInterest &other)
-    : m_rectangle(other.m_rectangle->clone())
+    : ICloneable()
+    , m_rectangle(other.m_rectangle->clone())
     , m_ax1(other.m_ax1)
     , m_ay1(other.m_ay1)
     , m_ax2(other.m_ax2)

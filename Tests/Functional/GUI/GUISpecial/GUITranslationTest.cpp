@@ -16,6 +16,7 @@
 
 #include "GUITranslationTest.h"
 #include "ApplicationModels.h"
+#include "BackgroundItem.h"
 #include "BeamItem.h"
 #include "DocumentModel.h"
 #include "FitParameterHelper.h"
@@ -149,7 +150,8 @@ bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
     std::vector<std::string> invalidNames {
         BornAgain::Direction,
         BornAgain::Efficiency,
-        BornAgain::Transmission };
+        BornAgain::Transmission
+    };
     for (auto name : invalidNames) {
         if (domainName.find(name) != std::string::npos)
             return false;
@@ -160,8 +162,15 @@ bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
 //! Returns true, if it makes sence to look for domain translation for given GUI name.
 //! Intended to supress warnings about not-yet implemented translations.
 
-bool GUITranslationTest::isValidGUIName(const std::string&) const
+bool GUITranslationTest::isValidGUIName(const std::string& guiName) const
 {
+    std::vector<std::string> invalidNames {
+        BackgroundItem::P_VALUE.toStdString()
+    };
+    for (auto name : invalidNames) {
+        if (guiName.find(name) != std::string::npos)
+            return false;
+    }
     return true;
 }
 

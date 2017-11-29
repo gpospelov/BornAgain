@@ -21,6 +21,7 @@
 #include <QWidget>
 
 class InstrumentItem;
+class ComponentEditor;
 class DetectorItem;
 class BeamEditorWidget;
 class DetectorEditorWidget;
@@ -41,6 +42,7 @@ private:
     ColumnResizer* m_columnResizer;
     BeamEditorWidget* m_beamEditor;
     DetectorEditorWidget* m_detectorEditor;
+    ComponentEditor* m_backgroundEditor;
 };
 
 #endif // INSTRUMENTCOMPONENTSWIDGET_H

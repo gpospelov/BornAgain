@@ -15,20 +15,20 @@
 // ************************************************************************** //
 
 #include "DomainObjectBuilder.h"
+#include "BeamItem.h"
 #include "ComboProperty.h"
+#include "DetectorItems.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
 #include "IInterferenceFunction.h"
+#include "Instrument.h"
+#include "InstrumentItem.h"
+#include "InterferenceFunctionItems.h"
 #include "LayerItem.h"
 #include "MultiLayer.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleLayoutItem.h"
-#include "InterferenceFunctionItems.h"
 #include "TransformToDomain.h"
-#include "InstrumentItem.h"
-#include "Instrument.h"
-#include "BeamItem.h"
-#include "DetectorItems.h"
 
 
 std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(

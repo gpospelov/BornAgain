@@ -51,7 +51,7 @@ void CustomEditor::setDataIntern(const QVariant& data)
 
 // --- MaterialPropertyEditor ---
 
-MaterialPropertyEditor::MaterialPropertyEditor(QWidget* parent)
+ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     : CustomEditor(parent)
     , m_textLabel(new QLabel)
     , m_pixmapLabel(new QLabel)
@@ -77,12 +77,12 @@ MaterialPropertyEditor::MaterialPropertyEditor(QWidget* parent)
     layout->addWidget(button);
     setFocusPolicy(Qt::StrongFocus);
     setAttribute(Qt::WA_InputMethodEnabled);
-    connect(button, &QToolButton::clicked, this, &MaterialPropertyEditor::buttonClicked);
+    connect(button, &QToolButton::clicked, this, &ExternalPropertyEditor::buttonClicked);
 
     setLayout(layout);
 }
 
-void MaterialPropertyEditor::buttonClicked()
+void ExternalPropertyEditor::buttonClicked()
 {
     // temporarily installing filter to prevent loss of focus caused by too insistent dialog
     installEventFilter(m_focusFilter);
@@ -94,7 +94,7 @@ void MaterialPropertyEditor::buttonClicked()
         setDataIntern(mat.getVariant());
 }
 
-void MaterialPropertyEditor::initEditor()
+void ExternalPropertyEditor::initEditor()
 {
     Q_ASSERT(m_data.canConvert<ExternalProperty>());
     ExternalProperty materialProperty = m_data.value<ExternalProperty>();

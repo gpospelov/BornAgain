@@ -146,7 +146,7 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
     }
 
     else if(isMaterialProperty(item.value())) {
-        auto editor = new MaterialPropertyEditor;
+        auto editor = new ExternalPropertyEditor;
         editor->setData(item.value());
         result = editor;
     }

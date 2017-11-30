@@ -102,6 +102,10 @@ void PropertyWidgetItem::connectEditor(QWidget* editor)
         connect(combo, &ComboPropertyEditor::currentIndexChanged,
                 [=] { m_delegate->commitData(combo); });
 
+        // TODO after merging GroupProperty and ComboProperty
+        // 1) cast to CustomEditor
+        // 2) switch to CustomEditor::dataChanged()
+
     } else if (auto spinbox = dynamic_cast<QSpinBox*>(editor)) {
         // To provide update of the model on valueChanged() and not only on editingFinished()
         connect(spinbox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),

@@ -162,6 +162,7 @@ void ColorPropertyEditor::initEditor()
 CustomComboEditor::CustomComboEditor(QWidget* parent)
     : CustomEditor(parent)
     , m_box(new QComboBox)
+    , m_wheel_event_filter(new WheelEventEater(this))
 {
     setAutoFillBackground(true);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -170,6 +171,8 @@ CustomComboEditor::CustomComboEditor(QWidget* parent)
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addWidget(m_box);
+
+    m_box->installEventFilter(m_wheel_event_filter);
 
     setLayout(layout);
     setConnected(true);

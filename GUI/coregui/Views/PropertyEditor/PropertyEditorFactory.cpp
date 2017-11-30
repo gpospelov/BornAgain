@@ -22,6 +22,7 @@
 #include "CustomEditors.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
+#include "CustomEventFilters.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 #include <QLineEdit>
@@ -183,6 +184,9 @@ QWidget* createCustomDoubleEditor(const SessionItem& item)
     auto result = new QDoubleSpinBox;
     result->setKeyboardTracking(false);
 
+    result->setFocusPolicy(Qt::StrongFocus);
+    result->installEventFilter(new WheelEventEater(result));
+
     result->setMaximum(std::numeric_limits<double>::max());
     result->setMinimum(std::numeric_limits<double>::lowest());
 
@@ -202,6 +206,8 @@ QWidget* createCustomDoubleEditor(const SessionItem& item)
 QWidget* createCustomIntEditor(const SessionItem& item)
 {
     auto result = new QSpinBox;
+    result->setFocusPolicy(Qt::StrongFocus);
+    result->installEventFilter(new WheelEventEater(result));
 
     result->setMaximum(std::numeric_limits<int>::max());
     result->setKeyboardTracking(false);

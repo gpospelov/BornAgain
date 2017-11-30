@@ -109,7 +109,8 @@ protected:
     virtual int internIndex();
     void setConnected(bool isConnected);
 
-    QComboBox* m_box;    
+    QComboBox* m_box;
+    class WheelEventEater* m_wheel_event_filter;
 };
 
 //! Editor for GroupProperty variant.
@@ -151,9 +152,6 @@ protected:
 
 //! Editor for ScientificDoubleProperty variant.
 
-class QLineEdit;
-class QDoubleValidator;
-
 class BA_CORE_API_ ScientificDoublePropertyEditor : public CustomEditor
 {
     Q_OBJECT
@@ -167,8 +165,8 @@ protected:
     void initEditor();
 
 private:
-    QLineEdit* m_lineEdit;
-    QDoubleValidator* m_validator;
+    class QLineEdit* m_lineEdit;
+    class QDoubleValidator* m_validator;
 };
 
 //! Editor for boolean.

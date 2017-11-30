@@ -83,7 +83,7 @@ void InstrumentItem::importMasks(MaskContainerItem* maskContainer)
 QStringList InstrumentItem::translateList(const QStringList& list) const
 {
     QStringList result;
-    // Add CrystalType to path name of basis particle
+    // Add constant background directly to simulation
     if (list.back().startsWith(P_BACKGROUND) && list.size()==2) {
         result << list[0] << QString::fromStdString(BornAgain::ConstantBackgroundType);
     } else {

@@ -16,7 +16,6 @@
 
 #include "GUITranslationTest.h"
 #include "ApplicationModels.h"
-#include "BackgroundItem.h"
 #include "BeamItem.h"
 #include "DocumentModel.h"
 #include "FitParameterHelper.h"

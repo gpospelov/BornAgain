@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "InstrumentItem.h"
-#include "BackgroundItem.h"
+#include "BackgroundItems.h"
 #include "BeamItem.h"
 #include "BornAgainNamespace.h"
 #include "DetectorItems.h"

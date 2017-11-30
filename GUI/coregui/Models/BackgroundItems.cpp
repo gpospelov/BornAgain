@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/BackgroundItem.cpp
-//! @brief     Implements class BackgroundItem
+//! @file      GUI/coregui/Models/BackgroundItems.cpp
+//! @brief     Implements BackgroundItem classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,10 +14,14 @@
 //
 // ************************************************************************** //
 
-#include "BackgroundItem.h"
+#include "BackgroundItems.h"
 #include "BornAgainNamespace.h"
 #include "ConstantBackground.h"
 #include "item_constants.h"
+
+BackgroundItem::BackgroundItem(const QString& model_type)
+    : SessionItem(model_type)
+{}
 
 // Background none
 /* ------------------------------------------------ */

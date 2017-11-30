@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "DomainSimulationBuilder.h"
-#include "BackgroundItem.h"
+#include "BackgroundItems.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
@@ -43,18 +43,17 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sa
     GISASSimulation *result = new GISASSimulation;
     auto P_multilayer = builder.buildMultiLayer(*sampleItem);
     auto P_instrument = builder.buildInstrument(*instrumentItem);
-    auto P_background = instrumentItem->backgroundItem()->createBackground();
     result->setSample(*P_multilayer);
     result->setInstrument(*P_instrument);
+    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->beamItem(),
+                                                             result);
+    // Simulation options
+    if(optionsItem)
+        TransformToDomain::setSimulationOptions(result, *optionsItem);
+    // Background simulation
+    auto P_background = instrumentItem->backgroundItem()->createBackground();
     if (P_background) {
         result->setBackground(*P_background);
     }
-
-    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->beamItem(),
-                                                             result);
-
-    if(optionsItem)
-        TransformToDomain::setSimulationOptions(result, *optionsItem);
-
     return result;
 }

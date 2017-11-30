@@ -16,7 +16,7 @@
 
 #include "TransformFromDomain.h"
 #include "AxesItems.h"
-#include "BackgroundItem.h"
+#include "BackgroundItems.h"
 #include "Beam.h"
 #include "BeamAngleItems.h"
 #include "BeamItem.h"

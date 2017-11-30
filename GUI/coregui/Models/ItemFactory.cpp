@@ -16,7 +16,7 @@
 
 #include "ItemFactory.h"
 #include "AxesItems.h"
-#include "BackgroundItem.h"
+#include "BackgroundItems.h"
 #include "BeamAngleItems.h"
 #include "BeamItem.h"
 #include "BeamWavelengthItem.h"

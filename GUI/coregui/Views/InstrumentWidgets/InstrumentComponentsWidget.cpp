@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "InstrumentComponentsWidget.h"
-#include "BackgroundItem.h"
+#include "BackgroundItems.h"
 #include "BeamEditorWidget.h"
 #include "ComponentEditor.h"
 #include "ColumnResizer.h"

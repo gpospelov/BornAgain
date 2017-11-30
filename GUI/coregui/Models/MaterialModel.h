@@ -44,10 +44,6 @@ public:
     MaterialItem* materialFromIdentifier(const QString& identifier);
 
     QVector<MaterialItem*> materialItems();
-
-signals:
-    void modelLoaded();
-
 };
 
 #endif // MATERIALMODEL_H

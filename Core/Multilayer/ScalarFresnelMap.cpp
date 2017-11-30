@@ -46,20 +46,21 @@ const ScalarRTCoefficients* ScalarFresnelMap::getCoefficients(
         kvector_t kvec, size_t layer_index) const
 {
     if (!m_use_cache) {
-        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
+        auto coeffs = calculateCoefficients(*mP_multilayer, kvec);
         return new ScalarRTCoefficients(coeffs[layer_index]);
     }
-    ScalarRTCoefficients* result;
+    const auto& coef_vector = getCoefficientsFromCache(kvec);
+    return new ScalarRTCoefficients(coef_vector[layer_index]);
+}
+
+const std::vector<ScalarRTCoefficients>&
+ScalarFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
+{
     std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());
     auto it = m_hash_table.find(k2_theta);
-    if (it != m_hash_table.end())
-        result = new ScalarRTCoefficients(it->second[layer_index]);
-    else {
-        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
-        result = new ScalarRTCoefficients(coeffs[layer_index]);
-        m_hash_table[k2_theta] = std::move(coeffs);
-    }
-    return result;
+    if (it == m_hash_table.end())
+        it = m_hash_table.insert({k2_theta, calculateCoefficients(*mP_multilayer, kvec)}).first;
+    return it->second;
 }
 
 namespace {

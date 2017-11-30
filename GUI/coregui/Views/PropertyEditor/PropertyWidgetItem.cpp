@@ -112,5 +112,11 @@ void PropertyWidgetItem::connectEditor(QWidget* editor)
         connect(spinbox,
                 static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged),
                 [=] { m_delegate->commitData(spinbox); });
+
+    } else if (auto spinbox = dynamic_cast<ScientificDoublePropertyEditor*>(editor)) {
+        // To provide update of the model on valueChanged() and not only on editingFinished()
+        connect(spinbox, &ScientificDoublePropertyEditor::dataChanged,
+                [=] { m_delegate->commitData(spinbox); });
     }
+
 }

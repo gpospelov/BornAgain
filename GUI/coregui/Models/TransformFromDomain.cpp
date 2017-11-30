@@ -532,8 +532,10 @@ void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
     auto p_bg = simulation.background();
     const ConstantBackground* p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg);
     if (p_constant_bg) {
+        auto constant_bg_item = instrument_item->setGroupProperty(InstrumentItem::P_BACKGROUND,
+                                                                Constants::ConstantBackgroundType);
         double value = p_constant_bg->backgroundValue();
-        instrument_item->backgroundItem()->setBackgroundValue(value);
+        constant_bg_item->setItemValue(ConstantBackgroundItem::P_VALUE, value);
     }
 }
 

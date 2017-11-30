@@ -165,7 +165,6 @@ bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
 bool GUITranslationTest::isValidGUIName(const std::string& guiName) const
 {
     std::vector<std::string> invalidNames {
-        BackgroundItem::P_VALUE.toStdString()
     };
     for (auto name : invalidNames) {
         if (guiName.find(name) != std::string::npos)

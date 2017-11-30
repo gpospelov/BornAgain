@@ -17,16 +17,17 @@
 #include "InstrumentComponentsWidget.h"
 #include "BackgroundItem.h"
 #include "BeamEditorWidget.h"
-#include "ColumnResizer.h"
 #include "ComponentEditor.h"
+#include "ColumnResizer.h"
 #include "DetectorEditorWidget.h"
 #include "DetectorItems.h"
 #include "InstrumentItem.h"
+#include "GroupItem.h"
 #include <QVBoxLayout>
 
 namespace
 {
-const QString background_title("Constant background value [counts/pixel]");
+const QString background_title("Background");
 }
 
 InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget* parent)
@@ -58,8 +59,7 @@ void InstrumentComponentsWidget::setInstrumentItem(InstrumentItem* instrumentIte
     if(instrumentItem) {
         m_beamEditor->setBeamItem(instrumentItem->beamItem());
         m_detectorEditor->setItem(instrumentItem);
-        m_backgroundEditor->setItem(
-                    instrumentItem->backgroundItem()->getItem(BackgroundItem::P_VALUE));
+        m_backgroundEditor->setItem(instrumentItem->backgroundGroup());
     } else {
         m_beamEditor->setBeamItem(nullptr);
         m_detectorEditor->setItem(nullptr);

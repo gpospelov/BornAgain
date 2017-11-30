@@ -44,7 +44,6 @@ const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
 const ModelType InstrumentType = "Instrument";
 //const ModelType DetectorContainerType = "DetectorContainer";
 const ModelType BeamType = "Beam";
-const ModelType BackgroundType = "Background";
 
 const ModelType FormFactorType = "FormFactor";
 const ModelType AnisoPyramidType = "AnisoPyramid";
@@ -181,6 +180,9 @@ const ModelType RealLimitsLimitedType = "RealLimitsLimited";
 
 const ModelType ProjectionContainerType = "ProjectionContainer";
 
+const ModelType BackgroundNoneType = "NoBackground";
+const ModelType ConstantBackgroundType = "ConstantBackground";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -198,6 +200,7 @@ const ModelType MaterialGroup = "Material group";
 const ModelType ResolutionFunctionGroup = "Resolution function group";
 const ModelType MinimizerLibraryGroup = "Minimizer library group";
 const ModelType RealLimitsGroup = "RealLimits group";
+const ModelType BackgroundGroup = "Background group";
 
 // --- Units&Constants----------------------------------------------------------
 

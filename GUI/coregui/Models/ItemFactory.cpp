@@ -81,7 +81,8 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::InterferenceFunction1DLatticeType] = &createInstance<InterferenceFunction1DLatticeItem>;
     result[Constants::InstrumentType] = &createInstance<InstrumentItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
-    result[Constants::BackgroundType] = &createInstance<BackgroundItem>;
+    result[Constants::BackgroundNoneType] = &createInstance<BackgroundNoneItem>;
+    result[Constants::ConstantBackgroundType] = &createInstance<ConstantBackgroundItem>;
     result[Constants::VectorType] = &createInstance<VectorItem>;
     result[Constants::PropertyType] = &createInstance<PropertyItem>;
 
@@ -239,7 +240,8 @@ SessionItem *ItemFactory::createItem(const QString &model_name,
                                            SessionItem *parent)
 {
     if(!m_item_map.contains(model_name))
-        throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "+model_name);
+        throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "
+                                + model_name);
 
     SessionItem *result = m_item_map[model_name]();
     if(parent) {

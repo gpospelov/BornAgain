@@ -42,7 +42,7 @@ InstrumentItem::InstrumentItem()
 
     setDefaultTag(P_DETECTOR);
 
-    addGroupProperty(P_BACKGROUND, Constants::BackgroundType);
+    addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
 }
 
 BeamItem *InstrumentItem::beamItem() const
@@ -62,7 +62,12 @@ GroupItem* InstrumentItem::detectorGroup()
 
 BackgroundItem* InstrumentItem::backgroundItem() const
 {
-    return &item<BackgroundItem>(P_BACKGROUND);
+    return &groupItem<BackgroundItem>(P_BACKGROUND);
+}
+
+GroupItem* InstrumentItem::backgroundGroup()
+{
+    return &item<GroupItem>(P_BACKGROUND);
 }
 
 void InstrumentItem::setDetectorGroup(const QString& modelType)

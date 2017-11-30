@@ -19,36 +19,37 @@
 #include "ConstantBackground.h"
 #include "item_constants.h"
 
-namespace {
-const QString background_value_tooltip =
-        "Constant background value that will be added to each detector pixel";
+// Background none
+/* ------------------------------------------------ */
+
+BackgroundNoneItem::BackgroundNoneItem()
+    : BackgroundItem(Constants::BackgroundNoneType)
+{}
+
+std::unique_ptr<IBackground> BackgroundNoneItem::createBackground() const
+{
+    return {};
 }
 
-const QString BackgroundItem::P_VALUE = QString::fromStdString(BornAgain::BackgroundValue);
+// Constant background
+/* ------------------------------------------------ */
+
+namespace {
+const QString constant_background_value_tooltip =
+        "Constant background value [counts/pixel]";
+}
+
+const QString ConstantBackgroundItem::P_VALUE = QString::fromStdString(BornAgain::BackgroundValue);
 
 
-BackgroundItem::BackgroundItem() : SessionItem(Constants::BackgroundType)
+ConstantBackgroundItem::ConstantBackgroundItem()
+    : BackgroundItem(Constants::ConstantBackgroundType)
 {
     addProperty(P_VALUE, 0.0)->setLimits(RealLimits::nonnegative())
-            .setToolTip(background_value_tooltip)
-            .setEditorType(Constants::ScientificEditorType);
+            .setToolTip(constant_background_value_tooltip);
 }
 
-BackgroundItem::~BackgroundItem() {}
-
-double BackgroundItem::getBackgroundValue() const
+std::unique_ptr<IBackground> ConstantBackgroundItem::createBackground() const
 {
-    return getItemValue(P_VALUE).toDouble();
-}
-
-void BackgroundItem::setBackgroundValue(double value)
-{
-    setItemValue(P_VALUE, value);
-}
-
-std::unique_ptr<IBackground> BackgroundItem::createBackground() const
-{
-    if (getBackgroundValue()>0.0)
-        return std::make_unique<ConstantBackground>(getBackgroundValue());
-    return {};
+    return std::make_unique<ConstantBackground>(getItemValue(P_VALUE).toDouble());
 }

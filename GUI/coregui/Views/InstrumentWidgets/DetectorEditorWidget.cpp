@@ -35,7 +35,8 @@
 DetectorEditorWidget::DetectorEditorWidget(ColumnResizer* columnResizer, QWidget* parent)
     : SessionItemWidget(parent)
     , m_columnResizer(columnResizer)
-    , m_detectorTypeEditor(new ComponentEditor(ComponentEditor::PlainWidget |ComponentEditor::W_NoChildren))
+    , m_detectorTypeEditor(new ComponentEditor(ComponentEditor::PlainWidget
+                                               | ComponentEditor::W_NoChildren))
     , m_groupBox(new GroupInfoBox("Detector Parameters"))
     , m_currentDetector(nullptr)
     , m_subDetectorWidget(nullptr)

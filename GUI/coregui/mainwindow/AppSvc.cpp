@@ -65,10 +65,6 @@ ProjectManager* AppSvc::this_projectManager()
 
 MaterialModel* AppSvc::this_materialModel()
 {
-    if (!m_materialModel)
-        throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to access "
-                                "non existing MaterialModel.");
-
     return m_materialModel;
 }
 

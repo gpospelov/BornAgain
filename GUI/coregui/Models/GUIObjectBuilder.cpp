@@ -599,6 +599,7 @@ ExternalProperty GUIObjectBuilder::createMaterialFromDomain(
     QString materialName = m_topSampleName + QString("_") + QString(material->getName().c_str());
 
     MaterialModel* model = AppSvc::materialModel();
+    Q_ASSERT(model);
 
     if (auto material = model->materialFromName(materialName))
         return MaterialItemUtils::materialProperty(*material);

@@ -30,7 +30,6 @@ bool isDoubleProperty(const QModelIndex& index)
 }
 
 //! Returns text representation of double value depending on user defined editor type.
-//! FIXME Remove this temporary function after getting rid from ScientificDoubleProperty
 QString doubleToString(const SessionItem& item)
 {
     QString result;

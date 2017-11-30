@@ -16,11 +16,13 @@
 
 #include "TransformFromDomain.h"
 #include "AxesItems.h"
+#include "BackgroundItem.h"
 #include "Beam.h"
 #include "BeamAngleItems.h"
 #include "BeamItem.h"
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
+#include "ConstantBackground.h"
 #include "ConvolutionDetectorResolution.h"
 #include "DetectorItems.h"
 #include "SphericalDetectorItem.h"
@@ -68,6 +70,7 @@
 using namespace INodeUtils;
 using SessionItemUtils::SetVectorItem;
 
+namespace {
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* pdf, QString group_name);
 void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_name);
 void SetDecayFunction1D(SessionItem* item, const IFTDecayFunction1D* pdf, QString group_name);
@@ -77,6 +80,7 @@ void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice);
 
 void setDistribution(SessionItem* item, ParameterDistribution par_distr,
                      QString group_name, double factor = 1.0);
+}
 
 void TransformFromDomain::setItemFromSample(SessionItem* item,
                                             const InterferenceFunctionRadialParaCrystal* sample)
@@ -202,15 +206,15 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness* roughness)
     return true;
 }
 
-void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimulation& simulation)
+void TransformFromDomain::setItemFromSample(BeamItem* beam_item, const GISASSimulation& simulation)
 {
-    Q_ASSERT(beamItem);
+    Q_ASSERT(beam_item);
     Beam beam = simulation.getInstrument().getBeam();
 
-    beamItem->setIntensity(beam.getIntensity());
-    beamItem->setWavelength(beam.getWavelength());
-    beamItem->setInclinationAngle(Units::rad2deg(beam.getAlpha()));
-    beamItem->setAzimuthalAngle(Units::rad2deg(beam.getPhi()));
+    beam_item->setIntensity(beam.getIntensity());
+    beam_item->setWavelength(beam.getWavelength());
+    beam_item->setInclinationAngle(Units::rad2deg(beam.getAlpha()));
+    beam_item->setAzimuthalAngle(Units::rad2deg(beam.getPhi()));
 
     // distribution parameters
     const DistributionHandler::Distributions_t distributions
@@ -225,38 +229,38 @@ void TransformFromDomain::setItemFromSample(BeamItem* beamItem, const GISASSimul
         std::string mainParameterName = distributions[i].getMainParameterName();
         if (mainParameterName == pattern_wavelength.toStdString()) {
             BeamDistributionItem* beamWavelength = dynamic_cast<BeamDistributionItem*>(
-                beamItem->getItem(BeamItem::P_WAVELENGTH));
+                beam_item->getItem(BeamItem::P_WAVELENGTH));
             setItemFromSample(beamWavelength, distributions[i]);
         } else if (mainParameterName == pattern_alpha.toStdString()) {
             BeamDistributionItem* inclinationAngle = dynamic_cast<BeamDistributionItem*>(
-                beamItem->getItem(BeamItem::P_INCLINATION_ANGLE));
+                beam_item->getItem(BeamItem::P_INCLINATION_ANGLE));
             setItemFromSample(inclinationAngle, distributions[i]);
         } else if (mainParameterName == pattern_phi.toStdString()) {
             BeamDistributionItem* azimuthalAngle = dynamic_cast<BeamDistributionItem*>(
-                beamItem->getItem(BeamItem::P_AZIMUTHAL_ANGLE));
+                beam_item->getItem(BeamItem::P_AZIMUTHAL_ANGLE));
             setItemFromSample(azimuthalAngle, distributions[i]);
         }
     }
 
     // polarization parameters
-    SetVectorItem(*beamItem, BeamItem::P_POLARIZATION, beam.getBlochVector());
+    SetVectorItem(*beam_item, BeamItem::P_POLARIZATION, beam.getBlochVector());
 }
 
-void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrumentItem,
-                                            const GISASSimulation& simulation)
+void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrument_item,
+                                                          const GISASSimulation& simulation)
 {
     const IDetector* p_detector = simulation.getInstrument().getDetector();
     DetectorItem* detector_item;
 
     if(auto detector = dynamic_cast<const SphericalDetector*>(p_detector)) {
-        instrumentItem->setDetectorGroup(Constants::SphericalDetectorType);
-        detector_item = instrumentItem->detectorItem();
+        instrument_item->setDetectorGroup(Constants::SphericalDetectorType);
+        detector_item = instrument_item->detectorItem();
         auto item = dynamic_cast<SphericalDetectorItem*>(detector_item);
         setItemFromSample(item, *detector);
     }
     else if(auto detector = dynamic_cast<const RectangularDetector*>(p_detector)) {
-        instrumentItem->setDetectorGroup(Constants::RectangularDetectorType);
-        detector_item = instrumentItem->detectorItem();
+        instrument_item->setDetectorGroup(Constants::RectangularDetectorType);
+        detector_item = instrument_item->detectorItem();
         auto item = dynamic_cast<RectangularDetectorItem*>(detector_item);
         setItemFromSample(item, *detector);
     }
@@ -307,7 +311,7 @@ void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instru
     }
 }
 
-void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
+void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detector_item,
                                             const SphericalDetector& detector)
 {
     // Axes
@@ -315,14 +319,14 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
     const IAxis& alpha_axis = detector.getAxis(1);
 
     BasicAxisItem* phiAxisItem = dynamic_cast<BasicAxisItem*>(
-        detectorItem->getItem(SphericalDetectorItem::P_PHI_AXIS));
+        detector_item->getItem(SphericalDetectorItem::P_PHI_AXIS));
     Q_ASSERT(phiAxisItem);
     phiAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)phi_axis.size());
     phiAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(phi_axis.getMin()));
     phiAxisItem->setItemValue(BasicAxisItem::P_MAX, Units::rad2deg(phi_axis.getMax()));
 
     BasicAxisItem* alphaAxisItem = dynamic_cast<BasicAxisItem*>(
-        detectorItem->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
+        detector_item->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
     Q_ASSERT(alphaAxisItem);
     alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.size());
     alphaAxisItem->setItemValue(BasicAxisItem::P_MIN, Units::rad2deg(alpha_axis.getMin()));
@@ -330,67 +334,67 @@ void TransformFromDomain::setItemFromSample(SphericalDetectorItem* detectorItem,
 }
 
 
-void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorItem,
+void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detector_item,
                                             const RectangularDetector& detector)
 {
     // Axes
     BasicAxisItem* xAxisItem = dynamic_cast<BasicAxisItem*>(
-        detectorItem->getItem(RectangularDetectorItem::P_X_AXIS));
+        detector_item->getItem(RectangularDetectorItem::P_X_AXIS));
     Q_ASSERT(xAxisItem);
     xAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsX());
     xAxisItem->setItemValue(BasicAxisItem::P_MAX, detector.getWidth());
 
     BasicAxisItem* yAxisItem = dynamic_cast<BasicAxisItem*>(
-        detectorItem->getItem(RectangularDetectorItem::P_Y_AXIS));
+        detector_item->getItem(RectangularDetectorItem::P_Y_AXIS));
     Q_ASSERT(yAxisItem);
     yAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsY());
     yAxisItem->setItemValue(BasicAxisItem::P_MAX, detector.getHeight());
 
     if(detector.getDetectorArrangment() == RectangularDetector::GENERIC) {
-        detectorItem->setDetectorAlignment(Constants::ALIGNMENT_GENERIC);
+        detector_item->setDetectorAlignment(Constants::ALIGNMENT_GENERIC);
 
         kvector_t normal = detector.getNormalVector();
-        SetVectorItem(*detectorItem, RectangularDetectorItem::P_NORMAL, normal);
+        SetVectorItem(*detector_item, RectangularDetectorItem::P_NORMAL, normal);
 
         kvector_t direction = detector.getDirectionVector();
-        SetVectorItem(*detectorItem, RectangularDetectorItem::P_DIRECTION,
+        SetVectorItem(*detector_item, RectangularDetectorItem::P_DIRECTION,
                                         direction);
 
-        detectorItem->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());
-        detectorItem->setItemValue(RectangularDetectorItem::P_V0, detector.getV0());
+        detector_item->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());
+        detector_item->setItemValue(RectangularDetectorItem::P_V0, detector.getV0());
     }
 
     else if (detector.getDetectorArrangment() == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {
-        detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_SAMPLE);
-        detectorItem->setItemValue(RectangularDetectorItem::P_DISTANCE,
+        detector_item->setDetectorAlignment(Constants::ALIGNMENT_TO_SAMPLE);
+        detector_item->setItemValue(RectangularDetectorItem::P_DISTANCE,
                                             detector.getDistance());
-        detectorItem->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());
-        detectorItem->setItemValue(RectangularDetectorItem::P_V0, detector.getV0());
+        detector_item->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());
+        detector_item->setItemValue(RectangularDetectorItem::P_V0, detector.getV0());
 
     } else if (detector.getDetectorArrangment()
                == RectangularDetector::PERPENDICULAR_TO_DIRECT_BEAM) {
-        detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_DIRECT_BEAM);
-        detectorItem->setItemValue(RectangularDetectorItem::P_DISTANCE,
+        detector_item->setDetectorAlignment(Constants::ALIGNMENT_TO_DIRECT_BEAM);
+        detector_item->setItemValue(RectangularDetectorItem::P_DISTANCE,
                                             detector.getDistance());
-        detectorItem->setItemValue(RectangularDetectorItem::P_DBEAM_U0, detector.getU0());
-        detectorItem->setItemValue(RectangularDetectorItem::P_DBEAM_V0, detector.getV0());
+        detector_item->setItemValue(RectangularDetectorItem::P_DBEAM_U0, detector.getU0());
+        detector_item->setItemValue(RectangularDetectorItem::P_DBEAM_V0, detector.getV0());
 
     } else if (detector.getDetectorArrangment()
                == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM) {
-        detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_REFLECTED_BEAM);
-        detectorItem->setItemValue(RectangularDetectorItem::P_DISTANCE,
+        detector_item->setDetectorAlignment(Constants::ALIGNMENT_TO_REFLECTED_BEAM);
+        detector_item->setItemValue(RectangularDetectorItem::P_DISTANCE,
                                             detector.getDistance());
-        detectorItem->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());
-        detectorItem->setItemValue(RectangularDetectorItem::P_V0, detector.getV0());
+        detector_item->setItemValue(RectangularDetectorItem::P_U0, detector.getU0());
+        detector_item->setItemValue(RectangularDetectorItem::P_V0, detector.getV0());
 
     } else if (detector.getDetectorArrangment()
                == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
-        detectorItem->setDetectorAlignment(Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS);
-        detectorItem->setItemValue(RectangularDetectorItem::P_DISTANCE,
+        detector_item->setDetectorAlignment(Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS);
+        detector_item->setItemValue(RectangularDetectorItem::P_DISTANCE,
                                             detector.getDistance());
-        detectorItem->setItemValue(RectangularDetectorItem::P_DBEAM_U0,
+        detector_item->setItemValue(RectangularDetectorItem::P_DBEAM_U0,
                                             detector.getDirectBeamU0());
-        detectorItem->setItemValue(RectangularDetectorItem::P_DBEAM_V0,
+        detector_item->setItemValue(RectangularDetectorItem::P_DBEAM_V0,
                                             detector.getDirectBeamV0());
 
     } else {
@@ -400,23 +404,23 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detectorIte
     }
 }
 
-void TransformFromDomain::setDetectorMasks(DetectorItem* detectorItem,
+void TransformFromDomain::setDetectorMasks(DetectorItem* detector_item,
                                            const GISASSimulation& simulation)
 {
     const IDetector* detector = simulation.getInstrument().getDetector();
     if( (detector->detectorMask() && detector->detectorMask()->numberOfMasks()) ||
         detector->regionOfInterest()) {
-        detectorItem->createMaskContainer();
+        detector_item->createMaskContainer();
 
         double scale(1.0);
-        if(detectorItem->modelType() == Constants::SphericalDetectorType)
+        if(detector_item->modelType() == Constants::SphericalDetectorType)
             scale = 1./Units::degree;
 
-        setDetectorMasks(detectorItem->maskContainerItem(), *detector, scale);
+        setDetectorMasks(detector_item->maskContainerItem(), *detector, scale);
     }
 }
 
-void TransformFromDomain::setDetectorMasks(MaskContainerItem* containerItem,
+void TransformFromDomain::setDetectorMasks(MaskContainerItem* container_item,
                                            const IDetector& detector, double scale)
 {
     auto detectorMask = detector.detectorMask();
@@ -432,7 +436,7 @@ void TransformFromDomain::setDetectorMasks(MaskContainerItem* containerItem,
             ellipseItem->setItemValue(EllipseItem::P_YRADIUS, scale*ellipse->getRadiusY());
             ellipseItem->setItemValue(EllipseItem::P_ANGLE, scale*ellipse->getTheta());
             ellipseItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-            containerItem->insertItem(0, ellipseItem);
+            container_item->insertItem(0, ellipseItem);
         }
 
         else if(const Rectangle* rectangle = dynamic_cast<const Rectangle*>(shape)) {
@@ -442,7 +446,7 @@ void TransformFromDomain::setDetectorMasks(MaskContainerItem* containerItem,
             rectangleItem->setItemValue(RectangleItem::P_XUP, scale*rectangle->getXup());
             rectangleItem->setItemValue(RectangleItem::P_YUP, scale*rectangle->getYup());
             rectangleItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-            containerItem->insertItem(0, rectangleItem);
+            container_item->insertItem(0, rectangleItem);
 
         }
 
@@ -460,28 +464,28 @@ void TransformFromDomain::setDetectorMasks(MaskContainerItem* containerItem,
             polygonItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
             polygonItem->setItemValue(PolygonItem::P_ISCLOSED, true);
 
-            containerItem->insertItem(0, polygonItem);
+            container_item->insertItem(0, polygonItem);
         }
 
         else if(const VerticalLine* vline = dynamic_cast<const VerticalLine*>(shape)) {
             VerticalLineItem* lineItem = new VerticalLineItem();
             lineItem->setItemValue(VerticalLineItem::P_POSX, scale*vline->getXpos());
             lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-            containerItem->insertItem(0, lineItem);
+            container_item->insertItem(0, lineItem);
         }
 
         else if(const HorizontalLine* hline = dynamic_cast<const HorizontalLine*>(shape)) {
             HorizontalLineItem* lineItem = new HorizontalLineItem();
             lineItem->setItemValue(HorizontalLineItem::P_POSY, scale*hline->getYpos());
             lineItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-            containerItem->insertItem(0, lineItem);
+            container_item->insertItem(0, lineItem);
         }
 
         else if(const InfinitePlane* plane = dynamic_cast<const InfinitePlane*>(shape)) {
             Q_UNUSED(plane);
             MaskAllItem* planeItem = new MaskAllItem();
             planeItem->setItemValue(MaskItem::P_MASK_VALUE, mask_value);
-            containerItem->insertItem(-1, planeItem);
+            container_item->insertItem(-1, planeItem);
         }
 
         else {
@@ -496,17 +500,17 @@ void TransformFromDomain::setDetectorMasks(MaskContainerItem* containerItem,
         roiItem->setItemValue(RectangleItem::P_YLOW, scale*detector.regionOfInterest()->getYlow());
         roiItem->setItemValue(RectangleItem::P_XUP, scale*detector.regionOfInterest()->getXup());
         roiItem->setItemValue(RectangleItem::P_YUP, scale*detector.regionOfInterest()->getYup());
-        containerItem->insertItem(-1, roiItem);
+        container_item->insertItem(-1, roiItem);
     }
 }
 
 
-void TransformFromDomain::setItemFromSample(BeamDistributionItem* beamDistributionItem,
-                                            const ParameterDistribution& parameterDistribution)
+void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribution_item,
+                                            const ParameterDistribution& parameter_distribution)
 {
-    Q_ASSERT(beamDistributionItem);
+    Q_ASSERT(beam_distribution_item);
 
-    if (parameterDistribution.getMinValue() < parameterDistribution.getMaxValue()) {
+    if (parameter_distribution.getMinValue() < parameter_distribution.getMaxValue()) {
         throw GUIHelpers::Error(
             "TransformFromDomain::setItemFromSample(BeamDistributionItem* beamDistributionItem,"
             "const ParameterDistribution& parameterDistribution) -> Error. ParameterDistribution "
@@ -514,14 +518,26 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beamDistributi
     }
 
     double unit_factor(1.0);
-    if (beamDistributionItem->modelType() == Constants::BeamAzimuthalAngleType
-        || beamDistributionItem->modelType() == Constants::BeamInclinationAngleType) {
+    if (beam_distribution_item->modelType() == Constants::BeamAzimuthalAngleType
+        || beam_distribution_item->modelType() == Constants::BeamInclinationAngleType) {
         unit_factor = 1. / Units::degree;
     }
     QString group_name = BeamDistributionItem::P_DISTRIBUTION;
-    setDistribution(beamDistributionItem, parameterDistribution, group_name, unit_factor);
+    setDistribution(beam_distribution_item, parameter_distribution, group_name, unit_factor);
 }
 
+void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
+                                        const GISASSimulation& simulation)
+{
+    auto p_bg = simulation.background();
+    const ConstantBackground* p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg);
+    if (p_constant_bg) {
+        double value = p_constant_bg->backgroundValue();
+        instrument_item->backgroundItem()->setBackgroundValue(value);
+    }
+}
+
+namespace {
 void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_name)
 {
     if (const FTDistribution1DCauchy* pdf = dynamic_cast<const FTDistribution1DCauchy*>(ipdf)) {
@@ -708,40 +724,40 @@ void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice)
                        Units::rad2deg(lattice.rotationAngle()));
 }
 
-void setDistribution(SessionItem* partDistrItem, ParameterDistribution par_distr,
+void setDistribution(SessionItem* part_distr_item, ParameterDistribution par_distr,
                      QString group_name, double factor)
 {
     const IDistribution1D* p_distribution = par_distr.getDistribution();
 
     SessionItem* item = 0;
     if (const DistributionGate* distr = dynamic_cast<const DistributionGate*>(p_distribution)) {
-        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionGateType);
+        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionGateType);
         item->setItemValue(DistributionGateItem::P_MIN, factor*distr->getMin());
         item->setItemValue(DistributionGateItem::P_MAX, factor*distr->getMax());
     } else if (const DistributionLorentz* distr
                = dynamic_cast<const DistributionLorentz*>(p_distribution)) {
-        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionLorentzType);
+        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionLorentzType);
         item->setItemValue(DistributionLorentzItem::P_MEAN, factor*distr->getMean());
         item->setItemValue(DistributionLorentzItem::P_HWHM, factor*distr->getHWHM());
     } else if (const DistributionGaussian* distr
                = dynamic_cast<const DistributionGaussian*>(p_distribution)) {
-        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionGaussianType);
+        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionGaussianType);
         item->setItemValue(DistributionGaussianItem::P_MEAN, factor*distr->getMean());
         item->setItemValue(DistributionGaussianItem::P_STD_DEV, factor*distr->getStdDev());
     } else if (const DistributionLogNormal* distr
                = dynamic_cast<const DistributionLogNormal*>(p_distribution)) {
-        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionLogNormalType);
+        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionLogNormalType);
         item->setItemValue(DistributionLogNormalItem::P_MEDIAN, factor*distr->getMedian());
         item->setItemValue(DistributionLogNormalItem::P_SCALE_PAR,
                                        distr->getScalePar());
     } else if (const DistributionCosine* distr
                = dynamic_cast<const DistributionCosine*>(p_distribution)) {
-        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionCosineType);
+        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionCosineType);
         item->setItemValue(DistributionCosineItem::P_MEAN, factor*distr->getMean());
         item->setItemValue(DistributionCosineItem::P_SIGMA, factor*distr->getSigma());
     } else if (const DistributionTrapezoid* distr
                = dynamic_cast<const DistributionTrapezoid*>(p_distribution)) {
-        item = partDistrItem->setGroupProperty(group_name, Constants::DistributionTrapezoidType);
+        item = part_distr_item->setGroupProperty(group_name, Constants::DistributionTrapezoidType);
         item->setItemValue(DistributionTrapezoidItem::P_CENTER, factor*distr->getMean());
         item->setItemValue(DistributionTrapezoidItem::P_LEFTWIDTH, factor*distr->getLeftWidth());
         item->setItemValue(DistributionTrapezoidItem::P_MIDDLEWIDTH,
@@ -764,3 +780,4 @@ void setDistribution(SessionItem* partDistrItem, ParameterDistribution par_distr
         distItem->init_limits_group(par_distr.getLimits(), factor);
 
 }
+}  // unnamed namespace

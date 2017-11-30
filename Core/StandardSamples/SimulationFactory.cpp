@@ -124,6 +124,12 @@ SimulationFactory::SimulationFactory()
                  StandardSimulations::RectDetWithRoi,
                  "Rectangular detector with ROI and mask");
 
+    // background
+
+    registerItem("ConstantBackground",
+                 StandardSimulations::ConstantBackgroundGISAS,
+                 "Simulation with a constant background value");
+
     // specular simulations
 
     registerItem("BasicSpecular",

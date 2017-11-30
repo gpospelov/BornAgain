@@ -47,7 +47,7 @@ GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sa
     result->setSample(*P_multilayer);
     result->setInstrument(*P_instrument);
     if (P_background) {
-        result->setBackGround(*P_background);
+        result->setBackground(*P_background);
     }
 
     TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->beamItem(),

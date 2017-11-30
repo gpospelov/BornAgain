@@ -17,6 +17,7 @@
 #include "InstrumentItem.h"
 #include "BackgroundItem.h"
 #include "BeamItem.h"
+#include "BornAgainNamespace.h"
 #include "DetectorItems.h"
 #include "GUIHelpers.h"
 #include "SessionModel.h"
@@ -77,4 +78,16 @@ void InstrumentItem::clearMasks()
 void InstrumentItem::importMasks(MaskContainerItem* maskContainer)
 {
     detectorItem()->importMasks(maskContainer);
+}
+
+QStringList InstrumentItem::translateList(const QStringList& list) const
+{
+    QStringList result;
+    // Add CrystalType to path name of basis particle
+    if (list.back().startsWith(P_BACKGROUND) && list.size()==2) {
+        result << list[0] << QString::fromStdString(BornAgain::ConstantBackgroundType);
+    } else {
+        return SessionItem::translateList(list);
+    }
+    return result;
 }

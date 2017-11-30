@@ -123,6 +123,9 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     // detector masks
     TransformFromDomain::setDetectorMasks(p_instrument_item->detectorItem(), simulation);
 
+    // background
+    TransformFromDomain::setBackground(p_instrument_item, simulation);
+
     return p_instrument_item;
 }
 

@@ -15,6 +15,7 @@ set(test_cases
     BoxesWithSpecular
     BoxStackComposition
     CenteredSquareLattice
+    ConstantBackground
     CoreShellBoxRotateZandY
     CoreShellParticle
     CosineRipple

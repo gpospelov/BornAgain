@@ -38,7 +38,7 @@ public:
 private slots:
     void onMaterialDataChanged(const QModelIndex &topLeft, const QModelIndex &, const QVector<int> &);
     void onMaterialRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
-    void onMaterialModelCopy();
+    void onMaterialModelLoad();
 
 private:
     QVector<SessionItem*> relatedSampleItems();

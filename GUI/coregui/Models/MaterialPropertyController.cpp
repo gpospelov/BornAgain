@@ -40,8 +40,8 @@ void MaterialPropertyController::setModels(MaterialModel* materialModel, SampleM
     connect(m_materialModel, &MaterialModel::rowsAboutToBeRemoved, this,
             &MaterialPropertyController::onMaterialRowsAboutToBeRemoved);
 
-    connect(m_materialModel, &MaterialModel::createdFromCopy, this,
-            &MaterialPropertyController::onMaterialModelCopy);
+    connect(m_materialModel, &MaterialModel::modelLoaded, this,
+            &MaterialPropertyController::onMaterialModelLoad);
 }
 
 //! On MaterialItem change: updates corresponding MaterialProperty in sample items.
@@ -99,7 +99,7 @@ void MaterialPropertyController::onMaterialRowsAboutToBeRemoved(const QModelInde
 //! Special case when original MaterialModel was fully rebuild from MaterialEditor.
 //! Full update of MaterialProperties.
 
-void MaterialPropertyController::onMaterialModelCopy()
+void MaterialPropertyController::onMaterialModelLoad()
 {
     for (auto sampleItem : relatedSampleItems()) {
         QString tag = MaterialItemUtils::materialTag(*sampleItem);

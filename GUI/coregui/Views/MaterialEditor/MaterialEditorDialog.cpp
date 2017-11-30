@@ -56,7 +56,7 @@ void MaterialEditorDialog::onOKButton()
     if (m_materialEditor->modelWasChanged()) {
         m_origMaterialModel->clear();
         m_origMaterialModel->initFrom(m_tmpMaterialModel.get(), 0);
-        m_origMaterialModel->createdFromCopy();
+        m_origMaterialModel->modelLoaded();
     }
     writeSettings();
     accept();

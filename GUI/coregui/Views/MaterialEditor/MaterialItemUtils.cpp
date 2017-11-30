@@ -48,16 +48,16 @@ QColor MaterialItemUtils::suggestMaterialColor(const QString &name)
 }
 
 
-MaterialProperty MaterialItemUtils::defaultMaterialProperty()
+ExternalProperty MaterialItemUtils::defaultMaterialProperty()
 {
     auto materials = AppSvc::materialModel()->topItems();
-    return materials.isEmpty() ? MaterialProperty() :
+    return materials.isEmpty() ? ExternalProperty() :
                                  MaterialItemUtils::materialProperty(*materials.front());
 }
 
 
 std::unique_ptr<Material>
-MaterialItemUtils::createDomainMaterial(const MaterialProperty &material_property)
+MaterialItemUtils::createDomainMaterial(const ExternalProperty &material_property)
 {    
     MaterialItem *materialItem
         = AppSvc::materialModel()->materialFromIdentifier(material_property.getIdentifier());
@@ -90,9 +90,9 @@ QStringList MaterialItemUtils::materialRelatedModelTypes()
 }
 
 
-MaterialProperty MaterialItemUtils::materialProperty(const SessionItem& materialItem)
+ExternalProperty MaterialItemUtils::materialProperty(const SessionItem& materialItem)
 {
-    MaterialProperty result(materialItem.getItemValue(MaterialItem::P_IDENTIFIER).toString());
+    ExternalProperty result(materialItem.getItemValue(MaterialItem::P_IDENTIFIER).toString());
 
     ColorProperty colorProperty = materialItem.getItemValue(MaterialItem::P_COLOR).value<ColorProperty>();
     result.setColor(colorProperty.getColor());
@@ -101,7 +101,7 @@ MaterialProperty MaterialItemUtils::materialProperty(const SessionItem& material
     return result;
 }
 
-MaterialProperty MaterialItemUtils::selectMaterialProperty(const MaterialProperty& previousMaterial)
+ExternalProperty MaterialItemUtils::selectMaterialProperty(const ExternalProperty& previousMaterial)
 {
     MaterialEditorDialog dialog(AppSvc::materialModel());
     dialog.setMaterialProperty(previousMaterial);
@@ -109,6 +109,6 @@ MaterialProperty MaterialItemUtils::selectMaterialProperty(const MaterialPropert
         return dialog.selectedMaterialProperty();
     }
 
-    return MaterialProperty();
+    return ExternalProperty();
 }
 

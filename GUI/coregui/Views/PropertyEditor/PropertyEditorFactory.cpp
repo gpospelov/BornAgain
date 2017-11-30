@@ -17,7 +17,7 @@
 #include "PropertyEditorFactory.h"
 #include "SessionItem.h"
 #include "RealLimits.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "GroupProperty.h"
 #include "CustomEditors.h"
 #include "ComboProperty.h"
@@ -53,7 +53,7 @@ bool isIntProperty(const QVariant& variant)
 
 bool isMaterialProperty(const QVariant& variant)
 {
-    return variant.canConvert<MaterialProperty>();
+    return variant.canConvert<ExternalProperty>();
 }
 
 bool isColorProperty(const QVariant& variant)
@@ -103,7 +103,7 @@ bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
 QString PropertyEditorFactory::ToString(const QVariant& variant)
 {
     if (isMaterialProperty(variant))
-        return variant.value<MaterialProperty>().getName();
+        return variant.value<ExternalProperty>().getName();
     if (isColorProperty(variant))
         return variant.value<ColorProperty>().getText();
     if (isGroupProperty(variant))

@@ -60,13 +60,13 @@ using SessionItemUtils::GetVectorItem;
 
 std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
-    MaterialProperty material_property;
+    ExternalProperty material_property;
     if (item.modelType() == Constants::ParticleType) {
         material_property
-            = item.getItemValue(ParticleItem::P_MATERIAL).value<MaterialProperty>();
+            = item.getItemValue(ParticleItem::P_MATERIAL).value<ExternalProperty>();
     } else if (item.modelType() == Constants::LayerType) {
         material_property
-            = item.getItemValue(LayerItem::P_MATERIAL).value<MaterialProperty>();
+            = item.getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
     }
     if (!material_property.isDefined())
         throw GUIHelpers::Error(

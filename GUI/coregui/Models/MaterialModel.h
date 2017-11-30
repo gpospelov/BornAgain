@@ -20,7 +20,7 @@
 #include "SessionModel.h"
 
 class MaterialItem;
-class MaterialProperty;
+class ExternalProperty;
 
 class BA_CORE_API_ MaterialModel : public SessionModel
 {
@@ -36,7 +36,7 @@ public:
     void removeMaterial(MaterialItem*);
 
     MaterialItem* getMaterial(const QModelIndex& index);
-    MaterialItem* getMaterial(const MaterialProperty& property);
+    MaterialItem* getMaterial(const ExternalProperty& property);
 
     MaterialItem* cloneMaterial(const QModelIndex& index);
 

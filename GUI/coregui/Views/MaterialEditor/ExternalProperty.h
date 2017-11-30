@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/MaterialEditor/MaterialProperty.h
-//! @brief     Defines class MaterialProperty
+//! @file      GUI/coregui/Views/MaterialEditor/ExternalProperty.h
+//! @brief     Defines class ExternalProperty
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALPROPERTY_H
-#define MATERIALPROPERTY_H
+#ifndef EXTERNALPROPERTY_H
+#define EXTERNALPROPERTY_H
 
 #include "WinDllMacros.h"
 #include <QColor>
@@ -26,10 +26,10 @@
 
 //! The MaterialProperty class defines unique identifier to help LayerItem, ParticleItem etc
 //! to access materials from MaterialEditor;
-class BA_CORE_API_ MaterialProperty
+class BA_CORE_API_ ExternalProperty
 {
 public:
-    explicit MaterialProperty(const QString &identifier=QString());
+    explicit ExternalProperty(const QString &identifier=QString());
 
     QString getIdentifier() const {
         return m_identifier;
@@ -58,6 +58,6 @@ private:
     QColor m_color;
 };
 
-Q_DECLARE_METATYPE(MaterialProperty)
+Q_DECLARE_METATYPE(ExternalProperty)
 
-#endif // MATERIALPROPERTY_H
+#endif // EXTERNALPROPERTY_H

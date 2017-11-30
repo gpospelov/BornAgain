@@ -18,7 +18,7 @@
 #define OBSOLETEPROPERTYBROWSERUTILS_H
 
 #include <QWidget>
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "ColorProperty.h"
 #include "ObsoleteScientificDoubleProperty.h"
 #include "GroupProperty.h"
@@ -39,16 +39,16 @@ class BA_CORE_API_ ObsoleteMaterialPropertyEdit : public QWidget
 public:
     ObsoleteMaterialPropertyEdit(QWidget *parent = 0);
 
-    void setMaterialProperty(const MaterialProperty &materialProperty);
-    MaterialProperty getMaterialProperty() const {return m_materialProperty; }
+    void setMaterialProperty(const ExternalProperty &materialProperty);
+    ExternalProperty getMaterialProperty() const {return m_materialProperty; }
 signals:
-    void materialPropertyChanged(const MaterialProperty &material);
+    void materialPropertyChanged(const ExternalProperty &material);
 private slots:
     void buttonClicked();
 private:
     QLabel *m_textLabel;
     QLabel *m_pixmapLabel;
-    MaterialProperty m_materialProperty;
+    ExternalProperty m_materialProperty;
     LostFocusFilter* m_focusFilter;
 };
 

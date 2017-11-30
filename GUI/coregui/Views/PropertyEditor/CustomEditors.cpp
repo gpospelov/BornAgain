@@ -16,7 +16,7 @@
 
 #include "CustomEditors.h"
 #include "CustomEventFilters.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "GroupProperty.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
@@ -63,7 +63,7 @@ MaterialPropertyEditor::MaterialPropertyEditor(QWidget* parent)
     auto layout = new QHBoxLayout;
     layout->setContentsMargins(4, 0, 0, 0);
 
-    MaterialProperty defProperty; // to get label and pixmap of undefined material
+    ExternalProperty defProperty; // to get label and pixmap of undefined material
     m_textLabel->setText(defProperty.getName());
     m_pixmapLabel->setPixmap(defProperty.getPixmap());
 
@@ -86,8 +86,8 @@ void MaterialPropertyEditor::buttonClicked()
 {
     // temporarily installing filter to prevent loss of focus caused by too insistent dialog
     installEventFilter(m_focusFilter);
-    MaterialProperty materialProperty = m_data.value<MaterialProperty>();
-    MaterialProperty mat = MaterialItemUtils::selectMaterialProperty(materialProperty);
+    ExternalProperty materialProperty = m_data.value<ExternalProperty>();
+    ExternalProperty mat = MaterialItemUtils::selectMaterialProperty(materialProperty);
     removeEventFilter(m_focusFilter);
 
     if(mat.isDefined() )
@@ -96,8 +96,8 @@ void MaterialPropertyEditor::buttonClicked()
 
 void MaterialPropertyEditor::initEditor()
 {
-    Q_ASSERT(m_data.canConvert<MaterialProperty>());
-    MaterialProperty materialProperty = m_data.value<MaterialProperty>();
+    Q_ASSERT(m_data.canConvert<ExternalProperty>());
+    ExternalProperty materialProperty = m_data.value<ExternalProperty>();
     m_textLabel->setText(materialProperty.getName());
     m_pixmapLabel->setPixmap(materialProperty.getPixmap());
 }

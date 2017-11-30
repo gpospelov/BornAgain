@@ -19,7 +19,7 @@
 #include "GUIHelpers.h"
 #include "GroupItem.h"
 #include "ItemFactory.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "SessionModel.h"
 #include "WarningMessageService.h"
 #include <QtCore/QXmlStreamWriter>
@@ -100,7 +100,7 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
         }
 
         else if (type_name == Constants::MaterialPropertyType) {
-            MaterialProperty material_property = variant.value<MaterialProperty>();
+            ExternalProperty material_property = variant.value<ExternalProperty>();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    material_property.getName());
             writer->writeAttribute(SessionXML::IdentifierAttribute,
@@ -280,7 +280,7 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
     else if (parameter_type == Constants::MaterialPropertyType) {
         QString identifier = reader->attributes().value(SessionXML::IdentifierAttribute).toString();
 
-        MaterialProperty material_property(identifier);
+        ExternalProperty material_property(identifier);
         variant = material_property.getVariant();
     }
 

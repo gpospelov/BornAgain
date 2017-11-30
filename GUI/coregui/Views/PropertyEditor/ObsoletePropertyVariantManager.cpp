@@ -27,7 +27,7 @@ ObsoletePropertyVariantManager::ObsoletePropertyVariantManager(QObject *parent)
 
 int ObsoletePropertyVariantManager::materialTypeId()
 {
-    int result = qMetaTypeId<MaterialProperty>();
+    int result = qMetaTypeId<ExternalProperty>();
     return result;
 }
 
@@ -156,7 +156,7 @@ void ObsoletePropertyVariantManager::setValue(QtProperty *property, const QVaria
 {
     if (m_theMaterialValues.contains(property)) {
         if( val.userType() != materialTypeId() ) return;
-        MaterialProperty mat = val.value<MaterialProperty>();
+        ExternalProperty mat = val.value<ExternalProperty>();
         m_theMaterialValues[property] = mat;
         QVariant v2;
         v2.setValue(mat);
@@ -212,7 +212,7 @@ void ObsoletePropertyVariantManager::setValue(QtProperty *property, const QVaria
 void ObsoletePropertyVariantManager::initializeProperty(QtProperty *property)
 {
     if (propertyType(property) == materialTypeId()) {
-        MaterialProperty m;
+        ExternalProperty m;
         m_theMaterialValues[property] = m;
     }
     if (propertyType(property) == colorPropertyTypeId()) {

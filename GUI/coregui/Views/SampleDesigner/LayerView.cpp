@@ -16,7 +16,6 @@
 
 #include "LayerView.h"
 #include "LayerItem.h"
-#include "MaterialProperty.h"
 #include "MultiLayerView.h"
 #include "ParticleLayoutView.h"
 #include "SessionItem.h"

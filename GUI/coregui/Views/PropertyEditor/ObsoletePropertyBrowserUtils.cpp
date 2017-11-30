@@ -70,7 +70,7 @@ void ObsoleteMaterialPropertyEdit::buttonClicked()
 {
     // temporarily installing filter to prevent loss of focus caused by too  insistent dialog
     installEventFilter(m_focusFilter);
-    MaterialProperty mat = MaterialItemUtils::selectMaterialProperty(m_materialProperty);
+    ExternalProperty mat = MaterialItemUtils::selectMaterialProperty(m_materialProperty);
     removeEventFilter(m_focusFilter);
 
     if(mat.isDefined() ) {
@@ -81,7 +81,7 @@ void ObsoleteMaterialPropertyEdit::buttonClicked()
 
 
 void ObsoleteMaterialPropertyEdit::setMaterialProperty(
-        const MaterialProperty &materialProperty)
+        const ExternalProperty &materialProperty)
 {
     m_materialProperty = materialProperty;
     m_textLabel->setText(m_materialProperty.getName());

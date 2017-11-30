@@ -19,7 +19,7 @@
 #include "DesignerScene.h"
 #include "GUIHelpers.h"
 #include "LayerItem.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "MultiLayerView.h"
 #include "SampleModel.h"
 #include "SessionItem.h"
@@ -79,7 +79,7 @@ void ILayerView::updateColor()
     if(m_item->isTag(LayerItem::P_MATERIAL)) {
         QVariant v = m_item->getItemValue(LayerItem::P_MATERIAL);
         if (v.isValid()) {
-            MaterialProperty mp = v.value<MaterialProperty>();
+            ExternalProperty mp = v.value<ExternalProperty>();
             setColor(mp.getColor());
             update();
         } else {

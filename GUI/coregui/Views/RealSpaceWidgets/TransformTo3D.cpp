@@ -18,7 +18,7 @@
 #include "SessionItem.h"
 #include "FormFactorItems.h"
 #include "ParticleItem.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "VectorItem.h"
 #include "LayerItem.h"
 #include "MultiLayerItem.h"
@@ -69,7 +69,7 @@ std::unique_ptr<ba3d::Layer> TransformTo3D::createLayer(const SessionItem& layer
     std::unique_ptr<ba3d::Layer> result = std::make_unique<ba3d::Layer>(
         ba3d::dxyz(ba3d::dr(-s2,+s2), ba3d::dr(-s2,+s2), ba3d::dr(ztop, zbottom)));
 
-    QColor color = layerItem.getItemValue(LayerItem::P_MATERIAL).value<MaterialProperty>().getColor();
+    QColor color = layerItem.getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>().getColor();
     color.setAlphaF(.3);
 
     result->color = color;
@@ -103,8 +103,8 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
 
     if(result) {
 
-        MaterialProperty material
-            = particleItem.getItemValue(ParticleItem::P_MATERIAL).value<MaterialProperty>();
+        ExternalProperty material
+            = particleItem.getItemValue(ParticleItem::P_MATERIAL).value<ExternalProperty>();
 
         result->color = material.getColor();
 

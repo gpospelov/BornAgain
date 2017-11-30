@@ -17,11 +17,12 @@
 #include "PropertyEditorFactory.h"
 #include "SessionItem.h"
 #include "RealLimits.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "GroupProperty.h"
 #include "CustomEditors.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
+#include "CustomEventFilters.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 #include <QLineEdit>
@@ -52,7 +53,7 @@ bool isIntProperty(const QVariant& variant)
 
 bool isMaterialProperty(const QVariant& variant)
 {
-    return variant.canConvert<MaterialProperty>();
+    return variant.canConvert<ExternalProperty>();
 }
 
 bool isColorProperty(const QVariant& variant)
@@ -102,7 +103,7 @@ bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
 QString PropertyEditorFactory::ToString(const QVariant& variant)
 {
     if (isMaterialProperty(variant))
-        return variant.value<MaterialProperty>().getName();
+        return variant.value<ExternalProperty>().getName();
     if (isColorProperty(variant))
         return variant.value<ColorProperty>().getText();
     if (isGroupProperty(variant))
@@ -145,7 +146,7 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
     }
 
     else if(isMaterialProperty(item.value())) {
-        auto editor = new MaterialPropertyEditor;
+        auto editor = new ExternalPropertyEditor;
         editor->setData(item.value());
         result = editor;
     }
@@ -183,6 +184,9 @@ QWidget* createCustomDoubleEditor(const SessionItem& item)
     auto result = new QDoubleSpinBox;
     result->setKeyboardTracking(false);
 
+    result->setFocusPolicy(Qt::StrongFocus);
+    result->installEventFilter(new WheelEventEater(result));
+
     result->setMaximum(std::numeric_limits<double>::max());
     result->setMinimum(std::numeric_limits<double>::lowest());
 
@@ -202,6 +206,8 @@ QWidget* createCustomDoubleEditor(const SessionItem& item)
 QWidget* createCustomIntEditor(const SessionItem& item)
 {
     auto result = new QSpinBox;
+    result->setFocusPolicy(Qt::StrongFocus);
+    result->installEventFilter(new WheelEventEater(result));
 
     result->setMaximum(std::numeric_limits<int>::max());
     result->setKeyboardTracking(false);

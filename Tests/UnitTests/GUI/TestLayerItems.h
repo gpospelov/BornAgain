@@ -1,6 +1,6 @@
 #include <QtTest>
 #include "LayerItem.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "ApplicationModels.h"
 #include "SampleModel.h"
 #include "MaterialModel.h"
@@ -26,7 +26,7 @@ inline void TestLayerItems::test_LayerDefaultMaterial()
     auto materials = models.materialModel()->topItems();
     auto defMaterial = materials.front();
 
-    MaterialProperty material = layer->getItemValue(LayerItem::P_MATERIAL).value<MaterialProperty>();
+    ExternalProperty material = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
     QCOMPARE(material.getName(), QString("Default"));
     QCOMPARE(material.getIdentifier(), defMaterial->getItemValue(MaterialItem::P_IDENTIFIER).toString());
 }

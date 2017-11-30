@@ -72,14 +72,14 @@ QWidget *ObsoletePropertyVariantFactory::createEditor(QtVariantPropertyManager *
             ObsoletePropertyVariantManager::materialTypeId()) {
         ObsoleteMaterialPropertyEdit *editor = new ObsoleteMaterialPropertyEdit(parent);
         QVariant var = manager->value(property);
-        MaterialProperty mat = var.value<MaterialProperty>();
+        ExternalProperty mat = var.value<ExternalProperty>();
         editor->setMaterialProperty(mat);
 
         m_property_to_material_editors[property].append(editor);
         m_material_editor_to_property[editor] = property;
 
-        connect(editor, SIGNAL(materialPropertyChanged(const MaterialProperty &)),
-                this, SLOT(slotSetValue(const MaterialProperty &)));
+        connect(editor, SIGNAL(materialPropertyChanged(const ExternalProperty &)),
+                this, SLOT(slotSetValue(const ExternalProperty &)));
         connect(editor, SIGNAL(destroyed(QObject *)),
                 this, SLOT(slotEditorDestroyed(QObject *)));
         return editor;
@@ -182,7 +182,7 @@ void ObsoletePropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 m_property_to_material_editors[property];
         QListIterator<ObsoleteMaterialPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
-            MaterialProperty mat = value.value<MaterialProperty>();
+            ExternalProperty mat = value.value<ExternalProperty>();
             itEditor.next()->setMaterialProperty(mat);
         }
     }
@@ -225,7 +225,7 @@ void ObsoletePropertyVariantFactory::slotPropertyChanged(QtProperty *property,
 }
 
 
-void ObsoletePropertyVariantFactory::slotSetValue(const MaterialProperty &value)
+void ObsoletePropertyVariantFactory::slotSetValue(const ExternalProperty &value)
 {
     QObject *object = sender();
     QMap<ObsoleteMaterialPropertyEdit *, QtProperty *>::ConstIterator itEditor =

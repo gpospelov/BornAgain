@@ -23,7 +23,7 @@
 #include <QtVariantEditorFactory>
 
 class ObsoleteMaterialPropertyEdit;
-class MaterialProperty;
+class ExternalProperty;
 class ObsoleteColorPropertyEdit;
 class ColorProperty;
 class ObsoleteScientificDoublePropertyEdit;
@@ -51,7 +51,7 @@ protected:
     virtual void disconnectPropertyManager(QtVariantPropertyManager *manager);
 private slots:
     void slotPropertyChanged(QtProperty *property, const QVariant &value);
-    void slotSetValue(const MaterialProperty &value);
+    void slotSetValue(const ExternalProperty &value);
     void slotSetValue(const ColorProperty &value);
     void slotSetValue(const ObsoleteScientificDoubleProperty &value);
     void slotSetValue(const GroupProperty_t &value);

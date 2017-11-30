@@ -16,7 +16,7 @@
 
 #include "CustomEditors.h"
 #include "CustomEventFilters.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "GroupProperty.h"
 #include "ComboProperty.h"
 #include "ColorProperty.h"
@@ -51,7 +51,7 @@ void CustomEditor::setDataIntern(const QVariant& data)
 
 // --- MaterialPropertyEditor ---
 
-MaterialPropertyEditor::MaterialPropertyEditor(QWidget* parent)
+ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     : CustomEditor(parent)
     , m_textLabel(new QLabel)
     , m_pixmapLabel(new QLabel)
@@ -63,7 +63,7 @@ MaterialPropertyEditor::MaterialPropertyEditor(QWidget* parent)
     auto layout = new QHBoxLayout;
     layout->setContentsMargins(4, 0, 0, 0);
 
-    MaterialProperty defProperty; // to get label and pixmap of undefined material
+    ExternalProperty defProperty; // to get label and pixmap of undefined material
     m_textLabel->setText(defProperty.getName());
     m_pixmapLabel->setPixmap(defProperty.getPixmap());
 
@@ -77,27 +77,27 @@ MaterialPropertyEditor::MaterialPropertyEditor(QWidget* parent)
     layout->addWidget(button);
     setFocusPolicy(Qt::StrongFocus);
     setAttribute(Qt::WA_InputMethodEnabled);
-    connect(button, &QToolButton::clicked, this, &MaterialPropertyEditor::buttonClicked);
+    connect(button, &QToolButton::clicked, this, &ExternalPropertyEditor::buttonClicked);
 
     setLayout(layout);
 }
 
-void MaterialPropertyEditor::buttonClicked()
+void ExternalPropertyEditor::buttonClicked()
 {
     // temporarily installing filter to prevent loss of focus caused by too insistent dialog
     installEventFilter(m_focusFilter);
-    MaterialProperty materialProperty = m_data.value<MaterialProperty>();
-    MaterialProperty mat = MaterialItemUtils::selectMaterialProperty(materialProperty);
+    ExternalProperty materialProperty = m_data.value<ExternalProperty>();
+    ExternalProperty mat = MaterialItemUtils::selectMaterialProperty(materialProperty);
     removeEventFilter(m_focusFilter);
 
     if(mat.isDefined() )
         setDataIntern(mat.getVariant());
 }
 
-void MaterialPropertyEditor::initEditor()
+void ExternalPropertyEditor::initEditor()
 {
-    Q_ASSERT(m_data.canConvert<MaterialProperty>());
-    MaterialProperty materialProperty = m_data.value<MaterialProperty>();
+    Q_ASSERT(m_data.canConvert<ExternalProperty>());
+    ExternalProperty materialProperty = m_data.value<ExternalProperty>();
     m_textLabel->setText(materialProperty.getName());
     m_pixmapLabel->setPixmap(materialProperty.getPixmap());
 }
@@ -162,6 +162,7 @@ void ColorPropertyEditor::initEditor()
 CustomComboEditor::CustomComboEditor(QWidget* parent)
     : CustomEditor(parent)
     , m_box(new QComboBox)
+    , m_wheel_event_filter(new WheelEventEater(this))
 {
     setAutoFillBackground(true);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -170,6 +171,8 @@ CustomComboEditor::CustomComboEditor(QWidget* parent)
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addWidget(m_box);
+
+    m_box->installEventFilter(m_wheel_event_filter);
 
     setLayout(layout);
     setConnected(true);

@@ -28,7 +28,7 @@ class ComponentEditor;
 class QItemSelection;
 class QItemSelectionModel;
 class MaterialItem;
-class MaterialProperty;
+class ExternalProperty;
 
 //! Main widget of MaterialEditor
 
@@ -43,7 +43,7 @@ public:
 
     MaterialItem* selectedMaterial();
 
-    void setInitialMaterialProperty(const MaterialProperty& matProperty);
+    void setInitialMaterialProperty(const ExternalProperty& matProperty);
 
     bool modelWasChanged() const;
 

@@ -593,7 +593,7 @@ void GUIObjectBuilder::buildPositionInfo(SessionItem* p_particle_item, const IPa
     SetVectorItem(*p_particle_item, ParticleItem::P_POSITION, position);
 }
 
-MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
+ExternalProperty GUIObjectBuilder::createMaterialFromDomain(
         const Material* material)
 {
     QString materialName = m_topSampleName + QString("_") + QString(material->getName().c_str());

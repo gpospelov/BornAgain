@@ -19,7 +19,7 @@
 #include "MaterialModel.h"
 #include "MaterialItem.h"
 #include "mainwindow_constants.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "MaterialItemUtils.h"
 #include <QAction>
 #include <QPushButton>
@@ -117,16 +117,16 @@ void MaterialEditorDialog::writeSettings()
     settings.endGroup();
 }
 
-MaterialProperty MaterialEditorDialog::selectedMaterialProperty()
+ExternalProperty MaterialEditorDialog::selectedMaterialProperty()
 {
     if (MaterialItem* material = m_materialEditor->selectedMaterial())
         return MaterialItemUtils::materialProperty(*material);
 
-    return MaterialProperty();
+    return ExternalProperty();
 }
 
 //!
-void MaterialEditorDialog::setMaterialProperty(const MaterialProperty& matProperty)
+void MaterialEditorDialog::setMaterialProperty(const ExternalProperty& matProperty)
 {
     Q_ASSERT(m_materialEditor);
 

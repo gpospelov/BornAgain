@@ -23,7 +23,7 @@
 
 class MaterialModel;
 class MaterialEditor;
-class MaterialProperty;
+class ExternalProperty;
 class QBoxLayout;
 
 //! Dialog to hold MaterialEditor.
@@ -37,9 +37,9 @@ class BA_CORE_API_ MaterialEditorDialog : public QDialog
 public:
     MaterialEditorDialog(MaterialModel* materialModel, QWidget* parent = nullptr);
 
-    MaterialProperty selectedMaterialProperty();
+    ExternalProperty selectedMaterialProperty();
 
-    void setMaterialProperty(const MaterialProperty& matProperty);
+    void setMaterialProperty(const ExternalProperty& matProperty);
 
 public slots:
     void onOKButton();

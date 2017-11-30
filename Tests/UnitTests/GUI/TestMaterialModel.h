@@ -99,7 +99,7 @@ inline void TestMaterialModel::test_materialPropertyFromMaterial()
     MaterialModel model;
     MaterialItem* mat = model.addMaterial("Something", 1.0, 2.0);
 
-    MaterialProperty property = MaterialItemUtils::materialProperty(*mat);
+    ExternalProperty property = MaterialItemUtils::materialProperty(*mat);
     QCOMPARE(property.getName(), QString("Something"));
     QCOMPARE(property.getColor(), mat->getColor());
     QCOMPARE(property.getIdentifier(), mat->getIdentifier());
@@ -112,13 +112,13 @@ inline void TestMaterialModel::test_defaultMaterialProperty()
     MaterialModel model;
 
     // testing default constructed material property
-    MaterialProperty property;
+    ExternalProperty property;
     QCOMPARE(property.getName(), QString("Undefined"));
     QCOMPARE(property.getColor(), QColor(Qt::red));
     QCOMPARE(property.getIdentifier(), QString(""));
 
     // testing default material property from MaterialItemUtils
-    MaterialProperty property2 = MaterialItemUtils::defaultMaterialProperty();
+    ExternalProperty property2 = MaterialItemUtils::defaultMaterialProperty();
     QCOMPARE(property2.getName(), QString("Undefined"));
     QCOMPARE(property2.getColor(), QColor(Qt::red));
     QCOMPARE(property2.getIdentifier(), QString(""));
@@ -126,7 +126,7 @@ inline void TestMaterialModel::test_defaultMaterialProperty()
     // adding materials to the model, default property should refer to first material in a model
     auto mat1 = model.addMaterial("Something1", 1.0, 2.0);
     model.addMaterial("Something2", 3.0, 4.0);
-    MaterialProperty property3 = MaterialItemUtils::defaultMaterialProperty();
+    ExternalProperty property3 = MaterialItemUtils::defaultMaterialProperty();
     QCOMPARE(property3.getName(), QString("Something1"));
     QCOMPARE(property3.getColor(), mat1->getColor());
     QCOMPARE(property3.getIdentifier(), mat1->getIdentifier());

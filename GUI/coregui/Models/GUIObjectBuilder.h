@@ -18,7 +18,8 @@
 #define GUIOBJECTBUILDER_H
 
 #include "INodeVisitor.h"
-#include "MaterialProperty.h"
+#include <QString>
+#include <QMap>
 
 class Material;
 class InstrumentModel;
@@ -26,6 +27,7 @@ class SampleModel;
 class SessionItem;
 class DocumentModel;
 class GISASSimulation;
+class ExternalProperty;
 
 //! Class to build SampleModel and InstrumentModel from domain's ISample
 class BA_CORE_API_ GUIObjectBuilder : public INodeVisitor
@@ -101,7 +103,7 @@ public:
 private:
     void buildAbundanceInfo(SessionItem* particleItem);
     void buildPositionInfo(SessionItem* particleItem, const IParticle* sample);
-    MaterialProperty createMaterialFromDomain(const Material*);
+    ExternalProperty createMaterialFromDomain(const Material*);
     SessionItem* InsertIParticle(const IParticle* p_particle, QString model_type);
 
     SampleModel* m_sampleModel;

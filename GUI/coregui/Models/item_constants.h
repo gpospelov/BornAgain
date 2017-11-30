@@ -264,7 +264,7 @@ const QString MaskEditorPresentation = "Mask Editor";
 
 // --- Custom variants ----------------------------------------------------------
 
-const ModelType MaterialPropertyType = "MaterialProperty";
+const ModelType ExternalPropertyType = "ExternalProperty";
 const ModelType ComboPropertyType = "ComboProperty";
 const ModelType ColorPropertyType = "ColorProperty";
 const ModelType GroupPropertyType = "GroupProperty_t";

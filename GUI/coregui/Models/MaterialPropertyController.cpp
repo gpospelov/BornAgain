@@ -57,9 +57,9 @@ void MaterialPropertyController::onMaterialDataChanged(const QModelIndex& topLef
             QString tag = MaterialItemUtils::materialTag(*sampleItem);
             Q_ASSERT(!tag.isEmpty());
 
-            MaterialProperty property = sampleItem->getItemValue(tag).value<MaterialProperty>();
+            ExternalProperty property = sampleItem->getItemValue(tag).value<ExternalProperty>();
             if (property.getIdentifier() == materialItem->getIdentifier()) {
-                MaterialProperty new_property = MaterialItemUtils::materialProperty(*materialItem);
+                ExternalProperty new_property = MaterialItemUtils::materialProperty(*materialItem);
                 sampleItem->setItemValue(tag, new_property.getVariant());
             }
         }
@@ -88,9 +88,9 @@ void MaterialPropertyController::onMaterialRowsAboutToBeRemoved(const QModelInde
         QString tag = MaterialItemUtils::materialTag(*sampleItem);
         Q_ASSERT(!tag.isEmpty());
 
-        MaterialProperty property = sampleItem->getItemValue(tag).value<MaterialProperty>();
+        ExternalProperty property = sampleItem->getItemValue(tag).value<ExternalProperty>();
         if (identifiersToDelete.contains(property.getIdentifier())) {
-            MaterialProperty undefined;
+            ExternalProperty undefined;
             sampleItem->setItemValue(tag, undefined.getVariant());
         }
     }
@@ -105,13 +105,13 @@ void MaterialPropertyController::onMaterialModelCopy()
         QString tag = MaterialItemUtils::materialTag(*sampleItem);
         Q_ASSERT(!tag.isEmpty());
 
-        MaterialProperty property = sampleItem->getItemValue(tag).value<MaterialProperty>();
+        ExternalProperty property = sampleItem->getItemValue(tag).value<ExternalProperty>();
         if (MaterialItem* material
             = m_materialModel->materialFromIdentifier(property.getIdentifier())) {
-            MaterialProperty new_property = MaterialItemUtils::materialProperty(*material);
+            ExternalProperty new_property = MaterialItemUtils::materialProperty(*material);
             sampleItem->setItemValue(tag, new_property.getVariant());
         } else {
-            MaterialProperty undefined;
+            ExternalProperty undefined;
             sampleItem->setItemValue(tag, undefined.getVariant());
         }
     }

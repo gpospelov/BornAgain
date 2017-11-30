@@ -67,7 +67,7 @@ MaterialItem* MaterialEditor::selectedMaterial()
 }
 
 //! Sets selection corresponding to initial material property
-void MaterialEditor::setInitialMaterialProperty(const MaterialProperty& matProperty)
+void MaterialEditor::setInitialMaterialProperty(const ExternalProperty& matProperty)
 {
     if (MaterialItem* mat = m_materialModel->getMaterial(matProperty)) {
         selectionModel()->clearSelection();

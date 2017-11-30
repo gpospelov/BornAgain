@@ -69,7 +69,7 @@ MaterialItem* MaterialModel::getMaterial(const QModelIndex& index)
     return dynamic_cast<MaterialItem*>(itemForIndex(index));
 }
 
-MaterialItem* MaterialModel::getMaterial(const MaterialProperty& property)
+MaterialItem* MaterialModel::getMaterial(const ExternalProperty& property)
 {
     QModelIndex parentIndex;
     for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {

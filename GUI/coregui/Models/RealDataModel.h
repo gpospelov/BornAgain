@@ -30,10 +30,6 @@ public:
 //    Qt::ItemFlags flags(const QModelIndex &index) const;
 
     QVector<SessionItem*> nonXMLData() const override;
-
-signals:
-    void modelLoaded();
-
 };
 
 #endif // REALDATAMODEL_H

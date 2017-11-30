@@ -18,6 +18,7 @@
 #include "BornAgainNamespace.h"
 #include "ConstantBackground.h"
 #include "item_constants.h"
+#include "PoissonNoiseBackground.h"
 
 BackgroundItem::BackgroundItem(const QString& model_type)
     : SessionItem(model_type)
@@ -56,4 +57,16 @@ ConstantBackgroundItem::ConstantBackgroundItem()
 std::unique_ptr<IBackground> ConstantBackgroundItem::createBackground() const
 {
     return std::make_unique<ConstantBackground>(getItemValue(P_VALUE).toDouble());
+}
+
+// Background consisting of Poisson noise
+/* ------------------------------------------------ */
+
+PoissonNoiseBackgroundItem::PoissonNoiseBackgroundItem()
+    : BackgroundItem(Constants::PoissonNoiseBackgroundType)
+{}
+
+std::unique_ptr<IBackground> PoissonNoiseBackgroundItem::createBackground() const
+{
+    return std::make_unique<PoissonNoiseBackground>();
 }

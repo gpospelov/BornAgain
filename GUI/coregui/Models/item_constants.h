@@ -182,6 +182,7 @@ const ModelType ProjectionContainerType = "ProjectionContainer";
 
 const ModelType BackgroundNoneType = "NoBackground";
 const ModelType ConstantBackgroundType = "ConstantBackground";
+const ModelType PoissonNoiseBackgroundType = "PoissonNoiseBackground";
 
 // --- Groups ------------------------------------------------------------------
 

@@ -83,6 +83,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::BeamType] = &createInstance<BeamItem>;
     result[Constants::BackgroundNoneType] = &createInstance<BackgroundNoneItem>;
     result[Constants::ConstantBackgroundType] = &createInstance<ConstantBackgroundItem>;
+    result[Constants::PoissonNoiseBackgroundType] = &createInstance<PoissonNoiseBackgroundItem>;
     result[Constants::VectorType] = &createInstance<VectorItem>;
     result[Constants::PropertyType] = &createInstance<PropertyItem>;
 

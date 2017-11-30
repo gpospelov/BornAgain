@@ -45,5 +45,12 @@ public:
     std::unique_ptr<IBackground> createBackground() const;
 };
 
+class BA_CORE_API_ PoissonNoiseBackgroundItem : public BackgroundItem
+{
+public:
+    PoissonNoiseBackgroundItem();
+    std::unique_ptr<IBackground> createBackground() const;
+};
+
 #endif // BACKGROUNDITEMS_H
 

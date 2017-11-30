@@ -214,6 +214,8 @@ void ApplicationModels::readFrom(QXmlStreamReader* reader, WarningMessageService
             break;
         }
     }
+
+    m_materialPropertyController->onMaterialModelLoad();
 }
 
 //! Returns the list of all GUI models

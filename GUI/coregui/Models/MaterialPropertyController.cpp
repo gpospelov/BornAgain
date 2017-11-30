@@ -44,6 +44,27 @@ void MaterialPropertyController::setModels(MaterialModel* materialModel, SampleM
             &MaterialPropertyController::onMaterialModelLoad);
 }
 
+//! Special case when original MaterialModel was fully rebuild from MaterialEditor.
+//! Full update of MaterialProperties.
+
+void MaterialPropertyController::onMaterialModelLoad()
+{
+    for (auto sampleItem : relatedSampleItems()) {
+        QString tag = MaterialItemUtils::materialTag(*sampleItem);
+        Q_ASSERT(!tag.isEmpty());
+
+        ExternalProperty property = sampleItem->getItemValue(tag).value<ExternalProperty>();
+        if (MaterialItem* material
+            = m_materialModel->materialFromIdentifier(property.getIdentifier())) {
+            ExternalProperty new_property = MaterialItemUtils::materialProperty(*material);
+            sampleItem->setItemValue(tag, new_property.getVariant());
+        } else {
+            ExternalProperty undefined;
+            sampleItem->setItemValue(tag, undefined.getVariant());
+        }
+    }
+}
+
 //! On MaterialItem change: updates corresponding MaterialProperty in sample items.
 
 void MaterialPropertyController::onMaterialDataChanged(const QModelIndex& topLeft,
@@ -90,27 +111,6 @@ void MaterialPropertyController::onMaterialRowsAboutToBeRemoved(const QModelInde
 
         ExternalProperty property = sampleItem->getItemValue(tag).value<ExternalProperty>();
         if (identifiersToDelete.contains(property.getIdentifier())) {
-            ExternalProperty undefined;
-            sampleItem->setItemValue(tag, undefined.getVariant());
-        }
-    }
-}
-
-//! Special case when original MaterialModel was fully rebuild from MaterialEditor.
-//! Full update of MaterialProperties.
-
-void MaterialPropertyController::onMaterialModelLoad()
-{
-    for (auto sampleItem : relatedSampleItems()) {
-        QString tag = MaterialItemUtils::materialTag(*sampleItem);
-        Q_ASSERT(!tag.isEmpty());
-
-        ExternalProperty property = sampleItem->getItemValue(tag).value<ExternalProperty>();
-        if (MaterialItem* material
-            = m_materialModel->materialFromIdentifier(property.getIdentifier())) {
-            ExternalProperty new_property = MaterialItemUtils::materialProperty(*material);
-            sampleItem->setItemValue(tag, new_property.getVariant());
-        } else {
             ExternalProperty undefined;
             sampleItem->setItemValue(tag, undefined.getVariant());
         }

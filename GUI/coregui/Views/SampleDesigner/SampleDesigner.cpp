@@ -20,6 +20,7 @@
 #include "FilterPropertyProxy.h"
 #include "ISample.h"
 #include "MultiLayerView.h"
+#include "ApplicationModels.h"
 
 SampleDesigner::SampleDesigner(QWidget *parent)
     : SampleDesignerInterface(parent)
@@ -35,17 +36,12 @@ SampleDesigner::~SampleDesigner()
 {
 }
 
-
-void SampleDesigner::setSampleModel(SampleModel *sampleModel)
+void SampleDesigner::setModels(ApplicationModels* models)
 {
-    if(sampleModel) m_designerScene->setSampleModel(sampleModel);
+    m_designerScene->setSampleModel(models->sampleModel());
+    m_designerScene->setInstrumentModel(models->instrumentModel());
+    m_designerScene->setMaterialModel(models->materialModel());
 }
-
-void SampleDesigner::setInstrumentModel(InstrumentModel *instrumentModel)
-{
-    if(instrumentModel) m_designerScene->setInstrumentModel(instrumentModel);
-}
-
 
 void SampleDesigner::setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy)
 {

@@ -34,6 +34,7 @@
 #include "MaterialDataItem.h"
 #include "MaterialItemUtils.h"
 #include "ComponentEditor.h"
+#include "MaterialModel.h"
 #include <QTreeView>
 #include <QBoxLayout>
 #include <QItemSelectionModel>
@@ -43,7 +44,8 @@
 
 TestComponentView::TestComponentView(MainWindow* mainWindow)
     : m_mainWindow(mainWindow)
-    , m_sourceModel(new SampleModel(this))
+    , m_sampleModel(new SampleModel(this))
+    , m_materialModel(new MaterialModel(this))
     , m_sourceTree(new QTreeView)
     , m_componentTree(new ComponentEditor(ComponentEditor::FullTree))
     , m_componentFlat(new ComponentEditor(ComponentEditor::PlainWidget))
@@ -82,7 +84,7 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     connect(m_addItemButton, &QPushButton::clicked, this, &TestComponentView::onAddItemRequest);
     connect(m_expandButton, &QPushButton::clicked, this, &TestComponentView::onExpandRequest);
 
-    m_sourceTree->setModel(m_sourceModel);
+    m_sourceTree->setModel(m_sampleModel);
     m_sourceTree->setItemDelegate(m_delegate);
     StyleUtils::setPropertyStyle(m_sourceTree);
     connect(m_sourceTree->selectionModel(), &QItemSelectionModel::selectionChanged,
@@ -97,7 +99,7 @@ void TestComponentView::onUpdateRequest()
 
 void TestComponentView::onAddItemRequest()
 {
-    m_sourceModel->insertNewItem(Constants::ParticleType);
+    m_sampleModel->insertNewItem(Constants::ParticleType);
 }
 
 void TestComponentView::onExpandRequest()
@@ -129,13 +131,13 @@ void TestComponentView::init_source()
     SampleBuilderFactory factory;
     const std::unique_ptr<ISample> sample(factory.createSample("CylindersAndPrismsBuilder"));
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_sourceModel, *sample);
-    m_sourceModel->insertNewItem(Constants::VectorType);
-    m_sourceModel->insertNewItem(Constants::BeamType);
+    guiBuilder.populateSampleModel(m_sampleModel, m_materialModel, *sample);
+    m_sampleModel->insertNewItem(Constants::VectorType);
+    m_sampleModel->insertNewItem(Constants::BeamType);
 
     // adding material to the test model
     MaterialItem* materialItem
-        = dynamic_cast<MaterialItem*>(m_sourceModel->insertNewItem(Constants::HomogeneousMaterialType));
+        = dynamic_cast<MaterialItem*>(m_sampleModel->insertNewItem(Constants::HomogeneousMaterialType));
     materialItem->setItemName("air");
     MaterialDataItem* materialDataItem = dynamic_cast<MaterialDataItem*>(
         materialItem->getItem(MaterialItem::P_MATERIAL_DATA));
@@ -144,7 +146,7 @@ void TestComponentView::init_source()
     materialDataItem->setImag(1e-5);
 
     // adding intensity data item
-    m_sourceModel->insertNewItem(Constants::IntensityDataType);
+    m_sampleModel->insertNewItem(Constants::IntensityDataType);
 
 //    SessionItem* multilayer = m_sourceModel->insertNewItem(Constants::MultiLayerType);
 //    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));
@@ -162,7 +164,7 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
 //        m_componentTree->setRootIndex(selectedIndex);
 //        m_componentTree->treeView()->expandAll();
 
-        auto item = m_sourceModel->itemForIndex(indices.front());
+        auto item = m_sampleModel->itemForIndex(indices.front());
         m_componentTree->setItem(item);
         m_obsoleteEditor->setItem(item, item->modelType());
         m_obsoleteBoxEditor->clearEditor();

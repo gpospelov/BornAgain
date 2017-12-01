@@ -24,11 +24,10 @@
 #include <QTreeView>
 
 class MainWindow;
-class SampleModel;
-class InstrumentModel;
 class SampleDesigner;
 class SampleToolBar;
-
+class ApplicationModels;
+class SampleModel;
 
 class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow
 {
@@ -93,8 +92,7 @@ private:
     QMap<QString, QAction *> m_add_action_map;
     QAction *m_delete_item_action;
 
-    SampleModel *m_sampleModel;
-    InstrumentModel *m_instrumentModel;
+    ApplicationModels* m_models;
     QTreeView *m_tree_view;
 
     QItemSelectionModel *m_selection_model;

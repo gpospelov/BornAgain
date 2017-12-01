@@ -167,7 +167,7 @@ void ApplicationModels::createTestSample()
     const std::unique_ptr<ISample> P_sample(factory.createSample("CylindersAndPrismsBuilder"));
 
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
+    guiBuilder.populateSampleModel(m_sampleModel, m_materialModel, *P_sample);
 
     // to populate InstrumentView with predefined instrument
     //    const std::unique_ptr<GISASSimulation> simulation(StandardSimulations::GISASWithMasks());
@@ -214,6 +214,8 @@ void ApplicationModels::readFrom(QXmlStreamReader* reader, WarningMessageService
             break;
         }
     }
+
+    m_materialPropertyController->onMaterialModelLoad();
 }
 
 //! Returns the list of all GUI models

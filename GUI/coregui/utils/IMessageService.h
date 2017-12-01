@@ -17,11 +17,12 @@
 #ifndef IMESSAGESERVICE_H
 #define IMESSAGESERVICE_H
 
+#include "WinDllMacros.h"
+
 //! @class IMessageService
 //! @brief Abstract class for messaging in our GUI
 
-
-class IMessageService {
+class BA_CORE_API_ IMessageService {
 public:
     IMessageService(){}
     virtual ~IMessageService(){}

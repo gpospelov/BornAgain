@@ -115,7 +115,7 @@ inline void TestMaterialPropertyController::test_ControllerInEditorContext()
     // copying back to original model
     materialModel.clear();
     materialModel.initFrom(materialsCopy.get(), 0);
-    materialModel.createdFromCopy();
+    materialModel.modelLoaded();
 
     // layer2 should have undefined material property
     ExternalProperty property = layer2->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();

@@ -35,10 +35,12 @@ public:
 
     void setModels(MaterialModel* materialModel, SampleModel* sampleModel);
 
+public slots:
+    void onMaterialModelLoad();
+
 private slots:
     void onMaterialDataChanged(const QModelIndex &topLeft, const QModelIndex &, const QVector<int> &);
     void onMaterialRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
-    void onMaterialModelCopy();
 
 private:
     QVector<SessionItem*> relatedSampleItems();

@@ -489,6 +489,7 @@ void SessionModel::initFrom(SessionModel* model, SessionItem*)
             readFrom(&reader);
         }
     }
+    modelLoaded();
 }
 
 SessionItem* SessionModel::rootItem() const{

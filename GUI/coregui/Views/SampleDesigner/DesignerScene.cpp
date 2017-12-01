@@ -40,7 +40,8 @@
 #include <QPainter>
 
 DesignerScene::DesignerScene(QObject *parent)
-    : QGraphicsScene(parent), m_sampleModel(0), m_instrumentModel(0), m_selectionModel(0), m_proxy(0),
+    : QGraphicsScene(parent), m_sampleModel(0), m_instrumentModel(0), m_materialModel(0),
+      m_selectionModel(0), m_proxy(0),
       m_block_selection(false), m_aligner(new SampleViewAligner(this))
 {
     setSceneRect(QRectF(-800, 0, 1600, 1600));
@@ -96,6 +97,11 @@ void DesignerScene::setSampleModel(SampleModel *sampleModel)
 void DesignerScene::setInstrumentModel(InstrumentModel *instrumentModel)
 {
     m_instrumentModel = instrumentModel;
+}
+
+void DesignerScene::setMaterialModel(MaterialModel* materialModel)
+{
+    m_materialModel = materialModel;
 }
 
 void DesignerScene::setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy)
@@ -431,7 +437,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
             } else if (GUIExamplesFactory::isValidExampleName(mimeData->getClassName())) {
                 SessionItem *topItem = GUIExamplesFactory::createSampleItems(
-                    mimeData->getClassName(), m_sampleModel);
+                    mimeData->getClassName(), m_sampleModel, m_materialModel);
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(topItem->modelType());
                 QPointF reference(event->scenePos().x() - boundingRect.width() / 2,
                                   event->scenePos().y() - boundingRect.height() / 2);

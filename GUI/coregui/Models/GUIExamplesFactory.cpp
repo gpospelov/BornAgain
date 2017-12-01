@@ -62,7 +62,8 @@ bool GUIExamplesFactory::isValidExampleName(const QString &name)
 }
 
 //! Populate sample model with
-SessionItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
+SessionItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel,
+                                                   MaterialModel* materialModel)
 {
     QString exampleName = m_name_to_registry[name];
 
@@ -70,7 +71,7 @@ SessionItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleMo
     const std::unique_ptr<ISample> sample(factory.createSample(exampleName.toStdString()));
 
     GUIObjectBuilder guiBuilder;
-    return guiBuilder.populateSampleModel(sampleModel, *sample.get(), name);
+    return guiBuilder.populateSampleModel(sampleModel, materialModel, *sample.get(), name);
 }
 
 //SessionItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)

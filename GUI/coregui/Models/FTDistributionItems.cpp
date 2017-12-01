@@ -124,11 +124,8 @@ std::unique_ptr<IFTDistribution1D> FTDistribution1DVoigtItem::createFTDistributi
 
 // --------------------------------------------------------------------------------------------- //
 
-// TODO BACKCOMPATIBILITY (fix when we will break back compatibility)
-// Make P_OMEGA_X, P_OMEGA_Y depend on BornAgain::OmegaX and OmegaY
-
-const QString FTDistribution2DItem::P_OMEGA_X = "CoherenceLengthX"; // temp FIXME
-const QString FTDistribution2DItem::P_OMEGA_Y = "CoherenceLengthY"; // temp FIXME
+const QString FTDistribution2DItem::P_OMEGA_X = QString::fromStdString(BornAgain::OmegaX);
+const QString FTDistribution2DItem::P_OMEGA_Y = QString::fromStdString(BornAgain::OmegaY);
 const QString FTDistribution2DItem::P_GAMMA = QString::fromStdString(BornAgain::Gamma);
 
 FTDistribution2DItem::FTDistribution2DItem(const QString& name)
@@ -138,14 +135,10 @@ FTDistribution2DItem::FTDistribution2DItem(const QString& name)
 
 void FTDistribution2DItem::add_omega_properties()
 {
-    // TODO BACKCOMPATIBILITY (remove setDisplayName when P_OMEGA_X will be "OmegaX")
     addProperty(P_OMEGA_X, 1.0)->setToolTip(
-        QStringLiteral("Half-width of the distribution along its x-axis in nanometers"))
-            .setDisplayName("OmegaX");
-
+        QStringLiteral("Half-width of the distribution along its x-axis in nanometers"));
     addProperty(P_OMEGA_Y, 1.0)->setToolTip(
-        QStringLiteral("Half-width of the distribution along its y-axis in nanometers"))
-            .setDisplayName("OmegaY");
+        QStringLiteral("Half-width of the distribution along its y-axis in nanometers"));
 }
 
 void FTDistribution2DItem::add_gamma_property()

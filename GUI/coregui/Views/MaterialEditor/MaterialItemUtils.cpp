@@ -50,6 +50,9 @@ QColor MaterialItemUtils::suggestMaterialColor(const QString &name)
 
 ExternalProperty MaterialItemUtils::defaultMaterialProperty()
 {
+    if (!AppSvc::materialModel())
+        return ExternalProperty();
+
     auto materials = AppSvc::materialModel()->topItems();
     return materials.isEmpty() ? ExternalProperty() :
                                  MaterialItemUtils::materialProperty(*materials.front());

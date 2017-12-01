@@ -18,6 +18,7 @@
 #include "SessionItem.h"
 #include "PropertyEditorFactory.h"
 #include "CustomEditors.h"
+#include "SessionFlags.h"
 #include <QApplication>
 #include <QLocale>
 
@@ -29,7 +30,6 @@ bool isDoubleProperty(const QModelIndex& index)
 }
 
 //! Returns text representation of double value depending on user defined editor type.
-//! FIXME Remove this temporary function after getting rid from ScientificDoubleProperty
 QString doubleToString(const SessionItem& item)
 {
     QString result;
@@ -45,12 +45,19 @@ QString doubleToString(const SessionItem& item)
     return result;
 }
 
+QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent) {
+    if (index.column() == SessionFlags::ITEM_VALUE && index.internalPointer()) {
+        auto item = static_cast<SessionItem*>(index.internalPointer());
+        return PropertyEditorFactory::CreateEditor(*item, parent);
+    }
+    return nullptr;
+}
+
 }
 
 SessionModelDelegate::SessionModelDelegate(QObject* parent)
     : QStyledItemDelegate(parent)
 {
-
 }
 
 void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,
@@ -72,9 +79,7 @@ void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& 
 QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option,
                                             const QModelIndex& index) const
 {
-
-    auto item = static_cast<SessionItem*>(index.internalPointer());
-    auto result = PropertyEditorFactory::CreateEditor(*item, parent);
+    auto result = createEditorFromIndex(index, parent);
 
     if (result) {
         if(auto customEditor = dynamic_cast<CustomEditor*>(result)) {
@@ -98,7 +103,8 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                                         const QModelIndex& index) const
 {
-    if (auto customEditor = qobject_cast<CustomEditor*>(editor))
+    auto customEditor = qobject_cast<CustomEditor*>(editor);
+    if (index.column() == SessionFlags::ITEM_VALUE && customEditor)
         model->setData(index, customEditor->editorData());
     else
         QStyledItemDelegate::setModelData(editor, model, index);
@@ -108,7 +114,8 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
 
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    if (auto customEditor = dynamic_cast<CustomEditor*>(editor))
+    auto customEditor = dynamic_cast<CustomEditor*>(editor);
+    if (index.column() == SessionFlags::ITEM_VALUE && customEditor)
         customEditor->setData(index.data());
     else
         QStyledItemDelegate::setEditorData(editor, index);

@@ -27,7 +27,7 @@ class QObject;
 //! @class WarningMessageService
 //! @brief The service to collect warning messages from different senders.
 
-class WarningMessageService : public IMessageService {
+class BA_CORE_API_ WarningMessageService : public IMessageService {
 public:
     typedef QMap<QObject *, MessageContainer *> container_t;
     typedef container_t::iterator iterator;

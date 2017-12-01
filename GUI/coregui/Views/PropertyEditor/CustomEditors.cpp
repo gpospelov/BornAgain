@@ -90,7 +90,7 @@ void ExternalPropertyEditor::buttonClicked()
     ExternalProperty mat = MaterialItemUtils::selectMaterialProperty(materialProperty);
     removeEventFilter(m_focusFilter);
 
-    if(mat.isDefined() )
+    if (mat.isValid())
         setDataIntern(mat.getVariant());
 }
 

@@ -73,7 +73,7 @@ void ObsoleteMaterialPropertyEdit::buttonClicked()
     ExternalProperty mat = MaterialItemUtils::selectMaterialProperty(m_materialProperty);
     removeEventFilter(m_focusFilter);
 
-    if(mat.isDefined() ) {
+    if(mat.isValid() ) {
         setMaterialProperty(mat);
         emit materialPropertyChanged(m_materialProperty);
     }

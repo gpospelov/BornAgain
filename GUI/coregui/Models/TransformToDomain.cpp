@@ -60,20 +60,9 @@ using SessionItemUtils::GetVectorItem;
 
 std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
-    ExternalProperty material_property;
-    if (item.modelType() == Constants::ParticleType) {
-        material_property
-            = item.getItemValue(ParticleItem::P_MATERIAL).value<ExternalProperty>();
-    } else if (item.modelType() == Constants::LayerType) {
-        material_property
-            = item.getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    }
-    if (!material_property.isDefined())
-        throw GUIHelpers::Error(
-            "TransformToDomain::createDomainMaterial() -> Error. Can't create material "
-            "for item '"+item.displayName()+"'.");
-
-    return MaterialItemUtils::createDomainMaterial(material_property);
+    QString tag = MaterialItemUtils::materialTag(item);
+    ExternalProperty property = item.getItemValue(tag).value<ExternalProperty>();
+    return MaterialItemUtils::createDomainMaterial(property);
 }
 
 std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionItem& item)

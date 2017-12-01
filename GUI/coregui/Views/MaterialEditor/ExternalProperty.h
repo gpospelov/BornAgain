@@ -50,7 +50,7 @@ public:
 
     QPixmap getPixmap() const;
 
-    bool isDefined() const;
+    bool isValid() const;
 
 private:
     QString m_identifier;

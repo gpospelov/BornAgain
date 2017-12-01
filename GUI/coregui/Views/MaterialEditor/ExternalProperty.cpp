@@ -53,7 +53,7 @@ QPixmap ExternalProperty::getPixmap() const
     return pixmap;
 }
 
-bool ExternalProperty::isDefined() const
+bool ExternalProperty::isValid() const
 {
     return !m_identifier.isEmpty();
 }

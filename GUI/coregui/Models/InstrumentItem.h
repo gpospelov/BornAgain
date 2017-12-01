@@ -34,10 +34,11 @@ public:
     static const QString P_BACKGROUND;
     InstrumentItem();
 
-    BeamItem *beamItem() const;
-    DetectorItem *detectorItem() const;
+    BeamItem* beamItem() const;
+    DetectorItem* detectorItem() const;
     GroupItem* detectorGroup();
     BackgroundItem* backgroundItem() const;
+    GroupItem* backgroundGroup();
 
     void setDetectorGroup(const QString& modelType);
 

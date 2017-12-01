@@ -45,6 +45,7 @@ const std::string IsGISAXSDetectorType = "IsGISAXSDetector";
 const std::string BeamType = "Beam";
 const std::string DetectorAnalyzer = "Analyzer";
 const std::string ConstantBackgroundType = "ConstantBackground";
+const std::string PoissonNoiseBackgroundType = "PoissonNoiseBackground";
 
 // ISample object types
 const std::string MultiLayerType = "MultiLayer";

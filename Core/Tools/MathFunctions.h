@@ -99,6 +99,7 @@ namespace MathFunctions
     BA_CORE_API_ double GenerateUniformRandom();
     BA_CORE_API_ double GenerateStandardNormalRandom();
     BA_CORE_API_ double GenerateNormalRandom(double average, double std_dev);
+    BA_CORE_API_ double GeneratePoissonRandom(double average);
 
 } // Namespace MathFunctions
 

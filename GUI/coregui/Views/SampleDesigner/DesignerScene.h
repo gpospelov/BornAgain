@@ -34,6 +34,7 @@ class DesignerMimeData;
 class SampleViewAligner;
 class NodeEditor;
 class FilterPropertyProxy;
+class MaterialModel;
 
 
 //! Main class which represents SessionModel on graphics scene
@@ -47,6 +48,7 @@ public:
 
     void setSampleModel(SampleModel *sampleModel);
     void setInstrumentModel(InstrumentModel *instrumentModel);
+    void setMaterialModel(MaterialModel* materialModel);
     void setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy);
 
     SampleModel *getSampleModel() { return m_sampleModel; }
@@ -101,6 +103,7 @@ private:
 
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
+    MaterialModel* m_materialModel;
     QItemSelectionModel *m_selectionModel;
     FilterPropertyProxy *m_proxy;
     bool m_block_selection;

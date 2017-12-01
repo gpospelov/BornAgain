@@ -86,7 +86,7 @@ void GUITranslationTest::processParameterTree()
     m_models->instrumentModel()->clear();
     // populating GUI models from domain
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_models->sampleModel(), *m_simulation);
+    guiBuilder.populateSampleModel(m_models->sampleModel(), m_models->materialModel(), *m_simulation);
     guiBuilder.populateInstrumentModel(m_models->instrumentModel(), *m_simulation);
     guiBuilder.populateDocumentModel(m_models->documentModel(), *m_simulation);
 

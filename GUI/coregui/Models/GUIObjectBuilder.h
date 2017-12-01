@@ -25,6 +25,7 @@ class Material;
 class InstrumentModel;
 class SampleModel;
 class SessionItem;
+class MaterialModel;
 class DocumentModel;
 class GISASSimulation;
 class ExternalProperty;
@@ -36,11 +37,13 @@ public:
     GUIObjectBuilder();
     virtual ~GUIObjectBuilder(){}
 
-    SessionItem* populateSampleModel(SampleModel* sample_model,
+    SessionItem* populateSampleModel(SampleModel* sampleModel,
+                                     MaterialModel* materialModel,
                                      const GISASSimulation& simulation,
                                      const QString& sample_name=QString());
 
-    SessionItem* populateSampleModel(SampleModel* sample_model,
+    SessionItem* populateSampleModel(SampleModel* sampleModel,
+                                     MaterialModel* materialModel,
                                      const ISample& sample,
                                      const QString& sample_name=QString());
 
@@ -106,6 +109,7 @@ private:
     SessionItem* InsertIParticle(const IParticle* p_particle, QString model_type);
 
     SampleModel* m_sampleModel;
+    MaterialModel* m_materialModel;
 
     QMap<int, SessionItem*> m_levelToParentItem;
     QMap<QString, double > m_propertyToValue;

@@ -23,6 +23,7 @@
 #include "SampleToolBar.h"
 #include "SampleViewComponents.h"
 #include "mainwindow.h"
+#include "ApplicationModels.h"
 #include <QDockWidget>
 #include <QMenu>
 #include <QTimer>
@@ -31,8 +32,7 @@ SampleView::SampleView(MainWindow *mainWindow)
     : Manhattan::FancyMainWindow(mainWindow)
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
-    , m_sampleModel(mainWindow->sampleModel())
-    , m_instrumentModel(mainWindow->instrumentModel())
+    , m_models(mainWindow->models())
 {
     setObjectName("SampleView");
 
@@ -81,7 +81,7 @@ void SampleView::initSubWindows()
     m_subWindows[WIDGET_BOX] =
             SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
 
-    m_tree_view = SampleViewComponents::createTreeView(m_sampleModel, this);
+    m_tree_view = SampleViewComponents::createTreeView(m_models->sampleModel(), this);
     m_subWindows[SAMPLE_TREE] = m_tree_view;
     m_tree_view->expandAll();
     connect(m_tree_view->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),
@@ -92,12 +92,11 @@ void SampleView::initSubWindows()
     InfoWidget *infoWidget = new InfoWidget(this);
     connect(infoWidget, SIGNAL(widgetHeightRequest(int)), this, SLOT(setDockHeightForWidget(int)));
     connect(infoWidget, SIGNAL(widgetCloseRequest()), this, SLOT(onWidgetCloseRequest()));
-    infoWidget->setSampleModel(m_sampleModel);
-    infoWidget->setInstrumentModel(m_instrumentModel);
+    infoWidget->setSampleModel(m_models->sampleModel());
+    infoWidget->setInstrumentModel(m_models->instrumentModel());
     m_subWindows[INFO] = infoWidget;
 
-    m_sampleDesigner->setSampleModel(m_sampleModel);
-    m_sampleDesigner->setInstrumentModel(m_instrumentModel);
+    m_sampleDesigner->setModels(m_models);
     m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel(), dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(m_tree_view->model())));
 }
 
@@ -320,7 +319,7 @@ QModelIndex SampleView::getIndexAtColumnZero(const QModelIndex &index)
 
 SampleModel *SampleView::getSampleModel()
 {
-    return m_sampleModel;
+    return m_models->sampleModel();
 }
 
 QTreeView *SampleView::getTreeView()

@@ -86,7 +86,7 @@ int GUISaveLoadProject::run_job()
     const std::unique_ptr<ISample> sample(factory.createSample(sample_name.toStdString()));
 
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_models->sampleModel(), *sample);
+    guiBuilder.populateSampleModel(m_models->sampleModel(), m_models->materialModel(), *sample);
 
     m_models->instrumentModel()->instrumentItem()->detectorItem()->setSize(50, 50);
 

@@ -33,6 +33,7 @@ class QBoxLayout;
 class ObsoleteComponentEditor;
 class ObsoleteComponentBoxEditor;
 class ComponentFlatView;
+class MaterialModel;
 
 //! View to tests QListView working with ComponentProxyModel.
 
@@ -54,7 +55,8 @@ private:
     QWidget* componentBoxPanel();
 
     MainWindow* m_mainWindow;
-    SampleModel* m_sourceModel;
+    SampleModel* m_sampleModel;
+    MaterialModel* m_materialModel;
     QTreeView* m_sourceTree;
     ComponentEditor* m_componentTree;
     ComponentEditor* m_componentFlat;

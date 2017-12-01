@@ -57,7 +57,6 @@
 #include "VectorItem.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
-#include "AppSvc.h"
 #include "MaterialItemUtils.h"
 
 using SessionItemUtils::SetVectorItem;
@@ -67,29 +66,30 @@ SessionItem* AddFormFactorItem(SessionItem* p_parent, Constants::ModelType model
 }
 
 GUIObjectBuilder::GUIObjectBuilder()
-    : m_sampleModel(0)
+    : m_sampleModel(nullptr)
+    , m_materialModel(nullptr)
 {
 }
 
-SessionItem* GUIObjectBuilder::populateSampleModel(
-    SampleModel* p_sample_model, const GISASSimulation& simulation, const QString& sample_name)
+SessionItem* GUIObjectBuilder::populateSampleModel(SampleModel* sampleModel, MaterialModel* materialModel, const GISASSimulation& simulation, const QString& sample_name)
 {
     std::unique_ptr<GISASSimulation> sim(simulation.clone());
     sim->prepareSimulation();
-    return populateSampleModel(p_sample_model,*sim->sample(), sample_name);
+    return populateSampleModel(sampleModel,materialModel, *sim->sample(), sample_name);
 }
 
-SessionItem* GUIObjectBuilder::populateSampleModel(
-    SampleModel* p_sample_model, const ISample& sample, const QString& sample_name)
+SessionItem* GUIObjectBuilder::populateSampleModel(SampleModel* sampleModel, MaterialModel* materialModel, const ISample& sample, const QString& sample_name)
 {
-    Q_ASSERT(p_sample_model);
+    Q_ASSERT(sampleModel);
+    Q_ASSERT(materialModel);
 
     m_levelToParentItem.clear();
 
     m_topSampleName = sample_name;
     if(m_topSampleName.isEmpty()) m_topSampleName = sample.getName().c_str();
 
-    m_sampleModel = p_sample_model;
+    m_sampleModel = sampleModel;
+    m_materialModel = materialModel;
 
     VisitNodesPreorder(sample, *this);
     SessionItem* result = m_levelToParentItem[1];
@@ -598,15 +598,12 @@ ExternalProperty GUIObjectBuilder::createMaterialFromDomain(
 {
     QString materialName = m_topSampleName + QString("_") + QString(material->getName().c_str());
 
-    MaterialModel* model = AppSvc::materialModel();
-    Q_ASSERT(model);
-
-    if (auto material = model->materialFromName(materialName))
+    if (auto material = m_materialModel->materialFromName(materialName))
         return MaterialItemUtils::materialProperty(*material);
 
     complex_t material_data = material->materialData();
     MaterialItem* materialItem  =
-            model->addMaterial(materialName, material_data.real(),material_data.imag());
+            m_materialModel->addMaterial(materialName, material_data.real(),material_data.imag());
     SetVectorItem(*materialItem, MaterialItem::P_MAGNETIZATION, material->magnetization());
     return MaterialItemUtils::materialProperty(*materialItem);
 }

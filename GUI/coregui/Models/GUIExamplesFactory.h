@@ -22,6 +22,7 @@
 
 class SessionItem;
 class SampleModel;
+class MaterialModel;
 
 //! Class that generates GUI model from
 class BA_CORE_API_ GUIExamplesFactory
@@ -29,7 +30,7 @@ class BA_CORE_API_ GUIExamplesFactory
 public:
     static bool isValidExampleName(const QString &name);
 
-    static SessionItem *createSampleItems(const QString &name, SampleModel *sampleModel);
+    static SessionItem *createSampleItems(const QString &name, SampleModel *sampleModel, MaterialModel* materialModel);
 //    static SessionItem *createInstrumentItems(const QString &name, InstrumentModel *instrumentModel);
 
 private:

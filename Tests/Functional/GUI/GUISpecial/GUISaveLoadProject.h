@@ -19,9 +19,12 @@
 
 #include "IFunctionalTest.h"
 #include <QString>
+#include <QMap>
+#include <QVector>
 #include <memory>
 
 class ApplicationModels;
+class SessionModel;
 
 //! Functional test to check persistency of application models after save/load.
 
@@ -32,6 +35,26 @@ public:
 
 protected:
     bool runTest();
+
+private:
+
+    struct DataXML {
+        QString m_model_tag;
+        QString m_model_xml;
+    };
+
+    int run_job();
+    int save_project(const QString& projectName);
+    int save_project_dir(const QString& projectName);
+    int save_xml(const QString& projectName);
+    int load_project(const QString& projectName);
+    int check_difference(const QString& projectName1, const QString& projectName2);
+    DataXML dataXML(SessionModel* model);
+    void resetModels();
+
+    std::unique_ptr<ApplicationModels> m_models;
+    //! Correspondance of projectname to collected xml data.
+    QMap<QString, QVector<DataXML>> m_results;
 };
 
 #endif // GUISAVELOADPROJECT_H

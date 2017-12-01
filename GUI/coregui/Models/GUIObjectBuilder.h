@@ -37,20 +37,19 @@ public:
     virtual ~GUIObjectBuilder(){}
 
     SessionItem* populateSampleModel(SampleModel* sample_model,
-                                     const GISASSimulation &simulation,
-                                     const QString &sample_name=QString());
+                                     const GISASSimulation& simulation,
+                                     const QString& sample_name=QString());
 
     SessionItem* populateSampleModel(SampleModel* sample_model,
-                                     const ISample &sample,
-                                     const QString &sample_name=QString());
+                                     const ISample& sample,
+                                     const QString& sample_name=QString());
 
     SessionItem* populateInstrumentModel(InstrumentModel* p_instrument_model,
-                                         const GISASSimulation &simulation,
-                                               const QString &instrument_name=QString());
+                                         const GISASSimulation& simulation,
+                                         const QString& instrument_name=QString());
 
     SessionItem* populateDocumentModel(DocumentModel* p_documentModel,
-                                       const GISASSimulation &simulation);
-
+                                       const GISASSimulation& simulation);
 
     using INodeVisitor::visit;
 

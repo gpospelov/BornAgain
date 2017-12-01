@@ -15,7 +15,7 @@
 // ************************************************************************** //
 
 #include "InstrumentItem.h"
-#include "BackgroundItem.h"
+#include "BackgroundItems.h"
 #include "BeamItem.h"
 #include "BornAgainNamespace.h"
 #include "DetectorItems.h"
@@ -42,7 +42,7 @@ InstrumentItem::InstrumentItem()
 
     setDefaultTag(P_DETECTOR);
 
-    addGroupProperty(P_BACKGROUND, Constants::BackgroundType);
+    addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
 }
 
 BeamItem *InstrumentItem::beamItem() const
@@ -62,7 +62,12 @@ GroupItem* InstrumentItem::detectorGroup()
 
 BackgroundItem* InstrumentItem::backgroundItem() const
 {
-    return &item<BackgroundItem>(P_BACKGROUND);
+    return &groupItem<BackgroundItem>(P_BACKGROUND);
+}
+
+GroupItem* InstrumentItem::backgroundGroup()
+{
+    return &item<GroupItem>(P_BACKGROUND);
 }
 
 void InstrumentItem::setDetectorGroup(const QString& modelType)
@@ -83,7 +88,7 @@ void InstrumentItem::importMasks(MaskContainerItem* maskContainer)
 QStringList InstrumentItem::translateList(const QStringList& list) const
 {
     QStringList result;
-    // Add CrystalType to path name of basis particle
+    // Add constant background directly to simulation
     if (list.back().startsWith(P_BACKGROUND) && list.size()==2) {
         result << list[0] << QString::fromStdString(BornAgain::ConstantBackgroundType);
     } else {

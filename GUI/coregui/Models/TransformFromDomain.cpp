@@ -16,7 +16,7 @@
 
 #include "TransformFromDomain.h"
 #include "AxesItems.h"
-#include "BackgroundItem.h"
+#include "BackgroundItems.h"
 #include "Beam.h"
 #include "BeamAngleItems.h"
 #include "BeamItem.h"
@@ -50,6 +50,7 @@
 #include "ParameterPattern.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
+#include "PoissonNoiseBackground.h"
 #include "Polygon.h"
 #include "Rectangle.h"
 #include "RegionOfInterest.h"
@@ -530,10 +531,16 @@ void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
                                         const GISASSimulation& simulation)
 {
     auto p_bg = simulation.background();
-    const ConstantBackground* p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg);
-    if (p_constant_bg) {
+    if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
+        auto constant_bg_item = instrument_item->setGroupProperty(
+                                    InstrumentItem::P_BACKGROUND,
+                                    Constants::ConstantBackgroundType);
         double value = p_constant_bg->backgroundValue();
-        instrument_item->backgroundItem()->setBackgroundValue(value);
+        constant_bg_item->setItemValue(ConstantBackgroundItem::P_VALUE, value);
+    }
+    else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
+        instrument_item->setGroupProperty(InstrumentItem::P_BACKGROUND,
+                                          Constants::PoissonNoiseBackgroundType);
     }
 }
 

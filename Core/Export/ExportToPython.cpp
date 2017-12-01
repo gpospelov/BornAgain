@@ -35,6 +35,7 @@
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
+#include "PoissonNoiseBackground.h"
 #include "PythonFormatting.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunction2DGaussian.h"
@@ -908,10 +909,15 @@ std::string ExportToPython::defineBackground(const GISASSimulation* simulation) 
     std::ostringstream result;
 
     auto p_bg = simulation->background();
-    const ConstantBackground* p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg);
-    if (p_constant_bg && p_constant_bg->backgroundValue()>0.0) {
-        result << indent() << "background = ba.ConstantBackground("
-               << printScientificDouble(p_constant_bg->backgroundValue()) << ")\n";
+    if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
+        if (p_constant_bg->backgroundValue()>0.0) {
+            result << indent() << "background = ba.ConstantBackground("
+                   << printScientificDouble(p_constant_bg->backgroundValue()) << ")\n";
+            result << indent() << "simulation.setBackground(background)\n";
+        }
+    }
+    else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
+        result << indent() << "background = ba.PoissonNoiseBackground()\n";
         result << indent() << "simulation.setBackground(background)\n";
     }
     return result.str();

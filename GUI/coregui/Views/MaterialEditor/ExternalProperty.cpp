@@ -76,3 +76,25 @@ QVariant ExternalProperty::variant() const
     return variant;
 }
 
+bool ExternalProperty::operator==(const ExternalProperty& other) const
+{
+    if (m_identifier != other.m_identifier)
+        return false;
+    if (m_text != other.m_text)
+        return false;
+    if (m_color != other.m_color)
+        return false;
+
+    return true;
+}
+
+bool ExternalProperty::operator!=(const ExternalProperty& other) const
+{
+    return !(*this == other);
+}
+
+bool ExternalProperty::operator<(const ExternalProperty& other) const
+{
+    return m_identifier < other.m_identifier && m_text < other.m_text;
+}
+

@@ -68,6 +68,8 @@ int main(int argc, char** argv) {
     Q_UNUSED(app);
 
     QMetaType::registerComparators<ComboProperty>();
+    QMetaType::registerComparators<ExternalProperty>();
+
     qRegisterMetaType<QAbstractItemModel::LayoutChangeHint>("LayoutChangeHint");
 
     GUITestFactory tests;

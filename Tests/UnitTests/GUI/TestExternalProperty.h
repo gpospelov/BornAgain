@@ -7,6 +7,8 @@ class TestExternalProperty : public QObject
 
 private slots:
     void test_initialState();
+    void test_equalityOperators();
+    void test_variantEquality();
 };
 
 inline void TestExternalProperty::test_initialState()
@@ -28,4 +30,34 @@ inline void TestExternalProperty::test_initialState()
     QVERIFY(property.isValid() == true);
     property.setText(QString());
     QVERIFY(property.isValid() == false);
+}
+
+inline void TestExternalProperty::test_equalityOperators()
+{
+    ExternalProperty prop1;
+    ExternalProperty prop2;
+
+    QVERIFY (prop1 == prop2);
+    prop1.setColor(QColor(Qt::red));
+    QVERIFY (prop1 != prop2);
+    prop2.setColor(QColor(Qt::red));
+    QVERIFY (prop1 == prop2);
+
+    prop1.setIdentifier("aaa");
+    QVERIFY (prop1 != prop2);
+    prop2.setIdentifier("aaa");
+    QVERIFY (prop1 == prop2);
+}
+
+inline void TestExternalProperty::test_variantEquality()
+{
+    ExternalProperty prop1;
+    ExternalProperty prop2;
+
+    QVERIFY(prop1.variant() == prop2.variant());
+    prop1.setIdentifier("aaa");
+    QVERIFY(prop1.variant() != prop2.variant());
+    prop2.setIdentifier("aaa");
+    QVERIFY(prop1.variant() == prop2.variant());
+
 }

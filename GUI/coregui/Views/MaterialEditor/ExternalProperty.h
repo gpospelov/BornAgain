@@ -46,6 +46,10 @@ public:
 
     QVariant variant() const;
 
+    bool operator==(const ExternalProperty& other) const;
+    bool operator!=(const ExternalProperty& other) const;
+    bool operator<(const ExternalProperty& other) const;
+
 private:
     QString m_identifier;
     QString m_text;

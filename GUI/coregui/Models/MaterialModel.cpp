@@ -20,16 +20,17 @@
 #include "MaterialDataItem.h"
 #include "AppSvc.h"
 
-
 MaterialModel::MaterialModel(QObject* parent) : SessionModel(SessionXML::MaterialModelTag, parent)
 {
     setObjectName(SessionXML::MaterialModelTag);
-    AppSvc::subscribe(this);
+    if (AppSvc::materialModel() == nullptr)
+        AppSvc::subscribe(this);
 }
 
 MaterialModel::~MaterialModel()
 {
-    AppSvc::unsubscribe(this);
+    if (AppSvc::materialModel() == this)
+        AppSvc::unsubscribe(this);
 }
 
 MaterialModel* MaterialModel::createCopy(SessionItem* parent)

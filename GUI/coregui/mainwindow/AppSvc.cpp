@@ -88,9 +88,9 @@ void AppSvc::this_unsubscribe(ProjectManager* projectManager)
 
 void AppSvc::this_subscribe(MaterialModel* materialModel)
 {
-    // MaterialModel created first will be subscribed
     if (m_materialModel)
-        return;
+        throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to subscribe "
+                                "MaterialModel twice.");
 
     m_materialModel = materialModel;
 }
@@ -98,7 +98,8 @@ void AppSvc::this_subscribe(MaterialModel* materialModel)
 void AppSvc::this_unsubscribe(MaterialModel* materialModel)
 {
     if (m_materialModel != materialModel)
-        return;
+        throw GUIHelpers::Error("AppSvc::projectManager() -> Error. Attempt to unsubscribe "
+                                "MaterialModel before it was subscribed.");
 
     m_materialModel = nullptr;
 }

@@ -122,7 +122,7 @@ QVariant ObsoletePropertyVariantManager::value(const QtProperty *property) const
 QString ObsoletePropertyVariantManager::valueText(const QtProperty *property) const
 {
     if (m_theMaterialValues.contains(property)) {
-        return m_theMaterialValues[property].getName();
+        return m_theMaterialValues[property].text();
     }
     if (m_theColorValues.contains(property)) {
         return m_theColorValues[property].getText();
@@ -143,7 +143,7 @@ QString ObsoletePropertyVariantManager::valueText(const QtProperty *property) co
 QIcon ObsoletePropertyVariantManager::valueIcon(const QtProperty *property) const
 {
     if (m_theMaterialValues.contains(property)) {
-        return QIcon(m_theMaterialValues[property].getPixmap());
+        return QIcon(m_theMaterialValues[property].pixmap());
     }
     if (m_theColorValues.contains(property)) {
         return QIcon(m_theColorValues[property].getPixmap());

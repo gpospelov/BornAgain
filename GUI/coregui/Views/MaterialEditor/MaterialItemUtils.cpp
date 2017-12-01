@@ -63,11 +63,11 @@ std::unique_ptr<Material>
 MaterialItemUtils::createDomainMaterial(const ExternalProperty &material_property)
 {    
     MaterialItem *materialItem
-        = AppSvc::materialModel()->materialFromIdentifier(material_property.getIdentifier());
+        = AppSvc::materialModel()->materialFromIdentifier(material_property.identifier());
 
     if(!materialItem)
         throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Can't create "
-                                "material with name '"+material_property.getName()+"'.");
+                                "material with name '"+material_property.text()+"'.");
 
     return materialItem->createMaterial();
 }
@@ -92,14 +92,16 @@ QStringList MaterialItemUtils::materialRelatedModelTypes()
     return {Constants::ParticleType, Constants::LayerType};
 }
 
+//! Constructs material property for given material.
 
 ExternalProperty MaterialItemUtils::materialProperty(const SessionItem& materialItem)
 {
-    ExternalProperty result(materialItem.getItemValue(MaterialItem::P_IDENTIFIER).toString());
+    ExternalProperty result;
 
     ColorProperty colorProperty = materialItem.getItemValue(MaterialItem::P_COLOR).value<ColorProperty>();
+    result.setIdentifier(materialItem.getItemValue(MaterialItem::P_IDENTIFIER).toString());
     result.setColor(colorProperty.getColor());
-    result.setName(materialItem.itemName());
+    result.setText(materialItem.itemName());
 
     return result;
 }

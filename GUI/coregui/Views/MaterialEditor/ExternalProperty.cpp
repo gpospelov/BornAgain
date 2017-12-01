@@ -18,22 +18,30 @@
 #include "MaterialItem.h"
 #include "MaterialModel.h"
 
-ExternalProperty::ExternalProperty(const QString& identifier)
-    : m_identifier(identifier)
+ExternalProperty::ExternalProperty()
 {}
 
-QString ExternalProperty::getName() const
-{
-    return m_name;
+QString ExternalProperty::identifier() const {
+    return m_identifier;
 }
 
-void ExternalProperty::setName(const QString& name)
+void ExternalProperty::setIdentifier(const QString& identifier)
 {
-    m_name = name;
+    m_identifier = identifier;
+}
+
+QString ExternalProperty::text() const
+{
+    return m_text;
+}
+
+void ExternalProperty::setText(const QString& name)
+{
+    m_text = name;
 }
 
 
-QColor ExternalProperty::getColor() const
+QColor ExternalProperty::color() const
 {
     return m_color;
 }
@@ -44,10 +52,10 @@ void ExternalProperty::setColor(const QColor& color)
 }
 
 
-QPixmap ExternalProperty::getPixmap() const
+QPixmap ExternalProperty::pixmap() const
 {
     QPixmap pixmap(10,10);
-    pixmap.fill(getColor());
+    pixmap.fill(color());
     return pixmap;
 }
 
@@ -55,8 +63,16 @@ QPixmap ExternalProperty::getPixmap() const
 
 bool ExternalProperty::isValid() const
 {
-    if (m_identifier.isEmpty() && m_name.isEmpty() && !m_color.isValid())
+    if (m_identifier.isEmpty() && m_text.isEmpty() && !m_color.isValid())
         return false;
 
     return true;
 }
+
+QVariant ExternalProperty::variant() const
+{
+    QVariant variant;
+    variant.setValue(*this);
+    return variant;
+}
+

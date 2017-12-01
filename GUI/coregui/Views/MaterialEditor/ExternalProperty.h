@@ -29,32 +29,26 @@
 class BA_CORE_API_ ExternalProperty
 {
 public:
-    explicit ExternalProperty(const QString &identifier=QString());
+    explicit ExternalProperty();
 
-    QString getIdentifier() const {
-        return m_identifier;
-    }
+    QString identifier() const;
+    void setIdentifier(const QString& identifier);
 
-    QVariant getVariant() const
-    {
-        QVariant variant;
-        variant.setValue(*this);
-        return variant;
-    }
+    QString text() const;
+    void setText(const QString& name);
 
-    QString getName() const;
-    void setName(const QString& name);
-
-    QColor getColor() const;
+    QColor color() const;
     void setColor(const QColor& color);
 
-    QPixmap getPixmap() const;
+    QPixmap pixmap() const;
 
     bool isValid() const;
 
+    QVariant variant() const;
+
 private:
     QString m_identifier;
-    QString m_name;
+    QString m_text;
     QColor m_color;
 };
 

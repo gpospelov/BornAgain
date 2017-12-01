@@ -64,8 +64,8 @@ ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     layout->setContentsMargins(4, 0, 0, 0);
 
     ExternalProperty defProperty; // to get label and pixmap of undefined material
-    m_textLabel->setText(defProperty.getName());
-    m_pixmapLabel->setPixmap(defProperty.getPixmap());
+    m_textLabel->setText(defProperty.text());
+    m_pixmapLabel->setPixmap(defProperty.pixmap());
 
     auto button = new QToolButton;
     button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
@@ -91,15 +91,15 @@ void ExternalPropertyEditor::buttonClicked()
     removeEventFilter(m_focusFilter);
 
     if (mat.isValid())
-        setDataIntern(mat.getVariant());
+        setDataIntern(mat.variant());
 }
 
 void ExternalPropertyEditor::initEditor()
 {
     Q_ASSERT(m_data.canConvert<ExternalProperty>());
     ExternalProperty materialProperty = m_data.value<ExternalProperty>();
-    m_textLabel->setText(materialProperty.getName());
-    m_pixmapLabel->setPixmap(materialProperty.getPixmap());
+    m_textLabel->setText(materialProperty.text());
+    m_pixmapLabel->setPixmap(materialProperty.pixmap());
 }
 
 // --- ColorPropertyEditor ---

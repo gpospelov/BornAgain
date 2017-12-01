@@ -103,7 +103,7 @@ bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
 QString PropertyEditorFactory::ToString(const QVariant& variant)
 {
     if (isMaterialProperty(variant))
-        return variant.value<ExternalProperty>().getName();
+        return variant.value<ExternalProperty>().text();
     if (isColorProperty(variant))
         return variant.value<ColorProperty>().getText();
     if (isGroupProperty(variant))

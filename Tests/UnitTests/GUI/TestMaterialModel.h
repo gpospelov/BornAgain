@@ -100,9 +100,9 @@ inline void TestMaterialModel::test_materialPropertyFromMaterial()
     MaterialItem* mat = model.addMaterial("Something", 1.0, 2.0);
 
     ExternalProperty property = MaterialItemUtils::materialProperty(*mat);
-    QCOMPARE(property.getName(), QString("Something"));
-    QCOMPARE(property.getColor(), mat->getColor());
-    QCOMPARE(property.getIdentifier(), mat->getIdentifier());
+    QCOMPARE(property.text(), QString("Something"));
+    QCOMPARE(property.color(), mat->getColor());
+    QCOMPARE(property.identifier(), mat->getIdentifier());
 }
 
 //! Default MaterialProperty construction.
@@ -120,7 +120,7 @@ inline void TestMaterialModel::test_defaultMaterialProperty()
     auto mat1 = model.addMaterial("Something1", 1.0, 2.0);
     model.addMaterial("Something2", 3.0, 4.0);
     ExternalProperty property2 = MaterialItemUtils::defaultMaterialProperty();
-    QCOMPARE(property2.getName(), QString("Something1"));
-    QCOMPARE(property2.getColor(), mat1->getColor());
-    QCOMPARE(property2.getIdentifier(), mat1->getIdentifier());
+    QCOMPARE(property2.text(), QString("Something1"));
+    QCOMPARE(property2.color(), mat1->getColor());
+    QCOMPARE(property2.identifier(), mat1->getIdentifier());
 }

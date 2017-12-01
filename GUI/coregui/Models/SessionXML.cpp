@@ -102,9 +102,9 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
         else if (type_name == Constants::ExternalPropertyType) {
             ExternalProperty material_property = variant.value<ExternalProperty>();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                   material_property.getName());
+                                   material_property.text());
             writer->writeAttribute(SessionXML::IdentifierAttribute,
-                                   material_property.getIdentifier());
+                                   material_property.identifier());
 
         }
 
@@ -280,8 +280,9 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
     else if (parameter_type == Constants::ExternalPropertyType) {
         QString identifier = reader->attributes().value(SessionXML::IdentifierAttribute).toString();
 
-        ExternalProperty material_property(identifier);
-        variant = material_property.getVariant();
+        ExternalProperty material_property;
+        material_property.setIdentifier(identifier);
+        variant = material_property.variant();
     }
 
     else if (parameter_type == Constants::ComboPropertyType) {

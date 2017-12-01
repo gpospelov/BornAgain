@@ -47,7 +47,7 @@ ParticleItem::ParticleItem()
     : SessionGraphicsItem(Constants::ParticleType)
 {
     addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
-    addProperty(P_MATERIAL, MaterialItemUtils::defaultMaterialProperty().getVariant())
+    addProperty(P_MATERIAL, MaterialItemUtils::defaultMaterialProperty().variant())
         ->setToolTip(QStringLiteral("Material of particle"));
 
     addProperty(P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0)).setDecimals(3)

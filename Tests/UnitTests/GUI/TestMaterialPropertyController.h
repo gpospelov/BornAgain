@@ -42,19 +42,19 @@ inline void TestMaterialPropertyController::test_ControllerForLayer()
     mat1->setItemName("newname");
 //    QCOMPARE(property_changed, 1);
     ExternalProperty property = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    QCOMPARE(property.getIdentifier(), mat1->getIdentifier());
-    QCOMPARE(property.getName(), mat1->itemName());
-    QCOMPARE(property.getColor(), mat1->getColor());
+    QCOMPARE(property.identifier(), mat1->getIdentifier());
+    QCOMPARE(property.text(), mat1->itemName());
+    QCOMPARE(property.color(), mat1->getColor());
 
     // changing color of MaterialItem
     ColorProperty colorProperty(Qt::red);
     mat1->setItemValue(MaterialItem::P_COLOR, colorProperty.getVariant());
 //    QCOMPARE(property_changed, 2);
     property = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    QCOMPARE(property.getIdentifier(), mat1->getIdentifier());
-    QCOMPARE(property.getName(), mat1->itemName());
-    QCOMPARE(property.getColor(), mat1->getColor());
-    QCOMPARE(property.getColor(), QColor(Qt::red));
+    QCOMPARE(property.identifier(), mat1->getIdentifier());
+    QCOMPARE(property.text(), mat1->itemName());
+    QCOMPARE(property.color(), mat1->getColor());
+    QCOMPARE(property.color(), QColor(Qt::red));
 
     // removing material from the model, property should become undefined
     materialModel.removeRows(0, 1, QModelIndex());
@@ -80,9 +80,9 @@ inline void TestMaterialPropertyController::test_ControllerInEditorContext()
     MaterialPropertyController controller;
     controller.setModels(&materialModel, &sampleModel);
 
-    layer1->setItemValue(LayerItem::P_MATERIAL, MaterialItemUtils::materialProperty(*mat1).getVariant());
-    layer2->setItemValue(LayerItem::P_MATERIAL, MaterialItemUtils::materialProperty(*mat2).getVariant());
-    layer3->setItemValue(LayerItem::P_MATERIAL, MaterialItemUtils::materialProperty(*mat3).getVariant());
+    layer1->setItemValue(LayerItem::P_MATERIAL, MaterialItemUtils::materialProperty(*mat1).variant());
+    layer2->setItemValue(LayerItem::P_MATERIAL, MaterialItemUtils::materialProperty(*mat2).variant());
+    layer3->setItemValue(LayerItem::P_MATERIAL, MaterialItemUtils::materialProperty(*mat3).variant());
 
     // Making copy of material model
     std::unique_ptr<MaterialModel> materialsCopy(materialModel.createCopy());
@@ -121,5 +121,5 @@ inline void TestMaterialPropertyController::test_ControllerInEditorContext()
 
     // layer3 should have different MaterialProperty name
     property = layer3->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    QCOMPARE(property.getName(), QString("name3changed"));
+    QCOMPARE(property.text(), QString("name3changed"));
 }

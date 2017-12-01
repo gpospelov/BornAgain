@@ -38,7 +38,7 @@ LayerItem::LayerItem()
     addProperty(P_THICKNESS, 0.0)->setLimits(RealLimits::lowerLimited(0.0))
         .setToolTip(QStringLiteral("Thickness of a layer in nanometers"));
 
-    addProperty(P_MATERIAL, MaterialItemUtils::defaultMaterialProperty().getVariant())
+    addProperty(P_MATERIAL, MaterialItemUtils::defaultMaterialProperty().variant())
             ->setToolTip(QStringLiteral("Material the layer is made of"));
 
     addProperty(P_NSLICES, 1)->setLimits(RealLimits::lowerLimited(0.0))

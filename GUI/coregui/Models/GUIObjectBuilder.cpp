@@ -192,7 +192,7 @@ void GUIObjectBuilder::visit(const Layer* p_sample)
     SessionItem* p_layer_item = m_sampleModel->insertNewItem(
         Constants::LayerType, m_sampleModel->indexOfItem(p_parent));
     p_layer_item->setItemValue(LayerItem::P_MATERIAL,
-        createMaterialFromDomain(p_sample->material()).getVariant());
+        createMaterialFromDomain(p_sample->material()).variant());
 
     TransformFromDomain::setItemFromSample(p_layer_item, p_sample, p_interface);
 
@@ -215,7 +215,7 @@ void GUIObjectBuilder::visit(const Particle* p_sample)
 {
     auto p_particle_item = InsertIParticle(p_sample, Constants::ParticleType);
     p_particle_item->setItemValue(ParticleItem::P_MATERIAL,
-        createMaterialFromDomain(p_sample->material()).getVariant());
+        createMaterialFromDomain(p_sample->material()).variant());
 }
 
 void GUIObjectBuilder::visit(const ParticleDistribution* p_sample)

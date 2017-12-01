@@ -88,7 +88,7 @@ QVariant SessionItemUtils::ToolTipRole(const SessionItem& item, int ncol)
 QVariant SessionItemUtils::DecorationRole(const SessionItem& item)
 {
     if (item.value().canConvert<ExternalProperty>())
-        return QIcon(item.value().value<ExternalProperty>().getPixmap());
+        return QIcon(item.value().value<ExternalProperty>().pixmap());
 
     if (item.value().canConvert<ColorProperty>())
         return QIcon(item.value().value<ColorProperty>().getPixmap());

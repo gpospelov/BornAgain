@@ -53,7 +53,7 @@ Simulation::Simulation(const Simulation& other)
     , m_instrument(other.m_instrument)
 {
     if (other.mP_background)
-        setBackGround(*other.mP_background);
+        setBackground(*other.mP_background);
     initialize();
 }
 
@@ -179,7 +179,7 @@ void Simulation::setSampleBuilder(const std::shared_ptr<class IMultiLayerBuilder
     m_sample_provider.setSampleBuilder(p_sample_builder);
 }
 
-void Simulation::setBackGround(const IBackground& bg)
+void Simulation::setBackground(const IBackground& bg)
 {
     mP_background.reset(bg.clone());
     registerChild(mP_background.get());

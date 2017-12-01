@@ -22,7 +22,7 @@
 #include "ColorProperty.h"
 #include "ComboProperty.h"
 #include "GroupProperty.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "ObsoleteScientificDoubleProperty.h"
 #include <QtVariantPropertyManager>
 
@@ -56,7 +56,7 @@ protected:
     virtual void initializeProperty(QtProperty *property);
     virtual void uninitializeProperty(QtProperty *property);
 private:
-    QMap<const QtProperty *, MaterialProperty> m_theMaterialValues;
+    QMap<const QtProperty *, ExternalProperty> m_theMaterialValues;
     QMap<const QtProperty *, ColorProperty> m_theColorValues;
     QMap<const QtProperty *, ObsoleteScientificDoubleProperty> m_theScientificDoubleValues;
     QMap<const QtProperty *, GroupProperty_t> m_theFancyGroupValues;

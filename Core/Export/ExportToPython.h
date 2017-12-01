@@ -69,6 +69,7 @@ private:
     std::string defineParameterDistributions(const GISASSimulation* simulation) const;
     std::string defineMasks(const GISASSimulation* simulation) const;
     std::string defineSimulationOptions(const GISASSimulation* simulation) const;
+    std::string defineBackground(const GISASSimulation* simulation) const;
     std::string defineMain(EMainType mainType = RUN_SIMULATION);
 
     std::string indent() const;

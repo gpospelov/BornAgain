@@ -34,16 +34,19 @@ public:
     static const QString P_BACKGROUND;
     InstrumentItem();
 
-    BeamItem *beamItem() const;
-    DetectorItem *detectorItem() const;
+    BeamItem* beamItem() const;
+    DetectorItem* detectorItem() const;
     GroupItem* detectorGroup();
     BackgroundItem* backgroundItem() const;
+    GroupItem* backgroundGroup();
 
     void setDetectorGroup(const QString& modelType);
 
     void clearMasks();
 
     void importMasks(MaskContainerItem* maskContainer);
+
+    QStringList translateList(const QStringList& list) const override;
 };
 
 #endif // INSTRUMENTITEM_H

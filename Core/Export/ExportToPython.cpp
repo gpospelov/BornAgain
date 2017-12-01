@@ -15,6 +15,7 @@
 
 #include "ExportToPython.h"
 #include "Beam.h"
+#include "ConstantBackground.h"
 #include "ConvolutionDetectorResolution.h"
 #include "Crystal.h"
 #include "Distributions.h"
@@ -34,6 +35,7 @@
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
+#include "PoissonNoiseBackground.h"
 #include "PythonFormatting.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunction2DGaussian.h"
@@ -123,6 +125,7 @@ std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulatio
     result << defineParameterDistributions(simulation);
     result << defineMasks(simulation);
     result << defineSimulationOptions(simulation);
+    result << defineBackground(simulation);
     result << indent() << "return simulation\n\n\n";
     return result.str();
 }
@@ -898,6 +901,25 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
         result << indent() << "simulation.getOptions().setUseAvgMaterials(True)\n";
     if (options.includeSpecular())
         result << indent() << "simulation.getOptions().setIncludeSpecular(True)\n";
+    return result.str();
+}
+
+std::string ExportToPython::defineBackground(const GISASSimulation* simulation) const
+{
+    std::ostringstream result;
+
+    auto p_bg = simulation->background();
+    if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
+        if (p_constant_bg->backgroundValue()>0.0) {
+            result << indent() << "background = ba.ConstantBackground("
+                   << printScientificDouble(p_constant_bg->backgroundValue()) << ")\n";
+            result << indent() << "simulation.setBackground(background)\n";
+        }
+    }
+    else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
+        result << indent() << "background = ba.PoissonNoiseBackground()\n";
+        result << indent() << "simulation.setBackground(background)\n";
+    }
     return result.str();
 }
 

@@ -33,7 +33,6 @@
 #include "Material.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
-#include "MaterialSvc.h"
 #include "MesoCrystal.h"
 #include "MesoCrystalItem.h"
 #include "MultiLayer.h"
@@ -58,6 +57,8 @@
 #include "VectorItem.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
+#include "AppSvc.h"
+#include "MaterialItemUtils.h"
 
 using SessionItemUtils::SetVectorItem;
 
@@ -121,6 +122,9 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
 
     // detector masks
     TransformFromDomain::setDetectorMasks(p_instrument_item->detectorItem(), simulation);
+
+    // background
+    TransformFromDomain::setBackground(p_instrument_item, simulation);
 
     return p_instrument_item;
 }
@@ -589,21 +593,21 @@ void GUIObjectBuilder::buildPositionInfo(SessionItem* p_particle_item, const IPa
     SetVectorItem(*p_particle_item, ParticleItem::P_POSITION, position);
 }
 
-MaterialProperty GUIObjectBuilder::createMaterialFromDomain(
+ExternalProperty GUIObjectBuilder::createMaterialFromDomain(
         const Material* material)
 {
     QString materialName = m_topSampleName + QString("_") + QString(material->getName().c_str());
 
-    MaterialProperty materialProperty = MaterialSvc::getMaterialProperty(materialName);
-    if(materialProperty.isDefined()) return materialProperty;
+    MaterialModel* model = AppSvc::materialModel();
 
-    MaterialModel* model = MaterialSvc::getMaterialModel();
+    if (auto material = model->materialFromName(materialName))
+        return MaterialItemUtils::materialProperty(*material);
 
     complex_t material_data = material->materialData();
     MaterialItem* materialItem  =
             model->addMaterial(materialName, material_data.real(),material_data.imag());
     SetVectorItem(*materialItem, MaterialItem::P_MAGNETIZATION, material->magnetization());
-    return MaterialProperty(materialItem->getIdentifier());
+    return MaterialItemUtils::materialProperty(*materialItem);
 }
 
 SessionItem* GUIObjectBuilder::InsertIParticle(const IParticle* p_particle, QString model_type)

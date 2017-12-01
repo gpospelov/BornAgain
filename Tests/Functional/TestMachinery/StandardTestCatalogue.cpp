@@ -363,6 +363,14 @@ StandardTestCatalogue::StandardTestCatalogue()
         "SlicedCompositionBuilder",
         1e-10);
 
+    // Simulations with background
+
+    add("ConstantBackground",
+        "Constant background is added to the simulation",
+        "ConstantBackground",
+        "CylindersInBABuilder",
+        1e-10);
+
     // Specular simulations
 
     add("HomogeneousTiNiSample",

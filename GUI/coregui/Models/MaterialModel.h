@@ -20,7 +20,7 @@
 #include "SessionModel.h"
 
 class MaterialItem;
-class MaterialProperty;
+class ExternalProperty;
 
 class BA_CORE_API_ MaterialModel : public SessionModel
 {
@@ -28,7 +28,7 @@ class BA_CORE_API_ MaterialModel : public SessionModel
 
 public:
     explicit MaterialModel(QObject* parent = 0);
-    virtual ~MaterialModel() {}
+    ~MaterialModel();
 
     virtual MaterialModel* createCopy(SessionItem* parent = 0);
 
@@ -36,10 +36,17 @@ public:
     void removeMaterial(MaterialItem*);
 
     MaterialItem* getMaterial(const QModelIndex& index);
-    MaterialItem* getMaterial(const MaterialProperty& property);
-    MaterialItem* getMaterial(const QString& material_name);
+    MaterialItem* getMaterial(const ExternalProperty& property);
 
     MaterialItem* cloneMaterial(const QModelIndex& index);
+
+    MaterialItem* materialFromName(const QString& material_name);
+    MaterialItem* materialFromIdentifier(const QString& identifier);
+
+    QVector<MaterialItem*> materialItems();
+signals:
+    void createdFromCopy();
+
 };
 
 #endif // MATERIALMODEL_H

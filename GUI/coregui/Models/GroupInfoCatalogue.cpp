@@ -152,6 +152,13 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::RealLimitsLimitedType, "Limited");
     info.setDefaultType(Constants::RealLimitsLimitlessType);
     addInfo(info);
+
+    info = GroupInfo(Constants::BackgroundGroup);
+    info.add(Constants::BackgroundNoneType, "None");
+    info.add(Constants::ConstantBackgroundType, "Constant background");
+    info.add(Constants::PoissonNoiseBackgroundType, "Poisson noise");
+    info.setDefaultType(Constants::BackgroundNoneType);
+    addInfo(info);
 }
 
 GroupInfo GroupInfoCatalogue::groupInfo(const QString& groupType) const

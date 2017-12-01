@@ -21,9 +21,11 @@
 #include "GUIHelpers.h"
 #include "Material.h"
 #include "MaterialModel.h"
-#include "MaterialSvc.h"
 #include "ParticleItem.h"
 #include "LayerItem.h"
+#include "MaterialEditorDialog.h"
+#include "AppSvc.h"
+#include "MaterialItem.h"
 
 
 QColor MaterialItemUtils::suggestMaterialColor(const QString &name)
@@ -46,25 +48,19 @@ QColor MaterialItemUtils::suggestMaterialColor(const QString &name)
 }
 
 
-MaterialProperty MaterialItemUtils::getDefaultMaterialProperty()
+ExternalProperty MaterialItemUtils::defaultMaterialProperty()
 {
-    if(MaterialSvc::instance()) {
-        return MaterialSvc::getDefaultMaterialProperty();
-    }
-    return MaterialProperty();
+    auto materials = AppSvc::materialModel()->topItems();
+    return materials.isEmpty() ? ExternalProperty() :
+                                 MaterialItemUtils::materialProperty(*materials.front());
 }
 
-
-ColorProperty MaterialItemUtils::suggestMaterialColorProperty(const QString &name)
-{
-    return ColorProperty(MaterialItemUtils::suggestMaterialColor(name));
-}
 
 std::unique_ptr<Material>
-MaterialItemUtils::createDomainMaterial(const MaterialProperty &material_property)
-{
+MaterialItemUtils::createDomainMaterial(const ExternalProperty &material_property)
+{    
     MaterialItem *materialItem
-        = MaterialSvc::getMaterial(material_property);
+        = AppSvc::materialModel()->materialFromIdentifier(material_property.getIdentifier());
 
     if(!materialItem)
         throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Can't create "
@@ -85,3 +81,34 @@ QString MaterialItemUtils::materialTag(const SessionItem &item)
     }
     return result;
 }
+
+//! Returns list of model types which contains registered MaterialProperty.
+
+QStringList MaterialItemUtils::materialRelatedModelTypes()
+{
+    return {Constants::ParticleType, Constants::LayerType};
+}
+
+
+ExternalProperty MaterialItemUtils::materialProperty(const SessionItem& materialItem)
+{
+    ExternalProperty result(materialItem.getItemValue(MaterialItem::P_IDENTIFIER).toString());
+
+    ColorProperty colorProperty = materialItem.getItemValue(MaterialItem::P_COLOR).value<ColorProperty>();
+    result.setColor(colorProperty.getColor());
+    result.setName(materialItem.itemName());
+
+    return result;
+}
+
+ExternalProperty MaterialItemUtils::selectMaterialProperty(const ExternalProperty& previousMaterial)
+{
+    MaterialEditorDialog dialog(AppSvc::materialModel());
+    dialog.setMaterialProperty(previousMaterial);
+    if(dialog.exec() == QDialog::Accepted) {
+        return dialog.selectedMaterialProperty();
+    }
+
+    return ExternalProperty();
+}
+

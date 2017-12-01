@@ -48,13 +48,13 @@ protected:
     QVariant m_data;
 };
 
-//! Editor for MaterialProperty variant.
+//! Editor for ExternalProperty variant.
 
-class BA_CORE_API_ MaterialPropertyEditor : public CustomEditor
+class BA_CORE_API_ ExternalPropertyEditor : public CustomEditor
 {
     Q_OBJECT
 public:
-    explicit MaterialPropertyEditor(QWidget* parent = nullptr);
+    explicit ExternalPropertyEditor(QWidget* parent = nullptr);
 
 private slots:
     void buttonClicked();
@@ -68,8 +68,7 @@ private:
     LostFocusFilter* m_focusFilter;
 };
 
-//! Editor for ColorProperty variant (TODO Replace ColorPropertyEditor and MaterialPropertyEditor
-//! with universal one).
+//! Editor for ColorProperty variant.
 
 class BA_CORE_API_ ColorPropertyEditor : public CustomEditor
 {
@@ -109,7 +108,8 @@ protected:
     virtual int internIndex();
     void setConnected(bool isConnected);
 
-    QComboBox* m_box;    
+    QComboBox* m_box;
+    class WheelEventEater* m_wheel_event_filter;
 };
 
 //! Editor for GroupProperty variant.
@@ -151,9 +151,6 @@ protected:
 
 //! Editor for ScientificDoubleProperty variant.
 
-class QLineEdit;
-class QDoubleValidator;
-
 class BA_CORE_API_ ScientificDoublePropertyEditor : public CustomEditor
 {
     Q_OBJECT
@@ -167,8 +164,8 @@ protected:
     void initEditor();
 
 private:
-    QLineEdit* m_lineEdit;
-    QDoubleValidator* m_validator;
+    class QLineEdit* m_lineEdit;
+    class QDoubleValidator* m_validator;
 };
 
 //! Editor for boolean.

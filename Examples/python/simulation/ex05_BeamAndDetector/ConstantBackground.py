@@ -41,7 +41,7 @@ def get_simulation():
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setBeamIntensity(1e6)
     bg = ba.ConstantBackground(1e3)
-    simulation.setBackGround(bg)
+    simulation.setBackground(bg)
     return simulation
 
 

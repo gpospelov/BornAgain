@@ -17,38 +17,44 @@
 #ifndef MATERIALEDITORDIALOG_H
 #define MATERIALEDITORDIALOG_H
 
-#include "MaterialProperty.h"
 #include "WinDllMacros.h"
 #include <QDialog>
 #include <memory>
 
 class MaterialModel;
 class MaterialEditor;
+class ExternalProperty;
+class QBoxLayout;
 
-//! Main widget of MaterialEditor
+//! Dialog to hold MaterialEditor.
+//! It's main function is to return MaterialModel to original state, if user decided to cancel
+//! changes.
+
 class BA_CORE_API_ MaterialEditorDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    MaterialEditorDialog(MaterialModel *materialModel, QWidget *parent = 0);
+    MaterialEditorDialog(MaterialModel* materialModel, QWidget* parent = nullptr);
 
-    MaterialProperty getSelectedMaterialProperty();
+    ExternalProperty selectedMaterialProperty();
 
-    void setInitialMaterialProperty(const MaterialProperty &matProperty);
+    void setMaterialProperty(const ExternalProperty& matProperty);
 
 public slots:
     void onOKButton();
     void onCancelButton();
 
 private:
+    QBoxLayout* createButtonLayout();
+
     void init_material_editor();
     void readSettings();
     void writeSettings();
 
-    MaterialModel *m_origMaterialModel;
-    std::unique_ptr<MaterialModel>  m_tmpMaterialModel;
-    MaterialEditor *m_materialEditor;
+    MaterialModel* m_origMaterialModel;
+    std::unique_ptr<MaterialModel> m_tmpMaterialModel;
+    MaterialEditor* m_materialEditor;
 };
 
 #endif // MATERIALEDITORDIALOG_H

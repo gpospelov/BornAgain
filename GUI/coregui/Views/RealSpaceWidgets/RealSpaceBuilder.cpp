@@ -18,7 +18,7 @@
 #include "RealSpaceModel.h"
 #include "SessionItem.h"
 #include "LayerItem.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "MultiLayerItem.h"
 #include "TransformTo3D.h"
 #include "ParticleLayoutItem.h"

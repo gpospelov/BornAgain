@@ -25,7 +25,6 @@ class SessionModel;
 class QGridLayout;
 class QBoxLayout;
 class PropertyWidgetItem;
-class WheelEventEater;
 
 //! Component property widget for SessionItems. On the contrary to ComponentTreeView
 //! properties are presented as widgets in grid layout.
@@ -58,14 +57,11 @@ private:
     void initGridLayout();
     PropertyWidgetItem* createWidget(const SessionItem* item);
 
-    void install_custom_filters(QWidget* editor);
-
     QBoxLayout* m_mainLayout;
     QGridLayout* m_gridLayout;
     QVector<PropertyWidgetItem*> m_widgetItems;
     SessionModel* m_model;
     bool m_show_children;
-    std::unique_ptr<WheelEventEater> m_wheel_event_filter;
     QVector<const SessionItem*> m_topItems;
 };
 

@@ -15,6 +15,7 @@
 
 #include "StandardSimulations.h"
 #include "BornAgainNamespace.h"
+#include <ConstantBackground.h>
 #include "Distributions.h"
 #include "Ellipse.h"
 #include "GISASSimulation.h"
@@ -377,4 +378,12 @@ SpecularSimulation* StandardSimulations::BasicSpecular()
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
     result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle);
     return result.release();
+}
+
+GISASSimulation*StandardSimulations::ConstantBackgroundGISAS()
+{
+    GISASSimulation* result = MiniGISAS();
+    ConstantBackground bg(1e3);
+    result->setBackground(bg);
+    return result;
 }

@@ -18,10 +18,18 @@
 #include "MaterialItemUtils.h"
 #include "GUIHelpers.h"
 #include "MaterialDataItem.h"
+#include "AppSvc.h"
+
 
 MaterialModel::MaterialModel(QObject* parent) : SessionModel(SessionXML::MaterialModelTag, parent)
 {
     setObjectName(SessionXML::MaterialModelTag);
+    AppSvc::subscribe(this);
+}
+
+MaterialModel::~MaterialModel()
+{
+    AppSvc::unsubscribe(this);
 }
 
 MaterialModel* MaterialModel::createCopy(SessionItem* parent)
@@ -44,8 +52,8 @@ MaterialItem* MaterialModel::addMaterial(const QString& name, double material_da
     materialDataItem->setReal(material_data_real);
     materialDataItem->setImag(material_data_imag);
 
-    materialItem->setItemValue(MaterialItem::P_COLOR,
-                               MaterialItemUtils::suggestMaterialColorProperty(name).getVariant());
+    ColorProperty color(MaterialItemUtils::suggestMaterialColor(name));
+    materialItem->setItemValue(MaterialItem::P_COLOR, color.getVariant());
 
     return materialItem;
 }
@@ -61,7 +69,7 @@ MaterialItem* MaterialModel::getMaterial(const QModelIndex& index)
     return dynamic_cast<MaterialItem*>(itemForIndex(index));
 }
 
-MaterialItem* MaterialModel::getMaterial(const MaterialProperty& property)
+MaterialItem* MaterialModel::getMaterial(const ExternalProperty& property)
 {
     QModelIndex parentIndex;
     for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
@@ -69,20 +77,6 @@ MaterialItem* MaterialModel::getMaterial(const MaterialProperty& property)
 
         if (MaterialItem* material = dynamic_cast<MaterialItem*>(itemForIndex(itemIndex))) {
             if (material->getIdentifier() == property.getIdentifier())
-                return material;
-        }
-    }
-    return nullptr;
-}
-
-MaterialItem* MaterialModel::getMaterial(const QString& material_name)
-{
-    QModelIndex parentIndex;
-    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = index(i_row, 0, parentIndex);
-
-        if (MaterialItem* material = dynamic_cast<MaterialItem*>(itemForIndex(itemIndex))) {
-            if (material->itemName() == material_name)
                 return material;
         }
     }
@@ -101,4 +95,38 @@ MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
     clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, GUIHelpers::createUuid());
     clonedMaterial->setItemName(origMaterial->itemName() + " (clone)");
     return dynamic_cast<MaterialItem*>(clonedMaterial);
+}
+
+MaterialItem* MaterialModel::materialFromName(const QString& material_name)
+{
+    for(auto item : topItems()) {
+        auto materialItem = dynamic_cast<MaterialItem*>(item);
+        Q_ASSERT(materialItem);
+        if (materialItem->itemName() == material_name)
+            return materialItem;
+    }
+
+    return nullptr;
+}
+
+MaterialItem* MaterialModel::materialFromIdentifier(const QString& identifier)
+{
+    for(auto item : topItems()) {
+        auto materialItem = dynamic_cast<MaterialItem*>(item);
+        Q_ASSERT(materialItem);
+        if (materialItem->getIdentifier() == identifier)
+            return materialItem;
+    }
+
+    return nullptr;
+}
+
+QVector<MaterialItem*> MaterialModel::materialItems()
+{
+    QVector<MaterialItem*> result;
+    for(auto item : topItems()) {
+        if (auto materialItem = dynamic_cast<MaterialItem*>(item))
+            result.push_back(materialItem);
+    }
+    return result;
 }

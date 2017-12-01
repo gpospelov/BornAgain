@@ -20,24 +20,19 @@
 #include "SessionModel.h"
 
 class MultiLayerItem;
+
+//! Main model to hold sample items.
+
 class BA_CORE_API_ SampleModel : public SessionModel
 {
     Q_OBJECT
 
 public:
-    explicit SampleModel(QObject *parent = 0);
-    virtual ~SampleModel(){}
+    explicit SampleModel(QObject* parent = nullptr);
 
-    virtual SampleModel *createCopy(SessionItem *parent = 0);
+    SampleModel* createCopy(SessionItem* parent = nullptr);
 
-    MultiLayerItem *multiLayerItem(const QString &item_name=QString());
-
-public slots:
-    void onMaterialModelChanged(const QModelIndex &, const QModelIndex &);
-
-private:
-    void exploreForMaterials(const QModelIndex &parentIndex = QModelIndex());
-    bool m_block_explore_for_material;
+    MultiLayerItem* multiLayerItem(const QString& item_name = QString());
 };
 
 #endif // SAMPLEMODEL_H

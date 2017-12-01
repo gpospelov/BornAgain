@@ -18,7 +18,8 @@
 #define GUIOBJECTBUILDER_H
 
 #include "INodeVisitor.h"
-#include "MaterialProperty.h"
+#include <QString>
+#include <QMap>
 
 class Material;
 class InstrumentModel;
@@ -26,6 +27,7 @@ class SampleModel;
 class SessionItem;
 class DocumentModel;
 class GISASSimulation;
+class ExternalProperty;
 
 //! Class to build SampleModel and InstrumentModel from domain's ISample
 class BA_CORE_API_ GUIObjectBuilder : public INodeVisitor
@@ -35,20 +37,19 @@ public:
     virtual ~GUIObjectBuilder(){}
 
     SessionItem* populateSampleModel(SampleModel* sample_model,
-                                     const GISASSimulation &simulation,
-                                     const QString &sample_name=QString());
+                                     const GISASSimulation& simulation,
+                                     const QString& sample_name=QString());
 
     SessionItem* populateSampleModel(SampleModel* sample_model,
-                                     const ISample &sample,
-                                     const QString &sample_name=QString());
+                                     const ISample& sample,
+                                     const QString& sample_name=QString());
 
     SessionItem* populateInstrumentModel(InstrumentModel* p_instrument_model,
-                                         const GISASSimulation &simulation,
-                                               const QString &instrument_name=QString());
+                                         const GISASSimulation& simulation,
+                                         const QString& instrument_name=QString());
 
     SessionItem* populateDocumentModel(DocumentModel* p_documentModel,
-                                       const GISASSimulation &simulation);
-
+                                       const GISASSimulation& simulation);
 
     using INodeVisitor::visit;
 
@@ -101,7 +102,7 @@ public:
 private:
     void buildAbundanceInfo(SessionItem* particleItem);
     void buildPositionInfo(SessionItem* particleItem, const IParticle* sample);
-    MaterialProperty createMaterialFromDomain(const Material*);
+    ExternalProperty createMaterialFromDomain(const Material*);
     SessionItem* InsertIParticle(const IParticle* p_particle, QString model_type);
 
     SampleModel* m_sampleModel;

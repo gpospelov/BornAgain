@@ -16,14 +16,12 @@
 
 #include "ApplicationModels.h"
 #include "DocumentModel.h"
-#include "GISASSimulation.h"
 #include "GUIObjectBuilder.h"
 #include "ISample.h"
 #include "InstrumentModel.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "MaterialModel.h"
-#include "MaterialSvc.h"
 #include "MultiLayer.h"
 #include "RealDataModel.h"
 #include "SampleBuilderFactory.h"
@@ -33,69 +31,54 @@
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
 #include "ImportDataAssistant.h"
-#include "StandardSimulations.h"
+#include "MaterialPropertyController.h"
 #include <QtCore/QXmlStreamWriter>
 
-
-ApplicationModels::ApplicationModels(QObject *parent)
+ApplicationModels::ApplicationModels(QObject* parent)
     : QObject(parent)
-    , m_documentModel(0)
-    , m_materialModel(0)
-    , m_materialSvc(0)
-    , m_instrumentModel(0)
-    , m_sampleModel(0)
-    , m_realDataModel(0)
-    , m_jobModel(0)
+    , m_documentModel(nullptr)
+    , m_materialModel(nullptr)
+    , m_instrumentModel(nullptr)
+    , m_sampleModel(nullptr)
+    , m_realDataModel(nullptr)
+    , m_jobModel(nullptr)
+    , m_materialPropertyController(new MaterialPropertyController(this))
 {
     createModels();
-//    createTestSample();
-//    createTestJob();
-
-//    SessionItem *multilayer = m_sampleModel->insertNewItem(Constants::MultiLayerType);
-//    SessionItem *layer = m_sampleModel->insertNewItem(Constants::LayerType, multilayer->index());
-
-//    SampleModel * mmm = m_sampleModel->createCopy();
-
+    // createTestSample();
+    // createTestJob();
 }
 
-ApplicationModels::~ApplicationModels()
-{
-    delete m_materialSvc;
-}
+ApplicationModels::~ApplicationModels() {}
 
-DocumentModel *ApplicationModels::documentModel()
+DocumentModel* ApplicationModels::documentModel()
 {
     return m_documentModel;
 }
 
-MaterialModel *ApplicationModels::materialModel()
+MaterialModel* ApplicationModels::materialModel()
 {
     return m_materialModel;
 }
 
-InstrumentModel *ApplicationModels::instrumentModel()
+InstrumentModel* ApplicationModels::instrumentModel()
 {
     return m_instrumentModel;
 }
 
-SampleModel *ApplicationModels::sampleModel()
+SampleModel* ApplicationModels::sampleModel()
 {
     return m_sampleModel;
 }
 
-RealDataModel *ApplicationModels::realDataModel()
+RealDataModel* ApplicationModels::realDataModel()
 {
     return m_realDataModel;
 }
 
-JobModel *ApplicationModels::jobModel()
+JobModel* ApplicationModels::jobModel()
 {
     return m_jobModel;
-}
-
-ObsoleteFitModel *ApplicationModels::fitModel()
-{
-    return 0;
 }
 
 //! reset all models to initial state
@@ -117,31 +100,22 @@ void ApplicationModels::resetModels()
     m_jobModel->clear();
 
     m_instrumentModel->clear();
-    SessionItem *instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+    SessionItem* instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
     instrument->setItemName("Default GISAS");
-
-//    m_realDataModel->insertNewItem(Constants::RealDataType);
-//    m_realDataModel->insertNewItem(Constants::RealDataType);
-//    m_realDataModel->insertNewItem(Constants::RealDataType);
-
 }
 
 //! creates and initializes models, order is important
 void ApplicationModels::createModels()
 {
     createDocumentModel();
-
     createMaterialModel();
-
     createSampleModel();
-
     createInstrumentModel();
-
     createRealDataModel();
-
     createJobModel();
-
     resetModels();
+
+    m_materialPropertyController->setModels(materialModel(), sampleModel());
 }
 
 void ApplicationModels::createDocumentModel()
@@ -156,7 +130,6 @@ void ApplicationModels::createMaterialModel()
     delete m_materialModel;
     m_materialModel = new MaterialModel(this);
     connectModel(m_materialModel);
-    m_materialSvc = new MaterialSvc(m_materialModel);
 }
 
 void ApplicationModels::createSampleModel()
@@ -165,8 +138,6 @@ void ApplicationModels::createSampleModel()
     delete m_sampleModel;
     m_sampleModel = new SampleModel(this);
     connectModel(m_sampleModel);
-    connect(m_materialModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-            m_sampleModel, SLOT(onMaterialModelChanged(QModelIndex,QModelIndex)));
 }
 
 void ApplicationModels::createInstrumentModel()
@@ -198,74 +169,58 @@ void ApplicationModels::createTestSample()
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, *P_sample);
 
-// to populate sample with predefined instrument
-//    const std::unique_ptr<GISASSimulation> simulation(StandardSimulations::GISASWithMasks());
-//    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
+    // to populate InstrumentView with predefined instrument
+    //    const std::unique_ptr<GISASSimulation> simulation(StandardSimulations::GISASWithMasks());
+    //    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
 }
 
 void ApplicationModels::createTestJob()
 {
-    SimulationOptionsItem *optionsItem = m_documentModel->getSimulationOptionsItem();
-//    optionsItem->setRunPolicy(Constants::JOB_RUN_IN_BACKGROUND);
+    SimulationOptionsItem* optionsItem = m_documentModel->getSimulationOptionsItem();
 
-    JobItem *jobItem = m_jobModel->addJob(
-                m_sampleModel->multiLayerItem(),
-                m_instrumentModel->instrumentItem(),
-                0,
-                optionsItem);
-
-//    IHistogram *data = IntensityDataIOFactory::readIntensityData("/home/pospelov/development/BornAgain/temp/Untitled12/data_job1_0.int");
-
-//    RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(jobItem->getItem(JobItem::T_REALDATA));
-//    Q_ASSERT(realDataItem);
-
-//    realDataItem->intensityDataItem()->setOutputData(data->createOutputData());
-//    jobItem->setItemValue(JobItem::P_WITH_FITTING, true);
-
+    JobItem* jobItem = m_jobModel->addJob(m_sampleModel->multiLayerItem(),
+                                          m_instrumentModel->instrumentItem(), 0, optionsItem);
     m_jobModel->runJob(jobItem->index());
 }
 
 void ApplicationModels::createTestRealData()
 {
-    RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(
-                m_realDataModel->insertNewItem(Constants::RealDataType));
+    auto realDataItem =
+            dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
     realDataItem->setItemName("realdata");
 
     std::unique_ptr<OutputData<double>> data(
-                IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int"));
+        IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int"));
 
-    OutputData<double> *simplified = ImportDataAssistant::createSimplifiedOutputData(*data.get());
+    OutputData<double>* simplified = ImportDataAssistant::createSimplifiedOutputData(*data.get());
     realDataItem->setOutputData(simplified);
 }
 
 //! Writes all model in file one by one
 
-void ApplicationModels::writeTo(QXmlStreamWriter *writer)
+void ApplicationModels::writeTo(QXmlStreamWriter* writer)
 {
-    foreach(SessionModel *model, modelList()) {
+    for(auto model : modelList())
         model->writeTo(writer);
-    }
 }
 
-void ApplicationModels::readFrom(QXmlStreamReader *reader, WarningMessageService *messageService)
+void ApplicationModels::readFrom(QXmlStreamReader* reader, WarningMessageService* messageService)
 {
-    foreach(SessionModel *model, modelList()) {
-        if(model->getModelTag() == reader->name()) {
+    for(auto model : modelList()) {
+        if (model->getModelTag() == reader->name()) {
             model->readFrom(reader, messageService);
-            if(messageService->hasWarnings(model)) {
+            if (messageService->hasWarnings(model))
                 messageService->send_message(this, "MODEL_READ_WARNING", model->getModelTag());
-            }
             break;
         }
     }
-
 }
 
 //! Returns the list of all GUI models
 
-QList<SessionModel *> ApplicationModels::modelList()
+QList<SessionModel*> ApplicationModels::modelList()
 {
-    QList<SessionModel *> result;
+    QList<SessionModel*> result;
     result.append(m_documentModel);
     result.append(m_materialModel);
     result.append(m_instrumentModel);
@@ -275,32 +230,29 @@ QList<SessionModel *> ApplicationModels::modelList()
     return result;
 }
 
-QVector<SessionItem *> ApplicationModels::nonXMLData() const
+QVector<SessionItem*> ApplicationModels::nonXMLData() const
 {
     Q_ASSERT(m_realDataModel && m_jobModel);
-    return QVector<SessionItem *>() << m_realDataModel->nonXMLData() << m_jobModel->nonXMLData();
+    return QVector<SessionItem*>() << m_realDataModel->nonXMLData() << m_jobModel->nonXMLData();
 }
 
-void ApplicationModels::disconnectModel(SessionModel *model)
+void ApplicationModels::disconnectModel(SessionModel* model)
 {
-    if(model) {
-        disconnect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-                   SIGNAL(modelChanged()));
-        disconnect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                   SIGNAL(modelChanged()));
-        disconnect(model, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SIGNAL(modelChanged()));
+    if (model) {
+        disconnect(model, &SessionModel::dataChanged, this, &ApplicationModels::modelChanged);
+        disconnect(model, &SessionModel::rowsRemoved, this, &ApplicationModels::modelChanged);
+        disconnect(model, &SessionModel::rowsInserted, this, &ApplicationModels::modelChanged);
     }
 }
 
-void ApplicationModels::connectModel(SessionModel *model)
+void ApplicationModels::connectModel(SessionModel* model)
 {
-    if(model) {
-        connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
-                   SIGNAL(modelChanged()), Qt::UniqueConnection);
-        connect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                   SIGNAL(modelChanged()), Qt::UniqueConnection);
-        connect(model, SIGNAL(rowsInserted(QModelIndex, int,int)), this,
-                   SIGNAL(modelChanged()), Qt::UniqueConnection);
+    if (model) {
+        connect(model, &SessionModel::dataChanged,
+                this, &ApplicationModels::modelChanged, Qt::UniqueConnection);
+        connect(model, &SessionModel::rowsRemoved,
+                this, &ApplicationModels::modelChanged, Qt::UniqueConnection);
+        connect(model, &SessionModel::rowsInserted,
+                this, &ApplicationModels::modelChanged, Qt::UniqueConnection);
     }
 }

@@ -28,7 +28,7 @@ class ComponentEditor;
 class QItemSelection;
 class QItemSelectionModel;
 class MaterialItem;
-class MaterialProperty;
+class ExternalProperty;
 
 //! Main widget of MaterialEditor
 
@@ -41,14 +41,14 @@ public:
 
     QItemSelectionModel* selectionModel();
 
-    MaterialItem* getSelectedMaterial();
+    MaterialItem* selectedMaterial();
 
-    void setInitialMaterialProperty(const MaterialProperty& matProperty);
+    void setInitialMaterialProperty(const ExternalProperty& matProperty);
 
-    bool isModelWasModified() const;
+    bool modelWasChanged() const;
 
 private slots:
-    void onSelectionChanged(const QItemSelection& selected, const QItemSelection&);
+    void onSelectionChanged(const QItemSelection&selected, const QItemSelection&);
     void onDataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&);
     void onRowsInserted(const QModelIndex&, int, int);
     void onRowsRemoved(const QModelIndex&, int, int);

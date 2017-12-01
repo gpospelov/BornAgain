@@ -13,18 +13,19 @@
 //
 // ************************************************************************** //
 
-#include "SpecularComputation.h"
+#include "NormalizingSpecularComputationTerm.h"
+
 #include "SimulationElement.h"
 #include "IFresnelMap.h"
 #include "ILayerRTCoefficients.h"
 #include "MultiLayer.h"
 
-SpecularComputation::SpecularComputation(const MultiLayer* p_multi_layer,
+NormalizingSpecularComputationTerm::NormalizingSpecularComputationTerm(const MultiLayer* p_multi_layer,
                                          const IFresnelMap* p_fresnel_map)
     : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 
-void SpecularComputation::eval(ProgressHandler*,
+void NormalizingSpecularComputationTerm::eval(ProgressHandler*,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {

@@ -20,11 +20,11 @@
 #include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "RoughMultiLayerComputation.h"
-#include "SpecularComputation.h"
 #include "ScalarFresnelMap.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
 #include "MaterialFactoryFuncs.h"
+#include "NormalizingSpecularComputationTerm.h"
 
 static_assert(std::is_copy_constructible<DWBAComputation>::value == false,
     "DWBAComputation should not be copy constructable");
@@ -57,7 +57,7 @@ DWBAComputation::DWBAComputation(
         m_computation_terms.emplace_back(new RoughMultiLayerComputation(mP_multi_layer.get(),
                                                                      mP_fresnel_map.get()));
     if (m_sim_options.includeSpecular())
-        m_computation_terms.emplace_back(new SpecularComputation(mP_multi_layer.get(),
+        m_computation_terms.emplace_back(new NormalizingSpecularComputationTerm(mP_multi_layer.get(),
                                                               mP_fresnel_map.get()));
     initFresnelMap();
 }

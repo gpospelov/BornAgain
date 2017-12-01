@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/SpecularComputation.h
-//! @brief     Defines class SpecularComputation.
+//! @file      Core/Computation/NormalizingSpecularComputationTerm.h
+//! @brief     Defines class NormalizingSpecularComputationTerm.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARCOMPUTATION_H
-#define SPECULARCOMPUTATION_H
+#ifndef NORMALIZINGSPECULARCOMPUTATIONTERM_H
+#define NORMALIZINGSPECULARCOMPUTATIONTERM_H
 
 #include "IComputationTerm.h"
 
@@ -22,14 +22,14 @@
 //! Used by DWBAComputation.
 //! @ingroup algorithms_internal
 
-class SpecularComputation final : public IComputationTerm
+class NormalizingSpecularComputationTerm final : public IComputationTerm
 {
 public:
-    SpecularComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
+    NormalizingSpecularComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
     void eval(ProgressHandler* progress,
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const override;
 };
 
-#endif // SPECULARCOMPUTATION_H
+#endif // NORMALIZINGSPECULARCOMPUTATIONTERM_H

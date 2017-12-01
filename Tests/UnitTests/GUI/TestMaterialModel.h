@@ -111,23 +111,16 @@ inline void TestMaterialModel::test_defaultMaterialProperty()
 {
     MaterialModel model;
 
-    // testing default constructed material property
-    ExternalProperty property;
-    QCOMPARE(property.getName(), QString("Undefined"));
-    QCOMPARE(property.getColor(), QColor(Qt::red));
-    QCOMPARE(property.getIdentifier(), QString(""));
-
     // testing default material property from MaterialItemUtils
-    ExternalProperty property2 = MaterialItemUtils::defaultMaterialProperty();
-    QCOMPARE(property2.getName(), QString("Undefined"));
-    QCOMPARE(property2.getColor(), QColor(Qt::red));
-    QCOMPARE(property2.getIdentifier(), QString(""));
+    // in the absence of any materials, property should be in invalid state
+    ExternalProperty property = MaterialItemUtils::defaultMaterialProperty();
+    QVERIFY(property.isValid() == false);
 
     // adding materials to the model, default property should refer to first material in a model
     auto mat1 = model.addMaterial("Something1", 1.0, 2.0);
     model.addMaterial("Something2", 3.0, 4.0);
-    ExternalProperty property3 = MaterialItemUtils::defaultMaterialProperty();
-    QCOMPARE(property3.getName(), QString("Something1"));
-    QCOMPARE(property3.getColor(), mat1->getColor());
-    QCOMPARE(property3.getIdentifier(), mat1->getIdentifier());
+    ExternalProperty property2 = MaterialItemUtils::defaultMaterialProperty();
+    QCOMPARE(property2.getName(), QString("Something1"));
+    QCOMPARE(property2.getColor(), mat1->getColor());
+    QCOMPARE(property2.getIdentifier(), mat1->getIdentifier());
 }

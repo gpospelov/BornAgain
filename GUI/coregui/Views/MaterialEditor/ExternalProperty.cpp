@@ -20,8 +20,6 @@
 
 ExternalProperty::ExternalProperty(const QString& identifier)
     : m_identifier(identifier)
-    , m_name("Undefined")
-    , m_color(Qt::red)
 {}
 
 QString ExternalProperty::getName() const
@@ -53,7 +51,12 @@ QPixmap ExternalProperty::getPixmap() const
     return pixmap;
 }
 
+//! Returns true if property is in valid state (i.e. have at least one member defined).
+
 bool ExternalProperty::isValid() const
 {
-    return !m_identifier.isEmpty();
+    if (m_identifier.isEmpty() && m_name.isEmpty() && !m_color.isValid())
+        return false;
+
+    return true;
 }

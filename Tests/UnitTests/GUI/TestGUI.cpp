@@ -38,6 +38,7 @@
 #include "TestComponentUtils.h"
 #include "TestLayerItems.h"
 #include "TestMaterialPropertyController.h"
+#include "TestExternalProperty.h"
 #include <memory>
 
 class GUITestFactory {
@@ -108,6 +109,7 @@ int main(int argc, char** argv) {
     tests.add<TestProxyModelStrategy>();
     tests.add<TestSessionItemUtils>();
     tests.add<TestComponentUtils>();
+    tests.add<TestExternalProperty>();
 
     return tests.runAll(argc, argv);
 }

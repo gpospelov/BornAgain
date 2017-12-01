@@ -60,9 +60,7 @@ inline void TestMaterialPropertyController::test_ControllerForLayer()
     materialModel.removeRows(0, 1, QModelIndex());
 //    QCOMPARE(property_changed, 3);
     property = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    QCOMPARE(property.getIdentifier(), QString());
-    QCOMPARE(property.getName(), QString("Undefined"));
-    QCOMPARE(property.getColor(), QColor(Qt::red));
+    QVERIFY(property.isValid() == false);
 }
 
 //! Test MaterialProperty update in sample items when working on model clone.
@@ -119,9 +117,7 @@ inline void TestMaterialPropertyController::test_ControllerInEditorContext()
 
     // layer2 should have undefined material property
     ExternalProperty property = layer2->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    QCOMPARE(property.getName(), QString("Undefined"));
-    QCOMPARE(property.getIdentifier(), QString(""));
-    QCOMPARE(property.getColor(), QColor(Qt::red));
+    QVERIFY(property.isValid() == false);
 
     // layer3 should have different MaterialProperty name
     property = layer3->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();

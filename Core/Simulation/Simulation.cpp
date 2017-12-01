@@ -50,6 +50,7 @@ Simulation::Simulation(const Simulation& other)
     , m_options(other.m_options)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)
+    , m_sim_elements(other.m_sim_elements)
     , m_instrument(other.m_instrument)
 {
     if (other.mP_background)

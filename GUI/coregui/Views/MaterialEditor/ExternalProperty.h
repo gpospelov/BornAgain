@@ -24,8 +24,9 @@
 #include <QString>
 #include <QVariant>
 
-//! The MaterialProperty class defines unique identifier to help LayerItem, ParticleItem etc
-//! to access materials from MaterialEditor;
+//! The ExternalProperty class defines custom QVariant property to carry the text, color and
+//! an identifier.
+
 class BA_CORE_API_ ExternalProperty
 {
 public:

@@ -56,6 +56,8 @@ class BA_CORE_API_ ExternalPropertyEditor : public CustomEditor
 public:
     explicit ExternalPropertyEditor(QWidget* parent = nullptr);
 
+    void setExternalDialogType(const QString& dialogType);
+
 private slots:
     void buttonClicked();
 
@@ -66,6 +68,7 @@ private:
     QLabel* m_textLabel;
     QLabel* m_pixmapLabel;
     LostFocusFilter* m_focusFilter;
+    QString m_extDialogType; //!< Type of the dialog which will be created on button click
 };
 
 //! Editor for ColorProperty variant.

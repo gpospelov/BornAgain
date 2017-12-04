@@ -276,6 +276,7 @@ const ModelType GroupPropertyType = "GroupProperty_t";
 // --- Custom editors for variant propertues ---
 const ModelType DefaultEditorType = "Default";
 const ModelType ScientificEditorType = "SceintificDouble";
+const ModelType MaterialEditorExternalType = "ExtMaterialEditor";
 }
 
 #endif // ITEM_CONSTANTS_H

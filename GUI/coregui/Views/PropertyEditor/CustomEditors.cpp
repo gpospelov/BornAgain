@@ -21,6 +21,7 @@
 #include "ComboProperty.h"
 #include "ColorProperty.h"
 #include "MaterialItemUtils.h"
+#include "GUIHelpers.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QToolButton>
@@ -56,6 +57,7 @@ ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     , m_textLabel(new QLabel)
     , m_pixmapLabel(new QLabel)
     , m_focusFilter(new LostFocusFilter(this))
+    , m_extDialogType(Constants::MaterialEditorExternalType)
 {
     setMouseTracking(true);
     setAutoFillBackground(true);
@@ -82,12 +84,24 @@ ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     setLayout(layout);
 }
 
+void ExternalPropertyEditor::setExternalDialogType(const QString& editorType)
+{
+    m_extDialogType = editorType;
+}
+
 void ExternalPropertyEditor::buttonClicked()
 {
     // temporarily installing filter to prevent loss of focus caused by too insistent dialog
     installEventFilter(m_focusFilter);
     ExternalProperty materialProperty = m_data.value<ExternalProperty>();
-    ExternalProperty mat = MaterialItemUtils::selectMaterialProperty(materialProperty);
+
+    ExternalProperty mat;
+    if (m_extDialogType == Constants::MaterialEditorExternalType) {
+        mat = MaterialItemUtils::selectMaterialProperty(materialProperty);
+    } else {
+        throw GUIHelpers::Error("ExternalPropertyEditor::buttonClicked() -> Unexpected dialog");
+    }
+
     removeEventFilter(m_focusFilter);
 
     if (mat.isValid())

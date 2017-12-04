@@ -99,11 +99,20 @@ ExternalProperty MaterialItemUtils::materialProperty(const SessionItem& material
 {
     ExternalProperty result;
 
-    ColorProperty colorProperty = materialItem.getItemValue(MaterialItem::P_COLOR).value<ColorProperty>();
+    ExternalProperty colorProperty = materialItem.getItemValue(MaterialItem::P_COLOR).value<ExternalProperty>();
     result.setIdentifier(materialItem.getItemValue(MaterialItem::P_IDENTIFIER).toString());
-    result.setColor(colorProperty.getColor());
+    result.setColor(colorProperty.color());
     result.setText(materialItem.itemName());
 
+    return result;
+}
+
+ExternalProperty MaterialItemUtils::colorProperty(const QColor& color)
+{
+    ExternalProperty result;
+    result.setColor(color);
+    result.setText(QString("[%1, %2, %3] (%4)")
+                   .arg(color.red()).arg(color.green()).arg(color.blue()).arg(color.alpha()));
     return result;
 }
 
@@ -126,12 +135,8 @@ ExternalProperty MaterialItemUtils::selectColorProperty(const ExternalProperty& 
     bool ok = false;
     QRgb oldRgba = previous.color().rgba();
     QRgb newRgba = QColorDialog::getRgba(oldRgba, &ok, nullptr);
-    if (ok && newRgba != oldRgba) {
-        QColor col = QColor::fromRgba(newRgba);
-        result.setColor(col);
-        result.setText(QString("[%1, %2, %3] (%4)")
-                       .arg(col.red()).arg(col.green()).arg(col.blue()).arg(col.alpha()));
-    }
+    if (ok && newRgba != oldRgba)
+        result = MaterialItemUtils::colorProperty(QColor::fromRgba(newRgba));
 
     return result;
 }

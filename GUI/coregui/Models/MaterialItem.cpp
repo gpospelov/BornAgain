@@ -15,11 +15,12 @@
 // ************************************************************************** //
 
 #include "MaterialItem.h"
-#include "ColorProperty.h"
+#include "ExternalProperty.h"
 #include "GUIHelpers.h"
 #include "MaterialDataItem.h"
 #include "MaterialFactoryFuncs.h"
 #include "SessionItemUtils.h"
+#include "MaterialItemUtils.h"
 
 using SessionItemUtils::GetVectorItem;
 
@@ -38,8 +39,9 @@ MaterialItem::MaterialItem()
 {
     setItemName(Constants::HomogeneousMaterialType);
 
-    ColorProperty color;
-    addProperty(P_COLOR, color.getVariant());
+    ExternalProperty color = MaterialItemUtils::colorProperty(QColor(Qt::red));
+    addProperty(P_COLOR, color.variant())->setEditorType(Constants::ColorEditorExternalType);
+
     addGroupProperty(P_MATERIAL_DATA, Constants::MaterialDataType);
     addGroupProperty(P_MAGNETIZATION, Constants::VectorType)->setToolTip(magnetization_tooltip);
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid());
@@ -53,8 +55,8 @@ QString MaterialItem::getIdentifier() const
 
 QColor MaterialItem::getColor() const
 {
-    ColorProperty property = getItemValue(P_COLOR).value<ColorProperty>();
-    return property.getColor();
+    ExternalProperty property = getItemValue(P_COLOR).value<ExternalProperty>();
+    return property.color();
 }
 
 //TODO: make this function create proper type of material (refractive index m-l or wl-indp. mat-l)

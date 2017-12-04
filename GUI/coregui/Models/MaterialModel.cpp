@@ -53,8 +53,8 @@ MaterialItem* MaterialModel::addMaterial(const QString& name, double material_da
     materialDataItem->setReal(material_data_real);
     materialDataItem->setImag(material_data_imag);
 
-    ColorProperty color(MaterialItemUtils::suggestMaterialColor(name));
-    materialItem->setItemValue(MaterialItem::P_COLOR, color.getVariant());
+    QColor color = MaterialItemUtils::suggestMaterialColor(name);
+    materialItem->setItemValue(MaterialItem::P_COLOR, MaterialItemUtils::colorProperty(color).variant());
 
     return materialItem;
 }

@@ -47,8 +47,8 @@ inline void TestMaterialPropertyController::test_ControllerForLayer()
     QCOMPARE(property.color(), mat1->getColor());
 
     // changing color of MaterialItem
-    ColorProperty colorProperty(Qt::red);
-    mat1->setItemValue(MaterialItem::P_COLOR, colorProperty.getVariant());
+    ExternalProperty colorProperty = MaterialItemUtils::colorProperty(QColor(Qt::red));
+    mat1->setItemValue(MaterialItem::P_COLOR, colorProperty.variant());
 //    QCOMPARE(property_changed, 2);
     property = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
     QCOMPARE(property.identifier(), mat1->getIdentifier());

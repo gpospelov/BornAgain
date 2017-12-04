@@ -40,6 +40,9 @@ BA_CORE_API_ QStringList materialRelatedModelTypes();
 //! Constructs material property corresponding to given material.
 BA_CORE_API_ ExternalProperty materialProperty(const SessionItem& materialItem);
 
+//! Constructs color property from given color.
+BA_CORE_API_ ExternalProperty colorProperty(const QColor& color);
+
 //! Calls material selector dialog.
 BA_CORE_API_ ExternalProperty selectMaterialProperty(const ExternalProperty &previous=ExternalProperty());
 

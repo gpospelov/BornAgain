@@ -14,15 +14,34 @@
 // ************************************************************************** //
 
 #include "IComputation.h"
+#include "MultiLayer.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
 
-IComputation::IComputation(ProgressHandler& progress,
+IComputation::IComputation(const SimulationOptions& options, ProgressHandler& progress,
                            const std::vector<SimulationElement>::iterator& start,
-                           const std::vector<SimulationElement>::iterator& end)
-    : m_progress(&progress)
+                           const std::vector<SimulationElement>::iterator& end,
+                           const MultiLayer& sample)
+    : m_sim_options(options)
+    , m_progress(&progress)
     , m_begin_it(start)
     , m_end_it(end)
-{}
+    , mP_multi_layer(sample.cloneSliced(options.useAvgMaterials()))
+{
+    if (!mP_multi_layer)
+        throw std::runtime_error("Error in IComputation: empty sample passed.");
+}
 
-IComputation::~IComputation() {}
+IComputation::~IComputation() = default;
+
+void IComputation::run()
+{
+    m_status.setRunning();
+    try {
+        runProtected();
+        m_status.setCompleted();
+    } catch(const std::exception &ex) {
+        m_status.setErrorMessage(std::string(ex.what()));
+        m_status.setFailed();
+    }
+}

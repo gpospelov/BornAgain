@@ -42,7 +42,7 @@ void MultiPatternFitTest::initParameterPlan()
     par.setLimited(4., 12.).addPattern("*Cylinder/Radius").addPattern("*Cylinder/Height");
 
     const double tolerance(0.01);
-    m_parplans.push_back(new FitParameterPlan(par, expected_value, tolerance));
+    m_parplans.push_back(std::make_unique<FitParameterPlan>(par, expected_value, tolerance));
 }
 
 std::unique_ptr<MultiLayer> MultiPatternFitTest::createSample()

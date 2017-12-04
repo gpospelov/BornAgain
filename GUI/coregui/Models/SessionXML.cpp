@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "ColorProperty.h"
+#include "ObsoleteColorProperty.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
@@ -124,7 +124,7 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
 
         else if (type_name == Constants::ColorPropertyType) {
             int r, g, b, a;
-            QColor material_color = variant.value<ColorProperty>().getColor();
+            QColor material_color = variant.value<ObsoleteColorProperty>().getColor();
             material_color.getRgb(&r, &g, &b, &a);
             writer->writeAttribute(SessionXML::ColorRedAttribute, QString::number(r));
             writer->writeAttribute(SessionXML::ColorGreenAttribute, QString::number(g));
@@ -322,7 +322,7 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
         int g = reader->attributes().value(SessionXML::ColorGreenAttribute).toInt();
         int b = reader->attributes().value(SessionXML::ColorBlueAttribute).toInt();
         int a = reader->attributes().value(SessionXML::ColorAlphaAttribute).toInt();
-        ColorProperty color(QColor(r, g, b, a));
+        ObsoleteColorProperty color(QColor(r, g, b, a));
         variant = color.getVariant();
     }
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/ColorProperty.h
-//! @brief     Defines class ColorProperty
+//! @file      GUI/coregui/Models/ObsoleteColorProperty.h
+//! @brief     Defines class ObsoleteColorProperty
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COLORPROPERTY_H
-#define COLORPROPERTY_H
+#ifndef OBSOLETECOLORPROPERTY_H
+#define OBSOLETECOLORPROPERTY_H
 
 #include "WinDllMacros.h"
 #include <QPixmap>
@@ -25,11 +25,11 @@
 //!
 //! The reason is to have simple color editor in PropertyEditor instead of
 //! original one which is too sophisticated.
-class BA_CORE_API_ ColorProperty
+class BA_CORE_API_ ObsoleteColorProperty
 {
 public:
-    ColorProperty() : m_color(Qt::red) {}
-    ColorProperty(QColor color) : m_color(color) {}
+    ObsoleteColorProperty() : m_color(Qt::red) {}
+    ObsoleteColorProperty(QColor color) : m_color(color) {}
     QPixmap getPixmap() const {
         QPixmap pixmap(10,10);
         pixmap.fill(m_color);
@@ -53,8 +53,8 @@ private:
     QColor m_color;
 };
 
-Q_DECLARE_METATYPE(ColorProperty)
+Q_DECLARE_METATYPE(ObsoleteColorProperty)
 
 
 
-#endif // COLORPROPERTY_H
+#endif // OBSOLETECOLORPROPERTY_H

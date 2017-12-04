@@ -229,7 +229,7 @@ void ObsoleteColorPropertyEdit::buttonClicked()
 }
 
 void ObsoleteColorPropertyEdit::setColorProperty(
-        const ColorProperty &colorProperty)
+        const ObsoleteColorProperty &colorProperty)
 {
     m_colorProperty = colorProperty;
     m_textLabel->setText(colorValueText(m_colorProperty.getColor()));

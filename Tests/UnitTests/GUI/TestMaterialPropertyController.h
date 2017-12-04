@@ -5,7 +5,7 @@
 #include "LayerItem.h"
 #include "MaterialItem.h"
 #include "ExternalProperty.h"
-#include "ColorProperty.h"
+#include "ObsoleteColorProperty.h"
 #include "MaterialItemUtils.h"
 
 class TestMaterialPropertyController : public QObject

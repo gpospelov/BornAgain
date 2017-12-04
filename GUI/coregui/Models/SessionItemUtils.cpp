@@ -18,7 +18,7 @@
 #include "SessionItem.h"
 #include "VectorItem.h"
 #include "MaterialItem.h"
-#include "ColorProperty.h"
+#include "ObsoleteColorProperty.h"
 #include "ExternalProperty.h"
 #include <QColor>
 #include <QIcon>
@@ -90,8 +90,8 @@ QVariant SessionItemUtils::DecorationRole(const SessionItem& item)
     if (item.value().canConvert<ExternalProperty>())
         return QIcon(item.value().value<ExternalProperty>().pixmap());
 
-    if (item.value().canConvert<ColorProperty>())
-        return QIcon(item.value().value<ColorProperty>().getPixmap());
+    if (item.value().canConvert<ObsoleteColorProperty>())
+        return QIcon(item.value().value<ObsoleteColorProperty>().getPixmap());
 
     return QVariant();
 }

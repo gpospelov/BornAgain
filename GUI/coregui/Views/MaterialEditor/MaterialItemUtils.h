@@ -17,7 +17,7 @@
 #ifndef MATERIALITEMUTILS_H
 #define MATERIALITEMUTILS_H
 
-#include "ColorProperty.h"
+#include "ObsoleteColorProperty.h"
 #include "MaterialItem.h"
 #include "ExternalProperty.h"
 #include <QColor>

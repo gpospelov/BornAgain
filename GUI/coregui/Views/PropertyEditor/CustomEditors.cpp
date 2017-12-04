@@ -19,7 +19,7 @@
 #include "ExternalProperty.h"
 #include "GroupProperty.h"
 #include "ComboProperty.h"
-#include "ColorProperty.h"
+#include "ObsoleteColorProperty.h"
 #include "MaterialItemUtils.h"
 #include "GUIHelpers.h"
 #include <QBoxLayout>
@@ -132,7 +132,7 @@ ColorPropertyEditor::ColorPropertyEditor(QWidget* parent)
     auto layout = new QHBoxLayout;
     layout->setContentsMargins(4, 0, 0, 0);
 
-    ColorProperty defProperty; // to get label and pixmap of undefined material
+    ObsoleteColorProperty defProperty; // to get label and pixmap of undefined material
     m_textLabel->setText(defProperty.getText());
     m_pixmapLabel->setPixmap(defProperty.getPixmap());
 
@@ -153,7 +153,7 @@ ColorPropertyEditor::ColorPropertyEditor(QWidget* parent)
 
 void ColorPropertyEditor::buttonClicked()
 {
-    ColorProperty colorProperty = m_data.value<ColorProperty>();
+    ObsoleteColorProperty colorProperty = m_data.value<ObsoleteColorProperty>();
 
     bool ok = false;
     QRgb oldRgba = colorProperty.getColor().rgba();
@@ -167,8 +167,8 @@ void ColorPropertyEditor::buttonClicked()
 
 void ColorPropertyEditor::initEditor()
 {
-    Q_ASSERT(m_data.canConvert<ColorProperty>());
-    ColorProperty colorProperty = m_data.value<ColorProperty>();
+    Q_ASSERT(m_data.canConvert<ObsoleteColorProperty>());
+    ObsoleteColorProperty colorProperty = m_data.value<ObsoleteColorProperty>();
     m_textLabel->setText(colorProperty.getText());
     m_pixmapLabel->setPixmap(colorProperty.getPixmap());
 }

@@ -21,7 +21,7 @@
 #include "GroupProperty.h"
 #include "CustomEditors.h"
 #include "ComboProperty.h"
-#include "ColorProperty.h"
+#include "ObsoleteColorProperty.h"
 #include "CustomEventFilters.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
@@ -58,7 +58,7 @@ bool isExternalProperty(const QVariant& variant)
 
 bool isColorProperty(const QVariant& variant)
 {
-    return variant.canConvert<ColorProperty>();
+    return variant.canConvert<ObsoleteColorProperty>();
 }
 
 bool isGroupProperty(const QVariant& variant)
@@ -105,7 +105,7 @@ QString PropertyEditorFactory::ToString(const QVariant& variant)
     if (isExternalProperty(variant))
         return variant.value<ExternalProperty>().text();
     if (isColorProperty(variant))
-        return variant.value<ColorProperty>().getText();
+        return variant.value<ObsoleteColorProperty>().getText();
     if (isGroupProperty(variant))
         return variant.value<GroupProperty_t>()->currentLabel();
     if (isComboProperty(variant))

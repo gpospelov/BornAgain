@@ -33,7 +33,7 @@ int ObsoletePropertyVariantManager::materialTypeId()
 
 int ObsoletePropertyVariantManager::colorPropertyTypeId()
 {
-    int result = qMetaTypeId<ColorProperty>();
+    int result = qMetaTypeId<ObsoleteColorProperty>();
     return result;
 }
 
@@ -166,7 +166,7 @@ void ObsoletePropertyVariantManager::setValue(QtProperty *property, const QVaria
     }
     if (m_theColorValues.contains(property)) {
         if( val.userType() != colorPropertyTypeId() ) return;
-        ColorProperty mat = val.value<ColorProperty>();
+        ObsoleteColorProperty mat = val.value<ObsoleteColorProperty>();
         m_theColorValues[property] = mat;
         QVariant v2;
         v2.setValue(mat);
@@ -216,7 +216,7 @@ void ObsoletePropertyVariantManager::initializeProperty(QtProperty *property)
         m_theMaterialValues[property] = m;
     }
     if (propertyType(property) == colorPropertyTypeId()) {
-        ColorProperty m;
+        ObsoleteColorProperty m;
         m_theColorValues[property] = m;
     }
     if (propertyType(property) == scientificDoubleTypeId()) {

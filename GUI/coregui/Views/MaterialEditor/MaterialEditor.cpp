@@ -72,7 +72,8 @@ void MaterialEditor::setInitialMaterialProperty(const ExternalProperty& matPrope
 {
     if (MaterialItem* mat = m_materialModel->materialFromIdentifier(matProperty.identifier())) {
         selectionModel()->clearSelection();
-        selectionModel()->select(m_materialModel->indexOfItem(mat), QItemSelectionModel::Select);
+        selectionModel()->setCurrentIndex(m_materialModel->indexOfItem(mat), QItemSelectionModel::ClearAndSelect);
+        selectionModel()->select(m_materialModel->indexOfItem(mat), QItemSelectionModel::ClearAndSelect);
     }
 }
 

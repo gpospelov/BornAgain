@@ -57,7 +57,7 @@ ParticleDistributionItem::ParticleDistributionItem()
     setDefaultTag(T_PARTICLES);
 
     ComboProperty par_prop;
-    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant())->setToolTip(
+    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.variant())->setToolTip(
         QStringLiteral("Parameter to distribute"));
 
     updateParameterList();
@@ -138,7 +138,7 @@ void ParticleDistributionItem::updateParameterList()
     // we first set parameter, and then clear the cache name, to not to allow
     // initDistributionItem to override limits obtained from the domain
     if(prop != newProp)
-        setItemValue(P_DISTRIBUTED_PARAMETER, newProp.getVariant());
+        setItemValue(P_DISTRIBUTED_PARAMETER, newProp.variant());
 
     if(make_cache_clear)
         m_domain_cache_name.clear();

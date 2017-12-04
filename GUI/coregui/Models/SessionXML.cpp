@@ -299,7 +299,7 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
         combo_property.setStringOfValues(parameterExt);
         combo_property.setCurrentIndex(parameter_value);
 
-        variant = combo_property.getVariant();
+        variant = combo_property.variant();
     }
 
     else if (parameter_type == Constants::GroupPropertyType) {

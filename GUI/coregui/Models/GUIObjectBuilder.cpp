@@ -173,7 +173,7 @@ void GUIObjectBuilder::visit(const ParticleLayout* p_sample)
         approx_prop.setValue(Constants::LAYOUT_SSCA);
         break;
     }
-    p_layout_item->setItemValue(ParticleLayoutItem::P_APPROX, approx_prop.getVariant());
+    p_layout_item->setItemValue(ParticleLayoutItem::P_APPROX, approx_prop.variant());
     p_layout_item->setItemValue(ParticleLayoutItem::P_TOTAL_DENSITY,
                        p_sample->totalParticleSurfaceDensity());
     m_levelToParentItem[depth()] = p_layout_item;

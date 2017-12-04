@@ -50,7 +50,7 @@ public:
     QString stringOfValues() const;
     void setStringOfValues(const QString& values);
 
-    QVariant getVariant() const;
+    QVariant variant() const;
 
 private:
     QStringList m_values;

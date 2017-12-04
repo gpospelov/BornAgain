@@ -21,7 +21,6 @@
 #include "GroupProperty.h"
 #include "CustomEditors.h"
 #include "ComboProperty.h"
-#include "ObsoleteColorProperty.h"
 #include "CustomEventFilters.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
@@ -56,11 +55,6 @@ bool isExternalProperty(const QVariant& variant)
     return variant.canConvert<ExternalProperty>();
 }
 
-bool isColorProperty(const QVariant& variant)
-{
-    return variant.canConvert<ObsoleteColorProperty>();
-}
-
 bool isGroupProperty(const QVariant& variant)
 {
     return variant.canConvert<GroupProperty_t>();
@@ -87,8 +81,6 @@ bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
 {
     if (isExternalProperty(variant))
         return true;
-    if (isColorProperty(variant))
-        return true;
     if (isGroupProperty(variant))
         return true;
     if (isComboProperty(variant))
@@ -104,8 +96,6 @@ QString PropertyEditorFactory::ToString(const QVariant& variant)
 {
     if (isExternalProperty(variant))
         return variant.value<ExternalProperty>().text();
-    if (isColorProperty(variant))
-        return variant.value<ObsoleteColorProperty>().getText();
     if (isGroupProperty(variant))
         return variant.value<GroupProperty_t>()->currentLabel();
     if (isComboProperty(variant))
@@ -150,12 +140,6 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
         editor->setData(item.value());
         if (item.editorType() != Constants::DefaultEditorType)
             editor->setExternalDialogType(item.editorType());
-        result = editor;
-    }
-
-    else if(isColorProperty(item.value())) {
-        auto editor = new ColorPropertyEditor;
-        editor->setData(item.value());
         result = editor;
     }
 

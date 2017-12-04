@@ -118,61 +118,6 @@ void ExternalPropertyEditor::initEditor()
     m_pixmapLabel->setPixmap(materialProperty.pixmap());
 }
 
-// --- ColorPropertyEditor ---
-
-ColorPropertyEditor::ColorPropertyEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_textLabel(new QLabel)
-    , m_pixmapLabel(new QLabel)
-    , m_focusFilter(new LostFocusFilter(this))
-{
-    setMouseTracking(true);
-    setAutoFillBackground(true);
-
-    auto layout = new QHBoxLayout;
-    layout->setContentsMargins(4, 0, 0, 0);
-
-    ObsoleteColorProperty defProperty; // to get label and pixmap of undefined material
-    m_textLabel->setText(defProperty.getText());
-    m_pixmapLabel->setPixmap(defProperty.getPixmap());
-
-    auto button = new QToolButton;
-    button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
-    button->setText(QLatin1String(" . . . "));
-    button->setToolTip("Color selector");
-    layout->addWidget(m_pixmapLabel);
-    layout->addWidget(m_textLabel);
-    layout->addStretch(1);
-    layout->addWidget(button);
-    setFocusPolicy(Qt::StrongFocus);
-    setAttribute(Qt::WA_InputMethodEnabled);
-    connect(button, &QToolButton::clicked, this, &ColorPropertyEditor::buttonClicked);
-
-    setLayout(layout);
-}
-
-void ColorPropertyEditor::buttonClicked()
-{
-    ObsoleteColorProperty colorProperty = m_data.value<ObsoleteColorProperty>();
-
-    bool ok = false;
-    QRgb oldRgba = colorProperty.getColor().rgba();
-    QRgb newRgba = QColorDialog::getRgba(oldRgba, &ok, this);
-    if (ok && newRgba != oldRgba) {
-        colorProperty.setColor(QColor::fromRgba(newRgba));
-        m_pixmapLabel->setPixmap(colorProperty.getPixmap());
-        setDataIntern(colorProperty.getVariant());
-    }
-}
-
-void ColorPropertyEditor::initEditor()
-{
-    Q_ASSERT(m_data.canConvert<ObsoleteColorProperty>());
-    ObsoleteColorProperty colorProperty = m_data.value<ObsoleteColorProperty>();
-    m_textLabel->setText(colorProperty.getText());
-    m_pixmapLabel->setPixmap(colorProperty.getPixmap());
-}
-
 // --- CustomComboEditor ---
 
 CustomComboEditor::CustomComboEditor(QWidget* parent)

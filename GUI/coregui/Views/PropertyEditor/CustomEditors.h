@@ -71,26 +71,6 @@ private:
     QString m_extDialogType; //!< Type of the dialog which will be created on button click
 };
 
-//! Editor for ColorProperty variant.
-
-class BA_CORE_API_ ColorPropertyEditor : public CustomEditor
-{
-    Q_OBJECT
-public:
-    explicit ColorPropertyEditor(QWidget* parent = nullptr);
-
-private slots:
-    void buttonClicked();
-
-protected:
-    void initEditor();
-
-private:
-    QLabel* m_textLabel;
-    QLabel* m_pixmapLabel;
-    LostFocusFilter* m_focusFilter;
-};
-
 //! Common editor for QComboBox-like custom editors.
 
 class BA_CORE_API_ CustomComboEditor : public CustomEditor

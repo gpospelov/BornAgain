@@ -56,10 +56,6 @@ const QString ExternalPropertyTextAtt("Text");
 const QString ExternalPropertyColorAtt("Color");
 const QString ExternalPropertyIdentifierAtt("Identifier");
 
-const QString ColorRedAttribute("Red");
-const QString ColorGreenAttribute("Green");
-const QString ColorBlueAttribute("Blue");
-const QString ColorAlphaAttribute("Alpha");
 }
 
 class BA_CORE_API_ SessionWriter

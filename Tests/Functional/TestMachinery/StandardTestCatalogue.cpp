@@ -383,7 +383,7 @@ StandardTestCatalogue::StandardTestCatalogue()
         "Specular simulation with rough sample",
         "BasicSpecular",
         "MultiLayerWithRoughnessBuilder",
-        1e-10);
+        2e-9);
 }
 
 //! Adds test description to the catalogue.

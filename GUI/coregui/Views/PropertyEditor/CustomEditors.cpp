@@ -93,19 +93,21 @@ void ExternalPropertyEditor::buttonClicked()
 {
     // temporarily installing filter to prevent loss of focus caused by too insistent dialog
     installEventFilter(m_focusFilter);
-    ExternalProperty materialProperty = m_data.value<ExternalProperty>();
+    ExternalProperty property = m_data.value<ExternalProperty>();
 
-    ExternalProperty mat;
+    ExternalProperty newProperty;
     if (m_extDialogType == Constants::MaterialEditorExternalType) {
-        mat = MaterialItemUtils::selectMaterialProperty(materialProperty);
+        newProperty = MaterialItemUtils::selectMaterialProperty(property);
+    } else if(m_extDialogType == Constants::ColorEditorExternalType) {
+        newProperty = MaterialItemUtils::selectColorProperty(property);
     } else {
         throw GUIHelpers::Error("ExternalPropertyEditor::buttonClicked() -> Unexpected dialog");
     }
 
     removeEventFilter(m_focusFilter);
 
-    if (mat.isValid())
-        setDataIntern(mat.variant());
+    if (newProperty.isValid() && newProperty != property)
+        setDataIntern(newProperty.variant());
 }
 
 void ExternalPropertyEditor::initEditor()

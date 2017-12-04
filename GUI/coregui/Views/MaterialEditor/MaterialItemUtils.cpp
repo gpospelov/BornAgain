@@ -26,6 +26,7 @@
 #include "MaterialEditorDialog.h"
 #include "AppSvc.h"
 #include "MaterialItem.h"
+#include <QColorDialog>
 
 
 QColor MaterialItemUtils::suggestMaterialColor(const QString &name)
@@ -106,10 +107,10 @@ ExternalProperty MaterialItemUtils::materialProperty(const SessionItem& material
     return result;
 }
 
-ExternalProperty MaterialItemUtils::selectMaterialProperty(const ExternalProperty& previousMaterial)
+ExternalProperty MaterialItemUtils::selectMaterialProperty(const ExternalProperty& previous)
 {
     MaterialEditorDialog dialog(AppSvc::materialModel());
-    dialog.setMaterialProperty(previousMaterial);
+    dialog.setMaterialProperty(previous);
     if(dialog.exec() == QDialog::Accepted) {
         return dialog.selectedMaterialProperty();
     }
@@ -117,3 +118,20 @@ ExternalProperty MaterialItemUtils::selectMaterialProperty(const ExternalPropert
     return ExternalProperty();
 }
 
+
+ExternalProperty MaterialItemUtils::selectColorProperty(const ExternalProperty& previous)
+{
+    ExternalProperty result;
+
+    bool ok = false;
+    QRgb oldRgba = previous.color().rgba();
+    QRgb newRgba = QColorDialog::getRgba(oldRgba, &ok, nullptr);
+    if (ok && newRgba != oldRgba) {
+        QColor col = QColor::fromRgba(newRgba);
+        result.setColor(col);
+        result.setText(QString("[%1, %2, %3] (%4)")
+                       .arg(col.red()).arg(col.green()).arg(col.blue()).arg(col.alpha()));
+    }
+
+    return result;
+}

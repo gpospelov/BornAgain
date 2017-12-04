@@ -41,7 +41,10 @@ BA_CORE_API_ QStringList materialRelatedModelTypes();
 BA_CORE_API_ ExternalProperty materialProperty(const SessionItem& materialItem);
 
 //! Calls material selector dialog.
-BA_CORE_API_ ExternalProperty selectMaterialProperty(const ExternalProperty &previousMaterial=ExternalProperty());
+BA_CORE_API_ ExternalProperty selectMaterialProperty(const ExternalProperty &previous=ExternalProperty());
+
+//! Calls color selector dialog.
+BA_CORE_API_ ExternalProperty selectColorProperty(const ExternalProperty &previous=ExternalProperty());
 
 }
 

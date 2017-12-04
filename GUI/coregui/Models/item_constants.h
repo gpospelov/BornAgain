@@ -277,6 +277,7 @@ const ModelType GroupPropertyType = "GroupProperty_t";
 const ModelType DefaultEditorType = "Default";
 const ModelType ScientificEditorType = "SceintificDouble";
 const ModelType MaterialEditorExternalType = "ExtMaterialEditor";
+const ModelType ColorEditorExternalType = "ExtColorEditor";
 }
 
 #endif // ITEM_CONSTANTS_H

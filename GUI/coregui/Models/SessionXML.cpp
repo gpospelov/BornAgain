@@ -100,12 +100,12 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
         }
 
         else if (type_name == Constants::ExternalPropertyType) {
-            ExternalProperty material_property = variant.value<ExternalProperty>();
-            writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                   material_property.text());
-            writer->writeAttribute(SessionXML::IdentifierAttribute,
-                                   material_property.identifier());
+            ExternalProperty prop = variant.value<ExternalProperty>();
+            writer->writeAttribute(SessionXML::ExternalPropertyTextAtt, prop.text());
 
+            QString tcol = prop.color().isValid() ? prop.color().name(QColor::HexArgb) : "";
+            writer->writeAttribute(SessionXML::ExternalPropertyColorAtt, tcol);
+            writer->writeAttribute(SessionXML::ExternalPropertyIdentifierAtt, prop.identifier());
         }
 
         else if (type_name == Constants::ComboPropertyType) {
@@ -278,11 +278,15 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
     }
 
     else if (parameter_type == Constants::ExternalPropertyType) {
-        QString identifier = reader->attributes().value(SessionXML::IdentifierAttribute).toString();
+        QString text = reader->attributes().value(SessionXML::ExternalPropertyTextAtt).toString();
+        QString colorName = reader->attributes().value(SessionXML::ExternalPropertyColorAtt).toString();
+        QString identifier = reader->attributes().value(SessionXML::ExternalPropertyIdentifierAtt).toString();
 
-        ExternalProperty material_property;
-        material_property.setIdentifier(identifier);
-        variant = material_property.variant();
+        ExternalProperty property;
+        property.setText(text);
+        property.setColor(QColor(colorName));
+        property.setIdentifier(identifier);
+        variant = property.variant();
     }
 
     else if (parameter_type == Constants::ComboPropertyType) {

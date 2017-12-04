@@ -31,14 +31,14 @@ class BA_CORE_API_ ExternalProperty
 public:
     explicit ExternalProperty();
 
-    QString identifier() const;
-    void setIdentifier(const QString& identifier);
-
     QString text() const;
     void setText(const QString& name);
 
     QColor color() const;
     void setColor(const QColor& color);
+
+    QString identifier() const;
+    void setIdentifier(const QString& identifier);
 
     QPixmap pixmap() const;
 
@@ -51,9 +51,9 @@ public:
     bool operator<(const ExternalProperty& other) const;
 
 private:
-    QString m_identifier;
     QString m_text;
     QColor m_color;
+    QString m_identifier;
 };
 
 Q_DECLARE_METATYPE(ExternalProperty)

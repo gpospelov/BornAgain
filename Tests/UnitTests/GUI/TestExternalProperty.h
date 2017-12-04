@@ -1,5 +1,36 @@
 #include <QtTest>
 #include "ExternalProperty.h"
+#include "SessionXML.h"
+#include "PropertyItem.h"
+#include <QXmlStreamWriter>
+
+namespace {
+
+QString propertyToXML(const ExternalProperty& property)
+{
+    QString result;
+    QXmlStreamWriter writer(&result);
+    SessionWriter::writeVariant(&writer, property.variant(), /*role*/0);
+    return result;
+}
+
+ExternalProperty propertyFromXML(const QString& buffer) {
+    std::unique_ptr<PropertyItem> item(new PropertyItem);
+    QXmlStreamReader reader(buffer);
+
+    while (!reader.atEnd()) {
+        reader.readNext();
+        if (reader.isStartElement()) {
+            if (reader.name() == SessionXML::ParameterTag) {
+                SessionReader::readProperty(&reader, item.get());
+            }
+        }
+    }
+
+    return item->value().value<ExternalProperty>();
+}
+
+}
 
 class TestExternalProperty : public QObject
 {
@@ -9,6 +40,7 @@ private slots:
     void test_initialState();
     void test_equalityOperators();
     void test_variantEquality();
+    void test_toXML();
 };
 
 inline void TestExternalProperty::test_initialState()
@@ -32,6 +64,8 @@ inline void TestExternalProperty::test_initialState()
     QVERIFY(property.isValid() == false);
 }
 
+//! Testing equality operators.
+
 inline void TestExternalProperty::test_equalityOperators()
 {
     ExternalProperty prop1;
@@ -49,6 +83,9 @@ inline void TestExternalProperty::test_equalityOperators()
     QVERIFY (prop1 == prop2);
 }
 
+//! Testing equality operators for QVariants based on ExternalProperty.
+//! Comparators should be enabled in main.cpp
+
 inline void TestExternalProperty::test_variantEquality()
 {
     ExternalProperty prop1;
@@ -59,5 +96,33 @@ inline void TestExternalProperty::test_variantEquality()
     QVERIFY(prop1.variant() != prop2.variant());
     prop2.setIdentifier("aaa");
     QVERIFY(prop1.variant() == prop2.variant());
+}
 
+inline void TestExternalProperty::test_toXML()
+{
+    QString expected;
+
+    // empty property to XML
+    ExternalProperty property;
+    expected = "<Parameter ParType=\"ExternalProperty\" ParRole=\"0\" Text=\"\" Color=\"\" Identifier=\"\"/>";
+    QCOMPARE(propertyToXML(property), expected);
+
+    // from XML to empty property
+    QCOMPARE(propertyFromXML(expected).text(), property.text());
+    QCOMPARE(propertyFromXML(expected).color(), property.color());
+    QCOMPARE(propertyFromXML(expected).identifier(), property.identifier());
+    QVERIFY(propertyFromXML(expected) == property);
+
+    // initialized property to XML
+    property.setIdentifier("{123456}");
+    property.setText("abc");
+    property.setColor(QColor(Qt::red));
+    expected = "<Parameter ParType=\"ExternalProperty\" ParRole=\"0\" Text=\"abc\" Color=\"#ffff0000\" Identifier=\"{123456}\"/>";
+    QCOMPARE(propertyToXML(property), expected);
+
+    // from XML to initialized property
+    QCOMPARE(propertyFromXML(expected).identifier(), property.identifier());
+    QCOMPARE(propertyFromXML(expected).text(), property.text());
+    QCOMPARE(propertyFromXML(expected).color(), property.color());
+    QVERIFY(propertyFromXML(expected) == property);
 }

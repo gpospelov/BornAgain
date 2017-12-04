@@ -21,15 +21,6 @@
 ExternalProperty::ExternalProperty()
 {}
 
-QString ExternalProperty::identifier() const {
-    return m_identifier;
-}
-
-void ExternalProperty::setIdentifier(const QString& identifier)
-{
-    m_identifier = identifier;
-}
-
 QString ExternalProperty::text() const
 {
     return m_text;
@@ -51,6 +42,14 @@ void ExternalProperty::setColor(const QColor& color)
     m_color = color;
 }
 
+QString ExternalProperty::identifier() const {
+    return m_identifier;
+}
+
+void ExternalProperty::setIdentifier(const QString& identifier)
+{
+    m_identifier = identifier;
+}
 
 QPixmap ExternalProperty::pixmap() const
 {

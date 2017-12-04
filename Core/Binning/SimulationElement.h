@@ -117,7 +117,7 @@ void addElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
 //! Helper class for SimulationElement to carry specular information
 //! @ingroup simulation
 
-class SpecularData
+class BA_CORE_API_ SpecularData
 {
     // FIXME: find a better way to carry the specular data in SimulationElement
     using ScalarVector = std::vector<ScalarRTCoefficients>;

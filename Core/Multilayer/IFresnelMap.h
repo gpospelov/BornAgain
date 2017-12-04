@@ -23,7 +23,6 @@
 class ILayerRTCoefficients;
 class MultiLayer;
 class SimulationElement;
-struct SpecularData;
 
 //! Holds the necessary information to calculate the radiation wavefunction in every layer
 //! for different incoming (outgoing) angles of the beam in the top layer

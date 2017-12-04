@@ -55,8 +55,8 @@ public:
     //! Returns a pointer to incident angle axis.
     const IAxis* getAlphaAxis() const;
 
-    //! Returns reflectivity values \f$Reflectivity = \|R\|^2\f$ from the upper layer in the form of
-    //! OutputData<double>.
+    //! Returns detector count values in the form of OutputData<double>. Detector counts are
+    //! proportional to \f$Reflectivity = |R|^2\f$ from the upper layer.
     virtual OutputData<double>* getDetectorIntensity(AxesUnits units_type
                                                      = AxesUnits::DEFAULT) const override;
 

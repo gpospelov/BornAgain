@@ -25,7 +25,8 @@
 class BA_CORE_API_ MaterialBySLDImpl : public MagneticMaterialImpl
 {
 public:
-    friend BA_CORE_API_ Material MaterialBySLD(const std::string&, double, double, kvector_t);
+    friend BA_CORE_API_ Material MaterialBySLD(const std::string& name, double sld, double abs_term,
+                                               kvector_t magnetization);
 
     virtual ~MaterialBySLDImpl() = default;
 

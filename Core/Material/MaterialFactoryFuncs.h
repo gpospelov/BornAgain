@@ -22,23 +22,24 @@ struct HomogeneousRegion;
 
 //! @ingroup materials
 
-//! Constructs a material with _name_ and _refractive_index_.
-//! @param magnetization: magnetization (in A/m)
-BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
-                                              kvector_t magnetization = kvector_t());
+BA_CORE_API_ Material HomogeneousMaterial();
 
 //! @ingroup materials
 
-//! Constructs a material with _name_ and refractive_index parameters
-//! \f$\delta\f$ and \f$\beta\f$ for refractive index \f$n = 1 - \delta + i \beta\f$.
-//! @param magnetization: magnetization (in A/m)
 BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, double delta, double beta,
                                               kvector_t magnetization = kvector_t());
 
 //! @ingroup materials
 
-//! Constructs material with zero refractive coefficients and zero magnetization.
-BA_CORE_API_ Material HomogeneousMaterial();
+//! Constructs a material with _name_, _refractive_index_ and _magnetization_ (in A/m). Alternatively,
+//! \f$\delta\f$ and \f$\beta\f$ for refractive index \f$n = 1 - \delta + i \beta\f$ can be passed directly.
+//! With no parameters given, constructs default (vacuum) material with \f$n = 1\f$ and zero magnetization.
+BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
+                                              kvector_t magnetization = kvector_t());
+
+//! @ingroup materials
+
+BA_CORE_API_ Material MaterialBySLD();
 
 //! @ingroup materials
 
@@ -48,7 +49,9 @@ BA_CORE_API_ Material HomogeneousMaterial();
 //! \f$ SLD = (N b_{coh}, N \sigma_{abs}(\lambda_0) / \lambda_0) \f$
 //! Here \f$ N \f$ - material number density,
 //! \f$ b_{coh} \f$ - bound coherent scattering length
-//! \f$ \sigma_{abs}(\lambda_0) \f$ - absorption cross-section at \f$ \lambda_0 \f$ wavelength
+//! \f$ \sigma_{abs}(\lambda_0) \f$ - absorption cross-section at \f$ \lambda_0 \f$ wavelength.
+//! With no parameters given, constructs default (vacuum) material with zero sld and zero magnetization.
+//! @param name: material name
 //! @param sld: scattering length density, \f$ nm^{-2} \f$
 //! @param abs_term: wavelength-independent absorptive term, \f$ nm^{-2} \f$
 //! @param magnetization: magnetization (in A/m)
@@ -61,16 +64,12 @@ BA_CORE_API_ Material MaterialBySLD(const std::string& name, double sld, double 
 //! As opposed to MaterialBySLD, absorptive term is the product of number density and
 //! absorptive cross-section \f$ \sigma_0 \f$ at \f$ \lambda = 1.798197\f$ Angstroms.
 //! The latter corresponds to 2200 m/s neutrons.
+//! @param name: material name
 //! @param sld: scattering length density, \f$ nm^{-2} \f$
 //! @param abs_cx: absorptive term at \f$ \lambda = 1.798197\f$ Angstroms, \f$ nm^{-1} \f$
 //! @param magnetization: magnetization (in A/m)
 BA_CORE_API_ Material MaterialByAbsCX(const std::string& name, double sld, double abs_cx,
                                       kvector_t magnetization = kvector_t());
-
-//! @ingroup materials
-
-//! Constructs wavelength-independent material with zero sld and zero magnetization.
-BA_CORE_API_ Material MaterialBySLD();
 
 //! @ingroup materials
 

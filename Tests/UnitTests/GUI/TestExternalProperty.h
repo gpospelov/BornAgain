@@ -1,40 +1,15 @@
 #include <QtTest>
 #include "ExternalProperty.h"
-#include "SessionXML.h"
-#include "PropertyItem.h"
-#include <QXmlStreamWriter>
-
-namespace {
-
-QString propertyToXML(const ExternalProperty& property)
-{
-    QString result;
-    QXmlStreamWriter writer(&result);
-    SessionWriter::writeVariant(&writer, property.variant(), /*role*/0);
-    return result;
-}
-
-ExternalProperty propertyFromXML(const QString& buffer) {
-    std::unique_ptr<PropertyItem> item(new PropertyItem);
-    QXmlStreamReader reader(buffer);
-
-    while (!reader.atEnd()) {
-        reader.readNext();
-        if (reader.isStartElement()) {
-            if (reader.name() == SessionXML::ParameterTag) {
-                SessionReader::readProperty(&reader, item.get());
-            }
-        }
-    }
-
-    return item->value().value<ExternalProperty>();
-}
-
-}
+#include "test_utils.h"
 
 class TestExternalProperty : public QObject
 {
     Q_OBJECT
+
+private:
+    ExternalProperty propertyFromXML(const QString& buffer) {
+        return TestUtils::propertyFromXML<ExternalProperty>(buffer);
+    }
 
 private slots:
     void test_initialState();
@@ -105,7 +80,7 @@ inline void TestExternalProperty::test_toXML()
     // empty property to XML
     ExternalProperty property;
     expected = "<Parameter ParType=\"ExternalProperty\" ParRole=\"0\" Text=\"\" Color=\"\" Identifier=\"\"/>";
-    QCOMPARE(propertyToXML(property), expected);
+    QCOMPARE(TestUtils::propertyToXML(property), expected);
 
     // from XML to empty property
     QCOMPARE(propertyFromXML(expected).text(), property.text());
@@ -118,7 +93,7 @@ inline void TestExternalProperty::test_toXML()
     property.setText("abc");
     property.setColor(QColor(Qt::red));
     expected = "<Parameter ParType=\"ExternalProperty\" ParRole=\"0\" Text=\"abc\" Color=\"#ffff0000\" Identifier=\"{123456}\"/>";
-    QCOMPARE(propertyToXML(property), expected);
+    QCOMPARE(TestUtils::propertyToXML(property), expected);
 
     // from XML to initialized property
     QCOMPARE(propertyFromXML(expected).identifier(), property.identifier());

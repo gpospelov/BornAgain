@@ -17,9 +17,11 @@
 #define ICOMPUTATION_H
 
 #include "ComputationStatus.h"
+#include "SimulationOptions.h"
 #include <memory>
 #include <vector>
 
+class MultiLayer;
 class ProgressHandler;
 class SimulationElement;
 
@@ -33,23 +35,25 @@ class SimulationElement;
 class IComputation
 {
 public:
-    IComputation(ProgressHandler& progress,
+    IComputation(const SimulationOptions& options, ProgressHandler& progress,
                  const std::vector<SimulationElement>::iterator& start,
-                 const std::vector<SimulationElement>::iterator& end);
+                 const std::vector<SimulationElement>::iterator& end,
+                 const MultiLayer& sample);
     virtual ~IComputation();
 
-    virtual void run() =0;
+    void run();
 
     bool isCompleted() const { return m_status.isCompleted(); }
     std::string errorMessage() const { return m_status.errorMessage(); }
 
 protected:
+    virtual void runProtected() = 0;
+
+    SimulationOptions m_sim_options;
     ProgressHandler* m_progress;
-
-    //! these iterators define the span of detector bins this simulation will work on
-    std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
-
+    std::vector<SimulationElement>::iterator m_begin_it, m_end_it; //!< these iterators define the span of detector bins this simulation will work on
     ComputationStatus m_status;
+    std::unique_ptr<MultiLayer> mP_multi_layer;
 };
 
 #endif // ICOMPUTATION_H

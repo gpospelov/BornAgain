@@ -34,22 +34,27 @@ class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
     MatrixFresnelMap();
-    ~MatrixFresnelMap() final;
+    virtual ~MatrixFresnelMap();
 
-    const ILayerRTCoefficients* getOutCoefficients(
+    virtual const ILayerRTCoefficients* getOutCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const final override;
 
-    const ILayerRTCoefficients* getInCoefficients(
+    virtual const ILayerRTCoefficients* getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const final override;
 
     void setMultilayer(const MultiLayer& multilayer) final override;
 
+    typedef std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>, HashKVector>
+        CoefficientHash;
+
 private:
+    const ILayerRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index,
+                                                const MultiLayer& multilayer,
+                                                CoefficientHash& hash_table) const;
+
     std::unique_ptr<MultiLayer> mP_inverted_multilayer;
-    mutable std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>,
-                               HashKVector> m_hash_table_out;
-    mutable std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>,
-                               HashKVector> m_hash_table_in;
+    mutable CoefficientHash m_hash_table_out;
+    mutable CoefficientHash m_hash_table_in;
 };
 
 #endif // MATRIXFRESNELMAP_H

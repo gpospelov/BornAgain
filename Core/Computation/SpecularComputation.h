@@ -3,33 +3,52 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Computation/SpecularComputation.h
-//! @brief     Defines class SpecularComputation.
+//! @brief     Implements class SpecularComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
+//! @copyright Forschungszentrum Jülich GmbH 2015
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
-#ifndef SPECULARCOMPUTATION_H
-#define SPECULARCOMPUTATION_H
+#ifndef SPECULARCOMPUTATION_H_
+#define SPECULARCOMPUTATION_H_
 
-#include "IComputationTerm.h"
+#include "IComputation.h"
+#include "Complex.h"
+#include "SimulationOptions.h"
 
-//! Computes the specular scattering.
-//! Used by DWBAComputation.
+class IFresnelMap;
+class MultiLayer;
+struct HomogeneousRegion;
+class IComputationTerm;
+class SpecularComputationTerm;
+
+//! Performs a single-threaded specular computation with given sample.
+//!
+//! Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+//!
 //! @ingroup algorithms_internal
 
-class SpecularComputation final : public IComputationTerm
+class SpecularComputation : public IComputation
 {
 public:
-    SpecularComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
+    SpecularComputation(const MultiLayer& multilayer, const SimulationOptions& options,
+                        ProgressHandler& progress,
+                        const std::vector<SimulationElement>::iterator& begin_it,
+                        const std::vector<SimulationElement>::iterator& end_it);
+    virtual ~SpecularComputation();
 
-    void eval(ProgressHandler* progress,
-              const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it) const override;
+    void run();
+
+private:
+    virtual void runProtected() override;
+    std::unique_ptr<IFresnelMap> createFresnelMap();
+
+    std::unique_ptr<IFresnelMap> mP_fresnel_map;
+    std::unique_ptr<SpecularComputationTerm> m_computation_term;
 };
 
-#endif // SPECULARCOMPUTATION_H
+#endif /* SPECULARCOMPUTATION_H_ */

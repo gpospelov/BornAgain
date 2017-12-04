@@ -61,6 +61,7 @@ set(test_cases
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
     HomogeneousTiNiSample
+    RoughnessInSpecular
     )
 
 add_executable(CoreStandardTest main.cpp CoreStandardTest.h CoreStandardTest.cpp)

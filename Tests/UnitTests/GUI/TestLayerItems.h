@@ -27,8 +27,8 @@ inline void TestLayerItems::test_LayerDefaultMaterial()
     auto defMaterial = materials.front();
 
     ExternalProperty material = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    QCOMPARE(material.getName(), QString("Default"));
-    QCOMPARE(material.getIdentifier(), defMaterial->getItemValue(MaterialItem::P_IDENTIFIER).toString());
+    QCOMPARE(material.text(), QString("Default"));
+    QCOMPARE(material.identifier(), defMaterial->getItemValue(MaterialItem::P_IDENTIFIER).toString());
 }
 
 //! Checks that change of material in MaterialModel is propagated to the LayerItem.

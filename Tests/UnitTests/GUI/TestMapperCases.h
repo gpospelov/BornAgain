@@ -55,6 +55,6 @@ inline void TestMapperCases::test_SimulationOptionsComputationToggle()
     QVERIFY(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == false);
 
     combo.setValue(Constants::SIMULATION_MONTECARLO);
-    item->setItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD, combo.getVariant());
+    item->setItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD, combo.variant());
     QVERIFY(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == true);
 }

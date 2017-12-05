@@ -20,6 +20,7 @@
 #include "MaterialItem.h"
 #include "MaterialModel.h"
 #include "SessionDecorationModel.h"
+#include "ExternalProperty.h"
 #include <QListView>
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -69,9 +70,10 @@ MaterialItem* MaterialEditor::selectedMaterial()
 //! Sets selection corresponding to initial material property
 void MaterialEditor::setInitialMaterialProperty(const ExternalProperty& matProperty)
 {
-    if (MaterialItem* mat = m_materialModel->getMaterial(matProperty)) {
+    if (MaterialItem* mat = m_materialModel->materialFromIdentifier(matProperty.identifier())) {
         selectionModel()->clearSelection();
-        selectionModel()->select(m_materialModel->indexOfItem(mat), QItemSelectionModel::Select);
+        selectionModel()->setCurrentIndex(m_materialModel->indexOfItem(mat), QItemSelectionModel::ClearAndSelect);
+        selectionModel()->select(m_materialModel->indexOfItem(mat), QItemSelectionModel::ClearAndSelect);
     }
 }
 

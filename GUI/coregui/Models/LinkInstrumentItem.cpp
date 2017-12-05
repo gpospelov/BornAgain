@@ -30,5 +30,5 @@ LinkInstrumentItem::LinkInstrumentItem()
     addProperty(P_INSTRUMENT_ID, QString());
     addProperty(P_INSTRUMENT_NAME, QString());
     ComboProperty instruments = ComboProperty() << "Undefined";
-    addProperty(P_INSTRUMENT_COMBO, instruments.getVariant());
+    addProperty(P_INSTRUMENT_COMBO, instruments.variant());
 }

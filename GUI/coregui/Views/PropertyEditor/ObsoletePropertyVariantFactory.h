@@ -25,7 +25,7 @@
 class ObsoleteMaterialPropertyEdit;
 class ExternalProperty;
 class ObsoleteColorPropertyEdit;
-class ColorProperty;
+class ObsoleteColorProperty;
 class ObsoleteScientificDoublePropertyEdit;
 class ObsoleteScientificDoubleProperty;
 class ObsoleteGroupPropertyEdit;
@@ -52,7 +52,7 @@ protected:
 private slots:
     void slotPropertyChanged(QtProperty *property, const QVariant &value);
     void slotSetValue(const ExternalProperty &value);
-    void slotSetValue(const ColorProperty &value);
+    void slotSetValue(const ObsoleteColorProperty &value);
     void slotSetValue(const ObsoleteScientificDoubleProperty &value);
     void slotSetValue(const GroupProperty_t &value);
     void slotSetValue(const ComboProperty &value);

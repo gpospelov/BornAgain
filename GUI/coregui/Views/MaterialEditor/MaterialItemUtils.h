@@ -17,7 +17,7 @@
 #ifndef MATERIALITEMUTILS_H
 #define MATERIALITEMUTILS_H
 
-#include "ColorProperty.h"
+#include "ObsoleteColorProperty.h"
 #include "MaterialItem.h"
 #include "ExternalProperty.h"
 #include <QColor>
@@ -40,8 +40,14 @@ BA_CORE_API_ QStringList materialRelatedModelTypes();
 //! Constructs material property corresponding to given material.
 BA_CORE_API_ ExternalProperty materialProperty(const SessionItem& materialItem);
 
+//! Constructs color property from given color.
+BA_CORE_API_ ExternalProperty colorProperty(const QColor& color);
+
 //! Calls material selector dialog.
-BA_CORE_API_ ExternalProperty selectMaterialProperty(const ExternalProperty &previousMaterial=ExternalProperty());
+BA_CORE_API_ ExternalProperty selectMaterialProperty(const ExternalProperty &previous=ExternalProperty());
+
+//! Calls color selector dialog.
+BA_CORE_API_ ExternalProperty selectColorProperty(const ExternalProperty &previous=ExternalProperty());
 
 }
 

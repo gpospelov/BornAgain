@@ -130,7 +130,7 @@ void RealDataItem::updateToInstrument()
 
     if(m_linkedInstrument == 0) {
         ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
-        item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+        item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
         item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
         item->setXaxisTitle("X [nbins]");
         item->setYaxisTitle("Y [nbins]");

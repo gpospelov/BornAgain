@@ -19,7 +19,7 @@
 
 //! collection of classes extending QtPropertyBrowser functionality
 
-#include "ColorProperty.h"
+#include "ObsoleteColorProperty.h"
 #include "ComboProperty.h"
 #include "GroupProperty.h"
 #include "ExternalProperty.h"
@@ -57,7 +57,7 @@ protected:
     virtual void uninitializeProperty(QtProperty *property);
 private:
     QMap<const QtProperty *, ExternalProperty> m_theMaterialValues;
-    QMap<const QtProperty *, ColorProperty> m_theColorValues;
+    QMap<const QtProperty *, ObsoleteColorProperty> m_theColorValues;
     QMap<const QtProperty *, ObsoleteScientificDoubleProperty> m_theScientificDoubleValues;
     QMap<const QtProperty *, GroupProperty_t> m_theFancyGroupValues;
     QMap<const QtProperty *, ComboProperty> m_theComboValues;

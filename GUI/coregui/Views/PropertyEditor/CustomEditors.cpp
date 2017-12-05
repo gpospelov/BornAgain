@@ -19,8 +19,9 @@
 #include "ExternalProperty.h"
 #include "GroupProperty.h"
 #include "ComboProperty.h"
-#include "ColorProperty.h"
+#include "ObsoleteColorProperty.h"
 #include "MaterialItemUtils.h"
+#include "GUIHelpers.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QToolButton>
@@ -56,6 +57,7 @@ ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     , m_textLabel(new QLabel)
     , m_pixmapLabel(new QLabel)
     , m_focusFilter(new LostFocusFilter(this))
+    , m_extDialogType(Constants::MaterialEditorExternalType)
 {
     setMouseTracking(true);
     setAutoFillBackground(true);
@@ -64,8 +66,8 @@ ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     layout->setContentsMargins(4, 0, 0, 0);
 
     ExternalProperty defProperty; // to get label and pixmap of undefined material
-    m_textLabel->setText(defProperty.getName());
-    m_pixmapLabel->setPixmap(defProperty.getPixmap());
+    m_textLabel->setText(defProperty.text());
+    m_pixmapLabel->setPixmap(defProperty.pixmap());
 
     auto button = new QToolButton;
     button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
@@ -82,79 +84,38 @@ ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     setLayout(layout);
 }
 
+void ExternalPropertyEditor::setExternalDialogType(const QString& editorType)
+{
+    m_extDialogType = editorType;
+}
+
 void ExternalPropertyEditor::buttonClicked()
 {
     // temporarily installing filter to prevent loss of focus caused by too insistent dialog
     installEventFilter(m_focusFilter);
-    ExternalProperty materialProperty = m_data.value<ExternalProperty>();
-    ExternalProperty mat = MaterialItemUtils::selectMaterialProperty(materialProperty);
+    ExternalProperty property = m_data.value<ExternalProperty>();
+
+    ExternalProperty newProperty;
+    if (m_extDialogType == Constants::MaterialEditorExternalType) {
+        newProperty = MaterialItemUtils::selectMaterialProperty(property);
+    } else if(m_extDialogType == Constants::ColorEditorExternalType) {
+        newProperty = MaterialItemUtils::selectColorProperty(property);
+    } else {
+        throw GUIHelpers::Error("ExternalPropertyEditor::buttonClicked() -> Unexpected dialog");
+    }
+
     removeEventFilter(m_focusFilter);
 
-    if(mat.isDefined() )
-        setDataIntern(mat.getVariant());
+    if (newProperty.isValid() && newProperty != property)
+        setDataIntern(newProperty.variant());
 }
 
 void ExternalPropertyEditor::initEditor()
 {
     Q_ASSERT(m_data.canConvert<ExternalProperty>());
     ExternalProperty materialProperty = m_data.value<ExternalProperty>();
-    m_textLabel->setText(materialProperty.getName());
-    m_pixmapLabel->setPixmap(materialProperty.getPixmap());
-}
-
-// --- ColorPropertyEditor ---
-
-ColorPropertyEditor::ColorPropertyEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_textLabel(new QLabel)
-    , m_pixmapLabel(new QLabel)
-    , m_focusFilter(new LostFocusFilter(this))
-{
-    setMouseTracking(true);
-    setAutoFillBackground(true);
-
-    auto layout = new QHBoxLayout;
-    layout->setContentsMargins(4, 0, 0, 0);
-
-    ColorProperty defProperty; // to get label and pixmap of undefined material
-    m_textLabel->setText(defProperty.getText());
-    m_pixmapLabel->setPixmap(defProperty.getPixmap());
-
-    auto button = new QToolButton;
-    button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred));
-    button->setText(QLatin1String(" . . . "));
-    button->setToolTip("Color selector");
-    layout->addWidget(m_pixmapLabel);
-    layout->addWidget(m_textLabel);
-    layout->addStretch(1);
-    layout->addWidget(button);
-    setFocusPolicy(Qt::StrongFocus);
-    setAttribute(Qt::WA_InputMethodEnabled);
-    connect(button, &QToolButton::clicked, this, &ColorPropertyEditor::buttonClicked);
-
-    setLayout(layout);
-}
-
-void ColorPropertyEditor::buttonClicked()
-{
-    ColorProperty colorProperty = m_data.value<ColorProperty>();
-
-    bool ok = false;
-    QRgb oldRgba = colorProperty.getColor().rgba();
-    QRgb newRgba = QColorDialog::getRgba(oldRgba, &ok, this);
-    if (ok && newRgba != oldRgba) {
-        colorProperty.setColor(QColor::fromRgba(newRgba));
-        m_pixmapLabel->setPixmap(colorProperty.getPixmap());
-        setDataIntern(colorProperty.getVariant());
-    }
-}
-
-void ColorPropertyEditor::initEditor()
-{
-    Q_ASSERT(m_data.canConvert<ColorProperty>());
-    ColorProperty colorProperty = m_data.value<ColorProperty>();
-    m_textLabel->setText(colorProperty.getText());
-    m_pixmapLabel->setPixmap(colorProperty.getPixmap());
+    m_textLabel->setText(materialProperty.text());
+    m_pixmapLabel->setPixmap(materialProperty.pixmap());
 }
 
 // --- CustomComboEditor ---

@@ -14,7 +14,7 @@
 //
 // ************************************************************************** //
 
-#include "ColorProperty.h"
+#include "ObsoleteColorProperty.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
@@ -100,12 +100,12 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
         }
 
         else if (type_name == Constants::ExternalPropertyType) {
-            ExternalProperty material_property = variant.value<ExternalProperty>();
-            writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                   material_property.getName());
-            writer->writeAttribute(SessionXML::IdentifierAttribute,
-                                   material_property.getIdentifier());
+            ExternalProperty prop = variant.value<ExternalProperty>();
+            writer->writeAttribute(SessionXML::ExternalPropertyTextAtt, prop.text());
 
+            QString tcol = prop.color().isValid() ? prop.color().name(QColor::HexArgb) : "";
+            writer->writeAttribute(SessionXML::ExternalPropertyColorAtt, tcol);
+            writer->writeAttribute(SessionXML::ExternalPropertyIdentifierAtt, prop.identifier());
         }
 
         else if (type_name == Constants::ComboPropertyType) {
@@ -122,16 +122,7 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
             writer->writeAttribute(SessionXML::ParameterValueAttribute, ff_name);
         }
 
-        else if (type_name == Constants::ColorPropertyType) {
-            int r, g, b, a;
-            QColor material_color = variant.value<ColorProperty>().getColor();
-            material_color.getRgb(&r, &g, &b, &a);
-            writer->writeAttribute(SessionXML::ColorRedAttribute, QString::number(r));
-            writer->writeAttribute(SessionXML::ColorGreenAttribute, QString::number(g));
-            writer->writeAttribute(SessionXML::ColorBlueAttribute, QString::number(b));
-            writer->writeAttribute(SessionXML::ColorAlphaAttribute, QString::number(a));
-
-        } else {
+        else {
             throw GUIHelpers::Error("SessionModel::writeProperty: Parameter type not supported " + type_name);
         }
 
@@ -278,10 +269,15 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
     }
 
     else if (parameter_type == Constants::ExternalPropertyType) {
-        QString identifier = reader->attributes().value(SessionXML::IdentifierAttribute).toString();
+        QString text = reader->attributes().value(SessionXML::ExternalPropertyTextAtt).toString();
+        QString colorName = reader->attributes().value(SessionXML::ExternalPropertyColorAtt).toString();
+        QString identifier = reader->attributes().value(SessionXML::ExternalPropertyIdentifierAtt).toString();
 
-        ExternalProperty material_property(identifier);
-        variant = material_property.getVariant();
+        ExternalProperty property;
+        property.setText(text);
+        property.setColor(QColor(colorName));
+        property.setIdentifier(identifier);
+        variant = property.variant();
     }
 
     else if (parameter_type == Constants::ComboPropertyType) {
@@ -294,7 +290,7 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
         combo_property.setStringOfValues(parameterExt);
         combo_property.setCurrentIndex(parameter_value);
 
-        variant = combo_property.getVariant();
+        variant = combo_property.variant();
     }
 
     else if (parameter_type == Constants::GroupPropertyType) {
@@ -310,15 +306,6 @@ QString SessionReader::readProperty(QXmlStreamReader *reader,
             group_property->setCurrentTypeName(parameter_value);
             variant = QVariant::fromValue<GroupProperty_t>(group_property);
         }
-    }
-
-    else if (parameter_type == Constants::ColorPropertyType) {
-        int r = reader->attributes().value(SessionXML::ColorRedAttribute).toInt();
-        int g = reader->attributes().value(SessionXML::ColorGreenAttribute).toInt();
-        int b = reader->attributes().value(SessionXML::ColorBlueAttribute).toInt();
-        int a = reader->attributes().value(SessionXML::ColorAlphaAttribute).toInt();
-        ColorProperty color(QColor(r, g, b, a));
-        variant = color.getVariant();
     }
 
     else {

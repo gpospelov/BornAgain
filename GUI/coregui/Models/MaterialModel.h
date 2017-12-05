@@ -36,7 +36,6 @@ public:
     void removeMaterial(MaterialItem*);
 
     MaterialItem* getMaterial(const QModelIndex& index);
-    MaterialItem* getMaterial(const ExternalProperty& property);
 
     MaterialItem* cloneMaterial(const QModelIndex& index);
 

@@ -57,7 +57,7 @@ const QString MinuitMinimizerItem::P_MAXFUNCTIONCALLS
 
 MinuitMinimizerItem::MinuitMinimizerItem() : MinimizerItem(Constants::MinuitMinimizerType)
 {
-    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).getVariant());
+    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).variant());
 
     addProperty(P_STRATEGY, 1)
         ->setToolTip("Minimization strategy (0-low, 1-medium, 2-high quality)");
@@ -97,7 +97,7 @@ const QString GSLMultiMinimizerItem::P_MAXITERATIONS
 
 GSLMultiMinimizerItem::GSLMultiMinimizerItem() : MinimizerItem(Constants::GSLMultiMinimizerType)
 {
-    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).getVariant());
+    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).variant());
     addProperty(P_MAXITERATIONS, 0)->setToolTip("Maximum number of iterations");
 }
 

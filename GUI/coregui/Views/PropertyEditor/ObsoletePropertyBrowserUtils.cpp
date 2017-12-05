@@ -46,10 +46,10 @@ ObsoleteMaterialPropertyEdit::ObsoleteMaterialPropertyEdit(QWidget *parent)
     layout->setSpacing(0);
 
     m_textLabel = new QLabel;
-    m_textLabel->setText(m_materialProperty.getName());
+    m_textLabel->setText(m_materialProperty.text());
 
     m_pixmapLabel = new QLabel;
-    m_pixmapLabel->setPixmap(m_materialProperty.getPixmap());
+    m_pixmapLabel->setPixmap(m_materialProperty.pixmap());
 
     QToolButton *button = new QToolButton;
     button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,
@@ -73,7 +73,7 @@ void ObsoleteMaterialPropertyEdit::buttonClicked()
     ExternalProperty mat = MaterialItemUtils::selectMaterialProperty(m_materialProperty);
     removeEventFilter(m_focusFilter);
 
-    if(mat.isDefined() ) {
+    if(mat.isValid() ) {
         setMaterialProperty(mat);
         emit materialPropertyChanged(m_materialProperty);
     }
@@ -84,8 +84,8 @@ void ObsoleteMaterialPropertyEdit::setMaterialProperty(
         const ExternalProperty &materialProperty)
 {
     m_materialProperty = materialProperty;
-    m_textLabel->setText(m_materialProperty.getName());
-    m_pixmapLabel->setPixmap(m_materialProperty.getPixmap());
+    m_textLabel->setText(m_materialProperty.text());
+    m_pixmapLabel->setPixmap(m_materialProperty.pixmap());
 }
 
 
@@ -229,7 +229,7 @@ void ObsoleteColorPropertyEdit::buttonClicked()
 }
 
 void ObsoleteColorPropertyEdit::setColorProperty(
-        const ColorProperty &colorProperty)
+        const ObsoleteColorProperty &colorProperty)
 {
     m_colorProperty = colorProperty;
     m_textLabel->setText(colorValueText(m_colorProperty.getColor()));

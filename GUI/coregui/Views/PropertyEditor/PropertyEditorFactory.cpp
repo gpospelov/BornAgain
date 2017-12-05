@@ -21,7 +21,6 @@
 #include "GroupProperty.h"
 #include "CustomEditors.h"
 #include "ComboProperty.h"
-#include "ColorProperty.h"
 #include "CustomEventFilters.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
@@ -51,14 +50,9 @@ bool isIntProperty(const QVariant& variant)
     return variant.type() == QVariant::Int;
 }
 
-bool isMaterialProperty(const QVariant& variant)
+bool isExternalProperty(const QVariant& variant)
 {
     return variant.canConvert<ExternalProperty>();
-}
-
-bool isColorProperty(const QVariant& variant)
-{
-    return variant.canConvert<ColorProperty>();
 }
 
 bool isGroupProperty(const QVariant& variant)
@@ -85,9 +79,7 @@ bool isBoolProperty(const QVariant& variant)
 
 bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
 {
-    if (isMaterialProperty(variant))
-        return true;
-    if (isColorProperty(variant))
+    if (isExternalProperty(variant))
         return true;
     if (isGroupProperty(variant))
         return true;
@@ -102,10 +94,8 @@ bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
 // TODO replace with template method when custom variants refactored
 QString PropertyEditorFactory::ToString(const QVariant& variant)
 {
-    if (isMaterialProperty(variant))
-        return variant.value<ExternalProperty>().getName();
-    if (isColorProperty(variant))
-        return variant.value<ColorProperty>().getText();
+    if (isExternalProperty(variant))
+        return variant.value<ExternalProperty>().text();
     if (isGroupProperty(variant))
         return variant.value<GroupProperty_t>()->currentLabel();
     if (isComboProperty(variant))
@@ -145,15 +135,11 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
         result = createCustomStringEditor(item);
     }
 
-    else if(isMaterialProperty(item.value())) {
+    else if(isExternalProperty(item.value())) {
         auto editor = new ExternalPropertyEditor;
         editor->setData(item.value());
-        result = editor;
-    }
-
-    else if(isColorProperty(item.value())) {
-        auto editor = new ColorPropertyEditor;
-        editor->setData(item.value());
+        if (item.editorType() != Constants::DefaultEditorType)
+            editor->setExternalDialogType(item.editorType());
         result = editor;
     }
 

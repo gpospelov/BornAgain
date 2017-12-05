@@ -89,14 +89,14 @@ QWidget *ObsoletePropertyVariantFactory::createEditor(QtVariantPropertyManager *
             ObsoletePropertyVariantManager::colorPropertyTypeId()) {
         ObsoleteColorPropertyEdit *editor = new ObsoleteColorPropertyEdit(parent);
         QVariant var = manager->value(property);
-        ColorProperty mat = var.value<ColorProperty>();
+        ObsoleteColorProperty mat = var.value<ObsoleteColorProperty>();
         editor->setColorProperty(mat);
 
         m_property_to_color_editors[property].append(editor);
         m_color_editor_to_property[editor] = property;
 
-        connect(editor, SIGNAL(colorPropertyChanged(const ColorProperty &)),
-                this, SLOT(slotSetValue(const ColorProperty &)));
+        connect(editor, SIGNAL(colorPropertyChanged(const ObsoleteColorProperty &)),
+                this, SLOT(slotSetValue(const ObsoleteColorProperty &)));
         connect(editor, SIGNAL(destroyed(QObject *)),
                 this, SLOT(slotEditorDestroyed(QObject *)));
         return editor;
@@ -191,7 +191,7 @@ void ObsoletePropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 m_property_to_color_editors[property];
         QListIterator<ObsoleteColorPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
-            ColorProperty mat = value.value<ColorProperty>();
+            ObsoleteColorProperty mat = value.value<ObsoleteColorProperty>();
             itEditor.next()->setColorProperty(mat);
         }
     }
@@ -244,7 +244,7 @@ void ObsoletePropertyVariantFactory::slotSetValue(const ExternalProperty &value)
     }
 }
 
-void ObsoletePropertyVariantFactory::slotSetValue(const ColorProperty &value)
+void ObsoletePropertyVariantFactory::slotSetValue(const ObsoleteColorProperty &value)
 {
     QObject *object = sender();
     QMap<ObsoleteColorPropertyEdit *, QtProperty *>::ConstIterator itEditor =

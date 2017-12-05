@@ -24,38 +24,37 @@
 #include <QString>
 #include <QVariant>
 
-//! The MaterialProperty class defines unique identifier to help LayerItem, ParticleItem etc
-//! to access materials from MaterialEditor;
+//! The ExternalProperty class defines custom QVariant property to carry the text, color and
+//! an identifier.
+
 class BA_CORE_API_ ExternalProperty
 {
 public:
-    explicit ExternalProperty(const QString &identifier=QString());
+    explicit ExternalProperty();
 
-    QString getIdentifier() const {
-        return m_identifier;
-    }
+    QString text() const;
+    void setText(const QString& name);
 
-    QVariant getVariant() const
-    {
-        QVariant variant;
-        variant.setValue(*this);
-        return variant;
-    }
-
-    QString getName() const;
-    void setName(const QString& name);
-
-    QColor getColor() const;
+    QColor color() const;
     void setColor(const QColor& color);
 
-    QPixmap getPixmap() const;
+    QString identifier() const;
+    void setIdentifier(const QString& identifier);
 
-    bool isDefined() const;
+    QPixmap pixmap() const;
+
+    bool isValid() const;
+
+    QVariant variant() const;
+
+    bool operator==(const ExternalProperty& other) const;
+    bool operator!=(const ExternalProperty& other) const;
+    bool operator<(const ExternalProperty& other) const;
 
 private:
-    QString m_identifier;
-    QString m_name;
+    QString m_text;
     QColor m_color;
+    QString m_identifier;
 };
 
 Q_DECLARE_METATYPE(ExternalProperty)

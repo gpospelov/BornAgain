@@ -18,24 +18,21 @@
 #include "MaterialItem.h"
 #include "MaterialModel.h"
 
-ExternalProperty::ExternalProperty(const QString& identifier)
-    : m_identifier(identifier)
-    , m_name("Undefined")
-    , m_color(Qt::red)
+ExternalProperty::ExternalProperty()
 {}
 
-QString ExternalProperty::getName() const
+QString ExternalProperty::text() const
 {
-    return m_name;
+    return m_text;
 }
 
-void ExternalProperty::setName(const QString& name)
+void ExternalProperty::setText(const QString& name)
 {
-    m_name = name;
+    m_text = name;
 }
 
 
-QColor ExternalProperty::getColor() const
+QColor ExternalProperty::color() const
 {
     return m_color;
 }
@@ -45,15 +42,58 @@ void ExternalProperty::setColor(const QColor& color)
     m_color = color;
 }
 
+QString ExternalProperty::identifier() const {
+    return m_identifier;
+}
 
-QPixmap ExternalProperty::getPixmap() const
+void ExternalProperty::setIdentifier(const QString& identifier)
+{
+    m_identifier = identifier;
+}
+
+QPixmap ExternalProperty::pixmap() const
 {
     QPixmap pixmap(10,10);
-    pixmap.fill(getColor());
+    pixmap.fill(color());
     return pixmap;
 }
 
-bool ExternalProperty::isDefined() const
+//! Returns true if property is in valid state (i.e. have at least one member defined).
+
+bool ExternalProperty::isValid() const
 {
-    return !m_identifier.isEmpty();
+    if (m_identifier.isEmpty() && m_text.isEmpty() && !m_color.isValid())
+        return false;
+
+    return true;
 }
+
+QVariant ExternalProperty::variant() const
+{
+    QVariant variant;
+    variant.setValue(*this);
+    return variant;
+}
+
+bool ExternalProperty::operator==(const ExternalProperty& other) const
+{
+    if (m_identifier != other.m_identifier)
+        return false;
+    if (m_text != other.m_text)
+        return false;
+    if (m_color != other.m_color)
+        return false;
+
+    return true;
+}
+
+bool ExternalProperty::operator!=(const ExternalProperty& other) const
+{
+    return !(*this == other);
+}
+
+bool ExternalProperty::operator<(const ExternalProperty& other) const
+{
+    return m_identifier < other.m_identifier && m_text < other.m_text;
+}
+

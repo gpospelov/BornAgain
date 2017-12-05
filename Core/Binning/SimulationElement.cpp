@@ -25,25 +25,28 @@ SimulationElement::SimulationElement(double wavelength, double alpha_i, double p
     , m_phi_i(phi_i)
     , m_intensity(0.0)
     , mP_pixel(std::move(pixel))
-    , m_contains_specular(false)
 {
     initPolarization();
 }
 
 SimulationElement::SimulationElement(const SimulationElement& other)
     : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i)
-    , m_intensity(other.m_intensity), m_contains_specular(other.m_contains_specular)
+    , m_intensity(other.m_intensity)
 {
     mP_pixel.reset(other.mP_pixel->clone());
+    if (other.m_specular_data)
+        m_specular_data.reset(new SpecularData(*other.m_specular_data));
     m_polarization = other.m_polarization;
     m_analyzer_operator = other.m_analyzer_operator;
 }
 
 SimulationElement::SimulationElement(const SimulationElement& other, double x, double y)
     : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i)
-    , m_intensity(other.m_intensity), m_contains_specular(other.m_contains_specular)
+    , m_intensity(other.m_intensity)
 {
     mP_pixel.reset(other.mP_pixel->createZeroSizePixel(x, y));
+    if (other.m_specular_data)
+        m_specular_data.reset(new SpecularData(*other.m_specular_data));
     m_polarization = other.m_polarization;
     m_analyzer_operator = other.m_analyzer_operator;
 }
@@ -56,7 +59,7 @@ SimulationElement::SimulationElement(SimulationElement&& other) noexcept
     , m_polarization(std::move(other.m_polarization))
     , m_analyzer_operator(std::move(other.m_analyzer_operator))
     , mP_pixel(std::move(other.mP_pixel))
-    , m_contains_specular(other.m_contains_specular)
+    , m_specular_data(std::move(other.m_specular_data))
 {
 }
 
@@ -108,7 +111,7 @@ void SimulationElement::swapContent(SimulationElement &other)
     std::swap(m_polarization, other.m_polarization);
     std::swap(m_analyzer_operator, other.m_analyzer_operator);
     std::swap(mP_pixel, other.mP_pixel);
-    std::swap(m_contains_specular, other.m_contains_specular);
+    std::swap(m_specular_data, other.m_specular_data);
 }
 
 void SimulationElement::initPolarization()
@@ -127,14 +130,14 @@ double SimulationElement::getPhi(double x, double y) const
     return getKf(x,y).phi();
 }
 
-bool SimulationElement::containsSpecularWavevector() const
+void SimulationElement::setSpecular()
 {
-    return m_contains_specular;
+    m_specular_data.reset(new SpecularData);
 }
 
-void SimulationElement::setSpecular(bool contains_specular)
+void SimulationElement::setSpecular(std::unique_ptr<SpecularData> specular_data)
 {
-    m_contains_specular = contains_specular;
+    m_specular_data = std::move(specular_data);
 }
 
 double SimulationElement::getIntegrationFactor(double x, double y) const {
@@ -151,4 +154,27 @@ void addElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
 {
     for (std::vector<SimulationElement>::const_iterator it = first; it != last; ++it, ++result)
         result->addIntensity(it->getIntensity() * weight);
+}
+
+SpecularData::SpecularData() : data_type_used(DATA_TYPE::Invalid) {}
+
+SpecularData::SpecularData(MatrixVector coefficients)
+    : data(std::move(coefficients))
+    , data_type_used(DATA_TYPE::Matrix)
+{}
+
+SpecularData::SpecularData(ScalarVector coefficients)
+    : data(std::move(coefficients))
+    , data_type_used(DATA_TYPE::Scalar)
+{}
+
+const ILayerRTCoefficients& SpecularData::operator[](size_t index) const
+{
+    if (data_type_used == DATA_TYPE::Invalid)
+        throw std::runtime_error(
+            "Error in SpecularData::operator[]: attempt to access uninitialized data");
+    if (data_type_used == DATA_TYPE::Scalar)
+        return (*boost::get<ScalarVector>(&data))[index];
+    else
+        return (*boost::get<MatrixVector>(&data))[index];
 }

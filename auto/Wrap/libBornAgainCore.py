@@ -22941,18 +22941,46 @@ Material_swigregister(Material)
 
 def HomogeneousMaterial(*args):
     """
-    HomogeneousMaterial(std::string const & name, complex_t refractive_index, kvector_t magnetization) -> Material
-    HomogeneousMaterial(std::string const & name, complex_t refractive_index) -> Material
+    HomogeneousMaterial() -> Material
     HomogeneousMaterial(std::string const & name, double delta, double beta, kvector_t magnetization) -> Material
     HomogeneousMaterial(std::string const & name, double delta, double beta) -> Material
-    HomogeneousMaterial() -> Material
+    HomogeneousMaterial(std::string const & name, complex_t refractive_index, kvector_t magnetization) -> Material
+    HomogeneousMaterial(std::string const & name, complex_t refractive_index) -> Material
 
-    BA_CORE_API_ Material HomogeneousMaterial()
+    BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization=kvector_t())
 
-    Constructs material with zero refractive coefficients and zero magnetization. 
+    Constructs a material with  name,  refractive_index and  magnetization (in A/m). Alternatively,  $\\delta$ and  $\\beta$ for refractive index  $n = 1 - \\delta + i \\beta$ can be passed directly. With no parameters given, constructs default (vacuum) material with  $n = 1$ and zero magnetization. 
 
     """
     return _libBornAgainCore.HomogeneousMaterial(*args)
+
+def MaterialBySLD(*args):
+    """
+    MaterialBySLD() -> Material
+    MaterialBySLD(std::string const & name, double sld, double abs_term, kvector_t magnetization) -> Material
+    MaterialBySLD(std::string const & name, double sld, double abs_term) -> Material
+
+    BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld, double abs_term, kvector_t magnetization=kvector_t())
+
+    Constructs a wavelength-independent material with given sld and absorptive term Absorptive term is wavelength-independent (normalized to a wavelength) and can be considered as inverse of imaginary part of complex scattering length density:  $ SLD = (N b_{coh}, N \\sigma_{abs}(\\lambda_0) / \\lambda_0) $ Here  $ N $ - material number density,  $ b_{coh} $ - bound coherent scattering length  $ \\sigma_{abs}(\\lambda_0) $ - absorption cross-section at  $ \\lambda_0 $ wavelength. With no parameters given, constructs default (vacuum) material with zero sld and zero magnetization.
+
+    Parameters:
+    -----------
+
+    name: 
+    material name
+
+    sld: 
+    scattering length density,  $ nm^{-2} $
+
+    abs_term: 
+    wavelength-independent absorptive term,  $ nm^{-2} $
+
+    magnetization: 
+    magnetization (in A/m) 
+
+    """
+    return _libBornAgainCore.MaterialBySLD(*args)
 
 def MaterialByAbsCX(*args):
     """
@@ -22966,6 +22994,9 @@ def MaterialByAbsCX(*args):
     Parameters:
     -----------
 
+    name: 
+    material name
+
     sld: 
     scattering length density,  $ nm^{-2} $
 
@@ -22977,19 +23008,6 @@ def MaterialByAbsCX(*args):
 
     """
     return _libBornAgainCore.MaterialByAbsCX(*args)
-
-def MaterialBySLD(*args):
-    """
-    MaterialBySLD(std::string const & name, double sld, double abs_term, kvector_t magnetization) -> Material
-    MaterialBySLD(std::string const & name, double sld, double abs_term) -> Material
-    MaterialBySLD() -> Material
-
-    BA_CORE_API_ Material MaterialBySLD()
-
-    Constructs wavelength-independent material with zero sld and zero magnetization. 
-
-    """
-    return _libBornAgainCore.MaterialBySLD(*args)
 
 def createAveragedMaterial(layer_mat, regions):
     """
@@ -26319,18 +26337,6 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_prepareSimulation(self)
 
 
-    def runSimulation(self):
-        """
-        runSimulation(SpecularSimulation self)
-
-        void SpecularSimulation::runSimulation() override
-
-        Run a simulation, possibly averaged over parameter distributions. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_runSimulation(self)
-
-
     def accept(self, visitor):
         """
         accept(SpecularSimulation self, INodeVisitor visitor)
@@ -26385,7 +26391,7 @@ class SpecularSimulation(Simulation):
 
         OutputData< double > * SpecularSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
 
-        Returns reflectivity values  $Reflectivity = \\|R\\|^2$ from the upper layer in the form of  OutputData<double>. 
+        Returns detector count values in the form of  OutputData<double>. Detector counts are proportional to  $Reflectivity = |R|^2$ from the upper layer. 
 
         """
         return _libBornAgainCore.SpecularSimulation_getDetectorIntensity(self, *args)

@@ -80,7 +80,7 @@ std::vector<SimulationElement> SpecularDetector1D::createSimulationElements(cons
                                       std::make_unique<SpecularPixel>(alpha_i));
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
-        sim_element.setSpecular(true);
+        sim_element.setSpecular();
         result.push_back(std::move(sim_element));
     }
 

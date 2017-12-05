@@ -17,12 +17,13 @@ void SpecularComputationTerm::eval(ProgressHandler*,
         return;
 
     for (auto it = begin_it; it != end_it; ++it)
-        if (it->containsSpecularWavevector())
+        if (it->specularData())
             evalSingle(it);
 }
 
 void SpecularComputationTerm::evalSingle(const std::vector<SimulationElement>::iterator& iter) const
 {
-    complex_t R = mp_fresnel_map->getInCoefficients(*iter, 0)->getScalarR();
-    iter->setIntensity(std::norm(R));
+    mp_fresnel_map->fillSpecularData(*iter);
+    const ILayerRTCoefficients& layer_data = (*iter->specularData())[0];
+    iter->setIntensity(std::norm(layer_data.getScalarR()));
 }

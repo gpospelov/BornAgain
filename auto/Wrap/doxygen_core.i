@@ -6963,6 +6963,11 @@ Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
 Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
 
+%feature("docstring")  IFresnelMap::fillSpecularData "virtual void IFresnelMap::fillSpecularData(SimulationElement &sim_element) const =0
+
+Fills simulation element specular data. 
+";
+
 %feature("docstring")  IFresnelMap::setMultilayer "void IFresnelMap::setMultilayer(const MultiLayer &multilayer)
 
 Sets the multilayer to be used for the Fresnel calculations. 
@@ -10304,6 +10309,11 @@ Retrieves the amplitude coefficients for an incoming wavevector.
 Sets the multilayer to be used for the Fresnel calculations. 
 ";
 
+%feature("docstring")  MatrixFresnelMap::fillSpecularData "void MatrixFresnelMap::fillSpecularData(SimulationElement &sim_element) const override
+
+Fills simulation element specular data. 
+";
+
 
 // File: classMatrixRTCoefficients.xml
 %feature("docstring") MatrixRTCoefficients "
@@ -13114,6 +13124,11 @@ Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
 Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
 
+%feature("docstring")  ScalarFresnelMap::fillSpecularData "void ScalarFresnelMap::fillSpecularData(SimulationElement &sim_element) const override
+
+Fills simulation element specular data. 
+";
+
 
 // File: classScalarRTCoefficients.xml
 %feature("docstring") ScalarRTCoefficients "
@@ -13484,14 +13499,17 @@ Returns scattering vector Q, with Kf determined from in-pixel coordinates x,y. I
 %feature("docstring")  SimulationElement::getPhi "double SimulationElement::getPhi(double x, double y) const
 ";
 
-%feature("docstring")  SimulationElement::containsSpecularWavevector "bool SimulationElement::containsSpecularWavevector() const
+%feature("docstring")  SimulationElement::specularData "SpecularData* SimulationElement::specularData() const
 
-check if element contains given wavevector 
+check if element corresponds to specular peak 
 ";
 
-%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular(bool contains_specular)
+%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular()
 
-indicate that this element contains the specular wavevector 
+Turn on specular data. 
+";
+
+%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular(std::unique_ptr< SpecularData > specular_data)
 ";
 
 
@@ -13736,6 +13754,27 @@ Calculate scattering intensity for each  SimulationElement returns false if noth
 ";
 
 
+// File: classSpecularData.xml
+%feature("docstring") SpecularData "
+
+Helper class for  SimulationElement to carry specular information
+
+C++ includes: SimulationElement.h
+";
+
+%feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData()
+";
+
+%feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData(MatrixVector coefficients)
+";
+
+%feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData(ScalarVector coefficients)
+";
+
+%feature("docstring")  SpecularData::isInited "bool SpecularData::isInited() const
+";
+
+
 // File: classSpecularDetector1D.xml
 %feature("docstring") SpecularDetector1D "
 
@@ -13824,7 +13863,7 @@ C++ includes: SpecularSimulation.h
 %feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
 ";
 
-%feature("docstring")  SpecularSimulation::~SpecularSimulation "virtual SpecularSimulation::~SpecularSimulation() override=default
+%feature("docstring")  SpecularSimulation::~SpecularSimulation "SpecularSimulation::~SpecularSimulation()
 ";
 
 %feature("docstring")  SpecularSimulation::clone "SpecularSimulation * SpecularSimulation::clone() const override
@@ -13833,11 +13872,6 @@ C++ includes: SpecularSimulation.h
 %feature("docstring")  SpecularSimulation::prepareSimulation "void SpecularSimulation::prepareSimulation() override
 
 Put into a clean state for running a simulation. 
-";
-
-%feature("docstring")  SpecularSimulation::runSimulation "void SpecularSimulation::runSimulation() override
-
-Run a simulation, possibly averaged over parameter distributions. 
 ";
 
 %feature("docstring")  SpecularSimulation::accept "virtual void SpecularSimulation::accept(INodeVisitor *visitor) const override final
@@ -13863,7 +13897,7 @@ Returns a pointer to incident angle axis.
 
 %feature("docstring")  SpecularSimulation::getDetectorIntensity "OutputData< double > * SpecularSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
 
-Returns reflectivity values  $Reflectivity = \\\\|R\\\\|^2$ from the upper layer in the form of  OutputData<double>. 
+Returns detector count values in the form of  OutputData<double>. Detector counts are proportional to  $Reflectivity = |R|^2$ from the upper layer. 
 ";
 
 %feature("docstring")  SpecularSimulation::reflectivity "Histogram1D * SpecularSimulation::reflectivity() const
@@ -16368,37 +16402,24 @@ make Swappable
 // File: MaterialFactoryFuncs_8cpp.xml
 %feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization)
 
-Constructs a material with  name and  refractive_index.
-
-Parameters:
------------
-
-magnetization: 
-magnetization (in A/m) 
+Constructs a material with  name,  refractive_index and  magnetization (in A/m). Alternatively,  $\\\\delta$ and  $\\\\beta$ for refractive index  $n = 1 - \\\\delta + i \\\\beta$ can be passed directly. With no parameters given, constructs default (vacuum) material with  $n = 1$ and zero magnetization. 
 ";
 
 %feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial(const std::string &name, double delta, double beta, kvector_t magnetization)
-
-Constructs a material with  name and refractive_index parameters  $\\\\delta$ and  $\\\\beta$ for refractive index  $n = 1 - \\\\delta + i \\\\beta$.
-
-Parameters:
------------
-
-magnetization: 
-magnetization (in A/m) 
 ";
 
 %feature("docstring")  HomogeneousMaterial "Material HomogeneousMaterial()
-
-Constructs material with zero refractive coefficients and zero magnetization. 
 ";
 
 %feature("docstring")  MaterialBySLD "Material MaterialBySLD(const std::string &name, double sld, double abs_term, kvector_t magnetization)
 
-Constructs a wavelength-independent material with given sld and absorptive term Absorptive term is wavelength-independent (normalized to a wavelength) and can be considered as inverse of imaginary part of complex scattering length density:  $ SLD = (N b_{coh}, N \\\\sigma_{abs}(\\\\lambda_0) / \\\\lambda_0) $ Here  $ N $ - material number density,  $ b_{coh} $ - bound coherent scattering length  $ \\\\sigma_{abs}(\\\\lambda_0) $ - absorption cross-section at  $ \\\\lambda_0 $ wavelength
+Constructs a wavelength-independent material with given sld and absorptive term Absorptive term is wavelength-independent (normalized to a wavelength) and can be considered as inverse of imaginary part of complex scattering length density:  $ SLD = (N b_{coh}, N \\\\sigma_{abs}(\\\\lambda_0) / \\\\lambda_0) $ Here  $ N $ - material number density,  $ b_{coh} $ - bound coherent scattering length  $ \\\\sigma_{abs}(\\\\lambda_0) $ - absorption cross-section at  $ \\\\lambda_0 $ wavelength. With no parameters given, constructs default (vacuum) material with zero sld and zero magnetization.
 
 Parameters:
 -----------
+
+name: 
+material name
 
 sld: 
 scattering length density,  $ nm^{-2} $
@@ -16417,6 +16438,9 @@ Constructs a wavelength-independent material with given sld and absorptive term 
 Parameters:
 -----------
 
+name: 
+material name
+
 sld: 
 scattering length density,  $ nm^{-2} $
 
@@ -16428,8 +16452,6 @@ magnetization (in A/m)
 ";
 
 %feature("docstring")  MaterialBySLD "Material MaterialBySLD()
-
-Constructs wavelength-independent material with zero sld and zero magnetization. 
 ";
 
 %feature("docstring")  createAveragedMaterial "Material createAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
@@ -16439,39 +16461,29 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: MaterialFactoryFuncs_8h.xml
-%feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization=kvector_t())
-
-Constructs a material with  name and  refractive_index.
-
-Parameters:
------------
-
-magnetization: 
-magnetization (in A/m) 
+%feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial()
 ";
 
 %feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, double delta, double beta, kvector_t magnetization=kvector_t())
-
-Constructs a material with  name and refractive_index parameters  $\\\\delta$ and  $\\\\beta$ for refractive index  $n = 1 - \\\\delta + i \\\\beta$.
-
-Parameters:
------------
-
-magnetization: 
-magnetization (in A/m) 
 ";
 
-%feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial()
+%feature("docstring")  HomogeneousMaterial "BA_CORE_API_ Material HomogeneousMaterial(const std::string &name, complex_t refractive_index, kvector_t magnetization=kvector_t())
 
-Constructs material with zero refractive coefficients and zero magnetization. 
+Constructs a material with  name,  refractive_index and  magnetization (in A/m). Alternatively,  $\\\\delta$ and  $\\\\beta$ for refractive index  $n = 1 - \\\\delta + i \\\\beta$ can be passed directly. With no parameters given, constructs default (vacuum) material with  $n = 1$ and zero magnetization. 
+";
+
+%feature("docstring")  MaterialBySLD "BA_CORE_API_ Material MaterialBySLD()
 ";
 
 %feature("docstring")  MaterialBySLD "BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld, double abs_term, kvector_t magnetization=kvector_t())
 
-Constructs a wavelength-independent material with given sld and absorptive term Absorptive term is wavelength-independent (normalized to a wavelength) and can be considered as inverse of imaginary part of complex scattering length density:  $ SLD = (N b_{coh}, N \\\\sigma_{abs}(\\\\lambda_0) / \\\\lambda_0) $ Here  $ N $ - material number density,  $ b_{coh} $ - bound coherent scattering length  $ \\\\sigma_{abs}(\\\\lambda_0) $ - absorption cross-section at  $ \\\\lambda_0 $ wavelength
+Constructs a wavelength-independent material with given sld and absorptive term Absorptive term is wavelength-independent (normalized to a wavelength) and can be considered as inverse of imaginary part of complex scattering length density:  $ SLD = (N b_{coh}, N \\\\sigma_{abs}(\\\\lambda_0) / \\\\lambda_0) $ Here  $ N $ - material number density,  $ b_{coh} $ - bound coherent scattering length  $ \\\\sigma_{abs}(\\\\lambda_0) $ - absorption cross-section at  $ \\\\lambda_0 $ wavelength. With no parameters given, constructs default (vacuum) material with zero sld and zero magnetization.
 
 Parameters:
 -----------
+
+name: 
+material name
 
 sld: 
 scattering length density,  $ nm^{-2} $
@@ -16490,6 +16502,9 @@ Constructs a wavelength-independent material with given sld and absorptive term 
 Parameters:
 -----------
 
+name: 
+material name
+
 sld: 
 scattering length density,  $ nm^{-2} $
 
@@ -16498,11 +16513,6 @@ absorptive term at  $ \\\\lambda = 1.798197$ Angstroms,  $ nm^{-1} $
 
 magnetization: 
 magnetization (in A/m) 
-";
-
-%feature("docstring")  MaterialBySLD "BA_CORE_API_ Material MaterialBySLD()
-
-Constructs wavelength-independent material with zero sld and zero magnetization. 
 ";
 
 %feature("docstring")  createAveragedMaterial "BA_CORE_API_ Material createAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)

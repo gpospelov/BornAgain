@@ -25,6 +25,7 @@
 #include "LayersWithAbsorptionBuilder.h"
 #include "MagneticParticlesBuilder.h"
 #include "MagneticLayersBuilder.h"
+#include "MaterialBySLDBuilder.h"
 #include "MesoCrystalBuilder.h"
 #include "MultiLayerWithRoughnessBuilder.h"
 #include "MultipleLayoutBuilder.h"
@@ -295,6 +296,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "HomogeneousMultilayerBuilder",
         create_new<HomogeneousMultilayerBuilder>,
         "Alternating homogeneous layers of Ti and Ni on silicone substrate.");
+
+    registerItem(
+        "MaterialBySLDBuilder",
+        create_new<MaterialBySLDBuilder>,
+        "Alternating homogeneous layers of Ti and Ni on silicone substrate (wavelength-independent).");
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

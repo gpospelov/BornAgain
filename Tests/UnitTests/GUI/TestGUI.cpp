@@ -39,6 +39,7 @@
 #include "TestLayerItems.h"
 #include "TestMaterialPropertyController.h"
 #include "TestExternalProperty.h"
+#include "TestSessionXML.h"
 #include <memory>
 
 class GUITestFactory {
@@ -112,6 +113,7 @@ int main(int argc, char** argv) {
     tests.add<TestSessionItemUtils>();
     tests.add<TestComponentUtils>();
     tests.add<TestExternalProperty>();
+    tests.add<TestSessionXML>();
 
     return tests.runAll(argc, argv);
 }

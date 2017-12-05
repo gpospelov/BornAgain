@@ -48,10 +48,10 @@ used for fitting.
     and another pair of (real_data, simulation model) for the second incidence angle.
     We add both pairs to the FitSuite and run fitting as usual.
 
---- ex10_ImportUserData
-    This directory contains examples for importing raw X,Y detector data into BornAgain's
-    IntensityData object (phi_f, alpha_f space)
-    ImportMariaData.py - in this example we load ASCII data from Maria reflectometer
-    ImportGALAXIDate.py - in this example tiff data from small-angle X-ray diffractometer GALAXI are loaded. 
-                          To run this example you may need to install the python gdal module. 
-                          See https://pypi.python.org/pypi/GDAL/ for installation instruction.
+--- ex09_FitSpecular
+    This directory containes examples for fitting specular data
+    FitSpecularBasics.py - basic demosntration of fitting specular data with BornAgain. GENX simulation results are
+                           used as reference data.
+
+--- ex10_FitGALAXIData
+    This directory contains an example of fitting data from real detector (GALAXI)

@@ -1,6 +1,5 @@
 #include <QtTest>
 #include "SessionItem.h"
-#include "SessionXML2.h"
 #include "SessionModel.h"
 #include "FormFactorItems.h"
 #include "ParticleItem.h"
@@ -15,21 +14,14 @@ QString itemToXML(SessionItem* item)
 {
     QString result;
     QXmlStreamWriter writer(&result);
-
-    writer.writeStartElement(item->model()->getModelTag());
-    writer.writeAttribute(SessionXML::ModelNameAttribute, item->model()->getModelName());
-
-    SessionXML2::writeItemAndChildItems(&writer, item);
-
-    writer.writeEndElement(); // m_model_tag
-
+    SessionXML::writeTo(&writer, item);
     return result;
 }
 
 void itemFromXML(QString buffer, SessionItem* item)
 {
     QXmlStreamReader reader(buffer);
-    SessionXML2::readItems(&reader, item);
+    SessionXML::readItems(&reader, item);
 }
 }
 

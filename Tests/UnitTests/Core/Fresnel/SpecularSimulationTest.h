@@ -36,7 +36,7 @@ TEST_F(SpecularSimulationTest, InitialState)
 {
     SpecularSimulation sim;
     ASSERT_THROW(sim.runSimulation(), std::runtime_error);
-    EXPECT_EQ(nullptr, sim.getAlphaAxis());
+    ASSERT_THROW(sim.getAlphaAxis(), std::runtime_error);
     EXPECT_EQ(nullptr, sim.sample());
     ASSERT_THROW(sim.getScalarR(0), std::runtime_error);
     ASSERT_THROW(sim.getScalarT(0), std::runtime_error);
@@ -51,7 +51,7 @@ TEST_F(SpecularSimulationTest, CloneOfEmpty)
 
     std::unique_ptr<SpecularSimulation> clone(sim.clone());
     ASSERT_THROW(clone->runSimulation(), std::runtime_error);
-    EXPECT_EQ(nullptr, clone->getAlphaAxis());
+    ASSERT_THROW(clone->getAlphaAxis(), std::runtime_error);
     EXPECT_EQ(nullptr, clone->sample());
     ASSERT_THROW(clone->getScalarR(0), std::runtime_error);
     ASSERT_THROW(clone->getScalarT(0), std::runtime_error);

@@ -111,7 +111,7 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
         if (it.index()==spec_index) {
-            sim_element.setSpecular(true);
+            sim_element.setSpecular();
         }
         result.push_back(std::move(sim_element));
     }

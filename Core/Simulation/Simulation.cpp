@@ -50,6 +50,7 @@ Simulation::Simulation(const Simulation& other)
     , m_options(other.m_options)
     , m_distribution_handler(other.m_distribution_handler)
     , m_progress(other.m_progress)
+    , m_sim_elements(other.m_sim_elements)
     , m_instrument(other.m_instrument)
 {
     if (other.mP_background)
@@ -208,16 +209,14 @@ void Simulation::addParameterDistribution(const ParameterDistribution& par_distr
     m_distribution_handler.addParameterDistribution(par_distr);
 }
 
+void Simulation::initSimulationElementVector()
+{
+    m_sim_elements = m_instrument.createSimulationElements();
+}
+
 void Simulation::updateSample()
 {
     m_sample_provider.updateSample();
-}
-
-std::unique_ptr<IComputation> Simulation::generateSingleThreadedComputation(
-        std::vector<SimulationElement>::iterator,
-        std::vector<SimulationElement>::iterator)
-{
-    return {};
 }
 
 //! Runs a single simulation with fixed parameter values.

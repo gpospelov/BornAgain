@@ -44,6 +44,9 @@ public:
     virtual const ILayerRTCoefficients* getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const final override;
 
+    //! Fills simulation element specular data
+    virtual void fillSpecularData(SimulationElement& sim_element) const override;
+
 private:
     const ScalarRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index) const;
     const std::vector<ScalarRTCoefficients>& getCoefficientsFromCache(kvector_t kvec) const;

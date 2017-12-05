@@ -49,7 +49,7 @@ public:
     virtual void prepareSimulation();
 
     //! Run a simulation, possibly averaged over parameter distributions
-    virtual void runSimulation();
+    void runSimulation();
 
     void setInstrument(const Instrument& instrument);
     const Instrument& getInstrument() const { return m_instrument; }
@@ -98,7 +98,8 @@ public:
 protected:
     Simulation(const Simulation& other);
 
-    virtual void initSimulationElementVector() =0;
+    //! Initializes the vector of Simulation elements
+    virtual void initSimulationElementVector();
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
@@ -110,19 +111,17 @@ protected:
     //! Generate a single threaded computation for a given range of SimulationElement's
     virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(
             std::vector<SimulationElement>::iterator start,
-            std::vector<SimulationElement>::iterator end);
+            std::vector<SimulationElement>::iterator end) = 0;
 
     void runSingleSimulation();
 
     virtual void updateIntensityMap() =0;
 
-#ifndef SWIG
-    void normalize(std::vector<SimulationElement>::iterator begin_it,
+    virtual void normalize(std::vector<SimulationElement>::iterator begin_it,
                    std::vector<SimulationElement>::iterator end_it) const;
 
     void addBackGroundIntensity(std::vector<SimulationElement>::iterator begin_it,
                                 std::vector<SimulationElement>::iterator end_it) const;
-#endif
 
     //! Returns the start iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);

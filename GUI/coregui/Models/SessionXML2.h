@@ -18,6 +18,7 @@
 #define SESSIONXML2_H
 
 #include "WinDllMacros.h"
+#include <QString>
 class QXmlStreamWriter;
 class QXmlStreamReader;
 class SessionItem;
@@ -27,7 +28,7 @@ namespace SessionXML2
 
 void writeItemAndChildItems(QXmlStreamWriter *writer, const SessionItem *item);
 
-void readItems(QXmlStreamReader *reader, SessionItem *parent);
+void readItems(QXmlStreamReader *reader, SessionItem *parent, QString topTag=QString());
 
 }
 

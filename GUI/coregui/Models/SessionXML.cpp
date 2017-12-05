@@ -21,6 +21,7 @@
 #include "ItemFactory.h"
 #include "ExternalProperty.h"
 #include "SessionModel.h"
+#include "SessionXML2.h"
 #include "WarningMessageService.h"
 #include <QtCore/QXmlStreamWriter>
 
@@ -48,28 +49,30 @@ void SessionWriter::writeTo(QXmlStreamWriter *writer, SessionItem *parent)
 
 void SessionWriter::writeItemAndChildItems(QXmlStreamWriter *writer, const SessionItem *item)
 {
-    Q_ASSERT(item);
-    if (item->parent()) {
-        writer->writeStartElement(SessionXML::ItemTag);
-        writer->writeAttribute(SessionXML::ModelTypeAttribute, item->modelType());
-        QString tag = item->parent()->tagFromItem(item);
-        if (tag == item->parent()->defaultTag())
-            tag = "";
-        writer->writeAttribute(SessionXML::TagAttribute, tag);
-        writer->writeAttribute(SessionXML::DisplayNameAttribute, item->data(SessionFlags::DisplayNameRole).toString());
-        QVector<int> roles = item->getRoles();
-        foreach(int role, roles) {
-            if (role == Qt::DisplayRole || role == Qt::EditRole)
-                writeVariant(writer, item->value(), role);
-        }
+    SessionXML2::writeItemAndChildItems(writer, item);
 
-    }
-    foreach (SessionItem *child_item, item->children()) {
-        writeItemAndChildItems(writer, child_item);
-    }
-    if (item->parent()) {
-        writer->writeEndElement(); // ItemTag
-    }
+//    Q_ASSERT(item);
+//    if (item->parent()) {
+//        writer->writeStartElement(SessionXML::ItemTag);
+//        writer->writeAttribute(SessionXML::ModelTypeAttribute, item->modelType());
+//        QString tag = item->parent()->tagFromItem(item);
+//        if (tag == item->parent()->defaultTag())
+//            tag = "";
+//        writer->writeAttribute(SessionXML::TagAttribute, tag);
+//        writer->writeAttribute(SessionXML::DisplayNameAttribute, item->data(SessionFlags::DisplayNameRole).toString());
+//        QVector<int> roles = item->getRoles();
+//        foreach(int role, roles) {
+//            if (role == Qt::DisplayRole || role == Qt::EditRole)
+//                writeVariant(writer, item->value(), role);
+//        }
+
+//    }
+//    foreach (SessionItem *child_item, item->children()) {
+//        writeItemAndChildItems(writer, child_item);
+//    }
+//    if (item->parent()) {
+//        writer->writeEndElement(); // ItemTag
+//    }
 }
 
 void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int role)
@@ -133,97 +136,98 @@ void SessionWriter::writeVariant(QXmlStreamWriter *writer, QVariant variant, int
 void SessionReader::readItems(QXmlStreamReader *reader, SessionItem *item, const QString &topTag,
                               WarningMessageService *messageService)
 {
-    bool isTopItem = true;
-    const QString start_type = item->model()->getModelTag();
-    while (!reader->atEnd()) {
-        reader->readNext();
-        if (reader->isStartElement()) {
-            if (reader->name() == SessionXML::ItemTag) {
-                const QString model_type
-                    = reader->attributes().value(SessionXML::ModelTypeAttribute).toString();
-                QString tag = reader->attributes().value(SessionXML::TagAttribute).toString();
-                if (isTopItem) {
-                    tag = topTag;
-                }
-                if (tag == SessionItem::P_NAME)
-                    item->setItemName("");
-                if (model_type == Constants::PropertyType || model_type == Constants::GroupItemType) {
-                    SessionItem *newItem = item->getItem(tag);
-                    if (!newItem) {
-                        QString message = QString("Unrecoverable read error for model '%1', "
-                            "Can't get item for tag '%2'").arg(item->model()->getModelTag()).arg(tag);
-                        throw GUIHelpers::Error(message);
-                    }
-                    item = newItem;
+    SessionXML2::readItems(reader, item, topTag);
+//    bool isTopItem = true;
+//    const QString start_type = item->model()->getModelTag();
+//    while (!reader->atEnd()) {
+//        reader->readNext();
+//        if (reader->isStartElement()) {
+//            if (reader->name() == SessionXML::ItemTag) {
+//                const QString model_type
+//                    = reader->attributes().value(SessionXML::ModelTypeAttribute).toString();
+//                QString tag = reader->attributes().value(SessionXML::TagAttribute).toString();
+//                if (isTopItem) {
+//                    tag = topTag;
+//                }
+//                if (tag == SessionItem::P_NAME)
+//                    item->setItemName("");
+//                if (model_type == Constants::PropertyType || model_type == Constants::GroupItemType) {
+//                    SessionItem *newItem = item->getItem(tag);
+//                    if (!newItem) {
+//                        QString message = QString("Unrecoverable read error for model '%1', "
+//                            "Can't get item for tag '%2'").arg(item->model()->getModelTag()).arg(tag);
+//                        throw GUIHelpers::Error(message);
+//                    }
+//                    item = newItem;
 
-                } else if (item->modelType() == Constants::GroupItemType) {
-                    // get item corresponding to model_type and create if it doesn't exist
-                    SessionItem *newItem = item->parent()->item<GroupItem>(
-                                               item->parent()->tagFromItem(item))
-                                           .groupProperty()->getItemOfType(model_type);
-                    if (!newItem) {
-                        QString message = QString("Unrecoverable read error for model '%1', "
-                            "Can't get group item").arg(item->model()->getModelTag());
-                        throw GUIHelpers::Error(message);
-                    }
-                    item = newItem;
+//                } else if (item->modelType() == Constants::GroupItemType) {
+//                    // get item corresponding to model_type and create if it doesn't exist
+//                    SessionItem *newItem = item->parent()->item<GroupItem>(
+//                                               item->parent()->tagFromItem(item))
+//                                           .groupProperty()->getItemOfType(model_type);
+//                    if (!newItem) {
+//                        QString message = QString("Unrecoverable read error for model '%1', "
+//                            "Can't get group item").arg(item->model()->getModelTag());
+//                        throw GUIHelpers::Error(message);
+//                    }
+//                    item = newItem;
 
-                } else {
-                    if (tag == "")
-                        tag = item->defaultTag();
+//                } else {
+//                    if (tag == "")
+//                        tag = item->defaultTag();
 
-                    SessionItem *newItem(0);
-                    SessionTagInfo info = item->getTagInfo(tag);
-                    if (info.min == 1 && info.max == 1 && info.childCount == 1) {
-                        newItem = item->getItem(tag);
-                    } else {
-                        newItem = ItemFactory::createItem(model_type);
-                        if (!item->insertItem(-1, newItem, tag)) {
-                            QString message = QString("Attempt to create item '%1' for tag '%2' failed")
-                                              .arg(model_type).arg(tag);
-                            report_error(messageService, item, ITEM_IS_NOT_INITIALIZED, message);
-                            return;
-                        }
+//                    SessionItem *newItem(0);
+//                    SessionTagInfo info = item->getTagInfo(tag);
+//                    if (info.min == 1 && info.max == 1 && info.childCount == 1) {
+//                        newItem = item->getItem(tag);
+//                    } else {
+//                        newItem = ItemFactory::createItem(model_type);
+//                        if (!item->insertItem(-1, newItem, tag)) {
+//                            QString message = QString("Attempt to create item '%1' for tag '%2' failed")
+//                                              .arg(model_type).arg(tag);
+//                            report_error(messageService, item, ITEM_IS_NOT_INITIALIZED, message);
+//                            return;
+//                        }
 
-                    }
+//                    }
 
-                    if (!newItem) {
-                        QString message = QString("Unrecoverable read error for model '%1', "
-                            "Can't add item for tag").arg(item->model()->getModelTag()).arg(tag);
-                        throw GUIHelpers::Error(message);
-                    }
+//                    if (!newItem) {
+//                        QString message = QString("Unrecoverable read error for model '%1', "
+//                            "Can't add item for tag").arg(item->model()->getModelTag()).arg(tag);
+//                        throw GUIHelpers::Error(message);
+//                    }
 
-                    if (reader->attributes().hasAttribute(SessionXML::DisplayNameAttribute)) {
-                        newItem->setDisplayName(reader->attributes().value(SessionXML::DisplayNameAttribute).toString());
-                    }
-                    item = newItem;
-                }
-                if (!item) {
-//                    tag = -1;
-                }
+//                    if (reader->attributes().hasAttribute(SessionXML::DisplayNameAttribute)) {
+//                        newItem->setDisplayName(reader->attributes().value(SessionXML::DisplayNameAttribute).toString());
+//                    }
+//                    item = newItem;
+//                }
+//                if (!item) {
+////                    tag = -1;
+//                }
 
-//                tag = -1; // all but the first item should be appended
-                isTopItem = false;
+////                tag = -1; // all but the first item should be appended
+//                isTopItem = false;
 
-            } else if (reader->name() == SessionXML::ParameterTag) {
-                readProperty(reader, item, messageService);
-            }
-        } else if (reader->isEndElement()) {
-            if (reader->name() == SessionXML::ItemTag) {
-                if(item) {
-                    item = item->parent();
-                } else {
-                    // handling the case when reading obsolete project file, when SubItem doesn't exist anymore
-                    Q_ASSERT(0);
-                }
-            }
-            if (reader->name() == start_type) {
-                break;
-            }
-            if (reader->name() == SessionXML::ParameterTag) {
-            }
-        }
-    }
+//            } else if (reader->name() == SessionXML::ParameterTag) {
+//                readProperty(reader, item, messageService);
+//            }
+//        } else if (reader->isEndElement()) {
+//            if (reader->name() == SessionXML::ItemTag) {
+//                if(item) {
+//                    item = item->parent();
+//                } else {
+//                    // handling the case when reading obsolete project file, when SubItem doesn't exist anymore
+//                    Q_ASSERT(0);
+//                }
+//            }
+//            if (reader->name() == start_type) {
+//                break;
+//            }
+//            if (reader->name() == SessionXML::ParameterTag) {
+//            }
+//        }
+//    }
 }
 
 QString SessionReader::readProperty(QXmlStreamReader *reader,

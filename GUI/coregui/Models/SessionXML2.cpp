@@ -73,7 +73,7 @@ void SessionXML2::writeItemAndChildItems(QXmlStreamWriter* writer, const Session
         writer->writeEndElement(); // ItemTag
 }
 
-void SessionXML2::readItems(QXmlStreamReader* reader, SessionItem* parent)
+void SessionXML2::readItems(QXmlStreamReader* reader, SessionItem* parent, QString topTag)
 {
     Q_ASSERT(parent);
     const QString start_type = parent->model()->getModelTag();
@@ -84,7 +84,15 @@ void SessionXML2::readItems(QXmlStreamReader* reader, SessionItem* parent)
                 const QString model_type
                     = reader->attributes().value(SessionXML::ModelTypeAttribute).toString();
                 QString tag = reader->attributes().value(SessionXML::TagAttribute).toString();
+                QString displayName = reader->attributes().value(SessionXML::DisplayNameAttribute).toString();
+
+                if(!topTag.isEmpty()) {
+                    // to handle copying of item to another parent
+                    tag = topTag;
+                    topTag.clear();
+                }
                 parent = createItem(parent, model_type, tag);
+                parent->setDisplayName(displayName);
             } else if (reader->name() == SessionXML::ParameterTag) {
                 SessionReader::readProperty(reader, parent);
             }

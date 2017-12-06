@@ -84,7 +84,6 @@ bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
     return false;
 }
 
-// TODO replace with template method when custom variants refactored
 QString PropertyEditorFactory::ToString(const QVariant& variant)
 {
     if (isExternalProperty(variant))

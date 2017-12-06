@@ -314,8 +314,6 @@ void ObsoletePropertyVariantFactory::slotSetValue(const ComboProperty &value)
             QVariant var;
             var.setValue(value);
             manager->setValue(property, var);
-            // FIXME g.p. Is it the right place to delete? Check other factories.
-            //object->deleteLater();
             return;
         }
         itEditor++;

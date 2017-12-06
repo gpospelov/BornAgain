@@ -82,10 +82,6 @@ public:
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
-signals:
-    //! Signal which is used only in the context of ComponentFlatView
-    void currentIndexChanged(int);
-
 protected slots:
     virtual void onIndexChanged(int index);
 

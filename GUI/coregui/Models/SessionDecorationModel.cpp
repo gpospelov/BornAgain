@@ -67,12 +67,6 @@ QVariant SessionDecorationModel::data(const QModelIndex& index, int role) const
             return result;
     }
 
-// FIXME Bigger font size is necessary for ComponentEditor. The recipe below does the trick
-// but also affects InstrumentView. Find solution suitable for both QListView and QTreeView.
-//    if (role == Qt::SizeHintRole) {
-//        return  QSize(28, 28);
-//    }
-
     return QIdentityProxyModel::data(index, role);
 }
 

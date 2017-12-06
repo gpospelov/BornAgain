@@ -99,7 +99,9 @@ void PropertyWidgetItem::connectEditor(QWidget* editor)
 {
     if (auto combo = dynamic_cast<ComboPropertyEditor*>(editor)) {
         // Hack: QDataWidgetMapper doesn't listen for the widget (QComboBox is somewhat special).
-        connect(combo, &ComboPropertyEditor::currentIndexChanged,
+//        connect(combo, &ComboPropertyEditor::currentIndexChanged,
+//                [=] { m_delegate->commitData(combo); });
+        connect(combo, &ComboPropertyEditor::dataChanged,
                 [=] { m_delegate->commitData(combo); });
 
         // TODO after merging GroupProperty and ComboProperty

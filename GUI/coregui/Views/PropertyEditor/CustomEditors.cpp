@@ -156,7 +156,6 @@ void ComboPropertyEditor::onIndexChanged(int index)
     if (comboProperty.currentIndex() != index) {
         comboProperty.setCurrentIndex(index);
         setDataIntern(QVariant::fromValue<ComboProperty>(comboProperty));
-        currentIndexChanged(index);
     }
 }
 

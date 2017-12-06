@@ -16,6 +16,7 @@ set(test_cases
     RotationTranslation
     RoughnessTranslation
     TwoLayerRoughnessTranslation
+    SaveLoadProject
 #    GUIPerformanceTest  # too heavy, call manually when necessary
 )
 

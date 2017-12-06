@@ -16,6 +16,7 @@
 #include "GUISpecialTestFactory.h"
 #include "TranslationCases.h"
 #include "GUIPerformanceTest.h"
+#include "GUISaveLoadProject.h"
 
 GUISpecialTestFactory::GUISpecialTestFactory()
 {
@@ -83,4 +84,7 @@ GUISpecialTestFactory::GUISpecialTestFactory()
                  create_new<GUIPerformanceTest>,
                  "Measuring GUI performance on typical tasks.");
 
+    registerItem("SaveLoadProject",
+                 create_new<GUISaveLoadProject>,
+                 "Save/load project test");
 }

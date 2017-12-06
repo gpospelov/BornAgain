@@ -56,25 +56,7 @@ class BA_CORE_API_ ExternalPropertyEditor : public CustomEditor
 public:
     explicit ExternalPropertyEditor(QWidget* parent = nullptr);
 
-private slots:
-    void buttonClicked();
-
-protected:
-    void initEditor();
-
-private:
-    QLabel* m_textLabel;
-    QLabel* m_pixmapLabel;
-    LostFocusFilter* m_focusFilter;
-};
-
-//! Editor for ColorProperty variant.
-
-class BA_CORE_API_ ColorPropertyEditor : public CustomEditor
-{
-    Q_OBJECT
-public:
-    explicit ColorPropertyEditor(QWidget* parent = nullptr);
+    void setExternalDialogType(const QString& dialogType);
 
 private slots:
     void buttonClicked();
@@ -86,6 +68,7 @@ private:
     QLabel* m_textLabel;
     QLabel* m_pixmapLabel;
     LostFocusFilter* m_focusFilter;
+    QString m_extDialogType; //!< Type of the dialog which will be created on button click
 };
 
 //! Common editor for QComboBox-like custom editors.

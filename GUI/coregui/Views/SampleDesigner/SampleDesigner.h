@@ -27,6 +27,7 @@ class DesignerWidgetFactory;
 class InstrumentModel;
 class SampleModel;
 class FilterPropertyProxy;
+class ApplicationModels;
 
 //! sample designer interface
 class BA_CORE_API_ SampleDesignerInterface : public QObject
@@ -57,8 +58,7 @@ public:
 
     QWidget *getCentralWidget() { return m_designerView; }
 
-    void setSampleModel(SampleModel *sampleModel);
-    void setInstrumentModel(InstrumentModel *instrumentModel);
+    void setModels(ApplicationModels* models);
     void setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy);
 
 public slots:

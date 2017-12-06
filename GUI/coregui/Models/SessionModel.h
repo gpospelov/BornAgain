@@ -100,6 +100,9 @@ public:
 
     virtual QVector<SessionItem*> nonXMLData() const;
 
+signals:
+    void modelLoaded();
+
 protected:
     void setRootItem(SessionItem *root) {m_root_item = root;}
 

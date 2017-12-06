@@ -189,7 +189,7 @@ QMimeData *SessionModel::mimeData(const QModelIndexList& indices) const
         QMimeData *mime_data = new QMimeData;
         QByteArray xml_data;
         QXmlStreamWriter writer(&xml_data);
-        SessionWriter::writeItemAndChildItems(&writer, item);
+        SessionXML::writeItemAndChildItems(&writer, item);
         mime_data->setData(SessionXML::ItemMimeType, qCompress(xml_data, MaxCompression));
         return mime_data;
     }
@@ -308,7 +308,7 @@ void SessionModel::load(const QString& filename)
     clear();
     m_root_item = ItemFactory::createEmptyItem();
     QXmlStreamReader reader(&file);
-    SessionReader::readItems(&reader, m_root_item);
+    SessionXML::readItems(&reader, m_root_item);
     if (reader.hasError())
         throw GUIHelpers::Error(reader.errorString());
     endResetModel();
@@ -325,7 +325,7 @@ void SessionModel::save(const QString& filename)
     writer.writeStartDocument();
     writer.writeStartElement("BornAgain");
     writer.writeAttribute("Version", GUIHelpers::getBornAgainVersionString());
-    SessionWriter::writeItemAndChildItems(&writer, m_root_item);
+    SessionXML::writeItemAndChildItems(&writer, m_root_item);
     writer.writeEndElement(); // BornAgain
     writer.writeEndDocument();
 }
@@ -351,7 +351,7 @@ void SessionModel::readFrom(QXmlStreamReader* reader, WarningMessageService* mes
 
     m_name = reader->attributes().value(SessionXML::ModelNameAttribute).toString();
 
-    SessionReader::readItems(reader, m_root_item, QString(), messageService);
+    SessionXML::readItems(reader, m_root_item, QString(), messageService);
     if (reader->hasError())
         throw GUIHelpers::Error(reader->errorString());
     endResetModel();
@@ -361,7 +361,7 @@ void SessionModel::writeTo(QXmlStreamWriter* writer, SessionItem* parent)
 {
     if (!parent)
         parent = m_root_item;
-    SessionWriter::writeTo(writer, parent);
+    SessionXML::writeTo(writer, parent);
 }
 
 //! Move given parameterized item to the new_parent at given row. If new_parent is not defined,
@@ -412,11 +412,11 @@ SessionItem* SessionModel::copyParameterizedItem(const SessionItem* item_to_copy
 
     QByteArray xml_data;
     QXmlStreamWriter writer(&xml_data);
-    SessionWriter::writeItemAndChildItems(&writer, item_to_copy);
+    SessionXML::writeItemAndChildItems(&writer, item_to_copy);
 
     QXmlStreamReader reader(xml_data);
 
-    SessionReader::readItems(&reader, new_parent, tagName);
+    SessionXML::readItems(&reader, new_parent, tagName);
 
     return new_parent->getItems(tagName).back();
 }
@@ -489,6 +489,7 @@ void SessionModel::initFrom(SessionModel* model, SessionItem*)
             readFrom(&reader);
         }
     }
+    modelLoaded();
 }
 
 SessionItem* SessionModel::rootItem() const{

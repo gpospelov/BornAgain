@@ -38,14 +38,19 @@ public:
     ScalarFresnelMap();
     ~ScalarFresnelMap() final;
 
-    const ILayerRTCoefficients* getOutCoefficients (
+    virtual const ILayerRTCoefficients* getOutCoefficients (
         const SimulationElement& sim_element, size_t layer_index) const final override;
 
-    const ILayerRTCoefficients* getInCoefficients(
+    virtual const ILayerRTCoefficients* getInCoefficients(
         const SimulationElement& sim_element, size_t layer_index) const final override;
+
+    //! Fills simulation element specular data
+    virtual void fillSpecularData(SimulationElement& sim_element) const override;
 
 private:
     const ScalarRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index) const;
+    const std::vector<ScalarRTCoefficients>& getCoefficientsFromCache(kvector_t kvec) const;
+
     mutable std::unordered_map<std::pair<double, double>, std::vector<ScalarRTCoefficients>,
                                Hash2Doubles> m_hash_table;
 };

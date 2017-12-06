@@ -20,16 +20,17 @@
 #include "MaterialDataItem.h"
 #include "AppSvc.h"
 
-
 MaterialModel::MaterialModel(QObject* parent) : SessionModel(SessionXML::MaterialModelTag, parent)
 {
     setObjectName(SessionXML::MaterialModelTag);
-    AppSvc::subscribe(this);
+    if (AppSvc::materialModel() == nullptr)
+        AppSvc::subscribe(this);
 }
 
 MaterialModel::~MaterialModel()
 {
-    AppSvc::unsubscribe(this);
+    if (AppSvc::materialModel() == this)
+        AppSvc::unsubscribe(this);
 }
 
 MaterialModel* MaterialModel::createCopy(SessionItem* parent)
@@ -52,8 +53,8 @@ MaterialItem* MaterialModel::addMaterial(const QString& name, double material_da
     materialDataItem->setReal(material_data_real);
     materialDataItem->setImag(material_data_imag);
 
-    ColorProperty color(MaterialItemUtils::suggestMaterialColor(name));
-    materialItem->setItemValue(MaterialItem::P_COLOR, color.getVariant());
+    QColor color = MaterialItemUtils::suggestMaterialColor(name);
+    materialItem->setItemValue(MaterialItem::P_COLOR, MaterialItemUtils::colorProperty(color).variant());
 
     return materialItem;
 }
@@ -67,20 +68,6 @@ void MaterialModel::removeMaterial(MaterialItem* item)
 MaterialItem* MaterialModel::getMaterial(const QModelIndex& index)
 {
     return dynamic_cast<MaterialItem*>(itemForIndex(index));
-}
-
-MaterialItem* MaterialModel::getMaterial(const ExternalProperty& property)
-{
-    QModelIndex parentIndex;
-    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = index(i_row, 0, parentIndex);
-
-        if (MaterialItem* material = dynamic_cast<MaterialItem*>(itemForIndex(itemIndex))) {
-            if (material->getIdentifier() == property.getIdentifier())
-                return material;
-        }
-    }
-    return nullptr;
 }
 
 //! Returns clone of material with given index.

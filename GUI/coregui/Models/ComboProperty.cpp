@@ -133,7 +133,7 @@ void ComboProperty::setStringOfValues(const QString& values)
     m_current_index = m_values.contains(current) ? m_values.indexOf(current) : 0;
 }
 
-QVariant ComboProperty::getVariant() const
+QVariant ComboProperty::variant() const
 {
     QVariant result;
     result.setValue(*this);

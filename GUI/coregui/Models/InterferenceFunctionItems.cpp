@@ -29,6 +29,10 @@
 #include "InterferenceFunction1DLattice.h"
 #include "GroupItem.h"
 
+namespace {
+    const QString decay_function_tag = "Decay Function";
+}
+
 // TODO (when back compatibility will be broken  again)
 // Make InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION and
 // InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION rely on same constant
@@ -200,7 +204,7 @@ const QString InterferenceFunction1DLatticeItem::P_LENGTH =
         QString::fromStdString(BornAgain::Length);
 const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE =
         QString::fromStdString(BornAgain::Xi);
-const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = "Decay Function";
+const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = decay_function_tag;
 
 InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
     : InterferenceFunctionItem(Constants::InterferenceFunction1DLatticeType)
@@ -230,7 +234,7 @@ InterferenceFunction1DLatticeItem::createInterferenceFunction() const
 // --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunction2DLatticeItem::P_LATTICE_TYPE = "LatticeType";
-const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = "DecayFunction";
+const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = decay_function_tag;
 const QString InterferenceFunction2DLatticeItem::P_XI_INTEGRATION = "Integration_over_xi";
 
 InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()

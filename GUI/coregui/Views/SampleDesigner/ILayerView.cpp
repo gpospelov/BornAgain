@@ -80,7 +80,7 @@ void ILayerView::updateColor()
         QVariant v = m_item->getItemValue(LayerItem::P_MATERIAL);
         if (v.isValid()) {
             ExternalProperty mp = v.value<ExternalProperty>();
-            setColor(mp.getColor());
+            setColor(mp.color());
             update();
         } else {
             Q_ASSERT(0);

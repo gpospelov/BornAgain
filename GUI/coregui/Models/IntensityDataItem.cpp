@@ -51,13 +51,13 @@ const QString IntensityDataItem::T_PROJECTIONS = "Projection tag";
 IntensityDataItem::IntensityDataItem() : SessionItem(Constants::IntensityDataType)
 {
     ComboProperty units = ComboProperty() << Constants::UnitsNbins;
-    addProperty(P_AXES_UNITS, units.getVariant());
+    addProperty(P_AXES_UNITS, units.variant());
 
     addProperty(P_TITLE, QString())->setVisible(false);
 
     addProperty(P_PROJECTIONS_FLAG, false)->setVisible(false);
     addProperty(P_IS_INTERPOLATED, true);
-    addProperty(P_GRADIENT, gradientCombo().getVariant());
+    addProperty(P_GRADIENT, gradientCombo().variant());
 
     SessionItem* item = addGroupProperty(P_XAXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);

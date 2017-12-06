@@ -1,16 +1,16 @@
 #include <QtTest>
 #include "ComboProperty.h"
-#include "PropertyItem.h"
-#include "SessionXML.h"
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
+#include "test_utils.h"
 #include <QPair>
-#include <QDebug>
-#include <memory>
 
 class TestComboProperty : public QObject
 {
     Q_OBJECT
+
+private:
+    ComboProperty propertyFromXML(const QString& buffer) {
+        return TestUtils::propertyFromXML<ComboProperty>(buffer);
+    }
 
 private slots:
     void test_ComboEquality();
@@ -51,16 +51,16 @@ inline void TestComboProperty::test_VariantEquality()
 
     ComboProperty c1 = ComboProperty() << "a1" << "a2";
     ComboProperty c2 = ComboProperty() << "a1" << "a2";
-    QVERIFY(c1.getVariant() == c2.getVariant());
+    QVERIFY(c1.variant() == c2.variant());
 
     c2 << "a3";
-    QVERIFY(c1.getVariant() != c2.getVariant());
+    QVERIFY(c1.variant() != c2.variant());
     c2.setValue("a2");
-    QVERIFY(c1.getVariant() != c2.getVariant());
+    QVERIFY(c1.variant() != c2.variant());
 
     c1 << "a3";
     c1.setValue("a2");
-    QVERIFY(c1.getVariant() == c2.getVariant());
+    QVERIFY(c1.variant() == c2.variant());
 }
 
 inline void TestComboProperty::test_setValue()
@@ -120,30 +120,13 @@ inline void TestComboProperty::test_comboXML()
     // Writing combo to XML
     ComboProperty combo = ComboProperty() << "a1" << "a2" << "a3";
 
-    QString buffer;
-    QXmlStreamWriter writer(&buffer);
-
-    SessionWriter::writeVariant(&writer, combo.getVariant(), 0);
-
-    QCOMPARE(buffer, QString("<Parameter ParType=\"ComboProperty\" ParRole=\"0\" ParValue=\"0\" "
-                             "ParExt=\"a1;a2;a3\"/>"));
+    QString expected = "<Parameter ParType=\"ComboProperty\" ParRole=\"0\" ParValue=\"0\" "
+                       "ParExt=\"a1;a2;a3\"/>";
+    QCOMPARE(TestUtils::propertyToXML(combo), expected);
 
     // reading from XML
-    std::unique_ptr<PropertyItem> item(new PropertyItem);
-
-    QXmlStreamReader reader(buffer);
-
-    while (!reader.atEnd()) {
-        reader.readNext();
-        if (reader.isStartElement()) {
-            if (reader.name() == SessionXML::ParameterTag) {
-                SessionReader::readProperty(&reader, item.get());
-            }
-        }
-    }
-
-    ComboProperty combo_property = item->value().value<ComboProperty>();
-
+    ComboProperty combo_property = propertyFromXML(expected);
     QCOMPARE(combo_property.getValue(), QString("a1"));
     QCOMPARE(combo_property.stringOfValues(), QString("a1;a2;a3"));
+    QVERIFY(combo_property == combo);
 }

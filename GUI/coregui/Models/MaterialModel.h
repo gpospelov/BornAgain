@@ -36,7 +36,6 @@ public:
     void removeMaterial(MaterialItem*);
 
     MaterialItem* getMaterial(const QModelIndex& index);
-    MaterialItem* getMaterial(const ExternalProperty& property);
 
     MaterialItem* cloneMaterial(const QModelIndex& index);
 
@@ -44,9 +43,6 @@ public:
     MaterialItem* materialFromIdentifier(const QString& identifier);
 
     QVector<MaterialItem*> materialItems();
-signals:
-    void createdFromCopy();
-
 };
 
 #endif // MATERIALMODEL_H

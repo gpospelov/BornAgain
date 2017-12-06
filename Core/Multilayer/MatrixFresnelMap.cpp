@@ -23,52 +23,50 @@
 namespace {
 std::vector<MatrixRTCoefficients> calculateCoefficients(const MultiLayer& multilayer,
                                                         kvector_t kvec);
+
+const std::vector<MatrixRTCoefficients>&
+getCoefficientsFromCache(kvector_t kvec, const MultiLayer& multilayer,
+                         MatrixFresnelMap::CoefficientHash& hash_table);
 }
 
-MatrixFresnelMap::MatrixFresnelMap()
-{}
+MatrixFresnelMap::MatrixFresnelMap() = default;
 
-MatrixFresnelMap::~MatrixFresnelMap()
-{}
+MatrixFresnelMap::~MatrixFresnelMap() = default;
 
-const ILayerRTCoefficients* MatrixFresnelMap::getOutCoefficients(
-        const SimulationElement& sim_element, size_t layer_index) const
+const ILayerRTCoefficients*
+MatrixFresnelMap::getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const
 {
-    kvector_t kvec = -sim_element.getMeanKf();
-    if (!m_use_cache) {
-        auto coeffs { calculateCoefficients(*mP_inverted_multilayer, kvec) };
-        return new MatrixRTCoefficients(coeffs[layer_index]);
-    }
-    MatrixRTCoefficients* result;
-    auto it = m_hash_table_out.find(kvec);
-    if (it != m_hash_table_out.end())
-        result = new MatrixRTCoefficients(it->second[layer_index]);
-    else {
-        auto coeffs { calculateCoefficients(*mP_inverted_multilayer, kvec) };
-        result = new MatrixRTCoefficients(coeffs[layer_index]);
-        m_hash_table_out[kvec] = std::move(coeffs);
-    }
-    return result;
+    return getCoefficients(-sim_element.getMeanKf(), layer_index, *mP_inverted_multilayer,
+                           m_hash_table_out);
 }
 
-const ILayerRTCoefficients* MatrixFresnelMap::getInCoefficients(
-        const SimulationElement& sim_element, size_t layer_index) const
+const ILayerRTCoefficients*
+MatrixFresnelMap::getInCoefficients(const SimulationElement& sim_element, size_t layer_index) const
 {
-    kvector_t kvec = sim_element.getKi();
+    return getCoefficients(sim_element.getKi(), layer_index, *mP_multilayer, m_hash_table_in);
+}
+
+void MatrixFresnelMap::fillSpecularData(SimulationElement& sim_element) const
+{
+    const auto& kvec = sim_element.getKi();
+    std::vector<MatrixRTCoefficients> coef_vector;
+    if (m_use_cache)
+        coef_vector = getCoefficientsFromCache(kvec, *mP_multilayer, m_hash_table_in);
+    else
+        coef_vector = calculateCoefficients(*mP_multilayer, kvec);
+    sim_element.setSpecular(std::make_unique<SpecularData>(std::move(coef_vector)));
+}
+
+const ILayerRTCoefficients* MatrixFresnelMap::getCoefficients(kvector_t kvec, size_t layer_index,
+                                                const MultiLayer& multilayer,
+                                                CoefficientHash& hash_table) const
+{
     if (!m_use_cache) {
-        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
+        auto coeffs = calculateCoefficients(multilayer, kvec);
         return new MatrixRTCoefficients(coeffs[layer_index]);
     }
-    MatrixRTCoefficients* result;
-    auto it = m_hash_table_in.find(kvec);
-    if (it != m_hash_table_in.end())
-        result = new MatrixRTCoefficients(it->second[layer_index]);
-    else {
-        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
-        result = new MatrixRTCoefficients(coeffs[layer_index]);
-        m_hash_table_in[kvec] = std::move(coeffs);
-    }
-    return result;
+    const auto& coef_vector = getCoefficientsFromCache(kvec, multilayer, hash_table);
+    return new MatrixRTCoefficients(coef_vector[layer_index]);
 }
 
 void MatrixFresnelMap::setMultilayer(const MultiLayer& multilayer)
@@ -84,6 +82,16 @@ std::vector<MatrixRTCoefficients> calculateCoefficients(const MultiLayer& multil
     std::vector<MatrixRTCoefficients> coeffs;
     SpecularMagnetic::execute(multilayer, kvec, coeffs);
     return coeffs;
+}
+
+const std::vector<MatrixRTCoefficients>&
+getCoefficientsFromCache(kvector_t kvec, const MultiLayer& multilayer,
+                         MatrixFresnelMap::CoefficientHash& hash_table)
+{
+    auto it = hash_table.find(kvec);
+    if (it == hash_table.end())
+        it = hash_table.insert({kvec, calculateCoefficients(multilayer, kvec)}).first;
+    return it->second;
 }
 }
 

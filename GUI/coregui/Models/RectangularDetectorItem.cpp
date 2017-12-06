@@ -89,7 +89,7 @@ RectangularDetectorItem::RectangularDetectorItem()
     item->getItem(BasicAxisItem::P_MAX)->setToolTip(QStringLiteral("Height of the detector in mm"));
 
     // alignment selector
-    addProperty(P_ALIGNMENT, alignmentCombo().getVariant());
+    addProperty(P_ALIGNMENT, alignmentCombo().variant());
 
     // alignment parameters
     item = addGroupProperty(P_NORMAL, Constants::VectorType);
@@ -133,7 +133,7 @@ void RectangularDetectorItem::setDetectorAlignment(const QString& alignment)
             "RectangularDetectorItem::setDetectorAlignment -> Unexpected alignment");
 
     combo_property.setValue(alignment);
-    setItemValue(RectangularDetectorItem::P_ALIGNMENT, combo_property.getVariant());
+    setItemValue(RectangularDetectorItem::P_ALIGNMENT, combo_property.variant());
 }
 
 void RectangularDetectorItem::setSize(int nx, int ny)

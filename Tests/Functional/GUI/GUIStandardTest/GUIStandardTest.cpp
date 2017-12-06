@@ -36,7 +36,7 @@ std::unique_ptr<GISASSimulation> createDomainSimulation(const GISASSimulation& o
 
     // populating GUI models from domain
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(sampleModel.get(), origin);
+    guiBuilder.populateSampleModel(sampleModel.get(), materialModel.get(), origin);
     guiBuilder.populateInstrumentModel(instrumentModel.get(), origin);
     guiBuilder.populateDocumentModel(documentModel.get(), origin);
 

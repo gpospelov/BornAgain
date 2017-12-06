@@ -157,7 +157,7 @@ void IntensityDataCanvas::applyPersistentSettings()
         QString persistentGradient = settings.value(gradient_setting_name()).toString();
         if (combo.getValue() != persistentGradient) {
             combo.setValue(settings.value(gradient_setting_name()).toString());
-            intensityDataItem()->setItemValue(IntensityDataItem::P_GRADIENT, combo.getVariant());
+            intensityDataItem()->setItemValue(IntensityDataItem::P_GRADIENT, combo.variant());
         }
     }
 

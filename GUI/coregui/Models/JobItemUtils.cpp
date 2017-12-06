@@ -169,7 +169,7 @@ void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
         = preferableGUIAxesUnits(detector->defaultAxesUnits());
 
     combo.setValue(nameFromAxesUnits(preferrable_units));
-    intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+    intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
 }
 
 void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)

@@ -42,24 +42,36 @@ const ILayerRTCoefficients* ScalarFresnelMap::getInCoefficients(
     return getCoefficients(sim_element.getKi(), layer_index);
 }
 
+void ScalarFresnelMap::fillSpecularData(SimulationElement& sim_element) const
+{
+    const auto& kvec = sim_element.getKi();
+    std::vector<ScalarRTCoefficients> coef_vector;
+    if (m_use_cache)
+        coef_vector = getCoefficientsFromCache(kvec);
+    else
+        coef_vector = calculateCoefficients(*mP_multilayer, kvec);
+    sim_element.setSpecular(std::make_unique<SpecularData>(std::move(coef_vector)));
+}
+
 const ScalarRTCoefficients* ScalarFresnelMap::getCoefficients(
         kvector_t kvec, size_t layer_index) const
 {
     if (!m_use_cache) {
-        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
+        auto coeffs = calculateCoefficients(*mP_multilayer, kvec);
         return new ScalarRTCoefficients(coeffs[layer_index]);
     }
-    ScalarRTCoefficients* result;
+    const auto& coef_vector = getCoefficientsFromCache(kvec);
+    return new ScalarRTCoefficients(coef_vector[layer_index]);
+}
+
+const std::vector<ScalarRTCoefficients>&
+ScalarFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
+{
     std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());
     auto it = m_hash_table.find(k2_theta);
-    if (it != m_hash_table.end())
-        result = new ScalarRTCoefficients(it->second[layer_index]);
-    else {
-        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
-        result = new ScalarRTCoefficients(coeffs[layer_index]);
-        m_hash_table[k2_theta] = std::move(coeffs);
-    }
-    return result;
+    if (it == m_hash_table.end())
+        it = m_hash_table.insert({k2_theta, calculateCoefficients(*mP_multilayer, kvec)}).first;
+    return it->second;
 }
 
 namespace {

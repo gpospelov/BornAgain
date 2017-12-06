@@ -339,8 +339,6 @@ void LinkInstrumentManager::setRealDataModel(RealDataModel *model)
                    this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
         disconnect(m_realDataModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
                    this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
-        disconnect(m_realDataModel, SIGNAL(modelLoaded()),
-                   this, SLOT(updateLinks()));
     }
 
     m_realDataModel = model;
@@ -350,7 +348,5 @@ void LinkInstrumentManager::setRealDataModel(RealDataModel *model)
                    this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
         connect(m_realDataModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
                    this, SLOT(onRealDataRowsChange(QModelIndex, int, int)));
-        connect(m_realDataModel, SIGNAL(modelLoaded()),
-                   this, SLOT(updateLinks()));
     }
 }

@@ -67,7 +67,7 @@ const QString FitParameterItem::T_LINK = "Link tag";
 
 FitParameterItem::FitParameterItem() : SessionItem(Constants::FitParameterType)
 {
-    addProperty(P_TYPE, fitParameterTypeCombo().getVariant());
+    addProperty(P_TYPE, fitParameterTypeCombo().variant());
     addProperty(P_START_VALUE, 0.0);
     addProperty(P_MIN, 0.0);
     addProperty(P_MAX, 0.0)->setEnabled(false);

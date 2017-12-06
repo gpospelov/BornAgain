@@ -57,7 +57,6 @@
 #include "VectorItem.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
-#include "AppSvc.h"
 #include "MaterialItemUtils.h"
 
 using SessionItemUtils::SetVectorItem;
@@ -67,29 +66,30 @@ SessionItem* AddFormFactorItem(SessionItem* p_parent, Constants::ModelType model
 }
 
 GUIObjectBuilder::GUIObjectBuilder()
-    : m_sampleModel(0)
+    : m_sampleModel(nullptr)
+    , m_materialModel(nullptr)
 {
 }
 
-SessionItem* GUIObjectBuilder::populateSampleModel(
-    SampleModel* p_sample_model, const GISASSimulation& simulation, const QString& sample_name)
+SessionItem* GUIObjectBuilder::populateSampleModel(SampleModel* sampleModel, MaterialModel* materialModel, const GISASSimulation& simulation, const QString& sample_name)
 {
     std::unique_ptr<GISASSimulation> sim(simulation.clone());
     sim->prepareSimulation();
-    return populateSampleModel(p_sample_model,*sim->sample(), sample_name);
+    return populateSampleModel(sampleModel,materialModel, *sim->sample(), sample_name);
 }
 
-SessionItem* GUIObjectBuilder::populateSampleModel(
-    SampleModel* p_sample_model, const ISample& sample, const QString& sample_name)
+SessionItem* GUIObjectBuilder::populateSampleModel(SampleModel* sampleModel, MaterialModel* materialModel, const ISample& sample, const QString& sample_name)
 {
-    Q_ASSERT(p_sample_model);
+    Q_ASSERT(sampleModel);
+    Q_ASSERT(materialModel);
 
     m_levelToParentItem.clear();
 
     m_topSampleName = sample_name;
     if(m_topSampleName.isEmpty()) m_topSampleName = sample.getName().c_str();
 
-    m_sampleModel = p_sample_model;
+    m_sampleModel = sampleModel;
+    m_materialModel = materialModel;
 
     VisitNodesPreorder(sample, *this);
     SessionItem* result = m_levelToParentItem[1];
@@ -173,7 +173,7 @@ void GUIObjectBuilder::visit(const ParticleLayout* p_sample)
         approx_prop.setValue(Constants::LAYOUT_SSCA);
         break;
     }
-    p_layout_item->setItemValue(ParticleLayoutItem::P_APPROX, approx_prop.getVariant());
+    p_layout_item->setItemValue(ParticleLayoutItem::P_APPROX, approx_prop.variant());
     p_layout_item->setItemValue(ParticleLayoutItem::P_TOTAL_DENSITY,
                        p_sample->totalParticleSurfaceDensity());
     m_levelToParentItem[depth()] = p_layout_item;
@@ -192,7 +192,7 @@ void GUIObjectBuilder::visit(const Layer* p_sample)
     SessionItem* p_layer_item = m_sampleModel->insertNewItem(
         Constants::LayerType, m_sampleModel->indexOfItem(p_parent));
     p_layer_item->setItemValue(LayerItem::P_MATERIAL,
-        createMaterialFromDomain(p_sample->material()).getVariant());
+        createMaterialFromDomain(p_sample->material()).variant());
 
     TransformFromDomain::setItemFromSample(p_layer_item, p_sample, p_interface);
 
@@ -215,7 +215,7 @@ void GUIObjectBuilder::visit(const Particle* p_sample)
 {
     auto p_particle_item = InsertIParticle(p_sample, Constants::ParticleType);
     p_particle_item->setItemValue(ParticleItem::P_MATERIAL,
-        createMaterialFromDomain(p_sample->material()).getVariant());
+        createMaterialFromDomain(p_sample->material()).variant());
 }
 
 void GUIObjectBuilder::visit(const ParticleDistribution* p_sample)
@@ -598,14 +598,12 @@ ExternalProperty GUIObjectBuilder::createMaterialFromDomain(
 {
     QString materialName = m_topSampleName + QString("_") + QString(material->getName().c_str());
 
-    MaterialModel* model = AppSvc::materialModel();
-
-    if (auto material = model->materialFromName(materialName))
+    if (auto material = m_materialModel->materialFromName(materialName))
         return MaterialItemUtils::materialProperty(*material);
 
     complex_t material_data = material->materialData();
     MaterialItem* materialItem  =
-            model->addMaterial(materialName, material_data.real(),material_data.imag());
+            m_materialModel->addMaterial(materialName, material_data.real(),material_data.imag());
     SetVectorItem(*materialItem, MaterialItem::P_MAGNETIZATION, material->magnetization());
     return MaterialItemUtils::materialProperty(*materialItem);
 }

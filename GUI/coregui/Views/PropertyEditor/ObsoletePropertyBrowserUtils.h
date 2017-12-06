@@ -19,7 +19,7 @@
 
 #include <QWidget>
 #include "ExternalProperty.h"
-#include "ColorProperty.h"
+#include "ObsoleteColorProperty.h"
 #include "ObsoleteScientificDoubleProperty.h"
 #include "GroupProperty.h"
 #include "ComboProperty.h"
@@ -99,20 +99,20 @@ class BA_CORE_API_ ObsoleteColorPropertyEdit : public QWidget
 public:
     ObsoleteColorPropertyEdit(QWidget *parent = 0);
 
-    void setColorProperty(const ColorProperty &colorProperty);
-    ColorProperty getColorProperty() const {return m_colorProperty; }
+    void setColorProperty(const ObsoleteColorProperty &colorProperty);
+    ObsoleteColorProperty getColorProperty() const {return m_colorProperty; }
 
     QString colorValueText(const QColor &c);
 
 signals:
-    void colorPropertyChanged(const ColorProperty &material_color);
+    void colorPropertyChanged(const ObsoleteColorProperty &material_color);
 
 private slots:
     void buttonClicked();
 private:
     QLabel *m_textLabel;
     QLabel *m_pixmapLabel;
-    ColorProperty m_colorProperty;
+    ObsoleteColorProperty m_colorProperty;
 };
 
 

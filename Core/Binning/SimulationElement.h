@@ -20,10 +20,14 @@
 #include "EigenCore.h"
 #include "Vectors3D.h"
 #include "IPixel.h"
+#include "MatrixRTCoefficients.h"
+#include "ScalarRTCoefficients.h"
+#include <boost/variant.hpp>
 #include <memory>
 #include <vector>
 
 class IPixel;
+class SpecularData;
 
 //! Data stucture containing both input and output of a single detector cell.
 //! @ingroup simulation
@@ -80,11 +84,12 @@ public:
     double getAlpha(double x, double y) const;
     double getPhi(double x, double y) const;
 
-    //! check if element contains given wavevector
-    bool containsSpecularWavevector() const;
+    //! check if element corresponds to specular peak
+    SpecularData* specularData() const {return m_specular_data.get();}
 
-    //! indicate that this element contains the specular wavevector
-    void setSpecular(bool contains_specular);
+    //! Turn on specular data
+    void setSpecular();
+    void setSpecular(std::unique_ptr<SpecularData> specular_data);
 
 private:
     void swapContent(SimulationElement &other);
@@ -99,7 +104,7 @@ private:
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 #endif
     std::unique_ptr<IPixel> mP_pixel;
-    bool m_contains_specular;
+    std::unique_ptr<SpecularData> m_specular_data;
 };
 
 
@@ -108,5 +113,30 @@ void addElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
                            std::vector<SimulationElement>::const_iterator last,
                            std::vector<SimulationElement>::iterator result,
                            double weight);
+
+//! Helper class for SimulationElement to carry specular information
+//! @ingroup simulation
+
+class BA_CORE_API_ SpecularData
+{
+    // FIXME: find a better way to carry the specular data in SimulationElement
+    using ScalarVector = std::vector<ScalarRTCoefficients>;
+    using MatrixVector = std::vector<MatrixRTCoefficients>;
+public:
+    SpecularData();
+
+    SpecularData(MatrixVector coefficients);
+
+    SpecularData(ScalarVector coefficients);
+
+    const ILayerRTCoefficients& operator[](size_t index) const;
+
+    bool isInited() const {return data_type_used != DATA_TYPE::Invalid;}
+
+private:
+    enum class DATA_TYPE { Invalid = -1, Scalar, Matrix };
+    boost::variant<ScalarVector, MatrixVector> data;
+    DATA_TYPE data_type_used;
+};
 
 #endif // SIMULATIONELEMENT_H

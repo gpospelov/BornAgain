@@ -53,10 +53,10 @@ MultiLayer* MultiLayer::cloneInvertB() const
     return genericClone( [](const Layer* p_layer) { return p_layer->cloneInvertB(); } );
 }
 
-MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
+std::unique_ptr<MultiLayer> MultiLayer::cloneSliced(bool use_average_layers) const
 {
     if (!use_average_layers || numberOfLayers()==0)
-        return clone();
+        return std::unique_ptr<MultiLayer>(clone());
     auto layer_limits = calculateLayerZLimits();
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
@@ -80,7 +80,7 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
         for (size_t j=1; j<sliced_layers.size(); ++j)
             P_result->addLayer(*sliced_layers[j]);
     }
-    return P_result.release();
+    return P_result;
 }
 
 //! Returns pointer to the top interface of the layer.

@@ -19,9 +19,9 @@
 #include "Simulation.h"
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
-#include <memory>
 
 class IAxis;
+class IComputation;
 class ISample;
 class IMultiLayerBuilder;
 class MultiLayer;
@@ -36,15 +36,12 @@ public:
     SpecularSimulation();
     SpecularSimulation(const MultiLayer& sample);
     SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    virtual ~SpecularSimulation() override = default;
+    virtual ~SpecularSimulation();
 
     virtual SpecularSimulation* clone() const override;
 
     //! Put into a clean state for running a simulation.
     virtual void prepareSimulation() override;
-
-    //! Run a simulation, possibly averaged over parameter distributions.
-    virtual void runSimulation() override;
 
     virtual void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
 
@@ -58,8 +55,8 @@ public:
     //! Returns a pointer to incident angle axis.
     const IAxis* getAlphaAxis() const;
 
-    //! Returns reflectivity values \f$Reflectivity = \|R\|^2\f$ from the upper layer in the form of
-    //! OutputData<double>.
+    //! Returns detector count values in the form of OutputData<double>. Detector counts are
+    //! proportional to \f$Reflectivity = |R|^2\f$ from the upper layer.
     virtual OutputData<double>* getDetectorIntensity(AxesUnits units_type
                                                      = AxesUnits::DEFAULT) const override;
 
@@ -81,33 +78,32 @@ public:
     std::vector<complex_t> getScalarKz(size_t i_layer) const;
 
 private:
-    typedef std::shared_ptr<const ILayerRTCoefficients> LayerRTCoefficients_t;
-    typedef std::vector<LayerRTCoefficients_t> MultiLayerRTCoefficients_t;
     typedef complex_t (ILayerRTCoefficients::*DataGetter)() const;
 
     SpecularSimulation(const SpecularSimulation& other);
 
-    std::unique_ptr<OutputData<double>> getData(size_t i_layer, DataGetter fn_ptr) const;
+    std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
+
+    std::unique_ptr<OutputData<double>> getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const;
 
     // unused methods
-    virtual void initSimulationElementVector() override {}
     virtual void transferResultsToIntensityMap() override {}
     virtual void updateIntensityMap() override {}
 
-    //! calculates RT coefficients for multilayer without magnetic materials
-    void collectRTCoefficientsScalar(const MultiLayer* multilayer);
+    //! Generate a single threaded computation for a given range of SimulationElement's
+    virtual std::unique_ptr<IComputation>
+    generateSingleThreadedComputation(std::vector<SimulationElement>::iterator start,
+                                      std::vector<SimulationElement>::iterator end) override;
 
-    //! calculates RT coefficients for multilayer with magnetic materials
-    void collectRTCoefficientsMatrix(const MultiLayer* multilayer);
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
+    virtual void normalize(std::vector<SimulationElement>::iterator begin_it,
+                           std::vector<SimulationElement>::iterator end_it) const override;
 
-    //! check if simulation was run already and has valid coefficients
-    void checkCoefficients(size_t i_layer) const;
+    //! Checks if simulation data is ready for retrieval
+    void validityCheck(size_t i_layer) const;
 
     //! Initializes simulation
     void initialize();
-
-    OutputData<MultiLayerRTCoefficients_t> m_RT_coefficients;
-    std::unique_ptr<IAxis> m_alpha_i_axis;
 };
 
 #endif // SPECULARSIMULATION_H

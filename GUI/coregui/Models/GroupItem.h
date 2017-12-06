@@ -30,7 +30,6 @@ public:
     static const QString T_ITEMS;
     GroupItem();
 
-    void setGroup(GroupProperty_t groupProperty);
     void setGroupInfo(const GroupInfo& groupInfo);
     SessionItem* currentItem() const;
 

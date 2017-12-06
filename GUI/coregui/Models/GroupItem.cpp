@@ -25,15 +25,6 @@ GroupItem::GroupItem() : SessionItem(Constants::GroupItemType)
     setDefaultTag(T_ITEMS);
 }
 
-void GroupItem::setGroup(GroupProperty_t group)
-{
-    if (value().isValid())
-        throw GUIHelpers::Error("GroupItem::setGroup() -> Error. Attempt to set group twice.");
-
-    group->setGroupItem(this);
-    setValue(QVariant::fromValue(group));
-}
-
 void GroupItem::setGroupInfo(const GroupInfo& groupInfo)
 {
     if (m_groupInfo.isValid())
@@ -43,7 +34,9 @@ void GroupItem::setGroupInfo(const GroupInfo& groupInfo)
 
     GroupProperty_t groupProperty(new GroupProperty);
     groupProperty->setGroupInfo(groupInfo);
-    setGroup(groupProperty);
+
+    groupProperty->setGroupItem(this);
+    setValue(QVariant::fromValue(groupProperty));
 }
 
 SessionItem* GroupItem::currentItem() const

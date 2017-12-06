@@ -42,9 +42,9 @@ public:
     SessionItem* getItemOfType(const QString& type);
 
 private:
+    void onValueChange();
     GroupProperty_t groupProperty() const;
-
-    GroupInfo m_groupInfo;
+    GroupProperty_t m_groupProperty;
 };
 
 #endif // GROUPITEM_H

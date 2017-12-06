@@ -1,9 +1,11 @@
 #include <QtTest>
+#include "test_utils.h"
 #include "GroupInfo.h"
 #include "GroupItem.h"
+#include "ComboProperty.h"
 #include "GroupPropertyRegistry.h"
 #include "GUIHelpers.h"
-#include "verify_throw_macro.h"
+#include "SessionModel.h"
 
 class TestGroupItem : public QObject {
     Q_OBJECT
@@ -47,33 +49,54 @@ inline void TestGroupItem::test_groupInfo()
 
 inline void TestGroupItem::test_CreateGroup()
 {
-    GroupInfo groupInfo = GroupPropertyRegistry::groupInfo(Constants::DistributionGroup);
-    QCOMPARE(groupInfo.defaultType(), Constants::DistributionGaussianType);
+    SessionModel model("TestModel");
 
-    GroupItem groupItem;
-    QCOMPARE(groupItem.children().size(), 0);
-    QVERIFY(groupItem.currentItem() == nullptr);
+    GroupInfo groupInfo = GroupPropertyRegistry::groupInfo(Constants::FormFactorGroup);
+    QCOMPARE(groupInfo.defaultType(), Constants::CylinderType);
+
+    auto groupItem = dynamic_cast<GroupItem*>(model.insertNewItem(Constants::GroupItemType));
+    QCOMPARE(groupItem->children().size(), 0);
+    QVERIFY(groupItem->currentItem() == nullptr);
+    QVERIFY(groupItem->value().isValid() == false);
 
     // setting group property and checking currentItem
-    groupItem.setGroupInfo(groupInfo);
-    QCOMPARE(groupItem.children().size(), 1);
-    QCOMPARE(groupItem.children()[0], groupItem.currentItem());
-    SessionItem *cosineItem = groupItem.currentItem();
-    QCOMPARE(cosineItem->modelType(), Constants::DistributionGaussianType);
+    groupItem->setGroupInfo(groupInfo);
 
     // setting group info twice
-    QVERIFY_THROW(groupItem.setGroupInfo(groupInfo), GUIHelpers::Error);
+    QVERIFY_THROW(groupItem->setGroupInfo(groupInfo), GUIHelpers::Error);
+
+    // checking current item
+    QCOMPARE(groupItem->children().size(), 1);
+    QCOMPARE(groupItem->children()[0], groupItem->currentItem());
+    SessionItem *ffItem = groupItem->currentItem();
+    QCOMPARE(ffItem->modelType(), Constants::CylinderType);
+
+    // checking current variant
+    QVariant value = groupItem->value();
+    QVERIFY(value.canConvert<ComboProperty>() == true);
+    ComboProperty combo = value.value<ComboProperty>();
+    QCOMPARE(combo.getValues(), groupInfo.itemLabels());
+    int index = groupInfo.itemTypes().indexOf(groupInfo.defaultType());
+    QCOMPARE(combo.currentIndex(), index);
+    QCOMPARE(combo.getValue(), groupInfo.itemLabels().at(index));
 
     // changing current item
-    SessionItem *newItem = groupItem.setCurrentType(Constants::DistributionNoneType);
-    QCOMPARE(newItem, groupItem.currentItem());
-    QCOMPARE(newItem->modelType(), Constants::DistributionNoneType);
-    QCOMPARE(groupItem.children().size(), 2);
+    SessionItem *newItem = groupItem->setCurrentType(Constants::FullSphereType);
+    QCOMPARE(newItem, groupItem->currentItem());
+    QCOMPARE(newItem->modelType(), Constants::FullSphereType);
+    QCOMPARE(groupItem->children().size(), 2);
+
+    // checking current variant
+    combo = groupItem->value().value<ComboProperty>();
+    QCOMPARE(combo.getValues(), groupInfo.itemLabels());
+    index = groupInfo.itemTypes().indexOf(Constants::FullSphereType);
+    QCOMPARE(combo.currentIndex(), index);
+    QCOMPARE(combo.getValue(), groupInfo.itemLabels().at(index));
 
     // returning back to previous item
-    QCOMPARE(groupItem.setCurrentType(Constants::DistributionGaussianType), cosineItem);
-    QCOMPARE(groupItem.currentItem(), cosineItem);
-    QCOMPARE(groupItem.children().size(), 2);
+    QCOMPARE(groupItem->setCurrentType(Constants::CylinderType), ffItem);
+    QCOMPARE(groupItem->currentItem(), ffItem);
+    QCOMPARE(groupItem->children().size(), 2);
 }
 
 //! Checking that GroupProperty stays functional if displayName of currentItem is changed.

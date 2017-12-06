@@ -60,7 +60,7 @@ void GroupProperty::setCurrentType(const QString& type)
             prevItem->setVisible(false);
             prevItem->setEnabled(false);
         }
-        m_groupItem->emitDataChanged();
+        //m_groupItem->emitDataChanged();
     }
 }
 
@@ -89,7 +89,7 @@ SessionItem* GroupProperty::getItemOfType(const QString& type)
                 new_item->setEnabled(false);
             }
             m_groupItem->insertItem(-1, new_item);
-            m_groupItem->emitDataChanged();
+            //m_groupItem->emitDataChanged();
             return new_item;
         }
     }

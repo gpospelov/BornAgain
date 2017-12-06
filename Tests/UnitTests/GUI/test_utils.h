@@ -20,6 +20,7 @@
 #include "SessionXML.h"
 #include "PropertyItem.h"
 #include <QXmlStreamWriter>
+#include "verify_throw_macro.h"
 
 namespace TestUtils
 {

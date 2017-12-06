@@ -35,7 +35,7 @@ QString propertyToXML(const T& property)
 {
     QString result;
     QXmlStreamWriter writer(&result);
-    SessionWriter::writeVariant(&writer, property.variant(), /*role*/0);
+    SessionXML::writeVariant(&writer, property.variant(), /*role*/0);
     return result;
 }
 
@@ -49,7 +49,7 @@ T propertyFromXML(const QString& buffer) {
         reader.readNext();
         if (reader.isStartElement()) {
             if (reader.name() == SessionXML::ParameterTag) {
-                SessionReader::readProperty(&reader, item.get());
+                SessionXML::readProperty(&reader, item.get());
             }
         }
     }

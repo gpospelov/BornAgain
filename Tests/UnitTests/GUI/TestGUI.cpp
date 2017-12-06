@@ -18,7 +18,7 @@
 #include "TestMaterialModel.h"
 #include "TestComboProperty.h"
 #include "TestTranslations.h"
-#include "TestGroupProperty.h"
+#include "TestGroupItem.h"
 #include "TestParameterTreeUtils.h"
 #include "TestDetectorItems.h"
 #include "TestLinkInstrument.h"
@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
     tests.add<TestMaterialPropertyController>();
     tests.add<TestComboProperty>();
     tests.add<TestTranslations>();
-    tests.add<TestGroupProperty>();
+    tests.add<TestGroupItem>();
     tests.add<TestParticleDistributionItem>();
     tests.add<TestParameterTreeUtils>();
     tests.add<TestDetectorItems>();

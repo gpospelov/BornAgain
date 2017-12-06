@@ -28,8 +28,6 @@ class BA_CORE_API_ GroupPropertyRegistry
 public:
     static bool isValidGroup(const QString& group_type);
 
-    static GroupProperty_t createGroupProperty(const Constants::ModelType& group_type);
-
     static GroupInfo groupInfo(const Constants::ModelType& group_type);
 private:
     static const GroupInfoCatalogue& catalogue();

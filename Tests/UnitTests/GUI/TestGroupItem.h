@@ -5,17 +5,16 @@
 #include "GUIHelpers.h"
 #include "verify_throw_macro.h"
 
-class TestGroupProperty : public QObject {
+class TestGroupItem : public QObject {
     Q_OBJECT
 
 private slots:
     void test_groupInfo();
-    void test_groupProperty();
     void test_CreateGroup();
     void test_groupPropertyWithDisplayNames();
 };
 
-inline void TestGroupProperty::test_groupInfo()
+inline void TestGroupItem::test_groupInfo()
 {
     GroupInfo info("Group");
     info.add("BBB", "b_label");
@@ -46,38 +45,24 @@ inline void TestGroupProperty::test_groupInfo()
     QVERIFY_THROW(info.add("CCC2", "c_label2"), GUIHelpers::Error);
 }
 
-inline void TestGroupProperty::test_groupProperty()
+inline void TestGroupItem::test_CreateGroup()
 {
-    GroupProperty_t property = GroupPropertyRegistry::createGroupProperty(
-        Constants::DistributionGroup);
-
-    QCOMPARE(property->currentType(), Constants::DistributionGaussianType);
-    QVERIFY(property->currentItem() == nullptr);
-
-}
-
-
-inline void TestGroupProperty::test_CreateGroup()
-{
-    GroupProperty_t property = GroupPropertyRegistry::createGroupProperty(
-        Constants::DistributionGroup);
-
-    QCOMPARE(property->currentType(), Constants::DistributionGaussianType);
+    GroupInfo groupInfo = GroupPropertyRegistry::groupInfo(Constants::DistributionGroup);
+    QCOMPARE(groupInfo.defaultType(), Constants::DistributionGaussianType);
 
     GroupItem groupItem;
     QCOMPARE(groupItem.children().size(), 0);
     QVERIFY(groupItem.currentItem() == nullptr);
 
     // setting group property and checking currentItem
-    groupItem.setGroup(property);
+    groupItem.setGroupInfo(groupInfo);
     QCOMPARE(groupItem.children().size(), 1);
     QCOMPARE(groupItem.children()[0], groupItem.currentItem());
     SessionItem *cosineItem = groupItem.currentItem();
     QCOMPARE(cosineItem->modelType(), Constants::DistributionGaussianType);
-    QCOMPARE(property->currentItem(), cosineItem);
 
-    // setting group property twice
-    QVERIFY_THROW(groupItem.setGroup(property), GUIHelpers::Error);
+    // setting group info twice
+    QVERIFY_THROW(groupItem.setGroupInfo(groupInfo), GUIHelpers::Error);
 
     // changing current item
     SessionItem *newItem = groupItem.setCurrentType(Constants::DistributionNoneType);
@@ -93,13 +78,12 @@ inline void TestGroupProperty::test_CreateGroup()
 
 //! Checking that GroupProperty stays functional if displayName of currentItem is changed.
 
-inline void TestGroupProperty::test_groupPropertyWithDisplayNames()
+inline void TestGroupItem::test_groupPropertyWithDisplayNames()
 {
-    GroupProperty_t property = GroupPropertyRegistry::createGroupProperty(
-        Constants::DistributionGroup);
+    GroupInfo groupInfo = GroupPropertyRegistry::groupInfo(Constants::DistributionGroup);
 
     GroupItem groupItem;
-    groupItem.setGroup(property);
+    groupItem.setGroupInfo(groupInfo);
 
     SessionItem *cosineItem = groupItem.currentItem();
     cosineItem->setDisplayName(Constants::DistributionCosineType+QString::number(0));

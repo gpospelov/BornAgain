@@ -16,23 +16,19 @@
 
 #include "GroupItemController.h"
 #include "ItemFactory.h"
+#include "ComboProperty.h"
 
-GroupItemController::GroupItemController()
-    : m_groupItem(nullptr)
+GroupItemController::GroupItemController(SessionItem* groupItem, GroupInfo groupInfo)
+    : m_groupItem(groupItem)
+    , m_groupInfo(groupInfo)
 {
+    m_current_type = m_groupInfo.defaultType();
+    m_groupItem->insertItem(-1, createCorrespondingItem());
 }
 
 SessionItem* GroupItemController::currentItem()
 {
     return m_groupItem ? m_groupItem->getChildOfType(currentType()) : nullptr;
-}
-
-void GroupItemController::setGroupItem(SessionItem* groupItem)
-{
-    Q_ASSERT(groupItem);
-    m_groupItem = groupItem;
-    SessionItem* item = createCorrespondingItem();
-    m_groupItem->insertItem(-1, item);
 }
 
 QString GroupItemController::currentType() const
@@ -45,7 +41,7 @@ void GroupItemController::setCurrentType(const QString& type)
     if (type == currentType())
         return;
 
-    SessionItem* prevItem = currentItem();
+    auto prevItem = currentItem();
     m_current_type = type;
 
     if (m_groupItem) {
@@ -53,29 +49,17 @@ void GroupItemController::setCurrentType(const QString& type)
             item->setVisible(true);
             item->setEnabled(true);
         } else {
-            SessionItem* new_item = createCorrespondingItem();
-            m_groupItem->insertItem(-1, new_item);
+            m_groupItem->insertItem(-1, createCorrespondingItem());
         }
         if (prevItem) {
             prevItem->setVisible(false);
             prevItem->setEnabled(false);
         }
-        //m_groupItem->emitDataChanged();
     }
 }
 
-void GroupItemController::setCurrentTypeName(const QString& type)
-{
-    if (type == currentType())
-        return;
-
-    SessionItem* prevItem = currentItem();
-    m_current_type = type;
-    if (prevItem) {
-        prevItem->setVisible(false);
-        prevItem->setEnabled(false);
-    }
-}
+//! Returns item of give type. If it doesn't exist, it will be created.
+//! Method do _not_ change current item.
 
 SessionItem* GroupItemController::getItemOfType(const QString& type)
 {
@@ -89,7 +73,6 @@ SessionItem* GroupItemController::getItemOfType(const QString& type)
                 new_item->setEnabled(false);
             }
             m_groupItem->insertItem(-1, new_item);
-            //m_groupItem->emitDataChanged();
             return new_item;
         }
     }
@@ -121,10 +104,12 @@ QStringList GroupItemController::itemLabels() const
     return m_groupInfo.itemLabels();
 }
 
-void GroupItemController::setGroupInfo(GroupInfo groupInfo)
+QVariant GroupItemController::createCombo() const
 {
-    m_groupInfo = std::move(groupInfo);
-    setCurrentType(m_groupInfo.defaultType());
+    ComboProperty result;
+    result.setValues(itemLabels());
+    result.setCurrentIndex(currentIndex());
+    return result.variant();
 }
 
 SessionItem* GroupItemController::addItem(const QString& item_type)

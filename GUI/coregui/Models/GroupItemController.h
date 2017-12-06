@@ -18,8 +18,8 @@
 #define GROUPITEMCONTROLLER_H
 
 #include "GroupInfo.h"
-#include <QSharedPointer>
 #include <QStringList>
+#include <QVariant>
 
 class SessionItem;
 
@@ -28,26 +28,27 @@ class SessionItem;
 class BA_CORE_API_ GroupItemController
 {
 public:
-    void setGroupItem(SessionItem* groupItem);
+    GroupItemController(SessionItem* groupItem, GroupInfo groupInfo);
 
     SessionItem* currentItem();
 
     QString currentType() const;
     void setCurrentType(const QString& type);
-    void setCurrentTypeName(const QString& type);
 
     SessionItem* getItemOfType(const QString& type);
 
     int currentIndex() const;
     void setCurrentIndex(int index);
 
+    // FIXME remove after qtpropertybrowserframework removal
     QString currentLabel() const;
 
     QStringList itemTypes() const;
+
+    // FIXME make private after qtpropertybrowserframework removal
     QStringList itemLabels() const;
 
-    GroupItemController();
-    void setGroupInfo(GroupInfo groupInfo);
+    QVariant createCombo() const;
 
 private:
 
@@ -62,6 +63,7 @@ private:
 };
 
 // TODO Remove simultaneously with qtpropertybrowserframework
+#include <QSharedPointer>
 typedef QSharedPointer<GroupItemController> ObsoleteGroupProperty_t;
 Q_DECLARE_METATYPE(ObsoleteGroupProperty_t)
 

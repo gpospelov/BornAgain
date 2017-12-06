@@ -20,17 +20,6 @@
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 
-namespace {
-QVariant createCombo(const GroupItemController& groupProperty)
-{
-    ComboProperty result;
-    result.setValues(groupProperty.itemLabels());
-    result.setCurrentIndex(groupProperty.currentIndex());
-    return result.variant();
-}
-
-}
-
 const QString GroupItem::T_ITEMS = "Item tag";
 
 GroupItem::GroupItem() : SessionItem(Constants::GroupItemType)
@@ -41,17 +30,14 @@ GroupItem::GroupItem() : SessionItem(Constants::GroupItemType)
     mapper()->setOnValueChange([this]() { onValueChange(); });
 }
 
-GroupItem::~GroupItem(){}
+GroupItem::~GroupItem() = default;
 
 void GroupItem::setGroupInfo(const GroupInfo& groupInfo)
 {
     if (m_controller)
         throw GUIHelpers::Error("GroupItem::setGroup() -> Error. Attempt to set group twice.");
 
-    m_controller.reset(new GroupItemController);
-    m_controller->setGroupInfo(groupInfo);
-    m_controller->setGroupItem(this);
-
+    m_controller = std::make_unique<GroupItemController>(this, groupInfo);
     updateComboValue();
 }
 
@@ -100,6 +86,6 @@ void GroupItem::onValueChange()
 
 void GroupItem::updateComboValue()
 {
-    setValue(createCombo(*m_controller.get()));
+    setValue(m_controller->createCombo());
 }
 

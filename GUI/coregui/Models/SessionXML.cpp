@@ -38,7 +38,7 @@ const QString qstring_type_name = "QString";
 void report_error(WarningMessageService* messageService, SessionItem* item,
                   const QString& error_type, const QString& message);
 
-SessionItem* createItem(SessionItem* parent, const QString& modelType, const QString& tag);
+SessionItem* createItem(SessionItem* item, const QString& modelType, const QString& tag);
 }
 
 void SessionXML::writeTo(QXmlStreamWriter* writer, SessionItem* parent)
@@ -255,20 +255,19 @@ void report_error(WarningMessageService* messageService, SessionItem* item,
     }
 }
 
-SessionItem* createItem(SessionItem* parent, const QString& modelType, const QString& tag)
+SessionItem* createItem(SessionItem* item, const QString& modelType, const QString& tag)
 {
     SessionItem* result(nullptr);
 
-    if (parent->modelType() == Constants::GroupItemType) {
-        result = parent->parent()
-                     ->item<GroupItem>(parent->parent()->tagFromItem(parent))
-                     .getItemOfType(modelType);
+    if (item->modelType() == Constants::GroupItemType) {
+        if (auto groupItem = dynamic_cast<GroupItem*>(item))
+            result = groupItem->getItemOfType(modelType);
     } else {
-        SessionTagInfo info = parent->getTagInfo(tag);
+        SessionTagInfo info = item->getTagInfo(tag);
         if (info.min == 1 && info.max == 1 && info.childCount == 1)
-            result = parent->getItem(tag);
+            result = item->getItem(tag);
         else
-            result = parent->model()->insertNewItem(modelType, parent->index(), -1, tag);
+            result = item->model()->insertNewItem(modelType, item->index(), -1, tag);
     }
     Q_ASSERT(result);
     return result;

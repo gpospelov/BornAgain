@@ -138,5 +138,4 @@ private:
     QCheckBox *m_checkBox;
 };
 
-
 #endif  //  CUSTOMEDITORS_H

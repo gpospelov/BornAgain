@@ -54,7 +54,7 @@ private slots:
     void slotSetValue(const ExternalProperty &value);
     void slotSetValue(const ObsoleteColorProperty &value);
     void slotSetValue(const ObsoleteScientificDoubleProperty &value);
-    void slotSetValue(const GroupProperty_t &value);
+    void slotSetValue(const ObsoleteGroupProperty_t &value);
     void slotSetValue(const ComboProperty &value);
     void slotEditorDestroyed(QObject *object);
     void slotPropertyAttributeChanged(QtProperty *, const QString &, const QVariant &);

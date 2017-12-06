@@ -117,8 +117,8 @@ void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int ro
 
         }
 
-        else if (type_name == Constants::GroupPropertyType) {
-            QString ff_name = variant.value<GroupProperty_t>()->currentType();
+        else if (type_name == Constants::ObsoleteGroupPropertyType) {
+            QString ff_name = variant.value<ObsoleteGroupProperty_t>()->currentType();
             writer->writeAttribute(SessionXML::ParameterValueAttribute, ff_name);
         }
 
@@ -234,18 +234,18 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
         variant = combo_property.variant();
     }
 
-    else if (parameter_type == Constants::GroupPropertyType) {
+    else if (parameter_type == Constants::ObsoleteGroupPropertyType) {
         QString parameter_value
             = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
 
         QVariant v = item->value();
-        if (!v.canConvert<GroupProperty_t>()) {
+        if (!v.canConvert<ObsoleteGroupProperty_t>()) {
             report_error(messageService, item, SET_ITEM_PROPERTY_ERROR,
                          QStringLiteral("GroupProperty conversion failed"));
         } else {
-            GroupProperty_t group_property = v.value<GroupProperty_t>();
+            ObsoleteGroupProperty_t group_property = v.value<ObsoleteGroupProperty_t>();
             group_property->setCurrentTypeName(parameter_value);
-            variant = QVariant::fromValue<GroupProperty_t>(group_property);
+            variant = QVariant::fromValue<ObsoleteGroupProperty_t>(group_property);
         }
     }
 

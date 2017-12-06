@@ -57,7 +57,7 @@ bool isExternalProperty(const QVariant& variant)
 
 bool isGroupProperty(const QVariant& variant)
 {
-    return variant.canConvert<GroupProperty_t>();
+    return variant.canConvert<ObsoleteGroupProperty_t>();
 }
 
 bool isComboProperty(const QVariant& variant)
@@ -97,7 +97,7 @@ QString PropertyEditorFactory::ToString(const QVariant& variant)
     if (isExternalProperty(variant))
         return variant.value<ExternalProperty>().text();
     if (isGroupProperty(variant))
-        return variant.value<GroupProperty_t>()->currentLabel();
+        return variant.value<ObsoleteGroupProperty_t>()->currentLabel();
     if (isComboProperty(variant))
         return variant.value<ComboProperty>().getValue();
     if (isBoolProperty(variant))

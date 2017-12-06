@@ -197,25 +197,25 @@ GroupPropertyEditor::GroupPropertyEditor(QWidget* parent)
 
 void GroupPropertyEditor::onIndexChanged(int index)
 {
-    GroupProperty_t groupProperty = m_data.value<GroupProperty_t>();
+    ObsoleteGroupProperty_t groupProperty = m_data.value<ObsoleteGroupProperty_t>();
 
     if (groupProperty->currentIndex() != index) {
         groupProperty->setCurrentIndex(index);
-        setDataIntern(QVariant::fromValue<GroupProperty_t>(groupProperty));
+        setDataIntern(QVariant::fromValue<ObsoleteGroupProperty_t>(groupProperty));
     }
 }
 
 QStringList GroupPropertyEditor::internLabels()
 {
-    Q_ASSERT(m_data.canConvert<GroupProperty_t>());
-    GroupProperty_t groupProperty = m_data.value<GroupProperty_t>();
+    Q_ASSERT(m_data.canConvert<ObsoleteGroupProperty_t>());
+    ObsoleteGroupProperty_t groupProperty = m_data.value<ObsoleteGroupProperty_t>();
     return groupProperty->itemLabels();
 }
 
 int GroupPropertyEditor::internIndex()
 {
-    Q_ASSERT(m_data.canConvert<GroupProperty_t>());
-    GroupProperty_t groupProperty = m_data.value<GroupProperty_t>();
+    Q_ASSERT(m_data.canConvert<ObsoleteGroupProperty_t>());
+    ObsoleteGroupProperty_t groupProperty = m_data.value<ObsoleteGroupProperty_t>();
     return groupProperty->currentIndex();
 }
 

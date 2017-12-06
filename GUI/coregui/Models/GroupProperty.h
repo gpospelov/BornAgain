@@ -64,7 +64,7 @@ private:
     GroupInfo m_groupInfo;
 };
 
-typedef QSharedPointer<GroupProperty> GroupProperty_t;
-Q_DECLARE_METATYPE(GroupProperty_t)
+typedef QSharedPointer<GroupProperty> ObsoleteGroupProperty_t;
+Q_DECLARE_METATYPE(ObsoleteGroupProperty_t)
 
 #endif // GROUPPROPERTY_H

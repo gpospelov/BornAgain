@@ -59,7 +59,7 @@ private:
     QMap<const QtProperty *, ExternalProperty> m_theMaterialValues;
     QMap<const QtProperty *, ObsoleteColorProperty> m_theColorValues;
     QMap<const QtProperty *, ObsoleteScientificDoubleProperty> m_theScientificDoubleValues;
-    QMap<const QtProperty *, GroupProperty_t> m_theFancyGroupValues;
+    QMap<const QtProperty *, ObsoleteGroupProperty_t> m_theFancyGroupValues;
     QMap<const QtProperty *, ComboProperty> m_theComboValues;
 };
 

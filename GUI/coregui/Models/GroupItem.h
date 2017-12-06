@@ -44,8 +44,8 @@ public:
 private:
     void onValueChange();
     void updateValue();
-    GroupProperty_t groupProperty() const;
-    GroupProperty_t m_groupProperty;
+    ObsoleteGroupProperty_t groupProperty() const;
+    ObsoleteGroupProperty_t m_groupProperty;
 };
 
 #endif // GROUPITEM_H

@@ -21,7 +21,7 @@
 #include "GUIHelpers.h"
 
 namespace {
-QVariant createCombo(GroupProperty_t groupProperty)
+QVariant createCombo(ObsoleteGroupProperty_t groupProperty)
 {
     ComboProperty result;
     result.setValues(groupProperty->itemLabels());
@@ -46,7 +46,7 @@ void GroupItem::setGroupInfo(const GroupInfo& groupInfo)
     if (m_groupProperty)
         throw GUIHelpers::Error("GroupItem::setGroup() -> Error. Attempt to set group twice.");
 
-    GroupProperty_t prop(new GroupProperty);
+    ObsoleteGroupProperty_t prop(new GroupProperty);
     prop->setGroupInfo(groupInfo);
 
     prop->setGroupItem(this);
@@ -89,7 +89,7 @@ QStringList GroupItem::translateList(const QStringList& list) const
     return list;
 }
 
-GroupProperty_t GroupItem::groupProperty() const
+ObsoleteGroupProperty_t GroupItem::groupProperty() const
 {
     return m_groupProperty;
 //    return value().value<GroupProperty_t>();

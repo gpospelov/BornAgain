@@ -118,7 +118,7 @@ ObsoleteGroupPropertyEdit::~ObsoleteGroupPropertyEdit()
 {
 }
 
-void ObsoleteGroupPropertyEdit::setGroupProperty(GroupProperty_t groupProperty)
+void ObsoleteGroupPropertyEdit::setGroupProperty(ObsoleteGroupProperty_t groupProperty)
 {
     if(groupProperty) {
         m_groupProperty = groupProperty;
@@ -168,12 +168,12 @@ QSize ObsoleteGroupPropertyEdit::minimumSizeHint() const
     return QSize(100,10);
 }
 
-GroupProperty_t ObsoleteGroupPropertyEdit::group() const
+ObsoleteGroupProperty_t ObsoleteGroupPropertyEdit::group() const
 {
     return m_groupProperty;
 }
 
-void ObsoleteGroupPropertyEdit::setGroup(GroupProperty_t group)
+void ObsoleteGroupPropertyEdit::setGroup(ObsoleteGroupProperty_t group)
 {
     setGroupProperty(group);
 }

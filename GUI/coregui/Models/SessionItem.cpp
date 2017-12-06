@@ -16,11 +16,11 @@
 
 #include "GUIHelpers.h"
 #include "GroupItem.h"
-#include "GroupPropertyRegistry.h"
 #include "ItemFactory.h"
 #include "ParameterTranslators.h"
 #include "SessionModel.h"
 #include "VectorItem.h"
+#include "SessionItemUtils.h"
 
 class SessionItemData
 {
@@ -356,9 +356,9 @@ SessionItem* SessionItem::addGroupProperty(const QString& groupTag, const QStrin
 {
     SessionItem* result(0);
 
-    if(GroupPropertyRegistry::isValidGroup(groupType)) {
+    if(SessionItemUtils::IsValidGroup(groupType)) {
         // create group item
-        GroupInfo groupInfo = GroupPropertyRegistry::groupInfo(groupType);
+        GroupInfo groupInfo = SessionItemUtils::GetGroupInfo(groupType);
         GroupItem* groupItem = dynamic_cast<GroupItem*>(
                     ItemFactory::createItem(Constants::GroupItemType));
         Q_ASSERT(groupItem);

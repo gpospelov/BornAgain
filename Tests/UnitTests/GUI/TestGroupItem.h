@@ -3,9 +3,9 @@
 #include "GroupInfo.h"
 #include "GroupItem.h"
 #include "ComboProperty.h"
-#include "GroupPropertyRegistry.h"
 #include "GUIHelpers.h"
 #include "SessionModel.h"
+#include "SessionItemUtils.h"
 
 class TestGroupItem : public QObject {
     Q_OBJECT
@@ -51,7 +51,7 @@ inline void TestGroupItem::test_CreateGroup()
 {
     SessionModel model("TestModel");
 
-    GroupInfo groupInfo = GroupPropertyRegistry::groupInfo(Constants::FormFactorGroup);
+    GroupInfo groupInfo = SessionItemUtils::GetGroupInfo(Constants::FormFactorGroup);
     QCOMPARE(groupInfo.defaultType(), Constants::CylinderType);
 
     auto groupItem = dynamic_cast<GroupItem*>(model.insertNewItem(Constants::GroupItemType));
@@ -103,7 +103,7 @@ inline void TestGroupItem::test_CreateGroup()
 
 inline void TestGroupItem::test_groupPropertyWithDisplayNames()
 {
-    GroupInfo groupInfo = GroupPropertyRegistry::groupInfo(Constants::DistributionGroup);
+    GroupInfo groupInfo = SessionItemUtils::GetGroupInfo(Constants::DistributionGroup);
 
     GroupItem groupItem;
     groupItem.setGroupInfo(groupInfo);

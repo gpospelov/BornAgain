@@ -19,9 +19,18 @@
 #include "VectorItem.h"
 #include "MaterialItem.h"
 #include "ExternalProperty.h"
+#include "GroupInfoCatalogue.h"
 #include <QColor>
 #include <QIcon>
 #include <QPixmap>
+
+namespace {
+const GroupInfoCatalogue& groupInfoCatalogue()
+{
+    static GroupInfoCatalogue s_catalogue = GroupInfoCatalogue();
+    return s_catalogue;
+}
+}
 
 int SessionItemUtils::ParentRow(const SessionItem& item)
 {
@@ -97,4 +106,14 @@ QVariant SessionItemUtils::CheckStateRole(const SessionItem& item)
     if (item.value().type() == QVariant::Bool)
         return item.value().toBool() ? Qt::Checked : Qt::Unchecked;
     return QVariant();
+}
+
+bool SessionItemUtils::IsValidGroup(const QString& group_type)
+{
+    return groupInfoCatalogue().containsGroup(group_type);
+}
+
+GroupInfo SessionItemUtils::GetGroupInfo(const QString& group_type)
+{
+    return groupInfoCatalogue().groupInfo(group_type);
 }

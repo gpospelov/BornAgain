@@ -118,11 +118,6 @@ void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int ro
 
         }
 
-        else if (type_name == Constants::ObsoleteGroupPropertyType) {
-            QString ff_name = variant.value<ObsoleteGroupProperty_t>()->currentType();
-            writer->writeAttribute(SessionXML::ParameterValueAttribute, ff_name);
-        }
-
         else {
             throw GUIHelpers::Error("SessionModel::writeProperty: Parameter type not supported "
                                     + type_name);
@@ -233,21 +228,6 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
         combo_property.setCurrentIndex(parameter_value);
 
         variant = combo_property.variant();
-    }
-
-    else if (parameter_type == Constants::ObsoleteGroupPropertyType) {
-        QString parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
-
-        QVariant v = item->value();
-        if (!v.canConvert<ObsoleteGroupProperty_t>()) {
-            report_error(messageService, item, SET_ITEM_PROPERTY_ERROR,
-                         QStringLiteral("GroupProperty conversion failed"));
-        } else {
-            ObsoleteGroupProperty_t group_property = v.value<ObsoleteGroupProperty_t>();
-            group_property->setCurrentTypeName(parameter_value);
-            variant = QVariant::fromValue<ObsoleteGroupProperty_t>(group_property);
-        }
     }
 
     else {

@@ -18,7 +18,6 @@
 #include "GUIHelpers.h"
 #include "GroupItemController.h"
 #include "ComboProperty.h"
-#include <QDebug>
 #include "GUIHelpers.h"
 
 namespace {
@@ -89,11 +88,8 @@ void GroupItem::onValueChange()
     if (!value().canConvert<ComboProperty>())
         throw GUIHelpers::Error("GroupItem::onValueChange() -> Error. Wrong property type");
 
-    qDebug() << "GroupItem::onValueChange()";
-
     ComboProperty property = value().value<ComboProperty>();
     if (property.currentIndex() != m_controller->currentIndex()) {
-        qDebug() << "GroupItem::onValueChange() -> setting index" << property.currentIndex();
         m_controller->setCurrentIndex(property.currentIndex());
         // because of the delay between ComboProperty change and the change in GroupItem here,
         // we have to emit signals once again to inform other views (i.e. views other than the view

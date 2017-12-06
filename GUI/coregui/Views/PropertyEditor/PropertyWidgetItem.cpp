@@ -98,31 +98,20 @@ const SessionItem* PropertyWidgetItem::item()
 void PropertyWidgetItem::connectEditor(QWidget* editor)
 {
     if (auto combo = dynamic_cast<ComboPropertyEditor*>(editor)) {
-        // Hack: QDataWidgetMapper doesn't listen for the widget (QComboBox is somewhat special).
-//        connect(combo, &ComboPropertyEditor::currentIndexChanged,
-//                [=] { m_delegate->commitData(combo); });
         connect(combo, &ComboPropertyEditor::dataChanged,
                 [=] { m_delegate->commitData(combo); });
 
-        // TODO after merging GroupProperty and ComboProperty
-        // 1) cast to CustomEditor
-        // 2) switch to CustomEditor::dataChanged()
-
     } else if (auto spinbox = dynamic_cast<QSpinBox*>(editor)) {
-        // To provide update of the model on valueChanged() and not only on editingFinished()
         connect(spinbox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
                 [=] { m_delegate->commitData(spinbox); });
 
     } else if (auto spinbox = dynamic_cast<QDoubleSpinBox*>(editor)) {
-        // To provide update of the model on valueChanged() and not only on editingFinished()
         connect(spinbox,
                 static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged),
                 [=] { m_delegate->commitData(spinbox); });
 
     } else if (auto spinbox = dynamic_cast<ScientificDoublePropertyEditor*>(editor)) {
-        // To provide update of the model on valueChanged() and not only on editingFinished()
         connect(spinbox, &ScientificDoublePropertyEditor::dataChanged,
                 [=] { m_delegate->commitData(spinbox); });
     }
-
 }

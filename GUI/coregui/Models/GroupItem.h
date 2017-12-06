@@ -43,6 +43,7 @@ public:
 
 private:
     void onValueChange();
+    void updateValue();
     GroupProperty_t groupProperty() const;
     GroupProperty_t m_groupProperty;
 };

@@ -21,16 +21,6 @@
 #include "GUIHelpers.h"
 
 namespace {
-//QVariant createCombo(const GroupInfo& groupInfo)
-//{
-//    ComboProperty result;
-//    result.setValues(groupInfo.itemLabels());
-
-//    int index = groupInfo.itemTypes().indexOf(groupInfo.defaultType());
-//    result.setCurrentIndex(index);
-//    return result.variant();
-//}
-
 QVariant createCombo(GroupProperty_t groupProperty)
 {
     ComboProperty result;
@@ -61,8 +51,8 @@ void GroupItem::setGroupInfo(const GroupInfo& groupInfo)
 
     prop->setGroupItem(this);
     m_groupProperty = prop;
-    setValue(createCombo(groupProperty()));
-    emitDataChanged(); // necessary because ComboProperty variant comparators are disabled
+
+    updateValue();
 
 //    setValue(QVariant::fromValue(groupProperty));
 }
@@ -88,8 +78,7 @@ SessionItem* GroupItem::setCurrentType(const QString& modelType)
     qDebug() << "GroupItem::setCurrentType -> current"
              << groupProperty()->currentType() << groupProperty()->currentIndex();
 
-    setValue(createCombo(groupProperty()));
-    emitDataChanged(); // necessary because ComboProperty variant comparators are disabled
+    updateValue();
 
     return currentItem();
 }
@@ -126,6 +115,15 @@ void GroupItem::onValueChange()
     if (property.currentIndex() != m_groupProperty->currentIndex()) {
         qDebug() << "GroupItem::onValueChange() -> setting index" << property.currentIndex();
         m_groupProperty->setCurrentIndex(property.currentIndex());
+        // because of the delay between ComboProperty change and the change in GroupItem here,
+        // we have to emit signals once again to inform other views (i.e. views other than the view
+        // were property was changed
+        emitDataChanged(Qt::DisplayRole | Qt::EditRole);
     }
+}
+
+void GroupItem::updateValue()
+{
+    setValue(createCombo(groupProperty()));
 }
 

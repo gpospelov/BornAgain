@@ -17,7 +17,6 @@
 #include "ParticleView.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
-#include "GroupProperty.h"
 #include "ParticleItem.h"
 #include "FormFactorItems.h"
 #include <QObject>

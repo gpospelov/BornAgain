@@ -16,16 +16,17 @@
 
 #include "GroupItem.h"
 #include "GUIHelpers.h"
+#include "GroupItemController.h"
 #include "ComboProperty.h"
 #include <QDebug>
 #include "GUIHelpers.h"
 
 namespace {
-QVariant createCombo(ObsoleteGroupProperty_t groupProperty)
+QVariant createCombo(const GroupItemController& groupProperty)
 {
     ComboProperty result;
-    result.setValues(groupProperty->itemLabels());
-    result.setCurrentIndex(groupProperty->currentIndex());
+    result.setValues(groupProperty.itemLabels());
+    result.setCurrentIndex(groupProperty.currentIndex());
     return result.variant();
 }
 
@@ -41,45 +42,34 @@ GroupItem::GroupItem() : SessionItem(Constants::GroupItemType)
     mapper()->setOnValueChange([this]() { onValueChange(); });
 }
 
+GroupItem::~GroupItem(){}
+
 void GroupItem::setGroupInfo(const GroupInfo& groupInfo)
 {
-    if (m_groupProperty)
+    if (m_controller)
         throw GUIHelpers::Error("GroupItem::setGroup() -> Error. Attempt to set group twice.");
 
-    ObsoleteGroupProperty_t prop(new GroupProperty);
-    prop->setGroupInfo(groupInfo);
+    m_controller.reset(new GroupItemController);
+    m_controller->setGroupInfo(groupInfo);
+    m_controller->setGroupItem(this);
 
-    prop->setGroupItem(this);
-    m_groupProperty = prop;
-
-    updateValue();
-
-//    setValue(QVariant::fromValue(groupProperty));
+    updateComboValue();
 }
 
 SessionItem* GroupItem::currentItem() const
 {
-//    return value().isValid() ? groupProperty()->currentItem() : nullptr;
-    return groupProperty() ? groupProperty()->currentItem() : nullptr;
+    return m_controller ? m_controller->currentItem() : nullptr;
 }
 
 QString GroupItem::currentType() const
 {
-    return groupProperty()->currentType();
+    return m_controller->currentType();
 }
 
-#include <QDebug>
 SessionItem* GroupItem::setCurrentType(const QString& modelType)
 {
-    qDebug() << "GroupItem::setCurrentType -> current"
-             << groupProperty()->currentType() << groupProperty()->currentIndex();
-    qDebug() << "   setting" << modelType;
-    groupProperty()->setCurrentType(modelType);
-    qDebug() << "GroupItem::setCurrentType -> current"
-             << groupProperty()->currentType() << groupProperty()->currentIndex();
-
-    updateValue();
-
+    m_controller->setCurrentType(modelType);
+    updateComboValue();
     return currentItem();
 }
 
@@ -89,19 +79,9 @@ QStringList GroupItem::translateList(const QStringList& list) const
     return list;
 }
 
-ObsoleteGroupProperty_t GroupItem::groupProperty() const
-{
-    return m_groupProperty;
-//    return value().value<GroupProperty_t>();
-}
-
 SessionItem* GroupItem::getItemOfType(const QString& type)
 {
-    SessionItem* result = groupProperty()->getItemOfType(type);
-
-//    setValue(createCombo(groupProperty()));
-
-    return result;
+    return m_controller->getItemOfType(type);
 }
 
 void GroupItem::onValueChange()
@@ -112,18 +92,18 @@ void GroupItem::onValueChange()
     qDebug() << "GroupItem::onValueChange()";
 
     ComboProperty property = value().value<ComboProperty>();
-    if (property.currentIndex() != m_groupProperty->currentIndex()) {
+    if (property.currentIndex() != m_controller->currentIndex()) {
         qDebug() << "GroupItem::onValueChange() -> setting index" << property.currentIndex();
-        m_groupProperty->setCurrentIndex(property.currentIndex());
+        m_controller->setCurrentIndex(property.currentIndex());
         // because of the delay between ComboProperty change and the change in GroupItem here,
         // we have to emit signals once again to inform other views (i.e. views other than the view
-        // were property was changed
+        // were property was changed)
         emitDataChanged(Qt::DisplayRole | Qt::EditRole);
     }
 }
 
-void GroupItem::updateValue()
+void GroupItem::updateComboValue()
 {
-    setValue(createCombo(groupProperty()));
+    setValue(createCombo(*m_controller.get()));
 }
 

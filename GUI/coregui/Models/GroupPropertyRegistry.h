@@ -17,7 +17,7 @@
 #ifndef GROUPPROPERTYREGISTRY_H
 #define GROUPPROPERTYREGISTRY_H
 
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "GroupInfoCatalogue.h"
 #include "item_constants.h"
 

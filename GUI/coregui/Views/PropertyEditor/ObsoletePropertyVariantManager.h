@@ -21,7 +21,7 @@
 
 #include "ObsoleteColorProperty.h"
 #include "ComboProperty.h"
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "ExternalProperty.h"
 #include "ObsoleteScientificDoubleProperty.h"
 #include <QtVariantPropertyManager>

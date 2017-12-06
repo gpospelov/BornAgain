@@ -19,7 +19,7 @@
 
 //! collection of classes extending QtPropertyBrowser functionality
 
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include <QtVariantEditorFactory>
 
 class ObsoleteMaterialPropertyEdit;

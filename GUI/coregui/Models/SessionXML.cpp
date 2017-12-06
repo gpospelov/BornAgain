@@ -20,6 +20,7 @@
 #include "GroupItem.h"
 #include "ItemFactory.h"
 #include "ExternalProperty.h"
+#include "GroupItemController.h"
 #include "SessionModel.h"
 #include "WarningMessageService.h"
 #include <QtCore/QXmlStreamWriter>

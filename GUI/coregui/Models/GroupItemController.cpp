@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/GroupProperty.cpp
-//! @brief     Implements class GroupProperty
+//! @file      GUI/coregui/Models/GroupItemController.cpp
+//! @brief     Implements class GroupItemController
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,20 +14,20 @@
 //
 // ************************************************************************** //
 
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "ItemFactory.h"
 
-GroupProperty::GroupProperty()
+GroupItemController::GroupItemController()
     : m_groupItem(nullptr)
 {
 }
 
-SessionItem* GroupProperty::currentItem()
+SessionItem* GroupItemController::currentItem()
 {
     return m_groupItem ? m_groupItem->getChildOfType(currentType()) : nullptr;
 }
 
-void GroupProperty::setGroupItem(SessionItem* groupItem)
+void GroupItemController::setGroupItem(SessionItem* groupItem)
 {
     Q_ASSERT(groupItem);
     m_groupItem = groupItem;
@@ -35,12 +35,12 @@ void GroupProperty::setGroupItem(SessionItem* groupItem)
     m_groupItem->insertItem(-1, item);
 }
 
-QString GroupProperty::currentType() const
+QString GroupItemController::currentType() const
 {
     return m_current_type;
 }
 
-void GroupProperty::setCurrentType(const QString& type)
+void GroupItemController::setCurrentType(const QString& type)
 {
     if (type == currentType())
         return;
@@ -64,7 +64,7 @@ void GroupProperty::setCurrentType(const QString& type)
     }
 }
 
-void GroupProperty::setCurrentTypeName(const QString& type)
+void GroupItemController::setCurrentTypeName(const QString& type)
 {
     if (type == currentType())
         return;
@@ -77,7 +77,7 @@ void GroupProperty::setCurrentTypeName(const QString& type)
     }
 }
 
-SessionItem* GroupProperty::getItemOfType(const QString& type)
+SessionItem* GroupItemController::getItemOfType(const QString& type)
 {
     if (m_groupItem) {
         if (auto item = m_groupItem->getChildOfType(type)) {
@@ -96,53 +96,53 @@ SessionItem* GroupProperty::getItemOfType(const QString& type)
     return nullptr;
 }
 
-int GroupProperty::currentIndex() const
+int GroupItemController::currentIndex() const
 {
     return toIndex(m_current_type);
 }
 
-void GroupProperty::setCurrentIndex(int index)
+void GroupItemController::setCurrentIndex(int index)
 {
     setCurrentType(toString(index));
 }
 
-QString GroupProperty::currentLabel() const
+QString GroupItemController::currentLabel() const
 {
     return itemLabels().at(currentIndex());
 }
 
-QStringList GroupProperty::itemTypes() const
+QStringList GroupItemController::itemTypes() const
 {
     return m_groupInfo.itemTypes();
 }
 
-QStringList GroupProperty::itemLabels() const
+QStringList GroupItemController::itemLabels() const
 {
     return m_groupInfo.itemLabels();
 }
 
-void GroupProperty::setGroupInfo(GroupInfo groupInfo)
+void GroupItemController::setGroupInfo(GroupInfo groupInfo)
 {
     m_groupInfo = std::move(groupInfo);
     setCurrentType(m_groupInfo.defaultType());
 }
 
-SessionItem* GroupProperty::addItem(const QString& item_type)
+SessionItem* GroupItemController::addItem(const QString& item_type)
 {
     return ItemFactory::createItem(item_type);
 }
 
-SessionItem* GroupProperty::createCorrespondingItem()
+SessionItem* GroupItemController::createCorrespondingItem()
 {
     return addItem(currentType());
 }
 
-int GroupProperty::toIndex(const QString& type) const
+int GroupItemController::toIndex(const QString& type) const
 {
     return itemTypes().indexOf(type);
 }
 
-QString GroupProperty::toString(int index) const
+QString GroupItemController::toString(int index) const
 {
     return itemTypes().at(index);
 }

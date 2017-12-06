@@ -17,7 +17,7 @@
 #include "CustomEditors.h"
 #include "CustomEventFilters.h"
 #include "ExternalProperty.h"
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "ComboProperty.h"
 #include "ObsoleteColorProperty.h"
 #include "MaterialItemUtils.h"

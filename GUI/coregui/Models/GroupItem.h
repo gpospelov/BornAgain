@@ -18,17 +18,18 @@
 #define GROUPITEM_H
 
 #include "SessionItem.h"
-#include "GroupProperty.h"
 #include "GroupInfo.h"
 #include <memory>
 
 class GroupInfo;
+class GroupItemController;
 
 class BA_CORE_API_ GroupItem : public SessionItem
 {
 public:
     static const QString T_ITEMS;
     GroupItem();
+    ~GroupItem();
 
     void setGroupInfo(const GroupInfo& groupInfo);
     SessionItem* currentItem() const;
@@ -43,9 +44,8 @@ public:
 
 private:
     void onValueChange();
-    void updateValue();
-    ObsoleteGroupProperty_t groupProperty() const;
-    ObsoleteGroupProperty_t m_groupProperty;
+    void updateComboValue();
+    std::unique_ptr<GroupItemController> m_controller;
 };
 
 #endif // GROUPITEM_H

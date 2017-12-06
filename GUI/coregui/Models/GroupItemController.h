@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/GroupProperty.h
-//! @brief     Defines class GroupProperty
+//! @file      GUI/coregui/Models/GroupItemController.h
+//! @brief     Defines class GroupItemController
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,8 +14,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GROUPPROPERTY_H
-#define GROUPPROPERTY_H
+#ifndef GROUPITEMCONTROLLER_H
+#define GROUPITEMCONTROLLER_H
 
 #include "GroupInfo.h"
 #include <QSharedPointer>
@@ -24,13 +24,10 @@
 class SessionItem;
 
 //! Provides logic for manipulating items belonging to GroupItem parent.
-//! Its construction is handled by a GroupPropertyRegistry object.
 
-class BA_CORE_API_ GroupProperty
+class BA_CORE_API_ GroupItemController
 {
 public:
-    friend class GroupPropertyRegistry;
-
     void setGroupItem(SessionItem* groupItem);
 
     SessionItem* currentItem();
@@ -49,7 +46,7 @@ public:
     QStringList itemTypes() const;
     QStringList itemLabels() const;
 
-    GroupProperty();
+    GroupItemController();
     void setGroupInfo(GroupInfo groupInfo);
 
 private:
@@ -64,7 +61,8 @@ private:
     GroupInfo m_groupInfo;
 };
 
-typedef QSharedPointer<GroupProperty> ObsoleteGroupProperty_t;
+// TODO Remove simultaneously with qtpropertybrowserframework
+typedef QSharedPointer<GroupItemController> ObsoleteGroupProperty_t;
 Q_DECLARE_METATYPE(ObsoleteGroupProperty_t)
 
-#endif // GROUPPROPERTY_H
+#endif // GROUPITEMCONTROLLER_H

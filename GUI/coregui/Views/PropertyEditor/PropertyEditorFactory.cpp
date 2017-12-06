@@ -18,7 +18,7 @@
 #include "SessionItem.h"
 #include "RealLimits.h"
 #include "ExternalProperty.h"
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "CustomEditors.h"
 #include "ComboProperty.h"
 #include "CustomEventFilters.h"

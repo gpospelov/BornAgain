@@ -16,7 +16,7 @@
 #include "ObsoleteComponentEditor.h"
 #include "ObsoleteComponentEditorPrivate.h"
 #include "GroupItem.h"
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "SessionItem.h"
 #include "SessionModel.h"
 #include "qtpropertybrowser.h"

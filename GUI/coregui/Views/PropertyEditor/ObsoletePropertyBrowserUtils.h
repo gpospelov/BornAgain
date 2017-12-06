@@ -21,7 +21,7 @@
 #include "ExternalProperty.h"
 #include "ObsoleteColorProperty.h"
 #include "ObsoleteScientificDoubleProperty.h"
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "ComboProperty.h"
 
 class QLabel;

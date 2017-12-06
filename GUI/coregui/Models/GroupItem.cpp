@@ -34,9 +34,16 @@ void GroupItem::setGroup(GroupProperty_t group)
     setValue(QVariant::fromValue(group));
 }
 
-GroupProperty_t GroupItem::groupProperty() const
+void GroupItem::setGroupInfo(const GroupInfo& groupInfo)
 {
-    return value().value<GroupProperty_t>();
+    if (m_groupInfo.isValid())
+        throw GUIHelpers::Error("GroupItem::setGroup() -> Error. Attempt to set GroupInfo twice.");
+
+    m_groupInfo = groupInfo;
+
+    GroupProperty_t groupProperty(new GroupProperty);
+    groupProperty->setGroupInfo(groupInfo);
+    setGroup(groupProperty);
 }
 
 SessionItem* GroupItem::currentItem() const
@@ -62,3 +69,14 @@ QStringList GroupItem::translateList(const QStringList& list) const
     // we do not add here the name of itself
     return list;
 }
+
+GroupProperty_t GroupItem::groupProperty() const
+{
+    return value().value<GroupProperty_t>();
+}
+
+SessionItem* GroupItem::getItemOfType(const QString& type)
+{
+    return groupProperty()->getItemOfType(type);
+}
+

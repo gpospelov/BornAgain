@@ -19,6 +19,10 @@
 
 #include "SessionItem.h"
 #include "GroupProperty.h"
+#include "GroupInfo.h"
+#include <memory>
+
+class GroupInfo;
 
 class BA_CORE_API_ GroupItem : public SessionItem
 {
@@ -27,7 +31,7 @@ public:
     GroupItem();
 
     void setGroup(GroupProperty_t groupProperty);
-    GroupProperty_t groupProperty() const;
+    void setGroupInfo(const GroupInfo& groupInfo);
     SessionItem* currentItem() const;
 
     QString currentType() const;
@@ -35,6 +39,13 @@ public:
     SessionItem* setCurrentType(const QString& modelType);
 
     QStringList translateList(const QStringList& list) const;
+
+    SessionItem* getItemOfType(const QString& type);
+
+private:
+    GroupProperty_t groupProperty() const;
+
+    GroupInfo m_groupInfo;
 };
 
 #endif // GROUPITEM_H

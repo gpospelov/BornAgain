@@ -49,10 +49,11 @@ public:
     QStringList itemTypes() const;
     QStringList itemLabels() const;
 
-private:
     GroupProperty();
-
     void setGroupInfo(GroupInfo groupInfo);
+
+private:
+
     SessionItem* addItem(const QString& item_type);
     SessionItem* createCorrespondingItem();
     int toIndex(const QString& type) const;

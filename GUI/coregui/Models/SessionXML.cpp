@@ -281,8 +281,7 @@ SessionItem* createItem(SessionItem* parent, const QString& modelType, const QSt
     if (parent->modelType() == Constants::GroupItemType) {
         result = parent->parent()
                      ->item<GroupItem>(parent->parent()->tagFromItem(parent))
-                     .groupProperty()
-                     ->getItemOfType(modelType);
+                     .getItemOfType(modelType);
     } else {
         SessionTagInfo info = parent->getTagInfo(tag);
         if (info.min == 1 && info.max == 1 && info.childCount == 1)

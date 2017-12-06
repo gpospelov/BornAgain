@@ -30,6 +30,7 @@ public:
 
     static GroupProperty_t createGroupProperty(const Constants::ModelType& group_type);
 
+    static GroupInfo groupInfo(const Constants::ModelType& group_type);
 private:
     static const GroupInfoCatalogue& catalogue();
 };

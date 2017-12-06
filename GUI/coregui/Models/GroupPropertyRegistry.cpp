@@ -29,6 +29,11 @@ GroupProperty_t GroupPropertyRegistry::createGroupProperty(const Constants::Mode
     return result;
 }
 
+GroupInfo GroupPropertyRegistry::groupInfo(const Constants::ModelType& group_type)
+{
+    return catalogue().groupInfo(group_type);
+}
+
 const GroupInfoCatalogue& GroupPropertyRegistry::catalogue()
 {
     static GroupInfoCatalogue s_catalogue = GroupInfoCatalogue();

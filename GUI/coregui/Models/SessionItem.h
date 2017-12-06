@@ -89,8 +89,8 @@ public:
     void setItemValue(const QString& tag, const QVariant& variant);
 
     // convenience functions for groups
-    SessionItem* addGroupProperty(const QString& groupName, const QString& groupType);
-    SessionItem* setGroupProperty(const QString& name, const QString& value) const;
+    SessionItem* addGroupProperty(const QString& groupTag, const QString& groupType);
+    SessionItem* setGroupProperty(const QString& groupTag, const QString& modelType) const;
     SessionItem* getGroupItem(const QString& groupName) const;
     template<typename T> T& groupItem(const QString& groupName) const;
 

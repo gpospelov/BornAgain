@@ -26,9 +26,7 @@
 #include "MultiLayer.h"
 #include "SampleModel.h"
 #include "ComponentTreeView.h"
-#include "ObsoleteComponentEditor.h"
 #include "minisplitter.h"
-#include "ObsoleteComponentBoxEditor.h"
 #include "ComponentFlatView.h"
 #include "MaterialItem.h"
 #include "MaterialDataItem.h"
@@ -52,8 +50,6 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     , m_updateButton(new QPushButton("Update models"))
     , m_addItemButton(new QPushButton("Add item"))
     , m_expandButton(new QPushButton("Expand tree"))
-    , m_obsoleteEditor(new ObsoleteComponentEditor)
-    , m_obsoleteBoxEditor(new ObsoleteComponentBoxEditor)
     , m_splitter(new Manhattan::MiniSplitter)
     , m_delegate(new SessionModelDelegate(this))
     , m_isExpaned(false)
@@ -166,10 +162,6 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
 
         auto item = m_sampleModel->itemForIndex(indices.front());
         m_componentTree->setItem(item);
-        m_obsoleteEditor->setItem(item, item->modelType());
-        m_obsoleteBoxEditor->clearEditor();
-        m_obsoleteBoxEditor->addPropertyItems(item);
-
         m_componentFlat->setItem(item);
     }
 
@@ -179,10 +171,8 @@ QWidget* TestComponentView::componentTreePanel()
 {
     Manhattan::MiniSplitter* result = new Manhattan::MiniSplitter(Qt::Vertical);
     result->addWidget(m_componentTree);
-    result->addWidget(m_obsoleteEditor);
 
     m_componentTree->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-    m_obsoleteEditor->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     return result;
 }
 
@@ -190,10 +180,8 @@ QWidget* TestComponentView::componentBoxPanel()
 {
     Manhattan::MiniSplitter* result = new Manhattan::MiniSplitter(Qt::Vertical);
     result->addWidget(m_componentFlat);
-    result->addWidget(m_obsoleteBoxEditor);
 
     m_componentFlat->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-    m_obsoleteBoxEditor->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     return result;
 }

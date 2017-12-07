@@ -72,8 +72,8 @@ double Lattice::volume() const
     return std::abs(m_a.dot( m_b.cross(m_c)));
 }
 
-void Lattice::getReciprocalLatticeBasis(kvector_t b1, kvector_t b2,
-        kvector_t b3) const
+void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2,
+        kvector_t &b3) const
 {
     if (!m_cache_ok) {
         initialize();

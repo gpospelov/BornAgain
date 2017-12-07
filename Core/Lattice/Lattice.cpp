@@ -162,9 +162,9 @@ std::vector<kvector_t> Lattice::vectorsWithinRadius(
     const kvector_t v1, const kvector_t v2, const kvector_t v3,
     const kvector_t rec1, const kvector_t rec2, const kvector_t rec3) const
 {
-    int max_X = static_cast<int>(std::floor(rec1.mag()*radius/M_TWOPI));
-    int max_Y = static_cast<int>(std::floor(rec2.mag()*radius/M_TWOPI));
-    int max_Z = static_cast<int>(std::floor(rec3.mag()*radius/M_TWOPI));
+    int max_X = static_cast<int>(std::floor(rec1.mag()*radius/M_TWOPI + 0.5));
+    int max_Y = static_cast<int>(std::floor(rec2.mag()*radius/M_TWOPI + 0.5));
+    int max_Z = static_cast<int>(std::floor(rec3.mag()*radius/M_TWOPI + 0.5));
 
     std::vector<kvector_t> ret;
     for (int index_X = -max_X; index_X <= max_X; ++index_X) {

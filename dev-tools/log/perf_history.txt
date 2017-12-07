@@ -623,3 +623,15 @@ compile time: real 4m18.371s, user 24m2.298s, sys 1m56.004s
 ctest time:   real 0m45.376s, user 1m10.176s, sys 0m3.583s
 | 2017-09-29 12:33:18 | scgsun   | Linux x86_64 | 2.7    | 97.9540   | 15.4191    | 0.5813     | 0.5248          | 3.1319          | 0.3585    | 2.1234        | 0.5118            | 2.5499         | 0.8501 | 2.0469      | 1.9635    | 0.7772    |
 GUI Performance: domain2gui 1.412 | gui2domain 1.534 |realTime 1.303
+
+# Befor qtproperttybrowser framework removal
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2017-12-07 12:46:15 | scgsun   | Linux x86_64 | 2.7    | 88.9056   | 13.7139    | 0.5326     | 0.5061          | 3.1150          | 0.3598    | 2.1117        | 0.5101            | 2.5284         | 0.8601 | 0.4302      | 1.9775    | 0.7826    |
+
+compile time: real 4m39.873s, user 26m6.687s,  sys 1m56.863s
+ctest time:   real 0m47.258s, user  1m12.286s, sys 0m3.785s
+domain2gui: 1.136, gui2domain: 1.734, realTime: 1.274
+
+# after qtpropertybrowserframework removal
+compile time: real 4m29.715s, user 25m18.486s, sys 1m53.298s
+

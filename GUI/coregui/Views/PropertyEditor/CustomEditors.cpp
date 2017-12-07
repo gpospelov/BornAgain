@@ -19,7 +19,6 @@
 #include "ExternalProperty.h"
 #include "GroupItemController.h"
 #include "ComboProperty.h"
-#include "ObsoleteColorProperty.h"
 #include "MaterialItemUtils.h"
 #include "GUIHelpers.h"
 #include <QBoxLayout>

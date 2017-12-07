@@ -40,18 +40,12 @@ public:
     int currentIndex() const;
     void setCurrentIndex(int index);
 
-    // FIXME remove after qtpropertybrowserframework removal
-    QString currentLabel() const;
-
-    QStringList itemTypes() const;
-
-    // FIXME make private after qtpropertybrowserframework removal
-    QStringList itemLabels() const;
 
     QVariant createCombo() const;
 
 private:
-
+    QStringList itemTypes() const;
+    QStringList itemLabels() const;
     SessionItem* addItem(const QString& item_type);
     SessionItem* createCorrespondingItem();
     int toIndex(const QString& type) const;
@@ -61,10 +55,5 @@ private:
     QString m_current_type;
     GroupInfo m_groupInfo;
 };
-
-// TODO Remove simultaneously with qtpropertybrowserframework
-#include <QSharedPointer>
-typedef QSharedPointer<GroupItemController> ObsoleteGroupProperty_t;
-Q_DECLARE_METATYPE(ObsoleteGroupProperty_t)
 
 #endif // GROUPITEMCONTROLLER_H

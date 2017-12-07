@@ -89,9 +89,12 @@ void GroupItemController::setCurrentIndex(int index)
     setCurrentType(toString(index));
 }
 
-QString GroupItemController::currentLabel() const
+QVariant GroupItemController::createCombo() const
 {
-    return itemLabels().at(currentIndex());
+    ComboProperty result;
+    result.setValues(itemLabels());
+    result.setCurrentIndex(currentIndex());
+    return result.variant();
 }
 
 QStringList GroupItemController::itemTypes() const
@@ -102,14 +105,6 @@ QStringList GroupItemController::itemTypes() const
 QStringList GroupItemController::itemLabels() const
 {
     return m_groupInfo.itemLabels();
-}
-
-QVariant GroupItemController::createCombo() const
-{
-    ComboProperty result;
-    result.setValues(itemLabels());
-    result.setCurrentIndex(currentIndex());
-    return result.variant();
 }
 
 SessionItem* GroupItemController::addItem(const QString& item_type)

@@ -20,7 +20,6 @@
 #include "ItemStackPresenter.h"
 #include <QMap>
 
-class ObsoleteIntensityDataWidget;
 class JobResultsPresenter;
 class JobModel;
 class JobItem;

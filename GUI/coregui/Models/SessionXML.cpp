@@ -14,7 +14,6 @@
 //
 // ************************************************************************** //
 
-#include "ObsoleteColorProperty.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"

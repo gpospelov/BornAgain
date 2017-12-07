@@ -30,8 +30,6 @@ class ComponentEditor;
 class ComponentTreeView;
 namespace Manhattan { class MiniSplitter; }
 class QBoxLayout;
-class ObsoleteComponentEditor;
-class ObsoleteComponentBoxEditor;
 class ComponentFlatView;
 class MaterialModel;
 
@@ -63,8 +61,6 @@ private:
     QPushButton* m_updateButton;
     QPushButton* m_addItemButton;
     QPushButton* m_expandButton;
-    ObsoleteComponentEditor *m_obsoleteEditor;
-    ObsoleteComponentBoxEditor* m_obsoleteBoxEditor;
     Manhattan::MiniSplitter* m_splitter;
     SessionModelDelegate* m_delegate;
     bool m_isExpaned;

@@ -18,7 +18,7 @@
 #include "SessionItem.h"
 #include "RealLimits.h"
 #include "ExternalProperty.h"
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "CustomEditors.h"
 #include "ComboProperty.h"
 #include "CustomEventFilters.h"
@@ -55,11 +55,6 @@ bool isExternalProperty(const QVariant& variant)
     return variant.canConvert<ExternalProperty>();
 }
 
-bool isGroupProperty(const QVariant& variant)
-{
-    return variant.canConvert<GroupProperty_t>();
-}
-
 bool isComboProperty(const QVariant& variant)
 {
     return variant.canConvert<ComboProperty>();
@@ -81,8 +76,6 @@ bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
 {
     if (isExternalProperty(variant))
         return true;
-    if (isGroupProperty(variant))
-        return true;
     if (isComboProperty(variant))
         return true;
     if (isBoolProperty(variant))
@@ -91,13 +84,10 @@ bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
     return false;
 }
 
-// TODO replace with template method when custom variants refactored
 QString PropertyEditorFactory::ToString(const QVariant& variant)
 {
     if (isExternalProperty(variant))
         return variant.value<ExternalProperty>().text();
-    if (isGroupProperty(variant))
-        return variant.value<GroupProperty_t>()->currentLabel();
     if (isComboProperty(variant))
         return variant.value<ComboProperty>().getValue();
     if (isBoolProperty(variant))
@@ -140,12 +130,6 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
         editor->setData(item.value());
         if (item.editorType() != Constants::DefaultEditorType)
             editor->setExternalDialogType(item.editorType());
-        result = editor;
-    }
-
-    else if(isGroupProperty(item.value())) {
-        auto editor = new GroupPropertyEditor;
-        editor->setData(item.value());
         result = editor;
     }
 

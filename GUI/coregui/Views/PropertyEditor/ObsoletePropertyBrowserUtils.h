@@ -21,7 +21,7 @@
 #include "ExternalProperty.h"
 #include "ObsoleteColorProperty.h"
 #include "ObsoleteScientificDoubleProperty.h"
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "ComboProperty.h"
 
 class QLabel;
@@ -57,23 +57,23 @@ class BA_CORE_API_ ObsoleteGroupPropertyEdit : public QWidget
 {
     Q_OBJECT
 
-    Q_PROPERTY(GroupProperty_t group READ group WRITE setGroup USER true)
+    Q_PROPERTY(ObsoleteGroupProperty_t group READ group WRITE setGroup USER true)
 
 public:
     ObsoleteGroupPropertyEdit(QWidget *parent = 0);
     virtual ~ObsoleteGroupPropertyEdit();
 
-    void setGroupProperty(GroupProperty_t groupProperty);
-    GroupProperty_t getGroupProperty() const;
+    void setGroupProperty(ObsoleteGroupProperty_t groupProperty);
+    ObsoleteGroupProperty_t getGroupProperty() const;
 
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
 
-    GroupProperty_t group() const;
-    void setGroup(GroupProperty_t group);
+    ObsoleteGroupProperty_t group() const;
+    void setGroup(ObsoleteGroupProperty_t group);
 
 signals:
-    void groupPropertyChanged(const GroupProperty_t &group_property);
+    void groupPropertyChanged(const ObsoleteGroupProperty_t &group_property);
 
 private slots:
     void indexChanged(int index);
@@ -82,10 +82,10 @@ private:
     void processGroup();
     QComboBox *m_box;
     QLabel *m_label;
-    GroupProperty_t m_groupProperty;
+    ObsoleteGroupProperty_t m_groupProperty;
 };
 
-inline GroupProperty_t ObsoleteGroupPropertyEdit::getGroupProperty() const
+inline ObsoleteGroupProperty_t ObsoleteGroupPropertyEdit::getGroupProperty() const
 {
     return m_groupProperty;
 }

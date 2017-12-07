@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/GroupProperty.cpp
-//! @brief     Implements class GroupProperty
+//! @file      GUI/coregui/Models/GroupItemController.cpp
+//! @brief     Implements class GroupItemController
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,38 +14,34 @@
 //
 // ************************************************************************** //
 
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "ItemFactory.h"
+#include "ComboProperty.h"
 
-GroupProperty::GroupProperty()
-    : m_groupItem(nullptr)
+GroupItemController::GroupItemController(SessionItem* groupItem, GroupInfo groupInfo)
+    : m_groupItem(groupItem)
+    , m_groupInfo(groupInfo)
 {
+    m_current_type = m_groupInfo.defaultType();
+    m_groupItem->insertItem(-1, createCorrespondingItem());
 }
 
-SessionItem* GroupProperty::currentItem()
+SessionItem* GroupItemController::currentItem()
 {
     return m_groupItem ? m_groupItem->getChildOfType(currentType()) : nullptr;
 }
 
-void GroupProperty::setGroupItem(SessionItem* groupItem)
-{
-    Q_ASSERT(groupItem);
-    m_groupItem = groupItem;
-    SessionItem* item = createCorrespondingItem();
-    m_groupItem->insertItem(-1, item);
-}
-
-QString GroupProperty::currentType() const
+QString GroupItemController::currentType() const
 {
     return m_current_type;
 }
 
-void GroupProperty::setCurrentType(const QString& type)
+void GroupItemController::setCurrentType(const QString& type)
 {
     if (type == currentType())
         return;
 
-    SessionItem* prevItem = currentItem();
+    auto prevItem = currentItem();
     m_current_type = type;
 
     if (m_groupItem) {
@@ -53,31 +49,19 @@ void GroupProperty::setCurrentType(const QString& type)
             item->setVisible(true);
             item->setEnabled(true);
         } else {
-            SessionItem* new_item = createCorrespondingItem();
-            m_groupItem->insertItem(-1, new_item);
+            m_groupItem->insertItem(-1, createCorrespondingItem());
         }
         if (prevItem) {
             prevItem->setVisible(false);
             prevItem->setEnabled(false);
         }
-        m_groupItem->emitDataChanged();
     }
 }
 
-void GroupProperty::setCurrentTypeName(const QString& type)
-{
-    if (type == currentType())
-        return;
+//! Returns item of give type. If it doesn't exist, it will be created.
+//! Method do _not_ change current item.
 
-    SessionItem* prevItem = currentItem();
-    m_current_type = type;
-    if (prevItem) {
-        prevItem->setVisible(false);
-        prevItem->setEnabled(false);
-    }
-}
-
-SessionItem* GroupProperty::getItemOfType(const QString& type)
+SessionItem* GroupItemController::getItemOfType(const QString& type)
 {
     if (m_groupItem) {
         if (auto item = m_groupItem->getChildOfType(type)) {
@@ -89,60 +73,61 @@ SessionItem* GroupProperty::getItemOfType(const QString& type)
                 new_item->setEnabled(false);
             }
             m_groupItem->insertItem(-1, new_item);
-            m_groupItem->emitDataChanged();
             return new_item;
         }
     }
     return nullptr;
 }
 
-int GroupProperty::currentIndex() const
+int GroupItemController::currentIndex() const
 {
     return toIndex(m_current_type);
 }
 
-void GroupProperty::setCurrentIndex(int index)
+void GroupItemController::setCurrentIndex(int index)
 {
     setCurrentType(toString(index));
 }
 
-QString GroupProperty::currentLabel() const
+QString GroupItemController::currentLabel() const
 {
     return itemLabels().at(currentIndex());
 }
 
-QStringList GroupProperty::itemTypes() const
+QStringList GroupItemController::itemTypes() const
 {
     return m_groupInfo.itemTypes();
 }
 
-QStringList GroupProperty::itemLabels() const
+QStringList GroupItemController::itemLabels() const
 {
     return m_groupInfo.itemLabels();
 }
 
-void GroupProperty::setGroupInfo(GroupInfo groupInfo)
+QVariant GroupItemController::createCombo() const
 {
-    m_groupInfo = std::move(groupInfo);
-    setCurrentType(m_groupInfo.defaultType());
+    ComboProperty result;
+    result.setValues(itemLabels());
+    result.setCurrentIndex(currentIndex());
+    return result.variant();
 }
 
-SessionItem* GroupProperty::addItem(const QString& item_type)
+SessionItem* GroupItemController::addItem(const QString& item_type)
 {
     return ItemFactory::createItem(item_type);
 }
 
-SessionItem* GroupProperty::createCorrespondingItem()
+SessionItem* GroupItemController::createCorrespondingItem()
 {
     return addItem(currentType());
 }
 
-int GroupProperty::toIndex(const QString& type) const
+int GroupItemController::toIndex(const QString& type) const
 {
     return itemTypes().indexOf(type);
 }
 
-QString GroupProperty::toString(int index) const
+QString GroupItemController::toString(int index) const
 {
     return itemTypes().at(index);
 }

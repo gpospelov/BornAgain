@@ -76,6 +76,11 @@ QStringList GroupInfo::itemLabels() const
 
 }
 
+bool GroupInfo::isValid()
+{
+    return !m_groupType.isEmpty();
+}
+
 bool GroupInfo::containsType(const QString& itemType) const
 {
     for (auto& pair : m_info)

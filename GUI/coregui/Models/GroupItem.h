@@ -18,16 +18,20 @@
 #define GROUPITEM_H
 
 #include "SessionItem.h"
-#include "GroupProperty.h"
+#include "GroupInfo.h"
+#include <memory>
+
+class GroupInfo;
+class GroupItemController;
 
 class BA_CORE_API_ GroupItem : public SessionItem
 {
 public:
     static const QString T_ITEMS;
     GroupItem();
+    ~GroupItem();
 
-    void setGroup(GroupProperty_t groupProperty);
-    GroupProperty_t groupProperty() const;
+    void setGroupInfo(const GroupInfo& groupInfo);
     SessionItem* currentItem() const;
 
     QString currentType() const;
@@ -35,6 +39,13 @@ public:
     SessionItem* setCurrentType(const QString& modelType);
 
     QStringList translateList(const QStringList& list) const;
+
+    SessionItem* getItemOfType(const QString& type);
+
+private:
+    void onValueChange();
+    void updateComboValue();
+    std::unique_ptr<GroupItemController> m_controller;
 };
 
 #endif // GROUPITEM_H

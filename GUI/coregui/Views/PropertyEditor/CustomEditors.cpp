@@ -17,7 +17,7 @@
 #include "CustomEditors.h"
 #include "CustomEventFilters.h"
 #include "ExternalProperty.h"
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "ComboProperty.h"
 #include "ObsoleteColorProperty.h"
 #include "MaterialItemUtils.h"
@@ -120,7 +120,7 @@ void ExternalPropertyEditor::initEditor()
 
 // --- CustomComboEditor ---
 
-CustomComboEditor::CustomComboEditor(QWidget* parent)
+ComboPropertyEditor::ComboPropertyEditor(QWidget* parent)
     : CustomEditor(parent)
     , m_box(new QComboBox)
     , m_wheel_event_filter(new WheelEventEater(this))
@@ -139,21 +139,27 @@ CustomComboEditor::CustomComboEditor(QWidget* parent)
     setConnected(true);
 }
 
-QSize CustomComboEditor::sizeHint() const
+QSize ComboPropertyEditor::sizeHint() const
 {
     return m_box->sizeHint();
 }
 
-QSize CustomComboEditor::minimumSizeHint() const
+QSize ComboPropertyEditor::minimumSizeHint() const
 {
     return m_box->minimumSizeHint();
 }
 
-void CustomComboEditor::onIndexChanged(int)
+void ComboPropertyEditor::onIndexChanged(int index)
 {
+    ComboProperty comboProperty = m_data.value<ComboProperty>();
+
+    if (comboProperty.currentIndex() != index) {
+        comboProperty.setCurrentIndex(index);
+        setDataIntern(QVariant::fromValue<ComboProperty>(comboProperty));
+    }
 }
 
-void CustomComboEditor::initEditor()
+void ComboPropertyEditor::initEditor()
 {
     setConnected(false);
 
@@ -166,77 +172,6 @@ void CustomComboEditor::initEditor()
 
 //! Returns list of labels for QComboBox
 
-QStringList CustomComboEditor::internLabels()
-{
-    return QStringList();
-}
-
-//! Returns index for QComboBox.
-
-int CustomComboEditor::internIndex()
-{
-    return -1;
-}
-
-void CustomComboEditor::setConnected(bool isConnected)
-{
-    if (isConnected)
-        connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-                this, &CustomComboEditor::onIndexChanged, Qt::UniqueConnection);
-    else
-        disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-                   this, &CustomComboEditor::onIndexChanged);
-}
-
-// --- GroupPropertyEditor ---
-
-GroupPropertyEditor::GroupPropertyEditor(QWidget* parent)
-    : CustomComboEditor(parent)
-{
-}
-
-void GroupPropertyEditor::onIndexChanged(int index)
-{
-    GroupProperty_t groupProperty = m_data.value<GroupProperty_t>();
-
-    if (groupProperty->currentIndex() != index) {
-        groupProperty->setCurrentIndex(index);
-        setDataIntern(QVariant::fromValue<GroupProperty_t>(groupProperty));
-    }
-}
-
-QStringList GroupPropertyEditor::internLabels()
-{
-    Q_ASSERT(m_data.canConvert<GroupProperty_t>());
-    GroupProperty_t groupProperty = m_data.value<GroupProperty_t>();
-    return groupProperty->itemLabels();
-}
-
-int GroupPropertyEditor::internIndex()
-{
-    Q_ASSERT(m_data.canConvert<GroupProperty_t>());
-    GroupProperty_t groupProperty = m_data.value<GroupProperty_t>();
-    return groupProperty->currentIndex();
-}
-
-// --- ComboPropertyEditor ---
-
-ComboPropertyEditor::ComboPropertyEditor(QWidget* parent)
-    : CustomComboEditor(parent)
-{
-}
-
-void ComboPropertyEditor::onIndexChanged(int index)
-{
-    ComboProperty comboProperty = m_data.value<ComboProperty>();
-
-    if (comboProperty.currentIndex() != index) {
-        comboProperty.setCurrentIndex(index);
-        setDataIntern(QVariant::fromValue<ComboProperty>(comboProperty));
-        currentIndexChanged(index);
-    }
-}
-
 QStringList ComboPropertyEditor::internLabels()
 {
     Q_ASSERT(m_data.canConvert<ComboProperty>());
@@ -244,11 +179,23 @@ QStringList ComboPropertyEditor::internLabels()
     return comboProperty.getValues();
 }
 
+//! Returns index for QComboBox.
+
 int ComboPropertyEditor::internIndex()
 {
     Q_ASSERT(m_data.canConvert<ComboProperty>());
     ComboProperty comboProperty = m_data.value<ComboProperty>();
     return comboProperty.currentIndex();
+}
+
+void ComboPropertyEditor::setConnected(bool isConnected)
+{
+    if (isConnected)
+        connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+                this, &ComboPropertyEditor::onIndexChanged, Qt::UniqueConnection);
+    else
+        disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+                   this, &ComboPropertyEditor::onIndexChanged);
 }
 
 // --- ScientificDoublePropertyEditor ---

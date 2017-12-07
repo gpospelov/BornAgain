@@ -20,6 +20,7 @@
 #include "GroupItem.h"
 #include "ItemFactory.h"
 #include "ExternalProperty.h"
+#include "GroupItemController.h"
 #include "SessionModel.h"
 #include "WarningMessageService.h"
 #include <QtCore/QXmlStreamWriter>
@@ -37,7 +38,7 @@ const QString qstring_type_name = "QString";
 void report_error(WarningMessageService* messageService, SessionItem* item,
                   const QString& error_type, const QString& message);
 
-SessionItem* createItem(SessionItem* parent, const QString& modelType, const QString& tag);
+SessionItem* createItem(SessionItem* item, const QString& modelType, const QString& tag);
 }
 
 void SessionXML::writeTo(QXmlStreamWriter* writer, SessionItem* parent)
@@ -115,11 +116,6 @@ void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int ro
             writer->writeAttribute(SessionXML::ParameterExtAttribute,
                                    variant.value<ComboProperty>().stringOfValues());
 
-        }
-
-        else if (type_name == Constants::GroupPropertyType) {
-            QString ff_name = variant.value<GroupProperty_t>()->currentType();
-            writer->writeAttribute(SessionXML::ParameterValueAttribute, ff_name);
         }
 
         else {
@@ -234,21 +230,6 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
         variant = combo_property.variant();
     }
 
-    else if (parameter_type == Constants::GroupPropertyType) {
-        QString parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
-
-        QVariant v = item->value();
-        if (!v.canConvert<GroupProperty_t>()) {
-            report_error(messageService, item, SET_ITEM_PROPERTY_ERROR,
-                         QStringLiteral("GroupProperty conversion failed"));
-        } else {
-            GroupProperty_t group_property = v.value<GroupProperty_t>();
-            group_property->setCurrentTypeName(parameter_value);
-            variant = QVariant::fromValue<GroupProperty_t>(group_property);
-        }
-    }
-
     else {
         throw GUIHelpers::Error("SessionModel::readProperty: "
                                 "Parameter type not supported"
@@ -274,21 +255,19 @@ void report_error(WarningMessageService* messageService, SessionItem* item,
     }
 }
 
-SessionItem* createItem(SessionItem* parent, const QString& modelType, const QString& tag)
+SessionItem* createItem(SessionItem* item, const QString& modelType, const QString& tag)
 {
     SessionItem* result(nullptr);
 
-    if (parent->modelType() == Constants::GroupItemType) {
-        result = parent->parent()
-                     ->item<GroupItem>(parent->parent()->tagFromItem(parent))
-                     .groupProperty()
-                     ->getItemOfType(modelType);
+    if (item->modelType() == Constants::GroupItemType) {
+        if (auto groupItem = dynamic_cast<GroupItem*>(item))
+            result = groupItem->getItemOfType(modelType);
     } else {
-        SessionTagInfo info = parent->getTagInfo(tag);
+        SessionTagInfo info = item->getTagInfo(tag);
         if (info.min == 1 && info.max == 1 && info.childCount == 1)
-            result = parent->getItem(tag);
+            result = item->getItem(tag);
         else
-            result = parent->model()->insertNewItem(modelType, parent->index(), -1, tag);
+            result = item->model()->insertNewItem(modelType, item->index(), -1, tag);
     }
     Q_ASSERT(result);
     return result;

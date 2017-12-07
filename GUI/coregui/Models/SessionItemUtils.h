@@ -23,6 +23,7 @@
 #include <QVariant>
 
 class SessionItem;
+class GroupInfo;
 
 namespace SessionItemUtils
 {
@@ -50,6 +51,12 @@ BA_CORE_API_ QVariant DecorationRole(const SessionItem& item);
 
 //! Returns check state for given item.
 BA_CORE_API_ QVariant CheckStateRole(const SessionItem& item);
+
+//! Returns true if there is registered group.
+BA_CORE_API_ bool IsValidGroup(const QString& group_type);
+
+//! Returns GroupInfo for group property construction
+BA_CORE_API_ GroupInfo GetGroupInfo(const QString& group_type);
 
 }  // namespace SessionItemUtils
 

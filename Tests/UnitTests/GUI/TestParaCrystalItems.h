@@ -1,6 +1,5 @@
 #include <QtTest>
 #include "InterferenceFunctionItems.h"
-#include "GroupProperty.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FTDistributions2D.h"
 #include "FTDistributionItems.h"
@@ -9,6 +8,7 @@
 #include "Lattice2DItems.h"
 #include "SampleModel.h"
 #include "Units.h"
+#include "item_constants.h"
 
 class TestParaCrystalItems : public QObject {
     Q_OBJECT

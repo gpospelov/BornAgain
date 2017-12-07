@@ -71,13 +71,13 @@ private:
     QString m_extDialogType; //!< Type of the dialog which will be created on button click
 };
 
-//! Common editor for QComboBox-like custom editors.
+//! Editor for ComboProperty variant.
 
-class BA_CORE_API_ CustomComboEditor : public CustomEditor
+class BA_CORE_API_ ComboPropertyEditor : public CustomEditor
 {
     Q_OBJECT
 public:
-    explicit CustomComboEditor(QWidget *parent = nullptr);
+    explicit ComboPropertyEditor(QWidget *parent = nullptr);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -93,43 +93,6 @@ protected:
 
     QComboBox* m_box;
     class WheelEventEater* m_wheel_event_filter;
-};
-
-//! Editor for GroupProperty variant.
-
-class BA_CORE_API_ GroupPropertyEditor : public CustomComboEditor
-{
-    Q_OBJECT
-public:
-    explicit GroupPropertyEditor(QWidget *parent = nullptr);
-
-protected slots:
-    virtual void onIndexChanged(int index);
-
-protected:
-    QStringList internLabels();
-    int internIndex();
-};
-
-//! Editor for ComboProperty variant.
-
-class BA_CORE_API_ ComboPropertyEditor : public CustomComboEditor
-{
-    Q_OBJECT    
-public:
-    explicit ComboPropertyEditor(QWidget *parent = nullptr);
-
-
-signals:
-    //! Signal which is used only in the context of ComponentFlatView
-    void currentIndexChanged(int);
-
-protected slots:
-    void onIndexChanged(int index);
-
-protected:
-    QStringList internLabels();
-    int internIndex();
 };
 
 //! Editor for ScientificDoubleProperty variant.
@@ -170,6 +133,5 @@ protected:
 private:
     QCheckBox *m_checkBox;
 };
-
 
 #endif  //  CUSTOMEDITORS_H

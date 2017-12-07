@@ -16,11 +16,11 @@
 
 #include "GUIHelpers.h"
 #include "GroupItem.h"
-#include "GroupPropertyRegistry.h"
 #include "ItemFactory.h"
 #include "ParameterTranslators.h"
 #include "SessionModel.h"
 #include "VectorItem.h"
+#include "SessionItemUtils.h"
 
 class SessionItemData
 {
@@ -352,37 +352,37 @@ void SessionItem::setItemValue(const QString& tag, const QVariant& variant)
 }
 
 //! Creates new group item and register new tag, returns GroupItem.
-SessionItem* SessionItem::addGroupProperty(const QString& groupName, const QString& groupType)
+SessionItem* SessionItem::addGroupProperty(const QString& groupTag, const QString& groupType)
 {
     SessionItem* result(0);
 
-    if(GroupPropertyRegistry::isValidGroup(groupType)) {
+    if(SessionItemUtils::IsValidGroup(groupType)) {
         // create group item
-        GroupProperty_t group_property = GroupPropertyRegistry::createGroupProperty(groupType);
+        GroupInfo groupInfo = SessionItemUtils::GetGroupInfo(groupType);
         GroupItem* groupItem = dynamic_cast<GroupItem*>(
                     ItemFactory::createItem(Constants::GroupItemType));
         Q_ASSERT(groupItem);
-        groupItem->setGroup(group_property);
-        registerTag(groupName, 1, 1, QStringList() << Constants::GroupItemType);
+        groupItem->setGroupInfo(groupInfo);
+        registerTag(groupTag, 1, 1, QStringList() << Constants::GroupItemType);
         result = groupItem;
     }
     else {
         // create single item
-        registerTag(groupName, 1, 1, QStringList() << groupType);
+        registerTag(groupTag, 1, 1, QStringList() << groupType);
         result = ItemFactory::createItem(groupType);
     }
     Q_ASSERT(result);
-    result->setDisplayName(groupName);
-    if(!insertItem(0, result, groupName)) {
+    result->setDisplayName(groupTag);
+    if(!insertItem(0, result, groupTag)) {
         throw GUIHelpers::Error("SessionItem::addGroupProperty -> Error. Can't insert group item");
     }
     return result;
 }
 
 //! Set the current type of group item.
-SessionItem* SessionItem::setGroupProperty(const QString& groupName, const QString& value) const
+SessionItem* SessionItem::setGroupProperty(const QString& groupTag, const QString& modelType) const
 {
-    return item<GroupItem>(groupName).setCurrentType(value);
+    return item<GroupItem>(groupTag).setCurrentType(modelType);
 }
 
 //! Access subitem of group item.

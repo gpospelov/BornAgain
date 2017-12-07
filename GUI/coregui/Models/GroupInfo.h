@@ -40,6 +40,8 @@ public:
 
     QStringList itemLabels() const;
 
+    bool isValid();
+
 private:
     struct TypeAndLabel {
         QString m_itemType;

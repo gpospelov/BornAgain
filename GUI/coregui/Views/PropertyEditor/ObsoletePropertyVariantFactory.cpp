@@ -124,15 +124,15 @@ QWidget *ObsoletePropertyVariantFactory::createEditor(QtVariantPropertyManager *
             ObsoletePropertyVariantManager::fancyGroupTypeId()) {
         ObsoleteGroupPropertyEdit *editor = new ObsoleteGroupPropertyEdit(parent);
         QVariant var = manager->value(property);
-        GroupProperty_t ff = var.value<GroupProperty_t>();
+        ObsoleteGroupProperty_t ff = var.value<ObsoleteGroupProperty_t>();
         editor->setGroupProperty(ff);
 
         m_property_to_fancygroup_editors[property].append(editor);
         m_fancygroup_editor_to_property[editor] = property;
 
         connect(editor,
-                SIGNAL(groupPropertyChanged(GroupProperty_t)),
-                this, SLOT(slotSetValue(GroupProperty_t)));
+                SIGNAL(groupPropertyChanged(ObsoleteGroupProperty_t)),
+                this, SLOT(slotSetValue(ObsoleteGroupProperty_t)));
 
         connect(editor, SIGNAL(destroyed(QObject *)),
                 this, SLOT(slotEditorDestroyed(QObject *)));
@@ -209,7 +209,7 @@ void ObsoletePropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 m_property_to_fancygroup_editors[property];
         QListIterator<ObsoleteGroupPropertyEdit *> itEditor(editors);
         while (itEditor.hasNext()) {
-            GroupProperty_t mat = value.value<GroupProperty_t>();
+            ObsoleteGroupProperty_t mat = value.value<ObsoleteGroupProperty_t>();
             itEditor.next()->setGroupProperty(mat);
         }
     }
@@ -282,7 +282,7 @@ void ObsoletePropertyVariantFactory::slotSetValue(const ObsoleteScientificDouble
     }
 }
 
-void ObsoletePropertyVariantFactory::slotSetValue(const GroupProperty_t &value)
+void ObsoletePropertyVariantFactory::slotSetValue(const ObsoleteGroupProperty_t &value)
 {
     QObject *object = sender();
     QMap<ObsoleteGroupPropertyEdit *, QtProperty *>::ConstIterator itEditor =
@@ -314,8 +314,6 @@ void ObsoletePropertyVariantFactory::slotSetValue(const ComboProperty &value)
             QVariant var;
             var.setValue(value);
             manager->setValue(property, var);
-            // FIXME g.p. Is it the right place to delete? Check other factories.
-            //object->deleteLater();
             return;
         }
         itEditor++;

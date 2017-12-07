@@ -21,7 +21,7 @@
 
 #include "ObsoleteColorProperty.h"
 #include "ComboProperty.h"
-#include "GroupProperty.h"
+#include "GroupItemController.h"
 #include "ExternalProperty.h"
 #include "ObsoleteScientificDoubleProperty.h"
 #include <QtVariantPropertyManager>
@@ -59,7 +59,7 @@ private:
     QMap<const QtProperty *, ExternalProperty> m_theMaterialValues;
     QMap<const QtProperty *, ObsoleteColorProperty> m_theColorValues;
     QMap<const QtProperty *, ObsoleteScientificDoubleProperty> m_theScientificDoubleValues;
-    QMap<const QtProperty *, GroupProperty_t> m_theFancyGroupValues;
+    QMap<const QtProperty *, ObsoleteGroupProperty_t> m_theFancyGroupValues;
     QMap<const QtProperty *, ComboProperty> m_theComboValues;
 };
 

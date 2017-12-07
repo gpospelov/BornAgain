@@ -54,6 +54,10 @@ SpecularSimulation* SpecularSimulation::clone() const
 
 void SpecularSimulation::prepareSimulation()
 {
+    if (m_instrument.getDetectorDimension() != 1) // detector must have only one axis
+        throw std::runtime_error("Error in SpecularSimulation::prepareSimulation: the detector was "
+                                 "not properly configured.");
+    getInstrument().initDetector();
     Simulation::prepareSimulation();
 }
 

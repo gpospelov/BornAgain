@@ -7,5 +7,4 @@
 #include "FTDistributionsTest.h"
 #include "ParameterPoolTest.h"
 #include "RealParameterTest.h"
-
 #include "ParameterPatternTest.h"

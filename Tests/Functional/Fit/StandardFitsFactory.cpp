@@ -17,6 +17,7 @@
 #include "MinimizerTests.h"
 #include "RectDetectorFitTest.h"
 #include "AdjustMinimizerStrategyTest.h"
+#include "SpecularFitTest.h"
 #include "StandaloneFitTest.h"
 #include "MultiPatternFitTest.h"
 
@@ -76,4 +77,9 @@ StandardFitsFactory::StandardFitsFactory()
         "StandaloneFit",
         create_new<StandaloneFitTest>,
                 "Test of standalone fit of arbitrary functions");
+
+    registerItem(
+        "SpecularFit",
+        create_new<SpecularFitTest>,
+                "Test of fitting specular data");
 }

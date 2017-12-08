@@ -22,15 +22,16 @@ const QString MaterialDataItem::P_IMAG = "imag";
 MaterialDataItem::MaterialDataItem()
     : SessionItem(Constants::MaterialDataType)
 {
-    addProperty(P_REAL, 0.0)->setEditorType(Constants::ScientificEditorType);
-    addProperty(P_IMAG, 0.0)->setEditorType(Constants::ScientificEditorType);
+    addProperty(P_REAL, 0.0)->setEditorType(Constants::ScientificEditorType)
+            .setLimits(RealLimits::limitless());
+    addProperty(P_IMAG, 0.0)->setEditorType(Constants::ScientificEditorType)
+            .setLimits(RealLimits::limitless());
 
     mapper()->setOnPropertyChange(
         [this](const QString &){
             setValue(itemLabel());
         }
     );
-
     setValue(itemLabel());
     setEditable(false);
 }

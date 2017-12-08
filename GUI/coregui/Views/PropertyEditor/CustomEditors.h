@@ -21,9 +21,10 @@
 #include <QWidget>
 #include <QVariant>
 
-class QLabel;
 class LostFocusFilter;
+class QLabel;
 class QComboBox;
+class RealLimits;
 
 //! Base class for all custom variants editors.
 
@@ -102,6 +103,8 @@ class BA_CORE_API_ ScientificDoublePropertyEditor : public CustomEditor
     Q_OBJECT
 public:
     ScientificDoublePropertyEditor(QWidget *parent = nullptr);
+
+    void setLimits(const RealLimits& limits);
 
 private slots:
     void onEditingFinished();

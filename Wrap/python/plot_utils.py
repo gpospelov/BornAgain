@@ -16,8 +16,11 @@ from __future__ import print_function
 import bornagain as ba
 from bornagain import deg as deg
 from bornagain import IFitObserver as IFitObserver
-from matplotlib import pyplot as plt
-from matplotlib import gridspec, colors
+try:  # workaround for build servers
+    from matplotlib import pyplot as plt
+    from matplotlib import gridspec, colors
+except:
+    pass  # will fail further if no modules were loaded
 
 
 def get_axes_limits(intensity):
@@ -115,6 +118,7 @@ def plot_intensity_data(intensity, zmin=None, zmax=None):
     :param zmax: Max value on amplitude's color bar
     """
     plot_colormap(intensity, zmin, zmax)
+    plt.show()
 
 
 class Plotter:
@@ -289,6 +293,8 @@ class DefaultFitObserver(IFitObserver):
     FitSuite kernel will call DrawObserver's update() method every n'th iteration.
     It is up to the user what to do here.
     """
+    import sys
+    import traceback
 
     def __init__(self, draw_every_nth=10, SimulationType='GISAS'):
         """
@@ -300,16 +306,21 @@ class DefaultFitObserver(IFitObserver):
 
         """
         IFitObserver.__init__(self, draw_every_nth)
-        if SimulationType is 'GISAS':
-            self._plotter = PlotterGISAS()
-        elif SimulationType is 'Specular':
-            self._plotter = PlotterSpecular()
-        else:
-            exit("Unknown simulation type {:s}.".format(SimulationType))
+        try:
+            if SimulationType is 'GISAS':
+                self._plotter = PlotterGISAS()
+            elif SimulationType is 'Specular':
+                self._plotter = PlotterSpecular()
+            else:
+                raise Exception("Unknown simulation type {:s}.".format(SimulationType))
+        except Exception:
+            DefaultFitObserver.traceback.print_exc(file=DefaultFitObserver.sys.stdout)
+            exit("Exception in DefaultFitObserver.__init__")
 
     def update(self, fit_suite):
         try:
             self._plotter.plot(fit_suite)
-        except Exception, e:
-            print(e.message)
+        except Exception:
+            DefaultFitObserver.traceback.print_exc(file=DefaultFitObserver.sys.stdout)
+            exit("Exception in DefaultFitObserver.update")
 

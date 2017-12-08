@@ -1,18 +1,16 @@
 #include "google_test.h"
+#include "BornAgainNamespace.h"
 #include "FitObject.h"
 #include "GISASSimulation.h"
-#include "BornAgainNamespace.h"
 #include "Units.h"
-#include <iostream>
-
 
 class FitObjectTest : public ::testing::Test
 {
- protected:
-    FitObjectTest(){}
-    virtual ~FitObjectTest(){}
-
+protected:
+    ~FitObjectTest();
 };
+
+FitObjectTest::~FitObjectTest() = default;
 
 //! Test of standard simulation/real_data pair.
 
@@ -34,7 +32,7 @@ TEST_F(FitObjectTest, StandardPair)
     FitObject obj(simulation, data, weight);
 
     EXPECT_EQ(obj.weight(), weight);
-    EXPECT_EQ(obj.numberOfFitElements(), size_t(nx*ny));
+    EXPECT_EQ(obj.numberOfFitElements(), size_t(nx * ny));
 
     EXPECT_EQ(obj.realData().getAxis(0).size(), nx);
     EXPECT_EQ(obj.realData().getAxis(1).size(), ny);
@@ -42,7 +40,7 @@ TEST_F(FitObjectTest, StandardPair)
     EXPECT_EQ(obj.realData().getAxis(0).getMax(), xmax);
     EXPECT_EQ(obj.realData().getAxis(1).getMin(), ymin);
     EXPECT_EQ(obj.realData().getAxis(1).getMax(), ymax);
-    EXPECT_EQ(obj.realData().totalSum(), intensity*nx*ny);
+    EXPECT_EQ(obj.realData().totalSum(), intensity * nx * ny);
 
     EXPECT_EQ(obj.chiSquaredMap().getAxis(0).size(), nx);
     EXPECT_EQ(obj.chiSquaredMap().getAxis(1).size(), ny);
@@ -57,7 +55,7 @@ TEST_F(FitObjectTest, StandardPair)
 
 TEST_F(FitObjectTest, RoiPair)
 {
-    int nx(5), ny(4);
+    size_t nx(5), ny(4);
     double xmin(-1.0), xmax(4.0), ymin(0.0), ymax(4.0);
 
     GISASSimulation simulation;
@@ -78,7 +76,7 @@ TEST_F(FitObjectTest, RoiPair)
     FitObject obj(simulation, data, weight);
 
     EXPECT_EQ(obj.weight(), weight);
-    EXPECT_EQ(obj.numberOfFitElements(), size_t(roi_nx*roi_ny));
+    EXPECT_EQ(obj.numberOfFitElements(), size_t(roi_nx * roi_ny));
 
     EXPECT_EQ(obj.realData().getAxis(0).size(), roi_nx);
     EXPECT_EQ(obj.realData().getAxis(1).size(), roi_ny);
@@ -86,7 +84,7 @@ TEST_F(FitObjectTest, RoiPair)
     EXPECT_EQ(obj.realData().getAxis(0).getMax(), roi_xmax);
     EXPECT_EQ(obj.realData().getAxis(1).getMin(), roi_ymin);
     EXPECT_EQ(obj.realData().getAxis(1).getMax(), roi_ymax);
-    EXPECT_EQ(obj.realData().totalSum(), intensity*roi_nx*roi_ny);
+    EXPECT_EQ(obj.realData().totalSum(), intensity * roi_nx * roi_ny);
 
     EXPECT_EQ(obj.chiSquaredMap().getAxis(0).size(), roi_nx);
     EXPECT_EQ(obj.chiSquaredMap().getAxis(1).size(), roi_ny);

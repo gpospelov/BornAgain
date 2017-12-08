@@ -1,31 +1,32 @@
 #include "google_test.h"
 #include "MultiOption.h"
-#include <iostream>
 #include <string>
 
-class MultiOptionTest : public ::testing::Test {
+class MultiOptionTest : public ::testing::Test
+{
 protected:
-    MultiOptionTest(){}
-
+    ~MultiOptionTest();
 };
+
+MultiOptionTest::~MultiOptionTest() = default;
 
 TEST_F(MultiOptionTest, Variant)
 {
     MultiOption::variant_t v1(1);
 
     EXPECT_EQ(0, v1.which());
-//    EXPECT_EQ(1, v1.get<int>());
+    //    EXPECT_EQ(1, v1.get<int>());
     EXPECT_EQ(1, boost::get<int>(v1));
 
     v1 = 2.0;
     EXPECT_EQ(1, v1.which());
-    //EXPECT_EQ(2.0, v1.get<double>());
+    // EXPECT_EQ(2.0, v1.get<double>());
     EXPECT_EQ(2.0, boost::get<double>(v1));
 
     const std::string text("xxx");
     v1 = text;
     EXPECT_EQ(2, v1.which());
-//    EXPECT_EQ(text, v1.get<std::string>());
+    //    EXPECT_EQ(text, v1.get<std::string>());
     EXPECT_EQ(text, boost::get<std::string>(v1));
 }
 

@@ -1,16 +1,17 @@
 #include "google_test.h"
-#include "IParameterized.h"
-#include "RealParameter.h"
-#include "ParameterPool.h"
 #include "FitParameter.h"
+#include "IParameterized.h"
+#include "ParameterPool.h"
+#include "RealParameter.h"
 #include <string>
 
 class FitParameterTest : public ::testing::Test
 {
- protected:
-    FitParameterTest(){}
-    virtual ~FitParameterTest(){}
+protected:
+    ~FitParameterTest();
 };
+
+FitParameterTest::~FitParameterTest() = default;
 
 TEST_F(FitParameterTest, defaultConstructor)
 {
@@ -117,8 +118,7 @@ TEST_F(FitParameterTest, clone)
 
     const double value(1.0), step(0.1), lim1(0.2), lim2(10.0);
     const std::string pattern("*/Particle/*");
-    FitParameter *link = new FitParameter(
-                pattern, value, AttLimits::limited(lim1, lim2), step);
+    FitParameter* link = new FitParameter(pattern, value, AttLimits::limited(lim1, lim2), step);
     link->addMatchedParameters(pool);
     link->setValue(value);
     link->setName("link");
@@ -154,8 +154,7 @@ TEST_F(FitParameterTest, addPattern)
     pool.addParameter(new RealParameter("/MultiLayer/Layer/thickness", &par3));
     pool.addParameter(new RealParameter("/Something/thickness", &par4));
 
-    FitParameter *link =
-            new FitParameter("/Something/thickness", 1.0, AttLimits::limitless());
+    FitParameter* link = new FitParameter("/Something/thickness", 1.0, AttLimits::limitless());
 
     // adding second pattern
     link->addPattern("*/Particle/*").setName("par1");
@@ -168,7 +167,7 @@ TEST_F(FitParameterTest, addPattern)
     link->setValue(newValue);
 
     std::vector<std::string> expected{"/Something/thickness", "/MultiLayer/Layer/Particle/height",
-                                     "/MultiLayer/Layer/Particle/width"};
+                                      "/MultiLayer/Layer/Particle/width"};
     EXPECT_EQ(link->matchedParameterNames(), expected);
 
     EXPECT_EQ(link->value(), newValue);
@@ -198,7 +197,7 @@ TEST_F(FitParameterTest, repetitiveMatch)
     link.addMatchedParameters(pool);
 
     std::vector<std::string> expected{"/Something/thickness", "/MultiLayer/Layer/Particle/height",
-                                     "/MultiLayer/Layer/Particle/width"};
+                                      "/MultiLayer/Layer/Particle/width"};
     EXPECT_EQ(link.matchedParameterNames(), expected);
 }
 

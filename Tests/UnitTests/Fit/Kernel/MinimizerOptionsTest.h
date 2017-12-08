@@ -2,10 +2,13 @@
 #include "MinimizerOptions.h"
 #include <exception>
 
-class MinimizerOptionsTest : public ::testing::Test {
+class MinimizerOptionsTest : public ::testing::Test
+{
 protected:
-    MinimizerOptionsTest(){}
+    ~MinimizerOptionsTest();
 };
+
+MinimizerOptionsTest::~MinimizerOptionsTest() = default;
 
 TEST_F(MinimizerOptionsTest, toOptionString)
 {
@@ -17,7 +20,6 @@ TEST_F(MinimizerOptionsTest, toOptionString)
 
     EXPECT_EQ(options.toOptionString(), "option_1=99;option_2=1.1;option_3=xxx;");
 }
-
 
 TEST_F(MinimizerOptionsTest, setOptionsFromString)
 {

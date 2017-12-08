@@ -1,14 +1,13 @@
 #include "google_test.h"
 #include "StringUtils.h"
 
-
 class StringUtilsTest : public ::testing::Test
 {
 protected:
-    StringUtilsTest(){}
-    virtual ~StringUtilsTest(){}
+    ~StringUtilsTest();
 };
 
+StringUtilsTest::~StringUtilsTest() = default;
 
 TEST_F(StringUtilsTest, removeSubstring)
 {

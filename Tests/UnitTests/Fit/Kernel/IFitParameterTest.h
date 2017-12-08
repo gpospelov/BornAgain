@@ -5,9 +5,10 @@
 class IFitParameterTest : public ::testing::Test
 {
 protected:
-    IFitParameterTest(){}
-    virtual ~IFitParameterTest(){}
+    ~IFitParameterTest();
 };
+
+IFitParameterTest::~IFitParameterTest() = default;
 
 TEST_F(IFitParameterTest, Initial)
 {

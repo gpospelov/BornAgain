@@ -2,10 +2,13 @@
 #include "OptionContainer.h"
 #include <exception>
 
-class OptionContainerTest : public ::testing::Test {
+class OptionContainerTest : public ::testing::Test
+{
 protected:
-    OptionContainerTest(){}
+    ~OptionContainerTest();
 };
+
+OptionContainerTest::~OptionContainerTest() = default;
 
 TEST_F(OptionContainerTest, addOption)
 {
@@ -95,7 +98,6 @@ TEST_F(OptionContainerTest, Copying)
     EXPECT_EQ(1.1, test.optionValue<double>("option #2"));
     EXPECT_EQ("xxx", test.optionValue<std::string>("option #3"));
 }
-
 
 TEST_F(OptionContainerTest, Assignment)
 {

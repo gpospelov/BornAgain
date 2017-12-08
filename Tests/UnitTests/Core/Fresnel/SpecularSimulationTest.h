@@ -1,19 +1,21 @@
-#include "SpecularSimulation.h"
-#include "IMultiLayerBuilder.h"
+#include "google_test.h"
 #include "Exceptions.h"
 #include "FixedBinAxis.h"
 #include "Histogram1D.h"
+#include "IMultiLayerBuilder.h"
 #include "Layer.h"
 #include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
-#include "VariableBinAxis.h"
+#include "SpecularSimulation.h"
 #include "Units.h"
+#include "VariableBinAxis.h"
 #include <iostream>
 
 class SpecularSimulationTest : public ::testing::Test
 {
- protected:
+protected:
     SpecularSimulationTest();
+    ~SpecularSimulationTest();
     MultiLayer multilayer;
 };
 
@@ -24,13 +26,15 @@ SpecularSimulationTest::SpecularSimulationTest()
     Material mat2 = HomogeneousMaterial("substrate", 15e-6, 0.0);
 
     Layer layer0(mat0);
-    Layer layer1(mat1, 10*Units::nanometer);
+    Layer layer1(mat1, 10 * Units::nanometer);
     Layer layer2(mat2);
 
     multilayer.addLayer(layer0);
     multilayer.addLayer(layer1);
     multilayer.addLayer(layer2);
 }
+
+SpecularSimulationTest::~SpecularSimulationTest() = default;
 
 TEST_F(SpecularSimulationTest, InitialState)
 {
@@ -64,7 +68,7 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
 {
     SpecularSimulation sim;
 
-    VariableBinAxis axis("axis",2, std::vector<double>{1.0, 2.0, 3.0});
+    VariableBinAxis axis("axis", 2, std::vector<double>{1.0, 2.0, 3.0});
     sim.setBeamParameters(1.0, axis);
     EXPECT_EQ(2u, sim.getAlphaAxis()->size());
     EXPECT_EQ(1.0, sim.getAlphaAxis()->getMin());
@@ -82,7 +86,7 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
 TEST_F(SpecularSimulationTest, ConstructSimulation)
 {
     SpecularSimulation sim;
-    sim.setBeamParameters(1.0, 10, 0.0*Units::degree, 2.0*Units::degree);
+    sim.setBeamParameters(1.0, 10, 0.0 * Units::degree, 2.0 * Units::degree);
     sim.setSample(multilayer);
     EXPECT_EQ(3u, sim.sample()->numberOfLayers());
 
@@ -101,7 +105,7 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     EXPECT_EQ(10u, reflectivity->getTotalNumberOfBins());
     EXPECT_EQ(1u, reflectivity->getRank());
     EXPECT_EQ(0.0, reflectivity->getXaxis().getMin());
-    EXPECT_EQ(2.0*Units::degree, reflectivity->getXaxis().getMax());
+    EXPECT_EQ(2.0 * Units::degree, reflectivity->getXaxis().getMax());
     EXPECT_DOUBLE_EQ(std::norm(sim.getScalarR(0)[5]), reflectivity->getBinValues()[5]);
 
     const std::unique_ptr<OutputData<double>> output(sim.getDetectorIntensity());
@@ -114,19 +118,18 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     EXPECT_EQ(10u, transmissivity->getTotalNumberOfBins());
     EXPECT_EQ(1u, transmissivity->getRank());
     EXPECT_EQ(0.0, transmissivity->getXaxis().getMin());
-    EXPECT_EQ(2.0*Units::degree, transmissivity->getXaxis().getMax());
+    EXPECT_EQ(2.0 * Units::degree, transmissivity->getXaxis().getMax());
     EXPECT_DOUBLE_EQ(std::norm(sim.getScalarT(2)[5]), transmissivity->getBinValues()[5]);
 
     ASSERT_THROW(sim.getScalarR(3), std::runtime_error);
     ASSERT_THROW(sim.getScalarT(3), std::runtime_error);
     ASSERT_THROW(sim.getScalarKz(3), std::runtime_error);
-
 }
 
 TEST_F(SpecularSimulationTest, SimulationClone)
 {
     SpecularSimulation sim;
-    sim.setBeamParameters(1.0, 10, 0.0*Units::degree, 2.0*Units::degree);
+    sim.setBeamParameters(1.0, 10, 0.0 * Units::degree, 2.0 * Units::degree);
     sim.setSample(multilayer);
 
     std::unique_ptr<SpecularSimulation> clone(sim.clone());

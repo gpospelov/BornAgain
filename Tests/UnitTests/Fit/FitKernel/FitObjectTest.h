@@ -1,9 +1,9 @@
+#include "google_test.h"
 #include "FitObject.h"
 #include "GISASSimulation.h"
 #include "BornAgainNamespace.h"
 #include "Units.h"
 #include <iostream>
-#include "gtest/gtest.h"
 
 
 class FitObjectTest : public ::testing::Test

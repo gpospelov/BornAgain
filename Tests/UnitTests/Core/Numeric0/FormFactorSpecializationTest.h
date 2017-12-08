@@ -1,18 +1,4 @@
-// ************************************************************************** //
-//
-//  BornAgain: simulate and fit scattering at grazing incidence
-//
-//! @file      Tests/UnitTests/Core/Numeric0/FormFactorSpecializationTest.h
-//! @brief     Unit tests for special cases of particle-shape form factors.
-//!
-//! @homepage  http://bornagainproject.org
-//! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015-16
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
-//
-// ************************************************************************** //
-
+#include "google_test.h"
 #include "MathConstants.h"
 #include "BornAgainNamespace.h"
 #include "HardParticles.h"
@@ -29,7 +15,10 @@ public:
         EXPECT_NEAR( real(f0), real(f1), eps*avge );
         EXPECT_NEAR( imag(f0), imag(f1), eps*avge );
     }
+    ~FFSpecializationTest();
 };
+
+FFSpecializationTest::~FFSpecializationTest() = default;
 
 INSTANTIATE_TEST_CASE_P(
     FFSpecializationTests,
@@ -42,82 +31,82 @@ double eps_polyh = 7.5e-13;
 
 TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
 {
-    if( skip_q( 1e-99, 5e2 ) )
+    if (skip_q(1e-99, 5e2))
         return;
-    double L=.5;
+    double L = .5;
     FormFactorTruncatedCube p0(L, 0);
     FormFactorBox p1(L, L, L);
-    test_ff_eq( &p0, &p1, eps_polyh );
+    test_ff_eq(&p0, &p1, eps_polyh);
 }
 
 TEST_P(FFSpecializationTest, AnisoPyramidAsPyramid)
 {
-    if( skip_q( 1e-99, 5e3 ) )
+    if (skip_q(1e-99, 5e3))
         return;
-    double L=1.5, H=.24, alpha=.6;
+    double L = 1.5, H = .24, alpha = .6;
     FormFactorAnisoPyramid p0(L, L, H, alpha);
     FormFactorPyramid p1(L, H, alpha);
-    test_ff_eq( &p0, &p1, eps_polyh );
+    test_ff_eq(&p0, &p1, eps_polyh);
 }
 
 TEST_P(FFSpecializationTest, Pyramid3AsPrism)
 {
-    if( skip_q( 1e-99, 5e3 ) )
+    if (skip_q(1e-99, 5e3))
         return;
-    double L=1.8, H=.3;
-    FormFactorTetrahedron p0(L, H, M_PI/2);
+    double L = 1.8, H = .3;
+    FormFactorTetrahedron p0(L, H, M_PI / 2);
     FormFactorPrism3 p1(L, H);
-    test_ff_eq( &p0, &p1, eps_polyh );
+    test_ff_eq(&p0, &p1, eps_polyh);
 }
 
 TEST_P(FFSpecializationTest, PyramidAsBox)
 {
-    if( skip_q( 1e-99, 5e2 ) )
+    if (skip_q(1e-99, 5e2))
         return;
-    double L=1.8, H=.3;
-    FormFactorPyramid p0(L, H, M_PI/2);
+    double L = 1.8, H = .3;
+    FormFactorPyramid p0(L, H, M_PI / 2);
     FormFactorBox p1(L, L, H);
-    test_ff_eq( &p0, &p1, eps_polyh );
+    test_ff_eq(&p0, &p1, eps_polyh);
 }
 
 TEST_P(FFSpecializationTest, Cone6AsPrism)
 {
-    if( skip_q( 1e-99, 5e2 ) )
+    if (skip_q(1e-99, 5e2))
         return;
-    double L=.8, H=1.13;
-    FormFactorCone6 p0(L, H, M_PI/2);
+    double L = .8, H = 1.13;
+    FormFactorCone6 p0(L, H, M_PI / 2);
     FormFactorPrism6 p1(L, H);
-    test_ff_eq( &p0, &p1, eps_polyh );
+    test_ff_eq(&p0, &p1, eps_polyh);
 }
 
 //*********** spheroids ***************
 
 TEST_P(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
 {
-    if( skip_q( 1e-99, 5e2 ) )
+    if (skip_q(1e-99, 5e2))
         return;
-    double R=1.07;
+    double R = 1.07;
     FormFactorHemiEllipsoid p0(R, R, R);
     FormFactorTruncatedSphere p1(R, R);
-    test_ff_eq( &p0, &p1, 1e-10 );
+    test_ff_eq(&p0, &p1, 1e-10);
 }
 
 TEST_P(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
 {
-    if( skip_q( 1e-99, 5e3 ) )
+    if (skip_q(1e-99, 5e3))
         return;
-    double R=.8, H=1.2;
+    double R = .8, H = 1.2;
     FormFactorEllipsoidalCylinder p0(R, R, H);
     FormFactorCylinder p1(R, H);
-    test_ff_eq( &p0, &p1, 1e-11 );
+    test_ff_eq(&p0, &p1, 1e-11);
 }
 
 TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
 {
-    if( skip_q( .02, 5e1 ) ) // WAITING #1416 improve/replace numeric integration
+    if (skip_q(.02, 5e1)) // WAITING #1416 improve/replace numeric integration
         return;
-    double R=1.;
-    FormFactorTruncatedSphere p0(R, 2*R);
+    double R = 1.;
+    FormFactorTruncatedSphere p0(R, 2 * R);
     FormFactorFullSphere p1(R);
-    test_ff_eq( &p0, &p1 );
+    test_ff_eq(&p0, &p1);
 }

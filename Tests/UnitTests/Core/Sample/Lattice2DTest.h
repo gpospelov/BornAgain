@@ -1,14 +1,14 @@
-#include "Lattice2D.h"
+#include "google_test.h"
 #include "BornAgainNamespace.h"
-
-#include <iostream>
+#include "Lattice2D.h"
 
 class Lattice2DTest : public ::testing::Test
 {
 protected:
-    Lattice2DTest(){}
+    ~Lattice2DTest();
 };
 
+Lattice2DTest::~Lattice2DTest() = default;
 
 TEST_F(Lattice2DTest, basicLattice)
 {
@@ -52,7 +52,7 @@ TEST_F(Lattice2DTest, squareLatticeClone)
     std::unique_ptr<Lattice2D> clone(lattice.clone());
     EXPECT_EQ(clone->length1(), length);
     EXPECT_EQ(clone->length2(), length);
-    EXPECT_DOUBLE_EQ(clone->latticeAngle(), M_PI/2.0);
+    EXPECT_DOUBLE_EQ(clone->latticeAngle(), M_PI / 2.0);
     EXPECT_EQ(clone->rotationAngle(), xi);
     EXPECT_EQ(clone->getName(), BornAgain::SquareLatticeType);
 
@@ -73,7 +73,7 @@ TEST_F(Lattice2DTest, hexagonalLatticeClone)
     std::unique_ptr<Lattice2D> clone(lattice.clone());
     EXPECT_EQ(clone->length1(), length);
     EXPECT_EQ(clone->length2(), length);
-    EXPECT_DOUBLE_EQ(clone->latticeAngle(), 2.*M_PI/3.0);
+    EXPECT_DOUBLE_EQ(clone->latticeAngle(), 2. * M_PI / 3.0);
     EXPECT_EQ(clone->rotationAngle(), xi);
     EXPECT_EQ(clone->getName(), BornAgain::HexagonalLatticeType);
 
@@ -88,7 +88,8 @@ TEST_F(Lattice2DTest, hexagonalLatticeClone)
 
 TEST_F(Lattice2DTest, onChange)
 {
-    class Parent : public INode{
+    class Parent : public INode
+    {
     public:
         Parent() : m_changed(false) {}
         void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

@@ -1,5 +1,5 @@
+#include "google_test.h"
 #include "MultiOption.h"
-#include "gtest/gtest.h"
 #include <iostream>
 #include <string>
 

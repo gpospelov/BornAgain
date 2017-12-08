@@ -1,16 +1,18 @@
-#include "SpecularMatrix.h"
-#include "SpecularMagnetic.h"
+#include "google_test.h"
+#include "Layer.h"
 #include "MaterialFactoryFuncs.h"
+#include "MultiLayer.h"
+#include "SpecularMagnetic.h"
+#include "SpecularMatrix.h"
 #include "Units.h"
 
-class SpecularMagneticTest : public ::testing :: Test
+class SpecularMagneticTest : public ::testing::Test
 {
 protected:
-    SpecularMagneticTest();
-    virtual ~SpecularMagneticTest(){}
+    ~SpecularMagneticTest();
 };
 
-SpecularMagneticTest::SpecularMagneticTest() {}
+SpecularMagneticTest::~SpecularMagneticTest() = default;
 
 TEST_F(SpecularMagneticTest, initial)
 {
@@ -19,11 +21,10 @@ TEST_F(SpecularMagneticTest, initial)
     std::vector<MatrixRTCoefficients> coeff;
 
     // @Error: Throws exception (Layer index is out of bounds)
-    //matrix.execute(mLayer, v, coeff);
+    // matrix.execute(mLayer, v, coeff);
 
-
-    Material air = HomogeneousMaterial("air",0,1.0);
-    Layer layer0(air, 0*Units::nanometer);
+    Material air = HomogeneousMaterial("air", 0, 1.0);
+    Layer layer0(air, 0 * Units::nanometer);
     mLayer.addLayer(layer0);
 
     SpecularMagnetic::execute(mLayer, v, coeff);
@@ -34,9 +35,9 @@ TEST_F(SpecularMagneticTest, zerofield)
     double eps = 1e-10;
 
     kvector_t substr_field(0.0, 0.0, 0.0);
-    kvector_t k1 = vecOfLambdaAlphaPhi(1.0, -0.1*Units::deg, 0.0);
-    kvector_t k2 = vecOfLambdaAlphaPhi(1.0, -2.0*Units::deg, 0.0);
-    kvector_t k3 = vecOfLambdaAlphaPhi(1.0, -10.0*Units::deg, 0.0);
+    kvector_t k1 = vecOfLambdaAlphaPhi(1.0, -0.1 * Units::deg, 0.0);
+    kvector_t k2 = vecOfLambdaAlphaPhi(1.0, -2.0 * Units::deg, 0.0);
+    kvector_t k3 = vecOfLambdaAlphaPhi(1.0, -10.0 * Units::deg, 0.0);
 
     MultiLayer multi_layer_scalar;
     Material substr_material_scalar = HomogeneousMaterial("Substrate", 7e-6, 2e-8);
@@ -68,14 +69,14 @@ TEST_F(SpecularMagneticTest, zerofield)
     Eigen::Vector2cd TMM = RTMatrix.T1min() + RTMatrix.T2min();
     Eigen::Vector2cd RMM = RTMatrix.R1min() + RTMatrix.R2min();
 
-    EXPECT_NEAR(0.0, std::abs(TPS(0)-TPM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(TPS(1)-TPM(1)), eps);
-    EXPECT_NEAR(0.0, std::abs(RPS(0)-RPM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(RPS(1)-RPM(1)), eps);
-    EXPECT_NEAR(0.0, std::abs(TMS(0)-TMM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(TMS(1)-TMM(1)), eps);
-    EXPECT_NEAR(0.0, std::abs(RMS(0)-RMM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(RMS(1)-RMM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(TPS(0) - TPM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(TPS(1) - TPM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(RPS(0) - RPM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(RPS(1) - RPM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(TMS(0) - TMM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(TMS(1) - TMM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(RMS(0) - RMM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(RMS(1) - RMM(1)), eps);
 
     // k2
     SpecularMatrix::execute(multi_layer_scalar, k2, coeffs_scalar);
@@ -92,14 +93,14 @@ TEST_F(SpecularMagneticTest, zerofield)
     TMM = RTMatrix.T1min() + RTMatrix.T2min();
     RMM = RTMatrix.R1min() + RTMatrix.R2min();
 
-    EXPECT_NEAR(0.0, std::abs(TPS(0)-TPM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(TPS(1)-TPM(1)), eps);
-    EXPECT_NEAR(0.0, std::abs(RPS(0)-RPM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(RPS(1)-RPM(1)), eps);
-    EXPECT_NEAR(0.0, std::abs(TMS(0)-TMM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(TMS(1)-TMM(1)), eps);
-    EXPECT_NEAR(0.0, std::abs(RMS(0)-RMM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(RMS(1)-RMM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(TPS(0) - TPM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(TPS(1) - TPM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(RPS(0) - RPM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(RPS(1) - RPM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(TMS(0) - TMM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(TMS(1) - TMM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(RMS(0) - RMM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(RMS(1) - RMM(1)), eps);
 
     // k3
     SpecularMatrix::execute(multi_layer_scalar, k3, coeffs_scalar);
@@ -116,12 +117,12 @@ TEST_F(SpecularMagneticTest, zerofield)
     TMM = RTMatrix.T1min() + RTMatrix.T2min();
     RMM = RTMatrix.R1min() + RTMatrix.R2min();
 
-    EXPECT_NEAR(0.0, std::abs(TPS(0)-TPM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(TPS(1)-TPM(1)), eps);
-    EXPECT_NEAR(0.0, std::abs(RPS(0)-RPM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(RPS(1)-RPM(1)), eps);
-    EXPECT_NEAR(0.0, std::abs(TMS(0)-TMM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(TMS(1)-TMM(1)), eps);
-    EXPECT_NEAR(0.0, std::abs(RMS(0)-RMM(0)), eps);
-    EXPECT_NEAR(0.0, std::abs(RMS(1)-RMM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(TPS(0) - TPM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(TPS(1) - TPM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(RPS(0) - RPM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(RPS(1) - RPM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(TMS(0) - TMM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(TMS(1) - TMM(1)), eps);
+    EXPECT_NEAR(0.0, std::abs(RMS(0) - RMM(0)), eps);
+    EXPECT_NEAR(0.0, std::abs(RMS(1) - RMM(1)), eps);
 }

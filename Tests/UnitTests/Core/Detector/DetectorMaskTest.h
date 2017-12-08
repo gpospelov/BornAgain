@@ -1,13 +1,16 @@
+#include "google_test.h"
 #include "DetectorMask.h"
-#include "SphericalDetector.h"
 #include "Polygon.h"
+#include "SphericalDetector.h"
 #include <memory>
 
 class DetectorMaskTest : public ::testing::Test
 {
 public:
+    ~DetectorMaskTest();
 };
 
+DetectorMaskTest::~DetectorMaskTest() = default;
 
 TEST_F(DetectorMaskTest, InitialState)
 {
@@ -15,7 +18,6 @@ TEST_F(DetectorMaskTest, InitialState)
     EXPECT_FALSE(test.isMasked(0));
     EXPECT_FALSE(test.getMaskData()->isInitialized());
 }
-
 
 //  4.0  -------------------------------------------------------------------------
 //       |  5  |  11 |  17 | 23  | 29  | 35  | 41  | 47  | 53  | 59  | 65  | 71  |
@@ -50,10 +52,10 @@ TEST_F(DetectorMaskTest, AddMask)
 
     EXPECT_TRUE(detectorMask.getMaskData()->isInitialized());
 
-    for(size_t index=0; index<detectorMask.getMaskData()->getAllocatedSize(); ++index) {
+    for (size_t index = 0; index < detectorMask.getMaskData()->getAllocatedSize(); ++index) {
         double x = detectorMask.getMaskData()->getAxisValue(index, 0);
         double y = detectorMask.getMaskData()->getAxisValue(index, 1);
-        if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
+        if (x >= -4.0 && x <= 4.0 && y >= -2.0 && y <= 2.0) {
             EXPECT_TRUE(detectorMask.isMasked(index));
         } else {
             EXPECT_FALSE(detectorMask.isMasked(index));
@@ -66,7 +68,7 @@ TEST_F(DetectorMaskTest, AddMask)
     detectorMask.addMask(polygon, false);
     detectorMask.initMaskData(detector);
 
-    for(size_t index=0; index<detectorMask.getMaskData()->getAllocatedSize(); ++index) {
+    for (size_t index = 0; index < detectorMask.getMaskData()->getAllocatedSize(); ++index) {
         EXPECT_FALSE(detectorMask.isMasked(index));
     }
     EXPECT_EQ(detectorMask.numberOfMaskedChannels(), 0);
@@ -77,10 +79,10 @@ TEST_F(DetectorMaskTest, AddMask)
     Polygon polygon2(x, y);
     detectorMask.addMask(polygon2, true);
     detectorMask.initMaskData(detector);
-    for(size_t index=0; index<detectorMask.getMaskData()->getAllocatedSize(); ++index) {
+    for (size_t index = 0; index < detectorMask.getMaskData()->getAllocatedSize(); ++index) {
         double x = detectorMask.getMaskData()->getAxisValue(index, 0);
         double y = detectorMask.getMaskData()->getAxisValue(index, 1);
-        if( x>= 5.0 && x <=8.0 && y>=2.0 && y<=4.0) {
+        if (x >= 5.0 && x <= 8.0 && y >= 2.0 && y <= 4.0) {
             EXPECT_TRUE(detectorMask.isMasked(index));
         } else {
             EXPECT_FALSE(detectorMask.isMasked(index));
@@ -90,12 +92,10 @@ TEST_F(DetectorMaskTest, AddMask)
     // clearing all masks
     detectorMask.removeMasks();
     detectorMask.initMaskData(detector);
-    for(size_t index=0; index<detectorMask.getMaskData()->getAllocatedSize(); ++index) {
+    for (size_t index = 0; index < detectorMask.getMaskData()->getAllocatedSize(); ++index) {
         EXPECT_FALSE(detectorMask.isMasked(index));
     }
-
 }
-
 
 TEST_F(DetectorMaskTest, AssignmentOperator)
 {
@@ -117,19 +117,17 @@ TEST_F(DetectorMaskTest, AssignmentOperator)
 
     EXPECT_TRUE(mask.getMaskData()->isInitialized());
 
-    for(size_t index=0; index<mask.getMaskData()->getAllocatedSize(); ++index) {
+    for (size_t index = 0; index < mask.getMaskData()->getAllocatedSize(); ++index) {
         double x = mask.getMaskData()->getAxisValue(index, 0);
         double y = mask.getMaskData()->getAxisValue(index, 1);
-        if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
+        if (x >= -4.0 && x <= 4.0 && y >= -2.0 && y <= 2.0) {
             EXPECT_TRUE(mask.isMasked(index));
         } else {
             EXPECT_FALSE(mask.isMasked(index));
         }
     }
     EXPECT_EQ(mask.numberOfMaskedChannels(), 32);
-
 }
-
 
 TEST_F(DetectorMaskTest, CopyConstructor)
 {

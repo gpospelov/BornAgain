@@ -1,17 +1,19 @@
-#include "ParameterDistribution.h"
+#include "google_test.h"
 #include "Distributions.h"
 #include "Exceptions.h"
-#include "ParameterSample.h"
 #include "IParameterized.h"
+#include "ParameterDistribution.h"
+#include "ParameterSample.h"
 #include "ParameterUtils.h"
 #include <cmath>
 
 class ParameterDistributionTest : public ::testing::Test
 {
-
 protected:
-   ParameterDistributionTest() {}
+    ~ParameterDistributionTest();
 };
+
+ParameterDistributionTest::~ParameterDistributionTest() = default;
 
 TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
 {
@@ -19,8 +21,7 @@ TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
     DistributionGate distribution(1.0, 2.0);
     EXPECT_THROW(ParameterDistribution(name, distribution, 1, -1.0),
                  Exceptions::RuntimeErrorException);
-    EXPECT_THROW(ParameterDistribution(name, distribution, 0),
-                 Exceptions::RuntimeErrorException);
+    EXPECT_THROW(ParameterDistribution(name, distribution, 0), Exceptions::RuntimeErrorException);
 
     // Sigma constructor
     ParameterDistribution pardistr(name, distribution, 1);
@@ -66,7 +67,8 @@ TEST_F(ParameterDistributionTest, ParameterDistributionCopyConstructor)
     EXPECT_EQ(1.5, pcopy.getDistribution()->getMean());
     EXPECT_EQ(pardistr.getDistribution()->getName(), pcopy.getDistribution()->getName());
 
-    EXPECT_EQ(pardistr.getDistribution()->probabilityDensity(1), pcopy.getDistribution()->probabilityDensity(1));
+    EXPECT_EQ(pardistr.getDistribution()->probabilityDensity(1),
+              pcopy.getDistribution()->probabilityDensity(1));
     EXPECT_EQ(pardistr.getMainParameterName(), pcopy.getMainParameterName());
     EXPECT_EQ(pardistr.getNbrSamples(), pcopy.getNbrSamples());
     EXPECT_EQ(pardistr.getSigmaFactor(), pcopy.getSigmaFactor());
@@ -90,7 +92,8 @@ TEST_F(ParameterDistributionTest, ParameterDistributionAssignment)
     EXPECT_EQ(1.5, pcopy.getDistribution()->getMean());
     EXPECT_EQ(pardistr.getDistribution()->getName(), pcopy.getDistribution()->getName());
 
-    EXPECT_EQ(pardistr.getDistribution()->probabilityDensity(1), pcopy.getDistribution()->probabilityDensity(1));
+    EXPECT_EQ(pardistr.getDistribution()->probabilityDensity(1),
+              pcopy.getDistribution()->probabilityDensity(1));
     EXPECT_EQ(pardistr.getMainParameterName(), pcopy.getMainParameterName());
     EXPECT_EQ(pardistr.getNbrSamples(), pcopy.getNbrSamples());
     EXPECT_EQ(pardistr.getSigmaFactor(), pcopy.getSigmaFactor());
@@ -116,17 +119,18 @@ TEST_F(ParameterDistributionTest, GenerateSamples)
     ParameterDistribution pardistr(name, distribution, nbr_samples, sigma_factor);
     std::vector<ParameterSample> sample_values = pardistr.generateSamples();
     EXPECT_EQ(sample_values.size(), size_t(3));
-    EXPECT_EQ(sample_values[0].value, mean-sigma_factor*sigma);
+    EXPECT_EQ(sample_values[0].value, mean - sigma_factor * sigma);
     EXPECT_EQ(sample_values[1].value, mean);
-    EXPECT_EQ(sample_values[2].value, mean+sigma_factor*sigma);
+    EXPECT_EQ(sample_values[2].value, mean + sigma_factor * sigma);
 
     // with Limits
-    ParameterDistribution pardistr2(name, distribution, nbr_samples, sigma_factor, RealLimits::lowerLimited(mean));
+    ParameterDistribution pardistr2(name, distribution, nbr_samples, sigma_factor,
+                                    RealLimits::lowerLimited(mean));
     sample_values = pardistr2.generateSamples();
     EXPECT_EQ(sample_values.size(), size_t(3));
     EXPECT_EQ(sample_values[0].value, mean);
-    EXPECT_EQ(sample_values[1].value, mean+sigma_factor*sigma/2.0);
-    EXPECT_EQ(sample_values[2].value, mean+sigma_factor*sigma);
+    EXPECT_EQ(sample_values[1].value, mean + sigma_factor * sigma / 2.0);
+    EXPECT_EQ(sample_values[2].value, mean + sigma_factor * sigma);
 
     // with xmin, xmax defined
     double xmin(-1.0);
@@ -135,7 +139,7 @@ TEST_F(ParameterDistributionTest, GenerateSamples)
     sample_values = pardistr3.generateSamples();
     EXPECT_EQ(sample_values.size(), size_t(3));
     EXPECT_EQ(sample_values[0].value, xmin);
-    EXPECT_EQ(sample_values[1].value, xmin + (xmax-xmin)/2.0);
+    EXPECT_EQ(sample_values[1].value, xmin + (xmax - xmin) / 2.0);
     EXPECT_EQ(sample_values[2].value, xmax);
 }
 

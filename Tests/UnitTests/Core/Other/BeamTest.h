@@ -2,17 +2,20 @@
 #include "BornAgainNamespace.h"
 #include "MathConstants.h"
 #include "ParameterPool.h"
+#include "RealParameter.h"
+#include "google_test.h"
 
 #include <memory>
-
 
 class BeamTest : public ::testing::Test
 {
 protected:
-    BeamTest() {}
+    ~BeamTest();
 
     Beam m_empty_beam;
 };
+
+BeamTest::~BeamTest() = default;
 
 TEST_F(BeamTest, BeamInitialState)
 {
@@ -20,22 +23,20 @@ TEST_F(BeamTest, BeamInitialState)
     EXPECT_EQ(0.0, m_empty_beam.getCentralK()[1]);
     EXPECT_EQ(0.0, m_empty_beam.getCentralK()[2]);
     EXPECT_EQ(1.0, m_empty_beam.getIntensity());
-    /* TEMPORARILY DISABLED getParameterPool()
-    EXPECT_EQ(size_t(4), m_empty_beam.getParameterPool()->size());
-    EXPECT_EQ(0.0, m_empty_beam.getParameterPool()->getParameter(BornAgain::Intensity).getValue());
-    EXPECT_EQ(1.0, m_empty_beam.getParameterPool()->getParameter(BornAgain::Wavelength).getValue());
-    EXPECT_EQ(0.0, m_empty_beam.getParameterPool()->getParameter(BornAgain::Alpha).getValue());
-    EXPECT_EQ(0.0, m_empty_beam.getParameterPool()->getParameter(BornAgain::Phi).getValue());
-    EXPECT_EQ(complex_t(0.5, 0.0), m_empty_beam.getPolarization()(0, 0));
-    EXPECT_EQ(complex_t(0.5, 0.0), m_empty_beam.getPolarization()(1, 1));
-    */
+    //EXPECT_EQ(size_t(4), m_empty_beam.parameterPool()->size());
+//    EXPECT_EQ(1.0, m_empty_beam.parameterPool()->parameter(BornAgain::Intensity)->value());
+//    EXPECT_EQ(1.0, m_empty_beam.parameterPool()->parameter(BornAgain::Wavelength)->value());
+//    EXPECT_EQ(0.0, m_empty_beam.parameterPool()->parameter(BornAgain::Alpha)->value());
+//    EXPECT_EQ(0.0, m_empty_beam.parameterPool()->parameter(BornAgain::Phi)->value());
+//    EXPECT_EQ(complex_t(0.5, 0.0), m_empty_beam.getPolarization()(0, 0));
+//    EXPECT_EQ(complex_t(0.5, 0.0), m_empty_beam.getPolarization()(1, 1));
 }
 
 TEST_F(BeamTest, BeamAssignment)
 {
     kvector_t polarization(0.0, 0.0, 0.2);
 
-    std::unique_ptr<Beam> P_beam { new Beam() };
+    std::unique_ptr<Beam> P_beam{new Beam()};
 
     P_beam->setCentralK(1.0, 1.0, 1.0);
     P_beam->setIntensity(2.0);

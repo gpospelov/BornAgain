@@ -1,6 +1,6 @@
+#include "google_test.h"
 #include "IFitParameter.h"
 #include "FitParameterSet.h"
-#include "gtest/gtest.h"
 
 class FitParameterSetTest : public ::testing::Test
 {

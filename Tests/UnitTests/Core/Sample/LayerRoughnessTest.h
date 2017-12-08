@@ -1,23 +1,26 @@
-#include "LayerRoughness.h"
+#include "google_test.h"
 #include "BornAgainNamespace.h"
+#include "LayerRoughness.h"
 #include "ParameterPattern.h"
 
 class LayerRoughnessTest : public ::testing::Test
 {
- protected:
-    LayerRoughnessTest(){}
+protected:
+    ~LayerRoughnessTest();
 };
 
-TEST_F(LayerRoughnessTest , LayerRoughnessInitial)
+LayerRoughnessTest::~LayerRoughnessTest() = default;
+
+TEST_F(LayerRoughnessTest, LayerRoughnessInitial)
 {
-    //test with default parameter
+    // test with default parameter
     LayerRoughness roughness;
     EXPECT_EQ(0.0, roughness.getSigma());
     EXPECT_EQ(0.0, roughness.getHurstParameter());
     EXPECT_EQ(0.0, roughness.getLatteralCorrLength());
     EXPECT_EQ(BornAgain::LayerBasicRoughnessType, roughness.getName());
 
-    //set new parameter
+    // set new parameter
     roughness.setSigma(1.1);
     EXPECT_EQ(1.1, roughness.getSigma());
 
@@ -27,7 +30,7 @@ TEST_F(LayerRoughnessTest , LayerRoughnessInitial)
     roughness.setLatteralCorrLength(1.3);
     EXPECT_EQ(1.3, roughness.getLatteralCorrLength());
 
-    //test with given parameter
+    // test with given parameter
     LayerRoughness roughness2(2.1, 2.2, 2.3);
     EXPECT_EQ(2.1, roughness2.getSigma());
     EXPECT_EQ(2.2, roughness2.getHurstParameter());
@@ -35,12 +38,12 @@ TEST_F(LayerRoughnessTest , LayerRoughnessInitial)
     EXPECT_EQ(BornAgain::LayerBasicRoughnessType, roughness.getName());
 }
 
-//test clone LayerRoughness
-TEST_F(LayerRoughnessTest , LayerRoughnessClone)
+// test clone LayerRoughness
+TEST_F(LayerRoughnessTest, LayerRoughnessClone)
 {
     LayerRoughness original(3.1, 3.2, 3.3);
 
-    LayerRoughness *clone = original.clone();
+    LayerRoughness* clone = original.clone();
     EXPECT_EQ(clone->getSigma(), original.getSigma());
     EXPECT_EQ(clone->getHurstParameter(), original.getHurstParameter());
     EXPECT_EQ(clone->getLatteralCorrLength(), original.getLatteralCorrLength());
@@ -48,8 +51,8 @@ TEST_F(LayerRoughnessTest , LayerRoughnessClone)
     delete clone;
 }
 
-//test parameter pool
-TEST_F(LayerRoughnessTest , LayerRoughnessPool)
+// test parameter pool
+TEST_F(LayerRoughnessTest, LayerRoughnessPool)
 {
     LayerRoughness roughnessPool;
     EXPECT_EQ(0.0, roughnessPool.getSigma());

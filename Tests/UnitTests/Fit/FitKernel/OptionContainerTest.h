@@ -1,5 +1,5 @@
+#include "google_test.h"
 #include "OptionContainer.h"
-#include "gtest/gtest.h"
 #include <exception>
 
 class OptionContainerTest : public ::testing::Test {

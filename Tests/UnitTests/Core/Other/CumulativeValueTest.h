@@ -1,12 +1,13 @@
+#include "google_test.h"
 #include "CumulativeValue.h"
-
 
 class CumulativeValueTest : public ::testing::Test
 {
- protected:
-    CumulativeValueTest(){}
-    virtual ~CumulativeValueTest(){}
+protected:
+    ~CumulativeValueTest();
 };
+
+CumulativeValueTest::~CumulativeValueTest() = default;
 
 TEST_F(CumulativeValueTest, InitialState)
 {
@@ -33,7 +34,6 @@ TEST_F(CumulativeValueTest, AddValue)
     EXPECT_EQ(1.0, cv2.getContent());
     EXPECT_EQ(1.0, cv2.getAverage());
     EXPECT_EQ(0.0, cv2.getRMS());
-
 }
 
 TEST_F(CumulativeValueTest, AddValues)
@@ -61,14 +61,14 @@ TEST_F(CumulativeValueTest, AddValuesWithWeights)
     EXPECT_EQ(2, cv1.getNumberOfEntries());
     EXPECT_DOUBLE_EQ(4.0, cv1.getContent());
     EXPECT_DOUBLE_EQ(1.5, cv1.getAverage());
-    EXPECT_DOUBLE_EQ(0.75, cv1.getRMS()*cv1.getRMS());
+    EXPECT_DOUBLE_EQ(0.75, cv1.getRMS() * cv1.getRMS());
 
     cv1.add(3.0);
     cv1.add(3.0);
     EXPECT_EQ(4, cv1.getNumberOfEntries());
     EXPECT_DOUBLE_EQ(10.0, cv1.getContent());
     EXPECT_DOUBLE_EQ(2.0, cv1.getAverage());
-	EXPECT_DOUBLE_EQ(1.0, cv1.getRMS());
+    EXPECT_DOUBLE_EQ(1.0, cv1.getRMS());
 }
 
 TEST_F(CumulativeValueTest, Comparison)
@@ -79,5 +79,4 @@ TEST_F(CumulativeValueTest, Comparison)
 
     EXPECT_TRUE(cv2 > cv1);
     EXPECT_TRUE(cv1 < cv2);
-
 }

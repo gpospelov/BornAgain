@@ -1,9 +1,9 @@
+#include "google_test.h"
 #include "IParameterized.h"
 #include "RealParameter.h"
 #include "ParameterPool.h"
 #include "FitParameter.h"
 #include <string>
-#include "gtest/gtest.h"
 
 class FitParameterTest : public ::testing::Test
 {

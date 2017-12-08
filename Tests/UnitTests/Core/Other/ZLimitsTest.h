@@ -1,18 +1,14 @@
+#include "google_test.h"
 #include "ZLimits.h"
 #include <stdexcept>
 
 class ZLimitsTest : public ::testing::Test
 {
- protected:
-    ZLimitsTest();
-    virtual ~ZLimitsTest();
+protected:
+    ~ZLimitsTest();
 };
 
-ZLimitsTest::ZLimitsTest()
-{}
-
-ZLimitsTest::~ZLimitsTest()
-{}
+ZLimitsTest::~ZLimitsTest() = default;
 
 TEST_F(ZLimitsTest, ZLimitsDefaultConstructor)
 {
@@ -23,27 +19,27 @@ TEST_F(ZLimitsTest, ZLimitsDefaultConstructor)
 
 TEST_F(ZLimitsTest, ZLimitsMinMaxConstructor)
 {
-    ZLimits limits { -4.0, 1.5 };
+    ZLimits limits{-4.0, 1.5};
     EXPECT_FALSE(limits.lowerLimit().m_limitless);
     EXPECT_EQ(-4.0, limits.lowerLimit().m_value);
     EXPECT_FALSE(limits.upperLimit().m_limitless);
     EXPECT_EQ(1.5, limits.upperLimit().m_value);
-    limits  = ZLimits { -4.0, -4.0 };
+    limits = ZLimits{-4.0, -4.0};
     EXPECT_FALSE(limits.lowerLimit().m_limitless);
     EXPECT_EQ(-4.0, limits.lowerLimit().m_value);
     EXPECT_FALSE(limits.upperLimit().m_limitless);
     EXPECT_EQ(-4.0, limits.upperLimit().m_value);
-    EXPECT_THROW(limits  = ZLimits(-4.0, -5.0) , std::runtime_error);
+    EXPECT_THROW(limits = ZLimits(-4.0, -5.0), std::runtime_error);
 }
 
 TEST_F(ZLimitsTest, ZLimitsOneSidedLimitConstructor)
 {
-    ZLimits limits1 { { true, -4.0 }, { true, 1.5 } };
-    ZLimits limits2 { { false, -4.0 }, { true, 1.5 } };
-    ZLimits limits3 { { true, -4.0 }, { false, 1.5 } };
-    ZLimits limits4 { { false, -4.0 }, { false, 1.5 } };
+    ZLimits limits1{{true, -4.0}, {true, 1.5}};
+    ZLimits limits2{{false, -4.0}, {true, 1.5}};
+    ZLimits limits3{{true, -4.0}, {false, 1.5}};
+    ZLimits limits4{{false, -4.0}, {false, 1.5}};
     EXPECT_TRUE(limits1.lowerLimit().m_limitless);
-    EXPECT_TRUE( limits1.upperLimit().m_limitless);
+    EXPECT_TRUE(limits1.upperLimit().m_limitless);
     EXPECT_FALSE(limits2.lowerLimit().m_limitless);
     EXPECT_EQ(-4.0, limits2.lowerLimit().m_value);
     EXPECT_TRUE(limits2.upperLimit().m_limitless);
@@ -54,10 +50,10 @@ TEST_F(ZLimitsTest, ZLimitsOneSidedLimitConstructor)
     EXPECT_EQ(-4.0, limits4.lowerLimit().m_value);
     EXPECT_FALSE(limits4.upperLimit().m_limitless);
     EXPECT_EQ(1.5, limits4.upperLimit().m_value);
-    EXPECT_NO_THROW(ZLimits limits5({ true, -4.0 }, { true, -5.0 }) );
-    EXPECT_NO_THROW(ZLimits limits6({ false, -4.0 }, { true, -5.0 }) );
-    EXPECT_NO_THROW(ZLimits limits7({ true, -4.0 }, { false, -5.0 }) );
-    EXPECT_THROW(ZLimits limits8({ false, -4.0 }, { false, -5.0 }), std::runtime_error);
+    EXPECT_NO_THROW(ZLimits limits5({true, -4.0}, {true, -5.0}));
+    EXPECT_NO_THROW(ZLimits limits6({false, -4.0}, {true, -5.0}));
+    EXPECT_NO_THROW(ZLimits limits7({true, -4.0}, {false, -5.0}));
+    EXPECT_THROW(ZLimits limits8({false, -4.0}, {false, -5.0}), std::runtime_error);
 }
 
 TEST_F(ZLimitsTest, ZLimitsIsFinite)

@@ -1,20 +1,24 @@
+#include "google_test.h"
+#include "BornAgainNamespace.h"
+#include "Distributions.h"
+#include "MaterialFactoryFuncs.h"
+#include "ParameterUtils.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"
-#include "MaterialFactoryFuncs.h"
-#include "Distributions.h"
-#include "BornAgainNamespace.h"
-#include "ParameterUtils.h"
 #include "Units.h"
+#include "FormFactors.h"
 
 class ParticleDistributionTest : public ::testing::Test
 {
 protected:
-    ParticleDistributionTest(){}
+    ~ParticleDistributionTest();
 };
+
+ParticleDistributionTest::~ParticleDistributionTest() = default;
 
 TEST_F(ParticleDistributionTest, getChildren)
 {
-    Particle particle(HomogeneousMaterial("Air",0.0, 0.0), FormFactorFullSphere(1.0));
+    Particle particle(HomogeneousMaterial("Air", 0.0, 0.0), FormFactorFullSphere(1.0));
     ParameterDistribution parameter("name", DistributionGate(1.0, 2.0), 5, 0.0, 1.0);
     ParticleDistribution distr(particle, parameter);
 
@@ -26,7 +30,7 @@ TEST_F(ParticleDistributionTest, getChildren)
 
 TEST_F(ParticleDistributionTest, mainParameterUnits)
 {
-    Material mat = HomogeneousMaterial("Air",0.0, 0.0);
+    Material mat = HomogeneousMaterial("Air", 0.0, 0.0);
     DistributionGate gate(1.0, 2.0);
 
     ParameterDistribution par("/Particle/FullSphere/Radius", gate, 5);
@@ -34,7 +38,6 @@ TEST_F(ParticleDistributionTest, mainParameterUnits)
     EXPECT_EQ(ParameterUtils::mainParUnits(distr), BornAgain::UnitsNm);
 
     par = ParameterDistribution("/Particle/Cone/Alpha", gate, 5);
-    ParticleDistribution distr2(Particle(mat, FormFactorCone(10.0, 20.0, 70.0*Units::deg)), par);
+    ParticleDistribution distr2(Particle(mat, FormFactorCone(10.0, 20.0, 70.0 * Units::deg)), par);
     EXPECT_EQ(ParameterUtils::mainParUnits(distr2), BornAgain::UnitsRad);
-
 }

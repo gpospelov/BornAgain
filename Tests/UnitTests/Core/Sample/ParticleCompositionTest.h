@@ -1,17 +1,18 @@
+#include "google_test.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorFullSphere.h"
 #include "MaterialFactoryFuncs.h"
 #include "MathConstants.h"
 #include "Particle.h"
 #include "ParticleComposition.h"
-#include "BornAgainNamespace.h"
-#include <iostream>
 
 class ParticleCompositionTest : public ::testing::Test
 {
 protected:
-    ParticleCompositionTest(){}
-    virtual ~ParticleCompositionTest(){}
+    ~ParticleCompositionTest();
 };
+
+ParticleCompositionTest::~ParticleCompositionTest() = default;
 
 TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor)
 {

@@ -1,3 +1,4 @@
+#include "google_test.h"
 #include "OutputData.h"
 #include <algorithm>
 #include "IntensityDataFunctions.h"

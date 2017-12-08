@@ -1,6 +1,7 @@
 #include <QtTest>
 #include <QString>
 #include <QCoreApplication>
+
 #include "TestComboProperty.h"
 #include "TestComponentProxyModel.h"
 #include "TestComponentUtils.h"

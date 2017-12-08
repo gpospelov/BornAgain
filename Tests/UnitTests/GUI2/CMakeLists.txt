@@ -33,7 +33,7 @@ add_executable(${TestName} ${source_files} ${include_files})
 
 target_link_libraries(${TestName} ${BornAgainGUI_LIBRARY} gtest)
 
-qt5_use_modules(${TestName} Widgets Core Gui Designer PrintSupport Network)
+qt5_use_modules(${TestName} Widgets Core Gui Designer PrintSupport Network Test)
 
 # add execution of TestCore just after compilation
 add_custom_target(${TestName}Target ALL DEPENDS TestGUI COMMAND ${TestName})

@@ -5,8 +5,6 @@
 #include "TestComboProperty.h"
 #include <memory>
 
-#include "ErrorStreamRedirect.h"
-
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
     Q_UNUSED(app);
@@ -14,11 +12,6 @@ int main(int argc, char** argv) {
     QMetaType::registerComparators<ComboProperty>();
 
     ::testing::InitGoogleTest(&argc, argv);
-
-    // redirect std::cerr stream
-    std::stringstream oss;
-    ErrorStreamRedirect redirecter( oss.rdbuf() );
-    (void)redirecter;
 
     // run all google tests
     return RUN_ALL_TESTS();

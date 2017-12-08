@@ -1,7 +1,9 @@
-// include this header file for each Unit Test
-
 #ifndef GOOGLE_TEST_H
 #define GOOGLE_TEST_H
+
+#ifdef _MSC_VER
+#define _VARIADIC_MAX 10
+#endif
 
 #ifdef _WIN32
 #pragma warning ( push )
@@ -12,5 +14,5 @@
 #include <gtest/gtest.h>
 #endif
 
+#endif
 
-#endif //GOOGLE_TEST_H

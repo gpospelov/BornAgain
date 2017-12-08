@@ -13,7 +13,6 @@ include_directories(
     ${GSL_INCLUDE_DIR}
     ${gtest_SOURCE_DIR}
     ${gtest_SOURCE_DIR}/include
-    utils/
     )
 if(BORNAGAIN_OPENMPI)
     include_directories(${MPI_INCLUDE_PATH})

@@ -1,45 +1,45 @@
 #include <QtTest>
 #include <QString>
 #include <QCoreApplication>
-#include "TestMapperCases.h"
+#include "TestComboProperty.h"
+#include "TestComponentProxyModel.h"
+#include "TestComponentUtils.h"
+#include "TestDetectorItems.h"
+#include "TestExternalProperty.h"
+#include "TestFitParameterModel.h"
 #include "TestFormFactorItems.h"
 #include "TestFTDistributionItems.h"
-#include "TestParameterizedItem.h"
-#include "TestParticleItem.h"
-#include "TestLayerRoughnessItems.h"
-#include "TestParaCrystalItems.h"
-#include "TestSessionModel.h"
-#include "TestSessionItem.h"
-#include "TestGUICoreObjectCorrespondence.h"
-#include "TestMapperForItem.h"
-#include "TestParticleDistributionItem.h"
-#include "TestGUIHelpers.h"
-#include "TestFitParameterModel.h"
-#include "TestMaterialModel.h"
-#include "TestComboProperty.h"
-#include "TestTranslations.h"
 #include "TestGroupItem.h"
-#include "TestParameterTreeUtils.h"
-#include "TestDetectorItems.h"
-#include "TestLinkInstrument.h"
-#include "TestUpdateTimer.h"
-#include "TestProjectDocument.h"
-#include "TestSaveService.h"
-#include "TestOutputDataIOService.h"
+#include "TestGUICoreObjectCorrespondence.h"
+#include "TestGUIHelpers.h"
 #include "TestIntensityDataItem.h"
-#include "TestProjectUtils.h"
-#include "TestParticleCoreShell.h"
-#include "TestPropertyRepeater.h"
-#include "TestSessionItemController.h"
-#include "TestModelUtils.h"
-#include "TestComponentProxyModel.h"
-#include "TestProxyModelStrategy.h"
-#include "TestSessionItemUtils.h"
-#include "TestComponentUtils.h"
 #include "TestLayerItems.h"
+#include "TestLayerRoughnessItems.h"
+#include "TestLinkInstrument.h"
+#include "TestMapperCases.h"
+#include "TestMapperForItem.h"
+#include "TestMaterialModel.h"
 #include "TestMaterialPropertyController.h"
-#include "TestExternalProperty.h"
+#include "TestModelUtils.h"
+#include "TestOutputDataIOService.h"
+#include "TestParaCrystalItems.h"
+#include "TestParameterizedItem.h"
+#include "TestParameterTreeUtils.h"
+#include "TestParticleCoreShell.h"
+#include "TestParticleDistributionItem.h"
+#include "TestParticleItem.h"
+#include "TestProjectDocument.h"
+#include "TestProjectUtils.h"
+#include "TestPropertyRepeater.h"
+#include "TestProxyModelStrategy.h"
+#include "TestSaveService.h"
+#include "TestSessionItemController.h"
+#include "TestSessionItem.h"
+#include "TestSessionItemUtils.h"
+#include "TestSessionModel.h"
 #include "TestSessionXML.h"
+#include "TestTranslations.h"
+#include "TestUpdateTimer.h"
 #include <memory>
 
 class GUITestFactory {
@@ -75,45 +75,45 @@ int main(int argc, char** argv) {
 
     GUITestFactory tests;
 
+    tests.add<TestComboProperty>();
+    tests.add<TestComponentProxyModel>();
+    tests.add<TestComponentUtils>();
+    tests.add<TestDetectorItems>();
+    tests.add<TestExternalProperty>();
+    tests.add<TestFitParameterModel>();
     tests.add<TestFormFactorItems>();
     tests.add<TestFTDistributionItems>();
-    tests.add<TestParameterizedItem>();
-    tests.add<TestParticleItem>();
-    tests.add<TestLayerRoughnessItems>();
-    tests.add<TestParaCrystalItems>();
-    tests.add<TestSessionModel>();
+    tests.add<TestGroupItem>();
     tests.add<TestGUICoreObjectCorrespondence>();
-    tests.add<TestSessionItem>();
+    tests.add<TestGUIHelpers>();
+    tests.add<TestIntensityDataItem>();
+    tests.add<TestLayerItems>();
+    tests.add<TestLayerRoughnessItems>();
+    tests.add<TestLinkInstrument>();
     tests.add<TestMapperCases>();
     tests.add<TestMapperForItem>();
-    tests.add<TestGUIHelpers>();
-    tests.add<TestFitParameterModel>();
     tests.add<TestMaterialModel>();
-    tests.add<TestLayerItems>();
     tests.add<TestMaterialPropertyController>();
-    tests.add<TestComboProperty>();
-    tests.add<TestTranslations>();
-    tests.add<TestGroupItem>();
-    tests.add<TestParticleDistributionItem>();
-    tests.add<TestParameterTreeUtils>();
-    tests.add<TestDetectorItems>();
-    tests.add<TestLinkInstrument>();
-    tests.add<TestUpdateTimer>();
-    tests.add<TestProjectDocument>();
-    tests.add<TestSaveService>();
-    tests.add<TestOutputDataIOService>();
-    tests.add<TestIntensityDataItem>();
-    tests.add<TestProjectUtils>();
-    tests.add<TestParticleCoreShell>();
-    tests.add<TestPropertyRepeater>();
-    tests.add<TestSessionItemController>();
     tests.add<TestModelUtils>();
-    tests.add<TestComponentProxyModel>();
+    tests.add<TestOutputDataIOService>();
+    tests.add<TestParaCrystalItems>();
+    tests.add<TestParameterizedItem>();
+    tests.add<TestParameterTreeUtils>();
+    tests.add<TestParticleCoreShell>();
+    tests.add<TestParticleDistributionItem>();
+    tests.add<TestParticleItem>();
+    tests.add<TestProjectDocument>();
+    tests.add<TestProjectUtils>();
+    tests.add<TestPropertyRepeater>();
     tests.add<TestProxyModelStrategy>();
+    tests.add<TestSaveService>();
+    tests.add<TestSessionItem>();
+    tests.add<TestSessionItemController>();
     tests.add<TestSessionItemUtils>();
-    tests.add<TestComponentUtils>();
-    tests.add<TestExternalProperty>();
+    tests.add<TestSessionModel>();
     tests.add<TestSessionXML>();
+    tests.add<TestTranslations>();
+    tests.add<TestUpdateTimer>();
 
     return tests.runAll(argc, argv);
 }

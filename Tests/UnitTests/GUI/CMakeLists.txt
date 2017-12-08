@@ -1,4 +1,4 @@
-# Here we use QtTest, not gtest ...
+set(TestName TestGUI)
 
 if(POLICY CMP0020)
     cmake_policy(SET CMP0020 NEW)
@@ -23,11 +23,11 @@ include_directories(
 
 set(CMAKE_AUTOMOC ON)
 
-add_executable(TestGUI ${source_files} ${include_files})
+add_executable(${TestName} ${source_files} ${include_files})
 
-target_link_libraries(TestGUI ${BornAgainGUI_LIBRARY})
+target_link_libraries(${TestName} ${BornAgainGUI_LIBRARY})
 
-qt5_use_modules(TestGUI Widgets Core Gui Designer PrintSupport Network Test)
+qt5_use_modules(${TestName} Widgets Core Gui Designer PrintSupport Network Test)
 
 # add execution of TestCore just after compilation
-add_custom_target(TestGUI0 ALL DEPENDS TestGUI COMMAND TestGUI)
+add_custom_target(${TestName}Target ALL DEPENDS TestGUI COMMAND ${TestName})

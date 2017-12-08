@@ -104,6 +104,8 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
     if (isDoubleProperty(item.value())) {
         if (item.editorType() == Constants::ScientificEditorType) {
             auto editor = new ScientificDoublePropertyEditor;
+            auto limits = item.limits();
+            editor->setLimits(limits);
             editor->setData(item.value());
             result = editor;
         } else {

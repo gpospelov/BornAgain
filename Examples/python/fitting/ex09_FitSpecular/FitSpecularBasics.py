@@ -9,6 +9,7 @@ Reference data was generated with GENX for ti layers' thicknesses equal to 3 nm
 import numpy as np
 import bornagain as ba
 from matplotlib import pyplot as plt
+from os import path
 
 # beam wavelength
 wavelength = 1.54 * ba.angstrom
@@ -63,7 +64,9 @@ def create_real_data():
     """
     Loading data from genx_interchanging_layers.dat
     """
-    ax_values, real_data = np.loadtxt("genx_interchanging_layers.dat",
+    filepath = path.join(path.dirname(path.realpath(__file__)),
+                                      "genx_interchanging_layers.dat")
+    ax_values, real_data = np.loadtxt(filepath,
                                       usecols=(0, 1), skiprows=3, unpack=True)
 
     # translating axis values from double incident angle (degrees)

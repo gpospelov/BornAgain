@@ -8,7 +8,9 @@
 
 # add_custom_target(TempQtCreatorTarget SOURCES check_functionality.py)
 
-file(GLOB examples "${PY_EXAMPLES_DIR}/simulation/ex*/*.py")
+file(GLOB sim_examples "${PY_EXAMPLES_DIR}/simulation/ex*/*.py")
+file(GLOB fit_examples "${PY_EXAMPLES_DIR}/fitting/ex09*/*.py")
+set(examples ${sim_examples} ${fit_examples})
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_functionality.py ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/check_functionality.py @ONLY)
 

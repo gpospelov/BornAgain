@@ -21,5 +21,5 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGTEST_LINKED_AS_SHARED_LIBRARY=1")
 
 set(libs BornAgainCore BornAgainFit)
-ADD_GTEST(Fit "0" "${libs}" 0)
+ADD_GTEST(Fit "FitKernel" "${libs}" 0)
 

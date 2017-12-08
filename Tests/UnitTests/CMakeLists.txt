@@ -12,6 +12,6 @@ if(UNITTESTS)
     endif()
 
     # to show directory in Qt creator project tree
-    FILE(GLOB_RECURSE UtilityFiles "utilities/*.h")
+    FILE(GLOB_RECURSE UtilityFiles "utilities/*.*")
     add_custom_target(UnitTestUtilities SOURCES ${UtilityFiles})
 endif()

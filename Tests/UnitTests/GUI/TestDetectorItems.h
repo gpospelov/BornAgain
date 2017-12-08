@@ -1,4 +1,4 @@
-#include <QtTest>
+#include "google_test.h"
 #include "RectangularDetectorItem.h"
 #include "InstrumentModel.h"
 #include "ComboProperty.h"
@@ -9,15 +9,15 @@
 #include "IDetector2D.h"
 #include "Units.h"
 
-class TestDetectorItems : public QObject {
-    Q_OBJECT
-
-private slots:
-    void test_detectorAlignment();
-    void test_resolutionFunction();
+class TestDetectorItems :  public ::testing::Test
+{
+public:
+    ~TestDetectorItems();
 };
 
-inline void TestDetectorItems::test_detectorAlignment()
+TestDetectorItems::~TestDetectorItems() = default;
+
+TEST_F(TestDetectorItems, test_detectorAlignment)
 {
     InstrumentModel model;
     SessionItem* detector = model.insertNewItem(Constants::RectangularDetectorType);
@@ -28,34 +28,31 @@ inline void TestDetectorItems::test_detectorAlignment()
     alignment.setValue(Constants::ALIGNMENT_GENERIC);
     detector->setItemValue(RectangularDetectorItem::P_ALIGNMENT,
                            QVariant::fromValue<ComboProperty>(alignment));
-    QVERIFY(detector->getItem(RectangularDetectorItem::P_NORMAL)->isVisible());
+    EXPECT_TRUE(detector->getItem(RectangularDetectorItem::P_NORMAL)->isVisible());
 
     // should be disabled if we switch
     alignment.setValue(Constants::ALIGNMENT_TO_REFLECTED_BEAM);
     detector->setItemValue(RectangularDetectorItem::P_ALIGNMENT,
                            QVariant::fromValue<ComboProperty>(alignment));
-    QVERIFY(detector->getItem(RectangularDetectorItem::P_NORMAL)->isVisible() == false);
+    EXPECT_FALSE(detector->getItem(RectangularDetectorItem::P_NORMAL)->isVisible());
 }
 
-inline void TestDetectorItems::test_resolutionFunction()
+TEST_F(TestDetectorItems, test_resolutionFunction)
 {
     InstrumentModel model;
-    InstrumentItem* instrument = dynamic_cast<InstrumentItem*>(
-                model.insertNewItem(Constants::InstrumentType));
+    InstrumentItem* instrument
+        = dynamic_cast<InstrumentItem*>(model.insertNewItem(Constants::InstrumentType));
 
-    DetectorItem *detectorItem = instrument->detectorItem();
+    DetectorItem* detectorItem = instrument->detectorItem();
 
     detectorItem->setGroupProperty(DetectorItem::P_RESOLUTION_FUNCTION,
                                    Constants::ResolutionFunction2DGaussianType);
 
     auto detector = detectorItem->createDetector();
+    auto convol
+        = dynamic_cast<const ConvolutionDetectorResolution*>(detector->detectorResolution());
+    auto gaussian
+        = dynamic_cast<const ResolutionFunction2DGaussian*>(convol->getResolutionFunction2D());
 
-    auto convol = dynamic_cast<const ConvolutionDetectorResolution*>(detector->detectorResolution());
-
-    auto gaussian = dynamic_cast<const ResolutionFunction2DGaussian*>(convol->getResolutionFunction2D());
-
-
-    QCOMPARE(Units::rad2deg(gaussian->getSigmaX()), 0.02);
-
-
+    EXPECT_EQ(Units::rad2deg(gaussian->getSigmaX()), 0.02);
 }

@@ -1,4 +1,4 @@
-#include <QtTest>
+#include "google_test.h"
 #include "ComponentUtils.h"
 #include "SessionItem.h"
 #include "SessionModel.h"
@@ -7,19 +7,17 @@
 #include "FormFactorItems.h"
 #include <QDebug>
 
-class TestComponentUtils : public QObject
+class TestComponentUtils :  public ::testing::Test
 {
-    Q_OBJECT
 public:
-
-private slots:
-    void test_componentItems();
-    void test_componentItemsFFChange();
+    ~TestComponentUtils();
 };
+
+TestComponentUtils::~TestComponentUtils() = default;
 
 //! Testing component items of particle item.
 
-inline void TestComponentUtils::test_componentItems()
+TEST_F(TestComponentUtils, test_componentItems)
 {
     SessionModel model("TestModel");
 
@@ -36,11 +34,11 @@ inline void TestComponentUtils::test_componentItems()
             << particle->getItem(ParticleItem::P_POSITION);
 
     auto itemList = ComponentUtils::componentItems(*particle);
-    QCOMPARE(itemList.size(), 6);
-    QCOMPARE(itemList, expectedList);
+    EXPECT_EQ(itemList.size(), 6);
+    EXPECT_EQ(itemList, expectedList);
 }
 
-inline void TestComponentUtils::test_componentItemsFFChange()
+TEST_F(TestComponentUtils, test_componentItemsFFChange)
 {
     SessionModel model("TestModel");
 
@@ -58,6 +56,6 @@ inline void TestComponentUtils::test_componentItemsFFChange()
             << particle->getItem(ParticleItem::P_POSITION);
 
     auto itemList = ComponentUtils::componentItems(*particle);
-    QCOMPARE(itemList.size(), 5);
-    QCOMPARE(itemList, expectedList);
+    EXPECT_EQ(itemList.size(), 5);
+    EXPECT_EQ(itemList, expectedList);
 }

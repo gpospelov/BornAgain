@@ -1,16 +1,15 @@
-#include <QtTest>
+#include "google_test.h"
 #include "ModelUtils.h"
 #include "SessionModel.h"
 #include "item_constants.h"
 #include "VectorItem.h"
 #include "LayerItem.h"
 #include <QVector>
-#include <QDebug>
 
-class TestModelUtils : public QObject
+class TestModelUtils : public ::testing::Test
 {
-    Q_OBJECT
-private:
+public:
+    ~TestModelUtils();
 
     //! Returns true if model contains given item using iterate_if procedure.
     bool modelContainsItem(SessionModel* model, SessionItem* selectedItem)
@@ -18,37 +17,33 @@ private:
         bool result = false;
         ModelUtils::iterate_if(QModelIndex(), model, [&](const QModelIndex& index) -> bool {
             SessionItem* item = model->itemForIndex(index);
-            if(item == selectedItem)
+            if (item == selectedItem)
                 result = true;
             return item->isVisible();
         });
         return result;
     }
-
-private slots:
-    void test_emptyModel();
-    void test_vectorItem();
-    void test_iterateIf();
 };
+
+TestModelUtils::~TestModelUtils() = default;
 
 //! Testing iteration over empty model.
 
-inline void TestModelUtils::test_emptyModel()
+TEST_F(TestModelUtils, test_emptyModel)
 {
     SessionModel model("TestModel");
 
     QVector<QModelIndex> indices;
 
-    ModelUtils::iterate(QModelIndex(), &model, [&](const QModelIndex& index){
-        indices.push_back(index);
-    });
+    ModelUtils::iterate(QModelIndex(), &model,
+                        [&](const QModelIndex& index) { indices.push_back(index); });
 
-    QCOMPARE(indices.size(), 0);
+    EXPECT_EQ(indices.size(), 0);
 }
 
 //! Testing iteration over the model with one VectorItem inserted.
 
-inline void TestModelUtils::test_vectorItem()
+TEST_F(TestModelUtils, test_vectorItem)
 {
     SessionModel model("TestModel");
     SessionItem* vectorItem = model.insertNewItem(Constants::VectorType);
@@ -56,26 +51,25 @@ inline void TestModelUtils::test_vectorItem()
     QVector<QModelIndex> indices;
 
     // checking indices visited during iteration
-    ModelUtils::iterate(QModelIndex(), &model, [&](const QModelIndex& index){
-        indices.push_back(index);
-    });
-    QCOMPARE(indices.size(), 8); // (VectorItem, P_X, P_Y, P_Z) x (row, col)
+    ModelUtils::iterate(QModelIndex(), &model,
+                        [&](const QModelIndex& index) { indices.push_back(index); });
+    EXPECT_EQ(indices.size(), 8); // (VectorItem, P_X, P_Y, P_Z) x (row, col)
 
     indices.clear();
-    ModelUtils::iterate(QModelIndex(), &model, [&](const QModelIndex& index){
+    ModelUtils::iterate(QModelIndex(), &model, [&](const QModelIndex& index) {
         if (index.column() == 0)
             indices.push_back(index);
     });
 
     // checking SessionItems visited during the iteration
-    QCOMPARE(indices.size(), 4); // (VectorItem, P_X, P_Y, P_Z) x (row, col)
-    QCOMPARE(model.itemForIndex(indices.front()), vectorItem);
-    QCOMPARE(model.itemForIndex(indices.back()), vectorItem->getItem(VectorItem::P_Z));
+    EXPECT_EQ(indices.size(), 4); // (VectorItem, P_X, P_Y, P_Z) x (row, col)
+    EXPECT_EQ(model.itemForIndex(indices.front()), vectorItem);
+    EXPECT_EQ(model.itemForIndex(indices.back()), vectorItem->getItem(VectorItem::P_Z));
 }
 
 //! Tests iteration when some children is invisible.
 
-inline void TestModelUtils::test_iterateIf()
+TEST_F(TestModelUtils, test_iterateIf)
 {
     SessionModel model("TestModel");
     SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
@@ -83,14 +77,14 @@ inline void TestModelUtils::test_iterateIf()
     SessionItem* thicknessItem = layer->getItem(LayerItem::P_THICKNESS);
 
     layer->setVisible(true);
-    QVERIFY(modelContainsItem(&model, layer) == true);
-    QVERIFY(modelContainsItem(&model, thicknessItem) == true);
+    EXPECT_TRUE(modelContainsItem(&model, layer));
+    EXPECT_TRUE(modelContainsItem(&model, thicknessItem));
 
     // Setting layer invisible will hide its children from iteration.
     // Layer itself still will be visible.
     layer->setVisible(false);
 
     layer->setVisible(false);
-    QVERIFY(modelContainsItem(&model, layer) == true);
-    QVERIFY(modelContainsItem(&model, thicknessItem) == false);
+    EXPECT_TRUE(modelContainsItem(&model, layer));
+    EXPECT_FALSE(modelContainsItem(&model, thicknessItem));
 }

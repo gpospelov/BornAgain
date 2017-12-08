@@ -1,12 +1,11 @@
-#include <QtTest>
-#include "SessionItem.h"
-#include "SessionModel.h"
+#include "google_test.h"
 #include "FormFactorItems.h"
 #include "ParticleItem.h"
-#include <QXmlStreamWriter>
+#include "SessionItem.h"
+#include "SessionModel.h"
 #include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <memory>
-#include <QDebug>
 
 namespace
 {
@@ -25,22 +24,17 @@ void itemFromXML(QString buffer, SessionItem* item)
 }
 }
 
-class TestSessionXML : public QObject
+class TestSessionXML : public ::testing::Test
 {
-    Q_OBJECT
-private slots:
-    void test_sessionItem();
-    void test_FullSphereItem();
-    void test_twoFullSphereItems();
-    void test_emptyMultiLayer();
-    void test_Layer();
-    void test_Particle();
-    void test_ParticleWithFF();
+public:
+    ~TestSessionXML();
 };
+
+TestSessionXML::~TestSessionXML() = default;
 
 //! Testing to/from xml: simple property item.
 
-inline void TestSessionXML::test_sessionItem()
+TEST_F(TestSessionXML, test_sessionItem)
 {
     QString expected;
 
@@ -50,21 +44,21 @@ inline void TestSessionXML::test_sessionItem()
     expected = "<TestModel Name=\"DefaultName\">"
                "<Item ModelType=\"Property\" Tag=\"rootTag\" DisplayName=\"Property\"/>"
                "</TestModel>";
-    QCOMPARE(itemToXML(source.rootItem()), expected);
+    EXPECT_EQ(itemToXML(source.rootItem()), expected);
 
     SessionModel target("TestModel");
     itemFromXML(expected, target.rootItem());
 
-    QCOMPARE(target.rowCount(QModelIndex()), 1);
+    EXPECT_EQ(target.rowCount(QModelIndex()), 1);
     SessionItem* newItem = target.itemForIndex(target.index(0, 0, QModelIndex()));
-    QCOMPARE(newItem->modelType(), Constants::PropertyType);
-    QCOMPARE(newItem->displayName(), QString("Property"));
-    QVERIFY(newItem->value().isValid() == false);
+    EXPECT_EQ(newItem->modelType(), Constants::PropertyType);
+    EXPECT_EQ(newItem->displayName(), QString("Property"));
+    EXPECT_FALSE(newItem->value().isValid());
 }
 
 //! Testing to/from xml: FullSphereItem
 
-inline void TestSessionXML::test_FullSphereItem()
+TEST_F(TestSessionXML, test_FullSphereItem)
 {
     // source model, to xml
     SessionModel source("TestModel");
@@ -80,24 +74,24 @@ inline void TestSessionXML::test_FullSphereItem()
     SessionItem* t_sphere = target.topItem();
     SessionItem* t_radius = t_sphere->getItem(FullSphereItem::P_RADIUS);
 
-    QCOMPARE(sphere->parent()->tagFromItem(sphere), t_sphere->parent()->tagFromItem(t_sphere));
-    QCOMPARE(sphere->displayName(), t_sphere->displayName());
-    QCOMPARE(sphere->modelType(), t_sphere->modelType());
-    QCOMPARE(sphere->numberOfChildren(), t_sphere->numberOfChildren());
-    QCOMPARE(sphere->getItemValue(FullSphereItem::P_RADIUS),
-             t_sphere->getItemValue(FullSphereItem::P_RADIUS));
+    EXPECT_EQ(sphere->parent()->tagFromItem(sphere), t_sphere->parent()->tagFromItem(t_sphere));
+    EXPECT_EQ(sphere->displayName(), t_sphere->displayName());
+    EXPECT_EQ(sphere->modelType(), t_sphere->modelType());
+    EXPECT_EQ(sphere->numberOfChildren(), t_sphere->numberOfChildren());
+    EXPECT_EQ(sphere->getItemValue(FullSphereItem::P_RADIUS),
+              t_sphere->getItemValue(FullSphereItem::P_RADIUS));
 
-    QCOMPARE(radius->parent()->tagFromItem(sphere), t_radius->parent()->tagFromItem(t_sphere));
-    QCOMPARE(radius->displayName(), t_radius->displayName());
-    QCOMPARE(radius->modelType(), t_radius->modelType());
-    QCOMPARE(radius->numberOfChildren(), t_radius->numberOfChildren());
-    QCOMPARE(radius->value().toDouble(), t_radius->value().toDouble());
+    EXPECT_EQ(radius->parent()->tagFromItem(sphere), t_radius->parent()->tagFromItem(t_sphere));
+    EXPECT_EQ(radius->displayName(), t_radius->displayName());
+    EXPECT_EQ(radius->modelType(), t_radius->modelType());
+    EXPECT_EQ(radius->numberOfChildren(), t_radius->numberOfChildren());
+    EXPECT_EQ(radius->value().toDouble(), t_radius->value().toDouble());
 
     // final XML comparison
-    QCOMPARE(buffer, itemToXML(target.rootItem()));
+    EXPECT_EQ(buffer, itemToXML(target.rootItem()));
 }
 
-inline void TestSessionXML::test_twoFullSphereItems()
+TEST_F(TestSessionXML, test_twoFullSphereItems)
 {
     // source model, to xml
     SessionModel source("TestModel");
@@ -111,10 +105,10 @@ inline void TestSessionXML::test_twoFullSphereItems()
     itemFromXML(buffer, target.rootItem());
 
     // final XML comparison
-    QCOMPARE(buffer, itemToXML(target.rootItem()));
+    EXPECT_EQ(buffer, itemToXML(target.rootItem()));
 }
 
-inline void TestSessionXML::test_emptyMultiLayer()
+TEST_F(TestSessionXML, test_emptyMultiLayer)
 {
     SessionModel source("TestModel");
     source.insertNewItem(Constants::MultiLayerType);
@@ -124,10 +118,10 @@ inline void TestSessionXML::test_emptyMultiLayer()
     itemFromXML(buffer, target.rootItem());
 
     // final XML comparison
-    QCOMPARE(buffer, itemToXML(target.rootItem()));
+    EXPECT_EQ(buffer, itemToXML(target.rootItem()));
 }
 
-inline void TestSessionXML::test_Layer()
+TEST_F(TestSessionXML, test_Layer)
 {
     SessionModel source("TestModel");
     source.insertNewItem(Constants::LayerType);
@@ -137,10 +131,10 @@ inline void TestSessionXML::test_Layer()
     itemFromXML(buffer, target.rootItem());
 
     // final XML comparison
-    QCOMPARE(buffer, itemToXML(target.rootItem()));
+    EXPECT_EQ(buffer, itemToXML(target.rootItem()));
 }
 
-inline void TestSessionXML::test_Particle()
+TEST_F(TestSessionXML, test_Particle)
 {
     SessionModel source("TestModel");
     source.insertNewItem(Constants::ParticleType);
@@ -150,10 +144,10 @@ inline void TestSessionXML::test_Particle()
     itemFromXML(buffer, target.rootItem());
 
     // final XML comparison
-    QCOMPARE(buffer, itemToXML(target.rootItem()));
+    EXPECT_EQ(buffer, itemToXML(target.rootItem()));
 }
 
-inline void TestSessionXML::test_ParticleWithFF()
+TEST_F(TestSessionXML, test_ParticleWithFF)
 {
     SessionModel source("TestModel");
     SessionItem* particle = source.insertNewItem(Constants::ParticleType);
@@ -165,5 +159,5 @@ inline void TestSessionXML::test_ParticleWithFF()
     itemFromXML(buffer, target.rootItem());
 
     // final XML comparison
-    QCOMPARE(buffer, itemToXML(target.rootItem()));
+    EXPECT_EQ(buffer, itemToXML(target.rootItem()));
 }

@@ -1,3 +1,4 @@
+#include "google_test.h"
 #include "ComboProperty.h"
 #include "DocumentModel.h"
 #include "ParticleItem.h"
@@ -9,16 +10,15 @@
 
 using SessionItemUtils::ParentRow;
 
-class TestMapperCases : public QObject
+class TestMapperCases : public ::testing::Test
 {
-    Q_OBJECT
-
-private slots:
-    void test_ParticeleCompositionUpdate();
-    void test_SimulationOptionsComputationToggle();
+public:
+    ~TestMapperCases();
 };
 
-inline void TestMapperCases::test_ParticeleCompositionUpdate()
+TestMapperCases::~TestMapperCases() = default;
+
+TEST_F(TestMapperCases, test_ParticeleCompositionUpdate)
 {
     SampleModel model;
     SessionItem* multilayer = model.insertNewItem(Constants::MultiLayerType);
@@ -28,21 +28,21 @@ inline void TestMapperCases::test_ParticeleCompositionUpdate()
     // composition added to layout should have abundance enabled
     SessionItem* compositionFree
         = model.insertNewItem(Constants::ParticleCompositionType, layout->index());
-    QVERIFY(compositionFree->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
+    EXPECT_TRUE(compositionFree->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
 
     // composition added to distribution should have abundance disabled
     SessionItem* distribution
         = model.insertNewItem(Constants::ParticleDistributionType, layout->index());
     SessionItem* composition
         = model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
-    QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
+    EXPECT_TRUE(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
 
     composition = distribution->takeRow(ParentRow(*composition));
-    QVERIFY(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
+    EXPECT_TRUE(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     delete composition;
 }
 
-inline void TestMapperCases::test_SimulationOptionsComputationToggle()
+TEST_F(TestMapperCases, test_SimulationOptionsComputationToggle)
 {
     DocumentModel model;
     model.insertNewItem(Constants::SimulationOptionsType);
@@ -51,10 +51,10 @@ inline void TestMapperCases::test_SimulationOptionsComputationToggle()
 
     ComboProperty combo
         = item->getItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD).value<ComboProperty>();
-    QCOMPARE(combo.getValue(), Constants::SIMULATION_ANALYTICAL);
-    QVERIFY(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == false);
+    EXPECT_EQ(combo.getValue(), Constants::SIMULATION_ANALYTICAL);
+    EXPECT_TRUE(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == false);
 
     combo.setValue(Constants::SIMULATION_MONTECARLO);
     item->setItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD, combo.variant());
-    QVERIFY(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == true);
+    EXPECT_TRUE(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == true);
 }

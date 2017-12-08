@@ -8,7 +8,6 @@ if(UNITTESTS)
 
     if(BORNAGAIN_GUI)
         add_subdirectory(GUI)
-        add_subdirectory(GUI2)
     endif()
 
     # to show directory in Qt creator project tree

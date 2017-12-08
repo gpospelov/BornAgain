@@ -28,12 +28,12 @@ AdjustMinimizerStrategyTest::AdjustMinimizerStrategyTest()
 void AdjustMinimizerStrategyTest::initParameterPlan()
 {
     m_parplans.clear();
-    m_parplans.push_back(new FitParameterPlan("*Height", 2.0 * Units::nanometer,
-                                            5.0 * Units::nanometer,
-                                            AttLimits::limited(0.01, 30.0), 0.05));
-    m_parplans.push_back(new FitParameterPlan("*Radius", 10.0 * Units::nanometer,
-                                            5.0 * Units::nanometer,
-                                            AttLimits::limited(0.01, 30.0), 0.05));
+    m_parplans.push_back(std::make_unique<FitParameterPlan>("*Height", 2.0 * Units::nanometer,
+                                                            5.0 * Units::nanometer,
+                                                            AttLimits::limited(0.01, 30.0), 0.05));
+    m_parplans.push_back(std::make_unique<FitParameterPlan>("*Radius", 10.0 * Units::nanometer,
+                                                            5.0 * Units::nanometer,
+                                                            AttLimits::limited(0.01, 30.0), 0.05));
 }
 
 std::unique_ptr<FitSuite> AdjustMinimizerStrategyTest::createFitSuite() {

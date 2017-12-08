@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/IMinimizerTest.h
-//! @brief     Defines class IMinimizerTest.
+//! @file      Tests/Functional/Fit/SpecularFitTest.h
+//! @brief     Defines class SpecularFitTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,24 +13,23 @@
 //
 // ************************************************************************** //
 
-#ifndef IMINIMIZERTEST_H
-#define IMINIMIZERTEST_H
+//! @class SpecularFitTest
+//! @ingroup standard_samples
+//! @brief Fit of specular data.
+
+#ifndef SPECULARFITTEST_H_
+#define SPECULARFITTEST_H_
 
 #include "IFittingTest.h"
 
-//! @class IMinimizerTest
-//! @ingroup standard_samples
-//! @brief Basic class for all minimizer functional tests
-
-class IMinimizerTest : public IFittingTest
+class SpecularFitTest : public IFittingTest
 {
 public:
-    IMinimizerTest(const std::string &minimizer_name,
-                   const std::string &minimizer_algorithm = std::string());
-    virtual ~IMinimizerTest();
+    SpecularFitTest();
+    virtual ~SpecularFitTest();
 
 protected:
     virtual void initParameterPlan() override;
 };
 
-#endif // IMINIMIZERTEST_H
+#endif /* SPECULARFITTEST_H_ */

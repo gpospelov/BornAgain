@@ -212,7 +212,7 @@ ScientificDoublePropertyEditor::ScientificDoublePropertyEditor(QWidget* parent)
 
     layout->addWidget(m_lineEdit);
 
-    m_validator  = new QDoubleValidator(0.0, 1e+100, 1000, this);
+    m_validator  = new QDoubleValidator(0.0, 1e+200, 1000, this);
     m_validator->setNotation(QDoubleValidator::ScientificNotation);
     m_lineEdit->setValidator(m_validator);
 
@@ -222,13 +222,19 @@ ScientificDoublePropertyEditor::ScientificDoublePropertyEditor(QWidget* parent)
     setLayout(layout);
 }
 
+void ScientificDoublePropertyEditor::setLimits(const RealLimits& limits)
+{
+    double minimum = limits.hasLowerLimit() ? std::max(limits.getLowerLimit(), -1e+200) : -1e+200;
+    double maximum = limits.hasUpperLimit() ? std::min(limits.getUpperLimit(), +1e+200) : +1e+200;
+    m_validator->setRange(minimum, maximum, 1000);
+}
+
 void ScientificDoublePropertyEditor::onEditingFinished()
 {
     double new_value = m_lineEdit->text().toDouble();
 
     if(new_value != m_data.toDouble())
         setDataIntern(QVariant::fromValue(new_value));
-
 }
 
 void ScientificDoublePropertyEditor::initEditor()

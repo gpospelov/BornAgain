@@ -41,6 +41,7 @@
 #include "TestSessionXML.h"
 #include "TestTranslations.h"
 #include "TestUpdateTimer.h"
+#include "TestSessionItemData.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);

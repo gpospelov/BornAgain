@@ -19,7 +19,7 @@ from bornagain import IFitObserver as IFitObserver
 try:  # workaround for build servers
     from matplotlib import pyplot as plt
     from matplotlib import gridspec, colors
-except Exception, e:
+except Exception as e:
     print("In plot_utils.py: {:s}".format(e.message))
 
 

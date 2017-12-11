@@ -19,8 +19,8 @@ from bornagain import IFitObserver as IFitObserver
 try:  # workaround for build servers
     from matplotlib import pyplot as plt
     from matplotlib import gridspec, colors
-except:
-    pass  # will fail further if no modules were loaded
+except Exception, e:
+    print("In plot_utils.py: {:s}".format(e.message))
 
 
 def get_axes_limits(intensity):
@@ -302,25 +302,18 @@ class DefaultFitObserver(IFitObserver):
         :param draw_every_nth: specifies when to output data, defaults to each 10th iteration
         :param SimulationType: simulation type underlying fitting:
             'GISAS' - GISAS simulation, default
+
             'Specular' - specular simulation
 
         """
         IFitObserver.__init__(self, draw_every_nth)
-        try:
-            if SimulationType is 'GISAS':
-                self._plotter = PlotterGISAS()
-            elif SimulationType is 'Specular':
-                self._plotter = PlotterSpecular()
-            else:
-                raise Exception("Unknown simulation type {:s}.".format(SimulationType))
-        except Exception:
-            DefaultFitObserver.traceback.print_exc(file=DefaultFitObserver.sys.stdout)
-            exit("Exception in DefaultFitObserver.__init__")
+        if SimulationType is 'GISAS':
+            self._plotter = PlotterGISAS()
+        elif SimulationType is 'Specular':
+            self._plotter = PlotterSpecular()
+        else:
+            raise Exception("Unknown simulation type {:s}.".format(SimulationType))
 
     def update(self, fit_suite):
-        try:
-            self._plotter.plot(fit_suite)
-        except Exception:
-            DefaultFitObserver.traceback.print_exc(file=DefaultFitObserver.sys.stdout)
-            exit("Exception in DefaultFitObserver.update")
+        self._plotter.plot(fit_suite)
 

@@ -22,14 +22,14 @@
 #include "VectorItem.h"
 #include "SessionItemUtils.h"
 
-class SessionItemData
+class ObsoleteSessionItemData
 {
 public:
-    inline SessionItemData() : role(-1) {}
-    inline SessionItemData(int r, const QVariant& v) : role(r), value(v) {}
+    inline ObsoleteSessionItemData() : role(-1) {}
+    inline ObsoleteSessionItemData(int r, const QVariant& v) : role(r), value(v) {}
     int role;
     QVariant value;
-    inline bool operator==(const SessionItemData& other) const {
+    inline bool operator==(const ObsoleteSessionItemData& other) const {
         return role == other.role && value == other.value;
     }
 };
@@ -395,7 +395,7 @@ SessionItem* SessionItem::getGroupItem(const QString& groupName) const
 QVariant SessionItem::data(int role) const
 {
     role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
-    QVector<SessionItemData>::const_iterator it;
+    QVector<ObsoleteSessionItemData>::const_iterator it;
     for (it = m_values.begin(); it != m_values.end(); ++it) {
         if ((*it).role == role)
             return (*it).value;
@@ -407,7 +407,7 @@ QVariant SessionItem::data(int role) const
 bool SessionItem::setData(int role, const QVariant& value)
 {
     role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
-    QVector<SessionItemData>::iterator it;
+    QVector<ObsoleteSessionItemData>::iterator it;
     for (it = m_values.begin(); it != m_values.end(); ++it) {
         if ((*it).role == role) {
             if (value.isValid()) {
@@ -422,7 +422,7 @@ bool SessionItem::setData(int role, const QVariant& value)
             return true;
         }
     }
-    m_values.append(SessionItemData(role, value));
+    m_values.append(ObsoleteSessionItemData(role, value));
     if (m_model)
         emitDataChanged(role);
 
@@ -433,7 +433,7 @@ bool SessionItem::setData(int role, const QVariant& value)
 QVector<int> SessionItem::getRoles() const
 {
     QVector<int> result;
-    QVector<SessionItemData>::const_iterator it;
+    QVector<ObsoleteSessionItemData>::const_iterator it;
     for (it = m_values.constBegin(); it != m_values.constEnd(); ++it) {
         result.append(it->role);
     }

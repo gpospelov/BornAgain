@@ -26,7 +26,7 @@
 
 Q_DECLARE_METATYPE(RealLimits)
 
-class SessionItemData;
+class ObsoleteSessionItemData;
 class IPathTranslator;
 
 class SessionTagInfo
@@ -153,7 +153,7 @@ private:
     SessionItem* m_parent;
     SessionModel* m_model;
     QVector<SessionItem*> m_children;
-    QVector<SessionItemData> m_values;
+    QVector<ObsoleteSessionItemData> m_values;
     QVector<SessionTagInfo> m_tags;
     std::unique_ptr<ModelMapper> m_mapper;
     QVector<IPathTranslator*> m_translators;

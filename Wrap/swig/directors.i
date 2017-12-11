@@ -11,3 +11,16 @@
 %feature("director") IFitObserver;
 %feature("director") IObservable;
 %feature("director") IInterferenceFunction;
+
+// Propagate python exceptions
+// taken from
+// https://stackoverflow.com/questions/4811492/swig-reporting-python-exceptions-from-c-code
+%feature("director:except") {
+    if( $error != NULL ) {
+        PyObject *ptype, *pvalue, *ptraceback;
+        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
+        PyErr_Restore( ptype, pvalue, ptraceback );
+        PyErr_Print();
+        Py_Exit(1);
+    }
+}

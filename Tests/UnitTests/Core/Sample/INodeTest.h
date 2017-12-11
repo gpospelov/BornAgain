@@ -1,24 +1,26 @@
-#ifndef INODETEST_H
-#define INODETEST_H
-
+#include "google_test.h"
+#include "Exceptions.h"
 #include "INode.h"
 #include "NodeUtils.h"
-#include "Exceptions.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <memory>
 
-namespace {
-    const std::string test_class_name = "TestClass";
-    const std::string another_test_class_name = "AnotherTestClass";
-    const double test_par1_value(1.0);
+namespace
+{
+const std::string test_class_name = "TestClass";
+const std::string another_test_class_name = "AnotherTestClass";
+const double test_par1_value(1.0);
 }
 
 class INodeTest : public ::testing::Test
 {
 public:
-    class TestClass : public INode {
-    public:        
+    ~INodeTest();
+
+    class TestClass : public INode
+    {
+    public:
         TestClass(const std::string& name = test_class_name, double value = test_par1_value)
             : m_parameter1(value)
         {
@@ -28,26 +30,28 @@ public:
 
         virtual ~TestClass()
         {
-            for(auto child : m_nodes)
+            for (auto child : m_nodes)
                 delete child;
         }
         void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-        void appendChild(INode *node) { m_nodes.push_back(node); registerChild(node); }
+        void appendChild(INode* node)
+        {
+            m_nodes.push_back(node);
+            registerChild(node);
+        }
 
         virtual std::vector<const INode*> getChildren() const
         {
             return {m_nodes.begin(), m_nodes.end()};
         }
 
-        std::vector<INode *> m_nodes;
+        std::vector<INode*> m_nodes;
         double m_parameter1;
     };
-
-protected:
-    INodeTest(){}
-    virtual ~INodeTest(){}
 };
+
+INodeTest::~INodeTest() = default;
 
 TEST_F(INodeTest, initialState)
 {
@@ -78,7 +82,7 @@ TEST_F(INodeTest, parentship)
     INodeTest::TestClass node;
     EXPECT_EQ(node.parent(), nullptr);
 
-    INodeTest::TestClass *child = new INodeTest::TestClass();
+    INodeTest::TestClass* child = new INodeTest::TestClass();
     node.appendChild(child);
     EXPECT_EQ(child->parent(), &node);
 }
@@ -92,18 +96,18 @@ TEST_F(INodeTest, displayName)
     EXPECT_EQ(node.getName(), node.displayName());
 
     // Adding first child and checking its displayName
-    INodeTest::TestClass *child0 = new INodeTest::TestClass();
+    INodeTest::TestClass* child0 = new INodeTest::TestClass();
     node.appendChild(child0);
     EXPECT_EQ(child0->displayName(), test_class_name);
 
     // Adding second child with same name and checking change in displayName
-    INodeTest::TestClass *child1 = new INodeTest::TestClass();
+    INodeTest::TestClass* child1 = new INodeTest::TestClass();
     node.appendChild(child1);
-    EXPECT_EQ(child0->displayName(), test_class_name+"0");
-    EXPECT_EQ(child1->displayName(), test_class_name+"1");
+    EXPECT_EQ(child0->displayName(), test_class_name + "0");
+    EXPECT_EQ(child1->displayName(), test_class_name + "1");
 
     // Adding second child with another name and checking
-    INodeTest::TestClass *child2 = new INodeTest::TestClass(another_test_class_name);
+    INodeTest::TestClass* child2 = new INodeTest::TestClass(another_test_class_name);
     node.appendChild(child2);
     EXPECT_EQ(child2->displayName(), another_test_class_name);
 }
@@ -117,18 +121,18 @@ TEST_F(INodeTest, nodePath)
     EXPECT_EQ(NodeUtils::nodePath(root), "/root");
 
     // adding first child
-    INodeTest::TestClass *child0 = new INodeTest::TestClass("child");
+    INodeTest::TestClass* child0 = new INodeTest::TestClass("child");
     root.appendChild(child0);
     EXPECT_EQ(NodeUtils::nodePath(*child0), "/root/child");
 
     // adding second child with the same name
-    INodeTest::TestClass *child1 = new INodeTest::TestClass("child");
+    INodeTest::TestClass* child1 = new INodeTest::TestClass("child");
     root.appendChild(child1);
     EXPECT_EQ(NodeUtils::nodePath(*child0), "/root/child0");
     EXPECT_EQ(NodeUtils::nodePath(*child1), "/root/child1");
 
     // adding grandchild
-    INodeTest::TestClass *grandchild = new INodeTest::TestClass("grandchild");
+    INodeTest::TestClass* grandchild = new INodeTest::TestClass("grandchild");
     child0->appendChild(grandchild);
     EXPECT_EQ(NodeUtils::nodePath(*grandchild), "/root/child0/grandchild");
 
@@ -137,7 +141,6 @@ TEST_F(INodeTest, nodePath)
 
     // Check if exception is thrown when grandchild doesn't belong to child's branch
     EXPECT_THROW(NodeUtils::nodePath(*grandchild, child1), Exceptions::RuntimeErrorException);
-
 }
 
 //! Checking parameter tree for INode structure.
@@ -151,7 +154,7 @@ TEST_F(INodeTest, createParameterTree)
     EXPECT_EQ(pool->parameter("/root/par1")->value(), test_par1_value);
 
     // adding first child
-    INodeTest::TestClass *child0 = new INodeTest::TestClass("child", 99.0);
+    INodeTest::TestClass* child0 = new INodeTest::TestClass("child", 99.0);
     root.appendChild(child0);
     pool.reset(root.createParameterTree());
 
@@ -165,13 +168,13 @@ TEST_F(INodeTest, createParameterTree)
 TEST_F(INodeTest, createChildParameterTree)
 {
     INodeTest::TestClass root("root");
-    INodeTest::TestClass *child = new INodeTest::TestClass("child", 1.0);
+    INodeTest::TestClass* child = new INodeTest::TestClass("child", 1.0);
     root.appendChild(child);
 
-    INodeTest::TestClass *grand = new INodeTest::TestClass("grand", 2.0);
+    INodeTest::TestClass* grand = new INodeTest::TestClass("grand", 2.0);
     child->appendChild(grand);
 
-    INodeTest::TestClass *grandgrand = new INodeTest::TestClass("grandgrand", 3.0);
+    INodeTest::TestClass* grandgrand = new INodeTest::TestClass("grandgrand", 3.0);
     grand->appendChild(grandgrand);
 
     std::unique_ptr<ParameterPool> pool(grand->createParameterTree());
@@ -179,5 +182,3 @@ TEST_F(INodeTest, createChildParameterTree)
     EXPECT_EQ(pool->parameter("/grand/par1")->value(), 2.0);
     EXPECT_EQ(pool->parameter("/grand/grandgrand/par1")->value(), 3.0);
 }
-
-#endif // INODETEST_H

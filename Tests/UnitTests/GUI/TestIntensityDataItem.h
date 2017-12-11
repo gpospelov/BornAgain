@@ -1,25 +1,25 @@
-#include <QtTest>
+#include "google_test.h"
 #include "SessionModel.h"
 #include "IntensityDataItem.h"
-#include <QDebug>
+#include <QTest>
 
-class TestIntensityDataItem : public QObject
+class TestIntensityDataItem : public ::testing::Test
 {
-    Q_OBJECT
-
-private slots:
-    void test_lastModified();
+public:
+    ~TestIntensityDataItem();
 };
 
-inline void TestIntensityDataItem::test_lastModified()
+TestIntensityDataItem::~TestIntensityDataItem() = default;
+
+TEST_F(TestIntensityDataItem, test_lastModified)
 {
     SessionModel model("TempModel");
-    IntensityDataItem* item = dynamic_cast<IntensityDataItem*>(
-        model.insertNewItem(Constants::IntensityDataType));
+    IntensityDataItem* item
+        = dynamic_cast<IntensityDataItem*>(model.insertNewItem(Constants::IntensityDataType));
 
     QDateTime time = QDateTime::currentDateTime();
     item->setLastModified(time);
-    QVERIFY(time == item->lastModified());
+    EXPECT_EQ(time, item->lastModified());
 
     const int nap_time(20);
     QTest::qSleep(nap_time);
@@ -27,13 +27,12 @@ inline void TestIntensityDataItem::test_lastModified()
     // changing item (file name)
     item->setItemValue(IntensityDataItem::P_FILE_NAME, "name.txt");
     QDateTime time2 = item->lastModified();
-    QVERIFY(time.msecsTo(time2) > nap_time/2);
+    EXPECT_TRUE(time.msecsTo(time2) > nap_time / 2);
 
     QTest::qSleep(nap_time);
 
     // changing item (OutputData)
     item->emitDataChanged();
     QDateTime time3 = item->lastModified();
-    QVERIFY(time2.msecsTo(time3) > nap_time/2);
+    EXPECT_TRUE(time2.msecsTo(time3) > nap_time / 2);
 }
-

@@ -1,18 +1,17 @@
-#ifndef SIMULATIONAREATEST_H
-#define SIMULATIONAREATEST_H
-
+#include "google_test.h"
+#include "Rectangle.h"
 #include "SimulationArea.h"
 #include "SphericalDetector.h"
-#include "Rectangle.h"
-#include <memory>
 #include <iostream>
+#include <memory>
 
 class SimulationAreaTest : public ::testing::Test
 {
- protected:
-    SimulationAreaTest(){}
-    virtual ~SimulationAreaTest(){}
+protected:
+    ~SimulationAreaTest();
 };
+
+SimulationAreaTest::~SimulationAreaTest() = default;
 
 // Iterators test
 
@@ -53,7 +52,8 @@ TEST_F(SimulationAreaTest, iteratorOperations)
     EXPECT_EQ(it.elementIndex(), 2u);
 
     // incrementing well behind the end
-    for(size_t i=0; i<100; ++i) ++it;
+    for (size_t i = 0; i < 100; ++i)
+        ++it;
     EXPECT_EQ(it.index(), detector.totalSize());
     EXPECT_EQ(it.elementIndex(), detector.totalSize());
 }
@@ -71,7 +71,7 @@ TEST_F(SimulationAreaTest, detectorIteration)
     std::vector<size_t> indexes;
     std::vector<size_t> elementIndexes;
     std::vector<size_t> detectorIndexes;
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
         detectorIndexes.push_back(it.detectorIndex());
@@ -94,7 +94,7 @@ TEST_F(SimulationAreaTest, maskedIteration)
     std::vector<size_t> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     std::vector<size_t> indexes;
     std::vector<size_t> elementIndexes;
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
     }
@@ -112,12 +112,12 @@ TEST_F(SimulationAreaTest, maskedCornerIteration)
     SimulationArea area(&detector);
 
     std::vector<size_t> expectedIndexes
-            = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
+        = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
     std::vector<size_t> expectedElementIndexes
-            = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
+        = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
     std::vector<size_t> indexes;
     std::vector<size_t> elementIndexes;
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
     }
@@ -135,7 +135,7 @@ TEST_F(SimulationAreaTest, allMaskedIteration)
 
     std::vector<size_t> indexes;
     std::vector<size_t> elementIndexes;
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
     }
@@ -159,7 +159,7 @@ TEST_F(SimulationAreaTest, maskAndRoiIteration)
     std::vector<size_t> elementIndexes;
     std::vector<size_t> detectorIndexes;
     std::vector<size_t> roiIndexes;
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
         detectorIndexes.push_back(it.detectorIndex());
@@ -188,7 +188,7 @@ TEST_F(SimulationAreaTest, indexInRoi)
     std::vector<size_t> elementIndexes;
     std::vector<size_t> roiIndexes;
     std::vector<size_t> detectorIndexes;
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
         roiIndexes.push_back(it.roiIndex());
@@ -199,5 +199,3 @@ TEST_F(SimulationAreaTest, indexInRoi)
     EXPECT_EQ(roiIndexes, expectedRoi);
     EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
 }
-
-#endif

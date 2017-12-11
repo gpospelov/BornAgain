@@ -1,16 +1,14 @@
-#ifndef PARAMETERPATTERNTEST_H
-#define PARAMETERPATTERNTEST_H
-
+#include "google_test.h"
 #include "ParameterPattern.h"
 #include <string>
 
 class ParameterPatternTest : public ::testing::Test
 {
- protected:
-    ParameterPatternTest(){}
-    virtual ~ParameterPatternTest(){}
+protected:
+    ~ParameterPatternTest();
 };
 
+ParameterPatternTest::~ParameterPatternTest() = default;
 
 TEST_F(ParameterPatternTest, declarationTest)
 {
@@ -21,7 +19,6 @@ TEST_F(ParameterPatternTest, declarationTest)
     EXPECT_EQ("/home", p2.toStdString());
 }
 
-
 TEST_F(ParameterPatternTest, beginsWithTest)
 {
     ParameterPattern p1("Downloads");
@@ -30,7 +27,6 @@ TEST_F(ParameterPatternTest, beginsWithTest)
     p1.beginsWith("Desktop");
     EXPECT_EQ("Desktop", p1.toStdString());
 }
-
 
 TEST_F(ParameterPatternTest, addTest)
 {
@@ -46,7 +42,6 @@ TEST_F(ParameterPatternTest, addTest)
     p1.add("UnitTests").beginsWith("user");
     EXPECT_EQ("user", p1.toStdString());
 }
-
 
 TEST_F(ParameterPatternTest, copyTest)
 {
@@ -69,10 +64,3 @@ TEST_F(ParameterPatternTest, copyTest)
     ParameterPattern p4 = ParameterPattern(p2);
     EXPECT_EQ("/Desktop/BornAgain/Core/Tests", p4.toStdString());
 }
-
-
-
-
-#endif // PARAMETERPATTERNTEST_H
-
-

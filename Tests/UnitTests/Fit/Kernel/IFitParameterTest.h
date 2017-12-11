@@ -1,13 +1,14 @@
+#include "google_test.h"
 #include "IFitParameter.h"
-#include "gtest/gtest.h"
 #include <memory>
 
 class IFitParameterTest : public ::testing::Test
 {
 protected:
-    IFitParameterTest(){}
-    virtual ~IFitParameterTest(){}
+    ~IFitParameterTest();
 };
+
+IFitParameterTest::~IFitParameterTest() = default;
 
 TEST_F(IFitParameterTest, Initial)
 {

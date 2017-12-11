@@ -1,126 +1,121 @@
+#include "google_test.h"
 #include "MaterialModel.h"
 #include "MaterialItem.h"
 #include "MaterialDataItem.h"
 #include "MaterialItemUtils.h"
-#include <QtTest>
 #include <memory>
 
-class TestMaterialModel : public QObject {
-    Q_OBJECT
-
-private slots:
-    void test_addMaterial();
-    void test_cloneMaterial();
-    void test_materialItemFromIdentifier();
-    void test_materialItemFromName();
-    void test_materialPropertyFromMaterial();
-    void test_defaultMaterialProperty();
+class TestMaterialModel : public ::testing::Test
+{
+public:
+    ~TestMaterialModel();
 };
 
-inline void TestMaterialModel::test_addMaterial()
+TestMaterialModel::~TestMaterialModel() = default;
+
+TEST_F(TestMaterialModel, test_ParticeleCompositionUpdate)
 {
     std::unique_ptr<MaterialModel> model(new MaterialModel);
 
-    QCOMPARE(model->rowCount(QModelIndex()), 0);
+    EXPECT_EQ(model->rowCount(QModelIndex()), 0);
 
     const double delta(0.2), beta(0.1);
     const QString name("MaterialName");
-    MaterialItem *item = model->addMaterial(name, delta, beta);
+    MaterialItem* item = model->addMaterial(name, delta, beta);
 
-    QCOMPARE(model->rowCount(QModelIndex()), 1);
-    QCOMPARE(model->itemForIndex(item->index()), item);
-    QCOMPARE(model->rowCount(QModelIndex()), 1);
+    EXPECT_EQ(model->rowCount(QModelIndex()), 1);
+    EXPECT_EQ(model->itemForIndex(item->index()), item);
+    EXPECT_EQ(model->rowCount(QModelIndex()), 1);
 
-    QCOMPARE(item->itemName(), name);
-    const MaterialDataItem *refIndex = dynamic_cast<const MaterialDataItem *>(
-        item->getItem(MaterialItem::P_MATERIAL_DATA));
-    QCOMPARE(refIndex->getReal(), delta);
-    QCOMPARE(refIndex->getImag(), beta);
-
+    EXPECT_EQ(item->itemName(), name);
+    const MaterialDataItem* refIndex
+        = dynamic_cast<const MaterialDataItem*>(item->getItem(MaterialItem::P_MATERIAL_DATA));
+    EXPECT_EQ(refIndex->getReal(), delta);
+    EXPECT_EQ(refIndex->getImag(), beta);
 }
 
-inline void TestMaterialModel::test_cloneMaterial()
+TEST_F(TestMaterialModel, test_cloneMaterial)
 {
     std::unique_ptr<MaterialModel> model(new MaterialModel);
 
-    QCOMPARE(model->rowCount(QModelIndex()), 0);
+    EXPECT_EQ(model->rowCount(QModelIndex()), 0);
 
     const double delta(0.2), beta(0.1);
     const QString name("MaterialName");
-    MaterialItem *item = model->addMaterial(name, delta, beta);
+    MaterialItem* item = model->addMaterial(name, delta, beta);
     const QString origIdentifier = item->getIdentifier();
 
-    MaterialItem *clonedMaterial = model->cloneMaterial(item->index());
-    QCOMPARE(model->rowCount(QModelIndex()), 2);
+    MaterialItem* clonedMaterial = model->cloneMaterial(item->index());
+    EXPECT_EQ(model->rowCount(QModelIndex()), 2);
 
     // clone should not change identifier of original material (as it once happened)
-    QCOMPARE(item->getIdentifier(), origIdentifier);
+    EXPECT_EQ(item->getIdentifier(), origIdentifier);
 
     // cloned material should have different identifier
-    QVERIFY(clonedMaterial->getIdentifier() != item->getIdentifier());
+    EXPECT_TRUE(clonedMaterial->getIdentifier() != item->getIdentifier());
 
     // checking name of cloned material
-    QCOMPARE(item->itemName()+" (clone)", clonedMaterial->itemName());
+    EXPECT_EQ(item->itemName() + " (clone)", clonedMaterial->itemName());
 
-    const MaterialDataItem *refIndex = dynamic_cast<const MaterialDataItem *>(
+    const MaterialDataItem* refIndex = dynamic_cast<const MaterialDataItem*>(
         clonedMaterial->getItem(MaterialItem::P_MATERIAL_DATA));
-    QCOMPARE(refIndex->getReal(), delta);
-    QCOMPARE(refIndex->getImag(), beta);
+    EXPECT_EQ(refIndex->getReal(), delta);
+    EXPECT_EQ(refIndex->getImag(), beta);
 }
 
 //! Checks the method which returns MaterialItem from known identifier.
 
-inline void TestMaterialModel::test_materialItemFromIdentifier()
+TEST_F(TestMaterialModel, test_materialItemFromIdentifier)
 {
     MaterialModel model;
     MaterialItem* mat1 = model.addMaterial("aaa", 1.0, 2.0);
     MaterialItem* mat2 = model.addMaterial("bbb", 3.0, 4.0);
-    QVERIFY(mat1 == model.materialFromIdentifier(mat1->getIdentifier()));
-    QVERIFY(mat2 == model.materialFromIdentifier(mat2->getIdentifier()));
-    QVERIFY(nullptr == model.materialFromIdentifier("non-existing-identifier"));
+    EXPECT_TRUE(mat1 == model.materialFromIdentifier(mat1->getIdentifier()));
+    EXPECT_TRUE(mat2 == model.materialFromIdentifier(mat2->getIdentifier()));
+    EXPECT_TRUE(nullptr == model.materialFromIdentifier("non-existing-identifier"));
 }
 
 //! Checks the method which returns MaterialItem from material name.
 
-inline void TestMaterialModel::test_materialItemFromName()
+TEST_F(TestMaterialModel, test_materialItemFromName)
 {
     MaterialModel model;
     MaterialItem* mat1 = model.addMaterial("aaa", 1.0, 2.0);
     MaterialItem* mat2 = model.addMaterial("bbb", 3.0, 4.0);
-    QVERIFY(mat1 == model.materialFromName(mat1->itemName()));
-    QVERIFY(mat2 == model.materialFromName(mat2->itemName()));
-    QVERIFY(nullptr == model.materialFromName("non-existing-name"));
+    EXPECT_TRUE(mat1 == model.materialFromName(mat1->itemName()));
+    EXPECT_TRUE(mat2 == model.materialFromName(mat2->itemName()));
+    EXPECT_TRUE(nullptr == model.materialFromName("non-existing-name"));
 }
 
 //! Checks the method which construct MaterialProperty from MaterialItem.
 
-inline void TestMaterialModel::test_materialPropertyFromMaterial()
+TEST_F(TestMaterialModel, test_materialPropertyFromMaterial)
 {
     MaterialModel model;
     MaterialItem* mat = model.addMaterial("Something", 1.0, 2.0);
 
     ExternalProperty property = MaterialItemUtils::materialProperty(*mat);
-    QCOMPARE(property.text(), QString("Something"));
-    QCOMPARE(property.color(), mat->getColor());
-    QCOMPARE(property.identifier(), mat->getIdentifier());
+    EXPECT_EQ(property.text(), QString("Something"));
+    EXPECT_EQ(property.color(), mat->getColor());
+    EXPECT_EQ(property.identifier(), mat->getIdentifier());
 }
 
 //! Default MaterialProperty construction.
 
-inline void TestMaterialModel::test_defaultMaterialProperty()
+TEST_F(TestMaterialModel, test_defaultMaterialProperty)
 {
     MaterialModel model;
 
     // testing default material property from MaterialItemUtils
     // in the absence of any materials, property should be in invalid state
     ExternalProperty property = MaterialItemUtils::defaultMaterialProperty();
-    QVERIFY(property.isValid() == false);
+    EXPECT_TRUE(property.isValid() == false);
 
     // adding materials to the model, default property should refer to first material in a model
     auto mat1 = model.addMaterial("Something1", 1.0, 2.0);
     model.addMaterial("Something2", 3.0, 4.0);
     ExternalProperty property2 = MaterialItemUtils::defaultMaterialProperty();
-    QCOMPARE(property2.text(), QString("Something1"));
-    QCOMPARE(property2.color(), mat1->getColor());
-    QCOMPARE(property2.identifier(), mat1->getIdentifier());
+    EXPECT_EQ(property2.text(), QString("Something1"));
+    EXPECT_EQ(property2.color(), mat1->getColor());
+    EXPECT_EQ(property2.identifier(), mat1->getIdentifier());
 }

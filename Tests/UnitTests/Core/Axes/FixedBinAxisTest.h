@@ -1,13 +1,16 @@
-#include "FixedBinAxis.h"
-#include "Exceptions.h"
+#include "google_test.h"
 #include "DataFormatUtils.h"
+#include "Exceptions.h"
+#include "FixedBinAxis.h"
 #include <iostream>
 
-class FixedBinAxisTest: public ::testing::Test
+class FixedBinAxisTest : public ::testing::Test
 {
 protected:
-    FixedBinAxisTest() {}
+    ~FixedBinAxisTest();
 };
+
+FixedBinAxisTest::~FixedBinAxisTest() = default;
 
 TEST_F(FixedBinAxisTest, IndexedAccessor)
 {
@@ -24,7 +27,7 @@ TEST_F(FixedBinAxisTest, IndexedAccessor)
     EXPECT_DOUBLE_EQ(-1.0, a2[0]);
     EXPECT_DOUBLE_EQ(0.0, a2[1]);
     EXPECT_DOUBLE_EQ(1.0, a2[2]);
-    ASSERT_THROW( a2[3], Exceptions::OutOfBoundsException);
+    ASSERT_THROW(a2[3], Exceptions::OutOfBoundsException);
 }
 
 TEST_F(FixedBinAxisTest, VectorOfUnitLength)
@@ -39,13 +42,13 @@ TEST_F(FixedBinAxisTest, VectorOfUnitLength)
 TEST_F(FixedBinAxisTest, FindClosestIndex)
 {
     FixedBinAxis v1("name", 2, 0.0, 1.0);
-    EXPECT_EQ( size_t(2), v1.size());
-    EXPECT_EQ( size_t(0), v1.findClosestIndex(0.0));
-    EXPECT_EQ( size_t(0), v1.findClosestIndex(0.25));
-    EXPECT_EQ( size_t(1), v1.findClosestIndex(0.5));
-    EXPECT_EQ( size_t(1), v1.findClosestIndex(0.6));
-//    ASSERT_THROW( v1.findClosestIndex(1.0), Exceptions::OutOfBoundsException);
-    EXPECT_EQ( size_t(1), v1.findClosestIndex(1.0));
+    EXPECT_EQ(size_t(2), v1.size());
+    EXPECT_EQ(size_t(0), v1.findClosestIndex(0.0));
+    EXPECT_EQ(size_t(0), v1.findClosestIndex(0.25));
+    EXPECT_EQ(size_t(1), v1.findClosestIndex(0.5));
+    EXPECT_EQ(size_t(1), v1.findClosestIndex(0.6));
+    //    ASSERT_THROW( v1.findClosestIndex(1.0), Exceptions::OutOfBoundsException);
+    EXPECT_EQ(size_t(1), v1.findClosestIndex(1.0));
 
     FixedBinAxis v2("name", 3, -1.5, 1.5);
     EXPECT_EQ(size_t(0), v2.findClosestIndex(-1.5));
@@ -54,37 +57,37 @@ TEST_F(FixedBinAxisTest, FindClosestIndex)
     EXPECT_EQ(size_t(1), v2.findClosestIndex(0.0));
     EXPECT_EQ(size_t(2), v2.findClosestIndex(0.5));
     EXPECT_EQ(size_t(2), v2.findClosestIndex(1.499));
-//    ASSERT_THROW( v2.findClosestIndex(1.5), Exceptions::OutOfBoundsException);
+    //    ASSERT_THROW( v2.findClosestIndex(1.5), Exceptions::OutOfBoundsException);
     EXPECT_EQ(size_t(2), v2.findClosestIndex(1.5));
 }
 
 TEST_F(FixedBinAxisTest, CheckBin)
 {
-    FixedBinAxis axis("name",20, 0, 10);
+    FixedBinAxis axis("name", 20, 0, 10);
 
     Bin1D bin0 = axis.getBin(0);
-    EXPECT_DOUBLE_EQ( 0.25, bin0.getMidPoint());
-    EXPECT_DOUBLE_EQ( 0.0, bin0.m_lower);
-    EXPECT_DOUBLE_EQ( 0.5, bin0.m_upper);
-    EXPECT_DOUBLE_EQ( 0.5, bin0.getBinSize());
+    EXPECT_DOUBLE_EQ(0.25, bin0.getMidPoint());
+    EXPECT_DOUBLE_EQ(0.0, bin0.m_lower);
+    EXPECT_DOUBLE_EQ(0.5, bin0.m_upper);
+    EXPECT_DOUBLE_EQ(0.5, bin0.getBinSize());
 
     Bin1D bin3 = axis.getBin(3);
-    EXPECT_DOUBLE_EQ( 1.75, bin3.getMidPoint());
-    EXPECT_DOUBLE_EQ( 1.5, bin3.m_lower);
-    EXPECT_DOUBLE_EQ( 2.0, bin3.m_upper);
-    EXPECT_DOUBLE_EQ( 0.5, bin3.getBinSize());
+    EXPECT_DOUBLE_EQ(1.75, bin3.getMidPoint());
+    EXPECT_DOUBLE_EQ(1.5, bin3.m_lower);
+    EXPECT_DOUBLE_EQ(2.0, bin3.m_upper);
+    EXPECT_DOUBLE_EQ(0.5, bin3.getBinSize());
 
     Bin1D bin10 = axis.getBin(10);
-    EXPECT_DOUBLE_EQ( 5.25, bin10.getMidPoint());
-    EXPECT_DOUBLE_EQ( 5.0, bin10.m_lower);
-    EXPECT_DOUBLE_EQ( 5.5, bin10.m_upper);
+    EXPECT_DOUBLE_EQ(5.25, bin10.getMidPoint());
+    EXPECT_DOUBLE_EQ(5.0, bin10.m_lower);
+    EXPECT_DOUBLE_EQ(5.5, bin10.m_upper);
 
     Bin1D bin19 = axis.getBin(19);
-    EXPECT_DOUBLE_EQ( 9.75, bin19.getMidPoint());
-    EXPECT_DOUBLE_EQ( 9.5, bin19.m_lower);
-    EXPECT_DOUBLE_EQ( 10.0, bin19.m_upper);
+    EXPECT_DOUBLE_EQ(9.75, bin19.getMidPoint());
+    EXPECT_DOUBLE_EQ(9.5, bin19.m_lower);
+    EXPECT_DOUBLE_EQ(10.0, bin19.m_upper);
 
-    ASSERT_THROW( axis.getBin(20), Exceptions::OutOfBoundsException);
+    ASSERT_THROW(axis.getBin(20), Exceptions::OutOfBoundsException);
 
     FixedBinAxis axis2("name", 3, -1, 2.0);
     EXPECT_DOUBLE_EQ(-0.5, axis2.getBin(0).getMidPoint());
@@ -96,21 +99,21 @@ TEST_F(FixedBinAxisTest, CheckEquality)
 {
     FixedBinAxis b1("axis", 99, -1.01, 3.3);
     FixedBinAxis b2("axis", 99, -1.01, 3.3);
-    EXPECT_TRUE( b1 == b2);
+    EXPECT_TRUE(b1 == b2);
     FixedBinAxis b3("axissss", 99, -1.01, 3.3);
     FixedBinAxis b4("axis", 99, -1.0, 3.3);
     FixedBinAxis b5("axis", 99, -1.01, 3.29);
     FixedBinAxis b6("axiss", 98, -1.01, 3.3);
-    EXPECT_FALSE( b1 == b3);
-    EXPECT_FALSE( b1 == b4);
-    EXPECT_FALSE( b1 == b5);
-    EXPECT_FALSE( b1 == b6);
+    EXPECT_FALSE(b1 == b3);
+    EXPECT_FALSE(b1 == b4);
+    EXPECT_FALSE(b1 == b5);
+    EXPECT_FALSE(b1 == b6);
 }
 
 TEST_F(FixedBinAxisTest, CheckClone)
 {
     FixedBinAxis a1("axis", 99, -1.2, 5.4);
-    FixedBinAxis *clone=a1.clone();
+    FixedBinAxis* clone = a1.clone();
     EXPECT_TRUE(a1 == *clone);
     delete clone;
 }
@@ -122,7 +125,8 @@ TEST_F(FixedBinAxisTest, IOStream)
     std::ostringstream oss;
     oss << axis;
 
-    FixedBinAxis *result = dynamic_cast<FixedBinAxis *>(DataFormatUtils::createFixedBinAxis(oss.str()));
+    FixedBinAxis* result
+        = dynamic_cast<FixedBinAxis*>(DataFormatUtils::createFixedBinAxis(oss.str()));
     EXPECT_TRUE(axis == *result);
     delete result;
 }
@@ -139,7 +143,6 @@ TEST_F(FixedBinAxisTest, BinCenters)
     EXPECT_DOUBLE_EQ(axis.getBinCenter(0), centers[0]);
     EXPECT_DOUBLE_EQ(axis.getBinCenter(1), centers[1]);
     EXPECT_DOUBLE_EQ(axis.getBinCenter(2), centers[2]);
-
 }
 
 TEST_F(FixedBinAxisTest, BinBoundaries)
@@ -153,19 +156,18 @@ TEST_F(FixedBinAxisTest, BinBoundaries)
     EXPECT_DOUBLE_EQ(1.5, boundaries[3]);
 }
 
-
 TEST_F(FixedBinAxisTest, ClippedAxis)
 {
     FixedBinAxis axis("name", 4, -1.0, 3.0);
 
-    FixedBinAxis *clip1 = axis.createClippedAxis(-0.5, 2.5);
+    FixedBinAxis* clip1 = axis.createClippedAxis(-0.5, 2.5);
     EXPECT_EQ(clip1->size(), axis.size());
     EXPECT_EQ(clip1->getMin(), axis.getMin());
     EXPECT_EQ(clip1->getMax(), axis.getMax());
     EXPECT_TRUE(*clip1 == axis);
     delete clip1;
 
-    FixedBinAxis *clip2 = axis.createClippedAxis(0.0, 1.99);
+    FixedBinAxis* clip2 = axis.createClippedAxis(0.0, 1.99);
     EXPECT_EQ(clip2->size(), size_t(2));
     EXPECT_EQ(clip2->getMin(), 0.0);
     EXPECT_EQ(clip2->getMax(), 2.0);

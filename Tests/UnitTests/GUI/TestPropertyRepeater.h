@@ -1,11 +1,12 @@
-#include <QtTest>
-#include "SessionModel.h"
-#include "PropertyRepeater.h"
-#include "item_constants.h"
-#include "IntensityDataItem.h"
 #include "AxesItems.h"
+#include "IntensityDataItem.h"
+#include "PropertyRepeater.h"
+#include "SessionModel.h"
+#include "google_test.h"
+#include "item_constants.h"
 
-namespace {
+namespace
+{
 
 IntensityDataItem* createData(SessionModel& model)
 {
@@ -16,25 +17,19 @@ BasicAxisItem* createAxis(SessionModel& model)
 {
     return dynamic_cast<BasicAxisItem*>(model.insertNewItem(Constants::BasicAxisType));
 }
-
 }
 
-class TestPropertyRepeater : public QObject {
-    Q_OBJECT
-
-private:
-
-private slots:
-    void test_twoItems();
-    void test_threeItems();
-    void test_filteredBroadcast();
-    void test_filteredReceive();
-    void test_repeatAll();
+class TestPropertyRepeater : public ::testing::Test
+{
+public:
+    ~TestPropertyRepeater();
 };
+
+TestPropertyRepeater::~TestPropertyRepeater() = default;
 
 //! Repeater handles two items.
 
-inline void TestPropertyRepeater::test_twoItems()
+TEST_F(TestPropertyRepeater, test_twoItems)
 {
     SessionModel model("test");
 
@@ -49,24 +44,24 @@ inline void TestPropertyRepeater::test_twoItems()
     repeater.addItem(item2);
 
     // adding items to the repeater do not change values
-    QCOMPARE(item1->getItemValue(BasicAxisItem::P_MAX).toDouble(), 2.0);
-    QCOMPARE(item2->getItemValue(BasicAxisItem::P_MAX).toDouble(), 3.0);
+    EXPECT_EQ(item1->getItemValue(BasicAxisItem::P_MAX).toDouble(), 2.0);
+    EXPECT_EQ(item2->getItemValue(BasicAxisItem::P_MAX).toDouble(), 3.0);
 
     // change of the value of one item leads to the change in another
     item1->setItemValue(BasicAxisItem::P_MAX, 4.0);
-    QCOMPARE(item1->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
-    QCOMPARE(item2->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
+    EXPECT_EQ(item1->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
+    EXPECT_EQ(item2->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
 
     // clearing repeater will stop update
     repeater.clear();
     item1->setItemValue(BasicAxisItem::P_MAX, 5.0);
-    QCOMPARE(item1->getItemValue(BasicAxisItem::P_MAX).toDouble(), 5.0);
-    QCOMPARE(item2->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
+    EXPECT_EQ(item1->getItemValue(BasicAxisItem::P_MAX).toDouble(), 5.0);
+    EXPECT_EQ(item2->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
 }
 
 //! Repeater handles three items.
 
-inline void TestPropertyRepeater::test_threeItems()
+TEST_F(TestPropertyRepeater, test_threeItems)
 {
     SessionModel model("test");
 
@@ -85,14 +80,14 @@ inline void TestPropertyRepeater::test_threeItems()
 
     // change of the value of one item leads to the change in two another
     item1->setItemValue(BasicAxisItem::P_MAX, 4.0);
-    QCOMPARE(item1->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
-    QCOMPARE(item2->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
-    QCOMPARE(item3->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
+    EXPECT_EQ(item1->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
+    EXPECT_EQ(item2->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
+    EXPECT_EQ(item3->getItemValue(BasicAxisItem::P_MAX).toDouble(), 4.0);
 }
 
 //! Checks if item with active properties specified receives updates only for these properties.
 
-inline void TestPropertyRepeater::test_filteredBroadcast()
+TEST_F(TestPropertyRepeater, test_filteredBroadcast)
 {
     SessionModel model("test");
 
@@ -117,13 +112,13 @@ inline void TestPropertyRepeater::test_filteredBroadcast()
     item2->setItemValue(BasicAxisItem::P_MIN, 2.0);
     item2->setItemValue(BasicAxisItem::P_MAX, 3.0);
 
-    QCOMPARE(item1->getItemValue(BasicAxisItem::P_MIN).toDouble(), 0.0);
-    QCOMPARE(item3->getItemValue(BasicAxisItem::P_MIN).toDouble(), 0.0);
-    QCOMPARE(item1->getItemValue(BasicAxisItem::P_MAX).toDouble(), 3.0);
-    QCOMPARE(item3->getItemValue(BasicAxisItem::P_MAX).toDouble(), 3.0);
+    EXPECT_EQ(item1->getItemValue(BasicAxisItem::P_MIN).toDouble(), 0.0);
+    EXPECT_EQ(item3->getItemValue(BasicAxisItem::P_MIN).toDouble(), 0.0);
+    EXPECT_EQ(item1->getItemValue(BasicAxisItem::P_MAX).toDouble(), 3.0);
+    EXPECT_EQ(item3->getItemValue(BasicAxisItem::P_MAX).toDouble(), 3.0);
 }
 
-inline void TestPropertyRepeater::test_filteredReceive()
+TEST_F(TestPropertyRepeater, test_filteredReceive)
 {
     SessionModel model("test");
 
@@ -148,15 +143,15 @@ inline void TestPropertyRepeater::test_filteredReceive()
     item1->setItemValue(BasicAxisItem::P_MIN, 2.0);
     item1->setItemValue(BasicAxisItem::P_MAX, 3.0);
 
-    QCOMPARE(item2->getItemValue(BasicAxisItem::P_MIN).toDouble(), 0.0);
-    QCOMPARE(item2->getItemValue(BasicAxisItem::P_MAX).toDouble(), 3.0); // remain intact
-    QCOMPARE(item3->getItemValue(BasicAxisItem::P_MIN).toDouble(), 2.0);
-    QCOMPARE(item3->getItemValue(BasicAxisItem::P_MAX).toDouble(), 3.0);
+    EXPECT_EQ(item2->getItemValue(BasicAxisItem::P_MIN).toDouble(), 0.0);
+    EXPECT_EQ(item2->getItemValue(BasicAxisItem::P_MAX).toDouble(), 3.0); // remain intact
+    EXPECT_EQ(item3->getItemValue(BasicAxisItem::P_MIN).toDouble(), 2.0);
+    EXPECT_EQ(item3->getItemValue(BasicAxisItem::P_MAX).toDouble(), 3.0);
 }
 
 //! Checking repeater in "repeat childs properties" mode
 
-inline void TestPropertyRepeater::test_repeatAll()
+TEST_F(TestPropertyRepeater, test_repeatAll)
 {
     SessionModel model("test");
 
@@ -172,23 +167,23 @@ inline void TestPropertyRepeater::test_repeatAll()
     repeater.addItem(item2);
 
     // adding items to the repeater do not change values
-    QCOMPARE(item1->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool(), true);
-    QCOMPARE(item2->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool(), true);
-    QCOMPARE(item1->getUpperX(), 2.0);
-    QCOMPARE(item2->getUpperX(), 3.0);
+    EXPECT_EQ(item1->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool(), true);
+    EXPECT_EQ(item2->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool(), true);
+    EXPECT_EQ(item1->getUpperX(), 2.0);
+    EXPECT_EQ(item2->getUpperX(), 3.0);
 
     // change of the value of one item leads to the change in another
     item1->xAxisItem()->setItemValue(BasicAxisItem::P_MAX, 4.0);
-    QCOMPARE(item1->getUpperX(), 4.0);
-    QCOMPARE(item2->getUpperX(), 4.0);
+    EXPECT_EQ(item1->getUpperX(), 4.0);
+    EXPECT_EQ(item2->getUpperX(), 4.0);
 
     item1->setItemValue(IntensityDataItem::P_IS_INTERPOLATED, false);
-    QCOMPARE(item1->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool(), false);
-    QCOMPARE(item2->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool(), false);
+    EXPECT_EQ(item1->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool(), false);
+    EXPECT_EQ(item2->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool(), false);
 
     // clearing repeater will stop update
     repeater.clear();
     item1->xAxisItem()->setItemValue(BasicAxisItem::P_MAX, 5.0);
-    QCOMPARE(item1->getUpperX(), 5.0);
-    QCOMPARE(item2->getUpperX(), 4.0);
+    EXPECT_EQ(item1->getUpperX(), 5.0);
+    EXPECT_EQ(item2->getUpperX(), 4.0);
 }

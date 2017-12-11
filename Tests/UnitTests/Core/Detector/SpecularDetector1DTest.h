@@ -1,18 +1,21 @@
-#include "SpecularDetector1D.h"
-#include "OutputData.h"
-#include "FixedBinAxis.h"
-#include "BornAgainNamespace.h"
-#include "Units.h"
 #include "Beam.h"
+#include "BornAgainNamespace.h"
+#include "FixedBinAxis.h"
+#include "OutputData.h"
+#include "SimulationElement.h"
 #include "SimulationArea.h"
+#include "SpecularDetector1D.h"
+#include "Units.h"
+#include "google_test.h"
 #include <memory>
 
 class SpecularDetectorTest : public ::testing::Test
 {
- protected:
-    SpecularDetectorTest(){}
-    virtual ~SpecularDetectorTest(){}
+protected:
+    ~SpecularDetectorTest();
 };
+
+SpecularDetectorTest::~SpecularDetectorTest() = default;
 
 // Default detector construction
 TEST_F(SpecularDetectorTest, basicBehaviour)
@@ -106,7 +109,7 @@ TEST_F(SpecularDetectorTest, SimulationElements)
     FixedBinAxis axis("axis0", 5, 1.0 * Units::deg, 10.0 * Units::deg);
     SpecularDetector1D detector(axis);
     Beam beam;
-    beam.setCentralK(1.0*Units::angstrom, 0.4*Units::deg, 0.0);
+    beam.setCentralK(1.0 * Units::angstrom, 0.4 * Units::deg, 0.0);
 
     auto sim_elements = detector.createSimulationElements(beam);
 
@@ -135,7 +138,7 @@ TEST_F(SpecularDetectorTest, Clone)
     SpecularDetector1D detector(axis);
     std::unique_ptr<SpecularDetector1D> clone(detector.clone());
     Beam beam;
-    beam.setCentralK(1.0*Units::angstrom, 0.4*Units::deg, 0.0);
+    beam.setCentralK(1.0 * Units::angstrom, 0.4 * Units::deg, 0.0);
 
     const auto data = clone->createDetectorMap(beam, AxesUnits::DEGREES);
     EXPECT_EQ(data->getAxis(0).size(), 5u);
@@ -151,7 +154,7 @@ TEST_F(SpecularDetectorTest, Clone)
     const std::vector<size_t> expectedElementIndexes = expectedDetectorIndexes;
     std::vector<size_t> detectorIndexes;
     std::vector<size_t> elementIndexes;
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
         detectorIndexes.push_back(it.detectorIndex());
         elementIndexes.push_back(it.elementIndex());
     }

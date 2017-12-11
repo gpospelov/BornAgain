@@ -1,17 +1,16 @@
-#include "SampleProvider.h"
-#include "MultiLayer.h"
+#include "google_test.h"
 #include "IMultiLayerBuilder.h"
+#include "MultiLayer.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
+#include "SampleProvider.h"
 #include <memory>
-#include <iostream>
-#include <memory>
-#include <iostream>
-
 
 class SampleProviderTest : public ::testing::Test
 {
 public:
+    ~SampleProviderTest();
+
     //! Returns test multilayer.
     static std::unique_ptr<MultiLayer> testMultiLayer(double length)
     {
@@ -30,8 +29,7 @@ public:
             registerChild(&m_provider);
         }
 
-        TestSimulation(const TestSimulation& other)
-            : m_provider(other.m_provider)
+        TestSimulation(const TestSimulation& other) : m_provider(other.m_provider)
         {
             setName("TestSimulation");
             registerChild(&m_provider);
@@ -39,15 +37,9 @@ public:
 
         void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-        std::vector<const INode*> getChildren() const
-        {
-            return m_provider.getChildren();
-        }
+        std::vector<const INode*> getChildren() const { return m_provider.getChildren(); }
 
-        void setContainer(const SampleProvider& provider)
-        {
-            m_provider = provider;
-        }
+        void setContainer(const SampleProvider& provider) { m_provider = provider; }
         SampleProvider m_provider;
     };
 
@@ -55,7 +47,7 @@ public:
     class TestBuilder : public IMultiLayerBuilder
     {
     public:
-        explicit TestBuilder(double length=42.0) : m_length(length)
+        explicit TestBuilder(double length = 42.0) : m_length(length)
         {
             setName("TestBuilder");
             registerParameter("length", &m_length);
@@ -64,10 +56,9 @@ public:
         MultiLayer* buildSample() const { return testMultiLayer(m_length).release(); }
         double m_length;
     };
-
-protected:
-    SampleProviderTest() {}
 };
+
+SampleProviderTest::~SampleProviderTest() = default;
 
 //! Test initial state,  assignment operator.
 
@@ -142,8 +133,6 @@ TEST_F(SampleProviderTest, sampleInSimulationContext)
 
     EXPECT_FALSE(sim.treeToString().empty());
     EXPECT_FALSE(sim.parametersToString().empty());
-//    std::cout << sim.treeToString() << std::endl;
-//    std::cout << sim.parametersToString() << std::endl;
 
     // creating second simulation via copy-construction
     SampleProviderTest::TestSimulation sim2(sim);
@@ -158,7 +147,6 @@ TEST_F(SampleProviderTest, sampleInSimulationContext)
     std::unique_ptr<ParameterPool> pool(sim2.createParameterTree());
     ASSERT_EQ(pool->size(), 4u);
     EXPECT_TRUE(pool->parameter("/TestSimulation/MultiLayer/CrossCorrelationLength") != nullptr);
-
 }
 
 //! Test parentship of container and builder in simulation context.
@@ -176,8 +164,6 @@ TEST_F(SampleProviderTest, builderInSimulationContext)
     EXPECT_EQ(provider.sample()->parent(), nullptr);
     ASSERT_EQ(provider.getChildren().size(), 1u);
 
-//    std::cout << sim.treeToString() << std::endl;
-//    std::cout << sim.parametersToString() << std::endl;
     EXPECT_FALSE(sim.treeToString().empty());
     EXPECT_FALSE(sim.parametersToString().empty());
 
@@ -188,5 +174,4 @@ TEST_F(SampleProviderTest, builderInSimulationContext)
     std::unique_ptr<ParameterPool> pool(sim2.createParameterTree());
     ASSERT_EQ(pool->size(), 1u);
     EXPECT_EQ(pool->parameter("/TestSimulation/TestBuilder/length")->value(), 33.0);
-
 }

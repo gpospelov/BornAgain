@@ -1,12 +1,13 @@
+#include "google_test.h"
 #include "AttLimits.h"
-#include "gtest/gtest.h"
 
 class AttLimitsTest : public ::testing::Test
 {
- protected:
-    AttLimitsTest(){}
-    virtual ~AttLimitsTest(){}
+protected:
+    ~AttLimitsTest();
 };
+
+AttLimitsTest::~AttLimitsTest() = default;
 
 TEST_F(AttLimitsTest, InitialState)
 {

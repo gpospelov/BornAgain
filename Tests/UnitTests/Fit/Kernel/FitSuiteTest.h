@@ -1,14 +1,17 @@
+#include "google_test.h"
 #include "FitSuite.h"
 #include "IFitParameter.h"
-#include "gtest/gtest.h"
+#include "FitParameter.h"
 #include <memory>
 
 class FitSuiteTest : public ::testing::Test
 {
  protected:
     FitSuiteTest(){}
-    virtual ~FitSuiteTest(){}
+    ~FitSuiteTest();
 };
+
+FitSuiteTest::~FitSuiteTest() = default;
 
 TEST_F(FitSuiteTest, addFitParameter)
 {

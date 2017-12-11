@@ -1,3 +1,4 @@
+#include "google_test.h"
 #include "Layer.h"
 #include "MaterialFactoryFuncs.h"
 #include "ParticleLayout.h"
@@ -5,15 +6,16 @@
 
 class LayerTest : public ::testing::Test
 {
- protected:
-    LayerTest(){}
-    virtual ~LayerTest(){}
+protected:
+    virtual ~LayerTest();
 };
+
+LayerTest::~LayerTest() = default;
 
 TEST_F(LayerTest, LayerGetAndSet)
 {
-    Material air = HomogeneousMaterial("air",0,0);
-    Layer layer(air, 10*Units::nanometer);
+    Material air = HomogeneousMaterial("air", 0, 0);
+    Layer layer(air, 10 * Units::nanometer);
     EXPECT_EQ(air, *layer.material());
     EXPECT_EQ(0u, layer.layouts().size());
     EXPECT_EQ(10, layer.thickness());
@@ -33,13 +35,12 @@ TEST_F(LayerTest, LayerGetAndSet)
     EXPECT_EQ(BornAgain::LayerType, clone->getName());
 }
 
-
 TEST_F(LayerTest, LayerAndDecoration)
 {
-    Material air = HomogeneousMaterial("air",0,0);
+    Material air = HomogeneousMaterial("air", 0, 0);
     std::unique_ptr<ParticleLayout> layout1(new ParticleLayout());
 
-    Layer layer(air, 10*Units::nanometer);
+    Layer layer(air, 10 * Units::nanometer);
     layer.addLayout(*layout1);
     EXPECT_EQ(layer.numberOfLayouts(), 1u);
 

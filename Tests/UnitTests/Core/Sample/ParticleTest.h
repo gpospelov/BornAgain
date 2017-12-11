@@ -1,16 +1,18 @@
-#include "Particle.h"
+#include "google_test.h"
 #include "BornAgainNamespace.h"
+#include "FormFactorFullSphere.h"
 #include "MaterialFactoryFuncs.h"
 #include "MathConstants.h"
-#include "FormFactorFullSphere.h"
-
-#include <iostream>
+#include "Particle.h"
+#include "Units.h"
 
 class ParticleTest : public ::testing::Test
 {
 protected:
-    ParticleTest(){}
+    ~ParticleTest();
 };
+
+ParticleTest::~ParticleTest() = default;
 
 TEST_F(ParticleTest, InitialState)
 {
@@ -33,34 +35,34 @@ TEST_F(ParticleTest, Clone)
 
 TEST_F(ParticleTest, Constructors)
 {
-    Material mat = HomogeneousMaterial("Air",0,0);
+    Material mat = HomogeneousMaterial("Air", 0, 0);
     FormFactorFullSphere sphere(1.0);
-    RotationZ transform(45.*Units::degree);
+    RotationZ transform(45. * Units::degree);
 
     // construction with material
     std::unique_ptr<Particle> p1(new Particle(mat));
     EXPECT_EQ(mat, *p1->material());
     EXPECT_EQ(nullptr, p1->createFormFactor());
-    EXPECT_EQ( nullptr, p1->rotation());
+    EXPECT_EQ(nullptr, p1->rotation());
 
     // construction with formfactor
     std::unique_ptr<Particle> p2(new Particle(mat, sphere));
     EXPECT_EQ(mat, *p2->material());
-    EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(p2->createFormFactor()));
-    EXPECT_EQ( nullptr, p2->rotation());
+    EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial*>(p2->createFormFactor()));
+    EXPECT_EQ(nullptr, p2->rotation());
 
     // construction with transformation
     std::unique_ptr<Particle> p3(new Particle(mat, sphere, transform));
     EXPECT_EQ(mat, *p3->material());
-    EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial *>(p3->createFormFactor()));
+    EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial*>(p3->createFormFactor()));
     EXPECT_EQ(BornAgain::ZRotationType, p3->rotation()->getName());
 }
 
 TEST_F(ParticleTest, setters)
 {
-    Material mat = HomogeneousMaterial("Air",0,0);
+    Material mat = HomogeneousMaterial("Air", 0, 0);
     FormFactorFullSphere sphere(2.1);
-    RotationY transform(45.*Units::degree);
+    RotationY transform(45. * Units::degree);
 
     Particle particle;
     Material vacuum = HomogeneousMaterial();
@@ -78,7 +80,7 @@ TEST_F(ParticleTest, setters)
 
 TEST_F(ParticleTest, getChildren)
 {
-    Material mat = HomogeneousMaterial("Air",0,0);
+    Material mat = HomogeneousMaterial("Air", 0, 0);
     FormFactorFullSphere sphere(2.1);
 
     // Checking children of particle (no rotation)

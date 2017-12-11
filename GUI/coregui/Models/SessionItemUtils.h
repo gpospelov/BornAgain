@@ -58,6 +58,12 @@ BA_CORE_API_ bool IsValidGroup(const QString& group_type);
 //! Returns GroupInfo for group property construction
 BA_CORE_API_ GroupInfo GetGroupInfo(const QString& group_type);
 
+//! Returns true if given variants have same type and value.
+//! For custom variants (ComboProperty, ExternalProperty) will always return false (see
+//! explanations in cpp file).
+
+BA_CORE_API_ bool IsTheSame(const QVariant& var1, const QVariant& var2);
+
 }  // namespace SessionItemUtils
 
 #endif // SESSIONITEMUTILS_H

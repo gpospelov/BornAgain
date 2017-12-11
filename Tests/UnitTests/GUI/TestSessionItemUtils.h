@@ -2,6 +2,8 @@
 #include "SessionItemUtils.h"
 #include "SessionModel.h"
 #include "SessionItem.h"
+#include "ExternalProperty.h"
+#include "ComboProperty.h"
 #include "VectorItem.h"
 #include "item_constants.h"
 
@@ -52,4 +54,32 @@ TEST_F(TestSessionItemUtils, test_ParentVisibleRow)
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*x), -1);
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*y), 0);
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*z), 1);
+}
+
+//! Test variant equality reported by SessionItemUtils::isTheSame
+TEST_F(TestSessionItemUtils, IsTheSameVariant)
+{
+    // comparing QVariant based on double
+    EXPECT_TRUE(SessionItemUtils::IsTheSame(QVariant::fromValue(1.0), QVariant::fromValue(1.0)));
+    EXPECT_FALSE(SessionItemUtils::IsTheSame(QVariant::fromValue(1.0), QVariant::fromValue(2.0)));
+
+    // comparing QVariant based on strings
+    EXPECT_TRUE(SessionItemUtils::IsTheSame(QVariant::fromValue(QString("a")),
+                                            QVariant::fromValue(QString("a"))));
+    EXPECT_FALSE(SessionItemUtils::IsTheSame(QVariant::fromValue(QString("a")),
+                                             QVariant::fromValue(QString("b"))));
+
+    // comparing variants of different type
+    EXPECT_FALSE(SessionItemUtils::IsTheSame(QVariant::fromValue(1.0), QVariant::fromValue(1)));
+
+    // comparing custom variants (should be always false)
+    ExternalProperty p1, p2;
+    EXPECT_FALSE(SessionItemUtils::IsTheSame(p1.variant(), p2.variant()));
+    EXPECT_FALSE(SessionItemUtils::IsTheSame(p1.variant(), QVariant::fromValue(42.0)));
+
+    ComboProperty c1, c2;
+    EXPECT_FALSE(SessionItemUtils::IsTheSame(c1.variant(), c2.variant()));
+    EXPECT_FALSE(SessionItemUtils::IsTheSame(c1.variant(), QVariant::fromValue(42.0)));
+
+    EXPECT_FALSE(SessionItemUtils::IsTheSame(p1.variant(), c1.variant()));
 }

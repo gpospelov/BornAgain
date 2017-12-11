@@ -198,7 +198,7 @@ TEST_F(TestMapperForItem, test_onParentChange)
     // Mapper is looking on child; changing child's parent
     setItem(layer, &w);
     EXPECT_TRUE(m_mapped_item == layer);
-    multilayer->takeRow(ParentRow(*layer));
+    delete multilayer->takeRow(ParentRow(*layer));
 
     EXPECT_EQ(w.m_onPropertyChangeCount, 0);
     EXPECT_EQ(w.m_onChildPropertyChangeCount, 0);
@@ -248,7 +248,7 @@ TEST_F(TestMapperForItem, test_onSiblingsChange)
     EXPECT_TRUE(w.m_reported_items.isEmpty());
     EXPECT_TRUE(w.m_reported_names.isEmpty());
 
-    multilayer->takeItem(1, MultiLayerItem::T_LAYERS);
+    delete  multilayer->takeItem(1, MultiLayerItem::T_LAYERS);
     EXPECT_EQ(w.m_onSiblingsChangeCount, 2);
 }
 
@@ -317,7 +317,7 @@ TEST_F(TestMapperForItem, test_AboutToRemoveChild)
     EXPECT_EQ(w.m_onAboutToRemoveChild, 0);
     EXPECT_EQ(w.m_reported_items.size(), 0);
 
-    line->parent()->takeRow(line->parent()->rowOfChild(line));
+    delete line->parent()->takeRow(line->parent()->rowOfChild(line));
     EXPECT_EQ(w.m_onAboutToRemoveChild, 1);
     EXPECT_EQ(w.m_reported_items.size(), 1);
     EXPECT_EQ(w.m_reported_items.back(), line);

@@ -20,19 +20,8 @@
 #include "ParameterTranslators.h"
 #include "SessionModel.h"
 #include "VectorItem.h"
+#include "SessionItemData.h"
 #include "SessionItemUtils.h"
-
-class SessionItemData
-{
-public:
-    inline SessionItemData() : role(-1) {}
-    inline SessionItemData(int r, const QVariant& v) : role(r), value(v) {}
-    int role;
-    QVariant value;
-    inline bool operator==(const SessionItemData& other) const {
-        return role == other.role && value == other.value;
-    }
-};
 
 const QString SessionItem::P_NAME = "Name";
 
@@ -40,6 +29,7 @@ const QString SessionItem::P_NAME = "Name";
 SessionItem::SessionItem(const QString& modelType)
     : m_parent(nullptr)
     , m_model(nullptr)
+    , m_values(new SessionItemData)
 {
     Q_ASSERT(!modelType.isEmpty());
 
@@ -394,50 +384,22 @@ SessionItem* SessionItem::getGroupItem(const QString& groupName) const
 //! Returns corresponding variant under given role, invalid variant when role is not present.
 QVariant SessionItem::data(int role) const
 {
-    role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
-    QVector<SessionItemData>::const_iterator it;
-    for (it = m_values.begin(); it != m_values.end(); ++it) {
-        if ((*it).role == role)
-            return (*it).value;
-    }
-    return QVariant();
+    return m_values->data(role);
 }
 
 //! Set variant to role, create role if not present yet.
 bool SessionItem::setData(int role, const QVariant& value)
 {
-    role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
-    QVector<SessionItemData>::iterator it;
-    for (it = m_values.begin(); it != m_values.end(); ++it) {
-        if ((*it).role == role) {
-            if (value.isValid()) {
-                if ((*it).value.type() == value.type() && (*it).value == value)
-                    return true;
-                (*it).value = value;
-            } else {
-                m_values.erase(it);
-            }
-            if (m_model)
-                emitDataChanged(role);
-            return true;
-        }
-    }
-    m_values.append(SessionItemData(role, value));
-    if (m_model)
+    bool result = m_values->setData(role, value);
+    if (result)
         emitDataChanged(role);
-
-    return true;
+    return result;
 }
 
 //! Returns vector of all present roles.
 QVector<int> SessionItem::getRoles() const
 {
-    QVector<int> result;
-    QVector<SessionItemData>::const_iterator it;
-    for (it = m_values.constBegin(); it != m_values.constEnd(); ++it) {
-        result.append(it->role);
-    }
-    return result;
+    return m_values->roles();
 }
 
 //! Notify model about data changes.
@@ -465,8 +427,8 @@ QVariant SessionItem::value() const
 bool SessionItem::setValue(QVariant value)
 {
     QVariant previous_variant = this->value();
-    if (previous_variant.isValid() && GUIHelpers::getVariantType(previous_variant)
-            != GUIHelpers::getVariantType(value)) {
+    if (previous_variant.isValid() && SessionItemUtils::VariantType(previous_variant)
+            != SessionItemUtils::VariantType(value)) {
         throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of "
                                 "previous and new variant does not coincide.");
     }

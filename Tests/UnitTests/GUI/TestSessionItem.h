@@ -5,6 +5,7 @@
 class TestSessionItem : public ::testing::Test
 {
 public:
+    // TODO refactor whole unit test together with SessionTagInfo refactoring
     ~TestSessionItem();
     void verify_get_item(SessionItem* item, const QString& tag, QVector<SessionItem*> list)
     {
@@ -28,7 +29,7 @@ TestSessionItem::~TestSessionItem() = default;
 TEST_F(TestSessionItem, test_constructor)
 {
     const QString modeltype = "This is the model type";
-    SessionItem* item = new SessionItem(modeltype);
+    std::unique_ptr<SessionItem> item(new SessionItem(modeltype));
     EXPECT_TRUE(item->modelType() == modeltype);
     EXPECT_TRUE(item->model() == nullptr);
     EXPECT_TRUE(item->parent() == nullptr);
@@ -42,10 +43,7 @@ TEST_F(TestSessionItem, test_tags)
     const QString tag2 = "TAG2";
     const QString tag3 = "TAG3";
     const QString tag4 = "TAG4";
-    SessionItem* item = new SessionItem(modeltype);
-    QVector<SessionItem*> items;
-    for (int i = 0; i < 10; i++)
-        items.append(new SessionItem(modeltype));
+    std::unique_ptr<SessionItem> item(new SessionItem(modeltype));
 
     // before using a tag, it must be registered
     EXPECT_TRUE(item->registerTag(tag1));
@@ -57,76 +55,89 @@ TEST_F(TestSessionItem, test_tags)
     EXPECT_TRUE(item->registerTag("") == false);
 
     // now we insert one element at the beginning
-    EXPECT_TRUE(item->insertItem(0, items[0], tag1));
+    SessionItem* child = new SessionItem(modeltype);
+    EXPECT_TRUE(item->insertItem(0, child, tag1));
 
     // insertion out of range is forbidden
-    EXPECT_TRUE(item->insertItem(-1, items[0], tag1) == false);
-    EXPECT_TRUE(item->insertItem(2, items[0], tag1) == false);
+    EXPECT_TRUE(item->insertItem(-1, child, tag1) == false);
+    EXPECT_TRUE(item->insertItem(2, child, tag1) == false);
 
     // double insertion is forbidden
-    EXPECT_TRUE(item->insertItem(0, items[0], tag1) == false);
+    EXPECT_TRUE(item->insertItem(0, child, tag1) == false);
 
     // we try to access tagged items
-    verify_get_item(item, tag1, items.mid(0, 1));
+    QVector<SessionItem*> expected = {child};
+    verify_get_item(item.get(), tag1, expected);
 
     // nullptr is not allowed
     EXPECT_TRUE(item->insertItem(1, nullptr, tag1) == false);
-    verify_get_item(item, tag1, items.mid(0, 1));
+    verify_get_item(item.get(), tag1, expected);
 
     // LIMITS
     // register tag with limit 0 - 1
     EXPECT_TRUE(item->registerTag(tag2, 0, 1));
 
-    EXPECT_TRUE(item->insertItem(0, items[1], tag2));
-    verify_get_item(item, tag2, items.mid(1, 1));
-    EXPECT_TRUE(item->insertItem(1, items[1], tag2) == false);
+    SessionItem* child2 = new SessionItem(modeltype);
+    EXPECT_TRUE(item->insertItem(0, child2, tag2));
+    expected = {child2};
+    verify_get_item(item.get(), tag2, expected);
+    EXPECT_TRUE(item->insertItem(1, child2, tag2) == false);
 
     // register tag with limit 0 - 3 (using item 2 - 5)
     EXPECT_TRUE(item->registerTag(tag3, 0, 4));
 
     // add four items
+    QVector<SessionItem*> expected_tag3;
     for (int i = 0; i < 4; i++) {
-        EXPECT_TRUE(item->insertItem(i, items[2 + i], tag3));
-        verify_get_item(item, tag3, items.mid(2, i + 1));
+        auto child = new SessionItem(modeltype);
+        expected_tag3.push_back(child);
+        EXPECT_TRUE(item->insertItem(i, child, tag3));
     }
+    verify_get_item(item.get(), tag3, expected_tag3);
 
     // the fifth should fail
-    EXPECT_TRUE(item->insertItem(0, items[6], tag3) == false);
+    child = new SessionItem(modeltype);
+    EXPECT_TRUE(item->insertItem(0, child, tag3) == false);
+    delete child;
 
     // items should be unchanged
-    verify_get_item(item, tag3, items.mid(2, 4));
+    verify_get_item(item.get(), tag3, expected_tag3);
 
     // register tag with limit 4 - 4 add items to fill up limit
     EXPECT_TRUE(item->registerTag(tag4, 4, 4));
 
     // add four items
+    QVector<SessionItem*> expected_tag4;
     for (int i = 0; i < 4; i++) {
-        EXPECT_TRUE(item->insertItem(i, items[6 + i], tag4));
-        verify_get_item(item, tag4, items.mid(6, i + 1));
+        auto child = new SessionItem(modeltype);
+        expected_tag4.push_back(child);
+        EXPECT_TRUE(item->insertItem(i, child, tag4));
     }
-    EXPECT_TRUE(item->insertItem(0, items[6], tag4) == false);
+    verify_get_item(item.get(), tag4, expected_tag4);
+
+    child = new SessionItem(modeltype);
+    EXPECT_TRUE(item->insertItem(0, child, tag4) == false);
+    delete child;
 
     // REMOVAL
 
     // tag4 can not be removed
     SessionItem* last = item->takeItem(3, tag4);
     EXPECT_TRUE(last == nullptr);
-    verify_get_item(item, tag4, items.mid(6, 4));
+    verify_get_item(item.get(), tag4, expected_tag4);
 
     // remove all from tag3, checking access of tag4
-    for (int i = 0; i < 4; i++) {
-        last = item->takeItem(3 - i, tag3);
-        EXPECT_TRUE(last == items[5 - i]);
-        verify_get_item(item, tag3, items.mid(2, 3 - i));
-        verify_get_item(item, tag4, items.mid(6, 4));
+    for (int i = 3; i >= 0; i--) {
+        last = item->takeItem(i, tag3);
+        EXPECT_TRUE(last == expected_tag3[i]);
+        delete last;
     }
-
-    delete item;
+    verify_get_item(item.get(), tag4, expected_tag4);
 }
 
 TEST_F(TestSessionItem, test_data_roles)
 {
-    SessionItem* item = new SessionItem("Some model type");
+    std::unique_ptr<SessionItem> item(new SessionItem("Some model type"));
     item->setData(Qt::DisplayRole, 1234);
     EXPECT_TRUE(item->data(Qt::DisplayRole) == 1234);
     EXPECT_TRUE(item->data(Qt::EditRole) == 1234);
@@ -148,16 +159,33 @@ TEST_F(TestSessionItem, test_model_types)
     const QString model4 = "modeltype 4";
     const QString model5 = "modeltype 5";
 
-    SessionItem* item = new SessionItem("modeltype does not matter");
+    std::unique_ptr<SessionItem> item(new SessionItem("modeltype does not matter"));
     EXPECT_TRUE(item->registerTag("Tag1", 0, -1, QStringList() << model1 << model2));
     EXPECT_TRUE(item->insertItem(0, new SessionItem(model1), "Tag1"));
     EXPECT_TRUE(item->insertItem(0, new SessionItem(model2), "Tag1"));
-    EXPECT_TRUE(item->insertItem(0, new SessionItem(model3), "Tag1") == false);
-    EXPECT_TRUE(item->insertItem(0, new SessionItem(model4), "Tag1") == false);
-    EXPECT_TRUE(item->insertItem(0, new SessionItem(model5), "Tag1") == false);
+
+    auto child = new SessionItem(model3);
+    EXPECT_TRUE(item->insertItem(0, child, "Tag1") == false);
+    delete child;
+
+    child = new SessionItem(model4);
+    EXPECT_TRUE(item->insertItem(0, child, "Tag1") == false);
+    delete child;
+
+    child = new SessionItem(model5);
+    EXPECT_TRUE(item->insertItem(0, child, "Tag1") == false);
+    delete child;
+
     EXPECT_TRUE(item->registerTag("Tag2", 0, -1, QStringList() << model3 << model4 << model5));
-    EXPECT_TRUE(item->insertItem(0, new SessionItem(model1), "Tag2") == false);
-    EXPECT_TRUE(item->insertItem(0, new SessionItem(model2), "Tag2") == false);
+
+    child = new SessionItem(model1);
+    EXPECT_TRUE(item->insertItem(0, child, "Tag2") == false);
+    delete child;
+
+    child = new SessionItem(model2);
+    EXPECT_TRUE(item->insertItem(0, child, "Tag2") == false);
+    delete child;
+
     EXPECT_TRUE(item->insertItem(0, new SessionItem(model3), "Tag2"));
     EXPECT_TRUE(item->insertItem(0, new SessionItem(model4), "Tag2"));
     EXPECT_TRUE(item->insertItem(0, new SessionItem(model5), "Tag2"));

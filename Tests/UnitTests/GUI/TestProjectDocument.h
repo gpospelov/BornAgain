@@ -65,41 +65,39 @@ TEST_F(TestProjectDocument, test_projectDocument)
     const QString projectFileName(projectDir + "/document.pro");
 
     ApplicationModels models;
-    ProjectDocument* document = new ProjectDocument;
-    document->setApplicationModels(&models);
+    ProjectDocument document;
+    document.setApplicationModels(&models);
 
     // Checking initial document status
-    EXPECT_TRUE(document->isModified() == false);
-    EXPECT_TRUE(document->hasValidNameAndPath() == false);
-    EXPECT_EQ(document->projectDir(), QString());
-    EXPECT_EQ(document->projectName(), QString());
-    EXPECT_EQ(document->projectFileName(), QString());
+    EXPECT_TRUE(document.isModified() == false);
+    EXPECT_TRUE(document.hasValidNameAndPath() == false);
+    EXPECT_EQ(document.projectDir(), QString());
+    EXPECT_EQ(document.projectName(), QString());
+    EXPECT_EQ(document.projectFileName(), QString());
 
     // Checking document name and isModified status after project save
-    document->save(projectFileName);
-    EXPECT_TRUE(document->hasValidNameAndPath());
-    EXPECT_EQ(document->projectDir(), projectDir);
-    EXPECT_EQ(document->projectName(), QString("document"));
-    EXPECT_EQ(document->projectFileName(), projectFileName);
-    EXPECT_FALSE(document->isModified());
+    document.save(projectFileName);
+    EXPECT_TRUE(document.hasValidNameAndPath());
+    EXPECT_EQ(document.projectDir(), projectDir);
+    EXPECT_EQ(document.projectName(), QString("document"));
+    EXPECT_EQ(document.projectFileName(), projectFileName);
+    EXPECT_FALSE(document.isModified());
 
-    QSignalSpy spyDocument(document, SIGNAL(modified()));
+    QSignalSpy spyDocument(&document, SIGNAL(modified()));
     EXPECT_EQ(spyDocument.count(), 0);
 
     // Changing document and checking its status
     modify_models(&models);
-    EXPECT_TRUE(document->isModified());
+    EXPECT_TRUE(document.isModified());
     EXPECT_EQ(spyDocument.count(), 1);
 
     // Saving document
-    document->save(projectFileName);
-    EXPECT_FALSE(document->isModified());
+    document.save(projectFileName);
+    EXPECT_FALSE(document.isModified());
     EXPECT_EQ(spyDocument.count(), 2); // save triggers 'modified' signal
 
     QFileInfo info(projectFileName);
     EXPECT_TRUE(info.exists());
-
-    delete document;
 }
 
 TEST_F(TestProjectDocument, test_projectDocumentWithData)
@@ -116,9 +114,9 @@ TEST_F(TestProjectDocument, test_projectDocumentWithData)
                                            models.instrumentModel()->instrumentItem());
     intensityItem->setItemValue(IntensityDataItem::P_FILE_NAME, "realdata.int.gz");
 
-    ProjectDocument* document = new ProjectDocument;
-    document->setApplicationModels(&models);
-    document->save(projectDir + "/untitled.pro");
+    ProjectDocument document;
+    document.setApplicationModels(&models);
+    document.save(projectDir + "/untitled.pro");
 
     QFileInfo info(projectDir + "/untitled.pro");
     EXPECT_TRUE(info.exists());

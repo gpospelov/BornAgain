@@ -16,7 +16,6 @@
 #include "RealDataModel.h"
 #include "test_utils.h"
 #include <QTest>
-#include <QSignalSpy>
 
 namespace {
 const int nxsize = 5;

@@ -39,7 +39,7 @@ TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
 
     // changing name of MaterialItem in MaterialModel, looking for MaterialProperty change
     mat1->setItemName("newname");
-    //    EXPECT_EQ(property_changed, 1);
+    EXPECT_EQ(property_changed, 1);
     ExternalProperty property
         = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
     EXPECT_EQ(property.identifier(), mat1->getIdentifier());
@@ -49,7 +49,7 @@ TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
     // changing color of MaterialItem
     ExternalProperty colorProperty = MaterialItemUtils::colorProperty(QColor(Qt::red));
     mat1->setItemValue(MaterialItem::P_COLOR, colorProperty.variant());
-    //    EXPECT_EQ(property_changed, 2);
+    EXPECT_EQ(property_changed, 2);
     property = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
     EXPECT_EQ(property.identifier(), mat1->getIdentifier());
     EXPECT_EQ(property.text(), mat1->itemName());
@@ -58,7 +58,7 @@ TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
 
     // removing material from the model, property should become undefined
     materialModel.removeRows(0, 1, QModelIndex());
-    //    EXPECT_EQ(property_changed, 3);
+    EXPECT_EQ(property_changed, 3);
     property = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
     EXPECT_TRUE(property.isValid() == false);
 }

@@ -8,7 +8,6 @@
 #include "SessionModel.h"
 #include "VectorItem.h"
 #include "item_constants.h"
-#include <QSignalSpy>
 
 class TestProxyModelStrategy : public ::testing::Test
 {

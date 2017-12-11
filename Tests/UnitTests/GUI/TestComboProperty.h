@@ -1,5 +1,6 @@
 #include "google_test.h"
 #include "ComboProperty.h"
+#include "Comparators.h"
 #include "test_utils.h"
 
 class TestComboProperty :  public ::testing::Test
@@ -35,6 +36,9 @@ TEST_F(TestComboProperty, test_ComboEquality)
         EXPECT_TRUE(c1 == c2);
 }
 
+//! Check equality of ComboPeroperty's variants.
+//! If comparators are not registered, the behavior is undefined.
+
 TEST_F(TestComboProperty, test_VariantEquality)
 {
     QVariant v1(1.0);
@@ -45,16 +49,22 @@ TEST_F(TestComboProperty, test_VariantEquality)
 
     ComboProperty c1 = ComboProperty() << "a1" << "a2";
     ComboProperty c2 = ComboProperty() << "a1" << "a2";
-    EXPECT_TRUE(c1.variant() == c2.variant());
 
-    c2 << "a3";
-    EXPECT_TRUE(c1.variant() != c2.variant());
-    c2.setValue("a2");
-    EXPECT_TRUE(c1.variant() != c2.variant());
+    if (Comparators::registered()) {
+        EXPECT_TRUE(c1.variant() == c2.variant());
 
-    c1 << "a3";
-    c1.setValue("a2");
-    EXPECT_TRUE(c1.variant() == c2.variant());
+        c2 << "a3";
+        c2.setValue("a2");
+
+        EXPECT_TRUE(c1.variant() != c2.variant());
+        EXPECT_FALSE(c1.variant() == c2.variant());
+
+        c1 << "a3";
+        c1.setValue("a2");
+
+        EXPECT_TRUE(c1.variant() == c2.variant());
+        EXPECT_FALSE(c1.variant() != c2.variant());
+    }
 }
 
 TEST_F(TestComboProperty, test_setValue)

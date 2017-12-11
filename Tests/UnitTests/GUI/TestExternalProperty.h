@@ -1,5 +1,6 @@
 #include "google_test.h"
 #include "ExternalProperty.h"
+#include "Comparators.h"
 #include "test_utils.h"
 
 class TestExternalProperty :  public ::testing::Test
@@ -55,18 +56,24 @@ TEST_F(TestExternalProperty, test_equalityOperators)
 }
 
 //! Testing equality operators for QVariants based on ExternalProperty.
-//! Comparators should be enabled in main.cpp
+//! If comparators are not registered, the behavior is undefined
 
 TEST_F(TestExternalProperty, test_variantEquality)
 {
     ExternalProperty prop1;
     ExternalProperty prop2;
 
-    EXPECT_TRUE(prop1.variant() == prop2.variant());
-    prop1.setIdentifier("aaa");
-    EXPECT_TRUE(prop1.variant() != prop2.variant());
-    prop2.setIdentifier("aaa");
-    EXPECT_TRUE(prop1.variant() == prop2.variant());
+    if (Comparators::registered()) {
+        EXPECT_TRUE(prop1.variant() == prop2.variant());
+        prop1.setIdentifier("aaa");
+
+        EXPECT_TRUE(prop1.variant() != prop2.variant());
+        EXPECT_FALSE(prop1.variant() == prop2.variant());
+
+        prop2.setIdentifier("aaa");
+
+        EXPECT_TRUE(prop1.variant() == prop2.variant());
+    }
 }
 
 TEST_F(TestExternalProperty, test_toXML)

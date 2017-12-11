@@ -119,13 +119,21 @@ GroupInfo SessionItemUtils::GetGroupInfo(const QString& group_type)
     return groupInfoCatalogue().groupInfo(group_type);
 }
 
+int SessionItemUtils::VariantType(const QVariant& variant)
+{
+    int result = static_cast<int>(variant.type());
+    if (result == QVariant::UserType)
+        result = variant.userType();
+    return result;
+}
+
 // For custom variants (based on ExternalProperty, ComboProperty) will always return false, i.e.
 // we will rely here on our custom editors.
 // This is done to not to register custom comparators in main.cpp.
 bool SessionItemUtils::IsTheSame(const QVariant& var1, const QVariant& var2)
 {
     // variants of different type are always reported as not the same
-    if (GUIHelpers::getVariantType(var1) != GUIHelpers::getVariantType(var2))
+    if (VariantType(var1) != VariantType(var2))
         return false;
 
     // custom type variants are always reported as not the same

@@ -56,8 +56,6 @@ BA_CORE_API_ bool question(QWidget* parent, const QString& title,
 BA_CORE_API_ bool okToDelete(QWidget* parent, const QString& title,
         const QString& text, const QString& detailedText=QString());
 
-BA_CORE_API_ int getVariantType(const QVariant& variant);
-
 BA_CORE_API_ QString getBornAgainVersionString();
 
 BA_CORE_API_ QString getValidFileName(const QString& proposed_name);

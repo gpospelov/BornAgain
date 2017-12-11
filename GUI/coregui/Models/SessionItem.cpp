@@ -465,8 +465,8 @@ QVariant SessionItem::value() const
 bool SessionItem::setValue(QVariant value)
 {
     QVariant previous_variant = this->value();
-    if (previous_variant.isValid() && GUIHelpers::getVariantType(previous_variant)
-            != GUIHelpers::getVariantType(value)) {
+    if (previous_variant.isValid() && SessionItemUtils::VariantType(previous_variant)
+            != SessionItemUtils::VariantType(value)) {
         throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of "
                                 "previous and new variant does not coincide.");
     }

@@ -56,9 +56,49 @@ TEST_F(TestSessionItemUtils, test_ParentVisibleRow)
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*z), 1);
 }
 
+//! Comparing types of variant.
+
+TEST_F(TestSessionItemUtils, VariantType)
+{
+    EXPECT_TRUE(SessionItemUtils::VariantType(QVariant::fromValue(1.0))
+                == SessionItemUtils::VariantType(QVariant::fromValue(2.0)));
+    EXPECT_FALSE(SessionItemUtils::VariantType(QVariant::fromValue(1.0))
+                 == SessionItemUtils::VariantType(QVariant::fromValue(1)));
+    EXPECT_FALSE(SessionItemUtils::VariantType(QVariant::fromValue(1.0))
+                 == SessionItemUtils::VariantType(QVariant::fromValue(QString("a"))));
+
+    QVariant v1, v2;
+    EXPECT_TRUE(SessionItemUtils::VariantType(v1) == SessionItemUtils::VariantType(v2));
+    EXPECT_FALSE(SessionItemUtils::VariantType(v1)
+                 == SessionItemUtils::VariantType(QVariant::fromValue(42.0)));
+
+    ComboProperty c1, c2;
+    EXPECT_TRUE(SessionItemUtils::VariantType(c1.variant())
+                == SessionItemUtils::VariantType(c2.variant()));
+    EXPECT_FALSE(SessionItemUtils::VariantType(c1.variant())
+                 == SessionItemUtils::VariantType(QVariant::fromValue(42.0)));
+    EXPECT_FALSE(SessionItemUtils::VariantType(c1.variant())
+                 == SessionItemUtils::VariantType(QVariant()));
+
+    ExternalProperty p1, p2;
+    EXPECT_TRUE(SessionItemUtils::VariantType(p1.variant())
+                == SessionItemUtils::VariantType(p2.variant()));
+    EXPECT_FALSE(SessionItemUtils::VariantType(p1.variant())
+                 == SessionItemUtils::VariantType(QVariant::fromValue(42.0)));
+    EXPECT_FALSE(SessionItemUtils::VariantType(p1.variant())
+                 == SessionItemUtils::VariantType(c1.variant()));
+    EXPECT_FALSE(SessionItemUtils::VariantType(p1.variant())
+                 == SessionItemUtils::VariantType(QVariant()));
+}
+
 //! Test variant equality reported by SessionItemUtils::isTheSame
+
 TEST_F(TestSessionItemUtils, IsTheSameVariant)
 {
+    // comparing undefined variants
+    QVariant v1, v2;
+    EXPECT_TRUE(SessionItemUtils::IsTheSame(v1, v2));
+
     // comparing QVariant based on double
     EXPECT_TRUE(SessionItemUtils::IsTheSame(QVariant::fromValue(1.0), QVariant::fromValue(1.0)));
     EXPECT_FALSE(SessionItemUtils::IsTheSame(QVariant::fromValue(1.0), QVariant::fromValue(2.0)));

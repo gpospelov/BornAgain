@@ -20,7 +20,7 @@
 
 //! Builds a sample with 10 interchanging homogeneous layers of Ti and Ni on silicone substrate.
 //! Ti is 70 angstroms thick, Ni is 30 angstroms thick.
-//! As opposed to HomogeneousMultilayerBuilder, uses MaterialBySLD. No absorption, no roughness.
+//! Titanium absorption coefficient is exaggerated 10^4 times for its effect to be noticeable
 //! @ingroup standard_samples
 
 class BA_CORE_API_ MaterialBySLDBuilder : public IMultiLayerBuilder
@@ -31,12 +31,20 @@ public:
 
 protected:
     struct MaterialData {
-        double product() const
+        double sld() const
         {
             return density * scat_length;
         }
+
+        //! Returns macroscopic cross-section for 2200 m/s neutrons
+        double abs_term() const
+        {
+            return density * abs_cx;
+        }
+
         double scat_length; //!< bound coherent scattering length
         double density;     //!< number density
+        double abs_cx;      //!< absorption cross-section for 2200 m/s neutrons
     };
     size_t m_number_of_layers;
     MaterialData m_si;

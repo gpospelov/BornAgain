@@ -61,6 +61,7 @@ set(test_cases
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
     HomogeneousTiNiSample
+    HomogeneousTiNiSampleWithAbsorption
     RoughnessInSpecular
     )
 

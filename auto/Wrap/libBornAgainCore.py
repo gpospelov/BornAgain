@@ -3691,6 +3691,7 @@ micrometer = cvar.micrometer
 millimeter = cvar.millimeter
 meter = cvar.meter
 nm = cvar.nm
+barn = cvar.barn
 radian = cvar.radian
 milliradian = cvar.milliradian
 degree = cvar.degree

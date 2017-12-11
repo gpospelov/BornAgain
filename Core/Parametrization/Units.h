@@ -30,6 +30,9 @@ static const double meter       = 1.e+9*nanometer;
 // Symbols for length
 static const double nm  = nanometer;
 
+// Area (cross-section)
+static const double barn = nanometer * nanometer * 1e-10;
+
 // Angle
 static const double radian      = 1.;
 static const double milliradian = 1.e-3*radian;

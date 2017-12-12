@@ -63,7 +63,7 @@ bool SessionItemTags::isValid(const QString& tagName, const QString& modelType) 
 
 QStringList SessionItemTags::modelTypesForTag(const QString& tagName) const
 {
-    return tagInfo(tagName).modelTypes;
+    return isValid(tagName) ? tagInfo(tagName).modelTypes : QStringList();
 }
 
 //! Returns start index of given tagName corresponding to the index of SessionItem's m_children.

@@ -40,6 +40,21 @@ TEST_F(TestSessionItemTags, registerTag)
     EXPECT_EQ(tags.modelTypesForTag("tag2"), expected);
 }
 
+TEST_F(TestSessionItemTags, modelTypesForTag)
+{
+    SessionItemTags tags;
+
+    QStringList expected = QStringList() << Constants::ParticleType << Constants::LayerType;
+
+    EXPECT_TRUE(tags.registerTag("tag1", 0, 1, expected));
+    EXPECT_EQ(tags.modelTypesForTag("tag1"), expected);
+
+    EXPECT_TRUE(tags.registerTag("tag2", 0, 1, QStringList()));
+    EXPECT_EQ(tags.modelTypesForTag("tag2"), QStringList());
+
+    EXPECT_EQ(tags.modelTypesForTag("tag3"), QStringList());
+}
+
 TEST_F(TestSessionItemTags, tagStartIndex)
 {
     SessionItemTags tags;

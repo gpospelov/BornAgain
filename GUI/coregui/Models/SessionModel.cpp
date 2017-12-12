@@ -366,18 +366,18 @@ void SessionModel::writeTo(QXmlStreamWriter* writer, SessionItem* parent)
 
 //! Move given parameterized item to the new_parent at given row. If new_parent is not defined,
 //! use root_item as a new parent.
+
 SessionItem* SessionModel::moveParameterizedItem(SessionItem* item, SessionItem* new_parent,
                                                  int row, const QString &tag)
 {
     if (!new_parent)
         new_parent = m_root_item;
+
     const QString tagName = tag.isEmpty() ? new_parent->defaultTag() : tag;
 
-    if (new_parent) {
-        if (!new_parent->sessionItemTags()->isValid(tagName, item->modelType()))
-            return 0;
-            return 0;
-    }
+    if (!new_parent->sessionItemTags()->isValid(tagName, item->modelType()))
+        return 0;
+
     if (item->parent() == new_parent) {
         // take care of indexes when moving item within same parent
         int previousIndex = item->parent()->getItems(tagName).indexOf(item);
@@ -387,18 +387,18 @@ SessionItem* SessionModel::moveParameterizedItem(SessionItem* item, SessionItem*
             row--;
         }
     }
-    SessionItem* stuff = item->parent()->takeRow(item->parent()->rowOfChild(item));
-    if(!new_parent->insertItem(row, stuff, tagName)) {
-        int max = new_parent->sessionItemTags()->childMax(tagName);
-        int childCount = new_parent->sessionItemTags()->childCount(tagName);
-        if (max == childCount && childCount == 1) {
-            SessionItem* old = new_parent->takeItem(0, tagName);
-            new_parent->insertItem(row, stuff, tagName);
-            m_root_item->insertItem(-1, old);
-        }
-        m_root_item->insertItem(-1, stuff);
+
+    if (new_parent->sessionItemTags()->maximumReached(tagName)) {
+        SessionItem* prev = new_parent->takeItem(0, tagName);
+        m_root_item->insertItem(-1, prev);
     }
-    return stuff;
+
+    // removing item from previous parent
+    item->parent()->takeRow(item->parent()->rowOfChild(item));
+
+    new_parent->insertItem(row, item, tagName);
+
+    return item;
 }
 
 //! Copy given item to the new_parent at given row. Item indended for copying can belong to

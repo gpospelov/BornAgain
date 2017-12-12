@@ -18,6 +18,40 @@ public:
 
 TestParticleCoreShell::~TestParticleCoreShell() = default;
 
+TEST_F(TestParticleCoreShell, test_moveCoreAndShell)
+{
+    SampleModel model;
+    SessionItem* coreshell = model.insertNewItem(Constants::ParticleCoreShellType);
+    SessionItem* particle1 = model.insertNewItem(Constants::ParticleType);
+    SessionItem* particle2 = model.insertNewItem(Constants::ParticleType);
+    SessionItem* particle3 = model.insertNewItem(Constants::ParticleType);
+
+    // empty coreshell particle
+    EXPECT_EQ(particle1->parent(), model.rootItem());
+    EXPECT_EQ(particle2->parent(), model.rootItem());
+    EXPECT_EQ(particle3->parent(), model.rootItem());
+    EXPECT_EQ(coreshell->getItem(ParticleCoreShellItem::T_CORE), nullptr);
+    EXPECT_EQ(coreshell->getItem(ParticleCoreShellItem::T_SHELL), nullptr);
+
+    // adding core
+    model.moveParameterizedItem(particle1, coreshell, -1, ParticleCoreShellItem::T_CORE);
+    EXPECT_EQ(particle1->parent(), coreshell);
+    EXPECT_EQ(coreshell->getItem(ParticleCoreShellItem::T_CORE), particle1);
+
+    // adding shell
+    model.moveParameterizedItem(particle2, coreshell, -1, ParticleCoreShellItem::T_SHELL);
+    EXPECT_EQ(particle2->parent(), coreshell);
+    EXPECT_EQ(coreshell->getItem(ParticleCoreShellItem::T_SHELL), particle2);
+
+    // adding another core, previous one should deattach
+    model.moveParameterizedItem(particle3, coreshell, -1, ParticleCoreShellItem::T_CORE);
+    EXPECT_EQ(particle3->parent(), coreshell);
+    EXPECT_EQ(coreshell->getItem(ParticleCoreShellItem::T_CORE), particle3);
+//    EXPECT_EQ(particle1->parent(), model.rootItem());
+
+}
+
+
 //! Checking that adding and removing core/shell leads to enabling/disabling of their position
 //! and abundance properties.
 

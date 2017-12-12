@@ -68,6 +68,10 @@ TEST_F(TestSessionItem, singleTagAndItems)
     // register empty string returns false
     EXPECT_FALSE(item->registerTag(""));
 
+    // getting non-existing items from tag
+    EXPECT_TRUE(item->getItem(tag1) == nullptr);
+    EXPECT_TRUE(item->getItems(tag1) == QVector<SessionItem*>());
+
     // inserting single item
     SessionItem* child = new SessionItem(modelType);
     EXPECT_TRUE(item->insertItem(0, child, tag1));
@@ -97,7 +101,7 @@ TEST_F(TestSessionItem, singleTagAndItems)
     EXPECT_EQ(item->getItems(tag1), expected);
     EXPECT_EQ(item->getItem(tag1, 0), child1);
     EXPECT_EQ(item->getItem(tag1, 1), child);
-    EXPECT_THROW(item->getItem(tag1, 2), GUIHelpers::Error);
+    EXPECT_EQ(item->getItem(tag1, 2), nullptr);
 
     // adding third item at the end
     SessionItem* child2 = new SessionItem(modelType);
@@ -223,6 +227,7 @@ TEST_F(TestSessionItem, takeRow)
 
     auto taken1 = item->takeRow(1);
     EXPECT_EQ(taken1, expected1.at(1));
+    EXPECT_TRUE(taken1->parent() == nullptr);
     delete taken1;
 
     auto taken2 = item->takeRow(maxItems1-1); // one item less already

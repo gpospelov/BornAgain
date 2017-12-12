@@ -6,6 +6,7 @@
 #include "SessionModel.h"
 #include "SessionItemTags.h"
 #include "google_test.h"
+#include "MaskItems.h"
 #include <QXmlStreamWriter>
 #include <QSignalSpy>
 #include <memory>
@@ -148,7 +149,69 @@ TEST_F(TestSessionModel, test_copyParameterizedItem)
     EXPECT_EQ(jobItem->sessionItemTags()->childCount(JobItem::T_INSTRUMENT), 1);
 }
 
-TEST_F(TestSessionModel, moveItemDifferentParent)
+TEST_F(TestSessionModel, moveItemFromRoot)
 {
+    SessionModel model("TestModel");
+    auto poly = model.insertNewItem(Constants::PolygonMaskType);
+    auto point = model.insertNewItem(Constants::PolygonPointType);
 
+    EXPECT_EQ(poly->parent(), model.rootItem());
+    EXPECT_EQ(point->parent(), model.rootItem());
+    EXPECT_EQ(model.rootItem()->numberOfChildren(), 2);
+
+    // moving from rootItem to poly
+    auto moved = model.moveParameterizedItem(point, poly);
+    EXPECT_EQ(model.rootItem()->numberOfChildren(), 1);
+    EXPECT_EQ(moved, point);
+    EXPECT_EQ(point->parent(), poly);
+    EXPECT_EQ(poly->getItem(), point);
+
+    // moving from poly to rootItem
+    moved = model.moveParameterizedItem(point, 0);
+    EXPECT_EQ(model.rootItem()->numberOfChildren(), 2);
+    EXPECT_EQ(moved, point);
+    EXPECT_EQ(point->parent(), model.rootItem());
+    EXPECT_EQ(poly->getItem(), nullptr);
+}
+
+TEST_F(TestSessionModel, moveBetweenParents)
+{
+    SessionModel model("TestModel");
+    auto poly1 = model.insertNewItem(Constants::PolygonMaskType);
+    auto point11 = model.insertNewItem(Constants::PolygonPointType, model.indexOfItem(poly1));
+    auto point12 = model.insertNewItem(Constants::PolygonPointType, model.indexOfItem(poly1));
+    auto poly2 = model.insertNewItem(Constants::PolygonMaskType);
+
+    EXPECT_EQ(point11->parent(), poly1);
+    EXPECT_EQ(point12->parent(), poly1);
+    EXPECT_EQ(poly1->getItem(), point11);
+
+    auto moved = model.moveParameterizedItem(point11, poly2);
+    EXPECT_EQ(moved, point11);
+    EXPECT_EQ(point11->parent(), poly2);
+    EXPECT_EQ(poly1->getItem(), point12);
+}
+
+TEST_F(TestSessionModel, moveWithinSameParent)
+{
+    SessionModel model("TestModel");
+    auto poly = model.insertNewItem(Constants::PolygonMaskType);
+    auto pA = model.insertNewItem(Constants::PolygonPointType, model.indexOfItem(poly));
+    auto pB = model.insertNewItem(Constants::PolygonPointType, model.indexOfItem(poly));
+    auto pC = model.insertNewItem(Constants::PolygonPointType, model.indexOfItem(poly));
+    auto pD = model.insertNewItem(Constants::PolygonPointType, model.indexOfItem(poly));
+    auto pE = model.insertNewItem(Constants::PolygonPointType, model.indexOfItem(poly));
+
+    // 0  pA -> pA
+    // 1  pB -> pC
+    // 2  pC -> pB
+    // 3  pD -> pD
+    // 4  pE -> pE
+
+    model.moveParameterizedItem(pB, poly, 3);
+    EXPECT_EQ(poly->getItems().indexOf(pA), 0);
+    EXPECT_EQ(poly->getItems().indexOf(pB), 2);
+    EXPECT_EQ(poly->getItems().indexOf(pC), 1);
+    EXPECT_EQ(poly->getItems().indexOf(pD), 3);
+    EXPECT_EQ(poly->getItems().indexOf(pE), 4);
 }

@@ -188,6 +188,16 @@ QVector<QString> SessionItem::acceptableDefaultItemTypes() const
 SessionItem* SessionItem::getItem(const QString& tag, int row) const
 {
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
+
+    if (!m_tags->isValid(tagName))
+        return nullptr;
+
+    if (m_tags->childCount(tagName) == 0)
+        return nullptr;
+
+    if (row < 0 || row >= m_tags->childCount(tagName))
+        return nullptr;
+
     int index = m_tags->indexFromTagRow(tagName, row);
     if (index <0 || index >= m_children.size())
         throw GUIHelpers::Error("SessionItem::getItem() -> Invalid row for tag");

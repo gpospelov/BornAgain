@@ -262,8 +262,7 @@ SessionItem* createItem(SessionItem* item, const QString& modelType, const QStri
         if (auto groupItem = dynamic_cast<GroupItem*>(item))
             result = groupItem->getItemOfType(modelType);
     } else {
-        SessionTagInfo info = item->getTagInfo(tag);
-        if (info.min == 1 && info.max == 1 && info.childCount == 1)
+        if (item->isSingleItemTag(tag))
             result = item->getItem(tag);
         else
             result = item->model()->insertNewItem(modelType, item->index(), -1, tag);

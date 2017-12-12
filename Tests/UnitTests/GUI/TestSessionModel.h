@@ -4,6 +4,7 @@
 #include "MaterialModel.h"
 #include "SampleModel.h"
 #include "SessionModel.h"
+#include "SessionItemTags.h"
 #include "google_test.h"
 #include <QXmlStreamWriter>
 #include <QSignalSpy>
@@ -141,8 +142,13 @@ TEST_F(TestSessionModel, test_copyParameterizedItem)
     SessionItem* jobItem = jobModel.insertNewItem(Constants::JobItemType);
 
     jobModel.copyParameterizedItem(multilayer1, jobItem, JobItem::T_SAMPLE);
-    EXPECT_EQ(jobItem->getTagInfo(JobItem::T_SAMPLE).childCount, 1);
+    EXPECT_EQ(jobItem->sessionItemTags()->childCount(JobItem::T_SAMPLE), 1);
 
     jobModel.copyParameterizedItem(instrument1, jobItem, JobItem::T_INSTRUMENT);
-    EXPECT_EQ(jobItem->getTagInfo(JobItem::T_INSTRUMENT).childCount, 1);
+    EXPECT_EQ(jobItem->sessionItemTags()->childCount(JobItem::T_INSTRUMENT), 1);
+}
+
+TEST_F(TestSessionModel, moveItemDifferentParent)
+{
+
 }

@@ -18,6 +18,7 @@
 #include "GUIHelpers.h"
 #include "ItemFactory.h"
 #include "SessionItemUtils.h"
+#include "SessionItemTags.h"
 #include <QFile>
 #include <QMimeData>
 #include <QtCore/QXmlStreamWriter>
@@ -267,9 +268,8 @@ SessionItem* SessionModel::insertNewItem(QString model_type, const QModelIndex& 
     if (parent_item != m_root_item) {
         if (tag.isEmpty())
             tag = parent_item->defaultTag();
-        SessionTagInfo tagInfo = parent_item->getTagInfo(tag);
 
-        if (!tagInfo.modelTypes.contains(model_type))
+        if (!parent_item->sessionItemTags()->isValid(tag, model_type))
             return nullptr;
     }
     SessionItem* new_item = ItemFactory::createItem(model_type);
@@ -374,8 +374,8 @@ SessionItem* SessionModel::moveParameterizedItem(SessionItem* item, SessionItem*
     const QString tagName = tag.isEmpty() ? new_parent->defaultTag() : tag;
 
     if (new_parent) {
-        if (!new_parent->getTagInfo(tagName).modelTypes.empty() &&
-                !new_parent->getTagInfo(tagName).modelTypes.contains(item->modelType()))
+        if (!new_parent->sessionItemTags()->isValid(tagName, item->modelType()))
+            return 0;
             return 0;
     }
     if (item->parent() == new_parent) {
@@ -389,8 +389,9 @@ SessionItem* SessionModel::moveParameterizedItem(SessionItem* item, SessionItem*
     }
     SessionItem* stuff = item->parent()->takeRow(item->parent()->rowOfChild(item));
     if(!new_parent->insertItem(row, stuff, tagName)) {
-        SessionTagInfo info = new_parent->getTagInfo(tagName);
-        if (info.max == info.childCount && info.childCount == 1) {
+        int max = new_parent->sessionItemTags()->childMax(tagName);
+        int childCount = new_parent->sessionItemTags()->childCount(tagName);
+        if (max == childCount && childCount == 1) {
             SessionItem* old = new_parent->takeItem(0, tagName);
             new_parent->insertItem(row, stuff, tagName);
             m_root_item->insertItem(-1, old);

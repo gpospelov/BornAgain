@@ -27,22 +27,8 @@
 Q_DECLARE_METATYPE(RealLimits)
 
 class SessionItemData;
+class SessionItemTags;
 class IPathTranslator;
-
-class SessionTagInfo
-{
-public:
-    SessionTagInfo() : name(QString()), min(0), max(-1), childCount(0) {}
-    SessionTagInfo(QString n, int mi, int ma, QStringList mt = QStringList())
-        :name(n), min(mi), max(ma), childCount(0), modelTypes(mt) {}
-    bool isValid() { return !name.isEmpty(); }
-    QString name;
-    int min;
-    int max;
-    int childCount;
-    QStringList modelTypes;
-};
-
 
 class BA_CORE_API_ SessionItem
 {
@@ -71,8 +57,9 @@ public:
     bool registerTag(const QString& name, int min = 0, int max = -1,
                      QStringList modelTypes = QStringList());
     bool isTag(const QString& name) const;
+    bool isSingleItemTag(const QString& tagName) const;
+    SessionItemTags* sessionItemTags();
     QString tagFromItem(const SessionItem* item) const;
-    SessionTagInfo getTagInfo(const QString& name = QString()) const;
     bool acceptsAsDefaultItem(const QString& item_name) const;
     QVector<QString> acceptableDefaultItemTypes() const;
 
@@ -145,7 +132,6 @@ private:
     void childDeleted(SessionItem* child);
     void setParentAndModel(SessionItem* parent, SessionModel* model);
     void setModel(SessionModel* model);
-    int tagStartIndex(const QString& name) const;
     int flags() const;
     void changeFlags(bool enabled, int flag);
     int getCopyNumberOfChild(const SessionItem* item) const;
@@ -154,7 +140,7 @@ private:
     SessionModel* m_model;
     QVector<SessionItem*> m_children;
     std::unique_ptr<SessionItemData> m_values;
-    QVector<SessionTagInfo> m_tags;
+    std::unique_ptr<SessionItemTags> m_tags;
     std::unique_ptr<ModelMapper> m_mapper;
     QVector<IPathTranslator*> m_translators;
 };

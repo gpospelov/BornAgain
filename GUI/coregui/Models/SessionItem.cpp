@@ -21,6 +21,7 @@
 #include "SessionModel.h"
 #include "VectorItem.h"
 #include "SessionItemData.h"
+#include "SessionItemTags.h"
 #include "SessionItemUtils.h"
 
 const QString SessionItem::P_NAME = "Name";
@@ -30,6 +31,7 @@ SessionItem::SessionItem(const QString& modelType)
     : m_parent(nullptr)
     , m_model(nullptr)
     , m_values(new SessionItemData)
+    , m_tags(new SessionItemTags)
 {
     Q_ASSERT(!modelType.isEmpty());
 
@@ -144,76 +146,51 @@ SessionItem* SessionItem::takeRow(int row)
 //! max = -1 -> unlimited, modelTypes empty -> all types allowed
 bool SessionItem::registerTag(const QString& name, int min, int max, QStringList modelTypes)
 {
-    if (min < 0 || (min > max && max >= 0))
-        return false;
-    if (name.isEmpty() || getTagInfo(name).isValid())
-        return false;
-    m_tags.append(SessionTagInfo(name, min, max, modelTypes));
-    return true;
+    return m_tags->registerTag(name, min, max, modelTypes);
 }
 
 //! Returns true if tag is available.
 bool SessionItem::isTag(const QString& name) const
 {
-    return getTagInfo(name).isValid();
+    return m_tags->isValid(name);
+}
+
+bool SessionItem::isSingleItemTag(const QString& tagName) const
+{
+    return m_tags->isSingleItemTag(tagName);
+}
+
+SessionItemTags* SessionItem::sessionItemTags()
+{
+    return m_tags.get();
 }
 
 //! Returns the tag name of given item when existing.
 QString SessionItem::tagFromItem(const SessionItem* item) const
 {
     int index = m_children.indexOf(const_cast<SessionItem*>(item));
-    if (index == -1)
-        return QString();
-    QVector<SessionTagInfo>::const_iterator it;
-    for (it = m_tags.constBegin(); it != m_tags.constEnd(); ++it) {
-        SessionTagInfo tagInfo = *it;
-        if (index < tagInfo.childCount) {
-            return tagInfo.name;
-        } else {
-            index -= tagInfo.childCount;
-        }
-    }
-    return QString();
-}
-
-//! Returns corresponding tag info.
-SessionTagInfo SessionItem::getTagInfo(const QString& tag) const
-{
-    QString tagName = tag.isEmpty() ? defaultTag() : tag;
-    QVector<SessionTagInfo>::const_iterator it;
-    for (it = m_tags.constBegin(); it != m_tags.constEnd(); ++it) {
-        SessionTagInfo tagInfo = *it;
-        if (tagInfo.name == tagName)
-            return tagInfo;
-    }
-    return SessionTagInfo();
+    return m_tags->tagFromIndex(index);
 }
 
 //! Returns true if model type can be added to default tag.
 bool SessionItem::acceptsAsDefaultItem(const QString& item_name) const
 {
-    return getTagInfo(defaultTag()).modelTypes.contains(item_name);
+    return m_tags->isValid(defaultTag(), item_name);
 }
 
 //! Returns vector of acceptable default tag types.
 QVector<QString> SessionItem::acceptableDefaultItemTypes() const
 {
-    return getTagInfo(defaultTag()).modelTypes.toVector();
+    return m_tags->modelTypesForTag(defaultTag()).toVector();
 }
 
 //! Returns item in given row of given tag.
 SessionItem* SessionItem::getItem(const QString& tag, int row) const
 {
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
-    SessionTagInfo tagInfo = getTagInfo(tagName);
-    if (!tagInfo.isValid())
-        return nullptr;
-    if (tagInfo.childCount == 0)
-        return nullptr;
-    if (row < 0 || row >= tagInfo.childCount)
-        return nullptr;
-    int index = tagStartIndex(tagName) + row;
-    Q_ASSERT(index >= 0 && index < m_children.size());
+    int index = m_tags->indexFromTagRow(tagName, row);
+    if (index <0 || index >= m_children.size())
+        throw GUIHelpers::Error("SessionItem::getItem() -> Invalid row for tag");
     return m_children[index];
 }
 
@@ -221,53 +198,40 @@ SessionItem* SessionItem::getItem(const QString& tag, int row) const
 QVector<SessionItem*> SessionItem::getItems(const QString& tag) const
 {
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
-    SessionTagInfo tagInfo = getTagInfo(tagName);
-    if (!tagInfo.isValid())
-        return QVector<SessionItem*>();
-    int index = tagStartIndex(tagName);
+    if (!m_tags->isValid(tagName))
+        return QVector<SessionItem*>();;
+    int index = m_tags->tagStartIndex(tagName);
     Q_ASSERT(index >= 0 && index <= m_children.size());
-    return m_children.mid(index, tagInfo.childCount);
+    return m_children.mid(index, m_tags->childCount(tagName));
 }
 
+#include <QDebug>
 //! Insert item into given tag into given row.
 bool SessionItem::insertItem(int row, SessionItem* item, const QString& tag)
 {
-    if (!item)
-        return false;
+    if (!item || item->parent())
+        throw GUIHelpers::Error("SessionItem::insertItem() -> Invalid item, existing parent.");
+
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
-    SessionTagInfo tagInfo = getTagInfo(tagName);
-    if (!tagInfo.isValid())
-        return false;
-    if (row == -1)
-        row = tagInfo.childCount;
-    if (row < 0 || row > tagInfo.childCount)
-        return false;
-    if (tagInfo.max >= 0 && tagInfo.childCount == tagInfo.max)
-        return false;
-    if (!tagInfo.modelTypes.isEmpty()) {
-        if (!tagInfo.modelTypes.contains(item->modelType()))
-            return false;
+
+    if (!m_tags->isValid(tagName, item->modelType())) {
+        qDebug() << tagName << item->modelType();
+        throw GUIHelpers::Error("SessionItem::insertItem() -> Invalid tag, modelType.");
     }
-    int index = tagStartIndex(tagName) + row;
+
+    int index = m_tags->insertIndexFromTagRow(tagName, row);
+    if (index < 0)
+        throw GUIHelpers::Error("SessionItem::insertItem() -> Invalid row, maximum reached.");
+
     Q_ASSERT(index <= m_children.size());
+
     if (m_model)
-            m_model->beginInsertRows(this->index(),index, index);
-    if (item) {
-        if (item->parent() == nullptr) {
-            item->setParentAndModel(this, m_model);
-        } else {
-            return false;
-        }
-    }
+        m_model->beginInsertRows(this->index(),index, index);
+
+    item->setParentAndModel(this, m_model);
     m_children.insert(index, item);
 
-    QVector<SessionTagInfo>::iterator it;
-    for (it = m_tags.begin(); it != m_tags.end(); ++it) {
-        if (it->name == tagName) {
-            it->childCount++;
-            break;
-        }
-    }
+    m_tags->addChild(tagName);
     if (m_model)
             m_model->endInsertRows();
     return true;
@@ -277,27 +241,21 @@ bool SessionItem::insertItem(int row, SessionItem* item, const QString& tag)
 SessionItem* SessionItem::takeItem(int row, const QString& tag)
 {
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
-    SessionTagInfo tagInfo = getTagInfo(tagName);
-    if (!tagInfo.isValid())
-        return nullptr;
-    if (row < 0 || row >= tagInfo.childCount)
-        return nullptr;
-    if (tagInfo.childCount <= tagInfo.min)
-        return nullptr;
-    int index = tagStartIndex(tagName) + row;
+
+    if (!m_tags->isValid(tagName))
+        throw GUIHelpers::Error("SessionItem::insertItem() -> Invalid tag, modelType.");
+
+    if (m_tags->isSingleItemTag(tagName))
+        throw GUIHelpers::Error("SessionItem::insertItem() -> Single item tag.");
+
+    int index = m_tags->indexFromTagRow(tagName, row);
     Q_ASSERT(index >= 0 && index <= m_children.size());
     if (m_model)
             m_model->beginRemoveRows(this->index(),index, index);
     SessionItem* result = m_children.takeAt(index);
     result->setParentAndModel(nullptr, nullptr);
 
-    QVector<SessionTagInfo>::iterator it;
-    for (it = m_tags.begin(); it != m_tags.end(); ++it) {
-        if (it->name == tagName) {
-            it->childCount--;
-            break;
-        }
-    }
+    m_tags->removeChild(tagName);
     if (m_model)
             m_model->endRemoveRows();
     return result;
@@ -462,9 +420,8 @@ QString SessionItem::displayName() const
 
     if(m_parent) {
         QString tag = m_parent->tagFromItem(this);
-        SessionTagInfo info = m_parent->getTagInfo(tag);
         // if only one child of this type is allowed, return name without change
-        if (info.min == 1 && info.max == 1 && info.childCount == 1) {
+        if (m_parent->isSingleItemTag(tag)) {
             return result;
         }
 
@@ -644,22 +601,6 @@ void SessionItem::setModel(SessionModel* model)
     for (auto& child : m_children) {
         child->setModel(model);
     }
-}
-
-//! internal
-int SessionItem::tagStartIndex(const QString& name) const
-{
-    int index = 0;
-    QVector<SessionTagInfo>::const_iterator it;
-    for (it = m_tags.constBegin(); it != m_tags.constEnd(); ++it) {
-        SessionTagInfo tagInfo = *it;
-        if (tagInfo.name == name) {
-            return index;
-        } else {
-            index += tagInfo.childCount;
-        }
-    }
-    return -1;
 }
 
 //! internal

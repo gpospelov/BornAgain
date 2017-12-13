@@ -23,7 +23,6 @@
 #include <QApplication>
 #include <QTime>
 #include <QCoreApplication>
-#include <QDebug>
 
 SaveService::SaveService(QObject* parent)
     : QObject(parent)
@@ -47,7 +46,6 @@ void SaveService::setDocument(ProjectDocument* document)
 void SaveService::save(const QString& project_file_name)
 {
     Q_ASSERT(m_document);
-    qDebug() << "SaveService::save() -> Project saving. Putting in a queue:" << project_file_name;
 
     m_save_queue.enqueue(project_file_name);
     process_queue();
@@ -111,7 +109,6 @@ void SaveService::stopService()
 
 void SaveService::onAutosaveRequest()
 {
-    qDebug() << "SaveService::onAutosaveRequest() -> saving into " << m_autosave->autosaveName();
     save(m_autosave->autosaveName());
 }
 
@@ -119,8 +116,6 @@ void SaveService::onProjectSaved()
 {
     Q_ASSERT(m_document);
     Q_ASSERT(m_is_saving);
-
-    qDebug() << "SaveService::onProjectSaved() -> Project was saved.";
 
     m_is_saving = false;
     emit projectSaved();
@@ -133,15 +128,10 @@ void SaveService::process_queue()
 {
     Q_ASSERT(m_document);
 
-    qDebug() << "SaveService::process_queue() -> m_is_saving" << m_is_saving;
-
-    if (m_is_saving) {
-        qDebug() << "SaveService::save() -> Project is under saving. Waiting.";
+    if (m_is_saving)
         return;
-    }
 
     if (!m_save_queue.isEmpty()) {
-        qDebug() << "SaveService::save() -> Preparint to run a thread";
         m_is_saving = true;
 
         QString project_file_name = m_save_queue.dequeue();

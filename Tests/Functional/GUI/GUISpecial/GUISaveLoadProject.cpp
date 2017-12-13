@@ -15,40 +15,35 @@
 // ************************************************************************** //
 
 #include "GUISaveLoadProject.h"
-#include "SimulationOptionsItem.h"
-#include "GUIObjectBuilder.h"
 #include "ApplicationModels.h"
-#include "JobModel.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "SampleBuilderFactory.h"
-#include "DocumentModel.h"
 #include "DetectorItems.h"
-#include "MultiLayer.h"
-#include "JobItem.h"
-#include "InstrumentItem.h"
-#include "projectdocument.h"
+#include "DocumentModel.h"
 #include "GUIHelpers.h"
+#include "GUIObjectBuilder.h"
+#include "InstrumentItem.h"
+#include "InstrumentModel.h"
+#include "JobItem.h"
+#include "JobModel.h"
+#include "MultiLayer.h"
 #include "ProjectUtils.h"
+#include "SampleBuilderFactory.h"
+#include "SampleModel.h"
+#include "SimulationOptionsItem.h"
 #include "WarningMessageService.h"
-#include <QElapsedTimer>
-#include <QEventLoop>
+#include "projectdocument.h"
 #include <QCoreApplication>
+#include <QElapsedTimer>
 #include <QXmlStreamWriter>
-#include <QDebug>
 
-namespace {
+namespace
+{
 const QString sample_name = "ParticleCompositionBuilder";
 const QString project_name = "untitled.pro";
 const int failure = 1;
 const int success = 0;
 }
 
-GUISaveLoadProject::GUISaveLoadProject()
-    : m_models(new ApplicationModels)
-{
-
-}
+GUISaveLoadProject::GUISaveLoadProject() : m_models(new ApplicationModels) {}
 
 bool GUISaveLoadProject::runTest()
 {
@@ -80,7 +75,7 @@ int GUISaveLoadProject::run_job()
 
     std::cout << "GUISaveLoadProject::run_job()" << std::endl;
 
-    SimulationOptionsItem *optionsItem = m_models->documentModel()->getSimulationOptionsItem();
+    SimulationOptionsItem* optionsItem = m_models->documentModel()->getSimulationOptionsItem();
 
     SampleBuilderFactory factory;
     const std::unique_ptr<ISample> sample(factory.createSample(sample_name.toStdString()));
@@ -90,19 +85,17 @@ int GUISaveLoadProject::run_job()
 
     m_models->instrumentModel()->instrumentItem()->detectorItem()->setSize(50, 50);
 
-    auto jobItem = m_models->jobModel()->addJob(
-               m_models->sampleModel()->multiLayerItem(),
-               m_models->instrumentModel()->instrumentItem(),
-               0,
-               optionsItem);
+    auto jobItem = m_models->jobModel()->addJob(m_models->sampleModel()->multiLayerItem(),
+                                                m_models->instrumentModel()->instrumentItem(), 0,
+                                                optionsItem);
 
     m_models->jobModel()->runJob(jobItem->index());
 
-    while(m_models->jobModel()->hasUnfinishedJobs()) {
-        QElapsedTimer   timer;
+    while (m_models->jobModel()->hasUnfinishedJobs()) {
+        QElapsedTimer timer;
         timer.start();
-        while(timer.elapsed() < 10)
-            QCoreApplication::processEvents( QEventLoop::AllEvents, 1 );
+        while (timer.elapsed() < 10)
+            QCoreApplication::processEvents(QEventLoop::AllEvents, 1);
     }
 
     std::cout << "... job finished." << std::endl;
@@ -123,8 +116,8 @@ int GUISaveLoadProject::save_project(const QString& projectName)
 
 int GUISaveLoadProject::save_project_dir(const QString& projectName)
 {
-    std::cout << "GUISaveLoadProject::save_project() -> Saving to "
-              << projectName.toStdString() << std::endl;
+    std::cout << "GUISaveLoadProject::save_project() -> Saving to " << projectName.toStdString()
+              << std::endl;
 
     if (ProjectUtils::exists(projectName))
         ProjectUtils::removeRecursively(projectName);
@@ -133,7 +126,7 @@ int GUISaveLoadProject::save_project_dir(const QString& projectName)
 
     ProjectDocument document;
     document.setApplicationModels(m_models.get());
-    document.save(projectName+"/"+project_name);
+    document.save(projectName + "/" + project_name);
 
     std::cout << "... saved." << std::endl;
 
@@ -144,7 +137,7 @@ int GUISaveLoadProject::save_project_dir(const QString& projectName)
 
 int GUISaveLoadProject::save_xml(const QString& projectName)
 {
-    for(auto model : m_models->modelList())
+    for (auto model : m_models->modelList())
         m_results[projectName].push_back(dataXML(model));
 
     return success;
@@ -154,14 +147,14 @@ int GUISaveLoadProject::load_project(const QString& projectName)
 {
     resetModels();
 
-    std::cout << "GUISaveLoadProject::load_project() -> Loading from "
-              << projectName.toStdString() << std::endl;
+    std::cout << "GUISaveLoadProject::load_project() -> Loading from " << projectName.toStdString()
+              << std::endl;
 
     WarningMessageService logger;
     ProjectDocument document;
     document.setApplicationModels(m_models.get());
     document.setLogger(&logger);
-    document.load(projectName+"/"+project_name);
+    document.load(projectName + "/" + project_name);
 
     std::cout << "... loaded." << std::endl;
     return success;
@@ -176,29 +169,27 @@ int GUISaveLoadProject::check_difference(const QString& projectName1, const QStr
     auto project1 = m_results[projectName1];
     auto project2 = m_results[projectName2];
 
-    if (project1.size() != project2.size())  {
+    if (project1.size() != project2.size()) {
         std::cout << "Number of models in project differs. Failed. \n";
         return failure;
     }
 
     int err(0);
-    for(int i=0; i<project1.size(); ++i) {
+    for (int i = 0; i < project1.size(); ++i) {
         DataXML model_data1 = project1[i];
         DataXML model_data2 = project2[i];
 
         if (model_data1.m_model_tag != model_data2.m_model_tag) {
-            std::cout << "Error, different tags. "
-                      << model_data1.m_model_tag.toStdString()
-                      <<  model_data2.m_model_tag.toStdString() << "\n";
+            std::cout << "Error, different tags. " << model_data1.m_model_tag.toStdString()
+                      << model_data2.m_model_tag.toStdString() << "\n";
             err++;
         }
 
         if (model_data1.m_model_xml != model_data2.m_model_xml) {
-            std::cout << "Error, different xml in model '"
-                      << model_data1.m_model_tag.toStdString() << "'\n";
+            std::cout << "Error, different xml in model '" << model_data1.m_model_tag.toStdString()
+                      << "'\n";
             err++;
         }
-
     }
 
     return err > 0 ? failure : success;
@@ -219,8 +210,6 @@ GUISaveLoadProject::DataXML GUISaveLoadProject::dataXML(SessionModel* model)
 
 void GUISaveLoadProject::resetModels()
 {
-    qDebug() << "Going to reset";
     m_models.reset(); // first have to delete original model
     m_models.reset(new ApplicationModels);
-    qDebug() << "End of reset";
 }

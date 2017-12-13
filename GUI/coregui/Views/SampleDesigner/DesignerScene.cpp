@@ -373,7 +373,7 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
     }
     delete connection; // deleting just created connection because it will be recreated from the
                        // model
-    m_sampleModel->moveParameterizedItem(childView->getItem(),
+    m_sampleModel->moveItem(childView->getItem(),
                                          parentView->getItem(), -1, tag);
 }
 
@@ -381,7 +381,7 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
 void DesignerScene::removeConnection(NodeEditorConnection *connection)
 {
     IView *childView = dynamic_cast<IView *>(connection->outputPort()->parentItem());
-    m_sampleModel->moveParameterizedItem(childView->getItem(), 0);
+    m_sampleModel->moveItem(childView->getItem(), 0);
 }
 
 //! handles drag event

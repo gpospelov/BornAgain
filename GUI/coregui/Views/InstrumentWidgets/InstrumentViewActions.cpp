@@ -74,7 +74,7 @@ void InstrumentViewActions::onCloneInstrument()
     if (currentIndex.isValid()) {
         SessionItem* item  = m_model->itemForIndex(currentIndex);
         QString nameOfClone = suggestInstrumentName(item->itemName());
-        SessionItem *clone = m_model->copyParameterizedItem(item);
+        SessionItem *clone = m_model->copyItem(item);
         clone->setItemName(nameOfClone);
     }
 }

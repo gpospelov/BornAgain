@@ -17,8 +17,8 @@
 #include "SessionModel.h"
 #include "GUIHelpers.h"
 #include "ItemFactory.h"
-#include "SessionItemUtils.h"
 #include "SessionItemTags.h"
+#include "SessionItemUtils.h"
 #include <QFile>
 #include <QMimeData>
 #include <QtCore/QXmlStreamWriter>
@@ -31,10 +31,7 @@ const int MaxCompression = 9;
 }
 
 SessionModel::SessionModel(QString model_tag, QObject* parent)
-    : QAbstractItemModel(parent)
-    , m_root_item(0)
-    , m_name("DefaultName")
-    , m_model_tag(model_tag)
+    : QAbstractItemModel(parent), m_root_item(0), m_name("DefaultName"), m_model_tag(model_tag)
 {
     createRootItem();
 }
@@ -47,21 +44,20 @@ void SessionModel::createRootItem()
     m_root_item->setDefaultTag("rootTag");
 }
 
-SessionModel::~SessionModel()
-{
-    delete m_root_item;
-}
+SessionModel::~SessionModel() { delete m_root_item; }
+
+// TODO make it relying on SessionItem::flags
 
 Qt::ItemFlags SessionModel::flags(const QModelIndex& index) const
 {
     Qt::ItemFlags result_flags = QAbstractItemModel::flags(index);
     if (index.isValid()) {
-        result_flags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled
-                        | Qt::ItemIsDragEnabled;
+        result_flags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled;
         SessionItem* item = itemForIndex(index);
-        if (index.column() == SessionFlags::ITEM_VALUE && item->value().isValid() && item->isEditable() && item->isEnabled())
+        if (index.column() == SessionFlags::ITEM_VALUE && item->value().isValid()
+            && item->isEditable() && item->isEnabled())
             result_flags |= Qt::ItemIsEditable;
-        QVector<QString> acceptable_child_items = getAcceptableDefaultItemTypes(index);
+        QVector<QString> acceptable_child_items = acceptableDefaultItemTypes(index);
         if (acceptable_child_items.contains(m_dragged_item_type)) {
             result_flags |= Qt::ItemIsDropEnabled;
         }
@@ -73,7 +69,8 @@ Qt::ItemFlags SessionModel::flags(const QModelIndex& index) const
 
 QVariant SessionModel::data(const QModelIndex& index, int role) const
 {
-    if (!m_root_item || !index.isValid() || index.column() < 0 || index.column() >= columnCount(QModelIndex())) {
+    if (!m_root_item || !index.isValid() || index.column() < 0
+        || index.column() >= columnCount(QModelIndex())) {
         return QVariant();
     }
     if (SessionItem* item = itemForIndex(index)) {
@@ -82,14 +79,14 @@ QVariant SessionModel::data(const QModelIndex& index, int role) const
                 return item->data(Qt::DisplayRole);
             if (index.column() == SessionFlags::ITEM_NAME)
                 return item->itemName();
-        } else if(role == Qt::ToolTipRole) {
+        } else if (role == Qt::ToolTipRole) {
             return SessionItemUtils::ToolTipRole(*item, index.column());
 
-        } else if(role == Qt::TextColorRole) {
+        } else if (role == Qt::TextColorRole) {
             return SessionItemUtils::TextColorRole(*item);
-        } else if(role == Qt::DecorationRole && index.column() == SessionFlags::ITEM_VALUE) {
+        } else if (role == Qt::DecorationRole && index.column() == SessionFlags::ITEM_VALUE) {
             return SessionItemUtils::DecorationRole(*item);
-        } else if(role == Qt::CheckStateRole && index.column() == SessionFlags::ITEM_VALUE) {
+        } else if (role == Qt::CheckStateRole && index.column() == SessionFlags::ITEM_VALUE) {
             return SessionItemUtils::CheckStateRole(*item);
         } else {
             return item->data(role);
@@ -131,10 +128,11 @@ QModelIndex SessionModel::index(int row, int column, const QModelIndex& parent) 
     if (!m_root_item || row < 0 || column < 0 || column >= columnCount(QModelIndex())
         || (parent.isValid() && parent.column() != 0))
         return QModelIndex();
+
     SessionItem* parent_item = itemForIndex(parent);
-    if (SessionItem* item = parent_item->childAt(row)) {
+
+    if (SessionItem* item = parent_item->childAt(row))
         return createIndex(row, column, item);
-    }
     return QModelIndex();
 }
 
@@ -142,6 +140,7 @@ QModelIndex SessionModel::parent(const QModelIndex& child) const
 {
     if (!child.isValid())
         return QModelIndex();
+
     if (SessionItem* child_item = itemForIndex(child)) {
         if (SessionItem* parent_item = child_item->parent()) {
             if (parent_item == m_root_item)
@@ -157,12 +156,12 @@ bool SessionModel::setData(const QModelIndex& index, const QVariant& value, int 
 {
     if (!index.isValid())
         return false;
+
     QModelIndex dataIndex = index;
-    if (SessionItem* item = itemForIndex(dataIndex)) {
-        if (item->setData(role, value)) {
+    if (SessionItem* item = itemForIndex(dataIndex))
+        if (item->setData(role, value))
             return true;
-        }
-    }
+
     return false;
 }
 
@@ -171,9 +170,8 @@ bool SessionModel::removeRows(int row, int count, const QModelIndex& parent)
     if (!m_root_item)
         return false;
     SessionItem* item = parent.isValid() ? itemForIndex(parent) : m_root_item;
-    for (int i = 0; i < count; ++i) {
+    for (int i = 0; i < count; ++i)
         delete item->takeRow(row);
-    }
     return true;
 }
 
@@ -182,12 +180,13 @@ QStringList SessionModel::mimeTypes() const
     return QStringList() << SessionXML::ItemMimeType;
 }
 
-QMimeData *SessionModel::mimeData(const QModelIndexList& indices) const
+QMimeData* SessionModel::mimeData(const QModelIndexList& indices) const
 {
     if (indices.count() != 2)
         return 0;
+
     if (SessionItem* item = itemForIndex(indices.at(0))) {
-        QMimeData *mime_data = new QMimeData;
+        QMimeData* mime_data = new QMimeData;
         QByteArray xml_data;
         QXmlStreamWriter writer(&xml_data);
         SessionXML::writeItemAndChildItems(&writer, item);
@@ -200,7 +199,8 @@ QMimeData *SessionModel::mimeData(const QModelIndexList& indices) const
 bool SessionModel::canDropMimeData(const QMimeData* data, Qt::DropAction action, int row,
                                    int column, const QModelIndex& parent) const
 {
-    (void)row;
+    Q_UNUSED(row);
+
     if (action == Qt::IgnoreAction)
         return true;
     if (action != Qt::MoveAction || column > 0 || !data
@@ -208,7 +208,7 @@ bool SessionModel::canDropMimeData(const QMimeData* data, Qt::DropAction action,
         return false;
     if (!parent.isValid())
         return true;
-    QVector<QString> acceptable_child_items = getAcceptableDefaultItemTypes(parent);
+    QVector<QString> acceptable_child_items = acceptableDefaultItemTypes(parent);
     QByteArray xml_data = qUncompress(data->data(SessionXML::ItemMimeType));
     QXmlStreamReader reader(xml_data);
     while (!reader.atEnd()) {
@@ -241,7 +241,7 @@ bool SessionModel::dropMimeData(const QMimeData* data, Qt::DropAction action, in
             row = item->numberOfChildren();
         beginInsertRows(parent, row, row);
         // this code block is currently not in use. The row parameter of the reader is removed
-        //SessionReader::readItems(&reader, item, row);
+        // SessionReader::readItems(&reader, item, row);
         endInsertRows();
         return true;
     }
@@ -257,8 +257,8 @@ QModelIndex SessionModel::indexOfItem(SessionItem* item) const
     return createIndex(row, 0, item);
 }
 
-SessionItem* SessionModel::insertNewItem(QString model_type, const QModelIndex& parent,
-                                         int row, QString tag)
+SessionItem* SessionModel::insertNewItem(QString model_type, const QModelIndex& parent, int row,
+                                         QString tag)
 {
     SessionItem* parent_item = itemForIndex(parent);
     if (!parent_item)
@@ -272,22 +272,24 @@ SessionItem* SessionModel::insertNewItem(QString model_type, const QModelIndex& 
         if (!parent_item->sessionItemTags()->isValid(tag, model_type))
             return nullptr;
     }
+
     SessionItem* new_item = ItemFactory::createItem(model_type);
 
     if (!new_item)
         throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type " + model_type);
-    if(!parent_item->insertItem(row, new_item, tag)) {
+
+    if (!parent_item->insertItem(row, new_item, tag))
         throw GUIHelpers::Error("SessionModel::insertNewItem -> Error. Can't insert item");
-    }
+
     return new_item;
 }
 
-QVector<QString> SessionModel::getAcceptableDefaultItemTypes(const QModelIndex& parent) const
+QVector<QString> SessionModel::acceptableDefaultItemTypes(const QModelIndex& parent) const
 {
     QVector<QString> result;
-    if (SessionItem* parent_item = itemForIndex(parent)) {
+    if (SessionItem* parent_item = itemForIndex(parent))
         result = parent_item->acceptableDefaultItemTypes();
-    }
+
     return result;
 }
 
@@ -332,10 +334,10 @@ void SessionModel::save(const QString& filename)
 
 SessionItem* SessionModel::itemForIndex(const QModelIndex& index) const
 {
-    if (index.isValid()) {
+    if (index.isValid())
         if (SessionItem* item = static_cast<SessionItem*>(index.internalPointer()))
             return item;
-    }
+
     return m_root_item;
 }
 
@@ -367,8 +369,8 @@ void SessionModel::writeTo(QXmlStreamWriter* writer, SessionItem* parent)
 //! Move given parameterized item to the new_parent at given row. If new_parent is not defined,
 //! use root_item as a new parent.
 
-SessionItem* SessionModel::moveParameterizedItem(SessionItem* item, SessionItem* new_parent,
-                                                 int row, const QString &tag)
+SessionItem* SessionModel::moveItem(SessionItem* item, SessionItem* new_parent, int row,
+                                    const QString& tag)
 {
     if (!new_parent)
         new_parent = m_root_item;
@@ -381,11 +383,10 @@ SessionItem* SessionModel::moveParameterizedItem(SessionItem* item, SessionItem*
     if (item->parent() == new_parent) {
         // take care of indexes when moving item within same parent
         int previousIndex = item->parent()->getItems(tagName).indexOf(item);
-        if (row==previousIndex) {
+        if (row == previousIndex)
             return item;
-        } else if (previousIndex >= 0 && row>previousIndex) {
+        else if (previousIndex >= 0 && row > previousIndex)
             row--;
-        }
     }
 
     if (new_parent->sessionItemTags()->maximumReached(tagName)) {
@@ -393,9 +394,8 @@ SessionItem* SessionModel::moveParameterizedItem(SessionItem* item, SessionItem*
         m_root_item->insertItem(-1, prev);
     }
 
-    // removing item from previous parent
+    // removing item from previous parent and inserting to the new one
     item->parent()->takeRow(item->parent()->rowOfChild(item));
-
     new_parent->insertItem(row, item, tagName);
 
     return item;
@@ -403,12 +403,13 @@ SessionItem* SessionModel::moveParameterizedItem(SessionItem* item, SessionItem*
 
 //! Copy given item to the new_parent at given row. Item indended for copying can belong to
 //! another model and it will remains intact. Returns pointer to the new child.
-SessionItem* SessionModel::copyParameterizedItem(const SessionItem* item_to_copy,
-                                                 SessionItem* new_parent, const QString &tag)
+
+SessionItem* SessionModel::copyItem(const SessionItem* item_to_copy, SessionItem* new_parent,
+                                    const QString& tag)
 {
-    if (!new_parent) {
+    if (!new_parent)
         new_parent = m_root_item;
-    }
+
     const QString tagName = tag.isEmpty() ? new_parent->defaultTag() : tag;
 
     QByteArray xml_data;
@@ -416,7 +417,6 @@ SessionItem* SessionModel::copyParameterizedItem(const SessionItem* item_to_copy
     SessionXML::writeItemAndChildItems(&writer, item_to_copy);
 
     QXmlStreamReader reader(xml_data);
-
     SessionXML::readItems(&reader, new_parent, tagName);
 
     return new_parent->getItems(tagName).back();
@@ -424,26 +424,28 @@ SessionItem* SessionModel::copyParameterizedItem(const SessionItem* item_to_copy
 
 SessionModel* SessionModel::createCopy(SessionItem* parent)
 {
-    (void)parent;
+    Q_UNUSED(parent);
     throw GUIHelpers::Error("SessionModel::createCopy() -> Error. Not implemented.");
 }
 
 //! returns top level item with given name and model type
+
 SessionItem* SessionModel::topItem(const QString& model_type, const QString& item_name) const
 {
     QList<SessionItem*> items = topItems(model_type);
 
-    if(item_name.isEmpty() && items.size())
+    if (item_name.isEmpty() && items.size())
         return items.front();
 
-    foreach(SessionItem* item, items) {
-        if(item_name == item->itemName())
+    for (auto item : items)
+        if (item_name == item->itemName())
             return item;
-    }
+
     return nullptr;
 }
 
 //! Returns top items which are children of parentIndex and have given model_type
+
 QList<SessionItem*> SessionModel::topItems(const QString& model_type,
                                            const QModelIndex& parentIndex) const
 {
@@ -454,9 +456,8 @@ QList<SessionItem*> SessionModel::topItems(const QString& model_type,
             if (model_type.isEmpty()) {
                 result.append(item);
             } else {
-                if (item->modelType() == model_type) {
+                if (item->modelType() == model_type)
                     result.append(item);
-                }
             }
         }
     }
@@ -466,11 +467,11 @@ QList<SessionItem*> SessionModel::topItems(const QString& model_type,
 QStringList SessionModel::topItemNames(const QString& model_type,
                                        const QModelIndex& parentIndex) const
 {
-    QList<SessionItem*> items = topItems(model_type, parentIndex);
     QStringList result;
-    foreach(SessionItem* item, items) {
+
+    for (auto item : topItems(model_type, parentIndex))
         result.append(item->itemName());
-    }
+
     return result;
 }
 
@@ -486,14 +487,14 @@ void SessionModel::initFrom(SessionModel* model, SessionItem*)
 
     while (!reader.atEnd()) {
         reader.readNext();
-        if (reader.isStartElement()) {
+        if (reader.isStartElement())
             readFrom(&reader);
-        }
     }
     modelLoaded();
 }
 
-SessionItem* SessionModel::rootItem() const{
+SessionItem* SessionModel::rootItem() const
+{
     return m_root_item;
 }
 
@@ -501,4 +502,3 @@ QVector<SessionItem*> SessionModel::nonXMLData() const
 {
     return QVector<SessionItem*>();
 }
-

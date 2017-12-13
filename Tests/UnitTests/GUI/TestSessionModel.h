@@ -142,10 +142,10 @@ TEST_F(TestSessionModel, copyItem)
     JobModel jobModel;
     SessionItem* jobItem = jobModel.insertNewItem(Constants::JobItemType);
 
-    jobModel.copyParameterizedItem(multilayer1, jobItem, JobItem::T_SAMPLE);
+    jobModel.copyItem(multilayer1, jobItem, JobItem::T_SAMPLE);
     EXPECT_EQ(jobItem->sessionItemTags()->childCount(JobItem::T_SAMPLE), 1);
 
-    jobModel.copyParameterizedItem(instrument1, jobItem, JobItem::T_INSTRUMENT);
+    jobModel.copyItem(instrument1, jobItem, JobItem::T_INSTRUMENT);
     EXPECT_EQ(jobItem->sessionItemTags()->childCount(JobItem::T_INSTRUMENT), 1);
 }
 
@@ -160,14 +160,14 @@ TEST_F(TestSessionModel, moveItemFromRoot)
     EXPECT_EQ(model.rootItem()->numberOfChildren(), 2);
 
     // moving from rootItem to poly
-    auto moved = model.moveParameterizedItem(point, poly);
+    auto moved = model.moveItem(point, poly);
     EXPECT_EQ(model.rootItem()->numberOfChildren(), 1);
     EXPECT_EQ(moved, point);
     EXPECT_EQ(point->parent(), poly);
     EXPECT_EQ(poly->getItem(), point);
 
     // moving from poly to rootItem
-    moved = model.moveParameterizedItem(point, 0);
+    moved = model.moveItem(point, 0);
     EXPECT_EQ(model.rootItem()->numberOfChildren(), 2);
     EXPECT_EQ(moved, point);
     EXPECT_EQ(point->parent(), model.rootItem());
@@ -186,7 +186,7 @@ TEST_F(TestSessionModel, moveBetweenParents)
     EXPECT_EQ(point12->parent(), poly1);
     EXPECT_EQ(poly1->getItem(), point11);
 
-    auto moved = model.moveParameterizedItem(point11, poly2);
+    auto moved = model.moveItem(point11, poly2);
     EXPECT_EQ(moved, point11);
     EXPECT_EQ(point11->parent(), poly2);
     EXPECT_EQ(poly1->getItem(), point12);
@@ -208,7 +208,7 @@ TEST_F(TestSessionModel, moveWithinSameParent)
     // 3  pD -> pD
     // 4  pE -> pE
 
-    model.moveParameterizedItem(pB, poly, 3);
+    model.moveItem(pB, poly, 3);
     EXPECT_EQ(poly->getItems().indexOf(pA), 0);
     EXPECT_EQ(poly->getItems().indexOf(pB), 2);
     EXPECT_EQ(poly->getItems().indexOf(pC), 1);

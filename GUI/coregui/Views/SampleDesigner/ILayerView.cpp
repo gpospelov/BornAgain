@@ -159,7 +159,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         this->getItem()->setItemValue(SessionGraphicsItem::P_XPOS, newPos.x());
         this->getItem()->setItemValue(SessionGraphicsItem::P_YPOS, newPos.y());
 
-        model->moveParameterizedItem(this->getItem(), 0);
+        model->moveItem(this->getItem(), 0);
         QGraphicsItem::mouseReleaseEvent(event);
         return;
     }
@@ -167,7 +167,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     // Layer was moved either from one MultiLayer to another, or is moved inside
     // one multilayer: changing ownership or row within same ownership.
     if (requested_parent) {
-        model->moveParameterizedItem(this->getItem(),
+        model->moveItem(this->getItem(),
                                      requested_parent->getItem(), requested_row);
         QGraphicsItem::mouseReleaseEvent(event);
         return;

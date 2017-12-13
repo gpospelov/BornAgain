@@ -19,7 +19,6 @@
 
 #include "ModelMapper.h"
 #include "RealLimits.h"
-#include "Vectors3D.h"
 #include "item_constants.h"
 #include <QStringList>
 #include <memory>

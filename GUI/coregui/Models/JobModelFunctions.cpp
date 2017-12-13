@@ -67,7 +67,7 @@ void JobModelFunctions::copyRealDataItem(JobItem *jobItem, const RealDataItem *r
     SessionModel *model = jobItem->model();
 
     RealDataItem *realDataItemCopy = dynamic_cast<RealDataItem *>(
-        model->copyParameterizedItem(realDataItem, jobItem, JobItem::T_REALDATA));
+        model->copyItem(realDataItem, jobItem, JobItem::T_REALDATA));
     Q_ASSERT(realDataItemCopy);
 
     realDataItemCopy->intensityDataItem()->setOutputData(

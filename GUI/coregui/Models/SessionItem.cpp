@@ -22,7 +22,6 @@
 #include "SessionItemTags.h"
 #include "SessionItemUtils.h"
 #include "SessionModel.h"
-#include "VectorItem.h"
 
 const QString SessionItem::P_NAME = "Name";
 

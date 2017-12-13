@@ -155,7 +155,7 @@ namespace {
 QWidget* createCustomDoubleEditor(const SessionItem& item)
 {
     auto result = new QDoubleSpinBox;
-    result->setKeyboardTracking(false);
+    result->setKeyboardTracking(true);
 
     result->setFocusPolicy(Qt::StrongFocus);
     result->installEventFilter(new WheelEventEater(result));
@@ -183,7 +183,7 @@ QWidget* createCustomIntEditor(const SessionItem& item)
     result->installEventFilter(new WheelEventEater(result));
 
     result->setMaximum(std::numeric_limits<int>::max());
-    result->setKeyboardTracking(false);
+    result->setKeyboardTracking(true);
 
     RealLimits limits = item.limits();
     if (limits.hasLowerLimit())

@@ -171,7 +171,7 @@ void LinkInstrumentManager::onInstrumentChildChange(InstrumentItem *instrument, 
     if(child == nullptr)
         return;
 
-    if(child->itemName() == BasicAxisItem::P_NBINS)
+    if(child->itemName() == BasicAxisItem::P_NBINS || child->parent()->modelType() == Constants::GroupItemType)
         onInstrumentBinningChange(instrument);
     else
         onInstrumentLayoutChange(instrument);

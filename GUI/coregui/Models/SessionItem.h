@@ -17,10 +17,10 @@
 #ifndef SESSIONITEM_H
 #define SESSIONITEM_H
 
-#include "RealLimits.h"
 #include "ModelMapper.h"
-#include "item_constants.h"
+#include "RealLimits.h"
 #include "Vectors3D.h"
+#include "item_constants.h"
 #include <QStringList>
 #include <memory>
 
@@ -65,7 +65,7 @@ public:
 
     // access tagged items
     SessionItem* getItem(const QString& tag = QString(), int row = 0) const;
-    template<typename T> T& item(const QString& tag) const;
+    template <typename T> T& item(const QString& tag) const;
     QVector<SessionItem*> getItems(const QString& tag = QString()) const;
     bool insertItem(int row, SessionItem* item, const QString& tag = QString());
     SessionItem* takeItem(int row, const QString& tag);
@@ -79,7 +79,7 @@ public:
     SessionItem* addGroupProperty(const QString& groupTag, const QString& groupType);
     SessionItem* setGroupProperty(const QString& groupTag, const QString& modelType) const;
     SessionItem* getGroupItem(const QString& groupName) const;
-    template<typename T> T& groupItem(const QString& groupName) const;
+    template <typename T> T& groupItem(const QString& groupName) const;
 
     // access data stored in roles
     virtual QVariant data(int role) const;
@@ -145,16 +145,14 @@ private:
     QVector<IPathTranslator*> m_translators;
 };
 
-template<typename T>
-T& SessionItem::item(const QString& tag) const
+template <typename T> T& SessionItem::item(const QString& tag) const
 {
     T* t = dynamic_cast<T*>(getItem(tag));
     Q_ASSERT(t);
     return *t;
 }
 
-template<typename T>
-T& SessionItem::groupItem(const QString& groupName) const
+template <typename T> T& SessionItem::groupItem(const QString& groupName) const
 {
     T* t = dynamic_cast<T*>(getGroupItem(groupName));
     Q_ASSERT(t);

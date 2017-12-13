@@ -27,6 +27,7 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <limits>
+#include <cmath>
 
 namespace {
 QWidget* createCustomDoubleEditor(const SessionItem& item);

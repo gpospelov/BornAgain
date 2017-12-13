@@ -162,7 +162,7 @@ void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value)
         if (SessionItem* item = m_maskModel->itemForIndex(itemIndex)) {
             int new_row = itemIndex.row() + change_in_row;
             if (new_row >= 0 && new_row <= m_maskModel->rowCount(m_rootIndex)) {
-                SessionItem* newItem = m_maskModel->moveParameterizedItem(
+                SessionItem* newItem = m_maskModel->moveItem(
                     item, m_maskModel->itemForIndex(m_rootIndex), new_row);
                 m_selectionModel->select(m_maskModel->indexOfItem(newItem),
                                          QItemSelectionModel::Select);

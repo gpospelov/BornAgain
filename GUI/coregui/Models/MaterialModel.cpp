@@ -78,7 +78,7 @@ MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
     if (!origMaterial)
         return nullptr;
 
-    SessionItem* clonedMaterial = copyParameterizedItem(origMaterial, 0);
+    SessionItem* clonedMaterial = copyItem(origMaterial, 0);
     clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, GUIHelpers::createUuid());
     clonedMaterial->setItemName(origMaterial->itemName() + " (clone)");
     return dynamic_cast<MaterialItem*>(clonedMaterial);

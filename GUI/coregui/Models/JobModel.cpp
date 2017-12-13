@@ -85,11 +85,11 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     jobItem->setItemName(generateJobName());
     jobItem->setIdentifier(GUIHelpers::createUuid());
 
-    SessionItem *multilayer = copyParameterizedItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
+    SessionItem *multilayer = copyItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
     multilayer->setItemName(Constants::MultiLayerType);
-    SessionItem *instrument = copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    SessionItem *instrument = copyItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
     instrument->setItemName(Constants::InstrumentType);
-    copyParameterizedItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
+    copyItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
     jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());

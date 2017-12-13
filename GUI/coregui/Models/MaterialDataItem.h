@@ -25,15 +25,16 @@ class BA_CORE_API_ MaterialDataItem : public SessionItem
 public:
     static const QString P_REAL;
     static const QString P_IMAG;
-    explicit MaterialDataItem();
-    virtual ~MaterialDataItem(){}
-    virtual QString itemLabel() const;
+    MaterialDataItem();
 
     double getReal() const;
     void setReal(double real);
 
     double getImag() const;
     void setImag(double imag);
+
+private:
+    void updateLabel();
 };
 
 #endif // MATERIALDATAITEM_H

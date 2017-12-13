@@ -61,6 +61,9 @@ BA_CORE_API_ GroupInfo GetGroupInfo(const QString& group_type);
 //! Returns type of variant (additionally checks for user type).
 BA_CORE_API_ int VariantType(const QVariant& variant);
 
+//! Returns true if variants has compatible types.
+BA_CORE_API_ bool CompatibleVariantTypes(const QVariant& oldValue, const QVariant& newValue);
+
 //! Returns true if given variants have same type and value.
 //! For custom variants (ComboProperty, ExternalProperty) will always return false (see
 //! explanations in cpp file).

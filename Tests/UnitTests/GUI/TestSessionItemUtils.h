@@ -91,6 +91,27 @@ TEST_F(TestSessionItemUtils, VariantType)
                  == SessionItemUtils::VariantType(QVariant()));
 }
 
+//! Comparing types of variant.
+
+TEST_F(TestSessionItemUtils, CompatibleVariantTypes)
+{
+    QVariant undefined;
+    QVariant comboProperty = QVariant::fromValue(ComboProperty());
+    QVariant externProperty = QVariant::fromValue(ExternalProperty());
+    QVariant doubleProperty = QVariant::fromValue(42.0);
+
+    EXPECT_TRUE(SessionItemUtils::CompatibleVariantTypes(undefined, comboProperty));
+    EXPECT_TRUE(SessionItemUtils::CompatibleVariantTypes(undefined, externProperty));
+    EXPECT_TRUE(SessionItemUtils::CompatibleVariantTypes(undefined, doubleProperty));
+
+    EXPECT_TRUE(SessionItemUtils::CompatibleVariantTypes(comboProperty, comboProperty));
+    EXPECT_TRUE(SessionItemUtils::CompatibleVariantTypes(externProperty, externProperty));
+    EXPECT_TRUE(SessionItemUtils::CompatibleVariantTypes(doubleProperty, doubleProperty));
+
+    EXPECT_FALSE(SessionItemUtils::CompatibleVariantTypes(doubleProperty, comboProperty));
+    EXPECT_FALSE(SessionItemUtils::CompatibleVariantTypes(comboProperty, doubleProperty));
+}
+
 //! Test variant equality reported by SessionItemUtils::isTheSame
 
 TEST_F(TestSessionItemUtils, IsTheSameVariant)

@@ -24,7 +24,6 @@
 #include <QDir>
 #include <QXmlStreamReader>
 #include <QElapsedTimer>
-#include <QDebug>
 
 namespace {
 const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
@@ -121,9 +120,6 @@ void ProjectDocument::save_project_file(const QString& project_file_name, bool a
         m_modified = false;
         emit modified();
     }
-
-    qDebug() << "ProjectDocument::save_project_file() -> " << project_file_name
-             << timer.elapsed() << "msec";
 }
 
 void ProjectDocument::save_project_data(const QString& project_file_name)
@@ -132,9 +128,6 @@ void ProjectDocument::save_project_data(const QString& project_file_name)
     timer.start();
 
     m_dataService->save(ProjectUtils::projectDir(project_file_name));
-
-    qDebug() << "ProjectDocument::save_project_data() -> " << project_file_name
-             << timer.elapsed() << "msec";
 }
 
 
@@ -168,10 +161,6 @@ void ProjectDocument::load(const QString& project_file_name)
         ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
         m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
     }
-
-    qDebug() << "ProjectDocument::load() -> Project load time:"
-             << (timer1.elapsed() - timer2.elapsed()) << ";"
-             << "nonXML load time:" << timer2.elapsed();
 }
 
 bool ProjectDocument::hasValidNameAndPath()

@@ -17,32 +17,17 @@
 #ifndef SESSIONITEM_H
 #define SESSIONITEM_H
 
-#include "RealLimits.h"
 #include "ModelMapper.h"
+#include "RealLimits.h"
 #include "item_constants.h"
-#include "Vectors3D.h"
 #include <QStringList>
 #include <memory>
 
 Q_DECLARE_METATYPE(RealLimits)
 
 class SessionItemData;
+class SessionItemTags;
 class IPathTranslator;
-
-class SessionTagInfo
-{
-public:
-    SessionTagInfo() : name(QString()), min(0), max(-1), childCount(0) {}
-    SessionTagInfo(QString n, int mi, int ma, QStringList mt = QStringList())
-        :name(n), min(mi), max(ma), childCount(0), modelTypes(mt) {}
-    bool isValid() { return !name.isEmpty(); }
-    QString name;
-    int min;
-    int max;
-    int childCount;
-    QStringList modelTypes;
-};
-
 
 class BA_CORE_API_ SessionItem
 {
@@ -71,14 +56,14 @@ public:
     bool registerTag(const QString& name, int min = 0, int max = -1,
                      QStringList modelTypes = QStringList());
     bool isTag(const QString& name) const;
+    SessionItemTags* sessionItemTags();
     QString tagFromItem(const SessionItem* item) const;
-    SessionTagInfo getTagInfo(const QString& name = QString()) const;
     bool acceptsAsDefaultItem(const QString& item_name) const;
     QVector<QString> acceptableDefaultItemTypes() const;
 
     // access tagged items
     SessionItem* getItem(const QString& tag = QString(), int row = 0) const;
-    template<typename T> T& item(const QString& tag) const;
+    template <typename T> T& item(const QString& tag) const;
     QVector<SessionItem*> getItems(const QString& tag = QString()) const;
     bool insertItem(int row, SessionItem* item, const QString& tag = QString());
     SessionItem* takeItem(int row, const QString& tag);
@@ -92,7 +77,7 @@ public:
     SessionItem* addGroupProperty(const QString& groupTag, const QString& groupType);
     SessionItem* setGroupProperty(const QString& groupTag, const QString& modelType) const;
     SessionItem* getGroupItem(const QString& groupName) const;
-    template<typename T> T& groupItem(const QString& groupName) const;
+    template <typename T> T& groupItem(const QString& groupName) const;
 
     // access data stored in roles
     virtual QVariant data(int role) const;
@@ -134,8 +119,6 @@ public:
     QString editorType() const;
     SessionItem& setEditorType(const QString& editorType);
 
-    // helper functions
-    virtual QString itemLabel() const;
     ModelMapper* mapper();
 
     virtual QStringList translateList(const QStringList& list) const;
@@ -145,7 +128,6 @@ private:
     void childDeleted(SessionItem* child);
     void setParentAndModel(SessionItem* parent, SessionModel* model);
     void setModel(SessionModel* model);
-    int tagStartIndex(const QString& name) const;
     int flags() const;
     void changeFlags(bool enabled, int flag);
     int getCopyNumberOfChild(const SessionItem* item) const;
@@ -154,21 +136,19 @@ private:
     SessionModel* m_model;
     QVector<SessionItem*> m_children;
     std::unique_ptr<SessionItemData> m_values;
-    QVector<SessionTagInfo> m_tags;
+    std::unique_ptr<SessionItemTags> m_tags;
     std::unique_ptr<ModelMapper> m_mapper;
     QVector<IPathTranslator*> m_translators;
 };
 
-template<typename T>
-T& SessionItem::item(const QString& tag) const
+template <typename T> T& SessionItem::item(const QString& tag) const
 {
     T* t = dynamic_cast<T*>(getItem(tag));
     Q_ASSERT(t);
     return *t;
 }
 
-template<typename T>
-T& SessionItem::groupItem(const QString& groupName) const
+template <typename T> T& SessionItem::groupItem(const QString& groupName) const
 {
     T* t = dynamic_cast<T*>(getGroupItem(groupName));
     Q_ASSERT(t);

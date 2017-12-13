@@ -100,7 +100,7 @@ void DetectorItem::importMasks(MaskContainerItem* maskContainer)
     clearMasks();
 
     if (maskContainer)
-        model()->copyParameterizedItem(maskContainer, this, T_MASKS);
+        model()->copyItem(maskContainer, this, T_MASKS);
 }
 
 void DetectorItem::register_resolution_function()

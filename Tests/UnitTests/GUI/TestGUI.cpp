@@ -1,6 +1,7 @@
 #include "google_test.h"
 #include <QString>
 #include <QCoreApplication>
+#include <QAbstractItemModel>
 #include "Comparators.h"
 
 #include "TestComboProperty.h"
@@ -42,6 +43,7 @@
 #include "TestTranslations.h"
 #include "TestUpdateTimer.h"
 #include "TestSessionItemData.h"
+#include "TestSessionItemTags.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);

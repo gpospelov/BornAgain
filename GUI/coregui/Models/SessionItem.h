@@ -121,8 +121,6 @@ public:
     QString editorType() const;
     SessionItem& setEditorType(const QString& editorType);
 
-    // helper functions
-    virtual QString itemLabel() const;
     ModelMapper* mapper();
 
     virtual QStringList translateList(const QStringList& list) const;

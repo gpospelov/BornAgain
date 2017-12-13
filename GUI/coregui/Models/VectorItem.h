@@ -20,7 +20,7 @@
 #include "SessionItem.h"
 #include "Vectors3D.h"
 
-class BA_CORE_API_  VectorItem : public SessionItem
+class BA_CORE_API_ VectorItem : public SessionItem
 {
 
 public:
@@ -28,9 +28,11 @@ public:
     static const QString P_Y;
     static const QString P_Z;
     VectorItem();
-    virtual QString itemLabel() const;
 
     kvector_t getVector() const;
+
+private:
+    void updateLabel();
 };
 
 #endif // VECTORITEM_H

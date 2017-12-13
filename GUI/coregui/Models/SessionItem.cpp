@@ -570,14 +570,8 @@ SessionItem& SessionItem::setEditorType(const QString& editorType)
     return *this;
 }
 
-//! Returns label of item shown in property editor.
-
-QString SessionItem::itemLabel() const
-{
-    return QString("");
-}
-
 //! Returns the current model mapper of this item. Creates new one if necessary.
+
 ModelMapper* SessionItem::mapper()
 {
     if (!m_mapper) {

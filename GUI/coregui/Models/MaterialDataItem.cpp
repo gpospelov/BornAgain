@@ -19,26 +19,17 @@
 const QString MaterialDataItem::P_REAL = "real";
 const QString MaterialDataItem::P_IMAG = "imag";
 
-MaterialDataItem::MaterialDataItem()
-    : SessionItem(Constants::MaterialDataType)
+MaterialDataItem::MaterialDataItem() : SessionItem(Constants::MaterialDataType)
 {
     addProperty(P_REAL, 0.0)->setEditorType(Constants::ScientificEditorType)
-            .setLimits(RealLimits::limitless());
+        .setLimits(RealLimits::limitless());
     addProperty(P_IMAG, 0.0)->setEditorType(Constants::ScientificEditorType)
-            .setLimits(RealLimits::limitless());
+        .setLimits(RealLimits::limitless());
 
-    mapper()->setOnPropertyChange(
-        [this](const QString &){
-            setValue(itemLabel());
-        }
-    );
-    setValue(itemLabel());
+    mapper()->setOnPropertyChange([this](const QString&) { updateLabel(); });
+
+    updateLabel();
     setEditable(false);
-}
-
-QString MaterialDataItem::itemLabel() const
-{
-    return QString("(1 - %1, %2)").arg(getReal()).arg(getImag());
 }
 
 double MaterialDataItem::getReal() const
@@ -59,4 +50,9 @@ double MaterialDataItem::getImag() const
 void MaterialDataItem::setImag(double imag)
 {
     setItemValue(P_IMAG, imag);
+}
+
+void MaterialDataItem::updateLabel()
+{
+    setValue(QString("(1 - %1, %2)").arg(getReal()).arg(getImag()));
 }

@@ -46,7 +46,7 @@ TEST_F(TestSessionModel, setData)
     EXPECT_EQ(spy.count(), 1);
 }
 
-TEST_F(TestSessionModel, test_SampleModel_CreateCopy)
+TEST_F(TestSessionModel, SampleModelCopy)
 {
     std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
 
@@ -69,7 +69,7 @@ TEST_F(TestSessionModel, test_SampleModel_CreateCopy)
     EXPECT_EQ(buffer1, buffer2);
 }
 
-TEST_F(TestSessionModel, test_SampleModel_CreatePartialCopy)
+TEST_F(TestSessionModel, SampleModelPartialCopy)
 {
     std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
 
@@ -88,7 +88,7 @@ TEST_F(TestSessionModel, test_SampleModel_CreatePartialCopy)
     EXPECT_EQ(result->modelType(), multilayer1->modelType());
 }
 
-TEST_F(TestSessionModel, test_InstrumentModel_CreateCopy)
+TEST_F(TestSessionModel, InstrumentModelCopy)
 {
     InstrumentModel model1;
     SessionItem* instrument1 = model1.insertNewItem(Constants::InstrumentType);
@@ -109,7 +109,7 @@ TEST_F(TestSessionModel, test_InstrumentModel_CreateCopy)
     EXPECT_EQ(buffer1, buffer2);
 }
 
-TEST_F(TestSessionModel, test_InstrumentModel_CreatePartialCopy)
+TEST_F(TestSessionModel, InstrumentModelPartialCopy)
 {
     InstrumentModel model1;
     SessionItem* instrument1 = model1.insertNewItem(Constants::InstrumentType);
@@ -126,7 +126,7 @@ TEST_F(TestSessionModel, test_InstrumentModel_CreatePartialCopy)
 //! Test if SessionItem can be copied from one model to another. Particularly, we test
 //! here if a MultiLayerItem can be copied from SampleModel to the JobItem of JobModel
 
-TEST_F(TestSessionModel, test_copyParameterizedItem)
+TEST_F(TestSessionModel, copyItem)
 {
     std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
 

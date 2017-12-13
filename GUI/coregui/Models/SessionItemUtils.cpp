@@ -127,6 +127,17 @@ int SessionItemUtils::VariantType(const QVariant& variant)
     return result;
 }
 
+bool SessionItemUtils::CompatibleVariantTypes(const QVariant& oldValue, const QVariant& newValue)
+{
+    // if olfValue is undefined than it is compatible with any value, otherwise newValue
+    // should have same variant type as oldValue
+
+    if (oldValue.isValid())
+        return SessionItemUtils::VariantType(oldValue) == SessionItemUtils::VariantType(newValue);
+    else
+        return true;
+}
+
 // For custom variants (based on ExternalProperty, ComboProperty) will always return false, i.e.
 // we will rely here on our custom editors.
 // This is done to not to register custom comparators in main.cpp.

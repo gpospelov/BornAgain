@@ -215,7 +215,6 @@ QVector<SessionItem*> SessionItem::getItems(const QString& tag) const
     return m_children.mid(index, m_tags->childCount(tagName));
 }
 
-#include <QDebug>
 //! Insert item into given tag into given row.
 bool SessionItem::insertItem(int row, SessionItem* item, const QString& tag)
 {
@@ -224,10 +223,8 @@ bool SessionItem::insertItem(int row, SessionItem* item, const QString& tag)
 
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
 
-    if (!m_tags->isValid(tagName, item->modelType())) {
-        qDebug() << tagName << item->modelType();
+    if (!m_tags->isValid(tagName, item->modelType()))
         throw GUIHelpers::Error("SessionItem::insertItem() -> Invalid tag, modelType.");
-    }
 
     int index = m_tags->insertIndexFromTagRow(tagName, row);
     if (index < 0)
@@ -294,7 +291,7 @@ QVariant SessionItem::getItemValue(const QString& tag) const
 {
     if (!isTag(tag))
         throw GUIHelpers::Error(
-            "ParameterizedItem::getRegisteredProperty() -> Error. Unknown property '" + tag
+            "ParameterizedItem::getRegisteredProperty() -> Error. Unknown tag '" + tag
             + "', item '" + modelType() + "'");
 
     return getItem(tag)->value();
@@ -394,15 +391,9 @@ QVariant SessionItem::value() const
 //! Set value, ensure that variant types match.
 bool SessionItem::setValue(QVariant value)
 {
-    QVariant previous_variant = this->value();
-    if (previous_variant.isValid() && SessionItemUtils::VariantType(previous_variant)
-            != SessionItemUtils::VariantType(value)) {
+    if (!SessionItemUtils::CompatibleVariantTypes(this->value(), value))
         throw GUIHelpers::Error("ParameterizedItem::setRegisteredProperty() -> Error. Type of "
                                 "previous and new variant does not coincide.");
-    }
-    // TODO If QVariant contains ComboProperty, the comparison will be always true.
-    if(previous_variant == value)
-        return true;
 
     return setData(Qt::DisplayRole, value);
 }
@@ -466,13 +457,6 @@ void SessionItem::setItemName(const QString& name)
         setItemValue(P_NAME, name);
     } else {
         addProperty(P_NAME, name);
-        // when name changes, than parent should be notified about it
-        mapper()->setOnPropertyChange(
-                    [this] (const QString& name)
-        {
-            if (name == P_NAME)
-                emitDataChanged();
-        });
     }
 }
 

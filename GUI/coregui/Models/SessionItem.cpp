@@ -168,11 +168,6 @@ bool SessionItem::isTag(const QString& name) const
     return m_tags->isValid(name);
 }
 
-bool SessionItem::isSingleItemTag(const QString& tagName) const
-{
-    return m_tags->isSingleItemTag(tagName);
-}
-
 SessionItemTags* SessionItem::sessionItemTags()
 {
     return m_tags.get();
@@ -459,14 +454,12 @@ QString SessionItem::displayName() const
     if (m_parent) {
         QString tag = m_parent->tagFromItem(this);
         // if only one child of this type is allowed, return name without change
-        if (m_parent->isSingleItemTag(tag)) {
+        if (m_parent->sessionItemTags()->isSingleItemTag(tag))
             return result;
-        }
 
         int index = m_parent->getCopyNumberOfChild(this);
-        if (index >= 0) {
+        if (index >= 0)
             return result + QString::number(index);
-        }
     }
     return result;
 }

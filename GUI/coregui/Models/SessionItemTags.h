@@ -26,10 +26,9 @@
 class BA_CORE_API_ SessionItemTags
 {
 public:
-
     bool registerTag(const QString& name, int min, int max, const QStringList& modelTypes);
 
-    bool isValid(const QString& tagName, const QString& modelType=QString()) const;
+    bool isValid(const QString& tagName, const QString& modelType = QString()) const;
 
     QStringList modelTypesForTag(const QString& tagName) const;
 
@@ -49,8 +48,8 @@ public:
     bool isSingleItemTag(const QString& tagName);
 
     bool maximumReached(const QString& tagName) const;
-private:
 
+private:
     class TagInfo
     {
     public:
@@ -64,7 +63,6 @@ private:
 
     TagInfo& tagInfo(const QString& tagName);
     const TagInfo& tagInfo(const QString& tagName) const;
-
 
     QVector<TagInfo> m_tags;
 };

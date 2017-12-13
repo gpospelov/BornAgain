@@ -22,7 +22,8 @@ SessionItemTags::TagInfo::TagInfo() : min(0), max(-1), childCount(0) {}
 //! Register tag with given parameters. Returns true in case of success. Returns
 //! false if parameters are invalid or such tag was already registered.
 
-bool SessionItemTags::registerTag(const QString& name, int min, int max, const QStringList& modelTypes)
+bool SessionItemTags::registerTag(const QString& name, int min, int max,
+                                  const QStringList& modelTypes)
 {
     if (min < 0 || (min > max && max >= 0))
         return false;
@@ -87,7 +88,7 @@ int SessionItemTags::indexFromTagRow(const QString& tagName, int row) const
 {
     auto& tag = tagInfo(tagName);
 
-    if(row < 0 || row >= tag.childCount)
+    if (row < 0 || row >= tag.childCount)
         throw GUIHelpers::Error("SessionItemTags::tagIndexFromRow() -> Error. Wrong row");
 
     return tagStartIndex(tagName) + row;
@@ -177,7 +178,7 @@ const SessionItemTags::TagInfo& SessionItemTags::tagInfo(const QString& tagName)
         if (tag.name == tagName)
             return tag;
 
-    throw GUIHelpers::Error("SessionItemTags::tagInfo() -> Error. No such tag '"+tagName+"'.");
+    throw GUIHelpers::Error("SessionItemTags::tagInfo() -> Error. No such tag '" + tagName + "'.");
 }
 
 bool SessionItemTags::maximumReached(const QString& tagName) const
@@ -189,4 +190,3 @@ bool SessionItemTags::maximumReached(const QString& tagName) const
 
     return false;
 }
-

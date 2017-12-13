@@ -57,7 +57,6 @@ public:
     bool registerTag(const QString& name, int min = 0, int max = -1,
                      QStringList modelTypes = QStringList());
     bool isTag(const QString& name) const;
-    bool isSingleItemTag(const QString& tagName) const;
     SessionItemTags* sessionItemTags();
     QString tagFromItem(const SessionItem* item) const;
     bool acceptsAsDefaultItem(const QString& item_name) const;

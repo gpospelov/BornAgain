@@ -22,6 +22,7 @@
 #include "GroupItemController.h"
 #include "SessionModel.h"
 #include "WarningMessageService.h"
+#include "SessionItemTags.h"
 #include <QtCore/QXmlStreamWriter>
 
 namespace
@@ -262,7 +263,7 @@ SessionItem* createItem(SessionItem* item, const QString& modelType, const QStri
         if (auto groupItem = dynamic_cast<GroupItem*>(item))
             result = groupItem->getItemOfType(modelType);
     } else {
-        if (item->isSingleItemTag(tag))
+        if (item->sessionItemTags()->isSingleItemTag(tag))
             result = item->getItem(tag);
         else
             result = item->model()->insertNewItem(modelType, item->index(), -1, tag);

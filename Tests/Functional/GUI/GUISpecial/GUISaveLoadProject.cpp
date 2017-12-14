@@ -29,7 +29,7 @@
 #include "SampleBuilderFactory.h"
 #include "SampleModel.h"
 #include "SimulationOptionsItem.h"
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include "projectdocument.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
@@ -150,7 +150,7 @@ int GUISaveLoadProject::load_project(const QString& projectName)
     std::cout << "GUISaveLoadProject::load_project() -> Loading from " << projectName.toStdString()
               << std::endl;
 
-    WarningMessageService logger;
+    MessageService logger;
     ProjectDocument document;
     document.setApplicationModels(m_models.get());
     document.setLogger(&logger);

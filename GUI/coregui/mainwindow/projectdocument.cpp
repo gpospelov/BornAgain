@@ -17,7 +17,7 @@
 #include "projectdocument.h"
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include "ProjectUtils.h"
 #include "OutputDataIOService.h"
 #include "JobModel.h"
@@ -180,7 +180,7 @@ void ProjectDocument::setModified(bool flag)
         emit modified();
 }
 
-void ProjectDocument::setLogger(WarningMessageService* messageService)
+void ProjectDocument::setLogger(MessageService* messageService)
 {
     m_messageService = messageService;
 }

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/utils/WarningMessageService.h
-//! @brief     Defines abstract IMessageService interface
+//! @file      GUI/coregui/utils/MessageService.h
+//! @brief     Defines MessageService class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,10 +14,10 @@
 //
 // ************************************************************************** //
 
-#ifndef WARNINGMESSAGESERVICE_H
-#define WARNINGMESSAGESERVICE_H
+#ifndef MESSAGESERVICE_H
+#define MESSAGESERVICE_H
 
-#include "IMessageService.h"
+#include "WinDllMacros.h"
 #include <QMap>
 #include <QStringList> // need detected by TeamCity
 
@@ -27,14 +27,14 @@ class QObject;
 //! @class WarningMessageService
 //! @brief The service to collect warning messages from different senders.
 
-class BA_CORE_API_ WarningMessageService : public IMessageService {
+class BA_CORE_API_ MessageService {
 public:
     typedef QMap<QObject *, MessageContainer *> container_t;
     typedef container_t::iterator iterator;
     typedef container_t::const_iterator const_iterator;
 
-    WarningMessageService(){}
-    virtual ~WarningMessageService();
+    MessageService(){}
+    virtual ~MessageService();
 
     void clear();
 

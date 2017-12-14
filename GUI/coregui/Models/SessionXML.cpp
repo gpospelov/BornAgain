@@ -21,7 +21,7 @@
 #include "ExternalProperty.h"
 #include "GroupItemController.h"
 #include "SessionModel.h"
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include "SessionItemTags.h"
 #include <QtCore/QXmlStreamWriter>
 
@@ -35,7 +35,7 @@ const QString double_type_name = "double";
 const QString int_type_name = "int";
 const QString qstring_type_name = "QString";
 
-void report_error(WarningMessageService* messageService, SessionItem* item,
+void report_error(MessageService* messageService, SessionItem* item,
                   const QString& error_type, const QString& message);
 
 SessionItem* createItem(SessionItem* item, const QString& modelType, const QString& tag);
@@ -128,7 +128,7 @@ void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int ro
 }
 
 void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QString topTag,
-                           WarningMessageService* messageService)
+                           MessageService* messageService)
 {
     Q_ASSERT(parent);
     const QString start_type = parent->model()->getModelTag();
@@ -163,7 +163,7 @@ void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QStrin
 }
 
 QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
-                                 WarningMessageService* messageService)
+                                 MessageService* messageService)
 {
     const QString parameter_name
         = reader->attributes().value(SessionXML::ParameterNameAttribute).toString();
@@ -245,7 +245,7 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
 
 namespace
 {
-void report_error(WarningMessageService* messageService, SessionItem* item,
+void report_error(MessageService* messageService, SessionItem* item,
                   const QString& error_type, const QString& message)
 {
     if (messageService) {

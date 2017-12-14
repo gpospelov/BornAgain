@@ -19,7 +19,7 @@
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "ProjectLoadWarningDialog.h"
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "newprojectdialog.h"
@@ -44,7 +44,7 @@ namespace {
 ProjectManager::ProjectManager(MainWindow* parent)
     : m_mainWindow(parent)
     , m_project_document(nullptr)
-    , m_messageService(new WarningMessageService)
+    , m_messageService(new MessageService)
     , m_saveService(new SaveService(this))
 
 {

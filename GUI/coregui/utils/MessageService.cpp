@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/utils/WarningMessageService.cpp
-//! @brief     Defines abstract IMessageService interface
+//! @file      GUI/coregui/utils/MessageService.cpp
+//! @brief     Implements MessageService class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,17 +14,17 @@
 //
 // ************************************************************************** //
 
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include "GUIMessage.h"
 #include "MessageContainer.h"
 #include <QObject>
 
-WarningMessageService::~WarningMessageService()
+MessageService::~MessageService()
 {
     clear();
 }
 
-void WarningMessageService::clear()
+void MessageService::clear()
 {
     for(container_t::iterator it=m_messageContainer.begin(); it!=m_messageContainer.end(); ++it) {
         delete it.value();
@@ -32,27 +32,27 @@ void WarningMessageService::clear()
     m_messageContainer.clear();
 }
 
-WarningMessageService::iterator WarningMessageService::begin()
+MessageService::iterator MessageService::begin()
 {
     return m_messageContainer.begin();
 }
 
-WarningMessageService::const_iterator WarningMessageService::begin() const
+MessageService::const_iterator MessageService::begin() const
 {
     return m_messageContainer.begin();
 }
 
-WarningMessageService::iterator WarningMessageService::end()
+MessageService::iterator MessageService::end()
 {
     return m_messageContainer.end();
 }
 
-WarningMessageService::const_iterator WarningMessageService::end() const
+MessageService::const_iterator MessageService::end() const
 {
     return m_messageContainer.end();
 }
 
-MessageContainer *WarningMessageService::getMessageContainer(QObject *sender)
+MessageContainer *MessageService::getMessageContainer(QObject *sender)
 {
     iterator it = m_messageContainer.find(sender);
     if(it != m_messageContainer.end()) {
@@ -61,7 +61,7 @@ MessageContainer *WarningMessageService::getMessageContainer(QObject *sender)
     return 0;
 }
 
-const MessageContainer *WarningMessageService::getMessageContainer(QObject *sender) const
+const MessageContainer *MessageService::getMessageContainer(QObject *sender) const
 {
     const_iterator it = m_messageContainer.find(sender);
     if(it != m_messageContainer.end()) {
@@ -70,7 +70,7 @@ const MessageContainer *WarningMessageService::getMessageContainer(QObject *send
     return 0;
 }
 
-void WarningMessageService::send_message(QObject *sender, const QString &message_type, const QString &description)
+void MessageService::send_message(QObject *sender, const QString &message_type, const QString &description)
 {
     MessageContainer *container = getMessageContainer(sender);
     if(!container) {
@@ -82,7 +82,7 @@ void WarningMessageService::send_message(QObject *sender, const QString &message
     container->append(message);
 }
 
-bool WarningMessageService::hasWarnings(QObject *sender)
+bool MessageService::hasWarnings(QObject *sender)
 {
     MessageContainer *container = getMessageContainer(sender);
     if(container && container->size()) return true;
@@ -90,7 +90,7 @@ bool WarningMessageService::hasWarnings(QObject *sender)
 }
 
 //! Returns list of string with error messages
-QStringList WarningMessageService::getMessageStringList(QObject *sender) const
+QStringList MessageService::getMessageStringList(QObject *sender) const
 {
     QStringList result;
     const MessageContainer *container = getMessageContainer(sender);
@@ -103,7 +103,7 @@ QStringList WarningMessageService::getMessageStringList(QObject *sender) const
 }
 
 //! Returns multi line string representing all messages
-QString WarningMessageService::getMessages(QObject *sender) const
+QString MessageService::getMessages(QObject *sender) const
 {
     QString result;
     QStringList messages = getMessageStringList(sender);

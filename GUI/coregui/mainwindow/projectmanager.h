@@ -23,7 +23,7 @@
 
 class MainWindow;
 class ProjectDocument;
-class WarningMessageService;
+class MessageService;
 class SaveService;
 
 //! Handles activity related to opening/save projects.
@@ -86,7 +86,7 @@ private:
     QString m_importDirectory;
 
     QStringList m_recentProjects;
-    WarningMessageService* m_messageService;
+    MessageService* m_messageService;
     SaveService* m_saveService;
 };
 

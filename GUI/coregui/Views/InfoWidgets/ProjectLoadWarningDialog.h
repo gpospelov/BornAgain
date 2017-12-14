@@ -20,7 +20,7 @@
 #include <QDialog>
 #include <QStringList>
 
-class WarningMessageService;
+class MessageService;
 class QTableWidget;
 class QLabel;
 class QTableWidgetItem;
@@ -33,7 +33,7 @@ class ProjectLoadWarningDialog : public QDialog
     Q_OBJECT
 
 public:
-    ProjectLoadWarningDialog(QWidget *parent, const WarningMessageService *messageService = 0,
+    ProjectLoadWarningDialog(QWidget *parent, const MessageService *messageService = 0,
             const QString &documentVersion = QString());
 
 private:
@@ -51,7 +51,7 @@ private:
 
     QString getExplanationText() const;
 
-    const WarningMessageService *m_messageService;
+    const MessageService *m_messageService;
     QString m_projectDocumentVersion;
 };
 

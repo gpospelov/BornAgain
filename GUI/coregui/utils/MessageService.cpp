@@ -16,100 +16,49 @@
 
 #include "MessageService.h"
 #include "GUIMessage.h"
-#include "MessageContainer.h"
 #include <QObject>
+#include <QSet>
 
-MessageService::~MessageService()
-{
-    clear();
-}
+MessageService::~MessageService() { clear(); }
 
 void MessageService::clear()
 {
-    for(container_t::iterator it=m_messageContainer.begin(); it!=m_messageContainer.end(); ++it) {
-        delete it.value();
-    }
-    m_messageContainer.clear();
+    for (auto message : m_messages)
+        delete message;
+
+    m_messages.clear();
 }
 
-MessageService::iterator MessageService::begin()
+void MessageService::send_message(QObject* sender, const QString& message_type,
+                                  const QString& description)
 {
-    return m_messageContainer.begin();
+    m_messages.append(new GUIMessage(sender, message_type, description));
 }
 
-MessageService::const_iterator MessageService::begin() const
+const QList<GUIMessage*> MessageService::messages() const
 {
-    return m_messageContainer.begin();
+    return m_messages;
 }
 
-MessageService::iterator MessageService::end()
+QStringList MessageService::senderList() const
 {
-    return m_messageContainer.end();
+    QSet<QString> set;
+    for (auto message : messages())
+        set.insert(message->getSenderName());
+
+    return set.toList();
 }
 
-MessageService::const_iterator MessageService::end() const
+int MessageService::messageCount(const QObject* sender, const QString& message_type)
 {
-    return m_messageContainer.end();
-}
-
-MessageContainer *MessageService::getMessageContainer(QObject *sender)
-{
-    iterator it = m_messageContainer.find(sender);
-    if(it != m_messageContainer.end()) {
-        return it.value();
-    }
-    return 0;
-}
-
-const MessageContainer *MessageService::getMessageContainer(QObject *sender) const
-{
-    const_iterator it = m_messageContainer.find(sender);
-    if(it != m_messageContainer.end()) {
-        return it.value();
-    }
-    return 0;
-}
-
-void MessageService::send_message(QObject *sender, const QString &message_type, const QString &description)
-{
-    MessageContainer *container = getMessageContainer(sender);
-    if(!container) {
-        container = new MessageContainer();
-        m_messageContainer[sender] = container;
-    }
-
-    GUIMessage *message = new GUIMessage(sender->objectName(), message_type, description);
-    container->append(message);
-}
-
-bool MessageService::hasWarnings(QObject *sender)
-{
-    MessageContainer *container = getMessageContainer(sender);
-    if(container && container->size()) return true;
-    return false;
-}
-
-//! Returns list of string with error messages
-QStringList MessageService::getMessageStringList(QObject *sender) const
-{
-    QStringList result;
-    const MessageContainer *container = getMessageContainer(sender);
-    if(container) {
-        for(MessageContainer::const_iterator it=container->begin(); it!=container->end(); ++it) {
-            result.append((*it)->getText());
+    int result(0);
+    for (auto message : messages())
+        if (message->sender() == sender) {
+            if (message_type.isEmpty())
+                ++result;
+            else if (message->getMessageType() == message_type)
+                ++result;
         }
-    }
-    return result;
-}
 
-//! Returns multi line string representing all messages
-QString MessageService::getMessages(QObject *sender) const
-{
-    QString result;
-    QStringList messages = getMessageStringList(sender);
-    for(int i=0; i<messages.size(); ++i) {
-        result.append(messages.at(i));
-        result.append("\n");
-    }
     return result;
 }

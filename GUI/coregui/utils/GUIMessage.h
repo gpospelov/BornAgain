@@ -19,10 +19,14 @@
 
 #include <QString>
 
+class QObject;
+
 class GUIMessage
 {
 public:
     GUIMessage(const QString &senderName, const QString &messageType,
+               const QString &messageDescription);
+    GUIMessage(const QObject* sender, const QString &messageType,
                const QString &messageDescription);
 
     QString getSenderName() const;
@@ -31,7 +35,10 @@ public:
 
     QString getText() const;
 
+    const QObject* sender() const;
+
 private:
+    const QObject* m_sender;
     QString m_senderName;
     QString m_messageType;
     QString m_messageDescription;

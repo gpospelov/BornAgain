@@ -155,7 +155,7 @@ void ProjectDocument::load(const QString& project_file_name)
         timer2.start();
         m_dataService->load(projectDir(), m_messageService);
 
-        if (m_messageService->hasWarnings(m_dataService)) {
+        if (m_messageService->messageCount(m_dataService) > 0) {
             ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_WARNING);
         }
 
@@ -259,7 +259,7 @@ void ProjectDocument::readFrom(QIODevice* device)
                 //
             } else {
                 m_applicationModels->readFrom(&reader, m_messageService);
-                if (m_messageService->hasWarnings(m_applicationModels)) {
+                if (m_messageService->messageCount(m_applicationModels) > 0) {
                     ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_WARNING);
                 }
             }

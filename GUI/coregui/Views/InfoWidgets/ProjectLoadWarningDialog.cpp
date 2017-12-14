@@ -18,7 +18,6 @@
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include "GUIMessage.h"
-#include "MessageContainer.h"
 #include "SessionModel.h"
 #include "MessageService.h"
 #include <QBoxLayout>
@@ -119,10 +118,10 @@ QWidget *ProjectLoadWarningDialog::createModelInfoPanel()
 
     QGridLayout *gridLayout = new QGridLayout;
 
-    QStringList names = getModelNames();
+    QStringList names = m_messageService->senderList();
     for(int irow=0; irow<names.size(); ++irow) {
         gridLayout->addWidget(new QLabel(names.at(irow)), irow, 0);
-        gridLayout->addWidget(createModelStatusLabel(names.at(irow)), irow, 1);
+        gridLayout->addWidget(new QLabel("WARNING"), irow, 1);
     }
 
     layout->addWidget(line);
@@ -213,19 +212,11 @@ QTableWidget *ProjectLoadWarningDialog::createTableWidget()
     result->horizontalHeader()->setStretchLastSection(true);
 
     int rowCount(0);
-    for (MessageService::container_t::const_iterator it = m_messageService->begin();
-         it != m_messageService->end(); ++it) {
-        const MessageContainer *messageContainer = it.value();
-        for (MessageContainer::const_iterator it = messageContainer->begin();
-             it != messageContainer->end(); ++it) {
-            const GUIMessage *guiMessage = (*it);
-            // item->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-
-            result->setItem(rowCount, 0, createTableItem(guiMessage->getSenderName()));
-            result->setItem(rowCount, 1, createTableItem(guiMessage->getMessageType()));
-            result->setItem(rowCount, 2, createTableItem(guiMessage->getMessageDescription()));
-            ++rowCount;
-        }
+    for (auto message : m_messageService->messages()) {
+        result->setItem(rowCount, 0, createTableItem(message->getSenderName()));
+        result->setItem(rowCount, 1, createTableItem(message->getMessageType()));
+        result->setItem(rowCount, 2, createTableItem(message->getMessageDescription()));
+        ++rowCount;
     }
 
     return result;
@@ -234,12 +225,7 @@ QTableWidget *ProjectLoadWarningDialog::createTableWidget()
 //! Returns number of rows in table with error messages, each row represents an error message
 int ProjectLoadWarningDialog::getNumberOfTableRows() const
 {
-    Q_ASSERT(m_messageService);
-    int result(0);
-    for(MessageService::container_t::const_iterator it=m_messageService->begin(); it!=m_messageService->end(); ++it) {
-        result += it.value()->size();
-    }
-    return result;
+    return m_messageService->messages().size();
 }
 
 //! Returns labels for table header
@@ -257,30 +243,6 @@ QTableWidgetItem *ProjectLoadWarningDialog::createTableItem(const QString &name)
   return result;
 }
 
-
-//! Returns list of model names to form summary
-QStringList ProjectLoadWarningDialog::getModelNames() const
-{
-    QStringList names;
-    names << SessionXML::MaterialModelTag << SessionXML::InstrumentModelTag
-          << SessionXML::SampleModelTag << SessionXML::JobModelTag;
-    return names;
-}
-
-//! create status label "OK"/"WARNING" depending on presence of warning messages in the container
-QLabel *ProjectLoadWarningDialog::createModelStatusLabel(const QString &model_name) const
-{
-    QLabel *result = new QLabel("OK");
-    for (MessageService::container_t::const_iterator it = m_messageService->begin();
-         it != m_messageService->end(); ++it) {
-
-        const MessageContainer *messageContainer = it.value();
-        if (model_name == it.key()->objectName() && messageContainer->size()) {
-            result->setText("WARNING");
-        }
-    }
-    return result;
-}
 
 //! Returns explanations what went wrong.
 QString ProjectLoadWarningDialog::getExplanationText() const

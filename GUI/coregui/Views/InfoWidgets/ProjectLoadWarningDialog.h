@@ -46,9 +46,6 @@ private:
     QStringList getTableHeaderLabels() const;
     QTableWidgetItem *createTableItem(const QString &name);
 
-    QStringList getModelNames() const;
-    QLabel *createModelStatusLabel(const QString &model_name) const;
-
     QString getExplanationText() const;
 
     const MessageService *m_messageService;

@@ -209,7 +209,7 @@ void ApplicationModels::readFrom(QXmlStreamReader* reader, MessageService* messa
     for(auto model : modelList()) {
         if (model->getModelTag() == reader->name()) {
             model->readFrom(reader, messageService);
-            if (messageService->hasWarnings(model))
+            if (messageService->messageCount(model) > 0)
                 messageService->send_message(this, "MODEL_READ_WARNING", model->getModelTag());
             break;
         }

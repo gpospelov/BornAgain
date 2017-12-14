@@ -19,42 +19,32 @@
 
 #include "WinDllMacros.h"
 #include <QMap>
-#include <QStringList> // need detected by TeamCity
+#include <QStringList>
 
 class MessageContainer;
 class QObject;
+class GUIMessage;
 
-//! @class WarningMessageService
-//! @brief The service to collect warning messages from different senders.
+//! @class MessageService
+//! @brief The service to collect messages from different senders.
 
-class BA_CORE_API_ MessageService {
+class BA_CORE_API_ MessageService
+{
 public:
-    typedef QMap<QObject *, MessageContainer *> container_t;
-    typedef container_t::iterator iterator;
-    typedef container_t::const_iterator const_iterator;
-
-    MessageService(){}
     virtual ~MessageService();
 
     void clear();
 
-    iterator begin();
-    const_iterator begin() const;
-    iterator end();
-    const_iterator end() const;
+    void send_message(QObject* sender, const QString& message_type, const QString& description);
 
-    MessageContainer *getMessageContainer(QObject *sender);
-    const MessageContainer *getMessageContainer(QObject *sender) const;
+    const QList<GUIMessage*> messages() const;
 
-    void send_message(QObject *sender, const QString &message_type, const QString &description);
+    QStringList senderList() const;
 
-    bool hasWarnings(QObject *sender);
-
-    QStringList getMessageStringList(QObject *sender) const;
-    QString getMessages(QObject *sender) const;
+    int messageCount(const QObject* sender, const QString& message_type = QString());
 
 private:
-    container_t m_messageContainer;
+    QList<GUIMessage*> m_messages;
 };
 
-#endif // WARNINGMESSAGESERVICE_H
+#endif // MESSAGESERVICE_H

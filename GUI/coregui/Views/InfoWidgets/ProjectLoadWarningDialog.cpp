@@ -229,7 +229,7 @@ int ProjectLoadWarningDialog::numberOfTableRows() const
 //! Returns labels for table header
 QStringList ProjectLoadWarningDialog::tableHeaderLabels() const
 {
-    return QStringList() << "Sender" << "Warning" << "Description";
+    return QStringList() << "Sender" << "Message" << "Description";
 }
 
 QTableWidgetItem* ProjectLoadWarningDialog::createTableItem(const QString& name)

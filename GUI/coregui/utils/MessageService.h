@@ -36,12 +36,18 @@ public:
     void clear();
 
     void send_message(QObject* sender, const QString& message_type, const QString& description);
+    void send_error(QObject* sender, const QString& description);
+    void send_warning(QObject* sender, const QString& description);
 
     const QList<GUIMessage*> messages() const;
 
     QStringList senderList() const;
 
-    int messageCount(const QObject* sender, const QString& message_type = QString());
+    int messageCount(const QObject* sender, const QString& message_type = QString()) const;
+    int warningCount(const QObject* sender = 0) const;
+    int errorCount(const QObject* sender = 0) const;
+
+    QStringList errorDescriptionList(const QObject* sender = 0) const;
 
 private:
     QList<GUIMessage*> m_messages;

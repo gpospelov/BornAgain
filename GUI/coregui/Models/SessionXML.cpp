@@ -27,16 +27,12 @@
 
 namespace
 {
-const QString SET_ITEM_PROPERTY_ERROR = "SET_ITEM_PROPERTY_ERROR";
-const QString ITEM_IS_NOT_INITIALIZED = "ITEM_IS_NOT_INITIALIZED";
-
 const QString bool_type_name = "bool";
 const QString double_type_name = "double";
 const QString int_type_name = "int";
 const QString qstring_type_name = "QString";
 
-void report_error(MessageService* messageService, SessionItem* item,
-                  const QString& error_type, const QString& message);
+void report_error(MessageService* messageService, SessionItem* item, const QString& message);
 
 SessionItem* createItem(SessionItem* item, const QString& modelType, const QString& tag);
 }
@@ -174,7 +170,7 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
     if (!item) {
         QString message
             = QString("Attempt to set property '%1' for non existing item").arg(parameter_name);
-        report_error(messageService, item, ITEM_IS_NOT_INITIALIZED, message);
+        report_error(messageService, item, message);
         return parameter_name;
     }
 
@@ -245,13 +241,12 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
 
 namespace
 {
-void report_error(MessageService* messageService, SessionItem* item,
-                  const QString& error_type, const QString& message)
+void report_error(MessageService* messageService, SessionItem* item, const QString& message)
 {
     if (messageService) {
-        messageService->send_message(item->model(), error_type, message);
+        messageService->send_warning(item->model(), message);
     } else {
-        throw GUIHelpers::Error(error_type + QString(" ") + message);
+        throw GUIHelpers::Error(QString("Warning: ") + message);
     }
 }
 

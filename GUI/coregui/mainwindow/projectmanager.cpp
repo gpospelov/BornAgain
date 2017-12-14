@@ -417,9 +417,8 @@ void ProjectManager::riseProjectLoadFailedDialog()
     QString message = QString("Failed to load the project '%1' \n\n")
                           .arg(m_project_document->projectFileName());
 
-    // FIXME restore functionality
-    //QString details = m_messageService->getMessages(m_project_document);
-    message.append("FIXME");
+    for (auto details : m_messageService->errorDescriptionList(m_project_document))
+        message.append(details+"\n");
 
     QMessageBox::warning(m_mainWindow, "Error while opening project file", message);
 }

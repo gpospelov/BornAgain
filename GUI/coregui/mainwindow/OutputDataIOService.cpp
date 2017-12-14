@@ -73,11 +73,10 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
             newHistory.markAsSaved(item);
         } catch (const std::exception& ex) {
             if (messageService)
-                messageService->send_message(this, "FIXME", QString(ex.what()));
+                messageService->send_warning(this, QString(ex.what()));
             else
                 throw ex;
         }
-
     }
 
     m_history.setHistory(projectDir, newHistory);

@@ -129,3 +129,24 @@ TEST_F(TestMessageService, messageCount)
     EXPECT_EQ(svc.messageCount(&sender3), 0);
 }
 
+TEST_F(TestMessageService, warningAndErrorCount)
+{
+    MessageService svc;
+    Sender sender1(senderName1);
+    Sender sender2(senderName2);
+
+    // sending messages
+    svc.send_warning(&sender1, description1);
+    svc.send_warning(&sender1, description2);
+    svc.send_error(&sender1, description1);
+    svc.send_error(&sender2, description2);
+    svc.send_warning(&sender1, description3);
+
+    EXPECT_EQ(svc.errorCount(&sender1), 1);
+    EXPECT_EQ(svc.errorCount(&sender2), 1);
+    EXPECT_EQ(svc.errorCount(), 2);
+
+    EXPECT_EQ(svc.warningCount(&sender1), 3);
+    EXPECT_EQ(svc.warningCount(&sender2), 0);
+    EXPECT_EQ(svc.warningCount(), 3);
+}

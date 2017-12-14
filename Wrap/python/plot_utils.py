@@ -16,8 +16,11 @@ from __future__ import print_function
 import bornagain as ba
 from bornagain import deg as deg
 from bornagain import IFitObserver as IFitObserver
-from matplotlib import pyplot as plt
-from matplotlib import gridspec, colors
+try:  # workaround for build servers
+    from matplotlib import pyplot as plt
+    from matplotlib import gridspec, colors
+except Exception as e:
+    print("In plot_utils.py: {:s}".format(str(e)))
 
 
 def get_axes_limits(intensity):

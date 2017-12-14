@@ -17,11 +17,12 @@
 #ifndef GUIMESSAGE_H
 #define GUIMESSAGE_H
 
+#include "WinDllMacros.h"
 #include <QString>
 
 class QObject;
 
-class GUIMessage
+class BA_CORE_API_ GUIMessage
 {
 public:
     GUIMessage(const QString &senderName, const QString &messageType,

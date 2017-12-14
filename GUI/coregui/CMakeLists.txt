@@ -55,7 +55,6 @@ set(source_widgetbox
     "Views/widgetbox/widgetboxcategorylistview.cpp"
     "Views/widgetbox/widgetboxtreewidget.cpp"
     "Views/widgetbox/widgetbox.cpp"
-    "Views/widgetbox/widgetbox_dnditem.cpp"
 )
 list(APPEND source_files ${source_widgetbox})
 
@@ -63,7 +62,6 @@ set(include_widgetbox
     "Views/widgetbox/widgetboxcategorylistview.h"
     "Views/widgetbox/widgetboxtreewidget.h"
     "Views/widgetbox/widgetbox.h"
-    "Views/widgetbox/widgetbox_dnditem.h"
     "Views/widgetbox/widgetbox_global.h"
 )
 list(APPEND include_files ${include_widgetbox})

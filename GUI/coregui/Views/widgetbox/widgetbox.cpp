@@ -41,7 +41,7 @@
 
 #include "widgetbox.h"
 #include "widgetboxtreewidget.h"
-#include "widgetbox_dnditem.h"
+#include "qdesigner_dnditem_p.h"
 
 #include <QtDesigner/QDesignerFormEditorInterface>
 #include <QtDesigner/QDesignerFormWindowManagerInterface>

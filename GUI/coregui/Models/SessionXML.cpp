@@ -143,8 +143,17 @@ void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QStrin
                     tag = topTag;
                     topTag.clear();
                 }
-                parent = createItem(parent, model_type, tag);
-                parent->setDisplayName(displayName);
+                auto newItem = createItem(parent, model_type, tag);
+                if (!newItem) {
+                    QString message = QString("Error while parsing XML. Can't create item of "
+                                              "modelType '%1' for tag '%2'").arg(model_type, tag);
+                    report_error(messageService, parent, message);
+                    // risky attempt to recover the rest of the project
+                    reader->skipCurrentElement();
+                } else {
+                    parent = newItem;
+                    parent->setDisplayName(displayName);
+                }
             } else if (reader->name() == SessionXML::ParameterTag) {
                 SessionXML::readProperty(reader, parent, messageService);
             }
@@ -227,9 +236,9 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
     }
 
     else {
-        throw GUIHelpers::Error("SessionModel::readProperty: "
-                                "Parameter type not supported"
-                                + parameter_type);
+        QString message = QString("SessionModel::readProperty: parameter type not supported '"+
+                                  parameter_type+"'");
+        throw GUIHelpers::Error(message);
     }
 
     if (variant.isValid()) {
@@ -263,7 +272,6 @@ SessionItem* createItem(SessionItem* item, const QString& modelType, const QStri
         else
             result = item->model()->insertNewItem(modelType, item->index(), -1, tag);
     }
-    Q_ASSERT(result);
     return result;
 }
 }

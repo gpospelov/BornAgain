@@ -22,6 +22,7 @@
 
 class ApplicationModels;
 class IntensityDataItem;
+class MessageService;
 
 //! Provide read/write of heavy data files in a separate thread.
 //!
@@ -39,7 +40,7 @@ public:
 
     void save(const QString& projectDir);
 
-    void load(const QString& projectDir);
+    void load(const QString& projectDir, MessageService* messageService=nullptr);
 
     QVector<IntensityDataItem* > dataItems() const;
 

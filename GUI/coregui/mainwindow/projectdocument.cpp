@@ -153,7 +153,13 @@ void ProjectDocument::load(const QString& project_file_name)
         file.close();
 
         timer2.start();
-        m_dataService->load(projectDir());
+        m_dataService->load(projectDir(), m_messageService);
+
+        if (m_messageService->hasWarnings(m_dataService)) {
+            ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_WARNING);
+        }
+
+
         m_applicationModels->jobModel()->link_instruments();
         connectModels();
 

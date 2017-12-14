@@ -18,15 +18,18 @@
 #include "IntensityDataItem.h"
 #include "JobItemUtils.h"
 #include "ProjectUtils.h"
+#include "MessageService.h"
 
 OutputDataIOService::OutputDataIOService(QObject* parent)
     : QObject(parent), m_applicationModels(nullptr)
 {
+    setObjectName("OutputDataIOService");
 }
 
 OutputDataIOService::OutputDataIOService(ApplicationModels* models, QObject* parent)
     : QObject(parent), m_applicationModels(nullptr)
 {
+    setObjectName("OutputDataIOService");
     setApplicationModels(models);
 }
 
@@ -59,13 +62,22 @@ void OutputDataIOService::save(const QString& projectDir)
     m_history.setHistory(projectDir, newHistory);
 }
 
-void OutputDataIOService::load(const QString& projectDir)
+void OutputDataIOService::load(const QString& projectDir, MessageService* messageService)
 {
     OutputDataDirHistory newHistory;
 
     for (auto item : dataItems()) {
-        JobItemUtils::loadIntensityData(item, projectDir);
-        newHistory.markAsSaved(item);
+
+        try {
+            JobItemUtils::loadIntensityData(item, projectDir);
+            newHistory.markAsSaved(item);
+        } catch (const std::exception& ex) {
+            if (messageService)
+                messageService->send_message(this, "FIXME", QString(ex.what()));
+            else
+                throw ex;
+        }
+
     }
 
     m_history.setHistory(projectDir, newHistory);

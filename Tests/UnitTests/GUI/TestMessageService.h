@@ -39,9 +39,9 @@ TEST_F(TestMessageService, guiMessage)
 {
     GUIMessage message(senderName1, messageType1, description1);
 
-    EXPECT_EQ(message.getSenderName(), senderName1);
-    EXPECT_EQ(message.getMessageType(), messageType1);
-    EXPECT_EQ(message.getMessageDescription(), description1);
+    EXPECT_EQ(message.senderName(), senderName1);
+    EXPECT_EQ(message.messageType(), messageType1);
+    EXPECT_EQ(message.messageDescription(), description1);
 }
 
 TEST_F(TestMessageService, initialState)
@@ -61,15 +61,15 @@ TEST_F(TestMessageService, sendMessage)
     svc.send_message(&sender, messageType2, description2);
 
     EXPECT_EQ(svc.messages().size(), 3);
-    EXPECT_EQ(svc.messages().at(0)->getSenderName(), senderName1);
-    EXPECT_EQ(svc.messages().at(1)->getSenderName(), senderName1);
-    EXPECT_EQ(svc.messages().at(2)->getSenderName(), senderName1);
-    EXPECT_EQ(svc.messages().at(0)->getMessageType(), messageType1);
-    EXPECT_EQ(svc.messages().at(1)->getMessageType(), messageType1);
-    EXPECT_EQ(svc.messages().at(2)->getMessageType(), messageType2);
-    EXPECT_EQ(svc.messages().at(0)->getMessageDescription(), description1);
-    EXPECT_EQ(svc.messages().at(1)->getMessageDescription(), description1);
-    EXPECT_EQ(svc.messages().at(2)->getMessageDescription(), description2);
+    EXPECT_EQ(svc.messages().at(0)->senderName(), senderName1);
+    EXPECT_EQ(svc.messages().at(1)->senderName(), senderName1);
+    EXPECT_EQ(svc.messages().at(2)->senderName(), senderName1);
+    EXPECT_EQ(svc.messages().at(0)->messageType(), messageType1);
+    EXPECT_EQ(svc.messages().at(1)->messageType(), messageType1);
+    EXPECT_EQ(svc.messages().at(2)->messageType(), messageType2);
+    EXPECT_EQ(svc.messages().at(0)->messageDescription(), description1);
+    EXPECT_EQ(svc.messages().at(1)->messageDescription(), description1);
+    EXPECT_EQ(svc.messages().at(2)->messageDescription(), description2);
 
     // checking sender list
     EXPECT_EQ(svc.senderList().size(), 1);
@@ -87,15 +87,15 @@ TEST_F(TestMessageService, twoSenders)
     svc.send_message(&sender2, messageType2, description2);
 
     EXPECT_EQ(svc.messages().size(), 3);
-    EXPECT_EQ(svc.messages().at(0)->getSenderName(), senderName1);
-    EXPECT_EQ(svc.messages().at(1)->getSenderName(), senderName1);
-    EXPECT_EQ(svc.messages().at(2)->getSenderName(), senderName2);
-    EXPECT_EQ(svc.messages().at(0)->getMessageType(), messageType1);
-    EXPECT_EQ(svc.messages().at(1)->getMessageType(), messageType1);
-    EXPECT_EQ(svc.messages().at(2)->getMessageType(), messageType2);
-    EXPECT_EQ(svc.messages().at(0)->getMessageDescription(), description1);
-    EXPECT_EQ(svc.messages().at(1)->getMessageDescription(), description1);
-    EXPECT_EQ(svc.messages().at(2)->getMessageDescription(), description2);
+    EXPECT_EQ(svc.messages().at(0)->senderName(), senderName1);
+    EXPECT_EQ(svc.messages().at(1)->senderName(), senderName1);
+    EXPECT_EQ(svc.messages().at(2)->senderName(), senderName2);
+    EXPECT_EQ(svc.messages().at(0)->messageType(), messageType1);
+    EXPECT_EQ(svc.messages().at(1)->messageType(), messageType1);
+    EXPECT_EQ(svc.messages().at(2)->messageType(), messageType2);
+    EXPECT_EQ(svc.messages().at(0)->messageDescription(), description1);
+    EXPECT_EQ(svc.messages().at(1)->messageDescription(), description1);
+    EXPECT_EQ(svc.messages().at(2)->messageDescription(), description2);
 
     // checking sender list
     EXPECT_EQ(svc.senderList().size(), 2);

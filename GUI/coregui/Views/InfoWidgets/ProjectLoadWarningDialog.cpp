@@ -88,19 +88,19 @@ QWidget* ProjectLoadWarningDialog::createTopPanel()
 //! Info panel with summary over warnings in different models
 QWidget* ProjectLoadWarningDialog::createModelInfoPanel()
 {
-    QWidget* result = new QWidget(this);
-    QHBoxLayout* layout = new QHBoxLayout;
+    auto result = new QWidget(this);
+    auto layout = new QHBoxLayout;
 
-    QFrame* line = new QFrame();
+    auto line = new QFrame();
     line->setFrameShape(QFrame::VLine);
     line->setFrameShadow(QFrame::Sunken);
 
-    QGridLayout* gridLayout = new QGridLayout;
+    auto gridLayout = new QGridLayout;
 
     QStringList names = m_messageService->senderList();
     for (int irow = 0; irow < names.size(); ++irow) {
         gridLayout->addWidget(new QLabel(names.at(irow)), irow, 0);
-        gridLayout->addWidget(new QLabel("WARNING"), irow, 1);
+        gridLayout->addWidget(new QLabel("WARNINGS"), irow, 1);
     }
 
     layout->addWidget(line);
@@ -116,26 +116,26 @@ QWidget* ProjectLoadWarningDialog::createModelInfoPanel()
 //! Info panel with explanations what had happened and what to do
 QWidget* ProjectLoadWarningDialog::createExplanationPanel()
 {
-    QWidget* result = new QWidget(this);
-    QVBoxLayout* layout = new QVBoxLayout;
+    auto result = new QWidget(this);
+    auto layout = new QVBoxLayout;
 
     QFont titleFont;
     titleFont.setPointSize(DesignerHelper::getSectionFontSize());
     titleFont.setBold(true);
 
-    QLabel* whyLabel = new QLabel;
+    auto whyLabel = new QLabel;
     whyLabel->setFont(titleFont);
     whyLabel->setText("Why did this happen to me?");
 
-    QLabel* explanationLabel = new QLabel;
+    auto explanationLabel = new QLabel;
     explanationLabel->setText(explanationText());
     explanationLabel->setWordWrap(true);
 
-    QLabel* whatLabel = new QLabel;
+    auto whatLabel = new QLabel;
     whatLabel->setFont(titleFont);
     whatLabel->setText("What to do?");
 
-    QLabel* adviceLabel = new QLabel;
+    auto adviceLabel = new QLabel;
     QString adviceText("Check parameters of your items and re-enter uninitialized values. "
                        "Use detailed log below to get a hint what went wrong. "
                        "After that, save you project and work as normal.");
@@ -180,6 +180,8 @@ QWidget* ProjectLoadWarningDialog::createDetailsPanel()
 QTableWidget* ProjectLoadWarningDialog::createTableWidget()
 {
     auto result = new QTableWidget;
+    result->setWordWrap(true);
+//    result->setTextElideMode(Qt::ElideMiddle);
 
     result->setStyleSheet(
         "QToolTip { color: #ffffff; background-color: #fcfcfc; border: 1px solid black; }");
@@ -192,11 +194,13 @@ QTableWidget* ProjectLoadWarningDialog::createTableWidget()
 
     int rowCount(0);
     for (auto message : m_messageService->messages()) {
-        result->setItem(rowCount, 0, createTableItem(message->getSenderName()));
-        result->setItem(rowCount, 1, createTableItem(message->getMessageType()));
-        result->setItem(rowCount, 2, createTableItem(message->getMessageDescription()));
+        result->setItem(rowCount, 0, createTableItem(message->senderName()));
+        result->setItem(rowCount, 1, createTableItem(message->messageType()));
+        result->setItem(rowCount, 2, createTableItem(message->messageDescription()));
         ++rowCount;
     }
+
+    result->resizeRowsToContents();
 
     return result;
 }

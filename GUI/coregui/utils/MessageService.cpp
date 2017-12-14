@@ -44,7 +44,7 @@ QStringList MessageService::senderList() const
 {
     QSet<QString> set;
     for (auto message : messages())
-        set.insert(message->getSenderName());
+        set.insert(message->senderName());
 
     return set.toList();
 }
@@ -56,7 +56,7 @@ int MessageService::messageCount(const QObject* sender, const QString& message_t
         if (message->sender() == sender) {
             if (message_type.isEmpty())
                 ++result;
-            else if (message->getMessageType() == message_type)
+            else if (message->messageType() == message_type)
                 ++result;
         }
 

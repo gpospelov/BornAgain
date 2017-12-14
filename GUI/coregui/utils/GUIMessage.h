@@ -29,11 +29,11 @@ public:
     GUIMessage(const QObject* sender, const QString &messageType,
                const QString &messageDescription);
 
-    QString getSenderName() const;
-    QString getMessageType() const;
-    QString getMessageDescription() const;
+    QString senderName() const;
+    QString messageType() const;
+    QString messageDescription() const;
 
-    QString getText() const;
+    QString text() const;
 
     const QObject* sender() const;
 

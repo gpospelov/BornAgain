@@ -17,41 +17,31 @@
 #include "GUIMessage.h"
 #include <QObject>
 
-GUIMessage::GUIMessage(const QString &senderName, const QString &messageType,
-                       const QString &messageDescription)
-    : m_sender(nullptr), m_senderName(senderName), m_messageType(messageType), m_messageDescription(messageDescription)
+GUIMessage::GUIMessage(const QString& senderName, const QString& messageType,
+                       const QString& messageDescription)
+    : m_sender(nullptr), m_senderName(senderName), m_messageType(messageType),
+      m_messageDescription(messageDescription)
 {
 }
 
-GUIMessage::GUIMessage(const QObject* sender, const QString& messageType, const QString& messageDescription)
+GUIMessage::GUIMessage(const QObject* sender, const QString& messageType,
+                       const QString& messageDescription)
     : m_sender(sender), m_messageType(messageType), m_messageDescription(messageDescription)
 {
     m_senderName = sender->objectName();
 }
 
-QString GUIMessage::getSenderName() const
-{
-    return m_senderName;
-}
+QString GUIMessage::senderName() const { return m_senderName; }
 
-QString GUIMessage::getMessageType() const
-{
-    return m_messageType;
-}
+QString GUIMessage::messageType() const { return m_messageType; }
 
-QString GUIMessage::getMessageDescription() const
-{
-    return m_messageDescription;
-}
+QString GUIMessage::messageDescription() const { return m_messageDescription; }
 
-QString GUIMessage::getText() const
+QString GUIMessage::text() const
 {
     QString result
         = QString("%1 %2 %3").arg(m_senderName).arg(m_messageType).arg(m_messageDescription);
     return result;
 }
 
-const QObject* GUIMessage::sender() const
-{
-    return m_sender;
-}
+const QObject* GUIMessage::sender() const { return m_sender; }

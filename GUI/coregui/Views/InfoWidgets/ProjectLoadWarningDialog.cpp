@@ -18,73 +18,53 @@
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
 #include "GUIMessage.h"
-#include "MessageContainer.h"
-#include "SessionModel.h"
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include <QBoxLayout>
-#include <QFrame>
 #include <QGridLayout>
 #include <QHeaderView>
 #include <QLabel>
 #include <QPushButton>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QTextEdit>
 
-namespace {
+namespace
+{
 const int top_panel_height = 80;
 }
 
-ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget *parent,
-                                                   const WarningMessageService *messageService,
-                                                   const QString &documentVersion)
-    : QDialog(parent), m_messageService(messageService)
-    , m_projectDocumentVersion(documentVersion)
+ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget* parent,
+    const MessageService* messageService, const QString& documentVersion)
+    : QDialog(parent), m_messageService(messageService), m_projectDocumentVersion(documentVersion)
 {
     setMinimumSize(256, 256);
     resize(520, 620);
     setWindowTitle("Problems encountered while loading project");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    //setModal(true);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-
+    auto mainLayout = new QVBoxLayout;
     mainLayout->addWidget(createTopPanel());
     mainLayout->addWidget(createModelInfoPanel());
     mainLayout->addWidget(createExplanationPanel());
     mainLayout->addWidget(createDetailsPanel());
-
-    QPushButton *button = new QPushButton("Close", this);
-    button->setAutoDefault(false);
-    connect(button, SIGNAL(clicked()), this, SLOT(close()));
-
-    QHBoxLayout *buttonLayout = new QHBoxLayout;
-    buttonLayout->addStretch(3);
-//    buttonLayout->setContentsMargins(0, 8, 5, 0);
-    buttonLayout->setContentsMargins(0, 0, 0, 0);
-    buttonLayout->addWidget(button);
-
-    mainLayout->addLayout(buttonLayout);
+    mainLayout->addLayout(buttonLayout());
 
     setLayout(mainLayout);
-
     setAttribute(Qt::WA_DeleteOnClose, true);
 }
 
 //! Top panel with warning icon and the header
-QWidget *ProjectLoadWarningDialog::createTopPanel()
+QWidget* ProjectLoadWarningDialog::createTopPanel()
 {
-    QWidget *result = new QWidget(this);
-    QHBoxLayout *layout = new QHBoxLayout;
+    auto result = new QWidget(this);
+    auto layout = new QHBoxLayout;
 
-    // ---
-    QLabel *warningLabel = new QLabel;
+    auto warningLabel = new QLabel;
     warningLabel->setPixmap(QPixmap(":/images/warning_64x64.png"));
 
-    QWidget *warningWidget = new QWidget;
+    auto warningWidget = new QWidget;
     warningWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    warningWidget->resize(top_panel_height,top_panel_height);
-    QHBoxLayout *warningWidgetLayout = new QHBoxLayout;
+    warningWidget->resize(top_panel_height, top_panel_height);
+    auto warningWidgetLayout = new QHBoxLayout;
     warningWidgetLayout->addWidget(warningLabel);
     warningWidget->setLayout(warningWidgetLayout);
 
@@ -92,77 +72,73 @@ QWidget *ProjectLoadWarningDialog::createTopPanel()
     titleFont.setPointSize(DesignerHelper::getSectionFontSize());
     titleFont.setBold(true);
 
-    QLabel *messageLabel = new QLabel();
+    auto messageLabel = new QLabel();
     messageLabel->setFont(titleFont);
     messageLabel->setText("Some parts of the project were not loaded correctly.");
     messageLabel->setWordWrap(true);
 
     layout->addWidget(warningWidget);
     layout->addWidget(messageLabel);
-
-    layout ->setContentsMargins(0, 0, 0, 0);
-
+    layout->setContentsMargins(0, 0, 0, 0);
     result->setLayout(layout);
+
     return result;
 }
 
 //! Info panel with summary over warnings in different models
-QWidget *ProjectLoadWarningDialog::createModelInfoPanel()
+QWidget* ProjectLoadWarningDialog::createModelInfoPanel()
 {
-    QWidget *result = new QWidget(this);
-    QHBoxLayout *layout = new QHBoxLayout;
+    auto result = new QWidget(this);
+    auto layout = new QHBoxLayout;
 
-    QFrame* line = new QFrame();
+    auto line = new QFrame();
     line->setFrameShape(QFrame::VLine);
     line->setFrameShadow(QFrame::Sunken);
 
+    auto gridLayout = new QGridLayout;
 
-    QGridLayout *gridLayout = new QGridLayout;
-
-    QStringList names = getModelNames();
-    for(int irow=0; irow<names.size(); ++irow) {
+    QStringList names = m_messageService->senderList();
+    for (int irow = 0; irow < names.size(); ++irow) {
         gridLayout->addWidget(new QLabel(names.at(irow)), irow, 0);
-        gridLayout->addWidget(createModelStatusLabel(names.at(irow)), irow, 1);
+        gridLayout->addWidget(new QLabel("WARNINGS"), irow, 1);
     }
 
     layout->addWidget(line);
     layout->addLayout(gridLayout);
     layout->addWidget(new QWidget);
 
-    layout ->setContentsMargins(0, 0, 0, 0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     result->setLayout(layout);
     return result;
 }
 
 //! Info panel with explanations what had happened and what to do
-QWidget *ProjectLoadWarningDialog::createExplanationPanel()
+QWidget* ProjectLoadWarningDialog::createExplanationPanel()
 {
-    QWidget *result = new QWidget(this);
-    QVBoxLayout *layout = new QVBoxLayout;
+    auto result = new QWidget(this);
+    auto layout = new QVBoxLayout;
 
     QFont titleFont;
     titleFont.setPointSize(DesignerHelper::getSectionFontSize());
     titleFont.setBold(true);
 
-    QLabel *whyLabel = new QLabel;
+    auto whyLabel = new QLabel;
     whyLabel->setFont(titleFont);
     whyLabel->setText("Why did this happen to me?");
 
-    QLabel *explanationLabel = new QLabel;
-    explanationLabel->setText(getExplanationText());
+    auto explanationLabel = new QLabel;
+    explanationLabel->setText(explanationText());
     explanationLabel->setWordWrap(true);
 
-    QLabel *whatLabel = new QLabel;
+    auto whatLabel = new QLabel;
     whatLabel->setFont(titleFont);
     whatLabel->setText("What to do?");
 
-    QLabel *adviceLabel = new QLabel;
-    QString adviceText(
-        "Check parameters of your items and re-enter uninitialized values. "
-        "Use detailed log below to get a hint what went wrong. "
-        "After that, save you project and work as normal."
-                );
+    auto adviceLabel = new QLabel;
+    QString adviceText("Check parameters of your items and re-enter uninitialized values. "
+                       "Use detailed log below to get a hint what went wrong. "
+                       "After that, save you project and work as normal.");
     adviceLabel->setText(adviceText);
     adviceLabel->setWordWrap(true);
 
@@ -171,133 +147,123 @@ QWidget *ProjectLoadWarningDialog::createExplanationPanel()
     layout->addWidget(whatLabel);
     layout->addWidget(adviceLabel);
 
-    layout ->setContentsMargins(0, 0, 0, 0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     result->setLayout(layout);
     return result;
 }
 
 //! Info panel with table widget containing error messages
-QWidget *ProjectLoadWarningDialog::createDetailsPanel()
+QWidget* ProjectLoadWarningDialog::createDetailsPanel()
 {
-    QWidget *result = new QWidget(this);
-    QVBoxLayout *layout = new QVBoxLayout;
+    auto result = new QWidget(this);
+    auto layout = new QVBoxLayout;
 
     QFont titleFont;
     titleFont.setPointSize(DesignerHelper::getSectionFontSize());
     titleFont.setBold(true);
 
-    QLabel *detailsLabel = new QLabel;
+    auto detailsLabel = new QLabel;
     detailsLabel->setFont(titleFont);
     detailsLabel->setText("Details");
 
     layout->addWidget(detailsLabel);
     layout->addWidget(createTableWidget());
 
-    layout ->setContentsMargins(0, 0, 0, 0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     result->setLayout(layout);
     return result;
 }
 
 //! Creates QTableWidget and fills it with error messages
-QTableWidget *ProjectLoadWarningDialog::createTableWidget()
+QTableWidget* ProjectLoadWarningDialog::createTableWidget()
 {
-    Q_ASSERT(m_messageService);
-    QTableWidget *result = new QTableWidget;
+    auto result = new QTableWidget;
+    result->setWordWrap(true);
+//    result->setTextElideMode(Qt::ElideMiddle);
 
-    result->setRowCount(getNumberOfTableRows());
-    result->setColumnCount(getTableHeaderLabels().size());
-    result->setHorizontalHeaderLabels(getTableHeaderLabels());
+    result->setStyleSheet(
+        "QToolTip { color: #ffffff; background-color: #fcfcfc; border: 1px solid black; }");
+
+    result->setRowCount(numberOfTableRows());
+    result->setColumnCount(tableHeaderLabels().size());
+    result->setHorizontalHeaderLabels(tableHeaderLabels());
     result->verticalHeader()->setVisible(false);
     result->horizontalHeader()->setStretchLastSection(true);
 
     int rowCount(0);
-    for (WarningMessageService::container_t::const_iterator it = m_messageService->begin();
-         it != m_messageService->end(); ++it) {
-        const MessageContainer *messageContainer = it.value();
-        for (MessageContainer::const_iterator it = messageContainer->begin();
-             it != messageContainer->end(); ++it) {
-            const GUIMessage *guiMessage = (*it);
-            // item->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-
-            result->setItem(rowCount, 0, createTableItem(guiMessage->getSenderName()));
-            result->setItem(rowCount, 1, createTableItem(guiMessage->getMessageType()));
-            result->setItem(rowCount, 2, createTableItem(guiMessage->getMessageDescription()));
-            ++rowCount;
-        }
+    for (auto message : m_messageService->messages()) {
+        result->setItem(rowCount, 0, createTableItem(message->senderName()));
+        result->setItem(rowCount, 1, createTableItem(message->messageType()));
+        result->setItem(rowCount, 2, createTableItem(message->messageDescription()));
+        ++rowCount;
     }
+
+    result->resizeRowsToContents();
+
+    return result;
+}
+
+QLayout* ProjectLoadWarningDialog::buttonLayout()
+{
+    auto result = new QHBoxLayout;
+
+    auto button = new QPushButton("Close", this);
+    button->setAutoDefault(false);
+    connect(button, SIGNAL(clicked()), this, SLOT(close()));
+
+    result->addStretch(3);
+    result->setContentsMargins(0, 0, 0, 0);
+    result->addWidget(button);
 
     return result;
 }
 
 //! Returns number of rows in table with error messages, each row represents an error message
-int ProjectLoadWarningDialog::getNumberOfTableRows() const
+int ProjectLoadWarningDialog::numberOfTableRows() const
 {
-    Q_ASSERT(m_messageService);
-    int result(0);
-    for(WarningMessageService::container_t::const_iterator it=m_messageService->begin(); it!=m_messageService->end(); ++it) {
-        result += it.value()->size();
-    }
-    return result;
+    return m_messageService->messages().size();
 }
 
 //! Returns labels for table header
-QStringList ProjectLoadWarningDialog::getTableHeaderLabels() const
+QStringList ProjectLoadWarningDialog::tableHeaderLabels() const
 {
-    QStringList result;
-    result << "Sender" << "Warning" << "Description";
-    return result;
+    return QStringList() << "Sender" << "Message" << "Description";
 }
 
-QTableWidgetItem *ProjectLoadWarningDialog::createTableItem(const QString &name)
+QTableWidgetItem* ProjectLoadWarningDialog::createTableItem(const QString& name)
 {
-  QTableWidgetItem *result = new QTableWidgetItem(name);
-  result->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-  return result;
-}
+    auto result = new QTableWidgetItem(name);
+    result->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
+    // trick to turn tooltip text to rich text and so have multi-line appearance
+    QString toolTip = QString("<font color=black>%1</font>").arg(name);
+    result->setToolTip(toolTip);
 
-//! Returns list of model names to form summary
-QStringList ProjectLoadWarningDialog::getModelNames() const
-{
-    QStringList names;
-    names << SessionXML::MaterialModelTag << SessionXML::InstrumentModelTag
-          << SessionXML::SampleModelTag << SessionXML::JobModelTag;
-    return names;
-}
-
-//! create status label "OK"/"WARNING" depending on presence of warning messages in the container
-QLabel *ProjectLoadWarningDialog::createModelStatusLabel(const QString &model_name) const
-{
-    QLabel *result = new QLabel("OK");
-    for (WarningMessageService::container_t::const_iterator it = m_messageService->begin();
-         it != m_messageService->end(); ++it) {
-
-        const MessageContainer *messageContainer = it.value();
-        if (model_name == it.key()->objectName() && messageContainer->size()) {
-            result->setText("WARNING");
-        }
-    }
     return result;
 }
 
 //! Returns explanations what went wrong.
-QString ProjectLoadWarningDialog::getExplanationText() const
+QString ProjectLoadWarningDialog::explanationText() const
 {
     QString result;
-    if(m_projectDocumentVersion != GUIHelpers::getBornAgainVersionString()) {
-        result = QString(
-                    "Given project was created using BornAgain version %1 "
-                    " which is different from version %2 you are currently using. "
-                    "At the moment we provide only limited support for import from older versions."
-                    ).arg(m_projectDocumentVersion).arg(GUIHelpers::getBornAgainVersionString());
+    if (m_projectDocumentVersion != GUIHelpers::getBornAgainVersionString()) {
+        result
+            = QString(
+                  "Given project was created using BornAgain version %1 "
+                  " which is different from version %2 you are currently using. "
+                  "At the moment we provide only limited support for import from older versions.")
+                  .arg(m_projectDocumentVersion)
+                  .arg(GUIHelpers::getBornAgainVersionString());
     } else {
-        result = QString(
-            "Given project was created using BornAgain version %1 "
-            "which is the same as the current version of the framework. "
-            "Strangely enough, some parts was not loaded correctly due to format mismatch. "
-            "Please contact developpers.").arg(m_projectDocumentVersion);
+        result
+            = QString(
+                  "Given project was created using BornAgain version %1 "
+                  "which is the same as the current version of the framework. "
+                  "Strangely enough, some parts was not loaded correctly due to format mismatch. "
+                  "Please contact developpers.")
+                  .arg(m_projectDocumentVersion);
     }
     return result;
 }

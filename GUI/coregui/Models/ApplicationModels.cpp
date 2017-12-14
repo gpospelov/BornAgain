@@ -26,7 +26,7 @@
 #include "RealDataModel.h"
 #include "SampleBuilderFactory.h"
 #include "SampleModel.h"
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include "RealDataItem.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
@@ -204,13 +204,11 @@ void ApplicationModels::writeTo(QXmlStreamWriter* writer)
         model->writeTo(writer);
 }
 
-void ApplicationModels::readFrom(QXmlStreamReader* reader, WarningMessageService* messageService)
+void ApplicationModels::readFrom(QXmlStreamReader* reader, MessageService* messageService)
 {
     for(auto model : modelList()) {
         if (model->getModelTag() == reader->name()) {
             model->readFrom(reader, messageService);
-            if (messageService->hasWarnings(model))
-                messageService->send_message(this, "MODEL_READ_WARNING", model->getModelTag());
             break;
         }
     }

@@ -44,6 +44,7 @@
 #include "TestUpdateTimer.h"
 #include "TestSessionItemData.h"
 #include "TestSessionItemTags.h"
+#include "TestMessageService.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);

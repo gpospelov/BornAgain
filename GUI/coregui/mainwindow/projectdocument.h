@@ -23,7 +23,7 @@
 
 class QIODevice;
 class ApplicationModels;
-class WarningMessageService;
+class MessageService;
 class OutputDataIOService;
 
 namespace ProjectDocumentXML
@@ -74,7 +74,7 @@ public:
     bool isModified();
     void setModified(bool flag);
 
-    void setLogger(WarningMessageService* messageService);
+    void setLogger(MessageService* messageService);
 
     ProjectFlags::DocumentStatus documentStatus() const;
 
@@ -106,7 +106,7 @@ private:
     ApplicationModels* m_applicationModels;
     bool m_modified;
     ProjectFlags::DocumentStatus m_documentStatus;
-    WarningMessageService* m_messageService;
+    MessageService* m_messageService;
     QString m_currentVersion;
     OutputDataIOService* m_dataService;
 };

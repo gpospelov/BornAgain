@@ -19,7 +19,7 @@
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "ProjectLoadWarningDialog.h"
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "newprojectdialog.h"
@@ -44,7 +44,7 @@ namespace {
 ProjectManager::ProjectManager(MainWindow* parent)
     : m_mainWindow(parent)
     , m_project_document(nullptr)
-    , m_messageService(new WarningMessageService)
+    , m_messageService(new MessageService)
     , m_saveService(new SaveService(this))
 
 {
@@ -417,8 +417,8 @@ void ProjectManager::riseProjectLoadFailedDialog()
     QString message = QString("Failed to load the project '%1' \n\n")
                           .arg(m_project_document->projectFileName());
 
-    QString details = m_messageService->getMessages(m_project_document);
-    message.append(details);
+    for (auto details : m_messageService->errorDescriptionList(m_project_document))
+        message.append(details+"\n");
 
     QMessageBox::warning(m_mainWindow, "Error while opening project file", message);
 }

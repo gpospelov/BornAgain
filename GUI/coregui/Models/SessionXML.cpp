@@ -21,22 +21,18 @@
 #include "ExternalProperty.h"
 #include "GroupItemController.h"
 #include "SessionModel.h"
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include "SessionItemTags.h"
 #include <QtCore/QXmlStreamWriter>
 
 namespace
 {
-const QString SET_ITEM_PROPERTY_ERROR = "SET_ITEM_PROPERTY_ERROR";
-const QString ITEM_IS_NOT_INITIALIZED = "ITEM_IS_NOT_INITIALIZED";
-
 const QString bool_type_name = "bool";
 const QString double_type_name = "double";
 const QString int_type_name = "int";
 const QString qstring_type_name = "QString";
 
-void report_error(WarningMessageService* messageService, SessionItem* item,
-                  const QString& error_type, const QString& message);
+void report_error(MessageService* messageService, SessionItem* item, const QString& message);
 
 SessionItem* createItem(SessionItem* item, const QString& modelType, const QString& tag);
 }
@@ -128,7 +124,7 @@ void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int ro
 }
 
 void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QString topTag,
-                           WarningMessageService* messageService)
+                           MessageService* messageService)
 {
     Q_ASSERT(parent);
     const QString start_type = parent->model()->getModelTag();
@@ -147,8 +143,17 @@ void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QStrin
                     tag = topTag;
                     topTag.clear();
                 }
-                parent = createItem(parent, model_type, tag);
-                parent->setDisplayName(displayName);
+                auto newItem = createItem(parent, model_type, tag);
+                if (!newItem) {
+                    QString message = QString("Error while parsing XML. Can't create item of "
+                                              "modelType '%1' for tag '%2'").arg(model_type, tag);
+                    report_error(messageService, parent, message);
+                    // risky attempt to recover the rest of the project
+                    reader->skipCurrentElement();
+                } else {
+                    parent = newItem;
+                    parent->setDisplayName(displayName);
+                }
             } else if (reader->name() == SessionXML::ParameterTag) {
                 SessionXML::readProperty(reader, parent, messageService);
             }
@@ -163,7 +168,7 @@ void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QStrin
 }
 
 QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
-                                 WarningMessageService* messageService)
+                                 MessageService* messageService)
 {
     const QString parameter_name
         = reader->attributes().value(SessionXML::ParameterNameAttribute).toString();
@@ -174,7 +179,7 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
     if (!item) {
         QString message
             = QString("Attempt to set property '%1' for non existing item").arg(parameter_name);
-        report_error(messageService, item, ITEM_IS_NOT_INITIALIZED, message);
+        report_error(messageService, item, message);
         return parameter_name;
     }
 
@@ -231,9 +236,9 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
     }
 
     else {
-        throw GUIHelpers::Error("SessionModel::readProperty: "
-                                "Parameter type not supported"
-                                + parameter_type);
+        QString message = QString("SessionModel::readProperty: parameter type not supported '"+
+                                  parameter_type+"'");
+        throw GUIHelpers::Error(message);
     }
 
     if (variant.isValid()) {
@@ -245,13 +250,12 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
 
 namespace
 {
-void report_error(WarningMessageService* messageService, SessionItem* item,
-                  const QString& error_type, const QString& message)
+void report_error(MessageService* messageService, SessionItem* item, const QString& message)
 {
     if (messageService) {
-        messageService->send_message(item->model(), error_type, message);
+        messageService->send_warning(item->model(), message);
     } else {
-        throw GUIHelpers::Error(error_type + QString(" ") + message);
+        throw GUIHelpers::Error(QString("Warning: ") + message);
     }
 }
 
@@ -268,7 +272,6 @@ SessionItem* createItem(SessionItem* item, const QString& modelType, const QStri
         else
             result = item->model()->insertNewItem(modelType, item->index(), -1, tag);
     }
-    Q_ASSERT(result);
     return result;
 }
 }

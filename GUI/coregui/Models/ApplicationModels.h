@@ -29,6 +29,7 @@ class RealDataModel;
 class SampleModel;
 class JobModel;
 class MaterialPropertyController;
+class MessageService;
 
 class BA_CORE_API_ ApplicationModels : public QObject
 {
@@ -51,7 +52,7 @@ public:
     void createTestRealData();
 
     void writeTo(class QXmlStreamWriter* writer);
-    void readFrom(class QXmlStreamReader* reader, class WarningMessageService* messageService);
+    void readFrom(class QXmlStreamReader* reader, MessageService* messageService);
 
     QList<SessionModel*> modelList();
 

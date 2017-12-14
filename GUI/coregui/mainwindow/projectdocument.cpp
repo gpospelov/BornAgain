@@ -17,7 +17,7 @@
 #include "projectdocument.h"
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include "ProjectUtils.h"
 #include "OutputDataIOService.h"
 #include "JobModel.h"
@@ -26,9 +26,6 @@
 #include <QElapsedTimer>
 
 namespace {
-const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
-const QString EXCEPTION_THROW = "EXCEPTION_THROW";
-const QString XML_FORMAT_ERROR = "XML_FORMAT_ERROR";
 const QString minimal_supported_version = "1.6.0";
 }
 
@@ -141,25 +138,29 @@ void ProjectDocument::load(const QString& project_file_name)
 
     QFile file(projectFileName());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        m_messageService->send_message(this, OPEN_FILE_ERROR, file.errorString());
+        QString message = QString("Open file error '%1'").arg(file.errorString());
+        m_messageService->send_error(this, message);
         ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
         return;
     }
 
     try {
-        // loading project file
         disconnectModels();
         readFrom(&file);
         file.close();
 
         timer2.start();
-        m_dataService->load(projectDir());
+        m_dataService->load(projectDir(), m_messageService);
         m_applicationModels->jobModel()->link_instruments();
         connectModels();
 
+        if (m_messageService->warningCount())
+            ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_WARNING);
+
     } catch (const std::exception& ex) {
+        QString message = QString("Exception thrown '%1'").arg(QString(ex.what()));
+        m_messageService->send_error(this, message);
         ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
-        m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
     }
 }
 
@@ -180,7 +181,7 @@ void ProjectDocument::setModified(bool flag)
         emit modified();
 }
 
-void ProjectDocument::setLogger(WarningMessageService* messageService)
+void ProjectDocument::setLogger(MessageService* messageService)
 {
     m_messageService = messageService;
 }
@@ -243,7 +244,7 @@ void ProjectDocument::readFrom(QIODevice* device)
                                               "minimal supported version '%2'")
                                           .arg(m_currentVersion)
                                           .arg(minimal_supported_version);
-                    m_messageService->send_message(this, OPEN_FILE_ERROR, message);
+                    m_messageService->send_error(this, message);
                     return;
                 }
 
@@ -253,7 +254,7 @@ void ProjectDocument::readFrom(QIODevice* device)
                 //
             } else {
                 m_applicationModels->readFrom(&reader, m_messageService);
-                if (m_messageService->hasWarnings(m_applicationModels)) {
+                if (m_messageService->messageCount(m_applicationModels) > 0) {
                     ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_WARNING);
                 }
             }
@@ -262,7 +263,8 @@ void ProjectDocument::readFrom(QIODevice* device)
 
     if (reader.hasError()) {
         ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
-        m_messageService->send_message(this, XML_FORMAT_ERROR, reader.errorString());
+        QString message = QString("Format error '%1'").arg(reader.errorString());
+        m_messageService->send_error(this, message);
         return;
     }
 }

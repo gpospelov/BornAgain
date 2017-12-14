@@ -23,7 +23,7 @@
 class QXmlStreamWriter;
 class QXmlStreamReader;
 class SessionItem;
-class WarningMessageService;
+class MessageService;
 
 namespace SessionXML
 {
@@ -60,9 +60,9 @@ BA_CORE_API_ void writeVariant(QXmlStreamWriter* writer, QVariant variant, int r
 
 BA_CORE_API_ void readItems(QXmlStreamReader* reader, SessionItem* parent,
                             QString topTag = QString(),
-                            WarningMessageService* messageService = nullptr);
+                            MessageService* messageService = nullptr);
 BA_CORE_API_ QString readProperty(QXmlStreamReader* reader, SessionItem* item,
-                                  WarningMessageService* messageService = nullptr);
+                                  MessageService* messageService = nullptr);
 }
 
 #endif // SESSIONXML_H

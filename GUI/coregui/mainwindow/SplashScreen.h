@@ -24,18 +24,18 @@ class BA_CORE_API_ SplashScreen : public QSplashScreen
 {
     Q_OBJECT
 public:
-    explicit SplashScreen(QWidget *parent = 0);
+    explicit SplashScreen(QWidget* parent = nullptr);
 
+    void start(int show_during = 1500);
 
 public slots:
     void setProgress(int value);
 
 protected:
-    void drawContents(QPainter *painter);
-private:
-    int m_width, m_height;
-    int m_percentage_done;
+    void drawContents(QPainter* painter);
 
+private:
+    int m_percentage_done;
 };
 
 #endif // SPLASHSCREEN_H

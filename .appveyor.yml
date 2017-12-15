@@ -42,7 +42,7 @@ test_script:
 - echo %PYTHONPATH%
 - echo %PYTHONHOME%
 - ps: >-
-    ctest -LE Examples --output-on-failure
+    ctest -LE Fullcheck --output-on-failure
 
     if (-not $?) { 
 

@@ -4,12 +4,13 @@
 #include "gtest/internal/gtest-param-util.h"
 #include "HardParticles.h"
 
-const complex_t I(0,1);
-double eps_polyh = 7.5e-13;
-
 using ::testing::Values;
 using ::testing::internal::ParamGenerator;
 using ::testing::Combine;
+
+namespace TestData{
+
+const complex_t I(0,1);
 
 auto qlist = testing::Combine(
     testing::Values(
@@ -41,14 +42,15 @@ auto qlist = testing::Combine(
         .9, -.99, .999, -.9999 )
     );
 
+}
 
-class SpecializationTest : public ::testing::Test
+class FormFactorTest : public ::testing::Test
 {
 protected:
-    SpecializationTest() : gen(qlist) {}
-    ~SpecializationTest();
+    ~FormFactorTest();
 
-    void test_all(IFormFactorBorn* p0, IFormFactorBorn* p1, double eps=1e-12) {
+    template<typename T>
+    void test_all(double qmag1, double qmag2, T fun) {
         for (auto it : gen) {
             cvector_t qdir = std::get<0>(it);
             cvector_t qdev = std::get<1>(it);
@@ -56,20 +58,11 @@ protected:
             complex_t qeps = std::get<3>(it);
             m_q = qmag * (qdir + qeps*qdev).unit();
 
-            if (skip_q(1e-99, 5e2))
+            if (skip_q(qmag1, qmag2))
                 continue;
 
-            test_ff_eq(p0, p1, eps_polyh);
+            fun();
         }
-    }
-
-    void test_ff_eq(IFormFactorBorn* p0, IFormFactorBorn* p1, double eps=1e-12) {
-        complex_t f0 = p0->evaluate_for_q(m_q);
-        complex_t f1 = p1->evaluate_for_q(m_q);
-        double avge = (std::abs(f0) + std::abs(f1))/2;
-        //std::cout<<"q="<<q<<" -> "<<std::setprecision(16)<<" f0="<<f0<<", f1="<<f1<<"\n";
-        EXPECT_NEAR( real(f0), real(f1), eps*avge );
-        EXPECT_NEAR( imag(f0), imag(f1), eps*avge );
     }
 
     bool skip_q( double qmag_begin=1e-99, double qmag_end=1e99 ) {
@@ -77,16 +70,8 @@ protected:
     }
 
     cvector_t m_q;
-    ParamGenerator<std::tuple<cvector_t, cvector_t, double, complex_t>> gen;
+    static ParamGenerator<std::tuple<cvector_t, cvector_t, double, complex_t>> gen;
 };
 
-SpecializationTest::~SpecializationTest() = default;
-
-TEST_F(SpecializationTest, Start)
-{
-    double L = 1.5, H = .24, alpha = .6;
-    FormFactorAnisoPyramid p0(L, L, H, alpha);
-    FormFactorPyramid p1(L, H, alpha);
-    test_all(&p0, &p1, eps_polyh);
-}
-
+FormFactorTest::~FormFactorTest() = default;
+ParamGenerator<std::tuple<cvector_t, cvector_t, double, complex_t>> FormFactorTest::gen = TestData::qlist;

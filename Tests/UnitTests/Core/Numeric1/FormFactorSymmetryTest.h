@@ -9,6 +9,22 @@ class FFSymmetryTest : public QLoopedTest
 public:
     ~FFSymmetryTest();
     void test_qq_eq( IFormFactorBorn* p, cvector_t q0, cvector_t q1, double eps=1e-12 ) {
+
+        std::cout
+                << q0.x().real() << " "
+                << q0.x().imag() << " "
+                << q0.y().real() << " "
+                << q0.y().imag() << " "
+                << q0.z().real() << " "
+                << q0.z().imag() << " "
+                << q1.x().real() << " "
+                << q1.x().imag() << " "
+                << q1.y().real() << " "
+                << q1.y().imag() << " "
+                << q1.z().real() << " "
+                << q1.z().imag() << " "
+                  << std::endl;
+
         complex_t f0 = p->evaluate_for_q(q0);
         complex_t f1 = p->evaluate_for_q(q1);
         double avge = (std::abs(f0) + std::abs(f1))/2;
@@ -27,47 +43,47 @@ INSTANTIATE_TEST_CASE_P(
 
 //*********** polyhedra ***************
 
-TEST_P(FFSymmetryTest, Prism3)
-{
-    if (skip_q(1e-99, 2e2))
-        return;
-    FormFactorPrism3 p(.83, .45);
-    test_qq_eq(&p, q, q.rotatedZ(M_TWOPI / 3));
-}
+//TEST_P(FFSymmetryTest, Prism3)
+//{
+//    if (skip_q(1e-99, 2e2))
+//        return;
+//    FormFactorPrism3 p(.83, .45);
+//    test_qq_eq(&p, q, q.rotatedZ(M_TWOPI / 3));
+//}
 
-TEST_P(FFSymmetryTest, Prism6)
-{
-    if (skip_q(1e-99, 2e3))
-        return;
-    FormFactorPrism6 p(1.33, .42);
-    test_qq_eq(&p, q, q.rotatedZ(M_PI / 3), 1e-12);
-    test_qq_eq(&p, q, q.rotatedZ(-M_TWOPI / 3), 3.8e-12);
-}
+//TEST_P(FFSymmetryTest, Prism6)
+//{
+//    if (skip_q(1e-99, 2e3))
+//        return;
+//    FormFactorPrism6 p(1.33, .42);
+//    test_qq_eq(&p, q, q.rotatedZ(M_PI / 3), 1e-12);
+//    test_qq_eq(&p, q, q.rotatedZ(-M_TWOPI / 3), 3.8e-12);
+//}
 
-TEST_P(FFSymmetryTest, Tetrahedron)
-{
-    if (skip_q(1e-99, 2e2))
-        return;
-    FormFactorTetrahedron p(8.43, .25, .53);
-    test_qq_eq(&p, q, q.rotatedZ(M_TWOPI / 3), 6e-12);
-    // Linux: 3e-12, relaxed for Mac
-}
+//TEST_P(FFSymmetryTest, Tetrahedron)
+//{
+//    if (skip_q(1e-99, 2e2))
+//        return;
+//    FormFactorTetrahedron p(8.43, .25, .53);
+//    test_qq_eq(&p, q, q.rotatedZ(M_TWOPI / 3), 6e-12);
+//    // Linux: 3e-12, relaxed for Mac
+//}
 
-TEST_P(FFSymmetryTest, Cone6_flat)
-{
-    if (skip_q(1e-99, 2e2)) // TODO for larger q, imag(ff) is nan
-        return;
-    FormFactorCone6 p(4.3, .09, .1);
-    test_qq_eq(&p, q, q.rotatedZ(-M_PI / 3), 3.8e-12);
-}
+//TEST_P(FFSymmetryTest, Cone6_flat)
+//{
+//    if (skip_q(1e-99, 2e2)) // TODO for larger q, imag(ff) is nan
+//        return;
+//    FormFactorCone6 p(4.3, .09, .1);
+//    test_qq_eq(&p, q, q.rotatedZ(-M_PI / 3), 3.8e-12);
+//}
 
-TEST_P(FFSymmetryTest, Cone6_steep)
-{
-    if (skip_q(1e-99, 2e2)) // TODO for larger q, imag(ff) is nan
-        return;
-    FormFactorCone6 p(.23, 3.5, .999 * M_PI / 2);
-    test_qq_eq(&p, q, q.rotatedZ(-M_PI / 3), 2.5e-12);
-}
+//TEST_P(FFSymmetryTest, Cone6_steep)
+//{
+//    if (skip_q(1e-99, 2e2)) // TODO for larger q, imag(ff) is nan
+//        return;
+//    FormFactorCone6 p(.23, 3.5, .999 * M_PI / 2);
+//    test_qq_eq(&p, q, q.rotatedZ(-M_PI / 3), 2.5e-12);
+//}
 
 //*********** spheroids ***************
 
@@ -80,12 +96,12 @@ TEST_P(FFSymmetryTest, HemiEllipsoid)
     test_qq_eq(&p, q, cvector_t(q.x(), -q.y(), q.z()));
 }
 
-TEST_P(FFSymmetryTest, TruncatedSphere)
-{
-    if (skip_q(1e-99, 2e2))
-        return;
-    FormFactorTruncatedSphere p(.79, .34);
-    test_qq_eq(&p, q, q.rotatedZ(M_PI / 3.13698), 1e-10);
-}
+//TEST_P(FFSymmetryTest, TruncatedSphere)
+//{
+//    if (skip_q(1e-99, 2e2))
+//        return;
+//    FormFactorTruncatedSphere p(.79, .34);
+//    test_qq_eq(&p, q, q.rotatedZ(M_PI / 3.13698), 1e-10);
+//}
 
 // ****** TODO: tests that do not pass for the full q range *********

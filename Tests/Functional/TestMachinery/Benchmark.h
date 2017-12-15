@@ -40,6 +40,7 @@ private:
 
 class BA_CORE_API_ Benchmark
 {
+    typedef OrderedMap<std::string, Duration*> BenchmarkMap;
 public:
     Benchmark() {}
     ~Benchmark();
@@ -48,11 +49,12 @@ public:
     void stop(const std::string& name);
     double runTime(const std::string& name);
     std::string report() const;
+    const BenchmarkMap& retrieveData() const {return m_data;}
 
     void test_method(const std::string& name, std::function<void(void)> f, int ntries);
 
 private:
-    OrderedMap<std::string, Duration* > m_data;
+    BenchmarkMap m_data;
 };
 
 #endif // COREIOTEST_H

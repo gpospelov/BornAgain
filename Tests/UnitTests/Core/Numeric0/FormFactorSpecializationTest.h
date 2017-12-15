@@ -1,112 +1,93 @@
 #include "google_test.h"
-#include "MathConstants.h"
-#include "BornAgainNamespace.h"
-#include "HardParticles.h"
-#include "qLoopedTest.h"
+#include "FormFactorTest.h"
 
-class FFSpecializationTest : public QLoopedTest
+class FFSpecializationTest : public FormFactorTest
 {
-public:
-    void test_ff_eq(IFormFactorBorn* p0, IFormFactorBorn* p1, double eps=1e-12) {
-        complex_t f0 = p0->evaluate_for_q(q);
-        complex_t f1 = p1->evaluate_for_q(q);
+protected:
+    ~FFSpecializationTest();
+
+    void run_test(IFormFactorBorn* p0, IFormFactorBorn* p1, double eps, double qmag1, double qmag2)
+    {
+        test_all(qmag1, qmag2, [&](){test_ff_eq(p0, p1, eps);});
+    }
+
+    void test_ff_eq(IFormFactorBorn* p0, IFormFactorBorn* p1, double eps) {
+        complex_t f0 = p0->evaluate_for_q(m_q);
+        complex_t f1 = p1->evaluate_for_q(m_q);
         double avge = (std::abs(f0) + std::abs(f1))/2;
-        //std::cout<<"q="<<q<<" -> "<<std::setprecision(16)<<" f0="<<f0<<", f1="<<f1<<"\n";
         EXPECT_NEAR( real(f0), real(f1), eps*avge );
         EXPECT_NEAR( imag(f0), imag(f1), eps*avge );
     }
-    ~FFSpecializationTest();
+
+    static double eps_polyh;
 };
 
 FFSpecializationTest::~FFSpecializationTest() = default;
+double FFSpecializationTest::eps_polyh = 7.5e-13;
 
-INSTANTIATE_TEST_CASE_P(
-    FFSpecializationTests,
-    FFSpecializationTest,
-    qlist);
-
-//*********** polyhedra ***************
-
-double eps_polyh = 7.5e-13;
-
-TEST_P(FFSpecializationTest, TruncatedCubeAsBox)
+TEST_F(FFSpecializationTest, TruncatedCubeAsBox)
 {
-    if (skip_q(1e-99, 5e2))
-        return;
-    double L = .5;
+    const double L = .5;
     FormFactorTruncatedCube p0(L, 0);
     FormFactorBox p1(L, L, L);
-    test_ff_eq(&p0, &p1, eps_polyh);
+    run_test(&p0, &p1, eps_polyh, 1e-99, 5e2);
 }
 
-TEST_P(FFSpecializationTest, AnisoPyramidAsPyramid)
+TEST_F(FFSpecializationTest, AnisoPyramidAsPyramid)
 {
-    if (skip_q(1e-99, 5e3))
-        return;
-    double L = 1.5, H = .24, alpha = .6;
+    const double L = 1.5, H = .24, alpha = .6;
     FormFactorAnisoPyramid p0(L, L, H, alpha);
     FormFactorPyramid p1(L, H, alpha);
-    test_ff_eq(&p0, &p1, eps_polyh);
+    run_test(&p0, &p1, eps_polyh, 1e-99, 5e3);
 }
 
-TEST_P(FFSpecializationTest, Pyramid3AsPrism)
+TEST_F(FFSpecializationTest, Pyramid3AsPrism)
 {
-    if (skip_q(1e-99, 5e3))
-        return;
-    double L = 1.8, H = .3;
+    const double L = 1.8, H = .3;
     FormFactorTetrahedron p0(L, H, M_PI / 2);
     FormFactorPrism3 p1(L, H);
-    test_ff_eq(&p0, &p1, eps_polyh);
+    run_test(&p0, &p1, eps_polyh, 1e-99, 5e3);
 }
 
-TEST_P(FFSpecializationTest, PyramidAsBox)
+TEST_F(FFSpecializationTest, PyramidAsBox)
 {
-    if (skip_q(1e-99, 5e2))
-        return;
-    double L = 1.8, H = .3;
+    const double L = 1.8, H = .3;
     FormFactorPyramid p0(L, H, M_PI / 2);
     FormFactorBox p1(L, L, H);
-    test_ff_eq(&p0, &p1, eps_polyh);
+    run_test(&p0, &p1, eps_polyh, 1e-99, 5e2);
 }
 
-TEST_P(FFSpecializationTest, Cone6AsPrism)
+TEST_F(FFSpecializationTest, Cone6AsPrism)
 {
-    if (skip_q(1e-99, 5e2))
-        return;
-    double L = .8, H = 1.13;
+    const double L = .8, H = 1.13;
     FormFactorCone6 p0(L, H, M_PI / 2);
     FormFactorPrism6 p1(L, H);
-    test_ff_eq(&p0, &p1, eps_polyh);
+    run_test(&p0, &p1, eps_polyh, 1e-99, 5e2);
 }
 
 //*********** spheroids ***************
 
-TEST_P(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
+TEST_F(FFSpecializationTest, HemiEllipsoidAsTruncatedSphere)
 {
-    if (skip_q(1e-99, 5e2))
-        return;
-    double R = 1.07;
+    const double R = 1.07;
     FormFactorHemiEllipsoid p0(R, R, R);
     FormFactorTruncatedSphere p1(R, R);
-    test_ff_eq(&p0, &p1, 1e-10);
+    run_test(&p0, &p1, 1e-10, 1e-99, 5e2);
 }
 
-TEST_P(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
+TEST_F(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
 {
-    if (skip_q(1e-99, 5e3))
-        return;
-    double R = .8, H = 1.2;
+    const double R = .8, H = 1.2;
     FormFactorEllipsoidalCylinder p0(R, R, H);
     FormFactorCylinder p1(R, H);
-    test_ff_eq(&p0, &p1, 1e-11);
+    run_test(&p0, &p1, 1e-11, 1e-99, 5e3);
 }
 
-TEST_P(FFSpecializationTest, TruncatedSphereAsSphere)
+TEST_F(FFSpecializationTest, TruncatedSphereAsSphere)
 {
-    if (skip_q(.02, 5e1)) // WAITING #1416 improve/replace numeric integration
-        return;
-    double R = 1.;
+    const double R = 1.;
     FormFactorTruncatedSphere p0(R, 2 * R);
     FormFactorFullSphere p1(R);
-    test_ff_eq(&p0, &p1);
+    run_test(&p0, &p1, 1e-12, .02, 5e1);
 }
+

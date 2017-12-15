@@ -1,4 +1,4 @@
 // To renew this file, run /G/ba/dev-tools/code-tools/update-gtestlist.py <directory>
 
-//#include "FormFactorSymmetryTest.h"
-#include "FormFactorSymmetryTest2.h"
+#include "FormFactorSymmetryTest.h"
+

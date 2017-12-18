@@ -94,26 +94,26 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
 {
     std::vector<SimulationElement> result;
 
-    double wavelength = beam.getWavelength();
-    double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
-    double phi_i = beam.getPhi();
-    Eigen::Matrix2cd beam_polarization = beam.getPolarization();
-    Eigen::Matrix2cd analyzer_operator = detectionProperties().analyzerOperator();
+    const double wavelength = beam.getWavelength();
+    const double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
+    const double phi_i = beam.getPhi();
+    const Eigen::Matrix2cd& beam_polarization = beam.getPolarization();
+    const Eigen::Matrix2cd& analyzer_operator = detectionProperties().analyzerOperator();
 
     if (!detectorMask()->hasMasks())
         m_detector_mask.initMaskData(*this);
     size_t spec_index = getIndexOfSpecular(beam);
 
     SimulationArea area(this);
+    result.reserve(area.totalSize());
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        SimulationElement sim_element(wavelength, alpha_i, phi_i, std::unique_ptr<IPixel>(
-                                          createPixel(it.detectorIndex())));
+        result.emplace_back(wavelength, alpha_i, phi_i,
+                            std::unique_ptr<IPixel>(createPixel(it.detectorIndex())));
+        auto& sim_element = result.back();
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
-        if (it.index()==spec_index) {
+        if (it.index()==spec_index)
             sim_element.setSpecular();
-        }
-        result.push_back(std::move(sim_element));
     }
 
     return result;

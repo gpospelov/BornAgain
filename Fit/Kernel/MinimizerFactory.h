@@ -36,6 +36,8 @@ class BA_CORE_API_ MinimizerFactory
 
     static std::string catalogueToString();
 
+    static std::string catalogueDetailsToString();
+
     static const MinimizerCatalogue& catalogue();
 };
 

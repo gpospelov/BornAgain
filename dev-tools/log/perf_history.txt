@@ -635,3 +635,10 @@ domain2gui: 1.136, gui2domain: 1.734, realTime: 1.274
 # after qtpropertybrowserframework removal
 compile time: real 4m29.715s, user 25m18.486s, sys 1m53.298s
 
+# after unit tests refactoring (no numerics in functional tests), after SessionModel refactoring
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2017-12-18 10:07:41 | scgsun   | Linux x86_64 | 2.7    | 89.6946   | 13.7180    | 0.5314     | 0.5718          | 3.1055          | 0.3623    | 2.0929        | 0.5021            | 2.5312         | 0.8436 | 0.4270      | 1.9687    | 0.7815    |
+domain2gui: 0.844, gui2domain: 1.542, realTime : 1.243
+make check real: 0m31.140s, user    0m56.692s: sys     0m3.284s
+
+

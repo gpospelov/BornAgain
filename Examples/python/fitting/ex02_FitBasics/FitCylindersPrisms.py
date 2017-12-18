@@ -5,7 +5,8 @@ import bornagain as ba
 from bornagain import deg, angstrom, nm
 
 
-def get_sample():
+def get_sample(cylinder_height=5.0*nm, cylinder_radius=5.0*nm,
+               prism_length=5.0*nm, prism_height=5.0*nm):
     """
     Returns a sample with uncorrelated cylinders and prisms on a substrate.
     """
@@ -15,9 +16,9 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(1.0*nm, 1.0*nm)
+    cylinder_ff = ba.FormFactorCylinder(cylinder_radius, cylinder_height)
     cylinder = ba.Particle(m_particle, cylinder_ff)
-    prism_ff = ba.FormFactorPrism3(1.0*nm, 1.0*nm)
+    prism_ff = ba.FormFactorPrism3(prism_length, prism_height)
     prism = ba.Particle(m_particle, prism_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 0.5)
@@ -43,6 +44,7 @@ def get_simulation():
     simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
                                      100, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setBeamIntensity(1e+08)
     return simulation
 
 

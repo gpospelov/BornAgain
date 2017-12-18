@@ -69,8 +69,7 @@ def create_real_data():
         real_data.setBinContent(i, noisy_amplitude)
 
     # uncomment line to save generated data on disk
-    #IntensityDataIOFactory.writeIntensityData(
-    #  real_data, 'refdata_fitcylinderprisms.int')
+    #ba.IntensityDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.int.gz')
     return real_data
 
 
@@ -82,6 +81,7 @@ def get_simulation():
     simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
                                      100, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setBeamIntensity(1e+08)
     return simulation
 
 

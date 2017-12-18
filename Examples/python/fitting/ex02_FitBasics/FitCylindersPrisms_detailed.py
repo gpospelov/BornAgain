@@ -69,7 +69,8 @@ def create_real_data():
         real_data.setBinContent(i, noisy_amplitude)
 
     # uncomment line to save generated data on disk
-    #ba.IntensityDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.int.gz')
+    #ba.IntensityDataIOFactory.writeIntensityData(
+    # real_data, 'refdata_fitcylinderprisms.int.gz')
     return real_data
 
 

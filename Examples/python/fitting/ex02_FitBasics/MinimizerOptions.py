@@ -79,7 +79,7 @@ def run_fitting():
     # Uncomment one of the line below to adjust minimizer settings
 
     # setting Minuit2 minimizer with Migrad algorithm, limiting number of iterations
-    # Minimization will try to respect MaxFunctionCalls value and will stop around this value
+    # Minimization will try to respect MaxFunctionCalls value
     # fit_suite.setMinimizer("Minuit2", "Migrad", "MaxFunctionCalls=100")
 
     # Setting two options at once.
@@ -92,14 +92,15 @@ def run_fitting():
     # Setting Levenberg-Marquardt algorithm
     # fit_suite.setMinimizer("GSLLMA")
 
-    # Setting Genetic algorithm
-    # It requires all parameters to be limited, so we recreate parameters with min and max defined
+    # Setting Genetic algorithm.It requires all parameters
+    # to be limited, so we recreate parameters with min and max defined
     # fit_suite.fitParameters().clear()
     # fit_suite.addFitParameter("*Cylinder/Height", 4.*nm).setLimited(3.0, 8.0)
     # fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm).setLimited(3.0, 8.0)
     # fit_suite.addFitParameter("*Prism3/Height", 4.*nm).setLimited(3.0, 8.0)
     # fit_suite.addFitParameter("*Prism3/BaseEdge", 4.*nm).setLimited(3.0, 8.0)
-    # fit_suite.setMinimizer("Genetic", "Default", "MaxIterations=2;PopSize=200;RandomSeed=1")
+    # fit_suite.setMinimizer("Genetic", "Default",
+    # "MaxIterations=2;PopSize=200;RandomSeed=1")
 
     # running fit with default minimizer
     fit_suite.runFit()

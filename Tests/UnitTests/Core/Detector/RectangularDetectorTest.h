@@ -36,10 +36,10 @@ RectangularDetectorTest::~RectangularDetectorTest() = default;
 
 TEST_F(RectangularDetectorTest, InitialState)
 {
-    RectangularDetector det(50, 10.0, 60, 20.0);
-    EXPECT_EQ(size_t(50), det.getNbinsX());
+    RectangularDetector det(50u, 10.0, 60u, 20.0);
+    EXPECT_EQ(50u, det.getNbinsX());
     EXPECT_EQ(10.0, det.getWidth());
-    EXPECT_EQ(size_t(60), det.getNbinsY());
+    EXPECT_EQ(60u, det.getNbinsY());
     EXPECT_EQ(20.0, det.getHeight());
 
     EXPECT_EQ(0.0, det.getU0());
@@ -54,7 +54,7 @@ TEST_F(RectangularDetectorTest, InitialState)
 
 TEST_F(RectangularDetectorTest, Clone)
 {
-    RectangularDetector det(50, 10.0, 60, 20.0);
+    RectangularDetector det(50u, 10.0, 60u, 20.0);
     kvector_t normal(10.0, 20.0, 30.0);
     kvector_t direction(1.0, 2.0, 3.0);
     double u0(88.0), v0(99.0);
@@ -70,7 +70,7 @@ TEST_F(RectangularDetectorTest, Clone)
 
 TEST_F(RectangularDetectorTest, PerpToSample)
 {
-    int nbinsx(5), nbinsy(4);
+    size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
     double dx = width / nbinsx;
@@ -96,7 +96,7 @@ TEST_F(RectangularDetectorTest, PerpToSample)
 
     std::vector<SimulationElement> elements
         = det.createSimulationElements(simulation.getInstrument().getBeam());
-    EXPECT_EQ(elements.size(), size_t(nbinsx * nbinsy));
+    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
     // lower left bin
     kvector_t k(distance, u0 - dx / 2., (-v0 + dy / 2.));
@@ -125,7 +125,7 @@ TEST_F(RectangularDetectorTest, PerpToSample)
 
 TEST_F(RectangularDetectorTest, PerpToDirectBeam)
 {
-    int nbinsx(5), nbinsy(4);
+    size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
     double dx = width / nbinsx;
@@ -153,7 +153,7 @@ TEST_F(RectangularDetectorTest, PerpToDirectBeam)
 
     std::vector<SimulationElement> elements
         = det.createSimulationElements(simulation.getInstrument().getBeam());
-    EXPECT_EQ(elements.size(), size_t(nbinsx * nbinsy));
+    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
     // lower left bin
     double ds = v0 - dy / 2.;
@@ -168,7 +168,7 @@ TEST_F(RectangularDetectorTest, PerpToDirectBeam)
 
 TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
 {
-    int nbinsx(5), nbinsy(4);
+    size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
     double dx = width / nbinsx;
@@ -197,7 +197,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
     // checking detector elements
     std::vector<SimulationElement> elements
         = det.createSimulationElements(simulation.getInstrument().getBeam());
-    EXPECT_EQ(elements.size(), size_t(nbinsx * nbinsy));
+    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
     double ds = v0 - dy / 2.;
     double alpha_x = alpha_i - std::atan(ds / distance);
@@ -213,7 +213,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
 // detector perpendicular to reflected beam, when direct beam position is known
 TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
 {
-    int nbinsx(5), nbinsy(4);
+    size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
     double dx = width / nbinsx;
@@ -255,7 +255,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
     // checking detector elements
     std::vector<SimulationElement> elements
         = det.createSimulationElements(simulation.getInstrument().getBeam());
-    EXPECT_EQ(elements.size(), size_t(nbinsx * nbinsy));
+    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
     double ds = v0 - dy / 2.;
     double alpha_x = alpha_i - std::atan(ds / distance);
@@ -271,7 +271,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
 // Test retrieval of analyzer properties
 TEST_F(RectangularDetectorTest, AnalyzerProperties)
 {
-    RectangularDetector detector(50, 10.0, 60, 20.0);
+    RectangularDetector detector(50u, 10.0, 60u, 20.0);
 
     kvector_t direction;
     double efficiency = 0.0;

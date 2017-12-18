@@ -33,7 +33,7 @@
 #include <memory>
 
 namespace {
-    const int rdet_nbinsx(40), rdet_nbinsy(30);
+    const size_t rdet_nbinsx(40), rdet_nbinsy(30);
     const double rdet_width(20.0), rdet_height(18.0), rdet_distance(1000.0);
 }
 

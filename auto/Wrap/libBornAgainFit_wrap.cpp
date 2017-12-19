@@ -3460,48 +3460,49 @@ namespace Swig {
 #define SWIGTYPE_p_IMinimizer swig_types[3]
 #define SWIGTYPE_p_MinimizerCatalogue swig_types[4]
 #define SWIGTYPE_p_MinimizerFactory swig_types[5]
-#define SWIGTYPE_p_RealLimits swig_types[6]
-#define SWIGTYPE_p_allocator_type swig_types[7]
-#define SWIGTYPE_p_char swig_types[8]
-#define SWIGTYPE_p_const_iterator swig_types[9]
-#define SWIGTYPE_p_container_t swig_types[10]
-#define SWIGTYPE_p_corr_matrix_t swig_types[11]
-#define SWIGTYPE_p_difference_type swig_types[12]
-#define SWIGTYPE_p_gradient_function_t swig_types[13]
-#define SWIGTYPE_p_int swig_types[14]
-#define SWIGTYPE_p_iterator swig_types[15]
-#define SWIGTYPE_p_long_long swig_types[16]
-#define SWIGTYPE_p_objective_function_t swig_types[17]
-#define SWIGTYPE_p_p_PyObject swig_types[18]
-#define SWIGTYPE_p_short swig_types[19]
-#define SWIGTYPE_p_signed_char swig_types[20]
-#define SWIGTYPE_p_size_type swig_types[21]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[22]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[23]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[24]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[25]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[26]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[27]
-#define SWIGTYPE_p_std__invalid_argument swig_types[28]
-#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[29]
-#define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[30]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[31]
-#define SWIGTYPE_p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__const_iterator swig_types[32]
-#define SWIGTYPE_p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__iterator swig_types[33]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[34]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[35]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[36]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[37]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[38]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[39]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[40]
-#define SWIGTYPE_p_unsigned_char swig_types[41]
-#define SWIGTYPE_p_unsigned_int swig_types[42]
-#define SWIGTYPE_p_unsigned_long_long swig_types[43]
-#define SWIGTYPE_p_unsigned_short swig_types[44]
-#define SWIGTYPE_p_value_type swig_types[45]
-static swig_type_info *swig_types[47];
-static swig_module_info swig_module = {swig_types, 46, 0, 0, 0, 0};
+#define SWIGTYPE_p_MinimizerInfo swig_types[6]
+#define SWIGTYPE_p_RealLimits swig_types[7]
+#define SWIGTYPE_p_allocator_type swig_types[8]
+#define SWIGTYPE_p_char swig_types[9]
+#define SWIGTYPE_p_const_iterator swig_types[10]
+#define SWIGTYPE_p_container_t swig_types[11]
+#define SWIGTYPE_p_corr_matrix_t swig_types[12]
+#define SWIGTYPE_p_difference_type swig_types[13]
+#define SWIGTYPE_p_gradient_function_t swig_types[14]
+#define SWIGTYPE_p_int swig_types[15]
+#define SWIGTYPE_p_iterator swig_types[16]
+#define SWIGTYPE_p_long_long swig_types[17]
+#define SWIGTYPE_p_objective_function_t swig_types[18]
+#define SWIGTYPE_p_p_PyObject swig_types[19]
+#define SWIGTYPE_p_short swig_types[20]
+#define SWIGTYPE_p_signed_char swig_types[21]
+#define SWIGTYPE_p_size_type swig_types[22]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[23]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[24]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[25]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[26]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[27]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[28]
+#define SWIGTYPE_p_std__invalid_argument swig_types[29]
+#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[30]
+#define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[31]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[32]
+#define SWIGTYPE_p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__const_iterator swig_types[33]
+#define SWIGTYPE_p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__iterator swig_types[34]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[35]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[36]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[37]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[38]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[39]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[40]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[41]
+#define SWIGTYPE_p_unsigned_char swig_types[42]
+#define SWIGTYPE_p_unsigned_int swig_types[43]
+#define SWIGTYPE_p_unsigned_long_long swig_types[44]
+#define SWIGTYPE_p_unsigned_short swig_types[45]
+#define SWIGTYPE_p_value_type swig_types[46]
+static swig_type_info *swig_types[48];
+static swig_module_info swig_module = {swig_types, 47, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5627,7 +5628,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig3.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/home/pospelov/software/local/share/swig/3.0.8/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -21911,6 +21912,28 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_MinimizerCatalogue_minimizerNames(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MinimizerCatalogue *arg1 = (MinimizerCatalogue *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::vector< std::string,std::allocator< std::string > > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:MinimizerCatalogue_minimizerNames",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerCatalogue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerCatalogue_minimizerNames" "', argument " "1"" of type '" "MinimizerCatalogue const *""'"); 
+  }
+  arg1 = reinterpret_cast< MinimizerCatalogue * >(argp1);
+  result = ((MinimizerCatalogue const *)arg1)->minimizerNames();
+  resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_MinimizerCatalogue_algorithmNames(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   MinimizerCatalogue *arg1 = (MinimizerCatalogue *) 0 ;
@@ -21979,6 +22002,44 @@ SWIGINTERN PyObject *_wrap_MinimizerCatalogue_algorithmDescriptions(PyObject *SW
   }
   result = ((MinimizerCatalogue const *)arg1)->algorithmDescriptions((std::string const &)*arg2);
   resultobj = swig::from(static_cast< std::vector< std::string,std::allocator< std::string > > >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerCatalogue_minimizerInfo(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MinimizerCatalogue *arg1 = (MinimizerCatalogue *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  MinimizerInfo *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:MinimizerCatalogue_minimizerInfo",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MinimizerCatalogue, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerCatalogue_minimizerInfo" "', argument " "1"" of type '" "MinimizerCatalogue const *""'"); 
+  }
+  arg1 = reinterpret_cast< MinimizerCatalogue * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerCatalogue_minimizerInfo" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerCatalogue_minimizerInfo" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  result = (MinimizerInfo *) &((MinimizerCatalogue const *)arg1)->minimizerInfo((std::string const &)*arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MinimizerInfo, 0 |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
 fail:
@@ -22227,6 +22288,19 @@ SWIGINTERN PyObject *_wrap_MinimizerFactory_catalogueToString(PyObject *SWIGUNUS
   
   if (!PyArg_ParseTuple(args,(char *)":MinimizerFactory_catalogueToString")) SWIG_fail;
   result = MinimizerFactory::catalogueToString();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerFactory_catalogueDetailsToString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)":MinimizerFactory_catalogueDetailsToString")) SWIG_fail;
+  result = MinimizerFactory::catalogueDetailsToString();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -23304,6 +23378,7 @@ static PyMethodDef SwigMethods[] = {
 		"Returns multiline string representing catalogue content. \n"
 		"\n"
 		""},
+	 { (char *)"MinimizerCatalogue_minimizerNames", _wrap_MinimizerCatalogue_minimizerNames, METH_VARARGS, (char *)"MinimizerCatalogue_minimizerNames(MinimizerCatalogue self) -> vector_string_t"},
 	 { (char *)"MinimizerCatalogue_algorithmNames", _wrap_MinimizerCatalogue_algorithmNames, METH_VARARGS, (char *)"\n"
 		"MinimizerCatalogue_algorithmNames(MinimizerCatalogue self, std::string const & minimizerName) -> vector_string_t\n"
 		"\n"
@@ -23320,6 +23395,7 @@ static PyMethodDef SwigMethods[] = {
 		"Returns list of algorithm's descriptions for the minimizer with a given name . \n"
 		"\n"
 		""},
+	 { (char *)"MinimizerCatalogue_minimizerInfo", _wrap_MinimizerCatalogue_minimizerInfo, METH_VARARGS, (char *)"MinimizerCatalogue_minimizerInfo(MinimizerCatalogue self, std::string const & minimizerName) -> MinimizerInfo const &"},
 	 { (char *)"delete_MinimizerCatalogue", _wrap_delete_MinimizerCatalogue, METH_VARARGS, (char *)"delete_MinimizerCatalogue(MinimizerCatalogue self)"},
 	 { (char *)"MinimizerCatalogue_swigregister", MinimizerCatalogue_swigregister, METH_VARARGS, NULL},
 	 { (char *)"MinimizerFactory_createMinimizer", _wrap_MinimizerFactory_createMinimizer, METH_VARARGS, (char *)"\n"
@@ -23329,6 +23405,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { (char *)"MinimizerFactory_printCatalogue", _wrap_MinimizerFactory_printCatalogue, METH_VARARGS, (char *)"MinimizerFactory_printCatalogue()"},
 	 { (char *)"MinimizerFactory_catalogueToString", _wrap_MinimizerFactory_catalogueToString, METH_VARARGS, (char *)"MinimizerFactory_catalogueToString() -> std::string"},
+	 { (char *)"MinimizerFactory_catalogueDetailsToString", _wrap_MinimizerFactory_catalogueDetailsToString, METH_VARARGS, (char *)"MinimizerFactory_catalogueDetailsToString() -> std::string"},
 	 { (char *)"MinimizerFactory_catalogue", _wrap_MinimizerFactory_catalogue, METH_VARARGS, (char *)"MinimizerFactory_catalogue() -> MinimizerCatalogue"},
 	 { (char *)"new_MinimizerFactory", _wrap_new_MinimizerFactory, METH_VARARGS, (char *)"\n"
 		"new_MinimizerFactory() -> MinimizerFactory\n"
@@ -23354,6 +23431,7 @@ static swig_type_info _swigt__p_IFitParameter = {"_p_IFitParameter", "IFitParame
 static swig_type_info _swigt__p_IMinimizer = {"_p_IMinimizer", "IMinimizer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerCatalogue = {"_p_MinimizerCatalogue", "MinimizerCatalogue *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerFactory = {"_p_MinimizerFactory", "MinimizerFactory *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MinimizerInfo = {"_p_MinimizerInfo", "MinimizerInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RealLimits = {"_p_RealLimits", "RealLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
@@ -23402,6 +23480,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IMinimizer,
   &_swigt__p_MinimizerCatalogue,
   &_swigt__p_MinimizerFactory,
+  &_swigt__p_MinimizerInfo,
   &_swigt__p_RealLimits,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
@@ -23450,6 +23529,7 @@ static swig_cast_info _swigc__p_IFitParameter[] = {  {&_swigt__p_IFitParameter, 
 static swig_cast_info _swigc__p_IMinimizer[] = {  {&_swigt__p_IMinimizer, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerCatalogue[] = {  {&_swigt__p_MinimizerCatalogue, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerFactory[] = {  {&_swigt__p_MinimizerFactory, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MinimizerInfo[] = {  {&_swigt__p_MinimizerInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RealLimits[] = {  {&_swigt__p_RealLimits, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -23498,6 +23578,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IMinimizer,
   _swigc__p_MinimizerCatalogue,
   _swigc__p_MinimizerFactory,
+  _swigc__p_MinimizerInfo,
   _swigc__p_RealLimits,
   _swigc__p_allocator_type,
   _swigc__p_char,

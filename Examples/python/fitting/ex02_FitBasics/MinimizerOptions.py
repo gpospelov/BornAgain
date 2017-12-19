@@ -1,5 +1,5 @@
 """
-Fitting example: 4 parameters fit with simple output
+Fitting example: running same fit using various minimizer and their settings.
 """
 import bornagain as ba
 from bornagain import deg, angstrom, nm
@@ -52,6 +52,13 @@ def run_fitting():
     """
     run fitting
     """
+
+    # prints info about available minimizers
+    print(ba.MinimizerFactory().catalogueToString())
+
+    # prints detailed info about available minimizers and their options
+    print(ba.MinimizerFactory().catalogueDetailsToString())
+
     sample = get_sample()
     simulation = get_simulation()
     simulation.setSample(sample)
@@ -69,7 +76,33 @@ def run_fitting():
     fit_suite.addFitParameter("*Prism3/Height", 4.*nm).setLowerLimited(0.01)
     fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm).setLowerLimited(0.01)
 
-    # running fit
+    # Uncomment one of the line below to adjust minimizer settings
+
+    # setting Minuit2 minimizer with Migrad algorithm, limiting number of iterations
+    # Minimization will try to respect MaxFunctionCalls value
+    # fit_suite.setMinimizer("Minuit2", "Migrad", "MaxFunctionCalls=100")
+
+    # Setting two options at once.
+    # Strategy=2 promises more accurate fit.
+    # fit_suite.setMinimizer("Minuit2", "Simplex", "MaxFunctionCalls=100;Strategy=2")
+
+    # setting Minuit2 minimizer with Fumili algorithm
+    # fit_suite.setMinimizer("Minuit2", "Fumili")
+
+    # Setting Levenberg-Marquardt algorithm
+    # fit_suite.setMinimizer("GSLLMA")
+
+    # Setting Genetic algorithm.It requires all parameters
+    # to be limited, so we recreate parameters with min and max defined
+    # fit_suite.fitParameters().clear()
+    # fit_suite.addFitParameter("*Cylinder/Height", 4.*nm).setLimited(3.0, 8.0)
+    # fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm).setLimited(3.0, 8.0)
+    # fit_suite.addFitParameter("*Prism3/Height", 4.*nm).setLimited(3.0, 8.0)
+    # fit_suite.addFitParameter("*Prism3/BaseEdge", 4.*nm).setLimited(3.0, 8.0)
+    # fit_suite.setMinimizer("Genetic", "Default",
+    # "MaxIterations=2;PopSize=200;RandomSeed=1")
+
+    # running fit with default minimizer
     fit_suite.runFit()
 
     print("Fitting completed.")

@@ -1,3 +1,17 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/StandardSamples/HomogeneousMultilayerBuilder.cpp
+//! @brief     Implements class HomogeneousMultilayerBuilder.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
 #include "HomogeneousMultilayerBuilder.h"
 #include "MaterialFactoryFuncs.h"
 #include "Layer.h"

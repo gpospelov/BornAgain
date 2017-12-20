@@ -7,13 +7,8 @@ import sys
 import glob
 
 directories = [
-    # "Core/Algorithms",
-    # "Core/FormFactors",
-    # "Core/Geometry",
-    # "Core/Samples",
-    # "Core/StandardSamples",
-    # "Core/Tools",
-    "Fit",
+    "Core",
+    # "Fit",
     # "GUI/coregui",
     # "GUI/main",
     # "GUI/ba3d",

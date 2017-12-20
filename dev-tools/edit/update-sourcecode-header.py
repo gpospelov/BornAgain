@@ -13,10 +13,10 @@ directories = [
     # "Core/Samples",
     # "Core/StandardSamples",
     # "Core/Tools",
-    # "Fit/FitKernel",
+    "Fit",
     # "GUI/coregui",
     # "GUI/main",
-    "GUI/ba3d",
+    # "GUI/ba3d",
 ]
 
 #

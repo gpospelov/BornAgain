@@ -38,7 +38,7 @@ public:
     //! @param width Width of the detector in mm along x-direction
     //! @param nybins Number of bins (pixels) in y-direction
     //! @param height Height of the detector in mm along y-direction
-    RectangularDetector(int nxbins, double width, int nybins, double height);
+    RectangularDetector(size_t nxbins, double width, size_t nybins, double height);
 
     RectangularDetector(const RectangularDetector& other);
 

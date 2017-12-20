@@ -10236,7 +10236,7 @@ Returns (  $ \\\\pi/\\\\lambda^2 $ - sld) matrix with magnetization corrections.
 // File: classMaterialBySLDBuilder.xml
 %feature("docstring") MaterialBySLDBuilder "
 
-Builds a sample with 10 interchanging homogeneous layers of Ti and Ni on silicone substrate. Ti is 70 angstroms thick, Ni is 30 angstroms thick. As opposed to  HomogeneousMultilayerBuilder, uses MaterialBySLD. No absorption, no roughness.
+Builds a sample with 10 interchanging homogeneous layers of Ti and Ni on silicone substrate. Ti is 70 angstroms thick, Ni is 30 angstroms thick. Titanium absorption coefficient is exaggerated 10^4 times for its effect to be noticeable
 
 C++ includes: MaterialBySLDBuilder.h
 ";
@@ -12279,7 +12279,7 @@ A flat rectangular detector with axes and resolution function.
 C++ includes: RectangularDetector.h
 ";
 
-%feature("docstring")  RectangularDetector::RectangularDetector "RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, double height)
+%feature("docstring")  RectangularDetector::RectangularDetector "RectangularDetector::RectangularDetector(size_t nxbins, double width, size_t nybins, double height)
 
 Rectangular detector constructor
 

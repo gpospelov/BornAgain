@@ -212,7 +212,7 @@ void ActionManager::toggleCheckForUpdates(bool status)
     settings.beginGroup(Constants::S_UPDATES);
     settings.setValue(Constants::S_CHECKFORUPDATES, status);
     settings.endGroup();
-    m_mainWindow->getUpdateNotifier()->checkForUpdates();
+    m_mainWindow->updateNotifier()->checkForUpdates();
 }
 
 void ActionManager::setSessionModelViewActive(bool status)

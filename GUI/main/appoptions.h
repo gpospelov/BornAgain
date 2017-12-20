@@ -16,11 +16,11 @@
 #define APPOPTIONS_H
 
 #include "Macros.h"
-GCC_DIAG_OFF(unused - parameter);
+GCC_DIAG_OFF(unused-parameter);
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/positional_options.hpp>
 #include <boost/program_options/variables_map.hpp>
-GCC_DIAG_ON(unused - parameter);
+GCC_DIAG_ON(unused-parameter);
 
 #include <string>
 

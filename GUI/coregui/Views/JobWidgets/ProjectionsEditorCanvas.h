@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -72,7 +70,7 @@ private:
     MaskGraphicsScene* m_scene;
     MaskGraphicsView* m_view;
     ColorMap* m_colorMap;
-    ColorMapLabel* m_statusLabel;    
+    ColorMapLabel* m_statusLabel;
 
     SessionItem* m_liveProjection; //!< temporary projection item matching mouse move
     SessionModel* m_model;

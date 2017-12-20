@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -29,7 +27,7 @@ JobActivityStatusBar::JobActivityStatusBar(MainWindow *mainWindow)
     , m_dockMenuButton(0)
     , m_mainWindow(mainWindow)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);    
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setSpacing(0);

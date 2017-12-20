@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -156,7 +154,7 @@ void ProjectionsEditorCanvas::setConnected(bool isConnected)
         connect(m_colorMap->colorMapEvent(), SIGNAL(leavingColorMap()),
                 this, SLOT(onLeavingColorMap()), Qt::UniqueConnection);
         connect(m_colorMap->colorMapEvent(), SIGNAL(positionChanged(double, double)),
-                this, SLOT(onPositionChanged(double, double)), Qt::UniqueConnection);        
+                this, SLOT(onPositionChanged(double, double)), Qt::UniqueConnection);
         connect(m_colorMap, SIGNAL(marginsChanged(double,double)),
                 this, SIGNAL(marginsChanged(double,double)), Qt::UniqueConnection);
     }

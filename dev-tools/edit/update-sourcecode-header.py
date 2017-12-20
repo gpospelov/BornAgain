@@ -14,9 +14,9 @@ directories = [
     # "Core/StandardSamples",
     # "Core/Tools",
     # "Fit/FitKernel",
-    "GUI/coregui",
-    "GUI/main",
-    #"App"
+    # "GUI/coregui",
+    # "GUI/main",
+    "GUI/ba3d",
 ]
 
 #
@@ -74,7 +74,7 @@ def get_new_header(current_header):
     """
     Return list of lines representing new header. List is empty if old header is non-standard one
     """
-    if len(current_header) < 14 or len(current_header) > 15:
+    if len(current_header) < 13 or len(current_header) > 15:
         return []
 
     file_part = []

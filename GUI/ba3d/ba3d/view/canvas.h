@@ -1,4 +1,16 @@
-// GPL3; https://github.com/jburle/ba3d
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/ba3d/model/canvas.h
+//! @brief     Defines Canvas class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
 
 #ifndef BA3D_CANVAS_H
 #define BA3D_CANVAS_H
@@ -68,4 +80,3 @@ private:
 //------------------------------------------------------------------------------
 }
 #endif
-// eof

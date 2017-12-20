@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -40,22 +38,13 @@
 #include <QMessageBox>
 #include <QSettings>
 
-MainWindow::MainWindow(QWidget *parent)
-    : Manhattan::FancyMainWindow(parent)
-    , m_tabWidget(new Manhattan::FancyTabWidget(this))
-    , m_progressBar(new Manhattan::ProgressBar(this))
-    , m_applicationModels(new ApplicationModels(this))
-    , m_projectManager(new ProjectManager(this))
-    , m_actionManager(new ActionManager(this))
-    , m_toolTipDataBase(new ToolTipDataBase(this))
-    , m_updateNotifier(new UpdateNotifier(this))
-    , m_welcomeView(0)
-    , m_instrumentView(0)
-    , m_sampleView(0)
-    , m_importDataView(0)
-    , m_simulationView(0)
-    , m_jobView(0)
-    , m_sessionModelView(0)
+MainWindow::MainWindow(QWidget* parent)
+    : Manhattan::FancyMainWindow(parent), m_tabWidget(new Manhattan::FancyTabWidget(this)),
+      m_progressBar(new Manhattan::ProgressBar(this)),
+      m_applicationModels(new ApplicationModels(this)), m_projectManager(new ProjectManager(this)),
+      m_actionManager(new ActionManager(this)), m_toolTipDataBase(new ToolTipDataBase(this)),
+      m_updateNotifier(new UpdateNotifier(this)), m_welcomeView(0), m_instrumentView(0),
+      m_sampleView(0), m_importDataView(0), m_simulationView(0), m_jobView(0), m_sessionModelView(0)
 {
     initApplication();
     readSettings();
@@ -63,62 +52,57 @@ MainWindow::MainWindow(QWidget *parent)
     initViews();
     initConnections();
 
-//    m_applicationModels->createTestSample();
-//    m_applicationModels->createTestJob();
-//    m_applicationModels->createTestRealData();
+    //    m_applicationModels->createTestSample();
+    //    m_applicationModels->createTestJob();
+    //    m_applicationModels->createTestRealData();
 }
 
-MaterialModel *MainWindow::materialModel()
+MaterialModel* MainWindow::materialModel()
 {
     return models()->materialModel();
 }
 
-InstrumentModel *MainWindow::instrumentModel()
+InstrumentModel* MainWindow::instrumentModel()
 {
     return models()->instrumentModel();
 }
 
-SampleModel *MainWindow::sampleModel()
+SampleModel* MainWindow::sampleModel()
 {
     return models()->sampleModel();
 }
 
-RealDataModel *MainWindow::realDataModel()
+RealDataModel* MainWindow::realDataModel()
 {
     return models()->realDataModel();
 }
 
-JobModel *MainWindow::jobModel()
+JobModel* MainWindow::jobModel()
 {
     return models()->jobModel();
 }
 
-ApplicationModels *MainWindow::models()
+ApplicationModels* MainWindow::models()
 {
     return m_applicationModels;
 }
 
-Manhattan::ProgressBar *MainWindow::progressBar()
+Manhattan::ProgressBar* MainWindow::progressBar()
 {
     return m_progressBar;
 }
 
-QStatusBar *MainWindow::statusBar()
+QStatusBar* MainWindow::statusBar()
 {
     return m_tabWidget->statusBar();
 }
 
-ActionManager *MainWindow::getActionManager()
-{
-    return m_actionManager;
-}
-
-ProjectManager *MainWindow::projectManager()
+ProjectManager* MainWindow::projectManager()
 {
     return m_projectManager;
 }
 
-UpdateNotifier *MainWindow::getUpdateNotifier()
+UpdateNotifier* MainWindow::updateNotifier()
 {
     return m_updateNotifier;
 }
@@ -126,13 +110,10 @@ UpdateNotifier *MainWindow::getUpdateNotifier()
 //! updates views which depend on others
 void MainWindow::onChangeTabWidget(int index)
 {
-    if(index == WELCOME)
-    {
+    if (index == WELCOME)
         m_welcomeView->updateRecentProjectPanel();
-    }
-    else if(index == SIMULATION) {
+    else if (index == SIMULATION)
         m_simulationView->updateSimulationViewElements();
-    }
 }
 
 void MainWindow::onFocusRequest(int index)
@@ -142,7 +123,7 @@ void MainWindow::onFocusRequest(int index)
 
 void MainWindow::openRecentProject()
 {
-    if (const QAction *action = qobject_cast<const QAction*>(sender())) {
+    if (const QAction* action = qobject_cast<const QAction*>(sender())) {
         QString file = action->data().value<QString>();
         m_projectManager->openProject(file);
     }
@@ -157,18 +138,19 @@ void MainWindow::onRunSimulationShortcut()
 //! This SessionModelView will be known for the tab under MAXVIEWCOUNT id (so it is the last one)
 void MainWindow::onSessionModelViewActive(bool isActive)
 {
-    if(isActive) {
-        if(m_sessionModelView)
+    if (isActive) {
+        if (m_sessionModelView)
             return;
 
         m_sessionModelView = new SessionModelView(this);
-        m_tabWidget->insertTab(MAXVIEWCOUNT, m_sessionModelView, QIcon(":/images/main_sessionmodel.svg"), "Models");
+        m_tabWidget->insertTab(MAXVIEWCOUNT, m_sessionModelView,
+                               QIcon(":/images/main_sessionmodel.svg"), "Models");
 
     } else {
-        if(!m_sessionModelView)
+        if (!m_sessionModelView)
             return;
 
-        if(m_tabWidget->currentIndex() == MAXVIEWCOUNT)
+        if (m_tabWidget->currentIndex() == MAXVIEWCOUNT)
             m_tabWidget->setCurrentIndex(WELCOME);
 
         m_tabWidget->removeTab(MAXVIEWCOUNT);
@@ -176,12 +158,11 @@ void MainWindow::onSessionModelViewActive(bool isActive)
         m_sessionModelView = 0;
         m_tabWidget->update();
     }
-
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void MainWindow::closeEvent(QCloseEvent* event)
 {
-    if(jobModel()->hasUnfinishedJobs()) {
+    if (jobModel()->hasUnfinishedJobs()) {
         QMessageBox::warning(this, "Can't quit the application.",
                              "Can't quit the application while jobs are running.\n"
                              "Cancel running jobs or wait until they are completed.");
@@ -189,7 +170,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
         return;
     }
 
-    if(m_projectManager->closeCurrentProject()) {
+    if (m_projectManager->closeCurrentProject()) {
         writeSettings();
         event->accept();
     } else {
@@ -198,9 +179,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 }
 
 //! Launch update notifier after main window appears
-void MainWindow::showEvent(QShowEvent *event)
+void MainWindow::showEvent(QShowEvent* event)
 {
-    QWidget::showEvent( event );
+    QWidget::showEvent(event);
     QTimer::singleShot(100, m_updateNotifier, SLOT(askForUpdates()));
 }
 
@@ -239,23 +220,28 @@ void MainWindow::initViews()
     m_simulationView = new SimulationView(this);
     m_jobView = new JobView(this);
 
-    m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_welcomeview.svg"), "Welcome");
+    m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_welcomeview.svg"),
+                           "Welcome");
     m_tabWidget->setTabToolTip(WELCOME, QStringLiteral("Switch to Welcome View"));
 
-    m_tabWidget->insertTab(INSTRUMENT, m_instrumentView, QIcon(":/images/main_instrumentview.svg"), "Instrument");
+    m_tabWidget->insertTab(INSTRUMENT, m_instrumentView, QIcon(":/images/main_instrumentview.svg"),
+                           "Instrument");
     m_tabWidget->setTabToolTip(INSTRUMENT, QStringLiteral("Define the beam and the detector"));
 
     m_tabWidget->insertTab(SAMPLE, m_sampleView, QIcon(":/images/main_sampleview.svg"), "Sample");
     m_tabWidget->setTabToolTip(SAMPLE, QStringLiteral("Build the sample"));
 
-    m_tabWidget->insertTab(IMPORT, m_importDataView, QIcon(":/images/main_importview.svg"), "Import");
+    m_tabWidget->insertTab(IMPORT, m_importDataView, QIcon(":/images/main_importview.svg"),
+                           "Import");
     m_tabWidget->setTabToolTip(IMPORT, QStringLiteral("Import intensity data to fit"));
 
-    m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulationview.svg"), "Simulation");
+    m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulationview.svg"),
+                           "Simulation");
     m_tabWidget->setTabToolTip(SIMULATION, QStringLiteral("Run simulation"));
 
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobview.svg"), "Jobs");
-    m_tabWidget->setTabToolTip(JOB, QStringLiteral("Switch to see job results, tune parameters real time,\nfit the data"));
+    m_tabWidget->setTabToolTip(
+        JOB, QStringLiteral("Switch to see job results, tune parameters real time,\nfit the data"));
 
     m_tabWidget->setCurrentIndex(WELCOME);
 
@@ -271,7 +257,7 @@ void MainWindow::initViews()
 void MainWindow::readSettings()
 {
     QSettings settings;
-    if(settings.childGroups().contains(Constants::S_MAINWINDOW)) {
+    if (settings.childGroups().contains(Constants::S_MAINWINDOW)) {
         settings.beginGroup(Constants::S_MAINWINDOW);
         resize(settings.value(Constants::S_WINDOWSIZE, QSize(400, 400)).toSize());
         move(settings.value(Constants::S_WINDOWPOSITION, QPoint(200, 200)).toPoint());
@@ -293,8 +279,9 @@ void MainWindow::writeSettings()
 
 void MainWindow::initConnections()
 {
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
-    connect(m_jobView, SIGNAL(focusRequest(int)), this, SLOT(onFocusRequest(int)));
-    connect(m_updateNotifier, SIGNAL(onUpdateNotification(const QString &)),
-            m_welcomeView, SLOT(setNotificationText(const QString &)));
+    connect(m_tabWidget, &Manhattan::FancyTabWidget::currentChanged,
+            this, &MainWindow::onChangeTabWidget);
+    connect(m_jobView, &JobView::focusRequest, this, &MainWindow::onFocusRequest);
+    connect(m_updateNotifier, &UpdateNotifier::onUpdateNotification,
+            m_welcomeView, &WelcomeView::setNotificationText);
 }

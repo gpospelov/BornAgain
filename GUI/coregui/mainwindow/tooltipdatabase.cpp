@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -19,6 +17,19 @@
 #include "item_constants.h"
 #include <QFile>
 #include <QXmlStreamReader>
+
+namespace {
+const QString modelTag = "ToolTipsData";
+const QString contextTag = "context";
+const QString categoryTag = "category";
+const QString propertyTag = "property";
+const QString tooltipTag = "tooltip";
+const QString whatsthisTag = "whatsthis";
+const QString nameAttribute = "name";
+const QString sampleViewContext = "SampleView";
+const QString titleProperty = "Title";
+const QString descriptionProperty = "Description";
+}
 
 ToolTipDataBase* ToolTipDataBase::m_instance = 0;
 QMap<QString, QString> ToolTipDataBase::m_tagToToolTip = QMap<QString, QString>();
@@ -38,8 +49,7 @@ QString ToolTipDataBase::widgetboxToolTip(const QString& className)
     Q_ASSERT(m_instance);
     QString modelName(className);
     modelName.remove(Constants::FormFactorType);
-    return m_instance->this_getToolTip(ToolTipsXML::sampleViewContext, modelName,
-                                       ToolTipsXML::titleProperty);
+    return m_instance->this_getToolTip(sampleViewContext, modelName, titleProperty);
 }
 
 void ToolTipDataBase::initDataBase()
@@ -55,25 +65,25 @@ void ToolTipDataBase::initDataBase()
         switch (reader.readNext()) {
         case QXmlStreamReader::StartElement: {
             const QStringRef tag = reader.name();
-            if (tag == ToolTipsXML::modelTag) {
+            if (tag == modelTag) {
                 continue;
             }
-            if (tag == ToolTipsXML::contextTag) {
+            if (tag == contextTag) {
                 const QXmlStreamAttributes attributes = reader.attributes();
-                contextName = attributes.value(ToolTipsXML::nameAttribute).toString();
+                contextName = attributes.value(nameAttribute).toString();
                 continue;
             }
-            if (tag == ToolTipsXML::categoryTag) {
+            if (tag == categoryTag) {
                 const QXmlStreamAttributes attributes = reader.attributes();
-                className = attributes.value(ToolTipsXML::nameAttribute).toString();
+                className = attributes.value(nameAttribute).toString();
                 continue;
             }
-            if (tag == ToolTipsXML::propertyTag) {
+            if (tag == propertyTag) {
                 const QXmlStreamAttributes attributes = reader.attributes();
-                propertyName = attributes.value(ToolTipsXML::nameAttribute).toString();
+                propertyName = attributes.value(nameAttribute).toString();
                 continue;
             }
-            if (tag == ToolTipsXML::tooltipTag) {
+            if (tag == tooltipTag) {
                 reader.readNext();
                 QString toolTip = reader.text().toString();
                 addToolTip(contextName, className, propertyName, toolTip);

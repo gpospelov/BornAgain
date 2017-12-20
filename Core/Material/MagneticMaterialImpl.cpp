@@ -1,3 +1,17 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/Material/MagneticMaterialImpl.cpp
+//! @brief     Implements magnetic material base implementation.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
 #include "MagneticMaterialImpl.h"
 #include "WavevectorInfo.h"
 #include "Transform3D.h"

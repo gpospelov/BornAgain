@@ -1,4 +1,16 @@
-// GPL3; https://github.com/jburle/ba3d
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/ba3d/demo/lattice.h
+//! @brief     Defines Lattice class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
 
 #ifndef BA3D_LATTICE_H
 #define BA3D_LATTICE_H
@@ -25,4 +37,3 @@ Lattice squareLattice(uint n, float sigma); // n half-size
 
 //------------------------------------------------------------------------------
 #endif
-// eof

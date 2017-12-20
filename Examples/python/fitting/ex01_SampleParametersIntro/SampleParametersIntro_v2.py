@@ -2,7 +2,7 @@
 Working with sample parameters.
 
 Variation of SampleParameterIntro.py with the difference that parameter change
-is going via assembled simulation object.
+is going via top level simulation object.
 """
 
 from __future__ import print_function

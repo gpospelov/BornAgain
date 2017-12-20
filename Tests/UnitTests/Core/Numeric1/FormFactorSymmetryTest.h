@@ -1,91 +1,89 @@
 #include "google_test.h"
+#include "FormFactorTest.h"
 #include "MathConstants.h"
-#include "BornAgainNamespace.h"
-#include "HardParticles.h"
-#include "qLoopedTest.h"
+#include <functional>
 
-class FFSymmetryTest : public QLoopedTest
+class FFSymmetryTest : public FormFactorTest
 {
 public:
     ~FFSymmetryTest();
-    void test_qq_eq( IFormFactorBorn* p, cvector_t q0, cvector_t q1, double eps=1e-12 ) {
-        complex_t f0 = p->evaluate_for_q(q0);
-        complex_t f1 = p->evaluate_for_q(q1);
+
+    using transform_t = std::function<cvector_t(const cvector_t&)>;
+
+    void run_test(IFormFactorBorn* p, transform_t fun, double eps, double qmag1, double qmag2)
+    {
+        test_all(qmag1, qmag2, [&](){test_qq_eq(p, fun, eps);});
+    }
+
+    void test_qq_eq( IFormFactorBorn* p, transform_t fun, double eps=1e-12 ) {
+        complex_t f0 = p->evaluate_for_q(m_q);
+        complex_t f1 = p->evaluate_for_q(fun(m_q));
         double avge = (std::abs(f0) + std::abs(f1))/2;
         EXPECT_NEAR( real(f0), real(f1), eps*avge );
         EXPECT_NEAR( imag(f0), imag(f1), eps*avge );
     }
-    cvector_t qt;
+
 };
 
 FFSymmetryTest::~FFSymmetryTest() = default;
 
-INSTANTIATE_TEST_CASE_P(
-    FFSymmetryTests,
-    FFSymmetryTest,
-    qlist);
-
 //*********** polyhedra ***************
 
-TEST_P(FFSymmetryTest, Prism3)
+TEST_F(FFSymmetryTest, Prism3)
 {
-    if (skip_q(1e-99, 2e2))
-        return;
     FormFactorPrism3 p(.83, .45);
-    test_qq_eq(&p, q, q.rotatedZ(M_TWOPI / 3));
+    run_test(&p, [](const cvector_t& q)->cvector_t{return q.rotatedZ(M_TWOPI / 3);},
+            1e-12, 1e-99, 2e2);
 }
 
-TEST_P(FFSymmetryTest, Prism6)
+TEST_F(FFSymmetryTest, Prism6)
 {
-    if (skip_q(1e-99, 2e3))
-        return;
     FormFactorPrism6 p(1.33, .42);
-    test_qq_eq(&p, q, q.rotatedZ(M_PI / 3), 1e-12);
-    test_qq_eq(&p, q, q.rotatedZ(-M_TWOPI / 3), 3.8e-12);
+    run_test(&p, [](const cvector_t& q)->cvector_t{return q.rotatedZ(M_PI / 3);},
+            1e-12, 1e-99, 2e3);
+    run_test(&p, [](const cvector_t& q)->cvector_t{return q.rotatedZ(-M_TWOPI / 3);},
+            3.8e-12, 1e-99, 2e3);
 }
 
-TEST_P(FFSymmetryTest, Tetrahedron)
+TEST_F(FFSymmetryTest, Tetrahedron)
 {
-    if (skip_q(1e-99, 2e2))
-        return;
     FormFactorTetrahedron p(8.43, .25, .53);
-    test_qq_eq(&p, q, q.rotatedZ(M_TWOPI / 3), 6e-12);
+    run_test(&p, [](const cvector_t& q)->cvector_t{return q.rotatedZ(M_TWOPI / 3);},
+            6e-12, 1e-99, 2e2);
     // Linux: 3e-12, relaxed for Mac
 }
 
-TEST_P(FFSymmetryTest, Cone6_flat)
+TEST_F(FFSymmetryTest, Cone6_flat)
 {
-    if (skip_q(1e-99, 2e2)) // TODO for larger q, imag(ff) is nan
-        return;
+    // TODO for larger q, imag(ff) is nan
     FormFactorCone6 p(4.3, .09, .1);
-    test_qq_eq(&p, q, q.rotatedZ(-M_PI / 3), 3.8e-12);
+    run_test(&p, [](const cvector_t& q)->cvector_t{return q.rotatedZ(-M_PI / 3);},
+            3.8e-12, 1e-99, 2e2);
 }
 
-TEST_P(FFSymmetryTest, Cone6_steep)
+TEST_F(FFSymmetryTest, Cone6_steep)
 {
-    if (skip_q(1e-99, 2e2)) // TODO for larger q, imag(ff) is nan
-        return;
     FormFactorCone6 p(.23, 3.5, .999 * M_PI / 2);
-    test_qq_eq(&p, q, q.rotatedZ(-M_PI / 3), 2.5e-12);
+    run_test(&p, [](const cvector_t& q)->cvector_t{return q.rotatedZ(-M_PI / 3);},
+            2.5e-12, 1e-99, 2e2);
 }
 
 //*********** spheroids ***************
 
-TEST_P(FFSymmetryTest, HemiEllipsoid)
+TEST_F(FFSymmetryTest, HemiEllipsoid)
 {
-    if (skip_q(1e-99, 2e2))
-        return;
     FormFactorHemiEllipsoid p(.53, .78, 1.3);
-    test_qq_eq(&p, q, cvector_t(-q.x(), q.y(), q.z()));
-    test_qq_eq(&p, q, cvector_t(q.x(), -q.y(), q.z()));
+    run_test(&p, [](const cvector_t& q)->cvector_t{return cvector_t(-q.x(), q.y(), q.z());},
+            1e-12, 1e-99, 2e2);
+    run_test(&p, [](const cvector_t& q)->cvector_t{return cvector_t(q.x(), -q.y(), q.z());},
+            1e-12, 1e-99, 2e2);
 }
 
-TEST_P(FFSymmetryTest, TruncatedSphere)
+TEST_F(FFSymmetryTest, TruncatedSphere)
 {
-    if (skip_q(1e-99, 2e2))
-        return;
     FormFactorTruncatedSphere p(.79, .34);
-    test_qq_eq(&p, q, q.rotatedZ(M_PI / 3.13698), 1e-10);
+    run_test(&p, [](const cvector_t& q)->cvector_t{return q.rotatedZ(M_PI / 3.13698);},
+            1e-10, 1e-99, 2e2);
 }
 
 // ****** TODO: tests that do not pass for the full q range *********

@@ -31,6 +31,10 @@ MACRO(ADD_GTEST project subdir libs stage)
     elseif(${stage} EQUAL 1)
         # Put test under control of CTest
         add_test(${TEST_NAME} ${EXE})
+    elseif(${stage} EQUAL 2)
+        # Put test under control of CTest in "fullcheck" section
+        add_test(${TEST_NAME} ${EXE})
+        set_tests_properties(${TEST_NAME} PROPERTIES LABELS "Fullcheck")
     else()
         message(FATAL_ERROR "invalid parameter stage=${stage} in ADD_GTEST")
     endif()

@@ -22,5 +22,5 @@ foreach(example ${examples})
     set(test_name PyExamples/${script_name})
 
     add_test(${test_name} ${PYTHON_EXECUTABLE} ${test_script} ${script_path})
-    set_tests_properties(${test_name} PROPERTIES LABELS "Examples")
+    set_tests_properties(${test_name} PROPERTIES LABELS "Fullcheck")
 endforeach()

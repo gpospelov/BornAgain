@@ -15,6 +15,7 @@
 
 #include "CoreSpecialTestFactory.h"
 #include "BatchSimulation.h"
+#include "DetectorTest.h"
 #include "PolDWBAMagCylinders.h"
 #include "CoreIOTest.h"
 
@@ -31,4 +32,8 @@ CoreSpecialTestFactory::CoreSpecialTestFactory()
     registerItem("CoreIO",
                  create_new<CoreIOTest>,
                  "Input/output of heavy files");
+
+    registerItem("DetectorTest",
+                 create_new<DetectorTest>,
+                 "Performance on set of detectors of different size");
 }

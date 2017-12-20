@@ -4,6 +4,7 @@ set(test_cases
     BatchSimulation
     PolDWBAMagCylinders
 #    CoreIO
+#    DetectorTest
 )
 
 file(GLOB source_files "*.cpp")

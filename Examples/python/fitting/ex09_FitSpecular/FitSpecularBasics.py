@@ -85,7 +85,7 @@ def make_axis(ax_values):
     name = "inc_angles"
     nbins = ax_values.size
     boundaries = np.array([(ax_values[i] + ax_values[i+1])/2
-                           for i in xrange(nbins-1)])
+                           for i in range(nbins-1)])
     boundaries = np.insert(boundaries, 0, 2 * boundaries[0] - boundaries[1])
     boundaries = np.insert(boundaries, nbins, 2 * boundaries[-1] - boundaries[-2])
     return ba.VariableBinAxis(name, nbins, boundaries)

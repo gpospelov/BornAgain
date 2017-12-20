@@ -41,12 +41,14 @@ public:
 
     std::string toString() const;
 
+    std::vector<std::string> minimizerNames() const;
+
     std::vector<std::string> algorithmNames(const std::string& minimizerName) const;
 
     std::vector<std::string> algorithmDescriptions(const std::string& minimizerName) const;
 
+    const MinimizerInfo& minimizerInfo(const std::string& minimizerName) const;
 private:
-    MinimizerInfo minimizerInfo(const std::string& minimizerName) const;
 
     void addMinimizerInfo(const MinimizerInfo& info);
     std::vector<MinimizerInfo> m_minimizers;

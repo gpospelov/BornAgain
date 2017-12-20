@@ -26,7 +26,7 @@ MinimizerInfo::MinimizerInfo(const std::string& minimizerType,
 
 void MinimizerInfo::setAlgorithmName(const std::string& algorithmName)
 {
-    for (const AlgorithmInfo algo : m_algorithms) {
+    for (const AlgorithmInfo& algo : m_algorithms) {
         if(algo.name() == algorithmName) {
             m_current_algorithm = algorithmName;
             return;
@@ -36,7 +36,7 @@ void MinimizerInfo::setAlgorithmName(const std::string& algorithmName)
     std::ostringstream msg;
     msg << "MinimizerInfo::setAlgorithmName() -> Error. Algorithm name '" << algorithmName
         <<"' is not in the list of defined algorithms (";
-    for (const AlgorithmInfo algo : m_algorithms)
+    for (const AlgorithmInfo& algo : m_algorithms)
         msg << algo.name() << " ";
     msg << ")";
     throw std::runtime_error(msg.str());
@@ -52,7 +52,7 @@ std::string MinimizerInfo::algorithmName() const
 std::vector<std::string> MinimizerInfo::algorithmNames() const
 {
     std::vector<std::string> result;
-    for (const AlgorithmInfo algo : m_algorithms)
+    for (const AlgorithmInfo& algo : m_algorithms)
         result.push_back(algo.name());
     return result;
 }
@@ -62,7 +62,7 @@ std::vector<std::string> MinimizerInfo::algorithmNames() const
 std::vector<std::string> MinimizerInfo::algorithmDescriptions() const
 {
     std::vector<std::string> result;
-    for (const AlgorithmInfo algo : m_algorithms)
+    for (const AlgorithmInfo& algo : m_algorithms)
         result.push_back(algo.description());
     return result;
 }

@@ -39,13 +39,22 @@ std::string MinimizerCatalogue::toString() const
     result << boost::format("%-15s|%-65s\n") % "Minimizer" % " Algorithms";
     result << std::string(text_width, '-') << "\n";
 
-    for(MinimizerInfo minimizer : m_minimizers) {
+    for(const auto& ingo : m_minimizers) {
         result << boost::format("%-15s| %-64s\n")
-                  % minimizer.name()
-                  % MinimizerUtils::toString(minimizer.algorithmNames(), std::string(" "));
+                  % ingo.name()
+                  % MinimizerUtils::toString(ingo.algorithmNames(), std::string(" "));
 
     }
     return result.str();
+}
+
+std::vector<std::string> MinimizerCatalogue::minimizerNames() const
+{
+    std::vector<std::string> result;
+    for(const auto& info : m_minimizers)
+        result.push_back(info.name());
+
+    return result;
 }
 
 //! Returns list of algorithms defined for the minimizer with a given name.
@@ -65,9 +74,9 @@ std::vector<std::string> MinimizerCatalogue::algorithmDescriptions(
 
 //! Returns info for minimizer with given name.
 
-MinimizerInfo MinimizerCatalogue::minimizerInfo(const std::string& minimizerName) const
+const MinimizerInfo& MinimizerCatalogue::minimizerInfo(const std::string& minimizerName) const
 {
-    for(auto info : m_minimizers)
+    for(const auto& info : m_minimizers)
         if(info.name() == minimizerName)
             return info;
 

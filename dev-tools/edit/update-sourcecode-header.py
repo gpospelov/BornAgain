@@ -12,6 +12,7 @@ directories = [
     # "GUI/coregui",
     # "GUI/main",
     # "GUI/ba3d",
+    "Tests/Functional"
 ]
 
 #

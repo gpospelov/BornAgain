@@ -20,7 +20,7 @@
 #include "MathConstants.h"
 #include "Units.h"
 
-RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, double height)
+RectangularDetector::RectangularDetector(size_t nxbins, double width, size_t nybins, double height)
     : m_u0(0.0)
     , m_v0(0.0)
     , m_direction(kvector_t(0.0, -1.0, 0.0))
@@ -99,19 +99,19 @@ void RectangularDetector::setDirectBeamPosition(double u0, double v0)
     m_dbeam_v0 = v0;
 }
 
-IPixel *RectangularDetector::createPixel(size_t index) const
+IPixel* RectangularDetector::createPixel(size_t index) const
 {
     const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
-    size_t u_index = axisBinIndex(index, BornAgain::X_AXIS_INDEX);
-    size_t v_index = axisBinIndex(index, BornAgain::Y_AXIS_INDEX);
+    const size_t u_index = axisBinIndex(index, BornAgain::X_AXIS_INDEX);
+    const size_t v_index = axisBinIndex(index, BornAgain::Y_AXIS_INDEX);
 
-    Bin1D u_bin = u_axis.getBin(u_index);
-    Bin1D v_bin = v_axis.getBin(v_index);
-    kvector_t corner_position( m_normal_to_detector
-            + (u_bin.m_lower - m_u0)*m_u_unit + (v_bin.m_lower - m_v0)*m_v_unit );
-    kvector_t width = u_bin.getBinSize()*m_u_unit;
-    kvector_t height = v_bin.getBinSize()*m_v_unit;
+    const Bin1D u_bin = u_axis.getBin(u_index);
+    const Bin1D v_bin = v_axis.getBin(v_index);
+    const kvector_t corner_position(m_normal_to_detector + (u_bin.m_lower - m_u0) * m_u_unit
+                                    + (v_bin.m_lower - m_v0) * m_v_unit);
+    const kvector_t width = u_bin.getBinSize() * m_u_unit;
+    const kvector_t height = v_bin.getBinSize() * m_v_unit;
     return new RectangularPixel(corner_position, width, height);
 }
 

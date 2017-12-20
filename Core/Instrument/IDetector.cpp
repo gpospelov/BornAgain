@@ -52,12 +52,13 @@ const IAxis& IDetector::getAxis(size_t index) const
 
 size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
 {
+    const size_t dim = dimension();
     size_t remainder(index);
-    for (size_t i=0; i<dimension(); ++i)
-    {
-        size_t i_axis = dimension()-1-i;
-        size_t result = remainder % m_axes[i_axis]->size();
-        if(selected_axis == i_axis ) return result;
+    size_t i_axis = dim;
+    for (size_t i = 0; i < dim; ++i) {
+        --i_axis;
+        if (selected_axis == i_axis)
+            return remainder % m_axes[i_axis]->size();
         remainder /= m_axes[i_axis]->size();
     }
     throw std::runtime_error("IDetector::getAxisBinIndex() -> "

@@ -1662,7 +1662,7 @@ class RealLimits(_object):
         """
         toString(RealLimits self) -> std::string
 
-        std::string RealLimits::toString() const 
+        std::string RealLimits::toString() const
 
         """
         return _libBornAgainFit.RealLimits_toString(self)
@@ -1682,7 +1682,7 @@ class RealLimits(_object):
         """
         isLimitless(RealLimits self) -> bool
 
-        bool RealLimits::isLimitless() const 
+        bool RealLimits::isLimitless() const
 
         """
         return _libBornAgainFit.RealLimits_isLimitless(self)
@@ -1692,7 +1692,7 @@ class RealLimits(_object):
         """
         isPositive(RealLimits self) -> bool
 
-        bool RealLimits::isPositive() const 
+        bool RealLimits::isPositive() const
 
         """
         return _libBornAgainFit.RealLimits_isPositive(self)
@@ -1702,7 +1702,7 @@ class RealLimits(_object):
         """
         isNonnegative(RealLimits self) -> bool
 
-        bool RealLimits::isNonnegative() const 
+        bool RealLimits::isNonnegative() const
 
         """
         return _libBornAgainFit.RealLimits_isNonnegative(self)
@@ -1712,7 +1712,7 @@ class RealLimits(_object):
         """
         isLowerLimited(RealLimits self) -> bool
 
-        bool RealLimits::isLowerLimited() const 
+        bool RealLimits::isLowerLimited() const
 
         """
         return _libBornAgainFit.RealLimits_isLowerLimited(self)
@@ -1722,7 +1722,7 @@ class RealLimits(_object):
         """
         isUpperLimited(RealLimits self) -> bool
 
-        bool RealLimits::isUpperLimited() const 
+        bool RealLimits::isUpperLimited() const
 
         """
         return _libBornAgainFit.RealLimits_isUpperLimited(self)
@@ -1732,7 +1732,7 @@ class RealLimits(_object):
         """
         isLimited(RealLimits self) -> bool
 
-        bool RealLimits::isLimited() const 
+        bool RealLimits::isLimited() const
 
         """
         return _libBornAgainFit.RealLimits_isLimited(self)
@@ -1855,7 +1855,7 @@ class AttLimits(_object):
         """
         isFixed(AttLimits self) -> bool
 
-        bool AttLimits::isFixed() const 
+        bool AttLimits::isFixed() const
 
         """
         return _libBornAgainFit.AttLimits_isFixed(self)
@@ -1865,7 +1865,7 @@ class AttLimits(_object):
         """
         isLimited(AttLimits self) -> bool
 
-        bool AttLimits::isLimited() const 
+        bool AttLimits::isLimited() const
 
         """
         return _libBornAgainFit.AttLimits_isLimited(self)
@@ -1875,7 +1875,7 @@ class AttLimits(_object):
         """
         isUpperLimited(AttLimits self) -> bool
 
-        bool AttLimits::isUpperLimited() const 
+        bool AttLimits::isUpperLimited() const
 
         """
         return _libBornAgainFit.AttLimits_isUpperLimited(self)
@@ -1885,7 +1885,7 @@ class AttLimits(_object):
         """
         isLowerLimited(AttLimits self) -> bool
 
-        bool AttLimits::isLowerLimited() const 
+        bool AttLimits::isLowerLimited() const
 
         """
         return _libBornAgainFit.AttLimits_isLowerLimited(self)
@@ -1895,7 +1895,7 @@ class AttLimits(_object):
         """
         isLimitless(AttLimits self) -> bool
 
-        bool AttLimits::isLimitless() const 
+        bool AttLimits::isLimitless() const
 
         """
         return _libBornAgainFit.AttLimits_isLimitless(self)
@@ -1905,7 +1905,7 @@ class AttLimits(_object):
         """
         lowerLimit(AttLimits self) -> double
 
-        double AttLimits::lowerLimit() const 
+        double AttLimits::lowerLimit() const
 
         """
         return _libBornAgainFit.AttLimits_lowerLimit(self)
@@ -1915,7 +1915,7 @@ class AttLimits(_object):
         """
         upperLimit(AttLimits self) -> double
 
-        double AttLimits::upperLimit() const 
+        double AttLimits::upperLimit() const
 
         """
         return _libBornAgainFit.AttLimits_upperLimit(self)
@@ -1945,7 +1945,7 @@ class AttLimits(_object):
         """
         toString(AttLimits self) -> std::string
 
-        std::string AttLimits::toString() const 
+        std::string AttLimits::toString() const
 
         """
         return _libBornAgainFit.AttLimits_toString(self)
@@ -2170,7 +2170,7 @@ class IFitParameter(_object):
         """
         clone(IFitParameter self) -> IFitParameter
 
-        IFitParameter * IFitParameter::clone() const 
+        IFitParameter * IFitParameter::clone() const
 
         """
         return _libBornAgainFit.IFitParameter_clone(self)
@@ -2180,7 +2180,7 @@ class IFitParameter(_object):
         """
         name(IFitParameter self) -> std::string
 
-        std::string IFitParameter::name() const 
+        std::string IFitParameter::name() const
 
         """
         return _libBornAgainFit.IFitParameter_name(self)
@@ -2200,7 +2200,7 @@ class IFitParameter(_object):
         """
         startValue(IFitParameter self) -> double
 
-        double IFitParameter::startValue() const 
+        double IFitParameter::startValue() const
 
         """
         return _libBornAgainFit.IFitParameter_startValue(self)
@@ -2220,7 +2220,7 @@ class IFitParameter(_object):
         """
         value(IFitParameter self) -> double
 
-        double IFitParameter::value() const 
+        double IFitParameter::value() const
 
         """
         return _libBornAgainFit.IFitParameter_value(self)
@@ -2250,7 +2250,7 @@ class IFitParameter(_object):
         """
         step(IFitParameter self) -> double
 
-        double IFitParameter::step() const 
+        double IFitParameter::step() const
 
         """
         return _libBornAgainFit.IFitParameter_step(self)
@@ -2270,7 +2270,7 @@ class IFitParameter(_object):
         """
         error(IFitParameter self) -> double
 
-        double IFitParameter::error() const 
+        double IFitParameter::error() const
 
         """
         return _libBornAgainFit.IFitParameter_error(self)
@@ -2371,7 +2371,7 @@ class IFitParameter(_object):
         """
         toString(IFitParameter self) -> std::string
 
-        std::string IFitParameter::toString() const 
+        std::string IFitParameter::toString() const
 
         """
         return _libBornAgainFit.IFitParameter_toString(self)
@@ -2439,7 +2439,7 @@ class FitParameterSet(_object):
         begin(FitParameterSet self) -> FitParameterSet::iterator
         begin(FitParameterSet self) -> FitParameterSet::const_iterator
 
-        FitParameterSet::const_iterator FitParameterSet::begin() const 
+        FitParameterSet::const_iterator FitParameterSet::begin() const
 
         """
         return _libBornAgainFit.FitParameterSet_begin(self, *args)
@@ -2450,7 +2450,7 @@ class FitParameterSet(_object):
         end(FitParameterSet self) -> FitParameterSet::iterator
         end(FitParameterSet self) -> FitParameterSet::const_iterator
 
-        FitParameterSet::const_iterator FitParameterSet::end() const 
+        FitParameterSet::const_iterator FitParameterSet::end() const
 
         """
         return _libBornAgainFit.FitParameterSet_end(self, *args)
@@ -2592,7 +2592,7 @@ class FitParameterSet(_object):
         """
         correlationMatrix(FitParameterSet self) -> vdouble2d_t
 
-        corr_matrix_t FitParameterSet::correlationMatrix() const 
+        corr_matrix_t FitParameterSet::correlationMatrix() const
 
         """
         return _libBornAgainFit.FitParameterSet_correlationMatrix(self)
@@ -2666,7 +2666,12 @@ class MinimizerCatalogue(_object):
 
 
     def minimizerNames(self):
-        """minimizerNames(MinimizerCatalogue self) -> vector_string_t"""
+        """
+        minimizerNames(MinimizerCatalogue self) -> vector_string_t
+
+        std::vector< std::string > MinimizerCatalogue::minimizerNames() const
+
+        """
         return _libBornAgainFit.MinimizerCatalogue_minimizerNames(self)
 
 
@@ -2695,7 +2700,14 @@ class MinimizerCatalogue(_object):
 
 
     def minimizerInfo(self, minimizerName):
-        """minimizerInfo(MinimizerCatalogue self, std::string const & minimizerName) -> MinimizerInfo const &"""
+        """
+        minimizerInfo(MinimizerCatalogue self, std::string const & minimizerName) -> MinimizerInfo const &
+
+        const MinimizerInfo & MinimizerCatalogue::minimizerInfo(const std::string &minimizerName) const
+
+        Returns info for minimizer with given name. 
+
+        """
         return _libBornAgainFit.MinimizerCatalogue_minimizerInfo(self, minimizerName)
 
     __swig_destroy__ = _libBornAgainFit.delete_MinimizerCatalogue

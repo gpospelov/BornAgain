@@ -1,5 +1,3 @@
-
-
 // ************************************************************************** //
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
@@ -73,11 +71,11 @@ public:
     //! FT in 2D
     void fft(const double2d_t& source, double2d_t& result);
 
-    //! prepare arrays for 2D Fourier Transformation of the given vector
+    //! prepare arrays for 2D Fourier Transformation (FT) of the given vector
     void init(int h_src, int w_src);
 
 private:
-    //! compute Fourier Transform of source using fast Fourier transformation
+    //! compute FT of source using Fast Fourier transformation from fftw
     void fftw_forward_FT(const double2d_t& source);
 
     //void fftw_back_FT(const double2d_t& out);
@@ -92,7 +90,7 @@ private:
 
     //! Workspace contains input (src), intermediate and output (out)
     //! arrays to run FT via fft; 'source' is our signal
-    //! Sizes of input arrays are adjusted; output arrays are alocated via
+    //! Sizes of input arrays are adjusted; output arrays are allocated via
     //! fftw3 allocation for maximum performance.
     class Workspace
     {
@@ -102,7 +100,7 @@ private:
         void clear();
         friend class FourierTransform;
     private:
-        int h_src, w_src;                 // size of original 'source' array in 2 dimensions
+        int h_src, w_src; // size of original 'source' array in 2 dimensions
         // size of adjusted source arrays (in_src, out_src)
         int w_fftw, h_fftw;
         //! adjusted input 'source' array
@@ -110,12 +108,12 @@ private:
         //! result of Fourier transformation of source
         double *out_src;
         //! result of back Fourier transformation FFT(source)
-        double *dst_fft;
+        //double *dst_fft;
         int h_dst, w_dst;                 // size of resulting array
         int h_offset, w_offset;           // offsets to copy result into output arrays
 
         fftw_plan p_forw_src;
-        fftw_plan p_back;
+        //fftw_plan p_back;
     };
 
     //! input and output data for fftw3

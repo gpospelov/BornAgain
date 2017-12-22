@@ -40,6 +40,7 @@ IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
     , m_colorMap(new ColorMapCanvas)
     , m_resetViewAction(nullptr)
     , m_savePlotAction(nullptr)
+    , m_fftAction(nullptr)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -77,7 +78,7 @@ QSize IntensityDataCanvas::minimumSizeHint() const
 
 QList<QAction*> IntensityDataCanvas::actionList()
 {
-    return QList<QAction*>() << m_resetViewAction << m_savePlotAction;
+    return QList<QAction*>() << m_resetViewAction << m_savePlotAction << m_fftAction;
 }
 
 void IntensityDataCanvas::onResetViewAction()
@@ -96,6 +97,49 @@ void IntensityDataCanvas::onMousePress(QMouseEvent* event)
 {
     if(event->button() == Qt::RightButton)
         emit customContextMenuRequested(event->globalPos());
+}
+
+#include<QDebug>
+void IntensityDataCanvas::onfftAction()
+{
+    //qDebug() << "IntensityDataCanvas::onFFTAction" << status;
+    auto dataItem = intensityDataItem();
+    auto data = dataItem->getOutputData();
+
+    OutputData<double> fftData;
+    fftData.copyFrom(*data);
+    fftData.setAllTo(42.);
+    dataItem->setOutputData(&fftData);
+    //m_backup.reset(new OutputData<double>);
+    //m_backup->copyFrom(*data);
+
+    /*
+    bool status=0;
+    if(status == 0)
+    {
+        OutputData<double> fftData;
+        fftData.copyFrom(*data);
+        fftData.setAllTo(42.);
+        dataItem->setOutputData(&fftData);
+        m_backup.reset(new OutputData<double>);
+        m_backup->copyFrom(*data);
+
+        status = 1;
+
+    }
+
+    else
+    {
+        OutputData<double> backupData;
+        backupData.copyFrom(*m_backup);
+        dataItem->setOutputData(&backupData);
+        status = 0;
+    }
+    */
+//    // convert data to vector<vector<double>>
+
+//    auto fftOutputData = IntensityDaqtaFunctions::fft(*data);
+//    dataItem->setOutputData(fftOutputData);
 }
 
 void IntensityDataCanvas::subscribeToItem()
@@ -129,6 +173,12 @@ void IntensityDataCanvas::initActions()
     m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
     m_savePlotAction->setToolTip("Save plot");
     connect(m_savePlotAction, &QAction::triggered, this, &IntensityDataCanvas::onSavePlotAction);
+
+    m_fftAction = new QAction(this);
+    m_fftAction->setText("Fourier Transform");
+    //m_fftAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
+    m_fftAction->setToolTip("Get the Fourier Transform of this intensity map");
+    connect(m_fftAction, &QAction::triggered, this, &IntensityDataCanvas::onfftAction);
 }
 
 //! Reads gradient/ interpolation settings from IntensityDataItem and writes to persistant

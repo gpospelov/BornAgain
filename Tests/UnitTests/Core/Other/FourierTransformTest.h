@@ -16,13 +16,13 @@ protected:
 
 FourierTransformTest::~FourierTransformTest() = default;
 
-TEST_F(FourierTransformTest, fwfftTest)
+// Just for checking implementation of 2D FT
+TEST_F(FourierTransformTest, fwfft2DTest)
 {
-    //std::vector<double> signal, result;
     std::vector<std::vector<double>> signal, result;
     std::vector<double> row;
 
-    int h = 17*17; //rows
+    int h = 19; //rows
     int w = 17; //columns
 
     for(int i=0; i<h; i++)
@@ -30,17 +30,18 @@ TEST_F(FourierTransformTest, fwfftTest)
         row.clear();
         for(int j=0; j<w; j++)
         {
-            if(j != 4)
-                row.push_back(1);
+            if(j != 5)
+                row.push_back(j+1);
             else
-                row.push_back(1);
+                row.push_back(j+1);
         }
         signal.push_back(row);
     }
 
-    std::cout << "\nRows of signal:" << signal.size() << std::endl;
-    std::cout << "Columns of signal:" << signal[0].size() << std::endl;
-    std::cout << "Contents of signal:" << std::endl;
+    std::cout << "\nRows of 2D signal:" << signal.size() << std::endl;
+    std::cout << "Columns of 2D signal:" << signal[0].size() << std::endl;
+    std::cout << "Contents of 2D signal:" << std::endl;
+
     for(std::vector<std::vector<double>>::const_iterator i = signal.begin(); i != signal.end(); i++)
     {
         for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
@@ -51,9 +52,9 @@ TEST_F(FourierTransformTest, fwfftTest)
     FourierTransform ft;
     ft.fft(signal, result);
 
-    std::cout << "\nRows of result:" << result.size() << std::endl;
-    std::cout << "Columns of result:" << result[0].size() << std::endl;
-    std::cout << "Contents of result:" << std::endl;
+    std::cout << "\nRows of 2D result:" << result.size() << std::endl;
+    std::cout << "Columns of 2D result:" << result[0].size() << std::endl;
+    std::cout << "Contents of 2D result:" << std::endl;
     for(std::vector<std::vector<double>>::const_iterator i = result.begin(); i != result.end(); i++)
     {
         for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
@@ -62,149 +63,44 @@ TEST_F(FourierTransformTest, fwfftTest)
     }
 
 
-
-    /*
-    std::cout << "\nSize of signal:" << signal.size() << std::endl;
-    std::cout << "Contents of signal:" << std::endl;
-    for(std::vector<std::vector<double>>::const_iterator i = signal.begin(); i != signal.end(); i++)
-    {
-        std::cout << "LOOP1";
-        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
-            std::cout << *j << ' ';
-        std::cout << "LOOP1";
-    }
-
-
-    FourierTransform ft;
-    ft.fft(signal, result);
-
-    std::cout << "\n\nSize of result:" << result.size() << std::endl;
-    std::cout << "Contents of result:" << std::endl;
-    for(std::vector<std::vector<double>>::const_iterator i = result.begin(); i != result.end(); i++)
-    {
-        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
-            std::cout << *j << ' ';
-        std::cout << "LOOP1";
-    }
-
-    */
-
-    EXPECT_EQ(2,1) << "doesnt work";
+    EXPECT_EQ(2,2);
 }
 
 
-
-
-
-void fun2()
+// Just for checking implementation of 1D FT
+TEST_F(FourierTransformTest, fwfft1DTest)
 {
-    //std::vector<double> signal, result;
-    std::vector<std::vector<double>> signal, result;
-    std::vector<double> row;
+    std::vector<double> signal, result;
 
+    int w = 17; //columns
 
-
-    size_t h = 2; //rows
-    size_t w = 10; //columns
-
-    double init_value = 3.14;
-
-
-    //now we have an empty 2D-matrix of size (0,0). Resizing it with one single command:
-    signal.resize(w ,std::vector<double>(h , init_value) );
-
-    for(size_t i=1; i<=h; i++)
+    for(int j=0; j<w; j++)
     {
-        for(size_t j=1; j<=w; j++)
-            std::cout << signal[i][j] << " ";
-        std::cout << std::endl;
-        //row.clear();
-    }
-
-    /*
-    std::cout << "\nSize of signal:" << signal.size() << std::endl;
-    std::cout << "Contents of signal:" << std::endl;
-    for(std::vector<std::vector<double>>::const_iterator i = signal.begin(); i != signal.end(); i++)
-    {
-        std::cout << "LOOP1";
-        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
-            std::cout << *j << ' ';
-        std::cout << "LOOP1";
-    }
-
-
-    FourierTransform ft;
-    ft.fft(signal, result);
-
-    std::cout << "\n\nSize of result:" << result.size() << std::endl;
-    std::cout << "Contents of result:" << std::endl;
-    for(std::vector<std::vector<double>>::const_iterator i = result.begin(); i != result.end(); i++)
-    {
-        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
-            std::cout << *j << ' ';
-        std::cout << "LOOP1";
-    }
-
-    */
-
-    EXPECT_EQ(2,1) << "doesnt work";
-}
-
-
-
-
-void fun()
-{
-    std::vector<std::vector<double>> signal, result;
-    for(size_t i = 1; i <= 10; i++)
-    {
-        for(size_t j = 1; j <= 10; j++)
-            signal[i].push_back(j);
-        /*
-        if(i != 50)
-            signal.push_back(1);
+        if(j != 5)
+            signal.push_back(j+1);
         else
-            signal.push_back(50);
-        */
+            signal.push_back(j+1);
     }
 
-    std::cout << "\nSize of signal:" << signal.size() << std::endl;
-    std::cout << "Contents of signal:" << std::endl;
-    /*
-    for (std::vector<double>::const_iterator i = signal.begin(); i != signal.end(); ++i)
+    std::cout << "Columns of 1D signal:" << signal.size() << std::endl;
+    std::cout << "Contents of 1D signal:" << std::endl;
+
+    for(std::vector<double>::const_iterator i = signal.begin(); i != signal.end(); i++)
     {
         std::cout << *i << ' ';
     }
-    */
-    for (size_t i = 0; i < signal.size(); i++)
-    {
-        for (size_t j = 0; j < signal[i].size(); j++)
-        {
-            std::cout << signal[i][j];
-        }
-    }
 
-    /*
     FourierTransform ft;
     ft.fft(signal, result);
-    */
-    std::cout << "\n\nSize of result:" << result.size() << std::endl;
-    std::cout << "Contents of result:" << std::endl;
-    /*
-    for (std::vector<std::vector<double>>::const_iterator i = result.begin(); i != result.end(); ++i)
+
+    std::cout << "\nColumns of 1D result:" << result.size() << std::endl;
+    std::cout << "Contents of 1D result:" << std::endl;
+    for(std::vector<double>::const_iterator i = result.begin(); i != result.end(); i++)
     {
         std::cout << *i << ' ';
     }
-    */
 
-
-    for (size_t i = 0; i < result.size(); i++)
-    {
-        for (size_t j = 0; j < result[i].size(); j++)
-        {
-            std::cout << result[i][j];
-        }
-    }
+    EXPECT_EQ(2,2);
 }
 
 #endif // FOURIERTRANSFORMTEST_H

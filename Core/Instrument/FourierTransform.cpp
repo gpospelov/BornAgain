@@ -19,6 +19,7 @@
 #include <sstream>
 #include <stdexcept> // need overlooked by g++ 5.4
 #include <math.h>
+#include <algorithm>
 
 FourierTransform::FourierTransform()
 {
@@ -26,6 +27,7 @@ FourierTransform::FourierTransform()
     const size_t FFTW_FACTORS[] = {13,11,7,5,3,2};
     m_implemented_factors.assign(
         FFTW_FACTORS, FFTW_FACTORS + sizeof(FFTW_FACTORS)/sizeof(FFTW_FACTORS[0]));
+
 }
 
 FourierTransform::Workspace::Workspace() :
@@ -33,7 +35,7 @@ FourierTransform::Workspace::Workspace() :
     in_src(0), out_src(0), h_dst(0), w_dst(0),
     //dst_fft(0),
     //dst(0), //not needed
-    h_offset(0), w_offset(0),
+    //h_offset(0), w_offset(0),
     //p_back(nullptr),
     p_forw_src(nullptr)
 {
@@ -64,8 +66,8 @@ void FourierTransform::Workspace::clear()
     //if(dst) delete[] dst;
     //dst=0;
 
-    h_offset = 0;
-    w_offset = 0;
+    //h_offset = 0;
+    //w_offset = 0;
 
     if(p_forw_src != nullptr) fftw_destroy_plan(p_forw_src);
     //if(p_back != nullptr)  fftw_destroy_plan(p_back);
@@ -80,8 +82,8 @@ void FourierTransform::Workspace::clear()
 /* ************************************************************************* */
 void FourierTransform::fft(const double2d_t& source, double2d_t& result)
 {
-    int h_src = (int)source.size();
-    int w_src = (int)(source.size() ? source[0].size() : 0);
+    int h_src = static_cast<int>(source.size());
+    int w_src = static_cast<int>((source.size() ? source[0].size() : 0));
 
     // initialisation
     init(h_src, w_src);
@@ -93,12 +95,11 @@ void FourierTransform::fft(const double2d_t& source, double2d_t& result)
 
     double *ptr = ws.out_src;
     result.clear();
-    result.resize(ws.h_fftw);
-    for(int i=0; i<ws.h_fftw; i++) {
-        result[i].resize(ws.w_fftw,0);
-        for(int j=0; j<ws.w_fftw; j++) {
-            //result[i][j]=ws.dst[i*ws.w_dst+j];
-            result[i][j] =*ptr;
+    result.resize(static_cast<size_t>(ws.h_fftw));
+    for(size_t i = 0; i < static_cast<size_t>(ws.h_fftw); i++) {
+        result[i].resize(static_cast<size_t>(ws.w_fftw),0);
+        for(size_t j = 0; j < static_cast<size_t>(ws.w_fftw); j++) {
+            result[i][j] = *ptr;
             ptr = ptr + 2;
         }
     }
@@ -109,45 +110,27 @@ void FourierTransform::fft(const double2d_t& source, double2d_t& result)
     int rows_to_del = ws.h_fftw - ws.h_src;
     if(rows_to_del != 0)
     {
-        std::cout << "Entered loop";
         int last_row = ws.h_fftw;
-        for(int i=0; i<rows_to_del; i++)
+        for(int i = 0; i < rows_to_del; i++)
         {
             result.erase(result.begin() + last_row );
             last_row = last_row-1;
         }
-
     }
 
-    /*
     int cols_to_del = ws.w_fftw - ws.w_src;
     if(cols_to_del != 0)
     {
-        std::cout << "Entered loop";
         int last_col = ws.w_fftw;
         for(int i=0; i<cols_to_del; i++)
         {
-            for (int j = 0; j < (int)result.size(); j++)
-                result[j].erase(result[j].begin() + last_col );
+            std::for_each(result.begin(), result.end(),
+                [&](std::vector<double>& row) {
+                    row.erase(std::next(row.begin(), last_col-1));
+                });
             last_col = last_col-1;
         }
-
     }
-    */
-
-    /*
-    // results
-    result.clear();
-    result.resize(ws.h_dst);
-    for(int i=0; i<ws.h_dst; i++) {
-        result[i].resize(ws.w_dst,0);
-        for(int j=0; j<ws.w_dst; j++) {
-            //result[i][j]=ws.dst[i*ws.w_dst+j];
-            result[i][j] = ws.dst_fft[(i+ws.h_offset)*ws.w_fftw+j+ws.w_offset];
-        }
-    }
-    */
-
 }
 
 
@@ -157,15 +140,17 @@ void FourierTransform::fft(const double2d_t& source, double2d_t& result)
 void FourierTransform::fft(
     const double1d_t& source, double1d_t& result)
 {
-    // we simply create 2d arrays with length of first dimension equal to 1, and call 2d convolution
+    // we simply create 2d arrays with length of first dimension equal to 1, and call 2d FT
     double2d_t source2d;
     source2d.push_back(source);
 
     double2d_t result2d;
     fft(source2d, result2d);
+    /*
     if(result2d.size() != 1)
         throw Exceptions::RuntimeErrorException(
             "FourierTransform::fft -> Panic in 1d");
+            */
     result = result2d[0];
 }
 
@@ -177,7 +162,7 @@ void FourierTransform::init(int h_src, int w_src)
 {
     if(!h_src || !w_src) {
         std::ostringstream os;
-        os << "Convolve::init() -> Panic! Wrong dimensions " <<
+        os << "FourierTransform::init() -> Panic! Wrong dimensions " <<
             h_src << " " << w_src << std::endl;
         throw Exceptions::RuntimeErrorException(os.str());
     }
@@ -188,22 +173,20 @@ void FourierTransform::init(int h_src, int w_src)
 
     // Previously in switch case
 
-    // Full Linear convolution
+    // Full Linear Fourier Transform - in switch case for Convolution
     ws.h_fftw = find_closest_factor(h_src);
     ws.w_fftw = find_closest_factor(w_src);
     ws.h_dst = h_src;
     ws.w_dst = w_src;
     // Here we just keep the first [0:h_dst-1 ; 0:w_dst-1] real part elements of out_src
-    ws.h_offset = 0;
-    ws.w_offset = 0;
+    //ws.h_offset = 0;
+    //ws.w_offset = 0;
 
-    // Previously in switch case
-
-
-
-
-    ws.in_src = new double[ws.h_fftw * ws.w_fftw];
-    ws.out_src = (double*) fftw_malloc(sizeof(fftw_complex) * ws.h_fftw * (ws.w_fftw/2+1));
+    ws.in_src = new double[static_cast<size_t>(ws.h_fftw * ws.w_fftw)];
+    ws.out_src = static_cast<double*>(fftw_malloc(sizeof(fftw_complex)*
+                                                  static_cast<size_t>(ws.h_fftw*(ws.w_fftw/2+1))));
+    //ws.out_src = static_cast<double*>(fftw_malloc(sizeof(fftw_complex)
+    //                                              * ws.h_fftw * (ws.w_fftw/2+1)));
 
 
     //ws.dst_fft = new double[ws.h_fftw * ws.w_fftw];
@@ -212,9 +195,12 @@ void FourierTransform::init(int h_src, int w_src)
     // Initialization of the plans
     ws.p_forw_src = fftw_plan_dft_r2c_2d(ws.h_fftw, ws.w_fftw, ws.in_src,
                                          (fftw_complex*)ws.out_src, FFTW_ESTIMATE);
+    //ws.p_forw_src = fftw_plan_dft_r2c_2d(ws.h_fftw, ws.w_fftw, ws.in_src,
+    //                                     static_cast<double*>(ws.out_src), FFTW_ESTIMATE);
+
     if( ws.p_forw_src == nullptr )
         throw Exceptions::RuntimeErrorException(
-            "Convolve::init() -> Error! Can't initialise p_forw_src plan.");
+            "FourierTransform::init() -> Error! Can't initialise p_forw_src plan.");
 
     /*
     // The backward FFT takes ws.out_src as input
@@ -222,7 +208,7 @@ void FourierTransform::init(int h_src, int w_src)
         ws.h_fftw, ws.w_fftw, (fftw_complex*)ws.out_src, ws.dst_fft, FFTW_ESTIMATE);
     if( ws.p_back == nullptr )
         throw Exceptions::RuntimeErrorException(
-            "Convolve::init() -> Error! Can't initialise p_back plan.");
+            "FourierTransform::init() -> Error! Can't initialise p_back plan.");
      */
 }
 
@@ -235,7 +221,7 @@ void FourierTransform::fftw_forward_FT(const double2d_t& src)
 {
     if(ws.h_fftw <= 0 || ws.w_fftw <= 0)
         throw Exceptions::RuntimeErrorException(
-            "Convolve::fftw_convolve() -> Panic! Initialisation is missed.");
+            "FourierTransform::fftw_forward_FT() -> Panic! Initialisation is missed.");
 
     double * ptr, *ptr_end;
 
@@ -245,9 +231,10 @@ void FourierTransform::fftw_forward_FT(const double2d_t& src)
 
     // Then we build our periodic signals
     //ptr = src;
-    for(int i = 0 ; i < ws.h_src ; ++i)
-        for(int j = 0 ; j < ws.w_src ; ++j, ++ptr)
-            ws.in_src[(i%ws.h_fftw)*ws.w_fftw+(j%ws.w_fftw)] += src[i][j];
+    for(size_t i = 0 ; i < static_cast<size_t>(ws.h_src) ; ++i)
+        for(size_t j = 0 ; j < static_cast<size_t>(ws.w_src) ; ++j, ++ptr)
+            ws.in_src[(static_cast<int>(i)%ws.h_fftw)*
+                    ws.w_fftw+(static_cast<int>(j)%ws.w_fftw)] += src[i][j];
 
     // And we compute the FFT
     fftw_execute(ws.p_forw_src);
@@ -269,12 +256,12 @@ void FourierTransform::fftw_back_FT(const double2d_t& out)
 {
     if(ws.h_fftw <= 0 || ws.w_fftw <= 0)
         throw Exceptions::RuntimeErrorException(
-            "Convolve::fftw_convolve() -> Panic! Initialisation is missed.");
+            "FourierTransform::fftw_back_FT() -> Panic! Initialisation is missed.");
 
     double * ptr, *ptr_end;
 
     // Compute the backward FFT
-    // Carefull, The backward FFT does not preserve the output
+    // Careful, The backward FFT does not preserve the output
     fftw_execute(ws.p_back);
     // Scale the transform
     for(ptr = ws.dst_fft, ptr_end = ws.dst_fft + ws.w_fftw*ws.h_fftw ; ptr != ptr_end ; ++ptr)
@@ -306,7 +293,7 @@ bool FourierTransform::is_optimal(int n)
 {
     if(n==1)
         return false;
-    size_t ntest = n;
+    size_t ntest = static_cast<size_t>(n);
     for(size_t i=0; i<m_implemented_factors.size(); i++){
         while( (ntest%m_implemented_factors[i]) == 0 ) {
             ntest = ntest/m_implemented_factors[i];

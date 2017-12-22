@@ -110,7 +110,7 @@ private:
         //! result of back Fourier transformation FFT(source)
         //double *dst_fft;
         int h_dst, w_dst;                 // size of resulting array
-        int h_offset, w_offset;           // offsets to copy result into output arrays
+        //int h_offset, w_offset;           // offsets to copy result into output arrays
 
         fftw_plan p_forw_src;
         //fftw_plan p_back;

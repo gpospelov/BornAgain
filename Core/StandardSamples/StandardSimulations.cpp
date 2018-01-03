@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -33,7 +32,7 @@
 #include <memory>
 
 namespace {
-    const int rdet_nbinsx(40), rdet_nbinsy(30);
+    const size_t rdet_nbinsx(40), rdet_nbinsy(30);
     const double rdet_width(20.0), rdet_height(18.0), rdet_distance(1000.0);
 }
 

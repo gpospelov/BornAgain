@@ -2,14 +2,13 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/RectangularDetector.h
-//!     Defines class RectangularDetector.
+//! @file      Core/Instrument/RectangularDetector.cpp
+//! @brief     Defines class RectangularDetector.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -38,7 +37,7 @@ public:
     //! @param width Width of the detector in mm along x-direction
     //! @param nybins Number of bins (pixels) in y-direction
     //! @param height Height of the detector in mm along y-direction
-    RectangularDetector(int nxbins, double width, int nybins, double height);
+    RectangularDetector(size_t nxbins, double width, size_t nybins, double height);
 
     RectangularDetector(const RectangularDetector& other);
 

@@ -1,3 +1,17 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/Material/MaterialFactoryFuncs.cpp
+//! @brief     Factory functions used to create material instances.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
 #include "MaterialFactoryFuncs.h"
 #include "MaterialBySLDImpl.h"
 #include "RefractiveMaterialImpl.h"

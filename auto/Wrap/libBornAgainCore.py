@@ -25863,7 +25863,7 @@ class RectangularDetector(IDetector2D):
 
     def __init__(self, *args):
         """
-        __init__(RectangularDetector self, int nxbins, double width, int nybins, double height) -> RectangularDetector
+        __init__(RectangularDetector self, size_t nxbins, double width, size_t nybins, double height) -> RectangularDetector
         __init__(RectangularDetector self, RectangularDetector other) -> RectangularDetector
 
         RectangularDetector::RectangularDetector(const RectangularDetector &other)

@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -146,11 +144,11 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() con
 {
     // basic axes parameters
     auto& x_axis = item<BasicAxisItem>(RectangularDetectorItem::P_X_AXIS);
-    int n_x = x_axis.getItemValue(BasicAxisItem::P_NBINS).toInt();
+    size_t n_x = x_axis.getItemValue(BasicAxisItem::P_NBINS).toUInt();
     double width = x_axis.getItemValue(BasicAxisItem::P_MAX).toDouble();
 
     auto& y_axis = item<BasicAxisItem>(RectangularDetectorItem::P_Y_AXIS);
-    int n_y = y_axis.getItemValue(BasicAxisItem::P_NBINS).toInt();
+    size_t n_y = y_axis.getItemValue(BasicAxisItem::P_NBINS).toUInt();
     double height = y_axis.getItemValue(BasicAxisItem::P_MAX).toDouble();
 
     std::unique_ptr<RectangularDetector> result(new RectangularDetector(n_x, width, n_y, height));

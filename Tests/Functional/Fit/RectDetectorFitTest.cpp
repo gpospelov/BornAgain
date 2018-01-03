@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -31,7 +30,7 @@ std::unique_ptr<Simulation> RectDetectorFitTest::createSimulation()
 
     double detector_distance(500.0);
     double width(20.0), height(18.0);
-    RectangularDetector detector(20, width, 18, height);
+    RectangularDetector detector(20u, width, 18u, height);
 //    RectangularDetector detector(500, width, 450, height);
     detector.setPerpendicularToSampleX(detector_distance, width/2., 0.0);
 

@@ -1,3 +1,17 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/Instrument/SpecularDetector1D.h
+//! @brief     Implements a detector for specular simulations.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
 #include "Beam.h"
 #include "IPixel.h"
 #include "SimulationArea.h"
@@ -73,15 +87,16 @@ std::vector<SimulationElement> SpecularDetector1D::createSimulationElements(cons
     const double phi_i = 0; // Assuming that beam is always parallel to x-axis of the sample
 
     SimulationArea area(this);
+    result.reserve(area.totalSize());
     for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
-	// opposite sign for alpha_i since e_{z_beam} = - e_{z_detector}
+        // opposite sign for alpha_i since e_{z_beam} = - e_{z_detector}
         const double alpha_i = -alphaI(it.detectorIndex());
-        SimulationElement sim_element(wavelength, alpha_i, phi_i,
-                                      std::make_unique<SpecularPixel>(alpha_i));
+        result.emplace_back(wavelength, alpha_i, phi_i,
+                            std::make_unique<SpecularPixel>(alpha_i));
+        auto& sim_element = result.back();
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
         sim_element.setSpecular();
-        result.push_back(std::move(sim_element));
     }
 
     return result;

@@ -7,16 +7,12 @@ import sys
 import glob
 
 directories = [
-    # "Core/Algorithms",
-    # "Core/FormFactors",
-    # "Core/Geometry",
-    # "Core/Samples",
-    # "Core/StandardSamples",
-    # "Core/Tools",
-    # "Fit/FitKernel",
-    "GUI/coregui",
-    "GUI/main",
-    #"App"
+    "Core",
+    # "Fit",
+    # "GUI/coregui",
+    # "GUI/main",
+    # "GUI/ba3d",
+    "Tests/Functional"
 ]
 
 #
@@ -27,17 +23,15 @@ header_top = [
     u"//                                                                              "
     ]
 header_center = [
-    u"//! @file      dev-tools/edit/update-sourcecode-header.py
+    u"//! @file      dev-tools/edit/update-sourcecode-header.py                       "
     u"//! @brief     Defines class Beam                                               "
     ]
 header_bottom = [
     u"//!                                                                             ",
     u"//! @homepage  http://www.bornagainproject.org                                  ",
     u"//! @license   GNU General Public License v3 or higher (see COPYING)            ",
-    u"//! @copyright Forschungszentrum J\u00fclich GmbH 2016                          ",
-    u"//! @authors   Scientific Computing Group at MLZ Garching                       ",
-    u"//! @authors   C\u00E9line Durniak, Marina Ganeva, David Li, Gennady Pospelov   ",
-    u"//! @authors   Walter Van Herck, Joachim Wuttke                                 ",
+    u"//! @copyright Forschungszentrum J\u00fclich GmbH 2018                          ",
+    u"//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)        ",
     u"//                                                                              ",
     u"// ************************************************************************** //"
     ]
@@ -76,7 +70,7 @@ def get_new_header(current_header):
     """
     Return list of lines representing new header. List is empty if old header is non-standard one
     """
-    if len(current_header) < 14 or len(current_header) > 15:
+    if len(current_header) < 13 or len(current_header) > 15:
         return []
 
     file_part = []

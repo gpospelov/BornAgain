@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -39,10 +38,10 @@ std::string MinimizerCatalogue::toString() const
     result << boost::format("%-15s|%-65s\n") % "Minimizer" % " Algorithms";
     result << std::string(text_width, '-') << "\n";
 
-    for(const auto& ingo : m_minimizers) {
+    for(const auto& info : m_minimizers) {
         result << boost::format("%-15s| %-64s\n")
-                  % ingo.name()
-                  % MinimizerUtils::toString(ingo.algorithmNames(), std::string(" "));
+                  % info.name()
+                  % MinimizerUtils::toString(info.algorithmNames(), std::string(" "));
 
     }
     return result.str();

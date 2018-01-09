@@ -126,6 +126,16 @@ std::unique_ptr<IComputation> GISASSimulation::generateSingleThreadedComputation
                                              begin + start, begin + end);
 }
 
+void GISASSimulation::normalizeIntensity(size_t index, double beam_intensity)
+{
+    SimulationElement& element = m_sim_elements[index];
+    double sin_alpha_i = std::abs(std::sin(element.getAlphaI()));
+    if (sin_alpha_i == 0.0)
+        sin_alpha_i = 1.0;
+    const double solid_angle = element.getSolidAngle();
+    element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
+}
+
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
     : Simulation(other)
 {

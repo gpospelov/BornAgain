@@ -174,6 +174,11 @@ void SpecularSimulation::normalize(std::vector<SimulationElement>::iterator begi
     }
 }
 
+void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
+{
+    m_sim_elements[index].setIntensity(m_sim_elements[index].getIntensity() * beam_intensity);
+}
+
 void SpecularSimulation::validityCheck(size_t i_layer) const
 {
     const MultiLayer* current_sample = sample();

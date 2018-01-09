@@ -98,6 +98,16 @@ std::unique_ptr<IComputation> OffSpecSimulation::generateSingleThreadedComputati
                                              begin + start, begin + end);
 }
 
+void OffSpecSimulation::normalizeIntensity(size_t index, double beam_intensity)
+{
+    SimulationElement& element = m_sim_elements[index];
+    double sin_alpha_i = std::abs(std::sin(element.getAlphaI()));
+    if (sin_alpha_i == 0.0)
+        sin_alpha_i = 1.0;
+    const double solid_angle = element.getSolidAngle();
+    element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
+}
+
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     : Simulation(other)
     , mp_alpha_i_axis(nullptr)

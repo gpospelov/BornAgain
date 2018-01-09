@@ -108,6 +108,10 @@ private:
 
     //! Initializes simulation
     void initialize();
+
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle
+    //! for single simulation element specified by _index_.
+    virtual void normalizeIntensity(size_t index, double beam_intensity) override;
 };
 
 #endif // SPECULARSIMULATION_H

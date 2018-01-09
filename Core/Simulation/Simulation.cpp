@@ -291,7 +291,6 @@ void Simulation::runSingleSimulation()
     addBackGroundIntensity(batch_start, batch_end);
 }
 
-//! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
 void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
                            std::vector<SimulationElement>::iterator end_it) const
 {
@@ -304,6 +303,15 @@ void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
         double solid_angle = it->getSolidAngle();
         it->setIntensity(it->getIntensity()*beam_intensity*solid_angle/sin_alpha_i);
     }
+}
+
+void Simulation::normalize(size_t start_ind, size_t end_ind)
+{
+    const double beam_intensity = getBeamIntensity();
+    if (beam_intensity == 0.0)
+        return; // no normalization when beam intensity is zero
+    for (size_t i = start_ind; i < end_ind; ++i)
+        normalizeIntensity(i, beam_intensity);
 }
 
 void Simulation::addBackGroundIntensity(std::vector<SimulationElement>::iterator begin_it,

@@ -113,6 +113,7 @@ protected:
 
     virtual void updateIntensityMap() {}
 
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
     virtual void normalize(std::vector<SimulationElement>::iterator begin_it,
                    std::vector<SimulationElement>::iterator end_it) const;
 
@@ -151,6 +152,15 @@ private:
     //! @param end Index of the element after the last one to include into computation
     virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
                                                                             size_t end) = 0;
+
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
+    //! @param start_ind Index of the first element to operate on
+    //! @param end_ind Index of the element after the last one to operate on
+    void normalize(size_t start_ind, size_t end_ind);
+
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle
+    //! for single simulation element specified by _index_.
+    virtual void normalizeIntensity(size_t index, double beam_intensity) = 0;
 };
 
 #endif // SIMULATION_H

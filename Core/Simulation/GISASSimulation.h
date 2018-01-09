@@ -101,6 +101,8 @@ private:
     //! @param end Index of the element after the last one to include into computation
     virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
                                                                             size_t end) override;
+
+    virtual void normalizeIntensity(size_t index, double beam_intensity) override;
 };
 
 #endif // GISASSIMULATION_H

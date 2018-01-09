@@ -13,5 +13,13 @@
 // ************************************************************************** //
 
 #include "IBackground.h"
+#include "SimulationElement.h"
 
 IBackground::~IBackground() {}
+
+void IBackground::addBackGround(std::vector<SimulationElement>::iterator start,
+                       std::vector<SimulationElement>::iterator end) const
+{
+    for (auto it = start; it != end; it++)
+        addBackGround(*it);
+}

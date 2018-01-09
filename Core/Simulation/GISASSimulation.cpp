@@ -12,6 +12,7 @@
 //
 // ************************************************************************** //
 
+#include "IBackground.h"
 #include "GISASSimulation.h"
 #include "BornAgainNamespace.h"
 #include "DWBAComputation.h"
@@ -134,6 +135,16 @@ void GISASSimulation::normalizeIntensity(size_t index, double beam_intensity)
         sin_alpha_i = 1.0;
     const double solid_angle = element.getSolidAngle();
     element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
+}
+
+void GISASSimulation::addBackGroundIntensity(size_t begin_ind, size_t end_ind)
+{
+    if (!mP_background)
+        return;
+    for (size_t i = begin_ind; i < end_ind; ++i) {
+        SimulationElement& element = m_sim_elements[i];
+        mP_background->addBackGround(element);
+    }
 }
 
 GISASSimulation::GISASSimulation(const GISASSimulation& other)

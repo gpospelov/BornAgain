@@ -103,6 +103,8 @@ private:
                                                                             size_t end) override;
 
     virtual void normalizeIntensity(size_t index, double beam_intensity) override;
+
+    virtual void addBackGroundIntensity(size_t begin_ind, size_t end_ind) override;
 };
 
 #endif // GISASSIMULATION_H

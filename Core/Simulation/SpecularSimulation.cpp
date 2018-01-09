@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "SpecularSimulation.h"
+#include "IBackground.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "SpecularMatrix.h"
@@ -177,6 +178,16 @@ void SpecularSimulation::normalize(std::vector<SimulationElement>::iterator begi
 void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
 {
     m_sim_elements[index].setIntensity(m_sim_elements[index].getIntensity() * beam_intensity);
+}
+
+void SpecularSimulation::addBackGroundIntensity(size_t begin_ind, size_t end_ind)
+{
+    if (!mP_background)
+        return;
+    for (size_t i = begin_ind; i < end_ind; ++i) {
+        SimulationElement& element = m_sim_elements[i];
+        mP_background->addBackGround(element);
+    }
 }
 
 void SpecularSimulation::validityCheck(size_t i_layer) const

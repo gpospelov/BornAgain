@@ -153,6 +153,8 @@ private:
     virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
                                                                             size_t end) = 0;
 
+    virtual void addBackGroundIntensity(size_t begin_ind, size_t end_ind) = 0;
+
     //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
     //! @param start_ind Index of the first element to operate on
     //! @param end_ind Index of the element after the last one to operate on

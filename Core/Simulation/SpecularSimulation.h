@@ -88,10 +88,6 @@ private:
 
     std::unique_ptr<OutputData<double>> getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const;
 
-    // unused methods
-    virtual void transferResultsToIntensityMap() override {}
-    virtual void updateIntensityMap() override {}
-
     //! Generate a single threaded computation for a given range of SimulationElement's
     virtual std::unique_ptr<IComputation>
     generateSingleThreadedComputation(std::vector<SimulationElement>::iterator start,

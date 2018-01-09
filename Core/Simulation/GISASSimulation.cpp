@@ -137,10 +137,6 @@ void GISASSimulation::initSimulationElementVector()
     m_sim_elements = m_instrument.createSimulationElements();
 }
 
-void GISASSimulation::transferResultsToIntensityMap() {}
-
-void GISASSimulation::updateIntensityMap() {}
-
 void GISASSimulation::initialize()
 {
     setName(BornAgain::GISASSimulationType);

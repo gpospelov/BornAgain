@@ -94,13 +94,6 @@ private:
     //! Initializes the vector of Simulation elements
     virtual void initSimulationElementVector() override;
 
-    //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
-    //! SimulationElement objects
-    void transferResultsToIntensityMap() final;
-
-    //! Default implementation only adds the detector axes
-    void updateIntensityMap() final;
-
     void initialize();
 
     //! Generate a single threaded computation for a given range of simulation elements

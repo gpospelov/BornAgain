@@ -99,7 +99,7 @@ protected:
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
-    virtual void transferResultsToIntensityMap() =0;
+    virtual void transferResultsToIntensityMap() {}
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();
@@ -111,7 +111,7 @@ protected:
 
     void runSingleSimulation();
 
-    virtual void updateIntensityMap() =0;
+    virtual void updateIntensityMap() {}
 
     virtual void normalize(std::vector<SimulationElement>::iterator begin_it,
                    std::vector<SimulationElement>::iterator end_it) const;

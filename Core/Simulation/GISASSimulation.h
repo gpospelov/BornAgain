@@ -91,6 +91,9 @@ protected:
 private:
     GISASSimulation(const GISASSimulation& other);
 
+    //! Initializes the vector of Simulation elements
+    virtual void initSimulationElementVector() override;
+
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
     void transferResultsToIntensityMap() final;

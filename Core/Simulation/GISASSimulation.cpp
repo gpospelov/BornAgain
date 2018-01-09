@@ -123,6 +123,11 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other)
     initialize();
 }
 
+void GISASSimulation::initSimulationElementVector()
+{
+    m_sim_elements = m_instrument.createSimulationElements();
+}
+
 void GISASSimulation::transferResultsToIntensityMap() {}
 
 void GISASSimulation::updateIntensityMap() {}

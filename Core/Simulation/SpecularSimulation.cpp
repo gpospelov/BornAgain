@@ -84,6 +84,11 @@ const IAxis* SpecularSimulation::getAlphaAxis() const
     return &m_instrument.getDetector()->getAxis(0);
 }
 
+void SpecularSimulation::initSimulationElementVector()
+{
+    m_sim_elements = m_instrument.createSimulationElements();
+}
+
 std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
 {
     validityCheck(i_layer);

@@ -97,9 +97,6 @@ public:
 protected:
     Simulation(const Simulation& other);
 
-    //! Initializes the vector of Simulation elements
-    virtual void initSimulationElementVector();
-
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap() =0;
@@ -139,6 +136,9 @@ protected:
 private:
     void initialize();
     void imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch);
+
+    //! Initializes the vector of Simulation elements
+    virtual void initSimulationElementVector() = 0;
 };
 
 #endif // SIMULATION_H

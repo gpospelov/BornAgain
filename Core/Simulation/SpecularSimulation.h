@@ -81,6 +81,9 @@ private:
 
     SpecularSimulation(const SpecularSimulation& other);
 
+    //! Initializes the vector of Simulation elements
+    virtual void initSimulationElementVector() override;
+
     std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
 
     std::unique_ptr<OutputData<double>> getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const;

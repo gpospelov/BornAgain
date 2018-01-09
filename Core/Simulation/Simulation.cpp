@@ -208,11 +208,6 @@ void Simulation::addParameterDistribution(const ParameterDistribution& par_distr
     m_distribution_handler.addParameterDistribution(par_distr);
 }
 
-void Simulation::initSimulationElementVector()
-{
-    m_sim_elements = m_instrument.createSimulationElements();
-}
-
 void Simulation::updateSample()
 {
     m_sample_provider.updateSample();

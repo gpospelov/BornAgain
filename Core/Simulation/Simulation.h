@@ -137,8 +137,14 @@ private:
     //! Returns the start iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);
 
+    //! Returns the index of the first simulation element to compute in current batch
+    size_t getBatchStartIndex(int n_batches, int current_batch);
+
     //! Returns the end iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
+
+    //! Returns the index of the simulation element after the last one to compute in current batch
+    size_t getBatchEndIndex(int n_batches, int current_batch);
 
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation

@@ -26,6 +26,10 @@
 #include <iomanip>
 #include <iostream>
 
+namespace {
+size_t getIndexStep(size_t total_size, size_t n_handlers);
+}
+
 Simulation::Simulation()
 {
     initialize();
@@ -322,6 +326,15 @@ std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches
     return m_sim_elements.begin() + current_batch*size_per_batch;
 }
 
+size_t Simulation::getBatchStartIndex(int n_batches, int current_batch)
+{
+    imposeConsistencyOfBatchNumbers(n_batches, current_batch);
+    const size_t total_size = numberOfSimulationElements();
+    const size_t size_per_batch = getIndexStep(total_size, static_cast<size_t>(n_batches));
+    const size_t start_index = current_batch * size_per_batch;
+    return start_index >= total_size ? total_size : start_index;
+}
+
 std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, int current_batch)
 {
     imposeConsistencyOfBatchNumbers(n_batches, current_batch);
@@ -333,6 +346,15 @@ std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, 
     if (end_index >= total_size)
         return m_sim_elements.end();
     return m_sim_elements.begin() + end_index;
+}
+
+size_t Simulation::getBatchEndIndex(int n_batches, int current_batch)
+{
+    imposeConsistencyOfBatchNumbers(n_batches, current_batch);
+    const size_t total_size = numberOfSimulationElements();
+    const size_t size_per_batch = getIndexStep(total_size, static_cast<size_t>(n_batches));
+    const size_t end_index = (current_batch + 1) * size_per_batch;
+    return end_index >= total_size ? total_size : end_index;
 }
 
 void Simulation::initialize()
@@ -351,4 +373,12 @@ void Simulation::imposeConsistencyOfBatchNumbers(int& n_batches, int& current_ba
         throw Exceptions::ClassInitializationException(
             "Simulation::imposeConsistencyOfBatchNumbers(): Batch number must be smaller than "
             "number of batches.");
+}
+
+namespace {
+size_t getIndexStep(size_t total_size, size_t n_handlers)
+{
+    size_t result = total_size / n_handlers;
+    return total_size % n_handlers ? ++result : result;
+}
 }

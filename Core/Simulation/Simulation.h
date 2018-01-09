@@ -119,12 +119,6 @@ protected:
     void addBackGroundIntensity(std::vector<SimulationElement>::iterator begin_it,
                                 std::vector<SimulationElement>::iterator end_it) const;
 
-    //! Returns the start iterator of simulation elements for the current batch
-    std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);
-
-    //! Returns the end iterator of simulation elements for the current batch
-    std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
-
     SampleProvider m_sample_provider;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
@@ -139,6 +133,12 @@ private:
 
     //! Initializes the vector of Simulation elements
     virtual void initSimulationElementVector() = 0;
+
+    //! Returns the start iterator of simulation elements for the current batch
+    std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);
+
+    //! Returns the end iterator of simulation elements for the current batch
+    std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 };
 
 #endif // SIMULATION_H

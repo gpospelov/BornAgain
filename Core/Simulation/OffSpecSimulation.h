@@ -55,13 +55,18 @@ public:
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
                                size_t n_y, double y_min, double y_max);
 
-protected:
-    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(
-            std::vector<SimulationElement>::iterator start,
-            std::vector<SimulationElement>::iterator end);
-
 private:
     OffSpecSimulation(const OffSpecSimulation& other);
+
+    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(
+            std::vector<SimulationElement>::iterator start,
+            std::vector<SimulationElement>::iterator end) override;
+
+    //! Generate a single threaded computation for a given range of simulation elements
+    //! @param start Index of the first element to include into computation
+    //! @param end Index of the element after the last one to include into computation
+    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
+                                                                            size_t end) override;
 
     //! Initializes the vector of Simulation elements
     void initSimulationElementVector() final;

@@ -120,6 +120,15 @@ std::unique_ptr<IComputation> SpecularSimulation::generateSingleThreadedComputat
     return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, start, end);
 }
 
+std::unique_ptr<IComputation> SpecularSimulation::generateSingleThreadedComputation(size_t start,
+                                                                            size_t end)
+{
+    assert(start < end && end <= m_sim_elements.size());
+    const auto& begin = m_sim_elements.begin();
+    return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress,
+                                                 begin + start, begin + end);
+}
+
 OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_type) const
 {
     const size_t i_layer = 0; // detector intensity is proportional to reflectivity from the zeroth layer

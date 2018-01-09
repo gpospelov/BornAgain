@@ -18,13 +18,11 @@
 #include "SimulationElement.h"
 
 IComputation::IComputation(const SimulationOptions& options, ProgressHandler& progress,
-                           const std::vector<SimulationElement>::iterator& start,
-                           const std::vector<SimulationElement>::iterator& end,
-                           const MultiLayer& sample)
+                           std::vector<SimulationElement>::iterator start,
+                           std::vector<SimulationElement>::iterator end, const MultiLayer& sample)
     : m_sim_options(options)
     , m_progress(&progress)
-    , m_begin_it(start)
-    , m_end_it(end)
+    , m_begin_it(start), m_end_it(end)
     , mP_multi_layer(sample.cloneSliced(options.useAvgMaterials()))
 {
     if (!mP_multi_layer)

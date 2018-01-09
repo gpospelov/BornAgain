@@ -89,6 +89,15 @@ std::unique_ptr<IComputation> OffSpecSimulation::generateSingleThreadedComputati
     return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, start, end);
 }
 
+std::unique_ptr<IComputation> OffSpecSimulation::generateSingleThreadedComputation(size_t start,
+                                                                                   size_t end)
+{
+    assert(start < end && end <= m_sim_elements.size());
+    const auto& begin = m_sim_elements.begin();
+    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress,
+                                             begin + start, begin + end);
+}
+
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     : Simulation(other)
     , mp_alpha_i_axis(nullptr)

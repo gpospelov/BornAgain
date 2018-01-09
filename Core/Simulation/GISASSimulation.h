@@ -102,6 +102,12 @@ private:
     void updateIntensityMap() final;
 
     void initialize();
+
+    //! Generate a single threaded computation for a given range of simulation elements
+    //! @param start Index of the first element to include into computation
+    //! @param end Index of the element after the last one to include into computation
+    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
+                                                                            size_t end) override;
 };
 
 #endif // GISASSIMULATION_H

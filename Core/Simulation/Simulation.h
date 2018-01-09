@@ -139,6 +139,12 @@ private:
 
     //! Returns the end iterator of simulation elements for the current batch
     std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
+
+    //! Generate a single threaded computation for a given range of simulation elements
+    //! @param start Index of the first element to include into computation
+    //! @param end Index of the element after the last one to include into computation
+    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
+                                                                            size_t end) = 0;
 };
 
 #endif // SIMULATION_H

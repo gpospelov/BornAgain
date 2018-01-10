@@ -251,19 +251,14 @@ void Simulation::runSingleSimulation()
         std::vector<std::unique_ptr<std::thread>> threads;
         std::vector<std::unique_ptr<IComputation>> computations;
 
-        // Distribute Initialize n computations.
+        // Distribute computations on the threads.
         const size_t batch_size = batch_end - batch_start;
-        const size_t element_thread_step = getIndexStep(batch_size, n_threads);
-
         for (size_t i_thread = 0; i_thread < n_threads; ++i_thread) {
-            if (i_thread * element_thread_step >= batch_size)
+            const size_t begin = batch_start + getStartIndex(n_threads, i_thread, batch_size);
+            const size_t end = batch_start + getEndIndex(n_threads, i_thread, batch_size);
+            if (begin == end)
                 break;
-            const size_t begin_ind = batch_start + i_thread * element_thread_step;
-            const size_t end_thread_index = (i_thread + 1) * element_thread_step;
-            const size_t end_ind = end_thread_index >= batch_size
-                                       ? batch_end
-                                       : batch_start + end_thread_index;
-            computations.push_back(generateSingleThreadedComputation(begin_ind, end_ind));
+            computations.push_back(generateSingleThreadedComputation(begin, end));
         }
 
         // Run simulations in n threads.

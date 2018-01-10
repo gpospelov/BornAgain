@@ -122,12 +122,6 @@ private:
     //! Initializes the vector of Simulation elements
     virtual void initSimulationElementVector() = 0;
 
-    //! Returns the index of the first simulation element to compute in current batch
-    size_t getBatchStartIndex(size_t n_batches, size_t current_batch);
-
-    //! Returns the index of the simulation element after the last one to compute in current batch
-    size_t getBatchEndIndex(size_t n_batches, size_t current_batch);
-
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
     //! @param end Index of the element after the last one to include into computation

@@ -28,6 +28,8 @@
 
 namespace {
 size_t getIndexStep(size_t total_size, size_t n_handlers);
+size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements);
+size_t getEndIndex(size_t n_handlers, size_t current_handler, size_t n_elements);
 }
 
 Simulation::Simulation()
@@ -227,10 +229,14 @@ void Simulation::runSingleSimulation()
     // restrict calculation to current batch
     const size_t n_batches = m_options.getNumberOfBatches();
     const size_t current_batch = m_options.getCurrentBatch();
-    const size_t batch_start = getBatchStartIndex(n_batches, current_batch);
-    const size_t batch_end = getBatchEndIndex(n_batches, current_batch);
+    const size_t total_size = numberOfSimulationElements();
 
-    if (m_options.getNumberOfThreads() == 1) {
+    const size_t batch_start = getStartIndex(n_batches, current_batch, total_size);
+    const size_t batch_end = getEndIndex(n_batches, current_batch, total_size);
+
+    const size_t n_threads = m_options.getNumberOfThreads();
+
+    if (n_threads == 1) {
         // Single thread.
         auto P_computation = generateSingleThreadedComputation(batch_start, batch_end);
         P_computation->run(); // the work is done here
@@ -245,17 +251,16 @@ void Simulation::runSingleSimulation()
         std::vector<std::unique_ptr<std::thread>> threads;
         std::vector<std::unique_ptr<IComputation>> computations;
 
-        // Initialize n computations.
-        const size_t total_batch_elements = batch_end - batch_start;
-        const size_t n_threads = m_options.getNumberOfThreads();
-        const size_t element_thread_step = getIndexStep(total_batch_elements, n_threads);
+        // Distribute Initialize n computations.
+        const size_t batch_size = batch_end - batch_start;
+        const size_t element_thread_step = getIndexStep(batch_size, n_threads);
 
         for (size_t i_thread = 0; i_thread < n_threads; ++i_thread) {
-            if (i_thread * element_thread_step >= total_batch_elements)
+            if (i_thread * element_thread_step >= batch_size)
                 break;
             const size_t begin_ind = batch_start + i_thread * element_thread_step;
             const size_t end_thread_index = (i_thread + 1) * element_thread_step;
-            const size_t end_ind = end_thread_index >= total_batch_elements
+            const size_t end_ind = end_thread_index >= batch_size
                                        ? batch_end
                                        : batch_start + end_thread_index;
             computations.push_back(generateSingleThreadedComputation(begin_ind, end_ind));
@@ -295,22 +300,6 @@ void Simulation::normalize(size_t start_ind, size_t end_ind)
         normalizeIntensity(i, beam_intensity);
 }
 
-size_t Simulation::getBatchStartIndex(size_t n_batches, size_t current_batch)
-{
-    const size_t total_size = numberOfSimulationElements();
-    const size_t size_per_batch = getIndexStep(total_size, static_cast<size_t>(n_batches));
-    const size_t start_index = current_batch * size_per_batch;
-    return start_index >= total_size ? total_size : start_index;
-}
-
-size_t Simulation::getBatchEndIndex(size_t n_batches, size_t current_batch)
-{
-    const size_t total_size = numberOfSimulationElements();
-    const size_t size_per_batch = getIndexStep(total_size, static_cast<size_t>(n_batches));
-    const size_t end_index = (current_batch + 1) * size_per_batch;
-    return end_index >= total_size ? total_size : end_index;
-}
-
 void Simulation::initialize()
 {
     registerChild(&m_instrument);
@@ -322,5 +311,19 @@ size_t getIndexStep(size_t total_size, size_t n_handlers)
 {
     size_t result = total_size / n_handlers;
     return total_size % n_handlers ? ++result : result;
+}
+
+size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements)
+{
+    const size_t size_per_batch = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
+    const size_t start_index = current_handler * size_per_batch;
+    return start_index >= n_elements ? n_elements : start_index;
+}
+
+size_t getEndIndex(size_t n_handlers, size_t current_handler, size_t n_elements)
+{
+    const size_t size_per_batch = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
+    const size_t end_index = (current_handler + 1) * size_per_batch;
+    return end_index >= n_elements ? n_elements : end_index;
 }
 }

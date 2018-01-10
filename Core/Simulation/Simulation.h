@@ -130,7 +130,6 @@ protected:
 
 private:
     void initialize();
-    void imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch);
 
     //! Initializes the vector of Simulation elements
     virtual void initSimulationElementVector() = 0;

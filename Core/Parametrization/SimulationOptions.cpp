@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "SimulationOptions.h"
+#include <stdexcept>
 #include <thread>
 
 SimulationOptions::SimulationOptions()
@@ -37,9 +38,9 @@ void SimulationOptions::setMonteCarloIntegration(bool flag, size_t mc_points)
 
 void SimulationOptions::setNumberOfThreads(int nthreads)
 {
-    if(nthreads == 0)
-        m_thread_info.n_threads = (int)std::thread::hardware_concurrency();
-    else if(nthreads > 0)
+    if (nthreads == 0)
+        m_thread_info.n_threads = getHardwareConcurrency();
+    else if (nthreads > 0)
         m_thread_info.n_threads = nthreads;
     else
         m_thread_info.n_threads = 1;
@@ -47,21 +48,33 @@ void SimulationOptions::setNumberOfThreads(int nthreads)
 
 int SimulationOptions::getNumberOfThreads() const
 {
+    if (m_thread_info.n_threads < 1)
+        throw std::runtime_error("Error in SimulationOptions::getNumberOfThreads: Number of "
+                                 "threads must be positive");
     return m_thread_info.n_threads;
 }
 
 void SimulationOptions::setNumberOfBatches(int nbatches)
 {
+    if (nbatches < 1)
+        throw std::runtime_error("Error in SimulationOptions::setNumberOfBatches: Number of "
+                                 "batches must be positive");
     m_thread_info.n_batches = nbatches;
 }
 
 int SimulationOptions::getNumberOfBatches() const
 {
+    if (m_thread_info.n_batches < 1)
+        throw std::runtime_error("Error in SimulationOptions::getNumberOfBatches: Number of "
+                                 "batches must be positive");
     return m_thread_info.n_batches;
 }
 
 int SimulationOptions::getCurrentBatch() const
 {
+    if (m_thread_info.current_batch >= getNumberOfBatches())
+        throw std::runtime_error(
+            "Error in SimulationOptions::getCurrentBatch: current batch is out of range");
     return m_thread_info.current_batch;
 }
 

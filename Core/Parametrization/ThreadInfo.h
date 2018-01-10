@@ -24,14 +24,12 @@ struct BA_CORE_API_ ThreadInfo
 {
     ThreadInfo();
     int n_threads;
-    int current_thread;
     int n_batches;
     int current_batch;
 };
 
 inline ThreadInfo::ThreadInfo()
     : n_threads(0)
-    , current_thread(0)
     , n_batches(1)
     , current_batch(0)
 {

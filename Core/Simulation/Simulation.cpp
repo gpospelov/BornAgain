@@ -324,7 +324,6 @@ void Simulation::addBackGroundIntensity(std::vector<SimulationElement>::iterator
 
 std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches, int current_batch)
 {
-    imposeConsistencyOfBatchNumbers(n_batches, current_batch);
     int total_size = static_cast<int>(m_sim_elements.size());
     int size_per_batch = total_size/n_batches;
     if (total_size%n_batches)
@@ -336,7 +335,6 @@ std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches
 
 size_t Simulation::getBatchStartIndex(int n_batches, int current_batch)
 {
-    imposeConsistencyOfBatchNumbers(n_batches, current_batch);
     const size_t total_size = numberOfSimulationElements();
     const size_t size_per_batch = getIndexStep(total_size, static_cast<size_t>(n_batches));
     const size_t start_index = current_batch * size_per_batch;
@@ -345,7 +343,6 @@ size_t Simulation::getBatchStartIndex(int n_batches, int current_batch)
 
 std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, int current_batch)
 {
-    imposeConsistencyOfBatchNumbers(n_batches, current_batch);
     int total_size = static_cast<int>(m_sim_elements.size());
     int size_per_batch = total_size/n_batches;
     if (total_size%n_batches)
@@ -358,7 +355,6 @@ std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, 
 
 size_t Simulation::getBatchEndIndex(int n_batches, int current_batch)
 {
-    imposeConsistencyOfBatchNumbers(n_batches, current_batch);
     const size_t total_size = numberOfSimulationElements();
     const size_t size_per_batch = getIndexStep(total_size, static_cast<size_t>(n_batches));
     const size_t end_index = (current_batch + 1) * size_per_batch;
@@ -369,18 +365,6 @@ void Simulation::initialize()
 {
     registerChild(&m_instrument);
     registerChild(&m_sample_provider);
-}
-
-void Simulation::imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch)
-{
-    if (n_batches < 2) {
-        n_batches = 1;
-        current_batch = 0;
-    }
-    if (current_batch >= n_batches)
-        throw Exceptions::ClassInitializationException(
-            "Simulation::imposeConsistencyOfBatchNumbers(): Batch number must be smaller than "
-            "number of batches.");
 }
 
 namespace {

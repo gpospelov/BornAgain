@@ -333,7 +333,7 @@ std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches
     return m_sim_elements.begin() + current_batch*size_per_batch;
 }
 
-size_t Simulation::getBatchStartIndex(int n_batches, int current_batch)
+size_t Simulation::getBatchStartIndex(size_t n_batches, size_t current_batch)
 {
     const size_t total_size = numberOfSimulationElements();
     const size_t size_per_batch = getIndexStep(total_size, static_cast<size_t>(n_batches));
@@ -353,7 +353,7 @@ std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, 
     return m_sim_elements.begin() + end_index;
 }
 
-size_t Simulation::getBatchEndIndex(int n_batches, int current_batch)
+size_t Simulation::getBatchEndIndex(size_t n_batches, size_t current_batch)
 {
     const size_t total_size = numberOfSimulationElements();
     const size_t size_per_batch = getIndexStep(total_size, static_cast<size_t>(n_batches));

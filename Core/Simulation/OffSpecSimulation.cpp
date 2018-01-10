@@ -83,13 +83,6 @@ void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x
     updateIntensityMap();
 }
 
-std::unique_ptr<IComputation> OffSpecSimulation::generateSingleThreadedComputation(
-        std::vector<SimulationElement>::iterator start,
-        std::vector<SimulationElement>::iterator end)
-{
-    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, start, end);
-}
-
 std::unique_ptr<IComputation> OffSpecSimulation::generateSingleThreadedComputation(size_t start,
                                                                                    size_t end)
 {

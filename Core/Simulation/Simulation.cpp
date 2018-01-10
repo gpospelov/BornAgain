@@ -286,20 +286,6 @@ void Simulation::runSingleSimulation()
     addBackGroundIntensity(batch_start, batch_end);
 }
 
-void Simulation::normalize(std::vector<SimulationElement>::iterator begin_it,
-                           std::vector<SimulationElement>::iterator end_it) const
-{
-    double beam_intensity = getBeamIntensity();
-    if (beam_intensity==0.0)
-        return; // no normalization when beam intensity is zero
-    for(auto it=begin_it; it!=end_it; ++it) {
-        double sin_alpha_i = std::abs(std::sin(it->getAlphaI()));
-        if (sin_alpha_i==0.0) sin_alpha_i = 1.0;
-        double solid_angle = it->getSolidAngle();
-        it->setIntensity(it->getIntensity()*beam_intensity*solid_angle/sin_alpha_i);
-    }
-}
-
 void Simulation::normalize(size_t start_ind, size_t end_ind)
 {
     const double beam_intensity = getBeamIntensity();
@@ -309,43 +295,12 @@ void Simulation::normalize(size_t start_ind, size_t end_ind)
         normalizeIntensity(i, beam_intensity);
 }
 
-void Simulation::addBackGroundIntensity(std::vector<SimulationElement>::iterator begin_it,
-                                        std::vector<SimulationElement>::iterator end_it) const
-{
-    if (mP_background) {
-        mP_background->addBackGround(begin_it, end_it);
-    }
-}
-
-std::vector<SimulationElement>::iterator Simulation::getBatchStart(int n_batches, int current_batch)
-{
-    int total_size = static_cast<int>(m_sim_elements.size());
-    int size_per_batch = total_size/n_batches;
-    if (total_size%n_batches)
-        ++size_per_batch;
-    if (current_batch*size_per_batch >= total_size)
-        return m_sim_elements.end();
-    return m_sim_elements.begin() + current_batch*size_per_batch;
-}
-
 size_t Simulation::getBatchStartIndex(size_t n_batches, size_t current_batch)
 {
     const size_t total_size = numberOfSimulationElements();
     const size_t size_per_batch = getIndexStep(total_size, static_cast<size_t>(n_batches));
     const size_t start_index = current_batch * size_per_batch;
     return start_index >= total_size ? total_size : start_index;
-}
-
-std::vector<SimulationElement>::iterator Simulation::getBatchEnd(int n_batches, int current_batch)
-{
-    int total_size = static_cast<int>(m_sim_elements.size());
-    int size_per_batch = total_size/n_batches;
-    if (total_size%n_batches)
-        ++size_per_batch;
-    int end_index = (current_batch + 1)*size_per_batch;
-    if (end_index >= total_size)
-        return m_sim_elements.end();
-    return m_sim_elements.begin() + end_index;
 }
 
 size_t Simulation::getBatchEndIndex(size_t n_batches, size_t current_batch)

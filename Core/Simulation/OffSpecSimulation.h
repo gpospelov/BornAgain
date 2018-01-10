@@ -58,10 +58,6 @@ public:
 private:
     OffSpecSimulation(const OffSpecSimulation& other);
 
-    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(
-            std::vector<SimulationElement>::iterator start,
-            std::vector<SimulationElement>::iterator end) override;
-
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
     //! @param end Index of the element after the last one to include into computation

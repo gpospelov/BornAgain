@@ -104,21 +104,9 @@ protected:
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
-    //! Generate a single threaded computation for a given range of SimulationElement's
-    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(
-            std::vector<SimulationElement>::iterator start,
-            std::vector<SimulationElement>::iterator end) = 0;
-
     void runSingleSimulation();
 
     virtual void updateIntensityMap() {}
-
-    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
-    virtual void normalize(std::vector<SimulationElement>::iterator begin_it,
-                   std::vector<SimulationElement>::iterator end_it) const;
-
-    void addBackGroundIntensity(std::vector<SimulationElement>::iterator begin_it,
-                                std::vector<SimulationElement>::iterator end_it) const;
 
     SampleProvider m_sample_provider;
     SimulationOptions m_options;
@@ -134,14 +122,8 @@ private:
     //! Initializes the vector of Simulation elements
     virtual void initSimulationElementVector() = 0;
 
-    //! Returns the start iterator of simulation elements for the current batch
-    std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);
-
     //! Returns the index of the first simulation element to compute in current batch
     size_t getBatchStartIndex(size_t n_batches, size_t current_batch);
-
-    //! Returns the end iterator of simulation elements for the current batch
-    std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
 
     //! Returns the index of the simulation element after the last one to compute in current batch
     size_t getBatchEndIndex(size_t n_batches, size_t current_batch);

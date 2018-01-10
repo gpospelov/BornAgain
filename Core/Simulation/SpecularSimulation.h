@@ -88,20 +88,11 @@ private:
 
     std::unique_ptr<OutputData<double>> getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const;
 
-    //! Generate a single threaded computation for a given range of SimulationElement's
-    virtual std::unique_ptr<IComputation>
-    generateSingleThreadedComputation(std::vector<SimulationElement>::iterator start,
-                                      std::vector<SimulationElement>::iterator end) override;
-
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
     //! @param end Index of the element after the last one to include into computation
     virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
                                                                             size_t end) override;
-
-    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
-    virtual void normalize(std::vector<SimulationElement>::iterator begin_it,
-                           std::vector<SimulationElement>::iterator end_it) const override;
 
     //! Checks if simulation data is ready for retrieval
     void validityCheck(size_t i_layer) const;

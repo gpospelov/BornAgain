@@ -29,7 +29,7 @@
 namespace {
 size_t getIndexStep(size_t total_size, size_t n_handlers);
 size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements);
-size_t getEndIndex(size_t n_handlers, size_t current_handler, size_t n_elements);
+size_t getElementNumber(size_t n_handlers, size_t current_handler, size_t n_elements);
 }
 
 Simulation::Simulation()
@@ -232,13 +232,15 @@ void Simulation::runSingleSimulation()
     const size_t total_size = numberOfSimulationElements();
 
     const size_t batch_start = getStartIndex(n_batches, current_batch, total_size);
-    const size_t batch_end = getEndIndex(n_batches, current_batch, total_size);
+    const size_t batch_size = getElementNumber(n_batches, current_batch, total_size);
+    if (batch_size == 0)
+        return;
 
     const size_t n_threads = m_options.getNumberOfThreads();
 
     if (n_threads == 1) {
         // Single thread.
-        auto P_computation = generateSingleThreadedComputation(batch_start, batch_end);
+        auto P_computation = generateSingleThreadedComputation(batch_start, batch_size);
         P_computation->run(); // the work is done here
         if (!P_computation->isCompleted()) {
             std::string message = P_computation->errorMessage();
@@ -252,13 +254,12 @@ void Simulation::runSingleSimulation()
         std::vector<std::unique_ptr<IComputation>> computations;
 
         // Distribute computations on the threads.
-        const size_t batch_size = batch_end - batch_start;
         for (size_t i_thread = 0; i_thread < n_threads; ++i_thread) {
-            const size_t begin = batch_start + getStartIndex(n_threads, i_thread, batch_size);
-            const size_t end = batch_start + getEndIndex(n_threads, i_thread, batch_size);
-            if (begin == end)
+            const size_t thread_start = batch_start + getStartIndex(n_threads, i_thread, batch_size);
+            const size_t thread_size = getElementNumber(n_threads, i_thread, batch_size);
+            if (thread_size == 0)
                 break;
-            computations.push_back(generateSingleThreadedComputation(begin, end));
+            computations.push_back(generateSingleThreadedComputation(thread_start, thread_size));
         }
 
         // Run simulations in n threads.
@@ -282,16 +283,16 @@ void Simulation::runSingleSimulation()
                 "At least one simulation thread has terminated unexpectedly.\n"
                 "Messages: " + StringUtils::join(failure_messages, " --- "));
     }
-    normalize(batch_start, batch_end);
-    addBackGroundIntensity(batch_start, batch_end);
+    normalize(batch_start, batch_size);
+    addBackGroundIntensity(batch_start, batch_size);
 }
 
-void Simulation::normalize(size_t start_ind, size_t end_ind)
+void Simulation::normalize(size_t start_ind, size_t n_elements)
 {
     const double beam_intensity = getBeamIntensity();
     if (beam_intensity == 0.0)
         return; // no normalization when beam intensity is zero
-    for (size_t i = start_ind; i < end_ind; ++i)
+    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i)
         normalizeIntensity(i, beam_intensity);
 }
 
@@ -304,21 +305,27 @@ void Simulation::initialize()
 namespace {
 size_t getIndexStep(size_t total_size, size_t n_handlers)
 {
+    assert(total_size > 0);
+    assert(n_handlers > 0);
     size_t result = total_size / n_handlers;
     return total_size % n_handlers ? ++result : result;
 }
 
 size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements)
 {
-    const size_t size_per_batch = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
-    const size_t start_index = current_handler * size_per_batch;
-    return start_index >= n_elements ? n_elements : start_index;
+    const size_t handler_size = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
+    const size_t start_index = current_handler * handler_size;
+    if (start_index >= n_elements)
+        return n_elements;
+    return start_index;
 }
 
-size_t getEndIndex(size_t n_handlers, size_t current_handler, size_t n_elements)
+size_t getElementNumber(size_t n_handlers, size_t current_handler, size_t n_elements)
 {
-    const size_t size_per_batch = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
-    const size_t end_index = (current_handler + 1) * size_per_batch;
-    return end_index >= n_elements ? n_elements : end_index;
+    const size_t handler_size = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
+    const size_t start_index = current_handler * handler_size;
+    if (start_index >= n_elements)
+        return 0;
+    return std::min(handler_size, n_elements - start_index);
 }
 }

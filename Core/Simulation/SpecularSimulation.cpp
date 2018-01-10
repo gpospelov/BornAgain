@@ -115,13 +115,13 @@ SpecularSimulation::getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const
     return output_ptr;
 }
 
-std::unique_ptr<IComputation> SpecularSimulation::generateSingleThreadedComputation(size_t start,
-                                                                            size_t end)
+std::unique_ptr<IComputation>
+SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
 {
-    assert(start < end && end <= m_sim_elements.size());
-    const auto& begin = m_sim_elements.begin();
-    return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress,
-                                                 begin + start, begin + end);
+    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
+    const auto& begin = m_sim_elements.begin() + start;
+    return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, begin,
+                                                 begin + n_elements);
 }
 
 OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_type) const
@@ -163,11 +163,11 @@ void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
     m_sim_elements[index].setIntensity(m_sim_elements[index].getIntensity() * beam_intensity);
 }
 
-void SpecularSimulation::addBackGroundIntensity(size_t begin_ind, size_t end_ind)
+void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
 {
     if (!mP_background)
         return;
-    for (size_t i = begin_ind; i < end_ind; ++i) {
+    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         SimulationElement& element = m_sim_elements[i];
         mP_background->addBackGround(element);
     }

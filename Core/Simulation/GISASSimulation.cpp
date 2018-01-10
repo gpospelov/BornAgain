@@ -112,12 +112,12 @@ void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, 
 }
 
 std::unique_ptr<IComputation> GISASSimulation::generateSingleThreadedComputation(size_t start,
-                                                                                 size_t end)
+                                                                                 size_t n_elements)
 {
-    assert(start < end && end <= m_sim_elements.size());
-    const auto& begin = m_sim_elements.begin();
-    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress,
-                                             begin + start, begin + end);
+    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
+    const auto& begin = m_sim_elements.begin() + start;
+    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, begin,
+                                             begin + n_elements);
 }
 
 void GISASSimulation::normalizeIntensity(size_t index, double beam_intensity)
@@ -130,11 +130,11 @@ void GISASSimulation::normalizeIntensity(size_t index, double beam_intensity)
     element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
 }
 
-void GISASSimulation::addBackGroundIntensity(size_t begin_ind, size_t end_ind)
+void GISASSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
 {
     if (!mP_background)
         return;
-    for (size_t i = begin_ind; i < end_ind; ++i) {
+    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         SimulationElement& element = m_sim_elements[i];
         mP_background->addBackGround(element);
     }

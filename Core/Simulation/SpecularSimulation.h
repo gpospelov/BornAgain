@@ -90,9 +90,9 @@ private:
 
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
-    //! @param end Index of the element after the last one to include into computation
-    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
-                                                                            size_t end) override;
+    //! @param n_elements Number of elements to process
+    virtual std::unique_ptr<IComputation>
+    generateSingleThreadedComputation(size_t start, size_t n_elements) override;
 
     //! Checks if simulation data is ready for retrieval
     void validityCheck(size_t i_layer) const;
@@ -104,7 +104,7 @@ private:
     //! for single simulation element specified by _index_.
     virtual void normalizeIntensity(size_t index, double beam_intensity) override;
 
-    virtual void addBackGroundIntensity(size_t begin_ind, size_t end_ind) override;
+    virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
 };
 
 #endif // SPECULARSIMULATION_H

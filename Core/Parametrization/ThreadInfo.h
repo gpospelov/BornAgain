@@ -23,9 +23,9 @@
 struct BA_CORE_API_ ThreadInfo
 {
     ThreadInfo();
-    int n_threads;
-    int n_batches;
-    int current_batch;
+    unsigned n_threads;
+    unsigned n_batches;
+    unsigned current_batch;
 };
 
 inline ThreadInfo::ThreadInfo()

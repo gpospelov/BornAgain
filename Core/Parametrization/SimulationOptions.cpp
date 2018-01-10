@@ -46,7 +46,7 @@ void SimulationOptions::setNumberOfThreads(int nthreads)
         m_thread_info.n_threads = 1;
 }
 
-int SimulationOptions::getNumberOfThreads() const
+unsigned SimulationOptions::getNumberOfThreads() const
 {
     if (m_thread_info.n_threads < 1)
         throw std::runtime_error("Error in SimulationOptions::getNumberOfThreads: Number of "
@@ -62,7 +62,7 @@ void SimulationOptions::setNumberOfBatches(int nbatches)
     m_thread_info.n_batches = nbatches;
 }
 
-int SimulationOptions::getNumberOfBatches() const
+unsigned SimulationOptions::getNumberOfBatches() const
 {
     if (m_thread_info.n_batches < 1)
         throw std::runtime_error("Error in SimulationOptions::getNumberOfBatches: Number of "
@@ -70,7 +70,7 @@ int SimulationOptions::getNumberOfBatches() const
     return m_thread_info.n_batches;
 }
 
-int SimulationOptions::getCurrentBatch() const
+unsigned SimulationOptions::getCurrentBatch() const
 {
     if (m_thread_info.current_batch >= getNumberOfBatches())
         throw std::runtime_error(
@@ -78,7 +78,7 @@ int SimulationOptions::getCurrentBatch() const
     return m_thread_info.current_batch;
 }
 
-int SimulationOptions::getHardwareConcurrency() const
+unsigned SimulationOptions::getHardwareConcurrency() const
 {
-    return (int)std::thread::hardware_concurrency();
+    return std::thread::hardware_concurrency();
 }

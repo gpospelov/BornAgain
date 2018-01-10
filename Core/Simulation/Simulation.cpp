@@ -252,8 +252,8 @@ void Simulation::runSingleSimulation()
         if (total_batch_elements % m_options.getNumberOfThreads()) // there is a remainder
             ++element_thread_step;
 
-        for (int i_thread = 0; i_thread < m_options.getNumberOfThreads(); ++i_thread) {
-            if (i_thread*element_thread_step >= total_batch_elements)
+        for (size_t i_thread = 0; i_thread < m_options.getNumberOfThreads(); ++i_thread) {
+            if (i_thread * element_thread_step >= total_batch_elements)
                 break;
             std::vector<SimulationElement>::iterator begin_it = batch_start
                                                                 + i_thread * element_thread_step;

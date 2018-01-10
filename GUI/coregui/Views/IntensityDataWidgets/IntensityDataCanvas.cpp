@@ -24,6 +24,9 @@
 #include <QVBoxLayout>
 #include <QMouseEvent>
 #include <QSettings>
+#include "IntensityDataFunctions.h"
+
+#include "iostream"
 
 namespace {
 
@@ -102,38 +105,58 @@ void IntensityDataCanvas::onfftAction()
 {
     //qDebug() << "IntensityDataCanvas::onFFTAction" << status;
     auto dataItem = intensityDataItem();
-    auto data = dataItem->getOutputData();
+//    auto data = dataItem->getOutputData();
 
+    /*
     OutputData<double> fftData;
     fftData.copyFrom(*data);
     fftData.setAllTo(42.);
     dataItem->setOutputData(&fftData);
     //m_backup.reset(new OutputData<double>);
     //m_backup->copyFrom(*data);
+    disconnect(m_fftAction, &QAction::triggered, this, &IntensityDataCanvas::onfftAction);
+    */
 
-    /*
-    bool status=0;
-    if(status == 0)
+    if(m_backup)
     {
-        OutputData<double> fftData;
-        fftData.copyFrom(*data);
-        fftData.setAllTo(42.);
-        dataItem->setOutputData(&fftData);
-        m_backup.reset(new OutputData<double>);
-        m_backup->copyFrom(*data);
-
-        status = 1;
-
+        dataItem->setOutputData(m_backup.release());
     }
 
     else
     {
-        OutputData<double> backupData;
-        backupData.copyFrom(*m_backup);
-        dataItem->setOutputData(&backupData);
-        status = 0;
+        m_backup.reset(new OutputData<double>);
+        m_backup->copyFrom(*dataItem->getOutputData());
+
+        std::vector<std::vector<double>> array_2d =
+                IntensityDataFunctions::construct2DArray(*dataItem->getOutputData());
+
+        std::vector<std::vector<double>> fft_array_2d =
+                IntensityDataFunctions::createFFT(array_2d);
+
+        OutputData<double> fftData;
+        fftData.copyFrom(*IntensityDataFunctions::constructOutputDatafrom2D(
+                             fft_array_2d, *dataItem->getOutputData()));
+        /*
+        std::cout<<fftData[0]<<std::endl;
+        std::cout<<fftData[1]<<std::endl;
+        std::cout<<fftData[5098]<<std::endl;
+        std::cout<<fftData[5099]<<std::endl;
+        */
+
+        dataItem->setOutputData(&fftData);
+
+        /*
+        std::cout<<(*dataItem->getOutputData())[0]<<std::endl;
+        std::cout<<(*dataItem->getOutputData())[1]<<std::endl;
+        std::cout<<(*dataItem->getOutputData())[5098]<<std::endl;
+        std::cout<<(*dataItem->getOutputData())[5099]<<std::endl;
+        */
+
+        //dataItem->getOutputData()->setAllTo(42.0);
+        //dataItem->emitDataChanged();
+
     }
-    */
+
 //    // convert data to vector<vector<double>>
 
 //    auto fftOutputData = IntensityDaqtaFunctions::fft(*data);
@@ -175,7 +198,7 @@ void IntensityDataCanvas::initActions()
     m_fftAction = new QAction(this);
     m_fftAction->setText("Fourier Transform");
     //m_fftAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
-    m_fftAction->setToolTip("Get the Fourier Transform of this intensity map");
+    m_fftAction->setToolTip("Get the Fourier Transform of current intensity map");
     connect(m_fftAction, &QAction::triggered, this, &IntensityDataCanvas::onfftAction);
 }
 

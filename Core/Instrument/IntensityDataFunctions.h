@@ -64,6 +64,17 @@ BA_CORE_API_ void coordinateToBinf(double& x, double& y, const OutputData<double
 //! Transforms x,y coordinate from bin-fraction-coordinates to OutputData's axes coordinates.
 BA_CORE_API_ void coordinateFromBinf(double& x, double& y, const OutputData<double>& data);
 
+//! Creates a vector of vectors of double (2D Array) from OutputData.
+BA_CORE_API_ std::vector<std::vector<double>> construct2DArray(const OutputData<double>& data);
+
+//! Creates a Fourier Transform of a 2D Array of vector of vectors.
+BA_CORE_API_ std::vector<std::vector<double>> createFFT(
+        const std::vector<std::vector<double>>& signal);
+
+//! Creates OutputData from a 2D Array.
+BA_CORE_API_ OutputData<double>* constructOutputDatafrom2D(
+        const std::vector<std::vector<double>>& array_2d, const OutputData<double>& reference);
+
 }; // namespace IntensityDataFunctions
 
 #endif // INTENSITYDATAFUNCTIONS_H

@@ -44,6 +44,7 @@ public slots:
     void onResetViewAction();
     void onSavePlotAction();
     void onMousePress(QMouseEvent *event);
+
     void onfftAction();
 
 protected:
@@ -58,6 +59,7 @@ private:
     ColorMapCanvas* m_colorMap;
     QAction* m_resetViewAction;
     QAction* m_savePlotAction;
+
     QAction* m_fftAction;
     std::unique_ptr<OutputData<double>> m_backup;
 

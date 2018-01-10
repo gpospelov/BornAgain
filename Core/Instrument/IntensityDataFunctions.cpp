@@ -17,6 +17,10 @@
 #include "IHistogram.h"
 #include "IntensityDataFunctions.h"
 #include "Numeric.h"
+#include "FourierTransform.h"
+#include <math.h>
+//Just for testing with cout
+#include<iostream>
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 double IntensityDataFunctions::getRelativeDifference(
@@ -198,4 +202,105 @@ void IntensityDataFunctions::coordinateFromBinf(
 {
     x = coordinateFromBinf(x, data.getAxis(BornAgain::X_AXIS_INDEX));
     y = coordinateFromBinf(y, data.getAxis(BornAgain::Y_AXIS_INDEX));
+}
+
+std::vector<std::vector<double>> IntensityDataFunctions::construct2DArray(
+        const OutputData<double> & data)
+{
+    if (data.getRank() != 2)
+        throw Exceptions::LogicErrorException("IntensityDataFunctions::Construct2DArray()"
+            " -> Error! Works only on two-dimensional data");
+
+    /*
+    std::cout<<data.getAllocatedSize()<<std::endl;
+    std::cout<<data[0]<<std::endl;
+    std::cout<<data[2]<<std::endl;
+    std::cout<<data[50]<<std::endl;
+    std::cout<<data[99]<<std::endl;
+    std::cout<<data[150]<<std::endl;
+    std::cout<<data[200]<<std::endl;
+    std::cout<<data[550]<<std::endl;
+    std::cout<<data[600]<<std::endl;
+    */
+
+    std::vector<std::vector<double>> array_2d;
+    std::vector<double> row;
+
+    int h = static_cast<int>(sqrt(data.getAllocatedSize())); //rows
+    int w = static_cast<int>(sqrt(data.getAllocatedSize())); //columns
+
+    size_t cnt = 0;
+    for(int i=0; i<h; i++)
+    {
+        row.clear();
+        for(int j=0; j<w; j++)
+        {
+            row.push_back(data[cnt]);
+            cnt++;
+        }
+        array_2d.push_back(row);
+    }
+
+    /*
+    for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
+        i != array_2d.end(); i++)
+    {
+        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
+            std::cout << *j << ' ';
+        std::cout << std::endl;
+    }
+    */
+
+    return array_2d;
+}
+
+std::vector<std::vector<double>> IntensityDataFunctions::createFFT(
+        const std::vector<std::vector<double>> & signal)
+{
+    FourierTransform ft;
+    std::vector<std::vector<double>> fft_array;
+    ft.fft(signal, fft_array);
+
+    /*
+    std::cout << "XXXXXXXXXXX" <<std::endl;
+    std::cout << fft_array[0][0] << std::endl;
+    std::cout << fft_array[0][1] << std::endl;
+    std::cout << fft_array[50][98] << std::endl;
+    std::cout << fft_array[50][99] << std::endl;
+    std::cout << "XXXXXXXXXXX" <<std::endl;
+    */
+
+    return fft_array;
+}
+
+OutputData<double>* IntensityDataFunctions::constructOutputDatafrom2D(
+        const std::vector<std::vector<double>> &array_2d, const OutputData<double>& reference)
+{
+    OutputData<double>* result = reference.clone();
+    OutputData<double>::iterator it = result->begin();
+    for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
+        i != array_2d.end(); i++)
+    {
+        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
+        {
+            *it = *j;
+            ++it;
+        }
+    }
+
+    /*
+    OutputData<double>* result = new OutputData<double>;
+    OutputData<double>::iterator it = result->begin();
+    for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
+        i != array_2d.end(); i++)
+    {
+        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
+        {
+            *it = *j;
+            ++it;
+        }
+    }
+    */
+
+    return result;
 }

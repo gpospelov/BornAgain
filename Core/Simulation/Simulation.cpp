@@ -225,11 +225,10 @@ void Simulation::runSingleSimulation()
     initSimulationElementVector();
 
     // restrict calculation to current batch
-    std::vector<SimulationElement>::iterator batch_start
-        = getBatchStart(m_options.getNumberOfBatches(), m_options.getCurrentBatch());
-
-    std::vector<SimulationElement>::iterator batch_end
-        = getBatchEnd(m_options.getNumberOfBatches(), m_options.getCurrentBatch());
+    const size_t n_batches = m_options.getNumberOfBatches();
+    const size_t current_batch = m_options.getCurrentBatch();
+    const size_t batch_start = getBatchStartIndex(n_batches, current_batch);
+    const size_t batch_end = getBatchEndIndex(n_batches, current_batch);
 
     if (m_options.getNumberOfThreads() == 1) {
         // Single thread.
@@ -247,23 +246,19 @@ void Simulation::runSingleSimulation()
         std::vector<std::unique_ptr<IComputation>> computations;
 
         // Initialize n computations.
-        auto total_batch_elements = batch_end - batch_start;
-        auto element_thread_step = total_batch_elements / m_options.getNumberOfThreads();
-        if (total_batch_elements % m_options.getNumberOfThreads()) // there is a remainder
-            ++element_thread_step;
+        const size_t total_batch_elements = batch_end - batch_start;
+        const size_t n_threads = m_options.getNumberOfThreads();
+        const size_t element_thread_step = getIndexStep(total_batch_elements, n_threads);
 
-        for (size_t i_thread = 0; i_thread < m_options.getNumberOfThreads(); ++i_thread) {
+        for (size_t i_thread = 0; i_thread < n_threads; ++i_thread) {
             if (i_thread * element_thread_step >= total_batch_elements)
                 break;
-            std::vector<SimulationElement>::iterator begin_it = batch_start
-                                                                + i_thread * element_thread_step;
-            std::vector<SimulationElement>::iterator end_it;
-            auto end_thread_index = (i_thread+1) * element_thread_step;
-            if (end_thread_index >= total_batch_elements)
-                end_it = batch_end;
-            else
-                end_it = batch_start + end_thread_index;
-            computations.push_back(generateSingleThreadedComputation(begin_it, end_it));
+            const size_t begin_ind = batch_start + i_thread * element_thread_step;
+            const size_t end_thread_index = (i_thread + 1) * element_thread_step;
+            const size_t end_ind = end_thread_index >= total_batch_elements
+                                       ? batch_end
+                                       : batch_start + end_thread_index;
+            computations.push_back(generateSingleThreadedComputation(begin_ind, end_ind));
         }
 
         // Run simulations in n threads.

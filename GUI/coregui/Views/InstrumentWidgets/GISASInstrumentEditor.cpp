@@ -29,7 +29,7 @@ const QString background_title("Background");
 }
 
 GISASInstrumentEditor::GISASInstrumentEditor(QWidget* parent)
-    : QWidget(parent)
+    : SessionItemWidget(parent)
     , m_columnResizer(new ColumnResizer(this))
     , m_beamEditor(new BeamEditorWidget)
     , m_detectorEditor(new DetectorEditorWidget(m_columnResizer))
@@ -51,15 +51,23 @@ GISASInstrumentEditor::GISASInstrumentEditor(QWidget* parent)
     setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
 }
 
-void GISASInstrumentEditor::setInstrumentItem(GISASInstrumentItem* instrumentItem)
+void GISASInstrumentEditor::subscribeToItem()
+{
+    m_beamEditor->setBeamItem(instrumentItem()->beamItem());
+    m_detectorEditor->setItem(instrumentItem());
+    m_backgroundEditor->setItem(instrumentItem()->backgroundGroup());
+}
+
+void GISASInstrumentEditor::unsubscribeFromItem()
 {
     m_backgroundEditor->clearEditor();
-    if(instrumentItem) {
-        m_beamEditor->setBeamItem(instrumentItem->beamItem());
-        m_detectorEditor->setItem(instrumentItem);
-        m_backgroundEditor->setItem(instrumentItem->backgroundGroup());
-    } else {
-        m_beamEditor->setBeamItem(nullptr);
-        m_detectorEditor->setItem(nullptr);
-    }
+    m_beamEditor->setBeamItem(nullptr);
+    m_detectorEditor->setItem(nullptr);
+}
+
+GISASInstrumentItem* GISASInstrumentEditor::instrumentItem()
+{
+    auto result = dynamic_cast<GISASInstrumentItem*>(currentItem());
+    Q_ASSERT(result);
+    return result;
 }

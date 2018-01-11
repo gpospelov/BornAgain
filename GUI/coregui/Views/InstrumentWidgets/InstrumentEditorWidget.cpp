@@ -55,6 +55,7 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
 
     connect(m_instrumentComponents, &GISASInstrumentEditor::extendedDetectorEditorRequest,
             this, &InstrumentEditorWidget::extendedDetectorEditorRequest);
+
 }
 
 QSize InstrumentEditorWidget::sizeHint() const
@@ -67,8 +68,7 @@ void InstrumentEditorWidget::setItem(SessionItem* instrument)
     m_currentItem = instrument;
     updateWidgets();
 
-    GISASInstrumentItem* instrumentItem = dynamic_cast<GISASInstrumentItem*>(instrument);
-    m_instrumentComponents->setInstrumentItem(instrumentItem);
+    m_instrumentComponents->setItem(instrument);
 }
 
 void InstrumentEditorWidget::onChangedEditor(const QString&)

@@ -29,9 +29,9 @@ const QString InstrumentItem::P_DETECTOR = "Detector";
 const QString InstrumentItem::P_BACKGROUND = "Background";
 
 InstrumentItem::InstrumentItem()
-    : SessionItem(Constants::InstrumentType)
+    : SessionItem(Constants::GISASInstrumentType)
 {
-    setItemName(Constants::InstrumentType);
+    setItemName(Constants::GISASInstrumentType);
 
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
 
@@ -94,7 +94,7 @@ QStringList InstrumentItem::translateList(const QStringList& list) const
         // TODO Consider usage of ModelTypeTranslator in IntrusmentItem's constructor
         // after the refactoring of SessionItem::translateList
         result = SessionItem::translateList(list);
-        if (result.back() == Constants::InstrumentType) {
+        if (result.back() == Constants::GISASInstrumentType) {
             result.removeLast();
             result << QStringLiteral("Instrument");
         }

@@ -86,7 +86,7 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     SessionItem *multilayer = copyItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
     multilayer->setItemName(Constants::MultiLayerType);
     SessionItem *instrument = copyItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
-    instrument->setItemName(Constants::InstrumentType);
+    instrument->setItemName(Constants::GISASInstrumentType);
     copyItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());

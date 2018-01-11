@@ -103,7 +103,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     Q_ASSERT(p_instrument_model);
 
     InstrumentItem* p_instrument_item = dynamic_cast<InstrumentItem*>
-            (p_instrument_model->insertNewItem(Constants::InstrumentType));
+            (p_instrument_model->insertNewItem(Constants::GISASInstrumentType));
 
     if(instrument_name.isEmpty()) {
         p_instrument_item->setItemName(simulation.getInstrument().getName().c_str());

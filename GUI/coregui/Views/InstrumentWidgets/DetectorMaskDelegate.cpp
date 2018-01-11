@@ -74,7 +74,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
 
     // creating output data corresponding to the detector
     auto instrument = dynamic_cast<const InstrumentItem*>(
-                ModelPath::ancestor(m_detectorItem, Constants::InstrumentType));
+                ModelPath::ancestor(m_detectorItem, Constants::GISASInstrumentType));
     JobItemUtils::createDefaultDetectorMap(m_intensityItem, instrument);
 
     m_intensityItem->getOutputData()->setAllTo(1.0);

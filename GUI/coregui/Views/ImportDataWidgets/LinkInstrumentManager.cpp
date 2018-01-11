@@ -226,7 +226,7 @@ void LinkInstrumentManager::updateInstrumentMap()
 {
     m_instrumentVec.clear();
     m_instrumentVec.append(InstrumentInfo()); // undefined instrument
-    foreach(SessionItem *item, m_instrumentModel->topItems(Constants::InstrumentType)) {
+    foreach(SessionItem *item, m_instrumentModel->topItems(Constants::GISASInstrumentType)) {
         InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(item);
         instrumentItem->mapper()->unsubscribe(this);
 

@@ -91,10 +91,10 @@ TEST_F(TestSessionModel, SampleModelPartialCopy)
 TEST_F(TestSessionModel, InstrumentModelCopy)
 {
     InstrumentModel model1;
-    SessionItem* instrument1 = model1.insertNewItem(Constants::InstrumentType);
+    SessionItem* instrument1 = model1.insertNewItem(Constants::GISASInstrumentType);
     instrument1->setItemName("instrument1");
 
-    SessionItem* instrument2 = model1.insertNewItem(Constants::InstrumentType);
+    SessionItem* instrument2 = model1.insertNewItem(Constants::GISASInstrumentType);
     instrument2->setItemName("instrument2");
 
     QString buffer1;
@@ -112,10 +112,10 @@ TEST_F(TestSessionModel, InstrumentModelCopy)
 TEST_F(TestSessionModel, InstrumentModelPartialCopy)
 {
     InstrumentModel model1;
-    SessionItem* instrument1 = model1.insertNewItem(Constants::InstrumentType);
+    SessionItem* instrument1 = model1.insertNewItem(Constants::GISASInstrumentType);
     instrument1->setItemName("instrument1");
 
-    SessionItem* instrument2 = model1.insertNewItem(Constants::InstrumentType);
+    SessionItem* instrument2 = model1.insertNewItem(Constants::GISASInstrumentType);
     instrument2->setItemName("instrument2");
 
     std::unique_ptr<InstrumentModel> model2(model1.createCopy(instrument2));
@@ -136,7 +136,7 @@ TEST_F(TestSessionModel, copyItem)
     sampleModel.insertNewItem(Constants::LayerType, sampleModel.indexOfItem(multilayer1));
 
     InstrumentModel instrumentModel;
-    SessionItem* instrument1 = instrumentModel.insertNewItem(Constants::InstrumentType);
+    SessionItem* instrument1 = instrumentModel.insertNewItem(Constants::GISASInstrumentType);
     instrument1->setItemName("instrument1");
 
     JobModel jobModel;

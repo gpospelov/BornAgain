@@ -34,7 +34,7 @@ TEST_F(TestLinkInstrument, test_linkInstrumentManager)
 
     // populating instrument model
     InstrumentItem* instrument
-        = dynamic_cast<InstrumentItem*>(instrumentModel.insertNewItem(Constants::InstrumentType));
+        = dynamic_cast<InstrumentItem*>(instrumentModel.insertNewItem(Constants::GISASInstrumentType));
     QString identifier = instrument->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
 
     // checking that LinkInstrumentManager was notified about new instrument
@@ -61,7 +61,7 @@ TEST_F(TestLinkInstrument, test_canLinkToInstrument)
 
     // populating instrument model
     InstrumentItem* instrument
-        = dynamic_cast<InstrumentItem*>(instrumentModel.insertNewItem(Constants::InstrumentType));
+        = dynamic_cast<InstrumentItem*>(instrumentModel.insertNewItem(Constants::GISASInstrumentType));
     QString identifier = instrument->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
 
     // populating real data model, setting intensity data

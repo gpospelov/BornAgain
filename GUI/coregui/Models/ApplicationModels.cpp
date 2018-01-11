@@ -98,7 +98,7 @@ void ApplicationModels::resetModels()
     m_jobModel->clear();
 
     m_instrumentModel->clear();
-    SessionItem* instrument = m_instrumentModel->insertNewItem(Constants::InstrumentType);
+    SessionItem* instrument = m_instrumentModel->insertNewItem(Constants::GISASInstrumentType);
     instrument->setItemName("Default GISAS");
 }
 

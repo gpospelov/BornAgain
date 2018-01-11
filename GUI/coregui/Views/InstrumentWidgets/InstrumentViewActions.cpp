@@ -70,7 +70,7 @@ void InstrumentViewActions::onAddInstrument()
 
     QString instrumentType = action->data().toString();
 
-    if (instrumentType == Constants::InstrumentType) {
+    if (instrumentType == Constants::GISASInstrumentType) {
         SessionItem* instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("Default GISAS"));
         updateSelection();
@@ -182,7 +182,7 @@ void InstrumentViewActions::initAddInstrumentMenu()
     m_addInstrumentMenu = new QMenu("Add new instrument");
 
     auto action = m_addInstrumentMenu->addAction("Default GISAS");
-    action->setData(QVariant::fromValue(Constants::InstrumentType));
+    action->setData(QVariant::fromValue(Constants::GISASInstrumentType));
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
     m_addInstrumentMenu->setDefaultAction(action);
 

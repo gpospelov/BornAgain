@@ -23,7 +23,13 @@ class DetectorItem;
 class MaskContainerItem;
 class GroupItem;
 
-class BA_CORE_API_ GISASInstrumentItem : public SessionItem
+class BA_CORE_API_ InstrumentItem : public SessionItem
+{
+public:
+    explicit InstrumentItem(const QString& modelType);
+};
+
+class BA_CORE_API_ GISASInstrumentItem : public InstrumentItem
 {
 public:
     static const QString P_IDENTIFIER;

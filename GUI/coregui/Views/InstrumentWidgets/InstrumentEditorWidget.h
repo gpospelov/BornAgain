@@ -21,8 +21,7 @@
 class SessionItem;
 class DetectorItem;
 class QLineEdit;
-class QComboBox;
-class InstrumentComponentsWidget;
+class InstrumentPresenter;
 
 //! Main widget of InstrumentView. Contains InstrumentComponentsWidget with beam and detector
 //! settings.
@@ -49,8 +48,7 @@ private:
     void updateWidgets();
 
     QLineEdit* m_nameLineEdit;
-    QComboBox* m_typeComboBox;
-    InstrumentComponentsWidget* m_instrumentComponents;
+    InstrumentPresenter* m_instrumentPresenter;
     SessionItem* m_currentItem;
     bool m_block_signals;
 };

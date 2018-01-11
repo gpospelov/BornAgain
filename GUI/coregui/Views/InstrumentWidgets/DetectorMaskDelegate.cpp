@@ -22,7 +22,7 @@
 #include "MaskItems.h"
 #include "ModelPath.h"
 #include "JobItemUtils.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject* parent)
     : QObject(parent)
@@ -73,8 +73,8 @@ void DetectorMaskDelegate::createIntensityDataItem()
     zAxisItem.setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, true);
 
     // creating output data corresponding to the detector
-    auto instrument = dynamic_cast<const InstrumentItem*>(
-                ModelPath::ancestor(m_detectorItem, Constants::InstrumentType));
+    auto instrument = dynamic_cast<const GISASInstrumentItem*>(
+                ModelPath::ancestor(m_detectorItem, Constants::GISASInstrumentType));
     JobItemUtils::createDefaultDetectorMap(m_intensityItem, instrument);
 
     m_intensityItem->getOutputData()->setAllTo(1.0);

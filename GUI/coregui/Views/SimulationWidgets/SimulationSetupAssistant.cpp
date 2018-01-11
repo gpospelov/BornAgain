@@ -26,7 +26,7 @@ SimulationSetupAssistant::SimulationSetupAssistant()
 }
 
 bool SimulationSetupAssistant::isValidSimulationSetup(const MultiLayerItem *multiLayerItem,
-                                                      const InstrumentItem *instrumentItem,
+                                                      const GISASInstrumentItem *instrumentItem,
                                                       const RealDataItem *realData)
 {
     clear();
@@ -61,7 +61,7 @@ void SimulationSetupAssistant::checkMultiLayerItem(const MultiLayerItem *multiLa
     }
 }
 
-void SimulationSetupAssistant::checkInstrumentItem(const InstrumentItem *instrumentItem)
+void SimulationSetupAssistant::checkInstrumentItem(const GISASInstrumentItem *instrumentItem)
 {
     if(!instrumentItem) {
         m_messages.append(QStringLiteral("No instrument selected"));
@@ -72,7 +72,7 @@ void SimulationSetupAssistant::checkInstrumentItem(const InstrumentItem *instrum
 //! Check if setup is suitable for fitting. In the case when there is a realData defined,
 //! its axes will be compared with current detector item.
 
-void SimulationSetupAssistant::checkFittingSetup(const InstrumentItem *instrumentItem,
+void SimulationSetupAssistant::checkFittingSetup(const GISASInstrumentItem *instrumentItem,
                                                  const RealDataItem *realData)
 {
     if(!realData)

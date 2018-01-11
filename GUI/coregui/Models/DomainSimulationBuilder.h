@@ -19,7 +19,7 @@
 
 class GISASSimulation;
 class MultiLayerItem;
-class InstrumentItem;
+class GISASInstrumentItem;
 class SimulationOptionsItem;
 
 //! The DomainSimulationBuilder class builds the domain simulation
@@ -28,7 +28,7 @@ class BA_CORE_API_ DomainSimulationBuilder
 {
 public:
     static GISASSimulation *getSimulation(const MultiLayerItem *sampleItem,
-                                          const InstrumentItem *instrumentItem,
+                                          const GISASInstrumentItem *instrumentItem,
                                           const SimulationOptionsItem *optionsItem = 0);
 };
 

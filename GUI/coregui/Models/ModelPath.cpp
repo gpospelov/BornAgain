@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "ModelPath.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "JobItem.h"
 #include "RectangularDetectorItem.h"
 #include "SessionModel.h"
@@ -42,7 +42,7 @@ QModelIndex ModelPath::getIndexFromPath(const SessionModel* model, const QString
         QStringList parts = path.split("/");
         SessionItem* t = model->rootItem();
         for (int i = 0; i < parts.length(); i++) {
-            if (t->modelType() == Constants::JobItemType && parts[i] == Constants::InstrumentType) {
+            if (t->modelType() == Constants::JobItemType && parts[i] == Constants::GISASInstrumentType) {
                 t = t->getItem(JobItem::T_INSTRUMENT);
                 continue;
             }

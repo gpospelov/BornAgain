@@ -2,7 +2,7 @@
 #include "RectangularDetectorItem.h"
 #include "InstrumentModel.h"
 #include "ComboProperty.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "DetectorItems.h"
 #include "ConvolutionDetectorResolution.h"
 #include "ResolutionFunction2DGaussian.h"
@@ -40,8 +40,8 @@ TEST_F(TestDetectorItems, test_detectorAlignment)
 TEST_F(TestDetectorItems, test_resolutionFunction)
 {
     InstrumentModel model;
-    InstrumentItem* instrument
-        = dynamic_cast<InstrumentItem*>(model.insertNewItem(Constants::InstrumentType));
+    GISASInstrumentItem* instrument
+        = dynamic_cast<GISASInstrumentItem*>(model.insertNewItem(Constants::GISASInstrumentType));
 
     DetectorItem* detectorItem = instrument->detectorItem();
 

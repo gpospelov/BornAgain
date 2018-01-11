@@ -107,7 +107,7 @@ QStringList GroupItemController::itemLabels() const
 
 SessionItem* GroupItemController::addItem(const QString& item_type)
 {
-    return ItemFactory::createItem(item_type);
+    return ItemFactory::CreateItem(item_type);
 }
 
 SessionItem* GroupItemController::createCorrespondingItem()

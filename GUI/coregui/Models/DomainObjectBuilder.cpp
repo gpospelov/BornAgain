@@ -20,7 +20,7 @@
 #include "GUIHelpers.h"
 #include "IInterferenceFunction.h"
 #include "Instrument.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "InterferenceFunctionItems.h"
 #include "LayerItem.h"
 #include "MultiLayer.h"
@@ -127,7 +127,7 @@ DomainObjectBuilder::buildInterferenceFunction(const SessionItem& item) const
     return iffItem->createInterferenceFunction();
 }
 
-std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const InstrumentItem& instrumentItem) const
+std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const GISASInstrumentItem& instrumentItem) const
 {
     auto instrument = std::make_unique<Instrument>();
 

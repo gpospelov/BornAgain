@@ -292,7 +292,7 @@ SessionItem* SessionItem::addProperty(const QString& name, const QVariant& varia
             "ParameterizedItem::registerProperty() -> Error. Already existing property " + name);
 
     const QString property_type = Constants::PropertyType;
-    SessionItem* property = ItemFactory::createItem(property_type);
+    SessionItem* property = ItemFactory::CreateItem(property_type);
     property->setDisplayName(name);
     registerTag(name, 1, 1, QStringList() << property_type);
     if (!insertItem(0, property, name))
@@ -333,7 +333,7 @@ SessionItem* SessionItem::addGroupProperty(const QString& groupTag, const QStrin
         // create group item
         GroupInfo groupInfo = SessionItemUtils::GetGroupInfo(groupType);
         GroupItem* groupItem
-            = dynamic_cast<GroupItem*>(ItemFactory::createItem(Constants::GroupItemType));
+            = dynamic_cast<GroupItem*>(ItemFactory::CreateItem(Constants::GroupItemType));
         Q_ASSERT(groupItem);
         groupItem->setGroupInfo(groupInfo);
         registerTag(groupTag, 1, 1, QStringList() << Constants::GroupItemType);
@@ -341,7 +341,7 @@ SessionItem* SessionItem::addGroupProperty(const QString& groupTag, const QStrin
     } else {
         // create single item
         registerTag(groupTag, 1, 1, QStringList() << groupType);
-        result = ItemFactory::createItem(groupType);
+        result = ItemFactory::CreateItem(groupType);
     }
     Q_ASSERT(result);
     result->setDisplayName(groupTag);
@@ -576,6 +576,7 @@ QStringList SessionItem::translateList(const QStringList& list) const
     QStringList result = list;
     for (const IPathTranslator* translator : m_translators)
         result = translator->translate(result);
+    // TODO consider adding displayName before translators
     result << displayName();
     return result;
 }

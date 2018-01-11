@@ -39,7 +39,7 @@ class SphericalDetectorItem;
 class DetectorItem;
 class MaskContainerItem;
 class IDetector;
-class InstrumentItem;
+class GISASInstrumentItem;
 
 namespace TransformFromDomain
 {
@@ -72,7 +72,7 @@ BA_CORE_API_ bool isValidRoughness(const LayerRoughness* roughness);
 BA_CORE_API_ void setItemFromSample(BeamItem* beam_item,
                                     const GISASSimulation& simulation);
 
-BA_CORE_API_ void setInstrumentDetectorFromSample(InstrumentItem* detector_item,
+BA_CORE_API_ void setInstrumentDetectorFromSample(GISASInstrumentItem* detector_item,
                                                   const GISASSimulation& simulation);
 
 BA_CORE_API_ void setItemFromSample(SphericalDetectorItem* detector_item,
@@ -90,7 +90,7 @@ BA_CORE_API_ void setDetectorMasks(MaskContainerItem* container_item,
 BA_CORE_API_ void setItemFromSample(BeamDistributionItem* beam_distribution_item,
                                     const ParameterDistribution& parameter_distribution);
 
-BA_CORE_API_ void setBackground(InstrumentItem* instrument_item,
+BA_CORE_API_ void setBackground(GISASInstrumentItem* instrument_item,
                                 const GISASSimulation& simulation);
 }
 

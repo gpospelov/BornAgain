@@ -22,7 +22,7 @@ class QToolBar;
 class QTextEdit;
 class WarningSign;
 class MultiLayerItem;
-class InstrumentItem;
+class GISASInstrumentItem;
 class SimulationOptionsItem;
 
 //! The PythonScriptWidget displays a python script which represents full simulation.
@@ -36,7 +36,7 @@ public:
     PythonScriptWidget(QWidget* parent = 0);
 
     void generatePythonScript(const MultiLayerItem* sampleItem,
-                              const InstrumentItem* instrumentItem,
+                              const GISASInstrumentItem* instrumentItem,
                               const SimulationOptionsItem* optionItem = 0,
                               const QString& outputDir = QString());
 

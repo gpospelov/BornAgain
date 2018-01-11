@@ -27,7 +27,7 @@
 #include "DocumentModel.h"
 #include "ParameterTreeUtils.h"
 #include "ParameterTreeItems.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "DetectorItems.h"
 #include "ModelPath.h"
 #include "IntensityDataItem.h"

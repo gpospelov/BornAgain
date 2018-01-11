@@ -20,7 +20,7 @@
 
 class GISASSimulation;
 class IntensityDataItem;
-class InstrumentItem;
+class GISASInstrumentItem;
 class JobItem;
 
 //! Contains set of convenience methods to set data to the IntensityDataItem from domain simulation.
@@ -34,7 +34,7 @@ BA_CORE_API_ void setResults(IntensityDataItem* intensityItem, const GISASSimula
 
 //! updates axes of OutputData in IntensityData item
 BA_CORE_API_ void updateDataAxes(IntensityDataItem* intensityItem,
-                                 const InstrumentItem* instrumentItem);
+                                 const GISASInstrumentItem* instrumentItem);
 
 //! loads intensity data from project directory
 BA_CORE_API_ void loadIntensityData(IntensityDataItem* intensityItem, const QString& projectDir);
@@ -52,7 +52,7 @@ BA_CORE_API_ AxesUnits axesUnitsFromName(const QString& name);
 BA_CORE_API_ AxesUnits preferableGUIAxesUnits(AxesUnits default_units);
 
 BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
-                                            const InstrumentItem* instrumentItem);
+                                            const GISASInstrumentItem* instrumentItem);
 
 BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
                                             const IDetector* detector);
@@ -60,9 +60,9 @@ BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
 BA_CORE_API_ void updateAxesTitle(IntensityDataItem* intensityItem);
 
 BA_CORE_API_ void createDefaultDetectorMap(IntensityDataItem* intensityItem,
-                                           const InstrumentItem* instrumentItem);
+                                           const GISASInstrumentItem* instrumentItem);
 
-BA_CORE_API_ OutputData<double>* createDetectorMap(const InstrumentItem* instrumentItem,
+BA_CORE_API_ OutputData<double>* createDetectorMap(const GISASInstrumentItem* instrumentItem,
                                                    AxesUnits units);
 }
 

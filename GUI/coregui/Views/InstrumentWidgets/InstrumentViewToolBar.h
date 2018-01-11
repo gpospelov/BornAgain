@@ -21,6 +21,7 @@
 class QAction;
 class QToolButton;
 class InstrumentViewActions;
+class QMenu;
 
 //! Styled tool bar on top of InstrumentView with add/remove/clone instrument buttons.
 
@@ -31,10 +32,14 @@ class BA_CORE_API_ InstrumentViewToolBar : public StyledToolBar
 public:
     explicit InstrumentViewToolBar(InstrumentViewActions* actions, QWidget* parent = 0);
 
+private slots:
+    void onAddInstrument();
+
 private:
     QToolButton* m_addInstrumentButton;
     QToolButton* m_removeInstrumentButton;
     QToolButton* m_cloneInstrumentButton;
+    QMenu* m_addInstrumentMenu;
 };
 
 #endif // INSTRUMENTVIEWTOOLBAR_H

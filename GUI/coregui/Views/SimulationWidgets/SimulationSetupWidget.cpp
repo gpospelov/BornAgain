@@ -66,7 +66,7 @@ void SimulationSetupWidget::updateViewElements()
 void SimulationSetupWidget::onRunSimulation()
 {
     const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
-    const InstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
+    const GISASInstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
     const RealDataItem *realDataItem = m_simDataSelectorWidget->selectedRealDataItem();
 
     SimulationSetupAssistant assistant;
@@ -86,7 +86,7 @@ void SimulationSetupWidget::onRunSimulation()
 void SimulationSetupWidget::onExportToPythonScript()
 {
     const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
-    const InstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
+    const GISASInstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
 
     SimulationSetupAssistant assistant;
     if(!assistant.isValidSimulationSetup(multiLayerItem, instrumentItem))

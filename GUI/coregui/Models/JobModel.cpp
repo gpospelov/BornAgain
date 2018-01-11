@@ -15,7 +15,7 @@
 #include "JobModel.h"
 #include "FitSuiteItem.h"
 #include "GUIHelpers.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "JobItemUtils.h"
@@ -71,7 +71,7 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
 
 //! Main method to add a job
 JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
-                          const InstrumentItem *instrumentItem,
+                          const GISASInstrumentItem *instrumentItem,
                           const RealDataItem *realDataItem,
                           const SimulationOptionsItem *optionItem)
 {
@@ -86,7 +86,7 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     SessionItem *multilayer = copyItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
     multilayer->setItemName(Constants::MultiLayerType);
     SessionItem *instrument = copyItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
-    instrument->setItemName(Constants::InstrumentType);
+    instrument->setItemName(Constants::GISASInstrumentType);
     copyItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());

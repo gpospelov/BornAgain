@@ -18,7 +18,7 @@
 #include "DocumentModel.h"
 #include "GUIHelpers.h"
 #include "GUIObjectBuilder.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "JobItem.h"
 #include "JobModel.h"

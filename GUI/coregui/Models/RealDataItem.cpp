@@ -99,7 +99,7 @@ void RealDataItem::setOutputData(OutputData<double> *data)
     item->setOutputData(data);
 }
 
-void RealDataItem::linkToInstrument(const InstrumentItem *instrument, bool make_update)
+void RealDataItem::linkToInstrument(const GISASInstrumentItem *instrument, bool make_update)
 {
     m_linkedInstrument = instrument;
     if(make_update)

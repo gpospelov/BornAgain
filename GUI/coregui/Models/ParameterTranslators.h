@@ -28,6 +28,19 @@ public:
     virtual QStringList translate(const QStringList& list) const=0;
 };
 
+class ModelTypeTranslator : public IPathTranslator {
+public:
+    ModelTypeTranslator(QString gui_model_type, QString domain_name);
+    ~ModelTypeTranslator() override {}
+
+    ModelTypeTranslator* clone() const override;
+
+    virtual QStringList translate(const QStringList& list) const override;
+private:
+    QString m_gui_model_type;
+    QString m_domain_name;
+};
+
 class AddElementTranslator : public IPathTranslator {
 public:
     AddElementTranslator(QString gui_name, QString additional_name);

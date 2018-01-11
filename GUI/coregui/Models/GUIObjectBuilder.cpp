@@ -49,7 +49,7 @@
 #include "SphericalDetector.h"
 #include "TransformFromDomain.h"
 #include "TransformationItem.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "DetectorItems.h"
 #include "Units.h"
 #include "VectorItem.h"
@@ -102,8 +102,8 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
 {
     Q_ASSERT(p_instrument_model);
 
-    InstrumentItem* p_instrument_item = dynamic_cast<InstrumentItem*>
-            (p_instrument_model->insertNewItem(Constants::InstrumentType));
+    GISASInstrumentItem* p_instrument_item = dynamic_cast<GISASInstrumentItem*>
+            (p_instrument_model->insertNewItem(Constants::GISASInstrumentType));
 
     if(instrument_name.isEmpty()) {
         p_instrument_item->setItemName(simulation.getInstrument().getName().c_str());
@@ -112,7 +112,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     }
 
     // beam
-    auto& beam_item = p_instrument_item->item<BeamItem>(InstrumentItem::P_BEAM);
+    auto& beam_item = p_instrument_item->item<BeamItem>(GISASInstrumentItem::P_BEAM);
     TransformFromDomain::setItemFromSample(&beam_item, simulation);
 
     // detector

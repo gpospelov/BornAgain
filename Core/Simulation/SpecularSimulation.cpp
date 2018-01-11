@@ -19,6 +19,7 @@
 #include "SpecularMatrix.h"
 #include "MaterialUtils.h"
 #include "Histogram1D.h"
+#include "SimElementUtils.h"
 #include "SimulationElement.h"
 #include "SpecularComputation.h"
 #include "SpecularDetector1D.h"
@@ -86,9 +87,11 @@ const IAxis* SpecularSimulation::getAlphaAxis() const
     return &m_instrument.getDetector()->getAxis(0);
 }
 
-void SpecularSimulation::initSimulationElementVector()
+void SpecularSimulation::initSimulationElementVector(bool init_storage)
 {
     m_sim_elements = m_instrument.createSimulationElements();
+    if (init_storage)
+        m_storage = m_sim_elements;
 }
 
 std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
@@ -172,6 +175,18 @@ void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_eleme
         SimulationElement& element = m_sim_elements[i];
         mP_background->addBackGround(element);
     }
+}
+
+void SpecularSimulation::addDataToStorage(double weight)
+{
+    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
+}
+
+void SpecularSimulation::moveDataFromStorage()
+{
+    assert(!m_storage.empty());
+    if (!m_storage.empty())
+        m_sim_elements = std::move(m_storage);
 }
 
 void SpecularSimulation::validityCheck(size_t i_layer) const

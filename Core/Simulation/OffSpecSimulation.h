@@ -66,7 +66,8 @@ private:
     generateSingleThreadedComputation(size_t start, size_t n_elements) override;
 
     //! Initializes the vector of Simulation elements
-    void initSimulationElementVector() final;
+    //! @param init_storage Initialize storage for accumulating results
+    virtual void initSimulationElementVector(bool init_storage) override;
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
@@ -87,6 +88,12 @@ private:
     virtual void normalizeIntensity(size_t index, double beam_intensity) override;
 
     virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+
+    virtual bool isStorageInited() const override {return !m_storage.empty();}
+
+    virtual void addDataToStorage(double weight) override;
+
+    virtual void moveDataFromStorage() override;
 
     IAxis* mp_alpha_i_axis;
     OutputData<double> m_intensity_map;

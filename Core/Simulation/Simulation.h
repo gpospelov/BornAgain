@@ -120,7 +120,8 @@ private:
     void initialize();
 
     //! Initializes the vector of Simulation elements
-    virtual void initSimulationElementVector() = 0;
+    //! @param init_storage Initialize storage for accumulating results
+    virtual void initSimulationElementVector(bool init_storage) = 0;
 
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
@@ -138,6 +139,12 @@ private:
     //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle
     //! for single simulation element specified by _index_.
     virtual void normalizeIntensity(size_t index, double beam_intensity) = 0;
+
+    virtual bool isStorageInited() const = 0;
+
+    virtual void addDataToStorage(double weight) = 0;
+
+    virtual void moveDataFromStorage() = 0;
 };
 
 #endif // SIMULATION_H

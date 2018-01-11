@@ -23,18 +23,14 @@
 namespace SimElementUtils {
 
 template <class SimElement>
-using const_iter = typename std::vector<SimElement>::const_iterator;
-
-template <class SimElement>
-using iter = typename std::vector<SimElement>::iterator;
-
-//! Add element vector to element vector with weight
-template <class SimElement>
-void addElementsWithWeight(const_iter<SimElement> first, const_iter<SimElement> last,
-                           iter<SimElement> result, double weight)
+void addElementsWithWeight(const std::vector<SimElement>& from, std::vector<SimElement>& to,
+                           double weight)
 {
-    for (auto it = first; it != last; ++it, ++result)
-        result->addIntensity(it->getIntensity() * weight);
+    assert(!from.empty());
+    assert(from.size() == to.size());
+    auto to_it = to.begin();
+    for (auto from_it = from.cbegin(); from_it != from.cend(); ++from_it, ++to_it)
+        to_it->addIntensity(from_it->getIntensity() * weight);
 }
 }
 

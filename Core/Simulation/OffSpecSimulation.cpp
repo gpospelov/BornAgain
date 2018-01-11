@@ -19,6 +19,7 @@
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
+#include "SimElementUtils.h"
 #include "SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()
@@ -113,7 +114,7 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     initialize();
 }
 
-void OffSpecSimulation::initSimulationElementVector()
+void OffSpecSimulation::initSimulationElementVector(bool init_storage)
 {
     m_sim_elements.clear();
     Beam beam = m_instrument.getBeam();
@@ -131,6 +132,8 @@ void OffSpecSimulation::initSimulationElementVector()
         m_sim_elements.insert(m_sim_elements.end(), sim_elements_alpha_i.begin(),
                               sim_elements_alpha_i.end());
     }
+    if (init_storage)
+        m_storage = m_sim_elements;
 }
 
 void OffSpecSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
@@ -141,6 +144,18 @@ void OffSpecSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elemen
         SimulationElement& element = m_sim_elements[i];
         mP_background->addBackGround(element);
     }
+}
+
+void OffSpecSimulation::addDataToStorage(double weight)
+{
+    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
+}
+
+void OffSpecSimulation::moveDataFromStorage()
+{
+    assert(!m_storage.empty());
+    if (!m_storage.empty())
+        m_sim_elements = std::move(m_storage);
 }
 
 void OffSpecSimulation::transferResultsToIntensityMap()

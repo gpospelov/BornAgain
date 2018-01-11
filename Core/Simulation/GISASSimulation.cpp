@@ -19,6 +19,7 @@
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
+#include "SimElementUtils.h"
 #include "SimulationElement.h"
 
 namespace
@@ -140,6 +141,18 @@ void GISASSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements
     }
 }
 
+void GISASSimulation::addDataToStorage(double weight)
+{
+    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
+}
+
+void GISASSimulation::moveDataFromStorage()
+{
+    assert(!m_storage.empty());
+    if (!m_storage.empty())
+        m_sim_elements = std::move(m_storage);
+}
+
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
     : Simulation(other)
     , m_storage(other.m_storage)
@@ -147,9 +160,11 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other)
     initialize();
 }
 
-void GISASSimulation::initSimulationElementVector()
+void GISASSimulation::initSimulationElementVector(bool init_storage)
 {
     m_sim_elements = m_instrument.createSimulationElements();
+    if (init_storage)
+        m_storage = m_sim_elements;
 }
 
 void GISASSimulation::initialize()

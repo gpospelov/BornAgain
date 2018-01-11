@@ -19,7 +19,6 @@
 #include "IComputation.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
-#include "SimElementUtils.h"
 #include "SimulationElement.h"
 #include "StringUtils.h"
 #include <thread>
@@ -143,16 +142,13 @@ void Simulation::runSimulation()
     }
 
     // average over parameter distributions:
-    initSimulationElementVector();
-    std::vector<SimulationElement> total_intensity = m_sim_elements;
     std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
+    const bool use_storage = true;
     for (size_t index = 0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
-        runSingleSimulation();
-        SimElementUtils::addElementsWithWeight<SimulationElement>(
-            m_sim_elements.cbegin(), m_sim_elements.cend(), total_intensity.begin(), weight);
+        runSingleSimulation(use_storage, weight);
     }
-    m_sim_elements = total_intensity;
+    moveDataFromStorage();
     transferResultsToIntensityMap();
 }
 
@@ -222,10 +218,10 @@ void Simulation::updateSample()
 
 //! Runs a single simulation with fixed parameter values.
 //! If desired, the simulation is run in several threads.
-void Simulation::runSingleSimulation(bool, double)
+void Simulation::runSingleSimulation(bool use_storage, double weight)
 {
     prepareSimulation();
-    initSimulationElementVector();
+    initSimulationElementVector(use_storage && !isStorageInited());
 
     // restrict calculation to current batch
     const size_t n_batches = m_options.getNumberOfBatches();
@@ -286,6 +282,8 @@ void Simulation::runSingleSimulation(bool, double)
     }
     normalize(batch_start, batch_size);
     addBackGroundIntensity(batch_start, batch_size);
+    if (use_storage)
+        addDataToStorage(weight);
 }
 
 void Simulation::normalize(size_t start_ind, size_t n_elements)

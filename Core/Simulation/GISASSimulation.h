@@ -88,7 +88,8 @@ private:
     GISASSimulation(const GISASSimulation& other);
 
     //! Initializes the vector of Simulation elements
-    virtual void initSimulationElementVector() override;
+    //! @param init_storage Initialize storage for accumulating results
+    virtual void initSimulationElementVector(bool init_storage) override;
 
     void initialize();
 
@@ -101,6 +102,12 @@ private:
     virtual void normalizeIntensity(size_t index, double beam_intensity) override;
 
     virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+
+    virtual bool isStorageInited() const override {return !m_storage.empty();}
+
+    virtual void addDataToStorage(double weight) override;
+
+    virtual void moveDataFromStorage() override;
 
     std::vector<SimulationElement> m_storage;
 };

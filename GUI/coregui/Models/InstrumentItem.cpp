@@ -21,6 +21,7 @@
 #include "SessionModel.h"
 #include "GroupItem.h"
 #include "MaskItems.h"
+#include "ParameterTranslators.h"
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
 const QString InstrumentItem::P_BEAM = "Beam";
@@ -90,7 +91,13 @@ QStringList InstrumentItem::translateList(const QStringList& list) const
     if (list.back().startsWith(P_BACKGROUND) && list.size()==2) {
         result << list[0] << QString::fromStdString(BornAgain::ConstantBackgroundType);
     } else {
-        return SessionItem::translateList(list);
+        // TODO Consider usage of ModelTypeTranslator in IntrusmentItem's constructor
+        // after the refactoring of SessionItem::translateList
+        result = SessionItem::translateList(list);
+        if (result.back() == Constants::InstrumentType) {
+            result.removeLast();
+            result << QStringLiteral("Instrument");
+        }
     }
     return result;
 }

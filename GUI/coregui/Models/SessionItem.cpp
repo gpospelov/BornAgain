@@ -576,6 +576,7 @@ QStringList SessionItem::translateList(const QStringList& list) const
     QStringList result = list;
     for (const IPathTranslator* translator : m_translators)
         result = translator->translate(result);
+    // TODO consider adding displayName before translators
     result << displayName();
     return result;
 }

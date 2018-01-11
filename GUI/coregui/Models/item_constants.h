@@ -39,8 +39,7 @@ const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceRadialP
 const ModelType InterferenceFunction2DParaCrystalType = "Interference2DParaCrystal";
 const ModelType InterferenceFunction1DLatticeType = "Interference1DLattice";
 const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
-const ModelType InstrumentType = "Instrument";
-//const ModelType DetectorContainerType = "DetectorContainer";
+const ModelType InstrumentType = "GISASInstrument";
 const ModelType BeamType = "Beam";
 
 const ModelType FormFactorType = "FormFactor";

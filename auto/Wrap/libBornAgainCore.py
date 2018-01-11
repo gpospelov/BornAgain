@@ -18818,6 +18818,11 @@ class IAbstractParticle(ISample):
         """
         return _libBornAgainCore.IAbstractParticle_translate(self, translation)
 
+
+    def rotate(self, rotation):
+        """rotate(IAbstractParticle self, IRotation rotation)"""
+        return _libBornAgainCore.IAbstractParticle_rotate(self, rotation)
+
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
 IAbstractParticle_swigregister(IAbstractParticle)
 
@@ -25183,6 +25188,11 @@ class ParticleDistribution(IAbstractParticle):
 
         """
         return _libBornAgainCore.ParticleDistribution_translate(self, translation)
+
+
+    def rotate(self, rotation):
+        """rotate(ParticleDistribution self, IRotation rotation)"""
+        return _libBornAgainCore.ParticleDistribution_rotate(self, rotation)
 
 
     def generateParticles(self):

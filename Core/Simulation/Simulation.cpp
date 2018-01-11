@@ -19,6 +19,7 @@
 #include "IComputation.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
+#include "SimElementUtils.h"
 #include "SimulationElement.h"
 #include "StringUtils.h"
 #include <thread>
@@ -148,8 +149,8 @@ void Simulation::runSimulation()
     for (size_t index = 0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
         runSingleSimulation();
-        addElementsWithWeight(m_sim_elements.begin(), m_sim_elements.end(), total_intensity.begin(),
-                              weight);
+        SimElementUtils::addElementsWithWeight<SimulationElement>(
+            m_sim_elements.cbegin(), m_sim_elements.cend(), total_intensity.begin(), weight);
     }
     m_sim_elements = total_intensity;
     transferResultsToIntensityMap();

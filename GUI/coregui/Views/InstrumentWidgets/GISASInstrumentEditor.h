@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InstrumentWidgets/InstrumentComponentsWidget.h
-//! @brief     Defines class InstrumentComponentsWidget
+//! @file      GUI/coregui/Views/InstrumentWidgets/GISASInstrumentEditor.h
+//! @brief     Defines class GISASInstrumentEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENTCOMPONENTSWIDGET_H
-#define INSTRUMENTCOMPONENTSWIDGET_H
+#ifndef GISASINSTRUMENTEDITOR_H
+#define GISASINSTRUMENTEDITOR_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
@@ -25,11 +25,11 @@ class BeamEditorWidget;
 class DetectorEditorWidget;
 class ColumnResizer;
 
-class BA_CORE_API_ InstrumentComponentsWidget : public QWidget
+class BA_CORE_API_ GISASInstrumentEditor : public QWidget
 {
     Q_OBJECT
 public:
-    InstrumentComponentsWidget(QWidget* parent = 0);
+    GISASInstrumentEditor(QWidget* parent = 0);
 
     void setInstrumentItem(GISASInstrumentItem* instrumentItem);
 
@@ -43,4 +43,4 @@ private:
     ComponentEditor* m_backgroundEditor;
 };
 
-#endif // INSTRUMENTCOMPONENTSWIDGET_H
+#endif // GISASINSTRUMENTEDITOR_H

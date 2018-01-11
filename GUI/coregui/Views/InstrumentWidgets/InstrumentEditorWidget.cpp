@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "InstrumentEditorWidget.h"
-#include "InstrumentComponentsWidget.h"
+#include "GISASInstrumentEditor.h"
 #include "InstrumentItems.h"
 #include "AdjustingScrollArea.h"
 #include "DetectorItems.h"
@@ -25,7 +25,7 @@
 InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
     : QWidget(parent)
     , m_nameLineEdit(new QLineEdit)
-    , m_instrumentComponents(new InstrumentComponentsWidget)
+    , m_instrumentComponents(new GISASInstrumentEditor)
     , m_currentItem(nullptr)
     , m_block_signals(false)
 {
@@ -53,7 +53,7 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
     connect(m_nameLineEdit, &QLineEdit::textChanged,
             this, &InstrumentEditorWidget::onChangedEditor);
 
-    connect(m_instrumentComponents, &InstrumentComponentsWidget::extendedDetectorEditorRequest,
+    connect(m_instrumentComponents, &GISASInstrumentEditor::extendedDetectorEditorRequest,
             this, &InstrumentEditorWidget::extendedDetectorEditorRequest);
 }
 

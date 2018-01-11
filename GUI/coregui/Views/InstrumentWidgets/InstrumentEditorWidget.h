@@ -21,7 +21,7 @@
 class SessionItem;
 class DetectorItem;
 class QLineEdit;
-class InstrumentComponentsWidget;
+class GISASInstrumentEditor;
 
 //! Main widget of InstrumentView. Contains InstrumentComponentsWidget with beam and detector
 //! settings.
@@ -48,7 +48,7 @@ private:
     void updateWidgets();
 
     QLineEdit* m_nameLineEdit;
-    InstrumentComponentsWidget* m_instrumentComponents;
+    GISASInstrumentEditor* m_instrumentComponents;
     SessionItem* m_currentItem;
     bool m_block_signals;
 };

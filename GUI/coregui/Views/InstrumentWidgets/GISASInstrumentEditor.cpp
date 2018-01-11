@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InstrumentWidgets/InstrumentComponentsWidget.cpp
-//! @brief     Implements class InstrumentComponentsWidget
+//! @file      GUI/coregui/Views/InstrumentWidgets/GISASInstrumentEditor.cpp
+//! @brief     Implements class GISASInstrumentEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "InstrumentComponentsWidget.h"
+#include "GISASInstrumentEditor.h"
 #include "BackgroundItems.h"
 #include "BeamEditorWidget.h"
 #include "ComponentEditor.h"
@@ -28,7 +28,7 @@ namespace
 const QString background_title("Background");
 }
 
-InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget* parent)
+GISASInstrumentEditor::GISASInstrumentEditor(QWidget* parent)
     : QWidget(parent)
     , m_columnResizer(new ColumnResizer(this))
     , m_beamEditor(new BeamEditorWidget)
@@ -46,12 +46,12 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget* parent)
     m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->gridLayout(), 2);
 
     connect(m_detectorEditor, &DetectorEditorWidget::extendedDetectorEditorRequest,
-            this, &InstrumentComponentsWidget::extendedDetectorEditorRequest);
+            this, &GISASInstrumentEditor::extendedDetectorEditorRequest);
 
     setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
 }
 
-void InstrumentComponentsWidget::setInstrumentItem(GISASInstrumentItem* instrumentItem)
+void GISASInstrumentEditor::setInstrumentItem(GISASInstrumentItem* instrumentItem)
 {
     m_backgroundEditor->clearEditor();
     if(instrumentItem) {

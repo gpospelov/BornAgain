@@ -16,18 +16,23 @@
 #include "GUIHelpers.h"
 #include "ItemCatalogue.h"
 
-namespace
+namespace {
+
+const ItemCatalogue& catalogue()
 {
-ItemCatalogue item_catalogue;
+    static ItemCatalogue item_catalogue;
+    return item_catalogue;
+}
+
 }
 
 SessionItem* ItemFactory::CreateItem(const QString& model_name, SessionItem* parent)
 {
-    if (!item_catalogue.contains(model_name))
+    if (!catalogue().contains(model_name))
         throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "
                                 + model_name);
 
-    SessionItem* result = item_catalogue.create(model_name).release();
+    SessionItem* result = catalogue().create(model_name).release();
     if (parent)
         parent->insertItem(-1, result);
 
@@ -41,5 +46,5 @@ SessionItem* ItemFactory::CreateEmptyItem()
 
 QStringList ItemFactory::ValidTopItemTypes()
 {
-    return item_catalogue.validTopItemTypes();
+    return catalogue().validTopItemTypes();
 }

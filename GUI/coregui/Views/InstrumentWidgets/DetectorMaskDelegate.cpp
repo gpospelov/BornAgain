@@ -73,7 +73,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
     zAxisItem.setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, true);
 
     // creating output data corresponding to the detector
-    auto instrument = dynamic_cast<const InstrumentItem*>(
+    auto instrument = dynamic_cast<const GISASInstrumentItem*>(
                 ModelPath::ancestor(m_detectorItem, Constants::GISASInstrumentType));
     JobItemUtils::createDefaultDetectorMap(m_intensityItem, instrument);
 

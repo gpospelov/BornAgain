@@ -55,7 +55,7 @@ void LinkInstrumentManager::setModels(InstrumentModel *instrumentModel,
 
 //! Returns InstrumentItem for given identifier.
 
-InstrumentItem *LinkInstrumentManager::getInstrument(const QString &identifier)
+GISASInstrumentItem *LinkInstrumentManager::getInstrument(const QString &identifier)
 {
     for(int i=0; i<m_instrumentVec.size(); ++i)
         if(m_instrumentVec[i].m_identifier == identifier)
@@ -99,7 +99,7 @@ QString LinkInstrumentManager::instrumentIdentifier(int comboIndex)
 bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem *realDataItem,
                                                     const QString &identifier)
 {
-    InstrumentItem *instrumentItem = getInstrument(identifier);
+    GISASInstrumentItem *instrumentItem = getInstrument(identifier);
 
     // linking to null instrument is possible, it means unlinking from currently linked
     if(instrumentItem == nullptr)
@@ -145,7 +145,7 @@ void LinkInstrumentManager::setOnInstrumentPropertyChange(SessionItem *instrumen
                                                           const QString &property)
 {
     Q_ASSERT(instrument);
-    if(property == SessionItem::P_NAME || property == InstrumentItem::P_IDENTIFIER) {
+    if(property == SessionItem::P_NAME || property == GISASInstrumentItem::P_IDENTIFIER) {
         updateInstrumentMap();
     }
 }
@@ -164,7 +164,7 @@ void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem *dataItem,
 
 //! Perform actions on instrument children change.
 
-void LinkInstrumentManager::onInstrumentChildChange(InstrumentItem *instrument, SessionItem *child)
+void LinkInstrumentManager::onInstrumentChildChange(GISASInstrumentItem *instrument, SessionItem *child)
 {
     if(child == nullptr)
         return;
@@ -208,7 +208,7 @@ void LinkInstrumentManager::updateLinks()
         Q_ASSERT(realDataItem);
 
         QString identifier = realDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
-        InstrumentItem *instrumentItem = getInstrument(identifier);
+        GISASInstrumentItem *instrumentItem = getInstrument(identifier);
 
         if(!instrumentItem) {
             // if no instrument with P_INSTRUMENT_ID exists, break the link
@@ -227,7 +227,7 @@ void LinkInstrumentManager::updateInstrumentMap()
     m_instrumentVec.clear();
     m_instrumentVec.append(InstrumentInfo()); // undefined instrument
     foreach(SessionItem *item, m_instrumentModel->topItems(Constants::GISASInstrumentType)) {
-        InstrumentItem *instrumentItem = dynamic_cast<InstrumentItem *>(item);
+        GISASInstrumentItem *instrumentItem = dynamic_cast<GISASInstrumentItem *>(item);
         instrumentItem->mapper()->unsubscribe(this);
 
         instrumentItem->mapper()->setOnPropertyChange(
@@ -244,7 +244,7 @@ void LinkInstrumentManager::updateInstrumentMap()
 
         InstrumentInfo info;
         info.m_name = item->itemName();
-        info.m_identifier = item->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
+        info.m_identifier = item->getItemValue(GISASInstrumentItem::P_IDENTIFIER).toString();
         info.m_instrument = instrumentItem;
         m_instrumentVec.append(info);
     }
@@ -270,7 +270,7 @@ void LinkInstrumentManager::updateRealDataMap()
 
 //! Runs through all RealDataItem and break the link, if instrument binning doesn't match the data.
 
-void LinkInstrumentManager::onInstrumentBinningChange(InstrumentItem *changedInstrument)
+void LinkInstrumentManager::onInstrumentBinningChange(GISASInstrumentItem *changedInstrument)
 {
     foreach(RealDataItem *realDataItem, linkedItems(changedInstrument)) {
         if(!ImportDataAssistant::hasSameDimensions(changedInstrument, realDataItem)) {
@@ -282,7 +282,7 @@ void LinkInstrumentManager::onInstrumentBinningChange(InstrumentItem *changedIns
 //! Runs through all RealDataItem and refresh linking to match possible change in detector
 //! axes definition.
 
-void LinkInstrumentManager::onInstrumentLayoutChange(InstrumentItem *changedInstrument)
+void LinkInstrumentManager::onInstrumentLayoutChange(GISASInstrumentItem *changedInstrument)
 {
     foreach(RealDataItem *realDataItem, linkedItems(changedInstrument))
         realDataItem->linkToInstrument(changedInstrument);
@@ -290,7 +290,7 @@ void LinkInstrumentManager::onInstrumentLayoutChange(InstrumentItem *changedInst
 
 //! Returns list of RealDataItem's linked to given instrument.
 
-QList<RealDataItem *> LinkInstrumentManager::linkedItems(InstrumentItem *instrumentItem)
+QList<RealDataItem *> LinkInstrumentManager::linkedItems(GISASInstrumentItem *instrumentItem)
 {
     QList<RealDataItem *> result;
     foreach(SessionItem *item, m_realDataModel->topItems(Constants::RealDataType)) {
@@ -299,7 +299,7 @@ QList<RealDataItem *> LinkInstrumentManager::linkedItems(InstrumentItem *instrum
         QString linkedIdentifier
             = realDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
         QString instrumentIdentifier
-            = instrumentItem->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
+            = instrumentItem->getItemValue(GISASInstrumentItem::P_IDENTIFIER).toString();
 
         if(linkedIdentifier == instrumentIdentifier)
             result.append(realDataItem);

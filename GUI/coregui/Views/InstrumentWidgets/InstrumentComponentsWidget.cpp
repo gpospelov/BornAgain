@@ -51,7 +51,7 @@ InstrumentComponentsWidget::InstrumentComponentsWidget(QWidget* parent)
     setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
 }
 
-void InstrumentComponentsWidget::setInstrumentItem(InstrumentItem* instrumentItem)
+void InstrumentComponentsWidget::setInstrumentItem(GISASInstrumentItem* instrumentItem)
 {
     m_backgroundEditor->clearEditor();
     if(instrumentItem) {

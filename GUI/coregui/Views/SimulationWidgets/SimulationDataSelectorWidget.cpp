@@ -100,11 +100,11 @@ const MultiLayerItem *SimulationDataSelectorWidget::selectedMultiLayerItem() con
 //! Returns selected InstrumentItem taking into account that there might be several
 //! instruments with same name.
 
-const InstrumentItem *SimulationDataSelectorWidget::selectedInstrumentItem() const
+const GISASInstrumentItem *SimulationDataSelectorWidget::selectedInstrumentItem() const
 {
     auto items = m_applicationModels->instrumentModel()->topItems();
     if(items.isEmpty()) return nullptr;
-    return dynamic_cast<const InstrumentItem *>(items.at(selectedInstrumentIndex()));
+    return dynamic_cast<const GISASInstrumentItem *>(items.at(selectedInstrumentIndex()));
 }
 
 //! Returns selected InstrumentItem taking into account that there might be several

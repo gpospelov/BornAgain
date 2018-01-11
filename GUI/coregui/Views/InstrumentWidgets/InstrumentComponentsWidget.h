@@ -18,7 +18,7 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class InstrumentItem;
+class GISASInstrumentItem;
 class ComponentEditor;
 class DetectorItem;
 class BeamEditorWidget;
@@ -31,7 +31,7 @@ class BA_CORE_API_ InstrumentComponentsWidget : public QWidget
 public:
     InstrumentComponentsWidget(QWidget* parent = 0);
 
-    void setInstrumentItem(InstrumentItem* instrumentItem);
+    void setInstrumentItem(GISASInstrumentItem* instrumentItem);
 
 signals:
     void extendedDetectorEditorRequest(DetectorItem*);

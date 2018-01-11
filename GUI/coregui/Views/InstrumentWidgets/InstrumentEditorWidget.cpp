@@ -68,7 +68,7 @@ void InstrumentEditorWidget::setItem(SessionItem* instrument)
     m_currentItem = instrument;
     updateWidgets();
 
-    InstrumentItem* instrumentItem = dynamic_cast<InstrumentItem*>(instrument);
+    GISASInstrumentItem* instrumentItem = dynamic_cast<GISASInstrumentItem*>(instrument);
     m_instrumentComponents->setInstrumentItem(instrumentItem);
 }
 

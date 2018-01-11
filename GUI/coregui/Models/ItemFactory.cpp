@@ -77,7 +77,7 @@ ItemFactory::ItemMap_t initializeItemMap() {
     result[Constants::InterferenceFunction2DParaCrystalType] = &createInstance<InterferenceFunction2DParaCrystalItem>;
     result[Constants::InterferenceFunction2DLatticeType] = &createInstance<InterferenceFunction2DLatticeItem>;
     result[Constants::InterferenceFunction1DLatticeType] = &createInstance<InterferenceFunction1DLatticeItem>;
-    result[Constants::GISASInstrumentType] = &createInstance<InstrumentItem>;
+    result[Constants::GISASInstrumentType] = &createInstance<GISASInstrumentItem>;
     result[Constants::BeamType] = &createInstance<BeamItem>;
     result[Constants::BackgroundNoneType] = &createInstance<BackgroundNoneItem>;
     result[Constants::ConstantBackgroundType] = &createInstance<ConstantBackgroundItem>;

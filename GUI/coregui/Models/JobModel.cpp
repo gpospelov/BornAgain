@@ -71,7 +71,7 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
 
 //! Main method to add a job
 JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
-                          const InstrumentItem *instrumentItem,
+                          const GISASInstrumentItem *instrumentItem,
                           const RealDataItem *realDataItem,
                           const SimulationOptionsItem *optionItem)
 {

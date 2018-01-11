@@ -40,8 +40,8 @@ TEST_F(TestDetectorItems, test_detectorAlignment)
 TEST_F(TestDetectorItems, test_resolutionFunction)
 {
     InstrumentModel model;
-    InstrumentItem* instrument
-        = dynamic_cast<InstrumentItem*>(model.insertNewItem(Constants::GISASInstrumentType));
+    GISASInstrumentItem* instrument
+        = dynamic_cast<GISASInstrumentItem*>(model.insertNewItem(Constants::GISASInstrumentType));
 
     DetectorItem* detectorItem = instrument->detectorItem();
 

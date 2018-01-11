@@ -70,7 +70,7 @@ void JobItemUtils::setResults(IntensityDataItem* intensityItem, const GISASSimul
 //! InstrumentItem is used to get domain's detector map for given units.
 
 void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
-                                  const InstrumentItem* instrumentItem)
+                                  const GISASInstrumentItem* instrumentItem)
 {
     Q_ASSERT(intensityItem);
     Q_ASSERT(instrumentItem);
@@ -145,7 +145,7 @@ AxesUnits JobItemUtils::preferableGUIAxesUnits(AxesUnits default_units)
 //! Sets axes units suitable for given instrument.
 
 void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
-                                              const InstrumentItem* instrumentItem)
+                                              const GISASInstrumentItem* instrumentItem)
 {
     DomainObjectBuilder builder;
     auto instrument = builder.buildInstrument(*instrumentItem);
@@ -192,7 +192,7 @@ void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
 }
 
 void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
-                                            const InstrumentItem* instrumentItem)
+                                            const GISASInstrumentItem* instrumentItem)
 {
     DomainObjectBuilder builder;
     auto instrument = builder.buildInstrument(*instrumentItem);
@@ -207,7 +207,7 @@ void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
 }
 
 //! creates detector map from instrument description with axes corresponding to given units
-OutputData<double>* JobItemUtils::createDetectorMap(const InstrumentItem* instrumentItem,
+OutputData<double>* JobItemUtils::createDetectorMap(const GISASInstrumentItem* instrumentItem,
                                                      AxesUnits units)
 {
     DomainObjectBuilder builder;

@@ -102,7 +102,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
 {
     Q_ASSERT(p_instrument_model);
 
-    InstrumentItem* p_instrument_item = dynamic_cast<InstrumentItem*>
+    GISASInstrumentItem* p_instrument_item = dynamic_cast<GISASInstrumentItem*>
             (p_instrument_model->insertNewItem(Constants::GISASInstrumentType));
 
     if(instrument_name.isEmpty()) {
@@ -112,7 +112,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     }
 
     // beam
-    auto& beam_item = p_instrument_item->item<BeamItem>(InstrumentItem::P_BEAM);
+    auto& beam_item = p_instrument_item->item<BeamItem>(GISASInstrumentItem::P_BEAM);
     TransformFromDomain::setItemFromSample(&beam_item, simulation);
 
     // detector

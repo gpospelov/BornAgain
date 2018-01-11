@@ -63,7 +63,7 @@ void DetectorEditorWidget::subscribeToItem()
 
     currentItem()->mapper()->setOnPropertyChange(
         [this](const QString& name) {
-            if (name == InstrumentItem::P_DETECTOR)
+            if (name == GISASInstrumentItem::P_DETECTOR)
                 init_SubDetector_Widget();
         }, this);
 
@@ -111,7 +111,7 @@ void DetectorEditorWidget::remove_SubDetectorWidget()
     m_subDetectorWidget = 0;
 }
 
-InstrumentItem* DetectorEditorWidget::instrumentItem()
+GISASInstrumentItem* DetectorEditorWidget::instrumentItem()
 {
-    return dynamic_cast<InstrumentItem*>(currentItem());
+    return dynamic_cast<GISASInstrumentItem*>(currentItem());
 }

@@ -245,7 +245,7 @@ void TransformFromDomain::setItemFromSample(BeamItem* beam_item, const GISASSimu
     SetVectorItem(*beam_item, BeamItem::P_POLARIZATION, beam.getBlochVector());
 }
 
-void TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* instrument_item,
+void TransformFromDomain::setInstrumentDetectorFromSample(GISASInstrumentItem* instrument_item,
                                                           const GISASSimulation& simulation)
 {
     const IDetector* p_detector = simulation.getInstrument().getDetector();
@@ -525,19 +525,19 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribut
     setDistribution(beam_distribution_item, parameter_distribution, group_name, unit_factor);
 }
 
-void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
+void TransformFromDomain::setBackground(GISASInstrumentItem* instrument_item,
                                         const GISASSimulation& simulation)
 {
     auto p_bg = simulation.background();
     if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
         auto constant_bg_item = instrument_item->setGroupProperty(
-                                    InstrumentItem::P_BACKGROUND,
+                                    GISASInstrumentItem::P_BACKGROUND,
                                     Constants::ConstantBackgroundType);
         double value = p_constant_bg->backgroundValue();
         constant_bg_item->setItemValue(ConstantBackgroundItem::P_VALUE, value);
     }
     else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
-        instrument_item->setGroupProperty(InstrumentItem::P_BACKGROUND,
+        instrument_item->setGroupProperty(GISASInstrumentItem::P_BACKGROUND,
                                           Constants::PoissonNoiseBackgroundType);
     }
 }

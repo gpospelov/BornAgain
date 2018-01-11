@@ -243,9 +243,9 @@ MultiLayerItem *JobItem::multiLayerItem()
 
 //! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
 //! the instrument will be used
-InstrumentItem *JobItem::instrumentItem()
+GISASInstrumentItem *JobItem::instrumentItem()
 {
-    return dynamic_cast<InstrumentItem*>(getItem(T_INSTRUMENT));
+    return dynamic_cast<GISASInstrumentItem*>(getItem(T_INSTRUMENT));
 }
 
 void JobItem::setResults(const GISASSimulation *simulation)

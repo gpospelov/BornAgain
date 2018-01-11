@@ -25324,8 +25324,8 @@ class ParticleLayout(ILayout):
         """
         addParticle(ParticleLayout self, IAbstractParticle particle)
         addParticle(ParticleLayout self, IAbstractParticle particle, double abundance)
-        addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position)
-        addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position, IRotation rotation)
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance, kvector_t position)
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance, kvector_t position, IRotation rotation)
 
         void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
 

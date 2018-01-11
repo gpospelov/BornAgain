@@ -73,7 +73,7 @@ public:
     //! Sets transformation.
     void setRotation(const IRotation& rotation);
 
-    //! Applies rotation by composing it with the existing one
+    //! Rotates the particle
     void rotate(const IRotation& rotation) override final;
 
     std::vector<const INode*> getChildren() const override;

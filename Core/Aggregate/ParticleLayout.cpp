@@ -120,10 +120,10 @@ void ParticleLayout::addParticle(const IAbstractParticle& particle, double abund
 //! @param particle to be added
 //! @param abundance Particle abundance
 //! @param position Particle position
-void ParticleLayout::addParticle(const IParticle& particle, double abundance,
+void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance,
                                  const kvector_t position)
 {
-    std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
+    std::unique_ptr<IAbstractParticle> P_particle_clone { particle.clone() };
     P_particle_clone->setAbundance(abundance);
     if (position != kvector_t(0,0,0))
         P_particle_clone->translate(position);
@@ -135,10 +135,10 @@ void ParticleLayout::addParticle(const IParticle& particle, double abundance,
 //! @param abundance Particle abundance
 //! @param position Particle position
 //! @param rotation Particle rotation
-void ParticleLayout::addParticle(const IParticle& particle, double abundance,
+void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance,
                                  const kvector_t position, const IRotation& rotation)
 {
-    std::unique_ptr<IParticle> P_particle_clone { particle.clone() };
+    std::unique_ptr<IAbstractParticle> P_particle_clone { particle.clone() };
     P_particle_clone->setAbundance(abundance);
     if (!rotation.isIdentity())
         P_particle_clone->rotate(rotation);

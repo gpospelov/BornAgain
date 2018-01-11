@@ -41,8 +41,8 @@ public:
 
     void addParticle(const IAbstractParticle& particle);
     void addParticle(const IAbstractParticle& particle, double abundance); // TODO delete this
-    void addParticle(const IParticle& particle, double abundance, const kvector_t position);
-    void addParticle(const IParticle& particle, double abundance,
+    void addParticle(const IAbstractParticle& particle, double abundance, const kvector_t position);
+    void addParticle(const IAbstractParticle& particle, double abundance,
                      const kvector_t position, const IRotation& rotation);
 
     SafePointerVector<const IParticle> particles() const final override;

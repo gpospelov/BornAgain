@@ -37,7 +37,7 @@ public:
     static const QString P_BEAM;
     static const QString P_DETECTOR;
     static const QString P_BACKGROUND;
-    GISASInstrumentItem();
+    explicit GISASInstrumentItem(const QString& modelType = Constants::GISASInstrumentType);
 
     BeamItem* beamItem() const;
     DetectorItem* detectorItem() const;
@@ -52,6 +52,12 @@ public:
     void importMasks(MaskContainerItem* maskContainer);
 
     QStringList translateList(const QStringList& list) const override;
+};
+
+class BA_CORE_API_ OffSpecInstrumentItem : public GISASInstrumentItem
+{
+public:
+    OffSpecInstrumentItem();
 };
 
 #endif // INSTRUMENTITEMS_H

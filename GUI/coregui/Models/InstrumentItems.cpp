@@ -36,8 +36,8 @@ const QString GISASInstrumentItem::P_BEAM = "Beam";
 const QString GISASInstrumentItem::P_DETECTOR = "Detector";
 const QString GISASInstrumentItem::P_BACKGROUND = "Background";
 
-GISASInstrumentItem::GISASInstrumentItem()
-    : InstrumentItem(Constants::GISASInstrumentType)
+GISASInstrumentItem::GISASInstrumentItem(const QString& modelType)
+    : InstrumentItem(modelType)
 {
     addGroupProperty(P_BEAM, Constants::BeamType);
 
@@ -104,4 +104,10 @@ QStringList GISASInstrumentItem::translateList(const QStringList& list) const
         }
     }
     return result;
+}
+
+OffSpecInstrumentItem::OffSpecInstrumentItem()
+    : GISASInstrumentItem(Constants::OffSpecInstrumentType)
+{
+
 }

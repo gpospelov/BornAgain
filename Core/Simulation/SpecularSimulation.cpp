@@ -42,6 +42,7 @@ SpecularSimulation::SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder>
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
     : Simulation(other)
+    , m_sim_elements(other.m_sim_elements)
     , m_storage(other.m_storage)
 {
     initialize();

@@ -97,6 +97,7 @@ private:
 
     IAxis* mp_alpha_i_axis;
     OutputData<double> m_intensity_map;
+    std::vector<SimulationElement> m_sim_elements;
     std::vector<SimulationElement> m_storage;
 };
 

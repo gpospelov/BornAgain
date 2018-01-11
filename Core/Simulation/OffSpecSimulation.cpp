@@ -48,6 +48,18 @@ void OffSpecSimulation::prepareSimulation()
     Simulation::prepareSimulation();
 }
 
+OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
+    : Simulation(other)
+    , mp_alpha_i_axis(nullptr)
+    , m_sim_elements(other.m_sim_elements)
+    , m_storage(other.m_storage)
+{
+    if(other.mp_alpha_i_axis)
+        mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
+    m_intensity_map.copyFrom(other.m_intensity_map);
+    initialize();
+}
+
 size_t OffSpecSimulation::numberOfSimulationElements() const
 {
     checkInitialization();
@@ -101,17 +113,6 @@ void OffSpecSimulation::normalizeIntensity(size_t index, double beam_intensity)
         sin_alpha_i = 1.0;
     const double solid_angle = element.getSolidAngle();
     element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
-}
-
-OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
-    : Simulation(other)
-    , mp_alpha_i_axis(nullptr)
-    , m_storage(other.m_storage)
-{
-    if(other.mp_alpha_i_axis)
-        mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
-    m_intensity_map.copyFrom(other.m_intensity_map);
-    initialize();
 }
 
 void OffSpecSimulation::initSimulationElementVector(bool init_storage)

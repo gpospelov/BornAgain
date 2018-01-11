@@ -112,7 +112,6 @@ protected:
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
     ProgressHandler m_progress;
-    std::vector<SimulationElement> m_sim_elements;
     Instrument m_instrument;
     std::unique_ptr<IBackground> mP_background;
 

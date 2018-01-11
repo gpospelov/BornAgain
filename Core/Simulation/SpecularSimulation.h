@@ -114,6 +114,7 @@ private:
 
     virtual void moveDataFromStorage() override;
 
+    std::vector<SimulationElement> m_sim_elements;
     std::vector<SimulationElement> m_storage;
 };
 

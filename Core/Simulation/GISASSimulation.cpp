@@ -44,6 +44,14 @@ GISASSimulation::GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sam
     initialize();
 }
 
+GISASSimulation::GISASSimulation(const GISASSimulation& other)
+    : Simulation(other)
+    , m_sim_elements(other.m_sim_elements)
+    , m_storage(other.m_storage)
+{
+    initialize();
+}
+
 void GISASSimulation::prepareSimulation()
 {
     if (m_instrument.getDetectorDimension() != 2)
@@ -151,13 +159,6 @@ void GISASSimulation::moveDataFromStorage()
     assert(!m_storage.empty());
     if (!m_storage.empty())
         m_sim_elements = std::move(m_storage);
-}
-
-GISASSimulation::GISASSimulation(const GISASSimulation& other)
-    : Simulation(other)
-    , m_storage(other.m_storage)
-{
-    initialize();
 }
 
 void GISASSimulation::initSimulationElementVector(bool init_storage)

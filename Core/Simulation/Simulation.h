@@ -101,11 +101,6 @@ protected:
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap() {}
 
-    //! Update the sample by calling the sample builder, if present
-    void updateSample();
-
-    void runSingleSimulation(bool use_storage = false, double weight = 1.0);
-
     virtual void updateIntensityMap() {}
 
     SampleProvider m_sample_provider;
@@ -117,6 +112,11 @@ protected:
 
 private:
     void initialize();
+
+    //! Update the sample by calling the sample builder, if present
+    void updateSample();
+
+    void runSingleSimulation(bool use_storage = false, double weight = 1.0);
 
     //! Initializes the vector of Simulation elements
     //! @param init_storage Initialize storage for accumulating results

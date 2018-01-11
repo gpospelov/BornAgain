@@ -16,16 +16,15 @@
 #include "InstrumentComponentsWidget.h"
 #include "InstrumentItems.h"
 #include "AdjustingScrollArea.h"
+#include "DetectorItems.h"
 #include <QBoxLayout>
 #include <QLabel>
-#include <QComboBox>
 #include <QGroupBox>
 #include <QLineEdit>
 
 InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
     : QWidget(parent)
     , m_nameLineEdit(new QLineEdit)
-    , m_typeComboBox(new QComboBox)
     , m_instrumentComponents(new InstrumentComponentsWidget)
     , m_currentItem(nullptr)
     , m_block_signals(false)
@@ -51,11 +50,11 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
     mainLayout->addWidget(instrumentGroup);
     setLayout(mainLayout);
 
-    connect(m_nameLineEdit, SIGNAL(textChanged(const QString&)), this,
-            SLOT(onChangedEditor(const QString&)));
+    connect(m_nameLineEdit, &QLineEdit::textChanged,
+            this, &InstrumentEditorWidget::onChangedEditor);
 
-    connect(m_instrumentComponents, SIGNAL(extendedDetectorEditorRequest(DetectorItem*)), this,
-            SIGNAL(extendedDetectorEditorRequest(DetectorItem*)));
+    connect(m_instrumentComponents, &InstrumentComponentsWidget::extendedDetectorEditorRequest,
+            this, &InstrumentEditorWidget::extendedDetectorEditorRequest);
 }
 
 QSize InstrumentEditorWidget::sizeHint() const
@@ -87,15 +86,10 @@ QLayout* InstrumentEditorWidget::create_NameAndTypeLayout()
     QHBoxLayout* result = new QHBoxLayout;
 
     m_nameLineEdit->setMinimumWidth(200);
-    m_typeComboBox->addItem("Default GISAS Instrument");
 
     result->addSpacing(17);
     result->addWidget(new QLabel("Name"));
     result->addWidget(m_nameLineEdit);
-    result->addSpacing(5);
-    result->addWidget(new QLabel("Type"));
-    result->addWidget(m_typeComboBox);
-    result->addSpacing(18);
     result->addStretch(1);
 
     return result;
@@ -107,12 +101,10 @@ void InstrumentEditorWidget::updateWidgets()
 
     if (m_currentItem) {
         m_nameLineEdit->setEnabled(true);
-        m_typeComboBox->setEnabled(true);
         m_nameLineEdit->setText(m_currentItem->itemName());
     } else {
         m_nameLineEdit->setText(QString());
         m_nameLineEdit->setEnabled(false);
-        m_typeComboBox->setEnabled(false);
     }
 
     m_block_signals = false;

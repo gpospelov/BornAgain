@@ -106,30 +106,6 @@ void ParticleLayout::addParticle(const IAbstractParticle& particle)
     addAndRegisterAbstractParticle(particle.clone());
 }
 
-//! Adds generic particle to the layout with only abundance defined.
-//! @param particle to be added
-//! @param abundance Particle abundance
-void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance)
-{
-    std::unique_ptr<IAbstractParticle> P_particle_clone { particle.clone() };
-    P_particle_clone->setAbundance(abundance);
-    addAndRegisterAbstractParticle(P_particle_clone.release());
-}
-
-//! Adds particle to the layout with abundance and position defined.
-//! @param particle to be added
-//! @param abundance Particle abundance
-//! @param position Particle position
-void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance,
-                                 const kvector_t position)
-{
-    std::unique_ptr<IAbstractParticle> P_particle_clone { particle.clone() };
-    P_particle_clone->setAbundance(abundance);
-    if (position != kvector_t(0,0,0))
-        P_particle_clone->translate(position);
-    addAndRegisterAbstractParticle(P_particle_clone.release());
-}
-
 //! Adds particle to the layout with abundance, position and the rotation defined.
 //! @param particle to be added
 //! @param abundance Particle abundance

@@ -16,6 +16,7 @@
 #define PARTICLELAYOUT_H
 
 #include "ILayout.h"
+#include "Rotations.h"
 #include "Vectors3D.h"
 #include <memory>
 
@@ -40,10 +41,9 @@ public:
     void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
     void addParticle(const IAbstractParticle& particle);
-    void addParticle(const IAbstractParticle& particle, double abundance); // TODO delete this
-    void addParticle(const IAbstractParticle& particle, double abundance, const kvector_t position);
     void addParticle(const IAbstractParticle& particle, double abundance,
-                     const kvector_t position, const IRotation& rotation);
+                     const kvector_t position=kvector_t(),
+                     const IRotation& rotation=IdentityRotation());
 
     SafePointerVector<const IParticle> particles() const final override;
 

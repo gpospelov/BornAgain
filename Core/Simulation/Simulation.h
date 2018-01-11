@@ -104,7 +104,7 @@ protected:
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
-    void runSingleSimulation();
+    void runSingleSimulation(bool use_storage = false, double weight = 1.0);
 
     virtual void updateIntensityMap() {}
 

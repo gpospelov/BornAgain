@@ -222,7 +222,7 @@ void Simulation::updateSample()
 
 //! Runs a single simulation with fixed parameter values.
 //! If desired, the simulation is run in several threads.
-void Simulation::runSingleSimulation()
+void Simulation::runSingleSimulation(bool, double)
 {
     prepareSimulation();
     initSimulationElementVector();

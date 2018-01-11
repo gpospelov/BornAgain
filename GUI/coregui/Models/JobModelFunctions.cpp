@@ -18,7 +18,7 @@
 #include "RealDataItem.h"
 #include "IntensityDataItem.h"
 #include "FitSuiteItem.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "GUIHelpers.h"
 #include "MaskUnitsConverter.h"
 #include "DetectorItems.h"

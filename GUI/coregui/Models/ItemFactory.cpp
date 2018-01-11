@@ -28,7 +28,7 @@
 #include "FormFactorItems.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "IntensityDataItem.h"
 #include "InterferenceFunctionItems.h"
 #include "JobItem.h"

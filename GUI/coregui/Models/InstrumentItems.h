@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/InstrumentItem.h
-//! @brief     Defines class InstrumentItem
+//! @file      GUI/coregui/Models/InstrumentItems.h
+//! @brief     Defines InstrumentItems classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INSTRUMENTITEM_H
-#define INSTRUMENTITEM_H
+#ifndef INSTRUMENTITEMS_H
+#define INSTRUMENTITEMS_H
 
 #include "SessionItem.h"
 
@@ -47,4 +47,4 @@ public:
     QStringList translateList(const QStringList& list) const override;
 };
 
-#endif // INSTRUMENTITEM_H
+#endif // INSTRUMENTITEMS_H

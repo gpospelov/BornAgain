@@ -17,7 +17,7 @@
 #include "DomainObjectBuilder.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"

@@ -15,7 +15,7 @@
 #include "JobModel.h"
 #include "FitSuiteItem.h"
 #include "GUIHelpers.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "JobItemUtils.h"

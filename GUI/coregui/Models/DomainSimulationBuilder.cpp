@@ -20,7 +20,7 @@
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
 #include "IBackground.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "MultiLayer.h"
 #include "MultiLayerItem.h"
 #include "SimulationOptionsItem.h"

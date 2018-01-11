@@ -2,7 +2,7 @@
 #include "BeamDistributionItem.h"
 #include "BeamItem.h"
 #include "DistributionItems.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "ModelPath.h"
 #include "ParticleItem.h"
 #include "RotationItems.h"

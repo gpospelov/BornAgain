@@ -14,7 +14,7 @@
 
 #include "SimulationDataSelectorWidget.h"
 #include "ApplicationModels.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "RealDataItem.h"

@@ -15,7 +15,7 @@
 #include "LinkInstrumentManager.h"
 #include "InstrumentModel.h"
 #include "RealDataModel.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "RealDataItem.h"
 #include "ImportDataAssistant.h"
 #include "AxesItems.h"

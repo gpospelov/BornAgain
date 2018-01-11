@@ -14,7 +14,7 @@
 
 #include "InstrumentEditorWidget.h"
 #include "InstrumentComponentsWidget.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "AdjustingScrollArea.h"
 #include <QBoxLayout>
 #include <QLabel>

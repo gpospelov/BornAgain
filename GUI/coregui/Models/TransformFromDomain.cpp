@@ -56,7 +56,7 @@
 #include "ResolutionFunctionItems.h"
 #include "SphericalDetector.h"
 #include "ParameterTreeUtils.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "ParameterUtils.h"
 #include "Particle.h"

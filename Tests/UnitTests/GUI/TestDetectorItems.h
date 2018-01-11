@@ -2,7 +2,7 @@
 #include "RectangularDetectorItem.h"
 #include "InstrumentModel.h"
 #include "ComboProperty.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "DetectorItems.h"
 #include "ConvolutionDetectorResolution.h"
 #include "ResolutionFunction2DGaussian.h"

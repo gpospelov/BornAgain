@@ -19,7 +19,7 @@
 #include "ColumnResizer.h"
 #include "DetectorEditorWidget.h"
 #include "DetectorItems.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "GroupItem.h"
 #include <QVBoxLayout>
 

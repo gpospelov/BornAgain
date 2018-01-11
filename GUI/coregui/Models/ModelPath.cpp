@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "ModelPath.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "JobItem.h"
 #include "RectangularDetectorItem.h"
 #include "SessionModel.h"

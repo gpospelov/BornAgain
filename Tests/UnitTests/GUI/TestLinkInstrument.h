@@ -1,6 +1,6 @@
 #include "google_test.h"
 #include "AxesItems.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
 #include "JobItemUtils.h"

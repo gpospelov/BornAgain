@@ -49,7 +49,7 @@
 #include "SphericalDetector.h"
 #include "TransformFromDomain.h"
 #include "TransformationItem.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "DetectorItems.h"
 #include "Units.h"
 #include "VectorItem.h"

@@ -20,7 +20,7 @@
 #include "RealDataItem.h"
 #include "projectmanager.h"
 #include "BornAgainNamespace.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "AxesItems.h"
 #include "DetectorItems.h"
 #include "SphericalDetectorItem.h"

@@ -22,7 +22,7 @@
 #include "GroupInfoBox.h"
 #include "RectangularDetectorWidget.h"
 #include "SphericalDetectorWidget.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "GroupItem.h"
 #include "ColumnResizer.h"
 #include <QGroupBox>

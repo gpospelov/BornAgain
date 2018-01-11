@@ -2,7 +2,7 @@
 #include "ApplicationModels.h"
 #include "AutosaveController.h"
 #include "GUIHelpers.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
 #include "JobItemUtils.h"

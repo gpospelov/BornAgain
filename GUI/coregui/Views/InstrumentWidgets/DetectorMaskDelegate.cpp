@@ -22,7 +22,7 @@
 #include "MaskItems.h"
 #include "ModelPath.h"
 #include "JobItemUtils.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject* parent)
     : QObject(parent)

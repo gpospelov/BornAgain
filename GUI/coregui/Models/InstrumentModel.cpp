@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "InstrumentModel.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 
 InstrumentModel::InstrumentModel(QObject *parent)
     : SessionModel(SessionXML::InstrumentModelTag, parent)

@@ -16,7 +16,7 @@
 #include "ComboProperty.h"
 #include "FitSuiteItem.h"
 #include "GUIHelpers.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "IntensityDataItem.h"
 #include "JobItemUtils.h"
 #include "MultiLayerItem.h"

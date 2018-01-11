@@ -20,7 +20,7 @@
 #include "GUIHelpers.h"
 #include "IInterferenceFunction.h"
 #include "Instrument.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "InterferenceFunctionItems.h"
 #include "LayerItem.h"
 #include "MultiLayer.h"

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/InstrumentItem.cpp
-//! @brief     Implements class InstrumentItem
+//! @file      GUI/coregui/Models/InstrumentItems.cpp
+//! @brief     Implements InstrumentItems classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "BackgroundItems.h"
 #include "BeamItem.h"
 #include "BornAgainNamespace.h"

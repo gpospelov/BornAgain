@@ -213,7 +213,7 @@ void SampleView::showContextMenu(const QPoint &pnt)
     QModelIndex parent_index = FilterPropertyProxy::toSourceIndex(getTreeView()->indexAt(pnt));
     getTreeView()->setCurrentIndex(parent_index);
     if (!parent_index.isValid()) {
-        addItemNames = ItemFactory::getValidTopItemNames().toVector();
+        addItemNames = ItemFactory::ValidTopItemTypes().toVector();
     } else {
         addItemNames = getSampleModel()->acceptableDefaultItemTypes(parent_index);
     }

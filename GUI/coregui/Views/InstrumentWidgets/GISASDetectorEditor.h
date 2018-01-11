@@ -19,12 +19,18 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+class ComponentEditor;
+class DetectorPresenter;
+
 class BA_CORE_API_ GISASDetectorEditor : public QWidget
 {
     Q_OBJECT
 public:
     GISASDetectorEditor(QWidget* parent = nullptr);
 
+private:
+    ComponentEditor* m_detectorTypeEditor;
+    DetectorPresenter* m_detectorPresenter;
 };
 
 #endif  // GISASDETECTOREDITOR_H

@@ -13,9 +13,19 @@
 // ************************************************************************** //
 
 #include "GISASDetectorEditor.h"
+#include "ComponentEditor.h"
+#include "DetectorPresenter.h"
+#include <QVBoxLayout>
 
 GISASDetectorEditor::GISASDetectorEditor(QWidget* parent)
     : QWidget(parent)
+    , m_detectorTypeEditor(new ComponentEditor(ComponentEditor::PlainWidget
+                                               | ComponentEditor::W_NoChildren))
+    , m_detectorPresenter(new DetectorPresenter)
 {
-
+    auto mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(m_detectorTypeEditor);
+    mainLayout->addWidget(m_detectorPresenter);
+    mainLayout->addStretch();
+    setLayout(mainLayout);
 }

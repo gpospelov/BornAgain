@@ -142,6 +142,7 @@ void GISASSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements
 
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
     : Simulation(other)
+    , m_storage(other.m_storage)
 {
     initialize();
 }

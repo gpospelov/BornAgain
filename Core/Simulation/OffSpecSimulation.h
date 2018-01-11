@@ -16,6 +16,7 @@
 #define OFFSPECSIMULATION_H
 
 #include "Simulation.h"
+#include "SimulationElement.h"
 
 class Histogram2D;
 
@@ -89,7 +90,7 @@ private:
 
     IAxis* mp_alpha_i_axis;
     OutputData<double> m_intensity_map;
-
+    std::vector<SimulationElement> m_storage;
 };
 
 #endif // OFFSPECSIMULATION_H

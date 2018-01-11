@@ -16,6 +16,7 @@
 #define SPECULARSIMULATION_H
 
 #include "Simulation.h"
+#include "SimulationElement.h"
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
 
@@ -105,6 +106,8 @@ private:
     virtual void normalizeIntensity(size_t index, double beam_intensity) override;
 
     virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+
+    std::vector<SimulationElement> m_storage;
 };
 
 #endif // SPECULARSIMULATION_H

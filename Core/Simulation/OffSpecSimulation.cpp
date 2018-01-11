@@ -105,6 +105,7 @@ void OffSpecSimulation::normalizeIntensity(size_t index, double beam_intensity)
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     : Simulation(other)
     , mp_alpha_i_axis(nullptr)
+    , m_storage(other.m_storage)
 {
     if(other.mp_alpha_i_axis)
         mp_alpha_i_axis = other.mp_alpha_i_axis->clone();

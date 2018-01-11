@@ -16,6 +16,7 @@
 #define GISASSIMULATION_H
 
 #include "Simulation.h"
+#include "SimulationElement.h"
 
 class MultiLayer;
 class IMultiLayerBuilder;
@@ -100,6 +101,8 @@ private:
     virtual void normalizeIntensity(size_t index, double beam_intensity) override;
 
     virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+
+    std::vector<SimulationElement> m_storage;
 };
 
 #endif // GISASSIMULATION_H

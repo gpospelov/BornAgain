@@ -145,7 +145,7 @@ void LinkInstrumentManager::setOnInstrumentPropertyChange(SessionItem *instrumen
                                                           const QString &property)
 {
     Q_ASSERT(instrument);
-    if(property == SessionItem::P_NAME || property == GISASInstrumentItem::P_IDENTIFIER) {
+    if(property == SessionItem::P_NAME || property == InstrumentItem::P_IDENTIFIER) {
         updateInstrumentMap();
     }
 }
@@ -244,7 +244,7 @@ void LinkInstrumentManager::updateInstrumentMap()
 
         InstrumentInfo info;
         info.m_name = item->itemName();
-        info.m_identifier = item->getItemValue(GISASInstrumentItem::P_IDENTIFIER).toString();
+        info.m_identifier = item->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
         info.m_instrument = instrumentItem;
         m_instrumentVec.append(info);
     }
@@ -299,7 +299,7 @@ QList<RealDataItem *> LinkInstrumentManager::linkedItems(GISASInstrumentItem *in
         QString linkedIdentifier
             = realDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
         QString instrumentIdentifier
-            = instrumentItem->getItemValue(GISASInstrumentItem::P_IDENTIFIER).toString();
+            = instrumentItem->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
 
         if(linkedIdentifier == instrumentIdentifier)
             result.append(realDataItem);

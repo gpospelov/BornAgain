@@ -23,12 +23,15 @@
 #include "MaskItems.h"
 #include "ParameterTranslators.h"
 
+const QString InstrumentItem::P_IDENTIFIER = "Identifier";
+
 InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType)
 {
+    setItemName(modelType);
+    addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
 
 }
 
-const QString GISASInstrumentItem::P_IDENTIFIER = "Identifier";
 const QString GISASInstrumentItem::P_BEAM = "Beam";
 const QString GISASInstrumentItem::P_DETECTOR = "Detector";
 const QString GISASInstrumentItem::P_BACKGROUND = "Background";
@@ -36,10 +39,6 @@ const QString GISASInstrumentItem::P_BACKGROUND = "Background";
 GISASInstrumentItem::GISASInstrumentItem()
     : InstrumentItem(Constants::GISASInstrumentType)
 {
-    setItemName(Constants::GISASInstrumentType);
-
-    addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
-
     addGroupProperty(P_BEAM, Constants::BeamType);
 
     addGroupProperty(P_DETECTOR, Constants::DetectorGroup);

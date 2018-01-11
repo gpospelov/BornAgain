@@ -23,7 +23,7 @@ public:
     void modify_models(ApplicationModels* models)
     {
         auto instrument = models->instrumentModel()->instrumentItem();
-        instrument->setItemValue(GISASInstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
+        instrument->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
     }
 };
 

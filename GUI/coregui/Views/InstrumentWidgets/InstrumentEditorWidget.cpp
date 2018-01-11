@@ -17,6 +17,7 @@
 #include "InstrumentItems.h"
 #include "AdjustingScrollArea.h"
 #include "DetectorItems.h"
+#include "InstrumentPresenter.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QGroupBox>
@@ -25,10 +26,11 @@
 InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
     : QWidget(parent)
     , m_nameLineEdit(new QLineEdit)
-    , m_instrumentComponents(new GISASInstrumentEditor)
+    , m_instrumentPresenter(new InstrumentPresenter)
     , m_currentItem(nullptr)
     , m_block_signals(false)
 {
+
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -41,7 +43,7 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
     instrumentGroupLayout->addLayout(create_NameAndTypeLayout());
 
     AdjustingScrollArea* area = new AdjustingScrollArea;
-    area->setWidget(m_instrumentComponents);
+    area->setWidget(m_instrumentPresenter);
     instrumentGroupLayout->addWidget(area, 1);
     instrumentGroupLayout->addStretch();
 
@@ -53,8 +55,8 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
     connect(m_nameLineEdit, &QLineEdit::textChanged,
             this, &InstrumentEditorWidget::onChangedEditor);
 
-    connect(m_instrumentComponents, &GISASInstrumentEditor::extendedDetectorEditorRequest,
-            this, &InstrumentEditorWidget::extendedDetectorEditorRequest);
+//    connect(m_instrumentComponents, &GISASInstrumentEditor::extendedDetectorEditorRequest,
+//            this, &InstrumentEditorWidget::extendedDetectorEditorRequest);
 
 }
 
@@ -68,7 +70,7 @@ void InstrumentEditorWidget::setItem(SessionItem* instrument)
     m_currentItem = instrument;
     updateWidgets();
 
-    m_instrumentComponents->setItem(instrument);
+    m_instrumentPresenter->setItem(instrument);
 }
 
 void InstrumentEditorWidget::onChangedEditor(const QString&)

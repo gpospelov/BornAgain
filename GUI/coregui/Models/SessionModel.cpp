@@ -36,7 +36,7 @@ SessionModel::SessionModel(QString model_tag, QObject* parent)
 
 void SessionModel::createRootItem()
 {
-    m_root_item = ItemFactory::createEmptyItem();
+    m_root_item = ItemFactory::CreateEmptyItem();
     m_root_item->setModel(this);
     m_root_item->registerTag("rootTag");
     m_root_item->setDefaultTag("rootTag");
@@ -271,7 +271,7 @@ SessionItem* SessionModel::insertNewItem(QString model_type, const QModelIndex& 
             return nullptr;
     }
 
-    SessionItem* new_item = ItemFactory::createItem(model_type);
+    SessionItem* new_item = ItemFactory::CreateItem(model_type);
 
     if (!new_item)
         throw GUIHelpers::Error("SessionModel::insertNewItem() -> Wrong model type " + model_type);
@@ -306,7 +306,7 @@ void SessionModel::load(const QString& filename)
     if (!file.open(QIODevice::ReadOnly))
         throw GUIHelpers::Error(file.errorString());
     clear();
-    m_root_item = ItemFactory::createEmptyItem();
+    m_root_item = ItemFactory::CreateEmptyItem();
     QXmlStreamReader reader(&file);
     SessionXML::readItems(&reader, m_root_item);
     if (reader.hasError())

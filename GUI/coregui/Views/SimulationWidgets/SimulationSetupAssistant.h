@@ -19,7 +19,7 @@
 #include <QStringList>
 
 class MultiLayerItem;
-class InstrumentItem;
+class GISASInstrumentItem;
 class RealDataItem;
 
 //! The SimulationSetupAssistant class provides sample, instrument and real data validation before
@@ -30,13 +30,13 @@ public:
     SimulationSetupAssistant();
 
     bool isValidSimulationSetup(const MultiLayerItem *multiLayerItem,
-                                const InstrumentItem *instrumentItem,
+                                const GISASInstrumentItem *instrumentItem,
                                 const RealDataItem *realData = 0);
 private:
     void clear();
     void checkMultiLayerItem(const MultiLayerItem *multiLayerItem);
-    void checkInstrumentItem(const InstrumentItem *instrumentItem);
-    void checkFittingSetup(const InstrumentItem *instrumentItem, const RealDataItem *realData);
+    void checkInstrumentItem(const GISASInstrumentItem *instrumentItem);
+    void checkFittingSetup(const GISASInstrumentItem *instrumentItem, const RealDataItem *realData);
     QString composeMessage();
 
     bool m_isValid;

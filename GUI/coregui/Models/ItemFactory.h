@@ -17,30 +17,17 @@
 
 #include "SessionItem.h"
 
-class BA_CORE_API_ ItemFactory
+namespace ItemFactory
 {
-public:
-    typedef QMap<QString, SessionItem *(*)()> ItemMap_t;
+//! create SessionItem of specific type and parent
+SessionItem* CreateItem(const QString& model_name, SessionItem* parent=nullptr);
 
+//! create empty SessionItem that serves as a root item
+SessionItem *CreateEmptyItem();
 
-    //! create SessionItem of specific type and parent
-    static SessionItem *createItem(const QString &model_name,
-                                         SessionItem *parent=0);
+//! retrieve list of all possible item types suitable for
+QStringList ValidTopItemTypes();
 
-    //! create empty SessionItem that serves as a root item
-    static SessionItem *createEmptyItem();
-
-    //! retrieve list of all possible item names
-    static QList<QString> getValidTopItemNames();
-
-    //! returns true of factory supports given item type
-    static bool isValidItemType(const QString &name);
-
-private:
-    static QStringList m_valid_top_item_names;
-    static ItemMap_t m_item_map;
-    ItemFactory() {}
-    ~ItemFactory() {}
 };
 
 #endif // ITEMFACTORY_H

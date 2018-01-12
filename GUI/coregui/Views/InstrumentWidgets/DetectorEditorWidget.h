@@ -22,7 +22,7 @@ class DetectorItem;
 class ComponentEditor;
 class QGridLayout;
 class ColumnResizer;
-class InstrumentItem;
+class GISASInstrumentItem;
 
 class BA_CORE_API_ DetectorEditorWidget : public SessionItemWidget
 {
@@ -43,7 +43,7 @@ protected:
 private:
     void init_SubDetector_Widget();
     void remove_SubDetectorWidget();
-    InstrumentItem* instrumentItem();
+    GISASInstrumentItem* instrumentItem();
 
     ColumnResizer* m_columnResizer;
     ComponentEditor* m_detectorTypeEditor;

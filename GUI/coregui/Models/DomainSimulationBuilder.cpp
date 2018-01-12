@@ -20,7 +20,7 @@
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
 #include "IBackground.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "MultiLayer.h"
 #include "MultiLayerItem.h"
 #include "SimulationOptionsItem.h"
@@ -28,7 +28,7 @@
 
 //! Creates domain simulation from sample and instrument items.
 GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sampleItem,
-                                                        const InstrumentItem *instrumentItem,
+                                                        const GISASInstrumentItem *instrumentItem,
                                                         const SimulationOptionsItem *optionsItem)
 {
     if(sampleItem == nullptr || instrumentItem==nullptr) {

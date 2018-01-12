@@ -16,7 +16,7 @@
 #include "ComboProperty.h"
 #include "FitSuiteItem.h"
 #include "GUIHelpers.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "IntensityDataItem.h"
 #include "JobItemUtils.h"
 #include "MultiLayerItem.h"
@@ -70,7 +70,7 @@ JobItem::JobItem()
     addProperty(P_PRESENTATION_TYPE, Constants::IntensityDataPresentation)->setVisible(false);
 
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
-    registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::InstrumentType);
+    registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::GISASInstrumentType);
     registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType);
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::RealDataType);
     registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterContainerType);
@@ -243,9 +243,9 @@ MultiLayerItem *JobItem::multiLayerItem()
 
 //! Returns InstrumentItem of this JobItem, if from_backup=true, then backup'ed version of
 //! the instrument will be used
-InstrumentItem *JobItem::instrumentItem()
+GISASInstrumentItem *JobItem::instrumentItem()
 {
-    return dynamic_cast<InstrumentItem*>(getItem(T_INSTRUMENT));
+    return dynamic_cast<GISASInstrumentItem*>(getItem(T_INSTRUMENT));
 }
 
 void JobItem::setResults(const GISASSimulation *simulation)

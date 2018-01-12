@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "InstrumentModel.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 
 InstrumentModel::InstrumentModel(QObject *parent)
     : SessionModel(SessionXML::InstrumentModelTag, parent)
@@ -29,8 +29,8 @@ InstrumentModel *InstrumentModel::createCopy(SessionItem *parent)
     return result;
 }
 
-InstrumentItem *InstrumentModel::instrumentItem(const QString &instrument_name)
+GISASInstrumentItem *InstrumentModel::instrumentItem(const QString &instrument_name)
 {
-    return dynamic_cast<InstrumentItem *>(topItem(Constants::InstrumentType, instrument_name));
+    return dynamic_cast<GISASInstrumentItem *>(topItem(Constants::GISASInstrumentType, instrument_name));
 }
 

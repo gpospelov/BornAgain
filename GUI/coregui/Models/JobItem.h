@@ -19,7 +19,7 @@
 class IntensityDataItem;
 class GISASSimulation;
 class MultiLayerItem;
-class InstrumentItem;
+class GISASInstrumentItem;
 class SimulationOptionsItem;
 class FitSuiteItem;
 class ParameterContainerItem;
@@ -87,7 +87,7 @@ public:
 
     MultiLayerItem *multiLayerItem();
 
-    InstrumentItem *instrumentItem();
+    GISASInstrumentItem *instrumentItem();
 
     SimulationOptionsItem *getSimulationOptionsItem();
 

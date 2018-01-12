@@ -2,7 +2,7 @@
 #include "BeamDistributionItem.h"
 #include "BeamItem.h"
 #include "DistributionItems.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "ModelPath.h"
 #include "ParticleItem.h"
 #include "RotationItems.h"
@@ -55,8 +55,8 @@ TEST_F(TestTranslations, test_TranslateRotation)
 TEST_F(TestTranslations, test_BeamDistributionNone)
 {
     SampleModel model;
-    SessionItem* instrument = model.insertNewItem(Constants::InstrumentType);
-    SessionItem* beam = instrument->getItem(InstrumentItem::P_BEAM);
+    SessionItem* instrument = model.insertNewItem(Constants::GISASInstrumentType);
+    SessionItem* beam = instrument->getItem(GISASInstrumentItem::P_BEAM);
 
     SessionItem* wavelength = beam->getItem(BeamItem::P_WAVELENGTH);
 

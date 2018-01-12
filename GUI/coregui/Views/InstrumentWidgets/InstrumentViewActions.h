@@ -23,6 +23,7 @@ class QAction;
 class SessionModel;
 class QItemSelectionModel;
 class QModelIndex;
+class QMenu;
 
 //! Collection of actions to add/remove/clone instrument.
 
@@ -31,10 +32,12 @@ class BA_CORE_API_ InstrumentViewActions : public QObject
     Q_OBJECT
 
 public:
-    explicit InstrumentViewActions(QWidget* parent = 0);
+    explicit InstrumentViewActions(QWidget* parent = nullptr);
 
     void setModel(SessionModel* model);
     void setSelectionModel(QItemSelectionModel* selectionModel);
+
+    QMenu* addInstrumentMenu();
 
 public slots:
     void onAddInstrument();
@@ -47,8 +50,9 @@ private:
     void updateSelection();
     QString suggestInstrumentName(const QString& currentName);
     QMap<QString, int> mapOfNames();
+    void initAddInstrumentMenu();
 
-    QAction* m_addInstrumentAction;
+    QMenu* m_addInstrumentMenu;
     QAction* m_removeInstrumentAction;
     QAction* m_cloneInstrumentAction;
     SessionModel* m_model;

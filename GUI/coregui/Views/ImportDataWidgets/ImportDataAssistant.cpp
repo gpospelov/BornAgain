@@ -20,7 +20,7 @@
 #include "RealDataItem.h"
 #include "projectmanager.h"
 #include "BornAgainNamespace.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "AxesItems.h"
 #include "DetectorItems.h"
 #include "SphericalDetectorItem.h"
@@ -95,7 +95,7 @@ OutputData<double> *ImportDataAssistant::createSimplifiedOutputData(const Output
     return result;
 }
 
-bool ImportDataAssistant::hasSameDimensions(const InstrumentItem *instrumentItem,
+bool ImportDataAssistant::hasSameDimensions(const GISASInstrumentItem *instrumentItem,
                                             const RealDataItem *realDataItem)
 {
     QString message;
@@ -104,7 +104,7 @@ bool ImportDataAssistant::hasSameDimensions(const InstrumentItem *instrumentItem
 
 //! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
 
-bool ImportDataAssistant::hasSameDimensions(const InstrumentItem *instrumentItem,
+bool ImportDataAssistant::hasSameDimensions(const GISASInstrumentItem *instrumentItem,
                               const RealDataItem *realDataItem, QString &message)
 {
     bool isSame(true);
@@ -140,14 +140,14 @@ void ImportDataAssistant::realDataShape(const RealDataItem *realData, int &nx, i
 
 //! Returns shape of Instrument's detector axes.
 
-void ImportDataAssistant::detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny)
+void ImportDataAssistant::detectorShape(const GISASInstrumentItem *instrumentItem, int &nx, int &ny)
 {
     std::unique_ptr<IDetector2D> detector = instrumentItem ->detectorItem()->createDetector();
     nx = static_cast<int>(detector->getAxis(0).size());
     ny = static_cast<int>(detector->getAxis(1).size());
 }
 
-void ImportDataAssistant::setInstrumentShapeToData(InstrumentItem *instrumentItem,
+void ImportDataAssistant::setInstrumentShapeToData(GISASInstrumentItem *instrumentItem,
                                                    const RealDataItem *realDataItemItem)
 {
     int nxData(0), nyData(0);

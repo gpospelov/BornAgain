@@ -20,7 +20,7 @@
 
 template <class T> class OutputData;
 class RealDataItem;
-class InstrumentItem;
+class GISASInstrumentItem;
 
 //! The ImportDataAssistant class provides utility methods to import data files.
 
@@ -31,18 +31,18 @@ public:
 
     static OutputData<double> *createSimplifiedOutputData(const OutputData<double> &data);
 
-    static bool hasSameDimensions(const InstrumentItem *instrumentItem,
+    static bool hasSameDimensions(const GISASInstrumentItem *instrumentItem,
                                   const RealDataItem *realDataItem);
 
-    static bool hasSameDimensions(const InstrumentItem *instrumentItem,
+    static bool hasSameDimensions(const GISASInstrumentItem *instrumentItem,
                                   const RealDataItem *realDataItem,
                                   QString &message);
 
     static void realDataShape(const RealDataItem *realData, int &nx, int &ny);
 
-    static void detectorShape(const InstrumentItem *instrumentItem, int &nx, int &ny);
+    static void detectorShape(const GISASInstrumentItem *instrumentItem, int &nx, int &ny);
 
-    static void setInstrumentShapeToData(InstrumentItem *instrumentItem,
+    static void setInstrumentShapeToData(GISASInstrumentItem *instrumentItem,
                                          const RealDataItem *realDataItemItem);
 
 };

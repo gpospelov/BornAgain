@@ -1,7 +1,7 @@
 #include "google_test.h"
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
 #include "JobItemUtils.h"

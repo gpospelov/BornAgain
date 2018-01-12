@@ -27,6 +27,28 @@ const QStringList expectedRoughnessPars = QStringList() << QString::fromStdStrin
 
 IPathTranslator::~IPathTranslator() {}
 
+ModelTypeTranslator::ModelTypeTranslator(QString gui_model_type, QString domain_name)
+    : m_gui_model_type { std::move(gui_model_type) }
+    , m_domain_name { std::move(domain_name) }
+{}
+
+ModelTypeTranslator* ModelTypeTranslator::clone() const
+{
+    return new ModelTypeTranslator(m_gui_model_type, m_domain_name);
+}
+
+QStringList ModelTypeTranslator::translate(const QStringList& list) const
+{
+    if(list.back() != m_gui_model_type)
+        return list;
+
+    QStringList result = list;
+    result.removeLast();
+    result << m_domain_name;
+    return result;
+}
+
+
 AddElementTranslator::AddElementTranslator(QString gui_name, QString additional_name)
     : m_gui_name { std::move(gui_name) }
     , m_additional_name { std::move(additional_name) }

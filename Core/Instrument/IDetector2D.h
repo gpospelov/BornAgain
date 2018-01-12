@@ -32,7 +32,7 @@ public:
 
     IDetector2D();
 
-    virtual IDetector2D* clone() const override = 0;
+    IDetector2D* clone() const override =0;
 
     virtual ~IDetector2D();
 
@@ -46,7 +46,7 @@ public:
     //! Removes all masks from the detector
     void removeMasks();
 
-    virtual const DetectorMask* detectorMask() const override;
+    const DetectorMask* detectorMask() const override;
 
     //! Adds mask of given shape to the stack of detector masks. The mask value 'true' means
     //! that the channel will be excluded from the simulation. The mask which is added last
@@ -60,17 +60,17 @@ public:
 
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the detector and its mask
-    virtual std::vector<SimulationElement> createSimulationElements(const Beam& beam) override;
+    std::vector<SimulationElement> createSimulationElements(const Beam& beam) override;
 #endif
 
     //! Returns region of  interest if exists.
-    virtual const RegionOfInterest* regionOfInterest() const override;
+    const RegionOfInterest* regionOfInterest() const override;
 
     //! Sets rectangular region of interest with lower left and upper right corners defined.
     void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
 
     //! Resets region of interest making whole detector plane available for the simulation.
-    virtual void resetRegionOfInterest() override;
+    void resetRegionOfInterest() override;
 
 protected:
     IDetector2D(const IDetector2D& other);
@@ -79,7 +79,7 @@ protected:
     virtual IPixel* createPixel(size_t index) const=0;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
+    void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
                                     double &amin, double &amax) const override;
 
     //! Calculate global index from two axis indices

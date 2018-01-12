@@ -46,7 +46,7 @@ public:
     MultiLayer();
     virtual ~MultiLayer();
 
-    virtual void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
     size_t numberOfLayers() const { return m_layers.size(); }
     size_t numberOfInterfaces() const { return m_interfaces.size(); }

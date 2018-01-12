@@ -35,7 +35,7 @@ public:
 
     ModelTypeTranslator* clone() const override;
 
-    virtual QStringList translate(const QStringList& list) const override;
+    QStringList translate(const QStringList& list) const override;
 private:
     QString m_gui_model_type;
     QString m_domain_name;
@@ -48,7 +48,7 @@ public:
 
     AddElementTranslator* clone() const override;
 
-    virtual QStringList translate(const QStringList& list) const override;
+    QStringList translate(const QStringList& list) const override;
 private:
     QString m_gui_name;
     QString m_additional_name;
@@ -60,7 +60,7 @@ public:
 
     RotationTranslator* clone() const override { return new RotationTranslator; }
 
-    virtual QStringList translate(const QStringList& list) const override;
+    QStringList translate(const QStringList& list) const override;
 };
 
 class DistributionNoneTranslator : public IPathTranslator {
@@ -69,7 +69,7 @@ public:
 
     DistributionNoneTranslator* clone() const override { return new DistributionNoneTranslator; }
 
-    virtual QStringList translate(const QStringList& list) const override;
+    QStringList translate(const QStringList& list) const override;
 };
 
 class RoughnessTranslator : public IPathTranslator {
@@ -79,7 +79,7 @@ public:
 
     RoughnessTranslator* clone() const override;
 
-    virtual QStringList translate(const QStringList& list) const override;
+    QStringList translate(const QStringList& list) const override;
 private:
     int getLayerIndex(QString layerName) const;
     int numberOfLayers() const;
@@ -94,12 +94,11 @@ public:
 
     VectorParameterTranslator* clone() const override;
 
-    virtual QStringList translate(const QStringList& list) const override;
+    QStringList translate(const QStringList& list) const override;
 private:
     QString m_gui_name;
     std::string m_base_name;
     QStringList m_additional_names;
 };
-
 
 #endif // PARAMETERTRANSLATORS_H

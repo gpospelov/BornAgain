@@ -82,11 +82,11 @@ protected:
     IPixel* createPixel(size_t index) const override;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
-                                    double &amin, double &amax) const override;
+    void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
+                            double& amin, double& amax) const override;
 
     //! Returns the name for the axis with given index
-    virtual std::string axisName(size_t index) const override;
+    std::string axisName(size_t index) const override;
 
     //! Returns index of pixel that contains the specular wavevector.
     //! If no pixel contains this specular wavevector, the number of pixels is

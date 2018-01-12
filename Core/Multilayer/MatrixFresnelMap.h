@@ -35,16 +35,16 @@ public:
     MatrixFresnelMap();
     virtual ~MatrixFresnelMap();
 
-    virtual const ILayerRTCoefficients* getOutCoefficients(
-        const SimulationElement& sim_element, size_t layer_index) const final override;
+    const ILayerRTCoefficients* getOutCoefficients(const SimulationElement& sim_element,
+                                                   size_t layer_index) const final override;
 
-    virtual const ILayerRTCoefficients* getInCoefficients(
-        const SimulationElement& sim_element, size_t layer_index) const final override;
+    const ILayerRTCoefficients* getInCoefficients(const SimulationElement& sim_element,
+                                                  size_t layer_index) const final override;
 
     void setMultilayer(const MultiLayer& multilayer) final override;
 
     //! Fills simulation element specular data
-    virtual void fillSpecularData(SimulationElement& sim_element) const override;
+    void fillSpecularData(SimulationElement& sim_element) const override;
 
     typedef std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>, HashKVector>
         CoefficientHash;

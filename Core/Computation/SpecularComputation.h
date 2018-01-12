@@ -43,7 +43,7 @@ public:
     void run();
 
 private:
-    virtual void runProtected() override;
+    void runProtected() override;
     std::unique_ptr<IFresnelMap> createFresnelMap();
 
     std::unique_ptr<IFresnelMap> mP_fresnel_map;

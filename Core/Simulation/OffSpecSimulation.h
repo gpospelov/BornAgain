@@ -65,19 +65,19 @@ private:
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
     //! @param n_elements Number of elements to process
-    virtual std::unique_ptr<IComputation>
-    generateSingleThreadedComputation(size_t start, size_t n_elements) override;
+    std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
+                                                                    size_t n_elements) override;
 
     //! Initializes the vector of Simulation elements
     //! @param init_storage Initialize storage for accumulating results
-    virtual void initSimulationElementVector(bool init_storage) override;
+    void initSimulationElementVector(bool init_storage) override;
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
     void transferResultsToIntensityMap() final;
 
     //! Default implementation only adds the detector axes
-    virtual void updateIntensityMap() override final;
+    void updateIntensityMap() override final;
 
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = mp_alpha_i_axis->getBin(index)
@@ -88,15 +88,15 @@ private:
 
     void initialize();
 
-    virtual void normalizeIntensity(size_t index, double beam_intensity) override;
+    void normalizeIntensity(size_t index, double beam_intensity) override;
 
-    virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+    void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
 
-    virtual bool isStorageInited() const override {return !m_storage.empty();}
+    bool isStorageInited() const override {return !m_storage.empty();}
 
-    virtual void addDataToStorage(double weight) override;
+    void addDataToStorage(double weight) override;
 
-    virtual void moveDataFromStorage() override;
+    void moveDataFromStorage() override;
 
     IAxis* mp_alpha_i_axis;
     OutputData<double> m_intensity_map;

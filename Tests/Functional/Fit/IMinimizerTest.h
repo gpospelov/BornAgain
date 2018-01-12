@@ -29,7 +29,7 @@ public:
     virtual ~IMinimizerTest();
 
 protected:
-    virtual void initParameterPlan() override;
+    void initParameterPlan() override;
 };
 
 #endif // IMINIMIZERTEST_H

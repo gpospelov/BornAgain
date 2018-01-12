@@ -42,7 +42,7 @@ public:
     void run();
 
 private:
-    virtual void runProtected() override;
+    void runProtected() override;
     std::unique_ptr<IFresnelMap> createFresnelMap();
     // creates a multilayer that contains averaged materials, for use in Fresnel calculations
     std::unique_ptr<MultiLayer> getAveragedMultilayer() const;

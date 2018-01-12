@@ -47,6 +47,7 @@ public:
 
     virtual void setPresentation(const QString& presentationType);
 
+    void setToolBarVisible(bool value);
 protected:
     virtual QStringList activePresentationList(SessionItem* item);
     virtual QStringList presentationList(SessionItem* item);

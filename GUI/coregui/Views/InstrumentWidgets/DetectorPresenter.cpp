@@ -28,6 +28,7 @@ DetectorPresenter::DetectorPresenter(QWidget* parent)
 {
     registerWidget(SphericalDetectorPresentation, create_new<SphericalDetectorEditor>);
     registerWidget(RectangularDetectorPresentation, create_new<RectangularDetectorEditor>);
+    setToolBarVisible(false);
 }
 
 QString DetectorPresenter::itemPresentation() const

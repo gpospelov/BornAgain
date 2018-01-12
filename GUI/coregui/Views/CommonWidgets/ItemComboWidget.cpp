@@ -82,6 +82,11 @@ void ItemComboWidget::setPresentation(const QString& presentationType)
         widget->show();
 }
 
+void ItemComboWidget::setToolBarVisible(bool value)
+{
+    m_toolBar->setVisible(value);
+}
+
 //! Returns list of active presentations for given item. Active presentation is the one
 //! which is present in QComboBox selector and can be selected. For example, if JobItem
 //! is fittable, the list will contain "FitComparisonWidgetName".

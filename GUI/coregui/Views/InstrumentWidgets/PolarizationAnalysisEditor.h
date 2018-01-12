@@ -16,6 +16,7 @@
 #define POLARIZATIONANALYSISEDITOR_H
 
 #include "SessionItemWidget.h"
+
 class ComponentEditor;
 class GISASInstrumentItem;
 class BeamItem;
@@ -32,7 +33,6 @@ class BA_CORE_API_ PolarizationAnalysisEditor : public SessionItemWidget
 
 public:
     PolarizationAnalysisEditor(ColumnResizer* columnResizer, QWidget* parent = nullptr);
-    ~PolarizationAnalysisEditor();
 
 protected:
     void subscribeToItem();

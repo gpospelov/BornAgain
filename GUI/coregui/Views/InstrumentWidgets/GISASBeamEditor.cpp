@@ -61,12 +61,6 @@ GISASBeamEditor::GISASBeamEditor(ColumnResizer* columnResizer, QWidget* parent)
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
 }
 
-GISASBeamEditor::~GISASBeamEditor()
-{
-    if (m_columnResizer)
-        m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
-}
-
 void GISASBeamEditor::subscribeToItem()
 {
     m_intensityEditor->setItem(beamItem()->getItem(BeamItem::P_INTENSITY));

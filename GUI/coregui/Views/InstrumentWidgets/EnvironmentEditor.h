@@ -31,7 +31,6 @@ class BA_CORE_API_ EnvironmentEditor : public SessionItemWidget
 
 public:
     EnvironmentEditor(ColumnResizer* columnResizer, QWidget* parent = nullptr);
-    ~EnvironmentEditor();
 
 protected:
     void subscribeToItem();

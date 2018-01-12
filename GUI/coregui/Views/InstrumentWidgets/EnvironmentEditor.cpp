@@ -46,12 +46,6 @@ EnvironmentEditor::EnvironmentEditor(ColumnResizer* columnResizer, QWidget* pare
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
 }
 
-EnvironmentEditor::~EnvironmentEditor()
-{
-    if (m_columnResizer)
-        m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
-}
-
 void EnvironmentEditor::subscribeToItem()
 {
     m_backgroundEditor->setItem(instrumentItem()->backgroundGroup());

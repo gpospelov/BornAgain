@@ -49,12 +49,6 @@ PolarizationAnalysisEditor::PolarizationAnalysisEditor(ColumnResizer* columnResi
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
 }
 
-PolarizationAnalysisEditor::~PolarizationAnalysisEditor()
-{
-    if (m_columnResizer)
-        m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
-}
-
 void PolarizationAnalysisEditor::subscribeToItem()
 {
     m_polarizationEditor->setItem(beamItem()->getItem(BeamItem::P_POLARIZATION));

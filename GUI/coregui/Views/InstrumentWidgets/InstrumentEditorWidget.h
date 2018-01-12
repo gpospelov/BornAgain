@@ -23,8 +23,8 @@ class DetectorItem;
 class QLineEdit;
 class InstrumentPresenter;
 
-//! Main widget of InstrumentView. Contains InstrumentComponentsWidget with beam and detector
-//! settings.
+//! Main widget of InstrumentView. Contains InstrumentPresenter
+//! showing proper insturment editor for given instrument type.
 
 class BA_CORE_API_ InstrumentEditorWidget : public QWidget
 {

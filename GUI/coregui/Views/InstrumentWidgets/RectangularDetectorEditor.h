@@ -17,6 +17,8 @@
 
 #include "SessionItemWidget.h"
 class RectangularDetectorItem;
+class ComponentEditor;
+class QGridLayout;
 
 class BA_CORE_API_ RectangularDetectorEditor : public SessionItemWidget
 {
@@ -24,11 +26,27 @@ class BA_CORE_API_ RectangularDetectorEditor : public SessionItemWidget
 public:
     RectangularDetectorEditor(QWidget* parent = nullptr);
 
-protected:
-    RectangularDetectorItem* detectorItem();
+public slots:
+    void onPropertyChanged(const QString& propertyName);
 
+protected:
     void subscribeToItem();
     void unsubscribeFromItem();
+    RectangularDetectorItem* detectorItem();
+
+private:
+    void create_editors();
+    void init_editors();
+    void init_alignment_editors();
+
+    ComponentEditor* m_xAxisEditor;
+    ComponentEditor* m_yAxisEditor;
+    ComponentEditor* m_resolutionFunctionEditor;
+    ComponentEditor* m_alignmentEditor;
+    ComponentEditor* m_positionsEditor;
+    ComponentEditor* m_normalEditor;
+    ComponentEditor* m_directionEditor;
+    QGridLayout* m_gridLayout;
 };
 
 #endif  // RECTANGULARDETECTOREDITOR_H

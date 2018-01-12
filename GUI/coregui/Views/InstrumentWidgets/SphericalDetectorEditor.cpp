@@ -14,11 +14,51 @@
 
 #include "SphericalDetectorEditor.h"
 #include "SphericalDetectorItem.h"
+#include "ComponentEditor.h"
+#include <QGridLayout>
+
+namespace {
+const QString phi_axis_title = "Phi axis";
+const QString alpha_axis_title = "Alpha axis";
+const QString resolution_title = "Resolution function";
+const QString polarization_title = "Analyzer orientation";
+}
 
 SphericalDetectorEditor::SphericalDetectorEditor(QWidget* parent)
     : SessionItemWidget(parent)
+    , m_phiAxisEditor(new ComponentEditor(ComponentEditor::GroupWidget, phi_axis_title))
+    , m_alphaAxisEditor(new ComponentEditor(ComponentEditor::GroupWidget, alpha_axis_title))
+    , m_resolutionFunctionEditor(new ComponentEditor(ComponentEditor::GroupWidget, resolution_title))
+    , m_gridLayout(new QGridLayout)
 {
+    m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
+    m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
+    m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
 
+    auto mainLayout = new QVBoxLayout;
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->addLayout(m_gridLayout);
+    mainLayout->addStretch();
+    setLayout(mainLayout);
+}
+
+void SphericalDetectorEditor::subscribeToItem()
+{
+    auto phiAxisItem = detectorItem()->getItem(SphericalDetectorItem::P_PHI_AXIS);
+    m_phiAxisEditor->setItem(phiAxisItem);
+
+    auto alphaAxisItem = detectorItem()->getItem(SphericalDetectorItem::P_ALPHA_AXIS);
+    m_alphaAxisEditor->setItem(alphaAxisItem);
+
+    auto resFuncGroup = detectorItem()->getItem(SphericalDetectorItem::P_RESOLUTION_FUNCTION);
+    m_resolutionFunctionEditor->setItem(resFuncGroup);
+}
+
+void SphericalDetectorEditor::unsubscribeFromItem()
+{
+    m_phiAxisEditor->clearEditor();
+    m_alphaAxisEditor->clearEditor();
+    m_resolutionFunctionEditor->clearEditor();
 }
 
 SphericalDetectorItem* SphericalDetectorEditor::detectorItem()
@@ -26,14 +66,4 @@ SphericalDetectorItem* SphericalDetectorEditor::detectorItem()
     auto result = dynamic_cast<SphericalDetectorItem*>(currentItem());
     Q_ASSERT(result);
     return result;
-}
-
-void SphericalDetectorEditor::subscribeToItem()
-{
-
-}
-
-void SphericalDetectorEditor::unsubscribeFromItem()
-{
-
 }

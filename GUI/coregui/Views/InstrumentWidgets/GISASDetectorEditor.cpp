@@ -41,15 +41,13 @@ void GISASDetectorEditor::subscribeToItem()
                 updateDetectorPresenter();
         }, this);
 
-    m_detectorTypeEditor->clearEditor();
     m_detectorTypeEditor->setItem(instrumentItem()->detectorGroup());
-
     updateDetectorPresenter();
 }
 
 void GISASDetectorEditor::unsubscribeFromItem()
 {
-
+    m_detectorTypeEditor->clearEditor();
 }
 
 GISASInstrumentItem* GISASDetectorEditor::instrumentItem()

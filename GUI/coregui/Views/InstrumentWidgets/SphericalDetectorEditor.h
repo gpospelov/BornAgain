@@ -17,6 +17,8 @@
 
 #include "SessionItemWidget.h"
 class SphericalDetectorItem;
+class ComponentEditor;
+class QGridLayout;
 
 class BA_CORE_API_ SphericalDetectorEditor : public SessionItemWidget
 {
@@ -25,11 +27,15 @@ public:
     SphericalDetectorEditor(QWidget* parent = nullptr);
 
 protected:
-    SphericalDetectorItem* detectorItem();
-
     void subscribeToItem();
     void unsubscribeFromItem();
+    SphericalDetectorItem* detectorItem();
 
+private:
+    ComponentEditor* m_phiAxisEditor;
+    ComponentEditor* m_alphaAxisEditor;
+    ComponentEditor* m_resolutionFunctionEditor;
+    QGridLayout* m_gridLayout;
 };
 
 #endif  // SPHERICALDETECTOREDITOR_H

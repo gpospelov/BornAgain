@@ -24,6 +24,7 @@ class ProjectManager;
 class QSignalMapper;
 class QVBoxLayout;
 class FancyLabel;
+class QBoxLayout;
 
 class BA_CORE_API_ WelcomeView : public QWidget
 {
@@ -38,19 +39,26 @@ public slots:
     void setNotificationText(const QString& text);
 
 private:
+    QBoxLayout* createButtonLayout();
+    QBoxLayout* createCurrentProjectLayout();
+    QBoxLayout* createRecentProjectLayout();
+    QBoxLayout* createProjectLayout();
+    QLabel* createNotificationLabel();
+    QFrame* createSeparationFrame();
+
     void clearLayout(QLayout* layout, bool deleteWidgets = true);
     void generateRecentProjectList();
     QString currentProjectFancyName();
     void setCurrentProjectName(const QString& name);
     ProjectManager* projectManager();
 
+    MainWindow* m_mainWindow;
     QPushButton* m_newProjectButton;
     QPushButton* m_openProjectButton;
     QPushButton* m_newUsertButton;
-    MainWindow* m_mainWindow;
-    QSignalMapper* m_signalMapper;
+    FancyLabel* m_currentProjectLabel;
     QVBoxLayout* m_recentProjectLayout;
-    FancyLabel* m_currentProName;
+    QSignalMapper* m_signalMapper;
     QLabel* m_updateNotification;
 };
 

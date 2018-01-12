@@ -34,100 +34,32 @@ const int buttonWidth = 140;
 
 WelcomeView::WelcomeView(MainWindow* parent)
     : m_mainWindow(parent)
+    , m_newProjectButton(nullptr)
+    , m_openProjectButton(nullptr)
+    , m_newUsertButton(nullptr)
+    , m_currentProjectLabel(nullptr)
+    , m_recentProjectLayout(nullptr)
+    , m_updateNotification(nullptr)
 {
-    QColor bgColor(240, 240, 240, 255);
     QPalette palette;
-    palette.setColor(QPalette::Background, bgColor);
+    palette.setColor(QPalette::Background, QColor(240, 240, 240, 255));
     setAutoFillBackground(true);
     setPalette(palette);
 
-    // button layout
-    QFont buttonFont;
-    buttonFont.setPointSize(DesignerHelper::getLabelFontSize());
-    buttonFont.setBold(false);
-
-    m_newProjectButton = new QPushButton("New Project");
-    m_newProjectButton->setMinimumWidth(buttonWidth);
-    m_newProjectButton->setMinimumHeight(buttonHeight);
-    m_newProjectButton->setFont(buttonFont);
-    m_newProjectButton->setToolTip("Create new project");
-    m_newProjectButton->setAttribute(Qt::WA_MacShowFocusRect, false);
-
-    m_openProjectButton = new QPushButton("Open Project");
-    m_openProjectButton->setMinimumWidth(buttonWidth);
-    m_openProjectButton->setMinimumHeight(buttonHeight);
-    m_openProjectButton->setFont(buttonFont);
-    m_openProjectButton->setToolTip("Open existing project");
-
-    m_newUsertButton = new QPushButton("New to BornAgain?");
-    m_newUsertButton->setMinimumWidth(buttonWidth);
-    m_newUsertButton->setMinimumHeight(buttonHeight);
-    m_newUsertButton->setFont(buttonFont);
-    m_newUsertButton->setToolTip("Open BornAgain web site");
-
-    QVBoxLayout* buttonLayout = new QVBoxLayout;
-
-    buttonLayout->addWidget(m_newProjectButton);
-    buttonLayout->addWidget(m_openProjectButton);
-    buttonLayout->addStretch(1);
-    buttonLayout->addWidget(m_newUsertButton);
-
-    QHBoxLayout* buttonPanel = new QHBoxLayout;
-    buttonPanel->setContentsMargins(30, 0, 30, 0);
-    buttonPanel->addLayout(buttonLayout);
-
-    // current project layout
-    QVBoxLayout* currentProjectLayout = new QVBoxLayout;
-    currentProjectLayout->setContentsMargins(30, 0, 0, 0);
-    QFont titleFont;
-    titleFont.setPointSize(DesignerHelper::getSectionFontSize());
-    titleFont.setBold(true);
-
-    QLabel* currentProLabel = new QLabel("Current Project:");
-    currentProLabel->setFont(titleFont);
-
-    m_currentProName = new FancyLabel("Untitled");
-    currentProjectLayout->addWidget(currentProLabel);
-    currentProjectLayout->addWidget(m_currentProName);
-
-    // recent project layout
-    m_recentProjectLayout = new QVBoxLayout;
-    m_recentProjectLayout->setContentsMargins(30, 0, 0, 0);
-
-    // project layout
-    QVBoxLayout* projectLayout = new QVBoxLayout;
-    projectLayout->addLayout(currentProjectLayout);
-    projectLayout->addSpacing(15);
-    projectLayout->addLayout(m_recentProjectLayout);
-
-    // update notification label
-    m_updateNotification = new QLabel(this);
-    m_updateNotification->setText("");
-    m_updateNotification->setContentsMargins(40, 10, 0, 0);
-    m_updateNotification->setOpenExternalLinks(true);
-    m_updateNotification->setTextInteractionFlags(Qt::TextBrowserInteraction);
-    m_updateNotification->setTextFormat(Qt::RichText);
-
-    // assembling all together
-    QFrame* line = new QFrame();
-    line->setFrameShape(QFrame::VLine);
-    line->setFrameShadow(QFrame::Sunken);
-
-    QHBoxLayout* itemContainerLayout = new QHBoxLayout;
-    itemContainerLayout->addLayout(buttonPanel);
-    itemContainerLayout->addWidget(line);
-    //    itemContainerLayout->addLayout(m_recentProjectLayout);
-    itemContainerLayout->addLayout(projectLayout);
+    // central part
+    auto itemContainerLayout = new QHBoxLayout;
+    itemContainerLayout->addLayout(createButtonLayout());
+    itemContainerLayout->addWidget(createSeparationFrame());
+    itemContainerLayout->addLayout(createProjectLayout());
     itemContainerLayout->addStretch(1);
-
-    QWidget* itemContainerWidget = new QWidget;
+    auto itemContainerWidget = new QWidget;
     itemContainerWidget->setLayout(itemContainerLayout);
     itemContainerWidget->setFixedHeight(430);
 
     QVBoxLayout* containerLayout = new QVBoxLayout;
     containerLayout->setMargin(0);
     containerLayout->addWidget(itemContainerWidget);
-    containerLayout->addWidget(m_updateNotification);
+    containerLayout->addWidget(createNotificationLabel());
     containerLayout->addStretch(1);
 
     QWidget* containerWidget = new QWidget;
@@ -153,8 +85,7 @@ WelcomeView::WelcomeView(MainWindow* parent)
     connect(m_newProjectButton, &QPushButton::clicked,
             projectManager(), &ProjectManager::newProject);
     connect(m_openProjectButton, &QPushButton::clicked, [=](){projectManager()->openProject();});
-    connect(m_newUsertButton, &QPushButton::clicked,
-            this, &WelcomeView::onNewUser);
+    connect(m_newUsertButton, &QPushButton::clicked, this, &WelcomeView::onNewUser);
     connect(projectManager(), &ProjectManager::modified,
             this, &WelcomeView::updateRecentProjectPanel);
 
@@ -223,7 +154,7 @@ QString WelcomeView::currentProjectFancyName()
 //! updates label with current project name in picturesque manner
 void WelcomeView::setCurrentProjectName(const QString& name)
 {
-    m_currentProName->setTextAnimated(name);
+    m_currentProjectLabel->setTextAnimated(name);
 }
 
 ProjectManager*WelcomeView::projectManager()
@@ -267,3 +198,95 @@ void WelcomeView::setNotificationText(const QString& text)
 {
     m_updateNotification->setText(text);
 }
+
+QBoxLayout* WelcomeView::createButtonLayout()
+{
+    QFont buttonFont;
+    buttonFont.setPointSize(DesignerHelper::getLabelFontSize());
+    buttonFont.setBold(false);
+
+    m_newProjectButton = new QPushButton("New Project");
+    m_newProjectButton->setMinimumWidth(buttonWidth);
+    m_newProjectButton->setMinimumHeight(buttonHeight);
+    m_newProjectButton->setFont(buttonFont);
+    m_newProjectButton->setToolTip("Create new project");
+    m_newProjectButton->setAttribute(Qt::WA_MacShowFocusRect, false);
+
+    m_openProjectButton = new QPushButton("Open Project");
+    m_openProjectButton->setMinimumWidth(buttonWidth);
+    m_openProjectButton->setMinimumHeight(buttonHeight);
+    m_openProjectButton->setFont(buttonFont);
+    m_openProjectButton->setToolTip("Open existing project");
+
+    m_newUsertButton = new QPushButton("New to BornAgain?");
+    m_newUsertButton->setMinimumWidth(buttonWidth);
+    m_newUsertButton->setMinimumHeight(buttonHeight);
+    m_newUsertButton->setFont(buttonFont);
+    m_newUsertButton->setToolTip("Open BornAgain web site");
+
+    auto buttonLayout = new QVBoxLayout;
+    buttonLayout->addWidget(m_newProjectButton);
+    buttonLayout->addWidget(m_openProjectButton);
+    buttonLayout->addStretch(1);
+    buttonLayout->addWidget(m_newUsertButton);
+
+    auto result = new QHBoxLayout;
+    result->setContentsMargins(30, 0, 30, 0);
+    result->addLayout(buttonLayout);
+
+    return result;
+}
+
+QBoxLayout* WelcomeView::createCurrentProjectLayout()
+{
+    auto result = new QVBoxLayout;
+    result->setContentsMargins(30, 0, 0, 0);
+
+    QFont titleFont;
+    titleFont.setPointSize(DesignerHelper::getSectionFontSize());
+    titleFont.setBold(true);
+    auto label = new QLabel("Current Project:");
+    label->setFont(titleFont);
+
+    m_currentProjectLabel = new FancyLabel("Untitled");
+    result->addWidget(label);
+    result->addWidget(m_currentProjectLabel);
+
+    return result;
+}
+
+QBoxLayout* WelcomeView::createRecentProjectLayout()
+{
+    m_recentProjectLayout = new QVBoxLayout;
+    m_recentProjectLayout->setContentsMargins(30, 0, 0, 0);
+    return m_recentProjectLayout;
+}
+
+QBoxLayout* WelcomeView::createProjectLayout()
+{
+    auto result = new QVBoxLayout;
+    result->addLayout(createCurrentProjectLayout());
+    result->addSpacing(15);
+    result->addLayout(createRecentProjectLayout());
+    return result;
+}
+
+QLabel* WelcomeView::createNotificationLabel()
+{
+    m_updateNotification = new QLabel(this);
+    m_updateNotification->setText("");
+    m_updateNotification->setContentsMargins(40, 10, 0, 0);
+    m_updateNotification->setOpenExternalLinks(true);
+    m_updateNotification->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    m_updateNotification->setTextFormat(Qt::RichText);
+    return m_updateNotification;
+}
+
+QFrame* WelcomeView::createSeparationFrame()
+{
+    auto result = new QFrame;
+    result->setFrameShape(QFrame::VLine);
+    result->setFrameShadow(QFrame::Sunken);
+    return result;
+}
+

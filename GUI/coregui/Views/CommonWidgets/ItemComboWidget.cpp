@@ -80,6 +80,8 @@ void ItemComboWidget::setPresentation(const QString& presentationType)
     m_stackedWidget->setCurrentWidget(widget);
     if (widget->isHidden())
         widget->show();
+
+    setSizeToCurrentWidget();
 }
 
 void ItemComboWidget::setToolBarVisible(bool value)
@@ -131,4 +133,21 @@ const SessionItem* ItemComboWidget::currentItem() const
 void ItemComboWidget::onComboChanged(const QString&)
 {
     setPresentation(selectedPresentation());
+}
+
+//! Resizes QStackedWidget to currently active page.
+
+void ItemComboWidget::setSizeToCurrentWidget()
+{
+    for (int i = 0; i < m_stackedWidget->count (); ++i)
+    {
+        // determine the vertical size policy
+        QSizePolicy::Policy policy = QSizePolicy::Ignored;
+        if (i == m_stackedWidget->currentIndex())
+            policy = QSizePolicy::Expanding;
+
+        // update the size policy
+        auto page = m_stackedWidget->widget(i);
+        page->setSizePolicy(policy, policy);
+    }
 }

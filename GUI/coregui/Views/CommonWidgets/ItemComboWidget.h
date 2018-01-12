@@ -60,6 +60,8 @@ private slots:
     void onComboChanged(const QString& name);
 
 private:
+    void setSizeToCurrentWidget();
+
     ItemComboToolBar* m_toolBar;
     QStackedWidget* m_stackedWidget;
     SessionItem* m_currentItem;

@@ -16,6 +16,7 @@
 #define OFFSPECSIMULATION_H
 
 #include "Simulation.h"
+#include "SimulationElement.h"
 
 class Histogram2D;
 
@@ -30,7 +31,7 @@ public:
     OffSpecSimulation(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder);
     ~OffSpecSimulation() final {}
 
-    OffSpecSimulation* clone() const { return new OffSpecSimulation(*this); }
+    OffSpecSimulation* clone() const override { return new OffSpecSimulation(*this); }
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
@@ -41,9 +42,12 @@ public:
     size_t numberOfSimulationElements() const final;
 
     //! Returns clone of the detector intensity map
-    OutputData<double>* getDetectorIntensity(
-        AxesUnits units_type = AxesUnits::DEFAULT) const {
-        (void) units_type; return m_intensity_map.clone(); }
+    OutputData<double>* getDetectorIntensity(AxesUnits units_type
+                                             = AxesUnits::DEFAULT) const override
+    {
+        (void)units_type;
+        return m_intensity_map.clone();
+    }
 
     //! Returns clone of the detector intensity map in the form of 2D histogram.
     Histogram2D* getIntensityData() const;
@@ -55,23 +59,25 @@ public:
     void setDetectorParameters(size_t n_x, double x_min, double x_max,
                                size_t n_y, double y_min, double y_max);
 
-protected:
-    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(
-            std::vector<SimulationElement>::iterator start,
-            std::vector<SimulationElement>::iterator end);
-
 private:
     OffSpecSimulation(const OffSpecSimulation& other);
 
+    //! Generate a single threaded computation for a given range of simulation elements
+    //! @param start Index of the first element to include into computation
+    //! @param n_elements Number of elements to process
+    virtual std::unique_ptr<IComputation>
+    generateSingleThreadedComputation(size_t start, size_t n_elements) override;
+
     //! Initializes the vector of Simulation elements
-    void initSimulationElementVector() final;
+    //! @param init_storage Initialize storage for accumulating results
+    virtual void initSimulationElementVector(bool init_storage) override;
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
     void transferResultsToIntensityMap() final;
 
     //! Default implementation only adds the detector axes
-    void updateIntensityMap() final;
+    virtual void updateIntensityMap() override final;
 
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = mp_alpha_i_axis->getBin(index)
@@ -82,9 +88,20 @@ private:
 
     void initialize();
 
+    virtual void normalizeIntensity(size_t index, double beam_intensity) override;
+
+    virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+
+    virtual bool isStorageInited() const override {return !m_storage.empty();}
+
+    virtual void addDataToStorage(double weight) override;
+
+    virtual void moveDataFromStorage() override;
+
     IAxis* mp_alpha_i_axis;
     OutputData<double> m_intensity_map;
-
+    std::vector<SimulationElement> m_sim_elements;
+    std::vector<SimulationElement> m_storage;
 };
 
 #endif // OFFSPECSIMULATION_H

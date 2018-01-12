@@ -12,12 +12,14 @@
 //
 // ************************************************************************** //
 
+#include "IBackground.h"
 #include "GISASSimulation.h"
 #include "BornAgainNamespace.h"
 #include "DWBAComputation.h"
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
+#include "SimElementUtils.h"
 #include "SimulationElement.h"
 
 namespace
@@ -38,6 +40,14 @@ GISASSimulation::GISASSimulation(const MultiLayer& p_sample)
 
 GISASSimulation::GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : Simulation(p_sample_builder)
+{
+    initialize();
+}
+
+GISASSimulation::GISASSimulation(const GISASSimulation& other)
+    : Simulation(other)
+    , m_sim_elements(other.m_sim_elements)
+    , m_storage(other.m_storage)
 {
     initialize();
 }
@@ -110,22 +120,53 @@ void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, 
     Detector2D(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
 }
 
-std::unique_ptr<IComputation> GISASSimulation::generateSingleThreadedComputation(
-        std::vector<SimulationElement>::iterator start,
-        std::vector<SimulationElement>::iterator end)
+std::unique_ptr<IComputation> GISASSimulation::generateSingleThreadedComputation(size_t start,
+                                                                                 size_t n_elements)
 {
-    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, start, end);
+    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
+    const auto& begin = m_sim_elements.begin() + start;
+    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, begin,
+                                             begin + n_elements);
 }
 
-GISASSimulation::GISASSimulation(const GISASSimulation& other)
-    : Simulation(other)
+void GISASSimulation::normalizeIntensity(size_t index, double beam_intensity)
 {
-    initialize();
+    SimulationElement& element = m_sim_elements[index];
+    double sin_alpha_i = std::abs(std::sin(element.getAlphaI()));
+    if (sin_alpha_i == 0.0)
+        sin_alpha_i = 1.0;
+    const double solid_angle = element.getSolidAngle();
+    element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
 }
 
-void GISASSimulation::transferResultsToIntensityMap() {}
+void GISASSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
+{
+    if (!mP_background)
+        return;
+    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+        SimulationElement& element = m_sim_elements[i];
+        mP_background->addBackGround(element);
+    }
+}
 
-void GISASSimulation::updateIntensityMap() {}
+void GISASSimulation::addDataToStorage(double weight)
+{
+    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
+}
+
+void GISASSimulation::moveDataFromStorage()
+{
+    assert(!m_storage.empty());
+    if (!m_storage.empty())
+        m_sim_elements = std::move(m_storage);
+}
+
+void GISASSimulation::initSimulationElementVector(bool init_storage)
+{
+    m_sim_elements = m_instrument.createSimulationElements();
+    if (init_storage)
+        m_storage = m_sim_elements;
+}
 
 void GISASSimulation::initialize()
 {

@@ -97,48 +97,53 @@ public:
 protected:
     Simulation(const Simulation& other);
 
-    //! Initializes the vector of Simulation elements
-    virtual void initSimulationElementVector();
-
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
-    virtual void transferResultsToIntensityMap() =0;
+    virtual void transferResultsToIntensityMap() {}
 
-    //! Update the sample by calling the sample builder, if present
-    void updateSample();
-
-    //! Generate a single threaded computation for a given range of SimulationElement's
-    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(
-            std::vector<SimulationElement>::iterator start,
-            std::vector<SimulationElement>::iterator end) = 0;
-
-    void runSingleSimulation();
-
-    virtual void updateIntensityMap() =0;
-
-    virtual void normalize(std::vector<SimulationElement>::iterator begin_it,
-                   std::vector<SimulationElement>::iterator end_it) const;
-
-    void addBackGroundIntensity(std::vector<SimulationElement>::iterator begin_it,
-                                std::vector<SimulationElement>::iterator end_it) const;
-
-    //! Returns the start iterator of simulation elements for the current batch
-    std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);
-
-    //! Returns the end iterator of simulation elements for the current batch
-    std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
+    virtual void updateIntensityMap() {}
 
     SampleProvider m_sample_provider;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
     ProgressHandler m_progress;
-    std::vector<SimulationElement> m_sim_elements;
     Instrument m_instrument;
     std::unique_ptr<IBackground> mP_background;
 
 private:
     void initialize();
-    void imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch);
+
+    //! Update the sample by calling the sample builder, if present
+    void updateSample();
+
+    void runSingleSimulation(bool use_storage = false, double weight = 1.0);
+
+    //! Initializes the vector of Simulation elements
+    //! @param init_storage Initialize storage for accumulating results
+    virtual void initSimulationElementVector(bool init_storage) = 0;
+
+    //! Generate a single threaded computation for a given range of simulation elements
+    //! @param start Index of the first element to include into computation
+    //! @param n_elements Number of elements to process
+    virtual std::unique_ptr<IComputation>
+    generateSingleThreadedComputation(size_t start, size_t n_elements) = 0;
+
+    virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) = 0;
+
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
+    //! @param start_ind Index of the first element to operate on
+    //! @param n_elements Number of elements to process
+    void normalize(size_t start_ind, size_t n_elements);
+
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle
+    //! for single simulation element specified by _index_.
+    virtual void normalizeIntensity(size_t index, double beam_intensity) = 0;
+
+    virtual bool isStorageInited() const = 0;
+
+    virtual void addDataToStorage(double weight) = 0;
+
+    virtual void moveDataFromStorage() = 0;
 };
 
 #endif // SIMULATION_H

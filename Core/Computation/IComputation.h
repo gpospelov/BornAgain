@@ -35,8 +35,8 @@ class IComputation
 {
 public:
     IComputation(const SimulationOptions& options, ProgressHandler& progress,
-                 const std::vector<SimulationElement>::iterator& start,
-                 const std::vector<SimulationElement>::iterator& end,
+                 std::vector<SimulationElement>::iterator start,
+                 std::vector<SimulationElement>::iterator end,
                  const MultiLayer& sample);
     virtual ~IComputation();
 

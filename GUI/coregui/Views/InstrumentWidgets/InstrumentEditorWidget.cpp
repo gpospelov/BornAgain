@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "InstrumentEditorWidget.h"
-#include "GISASInstrumentEditor.h"
 #include "InstrumentItems.h"
 #include "AdjustingScrollArea.h"
 #include "DetectorItems.h"
@@ -30,34 +29,22 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
     , m_currentItem(nullptr)
     , m_block_signals(false)
 {
-
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    // main group box with all instrument parameters
-    QGroupBox* instrumentGroup = new QGroupBox("Instrument Parameters");
-    QVBoxLayout* instrumentGroupLayout = new QVBoxLayout;
-    instrumentGroupLayout->setContentsMargins(0, 0, 0, 0);
-    instrumentGroup->setLayout(instrumentGroupLayout);
-    instrumentGroupLayout->addSpacing(10);
-    instrumentGroupLayout->addLayout(create_NameAndTypeLayout());
+    auto mainLayout = new QVBoxLayout;
+    mainLayout->setContentsMargins(0, 20, 0, 20);
+    mainLayout->addLayout(createTopLayout());
 
-    AdjustingScrollArea* area = new AdjustingScrollArea;
-    area->setWidget(m_instrumentPresenter);
-    instrumentGroupLayout->addWidget(area, 1);
-    instrumentGroupLayout->addStretch();
+    auto scrollArea = new AdjustingScrollArea;
+    scrollArea->setWidget(m_instrumentPresenter);
+    mainLayout->addWidget(scrollArea, 1);
+    mainLayout->addStretch();
 
-    // setting main layout
-    QVBoxLayout* mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(instrumentGroup);
     setLayout(mainLayout);
 
     connect(m_nameLineEdit, &QLineEdit::textChanged,
             this, &InstrumentEditorWidget::onChangedEditor);
-
-//    connect(m_instrumentComponents, &GISASInstrumentEditor::extendedDetectorEditorRequest,
-//            this, &InstrumentEditorWidget::extendedDetectorEditorRequest);
-
 }
 
 QSize InstrumentEditorWidget::sizeHint() const
@@ -82,15 +69,16 @@ void InstrumentEditorWidget::onChangedEditor(const QString&)
         m_currentItem->setItemName(m_nameLineEdit->text());
 }
 
-//! top block with instrument name and type
-QLayout* InstrumentEditorWidget::create_NameAndTypeLayout()
+//! top block with instrument name
+
+QLayout* InstrumentEditorWidget::createTopLayout()
 {
-    QHBoxLayout* result = new QHBoxLayout;
+    auto result = new QHBoxLayout;
 
     m_nameLineEdit->setMinimumWidth(200);
 
     result->addSpacing(17);
-    result->addWidget(new QLabel("Name"));
+    result->addWidget(new QLabel("Instrument name"));
     result->addWidget(m_nameLineEdit);
     result->addStretch(1);
 

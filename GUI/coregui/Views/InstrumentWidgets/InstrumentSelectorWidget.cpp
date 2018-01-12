@@ -24,7 +24,6 @@
 InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel* model, QWidget* parent)
     : ItemSelectorWidget(parent)
 {
-    setMinimumSize(128, 400);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
     listView()->setViewMode(QListView::IconMode);
@@ -39,8 +38,7 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel* model, QWidg
     "   selection-background-color : rgb(98,100,105); \n"
     "   selection-color: rgb(255,255,255);\n"
     "   border: 1px solid rgb(98,100,105);\n"
-    "}\n"
-    ""));
+    "}\n"));
 
     setModel(model);
     layout()->setMargin(10);
@@ -48,11 +46,11 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel* model, QWidg
 
 QSize InstrumentSelectorWidget::sizeHint() const
 {
-    return QSize(200, 400);
+    return QSize(170, 400);
 }
 
 QSize InstrumentSelectorWidget::minimumSizeHint() const
 {
-    return QSize(128, 200);
+    return QSize(96, 200);
 }
 

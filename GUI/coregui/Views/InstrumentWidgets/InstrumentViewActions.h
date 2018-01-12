@@ -33,11 +33,12 @@ class BA_CORE_API_ InstrumentViewActions : public QObject
 
 public:
     explicit InstrumentViewActions(QWidget* parent = nullptr);
+    ~InstrumentViewActions();
 
     void setModel(SessionModel* model);
     void setSelectionModel(QItemSelectionModel* selectionModel);
 
-    QMenu* addInstrumentMenu();
+    QMenu* instrumentMenu();
 
 public slots:
     void onAddInstrument();

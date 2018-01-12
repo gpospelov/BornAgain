@@ -47,6 +47,7 @@ public:
 
     virtual void setPresentation(const QString& presentationType);
 
+    void setToolBarVisible(bool value);
 protected:
     virtual QStringList activePresentationList(SessionItem* item);
     virtual QStringList presentationList(SessionItem* item);
@@ -59,6 +60,8 @@ private slots:
     void onComboChanged(const QString& name);
 
 private:
+    void setSizeToCurrentWidget();
+
     ItemComboToolBar* m_toolBar;
     QStackedWidget* m_stackedWidget;
     SessionItem* m_currentItem;

@@ -32,7 +32,6 @@ public:
 
 protected:
     void subscribeToItem();
-    void unsubscribeFromItem();
 
 private:
     void addEditor(QVBoxLayout* layout, QWidget* widget, const QString& name, bool expanded=true);

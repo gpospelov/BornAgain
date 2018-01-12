@@ -15,32 +15,35 @@
 #ifndef GISASBEAMEDITOR_H
 #define GISASBEAMEDITOR_H
 
-#include "SessionItem.h"
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "SessionItemWidget.h"
 
-class BeamItem;
 class ComponentEditor;
 class QGridLayout;
+class GISASInstrumentItem;
+class BeamItem;
 
-class BA_CORE_API_ GISASBeamEditor : public QWidget
+//! GISAS beam editor. Operates on GISASInstrumentItem.
+
+class BA_CORE_API_ GISASBeamEditor : public SessionItemWidget
 {
     Q_OBJECT
 public:
     explicit GISASBeamEditor(QWidget* parent = nullptr);
 
-    void setBeamItem(BeamItem* beamItem);
-
-    QGridLayout* gridLayout() { return m_gridLayout; }
+protected:
+    void subscribeToItem();
+    void unsubscribeFromItem();
 
 private:
+    GISASInstrumentItem* instrumentItem();
+    BeamItem* beamItem();
     void onDialogRequest(SessionItem* item, const QString& name);
+
     ComponentEditor* m_intensityEditor;
     ComponentEditor* m_wavelengthEditor;
     ComponentEditor* m_inclinationEditor;
     ComponentEditor* m_azimuthalEditor;
     QGridLayout* m_gridLayout;
-    BeamItem* m_beamItem;
 };
 
 #endif  // GISASBEAMEDITOR_H

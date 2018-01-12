@@ -17,6 +17,7 @@
 #include "BeamItem.h"
 #include "ComponentEditor.h"
 #include "DistributionDialog.h"
+#include "InstrumentItems.h"
 #include <QGridLayout>
 #include <QGroupBox>
 
@@ -29,13 +30,12 @@ const QString polarization_title("Polarization (Bloch vector)");
 }
 
 GISASBeamEditor::GISASBeamEditor(QWidget* parent)
-    : QWidget(parent)
+    : SessionItemWidget(parent)
     , m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget)),
       m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title)),
       m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title)),
       m_azimuthalEditor(new ComponentEditor(ComponentEditor::InfoWidget, azimuthal_title)),
       m_gridLayout(new QGridLayout)
-    , m_beamItem(nullptr)
 {
     m_gridLayout->addWidget(m_intensityEditor, 0, 0);
     m_gridLayout->addWidget(m_wavelengthEditor, 1, 0);
@@ -43,7 +43,7 @@ GISASBeamEditor::GISASBeamEditor(QWidget* parent)
     m_gridLayout->addWidget(m_azimuthalEditor, 1, 2);
 
     auto mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(gridLayout());
+    mainLayout->addLayout(m_gridLayout);
     mainLayout->addStretch();
     setLayout(mainLayout);
 
@@ -55,30 +55,38 @@ GISASBeamEditor::GISASBeamEditor(QWidget* parent)
             this, &GISASBeamEditor::onDialogRequest);
 }
 
-void GISASBeamEditor::setBeamItem(BeamItem* beamItem)
+void GISASBeamEditor::subscribeToItem()
 {
-    m_beamItem = beamItem;
+    m_intensityEditor->setItem(beamItem()->getItem(BeamItem::P_INTENSITY));
+
+    auto wavelengthItem = beamItem()->getItem(BeamItem::P_WAVELENGTH);
+    m_wavelengthEditor->setItem(wavelengthItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
+
+    auto inclinationItem = beamItem()->getItem(BeamItem::P_INCLINATION_ANGLE);
+    m_inclinationEditor->setItem(inclinationItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
+
+    auto azimuthalItem = beamItem()->getItem(BeamItem::P_AZIMUTHAL_ANGLE);
+    m_azimuthalEditor->setItem(azimuthalItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
+}
+
+void GISASBeamEditor::unsubscribeFromItem()
+{
     m_intensityEditor->clearEditor();
     m_wavelengthEditor->clearEditor();
     m_inclinationEditor->clearEditor();
     m_azimuthalEditor->clearEditor();
+}
 
-    if (!m_beamItem)
-        return;
+GISASInstrumentItem* GISASBeamEditor::instrumentItem()
+{
+    auto result = dynamic_cast<GISASInstrumentItem*>(currentItem());
+    Q_ASSERT(result);
+    return result;
+}
 
-    m_intensityEditor->setItem(m_beamItem->getItem(BeamItem::P_INTENSITY));
-
-    SessionItem* wavelengthItem = m_beamItem->getItem(BeamItem::P_WAVELENGTH);
-    m_wavelengthEditor->setItem(
-        wavelengthItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
-
-    SessionItem* inclinationAngleItem = m_beamItem->getItem(BeamItem::P_INCLINATION_ANGLE);
-    m_inclinationEditor->setItem(
-        inclinationAngleItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
-
-    SessionItem* azimuthalAngleItem = m_beamItem->getItem(BeamItem::P_AZIMUTHAL_ANGLE);
-    m_azimuthalEditor->setItem(
-        azimuthalAngleItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
+BeamItem* GISASBeamEditor::beamItem()
+{
+    return instrumentItem()->beamItem();
 }
 
 void GISASBeamEditor::onDialogRequest(SessionItem* item, const QString& name)

@@ -42,13 +42,8 @@ GISASInstrumentEditorV2::GISASInstrumentEditorV2(QWidget* parent)
 
 void GISASInstrumentEditorV2::subscribeToItem()
 {
-    m_beamEditor->setBeamItem(instrumentItem()->beamItem());
+    m_beamEditor->setItem(instrumentItem());
     m_detectorEditor->setItem(instrumentItem());
-}
-
-void GISASInstrumentEditorV2::unsubscribeFromItem()
-{
-    m_beamEditor->setBeamItem(nullptr);
 }
 
 void GISASInstrumentEditorV2::addEditor(QVBoxLayout* layout, QWidget* widget, const QString& name,

@@ -112,8 +112,6 @@ void MainWindow::onChangeTabWidget(int index)
 {
     if (index == WELCOME)
         m_welcomeView->updateRecentProjectPanel();
-    else if (index == SIMULATION)
-        m_simulationView->updateSimulationViewElements();
 }
 
 void MainWindow::onFocusRequest(int index)

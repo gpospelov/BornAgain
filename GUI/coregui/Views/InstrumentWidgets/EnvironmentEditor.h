@@ -15,16 +15,26 @@
 #ifndef ENVIRONMENTEDITOR_H
 #define ENVIRONMENTEDITOR_H
 
-#include "SessionItem.h"
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "SessionItemWidget.h"
 
-class BA_CORE_API_ EnvironmentEditor : public QWidget
+class ComponentEditor;
+class QGridLayout;
+class GISASInstrumentItem;
+
+class BA_CORE_API_ EnvironmentEditor : public SessionItemWidget
 {
     Q_OBJECT
 public:
     EnvironmentEditor(QWidget* parent = nullptr);
 
+protected:
+    void subscribeToItem();
+    void unsubscribeFromItem();
+
+private:
+    GISASInstrumentItem* instrumentItem();
+    ComponentEditor* m_backgroundEditor;
+    QGridLayout* m_gridLayout;
 };
 
 #endif  // ENVIRONMENTEDITOR_H

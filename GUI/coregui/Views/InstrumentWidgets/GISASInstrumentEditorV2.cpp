@@ -44,6 +44,7 @@ void GISASInstrumentEditorV2::subscribeToItem()
 {
     m_beamEditor->setItem(instrumentItem());
     m_detectorEditor->setItem(instrumentItem());
+    m_environmentEditor->setItem(instrumentItem());
 }
 
 void GISASInstrumentEditorV2::addEditor(QVBoxLayout* layout, QWidget* widget, const QString& name,

@@ -23,6 +23,10 @@
 #include "MaskItems.h"
 #include "ParameterTranslators.h"
 
+namespace {
+const QString background_group_label = "Type";
+}
+
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
 
 InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType)
@@ -45,7 +49,9 @@ GISASInstrumentItem::GISASInstrumentItem(const QString& modelType)
 
     setDefaultTag(P_DETECTOR);
 
-    addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
+    auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
+    item->setDisplayName(background_group_label);
+    item->setToolTip("Background type");
 }
 
 BeamItem *GISASInstrumentItem::beamItem() const

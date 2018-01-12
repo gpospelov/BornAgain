@@ -31,7 +31,7 @@ public:
     OffSpecSimulation(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder);
     ~OffSpecSimulation() final {}
 
-    OffSpecSimulation* clone() const { return new OffSpecSimulation(*this); }
+    OffSpecSimulation* clone() const override { return new OffSpecSimulation(*this); }
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
@@ -42,9 +42,12 @@ public:
     size_t numberOfSimulationElements() const final;
 
     //! Returns clone of the detector intensity map
-    OutputData<double>* getDetectorIntensity(
-        AxesUnits units_type = AxesUnits::DEFAULT) const {
-        (void) units_type; return m_intensity_map.clone(); }
+    OutputData<double>* getDetectorIntensity(AxesUnits units_type
+                                             = AxesUnits::DEFAULT) const override
+    {
+        (void)units_type;
+        return m_intensity_map.clone();
+    }
 
     //! Returns clone of the detector intensity map in the form of 2D histogram.
     Histogram2D* getIntensityData() const;
@@ -74,7 +77,7 @@ private:
     void transferResultsToIntensityMap() final;
 
     //! Default implementation only adds the detector axes
-    void updateIntensityMap() final;
+    virtual void updateIntensityMap() override final;
 
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = mp_alpha_i_axis->getBin(index)

@@ -47,7 +47,7 @@ class BA_CORE_API_ IDetector :  public ICloneable, public INode
 public:
     IDetector();
 
-    virtual IDetector* clone() const override = 0;
+    IDetector* clone() const override =0;
 
     virtual ~IDetector();
 
@@ -123,7 +123,7 @@ public:
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
 
-    virtual std::vector<const INode*> getChildren() const override;
+    std::vector<const INode*> getChildren() const override;
 
 protected:
     IDetector(const IDetector& other);

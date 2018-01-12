@@ -36,7 +36,7 @@ public:
                  const std::string& simulation_name, const std::string& builder_name);
     virtual ~IFittingTest();
 
-    virtual bool runTest() override;
+    bool runTest() override;
 
 protected:
     virtual void initParameterPlan() = 0;

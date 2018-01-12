@@ -38,7 +38,7 @@ public:
     SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
     virtual ~SpecularSimulation();
 
-    virtual SpecularSimulation* clone() const override;
+    SpecularSimulation* clone() const override;
 
     //! Put into a clean state for running a simulation.
     void prepareSimulation() override;

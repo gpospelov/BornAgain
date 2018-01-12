@@ -15,16 +15,35 @@
 #ifndef POLARIZATIONANALYSISEDITOR_H
 #define POLARIZATIONANALYSISEDITOR_H
 
-#include "SessionItem.h"
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "SessionItemWidget.h"
+class ComponentEditor;
+class GISASInstrumentItem;
+class BeamItem;
+class DetectorItem;
+class QGridLayout;
 
-class BA_CORE_API_ PolarizationAnalysisEditor : public QWidget
+//! Polarization analysis editor (beam polarization, analyzer properies) for GISASInstrumentEditor.
+//! Operates on GISASInstrumentItem.
+
+class BA_CORE_API_ PolarizationAnalysisEditor : public SessionItemWidget
 {
     Q_OBJECT
 public:
     PolarizationAnalysisEditor(QWidget* parent = nullptr);
 
+protected:
+    void subscribeToItem();
+    void unsubscribeFromItem();
+
+private:
+    GISASInstrumentItem* instrumentItem();
+    BeamItem* beamItem();
+    DetectorItem* detectorItem();
+    void updateAnalyserEditor();
+
+    ComponentEditor* m_polarizationEditor;
+    ComponentEditor* m_analyserEditor;
+    QGridLayout* m_gridLayout;
 };
 
 #endif  // POLARIZATIONANALYSISEDITOR_H

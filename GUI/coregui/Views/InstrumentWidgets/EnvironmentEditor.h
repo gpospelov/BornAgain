@@ -21,6 +21,9 @@ class ComponentEditor;
 class QGridLayout;
 class GISASInstrumentItem;
 
+//! Environment editor (i.e. background) for GISASInstrumentEditor.
+//! Operates on GISASInstrumentItem.
+
 class BA_CORE_API_ EnvironmentEditor : public SessionItemWidget
 {
     Q_OBJECT

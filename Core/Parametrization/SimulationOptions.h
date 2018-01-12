@@ -41,19 +41,19 @@ public:
     //! the hardware)
     void setNumberOfThreads(int nthreads);
 
-    int getNumberOfThreads() const;
+    unsigned getNumberOfThreads() const;
 
     //! @brief Sets number of batches to split
     void setNumberOfBatches(int nbatches);
 
-    int getNumberOfBatches() const;
+    unsigned getNumberOfBatches() const;
 
-    int getCurrentBatch() const;
+    unsigned getCurrentBatch() const;
 
     //! @brief Sets the batch and thread information to be used
     void setThreadInfo(const ThreadInfo& thread_info) { m_thread_info = thread_info; }
 
-    int getHardwareConcurrency() const;
+    unsigned getHardwareConcurrency() const;
 
     void setIncludeSpecular(bool include_specular) { m_include_specular = include_specular; }
 

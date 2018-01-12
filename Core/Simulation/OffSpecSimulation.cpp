@@ -12,12 +12,14 @@
 //
 // ************************************************************************** //
 
+#include "IBackground.h"
 #include "OffSpecSimulation.h"
 #include "BornAgainNamespace.h"
 #include "DWBAComputation.h"
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
+#include "SimElementUtils.h"
 #include "SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()
@@ -44,6 +46,18 @@ void OffSpecSimulation::prepareSimulation()
 {
     checkInitialization();
     Simulation::prepareSimulation();
+}
+
+OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
+    : Simulation(other)
+    , mp_alpha_i_axis(nullptr)
+    , m_sim_elements(other.m_sim_elements)
+    , m_storage(other.m_storage)
+{
+    if(other.mp_alpha_i_axis)
+        mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
+    m_intensity_map.copyFrom(other.m_intensity_map);
+    initialize();
 }
 
 size_t OffSpecSimulation::numberOfSimulationElements() const
@@ -82,24 +96,26 @@ void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x
     updateIntensityMap();
 }
 
-std::unique_ptr<IComputation> OffSpecSimulation::generateSingleThreadedComputation(
-        std::vector<SimulationElement>::iterator start,
-        std::vector<SimulationElement>::iterator end)
+std::unique_ptr<IComputation>
+OffSpecSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
 {
-    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, start, end);
+    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
+    const auto& begin = m_sim_elements.begin() + start;
+    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, begin,
+                                             begin + n_elements);
 }
 
-OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
-    : Simulation(other)
-    , mp_alpha_i_axis(nullptr)
+void OffSpecSimulation::normalizeIntensity(size_t index, double beam_intensity)
 {
-    if(other.mp_alpha_i_axis)
-        mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
-    m_intensity_map.copyFrom(other.m_intensity_map);
-    initialize();
+    SimulationElement& element = m_sim_elements[index];
+    double sin_alpha_i = std::abs(std::sin(element.getAlphaI()));
+    if (sin_alpha_i == 0.0)
+        sin_alpha_i = 1.0;
+    const double solid_angle = element.getSolidAngle();
+    element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
 }
 
-void OffSpecSimulation::initSimulationElementVector()
+void OffSpecSimulation::initSimulationElementVector(bool init_storage)
 {
     m_sim_elements.clear();
     Beam beam = m_instrument.getBeam();
@@ -117,6 +133,30 @@ void OffSpecSimulation::initSimulationElementVector()
         m_sim_elements.insert(m_sim_elements.end(), sim_elements_alpha_i.begin(),
                               sim_elements_alpha_i.end());
     }
+    if (init_storage)
+        m_storage = m_sim_elements;
+}
+
+void OffSpecSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
+{
+    if (!mP_background)
+        return;
+    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+        SimulationElement& element = m_sim_elements[i];
+        mP_background->addBackGround(element);
+    }
+}
+
+void OffSpecSimulation::addDataToStorage(double weight)
+{
+    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
+}
+
+void OffSpecSimulation::moveDataFromStorage()
+{
+    assert(!m_storage.empty());
+    if (!m_storage.empty())
+        m_sim_elements = std::move(m_storage);
 }
 
 void OffSpecSimulation::transferResultsToIntensityMap()

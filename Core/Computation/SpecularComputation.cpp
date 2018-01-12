@@ -30,8 +30,8 @@ static_assert(std::is_copy_assignable<SpecularComputation>::value == false,
 SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
                                          const SimulationOptions& options,
                                          ProgressHandler& progress,
-                                         const std::vector<SimulationElement>::iterator& begin_it,
-                                         const std::vector<SimulationElement>::iterator& end_it)
+                                         std::vector<SimulationElement>::iterator begin_it,
+                                         std::vector<SimulationElement>::iterator end_it)
     : IComputation(options, progress, begin_it, end_it, multilayer)
 {
     mP_fresnel_map = createFresnelMap();

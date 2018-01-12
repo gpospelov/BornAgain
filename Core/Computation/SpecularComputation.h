@@ -36,8 +36,8 @@ class SpecularComputation : public IComputation
 public:
     SpecularComputation(const MultiLayer& multilayer, const SimulationOptions& options,
                         ProgressHandler& progress,
-                        const std::vector<SimulationElement>::iterator& begin_it,
-                        const std::vector<SimulationElement>::iterator& end_it);
+                        std::vector<SimulationElement>::iterator begin_it,
+                        std::vector<SimulationElement>::iterator end_it);
     virtual ~SpecularComputation();
 
     void run();

@@ -16,6 +16,7 @@
 #define GISASSIMULATION_H
 
 #include "Simulation.h"
+#include "SimulationElement.h"
 
 class MultiLayer;
 class IMultiLayerBuilder;
@@ -34,7 +35,7 @@ public:
 
     ~GISASSimulation() final {}
 
-    GISASSimulation* clone() const { return new GISASSimulation(*this); }
+    GISASSimulation* clone() const override { return new GISASSimulation(*this); }
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
@@ -45,8 +46,8 @@ public:
     size_t numberOfSimulationElements() const final;
 
     //! Returns clone of the detector intensity map with detector resolution applied
-    OutputData<double>* getDetectorIntensity(
-            AxesUnits units_type = AxesUnits::DEFAULT) const;
+    virtual OutputData<double>* getDetectorIntensity(AxesUnits units_type
+                                                     = AxesUnits::DEFAULT) const override;
 
     //! Returns histogram representing intensity map in requested axes units
     Histogram2D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
@@ -83,22 +84,33 @@ public:
     //! Sets rectangular region of interest with lower left and upper right corners defined.
     void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
 
-protected:
-    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(
-            std::vector<SimulationElement>::iterator start,
-            std::vector<SimulationElement>::iterator end);
-
 private:
     GISASSimulation(const GISASSimulation& other);
 
-    //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
-    //! SimulationElement objects
-    void transferResultsToIntensityMap() final;
-
-    //! Default implementation only adds the detector axes
-    void updateIntensityMap() final;
+    //! Initializes the vector of Simulation elements
+    //! @param init_storage Initialize storage for accumulating results
+    virtual void initSimulationElementVector(bool init_storage) override;
 
     void initialize();
+
+    //! Generate a single threaded computation for a given range of simulation elements
+    //! @param start Index of the first element to include into computation
+    //! @param n_elements Number of elements to process
+    virtual std::unique_ptr<IComputation>
+    generateSingleThreadedComputation(size_t start, size_t n_elements) override;
+
+    virtual void normalizeIntensity(size_t index, double beam_intensity) override;
+
+    virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+
+    virtual bool isStorageInited() const override {return !m_storage.empty();}
+
+    virtual void addDataToStorage(double weight) override;
+
+    virtual void moveDataFromStorage() override;
+
+    std::vector<SimulationElement> m_sim_elements;
+    std::vector<SimulationElement> m_storage;
 };
 
 #endif // GISASSIMULATION_H

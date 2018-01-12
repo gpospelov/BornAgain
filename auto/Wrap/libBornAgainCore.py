@@ -25358,8 +25358,8 @@ class ParticleLayout(ILayout):
     def __init__(self, *args):
         """
         __init__(ParticleLayout self) -> ParticleLayout
+        __init__(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0) -> ParticleLayout
         __init__(ParticleLayout self, IAbstractParticle particle) -> ParticleLayout
-        __init__(ParticleLayout self, IAbstractParticle particle, double abundance) -> ParticleLayout
 
         ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance)
 

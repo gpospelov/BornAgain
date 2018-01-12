@@ -46,15 +46,6 @@ ParticleLayout::ParticleLayout()
 
 ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
 
-ParticleLayout::ParticleLayout(const IAbstractParticle& particle)
-    : mP_interference_function {nullptr}
-    , m_total_particle_density {1.0}
-{
-    setName(BornAgain::ParticleLayoutType);
-    addParticle(particle);
-    registerParticleDensity();
-}
-
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
     : mP_interference_function {nullptr}
     , m_total_particle_density {1.0}

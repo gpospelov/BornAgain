@@ -31,8 +31,7 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 {
 public:
     ParticleLayout();
-    ParticleLayout(const IAbstractParticle& particle);
-    ParticleLayout(const IAbstractParticle& particle, double abundance);
+    ParticleLayout(const IAbstractParticle& particle, double abundance=-1.0);
     ~ParticleLayout();
 
     ParticleLayout* clone() const final override;

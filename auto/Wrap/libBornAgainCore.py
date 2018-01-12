@@ -2626,7 +2626,7 @@ class kvector_t(_object):
     """
 
 
-    Three-dimensional vector template, for use with integer, double, or complex components.
+    Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recongnition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
 
     C++ includes: BasicVector3D.h
 
@@ -3138,7 +3138,7 @@ class cvector_t(_object):
     """
 
 
-    Three-dimensional vector template, for use with integer, double, or complex components.
+    Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recongnition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
 
     C++ includes: BasicVector3D.h
 
@@ -16569,9 +16569,9 @@ class SimulationOptions(_object):
 
     def getNumberOfThreads(self):
         """
-        getNumberOfThreads(SimulationOptions self) -> int
+        getNumberOfThreads(SimulationOptions self) -> unsigned int
 
-        int SimulationOptions::getNumberOfThreads() const
+        unsigned SimulationOptions::getNumberOfThreads() const
 
         """
         return _libBornAgainCore.SimulationOptions_getNumberOfThreads(self)
@@ -16591,9 +16591,9 @@ class SimulationOptions(_object):
 
     def getNumberOfBatches(self):
         """
-        getNumberOfBatches(SimulationOptions self) -> int
+        getNumberOfBatches(SimulationOptions self) -> unsigned int
 
-        int SimulationOptions::getNumberOfBatches() const
+        unsigned SimulationOptions::getNumberOfBatches() const
 
         """
         return _libBornAgainCore.SimulationOptions_getNumberOfBatches(self)
@@ -16601,9 +16601,9 @@ class SimulationOptions(_object):
 
     def getCurrentBatch(self):
         """
-        getCurrentBatch(SimulationOptions self) -> int
+        getCurrentBatch(SimulationOptions self) -> unsigned int
 
-        int SimulationOptions::getCurrentBatch() const
+        unsigned SimulationOptions::getCurrentBatch() const
 
         """
         return _libBornAgainCore.SimulationOptions_getCurrentBatch(self)
@@ -16623,9 +16623,9 @@ class SimulationOptions(_object):
 
     def getHardwareConcurrency(self):
         """
-        getHardwareConcurrency(SimulationOptions self) -> int
+        getHardwareConcurrency(SimulationOptions self) -> unsigned int
 
-        int SimulationOptions::getHardwareConcurrency() const
+        unsigned SimulationOptions::getHardwareConcurrency() const
 
         """
         return _libBornAgainCore.SimulationOptions_getHardwareConcurrency(self)
@@ -17854,14 +17854,15 @@ class IBackground(ICloneable, INode):
         return _libBornAgainCore.IBackground_clone(self)
 
 
-    def addBackGround(self, start, end):
+    def addBackGround(self, *args):
         """
         addBackGround(IBackground self, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator start, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator end)
+        addBackGround(IBackground self, SimulationElement & element)
 
-        virtual void IBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const =0
+        virtual void IBackground::addBackGround(SimulationElement &element) const =0
 
         """
-        return _libBornAgainCore.IBackground_addBackGround(self, start, end)
+        return _libBornAgainCore.IBackground_addBackGround(self, *args)
 
 IBackground_swigregister = _libBornAgainCore.IBackground_swigregister
 IBackground_swigregister(IBackground)
@@ -17933,14 +17934,14 @@ class ConstantBackground(IBackground):
         return _libBornAgainCore.ConstantBackground_accept(self, visitor)
 
 
-    def addBackGround(self, start, end):
+    def addBackGround(self, element):
         """
-        addBackGround(ConstantBackground self, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator start, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator end)
+        addBackGround(ConstantBackground self, SimulationElement & element)
 
-        void ConstantBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const override final
+        void ConstantBackground::addBackGround(SimulationElement &element) const override final
 
         """
-        return _libBornAgainCore.ConstantBackground_addBackGround(self, start, end)
+        return _libBornAgainCore.ConstantBackground_addBackGround(self, element)
 
 ConstantBackground_swigregister = _libBornAgainCore.ConstantBackground_swigregister
 ConstantBackground_swigregister(ConstantBackground)
@@ -25471,14 +25472,14 @@ class PoissonNoiseBackground(IBackground):
         return _libBornAgainCore.PoissonNoiseBackground_accept(self, visitor)
 
 
-    def addBackGround(self, start, end):
+    def addBackGround(self, element):
         """
-        addBackGround(PoissonNoiseBackground self, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator start, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator end)
+        addBackGround(PoissonNoiseBackground self, SimulationElement & element)
 
-        void PoissonNoiseBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const override final
+        void PoissonNoiseBackground::addBackGround(SimulationElement &element) const override final
 
         """
-        return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, start, end)
+        return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, element)
 
 PoissonNoiseBackground_swigregister = _libBornAgainCore.PoissonNoiseBackground_swigregister
 PoissonNoiseBackground_swigregister(PoissonNoiseBackground)
@@ -26497,10 +26498,6 @@ class ThreadInfo(_object):
     __swig_getmethods__["n_threads"] = _libBornAgainCore.ThreadInfo_n_threads_get
     if _newclass:
         n_threads = _swig_property(_libBornAgainCore.ThreadInfo_n_threads_get, _libBornAgainCore.ThreadInfo_n_threads_set)
-    __swig_setmethods__["current_thread"] = _libBornAgainCore.ThreadInfo_current_thread_set
-    __swig_getmethods__["current_thread"] = _libBornAgainCore.ThreadInfo_current_thread_get
-    if _newclass:
-        current_thread = _swig_property(_libBornAgainCore.ThreadInfo_current_thread_get, _libBornAgainCore.ThreadInfo_current_thread_set)
     __swig_setmethods__["n_batches"] = _libBornAgainCore.ThreadInfo_n_batches_set
     __swig_getmethods__["n_batches"] = _libBornAgainCore.ThreadInfo_n_batches_get
     if _newclass:
@@ -26572,7 +26569,7 @@ class SampleBuilderFactoryTemp(_object):
         """
         contains(SampleBuilderFactoryTemp self, std::string const & item_key) -> bool
 
-        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key)
+        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
 
         """
         return _libBornAgainCore.SampleBuilderFactoryTemp_contains(self, item_key)
@@ -26721,7 +26718,7 @@ class SimulationFactoryTemp(_object):
         """
         contains(SimulationFactoryTemp self, std::string const & item_key) -> bool
 
-        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key)
+        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
 
         """
         return _libBornAgainCore.SimulationFactoryTemp_contains(self, item_key)

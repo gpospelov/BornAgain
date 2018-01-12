@@ -16,6 +16,7 @@
 #define SPECULARSIMULATION_H
 
 #include "Simulation.h"
+#include "SimulationElement.h"
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
 
@@ -81,28 +82,40 @@ private:
 
     SpecularSimulation(const SpecularSimulation& other);
 
+    //! Initializes the vector of Simulation elements
+    //! @param init_storage Initialize storage for accumulating results
+    virtual void initSimulationElementVector(bool init_storage) override;
+
     std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
 
     std::unique_ptr<OutputData<double>> getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const;
 
-    // unused methods
-    virtual void transferResultsToIntensityMap() override {}
-    virtual void updateIntensityMap() override {}
-
-    //! Generate a single threaded computation for a given range of SimulationElement's
+    //! Generate a single threaded computation for a given range of simulation elements
+    //! @param start Index of the first element to include into computation
+    //! @param n_elements Number of elements to process
     virtual std::unique_ptr<IComputation>
-    generateSingleThreadedComputation(std::vector<SimulationElement>::iterator start,
-                                      std::vector<SimulationElement>::iterator end) override;
-
-    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
-    virtual void normalize(std::vector<SimulationElement>::iterator begin_it,
-                           std::vector<SimulationElement>::iterator end_it) const override;
+    generateSingleThreadedComputation(size_t start, size_t n_elements) override;
 
     //! Checks if simulation data is ready for retrieval
     void validityCheck(size_t i_layer) const;
 
     //! Initializes simulation
     void initialize();
+
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle
+    //! for single simulation element specified by _index_.
+    virtual void normalizeIntensity(size_t index, double beam_intensity) override;
+
+    virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+
+    virtual bool isStorageInited() const override {return !m_storage.empty();}
+
+    virtual void addDataToStorage(double weight) override;
+
+    virtual void moveDataFromStorage() override;
+
+    std::vector<SimulationElement> m_sim_elements;
+    std::vector<SimulationElement> m_storage;
 };
 
 #endif // SPECULARSIMULATION_H

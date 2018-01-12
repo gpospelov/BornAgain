@@ -13,11 +13,13 @@
 // ************************************************************************** //
 
 #include "SpecularSimulation.h"
+#include "IBackground.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "SpecularMatrix.h"
 #include "MaterialUtils.h"
 #include "Histogram1D.h"
+#include "SimElementUtils.h"
 #include "SimulationElement.h"
 #include "SpecularComputation.h"
 #include "SpecularDetector1D.h"
@@ -40,6 +42,8 @@ SpecularSimulation::SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder>
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
     : Simulation(other)
+    , m_sim_elements(other.m_sim_elements)
+    , m_storage(other.m_storage)
 {
     initialize();
 }
@@ -84,6 +88,13 @@ const IAxis* SpecularSimulation::getAlphaAxis() const
     return &m_instrument.getDetector()->getAxis(0);
 }
 
+void SpecularSimulation::initSimulationElementVector(bool init_storage)
+{
+    m_sim_elements = m_instrument.createSimulationElements();
+    if (init_storage)
+        m_storage = m_sim_elements;
+}
+
 std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
 {
     validityCheck(i_layer);
@@ -109,10 +120,13 @@ SpecularSimulation::getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const
     return output_ptr;
 }
 
-std::unique_ptr<IComputation> SpecularSimulation::generateSingleThreadedComputation(
-    std::vector<SimulationElement>::iterator start, std::vector<SimulationElement>::iterator end)
+std::unique_ptr<IComputation>
+SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
 {
-    return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, start, end);
+    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
+    const auto& begin = m_sim_elements.begin() + start;
+    return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, begin,
+                                                 begin + n_elements);
 }
 
 OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_type) const
@@ -149,15 +163,31 @@ std::vector<complex_t> SpecularSimulation::getScalarKz(size_t i_layer) const
     return getData(i_layer, &ILayerRTCoefficients::getScalarKz);
 }
 
-void SpecularSimulation::normalize(std::vector<SimulationElement>::iterator begin_it,
-                           std::vector<SimulationElement>::iterator end_it) const
+void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
 {
-    double beam_intensity = getBeamIntensity();
-    if (beam_intensity==0.0)
-        return; // no normalization when beam intensity is zero
-    for(auto it=begin_it; it!=end_it; ++it) {
-        it->setIntensity(it->getIntensity()*beam_intensity);
+    m_sim_elements[index].setIntensity(m_sim_elements[index].getIntensity() * beam_intensity);
+}
+
+void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
+{
+    if (!mP_background)
+        return;
+    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+        SimulationElement& element = m_sim_elements[i];
+        mP_background->addBackGround(element);
     }
+}
+
+void SpecularSimulation::addDataToStorage(double weight)
+{
+    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
+}
+
+void SpecularSimulation::moveDataFromStorage()
+{
+    assert(!m_storage.empty());
+    if (!m_storage.empty())
+        m_sim_elements = std::move(m_storage);
 }
 
 void SpecularSimulation::validityCheck(size_t i_layer) const

@@ -193,7 +193,7 @@ Calls the  INodeVisitor's visit method.
 // File: classBasicVector3D.xml
 %feature("docstring") BasicVector3D "
 
-Three-dimensional vector template, for use with integer, double, or complex components.
+Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recongnition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
 
 C++ includes: BasicVector3D.h
 ";
@@ -746,7 +746,7 @@ C++ includes: ConstantBackground.h
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ConstantBackground::addBackGround "void ConstantBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const override final
+%feature("docstring")  ConstantBackground::addBackGround "void ConstantBackground::addBackGround(SimulationElement &element) const override final
 ";
 
 
@@ -1683,12 +1683,12 @@ Calls the  INodeVisitor's visit method.
 
 Performs a single-threaded DWBA computation with given sample and simulation parameters.
 
-Controlled by the multi-threading machinery in  Simulation::runSingleSimulation().
+Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
 
 C++ includes: DWBAComputation.h
 ";
 
-%feature("docstring")  DWBAComputation::DWBAComputation "DWBAComputation::DWBAComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+%feature("docstring")  DWBAComputation::DWBAComputation "DWBAComputation::DWBAComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it)
 ";
 
 %feature("docstring")  DWBAComputation::~DWBAComputation "DWBAComputation::~DWBAComputation()
@@ -6177,7 +6177,10 @@ C++ includes: IBackground.h
 %feature("docstring")  IBackground::clone "virtual IBackground* IBackground::clone() const =0
 ";
 
-%feature("docstring")  IBackground::addBackGround "virtual void IBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const =0
+%feature("docstring")  IBackground::addBackGround "void IBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const
+";
+
+%feature("docstring")  IBackground::addBackGround "virtual void IBackground::addBackGround(SimulationElement &element) const =0
 ";
 
 
@@ -6306,12 +6309,12 @@ Creates region information with volumetric densities instead of absolute volume 
 
 Interface for a single-threaded computation with given range of SimulationElements and  ProgressHandler.
 
-Controlled by the multi-threading machinery in  Simulation::runSingleSimulation().
+Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
 
 C++ includes: IComputation.h
 ";
 
-%feature("docstring")  IComputation::IComputation "IComputation::IComputation(const SimulationOptions &options, ProgressHandler &progress, const std::vector< SimulationElement >::iterator &start, const std::vector< SimulationElement >::iterator &end, const MultiLayer &sample)
+%feature("docstring")  IComputation::IComputation "IComputation::IComputation(const SimulationOptions &options, ProgressHandler &progress, std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end, const MultiLayer &sample)
 ";
 
 %feature("docstring")  IComputation::~IComputation "IComputation::~IComputation()
@@ -6673,7 +6676,7 @@ C++ includes: IFactory.h
 Creates object by calling creation function corresponded to given identifier. 
 ";
 
-%feature("docstring")  IFactory::create "std::unique_ptr<AbstractProduct> IFactory< Key, AbstractProduct >::create(const Key &item_key)
+%feature("docstring")  IFactory::create "std::unique_ptr<AbstractProduct> IFactory< Key, AbstractProduct >::create(const Key &item_key) const
 ";
 
 %feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn, const std::string &itemDescription=\"\")
@@ -6681,7 +6684,7 @@ Creates object by calling creation function corresponded to given identifier.
 Registers object's creation function and store object description. 
 ";
 
-%feature("docstring")  IFactory::contains "bool IFactory< Key, AbstractProduct >::contains(const Key &item_key)
+%feature("docstring")  IFactory::contains "bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
 ";
 
 %feature("docstring")  IFactory::~IFactory "IFactory< Key, AbstractProduct >::~IFactory()
@@ -11873,7 +11876,7 @@ C++ includes: PoissonNoiseBackground.h
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  PoissonNoiseBackground::addBackGround "void PoissonNoiseBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const override final
+%feature("docstring")  PoissonNoiseBackground::addBackGround "void PoissonNoiseBackground::addBackGround(SimulationElement &element) const override final
 ";
 
 
@@ -13581,7 +13584,7 @@ Number of points for MonteCarlo integrator
 Sets number of threads to use during the simulation (0 - take the default value from the hardware) 
 ";
 
-%feature("docstring")  SimulationOptions::getNumberOfThreads "int SimulationOptions::getNumberOfThreads() const
+%feature("docstring")  SimulationOptions::getNumberOfThreads "unsigned SimulationOptions::getNumberOfThreads() const
 ";
 
 %feature("docstring")  SimulationOptions::setNumberOfBatches "void SimulationOptions::setNumberOfBatches(int nbatches)
@@ -13589,10 +13592,10 @@ Sets number of threads to use during the simulation (0 - take the default value 
 Sets number of batches to split. 
 ";
 
-%feature("docstring")  SimulationOptions::getNumberOfBatches "int SimulationOptions::getNumberOfBatches() const
+%feature("docstring")  SimulationOptions::getNumberOfBatches "unsigned SimulationOptions::getNumberOfBatches() const
 ";
 
-%feature("docstring")  SimulationOptions::getCurrentBatch "int SimulationOptions::getCurrentBatch() const
+%feature("docstring")  SimulationOptions::getCurrentBatch "unsigned SimulationOptions::getCurrentBatch() const
 ";
 
 %feature("docstring")  SimulationOptions::setThreadInfo "void SimulationOptions::setThreadInfo(const ThreadInfo &thread_info)
@@ -13600,7 +13603,7 @@ Sets number of batches to split.
 Sets the batch and thread information to be used. 
 ";
 
-%feature("docstring")  SimulationOptions::getHardwareConcurrency "int SimulationOptions::getHardwareConcurrency() const
+%feature("docstring")  SimulationOptions::getHardwareConcurrency "unsigned SimulationOptions::getHardwareConcurrency() const
 ";
 
 %feature("docstring")  SimulationOptions::setIncludeSpecular "void SimulationOptions::setIncludeSpecular(bool include_specular)
@@ -13740,12 +13743,12 @@ C++ includes: IFormFactorBorn.h
 
 Performs a single-threaded specular computation with given sample.
 
-Controlled by the multi-threading machinery in  Simulation::runSingleSimulation().
+Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
 
 C++ includes: SpecularComputation.h
 ";
 
-%feature("docstring")  SpecularComputation::SpecularComputation "SpecularComputation::SpecularComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it)
+%feature("docstring")  SpecularComputation::SpecularComputation "SpecularComputation::SpecularComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it)
 ";
 
 %feature("docstring")  SpecularComputation::~SpecularComputation "SpecularComputation::~SpecularComputation()
@@ -14742,10 +14745,13 @@ C++ includes: ZLimits.h
 // File: namespace_0D450.xml
 
 
-// File: namespace_0D522.xml
+// File: namespace_0D455.xml
 
 
-// File: namespace_0D544.xml
+// File: namespace_0D523.xml
+
+
+// File: namespace_0D545.xml
 
 
 // File: namespace_0D73.xml
@@ -15336,6 +15342,11 @@ ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.l
 ";
 
 
+// File: namespaceSimElementUtils.xml
+%feature("docstring")  SimElementUtils::addElementsWithWeight "void SimElementUtils::addElementsWithWeight(const std::vector< SimElement > &from, std::vector< SimElement > &to, double weight)
+";
+
+
 // File: namespaceStandardSimulations.xml
 %feature("docstring")  StandardSimulations::PolarizedDWBAMagCylinders2 "GISASSimulation * StandardSimulations::PolarizedDWBAMagCylinders2()
 ";
@@ -15654,17 +15665,9 @@ global helper function for comparison of axes
 
 
 // File: SimulationElement_8cpp.xml
-%feature("docstring")  addElementsWithWeight "void addElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
-
-Add element vector to element vector with weight. 
-";
 
 
 // File: SimulationElement_8h.xml
-%feature("docstring")  addElementsWithWeight "void addElementsWithWeight(std::vector< SimulationElement >::const_iterator first, std::vector< SimulationElement >::const_iterator last, std::vector< SimulationElement >::iterator result, double weight)
-
-Add element vector to element vector with weight. 
-";
 
 
 // File: VariableBinAxis_8cpp.xml
@@ -17105,6 +17108,9 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: OffSpecSimulation_8h.xml
+
+
+// File: SimElementUtils_8h.xml
 
 
 // File: Simulation_8cpp.xml

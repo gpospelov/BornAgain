@@ -100,6 +100,7 @@ void FourierTransform::fft(const double2d_t& source, double2d_t& result)
         result[i].resize(static_cast<size_t>(ws.w_fftw),0);
         for(size_t j = 0; j < static_cast<size_t>(ws.w_fftw); j++) {
             result[i][j] = *ptr;
+            //result[i][j] = *ptr;
             ptr = ptr + 2;
         }
     }

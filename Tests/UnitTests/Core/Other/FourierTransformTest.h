@@ -20,22 +20,22 @@ FourierTransformTest::~FourierTransformTest() = default;
 TEST_F(FourierTransformTest, fwfft2DTest)
 {
     std::vector<std::vector<double>> signal, result;
-    std::vector<double> row;
+    std::vector<double> row_vec;
 
-    int h = 19; //rows
-    int w = 17; //columns
+    int nrows = 19; //rows
+    int ncols = 17; //columns
 
-    for(int i=0; i<h; i++)
+    for(int row=0; row<nrows; row++)
     {
-        row.clear();
-        for(int j=0; j<w; j++)
+        row_vec.clear();
+        for(int col=0; col<ncols; col++)
         {
-            if(j != 5)
-                row.push_back(j+1);
+            if(col != 5)
+                row_vec.push_back(col+1);
             else
-                row.push_back(j+1);
+                row_vec.push_back(col+1);
         }
-        signal.push_back(row);
+        signal.push_back(row_vec);
     }
 
     std::cout << "\nRows of 2D signal:" << signal.size() << std::endl;
@@ -72,14 +72,14 @@ TEST_F(FourierTransformTest, fwfft1DTest)
 {
     std::vector<double> signal, result;
 
-    int w = 17; //columns
+    int ncols = 17; //columns
 
-    for(int j=0; j<w; j++)
+    for(int col=0; col<ncols; col++)
     {
-        if(j != 5)
-            signal.push_back(j+1);
+        if(col != 5)
+            signal.push_back(col+1);
         else
-            signal.push_back(j+1);
+            signal.push_back(col+1);
     }
 
     std::cout << "Columns of 1D signal:" << signal.size() << std::endl;

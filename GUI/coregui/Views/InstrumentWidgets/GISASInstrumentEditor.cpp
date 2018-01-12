@@ -34,8 +34,8 @@ GISASInstrumentEditor::GISASInstrumentEditor(QWidget* parent)
 
     addEditor(mainLayout, m_beamEditor, "Beam parameters");
     addEditor(mainLayout, m_detectorEditor, "Detector parameters");
-    addEditor(mainLayout, m_environmentEditor, "Environment", /*expanded*/false);
     addEditor(mainLayout, m_polarizationAnalysisEditor, "Polarization analysis", /*expanded*/false);
+    addEditor(mainLayout, m_environmentEditor, "Environment", /*expanded*/false);
 
     mainLayout->addStretch();
 

@@ -15,20 +15,30 @@
 #ifndef GISASDETECTOREDITOR_H
 #define GISASDETECTOREDITOR_H
 
-#include "SessionItem.h"
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "SessionItemWidget.h"
 
 class ComponentEditor;
 class DetectorPresenter;
+class GISASInstrumentItem;
 
-class BA_CORE_API_ GISASDetectorEditor : public QWidget
+//! GISAS detector editor. Provides selector between available detector types
+//! (spherical/rectangular) and stack to show proper editor.
+//! Operates on GISASInstrumentItem.
+
+class BA_CORE_API_ GISASDetectorEditor : public SessionItemWidget
 {
     Q_OBJECT
 public:
     GISASDetectorEditor(QWidget* parent = nullptr);
 
+protected:
+    void subscribeToItem();
+    void unsubscribeFromItem();
+
 private:
+    GISASInstrumentItem* instrumentItem();
+    void updateDetectorPresenter();
+
     ComponentEditor* m_detectorTypeEditor;
     DetectorPresenter* m_detectorPresenter;
 };

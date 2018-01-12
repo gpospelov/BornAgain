@@ -43,6 +43,7 @@ GISASInstrumentEditorV2::GISASInstrumentEditorV2(QWidget* parent)
 void GISASInstrumentEditorV2::subscribeToItem()
 {
     m_beamEditor->setBeamItem(instrumentItem()->beamItem());
+    m_detectorEditor->setItem(instrumentItem());
 }
 
 void GISASInstrumentEditorV2::unsubscribeFromItem()
@@ -62,7 +63,7 @@ void GISASInstrumentEditorV2::addEditor(QVBoxLayout* layout, QWidget* widget, co
     layout->addWidget(detailsWidget);
 }
 
-GISASInstrumentItem*GISASInstrumentEditorV2::instrumentItem()
+GISASInstrumentItem* GISASInstrumentEditorV2::instrumentItem()
 {
     auto result = dynamic_cast<GISASInstrumentItem*>(currentItem());
     Q_ASSERT(result);

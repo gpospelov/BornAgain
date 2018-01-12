@@ -40,8 +40,7 @@ public:
 
     void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
-    void addParticle(const IAbstractParticle& particle);
-    void addParticle(const IAbstractParticle& particle, double abundance,
+    void addParticle(const IAbstractParticle& particle, double abundance=-1.0,
                      const kvector_t position=kvector_t(),
                      const IRotation& rotation=IdentityRotation());
 

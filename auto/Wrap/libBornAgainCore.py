@@ -25408,10 +25408,10 @@ class ParticleLayout(ILayout):
 
     def addParticle(self, *args):
         """
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position, IRotation rotation)
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position)
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0)
         addParticle(ParticleLayout self, IAbstractParticle particle)
-        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance, kvector_t position, IRotation rotation)
-        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance, kvector_t position)
-        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance)
 
         void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
 

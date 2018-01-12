@@ -18,6 +18,7 @@
 #include "ComponentEditor.h"
 #include "DistributionDialog.h"
 #include "InstrumentItems.h"
+#include "ColumnResizer.h"
 #include <QGridLayout>
 #include <QGroupBox>
 
@@ -29,8 +30,9 @@ const QString azimuthal_title("Azimuthal angle [deg]");
 const QString polarization_title("Polarization (Bloch vector)");
 }
 
-GISASBeamEditor::GISASBeamEditor(QWidget* parent)
+GISASBeamEditor::GISASBeamEditor(ColumnResizer* columnResizer, QWidget* parent)
     : SessionItemWidget(parent)
+    , m_columnResizer(columnResizer)
     , m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget)),
       m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title)),
       m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title)),
@@ -53,6 +55,16 @@ GISASBeamEditor::GISASBeamEditor(QWidget* parent)
             this, &GISASBeamEditor::onDialogRequest);
     connect(m_azimuthalEditor, &ComponentEditor::dialogRequest,
             this, &GISASBeamEditor::onDialogRequest);
+
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
+}
+
+GISASBeamEditor::~GISASBeamEditor()
+{
+    if (m_columnResizer)
+        m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
 }
 
 void GISASBeamEditor::subscribeToItem()

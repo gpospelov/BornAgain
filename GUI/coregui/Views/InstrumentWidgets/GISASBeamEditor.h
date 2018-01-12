@@ -21,6 +21,7 @@ class ComponentEditor;
 class QGridLayout;
 class GISASInstrumentItem;
 class BeamItem;
+class ColumnResizer;
 
 //! GISAS beam editor. Operates on GISASInstrumentItem.
 
@@ -28,7 +29,8 @@ class BA_CORE_API_ GISASBeamEditor : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    explicit GISASBeamEditor(QWidget* parent = nullptr);
+    explicit GISASBeamEditor(ColumnResizer* columnResizer, QWidget* parent = nullptr);
+    ~GISASBeamEditor();
 
 protected:
     void subscribeToItem();
@@ -39,6 +41,7 @@ private:
     BeamItem* beamItem();
     void onDialogRequest(SessionItem* item, const QString& name);
 
+    ColumnResizer* m_columnResizer;
     ComponentEditor* m_intensityEditor;
     ComponentEditor* m_wavelengthEditor;
     ComponentEditor* m_inclinationEditor;

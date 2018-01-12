@@ -16,6 +16,9 @@
 #include "ComponentEditor.h"
 #include "InstrumentItems.h"
 #include "GroupItem.h"
+#include "ColumnResizer.h"
+#include "LayoutUtils.h"
+#include <QSpacerItem>
 #include <QGridLayout>
 
 namespace
@@ -23,17 +26,30 @@ namespace
 const QString background_title("Background");
 }
 
-EnvironmentEditor::EnvironmentEditor(QWidget* parent)
+EnvironmentEditor::EnvironmentEditor(ColumnResizer* columnResizer, QWidget* parent)
     : SessionItemWidget(parent)
+    , m_columnResizer(columnResizer)
     , m_backgroundEditor(new ComponentEditor(ComponentEditor::GroupWidget, background_title))
     , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_backgroundEditor, 0, 0);
+    m_gridLayout->addWidget(LayoutUtils::placeHolder(), 0, 1);
+    m_gridLayout->addWidget(LayoutUtils::placeHolder(), 0, 2);
 
     auto mainLayout = new QVBoxLayout;
     mainLayout->addLayout(m_gridLayout);
     mainLayout->addStretch();
     setLayout(mainLayout);
+
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
+}
+
+EnvironmentEditor::~EnvironmentEditor()
+{
+    if (m_columnResizer)
+        m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
 }
 
 void EnvironmentEditor::subscribeToItem()

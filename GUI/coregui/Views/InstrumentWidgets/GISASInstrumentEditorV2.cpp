@@ -19,20 +19,22 @@
 #include "PolarizationAnalysisEditor.h"
 #include "InstrumentItems.h"
 #include "detailswidget.h"
+#include "ColumnResizer.h"
 #include <QVBoxLayout>
 
 GISASInstrumentEditorV2::GISASInstrumentEditorV2(QWidget* parent)
     : SessionItemWidget(parent)
-    , m_beamEditor(new GISASBeamEditor)
+    , m_columnResizer(new ColumnResizer(this))
+    , m_beamEditor(new GISASBeamEditor(m_columnResizer))
     , m_detectorEditor(new GISASDetectorEditor)
-    , m_environmentEditor(new EnvironmentEditor)
-    , m_polarizationAnalysisEditor(new PolarizationAnalysisEditor)
+    , m_environmentEditor(new EnvironmentEditor(m_columnResizer))
+    , m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
 {
     auto mainLayout = new QVBoxLayout;
 
     addEditor(mainLayout, m_beamEditor, "Beam parameters");
     addEditor(mainLayout, m_detectorEditor, "Detector parameters");
-    addEditor(mainLayout, m_environmentEditor, "Environment", /*expanded*/false);
+    addEditor(mainLayout, m_environmentEditor, "Environment", /*expanded*/true);
     addEditor(mainLayout, m_polarizationAnalysisEditor, "Polarization analysis", /*expanded*/false);
 
     mainLayout->addStretch();

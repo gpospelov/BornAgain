@@ -20,6 +20,7 @@
 class ComponentEditor;
 class QGridLayout;
 class GISASInstrumentItem;
+class ColumnResizer;
 
 //! Environment editor (i.e. background) for GISASInstrumentEditor.
 //! Operates on GISASInstrumentItem.
@@ -28,7 +29,8 @@ class BA_CORE_API_ EnvironmentEditor : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    EnvironmentEditor(QWidget* parent = nullptr);
+    EnvironmentEditor(ColumnResizer* columnResizer, QWidget* parent = nullptr);
+    ~EnvironmentEditor();
 
 protected:
     void subscribeToItem();
@@ -36,6 +38,7 @@ protected:
 
 private:
     GISASInstrumentItem* instrumentItem();
+    ColumnResizer* m_columnResizer;
     ComponentEditor* m_backgroundEditor;
     QGridLayout* m_gridLayout;
 };

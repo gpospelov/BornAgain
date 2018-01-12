@@ -18,6 +18,7 @@
 #include "WinDllMacros.h"
 
 class QGridLayout;
+class QWidget;
 
 //! Utility functions to add/remove widgets to the layout on the fly.
 //! Taken from https://stackoverflow.com/questions/5395266/removing-widgets-from-qgridlayout
@@ -33,6 +34,9 @@ BA_CORE_API_ void removeColumn(QGridLayout *layout, int column, bool deleteWidge
 
 //! Clear layout completely.
 BA_CORE_API_ void clearLayout(QGridLayout* layout, bool deleteWidgets = true);
+
+//! Returns empty widget to occupy place in layout.
+BA_CORE_API_ QWidget* placeHolder();
 }
 
 #endif

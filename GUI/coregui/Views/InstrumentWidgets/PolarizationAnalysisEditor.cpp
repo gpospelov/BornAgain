@@ -17,7 +17,10 @@
 #include "InstrumentItems.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
+#include "ColumnResizer.h"
+#include "LayoutUtils.h"
 #include <QGridLayout>
+#include <QSpacerItem>
 
 namespace
 {
@@ -25,19 +28,31 @@ const QString beam_pol_title("Polarization (Bloch vector)");
 const QString analyzer_title = "Analyzer orientation";
 }
 
-PolarizationAnalysisEditor::PolarizationAnalysisEditor(QWidget* parent)
+PolarizationAnalysisEditor::PolarizationAnalysisEditor(ColumnResizer* columnResizer, QWidget* parent)
     : SessionItemWidget(parent)
+    , m_columnResizer(columnResizer)
     , m_polarizationEditor(new ComponentEditor(ComponentEditor::GroupWidget, beam_pol_title))
     , m_analyserEditor(new ComponentEditor(ComponentEditor::GroupWidget, analyzer_title))
     , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_polarizationEditor, 0, 0);
     m_gridLayout->addWidget(m_analyserEditor, 0, 1);
+    m_gridLayout->addWidget(LayoutUtils::placeHolder(), 0, 2);
 
     auto mainLayout = new QVBoxLayout;
     mainLayout->addLayout(m_gridLayout);
     mainLayout->addStretch();
     setLayout(mainLayout);
+
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
+    m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
+}
+
+PolarizationAnalysisEditor::~PolarizationAnalysisEditor()
+{
+    if (m_columnResizer)
+        m_columnResizer->dropWidgetsFromGridLayout(m_gridLayout);
 }
 
 void PolarizationAnalysisEditor::subscribeToItem()

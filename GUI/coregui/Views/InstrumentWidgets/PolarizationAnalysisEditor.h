@@ -21,6 +21,7 @@ class GISASInstrumentItem;
 class BeamItem;
 class DetectorItem;
 class QGridLayout;
+class ColumnResizer;
 
 //! Polarization analysis editor (beam polarization, analyzer properies) for GISASInstrumentEditor.
 //! Operates on GISASInstrumentItem.
@@ -29,7 +30,8 @@ class BA_CORE_API_ PolarizationAnalysisEditor : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    PolarizationAnalysisEditor(QWidget* parent = nullptr);
+    PolarizationAnalysisEditor(ColumnResizer* columnResizer, QWidget* parent = nullptr);
+    ~PolarizationAnalysisEditor();
 
 protected:
     void subscribeToItem();
@@ -41,6 +43,7 @@ private:
     DetectorItem* detectorItem();
     void updateAnalyserEditor();
 
+    ColumnResizer* m_columnResizer;
     ComponentEditor* m_polarizationEditor;
     ComponentEditor* m_analyserEditor;
     QGridLayout* m_gridLayout;

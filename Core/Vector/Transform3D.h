@@ -74,16 +74,12 @@ public:
     Transform3D getInverse() const;
 
     //! Return transformed vector _v_.
-    kvector_t transformed(const kvector_t& v) const;
+    template <class ivector_t>
+    ivector_t transformed(const ivector_t& v) const;
 
     //! Return transformed vector _v_.
-    cvector_t transformed(const cvector_t& v) const;
-
-    //! Return transformed vector _v_.
-    kvector_t transformedInverse(const kvector_t& v) const;
-
-    //! Return transformed vector _v_.
-    cvector_t transformedInverse(const cvector_t& v) const;
+    template <class ivector_t>
+    ivector_t transformedInverse(const ivector_t& v) const;
 
     //! Composes two transformations
     Transform3D operator*(const Transform3D &other) const;

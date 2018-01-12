@@ -28,6 +28,7 @@ class ColumnResizer;
 class BA_CORE_API_ GISASBeamEditor : public SessionItemWidget
 {
     Q_OBJECT
+
 public:
     explicit GISASBeamEditor(ColumnResizer* columnResizer, QWidget* parent = nullptr);
     ~GISASBeamEditor();

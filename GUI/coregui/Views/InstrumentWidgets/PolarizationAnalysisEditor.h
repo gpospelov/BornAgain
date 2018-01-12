@@ -29,6 +29,7 @@ class ColumnResizer;
 class BA_CORE_API_ PolarizationAnalysisEditor : public SessionItemWidget
 {
     Q_OBJECT
+
 public:
     PolarizationAnalysisEditor(ColumnResizer* columnResizer, QWidget* parent = nullptr);
     ~PolarizationAnalysisEditor();

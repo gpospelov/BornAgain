@@ -23,6 +23,7 @@ class QGridLayout;
 class BA_CORE_API_ SphericalDetectorEditor : public SessionItemWidget
 {
     Q_OBJECT
+
 public:
     SphericalDetectorEditor(QWidget* parent = nullptr);
 

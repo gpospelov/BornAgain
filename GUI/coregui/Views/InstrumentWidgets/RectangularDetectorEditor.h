@@ -23,6 +23,7 @@ class QGridLayout;
 class BA_CORE_API_ RectangularDetectorEditor : public SessionItemWidget
 {
     Q_OBJECT
+
 public:
     RectangularDetectorEditor(QWidget* parent = nullptr);
 

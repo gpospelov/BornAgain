@@ -51,7 +51,7 @@ void GISASInstrumentEditor::subscribeToItem()
 }
 
 void GISASInstrumentEditor::addEditor(QVBoxLayout* layout, QWidget* widget, const QString& name,
-                                        bool expanded)
+                                      bool expanded)
 {
     auto detailsWidget = new Utils::DetailsWidget;
     detailsWidget->setSummaryText(name);

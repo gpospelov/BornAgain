@@ -33,6 +33,7 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     auto mainLayout = new QVBoxLayout;
+    mainLayout->setContentsMargins(0, 20, 0, 20);
     mainLayout->addLayout(createTopLayout());
 
     auto scrollArea = new AdjustingScrollArea;

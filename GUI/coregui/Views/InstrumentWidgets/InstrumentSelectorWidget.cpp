@@ -38,8 +38,7 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel* model, QWidg
     "   selection-background-color : rgb(98,100,105); \n"
     "   selection-color: rgb(255,255,255);\n"
     "   border: 1px solid rgb(98,100,105);\n"
-    "}\n"
-    ""));
+    "}\n"));
 
     setModel(model);
     layout()->setMargin(10);

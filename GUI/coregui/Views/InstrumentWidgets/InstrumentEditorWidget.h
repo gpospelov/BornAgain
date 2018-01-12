@@ -31,7 +31,7 @@ class BA_CORE_API_ InstrumentEditorWidget : public QWidget
     Q_OBJECT
 
 public:
-    InstrumentEditorWidget(QWidget* parent = 0);
+    InstrumentEditorWidget(QWidget* parent = nullptr);
 
     QSize sizeHint() const;
 
@@ -44,7 +44,7 @@ public slots:
     void onChangedEditor(const QString&);
 
 private:
-    QLayout* create_NameAndTypeLayout();
+    QLayout* createTopLayout();
     void updateWidgets();
 
     QLineEdit* m_nameLineEdit;

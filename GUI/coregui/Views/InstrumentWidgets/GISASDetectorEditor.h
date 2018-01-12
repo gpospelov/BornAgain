@@ -28,6 +28,7 @@ class GISASInstrumentItem;
 class BA_CORE_API_ GISASDetectorEditor : public SessionItemWidget
 {
     Q_OBJECT
+
 public:
     GISASDetectorEditor(QWidget* parent = nullptr);
 

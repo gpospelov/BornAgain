@@ -28,8 +28,9 @@ class QVBoxLayout;
 class BA_CORE_API_ GISASInstrumentEditor : public SessionItemWidget
 {
     Q_OBJECT
+
 public:
-    GISASInstrumentEditor(QWidget* parent = 0);
+    GISASInstrumentEditor(QWidget* parent = nullptr);
 
 protected:
     void subscribeToItem();

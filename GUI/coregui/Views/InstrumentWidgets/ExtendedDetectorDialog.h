@@ -29,7 +29,7 @@ class ExtendedDetectorDialog : public QDialog
     Q_OBJECT
 
 public:
-    ExtendedDetectorDialog(QWidget* parent = 0);
+    ExtendedDetectorDialog(QWidget* parent = nullptr);
 
 public slots:
     void setDetectorContext(InstrumentModel* instrumentModel, DetectorItem* detectorItem);

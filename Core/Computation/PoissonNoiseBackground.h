@@ -30,7 +30,7 @@ public:
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    virtual void addBackGround(SimulationElement& element) const override final;
+    void addBackGround(SimulationElement& element) const override final;
 };
 
 #endif // POISSONNOISEBACKGROUND_H

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InstrumentWidgets/GISASInstrumentEditorV2.h
-//! @brief     Defines class GISASInstrumentEditorV2
+//! @file      GUI/coregui/Views/InstrumentWidgets/GISASInstrumentEditor.h
+//! @brief     Defines class GISASInstrumentEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef GISASINSTRUMENTEDITORV2_H
-#define GISASINSTRUMENTEDITORV2_H
+#ifndef GISASINSTRUMENTEDITOR_H
+#define GISASINSTRUMENTEDITOR_H
 
 #include "SessionItemWidget.h"
 
@@ -25,11 +25,11 @@ class PolarizationAnalysisEditor;
 class ColumnResizer;
 class QVBoxLayout;
 
-class BA_CORE_API_ GISASInstrumentEditorV2 : public SessionItemWidget
+class BA_CORE_API_ GISASInstrumentEditor : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    GISASInstrumentEditorV2(QWidget* parent = 0);
+    GISASInstrumentEditor(QWidget* parent = 0);
 
 protected:
     void subscribeToItem();
@@ -45,4 +45,4 @@ private:
     PolarizationAnalysisEditor* m_polarizationAnalysisEditor;
 };
 
-#endif  // GISASINSTRUMENTEDITORV2_H
+#endif  // GISASINSTRUMENTEDITOR_H

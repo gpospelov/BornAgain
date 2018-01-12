@@ -14,7 +14,7 @@
 
 #include "InstrumentPresenter.h"
 #include "item_constants.h"
-#include "GISASInstrumentEditorV2.h"
+#include "GISASInstrumentEditor.h"
 
 namespace {
 const QString GISASPresentation = "GISAS";
@@ -23,7 +23,7 @@ const QString GISASPresentation = "GISAS";
 InstrumentPresenter::InstrumentPresenter(QWidget* parent)
     : ItemComboWidget(parent)
 {
-    registerWidget(GISASPresentation, create_new<GISASInstrumentEditorV2>);
+    registerWidget(GISASPresentation, create_new<GISASInstrumentEditor>);
     setToolBarVisible(false);
 }
 

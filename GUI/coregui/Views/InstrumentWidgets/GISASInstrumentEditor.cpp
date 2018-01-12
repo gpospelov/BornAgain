@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InstrumentWidgets/GISASInstrumentEditorV2.cpp
-//! @brief     Implements class GISASInstrumentEditorV2
+//! @file      GUI/coregui/Views/InstrumentWidgets/GISASInstrumentEditor.cpp
+//! @brief     Implements class GISASInstrumentEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "GISASInstrumentEditorV2.h"
+#include "GISASInstrumentEditor.h"
 #include "GISASBeamEditor.h"
 #include "GISASDetectorEditor.h"
 #include "EnvironmentEditor.h"
@@ -22,7 +22,7 @@
 #include "ColumnResizer.h"
 #include <QVBoxLayout>
 
-GISASInstrumentEditorV2::GISASInstrumentEditorV2(QWidget* parent)
+GISASInstrumentEditor::GISASInstrumentEditor(QWidget* parent)
     : SessionItemWidget(parent)
     , m_columnResizer(new ColumnResizer(this))
     , m_beamEditor(new GISASBeamEditor(m_columnResizer))
@@ -42,7 +42,7 @@ GISASInstrumentEditorV2::GISASInstrumentEditorV2(QWidget* parent)
     setLayout(mainLayout);
 }
 
-void GISASInstrumentEditorV2::subscribeToItem()
+void GISASInstrumentEditor::subscribeToItem()
 {
     m_beamEditor->setItem(instrumentItem());
     m_detectorEditor->setItem(instrumentItem());
@@ -50,7 +50,7 @@ void GISASInstrumentEditorV2::subscribeToItem()
     m_polarizationAnalysisEditor->setItem(instrumentItem());
 }
 
-void GISASInstrumentEditorV2::addEditor(QVBoxLayout* layout, QWidget* widget, const QString& name,
+void GISASInstrumentEditor::addEditor(QVBoxLayout* layout, QWidget* widget, const QString& name,
                                         bool expanded)
 {
     auto detailsWidget = new Utils::DetailsWidget;
@@ -62,7 +62,7 @@ void GISASInstrumentEditorV2::addEditor(QVBoxLayout* layout, QWidget* widget, co
     layout->addWidget(detailsWidget);
 }
 
-GISASInstrumentItem* GISASInstrumentEditorV2::instrumentItem()
+GISASInstrumentItem* GISASInstrumentEditor::instrumentItem()
 {
     auto result = dynamic_cast<GISASInstrumentItem*>(currentItem());
     Q_ASSERT(result);

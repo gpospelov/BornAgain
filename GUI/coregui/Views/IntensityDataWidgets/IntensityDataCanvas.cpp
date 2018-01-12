@@ -26,8 +26,6 @@
 #include <QSettings>
 #include "IntensityDataFunctions.h"
 
-#include "iostream"
-
 namespace {
 
 QString group_name() { return QStringLiteral("IntensityDataCanvas/"); }
@@ -41,7 +39,6 @@ IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
     , m_colorMap(new ColorMapCanvas)
     , m_resetViewAction(nullptr)
     , m_savePlotAction(nullptr)
-    , m_fftAction(nullptr)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -100,22 +97,9 @@ void IntensityDataCanvas::onMousePress(QMouseEvent* event)
         emit customContextMenuRequested(event->globalPos());
 }
 
-#include<QDebug>
 void IntensityDataCanvas::onfftAction()
 {
-    //qDebug() << "IntensityDataCanvas::onFFTAction" << status;
     auto dataItem = intensityDataItem();
-//    auto data = dataItem->getOutputData();
-
-    /*
-    OutputData<double> fftData;
-    fftData.copyFrom(*data);
-    fftData.setAllTo(42.);
-    dataItem->setOutputData(&fftData);
-    //m_backup.reset(new OutputData<double>);
-    //m_backup->copyFrom(*data);
-    disconnect(m_fftAction, &QAction::triggered, this, &IntensityDataCanvas::onfftAction);
-    */
 
     if(m_backup)
     {
@@ -127,40 +111,9 @@ void IntensityDataCanvas::onfftAction()
         m_backup.reset(new OutputData<double>);
         m_backup->copyFrom(*dataItem->getOutputData());
 
-        std::vector<std::vector<double>> array_2d =
-                IntensityDataFunctions::construct2DArray(*dataItem->getOutputData());
-
-        std::vector<std::vector<double>> fft_array_2d =
-                IntensityDataFunctions::createFFT(array_2d);
-
-        OutputData<double> fftData;
-        fftData.copyFrom(*IntensityDataFunctions::constructOutputDatafrom2D(
-                             fft_array_2d, *dataItem->getOutputData()));
-        /*
-        std::cout<<fftData[0]<<std::endl;
-        std::cout<<fftData[1]<<std::endl;
-        std::cout<<fftData[5098]<<std::endl;
-        std::cout<<fftData[5099]<<std::endl;
-        */
-
-        dataItem->setOutputData(&fftData);
-
-        /*
-        std::cout<<(*dataItem->getOutputData())[0]<<std::endl;
-        std::cout<<(*dataItem->getOutputData())[1]<<std::endl;
-        std::cout<<(*dataItem->getOutputData())[5098]<<std::endl;
-        std::cout<<(*dataItem->getOutputData())[5099]<<std::endl;
-        */
-
-        //dataItem->getOutputData()->setAllTo(42.0);
-        //dataItem->emitDataChanged();
-
+        dataItem->setOutputData(
+                    (IntensityDataFunctions::getFourierTransform(*dataItem->getOutputData())));
     }
-
-//    // convert data to vector<vector<double>>
-
-//    auto fftOutputData = IntensityDaqtaFunctions::fft(*data);
-//    dataItem->setOutputData(fftOutputData);
 }
 
 void IntensityDataCanvas::subscribeToItem()

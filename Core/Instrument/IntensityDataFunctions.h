@@ -65,15 +65,23 @@ BA_CORE_API_ void coordinateToBinf(double& x, double& y, const OutputData<double
 BA_CORE_API_ void coordinateFromBinf(double& x, double& y, const OutputData<double>& data);
 
 //! Creates a vector of vectors of double (2D Array) from OutputData.
-BA_CORE_API_ std::vector<std::vector<double>> construct2DArray(const OutputData<double>& data);
+BA_CORE_API_ std::vector<std::vector<double>> create2DArrayfromOutputData(
+        const OutputData<double>& data);
 
-//! Creates a Fourier Transform of a 2D Array of vector of vectors.
-BA_CORE_API_ std::vector<std::vector<double>> createFFT(
+//! Creates a Fourier Transform of a 2D Array (vector of vectors).
+BA_CORE_API_ std::vector<std::vector<double>> FT2DArray(
         const std::vector<std::vector<double>>& signal);
 
 //! Creates OutputData from a 2D Array.
-BA_CORE_API_ OutputData<double>* constructOutputDatafrom2D(
+BA_CORE_API_ OutputData<double>* createOutputDatafrom2DArray(
+        const std::vector<std::vector<double>>& array_2d);
+
+// Another way of creating OutputData from a 2D Array
+BA_CORE_API_ OutputData<double>* createOutputDatafrom2DArrayV2(
         const std::vector<std::vector<double>>& array_2d, const OutputData<double>& reference);
+
+//! Creates Fourier Transform (OutputData format) of intensity map (OutputData format).
+BA_CORE_API_ OutputData<double>* getFourierTransform(const OutputData<double> &data);
 
 }; // namespace IntensityDataFunctions
 

@@ -204,12 +204,13 @@ void IntensityDataFunctions::coordinateFromBinf(
     y = coordinateFromBinf(y, data.getAxis(BornAgain::Y_AXIS_INDEX));
 }
 
-std::vector<std::vector<double>> IntensityDataFunctions::construct2DArray(
-        const OutputData<double> & data)
+std::vector<std::vector<double>> IntensityDataFunctions::create2DArrayfromOutputData(
+        const OutputData<double> &data)
 {
     if (data.getRank() != 2)
-        throw Exceptions::LogicErrorException("IntensityDataFunctions::Construct2DArray()"
-            " -> Error! Works only on two-dimensional data");
+        throw Exceptions::LogicErrorException(
+                "IntensityDataFunctions::create2DArrayfromOutputData() -> "
+                "Error! Works only on two-dimensional data");
 
     /*
     std::cout<<data.getAllocatedSize()<<std::endl;
@@ -224,22 +225,40 @@ std::vector<std::vector<double>> IntensityDataFunctions::construct2DArray(
     */
 
     std::vector<std::vector<double>> array_2d;
-    std::vector<double> row;
+    std::vector<double> row_vec;
 
-    int h = static_cast<int>(sqrt(data.getAllocatedSize())); //rows
-    int w = static_cast<int>(sqrt(data.getAllocatedSize())); //columns
+    size_t nrows = data.getAxis(0).size();
+    size_t ncols = data.getAxis(1).size();
 
-    size_t cnt = 0;
-    for(int i=0; i<h; i++)
+    size_t it = 0; // iterator of data
+    for(size_t row=0; row<nrows; row++)
     {
-        row.clear();
-        for(int j=0; j<w; j++)
+        row_vec.clear();
+        for(size_t col=0; col<ncols; col++)
         {
-            row.push_back(data[cnt]);
-            cnt++;
+            row_vec.push_back(data[it]);
+            it++;
         }
-        array_2d.push_back(row);
+        array_2d.push_back(row_vec);
     }
+
+    /*
+    for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
+        i != array_2d.begin()+5; i++)
+    {
+        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).begin()+5; j++)
+            std::cout << *j << ' ';
+        std::cout << std::endl;
+    }
+
+    std::cout<<array_2d[0][0]<<std::endl;
+    std::cout<<array_2d[0][2]<<std::endl;
+    std::cout<<array_2d[0][99]<<std::endl;
+    std::cout<<array_2d[1][0]<<std::endl;
+    std::cout<<array_2d[2][0]<<std::endl;
+    std::cout<<array_2d[50][99]<<std::endl;
+    std::cout<<array_2d[99][99]<<std::endl;
+    */
 
     /*
     for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
@@ -254,8 +273,8 @@ std::vector<std::vector<double>> IntensityDataFunctions::construct2DArray(
     return array_2d;
 }
 
-std::vector<std::vector<double>> IntensityDataFunctions::createFFT(
-        const std::vector<std::vector<double>> & signal)
+std::vector<std::vector<double>> IntensityDataFunctions::FT2DArray(
+        const std::vector<std::vector<double>> &signal)
 {
     FourierTransform ft;
     std::vector<std::vector<double>> fft_array;
@@ -273,34 +292,72 @@ std::vector<std::vector<double>> IntensityDataFunctions::createFFT(
     return fft_array;
 }
 
-OutputData<double>* IntensityDataFunctions::constructOutputDatafrom2D(
-        const std::vector<std::vector<double>> &array_2d, const OutputData<double>& reference)
+OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArray(
+        const std::vector<std::vector<double>> &array_2d)
 {
-    OutputData<double>* result = reference.clone();
-    OutputData<double>::iterator it = result->begin();
-    for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
-        i != array_2d.end(); i++)
-    {
-        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
-        {
-            *it = *j;
-            ++it;
-        }
-    }
+    size_t nrows = array_2d.size();
+    size_t ncols = array_2d[0].size();
 
-    /*
-    OutputData<double>* result = new OutputData<double>;
-    OutputData<double>::iterator it = result->begin();
-    for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
-        i != array_2d.end(); i++)
-    {
-        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
-        {
-            *it = *j;
-            ++it;
+    OutputData<double> *result = new OutputData<double>;
+    result->addAxis("x", nrows, 0.0, double(nrows));
+    result->addAxis("y", ncols, 0.0, double(ncols));
+    std::vector<unsigned> axes_indices(2);
+    for(unsigned row=0; row<nrows; row++) {
+        for(unsigned col=0; col<ncols; col++) {
+            axes_indices[0] = row;
+            axes_indices[1] = col;
+            size_t global_index = result->toGlobalIndex(axes_indices);
+            (*result)[global_index] = array_2d[row][col];
         }
     }
-    */
 
     return result;
+}
+
+
+// Another way of constructing OutputData from 2D array
+OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArrayV2(
+        const std::vector<std::vector<double>> &array_2d, const OutputData<double> &reference)
+{
+    OutputData<double> *result;
+    result = reference.clone();
+    OutputData<double>::iterator it = result->begin();
+    for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
+        i != array_2d.end(); i++)
+    {
+        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
+        {
+            *it = *j;
+            ++it;
+        }
+    }
+
+    return result;
+}
+
+
+OutputData<double>* IntensityDataFunctions::getFourierTransform(const OutputData<double> &data)
+{
+    std::vector<std::vector<double>> array_2d =
+            IntensityDataFunctions::create2DArrayfromOutputData(data);
+
+    std::vector<std::vector<double>> fft_array_2d =
+            IntensityDataFunctions::FT2DArray(array_2d);
+
+    OutputData<double>* fftOutputData = IntensityDataFunctions::createOutputDatafrom2DArray(
+                fft_array_2d);
+
+    // Another way of constructing OutputData from 2D array
+    //fftOutputData = IntensityDataFunctions::createOutputDatafrom2DArray(
+    //                   fft_array_2d, *dataItem->getOutputData());
+
+
+    /*
+    std::cout<<(*fftOutputData)[0]<<std::endl;
+    std::cout<<(*fftOutputData)[1]<<std::endl;
+    std::cout<<(*fftOutputData)[5098]<<std::endl;
+    std::cout<<(*fftOutputData)[5099]<<std::endl;
+    */
+
+    return fftOutputData;
 }

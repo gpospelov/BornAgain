@@ -29,29 +29,29 @@ class BA_CORE_API_ WelcomeView : public QWidget
 {
     Q_OBJECT
 public:
-    WelcomeView(MainWindow *parent);
+    WelcomeView(MainWindow* parent);
 
 public slots:
-    void onWebLinkClicked(const QUrl &url);
+    void onWebLinkClicked(const QUrl& url);
     void onNewUser();
     void updateRecentProjectPanel();
-    void setNotificationText(const QString &text);
+    void setNotificationText(const QString& text);
 
 private:
     void clearLayout(QLayout* layout, bool deleteWidgets = true);
     void generateRecentProjectList();
-    QString getCurrentProjectFancyName();
-    void setCurrentProjectName(const QString &name);
+    QString currentProjectFancyName();
+    void setCurrentProjectName(const QString& name);
+    ProjectManager* projectManager();
 
-    QPushButton *m_newProjectButton;
-    QPushButton *m_openProjectButton;
-    QPushButton *m_newUsertButton;
-    MainWindow *m_mainWindow;
-    ProjectManager *m_projectManager;
-    QSignalMapper *m_signalMapper;
-    QVBoxLayout *m_recentProjectLayout;
-    FancyLabel *m_currentProName;
-    QLabel *m_updateNotification;
+    QPushButton* m_newProjectButton;
+    QPushButton* m_openProjectButton;
+    QPushButton* m_newUsertButton;
+    MainWindow* m_mainWindow;
+    QSignalMapper* m_signalMapper;
+    QVBoxLayout* m_recentProjectLayout;
+    FancyLabel* m_currentProName;
+    QLabel* m_updateNotification;
 };
 
 #endif // WELCOMEVIEW_H

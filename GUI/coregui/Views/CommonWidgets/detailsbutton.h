@@ -23,7 +23,8 @@
 **
 ****************************************************************************/
 
-#pragma once
+#ifndef DETAILSBUTTON_H
+#define DETAILSBUTTON_H
 
 
 #include <QAbstractButton>
@@ -78,3 +79,5 @@ private:
     float m_fader;
 };
 } // namespace Utils
+
+#endif

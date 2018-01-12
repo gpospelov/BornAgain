@@ -16,19 +16,24 @@
 #include "item_constants.h"
 #include "GISASInstrumentEditor.h"
 
+namespace {
+const QString GISASPresentation = "GISAS";
+}
+
 InstrumentPresenter::InstrumentPresenter(QWidget* parent)
     : ItemComboWidget(parent)
 {
-    registerWidget(Constants::GISASInstrumentType, create_new<GISASInstrumentEditor>);
+    registerWidget(GISASPresentation, create_new<GISASInstrumentEditor>);
+    setToolBarVisible(false);
 }
 
 QString InstrumentPresenter::itemPresentation() const
 {
-    return Constants::GISASInstrumentType;
+    return GISASPresentation;
 }
 
 QStringList InstrumentPresenter::activePresentationList(SessionItem* item)
 {
     Q_UNUSED(item);
-    return QStringList() << Constants::GISASInstrumentType;
+    return QStringList() << GISASPresentation;
 }

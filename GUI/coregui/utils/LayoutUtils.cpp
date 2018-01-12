@@ -111,3 +111,10 @@ void deleteChildWidgets(QLayoutItem* item)
 }
 
 }
+
+QWidget* LayoutUtils::placeHolder()
+{
+    auto result = new QWidget;
+    result->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    return result;
+}

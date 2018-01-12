@@ -29,11 +29,11 @@ InstrumentView::InstrumentView(MainWindow* mainWindow)
       m_instrumentEditor(new ItemStackPresenter<InstrumentEditorWidget>(true)),
       m_instrumentModel(mainWindow->instrumentModel())
 {
-    QHBoxLayout* horizontalLayout = new QHBoxLayout;
+    auto horizontalLayout = new QHBoxLayout;
     horizontalLayout->addWidget(m_instrumentSelector);
     horizontalLayout->addWidget(m_instrumentEditor, 1);
 
-    QVBoxLayout* mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(m_toolBar);

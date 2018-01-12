@@ -22,7 +22,7 @@ InstrumentViewToolBar::InstrumentViewToolBar(InstrumentViewActions* actions, QWi
     , m_addInstrumentButton(new QToolButton)
     , m_removeInstrumentButton(new QToolButton)
     , m_cloneInstrumentButton(new QToolButton)
-    , m_addInstrumentMenu(actions->addInstrumentMenu())
+    , m_addInstrumentMenu(actions->instrumentMenu())
 {
     m_addInstrumentButton->setText("Add");
     m_addInstrumentButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));

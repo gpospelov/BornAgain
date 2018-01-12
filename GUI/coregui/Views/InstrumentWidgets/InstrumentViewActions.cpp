@@ -43,6 +43,11 @@ InstrumentViewActions::InstrumentViewActions(QWidget* parent)
             this, &InstrumentViewActions::onCloneInstrument);
 }
 
+InstrumentViewActions::~InstrumentViewActions()
+{
+    delete m_addInstrumentMenu;
+}
+
 void InstrumentViewActions::setModel(SessionModel* model)
 {
     m_model = model;
@@ -55,7 +60,7 @@ void InstrumentViewActions::setSelectionModel(QItemSelectionModel* selectionMode
 
 //! Returns menu to create one of available instrument types.
 
-QMenu* InstrumentViewActions::addInstrumentMenu()
+QMenu* InstrumentViewActions::instrumentMenu()
 {
     return m_addInstrumentMenu;
 }

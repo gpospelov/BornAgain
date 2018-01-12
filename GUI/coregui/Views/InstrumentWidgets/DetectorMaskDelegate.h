@@ -32,6 +32,7 @@ class DetectorItem;
 class BA_CORE_API_ DetectorMaskDelegate : public QObject
 {
     Q_OBJECT
+
 public:
     DetectorMaskDelegate(QObject* parent);
 

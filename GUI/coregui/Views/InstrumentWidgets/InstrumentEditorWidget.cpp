@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "InstrumentEditorWidget.h"
-#include "GISASInstrumentEditor.h"
 #include "InstrumentItems.h"
 #include "AdjustingScrollArea.h"
 #include "DetectorItems.h"

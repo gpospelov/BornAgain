@@ -49,7 +49,7 @@ int getRank(const InstrumentItem& item) {
 
 std::pair<int, int> RealDataShape(const RealDataItem& realData);
 
-std::pair<int, int> DetectorShape(const GISASInstrumentItem& instrumentItem);
+std::pair<int, int> DetectorShape(const InstrumentItem& instrumentItem);
 
 }
 
@@ -85,8 +85,8 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportData(QString& baseNam
     return result;
 }
 
-bool ImportDataUtils::Compatible(const RealDataItem& instrumentItem,
-                                 const InstrumentItem& realDataItem)
+bool ImportDataUtils::Compatible(const InstrumentItem& instrumentItem,
+                                 const RealDataItem& realDataItem)
 {
     return getRank(instrumentItem) == getRank(realDataItem);
 }
@@ -118,9 +118,12 @@ ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
 
 //! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
 
-bool ImportDataUtils::HasSameShape(const GISASInstrumentItem& instrumentItem,
+bool ImportDataUtils::HasSameShape(const InstrumentItem& instrumentItem,
                                    const RealDataItem& realDataItem, QString* message)
 {
+    if (!Compatible(instrumentItem, realDataItem))
+        return false;
+
     bool isSame(true);
 
     auto dataShape = RealDataShape(realDataItem);
@@ -137,11 +140,19 @@ bool ImportDataUtils::HasSameShape(const GISASInstrumentItem& instrumentItem,
     return isSame;
 }
 
-void ImportDataUtils::SetInstrumentShapeToData(GISASInstrumentItem& instrumentItem,
+// TODO refactor this after appearance of specular instrument
+void ImportDataUtils::SetInstrumentShapeToData(InstrumentItem& instrumentItem,
                                                const RealDataItem& realDataItemItem)
 {
     auto dataShape = RealDataShape(realDataItemItem);
-    instrumentItem.detectorItem()->setSize(dataShape.first, dataShape.second);
+    if(auto offspecInstrument = dynamic_cast<OffSpecInstrumentItem*>(&instrumentItem)) {
+        offspecInstrument->detectorItem()->setSize(dataShape.first, dataShape.second);
+    } else if (auto gisasInstrument = dynamic_cast<GISASInstrumentItem*>(&instrumentItem)) {
+        gisasInstrument->detectorItem()->setSize(dataShape.first, dataShape.second);
+    } else {
+        throw GUIHelpers::Error("ImportDataUtils::SetInstrumentShapeToData() -> Error."
+                                "Not supported instrument type");
+    }
 }
 
 namespace {
@@ -161,11 +172,24 @@ std::pair<int, int> RealDataShape(const RealDataItem& realData)
 
 //! Returns shape of Instrument's detector axes.
 
-std::pair<int, int> DetectorShape(const GISASInstrumentItem& instrumentItem)
+// TODO refactor this after appearance of specular instrument
+
+std::pair<int, int> DetectorShape(const InstrumentItem& instrumentItem)
 {
-    std::unique_ptr<IDetector2D> detector = instrumentItem.detectorItem()->createDetector();
-    return std::make_pair(static_cast<int>(detector->getAxis(0).size()),
-                          static_cast<int>(detector->getAxis(1).size()));
+    if(auto offspecInstrument = dynamic_cast<const OffSpecInstrumentItem*>(&instrumentItem)) {
+        std::unique_ptr<IDetector2D> detector = offspecInstrument->detectorItem()->createDetector();
+        return std::make_pair(static_cast<int>(detector->getAxis(0).size()),
+                              static_cast<int>(detector->getAxis(1).size()));
+
+    } else if (auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(&instrumentItem)) {
+        std::unique_ptr<IDetector2D> detector = gisasInstrument->detectorItem()->createDetector();
+        return std::make_pair(static_cast<int>(detector->getAxis(0).size()),
+                              static_cast<int>(detector->getAxis(1).size()));
+    } else {
+        throw GUIHelpers::Error("ImportDataUtils::DetectorShape() -> Error."
+                                "Not supported instrument type");
+    }
+
 }
 
 }

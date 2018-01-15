@@ -36,13 +36,13 @@ BA_CORE_API_ std::unique_ptr<OutputData<double>>
 CreateSimplifiedOutputData(const OutputData<double>& data);
 
 //! Returns true if data item is compatible with instrument.
-BA_CORE_API_ bool Compatible(const RealDataItem& instrumentItem,
-                             const InstrumentItem& realDataItem);
+BA_CORE_API_ bool Compatible(const InstrumentItem& instrumentItem,
+                             const RealDataItem& realDataItem);
 
-BA_CORE_API_ bool HasSameShape(const GISASInstrumentItem& instrumentItem,
+BA_CORE_API_ bool HasSameShape(const InstrumentItem& instrumentItem,
                                const RealDataItem& realDataItem, QString* message = nullptr);
 
-BA_CORE_API_ void SetInstrumentShapeToData(GISASInstrumentItem& instrumentItem,
+BA_CORE_API_ void SetInstrumentShapeToData(InstrumentItem& instrumentItem,
                                            const RealDataItem& realDataItemItem);
 };
 

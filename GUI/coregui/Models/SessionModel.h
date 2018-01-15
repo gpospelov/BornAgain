@@ -58,7 +58,6 @@ public:
 
     QString getModelTag() const;
     QString getModelName() const;
-    void setModelName(const QString& name);
 
     QVector<QString> acceptableDefaultItemTypes(const QModelIndex& parent) const;
 
@@ -120,8 +119,6 @@ inline Qt::DropActions SessionModel::supportedDropActions() const { return Qt::M
 inline QString SessionModel::getModelTag() const { return m_model_tag; }
 
 inline QString SessionModel::getModelName() const { return m_name; }
-
-inline void SessionModel::setModelName(const QString& name) { m_name = name; }
 
 inline void SessionModel::setDraggedItemType(const QString& type) { m_dragged_item_type = type; }
 

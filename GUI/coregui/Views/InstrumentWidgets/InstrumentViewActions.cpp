@@ -165,15 +165,11 @@ QMap<QString, int> InstrumentViewActions::mapOfNames()
 {
     QMap<QString, int> result;
 
-    QModelIndex parentIndex;
-    for (int i_row = 0; i_row < m_model->rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = m_model->index(i_row, 0, parentIndex);
-        QString name = m_model->itemForIndex(itemIndex)->itemName();
+    for(auto& name : m_model->topItemNames()) {
         int ncopy(1);
         QRegExp regexp("\\((.*)\\)");
-        if (regexp.indexIn(name) >= 0) {
+        if (regexp.indexIn(name) >= 0)
             ncopy = regexp.cap(1).toInt();
-        }
         name.replace(regexp.cap(0), "");
         name = name.trimmed();
         result[name] = ncopy;

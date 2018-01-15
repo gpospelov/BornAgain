@@ -107,13 +107,6 @@ UpdateNotifier* MainWindow::updateNotifier()
     return m_updateNotifier;
 }
 
-//! updates views which depend on others
-void MainWindow::onChangeTabWidget(int index)
-{
-    if (index == WELCOME)
-        m_welcomeView->updateRecentProjectPanel();
-}
-
 void MainWindow::onFocusRequest(int index)
 {
     m_tabWidget->setCurrentIndex(index);
@@ -277,8 +270,6 @@ void MainWindow::writeSettings()
 
 void MainWindow::initConnections()
 {
-    connect(m_tabWidget, &Manhattan::FancyTabWidget::currentChanged,
-            this, &MainWindow::onChangeTabWidget);
     connect(m_jobView, &JobView::focusRequest, this, &MainWindow::onFocusRequest);
     connect(m_updateNotifier, &UpdateNotifier::onUpdateNotification,
             m_welcomeView, &WelcomeView::setNotificationText);

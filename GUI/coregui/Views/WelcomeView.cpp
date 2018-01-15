@@ -159,6 +159,11 @@ void WelcomeView::setNotificationText(const QString& text)
     m_updateNotification->setText(text);
 }
 
+void WelcomeView::showEvent(QShowEvent*)
+{
+    updateRecentProjectPanel();
+}
+
 QWidget* WelcomeView::createProjectWidget()
 {
     auto layout = new QHBoxLayout;
@@ -176,27 +181,23 @@ QWidget* WelcomeView::createProjectWidget()
 
 QBoxLayout* WelcomeView::createButtonLayout()
 {
-    QFont buttonFont;
-    buttonFont.setPointSize(DesignerHelper::getLabelFontSize());
-    buttonFont.setBold(false);
-
     m_newProjectButton = new QPushButton("New Project");
     m_newProjectButton->setMinimumWidth(buttonWidth);
     m_newProjectButton->setMinimumHeight(buttonHeight);
-    m_newProjectButton->setFont(buttonFont);
+    m_newProjectButton->setFont(StyleUtils::labelFont());
     m_newProjectButton->setToolTip("Create new project");
     m_newProjectButton->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     m_openProjectButton = new QPushButton("Open Project");
     m_openProjectButton->setMinimumWidth(buttonWidth);
     m_openProjectButton->setMinimumHeight(buttonHeight);
-    m_openProjectButton->setFont(buttonFont);
+    m_openProjectButton->setFont(StyleUtils::labelFont());
     m_openProjectButton->setToolTip("Open existing project");
 
     m_newUsertButton = new QPushButton("New to BornAgain?");
     m_newUsertButton->setMinimumWidth(buttonWidth);
     m_newUsertButton->setMinimumHeight(buttonHeight);
-    m_newUsertButton->setFont(buttonFont);
+    m_newUsertButton->setFont(StyleUtils::labelFont());
     m_newUsertButton->setToolTip("Open BornAgain web site");
 
     auto buttonLayout = new QVBoxLayout;
@@ -217,11 +218,8 @@ QBoxLayout* WelcomeView::createCurrentProjectLayout()
     auto result = new QVBoxLayout;
     result->setContentsMargins(30, 0, 0, 0);
 
-    QFont titleFont;
-    titleFont.setPointSize(DesignerHelper::getSectionFontSize());
-    titleFont.setBold(true);
     auto label = new QLabel("Current Project:");
-    label->setFont(titleFont);
+    label->setFont(StyleUtils::sectionFont());
 
     m_currentProjectLabel = new FancyLabel("Untitled");
     result->addWidget(label);

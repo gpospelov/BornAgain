@@ -72,9 +72,7 @@ QFont StyleUtils::sectionFont(bool bold)
 {
     QFont result;
     result.setPointSize(DesignerHelper::getSectionFontSize());
-
-    if (bold)
-        result.setBold(true);
+    result.setBold(bold);
 
     return result;
 }
@@ -83,9 +81,7 @@ QFont StyleUtils::labelFont(bool bold)
 {
     QFont result;
     result.setPointSize(DesignerHelper::getLabelFontSize());
-
-    if (bold)
-        result.setBold(true);
+    result.setBold(bold);
 
     return result;
 }

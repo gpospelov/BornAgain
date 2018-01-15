@@ -39,6 +39,9 @@ public slots:
     void updateRecentProjectPanel();
     void setNotificationText(const QString& text);
 
+protected:
+    void showEvent(QShowEvent*);
+
 private:
     QWidget* createProjectWidget();
     QBoxLayout* createButtonLayout();

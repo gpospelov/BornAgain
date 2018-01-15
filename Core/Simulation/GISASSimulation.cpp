@@ -33,13 +33,13 @@ GISASSimulation::GISASSimulation()
 }
 
 GISASSimulation::GISASSimulation(const MultiLayer& p_sample)
-    : Simulation(p_sample)
+    : Simulation2D(p_sample)
 {
     initialize();
 }
 
 GISASSimulation::GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : Simulation(p_sample_builder)
+    : Simulation2D(p_sample_builder)
 {
     initialize();
 }
@@ -113,7 +113,7 @@ void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, 
 }
 
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
-    : Simulation(other)
+    : Simulation2D(other)
     , m_sim_elements(other.m_sim_elements)
     , m_storage(other.m_storage)
 {

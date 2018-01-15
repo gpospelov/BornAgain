@@ -15,7 +15,7 @@
 #ifndef GISASSIMULATION_H
 #define GISASSIMULATION_H
 
-#include "Simulation.h"
+#include "Simulation2D.h"
 #include "SimulationElement.h"
 
 class MultiLayer;
@@ -26,7 +26,7 @@ class Histogram2D;
 //! Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ GISASSimulation : public Simulation
+class BA_CORE_API_ GISASSimulation : public Simulation2D
 {
 public:
     GISASSimulation();

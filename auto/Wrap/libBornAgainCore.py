@@ -16493,6 +16493,36 @@ class Simulation(ICloneable, INode):
 Simulation_swigregister = _libBornAgainCore.Simulation_swigregister
 Simulation_swigregister(Simulation)
 
+class Simulation2D(Simulation):
+    """Proxy of C++ Simulation2D class."""
+
+    __swig_setmethods__ = {}
+    for _s in [Simulation]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Simulation2D, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Simulation]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, Simulation2D, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_Simulation2D
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(Simulation2D self) -> Simulation2D
+
+        virtual Simulation* Simulation::clone() const =0
+
+        """
+        return _libBornAgainCore.Simulation2D_clone(self)
+
+Simulation2D_swigregister = _libBornAgainCore.Simulation2D_swigregister
+Simulation2D_swigregister(Simulation2D)
+
 class SimulationOptions(_object):
     """
 
@@ -16687,7 +16717,7 @@ class SimulationOptions(_object):
 SimulationOptions_swigregister = _libBornAgainCore.SimulationOptions_swigregister
 SimulationOptions_swigregister(SimulationOptions)
 
-class GISASSimulation(Simulation):
+class GISASSimulation(Simulation2D):
     """
 
 
@@ -16698,11 +16728,11 @@ class GISASSimulation(Simulation):
     """
 
     __swig_setmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, GISASSimulation, name, value)
     __swig_getmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, GISASSimulation, name)
     __repr__ = _swig_repr
@@ -23653,7 +23683,7 @@ class MultiLayer(ISample):
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
 
-class OffSpecSimulation(Simulation):
+class OffSpecSimulation(Simulation2D):
     """
 
 
@@ -23664,11 +23694,11 @@ class OffSpecSimulation(Simulation):
     """
 
     __swig_setmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, OffSpecSimulation, name, value)
     __swig_getmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, OffSpecSimulation, name)
     __repr__ = _swig_repr

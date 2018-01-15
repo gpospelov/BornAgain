@@ -28,13 +28,13 @@ OffSpecSimulation::OffSpecSimulation()
 }
 
 OffSpecSimulation::OffSpecSimulation(const MultiLayer& p_sample)
-    : Simulation(p_sample)
+    : Simulation2D(p_sample)
 {
     initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : Simulation(p_sample_builder)
+    : Simulation2D(p_sample_builder)
 {
     initialize();
 }
@@ -81,7 +81,7 @@ void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x
 }
 
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
-    : Simulation(other)
+    : Simulation2D(other)
     , m_sim_elements(other.m_sim_elements)
     , m_storage(other.m_storage)
 {

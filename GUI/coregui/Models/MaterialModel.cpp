@@ -84,9 +84,7 @@ MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
 
 MaterialItem* MaterialModel::materialFromName(const QString& material_name)
 {
-    for(auto item : topItems()) {
-        auto materialItem = dynamic_cast<MaterialItem*>(item);
-        Q_ASSERT(materialItem);
+    for(auto materialItem : topItems<MaterialItem>()) {
         if (materialItem->itemName() == material_name)
             return materialItem;
     }
@@ -96,22 +94,10 @@ MaterialItem* MaterialModel::materialFromName(const QString& material_name)
 
 MaterialItem* MaterialModel::materialFromIdentifier(const QString& identifier)
 {
-    for(auto item : topItems()) {
-        auto materialItem = dynamic_cast<MaterialItem*>(item);
-        Q_ASSERT(materialItem);
+    for(auto materialItem : topItems<MaterialItem>()) {
         if (materialItem->getIdentifier() == identifier)
             return materialItem;
     }
 
     return nullptr;
-}
-
-QVector<MaterialItem*> MaterialModel::materialItems()
-{
-    QVector<MaterialItem*> result;
-    for(auto item : topItems()) {
-        if (auto materialItem = dynamic_cast<MaterialItem*>(item))
-            result.push_back(materialItem);
-    }
-    return result;
 }

@@ -193,18 +193,19 @@ TEST_F(TestSaveService, test_autosaveEnabled)
 
     SaveService service;
     service.setAutosaveEnabled(true);
-    const int autosave_time(100);
+    const int autosave_time(200);
     service.setAutosaveTime(autosave_time);
     service.setDocument(document.get());
 
     QSignalSpy spySaveService(&service, SIGNAL(projectSaved()));
     service.save(projectFileName);
 
-    spySaveService.wait(autosave_time * 3); // waiting saving in a thread is complete
+    spySaveService.wait(autosave_time * 5); // waiting saving in a thread is complete
     EXPECT_EQ(spySaveService.count(), 1);
     EXPECT_FALSE(document->isModified());
     EXPECT_TRUE(ProjectUtils::exists(projectDir + "/document.pro"));
     EXPECT_TRUE(ProjectUtils::exists(projectDir + "/realdata.int.gz"));
+    spySaveService.clear();
 
     // modify several times and check SaveService signals
     for (size_t i = 0; i < 10; ++i)
@@ -212,8 +213,8 @@ TEST_F(TestSaveService, test_autosaveEnabled)
 
     EXPECT_TRUE(document->isModified());
 
-    spySaveService.wait(autosave_time * 3); // waiting saving in a thread is complete
-    EXPECT_EQ(spySaveService.count(), 2);
+    spySaveService.wait(autosave_time * 5); // waiting saving in a thread is complete
+    EXPECT_EQ(spySaveService.count(), 1);
 
     EXPECT_TRUE(ProjectUtils::exists(projectDir + "/autosave/document.pro"));
     EXPECT_TRUE(ProjectUtils::exists(projectDir + "/autosave/realdata.int.gz"));

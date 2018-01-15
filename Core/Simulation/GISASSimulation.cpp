@@ -119,15 +119,6 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other)
     initialize();
 }
 
-std::unique_ptr<IComputation> GISASSimulation::generateSingleThreadedComputation(size_t start,
-                                                                                 size_t n_elements)
-{
-    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
-    const auto& begin = m_sim_elements.begin() + start;
-    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, begin,
-                                             begin + n_elements);
-}
-
 void GISASSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
 {
     if (!mP_background)

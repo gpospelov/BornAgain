@@ -93,12 +93,6 @@ private:
 
     void initialize();
 
-    //! Generate a single threaded computation for a given range of simulation elements
-    //! @param start Index of the first element to include into computation
-    //! @param n_elements Number of elements to process
-    std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
-                                                                    size_t n_elements) override;
-
     void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
 
     bool isStorageInited() const override {return !m_storage.empty();}

@@ -33,6 +33,14 @@ public:
 
 protected:
     Simulation2D(const Simulation2D& other);
+
+    //! Generate a single threaded computation for a given range of simulation elements
+    //! @param start Index of the first element to include into computation
+    //! @param n_elements Number of elements to process
+    std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
+                                                                    size_t n_elements) override;
+
+    //! Normalize the intensity of the element with given index
     void normalizeIntensity(size_t index, double beam_intensity) override;
     std::vector<SimulationElement> m_sim_elements;
 };

@@ -28,7 +28,7 @@
 namespace {
 size_t getIndexStep(size_t total_size, size_t n_handlers);
 size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements);
-size_t getElementNumber(size_t n_handlers, size_t current_handler, size_t n_elements);
+size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_elements);
 void runComputations(std::vector<std::unique_ptr<IComputation>> computations);
 }
 
@@ -228,7 +228,7 @@ void Simulation::runSingleSimulation(bool use_storage, double weight)
     const size_t total_size = numberOfSimulationElements();
 
     const size_t batch_start = getStartIndex(n_batches, current_batch, total_size);
-    const size_t batch_size = getElementNumber(n_batches, current_batch, total_size);
+    const size_t batch_size = getNumberOfElements(n_batches, current_batch, total_size);
     if (batch_size == 0)
         return;
 
@@ -239,7 +239,7 @@ void Simulation::runSingleSimulation(bool use_storage, double weight)
 
     for (size_t i_thread = 0; i_thread < n_threads; ++i_thread) { // Distribute computations by threads
         const size_t thread_start = batch_start + getStartIndex(n_threads, i_thread, batch_size);
-        const size_t thread_size = getElementNumber(n_threads, i_thread, batch_size);
+        const size_t thread_size = getNumberOfElements(n_threads, i_thread, batch_size);
         if (thread_size == 0)
             break;
         computations.push_back(generateSingleThreadedComputation(thread_start, thread_size));
@@ -285,7 +285,7 @@ size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_element
     return start_index;
 }
 
-size_t getElementNumber(size_t n_handlers, size_t current_handler, size_t n_elements)
+size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_elements)
 {
     const size_t handler_size = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
     const size_t start_index = current_handler * handler_size;

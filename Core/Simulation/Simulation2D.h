@@ -29,7 +29,12 @@ public:
     Simulation2D(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
     virtual ~Simulation2D() =default;
 
-    virtual Simulation2D* clone() const =0;
+    Simulation2D* clone() const override =0;
+
+protected:
+    Simulation2D(const Simulation2D& other);
+    void normalizeIntensity(size_t index, double beam_intensity) override;
+    std::vector<SimulationElement> m_sim_elements;
 };
 
 #endif // SIMULATION2D_H

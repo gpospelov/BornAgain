@@ -88,8 +88,6 @@ private:
 
     void initialize();
 
-    void normalizeIntensity(size_t index, double beam_intensity) override;
-
     void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
 
     bool isStorageInited() const override {return !m_storage.empty();}
@@ -100,7 +98,6 @@ private:
 
     std::unique_ptr<IAxis> mP_alpha_i_axis;
     OutputData<double> m_intensity_map;
-    std::vector<SimulationElement> m_sim_elements;
     std::vector<SimulationElement> m_storage;
 };
 

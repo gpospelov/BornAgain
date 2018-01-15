@@ -82,7 +82,6 @@ void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x
 
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     : Simulation2D(other)
-    , m_sim_elements(other.m_sim_elements)
     , m_storage(other.m_storage)
 {
     if(other.mP_alpha_i_axis)
@@ -98,16 +97,6 @@ OffSpecSimulation::generateSingleThreadedComputation(size_t start, size_t n_elem
     const auto& begin = m_sim_elements.begin() + start;
     return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, begin,
                                              begin + n_elements);
-}
-
-void OffSpecSimulation::normalizeIntensity(size_t index, double beam_intensity)
-{
-    SimulationElement& element = m_sim_elements[index];
-    double sin_alpha_i = std::abs(std::sin(element.getAlphaI()));
-    if (sin_alpha_i == 0.0)
-        sin_alpha_i = 1.0;
-    const double solid_angle = element.getSolidAngle();
-    element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
 }
 
 void OffSpecSimulation::initSimulationElementVector(bool init_storage)

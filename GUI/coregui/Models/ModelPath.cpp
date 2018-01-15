@@ -42,7 +42,8 @@ QModelIndex ModelPath::getIndexFromPath(const SessionModel* model, const QString
         QStringList parts = path.split("/");
         SessionItem* t = model->rootItem();
         for (int i = 0; i < parts.length(); i++) {
-            if (t->modelType() == Constants::JobItemType && parts[i] == Constants::GISASInstrumentType) {
+            if (t->modelType() == Constants::JobItemType
+                && parts[i] == Constants::GISASInstrumentType) {
                 t = t->getItem(JobItem::T_INSTRUMENT);
                 continue;
             }
@@ -89,29 +90,23 @@ bool ModelPath::isValidItem(SessionModel* model, SessionItem* item, const QModel
 bool ModelPath::isTranslatable(const SessionItem* item, const QString& par_name)
 {
     Q_UNUSED(item);
-    QStringList non_translatable_names {
-                Constants::DistributionSigmaFactor };
+    QStringList non_translatable_names{Constants::DistributionSigmaFactor};
     if (par_name.contains(Constants::SphericalDetectorType)) {
-        QStringList excluded_names {
-                    SphericalDetectorItem::P_PHI_AXIS,
-                    SphericalDetectorItem::P_ALPHA_AXIS };
+        QStringList excluded_names{SphericalDetectorItem::P_PHI_AXIS,
+                                   SphericalDetectorItem::P_ALPHA_AXIS};
         for (auto name : excluded_names) {
             if (par_name.contains(name))
                 return false;
         }
     }
     if (par_name.contains(Constants::RectangularDetectorType)) {
-        QStringList excluded_names {
-                    RectangularDetectorItem::P_X_AXIS,
-                    RectangularDetectorItem::P_Y_AXIS,
-                    RectangularDetectorItem::P_ALIGNMENT,
-                    RectangularDetectorItem::P_NORMAL,
-                    RectangularDetectorItem::P_DIRECTION,
-                    RectangularDetectorItem::P_U0,
-                    RectangularDetectorItem::P_V0,
-                    RectangularDetectorItem::P_DBEAM_U0,
-                    RectangularDetectorItem::P_DBEAM_V0,
-                    RectangularDetectorItem::P_DISTANCE, };
+        QStringList excluded_names{
+            RectangularDetectorItem::P_X_AXIS,    RectangularDetectorItem::P_Y_AXIS,
+            RectangularDetectorItem::P_ALIGNMENT, RectangularDetectorItem::P_NORMAL,
+            RectangularDetectorItem::P_DIRECTION, RectangularDetectorItem::P_U0,
+            RectangularDetectorItem::P_V0,        RectangularDetectorItem::P_DBEAM_U0,
+            RectangularDetectorItem::P_DBEAM_V0,  RectangularDetectorItem::P_DISTANCE,
+        };
         for (auto name : excluded_names) {
             if (par_name.contains(name))
                 return false;

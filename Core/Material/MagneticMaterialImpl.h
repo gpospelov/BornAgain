@@ -36,24 +36,24 @@ public:
     virtual ~MagneticMaterialImpl() = default;
 
     //! Returns pointer to a copy of material
-    virtual MagneticMaterialImpl* clone() const override = 0;
+    MagneticMaterialImpl* clone() const override =0;
 
     //! Constructs a material with inverted magnetization
-    virtual MagneticMaterialImpl* inverted() const override final;
+    MagneticMaterialImpl* inverted() const override final;
 
     //! Indicates whether the interaction with the material is scalar.
     //! This means that different polarization states will be diffracted equally
-    virtual bool isScalarMaterial() const override final;
+    bool isScalarMaterial() const override final;
 
-    virtual bool isMagneticMaterial() const override final;
+    bool isMagneticMaterial() const override final;
 
     //! Returns the magnetization (in A/m)
-    virtual kvector_t magnetization() const override final;
+    kvector_t magnetization() const override final;
 
     //! Returns (\f$ \pi/\lambda^2 \f$ - sld) matrix with magnetization corrections
-    virtual Eigen::Matrix2cd polarizedSubtrSLD(const WavevectorInfo& wavevectors) const override final;
+    Eigen::Matrix2cd polarizedSubtrSLD(const WavevectorInfo& wavevectors) const override final;
 
-    virtual MagneticMaterialImpl* transformedMaterial(const Transform3D& transform) const override final;
+    MagneticMaterialImpl* transformedMaterial(const Transform3D& transform) const override final;
 
 private:
     void setMagnetization(kvector_t magnetization)

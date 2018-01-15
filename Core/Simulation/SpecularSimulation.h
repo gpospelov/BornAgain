@@ -38,14 +38,14 @@ public:
     SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
     virtual ~SpecularSimulation();
 
-    virtual SpecularSimulation* clone() const override;
+    SpecularSimulation* clone() const override;
 
     //! Put into a clean state for running a simulation.
-    virtual void prepareSimulation() override;
+    void prepareSimulation() override;
 
-    virtual void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
+    void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
 
-    virtual size_t numberOfSimulationElements() const override;
+    size_t numberOfSimulationElements() const override;
 
     //! Sets beam parameters with alpha_i of the beam defined in the range.
     void setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i = 0.0);
@@ -57,8 +57,8 @@ public:
 
     //! Returns detector count values in the form of OutputData<double>. Detector counts are
     //! proportional to \f$Reflectivity = |R|^2\f$ from the upper layer.
-    virtual OutputData<double>* getDetectorIntensity(AxesUnits units_type
-                                                     = AxesUnits::DEFAULT) const override;
+    OutputData<double>* getDetectorIntensity(
+            AxesUnits units_type= AxesUnits::DEFAULT) const override;
 
     //! Returns reflectivity values \f$Reflectivity = |R|^2\f$ in the form of 1D Histogram
     //! for the upper sample layer.
@@ -84,7 +84,7 @@ private:
 
     //! Initializes the vector of Simulation elements
     //! @param init_storage Initialize storage for accumulating results
-    virtual void initSimulationElementVector(bool init_storage) override;
+    void initSimulationElementVector(bool init_storage) override;
 
     std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
 
@@ -93,8 +93,8 @@ private:
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
     //! @param n_elements Number of elements to process
-    virtual std::unique_ptr<IComputation>
-    generateSingleThreadedComputation(size_t start, size_t n_elements) override;
+    std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
+                                                                    size_t n_elements) override;
 
     //! Checks if simulation data is ready for retrieval
     void validityCheck(size_t i_layer) const;
@@ -104,15 +104,15 @@ private:
 
     //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle
     //! for single simulation element specified by _index_.
-    virtual void normalizeIntensity(size_t index, double beam_intensity) override;
+    void normalizeIntensity(size_t index, double beam_intensity) override;
 
-    virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+    void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
 
-    virtual bool isStorageInited() const override {return !m_storage.empty();}
+    bool isStorageInited() const override {return !m_storage.empty();}
 
-    virtual void addDataToStorage(double weight) override;
+    void addDataToStorage(double weight) override;
 
-    virtual void moveDataFromStorage() override;
+    void moveDataFromStorage() override;
 
     std::vector<SimulationElement> m_sim_elements;
     std::vector<SimulationElement> m_storage;

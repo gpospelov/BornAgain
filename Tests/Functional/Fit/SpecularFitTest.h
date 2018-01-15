@@ -28,7 +28,7 @@ public:
     virtual ~SpecularFitTest();
 
 protected:
-    virtual void initParameterPlan() override;
+    void initParameterPlan() override;
 };
 
 #endif /* SPECULARFITTEST_H_ */

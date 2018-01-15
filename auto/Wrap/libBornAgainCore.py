@@ -7499,6 +7499,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, HexagonalLattice arg2)
         visit(INodeVisitor self, IAbstractParticle arg2)
         visit(INodeVisitor self, IClusteredParticles arg2)
+        visit(INodeVisitor self, IdentityRotation arg2)
         visit(INodeVisitor self, IFormFactor arg2)
         visit(INodeVisitor self, IFormFactorBorn arg2)
         visit(INodeVisitor self, IFormFactorDecorator arg2)
@@ -16716,7 +16717,7 @@ class GISASSimulation(Simulation):
         """
         clone(GISASSimulation self) -> GISASSimulation
 
-        GISASSimulation* GISASSimulation::clone() const
+        GISASSimulation* GISASSimulation::clone() const override
 
         """
         return _libBornAgainCore.GISASSimulation_clone(self)
@@ -16763,7 +16764,7 @@ class GISASSimulation(Simulation):
         getDetectorIntensity(GISASSimulation self, AxesUnits units_type) -> IntensityData
         getDetectorIntensity(GISASSimulation self) -> IntensityData
 
-        OutputData< double > * GISASSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const
+        OutputData< double > * GISASSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
 
         Returns clone of the detector intensity map with detector resolution applied. 
 
@@ -18002,7 +18003,7 @@ class IDetector(ICloneable, INode):
         """
         clone(IDetector self) -> IDetector
 
-        virtual IDetector* IDetector::clone() const override=0
+        IDetector* IDetector::clone() const override=0
 
         """
         return _libBornAgainCore.IDetector_clone(self)
@@ -18308,7 +18309,7 @@ class IDetector2D(IDetector):
         """
         clone(IDetector2D self) -> IDetector2D
 
-        virtual IDetector2D* IDetector2D::clone() const override=0
+        IDetector2D* IDetector2D::clone() const override=0
 
         """
         return _libBornAgainCore.IDetector2D_clone(self)
@@ -18819,6 +18820,18 @@ class IAbstractParticle(ISample):
         """
         return _libBornAgainCore.IAbstractParticle_translate(self, translation)
 
+
+    def rotate(self, rotation):
+        """
+        rotate(IAbstractParticle self, IRotation rotation)
+
+        virtual void IAbstractParticle::rotate(const IRotation &rotation)=0
+
+        Applies the given rotation to the particle. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_rotate(self, rotation)
+
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
 IAbstractParticle_swigregister(IAbstractParticle)
 
@@ -19083,9 +19096,9 @@ class IParticle(IAbstractParticle):
         """
         rotate(IParticle self, IRotation rotation)
 
-        void IParticle::rotate(const IRotation &rotation)
+        void IParticle::rotate(const IRotation &rotation) override final
 
-        Applies transformation by composing it with the existing one. 
+        Rotates the particle. 
 
         """
         return _libBornAgainCore.IParticle_rotate(self, rotation)
@@ -19331,6 +19344,96 @@ def IsZRotation(rot):
 
     """
     return _libBornAgainCore.IsZRotation(rot)
+class IdentityRotation(IRotation):
+    """Proxy of C++ IdentityRotation class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IRotation]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IdentityRotation, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IRotation]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IdentityRotation, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(IdentityRotation self) -> IdentityRotation
+
+        IdentityRotation::IdentityRotation()=default
+
+        """
+        this = _libBornAgainCore.new_IdentityRotation()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(IdentityRotation self) -> IdentityRotation
+
+        IdentityRotation* IdentityRotation::clone() const
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_clone(self)
+
+
+    def createInverse(self):
+        """
+        createInverse(IdentityRotation self) -> IdentityRotation
+
+        IdentityRotation* IdentityRotation::createInverse() const
+
+        Returns a new  IRotation object that is the current object's inverse. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_createInverse(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(IdentityRotation self, INodeVisitor visitor)
+
+        void IdentityRotation::accept(INodeVisitor *visitor) const
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_accept(self, visitor)
+
+
+    def getTransform3D(self):
+        """
+        getTransform3D(IdentityRotation self) -> Transform3D
+
+        Transform3D IdentityRotation::getTransform3D() const
+
+        Returns transformation. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_getTransform3D(self)
+
+
+    def isIdentity(self):
+        """
+        isIdentity(IdentityRotation self) -> bool
+
+        bool IdentityRotation::isIdentity() const
+
+        Returns true if rotation matrix is identity matrix (no rotations) 
+
+        """
+        return _libBornAgainCore.IdentityRotation_isIdentity(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_IdentityRotation
+    __del__ = lambda self: None
+IdentityRotation_swigregister = _libBornAgainCore.IdentityRotation_swigregister
+IdentityRotation_swigregister(IdentityRotation)
+
 class RotationX(IRotation):
     """Proxy of C++ RotationX class."""
 
@@ -23147,7 +23250,7 @@ class MultiLayer(ISample):
         """
         accept(MultiLayer self, INodeVisitor visitor)
 
-        virtual void MultiLayer::accept(INodeVisitor *visitor) const final override
+        void MultiLayer::accept(INodeVisitor *visitor) const final override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -23556,7 +23659,7 @@ class OffSpecSimulation(Simulation):
         """
         clone(OffSpecSimulation self) -> OffSpecSimulation
 
-        OffSpecSimulation* OffSpecSimulation::clone() const
+        OffSpecSimulation* OffSpecSimulation::clone() const override
 
         """
         return _libBornAgainCore.OffSpecSimulation_clone(self)
@@ -23603,7 +23706,7 @@ class OffSpecSimulation(Simulation):
         getDetectorIntensity(OffSpecSimulation self, AxesUnits units_type) -> IntensityData
         getDetectorIntensity(OffSpecSimulation self) -> IntensityData
 
-        OutputData<double>* OffSpecSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const
+        OutputData<double>* OffSpecSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
 
         Returns clone of the detector intensity map. 
 
@@ -25154,7 +25257,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         clone(ParticleDistribution self) -> ParticleDistribution
 
-        ParticleDistribution * ParticleDistribution::clone() const final override
+        ParticleDistribution * ParticleDistribution::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -25166,7 +25269,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         accept(ParticleDistribution self, INodeVisitor visitor)
 
-        void ParticleDistribution::accept(INodeVisitor *visitor) const final override
+        void ParticleDistribution::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -25178,12 +25281,24 @@ class ParticleDistribution(IAbstractParticle):
         """
         translate(ParticleDistribution self, kvector_t translation)
 
-        void ParticleDistribution::translate(kvector_t translation) final override
+        void ParticleDistribution::translate(kvector_t translation) override final
 
         Translates the particle with the given vector. 
 
         """
         return _libBornAgainCore.ParticleDistribution_translate(self, translation)
+
+
+    def rotate(self, rotation):
+        """
+        rotate(ParticleDistribution self, IRotation rotation)
+
+        void ParticleDistribution::rotate(const IRotation &rotation) override final
+
+        Applies the given rotation to the particle. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_rotate(self, rotation)
 
 
     def generateParticles(self):
@@ -25228,7 +25343,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleDistribution::getChildren() const final override
+        std::vector< const INode * > ParticleDistribution::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -25263,10 +25378,10 @@ class ParticleLayout(ILayout):
     def __init__(self, *args):
         """
         __init__(ParticleLayout self) -> ParticleLayout
+        __init__(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0) -> ParticleLayout
         __init__(ParticleLayout self, IAbstractParticle particle) -> ParticleLayout
-        __init__(ParticleLayout self, IAbstractParticle particle, double abundance) -> ParticleLayout
 
-        ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance)
+        ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance=-1.0)
 
         """
         this = _libBornAgainCore.new_ParticleLayout(*args)
@@ -25313,12 +25428,12 @@ class ParticleLayout(ILayout):
 
     def addParticle(self, *args):
         """
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position, IRotation rotation)
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position)
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0)
         addParticle(ParticleLayout self, IAbstractParticle particle)
-        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance)
-        addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position)
-        addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position, IRotation rotation)
 
-        void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
+        void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position=kvector_t(), const IRotation &rotation=IdentityRotation())
 
         Adds particle to the layout with abundance, position and the rotation defined.
 
@@ -26343,7 +26458,7 @@ class SpecularSimulation(Simulation):
         """
         accept(SpecularSimulation self, INodeVisitor visitor)
 
-        virtual void SpecularSimulation::accept(INodeVisitor *visitor) const override final
+        void SpecularSimulation::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 

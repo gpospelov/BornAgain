@@ -28,8 +28,8 @@ public:
     RectDetectorFitTest();
 
 protected:
-    virtual std::unique_ptr<Simulation> createSimulation() override;
-    virtual std::unique_ptr<OutputData<double>> createOutputData(const Simulation* simulation) override;
+    std::unique_ptr<Simulation> createSimulation() override;
+    std::unique_ptr<OutputData<double>> createOutputData(const Simulation* simulation) override;
 };
 
 #endif // RECTDETECTORFITTEST_H

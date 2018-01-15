@@ -32,7 +32,7 @@ public:
 protected:
     QString itemPresentation() const override;
     QStringList activePresentationList(SessionItem* item) override;
-    virtual QStringList presentationList(SessionItem* item) override;
+    QStringList presentationList(SessionItem* item) override;
 };
 
 #endif // JOBRESULTSPRESENTER_H

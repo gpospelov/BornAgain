@@ -30,23 +30,23 @@ public:
     virtual ~RefractiveMaterialImpl() = default;
 
     //! Returns pointer to a copy of material
-    virtual RefractiveMaterialImpl* clone() const override;
+    RefractiveMaterialImpl* clone() const override;
 
     //! Returns refractive index
     //! For this particular implementation returned value does not depend
     //! on passed wavelength
-    virtual complex_t refractiveIndex(double wavelength) const override;
+    complex_t refractiveIndex(double wavelength) const override;
 
     //! Returns squared refractive index.
     //! For this particular implementation returned value does not depend
     //! on passed wavelength.
-    virtual complex_t refractiveIndex2(double wavelength) const override;
+    complex_t refractiveIndex2(double wavelength) const override;
 
     //! Returns underlying material data
-    virtual complex_t materialData() const override;
+    complex_t materialData() const override;
 
     //! Returns type of material implementation
-    virtual MATERIAL_TYPES typeID() const override
+    MATERIAL_TYPES typeID() const override
     {
         return MATERIAL_TYPES::RefractiveMaterial;
     }
@@ -55,10 +55,10 @@ public:
     //! If the wavelength associated with passed wavevector is different from the one
     //! associated with refractive coefficients used during the object construction,
     //! provided result is inconsistent.
-    virtual complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const override;
+    complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const override;
 
     //! Prints object data
-    virtual void print(std::ostream &ostr) const override;
+    void print(std::ostream &ostr) const override;
 
 private:
     RefractiveMaterialImpl(const std::string& name, double delta, double beta,

@@ -30,28 +30,28 @@ public:
     virtual ~MaterialBySLDImpl() = default;
 
     //! Returns pointer to a copy of material
-    virtual MaterialBySLDImpl* clone() const override;
+    MaterialBySLDImpl* clone() const override;
 
     //! Returns refractive index
-    virtual complex_t refractiveIndex(double wavelength) const override;
+    complex_t refractiveIndex(double wavelength) const override;
 
     //! Returns squared refractive index
-    virtual complex_t refractiveIndex2(double wavelength) const override;
+    complex_t refractiveIndex2(double wavelength) const override;
 
     //! Returns underlying material data
-    virtual complex_t materialData() const override;
+    complex_t materialData() const override;
 
     //! Returns type of material implementation
-    virtual MATERIAL_TYPES typeID() const override
+    MATERIAL_TYPES typeID() const override
     {
         return MATERIAL_TYPES::MaterialBySLD;
     }
 
     //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density
-    virtual complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const override;
+    complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const override;
 
     //! Prints object data
-    virtual void print(std::ostream &ostr) const override;
+    void print(std::ostream &ostr) const override;
 
 private:
     MaterialBySLDImpl(const std::string& name, double sld, double abs_term,

@@ -17,6 +17,7 @@
 
 #include "WinDllMacros.h"
 
+class QLayout;
 class QGridLayout;
 class QWidget;
 
@@ -26,6 +27,9 @@ class QWidget;
 namespace LayoutUtils
 {
 
+//! Removes content from box layout.
+BA_CORE_API_ void clearLayout(QLayout* layout, bool deleteWidgets = true);
+
 //! Removes row from grid layout (important: doesn't change row count).
 BA_CORE_API_ void removeRow(QGridLayout *layout, int row, bool deleteWidgets = true);
 
@@ -33,7 +37,7 @@ BA_CORE_API_ void removeRow(QGridLayout *layout, int row, bool deleteWidgets = t
 BA_CORE_API_ void removeColumn(QGridLayout *layout, int column, bool deleteWidgets = true);
 
 //! Clear layout completely.
-BA_CORE_API_ void clearLayout(QGridLayout* layout, bool deleteWidgets = true);
+BA_CORE_API_ void clearGridLayout(QGridLayout* layout, bool deleteWidgets = true);
 
 //! Returns empty widget to occupy place in layout.
 BA_CORE_API_ QWidget* placeHolder();

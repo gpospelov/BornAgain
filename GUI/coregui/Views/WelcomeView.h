@@ -17,6 +17,7 @@
 
 #include "WinDllMacros.h"
 #include <QLabel>
+#include <memory>
 
 class QPushButton;
 class MainWindow;
@@ -24,34 +25,45 @@ class ProjectManager;
 class QSignalMapper;
 class QVBoxLayout;
 class FancyLabel;
+class QBoxLayout;
 
 class BA_CORE_API_ WelcomeView : public QWidget
 {
     Q_OBJECT
 public:
-    WelcomeView(MainWindow *parent);
+    WelcomeView(MainWindow* parent);
 
 public slots:
-    void onWebLinkClicked(const QUrl &url);
+    void onWebLinkClicked(const QUrl& url);
     void onNewUser();
     void updateRecentProjectPanel();
-    void setNotificationText(const QString &text);
+    void setNotificationText(const QString& text);
+
+protected:
+    void showEvent(QShowEvent*);
 
 private:
-    void clearLayout(QLayout* layout, bool deleteWidgets = true);
-    void generateRecentProjectList();
-    QString getCurrentProjectFancyName();
-    void setCurrentProjectName(const QString &name);
+    QWidget* createProjectWidget();
+    QBoxLayout* createButtonLayout();
+    QBoxLayout* createCurrentProjectLayout();
+    QBoxLayout* createRecentProjectLayout();
+    QBoxLayout* createProjectLayout();
+    QLabel* createNotificationLabel();
+    QFrame* createSeparationFrame();
 
-    QPushButton *m_newProjectButton;
-    QPushButton *m_openProjectButton;
-    QPushButton *m_newUsertButton;
-    MainWindow *m_mainWindow;
-    ProjectManager *m_projectManager;
-    QSignalMapper *m_signalMapper;
-    QVBoxLayout *m_recentProjectLayout;
-    FancyLabel *m_currentProName;
-    QLabel *m_updateNotification;
+    void generateRecentProjectList();
+    QString currentProjectFancyName();
+    void setCurrentProjectName(const QString& name);
+    ProjectManager* projectManager();
+
+    MainWindow* m_mainWindow;
+    QPushButton* m_newProjectButton;
+    QPushButton* m_openProjectButton;
+    QPushButton* m_newUsertButton;
+    FancyLabel* m_currentProjectLabel;
+    QVBoxLayout* m_recentProjectLayout;
+    std::unique_ptr<QSignalMapper> m_signalMapper;
+    QLabel* m_updateNotification;
 };
 
 #endif // WELCOMEVIEW_H

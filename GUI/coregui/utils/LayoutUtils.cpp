@@ -15,7 +15,25 @@
 #include "LayoutUtils.h"
 #include <QGridLayout>
 #include <QLayoutItem>
+#include <QBoxLayout>
 #include <QWidget>
+
+void LayoutUtils::clearLayout(QLayout* layout, bool deleteWidgets)
+{
+    if (!layout)
+        return;
+
+    while (QLayoutItem* item = layout->takeAt(0)) {
+        if (deleteWidgets) {
+            if (QWidget* widget = item->widget())
+                delete widget;
+        }
+        if (QLayout* childLayout = item->layout())
+            LayoutUtils::clearLayout(childLayout, deleteWidgets);
+        delete item;
+    }
+}
+
 
 //!
 //! Solution was taken from
@@ -61,7 +79,7 @@ void LayoutUtils::removeColumn(QGridLayout* layout, int column, bool deleteWidge
     layout->setColumnStretch(column, 0);
 }
 
-void LayoutUtils::clearLayout(QGridLayout* layout, bool deleteWidgets)
+void LayoutUtils::clearGridLayout(QGridLayout* layout, bool deleteWidgets)
 {
     for (int i_row = 0; i_row<layout->rowCount(); ++i_row) {
         LayoutUtils::removeRow(layout, i_row, deleteWidgets);

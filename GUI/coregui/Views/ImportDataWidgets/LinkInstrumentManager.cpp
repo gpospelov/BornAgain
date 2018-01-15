@@ -15,7 +15,7 @@
 #include "LinkInstrumentManager.h"
 #include "AxesItems.h"
 #include "DetectorItems.h"
-#include "ImportDataAssistant.h"
+#include "ImportDataUtils.h"
 #include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "MaskItems.h"
@@ -107,7 +107,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
     instrumentItem->clearMasks();
 
     QString message;
-    if (ImportDataAssistant::hasSameDimensions(instrumentItem, realDataItem, message))
+    if (ImportDataUtils::hasSameDimensions(instrumentItem, realDataItem, message))
         return true;
 
     bool canLink(false);
@@ -129,7 +129,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
 
     if (msgBox.clickedButton() == modifyInstrumentButton) {
         canLink = true;
-        ImportDataAssistant::setInstrumentShapeToData(instrumentItem, realDataItem);
+        ImportDataUtils::setInstrumentShapeToData(instrumentItem, realDataItem);
     } else if (msgBox.clickedButton() == cancelButton) {
         canLink = false;
     }
@@ -265,7 +265,7 @@ void LinkInstrumentManager::updateRealDataMap()
 void LinkInstrumentManager::onInstrumentBinningChange(GISASInstrumentItem* changedInstrument)
 {
     for(auto realDataItem : linkedItems(changedInstrument))
-        if (!ImportDataAssistant::hasSameDimensions(changedInstrument, realDataItem))
+        if (!ImportDataUtils::hasSameDimensions(changedInstrument, realDataItem))
             realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
 }
 

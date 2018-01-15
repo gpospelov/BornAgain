@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/ImportDataWidgets/ImportDataAssistant.cpp
-//! @brief     Implements class ImportDataAssistant
+//! @file      GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.cpp
+//! @brief     Implements class ImportDataUtils
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "ImportDataAssistant.h"
+#include "ImportDataUtils.h"
 #include "AppSvc.h"
 #include "AxesItems.h"
 #include "BornAgainNamespace.h"
@@ -36,7 +36,7 @@ const QString filter_string = "Intensity File (*.int *.gz *.tif *.txt);;"
                               "Other (*)";
 }
 
-OutputData<double>* ImportDataAssistant::importData(QString& baseNameOfLoadedFile)
+OutputData<double>* ImportDataUtils::importData(QString& baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
     QString fileName = QFileDialog::getOpenFileName(0, QStringLiteral("Open Intensity File"),
@@ -70,7 +70,7 @@ OutputData<double>* ImportDataAssistant::importData(QString& baseNameOfLoadedFil
 
 //! Creates OutputData with simplified axes [0,nxbin]x[0,nybin].
 
-OutputData<double>* ImportDataAssistant::createSimplifiedOutputData(const OutputData<double>& data)
+OutputData<double>* ImportDataUtils::createSimplifiedOutputData(const OutputData<double>& data)
 {
     if (data.getRank() != 2)
         throw std::runtime_error("ImportDataAssistant::createSimplifiedOutputData() -> Error. "
@@ -92,7 +92,7 @@ OutputData<double>* ImportDataAssistant::createSimplifiedOutputData(const Output
     return result;
 }
 
-bool ImportDataAssistant::hasSameDimensions(const GISASInstrumentItem* instrumentItem,
+bool ImportDataUtils::hasSameDimensions(const GISASInstrumentItem* instrumentItem,
                                             const RealDataItem* realDataItem)
 {
     QString message;
@@ -101,7 +101,7 @@ bool ImportDataAssistant::hasSameDimensions(const GISASInstrumentItem* instrumen
 
 //! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
 
-bool ImportDataAssistant::hasSameDimensions(const GISASInstrumentItem* instrumentItem,
+bool ImportDataUtils::hasSameDimensions(const GISASInstrumentItem* instrumentItem,
                                             const RealDataItem* realDataItem, QString& message)
 {
     bool isSame(true);
@@ -124,7 +124,7 @@ bool ImportDataAssistant::hasSameDimensions(const GISASInstrumentItem* instrumen
 
 //! Returns shape of RealDataItem axes.
 
-void ImportDataAssistant::realDataShape(const RealDataItem* realData, int& nx, int& ny)
+void ImportDataUtils::realDataShape(const RealDataItem* realData, int& nx, int& ny)
 {
     nx = ny = 0;
     if (const IntensityDataItem* intensityItem = realData->intensityDataItem()) {
@@ -137,14 +137,14 @@ void ImportDataAssistant::realDataShape(const RealDataItem* realData, int& nx, i
 
 //! Returns shape of Instrument's detector axes.
 
-void ImportDataAssistant::detectorShape(const GISASInstrumentItem* instrumentItem, int& nx, int& ny)
+void ImportDataUtils::detectorShape(const GISASInstrumentItem* instrumentItem, int& nx, int& ny)
 {
     std::unique_ptr<IDetector2D> detector = instrumentItem->detectorItem()->createDetector();
     nx = static_cast<int>(detector->getAxis(0).size());
     ny = static_cast<int>(detector->getAxis(1).size());
 }
 
-void ImportDataAssistant::setInstrumentShapeToData(GISASInstrumentItem* instrumentItem,
+void ImportDataUtils::setInstrumentShapeToData(GISASInstrumentItem* instrumentItem,
                                                    const RealDataItem* realDataItemItem)
 {
     int nxData(0), nyData(0);

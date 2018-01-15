@@ -26,7 +26,6 @@
 #include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
 #include "JobModelFunctions.h"
-#include "ImportDataAssistant.h"
 
 JobModel::JobModel(QObject *parent)
     : SessionModel(SessionXML::JobModelTag, parent)

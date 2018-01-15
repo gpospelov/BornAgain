@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/ImportDataWidgets/ImportDataAssistant.h
-//! @brief     Defines class ImportDataAssistant
+//! @file      GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h
+//! @brief     Defines class ImportDataUtils
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IMPORTDATAASSISTANT_H
-#define IMPORTDATAASSISTANT_H
+#ifndef IMPORTDATAUTILS_H
+#define IMPORTDATAUTILS_H
 
 #include "WinDllMacros.h"
 #include <QString>
@@ -22,9 +22,9 @@ template <class T> class OutputData;
 class RealDataItem;
 class GISASInstrumentItem;
 
-//! The ImportDataAssistant class provides utility methods to import data files.
+//! Provides utility methods to import data files.
 
-class BA_CORE_API_ ImportDataAssistant
+class BA_CORE_API_ ImportDataUtils
 {
 public:
     OutputData<double>* importData(QString& baseNameOfLoadedFile);
@@ -45,4 +45,4 @@ public:
                                          const RealDataItem* realDataItemItem);
 };
 
-#endif // IMPORTDATAASSISTANT_H
+#endif // IMPORTDATAUTILS_H

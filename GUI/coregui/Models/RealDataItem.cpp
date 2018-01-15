@@ -18,7 +18,7 @@
 #include "SessionModel.h"
 #include "ComboProperty.h"
 #include "JobItemUtils.h"
-#include "ImportDataAssistant.h"
+#include "ImportDataUtils.h"
 #include "MaskUnitsConverter.h"
 #include "JobItemFunctions.h"
 
@@ -134,7 +134,7 @@ void RealDataItem::updateToInstrument()
         item->setYaxisTitle("Y [nbins]");
         MaskUnitsConverter converter;
         converter.convertToNbins(intensityDataItem());
-        item->setOutputData(ImportDataAssistant::createSimplifiedOutputData(*item->getOutputData()));
+        item->setOutputData(ImportDataUtils::createSimplifiedOutputData(*item->getOutputData()));
         item->setAxesRangeToData();
         converter.convertFromNbins(intensityDataItem());
     }

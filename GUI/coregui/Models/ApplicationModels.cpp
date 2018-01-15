@@ -28,7 +28,7 @@
 #include "RealDataItem.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
-#include "ImportDataAssistant.h"
+#include "ImportDataUtils.h"
 #include "MaterialPropertyController.h"
 #include <QtCore/QXmlStreamWriter>
 
@@ -190,7 +190,7 @@ void ApplicationModels::createTestRealData()
     std::unique_ptr<OutputData<double>> data(
         IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int"));
 
-    OutputData<double>* simplified = ImportDataAssistant::createSimplifiedOutputData(*data.get());
+    OutputData<double>* simplified = ImportDataUtils::createSimplifiedOutputData(*data.get());
     realDataItem->setOutputData(simplified);
 }
 

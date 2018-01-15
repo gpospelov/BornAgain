@@ -14,7 +14,7 @@
 
 #include "RealDataSelectorActions.h"
 #include "GUIHelpers.h"
-#include "ImportDataAssistant.h"
+#include "ImportDataUtils.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataItem.h"
 #include "MaskItems.h"
@@ -115,7 +115,7 @@ void RealDataSelectorActions::onImportDataAction()
 {
     Q_ASSERT(m_realDataModel);
     Q_ASSERT(m_selectionModel);
-    ImportDataAssistant assistant;
+    ImportDataUtils assistant;
     QString baseNameOfImportedFile;
 
     std::unique_ptr<OutputData<double>> data(assistant.importData(baseNameOfImportedFile));

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "RealDataModel.h"
-#include "ImportDataAssistant.h"
 #include "RealDataItem.h"
 
 RealDataModel::RealDataModel(QObject *parent)

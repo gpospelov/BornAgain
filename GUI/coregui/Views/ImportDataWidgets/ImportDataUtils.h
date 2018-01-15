@@ -17,6 +17,7 @@
 
 #include "WinDllMacros.h"
 #include <QString>
+#include <memory>
 
 template <class T> class OutputData;
 class RealDataItem;
@@ -27,9 +28,10 @@ class GISASInstrumentItem;
 namespace ImportDataUtils
 {
 
-BA_CORE_API_ OutputData<double>* ImportData(QString& baseNameOfLoadedFile);
+BA_CORE_API_ std::unique_ptr<OutputData<double>> ImportData(QString& baseNameOfLoadedFile);
 
-BA_CORE_API_ OutputData<double>* CreateSimplifiedOutputData(const OutputData<double>& data);
+BA_CORE_API_ std::unique_ptr<OutputData<double>>
+CreateSimplifiedOutputData(const OutputData<double>& data);
 
 BA_CORE_API_ bool HasSameDimensions(const GISASInstrumentItem* instrumentItem,
                                     const RealDataItem* realDataItem);

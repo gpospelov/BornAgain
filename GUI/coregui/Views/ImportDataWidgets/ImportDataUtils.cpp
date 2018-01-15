@@ -36,7 +36,7 @@ const QString filter_string = "Intensity File (*.int *.gz *.tif *.txt);;"
                               "Other (*)";
 }
 
-OutputData<double>* ImportDataUtils::ImportData(QString& baseNameOfLoadedFile)
+std::unique_ptr<OutputData<double>> ImportDataUtils::ImportData(QString& baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
     QString fileName = QFileDialog::getOpenFileName(0, QStringLiteral("Open Intensity File"),
@@ -52,7 +52,7 @@ OutputData<double>* ImportDataUtils::ImportData(QString& baseNameOfLoadedFile)
     if (newImportDir != dirname)
         AppSvc::projectManager()->setImportDir(newImportDir);
 
-    OutputData<double>* result(nullptr);
+    std::unique_ptr<OutputData<double>> result;
 
     try {
         std::unique_ptr<OutputData<double>> data(
@@ -70,7 +70,8 @@ OutputData<double>* ImportDataUtils::ImportData(QString& baseNameOfLoadedFile)
 
 //! Creates OutputData with simplified axes [0,nxbin]x[0,nybin].
 
-OutputData<double>* ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
+std::unique_ptr<OutputData<double>>
+ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
 {
     if (data.getRank() != 2)
         throw std::runtime_error("ImportDataAssistant::createSimplifiedOutputData() -> Error. "
@@ -84,7 +85,7 @@ OutputData<double>* ImportDataUtils::CreateSimplifiedOutputData(const OutputData
     double xmax = double(aX.size());
     double ymax = double(aY.size());
 
-    auto result = new OutputData<double>;
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     result->addAxis(FixedBinAxis(aX.getName(), aX.size(), xmin, xmax));
     result->addAxis(FixedBinAxis(aY.getName(), aY.size(), ymin, ymax));
     result->setRawDataVector(data.getRawDataVector());
@@ -93,7 +94,7 @@ OutputData<double>* ImportDataUtils::CreateSimplifiedOutputData(const OutputData
 }
 
 bool ImportDataUtils::HasSameDimensions(const GISASInstrumentItem* instrumentItem,
-                                            const RealDataItem* realDataItem)
+                                        const RealDataItem* realDataItem)
 {
     QString message;
     return HasSameDimensions(instrumentItem, realDataItem, message);
@@ -102,7 +103,7 @@ bool ImportDataUtils::HasSameDimensions(const GISASInstrumentItem* instrumentIte
 //! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
 
 bool ImportDataUtils::HasSameDimensions(const GISASInstrumentItem* instrumentItem,
-                                            const RealDataItem* realDataItem, QString& message)
+                                        const RealDataItem* realDataItem, QString& message)
 {
     bool isSame(true);
     message.clear();
@@ -116,7 +117,10 @@ bool ImportDataUtils::HasSameDimensions(const GISASInstrumentItem* instrumentIte
     if (nxData != nxDetector || nyData != nyDetector) {
         isSame = false;
         message = QString("detector [%1x%2], data [%3x%4]")
-                      .arg(nxDetector).arg(nyDetector).arg(nxData).arg(nyData);
+                      .arg(nxDetector)
+                      .arg(nyDetector)
+                      .arg(nxData)
+                      .arg(nyData);
     }
 
     return isSame;
@@ -145,7 +149,7 @@ void ImportDataUtils::DetectorShape(const GISASInstrumentItem* instrumentItem, i
 }
 
 void ImportDataUtils::SetInstrumentShapeToData(GISASInstrumentItem* instrumentItem,
-                                                   const RealDataItem* realDataItemItem)
+                                               const RealDataItem* realDataItemItem)
 {
     int nxData(0), nyData(0);
     RealDataShape(realDataItemItem, nxData, nyData);

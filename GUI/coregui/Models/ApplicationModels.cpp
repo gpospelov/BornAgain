@@ -190,8 +190,7 @@ void ApplicationModels::createTestRealData()
     std::unique_ptr<OutputData<double>> data(
         IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int"));
 
-    OutputData<double>* simplified = ImportDataUtils::CreateSimplifiedOutputData(*data.get());
-    realDataItem->setOutputData(simplified);
+    realDataItem->setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*data.get()).release());
 }
 
 //! Writes all model in file one by one

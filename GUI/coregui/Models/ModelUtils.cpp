@@ -21,8 +21,12 @@ QStringList ModelUtils::topItemNames(SessionModel* model, const QString& modelTy
 {
     QStringList result;
 
-    for(auto item : model->topItems(modelType))
-        result.append(item->itemName());
+    for(auto item : model->topItems())
+        if (modelType.isEmpty())
+            result.append(item->itemName());
+        else
+            if(modelType == item->modelType())
+                result.append(item->itemName());
 
     return result;
 }

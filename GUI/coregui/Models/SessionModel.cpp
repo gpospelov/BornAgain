@@ -426,42 +426,6 @@ SessionModel* SessionModel::createCopy(SessionItem* parent)
     throw GUIHelpers::Error("SessionModel::createCopy() -> Error. Not implemented.");
 }
 
-//! returns top level item with given name and model type
-
-SessionItem* SessionModel::topItem(const QString& model_type, const QString& item_name) const
-{
-    QList<SessionItem*> items = topItems(model_type);
-
-    if (item_name.isEmpty() && items.size())
-        return items.front();
-
-    for (auto item : items)
-        if (item_name == item->itemName())
-            return item;
-
-    return nullptr;
-}
-
-//! Returns top items which are children of parentIndex and have given model_type
-
-QList<SessionItem*> SessionModel::topItems(const QString& model_type,
-                                           const QModelIndex& parentIndex) const
-{
-    QList<SessionItem*> result;
-    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = index(i_row, 0, parentIndex);
-        if (SessionItem* item = itemForIndex(itemIndex)) {
-            if (model_type.isEmpty()) {
-                result.append(item);
-            } else {
-                if (item->modelType() == model_type)
-                    result.append(item);
-            }
-        }
-    }
-    return result;
-}
-
 void SessionModel::initFrom(SessionModel* model, SessionItem*)
 {
     QByteArray byte_array;
@@ -489,3 +453,4 @@ QVector<SessionItem*> SessionModel::nonXMLData() const
 {
     return QVector<SessionItem*>();
 }
+

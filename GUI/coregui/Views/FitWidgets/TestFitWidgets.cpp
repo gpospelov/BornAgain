@@ -46,8 +46,7 @@ TestFitWidgets::TestFitWidgets(MainWindow *mainWindow)
 
 void TestFitWidgets::showEvent(QShowEvent *)
 {
-    JobItem *jobItem = dynamic_cast<JobItem *>(m_mainWindow->jobModel()->topItem(Constants::JobItemType));
-    if(jobItem) {
+    if(auto jobItem = m_mainWindow->jobModel()->topItem<JobItem>()) {
         m_jobItem = jobItem;
         m_tuningWidget->setItem(jobItem);
         m_fitParametersWidget->setItem(jobItem);
@@ -55,5 +54,4 @@ void TestFitWidgets::showEvent(QShowEvent *)
         m_jobTreeView->setModel(m_mainWindow->jobModel());
         m_jobTreeView->setRootIndex(jobItem->fitSuiteItem()->index());
     }
-
 }

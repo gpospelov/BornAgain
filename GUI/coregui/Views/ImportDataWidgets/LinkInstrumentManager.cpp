@@ -203,10 +203,7 @@ void LinkInstrumentManager::onRealDataRowsChange(const QModelIndex &parent, int,
 
 void LinkInstrumentManager::updateLinks()
 {
-    foreach(SessionItem *item, m_realDataModel->topItems(Constants::RealDataType)) {
-        RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(item);
-        Q_ASSERT(realDataItem);
-
+    for(auto realDataItem : m_realDataModel->topItems<RealDataItem>()) {
         QString identifier = realDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
         GISASInstrumentItem *instrumentItem = getInstrument(identifier);
 
@@ -226,14 +223,13 @@ void LinkInstrumentManager::updateInstrumentMap()
 {
     m_instrumentVec.clear();
     m_instrumentVec.append(InstrumentInfo()); // undefined instrument
-    foreach(SessionItem *item, m_instrumentModel->topItems(Constants::GISASInstrumentType)) {
-        GISASInstrumentItem *instrumentItem = dynamic_cast<GISASInstrumentItem *>(item);
+    for(auto instrumentItem : m_instrumentModel->topItems<GISASInstrumentItem>()) {
         instrumentItem->mapper()->unsubscribe(this);
 
         instrumentItem->mapper()->setOnPropertyChange(
-                    [this, item](const QString &name)
+                    [this, instrumentItem](const QString &name)
         {
-            setOnInstrumentPropertyChange(item, name);
+            setOnInstrumentPropertyChange(instrumentItem, name);
         }, this);
 
         instrumentItem->mapper()->setOnAnyChildChange(
@@ -243,8 +239,8 @@ void LinkInstrumentManager::updateInstrumentMap()
         }, this);
 
         InstrumentInfo info;
-        info.m_name = item->itemName();
-        info.m_identifier = item->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
+        info.m_name = instrumentItem->itemName();
+        info.m_identifier = instrumentItem->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
         info.m_instrument = instrumentItem;
         m_instrumentVec.append(info);
     }
@@ -256,7 +252,7 @@ void LinkInstrumentManager::updateInstrumentMap()
 
 void LinkInstrumentManager::updateRealDataMap()
 {
-    foreach(SessionItem *dataItem, m_realDataModel->topItems(Constants::RealDataType)) {
+    for(auto dataItem : m_realDataModel->topItems<RealDataItem>()) {
         dataItem->mapper()->unsubscribe(this);
 
         dataItem->mapper()->setOnPropertyChange(
@@ -293,9 +289,7 @@ void LinkInstrumentManager::onInstrumentLayoutChange(GISASInstrumentItem *change
 QList<RealDataItem *> LinkInstrumentManager::linkedItems(GISASInstrumentItem *instrumentItem)
 {
     QList<RealDataItem *> result;
-    foreach(SessionItem *item, m_realDataModel->topItems(Constants::RealDataType)) {
-        RealDataItem *realDataItem = dynamic_cast<RealDataItem *>(item);
-
+    for(auto realDataItem : m_realDataModel->topItems<RealDataItem>()) {
         QString linkedIdentifier
             = realDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
         QString instrumentIdentifier

@@ -29,7 +29,7 @@ public:
 
     virtual InstrumentModel *createCopy(SessionItem *parent=0);
 
-    GISASInstrumentItem *instrumentItem(const QString &instrument_name = QString());
+    GISASInstrumentItem *instrumentItem();
 };
 
 #endif // INSTRUMENTMODEL_H

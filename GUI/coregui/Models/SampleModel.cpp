@@ -28,7 +28,7 @@ SampleModel* SampleModel::createCopy(SessionItem* parent)
     return result;
 }
 
-MultiLayerItem* SampleModel::multiLayerItem(const QString& item_name)
+MultiLayerItem* SampleModel::multiLayerItem()
 {
-    return dynamic_cast<MultiLayerItem*>(topItem(Constants::MultiLayerType, item_name));
+    return topItem<MultiLayerItem>();
 }

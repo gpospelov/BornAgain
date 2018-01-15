@@ -82,10 +82,8 @@ public:
 
     virtual SessionModel* createCopy(SessionItem* parent = 0);
 
-    SessionItem* topItem(const QString& model_type = QString(),
-                         const QString& item_name = QString()) const;
-    QList<SessionItem*> topItems(const QString& model_type = QString(),
-                                 const QModelIndex& parentIndex = QModelIndex()) const;
+    template<typename T = SessionItem> T* topItem() const;
+    template<typename T = SessionItem> QVector<T*> topItems() const;
 
     virtual void initFrom(SessionModel* model, SessionItem* parent);
     SessionItem* rootItem() const;
@@ -104,6 +102,28 @@ private:
     QString m_name;      //!< model name
     QString m_model_tag; //!< model tag (SampleModel, InstrumentModel)
 };
+
+template<typename T>
+T* SessionModel::topItem() const
+{
+    auto items = topItems<T>();
+    return items.isEmpty() ? nullptr : items.front();
+}
+
+template<typename T>
+QVector<T*> SessionModel::topItems() const
+{
+    QVector<T*> result;
+
+    QModelIndex parentIndex;
+    for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
+         QModelIndex itemIndex = index(i_row, 0, parentIndex);
+            if (auto item = dynamic_cast<T*>(itemForIndex(itemIndex)))
+                result.push_back(item);
+    }
+
+    return result;
+}
 
 inline bool SessionModel::setHeaderData(int, Qt::Orientation, const QVariant&, int)
 {

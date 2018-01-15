@@ -18,6 +18,7 @@
 #include "IBeamFormFactor.h"
 
 //! Defines spatial characteristics of a square beam
+//! @ingroup simulation
 
 class BA_CORE_API_ SquareBeamFormFactor : public IBeamFormFactor
 {

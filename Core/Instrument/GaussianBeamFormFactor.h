@@ -17,7 +17,8 @@
 
 #include "IBeamFormFactor.h"
 
-//! Defines spatial characteristics of a gaussian beam
+//! Defines spatial characteristics of a Gaussian beam
+//! @ingroup simulation
 
 class BA_CORE_API_ GaussianBeamFormFactor : public IBeamFormFactor
 {
@@ -30,7 +31,9 @@ public:
     double calculateFootprintFactor(const MultiLayer& sample, double alpha) const override;
 
 private:
-    double m_beam_width; //! Characteristic full width on e^{-1/2} level from max. intensity
+    //! Characteristic full width on e^{-1/2} level from max. intensity,
+    //! i.e. \f[ 2 \sigma \f] of Gaussian distribution
+    double m_beam_width;
 };
 
 #endif /* GAUSSIANBEAMFORMFACTOR_H_ */

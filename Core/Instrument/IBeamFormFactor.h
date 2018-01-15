@@ -21,6 +21,7 @@ class MultiLayer;
 class Beam;
 
 //! Defines abstract beam form-factor (spatial characteristics of the beam)
+//! @ingroup simulation
 
 class BA_CORE_API_ IBeamFormFactor
 {

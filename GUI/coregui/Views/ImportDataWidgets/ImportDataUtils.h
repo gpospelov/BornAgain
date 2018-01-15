@@ -21,6 +21,7 @@
 
 template <class T> class OutputData;
 class RealDataItem;
+class InstrumentItem;
 class GISASInstrumentItem;
 
 //! Provides utility methods to import data files.
@@ -32,6 +33,10 @@ BA_CORE_API_ std::unique_ptr<OutputData<double>> ImportData(QString& baseNameOfL
 
 BA_CORE_API_ std::unique_ptr<OutputData<double>>
 CreateSimplifiedOutputData(const OutputData<double>& data);
+
+//! Returns true if data item is compatible with instrument.
+BA_CORE_API_ bool Compatible(const RealDataItem& instrumentItem,
+                             const InstrumentItem& realDataItem);
 
 BA_CORE_API_ bool HasSameDimensions(const GISASInstrumentItem* instrumentItem,
                                     const RealDataItem* realDataItem);

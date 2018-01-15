@@ -100,6 +100,15 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
     auto instrumentItem = getInstrument(identifier);
 
     // linking to null instrument is possible, it means unlinking from currently linked
+    if (!ImportDataUtils::Compatible(*realDataItem, *instrumentItem)) {
+        QMessageBox::warning(0, "Can't link to instrument",
+                             "Can't link, data is uncompatible with the instrument.");
+
+        return false;
+    }
+
+
+    // linking to null instrument is possible, it means unlinking from currently linked
     if (instrumentItem == nullptr)
         return true;
 

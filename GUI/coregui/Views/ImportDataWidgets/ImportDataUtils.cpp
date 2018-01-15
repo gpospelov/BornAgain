@@ -34,6 +34,19 @@ namespace
 {
 const QString filter_string = "Intensity File (*.int *.gz *.tif *.txt);;"
                               "Other (*)";
+
+int getRank(const RealDataItem& item)
+{
+    Q_UNUSED(item); // to be extended
+    return 2;
+}
+
+int getRank(const InstrumentItem& item) {
+    if (item.modelType() == Constants::GISASInstrumentType)
+        return 2;
+    return -1;
+}
+
 }
 
 std::unique_ptr<OutputData<double>> ImportDataUtils::ImportData(QString& baseNameOfLoadedFile)
@@ -66,6 +79,12 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportData(QString& baseNam
     }
 
     return result;
+}
+
+bool ImportDataUtils::Compatible(const RealDataItem& instrumentItem,
+                                 const InstrumentItem& realDataItem)
+{
+    return getRank(instrumentItem) == getRank(realDataItem);
 }
 
 //! Creates OutputData with simplified axes [0,nxbin]x[0,nybin].

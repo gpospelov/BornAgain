@@ -5570,7 +5570,7 @@ C++ includes: GISASSimulation.h
 %feature("docstring")  GISASSimulation::~GISASSimulation "GISASSimulation::~GISASSimulation() final
 ";
 
-%feature("docstring")  GISASSimulation::clone "GISASSimulation* GISASSimulation::clone() const
+%feature("docstring")  GISASSimulation::clone "GISASSimulation* GISASSimulation::clone() const override
 ";
 
 %feature("docstring")  GISASSimulation::accept "void GISASSimulation::accept(INodeVisitor *visitor) const final
@@ -5588,7 +5588,7 @@ Put into a clean state for running a simulation.
 Gets the number of elements this simulation needs to calculate. 
 ";
 
-%feature("docstring")  GISASSimulation::getDetectorIntensity "OutputData< double > * GISASSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const
+%feature("docstring")  GISASSimulation::getDetectorIntensity "OutputData< double > * GISASSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
 
 Returns clone of the detector intensity map with detector resolution applied. 
 ";
@@ -6074,6 +6074,11 @@ proportion of this type of particles normalized to the total number of particles
 Translates the particle with the given vector. 
 ";
 
+%feature("docstring")  IAbstractParticle::rotate "virtual void IAbstractParticle::rotate(const IRotation &rotation)=0
+
+Applies the given rotation to the particle. 
+";
+
 
 // File: classIAxis.xml
 %feature("docstring") IAxis "
@@ -6365,6 +6370,38 @@ Merges its region map into the given one (notice non-const reference parameter)
 ";
 
 
+// File: classIdentityRotation.xml
+%feature("docstring") IdentityRotation "";
+
+%feature("docstring")  IdentityRotation::IdentityRotation "IdentityRotation::IdentityRotation()=default
+";
+
+%feature("docstring")  IdentityRotation::clone "IdentityRotation* IdentityRotation::clone() const
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  IdentityRotation::createInverse "IdentityRotation* IdentityRotation::createInverse() const
+
+Returns a new  IRotation object that is the current object's inverse. 
+";
+
+%feature("docstring")  IdentityRotation::accept "void IdentityRotation::accept(INodeVisitor *visitor) const
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  IdentityRotation::getTransform3D "Transform3D IdentityRotation::getTransform3D() const
+
+Returns transformation. 
+";
+
+%feature("docstring")  IdentityRotation::isIdentity "bool IdentityRotation::isIdentity() const
+
+Returns true if rotation matrix is identity matrix (no rotations) 
+";
+
+
 // File: classIDetector.xml
 %feature("docstring") IDetector "
 
@@ -6376,7 +6413,7 @@ C++ includes: IDetector.h
 %feature("docstring")  IDetector::IDetector "IDetector::IDetector()
 ";
 
-%feature("docstring")  IDetector::clone "virtual IDetector* IDetector::clone() const override=0
+%feature("docstring")  IDetector::clone "IDetector* IDetector::clone() const override=0
 ";
 
 %feature("docstring")  IDetector::~IDetector "IDetector::~IDetector()
@@ -6511,7 +6548,7 @@ C++ includes: IDetector2D.h
 %feature("docstring")  IDetector2D::IDetector2D "IDetector2D::IDetector2D()
 ";
 
-%feature("docstring")  IDetector2D::clone "virtual IDetector2D* IDetector2D::clone() const override=0
+%feature("docstring")  IDetector2D::clone "IDetector2D* IDetector2D::clone() const override=0
 ";
 
 %feature("docstring")  IDetector2D::~IDetector2D "IDetector2D::~IDetector2D()
@@ -8035,6 +8072,9 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IClusteredParticles *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IdentityRotation *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IFormFactor *)
 ";
 
@@ -9113,9 +9153,9 @@ Returns rotation object.
 Sets transformation. 
 ";
 
-%feature("docstring")  IParticle::rotate "void IParticle::rotate(const IRotation &rotation)
+%feature("docstring")  IParticle::rotate "void IParticle::rotate(const IRotation &rotation) override final
 
-Applies transformation by composing it with the existing one. 
+Rotates the particle. 
 ";
 
 %feature("docstring")  IParticle::getChildren "std::vector< const INode * > IParticle::getChildren() const override
@@ -10054,7 +10094,7 @@ Constructs basic material with name and magnetization.
 %feature("docstring")  MagneticMaterialImpl::~MagneticMaterialImpl "virtual MagneticMaterialImpl::~MagneticMaterialImpl()=default
 ";
 
-%feature("docstring")  MagneticMaterialImpl::clone "virtual MagneticMaterialImpl* MagneticMaterialImpl::clone() const override=0
+%feature("docstring")  MagneticMaterialImpl::clone "MagneticMaterialImpl* MagneticMaterialImpl::clone() const override=0
 
 Returns pointer to a copy of material. 
 ";
@@ -10282,7 +10322,7 @@ Returns squared refractive index.
 Returns underlying material data. 
 ";
 
-%feature("docstring")  MaterialBySLDImpl::typeID "virtual MATERIAL_TYPES MaterialBySLDImpl::typeID() const override
+%feature("docstring")  MaterialBySLDImpl::typeID "MATERIAL_TYPES MaterialBySLDImpl::typeID() const override
 
 Returns type of material implementation. 
 ";
@@ -10451,7 +10491,7 @@ C++ includes: MultiLayer.h
 %feature("docstring")  MultiLayer::~MultiLayer "MultiLayer::~MultiLayer()
 ";
 
-%feature("docstring")  MultiLayer::accept "virtual void MultiLayer::accept(INodeVisitor *visitor) const final override
+%feature("docstring")  MultiLayer::accept "void MultiLayer::accept(INodeVisitor *visitor) const final override
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -10718,7 +10758,7 @@ C++ includes: OffSpecSimulation.h
 %feature("docstring")  OffSpecSimulation::~OffSpecSimulation "OffSpecSimulation::~OffSpecSimulation() final
 ";
 
-%feature("docstring")  OffSpecSimulation::clone "OffSpecSimulation* OffSpecSimulation::clone() const
+%feature("docstring")  OffSpecSimulation::clone "OffSpecSimulation* OffSpecSimulation::clone() const override
 ";
 
 %feature("docstring")  OffSpecSimulation::accept "void OffSpecSimulation::accept(INodeVisitor *visitor) const final
@@ -10736,7 +10776,7 @@ Put into a clean state for running a simulation.
 Gets the number of elements this simulation needs to calculate. 
 ";
 
-%feature("docstring")  OffSpecSimulation::getDetectorIntensity "OutputData<double>* OffSpecSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const
+%feature("docstring")  OffSpecSimulation::getDetectorIntensity "OutputData<double>* OffSpecSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
 
 Returns clone of the detector intensity map. 
 ";
@@ -11651,19 +11691,24 @@ C++ includes: ParticleDistribution.h
 %feature("docstring")  ParticleDistribution::ParticleDistribution "ParticleDistribution::ParticleDistribution(const IParticle &prototype, const ParameterDistribution &par_distr)
 ";
 
-%feature("docstring")  ParticleDistribution::clone "ParticleDistribution * ParticleDistribution::clone() const final override
+%feature("docstring")  ParticleDistribution::clone "ParticleDistribution * ParticleDistribution::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ParticleDistribution::accept "void ParticleDistribution::accept(INodeVisitor *visitor) const final override
+%feature("docstring")  ParticleDistribution::accept "void ParticleDistribution::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ParticleDistribution::translate "void ParticleDistribution::translate(kvector_t translation) final override
+%feature("docstring")  ParticleDistribution::translate "void ParticleDistribution::translate(kvector_t translation) override final
 
 Translates the particle with the given vector. 
+";
+
+%feature("docstring")  ParticleDistribution::rotate "void ParticleDistribution::rotate(const IRotation &rotation) override final
+
+Applies the given rotation to the particle. 
 ";
 
 %feature("docstring")  ParticleDistribution::generateParticles "std::vector< const IParticle * > ParticleDistribution::generateParticles() const
@@ -11683,7 +11728,7 @@ Returns the prototype particle, used for generating multiple ones.
 Returns the distributed parameter data. 
 ";
 
-%feature("docstring")  ParticleDistribution::getChildren "std::vector< const INode * > ParticleDistribution::getChildren() const final override
+%feature("docstring")  ParticleDistribution::getChildren "std::vector< const INode * > ParticleDistribution::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -11724,10 +11769,7 @@ C++ includes: ParticleLayout.h
 %feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout()
 ";
 
-%feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const IAbstractParticle &particle)
-";
-
-%feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance)
+%feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance=-1.0)
 ";
 
 %feature("docstring")  ParticleLayout::~ParticleLayout "ParticleLayout::~ParticleLayout()
@@ -11746,43 +11788,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IAbstractParticle &particle)
-
-Adds generic particle to the layout. 
-";
-
-%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance)
-
-Adds generic particle to the layout with only abundance defined.
-
-Parameters:
------------
-
-particle: 
-to be added
-
-abundance: 
- Particle abundance 
-";
-
-%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position)
-
-Adds particle to the layout with abundance and position defined.
-
-Parameters:
------------
-
-particle: 
-to be added
-
-abundance: 
- Particle abundance
-
-position: 
- Particle position 
-";
-
-%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
+%feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position=kvector_t(), const IRotation &rotation=IdentityRotation())
 
 Adds particle to the layout with abundance, position and the rotation defined.
 
@@ -12454,7 +12460,7 @@ Returns squared refractive index. For this particular implementation returned va
 Returns underlying material data. 
 ";
 
-%feature("docstring")  RefractiveMaterialImpl::typeID "virtual MATERIAL_TYPES RefractiveMaterialImpl::typeID() const override
+%feature("docstring")  RefractiveMaterialImpl::typeID "MATERIAL_TYPES RefractiveMaterialImpl::typeID() const override
 
 Returns type of material implementation. 
 ";
@@ -13813,12 +13819,12 @@ C++ includes: SpecularDetector1D.h
 %feature("docstring")  SpecularDetector1D::clone "SpecularDetector1D * SpecularDetector1D::clone() const override
 ";
 
-%feature("docstring")  SpecularDetector1D::accept "virtual void SpecularDetector1D::accept(INodeVisitor *visitor) const override
+%feature("docstring")  SpecularDetector1D::accept "void SpecularDetector1D::accept(INodeVisitor *visitor) const override
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  SpecularDetector1D::detectorMask "virtual const DetectorMask* SpecularDetector1D::detectorMask() const override
+%feature("docstring")  SpecularDetector1D::detectorMask "const DetectorMask* SpecularDetector1D::detectorMask() const override
 
 Returns detector masks container. 
 ";
@@ -13828,12 +13834,12 @@ Returns detector masks container.
 Create a vector of  SimulationElement objects according to the detector and its mask. 
 ";
 
-%feature("docstring")  SpecularDetector1D::regionOfInterest "virtual const RegionOfInterest* SpecularDetector1D::regionOfInterest() const override
+%feature("docstring")  SpecularDetector1D::regionOfInterest "const RegionOfInterest* SpecularDetector1D::regionOfInterest() const override
 
 Returns region of interest if exists. 
 ";
 
-%feature("docstring")  SpecularDetector1D::resetRegionOfInterest "virtual void SpecularDetector1D::resetRegionOfInterest() override
+%feature("docstring")  SpecularDetector1D::resetRegionOfInterest "void SpecularDetector1D::resetRegionOfInterest() override
 
 Resets region of interest making whole detector plane available for the simulation. 
 ";
@@ -13895,7 +13901,7 @@ C++ includes: SpecularSimulation.h
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  SpecularSimulation::accept "virtual void SpecularSimulation::accept(INodeVisitor *visitor) const override final
+%feature("docstring")  SpecularSimulation::accept "void SpecularSimulation::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -14345,22 +14351,12 @@ Calculates the rotation angle for a rotation around the z-axis alone Only meanin
 Returns the inverse transformation. 
 ";
 
-%feature("docstring")  Transform3D::transformed "BasicVector3D< double > Transform3D::transformed(const BasicVector3D< double > &v) const
+%feature("docstring")  Transform3D::transformed "template cvector_t Transform3D::transformed(const ivector_t &v) const
 
 Return transformed vector  v. 
 ";
 
-%feature("docstring")  Transform3D::transformed "BasicVector3D< complex_t > Transform3D::transformed(const BasicVector3D< complex_t > &v) const
-
-Return transformed vector  v. 
-";
-
-%feature("docstring")  Transform3D::transformedInverse "BasicVector3D< double > Transform3D::transformedInverse(const BasicVector3D< double > &v) const
-
-Return transformed vector  v. 
-";
-
-%feature("docstring")  Transform3D::transformedInverse "BasicVector3D< complex_t > Transform3D::transformedInverse(const BasicVector3D< complex_t > &v) const
+%feature("docstring")  Transform3D::transformedInverse "template cvector_t Transform3D::transformedInverse(const ivector_t &v) const
 
 Return transformed vector  v. 
 ";

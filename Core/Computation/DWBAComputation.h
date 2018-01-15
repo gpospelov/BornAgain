@@ -39,8 +39,6 @@ public:
                     std::vector<SimulationElement>::iterator end_it);
     ~DWBAComputation();
 
-    void run();
-
 private:
     void runProtected() override;
     std::unique_ptr<IFresnelMap> createFresnelMap();

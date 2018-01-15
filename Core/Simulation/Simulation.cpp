@@ -336,4 +336,4 @@ void runComputations(std::vector<std::unique_ptr<IComputation>> computations)
         "Messages: "
         + StringUtils::join(failure_messages, " --- "));
 }
-}
+} // unnamed namespace

@@ -40,8 +40,6 @@ public:
                         std::vector<SimulationElement>::iterator end_it);
     virtual ~SpecularComputation();
 
-    void run();
-
 private:
     void runProtected() override;
     std::unique_ptr<IFresnelMap> createFresnelMap();

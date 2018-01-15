@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "StyleUtils.h"
+#include "DesignerHelper.h"
 #include <QTreeView>
 
 void StyleUtils::setPropertyStyle(QTreeView* tree)
@@ -63,6 +64,28 @@ QString StyleUtils::realtimeTreeStyle()
     "treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
     "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
     "url(:/images/treeview-branch-open.png);}";
+
+    return result;
+}
+
+QFont StyleUtils::sectionFont(bool bold)
+{
+    QFont result;
+    result.setPointSize(DesignerHelper::getSectionFontSize());
+
+    if (bold)
+        result.setBold(true);
+
+    return result;
+}
+
+QFont StyleUtils::labelFont(bool bold)
+{
+    QFont result;
+    result.setPointSize(DesignerHelper::getLabelFontSize());
+
+    if (bold)
+        result.setBold(true);
 
     return result;
 }

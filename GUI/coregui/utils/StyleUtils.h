@@ -17,6 +17,7 @@
 
 #include "WinDllMacros.h"
 #include <QString>
+#include <QFont>
 
 class QTreeView;
 
@@ -31,6 +32,12 @@ BA_CORE_API_ QString propertyTreeStyle();
 
 //! Returns string representing the style of QTreeView intended for real time view.
 BA_CORE_API_ QString realtimeTreeStyle();
+
+//! Returns font for sections.
+BA_CORE_API_ QFont sectionFont(bool bold = false);
+
+//! Returns font for labels.
+BA_CORE_API_ QFont labelFont(bool bold = false);
 
 }
 

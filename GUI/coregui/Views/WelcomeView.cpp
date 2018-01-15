@@ -21,6 +21,7 @@
 #include "projectmanager.h"
 #include "qstringutils.h"
 #include "LayoutUtils.h"
+#include "StyleUtils.h"
 #include <QCommandLinkButton>
 #include <QDesktopServices>
 #include <QSignalMapper>
@@ -83,12 +84,8 @@ WelcomeView::WelcomeView(MainWindow* parent)
 
 void WelcomeView::generateRecentProjectList()
 {
-    QFont titleFont;
-    titleFont.setPointSize(DesignerHelper::getSectionFontSize());
-    titleFont.setBold(true);
-
     auto recentProLabel = new QLabel("Recent Projects:");
-    recentProLabel->setFont(titleFont);
+    recentProLabel->setFont(StyleUtils::sectionFont(/*bold*/true));
 
     setCurrentProjectName(currentProjectFancyName());
     m_recentProjectLayout->addWidget(recentProLabel);
@@ -96,16 +93,12 @@ void WelcomeView::generateRecentProjectList()
     m_signalMapper.reset(new QSignalMapper(this));
 
     for (const auto& file : projectManager()->recentProjects()) {
-        QFont font;
-        font.setPointSize(DesignerHelper::getLabelFontSize());
-        font.setBold(false);
-
         QPalette palette;
         palette.setColor(QPalette::ButtonText, QColor(41, 73, 150));
 
         auto button = new QCommandLinkButton;
         button->setText(GUI_StringUtils::withTildeHomePath(file));
-        button->setFont(font);
+        button->setFont(StyleUtils::labelFont());
         button->setPalette(palette);
         button->setFixedHeight(30);
         m_signalMapper->setMapping(button, file);

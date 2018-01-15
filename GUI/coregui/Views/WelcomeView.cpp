@@ -87,17 +87,15 @@ void WelcomeView::generateRecentProjectList()
     titleFont.setPointSize(DesignerHelper::getSectionFontSize());
     titleFont.setBold(true);
 
-    QLabel* recentProLabel = new QLabel("Recent Projects:");
+    auto recentProLabel = new QLabel("Recent Projects:");
     recentProLabel->setFont(titleFont);
 
     setCurrentProjectName(currentProjectFancyName());
     m_recentProjectLayout->addWidget(recentProLabel);
 
-    QCommandLinkButton* slotButtons[Constants::MAX_RECENT_PROJECTS];
-    m_signalMapper = new QSignalMapper(this);
+    m_signalMapper.reset(new QSignalMapper(this));
 
-    int i(0);
-    foreach (QString file, projectManager()->recentProjects()) {
+    for (const auto& file : projectManager()->recentProjects()) {
         QFont font;
         font.setPointSize(DesignerHelper::getLabelFontSize());
         font.setBold(false);
@@ -105,24 +103,19 @@ void WelcomeView::generateRecentProjectList()
         QPalette palette;
         palette.setColor(QPalette::ButtonText, QColor(41, 73, 150));
 
-        slotButtons[i] = new QCommandLinkButton;
-        slotButtons[i]->setText(GUI_StringUtils::withTildeHomePath(file));
-        slotButtons[i]->setFont(font);
-        slotButtons[i]->setPalette(palette);
-        slotButtons[i]->setFixedHeight(30);
-        m_signalMapper->setMapping(slotButtons[i], file);
-        connect(slotButtons[i], SIGNAL(clicked()), m_signalMapper, SLOT(map()));
-        m_recentProjectLayout->addWidget(slotButtons[i]);
-
-        i++;
-
-        if (i == Constants::MAX_RECENT_PROJECTS)
-            break;
+        auto button = new QCommandLinkButton;
+        button->setText(GUI_StringUtils::withTildeHomePath(file));
+        button->setFont(font);
+        button->setPalette(palette);
+        button->setFixedHeight(30);
+        m_signalMapper->setMapping(button, file);
+        connect(button, SIGNAL(clicked()), m_signalMapper.get(), SLOT(map()));
+        m_recentProjectLayout->addWidget(button);
     }
 
     m_recentProjectLayout->addStretch();
 
-    connect(m_signalMapper,
+    connect(m_signalMapper.get(),
             static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped),
             projectManager(), &ProjectManager::openProject);
 }

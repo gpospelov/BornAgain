@@ -17,6 +17,7 @@
 
 #include "WinDllMacros.h"
 #include <QLabel>
+#include <memory>
 
 class QPushButton;
 class MainWindow;
@@ -58,7 +59,7 @@ private:
     QPushButton* m_newUsertButton;
     FancyLabel* m_currentProjectLabel;
     QVBoxLayout* m_recentProjectLayout;
-    QSignalMapper* m_signalMapper;
+    std::unique_ptr<QSignalMapper> m_signalMapper;
     QLabel* m_updateNotification;
 };
 

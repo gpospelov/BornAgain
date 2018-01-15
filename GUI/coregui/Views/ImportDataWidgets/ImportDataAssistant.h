@@ -24,27 +24,25 @@ class GISASInstrumentItem;
 
 //! The ImportDataAssistant class provides utility methods to import data files.
 
-class BA_CORE_API_ ImportDataAssistant {
+class BA_CORE_API_ ImportDataAssistant
+{
 public:
+    OutputData<double>* importData(QString& baseNameOfLoadedFile);
 
-    OutputData<double> *importData(QString &baseNameOfLoadedFile);
+    static OutputData<double>* createSimplifiedOutputData(const OutputData<double>& data);
 
-    static OutputData<double> *createSimplifiedOutputData(const OutputData<double> &data);
+    static bool hasSameDimensions(const GISASInstrumentItem* instrumentItem,
+                                  const RealDataItem* realDataItem);
 
-    static bool hasSameDimensions(const GISASInstrumentItem *instrumentItem,
-                                  const RealDataItem *realDataItem);
+    static bool hasSameDimensions(const GISASInstrumentItem* instrumentItem,
+                                  const RealDataItem* realDataItem, QString& message);
 
-    static bool hasSameDimensions(const GISASInstrumentItem *instrumentItem,
-                                  const RealDataItem *realDataItem,
-                                  QString &message);
+    static void realDataShape(const RealDataItem* realData, int& nx, int& ny);
 
-    static void realDataShape(const RealDataItem *realData, int &nx, int &ny);
+    static void detectorShape(const GISASInstrumentItem* instrumentItem, int& nx, int& ny);
 
-    static void detectorShape(const GISASInstrumentItem *instrumentItem, int &nx, int &ny);
-
-    static void setInstrumentShapeToData(GISASInstrumentItem *instrumentItem,
-                                         const RealDataItem *realDataItemItem);
-
+    static void setInstrumentShapeToData(GISASInstrumentItem* instrumentItem,
+                                         const RealDataItem* realDataItemItem);
 };
 
 #endif // IMPORTDATAASSISTANT_H

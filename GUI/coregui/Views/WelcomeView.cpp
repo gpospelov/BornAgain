@@ -30,6 +30,9 @@ namespace
 {
 const int buttonHeight = 45;
 const int buttonWidth = 140;
+
+const QString centralWidgetStyle = "QWidget#containerWidget "
+    "{border-left: 1px solid gray; border-right: 1px solid gray;background-color:white;}";
 }
 
 WelcomeView::WelcomeView(MainWindow* parent)
@@ -46,39 +49,24 @@ WelcomeView::WelcomeView(MainWindow* parent)
     setAutoFillBackground(true);
     setPalette(palette);
 
-    // central part
-    auto itemContainerLayout = new QHBoxLayout;
-    itemContainerLayout->addLayout(createButtonLayout());
-    itemContainerLayout->addWidget(createSeparationFrame());
-    itemContainerLayout->addLayout(createProjectLayout());
-    itemContainerLayout->addStretch(1);
-    auto itemContainerWidget = new QWidget;
-    itemContainerWidget->setLayout(itemContainerLayout);
-    itemContainerWidget->setFixedHeight(430);
+    auto centralWidgetLayout = new QVBoxLayout;
+    centralWidgetLayout->setMargin(0);
+    centralWidgetLayout->addWidget(createProjectWidget());
+    centralWidgetLayout->addWidget(createNotificationLabel());
+    centralWidgetLayout->addStretch(1);
 
-    QVBoxLayout* containerLayout = new QVBoxLayout;
-    containerLayout->setMargin(0);
-    containerLayout->addWidget(itemContainerWidget);
-    containerLayout->addWidget(createNotificationLabel());
-    containerLayout->addStretch(1);
-
-    QWidget* containerWidget = new QWidget;
-    containerWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-    containerWidget->setObjectName("containerWidget");
-    containerWidget->setMaximumWidth(800);
-    containerWidget->setContentsMargins(0, 30, 0, 0);
-    containerWidget->setStyleSheet(QString::fromUtf8("QWidget#containerWidget\n"
-                                                     "{\n"
-                                                     "    border-left: 1px solid gray;\n"
-                                                     "    border-right: 1px solid gray;\n"
-                                                     "    background-color:white;\n"
-                                                     "}\n"));
-    containerWidget->setLayout(containerLayout);
+    auto centralWidget = new QWidget;
+    centralWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    centralWidget->setObjectName("containerWidget");
+    centralWidget->setMaximumWidth(800);
+    centralWidget->setContentsMargins(0, 30, 0, 0);
+    centralWidget->setStyleSheet(centralWidgetStyle);
+    centralWidget->setLayout(centralWidgetLayout);
 
     auto mainLayout = new QHBoxLayout;
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(new QWidget);
-    mainLayout->addWidget(containerWidget);
+    mainLayout->addWidget(centralWidget);
     mainLayout->addWidget(new QWidget);
     setLayout(mainLayout);
 
@@ -142,7 +130,7 @@ void WelcomeView::generateRecentProjectList()
 QString WelcomeView::currentProjectFancyName()
 {
     QString result("Untitled");
-    if (ProjectDocument* projectDocument = projectManager()->document()) {
+    if (auto projectDocument = projectManager()->document()) {
         if (projectDocument->hasValidNameAndPath())
             result = GUI_StringUtils::withTildeHomePath(projectDocument->projectFileName());
         else
@@ -197,6 +185,21 @@ void WelcomeView::clearLayout(QLayout* layout, bool deleteWidgets)
 void WelcomeView::setNotificationText(const QString& text)
 {
     m_updateNotification->setText(text);
+}
+
+QWidget* WelcomeView::createProjectWidget()
+{
+    auto layout = new QHBoxLayout;
+    layout->addLayout(createButtonLayout());
+    layout->addWidget(createSeparationFrame());
+    layout->addLayout(createProjectLayout());
+    layout->addStretch(1);
+
+    auto result = new QWidget;
+    result->setLayout(layout);
+    result->setFixedHeight(430);
+
+    return result;
 }
 
 QBoxLayout* WelcomeView::createButtonLayout()

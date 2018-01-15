@@ -39,6 +39,7 @@ public slots:
     void setNotificationText(const QString& text);
 
 private:
+    QWidget* createProjectWidget();
     QBoxLayout* createButtonLayout();
     QBoxLayout* createCurrentProjectLayout();
     QBoxLayout* createRecentProjectLayout();

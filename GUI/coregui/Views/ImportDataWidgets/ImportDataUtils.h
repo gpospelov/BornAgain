@@ -18,6 +18,7 @@
 #include "WinDllMacros.h"
 #include <QString>
 #include <memory>
+#include <vector>
 
 template <class T> class OutputData;
 class RealDataItem;
@@ -41,9 +42,9 @@ BA_CORE_API_ bool Compatible(const RealDataItem& instrumentItem,
 BA_CORE_API_ bool HasSameShape(const GISASInstrumentItem* instrumentItem,
                                const RealDataItem* realDataItem, QString* message = nullptr);
 
-BA_CORE_API_ void RealDataShape(const RealDataItem* realData, int& nx, int& ny);
+BA_CORE_API_ std::pair<int, int> RealDataShape(const RealDataItem* realData);
 
-BA_CORE_API_ void DetectorShape(const GISASInstrumentItem* instrumentItem, int& nx, int& ny);
+BA_CORE_API_ std::pair<int, int> DetectorShape(const GISASInstrumentItem* instrumentItem);
 
 BA_CORE_API_ void SetInstrumentShapeToData(GISASInstrumentItem* instrumentItem,
                                            const RealDataItem* realDataItemItem);

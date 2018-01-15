@@ -84,13 +84,6 @@ void GISASSimulation::setDetector(const IDetector2D& detector)
     m_instrument.setDetector(detector);
 }
 
-void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
-                                            size_t n_alpha, double alpha_min, double alpha_max)
-{
-    Detector2D(m_instrument)
-        ->setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
-}
-
 void GISASSimulation::removeMasks()
 {
     Detector2D(m_instrument)->removeMasks();

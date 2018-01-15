@@ -68,17 +68,6 @@ void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis
     updateIntensityMap();
 }
 
-void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max,
-                                              size_t n_y, double y_min, double y_max)
-{
-    if (auto detector = m_instrument.detector2D())
-        detector->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
-    else
-        throw std::runtime_error(
-            "Error in OffSpecSimulation::setDetectorParameters: wrong detector type");
-    updateIntensityMap();
-}
-
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     : Simulation2D(other)
 {

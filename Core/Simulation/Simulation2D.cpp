@@ -32,6 +32,17 @@ Simulation2D::Simulation2D(const Simulation2D& other)
     , m_storage(other.m_storage)
 {}
 
+void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
+                                         size_t n_y, double y_min, double y_max)
+{
+    if (auto detector = m_instrument.detector2D())
+        detector->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
+    else
+        throw std::runtime_error(
+            "Error in Simulation2D::setDetectorParameters: wrong detector type");
+    updateIntensityMap();
+}
+
 std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(size_t start,
                                                                               size_t n_elements)
 {

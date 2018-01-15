@@ -58,16 +58,6 @@ public:
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
 
-    //! Sets spherical detector parameters using angle ranges
-    //! @param n_phi number of phi-axis bins
-    //! @param phi_min low edge of first phi-bin
-    //! @param phi_max upper edge of last phi-bin
-    //! @param n_alpha number of alpha-axis bins
-    //! @param alpha_min low edge of first alpha-bin
-    //! @param alpha_max upper edge of last alpha-bin
-    void setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
-                               size_t n_alpha, double alpha_min, double alpha_max);
-
     //! removes all masks from the detector
     void removeMasks();
 

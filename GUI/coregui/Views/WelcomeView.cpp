@@ -90,7 +90,7 @@ void WelcomeView::generateRecentProjectList()
     setCurrentProjectName(currentProjectFancyName());
     m_recentProjectLayout->addWidget(recentProLabel);
 
-    m_signalMapper.reset(new QSignalMapper(this));
+    m_signalMapper.reset(new QSignalMapper);
 
     for (const auto& file : projectManager()->recentProjects()) {
         QPalette palette;

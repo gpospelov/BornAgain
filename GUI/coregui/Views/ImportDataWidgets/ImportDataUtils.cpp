@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.cpp
-//! @brief     Implements class ImportDataUtils
+//! @brief     Implements ImportDataUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

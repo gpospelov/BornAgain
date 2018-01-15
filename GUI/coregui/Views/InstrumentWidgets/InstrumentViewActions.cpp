@@ -70,19 +70,22 @@ QMenu* InstrumentViewActions::instrumentMenu()
 void InstrumentViewActions::onAddInstrument()
 {
     auto action = qobject_cast<QAction *>(sender());
-    Q_ASSERT(action);
-    Q_ASSERT(action->data().canConvert(QVariant::String));
+    Q_ASSERT(action && action->data().canConvert(QVariant::String));
 
     QString instrumentType = action->data().toString();
 
     if (instrumentType == Constants::GISASInstrumentType) {
-        SessionItem* instrument = m_model->insertNewItem(instrumentType);
+        auto instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("Default GISAS"));
-        updateSelection();
+    } else if (instrumentType == Constants::OffSpecInstrumentType) {
+        auto instrument = m_model->insertNewItem(instrumentType);
+        instrument->setItemName(suggestInstrumentName("Default OffSpec"));
     } else {
         qInfo() << "InstrumentViewActions::onAddInstrument() -> Not supported instrument type"
                 << instrumentType;
     }
+
+    updateSelection();
 
     // Setting default action to the just triggered action
     m_addInstrumentMenu->setDefaultAction(action);
@@ -192,7 +195,7 @@ void InstrumentViewActions::initAddInstrumentMenu()
     m_addInstrumentMenu->setDefaultAction(action);
 
     action = m_addInstrumentMenu->addAction("Default OffSpec");
-    action->setData(QVariant::fromValue(QStringLiteral("NotImplementedOffSpecType")));
+    action->setData(QVariant::fromValue(Constants::OffSpecInstrumentType));
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 
     action = m_addInstrumentMenu->addAction("Default Specular");

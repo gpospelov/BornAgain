@@ -81,7 +81,6 @@ void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x
 
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     : Simulation2D(other)
-    , m_storage(other.m_storage)
 {
     if(other.mP_alpha_i_axis)
         mP_alpha_i_axis.reset(other.mP_alpha_i_axis->clone());
@@ -109,18 +108,6 @@ void OffSpecSimulation::initSimulationElementVector(bool init_storage)
     }
     if (init_storage)
         m_storage = m_sim_elements;
-}
-
-void OffSpecSimulation::addDataToStorage(double weight)
-{
-    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
-}
-
-void OffSpecSimulation::moveDataFromStorage()
-{
-    assert(!m_storage.empty());
-    if (!m_storage.empty())
-        m_sim_elements = std::move(m_storage);
 }
 
 void OffSpecSimulation::transferResultsToIntensityMap()

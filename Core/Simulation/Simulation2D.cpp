@@ -15,6 +15,7 @@
 #include "Simulation2D.h"
 #include "DWBAComputation.h"
 #include "IBackground.h"
+#include "SimElementUtils.h"
 #include "SimulationElement.h"
 
 Simulation2D::Simulation2D(const MultiLayer& p_sample)
@@ -28,6 +29,7 @@ Simulation2D::Simulation2D(const std::shared_ptr<IMultiLayerBuilder> p_sample_bu
 Simulation2D::Simulation2D(const Simulation2D& other)
     : Simulation(other)
     , m_sim_elements(other.m_sim_elements)
+    , m_storage(other.m_storage)
 {}
 
 std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(size_t start,
@@ -58,3 +60,16 @@ void Simulation2D::addBackGroundIntensity(size_t start_ind, size_t n_elements)
         mP_background->addBackGround(element);
     }
 }
+
+void Simulation2D::addDataToStorage(double weight)
+{
+    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
+}
+
+void Simulation2D::moveDataFromStorage()
+{
+    assert(!m_storage.empty());
+    if (!m_storage.empty())
+        m_sim_elements = std::move(m_storage);
+}
+

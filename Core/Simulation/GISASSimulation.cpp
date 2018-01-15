@@ -19,7 +19,6 @@
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
-#include "SimElementUtils.h"
 #include "SimulationElement.h"
 
 namespace
@@ -114,21 +113,8 @@ void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, 
 
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
     : Simulation2D(other)
-    , m_storage(other.m_storage)
 {
     initialize();
-}
-
-void GISASSimulation::addDataToStorage(double weight)
-{
-    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
-}
-
-void GISASSimulation::moveDataFromStorage()
-{
-    assert(!m_storage.empty());
-    if (!m_storage.empty())
-        m_sim_elements = std::move(m_storage);
 }
 
 void GISASSimulation::initSimulationElementVector(bool init_storage)

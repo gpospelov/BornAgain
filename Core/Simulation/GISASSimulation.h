@@ -92,14 +92,6 @@ private:
     void initSimulationElementVector(bool init_storage) override;
 
     void initialize();
-
-    bool isStorageInited() const override {return !m_storage.empty();}
-
-    void addDataToStorage(double weight) override;
-
-    void moveDataFromStorage() override;
-
-    std::vector<SimulationElement> m_storage;
 };
 
 #endif // GISASSIMULATION_H

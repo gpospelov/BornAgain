@@ -82,15 +82,8 @@ private:
 
     void initialize();
 
-    bool isStorageInited() const override {return !m_storage.empty();}
-
-    void addDataToStorage(double weight) override;
-
-    void moveDataFromStorage() override;
-
     std::unique_ptr<IAxis> mP_alpha_i_axis;
     OutputData<double> m_intensity_map;
-    std::vector<SimulationElement> m_storage;
 };
 
 #endif // OFFSPECSIMULATION_H

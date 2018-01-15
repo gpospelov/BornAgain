@@ -42,9 +42,17 @@ protected:
 
     //! Normalize the intensity of the element with given index
     void normalizeIntensity(size_t index, double beam_intensity) override;
-    std::vector<SimulationElement> m_sim_elements;
 
     void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+
+    bool isStorageInited() const override {return !m_storage.empty();}
+
+    void addDataToStorage(double weight) override;
+
+    void moveDataFromStorage() override;
+
+    std::vector<SimulationElement> m_sim_elements;
+    std::vector<SimulationElement> m_storage;
 };
 
 #endif // SIMULATION2D_H

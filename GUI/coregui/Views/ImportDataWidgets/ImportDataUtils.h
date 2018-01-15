@@ -39,15 +39,11 @@ CreateSimplifiedOutputData(const OutputData<double>& data);
 BA_CORE_API_ bool Compatible(const RealDataItem& instrumentItem,
                              const InstrumentItem& realDataItem);
 
-BA_CORE_API_ bool HasSameShape(const GISASInstrumentItem* instrumentItem,
-                               const RealDataItem* realDataItem, QString* message = nullptr);
+BA_CORE_API_ bool HasSameShape(const GISASInstrumentItem& instrumentItem,
+                               const RealDataItem& realDataItem, QString* message = nullptr);
 
-BA_CORE_API_ std::pair<int, int> RealDataShape(const RealDataItem* realData);
-
-BA_CORE_API_ std::pair<int, int> DetectorShape(const GISASInstrumentItem* instrumentItem);
-
-BA_CORE_API_ void SetInstrumentShapeToData(GISASInstrumentItem* instrumentItem,
-                                           const RealDataItem* realDataItemItem);
+BA_CORE_API_ void SetInstrumentShapeToData(GISASInstrumentItem& instrumentItem,
+                                           const RealDataItem& realDataItemItem);
 };
 
 #endif // IMPORTDATAUTILS_H

@@ -47,6 +47,10 @@ int getRank(const InstrumentItem& item) {
     return -1;
 }
 
+std::pair<int, int> RealDataShape(const RealDataItem& realData);
+
+std::pair<int, int> DetectorShape(const GISASInstrumentItem& instrumentItem);
+
 }
 
 std::unique_ptr<OutputData<double>> ImportDataUtils::ImportData(QString& baseNameOfLoadedFile)
@@ -114,8 +118,8 @@ ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
 
 //! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
 
-bool ImportDataUtils::HasSameShape(const GISASInstrumentItem* instrumentItem,
-                                   const RealDataItem* realDataItem, QString* message)
+bool ImportDataUtils::HasSameShape(const GISASInstrumentItem& instrumentItem,
+                                   const RealDataItem& realDataItem, QString* message)
 {
     bool isSame(true);
 
@@ -133,12 +137,20 @@ bool ImportDataUtils::HasSameShape(const GISASInstrumentItem* instrumentItem,
     return isSame;
 }
 
+void ImportDataUtils::SetInstrumentShapeToData(GISASInstrumentItem& instrumentItem,
+                                               const RealDataItem& realDataItemItem)
+{
+    auto dataShape = RealDataShape(realDataItemItem);
+    instrumentItem.detectorItem()->setSize(dataShape.first, dataShape.second);
+}
+
+namespace {
 //! Returns shape of RealDataItem axes.
 
-std::pair<int, int> ImportDataUtils::RealDataShape(const RealDataItem* realData)
+std::pair<int, int> RealDataShape(const RealDataItem& realData)
 {
     std::pair<int, int> result;
-    if (const IntensityDataItem* intensityItem = realData->intensityDataItem()) {
+    if (const auto intensityItem = realData.intensityDataItem()) {
         auto xaxis = intensityItem->getItem(IntensityDataItem::P_XAXIS);
         result.first = xaxis->getItemValue(BasicAxisItem::P_NBINS).toInt();
         auto yaxis = intensityItem->getItem(IntensityDataItem::P_YAXIS);
@@ -149,16 +161,11 @@ std::pair<int, int> ImportDataUtils::RealDataShape(const RealDataItem* realData)
 
 //! Returns shape of Instrument's detector axes.
 
-std::pair<int, int> ImportDataUtils::DetectorShape(const GISASInstrumentItem* instrumentItem)
+std::pair<int, int> DetectorShape(const GISASInstrumentItem& instrumentItem)
 {
-    std::unique_ptr<IDetector2D> detector = instrumentItem->detectorItem()->createDetector();
+    std::unique_ptr<IDetector2D> detector = instrumentItem.detectorItem()->createDetector();
     return std::make_pair(static_cast<int>(detector->getAxis(0).size()),
                           static_cast<int>(detector->getAxis(1).size()));
 }
 
-void ImportDataUtils::SetInstrumentShapeToData(GISASInstrumentItem* instrumentItem,
-                                               const RealDataItem* realDataItemItem)
-{
-    auto dataShape = RealDataShape(realDataItemItem);
-    instrumentItem->detectorItem()->setSize(dataShape.first, dataShape.second);
 }

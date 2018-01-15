@@ -103,7 +103,6 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
     if (instrumentItem == nullptr)
         return true;
 
-    // linking to null instrument is possible, it means unlinking from currently linked
     if (!ImportDataUtils::Compatible(*realDataItem, *instrumentItem)) {
         QMessageBox::warning(0, "Can't link to instrument",
                              "Can't link, data is uncompatible with the instrument.");
@@ -115,7 +114,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
     instrumentItem->clearMasks();
 
     QString message;
-    if (ImportDataUtils::HasSameShape(instrumentItem, realDataItem, &message))
+    if (ImportDataUtils::HasSameShape(*instrumentItem, *realDataItem, &message))
         return true;
 
     bool canLink(false);
@@ -137,7 +136,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
 
     if (msgBox.clickedButton() == modifyInstrumentButton) {
         canLink = true;
-        ImportDataUtils::SetInstrumentShapeToData(instrumentItem, realDataItem);
+        ImportDataUtils::SetInstrumentShapeToData(*instrumentItem, *realDataItem);
     } else if (msgBox.clickedButton() == cancelButton) {
         canLink = false;
     }
@@ -273,7 +272,7 @@ void LinkInstrumentManager::updateRealDataMap()
 void LinkInstrumentManager::onInstrumentBinningChange(GISASInstrumentItem* changedInstrument)
 {
     for(auto realDataItem : linkedItems(changedInstrument))
-        if (!ImportDataUtils::HasSameShape(changedInstrument, realDataItem))
+        if (!ImportDataUtils::HasSameShape(*changedInstrument, *realDataItem))
             realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
 }
 

@@ -14,8 +14,8 @@
 
 #include "Simulation2D.h"
 #include "DWBAComputation.h"
+#include "IBackground.h"
 #include "SimulationElement.h"
-
 
 Simulation2D::Simulation2D(const MultiLayer& p_sample)
     : Simulation(p_sample)
@@ -47,4 +47,14 @@ void Simulation2D::normalizeIntensity(size_t index, double beam_intensity)
         sin_alpha_i = 1.0;
     const double solid_angle = element.getSolidAngle();
     element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
+}
+
+void Simulation2D::addBackGroundIntensity(size_t start_ind, size_t n_elements)
+{
+    if (!mP_background)
+        return;
+    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+        SimulationElement& element = m_sim_elements[i];
+        mP_background->addBackGround(element);
+    }
 }

@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "IBackground.h"
 #include "OffSpecSimulation.h"
 #include "BornAgainNamespace.h"
 #include "DWBAComputation.h"
@@ -110,16 +109,6 @@ void OffSpecSimulation::initSimulationElementVector(bool init_storage)
     }
     if (init_storage)
         m_storage = m_sim_elements;
-}
-
-void OffSpecSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
-{
-    if (!mP_background)
-        return;
-    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
-        SimulationElement& element = m_sim_elements[i];
-        mP_background->addBackGround(element);
-    }
 }
 
 void OffSpecSimulation::addDataToStorage(double weight)

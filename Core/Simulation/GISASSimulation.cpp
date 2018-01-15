@@ -119,16 +119,6 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other)
     initialize();
 }
 
-void GISASSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
-{
-    if (!mP_background)
-        return;
-    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
-        SimulationElement& element = m_sim_elements[i];
-        mP_background->addBackGround(element);
-    }
-}
-
 void GISASSimulation::addDataToStorage(double weight)
 {
     SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);

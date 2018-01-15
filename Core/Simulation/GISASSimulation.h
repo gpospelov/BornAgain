@@ -93,8 +93,6 @@ private:
 
     void initialize();
 
-    void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
-
     bool isStorageInited() const override {return !m_storage.empty();}
 
     void addDataToStorage(double weight) override;

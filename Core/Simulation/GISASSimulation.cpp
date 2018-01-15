@@ -44,14 +44,6 @@ GISASSimulation::GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sam
     initialize();
 }
 
-GISASSimulation::GISASSimulation(const GISASSimulation& other)
-    : Simulation(other)
-    , m_sim_elements(other.m_sim_elements)
-    , m_storage(other.m_storage)
-{
-    initialize();
-}
-
 void GISASSimulation::prepareSimulation()
 {
     if (m_instrument.getDetectorDimension() != 2)
@@ -118,6 +110,14 @@ void GISASSimulation::maskAll()
 void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
     Detector2D(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
+}
+
+GISASSimulation::GISASSimulation(const GISASSimulation& other)
+    : Simulation(other)
+    , m_sim_elements(other.m_sim_elements)
+    , m_storage(other.m_storage)
+{
+    initialize();
 }
 
 std::unique_ptr<IComputation> GISASSimulation::generateSingleThreadedComputation(size_t start,

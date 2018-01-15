@@ -45,17 +45,6 @@ void OffSpecSimulation::prepareSimulation()
     Simulation::prepareSimulation();
 }
 
-OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
-    : Simulation(other)
-    , m_sim_elements(other.m_sim_elements)
-    , m_storage(other.m_storage)
-{
-    if(other.mP_alpha_i_axis)
-        mP_alpha_i_axis.reset(other.mP_alpha_i_axis->clone());
-    m_intensity_map.copyFrom(other.m_intensity_map);
-    initialize();
-}
-
 size_t OffSpecSimulation::numberOfSimulationElements() const
 {
     checkInitialization();
@@ -64,7 +53,7 @@ size_t OffSpecSimulation::numberOfSimulationElements() const
 
 Histogram2D* OffSpecSimulation::getIntensityData() const
 {
-    const std::unique_ptr<OutputData<double> > data(getDetectorIntensity());
+    const std::unique_ptr<OutputData<double>> data(getDetectorIntensity());
     return new Histogram2D(*data);
 }
 
@@ -89,6 +78,17 @@ void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x
         throw std::runtime_error(
             "Error in OffSpecSimulation::setDetectorParameters: wrong detector type");
     updateIntensityMap();
+}
+
+OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
+    : Simulation(other)
+    , m_sim_elements(other.m_sim_elements)
+    , m_storage(other.m_storage)
+{
+    if(other.mP_alpha_i_axis)
+        mP_alpha_i_axis.reset(other.mP_alpha_i_axis->clone());
+    m_intensity_map.copyFrom(other.m_intensity_map);
+    initialize();
 }
 
 std::unique_ptr<IComputation>

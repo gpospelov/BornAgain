@@ -194,7 +194,7 @@ QBoxLayout* WelcomeView::createButtonLayout()
     m_openProjectButton->setFont(StyleUtils::labelFont());
     m_openProjectButton->setToolTip("Open existing project");
 
-    m_newUsertButton = new QPushButton("New to BornAgain?");
+    m_newUsertButton = new QPushButton("Web docs");
     m_newUsertButton->setMinimumWidth(buttonWidth);
     m_newUsertButton->setMinimumHeight(buttonHeight);
     m_newUsertButton->setFont(StyleUtils::labelFont());

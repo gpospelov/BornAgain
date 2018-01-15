@@ -13,8 +13,19 @@
 // ************************************************************************** //
 
 #include "ModelUtils.h"
+#include "SessionModel.h"
 #include <QAbstractItemModel>
 #include <QModelIndex>
+
+QStringList ModelUtils::topItemNames(SessionModel* model, const QString& modelType)
+{
+    QStringList result;
+
+    for(auto item : model->topItems(modelType))
+        result.append(item->itemName());
+
+    return result;
+}
 
 void ModelUtils::iterate(const QModelIndex& index, const QAbstractItemModel* model,
                          const std::function<void(const QModelIndex&)>& fun)

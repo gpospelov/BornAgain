@@ -86,8 +86,6 @@ public:
                          const QString& item_name = QString()) const;
     QList<SessionItem*> topItems(const QString& model_type = QString(),
                                  const QModelIndex& parentIndex = QModelIndex()) const;
-    QStringList topItemNames(const QString& model_type = QString(),
-                             const QModelIndex& parentIndex = QModelIndex()) const;
 
     virtual void initFrom(SessionModel* model, SessionItem* parent);
     SessionItem* rootItem() const;

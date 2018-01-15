@@ -14,6 +14,7 @@
 
 #include "InstrumentViewActions.h"
 #include "SessionModel.h"
+#include "ModelUtils.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QMenu>
@@ -165,7 +166,7 @@ QMap<QString, int> InstrumentViewActions::mapOfNames()
 {
     QMap<QString, int> result;
 
-    for(auto& name : m_model->topItemNames()) {
+    for(auto& name : ModelUtils::topItemNames(m_model)) {
         int ncopy(1);
         QRegExp regexp("\\((.*)\\)");
         if (regexp.indexIn(name) >= 0)

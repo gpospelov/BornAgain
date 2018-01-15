@@ -462,17 +462,6 @@ QList<SessionItem*> SessionModel::topItems(const QString& model_type,
     return result;
 }
 
-QStringList SessionModel::topItemNames(const QString& model_type,
-                                       const QModelIndex& parentIndex) const
-{
-    QStringList result;
-
-    for (auto item : topItems(model_type, parentIndex))
-        result.append(item->itemName());
-
-    return result;
-}
-
 void SessionModel::initFrom(SessionModel* model, SessionItem*)
 {
     QByteArray byte_array;

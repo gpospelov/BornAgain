@@ -36,7 +36,7 @@ const QString filter_string = "Intensity File (*.int *.gz *.tif *.txt);;"
                               "Other (*)";
 }
 
-OutputData<double>* ImportDataUtils::importData(QString& baseNameOfLoadedFile)
+OutputData<double>* ImportDataUtils::ImportData(QString& baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
     QString fileName = QFileDialog::getOpenFileName(0, QStringLiteral("Open Intensity File"),
@@ -57,7 +57,7 @@ OutputData<double>* ImportDataUtils::importData(QString& baseNameOfLoadedFile)
     try {
         std::unique_ptr<OutputData<double>> data(
             IntensityDataIOFactory::readOutputData(fileName.toStdString()));
-        result = createSimplifiedOutputData(*data.get());
+        result = CreateSimplifiedOutputData(*data.get());
     } catch (std::exception& ex) {
         QString message = QString("Error while trying to read file\n\n'%1'\n\n%2")
                               .arg(fileName)
@@ -70,7 +70,7 @@ OutputData<double>* ImportDataUtils::importData(QString& baseNameOfLoadedFile)
 
 //! Creates OutputData with simplified axes [0,nxbin]x[0,nybin].
 
-OutputData<double>* ImportDataUtils::createSimplifiedOutputData(const OutputData<double>& data)
+OutputData<double>* ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
 {
     if (data.getRank() != 2)
         throw std::runtime_error("ImportDataAssistant::createSimplifiedOutputData() -> Error. "
@@ -92,26 +92,26 @@ OutputData<double>* ImportDataUtils::createSimplifiedOutputData(const OutputData
     return result;
 }
 
-bool ImportDataUtils::hasSameDimensions(const GISASInstrumentItem* instrumentItem,
+bool ImportDataUtils::HasSameDimensions(const GISASInstrumentItem* instrumentItem,
                                             const RealDataItem* realDataItem)
 {
     QString message;
-    return hasSameDimensions(instrumentItem, realDataItem, message);
+    return HasSameDimensions(instrumentItem, realDataItem, message);
 }
 
 //! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
 
-bool ImportDataUtils::hasSameDimensions(const GISASInstrumentItem* instrumentItem,
+bool ImportDataUtils::HasSameDimensions(const GISASInstrumentItem* instrumentItem,
                                             const RealDataItem* realDataItem, QString& message)
 {
     bool isSame(true);
     message.clear();
 
     int nxData(0), nyData(0);
-    realDataShape(realDataItem, nxData, nyData);
+    RealDataShape(realDataItem, nxData, nyData);
 
     int nxDetector(0), nyDetector(0);
-    detectorShape(instrumentItem, nxDetector, nyDetector);
+    DetectorShape(instrumentItem, nxDetector, nyDetector);
 
     if (nxData != nxDetector || nyData != nyDetector) {
         isSame = false;
@@ -124,7 +124,7 @@ bool ImportDataUtils::hasSameDimensions(const GISASInstrumentItem* instrumentIte
 
 //! Returns shape of RealDataItem axes.
 
-void ImportDataUtils::realDataShape(const RealDataItem* realData, int& nx, int& ny)
+void ImportDataUtils::RealDataShape(const RealDataItem* realData, int& nx, int& ny)
 {
     nx = ny = 0;
     if (const IntensityDataItem* intensityItem = realData->intensityDataItem()) {
@@ -137,17 +137,17 @@ void ImportDataUtils::realDataShape(const RealDataItem* realData, int& nx, int& 
 
 //! Returns shape of Instrument's detector axes.
 
-void ImportDataUtils::detectorShape(const GISASInstrumentItem* instrumentItem, int& nx, int& ny)
+void ImportDataUtils::DetectorShape(const GISASInstrumentItem* instrumentItem, int& nx, int& ny)
 {
     std::unique_ptr<IDetector2D> detector = instrumentItem->detectorItem()->createDetector();
     nx = static_cast<int>(detector->getAxis(0).size());
     ny = static_cast<int>(detector->getAxis(1).size());
 }
 
-void ImportDataUtils::setInstrumentShapeToData(GISASInstrumentItem* instrumentItem,
+void ImportDataUtils::SetInstrumentShapeToData(GISASInstrumentItem* instrumentItem,
                                                    const RealDataItem* realDataItemItem)
 {
     int nxData(0), nyData(0);
-    realDataShape(realDataItemItem, nxData, nyData);
+    RealDataShape(realDataItemItem, nxData, nyData);
     instrumentItem->detectorItem()->setSize(nxData, nyData);
 }

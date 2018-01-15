@@ -190,7 +190,7 @@ void ApplicationModels::createTestRealData()
     std::unique_ptr<OutputData<double>> data(
         IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int"));
 
-    OutputData<double>* simplified = ImportDataUtils::createSimplifiedOutputData(*data.get());
+    OutputData<double>* simplified = ImportDataUtils::CreateSimplifiedOutputData(*data.get());
     realDataItem->setOutputData(simplified);
 }
 

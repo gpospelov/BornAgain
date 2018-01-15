@@ -107,7 +107,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
     instrumentItem->clearMasks();
 
     QString message;
-    if (ImportDataUtils::hasSameDimensions(instrumentItem, realDataItem, message))
+    if (ImportDataUtils::HasSameDimensions(instrumentItem, realDataItem, message))
         return true;
 
     bool canLink(false);
@@ -129,7 +129,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
 
     if (msgBox.clickedButton() == modifyInstrumentButton) {
         canLink = true;
-        ImportDataUtils::setInstrumentShapeToData(instrumentItem, realDataItem);
+        ImportDataUtils::SetInstrumentShapeToData(instrumentItem, realDataItem);
     } else if (msgBox.clickedButton() == cancelButton) {
         canLink = false;
     }
@@ -265,7 +265,7 @@ void LinkInstrumentManager::updateRealDataMap()
 void LinkInstrumentManager::onInstrumentBinningChange(GISASInstrumentItem* changedInstrument)
 {
     for(auto realDataItem : linkedItems(changedInstrument))
-        if (!ImportDataUtils::hasSameDimensions(changedInstrument, realDataItem))
+        if (!ImportDataUtils::HasSameDimensions(changedInstrument, realDataItem))
             realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
 }
 

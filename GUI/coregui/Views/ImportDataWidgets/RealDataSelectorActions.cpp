@@ -117,7 +117,7 @@ void RealDataSelectorActions::onImportDataAction()
     Q_ASSERT(m_selectionModel);
     QString baseNameOfImportedFile;
 
-    std::unique_ptr<OutputData<double>> data(ImportDataUtils::importData(baseNameOfImportedFile));
+    std::unique_ptr<OutputData<double>> data(ImportDataUtils::ImportData(baseNameOfImportedFile));
     if (data) {
         RealDataItem* realDataItem
             = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));

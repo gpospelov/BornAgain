@@ -27,21 +27,21 @@ class GISASInstrumentItem;
 namespace ImportDataUtils
 {
 
-BA_CORE_API_ OutputData<double>* importData(QString& baseNameOfLoadedFile);
+BA_CORE_API_ OutputData<double>* ImportData(QString& baseNameOfLoadedFile);
 
-BA_CORE_API_ OutputData<double>* createSimplifiedOutputData(const OutputData<double>& data);
+BA_CORE_API_ OutputData<double>* CreateSimplifiedOutputData(const OutputData<double>& data);
 
-BA_CORE_API_ bool hasSameDimensions(const GISASInstrumentItem* instrumentItem,
+BA_CORE_API_ bool HasSameDimensions(const GISASInstrumentItem* instrumentItem,
                                     const RealDataItem* realDataItem);
 
-BA_CORE_API_ bool hasSameDimensions(const GISASInstrumentItem* instrumentItem,
+BA_CORE_API_ bool HasSameDimensions(const GISASInstrumentItem* instrumentItem,
                                     const RealDataItem* realDataItem, QString& message);
 
-BA_CORE_API_ void realDataShape(const RealDataItem* realData, int& nx, int& ny);
+BA_CORE_API_ void RealDataShape(const RealDataItem* realData, int& nx, int& ny);
 
-BA_CORE_API_ void detectorShape(const GISASInstrumentItem* instrumentItem, int& nx, int& ny);
+BA_CORE_API_ void DetectorShape(const GISASInstrumentItem* instrumentItem, int& nx, int& ny);
 
-BA_CORE_API_ void setInstrumentShapeToData(GISASInstrumentItem* instrumentItem,
+BA_CORE_API_ void SetInstrumentShapeToData(GISASInstrumentItem* instrumentItem,
                                            const RealDataItem* realDataItemItem);
 };
 

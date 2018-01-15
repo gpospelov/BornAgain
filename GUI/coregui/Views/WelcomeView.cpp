@@ -20,6 +20,7 @@
 #include "projectdocument.h"
 #include "projectmanager.h"
 #include "qstringutils.h"
+#include "LayoutUtils.h"
 #include <QCommandLinkButton>
 #include <QDesktopServices>
 #include <QSignalMapper>
@@ -162,24 +163,9 @@ void WelcomeView::onNewUser()
 
 void WelcomeView::updateRecentProjectPanel()
 {
-    clearLayout(m_recentProjectLayout);
+    LayoutUtils::clearLayout(m_recentProjectLayout);
     generateRecentProjectList();
     update();
-}
-
-void WelcomeView::clearLayout(QLayout* layout, bool deleteWidgets)
-{
-    if (layout) {
-        while (QLayoutItem* item = layout->takeAt(0)) {
-            if (deleteWidgets) {
-                if (QWidget* widget = item->widget())
-                    delete widget;
-            }
-            if (QLayout* childLayout = item->layout())
-                clearLayout(childLayout, deleteWidgets);
-            delete item;
-        }
-    }
 }
 
 void WelcomeView::setNotificationText(const QString& text)

@@ -47,7 +47,6 @@ private:
     QLabel* createNotificationLabel();
     QFrame* createSeparationFrame();
 
-    void clearLayout(QLayout* layout, bool deleteWidgets = true);
     void generateRecentProjectList();
     QString currentProjectFancyName();
     void setCurrentProjectName(const QString& name);

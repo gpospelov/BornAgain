@@ -49,6 +49,9 @@ namespace MathFunctions
 
     BA_CORE_API_ complex_t Laue(const complex_t z, size_t N);
 
+    //! Error function of real-valued argument
+    BA_CORE_API_ double erf(double arg);
+
 
 // ************************************************************************** //
 //  Bessel functions

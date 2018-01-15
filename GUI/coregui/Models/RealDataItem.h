@@ -19,6 +19,7 @@
 
 template <class T> class OutputData;
 class IntensityDataItem;
+class InstrumentItem;
 class GISASInstrumentItem;
 
 //! The RealDataItem class represents intensity data imported from file and intended for fitting.
@@ -36,7 +37,7 @@ public:
 
     void setOutputData(OutputData<double> *data);
 
-    void linkToInstrument(const GISASInstrumentItem *instrument, bool make_update = true);
+    void linkToInstrument(const InstrumentItem *instrument, bool make_update = true);
 
 private:
     void updateIntensityDataFileName();

@@ -24,7 +24,7 @@
 class InstrumentModel;
 class RealDataModel;
 class SessionItem;
-class GISASInstrumentItem;
+class InstrumentItem;
 class RealDataItem;
 class SessionModel;
 
@@ -43,20 +43,20 @@ public:
         InstrumentInfo();
         QString m_identifier;
         QString m_name;
-        GISASInstrumentItem* m_instrument;
+        InstrumentItem* m_instrument;
     };
 
     explicit LinkInstrumentManager(QObject* parent = 0);
 
     void setModels(InstrumentModel* instrumentModel, RealDataModel* realDataModel);
 
-    GISASInstrumentItem* getInstrument(const QString& identifier);
+    InstrumentItem* getInstrument(const QString& identifier);
     QStringList instrumentNames() const;
     int instrumentComboIndex(const QString& identifier);
     QString instrumentIdentifier(int comboIndex);
     bool canLinkDataToInstrument(const RealDataItem* realDataItem, const QString& identifier);
 
-    QList<RealDataItem*> linkedItems(GISASInstrumentItem* instrumentItem);
+    QList<RealDataItem*> linkedItems(InstrumentItem* instrumentItem);
 
 signals:
     void instrumentMapUpdated();
@@ -64,15 +64,15 @@ signals:
 private slots:
     void setOnInstrumentPropertyChange(SessionItem* instrument, const QString& property);
     void setOnRealDataPropertyChange(SessionItem* dataItem, const QString& property);
-    void onInstrumentChildChange(GISASInstrumentItem* instrument, SessionItem* child);
+    void onInstrumentChildChange(InstrumentItem* instrument, SessionItem* child);
     void onInstrumentRowsChange(const QModelIndex& parent, int, int);
     void onRealDataRowsChange(const QModelIndex& parent, int, int);
 
     void updateLinks();
     void updateInstrumentMap();
     void updateRealDataMap();
-    void onInstrumentBinningChange(GISASInstrumentItem* changedInstrument);
-    void onInstrumentLayoutChange(GISASInstrumentItem* changedInstrument);
+    void onInstrumentBinningChange(InstrumentItem* changedInstrument);
+    void onInstrumentLayoutChange(InstrumentItem* changedInstrument);
 
 private:
     void setInstrumentModel(InstrumentModel* model);

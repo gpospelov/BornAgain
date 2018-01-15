@@ -53,7 +53,7 @@ void LinkInstrumentManager::setModels(InstrumentModel* instrumentModel,
 
 //! Returns InstrumentItem for given identifier.
 
-GISASInstrumentItem* LinkInstrumentManager::getInstrument(const QString& identifier)
+InstrumentItem* LinkInstrumentManager::getInstrument(const QString& identifier)
 {
     for (int i = 0; i < m_instrumentVec.size(); ++i)
         if (m_instrumentVec[i].m_identifier == identifier)
@@ -110,9 +110,6 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
         return false;
     }
 
-    // FIXME temporary hack to get rid from Instrument's own masks and ROI
-    instrumentItem->clearMasks();
-
     QString message;
     if (ImportDataUtils::HasSameShape(*instrumentItem, *realDataItem, &message))
         return true;
@@ -168,7 +165,7 @@ void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem* dataItem,
 
 //! Perform actions on instrument children change.
 
-void LinkInstrumentManager::onInstrumentChildChange(GISASInstrumentItem* instrument,
+void LinkInstrumentManager::onInstrumentChildChange(InstrumentItem* instrument,
                                                     SessionItem* child)
 {
     if (child == nullptr)
@@ -269,7 +266,7 @@ void LinkInstrumentManager::updateRealDataMap()
 
 //! Runs through all RealDataItem and break the link, if instrument binning doesn't match the data.
 
-void LinkInstrumentManager::onInstrumentBinningChange(GISASInstrumentItem* changedInstrument)
+void LinkInstrumentManager::onInstrumentBinningChange(InstrumentItem* changedInstrument)
 {
     for(auto realDataItem : linkedItems(changedInstrument))
         if (!ImportDataUtils::HasSameShape(*changedInstrument, *realDataItem))
@@ -279,7 +276,7 @@ void LinkInstrumentManager::onInstrumentBinningChange(GISASInstrumentItem* chang
 //! Runs through all RealDataItem and refresh linking to match possible change in detector
 //! axes definition.
 
-void LinkInstrumentManager::onInstrumentLayoutChange(GISASInstrumentItem* changedInstrument)
+void LinkInstrumentManager::onInstrumentLayoutChange(InstrumentItem* changedInstrument)
 {
     for (auto realDataItem : linkedItems(changedInstrument))
         realDataItem->linkToInstrument(changedInstrument);
@@ -287,7 +284,7 @@ void LinkInstrumentManager::onInstrumentLayoutChange(GISASInstrumentItem* change
 
 //! Returns list of RealDataItem's linked to given instrument.
 
-QList<RealDataItem*> LinkInstrumentManager::linkedItems(GISASInstrumentItem* instrumentItem)
+QList<RealDataItem*> LinkInstrumentManager::linkedItems(InstrumentItem* instrumentItem)
 {
     QList<RealDataItem*> result;
     for (auto realDataItem : m_realDataModel->topItems<RealDataItem>()) {

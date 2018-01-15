@@ -112,20 +112,12 @@ ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
     return result;
 }
 
-bool ImportDataUtils::HasSameDimensions(const GISASInstrumentItem* instrumentItem,
-                                        const RealDataItem* realDataItem)
-{
-    QString message;
-    return HasSameDimensions(instrumentItem, realDataItem, message);
-}
-
 //! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
 
-bool ImportDataUtils::HasSameDimensions(const GISASInstrumentItem* instrumentItem,
-                                        const RealDataItem* realDataItem, QString& message)
+bool ImportDataUtils::HasSameShape(const GISASInstrumentItem* instrumentItem,
+                                   const RealDataItem* realDataItem, QString* message)
 {
     bool isSame(true);
-    message.clear();
 
     int nxData(0), nyData(0);
     RealDataShape(realDataItem, nxData, nyData);
@@ -135,11 +127,9 @@ bool ImportDataUtils::HasSameDimensions(const GISASInstrumentItem* instrumentIte
 
     if (nxData != nxDetector || nyData != nyDetector) {
         isSame = false;
-        message = QString("detector [%1x%2], data [%3x%4]")
-                      .arg(nxDetector)
-                      .arg(nyDetector)
-                      .arg(nxData)
-                      .arg(nyData);
+        if (message)
+            *message = QString("detector [%1x%2], data [%3x%4]")
+                      .arg(nxDetector).arg(nyDetector).arg(nxData).arg(nyData);
     }
 
     return isSame;

@@ -38,11 +38,8 @@ CreateSimplifiedOutputData(const OutputData<double>& data);
 BA_CORE_API_ bool Compatible(const RealDataItem& instrumentItem,
                              const InstrumentItem& realDataItem);
 
-BA_CORE_API_ bool HasSameDimensions(const GISASInstrumentItem* instrumentItem,
-                                    const RealDataItem* realDataItem);
-
-BA_CORE_API_ bool HasSameDimensions(const GISASInstrumentItem* instrumentItem,
-                                    const RealDataItem* realDataItem, QString& message);
+BA_CORE_API_ bool HasSameShape(const GISASInstrumentItem* instrumentItem,
+                               const RealDataItem* realDataItem, QString* message = nullptr);
 
 BA_CORE_API_ void RealDataShape(const RealDataItem* realData, int& nx, int& ny);
 

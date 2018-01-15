@@ -100,6 +100,10 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
     auto instrumentItem = getInstrument(identifier);
 
     // linking to null instrument is possible, it means unlinking from currently linked
+    if (instrumentItem == nullptr)
+        return true;
+
+    // linking to null instrument is possible, it means unlinking from currently linked
     if (!ImportDataUtils::Compatible(*realDataItem, *instrumentItem)) {
         QMessageBox::warning(0, "Can't link to instrument",
                              "Can't link, data is uncompatible with the instrument.");
@@ -107,16 +111,11 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
         return false;
     }
 
-
-    // linking to null instrument is possible, it means unlinking from currently linked
-    if (instrumentItem == nullptr)
-        return true;
-
     // FIXME temporary hack to get rid from Instrument's own masks and ROI
     instrumentItem->clearMasks();
 
     QString message;
-    if (ImportDataUtils::HasSameDimensions(instrumentItem, realDataItem, message))
+    if (ImportDataUtils::HasSameShape(instrumentItem, realDataItem, &message))
         return true;
 
     bool canLink(false);
@@ -274,7 +273,7 @@ void LinkInstrumentManager::updateRealDataMap()
 void LinkInstrumentManager::onInstrumentBinningChange(GISASInstrumentItem* changedInstrument)
 {
     for(auto realDataItem : linkedItems(changedInstrument))
-        if (!ImportDataUtils::HasSameDimensions(changedInstrument, realDataItem))
+        if (!ImportDataUtils::HasSameShape(changedInstrument, realDataItem))
             realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
 }
 

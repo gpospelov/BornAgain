@@ -79,7 +79,7 @@ void SimulationSetupAssistant::checkFittingSetup(const GISASInstrumentItem *inst
         return;
 
     QString message;
-    if(!ImportDataUtils::HasSameDimensions(instrumentItem, realData, message)) {
+    if(!ImportDataUtils::HasSameShape(instrumentItem, realData, &message)) {
         m_isValid = false;
         m_messages.append("The RealData doesn't match selected instrument: "+message);
     }

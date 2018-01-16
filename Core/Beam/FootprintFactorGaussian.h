@@ -25,7 +25,9 @@
 class BA_CORE_API_ FootprintFactorGaussian : public IFootprintFactor
 {
 public:
-    using IFootprintFactor::IFootprintFactor;
+    FootprintFactorGaussian(double width_ratio);
+
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     FootprintFactorGaussian* clone() const override;
 
@@ -34,6 +36,9 @@ public:
 
 protected:
     FootprintFactorGaussian(const FootprintFactorGaussian& other);
+
+private:
+    void initialize();
 };
 
 #endif /* FOOTPRINTFACTORGAUSSIAN_H */

@@ -1,6 +1,11 @@
 #include "FootprintFactorGaussian.h"
 #include "MathFunctions.h"
 
+FootprintFactorGaussian::FootprintFactorGaussian(double width_ratio) : IFootprintFactor(width_ratio)
+{
+    initialize();
+}
+
 FootprintFactorGaussian* FootprintFactorGaussian::clone() const
 {
     return new FootprintFactorGaussian(*this);
@@ -19,7 +24,16 @@ double FootprintFactorGaussian::calculate(double alpha) const
     return MathFunctions::erf(arg);
 }
 
-FootprintFactorGaussian::FootprintFactorGaussian(const FootprintFactorGaussian& other) = default;
+FootprintFactorGaussian::FootprintFactorGaussian(const FootprintFactorGaussian& other)
+    : IFootprintFactor(other)
+{
+    initialize();
+}
+
+void FootprintFactorGaussian::initialize()
+{
+    setName(BornAgain::GaussianFootprintFactorType);
+}
 
 static_assert(!std::is_copy_constructible<FootprintFactorGaussian>::value,
               "FootprintFactorGaussian should not be copy constructable");

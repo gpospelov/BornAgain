@@ -16,7 +16,7 @@
 #define IFOOTPRINTFACTOR_H_
 
 #include "ICloneable.h"
-#include "WinDllMacros.h"
+#include "INode.h"
 
 class MultiLayer;
 class Beam;
@@ -24,7 +24,7 @@ class Beam;
 //! Defines the base for classes to calculate beam footprint factor
 //! @ingroup simulation
 
-class BA_CORE_API_ IFootprintFactor : public ICloneable
+class BA_CORE_API_ IFootprintFactor : public ICloneable, public INode
 {
 public:
     IFootprintFactor() = delete;
@@ -43,6 +43,8 @@ protected:
     IFootprintFactor(const IFootprintFactor& other);
 
 private:
+    void initialize();
+
     double m_width_ratio; //! Beam to sample width ratio
 };
 

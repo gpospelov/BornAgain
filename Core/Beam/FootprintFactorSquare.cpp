@@ -2,6 +2,11 @@
 #include <math.h>
 #include <stdexcept>
 
+FootprintFactorSquare::FootprintFactorSquare(double width_ratio) : IFootprintFactor(width_ratio)
+{
+    initialize();
+}
+
 FootprintFactorSquare* FootprintFactorSquare::clone() const
 {
     return new FootprintFactorSquare(*this);
@@ -18,7 +23,16 @@ double FootprintFactorSquare::calculate(double alpha) const
     return std::min(arg, 1.0);
 }
 
-FootprintFactorSquare::FootprintFactorSquare(const FootprintFactorSquare& other) = default;
+FootprintFactorSquare::FootprintFactorSquare(const FootprintFactorSquare& other)
+    : IFootprintFactor(other)
+{
+    initialize();
+}
+
+void FootprintFactorSquare::initialize()
+{
+    setName(BornAgain::SquareFootprintFactorType);
+}
 
 static_assert(!std::is_copy_constructible<FootprintFactorSquare>::value,
               "FootprintFactorSquare should not be copy constructable");

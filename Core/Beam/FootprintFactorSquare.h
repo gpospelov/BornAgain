@@ -23,7 +23,9 @@
 class BA_CORE_API_ FootprintFactorSquare : public IFootprintFactor
 {
 public:
-    using IFootprintFactor::IFootprintFactor;
+    FootprintFactorSquare(double width_ratio);
+
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     FootprintFactorSquare* clone() const override;
 
@@ -32,6 +34,9 @@ public:
 
 protected:
     FootprintFactorSquare(const FootprintFactorSquare& other);
+
+private:
+    void initialize();
 };
 
 #endif /* FOOTPRINTFACTORSQUARE_H_ */

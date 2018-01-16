@@ -7110,6 +7110,17 @@ def Laue(z, N):
     """
     return _libBornAgainCore.Laue(z, N)
 
+def erf(arg):
+    """
+    erf(double arg) -> double
+
+    double MathFunctions::erf(double arg)
+
+    Error function of real-valued argument. 
+
+    """
+    return _libBornAgainCore.erf(arg)
+
 def Bessel_J0(*args):
     """
     Bessel_J0(double x) -> double
@@ -23414,6 +23425,30 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_setLayerMaterial(self, i_layer, material)
+
+
+    def setScale(self, scale):
+        """
+        setScale(MultiLayer self, double scale)
+
+        void MultiLayer::setScale(double scale)
+
+        Set the characteristic dimension of the multilayer. 
+
+        """
+        return _libBornAgainCore.MultiLayer_setScale(self, scale)
+
+
+    def scale(self):
+        """
+        scale(MultiLayer self) -> double
+
+        double MultiLayer::scale() const
+
+        Get the characteristic dimension of the multilayer. 
+
+        """
+        return _libBornAgainCore.MultiLayer_scale(self)
 
 
     def clone(self):

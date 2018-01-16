@@ -15,6 +15,7 @@
 #ifndef IFOOTPRINTFACTOR_H_
 #define IFOOTPRINTFACTOR_H_
 
+#include "ICloneable.h"
 #include "WinDllMacros.h"
 
 class MultiLayer;
@@ -23,17 +24,23 @@ class Beam;
 //! Defines the base for classes to calculate beam footprint factor
 //! @ingroup simulation
 
-class BA_CORE_API_ IFootprintFactor
+class BA_CORE_API_ IFootprintFactor : public ICloneable
 {
 public:
+    IFootprintFactor() = delete;
     IFootprintFactor(double width_ratio);
     virtual ~IFootprintFactor();
+
+    virtual IFootprintFactor* clone() const = 0;
 
     void setWidthRatio(double width_ratio);
     double widthRatio() const {return m_width_ratio;}
 
     //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
     virtual double calculate(double alpha) const = 0;
+
+protected:
+    IFootprintFactor(const IFootprintFactor& other);
 
 private:
     double m_width_ratio; //! Beam to sample width ratio

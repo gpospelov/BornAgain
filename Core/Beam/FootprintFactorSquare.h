@@ -25,8 +25,13 @@ class BA_CORE_API_ FootprintFactorSquare : public IFootprintFactor
 public:
     using IFootprintFactor::IFootprintFactor;
 
+    FootprintFactorSquare* clone() const override;
+
     //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
     double calculate(double alpha) const override;
+
+protected:
+    FootprintFactorSquare(const FootprintFactorSquare& other);
 };
 
 #endif /* FOOTPRINTFACTORSQUARE_H_ */

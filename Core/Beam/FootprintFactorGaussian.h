@@ -27,8 +27,13 @@ class BA_CORE_API_ FootprintFactorGaussian : public IFootprintFactor
 public:
     using IFootprintFactor::IFootprintFactor;
 
+    FootprintFactorGaussian* clone() const override;
+
     //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
     double calculate(double alpha) const override;
+
+protected:
+    FootprintFactorGaussian(const FootprintFactorGaussian& other);
 };
 
 #endif /* FOOTPRINTFACTORGAUSSIAN_H */

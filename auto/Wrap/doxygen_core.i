@@ -5550,6 +5550,26 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
+// File: classGaussianBeamFormFactor.xml
+%feature("docstring") GaussianBeamFormFactor "
+
+Defines spatial characteristics of a Gaussian beam
+
+C++ includes: GaussianBeamFormFactor.h
+";
+
+%feature("docstring")  GaussianBeamFormFactor::GaussianBeamFormFactor "GaussianBeamFormFactor::GaussianBeamFormFactor(double width)
+";
+
+%feature("docstring")  GaussianBeamFormFactor::~GaussianBeamFormFactor "GaussianBeamFormFactor::~GaussianBeamFormFactor()
+";
+
+%feature("docstring")  GaussianBeamFormFactor::calculateFootprintFactor "double GaussianBeamFormFactor::calculateFootprintFactor(const MultiLayer &sample, double alpha) const override
+
+Calculate footprint correction coefficient from  sample dimensions and the beam incident angle  alpha. 
+";
+
+
 // File: classGISASSimulation.xml
 %feature("docstring") GISASSimulation "
 
@@ -6186,6 +6206,23 @@ C++ includes: IBackground.h
 ";
 
 %feature("docstring")  IBackground::addBackGround "virtual void IBackground::addBackGround(SimulationElement &element) const =0
+";
+
+
+// File: classIBeamFormFactor.xml
+%feature("docstring") IBeamFormFactor "
+
+Defines abstract beam form-factor (spatial characteristics of the beam)
+
+C++ includes: IBeamFormFactor.h
+";
+
+%feature("docstring")  IBeamFormFactor::~IBeamFormFactor "IBeamFormFactor::~IBeamFormFactor()
+";
+
+%feature("docstring")  IBeamFormFactor::calculateFootprintFactor "virtual double IBeamFormFactor::calculateFootprintFactor(const MultiLayer &sample, double alpha) const =0
+
+Calculate footprint correction coefficient from  sample dimensions and the beam incident angle  alpha. 
 ";
 
 
@@ -10563,6 +10600,16 @@ Returns layer material.
 Changes a layer's material. 
 ";
 
+%feature("docstring")  MultiLayer::setScale "void MultiLayer::setScale(double scale)
+
+Set the characteristic dimension of the multilayer. 
+";
+
+%feature("docstring")  MultiLayer::scale "double MultiLayer::scale() const
+
+Get the characteristic dimension of the multilayer. 
+";
+
 %feature("docstring")  MultiLayer::clone "MultiLayer * MultiLayer::clone() const final override
 
 Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
@@ -14055,6 +14102,26 @@ return default axes units
 ";
 
 
+// File: classSquareBeamFormFactor.xml
+%feature("docstring") SquareBeamFormFactor "
+
+Defines spatial characteristics of a square beam
+
+C++ includes: SquareBeamFormFactor.h
+";
+
+%feature("docstring")  SquareBeamFormFactor::SquareBeamFormFactor "SquareBeamFormFactor::SquareBeamFormFactor(double width)
+";
+
+%feature("docstring")  SquareBeamFormFactor::~SquareBeamFormFactor "SquareBeamFormFactor::~SquareBeamFormFactor()
+";
+
+%feature("docstring")  SquareBeamFormFactor::calculateFootprintFactor "double SquareBeamFormFactor::calculateFootprintFactor(const MultiLayer &sample, double alpha) const override
+
+Calculate footprint correction coefficient from  sample dimensions and the beam incident angle  alpha. 
+";
+
+
 // File: classSquaredFunctionDefault.xml
 %feature("docstring") SquaredFunctionDefault "
 
@@ -14351,12 +14418,12 @@ Calculates the rotation angle for a rotation around the z-axis alone Only meanin
 Returns the inverse transformation. 
 ";
 
-%feature("docstring")  Transform3D::transformed "template cvector_t Transform3D::transformed(const ivector_t &v) const
+%feature("docstring")  Transform3D::transformed "template BA_CORE_API_ cvector_t Transform3D::transformed< cvector_t >(const ivector_t &v) const
 
 Return transformed vector  v. 
 ";
 
-%feature("docstring")  Transform3D::transformedInverse "template cvector_t Transform3D::transformedInverse(const ivector_t &v) const
+%feature("docstring")  Transform3D::transformedInverse "template BA_CORE_API_ cvector_t Transform3D::transformedInverse< cvector_t >(const ivector_t &v) const
 
 Return transformed vector  v. 
 ";
@@ -14690,64 +14757,64 @@ C++ includes: ZLimits.h
 // File: namespace_0D23.xml
 
 
-// File: namespace_0D263.xml
+// File: namespace_0D267.xml
 
 
-// File: namespace_0D271.xml
-
-
-// File: namespace_0D292.xml
-
-
-// File: namespace_0D296.xml
+// File: namespace_0D275.xml
 
 
 // File: namespace_0D298.xml
 
 
-// File: namespace_0D300.xml
+// File: namespace_0D302.xml
 
 
-// File: namespace_0D308.xml
+// File: namespace_0D304.xml
 
 
-// File: namespace_0D323.xml
+// File: namespace_0D306.xml
 
 
-// File: namespace_0D331.xml
+// File: namespace_0D314.xml
+
+
+// File: namespace_0D329.xml
 
 
 // File: namespace_0D337.xml
 
 
-// File: namespace_0D340.xml
+// File: namespace_0D343.xml
 
 
-// File: namespace_0D342.xml
+// File: namespace_0D346.xml
 
 
-// File: namespace_0D363.xml
+// File: namespace_0D348.xml
 
 
-// File: namespace_0D372.xml
+// File: namespace_0D369.xml
 
 
-// File: namespace_0D405.xml
+// File: namespace_0D378.xml
 
 
-// File: namespace_0D412.xml
+// File: namespace_0D411.xml
 
 
-// File: namespace_0D450.xml
+// File: namespace_0D418.xml
 
 
-// File: namespace_0D455.xml
+// File: namespace_0D456.xml
 
 
-// File: namespace_0D523.xml
+// File: namespace_0D461.xml
 
 
-// File: namespace_0D545.xml
+// File: namespace_0D529.xml
+
+
+// File: namespace_0D551.xml
 
 
 // File: namespace_0D73.xml
@@ -15080,6 +15147,11 @@ Complex tanhc function:  $tanhc(x)\\\\equiv\\\\tanh(x)/x$.
 ";
 
 %feature("docstring")  MathFunctions::Laue "complex_t MathFunctions::Laue(const complex_t z, size_t N)
+";
+
+%feature("docstring")  MathFunctions::erf "double MathFunctions::erf(double arg)
+
+Error function of real-valued argument. 
 ";
 
 %feature("docstring")  MathFunctions::Bessel_J0 "double MathFunctions::Bessel_J0(double x)
@@ -16194,6 +16266,12 @@ global helper function for comparison of axes
 // File: FitElement_8h.xml
 
 
+// File: GaussianBeamFormFactor_8cpp.xml
+
+
+// File: GaussianBeamFormFactor_8h.xml
+
+
 // File: Histogram1D_8cpp.xml
 
 
@@ -16204,6 +16282,12 @@ global helper function for comparison of axes
 
 
 // File: Histogram2D_8h.xml
+
+
+// File: IBeamFormFactor_8cpp.xml
+
+
+// File: IBeamFormFactor_8h.xml
 
 
 // File: IChiSquaredModule_8cpp.xml
@@ -16345,6 +16429,12 @@ make Swappable
 
 
 // File: SphericalDetector_8h.xml
+
+
+// File: SquareBeamFormFactor_8cpp.xml
+
+
+// File: SquareBeamFormFactor_8h.xml
 
 
 // File: ISelectionRule_8h.xml

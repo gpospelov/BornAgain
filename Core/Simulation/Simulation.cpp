@@ -28,7 +28,7 @@
 namespace {
 size_t getIndexStep(size_t total_size, size_t n_handlers);
 size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements);
-size_t getElementNumber(size_t n_handlers, size_t current_handler, size_t n_elements);
+size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_elements);
 void runComputations(std::vector<std::unique_ptr<IComputation>> computations);
 }
 
@@ -131,23 +131,22 @@ void Simulation::runSimulation()
         + ( sample()->hasRoughness() ? 1 : 0 );
     m_progress.setExpectedNTicks(prefactor*param_combinations*numberOfSimulationElements());
 
-    // no averaging needed:
-    if (param_combinations == 1) {
-        std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
-        m_distribution_handler.setParameterValues(P_param_pool.get(), 0);
-        runSingleSimulation();
-        transferResultsToIntensityMap();
-        return;
-    }
+    // restrict calculation to current batch
+    const size_t n_batches = m_options.getNumberOfBatches();
+    const size_t current_batch = m_options.getCurrentBatch();
+    const size_t total_size = numberOfSimulationElements();
 
-    // average over parameter distributions:
+    const size_t batch_start = getStartIndex(n_batches, current_batch, total_size);
+    const size_t batch_size = getNumberOfElements(n_batches, current_batch, total_size);
+    if (batch_size == 0)
+        return;
+
     std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
-    const bool use_storage = true;
     for (size_t index = 0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
-        runSingleSimulation(use_storage, weight);
+        runSingleSimulation(batch_start, batch_size, weight);
     }
-    moveDataFromStorage();
+    moveDataFromCache();
     transferResultsToIntensityMap();
 }
 
@@ -217,20 +216,10 @@ void Simulation::updateSample()
 
 //! Runs a single simulation with fixed parameter values.
 //! If desired, the simulation is run in several threads.
-void Simulation::runSingleSimulation(bool use_storage, double weight)
+void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, double weight)
 {
     prepareSimulation();
-    initSimulationElementVector(use_storage && !isStorageInited());
-
-    // restrict calculation to current batch
-    const size_t n_batches = m_options.getNumberOfBatches();
-    const size_t current_batch = m_options.getCurrentBatch();
-    const size_t total_size = numberOfSimulationElements();
-
-    const size_t batch_start = getStartIndex(n_batches, current_batch, total_size);
-    const size_t batch_size = getElementNumber(n_batches, current_batch, total_size);
-    if (batch_size == 0)
-        return;
+    initSimulationElementVector();
 
     const size_t n_threads = m_options.getNumberOfThreads();
     assert(n_threads > 0);
@@ -239,7 +228,7 @@ void Simulation::runSingleSimulation(bool use_storage, double weight)
 
     for (size_t i_thread = 0; i_thread < n_threads; ++i_thread) { // Distribute computations by threads
         const size_t thread_start = batch_start + getStartIndex(n_threads, i_thread, batch_size);
-        const size_t thread_size = getElementNumber(n_threads, i_thread, batch_size);
+        const size_t thread_size = getNumberOfElements(n_threads, i_thread, batch_size);
         if (thread_size == 0)
             break;
         computations.push_back(generateSingleThreadedComputation(thread_start, thread_size));
@@ -248,8 +237,7 @@ void Simulation::runSingleSimulation(bool use_storage, double weight)
 
     normalize(batch_start, batch_size);
     addBackGroundIntensity(batch_start, batch_size);
-    if (use_storage)
-        addDataToStorage(weight);
+    addDataToCache(weight);
 }
 
 void Simulation::normalize(size_t start_ind, size_t n_elements)
@@ -285,7 +273,7 @@ size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_element
     return start_index;
 }
 
-size_t getElementNumber(size_t n_handlers, size_t current_handler, size_t n_elements)
+size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_elements)
 {
     const size_t handler_size = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
     const size_t start_index = current_handler * handler_size;
@@ -336,4 +324,4 @@ void runComputations(std::vector<std::unique_ptr<IComputation>> computations)
         "Messages: "
         + StringUtils::join(failure_messages, " --- "));
 }
-}
+} // unnamed namespace

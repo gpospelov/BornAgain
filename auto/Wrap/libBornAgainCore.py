@@ -16493,6 +16493,41 @@ class Simulation(ICloneable, INode):
 Simulation_swigregister = _libBornAgainCore.Simulation_swigregister
 Simulation_swigregister(Simulation)
 
+class Simulation2D(Simulation):
+    """Proxy of C++ Simulation2D class."""
+
+    __swig_setmethods__ = {}
+    for _s in [Simulation]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Simulation2D, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Simulation]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, Simulation2D, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_Simulation2D
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(Simulation2D self) -> Simulation2D
+
+        virtual Simulation* Simulation::clone() const =0
+
+        """
+        return _libBornAgainCore.Simulation2D_clone(self)
+
+
+    def setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
+        """setDetectorParameters(Simulation2D self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)"""
+        return _libBornAgainCore.Simulation2D_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
+
+Simulation2D_swigregister = _libBornAgainCore.Simulation2D_swigregister
+Simulation2D_swigregister(Simulation2D)
+
 class SimulationOptions(_object):
     """
 
@@ -16687,7 +16722,7 @@ class SimulationOptions(_object):
 SimulationOptions_swigregister = _libBornAgainCore.SimulationOptions_swigregister
 SimulationOptions_swigregister(SimulationOptions)
 
-class GISASSimulation(Simulation):
+class GISASSimulation(Simulation2D):
     """
 
 
@@ -16698,11 +16733,11 @@ class GISASSimulation(Simulation):
     """
 
     __swig_setmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, GISASSimulation, name, value)
     __swig_getmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, GISASSimulation, name)
     __repr__ = _swig_repr
@@ -16818,39 +16853,6 @@ class GISASSimulation(Simulation):
 
         """
         return _libBornAgainCore.GISASSimulation_setDetector(self, detector)
-
-
-    def setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
-        """
-        setDetectorParameters(GISASSimulation self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
-
-        void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
-
-        Sets spherical detector parameters using angle ranges
-
-        Parameters:
-        -----------
-
-        n_phi: 
-        number of phi-axis bins
-
-        phi_min: 
-        low edge of first phi-bin
-
-        phi_max: 
-        upper edge of last phi-bin
-
-        n_alpha: 
-        number of alpha-axis bins
-
-        alpha_min: 
-        low edge of first alpha-bin
-
-        alpha_max: 
-        upper edge of last alpha-bin 
-
-        """
-        return _libBornAgainCore.GISASSimulation_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
 
 
     def removeMasks(self):
@@ -23653,7 +23655,7 @@ class MultiLayer(ISample):
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
 
-class OffSpecSimulation(Simulation):
+class OffSpecSimulation(Simulation2D):
     """
 
 
@@ -23664,11 +23666,11 @@ class OffSpecSimulation(Simulation):
     """
 
     __swig_setmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, OffSpecSimulation, name, value)
     __swig_getmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, OffSpecSimulation, name)
     __repr__ = _swig_repr
@@ -23771,18 +23773,6 @@ class OffSpecSimulation(Simulation):
 
         """
         return _libBornAgainCore.OffSpecSimulation_setBeamParameters(self, arg2, alpha_axis, phi_i)
-
-
-    def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
-        """
-        setDetectorParameters(OffSpecSimulation self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
-
-        void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
-
-        Sets detector parameters using angle ranges. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max)
 
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)

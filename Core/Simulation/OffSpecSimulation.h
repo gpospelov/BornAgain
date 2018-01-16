@@ -15,7 +15,7 @@
 #ifndef OFFSPECSIMULATION_H
 #define OFFSPECSIMULATION_H
 
-#include "Simulation.h"
+#include "Simulation2D.h"
 #include "SimulationElement.h"
 
 class Histogram2D;
@@ -23,7 +23,7 @@ class Histogram2D;
 //! Main class to run an off-specular simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ OffSpecSimulation : public Simulation
+class BA_CORE_API_ OffSpecSimulation : public Simulation2D
 {
 public:
     OffSpecSimulation();
@@ -55,22 +55,11 @@ public:
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i);
 
-    //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_x, double x_min, double x_max,
-                               size_t n_y, double y_min, double y_max);
-
 private:
     OffSpecSimulation(const OffSpecSimulation& other);
 
-    //! Generate a single threaded computation for a given range of simulation elements
-    //! @param start Index of the first element to include into computation
-    //! @param n_elements Number of elements to process
-    std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
-                                                                    size_t n_elements) override;
-
     //! Initializes the vector of Simulation elements
-    //! @param init_storage Initialize storage for accumulating results
-    void initSimulationElementVector(bool init_storage) override;
+    void initSimulationElementVector() override;
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
@@ -88,20 +77,8 @@ private:
 
     void initialize();
 
-    void normalizeIntensity(size_t index, double beam_intensity) override;
-
-    void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
-
-    bool isStorageInited() const override {return !m_storage.empty();}
-
-    void addDataToStorage(double weight) override;
-
-    void moveDataFromStorage() override;
-
-    IAxis* mp_alpha_i_axis;
+    std::unique_ptr<IAxis> mP_alpha_i_axis;
     OutputData<double> m_intensity_map;
-    std::vector<SimulationElement> m_sim_elements;
-    std::vector<SimulationElement> m_storage;
 };
 
 #endif // OFFSPECSIMULATION_H

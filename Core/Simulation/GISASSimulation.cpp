@@ -19,7 +19,6 @@
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
-#include "SimElementUtils.h"
 #include "SimulationElement.h"
 
 namespace
@@ -33,21 +32,13 @@ GISASSimulation::GISASSimulation()
 }
 
 GISASSimulation::GISASSimulation(const MultiLayer& p_sample)
-    : Simulation(p_sample)
+    : Simulation2D(p_sample)
 {
     initialize();
 }
 
 GISASSimulation::GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : Simulation(p_sample_builder)
-{
-    initialize();
-}
-
-GISASSimulation::GISASSimulation(const GISASSimulation& other)
-    : Simulation(other)
-    , m_sim_elements(other.m_sim_elements)
-    , m_storage(other.m_storage)
+    : Simulation2D(p_sample_builder)
 {
     initialize();
 }
@@ -93,13 +84,6 @@ void GISASSimulation::setDetector(const IDetector2D& detector)
     m_instrument.setDetector(detector);
 }
 
-void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
-                                            size_t n_alpha, double alpha_min, double alpha_max)
-{
-    Detector2D(m_instrument)
-        ->setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
-}
-
 void GISASSimulation::removeMasks()
 {
     Detector2D(m_instrument)->removeMasks();
@@ -120,52 +104,17 @@ void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, 
     Detector2D(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
 }
 
-std::unique_ptr<IComputation> GISASSimulation::generateSingleThreadedComputation(size_t start,
-                                                                                 size_t n_elements)
+GISASSimulation::GISASSimulation(const GISASSimulation& other)
+    : Simulation2D(other)
 {
-    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
-    const auto& begin = m_sim_elements.begin() + start;
-    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, begin,
-                                             begin + n_elements);
+    initialize();
 }
 
-void GISASSimulation::normalizeIntensity(size_t index, double beam_intensity)
-{
-    SimulationElement& element = m_sim_elements[index];
-    double sin_alpha_i = std::abs(std::sin(element.getAlphaI()));
-    if (sin_alpha_i == 0.0)
-        sin_alpha_i = 1.0;
-    const double solid_angle = element.getSolidAngle();
-    element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
-}
-
-void GISASSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
-{
-    if (!mP_background)
-        return;
-    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
-        SimulationElement& element = m_sim_elements[i];
-        mP_background->addBackGround(element);
-    }
-}
-
-void GISASSimulation::addDataToStorage(double weight)
-{
-    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
-}
-
-void GISASSimulation::moveDataFromStorage()
-{
-    assert(!m_storage.empty());
-    if (!m_storage.empty())
-        m_sim_elements = std::move(m_storage);
-}
-
-void GISASSimulation::initSimulationElementVector(bool init_storage)
+void GISASSimulation::initSimulationElementVector()
 {
     m_sim_elements = m_instrument.createSimulationElements();
-    if (init_storage)
-        m_storage = m_sim_elements;
+    if (m_cache.empty())
+        m_cache.resize(m_sim_elements.size(), 0.0);
 }
 
 void GISASSimulation::initialize()

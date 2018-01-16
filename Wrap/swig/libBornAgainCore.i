@@ -205,6 +205,7 @@
 #include "Rotations.h"
 #include "SampleBuilderFactory.h"
 #include "Simulation.h"
+#include "Simulation2D.h"
 #include "SimulationFactory.h"
 #include "SimulationOptions.h"
 #include "SlicedParticle.h"
@@ -357,6 +358,7 @@
 %include "FormFactorWeighted.h"
 
 %include "Simulation.h"
+%include "Simulation2D.h"
 %include "SimulationOptions.h"
 %include "GISASSimulation.h"
 %include "IHistogram.h"

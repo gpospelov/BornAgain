@@ -12,32 +12,27 @@
 //
 // ************************************************************************** //
 
-#include "IBackground.h"
 #include "OffSpecSimulation.h"
 #include "BornAgainNamespace.h"
 #include "DWBAComputation.h"
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
-#include "SimElementUtils.h"
 #include "SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()
-    : mp_alpha_i_axis(nullptr)
 {
     initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(const MultiLayer& p_sample)
-    : Simulation(p_sample)
-    , mp_alpha_i_axis(nullptr)
+    : Simulation2D(p_sample)
 {
     initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : Simulation(p_sample_builder)
-    , mp_alpha_i_axis(nullptr)
+    : Simulation2D(p_sample_builder)
 {
     initialize();
 }
@@ -48,34 +43,21 @@ void OffSpecSimulation::prepareSimulation()
     Simulation::prepareSimulation();
 }
 
-OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
-    : Simulation(other)
-    , mp_alpha_i_axis(nullptr)
-    , m_sim_elements(other.m_sim_elements)
-    , m_storage(other.m_storage)
-{
-    if(other.mp_alpha_i_axis)
-        mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
-    m_intensity_map.copyFrom(other.m_intensity_map);
-    initialize();
-}
-
 size_t OffSpecSimulation::numberOfSimulationElements() const
 {
     checkInitialization();
-    return getInstrument().getDetector()->numberOfSimulationElements()*mp_alpha_i_axis->size();
+    return getInstrument().getDetector()->numberOfSimulationElements()*mP_alpha_i_axis->size();
 }
 
 Histogram2D* OffSpecSimulation::getIntensityData() const
 {
-    const std::unique_ptr<OutputData<double> > data(getDetectorIntensity());
+    const std::unique_ptr<OutputData<double>> data(getDetectorIntensity());
     return new Histogram2D(*data);
 }
 
 void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i)
 {
-    delete mp_alpha_i_axis;
-    mp_alpha_i_axis = alpha_axis.clone();
+    mP_alpha_i_axis.reset(alpha_axis.clone());
     if (alpha_axis.size()<1)
         throw Exceptions::ClassInitializationException(
                 "OffSpecSimulation::prepareSimulation() "
@@ -85,37 +67,16 @@ void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis
     updateIntensityMap();
 }
 
-void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max,
-                                              size_t n_y, double y_min, double y_max)
+OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
+    : Simulation2D(other)
 {
-    if (auto detector = m_instrument.detector2D())
-        detector->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
-    else
-        throw std::runtime_error(
-            "Error in OffSpecSimulation::setDetectorParameters: wrong detector type");
-    updateIntensityMap();
+    if(other.mP_alpha_i_axis)
+        mP_alpha_i_axis.reset(other.mP_alpha_i_axis->clone());
+    m_intensity_map.copyFrom(other.m_intensity_map);
+    initialize();
 }
 
-std::unique_ptr<IComputation>
-OffSpecSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
-{
-    assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
-    const auto& begin = m_sim_elements.begin() + start;
-    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, begin,
-                                             begin + n_elements);
-}
-
-void OffSpecSimulation::normalizeIntensity(size_t index, double beam_intensity)
-{
-    SimulationElement& element = m_sim_elements[index];
-    double sin_alpha_i = std::abs(std::sin(element.getAlphaI()));
-    if (sin_alpha_i == 0.0)
-        sin_alpha_i = 1.0;
-    const double solid_angle = element.getSolidAngle();
-    element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
-}
-
-void OffSpecSimulation::initSimulationElementVector(bool init_storage)
+void OffSpecSimulation::initSimulationElementVector()
 {
     m_sim_elements.clear();
     Beam beam = m_instrument.getBeam();
@@ -123,9 +84,9 @@ void OffSpecSimulation::initSimulationElementVector(bool init_storage)
     double phi_i = beam.getPhi();
     checkInitialization();
 
-    for (size_t iAlpha = 0; iAlpha < mp_alpha_i_axis->size(); ++iAlpha) {
+    for (size_t iAlpha = 0; iAlpha < mP_alpha_i_axis->size(); ++iAlpha) {
         // Incoming angle by convention defined as positive:
-        double alpha_i = mp_alpha_i_axis->getBin(iAlpha).getMidPoint();
+        double alpha_i = mP_alpha_i_axis->getBin(iAlpha).getMidPoint();
         beam.setCentralK(wavelength, alpha_i, phi_i);
         m_instrument.setBeam(beam);
         std::vector<SimulationElement> sim_elements_alpha_i =
@@ -133,30 +94,8 @@ void OffSpecSimulation::initSimulationElementVector(bool init_storage)
         m_sim_elements.insert(m_sim_elements.end(), sim_elements_alpha_i.begin(),
                               sim_elements_alpha_i.end());
     }
-    if (init_storage)
-        m_storage = m_sim_elements;
-}
-
-void OffSpecSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
-{
-    if (!mP_background)
-        return;
-    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
-        SimulationElement& element = m_sim_elements[i];
-        mP_background->addBackGround(element);
-    }
-}
-
-void OffSpecSimulation::addDataToStorage(double weight)
-{
-    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
-}
-
-void OffSpecSimulation::moveDataFromStorage()
-{
-    assert(!m_storage.empty());
-    if (!m_storage.empty())
-        m_sim_elements = std::move(m_storage);
+    if (m_cache.empty())
+        m_cache.resize(m_sim_elements.size(), 0.0);
 }
 
 void OffSpecSimulation::transferResultsToIntensityMap()
@@ -168,15 +107,15 @@ void OffSpecSimulation::transferResultsToIntensityMap()
         throw Exceptions::RuntimeErrorException(
             "OffSpecSimulation::transferResultsToIntensityMap: "
             "intensity map size does not conform to number of calculated intensities");
-    for (size_t i=0; i<mp_alpha_i_axis->size(); ++i)
+    for (size_t i=0; i<mP_alpha_i_axis->size(); ++i)
         transferDetectorImage(i);
 }
 
 void OffSpecSimulation::updateIntensityMap()
 {
     m_intensity_map.clear();
-    if (mp_alpha_i_axis)
-        m_intensity_map.addAxis(*mp_alpha_i_axis);
+    if (mP_alpha_i_axis)
+        m_intensity_map.addAxis(*mP_alpha_i_axis);
     size_t detector_dimension = m_instrument.getDetectorDimension();
     if (detector_dimension==2)
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(1));
@@ -200,7 +139,7 @@ void OffSpecSimulation::transferDetectorImage(size_t index)
 
 void OffSpecSimulation::checkInitialization() const
 {
-    if (!mp_alpha_i_axis || mp_alpha_i_axis->size()<1)
+    if (!mP_alpha_i_axis || mP_alpha_i_axis->size()<1)
         throw Exceptions::ClassInitializationException(
                 "OffSpecSimulation::checkInitialization() "
                 "Incoming alpha range not configured.");

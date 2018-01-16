@@ -14,6 +14,7 @@
 
 #include "ExportToPython.h"
 #include "SimulationToPython.h"
+#include "SampleToPython.h"
 #include "GISASSimulation.h"
 
 namespace {
@@ -30,7 +31,7 @@ std::string simulationCode(const GISASSimulation& simulation,
 
 std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer)
 {
-    SimulationToPython generator;
+    SampleToPython generator;
     return generator.generateSampleCode(multilayer);
 }
 

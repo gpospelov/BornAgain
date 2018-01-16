@@ -16,53 +16,28 @@
 #define SIMULATIONTOPYTHON_H
 
 #include "WinDllMacros.h"
-#include <string>
 #include <memory>
+#include <string>
 
 class Simulation;
 class GISASSimulation;
-class IParticle;
-class MultiLayer;
-class SampleLabelHandler;
 
 //! Write a Python script that allows to run the current simulation.
 
 class BA_CORE_API_ SimulationToPython
 {
 public:
-    enum EMainType
-    {
+    enum EMainType {
         RUN_SIMULATION, //!< main function runs simulation
         SAVE_DATA       //!< main function saves intensity data
     };
 
-    SimulationToPython();
-    virtual ~SimulationToPython();
-
-    std::string generateSampleCode(const MultiLayer& multilayer);
     std::string generateSimulationCode(const Simulation& simulation, EMainType mainType);
 
 private:
-    void initSample(const MultiLayer& multilayer);
-    std::string defineGetSample() const;
     std::string definePreamble() const;
     std::string defineGetSimulation(const Simulation* simulation) const;
     std::string defineGISASSimulation(const GISASSimulation* simulation) const;
-    std::string defineMaterials() const;
-    std::string defineLayers() const;
-    std::string defineFormFactors() const;
-    std::string defineParticles() const;
-    std::string defineCoreShellParticles() const;
-    std::string defineParticleDistributions() const;
-    std::string defineParticleCompositions() const;
-    std::string defineLattices() const;
-    std::string defineCrystals() const;
-    std::string defineMesoCrystals() const;
-    std::string defineInterferenceFunctions() const;
-    std::string defineParticleLayouts() const;
-    std::string defineRoughnesses() const;
-    std::string addLayoutsToLayers() const;
-    std::string defineMultiLayers() const;
     std::string defineDetector(const Simulation* simulation) const;
     std::string defineDetectorResolutionFunction(const Simulation* simulation) const;
     std::string defineDetectorPolarizationAnalysis(const Simulation* simulation) const;
@@ -74,13 +49,6 @@ private:
     std::string defineMain(EMainType mainType = RUN_SIMULATION);
 
     std::string indent() const;
-
-    void setRotationInformation(const IParticle* particle, std::string particle_name,
-                                std::ostringstream& result) const;
-    void setPositionInformation(const IParticle* particle, std::string particle_name,
-                                std::ostringstream& result) const;
-
-    std::unique_ptr<SampleLabelHandler> m_label;
 };
 
 #endif // SIMULATIONTOPYTHON_H

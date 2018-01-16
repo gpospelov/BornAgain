@@ -73,7 +73,7 @@ int GUISaveLoadProject::run_job()
 
     std::cout << "GUISaveLoadProject::run_job()" << std::endl;
 
-    SimulationOptionsItem* optionsItem = m_models->documentModel()->getSimulationOptionsItem();
+    SimulationOptionsItem* optionsItem = m_models->documentModel()->simulationOptionsItem();
 
     SampleBuilderFactory factory;
     const std::unique_ptr<ISample> sample(factory.createSample(sample_name.toStdString()));

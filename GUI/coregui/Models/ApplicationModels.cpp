@@ -174,7 +174,7 @@ void ApplicationModels::createTestSample()
 
 void ApplicationModels::createTestJob()
 {
-    SimulationOptionsItem* optionsItem = m_documentModel->getSimulationOptionsItem();
+    SimulationOptionsItem* optionsItem = m_documentModel->simulationOptionsItem();
 
     JobItem* jobItem = m_jobModel->addJob(m_sampleModel->multiLayerItem(),
                                           m_instrumentModel->instrumentItem(), 0, optionsItem);

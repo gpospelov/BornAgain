@@ -15,13 +15,12 @@
 #include "DocumentModel.h"
 #include "SimulationOptionsItem.h"
 
-DocumentModel::DocumentModel(QObject *parent)
-    : SessionModel(SessionXML::DocumentModelTag, parent)
+DocumentModel::DocumentModel(QObject* parent) : SessionModel(SessionXML::DocumentModelTag, parent)
 {
     setObjectName(SessionXML::DocumentModelTag);
 }
 
-SimulationOptionsItem *DocumentModel::getSimulationOptionsItem()
+SimulationOptionsItem* DocumentModel::simulationOptionsItem()
 {
     return topItem<SimulationOptionsItem>();
 }

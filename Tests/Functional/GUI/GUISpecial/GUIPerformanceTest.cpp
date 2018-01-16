@@ -120,7 +120,7 @@ void GUIPerformanceTest::test_real_time()
     if(!jobItem) {
         m_models->resetModels();
 
-        SimulationOptionsItem *optionsItem = m_models->documentModel()->getSimulationOptionsItem();
+        SimulationOptionsItem *optionsItem = m_models->documentModel()->simulationOptionsItem();
 
         SampleBuilderFactory factory;
         const std::unique_ptr<ISample> sample(factory.createSample(m_sample_name.toStdString()));

@@ -47,7 +47,7 @@ TEST_F(TestMapperCases, test_SimulationOptionsComputationToggle)
     DocumentModel model;
     model.insertNewItem(Constants::SimulationOptionsType);
 
-    SimulationOptionsItem* item = model.getSimulationOptionsItem();
+    SimulationOptionsItem* item = model.simulationOptionsItem();
 
     ComboProperty combo
         = item->getItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD).value<ComboProperty>();

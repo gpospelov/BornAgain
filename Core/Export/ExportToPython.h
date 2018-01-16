@@ -19,6 +19,7 @@
 #include <string>
 #include <memory>
 
+class Simulation;
 class GISASSimulation;
 class IParticle;
 class MultiLayer;
@@ -39,13 +40,14 @@ public:
     virtual ~ExportToPython();
 
     std::string generateSampleCode(const MultiLayer& multilayer);
-    std::string generateSimulationCode(const GISASSimulation& simulation, EMainType mainType);
+    std::string generateSimulationCode(const Simulation& simulation, EMainType mainType);
 
 private:
     void initSample(const MultiLayer& multilayer);
     std::string defineGetSample() const;
     std::string definePreamble() const;
-    std::string defineGetSimulation(const GISASSimulation* simulation) const;
+    std::string defineGetSimulation(const Simulation* simulation) const;
+    std::string defineGISASSimulation(const GISASSimulation* simulation) const;
     std::string defineMaterials() const;
     std::string defineLayers() const;
     std::string defineFormFactors() const;
@@ -61,14 +63,14 @@ private:
     std::string defineRoughnesses() const;
     std::string addLayoutsToLayers() const;
     std::string defineMultiLayers() const;
-    std::string defineDetector(const GISASSimulation* simulation) const;
-    std::string defineDetectorResolutionFunction(const GISASSimulation* simulation) const;
-    std::string defineDetectorPolarizationAnalysis(const GISASSimulation* simulation) const;
-    std::string defineBeam(const GISASSimulation* simulation) const;
-    std::string defineParameterDistributions(const GISASSimulation* simulation) const;
-    std::string defineMasks(const GISASSimulation* simulation) const;
-    std::string defineSimulationOptions(const GISASSimulation* simulation) const;
-    std::string defineBackground(const GISASSimulation* simulation) const;
+    std::string defineDetector(const Simulation* simulation) const;
+    std::string defineDetectorResolutionFunction(const Simulation* simulation) const;
+    std::string defineDetectorPolarizationAnalysis(const Simulation* simulation) const;
+    std::string defineBeam(const Simulation* simulation) const;
+    std::string defineParameterDistributions(const Simulation* simulation) const;
+    std::string defineMasks(const Simulation* simulation) const;
+    std::string defineSimulationOptions(const Simulation* simulation) const;
+    std::string defineBackground(const Simulation* simulation) const;
     std::string defineMain(EMainType mainType = RUN_SIMULATION);
 
     std::string indent() const;

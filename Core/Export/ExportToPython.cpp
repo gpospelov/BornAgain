@@ -95,7 +95,7 @@ std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer)
 
 //! Returns a Python script that sets up a simulation and runs it if invoked as main program.
 
-std::string ExportToPython::generateSimulationCode(const GISASSimulation& simulation,
+std::string ExportToPython::generateSimulationCode(const Simulation& simulation,
                                                    EMainType mainType)
 {
     if (simulation.sample() == nullptr)
@@ -111,11 +111,22 @@ std::string ExportToPython::generateSimulationCode(const GISASSimulation& simula
         + defineMain(mainType);
 }
 
-std::string ExportToPython::defineGetSimulation(const GISASSimulation* simulation) const
+std::string ExportToPython::defineGetSimulation(const Simulation* simulation) const
+{
+    std::ostringstream result;
+    if (auto gisas = dynamic_cast<const GISASSimulation*>(simulation))
+        result << defineGISASSimulation(gisas);
+    else
+        throw std::runtime_error("ExportToPython::defineGetSimulation() -> Error. Wrong simulation "
+                                 "type");
+
+    return result.str();
+}
+
+std::string ExportToPython::defineGISASSimulation(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     result << "def getSimulation():\n";
-    //    result << indent() << "# Creating and returning GISAXS simulation\n";
     result << indent() << "simulation = ba.GISASSimulation()\n";
     result << defineDetector(simulation);
     result << defineDetectorResolutionFunction(simulation);
@@ -685,7 +696,7 @@ std::string ExportToPython::defineMultiLayers() const
     return result.str();
 }
 
-std::string ExportToPython::defineDetector(const GISASSimulation* simulation) const
+std::string ExportToPython::defineDetector(const Simulation* simulation) const
 {
     const IDetector* iDetector = simulation->getInstrument().getDetector();
 
@@ -763,7 +774,7 @@ std::string ExportToPython::defineDetector(const GISASSimulation* simulation) co
 }
 
 std::string ExportToPython::defineDetectorResolutionFunction(
-    const GISASSimulation* simulation) const
+    const Simulation* simulation) const
 {
     std::ostringstream result;
     const IDetector* detector = simulation->getInstrument().getDetector();
@@ -788,8 +799,7 @@ std::string ExportToPython::defineDetectorResolutionFunction(
     return result.str();
 }
 
-std::string ExportToPython::defineDetectorPolarizationAnalysis(
-        const GISASSimulation* simulation) const
+std::string ExportToPython::defineDetectorPolarizationAnalysis(const Simulation* simulation) const
 {
     std::ostringstream result;
     const IDetector* detector = simulation->getInstrument().getDetector();
@@ -811,7 +821,7 @@ std::string ExportToPython::defineDetectorPolarizationAnalysis(
     return result.str();
 }
 
-std::string ExportToPython::defineBeam(const GISASSimulation* simulation) const
+std::string ExportToPython::defineBeam(const Simulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -838,7 +848,7 @@ std::string ExportToPython::defineBeam(const GISASSimulation* simulation) const
     return result.str();
 }
 
-std::string ExportToPython::defineParameterDistributions(const GISASSimulation* simulation) const
+std::string ExportToPython::defineParameterDistributions(const Simulation* simulation) const
 {
     std::ostringstream result;
     const std::vector<ParameterDistribution>& distributions =
@@ -865,7 +875,7 @@ std::string ExportToPython::defineParameterDistributions(const GISASSimulation* 
     return result.str();
 }
 
-std::string ExportToPython::defineMasks(const GISASSimulation* simulation) const
+std::string ExportToPython::defineMasks(const Simulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -884,7 +894,7 @@ std::string ExportToPython::defineMasks(const GISASSimulation* simulation) const
     return result.str();
 }
 
-std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simulation) const
+std::string ExportToPython::defineSimulationOptions(const Simulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -903,7 +913,7 @@ std::string ExportToPython::defineSimulationOptions(const GISASSimulation* simul
     return result.str();
 }
 
-std::string ExportToPython::defineBackground(const GISASSimulation* simulation) const
+std::string ExportToPython::defineBackground(const Simulation* simulation) const
 {
     std::ostringstream result;
 

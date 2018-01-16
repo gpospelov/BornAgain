@@ -21,6 +21,7 @@
 class BeamDistributionItem;
 class BeamItem;
 class FormFactorAnisoPyramid;
+class Simulation;
 class GISASSimulation;
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;
@@ -70,10 +71,10 @@ BA_CORE_API_ void setItemFromSample(SessionItem* item,
 BA_CORE_API_ bool isValidRoughness(const LayerRoughness* roughness);
 
 BA_CORE_API_ void setItemFromSample(BeamItem* beam_item,
-                                    const GISASSimulation& simulation);
+                                    const Simulation& simulation);
 
 BA_CORE_API_ void setInstrumentDetectorFromSample(GISASInstrumentItem* detector_item,
-                                                  const GISASSimulation& simulation);
+                                                  const Simulation& simulation);
 
 BA_CORE_API_ void setItemFromSample(SphericalDetectorItem* detector_item,
                                     const SphericalDetector &detector);
@@ -82,7 +83,7 @@ BA_CORE_API_ void setItemFromSample(RectangularDetectorItem* detector_item,
                                     const RectangularDetector &detector);
 
 BA_CORE_API_ void setDetectorMasks(DetectorItem* detector_item,
-                                   const GISASSimulation& simulation);
+                                   const Simulation& simulation);
 
 BA_CORE_API_ void setDetectorMasks(MaskContainerItem* container_item,
                                    const IDetector& detector, double scale);
@@ -91,7 +92,7 @@ BA_CORE_API_ void setItemFromSample(BeamDistributionItem* beam_distribution_item
                                     const ParameterDistribution& parameter_distribution);
 
 BA_CORE_API_ void setBackground(GISASInstrumentItem* instrument_item,
-                                const GISASSimulation& simulation);
+                                const Simulation& simulation);
 }
 
 #endif // TRANSFORMFROMDOMAIN_H

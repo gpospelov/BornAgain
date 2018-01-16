@@ -19,7 +19,6 @@
 #include <QMap>
 
 class Simulation;
-class GISASSimulation;
 class IntensityDataItem;
 class GISASInstrumentItem;
 class JobItem;

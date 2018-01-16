@@ -78,7 +78,6 @@ private:
     GISASSimulation(const GISASSimulation& other);
 
     //! Initializes the vector of Simulation elements
-    //! @param use_cache Initialize storage for accumulating results
     void initSimulationElementVector() override;
 
     void initialize();

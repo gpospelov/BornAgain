@@ -119,7 +119,6 @@ private:
     void runSingleSimulation(size_t batch_start, size_t batch_size, double weight = 1.0);
 
     //! Initializes the vector of Simulation elements
-    //! @param use_cache Initialize storage for accumulating results
     virtual void initSimulationElementVector() = 0;
 
     //! Generate a single threaded computation for a given range of simulation elements

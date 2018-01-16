@@ -22,12 +22,14 @@ class BeamItem;
 class DetectorItem;
 class MaskContainerItem;
 class GroupItem;
+class Instrument;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
 public:
     static const QString P_IDENTIFIER;
 
+    virtual std::unique_ptr<Instrument> createInstrument() const = 0;
 protected:
     explicit InstrumentItem(const QString& modelType);
 };
@@ -35,6 +37,8 @@ protected:
 class BA_CORE_API_ Instrument2DItem : public InstrumentItem
 {
 public:
+    virtual ~Instrument2DItem();
+
     static const QString P_BEAM;
     static const QString P_DETECTOR;
     static const QString P_BACKGROUND;
@@ -52,6 +56,8 @@ public:
     void importMasks(MaskContainerItem* maskContainer);
 
     QStringList translateList(const QStringList& list) const override;
+
+    std::unique_ptr<Instrument> createInstrument() const override;
 
 protected:
     explicit Instrument2DItem(const QString& modelType);

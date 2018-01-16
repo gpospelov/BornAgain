@@ -129,13 +129,5 @@ DomainObjectBuilder::buildInterferenceFunction(const SessionItem& item) const
 
 std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const GISASInstrumentItem& instrumentItem) const
 {
-    auto instrument = std::make_unique<Instrument>();
-
-    auto beam = instrumentItem.beamItem()->createBeam();
-    instrument->setBeam(*beam);
-
-    auto detector = instrumentItem.detectorItem()->createDetector();
-    instrument->setDetector(*detector);
-
-    return instrument;
+    return instrumentItem.createInstrument();
 }

@@ -22,6 +22,8 @@
 #include "GroupItem.h"
 #include "MaskItems.h"
 #include "ParameterTranslators.h"
+#include "Instrument.h"
+#include "IDetector2D.h"
 
 namespace {
 const QString background_group_label = "Type";
@@ -53,6 +55,8 @@ Instrument2DItem::Instrument2DItem(const QString& modelType)
     item->setDisplayName(background_group_label);
     item->setToolTip("Background type");
 }
+
+Instrument2DItem::~Instrument2DItem() = default;
 
 BeamItem *Instrument2DItem::beamItem() const
 {
@@ -109,6 +113,19 @@ QStringList Instrument2DItem::translateList(const QStringList& list) const
             result << QStringLiteral("Instrument");
         }
     }
+    return result;
+}
+
+std::unique_ptr<Instrument> Instrument2DItem::createInstrument() const
+{
+    std::unique_ptr<Instrument> result(new Instrument);
+
+    auto beam = beamItem()->createBeam();
+    result->setBeam(*beam);
+
+    auto detector = detectorItem()->createDetector();
+    result->setDetector(*detector);
+
     return result;
 }
 

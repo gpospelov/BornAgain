@@ -1,19 +1,20 @@
-#include "SquareBeamFormFactor.h"
+#include "FootprintFactorSquare.h"
+
 #include "MultiLayer.h"
 
-SquareBeamFormFactor::SquareBeamFormFactor(double width) : m_beam_width(width)
+FootprintFactorSquare::FootprintFactorSquare(double width) : m_beam_width(width)
 {
     if (m_beam_width < 0.0)
         throw std::runtime_error(
             "Error in SquareBeamFormFactor::SquareBeamFormFactor: beam width is negative");
 }
 
-SquareBeamFormFactor::~SquareBeamFormFactor() = default;
+FootprintFactorSquare::~FootprintFactorSquare() = default;
 
-double SquareBeamFormFactor::calculateFootprintFactor(const MultiLayer& sample, double alpha) const
+double FootprintFactorSquare::calculate(const MultiLayer& sample, double alpha) const
 {
     if (alpha > M_PI || alpha < 0.0)
-        throw std::runtime_error("Error in SquareBeamFormFactor::calculateFootprintFactor: "
+        throw std::runtime_error("Error in FootprintFactorSquare::calculate: "
                                  "incident angle is out of range");
     if (m_beam_width == 0.0)
         return 1.0;

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/Beam.cpp
+//! @file      Core/Beam/Beam.cpp
 //! @brief     Implements class Beam.
 //!
 //! @homepage  http://www.bornagainproject.org

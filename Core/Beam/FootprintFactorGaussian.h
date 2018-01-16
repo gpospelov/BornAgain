@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/GaussianBeamFormFactor.h
-//! @brief     Defines class GaussianBeamFormFactor.
+//! @file      Core/Beam/FootprintFactorGaussian.h
+//! @brief     Defines class FootprintFactorGaussian.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,23 +12,23 @@
 //
 // ************************************************************************** //
 
-#ifndef GAUSSIANBEAMFORMFACTOR_H_
-#define GAUSSIANBEAMFORMFACTOR_H_
+#ifndef FOOTPRINTFACTORGAUSSIAN_H
+#define FOOTPRINTFACTORGAUSSIAN_H
 
-#include "IBeamFormFactor.h"
+#include "IFootprintFactor.h"
 
 //! Defines spatial characteristics of a Gaussian beam
 //! @ingroup simulation
 
-class BA_CORE_API_ GaussianBeamFormFactor : public IBeamFormFactor
+class BA_CORE_API_ FootprintFactorGaussian : public IFootprintFactor
 {
 public:
-    GaussianBeamFormFactor(double width);
-    virtual ~GaussianBeamFormFactor();
+    FootprintFactorGaussian(double width);
+    virtual ~FootprintFactorGaussian();
 
     //! Calculate footprint correction coefficient from _sample_ dimensions and the beam incident
     //! angle _alpha_.
-    double calculateFootprintFactor(const MultiLayer& sample, double alpha) const override;
+    double calculate(const MultiLayer& sample, double alpha) const override;
 
 private:
     //! Characteristic full width on e^{-1/2} level from max. intensity,
@@ -36,4 +36,4 @@ private:
     double m_beam_width;
 };
 
-#endif /* GAUSSIANBEAMFORMFACTOR_H_ */
+#endif /* FOOTPRINTFACTORGAUSSIAN_H */

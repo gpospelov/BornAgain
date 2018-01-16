@@ -5550,21 +5550,21 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classGaussianBeamFormFactor.xml
-%feature("docstring") GaussianBeamFormFactor "
+// File: classGaussianBeamShape.xml
+%feature("docstring") GaussianBeamShape "
 
 Defines spatial characteristics of a Gaussian beam
 
-C++ includes: GaussianBeamFormFactor.h
+C++ includes: GaussianBeamShape.h
 ";
 
-%feature("docstring")  GaussianBeamFormFactor::GaussianBeamFormFactor "GaussianBeamFormFactor::GaussianBeamFormFactor(double width)
+%feature("docstring")  GaussianBeamShape::GaussianBeamShape "GaussianBeamShape::GaussianBeamShape(double width)
 ";
 
-%feature("docstring")  GaussianBeamFormFactor::~GaussianBeamFormFactor "GaussianBeamFormFactor::~GaussianBeamFormFactor()
+%feature("docstring")  GaussianBeamShape::~GaussianBeamShape "GaussianBeamShape::~GaussianBeamShape()
 ";
 
-%feature("docstring")  GaussianBeamFormFactor::calculateFootprintFactor "double GaussianBeamFormFactor::calculateFootprintFactor(const MultiLayer &sample, double alpha) const override
+%feature("docstring")  GaussianBeamShape::calculateFootprintFactor "double GaussianBeamShape::calculateFootprintFactor(const MultiLayer &sample, double alpha) const override
 
 Calculate footprint correction coefficient from  sample dimensions and the beam incident angle  alpha. 
 ";
@@ -6209,18 +6209,18 @@ C++ includes: IBackground.h
 ";
 
 
-// File: classIBeamFormFactor.xml
-%feature("docstring") IBeamFormFactor "
+// File: classIBeamShape.xml
+%feature("docstring") IBeamShape "
 
 Defines abstract beam form-factor (spatial characteristics of the beam)
 
-C++ includes: IBeamFormFactor.h
+C++ includes: IBeamShape.h
 ";
 
-%feature("docstring")  IBeamFormFactor::~IBeamFormFactor "IBeamFormFactor::~IBeamFormFactor()
+%feature("docstring")  IBeamShape::~IBeamShape "IBeamShape::~IBeamShape()
 ";
 
-%feature("docstring")  IBeamFormFactor::calculateFootprintFactor "virtual double IBeamFormFactor::calculateFootprintFactor(const MultiLayer &sample, double alpha) const =0
+%feature("docstring")  IBeamShape::calculateFootprintFactor "virtual double IBeamShape::calculateFootprintFactor(const MultiLayer &sample, double alpha) const =0
 
 Calculate footprint correction coefficient from  sample dimensions and the beam incident angle  alpha. 
 ";
@@ -14102,21 +14102,21 @@ return default axes units
 ";
 
 
-// File: classSquareBeamFormFactor.xml
-%feature("docstring") SquareBeamFormFactor "
+// File: classSquareBeamShape.xml
+%feature("docstring") SquareBeamShape "
 
 Defines spatial characteristics of a square beam
 
-C++ includes: SquareBeamFormFactor.h
+C++ includes: SquareBeamShape.h
 ";
 
-%feature("docstring")  SquareBeamFormFactor::SquareBeamFormFactor "SquareBeamFormFactor::SquareBeamFormFactor(double width)
+%feature("docstring")  SquareBeamShape::SquareBeamShape "SquareBeamShape::SquareBeamShape(double width)
 ";
 
-%feature("docstring")  SquareBeamFormFactor::~SquareBeamFormFactor "SquareBeamFormFactor::~SquareBeamFormFactor()
+%feature("docstring")  SquareBeamShape::~SquareBeamShape "SquareBeamShape::~SquareBeamShape()
 ";
 
-%feature("docstring")  SquareBeamFormFactor::calculateFootprintFactor "double SquareBeamFormFactor::calculateFootprintFactor(const MultiLayer &sample, double alpha) const override
+%feature("docstring")  SquareBeamShape::calculateFootprintFactor "double SquareBeamShape::calculateFootprintFactor(const MultiLayer &sample, double alpha) const override
 
 Calculate footprint correction coefficient from  sample dimensions and the beam incident angle  alpha. 
 ";
@@ -16266,10 +16266,10 @@ global helper function for comparison of axes
 // File: FitElement_8h.xml
 
 
-// File: GaussianBeamFormFactor_8cpp.xml
+// File: GaussianBeamShape_8cpp.xml
 
 
-// File: GaussianBeamFormFactor_8h.xml
+// File: GaussianBeamShape_8h.xml
 
 
 // File: Histogram1D_8cpp.xml
@@ -16284,10 +16284,10 @@ global helper function for comparison of axes
 // File: Histogram2D_8h.xml
 
 
-// File: IBeamFormFactor_8cpp.xml
+// File: IBeamShape_8cpp.xml
 
 
-// File: IBeamFormFactor_8h.xml
+// File: IBeamShape_8h.xml
 
 
 // File: IChiSquaredModule_8cpp.xml
@@ -16431,10 +16431,10 @@ make Swappable
 // File: SphericalDetector_8h.xml
 
 
-// File: SquareBeamFormFactor_8cpp.xml
+// File: SquareBeamShape_8cpp.xml
 
 
-// File: SquareBeamFormFactor_8h.xml
+// File: SquareBeamShape_8h.xml
 
 
 // File: ISelectionRule_8h.xml

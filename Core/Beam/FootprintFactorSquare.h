@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/IBeamFormFactor.h
-//! @brief     Defines class IBeamFormFactor.
+//! @file      Core/Beam/FootprintFactorSquare.h
+//! @brief     Defines class FootprintFactorSquare.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,25 +12,26 @@
 //
 // ************************************************************************** //
 
-#ifndef IBEAMFORMFACTOR_H_
-#define IBEAMFORMFACTOR_H_
+#ifndef FOOTPRINTFACTORSQUARE_H_
+#define FOOTPRINTFACTORSQUARE_H_
 
-#include "WinDllMacros.h"
+#include "IFootprintFactor.h"
 
-class MultiLayer;
-class Beam;
-
-//! Defines abstract beam form-factor (spatial characteristics of the beam)
+//! Defines spatial characteristics of a square beam
 //! @ingroup simulation
 
-class BA_CORE_API_ IBeamFormFactor
+class BA_CORE_API_ FootprintFactorSquare : public IFootprintFactor
 {
 public:
-    virtual ~IBeamFormFactor();
+    FootprintFactorSquare(double width);
+    virtual ~FootprintFactorSquare();
 
     //! Calculate footprint correction coefficient from _sample_ dimensions and the beam incident
     //! angle _alpha_.
-    virtual double calculateFootprintFactor(const MultiLayer& sample, double alpha) const = 0;
+    double calculate(const MultiLayer& sample, double alpha) const override;
+
+private:
+    double m_beam_width; //! Beam full width
 };
 
-#endif /* IBEAMFORMFACTOR_H_ */
+#endif /* FOOTPRINTFACTORSQUARE_H_ */

@@ -27,7 +27,7 @@
 #include "TransformToDomain.h"
 
 //! Creates domain simulation from sample and instrument items.
-GISASSimulation* DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
+std::unique_ptr<GISASSimulation> DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
                                                         const GISASInstrumentItem* instrumentItem,
                                                         const SimulationOptionsItem* optionsItem)
 {
@@ -38,16 +38,16 @@ GISASSimulation* DomainSimulationBuilder::createSimulation(const MultiLayerItem*
     }
     DomainObjectBuilder builder;
 
-    auto result = new GISASSimulation;
+    std::unique_ptr<GISASSimulation> result(new GISASSimulation);
     auto P_multilayer = builder.buildMultiLayer(*sampleItem);
     auto P_instrument = builder.buildInstrument(*instrumentItem);
     result->setSample(*P_multilayer);
     result->setInstrument(*P_instrument);
-    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->beamItem(), result);
+    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->beamItem(), result.get());
 
     // Simulation options
     if (optionsItem)
-        TransformToDomain::setSimulationOptions(result, *optionsItem);
+        TransformToDomain::setSimulationOptions(result.get(), *optionsItem);
 
     // Background simulation
     auto P_background = instrumentItem->backgroundItem()->createBackground();

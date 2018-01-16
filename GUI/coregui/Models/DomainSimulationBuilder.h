@@ -16,6 +16,7 @@
 #define DOMAINSIMULATIONBUILDER_H
 
 #include "WinDllMacros.h"
+#include <memory>
 
 class GISASSimulation;
 class MultiLayerItem;
@@ -27,7 +28,7 @@ class SimulationOptionsItem;
 namespace DomainSimulationBuilder
 {
 
-BA_CORE_API_ GISASSimulation* createSimulation(const MultiLayerItem* sampleItem,
+BA_CORE_API_ std::unique_ptr<GISASSimulation> createSimulation(const MultiLayerItem* sampleItem,
                                             const GISASInstrumentItem* instrumentItem,
                                             const SimulationOptionsItem* optionsItem = 0);
 };

@@ -79,8 +79,7 @@ void JobQueueData::runJob(JobItem *jobItem)
     GISASSimulation *simulation(0);
     try{
         simulation = DomainSimulationBuilder::createSimulation(jobItem->multiLayerItem(),
-                                                            jobItem->instrumentItem(),
-                                                            jobItem->getSimulationOptionsItem());
+            jobItem->instrumentItem(), jobItem->getSimulationOptionsItem()).release();
     } catch(const std::exception &ex) {
         QString message("JobQueueData::runJob() -> Error. "
                         "Attempt to create sample/instrument object from user description "

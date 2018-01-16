@@ -23,6 +23,7 @@
 #include "SimulationOptionsWidget.h"
 #include "SimulationSetupAssistant.h"
 #include "projectmanager.h"
+#include "InstrumentItems.h"
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>

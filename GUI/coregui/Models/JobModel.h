@@ -18,7 +18,7 @@
 class JobQueueData;
 class JobItem;
 class MultiLayerItem;
-class GISASInstrumentItem;
+class InstrumentItem;
 class RealDataItem;
 class SimulationOptionsItem;
 
@@ -36,7 +36,7 @@ public:
     JobItem *getJobItemForIdentifier(const QString &identifier);
 
     JobItem *addJob(const MultiLayerItem *multiLayerItem,
-                    const GISASInstrumentItem *instrumentItem,
+                    const InstrumentItem *instrumentItem,
                     const RealDataItem *realDataItem,
                     const SimulationOptionsItem *optionItem);
 

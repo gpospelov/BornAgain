@@ -18,10 +18,10 @@
 #include "GISASSimulation.h"
 
 namespace {
-std::string simulationCode(const GISASSimulation& simulation,
+std::string simulationCode(const Simulation& simulation,
                            SimulationToPython::EMainType mainFunctionType)
 {
-    std::unique_ptr<GISASSimulation> sim(simulation.clone());
+    std::unique_ptr<Simulation> sim(simulation.clone());
     sim->prepareSimulation();
 
     SimulationToPython generator;
@@ -35,12 +35,12 @@ std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer)
     return generator.generateSampleCode(multilayer);
 }
 
-std::string ExportToPython::generateSimulationCode(const GISASSimulation& simulation)
+std::string ExportToPython::generateSimulationCode(const Simulation& simulation)
 {
     return simulationCode(simulation, SimulationToPython::RUN_SIMULATION);
 }
 
-std::string ExportToPython::generatePyExportTest(const GISASSimulation& simulation)
+std::string ExportToPython::generatePyExportTest(const Simulation& simulation)
 {
     return simulationCode(simulation, SimulationToPython::SAVE_DATA);
 }

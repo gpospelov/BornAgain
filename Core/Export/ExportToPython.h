@@ -19,15 +19,15 @@
 #include <string>
 
 class MultiLayer;
-class GISASSimulation;
+class Simulation;
 
 //! Contains main methods to generate Python scripts from Core simulation objects.
 
 namespace ExportToPython {
 
 BA_CORE_API_ std::string generateSampleCode(const MultiLayer& multilayer);
-BA_CORE_API_ std::string generateSimulationCode(const GISASSimulation& simulation);
-BA_CORE_API_ std::string generatePyExportTest(const GISASSimulation& simulation);
+BA_CORE_API_ std::string generateSimulationCode(const Simulation& simulation);
+BA_CORE_API_ std::string generatePyExportTest(const Simulation& simulation);
 
 }
 

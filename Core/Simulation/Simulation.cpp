@@ -131,23 +131,20 @@ void Simulation::runSimulation()
         + ( sample()->hasRoughness() ? 1 : 0 );
     m_progress.setExpectedNTicks(prefactor*param_combinations*numberOfSimulationElements());
 
-    // no averaging needed:
+    std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
     if (param_combinations == 1) {
-        std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
+        // no averaging needed:
         m_distribution_handler.setParameterValues(P_param_pool.get(), 0);
         runSingleSimulation();
-        transferResultsToIntensityMap();
-        return;
+    } else {
+        // average over parameter distributions:
+        const bool use_storage = true;
+        for (size_t index = 0; index < param_combinations; ++index) {
+            double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
+            runSingleSimulation(use_storage, weight);
+        }
+        moveDataFromStorage();
     }
-
-    // average over parameter distributions:
-    std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
-    const bool use_storage = true;
-    for (size_t index = 0; index < param_combinations; ++index) {
-        double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
-        runSingleSimulation(use_storage, weight);
-    }
-    moveDataFromStorage();
     transferResultsToIntensityMap();
 }
 

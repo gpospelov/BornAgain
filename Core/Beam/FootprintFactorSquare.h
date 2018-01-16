@@ -17,22 +17,16 @@
 
 #include "IFootprintFactor.h"
 
-//! Defines spatial characteristics of a square beam
+//! Calculates footprint coefficient for a square beam
 //! @ingroup simulation
 
 class BA_CORE_API_ FootprintFactorSquare : public IFootprintFactor
 {
 public:
-    //! Creates footprint factor calculator for a square beam.
-    //! @param width_ratio The ratio of the beam full width to the width of a sample.
-    FootprintFactorSquare(double width_ratio);
-    virtual ~FootprintFactorSquare();
+    using IFootprintFactor::IFootprintFactor;
 
     //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
     double calculate(double alpha) const override;
-
-private:
-    double m_width_ratio; //! Beam to sample widths ratio
 };
 
 #endif /* FOOTPRINTFACTORSQUARE_H_ */

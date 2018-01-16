@@ -20,16 +20,23 @@
 class MultiLayer;
 class Beam;
 
-//! Defines abstract beam form-factor (spatial characteristics of the beam)
+//! Defines the base for classes to calculate beam footprint factor
 //! @ingroup simulation
 
 class BA_CORE_API_ IFootprintFactor
 {
 public:
+    IFootprintFactor(double width_ratio);
     virtual ~IFootprintFactor();
+
+    void setWidthRatio(double width_ratio);
+    double widthRatio() const {return m_width_ratio;}
 
     //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
     virtual double calculate(double alpha) const = 0;
+
+private:
+    double m_width_ratio; //! Beam to sample width ratio
 };
 
 #endif /* IFOOTPRINTFACTOR_H_ */

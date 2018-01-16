@@ -17,25 +17,18 @@
 
 #include "IFootprintFactor.h"
 
-//! Defines spatial characteristics of a Gaussian beam
+//! Calculates footprint coefficient for a gaussian beam
+//! Beam width is interpreted as the full width on the level
+//! of \f[ \exp{-1/2} \f] from the peak intensity.
 //! @ingroup simulation
 
 class BA_CORE_API_ FootprintFactorGaussian : public IFootprintFactor
 {
 public:
-    //! Creates footprint factor calculator for a gaussian beam.
-    //! @param width_ratio The ratio of the beam characteristic full width on e^{-1/2} level from
-    //! max. intensity to the width of a sample.
-    FootprintFactorGaussian(double width_ratio);
-    virtual ~FootprintFactorGaussian();
+    using IFootprintFactor::IFootprintFactor;
 
     //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
     double calculate(double alpha) const override;
-
-private:
-    //! The ratio of the beam characteristic full width on e^{-1/2} level from max. intensity
-    //! to the width of a sample
-    double m_width_ratio;
 };
 
 #endif /* FOOTPRINTFACTORGAUSSIAN_H */

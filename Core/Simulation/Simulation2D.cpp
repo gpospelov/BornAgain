@@ -15,7 +15,6 @@
 #include "Simulation2D.h"
 #include "DWBAComputation.h"
 #include "IBackground.h"
-#include "SimElementUtils.h"
 #include "SimulationElement.h"
 
 Simulation2D::Simulation2D(const MultiLayer& p_sample)

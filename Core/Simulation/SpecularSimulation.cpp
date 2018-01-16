@@ -19,7 +19,6 @@
 #include "SpecularMatrix.h"
 #include "MaterialUtils.h"
 #include "Histogram1D.h"
-#include "SimElementUtils.h"
 #include "SimulationElement.h"
 #include "SpecularComputation.h"
 #include "SpecularDetector1D.h"
@@ -88,10 +87,10 @@ const IAxis* SpecularSimulation::getAlphaAxis() const
     return &m_instrument.getDetector()->getAxis(0);
 }
 
-void SpecularSimulation::initSimulationElementVector(bool use_cache)
+void SpecularSimulation::initSimulationElementVector()
 {
     m_sim_elements = m_instrument.createSimulationElements();
-    if (use_cache && m_cache.empty())
+    if (m_cache.empty())
         m_cache = m_sim_elements;
 }
 
@@ -180,7 +179,14 @@ void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_eleme
 
 void SpecularSimulation::addDataToCache(double weight)
 {
-    SimElementUtils::addElementsWithWeight(m_sim_elements, m_cache, weight);
+    assert(m_sim_elements.size() == m_cache.size());
+    for (unsigned i=0; i<m_sim_elements.size(); i++) {
+        m_cache[i].setIntensity(m_sim_elements[i].getIntensity()*weight);
+        if (m_sim_elements[i].specularData()) {
+            m_cache[i].setSpecular(std::unique_ptr<SpecularData>(
+                                       m_sim_elements[i].specularData()->clone()));
+        }
+    }
 }
 
 void SpecularSimulation::moveDataFromCache()

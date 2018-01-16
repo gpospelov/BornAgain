@@ -84,7 +84,7 @@ public:
     double getPhi(double x, double y) const;
 
     //! check if element corresponds to specular peak
-    SpecularData* specularData() const {return m_specular_data.get();}
+    SpecularData* specularData() const { return m_specular_data.get(); }
 
     //! Turn on specular data
     void setSpecular();
@@ -96,11 +96,11 @@ private:
 
     kvector_t getKf(double x, double y) const;
 
-    double m_wavelength, m_alpha_i, m_phi_i;             //!< wavelength and angles of beam
-    double m_intensity;  //!< simulated intensity for detector cell
+    double m_wavelength, m_alpha_i, m_phi_i;  //!< wavelength and angles of beam
+    double m_intensity;                       //!< simulated intensity for detector cell
 #ifndef SWIG
-    Eigen::Matrix2cd m_polarization;      //!< polarization density matrix
-    Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
+    Eigen::Matrix2cd m_polarization;         //!< polarization density matrix
+    Eigen::Matrix2cd m_analyzer_operator;    //!< polarization analyzer operator
 #endif
     std::unique_ptr<IPixel> mP_pixel;
     std::unique_ptr<SpecularData> m_specular_data;
@@ -120,6 +120,8 @@ public:
     SpecularData(MatrixVector coefficients);
 
     SpecularData(ScalarVector coefficients);
+
+    SpecularData* clone();
 
     const ILayerRTCoefficients& operator[](size_t index) const;
 

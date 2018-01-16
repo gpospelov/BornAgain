@@ -18,7 +18,6 @@
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
-#include "SimElementUtils.h"
 #include "SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()
@@ -77,7 +76,7 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     initialize();
 }
 
-void OffSpecSimulation::initSimulationElementVector(bool use_cache)
+void OffSpecSimulation::initSimulationElementVector()
 {
     m_sim_elements.clear();
     Beam beam = m_instrument.getBeam();
@@ -95,7 +94,7 @@ void OffSpecSimulation::initSimulationElementVector(bool use_cache)
         m_sim_elements.insert(m_sim_elements.end(), sim_elements_alpha_i.begin(),
                               sim_elements_alpha_i.end());
     }
-    if (use_cache && m_cache.empty())
+    if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);
 }
 

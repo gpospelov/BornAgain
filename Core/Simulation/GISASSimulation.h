@@ -79,7 +79,7 @@ private:
 
     //! Initializes the vector of Simulation elements
     //! @param use_cache Initialize storage for accumulating results
-    void initSimulationElementVector(bool use_cache) override;
+    void initSimulationElementVector() override;
 
     void initialize();
 };

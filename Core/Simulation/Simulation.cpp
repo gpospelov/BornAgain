@@ -142,19 +142,11 @@ void Simulation::runSimulation()
         return;
 
     std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
-    if (param_combinations == 1) {
-        // no averaging needed:
-        m_distribution_handler.setParameterValues(P_param_pool.get(), 0);
-        runSingleSimulation(batch_start, batch_size);
-    } else {
-        // average over parameter distributions:
-        const bool use_cache = true;
-        for (size_t index = 0; index < param_combinations; ++index) {
-            double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
-            runSingleSimulation(batch_start, batch_size, use_cache, weight);
-        }
-        moveDataFromCache();
+    for (size_t index = 0; index < param_combinations; ++index) {
+        double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
+        runSingleSimulation(batch_start, batch_size, weight);
     }
+    moveDataFromCache();
     transferResultsToIntensityMap();
 }
 
@@ -224,11 +216,10 @@ void Simulation::updateSample()
 
 //! Runs a single simulation with fixed parameter values.
 //! If desired, the simulation is run in several threads.
-void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size,
-                                     bool use_cache, double weight)
+void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, double weight)
 {
     prepareSimulation();
-    initSimulationElementVector(use_cache);
+    initSimulationElementVector();
 
     const size_t n_threads = m_options.getNumberOfThreads();
     assert(n_threads > 0);
@@ -246,8 +237,7 @@ void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size,
 
     normalize(batch_start, batch_size);
     addBackGroundIntensity(batch_start, batch_size);
-    if (use_cache)
-        addDataToCache(weight);
+    addDataToCache(weight);
 }
 
 void Simulation::normalize(size_t start_ind, size_t n_elements)

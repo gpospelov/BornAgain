@@ -110,10 +110,10 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other)
     initialize();
 }
 
-void GISASSimulation::initSimulationElementVector(bool use_cache)
+void GISASSimulation::initSimulationElementVector()
 {
     m_sim_elements = m_instrument.createSimulationElements();
-    if (use_cache && m_cache.empty())
+    if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);
 }
 

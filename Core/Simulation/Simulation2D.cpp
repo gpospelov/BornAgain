@@ -29,7 +29,7 @@ Simulation2D::Simulation2D(const std::shared_ptr<IMultiLayerBuilder> p_sample_bu
 Simulation2D::Simulation2D(const Simulation2D& other)
     : Simulation(other)
     , m_sim_elements(other.m_sim_elements)
-    , m_storage(other.m_storage)
+    , m_cache(other.m_cache)
 {}
 
 void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
@@ -72,15 +72,17 @@ void Simulation2D::addBackGroundIntensity(size_t start_ind, size_t n_elements)
     }
 }
 
-void Simulation2D::addDataToStorage(double weight)
+void Simulation2D::addDataToCache(double weight)
 {
-    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
+    SimElementUtils::addElementsWithWeight(m_sim_elements, m_cache, weight);
 }
 
-void Simulation2D::moveDataFromStorage()
+void Simulation2D::moveDataFromCache()
 {
-    assert(!m_storage.empty());
-    if (!m_storage.empty())
-        m_sim_elements = std::move(m_storage);
+    assert(!m_cache.empty());
+    if (!m_cache.empty()){
+        m_sim_elements = std::move(m_cache);
+        m_cache.clear();
+    }
 }
 

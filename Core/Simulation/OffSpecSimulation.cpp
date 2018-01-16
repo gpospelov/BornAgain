@@ -77,7 +77,7 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     initialize();
 }
 
-void OffSpecSimulation::initSimulationElementVector(bool init_storage)
+void OffSpecSimulation::initSimulationElementVector(bool use_cache)
 {
     m_sim_elements.clear();
     Beam beam = m_instrument.getBeam();
@@ -95,8 +95,8 @@ void OffSpecSimulation::initSimulationElementVector(bool init_storage)
         m_sim_elements.insert(m_sim_elements.end(), sim_elements_alpha_i.begin(),
                               sim_elements_alpha_i.end());
     }
-    if (init_storage)
-        m_storage = m_sim_elements;
+    if (use_cache && m_cache.empty())
+        m_cache = m_sim_elements;
 }
 
 void OffSpecSimulation::transferResultsToIntensityMap()

@@ -43,7 +43,7 @@ SpecularSimulation::SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder>
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
     : Simulation(other)
     , m_sim_elements(other.m_sim_elements)
-    , m_storage(other.m_storage)
+    , m_cache(other.m_cache)
 {
     initialize();
 }
@@ -88,11 +88,11 @@ const IAxis* SpecularSimulation::getAlphaAxis() const
     return &m_instrument.getDetector()->getAxis(0);
 }
 
-void SpecularSimulation::initSimulationElementVector(bool init_storage)
+void SpecularSimulation::initSimulationElementVector(bool use_cache)
 {
     m_sim_elements = m_instrument.createSimulationElements();
-    if (init_storage)
-        m_storage = m_sim_elements;
+    if (use_cache && m_cache.empty())
+        m_cache = m_sim_elements;
 }
 
 std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
@@ -178,16 +178,18 @@ void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_eleme
     }
 }
 
-void SpecularSimulation::addDataToStorage(double weight)
+void SpecularSimulation::addDataToCache(double weight)
 {
-    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
+    SimElementUtils::addElementsWithWeight(m_sim_elements, m_cache, weight);
 }
 
-void SpecularSimulation::moveDataFromStorage()
+void SpecularSimulation::moveDataFromCache()
 {
-    assert(!m_storage.empty());
-    if (!m_storage.empty())
-        m_sim_elements = std::move(m_storage);
+    assert(!m_cache.empty());
+    if (!m_cache.empty()) {
+        m_sim_elements = std::move(m_cache);
+        m_cache.clear();
+    }
 }
 
 void SpecularSimulation::validityCheck(size_t i_layer) const

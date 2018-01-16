@@ -83,8 +83,8 @@ private:
     SpecularSimulation(const SpecularSimulation& other);
 
     //! Initializes the vector of Simulation elements
-    //! @param init_storage Initialize storage for accumulating results
-    void initSimulationElementVector(bool init_storage) override;
+    //! @param use_cache Initialize storage for accumulating results
+    void initSimulationElementVector(bool use_cache) override;
 
     std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
 
@@ -108,14 +108,12 @@ private:
 
     void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
 
-    bool isStorageInited() const override {return !m_storage.empty();}
+    void addDataToCache(double weight) override;
 
-    void addDataToStorage(double weight) override;
-
-    void moveDataFromStorage() override;
+    void moveDataFromCache() override;
 
     std::vector<SimulationElement> m_sim_elements;
-    std::vector<SimulationElement> m_storage;
+    std::vector<SimulationElement> m_cache;
 };
 
 #endif // SPECULARSIMULATION_H

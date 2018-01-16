@@ -59,8 +59,8 @@ private:
     OffSpecSimulation(const OffSpecSimulation& other);
 
     //! Initializes the vector of Simulation elements
-    //! @param init_storage Initialize storage for accumulating results
-    void initSimulationElementVector(bool init_storage) override;
+    //! @param use_cache Initialize storage for accumulating results
+    void initSimulationElementVector(bool use_cache) override;
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects

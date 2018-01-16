@@ -27,7 +27,7 @@
 #include "TransformToDomain.h"
 
 //! Creates domain simulation from sample and instrument items.
-std::unique_ptr<GISASSimulation> DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
+std::unique_ptr<Simulation> DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
                                                         const InstrumentItem* instrumentItem,
                                                         const SimulationOptionsItem* optionsItem)
 {

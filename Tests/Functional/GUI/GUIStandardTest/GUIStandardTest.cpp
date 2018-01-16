@@ -25,7 +25,7 @@
 
 namespace
 {
-std::unique_ptr<GISASSimulation> createDomainSimulation(const GISASSimulation& origin)
+std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
 {
     // initializing necessary GUI
     const std::unique_ptr<DocumentModel> documentModel(new DocumentModel);

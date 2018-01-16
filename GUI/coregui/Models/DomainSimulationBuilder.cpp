@@ -36,12 +36,11 @@ std::unique_ptr<Simulation> DomainSimulationBuilder::createSimulation(const Mult
                         " or InstrumentItem is not defined.");
         throw GUIHelpers::Error(message);
     }
-    DomainObjectBuilder builder;
 
     if (auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(instrumentItem)) {
         std::unique_ptr<GISASSimulation> result(new GISASSimulation);
-        auto P_multilayer = builder.buildMultiLayer(*sampleItem);
-        auto P_instrument = builder.buildInstrument(*gisasInstrument);
+        auto P_multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);
+        auto P_instrument = DomainObjectBuilder::buildInstrument(*gisasInstrument);
         result->setSample(*P_multilayer);
         result->setInstrument(*P_instrument);
         TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(), result.get());

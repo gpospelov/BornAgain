@@ -162,9 +162,8 @@ QString PySampleWidget::generateCodeSnippet()
     QString result;
 
     for(const MultiLayerItem* sampleItem : m_sampleModel->topItems<MultiLayerItem>()) {
-        DomainObjectBuilder builder;
         try {
-            auto multilayer = builder.buildMultiLayer(*sampleItem);
+            auto multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);
             if (!result.isEmpty())
                 result.append("\n");
             result.append(QString::fromStdString(

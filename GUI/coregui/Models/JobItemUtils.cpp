@@ -154,8 +154,7 @@ AxesUnits JobItemUtils::preferableGUIAxesUnits(AxesUnits default_units)
 void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
                                               const GISASInstrumentItem* instrumentItem)
 {
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*instrumentItem);
+    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
     instrument->initDetector();
     setIntensityItemAxesUnits(intensityItem, instrument->getDetector());
 }
@@ -201,8 +200,7 @@ void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
 void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
                                             const GISASInstrumentItem* instrumentItem)
 {
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*instrumentItem);
+    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
     instrument->initDetector();
     AxesUnits units = instrument->getDetector()->defaultAxesUnits();
     auto detector = instrument->getDetector();
@@ -217,8 +215,7 @@ void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
 OutputData<double>* JobItemUtils::createDetectorMap(const GISASInstrumentItem* instrumentItem,
                                                      AxesUnits units)
 {
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*instrumentItem);
+    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
     instrument->initDetector();
 
     if (units == AxesUnits::DEFAULT)

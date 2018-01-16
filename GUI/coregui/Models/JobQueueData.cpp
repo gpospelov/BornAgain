@@ -144,7 +144,7 @@ void JobQueueData::onStartedJob()
 {
     JobWorker *runner = qobject_cast<JobWorker *>(sender());
     Q_ASSERT(runner);
-    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
+    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->identifier());
     jobItem->setProgress(0);
     jobItem->setStatus(Constants::STATUS_RUNNING);
     jobItem->setBeginTime(GUIHelpers::currentDateTime());
@@ -158,17 +158,17 @@ void JobQueueData::onFinishedJob()
     JobWorker *runner = qobject_cast<JobWorker *>(sender());
     Q_ASSERT(runner);
 
-    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
+    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->identifier());
 
     processFinishedJob(runner, jobItem);
 
     // I tell to the thread to exit here (instead of connecting JobRunner::finished
     // to the QThread::quit because of strange behaviour)
-    getThread(runner->getIdentifier())->quit();
+    getThread(runner->identifier())->quit();
 
     emit focusRequest(jobItem);
 
-    clearSimulation(runner->getIdentifier());
+    clearSimulation(runner->identifier());
     assignForDeletion(runner);
 
     if(!hasUnfinishedJobs())
@@ -185,8 +185,8 @@ void JobQueueData::onProgressUpdate()
 {
     JobWorker *runner = qobject_cast<JobWorker *>(sender());
     Q_ASSERT(runner);
-    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->getIdentifier());
-    jobItem->setProgress(runner->getProgress());
+    JobItem *jobItem = m_jobModel->getJobItemForIdentifier(runner->identifier());
+    jobItem->setProgress(runner->progress());
     updateGlobalProgress();
 }
 
@@ -267,17 +267,17 @@ void JobQueueData::clearSimulation(const QString &identifier)
 void JobQueueData::processFinishedJob(JobWorker *runner, JobItem *jobItem)
 {
     jobItem->setEndTime(GUIHelpers::currentDateTime());
-    jobItem->setDuration(runner->getSimulationDuration());
+    jobItem->setDuration(runner->simulationDuration());
 
     // propagating status of runner
-    if(runner->getStatus() == Constants::STATUS_FAILED) {
-        jobItem->setComments(runner->getFailureMessage());
+    if(runner->status() == Constants::STATUS_FAILED) {
+        jobItem->setComments(runner->failureMessage());
     } else {
         // propagating simulation results
-        GISASSimulation *simulation = getSimulation(runner->getIdentifier());
+        GISASSimulation *simulation = getSimulation(runner->identifier());
         jobItem->setResults(simulation);
     }
-    jobItem->setStatus(runner->getStatus());
+    jobItem->setStatus(runner->status());
 
     // fixing job progress (if job was successfull, but due to wrong estimation, progress not 100%)
     if(jobItem->isCompleted())

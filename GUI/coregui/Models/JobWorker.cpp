@@ -18,11 +18,21 @@
 #include <QDateTime>
 #include <memory>
 
-JobWorker::JobWorker(QString identifier, Simulation* simulation)
+JobWorker::JobWorker(const QString& identifier, Simulation* simulation)
     : m_identifier(identifier), m_simulation(simulation), m_percentage_done(0),
       m_job_status(Constants::STATUS_IDLE), m_terminate_request_flag(false),
       m_simulation_duration(0)
 {
+}
+
+QString JobWorker::identifier() const
+{
+    return m_identifier;
+}
+
+int JobWorker::progress() const
+{
+    return m_percentage_done;
 }
 
 void JobWorker::start()
@@ -33,7 +43,7 @@ void JobWorker::start()
 
     if (m_simulation) {
         m_simulation->subscribe([this](size_t percentage_done) {
-            return simulationInformsUs(static_cast<int>(percentage_done));
+            return updateProgress(static_cast<int>(percentage_done));
         });
 
         m_job_status = Constants::STATUS_RUNNING;
@@ -61,24 +71,41 @@ void JobWorker::start()
         m_percentage_done = 100;
         m_failure_message = QString("JobRunner::start() -> Error. Simulation doesn't exist.");
     }
+
     emit progressUpdate();
     emit finished();
 }
 
-//! Informs us about progress of the simulation. Returns true if we want to continue the simulation.
-//! To be registered as callback function via ProgressHandler::subscribe().
-bool JobWorker::simulationInformsUs(int percentage_done)
+QString JobWorker::status() const
+{
+    return m_job_status;
+}
+
+QString JobWorker::failureMessage() const
+{
+    return m_failure_message;
+}
+
+int JobWorker::simulationDuration() const
+{
+    return m_simulation_duration;
+}
+
+//! Sets request for JobRunner to terminate underlying domain simulation.
+
+void JobWorker::terminate()
+{
+    m_terminate_request_flag = true;
+    m_job_status = Constants::STATUS_CANCELED;
+}
+
+//! Sets current progress. Returns true if we want to continue the simulation.
+
+bool JobWorker::updateProgress(int percentage_done)
 {
     if (percentage_done > m_percentage_done) {
         m_percentage_done = percentage_done;
         emit progressUpdate();
     }
     return !m_terminate_request_flag;
-}
-
-//! set request for JobRunner to terminate underlying domain simulation
-void JobWorker::terminate()
-{
-    m_terminate_request_flag = true;
-    m_job_status = Constants::STATUS_CANCELED;
 }

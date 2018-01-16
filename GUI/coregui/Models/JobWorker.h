@@ -26,22 +26,17 @@ class BA_CORE_API_ JobWorker : public QObject
 {
     Q_OBJECT
 public:
-    JobWorker(QString identifier, Simulation* simulation);
+    JobWorker(const QString& identifier, Simulation* simulation);
 
-    QString getIdentifier() const { return m_identifier; }
-    void setIdentifier(QString identifier) { m_identifier = identifier; }
+    QString identifier() const;
 
-    int getProgress() const { return m_percentage_done; }
+    int progress() const;
 
-    bool simulationInformsUs(int);
+    QString status() const;
 
-    bool isTerminated() { return m_terminate_request_flag; }
+    QString failureMessage() const;
 
-    QString getStatus() const { return m_job_status; }
-
-    QString getFailureMessage() const { return m_failure_message; }
-
-    int getSimulationDuration() const { return m_simulation_duration; }
+    int simulationDuration() const;
 
 signals:
     void started();
@@ -53,6 +48,8 @@ public slots:
     void terminate();
 
 private:
+    bool updateProgress(int percentage_done);
+
     QString m_identifier;
     Simulation* m_simulation;
     int m_percentage_done;

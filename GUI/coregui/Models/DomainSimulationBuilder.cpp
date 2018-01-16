@@ -28,7 +28,7 @@
 
 //! Creates domain simulation from sample and instrument items.
 std::unique_ptr<GISASSimulation> DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
-                                                        const GISASInstrumentItem* instrumentItem,
+                                                        const InstrumentItem* instrumentItem,
                                                         const SimulationOptionsItem* optionsItem)
 {
     if (sampleItem == nullptr || instrumentItem == nullptr) {
@@ -38,21 +38,26 @@ std::unique_ptr<GISASSimulation> DomainSimulationBuilder::createSimulation(const
     }
     DomainObjectBuilder builder;
 
-    std::unique_ptr<GISASSimulation> result(new GISASSimulation);
-    auto P_multilayer = builder.buildMultiLayer(*sampleItem);
-    auto P_instrument = builder.buildInstrument(*instrumentItem);
-    result->setSample(*P_multilayer);
-    result->setInstrument(*P_instrument);
-    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->beamItem(), result.get());
+    if (auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(instrumentItem)) {
+        std::unique_ptr<GISASSimulation> result(new GISASSimulation);
+        auto P_multilayer = builder.buildMultiLayer(*sampleItem);
+        auto P_instrument = builder.buildInstrument(*gisasInstrument);
+        result->setSample(*P_multilayer);
+        result->setInstrument(*P_instrument);
+        TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(), result.get());
 
-    // Simulation options
-    if (optionsItem)
-        TransformToDomain::setSimulationOptions(result.get(), *optionsItem);
+        // Simulation options
+        if (optionsItem)
+            TransformToDomain::setSimulationOptions(result.get(), *optionsItem);
 
-    // Background simulation
-    auto P_background = instrumentItem->backgroundItem()->createBackground();
-    if (P_background)
-        result->setBackground(*P_background);
+        // Background simulation
+        auto P_background = gisasInstrument->backgroundItem()->createBackground();
+        if (P_background)
+            result->setBackground(*P_background);
 
-    return result;
+        return result;
+
+    }
+
+    throw GUIHelpers::Error("DomainSimulationBuilder::createSimulation() -> Error. Not yet implemented");
 }

@@ -20,6 +20,7 @@
 #include "InstrumentModel.h"
 #include "MaterialModel.h"
 #include "SampleModel.h"
+#include "InstrumentItems.h"
 #include "TestUtils.h"
 
 namespace

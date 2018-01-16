@@ -20,7 +20,7 @@
 
 class GISASSimulation;
 class MultiLayerItem;
-class GISASInstrumentItem;
+class InstrumentItem;
 class SimulationOptionsItem;
 
 //! Contains functions to build the domain simulation from instrument and sample models.
@@ -29,7 +29,7 @@ namespace DomainSimulationBuilder
 {
 
 BA_CORE_API_ std::unique_ptr<GISASSimulation> createSimulation(const MultiLayerItem* sampleItem,
-                                            const GISASInstrumentItem* instrumentItem,
+                                            const InstrumentItem* instrumentItem,
                                             const SimulationOptionsItem* optionsItem = 0);
 };
 

@@ -19,6 +19,7 @@
 #include "PythonFormatting.h"
 #include "PythonSyntaxHighlighter.h"
 #include "WarningSign.h"
+#include "InstrumentItems.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPushButton>

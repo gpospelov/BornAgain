@@ -19,6 +19,7 @@
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobWorker.h"
+#include "InstrumentItems.h"
 #include <QThread>
 
 namespace {

@@ -25,6 +25,7 @@
 #include "MinimizerItem.h"
 #include "RealDataItem.h"
 #include "FitParameter.h"
+#include "InstrumentItems.h"
 
 std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
 {

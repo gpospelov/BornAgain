@@ -15,7 +15,7 @@
 #include "GUIStandardTest.h"
 #include "DocumentModel.h"
 #include "DomainSimulationBuilder.h"
-#include "GISASSimulation.h"
+#include "Simulation.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
 #include "MaterialModel.h"
@@ -51,7 +51,7 @@ bool GUIStandardTest::runTest()
 {
     m_reference_simulation->runSimulation();
 
-    auto domain_simulation = createDomainSimulation(*gisasSimulation());
+    auto domain_simulation = createDomainSimulation(*m_reference_simulation);
     domain_simulation->runSimulation();
 
     const std::unique_ptr<OutputData<double> > domain_data(

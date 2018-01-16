@@ -658,3 +658,16 @@ BornAgain Release
             run_rect            0.013454              0.1134             1.60725              11.961              24.224
       elements_spher            0.000175             0.00264              0.0555               0.219               0.849
            run_spher            0.013471             0.10048             2.23475               6.422              25.736
+
+# 2018-01-16 Before SimulationElement refactoring (storage -> cache)
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2018-01-16 16:13:54 | scgsun   | Linux x86_64 | 2.7    | 88.6752   | 14.9203    | 0.5591     | 0.5113          | 3.4269          | 0.3858    | 2.4094        | 0.5332            | 2.8185         | 0.9108 | 0.4769      | 2.0954    | 0.7929    |
+
+domain2gui: 0.872, gui2domain: 1.553, realTime: 1.325
+time make check: real    0m33.769s, user    1m8.385s, sys     0m21.089s
+
+# after SimulationElement refactoring
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2018-01-16 16:19:09 | scgsun   | Linux x86_64 | 2.7    | 89.2321   | 14.7215    | 0.5673     | 0.5132          | 3.3753          | 0.4000    | 2.3567        | 0.5233            | 2.7055         | 0.8943 | 0.4781      | 2.1366    | 0.7713    |
+domain2gui: 0.873, gui2domain: 1.577m realTime: 1.374
+time make check: real    0m33.753s user    1m8.605s, sys     0m20.989s

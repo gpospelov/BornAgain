@@ -23,15 +23,16 @@
 class BA_CORE_API_ FootprintFactorSquare : public IFootprintFactor
 {
 public:
-    FootprintFactorSquare(double width);
+    //! Creates footprint factor calculator for a square beam.
+    //! @param width_ratio The ratio of the beam full width to the width of a sample.
+    FootprintFactorSquare(double width_ratio);
     virtual ~FootprintFactorSquare();
 
-    //! Calculate footprint correction coefficient from _sample_ dimensions and the beam incident
-    //! angle _alpha_.
-    double calculate(const MultiLayer& sample, double alpha) const override;
+    //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
+    double calculate(double alpha) const override;
 
 private:
-    double m_beam_width; //! Beam full width
+    double m_width_ratio; //! Beam to sample widths ratio
 };
 
 #endif /* FOOTPRINTFACTORSQUARE_H_ */

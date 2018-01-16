@@ -28,9 +28,8 @@ class BA_CORE_API_ IFootprintFactor
 public:
     virtual ~IFootprintFactor();
 
-    //! Calculate footprint correction coefficient from _sample_ dimensions and the beam incident
-    //! angle _alpha_.
-    virtual double calculate(const MultiLayer& sample, double alpha) const = 0;
+    //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
+    virtual double calculate(double alpha) const = 0;
 };
 
 #endif /* IFOOTPRINTFACTOR_H_ */

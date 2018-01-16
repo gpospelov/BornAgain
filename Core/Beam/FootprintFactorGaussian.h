@@ -23,17 +23,19 @@
 class BA_CORE_API_ FootprintFactorGaussian : public IFootprintFactor
 {
 public:
-    FootprintFactorGaussian(double width);
+    //! Creates footprint factor calculator for a gaussian beam.
+    //! @param width_ratio The ratio of the beam characteristic full width on e^{-1/2} level from
+    //! max. intensity to the width of a sample.
+    FootprintFactorGaussian(double width_ratio);
     virtual ~FootprintFactorGaussian();
 
-    //! Calculate footprint correction coefficient from _sample_ dimensions and the beam incident
-    //! angle _alpha_.
-    double calculate(const MultiLayer& sample, double alpha) const override;
+    //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
+    double calculate(double alpha) const override;
 
 private:
-    //! Characteristic full width on e^{-1/2} level from max. intensity,
-    //! i.e. \f[ 2 \sigma \f] of Gaussian distribution
-    double m_beam_width;
+    //! The ratio of the beam characteristic full width on e^{-1/2} level from max. intensity
+    //! to the width of a sample
+    double m_width_ratio;
 };
 
 #endif /* FOOTPRINTFACTORGAUSSIAN_H */

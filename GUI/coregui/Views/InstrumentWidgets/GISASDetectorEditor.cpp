@@ -50,9 +50,9 @@ void GISASDetectorEditor::unsubscribeFromItem()
     m_detectorTypeEditor->clearEditor();
 }
 
-GISASInstrumentItem* GISASDetectorEditor::instrumentItem()
+Instrument2DItem* GISASDetectorEditor::instrumentItem()
 {
-    auto result = dynamic_cast<GISASInstrumentItem*>(currentItem());
+    auto result = dynamic_cast<Instrument2DItem*>(currentItem());
     Q_ASSERT(result);
     return result;
 }

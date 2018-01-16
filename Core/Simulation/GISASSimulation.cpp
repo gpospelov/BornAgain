@@ -114,7 +114,7 @@ void GISASSimulation::initSimulationElementVector(bool use_cache)
 {
     m_sim_elements = m_instrument.createSimulationElements();
     if (use_cache && m_cache.empty())
-        m_cache = m_sim_elements;
+        m_cache.resize(m_sim_elements.size(), 0.0);
 }
 
 void GISASSimulation::initialize()

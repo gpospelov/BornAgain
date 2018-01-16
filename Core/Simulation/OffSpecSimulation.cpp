@@ -96,7 +96,7 @@ void OffSpecSimulation::initSimulationElementVector(bool use_cache)
                               sim_elements_alpha_i.end());
     }
     if (use_cache && m_cache.empty())
-        m_cache = m_sim_elements;
+        m_cache.resize(m_sim_elements.size(), 0.0);
 }
 
 void OffSpecSimulation::transferResultsToIntensityMap()

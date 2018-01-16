@@ -74,14 +74,21 @@ void Simulation2D::addBackGroundIntensity(size_t start_ind, size_t n_elements)
 
 void Simulation2D::addDataToCache(double weight)
 {
-    SimElementUtils::addElementsWithWeight(m_sim_elements, m_cache, weight);
+    if (m_sim_elements.size() != m_cache.size())
+        throw std::runtime_error("Error in Simulation2D::addDataToCache(double): cache size"
+                                 " not the same as element size");
+    for (unsigned i=0; i<m_sim_elements.size(); i++) {
+        m_cache[i] += m_sim_elements[i].getIntensity()*weight;
+    }
 }
 
 void Simulation2D::moveDataFromCache()
 {
     assert(!m_cache.empty());
-    if (!m_cache.empty()){
-        m_sim_elements = std::move(m_cache);
+    if (!m_cache.empty()) {
+        for (unsigned i=0; i<m_sim_elements.size(); i++) {
+             m_sim_elements[i].setIntensity(m_cache[i]);
+        }
         m_cache.clear();
     }
 }

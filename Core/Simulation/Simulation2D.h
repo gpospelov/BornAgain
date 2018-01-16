@@ -60,7 +60,7 @@ protected:
     void moveDataFromCache() override;
 
     std::vector<SimulationElement> m_sim_elements;
-    std::vector<SimulationElement> m_cache;
+    std::vector<double> m_cache;
 };
 
 #endif // SIMULATION2D_H

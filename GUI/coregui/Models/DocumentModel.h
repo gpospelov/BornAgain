@@ -27,10 +27,9 @@ class BA_CORE_API_ DocumentModel : public SessionModel
     Q_OBJECT
 
 public:
-    explicit DocumentModel(QObject *parent = 0);
+    explicit DocumentModel(QObject* parent = nullptr);
 
-    SimulationOptionsItem *getSimulationOptionsItem();
-
+    SimulationOptionsItem* simulationOptionsItem();
 };
 
 #endif // DOCUMENTMODEL_H

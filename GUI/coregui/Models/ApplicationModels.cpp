@@ -28,7 +28,7 @@
 #include "RealDataItem.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
-#include "ImportDataAssistant.h"
+#include "ImportDataUtils.h"
 #include "MaterialPropertyController.h"
 #include <QtCore/QXmlStreamWriter>
 
@@ -174,7 +174,7 @@ void ApplicationModels::createTestSample()
 
 void ApplicationModels::createTestJob()
 {
-    SimulationOptionsItem* optionsItem = m_documentModel->getSimulationOptionsItem();
+    SimulationOptionsItem* optionsItem = m_documentModel->simulationOptionsItem();
 
     JobItem* jobItem = m_jobModel->addJob(m_sampleModel->multiLayerItem(),
                                           m_instrumentModel->instrumentItem(), 0, optionsItem);
@@ -190,8 +190,7 @@ void ApplicationModels::createTestRealData()
     std::unique_ptr<OutputData<double>> data(
         IntensityDataIOFactory::readOutputData("/home/pospelov/untitled2.int"));
 
-    OutputData<double>* simplified = ImportDataAssistant::createSimplifiedOutputData(*data.get());
-    realDataItem->setOutputData(simplified);
+    realDataItem->setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*data.get()).release());
 }
 
 //! Writes all model in file one by one

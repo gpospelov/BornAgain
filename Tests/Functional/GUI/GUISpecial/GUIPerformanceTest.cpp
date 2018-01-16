@@ -109,9 +109,8 @@ void GUIPerformanceTest::test_gui_to_domain()
 
     }
 
-    std::unique_ptr<GISASSimulation> sim(DomainSimulationBuilder::getSimulation(
-        m_models->sampleModel()->multiLayerItem(),
-        m_models->instrumentModel()->instrumentItem()));
+    auto sim = DomainSimulationBuilder::createSimulation(m_models->sampleModel()->multiLayerItem(),
+            m_models->instrumentModel()->instrumentItem());
 }
 
 void GUIPerformanceTest::test_real_time()
@@ -121,7 +120,7 @@ void GUIPerformanceTest::test_real_time()
     if(!jobItem) {
         m_models->resetModels();
 
-        SimulationOptionsItem *optionsItem = m_models->documentModel()->getSimulationOptionsItem();
+        SimulationOptionsItem *optionsItem = m_models->documentModel()->simulationOptionsItem();
 
         SampleBuilderFactory factory;
         const std::unique_ptr<ISample> sample(factory.createSample(m_sample_name.toStdString()));

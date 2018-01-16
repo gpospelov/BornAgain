@@ -60,7 +60,7 @@ void SimulationSetupWidget::setApplicationModels(ApplicationModels *model)
 void SimulationSetupWidget::updateViewElements()
 {
     m_simDataSelectorWidget->updateViewElements();
-    m_simOptionsWidget->setItem(m_applicationModels->documentModel()->getSimulationOptionsItem());
+    m_simOptionsWidget->setItem(m_applicationModels->documentModel()->simulationOptionsItem());
 }
 
 void SimulationSetupWidget::onRunSimulation()
@@ -77,7 +77,7 @@ void SimulationSetupWidget::onRunSimulation()
                 multiLayerItem,
                 instrumentItem,
                 realDataItem,
-                m_applicationModels->documentModel()->getSimulationOptionsItem());
+                m_applicationModels->documentModel()->simulationOptionsItem());
 
     if (jobItem->runImmediately() || jobItem->runInBackground())
         m_applicationModels->jobModel()->runJob(jobItem->index());
@@ -97,7 +97,7 @@ void SimulationSetupWidget::onExportToPythonScript()
     pythonWidget->raise();
     pythonWidget->generatePythonScript(
         multiLayerItem, instrumentItem,
-        m_applicationModels->documentModel()->getSimulationOptionsItem(),
+        m_applicationModels->documentModel()->simulationOptionsItem(),
         AppSvc::projectManager()->projectDir());
 }
 

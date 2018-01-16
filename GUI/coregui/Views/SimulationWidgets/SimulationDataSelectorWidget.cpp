@@ -20,6 +20,7 @@
 #include "RealDataItem.h"
 #include "RealDataModel.h"
 #include "SampleModel.h"
+#include "ModelUtils.h"
 #include <QComboBox>
 #include <QFileDialog>
 #include <QGroupBox>
@@ -123,9 +124,9 @@ const RealDataItem *SimulationDataSelectorWidget::selectedRealDataItem() const
 void SimulationDataSelectorWidget::updateViewElements()
 {
     Q_ASSERT(m_applicationModels);
-    updateSelection(m_instrumentCombo, m_applicationModels->instrumentModel()->topItemNames());
-    updateSelection(m_sampleCombo, m_applicationModels->sampleModel()->topItemNames(Constants::MultiLayerType));
-    updateSelection(m_realDataCombo, m_applicationModels->realDataModel()->topItemNames(), true);
+    updateSelection(m_instrumentCombo, ModelUtils::topItemNames(m_applicationModels->instrumentModel()));
+    updateSelection(m_sampleCombo, ModelUtils::topItemNames(m_applicationModels->sampleModel(), Constants::MultiLayerType));
+    updateSelection(m_realDataCombo, ModelUtils::topItemNames(m_applicationModels->realDataModel()), true);
 }
 
 int SimulationDataSelectorWidget::selectedInstrumentIndex() const

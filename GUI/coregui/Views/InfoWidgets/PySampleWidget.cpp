@@ -21,6 +21,7 @@
 #include "SampleModel.h"
 #include "WarningSign.h"
 #include "UpdateTimer.h"
+#include "MultiLayerItem.h"
 #include <QScrollBar>
 #include <QTextEdit>
 #include <QVBoxLayout>
@@ -160,7 +161,7 @@ QString PySampleWidget::generateCodeSnippet()
     m_warningSign->clear();
     QString result;
 
-    foreach (SessionItem* sampleItem, m_sampleModel->topItems(Constants::MultiLayerType)) {
+    for(const MultiLayerItem* sampleItem : m_sampleModel->topItems<MultiLayerItem>()) {
         DomainObjectBuilder builder;
         try {
             auto multilayer = builder.buildMultiLayer(*sampleItem);

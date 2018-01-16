@@ -27,6 +27,33 @@ public:
 
 TestModelUtils::~TestModelUtils() = default;
 
+//! Testing top item names.
+
+TEST_F(TestModelUtils, test_topItemNames)
+{
+    SessionModel model("TestModel");
+
+    // testing empty list
+    EXPECT_TRUE(ModelUtils::topItemNames(&model).isEmpty());
+
+    // inserting three top items
+    auto item = model.insertNewItem(Constants::MultiLayerType);
+    item->setItemName("name1");
+    item = model.insertNewItem(Constants::LayerType);
+    item = model.insertNewItem(Constants::MultiLayerType);
+    item->setItemName("name2");
+
+    // checking names of items of certain type
+    ASSERT_EQ(ModelUtils::topItemNames(&model, Constants::MultiLayerType).size(), 2);
+    EXPECT_EQ(ModelUtils::topItemNames(&model, Constants::MultiLayerType).at(0), QString("name1"));
+    EXPECT_EQ(ModelUtils::topItemNames(&model, Constants::MultiLayerType).at(1), QString("name2"));
+
+    // checking names of all top items
+    QStringList expected = {"name1", Constants::LayerType, "name2"};
+    EXPECT_EQ(ModelUtils::topItemNames(&model), expected);
+}
+
+
 //! Testing iteration over empty model.
 
 TEST_F(TestModelUtils, test_emptyModel)

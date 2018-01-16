@@ -26,7 +26,6 @@
 #include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
 #include "JobModelFunctions.h"
-#include "ImportDataAssistant.h"
 
 JobModel::JobModel(QObject *parent)
     : SessionModel(SessionXML::JobModelTag, parent)
@@ -115,9 +114,9 @@ bool JobModel::hasUnfinishedJobs()
 
 void JobModel::clear()
 {
-    foreach (SessionItem *item, topItems(Constants::JobItemType)) {
+    for (auto item : topItems())
         removeJob(item->index());
-    }
+
     SessionModel::clear();
 }
 
@@ -125,7 +124,7 @@ QVector<SessionItem *> JobModel::nonXMLData() const
 {
     QVector<SessionItem *> result;
 
-    for (auto jobItem : topItems(Constants::JobItemType)) {
+    for (auto jobItem : topItems<JobItem>()) {
         if (auto intensityItem = jobItem->getItem(JobItem::T_OUTPUT))
             result.push_back(intensityItem);
 

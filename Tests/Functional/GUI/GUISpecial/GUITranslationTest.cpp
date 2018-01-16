@@ -92,7 +92,7 @@ void GUITranslationTest::processParameterTree()
                 m_models->sampleModel()->multiLayerItem(),
                 m_models->instrumentModel()->instrumentItem(),
                 0,
-                m_models->documentModel()->getSimulationOptionsItem());
+                m_models->documentModel()->simulationOptionsItem());
 
     SessionItem *container = jobItem->parameterContainerItem();
 

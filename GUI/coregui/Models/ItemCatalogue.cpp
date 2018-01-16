@@ -33,7 +33,6 @@
 #include "Lattice2DItems.h"
 #include "LayerItem.h"
 #include "LayerRoughnessItems.h"
-#include "LinkInstrumentItem.h"
 #include "MaskItems.h"
 #include "MaterialDataItem.h"
 #include "MaterialItem.h"
@@ -199,7 +198,6 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::SimulationOptionsType, create_new<SimulationOptionsItem>);
 
     add(Constants::RealDataType, create_new<RealDataItem>);
-    add(Constants::LinkInstrumentType, create_new<LinkInstrumentItem>);
 
     add(Constants::MinimizerContainerType, create_new<MinimizerContainerItem>);
     add(Constants::MinuitMinimizerType, create_new<MinuitMinimizerItem>);

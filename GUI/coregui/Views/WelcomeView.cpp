@@ -90,7 +90,7 @@ void WelcomeView::generateRecentProjectList()
     setCurrentProjectName(currentProjectFancyName());
     m_recentProjectLayout->addWidget(recentProLabel);
 
-    m_signalMapper.reset(new QSignalMapper(this));
+    m_signalMapper.reset(new QSignalMapper);
 
     for (const auto& file : projectManager()->recentProjects()) {
         QPalette palette;
@@ -194,7 +194,7 @@ QBoxLayout* WelcomeView::createButtonLayout()
     m_openProjectButton->setFont(StyleUtils::labelFont());
     m_openProjectButton->setToolTip("Open existing project");
 
-    m_newUsertButton = new QPushButton("Web docs");
+    m_newUsertButton = new QPushButton("Website");
     m_newUsertButton->setMinimumWidth(buttonWidth);
     m_newUsertButton->setMinimumHeight(buttonHeight);
     m_newUsertButton->setFont(StyleUtils::labelFont());

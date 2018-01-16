@@ -23,6 +23,7 @@
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include <QFileInfo>
+#include <QDebug>
 
 namespace
 {
@@ -73,7 +74,13 @@ void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
                                   const GISASInstrumentItem* instrumentItem)
 {
     Q_ASSERT(intensityItem);
-    Q_ASSERT(instrumentItem);
+
+    if (!instrumentItem) {
+        // special case when reading old project files: project failed on load instrument
+        // but we want to try to recover the rest.
+        qInfo() << "JobItemUtils::updateDataAxes() -> Error. Absent instrument.";
+        return;
+    }
 
     if (!intensityItem->getOutputData())
         return;

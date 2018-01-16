@@ -14,6 +14,7 @@
 
 #include "InstrumentViewActions.h"
 #include "SessionModel.h"
+#include "ModelUtils.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QMenu>
@@ -70,19 +71,22 @@ QMenu* InstrumentViewActions::instrumentMenu()
 void InstrumentViewActions::onAddInstrument()
 {
     auto action = qobject_cast<QAction *>(sender());
-    Q_ASSERT(action);
-    Q_ASSERT(action->data().canConvert(QVariant::String));
+    Q_ASSERT(action && action->data().canConvert(QVariant::String));
 
     QString instrumentType = action->data().toString();
 
     if (instrumentType == Constants::GISASInstrumentType) {
-        SessionItem* instrument = m_model->insertNewItem(instrumentType);
+        auto instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("Default GISAS"));
-        updateSelection();
+    } else if (instrumentType == Constants::OffSpecInstrumentType) {
+        auto instrument = m_model->insertNewItem(instrumentType);
+        instrument->setItemName(suggestInstrumentName("Default OffSpec"));
     } else {
         qInfo() << "InstrumentViewActions::onAddInstrument() -> Not supported instrument type"
                 << instrumentType;
     }
+
+    updateSelection();
 
     // Setting default action to the just triggered action
     m_addInstrumentMenu->setDefaultAction(action);
@@ -162,15 +166,11 @@ QMap<QString, int> InstrumentViewActions::mapOfNames()
 {
     QMap<QString, int> result;
 
-    QModelIndex parentIndex;
-    for (int i_row = 0; i_row < m_model->rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = m_model->index(i_row, 0, parentIndex);
-        QString name = m_model->itemForIndex(itemIndex)->itemName();
+    for(auto& name : ModelUtils::topItemNames(m_model)) {
         int ncopy(1);
         QRegExp regexp("\\((.*)\\)");
-        if (regexp.indexIn(name) >= 0) {
+        if (regexp.indexIn(name) >= 0)
             ncopy = regexp.cap(1).toInt();
-        }
         name.replace(regexp.cap(0), "");
         name = name.trimmed();
         result[name] = ncopy;
@@ -192,7 +192,7 @@ void InstrumentViewActions::initAddInstrumentMenu()
     m_addInstrumentMenu->setDefaultAction(action);
 
     action = m_addInstrumentMenu->addAction("Default OffSpec");
-    action->setData(QVariant::fromValue(QStringLiteral("NotImplementedOffSpecType")));
+    action->setData(QVariant::fromValue(Constants::OffSpecInstrumentType));
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 
     action = m_addInstrumentMenu->addAction("Default Specular");

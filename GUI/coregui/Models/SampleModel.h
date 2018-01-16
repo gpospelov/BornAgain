@@ -30,7 +30,7 @@ public:
 
     SampleModel* createCopy(SessionItem* parent = nullptr);
 
-    MultiLayerItem* multiLayerItem(const QString& item_name = QString());
+    MultiLayerItem* multiLayerItem();
 };
 
 #endif // SAMPLEMODEL_H

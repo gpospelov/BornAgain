@@ -14,7 +14,8 @@
 
 #include "SimulationSetupAssistant.h"
 #include "SampleValidator.h"
-#include "ImportDataAssistant.h"
+#include "ImportDataUtils.h"
+#include "InstrumentItems.h"
 #include <QMessageBox>
 
 //! Returns true if given setup is valid for submitting the job
@@ -79,7 +80,7 @@ void SimulationSetupAssistant::checkFittingSetup(const GISASInstrumentItem *inst
         return;
 
     QString message;
-    if(!ImportDataAssistant::hasSameDimensions(instrumentItem, realData, message)) {
+    if(!ImportDataUtils::HasSameShape(*instrumentItem, *realData, &message)) {
         m_isValid = false;
         m_messages.append("The RealData doesn't match selected instrument: "+message);
     }

@@ -45,6 +45,7 @@
 #include "RotationItems.h"
 #include "SampleModel.h"
 #include "SessionItemUtils.h"
+#include "Simulation.h"
 #include "SimulationOptionsItem.h"
 #include "SphericalDetector.h"
 #include "TransformFromDomain.h"
@@ -69,9 +70,9 @@ GUIObjectBuilder::GUIObjectBuilder()
 {
 }
 
-SessionItem* GUIObjectBuilder::populateSampleModel(SampleModel* sampleModel, MaterialModel* materialModel, const GISASSimulation& simulation, const QString& sample_name)
+SessionItem* GUIObjectBuilder::populateSampleModel(SampleModel* sampleModel, MaterialModel* materialModel, const Simulation& simulation, const QString& sample_name)
 {
-    std::unique_ptr<GISASSimulation> sim(simulation.clone());
+    std::unique_ptr<Simulation> sim(simulation.clone());
     sim->prepareSimulation();
     return populateSampleModel(sampleModel,materialModel, *sim->sample(), sample_name);
 }
@@ -98,37 +99,44 @@ SessionItem* GUIObjectBuilder::populateSampleModel(SampleModel* sampleModel, Mat
 
 SessionItem* GUIObjectBuilder::populateInstrumentModel(
     InstrumentModel* p_instrument_model,
-    const GISASSimulation& simulation, const QString& instrument_name)
+    const Simulation& simulation, const QString& instrument_name)
 {
     Q_ASSERT(p_instrument_model);
 
-    GISASInstrumentItem* p_instrument_item = dynamic_cast<GISASInstrumentItem*>
-            (p_instrument_model->insertNewItem(Constants::GISASInstrumentType));
+    if (const GISASSimulation* gisasSimulation = dynamic_cast<const GISASSimulation *>(&simulation)) {
 
-    if(instrument_name.isEmpty()) {
-        p_instrument_item->setItemName(simulation.getInstrument().getName().c_str());
-    } else {
-        p_instrument_item->setItemName(instrument_name);
+        GISASInstrumentItem* p_instrument_item = dynamic_cast<GISASInstrumentItem*>
+                (p_instrument_model->insertNewItem(Constants::GISASInstrumentType));
+
+        if(instrument_name.isEmpty()) {
+            p_instrument_item->setItemName(gisasSimulation->getInstrument().getName().c_str());
+        } else {
+            p_instrument_item->setItemName(instrument_name);
+        }
+
+        // beam
+        auto& beam_item = p_instrument_item->item<BeamItem>(Instrument2DItem::P_BEAM);
+        TransformFromDomain::setItemFromSample(&beam_item, *gisasSimulation);
+
+        // detector
+        TransformFromDomain::setInstrumentDetectorFromSample(p_instrument_item, *gisasSimulation);
+
+        // detector masks
+        TransformFromDomain::setDetectorMasks(p_instrument_item->detectorItem(), *gisasSimulation);
+
+        // background
+        TransformFromDomain::setBackground(p_instrument_item, *gisasSimulation);
+
+        return p_instrument_item;
     }
 
-    // beam
-    auto& beam_item = p_instrument_item->item<BeamItem>(Instrument2DItem::P_BEAM);
-    TransformFromDomain::setItemFromSample(&beam_item, simulation);
+    throw GUIHelpers::Error("GUIObjectBuilder::populateInstrumentModel() -> Error. Simulation is "
+                            "not yet supported");
 
-    // detector
-    TransformFromDomain::setInstrumentDetectorFromSample(p_instrument_item, simulation);
-
-    // detector masks
-    TransformFromDomain::setDetectorMasks(p_instrument_item->detectorItem(), simulation);
-
-    // background
-    TransformFromDomain::setBackground(p_instrument_item, simulation);
-
-    return p_instrument_item;
 }
 
 SessionItem* GUIObjectBuilder::populateDocumentModel(DocumentModel* p_document_model,
-                                                     const GISASSimulation& simulation)
+                                                     const Simulation& simulation)
 {
     SimulationOptionsItem* p_options_item = dynamic_cast<SimulationOptionsItem*>(
             p_document_model->insertNewItem(Constants::SimulationOptionsType));

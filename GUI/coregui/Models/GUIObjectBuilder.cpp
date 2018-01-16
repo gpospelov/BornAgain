@@ -112,7 +112,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(
     }
 
     // beam
-    auto& beam_item = p_instrument_item->item<BeamItem>(GISASInstrumentItem::P_BEAM);
+    auto& beam_item = p_instrument_item->item<BeamItem>(Instrument2DItem::P_BEAM);
     TransformFromDomain::setItemFromSample(&beam_item, simulation);
 
     // detector

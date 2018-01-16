@@ -37,7 +37,7 @@ void GISASDetectorEditor::subscribeToItem()
 {
     currentItem()->mapper()->setOnPropertyChange(
         [this](const QString& name) {
-            if (name == GISASInstrumentItem::P_DETECTOR)
+            if (name == Instrument2DItem::P_DETECTOR)
                 updateDetectorPresenter();
         }, this);
 

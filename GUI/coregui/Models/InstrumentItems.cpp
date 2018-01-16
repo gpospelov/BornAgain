@@ -36,11 +36,11 @@ InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType
 
 }
 
-const QString GISASInstrumentItem::P_BEAM = "Beam";
-const QString GISASInstrumentItem::P_DETECTOR = "Detector";
-const QString GISASInstrumentItem::P_BACKGROUND = "Background";
+const QString Instrument2DItem::P_BEAM = "Beam";
+const QString Instrument2DItem::P_DETECTOR = "Detector";
+const QString Instrument2DItem::P_BACKGROUND = "Background";
 
-GISASInstrumentItem::GISASInstrumentItem(const QString& modelType)
+Instrument2DItem::Instrument2DItem(const QString& modelType)
     : InstrumentItem(modelType)
 {
     addGroupProperty(P_BEAM, Constants::BeamType);
@@ -54,47 +54,47 @@ GISASInstrumentItem::GISASInstrumentItem(const QString& modelType)
     item->setToolTip("Background type");
 }
 
-BeamItem *GISASInstrumentItem::beamItem() const
+BeamItem *Instrument2DItem::beamItem() const
 {
     return &item<BeamItem>(P_BEAM);
 }
 
-DetectorItem* GISASInstrumentItem::detectorItem() const
+DetectorItem* Instrument2DItem::detectorItem() const
 {
     return &groupItem<DetectorItem>(P_DETECTOR);
 }
 
-GroupItem* GISASInstrumentItem::detectorGroup()
+GroupItem* Instrument2DItem::detectorGroup()
 {
     return &item<GroupItem>(P_DETECTOR);
 }
 
-BackgroundItem* GISASInstrumentItem::backgroundItem() const
+BackgroundItem* Instrument2DItem::backgroundItem() const
 {
     return &groupItem<BackgroundItem>(P_BACKGROUND);
 }
 
-GroupItem* GISASInstrumentItem::backgroundGroup()
+GroupItem* Instrument2DItem::backgroundGroup()
 {
     return &item<GroupItem>(P_BACKGROUND);
 }
 
-void GISASInstrumentItem::setDetectorGroup(const QString& modelType)
+void Instrument2DItem::setDetectorGroup(const QString& modelType)
 {
     setGroupProperty(P_DETECTOR, modelType);
 }
 
-void GISASInstrumentItem::clearMasks()
+void Instrument2DItem::clearMasks()
 {
     detectorItem()->clearMasks();
 }
 
-void GISASInstrumentItem::importMasks(MaskContainerItem* maskContainer)
+void Instrument2DItem::importMasks(MaskContainerItem* maskContainer)
 {
     detectorItem()->importMasks(maskContainer);
 }
 
-QStringList GISASInstrumentItem::translateList(const QStringList& list) const
+QStringList Instrument2DItem::translateList(const QStringList& list) const
 {
     QStringList result;
     // Add constant background directly to simulation
@@ -112,8 +112,13 @@ QStringList GISASInstrumentItem::translateList(const QStringList& list) const
     return result;
 }
 
-OffSpecInstrumentItem::OffSpecInstrumentItem()
-    : GISASInstrumentItem(Constants::OffSpecInstrumentType)
+GISASInstrumentItem::GISASInstrumentItem()
+    : Instrument2DItem(Constants::GISASInstrumentType)
 {
-
 }
+
+OffSpecInstrumentItem::OffSpecInstrumentItem()
+    : Instrument2DItem(Constants::OffSpecInstrumentType)
+{
+}
+

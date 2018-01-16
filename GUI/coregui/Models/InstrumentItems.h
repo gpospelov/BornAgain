@@ -27,17 +27,17 @@ class BA_CORE_API_ InstrumentItem : public SessionItem
 {
 public:
     static const QString P_IDENTIFIER;
+
 protected:
     explicit InstrumentItem(const QString& modelType);
 };
 
-class BA_CORE_API_ GISASInstrumentItem : public InstrumentItem
+class BA_CORE_API_ Instrument2DItem : public InstrumentItem
 {
 public:
     static const QString P_BEAM;
     static const QString P_DETECTOR;
     static const QString P_BACKGROUND;
-    explicit GISASInstrumentItem(const QString& modelType = Constants::GISASInstrumentType);
 
     BeamItem* beamItem() const;
     DetectorItem* detectorItem() const;
@@ -52,9 +52,18 @@ public:
     void importMasks(MaskContainerItem* maskContainer);
 
     QStringList translateList(const QStringList& list) const override;
+
+protected:
+    explicit Instrument2DItem(const QString& modelType);
 };
 
-class BA_CORE_API_ OffSpecInstrumentItem : public GISASInstrumentItem
+class BA_CORE_API_ GISASInstrumentItem : public Instrument2DItem
+{
+public:
+    GISASInstrumentItem();
+};
+
+class BA_CORE_API_ OffSpecInstrumentItem : public Instrument2DItem
 {
 public:
     OffSpecInstrumentItem();

@@ -116,11 +116,10 @@ private:
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
-    void runSingleSimulation(bool use_storage = false, double weight = 1.0);
+    void runSingleSimulation(size_t batch_start, size_t batch_size, double weight = 1.0);
 
     //! Initializes the vector of Simulation elements
-    //! @param init_storage Initialize storage for accumulating results
-    virtual void initSimulationElementVector(bool init_storage) = 0;
+    virtual void initSimulationElementVector() = 0;
 
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
@@ -139,11 +138,9 @@ private:
     //! for single simulation element specified by _index_.
     virtual void normalizeIntensity(size_t index, double beam_intensity) = 0;
 
-    virtual bool isStorageInited() const = 0;
+    virtual void addDataToCache(double weight) = 0;
 
-    virtual void addDataToStorage(double weight) = 0;
-
-    virtual void moveDataFromStorage() = 0;
+    virtual void moveDataFromCache() = 0;
 };
 
 #endif // SIMULATION_H

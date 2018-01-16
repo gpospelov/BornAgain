@@ -15,7 +15,7 @@
 #ifndef GISASSIMULATION_H
 #define GISASSIMULATION_H
 
-#include "Simulation.h"
+#include "Simulation2D.h"
 #include "SimulationElement.h"
 
 class MultiLayer;
@@ -26,7 +26,7 @@ class Histogram2D;
 //! Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ GISASSimulation : public Simulation
+class BA_CORE_API_ GISASSimulation : public Simulation2D
 {
 public:
     GISASSimulation();
@@ -58,16 +58,6 @@ public:
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
 
-    //! Sets spherical detector parameters using angle ranges
-    //! @param n_phi number of phi-axis bins
-    //! @param phi_min low edge of first phi-bin
-    //! @param phi_max upper edge of last phi-bin
-    //! @param n_alpha number of alpha-axis bins
-    //! @param alpha_min low edge of first alpha-bin
-    //! @param alpha_max upper edge of last alpha-bin
-    void setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
-                               size_t n_alpha, double alpha_min, double alpha_max);
-
     //! removes all masks from the detector
     void removeMasks();
 
@@ -88,29 +78,9 @@ private:
     GISASSimulation(const GISASSimulation& other);
 
     //! Initializes the vector of Simulation elements
-    //! @param init_storage Initialize storage for accumulating results
-    void initSimulationElementVector(bool init_storage) override;
+    void initSimulationElementVector() override;
 
     void initialize();
-
-    //! Generate a single threaded computation for a given range of simulation elements
-    //! @param start Index of the first element to include into computation
-    //! @param n_elements Number of elements to process
-    std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
-                                                                    size_t n_elements) override;
-
-    void normalizeIntensity(size_t index, double beam_intensity) override;
-
-    void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
-
-    bool isStorageInited() const override {return !m_storage.empty();}
-
-    void addDataToStorage(double weight) override;
-
-    void moveDataFromStorage() override;
-
-    std::vector<SimulationElement> m_sim_elements;
-    std::vector<SimulationElement> m_storage;
 };
 
 #endif // GISASSIMULATION_H

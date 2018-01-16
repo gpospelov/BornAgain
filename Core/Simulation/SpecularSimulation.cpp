@@ -19,7 +19,6 @@
 #include "SpecularMatrix.h"
 #include "MaterialUtils.h"
 #include "Histogram1D.h"
-#include "SimElementUtils.h"
 #include "SimulationElement.h"
 #include "SpecularComputation.h"
 #include "SpecularDetector1D.h"
@@ -43,7 +42,7 @@ SpecularSimulation::SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder>
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
     : Simulation(other)
     , m_sim_elements(other.m_sim_elements)
-    , m_storage(other.m_storage)
+    , m_cache(other.m_cache)
 {
     initialize();
 }
@@ -88,11 +87,11 @@ const IAxis* SpecularSimulation::getAlphaAxis() const
     return &m_instrument.getDetector()->getAxis(0);
 }
 
-void SpecularSimulation::initSimulationElementVector(bool init_storage)
+void SpecularSimulation::initSimulationElementVector()
 {
     m_sim_elements = m_instrument.createSimulationElements();
-    if (init_storage)
-        m_storage = m_sim_elements;
+    if (m_cache.empty())
+        m_cache = m_sim_elements;
 }
 
 std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
@@ -178,16 +177,25 @@ void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_eleme
     }
 }
 
-void SpecularSimulation::addDataToStorage(double weight)
+void SpecularSimulation::addDataToCache(double weight)
 {
-    SimElementUtils::addElementsWithWeight(m_sim_elements, m_storage, weight);
+    assert(m_sim_elements.size() == m_cache.size());
+    for (unsigned i=0; i<m_sim_elements.size(); i++) {
+        m_cache[i].setIntensity(m_sim_elements[i].getIntensity()*weight);
+        if (m_sim_elements[i].specularData()) {
+            m_cache[i].setSpecular(std::unique_ptr<SpecularData>(
+                                       m_sim_elements[i].specularData()->clone()));
+        }
+    }
 }
 
-void SpecularSimulation::moveDataFromStorage()
+void SpecularSimulation::moveDataFromCache()
 {
-    assert(!m_storage.empty());
-    if (!m_storage.empty())
-        m_sim_elements = std::move(m_storage);
+    assert(!m_cache.empty());
+    if (!m_cache.empty()) {
+        m_sim_elements = std::move(m_cache);
+        m_cache.clear();
+    }
 }
 
 void SpecularSimulation::validityCheck(size_t i_layer) const

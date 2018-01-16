@@ -77,7 +77,7 @@ PythonScriptWidget::PythonScriptWidget(QWidget *parent)
 }
 
 void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
-        const GISASInstrumentItem *instrumentItem, const SimulationOptionsItem *optionItem,
+        const InstrumentItem* instrumentItem, const SimulationOptionsItem *optionItem,
                                               const QString &outputDir)
 {
     m_outputDir = outputDir;

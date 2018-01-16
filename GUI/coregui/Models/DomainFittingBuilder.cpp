@@ -44,7 +44,7 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
     }
 
     const std::unique_ptr<GISASSimulation> simulation(
-		DomainSimulationBuilder::getSimulation(jobItem->multiLayerItem(), jobItem->instrumentItem(),
+		DomainSimulationBuilder::createSimulation(jobItem->multiLayerItem(), jobItem->instrumentItem(),
                                                jobItem->getSimulationOptionsItem()));
 
     RealDataItem *realDataItem = jobItem->realDataItem();

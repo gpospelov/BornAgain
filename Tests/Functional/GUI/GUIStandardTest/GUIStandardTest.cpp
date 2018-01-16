@@ -38,7 +38,7 @@ std::unique_ptr<GISASSimulation> createDomainSimulation(const GISASSimulation& o
     guiBuilder.populateInstrumentModel(instrumentModel.get(), origin);
     guiBuilder.populateDocumentModel(documentModel.get(), origin);
 
-    std::unique_ptr<GISASSimulation> result(DomainSimulationBuilder::getSimulation(
+    std::unique_ptr<GISASSimulation> result(DomainSimulationBuilder::createSimulation(
             sampleModel->multiLayerItem(), instrumentModel->instrumentItem(),
             documentModel->getSimulationOptionsItem()));
 

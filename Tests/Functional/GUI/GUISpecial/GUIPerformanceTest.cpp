@@ -109,7 +109,7 @@ void GUIPerformanceTest::test_gui_to_domain()
 
     }
 
-    std::unique_ptr<GISASSimulation> sim(DomainSimulationBuilder::getSimulation(
+    std::unique_ptr<GISASSimulation> sim(DomainSimulationBuilder::createSimulation(
         m_models->sampleModel()->multiLayerItem(),
         m_models->instrumentModel()->instrumentItem()));
 }

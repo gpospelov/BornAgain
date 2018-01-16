@@ -78,7 +78,7 @@ void JobQueueData::runJob(JobItem *jobItem)
 
     GISASSimulation *simulation(0);
     try{
-        simulation = DomainSimulationBuilder::getSimulation(jobItem->multiLayerItem(),
+        simulation = DomainSimulationBuilder::createSimulation(jobItem->multiLayerItem(),
                                                             jobItem->instrumentItem(),
                                                             jobItem->getSimulationOptionsItem());
     } catch(const std::exception &ex) {

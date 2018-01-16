@@ -22,14 +22,14 @@ class MultiLayerItem;
 class GISASInstrumentItem;
 class SimulationOptionsItem;
 
-//! The DomainSimulationBuilder class builds the domain simulation
-//! from instrument and sample models.
-class BA_CORE_API_ DomainSimulationBuilder
+//! Contains functions to build the domain simulation from instrument and sample models.
+
+namespace DomainSimulationBuilder
 {
-public:
-    static GISASSimulation *getSimulation(const MultiLayerItem *sampleItem,
-                                          const GISASInstrumentItem *instrumentItem,
-                                          const SimulationOptionsItem *optionsItem = 0);
+
+BA_CORE_API_ GISASSimulation* createSimulation(const MultiLayerItem* sampleItem,
+                                            const GISASInstrumentItem* instrumentItem,
+                                            const SimulationOptionsItem* optionsItem = 0);
 };
 
 #endif // DOMAINSIMULATIONBUILDER_H

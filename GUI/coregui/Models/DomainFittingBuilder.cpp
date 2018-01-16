@@ -44,7 +44,7 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
     }
 
     const auto simulation = DomainSimulationBuilder::createSimulation(jobItem->multiLayerItem(),
-            jobItem->instrumentItem(), jobItem->getSimulationOptionsItem());
+            jobItem->instrumentItem(), jobItem->simulationOptionsItem());
 
     RealDataItem *realDataItem = jobItem->realDataItem();
     if(!realDataItem)

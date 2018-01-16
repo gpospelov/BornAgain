@@ -42,7 +42,7 @@ void JobQueueData::runJob(JobItem* jobItem)
 
     try {
         auto simulation = DomainSimulationBuilder::createSimulation(jobItem->multiLayerItem(),
-                     jobItem->instrumentItem(), jobItem->getSimulationOptionsItem());
+                     jobItem->instrumentItem(), jobItem->simulationOptionsItem());
         m_simulations[identifier] = simulation.release();
     } catch (const std::exception& ex) {
         QString message("JobQueueData::runJob() -> Error. "

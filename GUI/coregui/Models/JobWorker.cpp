@@ -18,13 +18,10 @@
 #include <QDateTime>
 #include <memory>
 
-JobWorker::JobWorker(QString identifier, GISASSimulation *simulation)
-    : m_identifier(identifier)
-    , m_simulation(simulation)
-    , m_percentage_done(0)
-    , m_job_status(Constants::STATUS_IDLE)
-    , m_terminate_request_flag(false)
-    , m_simulation_duration(0)
+JobWorker::JobWorker(QString identifier, Simulation* simulation)
+    : m_identifier(identifier), m_simulation(simulation), m_percentage_done(0),
+      m_job_status(Constants::STATUS_IDLE), m_terminate_request_flag(false),
+      m_simulation_duration(0)
 {
 }
 
@@ -34,29 +31,27 @@ void JobWorker::start()
     m_simulation_duration = 0;
     emit started();
 
-    if(m_simulation) {
-        m_simulation->subscribe(
-            [this] (size_t percentage_done) {
-                return simulationInformsUs(static_cast<int>(percentage_done)); } );
+    if (m_simulation) {
+        m_simulation->subscribe([this](size_t percentage_done) {
+            return simulationInformsUs(static_cast<int>(percentage_done));
+        });
 
         m_job_status = Constants::STATUS_RUNNING;
 
         try {
             QDateTime beginTime = QDateTime::currentDateTime();
             m_simulation->runSimulation();
-            if(m_job_status != Constants::STATUS_CANCELED)
+            if (m_job_status != Constants::STATUS_CANCELED)
                 m_job_status = Constants::STATUS_COMPLETED;
 
             QDateTime endTime = QDateTime::currentDateTime();
-            m_simulation_duration = beginTime.msecsTo(endTime);
+            m_simulation_duration = static_cast<int>(beginTime.msecsTo(endTime));
 
-        }
-        catch(const std::exception &ex)
-        {
+        } catch (const std::exception& ex) {
             m_job_status = Constants::STATUS_FAILED;
             m_percentage_done = 100;
-            m_failure_message = QString(
-                        "JobRunner::start() -> Simulation failed with exception throw:\n\n");
+            m_failure_message
+                = QString("JobRunner::start() -> Simulation failed with exception throw:\n\n");
 
             m_failure_message.append(QString(ex.what()));
         }

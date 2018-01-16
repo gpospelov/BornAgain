@@ -18,7 +18,7 @@
 #include "WinDllMacros.h"
 #include <QObject>
 
-class GISASSimulation;
+class Simulation;
 
 //! The JobWorker class provides running the domain simulation in a thread.
 
@@ -26,8 +26,7 @@ class BA_CORE_API_ JobWorker : public QObject
 {
     Q_OBJECT
 public:
-
-    JobWorker(QString identifier, GISASSimulation *simulation = 0);
+    JobWorker(QString identifier, Simulation* simulation);
 
     QString getIdentifier() const { return m_identifier; }
     void setIdentifier(QString identifier) { m_identifier = identifier; }
@@ -55,7 +54,7 @@ public slots:
 
 private:
     QString m_identifier;
-    GISASSimulation *m_simulation;
+    Simulation* m_simulation;
     int m_percentage_done;
     QString m_job_status;
     bool m_terminate_request_flag;

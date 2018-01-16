@@ -16,7 +16,7 @@
 #include "DesignerHelper.h"
 #include "DomainSimulationBuilder.h"
 #include "GISASSimulation.h"
-#include "PythonFormatting.h"
+#include "ExportToPython.h"
 #include "PythonSyntaxHighlighter.h"
 #include "WarningSign.h"
 #include "InstrumentItems.h"
@@ -88,7 +88,7 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
             DomainSimulationBuilder::createSimulation(sampleItem, instrumentItem, optionItem);
 
         QString code = QString::fromStdString(
-            PythonFormatting::generateSimulationCode(*simulation));
+            ExportToPython::generateSimulationCode(*simulation));
         m_textEdit->clear();
         m_textEdit->setText(code);
 

@@ -16,7 +16,7 @@
 #include "DesignerHelper.h"
 #include "DomainObjectBuilder.h"
 #include "MultiLayer.h"
-#include "PythonFormatting.h"
+#include "ExportToPython.h"
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
 #include "WarningSign.h"
@@ -168,7 +168,7 @@ QString PySampleWidget::generateCodeSnippet()
             if (!result.isEmpty())
                 result.append("\n");
             result.append(QString::fromStdString(
-                          PythonFormatting::generateSampleCode(*multilayer)));
+                          ExportToPython::generateSampleCode(*multilayer)));
         } catch (const std::exception& ex) {
             QString message
                 = QString("Generation of Python Script failed. Code is not complete.\n\n"

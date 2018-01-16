@@ -42,33 +42,6 @@ GCC_DIAG_OFF(unused-parameter)
 GCC_DIAG_ON(unused-parameter)
 GCC_DIAG_ON(missing-field-initializers)
 
-namespace {
-std::string simulationCode(const GISASSimulation& simulation,
-                           SimulationToPython::EMainType mainFunctionType)
-{
-    std::unique_ptr<GISASSimulation> sim(simulation.clone());
-    sim->prepareSimulation();
-
-    SimulationToPython generator;
-    return generator.generateSimulationCode(*sim, mainFunctionType);
-}
-}
-
-std::string PythonFormatting::generateSampleCode(const MultiLayer& multilayer)
-{
-    SimulationToPython generator;
-    return generator.generateSampleCode(multilayer);
-}
-
-std::string PythonFormatting::generateSimulationCode(const GISASSimulation& simulation)
-{
-    return simulationCode(simulation, SimulationToPython::RUN_SIMULATION);
-}
-
-std::string PythonFormatting::generatePyExportTest(const GISASSimulation& simulation)
-{
-    return simulationCode(simulation, SimulationToPython::SAVE_DATA);
-}
 
 namespace PythonFormatting {
 

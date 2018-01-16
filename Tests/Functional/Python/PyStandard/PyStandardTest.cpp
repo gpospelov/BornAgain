@@ -16,7 +16,7 @@
 #include "FileSystemUtils.h"
 #include "GISASSimulation.h"
 #include "IntensityDataIOFactory.h"
-#include "PythonFormatting.h"
+#include "ExportToPython.h"
 #include "TestUtils.h"
 #include <fstream>
 #include <iostream>
@@ -33,7 +33,7 @@ bool PyStandardTest::runTest()
     // Generate Python script
     std::string pyscript_filename = FileSystemUtils::jointPath(PYEXPORT_TMP_DIR, getName() + ".py");
     std::ofstream pythonFile(pyscript_filename);
-    pythonFile << PythonFormatting::generatePyExportTest(*gisasSimulation());
+    pythonFile << ExportToPython::generatePyExportTest(*gisasSimulation());
     pythonFile.close();
 
     // Run Python script

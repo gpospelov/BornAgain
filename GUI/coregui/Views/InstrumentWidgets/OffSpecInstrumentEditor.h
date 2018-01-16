@@ -17,8 +17,8 @@
 
 #include "SessionItemWidget.h"
 
-class GISASInstrumentItem;
-class GISASBeamEditor;
+class OffSpecInstrumentItem;
+class OffSpecBeamEditor;
 class GISASDetectorEditor;
 class EnvironmentEditor;
 class PolarizationAnalysisEditor;
@@ -38,9 +38,9 @@ protected:
 private:
     void addEditor(QVBoxLayout* layout, QWidget* widget, const QString& name, bool expanded=true);
 
-    GISASInstrumentItem* instrumentItem();
+    OffSpecInstrumentItem* instrumentItem();
     ColumnResizer* m_columnResizer;
-    GISASBeamEditor* m_beamEditor;
+    OffSpecBeamEditor* m_beamEditor;
     GISASDetectorEditor* m_detectorEditor;
     EnvironmentEditor* m_environmentEditor;
     PolarizationAnalysisEditor* m_polarizationAnalysisEditor;

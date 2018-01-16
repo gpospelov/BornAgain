@@ -13,42 +13,30 @@
 // ************************************************************************** //
 
 #include "PythonFormatting.h"
-#include "Ellipse.h"
-#include "GISASSimulation.h"
-#include "IInterferenceFunction.h"
-#include "IShape2D.h"
-#include "InfinitePlane.h"
-#include "IParameterized.h"
-#include "IMultiLayerBuilder.h"
-#include "Line.h"
-#include "Macros.h"
-#include "MultiLayer.h"
-#include "Numeric.h"
-#include "ParameterPool.h"
-#include "Polygon.h"
-#include "SimulationToPython.h"
-#include "RealParameter.h"
-#include "Rectangle.h"
-#include "MathConstants.h"
-#include "StringUtils.h"
-#include "Units.h"
-#include "IDetector2D.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
-#include "ParameterUtils.h"
+#include "Ellipse.h"
+#include "IParameterized.h"
+#include "InfinitePlane.h"
+#include "Line.h"
+#include "MathConstants.h"
+#include "Numeric.h"
+#include "ParameterPool.h"
+#include "ParameterDistribution.h"
+#include "Polygon.h"
+#include "RealParameter.h"
+#include "Rectangle.h"
+#include "StringUtils.h"
+#include "Units.h"
 #include <iomanip>
-GCC_DIAG_OFF(missing-field-initializers)
-GCC_DIAG_OFF(unused-parameter)
-GCC_DIAG_ON(unused-parameter)
-GCC_DIAG_ON(missing-field-initializers)
 
-
-namespace PythonFormatting {
+namespace PythonFormatting
+{
 
 //! Returns fixed Python code snippet that defines the function "runSimulation".
 
-std::string representShape2D(const std::string& indent, const IShape2D* ishape,
-                             bool mask_value, std::function<std::string(double)> printValueFunc)
+std::string representShape2D(const std::string& indent, const IShape2D* ishape, bool mask_value,
+                             std::function<std::string(double)> printValueFunc)
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -57,65 +45,54 @@ std::string representShape2D(const std::string& indent, const IShape2D* ishape,
         std::vector<double> xpos, ypos;
         shape->getPoints(xpos, ypos);
         result << indent << "points = [";
-        for(size_t i=0; i<xpos.size(); ++i) {
-            result << "[" << printValueFunc(xpos[i]) << ", " <<
-                printValueFunc(ypos[i]) << "]";
-            if(i!= xpos.size()-1) result << ", ";
+        for (size_t i = 0; i < xpos.size(); ++i) {
+            result << "[" << printValueFunc(xpos[i]) << ", " << printValueFunc(ypos[i]) << "]";
+            if (i != xpos.size() - 1)
+                result << ", ";
         }
         result << "]\n";
-        result << indent << "simulation.addMask(" <<
-            "ba.Polygon(points), " << printBool(mask_value) << ")\n";
+        result << indent << "simulation.addMask("
+               << "ba.Polygon(points), " << printBool(mask_value) << ")\n";
 
-    } else if(dynamic_cast<const InfinitePlane*>(ishape)) {
+    } else if (dynamic_cast<const InfinitePlane*>(ishape)) {
         result << indent << "simulation.maskAll()\n";
 
-    } else if(const Ellipse* shape = dynamic_cast<const Ellipse*>(ishape)) {
+    } else if (const Ellipse* shape = dynamic_cast<const Ellipse*>(ishape)) {
         result << indent << "simulation.addMask(";
-        result << "ba.Ellipse("
-               << printValueFunc(shape->getCenterX()) << ", "
-               << printValueFunc(shape->getCenterY()) << ", "
-               << printValueFunc(shape->getRadiusX()) << ", "
-               << printValueFunc(shape->getRadiusY());
-        if(shape->getTheta() != 0.0) result << ", " << printDegrees(shape->getTheta());
+        result << "ba.Ellipse(" << printValueFunc(shape->getCenterX()) << ", "
+               << printValueFunc(shape->getCenterY()) << ", " << printValueFunc(shape->getRadiusX())
+               << ", " << printValueFunc(shape->getRadiusY());
+        if (shape->getTheta() != 0.0)
+            result << ", " << printDegrees(shape->getTheta());
         result << "), " << printBool(mask_value) << ")\n";
     }
 
-    else if(const Rectangle* shape = dynamic_cast<const Rectangle*>(ishape)) {
+    else if (const Rectangle* shape = dynamic_cast<const Rectangle*>(ishape)) {
         result << indent << "simulation.addMask(";
-        result << "ba.Rectangle("
-               << printValueFunc(shape->getXlow()) << ", "
-               << printValueFunc(shape->getYlow()) << ", "
-               << printValueFunc(shape->getXup()) << ", "
-               << printValueFunc(shape->getYup()) << "), "
+        result << "ba.Rectangle(" << printValueFunc(shape->getXlow()) << ", "
+               << printValueFunc(shape->getYlow()) << ", " << printValueFunc(shape->getXup())
+               << ", " << printValueFunc(shape->getYup()) << "), " << printBool(mask_value)
+               << ")\n";
+    }
+
+    else if (const VerticalLine* shape = dynamic_cast<const VerticalLine*>(ishape)) {
+        result << indent << "simulation.addMask(";
+        result << "ba.VerticalLine(" << printValueFunc(shape->getXpos()) << "), "
                << printBool(mask_value) << ")\n";
     }
 
-    else if(const VerticalLine* shape =
-            dynamic_cast<const VerticalLine*>(ishape)) {
+    else if (const HorizontalLine* shape = dynamic_cast<const HorizontalLine*>(ishape)) {
         result << indent << "simulation.addMask(";
-        result << "ba.VerticalLine("
-               << printValueFunc(shape->getXpos()) << "), "
-               << printBool(mask_value) << ")\n";
-    }
-
-    else if(const HorizontalLine* shape =
-            dynamic_cast<const HorizontalLine*>(ishape)) {
-        result << indent << "simulation.addMask(";
-        result << "ba.HorizontalLine("
-               << printValueFunc(shape->getYpos()) << "), "
+        result << "ba.HorizontalLine(" << printValueFunc(shape->getYpos()) << "), "
                << printBool(mask_value) << ")\n";
 
     } else
-        throw Exceptions::RuntimeErrorException(
-            "representShape2D(const IShape2D*) -> Error. Unknown shape");
+        throw std::runtime_error("representShape2D(const IShape2D*) -> Error. Unknown shape");
 
     return result.str();
 }
 
-std::string printBool(double value)
-{
-    return value ? "True" : "False";
-}
+std::string printBool(double value) { return value ? "True" : "False"; }
 
 std::string printDouble(double input)
 {
@@ -154,9 +131,10 @@ std::string printScientificDouble(double input)
     std::string part2 = inter.str().substr(pos, std::string::npos);
 
     part1.erase(part1.find_last_not_of('0') + 1, std::string::npos);
-    if (part1.back() == '.') part1 += "0";
+    if (part1.back() == '.')
+        part1 += "0";
 
-    return part1+part2;
+    return part1 + part2;
 }
 
 std::string printDegrees(double input)
@@ -173,31 +151,29 @@ std::string printValue(double value, const std::string& units)
 {
     if (units == BornAgain::UnitsRad)
         return printDegrees(value);
-    else if(units == BornAgain::UnitsNm)
+    else if (units == BornAgain::UnitsNm)
         return printNm(value);
-    else if(units == BornAgain::UnitsNone)
+    else if (units == BornAgain::UnitsNone)
         return printDouble(value);
     else
-        throw std::runtime_error("PythonFormatting::printValue() -> Error. Unknown units '"+
-                                 units+"'");
+        throw std::runtime_error("PythonFormatting::printValue() -> Error. Unknown units '" + units
+                                 + "'");
 }
 
 bool isSquare(double length1, double length2, double angle)
 {
-    return length1==length2 && Numeric::areAlmostEqual(angle, M_PI_2);
+    return length1 == length2 && Numeric::areAlmostEqual(angle, M_PI_2);
 }
 
 bool isHexagonal(double length1, double length2, double angle)
 {
-    return length1==length2 && Numeric::areAlmostEqual(angle, M_TWOPI/3.0);
+    return length1 == length2 && Numeric::areAlmostEqual(angle, M_TWOPI / 3.0);
 }
 
 std::string printKvector(const kvector_t value)
 {
     std::ostringstream result;
-    result << "kvector_t("
-           << printDouble(value.x()) << ", "
-           << printDouble(value.y()) << ", "
+    result << "kvector_t(" << printDouble(value.x()) << ", " << printDouble(value.y()) << ", "
            << printDouble(value.z()) << ")";
     return result.str();
 }
@@ -205,10 +181,9 @@ std::string printKvector(const kvector_t value)
 //! returns true if it is (0, -1, 0) vector
 bool isDefaultDirection(const kvector_t direction)
 {
-    return
-        Numeric::areAlmostEqual(direction.x(),  0.0) &&
-        Numeric::areAlmostEqual(direction.y(), -1.0) &&
-        Numeric::areAlmostEqual(direction.z(),  0.0);
+    return Numeric::areAlmostEqual(direction.x(), 0.0)
+           && Numeric::areAlmostEqual(direction.y(), -1.0)
+           && Numeric::areAlmostEqual(direction.z(), 0.0);
 }
 
 //! Returns parameter value, followed by its unit multiplicator (like "* nm").
@@ -217,7 +192,7 @@ std::string valueTimesUnit(const RealParameter* par)
 {
     if (par->unit() == BornAgain::UnitsRad)
         return printDegrees(par->value());
-    return printDouble(par->value()) + ( par->unit()=="" ? "" : ("*"+par->unit()) );
+    return printDouble(par->value()) + (par->unit() == "" ? "" : ("*" + par->unit()));
 }
 
 //! Returns comma-separated list of parameter values, including unit multiplicator (like "* nm").
@@ -225,9 +200,9 @@ std::string valueTimesUnit(const RealParameter* par)
 std::string argumentList(const IParameterized* ip)
 {
     std::vector<std::string> args;
-    for(const auto* par: ip->parameterPool()->parameters())
-        args.push_back( valueTimesUnit(par) );
-    return StringUtils::join( args, ", " );
+    for (const auto* par : ip->parameterPool()->parameters())
+        args.push_back(valueTimesUnit(par));
+    return StringUtils::join(args, ", ");
 }
 
 //! Prints distribution with constructor parameters in given units.
@@ -243,7 +218,6 @@ std::string printDistribution(const IDistribution1D& par_distr, const std::strin
     return result.str();
 }
 
-
 std::string printRealLimits(const RealLimits& limits, const std::string& units)
 {
     std::ostringstream result;
@@ -252,23 +226,23 @@ std::string printRealLimits(const RealLimits& limits, const std::string& units)
         result << "RealLimits()";
     }
 
-    else if(limits.isPositive()) {
+    else if (limits.isPositive()) {
         result << "RealLimits.positive()";
     }
 
-    else if(limits.isNonnegative()) {
+    else if (limits.isNonnegative()) {
         result << "RealLimits.nonnegative()";
     }
 
-    else if(limits.isLowerLimited()) {
+    else if (limits.isLowerLimited()) {
         result << "RealLimits.lowerLimited(" << printValue(limits.getLowerLimit(), units) << ")";
     }
 
-    else if(limits.isUpperLimited()) {
+    else if (limits.isUpperLimited()) {
         result << "RealLimits.upperLimited(" << printValue(limits.getUpperLimit(), units) << ")";
     }
 
-    else if(limits.isLimited()) {
+    else if (limits.isLimited()) {
         result << "RealLimits.limited(" << printValue(limits.getLowerLimit(), units) << ", "
                << printValue(limits.getUpperLimit(), units) << ")";
     }
@@ -282,7 +256,7 @@ std::string printRealLimits(const RealLimits& limits, const std::string& units)
 
 std::string printRealLimitsArg(const RealLimits& limits, const std::string& units)
 {
-    return limits.isLimitless() ? "" : ", ba."+printRealLimits(limits, units);
+    return limits.isLimitless() ? "" : ", ba." + printRealLimits(limits, units);
 }
 
 //! Prints ParameterDistribution.
@@ -299,13 +273,9 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
            << "\"" << par_distr.getMainParameterName() << "\""
            << ", " << distVarName << ", " << par_distr.getNbrSamples() << ", "
            << printDouble(par_distr.getSigmaFactor())
-           << printRealLimitsArg(par_distr.getLimits(), units)
-           << ")";
+           << printRealLimitsArg(par_distr.getLimits(), units) << ")";
 
     return result.str();
 }
-
-
-
 
 } // namespace PythonFormatting

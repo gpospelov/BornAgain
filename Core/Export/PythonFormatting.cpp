@@ -26,7 +26,7 @@
 #include "Numeric.h"
 #include "ParameterPool.h"
 #include "Polygon.h"
-#include "ExportToPython.h"
+#include "SimulationToPython.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
 #include "MathConstants.h"
@@ -44,30 +44,30 @@ GCC_DIAG_ON(missing-field-initializers)
 
 namespace {
 std::string simulationCode(const GISASSimulation& simulation,
-                           ExportToPython::EMainType mainFunctionType)
+                           SimulationToPython::EMainType mainFunctionType)
 {
     std::unique_ptr<GISASSimulation> sim(simulation.clone());
     sim->prepareSimulation();
 
-    ExportToPython generator;
+    SimulationToPython generator;
     return generator.generateSimulationCode(*sim, mainFunctionType);
 }
 }
 
 std::string PythonFormatting::generateSampleCode(const MultiLayer& multilayer)
 {
-    ExportToPython generator;
+    SimulationToPython generator;
     return generator.generateSampleCode(multilayer);
 }
 
 std::string PythonFormatting::generateSimulationCode(const GISASSimulation& simulation)
 {
-    return simulationCode(simulation, ExportToPython::RUN_SIMULATION);
+    return simulationCode(simulation, SimulationToPython::RUN_SIMULATION);
 }
 
 std::string PythonFormatting::generatePyExportTest(const GISASSimulation& simulation)
 {
-    return simulationCode(simulation, ExportToPython::SAVE_DATA);
+    return simulationCode(simulation, SimulationToPython::SAVE_DATA);
 }
 
 namespace PythonFormatting {

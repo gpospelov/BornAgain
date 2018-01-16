@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Export/ExportToPython.h
-//! @brief     Defines class ExportToPython.
+//! @file      Core/Export/SimulationToPython.h
+//! @brief     Defines class SimulationToPython.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef EXPORTTOPYTHON_H
-#define EXPORTTOPYTHON_H
+#ifndef SIMULATIONTOPYTHON_H
+#define SIMULATIONTOPYTHON_H
 
 #include "WinDllMacros.h"
 #include <string>
@@ -27,7 +27,7 @@ class SampleLabelHandler;
 
 //! Write a Python script that allows to run the current simulation.
 
-class BA_CORE_API_ ExportToPython
+class BA_CORE_API_ SimulationToPython
 {
 public:
     enum EMainType
@@ -36,8 +36,8 @@ public:
         SAVE_DATA       //!< main function saves intensity data
     };
 
-    ExportToPython();
-    virtual ~ExportToPython();
+    SimulationToPython();
+    virtual ~SimulationToPython();
 
     std::string generateSampleCode(const MultiLayer& multilayer);
     std::string generateSimulationCode(const Simulation& simulation, EMainType mainType);
@@ -83,4 +83,4 @@ private:
     std::unique_ptr<SampleLabelHandler> m_label;
 };
 
-#endif // EXPORTTOPYTHON_H
+#endif // SIMULATIONTOPYTHON_H

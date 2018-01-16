@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Export/ExportToPython.cpp
-//! @brief     Implements class ExportToPython.
+//! @file      Core/Export/SimulationToPython.cpp
+//! @brief     Implements class SimulationToPython.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "ExportToPython.h"
+#include "SimulationToPython.h"
 #include "Beam.h"
 #include "ConstantBackground.h"
 #include "ConvolutionDetectorResolution.h"
@@ -83,11 +83,11 @@ namespace {
     }
 } // namespace
 
-ExportToPython::ExportToPython(){}
+SimulationToPython::SimulationToPython(){}
 
-ExportToPython::~ExportToPython(){}
+SimulationToPython::~SimulationToPython(){}
 
-std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer)
+std::string SimulationToPython::generateSampleCode(const MultiLayer& multilayer)
 {
     initSample(multilayer);
     return defineGetSample();
@@ -95,7 +95,7 @@ std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer)
 
 //! Returns a Python script that sets up a simulation and runs it if invoked as main program.
 
-std::string ExportToPython::generateSimulationCode(const Simulation& simulation,
+std::string SimulationToPython::generateSimulationCode(const Simulation& simulation,
                                                    EMainType mainType)
 {
     if (simulation.sample() == nullptr)
@@ -111,7 +111,7 @@ std::string ExportToPython::generateSimulationCode(const Simulation& simulation,
         + defineMain(mainType);
 }
 
-std::string ExportToPython::defineGetSimulation(const Simulation* simulation) const
+std::string SimulationToPython::defineGetSimulation(const Simulation* simulation) const
 {
     std::ostringstream result;
     if (auto gisas = dynamic_cast<const GISASSimulation*>(simulation))
@@ -123,7 +123,7 @@ std::string ExportToPython::defineGetSimulation(const Simulation* simulation) co
     return result.str();
 }
 
-std::string ExportToPython::defineGISASSimulation(const GISASSimulation* simulation) const
+std::string SimulationToPython::defineGISASSimulation(const GISASSimulation* simulation) const
 {
     std::ostringstream result;
     result << "def getSimulation():\n";
@@ -140,7 +140,7 @@ std::string ExportToPython::defineGISASSimulation(const GISASSimulation* simulat
     return result.str();
 }
 
-void ExportToPython::initSample(const MultiLayer& multilayer)
+void SimulationToPython::initSample(const MultiLayer& multilayer)
 {
     m_label.reset(new SampleLabelHandler());
 
@@ -176,7 +176,7 @@ void ExportToPython::initSample(const MultiLayer& multilayer)
         m_label->insertRotation(x);
 }
 
-std::string ExportToPython::defineGetSample() const
+std::string SimulationToPython::defineGetSample() const
 {
     return "def getSample():\n"
         + defineMaterials()
@@ -201,7 +201,7 @@ const std::map<MATERIAL_TYPES, std::string> factory_names{
     {MATERIAL_TYPES::RefractiveMaterial, "HomogeneousMaterial"},
     {MATERIAL_TYPES::MaterialBySLD, "MaterialBySLD"}};
 
-std::string ExportToPython::defineMaterials() const
+std::string SimulationToPython::defineMaterials() const
 {
     const auto themap = m_label->materialMap();
     if (themap->size() == 0)
@@ -239,7 +239,7 @@ std::string ExportToPython::defineMaterials() const
     return result.str();
 }
 
-std::string ExportToPython::defineLayers() const
+std::string SimulationToPython::defineLayers() const
 {
     const auto themap = m_label->layerMap();
     if (themap->size() == 0)
@@ -261,7 +261,7 @@ std::string ExportToPython::defineLayers() const
     return result.str();
 }
 
-std::string ExportToPython::defineFormFactors() const
+std::string SimulationToPython::defineFormFactors() const
 {
     const auto themap = m_label->formFactorMap();
     if (themap->size() == 0)
@@ -277,7 +277,7 @@ std::string ExportToPython::defineFormFactors() const
     return result.str();
 }
 
-std::string ExportToPython::defineParticles() const
+std::string SimulationToPython::defineParticles() const
 {
     const auto themap = m_label->particleMap();
     if (themap->size() == 0)
@@ -300,7 +300,7 @@ std::string ExportToPython::defineParticles() const
     return result.str();
 }
 
-std::string ExportToPython::defineCoreShellParticles() const
+std::string SimulationToPython::defineCoreShellParticles() const
 {
     const auto themap = m_label->particleCoreShellMap();
     if (themap->size() == 0)
@@ -320,7 +320,7 @@ std::string ExportToPython::defineCoreShellParticles() const
     return result.str();
 }
 
-std::string ExportToPython::defineParticleDistributions() const
+std::string SimulationToPython::defineParticleDistributions() const
 {
     const auto themap = m_label->particleDistributionsMap();
     if (themap->size() == 0)
@@ -367,7 +367,7 @@ std::string ExportToPython::defineParticleDistributions() const
     return result.str();
 }
 
-std::string ExportToPython::defineParticleCompositions() const
+std::string SimulationToPython::defineParticleCompositions() const
 {
     const auto themap = m_label->particleCompositionMap();
     if (themap->size() == 0)
@@ -391,7 +391,7 @@ std::string ExportToPython::defineParticleCompositions() const
     return result.str();
 }
 
-std::string ExportToPython::defineLattices() const
+std::string SimulationToPython::defineLattices() const
 {
     const auto themap = m_label->latticeMap();
     if (themap->size() == 0)
@@ -422,7 +422,7 @@ std::string ExportToPython::defineLattices() const
     return result.str();
 }
 
-std::string ExportToPython::defineCrystals() const
+std::string SimulationToPython::defineCrystals() const
 {
     const auto themap = m_label->crystalMap();
     if (themap->size() == 0)
@@ -444,7 +444,7 @@ std::string ExportToPython::defineCrystals() const
     return result.str();
 }
 
-std::string ExportToPython::defineMesoCrystals() const
+std::string SimulationToPython::defineMesoCrystals() const
 {
     const auto themap = m_label->mesocrystalMap();
     if (themap->size() == 0)
@@ -468,7 +468,7 @@ std::string ExportToPython::defineMesoCrystals() const
     return result.str();
 }
 
-std::string ExportToPython::defineInterferenceFunctions() const
+std::string SimulationToPython::defineInterferenceFunctions() const
 {
     const auto themap = m_label->interferenceFunctionMap();
     if (themap->size() == 0)
@@ -580,7 +580,7 @@ std::string ExportToPython::defineInterferenceFunctions() const
     return result.str();
 }
 
-std::string ExportToPython::defineParticleLayouts() const
+std::string SimulationToPython::defineParticleLayouts() const
 {
     const auto themap = m_label->particleLayoutMap();
     if (themap->size() == 0)
@@ -618,7 +618,7 @@ std::string ExportToPython::defineParticleLayouts() const
     return result.str();
 }
 
-std::string ExportToPython::defineRoughnesses() const
+std::string SimulationToPython::defineRoughnesses() const
 {
     const auto themap = m_label->layerRoughnessMap();
     if (themap->size() == 0)
@@ -632,7 +632,7 @@ std::string ExportToPython::defineRoughnesses() const
     return result.str();
 }
 
-std::string ExportToPython::addLayoutsToLayers() const
+std::string SimulationToPython::addLayoutsToLayers() const
 {
     if (m_label->particleLayoutMap()->size() == 0)
         return "";
@@ -649,7 +649,7 @@ std::string ExportToPython::addLayoutsToLayers() const
     return result.str();
 }
 
-std::string ExportToPython::defineMultiLayers() const
+std::string SimulationToPython::defineMultiLayers() const
 {
     const auto themap = m_label->multiLayerMap();
     if (themap->size() == 0)
@@ -696,7 +696,7 @@ std::string ExportToPython::defineMultiLayers() const
     return result.str();
 }
 
-std::string ExportToPython::defineDetector(const Simulation* simulation) const
+std::string SimulationToPython::defineDetector(const Simulation* simulation) const
 {
     const IDetector* iDetector = simulation->getInstrument().getDetector();
 
@@ -773,7 +773,7 @@ std::string ExportToPython::defineDetector(const Simulation* simulation) const
     return result.str();
 }
 
-std::string ExportToPython::defineDetectorResolutionFunction(
+std::string SimulationToPython::defineDetectorResolutionFunction(
     const Simulation* simulation) const
 {
     std::ostringstream result;
@@ -799,7 +799,7 @@ std::string ExportToPython::defineDetectorResolutionFunction(
     return result.str();
 }
 
-std::string ExportToPython::defineDetectorPolarizationAnalysis(const Simulation* simulation) const
+std::string SimulationToPython::defineDetectorPolarizationAnalysis(const Simulation* simulation) const
 {
     std::ostringstream result;
     const IDetector* detector = simulation->getInstrument().getDetector();
@@ -821,7 +821,7 @@ std::string ExportToPython::defineDetectorPolarizationAnalysis(const Simulation*
     return result.str();
 }
 
-std::string ExportToPython::defineBeam(const Simulation* simulation) const
+std::string SimulationToPython::defineBeam(const Simulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -848,7 +848,7 @@ std::string ExportToPython::defineBeam(const Simulation* simulation) const
     return result.str();
 }
 
-std::string ExportToPython::defineParameterDistributions(const Simulation* simulation) const
+std::string SimulationToPython::defineParameterDistributions(const Simulation* simulation) const
 {
     std::ostringstream result;
     const std::vector<ParameterDistribution>& distributions =
@@ -875,7 +875,7 @@ std::string ExportToPython::defineParameterDistributions(const Simulation* simul
     return result.str();
 }
 
-std::string ExportToPython::defineMasks(const Simulation* simulation) const
+std::string SimulationToPython::defineMasks(const Simulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -894,7 +894,7 @@ std::string ExportToPython::defineMasks(const Simulation* simulation) const
     return result.str();
 }
 
-std::string ExportToPython::defineSimulationOptions(const Simulation* simulation) const
+std::string SimulationToPython::defineSimulationOptions(const Simulation* simulation) const
 {
     std::ostringstream result;
     result << std::setprecision(12);
@@ -913,7 +913,7 @@ std::string ExportToPython::defineSimulationOptions(const Simulation* simulation
     return result.str();
 }
 
-std::string ExportToPython::defineBackground(const Simulation* simulation) const
+std::string SimulationToPython::defineBackground(const Simulation* simulation) const
 {
     std::ostringstream result;
 
@@ -932,7 +932,7 @@ std::string ExportToPython::defineBackground(const Simulation* simulation) const
     return result.str();
 }
 
-std::string ExportToPython::defineMain(ExportToPython::EMainType mainType)
+std::string SimulationToPython::defineMain(SimulationToPython::EMainType mainType)
 {
     std::string result;
     if(mainType == RUN_SIMULATION) {
@@ -952,12 +952,12 @@ std::string ExportToPython::defineMain(ExportToPython::EMainType mainType)
     return result;
 }
 
-std::string ExportToPython::indent() const
+std::string SimulationToPython::indent() const
 {
     return "    ";
 }
 
-void ExportToPython::setRotationInformation(
+void SimulationToPython::setRotationInformation(
     const IParticle* p_particle, std::string name, std::ostringstream& result) const
 {
     if (p_particle->rotation()) {
@@ -997,7 +997,7 @@ void ExportToPython::setRotationInformation(
     }
 }
 
-void ExportToPython::setPositionInformation(
+void SimulationToPython::setPositionInformation(
     const IParticle* p_particle, std::string name, std::ostringstream& result) const
 {
     kvector_t pos = p_particle->position();

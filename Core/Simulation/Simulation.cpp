@@ -131,17 +131,27 @@ void Simulation::runSimulation()
         + ( sample()->hasRoughness() ? 1 : 0 );
     m_progress.setExpectedNTicks(prefactor*param_combinations*numberOfSimulationElements());
 
+    // restrict calculation to current batch
+    const size_t n_batches = m_options.getNumberOfBatches();
+    const size_t current_batch = m_options.getCurrentBatch();
+    const size_t total_size = numberOfSimulationElements();
+
+    const size_t batch_start = getStartIndex(n_batches, current_batch, total_size);
+    const size_t batch_size = getNumberOfElements(n_batches, current_batch, total_size);
+    if (batch_size == 0)
+        return;
+
     std::unique_ptr<ParameterPool> P_param_pool(createParameterTree());
     if (param_combinations == 1) {
         // no averaging needed:
         m_distribution_handler.setParameterValues(P_param_pool.get(), 0);
-        runSingleSimulation();
+        runSingleSimulation(batch_start, batch_size);
     } else {
         // average over parameter distributions:
         const bool use_storage = true;
         for (size_t index = 0; index < param_combinations; ++index) {
             double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
-            runSingleSimulation(use_storage, weight);
+            runSingleSimulation(batch_start, batch_size, use_storage, weight);
         }
         moveDataFromStorage();
     }
@@ -214,20 +224,11 @@ void Simulation::updateSample()
 
 //! Runs a single simulation with fixed parameter values.
 //! If desired, the simulation is run in several threads.
-void Simulation::runSingleSimulation(bool use_storage, double weight)
+void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size,
+                                     bool use_storage, double weight)
 {
     prepareSimulation();
     initSimulationElementVector(use_storage && !isStorageInited());
-
-    // restrict calculation to current batch
-    const size_t n_batches = m_options.getNumberOfBatches();
-    const size_t current_batch = m_options.getCurrentBatch();
-    const size_t total_size = numberOfSimulationElements();
-
-    const size_t batch_start = getStartIndex(n_batches, current_batch, total_size);
-    const size_t batch_size = getNumberOfElements(n_batches, current_batch, total_size);
-    if (batch_size == 0)
-        return;
 
     const size_t n_threads = m_options.getNumberOfThreads();
     assert(n_threads > 0);

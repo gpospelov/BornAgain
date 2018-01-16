@@ -116,7 +116,8 @@ private:
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
-    void runSingleSimulation(bool use_storage = false, double weight = 1.0);
+    void runSingleSimulation(size_t batch_start, size_t batch_size,
+                             bool use_storage = false, double weight = 1.0);
 
     //! Initializes the vector of Simulation elements
     //! @param init_storage Initialize storage for accumulating results

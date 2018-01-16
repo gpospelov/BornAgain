@@ -20,6 +20,7 @@
 #include <memory>
 
 class Beam;
+class Detector2DElement;
 class IPixel;
 class IShape2D;
 
@@ -61,6 +62,9 @@ public:
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the detector and its mask
     std::vector<SimulationElement> createSimulationElements(const Beam& beam) override;
+
+    //! Create a vector of DetectorElement objects according to the detector and its mask
+    std::vector<Detector2DElement> createDetectorElements();
 #endif
 
     //! Returns region of  interest if exists.

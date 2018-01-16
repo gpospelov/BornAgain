@@ -14,13 +14,14 @@
 
 #include "IDetector2D.h"
 #include "Beam.h"
+#include "BornAgainNamespace.h"
+#include "Detector2DElement.h"
+#include "DetectorFunctions.h"
 #include "InfinitePlane.h"
+#include "RegionOfInterest.h"
 #include "SimulationElement.h"
 #include "SimulationArea.h"
-#include "BornAgainNamespace.h"
 #include "Units.h"
-#include "RegionOfInterest.h"
-#include "DetectorFunctions.h"
 
 IDetector2D::IDetector2D() = default;
 
@@ -115,6 +116,24 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
             sim_element.setSpecular();
     }
 
+    return result;
+}
+
+std::vector<Detector2DElement> IDetector2D::createDetectorElements()
+{
+    std::vector<Detector2DElement> result;
+    const Eigen::Matrix2cd& analyzer_operator = detectionProperties().analyzerOperator();
+
+    if (!detectorMask()->hasMasks())
+        m_detector_mask.initMaskData(*this);
+
+    SimulationArea area(this);
+    result.reserve(area.totalSize());
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+        result.emplace_back(std::unique_ptr<IPixel>(createPixel(it.detectorIndex())));
+        auto& detector_element = result.back();
+        detector_element.setAnalyzerOperator(analyzer_operator);
+    }
     return result;
 }
 

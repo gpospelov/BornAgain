@@ -20,6 +20,7 @@
 
 class Simulation;
 class IntensityDataItem;
+class InstrumentItem;
 class GISASInstrumentItem;
 class JobItem;
 
@@ -60,7 +61,7 @@ BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
 BA_CORE_API_ void updateAxesTitle(IntensityDataItem* intensityItem);
 
 BA_CORE_API_ void createDefaultDetectorMap(IntensityDataItem* intensityItem,
-                                           const GISASInstrumentItem* instrumentItem);
+                                           const InstrumentItem* instrumentItem);
 
 BA_CORE_API_ OutputData<double>* createDetectorMap(const GISASInstrumentItem* instrumentItem,
                                                    AxesUnits units);

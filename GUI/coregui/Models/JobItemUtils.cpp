@@ -198,7 +198,7 @@ void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
 }
 
 void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
-                                            const GISASInstrumentItem* instrumentItem)
+                                            const InstrumentItem* instrumentItem)
 {
     auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
     instrument->initDetector();

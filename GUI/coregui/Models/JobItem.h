@@ -17,7 +17,7 @@
 
 #include "SessionItem.h"
 class IntensityDataItem;
-class GISASSimulation;
+class Simulation;
 class MultiLayerItem;
 class GISASInstrumentItem;
 class SimulationOptionsItem;
@@ -91,7 +91,7 @@ public:
 
     SimulationOptionsItem *getSimulationOptionsItem();
 
-    void setResults(const GISASSimulation *simulation);
+    void setResults(const Simulation *simulation);
 
     FitSuiteItem *fitSuiteItem();
     ParameterContainerItem *parameterContainerItem();

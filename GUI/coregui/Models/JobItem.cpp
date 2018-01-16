@@ -248,7 +248,7 @@ GISASInstrumentItem *JobItem::instrumentItem()
     return dynamic_cast<GISASInstrumentItem*>(getItem(T_INSTRUMENT));
 }
 
-void JobItem::setResults(const GISASSimulation *simulation)
+void JobItem::setResults(const Simulation* simulation)
 {
     IntensityDataItem *intensityItem = intensityDataItem();
     Q_ASSERT(intensityItem);

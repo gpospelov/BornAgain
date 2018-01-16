@@ -256,7 +256,7 @@ JobWorker* JobQueueData::getWorker(const QString& identifier)
 
 //! Returns the simulation (if exists) for given identifier.
 
-GISASSimulation* JobQueueData::getSimulation(const QString& identifier)
+Simulation* JobQueueData::getSimulation(const QString& identifier)
 {
     auto it = m_simulations.find(identifier);
     return it != m_simulations.end() ? it.value() : nullptr;

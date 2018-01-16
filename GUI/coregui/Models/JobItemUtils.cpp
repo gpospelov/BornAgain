@@ -50,7 +50,7 @@ QMap<AxesUnits, QString> init_description_to_units_map()
 }
 }
 
-void JobItemUtils::setResults(IntensityDataItem* intensityItem, const GISASSimulation* simulation)
+void JobItemUtils::setResults(IntensityDataItem* intensityItem, const Simulation* simulation)
 {
     if (intensityItem->getOutputData() == nullptr) {
         const IDetector* detector = simulation->getInstrument().getDetector();

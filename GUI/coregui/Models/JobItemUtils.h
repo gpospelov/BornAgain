@@ -18,6 +18,7 @@
 #include "IDetector.h"
 #include <QMap>
 
+class Simulation;
 class GISASSimulation;
 class IntensityDataItem;
 class GISASInstrumentItem;
@@ -30,7 +31,7 @@ namespace JobItemUtils
 {
 
 //! Sets simulation results into the IntensityDataItem
-BA_CORE_API_ void setResults(IntensityDataItem* intensityItem, const GISASSimulation* simulation);
+BA_CORE_API_ void setResults(IntensityDataItem* intensityItem, const Simulation* simulation);
 
 //! updates axes of OutputData in IntensityData item
 BA_CORE_API_ void updateDataAxes(IntensityDataItem* intensityItem,

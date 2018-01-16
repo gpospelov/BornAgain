@@ -21,7 +21,7 @@
 
 class JobItem;
 class JobModel;
-class GISASSimulation;
+class Simulation;
 class JobWorker;
 
 //! The JobQueueData class holds all objects/logic to run simulation in a thread.
@@ -60,11 +60,11 @@ private:
 
     QThread* getThread(const QString& identifier);
     JobWorker* getWorker(const QString& identifier);
-    GISASSimulation* getSimulation(const QString& identifier);
+    Simulation* getSimulation(const QString& identifier);
 
     QMap<QString, QThread*> m_threads;   //! job identifier to the thread
     QMap<QString, JobWorker*> m_workers; //! job identifier to jobWorker
-    QMap<QString, GISASSimulation*> m_simulations; //! job identifier to simulation
+    QMap<QString, Simulation*> m_simulations; //! job identifier to simulation
 
     JobModel* m_jobModel;
 };

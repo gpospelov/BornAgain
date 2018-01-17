@@ -74,18 +74,24 @@ size_t SpecularSimulation::numberOfSimulationElements() const
     return getInstrument().getDetector()->numberOfSimulationElements();
 }
 
-void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i)
+void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
+                                           const IFootprintFactor* beam_shape)
 {
     SpecularDetector1D detector(alpha_axis);
     m_instrument.setDetector(detector);
+
+    const double phi_i = 0.0;
     m_instrument.setBeamParameters(lambda, alpha_axis[0], phi_i);
+
+    if (beam_shape)
+        m_instrument.getBeam().setFootprintFactor(beam_shape);
 }
 
 void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,
-                                           double alpha_i_max, double phi_i)
+                                           double alpha_i_max, const IFootprintFactor* beam_shape)
 {
     FixedBinAxis axis("alpha_i", nbins, alpha_i_min, alpha_i_max);
-    setBeamParameters(lambda, axis, phi_i);
+    setBeamParameters(lambda, axis, beam_shape);
 }
 
 const IAxis* SpecularSimulation::getAlphaAxis() const

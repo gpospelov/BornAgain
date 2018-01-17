@@ -22,6 +22,7 @@
 
 class IAxis;
 class IComputation;
+class IFootprintFactor;
 class ISample;
 class IMultiLayerBuilder;
 class MultiLayer;
@@ -48,9 +49,10 @@ public:
     size_t numberOfSimulationElements() const override;
 
     //! Sets beam parameters with alpha_i of the beam defined in the range.
-    void setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i = 0.0);
+    void setBeamParameters(double lambda, const IAxis& alpha_axis,
+                           const IFootprintFactor* beam_shape = nullptr);
     void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max,
-                           double phi_i = 0.0);
+                           const IFootprintFactor* beam_shape = nullptr);
 
     //! Returns a pointer to incident angle axis.
     const IAxis* getAlphaAxis() const;

@@ -17,7 +17,7 @@
 #include "GISASSimulation.h"
 #include "RectangularDetector.h"
 #include "SampleBuilderFactory.h"
-#include "SimulationElement.h"
+#include "DetectorElement.h"
 #include "SphericalDetector.h"
 #include "Units.h"
 #include <iomanip>
@@ -116,8 +116,8 @@ namespace
 {
 void test_det_elements(const IDetector& detector)
 {
-    auto instr = createInstrument(detector);
-    instr->initDetector();
+    auto p_det = detector.clone();
+    p_det->createDetectorElements(Beam {});
 }
 
 void test_run_simulation(const IDetector& detector)

@@ -63,10 +63,6 @@ public:
     //! Returns detector signal (\f$ \propto |R|^2\f$) in the form of 1D Histogram
     Histogram1D* detectorIntensityHistogram() const;
 
-    //! Returns transmissivity values \f$Transmissivity = |T|^2\f$ in the form of 1D Histogram
-    //! for the sample bottom layer.
-    Histogram1D* transmissivity() const;
-
     //! Returns vector of reflection coefficients (\f$R\f$) for all alpha_i angles for given layer index.
     std::vector<complex_t> getScalarR(size_t i_layer) const;
 

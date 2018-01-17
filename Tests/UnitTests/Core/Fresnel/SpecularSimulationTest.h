@@ -46,7 +46,6 @@ TEST_F(SpecularSimulationTest, InitialState)
     ASSERT_THROW(sim.getScalarT(0), std::runtime_error);
     ASSERT_THROW(sim.getScalarKz(0), std::runtime_error);
     ASSERT_THROW(sim.detectorIntensityHistogram(), std::runtime_error);
-    ASSERT_THROW(sim.transmissivity(), std::runtime_error);
 }
 
 TEST_F(SpecularSimulationTest, CloneOfEmpty)
@@ -61,7 +60,6 @@ TEST_F(SpecularSimulationTest, CloneOfEmpty)
     ASSERT_THROW(clone->getScalarT(0), std::runtime_error);
     ASSERT_THROW(clone->getScalarKz(0), std::runtime_error);
     ASSERT_THROW(clone->detectorIntensityHistogram(), std::runtime_error);
-    ASSERT_THROW(clone->transmissivity(), std::runtime_error);
 }
 
 TEST_F(SpecularSimulationTest, SetBeamParameters)
@@ -94,7 +92,6 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     ASSERT_THROW(sim.getScalarT(0), std::runtime_error);
     ASSERT_THROW(sim.getScalarKz(0), std::runtime_error);
     ASSERT_THROW(sim.detectorIntensityHistogram(), std::runtime_error);
-    ASSERT_THROW(sim.transmissivity(), std::runtime_error);
 
     sim.runSimulation();
     EXPECT_EQ(10u, sim.getScalarR(0).size());
@@ -113,13 +110,6 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     EXPECT_EQ(reflectivity->getRank(), output->getRank());
     EXPECT_EQ(reflectivity->getXaxis().getMin(), output->getAxis(0).getMin());
     EXPECT_EQ(reflectivity->getXaxis().getMax(), output->getAxis(0).getMax());
-
-    std::unique_ptr<Histogram1D> transmissivity(sim.transmissivity());
-    EXPECT_EQ(10u, transmissivity->getTotalNumberOfBins());
-    EXPECT_EQ(1u, transmissivity->getRank());
-    EXPECT_EQ(0.0, transmissivity->getXaxis().getMin());
-    EXPECT_EQ(2.0 * Units::degree, transmissivity->getXaxis().getMax());
-    EXPECT_DOUBLE_EQ(std::norm(sim.getScalarT(2)[5]), transmissivity->getBinValues()[5]);
 
     ASSERT_THROW(sim.getScalarR(3), std::runtime_error);
     ASSERT_THROW(sim.getScalarT(3), std::runtime_error);
@@ -140,7 +130,6 @@ TEST_F(SpecularSimulationTest, SimulationClone)
     ASSERT_THROW(clone->getScalarT(0), std::runtime_error);
     ASSERT_THROW(clone->getScalarKz(0), std::runtime_error);
     ASSERT_THROW(clone->detectorIntensityHistogram(), std::runtime_error);
-    ASSERT_THROW(clone->transmissivity(), std::runtime_error);
     ASSERT_THROW(clone->getDetectorIntensity(), std::runtime_error);
 
     sim.runSimulation();
@@ -152,7 +141,4 @@ TEST_F(SpecularSimulationTest, SimulationClone)
 
     std::unique_ptr<Histogram1D> output(clone2->detectorIntensityHistogram());
     EXPECT_EQ(10u, output->getTotalNumberOfBins());
-
-    std::unique_ptr<Histogram1D> output2(clone2->transmissivity());
-    EXPECT_EQ(10u, output2->getTotalNumberOfBins());
 }

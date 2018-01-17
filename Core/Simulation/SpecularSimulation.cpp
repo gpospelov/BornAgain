@@ -120,18 +120,6 @@ std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn
     return result;
 }
 
-std::unique_ptr<OutputData<double>>
-SpecularSimulation::getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const
-{
-    std::unique_ptr<OutputData<double>> output_ptr = std::make_unique<OutputData<double>>();
-    output_ptr->addAxis(*getAlphaAxis());
-    const std::vector<complex_t> complex_data = getData(i_layer, fn_ptr);
-    OutputData<double>& output = *output_ptr.get();
-    for (size_t i = 0; i < complex_data.size(); ++i)
-        output[i] = std::norm(complex_data[i]);
-    return output_ptr;
-}
-
 std::unique_ptr<IComputation>
 SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
 {
@@ -152,13 +140,6 @@ Histogram1D* SpecularSimulation::detectorIntensityHistogram() const
 {
     std::unique_ptr<OutputData<double>> result(getDetectorIntensity());
     return new Histogram1D(*result);
-}
-
-Histogram1D* SpecularSimulation::transmissivity() const
-{
-    const MultiLayer* current_sample = sample();
-    const size_t i_layer = current_sample ? static_cast<size_t>(current_sample->numberOfLayers() - 1) : 0;
-    return new Histogram1D(*getDataByAbsValue(i_layer, &ILayerRTCoefficients::getScalarT));
 }
 
 std::vector<complex_t> SpecularSimulation::getScalarR(size_t i_layer) const

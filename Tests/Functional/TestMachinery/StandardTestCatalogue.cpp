@@ -390,6 +390,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "BasicSpecular",
         "MultiLayerWithRoughnessBuilder",
         2e-9);
+
+    add("GaussianBeamFootprint",
+        "Similar to HomogeneousTiNiSample, but with finite-sized gaussian beam",
+        "SpecularWithGaussianBeam",
+        "HomogeneousMultilayerBuilder",
+        1e-10);
 }
 
 //! Adds test description to the catalogue.

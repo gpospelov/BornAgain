@@ -17,6 +17,7 @@
 #include <ConstantBackground.h>
 #include "Distributions.h"
 #include "Ellipse.h"
+#include "FootprintFactorGaussian.h"
 #include "GISASSimulation.h"
 #include "IsGISAXSDetector.h"
 #include "Line.h"
@@ -376,6 +377,20 @@ SpecularSimulation* StandardSimulations::BasicSpecular()
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
     result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle);
+    return result.release();
+}
+
+SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam()
+{
+    const double wavelength = 1.54 * Units::angstrom;
+    const int number_of_bins = 2000;
+    const double min_angle = 0 * Units::deg;
+    const double max_angle = 5 * Units::deg;
+
+    auto gaussian_ff = std::make_unique<FootprintFactorGaussian>(1.0);
+
+    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle, gaussian_ff.get());
     return result.release();
 }
 

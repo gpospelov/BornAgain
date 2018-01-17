@@ -38,24 +38,23 @@ std::unique_ptr<Simulation> DomainSimulationBuilder::createSimulation(const Mult
     }
 
     if (auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(instrumentItem)) {
-        std::unique_ptr<GISASSimulation> result(new GISASSimulation);
+        std::unique_ptr<GISASSimulation> gisas(new GISASSimulation);
         auto P_multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);
         auto P_instrument = DomainObjectBuilder::buildInstrument(*gisasInstrument);
-        result->setSample(*P_multilayer);
-        result->setInstrument(*P_instrument);
-        TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(), result.get());
+        gisas->setSample(*P_multilayer);
+        gisas->setInstrument(*P_instrument);
+        TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(), gisas.get());
 
         // Simulation options
         if (optionsItem)
-            TransformToDomain::setSimulationOptions(result.get(), *optionsItem);
+            TransformToDomain::setSimulationOptions(gisas.get(), *optionsItem);
 
         // Background simulation
         auto P_background = gisasInstrument->backgroundItem()->createBackground();
         if (P_background)
-            result->setBackground(*P_background);
+            gisas->setBackground(*P_background);
 
-        return result;
-
+        return std::unique_ptr<Simulation> (gisas.release());
     }
 
     throw GUIHelpers::Error("DomainSimulationBuilder::createSimulation() -> Error. Not yet implemented");

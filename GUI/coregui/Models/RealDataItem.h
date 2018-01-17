@@ -20,7 +20,6 @@
 template <class T> class OutputData;
 class IntensityDataItem;
 class InstrumentItem;
-class GISASInstrumentItem;
 
 //! The RealDataItem class represents intensity data imported from file and intended for fitting.
 

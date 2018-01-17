@@ -226,7 +226,7 @@ void LinkInstrumentManager::updateInstrumentMap()
 {
     m_instrumentVec.clear();
     m_instrumentVec.append(InstrumentInfo()); // undefined instrument
-    for (auto instrumentItem : m_instrumentModel->topItems<GISASInstrumentItem>()) {
+    for (auto instrumentItem : m_instrumentModel->topItems<InstrumentItem>()) {
         instrumentItem->mapper()->unsubscribe(this);
 
         instrumentItem->mapper()->setOnPropertyChange(

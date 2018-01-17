@@ -85,6 +85,9 @@ private:
     //! Initializes the vector of Simulation elements
     void initSimulationElementVector() override;
 
+    //! Generate simulation elements for given beam
+    std::vector<SimulationElement> generateSimulationElements(const Beam& beam);
+
     std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
 
     std::unique_ptr<OutputData<double>> getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const;
@@ -110,6 +113,8 @@ private:
     void addDataToCache(double weight) override;
 
     void moveDataFromCache() override;
+
+    double alpha_i(size_t index) const;
 
     std::vector<SimulationElement> m_sim_elements;
     std::vector<SimulationElement> m_cache;

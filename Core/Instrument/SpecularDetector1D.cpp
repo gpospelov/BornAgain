@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Beam.h"
+#include "DetectorElement.h"
 #include "IPixel.h"
 #include "SimulationArea.h"
 #include "SimulationElement.h"
@@ -99,6 +100,22 @@ std::vector<SimulationElement> SpecularDetector1D::createSimulationElements(cons
         sim_element.setSpecular();
     }
 
+    return result;
+}
+
+std::vector<DetectorElement> SpecularDetector1D::createDetectorElements(const Beam&)
+{
+    std::vector<DetectorElement> result;
+    const Eigen::Matrix2cd& analyzer_operator = detectionProperties().analyzerOperator();
+
+    SimulationArea area(this);
+    result.reserve(area.totalSize());
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+        const double alpha_i = -alphaI(it.detectorIndex());
+        result.emplace_back(new SpecularPixel(alpha_i), analyzer_operator);
+        auto& detector_element = result.back();
+        detector_element.setSpecular();
+    }
     return result;
 }
 

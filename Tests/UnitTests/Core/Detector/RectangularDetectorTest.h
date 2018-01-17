@@ -12,16 +12,12 @@ class RectangularDetectorTest : public ::testing::Test
 protected:
     ~RectangularDetectorTest();
 
-        double phi(SimulationElement& element)
-    {
-        return element.getPhiMean() / Units::degree;
-    }
-    double alpha(SimulationElement& element) { return element.getAlphaMean() / Units::degree; }
+    double phi(DetectorElement& element, double wavelength);
+    double alpha(DetectorElement& element, double wavelength);
     double phi(kvector_t k) { return k.phi() / Units::degree; }
     double alpha(kvector_t k) { return 90.0 - k.theta() / Units::degree; }
 
-    bool isEqual(const kvector_t lhs, const kvector_t rhs)
-    {
+    bool isEqual(const kvector_t lhs, const kvector_t rhs) {
         bool is_equal = Numeric::areAlmostEqual(lhs.x(), rhs.x())
                         && Numeric::areAlmostEqual(lhs.y(), rhs.y())
                         && Numeric::areAlmostEqual(lhs.z(), rhs.z());
@@ -98,29 +94,26 @@ TEST_F(RectangularDetectorTest, PerpToSample)
         = det.createDetectorElements(simulation.getInstrument().getBeam());
     EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
-//    // lower left bin
-//    kvector_t k(distance, u0 - dx / 2., (-v0 + dy / 2.));
-//    DetectorElement element = elements[0];
-//    EXPECT_DOUBLE_EQ(phi(k), phi(element));
-//    EXPECT_NEAR(alpha(k), alpha(element), 1e-10 * std::abs(alpha(k)));
+    double wavelength = 1.0;
+    // lower left bin
+    kvector_t k(distance, u0 - dx / 2., (-v0 + dy / 2.));
+    EXPECT_DOUBLE_EQ(phi(k), phi(elements[0], wavelength));
+    EXPECT_NEAR(alpha(k), alpha(elements[0], wavelength), 1e-10 * std::abs(alpha(k)));
 
-//    // upper left bin
-//    k = kvector_t(distance, u0 - dx / 2., (height - v0 - dy / 2.));
-//    element = elements[3];
-//    EXPECT_DOUBLE_EQ(phi(k), phi(element));
-//    EXPECT_NEAR(alpha(k), alpha(element), 1e-10 * std::abs(alpha(k)));
+    // upper left bin
+    k = kvector_t(distance, u0 - dx / 2., (height - v0 - dy / 2.));
+    EXPECT_DOUBLE_EQ(phi(k), phi(elements[3], wavelength));
+    EXPECT_NEAR(alpha(k), alpha(elements[3], wavelength), 1e-10 * std::abs(alpha(k)));
 
-//    // lower right bin
-//    k = kvector_t(distance, -(width - u0 - dx / 2.), (-v0 + dy / 2.));
-//    element = elements[16];
-//    EXPECT_DOUBLE_EQ(phi(k), phi(element));
-//    EXPECT_NEAR(alpha(k), alpha(element), 1e-10 * std::abs(alpha(k)));
+    // lower right bin
+    k = kvector_t(distance, -(width - u0 - dx / 2.), (-v0 + dy / 2.));
+    EXPECT_DOUBLE_EQ(phi(k), phi(elements[16], wavelength));
+    EXPECT_NEAR(alpha(k), alpha(elements[16], wavelength), 1e-10 * std::abs(alpha(k)));
 
-//    // upper right bin
-//    k = kvector_t(distance, -(width - u0 - dx / 2.), (height - v0 - dy / 2.));
-//    element = elements[19];
-//    EXPECT_DOUBLE_EQ(phi(k), phi(element));
-//    EXPECT_NEAR(alpha(k), alpha(element), 1e-10 * std::abs(alpha(k)));
+    // upper right bin
+    k = kvector_t(distance, -(width - u0 - dx / 2.), (height - v0 - dy / 2.));
+    EXPECT_DOUBLE_EQ(phi(k), phi(elements[19], wavelength));
+    EXPECT_NEAR(alpha(k), alpha(elements[19], wavelength), 1e-10 * std::abs(alpha(k)));
 }
 
 TEST_F(RectangularDetectorTest, PerpToDirectBeam)
@@ -151,19 +144,19 @@ TEST_F(RectangularDetectorTest, PerpToDirectBeam)
     EXPECT_TRUE(isEqual(normal, det.getNormalVector()));
     EXPECT_TRUE(kvector_t(0.0, -1.0, 0.0) == det.getDirectionVector());
 
-//    std::vector<SimulationElement> elements
-//        = det.createSimulationElements(simulation.getInstrument().getBeam());
-//    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
+    std::vector<DetectorElement> elements
+        = det.createDetectorElements(simulation.getInstrument().getBeam());
+    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
-//    // lower left bin
-//    double ds = v0 - dy / 2.;
-//    double alpha_x = alpha_i + std::atan(ds / distance);
-//    double c = distance * std::sin(alpha_i) + ds * std::cos(alpha_i);
-//    double x = c / std::tan(alpha_x);
-//    kvector_t k(x, u0 - dx / 2., -c);
-//    SimulationElement element = elements[0];
-//    EXPECT_DOUBLE_EQ(phi(k), phi(element));
-//    EXPECT_NEAR(alpha(k), alpha(element), 1e-10 * std::abs(alpha(k)));
+    // lower left bin
+    double wavelength = 1.0;
+    double ds = v0 - dy / 2.;
+    double alpha_x = alpha_i + std::atan(ds / distance);
+    double c = distance * std::sin(alpha_i) + ds * std::cos(alpha_i);
+    double x = c / std::tan(alpha_x);
+    kvector_t k(x, u0 - dx / 2., -c);
+    EXPECT_DOUBLE_EQ(phi(k), phi(elements[0], wavelength));
+    EXPECT_NEAR(alpha(k), alpha(elements[0], wavelength), 1e-10 * std::abs(alpha(k)));
 }
 
 TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
@@ -194,20 +187,20 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
     EXPECT_TRUE(isEqual(normal, det.getNormalVector()));
     EXPECT_TRUE(kvector_t(0.0, -1.0, 0.0) == det.getDirectionVector());
 
-//    // checking detector elements
-//    std::vector<SimulationElement> elements
-//        = det.createSimulationElements(simulation.getInstrument().getBeam());
-//    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
+    // checking detector elements
+    std::vector<DetectorElement> elements
+        = det.createDetectorElements(simulation.getInstrument().getBeam());
+    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
-//    double ds = v0 - dy / 2.;
-//    double alpha_x = alpha_i - std::atan(ds / distance);
-//    double c = distance * std::sin(alpha_i) - std::cos(alpha_i) * ds;
-//    double x = c / std::tan(alpha_x);
+    double ds = v0 - dy / 2.;
+    double alpha_x = alpha_i - std::atan(ds / distance);
+    double c = distance * std::sin(alpha_i) - std::cos(alpha_i) * ds;
+    double x = c / std::tan(alpha_x);
+    double wavelength = 1.0;
 
-//    kvector_t k(x, u0 - dx / 2., c);
-//    SimulationElement element = elements[0];
-//    EXPECT_DOUBLE_EQ(phi(k), phi(element));
-//    EXPECT_NEAR(alpha(k), alpha(element), 1e-10 * std::abs(alpha(k)));
+    kvector_t k(x, u0 - dx / 2., c);
+    EXPECT_DOUBLE_EQ(phi(k), phi(elements[0], wavelength));
+    EXPECT_NEAR(alpha(k), alpha(elements[0], wavelength), 1e-10 * std::abs(alpha(k)));
 }
 
 // detector perpendicular to reflected beam, when direct beam position is known
@@ -252,20 +245,20 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
     EXPECT_EQ(u0, det.getU0());
     EXPECT_EQ(v0, det.getV0());
 
-//    // checking detector elements
-//    std::vector<SimulationElement> elements
-//        = det.createSimulationElements(simulation.getInstrument().getBeam());
-//    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
+    // checking detector elements
+    std::vector<DetectorElement> elements
+        = det.createDetectorElements(simulation.getInstrument().getBeam());
+    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
-//    double ds = v0 - dy / 2.;
-//    double alpha_x = alpha_i - std::atan(ds / distance);
-//    double c = distance * std::sin(alpha_i) - std::cos(alpha_i) * ds;
-//    double x = c / std::tan(alpha_x);
+    double ds = v0 - dy / 2.;
+    double alpha_x = alpha_i - std::atan(ds / distance);
+    double c = distance * std::sin(alpha_i) - std::cos(alpha_i) * ds;
+    double x = c / std::tan(alpha_x);
+    double wavelength = 1.0;
 
-//    kvector_t k(x, u0 - dx / 2., c);
-//    SimulationElement element = elements[0];
-//    EXPECT_DOUBLE_EQ(phi(k), phi(element));
-//    EXPECT_NEAR(alpha(k), alpha(element), 1e-10 * std::abs(alpha(k)));
+    kvector_t k(x, u0 - dx / 2., c);
+    EXPECT_DOUBLE_EQ(phi(k), phi(elements[0], wavelength));
+    EXPECT_NEAR(alpha(k), alpha(elements[0], wavelength), 1e-10 * std::abs(alpha(k)));
 }
 
 // Test retrieval of analyzer properties
@@ -350,4 +343,18 @@ TEST_F(RectangularDetectorTest, AnalyzerProperties)
     EXPECT_NEAR(detect_properties5.analyzerDirection().x(), unit_direction.x(), 1e-8);
     EXPECT_NEAR(detect_properties5.analyzerDirection().y(), unit_direction.y(), 1e-8);
     EXPECT_NEAR(detect_properties5.analyzerDirection().z(), unit_direction.z(), 1e-8);
+}
+
+double RectangularDetectorTest::phi(DetectorElement& element, double wavelength)
+{
+    auto pixel = element.pixel();
+    auto k_f = pixel->getK(0.5, 0.5, wavelength);
+    return k_f.phi() / Units::degree;
+}
+
+double RectangularDetectorTest::alpha(DetectorElement& element, double wavelength)
+{
+    auto pixel = element.pixel();
+    auto k_f = pixel->getK(0.5, 0.5, wavelength);
+    return ( M_PI_2 - k_f.theta() ) / Units::degree;
 }

@@ -25,6 +25,7 @@
 #include "MinimizerItem.h"
 #include "RealDataItem.h"
 #include "FitParameter.h"
+#include "InstrumentItems.h"
 
 std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
 {
@@ -44,7 +45,7 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
     }
 
     const auto simulation = DomainSimulationBuilder::createSimulation(jobItem->multiLayerItem(),
-            jobItem->instrumentItem(), jobItem->getSimulationOptionsItem());
+            jobItem->instrumentItem(), jobItem->simulationOptionsItem());
 
     RealDataItem *realDataItem = jobItem->realDataItem();
     if(!realDataItem)

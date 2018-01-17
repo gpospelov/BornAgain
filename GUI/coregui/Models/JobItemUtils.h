@@ -18,8 +18,9 @@
 #include "IDetector.h"
 #include <QMap>
 
-class GISASSimulation;
+class Simulation;
 class IntensityDataItem;
+class InstrumentItem;
 class GISASInstrumentItem;
 class JobItem;
 
@@ -30,7 +31,7 @@ namespace JobItemUtils
 {
 
 //! Sets simulation results into the IntensityDataItem
-BA_CORE_API_ void setResults(IntensityDataItem* intensityItem, const GISASSimulation* simulation);
+BA_CORE_API_ void setResults(IntensityDataItem* intensityItem, const Simulation* simulation);
 
 //! updates axes of OutputData in IntensityData item
 BA_CORE_API_ void updateDataAxes(IntensityDataItem* intensityItem,
@@ -60,7 +61,7 @@ BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
 BA_CORE_API_ void updateAxesTitle(IntensityDataItem* intensityItem);
 
 BA_CORE_API_ void createDefaultDetectorMap(IntensityDataItem* intensityItem,
-                                           const GISASInstrumentItem* instrumentItem);
+                                           const InstrumentItem* instrumentItem);
 
 BA_CORE_API_ OutputData<double>* createDetectorMap(const GISASInstrumentItem* instrumentItem,
                                                    AxesUnits units);

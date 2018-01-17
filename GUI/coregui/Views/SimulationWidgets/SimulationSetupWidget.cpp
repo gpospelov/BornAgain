@@ -23,6 +23,7 @@
 #include "SimulationOptionsWidget.h"
 #include "SimulationSetupAssistant.h"
 #include "projectmanager.h"
+#include "InstrumentItems.h"
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -66,7 +67,7 @@ void SimulationSetupWidget::updateViewElements()
 void SimulationSetupWidget::onRunSimulation()
 {
     const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
-    const GISASInstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
+    const auto instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
     const RealDataItem *realDataItem = m_simDataSelectorWidget->selectedRealDataItem();
 
     SimulationSetupAssistant assistant;
@@ -86,7 +87,7 @@ void SimulationSetupWidget::onRunSimulation()
 void SimulationSetupWidget::onExportToPythonScript()
 {
     const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
-    const GISASInstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
+    const auto instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
 
     SimulationSetupAssistant assistant;
     if(!assistant.isValidSimulationSetup(multiLayerItem, instrumentItem))

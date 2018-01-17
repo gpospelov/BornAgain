@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "OffSpecInstrumentEditor.h"
-#include "GISASBeamEditor.h"
+#include "OffSpecBeamEditor.h"
 #include "GISASDetectorEditor.h"
 #include "EnvironmentEditor.h"
 #include "PolarizationAnalysisEditor.h"
@@ -25,7 +25,7 @@
 OffSpecInstrumentEditor::OffSpecInstrumentEditor(QWidget* parent)
     : SessionItemWidget(parent)
     , m_columnResizer(new ColumnResizer(this))
-    , m_beamEditor(new GISASBeamEditor(m_columnResizer))
+    , m_beamEditor(new OffSpecBeamEditor(m_columnResizer))
     , m_detectorEditor(new GISASDetectorEditor)
     , m_environmentEditor(new EnvironmentEditor(m_columnResizer))
     , m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
@@ -62,9 +62,9 @@ void OffSpecInstrumentEditor::addEditor(QVBoxLayout* layout, QWidget* widget, co
     layout->addWidget(detailsWidget);
 }
 
-GISASInstrumentItem* OffSpecInstrumentEditor::instrumentItem()
+OffSpecInstrumentItem* OffSpecInstrumentEditor::instrumentItem()
 {
-    auto result = dynamic_cast<GISASInstrumentItem*>(currentItem());
+    auto result = dynamic_cast<OffSpecInstrumentItem*>(currentItem());
     Q_ASSERT(result);
     return result;
 }

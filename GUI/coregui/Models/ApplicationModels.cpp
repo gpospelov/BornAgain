@@ -19,6 +19,7 @@
 #include "InstrumentModel.h"
 #include "JobItem.h"
 #include "JobModel.h"
+#include "InstrumentItems.h"
 #include "MaterialModel.h"
 #include "MultiLayer.h"
 #include "RealDataModel.h"

@@ -36,8 +36,6 @@ public:
     bool runTest() =0;
 
 protected:
-    GISASSimulation* gisasSimulation();
-
     std::unique_ptr<Simulation> m_reference_simulation;
     double m_threshold;
 };

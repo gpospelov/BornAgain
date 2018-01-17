@@ -21,6 +21,7 @@
 #include "GUIHelpers.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
+#include "InstrumentItems.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "ModelPath.h"

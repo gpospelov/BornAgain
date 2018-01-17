@@ -25,7 +25,7 @@ class SampleModel;
 class SessionItem;
 class MaterialModel;
 class DocumentModel;
-class GISASSimulation;
+class Simulation;
 class ExternalProperty;
 
 //! Class to build SampleModel and InstrumentModel from domain's ISample
@@ -37,7 +37,7 @@ public:
 
     SessionItem* populateSampleModel(SampleModel* sampleModel,
                                      MaterialModel* materialModel,
-                                     const GISASSimulation& simulation,
+                                     const Simulation& simulation,
                                      const QString& sample_name=QString());
 
     SessionItem* populateSampleModel(SampleModel* sampleModel,
@@ -46,11 +46,11 @@ public:
                                      const QString& sample_name=QString());
 
     SessionItem* populateInstrumentModel(InstrumentModel* p_instrument_model,
-                                         const GISASSimulation& simulation,
+                                         const Simulation& simulation,
                                          const QString& instrument_name=QString());
 
     SessionItem* populateDocumentModel(DocumentModel* p_documentModel,
-                                       const GISASSimulation& simulation);
+                                       const Simulation& simulation);
 
     using INodeVisitor::visit;
 

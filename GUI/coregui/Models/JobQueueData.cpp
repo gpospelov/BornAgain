@@ -19,6 +19,7 @@
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobWorker.h"
+#include "InstrumentItems.h"
 #include <QThread>
 
 namespace {
@@ -42,7 +43,7 @@ void JobQueueData::runJob(JobItem* jobItem)
 
     try {
         auto simulation = DomainSimulationBuilder::createSimulation(jobItem->multiLayerItem(),
-                     jobItem->instrumentItem(), jobItem->getSimulationOptionsItem());
+                     jobItem->instrumentItem(), jobItem->simulationOptionsItem());
         m_simulations[identifier] = simulation.release();
     } catch (const std::exception& ex) {
         QString message("JobQueueData::runJob() -> Error. "
@@ -256,7 +257,7 @@ JobWorker* JobQueueData::getWorker(const QString& identifier)
 
 //! Returns the simulation (if exists) for given identifier.
 
-GISASSimulation* JobQueueData::getSimulation(const QString& identifier)
+Simulation* JobQueueData::getSimulation(const QString& identifier)
 {
     auto it = m_simulations.find(identifier);
     return it != m_simulations.end() ? it.value() : nullptr;

@@ -55,7 +55,7 @@ void PolarizationAnalysisEditor::subscribeToItem()
 
     currentItem()->mapper()->setOnPropertyChange(
         [this](const QString& name) {
-            if (name == GISASInstrumentItem::P_DETECTOR)
+            if (name == Instrument2DItem::P_DETECTOR)
                 updateAnalyserEditor();
         }, this);
 

@@ -19,7 +19,7 @@
 
 class ComponentEditor;
 class DetectorPresenter;
-class GISASInstrumentItem;
+class Instrument2DItem;
 
 //! GISAS detector editor. Provides selector between available detector types
 //! (spherical/rectangular) and stack to show proper editor.
@@ -37,7 +37,7 @@ protected:
     void unsubscribeFromItem();
 
 private:
-    GISASInstrumentItem* instrumentItem();
+    Instrument2DItem* instrumentItem();
     void updateDetectorPresenter();
 
     ComponentEditor* m_detectorTypeEditor;

@@ -56,7 +56,7 @@ TEST_F(TestTranslations, test_BeamDistributionNone)
 {
     SampleModel model;
     SessionItem* instrument = model.insertNewItem(Constants::GISASInstrumentType);
-    SessionItem* beam = instrument->getItem(GISASInstrumentItem::P_BEAM);
+    SessionItem* beam = instrument->getItem(Instrument2DItem::P_BEAM);
 
     SessionItem* wavelength = beam->getItem(BeamItem::P_WAVELENGTH);
 

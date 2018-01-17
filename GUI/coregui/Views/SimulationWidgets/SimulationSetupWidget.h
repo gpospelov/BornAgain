@@ -20,7 +20,6 @@
 
 class QPushButton;
 class MultiLayerItem;
-class GISASInstrumentItem;
 class SimulationDataSelectorWidget;
 class SimulationOptionsWidget;
 class ApplicationModels;

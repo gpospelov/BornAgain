@@ -21,7 +21,7 @@
 class ApplicationModels;
 class QComboBox;
 class MultiLayerItem;
-class GISASInstrumentItem;
+class InstrumentItem;
 class RealDataItem;
 
 //! The SimulationDataSelectorWidget class represents widget to select instrument, sample and
@@ -37,7 +37,7 @@ public:
     void setApplicationModels(ApplicationModels *applicationModels);
 
     const MultiLayerItem *selectedMultiLayerItem() const;
-    const GISASInstrumentItem *selectedInstrumentItem() const;
+    const InstrumentItem *selectedInstrumentItem() const;
     const RealDataItem *selectedRealDataItem() const;
 
     void updateViewElements();

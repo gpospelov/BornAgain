@@ -107,8 +107,7 @@ void JobModelFunctions::cropRealData(JobItem *jobItem) {
     // adjusting real data to the size of region of interest
     IntensityDataItem *intensityItem = realData->intensityDataItem();
 
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*jobItem->instrumentItem());
+    auto instrument = DomainObjectBuilder::buildInstrument(*jobItem->instrumentItem());
     instrument->initDetector();
 
     AxesUnits requested_units

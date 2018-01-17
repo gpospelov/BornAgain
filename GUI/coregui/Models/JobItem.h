@@ -17,7 +17,7 @@
 
 #include "SessionItem.h"
 class IntensityDataItem;
-class GISASSimulation;
+class Simulation;
 class MultiLayerItem;
 class GISASInstrumentItem;
 class SimulationOptionsItem;
@@ -48,16 +48,16 @@ public:
     static const QString T_PARAMETER_TREE;
     static const QString T_SIMULATION_OPTIONS;
     static const QString T_FIT_SUITE;
-    explicit JobItem();
-    virtual ~JobItem();
+
+    JobItem();
 
     QString getIdentifier() const;
-    void setIdentifier(const QString &identifier);
+    void setIdentifier(const QString& identifier);
 
-    IntensityDataItem *intensityDataItem();
+    IntensityDataItem* intensityDataItem();
 
     QString getStatus() const;
-    void setStatus(const QString &status);
+    void setStatus(const QString& status);
 
     bool isIdle() const;
     bool isRunning() const;
@@ -66,45 +66,41 @@ public:
     bool isFailed() const;
     bool isValidForFitting();
 
-    void setBeginTime(const QString &begin_time);
+    void setBeginTime(const QString& begin_time);
 
-    void setEndTime(const QString &end_time);
+    void setEndTime(const QString& end_time);
 
     void setDuration(int duration);
 
     QString getComments() const;
-    void setComments(const QString &comments);
+    void setComments(const QString& comments);
 
     int getProgress() const;
     void setProgress(int progress);
 
-    int getNumberOfThreads() const;
-
-    void setRunPolicy(const QString &run_policy);
-
     bool runImmediately() const;
     bool runInBackground() const;
 
-    MultiLayerItem *multiLayerItem();
+    MultiLayerItem* multiLayerItem();
 
-    GISASInstrumentItem *instrumentItem();
+    GISASInstrumentItem* instrumentItem();
 
-    SimulationOptionsItem *getSimulationOptionsItem();
+    SimulationOptionsItem* simulationOptionsItem();
 
-    void setResults(const GISASSimulation *simulation);
+    void setResults(const Simulation* simulation);
 
-    FitSuiteItem *fitSuiteItem();
-    ParameterContainerItem *parameterContainerItem();
-    const ParameterContainerItem *parameterContainerItem() const;
+    FitSuiteItem* fitSuiteItem();
+    ParameterContainerItem* parameterContainerItem();
+    const ParameterContainerItem* parameterContainerItem() const;
 
-    FitParameterContainerItem *fitParameterContainerItem();
-    RealDataItem *realDataItem();
+    FitParameterContainerItem* fitParameterContainerItem();
+    RealDataItem* realDataItem();
 
     QString presentationType();
 
 private:
     void updateIntensityDataFileName();
-    const SimulationOptionsItem *getSimulationOptionsItem() const;
+    const SimulationOptionsItem* simulationOptionsItem() const;
 };
 
 #endif // JOBITEM_H

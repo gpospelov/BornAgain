@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/DomainObjectBuilder.h
-//! @brief     Defines class DomainObjectBuilder
+//! @brief     Defines DomainObjectBuilder namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,24 +18,22 @@
 #include "WinDllMacros.h"
 #include <memory>
 
-class Instrument;
 class MultiLayer;
 class Layer;
+class Instrument;
 class ParticleLayout;
 class IInterferenceFunction;
-class Beam;
 class SessionItem;
-class GISASInstrumentItem;
+class InstrumentItem;
 
-class BA_CORE_API_ DomainObjectBuilder
+namespace DomainObjectBuilder
 {
-public:
-    std::unique_ptr<MultiLayer> buildMultiLayer(const SessionItem &multilayer_item) const;
-    std::unique_ptr<Layer> buildLayer(const SessionItem &item) const;
-    std::unique_ptr<ParticleLayout> buildParticleLayout(const SessionItem &item) const;
-    std::unique_ptr<IInterferenceFunction>
-    buildInterferenceFunction(const SessionItem &item) const;
-    std::unique_ptr<Instrument> buildInstrument(const GISASInstrumentItem& instrumentItem) const;
+BA_CORE_API_ std::unique_ptr<MultiLayer> buildMultiLayer(const SessionItem& multilayer_item);
+BA_CORE_API_ std::unique_ptr<Layer> buildLayer(const SessionItem& item);
+BA_CORE_API_ std::unique_ptr<ParticleLayout> buildParticleLayout(const SessionItem& item);
+BA_CORE_API_ std::unique_ptr<IInterferenceFunction>
+buildInterferenceFunction(const SessionItem& item);
+BA_CORE_API_ std::unique_ptr<Instrument> buildInstrument(const InstrumentItem& instrumentItem);
 };
 
 #endif // DOMAINOBJECTBUILDER_H

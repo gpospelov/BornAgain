@@ -214,9 +214,9 @@ MultiLayerItem* JobItem::multiLayerItem()
     return dynamic_cast<MultiLayerItem*>(getItem(T_SAMPLE));
 }
 
-GISASInstrumentItem* JobItem::instrumentItem()
+InstrumentItem* JobItem::instrumentItem()
 {
-    return dynamic_cast<GISASInstrumentItem*>(getItem(T_INSTRUMENT));
+    return dynamic_cast<InstrumentItem*>(getItem(T_INSTRUMENT));
 }
 
 void JobItem::setResults(const Simulation* simulation)

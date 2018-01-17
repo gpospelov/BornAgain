@@ -16,10 +16,11 @@
 #define JOBITEM_H
 
 #include "SessionItem.h"
+
 class IntensityDataItem;
 class Simulation;
 class MultiLayerItem;
-class GISASInstrumentItem;
+class InstrumentItem;
 class SimulationOptionsItem;
 class FitSuiteItem;
 class ParameterContainerItem;
@@ -83,7 +84,7 @@ public:
 
     MultiLayerItem* multiLayerItem();
 
-    GISASInstrumentItem* instrumentItem();
+    InstrumentItem* instrumentItem();
 
     SimulationOptionsItem* simulationOptionsItem();
 

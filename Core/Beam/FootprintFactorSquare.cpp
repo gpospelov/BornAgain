@@ -1,5 +1,6 @@
 #include "FootprintFactorSquare.h"
-#include <math.h>
+#include "MathConstants.h"
+#include <algorithm>
 #include <stdexcept>
 
 FootprintFactorSquare::FootprintFactorSquare(double width_ratio) : IFootprintFactor(width_ratio)

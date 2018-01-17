@@ -8,6 +8,7 @@ set(executable_name BornAgain)
 # -----------------------------------------------------------------------------
 include_directories(
     ${CMAKE_SOURCE_DIR}/Wrap
+    ${Boost_INCLUDE_DIRS}
     ${BornAgainGUI_INCLUDE_DIRS}
     ${QtAddOn_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}

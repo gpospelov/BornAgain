@@ -29,7 +29,7 @@ RectangularDetector rectangularDetector(size_t size);
 SphericalDetector sphericalDetector(size_t size);
 std::unique_ptr<Instrument> createInstrument(const IDetector& detector);
 std::unique_ptr<GISASSimulation> createSimulation(const Instrument& instr);
-void test_sim_elements(const IDetector& detector);
+void test_det_elements(const IDetector& detector);
 void test_run_simulation(const IDetector& detector);
 
 // creating formatted strings for output
@@ -71,11 +71,11 @@ std::unique_ptr<Benchmark> DetectorTest::runSingleSizeDetectorTest(size_t size,
     std::unique_ptr<Benchmark> bench(new Benchmark);
 
     bench->test_method("elements_rect",
-                       [size]() { test_sim_elements(rectangularDetector(size)); }, run_n_times);
+                       [size]() { test_det_elements(rectangularDetector(size)); }, run_n_times);
     bench->test_method("run_rect",
                        [size]() { test_run_simulation(rectangularDetector(size)); }, run_n_times);
     bench->test_method("elements_spher",
-                       [size]() { test_sim_elements(sphericalDetector(size)); }, run_n_times);
+                       [size]() { test_det_elements(sphericalDetector(size)); }, run_n_times);
     bench->test_method("run_spher",
                        [size]() { test_run_simulation(sphericalDetector(size)); }, run_n_times);
 
@@ -114,11 +114,10 @@ void DetectorTest::printResult()
 
 namespace
 {
-void test_sim_elements(const IDetector& detector)
+void test_det_elements(const IDetector& detector)
 {
     auto instr = createInstrument(detector);
     instr->initDetector();
-    instr->createSimulationElements();
 }
 
 void test_run_simulation(const IDetector& detector)

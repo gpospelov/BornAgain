@@ -60,9 +60,6 @@ public:
     void maskAll();
 
 #ifndef SWIG
-    //! Create a vector of SimulationElement objects according to the detector and its mask
-    std::vector<SimulationElement> createSimulationElements(const Beam& beam) override;
-
     //! Create a vector of DetectorElement objects according to the detector and its mask
     std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;
 #endif

@@ -34,7 +34,7 @@ public:
 
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the detector
-    std::vector<SimulationElement> createSimulationElements(const Beam& beam) override;
+    std::vector<SimulationElement> createSimulationElements(const Beam& beam);
 
     //! Create a vector of DetectorElement objects according to the detector
     std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;

@@ -101,11 +101,6 @@ public:
     virtual OutputData<double>* createDetectorMap(
             AxesUnits units=AxesUnits::DEFAULT) const;
 
-#ifndef SWIG
-    //! Create a vector of SimulationElement objects according to the beam, detector and its mask
-    std::vector<SimulationElement> createSimulationElements();
-#endif
-
     //! init detector with beam settings
     void initDetector();
 

@@ -24,6 +24,7 @@
 #include "ParameterTranslators.h"
 #include "Instrument.h"
 #include "IDetector2D.h"
+#include "AxesItems.h"
 
 namespace {
 const QString background_group_label = "Type";
@@ -134,8 +135,19 @@ GISASInstrumentItem::GISASInstrumentItem()
 {
 }
 
+const QString OffSpecInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
+
 OffSpecInstrumentItem::OffSpecInstrumentItem()
     : Instrument2DItem(Constants::OffSpecInstrumentType)
 {
+    auto item = addGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
+    item->setToolTip("Incoming alpha range [deg]");
+    item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan");
+    item->getItem(BasicAxisItem::P_MIN)->setToolTip("Starting value [deg]");
+    item->getItem(BasicAxisItem::P_MAX)->setToolTip("Ending value [deg]");
+
+    item->setItemValue(BasicAxisItem::P_MIN, 0.0);
+    item->setItemValue(BasicAxisItem::P_MAX, 10.0);
 }
 

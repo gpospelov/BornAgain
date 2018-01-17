@@ -26,6 +26,8 @@
 #include "SimulationOptionsItem.h"
 #include "OffSpecSimulation.h"
 #include "TransformToDomain.h"
+#include "AxesItems.h"
+#include "Units.h"
 
 //! Creates domain simulation from sample and instrument items.
 std::unique_ptr<Simulation> DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
@@ -64,6 +66,11 @@ std::unique_ptr<Simulation> DomainSimulationBuilder::createSimulation(const Mult
         offspec->setSample(*P_multilayer);
         offspec->setInstrument(*P_instrument);
 
+        auto beamItem = offspecInstrument->beamItem();
+        auto axisItem = dynamic_cast<BasicAxisItem*>(offspecInstrument->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS));
+        offspec->setBeamParameters(beamItem->getWavelength(), *axisItem->createAxis(Units::degree), beamItem->getAzimuthalAngle());
+
+        // TODO Take care about distributions
 //        TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(), gisas.get());
 
         // Simulation options

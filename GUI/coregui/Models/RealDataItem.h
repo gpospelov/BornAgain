@@ -42,7 +42,7 @@ public:
 private:
     void updateIntensityDataFileName();
     void updateToInstrument();
-    const GISASInstrumentItem *m_linkedInstrument;
+    const InstrumentItem *m_linkedInstrument;
 };
 
 #endif // REALDATAITEM_H

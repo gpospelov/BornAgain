@@ -102,8 +102,7 @@ void RealDataItem::setOutputData(OutputData<double> *data)
 
 void RealDataItem::linkToInstrument(const InstrumentItem *instrument, bool make_update)
 {
-    // FIXME TODO adapt for OffSpec instrument
-    m_linkedInstrument = dynamic_cast<const GISASInstrumentItem*>(instrument);
+    m_linkedInstrument = instrument;
     if(make_update)
         updateToInstrument();
 }

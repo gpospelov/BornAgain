@@ -103,6 +103,10 @@ private:
     Eigen::Matrix2cd m_analyzer_operator;    //!< polarization analyzer operator
 #endif
     std::unique_ptr<IPixel> mP_pixel;
+
+    // this unique_ptr is also used as a flag to indicate if this is the specular pixel
+    // TODO: remove this when we have a simulation type that generates intensity as a function
+    //       of depth and inclination angle (it becomes a bool flag then)
     std::unique_ptr<SpecularData> m_specular_data;
 };
 
@@ -111,7 +115,7 @@ private:
 
 class BA_CORE_API_ SpecularData
 {
-    // FIXME: find a better way to carry the specular data in SimulationElement
+    // FIXME: find a better way to carry the specular data in SimulationElement (see TODO above)
     using ScalarVector = std::vector<ScalarRTCoefficients>;
     using MatrixVector = std::vector<MatrixRTCoefficients>;
 public:

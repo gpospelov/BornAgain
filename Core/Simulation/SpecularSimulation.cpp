@@ -148,9 +148,10 @@ OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_typ
     return m_instrument.createDetectorIntensity(m_sim_elements, units_type);
 }
 
-Histogram1D* SpecularSimulation::reflectivity() const
+Histogram1D* SpecularSimulation::detectorIntensityHistogram() const
 {
-    return new Histogram1D(*getDataByAbsValue(0, &ILayerRTCoefficients::getScalarR));
+    std::unique_ptr<OutputData<double>> result(getDetectorIntensity());
+    return new Histogram1D(*result);
 }
 
 Histogram1D* SpecularSimulation::transmissivity() const

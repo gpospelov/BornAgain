@@ -60,9 +60,8 @@ public:
     OutputData<double>* getDetectorIntensity(
             AxesUnits units_type= AxesUnits::DEFAULT) const override;
 
-    //! Returns reflectivity values \f$Reflectivity = |R|^2\f$ in the form of 1D Histogram
-    //! for the upper sample layer.
-    Histogram1D* reflectivity() const;
+    //! Returns detector signal (\f$ \propto |R|^2\f$) in the form of 1D Histogram
+    Histogram1D* detectorIntensityHistogram() const;
 
     //! Returns transmissivity values \f$Transmissivity = |T|^2\f$ in the form of 1D Histogram
     //! for the sample bottom layer.

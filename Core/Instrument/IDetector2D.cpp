@@ -119,20 +119,23 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     return result;
 }
 
-std::vector<Detector2DElement> IDetector2D::createDetectorElements()
+std::vector<Detector2DElement> IDetector2D::createDetectorElements(const Beam& beam)
 {
     std::vector<Detector2DElement> result;
     const Eigen::Matrix2cd& analyzer_operator = detectionProperties().analyzerOperator();
 
     if (!detectorMask()->hasMasks())
         m_detector_mask.initMaskData(*this);
+    size_t spec_index = getIndexOfSpecular(beam);
 
     SimulationArea area(this);
     result.reserve(area.totalSize());
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        result.emplace_back(std::unique_ptr<IPixel>(createPixel(it.detectorIndex())));
-        auto& detector_element = result.back();
-        detector_element.setAnalyzerOperator(analyzer_operator);
+        result.emplace_back(createPixel(it.detectorIndex()), analyzer_operator);
+        if (it.index()==spec_index) {
+            auto& detector_element = result.back();
+            detector_element.setSpecular();
+        }
     }
     return result;
 }

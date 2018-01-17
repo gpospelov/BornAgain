@@ -16,13 +16,23 @@
 #include "IPixel.h"
 
 
-Detector2DElement::Detector2DElement(std::unique_ptr<IPixel> P_pixel)
-    : mP_pixel(std::move(P_pixel))
+Detector2DElement::Detector2DElement(IPixel* p_pixel, Eigen::Matrix2cd analyzer_operator)
+    : m_specular(false)
+    , mP_pixel(p_pixel)
+    , m_analyzer_operator(analyzer_operator)
+{}
+
+void Detector2DElement::setSpecular(bool specular)
 {
-    initAnalyzerOperator();
+    m_specular = specular;
 }
 
-void Detector2DElement::initAnalyzerOperator()
+bool Detector2DElement::isSpecular() const
 {
-    m_analyzer_operator = Eigen::Matrix2cd::Identity();
+    return m_specular;
+}
+
+std::unique_ptr<IPixel> Detector2DElement::pixel() const
+{
+    return std::unique_ptr<IPixel>(mP_pixel->clone());
 }

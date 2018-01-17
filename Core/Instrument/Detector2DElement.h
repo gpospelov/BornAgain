@@ -26,22 +26,21 @@ class IPixel;
 class Detector2DElement
 {
 public:
-    Detector2DElement(std::unique_ptr<IPixel> P_pixel);
+    Detector2DElement(IPixel* p_pixel, Eigen::Matrix2cd analyzer_operator);
 
-#ifndef SWIG
-    //! Sets the polarization analyzer operator (in spin basis along z-axis)
-    void setAnalyzerOperator(const Eigen::Matrix2cd& analyzer_operator) {
-        m_analyzer_operator = analyzer_operator; }
+    void setSpecular(bool specular=true);
+    bool isSpecular() const;
 
     //! Gets the polarization analyzer operator (in spin basis along z-axis)
     Eigen::Matrix2cd getAnalyzerOperator() const { return m_analyzer_operator; }
-#endif
+
+    //! Gets the pixel information
+    std::unique_ptr<IPixel> pixel() const;
+
 private:
-    void initAnalyzerOperator();
-#ifndef SWIG
-    Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
-#endif
+    bool m_specular;
     std::unique_ptr<IPixel> mP_pixel;
+    Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 };
 
 #endif // DETECTOR2DELEMENT_H

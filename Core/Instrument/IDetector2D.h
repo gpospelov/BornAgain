@@ -64,7 +64,7 @@ public:
     std::vector<SimulationElement> createSimulationElements(const Beam& beam) override;
 
     //! Create a vector of DetectorElement objects according to the detector and its mask
-    std::vector<Detector2DElement> createDetectorElements();
+    std::vector<Detector2DElement> createDetectorElements(const Beam& beam);
 #endif
 
     //! Returns region of  interest if exists.

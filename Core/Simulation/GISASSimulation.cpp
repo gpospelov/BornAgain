@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "IBackground.h"
-#include "GISASSimulation.h"
 #include "BornAgainNamespace.h"
 #include "DWBAComputation.h"
+#include "GISASSimulation.h"
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
@@ -112,7 +112,8 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other)
 
 void GISASSimulation::initSimulationElementVector()
 {
-    m_sim_elements = m_instrument.createSimulationElements();
+    auto beam = m_instrument.getBeam();
+    m_sim_elements = generateSimulationElements(beam);
     if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);
 }

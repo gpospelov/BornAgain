@@ -24,6 +24,7 @@
 #include "MultiLayer.h"
 #include "MultiLayerItem.h"
 #include "SimulationOptionsItem.h"
+#include "OffSpecSimulation.h"
 #include "TransformToDomain.h"
 
 //! Creates domain simulation from sample and instrument items.
@@ -55,6 +56,27 @@ std::unique_ptr<Simulation> DomainSimulationBuilder::createSimulation(const Mult
             gisas->setBackground(*P_background);
 
         return std::unique_ptr<Simulation> (gisas.release());
+
+    } else if (auto offspecInstrument = dynamic_cast<const OffSpecInstrumentItem*>(instrumentItem)) {
+        std::unique_ptr<OffSpecSimulation> offspec(new OffSpecSimulation);
+        auto P_multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);
+        auto P_instrument = DomainObjectBuilder::buildInstrument(*offspecInstrument);
+        offspec->setSample(*P_multilayer);
+        offspec->setInstrument(*P_instrument);
+
+//        TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(), gisas.get());
+
+        // Simulation options
+        if (optionsItem)
+            TransformToDomain::setSimulationOptions(offspec.get(), *optionsItem);
+
+        // Background simulation
+        auto P_background = offspecInstrument->backgroundItem()->createBackground();
+        if (P_background)
+            offspec->setBackground(*P_background);
+
+        return std::unique_ptr<Simulation> (offspec.release());
+
     }
 
     throw GUIHelpers::Error("DomainSimulationBuilder::createSimulation() -> Error. Not yet implemented");

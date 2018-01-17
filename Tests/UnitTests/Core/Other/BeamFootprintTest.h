@@ -1,6 +1,6 @@
+#include "Beam.h"
 #include "FootprintFactorGaussian.h"
 #include "FootprintFactorSquare.h"
-#include "MultiLayer.h"
 #include "Units.h"
 #include "google_test.h"
 
@@ -23,7 +23,7 @@ TEST_F(BeamFootprintTest, ErroneousArguments)
     EXPECT_THROW(square_ff.calculate(-90.0 * Units::deg), std::runtime_error);
 }
 
-TEST_F(BeamFootprintTest, CornerCases)
+TEST_F(BeamFootprintTest, CalcForCornerCases)
 {
     FootprintFactorGaussian gaussian_ff(0.0);
     EXPECT_EQ(1.0, gaussian_ff.calculate(0.0));
@@ -44,7 +44,7 @@ TEST_F(BeamFootprintTest, CornerCases)
     EXPECT_EQ(0.0, square_ff2.calculate(90.0 * Units::deg));
 }
 
-TEST_F(BeamFootprintTest, RegularCases)
+TEST_F(BeamFootprintTest, CalcForRegularCases)
 {
     FootprintFactorGaussian gaussian_ff(1.0 / std::sqrt(2.0));
 
@@ -55,4 +55,21 @@ TEST_F(BeamFootprintTest, RegularCases)
 
     EXPECT_EQ(0.0, square_ff.calculate(0.0));
     EXPECT_EQ(0.5, square_ff.calculate(90.0 * Units::deg));
+}
+
+TEST_F(BeamFootprintTest, Clone)
+{
+    FootprintFactorGaussian gaussian_ff(1.0);
+    std::unique_ptr<FootprintFactorGaussian> gaussian_clone(gaussian_ff.clone());
+
+    EXPECT_NE(gaussian_clone.get(), &gaussian_ff);
+    EXPECT_EQ(gaussian_clone->getName(), gaussian_ff.getName());
+    EXPECT_EQ(gaussian_clone->widthRatio(), gaussian_ff.widthRatio());
+
+    FootprintFactorSquare square_ff(1.0);
+    std::unique_ptr<FootprintFactorSquare> square_clone(square_ff.clone());
+
+    EXPECT_NE(square_clone.get(), &square_ff);
+    EXPECT_EQ(square_clone->getName(), square_ff.getName());
+    EXPECT_EQ(square_clone->widthRatio(), square_ff.widthRatio());
 }

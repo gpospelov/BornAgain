@@ -72,6 +72,8 @@ public:
 class BA_CORE_API_ OffSpecInstrumentItem : public Instrument2DItem
 {
 public:
+    static const QString P_ALPHA_AXIS;
+
     OffSpecInstrumentItem();
 };
 

@@ -16,8 +16,11 @@
 #define AXESITEMS_H
 
 #include "SessionItem.h"
+#include <memory>
 
-class BA_CORE_API_  BasicAxisItem : public SessionItem
+class IAxis;
+
+class BA_CORE_API_ BasicAxisItem : public SessionItem
 {
 public:
     static const QString P_IS_VISIBLE;
@@ -26,22 +29,22 @@ public:
     static const QString P_MAX;
     static const QString P_TITLE;
     static const QString P_TITLE_IS_VISIBLE;
-    explicit BasicAxisItem(const QString &type=Constants::BasicAxisType);
 
-//    bool isAxisLabelVisible() const;
+    explicit BasicAxisItem(const QString& type = Constants::BasicAxisType);
+    virtual ~BasicAxisItem();
 
-    virtual ~BasicAxisItem(){}
+    std::unique_ptr<IAxis> createAxis(double scale = 1.0) const;
+
 protected:
     void register_basic_properties();
 };
 
-class BA_CORE_API_  AmplitudeAxisItem : public BasicAxisItem
+class BA_CORE_API_ AmplitudeAxisItem : public BasicAxisItem
 {
 public:
     static const QString P_IS_LOGSCALE;
     static const QString P_LOCK_MIN_MAX;
-    explicit AmplitudeAxisItem();
-    virtual ~AmplitudeAxisItem(){}
+    AmplitudeAxisItem();
 };
 
 #endif // AXESITEMS_H

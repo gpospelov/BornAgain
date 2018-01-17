@@ -35,7 +35,7 @@ OffSpecBeamEditor::OffSpecBeamEditor(ColumnResizer* columnResizer, QWidget* pare
     , m_columnResizer(columnResizer)
     , m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget)),
       m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title)),
-      m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title)),
+      m_inclinationEditor(new ComponentEditor(ComponentEditor::GroupWidget, inclination_title)),
       m_azimuthalEditor(new ComponentEditor(ComponentEditor::InfoWidget, azimuthal_title)),
       m_gridLayout(new QGridLayout)
 {
@@ -68,8 +68,8 @@ void OffSpecBeamEditor::subscribeToItem()
     auto wavelengthItem = beamItem()->getItem(BeamItem::P_WAVELENGTH);
     m_wavelengthEditor->setItem(wavelengthItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 
-    auto inclinationItem = beamItem()->getItem(BeamItem::P_INCLINATION_ANGLE);
-    m_inclinationEditor->setItem(inclinationItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
+    auto inclinationItem = instrumentItem()->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS);
+    m_inclinationEditor->setItem(inclinationItem);
 
     auto azimuthalItem = beamItem()->getItem(BeamItem::P_AZIMUTHAL_ANGLE);
     m_azimuthalEditor->setItem(azimuthalItem->getItem(BeamDistributionItem::P_DISTRIBUTION));

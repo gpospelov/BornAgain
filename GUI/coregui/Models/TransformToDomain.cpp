@@ -179,7 +179,7 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
     }
 }
 
-void TransformToDomain::setSimulationOptions(GISASSimulation* simulation,
+void TransformToDomain::setSimulationOptions(Simulation* simulation,
                                              const SessionItem& item)
 {
     Q_ASSERT(item.modelType() == Constants::SimulationOptionsType);

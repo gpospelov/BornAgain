@@ -32,6 +32,7 @@
 #include "ModelPath.h"
 #include "IntensityDataItem.h"
 #include "FitParameterHelper.h"
+#include "GUIHelpers.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
 #include <random>
@@ -128,7 +129,12 @@ void GUIPerformanceTest::test_real_time()
         GUIObjectBuilder guiBuilder;
         guiBuilder.populateSampleModel(m_models->sampleModel(), m_models->materialModel(), *sample);
 
-        m_models->instrumentModel()->instrumentItem()->detectorItem()->setSize(50, 50);
+        if (auto instrument2DItem = dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem())) {
+            instrument2DItem->detectorItem()->setSize(50, 50);
+        } else {
+            throw GUIHelpers::Error("GUISaveLoadProject::run_job() -> Error. ApplicationModels is "
+                                    "in unexpected state");
+        }
 
         jobItem = m_models->jobModel()->addJob(
                    m_models->sampleModel()->multiLayerItem(),

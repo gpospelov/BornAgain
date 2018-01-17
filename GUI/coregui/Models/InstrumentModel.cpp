@@ -29,8 +29,8 @@ InstrumentModel *InstrumentModel::createCopy(SessionItem *parent)
     return result;
 }
 
-GISASInstrumentItem *InstrumentModel::instrumentItem()
+InstrumentItem* InstrumentModel::instrumentItem()
 {
-    return topItem<GISASInstrumentItem>();
+    return topItem<InstrumentItem>();
 }
 

@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "Simulation2D.h"
+#include "DetectorElement.h"
 #include "DWBAComputation.h"
 #include "IBackground.h"
 #include "SimulationElement.h"
@@ -49,6 +50,29 @@ std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(si
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
     return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, begin,
                                              begin + static_cast<long>(n_elements));
+}
+
+std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Beam& beam)
+{
+    std::vector<SimulationElement> result;
+
+    const double wavelength = beam.getWavelength();
+    const double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
+    const double phi_i = beam.getPhi();
+    const Eigen::Matrix2cd& beam_polarization = beam.getPolarization();
+    auto detector = m_instrument.detector2D();
+    auto detector_elements = detector->createDetectorElements(beam);
+
+    result.reserve(detector_elements.size());
+    for (auto it=detector_elements.begin(); it!=detector_elements.end(); ++it) {
+        result.emplace_back(wavelength, alpha_i, phi_i, it->pixel());
+        auto& sim_element = result.back();
+        sim_element.setPolarization(beam_polarization);
+        sim_element.setAnalyzerOperator(it->getAnalyzerOperator());
+        if (it->isSpecular())
+            sim_element.setSpecular();
+    }
+    return result;
 }
 
 void Simulation2D::normalizeIntensity(size_t index, double beam_intensity)

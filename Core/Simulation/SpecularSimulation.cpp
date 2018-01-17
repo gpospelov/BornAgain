@@ -23,6 +23,11 @@
 #include "SpecularComputation.h"
 #include "SpecularDetector1D.h"
 
+namespace
+{
+SpecularDetector1D* SpecDetector(Instrument& instrument);
+}
+
 SpecularSimulation::SpecularSimulation() : Simulation()
 {
     initialize();
@@ -89,9 +94,16 @@ const IAxis* SpecularSimulation::getAlphaAxis() const
 
 void SpecularSimulation::initSimulationElementVector()
 {
-    m_sim_elements = m_instrument.createSimulationElements();
+    auto beam = m_instrument.getBeam();
+    m_sim_elements = generateSimulationElements(beam);
     if (m_cache.empty())
         m_cache = m_sim_elements;
+}
+
+std::vector<SimulationElement> SpecularSimulation::generateSimulationElements(const Beam& beam)
+{
+    auto p_detector = SpecDetector(m_instrument);
+    return p_detector->createSimulationElements(beam);
 }
 
 std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
@@ -123,9 +135,9 @@ std::unique_ptr<IComputation>
 SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
 {
     assert(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
-    const auto& begin = m_sim_elements.begin() + start;
+    const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
     return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, begin,
-                                                 begin + n_elements);
+                                                 begin + static_cast<long>(n_elements));
 }
 
 OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_type) const
@@ -160,6 +172,36 @@ std::vector<complex_t> SpecularSimulation::getScalarT(size_t i_layer) const
 std::vector<complex_t> SpecularSimulation::getScalarKz(size_t i_layer) const
 {
     return getData(i_layer, &ILayerRTCoefficients::getScalarKz);
+}
+
+void SpecularSimulation::validityCheck(size_t i_layer) const
+{
+    const MultiLayer* current_sample = sample();
+    if (!current_sample)
+        throw std::runtime_error(
+            "Error in SpecularSimulation::validityCheck: no sample found in the simulation.");
+    if (i_layer >= current_sample->numberOfLayers())
+        throw std::runtime_error("Error in SpecularSimulation::validityCheck: passed layer number "
+                                 "exceeds the number of layers in the sample.");
+
+    const size_t data_size = m_sim_elements.size();
+    if (data_size != getAlphaAxis()->size())
+        throw std::runtime_error("Error in SpecularSimulation::validityCheck: length of simulation "
+                                 "element vector is not equal to the length of detector axis");
+
+    for (size_t i = 0; i < data_size; ++i) {
+        const SpecularData* specular_data = m_sim_elements[i].specularData();
+        if (!specular_data || !specular_data->isInited()) {
+            std::ostringstream message;
+            message << "Error in SpecularSimulation::validityCheck: simulation element " << i << "does not contain specular info";
+            throw std::runtime_error(message.str());
+        }
+    }
+}
+
+void SpecularSimulation::initialize()
+{
+    setName(BornAgain::SpecularSimulationType);
 }
 
 void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
@@ -198,32 +240,22 @@ void SpecularSimulation::moveDataFromCache()
     }
 }
 
-void SpecularSimulation::validityCheck(size_t i_layer) const
+double SpecularSimulation::alpha_i(size_t index) const
 {
-    const MultiLayer* current_sample = sample();
-    if (!current_sample)
-        throw std::runtime_error(
-            "Error in SpecularSimulation::validityCheck: no sample found in the simulation.");
-    if (i_layer >= current_sample->numberOfLayers())
-        throw std::runtime_error("Error in SpecularSimulation::validityCheck: passed layer number "
-                                 "exceeds the number of layers in the sample.");
-
-    const size_t data_size = m_sim_elements.size();
-    if (data_size != getAlphaAxis()->size())
-        throw std::runtime_error("Error in SpecularSimulation::validityCheck: length of simulation "
-                                 "element vector is not equal to the length of detector axis");
-
-    for (size_t i = 0; i < data_size; ++i) {
-        const SpecularData* specular_data = m_sim_elements[i].specularData();
-        if (!specular_data || !specular_data->isInited()) {
-            std::ostringstream message;
-            message << "Error in SpecularSimulation::validityCheck: simulation element " << i << "does not contain specular info";
-            throw std::runtime_error(message.str());
-        }
-    }
+    const IAxis* p_axis = getAlphaAxis();
+    auto p_detector = m_instrument.getDetector();
+    const size_t axis_index = p_detector->axisBinIndex(index, BornAgain::X_AXIS_INDEX);
+    return p_axis->getBin(axis_index).getMidPoint();
 }
 
-void SpecularSimulation::initialize()
+namespace
 {
-    setName(BornAgain::SpecularSimulationType);
+SpecularDetector1D* SpecDetector(Instrument& instrument)
+{
+    SpecularDetector1D* detector = dynamic_cast<SpecularDetector1D*>(instrument.getDetector());
+    if (!detector)
+        throw std::runtime_error(
+            "Error in SpecularSimulation: wrong detector type");
+    return detector;
+}
 }

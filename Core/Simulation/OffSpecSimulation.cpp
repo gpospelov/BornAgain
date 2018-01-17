@@ -82,17 +82,14 @@ void OffSpecSimulation::initSimulationElementVector()
     Beam beam = m_instrument.getBeam();
     double wavelength = beam.getWavelength();
     double phi_i = beam.getPhi();
-    checkInitialization();
 
-    for (size_t iAlpha = 0; iAlpha < mP_alpha_i_axis->size(); ++iAlpha) {
+    for (size_t i = 0; i < mP_alpha_i_axis->size(); ++i) {
         // Incoming angle by convention defined as positive:
-        double alpha_i = mP_alpha_i_axis->getBin(iAlpha).getMidPoint();
+        double alpha_i = mP_alpha_i_axis->getBin(i).getMidPoint();
         beam.setCentralK(wavelength, alpha_i, phi_i);
-        m_instrument.setBeam(beam);
-        std::vector<SimulationElement> sim_elements_alpha_i =
-            m_instrument.createSimulationElements();
-        m_sim_elements.insert(m_sim_elements.end(), sim_elements_alpha_i.begin(),
-                              sim_elements_alpha_i.end());
+        auto sim_elements_i = generateSimulationElements(beam);
+        m_sim_elements.insert(m_sim_elements.end(), std::make_move_iterator(sim_elements_i.begin()),
+                              std::make_move_iterator(sim_elements_i.end()));
     }
     if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);

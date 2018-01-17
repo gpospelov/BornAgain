@@ -14,6 +14,7 @@
 
 #include "SpecularSimulation.h"
 #include "IBackground.h"
+#include "IFootprintFactor.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "SpecularMatrix.h"
@@ -206,7 +207,10 @@ void SpecularSimulation::initialize()
 
 void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
 {
-    m_sim_elements[index].setIntensity(m_sim_elements[index].getIntensity() * beam_intensity);
+    SimulationElement& element = m_sim_elements[index];
+    const double alpha_i = -element.getAlphaI();
+    const double footprint_coef = m_instrument.getBeam().footprintFactor().calculate(alpha_i);
+    element.setIntensity(element.getIntensity() * beam_intensity * footprint_coef);
 }
 
 void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)

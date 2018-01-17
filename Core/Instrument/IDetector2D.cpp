@@ -15,7 +15,7 @@
 #include "IDetector2D.h"
 #include "Beam.h"
 #include "BornAgainNamespace.h"
-#include "Detector2DElement.h"
+#include "DetectorElement.h"
 #include "DetectorFunctions.h"
 #include "InfinitePlane.h"
 #include "RegionOfInterest.h"
@@ -119,9 +119,9 @@ std::vector<SimulationElement> IDetector2D::createSimulationElements(const Beam 
     return result;
 }
 
-std::vector<Detector2DElement> IDetector2D::createDetectorElements(const Beam& beam)
+std::vector<DetectorElement> IDetector2D::createDetectorElements(const Beam& beam)
 {
-    std::vector<Detector2DElement> result;
+    std::vector<DetectorElement> result;
     const Eigen::Matrix2cd& analyzer_operator = detectionProperties().analyzerOperator();
 
     if (!detectorMask()->hasMasks())

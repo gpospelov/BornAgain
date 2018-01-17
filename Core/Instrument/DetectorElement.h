@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/Detector2DElement.h
-//! @brief     Defines class Detector2DElement.
+//! @file      Core/Instrument/DetectorElement.h
+//! @brief     Defines class DetectorElement.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DETECTOR2DELEMENT_H
-#define DETECTOR2DELEMENT_H
+#ifndef DETECTORELEMENT_H
+#define DETECTORELEMENT_H
 
 #include "EigenCore.h"
 #include <memory>
@@ -23,10 +23,10 @@ class IPixel;
 //! Data stucture containing input elements of detector cells.
 //! @ingroup simulation
 
-class Detector2DElement
+class DetectorElement
 {
 public:
-    Detector2DElement(IPixel* p_pixel, Eigen::Matrix2cd analyzer_operator);
+    DetectorElement(IPixel* p_pixel, Eigen::Matrix2cd analyzer_operator);
 
     void setSpecular(bool specular=true);
     bool isSpecular() const;
@@ -43,4 +43,4 @@ private:
     Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 };
 
-#endif // DETECTOR2DELEMENT_H
+#endif // DETECTORELEMENT_H

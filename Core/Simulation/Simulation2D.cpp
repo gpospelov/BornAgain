@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Simulation2D.h"
-#include "Detector2DElement.h"
+#include "DetectorElement.h"
 #include "DWBAComputation.h"
 #include "IBackground.h"
 #include "SimulationElement.h"

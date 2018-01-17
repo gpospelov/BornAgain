@@ -139,4 +139,8 @@ SimulationFactory::SimulationFactory()
     registerItem("SpecularWithGaussianBeam", StandardSimulations::SpecularWithGaussianBeam,
                  "The same as BasicSpecular, but implies beam size finiteness (beam is of the same "
                  "size as the sample). The beam is gaussian in shape.");
+
+    registerItem("SpecularWithSquareBeam", StandardSimulations::SpecularWithSquareBeam,
+                 "The same as BasicSpecular, but implies beam size finiteness (beam is of the same "
+                 "size as the sample). The beam is square in shape.");
 }

@@ -64,6 +64,7 @@ set(test_cases
     HomogeneousTiNiSampleWithAbsorption
     RoughnessInSpecular
     GaussianBeamFootprint
+    SquareBeamFootprint
     )
 
 add_executable(CoreStandardTest main.cpp CoreStandardTest.h CoreStandardTest.cpp)

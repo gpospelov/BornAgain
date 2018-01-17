@@ -396,6 +396,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "SpecularWithGaussianBeam",
         "HomogeneousMultilayerBuilder",
         1e-10);
+
+    add("SquareBeamFootprint",
+        "Similar to HomogeneousTiNiSample, but with finite-sized square beam",
+        "SpecularWithSquareBeam",
+        "HomogeneousMultilayerBuilder",
+        1e-10);
 }
 
 //! Adds test description to the catalogue.

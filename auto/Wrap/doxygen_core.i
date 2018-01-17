@@ -355,7 +355,7 @@ Returns result of rotation around the axis specified by another vector.
 // File: classBeam.xml
 %feature("docstring") Beam "
 
-Ideal collimated beam defined by wavelength, direction and intensity.
+Beam defined by wavelength, direction and intensity.
 
 C++ includes: Beam.h
 ";
@@ -389,6 +389,21 @@ Returns the beam intensity in neutrons/sec.
 Sets the beam intensity in neutrons/sec. 
 ";
 
+%feature("docstring")  Beam::footprintFactor "const IFootprintFactor & Beam::footprintFactor() const
+
+Returns footprint factor. 
+";
+
+%feature("docstring")  Beam::setFootprintFactor "void Beam::setFootprintFactor(const IFootprintFactor *shape_factor)
+
+Sets footprint factor to the beam. 
+";
+
+%feature("docstring")  Beam::setWidthRatio "void Beam::setWidthRatio(double width_ratio)
+
+Sets beam to sample width ratio in footprint factor. 
+";
+
 %feature("docstring")  Beam::setPolarization "void Beam::setPolarization(const kvector_t bloch_vector)
 
 Sets the polarization density matrix according to the given Bloch vector. 
@@ -411,7 +426,7 @@ Returns the polarization density matrix (in spin basis along z-axis)
 %feature("docstring")  Beam::getPhi "double Beam::getPhi() const
 ";
 
-%feature("docstring")  Beam::accept "void Beam::accept(INodeVisitor *visitor) const final
+%feature("docstring")  Beam::accept "void Beam::accept(INodeVisitor *visitor) const override
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -610,21 +625,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -1222,6 +1237,34 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
+// File: classDetectorElement.xml
+%feature("docstring") DetectorElement "
+
+Data stucture containing input elements of detector cells.
+
+C++ includes: DetectorElement.h
+";
+
+%feature("docstring")  DetectorElement::DetectorElement "DetectorElement::DetectorElement(IPixel *p_pixel, Eigen::Matrix2cd analyzer_operator)
+";
+
+%feature("docstring")  DetectorElement::setSpecular "void DetectorElement::setSpecular(bool specular=true)
+";
+
+%feature("docstring")  DetectorElement::isSpecular "bool DetectorElement::isSpecular() const
+";
+
+%feature("docstring")  DetectorElement::getAnalyzerOperator "Eigen::Matrix2cd DetectorElement::getAnalyzerOperator() const
+
+Gets the polarization analyzer operator (in spin basis along z-axis) 
+";
+
+%feature("docstring")  DetectorElement::pixel "std::unique_ptr< IPixel > DetectorElement::pixel() const
+
+Gets the pixel information. 
+";
+
+
 // File: classDetectorMask.xml
 %feature("docstring") DetectorMask "
 
@@ -1694,9 +1737,6 @@ C++ includes: DWBAComputation.h
 %feature("docstring")  DWBAComputation::~DWBAComputation "DWBAComputation::~DWBAComputation()
 ";
 
-%feature("docstring")  DWBAComputation::run "void DWBAComputation::run()
-";
-
 
 // File: classEllipse.xml
 %feature("docstring") Ellipse "
@@ -1760,29 +1800,6 @@ Returns true if area defined by two bins is inside or on border of ellipse; more
 %feature("docstring") Exceptions::ExistingClassRegistrationException "";
 
 %feature("docstring")  Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException "Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string &message)
-";
-
-
-// File: classExportToPython.xml
-%feature("docstring") ExportToPython "
-
-Write a Python script that allows to run the current simulation.
-
-C++ includes: ExportToPython.h
-";
-
-%feature("docstring")  ExportToPython::ExportToPython "ExportToPython::ExportToPython()
-";
-
-%feature("docstring")  ExportToPython::~ExportToPython "ExportToPython::~ExportToPython()
-";
-
-%feature("docstring")  ExportToPython::generateSampleCode "std::string ExportToPython::generateSampleCode(const MultiLayer &multilayer)
-";
-
-%feature("docstring")  ExportToPython::generateSimulationCode "std::string ExportToPython::generateSimulationCode(const GISASSimulation &simulation, EMainType mainType)
-
-Returns a Python script that sets up a simulation and runs it if invoked as main program. 
 ";
 
 
@@ -2768,6 +2785,56 @@ find bin index which is best match for given value
 %feature("docstring")  FixedBinAxis::createClippedAxis "FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
 
 Creates a new clipped axis. 
+";
+
+
+// File: classFootprintFactorGaussian.xml
+%feature("docstring") FootprintFactorGaussian "
+
+Calculates footprint coefficient for a gaussian beam  Beam width is interpreted as the full width on the level of  \\\\[ \\\\exp{-1/2} \\\\] from the peak intensity.
+
+C++ includes: FootprintFactorGaussian.h
+";
+
+%feature("docstring")  FootprintFactorGaussian::FootprintFactorGaussian "FootprintFactorGaussian::FootprintFactorGaussian(double width_ratio)
+";
+
+%feature("docstring")  FootprintFactorGaussian::accept "void FootprintFactorGaussian::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FootprintFactorGaussian::clone "FootprintFactorGaussian * FootprintFactorGaussian::clone() const override
+";
+
+%feature("docstring")  FootprintFactorGaussian::calculate "double FootprintFactorGaussian::calculate(double alpha) const override
+
+Calculate footprint correction coefficient from the beam incident angle  alpha. 
+";
+
+
+// File: classFootprintFactorSquare.xml
+%feature("docstring") FootprintFactorSquare "
+
+Calculates footprint coefficient for a square beam
+
+C++ includes: FootprintFactorSquare.h
+";
+
+%feature("docstring")  FootprintFactorSquare::FootprintFactorSquare "FootprintFactorSquare::FootprintFactorSquare(double width_ratio)
+";
+
+%feature("docstring")  FootprintFactorSquare::accept "void FootprintFactorSquare::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FootprintFactorSquare::clone "FootprintFactorSquare * FootprintFactorSquare::clone() const override
+";
+
+%feature("docstring")  FootprintFactorSquare::calculate "double FootprintFactorSquare::calculate(double alpha) const override
+
+Calculate footprint correction coefficient from the beam incident angle  alpha. 
 ";
 
 
@@ -5550,26 +5617,6 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
-// File: classGaussianBeamShape.xml
-%feature("docstring") GaussianBeamShape "
-
-Defines spatial characteristics of a Gaussian beam
-
-C++ includes: GaussianBeamShape.h
-";
-
-%feature("docstring")  GaussianBeamShape::GaussianBeamShape "GaussianBeamShape::GaussianBeamShape(double width)
-";
-
-%feature("docstring")  GaussianBeamShape::~GaussianBeamShape "GaussianBeamShape::~GaussianBeamShape()
-";
-
-%feature("docstring")  GaussianBeamShape::calculateFootprintFactor "double GaussianBeamShape::calculateFootprintFactor(const MultiLayer &sample, double alpha) const override
-
-Calculate footprint correction coefficient from  sample dimensions and the beam incident angle  alpha. 
-";
-
-
 // File: classGISASSimulation.xml
 %feature("docstring") GISASSimulation "
 
@@ -5626,32 +5673,6 @@ Sets beam parameters from here (forwarded to  Instrument)
 %feature("docstring")  GISASSimulation::setDetector "void GISASSimulation::setDetector(const IDetector2D &detector)
 
 Sets the detector (axes can be overwritten later) 
-";
-
-%feature("docstring")  GISASSimulation::setDetectorParameters "void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
-
-Sets spherical detector parameters using angle ranges
-
-Parameters:
------------
-
-n_phi: 
-number of phi-axis bins
-
-phi_min: 
-low edge of first phi-bin
-
-phi_max: 
-upper edge of last phi-bin
-
-n_alpha: 
-number of alpha-axis bins
-
-alpha_min: 
-low edge of first alpha-bin
-
-alpha_max: 
-upper edge of last alpha-bin 
 ";
 
 %feature("docstring")  GISASSimulation::removeMasks "void GISASSimulation::removeMasks()
@@ -6209,23 +6230,6 @@ C++ includes: IBackground.h
 ";
 
 
-// File: classIBeamShape.xml
-%feature("docstring") IBeamShape "
-
-Defines abstract beam form-factor (spatial characteristics of the beam)
-
-C++ includes: IBeamShape.h
-";
-
-%feature("docstring")  IBeamShape::~IBeamShape "IBeamShape::~IBeamShape()
-";
-
-%feature("docstring")  IBeamShape::calculateFootprintFactor "virtual double IBeamShape::calculateFootprintFactor(const MultiLayer &sample, double alpha) const =0
-
-Calculate footprint correction coefficient from  sample dimensions and the beam incident angle  alpha. 
-";
-
-
 // File: classIChiSquaredModule.xml
 %feature("docstring") IChiSquaredModule "
 
@@ -6523,9 +6527,9 @@ Returns a pointer to detector resolution object.
 Returns empty detector map in given axes units. 
 ";
 
-%feature("docstring")  IDetector::createSimulationElements "virtual std::vector<SimulationElement> IDetector::createSimulationElements(const Beam &beam)=0
+%feature("docstring")  IDetector::createDetectorElements "virtual std::vector<DetectorElement> IDetector::createDetectorElements(const Beam &beam)=0
 
-Create a vector of  SimulationElement objects according to the detector and its mask. 
+Create a vector of  DetectorElement objects according to the detector and its mask. 
 ";
 
 %feature("docstring")  IDetector::regionOfInterest "virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
@@ -6630,9 +6634,9 @@ The value of mask
 Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
 ";
 
-%feature("docstring")  IDetector2D::createSimulationElements "std::vector< SimulationElement > IDetector2D::createSimulationElements(const Beam &beam) override
+%feature("docstring")  IDetector2D::createDetectorElements "std::vector< DetectorElement > IDetector2D::createDetectorElements(const Beam &beam) override
 
-Create a vector of  SimulationElement objects according to the detector and its mask. 
+Create a vector of  DetectorElement objects according to the detector and its mask. 
 ";
 
 %feature("docstring")  IDetector2D::regionOfInterest "const RegionOfInterest * IDetector2D::regionOfInterest() const override
@@ -6840,6 +6844,38 @@ C++ includes: FitSuiteFunctions.h
 ";
 
 %feature("docstring")  IFitSuiteFunction::getNCalls "virtual size_t IFitSuiteFunction::getNCalls() const
+";
+
+
+// File: classIFootprintFactor.xml
+%feature("docstring") IFootprintFactor "
+
+Defines the base for classes to calculate beam footprint factor
+
+C++ includes: IFootprintFactor.h
+";
+
+%feature("docstring")  IFootprintFactor::IFootprintFactor "IFootprintFactor::IFootprintFactor()=delete
+";
+
+%feature("docstring")  IFootprintFactor::IFootprintFactor "IFootprintFactor::IFootprintFactor(double width_ratio)
+";
+
+%feature("docstring")  IFootprintFactor::~IFootprintFactor "IFootprintFactor::~IFootprintFactor()
+";
+
+%feature("docstring")  IFootprintFactor::clone "virtual IFootprintFactor* IFootprintFactor::clone() const =0
+";
+
+%feature("docstring")  IFootprintFactor::setWidthRatio "void IFootprintFactor::setWidthRatio(double width_ratio)
+";
+
+%feature("docstring")  IFootprintFactor::widthRatio "double IFootprintFactor::widthRatio() const
+";
+
+%feature("docstring")  IFootprintFactor::calculate "virtual double IFootprintFactor::calculate(double alpha) const =0
+
+Calculate footprint correction coefficient from the beam incident angle  alpha. 
 ";
 
 
@@ -7932,6 +7968,12 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FitSuiteObjects *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FootprintFactorGaussian *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FootprintFactorSquare *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorAnisoPyramid *)
 ";
 
@@ -8220,6 +8262,9 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const RotationZ *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const SpecularSimulation *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const SphericalDetector *)
 ";
 
@@ -8352,11 +8397,6 @@ Returns histogram representing intensity map in requested axes units.
 %feature("docstring")  Instrument::createDetectorMap "OutputData< double > * Instrument::createDetectorMap(AxesUnits units=AxesUnits::DEFAULT) const
 
 Returns empty detector map in given axes units. 
-";
-
-%feature("docstring")  Instrument::createSimulationElements "std::vector< SimulationElement > Instrument::createSimulationElements()
-
-Create a vector of  SimulationElement objects according to the beam, detector and its mask. 
 ";
 
 %feature("docstring")  Instrument::initDetector "void Instrument::initDetector()
@@ -10600,16 +10640,6 @@ Returns layer material.
 Changes a layer's material. 
 ";
 
-%feature("docstring")  MultiLayer::setScale "void MultiLayer::setScale(double scale)
-
-Set the characteristic dimension of the multilayer. 
-";
-
-%feature("docstring")  MultiLayer::scale "double MultiLayer::scale() const
-
-Get the characteristic dimension of the multilayer. 
-";
-
 %feature("docstring")  MultiLayer::clone "MultiLayer * MultiLayer::clone() const final override
 
 Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
@@ -10836,11 +10866,6 @@ Returns clone of the detector intensity map in the form of 2D histogram.
 %feature("docstring")  OffSpecSimulation::setBeamParameters "void OffSpecSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, double phi_i)
 
 Sets beam parameters from here (forwarded to  Instrument) 
-";
-
-%feature("docstring")  OffSpecSimulation::setDetectorParameters "void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
-
-Sets detector parameters using angle ranges. 
 ";
 
 
@@ -13174,6 +13199,24 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
+// File: classSampleToPython.xml
+%feature("docstring") SampleToPython "
+
+Generates Python code snippet from domain (C++) objects representing sample construction.
+
+C++ includes: SampleToPython.h
+";
+
+%feature("docstring")  SampleToPython::SampleToPython "SampleToPython::SampleToPython()
+";
+
+%feature("docstring")  SampleToPython::~SampleToPython "SampleToPython::~SampleToPython()
+";
+
+%feature("docstring")  SampleToPython::generateSampleCode "std::string SampleToPython::generateSampleCode(const MultiLayer &multilayer)
+";
+
+
 // File: classScalarFresnelMap.xml
 %feature("docstring") ScalarFresnelMap "
 
@@ -13412,6 +13455,56 @@ Initializes a progress monitor that prints to stdout.
 %feature("docstring")  Simulation::getChildren "std::vector< const INode * > Simulation::getChildren() const
 
 Returns a vector of children (const). 
+";
+
+
+// File: classSimulation2D.xml
+%feature("docstring") Simulation2D "
+
+Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+
+C++ includes: Simulation2D.h
+";
+
+%feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D()=default
+";
+
+%feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D(const MultiLayer &p_sample)
+";
+
+%feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D(const std::shared_ptr< IMultiLayerBuilder > p_sample_builder)
+";
+
+%feature("docstring")  Simulation2D::~Simulation2D "virtual Simulation2D::~Simulation2D()=default
+";
+
+%feature("docstring")  Simulation2D::clone "Simulation2D* Simulation2D::clone() const override=0
+";
+
+%feature("docstring")  Simulation2D::setDetectorParameters "void Simulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
+
+Sets spherical detector parameters using angle ranges
+
+Parameters:
+-----------
+
+n_phi: 
+number of phi-axis bins
+
+phi_min: 
+low edge of first phi-bin
+
+phi_max: 
+upper edge of last phi-bin
+
+n_alpha: 
+number of alpha-axis bins
+
+alpha_min: 
+low edge of first alpha-bin
+
+alpha_max: 
+upper edge of last alpha-bin 
 ";
 
 
@@ -13689,6 +13782,20 @@ returns true if given iterator index correspond to masked detector channel
 ";
 
 
+// File: classSimulationToPython.xml
+%feature("docstring") SimulationToPython "
+
+Write a Python script that allows to run the current simulation.
+
+C++ includes: SimulationToPython.h
+";
+
+%feature("docstring")  SimulationToPython::generateSimulationCode "std::string SimulationToPython::generateSimulationCode(const Simulation &simulation, EMainType mainType)
+
+Returns a Python script that sets up a simulation and runs it if invoked as main program. 
+";
+
+
 // File: classSizeDistributionDAModelBuilder.xml
 %feature("docstring") SizeDistributionDAModelBuilder "
 
@@ -13807,9 +13914,6 @@ C++ includes: SpecularComputation.h
 %feature("docstring")  SpecularComputation::~SpecularComputation "SpecularComputation::~SpecularComputation()
 ";
 
-%feature("docstring")  SpecularComputation::run "void SpecularComputation::run()
-";
-
 
 // File: classSpecularComputationTerm.xml
 %feature("docstring") SpecularComputationTerm "
@@ -13845,6 +13949,9 @@ C++ includes: SimulationElement.h
 %feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData(ScalarVector coefficients)
 ";
 
+%feature("docstring")  SpecularData::clone "SpecularData * SpecularData::clone()
+";
+
 %feature("docstring")  SpecularData::isInited "bool SpecularData::isInited() const
 ";
 
@@ -13876,9 +13983,14 @@ Calls the  INodeVisitor's visit method.
 Returns detector masks container. 
 ";
 
-%feature("docstring")  SpecularDetector1D::createSimulationElements "std::vector< SimulationElement > SpecularDetector1D::createSimulationElements(const Beam &beam) override
+%feature("docstring")  SpecularDetector1D::createSimulationElements "std::vector< SimulationElement > SpecularDetector1D::createSimulationElements(const Beam &beam)
 
-Create a vector of  SimulationElement objects according to the detector and its mask. 
+Create a vector of  SimulationElement objects according to the detector. 
+";
+
+%feature("docstring")  SpecularDetector1D::createDetectorElements "std::vector< DetectorElement > SpecularDetector1D::createDetectorElements(const Beam &beam) override
+
+Create a vector of  DetectorElement objects according to the detector. 
 ";
 
 %feature("docstring")  SpecularDetector1D::regionOfInterest "const RegionOfInterest* SpecularDetector1D::regionOfInterest() const override
@@ -13956,12 +14068,12 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  SpecularSimulation::numberOfSimulationElements "size_t SpecularSimulation::numberOfSimulationElements() const override
 ";
 
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, double phi_i=0.0)
+%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, const IFootprintFactor *beam_shape=nullptr)
 
 Sets beam parameters with alpha_i of the beam defined in the range. 
 ";
 
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, double phi_i=0.0)
+%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, const IFootprintFactor *beam_shape=nullptr)
 ";
 
 %feature("docstring")  SpecularSimulation::getAlphaAxis "const IAxis * SpecularSimulation::getAlphaAxis() const
@@ -13974,14 +14086,9 @@ Returns a pointer to incident angle axis.
 Returns detector count values in the form of  OutputData<double>. Detector counts are proportional to  $Reflectivity = |R|^2$ from the upper layer. 
 ";
 
-%feature("docstring")  SpecularSimulation::reflectivity "Histogram1D * SpecularSimulation::reflectivity() const
+%feature("docstring")  SpecularSimulation::detectorIntensityHistogram "Histogram1D * SpecularSimulation::detectorIntensityHistogram() const
 
-Returns reflectivity values  $Reflectivity = |R|^2$ in the form of 1D Histogram for the upper sample layer. 
-";
-
-%feature("docstring")  SpecularSimulation::transmissivity "Histogram1D * SpecularSimulation::transmissivity() const
-
-Returns transmissivity values  $Transmissivity = |T|^2$ in the form of 1D Histogram for the sample bottom layer. 
+Returns detector signal (  $ \\\\propto |R|^2$) in the form of 1D Histogram. 
 ";
 
 %feature("docstring")  SpecularSimulation::getScalarR "std::vector< complex_t > SpecularSimulation::getScalarR(size_t i_layer) const
@@ -14099,26 +14206,6 @@ return default axes units
 ";
 
 %feature("docstring")  SphericalPixel::getSolidAngle "double SphericalPixel::getSolidAngle() const override
-";
-
-
-// File: classSquareBeamShape.xml
-%feature("docstring") SquareBeamShape "
-
-Defines spatial characteristics of a square beam
-
-C++ includes: SquareBeamShape.h
-";
-
-%feature("docstring")  SquareBeamShape::SquareBeamShape "SquareBeamShape::SquareBeamShape(double width)
-";
-
-%feature("docstring")  SquareBeamShape::~SquareBeamShape "SquareBeamShape::~SquareBeamShape()
-";
-
-%feature("docstring")  SquareBeamShape::calculateFootprintFactor "double SquareBeamShape::calculateFootprintFactor(const MultiLayer &sample, double alpha) const override
-
-Calculate footprint correction coefficient from  sample dimensions and the beam incident angle  alpha. 
 ";
 
 
@@ -14745,85 +14832,88 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D161.xml
+// File: namespace_0D105.xml
 
 
-// File: namespace_0D202.xml
+// File: namespace_0D173.xml
 
 
-// File: namespace_0D220.xml
+// File: namespace_0D214.xml
 
 
 // File: namespace_0D23.xml
 
 
-// File: namespace_0D267.xml
+// File: namespace_0D232.xml
 
 
 // File: namespace_0D275.xml
 
 
-// File: namespace_0D298.xml
-
-
-// File: namespace_0D302.xml
+// File: namespace_0D283.xml
 
 
 // File: namespace_0D304.xml
 
 
-// File: namespace_0D306.xml
+// File: namespace_0D308.xml
 
 
-// File: namespace_0D314.xml
+// File: namespace_0D310.xml
 
 
-// File: namespace_0D329.xml
+// File: namespace_0D312.xml
 
 
-// File: namespace_0D337.xml
+// File: namespace_0D320.xml
+
+
+// File: namespace_0D335.xml
 
 
 // File: namespace_0D343.xml
 
 
-// File: namespace_0D346.xml
+// File: namespace_0D349.xml
 
 
-// File: namespace_0D348.xml
+// File: namespace_0D352.xml
 
 
-// File: namespace_0D369.xml
+// File: namespace_0D354.xml
 
 
-// File: namespace_0D378.xml
+// File: namespace_0D375.xml
 
 
-// File: namespace_0D411.xml
+// File: namespace_0D384.xml
 
 
-// File: namespace_0D418.xml
+// File: namespace_0D417.xml
 
 
-// File: namespace_0D456.xml
+// File: namespace_0D424.xml
 
 
-// File: namespace_0D461.xml
+// File: namespace_0D462.xml
 
 
-// File: namespace_0D529.xml
+// File: namespace_0D466.xml
 
 
-// File: namespace_0D551.xml
+// File: namespace_0D470.xml
 
 
-// File: namespace_0D73.xml
+// File: namespace_0D536.xml
 
 
-// File: namespace_0D88.xml
+// File: namespace_0D558.xml
 
 
-// File: namespace_0D91.xml
+// File: namespace_0D81.xml
+
+
+// File: namespace_0D96.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -14954,7 +15044,18 @@ Translate detector axes units enum into string.
 
 
 // File: namespaceExceptions.xml
-%feature("docstring")  Exceptions::LogExceptionMessage "void Exceptions::LogExceptionMessage(const std::string &message)
+%feature("docstring")  Exceptions::LogExceptionMessage "void Exceptions::LogExceptionMessage(const std::string &)
+";
+
+
+// File: namespaceExportToPython.xml
+%feature("docstring")  ExportToPython::generateSampleCode "std::string ExportToPython::generateSampleCode(const MultiLayer &multilayer)
+";
+
+%feature("docstring")  ExportToPython::generateSimulationCode "std::string ExportToPython::generateSimulationCode(const Simulation &simulation)
+";
+
+%feature("docstring")  ExportToPython::generatePyExportTest "std::string ExportToPython::generatePyExportTest(const Simulation &simulation)
 ";
 
 
@@ -15400,20 +15501,6 @@ Prints  ParameterDistribution. distVarName is a string representing  IDistributi
 ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm)) 
 ";
 
-%feature("docstring")  PythonFormatting::generateSampleCode "std::string PythonFormatting::generateSampleCode(const MultiLayer &multilayer)
-";
-
-%feature("docstring")  PythonFormatting::generateSimulationCode "std::string PythonFormatting::generateSimulationCode(const GISASSimulation &simulation)
-";
-
-%feature("docstring")  PythonFormatting::generatePyExportTest "std::string PythonFormatting::generatePyExportTest(const GISASSimulation &simulation)
-";
-
-
-// File: namespaceSimElementUtils.xml
-%feature("docstring")  SimElementUtils::addElementsWithWeight "void SimElementUtils::addElementsWithWeight(const std::vector< SimElement > &from, std::vector< SimElement > &to, double weight)
-";
-
 
 // File: namespaceStandardSimulations.xml
 %feature("docstring")  StandardSimulations::PolarizedDWBAMagCylinders2 "GISASSimulation * StandardSimulations::PolarizedDWBAMagCylinders2()
@@ -15534,6 +15621,12 @@ GISAS simulation with rectangular detector, region of interest and mask.
 ";
 
 %feature("docstring")  StandardSimulations::BasicSpecular "SpecularSimulation * StandardSimulations::BasicSpecular()
+";
+
+%feature("docstring")  StandardSimulations::SpecularWithGaussianBeam "SpecularSimulation * StandardSimulations::SpecularWithGaussianBeam()
+";
+
+%feature("docstring")  StandardSimulations::SpecularWithSquareBeam "SpecularSimulation * StandardSimulations::SpecularWithSquareBeam()
 ";
 
 
@@ -15685,6 +15778,30 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: PhysicalConstants_8h.xml
+
+
+// File: Beam_8cpp.xml
+
+
+// File: Beam_8h.xml
+
+
+// File: FootprintFactorGaussian_8cpp.xml
+
+
+// File: FootprintFactorGaussian_8h.xml
+
+
+// File: FootprintFactorSquare_8cpp.xml
+
+
+// File: FootprintFactorSquare_8h.xml
+
+
+// File: IFootprintFactor_8cpp.xml
+
+
+// File: IFootprintFactor_8h.xml
 
 
 // File: Bin_8cpp.xml
@@ -15871,6 +15988,18 @@ global helper function for comparison of axes
 
 
 // File: SampleLabelHandler_8h.xml
+
+
+// File: SampleToPython_8cpp.xml
+
+
+// File: SampleToPython_8h.xml
+
+
+// File: SimulationToPython_8cpp.xml
+
+
+// File: SimulationToPython_8h.xml
 
 
 // File: AdjustMinimizerStrategy_8cpp.xml
@@ -16212,12 +16341,6 @@ global helper function for comparison of axes
 // File: ArrayUtils_8h.xml
 
 
-// File: Beam_8cpp.xml
-
-
-// File: Beam_8h.xml
-
-
 // File: ChiSquaredModule_8cpp.xml
 
 
@@ -16248,6 +16371,12 @@ global helper function for comparison of axes
 // File: DetectionProperties_8h.xml
 
 
+// File: DetectorElement_8cpp.xml
+
+
+// File: DetectorElement_8h.xml
+
+
 // File: DetectorFunctions_8cpp.xml
 
 
@@ -16266,12 +16395,6 @@ global helper function for comparison of axes
 // File: FitElement_8h.xml
 
 
-// File: GaussianBeamShape_8cpp.xml
-
-
-// File: GaussianBeamShape_8h.xml
-
-
 // File: Histogram1D_8cpp.xml
 
 
@@ -16282,12 +16405,6 @@ global helper function for comparison of axes
 
 
 // File: Histogram2D_8h.xml
-
-
-// File: IBeamShape_8cpp.xml
-
-
-// File: IBeamShape_8h.xml
 
 
 // File: IChiSquaredModule_8cpp.xml
@@ -16429,12 +16546,6 @@ make Swappable
 
 
 // File: SphericalDetector_8h.xml
-
-
-// File: SquareBeamShape_8cpp.xml
-
-
-// File: SquareBeamShape_8h.xml
 
 
 // File: ISelectionRule_8h.xml
@@ -17196,13 +17307,16 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: OffSpecSimulation_8h.xml
 
 
-// File: SimElementUtils_8h.xml
-
-
 // File: Simulation_8cpp.xml
 
 
 // File: Simulation_8h.xml
+
+
+// File: Simulation2D_8cpp.xml
+
+
+// File: Simulation2D_8h.xml
 
 
 // File: SpecularSimulation_8cpp.xml
@@ -17572,6 +17686,9 @@ Calculates the z-coordinate of the highest vertex after rotation.
 
 
 // File: dir_41e08c09ca0aab46c4ada92f12a8c00b.xml
+
+
+// File: dir_62267e76eb3874f0ae495e190c69ec26.xml
 
 
 // File: dir_4544cbc948815333bef1258cf6b298b8.xml

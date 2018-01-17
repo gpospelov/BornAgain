@@ -16,6 +16,7 @@
 #define DETECTORELEMENT_H
 
 #include "EigenCore.h"
+#include "WinDllMacros.h"
 #include <memory>
 
 class IPixel;
@@ -23,7 +24,7 @@ class IPixel;
 //! Data stucture containing input elements of detector cells.
 //! @ingroup simulation
 
-class DetectorElement
+class BA_CORE_API_ DetectorElement
 {
 public:
     DetectorElement(IPixel* p_pixel, Eigen::Matrix2cd analyzer_operator);

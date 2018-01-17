@@ -81,7 +81,12 @@ int GUISaveLoadProject::run_job()
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_models->sampleModel(), m_models->materialModel(), *sample);
 
-    m_models->instrumentModel()->instrumentItem()->detectorItem()->setSize(50, 50);
+    if (auto instrument2DItem = dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem())) {
+        instrument2DItem->detectorItem()->setSize(50, 50);
+    } else {
+        throw GUIHelpers::Error("GUISaveLoadProject::run_job() -> Error. ApplicationModels is "
+                                "in unexpected state");
+    }
 
     auto jobItem = m_models->jobModel()->addJob(m_models->sampleModel()->multiLayerItem(),
                                                 m_models->instrumentModel()->instrumentItem(), 0,

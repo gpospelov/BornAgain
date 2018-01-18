@@ -199,7 +199,7 @@ void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
     const double alpha_i = -element.getAlphaI();
     const auto footprint = m_instrument.getBeam().footprintFactor();
     if (footprint != nullptr)
-	beam_intensity *= footprint->calculate(alpha_i);
+        beam_intensity *= footprint->calculate(alpha_i);
     element.setIntensity(element.getIntensity() * beam_intensity);
 }
 

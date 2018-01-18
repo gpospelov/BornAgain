@@ -16599,6 +16599,29 @@ class Simulation2D(Simulation):
         """
         return _libBornAgainCore.Simulation2D_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
 
+
+    def removeMasks(self):
+        """removeMasks(Simulation2D self)"""
+        return _libBornAgainCore.Simulation2D_removeMasks(self)
+
+
+    def addMask(self, shape, mask_value=True):
+        """
+        addMask(Simulation2D self, IShape2D shape, bool mask_value=True)
+        addMask(Simulation2D self, IShape2D shape)
+        """
+        return _libBornAgainCore.Simulation2D_addMask(self, shape, mask_value)
+
+
+    def maskAll(self):
+        """maskAll(Simulation2D self)"""
+        return _libBornAgainCore.Simulation2D_maskAll(self)
+
+
+    def setRegionOfInterest(self, xlow, ylow, xup, yup):
+        """setRegionOfInterest(Simulation2D self, double xlow, double ylow, double xup, double yup)"""
+        return _libBornAgainCore.Simulation2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
+
 Simulation2D_swigregister = _libBornAgainCore.Simulation2D_swigregister
 Simulation2D_swigregister(Simulation2D)
 
@@ -16927,64 +16950,6 @@ class GISASSimulation(Simulation2D):
 
         """
         return _libBornAgainCore.GISASSimulation_setDetector(self, detector)
-
-
-    def removeMasks(self):
-        """
-        removeMasks(GISASSimulation self)
-
-        void GISASSimulation::removeMasks()
-
-        removes all masks from the detector 
-
-        """
-        return _libBornAgainCore.GISASSimulation_removeMasks(self)
-
-
-    def addMask(self, shape, mask_value=True):
-        """
-        addMask(GISASSimulation self, IShape2D shape, bool mask_value=True)
-        addMask(GISASSimulation self, IShape2D shape)
-
-        void GISASSimulation::addMask(const IShape2D &shape, bool mask_value=true)
-
-        Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
-
-        Parameters:
-        -----------
-
-        shape: 
-        The shape of mask ( Rectangle,  Polygon,  Line,  Ellipse)
-
-        mask_value: 
-        The value of mask 
-
-        """
-        return _libBornAgainCore.GISASSimulation_addMask(self, shape, mask_value)
-
-
-    def maskAll(self):
-        """
-        maskAll(GISASSimulation self)
-
-        void GISASSimulation::maskAll()
-
-        Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
-
-        """
-        return _libBornAgainCore.GISASSimulation_maskAll(self)
-
-
-    def setRegionOfInterest(self, xlow, ylow, xup, yup):
-        """
-        setRegionOfInterest(GISASSimulation self, double xlow, double ylow, double xup, double yup)
-
-        void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
-
-        Sets rectangular region of interest with lower left and upper right corners defined. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_setRegionOfInterest(self, xlow, ylow, xup, yup)
 
 GISASSimulation_swigregister = _libBornAgainCore.GISASSimulation_swigregister
 GISASSimulation_swigregister(GISASSimulation)

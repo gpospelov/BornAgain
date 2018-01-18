@@ -41,6 +41,22 @@ public:
     void setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
                                size_t n_alpha, double alpha_min, double alpha_max);
 
+    //! removes all masks from the detector
+    void removeMasks();
+
+    //! Adds mask of given shape to the stack of detector masks. The mask value 'true' means
+    //! that the channel will be excluded from the simulation. The mask which is added last
+    //! has priority.
+    //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
+    //! @param mask_value The value of mask
+    void addMask(const IShape2D& shape, bool mask_value = true);
+
+    //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
+    void maskAll();
+
+    //! Sets rectangular region of interest with lower left and upper right corners defined.
+    void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
+
 protected:
     Simulation2D(const Simulation2D& other);
 

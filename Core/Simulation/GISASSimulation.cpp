@@ -21,11 +21,6 @@
 #include "MultiLayer.h"
 #include "SimulationElement.h"
 
-namespace
-{
-IDetector2D* Detector2D(Instrument& instrument);
-}
-
 GISASSimulation::GISASSimulation()
 {
     initialize();
@@ -84,26 +79,6 @@ void GISASSimulation::setDetector(const IDetector2D& detector)
     m_instrument.setDetector(detector);
 }
 
-void GISASSimulation::removeMasks()
-{
-    Detector2D(m_instrument)->removeMasks();
-}
-
-void GISASSimulation::addMask(const IShape2D& shape, bool mask_value)
-{
-    Detector2D(m_instrument)->addMask(shape, mask_value);
-}
-
-void GISASSimulation::maskAll()
-{
-    Detector2D(m_instrument)->maskAll();
-}
-
-void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
-{
-    Detector2D(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
-}
-
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
     : Simulation2D(other)
 {
@@ -121,16 +96,4 @@ void GISASSimulation::initSimulationElementVector()
 void GISASSimulation::initialize()
 {
     setName(BornAgain::GISASSimulationType);
-}
-
-namespace
-{
-IDetector2D* Detector2D(Instrument& instrument)
-{
-    IDetector2D* detector = instrument.detector2D();
-    if (!detector)
-        throw std::runtime_error(
-            "Error in GISASSimulation: wrong detector type");
-    return detector;
-}
 }

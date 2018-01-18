@@ -18,6 +18,11 @@
 #include "IBackground.h"
 #include "SimulationElement.h"
 
+namespace
+{
+IDetector2D* Detector2D(Instrument& instrument);
+}
+
 Simulation2D::Simulation2D(const MultiLayer& p_sample)
     : Simulation(p_sample)
 {}
@@ -25,6 +30,26 @@ Simulation2D::Simulation2D(const MultiLayer& p_sample)
 Simulation2D::Simulation2D(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : Simulation(p_sample_builder)
 {}
+
+void Simulation2D::removeMasks()
+{
+    Detector2D(m_instrument)->removeMasks();
+}
+
+void Simulation2D::addMask(const IShape2D& shape, bool mask_value)
+{
+    Detector2D(m_instrument)->addMask(shape, mask_value);
+}
+
+void Simulation2D::maskAll()
+{
+    Detector2D(m_instrument)->maskAll();
+}
+
+void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+{
+    Detector2D(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
+}
 
 Simulation2D::Simulation2D(const Simulation2D& other)
     : Simulation(other)
@@ -116,3 +141,14 @@ void Simulation2D::moveDataFromCache()
     }
 }
 
+namespace
+{
+IDetector2D* Detector2D(Instrument& instrument)
+{
+    IDetector2D* detector = instrument.detector2D();
+    if (!detector)
+        throw std::runtime_error(
+            "Error in GISASSimulation: wrong detector type");
+    return detector;
+}
+}

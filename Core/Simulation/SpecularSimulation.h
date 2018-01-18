@@ -113,6 +113,7 @@ private:
 
     double alpha_i(size_t index) const;
 
+    std::unique_ptr<IAxis> m_coordinate_axis;
     std::vector<SimulationElement> m_sim_elements;
     std::vector<SimulationElement> m_cache;
 };

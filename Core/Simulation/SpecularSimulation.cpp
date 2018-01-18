@@ -47,14 +47,6 @@ SpecularSimulation::SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder>
     initialize();
 }
 
-SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
-    : Simulation(other)
-    , m_sim_elements(other.m_sim_elements)
-    , m_cache(other.m_cache)
-{
-    initialize();
-}
-
 SpecularSimulation::~SpecularSimulation() = default;
 
 SpecularSimulation* SpecularSimulation::clone() const
@@ -73,7 +65,10 @@ void SpecularSimulation::prepareSimulation()
 
 size_t SpecularSimulation::numberOfSimulationElements() const
 {
-    return getInstrument().getDetector()->numberOfSimulationElements();
+    if (!m_coordinate_axis)
+        throw std::runtime_error("Error in SpecularSimulation::numberOfSimulationElements: "
+                                 "coordinate axis of the simulation is not initialized");
+    return m_coordinate_axis->size();
 }
 
 void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
@@ -81,6 +76,8 @@ void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axi
 {
     SpecularDetector1D detector(alpha_axis);
     m_instrument.setDetector(detector);
+
+    m_coordinate_axis.reset(alpha_axis.clone());
 
     const double phi_i = 0.0;
     m_instrument.setBeamParameters(lambda, alpha_axis[0], phi_i);
@@ -98,7 +95,10 @@ void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alph
 
 const IAxis* SpecularSimulation::getAlphaAxis() const
 {
-    return &m_instrument.getDetector()->getAxis(0);
+    if (!m_coordinate_axis)
+        throw std::runtime_error(
+            "Error in SpecularSimulation::getAlphaAxis: coordinate axis was not initialized.");
+    return m_coordinate_axis.get();
 }
 
 void SpecularSimulation::initSimulationElementVector()
@@ -166,6 +166,16 @@ std::vector<complex_t> SpecularSimulation::getScalarKz(size_t i_layer) const
     return getData(i_layer, &ILayerRTCoefficients::getScalarKz);
 }
 
+SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
+    : Simulation(other)
+    , m_sim_elements(other.m_sim_elements)
+    , m_cache(other.m_cache)
+{
+    if (other.m_coordinate_axis)
+        m_coordinate_axis.reset(other.m_coordinate_axis->clone());
+    initialize();
+}
+
 void SpecularSimulation::validityCheck(size_t i_layer) const
 {
     const MultiLayer* current_sample = sample();
@@ -179,7 +189,7 @@ void SpecularSimulation::validityCheck(size_t i_layer) const
     const size_t data_size = m_sim_elements.size();
     if (data_size != getAlphaAxis()->size())
         throw std::runtime_error("Error in SpecularSimulation::validityCheck: length of simulation "
-                                 "element vector is not equal to the length of detector axis");
+                                 "element vector is not equal to the number of inclination angles");
 
     for (size_t i = 0; i < data_size; ++i) {
         const SpecularData* specular_data = m_sim_elements[i].specularData();
@@ -239,10 +249,7 @@ void SpecularSimulation::moveDataFromCache()
 
 double SpecularSimulation::alpha_i(size_t index) const
 {
-    const IAxis* p_axis = getAlphaAxis();
-    auto p_detector = m_instrument.getDetector();
-    const size_t axis_index = p_detector->axisBinIndex(index, BornAgain::X_AXIS_INDEX);
-    return p_axis->getBin(axis_index).getMidPoint();
+    return m_coordinate_axis->getBin(index).getMidPoint();
 }
 
 namespace

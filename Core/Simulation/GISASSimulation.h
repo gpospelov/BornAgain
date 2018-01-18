@@ -55,9 +55,6 @@ public:
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
-    //! Sets the detector (axes can be overwritten later)
-    void setDetector(const IDetector2D& detector);
-
 private:
     GISASSimulation(const GISASSimulation& other);
 

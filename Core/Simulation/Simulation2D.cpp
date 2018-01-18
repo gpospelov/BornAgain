@@ -68,6 +68,11 @@ void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
     updateIntensityMap();
 }
 
+void Simulation2D::setDetector(const IDetector2D& detector)
+{
+    m_instrument.setDetector(detector);
+}
+
 std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(size_t start,
                                                                               size_t n_elements)
 {

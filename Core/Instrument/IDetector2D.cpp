@@ -25,7 +25,7 @@
 
 IDetector2D::IDetector2D() = default;
 
-IDetector2D::IDetector2D(const IDetector2D &other)
+IDetector2D::IDetector2D(const IDetector2D& other)
     : IDetector(other)
     , m_detector_mask(other.m_detector_mask)
 {
@@ -43,14 +43,14 @@ void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
     addAxis(*createAxis(BornAgain::Y_AXIS_INDEX, n_y, y_min, y_max));
 }
 
-void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
+void IDetector2D::setDetectorAxes(const IAxis& axis0, const IAxis& axis1)
 {
     clear();
     addAxis(axis0);
     addAxis(axis1);
 }
 
-const RegionOfInterest *IDetector2D::regionOfInterest() const
+const RegionOfInterest* IDetector2D::regionOfInterest() const
 {
     return m_region_of_interest.get();
 }
@@ -111,7 +111,7 @@ std::vector<DetectorElement> IDetector2D::createDetectorElements(const Beam& bea
     return result;
 }
 
-SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &beam) const
+SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam& beam) const
 {
     double wavelength = beam.getWavelength();
     double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam

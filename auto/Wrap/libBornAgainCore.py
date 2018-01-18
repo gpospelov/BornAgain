@@ -16600,6 +16600,11 @@ class Simulation2D(Simulation):
         return _libBornAgainCore.Simulation2D_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
 
 
+    def setDetector(self, detector):
+        """setDetector(Simulation2D self, IDetector2D detector)"""
+        return _libBornAgainCore.Simulation2D_setDetector(self, detector)
+
+
     def removeMasks(self):
         """removeMasks(Simulation2D self)"""
         return _libBornAgainCore.Simulation2D_removeMasks(self)
@@ -16938,18 +16943,6 @@ class GISASSimulation(Simulation2D):
 
         """
         return _libBornAgainCore.GISASSimulation_setBeamParameters(self, wavelength, alpha_i, phi_i)
-
-
-    def setDetector(self, detector):
-        """
-        setDetector(GISASSimulation self, IDetector2D detector)
-
-        void GISASSimulation::setDetector(const IDetector2D &detector)
-
-        Sets the detector (axes can be overwritten later) 
-
-        """
-        return _libBornAgainCore.GISASSimulation_setDetector(self, detector)
 
 GISASSimulation_swigregister = _libBornAgainCore.GISASSimulation_swigregister
 GISASSimulation_swigregister(GISASSimulation)

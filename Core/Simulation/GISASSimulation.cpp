@@ -74,11 +74,6 @@ void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, doubl
     m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
 }
 
-void GISASSimulation::setDetector(const IDetector2D& detector)
-{
-    m_instrument.setDetector(detector);
-}
-
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
     : Simulation2D(other)
 {

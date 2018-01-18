@@ -41,6 +41,9 @@ public:
     void setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
                                size_t n_alpha, double alpha_min, double alpha_max);
 
+    //! Sets the detector (axes can be overwritten later)
+    void setDetector(const IDetector2D& detector);
+
     //! removes all masks from the detector
     void removeMasks();
 

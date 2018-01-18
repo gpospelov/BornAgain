@@ -32,7 +32,9 @@ SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
                                          ProgressHandler& progress,
                                          std::vector<SimulationElement>::iterator begin_it,
                                          std::vector<SimulationElement>::iterator end_it)
-    : IComputation(options, progress, begin_it, end_it, multilayer)
+    : IComputation(options, progress, multilayer)
+    , m_begin_it(begin_it)
+    , m_end_it(end_it)
 {
     mP_fresnel_map = createFresnelMap();
     m_computation_term.reset(new SpecularComputationTerm(mP_multi_layer.get(), mP_fresnel_map.get()));

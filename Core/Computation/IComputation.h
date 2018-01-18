@@ -35,8 +35,6 @@ class IComputation
 {
 public:
     IComputation(const SimulationOptions& options, ProgressHandler& progress,
-                 std::vector<SimulationElement>::iterator start,
-                 std::vector<SimulationElement>::iterator end,
                  const MultiLayer& sample);
     virtual ~IComputation();
 
@@ -50,7 +48,6 @@ protected:
 
     SimulationOptions m_sim_options;
     ProgressHandler* m_progress;
-    std::vector<SimulationElement>::iterator m_begin_it, m_end_it; //!< these iterators define the span of detector bins this simulation will work on
     ComputationStatus m_status;
     std::unique_ptr<MultiLayer> mP_multi_layer;
 };

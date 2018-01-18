@@ -34,7 +34,9 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
                                  ProgressHandler& progress,
                                  std::vector<SimulationElement>::iterator begin_it,
                                  std::vector<SimulationElement>::iterator end_it)
-    : IComputation(options, progress, begin_it, end_it, multilayer)
+    : IComputation(options, progress, multilayer)
+    , m_begin_it(begin_it)
+    , m_end_it(end_it)
 {
     mP_fresnel_map = createFresnelMap();
     bool polarized = mP_multi_layer->containsMagneticMaterial();

@@ -23,21 +23,20 @@
 Beam::Beam()
     : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0)
     , m_intensity(1.0)
-    , m_shape_factor(std::make_unique<FootprintFactorGaussian>(0.0))
 {
     setName(BornAgain::BeamType);
     init_parameters();
-    registerChildren();
 }
 
 Beam::Beam(const Beam& other)
     : m_wavelength(other.m_wavelength), m_alpha(other.m_alpha)
     , m_phi(other.m_phi)
     , m_intensity(other.m_intensity)
-    , m_shape_factor(other.m_shape_factor->clone())
     , m_bloch_vector(other.m_bloch_vector)
 {
     setName(other.getName());
+    if (other.m_shape_factor)
+        m_shape_factor.reset(other.m_shape_factor->clone());
     init_parameters();
     registerChildren();
 }
@@ -71,21 +70,22 @@ void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
     m_phi = phi_i;
 }
 
-const IFootprintFactor& Beam::footprintFactor() const
+const IFootprintFactor* Beam::footprintFactor() const
 {
-    return *m_shape_factor;
+    return m_shape_factor.get();
 }
 
-void Beam::setFootprintFactor(const IFootprintFactor* shape_factor)
+void Beam::setFootprintFactor(const IFootprintFactor& shape_factor)
 {
-    if (!shape_factor)
-        throw std::runtime_error("Error in Beam::setFootprintFactor: nullptr passed");
-    m_shape_factor.reset(shape_factor->clone());
+    m_shape_factor.reset(shape_factor.clone());
     registerChild(m_shape_factor.get());
 }
 
 void Beam::setWidthRatio(double width_ratio)
 {
+    if (!m_shape_factor)
+        throw std::runtime_error("Error in Beam::setWidthRatio: footprint factor is nullptr. "
+                                 "Probably, you have forgotten to initialize it.");
     m_shape_factor->setWidthRatio(width_ratio);
 }
 
@@ -131,7 +131,8 @@ void Beam::init_parameters()
 
 void Beam::registerChildren()
 {
-    registerChild(m_shape_factor.get());
+    if (m_shape_factor)
+        registerChild(m_shape_factor.get());
 }
 
 void Beam::swapContent(Beam& other)

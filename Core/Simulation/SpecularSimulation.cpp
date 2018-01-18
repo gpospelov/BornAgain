@@ -84,7 +84,7 @@ void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axi
     m_instrument.setBeamParameters(lambda, alpha_axis[0], phi_i);
 
     if (beam_shape)
-        m_instrument.getBeam().setFootprintFactor(beam_shape);
+        m_instrument.getBeam().setFootprintFactor(*beam_shape);
 }
 
 void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,
@@ -142,7 +142,7 @@ OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_typ
     return m_instrument.createDetectorIntensity(m_sim_elements, units_type);
 }
 
-Histogram1D* SpecularSimulation::detectorIntensityHistogram() const
+Histogram1D* SpecularSimulation::getIntensityData() const
 {
     std::unique_ptr<OutputData<double>> result(getDetectorIntensity());
     return new Histogram1D(*result);
@@ -197,8 +197,10 @@ void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
 {
     SimulationElement& element = m_sim_elements[index];
     const double alpha_i = -element.getAlphaI();
-    const double footprint_coef = m_instrument.getBeam().footprintFactor().calculate(alpha_i);
-    element.setIntensity(element.getIntensity() * beam_intensity * footprint_coef);
+    const auto footprint = m_instrument.getBeam().footprintFactor();
+    if (footprint != nullptr)
+	beam_intensity *= footprint->calculate(alpha_i);
+    element.setIntensity(element.getIntensity() * beam_intensity);
 }
 
 void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)

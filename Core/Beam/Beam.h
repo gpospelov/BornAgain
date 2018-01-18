@@ -46,10 +46,10 @@ public:
     void setIntensity(double intensity) { m_intensity = intensity; }
 
     //! Returns footprint factor.
-    const IFootprintFactor& footprintFactor() const;
+    const IFootprintFactor* footprintFactor() const;
 
     //! Sets footprint factor to the beam.
-    void setFootprintFactor(const IFootprintFactor* shape_factor);
+    void setFootprintFactor(const IFootprintFactor& shape_factor);
 
     //! Sets beam to sample width ratio in footprint factor.
     void setWidthRatio(double width_ratio);
@@ -72,7 +72,7 @@ public:
 
 private:
     void init_parameters();
-    void registerChildren();
+    inline void registerChildren();
 
     void swapContent(Beam& other);
 

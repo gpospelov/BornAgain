@@ -63,7 +63,7 @@ public:
             AxesUnits units_type= AxesUnits::DEFAULT) const override;
 
     //! Returns detector signal (\f$ \propto |R|^2\f$) in the form of 1D Histogram
-    Histogram1D* detectorIntensityHistogram() const;
+    Histogram1D* getIntensityData() const;
 
     //! Returns vector of reflection coefficients (\f$R\f$) for all alpha_i angles for given layer index.
     std::vector<complex_t> getScalarR(size_t i_layer) const;

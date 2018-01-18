@@ -57,12 +57,12 @@ public:
 
     virtual size_t dimension() const override;
 
-    void addAxisData(double min, double max, AxesUnits default_units, size_t nbins);
-
     double calculateMin(size_t i_axis, AxesUnits units_type) const override;
     double calculateMax(size_t i_axis, AxesUnits units_type) const override;
+
 protected:
     UnitConverterSimple(const UnitConverterSimple& other);
+    void addAxisData(double min, double max, AxesUnits default_units, size_t nbins);
     virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const=0;
     void checkIndex(size_t i_axis) const;
 
@@ -72,7 +72,6 @@ protected:
         size_t nbins;
     };
     std::vector<AxisData> m_axis_data_table;
-private:
 };
 
 //! IUnitConverter class that handles the unit translations for spherical detectors

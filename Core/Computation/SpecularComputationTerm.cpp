@@ -1,12 +1,13 @@
-#include "SpecularComputationTerm.h"
-#include "SimulationElement.h"
 #include "IFresnelMap.h"
 #include "ILayerRTCoefficients.h"
 #include "MultiLayer.h"
+#include "SimulationElement.h"
+#include "SpecularComputationTerm.h"
 
 SpecularComputationTerm::SpecularComputationTerm(const MultiLayer* p_multi_layer,
                                                  const IFresnelMap* p_fresnel_map)
-    : IComputationTerm(p_multi_layer, p_fresnel_map)
+    : mp_multilayer(p_multi_layer)
+    , mp_fresnel_map(p_fresnel_map)
 {}
 
 void SpecularComputationTerm::eval(ProgressHandler*,

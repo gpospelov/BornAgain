@@ -389,12 +389,12 @@ Returns the beam intensity in neutrons/sec.
 Sets the beam intensity in neutrons/sec. 
 ";
 
-%feature("docstring")  Beam::footprintFactor "const IFootprintFactor & Beam::footprintFactor() const
+%feature("docstring")  Beam::footprintFactor "const IFootprintFactor * Beam::footprintFactor() const
 
 Returns footprint factor. 
 ";
 
-%feature("docstring")  Beam::setFootprintFactor "void Beam::setFootprintFactor(const IFootprintFactor *shape_factor)
+%feature("docstring")  Beam::setFootprintFactor "void Beam::setFootprintFactor(const IFootprintFactor &shape_factor)
 
 Sets footprint factor to the beam. 
 ";
@@ -14086,7 +14086,7 @@ Returns a pointer to incident angle axis.
 Returns detector count values in the form of  OutputData<double>. Detector counts are proportional to  $Reflectivity = |R|^2$ from the upper layer. 
 ";
 
-%feature("docstring")  SpecularSimulation::detectorIntensityHistogram "Histogram1D * SpecularSimulation::detectorIntensityHistogram() const
+%feature("docstring")  SpecularSimulation::getIntensityData "Histogram1D * SpecularSimulation::getIntensityData() const
 
 Returns detector signal (  $ \\\\propto |R|^2$) in the form of 1D Histogram. 
 ";

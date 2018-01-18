@@ -3793,9 +3793,9 @@ class Beam(INode):
 
     def footprintFactor(self):
         """
-        footprintFactor(Beam self) -> IFootprintFactor const &
+        footprintFactor(Beam self) -> IFootprintFactor const *
 
-        const IFootprintFactor & Beam::footprintFactor() const
+        const IFootprintFactor * Beam::footprintFactor() const
 
         Returns footprint factor. 
 
@@ -3805,9 +3805,9 @@ class Beam(INode):
 
     def setFootprintFactor(self, shape_factor):
         """
-        setFootprintFactor(Beam self, IFootprintFactor const * shape_factor)
+        setFootprintFactor(Beam self, IFootprintFactor const & shape_factor)
 
-        void Beam::setFootprintFactor(const IFootprintFactor *shape_factor)
+        void Beam::setFootprintFactor(const IFootprintFactor &shape_factor)
 
         Sets footprint factor to the beam. 
 
@@ -26589,16 +26589,16 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_getDetectorIntensity(self, *args)
 
 
-    def detectorIntensityHistogram(self):
+    def getIntensityData(self):
         """
-        detectorIntensityHistogram(SpecularSimulation self) -> Histogram1D
+        getIntensityData(SpecularSimulation self) -> Histogram1D
 
-        Histogram1D * SpecularSimulation::detectorIntensityHistogram() const
+        Histogram1D * SpecularSimulation::getIntensityData() const
 
         Returns detector signal (  $ \\propto |R|^2$) in the form of 1D Histogram. 
 
         """
-        return _libBornAgainCore.SpecularSimulation_detectorIntensityHistogram(self)
+        return _libBornAgainCore.SpecularSimulation_getIntensityData(self)
 
 
     def getScalarR(self, i_layer):

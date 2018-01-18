@@ -17986,35 +17986,6 @@ class ConstantBackground(IBackground):
 ConstantBackground_swigregister = _libBornAgainCore.ConstantBackground_swigregister
 ConstantBackground_swigregister(ConstantBackground)
 
-class AxesUnits(_object):
-    """
-
-
-    Wrapper for detector axes units, required for a better representation of detector axes units in python
-
-    C++ includes: IDetector.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, AxesUnits, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, AxesUnits, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined")
-    __repr__ = _swig_repr
-    DEFAULT = _libBornAgainCore.AxesUnits_DEFAULT
-    NBINS = _libBornAgainCore.AxesUnits_NBINS
-    RADIANS = _libBornAgainCore.AxesUnits_RADIANS
-    DEGREES = _libBornAgainCore.AxesUnits_DEGREES
-    MM = _libBornAgainCore.AxesUnits_MM
-    QYQZ = _libBornAgainCore.AxesUnits_QYQZ
-    __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
-    __del__ = lambda self: None
-AxesUnits_swigregister = _libBornAgainCore.AxesUnits_swigregister
-AxesUnits_swigregister(AxesUnits)
-
 class IDetector(ICloneable, INode):
     """
 

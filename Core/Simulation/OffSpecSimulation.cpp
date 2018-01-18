@@ -49,6 +49,12 @@ size_t OffSpecSimulation::numberOfSimulationElements() const
     return getInstrument().getDetector()->numberOfSimulationElements()*mP_alpha_i_axis->size();
 }
 
+OutputData<double>*OffSpecSimulation::getDetectorIntensity(AxesUnits units_type) const
+{
+    (void)units_type;
+    return m_intensity_map.clone();
+}
+
 Histogram2D* OffSpecSimulation::getIntensityData() const
 {
     const std::unique_ptr<OutputData<double>> data(getDetectorIntensity());

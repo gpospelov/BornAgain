@@ -46,8 +46,8 @@ public:
     size_t numberOfSimulationElements() const final;
 
     //! Returns clone of the detector intensity map with detector resolution applied
-    OutputData<double>* getDetectorIntensity(AxesUnits units_type
-                                                     = AxesUnits::DEFAULT) const override;
+    OutputData<double>* getDetectorIntensity(
+            AxesUnits units_type = AxesUnits::DEFAULT) const override;
 
     //! Returns histogram representing intensity map in requested axes units
     Histogram2D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;

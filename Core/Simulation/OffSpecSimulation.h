@@ -29,6 +29,7 @@ public:
     OffSpecSimulation();
     OffSpecSimulation(const MultiLayer& p_sample);
     OffSpecSimulation(const std::shared_ptr<class IMultiLayerBuilder> p_sample_builder);
+
     ~OffSpecSimulation() final {}
 
     OffSpecSimulation* clone() const override { return new OffSpecSimulation(*this); }
@@ -42,12 +43,8 @@ public:
     size_t numberOfSimulationElements() const final;
 
     //! Returns clone of the detector intensity map
-    OutputData<double>* getDetectorIntensity(AxesUnits units_type
-                                             = AxesUnits::DEFAULT) const override
-    {
-        (void)units_type;
-        return m_intensity_map.clone();
-    }
+    OutputData<double>* getDetectorIntensity(
+            AxesUnits units_type = AxesUnits::DEFAULT) const override;
 
     //! Returns clone of the detector intensity map in the form of 2D histogram.
     Histogram2D* getIntensityData() const;

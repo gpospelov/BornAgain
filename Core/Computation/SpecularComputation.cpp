@@ -35,9 +35,9 @@ SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
     : IComputation(options, progress, multilayer)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
+    , mP_fresnel_map(createFresnelMap())
+    , m_computation_term(mP_multi_layer.get(), mP_fresnel_map.get())
 {
-    mP_fresnel_map = createFresnelMap();
-    m_computation_term.reset(new SpecularComputationTerm(mP_multi_layer.get(), mP_fresnel_map.get()));
 }
 
 SpecularComputation::~SpecularComputation() = default;
@@ -46,7 +46,7 @@ void SpecularComputation::runProtected()
 {
     if (!m_progress->alive())
         return;
-    m_computation_term->eval(m_progress, m_begin_it, m_end_it);
+    m_computation_term.eval(m_progress, m_begin_it, m_end_it);
 }
 
 std::unique_ptr<IFresnelMap> SpecularComputation::createFresnelMap()

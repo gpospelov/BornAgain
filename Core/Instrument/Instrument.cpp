@@ -30,7 +30,7 @@ Instrument::Instrument()
     init_parameters();
 }
 
-Instrument::Instrument(const Instrument &other) : m_beam(other.m_beam)
+Instrument::Instrument(const Instrument& other) : m_beam(other.m_beam)
 {
     if(other.mP_detector)
         setDetector(*other.mP_detector);
@@ -41,7 +41,7 @@ Instrument::Instrument(const Instrument &other) : m_beam(other.m_beam)
 
 Instrument::~Instrument() {}
 
-Instrument &Instrument::operator=(const Instrument &other)
+Instrument& Instrument::operator=(const Instrument& other)
 {
     if (this != &other) {
         m_beam = other.m_beam;
@@ -93,13 +93,13 @@ void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) co
     mP_detector->applyDetectorResolution(p_intensity_map);
 }
 
-OutputData<double> *Instrument::createDetectorIntensity(
-        const std::vector<SimulationElement> &elements, AxesUnits units) const
+OutputData<double>* Instrument::createDetectorIntensity(
+        const std::vector<SimulationElement>& elements, AxesUnits units) const
 {
     return mP_detector->createDetectorIntensity(elements, m_beam, units);
 }
 
-OutputData<double> *Instrument::createDetectorMap(AxesUnits units) const
+OutputData<double>* Instrument::createDetectorMap(AxesUnits units) const
 {
     return mP_detector->createDetectorMap(m_beam, units).release();
 }
@@ -110,12 +110,12 @@ void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi
     if(mP_detector) initDetector();
 }
 
-const DetectorMask *Instrument::getDetectorMask() const
+const DetectorMask* Instrument::getDetectorMask() const
 {
     return getDetector()->detectorMask();
 }
 
-void Instrument::setBeam(const Beam &beam)
+void Instrument::setBeam(const Beam& beam)
 {
     m_beam = beam;
     if(mP_detector) initDetector();

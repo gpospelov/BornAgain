@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/SpecularComputationTerm.h
-//! @brief     Defines class SpecularComputationTerm.
+//! @file      Core/Computation/GISASSpecularComputationTerm.h
+//! @brief     Defines class GISASSpecularComputationTerm.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,26 +12,24 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARCOMPUTATIONTERM_H_
-#define SPECULARCOMPUTATIONTERM_H_
+#ifndef GISASSPECULARCOMPUTATIONTERM_H_
+#define GISASSPECULARCOMPUTATIONTERM_H_
 
 #include "IComputationTerm.h"
 
-//! Computes the specular scattering.
-//! Used by SpecularComputation.
+//! Computes the specular scattering. Used by DWBAComputation.
 //! @ingroup algorithms_internal
 
-class SpecularComputationTerm : public IComputationTerm
+class GISASSpecularComputationTerm final : public IComputationTerm
 {
 public:
-    SpecularComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
+    GISASSpecularComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
-    virtual void eval(ProgressHandler* progress,
-              const std::vector<SimulationElement>::iterator& begin_it,
+    void eval(ProgressHandler* progress, const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const override;
 
 private:
     void evalSingle(const std::vector<SimulationElement>::iterator& iter) const;
 };
 
-#endif /* SPECULARCOMPUTATIONTERM_H_ */
+#endif // GISASSPECULARCOMPUTATIONTERM_H_

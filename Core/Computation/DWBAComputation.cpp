@@ -13,17 +13,17 @@
 // ************************************************************************** //
 
 #include "DWBAComputation.h"
-#include "ParticleLayoutComputation.h"
-#include "Layer.h"
+#include "GISASSpecularComputationTerm.h"
 #include "IFresnelMap.h"
+#include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
+#include "ParticleLayoutComputation.h"
+#include "ProgressHandler.h"
 #include "RoughMultiLayerComputation.h"
 #include "ScalarFresnelMap.h"
-#include "ProgressHandler.h"
 #include "SimulationElement.h"
-#include "MaterialFactoryFuncs.h"
-#include "NormalizingSpecularComputationTerm.h"
 
 static_assert(std::is_copy_constructible<DWBAComputation>::value == false,
     "DWBAComputation should not be copy constructable");
@@ -54,7 +54,7 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
         m_computation_terms.emplace_back(new RoughMultiLayerComputation(mP_multi_layer.get(),
                                                                      mP_fresnel_map.get()));
     if (m_sim_options.includeSpecular())
-        m_computation_terms.emplace_back(new NormalizingSpecularComputationTerm(mP_multi_layer.get(),
+        m_computation_terms.emplace_back(new GISASSpecularComputationTerm(mP_multi_layer.get(),
                                                               mP_fresnel_map.get()));
     initFresnelMap();
 }

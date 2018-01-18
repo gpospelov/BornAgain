@@ -12,17 +12,30 @@
 //
 // ************************************************************************** //
 
-#include "NormalizingSpecularComputationTerm.h"
-#include "SimulationElement.h"
+#include "GISASSpecularComputationTerm.h"
 #include "IFresnelMap.h"
 #include "ILayerRTCoefficients.h"
+#include "MultiLayer.h"
+#include "SimulationElement.h"
 
-NormalizingSpecularComputationTerm::NormalizingSpecularComputationTerm(const MultiLayer* p_multi_layer,
-                                         const IFresnelMap* p_fresnel_map)
-    : SpecularComputationTerm(p_multi_layer, p_fresnel_map)
+GISASSpecularComputationTerm::GISASSpecularComputationTerm(const MultiLayer* p_multi_layer,
+                                                           const IFresnelMap* p_fresnel_map)
+    : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 
-void NormalizingSpecularComputationTerm::evalSingle(const std::vector<SimulationElement>::iterator& iter) const
+void GISASSpecularComputationTerm::eval(
+    ProgressHandler*, const std::vector<SimulationElement>::iterator& begin_it,
+    const std::vector<SimulationElement>::iterator& end_it) const
+{
+    if (mp_multilayer->requiresMatrixRTCoefficients())
+        return;
+
+    for (auto it = begin_it; it != end_it; ++it)
+        if (it->specularData())
+            evalSingle(it);
+}
+
+void GISASSpecularComputationTerm::evalSingle(const std::vector<SimulationElement>::iterator& iter) const
 {
     complex_t R = mp_fresnel_map->getInCoefficients(*iter, 0)->getScalarR();
     double sin_alpha_i = std::abs(std::sin(iter->getAlphaI()));

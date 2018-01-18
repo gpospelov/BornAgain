@@ -49,9 +49,6 @@ public:
     OutputData<double>* getDetectorIntensity(
             AxesUnits units_type = AxesUnits::DEFAULT) const override;
 
-    //! Returns histogram representing intensity map in requested axes units
-    Histogram2D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
-
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 

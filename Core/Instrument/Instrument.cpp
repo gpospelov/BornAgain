@@ -99,19 +99,6 @@ OutputData<double> *Instrument::createDetectorIntensity(
     return mP_detector->createDetectorIntensity(elements, m_beam, units);
 }
 
-Histogram2D* Instrument::createIntensityData(const std::vector<SimulationElement>& elements,
-                                         AxesUnits units_type) const
-{
-    const std::unique_ptr<OutputData<double>> data(createDetectorIntensity(elements, units_type));
-    std::unique_ptr<Histogram2D> result(new Histogram2D(*data));
-
-    if (units_type == AxesUnits::DEFAULT)
-        units_type = mP_detector->defaultAxesUnits();
-
-    result->setAxesUnits(DetectorFunctions::detectorUnitsName(units_type));
-    return result.release();
-}
-
 OutputData<double> *Instrument::createDetectorMap(AxesUnits units) const
 {
     return mP_detector->createDetectorMap(m_beam, units).release();
@@ -157,11 +144,6 @@ const IDetector* Instrument::getDetector() const
 IDetector* Instrument::getDetector()
 {
     return mP_detector.get();
-}
-
-IDetector2D* Instrument::detector2D()
-{
-    return dynamic_cast<IDetector2D*>(mP_detector.get());
 }
 
 const IAxis& Instrument::getDetectorAxis(size_t index) const

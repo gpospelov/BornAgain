@@ -14,13 +14,16 @@
 
 #include "Simulation2D.h"
 #include "DetectorElement.h"
+#include "DetectorFunctions.h"
 #include "DWBAComputation.h"
+#include "Histogram2D.h"
 #include "IBackground.h"
 #include "SimulationElement.h"
 
 namespace
 {
 IDetector2D* Detector2D(Instrument& instrument);
+const IDetector2D* Detector2D(const Instrument& instrument);
 }
 
 Simulation2D::Simulation2D(const MultiLayer& p_sample)
@@ -60,7 +63,7 @@ Simulation2D::Simulation2D(const Simulation2D& other)
 void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
                                          size_t n_y, double y_min, double y_max)
 {
-    if (auto detector = m_instrument.detector2D())
+    if (auto detector = Detector2D(m_instrument))
         detector->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     else
         throw std::runtime_error(
@@ -71,6 +74,18 @@ void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
 void Simulation2D::setDetector(const IDetector2D& detector)
 {
     m_instrument.setDetector(detector);
+}
+
+Histogram2D* Simulation2D::getIntensityData(AxesUnits units_type) const
+{
+    std::unique_ptr<OutputData<double>> data(getDetectorIntensity(units_type));
+    std::unique_ptr<Histogram2D> result(new Histogram2D(*data));
+
+    if (units_type == AxesUnits::DEFAULT)
+        units_type = Detector2D(m_instrument)->defaultAxesUnits();
+
+    result->setAxesUnits(DetectorFunctions::detectorUnitsName(units_type));
+    return result.release();
 }
 
 std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(size_t start,
@@ -90,7 +105,7 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
     const double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
     const double phi_i = beam.getPhi();
     const Eigen::Matrix2cd& beam_polarization = beam.getPolarization();
-    auto detector = m_instrument.detector2D();
+    auto detector = Detector2D(m_instrument);
     auto detector_elements = detector->createDetectorElements(beam);
 
     result.reserve(detector_elements.size());
@@ -150,10 +165,18 @@ namespace
 {
 IDetector2D* Detector2D(Instrument& instrument)
 {
-    IDetector2D* detector = instrument.detector2D();
-    if (!detector)
+    IDetector2D* p_detector = dynamic_cast<IDetector2D*>(instrument.getDetector());
+    if (!p_detector)
         throw std::runtime_error(
-            "Error in GISASSimulation: wrong detector type");
-    return detector;
+            "Error in Simulation2D: wrong detector type");
+    return p_detector;
+}
+const IDetector2D* Detector2D(const Instrument& instrument)
+{
+    const IDetector2D* p_detector = dynamic_cast<const IDetector2D*>(instrument.getDetector());
+    if (!p_detector)
+        throw std::runtime_error(
+            "Error in Simulation2D: wrong detector type");
+    return p_detector;
 }
 }

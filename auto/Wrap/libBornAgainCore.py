@@ -16605,6 +16605,14 @@ class Simulation2D(Simulation):
         return _libBornAgainCore.Simulation2D_setDetector(self, detector)
 
 
+    def getIntensityData(self, *args):
+        """
+        getIntensityData(Simulation2D self, AxesUnits units_type) -> Histogram2D
+        getIntensityData(Simulation2D self) -> Histogram2D
+        """
+        return _libBornAgainCore.Simulation2D_getIntensityData(self, *args)
+
+
     def removeMasks(self):
         """removeMasks(Simulation2D self)"""
         return _libBornAgainCore.Simulation2D_removeMasks(self)
@@ -16918,19 +16926,6 @@ class GISASSimulation(Simulation2D):
 
         """
         return _libBornAgainCore.GISASSimulation_getDetectorIntensity(self, *args)
-
-
-    def getIntensityData(self, *args):
-        """
-        getIntensityData(GISASSimulation self, AxesUnits units_type) -> Histogram2D
-        getIntensityData(GISASSimulation self) -> Histogram2D
-
-        Histogram2D * GISASSimulation::getIntensityData(AxesUnits units_type=AxesUnits::DEFAULT) const
-
-        Returns histogram representing intensity map in requested axes units. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_getIntensityData(self, *args)
 
 
     def setBeamParameters(self, wavelength, alpha_i, phi_i):
@@ -20117,18 +20112,6 @@ class Instrument(INode):
         return _libBornAgainCore.Instrument_getDetector(self, *args)
 
 
-    def detector2D(self):
-        """
-        detector2D(Instrument self) -> IDetector2D
-
-        IDetector2D * Instrument::detector2D()
-
-        Returns 2D detector data if detector is truly 2D. Otherwise returns nullptr. 
-
-        """
-        return _libBornAgainCore.Instrument_detector2D(self)
-
-
     def getDetectorMask(self):
         """
         getDetectorMask(Instrument self) -> DetectorMask
@@ -20234,19 +20217,6 @@ class Instrument(INode):
 
         """
         return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
-
-
-    def createIntensityData(self, *args):
-        """
-        createIntensityData(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, AxesUnits units_type) -> Histogram2D
-        createIntensityData(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> Histogram2D
-
-        Histogram2D * Instrument::createIntensityData(const std::vector< SimulationElement > &elements, AxesUnits units_type=AxesUnits::DEFAULT) const
-
-        Returns histogram representing intensity map in requested axes units. 
-
-        """
-        return _libBornAgainCore.Instrument_createIntensityData(self, *args)
 
 
     def createDetectorMap(self, *args):

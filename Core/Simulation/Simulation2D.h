@@ -44,6 +44,9 @@ public:
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
 
+    //! Returns histogram representing intensity map in requested axes units
+    Histogram2D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
+
     //! removes all masks from the detector
     void removeMasks();
 

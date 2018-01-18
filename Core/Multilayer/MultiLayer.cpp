@@ -23,12 +23,9 @@
 #include "MaterialUtils.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
-#include <limits>
 #include <iomanip>
 
-MultiLayer::MultiLayer()
-    : m_crossCorrLength(0)
-    , m_scale(std::numeric_limits<double>::infinity())
+MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
     setName(BornAgain::MultiLayerType);
     init_parameters();
@@ -62,7 +59,6 @@ std::unique_ptr<MultiLayer> MultiLayer::cloneSliced(bool use_average_layers) con
     auto layer_limits = calculateLayerZLimits();
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
-    P_result->setScale(scale());
     P_result->setExternalField(externalField());
     for (size_t i=0; i<numberOfLayers(); ++i)
     {
@@ -108,13 +104,6 @@ void MultiLayer::setLayerMaterial(size_t i_layer, Material material)
 {
     auto p_layer = m_layers[check_layer_index(i_layer)];
     p_layer->setMaterial(std::move(material));
-}
-
-void MultiLayer::setScale(double scale)
-{
-    if (scale < 0.0)
-        throw std::runtime_error("Error in MultiLayer::setScale: negative argument is not allowed");
-    m_scale = scale;
 }
 
 //! Adds layer with top roughness
@@ -277,7 +266,6 @@ MultiLayer* MultiLayer::genericClone(const std::function<Layer*(const Layer*)>& 
 {
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
-    P_result->setScale(scale());
     P_result->setExternalField(externalField());
     for (size_t i=0; i<numberOfLayers(); ++i)
     {

@@ -85,12 +85,6 @@ public:
     //! Changes a layer's material
     void setLayerMaterial(size_t i_layer, Material material);
 
-    //! Set the characteristic dimension of the multilayer
-    void setScale(double scale);
-
-    //! Get the characteristic dimension of the multilayer
-    double scale() const {return m_scale;}
-
     //! Returns a clone of multilayer with clones of all layers and recreated
     //! interfaces between layers
     MultiLayer* clone() const final override;
@@ -181,8 +175,6 @@ private:
     SafePointerVector<LayerInterface> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
-    //! characteristic dimension of the sample
-    double m_scale;
     //! external magnetic field (in A/m)
     kvector_t m_ext_field;
 };

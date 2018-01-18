@@ -14,6 +14,7 @@
 
 #include "SpecularSimulation.h"
 #include "IBackground.h"
+#include "IFootprintFactor.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "SpecularMatrix.h"
@@ -73,18 +74,24 @@ size_t SpecularSimulation::numberOfSimulationElements() const
     return getInstrument().getDetector()->numberOfSimulationElements();
 }
 
-void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i)
+void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
+                                           const IFootprintFactor* beam_shape)
 {
     SpecularDetector1D detector(alpha_axis);
     m_instrument.setDetector(detector);
+
+    const double phi_i = 0.0;
     m_instrument.setBeamParameters(lambda, alpha_axis[0], phi_i);
+
+    if (beam_shape)
+        m_instrument.getBeam().setFootprintFactor(*beam_shape);
 }
 
 void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,
-                                           double alpha_i_max, double phi_i)
+                                           double alpha_i_max, const IFootprintFactor* beam_shape)
 {
     FixedBinAxis axis("alpha_i", nbins, alpha_i_min, alpha_i_max);
-    setBeamParameters(lambda, axis, phi_i);
+    setBeamParameters(lambda, axis, beam_shape);
 }
 
 const IAxis* SpecularSimulation::getAlphaAxis() const
@@ -119,18 +126,6 @@ std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn
     return result;
 }
 
-std::unique_ptr<OutputData<double>>
-SpecularSimulation::getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const
-{
-    std::unique_ptr<OutputData<double>> output_ptr = std::make_unique<OutputData<double>>();
-    output_ptr->addAxis(*getAlphaAxis());
-    const std::vector<complex_t> complex_data = getData(i_layer, fn_ptr);
-    OutputData<double>& output = *output_ptr.get();
-    for (size_t i = 0; i < complex_data.size(); ++i)
-        output[i] = std::norm(complex_data[i]);
-    return output_ptr;
-}
-
 std::unique_ptr<IComputation>
 SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
 {
@@ -147,16 +142,10 @@ OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_typ
     return m_instrument.createDetectorIntensity(m_sim_elements, units_type);
 }
 
-Histogram1D* SpecularSimulation::reflectivity() const
+Histogram1D* SpecularSimulation::getIntensityData() const
 {
-    return new Histogram1D(*getDataByAbsValue(0, &ILayerRTCoefficients::getScalarR));
-}
-
-Histogram1D* SpecularSimulation::transmissivity() const
-{
-    const MultiLayer* current_sample = sample();
-    const size_t i_layer = current_sample ? static_cast<size_t>(current_sample->numberOfLayers() - 1) : 0;
-    return new Histogram1D(*getDataByAbsValue(i_layer, &ILayerRTCoefficients::getScalarT));
+    std::unique_ptr<OutputData<double>> result(getDetectorIntensity());
+    return new Histogram1D(*result);
 }
 
 std::vector<complex_t> SpecularSimulation::getScalarR(size_t i_layer) const
@@ -206,7 +195,12 @@ void SpecularSimulation::initialize()
 
 void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
 {
-    m_sim_elements[index].setIntensity(m_sim_elements[index].getIntensity() * beam_intensity);
+    SimulationElement& element = m_sim_elements[index];
+    const double alpha_i = -element.getAlphaI();
+    const auto footprint = m_instrument.getBeam().footprintFactor();
+    if (footprint != nullptr)
+        beam_intensity *= footprint->calculate(alpha_i);
+    element.setIntensity(element.getIntensity() * beam_intensity);
 }
 
 void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)

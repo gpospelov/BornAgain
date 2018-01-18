@@ -42,6 +42,8 @@ const std::string SphericalDetectorType = "SphericalDetector";
 const std::string RectangularDetectorType = "RectangularDetector";
 const std::string IsGISAXSDetectorType = "IsGISAXSDetector";
 const std::string BeamType = "Beam";
+const std::string GaussianFootprintFactorType = "FootprintFactorGaussian";
+const std::string SquareFootprintFactorType = "FootprintFactorSquare";
 const std::string DetectorAnalyzer = "Analyzer";
 const std::string ConstantBackgroundType = "ConstantBackground";
 const std::string PoissonNoiseBackgroundType = "PoissonNoiseBackground";
@@ -233,6 +235,7 @@ const std::string Direction = "Direction";
 const std::string Efficiency = "Efficiency";
 const std::string Transmission = "Transmission";
 const std::string BackgroundValue = "BackgroundValue";
+const std::string BeamToSampleWidthRatio = "BeamToSampleWidthRatio";
 
 const std::string UnitsRad = "rad";
 const std::string UnitsNm = "nm";

@@ -9,7 +9,6 @@
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
 #include "Units.h"
-#include <limits>
 
 class MultiLayerTest : public ::testing::Test
 {
@@ -26,18 +25,12 @@ protected:
           substrate(stone, 0 * Units::nanometer)
     {
     }
-
     void set_four()
     {
         mLayer.addLayer(topLayer);
         mLayer.addLayer(layer1);
         mLayer.addLayer(layer2);
         mLayer.addLayer(substrate);
-    }
-
-    void set_scale(double value)
-    {
-        mLayer.setScale(value);
     }
 
     ~MultiLayerTest();
@@ -54,7 +47,6 @@ TEST_F(MultiLayerTest, BasicProperty)
     // check default properties
     EXPECT_EQ(BornAgain::MultiLayerType, mLayer.getName());
     EXPECT_EQ(0.0, mLayer.crossCorrLength());
-    EXPECT_EQ(std::numeric_limits<double>::infinity(), mLayer.scale());
     EXPECT_EQ(size_t(0), mLayer.numberOfLayers());
     EXPECT_EQ(size_t(0), mLayer.numberOfInterfaces());
 
@@ -72,11 +64,6 @@ TEST_F(MultiLayerTest, BasicProperty)
     mLayer.addLayer(substrate);
     EXPECT_EQ(size_t(4), mLayer.numberOfLayers());
     EXPECT_EQ(size_t(3), mLayer.numberOfInterfaces());
-
-    // alter characteristic scale
-    set_scale(1.0);
-    EXPECT_EQ(1.0, mLayer.scale());
-    EXPECT_THROW(set_scale(-1.0), std::runtime_error);
 }
 
 TEST_F(MultiLayerTest, LayerThicknesses)
@@ -175,14 +162,12 @@ TEST_F(MultiLayerTest, LayerInterfaces)
 TEST_F(MultiLayerTest, Clone)
 {
     set_four();
-    set_scale(1.0);
 
     MultiLayer* mLayerClone = mLayer.clone();
 
     // check properties
     EXPECT_EQ(BornAgain::MultiLayerType, mLayerClone->getName());
     EXPECT_EQ(0.0, mLayerClone->crossCorrLength());
-    EXPECT_EQ(1.0, mLayerClone->scale());
     EXPECT_EQ(size_t(4), mLayerClone->numberOfLayers());
     EXPECT_EQ(size_t(3), mLayerClone->numberOfInterfaces());
 
@@ -270,14 +255,12 @@ TEST_F(MultiLayerTest, Clone)
 TEST_F(MultiLayerTest, CloneInvertB)
 {
     set_four();
-    set_scale(1.0);
 
     MultiLayer* mLayerClone = mLayer.cloneInvertB();
 
     // check properties
     EXPECT_EQ(BornAgain::MultiLayerType, mLayerClone->getName());
     EXPECT_EQ(0.0, mLayerClone->crossCorrLength());
-    EXPECT_EQ(1.0, mLayerClone->scale());
     EXPECT_EQ(size_t(4), mLayerClone->numberOfLayers());
     EXPECT_EQ(size_t(3), mLayerClone->numberOfInterfaces());
 

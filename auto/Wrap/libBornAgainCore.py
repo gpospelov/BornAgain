@@ -3711,7 +3711,7 @@ class Beam(INode):
     """
 
 
-    Ideal collimated beam defined by wavelength, direction and intensity.
+    Beam defined by wavelength, direction and intensity.
 
     C++ includes: Beam.h
 
@@ -3791,6 +3791,42 @@ class Beam(INode):
         return _libBornAgainCore.Beam_setIntensity(self, intensity)
 
 
+    def footprintFactor(self):
+        """
+        footprintFactor(Beam self) -> IFootprintFactor const *
+
+        const IFootprintFactor * Beam::footprintFactor() const
+
+        Returns footprint factor. 
+
+        """
+        return _libBornAgainCore.Beam_footprintFactor(self)
+
+
+    def setFootprintFactor(self, shape_factor):
+        """
+        setFootprintFactor(Beam self, IFootprintFactor const & shape_factor)
+
+        void Beam::setFootprintFactor(const IFootprintFactor &shape_factor)
+
+        Sets footprint factor to the beam. 
+
+        """
+        return _libBornAgainCore.Beam_setFootprintFactor(self, shape_factor)
+
+
+    def setWidthRatio(self, width_ratio):
+        """
+        setWidthRatio(Beam self, double width_ratio)
+
+        void Beam::setWidthRatio(double width_ratio)
+
+        Sets beam to sample width ratio in footprint factor. 
+
+        """
+        return _libBornAgainCore.Beam_setWidthRatio(self, width_ratio)
+
+
     def setPolarization(self, bloch_vector):
         """
         setPolarization(Beam self, kvector_t bloch_vector)
@@ -3847,7 +3883,7 @@ class Beam(INode):
         """
         accept(Beam self, INodeVisitor visitor)
 
-        void Beam::accept(INodeVisitor *visitor) const final
+        void Beam::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -7451,6 +7487,8 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, DistributionTrapezoid arg2)
         visit(INodeVisitor self, FitObject arg2)
         visit(INodeVisitor self, FitSuiteObjects arg2)
+        visit(INodeVisitor self, FootprintFactorGaussian const * arg2)
+        visit(INodeVisitor self, FootprintFactorSquare const * arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
         visit(INodeVisitor self, FormFactorBox arg2)
         visit(INodeVisitor self, FormFactorCone arg2)
@@ -7547,6 +7585,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, RotationX arg2)
         visit(INodeVisitor self, RotationY arg2)
         visit(INodeVisitor self, RotationZ arg2)
+        visit(INodeVisitor self, SpecularSimulation arg2)
         visit(INodeVisitor self, SphericalDetector arg2)
         visit(INodeVisitor self, SquareLattice arg2)
 
@@ -16494,7 +16533,14 @@ Simulation_swigregister = _libBornAgainCore.Simulation_swigregister
 Simulation_swigregister(Simulation)
 
 class Simulation2D(Simulation):
-    """Proxy of C++ Simulation2D class."""
+    """
+
+
+    Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+
+    C++ includes: Simulation2D.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [Simulation]:
@@ -16515,14 +16561,42 @@ class Simulation2D(Simulation):
         """
         clone(Simulation2D self) -> Simulation2D
 
-        virtual Simulation* Simulation::clone() const =0
+        Simulation2D* Simulation2D::clone() const override=0
 
         """
         return _libBornAgainCore.Simulation2D_clone(self)
 
 
     def setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
-        """setDetectorParameters(Simulation2D self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)"""
+        """
+        setDetectorParameters(Simulation2D self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
+
+        void Simulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
+
+        Sets spherical detector parameters using angle ranges
+
+        Parameters:
+        -----------
+
+        n_phi: 
+        number of phi-axis bins
+
+        phi_min: 
+        low edge of first phi-bin
+
+        phi_max: 
+        upper edge of last phi-bin
+
+        n_alpha: 
+        number of alpha-axis bins
+
+        alpha_min: 
+        low edge of first alpha-bin
+
+        alpha_max: 
+        upper edge of last alpha-bin 
+
+        """
         return _libBornAgainCore.Simulation2D_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
 
 Simulation2D_swigregister = _libBornAgainCore.Simulation2D_swigregister
@@ -23429,30 +23503,6 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_setLayerMaterial(self, i_layer, material)
 
 
-    def setScale(self, scale):
-        """
-        setScale(MultiLayer self, double scale)
-
-        void MultiLayer::setScale(double scale)
-
-        Set the characteristic dimension of the multilayer. 
-
-        """
-        return _libBornAgainCore.MultiLayer_setScale(self, scale)
-
-
-    def scale(self):
-        """
-        scale(MultiLayer self) -> double
-
-        double MultiLayer::scale() const
-
-        Get the characteristic dimension of the multilayer. 
-
-        """
-        return _libBornAgainCore.MultiLayer_scale(self)
-
-
     def clone(self):
         """
         clone(MultiLayer self) -> MultiLayer
@@ -26503,12 +26553,12 @@ class SpecularSimulation(Simulation):
 
     def setBeamParameters(self, *args):
         """
-        setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis, double phi_i=0.0)
+        setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis, IFootprintFactor const * beam_shape=None)
         setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis)
-        setBeamParameters(SpecularSimulation self, double arg2, int nbins, double alpha_i_min, double alpha_i_max, double phi_i=0.0)
+        setBeamParameters(SpecularSimulation self, double arg2, int nbins, double alpha_i_min, double alpha_i_max, IFootprintFactor const * beam_shape=None)
         setBeamParameters(SpecularSimulation self, double arg2, int nbins, double alpha_i_min, double alpha_i_max)
 
-        void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, double phi_i=0.0)
+        void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, const IFootprintFactor *beam_shape=nullptr)
 
         """
         return _libBornAgainCore.SpecularSimulation_setBeamParameters(self, *args)
@@ -26539,28 +26589,16 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_getDetectorIntensity(self, *args)
 
 
-    def reflectivity(self):
+    def getIntensityData(self):
         """
-        reflectivity(SpecularSimulation self) -> Histogram1D
+        getIntensityData(SpecularSimulation self) -> Histogram1D
 
-        Histogram1D * SpecularSimulation::reflectivity() const
+        Histogram1D * SpecularSimulation::getIntensityData() const
 
-        Returns reflectivity values  $Reflectivity = |R|^2$ in the form of 1D Histogram for the upper sample layer. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_reflectivity(self)
-
-
-    def transmissivity(self):
-        """
-        transmissivity(SpecularSimulation self) -> Histogram1D
-
-        Histogram1D * SpecularSimulation::transmissivity() const
-
-        Returns transmissivity values  $Transmissivity = |T|^2$ in the form of 1D Histogram for the sample bottom layer. 
+        Returns detector signal (  $ \\propto |R|^2$) in the form of 1D Histogram. 
 
         """
-        return _libBornAgainCore.SpecularSimulation_transmissivity(self)
+        return _libBornAgainCore.SpecularSimulation_getIntensityData(self)
 
 
     def getScalarR(self, i_layer):

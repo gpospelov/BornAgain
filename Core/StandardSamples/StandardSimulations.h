@@ -53,6 +53,8 @@ GISASSimulation* ConstantBackgroundGISAS();
 
 // Specular simulation tests:
 SpecularSimulation* BasicSpecular();
+SpecularSimulation* SpecularWithGaussianBeam();
+SpecularSimulation* SpecularWithSquareBeam();
 
 } // namespace StandardSimulations
 

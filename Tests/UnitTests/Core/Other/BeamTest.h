@@ -1,11 +1,14 @@
 #include "Beam.h"
 #include "BornAgainNamespace.h"
+#include "FootprintFactorGaussian.h"
+#include "FootprintFactorSquare.h"
 #include "MathConstants.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include "google_test.h"
 
 #include <memory>
+#include <typeinfo>
 
 class BeamTest : public ::testing::Test
 {
@@ -66,4 +69,40 @@ TEST_F(BeamTest, BeamPolarization)
     EXPECT_NEAR(0.1, bloch_vector.x(), 1e-8);
     EXPECT_NEAR(-0.2, bloch_vector.y(), 1e-8);
     EXPECT_NEAR(0.4, bloch_vector.z(), 1e-8);
+}
+
+TEST_F(BeamTest, FootprintBehaviour)
+{
+    Beam beam;
+    EXPECT_EQ(nullptr, beam.footprintFactor());
+    EXPECT_THROW(beam.setWidthRatio(1.0), std::runtime_error);
+
+    FootprintFactorSquare square_ff(0.0);
+    beam.setFootprintFactor(square_ff);
+    beam.setWidthRatio(1.0);
+    EXPECT_EQ(1.0, beam.footprintFactor()->widthRatio());
+
+    Beam beam2 = beam;
+    EXPECT_EQ(typeid(beam.footprintFactor()).hash_code(),
+              typeid(beam2.footprintFactor()).hash_code());
+    EXPECT_EQ(beam.footprintFactor()->widthRatio(), beam2.footprintFactor()->widthRatio());
+    EXPECT_EQ(beam.footprintFactor()->parent(), static_cast<INode*>(&beam));
+    EXPECT_EQ(beam2.footprintFactor()->parent(), static_cast<INode*>(&beam2));
+
+    Beam beam3;
+    beam = beam3;
+
+    EXPECT_EQ(nullptr, beam.footprintFactor());
+    EXPECT_EQ(nullptr, beam3.footprintFactor());
+
+    Beam beam4;
+    FootprintFactorGaussian gaussian_ff(1.0);
+    beam4.setFootprintFactor(gaussian_ff);
+
+    beam = beam4;
+    EXPECT_EQ(typeid(beam.footprintFactor()).hash_code(),
+              typeid(beam4.footprintFactor()).hash_code());
+    EXPECT_EQ(beam.footprintFactor()->widthRatio(), beam4.footprintFactor()->widthRatio());
+    EXPECT_EQ(beam.footprintFactor()->parent(), static_cast<INode*>(&beam));
+    EXPECT_EQ(beam4.footprintFactor()->parent(), static_cast<INode*>(&beam4));
 }

@@ -62,8 +62,8 @@ public:
 
 protected:
     UnitConverterSimple(const UnitConverterSimple& other);
+
     void addAxisData(double min, double max, AxesUnits default_units, size_t nbins);
-    virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const=0;
     void checkIndex(size_t i_axis) const;
     void checkDimension(size_t dim) const;
 
@@ -73,6 +73,10 @@ protected:
         size_t nbins;
     };
     std::vector<AxisData> m_axis_data_table;
+
+private:
+    virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const=0;
+    virtual AxesUnits defaultUnits() const=0;
 };
 
 //! IUnitConverter class that handles the unit translations for spherical detectors
@@ -90,7 +94,25 @@ public:
 
 private:
     double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
-    static const AxesUnits Default_Units = AxesUnits::RADIANS;
+    AxesUnits defaultUnits() const override { return AxesUnits::RADIANS; }
 };
+
+//! IUnitConverter class that handles the unit translations for rectangular detectors
+//! Its default units are radians for both axes
+//! @ingroup simulation_internal
+
+//class BA_CORE_API_ RectangularConverter : public UnitConverterSimple
+//{
+//public:
+//    RectangularConverter(size_t n_phi, double phi_min, double phi_max,
+//                       size_t n_alpha, double alpha_min, double alpha_max);
+//    virtual ~RectangularConverter();
+
+//    RectangularConverter* clone() const override;
+
+//private:
+//    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
+//    AxesUnits defaultUnits() const override { return AxesUnits::MM; }
+//};
 
 #endif // UNITCONVERTERS_H

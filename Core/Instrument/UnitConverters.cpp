@@ -33,6 +33,11 @@ double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) co
 {
     checkIndex(i_axis);
     auto axis_data = m_axis_data_table[i_axis];
+    if (units_type==defaultUnits() || units_type==AxesUnits::DEFAULT) {
+        return axis_data.min;
+    } else if (units_type==AxesUnits::NBINS) {
+        return 0.0;
+    }
     return calculateValue(i_axis, units_type, axis_data.min);
 }
 
@@ -40,6 +45,11 @@ double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) co
 {
     checkIndex(i_axis);
     auto axis_data = m_axis_data_table[i_axis];
+    if (units_type==defaultUnits() || units_type==AxesUnits::DEFAULT) {
+        return axis_data.max;
+    } else if (units_type==AxesUnits::NBINS) {
+        return static_cast<double>(axis_data.nbins);
+    }
     return calculateValue(i_axis, units_type, axis_data.max);
 }
 
@@ -64,8 +74,8 @@ void UnitConverterSimple::checkDimension(size_t dim) const
 SphericalConverter::SphericalConverter(size_t n_phi, double phi_min, double phi_max,
                                        size_t n_alpha, double alpha_min, double alpha_max)
 {
-    addAxisData(phi_min, phi_max, Default_Units, n_phi);
-    addAxisData(alpha_min, alpha_max, Default_Units, n_alpha);
+    addAxisData(phi_min, phi_max, defaultUnits(), n_phi);
+    addAxisData(alpha_min, alpha_max, defaultUnits(), n_alpha);
 }
 
 SphericalConverter::~SphericalConverter() =default;
@@ -79,20 +89,11 @@ SphericalConverter* SphericalConverter::clone() const
                                   alpha_data.nbins, alpha_data.min, alpha_data.max);
 }
 
-double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
+double SphericalConverter::calculateValue(size_t, AxesUnits units_type, double value) const
 {
-    auto axis_data = m_axis_data_table[i_axis];
-    double range = axis_data.max - axis_data.min;
-    double fraction = range != 0.0 ? (value - axis_data.min)/range
-                                   : 0.0;
     switch(units_type) {
-    case AxesUnits::DEFAULT:
-    case Default_Units:
-        return value;
     case AxesUnits::DEGREES:
-        return value/Units::deg;
-    case AxesUnits::NBINS:
-        return std::round(fraction*axis_data.nbins);
+        return Units::rad2deg(value);
     default:
         throw std::runtime_error("Error in SphericalConverter::calculateValue: "
                                  "target units not available: "

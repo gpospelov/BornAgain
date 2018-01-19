@@ -18,6 +18,7 @@
 #include "SimulationArea.h"
 #include "SimulationElement.h"
 #include "SpecularDetector1D.h"
+#include "SpecularSimulationElement.h"
 #include "Units.h"
 
 namespace {
@@ -98,6 +99,29 @@ std::vector<SimulationElement> SpecularDetector1D::createSimulationElements(cons
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(analyzer_operator);
         sim_element.setSpecular();
+    }
+
+    return result;
+}
+
+std::vector<SpecularSimulationElement>
+SpecularDetector1D::createSpecularSimulationElements(const Beam& beam)
+{
+    std::vector<SpecularSimulationElement> result;
+
+    const double wavelength = beam.getWavelength();
+    PolarizationHandler handler;
+    handler.setPolarization(beam.getPolarization());
+    handler.setAnalyzerOperator(detectionProperties().analyzerOperator());
+
+    SimulationArea area(this);
+    result.reserve(area.totalSize());
+    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
+        // opposite sign for alpha_i since e_{z_beam} = - e_{z_detector}
+        const double alpha_i = -alphaI(it.detectorIndex());
+        result.emplace_back(wavelength, alpha_i);
+        auto& sim_element = result.back();
+        sim_element.setPolarizationHandler(handler);
     }
 
     return result;

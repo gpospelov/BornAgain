@@ -17,6 +17,8 @@
 
 #include "IDetector.h"
 
+class SpecularSimulationElement;
+
 //! 1D detector for specular simulations
 //! @ingroup simulation
 
@@ -35,6 +37,9 @@ public:
 #ifndef SWIG
     //! Create a vector of SimulationElement objects according to the detector
     std::vector<SimulationElement> createSimulationElements(const Beam& beam);
+
+    //! Create a vector of SpecularSimulationElement objects according to the detector
+    std::vector<SpecularSimulationElement> createSpecularSimulationElements(const Beam& beam);
 
     //! Create a vector of DetectorElement objects according to the detector
     std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;

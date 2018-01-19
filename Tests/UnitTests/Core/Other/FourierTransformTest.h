@@ -22,8 +22,75 @@ TEST_F(FourierTransformTest, fwfft2DTest)
     std::vector<std::vector<double>> signal, result;
     std::vector<double> row_vec;
 
-    int nrows = 19; //rows
-    int ncols = 17; //columns
+
+    /*
+    //Works
+    row_vec.push_back(1);
+    row_vec.push_back(0);
+    row_vec.push_back(1);
+    row_vec.push_back(0);
+    signal.push_back(row_vec);
+    row_vec.clear();
+    row_vec.push_back(1);
+    row_vec.push_back(5);
+    row_vec.push_back(0);
+    row_vec.push_back(0);
+    signal.push_back(row_vec);
+    */
+
+
+    /*
+    //Works
+    row_vec.push_back(1);
+    row_vec.push_back(88);
+    row_vec.push_back(67);
+    row_vec.push_back(0);
+    signal.push_back(row_vec);
+    row_vec.clear();
+    row_vec.push_back(1);
+    row_vec.push_back(6);
+    row_vec.push_back(5);
+    row_vec.push_back(0);
+    signal.push_back(row_vec);
+    */
+
+    /*
+    //Doesnt work
+    row_vec.push_back(1);
+    row_vec.push_back(0);
+    row_vec.push_back(0);
+    signal.push_back(row_vec);
+    row_vec.clear();
+    row_vec.push_back(0);
+    row_vec.push_back(1);
+    row_vec.push_back(0);
+    signal.push_back(row_vec);
+    */
+
+
+    row_vec.push_back(1);
+    row_vec.push_back(88);
+    row_vec.push_back(0);
+    row_vec.push_back(1);
+    row_vec.push_back(0);
+    signal.push_back(row_vec);
+    row_vec.clear();
+    row_vec.push_back(0);
+    row_vec.push_back(1);
+    row_vec.push_back(1);
+    row_vec.push_back(1);
+    row_vec.push_back(0);
+    signal.push_back(row_vec);
+
+
+
+
+
+
+
+    /*
+    int nrows = 19; //# rows
+    int ncols = 17; //# columns
 
     for(int row=0; row<nrows; row++)
     {
@@ -31,12 +98,14 @@ TEST_F(FourierTransformTest, fwfft2DTest)
         for(int col=0; col<ncols; col++)
         {
             if(col != 5)
-                row_vec.push_back(col+1);
+                row_vec.push_back(0);
             else
-                row_vec.push_back(col+1);
+                row_vec.push_back(0);
+            row_vec[0]=1;
         }
         signal.push_back(row_vec);
     }
+    */
 
     std::cout << "\nRows of 2D signal:" << signal.size() << std::endl;
     std::cout << "Columns of 2D signal:" << signal[0].size() << std::endl;

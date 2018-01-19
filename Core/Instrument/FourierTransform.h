@@ -102,14 +102,16 @@ private:
     private:
         int h_src, w_src; // size of original 'source' array in 2 dimensions
         // size of adjusted source arrays (in_src, out_src)
-        int w_fftw, h_fftw;
+        int h_fftw, w_fftw;
         //! adjusted input 'source' array
         double *in_src;
         //! result of Fourier transformation of source
-        double *out_src;
+        double *out_fftw;
+
+
         //! result of back Fourier transformation FFT(source)
         //double *dst_fft;
-        int h_dst, w_dst;                 // size of resulting array
+        //int h_dst, w_dst;                 // size of resulting array
         //int h_offset, w_offset;           // offsets to copy result into output arrays
 
         fftw_plan p_forw_src;

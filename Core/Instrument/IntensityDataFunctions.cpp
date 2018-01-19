@@ -225,12 +225,12 @@ std::vector<std::vector<double>> IntensityDataFunctions::create2DArrayfromOutput
     */
 
     std::vector<std::vector<double>> array_2d;
-    std::vector<double> row_vec;
+    std::vector<double> row_vec; // row vector for constructing each row of 2d array
 
     size_t nrows = data.getAxis(0).size();
     size_t ncols = data.getAxis(1).size();
 
-    size_t it = 0; // iterator of data
+    size_t it = 0; // iterator of 'data'
     for(size_t row=0; row<nrows; row++)
     {
         row_vec.clear();
@@ -315,6 +315,7 @@ OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArray(
 }
 
 
+/*
 // Another way of constructing OutputData from 2D array (Version 2)
 OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArrayV2(
         const std::vector<std::vector<double>> &array_2d, const OutputData<double> &reference)
@@ -334,7 +335,7 @@ OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArrayV2(
 
     return result;
 }
-
+*/
 
 OutputData<double>* IntensityDataFunctions::getFourierTransform(const OutputData<double> &data)
 {

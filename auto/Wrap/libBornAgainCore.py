@@ -23699,18 +23699,6 @@ class OffSpecSimulation(Simulation2D):
         return _libBornAgainCore.OffSpecSimulation_getDetectorIntensity(self, *args)
 
 
-    def getIntensityData(self):
-        """
-        getIntensityData(OffSpecSimulation self) -> Histogram2D
-
-        Histogram2D * OffSpecSimulation::getIntensityData() const
-
-        Returns clone of the detector intensity map in the form of 2D histogram. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_getIntensityData(self)
-
-
     def setBeamParameters(self, arg2, alpha_axis, phi_i):
         """
         setBeamParameters(OffSpecSimulation self, double arg2, IAxis alpha_axis, double phi_i)

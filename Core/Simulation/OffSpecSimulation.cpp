@@ -55,12 +55,6 @@ OutputData<double>*OffSpecSimulation::getDetectorIntensity(AxesUnits units_type)
     return m_intensity_map.clone();
 }
 
-Histogram2D* OffSpecSimulation::getIntensityData() const
-{
-    const std::unique_ptr<OutputData<double>> data(getDetectorIntensity());
-    return new Histogram2D(*data);
-}
-
 void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i)
 {
     mP_alpha_i_axis.reset(alpha_axis.clone());

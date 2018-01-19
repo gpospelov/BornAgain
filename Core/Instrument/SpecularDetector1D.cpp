@@ -17,7 +17,6 @@
 #include "IPixel.h"
 #include "OutputData.h"
 #include "SimulationArea.h"
-#include "SimulationElement.h"
 #include "SpecularDetector1D.h"
 #include "SpecularSimulationElement.h"
 #include "Units.h"
@@ -80,33 +79,8 @@ double SpecularDetector1D::alphaI(size_t index) const
     return axis.getBin(axis_index).getMidPoint();
 }
 
-std::vector<SimulationElement> SpecularDetector1D::createSimulationElements(const Beam& beam)
-{
-    std::vector<SimulationElement> result;
-
-    const double wavelength = beam.getWavelength();
-    const Eigen::Matrix2cd beam_polarization = beam.getPolarization();
-    const Eigen::Matrix2cd analyzer_operator = detectionProperties().analyzerOperator();
-    const double phi_i = 0; // Assuming that beam is always parallel to x-axis of the sample
-
-    SimulationArea area(this);
-    result.reserve(area.totalSize());
-    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
-        // opposite sign for alpha_i since e_{z_beam} = - e_{z_detector}
-        const double alpha_i = -alphaI(it.detectorIndex());
-        result.emplace_back(wavelength, alpha_i, phi_i,
-                            std::make_unique<SpecularPixel>(alpha_i));
-        auto& sim_element = result.back();
-        sim_element.setPolarization(beam_polarization);
-        sim_element.setAnalyzerOperator(analyzer_operator);
-        sim_element.setSpecular();
-    }
-
-    return result;
-}
-
 std::vector<SpecularSimulationElement>
-SpecularDetector1D::createSpecularSimulationElements(const Beam& beam)
+SpecularDetector1D::createSimulationElements(const Beam& beam)
 {
     std::vector<SpecularSimulationElement> result;
 

@@ -44,7 +44,6 @@ public:
     void setMultilayer(const MultiLayer& multilayer) final override;
 
     //! Fills simulation element specular data
-    void fillSpecularData(SimulationElement& sim_element) const override;
     void fillSpecularData(SpecularSimulationElement& sim_element) const override;
 
     typedef std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>, HashKVector>

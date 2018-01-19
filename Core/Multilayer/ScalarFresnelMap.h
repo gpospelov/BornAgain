@@ -44,7 +44,6 @@ public:
                                                   size_t layer_index) const final override;
 
     //! Fills simulation element specular data
-    void fillSpecularData(SimulationElement& sim_element) const override;
     void fillSpecularData(SpecularSimulationElement& sim_element) const override;
 
 private:

@@ -35,17 +35,13 @@ public:
     const DetectorMask* detectorMask() const override { return nullptr; }
 
 #ifndef SWIG
-    //! Create a vector of SimulationElement objects according to the detector
-    std::vector<SimulationElement> createSimulationElements(const Beam& beam);
-
     //! Create a vector of SpecularSimulationElement objects according to the detector
-    std::vector<SpecularSimulationElement> createSpecularSimulationElements(const Beam& beam);
+    std::vector<SpecularSimulationElement> createSimulationElements(const Beam& beam);
 
     //! Create a vector of DetectorElement objects according to the detector
     std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;
 #endif // SWIG
 
-    using IDetector::createDetectorIntensity;
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>*
     createDetectorIntensity(const std::vector<SpecularSimulationElement>& elements,

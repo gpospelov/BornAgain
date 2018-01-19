@@ -33,14 +33,10 @@ class SpecularComputationTerm
 public:
     SpecularComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
-    void eval(ProgressHandler* progress, const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it) const;
-
     void eval(ProgressHandler* progress, const SpecularElementIter& begin_it,
               const SpecularElementIter& end_it) const;
 
 private:
-    void evalSingle(const std::vector<SimulationElement>::iterator& iter) const;
     void evalSingle(const SpecularElementIter& iter) const;
 
     const MultiLayer* mp_multilayer;

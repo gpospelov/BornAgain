@@ -19,7 +19,6 @@
 #include "MultiLayer.h"
 #include "ScalarFresnelMap.h"
 #include "ProgressHandler.h"
-#include "SimulationElement.h"
 #include "SpecularComputationTerm.h"
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,

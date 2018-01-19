@@ -2,9 +2,9 @@
 #include "BornAgainNamespace.h"
 #include "FixedBinAxis.h"
 #include "OutputData.h"
-#include "SimulationElement.h"
 #include "SimulationArea.h"
 #include "SpecularDetector1D.h"
+#include "SpecularSimulationElement.h"
 #include "Units.h"
 #include "google_test.h"
 #include <memory>
@@ -116,20 +116,10 @@ TEST_F(SpecularDetectorTest, SimulationElements)
     EXPECT_EQ(5u, sim_elements.size());
 
     EXPECT_NEAR(axis.getBinCenter(0), -sim_elements[0].getAlphaI(), 1e-10);
-    EXPECT_NEAR(0.0, sim_elements[0].getPhiI(), 1e-10);
     EXPECT_NEAR(beam.getWavelength(), sim_elements[0].getWavelength(), 1e-10);
-    EXPECT_NEAR(axis.getBinCenter(0), sim_elements[0].getAlphaMean(), 1e-10);
-    EXPECT_NEAR(0.0, sim_elements[0].getPhiMean(), 1e-10);
-    EXPECT_EQ(sim_elements[0].getAlphaMean(), sim_elements[0].getAlpha(0, 0));
-    EXPECT_EQ(sim_elements[0].getAlphaMean(), sim_elements[0].getAlpha(1, 1));
 
     EXPECT_NEAR(axis.getBinCenter(4), -sim_elements[4].getAlphaI(), 1e-10);
-    EXPECT_NEAR(0.0, sim_elements[4].getPhiI(), 1e-10);
     EXPECT_NEAR(beam.getWavelength(), sim_elements[4].getWavelength(), 1e-10);
-    EXPECT_NEAR(axis.getBinCenter(4), sim_elements[4].getAlphaMean(), 1e-10);
-    EXPECT_NEAR(0.0, sim_elements[4].getPhiMean(), 1e-10);
-    EXPECT_EQ(sim_elements[4].getAlphaMean(), sim_elements[4].getAlpha(0, 0));
-    EXPECT_EQ(sim_elements[4].getAlphaMean(), sim_elements[4].getAlpha(1, 1));
 }
 
 TEST_F(SpecularDetectorTest, Clone)

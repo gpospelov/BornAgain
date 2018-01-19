@@ -17,7 +17,6 @@
 
 #include "ICloneable.h"
 #include "INode.h"
-#include <vector>
 
 class SimulationElement;
 

@@ -17,10 +17,8 @@
 #include "IFootprintFactor.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
-#include "SpecularMatrix.h"
 #include "MaterialUtils.h"
 #include "Histogram1D.h"
-#include "SimulationElement.h"
 #include "SpecularComputation.h"
 #include "SpecularData.h"
 #include "SpecularDetector1D.h"
@@ -112,7 +110,7 @@ void SpecularSimulation::initSimulationElementVector()
 std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationElements(const Beam& beam)
 {
     auto p_detector = SpecDetector(m_instrument);
-    return p_detector->createSpecularSimulationElements(beam);
+    return p_detector->createSimulationElements(beam);
 }
 
 std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const

@@ -43,17 +43,6 @@ const ILayerRTCoefficients* ScalarFresnelMap::getInCoefficients(
     return getCoefficients(sim_element.getKi(), layer_index);
 }
 
-void ScalarFresnelMap::fillSpecularData(SimulationElement& sim_element) const
-{
-    const auto& kvec = sim_element.getKi();
-    std::vector<ScalarRTCoefficients> coef_vector;
-    if (m_use_cache)
-        coef_vector = getCoefficientsFromCache(kvec);
-    else
-        coef_vector = calculateCoefficients(*mP_multilayer, kvec);
-    sim_element.setSpecular(std::make_unique<SpecularData>(std::move(coef_vector)));
-}
-
 void ScalarFresnelMap::fillSpecularData(SpecularSimulationElement& sim_element) const
 {
     const auto& kvec = sim_element.getKi();

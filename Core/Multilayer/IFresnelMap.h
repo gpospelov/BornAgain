@@ -44,7 +44,6 @@ public:
             const SimulationElement& sim_element, size_t layer_index) const =0;
 
     //! Fills simulation element specular data
-    virtual void fillSpecularData(SimulationElement& sim_element) const = 0;
     virtual void fillSpecularData(SpecularSimulationElement& sim_element) const = 0;
 
     //! Sets the multilayer to be used for the Fresnel calculations.

@@ -14,7 +14,6 @@
 
 #include "ConstantBackground.h"
 #include "RealParameter.h"
-#include "SimulationElement.h"
 
 
 ConstantBackground::ConstantBackground(double background_value)

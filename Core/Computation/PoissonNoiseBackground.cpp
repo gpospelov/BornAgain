@@ -14,7 +14,6 @@
 
 #include "PoissonNoiseBackground.h"
 #include "MathFunctions.h"
-#include "SimulationElement.h"
 
 PoissonNoiseBackground::PoissonNoiseBackground()
 {

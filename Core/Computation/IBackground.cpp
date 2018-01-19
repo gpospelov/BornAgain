@@ -13,6 +13,5 @@
 // ************************************************************************** //
 
 #include "IBackground.h"
-#include "SimulationElement.h"
 
 IBackground::~IBackground() = default;

@@ -15,6 +15,7 @@
 #include "Beam.h"
 #include "DetectorElement.h"
 #include "IPixel.h"
+#include "OutputData.h"
 #include "SimulationArea.h"
 #include "SimulationElement.h"
 #include "SpecularDetector1D.h"
@@ -143,6 +144,33 @@ std::vector<DetectorElement> SpecularDetector1D::createDetectorElements(const Be
     return result;
 }
 
+OutputData<double>*
+SpecularDetector1D::createDetectorIntensity(const std::vector<SpecularSimulationElement>& elements,
+                                            const Beam& beam, AxesUnits units_type) const
+{
+    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
+    if (!detectorMap)
+        throw std::runtime_error("Instrument::createDetectorIntensity:"
+                                                "can't create detector map.");
+
+    if (detectorResolution()) {
+        if (units_type != AxesUnits::DEFAULT) {
+            std::unique_ptr<OutputData<double>> defaultMap(
+                createDetectorMap(beam, AxesUnits::DEFAULT));
+            setDataToDetectorMap(*defaultMap, elements);
+            applyDetectorResolution(defaultMap.get());
+            detectorMap->setRawDataVector(defaultMap->getRawDataVector());
+        } else {
+            setDataToDetectorMap(*detectorMap, elements);
+            applyDetectorResolution(detectorMap.get());
+        }
+    } else {
+        setDataToDetectorMap(*detectorMap, elements);
+    }
+
+    return detectorMap.release();
+}
+
 std::string SpecularDetector1D::axisName(size_t index) const
 {
     if (index == 0) {
@@ -164,4 +192,15 @@ void SpecularDetector1D::calculateAxisRange(size_t axis_index, const Beam& beam,
     } else {
         IDetector::calculateAxisRange(axis_index, beam, units, amin, amax);
     }
+}
+
+void SpecularDetector1D::setDataToDetectorMap(
+    OutputData<double>& detectorMap, const std::vector<SpecularSimulationElement>& elements) const
+{
+    if(elements.empty())
+        return;
+    SimulationArea area(this);
+    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+        detectorMap[it.roiIndex()] = elements[it.elementIndex()].getIntensity();
+
 }

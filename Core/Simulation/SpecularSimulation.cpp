@@ -27,6 +27,7 @@
 namespace
 {
 SpecularDetector1D* SpecDetector(Instrument& instrument);
+const SpecularDetector1D* SpecDetector(const Instrument& instrument);
 }
 
 SpecularSimulation::SpecularSimulation() : Simulation()
@@ -139,7 +140,8 @@ OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_typ
 {
     const size_t i_layer = 0; // detector intensity is proportional to reflectivity from the zeroth layer
     validityCheck(i_layer);
-    return m_instrument.createDetectorIntensity(m_sim_elements, units_type);
+    const auto detector = SpecDetector(m_instrument);
+    return detector->createDetectorIntensity(m_sim_elements, m_instrument.getBeam(), units_type);
 }
 
 Histogram1D* SpecularSimulation::getIntensityData() const
@@ -247,6 +249,15 @@ namespace
 SpecularDetector1D* SpecDetector(Instrument& instrument)
 {
     SpecularDetector1D* detector = dynamic_cast<SpecularDetector1D*>(instrument.getDetector());
+    if (!detector)
+        throw std::runtime_error(
+            "Error in SpecularSimulation: wrong detector type");
+    return detector;
+}
+
+const SpecularDetector1D* SpecDetector(const Instrument& instrument)
+{
+    const auto detector = dynamic_cast<const SpecularDetector1D*>(instrument.getDetector());
     if (!detector)
         throw std::runtime_error(
             "Error in SpecularSimulation: wrong detector type");

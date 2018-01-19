@@ -88,6 +88,15 @@ complex_t MathFunctions::Laue(const complex_t z, size_t N) // Exp(iNx/2)*Sin((N+
     return exp_I(N/2.0*z)*std::sin(z*(N+1.0)/2.0)/std::sin(z/2.0);
 }
 
+double MathFunctions::erf(double arg)
+{
+    if (arg < 0.0)
+        throw std::runtime_error("Error in MathFunctions::erf: negative argument is not allowed");
+    if (std::isinf(arg))
+        return 1.0;
+    return gsl_sf_erf(arg);
+}
+
 // ************************************************************************** //
 //  Bessel functions
 // ************************************************************************** //

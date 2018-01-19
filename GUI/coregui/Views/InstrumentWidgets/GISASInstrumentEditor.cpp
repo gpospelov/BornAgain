@@ -13,56 +13,53 @@
 // ************************************************************************** //
 
 #include "GISASInstrumentEditor.h"
-#include "BackgroundItems.h"
-#include "BeamEditorWidget.h"
-#include "ComponentEditor.h"
-#include "ColumnResizer.h"
-#include "DetectorEditorWidget.h"
-#include "DetectorItems.h"
+#include "GISASBeamEditor.h"
+#include "GISASDetectorEditor.h"
+#include "EnvironmentEditor.h"
+#include "PolarizationAnalysisEditor.h"
 #include "InstrumentItems.h"
-#include "GroupItem.h"
+#include "detailswidget.h"
+#include "ColumnResizer.h"
 #include <QVBoxLayout>
-
-namespace
-{
-const QString background_title("Background");
-}
 
 GISASInstrumentEditor::GISASInstrumentEditor(QWidget* parent)
     : SessionItemWidget(parent)
     , m_columnResizer(new ColumnResizer(this))
-    , m_beamEditor(new BeamEditorWidget)
-    , m_detectorEditor(new DetectorEditorWidget(m_columnResizer))
-    , m_backgroundEditor(new ComponentEditor(ComponentEditor::PlainWidget, background_title))
+    , m_beamEditor(new GISASBeamEditor(m_columnResizer))
+    , m_detectorEditor(new GISASDetectorEditor)
+    , m_environmentEditor(new EnvironmentEditor(m_columnResizer))
+    , m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
 {
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
-    mainLayout->addWidget(m_beamEditor);
-    mainLayout->addWidget(m_detectorEditor);
-    mainLayout->addWidget(m_backgroundEditor);
+    auto mainLayout = new QVBoxLayout;
+
+    addEditor(mainLayout, m_beamEditor, "Beam parameters");
+    addEditor(mainLayout, m_detectorEditor, "Detector parameters");
+    addEditor(mainLayout, m_polarizationAnalysisEditor, "Polarization analysis", /*expanded*/false);
+    addEditor(mainLayout, m_environmentEditor, "Environment", /*expanded*/false);
+
     mainLayout->addStretch();
 
-    m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->gridLayout(), 0);
-    m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->gridLayout(), 1);
-    m_columnResizer->addWidgetsFromGridLayout(m_beamEditor->gridLayout(), 2);
-
-    connect(m_detectorEditor, &DetectorEditorWidget::extendedDetectorEditorRequest,
-            this, &GISASInstrumentEditor::extendedDetectorEditorRequest);
-
-    setStyleSheet("InstrumentComponentsWidget {background-color:transparent;}");
+    setLayout(mainLayout);
 }
 
 void GISASInstrumentEditor::subscribeToItem()
 {
-    m_beamEditor->setBeamItem(instrumentItem()->beamItem());
+    m_beamEditor->setItem(instrumentItem());
     m_detectorEditor->setItem(instrumentItem());
-    m_backgroundEditor->setItem(instrumentItem()->backgroundGroup());
+    m_environmentEditor->setItem(instrumentItem());
+    m_polarizationAnalysisEditor->setItem(instrumentItem());
 }
 
-void GISASInstrumentEditor::unsubscribeFromItem()
+void GISASInstrumentEditor::addEditor(QVBoxLayout* layout, QWidget* widget, const QString& name,
+                                      bool expanded)
 {
-    m_backgroundEditor->clearEditor();
-    m_beamEditor->setBeamItem(nullptr);
-    m_detectorEditor->setItem(nullptr);
+    auto detailsWidget = new Utils::DetailsWidget;
+    detailsWidget->setSummaryText(name);
+    detailsWidget->setSummaryFontBold(true);
+    detailsWidget->setWidget(widget);
+    if (expanded)
+        detailsWidget->setState(Utils::DetailsWidget::Expanded);
+    layout->addWidget(detailsWidget);
 }
 
 GISASInstrumentItem* GISASInstrumentEditor::instrumentItem()

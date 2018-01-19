@@ -265,10 +265,15 @@ SessionItem* createItem(SessionItem* item, const QString& modelType, const QStri
         if (auto groupItem = dynamic_cast<GroupItem*>(item))
             result = groupItem->getItemOfType(modelType);
     } else {
-        if (item->sessionItemTags()->isSingleItemTag(tag))
+        if (item->sessionItemTags()->isSingleItemTag(tag)) {
             result = item->getItem(tag);
-        else
-            result = item->model()->insertNewItem(modelType, item->index(), -1, tag);
+        } else {
+            try {
+                result = item->model()->insertNewItem(modelType, item->index(), -1, tag);
+            } catch (const std::exception&) {
+                result = nullptr; // error will be reported later
+            }
+        }
     }
     return result;
 }

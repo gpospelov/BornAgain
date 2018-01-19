@@ -16,13 +16,17 @@
 #define MODELUTILS_H
 
 #include "WinDllMacros.h"
+#include <QString>
 #include <functional>
 
 class QModelIndex;
 class QAbstractItemModel;
+class SessionModel;
 
 namespace ModelUtils
 {
+//! Returns list of top iten manes.
+BA_CORE_API_ QStringList topItemNames(SessionModel* model, const QString& modelType = QString());
 
 //! Iterates through all model indices and calls user function.
 BA_CORE_API_ void iterate(const QModelIndex& index, const QAbstractItemModel* model,

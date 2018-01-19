@@ -26,7 +26,7 @@ class BA_CORE_API_ MaterialBySLDBuilder : public IMultiLayerBuilder
 {
 public:
     MaterialBySLDBuilder();
-    virtual MultiLayer* buildSample() const override;
+    MultiLayer* buildSample() const override;
 
 protected:
     struct MaterialData {

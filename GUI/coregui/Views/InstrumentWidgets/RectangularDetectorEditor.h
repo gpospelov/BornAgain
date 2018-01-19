@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InstrumentWidgets/RectangularDetectorWidget.h
-//! @brief     Defines class RectangularDetectorWidget
+//! @file      GUI/coregui/Views/InstrumentWidgets/RectangularDetectorEditor.h
+//! @brief     Defines class RectangularDetectorEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,52 +12,42 @@
 //
 // ************************************************************************** //
 
-#ifndef RECTANGULARDETECTORWIDGET_H
-#define RECTANGULARDETECTORWIDGET_H
+#ifndef RECTANGULARDETECTOREDITOR_H
+#define RECTANGULARDETECTOREDITOR_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
-#include <memory>
-
-class ColumnResizer;
+#include "SessionItemWidget.h"
 class RectangularDetectorItem;
 class ComponentEditor;
 class QGridLayout;
-class ColumnResizer;
 
-class BA_CORE_API_ RectangularDetectorWidget : public QWidget
+class BA_CORE_API_ RectangularDetectorEditor : public SessionItemWidget
 {
     Q_OBJECT
-public:
-    RectangularDetectorWidget(ColumnResizer* columnResizer, RectangularDetectorItem* detectorItem,
-                              QWidget* parent = 0);
-    virtual ~RectangularDetectorWidget();
 
-    void setDetectorItem(RectangularDetectorItem* detectorItem);
+public:
+    RectangularDetectorEditor(QWidget* parent = nullptr);
 
 public slots:
     void onPropertyChanged(const QString& propertyName);
-    void onColumnResizerDestroyed(QObject* object);
-    void setColumnResizer(ColumnResizer* columnResizer);
+
+protected:
+    void subscribeToItem();
+    void unsubscribeFromItem();
+    RectangularDetectorItem* detectorItem();
 
 private:
     void create_editors();
     void init_editors();
     void init_alignment_editors();
 
-    ColumnResizer* m_columnResizer;
     ComponentEditor* m_xAxisEditor;
     ComponentEditor* m_yAxisEditor;
     ComponentEditor* m_resolutionFunctionEditor;
     ComponentEditor* m_alignmentEditor;
-
     ComponentEditor* m_positionsEditor;
     ComponentEditor* m_normalEditor;
     ComponentEditor* m_directionEditor;
-
     QGridLayout* m_gridLayout;
-
-    RectangularDetectorItem* m_detectorItem;
 };
 
-#endif // RECTANGULARDETECTORWIDGET_H
+#endif  // RECTANGULARDETECTOREDITOR_H

@@ -84,7 +84,7 @@ public:
     double getPhi(double x, double y) const;
 
     //! check if element corresponds to specular peak
-    SpecularData* specularData() const {return m_specular_data.get();}
+    SpecularData* specularData() const { return m_specular_data.get(); }
 
     //! Turn on specular data
     void setSpecular();
@@ -96,29 +96,26 @@ private:
 
     kvector_t getKf(double x, double y) const;
 
-    double m_wavelength, m_alpha_i, m_phi_i;             //!< wavelength and angles of beam
-    double m_intensity;  //!< simulated intensity for detector cell
+    double m_wavelength, m_alpha_i, m_phi_i;  //!< wavelength and angles of beam
+    double m_intensity;                       //!< simulated intensity for detector cell
 #ifndef SWIG
-    Eigen::Matrix2cd m_polarization;      //!< polarization density matrix
-    Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
+    Eigen::Matrix2cd m_polarization;         //!< polarization density matrix
+    Eigen::Matrix2cd m_analyzer_operator;    //!< polarization analyzer operator
 #endif
     std::unique_ptr<IPixel> mP_pixel;
+
+    // this unique_ptr is also used as a flag to indicate if this is the specular pixel
+    // TODO: remove this when we have a simulation type that generates intensity as a function
+    //       of depth and inclination angle (it becomes a bool flag then)
     std::unique_ptr<SpecularData> m_specular_data;
 };
-
-
-//! Add element vector to element vector with weight
-void addElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
-                           std::vector<SimulationElement>::const_iterator last,
-                           std::vector<SimulationElement>::iterator result,
-                           double weight);
 
 //! Helper class for SimulationElement to carry specular information
 //! @ingroup simulation
 
 class BA_CORE_API_ SpecularData
 {
-    // FIXME: find a better way to carry the specular data in SimulationElement
+    // FIXME: find a better way to carry the specular data in SimulationElement (see TODO above)
     using ScalarVector = std::vector<ScalarRTCoefficients>;
     using MatrixVector = std::vector<MatrixRTCoefficients>;
 public:
@@ -127,6 +124,8 @@ public:
     SpecularData(MatrixVector coefficients);
 
     SpecularData(ScalarVector coefficients);
+
+    SpecularData* clone();
 
     const ILayerRTCoefficients& operator[](size_t index) const;
 

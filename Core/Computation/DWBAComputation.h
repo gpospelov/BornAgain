@@ -33,18 +33,14 @@ class IComputationTerm;
 class DWBAComputation : public IComputation
 {
 public:
-    DWBAComputation(
-        const MultiLayer& multilayer,
-        const SimulationOptions& options,
-        ProgressHandler& progress,
-        const std::vector<SimulationElement>::iterator& begin_it,
-        const std::vector<SimulationElement>::iterator& end_it);
+    DWBAComputation(const MultiLayer& multilayer, const SimulationOptions& options,
+                    ProgressHandler& progress,
+                    std::vector<SimulationElement>::iterator begin_it,
+                    std::vector<SimulationElement>::iterator end_it);
     ~DWBAComputation();
 
-    void run();
-
 private:
-    virtual void runProtected() override;
+    void runProtected() override;
     std::unique_ptr<IFresnelMap> createFresnelMap();
     // creates a multilayer that contains averaged materials, for use in Fresnel calculations
     std::unique_ptr<MultiLayer> getAveragedMultilayer() const;

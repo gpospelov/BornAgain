@@ -147,14 +147,6 @@ double SimulationElement::getSolidAngle() const {
     return mP_pixel->getSolidAngle();
 }
 
-void addElementsWithWeight(std::vector<SimulationElement>::const_iterator first,
-                           std::vector<SimulationElement>::const_iterator last,
-                           std::vector<SimulationElement>::iterator result, double weight)
-{
-    for (std::vector<SimulationElement>::const_iterator it = first; it != last; ++it, ++result)
-        result->addIntensity(it->getIntensity() * weight);
-}
-
 SpecularData::SpecularData() : data_type_used(DATA_TYPE::Invalid) {}
 
 SpecularData::SpecularData(MatrixVector coefficients)
@@ -166,6 +158,19 @@ SpecularData::SpecularData(ScalarVector coefficients)
     : data(std::move(coefficients))
     , data_type_used(DATA_TYPE::Scalar)
 {}
+
+SpecularData* SpecularData::clone()
+{
+    switch(data_type_used) {
+    case DATA_TYPE::Invalid:
+        return new SpecularData();
+    case DATA_TYPE::Scalar:
+        return new SpecularData(*boost::get<ScalarVector>(&data));
+    case DATA_TYPE::Matrix:
+        return new SpecularData(*boost::get<MatrixVector>(&data));
+    }
+    return nullptr;
+}
 
 const ILayerRTCoefficients& SpecularData::operator[](size_t index) const
 {

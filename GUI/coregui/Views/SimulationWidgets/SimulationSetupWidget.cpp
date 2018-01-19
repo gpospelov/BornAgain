@@ -23,6 +23,7 @@
 #include "SimulationOptionsWidget.h"
 #include "SimulationSetupAssistant.h"
 #include "projectmanager.h"
+#include "InstrumentItems.h"
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -60,13 +61,13 @@ void SimulationSetupWidget::setApplicationModels(ApplicationModels *model)
 void SimulationSetupWidget::updateViewElements()
 {
     m_simDataSelectorWidget->updateViewElements();
-    m_simOptionsWidget->setItem(m_applicationModels->documentModel()->getSimulationOptionsItem());
+    m_simOptionsWidget->setItem(m_applicationModels->documentModel()->simulationOptionsItem());
 }
 
 void SimulationSetupWidget::onRunSimulation()
 {
     const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
-    const GISASInstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
+    const auto instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
     const RealDataItem *realDataItem = m_simDataSelectorWidget->selectedRealDataItem();
 
     SimulationSetupAssistant assistant;
@@ -77,7 +78,7 @@ void SimulationSetupWidget::onRunSimulation()
                 multiLayerItem,
                 instrumentItem,
                 realDataItem,
-                m_applicationModels->documentModel()->getSimulationOptionsItem());
+                m_applicationModels->documentModel()->simulationOptionsItem());
 
     if (jobItem->runImmediately() || jobItem->runInBackground())
         m_applicationModels->jobModel()->runJob(jobItem->index());
@@ -86,7 +87,7 @@ void SimulationSetupWidget::onRunSimulation()
 void SimulationSetupWidget::onExportToPythonScript()
 {
     const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
-    const GISASInstrumentItem *instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
+    const auto instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
 
     SimulationSetupAssistant assistant;
     if(!assistant.isValidSimulationSetup(multiLayerItem, instrumentItem))
@@ -97,7 +98,7 @@ void SimulationSetupWidget::onExportToPythonScript()
     pythonWidget->raise();
     pythonWidget->generatePythonScript(
         multiLayerItem, instrumentItem,
-        m_applicationModels->documentModel()->getSimulationOptionsItem(),
+        m_applicationModels->documentModel()->simulationOptionsItem(),
         AppSvc::projectManager()->projectDir());
 }
 

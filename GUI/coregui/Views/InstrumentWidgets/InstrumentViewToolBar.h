@@ -30,7 +30,7 @@ class BA_CORE_API_ InstrumentViewToolBar : public StyledToolBar
     Q_OBJECT
 
 public:
-    explicit InstrumentViewToolBar(InstrumentViewActions* actions, QWidget* parent = 0);
+    explicit InstrumentViewToolBar(InstrumentViewActions* actions, QWidget* parent = nullptr);
 
 private slots:
     void onAddInstrument();

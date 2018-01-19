@@ -21,6 +21,7 @@
 #include "GUIHelpers.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
+#include "InstrumentItems.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "ModelPath.h"
@@ -92,7 +93,7 @@ void GUITranslationTest::processParameterTree()
                 m_models->sampleModel()->multiLayerItem(),
                 m_models->instrumentModel()->instrumentItem(),
                 0,
-                m_models->documentModel()->getSimulationOptionsItem());
+                m_models->documentModel()->simulationOptionsItem());
 
     SessionItem *container = jobItem->parameterContainerItem();
 

@@ -18,9 +18,10 @@
 #include "SessionModel.h"
 #include "ComboProperty.h"
 #include "JobItemUtils.h"
-#include "ImportDataAssistant.h"
+#include "ImportDataUtils.h"
 #include "MaskUnitsConverter.h"
 #include "JobItemFunctions.h"
+#include "InstrumentItems.h"
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
@@ -99,7 +100,7 @@ void RealDataItem::setOutputData(OutputData<double> *data)
     item->setOutputData(data);
 }
 
-void RealDataItem::linkToInstrument(const GISASInstrumentItem *instrument, bool make_update)
+void RealDataItem::linkToInstrument(const InstrumentItem *instrument, bool make_update)
 {
     m_linkedInstrument = instrument;
     if(make_update)
@@ -134,7 +135,7 @@ void RealDataItem::updateToInstrument()
         item->setYaxisTitle("Y [nbins]");
         MaskUnitsConverter converter;
         converter.convertToNbins(intensityDataItem());
-        item->setOutputData(ImportDataAssistant::createSimplifiedOutputData(*item->getOutputData()));
+        item->setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*item->getOutputData()).release());
         item->setAxesRangeToData();
         converter.convertFromNbins(intensityDataItem());
     }

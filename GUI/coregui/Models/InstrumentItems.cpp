@@ -22,6 +22,13 @@
 #include "GroupItem.h"
 #include "MaskItems.h"
 #include "ParameterTranslators.h"
+#include "Instrument.h"
+#include "IDetector2D.h"
+#include "AxesItems.h"
+
+namespace {
+const QString background_group_label = "Type";
+}
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
 
@@ -32,11 +39,11 @@ InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType
 
 }
 
-const QString GISASInstrumentItem::P_BEAM = "Beam";
-const QString GISASInstrumentItem::P_DETECTOR = "Detector";
-const QString GISASInstrumentItem::P_BACKGROUND = "Background";
+const QString Instrument2DItem::P_BEAM = "Beam";
+const QString Instrument2DItem::P_DETECTOR = "Detector";
+const QString Instrument2DItem::P_BACKGROUND = "Background";
 
-GISASInstrumentItem::GISASInstrumentItem(const QString& modelType)
+Instrument2DItem::Instrument2DItem(const QString& modelType)
     : InstrumentItem(modelType)
 {
     addGroupProperty(P_BEAM, Constants::BeamType);
@@ -45,50 +52,54 @@ GISASInstrumentItem::GISASInstrumentItem(const QString& modelType)
 
     setDefaultTag(P_DETECTOR);
 
-    addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
+    auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
+    item->setDisplayName(background_group_label);
+    item->setToolTip("Background type");
 }
 
-BeamItem *GISASInstrumentItem::beamItem() const
+Instrument2DItem::~Instrument2DItem() = default;
+
+BeamItem *Instrument2DItem::beamItem() const
 {
     return &item<BeamItem>(P_BEAM);
 }
 
-DetectorItem* GISASInstrumentItem::detectorItem() const
+DetectorItem* Instrument2DItem::detectorItem() const
 {
     return &groupItem<DetectorItem>(P_DETECTOR);
 }
 
-GroupItem* GISASInstrumentItem::detectorGroup()
+GroupItem* Instrument2DItem::detectorGroup()
 {
     return &item<GroupItem>(P_DETECTOR);
 }
 
-BackgroundItem* GISASInstrumentItem::backgroundItem() const
+BackgroundItem* Instrument2DItem::backgroundItem() const
 {
     return &groupItem<BackgroundItem>(P_BACKGROUND);
 }
 
-GroupItem* GISASInstrumentItem::backgroundGroup()
+GroupItem* Instrument2DItem::backgroundGroup()
 {
     return &item<GroupItem>(P_BACKGROUND);
 }
 
-void GISASInstrumentItem::setDetectorGroup(const QString& modelType)
+void Instrument2DItem::setDetectorGroup(const QString& modelType)
 {
     setGroupProperty(P_DETECTOR, modelType);
 }
 
-void GISASInstrumentItem::clearMasks()
+void Instrument2DItem::clearMasks()
 {
     detectorItem()->clearMasks();
 }
 
-void GISASInstrumentItem::importMasks(MaskContainerItem* maskContainer)
+void Instrument2DItem::importMasks(MaskContainerItem* maskContainer)
 {
     detectorItem()->importMasks(maskContainer);
 }
 
-QStringList GISASInstrumentItem::translateList(const QStringList& list) const
+QStringList Instrument2DItem::translateList(const QStringList& list) const
 {
     QStringList result;
     // Add constant background directly to simulation
@@ -106,8 +117,37 @@ QStringList GISASInstrumentItem::translateList(const QStringList& list) const
     return result;
 }
 
-OffSpecInstrumentItem::OffSpecInstrumentItem()
-    : GISASInstrumentItem(Constants::OffSpecInstrumentType)
+std::unique_ptr<Instrument> Instrument2DItem::createInstrument() const
 {
+    std::unique_ptr<Instrument> result(new Instrument);
 
+    auto beam = beamItem()->createBeam();
+    result->setBeam(*beam);
+
+    auto detector = detectorItem()->createDetector();
+    result->setDetector(*detector);
+
+    return result;
 }
+
+GISASInstrumentItem::GISASInstrumentItem()
+    : Instrument2DItem(Constants::GISASInstrumentType)
+{
+}
+
+const QString OffSpecInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
+
+OffSpecInstrumentItem::OffSpecInstrumentItem()
+    : Instrument2DItem(Constants::OffSpecInstrumentType)
+{
+    auto item = addGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
+    item->setToolTip("Incoming alpha range [deg]");
+    item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan");
+    item->getItem(BasicAxisItem::P_MIN)->setToolTip("Starting value [deg]");
+    item->getItem(BasicAxisItem::P_MAX)->setToolTip("Ending value [deg]");
+
+    item->setItemValue(BasicAxisItem::P_MIN, 0.0);
+    item->setItemValue(BasicAxisItem::P_MAX, 10.0);
+}
+

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/Beam.h
+//! @file      Core/Beam/Beam.h
 //! @brief     Defines class Beam.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -19,7 +19,9 @@
 #include "EigenCore.h"
 #include "Vectors3D.h"
 
-//! Ideal collimated beam defined by wavelength, direction and intensity.
+class IFootprintFactor;
+
+//! Beam defined by wavelength, direction and intensity.
 //! @ingroup simulation
 
 class BA_CORE_API_ Beam : public INode
@@ -43,6 +45,15 @@ public:
     //! Sets the beam intensity in neutrons/sec
     void setIntensity(double intensity) { m_intensity = intensity; }
 
+    //! Returns footprint factor.
+    const IFootprintFactor* footprintFactor() const;
+
+    //! Sets footprint factor to the beam.
+    void setFootprintFactor(const IFootprintFactor& shape_factor);
+
+    //! Sets beam to sample width ratio in footprint factor.
+    void setWidthRatio(double width_ratio);
+
     //! Sets the polarization density matrix according to the given Bloch vector
     void setPolarization(const kvector_t bloch_vector);
 
@@ -57,16 +68,18 @@ public:
     double getAlpha() const { return m_alpha; }
     double getPhi() const { return m_phi; }
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
 private:
     void init_parameters();
+    inline void registerChildren();
 
     void swapContent(Beam& other);
 
     double m_wavelength, m_alpha, m_phi; //!< wavelength and angles of beam
     double m_intensity;                  //!< beam intensity (neutrons/sec)
-    kvector_t m_bloch_vector;               //!< Bloch vector encoding the beam's polarization
+    std::unique_ptr<IFootprintFactor> m_shape_factor; //!< footprint correction handler
+    kvector_t m_bloch_vector;            //!< Bloch vector encoding the beam's polarization
 };
 
 #endif // BEAM_H

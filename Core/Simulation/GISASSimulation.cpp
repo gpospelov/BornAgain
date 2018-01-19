@@ -12,9 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "GISASSimulation.h"
+#include "IBackground.h"
 #include "BornAgainNamespace.h"
 #include "DWBAComputation.h"
+#include "GISASSimulation.h"
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
@@ -31,13 +32,13 @@ GISASSimulation::GISASSimulation()
 }
 
 GISASSimulation::GISASSimulation(const MultiLayer& p_sample)
-    : Simulation(p_sample)
+    : Simulation2D(p_sample)
 {
     initialize();
 }
 
 GISASSimulation::GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : Simulation(p_sample_builder)
+    : Simulation2D(p_sample_builder)
 {
     initialize();
 }
@@ -83,13 +84,6 @@ void GISASSimulation::setDetector(const IDetector2D& detector)
     m_instrument.setDetector(detector);
 }
 
-void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
-                                            size_t n_alpha, double alpha_min, double alpha_max)
-{
-    Detector2D(m_instrument)
-        ->setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
-}
-
 void GISASSimulation::removeMasks()
 {
     Detector2D(m_instrument)->removeMasks();
@@ -110,22 +104,19 @@ void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, 
     Detector2D(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
 }
 
-std::unique_ptr<IComputation> GISASSimulation::generateSingleThreadedComputation(
-        std::vector<SimulationElement>::iterator start,
-        std::vector<SimulationElement>::iterator end)
-{
-    return std::make_unique<DWBAComputation>(*sample(), m_options, m_progress, start, end);
-}
-
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
-    : Simulation(other)
+    : Simulation2D(other)
 {
     initialize();
 }
 
-void GISASSimulation::transferResultsToIntensityMap() {}
-
-void GISASSimulation::updateIntensityMap() {}
+void GISASSimulation::initSimulationElementVector()
+{
+    auto beam = m_instrument.getBeam();
+    m_sim_elements = generateSimulationElements(beam);
+    if (m_cache.empty())
+        m_cache.resize(m_sim_elements.size(), 0.0);
+}
 
 void GISASSimulation::initialize()
 {

@@ -315,7 +315,7 @@ OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArray(
 }
 
 
-// Another way of constructing OutputData from 2D array
+// Another way of constructing OutputData from 2D array (Version 2)
 OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArrayV2(
         const std::vector<std::vector<double>> &array_2d, const OutputData<double> &reference)
 {

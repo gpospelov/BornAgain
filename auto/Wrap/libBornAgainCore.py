@@ -2626,7 +2626,7 @@ class kvector_t(_object):
     """
 
 
-    Three-dimensional vector template, for use with integer, double, or complex components.
+    Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recongnition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
 
     C++ includes: BasicVector3D.h
 
@@ -3138,7 +3138,7 @@ class cvector_t(_object):
     """
 
 
-    Three-dimensional vector template, for use with integer, double, or complex components.
+    Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recongnition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
 
     C++ includes: BasicVector3D.h
 
@@ -3711,7 +3711,7 @@ class Beam(INode):
     """
 
 
-    Ideal collimated beam defined by wavelength, direction and intensity.
+    Beam defined by wavelength, direction and intensity.
 
     C++ includes: Beam.h
 
@@ -3791,6 +3791,42 @@ class Beam(INode):
         return _libBornAgainCore.Beam_setIntensity(self, intensity)
 
 
+    def footprintFactor(self):
+        """
+        footprintFactor(Beam self) -> IFootprintFactor const *
+
+        const IFootprintFactor * Beam::footprintFactor() const
+
+        Returns footprint factor. 
+
+        """
+        return _libBornAgainCore.Beam_footprintFactor(self)
+
+
+    def setFootprintFactor(self, shape_factor):
+        """
+        setFootprintFactor(Beam self, IFootprintFactor const & shape_factor)
+
+        void Beam::setFootprintFactor(const IFootprintFactor &shape_factor)
+
+        Sets footprint factor to the beam. 
+
+        """
+        return _libBornAgainCore.Beam_setFootprintFactor(self, shape_factor)
+
+
+    def setWidthRatio(self, width_ratio):
+        """
+        setWidthRatio(Beam self, double width_ratio)
+
+        void Beam::setWidthRatio(double width_ratio)
+
+        Sets beam to sample width ratio in footprint factor. 
+
+        """
+        return _libBornAgainCore.Beam_setWidthRatio(self, width_ratio)
+
+
     def setPolarization(self, bloch_vector):
         """
         setPolarization(Beam self, kvector_t bloch_vector)
@@ -3847,7 +3883,7 @@ class Beam(INode):
         """
         accept(Beam self, INodeVisitor visitor)
 
-        void Beam::accept(INodeVisitor *visitor) const final
+        void Beam::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -7110,6 +7146,17 @@ def Laue(z, N):
     """
     return _libBornAgainCore.Laue(z, N)
 
+def erf(arg):
+    """
+    erf(double arg) -> double
+
+    double MathFunctions::erf(double arg)
+
+    Error function of real-valued argument. 
+
+    """
+    return _libBornAgainCore.erf(arg)
+
 def Bessel_J0(*args):
     """
     Bessel_J0(double x) -> double
@@ -7440,6 +7487,8 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, DistributionTrapezoid arg2)
         visit(INodeVisitor self, FitObject arg2)
         visit(INodeVisitor self, FitSuiteObjects arg2)
+        visit(INodeVisitor self, FootprintFactorGaussian const * arg2)
+        visit(INodeVisitor self, FootprintFactorSquare const * arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
         visit(INodeVisitor self, FormFactorBox arg2)
         visit(INodeVisitor self, FormFactorCone arg2)
@@ -7499,6 +7548,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, HexagonalLattice arg2)
         visit(INodeVisitor self, IAbstractParticle arg2)
         visit(INodeVisitor self, IClusteredParticles arg2)
+        visit(INodeVisitor self, IdentityRotation arg2)
         visit(INodeVisitor self, IFormFactor arg2)
         visit(INodeVisitor self, IFormFactorBorn arg2)
         visit(INodeVisitor self, IFormFactorDecorator arg2)
@@ -7535,6 +7585,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, RotationX arg2)
         visit(INodeVisitor self, RotationY arg2)
         visit(INodeVisitor self, RotationZ arg2)
+        visit(INodeVisitor self, SpecularSimulation arg2)
         visit(INodeVisitor self, SphericalDetector arg2)
         visit(INodeVisitor self, SquareLattice arg2)
 
@@ -16481,6 +16532,76 @@ class Simulation(ICloneable, INode):
 Simulation_swigregister = _libBornAgainCore.Simulation_swigregister
 Simulation_swigregister(Simulation)
 
+class Simulation2D(Simulation):
+    """
+
+
+    Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+
+    C++ includes: Simulation2D.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [Simulation]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Simulation2D, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Simulation]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, Simulation2D, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_Simulation2D
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(Simulation2D self) -> Simulation2D
+
+        Simulation2D* Simulation2D::clone() const override=0
+
+        """
+        return _libBornAgainCore.Simulation2D_clone(self)
+
+
+    def setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
+        """
+        setDetectorParameters(Simulation2D self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
+
+        void Simulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
+
+        Sets spherical detector parameters using angle ranges
+
+        Parameters:
+        -----------
+
+        n_phi: 
+        number of phi-axis bins
+
+        phi_min: 
+        low edge of first phi-bin
+
+        phi_max: 
+        upper edge of last phi-bin
+
+        n_alpha: 
+        number of alpha-axis bins
+
+        alpha_min: 
+        low edge of first alpha-bin
+
+        alpha_max: 
+        upper edge of last alpha-bin 
+
+        """
+        return _libBornAgainCore.Simulation2D_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
+
+Simulation2D_swigregister = _libBornAgainCore.Simulation2D_swigregister
+Simulation2D_swigregister(Simulation2D)
+
 class SimulationOptions(_object):
     """
 
@@ -16569,9 +16690,9 @@ class SimulationOptions(_object):
 
     def getNumberOfThreads(self):
         """
-        getNumberOfThreads(SimulationOptions self) -> int
+        getNumberOfThreads(SimulationOptions self) -> unsigned int
 
-        int SimulationOptions::getNumberOfThreads() const
+        unsigned SimulationOptions::getNumberOfThreads() const
 
         """
         return _libBornAgainCore.SimulationOptions_getNumberOfThreads(self)
@@ -16591,9 +16712,9 @@ class SimulationOptions(_object):
 
     def getNumberOfBatches(self):
         """
-        getNumberOfBatches(SimulationOptions self) -> int
+        getNumberOfBatches(SimulationOptions self) -> unsigned int
 
-        int SimulationOptions::getNumberOfBatches() const
+        unsigned SimulationOptions::getNumberOfBatches() const
 
         """
         return _libBornAgainCore.SimulationOptions_getNumberOfBatches(self)
@@ -16601,9 +16722,9 @@ class SimulationOptions(_object):
 
     def getCurrentBatch(self):
         """
-        getCurrentBatch(SimulationOptions self) -> int
+        getCurrentBatch(SimulationOptions self) -> unsigned int
 
-        int SimulationOptions::getCurrentBatch() const
+        unsigned SimulationOptions::getCurrentBatch() const
 
         """
         return _libBornAgainCore.SimulationOptions_getCurrentBatch(self)
@@ -16623,9 +16744,9 @@ class SimulationOptions(_object):
 
     def getHardwareConcurrency(self):
         """
-        getHardwareConcurrency(SimulationOptions self) -> int
+        getHardwareConcurrency(SimulationOptions self) -> unsigned int
 
-        int SimulationOptions::getHardwareConcurrency() const
+        unsigned SimulationOptions::getHardwareConcurrency() const
 
         """
         return _libBornAgainCore.SimulationOptions_getHardwareConcurrency(self)
@@ -16675,7 +16796,7 @@ class SimulationOptions(_object):
 SimulationOptions_swigregister = _libBornAgainCore.SimulationOptions_swigregister
 SimulationOptions_swigregister(SimulationOptions)
 
-class GISASSimulation(Simulation):
+class GISASSimulation(Simulation2D):
     """
 
 
@@ -16686,11 +16807,11 @@ class GISASSimulation(Simulation):
     """
 
     __swig_setmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, GISASSimulation, name, value)
     __swig_getmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, GISASSimulation, name)
     __repr__ = _swig_repr
@@ -16716,7 +16837,7 @@ class GISASSimulation(Simulation):
         """
         clone(GISASSimulation self) -> GISASSimulation
 
-        GISASSimulation* GISASSimulation::clone() const
+        GISASSimulation* GISASSimulation::clone() const override
 
         """
         return _libBornAgainCore.GISASSimulation_clone(self)
@@ -16763,7 +16884,7 @@ class GISASSimulation(Simulation):
         getDetectorIntensity(GISASSimulation self, AxesUnits units_type) -> IntensityData
         getDetectorIntensity(GISASSimulation self) -> IntensityData
 
-        OutputData< double > * GISASSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const
+        OutputData< double > * GISASSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
 
         Returns clone of the detector intensity map with detector resolution applied. 
 
@@ -16806,39 +16927,6 @@ class GISASSimulation(Simulation):
 
         """
         return _libBornAgainCore.GISASSimulation_setDetector(self, detector)
-
-
-    def setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
-        """
-        setDetectorParameters(GISASSimulation self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
-
-        void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
-
-        Sets spherical detector parameters using angle ranges
-
-        Parameters:
-        -----------
-
-        n_phi: 
-        number of phi-axis bins
-
-        phi_min: 
-        low edge of first phi-bin
-
-        phi_max: 
-        upper edge of last phi-bin
-
-        n_alpha: 
-        number of alpha-axis bins
-
-        alpha_min: 
-        low edge of first alpha-bin
-
-        alpha_max: 
-        upper edge of last alpha-bin 
-
-        """
-        return _libBornAgainCore.GISASSimulation_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
 
 
     def removeMasks(self):
@@ -17854,14 +17942,15 @@ class IBackground(ICloneable, INode):
         return _libBornAgainCore.IBackground_clone(self)
 
 
-    def addBackGround(self, start, end):
+    def addBackGround(self, *args):
         """
         addBackGround(IBackground self, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator start, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator end)
+        addBackGround(IBackground self, SimulationElement & element)
 
-        virtual void IBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const =0
+        virtual void IBackground::addBackGround(SimulationElement &element) const =0
 
         """
-        return _libBornAgainCore.IBackground_addBackGround(self, start, end)
+        return _libBornAgainCore.IBackground_addBackGround(self, *args)
 
 IBackground_swigregister = _libBornAgainCore.IBackground_swigregister
 IBackground_swigregister(IBackground)
@@ -17933,14 +18022,14 @@ class ConstantBackground(IBackground):
         return _libBornAgainCore.ConstantBackground_accept(self, visitor)
 
 
-    def addBackGround(self, start, end):
+    def addBackGround(self, element):
         """
-        addBackGround(ConstantBackground self, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator start, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator end)
+        addBackGround(ConstantBackground self, SimulationElement & element)
 
-        void ConstantBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const override final
+        void ConstantBackground::addBackGround(SimulationElement &element) const override final
 
         """
-        return _libBornAgainCore.ConstantBackground_addBackGround(self, start, end)
+        return _libBornAgainCore.ConstantBackground_addBackGround(self, element)
 
 ConstantBackground_swigregister = _libBornAgainCore.ConstantBackground_swigregister
 ConstantBackground_swigregister(ConstantBackground)
@@ -18001,7 +18090,7 @@ class IDetector(ICloneable, INode):
         """
         clone(IDetector self) -> IDetector
 
-        virtual IDetector* IDetector::clone() const override=0
+        IDetector* IDetector::clone() const override=0
 
         """
         return _libBornAgainCore.IDetector_clone(self)
@@ -18307,7 +18396,7 @@ class IDetector2D(IDetector):
         """
         clone(IDetector2D self) -> IDetector2D
 
-        virtual IDetector2D* IDetector2D::clone() const override=0
+        IDetector2D* IDetector2D::clone() const override=0
 
         """
         return _libBornAgainCore.IDetector2D_clone(self)
@@ -18818,6 +18907,18 @@ class IAbstractParticle(ISample):
         """
         return _libBornAgainCore.IAbstractParticle_translate(self, translation)
 
+
+    def rotate(self, rotation):
+        """
+        rotate(IAbstractParticle self, IRotation rotation)
+
+        virtual void IAbstractParticle::rotate(const IRotation &rotation)=0
+
+        Applies the given rotation to the particle. 
+
+        """
+        return _libBornAgainCore.IAbstractParticle_rotate(self, rotation)
+
 IAbstractParticle_swigregister = _libBornAgainCore.IAbstractParticle_swigregister
 IAbstractParticle_swigregister(IAbstractParticle)
 
@@ -19082,9 +19183,9 @@ class IParticle(IAbstractParticle):
         """
         rotate(IParticle self, IRotation rotation)
 
-        void IParticle::rotate(const IRotation &rotation)
+        void IParticle::rotate(const IRotation &rotation) override final
 
-        Applies transformation by composing it with the existing one. 
+        Rotates the particle. 
 
         """
         return _libBornAgainCore.IParticle_rotate(self, rotation)
@@ -19330,6 +19431,96 @@ def IsZRotation(rot):
 
     """
     return _libBornAgainCore.IsZRotation(rot)
+class IdentityRotation(IRotation):
+    """Proxy of C++ IdentityRotation class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IRotation]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IdentityRotation, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IRotation]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IdentityRotation, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(IdentityRotation self) -> IdentityRotation
+
+        IdentityRotation::IdentityRotation()=default
+
+        """
+        this = _libBornAgainCore.new_IdentityRotation()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(IdentityRotation self) -> IdentityRotation
+
+        IdentityRotation* IdentityRotation::clone() const
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_clone(self)
+
+
+    def createInverse(self):
+        """
+        createInverse(IdentityRotation self) -> IdentityRotation
+
+        IdentityRotation* IdentityRotation::createInverse() const
+
+        Returns a new  IRotation object that is the current object's inverse. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_createInverse(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(IdentityRotation self, INodeVisitor visitor)
+
+        void IdentityRotation::accept(INodeVisitor *visitor) const
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_accept(self, visitor)
+
+
+    def getTransform3D(self):
+        """
+        getTransform3D(IdentityRotation self) -> Transform3D
+
+        Transform3D IdentityRotation::getTransform3D() const
+
+        Returns transformation. 
+
+        """
+        return _libBornAgainCore.IdentityRotation_getTransform3D(self)
+
+
+    def isIdentity(self):
+        """
+        isIdentity(IdentityRotation self) -> bool
+
+        bool IdentityRotation::isIdentity() const
+
+        Returns true if rotation matrix is identity matrix (no rotations) 
+
+        """
+        return _libBornAgainCore.IdentityRotation_isIdentity(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_IdentityRotation
+    __del__ = lambda self: None
+IdentityRotation_swigregister = _libBornAgainCore.IdentityRotation_swigregister
+IdentityRotation_swigregister(IdentityRotation)
+
 class RotationX(IRotation):
     """Proxy of C++ RotationX class."""
 
@@ -23146,7 +23337,7 @@ class MultiLayer(ISample):
         """
         accept(MultiLayer self, INodeVisitor visitor)
 
-        virtual void MultiLayer::accept(INodeVisitor *visitor) const final override
+        void MultiLayer::accept(INodeVisitor *visitor) const final override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -23514,7 +23705,7 @@ class MultiLayer(ISample):
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
 
-class OffSpecSimulation(Simulation):
+class OffSpecSimulation(Simulation2D):
     """
 
 
@@ -23525,11 +23716,11 @@ class OffSpecSimulation(Simulation):
     """
 
     __swig_setmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, OffSpecSimulation, name, value)
     __swig_getmethods__ = {}
-    for _s in [Simulation]:
+    for _s in [Simulation2D]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, OffSpecSimulation, name)
     __repr__ = _swig_repr
@@ -23555,7 +23746,7 @@ class OffSpecSimulation(Simulation):
         """
         clone(OffSpecSimulation self) -> OffSpecSimulation
 
-        OffSpecSimulation* OffSpecSimulation::clone() const
+        OffSpecSimulation* OffSpecSimulation::clone() const override
 
         """
         return _libBornAgainCore.OffSpecSimulation_clone(self)
@@ -23602,7 +23793,7 @@ class OffSpecSimulation(Simulation):
         getDetectorIntensity(OffSpecSimulation self, AxesUnits units_type) -> IntensityData
         getDetectorIntensity(OffSpecSimulation self) -> IntensityData
 
-        OutputData<double>* OffSpecSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const
+        OutputData<double>* OffSpecSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
 
         Returns clone of the detector intensity map. 
 
@@ -23632,18 +23823,6 @@ class OffSpecSimulation(Simulation):
 
         """
         return _libBornAgainCore.OffSpecSimulation_setBeamParameters(self, arg2, alpha_axis, phi_i)
-
-
-    def setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max):
-        """
-        setDetectorParameters(OffSpecSimulation self, size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
-
-        void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
-
-        Sets detector parameters using angle ranges. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max)
 
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)
@@ -25153,7 +25332,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         clone(ParticleDistribution self) -> ParticleDistribution
 
-        ParticleDistribution * ParticleDistribution::clone() const final override
+        ParticleDistribution * ParticleDistribution::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -25165,7 +25344,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         accept(ParticleDistribution self, INodeVisitor visitor)
 
-        void ParticleDistribution::accept(INodeVisitor *visitor) const final override
+        void ParticleDistribution::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -25177,12 +25356,24 @@ class ParticleDistribution(IAbstractParticle):
         """
         translate(ParticleDistribution self, kvector_t translation)
 
-        void ParticleDistribution::translate(kvector_t translation) final override
+        void ParticleDistribution::translate(kvector_t translation) override final
 
         Translates the particle with the given vector. 
 
         """
         return _libBornAgainCore.ParticleDistribution_translate(self, translation)
+
+
+    def rotate(self, rotation):
+        """
+        rotate(ParticleDistribution self, IRotation rotation)
+
+        void ParticleDistribution::rotate(const IRotation &rotation) override final
+
+        Applies the given rotation to the particle. 
+
+        """
+        return _libBornAgainCore.ParticleDistribution_rotate(self, rotation)
 
 
     def generateParticles(self):
@@ -25227,7 +25418,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleDistribution::getChildren() const final override
+        std::vector< const INode * > ParticleDistribution::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -25262,10 +25453,10 @@ class ParticleLayout(ILayout):
     def __init__(self, *args):
         """
         __init__(ParticleLayout self) -> ParticleLayout
+        __init__(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0) -> ParticleLayout
         __init__(ParticleLayout self, IAbstractParticle particle) -> ParticleLayout
-        __init__(ParticleLayout self, IAbstractParticle particle, double abundance) -> ParticleLayout
 
-        ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance)
+        ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance=-1.0)
 
         """
         this = _libBornAgainCore.new_ParticleLayout(*args)
@@ -25312,12 +25503,12 @@ class ParticleLayout(ILayout):
 
     def addParticle(self, *args):
         """
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position, IRotation rotation)
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0, kvector_t position)
+        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance=-1.0)
         addParticle(ParticleLayout self, IAbstractParticle particle)
-        addParticle(ParticleLayout self, IAbstractParticle particle, double abundance)
-        addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position)
-        addParticle(ParticleLayout self, IParticle particle, double abundance, kvector_t position, IRotation rotation)
 
-        void ParticleLayout::addParticle(const IParticle &particle, double abundance, const kvector_t position, const IRotation &rotation)
+        void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position=kvector_t(), const IRotation &rotation=IdentityRotation())
 
         Adds particle to the layout with abundance, position and the rotation defined.
 
@@ -25471,14 +25662,14 @@ class PoissonNoiseBackground(IBackground):
         return _libBornAgainCore.PoissonNoiseBackground_accept(self, visitor)
 
 
-    def addBackGround(self, start, end):
+    def addBackGround(self, element):
         """
-        addBackGround(PoissonNoiseBackground self, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator start, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator end)
+        addBackGround(PoissonNoiseBackground self, SimulationElement & element)
 
-        void PoissonNoiseBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const override final
+        void PoissonNoiseBackground::addBackGround(SimulationElement &element) const override final
 
         """
-        return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, start, end)
+        return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, element)
 
 PoissonNoiseBackground_swigregister = _libBornAgainCore.PoissonNoiseBackground_swigregister
 PoissonNoiseBackground_swigregister(PoissonNoiseBackground)
@@ -26342,7 +26533,7 @@ class SpecularSimulation(Simulation):
         """
         accept(SpecularSimulation self, INodeVisitor visitor)
 
-        virtual void SpecularSimulation::accept(INodeVisitor *visitor) const override final
+        void SpecularSimulation::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -26362,12 +26553,12 @@ class SpecularSimulation(Simulation):
 
     def setBeamParameters(self, *args):
         """
-        setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis, double phi_i=0.0)
+        setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis, IFootprintFactor const * beam_shape=None)
         setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis)
-        setBeamParameters(SpecularSimulation self, double arg2, int nbins, double alpha_i_min, double alpha_i_max, double phi_i=0.0)
+        setBeamParameters(SpecularSimulation self, double arg2, int nbins, double alpha_i_min, double alpha_i_max, IFootprintFactor const * beam_shape=None)
         setBeamParameters(SpecularSimulation self, double arg2, int nbins, double alpha_i_min, double alpha_i_max)
 
-        void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, double phi_i=0.0)
+        void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, const IFootprintFactor *beam_shape=nullptr)
 
         """
         return _libBornAgainCore.SpecularSimulation_setBeamParameters(self, *args)
@@ -26398,28 +26589,16 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_getDetectorIntensity(self, *args)
 
 
-    def reflectivity(self):
+    def getIntensityData(self):
         """
-        reflectivity(SpecularSimulation self) -> Histogram1D
+        getIntensityData(SpecularSimulation self) -> Histogram1D
 
-        Histogram1D * SpecularSimulation::reflectivity() const
+        Histogram1D * SpecularSimulation::getIntensityData() const
 
-        Returns reflectivity values  $Reflectivity = |R|^2$ in the form of 1D Histogram for the upper sample layer. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_reflectivity(self)
-
-
-    def transmissivity(self):
-        """
-        transmissivity(SpecularSimulation self) -> Histogram1D
-
-        Histogram1D * SpecularSimulation::transmissivity() const
-
-        Returns transmissivity values  $Transmissivity = |T|^2$ in the form of 1D Histogram for the sample bottom layer. 
+        Returns detector signal (  $ \\propto |R|^2$) in the form of 1D Histogram. 
 
         """
-        return _libBornAgainCore.SpecularSimulation_transmissivity(self)
+        return _libBornAgainCore.SpecularSimulation_getIntensityData(self)
 
 
     def getScalarR(self, i_layer):
@@ -26497,10 +26676,6 @@ class ThreadInfo(_object):
     __swig_getmethods__["n_threads"] = _libBornAgainCore.ThreadInfo_n_threads_get
     if _newclass:
         n_threads = _swig_property(_libBornAgainCore.ThreadInfo_n_threads_get, _libBornAgainCore.ThreadInfo_n_threads_set)
-    __swig_setmethods__["current_thread"] = _libBornAgainCore.ThreadInfo_current_thread_set
-    __swig_getmethods__["current_thread"] = _libBornAgainCore.ThreadInfo_current_thread_get
-    if _newclass:
-        current_thread = _swig_property(_libBornAgainCore.ThreadInfo_current_thread_get, _libBornAgainCore.ThreadInfo_current_thread_set)
     __swig_setmethods__["n_batches"] = _libBornAgainCore.ThreadInfo_n_batches_set
     __swig_getmethods__["n_batches"] = _libBornAgainCore.ThreadInfo_n_batches_get
     if _newclass:
@@ -26572,7 +26747,7 @@ class SampleBuilderFactoryTemp(_object):
         """
         contains(SampleBuilderFactoryTemp self, std::string const & item_key) -> bool
 
-        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key)
+        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
 
         """
         return _libBornAgainCore.SampleBuilderFactoryTemp_contains(self, item_key)
@@ -26721,7 +26896,7 @@ class SimulationFactoryTemp(_object):
         """
         contains(SimulationFactoryTemp self, std::string const & item_key) -> bool
 
-        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key)
+        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
 
         """
         return _libBornAgainCore.SimulationFactoryTemp_contains(self, item_key)

@@ -13,8 +13,7 @@ ThreadInfoTest::~ThreadInfoTest() = default;
 
 TEST_F(ThreadInfoTest, DefaultValues)
 {
-    EXPECT_EQ(1, thread_info.n_batches);
-    EXPECT_EQ(0, thread_info.current_batch);
-    EXPECT_EQ(0, thread_info.n_threads);
-    EXPECT_EQ(0, thread_info.current_thread);
+    EXPECT_EQ(1u, thread_info.n_batches);
+    EXPECT_EQ(0u, thread_info.current_batch);
+    EXPECT_EQ(0u, thread_info.n_threads);
 }

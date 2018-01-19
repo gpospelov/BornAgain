@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/Beam.cpp
+//! @file      Core/Beam/Beam.cpp
 //! @brief     Implements class Beam.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,21 +16,29 @@
 #include "BornAgainNamespace.h"
 #include "Complex.h"
 #include "Exceptions.h"
+#include "FootprintFactorGaussian.h"
 #include "RealParameter.h"
 #include "MathConstants.h"
 
-Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(1.0)
+Beam::Beam()
+    : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0)
+    , m_intensity(1.0)
 {
     setName(BornAgain::BeamType);
     init_parameters();
 }
 
 Beam::Beam(const Beam& other)
-    : m_wavelength(other.m_wavelength), m_alpha(other.m_alpha),
-      m_phi(other.m_phi), m_intensity(other.m_intensity), m_bloch_vector(other.m_bloch_vector)
+    : m_wavelength(other.m_wavelength), m_alpha(other.m_alpha)
+    , m_phi(other.m_phi)
+    , m_intensity(other.m_intensity)
+    , m_bloch_vector(other.m_bloch_vector)
 {
     setName(other.getName());
+    if (other.m_shape_factor)
+        m_shape_factor.reset(other.m_shape_factor->clone());
     init_parameters();
+    registerChildren();
 }
 
 Beam &Beam::operator=(const Beam &other)
@@ -60,6 +68,25 @@ void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
     m_wavelength = wavelength;
     m_alpha = alpha_i;
     m_phi = phi_i;
+}
+
+const IFootprintFactor* Beam::footprintFactor() const
+{
+    return m_shape_factor.get();
+}
+
+void Beam::setFootprintFactor(const IFootprintFactor& shape_factor)
+{
+    m_shape_factor.reset(shape_factor.clone());
+    registerChild(m_shape_factor.get());
+}
+
+void Beam::setWidthRatio(double width_ratio)
+{
+    if (!m_shape_factor)
+        throw std::runtime_error("Error in Beam::setWidthRatio: footprint factor is nullptr. "
+                                 "Probably, you have forgotten to initialize it.");
+    m_shape_factor->setWidthRatio(width_ratio);
 }
 
 void Beam::setPolarization(const kvector_t bloch_vector)
@@ -102,11 +129,21 @@ void Beam::init_parameters()
     registerVector(BornAgain::BlochVector, &m_bloch_vector, BornAgain::UnitsNone);
 }
 
+void Beam::registerChildren()
+{
+    if (m_shape_factor)
+        registerChild(m_shape_factor.get());
+}
+
 void Beam::swapContent(Beam& other)
 {
     std::swap(m_wavelength, other.m_wavelength);
     std::swap(m_alpha, other.m_alpha);
     std::swap(m_phi, other.m_phi);
     std::swap(m_intensity, other.m_intensity);
+    std::swap(m_shape_factor, other.m_shape_factor);
     std::swap(m_bloch_vector, other.m_bloch_vector);
+
+    registerChildren();
+    other.registerChildren();
 }

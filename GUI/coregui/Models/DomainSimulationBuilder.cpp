@@ -24,34 +24,67 @@
 #include "MultiLayer.h"
 #include "MultiLayerItem.h"
 #include "SimulationOptionsItem.h"
+#include "OffSpecSimulation.h"
 #include "TransformToDomain.h"
+#include "AxesItems.h"
+#include "Units.h"
 
 //! Creates domain simulation from sample and instrument items.
-GISASSimulation *DomainSimulationBuilder::getSimulation(const MultiLayerItem *sampleItem,
-                                                        const GISASInstrumentItem *instrumentItem,
-                                                        const SimulationOptionsItem *optionsItem)
+std::unique_ptr<Simulation> DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
+                                                        const InstrumentItem* instrumentItem,
+                                                        const SimulationOptionsItem* optionsItem)
 {
-    if(sampleItem == nullptr || instrumentItem==nullptr) {
+    if (sampleItem == nullptr || instrumentItem == nullptr) {
         QString message("DomainSimulationBuilder::getSimulation() -> Error. Either MultiLayerItem "
                         " or InstrumentItem is not defined.");
         throw GUIHelpers::Error(message);
     }
-    DomainObjectBuilder builder;
 
-    GISASSimulation *result = new GISASSimulation;
-    auto P_multilayer = builder.buildMultiLayer(*sampleItem);
-    auto P_instrument = builder.buildInstrument(*instrumentItem);
-    result->setSample(*P_multilayer);
-    result->setInstrument(*P_instrument);
-    TransformToDomain::addDistributionParametersToSimulation(*instrumentItem->beamItem(),
-                                                             result);
-    // Simulation options
-    if(optionsItem)
-        TransformToDomain::setSimulationOptions(result, *optionsItem);
-    // Background simulation
-    auto P_background = instrumentItem->backgroundItem()->createBackground();
-    if (P_background) {
-        result->setBackground(*P_background);
+    if (auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(instrumentItem)) {
+        std::unique_ptr<GISASSimulation> gisas(new GISASSimulation);
+        auto P_multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);
+        auto P_instrument = DomainObjectBuilder::buildInstrument(*gisasInstrument);
+        gisas->setSample(*P_multilayer);
+        gisas->setInstrument(*P_instrument);
+        TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(), gisas.get());
+
+        // Simulation options
+        if (optionsItem)
+            TransformToDomain::setSimulationOptions(gisas.get(), *optionsItem);
+
+        // Background simulation
+        auto P_background = gisasInstrument->backgroundItem()->createBackground();
+        if (P_background)
+            gisas->setBackground(*P_background);
+
+        return std::unique_ptr<Simulation> (gisas.release());
+
+    } else if (auto offspecInstrument = dynamic_cast<const OffSpecInstrumentItem*>(instrumentItem)) {
+        std::unique_ptr<OffSpecSimulation> offspec(new OffSpecSimulation);
+        auto P_multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);
+        auto P_instrument = DomainObjectBuilder::buildInstrument(*offspecInstrument);
+        offspec->setSample(*P_multilayer);
+        offspec->setInstrument(*P_instrument);
+
+        auto beamItem = offspecInstrument->beamItem();
+        auto axisItem = dynamic_cast<BasicAxisItem*>(offspecInstrument->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS));
+        offspec->setBeamParameters(beamItem->getWavelength(), *axisItem->createAxis(Units::degree), beamItem->getAzimuthalAngle());
+
+        // TODO Take care about distributions
+//        TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(), gisas.get());
+
+        // Simulation options
+        if (optionsItem)
+            TransformToDomain::setSimulationOptions(offspec.get(), *optionsItem);
+
+        // Background simulation
+        auto P_background = offspecInstrument->backgroundItem()->createBackground();
+        if (P_background)
+            offspec->setBackground(*P_background);
+
+        return std::unique_ptr<Simulation> (offspec.release());
+
     }
-    return result;
+
+    throw GUIHelpers::Error("DomainSimulationBuilder::createSimulation() -> Error. Not yet implemented");
 }

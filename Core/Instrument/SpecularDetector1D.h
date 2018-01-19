@@ -25,37 +25,40 @@ public:
     SpecularDetector1D(const IAxis& axis);
     virtual ~SpecularDetector1D();
 
-    virtual SpecularDetector1D* clone() const override;
+    SpecularDetector1D* clone() const override;
 
-    virtual void accept(INodeVisitor* visitor) const override {visitor->visit(this);}
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     //! Returns detector masks container.
-    virtual const DetectorMask* detectorMask() const override {return nullptr;}
+    const DetectorMask* detectorMask() const override { return nullptr; }
 
 #ifndef SWIG
-    //! Create a vector of SimulationElement objects according to the detector and its mask
-    virtual std::vector<SimulationElement> createSimulationElements(const Beam& beam) override;
+    //! Create a vector of SimulationElement objects according to the detector
+    std::vector<SimulationElement> createSimulationElements(const Beam& beam);
+
+    //! Create a vector of DetectorElement objects according to the detector
+    std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;
 #endif // SWIG
 
     //! Returns region of interest if exists.
-    virtual const RegionOfInterest* regionOfInterest() const override {return nullptr;}
+    const RegionOfInterest* regionOfInterest() const override { return nullptr; }
 
-    virtual void resetRegionOfInterest() override {}
+    void resetRegionOfInterest() override {}
 
     //! Return default axes units
-    virtual AxesUnits defaultAxesUnits() const override;
+    AxesUnits defaultAxesUnits() const override;
 
     //! Returns vector of valid axes units
-    virtual std::vector<AxesUnits> validAxesUnits() const override;
+    std::vector<AxesUnits> validAxesUnits() const override;
 
 protected:
     SpecularDetector1D(const SpecularDetector1D& other);
 
     //! Returns the name for the axis with given index
-    virtual std::string axisName(size_t index) const override;
+    std::string axisName(size_t index) const override;
 
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
+    void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
                                     double& amin, double& amax) const override;
 
 private:

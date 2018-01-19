@@ -17,9 +17,9 @@
 
 namespace Exceptions {
 
-void LogExceptionMessage(const std::string& message)
+void LogExceptionMessage(const std::string&)
 {
-    std::cerr << message << std::endl;
+//    std::cerr << message << std::endl;
 }
 
 NotImplementedException::NotImplementedException(const std::string& message)

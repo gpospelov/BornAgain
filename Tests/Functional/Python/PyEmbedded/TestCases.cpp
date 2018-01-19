@@ -22,7 +22,7 @@
 #include "MultiLayer.h"
 #include "BornAgainNamespace.h"
 #include "SampleBuilderFactory.h"
-#include "PythonFormatting.h"
+#include "ExportToPython.h"
 #include <iostream>
 #include <sstream>
 
@@ -360,7 +360,7 @@ bool ExportToPythonAndBack::runTest()
     SampleBuilderFactory factory;
     std::unique_ptr<MultiLayer> sample(factory.createSample("CylindersAndPrismsBuilder"));
 
-    auto code = PythonFormatting::generateSampleCode(*sample);
+    auto code = ExportToPython::generateSampleCode(*sample);
 
     std::stringstream snippet;
     snippet << "import bornagain as ba                                        \n";
@@ -369,7 +369,7 @@ bool ExportToPythonAndBack::runTest()
 
     auto multilayer = PyImport::createFromPython(snippet.str(), "getSample",
                                                  BABuild::buildLibDir());
-    auto new_code = PythonFormatting::generateSampleCode(*multilayer);
+    auto new_code = ExportToPython::generateSampleCode(*multilayer);
 
     return code == new_code;
 }

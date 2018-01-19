@@ -16,15 +16,15 @@
 #define LINKINSTRUMENTMANAGER_H
 
 #include "WinDllMacros.h"
-#include <QObject>
-#include <QVector>
 #include <QList>
+#include <QObject>
 #include <QStringList>
+#include <QVector>
 
 class InstrumentModel;
 class RealDataModel;
 class SessionItem;
-class GISASInstrumentItem;
+class InstrumentItem;
 class RealDataItem;
 class SessionModel;
 
@@ -32,7 +32,8 @@ class SessionModel;
 //! RealDataModel. Particularly, it notifies RealDataItem about changes in linked instruments
 //! to adjust axes of IntensityDataItem.
 
-class BA_CORE_API_ LinkInstrumentManager : public QObject {
+class BA_CORE_API_ LinkInstrumentManager : public QObject
+{
     Q_OBJECT
 
 public:
@@ -42,43 +43,43 @@ public:
         InstrumentInfo();
         QString m_identifier;
         QString m_name;
-        GISASInstrumentItem *m_instrument;
+        InstrumentItem* m_instrument;
     };
 
-    explicit LinkInstrumentManager(QObject *parent =  0);
+    explicit LinkInstrumentManager(QObject* parent = 0);
 
-    void setModels(InstrumentModel *instrumentModel, RealDataModel *realDataModel);
+    void setModels(InstrumentModel* instrumentModel, RealDataModel* realDataModel);
 
-    GISASInstrumentItem *getInstrument(const QString &identifier);
+    InstrumentItem* getInstrument(const QString& identifier);
     QStringList instrumentNames() const;
-    int instrumentComboIndex(const QString &identifier);
+    int instrumentComboIndex(const QString& identifier);
     QString instrumentIdentifier(int comboIndex);
-    bool canLinkDataToInstrument(const RealDataItem *realDataItem, const QString &identifier);
+    bool canLinkDataToInstrument(const RealDataItem* realDataItem, const QString& identifier);
 
-    QList<RealDataItem *> linkedItems(GISASInstrumentItem *instrumentItem);
+    QList<RealDataItem*> linkedItems(InstrumentItem* instrumentItem);
 
 signals:
     void instrumentMapUpdated();
 
 private slots:
-    void setOnInstrumentPropertyChange(SessionItem *instrument, const QString &property);
-    void setOnRealDataPropertyChange(SessionItem *dataItem, const QString &property);
-    void onInstrumentChildChange(GISASInstrumentItem *instrument, SessionItem *child);
-    void onInstrumentRowsChange(const QModelIndex & parent, int, int);
-    void onRealDataRowsChange(const QModelIndex & parent, int, int);
+    void setOnInstrumentPropertyChange(SessionItem* instrument, const QString& property);
+    void setOnRealDataPropertyChange(SessionItem* dataItem, const QString& property);
+    void onInstrumentChildChange(InstrumentItem* instrument, SessionItem* child);
+    void onInstrumentRowsChange(const QModelIndex& parent, int, int);
+    void onRealDataRowsChange(const QModelIndex& parent, int, int);
 
     void updateLinks();
     void updateInstrumentMap();
     void updateRealDataMap();
-    void onInstrumentBinningChange(GISASInstrumentItem *changedInstrument);
-    void onInstrumentLayoutChange(GISASInstrumentItem *changedInstrument);
+    void onInstrumentBinningChange(InstrumentItem* changedInstrument);
+    void onInstrumentLayoutChange(InstrumentItem* changedInstrument);
 
 private:
-    void setInstrumentModel(InstrumentModel *model);
-    void setRealDataModel(RealDataModel *model);
+    void setInstrumentModel(InstrumentModel* model);
+    void setRealDataModel(RealDataModel* model);
 
-    InstrumentModel *m_instrumentModel;
-    RealDataModel *m_realDataModel;
+    InstrumentModel* m_instrumentModel;
+    RealDataModel* m_realDataModel;
     QVector<InstrumentInfo> m_instrumentVec;
 };
 

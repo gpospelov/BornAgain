@@ -15,16 +15,17 @@
 #include "GUIStandardTest.h"
 #include "DocumentModel.h"
 #include "DomainSimulationBuilder.h"
-#include "GISASSimulation.h"
+#include "Simulation.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentModel.h"
 #include "MaterialModel.h"
 #include "SampleModel.h"
+#include "InstrumentItems.h"
 #include "TestUtils.h"
 
 namespace
 {
-std::unique_ptr<GISASSimulation> createDomainSimulation(const GISASSimulation& origin)
+std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
 {
     // initializing necessary GUI
     const std::unique_ptr<DocumentModel> documentModel(new DocumentModel);
@@ -38,9 +39,8 @@ std::unique_ptr<GISASSimulation> createDomainSimulation(const GISASSimulation& o
     guiBuilder.populateInstrumentModel(instrumentModel.get(), origin);
     guiBuilder.populateDocumentModel(documentModel.get(), origin);
 
-    std::unique_ptr<GISASSimulation> result(DomainSimulationBuilder::getSimulation(
-            sampleModel->multiLayerItem(), instrumentModel->instrumentItem(),
-            documentModel->getSimulationOptionsItem()));
+    auto result = DomainSimulationBuilder::createSimulation(sampleModel->multiLayerItem(),
+            instrumentModel->instrumentItem(), documentModel->simulationOptionsItem());
 
     return result;
 }
@@ -51,7 +51,7 @@ bool GUIStandardTest::runTest()
 {
     m_reference_simulation->runSimulation();
 
-    auto domain_simulation = createDomainSimulation(*gisasSimulation());
+    auto domain_simulation = createDomainSimulation(*m_reference_simulation);
     domain_simulation->runSimulation();
 
     const std::unique_ptr<OutputData<double> > domain_data(

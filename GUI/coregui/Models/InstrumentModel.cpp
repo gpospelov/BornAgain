@@ -29,8 +29,8 @@ InstrumentModel *InstrumentModel::createCopy(SessionItem *parent)
     return result;
 }
 
-GISASInstrumentItem *InstrumentModel::instrumentItem(const QString &instrument_name)
+InstrumentItem* InstrumentModel::instrumentItem()
 {
-    return dynamic_cast<GISASInstrumentItem *>(topItem(Constants::GISASInstrumentType, instrument_name));
+    return topItem<InstrumentItem>();
 }
 

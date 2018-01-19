@@ -96,7 +96,12 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
 void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
 {
     IntensityDataItem *intensityItem = jobItem->realDataItem()->intensityDataItem();
-    jobItem->instrumentItem()->importMasks(intensityItem->maskContainerItem());
+    if (auto instrument2DItem = dynamic_cast<Instrument2DItem*>(jobItem->instrumentItem())) {
+        instrument2DItem->importMasks(intensityItem->maskContainerItem());
+    } else {
+        throw GUIHelpers::Error("JobModelFunctions::copyMasksToInstrument() -> Error. Not "
+                                "implemented instrument type.");
+    }
 }
 
 //! Crops RealDataItem to the region of interest.
@@ -107,8 +112,7 @@ void JobModelFunctions::cropRealData(JobItem *jobItem) {
     // adjusting real data to the size of region of interest
     IntensityDataItem *intensityItem = realData->intensityDataItem();
 
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*jobItem->instrumentItem());
+    auto instrument = DomainObjectBuilder::buildInstrument(*jobItem->instrumentItem());
     instrument->initDetector();
 
     AxesUnits requested_units

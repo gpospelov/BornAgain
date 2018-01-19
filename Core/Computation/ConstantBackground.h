@@ -32,8 +32,7 @@ public:
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    void addBackGround(std::vector<SimulationElement>::iterator start,
-                       std::vector<SimulationElement>::iterator end) const override final;
+    void addBackGround(SimulationElement& element) const override final;
 private:
     void init_parameters();
 

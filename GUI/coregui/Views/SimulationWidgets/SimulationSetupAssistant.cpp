@@ -14,7 +14,8 @@
 
 #include "SimulationSetupAssistant.h"
 #include "SampleValidator.h"
-#include "ImportDataAssistant.h"
+#include "ImportDataUtils.h"
+#include "InstrumentItems.h"
 #include <QMessageBox>
 
 //! Returns true if given setup is valid for submitting the job
@@ -26,7 +27,7 @@ SimulationSetupAssistant::SimulationSetupAssistant()
 }
 
 bool SimulationSetupAssistant::isValidSimulationSetup(const MultiLayerItem *multiLayerItem,
-                                                      const GISASInstrumentItem *instrumentItem,
+                                                      const InstrumentItem* instrumentItem,
                                                       const RealDataItem *realData)
 {
     clear();
@@ -61,7 +62,7 @@ void SimulationSetupAssistant::checkMultiLayerItem(const MultiLayerItem *multiLa
     }
 }
 
-void SimulationSetupAssistant::checkInstrumentItem(const GISASInstrumentItem *instrumentItem)
+void SimulationSetupAssistant::checkInstrumentItem(const InstrumentItem* instrumentItem)
 {
     if(!instrumentItem) {
         m_messages.append(QStringLiteral("No instrument selected"));
@@ -72,14 +73,14 @@ void SimulationSetupAssistant::checkInstrumentItem(const GISASInstrumentItem *in
 //! Check if setup is suitable for fitting. In the case when there is a realData defined,
 //! its axes will be compared with current detector item.
 
-void SimulationSetupAssistant::checkFittingSetup(const GISASInstrumentItem *instrumentItem,
+void SimulationSetupAssistant::checkFittingSetup(const InstrumentItem* instrumentItem,
                                                  const RealDataItem *realData)
 {
     if(!realData)
         return;
 
     QString message;
-    if(!ImportDataAssistant::hasSameDimensions(instrumentItem, realData, message)) {
+    if(!ImportDataUtils::HasSameShape(*instrumentItem, *realData, &message)) {
         m_isValid = false;
         m_messages.append("The RealData doesn't match selected instrument: "+message);
     }

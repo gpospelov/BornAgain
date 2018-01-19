@@ -30,6 +30,8 @@ class DistributionLorentz;
 class DistributionTrapezoid;
 class FitObject;
 class FitSuiteObjects;
+class FootprintFactorGaussian;
+class FootprintFactorSquare;
 class FormFactorAnisoPyramid;
 class FormFactorBox;
 class FormFactorCone;
@@ -89,6 +91,7 @@ class GISASSimulation;
 class HexagonalLattice;
 class IAbstractParticle;
 class IClusteredParticles;
+class IdentityRotation;
 class IFormFactor;
 class IFormFactorBorn;
 class IFormFactorDecorator;
@@ -125,6 +128,7 @@ class RotationEuler;
 class RotationX;
 class RotationY;
 class RotationZ;
+class SpecularSimulation;
 class SphericalDetector;
 class SquareLattice;
 
@@ -152,6 +156,8 @@ public:
     virtual void visit(const DistributionTrapezoid*) {}
     virtual void visit(const FitObject*) {}
     virtual void visit(const FitSuiteObjects*) {}
+    virtual void visit(const FootprintFactorGaussian*) {}
+    virtual void visit(const FootprintFactorSquare*) {}
     virtual void visit(const FormFactorAnisoPyramid*) {}
     virtual void visit(const FormFactorBox*) {}
     virtual void visit(const FormFactorCone*) {}
@@ -211,6 +217,7 @@ public:
     virtual void visit(const HexagonalLattice*) {}
     virtual void visit(const IAbstractParticle*) {}
     virtual void visit(const IClusteredParticles*) {}
+    virtual void visit(const IdentityRotation*) {}
     virtual void visit(const IFormFactor*) {}
     virtual void visit(const IFormFactorBorn*) {}
     virtual void visit(const IFormFactorDecorator*) {}
@@ -247,6 +254,7 @@ public:
     virtual void visit(const RotationX*) {}
     virtual void visit(const RotationY*) {}
     virtual void visit(const RotationZ*) {}
+    virtual void visit(const SpecularSimulation*) {}
     virtual void visit(const SphericalDetector*) {}
     virtual void visit(const SquareLattice*) {}
 

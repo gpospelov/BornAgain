@@ -20,6 +20,7 @@
 #include "RealDataItem.h"
 #include "RealDataModel.h"
 #include "SampleModel.h"
+#include "ModelUtils.h"
 #include <QComboBox>
 #include <QFileDialog>
 #include <QGroupBox>
@@ -100,11 +101,10 @@ const MultiLayerItem *SimulationDataSelectorWidget::selectedMultiLayerItem() con
 //! Returns selected InstrumentItem taking into account that there might be several
 //! instruments with same name.
 
-const GISASInstrumentItem *SimulationDataSelectorWidget::selectedInstrumentItem() const
+const InstrumentItem* SimulationDataSelectorWidget::selectedInstrumentItem() const
 {
-    auto items = m_applicationModels->instrumentModel()->topItems();
-    if(items.isEmpty()) return nullptr;
-    return dynamic_cast<const GISASInstrumentItem *>(items.at(selectedInstrumentIndex()));
+    auto items = m_applicationModels->instrumentModel()->topItems<InstrumentItem>();
+    return items.isEmpty() ? nullptr : items.at(selectedInstrumentIndex());
 }
 
 //! Returns selected InstrumentItem taking into account that there might be several
@@ -123,9 +123,9 @@ const RealDataItem *SimulationDataSelectorWidget::selectedRealDataItem() const
 void SimulationDataSelectorWidget::updateViewElements()
 {
     Q_ASSERT(m_applicationModels);
-    updateSelection(m_instrumentCombo, m_applicationModels->instrumentModel()->topItemNames());
-    updateSelection(m_sampleCombo, m_applicationModels->sampleModel()->topItemNames(Constants::MultiLayerType));
-    updateSelection(m_realDataCombo, m_applicationModels->realDataModel()->topItemNames(), true);
+    updateSelection(m_instrumentCombo, ModelUtils::topItemNames(m_applicationModels->instrumentModel()));
+    updateSelection(m_sampleCombo, ModelUtils::topItemNames(m_applicationModels->sampleModel(), Constants::MultiLayerType));
+    updateSelection(m_realDataCombo, ModelUtils::topItemNames(m_applicationModels->realDataModel()), true);
 }
 
 int SimulationDataSelectorWidget::selectedInstrumentIndex() const

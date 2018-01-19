@@ -36,7 +36,7 @@ public:
 
     virtual ~RootMinimizerAdapter();
 
-    virtual void minimize() override;
+    void minimize() override;
 
     //! Returns name of the minimizer.
     std::string minimizerName() const override final;

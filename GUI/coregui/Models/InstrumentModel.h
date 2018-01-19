@@ -17,7 +17,7 @@
 
 #include "SessionModel.h"
 
-class GISASInstrumentItem;
+class InstrumentItem;
 
 class BA_CORE_API_ InstrumentModel : public SessionModel
 {
@@ -29,7 +29,7 @@ public:
 
     virtual InstrumentModel *createCopy(SessionItem *parent=0);
 
-    GISASInstrumentItem *instrumentItem(const QString &instrument_name = QString());
+    InstrumentItem *instrumentItem();
 };
 
 #endif // INSTRUMENTMODEL_H

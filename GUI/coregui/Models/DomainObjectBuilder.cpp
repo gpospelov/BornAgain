@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/DomainObjectBuilder.cpp
-//! @brief     Implements class DomainObjectBuilder
+//! @brief     Implements DomainObjectBuilder namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -15,25 +15,18 @@
 #include "DomainObjectBuilder.h"
 #include "BeamItem.h"
 #include "ComboProperty.h"
-#include "DetectorItems.h"
-#include "GISASSimulation.h"
 #include "GUIHelpers.h"
-#include "IInterferenceFunction.h"
-#include "Instrument.h"
 #include "InstrumentItems.h"
 #include "InterferenceFunctionItems.h"
 #include "LayerItem.h"
-#include "MultiLayer.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleLayoutItem.h"
 #include "TransformToDomain.h"
 
-
-std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(
-    const SessionItem& multilayer_item) const
+std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const SessionItem& multilayer_item)
 {
     auto P_multilayer = TransformToDomain::createMultiLayer(multilayer_item);
-    QVector<SessionItem *> children = multilayer_item.children();
+    QVector<SessionItem*> children = multilayer_item.children();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::LayerType) {
             auto P_layer = buildLayer(*children[i]);
@@ -52,10 +45,10 @@ std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(
     return P_multilayer;
 }
 
-std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const SessionItem& item) const
+std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const SessionItem& item)
 {
     auto P_layer = TransformToDomain::createLayer(item);
-    QVector<SessionItem *> children = item.children();
+    QVector<SessionItem*> children = item.children();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == Constants::ParticleLayoutType) {
             auto P_layout = buildParticleLayout(*children[i]);
@@ -67,11 +60,10 @@ std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const SessionItem& item) 
     return P_layer;
 }
 
-std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
-        const SessionItem& item) const
+std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(const SessionItem& item)
 {
     auto P_layout = TransformToDomain::createParticleLayout(item);
-    QVector<SessionItem *> children = item.getItems();
+    QVector<SessionItem*> children = item.getItems();
     for (int i = 0; i < children.size(); ++i) {
         auto P_particle = TransformToDomain::createIParticle(*children[i]);
         if (P_particle) {
@@ -79,10 +71,9 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
             continue;
         }
         if (children[i]->modelType() == Constants::ParticleDistributionType) {
-            auto prop
-                = children[i]
-                      ->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
-                      .value<ComboProperty>();
+            auto prop = children[i]
+                            ->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                            .value<ComboProperty>();
             QString par_name = prop.getValue();
             if (par_name == ParticleDistributionItem::NO_SELECTION) {
                 auto grandchildren = children[i]->getItems();
@@ -120,22 +111,15 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(
 }
 
 std::unique_ptr<IInterferenceFunction>
-DomainObjectBuilder::buildInterferenceFunction(const SessionItem& item) const
+DomainObjectBuilder::buildInterferenceFunction(const SessionItem& item)
 {
     auto iffItem = dynamic_cast<const InterferenceFunctionItem*>(&item);
     Q_ASSERT(iffItem);
     return iffItem->createInterferenceFunction();
 }
 
-std::unique_ptr<Instrument> DomainObjectBuilder::buildInstrument(const GISASInstrumentItem& instrumentItem) const
+std::unique_ptr<Instrument>
+DomainObjectBuilder::buildInstrument(const InstrumentItem& instrumentItem)
 {
-    auto instrument = std::make_unique<Instrument>();
-
-    auto beam = instrumentItem.beamItem()->createBeam();
-    instrument->setBeam(*beam);
-
-    auto detector = instrumentItem.detectorItem()->createDetector();
-    instrument->setDetector(*detector);
-
-    return instrument;
+    return instrumentItem.createInstrument();
 }

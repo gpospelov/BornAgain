@@ -23,6 +23,7 @@
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include <QFileInfo>
+#include <QDebug>
 
 namespace
 {
@@ -49,7 +50,7 @@ QMap<AxesUnits, QString> init_description_to_units_map()
 }
 }
 
-void JobItemUtils::setResults(IntensityDataItem* intensityItem, const GISASSimulation* simulation)
+void JobItemUtils::setResults(IntensityDataItem* intensityItem, const Simulation* simulation)
 {
     if (intensityItem->getOutputData() == nullptr) {
         const IDetector* detector = simulation->getInstrument().getDetector();
@@ -70,10 +71,16 @@ void JobItemUtils::setResults(IntensityDataItem* intensityItem, const GISASSimul
 //! InstrumentItem is used to get domain's detector map for given units.
 
 void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
-                                  const GISASInstrumentItem* instrumentItem)
+                                  const InstrumentItem* instrumentItem)
 {
     Q_ASSERT(intensityItem);
-    Q_ASSERT(instrumentItem);
+
+    if (!instrumentItem) {
+        // special case when reading old project files: project failed on load instrument
+        // but we want to try to recover the rest.
+        qInfo() << "JobItemUtils::updateDataAxes() -> Error. Absent instrument.";
+        return;
+    }
 
     if (!intensityItem->getOutputData())
         return;
@@ -145,10 +152,9 @@ AxesUnits JobItemUtils::preferableGUIAxesUnits(AxesUnits default_units)
 //! Sets axes units suitable for given instrument.
 
 void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
-                                              const GISASInstrumentItem* instrumentItem)
+                                              const InstrumentItem* instrumentItem)
 {
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*instrumentItem);
+    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
     instrument->initDetector();
     setIntensityItemAxesUnits(intensityItem, instrument->getDetector());
 }
@@ -160,7 +166,7 @@ void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
 {
     ComboProperty combo;
 
-    foreach (auto units, detector->validAxesUnits())
+    for (auto units : detector->validAxesUnits())
         combo << nameFromAxesUnits(units);
 
     AxesUnits preferrable_units
@@ -192,10 +198,9 @@ void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
 }
 
 void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
-                                            const GISASInstrumentItem* instrumentItem)
+                                            const InstrumentItem* instrumentItem)
 {
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*instrumentItem);
+    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
     instrument->initDetector();
     AxesUnits units = instrument->getDetector()->defaultAxesUnits();
     auto detector = instrument->getDetector();
@@ -207,11 +212,10 @@ void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
 }
 
 //! creates detector map from instrument description with axes corresponding to given units
-OutputData<double>* JobItemUtils::createDetectorMap(const GISASInstrumentItem* instrumentItem,
+OutputData<double>* JobItemUtils::createDetectorMap(const InstrumentItem* instrumentItem,
                                                      AxesUnits units)
 {
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*instrumentItem);
+    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
     instrument->initDetector();
 
     if (units == AxesUnits::DEFAULT)

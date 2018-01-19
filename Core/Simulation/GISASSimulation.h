@@ -15,7 +15,8 @@
 #ifndef GISASSIMULATION_H
 #define GISASSIMULATION_H
 
-#include "Simulation.h"
+#include "Simulation2D.h"
+#include "SimulationElement.h"
 
 class MultiLayer;
 class IMultiLayerBuilder;
@@ -25,7 +26,7 @@ class Histogram2D;
 //! Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ GISASSimulation : public Simulation
+class BA_CORE_API_ GISASSimulation : public Simulation2D
 {
 public:
     GISASSimulation();
@@ -34,7 +35,7 @@ public:
 
     ~GISASSimulation() final {}
 
-    GISASSimulation* clone() const { return new GISASSimulation(*this); }
+    GISASSimulation* clone() const override { return new GISASSimulation(*this); }
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
@@ -45,8 +46,8 @@ public:
     size_t numberOfSimulationElements() const final;
 
     //! Returns clone of the detector intensity map with detector resolution applied
-    OutputData<double>* getDetectorIntensity(
-            AxesUnits units_type = AxesUnits::DEFAULT) const;
+    OutputData<double>* getDetectorIntensity(AxesUnits units_type
+                                                     = AxesUnits::DEFAULT) const override;
 
     //! Returns histogram representing intensity map in requested axes units
     Histogram2D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
@@ -56,16 +57,6 @@ public:
 
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
-
-    //! Sets spherical detector parameters using angle ranges
-    //! @param n_phi number of phi-axis bins
-    //! @param phi_min low edge of first phi-bin
-    //! @param phi_max upper edge of last phi-bin
-    //! @param n_alpha number of alpha-axis bins
-    //! @param alpha_min low edge of first alpha-bin
-    //! @param alpha_max upper edge of last alpha-bin
-    void setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
-                               size_t n_alpha, double alpha_min, double alpha_max);
 
     //! removes all masks from the detector
     void removeMasks();
@@ -83,20 +74,11 @@ public:
     //! Sets rectangular region of interest with lower left and upper right corners defined.
     void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
 
-protected:
-    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(
-            std::vector<SimulationElement>::iterator start,
-            std::vector<SimulationElement>::iterator end);
-
 private:
     GISASSimulation(const GISASSimulation& other);
 
-    //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
-    //! SimulationElement objects
-    void transferResultsToIntensityMap() final;
-
-    //! Default implementation only adds the detector axes
-    void updateIntensityMap() final;
+    //! Initializes the vector of Simulation elements
+    void initSimulationElementVector() override;
 
     void initialize();
 };

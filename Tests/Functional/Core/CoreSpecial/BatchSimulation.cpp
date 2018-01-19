@@ -35,9 +35,9 @@ bool BatchSimulation::runTest()
     const std::unique_ptr<OutputData<double>> result(reference->clone());
     result->setAllTo(0.0);
 
-    const int n_batches = 9;
+    const unsigned n_batches = 9;
     const double threshold = 2e-10;
-    for(int i_batch=0; i_batch<n_batches; ++i_batch) {
+    for(unsigned i_batch=0; i_batch < n_batches; ++i_batch) {
         const std::unique_ptr<Simulation> batch(simulation->clone());
         ThreadInfo threadInfo;
         threadInfo.n_threads = 1;

@@ -205,7 +205,7 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness* roughness)
     return true;
 }
 
-void TransformFromDomain::setItemFromSample(BeamItem* beam_item, const GISASSimulation& simulation)
+void TransformFromDomain::setItemFromSample(BeamItem* beam_item, const Simulation& simulation)
 {
     Q_ASSERT(beam_item);
     Beam beam = simulation.getInstrument().getBeam();
@@ -246,7 +246,7 @@ void TransformFromDomain::setItemFromSample(BeamItem* beam_item, const GISASSimu
 }
 
 void TransformFromDomain::setInstrumentDetectorFromSample(GISASInstrumentItem* instrument_item,
-                                                          const GISASSimulation& simulation)
+                                                          const Simulation& simulation)
 {
     const IDetector* p_detector = simulation.getInstrument().getDetector();
     DetectorItem* detector_item;
@@ -404,7 +404,7 @@ void TransformFromDomain::setItemFromSample(RectangularDetectorItem* detector_it
 }
 
 void TransformFromDomain::setDetectorMasks(DetectorItem* detector_item,
-                                           const GISASSimulation& simulation)
+                                           const Simulation& simulation)
 {
     const IDetector* detector = simulation.getInstrument().getDetector();
     if( (detector->detectorMask() && detector->detectorMask()->numberOfMasks()) ||
@@ -526,18 +526,18 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribut
 }
 
 void TransformFromDomain::setBackground(GISASInstrumentItem* instrument_item,
-                                        const GISASSimulation& simulation)
+                                        const Simulation& simulation)
 {
     auto p_bg = simulation.background();
     if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
         auto constant_bg_item = instrument_item->setGroupProperty(
-                                    GISASInstrumentItem::P_BACKGROUND,
+                                    Instrument2DItem::P_BACKGROUND,
                                     Constants::ConstantBackgroundType);
         double value = p_constant_bg->backgroundValue();
         constant_bg_item->setItemValue(ConstantBackgroundItem::P_VALUE, value);
     }
     else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
-        instrument_item->setGroupProperty(GISASInstrumentItem::P_BACKGROUND,
+        instrument_item->setGroupProperty(Instrument2DItem::P_BACKGROUND,
                                           Constants::PoissonNoiseBackgroundType);
     }
 }

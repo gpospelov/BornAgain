@@ -35,7 +35,7 @@ public:
 private:
     typedef std::vector<std::string> OutputDataTable;
 
-    virtual bool runTest() override;
+    bool runTest() override;
 
     //! Runs tests on a detector of size \f$ size \cross size \f$.
     //! _run_n_times_ is the number of repetitions

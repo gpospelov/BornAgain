@@ -50,13 +50,15 @@ UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
 void UnitConverterSimple::checkIndex(size_t i_axis) const
 {
     if (i_axis < dimension()) return;
-    throw std::runtime_error("Error in UnitConverterSimple::checkIndex: passed axis index too big");
+    throw std::runtime_error("Error in UnitConverterSimple::checkIndex: passed axis index too big: "
+                             + std::to_string(static_cast<int>(i_axis)));
 }
 
 void UnitConverterSimple::checkDimension(size_t dim) const
 {
     if (dim == dimension()) return;
-    throw std::runtime_error("Error in UnitConverterSimple::checkDimension: wrong dimension");
+    throw std::runtime_error("Error in UnitConverterSimple::checkDimension: wrong dimension: "
+                             + std::to_string(static_cast<int>(dim)));
 }
 
 SphericalConverter::SphericalConverter(size_t n_phi, double phi_min, double phi_max,
@@ -93,6 +95,7 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
         return std::round(fraction*axis_data.nbins);
     default:
         throw std::runtime_error("Error in SphericalConverter::calculateValue: "
-                                 "target units not available");
+                                 "target units not available: "
+                                 + std::to_string(static_cast<int>(units_type)));
     }
 }

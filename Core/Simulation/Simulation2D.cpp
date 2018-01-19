@@ -74,6 +74,7 @@ void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
 void Simulation2D::setDetector(const IDetector2D& detector)
 {
     m_instrument.setDetector(detector);
+    initUnitConverter();
 }
 
 Histogram2D* Simulation2D::getIntensityData(AxesUnits units_type) const

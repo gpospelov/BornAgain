@@ -66,6 +66,8 @@ public:
 protected:
     Simulation2D(const Simulation2D& other);
 
+    virtual void initUnitConverter() {}
+
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
     //! @param n_elements Number of elements to process

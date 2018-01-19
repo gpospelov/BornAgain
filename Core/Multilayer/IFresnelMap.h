@@ -22,6 +22,7 @@
 class ILayerRTCoefficients;
 class MultiLayer;
 class SimulationElement;
+class SpecularSimulationElement;
 
 //! Holds the necessary information to calculate the radiation wavefunction in every layer
 //! for different incoming (outgoing) angles of the beam in the top layer
@@ -44,6 +45,7 @@ public:
 
     //! Fills simulation element specular data
     virtual void fillSpecularData(SimulationElement& sim_element) const = 0;
+    virtual void fillSpecularData(SpecularSimulationElement& sim_element) const = 0;
 
     //! Sets the multilayer to be used for the Fresnel calculations.
     virtual void setMultilayer(const MultiLayer& multilayer);

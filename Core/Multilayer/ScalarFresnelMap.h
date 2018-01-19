@@ -45,6 +45,7 @@ public:
 
     //! Fills simulation element specular data
     void fillSpecularData(SimulationElement& sim_element) const override;
+    void fillSpecularData(SpecularSimulationElement& sim_element) const override;
 
 private:
     const ScalarRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index) const;

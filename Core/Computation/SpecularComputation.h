@@ -33,18 +33,19 @@ class IComputationTerm;
 
 class SpecularComputation : public IComputation
 {
+    using SpecularElementIter = std::vector<SpecularSimulationElement>::iterator;
 public:
     SpecularComputation(const MultiLayer& multilayer, const SimulationOptions& options,
                         ProgressHandler& progress,
-                        std::vector<SimulationElement>::iterator begin_it,
-                        std::vector<SimulationElement>::iterator end_it);
+                        SpecularElementIter begin_it,
+                        SpecularElementIter end_it);
     virtual ~SpecularComputation();
 
 private:
     void runProtected() override;
     std::unique_ptr<IFresnelMap> createFresnelMap();
 
-    std::vector<SimulationElement>::iterator m_begin_it, m_end_it; //!< these iterators define the span of detector bins this simulation will work on
+    SpecularElementIter m_begin_it, m_end_it; //!< these iterators define the span of detector bins this simulation will work on
     std::unique_ptr<IFresnelMap> mP_fresnel_map;
     SpecularComputationTerm m_computation_term;
 };

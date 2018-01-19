@@ -109,10 +109,10 @@ void SpecularSimulation::initSimulationElementVector()
         m_cache = m_sim_elements;
 }
 
-std::vector<SimulationElement> SpecularSimulation::generateSimulationElements(const Beam& beam)
+std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationElements(const Beam& beam)
 {
     auto p_detector = SpecDetector(m_instrument);
-    return p_detector->createSimulationElements(beam);
+    return p_detector->createSpecularSimulationElements(beam);
 }
 
 std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
@@ -208,7 +208,7 @@ void SpecularSimulation::initialize()
 
 void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
 {
-    SimulationElement& element = m_sim_elements[index];
+    auto& element = m_sim_elements[index];
     const double alpha_i = -element.getAlphaI();
     const auto footprint = m_instrument.getBeam().footprintFactor();
     if (footprint != nullptr)
@@ -221,7 +221,7 @@ void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_eleme
     if (!mP_background)
         return;
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
-        SimulationElement& element = m_sim_elements[i];
+        auto& element = m_sim_elements[i];
         element.setIntensity(mP_background->addBackGround(element.getIntensity()));
     }
 }

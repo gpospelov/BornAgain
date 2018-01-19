@@ -30,8 +30,8 @@ static_assert(std::is_copy_assignable<SpecularComputation>::value == false,
 SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
                                          const SimulationOptions& options,
                                          ProgressHandler& progress,
-                                         std::vector<SimulationElement>::iterator begin_it,
-                                         std::vector<SimulationElement>::iterator end_it)
+                                         SpecularElementIter begin_it,
+                                         SpecularElementIter end_it)
     : IComputation(options, progress, multilayer)
     , m_begin_it(begin_it)
     , m_end_it(end_it)

@@ -31,10 +31,7 @@ public:
     virtual ~IBackground();
     virtual IBackground* clone() const =0;
 
-    void addBackGround(std::vector<SimulationElement>::iterator start,
-                       std::vector<SimulationElement>::iterator end) const;
-
-    virtual void addBackGround(SimulationElement& element) const = 0;
+    virtual double addBackGround(double element) const = 0;
 };
 
 #endif // IBACKGROUND_H

@@ -31,9 +31,9 @@ ConstantBackground* ConstantBackground::clone() const
     return new ConstantBackground(m_background_value);
 }
 
-void ConstantBackground::addBackGround(SimulationElement& element) const
+double ConstantBackground::addBackGround(double intensity) const
 {
-    element.addIntensity(m_background_value);
+    return intensity + m_background_value;
 }
 
 void ConstantBackground::init_parameters()

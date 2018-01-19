@@ -22,7 +22,6 @@
 #include <memory>
 
 class IPixel;
-class SpecularData;
 
 //! Data stucture containing both input and output of a single detector cell.
 //! @ingroup simulation
@@ -82,12 +81,11 @@ public:
     double getAlpha(double x, double y) const;
     double getPhi(double x, double y) const;
 
-    //! check if element corresponds to specular peak
-    SpecularData* specularData() const { return m_specular_data.get(); }
+    //! Set specularity indication on/off.
+    void setSpecular(bool is_specular) {m_is_specular = is_specular;}
 
-    //! Turn on specular data
-    void setSpecular();
-    void setSpecular(std::unique_ptr<SpecularData> specular_data);
+    //! Tells if simulation element corresponds to a specular peak
+    bool isSpecular() const {return m_is_specular;}
 
 private:
     void swapContent(SimulationElement &other);
@@ -98,11 +96,7 @@ private:
     double m_wavelength, m_alpha_i, m_phi_i;  //!< wavelength and angles of beam
     double m_intensity;                       //!< simulated intensity for detector cell
     std::unique_ptr<IPixel> mP_pixel;
-
-    // this unique_ptr is also used as a flag to indicate if this is the specular pixel
-    // TODO: remove this when we have a simulation type that generates intensity as a function
-    //       of depth and inclination angle (it becomes a bool flag then)
-    std::unique_ptr<SpecularData> m_specular_data;
+    bool m_is_specular;
 };
 
 #endif // SIMULATIONELEMENT_H

@@ -70,7 +70,7 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(it->getAnalyzerOperator());
         if (it->isSpecular())
-            sim_element.setSpecular();
+            sim_element.setSpecular(true);
     }
     return result;
 }

@@ -31,7 +31,7 @@ void GISASSpecularComputationTerm::eval(
         return;
 
     for (auto it = begin_it; it != end_it; ++it)
-        if (it->specularData())
+        if (it->isSpecular())
             evalSingle(it);
 }
 

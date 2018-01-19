@@ -14,7 +14,6 @@
 
 #include "SimulationElement.h"
 #include "IPixel.h"
-#include "SpecularData.h"
 
 SimulationElement::SimulationElement(double wavelength, double alpha_i, double phi_i,
                                      std::unique_ptr<IPixel> pixel)
@@ -23,6 +22,7 @@ SimulationElement::SimulationElement(double wavelength, double alpha_i, double p
     , m_phi_i(phi_i)
     , m_intensity(0.0)
     , mP_pixel(std::move(pixel))
+    , m_is_specular(false)
 {
 }
 
@@ -32,10 +32,9 @@ SimulationElement::SimulationElement(const SimulationElement& other)
     , m_alpha_i(other.m_alpha_i)
     , m_phi_i(other.m_phi_i)
     , m_intensity(other.m_intensity)
+    , m_is_specular(other.isSpecular())
 {
     mP_pixel.reset(other.mP_pixel->clone());
-    if (other.m_specular_data)
-        m_specular_data.reset(new SpecularData(*other.m_specular_data));
 }
 
 SimulationElement::SimulationElement(const SimulationElement& other, double x, double y)
@@ -44,10 +43,9 @@ SimulationElement::SimulationElement(const SimulationElement& other, double x, d
     , m_alpha_i(other.m_alpha_i)
     , m_phi_i(other.m_phi_i)
     , m_intensity(other.m_intensity)
+    , m_is_specular(other.isSpecular())
 {
     mP_pixel.reset(other.mP_pixel->createZeroSizePixel(x, y));
-    if (other.m_specular_data)
-        m_specular_data.reset(new SpecularData(*other.m_specular_data));
 }
 
 SimulationElement::SimulationElement(SimulationElement&& other) noexcept
@@ -57,7 +55,7 @@ SimulationElement::SimulationElement(SimulationElement&& other) noexcept
     , m_phi_i(other.m_phi_i)
     , m_intensity(other.m_intensity)
     , mP_pixel(std::move(other.mP_pixel))
-    , m_specular_data(std::move(other.m_specular_data))
+    , m_is_specular(other.isSpecular())
 {
 }
 
@@ -108,7 +106,7 @@ void SimulationElement::swapContent(SimulationElement &other)
     std::swap(m_phi_i, other.m_phi_i);
     std::swap(m_intensity, other.m_intensity);
     std::swap(mP_pixel, other.mP_pixel);
-    std::swap(m_specular_data, other.m_specular_data);
+    std::swap(m_is_specular, other.m_is_specular);
 }
 
 double SimulationElement::getAlpha(double x, double y) const
@@ -119,16 +117,6 @@ double SimulationElement::getAlpha(double x, double y) const
 double SimulationElement::getPhi(double x, double y) const
 {
     return getKf(x,y).phi();
-}
-
-void SimulationElement::setSpecular()
-{
-    m_specular_data.reset(new SpecularData);
-}
-
-void SimulationElement::setSpecular(std::unique_ptr<SpecularData> specular_data)
-{
-    m_specular_data = std::move(specular_data);
 }
 
 double SimulationElement::getIntegrationFactor(double x, double y) const {

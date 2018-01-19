@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Binning/PolarizationHandler.h
+//! @file      Core/SimulationElement/PolarizationHandler.h
 //! @brief     Defines class PolarizationHandler.
 //!
 //! @homepage  http://www.bornagainproject.org

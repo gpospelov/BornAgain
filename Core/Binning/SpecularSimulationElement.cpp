@@ -9,26 +9,23 @@ SpecularSimulationElement::SpecularSimulationElement(double wavelength, double a
     , m_intensity(0.0)
     , m_specular_data(std::make_unique<SpecularData>())
 {
-    initPolarization();
 }
 
 SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement& other)
-    : m_wavelength(other.m_wavelength)
+    : m_polarization(other.m_polarization)
+    , m_wavelength(other.m_wavelength)
     , m_alpha_i(other.m_alpha_i)
     , m_intensity(other.m_intensity)
 {
     if (other.m_specular_data)
         m_specular_data.reset(new SpecularData(*other.m_specular_data));
-    m_polarization = other.m_polarization;
-    m_analyzer_operator = other.m_analyzer_operator;
 }
 
 SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement&& other) noexcept
-    : m_wavelength(other.m_wavelength)
+    : m_polarization(std::move(other.m_polarization))
+    , m_wavelength(other.m_wavelength)
     , m_alpha_i(other.m_alpha_i)
     , m_intensity(other.m_intensity)
-    , m_polarization(std::move(other.m_polarization))
-    , m_analyzer_operator(std::move(other.m_analyzer_operator))
     , m_specular_data(std::move(other.m_specular_data))
 {
 }
@@ -51,18 +48,11 @@ kvector_t SpecularSimulationElement::getKi() const
 
 void SpecularSimulationElement::swapContent(SpecularSimulationElement &other)
 {
+    m_polarization.swapContent(other.m_polarization);
     std::swap(m_wavelength, other.m_wavelength);
     std::swap(m_alpha_i, other.m_alpha_i);
     std::swap(m_intensity, other.m_intensity);
-    std::swap(m_polarization, other.m_polarization);
-    std::swap(m_analyzer_operator, other.m_analyzer_operator);
     std::swap(m_specular_data, other.m_specular_data);
-}
-
-void SpecularSimulationElement::initPolarization()
-{
-    m_polarization = Eigen::Matrix2cd::Identity();
-    m_analyzer_operator = Eigen::Matrix2cd::Identity();
 }
 
 void SpecularSimulationElement::setSpecular(std::unique_ptr<SpecularData> specular_data)

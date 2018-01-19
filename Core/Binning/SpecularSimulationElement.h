@@ -16,8 +16,8 @@
 #define SPECULARSIMULATIONELEMENT_H_
 
 #include "Complex.h"
-#include "EigenCore.h"
 #include "Vectors3D.h"
+#include "PolarizationHandler.h"
 #include <memory>
 
 class SpecularData;
@@ -37,20 +37,17 @@ public:
 
     ~SpecularSimulationElement();
 
-#ifndef SWIG
-    //! Sets the polarization density matrix (in spin basis along z-axis)
-    void setPolarization(const Eigen::Matrix2cd& polarization) { m_polarization = polarization; }
+    //! Assigns PolarizationHandler.
+    void setPolarizationHandler(const PolarizationHandler& handler)
+    {
+        m_polarization = handler;
+    }
 
-    //! Gets the polarization density matrix (in spin basis along z-axis)
-    Eigen::Matrix2cd getPolarization() const { return m_polarization; }
-
-    //! Sets the polarization analyzer operator (in spin basis along z-axis)
-    void setAnalyzerOperator(const Eigen::Matrix2cd& polarization_operator) {
-        m_analyzer_operator = polarization_operator; }
-
-    //! Gets the polarization analyzer operator (in spin basis along z-axis)
-    Eigen::Matrix2cd getAnalyzerOperator() const { return m_analyzer_operator; }
-#endif
+    //! Returns assigned PolarizationHandler.
+    const PolarizationHandler& polarizationHandler() const
+    {
+        return m_polarization;
+    }
 
     double getWavelength() const { return m_wavelength; }
     double getAlphaI() const { return m_alpha_i; }
@@ -67,12 +64,10 @@ public:
 
 private:
     void swapContent(SpecularSimulationElement& other);
-    void initPolarization();
 
+    PolarizationHandler m_polarization;
     double m_wavelength, m_alpha_i;  //!< the wavelength and the incident angle of the beam
     double m_intensity;                      //!< simulated intensity for detector cell
-    Eigen::Matrix2cd m_polarization;         //!< polarization density matrix
-    Eigen::Matrix2cd m_analyzer_operator;    //!< polarization analyzer operator
 
     // this unique_ptr is also used as a flag to indicate if this is the specular pixel
     // TODO: remove this when we have a simulation type that generates intensity as a function

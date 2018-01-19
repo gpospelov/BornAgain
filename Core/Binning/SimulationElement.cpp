@@ -24,44 +24,44 @@ SimulationElement::SimulationElement(double wavelength, double alpha_i, double p
     , m_intensity(0.0)
     , mP_pixel(std::move(pixel))
 {
-    initPolarization();
 }
 
 SimulationElement::SimulationElement(const SimulationElement& other)
-    : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i)
+    : m_polarization(other.m_polarization)
+    , m_wavelength(other.m_wavelength)
+    , m_alpha_i(other.m_alpha_i)
+    , m_phi_i(other.m_phi_i)
     , m_intensity(other.m_intensity)
 {
     mP_pixel.reset(other.mP_pixel->clone());
     if (other.m_specular_data)
         m_specular_data.reset(new SpecularData(*other.m_specular_data));
-    m_polarization = other.m_polarization;
-    m_analyzer_operator = other.m_analyzer_operator;
 }
 
 SimulationElement::SimulationElement(const SimulationElement& other, double x, double y)
-    : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i)
+    : m_polarization(other.m_polarization)
+    , m_wavelength(other.m_wavelength)
+    , m_alpha_i(other.m_alpha_i)
+    , m_phi_i(other.m_phi_i)
     , m_intensity(other.m_intensity)
 {
     mP_pixel.reset(other.mP_pixel->createZeroSizePixel(x, y));
     if (other.m_specular_data)
         m_specular_data.reset(new SpecularData(*other.m_specular_data));
-    m_polarization = other.m_polarization;
-    m_analyzer_operator = other.m_analyzer_operator;
 }
 
 SimulationElement::SimulationElement(SimulationElement&& other) noexcept
-    : m_wavelength(other.m_wavelength)
+    : m_polarization(std::move(other.m_polarization))
+    , m_wavelength(other.m_wavelength)
     , m_alpha_i(other.m_alpha_i)
     , m_phi_i(other.m_phi_i)
     , m_intensity(other.m_intensity)
-    , m_polarization(std::move(other.m_polarization))
-    , m_analyzer_operator(std::move(other.m_analyzer_operator))
     , mP_pixel(std::move(other.mP_pixel))
     , m_specular_data(std::move(other.m_specular_data))
 {
 }
 
-SimulationElement::~SimulationElement() {}
+SimulationElement::~SimulationElement() = default;
 
 SimulationElement& SimulationElement::operator=(const SimulationElement &other)
 {
@@ -102,20 +102,13 @@ kvector_t SimulationElement::getQ(double x, double y) const
 
 void SimulationElement::swapContent(SimulationElement &other)
 {
+    m_polarization.swapContent(other.m_polarization);
     std::swap(m_wavelength, other.m_wavelength);
     std::swap(m_alpha_i, other.m_alpha_i);
     std::swap(m_phi_i, other.m_phi_i);
     std::swap(m_intensity, other.m_intensity);
-    std::swap(m_polarization, other.m_polarization);
-    std::swap(m_analyzer_operator, other.m_analyzer_operator);
     std::swap(mP_pixel, other.mP_pixel);
     std::swap(m_specular_data, other.m_specular_data);
-}
-
-void SimulationElement::initPolarization()
-{
-    m_polarization = Eigen::Matrix2cd::Identity();
-    m_analyzer_operator = Eigen::Matrix2cd::Identity();
 }
 
 double SimulationElement::getAlpha(double x, double y) const

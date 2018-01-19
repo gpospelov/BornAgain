@@ -53,6 +53,12 @@ void UnitConverterSimple::checkIndex(size_t i_axis) const
     throw std::runtime_error("Error in UnitConverterSimple::checkIndex: passed axis index too big");
 }
 
+void UnitConverterSimple::checkDimension(size_t dim) const
+{
+    if (dim == dimension()) return;
+    throw std::runtime_error("Error in UnitConverterSimple::checkDimension: wrong dimension");
+}
+
 SphericalConverter::SphericalConverter(size_t n_phi, double phi_min, double phi_max,
                                        size_t n_alpha, double alpha_min, double alpha_max)
 {
@@ -64,7 +70,7 @@ SphericalConverter::~SphericalConverter() =default;
 
 SphericalConverter* SphericalConverter::clone() const
 {
-    checkIndex(1u);
+    checkDimension(2u);
     auto phi_data = m_axis_data_table[0];
     auto alpha_data = m_axis_data_table[1];
     return new SphericalConverter(phi_data.nbins, phi_data.min, phi_data.max,

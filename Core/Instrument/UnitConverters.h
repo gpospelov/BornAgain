@@ -65,6 +65,7 @@ protected:
     void addAxisData(double min, double max, AxesUnits default_units, size_t nbins);
     virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const=0;
     void checkIndex(size_t i_axis) const;
+    void checkDimension(size_t dim) const;
 
     struct AxisData {
         double min, max;

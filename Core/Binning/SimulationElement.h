@@ -19,11 +19,7 @@
 #include "EigenCore.h"
 #include "Vectors3D.h"
 #include "IPixel.h"
-#include "MatrixRTCoefficients.h"
-#include "ScalarRTCoefficients.h"
-#include <boost/variant.hpp>
 #include <memory>
-#include <vector>
 
 class IPixel;
 class SpecularData;
@@ -108,33 +104,6 @@ private:
     // TODO: remove this when we have a simulation type that generates intensity as a function
     //       of depth and inclination angle (it becomes a bool flag then)
     std::unique_ptr<SpecularData> m_specular_data;
-};
-
-//! Helper class for SimulationElement to carry specular information
-//! @ingroup simulation
-
-class BA_CORE_API_ SpecularData
-{
-    // FIXME: find a better way to carry the specular data in SimulationElement (see TODO above)
-    using ScalarVector = std::vector<ScalarRTCoefficients>;
-    using MatrixVector = std::vector<MatrixRTCoefficients>;
-public:
-    SpecularData();
-
-    SpecularData(MatrixVector coefficients);
-
-    SpecularData(ScalarVector coefficients);
-
-    SpecularData* clone();
-
-    const ILayerRTCoefficients& operator[](size_t index) const;
-
-    bool isInited() const {return data_type_used != DATA_TYPE::Invalid;}
-
-private:
-    enum class DATA_TYPE { Invalid = -1, Scalar, Matrix };
-    boost::variant<ScalarVector, MatrixVector> data;
-    DATA_TYPE data_type_used;
 };
 
 #endif // SIMULATIONELEMENT_H

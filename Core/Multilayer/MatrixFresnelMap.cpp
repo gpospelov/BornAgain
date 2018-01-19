@@ -17,6 +17,7 @@
 #include "MatrixRTCoefficients.h"
 #include "MultiLayer.h"
 #include "SimulationElement.h"
+#include "SpecularData.h"
 #include "SpecularMagnetic.h"
 
 namespace {

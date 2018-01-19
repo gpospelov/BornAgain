@@ -16,6 +16,7 @@
 #include "MultiLayer.h"
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
+#include "SpecularData.h"
 #include "SpecularMatrix.h"
 
 namespace {

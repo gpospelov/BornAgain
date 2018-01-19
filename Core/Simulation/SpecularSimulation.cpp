@@ -22,6 +22,7 @@
 #include "Histogram1D.h"
 #include "SimulationElement.h"
 #include "SpecularComputation.h"
+#include "SpecularData.h"
 #include "SpecularDetector1D.h"
 
 namespace

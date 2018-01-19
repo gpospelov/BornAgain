@@ -3,6 +3,7 @@
 #include "MultiLayer.h"
 #include "SimulationElement.h"
 #include "SpecularComputationTerm.h"
+#include "SpecularData.h"
 
 SpecularComputationTerm::SpecularComputationTerm(const MultiLayer* p_multi_layer,
                                                  const IFresnelMap* p_fresnel_map)

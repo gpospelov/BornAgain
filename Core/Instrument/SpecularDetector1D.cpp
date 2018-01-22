@@ -21,31 +21,6 @@
 #include "SpecularSimulationElement.h"
 #include "Units.h"
 
-namespace {
-class SpecularPixel : public IPixel
-{
-public:
-    SpecularPixel(double alpha_i) : m_alpha_i(alpha_i) {}
-    virtual ~SpecularPixel() = default;
-
-    SpecularPixel* clone() const override {return new SpecularPixel(m_alpha_i);}
-
-    // SpecularPixel already has zero size
-    SpecularPixel* createZeroSizePixel(double, double) const override {return clone();}
-
-    kvector_t getK(double, double, double wavelength) const override
-    {
-        return vecOfLambdaAlphaPhi(wavelength, -m_alpha_i, 0.0);
-    }
-
-    double getIntegrationFactor(double, double) const override {return 1;}
-    double getSolidAngle() const override {return 1;}
-
-private:
-    double m_alpha_i;
-};
-}
-
 SpecularDetector1D::SpecularDetector1D(const IAxis& axis)
 {
     addAxis(axis);
@@ -72,50 +47,11 @@ std::vector<AxesUnits> SpecularDetector1D::validAxesUnits() const {
     return result;
 }
 
-double SpecularDetector1D::alphaI(size_t index) const
-{
-    const IAxis& axis = getAxis(BornAgain::X_AXIS_INDEX);
-    const size_t axis_index = axisBinIndex(index, BornAgain::X_AXIS_INDEX);
-    return axis.getBin(axis_index).getMidPoint();
-}
-
-std::vector<SpecularSimulationElement>
-SpecularDetector1D::createSimulationElements(const Beam& beam)
-{
-    std::vector<SpecularSimulationElement> result;
-
-    const double wavelength = beam.getWavelength();
-    PolarizationHandler handler;
-    handler.setPolarization(beam.getPolarization());
-    handler.setAnalyzerOperator(detectionProperties().analyzerOperator());
-
-    SimulationArea area(this);
-    result.reserve(area.totalSize());
-    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
-        // opposite sign for alpha_i since e_{z_beam} = - e_{z_detector}
-        const double alpha_i = -alphaI(it.detectorIndex());
-        result.emplace_back(wavelength, alpha_i);
-        auto& sim_element = result.back();
-        sim_element.setPolarizationHandler(handler);
-    }
-
-    return result;
-}
-
 std::vector<DetectorElement> SpecularDetector1D::createDetectorElements(const Beam&)
 {
-    std::vector<DetectorElement> result;
-    const Eigen::Matrix2cd& analyzer_operator = detectionProperties().analyzerOperator();
-
-    SimulationArea area(this);
-    result.reserve(area.totalSize());
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        const double alpha_i = -alphaI(it.detectorIndex());
-        result.emplace_back(new SpecularPixel(alpha_i), analyzer_operator);
-        auto& detector_element = result.back();
-        detector_element.setSpecular();
-    }
-    return result;
+    throw std::runtime_error(
+        "Error in SpecularDetector1D::createDetectorElements: not implemented.");
+    return std::vector<DetectorElement>();
 }
 
 OutputData<double>*
@@ -124,23 +60,13 @@ SpecularDetector1D::createDetectorIntensity(const std::vector<SpecularSimulation
 {
     std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
     if (!detectorMap)
-        throw std::runtime_error("Instrument::createDetectorIntensity:"
-                                                "can't create detector map.");
+        throw std::runtime_error("SpecularDetector1D::createDetectorIntensity:"
+                                 "can't create detector map.");
 
-    if (detectorResolution()) {
-        if (units_type != AxesUnits::DEFAULT) {
-            std::unique_ptr<OutputData<double>> defaultMap(
-                createDetectorMap(beam, AxesUnits::DEFAULT));
-            setDataToDetectorMap(*defaultMap, elements);
-            applyDetectorResolution(defaultMap.get());
-            detectorMap->setRawDataVector(defaultMap->getRawDataVector());
-        } else {
-            setDataToDetectorMap(*detectorMap, elements);
-            applyDetectorResolution(detectorMap.get());
-        }
-    } else {
-        setDataToDetectorMap(*detectorMap, elements);
-    }
+    if (detectorResolution())
+        throw std::runtime_error("Error in SpecularDetector1D::createDetectorIntensity: detector "
+                                 "resolution is not implemented");
+    setDataToDetectorMap(*detectorMap, elements);
 
     return detectorMap.release();
 }

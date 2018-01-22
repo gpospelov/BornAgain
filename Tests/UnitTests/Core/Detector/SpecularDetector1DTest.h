@@ -104,24 +104,6 @@ TEST_F(SpecularDetectorTest, createDetectorMap)
     EXPECT_THROW(detector.createDetectorMap(beam, AxesUnits::QYQZ), std::runtime_error);
 }
 
-TEST_F(SpecularDetectorTest, SimulationElements)
-{
-    FixedBinAxis axis("axis0", 5, 1.0 * Units::deg, 10.0 * Units::deg);
-    SpecularDetector1D detector(axis);
-    Beam beam;
-    beam.setCentralK(1.0 * Units::angstrom, 0.4 * Units::deg, 0.0);
-
-    auto sim_elements = detector.createSimulationElements(beam);
-
-    EXPECT_EQ(5u, sim_elements.size());
-
-    EXPECT_NEAR(axis.getBinCenter(0), -sim_elements[0].getAlphaI(), 1e-10);
-    EXPECT_NEAR(beam.getWavelength(), sim_elements[0].getWavelength(), 1e-10);
-
-    EXPECT_NEAR(axis.getBinCenter(4), -sim_elements[4].getAlphaI(), 1e-10);
-    EXPECT_NEAR(beam.getWavelength(), sim_elements[4].getWavelength(), 1e-10);
-}
-
 TEST_F(SpecularDetectorTest, Clone)
 {
     FixedBinAxis axis("axis0", 5, 1.0 * Units::deg, 10.0 * Units::deg);

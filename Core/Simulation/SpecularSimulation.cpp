@@ -25,7 +25,6 @@
 
 namespace
 {
-SpecularDetector1D* SpecDetector(Instrument& instrument);
 const SpecularDetector1D* SpecDetector(const Instrument& instrument);
 }
 
@@ -264,15 +263,6 @@ double SpecularSimulation::alpha_i(size_t index) const
 
 namespace
 {
-SpecularDetector1D* SpecDetector(Instrument& instrument)
-{
-    SpecularDetector1D* detector = dynamic_cast<SpecularDetector1D*>(instrument.getDetector());
-    if (!detector)
-        throw std::runtime_error(
-            "Error in SpecularSimulation: wrong detector type");
-    return detector;
-}
-
 const SpecularDetector1D* SpecDetector(const Instrument& instrument)
 {
     const auto detector = dynamic_cast<const SpecularDetector1D*>(instrument.getDetector());

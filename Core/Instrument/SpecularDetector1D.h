@@ -19,7 +19,7 @@
 
 class SpecularSimulationElement;
 
-//! 1D detector for specular simulations
+//! 1D detector for specular simulations. Use of this detector is deprecated.
 //! @ingroup simulation
 
 class BA_CORE_API_ SpecularDetector1D : public IDetector {
@@ -35,9 +35,6 @@ public:
     const DetectorMask* detectorMask() const override { return nullptr; }
 
 #ifndef SWIG
-    //! Create a vector of SpecularSimulationElement objects according to the detector
-    std::vector<SpecularSimulationElement> createSimulationElements(const Beam& beam);
-
     //! Create a vector of DetectorElement objects according to the detector
     std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;
 #endif // SWIG

@@ -120,8 +120,8 @@ std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn
     const size_t data_size = m_sim_elements.size();
     result.resize(data_size);
     for (size_t i = 0; i < data_size; ++i) {
-        const SpecularData* specular_data = m_sim_elements[i].specularData();
-        result[i] = ((*specular_data)[i_layer].*fn_ptr)();
+        const auto& specular_data = m_sim_elements[i].specularData();
+        result[i] = (specular_data[i_layer].*fn_ptr)();
     }
     return result;
 }
@@ -190,8 +190,8 @@ void SpecularSimulation::validityCheck(size_t i_layer) const
                                  "element vector is not equal to the number of inclination angles");
 
     for (size_t i = 0; i < data_size; ++i) {
-        const SpecularData* specular_data = m_sim_elements[i].specularData();
-        if (!specular_data || !specular_data->isInited()) {
+        const SpecularData& specular_data = m_sim_elements[i].specularData();
+        if (!specular_data.isInited()) {
             std::ostringstream message;
             message << "Error in SpecularSimulation::validityCheck: simulation element " << i << "does not contain specular info";
             throw std::runtime_error(message.str());
@@ -229,10 +229,7 @@ void SpecularSimulation::addDataToCache(double weight)
     assert(m_sim_elements.size() == m_cache.size());
     for (unsigned i=0; i<m_sim_elements.size(); i++) {
         m_cache[i].setIntensity(m_sim_elements[i].getIntensity()*weight);
-        if (m_sim_elements[i].specularData()) {
-            m_cache[i].setSpecular(std::unique_ptr<SpecularData>(
-                                       m_sim_elements[i].specularData()->clone()));
-        }
+        m_cache[i].setSpecular(m_sim_elements[i].specularData());
     }
 }
 

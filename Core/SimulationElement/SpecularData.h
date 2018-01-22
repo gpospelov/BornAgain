@@ -21,22 +21,20 @@
 #include <boost/variant.hpp>
 #include <vector>
 
-//! Helper class for SimulationElement to carry specular information
+//! Helper class for SpecularSimulationElement to carry specular information
 //! @ingroup simulation
 
 class BA_CORE_API_ SpecularData
 {
-    // FIXME: find a better way to carry the specular data in SimulationElement (see TODO above)
+    // FIXME: find a better way to carry the specular data in SpecularSimulationElement
     using ScalarVector = std::vector<ScalarRTCoefficients>;
     using MatrixVector = std::vector<MatrixRTCoefficients>;
 public:
     SpecularData();
 
-    SpecularData(MatrixVector coefficients);
+    explicit SpecularData(MatrixVector coefficients);
 
-    SpecularData(ScalarVector coefficients);
-
-    SpecularData* clone();
+    explicit SpecularData(ScalarVector coefficients);
 
     const ILayerRTCoefficients& operator[](size_t index) const;
 

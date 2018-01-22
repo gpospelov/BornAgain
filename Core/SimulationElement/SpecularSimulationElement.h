@@ -18,9 +18,8 @@
 #include "Complex.h"
 #include "Vectors3D.h"
 #include "PolarizationHandler.h"
+#include "SpecularData.h"
 #include <memory>
-
-class SpecularData;
 
 //! Data stucture containing both input and output of a single image pixel
 //! for specular simulation.
@@ -31,11 +30,11 @@ class BA_CORE_API_ SpecularSimulationElement
 public:
     SpecularSimulationElement(double wavelength, double alpha_i);
     SpecularSimulationElement(const SpecularSimulationElement& other);
-    SpecularSimulationElement& operator=(const SpecularSimulationElement& other);
-
     SpecularSimulationElement(SpecularSimulationElement&& other) noexcept;
 
     ~SpecularSimulationElement();
+
+    SpecularSimulationElement& operator=(const SpecularSimulationElement& other);
 
     //! Assigns PolarizationHandler.
     void setPolarizationHandler(const PolarizationHandler& handler)
@@ -56,11 +55,11 @@ public:
     void addIntensity(double intensity) { m_intensity += intensity; }
     double getIntensity() const { return m_intensity; }
 
-    //! check if element corresponds to specular peak
-    SpecularData* specularData() const { return m_specular_data.get(); }
+    //! Returns specular data container
+    const SpecularData& specularData() const { return m_specular_data; }
 
-    //! Turn on specular data
-    void setSpecular(std::unique_ptr<SpecularData> specular_data);
+    //! Set specular data
+    void setSpecular(SpecularData specular_data);
 
 private:
     void swapContent(SpecularSimulationElement& other);
@@ -69,10 +68,9 @@ private:
     double m_wavelength, m_alpha_i;  //!< the wavelength and the incident angle of the beam
     double m_intensity;                      //!< simulated intensity for detector cell
 
-    // this unique_ptr is also used as a flag to indicate if this is the specular pixel
     // TODO: remove this when we have a simulation type that generates intensity as a function
-    //       of depth and inclination angle (it becomes a bool flag then)
-    std::unique_ptr<SpecularData> m_specular_data;
+    //       of depth and inclination angle
+    SpecularData m_specular_data;
 };
 
 #endif /* SPECULARSIMULATIONELEMENT_H_ */

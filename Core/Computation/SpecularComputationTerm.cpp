@@ -24,6 +24,6 @@ void SpecularComputationTerm::eval(ProgressHandler*, const SpecularElementIter& 
 void SpecularComputationTerm::evalSingle(const SpecularElementIter& iter) const
 {
     mp_fresnel_map->fillSpecularData(*iter);
-    const ILayerRTCoefficients& layer_data = (*iter->specularData())[0];
+    const ILayerRTCoefficients& layer_data = iter->specularData()[0];
     iter->setIntensity(std::norm(layer_data.getScalarR()));
 }

@@ -109,8 +109,23 @@ void SpecularSimulation::initSimulationElementVector()
 
 std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationElements(const Beam& beam)
 {
-    auto p_detector = SpecDetector(m_instrument);
-    return p_detector->createSimulationElements(beam);
+    std::vector<SpecularSimulationElement> result;
+
+    const double wavelength = beam.getWavelength();
+    PolarizationHandler handler;
+    handler.setPolarization(beam.getPolarization());
+    handler.setAnalyzerOperator(
+        m_instrument.getDetector()->detectionProperties().analyzerOperator());
+
+    const size_t axis_size = m_coordinate_axis->size();
+    result.reserve(axis_size);
+    for (size_t i = 0; i < axis_size; ++i) {
+        result.emplace_back(wavelength, -alpha_i(i));
+        auto& sim_element = result.back();
+        sim_element.setPolarizationHandler(handler);
+    }
+
+    return result;
 }
 
 std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const

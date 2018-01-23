@@ -19,6 +19,13 @@
 #include "WinDllMacros.h"
 #include <memory>
 
+#ifdef BORNAGAIN_PYTHON
+#ifndef PyObject_HEAD
+struct _object;
+typedef _object PyObject;
+#endif
+#endif
+
 class IAxis;
 template<class T> class OutputData;
 class IUnitConverter;
@@ -32,6 +39,12 @@ public:
     SimulationResults(const OutputData<double>& data, const IUnitConverter& unit_converter);
 
     OutputData<double>* data(AxesUnits units_type = AxesUnits::DEFAULT) const;
+    //! returns data as Python numpy array
+
+#ifdef BORNAGAIN_PYTHON
+    PyObject* array() const;
+#endif
+
 private:
     std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const;
     std::unique_ptr<OutputData<double>> mP_data;

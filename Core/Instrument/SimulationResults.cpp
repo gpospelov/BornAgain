@@ -33,6 +33,11 @@ OutputData<double>* SimulationResults::data(AxesUnits units_type) const
     return result.release();
 }
 
+PyObject* SimulationResults::array() const
+{
+    return mP_data->getArray();
+}
+
 std::unique_ptr<IAxis> SimulationResults::createConvertedAxis(size_t i_axis, AxesUnits units) const
 {
     double min = mP_unit_converter->calculateMin(i_axis, units);

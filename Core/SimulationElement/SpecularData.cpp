@@ -3,15 +3,23 @@
 SpecularData::SpecularData() : data_type_used(DATA_TYPE::Invalid) {}
 
 SpecularData::SpecularData(MatrixVector coefficients)
-    : data(std::move(coefficients))
-    , data_type_used(DATA_TYPE::Matrix)
+    : SpecularData()
 {
+    if (coefficients.empty())
+        throw std::runtime_error(
+            "Error in SpecularData::SpecularData: attempt to initialize with an empty vector");
+    data = std::move(coefficients);
+    data_type_used = DATA_TYPE::Matrix;
 }
 
 SpecularData::SpecularData(ScalarVector coefficients)
-    : data(std::move(coefficients))
-    , data_type_used(DATA_TYPE::Scalar)
+    : SpecularData()
 {
+    if (coefficients.empty())
+        throw std::runtime_error(
+            "Error in SpecularData::SpecularData: attempt to initialize with an empty vector");
+    data = std::move(coefficients);
+    data_type_used = DATA_TYPE::Scalar;
 }
 
 const ILayerRTCoefficients& SpecularData::operator[](size_t index) const

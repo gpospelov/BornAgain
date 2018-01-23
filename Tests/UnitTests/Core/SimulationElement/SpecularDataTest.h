@@ -32,19 +32,13 @@ TEST_F(SpecularDataTest, InitialState)
 TEST_F(SpecularDataTest, InvalidData)
 {
     std::vector<MatrixRTCoefficients> invalid_data;
-    SpecularData spec_data(invalid_data);
-
-    EXPECT_TRUE(spec_data.isInited());
-    EXPECT_THROW(spec_data[0], std::runtime_error);
+    EXPECT_THROW(SpecularData dat(invalid_data), std::runtime_error);
 
     std::vector<ScalarRTCoefficients> invalid_data2;
-    SpecularData spec_data2(invalid_data2);
+    EXPECT_THROW(SpecularData dat(invalid_data2), std::runtime_error);
 
-    EXPECT_TRUE(spec_data2.isInited());
-    EXPECT_THROW(spec_data2[0], std::runtime_error);
-
-    SpecularData spec_data3(test_data);
-    EXPECT_THROW(spec_data3[test_data.size()], std::runtime_error);
+    SpecularData spec_data(test_data);
+    EXPECT_THROW(spec_data[test_data.size()], std::runtime_error);
 }
 
 TEST_F(SpecularDataTest, CopyMoveAssign)

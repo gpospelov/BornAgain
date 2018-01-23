@@ -23846,18 +23846,6 @@ class IntensityData(_object):
         return _libBornAgainCore.IntensityData_getRawDataVector(self)
 
 
-    def fillRawDataArray(self, destination):
-        """
-        fillRawDataArray(IntensityData self, double * destination)
-
-        void OutputData< T >::fillRawDataArray(T *destination) const
-
-        fill raw array with data 
-
-        """
-        return _libBornAgainCore.IntensityData_fillRawDataArray(self, destination)
-
-
     def totalSum(self):
         """
         totalSum(IntensityData self) -> double

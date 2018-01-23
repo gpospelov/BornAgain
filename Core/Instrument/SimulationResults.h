@@ -15,15 +15,27 @@
 #ifndef SIMULATIONRESULTS_H
 #define SIMULATIONRESULTS_H
 
+#include "UnitConverters.h"
 #include "WinDllMacros.h"
-#include <cstddef>
+#include <memory>
+
+class IAxis;
+template<class T> class OutputData;
+class IUnitConverter;
 
 //! Wrapper around OutputData<double> that also provides unit conversions.
-//! @ingroup fitting_internal
+//! @ingroup simulation
 
 class BA_CORE_API_ SimulationResults
 {
 public:
+    SimulationResults(const OutputData<double>& data, const IUnitConverter& unit_converter);
+
+    OutputData<double>* data(AxesUnits units_type = AxesUnits::DEFAULT) const;
+private:
+    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const;
+    std::unique_ptr<OutputData<double>> mP_data;
+    std::unique_ptr<IUnitConverter> mP_unit_converter;
 };
 
 #endif // SIMULATIONRESULTS_H

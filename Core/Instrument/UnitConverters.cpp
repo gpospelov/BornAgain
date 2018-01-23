@@ -53,6 +53,19 @@ double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) co
     return calculateValue(i_axis, units_type, axis_data.max);
 }
 
+size_t UnitConverterSimple::axisSize(size_t i_axis) const
+{
+    checkIndex(i_axis);
+    auto axis_data = m_axis_data_table[i_axis];
+    return axis_data.nbins;
+}
+
+// TODO: remove this implementation
+std::string UnitConverterSimple::axisName(size_t) const
+{
+    return "default";
+}
+
 UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
     : m_axis_data_table(other.m_axis_data_table)
 {}

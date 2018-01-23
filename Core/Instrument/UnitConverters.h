@@ -18,6 +18,7 @@
 #include "ICloneable.h"
 #include "WinDllMacros.h"
 #include <cstddef>
+#include <string>
 #include <vector>
 
 //! Wrapper for detector axes units, required for a better representation of
@@ -44,6 +45,8 @@ public:
 
     virtual double calculateMin(size_t i_axis, AxesUnits units_type) const=0;
     virtual double calculateMax(size_t i_axis, AxesUnits units_type) const=0;
+    virtual size_t axisSize(size_t i_axis) const=0;
+    virtual std::string axisName(size_t i_axis) const=0;
 };
 
 //! Interface for objects that provide axis translations to different units for IDetector objects
@@ -59,6 +62,8 @@ public:
 
     double calculateMin(size_t i_axis, AxesUnits units_type) const override;
     double calculateMax(size_t i_axis, AxesUnits units_type) const override;
+    size_t axisSize(size_t i_axis) const override;
+    std::string axisName(size_t i_axis) const override;
 
 protected:
     UnitConverterSimple(const UnitConverterSimple& other);

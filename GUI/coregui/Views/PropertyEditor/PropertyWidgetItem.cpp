@@ -32,7 +32,7 @@ PropertyWidgetItem::PropertyWidgetItem(QWidget* parent)
     , m_label(new QLabel)
     , m_editor(nullptr)
     , m_dataMapper(new QDataWidgetMapper(this))
-    , m_delegate(new SessionModelDelegate(this))
+    , m_delegate(new SessionModelDelegate(nullptr))
     , m_item(nullptr)
 {
     m_label->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed));
@@ -44,6 +44,7 @@ PropertyWidgetItem::~PropertyWidgetItem()
     // if editor's action leads to deletion of the editor itself, we have to give him chance to
     // send all signals
     m_editor->deleteLater();
+    m_delegate->deleteLater();
 }
 
 void PropertyWidgetItem::setItemEditor(const SessionItem* item, QWidget* editor)

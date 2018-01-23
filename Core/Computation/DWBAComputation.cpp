@@ -13,17 +13,17 @@
 // ************************************************************************** //
 
 #include "DWBAComputation.h"
-#include "ParticleLayoutComputation.h"
-#include "Layer.h"
+#include "GISASSpecularComputationTerm.h"
 #include "IFresnelMap.h"
+#include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
+#include "ParticleLayoutComputation.h"
+#include "ProgressHandler.h"
 #include "RoughMultiLayerComputation.h"
 #include "ScalarFresnelMap.h"
-#include "ProgressHandler.h"
 #include "SimulationElement.h"
-#include "MaterialFactoryFuncs.h"
-#include "NormalizingSpecularComputationTerm.h"
 
 static_assert(std::is_copy_constructible<DWBAComputation>::value == false,
     "DWBAComputation should not be copy constructable");
@@ -34,7 +34,9 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
                                  ProgressHandler& progress,
                                  std::vector<SimulationElement>::iterator begin_it,
                                  std::vector<SimulationElement>::iterator end_it)
-    : IComputation(options, progress, begin_it, end_it, multilayer)
+    : IComputation(options, progress, multilayer)
+    , m_begin_it(begin_it)
+    , m_end_it(end_it)
 {
     mP_fresnel_map = createFresnelMap();
     bool polarized = mP_multi_layer->containsMagneticMaterial();
@@ -52,7 +54,7 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
         m_computation_terms.emplace_back(new RoughMultiLayerComputation(mP_multi_layer.get(),
                                                                      mP_fresnel_map.get()));
     if (m_sim_options.includeSpecular())
-        m_computation_terms.emplace_back(new NormalizingSpecularComputationTerm(mP_multi_layer.get(),
+        m_computation_terms.emplace_back(new GISASSpecularComputationTerm(mP_multi_layer.get(),
                                                               mP_fresnel_map.get()));
     initFresnelMap();
 }

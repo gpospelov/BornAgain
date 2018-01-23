@@ -15,23 +15,32 @@
 #ifndef SPECULARCOMPUTATIONTERM_H_
 #define SPECULARCOMPUTATIONTERM_H_
 
-#include "IComputationTerm.h"
+#include <vector>
+
+class IFresnelMap;
+class MultiLayer;
+class ProgressHandler;
+class SimulationElement;
+class SpecularSimulationElement;
 
 //! Computes the specular scattering.
 //! Used by SpecularComputation.
 //! @ingroup algorithms_internal
 
-class SpecularComputationTerm : public IComputationTerm
+class SpecularComputationTerm
 {
+    using SpecularElementIter = std::vector<SpecularSimulationElement>::iterator;
 public:
     SpecularComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
-    virtual void eval(ProgressHandler* progress,
-              const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it) const override;
+    void eval(ProgressHandler* progress, const SpecularElementIter& begin_it,
+              const SpecularElementIter& end_it) const;
 
 private:
-    virtual void evalSingle(const std::vector<SimulationElement>::iterator& iter) const;
+    void evalSingle(const SpecularElementIter& iter) const;
+
+    const MultiLayer* mp_multilayer;
+    const IFresnelMap* mp_fresnel_map;
 };
 
 #endif /* SPECULARCOMPUTATIONTERM_H_ */

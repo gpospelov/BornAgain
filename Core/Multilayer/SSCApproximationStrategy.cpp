@@ -55,10 +55,11 @@ double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& s
     double qp = sim_element.getMeanQ().magxy();
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
     auto precomputed_ff = precomputePolarized(sim_element, m_formfactor_wrappers);
+    const auto& polarization_handler = sim_element.polarizationHandler();
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         Eigen::Matrix2cd ff = precomputed_ff[i];
         double fraction = m_formfactor_wrappers[i]->relativeAbundance();
-        diffuse_matrix += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
+        diffuse_matrix += fraction * (ff * polarization_handler.getPolarization() * ff.adjoint());
     }
     Eigen::Matrix2cd mff_orig, mff_conj; // original and conjugated mean formfactor
     m_helper.getMeanFormfactors(qp, mff_orig, mff_conj, precomputed_ff, m_formfactor_wrappers);
@@ -66,9 +67,9 @@ double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& s
     complex_t omega = m_helper.getCharacteristicDistribution(qp, mP_iff.get());
     Eigen::Matrix2cd interference_matrix
         = (2.0 * omega / (1.0 - p2kappa * omega))
-        * sim_element.getAnalyzerOperator() * mff_orig
-        * sim_element.getPolarization() * mff_conj;
-    Eigen::Matrix2cd diffuse_matrix2 = sim_element.getAnalyzerOperator() * diffuse_matrix;
+        * polarization_handler.getAnalyzerOperator() * mff_orig
+        * polarization_handler.getPolarization() * mff_conj;
+    Eigen::Matrix2cd diffuse_matrix2 = polarization_handler.getAnalyzerOperator() * diffuse_matrix;
     double interference_trace = std::abs(interference_matrix.trace());
     double diffuse_trace = std::abs(diffuse_matrix2.trace());
     return diffuse_trace + interference_trace;

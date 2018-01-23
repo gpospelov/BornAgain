@@ -17,7 +17,9 @@
 
 #include "IDetector.h"
 
-//! 1D detector for specular simulations
+class SpecularSimulationElement;
+
+//! 1D detector for specular simulations. Use of this detector is deprecated.
 //! @ingroup simulation
 
 class BA_CORE_API_ SpecularDetector1D : public IDetector {
@@ -33,12 +35,14 @@ public:
     const DetectorMask* detectorMask() const override { return nullptr; }
 
 #ifndef SWIG
-    //! Create a vector of SimulationElement objects according to the detector
-    std::vector<SimulationElement> createSimulationElements(const Beam& beam);
-
     //! Create a vector of DetectorElement objects according to the detector
     std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;
 #endif // SWIG
+
+    //! Returns new intensity map with detector resolution applied and axes in requested units
+    OutputData<double>*
+    createDetectorIntensity(const std::vector<SpecularSimulationElement>& elements,
+                            const Beam& beam, AxesUnits units_type) const;
 
     //! Returns region of interest if exists.
     const RegionOfInterest* regionOfInterest() const override { return nullptr; }
@@ -62,6 +66,9 @@ protected:
                                     double& amin, double& amax) const override;
 
 private:
+    void setDataToDetectorMap(OutputData<double>& detectorMap,
+                              const std::vector<SpecularSimulationElement>& elements) const;
+
     double alphaI(size_t index) const;
 };
 

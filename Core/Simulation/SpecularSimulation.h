@@ -16,7 +16,7 @@
 #define SPECULARSIMULATION_H
 
 #include "Simulation.h"
-#include "SimulationElement.h"
+#include "SpecularSimulationElement.h"
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
 
@@ -83,7 +83,7 @@ private:
     void initSimulationElementVector() override;
 
     //! Generate simulation elements for given beam
-    std::vector<SimulationElement> generateSimulationElements(const Beam& beam);
+    std::vector<SpecularSimulationElement> generateSimulationElements(const Beam& beam);
 
     std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
 
@@ -113,8 +113,9 @@ private:
 
     double alpha_i(size_t index) const;
 
-    std::vector<SimulationElement> m_sim_elements;
-    std::vector<SimulationElement> m_cache;
+    std::unique_ptr<IAxis> m_coordinate_axis;
+    std::vector<SpecularSimulationElement> m_sim_elements;
+    std::vector<SpecularSimulationElement> m_cache;
 };
 
 #endif // SPECULARSIMULATION_H

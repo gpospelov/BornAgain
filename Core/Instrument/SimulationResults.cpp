@@ -21,7 +21,9 @@ SimulationResults::SimulationResults(const OutputData<double>& data,
                                      const IUnitConverter& unit_converter)
     : mP_data(data.clone())
     , mP_unit_converter(unit_converter.clone())
-{}
+{
+    checkDimensions();
+}
 
 OutputData<double>* SimulationResults::data(AxesUnits units_type) const
 {
@@ -36,6 +38,14 @@ OutputData<double>* SimulationResults::data(AxesUnits units_type) const
 PyObject* SimulationResults::array() const
 {
     return mP_data->getArray();
+}
+
+void SimulationResults::checkDimensions() const
+{
+    if (mP_data->getRank() != mP_unit_converter->dimension())
+        throw std::runtime_error("Error in SimulationResults::checkDimensions(): "
+                                 "dimensions of data and unit converter don't match");
+    return;
 }
 
 std::unique_ptr<IAxis> SimulationResults::createConvertedAxis(size_t i_axis, AxesUnits units) const

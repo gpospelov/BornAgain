@@ -46,6 +46,7 @@ public:
 #endif
 
 private:
+    void checkDimensions() const;
     std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const;
     std::unique_ptr<OutputData<double>> mP_data;
     std::unique_ptr<IUnitConverter> mP_unit_converter;

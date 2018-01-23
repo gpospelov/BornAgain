@@ -761,7 +761,7 @@ C++ includes: ConstantBackground.h
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ConstantBackground::addBackGround "void ConstantBackground::addBackGround(SimulationElement &element) const override final
+%feature("docstring")  ConstantBackground::addBackGround "double ConstantBackground::addBackGround(double intensity) const override final
 ";
 
 
@@ -5705,6 +5705,23 @@ Sets rectangular region of interest with lower left and upper right corners defi
 ";
 
 
+// File: classGISASSpecularComputationTerm.xml
+%feature("docstring") GISASSpecularComputationTerm "
+
+Computes the specular scattering. Used by  DWBAComputation.
+
+C++ includes: GISASSpecularComputationTerm.h
+";
+
+%feature("docstring")  GISASSpecularComputationTerm::GISASSpecularComputationTerm "GISASSpecularComputationTerm::GISASSpecularComputationTerm(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
+";
+
+%feature("docstring")  GISASSpecularComputationTerm::eval "void GISASSpecularComputationTerm::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
+
+Calculate scattering intensity for each  SimulationElement returns false if nothing needed to be calculated 
+";
+
+
 // File: classHash2Doubles.xml
 %feature("docstring") Hash2Doubles "";
 
@@ -6223,10 +6240,7 @@ C++ includes: IBackground.h
 %feature("docstring")  IBackground::clone "virtual IBackground* IBackground::clone() const =0
 ";
 
-%feature("docstring")  IBackground::addBackGround "void IBackground::addBackGround(std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end) const
-";
-
-%feature("docstring")  IBackground::addBackGround "virtual void IBackground::addBackGround(SimulationElement &element) const =0
+%feature("docstring")  IBackground::addBackGround "virtual double IBackground::addBackGround(double element) const =0
 ";
 
 
@@ -6360,7 +6374,7 @@ Controlled by the multi-threading machinery in Simulation::runSingleSimulation()
 C++ includes: IComputation.h
 ";
 
-%feature("docstring")  IComputation::IComputation "IComputation::IComputation(const SimulationOptions &options, ProgressHandler &progress, std::vector< SimulationElement >::iterator start, std::vector< SimulationElement >::iterator end, const MultiLayer &sample)
+%feature("docstring")  IComputation::IComputation "IComputation::IComputation(const SimulationOptions &options, ProgressHandler &progress, const MultiLayer &sample)
 ";
 
 %feature("docstring")  IComputation::~IComputation "IComputation::~IComputation()
@@ -7076,7 +7090,7 @@ Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
 Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
 
-%feature("docstring")  IFresnelMap::fillSpecularData "virtual void IFresnelMap::fillSpecularData(SimulationElement &sim_element) const =0
+%feature("docstring")  IFresnelMap::fillSpecularData "virtual void IFresnelMap::fillSpecularData(SpecularSimulationElement &sim_element) const =0
 
 Fills simulation element specular data. 
 ";
@@ -10447,7 +10461,7 @@ Retrieves the amplitude coefficients for an incoming wavevector.
 Sets the multilayer to be used for the Fresnel calculations. 
 ";
 
-%feature("docstring")  MatrixFresnelMap::fillSpecularData "void MatrixFresnelMap::fillSpecularData(SimulationElement &sim_element) const override
+%feature("docstring")  MatrixFresnelMap::fillSpecularData "void MatrixFresnelMap::fillSpecularData(SpecularSimulationElement &sim_element) const override
 
 Fills simulation element specular data. 
 ";
@@ -10786,18 +10800,6 @@ C++ includes: NodeIterator.h
 ";
 
 %feature("docstring")  NodeIterator::depth "int NodeIterator< Strategy >::depth() const
-";
-
-
-// File: classNormalizingSpecularComputationTerm.xml
-%feature("docstring") NormalizingSpecularComputationTerm "
-
-Computes the specular scattering. Used by  DWBAComputation. Differs from  SpecularComputationTerm by multilying intensity by normalization factor  $sin \\\\alpha / \\\\Omega$.
-
-C++ includes: NormalizingSpecularComputationTerm.h
-";
-
-%feature("docstring")  NormalizingSpecularComputationTerm::NormalizingSpecularComputationTerm "NormalizingSpecularComputationTerm::NormalizingSpecularComputationTerm(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
 ";
 
 
@@ -11954,7 +11956,42 @@ C++ includes: PoissonNoiseBackground.h
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  PoissonNoiseBackground::addBackGround "void PoissonNoiseBackground::addBackGround(SimulationElement &element) const override final
+%feature("docstring")  PoissonNoiseBackground::addBackGround "double PoissonNoiseBackground::addBackGround(double intensity) const override final
+";
+
+
+// File: classPolarizationHandler.xml
+%feature("docstring") PolarizationHandler "
+
+Convenience class for handling polarization density matrix and polarization analyzer operator
+
+C++ includes: PolarizationHandler.h
+";
+
+%feature("docstring")  PolarizationHandler::PolarizationHandler "PolarizationHandler::PolarizationHandler()
+";
+
+%feature("docstring")  PolarizationHandler::setPolarization "void PolarizationHandler::setPolarization(const Eigen::Matrix2cd &polarization)
+
+Sets the polarization density matrix (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::getPolarization "Eigen::Matrix2cd PolarizationHandler::getPolarization() const
+
+Gets the polarization density matrix (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::setAnalyzerOperator "void PolarizationHandler::setAnalyzerOperator(const Eigen::Matrix2cd &polarization_operator)
+
+Sets the polarization analyzer operator (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::getAnalyzerOperator "Eigen::Matrix2cd PolarizationHandler::getAnalyzerOperator() const
+
+Gets the polarization analyzer operator (in spin basis along z-axis) 
+";
+
+%feature("docstring")  PolarizationHandler::swapContent "void PolarizationHandler::swapContent(PolarizationHandler &other)
 ";
 
 
@@ -13241,7 +13278,7 @@ Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
 Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
 
-%feature("docstring")  ScalarFresnelMap::fillSpecularData "void ScalarFresnelMap::fillSpecularData(SimulationElement &sim_element) const override
+%feature("docstring")  ScalarFresnelMap::fillSpecularData "void ScalarFresnelMap::fillSpecularData(SpecularSimulationElement &sim_element) const override
 
 Fills simulation element specular data. 
 ";
@@ -13601,19 +13638,14 @@ Construct  SimulationElement from other element and restrict k_f to specific val
 Sets the polarization density matrix (in spin basis along z-axis) 
 ";
 
-%feature("docstring")  SimulationElement::getPolarization "Eigen::Matrix2cd SimulationElement::getPolarization() const
-
-Gets the polarization density matrix (in spin basis along z-axis) 
-";
-
 %feature("docstring")  SimulationElement::setAnalyzerOperator "void SimulationElement::setAnalyzerOperator(const Eigen::Matrix2cd &polarization_operator)
 
 Sets the polarization analyzer operator (in spin basis along z-axis) 
 ";
 
-%feature("docstring")  SimulationElement::getAnalyzerOperator "Eigen::Matrix2cd SimulationElement::getAnalyzerOperator() const
+%feature("docstring")  SimulationElement::polarizationHandler "const PolarizationHandler& SimulationElement::polarizationHandler() const
 
-Gets the polarization analyzer operator (in spin basis along z-axis) 
+Returns assigned  PolarizationHandler. 
 ";
 
 %feature("docstring")  SimulationElement::getWavelength "double SimulationElement::getWavelength() const
@@ -13666,17 +13698,14 @@ Returns scattering vector Q, with Kf determined from in-pixel coordinates x,y. I
 %feature("docstring")  SimulationElement::getPhi "double SimulationElement::getPhi(double x, double y) const
 ";
 
-%feature("docstring")  SimulationElement::specularData "SpecularData* SimulationElement::specularData() const
+%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular(bool is_specular)
 
-check if element corresponds to specular peak 
+Set specularity indication on/off. 
 ";
 
-%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular()
+%feature("docstring")  SimulationElement::isSpecular "bool SimulationElement::isSpecular() const
 
-Turn on specular data. 
-";
-
-%feature("docstring")  SimulationElement::setSpecular "void SimulationElement::setSpecular(std::unique_ptr< SpecularData > specular_data)
+Tells if simulation element corresponds to a specular peak. 
 ";
 
 
@@ -13908,7 +13937,7 @@ Controlled by the multi-threading machinery in Simulation::runSingleSimulation()
 C++ includes: SpecularComputation.h
 ";
 
-%feature("docstring")  SpecularComputation::SpecularComputation "SpecularComputation::SpecularComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it)
+%feature("docstring")  SpecularComputation::SpecularComputation "SpecularComputation::SpecularComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, SpecularElementIter begin_it, SpecularElementIter end_it)
 ";
 
 %feature("docstring")  SpecularComputation::~SpecularComputation "SpecularComputation::~SpecularComputation()
@@ -13926,18 +13955,16 @@ C++ includes: SpecularComputationTerm.h
 %feature("docstring")  SpecularComputationTerm::SpecularComputationTerm "SpecularComputationTerm::SpecularComputationTerm(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
 ";
 
-%feature("docstring")  SpecularComputationTerm::eval "void SpecularComputationTerm::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
-
-Calculate scattering intensity for each  SimulationElement returns false if nothing needed to be calculated 
+%feature("docstring")  SpecularComputationTerm::eval "void SpecularComputationTerm::eval(ProgressHandler *progress, const SpecularElementIter &begin_it, const SpecularElementIter &end_it) const
 ";
 
 
 // File: classSpecularData.xml
 %feature("docstring") SpecularData "
 
-Helper class for  SimulationElement to carry specular information
+Helper class for  SpecularSimulationElement to carry specular information
 
-C++ includes: SimulationElement.h
+C++ includes: SpecularData.h
 ";
 
 %feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData()
@@ -13949,9 +13976,6 @@ C++ includes: SimulationElement.h
 %feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData(ScalarVector coefficients)
 ";
 
-%feature("docstring")  SpecularData::clone "SpecularData * SpecularData::clone()
-";
-
 %feature("docstring")  SpecularData::isInited "bool SpecularData::isInited() const
 ";
 
@@ -13959,7 +13983,7 @@ C++ includes: SimulationElement.h
 // File: classSpecularDetector1D.xml
 %feature("docstring") SpecularDetector1D "
 
-1D detector for specular simulations
+1D detector for specular simulations. Use of this detector is deprecated.
 
 C++ includes: SpecularDetector1D.h
 ";
@@ -13983,14 +14007,14 @@ Calls the  INodeVisitor's visit method.
 Returns detector masks container. 
 ";
 
-%feature("docstring")  SpecularDetector1D::createSimulationElements "std::vector< SimulationElement > SpecularDetector1D::createSimulationElements(const Beam &beam)
-
-Create a vector of  SimulationElement objects according to the detector. 
-";
-
 %feature("docstring")  SpecularDetector1D::createDetectorElements "std::vector< DetectorElement > SpecularDetector1D::createDetectorElements(const Beam &beam) override
 
 Create a vector of  DetectorElement objects according to the detector. 
+";
+
+%feature("docstring")  SpecularDetector1D::createDetectorIntensity "OutputData< double > * SpecularDetector1D::createDetectorIntensity(const std::vector< SpecularSimulationElement > &elements, const Beam &beam, AxesUnits units_type) const
+
+Returns new intensity map with detector resolution applied and axes in requested units. 
 ";
 
 %feature("docstring")  SpecularDetector1D::regionOfInterest "const RegionOfInterest* SpecularDetector1D::regionOfInterest() const override
@@ -14104,6 +14128,65 @@ Returns vector of transmission coefficients for all alpha_i angles for given lay
 %feature("docstring")  SpecularSimulation::getScalarKz "std::vector< complex_t > SpecularSimulation::getScalarKz(size_t i_layer) const
 
 Returns vector of Kz coefficients for all alpha_i angles for given layer index. 
+";
+
+
+// File: classSpecularSimulationElement.xml
+%feature("docstring") SpecularSimulationElement "
+
+Data stucture containing both input and output of a single image pixel for specular simulation.
+
+C++ includes: SpecularSimulationElement.h
+";
+
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha_i)
+";
+
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement &other)
+";
+
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement &&other) noexcept
+";
+
+%feature("docstring")  SpecularSimulationElement::~SpecularSimulationElement "SpecularSimulationElement::~SpecularSimulationElement()
+";
+
+%feature("docstring")  SpecularSimulationElement::setPolarizationHandler "void SpecularSimulationElement::setPolarizationHandler(const PolarizationHandler &handler)
+
+Assigns  PolarizationHandler. 
+";
+
+%feature("docstring")  SpecularSimulationElement::polarizationHandler "const PolarizationHandler& SpecularSimulationElement::polarizationHandler() const
+
+Returns assigned  PolarizationHandler. 
+";
+
+%feature("docstring")  SpecularSimulationElement::getWavelength "double SpecularSimulationElement::getWavelength() const
+";
+
+%feature("docstring")  SpecularSimulationElement::getAlphaI "double SpecularSimulationElement::getAlphaI() const
+";
+
+%feature("docstring")  SpecularSimulationElement::getKi "kvector_t SpecularSimulationElement::getKi() const
+";
+
+%feature("docstring")  SpecularSimulationElement::setIntensity "void SpecularSimulationElement::setIntensity(double intensity)
+";
+
+%feature("docstring")  SpecularSimulationElement::addIntensity "void SpecularSimulationElement::addIntensity(double intensity)
+";
+
+%feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
+";
+
+%feature("docstring")  SpecularSimulationElement::specularData "const SpecularData& SpecularSimulationElement::specularData() const
+
+Returns specular data container. 
+";
+
+%feature("docstring")  SpecularSimulationElement::setSpecular "void SpecularSimulationElement::setSpecular(SpecularData specular_data)
+
+Set specular data. 
 ";
 
 
@@ -14832,28 +14915,28 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D105.xml
+// File: namespace_0D103.xml
 
 
-// File: namespace_0D173.xml
+// File: namespace_0D171.xml
 
 
-// File: namespace_0D214.xml
+// File: namespace_0D212.xml
 
 
 // File: namespace_0D23.xml
 
 
-// File: namespace_0D232.xml
+// File: namespace_0D230.xml
 
 
-// File: namespace_0D275.xml
+// File: namespace_0D273.xml
 
 
-// File: namespace_0D283.xml
+// File: namespace_0D302.xml
 
 
-// File: namespace_0D304.xml
+// File: namespace_0D306.xml
 
 
 // File: namespace_0D308.xml
@@ -14862,58 +14945,55 @@ C++ includes: ZLimits.h
 // File: namespace_0D310.xml
 
 
-// File: namespace_0D312.xml
+// File: namespace_0D318.xml
 
 
-// File: namespace_0D320.xml
+// File: namespace_0D333.xml
 
 
-// File: namespace_0D335.xml
+// File: namespace_0D341.xml
 
 
-// File: namespace_0D343.xml
+// File: namespace_0D347.xml
 
 
-// File: namespace_0D349.xml
+// File: namespace_0D350.xml
 
 
 // File: namespace_0D352.xml
 
 
-// File: namespace_0D354.xml
+// File: namespace_0D373.xml
 
 
-// File: namespace_0D375.xml
+// File: namespace_0D382.xml
 
 
-// File: namespace_0D384.xml
+// File: namespace_0D415.xml
 
 
-// File: namespace_0D417.xml
+// File: namespace_0D422.xml
 
 
-// File: namespace_0D424.xml
+// File: namespace_0D460.xml
 
 
-// File: namespace_0D462.xml
+// File: namespace_0D464.xml
 
 
-// File: namespace_0D466.xml
+// File: namespace_0D468.xml
 
 
-// File: namespace_0D470.xml
+// File: namespace_0D542.xml
 
 
-// File: namespace_0D536.xml
+// File: namespace_0D564.xml
 
 
-// File: namespace_0D558.xml
+// File: namespace_0D79.xml
 
 
-// File: namespace_0D81.xml
-
-
-// File: namespace_0D96.xml
+// File: namespace_0D94.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -15849,12 +15929,6 @@ global helper function for comparison of axes
 // File: IPixel_8h.xml
 
 
-// File: SimulationElement_8cpp.xml
-
-
-// File: SimulationElement_8h.xml
-
-
 // File: VariableBinAxis_8cpp.xml
 
 
@@ -15882,6 +15956,12 @@ global helper function for comparison of axes
 // File: DWBAComputation_8h.xml
 
 
+// File: GISASSpecularComputationTerm_8cpp.xml
+
+
+// File: GISASSpecularComputationTerm_8h.xml
+
+
 // File: IBackground_8cpp.xml
 
 
@@ -15898,12 +15978,6 @@ global helper function for comparison of axes
 
 
 // File: IComputationTerm_8h.xml
-
-
-// File: NormalizingSpecularComputationTerm_8cpp.xml
-
-
-// File: NormalizingSpecularComputationTerm_8h.xml
 
 
 // File: ParticleLayoutComputation_8cpp.xml
@@ -17325,6 +17399,30 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: SpecularSimulation_8h.xml
 
 
+// File: PolarizationHandler_8cpp.xml
+
+
+// File: PolarizationHandler_8h.xml
+
+
+// File: SimulationElement_8cpp.xml
+
+
+// File: SimulationElement_8h.xml
+
+
+// File: SpecularData_8cpp.xml
+
+
+// File: SpecularData_8h.xml
+
+
+// File: SpecularSimulationElement_8cpp.xml
+
+
+// File: SpecularSimulationElement_8h.xml
+
+
 // File: FormFactorGauss_8cpp.xml
 
 
@@ -17749,6 +17847,9 @@ Calculates the z-coordinate of the highest vertex after rotation.
 
 
 // File: dir_f59c6b3c978505a5ca3672a364c1918e.xml
+
+
+// File: dir_a6771983dbfae0fa34418cceda77572a.xml
 
 
 // File: dir_871fae137308712382f6192f4445a900.xml

@@ -40,7 +40,7 @@ void ColorMapLabel::addColorMap(ColorMapCanvas* colorMapCanvas)
 
 void ColorMapLabel::setLabelEnabled(bool flag)
 {
-    foreach (ColorMap* colorMap, m_colorMaps)
+    for (auto colorMap : m_colorMaps)
         setColorMapLabelEnabled(colorMap, flag);
 
     setEnabled(flag);
@@ -50,16 +50,13 @@ void ColorMapLabel::setLabelEnabled(bool flag)
 
 void ColorMapLabel::reset()
 {
-    foreach (ColorMap* colorMap, m_colorMaps)
+    for (auto colorMap : m_colorMaps)
         setColorMapLabelEnabled(colorMap, false);
 
     m_colorMaps.clear();
 }
 
-void ColorMapLabel::onColorMapStatusString(const QString& text)
-{
-    setText(text);
-}
+void ColorMapLabel::onColorMapStatusString(const QString& text) { setText(text); }
 
 //! Enables/disables showing of label for given color map.
 
@@ -74,18 +71,17 @@ void ColorMapLabel::setColorMapLabelEnabled(ColorMap* colorMap, bool flag)
 void ColorMapLabel::setConnected(ColorMap* colorMap, bool flag)
 {
     if (flag) {
-        connect(colorMap, SIGNAL(statusString(const QString&)), this,
-                SLOT(onColorMapStatusString(const QString&)), Qt::UniqueConnection);
+        connect(colorMap, &ColorMap::statusString, this,
+                &ColorMapLabel::onColorMapStatusString, Qt::UniqueConnection);
         connect(colorMap, &ColorMap::destroyed, this, &ColorMapLabel::onColorMapDestroyed);
     } else {
-        disconnect(colorMap, SIGNAL(statusString(const QString&)), this,
-                   SLOT(onColorMapStatusString(const QString&)));
+        disconnect(colorMap, &ColorMap::statusString, this, &ColorMapLabel::onColorMapStatusString);
     }
 }
 
 void ColorMapLabel::onColorMapDestroyed(QObject* obj)
 {
     auto it = std::remove_if(m_colorMaps.begin(), m_colorMaps.end(),
-                          [obj](ColorMap* cm){return cm == obj;});
+                             [obj](ColorMap* cm) { return cm == obj; });
     m_colorMaps.erase(it, m_colorMaps.end());
 }

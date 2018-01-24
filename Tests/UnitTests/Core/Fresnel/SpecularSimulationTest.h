@@ -42,10 +42,8 @@ TEST_F(SpecularSimulationTest, InitialState)
     ASSERT_THROW(sim.runSimulation(), std::runtime_error);
     ASSERT_THROW(sim.getAlphaAxis(), std::runtime_error);
     EXPECT_EQ(nullptr, sim.sample());
-    ASSERT_THROW(sim.getScalarR(0), std::runtime_error);
-    ASSERT_THROW(sim.getScalarT(0), std::runtime_error);
-    ASSERT_THROW(sim.getScalarKz(0), std::runtime_error);
     ASSERT_THROW(sim.getIntensityData(), std::runtime_error);
+    ASSERT_THROW(sim.getDetectorIntensity(), std::runtime_error);
 }
 
 TEST_F(SpecularSimulationTest, CloneOfEmpty)
@@ -56,10 +54,8 @@ TEST_F(SpecularSimulationTest, CloneOfEmpty)
     ASSERT_THROW(clone->runSimulation(), std::runtime_error);
     ASSERT_THROW(clone->getAlphaAxis(), std::runtime_error);
     EXPECT_EQ(nullptr, clone->sample());
-    ASSERT_THROW(clone->getScalarR(0), std::runtime_error);
-    ASSERT_THROW(clone->getScalarT(0), std::runtime_error);
-    ASSERT_THROW(clone->getScalarKz(0), std::runtime_error);
     ASSERT_THROW(clone->getIntensityData(), std::runtime_error);
+    ASSERT_THROW(clone->getDetectorIntensity(), std::runtime_error);
 }
 
 TEST_F(SpecularSimulationTest, SetBeamParameters)
@@ -88,32 +84,22 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     sim.setSample(multilayer);
     EXPECT_EQ(3u, sim.sample()->numberOfLayers());
 
-    ASSERT_THROW(sim.getScalarR(0), std::runtime_error);
-    ASSERT_THROW(sim.getScalarT(0), std::runtime_error);
-    ASSERT_THROW(sim.getScalarKz(0), std::runtime_error);
     ASSERT_THROW(sim.getIntensityData(), std::runtime_error);
 
     sim.runSimulation();
-    EXPECT_EQ(10u, sim.getScalarR(0).size());
-    EXPECT_EQ(10u, sim.getScalarT(0).size());
-    EXPECT_EQ(10u, sim.getScalarKz(0).size());
 
-    std::unique_ptr<Histogram1D> reflectivity(sim.getIntensityData());
+    const std::unique_ptr<Histogram1D> reflectivity(sim.getIntensityData());
     EXPECT_EQ(10u, reflectivity->getTotalNumberOfBins());
     EXPECT_EQ(1u, reflectivity->getRank());
     EXPECT_EQ(0.0, reflectivity->getXaxis().getMin());
     EXPECT_EQ(2.0 * Units::degree, reflectivity->getXaxis().getMax());
-    EXPECT_DOUBLE_EQ(std::norm(sim.getScalarR(0)[5]), reflectivity->getBinValues()[5]);
 
     const std::unique_ptr<OutputData<double>> output(sim.getDetectorIntensity());
     EXPECT_EQ(reflectivity->getTotalNumberOfBins(), output->getAllocatedSize());
     EXPECT_EQ(reflectivity->getRank(), output->getRank());
     EXPECT_EQ(reflectivity->getXaxis().getMin(), output->getAxis(0).getMin());
     EXPECT_EQ(reflectivity->getXaxis().getMax(), output->getAxis(0).getMax());
-
-    ASSERT_THROW(sim.getScalarR(3), std::runtime_error);
-    ASSERT_THROW(sim.getScalarT(3), std::runtime_error);
-    ASSERT_THROW(sim.getScalarKz(3), std::runtime_error);
+    EXPECT_DOUBLE_EQ(reflectivity->getBinValues()[5], output->getValue(5));
 }
 
 TEST_F(SpecularSimulationTest, SimulationClone)
@@ -126,19 +112,16 @@ TEST_F(SpecularSimulationTest, SimulationClone)
 
     EXPECT_EQ(3u, clone->sample()->numberOfLayers());
 
-    ASSERT_THROW(clone->getScalarR(0), std::runtime_error);
-    ASSERT_THROW(clone->getScalarT(0), std::runtime_error);
-    ASSERT_THROW(clone->getScalarKz(0), std::runtime_error);
     ASSERT_THROW(clone->getIntensityData(), std::runtime_error);
     ASSERT_THROW(clone->getDetectorIntensity(), std::runtime_error);
 
     sim.runSimulation();
 
     std::unique_ptr<SpecularSimulation> clone2(sim.clone());
-    EXPECT_EQ(10u, clone2->getScalarR(0).size());
-    EXPECT_EQ(10u, clone2->getScalarT(0).size());
-    EXPECT_EQ(10u, clone2->getScalarKz(0).size());
 
     std::unique_ptr<Histogram1D> output(clone2->getIntensityData());
     EXPECT_EQ(10u, output->getTotalNumberOfBins());
+
+    const std::unique_ptr<OutputData<double>> output_data(clone2->getDetectorIntensity());
+    EXPECT_EQ(10u, output_data->getAllocatedSize());
 }

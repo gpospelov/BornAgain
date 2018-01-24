@@ -120,8 +120,7 @@ private:
 
     std::unique_ptr<IAxis> m_coordinate_axis;
     std::vector<SpecularSimulationElement> m_sim_elements;
-    std::vector<SpecularSimulationElement> m_cache;
-    std::vector<double> m_cache_vect;
+    std::vector<double> m_cache;
 };
 
 #endif // SPECULARSIMULATION_H

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/SimulationResults.cpp
-//! @brief     Implements class SimulationResults.
+//! @file      Core/Instrument/SimulationResult.cpp
+//! @brief     Implements class SimulationResult.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "SimulationResults.h"
+#include "SimulationResult.h"
 #include "FixedBinAxis.h"
 #include "OutputData.h"
 
 
-SimulationResults::SimulationResults(const OutputData<double>& data,
+SimulationResult::SimulationResult(const OutputData<double>& data,
                                      const IUnitConverter& unit_converter)
     : mP_data(data.clone())
     , mP_unit_converter(unit_converter.clone())
@@ -25,7 +25,7 @@ SimulationResults::SimulationResults(const OutputData<double>& data,
     checkDimensions();
 }
 
-OutputData<double>* SimulationResults::data(AxesUnits units_type) const
+OutputData<double>* SimulationResult::data(AxesUnits units_type) const
 {
     const size_t dim = mP_data->getRank();
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
@@ -35,12 +35,12 @@ OutputData<double>* SimulationResults::data(AxesUnits units_type) const
     return result.release();
 }
 
-PyObject* SimulationResults::array() const
+PyObject* SimulationResult::array() const
 {
     return mP_data->getArray();
 }
 
-void SimulationResults::checkDimensions() const
+void SimulationResult::checkDimensions() const
 {
     if (mP_data->getRank() != mP_unit_converter->dimension())
         throw std::runtime_error("Error in SimulationResults::checkDimensions(): "
@@ -48,7 +48,7 @@ void SimulationResults::checkDimensions() const
     return;
 }
 
-std::unique_ptr<IAxis> SimulationResults::createConvertedAxis(size_t i_axis, AxesUnits units) const
+std::unique_ptr<IAxis> SimulationResult::createConvertedAxis(size_t i_axis, AxesUnits units) const
 {
     double min = mP_unit_converter->calculateMin(i_axis, units);
     double max = mP_unit_converter->calculateMax(i_axis, units);

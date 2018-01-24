@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/SimulationResults.h
-//! @brief     Defines class SimulationResults.
+//! @file      Core/Instrument/SimulationResult.h
+//! @brief     Defines class SimulationResult.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SIMULATIONRESULTS_H
-#define SIMULATIONRESULTS_H
+#ifndef SIMULATIONRESULT_H
+#define SIMULATIONRESULT_H
 
 #include "UnitConverters.h"
 #include "WinDllMacros.h"
@@ -33,10 +33,10 @@ class IUnitConverter;
 //! Wrapper around OutputData<double> that also provides unit conversions.
 //! @ingroup simulation
 
-class BA_CORE_API_ SimulationResults
+class BA_CORE_API_ SimulationResult
 {
 public:
-    SimulationResults(const OutputData<double>& data, const IUnitConverter& unit_converter);
+    SimulationResult(const OutputData<double>& data, const IUnitConverter& unit_converter);
 
     OutputData<double>* data(AxesUnits units_type = AxesUnits::DEFAULT) const;
     //! returns data as Python numpy array
@@ -52,4 +52,4 @@ private:
     std::unique_ptr<IUnitConverter> mP_unit_converter;
 };
 
-#endif // SIMULATIONRESULTS_H
+#endif // SIMULATIONRESULT_H

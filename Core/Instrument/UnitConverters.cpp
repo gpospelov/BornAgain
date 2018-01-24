@@ -13,7 +13,9 @@
 // ************************************************************************** //
 
 #include "UnitConverters.h"
+#include "BornAgainNamespace.h"
 #include "Units.h"
+#include "Vectors3D.h"
 
 #include <cmath>
 #include <stdexcept>
@@ -85,7 +87,9 @@ void UnitConverterSimple::checkDimension(size_t dim) const
 }
 
 SphericalConverter::SphericalConverter(size_t n_phi, double phi_min, double phi_max,
-                                       size_t n_alpha, double alpha_min, double alpha_max)
+                                       size_t n_alpha, double alpha_min, double alpha_max,
+                                       double wavelength, double alpha_i, double phi_i)
+    : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i)
 {
     addAxisData(phi_min, phi_max, defaultUnits(), n_phi);
     addAxisData(alpha_min, alpha_max, defaultUnits(), n_alpha);
@@ -99,14 +103,29 @@ SphericalConverter* SphericalConverter::clone() const
     auto phi_data = m_axis_data_table[0];
     auto alpha_data = m_axis_data_table[1];
     return new SphericalConverter(phi_data.nbins, phi_data.min, phi_data.max,
-                                  alpha_data.nbins, alpha_data.min, alpha_data.max);
+                                  alpha_data.nbins, alpha_data.min, alpha_data.max,
+                                  m_wavelength, m_alpha_i, m_phi_i);
 }
 
-double SphericalConverter::calculateValue(size_t, AxesUnits units_type, double value) const
+double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
 {
     switch(units_type) {
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
+    case AxesUnits::QYQZ:
+    {
+        auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+        if (i_axis == BornAgain::X_AXIS_INDEX) {
+            auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
+            return (k_i - k_f).y();
+        } else if (i_axis == BornAgain::Y_AXIS_INDEX) {
+            auto k_f = vecOfLambdaAlphaPhi(m_wavelength, value, 0.0);
+            return (k_f - k_i).z();
+        }
+        throw std::runtime_error("Error in SphericalConverter::calculateValue: "
+                                 "incorrect axis index: "
+                                 + std::to_string(static_cast<int>(i_axis)));
+    }
     default:
         throw std::runtime_error("Error in SphericalConverter::calculateValue: "
                                  "target units not available: "

@@ -1735,7 +1735,7 @@ def GetVersionNumber():
 
 def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     """
-    vecOfLambdaAlphaPhi(double const _lambda, double const _alpha, double const _phi) -> kvector_t
+    vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t
 
     BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(const double _lambda, const double _alpha, const double _phi)
 
@@ -26955,9 +26955,9 @@ class SphericalConverter(UnitConverterSimple):
     __getattr__ = lambda self, name: _swig_getattr(self, SphericalConverter, name)
     __repr__ = _swig_repr
 
-    def __init__(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
-        """__init__(SphericalConverter self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> SphericalConverter"""
-        this = _libBornAgainCore.new_SphericalConverter(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
+    def __init__(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max, wavelength, alpha_i, phi_i):
+        """__init__(SphericalConverter self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max, double wavelength, double alpha_i, double phi_i) -> SphericalConverter"""
+        this = _libBornAgainCore.new_SphericalConverter(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max, wavelength, alpha_i, phi_i)
         try:
             self.this.append(this)
         except Exception:

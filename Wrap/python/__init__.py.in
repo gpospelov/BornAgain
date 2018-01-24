@@ -14,5 +14,3 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 if not "NOPLOT" in os.environ:
     from plot_utils import *
 
-from yaml_utils import *
-

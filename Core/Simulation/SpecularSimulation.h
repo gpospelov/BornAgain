@@ -98,6 +98,8 @@ private:
     //! Checks if simulation data is ready for retrieval
     void validityCheck(size_t i_layer) const;
 
+    void checkCache() const;
+
     //! Initializes simulation
     void initialize();
 
@@ -116,6 +118,7 @@ private:
     std::unique_ptr<IAxis> m_coordinate_axis;
     std::vector<SpecularSimulationElement> m_sim_elements;
     std::vector<SpecularSimulationElement> m_cache;
+    std::vector<double> m_cache_vect;
 };
 
 #endif // SPECULARSIMULATION_H

@@ -104,6 +104,10 @@ void SpecularSimulation::initSimulationElementVector()
     m_sim_elements = generateSimulationElements(beam);
     if (m_cache.empty())
         m_cache = m_sim_elements;
+
+    if (!m_cache_vect.empty())
+        return;
+    m_cache_vect.resize(m_sim_elements.size(), 0);
 }
 
 std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationElements(const Beam& beam)
@@ -182,6 +186,7 @@ SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
     : Simulation(other)
     , m_sim_elements(other.m_sim_elements)
     , m_cache(other.m_cache)
+    , m_cache_vect(other.m_cache_vect)
 {
     if (other.m_coordinate_axis)
         m_coordinate_axis.reset(other.m_coordinate_axis->clone());
@@ -211,6 +216,13 @@ void SpecularSimulation::validityCheck(size_t i_layer) const
             throw std::runtime_error(message.str());
         }
     }
+}
+
+void SpecularSimulation::checkCache() const
+{
+    if (m_sim_elements.size() != m_cache_vect.size())
+        throw std::runtime_error("Error in SpecularSimulation: the sizes of simulation element "
+                                 "vector and of its cache are different");
 }
 
 void SpecularSimulation::initialize()
@@ -245,6 +257,10 @@ void SpecularSimulation::addDataToCache(double weight)
         m_cache[i].setIntensity(m_sim_elements[i].getIntensity()*weight);
         m_cache[i].setSpecular(m_sim_elements[i].specularData());
     }
+
+    checkCache();
+    for (size_t i = 0, size = m_sim_elements.size(); i < size; ++i)
+        m_cache_vect[i] += m_sim_elements[i].getIntensity() * weight;
 }
 
 void SpecularSimulation::moveDataFromCache()
@@ -254,6 +270,12 @@ void SpecularSimulation::moveDataFromCache()
         m_sim_elements = std::move(m_cache);
         m_cache.clear();
     }
+
+    checkCache();
+    for (size_t i = 0, size = m_sim_elements.size(); i < size; ++i)
+        m_sim_elements[i].setIntensity(m_cache_vect[i]);
+    m_cache_vect.clear();
+    m_cache_vect.shrink_to_fit();
 }
 
 double SpecularSimulation::alpha_i(size_t index) const

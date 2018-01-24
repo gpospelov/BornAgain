@@ -99,7 +99,7 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     EXPECT_EQ(reflectivity->getRank(), output->getRank());
     EXPECT_EQ(reflectivity->getXaxis().getMin(), output->getAxis(0).getMin());
     EXPECT_EQ(reflectivity->getXaxis().getMax(), output->getAxis(0).getMax());
-    EXPECT_DOUBLE_EQ(reflectivity->getBinValues()[5], output->getValue(5));
+    EXPECT_DOUBLE_EQ(reflectivity->getBinValues()[5], (*output)[5]);
 }
 
 TEST_F(SpecularSimulationTest, SimulationClone)

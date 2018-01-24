@@ -78,8 +78,6 @@ private:
 
     std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
 
-    std::unique_ptr<OutputData<double>> getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const;
-
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
     //! @param n_elements Number of elements to process

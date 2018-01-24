@@ -94,26 +94,24 @@ void FourierTransform::fft(const double2d_t& source, double2d_t& result)
 
     double *ptr = ws.out_fftw;
     result.clear();
-    result.resize(static_cast<size_t>(ws.h_fftw));
+    //result.resize(static_cast<size_t>(ws.h_fftw));
+    //std::cout<<ws.h_fftw<<" "<<ws.w_fftw<<std::endl;
+
+    result.resize(static_cast<size_t>(ws.h_fftw),
+                  std::vector<double>(static_cast<size_t>(ws.w_fftw)));
     for(size_t i = 0; i < static_cast<size_t>(ws.h_fftw); i++)
     {
-        result[i].resize(static_cast<size_t>(ws.w_fftw),0);
-        for(size_t j = 0, mirror = 0; j < static_cast<size_t>(ws.w_fftw); j++)
+        //result[i].resize(static_cast<size_t>(ws.w_fftw),0);
+        size_t  k = static_cast<size_t>(ws.h_fftw)-i;
+        if(i == 0)
+            k -= static_cast<size_t>(ws.h_fftw);
+        for(size_t j = 0; j < static_cast<size_t>(ws.w_fftw/2+1); j++)
         {
-            if(j < static_cast<size_t>(ws.w_fftw/2+1))
-            {
-                result[i][j] = *ptr;
-                ptr += 2;
-            }
-            else
-            {
-                result[i][j] = result[i][j-(2*mirror)-2];
-                mirror++;
-            }
-
-            //result[i][j] = *ptr;
-            //ptr = ptr + 2;
-            //ptr = ptr + 1;
+            result[i][j] = *ptr;
+            size_t l = static_cast<size_t>(ws.w_fftw)-j;
+            if(j != 0)
+                result[k][l] = result[i][j];
+            ptr += 2;
         }
     }
 
@@ -245,13 +243,13 @@ void FourierTransform::fftw_forward_FT(const double2d_t& src)
     for(size_t row = 0; row < static_cast<size_t>(ws.h_src) ; ++row)
         for(size_t col = 0 ; col < static_cast<size_t>(ws.w_src) ; ++col)
             ws.in_src[(static_cast<int>(row)%ws.h_fftw)*ws.w_fftw
-                    +(static_cast<int>(col)%ws.w_fftw)] += src[row][col] * pow(-1,row+col);
+                    +(static_cast<int>(col)%ws.w_fftw)] += src[row][col]; // * pow(-1,row+col);
 
     // And we compute the FFT
     fftw_execute(ws.p_forw_src);
 
     double re_out, im_out;
-    for(ptr = ws.out_fftw, ptr_end = ws.out_fftw+2*ws.h_fftw*(ws.w_fftw/2+1); ptr != ptr_end ; ++ptr)
+    for(ptr = ws.out_fftw, ptr_end = ws.out_fftw+2*ws.h_fftw*(ws.w_fftw/2+1); ptr != ptr_end; ++ptr)
     {
         re_out = *ptr;
         im_out = *(++ptr);

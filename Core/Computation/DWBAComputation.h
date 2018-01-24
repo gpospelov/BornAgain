@@ -51,6 +51,7 @@ private:
     void initFresnelMap();
     bool checkRegions(const std::vector<HomogeneousRegion>& regions) const;
 
+    std::vector<SimulationElement>::iterator m_begin_it, m_end_it; //!< these iterators define the span of detector bins this simulation will work on
     std::unique_ptr<IFresnelMap> mP_fresnel_map; //!< Contains the information, necessary to calculate the Fresnel coefficients.
     std::vector<std::unique_ptr<IComputationTerm>> m_computation_terms;
 };

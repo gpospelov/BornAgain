@@ -14,7 +14,6 @@
 
 #include "PoissonNoiseBackground.h"
 #include "MathFunctions.h"
-#include "SimulationElement.h"
 
 PoissonNoiseBackground::PoissonNoiseBackground()
 {
@@ -28,8 +27,7 @@ PoissonNoiseBackground*PoissonNoiseBackground::clone() const
     return new PoissonNoiseBackground;
 }
 
-void PoissonNoiseBackground::addBackGround(SimulationElement& element) const
+double PoissonNoiseBackground::addBackGround(double intensity) const
 {
-    const double intensity = element.getIntensity();
-    element.setIntensity(MathFunctions::GeneratePoissonRandom(intensity));
+    return MathFunctions::GeneratePoissonRandom(intensity);
 }

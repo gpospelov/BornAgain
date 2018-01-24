@@ -29,10 +29,12 @@ TEST_F(TestParticleLayoutItem, densityAppearance)
     auto interference
         = model.insertNewItem(Constants::InterferenceFunctionRadialParaCrystalType,
                               model.indexOfItem(layout), -1, ParticleLayoutItem::T_INTERFERENCE);
+    EXPECT_TRUE(layout->getItem(ParticleLayoutItem::T_INTERFERENCE) == interference);
     EXPECT_TRUE(layout->getItem(ParticleLayoutItem::P_TOTAL_DENSITY)->isEnabled());
 
     // removing paracrystal, TotalDensity still enabled
     layout->takeRow(ParentRow(*interference));
+    EXPECT_TRUE(layout->getItem(ParticleLayoutItem::T_INTERFERENCE) == nullptr);
     EXPECT_TRUE(layout->getItem(ParticleLayoutItem::P_TOTAL_DENSITY)->isEnabled());
     delete interference;
 
@@ -44,6 +46,7 @@ TEST_F(TestParticleLayoutItem, densityAppearance)
 
     // removing 2D interference, TotalIntensity should be reenabled
     layout->takeRow(ParentRow(*interference));
-    EXPECT_TRUE(layout->getItem(ParticleLayoutItem::P_TOTAL_DENSITY)->isEnabled());
     delete interference;
+    EXPECT_TRUE(layout->getItem(ParticleLayoutItem::T_INTERFERENCE) == nullptr);
+    EXPECT_TRUE(layout->getItem(ParticleLayoutItem::P_TOTAL_DENSITY)->isEnabled());
 }

@@ -60,8 +60,8 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem(Constants::Partic
                                           << Constants::InterferenceFunction1DLatticeType
                                           << Constants::InterferenceFunction2DLatticeType);
 
-    mapper()->setOnChildrenChange([this](SessionItem* item) {
-        updateDensityAppearance(item);
+    mapper()->setOnChildrenChange([this](SessionItem*) {
+        updateDensityAppearance();
     });
 }
 
@@ -69,15 +69,10 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem(Constants::Partic
 //! Two dimensional interference calculates density automatically, so property should
 //! be disabled.
 
-void ParticleLayoutItem::updateDensityAppearance(SessionItem* item)
+void ParticleLayoutItem::updateDensityAppearance()
 {
-    int count = 0;
-    for (auto child_item : children())
-        if (isInterference2D(child_item->modelType()))
-            count++;
-
-    if ((item && count > 0) || (!item && count > 1))
-        getItem(P_TOTAL_DENSITY)->setEnabled(false);
-    else
-        getItem(P_TOTAL_DENSITY)->setEnabled(true);
+    getItem(P_TOTAL_DENSITY)->setEnabled(true);
+    if(auto interferenceItem = getItem(T_INTERFERENCE))
+        if (isInterference2D(interferenceItem->modelType()))
+            getItem(P_TOTAL_DENSITY)->setEnabled(false);
 }

@@ -27,7 +27,7 @@ public:
     ParticleLayoutItem();
 
 private:
-    void updateDensityAppearance(SessionItem* item);
+    void updateDensityAppearance();
 };
 
 #endif // PARTICLELAYOUTITEM_H

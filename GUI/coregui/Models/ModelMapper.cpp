@@ -311,10 +311,12 @@ void ModelMapper::onRowRemoved(const QModelIndex& parent, int first, int /*last*
     int nestling = nestlingDepth(m_model->itemForIndex(parent));
 
     if (nestling >= 0 || m_model->itemForIndex(parent) == m_item->parent()) {
-        callOnChildrenChange(nullptr);
         callOnAnyChildChange(nullptr);
         callOnSiblingsChange();
     }
+
+    if (nestling == 0 )
+        callOnChildrenChange(nullptr);
 
     if (m_aboutToDelete.isValid() && m_aboutToDelete == parent.child(first, 0))
         clearMapper();

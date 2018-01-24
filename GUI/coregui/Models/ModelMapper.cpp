@@ -298,10 +298,8 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex& parent, int first, int /*
         if (m_item == oldChild)
             callOnParentChange(0);
 
-        if (nestling == 0) {
-            callOnChildrenChange(0);
+        if (nestling == 0)
             callOnAboutToRemoveChild(oldChild);
-        }
     }
 
     if (m_item == oldChild)
@@ -313,6 +311,7 @@ void ModelMapper::onRowRemoved(const QModelIndex& parent, int first, int /*last*
     int nestling = nestlingDepth(m_model->itemForIndex(parent));
 
     if (nestling >= 0 || m_model->itemForIndex(parent) == m_item->parent()) {
+        callOnChildrenChange(nullptr);
         callOnAnyChildChange(nullptr);
         callOnSiblingsChange();
     }

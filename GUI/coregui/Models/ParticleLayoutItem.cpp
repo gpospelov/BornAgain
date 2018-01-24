@@ -15,6 +15,9 @@
 #include "ParticleLayoutItem.h"
 #include "ComboProperty.h"
 #include "BornAgainNamespace.h"
+#include "InterferenceFunctionItems.h"
+#include "Lattice2DItems.h"
+#include <QDebug>
 
 namespace {
 
@@ -25,6 +28,12 @@ bool isInterference2D(const QString& name)
        name == Constants::InterferenceFunction2DParaCrystalType)
         return true;
     return false;
+}
+
+//! Returns true if name is related to 2D interference functions.
+bool isLattice2D(SessionItem* item)
+{
+    return dynamic_cast<Lattice2DItem*>(item) ? true : false;
 }
 
 const QString density_tooltip =
@@ -62,7 +71,15 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem(Constants::Partic
 
     mapper()->setOnChildrenChange([this](SessionItem*) {
         updateDensityAppearance();
+        updateDensityValue();
     });
+
+    mapper()->setOnAnyChildChange(
+        [this](SessionItem* item) {
+        if (isLattice2D(item) || (item && isLattice2D(item->parent())))
+               updateDensityValue();
+        }, this);
+
 }
 
 //! Disables/enables total density property, depending on type of interference function.
@@ -75,4 +92,15 @@ void ParticleLayoutItem::updateDensityAppearance()
     if(auto interferenceItem = getItem(T_INTERFERENCE))
         if (isInterference2D(interferenceItem->modelType()))
             getItem(P_TOTAL_DENSITY)->setEnabled(false);
+}
+
+void ParticleLayoutItem::updateDensityValue()
+{
+    if(auto interferenceItem = getItem(T_INTERFERENCE)) {
+        if (interferenceItem->isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
+            auto& latticeItem = interferenceItem->groupItem<Lattice2DItem>(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
+            double area = latticeItem.unitCellArea();
+            setItemValue(P_TOTAL_DENSITY, area == 0.0 ? 0.0 : 1.0/area);
+        }
+    }
 }

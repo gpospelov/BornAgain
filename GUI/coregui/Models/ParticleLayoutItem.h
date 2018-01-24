@@ -28,6 +28,7 @@ public:
 
 private:
     void updateDensityAppearance();
+    void updateDensityValue();
 };
 
 #endif // PARTICLELAYOUTITEM_H

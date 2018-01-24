@@ -24,6 +24,7 @@ public:
     static const QString P_LATTICE_ROTATION_ANGLE;
     explicit Lattice2DItem(const QString& modelType);
     virtual std::unique_ptr<Lattice2D> createLattice() const=0;
+    double unitCellArea() const;
 };
 
 

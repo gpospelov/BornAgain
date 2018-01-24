@@ -45,6 +45,9 @@ public:
     static const QString P_IS_LOGSCALE;
     static const QString P_LOCK_MIN_MAX;
     AmplitudeAxisItem();
+
+private:
+    void setMinMaxEditor(const QString& editorType);
 };
 
 #endif // AXESITEMS_H

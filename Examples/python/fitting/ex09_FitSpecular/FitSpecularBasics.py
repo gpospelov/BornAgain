@@ -65,7 +65,7 @@ def create_real_data():
     Loading data from genx_interchanging_layers.dat
     """
     filepath = path.join(path.dirname(path.realpath(__file__)),
-                                      "genx_interchanging_layers.dat")
+                                      "genx_interchanging_layers.dat.gz")
     ax_values, real_data = np.loadtxt(filepath,
                                       usecols=(0, 1), skiprows=3, unpack=True)
 

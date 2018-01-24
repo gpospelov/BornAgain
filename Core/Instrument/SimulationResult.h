@@ -39,8 +39,8 @@ public:
     SimulationResult(const OutputData<double>& data, const IUnitConverter& unit_converter);
 
     OutputData<double>* data(AxesUnits units_type = AxesUnits::DEFAULT) const;
-    //! returns data as Python numpy array
 
+    //! returns data as Python numpy array
 #ifdef BORNAGAIN_PYTHON
     PyObject* array() const;
 #endif

@@ -26813,5 +26813,169 @@ class SimulationFactory(SimulationFactoryTemp):
 SimulationFactory_swigregister = _libBornAgainCore.SimulationFactory_swigregister
 SimulationFactory_swigregister(SimulationFactory)
 
+class AxesUnits(_object):
+    """
+
+
+    Wrapper for detector axes units, required for a better representation of detector axes units in python
+
+    C++ includes: IDetector.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, AxesUnits, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, AxesUnits, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    DEFAULT = _libBornAgainCore.AxesUnits_DEFAULT
+    NBINS = _libBornAgainCore.AxesUnits_NBINS
+    RADIANS = _libBornAgainCore.AxesUnits_RADIANS
+    DEGREES = _libBornAgainCore.AxesUnits_DEGREES
+    MM = _libBornAgainCore.AxesUnits_MM
+    QYQZ = _libBornAgainCore.AxesUnits_QYQZ
+    __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
+    __del__ = lambda self: None
+AxesUnits_swigregister = _libBornAgainCore.AxesUnits_swigregister
+AxesUnits_swigregister(AxesUnits)
+
+class IUnitConverter(ICloneable):
+    """Proxy of C++ IUnitConverter class."""
+
+    __swig_setmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IUnitConverter, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IUnitConverter, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IUnitConverter
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IUnitConverter self) -> IUnitConverter
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_clone(self)
+
+
+    def dimension(self):
+        """dimension(IUnitConverter self) -> size_t"""
+        return _libBornAgainCore.IUnitConverter_dimension(self)
+
+
+    def calculateMin(self, i_axis, units_type):
+        """calculateMin(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double"""
+        return _libBornAgainCore.IUnitConverter_calculateMin(self, i_axis, units_type)
+
+
+    def calculateMax(self, i_axis, units_type):
+        """calculateMax(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double"""
+        return _libBornAgainCore.IUnitConverter_calculateMax(self, i_axis, units_type)
+
+
+    def axisSize(self, i_axis):
+        """axisSize(IUnitConverter self, size_t i_axis) -> size_t"""
+        return _libBornAgainCore.IUnitConverter_axisSize(self, i_axis)
+
+
+    def axisName(self, i_axis):
+        """axisName(IUnitConverter self, size_t i_axis) -> std::string"""
+        return _libBornAgainCore.IUnitConverter_axisName(self, i_axis)
+
+IUnitConverter_swigregister = _libBornAgainCore.IUnitConverter_swigregister
+IUnitConverter_swigregister(IUnitConverter)
+
+class UnitConverterSimple(IUnitConverter):
+    """Proxy of C++ UnitConverterSimple class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IUnitConverter]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, UnitConverterSimple, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IUnitConverter]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, UnitConverterSimple, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_UnitConverterSimple
+    __del__ = lambda self: None
+
+    def dimension(self):
+        """dimension(UnitConverterSimple self) -> size_t"""
+        return _libBornAgainCore.UnitConverterSimple_dimension(self)
+
+
+    def calculateMin(self, i_axis, units_type):
+        """calculateMin(UnitConverterSimple self, size_t i_axis, AxesUnits units_type) -> double"""
+        return _libBornAgainCore.UnitConverterSimple_calculateMin(self, i_axis, units_type)
+
+
+    def calculateMax(self, i_axis, units_type):
+        """calculateMax(UnitConverterSimple self, size_t i_axis, AxesUnits units_type) -> double"""
+        return _libBornAgainCore.UnitConverterSimple_calculateMax(self, i_axis, units_type)
+
+
+    def axisSize(self, i_axis):
+        """axisSize(UnitConverterSimple self, size_t i_axis) -> size_t"""
+        return _libBornAgainCore.UnitConverterSimple_axisSize(self, i_axis)
+
+
+    def axisName(self, i_axis):
+        """axisName(UnitConverterSimple self, size_t i_axis) -> std::string"""
+        return _libBornAgainCore.UnitConverterSimple_axisName(self, i_axis)
+
+UnitConverterSimple_swigregister = _libBornAgainCore.UnitConverterSimple_swigregister
+UnitConverterSimple_swigregister(UnitConverterSimple)
+
+class SphericalConverter(UnitConverterSimple):
+    """Proxy of C++ SphericalConverter class."""
+
+    __swig_setmethods__ = {}
+    for _s in [UnitConverterSimple]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SphericalConverter, name, value)
+    __swig_getmethods__ = {}
+    for _s in [UnitConverterSimple]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SphericalConverter, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
+        """__init__(SphericalConverter self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> SphericalConverter"""
+        this = _libBornAgainCore.new_SphericalConverter(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_SphericalConverter
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(SphericalConverter self) -> SphericalConverter
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainCore.SphericalConverter_clone(self)
+
+SphericalConverter_swigregister = _libBornAgainCore.SphericalConverter_swigregister
+SphericalConverter_swigregister(SphericalConverter)
+
 # This file is compatible with both classic and new-style classes.
 

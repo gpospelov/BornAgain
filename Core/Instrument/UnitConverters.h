@@ -72,12 +72,14 @@ protected:
     void checkIndex(size_t i_axis) const;
     void checkDimension(size_t dim) const;
 
+#ifndef SWIG
     struct AxisData {
         double min, max;
         AxesUnits default_units;
         size_t nbins;
     };
     std::vector<AxisData> m_axis_data_table;
+#endif
 
 private:
     virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const=0;

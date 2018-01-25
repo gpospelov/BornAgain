@@ -202,7 +202,6 @@ void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam &beam
         double scale(1.0);
         if (units == AxesUnits::DEGREES)
             scale = 1. / Units::degree;
-
         if(axis_index == BornAgain::X_AXIS_INDEX) {
             const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
             SimulationElement el_left_bottom
@@ -221,11 +220,9 @@ void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam &beam
             amin = scale * el_center_bottom.getAlpha(0.5, 0.0);
             amax = scale * el_center_top.getAlpha(0.5, 1.0);
         }
-
     } else {
         IDetector2D::calculateAxisRange(axis_index, beam, units, amin, amax);
     }
-
 }
 
 std::string RectangularDetector::axisName(size_t index) const

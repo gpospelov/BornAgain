@@ -13,7 +13,9 @@
 // ************************************************************************** //
 
 #include "UnitConverters.h"
+#include "Beam.h"
 #include "BornAgainNamespace.h"
+#include "SphericalDetector.h"
 #include "Units.h"
 #include "Vectors3D.h"
 
@@ -95,6 +97,19 @@ SphericalConverter::SphericalConverter(size_t n_phi, double phi_min, double phi_
     addAxisData(alpha_min, alpha_max, defaultUnits(), n_alpha);
 }
 
+SphericalConverter::SphericalConverter(const SphericalDetector& detector, const Beam& beam)
+    : m_wavelength(beam.getWavelength())
+    , m_alpha_i(-beam.getAlpha())
+    , m_phi_i(beam.getPhi())
+{
+    if (detector.dimension() != 2)
+        throw std::runtime_error("Error in SphericalConverter constructor: "
+                                 "detector has wrong dimension: "
+                                 + std::to_string(static_cast<int>(detector.dimension())));
+    addDetectorAxis(detector, 0);
+    addDetectorAxis(detector, 1);
+}
+
 SphericalConverter::~SphericalConverter() =default;
 
 SphericalConverter* SphericalConverter::clone() const
@@ -131,4 +146,10 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
                                  "target units not available: "
                                  + std::to_string(static_cast<int>(units_type)));
     }
+}
+
+void SphericalConverter::addDetectorAxis(const SphericalDetector& detector, size_t i_axis)
+{
+    auto& axis = detector.getAxis(i_axis);
+    addAxisData(axis.getMin(), axis.getMax(), defaultUnits(), axis.size());
 }

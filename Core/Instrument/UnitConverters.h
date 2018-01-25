@@ -21,6 +21,9 @@
 #include <string>
 #include <vector>
 
+class SphericalDetector;
+class Beam;
+
 //! Wrapper for detector axes units, required for a better representation of
 //! detector axes units in python
 //! @ingroup simulation
@@ -96,6 +99,8 @@ public:
     SphericalConverter(size_t n_phi, double phi_min, double phi_max,
                        size_t n_alpha, double alpha_min, double alpha_max,
                        double wavelength, double alpha_i, double phi_i);
+    SphericalConverter(const SphericalDetector& detector, const Beam& beam);
+
     virtual ~SphericalConverter();
 
     SphericalConverter* clone() const override;
@@ -103,6 +108,7 @@ public:
 private:
     double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
     AxesUnits defaultUnits() const override { return AxesUnits::RADIANS; }
+    void addDetectorAxis(const SphericalDetector& detector, size_t i_axis);
     double m_wavelength;
     double m_alpha_i;
     double m_phi_i;

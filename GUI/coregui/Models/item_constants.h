@@ -199,6 +199,7 @@ const ModelType ResolutionFunctionGroup = "Resolution function group";
 const ModelType MinimizerLibraryGroup = "Minimizer library group";
 const ModelType RealLimitsGroup = "RealLimits group";
 const ModelType BackgroundGroup = "Background group";
+const ModelType MaterialDataGroup = "Material data group";
 
 // --- Units&Constants----------------------------------------------------------
 

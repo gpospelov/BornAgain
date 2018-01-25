@@ -84,43 +84,43 @@ TEST_F(RectangularConverterTest, RectangularConverter)
     EXPECT_THROW(converter.calculateMax(2, AxesUnits::DEFAULT), std::runtime_error);
 }
 
-TEST_F(RectangularConverterTest, SphericalConverterClone)
+TEST_F(RectangularConverterTest, RectangularConverterClone)
 {
     RectangularConverter converter(m_detector, m_beam);
     std::unique_ptr<RectangularConverter> P_clone(converter.clone());
 
     EXPECT_EQ(P_clone->dimension(), 2u);
 
-    EXPECT_DOUBLE_EQ(converter.calculateMin(0, AxesUnits::DEFAULT), 0.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(0, AxesUnits::NBINS), 0.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(0, AxesUnits::MM), 0.0);
-    EXPECT_NEAR(converter.calculateMin(0, AxesUnits::RADIANS), -m_phi, m_phi*1e-10);
-    EXPECT_NEAR(converter.calculateMin(0, AxesUnits::DEGREES), Units::rad2deg(-m_phi),
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(0, AxesUnits::DEFAULT), 0.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(0, AxesUnits::NBINS), 0.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(0, AxesUnits::MM), 0.0);
+    EXPECT_NEAR(P_clone->calculateMin(0, AxesUnits::RADIANS), -m_phi, m_phi*1e-10);
+    EXPECT_NEAR(P_clone->calculateMin(0, AxesUnits::DEGREES), Units::rad2deg(-m_phi),
                 Units::rad2deg(m_phi)*1e-10);
-    EXPECT_NEAR(converter.calculateMin(0, AxesUnits::QYQZ), -m_kfy, m_kfy*1e-10);
+    EXPECT_NEAR(P_clone->calculateMin(0, AxesUnits::QYQZ), -m_kfy, m_kfy*1e-10);
 
-    EXPECT_DOUBLE_EQ(converter.calculateMax(0, AxesUnits::DEFAULT), det_width);
-    EXPECT_DOUBLE_EQ(converter.calculateMax(0, AxesUnits::NBINS), static_cast<double>(det_nx));
-    EXPECT_DOUBLE_EQ(converter.calculateMax(0, AxesUnits::MM), det_width);
-    EXPECT_NEAR(converter.calculateMax(0, AxesUnits::RADIANS), m_phi, m_phi*1e-10);
-    EXPECT_NEAR(converter.calculateMax(0, AxesUnits::DEGREES), Units::rad2deg(m_phi),
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(0, AxesUnits::DEFAULT), det_width);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(0, AxesUnits::NBINS), static_cast<double>(det_nx));
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(0, AxesUnits::MM), det_width);
+    EXPECT_NEAR(P_clone->calculateMax(0, AxesUnits::RADIANS), m_phi, m_phi*1e-10);
+    EXPECT_NEAR(P_clone->calculateMax(0, AxesUnits::DEGREES), Units::rad2deg(m_phi),
                 Units::rad2deg(m_phi)*1e-10);
-    EXPECT_NEAR(converter.calculateMax(0, AxesUnits::QYQZ), m_kfy, m_kfy*1e-10);
+    EXPECT_NEAR(P_clone->calculateMax(0, AxesUnits::QYQZ), m_kfy, m_kfy*1e-10);
 
-    EXPECT_DOUBLE_EQ(converter.calculateMin(1, AxesUnits::DEFAULT), 0.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(1, AxesUnits::NBINS), 0.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(1, AxesUnits::MM), 0.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(1, AxesUnits::RADIANS), 0.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(1, AxesUnits::DEGREES), 0.0);
-    EXPECT_NEAR(converter.calculateMin(1, AxesUnits::QYQZ), - m_kiz, std::abs(m_kiz)*1e-10);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(1, AxesUnits::DEFAULT), 0.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(1, AxesUnits::NBINS), 0.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(1, AxesUnits::MM), 0.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(1, AxesUnits::RADIANS), 0.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(1, AxesUnits::DEGREES), 0.0);
+    EXPECT_NEAR(P_clone->calculateMin(1, AxesUnits::QYQZ), - m_kiz, std::abs(m_kiz)*1e-10);
 
-    EXPECT_DOUBLE_EQ(converter.calculateMax(1, AxesUnits::DEFAULT), det_height);
-    EXPECT_DOUBLE_EQ(converter.calculateMax(1, AxesUnits::NBINS), static_cast<double>(det_ny));
-    EXPECT_DOUBLE_EQ(converter.calculateMax(1, AxesUnits::MM), det_height);
-    EXPECT_NEAR(converter.calculateMax(1, AxesUnits::RADIANS), m_alpha, m_alpha*1e-10);
-    EXPECT_NEAR(converter.calculateMax(1, AxesUnits::DEGREES), Units::rad2deg(m_alpha),
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(1, AxesUnits::DEFAULT), det_height);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(1, AxesUnits::NBINS), static_cast<double>(det_ny));
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(1, AxesUnits::MM), det_height);
+    EXPECT_NEAR(P_clone->calculateMax(1, AxesUnits::RADIANS), m_alpha, m_alpha*1e-10);
+    EXPECT_NEAR(P_clone->calculateMax(1, AxesUnits::DEGREES), Units::rad2deg(m_alpha),
                 Units::rad2deg(m_alpha)*1e-10);
-    EXPECT_NEAR(converter.calculateMax(1, AxesUnits::QYQZ), m_kfz - m_kiz,
+    EXPECT_NEAR(P_clone->calculateMax(1, AxesUnits::QYQZ), m_kfz - m_kiz,
                 std::abs(m_kfz - m_kiz)*1e-10);
 
     EXPECT_THROW(P_clone->calculateMin(2, AxesUnits::DEFAULT), std::runtime_error);

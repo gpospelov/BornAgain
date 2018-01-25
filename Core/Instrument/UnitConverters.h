@@ -114,7 +114,7 @@ public:
     SphericalConverter* clone() const override;
 
 private:
-    SphericalConverter(const SphericalConverter& other) =default;
+    SphericalConverter(const SphericalConverter& other);
     double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
     AxesUnits defaultUnits() const override { return AxesUnits::RADIANS; }
 };

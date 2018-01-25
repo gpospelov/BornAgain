@@ -82,6 +82,9 @@ std::string UnitConverterSimple::axisName(size_t i_axis) const
 
 UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
     : m_axis_data_table(other.m_axis_data_table)
+    , m_wavelength(other.m_wavelength)
+    , m_alpha_i(other.m_alpha_i)
+    , m_phi_i(other.m_phi_i)
 {}
 
 void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_axis)
@@ -130,6 +133,10 @@ SphericalConverter* SphericalConverter::clone() const
 {
     return new SphericalConverter(*this);
 }
+
+SphericalConverter::SphericalConverter(const SphericalConverter& other)
+    : UnitConverterSimple(other)
+{}
 
 double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
 {

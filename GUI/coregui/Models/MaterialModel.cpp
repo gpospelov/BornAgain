@@ -44,12 +44,9 @@ MaterialItem* MaterialModel::addMaterial(const QString& name, double material_da
         = dynamic_cast<MaterialItem*>(insertNewItem(Constants::HomogeneousMaterialType));
     materialItem->setItemName(name);
 
-    MaterialDataItem* materialDataItem = dynamic_cast<MaterialDataItem*>(
-        materialItem->getItem(MaterialItem::P_MATERIAL_DATA));
-    Q_ASSERT(materialDataItem);
-
-    materialDataItem->setReal(material_data_real);
-    materialDataItem->setImag(material_data_imag);
+    auto& materialDataItem = materialItem->groupItem<MaterialDataItem>(MaterialItem::P_MATERIAL_DATA);
+    materialDataItem.setReal(material_data_real);
+    materialDataItem.setImag(material_data_imag);
 
     QColor color = MaterialItemUtils::suggestMaterialColor(name);
     materialItem->setItemValue(MaterialItem::P_COLOR, MaterialItemUtils::colorProperty(color).variant());

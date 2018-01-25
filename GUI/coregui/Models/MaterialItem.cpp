@@ -40,7 +40,7 @@ MaterialItem::MaterialItem()
     ExternalProperty color = MaterialItemUtils::colorProperty(QColor(Qt::red));
     addProperty(P_COLOR, color.variant())->setEditorType(Constants::ColorEditorExternalType);
 
-    addGroupProperty(P_MATERIAL_DATA, Constants::MaterialDataType);
+    addGroupProperty(P_MATERIAL_DATA, Constants::MaterialDataGroup);
     addGroupProperty(P_MAGNETIZATION, Constants::VectorType)->setToolTip(magnetization_tooltip);
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid());
     getItem(P_IDENTIFIER)->setVisible(false);
@@ -57,16 +57,12 @@ QColor MaterialItem::getColor() const
     return property.color();
 }
 
-//TODO: make this function create proper type of material (refractive index m-l or wl-indp. mat-l)
 std::unique_ptr<Material> MaterialItem::createMaterial() const
 {
-    const MaterialDataItem* materialDataItem
-        = dynamic_cast<const MaterialDataItem*>(getItem(MaterialItem::P_MATERIAL_DATA));
+    auto& materialDataItem = groupItem<MaterialDataItem>(P_MATERIAL_DATA);
 
-    Q_ASSERT(materialDataItem);
-
-    double real = materialDataItem->getReal();
-    double imag = materialDataItem->getImag();
+    double real = materialDataItem.getReal();
+    double imag = materialDataItem.getImag();
 
     auto magnetization = GetVectorItem(*this, P_MAGNETIZATION);
 

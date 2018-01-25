@@ -133,20 +133,12 @@ void TestComponentView::init_source()
     MaterialItem* materialItem
         = dynamic_cast<MaterialItem*>(m_sampleModel->insertNewItem(Constants::HomogeneousMaterialType));
     materialItem->setItemName("air");
-    MaterialDataItem* materialDataItem = dynamic_cast<MaterialDataItem*>(
-        materialItem->getItem(MaterialItem::P_MATERIAL_DATA));
-    Q_ASSERT(materialDataItem);
-    materialDataItem->setReal(1e-3);
-    materialDataItem->setImag(1e-5);
+    auto& materialDataItem = materialItem->groupItem<MaterialDataItem>(MaterialItem::P_MATERIAL_DATA);
+    materialDataItem.setReal(1e-3);
+    materialDataItem.setImag(1e-5);
 
     // adding intensity data item
     m_sampleModel->insertNewItem(Constants::IntensityDataType);
-
-//    SessionItem* multilayer = m_sourceModel->insertNewItem(Constants::MultiLayerType);
-//    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));
-//    m_sourceModel->insertNewItem(Constants::LayerType, m_sourceModel->indexOfItem(multilayer));
-
-//    m_sourceModel->insertNewItem(Constants::VectorType);
 }
 
 void TestComponentView::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)

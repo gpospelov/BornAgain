@@ -66,8 +66,8 @@ std::unique_ptr<Material> MaterialItem::createMaterial() const
     if (dataItem->modelType() == Constants::MaterialRefractiveDataType) {
         auto& materialDataItem = groupItem<MaterialRefractiveDataItem>(P_MATERIAL_DATA);
 
-        double real = materialDataItem.real();
-        double imag = materialDataItem.imag();
+        double real = materialDataItem.delta();
+        double imag = materialDataItem.beta();
 
 
         return std::make_unique<Material>(HomogeneousMaterial(itemName().toStdString(), real, imag,

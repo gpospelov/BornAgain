@@ -30,8 +30,8 @@ TEST_F(TestMaterialModel, test_ParticeleCompositionUpdate)
     EXPECT_EQ(item->itemName(), name);
     auto& materialDataItem
         = item->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
-    EXPECT_EQ(materialDataItem.real(), delta);
-    EXPECT_EQ(materialDataItem.imag(), beta);
+    EXPECT_EQ(materialDataItem.delta(), delta);
+    EXPECT_EQ(materialDataItem.beta(), beta);
 }
 
 TEST_F(TestMaterialModel, test_cloneMaterial)
@@ -59,8 +59,8 @@ TEST_F(TestMaterialModel, test_cloneMaterial)
 
     auto& refIndex
         = clonedMaterial->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
-    EXPECT_EQ(refIndex.real(), delta);
-    EXPECT_EQ(refIndex.imag(), beta);
+    EXPECT_EQ(refIndex.delta(), delta);
+    EXPECT_EQ(refIndex.beta(), beta);
 }
 
 //! Checks the method which returns MaterialItem from known identifier.

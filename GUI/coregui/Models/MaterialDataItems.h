@@ -28,14 +28,14 @@ class BA_CORE_API_ MaterialRefractiveDataItem : public MaterialDataItem
 public:
     MaterialRefractiveDataItem();
 
-    static const QString P_REAL;
-    static const QString P_IMAG;
+    static const QString P_DELTA;
+    static const QString P_BETA;
 
-    double real() const;
-    void setReal(double real);
+    double delta() const;
+    void setDelta(double delta);
 
-    double imag() const;
-    void setImag(double imag);
+    double beta() const;
+    void setBeta(double beta);
 
 private:
     void updateLabel();

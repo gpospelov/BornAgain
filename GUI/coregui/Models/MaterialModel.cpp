@@ -45,8 +45,8 @@ MaterialItem* MaterialModel::addMaterial(const QString& name, double material_da
     materialItem->setItemName(name);
 
     auto& materialDataItem = materialItem->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
-    materialDataItem.setReal(material_data_real);
-    materialDataItem.setImag(material_data_imag);
+    materialDataItem.setDelta(material_data_real);
+    materialDataItem.setBeta(material_data_imag);
 
     QColor color = MaterialItemUtils::suggestMaterialColor(name);
     materialItem->setItemValue(MaterialItem::P_COLOR, MaterialItemUtils::colorProperty(color).variant());

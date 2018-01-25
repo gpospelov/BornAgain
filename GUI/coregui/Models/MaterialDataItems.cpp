@@ -21,16 +21,18 @@ MaterialDataItem::MaterialDataItem(const QString& modelType)
 
 // ------------------------------------------------------------------------------------------------
 
-const QString MaterialRefractiveDataItem::P_REAL = "real";
-const QString MaterialRefractiveDataItem::P_IMAG = "imag";
+const QString MaterialRefractiveDataItem::P_DELTA = "Delta";
+const QString MaterialRefractiveDataItem::P_BETA = "Beta";
 
 MaterialRefractiveDataItem::MaterialRefractiveDataItem()
     : MaterialDataItem(Constants::MaterialRefractiveDataType)
 {
-    addProperty(P_REAL, 0.0)->setEditorType(Constants::ScientificEditorType)
-        .setLimits(RealLimits::limitless());
-    addProperty(P_IMAG, 0.0)->setEditorType(Constants::ScientificEditorType)
-        .setLimits(RealLimits::limitless());
+    addProperty(P_DELTA, 0.0)->setEditorType(Constants::ScientificEditorType)
+        .setLimits(RealLimits::limitless())
+        .setToolTip("Delta of refractive index (n = 1 - delta + i*beta)");
+    addProperty(P_BETA, 0.0)->setEditorType(Constants::ScientificEditorType)
+        .setLimits(RealLimits::limitless())
+        .setToolTip("Beta of refractive index (n = 1 - delta + i*beta)");
 
     mapper()->setOnPropertyChange([this](const QString&) { updateLabel(); });
 
@@ -38,29 +40,29 @@ MaterialRefractiveDataItem::MaterialRefractiveDataItem()
     setEditable(false); // for label
 }
 
-double MaterialRefractiveDataItem::real() const
+double MaterialRefractiveDataItem::delta() const
 {
-    return getItemValue(P_REAL).toDouble();
+    return getItemValue(P_DELTA).toDouble();
 }
 
-void MaterialRefractiveDataItem::setReal(double real)
+void MaterialRefractiveDataItem::setDelta(double real)
 {
-    setItemValue(P_REAL, real);
+    setItemValue(P_DELTA, real);
 }
 
-double MaterialRefractiveDataItem::imag() const
+double MaterialRefractiveDataItem::beta() const
 {
-    return getItemValue(P_IMAG).toDouble();
+    return getItemValue(P_BETA).toDouble();
 }
 
-void MaterialRefractiveDataItem::setImag(double imag)
+void MaterialRefractiveDataItem::setBeta(double imag)
 {
-    setItemValue(P_IMAG, imag);
+    setItemValue(P_BETA, imag);
 }
 
 void MaterialRefractiveDataItem::updateLabel()
 {
-    setValue(QString("(1 - %1, %2)").arg(real()).arg(imag()));
+    setValue(QString("(1 - %1, %2)").arg(delta()).arg(beta()));
 }
 
 // ------------------------------------------------------------------------------------------------

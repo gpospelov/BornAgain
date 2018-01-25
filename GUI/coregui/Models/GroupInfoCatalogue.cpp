@@ -160,7 +160,8 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     addInfo(info);
 
     info = GroupInfo(Constants::MaterialDataGroup);
-    info.add(Constants::MaterialRefractiveDataType, "Refractive index");
+    info.add(Constants::MaterialRefractiveDataType, "Refractive index based");
+    info.add(Constants::MaterialSLDDataType, "SLD based");
     info.setDefaultType(Constants::MaterialRefractiveDataType);
     addInfo(info);
 }

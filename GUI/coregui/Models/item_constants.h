@@ -119,6 +119,7 @@ const ModelType HexagonalLatticeType = "HexagonalLattice";
 const ModelType MaterialType = "Material";
 
 const ModelType MaterialRefractiveDataType = "MaterialRefractiveData";
+const ModelType MaterialSLDDataType = "MaterialSLDData";
 
 const ModelType MagneticFieldType = "MagneticField";
 

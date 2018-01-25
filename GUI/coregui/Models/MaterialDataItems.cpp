@@ -28,7 +28,7 @@ MaterialDataItem::MaterialDataItem(const QString& modelType)
     mapper()->setOnPropertyChange([this](const QString&) { updateLabel(); });
 
     updateLabel();
-    setEditable(false);
+    setEditable(false); // for label
 }
 
 double MaterialDataItem::real() const
@@ -58,6 +58,12 @@ void MaterialDataItem::updateLabel()
 
 MaterialRefractiveDataItem::MaterialRefractiveDataItem()
     : MaterialDataItem(Constants::MaterialRefractiveDataType)
+{
+
+}
+
+MaterialSLDDataItem::MaterialSLDDataItem()
+    : MaterialDataItem(Constants::MaterialSLDDataType)
 {
 
 }

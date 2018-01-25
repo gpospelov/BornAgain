@@ -158,6 +158,7 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::MaterialType, create_new<MaterialItem>);
 
     add(Constants::MaterialRefractiveDataType, create_new<MaterialRefractiveDataItem>);
+    add(Constants::MaterialSLDDataType, create_new<MaterialSLDDataItem>);
 
     add(Constants::JobItemType, create_new<JobItem>);
 

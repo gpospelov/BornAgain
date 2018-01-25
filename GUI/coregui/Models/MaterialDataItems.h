@@ -43,4 +43,10 @@ public:
     MaterialRefractiveDataItem();
 };
 
+class BA_CORE_API_ MaterialSLDDataItem : public MaterialDataItem
+{
+public:
+    MaterialSLDDataItem();
+};
+
 #endif // MATERIALDATAITEMS_H

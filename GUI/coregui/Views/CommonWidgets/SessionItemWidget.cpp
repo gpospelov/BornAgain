@@ -41,6 +41,12 @@ QList<QAction*> SessionItemWidget::actionList()
 
 SessionItem* SessionItemWidget::currentItem()
 {
+    return const_cast<SessionItem*>(
+        static_cast<const SessionItemWidget*>(this)->currentItem());
+}
+
+const SessionItem* SessionItemWidget::currentItem() const
+{
     return m_itemController->currentItem();
 }
 

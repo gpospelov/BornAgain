@@ -113,6 +113,7 @@ private:
     void setColorScaleVisible(bool visibility_flag);
 
     IntensityDataItem* intensityItem();
+    const IntensityDataItem* intensityItem() const;
 
     QCustomPlot* m_customPlot;
     QCPColorMap* m_colorMap;

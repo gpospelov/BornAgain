@@ -32,6 +32,11 @@ Lattice2DItem::Lattice2DItem(const QString& modelType)
 
 }
 
+double Lattice2DItem::unitCellArea() const
+{
+    return createLattice()->unitCellArea();
+}
+
 const QString BasicLatticeItem::P_LATTICE_LENGTH1
     = QString::fromStdString(BornAgain::LatticeLength1);
 const QString BasicLatticeItem::P_LATTICE_LENGTH2

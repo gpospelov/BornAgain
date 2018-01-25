@@ -23,7 +23,6 @@ class BA_CORE_API_ MaterialDataItem : public SessionItem
 public:
     static const QString P_REAL;
     static const QString P_IMAG;
-    MaterialDataItem();
 
     double getReal() const;
     void setReal(double real);
@@ -31,8 +30,17 @@ public:
     double getImag() const;
     void setImag(double imag);
 
+protected:
+    MaterialDataItem(const QString& modelType);
+
 private:
     void updateLabel();
+};
+
+class BA_CORE_API_ MaterialRefractiveDataItem : public MaterialDataItem
+{
+public:
+    MaterialRefractiveDataItem();
 };
 
 #endif // MATERIALDATAITEMS_H

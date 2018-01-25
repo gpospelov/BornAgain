@@ -17,7 +17,8 @@
 const QString MaterialDataItem::P_REAL = "real";
 const QString MaterialDataItem::P_IMAG = "imag";
 
-MaterialDataItem::MaterialDataItem() : SessionItem(Constants::MaterialDataType)
+MaterialDataItem::MaterialDataItem(const QString& modelType)
+    : SessionItem(modelType)
 {
     addProperty(P_REAL, 0.0)->setEditorType(Constants::ScientificEditorType)
         .setLimits(RealLimits::limitless());
@@ -53,4 +54,10 @@ void MaterialDataItem::setImag(double imag)
 void MaterialDataItem::updateLabel()
 {
     setValue(QString("(1 - %1, %2)").arg(getReal()).arg(getImag()));
+}
+
+MaterialRefractiveDataItem::MaterialRefractiveDataItem()
+    : MaterialDataItem(Constants::MaterialDataType)
+{
+
 }

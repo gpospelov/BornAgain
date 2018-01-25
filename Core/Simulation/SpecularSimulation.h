@@ -65,15 +65,6 @@ public:
     //! Returns detector signal (\f$ \propto |R|^2\f$) in the form of 1D Histogram
     Histogram1D* getIntensityData() const;
 
-    //! Returns vector of reflection coefficients (\f$R\f$) for all alpha_i angles for given layer index.
-    std::vector<complex_t> getScalarR(size_t i_layer) const;
-
-    //! Returns vector of transmission coefficients for all alpha_i angles for given layer index.
-    std::vector<complex_t> getScalarT(size_t i_layer) const;
-
-    //! Returns vector of Kz coefficients for all alpha_i angles for given layer index.
-    std::vector<complex_t> getScalarKz(size_t i_layer) const;
-
 private:
     typedef complex_t (ILayerRTCoefficients::*DataGetter)() const;
 
@@ -87,8 +78,6 @@ private:
 
     std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
 
-    std::unique_ptr<OutputData<double>> getDataByAbsValue(size_t i_layer, DataGetter fn_ptr) const;
-
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
     //! @param n_elements Number of elements to process
@@ -97,6 +86,8 @@ private:
 
     //! Checks if simulation data is ready for retrieval
     void validityCheck(size_t i_layer) const;
+
+    void checkCache() const;
 
     //! Initializes simulation
     void initialize();
@@ -113,9 +104,21 @@ private:
 
     double alpha_i(size_t index) const;
 
+    //! Returns vector of reflection coefficients (\f$R\f$) for all alpha_i angles for given layer index.
+    //! Deprecated and will be removed.
+    std::vector<complex_t> getScalarR(size_t i_layer) const;
+
+    //! Returns vector of transmission coefficients for all alpha_i angles for given layer index.
+    //! Deprecated and will be removed.
+    std::vector<complex_t> getScalarT(size_t i_layer) const;
+
+    //! Returns vector of Kz coefficients for all alpha_i angles for given layer index.
+    //! Deprecated and will be removed.
+    std::vector<complex_t> getScalarKz(size_t i_layer) const;
+
     std::unique_ptr<IAxis> m_coordinate_axis;
     std::vector<SpecularSimulationElement> m_sim_elements;
-    std::vector<SpecularSimulationElement> m_cache;
+    std::vector<double> m_cache;
 };
 
 #endif // SPECULARSIMULATION_H

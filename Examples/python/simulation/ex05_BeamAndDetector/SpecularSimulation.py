@@ -1,5 +1,6 @@
 """
-R and T coefficients in multilayer, ba.Specular simulation.
+Basic example of specular simulation with BornAgain.
+
 """
 import numpy
 import bornagain as ba
@@ -60,40 +61,22 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    return simulation
+    return simulation.getIntensityData()
 
 
-def rt_coefficients(simulation):
+def plot(data):
     """
-    Returns refraction/transmission coefficients for all layers
-    """
-    rf = [[abs(c) for c in simulation.getScalarR(i)] for i in range(22)]
-    tf = [[abs(c) for c in simulation.getScalarT(i)] for i in range(22)]
-    return rf, tf
-
-
-def plot(simulation):
-    """
-    Plots results for several selected layers
+    Plots data for several selected layers
     """
     from matplotlib import pyplot as plt
     plt.figure(figsize=(12.80, 10.24))
 
-    alpha_angles = simulation.getAlphaAxis().getBinCenters()
-    rf, tf = rt_coefficients(simulation)
+    axis = data.getXaxis().getBinCenters()
+    intensities = data.getArray()
 
-    selected_layers = [0, 1, 20, 21]
-    nplot = 1
-    for layer_index in selected_layers:
-        plt.subplot(2, 2, nplot)
-        plt.ylim(ymax=50.0, ymin=1e-06)
-        plt.xlabel(r'$\alpha_f$ (rad)', fontsize=16)
-        plt.semilogy(alpha_angles, [numpy.abs(coeff) for coeff in rf[layer_index]])
-        plt.semilogy(alpha_angles, [numpy.abs(coeff) for coeff in tf[layer_index]])
-        plt.legend(['|R| layer #'+str(layer_index),
-                    '|T| layer #'+str(layer_index)],
-                   loc='upper right')
-        nplot += 1
+    plt.xlabel(r'$\alpha_f$ (rad)', fontsize=16)
+    plt.semilogy(axis, intensities)
+    plt.legend(['Detector signal'], loc='upper right')
 
     plt.show()
 

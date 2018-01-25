@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "MathConstants.h"
 #include "RectangularDetector.h"
+#include "RegionOfInterest.h"
 #include "SphericalDetector.h"
 #include "Units.h"
 
@@ -86,7 +87,14 @@ UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
 void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_axis)
 {
     auto& axis = detector.getAxis(i_axis);
-    addAxisData(axis.getName(), axis.getMin(), axis.getMax(), defaultUnits(), axis.size());
+    auto p_roi = detector.regionOfInterest();
+    if (p_roi) {
+        auto P_roi_axis = p_roi->clipAxisToRoi(i_axis, axis);
+        addAxisData(axis.getName(), P_roi_axis->getMin(), P_roi_axis->getMax(), defaultUnits(),
+                    P_roi_axis->size());
+    } else {
+        addAxisData(axis.getName(), axis.getMin(), axis.getMax(), defaultUnits(), axis.size());
+    }
 }
 
 void UnitConverterSimple::checkIndex(size_t i_axis) const
@@ -160,7 +168,7 @@ RectangularConverter::RectangularConverter(const RectangularDetector& detector, 
                                  + std::to_string(static_cast<int>(detector.dimension())));
     addDetectorAxis(detector, 0);
     addDetectorAxis(detector, 1);
-    mP_detector_pixel.reset(detector.toSinglePixel());
+    mP_detector_pixel.reset(detector.regionOfInterestPixel());
 }
 
 RectangularConverter::~RectangularConverter() =default;

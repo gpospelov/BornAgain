@@ -16,6 +16,7 @@
 #include "Beam.h"
 #include "BornAgainNamespace.h"
 #include "IDetectorResolution.h"
+#include "RegionOfInterest.h"
 #include "SimulationElement.h"
 #include "MathConstants.h"
 #include "Units.h"
@@ -175,18 +176,29 @@ AxesUnits RectangularDetector::defaultAxesUnits() const
     return AxesUnits::MM;
 }
 
-RectangularPixel* RectangularDetector::toSinglePixel() const
+RectangularPixel* RectangularDetector::regionOfInterestPixel() const
 {
     const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
-    double u_min = u_axis.getMin();
-    double v_min = v_axis.getMin();
+    double u_min, v_min, width, height;
+    auto p_roi = regionOfInterest();
+    if (p_roi) {
+        u_min = p_roi->getXlow();
+        v_min = p_roi->getYlow();
+        width = p_roi->getXup() - p_roi->getXlow();
+        height = p_roi->getYup() - p_roi->getYlow();
+    } else {
+        u_min = u_axis.getMin();
+        v_min = v_axis.getMin();
+        width = getWidth();
+        height = getHeight();
+    }
 
     const kvector_t corner_position(m_normal_to_detector + (u_min - m_u0) * m_u_unit
                                     + (v_min - m_v0) * m_v_unit);
-    const kvector_t width = getWidth() * m_u_unit;
-    const kvector_t height = getHeight() * m_v_unit;
-    return new RectangularPixel(corner_position, width, height);
+    const kvector_t uaxis_vector = width * m_u_unit;
+    const kvector_t vaxis_vector = height * m_v_unit;
+    return new RectangularPixel(corner_position, uaxis_vector, vaxis_vector);
 }
 
 IPixel* RectangularDetector::createPixel(size_t index) const

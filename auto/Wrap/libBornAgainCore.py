@@ -26173,9 +26173,9 @@ class RectangularDetector(IDetector2D):
         return _libBornAgainCore.RectangularDetector_defaultAxesUnits(self)
 
 
-    def toSinglePixel(self):
-        """toSinglePixel(RectangularDetector self) -> RectangularPixel"""
-        return _libBornAgainCore.RectangularDetector_toSinglePixel(self)
+    def regionOfInterestPixel(self):
+        """regionOfInterestPixel(RectangularDetector self) -> RectangularPixel"""
+        return _libBornAgainCore.RectangularDetector_regionOfInterestPixel(self)
 
 RectangularDetector_swigregister = _libBornAgainCore.RectangularDetector_swigregister
 RectangularDetector_swigregister(RectangularDetector)

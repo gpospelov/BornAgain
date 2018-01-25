@@ -79,7 +79,7 @@ public:
     //! return default axes units
     AxesUnits defaultAxesUnits() const override;
 
-    RectangularPixel* toSinglePixel() const;
+    RectangularPixel* regionOfInterestPixel() const;
 
 protected:
     //! Create an IPixel for the given OutputData object and index

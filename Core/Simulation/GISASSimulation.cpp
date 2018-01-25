@@ -19,7 +19,10 @@
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
+#include "RectangularDetector.h"
 #include "SimulationElement.h"
+#include "SphericalDetector.h"
+#include "UnitConverters.h"
 
 GISASSimulation::GISASSimulation()
 {
@@ -50,6 +53,26 @@ void GISASSimulation::prepareSimulation()
 size_t GISASSimulation::numberOfSimulationElements() const
 {
     return getInstrument().getDetector()->numberOfSimulationElements();
+}
+
+SimulationResult GISASSimulation::result() const
+{
+    auto data = std::unique_ptr<OutputData<double>>(getDetectorIntensity());
+    auto p_det = getInstrument().getDetector();
+    if (p_det) {
+        auto p_spher_det = dynamic_cast<const SphericalDetector*>(p_det);
+        if (p_spher_det) {
+            SphericalConverter converter(*p_spher_det, getInstrument().getBeam());
+            return SimulationResult(*data, converter);
+        }
+        auto p_rect_det = dynamic_cast<const RectangularDetector*>(p_det);
+        if (p_rect_det) {
+            RectangularConverter converter(*p_rect_det, getInstrument().getBeam());
+            return SimulationResult(*data, converter);
+        }
+    }
+    throw std::runtime_error("Error in GISASSimulation::result: "
+                             "wrong or absent detector type");
 }
 
 OutputData<double>* GISASSimulation::getDetectorIntensity(AxesUnits units_type) const

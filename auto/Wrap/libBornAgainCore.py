@@ -16915,6 +16915,11 @@ class GISASSimulation(Simulation2D):
         return _libBornAgainCore.GISASSimulation_numberOfSimulationElements(self)
 
 
+    def result(self):
+        """result(GISASSimulation self) -> SimulationResult"""
+        return _libBornAgainCore.GISASSimulation_result(self)
+
+
     def getDetectorIntensity(self, *args):
         """
         getDetectorIntensity(GISASSimulation self, AxesUnits units_type) -> IntensityData

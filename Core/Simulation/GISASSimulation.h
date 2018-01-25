@@ -17,6 +17,7 @@
 
 #include "Simulation2D.h"
 #include "SimulationElement.h"
+#include "SimulationResult.h"
 
 class MultiLayer;
 class IMultiLayerBuilder;
@@ -33,17 +34,21 @@ public:
     GISASSimulation(const MultiLayer& p_sample);
     GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
 
-    ~GISASSimulation() final {}
+    ~GISASSimulation() {}
 
     GISASSimulation* clone() const override { return new GISASSimulation(*this); }
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     //! Put into a clean state for running a simulation
-    void prepareSimulation() final;
+    void prepareSimulation() override;
 
     //! Gets the number of elements this simulation needs to calculate
-    size_t numberOfSimulationElements() const final;
+    size_t numberOfSimulationElements() const override;
+
+    //! Returns the results of the simulation in a format that supports unit conversion and export
+    //! to numpy arrays
+    SimulationResult result() const;
 
     //! Returns clone of the detector intensity map with detector resolution applied
     OutputData<double>* getDetectorIntensity(

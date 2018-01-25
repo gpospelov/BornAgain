@@ -25,6 +25,30 @@ SimulationResult::SimulationResult(const OutputData<double>& data,
     checkDimensions();
 }
 
+SimulationResult::SimulationResult(const SimulationResult& other)
+    : mP_data(other.mP_data->clone())
+    , mP_unit_converter(other.mP_unit_converter->clone())
+{}
+
+SimulationResult::SimulationResult(SimulationResult&& other)
+    : mP_data(std::move(other.mP_data))
+    , mP_unit_converter(std::move(other.mP_unit_converter))
+{}
+
+SimulationResult& SimulationResult::operator=(const SimulationResult& other)
+{
+    mP_data.reset(other.mP_data->clone());
+    mP_unit_converter.reset(other.mP_unit_converter->clone());
+    return *this;
+}
+
+SimulationResult& SimulationResult::operator=(SimulationResult&& other)
+{
+    mP_data.reset(other.mP_data.release());
+    mP_unit_converter.reset(other.mP_unit_converter.release());
+    return *this;
+}
+
 OutputData<double>* SimulationResult::data(AxesUnits units_type) const
 {
     const size_t dim = mP_data->getRank();

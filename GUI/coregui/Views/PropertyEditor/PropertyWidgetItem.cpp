@@ -32,7 +32,7 @@ PropertyWidgetItem::PropertyWidgetItem(QWidget* parent)
     , m_label(new QLabel)
     , m_editor(nullptr)
     , m_dataMapper(new QDataWidgetMapper(this))
-    , m_delegate(new SessionModelDelegate(this))
+    , m_delegate(new SessionModelDelegate(nullptr))
     , m_item(nullptr)
 {
     m_label->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed));
@@ -41,9 +41,8 @@ PropertyWidgetItem::PropertyWidgetItem(QWidget* parent)
 PropertyWidgetItem::~PropertyWidgetItem()
 {
     delete m_label;
-    // if editor's action leads to deletion of the editor itself, we have to give him chance to
-    // send all signals
-    m_editor->deleteLater();
+    delete m_editor;
+    delete m_delegate;
 }
 
 void PropertyWidgetItem::setItemEditor(const SessionItem* item, QWidget* editor)
@@ -95,21 +94,21 @@ const SessionItem* PropertyWidgetItem::item()
 
 void PropertyWidgetItem::connectEditor(QWidget* editor)
 {
-    if (auto combo = dynamic_cast<ComboPropertyEditor*>(editor)) {
-        connect(combo, &ComboPropertyEditor::dataChanged,
-                [=] { m_delegate->commitData(combo); });
+    if (auto customEditor = dynamic_cast<ComboPropertyEditor*>(editor)) {
+        connect(customEditor, &ComboPropertyEditor::dataChanged,
+                [=] { m_delegate->commitData(customEditor); });
 
-    } else if (auto spinbox = dynamic_cast<QSpinBox*>(editor)) {
-        connect(spinbox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-                [=] { m_delegate->commitData(spinbox); });
+    } else if (auto customEditor = dynamic_cast<QSpinBox*>(editor)) {
+        connect(customEditor, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+                [=] { m_delegate->commitData(customEditor); });
 
-    } else if (auto spinbox = dynamic_cast<QDoubleSpinBox*>(editor)) {
-        connect(spinbox,
+    } else if (auto customEditor = dynamic_cast<QDoubleSpinBox*>(editor)) {
+        connect(customEditor,
                 static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged),
-                [=] { m_delegate->commitData(spinbox); });
+                [=] { m_delegate->commitData(customEditor); });
 
-    } else if (auto spinbox = dynamic_cast<ScientificDoublePropertyEditor*>(editor)) {
-        connect(spinbox, &ScientificDoublePropertyEditor::dataChanged,
-                [=] { m_delegate->commitData(spinbox); });
+    } else if (auto customEditor = dynamic_cast<ScientificDoublePropertyEditor*>(editor)) {
+        connect(customEditor, &ScientificDoublePropertyEditor::dataChanged,
+                [=] { m_delegate->commitData(customEditor); });
     }
 }

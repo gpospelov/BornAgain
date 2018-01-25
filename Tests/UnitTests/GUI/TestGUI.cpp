@@ -45,6 +45,7 @@
 #include "TestSessionItemData.h"
 #include "TestSessionItemTags.h"
 #include "TestMessageService.h"
+#include "TestParticleLayoutItem.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);

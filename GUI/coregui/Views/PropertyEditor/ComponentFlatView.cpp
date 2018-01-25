@@ -87,7 +87,7 @@ void ComponentFlatView::clearLayout()
     LayoutUtils::clearGridLayout(m_gridLayout, false);
 
     for(auto widget: m_widgetItems)
-        delete widget;
+        widget->deleteLater();
 
     m_widgetItems.clear();
 

@@ -39,6 +39,7 @@ public:
     virtual QList<QAction*> actionList();
 
     SessionItem* currentItem();
+    const SessionItem* currentItem() const;
 
 protected:
     virtual void subscribeToItem() {}

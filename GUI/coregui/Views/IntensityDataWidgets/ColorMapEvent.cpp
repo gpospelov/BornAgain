@@ -16,9 +16,7 @@
 #include "ColorMap.h"
 #include <QMouseEvent>
 
-ColorMapEvent::ColorMapEvent(ColorMap* colorMap) : QObject(colorMap), m_colorMap(colorMap)
-{
-}
+ColorMapEvent::ColorMapEvent(ColorMap* colorMap) : QObject(colorMap), m_colorMap(colorMap) {}
 
 //! Sets tracking of the mouse for parent COlorMap
 
@@ -28,33 +26,33 @@ void ColorMapEvent::setMouseTrackingEnabled(bool enable)
     customPlot()->setMouseTracking(enable);
 
     if (enable)
-        connect(customPlot(), SIGNAL(mouseMove(QMouseEvent*)), this,
-                SLOT(onCustomMouseMove(QMouseEvent*)), Qt::UniqueConnection);
+        connect(customPlot(), &QCustomPlot::mouseMove,
+                this, &ColorMapEvent::onCustomMouseMove, Qt::UniqueConnection);
     else
-        disconnect(customPlot(), SIGNAL(mouseMove(QMouseEvent*)), this,
-                   SLOT(onCustomMouseMove(QMouseEvent*)));
+        disconnect(customPlot(), &QCustomPlot::mouseMove,
+                this, &ColorMapEvent::onCustomMouseMove);
 }
 
 //! Constructs status string on mouse move event coming from QCustomPlot. String is emitted
 //! if mouse is in axes's viewport rectangle. Once mouse goes out of it, an
-//! empty string is emitted once.
+//! empty string is emitted once again.
 
 void ColorMapEvent::onCustomMouseMove(QMouseEvent* event)
 {
     ColorMapBin currentPos = currentColorMapBin(event);
 
     if (currentPos.inAxesRange()) {
-        emit colorMap()->statusString(currentPos.statusString());
+        colorMap()->statusString(currentPos.statusString());
 
-        emit positionChanged(currentPos.m_x, currentPos.m_y);
+        positionChanged(currentPos.m_x, currentPos.m_y);
 
         if (!m_prevPos.inAxesRange())
-            emit enteringColorMap();
+            enteringColorMap();
 
     } else {
         if (m_prevPos.inAxesRange()) {
-            emit colorMap()->statusString(QString());
-            emit leavingColorMap();
+            colorMap()->statusString(QString());
+            leavingColorMap();
         }
     }
 

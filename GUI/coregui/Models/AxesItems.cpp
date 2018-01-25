@@ -62,4 +62,23 @@ AmplitudeAxisItem::AmplitudeAxisItem() : BasicAxisItem(Constants::AmplitudeAxisT
     addProperty(P_IS_LOGSCALE, true);
     getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     getItem(BasicAxisItem::P_IS_VISIBLE)->setVisible(true);
+    setMinMaxEditor(Constants::ScientificEditorType);
+
+    mapper()->setOnPropertyChange([this](const QString& name)
+    {
+        if(name == P_IS_LOGSCALE) {
+            if (getItemValue(P_IS_LOGSCALE).toBool())
+                setMinMaxEditor(Constants::ScientificEditorType);
+            else
+                setMinMaxEditor(Constants::DefaultEditorType);
+        }
+    });
+}
+
+//! Sets editor for min, max values of axes
+
+void AmplitudeAxisItem::setMinMaxEditor(const QString& editorType)
+{
+    getItem(BasicAxisItem::P_MIN)->setEditorType(editorType);
+    getItem(BasicAxisItem::P_MAX)->setEditorType(editorType);
 }

@@ -101,6 +101,8 @@ ColorMapBin ColorMap::colorMapBin(double xpos, double ypos) const
     m_colorMap->data()->coordToCell(xpos, ypos, &result.m_nx, &result.m_ny);
     result.m_value = m_colorMap->data()->cell(result.m_nx, result.m_ny);
 
+    result.m_logz = intensityItem()->isLogz();
+
     return result;
 }
 
@@ -456,5 +458,11 @@ void ColorMap::marginsChangedNotify()
 
 IntensityDataItem* ColorMap::intensityItem()
 {
-    return dynamic_cast<IntensityDataItem*>(currentItem());
+    return const_cast<IntensityDataItem*>(
+        static_cast<const ColorMap*>(this)->intensityItem());
+}
+
+const IntensityDataItem* ColorMap::intensityItem() const
+{
+    return dynamic_cast<const IntensityDataItem*>(currentItem());
 }

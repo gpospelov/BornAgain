@@ -8,5 +8,5 @@
 #include "SpecialFunctionsTest.h"
 #include "RegionOfInterestTest.h"
 #include "PolygonTest.h"
-#include "UnitConverterTest.h"
+#include "SphericalConverterTest.h"
 #include "SimulationAreaTest.h"

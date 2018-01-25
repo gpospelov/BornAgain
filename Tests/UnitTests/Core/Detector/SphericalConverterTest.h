@@ -5,18 +5,18 @@
 #include "Units.h"
 #include "Vectors3D.h"
 
-class UnitConverterTest : public ::testing::Test
+class SphericalConverterTest : public ::testing::Test
 {
 public:
-    UnitConverterTest();
-    ~UnitConverterTest();
+    SphericalConverterTest();
+    ~SphericalConverterTest();
 protected:
     SphericalDetector m_detector;
     Beam m_beam;
     double m_kiz, m_kfy, m_kfz1, m_kfz2;
 };
 
-UnitConverterTest::UnitConverterTest()
+SphericalConverterTest::SphericalConverterTest()
     : m_detector(100, 0.0, 5.0*Units::deg, 70, -2.0*Units::deg, 1.5)
 {
     m_beam.setCentralK(1.0, 1.0*Units::deg, 0.0);
@@ -28,9 +28,9 @@ UnitConverterTest::UnitConverterTest()
     m_kfz2 = K*std::sin(1.5);
 }
 
-UnitConverterTest::~UnitConverterTest() = default;
+SphericalConverterTest::~SphericalConverterTest() = default;
 
-TEST_F(UnitConverterTest, SphericalConverter)
+TEST_F(SphericalConverterTest, SphericalConverter)
 {
     SphericalConverter converter(m_detector, m_beam);
 
@@ -68,7 +68,7 @@ TEST_F(UnitConverterTest, SphericalConverter)
     EXPECT_THROW(converter.calculateMax(2, AxesUnits::DEFAULT), std::runtime_error);
 }
 
-TEST_F(UnitConverterTest, SphericalConverterClone)
+TEST_F(SphericalConverterTest, SphericalConverterClone)
 {
     SphericalConverter converter(m_detector, m_beam);
     std::unique_ptr<SphericalConverter> P_clone(converter.clone());

@@ -155,7 +155,7 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::SquareLatticeType, create_new<SquareLatticeItem>);
     add(Constants::HexagonalLatticeType, create_new<HexagonalLatticeItem>);
 
-    add(Constants::HomogeneousMaterialType, create_new<MaterialItem>);
+    add(Constants::MaterialType, create_new<MaterialItem>);
 
     add(Constants::MaterialRefractiveDataType, create_new<MaterialRefractiveDataItem>);
 

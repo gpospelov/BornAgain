@@ -41,7 +41,7 @@ MaterialModel* MaterialModel::createCopy(SessionItem* parent)
 MaterialItem* MaterialModel::addMaterial(const QString& name, double material_data_real, double material_data_imag)
 {
     MaterialItem* materialItem
-        = dynamic_cast<MaterialItem*>(insertNewItem(Constants::HomogeneousMaterialType));
+        = dynamic_cast<MaterialItem*>(insertNewItem(Constants::MaterialType));
     materialItem->setItemName(name);
 
     auto& materialDataItem = materialItem->groupItem<MaterialDataItem>(MaterialItem::P_MATERIAL_DATA);

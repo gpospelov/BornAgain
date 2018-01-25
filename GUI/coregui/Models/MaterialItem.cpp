@@ -33,9 +33,9 @@ const QString MaterialItem::P_MAGNETIZATION = "Magnetization";
 const QString MaterialItem::P_IDENTIFIER = "Identifier";
 
 MaterialItem::MaterialItem()
-    : SessionItem(Constants::HomogeneousMaterialType)
+    : SessionItem(Constants::MaterialType)
 {
-    setItemName(Constants::HomogeneousMaterialType);
+    setItemName(Constants::MaterialType);
 
     ExternalProperty color = MaterialItemUtils::colorProperty(QColor(Qt::red));
     addProperty(P_COLOR, color.variant())->setEditorType(Constants::ColorEditorExternalType);

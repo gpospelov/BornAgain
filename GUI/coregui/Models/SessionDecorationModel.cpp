@@ -81,7 +81,7 @@ QVariant SessionDecorationModel::createIcon(const QModelIndex& index) const
     if (SessionItem* item = m_model->itemForIndex(index)) {
         if (item->modelType() == Constants::GISASInstrumentType) {
             return instrumentIcon();
-        } else if(item->modelType() == Constants::HomogeneousMaterialType) {
+        } else if(item->modelType() == Constants::MaterialType) {
             if (const MaterialItem *materialItem = dynamic_cast<const MaterialItem *>(item))
                 return materialIcon(materialItem->getColor());
         }

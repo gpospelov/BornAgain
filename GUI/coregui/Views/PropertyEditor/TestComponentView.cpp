@@ -131,7 +131,7 @@ void TestComponentView::init_source()
 
     // adding material to the test model
     MaterialItem* materialItem
-        = dynamic_cast<MaterialItem*>(m_sampleModel->insertNewItem(Constants::HomogeneousMaterialType));
+        = dynamic_cast<MaterialItem*>(m_sampleModel->insertNewItem(Constants::MaterialType));
     materialItem->setItemName("air");
     auto& materialDataItem = materialItem->groupItem<MaterialDataItem>(MaterialItem::P_MATERIAL_DATA);
     materialDataItem.setReal(1e-3);

@@ -193,7 +193,6 @@ RectangularPixel* RectangularDetector::regionOfInterestPixel() const
         width = getWidth();
         height = getHeight();
     }
-
     const kvector_t corner_position(m_normal_to_detector + (u_min - m_u0) * m_u_unit
                                     + (v_min - m_v0) * m_v_unit);
     const kvector_t uaxis_vector = width * m_u_unit;

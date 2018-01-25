@@ -189,7 +189,7 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
     auto k01 = mP_detector_pixel->getPosition(0.0, 1.0);
     auto k10 = mP_detector_pixel->getPosition(1.0, 0.0);
     auto max_pos = i_axis == 0 ? k10 : k01;  // position of max along given axis
-    auto k_f = normalizeToWavelength(k00 + value*(max_pos - k00));
+    auto k_f = normalizeToWavelength(k00 + value*(max_pos - k00).unit());
     switch(units_type) {
     case AxesUnits::DEGREES:
         return Units::rad2deg(axisAngle(i_axis, k_f));

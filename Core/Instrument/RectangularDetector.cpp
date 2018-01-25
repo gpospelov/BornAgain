@@ -51,7 +51,7 @@ RectangularDetector::RectangularDetector(const RectangularDetector& other)
 
 RectangularDetector::~RectangularDetector() {}
 
-RectangularDetector *RectangularDetector::clone() const
+RectangularDetector* RectangularDetector::clone() const
 {
     return new RectangularDetector(*this);
 }
@@ -97,22 +97,6 @@ void RectangularDetector::setDirectBeamPosition(double u0, double v0)
     m_detector_arrangement = PERPENDICULAR_TO_REFLECTED_BEAM_DPOS;
     m_dbeam_u0 = u0;
     m_dbeam_v0 = v0;
-}
-
-IPixel* RectangularDetector::createPixel(size_t index) const
-{
-    const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
-    const size_t u_index = axisBinIndex(index, BornAgain::X_AXIS_INDEX);
-    const size_t v_index = axisBinIndex(index, BornAgain::Y_AXIS_INDEX);
-
-    const Bin1D u_bin = u_axis.getBin(u_index);
-    const Bin1D v_bin = v_axis.getBin(v_index);
-    const kvector_t corner_position(m_normal_to_detector + (u_bin.m_lower - m_u0) * m_u_unit
-                                    + (v_bin.m_lower - m_v0) * m_v_unit);
-    const kvector_t width = u_bin.getBinSize() * m_u_unit;
-    const kvector_t height = v_bin.getBinSize() * m_v_unit;
-    return new RectangularPixel(corner_position, width, height);
 }
 
 double RectangularDetector::getWidth() const
@@ -191,8 +175,38 @@ AxesUnits RectangularDetector::defaultAxesUnits() const
     return AxesUnits::MM;
 }
 
-void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam &beam,
-    AxesUnits units, double &amin, double &amax) const
+RectangularPixel* RectangularDetector::toSinglePixel() const
+{
+    const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    double u_min = u_axis.getMin();
+    double v_min = v_axis.getMin();
+
+    const kvector_t corner_position(m_normal_to_detector + (u_min - m_u0) * m_u_unit
+                                    + (v_min - m_v0) * m_v_unit);
+    const kvector_t width = getWidth() * m_u_unit;
+    const kvector_t height = getHeight() * m_v_unit;
+    return new RectangularPixel(corner_position, width, height);
+}
+
+IPixel* RectangularDetector::createPixel(size_t index) const
+{
+    const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    const size_t u_index = axisBinIndex(index, BornAgain::X_AXIS_INDEX);
+    const size_t v_index = axisBinIndex(index, BornAgain::Y_AXIS_INDEX);
+
+    const Bin1D u_bin = u_axis.getBin(u_index);
+    const Bin1D v_bin = v_axis.getBin(v_index);
+    const kvector_t corner_position(m_normal_to_detector + (u_bin.m_lower - m_u0) * m_u_unit
+                                    + (v_bin.m_lower - m_v0) * m_v_unit);
+    const kvector_t width = u_bin.getBinSize() * m_u_unit;
+    const kvector_t height = v_bin.getBinSize() * m_v_unit;
+    return new RectangularPixel(corner_position, width, height);
+}
+
+void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam& beam,
+    AxesUnits units, double& amin, double& amax) const
 {
     amin = 0.0; amax=0.0;
     if(units == AxesUnits::MM) {
@@ -331,12 +345,12 @@ RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvecto
     m_solid_angle = calculateSolidAngle();
 }
 
-RectangularPixel *RectangularPixel::clone() const
+RectangularPixel* RectangularPixel::clone() const
 {
     return new RectangularPixel(m_corner_pos, m_width, m_height);
 }
 
-RectangularPixel *RectangularPixel::createZeroSizePixel(double x, double y) const
+RectangularPixel* RectangularPixel::createZeroSizePixel(double x, double y) const
 {
     kvector_t position = m_corner_pos + x*m_width + y*m_height;
     kvector_t null_vector;
@@ -348,6 +362,11 @@ kvector_t RectangularPixel::getK(double x, double y, double wavelength) const
     kvector_t direction = m_corner_pos + x*m_width + y*m_height;
     double length = M_TWOPI/wavelength;
     return normalizeLength(direction, length);
+}
+
+kvector_t RectangularPixel::getPosition(double x, double y) const
+{
+    return m_corner_pos + x*m_width + y*m_height;
 }
 
 double RectangularPixel::getIntegrationFactor(double x, double y) const

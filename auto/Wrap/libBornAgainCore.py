@@ -26172,6 +26172,11 @@ class RectangularDetector(IDetector2D):
         """
         return _libBornAgainCore.RectangularDetector_defaultAxesUnits(self)
 
+
+    def toSinglePixel(self):
+        """toSinglePixel(RectangularDetector self) -> RectangularPixel"""
+        return _libBornAgainCore.RectangularDetector_toSinglePixel(self)
+
 RectangularDetector_swigregister = _libBornAgainCore.RectangularDetector_swigregister
 RectangularDetector_swigregister(RectangularDetector)
 
@@ -26231,6 +26236,11 @@ class RectangularPixel(IPixel):
 
         """
         return _libBornAgainCore.RectangularPixel_getK(self, x, y, wavelength)
+
+
+    def getPosition(self, x, y):
+        """getPosition(RectangularPixel self, double x, double y) -> kvector_t"""
+        return _libBornAgainCore.RectangularPixel_getPosition(self, x, y)
 
 
     def getIntegrationFactor(self, x, y):
@@ -26976,6 +26986,41 @@ class SphericalConverter(UnitConverterSimple):
 
 SphericalConverter_swigregister = _libBornAgainCore.SphericalConverter_swigregister
 SphericalConverter_swigregister(SphericalConverter)
+
+class RectangularConverter(UnitConverterSimple):
+    """Proxy of C++ RectangularConverter class."""
+
+    __swig_setmethods__ = {}
+    for _s in [UnitConverterSimple]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, RectangularConverter, name, value)
+    __swig_getmethods__ = {}
+    for _s in [UnitConverterSimple]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, RectangularConverter, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, detector, beam):
+        """__init__(RectangularConverter self, RectangularDetector detector, Beam beam) -> RectangularConverter"""
+        this = _libBornAgainCore.new_RectangularConverter(detector, beam)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_RectangularConverter
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(RectangularConverter self) -> RectangularConverter
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainCore.RectangularConverter_clone(self)
+
+RectangularConverter_swigregister = _libBornAgainCore.RectangularConverter_swigregister
+RectangularConverter_swigregister(RectangularConverter)
 
 # This file is compatible with both classic and new-style classes.
 

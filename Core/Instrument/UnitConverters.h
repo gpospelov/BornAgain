@@ -16,13 +16,18 @@
 #define UNITCONVERTERS_H
 
 #include "ICloneable.h"
+#include "Vectors3D.h"
 #include "WinDllMacros.h"
 #include <cstddef>
+#include <memory>
 #include <string>
 #include <vector>
 
-class SphericalDetector;
 class Beam;
+class IDetector;
+class RectangularDetector;
+class RectangularPixel;
+class SphericalDetector;
 
 //! Wrapper for detector axes units, required for a better representation of
 //! detector axes units in python
@@ -58,7 +63,7 @@ public:
 class BA_CORE_API_ UnitConverterSimple : public IUnitConverter
 {
 public:
-    UnitConverterSimple() =default;
+    UnitConverterSimple(const Beam& beam);
     virtual ~UnitConverterSimple() =default;
 
     virtual size_t dimension() const override;
@@ -70,6 +75,7 @@ public:
 
 protected:
     UnitConverterSimple(const UnitConverterSimple& other);
+    void addDetectorAxis(const IDetector& detector, size_t i_axis);
 
     void addAxisData(std::string name, double min, double max,
                      AxesUnits default_units, size_t nbins);
@@ -85,6 +91,9 @@ protected:
     };
     std::vector<AxisData> m_axis_data_table;
 #endif
+    double m_wavelength;
+    double m_alpha_i;
+    double m_phi_i;
 
 private:
     virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const=0;
@@ -108,28 +117,27 @@ private:
     SphericalConverter(const SphericalConverter& other) =default;
     double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
     AxesUnits defaultUnits() const override { return AxesUnits::RADIANS; }
-    void addDetectorAxis(const SphericalDetector& detector, size_t i_axis);
-    double m_wavelength;
-    double m_alpha_i;
-    double m_phi_i;
 };
 
 //! IUnitConverter class that handles the unit translations for rectangular detectors
 //! Its default units are radians for both axes
 //! @ingroup simulation_internal
 
-//class BA_CORE_API_ RectangularConverter : public UnitConverterSimple
-//{
-//public:
-//    RectangularConverter(size_t n_phi, double phi_min, double phi_max,
-//                       size_t n_alpha, double alpha_min, double alpha_max);
-//    virtual ~RectangularConverter();
+class BA_CORE_API_ RectangularConverter : public UnitConverterSimple
+{
+public:
+    RectangularConverter(const RectangularDetector& detector, const Beam& beam);
+    virtual ~RectangularConverter();
 
-//    RectangularConverter* clone() const override;
+    RectangularConverter* clone() const override;
 
-//private:
-//    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
-//    AxesUnits defaultUnits() const override { return AxesUnits::MM; }
-//};
+private:
+    RectangularConverter(const RectangularConverter& other);
+    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
+    AxesUnits defaultUnits() const override { return AxesUnits::MM; }
+    kvector_t normalizeToWavelength(kvector_t vector) const;
+    double axisAngle(size_t i_axis, kvector_t k_f) const;
+    std::unique_ptr<RectangularPixel> mP_detector_pixel;
+};
 
 #endif // UNITCONVERTERS_H

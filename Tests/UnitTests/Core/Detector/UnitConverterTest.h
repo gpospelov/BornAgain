@@ -1,4 +1,6 @@
 #include "google_test.h"
+#include "Beam.h"
+#include "SphericalDetector.h"
 #include "UnitConverters.h"
 #include "Units.h"
 #include "Vectors3D.h"
@@ -9,18 +11,18 @@ public:
     UnitConverterTest();
     ~UnitConverterTest();
 protected:
-    double m_wavelength;
-    double m_alpha_i;
-    double m_phi_i;
+    SphericalDetector m_detector;
+    Beam m_beam;
     double m_kiz, m_kfy, m_kfz1, m_kfz2;
 };
 
 UnitConverterTest::UnitConverterTest()
-    : m_wavelength(1.0), m_alpha_i(-1.0*Units::deg), m_phi_i(0.0)
+    : m_detector(100, 0.0, 5.0*Units::deg, 70, -2.0*Units::deg, 1.5)
 {
-    auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+    m_beam.setCentralK(1.0, 1.0*Units::deg, 0.0);
+    auto k_i = m_beam.getCentralK();
     m_kiz = k_i.z();
-    double K = 2.0*M_PI/m_wavelength;
+    double K = 2.0*M_PI/m_beam.getWavelength();
     m_kfy = K*std::sin(5.0*Units::deg);
     m_kfz1 = K*std::sin(-2.0*Units::deg);
     m_kfz2 = K*std::sin(1.5);
@@ -30,9 +32,7 @@ UnitConverterTest::~UnitConverterTest() = default;
 
 TEST_F(UnitConverterTest, SphericalConverter)
 {
-    SphericalConverter converter(100, 0.0, 5.0*Units::deg,
-                                 70, -2.0*Units::deg, 1.5,
-                                 m_wavelength, m_alpha_i, m_phi_i);
+    SphericalConverter converter(m_detector, m_beam);
 
     EXPECT_EQ(converter.dimension(), 2u);
 
@@ -70,9 +70,7 @@ TEST_F(UnitConverterTest, SphericalConverter)
 
 TEST_F(UnitConverterTest, SphericalConverterClone)
 {
-    SphericalConverter converter(100, 0.0, 5.0*Units::deg,
-                                 70, -2.0*Units::deg, 1.5,
-                                 m_wavelength, m_alpha_i, m_phi_i);
+    SphericalConverter converter(m_detector, m_beam);
     std::unique_ptr<SphericalConverter> P_clone(converter.clone());
 
     EXPECT_EQ(P_clone->dimension(), 2u);

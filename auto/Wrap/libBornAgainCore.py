@@ -26955,12 +26955,9 @@ class SphericalConverter(UnitConverterSimple):
     __getattr__ = lambda self, name: _swig_getattr(self, SphericalConverter, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
-        """
-        __init__(SphericalConverter self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max, double wavelength, double alpha_i, double phi_i) -> SphericalConverter
-        __init__(SphericalConverter self, SphericalDetector detector, Beam beam) -> SphericalConverter
-        """
-        this = _libBornAgainCore.new_SphericalConverter(*args)
+    def __init__(self, detector, beam):
+        """__init__(SphericalConverter self, SphericalDetector detector, Beam beam) -> SphericalConverter"""
+        this = _libBornAgainCore.new_SphericalConverter(detector, beam)
         try:
             self.this.append(this)
         except Exception:

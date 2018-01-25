@@ -27,9 +27,10 @@ size_t UnitConverterSimple::dimension() const
     return m_axis_data_table.size();
 }
 
-void UnitConverterSimple::addAxisData(double min, double max, AxesUnits default_units, size_t nbins)
+void UnitConverterSimple::addAxisData(std::string name, double min, double max,
+                                      AxesUnits default_units, size_t nbins)
 {
-    AxisData axis_data { min, max, default_units, nbins };
+    AxisData axis_data { name, min, max, default_units, nbins };
     m_axis_data_table.push_back(axis_data);
 }
 
@@ -64,10 +65,11 @@ size_t UnitConverterSimple::axisSize(size_t i_axis) const
     return axis_data.nbins;
 }
 
-// TODO: remove this implementation
-std::string UnitConverterSimple::axisName(size_t) const
+std::string UnitConverterSimple::axisName(size_t i_axis) const
 {
-    return "default";
+    checkIndex(i_axis);
+    auto axis_data = m_axis_data_table[i_axis];
+    return axis_data.name;
 }
 
 UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
@@ -88,14 +90,7 @@ void UnitConverterSimple::checkDimension(size_t dim) const
                              + std::to_string(static_cast<int>(dim)));
 }
 
-SphericalConverter::SphericalConverter(size_t n_phi, double phi_min, double phi_max,
-                                       size_t n_alpha, double alpha_min, double alpha_max,
-                                       double wavelength, double alpha_i, double phi_i)
-    : m_wavelength(wavelength), m_alpha_i(alpha_i), m_phi_i(phi_i)
-{
-    addAxisData(phi_min, phi_max, defaultUnits(), n_phi);
-    addAxisData(alpha_min, alpha_max, defaultUnits(), n_alpha);
-}
+/* SphericalConverter **********************************************/
 
 SphericalConverter::SphericalConverter(const SphericalDetector& detector, const Beam& beam)
     : m_wavelength(beam.getWavelength())
@@ -114,12 +109,7 @@ SphericalConverter::~SphericalConverter() =default;
 
 SphericalConverter* SphericalConverter::clone() const
 {
-    checkDimension(2u);
-    auto phi_data = m_axis_data_table[0];
-    auto alpha_data = m_axis_data_table[1];
-    return new SphericalConverter(phi_data.nbins, phi_data.min, phi_data.max,
-                                  alpha_data.nbins, alpha_data.min, alpha_data.max,
-                                  m_wavelength, m_alpha_i, m_phi_i);
+    return new SphericalConverter(*this);
 }
 
 double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
@@ -151,5 +141,5 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
 void SphericalConverter::addDetectorAxis(const SphericalDetector& detector, size_t i_axis)
 {
     auto& axis = detector.getAxis(i_axis);
-    addAxisData(axis.getMin(), axis.getMax(), defaultUnits(), axis.size());
+    addAxisData(axis.getName(), axis.getMin(), axis.getMax(), defaultUnits(), axis.size());
 }

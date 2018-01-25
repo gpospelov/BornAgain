@@ -71,12 +71,14 @@ public:
 protected:
     UnitConverterSimple(const UnitConverterSimple& other);
 
-    void addAxisData(double min, double max, AxesUnits default_units, size_t nbins);
+    void addAxisData(std::string name, double min, double max,
+                     AxesUnits default_units, size_t nbins);
     void checkIndex(size_t i_axis) const;
     void checkDimension(size_t dim) const;
 
 #ifndef SWIG
     struct AxisData {
+        std::string name;
         double min, max;
         AxesUnits default_units;
         size_t nbins;
@@ -96,9 +98,6 @@ private:
 class BA_CORE_API_ SphericalConverter : public UnitConverterSimple
 {
 public:
-    SphericalConverter(size_t n_phi, double phi_min, double phi_max,
-                       size_t n_alpha, double alpha_min, double alpha_max,
-                       double wavelength, double alpha_i, double phi_i);
     SphericalConverter(const SphericalDetector& detector, const Beam& beam);
 
     virtual ~SphericalConverter();
@@ -106,6 +105,7 @@ public:
     SphericalConverter* clone() const override;
 
 private:
+    SphericalConverter(const SphericalConverter& other) =default;
     double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
     AxesUnits defaultUnits() const override { return AxesUnits::RADIANS; }
     void addDetectorAxis(const SphericalDetector& detector, size_t i_axis);

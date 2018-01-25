@@ -61,8 +61,8 @@ std::unique_ptr<Material> MaterialItem::createMaterial() const
 {
     auto& materialDataItem = groupItem<MaterialDataItem>(P_MATERIAL_DATA);
 
-    double real = materialDataItem.getReal();
-    double imag = materialDataItem.getImag();
+    double real = materialDataItem.real();
+    double imag = materialDataItem.imag();
 
     auto magnetization = GetVectorItem(*this, P_MAGNETIZATION);
 

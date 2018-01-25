@@ -31,7 +31,7 @@ MaterialDataItem::MaterialDataItem(const QString& modelType)
     setEditable(false);
 }
 
-double MaterialDataItem::getReal() const
+double MaterialDataItem::real() const
 {
     return getItemValue(P_REAL).toDouble();
 }
@@ -41,7 +41,7 @@ void MaterialDataItem::setReal(double real)
     setItemValue(P_REAL, real);
 }
 
-double MaterialDataItem::getImag() const
+double MaterialDataItem::imag() const
 {
     return getItemValue(P_IMAG).toDouble();
 }
@@ -53,7 +53,7 @@ void MaterialDataItem::setImag(double imag)
 
 void MaterialDataItem::updateLabel()
 {
-    setValue(QString("(1 - %1, %2)").arg(getReal()).arg(getImag()));
+    setValue(QString("(1 - %1, %2)").arg(real()).arg(imag()));
 }
 
 MaterialRefractiveDataItem::MaterialRefractiveDataItem()

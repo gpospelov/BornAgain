@@ -24,10 +24,10 @@ public:
     static const QString P_REAL;
     static const QString P_IMAG;
 
-    double getReal() const;
+    double real() const;
     void setReal(double real);
 
-    double getImag() const;
+    double imag() const;
     void setImag(double imag);
 
 protected:

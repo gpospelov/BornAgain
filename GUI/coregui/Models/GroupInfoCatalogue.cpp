@@ -160,8 +160,8 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     addInfo(info);
 
     info = GroupInfo(Constants::MaterialDataGroup);
-    info.add(Constants::MaterialDataType, "Refractive index");
-    info.setDefaultType(Constants::MaterialDataType);
+    info.add(Constants::MaterialRefractiveDataType, "Refractive index");
+    info.setDefaultType(Constants::MaterialRefractiveDataType);
     addInfo(info);
 }
 

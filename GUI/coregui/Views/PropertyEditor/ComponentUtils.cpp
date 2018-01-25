@@ -25,7 +25,7 @@ QStringList ComponentUtils::propertyRelatedTypes()
     QStringList result = QStringList() << Constants::PropertyType << Constants::GroupItemType
                                        << Constants::VectorType << Constants::BasicAxisType
                                        << Constants::AmplitudeAxisType
-                                       << Constants::MaterialDataType;
+                                       << Constants::MaterialRefractiveDataType;
     return result;
 }
 

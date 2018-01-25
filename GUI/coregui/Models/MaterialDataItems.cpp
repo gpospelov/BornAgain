@@ -57,7 +57,7 @@ void MaterialDataItem::updateLabel()
 }
 
 MaterialRefractiveDataItem::MaterialRefractiveDataItem()
-    : MaterialDataItem(Constants::MaterialDataType)
+    : MaterialDataItem(Constants::MaterialRefractiveDataType)
 {
 
 }

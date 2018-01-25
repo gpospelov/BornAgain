@@ -133,7 +133,7 @@ void TestComponentView::init_source()
     MaterialItem* materialItem
         = dynamic_cast<MaterialItem*>(m_sampleModel->insertNewItem(Constants::MaterialType));
     materialItem->setItemName("air");
-    auto& materialDataItem = materialItem->groupItem<MaterialDataItem>(MaterialItem::P_MATERIAL_DATA);
+    auto& materialDataItem = materialItem->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
     materialDataItem.setReal(1e-3);
     materialDataItem.setImag(1e-5);
 

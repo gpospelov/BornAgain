@@ -44,7 +44,7 @@ MaterialItem* MaterialModel::addMaterial(const QString& name, double material_da
         = dynamic_cast<MaterialItem*>(insertNewItem(Constants::MaterialType));
     materialItem->setItemName(name);
 
-    auto& materialDataItem = materialItem->groupItem<MaterialDataItem>(MaterialItem::P_MATERIAL_DATA);
+    auto& materialDataItem = materialItem->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
     materialDataItem.setReal(material_data_real);
     materialDataItem.setImag(material_data_imag);
 

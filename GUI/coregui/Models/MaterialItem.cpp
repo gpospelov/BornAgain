@@ -19,6 +19,7 @@
 #include "MaterialFactoryFuncs.h"
 #include "SessionItemUtils.h"
 #include "MaterialItemUtils.h"
+#include "GUIHelpers.h"
 
 using SessionItemUtils::GetVectorItem;
 
@@ -59,13 +60,21 @@ QColor MaterialItem::getColor() const
 
 std::unique_ptr<Material> MaterialItem::createMaterial() const
 {
-    auto& materialDataItem = groupItem<MaterialDataItem>(P_MATERIAL_DATA);
-
-    double real = materialDataItem.real();
-    double imag = materialDataItem.imag();
-
+    auto dataItem = getGroupItem(P_MATERIAL_DATA);
     auto magnetization = GetVectorItem(*this, P_MAGNETIZATION);
 
-    return std::make_unique<Material>(HomogeneousMaterial(itemName().toStdString(), real, imag,
-                                                 magnetization));
+    if (dataItem->modelType() == Constants::MaterialRefractiveDataType) {
+        auto& materialDataItem = groupItem<MaterialRefractiveDataItem>(P_MATERIAL_DATA);
+
+        double real = materialDataItem.real();
+        double imag = materialDataItem.imag();
+
+
+        return std::make_unique<Material>(HomogeneousMaterial(itemName().toStdString(), real, imag,
+                                                     magnetization));
+
+    }
+
+    throw GUIHelpers::Error("MaterialItem::createMaterial() -> Error. "
+                            "Not implemented material type");
 }

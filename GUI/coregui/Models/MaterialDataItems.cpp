@@ -14,11 +14,18 @@
 
 #include "MaterialDataItems.h"
 
-const QString MaterialDataItem::P_REAL = "real";
-const QString MaterialDataItem::P_IMAG = "imag";
-
 MaterialDataItem::MaterialDataItem(const QString& modelType)
     : SessionItem(modelType)
+{
+}
+
+// ------------------------------------------------------------------------------------------------
+
+const QString MaterialRefractiveDataItem::P_REAL = "real";
+const QString MaterialRefractiveDataItem::P_IMAG = "imag";
+
+MaterialRefractiveDataItem::MaterialRefractiveDataItem()
+    : MaterialDataItem(Constants::MaterialRefractiveDataType)
 {
     addProperty(P_REAL, 0.0)->setEditorType(Constants::ScientificEditorType)
         .setLimits(RealLimits::limitless());
@@ -31,36 +38,32 @@ MaterialDataItem::MaterialDataItem(const QString& modelType)
     setEditable(false); // for label
 }
 
-double MaterialDataItem::real() const
+double MaterialRefractiveDataItem::real() const
 {
     return getItemValue(P_REAL).toDouble();
 }
 
-void MaterialDataItem::setReal(double real)
+void MaterialRefractiveDataItem::setReal(double real)
 {
     setItemValue(P_REAL, real);
 }
 
-double MaterialDataItem::imag() const
+double MaterialRefractiveDataItem::imag() const
 {
     return getItemValue(P_IMAG).toDouble();
 }
 
-void MaterialDataItem::setImag(double imag)
+void MaterialRefractiveDataItem::setImag(double imag)
 {
     setItemValue(P_IMAG, imag);
 }
 
-void MaterialDataItem::updateLabel()
+void MaterialRefractiveDataItem::updateLabel()
 {
     setValue(QString("(1 - %1, %2)").arg(real()).arg(imag()));
 }
 
-MaterialRefractiveDataItem::MaterialRefractiveDataItem()
-    : MaterialDataItem(Constants::MaterialRefractiveDataType)
-{
-
-}
+// ------------------------------------------------------------------------------------------------
 
 MaterialSLDDataItem::MaterialSLDDataItem()
     : MaterialDataItem(Constants::MaterialSLDDataType)

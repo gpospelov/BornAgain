@@ -1,8 +1,8 @@
-#include "google_test.h"
-#include "MaterialModel.h"
-#include "MaterialItem.h"
 #include "MaterialDataItems.h"
+#include "MaterialItem.h"
 #include "MaterialItemUtils.h"
+#include "MaterialModel.h"
+#include "google_test.h"
 #include <memory>
 
 class TestMaterialModel : public ::testing::Test
@@ -28,7 +28,8 @@ TEST_F(TestMaterialModel, test_ParticeleCompositionUpdate)
     EXPECT_EQ(model->rowCount(QModelIndex()), 1);
 
     EXPECT_EQ(item->itemName(), name);
-    auto& materialDataItem = item->groupItem<MaterialDataItem>(MaterialItem::P_MATERIAL_DATA);
+    auto& materialDataItem
+        = item->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
     EXPECT_EQ(materialDataItem.real(), delta);
     EXPECT_EQ(materialDataItem.imag(), beta);
 }
@@ -56,7 +57,8 @@ TEST_F(TestMaterialModel, test_cloneMaterial)
     // checking name of cloned material
     EXPECT_EQ(item->itemName() + " (clone)", clonedMaterial->itemName());
 
-    auto& refIndex = clonedMaterial->groupItem<MaterialDataItem>(MaterialItem::P_MATERIAL_DATA);
+    auto& refIndex
+        = clonedMaterial->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
     EXPECT_EQ(refIndex.real(), delta);
     EXPECT_EQ(refIndex.imag(), beta);
 }

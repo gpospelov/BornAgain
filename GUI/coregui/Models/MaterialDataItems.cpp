@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/RefractiveIndexItem.cpp
-//! @brief     Implements class RefractiveIndexItem
+//! @file      GUI/coregui/Models/MaterialDataItems.cpp
+//! @brief     Implements MaterialDataItems classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "MaterialDataItem.h"
+#include "MaterialDataItems.h"
 
 const QString MaterialDataItem::P_REAL = "real";
 const QString MaterialDataItem::P_IMAG = "imag";

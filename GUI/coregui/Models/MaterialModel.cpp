@@ -15,7 +15,7 @@
 #include "MaterialModel.h"
 #include "MaterialItemUtils.h"
 #include "GUIHelpers.h"
-#include "MaterialDataItem.h"
+#include "MaterialDataItems.h"
 #include "AppSvc.h"
 
 MaterialModel::MaterialModel(QObject* parent) : SessionModel(SessionXML::MaterialModelTag, parent)

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/RefractiveIndexItem.h
-//! @brief     Defines class RefractiveIndexItem
+//! @file      GUI/coregui/Models/MaterialDataItems.h
+//! @brief     Defines MaterialDataItems classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALDATAITEM_H
-#define MATERIALDATAITEM_H
+#ifndef MATERIALDATAITEMS_H
+#define MATERIALDATAITEMS_H
 
 #include "SessionItem.h"
 
@@ -35,4 +35,4 @@ private:
     void updateLabel();
 };
 
-#endif // MATERIALDATAITEM_H
+#endif // MATERIALDATAITEMS_H

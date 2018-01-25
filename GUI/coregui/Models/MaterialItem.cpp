@@ -15,7 +15,7 @@
 #include "MaterialItem.h"
 #include "ExternalProperty.h"
 #include "GUIHelpers.h"
-#include "MaterialDataItem.h"
+#include "MaterialDataItems.h"
 #include "MaterialFactoryFuncs.h"
 #include "SessionItemUtils.h"
 #include "MaterialItemUtils.h"

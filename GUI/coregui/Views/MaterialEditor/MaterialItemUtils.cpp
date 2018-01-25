@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "MaterialItemUtils.h"
-#include "MaterialDataItem.h"
+#include "MaterialDataItems.h"
 #include "ComboProperty.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"

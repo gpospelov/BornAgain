@@ -27,7 +27,7 @@
 #include "minisplitter.h"
 #include "ComponentFlatView.h"
 #include "MaterialItem.h"
-#include "MaterialDataItem.h"
+#include "MaterialDataItems.h"
 #include "MaterialItemUtils.h"
 #include "ComponentEditor.h"
 #include "MaterialModel.h"

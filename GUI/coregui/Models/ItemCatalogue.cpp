@@ -34,7 +34,7 @@
 #include "LayerItem.h"
 #include "LayerRoughnessItems.h"
 #include "MaskItems.h"
-#include "MaterialDataItem.h"
+#include "MaterialDataItems.h"
 #include "MaterialItem.h"
 #include "MesoCrystalItem.h"
 #include "MinimizerItem.h"

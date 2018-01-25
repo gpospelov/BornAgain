@@ -17,6 +17,7 @@
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
 #include "SpecularMatrix.h"
+#include "SpecularSimulationElement.h"
 
 namespace {
 std::vector<ScalarRTCoefficients> calculateCoefficients(const MultiLayer& multilayer,
@@ -41,15 +42,13 @@ const ILayerRTCoefficients* ScalarFresnelMap::getInCoefficients(
     return getCoefficients(sim_element.getKi(), layer_index);
 }
 
-void ScalarFresnelMap::fillSpecularData(SimulationElement& sim_element) const
+void ScalarFresnelMap::fillSpecularData(SpecularSimulationElement& sim_element) const
 {
     const auto& kvec = sim_element.getKi();
-    std::vector<ScalarRTCoefficients> coef_vector;
     if (m_use_cache)
-        coef_vector = getCoefficientsFromCache(kvec);
+        sim_element.setSpecular(SpecularData(getCoefficientsFromCache(kvec)));
     else
-        coef_vector = calculateCoefficients(*mP_multilayer, kvec);
-    sim_element.setSpecular(std::make_unique<SpecularData>(std::move(coef_vector)));
+        sim_element.setSpecular(SpecularData(calculateCoefficients(*mP_multilayer, kvec)));
 }
 
 const ScalarRTCoefficients* ScalarFresnelMap::getCoefficients(

@@ -17942,15 +17942,14 @@ class IBackground(ICloneable, INode):
         return _libBornAgainCore.IBackground_clone(self)
 
 
-    def addBackGround(self, *args):
+    def addBackGround(self, element):
         """
-        addBackGround(IBackground self, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator start, std::vector< SimulationElement,std::allocator< SimulationElement > >::iterator end)
-        addBackGround(IBackground self, SimulationElement & element)
+        addBackGround(IBackground self, double element) -> double
 
-        virtual void IBackground::addBackGround(SimulationElement &element) const =0
+        virtual double IBackground::addBackGround(double element) const =0
 
         """
-        return _libBornAgainCore.IBackground_addBackGround(self, *args)
+        return _libBornAgainCore.IBackground_addBackGround(self, element)
 
 IBackground_swigregister = _libBornAgainCore.IBackground_swigregister
 IBackground_swigregister(IBackground)
@@ -18022,14 +18021,14 @@ class ConstantBackground(IBackground):
         return _libBornAgainCore.ConstantBackground_accept(self, visitor)
 
 
-    def addBackGround(self, element):
+    def addBackGround(self, intensity):
         """
-        addBackGround(ConstantBackground self, SimulationElement & element)
+        addBackGround(ConstantBackground self, double intensity) -> double
 
-        void ConstantBackground::addBackGround(SimulationElement &element) const override final
+        double ConstantBackground::addBackGround(double intensity) const override final
 
         """
-        return _libBornAgainCore.ConstantBackground_addBackGround(self, element)
+        return _libBornAgainCore.ConstantBackground_addBackGround(self, intensity)
 
 ConstantBackground_swigregister = _libBornAgainCore.ConstantBackground_swigregister
 ConstantBackground_swigregister(ConstantBackground)
@@ -25662,14 +25661,14 @@ class PoissonNoiseBackground(IBackground):
         return _libBornAgainCore.PoissonNoiseBackground_accept(self, visitor)
 
 
-    def addBackGround(self, element):
+    def addBackGround(self, intensity):
         """
-        addBackGround(PoissonNoiseBackground self, SimulationElement & element)
+        addBackGround(PoissonNoiseBackground self, double intensity) -> double
 
-        void PoissonNoiseBackground::addBackGround(SimulationElement &element) const override final
+        double PoissonNoiseBackground::addBackGround(double intensity) const override final
 
         """
-        return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, element)
+        return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, intensity)
 
 PoissonNoiseBackground_swigregister = _libBornAgainCore.PoissonNoiseBackground_swigregister
 PoissonNoiseBackground_swigregister(PoissonNoiseBackground)

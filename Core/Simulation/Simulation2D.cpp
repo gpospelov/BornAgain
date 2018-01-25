@@ -70,7 +70,7 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
         sim_element.setPolarization(beam_polarization);
         sim_element.setAnalyzerOperator(it->getAnalyzerOperator());
         if (it->isSpecular())
-            sim_element.setSpecular();
+            sim_element.setSpecular(true);
     }
     return result;
 }
@@ -91,7 +91,7 @@ void Simulation2D::addBackGroundIntensity(size_t start_ind, size_t n_elements)
         return;
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         SimulationElement& element = m_sim_elements[i];
-        mP_background->addBackGround(element);
+        element.setIntensity(mP_background->addBackGround(element.getIntensity()));
     }
 }
 

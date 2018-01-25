@@ -18,12 +18,12 @@
 #include "IComputation.h"
 #include "Complex.h"
 #include "SimulationOptions.h"
+#include "SpecularComputationTerm.h"
 
 class IFresnelMap;
 class MultiLayer;
 struct HomogeneousRegion;
 class IComputationTerm;
-class SpecularComputationTerm;
 
 //! Performs a single-threaded specular computation with given sample.
 //!
@@ -33,19 +33,21 @@ class SpecularComputationTerm;
 
 class SpecularComputation : public IComputation
 {
+    using SpecularElementIter = std::vector<SpecularSimulationElement>::iterator;
 public:
     SpecularComputation(const MultiLayer& multilayer, const SimulationOptions& options,
                         ProgressHandler& progress,
-                        std::vector<SimulationElement>::iterator begin_it,
-                        std::vector<SimulationElement>::iterator end_it);
+                        SpecularElementIter begin_it,
+                        SpecularElementIter end_it);
     virtual ~SpecularComputation();
 
 private:
     void runProtected() override;
     std::unique_ptr<IFresnelMap> createFresnelMap();
 
+    SpecularElementIter m_begin_it, m_end_it; //!< these iterators define the span of detector bins this simulation will work on
     std::unique_ptr<IFresnelMap> mP_fresnel_map;
-    std::unique_ptr<SpecularComputationTerm> m_computation_term;
+    SpecularComputationTerm m_computation_term;
 };
 
 #endif /* SPECULARCOMPUTATION_H_ */

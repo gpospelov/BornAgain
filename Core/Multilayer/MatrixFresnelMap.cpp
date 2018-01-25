@@ -17,7 +17,9 @@
 #include "MatrixRTCoefficients.h"
 #include "MultiLayer.h"
 #include "SimulationElement.h"
+#include "SpecularData.h"
 #include "SpecularMagnetic.h"
+#include "SpecularSimulationElement.h"
 
 namespace {
 std::vector<MatrixRTCoefficients> calculateCoefficients(const MultiLayer& multilayer,
@@ -45,15 +47,14 @@ MatrixFresnelMap::getInCoefficients(const SimulationElement& sim_element, size_t
     return getCoefficients(sim_element.getKi(), layer_index, *mP_multilayer, m_hash_table_in);
 }
 
-void MatrixFresnelMap::fillSpecularData(SimulationElement& sim_element) const
+void MatrixFresnelMap::fillSpecularData(SpecularSimulationElement& sim_element) const
 {
     const auto& kvec = sim_element.getKi();
-    std::vector<MatrixRTCoefficients> coef_vector;
     if (m_use_cache)
-        coef_vector = getCoefficientsFromCache(kvec, *mP_multilayer, m_hash_table_in);
+        sim_element.setSpecular(
+            SpecularData(getCoefficientsFromCache(kvec, *mP_multilayer, m_hash_table_in)));
     else
-        coef_vector = calculateCoefficients(*mP_multilayer, kvec);
-    sim_element.setSpecular(std::make_unique<SpecularData>(std::move(coef_vector)));
+        sim_element.setSpecular(SpecularData(calculateCoefficients(*mP_multilayer, kvec)));
 }
 
 const ILayerRTCoefficients* MatrixFresnelMap::getCoefficients(kvector_t kvec, size_t layer_index,

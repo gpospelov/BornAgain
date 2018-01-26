@@ -298,10 +298,8 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex& parent, int first, int /*
         if (m_item == oldChild)
             callOnParentChange(0);
 
-        if (nestling == 0) {
-            callOnChildrenChange(0);
+        if (nestling == 0)
             callOnAboutToRemoveChild(oldChild);
-        }
     }
 
     if (m_item == oldChild)
@@ -316,6 +314,9 @@ void ModelMapper::onRowRemoved(const QModelIndex& parent, int first, int /*last*
         callOnAnyChildChange(nullptr);
         callOnSiblingsChange();
     }
+
+    if (nestling == 0 )
+        callOnChildrenChange(nullptr);
 
     if (m_aboutToDelete.isValid() && m_aboutToDelete == parent.child(first, 0))
         clearMapper();

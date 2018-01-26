@@ -25,13 +25,13 @@ class QResizeEvent;
 //! The ColorMapLabel class shows status string as reported by ColorMap in a frame.
 //! Can work with more than one ColorMap. Provides automatic adjustment of font size,
 //! depending on available space in parent layout. Also doesn't trigger layout resize,
-//! beeing happy with place it has.
+//! being happy with place it has.
 
 class BA_CORE_API_ ColorMapLabel : public StatusLabel
 {
     Q_OBJECT
 public:
-    ColorMapLabel(ColorMap* colorMap, QWidget* parent = 0);
+    ColorMapLabel(ColorMap* colorMap, QWidget* parent = nullptr);
 
     void addColorMap(ColorMap* colorMap);
     void addColorMap(ColorMapCanvas* colorMapCanvas);

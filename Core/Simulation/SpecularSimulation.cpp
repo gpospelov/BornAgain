@@ -102,8 +102,10 @@ void SpecularSimulation::initSimulationElementVector()
 {
     auto beam = m_instrument.getBeam();
     m_sim_elements = generateSimulationElements(beam);
-    if (m_cache.empty())
-        m_cache = m_sim_elements;
+
+    if (!m_cache.empty())
+        return;
+    m_cache.resize(m_sim_elements.size(), 0);
 }
 
 std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationElements(const Beam& beam)
@@ -213,6 +215,13 @@ void SpecularSimulation::validityCheck(size_t i_layer) const
     }
 }
 
+void SpecularSimulation::checkCache() const
+{
+    if (m_sim_elements.size() != m_cache.size())
+        throw std::runtime_error("Error in SpecularSimulation: the sizes of simulation element "
+                                 "vector and of its cache are different");
+}
+
 void SpecularSimulation::initialize()
 {
     setName(BornAgain::SpecularSimulationType);
@@ -240,20 +249,18 @@ void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_eleme
 
 void SpecularSimulation::addDataToCache(double weight)
 {
-    assert(m_sim_elements.size() == m_cache.size());
-    for (unsigned i=0; i<m_sim_elements.size(); i++) {
-        m_cache[i].setIntensity(m_sim_elements[i].getIntensity()*weight);
-        m_cache[i].setSpecular(m_sim_elements[i].specularData());
-    }
+    checkCache();
+    for (size_t i = 0, size = m_sim_elements.size(); i < size; ++i)
+        m_cache[i] += m_sim_elements[i].getIntensity() * weight;
 }
 
 void SpecularSimulation::moveDataFromCache()
 {
-    assert(!m_cache.empty());
-    if (!m_cache.empty()) {
-        m_sim_elements = std::move(m_cache);
-        m_cache.clear();
-    }
+    checkCache();
+    for (size_t i = 0, size = m_sim_elements.size(); i < size; ++i)
+        m_sim_elements[i].setIntensity(m_cache[i]);
+    m_cache.clear();
+    m_cache.shrink_to_fit();
 }
 
 double SpecularSimulation::alpha_i(size_t index) const

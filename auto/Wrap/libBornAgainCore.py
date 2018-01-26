@@ -26600,42 +26600,6 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_getIntensityData(self)
 
 
-    def getScalarR(self, i_layer):
-        """
-        getScalarR(SpecularSimulation self, size_t i_layer) -> vector_complex_t
-
-        std::vector< complex_t > SpecularSimulation::getScalarR(size_t i_layer) const
-
-        Returns vector of reflection coefficients (  $R$) for all alpha_i angles for given layer index. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_getScalarR(self, i_layer)
-
-
-    def getScalarT(self, i_layer):
-        """
-        getScalarT(SpecularSimulation self, size_t i_layer) -> vector_complex_t
-
-        std::vector< complex_t > SpecularSimulation::getScalarT(size_t i_layer) const
-
-        Returns vector of transmission coefficients for all alpha_i angles for given layer index. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_getScalarT(self, i_layer)
-
-
-    def getScalarKz(self, i_layer):
-        """
-        getScalarKz(SpecularSimulation self, size_t i_layer) -> vector_complex_t
-
-        std::vector< complex_t > SpecularSimulation::getScalarKz(size_t i_layer) const
-
-        Returns vector of Kz coefficients for all alpha_i angles for given layer index. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_getScalarKz(self, i_layer)
-
-
     def setSampleBuilder(self, ptr):
         self.samplebuilder = ptr
         self.setSampleBuilderCpp(ptr)

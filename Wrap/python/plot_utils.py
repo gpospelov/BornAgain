@@ -32,11 +32,6 @@ def get_axes_limits(intensity):
     result = [intensity.getXmin(), intensity.getXmax(),
               intensity.getYmin(), intensity.getYmax()]
 
-    # We show radians as degrees. If no units defined in histogram object,
-    # we assume radians.
-    if "rad" in intensity.axesUnits() or len(intensity.axesUnits()) == 0:
-        result = [x / deg for x in result]
-
     return result
 
 
@@ -46,14 +41,7 @@ def get_xlabel(intensity):
     :param intensity: Histogram2D object from GISAS simulation
     :return:label for x-axis
     """
-    if "mm" in intensity.axesUnits():
-        return r'$X_{mm}$'
-
-    if "deg" in intensity.axesUnits() or "rad" in intensity.axesUnits():
-        return r'$\phi_f ^{\circ}$'
-
-    if "qyqz" in intensity.axesUnits():
-        return r'$Q_{y} [1/nm]$'
+    return intensity.getXaxis().getName()
 
 
 def get_ylabel(intensity):
@@ -62,14 +50,7 @@ def get_ylabel(intensity):
     :param intensity: Histogram2D object from GISAS simulation
     :return:label for y-axis
     """
-    if "mm" in intensity.axesUnits():
-        return r'$X_{mm}$'
-
-    if "deg" in intensity.axesUnits() or "rad" in intensity.axesUnits():
-        return r'$\alpha_f ^{\circ}$'
-
-    if "qyqz" in intensity.axesUnits():
-        return r'$Q_{z} [1/nm]$'
+    return intensity.getYaxis().getName()
 
 
 def plot_colormap(intensity, zmin=None, zmax=None,
@@ -256,10 +237,7 @@ class PlotterSpecular(Plotter):
 
         # normalizing axis coordinates
         axis = real_data.getXaxis().getBinCenters()
-        norm = 1
-        if "rad" in real_data.axesUnits():
-            norm = ba.deg
-        axis_values = [value / norm for value in axis]
+        axis_values = [value for value in axis]
 
         # default font properties dictionary to use
         font = {'family': 'serif',
@@ -271,7 +249,7 @@ class PlotterSpecular(Plotter):
                      axis_values, real_data.getArray(), 'k--')
         plt.ylim((0.5 * real_data.getMinimum(), 5 * real_data.getMaximum()))
         plt.legend(['BornAgain', 'Reference'], loc='upper right', prop=font)
-        plt.xlabel("Incident angle, deg", fontdict=font)
+        plt.xlabel(sim_data.getXaxis().getName(), fontdict=font)
         plt.ylabel("Intensity", fontdict=font)
         plt.title("Specular data fitting", fontdict=font)
 

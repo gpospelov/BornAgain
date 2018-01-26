@@ -62,7 +62,7 @@ QItemSelectionModel* MaterialEditor::selectionModel()
 MaterialItem* MaterialEditor::selectedMaterial()
 {
     auto selected = selectionModel()->currentIndex();
-    return selected.isValid() ? m_materialModel->getMaterial(selected) : nullptr;
+    return selected.isValid() ? m_materialModel->materialFromIndex(selected) : nullptr;
 }
 
 //! Sets selection corresponding to initial material property

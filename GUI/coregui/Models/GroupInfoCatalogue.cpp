@@ -158,6 +158,12 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::PoissonNoiseBackgroundType, "Poisson noise");
     info.setDefaultType(Constants::BackgroundNoneType);
     addInfo(info);
+
+    info = GroupInfo(Constants::MaterialDataGroup);
+    info.add(Constants::MaterialRefractiveDataType, "Refractive index based");
+    info.add(Constants::MaterialSLDDataType, "SLD based");
+    info.setDefaultType(Constants::MaterialRefractiveDataType);
+    addInfo(info);
 }
 
 GroupInfo GroupInfoCatalogue::groupInfo(const QString& groupType) const

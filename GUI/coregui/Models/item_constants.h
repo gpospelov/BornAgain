@@ -116,9 +116,10 @@ const ModelType BasicLatticeType = "BasicLattice";
 const ModelType SquareLatticeType = "SquareLattice";
 const ModelType HexagonalLatticeType = "HexagonalLattice";
 
-const ModelType HomogeneousMaterialType = "HomogeneousMaterial";
+const ModelType MaterialType = "Material";
 
-const ModelType MaterialDataType = "MaterialData";
+const ModelType MaterialRefractiveDataType = "MaterialRefractiveData";
+const ModelType MaterialSLDDataType = "MaterialSLDData";
 
 const ModelType MagneticFieldType = "MagneticField";
 
@@ -199,6 +200,7 @@ const ModelType ResolutionFunctionGroup = "Resolution function group";
 const ModelType MinimizerLibraryGroup = "Minimizer library group";
 const ModelType RealLimitsGroup = "RealLimits group";
 const ModelType BackgroundGroup = "Background group";
+const ModelType MaterialDataGroup = "Material data group";
 
 // --- Units&Constants----------------------------------------------------------
 

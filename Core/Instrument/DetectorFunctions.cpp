@@ -33,7 +33,7 @@ std::map<std::string, AxesUnits> init_name_to_units_map()
     result["degrees"] = AxesUnits::DEGREES;
     result["deg"] = AxesUnits::DEGREES;
     result["mm"] = AxesUnits::MM;
-    result["qyqz"] = AxesUnits::QYQZ;
+    result["qyqz"] = AxesUnits::QSPACE;
     return result;
 }
 
@@ -44,11 +44,10 @@ std::map<AxesUnits, std::string> init_units_to_name_map()
     result[AxesUnits::RADIANS] = "rad";
     result[AxesUnits::DEGREES] = "deg";
     result[AxesUnits::MM] = "mm";
-    result[AxesUnits::QYQZ] = "qyqz";
+    result[AxesUnits::QSPACE] = "qyqz";
     result[AxesUnits::DEFAULT] = "";
     return result;
 }
-
 }
 
 bool DetectorFunctions::hasSameDimensions(const IDetector& detector, const OutputData<double>& data)

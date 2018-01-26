@@ -123,7 +123,7 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam& be
 void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
         AxesUnits units, double &amin, double &amax) const
 {
-    if(units == AxesUnits::QYQZ && axis_index == BornAgain::X_AXIS_INDEX) {
+    if(units == AxesUnits::QSPACE && axis_index == BornAgain::X_AXIS_INDEX) {
         const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
         SimulationElement el_left_bottom
             = getSimulationElement(getGlobalIndex(0, 0), beam);
@@ -132,7 +132,7 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
         amin = el_left_bottom.getQ(0.0, 0.0).y();
         amax = el_right_bottom.getQ(1.0, 0.0).y();
 
-    } else if(units == AxesUnits::QYQZ && axis_index == BornAgain::Y_AXIS_INDEX) {
+    } else if(units == AxesUnits::QSPACE && axis_index == BornAgain::Y_AXIS_INDEX) {
         const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
         const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
         SimulationElement el_center_bottom

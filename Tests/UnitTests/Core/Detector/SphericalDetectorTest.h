@@ -34,7 +34,7 @@ TEST_F(SphericalDetectorTest, initialState)
 
     // detector units
     std::vector<AxesUnits> validUnits
-        = {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QYQZ};
+        = {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE};
     EXPECT_EQ(validUnits, detector.validAxesUnits());
 
     // masks
@@ -361,8 +361,8 @@ TEST_F(SphericalDetectorTest, Clone)
 TEST_F(SphericalDetectorTest, nameToUnitTranslation)
 {
     EXPECT_EQ(DetectorFunctions::detectorUnits(""), AxesUnits::DEFAULT);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("QyQz"), AxesUnits::QYQZ);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("qyqz"), AxesUnits::QYQZ);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("QyQz"), AxesUnits::QSPACE);
+    EXPECT_EQ(DetectorFunctions::detectorUnits("qyqz"), AxesUnits::QSPACE);
     EXPECT_EQ(DetectorFunctions::detectorUnits("MM"), AxesUnits::MM);
     EXPECT_EQ(DetectorFunctions::detectorUnits("mm"), AxesUnits::MM);
     EXPECT_EQ(DetectorFunctions::detectorUnits("radians"), AxesUnits::RADIANS);

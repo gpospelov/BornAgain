@@ -19,6 +19,7 @@
 #include "Vectors3D.h"
 #include "WinDllMacros.h"
 #include <cstddef>
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -35,7 +36,7 @@ class SphericalDetector;
 
 // workaround for SWIG (instead of just writing enum class AxesUnits...)
 struct BA_CORE_API_ AxesUnitsWrap {
-    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ };
+    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE };
 };
 typedef AxesUnitsWrap::AxesUnits AxesUnits;
 
@@ -54,7 +55,7 @@ public:
     virtual double calculateMin(size_t i_axis, AxesUnits units_type) const=0;
     virtual double calculateMax(size_t i_axis, AxesUnits units_type) const=0;
     virtual size_t axisSize(size_t i_axis) const=0;
-    virtual std::string axisName(size_t i_axis) const=0;
+    virtual std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const=0;
 };
 
 //! Interface for objects that provide axis translations to different units for IDetector objects
@@ -71,7 +72,8 @@ public:
     double calculateMin(size_t i_axis, AxesUnits units_type) const override;
     double calculateMax(size_t i_axis, AxesUnits units_type) const override;
     size_t axisSize(size_t i_axis) const override;
-    std::string axisName(size_t i_axis) const override;
+
+    std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const override;
 
 protected:
     UnitConverterSimple(const UnitConverterSimple& other);
@@ -98,6 +100,7 @@ protected:
 private:
     virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const=0;
     virtual AxesUnits defaultUnits() const=0;
+    virtual std::vector<std::map<AxesUnits, std::string>> createNameMaps() const=0;
 };
 
 //! IUnitConverter class that handles the unit translations for spherical detectors
@@ -117,6 +120,7 @@ private:
     SphericalConverter(const SphericalConverter& other);
     double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
     AxesUnits defaultUnits() const override { return AxesUnits::RADIANS; }
+    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
 };
 
 //! IUnitConverter class that handles the unit translations for rectangular detectors
@@ -135,6 +139,7 @@ private:
     RectangularConverter(const RectangularConverter& other);
     double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
     AxesUnits defaultUnits() const override { return AxesUnits::MM; }
+    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
     kvector_t normalizeToWavelength(kvector_t vector) const;
     double axisAngle(size_t i_axis, kvector_t k_f) const;
     std::unique_ptr<RectangularPixel> mP_detector_pixel;

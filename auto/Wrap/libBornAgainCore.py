@@ -26851,7 +26851,7 @@ class AxesUnits(_object):
     RADIANS = _libBornAgainCore.AxesUnits_RADIANS
     DEGREES = _libBornAgainCore.AxesUnits_DEGREES
     MM = _libBornAgainCore.AxesUnits_MM
-    QYQZ = _libBornAgainCore.AxesUnits_QYQZ
+    QSPACE = _libBornAgainCore.AxesUnits_QSPACE
     __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
     __del__ = lambda self: None
 AxesUnits_swigregister = _libBornAgainCore.AxesUnits_swigregister
@@ -26905,9 +26905,12 @@ class IUnitConverter(ICloneable):
         return _libBornAgainCore.IUnitConverter_axisSize(self, i_axis)
 
 
-    def axisName(self, i_axis):
-        """axisName(IUnitConverter self, size_t i_axis) -> std::string"""
-        return _libBornAgainCore.IUnitConverter_axisName(self, i_axis)
+    def axisName(self, *args):
+        """
+        axisName(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> std::string
+        axisName(IUnitConverter self, size_t i_axis) -> std::string
+        """
+        return _libBornAgainCore.IUnitConverter_axisName(self, *args)
 
 IUnitConverter_swigregister = _libBornAgainCore.IUnitConverter_swigregister
 IUnitConverter_swigregister(IUnitConverter)
@@ -26950,9 +26953,12 @@ class UnitConverterSimple(IUnitConverter):
         return _libBornAgainCore.UnitConverterSimple_axisSize(self, i_axis)
 
 
-    def axisName(self, i_axis):
-        """axisName(UnitConverterSimple self, size_t i_axis) -> std::string"""
-        return _libBornAgainCore.UnitConverterSimple_axisName(self, i_axis)
+    def axisName(self, *args):
+        """
+        axisName(UnitConverterSimple self, size_t i_axis, AxesUnits units_type) -> std::string
+        axisName(UnitConverterSimple self, size_t i_axis) -> std::string
+        """
+        return _libBornAgainCore.UnitConverterSimple_axisName(self, *args)
 
 UnitConverterSimple_swigregister = _libBornAgainCore.UnitConverterSimple_swigregister
 UnitConverterSimple_swigregister(UnitConverterSimple)

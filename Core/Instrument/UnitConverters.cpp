@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "UnitConverters.h"
+#include "AxisNames.h"
 #include "Beam.h"
 #include "BornAgainNamespace.h"
 #include "MathConstants.h"
@@ -73,11 +74,17 @@ size_t UnitConverterSimple::axisSize(size_t i_axis) const
     return axis_data.nbins;
 }
 
-std::string UnitConverterSimple::axisName(size_t i_axis) const
+std::string UnitConverterSimple::axisName(size_t i_axis, AxesUnits units_type) const
 {
+    const std::vector<std::map<AxesUnits, std::string>> name_maps = createNameMaps();
     checkIndex(i_axis);
-    auto axis_data = m_axis_data_table[i_axis];
-    return axis_data.name;
+    auto& name_map = name_maps[i_axis];
+    if (units_type==AxesUnits::DEFAULT) units_type = defaultUnits();
+    auto it = name_map.find(units_type);
+    if (it==name_map.end())
+        throw std::runtime_error("Error in UnitConverterSimple::axisName: "
+                                 "unknown or unsupported unit type");
+    return it->second;
 }
 
 UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
@@ -143,7 +150,7 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
     switch(units_type) {
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
-    case AxesUnits::QYQZ:
+    case AxesUnits::QSPACE:
     {
         auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == BornAgain::X_AXIS_INDEX) {
@@ -162,6 +169,14 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
                                  "target units not available: "
                                  + std::to_string(static_cast<int>(units_type)));
     }
+}
+
+std::vector<std::map<AxesUnits, std::string> > SphericalConverter::createNameMaps() const
+{
+    std::vector<std::map<AxesUnits, std::string>> result;
+    result.push_back(AxisNames::InitSphericalAxis0());
+    result.push_back(AxisNames::InitSphericalAxis1());
+    return result;
 }
 
 /* RectangularConverter **********************************************/
@@ -202,7 +217,7 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
         return Units::rad2deg(axisAngle(i_axis, k_f));
     case AxesUnits::RADIANS:
         return axisAngle(i_axis, k_f);
-    case AxesUnits::QYQZ:
+    case AxesUnits::QSPACE:
     {
         auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == BornAgain::X_AXIS_INDEX) {
@@ -219,6 +234,14 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
                                  "target units not available: "
                                  + std::to_string(static_cast<int>(units_type)));
     }
+}
+
+std::vector<std::map<AxesUnits, std::string>> RectangularConverter::createNameMaps() const
+{
+    std::vector<std::map<AxesUnits, std::string>> result;
+    result.push_back(AxisNames::InitRectangularAxis0());
+    result.push_back(AxisNames::InitRectangularAxis1());
+    return result;
 }
 
 kvector_t RectangularConverter::normalizeToWavelength(kvector_t vector) const

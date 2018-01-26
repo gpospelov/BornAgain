@@ -166,7 +166,7 @@ std::vector<AxesUnits> RectangularDetector::validAxesUnits() const
 {
     std::vector<AxesUnits> result = IDetector2D::validAxesUnits();
     std::vector<AxesUnits> addon =
-        { AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::MM, AxesUnits::QYQZ };
+        { AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::MM, AxesUnits::QSPACE };
     result.insert(result.end(), addon.begin(), addon.end());
     return result;
 }

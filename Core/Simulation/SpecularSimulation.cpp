@@ -268,6 +268,11 @@ void SpecularSimulation::validateParametrization(const ParameterDistribution& pa
 void SpecularSimulation::initialize()
 {
     setName(BornAgain::SpecularSimulationType);
+
+    // allow for negative inclinations in the beam of specular simulation
+    // it is required for proper averaging in the case of divergent beam
+    auto inclination = m_instrument.getBeam().parameter(BornAgain::Inclination);
+    inclination->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
 void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)

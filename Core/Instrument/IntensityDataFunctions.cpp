@@ -19,8 +19,6 @@
 #include "Numeric.h"
 #include "FourierTransform.h"
 #include <math.h>
-//Just for testing with cout
-#include<iostream>
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 double IntensityDataFunctions::getRelativeDifference(
@@ -212,20 +210,8 @@ std::vector<std::vector<double>> IntensityDataFunctions::create2DArrayfromOutput
                 "IntensityDataFunctions::create2DArrayfromOutputData() -> "
                 "Error! Works only on two-dimensional data");
 
-    /*
-    std::cout<<data.getAllocatedSize()<<std::endl;
-    std::cout<<data[0]<<std::endl;
-    std::cout<<data[2]<<std::endl;
-    std::cout<<data[50]<<std::endl;
-    std::cout<<data[99]<<std::endl;
-    std::cout<<data[150]<<std::endl;
-    std::cout<<data[200]<<std::endl;
-    std::cout<<data[550]<<std::endl;
-    std::cout<<data[600]<<std::endl;
-    */
-
     std::vector<std::vector<double>> array_2d;
-    std::vector<double> row_vec; // row vector for constructing each row of 2d array
+    std::vector<double> row_vec; // row vector for constructing each row of 2D array
 
     size_t nrows = data.getAxis(0).size();
     size_t ncols = data.getAxis(1).size();
@@ -242,34 +228,6 @@ std::vector<std::vector<double>> IntensityDataFunctions::create2DArrayfromOutput
         array_2d.push_back(row_vec);
     }
 
-    /*
-    for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
-        i != array_2d.begin()+5; i++)
-    {
-        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).begin()+5; j++)
-            std::cout << *j << ' ';
-        std::cout << std::endl;
-    }
-
-    std::cout<<array_2d[0][0]<<std::endl;
-    std::cout<<array_2d[0][2]<<std::endl;
-    std::cout<<array_2d[0][99]<<std::endl;
-    std::cout<<array_2d[1][0]<<std::endl;
-    std::cout<<array_2d[2][0]<<std::endl;
-    std::cout<<array_2d[50][99]<<std::endl;
-    std::cout<<array_2d[99][99]<<std::endl;
-    */
-
-    /*
-    for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
-        i != array_2d.end(); i++)
-    {
-        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
-            std::cout << *j << ' ';
-        std::cout << std::endl;
-    }
-    */
-
     return array_2d;
 }
 
@@ -279,15 +237,8 @@ std::vector<std::vector<double>> IntensityDataFunctions::FT2DArray(
     FourierTransform ft;
     std::vector<std::vector<double>> fft_array;
     ft.fft(signal, fft_array);
-
-    /*
-    std::cout << "XXXXXXXXXXX" <<std::endl;
-    std::cout << fft_array[0][0] << std::endl;
-    std::cout << fft_array[0][1] << std::endl;
-    std::cout << fft_array[50][98] << std::endl;
-    std::cout << fft_array[50][99] << std::endl;
-    std::cout << "XXXXXXXXXXX" <<std::endl;
-    */
+    // shifting low frequency to center of array
+    ft.fftshift(fft_array);
 
     return fft_array;
 }
@@ -314,29 +265,6 @@ OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArray(
     return result;
 }
 
-
-/*
-// Another way of constructing OutputData from 2D array (Version 2)
-OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArrayV2(
-        const std::vector<std::vector<double>> &array_2d, const OutputData<double> &reference)
-{
-    OutputData<double> *result;
-    result = reference.clone();
-    OutputData<double>::iterator it = result->begin();
-    for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
-        i != array_2d.end(); i++)
-    {
-        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
-        {
-            *it = *j;
-            ++it;
-        }
-    }
-
-    return result;
-}
-*/
-
 OutputData<double>* IntensityDataFunctions::getFourierTransform(const OutputData<double> &data)
 {
     std::vector<std::vector<double>> array_2d =
@@ -347,18 +275,6 @@ OutputData<double>* IntensityDataFunctions::getFourierTransform(const OutputData
 
     OutputData<double>* fftOutputData = IntensityDataFunctions::createOutputDatafrom2DArray(
                 fft_array_2d);
-
-    // Another way of constructing OutputData from 2D array
-    //fftOutputData = IntensityDataFunctions::createOutputDatafrom2DArray(
-    //                   fft_array_2d, *dataItem->getOutputData());
-
-
-    /*
-    std::cout<<(*fftOutputData)[0]<<std::endl;
-    std::cout<<(*fftOutputData)[1]<<std::endl;
-    std::cout<<(*fftOutputData)[5098]<<std::endl;
-    std::cout<<(*fftOutputData)[5099]<<std::endl;
-    */
 
     return fftOutputData;
 }

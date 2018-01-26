@@ -192,17 +192,6 @@ TEST_F(IntensityDataFunctionsTest, create2DArrayfromOutputDataTest)
     std::vector<std::vector<double>> array_expected_2d{{arr_in[0],arr_in[1], arr_in[2]},
                                                        {arr_in[3],arr_in[4], arr_in[5]}};
 
-    /*
-    std::cout<<"Contents of 2D Array:\n";
-    for(std::vector<std::vector<double>>::const_iterator i = array_2d.begin();
-        i != array_2d.end(); i++)
-    {
-        for(std::vector<double>::const_iterator j = (*i).begin(); j != (*i).end(); j++)
-            std::cout << *j << ' ';
-        std::cout << std::endl;
-    }
-    */
-
     EXPECT_EQ(array_expected_2d, array_2d);
 }
 
@@ -217,22 +206,3 @@ TEST_F(IntensityDataFunctionsTest, createOutputDatafrom2DArrayTest)
     std::vector<double> arr_out = result->getRawDataVector();
     EXPECT_EQ(arr_in, arr_out);
 }
-
-/*
-TEST_F(IntensityDataFunctionsTest, createOutputDatafrom2DArrayV2Test)
-{
-    std::vector<double> arr_in{1,2,3,4,5,6};
-    std::vector<std::vector<double>> array_2d{{arr_in[0],arr_in[1],arr_in[2]},
-                                              {arr_in[3],arr_in[4],arr_in[5]}};
-
-    OutputData<double> *result_V2;
-    OutputData<double> out_data;
-    out_data.addAxis("axis0", 2, 1.0, 2.0);
-    out_data.addAxis("axis1", 3, 3.0, 4.0);
-    result_V2 = IntensityDataFunctions::createOutputDatafrom2DArrayV2(array_2d, out_data);
-    std::vector<double> arr_out_V2 = result_V2->getRawDataVector();
-
-    //std::vector<double> arr_out_V2 = out_data.getRawDataVector();
-    EXPECT_EQ(arr_in, arr_out_V2);
-}
-*/

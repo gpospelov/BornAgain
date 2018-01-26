@@ -76,12 +76,6 @@ BA_CORE_API_ std::vector<std::vector<double>> FT2DArray(
 BA_CORE_API_ OutputData<double>* createOutputDatafrom2DArray(
         const std::vector<std::vector<double>>& array_2d);
 
-/*
-// Another way of creating OutputData from a 2D Array
-BA_CORE_API_ OutputData<double>* createOutputDatafrom2DArrayV2(
-        const std::vector<std::vector<double>>& array_2d, const OutputData<double>& reference);
-*/
-
 //! Creates Fourier Transform (OutputData format) of intensity map (OutputData format).
 BA_CORE_API_ OutputData<double>* getFourierTransform(const OutputData<double> &data);
 

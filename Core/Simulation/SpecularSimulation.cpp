@@ -13,12 +13,15 @@
 // ************************************************************************** //
 
 #include "SpecularSimulation.h"
+#include "Distributions.h"
+#include "Histogram1D.h"
 #include "IBackground.h"
 #include "IFootprintFactor.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "MaterialUtils.h"
-#include "Histogram1D.h"
+#include "ParameterPool.h"
+#include "RealParameter.h"
 #include "SpecularComputation.h"
 #include "SpecularData.h"
 #include "SpecularDetector1D.h"
@@ -179,6 +182,7 @@ OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_typ
 
 void SpecularSimulation::addParameterDistribution(const ParameterDistribution& par_distr)
 {
+    validateParametrization(par_distr);
     Simulation::addParameterDistribution(par_distr);
 }
 
@@ -243,6 +247,22 @@ void SpecularSimulation::checkCache() const
     if (m_sim_elements.size() != m_cache.size())
         throw std::runtime_error("Error in SpecularSimulation: the sizes of simulation element "
                                  "vector and of its cache are different");
+}
+
+void SpecularSimulation::validateParametrization(const ParameterDistribution& par_distr) const
+{
+    const bool zero_mean = par_distr.getDistribution()->getMean() == 0.0;
+    if (zero_mean)
+        return;
+
+    std::unique_ptr<ParameterPool> parameter_pool(
+        m_instrument.getBeam().createParameterTree(this->parent()));
+    const std::vector<RealParameter*> names
+        = parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
+    for (const auto par : names)
+        if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
+            throw std::runtime_error("Error in SpecularSimulation: parameter distribution modifies "
+                                     "beam inclination while its mean value is not zero.");
 }
 
 void SpecularSimulation::initialize()

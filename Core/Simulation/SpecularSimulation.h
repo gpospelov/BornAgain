@@ -87,10 +87,13 @@ private:
     std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
                                                                     size_t n_elements) override;
 
-    //! Checks if simulation data is ready for retrieval
+    //! Checks if simulation data is ready for retrieval.
     void validityCheck(size_t i_layer) const;
 
     void checkCache() const;
+
+    //! Checks if distribution is valid for inclination angle.
+    void validateParametrization(const ParameterDistribution& par_distr) const;
 
     //! Initializes simulation
     void initialize();

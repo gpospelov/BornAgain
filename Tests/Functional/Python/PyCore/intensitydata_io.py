@@ -119,8 +119,8 @@ class OutputDataIOTest(unittest.TestCase):
 
     def test_SaveToINT(self):
         data = ba.IntensityData()
-        data.addAxis(ba.FixedBinAxis("x", 10, 0.0, 10.0))
-        data.addAxis(ba.FixedBinAxis("y", 5, 0.0, 5.0))
+        data.addAxis(ba.FixedBinAxis("axis0", 10, 0.0, 10.0))
+        data.addAxis(ba.FixedBinAxis("axis1", 5, 0.0, 5.0))
         fill_data(data)
 
         ba.IntensityDataIOFactory.writeOutputData(data, "tmp.int")

@@ -30,15 +30,6 @@ public:
     static const QString P_BETA;
 
     MaterialRefractiveDataItem();
-
-    double delta() const;
-    void setDelta(double delta);
-
-    double beta() const;
-    void setBeta(double beta);
-
-private:
-    void updateLabel();
 };
 
 class BA_CORE_API_ MaterialSLDDataItem : public MaterialDataItem

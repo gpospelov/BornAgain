@@ -17,6 +17,7 @@
 MaterialDataItem::MaterialDataItem(const QString& modelType)
     : SessionItem(modelType)
 {
+    setEditable(false); // empty label, non-editable
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -33,36 +34,6 @@ MaterialRefractiveDataItem::MaterialRefractiveDataItem()
     addProperty(P_BETA, 0.0)->setEditorType(Constants::ScientificEditorType)
         .setLimits(RealLimits::limitless())
         .setToolTip("Beta of refractive index (n = 1 - delta + i*beta)");
-
-    mapper()->setOnPropertyChange([this](const QString&) { updateLabel(); });
-
-    updateLabel();
-    setEditable(false); // for label
-}
-
-double MaterialRefractiveDataItem::delta() const
-{
-    return getItemValue(P_DELTA).toDouble();
-}
-
-void MaterialRefractiveDataItem::setDelta(double real)
-{
-    setItemValue(P_DELTA, real);
-}
-
-double MaterialRefractiveDataItem::beta() const
-{
-    return getItemValue(P_BETA).toDouble();
-}
-
-void MaterialRefractiveDataItem::setBeta(double imag)
-{
-    setItemValue(P_BETA, imag);
-}
-
-void MaterialRefractiveDataItem::updateLabel()
-{
-    setValue(QString("(1 - %1, %2)").arg(delta()).arg(beta()));
 }
 
 // ------------------------------------------------------------------------------------------------

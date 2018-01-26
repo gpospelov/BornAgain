@@ -28,10 +28,9 @@ TEST_F(TestMaterialModel, test_ParticeleCompositionUpdate)
     EXPECT_EQ(model->rowCount(QModelIndex()), 1);
 
     EXPECT_EQ(item->itemName(), name);
-    auto& materialDataItem
-        = item->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
-    EXPECT_EQ(materialDataItem.delta(), delta);
-    EXPECT_EQ(materialDataItem.beta(), beta);
+    auto materialData = item->getGroupItem(MaterialItem::P_MATERIAL_DATA);
+    EXPECT_EQ(materialData->getItemValue(MaterialRefractiveDataItem::P_DELTA), delta);
+    EXPECT_EQ(materialData->getItemValue(MaterialRefractiveDataItem::P_BETA), beta);
 }
 
 TEST_F(TestMaterialModel, test_cloneMaterial)
@@ -57,10 +56,9 @@ TEST_F(TestMaterialModel, test_cloneMaterial)
     // checking name of cloned material
     EXPECT_EQ(item->itemName() + " (clone)", clonedMaterial->itemName());
 
-    auto& refIndex
-        = clonedMaterial->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
-    EXPECT_EQ(refIndex.delta(), delta);
-    EXPECT_EQ(refIndex.beta(), beta);
+    auto materialData = clonedMaterial->getGroupItem(MaterialItem::P_MATERIAL_DATA);
+    EXPECT_EQ(materialData->getItemValue(MaterialRefractiveDataItem::P_DELTA), delta);
+    EXPECT_EQ(materialData->getItemValue(MaterialRefractiveDataItem::P_BETA), beta);
 }
 
 //! Checks the method which returns MaterialItem from known identifier.

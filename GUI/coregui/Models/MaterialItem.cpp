@@ -78,23 +78,17 @@ std::unique_ptr<Material> MaterialItem::createMaterial() const
 {
     auto dataItem = getGroupItem(P_MATERIAL_DATA);
     auto magnetization = GetVectorItem(*this, P_MAGNETIZATION);
+    auto name = itemName().toStdString();
 
     if (dataItem->modelType() == Constants::MaterialRefractiveDataType) {
-        auto& materialDataItem = groupItem<MaterialRefractiveDataItem>(P_MATERIAL_DATA);
-
-        double real = materialDataItem.delta();
-        double imag = materialDataItem.beta();
-
-
-        return std::make_unique<Material>(HomogeneousMaterial(itemName().toStdString(), real, imag,
-                                                     magnetization));
+        double delta = dataItem->getItemValue(MaterialRefractiveDataItem::P_DELTA).toDouble();
+        double beta = dataItem->getItemValue(MaterialRefractiveDataItem::P_BETA).toDouble();
+        return std::make_unique<Material>(HomogeneousMaterial(name, delta, beta, magnetization));
 
     } else if(dataItem->modelType() == Constants::MaterialSLDDataType) {
         double sld = dataItem->getItemValue(MaterialSLDDataItem::P_SLD).toDouble();
         double abs_term = dataItem->getItemValue(MaterialSLDDataItem::P_ABS_TERM).toDouble();
-
-        return std::make_unique<Material>(MaterialBySLD(itemName().toStdString(), sld, abs_term,
-                                                     magnetization));
+        return std::make_unique<Material>(MaterialBySLD(name, sld, abs_term, magnetization));
     }
 
     throw GUIHelpers::Error("MaterialItem::createMaterial() -> Error. "

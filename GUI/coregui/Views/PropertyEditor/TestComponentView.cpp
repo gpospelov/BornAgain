@@ -129,14 +129,6 @@ void TestComponentView::init_source()
     m_sampleModel->insertNewItem(Constants::VectorType);
     m_sampleModel->insertNewItem(Constants::BeamType);
 
-    // adding material to the test model
-    MaterialItem* materialItem
-        = dynamic_cast<MaterialItem*>(m_sampleModel->insertNewItem(Constants::MaterialType));
-    materialItem->setItemName("air");
-    auto& materialDataItem = materialItem->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
-    materialDataItem.setDelta(1e-3);
-    materialDataItem.setBeta(1e-5);
-
     // adding intensity data item
     m_sampleModel->insertNewItem(Constants::IntensityDataType);
 }

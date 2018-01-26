@@ -76,8 +76,6 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
-    std::string getDefaultAxesUnits(size_t i_item = 0) const;
-
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters() {}

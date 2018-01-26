@@ -358,20 +358,6 @@ TEST_F(SphericalDetectorTest, Clone)
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
 }
 
-TEST_F(SphericalDetectorTest, nameToUnitTranslation)
-{
-    EXPECT_EQ(DetectorFunctions::detectorUnits(""), AxesUnits::DEFAULT);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("QyQz"), AxesUnits::QSPACE);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("qyqz"), AxesUnits::QSPACE);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("MM"), AxesUnits::MM);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("mm"), AxesUnits::MM);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("radians"), AxesUnits::RADIANS);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("rad"), AxesUnits::RADIANS);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("degrees"), AxesUnits::DEGREES);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("deg"), AxesUnits::DEGREES);
-    EXPECT_THROW(DetectorFunctions::detectorUnits("xxx"), std::runtime_error);
-}
-
 // Test retrieval of analyzer properties
 TEST_F(SphericalDetectorTest, AnalyzerProperties)
 {

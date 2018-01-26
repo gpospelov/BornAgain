@@ -50,12 +50,6 @@ BA_CORE_API_ std::string axesToString(const OutputData<double>& data);
 BA_CORE_API_ std::unique_ptr<OutputData<double>> createDataSet(const Instrument& instrument,
     const OutputData<double> &data, bool put_masked_areas_to_zero=true,
     AxesUnits units=AxesUnits::DEFAULT);
-
-//! Translates the name of detector axes units into corresponding enum
-BA_CORE_API_ AxesUnits detectorUnits(const std::string& unitName);
-
-//! Translate detector axes units enum into string.
-BA_CORE_API_ std::string detectorUnitsName(AxesUnits units);
 }
 
 #endif // DETECTORFUNCTIONS_H

@@ -609,7 +609,7 @@ ExternalProperty GUIObjectBuilder::createMaterialFromDomain(
 
     complex_t material_data = material->materialData();
     MaterialItem* materialItem  =
-            m_materialModel->addMaterial(materialName, material_data.real(),material_data.imag());
+            m_materialModel->addRefractiveMaterial(materialName, material_data.real(),material_data.imag());
     SetVectorItem(*materialItem, MaterialItem::P_MAGNETIZATION, material->magnetization());
     return MaterialItemUtils::materialProperty(*materialItem);
 }

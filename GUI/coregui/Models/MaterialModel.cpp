@@ -38,18 +38,12 @@ MaterialModel* MaterialModel::createCopy(SessionItem* parent)
     return result;
 }
 
-MaterialItem* MaterialModel::addMaterial(const QString& name, double material_data_real, double material_data_imag)
+MaterialItem* MaterialModel::addRefractiveMaterial(const QString& name, double delta, double beta)
 {
-    MaterialItem* materialItem
-        = dynamic_cast<MaterialItem*>(insertNewItem(Constants::MaterialType));
-    materialItem->setItemName(name);
-
+    auto materialItem = createMaterial(name);
     auto& materialDataItem = materialItem->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
-    materialDataItem.setDelta(material_data_real);
-    materialDataItem.setBeta(material_data_imag);
-
-    QColor color = MaterialItemUtils::suggestMaterialColor(name);
-    materialItem->setItemValue(MaterialItem::P_COLOR, MaterialItemUtils::colorProperty(color).variant());
+    materialDataItem.setDelta(delta);
+    materialDataItem.setBeta(beta);
 
     return materialItem;
 }
@@ -97,4 +91,17 @@ MaterialItem* MaterialModel::materialFromIdentifier(const QString& identifier)
     }
 
     return nullptr;
+}
+
+//! Creates material with name and color. Material data remains uninitialized.
+
+MaterialItem* MaterialModel::createMaterial(const QString& name)
+{
+    auto result  = dynamic_cast<MaterialItem*>(insertNewItem(Constants::MaterialType));
+    result->setItemName(name);
+
+    QColor color = MaterialItemUtils::suggestMaterialColor(name);
+    result->setItemValue(MaterialItem::P_COLOR, MaterialItemUtils::colorProperty(color).variant());
+
+    return result;
 }

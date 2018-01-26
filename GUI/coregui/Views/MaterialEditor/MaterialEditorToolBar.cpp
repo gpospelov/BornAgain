@@ -74,7 +74,7 @@ void MaterialEditorToolBar::onCustomContextMenuRequested(const QPoint& point)
 
 void MaterialEditorToolBar::onNewMaterialAction()
 {
-    m_materialModel->addMaterial("unnamed");
+    m_materialModel->addRefractiveMaterial("unnamed");
 }
 
 void MaterialEditorToolBar::onCloneMaterialAction()

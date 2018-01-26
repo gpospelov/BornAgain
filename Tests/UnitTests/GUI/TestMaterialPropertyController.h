@@ -19,8 +19,8 @@ TestMaterialPropertyController::~TestMaterialPropertyController() = default;
 TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
 {
     MaterialModel materialModel;
-    auto mat1 = materialModel.addMaterial("name1", 1.0, 2.0);
-    materialModel.addMaterial("name2", 3.0, 4.0);
+    auto mat1 = materialModel.addRefractiveMaterial("name1", 1.0, 2.0);
+    materialModel.addRefractiveMaterial("name2", 3.0, 4.0);
 
     SampleModel sampleModel;
     auto layer = sampleModel.insertNewItem(Constants::LayerType);
@@ -68,9 +68,9 @@ TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
 TEST_F(TestMaterialPropertyController, test_ControllerInEditorContext)
 {
     MaterialModel materialModel;
-    auto mat1 = materialModel.addMaterial("name1", 1.0, 2.0);
-    auto mat2 = materialModel.addMaterial("name2", 1.0, 2.0);
-    auto mat3 = materialModel.addMaterial("name3", 1.0, 2.0);
+    auto mat1 = materialModel.addRefractiveMaterial("name1", 1.0, 2.0);
+    auto mat2 = materialModel.addRefractiveMaterial("name2", 1.0, 2.0);
+    auto mat3 = materialModel.addRefractiveMaterial("name3", 1.0, 2.0);
 
     SampleModel sampleModel;
     auto layer1 = sampleModel.insertNewItem(Constants::LayerType);

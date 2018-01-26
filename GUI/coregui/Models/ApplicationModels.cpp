@@ -87,10 +87,10 @@ void ApplicationModels::resetModels()
     m_documentModel->insertNewItem(Constants::SimulationOptionsType);
 
     m_materialModel->clear();
-    m_materialModel->addMaterial("Default", 1e-3, 1e-5);
-    m_materialModel->addMaterial("Air", 0.0, 0.0);
-    m_materialModel->addMaterial("Particle", 6e-4, 2e-8);
-    m_materialModel->addMaterial("Substrate", 6e-6, 2e-8);
+    m_materialModel->addRefractiveMaterial("Default", 1e-3, 1e-5);
+    m_materialModel->addRefractiveMaterial("Air", 0.0, 0.0);
+    m_materialModel->addRefractiveMaterial("Particle", 6e-4, 2e-8);
+    m_materialModel->addRefractiveMaterial("Substrate", 6e-6, 2e-8);
 
     m_sampleModel->clear();
 

@@ -64,17 +64,44 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
 
     VariableBinAxis axis("axis", 2, std::vector<double>{1.0, 2.0, 3.0});
     sim.setBeamParameters(1.0, axis);
+    const auto& beam = sim.getInstrument().getBeam();
+
     EXPECT_EQ(2u, sim.getAlphaAxis()->size());
     EXPECT_EQ(1.0, sim.getAlphaAxis()->getMin());
     EXPECT_EQ(3.0, sim.getAlphaAxis()->getMax());
+    EXPECT_EQ(1.0, beam.getIntensity());
+    EXPECT_EQ(1.0, beam.getWavelength());
+    EXPECT_EQ(0.0, beam.getAlpha());
+    EXPECT_EQ(0.0, beam.getPhi());
+
+    sim.setBeamIntensity(2.0);
+    EXPECT_EQ(2.0, beam.getIntensity());
 
     sim.setBeamParameters(1.0, 10, 1.0 * Units::degree, 10.0 * Units::degree);
     EXPECT_EQ(10u, sim.getAlphaAxis()->size());
     EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->getMin());
     EXPECT_EQ(10.0 * Units::degree, sim.getAlphaAxis()->getMax());
+    EXPECT_EQ(2.0, beam.getIntensity());
+    EXPECT_EQ(1.0, beam.getWavelength());
+    EXPECT_EQ(0.0, beam.getAlpha());
+    EXPECT_EQ(0.0, beam.getPhi());
 
     EXPECT_THROW(sim.setBeamParameters(1.0, 10, -2.0, 3.0),
                  std::runtime_error);
+    EXPECT_THROW(sim.setBeamParameters(1.0, 10, 2.0, 1.0),
+                 std::runtime_error);
+    EXPECT_THROW(sim.setBeamParameters(1.0, 0, 1.0, 2.0),
+                 std::runtime_error);
+    EXPECT_THROW(sim.setBeamParameters(-1.0, 1, 1.0, 2.0),
+                 std::runtime_error);
+
+    EXPECT_EQ(10u, sim.getAlphaAxis()->size());
+    EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->getMin());
+    EXPECT_EQ(10.0 * Units::degree, sim.getAlphaAxis()->getMax());
+    EXPECT_EQ(2.0, beam.getIntensity());
+    EXPECT_EQ(1.0, beam.getWavelength());
+    EXPECT_EQ(0.0, beam.getAlpha());
+    EXPECT_EQ(0.0, beam.getPhi());
 }
 
 TEST_F(SpecularSimulationTest, ConstructSimulation)

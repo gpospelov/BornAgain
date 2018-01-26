@@ -71,9 +71,18 @@ size_t SpecularSimulation::numberOfSimulationElements() const
 void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
                                            const IFootprintFactor* beam_shape)
 {
+    if (lambda <= 0.0)
+        throw std::runtime_error(
+            "Error in SpecularSimulation::setBeamParameters: wavelength must be positive.");
     if (alpha_axis.getMin() < 0.0)
         throw std::runtime_error(
             "Error in SpecularSimulation::setBeamParameters: minimum value on angle axis is negative.");
+    if (alpha_axis.getMin() >= alpha_axis.getMax())
+        throw std::runtime_error("Error in SpecularSimulation::setBeamParameters: maximal value on "
+                                 "angle axis is less or equal to the minimal one.");
+    if (alpha_axis.size() == 0)
+        throw std::runtime_error(
+            "Error in SpecularSimulation::setBeamParameters: angle axis is empty");
 
     SpecularDetector1D detector(alpha_axis);
     m_instrument.setDetector(detector);

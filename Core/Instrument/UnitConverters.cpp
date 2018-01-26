@@ -98,12 +98,13 @@ void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_ax
 {
     auto& axis = detector.getAxis(i_axis);
     auto p_roi = detector.regionOfInterest();
+    auto axis_name = axisName(i_axis);
     if (p_roi) {
         auto P_roi_axis = p_roi->clipAxisToRoi(i_axis, axis);
-        addAxisData(axis.getName(), P_roi_axis->getMin(), P_roi_axis->getMax(), defaultUnits(),
+        addAxisData(axis_name, P_roi_axis->getMin(), P_roi_axis->getMax(), defaultUnits(),
                     P_roi_axis->size());
     } else {
-        addAxisData(axis.getName(), axis.getMin(), axis.getMax(), defaultUnits(), axis.size());
+        addAxisData(axis_name, axis.getMin(), axis.getMax(), defaultUnits(), axis.size());
     }
 }
 

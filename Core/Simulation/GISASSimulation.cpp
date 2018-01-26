@@ -57,7 +57,8 @@ size_t GISASSimulation::numberOfSimulationElements() const
 
 SimulationResult GISASSimulation::result() const
 {
-    auto data = std::unique_ptr<OutputData<double>>(getDetectorIntensity());
+    auto data = std::unique_ptr<OutputData<double>>(
+                    m_instrument.createDetectorIntensity(m_sim_elements));
     auto p_det = getInstrument().getDetector();
     if (p_det) {
         auto p_spher_det = dynamic_cast<const SphericalDetector*>(p_det);
@@ -77,9 +78,7 @@ SimulationResult GISASSimulation::result() const
 
 OutputData<double>* GISASSimulation::getDetectorIntensity(AxesUnits units_type) const
 {
-    std::unique_ptr<OutputData<double>> result(
-        m_instrument.createDetectorIntensity(m_sim_elements, units_type));
-    return result.release();
+    return result().data(units_type);
 }
 
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)

@@ -26,6 +26,7 @@ typedef _object PyObject;
 #endif
 #endif
 
+class Histogram2D;
 class IAxis;
 template<class T> class OutputData;
 class IUnitConverter;
@@ -45,6 +46,7 @@ public:
     SimulationResult& operator=(SimulationResult&& other);
 
     OutputData<double>* data(AxesUnits units_type = AxesUnits::DEFAULT) const;
+    Histogram2D* histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
     //! returns data as Python numpy array
 #ifdef BORNAGAIN_PYTHON

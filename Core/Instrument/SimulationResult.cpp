@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "SimulationResult.h"
+#include "Histogram2D.h"
 #include "FixedBinAxis.h"
 #include "OutputData.h"
 
@@ -57,6 +58,15 @@ OutputData<double>* SimulationResult::data(AxesUnits units_type) const
         result->addAxis(*createConvertedAxis(i, units_type));
     result->setRawDataVector(mP_data->getRawDataVector());
     return result.release();
+}
+
+Histogram2D* SimulationResult::histogram2d(AxesUnits units_type) const
+{
+    if (mP_data->getRank() != 2 || mP_unit_converter->dimension() != 2)
+        throw std::runtime_error("Error in SimulationResult::histogram2d: "
+                                 "dimension of data is not 2");
+    std::unique_ptr<OutputData<double>> P_data(data(units_type));
+    return new Histogram2D(*P_data);
 }
 
 PyObject* SimulationResult::array() const

@@ -81,8 +81,8 @@ def plot_colormap(intensity, zmin=None, zmax=None,
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """
-    zmin = 1.0 if zmin is None else zmin
     zmax = intensity.getMaximum() if zmax is None else zmax
+    zmin = 1e-6*zmax if zmin is None else zmin
 
     xlabel = get_xlabel(intensity) if xlabel is None else xlabel
     ylabel = get_ylabel(intensity) if ylabel is None else ylabel

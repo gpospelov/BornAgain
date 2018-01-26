@@ -23,7 +23,6 @@
 namespace
 {
 IDetector2D* Detector2D(Instrument& instrument);
-const IDetector2D* Detector2D(const Instrument& instrument);
 }
 
 Simulation2D::Simulation2D(const MultiLayer& p_sample)
@@ -85,13 +84,7 @@ OutputData<double>* Simulation2D::getDetectorIntensity(AxesUnits units_type) con
 Histogram2D* Simulation2D::getIntensityData(AxesUnits units_type) const
 {
     std::unique_ptr<OutputData<double>> data(getDetectorIntensity(units_type));
-    std::unique_ptr<Histogram2D> result(new Histogram2D(*data));
-
-    if (units_type == AxesUnits::DEFAULT)
-        units_type = Detector2D(m_instrument)->defaultAxesUnits();
-
-    result->setAxesUnits(DetectorFunctions::detectorUnitsName(units_type));
-    return result.release();
+    return new Histogram2D(*data);
 }
 
 std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(size_t start,
@@ -172,14 +165,6 @@ namespace
 IDetector2D* Detector2D(Instrument& instrument)
 {
     IDetector2D* p_detector = dynamic_cast<IDetector2D*>(instrument.getDetector());
-    if (!p_detector)
-        throw std::runtime_error(
-            "Error in Simulation2D: wrong detector type");
-    return p_detector;
-}
-const IDetector2D* Detector2D(const Instrument& instrument)
-{
-    const IDetector2D* p_detector = dynamic_cast<const IDetector2D*>(instrument.getDetector());
     if (!p_detector)
         throw std::runtime_error(
             "Error in Simulation2D: wrong detector type");

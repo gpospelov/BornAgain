@@ -17506,28 +17506,6 @@ class IHistogram(_object):
         """
         return _libBornAgainCore.IHistogram_load(self, filename)
 
-
-    def setAxesUnits(self, name):
-        """
-        setAxesUnits(IHistogram self, std::string const & name)
-
-        void IHistogram::setAxesUnits(const std::string &name)
-
-        Sets axes units. 
-
-        """
-        return _libBornAgainCore.IHistogram_setAxesUnits(self, name)
-
-
-    def axesUnits(self):
-        """
-        axesUnits(IHistogram self) -> std::string
-
-        std::string IHistogram::axesUnits() const
-
-        """
-        return _libBornAgainCore.IHistogram_axesUnits(self)
-
 IHistogram_swigregister = _libBornAgainCore.IHistogram_swigregister
 IHistogram_swigregister(IHistogram)
 

@@ -57,4 +57,22 @@ std::map<AxesUnits, std::string> InitRectangularAxis1()
     result[AxesUnits::QSPACE] = "Qz [1/nm]";
     return result;
 }
+// For off-specular simulations (both spherical and rectangular detectors)
+// Currently 'mm' is not supported for the y-axis
+std::map<AxesUnits, std::string> InitOffSpecAxis0()
+{
+    std::map<AxesUnits, std::string> result;
+    result[AxesUnits::NBINS] = "X [nbins]";
+    result[AxesUnits::RADIANS] = "alpha_i [rad]";
+    result[AxesUnits::DEGREES] = "alpha_i [deg]";
+    return result;
+}
+std::map<AxesUnits, std::string> InitOffSpecAxis1()
+{
+    std::map<AxesUnits, std::string> result;
+    result[AxesUnits::NBINS] = "Y [nbins]";
+    result[AxesUnits::RADIANS] = "alpha_f [rad]";
+    result[AxesUnits::DEGREES] = "alpha_f [deg]";
+    return result;
+}
 }

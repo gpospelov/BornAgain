@@ -27033,5 +27033,40 @@ class RectangularConverter(UnitConverterSimple):
 RectangularConverter_swigregister = _libBornAgainCore.RectangularConverter_swigregister
 RectangularConverter_swigregister(RectangularConverter)
 
+class OffSpecularConverter(UnitConverterSimple):
+    """Proxy of C++ OffSpecularConverter class."""
+
+    __swig_setmethods__ = {}
+    for _s in [UnitConverterSimple]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, OffSpecularConverter, name, value)
+    __swig_getmethods__ = {}
+    for _s in [UnitConverterSimple]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, OffSpecularConverter, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, detector, beam, alpha_axis):
+        """__init__(OffSpecularConverter self, IDetector2D detector, Beam beam, IAxis alpha_axis) -> OffSpecularConverter"""
+        this = _libBornAgainCore.new_OffSpecularConverter(detector, beam, alpha_axis)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_OffSpecularConverter
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(OffSpecularConverter self) -> OffSpecularConverter
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainCore.OffSpecularConverter_clone(self)
+
+OffSpecularConverter_swigregister = _libBornAgainCore.OffSpecularConverter_swigregister
+OffSpecularConverter_swigregister(OffSpecularConverter)
+
 # This file is compatible with both classic and new-style classes.
 

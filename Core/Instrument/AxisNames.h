@@ -28,6 +28,8 @@ std::map<AxesUnits, std::string> InitSphericalAxis0();
 std::map<AxesUnits, std::string> InitSphericalAxis1();
 std::map<AxesUnits, std::string> InitRectangularAxis0();
 std::map<AxesUnits, std::string> InitRectangularAxis1();
+std::map<AxesUnits, std::string> InitOffSpecAxis0();
+std::map<AxesUnits, std::string> InitOffSpecAxis1();
 }
 
 #endif // AXISNAMES_H

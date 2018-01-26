@@ -41,7 +41,7 @@ Beam::Beam(const Beam& other)
     registerChildren();
 }
 
-Beam &Beam::operator=(const Beam &other)
+Beam& Beam::operator=(const Beam& other)
 {
     if (this != &other) {
         Beam tmp(other);

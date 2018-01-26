@@ -25,7 +25,9 @@
 #include <vector>
 
 class Beam;
+class IAxis;
 class IDetector;
+class IDetector2D;
 class RectangularDetector;
 class RectangularPixel;
 class SphericalDetector;
@@ -124,7 +126,7 @@ private:
 };
 
 //! IUnitConverter class that handles the unit translations for rectangular detectors
-//! Its default units are radians for both axes
+//! Its default units are mm for both axes
 //! @ingroup simulation_internal
 
 class BA_CORE_API_ RectangularConverter : public UnitConverterSimple
@@ -143,6 +145,27 @@ private:
     kvector_t normalizeToWavelength(kvector_t vector) const;
     double axisAngle(size_t i_axis, kvector_t k_f) const;
     std::unique_ptr<RectangularPixel> mP_detector_pixel;
+};
+
+//! IUnitConverter class that handles the unit translations for off-specular simulations
+//! with a spherical detector
+//! Its default units are radians for both axes
+//! @ingroup simulation_internal
+
+class BA_CORE_API_ OffSpecularConverter : public UnitConverterSimple
+{
+public:
+    OffSpecularConverter(const IDetector2D& detector, const Beam& beam, const IAxis& alpha_axis);
+    virtual ~OffSpecularConverter();
+
+    OffSpecularConverter* clone() const override;
+
+private:
+    OffSpecularConverter(const OffSpecularConverter& other);
+    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
+    AxesUnits defaultUnits() const override { return AxesUnits::RADIANS; }
+    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
+    void addDetectorYAxis(const IDetector2D& detector);
 };
 
 #endif // UNITCONVERTERS_H

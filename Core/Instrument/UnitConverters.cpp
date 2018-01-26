@@ -77,7 +77,6 @@ size_t UnitConverterSimple::axisSize(size_t i_axis) const
 std::string UnitConverterSimple::axisName(size_t i_axis, AxesUnits units_type) const
 {
     const std::vector<std::map<AxesUnits, std::string>> name_maps = createNameMaps();
-    checkIndex(i_axis);
     auto& name_map = name_maps[i_axis];
     if (units_type==AxesUnits::DEFAULT) units_type = defaultUnits();
     auto it = name_map.find(units_type);
@@ -266,3 +265,80 @@ double RectangularConverter::axisAngle(size_t i_axis, kvector_t k_f) const
                              + std::to_string(static_cast<int>(i_axis)));
 }
 
+/* OffSpecularConverter **********************************************/
+
+OffSpecularConverter::OffSpecularConverter(const IDetector2D& detector, const Beam& beam,
+                                           const IAxis& alpha_axis)
+    : UnitConverterSimple(beam)
+{
+    if (detector.dimension() != 2)
+        throw std::runtime_error("Error in OffSpecularConverter constructor: "
+                                 "detector has wrong dimension: "
+                                 + std::to_string(static_cast<int>(detector.dimension())));
+    auto alpha_axis_name = axisName(0);
+    addAxisData(alpha_axis_name, alpha_axis.getMin(), alpha_axis.getMax(), defaultUnits(),
+                alpha_axis.size());
+    addDetectorYAxis(detector);
+}
+
+OffSpecularConverter::~OffSpecularConverter() =default;
+
+OffSpecularConverter*OffSpecularConverter::clone() const
+{
+    return new OffSpecularConverter(*this);
+}
+
+OffSpecularConverter::OffSpecularConverter(const OffSpecularConverter& other)
+    : UnitConverterSimple(other)
+{}
+
+double OffSpecularConverter::calculateValue(size_t, AxesUnits units_type, double value) const
+{
+    switch(units_type) {
+    case AxesUnits::DEGREES:
+        return Units::rad2deg(value);
+    default:
+        throw std::runtime_error("Error in OffSpecularConverter::calculateValue: "
+                                 "target units not available: "
+                                 + std::to_string(static_cast<int>(units_type)));
+    }
+}
+
+std::vector<std::map<AxesUnits, std::string> > OffSpecularConverter::createNameMaps() const
+{
+    std::vector<std::map<AxesUnits, std::string>> result;
+    result.push_back(AxisNames::InitOffSpecAxis0());
+    result.push_back(AxisNames::InitOffSpecAxis1());
+    return result;
+}
+
+void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
+{
+    auto& axis = detector.getAxis(1);
+    auto p_roi = detector.regionOfInterest();
+    auto axis_name = axisName(1);
+    std::unique_ptr<IAxis> P_new_axis;
+    if (p_roi) {
+        P_new_axis = p_roi->clipAxisToRoi(1, axis);
+    } else {
+        P_new_axis.reset(axis.clone());
+    }
+    if (!P_new_axis)
+        throw std::runtime_error("Error in OffSpecularConverter::addDetectorYAxis: "
+                                 "could not retrieve the y-axis of the detector");
+    if (auto P_rect_det = dynamic_cast<const RectangularDetector*>(&detector)) {
+        std::unique_ptr<RectangularPixel> P_det_pixel(P_rect_det->regionOfInterestPixel());
+        auto k00 = P_det_pixel->getPosition(0.0, 0.0);
+        auto k01 = P_det_pixel->getPosition(0.0, 1.0);
+        double alpha_f_min = M_PI_2 - k00.theta();
+        double alpha_f_max = M_PI_2 - k01.theta();
+        addAxisData(axis_name, alpha_f_min, alpha_f_max, defaultUnits(), P_new_axis->size());
+    } else if (dynamic_cast<const SphericalDetector*>(&detector)) {
+        double alpha_f_min = P_new_axis->getMin();
+        double alpha_f_max = P_new_axis->getMax();
+        addAxisData(axis_name, alpha_f_min, alpha_f_max, defaultUnits(), P_new_axis->size());
+    } else {
+        throw std::runtime_error("Error in OffSpecularConverter::addDetectorYAxis: "
+                                 "wrong detector type");
+    }
+}

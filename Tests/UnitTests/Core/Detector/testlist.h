@@ -10,4 +10,5 @@
 #include "PolygonTest.h"
 #include "SphericalConverterTest.h"
 #include "RectangularConverterTest.h"
+#include "OffSpecularConverterTest.h"
 #include "SimulationAreaTest.h"

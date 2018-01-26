@@ -75,33 +75,33 @@ TEST_F(SphericalConverterTest, SphericalConverterClone)
 
     EXPECT_EQ(P_clone->dimension(), 2u);
 
-    EXPECT_DOUBLE_EQ(converter.calculateMin(0, AxesUnits::DEFAULT), 0.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(0, AxesUnits::NBINS), 0.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(0, AxesUnits::RADIANS), 0.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(0, AxesUnits::DEGREES), 0.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(0, AxesUnits::QSPACE), 0.0);
-    EXPECT_THROW(converter.calculateMin(0, AxesUnits::MM), std::runtime_error);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(0, AxesUnits::DEFAULT), 0.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(0, AxesUnits::NBINS), 0.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(0, AxesUnits::RADIANS), 0.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(0, AxesUnits::DEGREES), 0.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(0, AxesUnits::QSPACE), 0.0);
+    EXPECT_THROW(P_clone->calculateMin(0, AxesUnits::MM), std::runtime_error);
 
-    EXPECT_DOUBLE_EQ(converter.calculateMax(0, AxesUnits::DEFAULT), Units::deg2rad(5.0));
-    EXPECT_DOUBLE_EQ(converter.calculateMax(0, AxesUnits::NBINS), 100.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMax(0, AxesUnits::RADIANS), Units::deg2rad(5.0));
-    EXPECT_DOUBLE_EQ(converter.calculateMax(0, AxesUnits::DEGREES), 5.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMax(0, AxesUnits::QSPACE), m_kfy);
-    EXPECT_THROW(converter.calculateMax(0, AxesUnits::MM), std::runtime_error);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(0, AxesUnits::DEFAULT), Units::deg2rad(5.0));
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(0, AxesUnits::NBINS), 100.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(0, AxesUnits::RADIANS), Units::deg2rad(5.0));
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(0, AxesUnits::DEGREES), 5.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(0, AxesUnits::QSPACE), m_kfy);
+    EXPECT_THROW(P_clone->calculateMax(0, AxesUnits::MM), std::runtime_error);
 
-    EXPECT_DOUBLE_EQ(converter.calculateMin(1, AxesUnits::DEFAULT), Units::deg2rad(-2.0));
-    EXPECT_DOUBLE_EQ(converter.calculateMin(1, AxesUnits::NBINS), 0.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(1, AxesUnits::RADIANS), Units::deg2rad(-2.0));
-    EXPECT_DOUBLE_EQ(converter.calculateMin(1, AxesUnits::DEGREES), -2.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMin(1, AxesUnits::QSPACE), m_kfz1 - m_kiz);
-    EXPECT_THROW(converter.calculateMin(1, AxesUnits::MM), std::runtime_error);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(1, AxesUnits::DEFAULT), Units::deg2rad(-2.0));
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(1, AxesUnits::NBINS), 0.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(1, AxesUnits::RADIANS), Units::deg2rad(-2.0));
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(1, AxesUnits::DEGREES), -2.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMin(1, AxesUnits::QSPACE), m_kfz1 - m_kiz);
+    EXPECT_THROW(P_clone->calculateMin(1, AxesUnits::MM), std::runtime_error);
 
-    EXPECT_DOUBLE_EQ(converter.calculateMax(1, AxesUnits::DEFAULT), 1.5);
-    EXPECT_DOUBLE_EQ(converter.calculateMax(1, AxesUnits::NBINS), 70.0);
-    EXPECT_DOUBLE_EQ(converter.calculateMax(1, AxesUnits::RADIANS), 1.5);
-    EXPECT_DOUBLE_EQ(converter.calculateMax(1, AxesUnits::DEGREES), Units::rad2deg(1.5));
-    EXPECT_DOUBLE_EQ(converter.calculateMax(1, AxesUnits::QSPACE), m_kfz2 - m_kiz);
-    EXPECT_THROW(converter.calculateMax(1, AxesUnits::MM), std::runtime_error);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(1, AxesUnits::DEFAULT), 1.5);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(1, AxesUnits::NBINS), 70.0);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(1, AxesUnits::RADIANS), 1.5);
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(1, AxesUnits::DEGREES), Units::rad2deg(1.5));
+    EXPECT_DOUBLE_EQ(P_clone->calculateMax(1, AxesUnits::QSPACE), m_kfz2 - m_kiz);
+    EXPECT_THROW(P_clone->calculateMax(1, AxesUnits::MM), std::runtime_error);
 
     EXPECT_THROW(P_clone->calculateMin(2, AxesUnits::DEFAULT), std::runtime_error);
     EXPECT_THROW(P_clone->calculateMax(2, AxesUnits::DEFAULT), std::runtime_error);

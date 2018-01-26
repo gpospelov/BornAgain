@@ -47,7 +47,7 @@ public:
     SimulationResult result() const override;
 
     //! Sets beam parameters from here (forwarded to Instrument)
-    void setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i);
+    void setBeamParameters(double wavelength, const IAxis& alpha_axis, double phi_i);
 
 private:
     OffSpecSimulation(const OffSpecSimulation& other);

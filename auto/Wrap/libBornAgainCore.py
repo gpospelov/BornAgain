@@ -23726,16 +23726,16 @@ class OffSpecSimulation(Simulation2D):
         return _libBornAgainCore.OffSpecSimulation_result(self)
 
 
-    def setBeamParameters(self, arg2, alpha_axis, phi_i):
+    def setBeamParameters(self, wavelength, alpha_axis, phi_i):
         """
-        setBeamParameters(OffSpecSimulation self, double arg2, IAxis alpha_axis, double phi_i)
+        setBeamParameters(OffSpecSimulation self, double wavelength, IAxis alpha_axis, double phi_i)
 
         void OffSpecSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, double phi_i)
 
         Sets beam parameters from here (forwarded to  Instrument) 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_setBeamParameters(self, arg2, alpha_axis, phi_i)
+        return _libBornAgainCore.OffSpecSimulation_setBeamParameters(self, wavelength, alpha_axis, phi_i)
 
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)

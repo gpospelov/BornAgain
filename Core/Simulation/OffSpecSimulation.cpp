@@ -61,7 +61,7 @@ SimulationResult OffSpecSimulation::result() const
                              "wrong or absent detector type");
 }
 
-void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i)
+void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_axis, double phi_i)
 {
     mP_alpha_i_axis.reset(alpha_axis.clone());
     if (alpha_axis.size()<1)
@@ -69,7 +69,7 @@ void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis
                 "OffSpecSimulation::prepareSimulation() "
                 "-> Error. Incoming alpha range size < 1.");
     double alpha_start = alpha_axis[0];
-    m_instrument.setBeamParameters(lambda, alpha_start, phi_i);
+    m_instrument.setBeamParameters(wavelength, alpha_start, phi_i);
     updateIntensityMap();
 }
 

@@ -70,14 +70,14 @@ void MaterialPropertyController::onMaterialDataChanged(const QModelIndex& topLef
 {
     auto changedItem = m_materialModel->itemForIndex(topLeft);
     if (auto materialItem = dynamic_cast<const MaterialItem*>(
-            ModelPath::ancestor(changedItem, Constants::HomogeneousMaterialType))) {
+            ModelPath::ancestor(changedItem, Constants::MaterialType))) {
 
         for (auto sampleItem : relatedSampleItems()) {
             QString tag = MaterialItemUtils::materialTag(*sampleItem);
             Q_ASSERT(!tag.isEmpty());
 
             ExternalProperty property = sampleItem->getItemValue(tag).value<ExternalProperty>();
-            if (property.identifier() == materialItem->getIdentifier()) {
+            if (property.identifier() == materialItem->identifier()) {
                 ExternalProperty new_property = MaterialItemUtils::materialProperty(*materialItem);
                 sampleItem->setItemValue(tag, new_property.variant());
             }
@@ -99,7 +99,7 @@ void MaterialPropertyController::onMaterialRowsAboutToBeRemoved(const QModelInde
     for (int i_row = first; i_row <= last; ++i_row) {
         QModelIndex changed = m_materialModel->index(i_row, 0, parent);
         if (auto material = dynamic_cast<MaterialItem*>(m_materialModel->itemForIndex(changed)))
-            identifiersToDelete.push_back(material->getIdentifier());
+            identifiersToDelete.push_back(material->identifier());
     }
 
     // rewriting MaterialProperty in corresponding sample items

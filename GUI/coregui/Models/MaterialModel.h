@@ -25,20 +25,22 @@ class BA_CORE_API_ MaterialModel : public SessionModel
     Q_OBJECT
 
 public:
-    explicit MaterialModel(QObject* parent = 0);
+    explicit MaterialModel(QObject* parent = nullptr);
     ~MaterialModel();
 
-    virtual MaterialModel* createCopy(SessionItem* parent = 0);
+    MaterialModel* createCopy(SessionItem* parent = nullptr);
 
-    MaterialItem* addMaterial(const QString& name, double material_data_real = 0.0, double material_data_imag = 0.0);
-    void removeMaterial(MaterialItem*);
+    MaterialItem* addRefractiveMaterial(const QString& name, double delta, double beta);
+    MaterialItem* addSLDMaterial(const QString& name, double sld, double abs_term);
 
-    MaterialItem* getMaterial(const QModelIndex& index);
+    MaterialItem* materialFromIndex(const QModelIndex& index);
+    MaterialItem* materialFromName(const QString& name);
+    MaterialItem* materialFromIdentifier(const QString& identifier);
 
     MaterialItem* cloneMaterial(const QModelIndex& index);
 
-    MaterialItem* materialFromName(const QString& material_name);
-    MaterialItem* materialFromIdentifier(const QString& identifier);
+private:
+    MaterialItem* createMaterial(const QString& name);
 };
 
 #endif // MATERIALMODEL_H

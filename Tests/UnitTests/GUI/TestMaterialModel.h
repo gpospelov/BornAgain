@@ -1,8 +1,8 @@
-#include "google_test.h"
-#include "MaterialModel.h"
+#include "MaterialDataItems.h"
 #include "MaterialItem.h"
-#include "MaterialDataItem.h"
 #include "MaterialItemUtils.h"
+#include "MaterialModel.h"
+#include "google_test.h"
 #include <memory>
 
 class TestMaterialModel : public ::testing::Test
@@ -13,7 +13,7 @@ public:
 
 TestMaterialModel::~TestMaterialModel() = default;
 
-TEST_F(TestMaterialModel, test_ParticeleCompositionUpdate)
+TEST_F(TestMaterialModel, addRefractiveMaterial)
 {
     std::unique_ptr<MaterialModel> model(new MaterialModel);
 
@@ -21,20 +21,39 @@ TEST_F(TestMaterialModel, test_ParticeleCompositionUpdate)
 
     const double delta(0.2), beta(0.1);
     const QString name("MaterialName");
-    MaterialItem* item = model->addMaterial(name, delta, beta);
+    auto material = model->addRefractiveMaterial(name, delta, beta);
 
     EXPECT_EQ(model->rowCount(QModelIndex()), 1);
-    EXPECT_EQ(model->itemForIndex(item->index()), item);
+    EXPECT_EQ(model->itemForIndex(material->index()), material);
     EXPECT_EQ(model->rowCount(QModelIndex()), 1);
 
-    EXPECT_EQ(item->itemName(), name);
-    const MaterialDataItem* refIndex
-        = dynamic_cast<const MaterialDataItem*>(item->getItem(MaterialItem::P_MATERIAL_DATA));
-    EXPECT_EQ(refIndex->getReal(), delta);
-    EXPECT_EQ(refIndex->getImag(), beta);
+    EXPECT_EQ(material->itemName(), name);
+    auto materialData = material->getGroupItem(MaterialItem::P_MATERIAL_DATA);
+    EXPECT_EQ(materialData->getItemValue(MaterialRefractiveDataItem::P_DELTA), delta);
+    EXPECT_EQ(materialData->getItemValue(MaterialRefractiveDataItem::P_BETA), beta);
 }
 
-TEST_F(TestMaterialModel, test_cloneMaterial)
+TEST_F(TestMaterialModel, addSLDMaterial)
+{
+    std::unique_ptr<MaterialModel> model(new MaterialModel);
+
+    EXPECT_EQ(model->rowCount(QModelIndex()), 0);
+
+    const double sld(0.2), abs_term(0.1);
+    const QString name("MaterialName");
+    auto material = model->addSLDMaterial(name, sld, abs_term);
+
+    EXPECT_EQ(model->rowCount(QModelIndex()), 1);
+    EXPECT_EQ(model->itemForIndex(material->index()), material);
+    EXPECT_EQ(model->rowCount(QModelIndex()), 1);
+
+    EXPECT_EQ(material->itemName(), name);
+    auto materialData = material->getGroupItem(MaterialItem::P_MATERIAL_DATA);
+    EXPECT_EQ(materialData->getItemValue(MaterialSLDDataItem::P_SLD), sld);
+    EXPECT_EQ(materialData->getItemValue(MaterialSLDDataItem::P_ABS_TERM), abs_term);
+}
+
+TEST_F(TestMaterialModel, cloneMaterial)
 {
     std::unique_ptr<MaterialModel> model(new MaterialModel);
 
@@ -42,48 +61,47 @@ TEST_F(TestMaterialModel, test_cloneMaterial)
 
     const double delta(0.2), beta(0.1);
     const QString name("MaterialName");
-    MaterialItem* item = model->addMaterial(name, delta, beta);
-    const QString origIdentifier = item->getIdentifier();
+    auto material = model->addRefractiveMaterial(name, delta, beta);
+    const QString origIdentifier = material->identifier();
 
-    MaterialItem* clonedMaterial = model->cloneMaterial(item->index());
+    auto clonedMaterial = model->cloneMaterial(material->index());
     EXPECT_EQ(model->rowCount(QModelIndex()), 2);
 
     // clone should not change identifier of original material (as it once happened)
-    EXPECT_EQ(item->getIdentifier(), origIdentifier);
+    EXPECT_EQ(material->identifier(), origIdentifier);
 
     // cloned material should have different identifier
-    EXPECT_TRUE(clonedMaterial->getIdentifier() != item->getIdentifier());
+    EXPECT_TRUE(clonedMaterial->identifier() != material->identifier());
 
     // checking name of cloned material
-    EXPECT_EQ(item->itemName() + " (clone)", clonedMaterial->itemName());
+    EXPECT_EQ(material->itemName() + " (clone)", clonedMaterial->itemName());
 
-    const MaterialDataItem* refIndex = dynamic_cast<const MaterialDataItem*>(
-        clonedMaterial->getItem(MaterialItem::P_MATERIAL_DATA));
-    EXPECT_EQ(refIndex->getReal(), delta);
-    EXPECT_EQ(refIndex->getImag(), beta);
+    auto materialData = clonedMaterial->getGroupItem(MaterialItem::P_MATERIAL_DATA);
+    EXPECT_EQ(materialData->getItemValue(MaterialRefractiveDataItem::P_DELTA), delta);
+    EXPECT_EQ(materialData->getItemValue(MaterialRefractiveDataItem::P_BETA), beta);
 }
 
 //! Checks the method which returns MaterialItem from known identifier.
 
-TEST_F(TestMaterialModel, test_materialItemFromIdentifier)
+TEST_F(TestMaterialModel, materialFromIdentifier)
 {
     MaterialModel model;
-    MaterialItem* mat1 = model.addMaterial("aaa", 1.0, 2.0);
-    MaterialItem* mat2 = model.addMaterial("bbb", 3.0, 4.0);
-    EXPECT_TRUE(mat1 == model.materialFromIdentifier(mat1->getIdentifier()));
-    EXPECT_TRUE(mat2 == model.materialFromIdentifier(mat2->getIdentifier()));
+    auto material1 = model.addRefractiveMaterial("aaa", 1.0, 2.0);
+    auto material2 = model.addRefractiveMaterial("bbb", 3.0, 4.0);
+    EXPECT_TRUE(material1 == model.materialFromIdentifier(material1->identifier()));
+    EXPECT_TRUE(material2 == model.materialFromIdentifier(material2->identifier()));
     EXPECT_TRUE(nullptr == model.materialFromIdentifier("non-existing-identifier"));
 }
 
 //! Checks the method which returns MaterialItem from material name.
 
-TEST_F(TestMaterialModel, test_materialItemFromName)
+TEST_F(TestMaterialModel, test_materialFromName)
 {
     MaterialModel model;
-    MaterialItem* mat1 = model.addMaterial("aaa", 1.0, 2.0);
-    MaterialItem* mat2 = model.addMaterial("bbb", 3.0, 4.0);
-    EXPECT_TRUE(mat1 == model.materialFromName(mat1->itemName()));
-    EXPECT_TRUE(mat2 == model.materialFromName(mat2->itemName()));
+    auto material1 = model.addRefractiveMaterial("aaa", 1.0, 2.0);
+    auto material2 = model.addRefractiveMaterial("bbb", 3.0, 4.0);
+    EXPECT_TRUE(material1 == model.materialFromName(material1->itemName()));
+    EXPECT_TRUE(material2 == model.materialFromName(material2->itemName()));
     EXPECT_TRUE(nullptr == model.materialFromName("non-existing-name"));
 }
 
@@ -92,17 +110,17 @@ TEST_F(TestMaterialModel, test_materialItemFromName)
 TEST_F(TestMaterialModel, test_materialPropertyFromMaterial)
 {
     MaterialModel model;
-    MaterialItem* mat = model.addMaterial("Something", 1.0, 2.0);
+    auto material = model.addRefractiveMaterial("Something", 1.0, 2.0);
 
-    ExternalProperty property = MaterialItemUtils::materialProperty(*mat);
+    ExternalProperty property = MaterialItemUtils::materialProperty(*material);
     EXPECT_EQ(property.text(), QString("Something"));
-    EXPECT_EQ(property.color(), mat->getColor());
-    EXPECT_EQ(property.identifier(), mat->getIdentifier());
+    EXPECT_EQ(property.color(), material->color());
+    EXPECT_EQ(property.identifier(), material->identifier());
 }
 
 //! Default MaterialProperty construction.
 
-TEST_F(TestMaterialModel, test_defaultMaterialProperty)
+TEST_F(TestMaterialModel, defaultMaterialProperty)
 {
     MaterialModel model;
 
@@ -112,10 +130,10 @@ TEST_F(TestMaterialModel, test_defaultMaterialProperty)
     EXPECT_TRUE(property.isValid() == false);
 
     // adding materials to the model, default property should refer to first material in a model
-    auto mat1 = model.addMaterial("Something1", 1.0, 2.0);
-    model.addMaterial("Something2", 3.0, 4.0);
+    auto mat1 = model.addRefractiveMaterial("Something1", 1.0, 2.0);
+    model.addRefractiveMaterial("Something2", 3.0, 4.0);
     ExternalProperty property2 = MaterialItemUtils::defaultMaterialProperty();
     EXPECT_EQ(property2.text(), QString("Something1"));
-    EXPECT_EQ(property2.color(), mat1->getColor());
-    EXPECT_EQ(property2.identifier(), mat1->getIdentifier());
+    EXPECT_EQ(property2.color(), mat1->color());
+    EXPECT_EQ(property2.identifier(), mat1->identifier());
 }

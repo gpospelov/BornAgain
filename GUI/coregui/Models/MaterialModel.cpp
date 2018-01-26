@@ -15,7 +15,7 @@
 #include "MaterialModel.h"
 #include "MaterialItemUtils.h"
 #include "GUIHelpers.h"
-#include "MaterialDataItem.h"
+#include "MaterialDataItems.h"
 #include "AppSvc.h"
 
 MaterialModel::MaterialModel(QObject* parent) : SessionModel(SessionXML::MaterialModelTag, parent)
@@ -38,66 +38,66 @@ MaterialModel* MaterialModel::createCopy(SessionItem* parent)
     return result;
 }
 
-MaterialItem* MaterialModel::addMaterial(const QString& name, double material_data_real, double material_data_imag)
+MaterialItem* MaterialModel::addRefractiveMaterial(const QString& name, double delta, double beta)
 {
-    MaterialItem* materialItem
-        = dynamic_cast<MaterialItem*>(insertNewItem(Constants::HomogeneousMaterialType));
-    materialItem->setItemName(name);
-
-    MaterialDataItem* materialDataItem = dynamic_cast<MaterialDataItem*>(
-        materialItem->getItem(MaterialItem::P_MATERIAL_DATA));
-    Q_ASSERT(materialDataItem);
-
-    materialDataItem->setReal(material_data_real);
-    materialDataItem->setImag(material_data_imag);
-
-    QColor color = MaterialItemUtils::suggestMaterialColor(name);
-    materialItem->setItemValue(MaterialItem::P_COLOR, MaterialItemUtils::colorProperty(color).variant());
-
+    auto materialItem = createMaterial(name);
+    materialItem->setRefractiveData(delta, beta);
     return materialItem;
 }
 
-void MaterialModel::removeMaterial(MaterialItem* item)
+MaterialItem* MaterialModel::addSLDMaterial(const QString& name, double sld, double abs_term)
 {
-    QModelIndex materialIndex = indexOfItem(item);
-    removeRows(materialIndex.row(), 1, materialIndex.parent());
+    auto materialItem = createMaterial(name);
+    materialItem->setSLDData(sld, abs_term);
+    return materialItem;
 }
 
-MaterialItem* MaterialModel::getMaterial(const QModelIndex& index)
+MaterialItem* MaterialModel::materialFromIndex(const QModelIndex& index)
 {
     return dynamic_cast<MaterialItem*>(itemForIndex(index));
 }
 
-//! Returns clone of material with given index.
-
-MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
+MaterialItem* MaterialModel::materialFromName(const QString& name)
 {
-    const MaterialItem* origMaterial = getMaterial(index);
-    if (!origMaterial)
-        return nullptr;
-
-    SessionItem* clonedMaterial = copyItem(origMaterial, 0);
-    clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, GUIHelpers::createUuid());
-    clonedMaterial->setItemName(origMaterial->itemName() + " (clone)");
-    return dynamic_cast<MaterialItem*>(clonedMaterial);
-}
-
-MaterialItem* MaterialModel::materialFromName(const QString& material_name)
-{
-    for(auto materialItem : topItems<MaterialItem>()) {
-        if (materialItem->itemName() == material_name)
+    for(auto materialItem : topItems<MaterialItem>())
+        if (materialItem->itemName() == name)
             return materialItem;
-    }
 
     return nullptr;
 }
 
 MaterialItem* MaterialModel::materialFromIdentifier(const QString& identifier)
 {
-    for(auto materialItem : topItems<MaterialItem>()) {
-        if (materialItem->getIdentifier() == identifier)
+    for(auto materialItem : topItems<MaterialItem>())
+        if (materialItem->identifier() == identifier)
             return materialItem;
-    }
 
     return nullptr;
+}
+
+//! Returns clone of material with given index. Clone will get unique identifier.
+
+MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
+{
+    const auto origMaterial = materialFromIndex(index);
+    if (!origMaterial)
+        return nullptr;
+
+    auto clonedMaterial = copyItem(origMaterial, 0);
+    clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, GUIHelpers::createUuid());
+    clonedMaterial->setItemName(origMaterial->itemName() + " (clone)");
+    return dynamic_cast<MaterialItem*>(clonedMaterial);
+}
+
+//! Creates material with name and color. Material data remains uninitialized.
+
+MaterialItem* MaterialModel::createMaterial(const QString& name)
+{
+    auto result  = dynamic_cast<MaterialItem*>(insertNewItem(Constants::MaterialType));
+    result->setItemName(name);
+
+    QColor color = MaterialItemUtils::suggestMaterialColor(name);
+    result->setItemValue(MaterialItem::P_COLOR, MaterialItemUtils::colorProperty(color).variant());
+
+    return result;
 }

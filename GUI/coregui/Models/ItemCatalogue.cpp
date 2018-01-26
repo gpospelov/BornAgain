@@ -34,7 +34,7 @@
 #include "LayerItem.h"
 #include "LayerRoughnessItems.h"
 #include "MaskItems.h"
-#include "MaterialDataItem.h"
+#include "MaterialDataItems.h"
 #include "MaterialItem.h"
 #include "MesoCrystalItem.h"
 #include "MinimizerItem.h"
@@ -155,9 +155,10 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::SquareLatticeType, create_new<SquareLatticeItem>);
     add(Constants::HexagonalLatticeType, create_new<HexagonalLatticeItem>);
 
-    add(Constants::HomogeneousMaterialType, create_new<MaterialItem>);
+    add(Constants::MaterialType, create_new<MaterialItem>);
 
-    add(Constants::MaterialDataType, create_new<MaterialDataItem>);
+    add(Constants::MaterialRefractiveDataType, create_new<MaterialRefractiveDataItem>);
+    add(Constants::MaterialSLDDataType, create_new<MaterialSLDDataItem>);
 
     add(Constants::JobItemType, create_new<JobItem>);
 

@@ -67,8 +67,17 @@ void MaterialRefractiveDataItem::updateLabel()
 
 // ------------------------------------------------------------------------------------------------
 
+const QString MaterialSLDDataItem::P_SLD = "SLD";
+const QString MaterialSLDDataItem::P_ABS_TERM = "Absorption";
+
 MaterialSLDDataItem::MaterialSLDDataItem()
     : MaterialDataItem(Constants::MaterialSLDDataType)
 {
-
+    addProperty(P_SLD, 0.0)->setEditorType(Constants::ScientificEditorType)
+        .setLimits(RealLimits::limitless())
+        .setToolTip("Scattering length density");
+    addProperty(P_ABS_TERM, 0.0)->setEditorType(Constants::ScientificEditorType)
+        .setLimits(RealLimits::limitless())
+        .setToolTip("Absorption cross-section")
+        .setDisplayName("Absorption term");
 }

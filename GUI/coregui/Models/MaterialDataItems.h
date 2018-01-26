@@ -26,10 +26,10 @@ protected:
 class BA_CORE_API_ MaterialRefractiveDataItem : public MaterialDataItem
 {
 public:
-    MaterialRefractiveDataItem();
-
     static const QString P_DELTA;
     static const QString P_BETA;
+
+    MaterialRefractiveDataItem();
 
     double delta() const;
     void setDelta(double delta);
@@ -44,6 +44,9 @@ private:
 class BA_CORE_API_ MaterialSLDDataItem : public MaterialDataItem
 {
 public:
+    static const QString P_SLD;
+    static const QString P_ABS_TERM;
+
     MaterialSLDDataItem();
 };
 

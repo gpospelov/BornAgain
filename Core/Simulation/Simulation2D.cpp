@@ -77,6 +77,11 @@ void Simulation2D::setDetector(const IDetector2D& detector)
     initUnitConverter();
 }
 
+OutputData<double>* Simulation2D::getDetectorIntensity(AxesUnits units_type) const
+{
+    return result().data(units_type);
+}
+
 Histogram2D* Simulation2D::getIntensityData(AxesUnits units_type) const
 {
     std::unique_ptr<OutputData<double>> data(getDetectorIntensity(units_type));

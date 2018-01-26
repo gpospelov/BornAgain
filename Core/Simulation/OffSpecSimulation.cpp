@@ -49,10 +49,16 @@ size_t OffSpecSimulation::numberOfSimulationElements() const
     return getInstrument().getDetector()->numberOfSimulationElements()*mP_alpha_i_axis->size();
 }
 
-OutputData<double>*OffSpecSimulation::getDetectorIntensity(AxesUnits units_type) const
+SimulationResult OffSpecSimulation::result() const
 {
-    (void)units_type;
-    return m_intensity_map.clone();
+    auto data = std::unique_ptr<OutputData<double>>(m_intensity_map.clone());
+    auto p_det = dynamic_cast<const IDetector2D*>(getInstrument().getDetector());
+    if (p_det) {
+        OffSpecularConverter converter(*p_det, getInstrument().getBeam(), *mP_alpha_i_axis);
+        return SimulationResult(*data, converter);
+    }
+    throw std::runtime_error("Error in OffSpecSimulation::result: "
+                             "wrong or absent detector type");
 }
 
 void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i)

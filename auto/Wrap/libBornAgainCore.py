@@ -16605,6 +16605,24 @@ class Simulation2D(Simulation):
         return _libBornAgainCore.Simulation2D_setDetector(self, detector)
 
 
+    def result(self):
+        """result(Simulation2D self) -> SimulationResult"""
+        return _libBornAgainCore.Simulation2D_result(self)
+
+
+    def getDetectorIntensity(self, *args):
+        """
+        getDetectorIntensity(Simulation2D self, AxesUnits units_type) -> IntensityData
+        getDetectorIntensity(Simulation2D self) -> IntensityData
+
+        virtual OutputData<double>* Simulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const =0
+
+        Clone simulated intensity map. 
+
+        """
+        return _libBornAgainCore.Simulation2D_getDetectorIntensity(self, *args)
+
+
     def getIntensityData(self, *args):
         """
         getIntensityData(Simulation2D self, AxesUnits units_type) -> Histogram2D
@@ -16918,19 +16936,6 @@ class GISASSimulation(Simulation2D):
     def result(self):
         """result(GISASSimulation self) -> SimulationResult"""
         return _libBornAgainCore.GISASSimulation_result(self)
-
-
-    def getDetectorIntensity(self, *args):
-        """
-        getDetectorIntensity(GISASSimulation self, AxesUnits units_type) -> IntensityData
-        getDetectorIntensity(GISASSimulation self) -> IntensityData
-
-        OutputData< double > * GISASSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
-
-        Returns clone of the detector intensity map with detector resolution applied. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_getDetectorIntensity(self, *args)
 
 
     def setBeamParameters(self, wavelength, alpha_i, phi_i):
@@ -23691,17 +23696,9 @@ class OffSpecSimulation(Simulation2D):
         return _libBornAgainCore.OffSpecSimulation_numberOfSimulationElements(self)
 
 
-    def getDetectorIntensity(self, *args):
-        """
-        getDetectorIntensity(OffSpecSimulation self, AxesUnits units_type) -> IntensityData
-        getDetectorIntensity(OffSpecSimulation self) -> IntensityData
-
-        OutputData<double>* OffSpecSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
-
-        Returns clone of the detector intensity map. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_getDetectorIntensity(self, *args)
+    def result(self):
+        """result(OffSpecSimulation self) -> SimulationResult"""
+        return _libBornAgainCore.OffSpecSimulation_result(self)
 
 
     def setBeamParameters(self, arg2, alpha_axis, phi_i):

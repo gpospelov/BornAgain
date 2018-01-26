@@ -42,9 +42,9 @@ public:
     //! Gets the number of elements this simulation needs to calculate
     size_t numberOfSimulationElements() const final;
 
-    //! Returns clone of the detector intensity map
-    OutputData<double>* getDetectorIntensity(
-            AxesUnits units_type = AxesUnits::DEFAULT) const override;
+    //! Returns the results of the simulation in a format that supports unit conversion and export
+    //! to numpy arrays
+    SimulationResult result() const override;
 
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i);

@@ -17,7 +17,6 @@
 
 #include "Simulation2D.h"
 #include "SimulationElement.h"
-#include "SimulationResult.h"
 
 class MultiLayer;
 class IMultiLayerBuilder;
@@ -48,11 +47,7 @@ public:
 
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays
-    SimulationResult result() const;
-
-    //! Returns clone of the detector intensity map with detector resolution applied
-    OutputData<double>* getDetectorIntensity(
-            AxesUnits units_type = AxesUnits::DEFAULT) const override;
+    SimulationResult result() const override;
 
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);

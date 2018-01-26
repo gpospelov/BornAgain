@@ -16,6 +16,7 @@
 #define SIMULATION2D_H
 
 #include "Simulation.h"
+#include "SimulationResult.h"
 
 //! Pure virtual base class of OffSpecularSimulation and GISASSimulation.
 //! Holds the common implementations for simulations with a 2D detector
@@ -43,6 +44,14 @@ public:
 
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
+
+    //! Returns the results of the simulation in a format that supports unit conversion and export
+    //! to numpy arrays
+    virtual SimulationResult result() const=0;
+
+    //! Returns clone of the detector intensity map with detector resolution applied
+    OutputData<double>* getDetectorIntensity(
+            AxesUnits units_type = AxesUnits::DEFAULT) const override;
 
     //! Returns histogram representing intensity map in requested axes units
     Histogram2D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;

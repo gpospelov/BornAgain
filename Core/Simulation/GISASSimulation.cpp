@@ -76,11 +76,6 @@ SimulationResult GISASSimulation::result() const
                              "wrong or absent detector type");
 }
 
-OutputData<double>* GISASSimulation::getDetectorIntensity(AxesUnits units_type) const
-{
-    return result().data(units_type);
-}
-
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
     if (wavelength<=0.0)

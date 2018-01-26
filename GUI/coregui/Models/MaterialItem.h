@@ -29,6 +29,7 @@ public:
     MaterialItem();
 
     void setRefractiveData(double delta, double beta);
+    void setSLDData(double sld, double abs_term);
 
     QString getIdentifier() const;
     QColor getColor() const;

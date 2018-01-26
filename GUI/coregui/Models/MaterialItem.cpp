@@ -56,6 +56,13 @@ void MaterialItem::setRefractiveData(double delta, double beta)
     refractiveData->setItemValue(MaterialRefractiveDataItem::P_BETA, beta);
 }
 
+void MaterialItem::setSLDData(double sld, double abs_term)
+{
+    auto sldData = setGroupProperty(P_MATERIAL_DATA, Constants::MaterialSLDDataType);
+    sldData->setItemValue(MaterialRefractiveDataItem::P_DELTA, sld);
+    sldData->setItemValue(MaterialRefractiveDataItem::P_BETA, abs_term);
+}
+
 QString MaterialItem::getIdentifier() const
 {
     return getItemValue(P_IDENTIFIER).toString();
@@ -82,6 +89,12 @@ std::unique_ptr<Material> MaterialItem::createMaterial() const
         return std::make_unique<Material>(HomogeneousMaterial(itemName().toStdString(), real, imag,
                                                      magnetization));
 
+    } else if(dataItem->modelType() == Constants::MaterialSLDDataType) {
+        double sld = dataItem->getItemValue(MaterialSLDDataItem::P_SLD).toDouble();
+        double abs_term = dataItem->getItemValue(MaterialSLDDataItem::P_ABS_TERM).toDouble();
+
+        return std::make_unique<Material>(MaterialBySLD(itemName().toStdString(), sld, abs_term,
+                                                     magnetization));
     }
 
     throw GUIHelpers::Error("MaterialItem::createMaterial() -> Error. "

@@ -45,6 +45,13 @@ MaterialItem* MaterialModel::addRefractiveMaterial(const QString& name, double d
     return materialItem;
 }
 
+MaterialItem* MaterialModel::addSLDMaterial(const QString& name, double sld, double abs_term)
+{
+    auto materialItem = createMaterial(name);
+    materialItem->setSLDData(sld, abs_term);
+    return materialItem;
+}
+
 void MaterialModel::removeMaterial(MaterialItem* item)
 {
     QModelIndex materialIndex = indexOfItem(item);

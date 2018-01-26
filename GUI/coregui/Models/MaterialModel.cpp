@@ -52,49 +52,41 @@ MaterialItem* MaterialModel::addSLDMaterial(const QString& name, double sld, dou
     return materialItem;
 }
 
-void MaterialModel::removeMaterial(MaterialItem* item)
-{
-    QModelIndex materialIndex = indexOfItem(item);
-    removeRows(materialIndex.row(), 1, materialIndex.parent());
-}
-
-MaterialItem* MaterialModel::getMaterial(const QModelIndex& index)
+MaterialItem* MaterialModel::materialFromIndex(const QModelIndex& index)
 {
     return dynamic_cast<MaterialItem*>(itemForIndex(index));
 }
 
-//! Returns clone of material with given index.
-
-MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
+MaterialItem* MaterialModel::materialFromName(const QString& name)
 {
-    const MaterialItem* origMaterial = getMaterial(index);
-    if (!origMaterial)
-        return nullptr;
-
-    SessionItem* clonedMaterial = copyItem(origMaterial, 0);
-    clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, GUIHelpers::createUuid());
-    clonedMaterial->setItemName(origMaterial->itemName() + " (clone)");
-    return dynamic_cast<MaterialItem*>(clonedMaterial);
-}
-
-MaterialItem* MaterialModel::materialFromName(const QString& material_name)
-{
-    for(auto materialItem : topItems<MaterialItem>()) {
-        if (materialItem->itemName() == material_name)
+    for(auto materialItem : topItems<MaterialItem>())
+        if (materialItem->itemName() == name)
             return materialItem;
-    }
 
     return nullptr;
 }
 
 MaterialItem* MaterialModel::materialFromIdentifier(const QString& identifier)
 {
-    for(auto materialItem : topItems<MaterialItem>()) {
+    for(auto materialItem : topItems<MaterialItem>())
         if (materialItem->identifier() == identifier)
             return materialItem;
-    }
 
     return nullptr;
+}
+
+//! Returns clone of material with given index. Clone will get unique identifier.
+
+MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
+{
+    const auto origMaterial = materialFromIndex(index);
+    if (!origMaterial)
+        return nullptr;
+
+    auto clonedMaterial = copyItem(origMaterial, 0);
+    clonedMaterial->setItemValue(MaterialItem::P_IDENTIFIER, GUIHelpers::createUuid());
+    clonedMaterial->setItemName(origMaterial->itemName() + " (clone)");
+    return dynamic_cast<MaterialItem*>(clonedMaterial);
 }
 
 //! Creates material with name and color. Material data remains uninitialized.

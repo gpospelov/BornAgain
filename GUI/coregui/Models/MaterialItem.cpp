@@ -59,8 +59,8 @@ void MaterialItem::setRefractiveData(double delta, double beta)
 void MaterialItem::setSLDData(double sld, double abs_term)
 {
     auto sldData = setGroupProperty(P_MATERIAL_DATA, Constants::MaterialSLDDataType);
-    sldData->setItemValue(MaterialRefractiveDataItem::P_DELTA, sld);
-    sldData->setItemValue(MaterialRefractiveDataItem::P_BETA, abs_term);
+    sldData->setItemValue(MaterialSLDDataItem::P_SLD, sld);
+    sldData->setItemValue(MaterialSLDDataItem::P_ABS_TERM, abs_term);
 }
 
 QString MaterialItem::identifier() const { return getItemValue(P_IDENTIFIER).toString(); }

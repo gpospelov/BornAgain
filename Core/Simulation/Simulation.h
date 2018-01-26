@@ -82,7 +82,7 @@ public:
     void addParameterDistribution(
         const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,
         double sigma_factor=0.0, const RealLimits& limits = RealLimits());
-    void addParameterDistribution(const ParameterDistribution& par_distr);
+    virtual void addParameterDistribution(const ParameterDistribution& par_distr);
     const DistributionHandler& getDistributionHandler() const { return m_distribution_handler; }
 
     void setOptions(const SimulationOptions& options) { m_options = options; }

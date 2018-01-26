@@ -62,6 +62,9 @@ public:
     OutputData<double>* getDetectorIntensity(
             AxesUnits units_type= AxesUnits::DEFAULT) const override;
 
+    using Simulation::addParameterDistribution;
+    void addParameterDistribution(const ParameterDistribution& par_distr) override;
+
     //! Returns detector signal (\f$ \propto |R|^2\f$) in the form of 1D Histogram
     Histogram1D* getIntensityData() const;
 

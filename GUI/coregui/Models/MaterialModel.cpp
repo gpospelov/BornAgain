@@ -41,10 +41,7 @@ MaterialModel* MaterialModel::createCopy(SessionItem* parent)
 MaterialItem* MaterialModel::addRefractiveMaterial(const QString& name, double delta, double beta)
 {
     auto materialItem = createMaterial(name);
-    auto& materialDataItem = materialItem->groupItem<MaterialRefractiveDataItem>(MaterialItem::P_MATERIAL_DATA);
-    materialDataItem.setDelta(delta);
-    materialDataItem.setBeta(beta);
-
+    materialItem->setRefractiveData(delta, beta);
     return materialItem;
 }
 

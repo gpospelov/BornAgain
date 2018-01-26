@@ -26,7 +26,9 @@ public:
     static const QString P_MATERIAL_DATA;
     static const QString P_MAGNETIZATION;
     static const QString P_IDENTIFIER;
-    explicit MaterialItem();
+    MaterialItem();
+
+    void setRefractiveData(double delta, double beta);
 
     QString getIdentifier() const;
     QColor getColor() const;

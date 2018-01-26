@@ -47,6 +47,15 @@ MaterialItem::MaterialItem()
     getItem(P_IDENTIFIER)->setVisible(false);
 }
 
+//! Turns material into refractive index material.
+
+void MaterialItem::setRefractiveData(double delta, double beta)
+{
+    auto refractiveData = setGroupProperty(P_MATERIAL_DATA, Constants::MaterialRefractiveDataType);
+    refractiveData->setItemValue(MaterialRefractiveDataItem::P_DELTA, delta);
+    refractiveData->setItemValue(MaterialRefractiveDataItem::P_BETA, beta);
+}
+
 QString MaterialItem::getIdentifier() const
 {
     return getItemValue(P_IDENTIFIER).toString();

@@ -71,13 +71,20 @@ size_t SpecularSimulation::numberOfSimulationElements() const
 void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
                                            const IFootprintFactor* beam_shape)
 {
+    if (alpha_axis.getMin() < 0.0)
+        throw std::runtime_error(
+            "Error in SpecularSimulation::setBeamParameters: minimum value on angle axis is negative.");
+
     SpecularDetector1D detector(alpha_axis);
     m_instrument.setDetector(detector);
-
     m_coordinate_axis.reset(alpha_axis.clone());
 
+    // beam is initialized with zero-valued angles
+    // Zero-valued incident alpha is required for proper
+    // taking into account beam resolution effects
     const double phi_i = 0.0;
-    m_instrument.setBeamParameters(lambda, alpha_axis[0], phi_i);
+    const double alpha_i = 0.0;
+    m_instrument.setBeamParameters(lambda, alpha_i, phi_i);
 
     if (beam_shape)
         m_instrument.getBeam().setFootprintFactor(*beam_shape);
@@ -113,6 +120,7 @@ std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationEle
     std::vector<SpecularSimulationElement> result;
 
     const double wavelength = beam.getWavelength();
+    const double angle_shift = beam.getAlpha();
     PolarizationHandler handler;
     handler.setPolarization(beam.getPolarization());
     handler.setAnalyzerOperator(
@@ -121,7 +129,8 @@ std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationEle
     const size_t axis_size = m_coordinate_axis->size();
     result.reserve(axis_size);
     for (size_t i = 0; i < axis_size; ++i) {
-        result.emplace_back(wavelength, -alpha_i(i));
+        double result_angle = alpha_i(i) + angle_shift;
+        result.emplace_back(wavelength, result_angle > 0 ? -result_angle : 0);
         auto& sim_element = result.back();
         sim_element.setPolarizationHandler(handler);
     }

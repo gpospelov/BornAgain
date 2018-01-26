@@ -74,7 +74,7 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
     EXPECT_EQ(10.0 * Units::degree, sim.getAlphaAxis()->getMax());
 
     EXPECT_THROW(sim.setBeamParameters(1.0, 10, -2.0, 3.0),
-                 Exceptions::ClassInitializationException);
+                 std::runtime_error);
 }
 
 TEST_F(SpecularSimulationTest, ConstructSimulation)

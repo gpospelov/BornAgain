@@ -23730,7 +23730,7 @@ class OffSpecSimulation(Simulation2D):
         """
         setBeamParameters(OffSpecSimulation self, double wavelength, IAxis alpha_axis, double phi_i)
 
-        void OffSpecSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, double phi_i)
+        void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
 
         Sets beam parameters from here (forwarded to  Instrument) 
 

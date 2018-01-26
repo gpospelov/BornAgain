@@ -10830,7 +10830,7 @@ Gets the number of elements this simulation needs to calculate.
 Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 ";
 
-%feature("docstring")  OffSpecSimulation::setBeamParameters "void OffSpecSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, double phi_i)
+%feature("docstring")  OffSpecSimulation::setBeamParameters "void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
 
 Sets beam parameters from here (forwarded to  Instrument) 
 ";

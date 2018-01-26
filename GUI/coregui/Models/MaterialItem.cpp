@@ -17,15 +17,14 @@
 #include "GUIHelpers.h"
 #include "MaterialDataItems.h"
 #include "MaterialFactoryFuncs.h"
-#include "SessionItemUtils.h"
 #include "MaterialItemUtils.h"
-#include "GUIHelpers.h"
+#include "SessionItemUtils.h"
 
 using SessionItemUtils::GetVectorItem;
 
-namespace {
-const QString magnetization_tooltip =
-        "Magnetization (A/m)";
+namespace
+{
+const QString magnetization_tooltip = "Magnetization (A/m)";
 }
 
 const QString MaterialItem::P_COLOR = "Color";
@@ -33,8 +32,7 @@ const QString MaterialItem::P_MATERIAL_DATA = "Material data";
 const QString MaterialItem::P_MAGNETIZATION = "Magnetization";
 const QString MaterialItem::P_IDENTIFIER = "Identifier";
 
-MaterialItem::MaterialItem()
-    : SessionItem(Constants::MaterialType)
+MaterialItem::MaterialItem() : SessionItem(Constants::MaterialType)
 {
     setItemName(Constants::MaterialType);
 
@@ -56,6 +54,8 @@ void MaterialItem::setRefractiveData(double delta, double beta)
     refractiveData->setItemValue(MaterialRefractiveDataItem::P_BETA, beta);
 }
 
+//! Turns material into SLD based material.
+
 void MaterialItem::setSLDData(double sld, double abs_term)
 {
     auto sldData = setGroupProperty(P_MATERIAL_DATA, Constants::MaterialSLDDataType);
@@ -63,12 +63,9 @@ void MaterialItem::setSLDData(double sld, double abs_term)
     sldData->setItemValue(MaterialRefractiveDataItem::P_BETA, abs_term);
 }
 
-QString MaterialItem::getIdentifier() const
-{
-    return getItemValue(P_IDENTIFIER).toString();
-}
+QString MaterialItem::identifier() const { return getItemValue(P_IDENTIFIER).toString(); }
 
-QColor MaterialItem::getColor() const
+QColor MaterialItem::color() const
 {
     ExternalProperty property = getItemValue(P_COLOR).value<ExternalProperty>();
     return property.color();
@@ -85,7 +82,7 @@ std::unique_ptr<Material> MaterialItem::createMaterial() const
         double beta = dataItem->getItemValue(MaterialRefractiveDataItem::P_BETA).toDouble();
         return std::make_unique<Material>(HomogeneousMaterial(name, delta, beta, magnetization));
 
-    } else if(dataItem->modelType() == Constants::MaterialSLDDataType) {
+    } else if (dataItem->modelType() == Constants::MaterialSLDDataType) {
         double sld = dataItem->getItemValue(MaterialSLDDataItem::P_SLD).toDouble();
         double abs_term = dataItem->getItemValue(MaterialSLDDataItem::P_ABS_TERM).toDouble();
         return std::make_unique<Material>(MaterialBySLD(name, sld, abs_term, magnetization));

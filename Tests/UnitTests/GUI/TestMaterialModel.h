@@ -42,16 +42,16 @@ TEST_F(TestMaterialModel, test_cloneMaterial)
     const double delta(0.2), beta(0.1);
     const QString name("MaterialName");
     MaterialItem* item = model->addRefractiveMaterial(name, delta, beta);
-    const QString origIdentifier = item->getIdentifier();
+    const QString origIdentifier = item->identifier();
 
     MaterialItem* clonedMaterial = model->cloneMaterial(item->index());
     EXPECT_EQ(model->rowCount(QModelIndex()), 2);
 
     // clone should not change identifier of original material (as it once happened)
-    EXPECT_EQ(item->getIdentifier(), origIdentifier);
+    EXPECT_EQ(item->identifier(), origIdentifier);
 
     // cloned material should have different identifier
-    EXPECT_TRUE(clonedMaterial->getIdentifier() != item->getIdentifier());
+    EXPECT_TRUE(clonedMaterial->identifier() != item->identifier());
 
     // checking name of cloned material
     EXPECT_EQ(item->itemName() + " (clone)", clonedMaterial->itemName());
@@ -68,8 +68,8 @@ TEST_F(TestMaterialModel, test_materialItemFromIdentifier)
     MaterialModel model;
     MaterialItem* mat1 = model.addRefractiveMaterial("aaa", 1.0, 2.0);
     MaterialItem* mat2 = model.addRefractiveMaterial("bbb", 3.0, 4.0);
-    EXPECT_TRUE(mat1 == model.materialFromIdentifier(mat1->getIdentifier()));
-    EXPECT_TRUE(mat2 == model.materialFromIdentifier(mat2->getIdentifier()));
+    EXPECT_TRUE(mat1 == model.materialFromIdentifier(mat1->identifier()));
+    EXPECT_TRUE(mat2 == model.materialFromIdentifier(mat2->identifier()));
     EXPECT_TRUE(nullptr == model.materialFromIdentifier("non-existing-identifier"));
 }
 
@@ -94,8 +94,8 @@ TEST_F(TestMaterialModel, test_materialPropertyFromMaterial)
 
     ExternalProperty property = MaterialItemUtils::materialProperty(*mat);
     EXPECT_EQ(property.text(), QString("Something"));
-    EXPECT_EQ(property.color(), mat->getColor());
-    EXPECT_EQ(property.identifier(), mat->getIdentifier());
+    EXPECT_EQ(property.color(), mat->color());
+    EXPECT_EQ(property.identifier(), mat->identifier());
 }
 
 //! Default MaterialProperty construction.
@@ -114,6 +114,6 @@ TEST_F(TestMaterialModel, test_defaultMaterialProperty)
     model.addRefractiveMaterial("Something2", 3.0, 4.0);
     ExternalProperty property2 = MaterialItemUtils::defaultMaterialProperty();
     EXPECT_EQ(property2.text(), QString("Something1"));
-    EXPECT_EQ(property2.color(), mat1->getColor());
-    EXPECT_EQ(property2.identifier(), mat1->getIdentifier());
+    EXPECT_EQ(property2.color(), mat1->color());
+    EXPECT_EQ(property2.identifier(), mat1->identifier());
 }

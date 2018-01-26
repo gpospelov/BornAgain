@@ -26,13 +26,14 @@ public:
     static const QString P_MATERIAL_DATA;
     static const QString P_MAGNETIZATION;
     static const QString P_IDENTIFIER;
+
     MaterialItem();
 
     void setRefractiveData(double delta, double beta);
     void setSLDData(double sld, double abs_term);
 
-    QString getIdentifier() const;
-    QColor getColor() const;
+    QString identifier() const;
+    QColor color() const;
     std::unique_ptr<Material> createMaterial() const;
 };
 

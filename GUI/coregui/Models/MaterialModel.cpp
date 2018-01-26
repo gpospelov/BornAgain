@@ -90,7 +90,7 @@ MaterialItem* MaterialModel::materialFromName(const QString& material_name)
 MaterialItem* MaterialModel::materialFromIdentifier(const QString& identifier)
 {
     for(auto materialItem : topItems<MaterialItem>()) {
-        if (materialItem->getIdentifier() == identifier)
+        if (materialItem->identifier() == identifier)
             return materialItem;
     }
 

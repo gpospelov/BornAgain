@@ -42,18 +42,18 @@ TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
     EXPECT_EQ(property_changed, 1);
     ExternalProperty property
         = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    EXPECT_EQ(property.identifier(), mat1->getIdentifier());
+    EXPECT_EQ(property.identifier(), mat1->identifier());
     EXPECT_EQ(property.text(), mat1->itemName());
-    EXPECT_EQ(property.color(), mat1->getColor());
+    EXPECT_EQ(property.color(), mat1->color());
 
     // changing color of MaterialItem
     ExternalProperty colorProperty = MaterialItemUtils::colorProperty(QColor(Qt::red));
     mat1->setItemValue(MaterialItem::P_COLOR, colorProperty.variant());
     EXPECT_EQ(property_changed, 2);
     property = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    EXPECT_EQ(property.identifier(), mat1->getIdentifier());
+    EXPECT_EQ(property.identifier(), mat1->identifier());
     EXPECT_EQ(property.text(), mat1->itemName());
-    EXPECT_EQ(property.color(), mat1->getColor());
+    EXPECT_EQ(property.color(), mat1->color());
     EXPECT_EQ(property.color(), QColor(Qt::red));
 
     // removing material from the model, property should become undefined
@@ -95,14 +95,14 @@ TEST_F(TestMaterialPropertyController, test_ControllerInEditorContext)
         materialsCopy->itemForIndex(materialsCopy->index(1, 0, QModelIndex())));
     auto mat3copy = dynamic_cast<MaterialItem*>(
         materialsCopy->itemForIndex(materialsCopy->index(2, 0, QModelIndex())));
-    EXPECT_EQ(mat1->getColor(), mat1copy->getColor());
+    EXPECT_EQ(mat1->color(), mat1copy->color());
     EXPECT_EQ(mat1->itemName(), mat1copy->itemName());
-    EXPECT_EQ(mat1->getIdentifier(), mat1copy->getIdentifier());
-    EXPECT_EQ(mat2->getColor(), mat2copy->getColor());
+    EXPECT_EQ(mat1->identifier(), mat1copy->identifier());
+    EXPECT_EQ(mat2->color(), mat2copy->color());
     EXPECT_EQ(mat2->itemName(), mat2copy->itemName());
-    EXPECT_EQ(mat2->getIdentifier(), mat2copy->getIdentifier());
+    EXPECT_EQ(mat2->identifier(), mat2copy->identifier());
     EXPECT_EQ(mat3->itemName(), mat3copy->itemName());
-    EXPECT_EQ(mat3->getIdentifier(), mat3copy->getIdentifier());
+    EXPECT_EQ(mat3->identifier(), mat3copy->identifier());
 
     // Removing mat2 from the copy
     materialsCopy->removeRows(1, 1, QModelIndex());
@@ -110,9 +110,9 @@ TEST_F(TestMaterialPropertyController, test_ControllerInEditorContext)
         materialsCopy->itemForIndex(materialsCopy->index(0, 0, QModelIndex())));
     mat3copy = dynamic_cast<MaterialItem*>(
         materialsCopy->itemForIndex(materialsCopy->index(1, 0, QModelIndex())));
-    EXPECT_EQ(mat1->getColor(), mat1copy->getColor());
+    EXPECT_EQ(mat1->color(), mat1copy->color());
     EXPECT_EQ(mat1->itemName(), mat1copy->itemName());
-    EXPECT_EQ(mat3->getColor(), mat3copy->getColor());
+    EXPECT_EQ(mat3->color(), mat3copy->color());
     EXPECT_EQ(mat3->itemName(), mat3copy->itemName());
 
     // changing mat3

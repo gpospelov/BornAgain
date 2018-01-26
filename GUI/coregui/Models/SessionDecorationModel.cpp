@@ -83,7 +83,7 @@ QVariant SessionDecorationModel::createIcon(const QModelIndex& index) const
             return instrumentIcon();
         } else if(item->modelType() == Constants::MaterialType) {
             if (const MaterialItem *materialItem = dynamic_cast<const MaterialItem *>(item))
-                return materialIcon(materialItem->getColor());
+                return materialIcon(materialItem->color());
         }
     }
 

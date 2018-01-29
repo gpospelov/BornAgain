@@ -119,7 +119,7 @@ public:
 
     SphericalConverter* clone() const override;
 
-    AxesUnits defaultUnits() const override { return AxesUnits::DEGREES; }
+    AxesUnits defaultUnits() const override;
 
 private:
     SphericalConverter(const SphericalConverter& other);
@@ -139,7 +139,7 @@ public:
 
     RectangularConverter* clone() const override;
 
-    AxesUnits defaultUnits() const override { return AxesUnits::MM; }
+    AxesUnits defaultUnits() const override;
 
 private:
     RectangularConverter(const RectangularConverter& other);
@@ -163,7 +163,7 @@ public:
 
     OffSpecularConverter* clone() const override;
 
-    AxesUnits defaultUnits() const override { return AxesUnits::RADIANS; }
+    AxesUnits defaultUnits() const override;
 
 private:
     OffSpecularConverter(const OffSpecularConverter& other);

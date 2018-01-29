@@ -142,6 +142,8 @@ SphericalConverter* SphericalConverter::clone() const
     return new SphericalConverter(*this);
 }
 
+AxesUnits SphericalConverter::defaultUnits() const { return AxesUnits::DEGREES; }
+
 SphericalConverter::SphericalConverter(const SphericalConverter& other)
     : UnitConverterSimple(other)
 {}
@@ -202,6 +204,8 @@ RectangularConverter* RectangularConverter::clone() const
 {
     return new RectangularConverter(*this);
 }
+
+AxesUnits RectangularConverter::defaultUnits() const { return AxesUnits::MM; }
 
 RectangularConverter::RectangularConverter(const RectangularConverter& other)
     : UnitConverterSimple(other)
@@ -288,10 +292,12 @@ OffSpecularConverter::OffSpecularConverter(const IDetector2D& detector, const Be
 
 OffSpecularConverter::~OffSpecularConverter() =default;
 
-OffSpecularConverter*OffSpecularConverter::clone() const
+OffSpecularConverter* OffSpecularConverter::clone() const
 {
     return new OffSpecularConverter(*this);
 }
+
+AxesUnits OffSpecularConverter::defaultUnits() const { return AxesUnits::DEGREES; }
 
 OffSpecularConverter::OffSpecularConverter(const OffSpecularConverter& other)
     : UnitConverterSimple(other)
@@ -311,7 +317,7 @@ double OffSpecularConverter::calculateValue(size_t, AxesUnits units_type, double
     }
 }
 
-std::vector<std::map<AxesUnits, std::string> > OffSpecularConverter::createNameMaps() const
+std::vector<std::map<AxesUnits, std::string>> OffSpecularConverter::createNameMaps() const
 {
     std::vector<std::map<AxesUnits, std::string>> result;
     result.push_back(AxisNames::InitOffSpecAxis0());

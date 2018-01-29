@@ -61,6 +61,10 @@ public:
     //! Set specular data
     void setSpecular(SpecularData specular_data);
 
+    //! Set calculation flag (if it's false, zero intensity is assigned to the element)
+    void setCalculationFlag(bool calculation_flag) {m_calculation_flag = calculation_flag;}
+    bool isCalculated() const {return m_calculation_flag;}
+
 private:
     void swapContent(SpecularSimulationElement& other);
 
@@ -71,6 +75,7 @@ private:
     // TODO: remove this when we have a simulation type that generates intensity as a function
     //       of depth and inclination angle
     SpecularData m_specular_data;
+    bool m_calculation_flag;
 };
 
 #endif /* SPECULARSIMULATIONELEMENT_H_ */

@@ -18,6 +18,7 @@
 #include "IBackground.h"
 #include "IFootprintFactor.h"
 #include "IMultiLayerBuilder.h"
+#include "MathConstants.h"
 #include "MultiLayer.h"
 #include "MaterialUtils.h"
 #include "ParameterPool.h"
@@ -28,6 +29,7 @@
 
 namespace
 {
+const RealLimits alpha_limits = RealLimits::limited(0.0, M_PI_2);
 const SpecularDetector1D* SpecDetector(const Instrument& instrument);
 }
 
@@ -142,9 +144,11 @@ std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationEle
     result.reserve(axis_size);
     for (size_t i = 0; i < axis_size; ++i) {
         double result_angle = alpha_i(i) + angle_shift;
-        result.emplace_back(wavelength, result_angle > 0 ? -result_angle : 0);
+        result.emplace_back(wavelength, -result_angle);
         auto& sim_element = result.back();
         sim_element.setPolarizationHandler(handler);
+        if (!alpha_limits.isInRange(result_angle))
+            sim_element.setCalculationFlag(false); // false = exclude from calculations
     }
 
     return result;

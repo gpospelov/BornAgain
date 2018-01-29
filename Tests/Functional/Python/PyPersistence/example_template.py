@@ -21,9 +21,15 @@ simulationObject = None
 def get_simulation_SpecularSimulation():
     """
     Returns custom simulation for SpecularSimulation.py.
-    Minification is not yet implemented.
     """
-    return example.get_simulation()
+    simulation = example.get_simulation()
+    beam = simulation.getInstrument().getBeam()
+    wavelength = beam.getWavelength()
+    axis = simulation.getAlphaAxis()
+    footprint = beam.footprintFactor()
+    simulation.setBeamParameters(
+        wavelength, 10, axis.getMin(), axis.getMax(), footprint)
+    return simulation
 
 
 def get_simulation_RectangularGrating():

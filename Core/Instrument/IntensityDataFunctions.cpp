@@ -17,6 +17,8 @@
 #include "IHistogram.h"
 #include "IntensityDataFunctions.h"
 #include "Numeric.h"
+#include "FourierTransform.h"
+#include <math.h>
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 double IntensityDataFunctions::getRelativeDifference(
@@ -198,4 +200,81 @@ void IntensityDataFunctions::coordinateFromBinf(
 {
     x = coordinateFromBinf(x, data.getAxis(BornAgain::X_AXIS_INDEX));
     y = coordinateFromBinf(y, data.getAxis(BornAgain::Y_AXIS_INDEX));
+}
+
+std::vector<std::vector<double>> IntensityDataFunctions::create2DArrayfromOutputData(
+        const OutputData<double> &data)
+{
+    if (data.getRank() != 2)
+        throw Exceptions::LogicErrorException(
+                "IntensityDataFunctions::create2DArrayfromOutputData() -> "
+                "Error! Works only on two-dimensional data");
+
+    std::vector<std::vector<double>> array_2d;
+    std::vector<double> row_vec; // row vector for constructing each row of 2D array
+
+    size_t nrows = data.getAxis(0).size();
+    size_t ncols = data.getAxis(1).size();
+
+    size_t it = 0; // iterator of 'data'
+    for(size_t row=0; row<nrows; row++)
+    {
+        row_vec.clear();
+        for(size_t col=0; col<ncols; col++)
+        {
+            row_vec.push_back(data[it]);
+            it++;
+        }
+        array_2d.push_back(row_vec);
+    }
+
+    return array_2d;
+}
+
+std::vector<std::vector<double>> IntensityDataFunctions::FT2DArray(
+        const std::vector<std::vector<double>> &signal)
+{
+    FourierTransform ft;
+    std::vector<std::vector<double>> fft_array;
+    ft.fft(signal, fft_array);
+    // shifting low frequency to center of array
+    ft.fftshift(fft_array);
+
+    return fft_array;
+}
+
+OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArray(
+        const std::vector<std::vector<double>> &array_2d)
+{
+    size_t nrows = array_2d.size();
+    size_t ncols = array_2d[0].size();
+
+    OutputData<double> *result = new OutputData<double>;
+    result->addAxis("x", nrows, 0.0, double(nrows));
+    result->addAxis("y", ncols, 0.0, double(ncols));
+    std::vector<unsigned> axes_indices(2);
+    for(unsigned row=0; row<nrows; row++) {
+        for(unsigned col=0; col<ncols; col++) {
+            axes_indices[0] = row;
+            axes_indices[1] = col;
+            size_t global_index = result->toGlobalIndex(axes_indices);
+            (*result)[global_index] = array_2d[row][col];
+        }
+    }
+
+    return result;
+}
+
+OutputData<double>* IntensityDataFunctions::getFourierTransform(const OutputData<double> &data)
+{
+    std::vector<std::vector<double>> array_2d =
+            IntensityDataFunctions::create2DArrayfromOutputData(data);
+
+    std::vector<std::vector<double>> fft_array_2d =
+            IntensityDataFunctions::FT2DArray(array_2d);
+
+    OutputData<double>* fftOutputData = IntensityDataFunctions::createOutputDatafrom2DArray(
+                fft_array_2d);
+
+    return fftOutputData;
 }

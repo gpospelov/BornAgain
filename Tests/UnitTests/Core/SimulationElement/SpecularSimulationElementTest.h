@@ -55,6 +55,7 @@ void SpecularSimulationElementTest::compareElements(const SpecularSimulationElem
     EXPECT_EQ(lhs.getAlphaI(), rhs.getAlphaI());
     EXPECT_EQ(lhs.getIntensity(), rhs.getIntensity());
     EXPECT_EQ(lhs.getKi(), rhs.getKi());
+    EXPECT_EQ(lhs.isCalculated(), rhs.isCalculated());
 }
 
 TEST_F(SpecularSimulationElementTest, InitialState)
@@ -69,6 +70,7 @@ TEST_F(SpecularSimulationElementTest, InitialState)
     EXPECT_EQ(angle, element.getAlphaI());
     EXPECT_EQ(0.0, element.getIntensity());
     EXPECT_EQ(k_i, element.getKi());
+    EXPECT_TRUE(element.isCalculated());
 
     const SpecularData& spec_data = element.specularData();
     EXPECT_FALSE(spec_data.isInited());
@@ -83,6 +85,7 @@ TEST_F(SpecularSimulationElementTest, CopyMoveAssign)
 
     element.setSpecular(test_specular_data);
     element.setPolarizationHandler(test_polarization);
+    element.setCalculationFlag(false);
 
     SpecularSimulationElement element2 = element;
 

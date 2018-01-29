@@ -14,9 +14,16 @@
 
 #include "Simulation2D.h"
 #include "DetectorElement.h"
+#include "DetectorFunctions.h"
 #include "DWBAComputation.h"
+#include "Histogram2D.h"
 #include "IBackground.h"
 #include "SimulationElement.h"
+
+namespace
+{
+IDetector2D* Detector2D(Instrument& instrument);
+}
 
 Simulation2D::Simulation2D(const MultiLayer& p_sample)
     : Simulation(p_sample)
@@ -25,6 +32,26 @@ Simulation2D::Simulation2D(const MultiLayer& p_sample)
 Simulation2D::Simulation2D(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : Simulation(p_sample_builder)
 {}
+
+void Simulation2D::removeMasks()
+{
+    Detector2D(m_instrument)->removeMasks();
+}
+
+void Simulation2D::addMask(const IShape2D& shape, bool mask_value)
+{
+    Detector2D(m_instrument)->addMask(shape, mask_value);
+}
+
+void Simulation2D::maskAll()
+{
+    Detector2D(m_instrument)->maskAll();
+}
+
+void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+{
+    Detector2D(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
+}
 
 Simulation2D::Simulation2D(const Simulation2D& other)
     : Simulation(other)
@@ -35,12 +62,29 @@ Simulation2D::Simulation2D(const Simulation2D& other)
 void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
                                          size_t n_y, double y_min, double y_max)
 {
-    if (auto detector = m_instrument.detector2D())
+    if (auto detector = Detector2D(m_instrument))
         detector->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     else
         throw std::runtime_error(
             "Error in Simulation2D::setDetectorParameters: wrong detector type");
     updateIntensityMap();
+}
+
+void Simulation2D::setDetector(const IDetector2D& detector)
+{
+    m_instrument.setDetector(detector);
+    initUnitConverter();
+}
+
+OutputData<double>* Simulation2D::getDetectorIntensity(AxesUnits units_type) const
+{
+    return result().data(units_type);
+}
+
+Histogram2D* Simulation2D::getIntensityData(AxesUnits units_type) const
+{
+    std::unique_ptr<OutputData<double>> data(getDetectorIntensity(units_type));
+    return new Histogram2D(*data);
 }
 
 std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(size_t start,
@@ -60,7 +104,7 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
     const double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
     const double phi_i = beam.getPhi();
     const Eigen::Matrix2cd& beam_polarization = beam.getPolarization();
-    auto detector = m_instrument.detector2D();
+    auto detector = Detector2D(m_instrument);
     auto detector_elements = detector->createDetectorElements(beam);
 
     result.reserve(detector_elements.size());
@@ -116,3 +160,14 @@ void Simulation2D::moveDataFromCache()
     }
 }
 
+namespace
+{
+IDetector2D* Detector2D(Instrument& instrument)
+{
+    IDetector2D* p_detector = dynamic_cast<IDetector2D*>(instrument.getDetector());
+    if (!p_detector)
+        throw std::runtime_error(
+            "Error in Simulation2D: wrong detector type");
+    return p_detector;
+}
+}

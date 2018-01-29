@@ -101,7 +101,7 @@ TEST_F(SpecularDetectorTest, createDetectorMap)
     EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 10.0);
 
     // wrong units in input
-    EXPECT_THROW(detector.createDetectorMap(beam, AxesUnits::QYQZ), std::runtime_error);
+    EXPECT_THROW(detector.createDetectorMap(beam, AxesUnits::QSPACE), std::runtime_error);
 }
 
 TEST_F(SpecularDetectorTest, Clone)

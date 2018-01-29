@@ -22,8 +22,7 @@ typedef std::complex<double> complex_t;
 // Quasi constructor
 // -----------------------------------------------------------------------------
 
-BasicVector3D<double> vecOfLambdaAlphaPhi(
-    const double _lambda, const double _alpha, const double _phi)
+BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
 {
     double k = M_TWOPI/_lambda;
     return BasicVector3D<double>(

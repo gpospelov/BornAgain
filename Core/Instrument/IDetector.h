@@ -20,6 +20,7 @@
 #include "INode.h"
 #include "DetectionProperties.h"
 #include "SafePointerVector.h"
+#include "UnitConverters.h"
 
 class Beam;
 class DetectorElement;
@@ -29,16 +30,6 @@ class IResolutionFunction2D;
 template<class T> class OutputData;
 class SimulationElement;
 class RegionOfInterest;
-
-//! Wrapper for detector axes units, required for a better representation of
-//! detector axes units in python
-//! @ingroup simulation
-
-// workaround for SWIG (instead of just writing enum class AxesUnits...)
-struct BA_CORE_API_ AxesUnitsWrap {
-    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QYQZ };
-};
-typedef AxesUnitsWrap::AxesUnits AxesUnits;
 
 //! Abstract detector interface.
 //! @ingroup simulation

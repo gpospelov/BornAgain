@@ -25,7 +25,7 @@
 
 IDetector2D::IDetector2D() = default;
 
-IDetector2D::IDetector2D(const IDetector2D &other)
+IDetector2D::IDetector2D(const IDetector2D& other)
     : IDetector(other)
     , m_detector_mask(other.m_detector_mask)
 {
@@ -43,14 +43,14 @@ void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
     addAxis(*createAxis(BornAgain::Y_AXIS_INDEX, n_y, y_min, y_max));
 }
 
-void IDetector2D::setDetectorAxes(const IAxis &axis0, const IAxis &axis1)
+void IDetector2D::setDetectorAxes(const IAxis& axis0, const IAxis& axis1)
 {
     clear();
     addAxis(axis0);
     addAxis(axis1);
 }
 
-const RegionOfInterest *IDetector2D::regionOfInterest() const
+const RegionOfInterest* IDetector2D::regionOfInterest() const
 {
     return m_region_of_interest.get();
 }
@@ -111,7 +111,7 @@ std::vector<DetectorElement> IDetector2D::createDetectorElements(const Beam& bea
     return result;
 }
 
-SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &beam) const
+SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam& beam) const
 {
     double wavelength = beam.getWavelength();
     double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
@@ -123,7 +123,7 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam &be
 void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
         AxesUnits units, double &amin, double &amax) const
 {
-    if(units == AxesUnits::QYQZ && axis_index == BornAgain::X_AXIS_INDEX) {
+    if(units == AxesUnits::QSPACE && axis_index == BornAgain::X_AXIS_INDEX) {
         const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
         SimulationElement el_left_bottom
             = getSimulationElement(getGlobalIndex(0, 0), beam);
@@ -132,7 +132,7 @@ void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
         amin = el_left_bottom.getQ(0.0, 0.0).y();
         amax = el_right_bottom.getQ(1.0, 0.0).y();
 
-    } else if(units == AxesUnits::QYQZ && axis_index == BornAgain::Y_AXIS_INDEX) {
+    } else if(units == AxesUnits::QSPACE && axis_index == BornAgain::Y_AXIS_INDEX) {
         const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
         const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
         SimulationElement el_center_bottom

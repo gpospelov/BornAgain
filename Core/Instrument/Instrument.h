@@ -62,9 +62,6 @@ public:
     const IDetector* getDetector() const;
     IDetector* getDetector();
 
-    //! Returns 2D detector data if detector is truly 2D. Otherwise returns nullptr
-    IDetector2D* detector2D();
-
     const DetectorMask* getDetectorMask() const;
 
     //! Returns a detector axis
@@ -92,10 +89,6 @@ public:
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
             AxesUnits units=AxesUnits::DEFAULT) const;
-
-    //! Returns histogram representing intensity map in requested axes units
-    Histogram2D* createIntensityData(const std::vector<SimulationElement> &elements,
-            AxesUnits units_type = AxesUnits::DEFAULT) const;
 
     //! Returns empty detector map in given axes units.
     virtual OutputData<double>* createDetectorMap(

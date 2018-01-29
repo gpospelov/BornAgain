@@ -76,9 +76,6 @@ public:
     //! Returns copy of raw data vector
     std::vector<T> getRawDataVector() const;
 
-    //! fill raw array with data
-    void fillRawDataArray(T* destination) const;
-
     //! Returns sum of all values in the data structure
     T totalSum() const;
 
@@ -358,15 +355,6 @@ inline std::vector<T> OutputData<T>::getRawDataVector() const
     for (size_t i=0; i<getAllocatedSize(); ++i)
         result.push_back((*mp_ll_data)[i]);
     return result;
-}
-
-template <class T>
-void OutputData<T>::fillRawDataArray(T* destination) const
-{
-    assert(mp_ll_data);
-    for (size_t i=0; i<getAllocatedSize(); ++i)
-        destination[i] = (*mp_ll_data)[i];
-    return;
 }
 
 template <class T>

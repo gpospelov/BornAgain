@@ -19,12 +19,10 @@
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
+#include "RectangularDetector.h"
 #include "SimulationElement.h"
-
-namespace
-{
-IDetector2D* Detector2D(Instrument& instrument);
-}
+#include "SphericalDetector.h"
+#include "UnitConverters.h"
 
 GISASSimulation::GISASSimulation()
 {
@@ -57,18 +55,25 @@ size_t GISASSimulation::numberOfSimulationElements() const
     return getInstrument().getDetector()->numberOfSimulationElements();
 }
 
-OutputData<double>* GISASSimulation::getDetectorIntensity(AxesUnits units_type) const
+SimulationResult GISASSimulation::result() const
 {
-    std::unique_ptr<OutputData<double>> result(
-        m_instrument.createDetectorIntensity(m_sim_elements, units_type));
-    return result.release();
-}
-
-Histogram2D* GISASSimulation::getIntensityData(AxesUnits units_type) const
-{
-    std::unique_ptr<Histogram2D> result(
-        m_instrument.createIntensityData(m_sim_elements, units_type));
-    return result.release();
+    auto data = std::unique_ptr<OutputData<double>>(
+                    m_instrument.createDetectorIntensity(m_sim_elements));
+    auto p_det = getInstrument().getDetector();
+    if (p_det) {
+        auto p_spher_det = dynamic_cast<const SphericalDetector*>(p_det);
+        if (p_spher_det) {
+            SphericalConverter converter(*p_spher_det, getInstrument().getBeam());
+            return SimulationResult(*data, converter);
+        }
+        auto p_rect_det = dynamic_cast<const RectangularDetector*>(p_det);
+        if (p_rect_det) {
+            RectangularConverter converter(*p_rect_det, getInstrument().getBeam());
+            return SimulationResult(*data, converter);
+        }
+    }
+    throw std::runtime_error("Error in GISASSimulation::result: "
+                             "wrong or absent detector type");
 }
 
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
@@ -77,31 +82,6 @@ void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, doubl
         throw Exceptions::ClassInitializationException(
             "Simulation::setBeamParameters() -> Error. Incoming wavelength <= 0.");
     m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
-}
-
-void GISASSimulation::setDetector(const IDetector2D& detector)
-{
-    m_instrument.setDetector(detector);
-}
-
-void GISASSimulation::removeMasks()
-{
-    Detector2D(m_instrument)->removeMasks();
-}
-
-void GISASSimulation::addMask(const IShape2D& shape, bool mask_value)
-{
-    Detector2D(m_instrument)->addMask(shape, mask_value);
-}
-
-void GISASSimulation::maskAll()
-{
-    Detector2D(m_instrument)->maskAll();
-}
-
-void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
-{
-    Detector2D(m_instrument)->setRegionOfInterest(xlow, ylow, xup, yup);
 }
 
 GISASSimulation::GISASSimulation(const GISASSimulation& other)
@@ -121,16 +101,4 @@ void GISASSimulation::initSimulationElementVector()
 void GISASSimulation::initialize()
 {
     setName(BornAgain::GISASSimulationType);
-}
-
-namespace
-{
-IDetector2D* Detector2D(Instrument& instrument)
-{
-    IDetector2D* detector = instrument.detector2D();
-    if (!detector)
-        throw std::runtime_error(
-            "Error in GISASSimulation: wrong detector type");
-    return detector;
-}
 }

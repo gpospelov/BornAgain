@@ -49,13 +49,19 @@ size_t OffSpecSimulation::numberOfSimulationElements() const
     return getInstrument().getDetector()->numberOfSimulationElements()*mP_alpha_i_axis->size();
 }
 
-Histogram2D* OffSpecSimulation::getIntensityData() const
+SimulationResult OffSpecSimulation::result() const
 {
-    const std::unique_ptr<OutputData<double>> data(getDetectorIntensity());
-    return new Histogram2D(*data);
+    auto data = std::unique_ptr<OutputData<double>>(m_intensity_map.clone());
+    auto p_det = dynamic_cast<const IDetector2D*>(getInstrument().getDetector());
+    if (p_det) {
+        OffSpecularConverter converter(*p_det, getInstrument().getBeam(), *mP_alpha_i_axis);
+        return SimulationResult(*data, converter);
+    }
+    throw std::runtime_error("Error in OffSpecSimulation::result: "
+                             "wrong or absent detector type");
 }
 
-void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i)
+void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_axis, double phi_i)
 {
     mP_alpha_i_axis.reset(alpha_axis.clone());
     if (alpha_axis.size()<1)
@@ -63,7 +69,7 @@ void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis
                 "OffSpecSimulation::prepareSimulation() "
                 "-> Error. Incoming alpha range size < 1.");
     double alpha_start = alpha_axis[0];
-    m_instrument.setBeamParameters(lambda, alpha_start, phi_i);
+    m_instrument.setBeamParameters(wavelength, alpha_start, phi_i);
     updateIntensityMap();
 }
 

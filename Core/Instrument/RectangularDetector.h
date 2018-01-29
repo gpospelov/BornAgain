@@ -18,6 +18,8 @@
 #include "IDetector2D.h"
 #include "IPixel.h"
 
+class RectangularPixel;
+
 //! A flat rectangular detector with axes and resolution function.
 //! @ingroup simulation
 
@@ -77,6 +79,8 @@ public:
     //! return default axes units
     AxesUnits defaultAxesUnits() const override;
 
+    RectangularPixel* regionOfInterestPixel() const;
+
 protected:
     //! Create an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
@@ -119,6 +123,7 @@ public:
     RectangularPixel* clone() const override;
     RectangularPixel* createZeroSizePixel(double x, double y) const override;
     kvector_t getK(double x, double y, double wavelength) const override;
+    kvector_t getPosition(double x, double y) const;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;
 private:

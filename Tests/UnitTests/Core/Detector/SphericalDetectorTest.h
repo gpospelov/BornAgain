@@ -34,7 +34,7 @@ TEST_F(SphericalDetectorTest, initialState)
 
     // detector units
     std::vector<AxesUnits> validUnits
-        = {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QYQZ};
+        = {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE};
     EXPECT_EQ(validUnits, detector.validAxesUnits());
 
     // masks
@@ -356,20 +356,6 @@ TEST_F(SphericalDetectorTest, Clone)
     }
     EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
-}
-
-TEST_F(SphericalDetectorTest, nameToUnitTranslation)
-{
-    EXPECT_EQ(DetectorFunctions::detectorUnits(""), AxesUnits::DEFAULT);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("QyQz"), AxesUnits::QYQZ);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("qyqz"), AxesUnits::QYQZ);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("MM"), AxesUnits::MM);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("mm"), AxesUnits::MM);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("radians"), AxesUnits::RADIANS);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("rad"), AxesUnits::RADIANS);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("degrees"), AxesUnits::DEGREES);
-    EXPECT_EQ(DetectorFunctions::detectorUnits("deg"), AxesUnits::DEGREES);
-    EXPECT_THROW(DetectorFunctions::detectorUnits("xxx"), std::runtime_error);
 }
 
 // Test retrieval of analyzer properties

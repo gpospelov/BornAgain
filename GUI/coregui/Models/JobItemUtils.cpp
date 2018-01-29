@@ -34,7 +34,7 @@ QMap<QString, AxesUnits> init_units_to_description_map()
     result[Constants::UnitsRadians] = AxesUnits::RADIANS;
     result[Constants::UnitsDegrees] = AxesUnits::DEGREES;
     result[Constants::UnitsMm] = AxesUnits::MM;
-    result[Constants::UnitsQyQz] = AxesUnits::QYQZ;
+    result[Constants::UnitsQyQz] = AxesUnits::QSPACE;
     return result;
 }
 
@@ -45,7 +45,7 @@ QMap<AxesUnits, QString> init_description_to_units_map()
     result[AxesUnits::RADIANS] = Constants::UnitsRadians;
     result[AxesUnits::DEGREES] = Constants::UnitsDegrees;
     result[AxesUnits::MM] = Constants::UnitsMm;
-    result[AxesUnits::QYQZ] = Constants::UnitsQyQz;
+    result[AxesUnits::QSPACE] = Constants::UnitsQyQz;
     return result;
 }
 }

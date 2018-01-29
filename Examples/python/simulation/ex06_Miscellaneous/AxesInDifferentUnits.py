@@ -71,7 +71,7 @@ def run_simulation():
     results['mm'] = simulation.getIntensityData()
     results['nbins'] = simulation.getIntensityData(ba.AxesUnits.NBINS)
     results['deg'] = simulation.getIntensityData(ba.AxesUnits.DEGREES)
-    results['qyqz'] = simulation.getIntensityData(ba.AxesUnits.QYQZ)
+    results['qyqz'] = simulation.getIntensityData(ba.AxesUnits.QSPACE)
 
     return results
 

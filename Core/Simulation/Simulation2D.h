@@ -16,6 +16,7 @@
 #define SIMULATION2D_H
 
 #include "Simulation.h"
+#include "SimulationResult.h"
 
 //! Pure virtual base class of OffSpecularSimulation and GISASSimulation.
 //! Holds the common implementations for simulations with a 2D detector
@@ -41,8 +42,40 @@ public:
     void setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
                                size_t n_alpha, double alpha_min, double alpha_max);
 
+    //! Sets the detector (axes can be overwritten later)
+    void setDetector(const IDetector2D& detector);
+
+    //! Returns the results of the simulation in a format that supports unit conversion and export
+    //! to numpy arrays
+    virtual SimulationResult result() const=0;
+
+    //! Returns clone of the detector intensity map with detector resolution applied
+    OutputData<double>* getDetectorIntensity(
+            AxesUnits units_type = AxesUnits::DEFAULT) const override;
+
+    //! Returns histogram representing intensity map in requested axes units
+    Histogram2D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
+
+    //! removes all masks from the detector
+    void removeMasks();
+
+    //! Adds mask of given shape to the stack of detector masks. The mask value 'true' means
+    //! that the channel will be excluded from the simulation. The mask which is added last
+    //! has priority.
+    //! @param shape The shape of mask (Rectangle, Polygon, Line, Ellipse)
+    //! @param mask_value The value of mask
+    void addMask(const IShape2D& shape, bool mask_value = true);
+
+    //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
+    void maskAll();
+
+    //! Sets rectangular region of interest with lower left and upper right corners defined.
+    void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
+
 protected:
     Simulation2D(const Simulation2D& other);
+
+    virtual void initUnitConverter() {}
 
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation

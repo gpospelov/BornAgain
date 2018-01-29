@@ -80,7 +80,8 @@ std::unique_ptr<IAxis> IDetector::translateAxisToUnits(size_t axis_index, const 
     return result;
 }
 
-std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
+std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins,
+                                             double min, double max) const
 {
     if (max <= min)
         throw Exceptions::LogicErrorException(
@@ -122,7 +123,7 @@ void IDetector::setResolutionFunction(const IResolutionFunction2D& resFunc)
     setDetectorResolution(convFunc);
 }
 
-void IDetector::applyDetectorResolution(OutputData<double> *p_intensity_map) const
+void IDetector::applyDetectorResolution(OutputData<double>* p_intensity_map) const
 {
     if (!p_intensity_map)
         throw std::runtime_error("IDetector::applyDetectorResolution() -> "
@@ -171,7 +172,6 @@ IDetector::createDetectorIntensity(const std::vector<SimulationElement>& element
     } else {
         setDataToDetectorMap(*detectorMap, elements);
     }
-
     return detectorMap.release();
 }
 
@@ -183,7 +183,8 @@ void IDetector::checkAxesUnits(AxesUnits units) const
     auto validUnits = validAxesUnits();
     if(std::find(validUnits.begin(), validUnits.end(), units) == validUnits.end()) {
         std::ostringstream message;
-        message << "IDetector::createDetectorMap() -> Error. Unknown axes unit " << static_cast<int>(units) << "\n";
+        message << "IDetector::createDetectorMap() -> Error. Unknown axes unit "
+                << static_cast<int>(units) << "\n";
         message << "Available units for this detector type \n";
         for(size_t i=0; i<validUnits.size(); ++i)
         for(auto unit : validUnits)

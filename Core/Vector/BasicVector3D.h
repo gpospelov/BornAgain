@@ -259,8 +259,7 @@ inline bool operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 
 //! Creates a vector<double> as a wavevector with given wavelength and angles.
 //! Specifically needed for grazing-incidence scattering.
-BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(
-    const double _lambda, const double _alpha, const double _phi);
+BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi);
 
 
 // =============================================================================

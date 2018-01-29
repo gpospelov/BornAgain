@@ -125,7 +125,6 @@ IHistogram* FitSuite::getRealData(size_t i_item) const
 {
     std::unique_ptr<IHistogram> result(IHistogram::createHistogram(
             m_impl->fitObjects()->getRealData(i_item)));
-    result->setAxesUnits(m_impl->fitObjects()->getDefaultAxesUnits());
     return result.release();
 }
 
@@ -133,7 +132,6 @@ IHistogram* FitSuite::getSimulationData(size_t i_item) const
 {
     std::unique_ptr<IHistogram> result(IHistogram::createHistogram(
             m_impl->fitObjects()->getSimulationData(i_item)));
-    result->setAxesUnits(m_impl->fitObjects()->getDefaultAxesUnits());
     return result.release();
 }
 
@@ -141,7 +139,6 @@ IHistogram* FitSuite::getChiSquaredMap(size_t i_item) const
 {
     std::unique_ptr<IHistogram> result(IHistogram::createHistogram(
             m_impl->fitObjects()->getChiSquaredMap(i_item)));
-    result->setAxesUnits(m_impl->fitObjects()->getDefaultAxesUnits());
     return result.release();
 }
 

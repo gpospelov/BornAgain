@@ -235,15 +235,6 @@ void SpecularSimulation::validityCheck(size_t i_layer) const
     if (data_size != getAlphaAxis()->size())
         throw std::runtime_error("Error in SpecularSimulation::validityCheck: length of simulation "
                                  "element vector is not equal to the number of inclination angles");
-
-    for (size_t i = 0; i < data_size; ++i) {
-        const SpecularData& specular_data = m_sim_elements[i].specularData();
-        if (!specular_data.isInited()) {
-            std::ostringstream message;
-            message << "Error in SpecularSimulation::validityCheck: simulation element " << i << "does not contain specular info";
-            throw std::runtime_error(message.str());
-        }
-    }
 }
 
 void SpecularSimulation::checkCache() const

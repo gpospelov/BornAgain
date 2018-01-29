@@ -15,5 +15,6 @@
 #include "OrderedMapTest.h"
 #include "SampleBuilderNoteTest.h"
 #include "SampleProviderTest.h"
+#include "FourierTransformTest.h"
 #include "BeamFootprintTest.h"
 

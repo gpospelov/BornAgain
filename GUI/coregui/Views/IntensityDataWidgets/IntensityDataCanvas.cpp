@@ -24,6 +24,7 @@
 #include <QVBoxLayout>
 #include <QMouseEvent>
 #include <QSettings>
+#include "IntensityDataFunctions.h"
 
 namespace {
 
@@ -75,7 +76,7 @@ QSize IntensityDataCanvas::minimumSizeHint() const
 
 QList<QAction*> IntensityDataCanvas::actionList()
 {
-    return QList<QAction*>() << m_resetViewAction << m_savePlotAction;
+    return QList<QAction*>() << m_resetViewAction << m_savePlotAction << m_fftAction;
 }
 
 void IntensityDataCanvas::onResetViewAction()
@@ -94,6 +95,25 @@ void IntensityDataCanvas::onMousePress(QMouseEvent* event)
 {
     if(event->button() == Qt::RightButton)
         emit customContextMenuRequested(event->globalPos());
+}
+
+void IntensityDataCanvas::onfftAction()
+{
+    auto dataItem = intensityDataItem();
+
+    if(m_backup)
+    {
+        dataItem->setOutputData(m_backup.release());
+    }
+
+    else
+    {
+        m_backup.reset(new OutputData<double>);
+        m_backup->copyFrom(*dataItem->getOutputData());
+
+        dataItem->setOutputData(
+                    (IntensityDataFunctions::getFourierTransform(*dataItem->getOutputData())));
+    }
 }
 
 void IntensityDataCanvas::subscribeToItem()
@@ -127,6 +147,12 @@ void IntensityDataCanvas::initActions()
     m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
     m_savePlotAction->setToolTip("Save plot");
     connect(m_savePlotAction, &QAction::triggered, this, &IntensityDataCanvas::onSavePlotAction);
+
+    m_fftAction = new QAction(this);
+    m_fftAction->setText("Fourier Transform");
+    //m_fftAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
+    m_fftAction->setToolTip("Get the Fourier Transform of current intensity map");
+    connect(m_fftAction, &QAction::triggered, this, &IntensityDataCanvas::onfftAction);
 }
 
 //! Reads gradient/ interpolation settings from IntensityDataItem and writes to persistant

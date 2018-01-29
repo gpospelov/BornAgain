@@ -46,10 +46,10 @@ void UnitConverterSimple::addAxisData(std::string name, double min, double max,
 double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) const
 {
     checkIndex(i_axis);
+    // Replace DEFAULT by the converter's default units:
+    if (units_type==AxesUnits::DEFAULT) units_type = defaultUnits();
     auto axis_data = m_axis_data_table[i_axis];
-    if (units_type==defaultUnits() || units_type==AxesUnits::DEFAULT) {
-        return axis_data.min;
-    } else if (units_type==AxesUnits::NBINS) {
+    if (units_type==AxesUnits::NBINS) {
         return 0.0;
     }
     return calculateValue(i_axis, units_type, axis_data.min);
@@ -58,10 +58,10 @@ double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) co
 double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) const
 {
     checkIndex(i_axis);
+    // Replace DEFAULT by the converter's default units:
+    if (units_type==AxesUnits::DEFAULT) units_type = defaultUnits();
     auto axis_data = m_axis_data_table[i_axis];
-    if (units_type==defaultUnits() || units_type==AxesUnits::DEFAULT) {
-        return axis_data.max;
-    } else if (units_type==AxesUnits::NBINS) {
+    if (units_type==AxesUnits::NBINS) {
         return static_cast<double>(axis_data.nbins);
     }
     return calculateValue(i_axis, units_type, axis_data.max);
@@ -78,6 +78,7 @@ std::string UnitConverterSimple::axisName(size_t i_axis, AxesUnits units_type) c
 {
     const std::vector<std::map<AxesUnits, std::string>> name_maps = createNameMaps();
     auto& name_map = name_maps[i_axis];
+    // Replace DEFAULT by the converter's default units:
     if (units_type==AxesUnits::DEFAULT) units_type = defaultUnits();
     auto it = name_map.find(units_type);
     if (it==name_map.end())
@@ -148,6 +149,8 @@ SphericalConverter::SphericalConverter(const SphericalConverter& other)
 double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
 {
     switch(units_type) {
+    case AxesUnits::RADIANS:
+        return value;
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
     case AxesUnits::QSPACE:
@@ -213,10 +216,12 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
     auto max_pos = i_axis == 0 ? k10 : k01;  // position of max along given axis
     auto k_f = normalizeToWavelength(k00 + value*(max_pos - k00).unit());
     switch(units_type) {
-    case AxesUnits::DEGREES:
-        return Units::rad2deg(axisAngle(i_axis, k_f));
     case AxesUnits::RADIANS:
         return axisAngle(i_axis, k_f);
+    case AxesUnits::DEGREES:
+        return Units::rad2deg(axisAngle(i_axis, k_f));
+    case AxesUnits::MM:
+        return value;
     case AxesUnits::QSPACE:
     {
         auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
@@ -295,6 +300,8 @@ OffSpecularConverter::OffSpecularConverter(const OffSpecularConverter& other)
 double OffSpecularConverter::calculateValue(size_t, AxesUnits units_type, double value) const
 {
     switch(units_type) {
+    case AxesUnits::RADIANS:
+        return value;
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
     default:

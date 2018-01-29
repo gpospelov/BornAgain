@@ -66,7 +66,7 @@ public:
     void addParameterDistribution(const ParameterDistribution& par_distr) override;
 
     //! Returns detector signal (\f$ \propto |R|^2\f$) in the form of 1D Histogram
-    Histogram1D* getIntensityData() const;
+    Histogram1D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
 private:
     typedef complex_t (ILayerRTCoefficients::*DataGetter)() const;

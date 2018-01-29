@@ -59,7 +59,7 @@ def get_minified_simulation():
     """
     Returns a GISAXS simulation constructed from example simulation with smaller detector.
     """
-    if example_name == "SpecularSimulation":
+    if "ex06_Reflectometry" in example_dir:
         return get_simulation_SpecularSimulation()
 
     elif example_name == "RectangularGrating":

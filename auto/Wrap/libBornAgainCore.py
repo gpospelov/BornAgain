@@ -26966,6 +26966,11 @@ class IUnitConverter(ICloneable):
         """
         return _libBornAgainCore.IUnitConverter_axisName(self, *args)
 
+
+    def defaultUnits(self):
+        """defaultUnits(IUnitConverter self) -> AxesUnits"""
+        return _libBornAgainCore.IUnitConverter_defaultUnits(self)
+
 IUnitConverter_swigregister = _libBornAgainCore.IUnitConverter_swigregister
 IUnitConverter_swigregister(IUnitConverter)
 
@@ -27091,6 +27096,11 @@ class SphericalConverter(UnitConverterSimple):
         """
         return _libBornAgainCore.SphericalConverter_clone(self)
 
+
+    def defaultUnits(self):
+        """defaultUnits(SphericalConverter self) -> AxesUnits"""
+        return _libBornAgainCore.SphericalConverter_defaultUnits(self)
+
 SphericalConverter_swigregister = _libBornAgainCore.SphericalConverter_swigregister
 SphericalConverter_swigregister(SphericalConverter)
 
@@ -27138,6 +27148,11 @@ class RectangularConverter(UnitConverterSimple):
         """
         return _libBornAgainCore.RectangularConverter_clone(self)
 
+
+    def defaultUnits(self):
+        """defaultUnits(RectangularConverter self) -> AxesUnits"""
+        return _libBornAgainCore.RectangularConverter_defaultUnits(self)
+
 RectangularConverter_swigregister = _libBornAgainCore.RectangularConverter_swigregister
 RectangularConverter_swigregister(RectangularConverter)
 
@@ -27184,6 +27199,11 @@ class OffSpecularConverter(UnitConverterSimple):
 
         """
         return _libBornAgainCore.OffSpecularConverter_clone(self)
+
+
+    def defaultUnits(self):
+        """defaultUnits(OffSpecularConverter self) -> AxesUnits"""
+        return _libBornAgainCore.OffSpecularConverter_defaultUnits(self)
 
 OffSpecularConverter_swigregister = _libBornAgainCore.OffSpecularConverter_swigregister
 OffSpecularConverter_swigregister(OffSpecularConverter)

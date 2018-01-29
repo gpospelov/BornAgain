@@ -48,9 +48,9 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(get_sample())
     simulation.runSimulation()
-    return simulation.result()
+    return simulation.getIntensityData()
 
 
 if __name__ == '__main__':
     result = run_simulation()
-    ba.plot_simulation_result(result)
+    ba.plot_intensity_data(result)

@@ -84,9 +84,11 @@ void SimulationResult::checkDimensions() const
 
 std::unique_ptr<IAxis> SimulationResult::createConvertedAxis(size_t i_axis, AxesUnits units) const
 {
+    // Replace DEFAULT by the converter's default units:
+    if (units==AxesUnits::DEFAULT)
+        units = mP_unit_converter->defaultUnits();
     double min = mP_unit_converter->calculateMin(i_axis, units);
     double max = mP_unit_converter->calculateMax(i_axis, units);
-    // TODO: Region of interest?
     auto axis_name = mP_unit_converter->axisName(i_axis);
     auto axis_size = mP_unit_converter->axisSize(i_axis);
     return std::make_unique<FixedBinAxis>(axis_name, axis_size, min, max);

@@ -20361,6 +20361,14 @@ class IntensityDataIOFactory(_object):
         writeIntensityData = staticmethod(writeIntensityData)
     __swig_getmethods__["writeIntensityData"] = lambda x: writeIntensityData
 
+    def writeSimulationResult(result, file_name):
+        """writeSimulationResult(SimulationResult result, std::string const & file_name)"""
+        return _libBornAgainCore.IntensityDataIOFactory_writeSimulationResult(result, file_name)
+
+    if _newclass:
+        writeSimulationResult = staticmethod(writeSimulationResult)
+    __swig_getmethods__["writeSimulationResult"] = lambda x: writeSimulationResult
+
     def __init__(self):
         """
         __init__(IntensityDataIOFactory self) -> IntensityDataIOFactory
@@ -20397,6 +20405,10 @@ def IntensityDataIOFactory_writeOutputData(data, file_name):
 def IntensityDataIOFactory_writeIntensityData(histogram, file_name):
     """IntensityDataIOFactory_writeIntensityData(IHistogram histogram, std::string const & file_name)"""
     return _libBornAgainCore.IntensityDataIOFactory_writeIntensityData(histogram, file_name)
+
+def IntensityDataIOFactory_writeSimulationResult(result, file_name):
+    """IntensityDataIOFactory_writeSimulationResult(SimulationResult result, std::string const & file_name)"""
+    return _libBornAgainCore.IntensityDataIOFactory_writeSimulationResult(result, file_name)
 
 class InterferenceFunction1DLattice(IInterferenceFunction):
     """

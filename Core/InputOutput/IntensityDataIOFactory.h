@@ -20,6 +20,7 @@
 
 template <class T> class OutputData;
 class IHistogram;
+class SimulationResult;
 
 //! Provides users with possibility to read and write IntensityData from/to files
 //! in different format. Type of the file will be deduced from file name.
@@ -57,6 +58,9 @@ public:
 
     //! Writes histogram in file
     static void writeIntensityData(const IHistogram &histogram, const std::string& file_name);
+
+    //! Writes OutputData contained in the given SimulationResult object
+    static void writeSimulationResult(const SimulationResult& result, const std::string& file_name);
 };
 
 #endif // INTENSITYDATAIOFACTORY_H

@@ -102,6 +102,17 @@ def plot_intensity_data(intensity, zmin=None, zmax=None):
     plt.show()
 
 
+def plot_simulation_result(result_, zmin=None, zmax=None):
+    """
+    Plots simulation result as color map and hold the plot.
+    :param result_: SimulationResult object obtained from GISASSimulation/OffSpecSimulation
+    :param zmin: Min value on amplitude's color bar
+    :param zmax: Max value on amplitude's color bar
+    """
+    plot_colormap(result_.histogram2d(), zmin, zmax)
+    plt.show()
+
+
 class Plotter:
     def __init__(self):
 

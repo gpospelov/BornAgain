@@ -69,11 +69,11 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    return simulation.getIntensityData()
+    return simulation.result()
 
 
 if __name__ == '__main__':
     result = run_simulation()
-    ba.plot_colormap(result, xlabel=r'$\alpha_i ^{\circ}$')
+    ba.plot_colormap_hist(result, xlabel=r'$\alpha_i ^{\circ}$')
     from matplotlib import pyplot as plt
     plt.show()

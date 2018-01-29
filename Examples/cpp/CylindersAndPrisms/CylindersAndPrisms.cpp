@@ -61,7 +61,7 @@ int main()
 
     // Run the simulation, and store the result
     simulation.runSimulation();
-    const Histogram2D* result = simulation.getIntensityData();
-    IntensityDataIOFactory::writeIntensityData(*result, "result.int");
+    auto result = simulation.result();
+    IntensityDataIOFactory::writeSimulationResult(result, "result.int");
     return 0;
 }

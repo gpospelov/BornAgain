@@ -86,13 +86,13 @@ def run_simulation():
         simulation = get_simulation(integration_flag)
         simulation.setSample(sample)
         simulation.runSimulation()
-        result = simulation.getIntensityData()
+        result = simulation.result()
 
         # plotting results
         plt.subplot(2, 2, i_plot+1)
         plt.subplots_adjust(wspace=0.3, hspace=0.3)
 
-        ba.plot_colormap(result)
+        ba.plot_colormap_hist(result)
 
         plt.text(0.0, 2.1, conditions[i_plot]['title'],
                  horizontalalignment='center', verticalalignment='center',

@@ -75,7 +75,7 @@ def simulate(ff):
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    return simulation.getIntensityData()
+    return simulation.result()
 
 
 def run_simulation():
@@ -97,7 +97,7 @@ def run_simulation():
         plt.subplot(5, 5, nplot+1)
         plt.subplots_adjust(wspace=0.3, hspace=0.3)
 
-        ba.plot_colormap(result, xlabel="", ylabel="", zlabel="")
+        ba.plot_colormap_hist(result, xlabel="", ylabel="", zlabel="")
 
         plt.tick_params(axis='both', which='major', labelsize=8)
         plt.tick_params(axis='both', which='minor', labelsize=6)

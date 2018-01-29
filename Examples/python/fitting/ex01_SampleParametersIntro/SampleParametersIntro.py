@@ -73,7 +73,7 @@ def run_simulation():
     # initial sample is used
     simulation.setSample(sample)
     simulation.runSimulation()
-    results[0] = simulation.getIntensityData()
+    results[0] = simulation.result()
 
     # simulation #2
     # one sample parameter (cylinder height) is changed using exact parameter name
@@ -83,14 +83,14 @@ def run_simulation():
 
     simulation.setSample(sample)
     simulation.runSimulation()
-    results[1] = simulation.getIntensityData()
+    results[1] = simulation.result()
 
     # simulation #3
     # all parameters matching criteria will be changed (cylinder height in this case)
     sample.setParameterValue("*/Cylinder/Height", 100.0*nm)
     simulation.setSample(sample)
     simulation.runSimulation()
-    results[2] = simulation.getIntensityData()
+    results[2] = simulation.result()
 
     # simulation #4
     # all parameters which are matching criteria will be changed
@@ -98,7 +98,7 @@ def run_simulation():
     sample.setParameterValue("*/Prism3/*", 10.0*nm)
     simulation.setSample(sample)
     simulation.runSimulation()
-    results[3] = simulation.getIntensityData()
+    results[3] = simulation.result()
 
     # See more trick in <source>/Tests/Functional/PyCore/legacy/parameterpool.py
 
@@ -113,9 +113,9 @@ def plot(results):
     from matplotlib import pyplot as plt
     plt.figure(figsize=(12.80, 10.24))
 
-    for nplot, hist in results.items():
+    for nplot, result in results.items():
         plt.subplot(2, 2, nplot+1)
-        ba.plot_colormap(hist)
+        ba.plot_colormap(result)
     plt.show()
 
 

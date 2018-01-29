@@ -83,19 +83,19 @@ def plot(results):
 
     # showing  result of spherical detector simulation
     plt.subplot(1, 3, 1)
-    ba.plot_colormap(results['spherical'], title="Spherical detector",
+    ba.plot_colormap_hist(results['spherical'], title="Spherical detector",
                      xlabel=r'$\phi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$',
                      zlabel=None)
 
     # showing  result of rectangular detector simulation
     plt.subplot(1, 3, 2)
-    ba.plot_colormap(results['rectangular'], title="Rectangular detector",
+    ba.plot_colormap_hist(results['rectangular'], title="Rectangular detector",
                      xlabel='X, mm', ylabel='Y, mm', zlabel=None)
 
     # show relative difference between two plots (sph[i]-rect[i])/rect[i]
     # for every detector pixel
     plt.subplot(1, 3, 3)
-    ba.plot_colormap(results['difference'], title="Relative difference",
+    ba.plot_colormap_hist(results['difference'], title="Relative difference",
                      zmin=1e-06, zmax=1.0,
                      xlabel='X, mm', ylabel='Y, mm', zlabel=None)
 
@@ -121,7 +121,7 @@ def run_simulation():
     # runs simulation for rectangular detector
     simulation.setDetector(get_rectangular_detector())
     simulation.runSimulation()
-    results['rectangular'] = simulation.getIntensityData()
+    results['rectangular'] = simulation.result()
 
     results['difference'] = results['rectangular'].relativeDifferenceHistogram(
         results['spherical'])

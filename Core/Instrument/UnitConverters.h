@@ -119,7 +119,7 @@ public:
 
     SphericalConverter* clone() const override;
 
-    AxesUnits defaultUnits() const override { return AxesUnits::RADIANS; }
+    AxesUnits defaultUnits() const override { return AxesUnits::DEGREES; }
 
 private:
     SphericalConverter(const SphericalConverter& other);

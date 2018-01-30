@@ -53,9 +53,6 @@ public:
     OutputData<double>* getDetectorIntensity(
             AxesUnits units_type = AxesUnits::DEFAULT) const override;
 
-    //! Returns histogram representing intensity map in requested axes units
-    Histogram2D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
-
     //! removes all masks from the detector
     void removeMasks();
 

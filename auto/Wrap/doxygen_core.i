@@ -9624,6 +9624,9 @@ C++ includes: UnitConverters.h
 %feature("docstring")  IUnitConverter::axisName "virtual std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const =0
 ";
 
+%feature("docstring")  IUnitConverter::defaultUnits "virtual AxesUnits IUnitConverter::defaultUnits() const =0
+";
+
 
 // File: classLabelMap.xml
 %feature("docstring") LabelMap "";
@@ -10897,6 +10900,9 @@ C++ includes: UnitConverters.h
 ";
 
 %feature("docstring")  OffSpecularConverter::clone "OffSpecularConverter * OffSpecularConverter::clone() const override
+";
+
+%feature("docstring")  OffSpecularConverter::defaultUnits "AxesUnits OffSpecularConverter::defaultUnits() const override
 ";
 
 
@@ -12430,6 +12436,9 @@ C++ includes: UnitConverters.h
 %feature("docstring")  RectangularConverter::clone "RectangularConverter * RectangularConverter::clone() const override
 ";
 
+%feature("docstring")  RectangularConverter::defaultUnits "AxesUnits RectangularConverter::defaultUnits() const override
+";
+
 
 // File: classRectangularDetector.xml
 %feature("docstring") RectangularDetector "
@@ -13607,11 +13616,6 @@ Returns the results of the simulation in a format that supports unit conversion 
 Returns clone of the detector intensity map with detector resolution applied. 
 ";
 
-%feature("docstring")  Simulation2D::getIntensityData "Histogram2D * Simulation2D::getIntensityData(AxesUnits units_type=AxesUnits::DEFAULT) const
-
-Returns histogram representing intensity map in requested axes units. 
-";
-
 %feature("docstring")  Simulation2D::removeMasks "void Simulation2D::removeMasks()
 
 removes all masks from the detector 
@@ -13915,6 +13919,9 @@ C++ includes: SimulationResult.h
 ";
 
 %feature("docstring")  SimulationResult::histogram2d "Histogram2D * SimulationResult::histogram2d(AxesUnits units_type=AxesUnits::DEFAULT) const
+";
+
+%feature("docstring")  SimulationResult::size "size_t SimulationResult::size() const 
 ";
 
 
@@ -14337,6 +14344,9 @@ C++ includes: UnitConverters.h
 ";
 
 %feature("docstring")  SphericalConverter::clone "SphericalConverter * SphericalConverter::clone() const override
+";
+
+%feature("docstring")  SphericalConverter::defaultUnits "AxesUnits SphericalConverter::defaultUnits() const override
 ";
 
 
@@ -15380,6 +15390,13 @@ Validates all fit parameters for conflicts (steering same sample parameters).
 
 
 // File: namespaceIntensityDataFunctions.xml
+%feature("docstring")  IntensityDataFunctions::RelativeDifference "double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
+
+Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
+
+Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
+";
+
 %feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref)
 
 Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). 
@@ -15608,7 +15625,7 @@ Returns true if two doubles agree within epsilon*tolerance.
 
 %feature("docstring")  Numeric::get_relative_difference "double BA_CORE_API_ Numeric::get_relative_difference(double a, double b)
 
-Returns the safe relative difference, which is |(a-b)/b| except in special cases. 
+Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
 ";
 
 

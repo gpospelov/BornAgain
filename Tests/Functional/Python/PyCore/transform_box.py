@@ -34,11 +34,11 @@ class BoxTransformationsTest(unittest.TestCase):
         multi_layer.addLayer(substrate)
         return multi_layer
 
-    def get_intensity_data(self, particle):
+    def get_result(self, particle):
         sample = self.get_sample(particle)
         simulation = utils.get_simulation_MiniGISAS(sample)
         simulation.runSimulation()
-        return simulation.getIntensityData()
+        return simulation.result()
 
     def testBoxTransform(self):
         """
@@ -54,7 +54,7 @@ class BoxTransformationsTest(unittest.TestCase):
 
         box = ba.Particle(mParticle, ba.FormFactorBox(length, width, height))
         box.setPosition(kvector_t(0, 0, -layer_thickness/2 - height/2))
-        reference_data = self.get_intensity_data(box)
+        reference_data = self.get_result(box)
         #utils.plot_intensity_data(reference_data)
         #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_TransformBox.int")
 
@@ -67,9 +67,9 @@ class BoxTransformationsTest(unittest.TestCase):
         box.rotate(ba.RotationY(90*deg))
         box.setPosition(kvector_t(0, 0, -layer_thickness/2))
 
-        data = self.get_intensity_data(box)
+        data = self.get_result(box)
 
-        diff = ba.getRelativeDifference(data, reference_data)
+        diff = ba.RelativeDifference(data, reference_data)
         print(diff)
         self.assertLess(diff, 1e-10)
 

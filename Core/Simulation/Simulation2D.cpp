@@ -81,12 +81,6 @@ OutputData<double>* Simulation2D::getDetectorIntensity(AxesUnits units_type) con
     return result().data(units_type);
 }
 
-Histogram2D* Simulation2D::getIntensityData(AxesUnits units_type) const
-{
-    std::unique_ptr<OutputData<double>> data(getDetectorIntensity(units_type));
-    return new Histogram2D(*data);
-}
-
 std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(size_t start,
                                                                               size_t n_elements)
 {

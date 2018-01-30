@@ -4,6 +4,7 @@
 # and running fitting.
 
 from __future__ import print_function
+import numpy as np
 import sys
 import ctypes
 import math
@@ -84,16 +85,17 @@ def createSimulation():
 # generating "real" data by adding noise to the simulated data
 def createRealData(simulation):
     simulation.runSimulation()
-    real_data = simulation.getIntensityData()
+
+    # retrieving simulated data in the form of numpy array
+    real_data = simulation.result().array()
+
+    # spoiling simulated data with noise to produce "real" data
+    # random seed made as in FitSPheresInHexLattice_builder.py example
+    np.random.seed(0)
     noise_factor = 0.1
-    for i in range(0, real_data.getTotalNumberOfBins()):
-        amplitude = real_data.getBinContent(i)
-        sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-        if noisy_amplitude < 0.0:
-            noisy_amplitude = 0.0
-        real_data.setBinContent(i, noisy_amplitude)
-    return real_data
+    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
+    noisy[noisy < 0.1] = 0.1
+    return noisy
 
 
 # ----------------------------------------------------------------------------

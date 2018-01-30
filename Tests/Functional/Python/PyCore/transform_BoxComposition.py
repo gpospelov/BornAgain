@@ -41,11 +41,11 @@ class TransformBoxCompositionTest(unittest.TestCase):
         multi_layer.addLayer(substrate)
         return multi_layer
 
-    def get_intensity_data(self, particle):
+    def get_result(self, particle):
         sample = self.get_sample(particle)
         simulation = utils.get_simulation_MiniGISAS(sample)
         simulation.runSimulation()
-        return simulation.getIntensityData()
+        return simulation.result()
 
     def test_BoxComposition(self):
         """
@@ -58,7 +58,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         particle = Particle(particle_material, FormFactorBox(length, width, height))
         particle.setPosition(kvector_t(0, 0, -layer_thickness/2.0 - height/2.0))
 
-        reference_data = self.get_intensity_data(particle)
+        reference_data = self.get_result(particle)
         #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_BoxComposition.int")
 
         # composition
@@ -69,9 +69,9 @@ class TransformBoxCompositionTest(unittest.TestCase):
         composition.addParticle(box, kvector_t(comp_length/2.0, 0.0, 0.0))
         composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - comp_height/2.0))
 
-        data = self.get_intensity_data(composition)
+        data = self.get_result(composition)
 
-        diff = getRelativeDifference(data, reference_data)
+        diff = RelativeDifference(data, reference_data)
         print("test_BoxComposition:", diff)
         self.assertLess(diff, 1e-10)
         # utils.plot_intensity_data(reference_data)
@@ -88,7 +88,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         particle = Particle(particle_material, FormFactorBox(length, width, height))
         particle.setPosition(kvector_t(0, 0, -layer_thickness/2.0 - height/2.0))
 
-        reference_data = self.get_intensity_data(particle)
+        reference_data = self.get_result(particle)
         #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_BoxCompositionRotateX.int")
 
         # composition
@@ -99,9 +99,9 @@ class TransformBoxCompositionTest(unittest.TestCase):
         composition.setRotation(RotationX(90*deg))
         composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.))
 
-        data = self.get_intensity_data(composition)
+        data = self.get_result(composition)
 
-        diff = getRelativeDifference(data, reference_data)
+        diff = RelativeDifference(data, reference_data)
         print("test_BoxCompositionRotateX:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -117,7 +117,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         particle = Particle(particle_material, FormFactorBox(length, width, height))
         particle.setPosition(kvector_t(0, 0, -layer_thickness/2.0 - height/2.0))
 
-        reference_data = self.get_intensity_data(particle)
+        reference_data = self.get_result(particle)
         #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_BoxCompositionRotateY.int")
 
         # composition
@@ -128,9 +128,9 @@ class TransformBoxCompositionTest(unittest.TestCase):
         composition.setRotation(RotationY(90*deg))
         composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2. + comp_length/4.))
 
-        data = self.get_intensity_data(composition)
+        data = self.get_result(composition)
 
-        diff = getRelativeDifference(data, reference_data)
+        diff = RelativeDifference(data, reference_data)
         print("test_BoxCompositionRotateY:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -146,7 +146,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         particle = Particle(particle_material, FormFactorBox(length, width, height))
         particle.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - height/2.0))
 
-        reference_data = self.get_intensity_data(particle)
+        reference_data = self.get_result(particle)
         #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_BoxCompositionRotateZ.int")
 
         # composition
@@ -157,9 +157,9 @@ class TransformBoxCompositionTest(unittest.TestCase):
         composition.setRotation(RotationZ(90*deg))
         composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - comp_height/2.0))
 
-        data = self.get_intensity_data(composition)
+        data = self.get_result(composition)
 
-        diff = getRelativeDifference(data, reference_data)
+        diff = RelativeDifference(data, reference_data)
         print("test_BoxCompositionRotateZ:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -175,7 +175,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         particle = Particle(particle_material, FormFactorBox(length, width, height))
         particle.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - height/2.0))
 
-        reference_data = self.get_intensity_data(particle)
+        reference_data = self.get_result(particle)
         #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_BoxCompositionRotateZandY.int")
 
         # composition
@@ -187,9 +187,9 @@ class TransformBoxCompositionTest(unittest.TestCase):
         composition.rotate(RotationY(90*deg))
         composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.))
 
-        data = self.get_intensity_data(composition)
+        data = self.get_result(composition)
 
-        diff = getRelativeDifference(data, reference_data)
+        diff = RelativeDifference(data, reference_data)
         print("test_BoxCompositionRotateZandY:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -204,7 +204,7 @@ class TransformBoxCompositionTest(unittest.TestCase):
         height = 50.0
         particle = Particle(particle_material, FormFactorBox(length, width, height))
         particle.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - height/2.0))
-        reference_data = self.get_intensity_data(particle)
+        reference_data = self.get_result(particle)
         #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_BoxStackComposition.int")
 
         # composition
@@ -230,9 +230,9 @@ class TransformBoxCompositionTest(unittest.TestCase):
         composition.setRotation(RotationY(90*deg))
         composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.))
 
-        data = self.get_intensity_data(composition)
+        data = self.get_result(composition)
 
-        diff = getRelativeDifference(data, reference_data)
+        diff = RelativeDifference(data, reference_data)
         print("test_BoxStackComposition:", diff)
         self.assertLess(diff, 1e-10)
 

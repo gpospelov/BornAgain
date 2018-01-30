@@ -244,8 +244,7 @@ void SpecularSimulation::validateParametrization(const ParameterDistribution& pa
     if (zero_mean)
         return;
 
-    std::unique_ptr<ParameterPool> parameter_pool(
-        m_instrument.getBeam().createParameterTree(this->parent()));
+    std::unique_ptr<ParameterPool> parameter_pool(createParameterTree());
     const std::vector<RealParameter*> names
         = parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
     for (const auto par : names)

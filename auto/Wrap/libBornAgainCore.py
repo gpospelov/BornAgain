@@ -2177,17 +2177,16 @@ class INode(IParameterized):
         return _libBornAgainCore.INode_displayName(self)
 
 
-    def createParameterTree(self, *args):
+    def createParameterTree(self):
         """
         createParameterTree(INode self) -> ParameterPool
-        createParameterTree(INode self, INode node) -> ParameterPool
 
         ParameterPool * INode::createParameterTree(const INode *node) const
 
         Creates new parameter pool, with all local parameters and those of its children. Parameter names are derived relatively to the given  node. 
 
         """
-        return _libBornAgainCore.INode_createParameterTree(self, *args)
+        return _libBornAgainCore.INode_createParameterTree(self)
 
     def __disown__(self):
         self.this.disown()

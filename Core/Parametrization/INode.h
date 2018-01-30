@@ -51,11 +51,7 @@ public:
     std::string displayName() const;
 
     //! Creates new parameter pool, with all local parameters and those of its children.
-    ParameterPool* createParameterTree() const override {return createParameterTree(this->parent());}
-
-    //! Creates new parameter pool, with all local parameters and those of its children.
-    //! Parameter names are derived relatively to the given _node_.
-    ParameterPool* createParameterTree(const INode* node) const;
+    ParameterPool* createParameterTree() const;
 
 private:
     const INode* m_parent;

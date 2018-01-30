@@ -33,7 +33,7 @@ public:
     IParameterized(const IParameterized& other);
     ~IParameterized();
 
-    IParameterized& operator=(const IParameterized& other) = delete;
+    IParameterized operator=(const IParameterized& other) = delete;
 
     //! Returns pointer to the parameter pool.
     ParameterPool* parameterPool() const { return m_pool; }

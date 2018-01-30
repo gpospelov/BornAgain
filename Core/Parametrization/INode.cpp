@@ -88,7 +88,7 @@ std::string INode::displayName() const
     return result;
 }
 
-ParameterPool* INode::createParameterTree(const INode* node) const
+ParameterPool* INode::createParameterTree() const
 {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
 
@@ -96,7 +96,7 @@ ParameterPool* INode::createParameterTree(const INode* node) const
     it.first();
     while (!it.isDone()) {
         const INode *child = it.getCurrent();
-        const std::string path = NodeUtils::nodePath(*child, node) + "/";
+        const std::string path = NodeUtils::nodePath(*child, this->parent()) + "/";
         child->parameterPool()->copyToExternalPool(path, result.get());
         it.next();
     }

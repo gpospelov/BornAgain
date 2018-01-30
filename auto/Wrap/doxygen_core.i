@@ -13515,11 +13515,6 @@ The  MultiLayer object will not be owned by the  Simulation object.
 Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 ";
 
-%feature("docstring")  Simulation::getDetectorIntensity "virtual OutputData<double>* Simulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const =0
-
-Clone simulated intensity map. 
-";
-
 %feature("docstring")  Simulation::addParameterDistribution "void Simulation::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
 ";
 
@@ -13604,11 +13599,6 @@ upper edge of last alpha-bin
 %feature("docstring")  Simulation2D::setDetector "void Simulation2D::setDetector(const IDetector2D &detector)
 
 Sets the detector (axes can be overwritten later) 
-";
-
-%feature("docstring")  Simulation2D::getDetectorIntensity "OutputData< double > * Simulation2D::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
-
-Returns clone of the detector intensity map with detector resolution applied. 
 ";
 
 %feature("docstring")  Simulation2D::removeMasks "void Simulation2D::removeMasks()
@@ -14258,11 +14248,6 @@ Sets beam parameters with alpha_i of the beam defined in the range.
 %feature("docstring")  SpecularSimulation::getAlphaAxis "const IAxis * SpecularSimulation::getAlphaAxis() const
 
 Returns a pointer to incident angle axis. 
-";
-
-%feature("docstring")  SpecularSimulation::getDetectorIntensity "OutputData< double > * SpecularSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
-
-Returns detector count values in the form of  OutputData<double>. Detector counts are proportional to  $Reflectivity = |R|^2$ from the upper layer. 
 ";
 
 %feature("docstring")  SpecularSimulation::getIntensityData "Histogram1D * SpecularSimulation::getIntensityData(AxesUnits units_type=AxesUnits::DEFAULT) const

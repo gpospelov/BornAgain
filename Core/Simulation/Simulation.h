@@ -80,10 +80,6 @@ public:
     //! to numpy arrays
     virtual SimulationResult result() const=0;
 
-    //! Clone simulated intensity map
-    virtual OutputData<double>* getDetectorIntensity(
-        AxesUnits units_type = AxesUnits::DEFAULT) const=0;
-
     void addParameterDistribution(
         const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,
         double sigma_factor=0.0, const RealLimits& limits = RealLimits());

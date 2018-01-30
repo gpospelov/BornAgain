@@ -76,11 +76,6 @@ void Simulation2D::setDetector(const IDetector2D& detector)
     initUnitConverter();
 }
 
-OutputData<double>* Simulation2D::getDetectorIntensity(AxesUnits units_type) const
-{
-    return result().data(units_type);
-}
-
 std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(size_t start,
                                                                               size_t n_elements)
 {

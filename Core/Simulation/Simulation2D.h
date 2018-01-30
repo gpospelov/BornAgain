@@ -45,10 +45,6 @@ public:
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
 
-    //! Returns clone of the detector intensity map with detector resolution applied
-    OutputData<double>* getDetectorIntensity(
-            AxesUnits units_type = AxesUnits::DEFAULT) const override;
-
     //! removes all masks from the detector
     void removeMasks();
 

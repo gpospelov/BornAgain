@@ -61,11 +61,6 @@ public:
     //! Returns a pointer to incident angle axis.
     const IAxis* getAlphaAxis() const;
 
-    //! Returns detector count values in the form of OutputData<double>. Detector counts are
-    //! proportional to \f$Reflectivity = |R|^2\f$ from the upper layer.
-    OutputData<double>* getDetectorIntensity(
-            AxesUnits units_type= AxesUnits::DEFAULT) const override;
-
     //! Returns detector signal (\f$ \propto |R|^2\f$) in the form of 1D Histogram
     Histogram1D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
 

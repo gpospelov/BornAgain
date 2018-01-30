@@ -226,11 +226,6 @@
 
 // ownership
 
-%newobject GISASSimulation::getDetectorIntensity(AxesUnits units_type = AxesUnits::DEFAULT) const;
-
-%newobject OffSpecSimulation::getDetectorIntensity(AxesUnits units_type = AxesUnits::DEFAULT) const;
-
-%newobject SpecularSimulation::getDetectorIntensity(AxesUnits units_type = AxesUnits::DEFAULT) const;
 %newobject SpecularSimulation::getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
 %newobject SimulationResult::data(AxesUnits units_type = AxesUnits::DEFAULT) const;

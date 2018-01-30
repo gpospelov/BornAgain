@@ -16425,19 +16425,6 @@ class Simulation(ICloneable, INode):
         return _libBornAgainCore.Simulation_result(self)
 
 
-    def getDetectorIntensity(self, *args):
-        """
-        getDetectorIntensity(Simulation self, AxesUnits units_type) -> IntensityData
-        getDetectorIntensity(Simulation self) -> IntensityData
-
-        virtual OutputData<double>* Simulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const =0
-
-        Clone simulated intensity map. 
-
-        """
-        return _libBornAgainCore.Simulation_getDetectorIntensity(self, *args)
-
-
     def addParameterDistribution(self, *args):
         """
         addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, RealLimits limits)
@@ -16601,19 +16588,6 @@ class Simulation2D(Simulation):
 
         """
         return _libBornAgainCore.Simulation2D_setDetector(self, detector)
-
-
-    def getDetectorIntensity(self, *args):
-        """
-        getDetectorIntensity(Simulation2D self, AxesUnits units_type) -> IntensityData
-        getDetectorIntensity(Simulation2D self) -> IntensityData
-
-        OutputData< double > * Simulation2D::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
-
-        Returns clone of the detector intensity map with detector resolution applied. 
-
-        """
-        return _libBornAgainCore.Simulation2D_getDetectorIntensity(self, *args)
 
 
     def removeMasks(self):
@@ -26594,19 +26568,6 @@ class SpecularSimulation(Simulation):
 
         """
         return _libBornAgainCore.SpecularSimulation_getAlphaAxis(self)
-
-
-    def getDetectorIntensity(self, *args):
-        """
-        getDetectorIntensity(SpecularSimulation self, AxesUnits units_type) -> IntensityData
-        getDetectorIntensity(SpecularSimulation self) -> IntensityData
-
-        OutputData< double > * SpecularSimulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
-
-        Returns detector count values in the form of  OutputData<double>. Detector counts are proportional to  $Reflectivity = |R|^2$ from the upper layer. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_getDetectorIntensity(self, *args)
 
 
     def getIntensityData(self, *args):

@@ -355,3 +355,47 @@ void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
                                  "wrong detector type");
     }
 }
+
+/* OffSpecularConverter **********************************************/
+
+SpecularConverter::SpecularConverter(const Beam& beam, const IAxis& alpha_axis)
+    : UnitConverterSimple(beam)
+{
+    auto alpha_axis_name = axisName(0);
+    addAxisData(alpha_axis_name, alpha_axis.getMin(), alpha_axis.getMax(), defaultUnits(),
+                alpha_axis.size());
+}
+
+SpecularConverter::~SpecularConverter() =default;
+
+SpecularConverter* SpecularConverter::clone() const
+{
+    return new SpecularConverter(*this);
+}
+
+AxesUnits SpecularConverter::defaultUnits() const { return AxesUnits::DEGREES; }
+
+SpecularConverter::SpecularConverter(const SpecularConverter& other)
+    : UnitConverterSimple(other)
+{}
+
+double SpecularConverter::calculateValue(size_t, AxesUnits units_type, double value) const
+{
+    switch(units_type) {
+    case AxesUnits::RADIANS:
+        return value;
+    case AxesUnits::DEGREES:
+        return Units::rad2deg(value);
+    default:
+        throw std::runtime_error("Error in SpecularConverter::calculateValue: "
+                                 "target units not available: "
+                                 + std::to_string(static_cast<int>(units_type)));
+    }
+}
+
+std::vector<std::map<AxesUnits, std::string> > SpecularConverter::createNameMaps() const
+{
+    std::vector<std::map<AxesUnits, std::string>> result;
+    result.push_back(AxisNames::InitSpecAxis());
+    return result;
+}

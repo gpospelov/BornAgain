@@ -16,9 +16,9 @@
 #define SPECULARSIMULATION_H
 
 #include "Simulation.h"
-#include "SpecularSimulationElement.h"
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
+#include "SpecularSimulationElement.h"
 
 class IAxis;
 class IComputation;
@@ -47,6 +47,10 @@ public:
     void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
 
     size_t numberOfSimulationElements() const override;
+
+    //! Returns the results of the simulation in a format that supports unit conversion and export
+    //! to numpy arrays
+    SimulationResult result() const override;
 
     //! Sets beam parameters with alpha_i of the beam defined in the range.
     void setBeamParameters(double lambda, const IAxis& alpha_axis,

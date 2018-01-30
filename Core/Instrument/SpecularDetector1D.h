@@ -42,7 +42,7 @@ public:
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>*
     createDetectorIntensity(const std::vector<SpecularSimulationElement>& elements,
-                            const Beam& beam, AxesUnits units_type) const;
+                            const Beam& beam, AxesUnits units_type=AxesUnits::DEFAULT) const;
 
     //! Returns region of interest if exists.
     const RegionOfInterest* regionOfInterest() const override { return nullptr; }

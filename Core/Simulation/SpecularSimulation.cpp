@@ -73,6 +73,18 @@ size_t SpecularSimulation::numberOfSimulationElements() const
     return m_coordinate_axis->size();
 }
 
+SimulationResult SpecularSimulation::result() const
+{
+    const size_t i_layer = 0; // detector intensity is proportional to reflectivity from top layer
+    validityCheck(i_layer);
+    const auto detector = SpecDetector(m_instrument);
+    auto data = std::unique_ptr<OutputData<double>>(
+                    detector->createDetectorIntensity(m_sim_elements, m_instrument.getBeam()));
+    auto& axis = detector->getAxis(0);
+    SpecularConverter converter(m_instrument.getBeam(), axis);
+    return SimulationResult(*data, converter);
+}
+
 void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
                                            const IFootprintFactor* beam_shape)
 {

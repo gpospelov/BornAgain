@@ -16413,6 +16413,18 @@ class Simulation(ICloneable, INode):
         return _libBornAgainCore.Simulation_numberOfSimulationElements(self)
 
 
+    def result(self):
+        """
+        result(Simulation self) -> SimulationResult
+
+        virtual SimulationResult Simulation::result() const =0
+
+        Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
+
+        """
+        return _libBornAgainCore.Simulation_result(self)
+
+
     def getDetectorIntensity(self, *args):
         """
         getDetectorIntensity(Simulation self, AxesUnits units_type) -> IntensityData
@@ -16589,18 +16601,6 @@ class Simulation2D(Simulation):
 
         """
         return _libBornAgainCore.Simulation2D_setDetector(self, detector)
-
-
-    def result(self):
-        """
-        result(Simulation2D self) -> SimulationResult
-
-        virtual SimulationResult Simulation2D::result() const =0
-
-        Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
-
-        """
-        return _libBornAgainCore.Simulation2D_result(self)
 
 
     def getDetectorIntensity(self, *args):
@@ -26475,6 +26475,18 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_numberOfSimulationElements(self)
 
 
+    def result(self):
+        """
+        result(SpecularSimulation self) -> SimulationResult
+
+        SimulationResult SpecularSimulation::result() const override
+
+        Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
+
+        """
+        return _libBornAgainCore.SpecularSimulation_result(self)
+
+
     def setBeamParameters(self, *args):
         """
         setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis, IFootprintFactor const * beam_shape=None)
@@ -27219,6 +27231,63 @@ class OffSpecularConverter(UnitConverterSimple):
 
 OffSpecularConverter_swigregister = _libBornAgainCore.OffSpecularConverter_swigregister
 OffSpecularConverter_swigregister(OffSpecularConverter)
+
+class SpecularConverter(UnitConverterSimple):
+    """
+
+
+    IUnitConverter class that handles the unit translations for off-specular simulations with a spherical detector Its default units are radians for both axes
+
+    C++ includes: UnitConverters.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [UnitConverterSimple]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SpecularConverter, name, value)
+    __swig_getmethods__ = {}
+    for _s in [UnitConverterSimple]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SpecularConverter, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, beam, alpha_axis):
+        """
+        __init__(SpecularConverter self, Beam beam, IAxis alpha_axis) -> SpecularConverter
+
+        SpecularConverter::SpecularConverter(const Beam &beam, const IAxis &alpha_axis)
+
+        """
+        this = _libBornAgainCore.new_SpecularConverter(beam, alpha_axis)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_SpecularConverter
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(SpecularConverter self) -> SpecularConverter
+
+        SpecularConverter * SpecularConverter::clone() const override
+
+        """
+        return _libBornAgainCore.SpecularConverter_clone(self)
+
+
+    def defaultUnits(self):
+        """
+        defaultUnits(SpecularConverter self) -> AxesUnits
+
+        AxesUnits SpecularConverter::defaultUnits() const override
+
+        """
+        return _libBornAgainCore.SpecularConverter_defaultUnits(self)
+
+SpecularConverter_swigregister = _libBornAgainCore.SpecularConverter_swigregister
+SpecularConverter_swigregister(SpecularConverter)
 
 # This file is compatible with both classic and new-style classes.
 

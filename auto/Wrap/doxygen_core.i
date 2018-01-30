@@ -13515,6 +13515,11 @@ The  MultiLayer object will not be owned by the  Simulation object.
 %feature("docstring")  Simulation::numberOfSimulationElements "virtual size_t Simulation::numberOfSimulationElements() const =0
 ";
 
+%feature("docstring")  Simulation::result "virtual SimulationResult Simulation::result() const =0
+
+Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
+";
+
 %feature("docstring")  Simulation::getDetectorIntensity "virtual OutputData<double>* Simulation::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const =0
 
 Clone simulated intensity map. 
@@ -13604,11 +13609,6 @@ upper edge of last alpha-bin
 %feature("docstring")  Simulation2D::setDetector "void Simulation2D::setDetector(const IDetector2D &detector)
 
 Sets the detector (axes can be overwritten later) 
-";
-
-%feature("docstring")  Simulation2D::result "virtual SimulationResult Simulation2D::result() const =0
-
-Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 ";
 
 %feature("docstring")  Simulation2D::getDetectorIntensity "OutputData< double > * Simulation2D::getDetectorIntensity(AxesUnits units_type=AxesUnits::DEFAULT) const override
@@ -14090,6 +14090,27 @@ C++ includes: SpecularComputationTerm.h
 ";
 
 
+// File: classSpecularConverter.xml
+%feature("docstring") SpecularConverter "
+
+IUnitConverter class that handles the unit translations for off-specular simulations with a spherical detector Its default units are radians for both axes
+
+C++ includes: UnitConverters.h
+";
+
+%feature("docstring")  SpecularConverter::SpecularConverter "SpecularConverter::SpecularConverter(const Beam &beam, const IAxis &alpha_axis)
+";
+
+%feature("docstring")  SpecularConverter::~SpecularConverter "SpecularConverter::~SpecularConverter()
+";
+
+%feature("docstring")  SpecularConverter::clone "SpecularConverter * SpecularConverter::clone() const override
+";
+
+%feature("docstring")  SpecularConverter::defaultUnits "AxesUnits SpecularConverter::defaultUnits() const override
+";
+
+
 // File: classSpecularData.xml
 %feature("docstring") SpecularData "
 
@@ -14143,7 +14164,7 @@ Returns detector masks container.
 Create a vector of  DetectorElement objects according to the detector. 
 ";
 
-%feature("docstring")  SpecularDetector1D::createDetectorIntensity "OutputData< double > * SpecularDetector1D::createDetectorIntensity(const std::vector< SpecularSimulationElement > &elements, const Beam &beam, AxesUnits units_type) const
+%feature("docstring")  SpecularDetector1D::createDetectorIntensity "OutputData< double > * SpecularDetector1D::createDetectorIntensity(const std::vector< SpecularSimulationElement > &elements, const Beam &beam, AxesUnits units_type=AxesUnits::DEFAULT) const
 
 Returns new intensity map with detector resolution applied and axes in requested units. 
 ";
@@ -14221,6 +14242,11 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  SpecularSimulation::numberOfSimulationElements "size_t SpecularSimulation::numberOfSimulationElements() const override
+";
+
+%feature("docstring")  SpecularSimulation::result "SimulationResult SpecularSimulation::result() const override
+
+Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 ";
 
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, const IFootprintFactor *beam_shape=nullptr)
@@ -15195,6 +15221,9 @@ Returns shape nrows, ncols of 2D array.
 ";
 
 %feature("docstring")  AxisNames::InitOffSpecAxis1 "std::map< AxesUnits, std::string > AxisNames::InitOffSpecAxis1()
+";
+
+%feature("docstring")  AxisNames::InitSpecAxis "std::map< AxesUnits, std::string > AxisNames::InitSpecAxis()
 ";
 
 

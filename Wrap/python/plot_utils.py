@@ -102,7 +102,7 @@ def plot_intensity_data(intensity, zmin=None, zmax=None):
     plt.show()
 
 
-def plot_colormap(result, zmin=None, zmax=None,
+def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
                   xlabel=None, ylabel=None, zlabel=None,
                   title=None):
     """
@@ -111,7 +111,7 @@ def plot_colormap(result, zmin=None, zmax=None,
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """
-    intensity = result.histogram2d()
+    intensity = result.histogram2d(units)
     zmax = intensity.getMaximum() if zmax is None else zmax
     zmin = 1e-6*zmax if zmin is None else zmin
 
@@ -140,14 +140,14 @@ def plot_colormap(result, zmin=None, zmax=None,
         plt.title(title)
 
 
-def plot_simulation_result(result, zmin=None, zmax=None):
+def plot_simulation_result(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT):
     """
     Plots simulation result as color map and hold the plot.
     :param result_: SimulationResult object obtained from GISASSimulation/OffSpecSimulation
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """
-    plot_colormap(result, zmin, zmax)
+    plot_colormap(result, zmin, zmax, units)
     plt.show()
 
 

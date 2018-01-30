@@ -121,7 +121,7 @@ def run_simulation():
     # runs simulation for rectangular detector
     simulation.setDetector(get_rectangular_detector())
     simulation.runSimulation()
-    results['rectangular'] = simulation.result()
+    results['rectangular'] = simulation.getIntensityData()
 
     results['difference'] = results['rectangular'].relativeDifferenceHistogram(
         results['spherical'])

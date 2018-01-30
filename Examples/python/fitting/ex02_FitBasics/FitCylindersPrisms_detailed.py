@@ -54,24 +54,17 @@ def create_real_data():
     sample = get_sample(5.0*nm, 5.0*nm, 5.0*nm, 5.0*nm)
     simulation = get_simulation()
     simulation.setSample(sample)
-
     simulation.runSimulation()
-    real_data = simulation.getIntensityData()
 
-    # spoiling simulated data with the noise to produce "real" data
-    noise_factor = 1.0
-    for i in range(0, real_data.getTotalNumberOfBins()):
-        amplitude = real_data.getBinContent(i)
-        sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = random.gauss(amplitude, sigma)
-        if noisy_amplitude < 0.1:
-            noisy_amplitude = 0.1
-        real_data.setBinContent(i, noisy_amplitude)
+    # retrieving simulated data in the form of numpy array
+    real_data = simulation.result().array()
 
-    # uncomment line to save generated data on disk
-    #ba.IntensityDataIOFactory.writeIntensityData(
-    # real_data, 'refdata_fitcylinderprisms.int.gz')
-    return real_data
+    # spoiling simulated data with noise to produce "real" data
+    np.random.seed(0)
+    noise_factor = 0.1
+    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
+    noisy[noisy < 0.1] = 0.1
+    return noisy
 
 
 def get_simulation():

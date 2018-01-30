@@ -56,7 +56,7 @@ def create_real_data(incident_alpha):
     simulation.runSimulation()
 
     # retrieving simulated data in the form of numpy array
-    real_data = simulation.getIntensityData().getArray()
+    real_data = simulation.result().array()
 
     # spoiling simulated data with the noise to produce "real" data
     noise_factor = 0.1

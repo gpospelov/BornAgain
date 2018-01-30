@@ -74,6 +74,6 @@ def run_simulation():
 
 if __name__ == '__main__':
     result = run_simulation()
-    ba.plot_colormap_hist(result, xlabel=r'$\alpha_i ^{\circ}$')
+    ba.plot_colormap(result, xlabel=r'$\alpha_i ^{\circ}$')
     from matplotlib import pyplot as plt
     plt.show()

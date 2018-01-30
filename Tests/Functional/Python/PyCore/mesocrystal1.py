@@ -142,7 +142,7 @@ def runTest():
     reference = utils.get_reference_data("mesocrystal01_reference.int.gz")
 
     simulation.runSimulation()
-    result = simulation.getIntensityData()
+    result = simulation.result().histogram2d()
 
     diff = getRelativeDifference(result, reference)
 

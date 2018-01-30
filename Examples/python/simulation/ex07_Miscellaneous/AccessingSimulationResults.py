@@ -160,7 +160,7 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    return simulation.result()
+    return simulation.result().histogram2d()
 
 
 if __name__ == '__main__':

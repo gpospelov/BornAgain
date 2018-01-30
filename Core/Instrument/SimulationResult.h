@@ -48,6 +48,11 @@ public:
     OutputData<double>* data(AxesUnits units_type = AxesUnits::DEFAULT) const;
     Histogram2D* histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
+    //! Data element access
+    double& operator[](size_t i);
+    const double& operator[](size_t i) const;
+    size_t size() const;
+
     //! returns data as Python numpy array
 #ifdef BORNAGAIN_PYTHON
     PyObject* array() const;

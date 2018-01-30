@@ -18,7 +18,25 @@
 #include "FourierTransform.h"
 #include "IHistogram.h"
 #include "Numeric.h"
+#include "SimulationResult.h"
 #include <math.h>
+
+//! Returns sum of relative differences between each pair of elements:
+//! (a, b) -> 2*abs(a - b)/(|a| + |b|)      ( and zero if  a=b=0 within epsilon )
+double IntensityDataFunctions::RelativeDifference(const SimulationResult& dat,
+                                                  const SimulationResult& ref)
+{
+    if (dat.size() != ref.size())
+        throw std::runtime_error("Error in IntensityDataFunctions::RelativeDifference: "
+                                 "different number of elements");
+    if (dat.size()==0) return 0.0;
+    double sum_of_diff = 0.0;
+    for (size_t i=0; i<dat.size(); ++i) {
+        sum_of_diff += Numeric::get_relative_difference(dat[i], ref[i]);
+    }
+    return sum_of_diff / dat.size();
+}
+
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 double IntensityDataFunctions::getRelativeDifference(const OutputData<double>& dat,

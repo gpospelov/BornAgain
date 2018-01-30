@@ -69,6 +69,27 @@ Histogram2D* SimulationResult::histogram2d(AxesUnits units_type) const
     return new Histogram2D(*P_data);
 }
 
+double& SimulationResult::operator[](size_t i)
+{
+    if (mP_data) return (*mP_data)[i];
+    throw std::runtime_error("Error in SimulationResult::operator[]: "
+                             "no data initialized");
+}
+
+const double& SimulationResult::operator[](size_t i) const
+{
+    if (mP_data) return (*mP_data)[i];
+    throw std::runtime_error("Error in SimulationResult::operator[]: "
+                             "no data initialized");
+}
+
+size_t SimulationResult::size() const
+{
+    if (mP_data) return mP_data->getAllocatedSize();
+    throw std::runtime_error("Error in SimulationResult::size(): "
+                             "no data initialized");
+}
+
 PyObject* SimulationResult::array() const
 {
     return mP_data->getArray();

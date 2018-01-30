@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "SimulationResult.h"
+#include "Histogram1D.h"
 #include "Histogram2D.h"
 #include "FixedBinAxis.h"
 #include "OutputData.h"
@@ -58,6 +59,15 @@ OutputData<double>* SimulationResult::data(AxesUnits units_type) const
         result->addAxis(*createConvertedAxis(i, units_type));
     result->setRawDataVector(mP_data->getRawDataVector());
     return result.release();
+}
+
+Histogram1D*SimulationResult::histogram1d(AxesUnits units_type) const
+{
+    if (mP_data->getRank() != 1 || mP_unit_converter->dimension() != 1)
+        throw std::runtime_error("Error in SimulationResult::histogram1d: "
+                                 "dimension of data is not 1");
+    std::unique_ptr<OutputData<double>> P_data(data(units_type));
+    return new Histogram1D(*P_data);
 }
 
 Histogram2D* SimulationResult::histogram2d(AxesUnits units_type) const

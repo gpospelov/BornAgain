@@ -26,6 +26,7 @@ typedef _object PyObject;
 #endif
 #endif
 
+class Histogram1D;
 class Histogram2D;
 class IAxis;
 template<class T> class OutputData;
@@ -46,6 +47,7 @@ public:
     SimulationResult& operator=(SimulationResult&& other);
 
     OutputData<double>* data(AxesUnits units_type = AxesUnits::DEFAULT) const;
+    Histogram1D* histogram1d(AxesUnits units_type = AxesUnits::DEFAULT) const;
     Histogram2D* histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
     //! Data element access

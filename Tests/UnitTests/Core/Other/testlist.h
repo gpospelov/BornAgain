@@ -17,4 +17,6 @@
 #include "SampleProviderTest.h"
 #include "FourierTransformTest.h"
 #include "BeamFootprintTest.h"
+#include "FileSystemUtilsTest.h"
+
 

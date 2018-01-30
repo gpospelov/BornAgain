@@ -24,7 +24,12 @@
 namespace FileSystemUtils {
 
 //! Returns extension of given filename.
-BA_CORE_API_ std::string extension(const std::string& fname);
+//! "/home/user/filename.int" -> ".int", "/home/user/filename.int.gz" -> ".gz"
+BA_CORE_API_ std::string extension(const std::string& path);
+
+//! Returns extension(s) of given filename.
+//! "/home/user/filename.int" -> ".int", "/home/user/filename.int.gz" -> ".int.gz"
+BA_CORE_API_ std::string extensions(const std::string& path);
 
 //! Creates directory in current directory
 BA_CORE_API_ bool createDirectory(const std::string& dir_name);
@@ -37,6 +42,14 @@ BA_CORE_API_ std::string jointPath(const std::string& spath1, const std::string&
 
 //! Returns path without directory part ("Foo/Bar/Doz.int.gz" -> "Doz.int.gz")
 BA_CORE_API_ std::string filename(const std::string& path);
+
+//! Returns filename without extension.
+//! "/home/user/filename.int" -> "filename", "/home/user/filename.int.gz" -> "filename.int"
+BA_CORE_API_ std::string stem(const std::string& path);
+
+//! Returns filename without extension(s).
+//! "/home/user/filename.int" -> "filename", "/home/user/filename.int.gz" -> "filename"
+BA_CORE_API_ std::string stem_ext(const std::string& path);
 
 //! Returns file names that agree with a regex glob pattern.
 BA_CORE_API_ std::vector<std::string> glob(const std::string& dir, const std::string& pattern);

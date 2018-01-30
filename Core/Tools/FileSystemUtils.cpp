@@ -19,9 +19,16 @@
 #include <cassert>
 #include <stdexcept>
 
-std::string FileSystemUtils::extension(const std::string& name)
+std::string FileSystemUtils::extension(const std::string& path)
 {
-    return boost::filesystem::extension(name.c_str());
+    return boost::filesystem::extension(path.c_str());
+}
+
+std::string FileSystemUtils::extensions(const std::string& path)
+{
+    auto name = FileSystemUtils::filename(path);
+    auto npos =name.find_first_of('.');
+    return npos != std::string::npos ? name.substr(npos, name.size()-npos) : std::string();
 }
 
 bool FileSystemUtils::createDirectory(const std::string& dir_name)
@@ -70,3 +77,16 @@ std::vector<std::string> FileSystemUtils::glob(const std::string& dir, const std
             ret.push_back(fname);
     return ret;
 }
+
+std::string FileSystemUtils::stem(const std::string& path)
+{
+    return boost::filesystem::path(path).stem().string();
+}
+
+std::string FileSystemUtils::stem_ext(const std::string& path)
+{
+    auto name = FileSystemUtils::filename(path);
+    auto npos =name.find_first_of('.');
+    return npos != std::string::npos ? name.substr(0, npos) : std::string();
+}
+

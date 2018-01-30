@@ -21,9 +21,15 @@ simulationObject = None
 def get_simulation_SpecularSimulation():
     """
     Returns custom simulation for SpecularSimulation.py.
-    Minification is not yet implemented.
     """
-    return example.get_simulation()
+    simulation = example.get_simulation()
+    beam = simulation.getInstrument().getBeam()
+    wavelength = beam.getWavelength()
+    axis = simulation.getAlphaAxis()
+    footprint = beam.footprintFactor()
+    simulation.setBeamParameters(
+        wavelength, 10, axis.getMin(), axis.getMax(), footprint)
+    return simulation
 
 
 def get_simulation_RectangularGrating():
@@ -59,7 +65,7 @@ def get_minified_simulation():
     """
     Returns a GISAXS simulation constructed from example simulation with smaller detector.
     """
-    if example_name == "SpecularSimulation":
+    if "ex06_Reflectometry" in example_dir:
         return get_simulation_SpecularSimulation()
 
     elif example_name == "RectangularGrating":

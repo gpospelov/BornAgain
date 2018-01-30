@@ -402,6 +402,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "SpecularWithSquareBeam",
         "HomogeneousMultilayerBuilder",
         1e-10);
+
+    add("SpecularDivergentBeam",
+        "Simulates beam divergence both in wavelength and inclination angle",
+        "SpecularDivergentBeam",
+        "HomogeneousMultilayerBuilder",
+        1e-10);
 }
 
 //! Adds test description to the catalogue.

@@ -20,8 +20,12 @@ TEST_F(DistributionHandlerTest, DistributionHandlerConstructor)
     DistributionHandler handler;
     DistributionGate distribution(1.0, 2.0);
     std::string paraName = "value";
+
     EXPECT_EQ(size_t(1), handler.getTotalNumberOfSamples());
-    handler.addParameterDistribution(paraName, distribution, 2, 1.0);
+
+    ParameterDistribution par_distr(paraName, distribution, 2, 1.0);
+    handler.addParameterDistribution(par_distr);
+
     EXPECT_EQ(size_t(2), handler.getTotalNumberOfSamples());
     EXPECT_EQ("DistributionHandler", handler.getName());
 

@@ -18,7 +18,8 @@ void SpecularComputationTerm::eval(ProgressHandler*, const SpecularElementIter& 
         return;
 
     for (auto it = begin_it; it != end_it; ++it)
-        evalSingle(it);
+        if (it->isCalculated())
+            evalSingle(it);
 }
 
 void SpecularComputationTerm::evalSingle(const SpecularElementIter& iter) const

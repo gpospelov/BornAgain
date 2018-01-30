@@ -369,6 +369,14 @@ GISASSimulation* StandardSimulations::RectDetWithRoi()
     return result;
 }
 
+GISASSimulation* StandardSimulations::ConstantBackgroundGISAS()
+{
+    GISASSimulation* result = MiniGISAS();
+    ConstantBackground bg(1e3);
+    result->setBackground(bg);
+    return result;
+}
+
 SpecularSimulation* StandardSimulations::BasicSpecular()
 {
     const double wavelength = 1.54 * Units::angstrom;
@@ -409,10 +417,27 @@ SpecularSimulation* StandardSimulations::SpecularWithSquareBeam()
     return result.release();
 }
 
-GISASSimulation*StandardSimulations::ConstantBackgroundGISAS()
+SpecularSimulation* StandardSimulations::SpecularDivergentBeam()
 {
-    GISASSimulation* result = MiniGISAS();
-    ConstantBackground bg(1e3);
-    result->setBackground(bg);
-    return result;
+    const double wavelength = 1.54 * Units::angstrom;
+    const int number_of_bins = 20;
+    const size_t n_integration_points = 10;
+    const double min_angle = 0 * Units::deg;
+    const double max_angle = 5 * Units::deg;
+
+    DistributionGaussian wavelength_distr(wavelength, 0.1*Units::angstrom);
+    DistributionGaussian alpha_distr(0.0, 0.1*Units::degree);
+
+    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle);
+
+    ParameterPattern pattern1;
+    pattern1.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
+    result->addParameterDistribution(pattern1.toStdString(), wavelength_distr,
+                                     n_integration_points);
+    ParameterPattern pattern2;
+    pattern2.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
+    result->addParameterDistribution(pattern2.toStdString(), alpha_distr, n_integration_points);
+
+    return result.release();
 }

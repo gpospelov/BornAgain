@@ -65,6 +65,7 @@ set(test_cases
     RoughnessInSpecular
     GaussianBeamFootprint
     SquareBeamFootprint
+    SpecularDivergentBeam
     )
 
 add_executable(CoreStandardTest main.cpp CoreStandardTest.h CoreStandardTest.cpp)

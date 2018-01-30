@@ -127,6 +127,9 @@ private:
     virtual std::unique_ptr<IComputation>
     generateSingleThreadedComputation(size_t start, size_t n_elements) = 0;
 
+    //! Checks the distribution validity for simulation.
+    virtual void validateParametrization(const ParameterDistribution&) const {}
+
     virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) = 0;
 
     //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.

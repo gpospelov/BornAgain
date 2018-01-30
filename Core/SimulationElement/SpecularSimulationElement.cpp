@@ -7,6 +7,7 @@ SpecularSimulationElement::SpecularSimulationElement(double wavelength, double a
     : m_wavelength(wavelength)
     , m_alpha_i(alpha_i)
     , m_intensity(0.0)
+    , m_calculation_flag(true)
 {
 }
 
@@ -16,6 +17,7 @@ SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationEle
     , m_alpha_i(other.m_alpha_i)
     , m_intensity(other.m_intensity)
     , m_specular_data(other.m_specular_data)
+    , m_calculation_flag(other.m_calculation_flag)
 {
 }
 
@@ -25,6 +27,7 @@ SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement&&
     , m_alpha_i(other.m_alpha_i)
     , m_intensity(other.m_intensity)
     , m_specular_data(std::move(other.m_specular_data))
+    , m_calculation_flag(other.m_calculation_flag)
 {
 }
 
@@ -56,5 +59,6 @@ void SpecularSimulationElement::swapContent(SpecularSimulationElement &other)
     std::swap(m_alpha_i, other.m_alpha_i);
     std::swap(m_intensity, other.m_intensity);
     std::swap(m_specular_data, other.m_specular_data);
+    std::swap(m_calculation_flag, other.m_calculation_flag);
 }
 

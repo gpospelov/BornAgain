@@ -265,7 +265,7 @@ OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArray(
     return result;
 }
 
-OutputData<double>* IntensityDataFunctions::getFourierTransform(const OutputData<double> &data)
+std::unique_ptr<OutputData<double>> IntensityDataFunctions::createFFT(const OutputData<double> &data)
 {
     std::vector<std::vector<double>> array_2d =
             IntensityDataFunctions::create2DArrayfromOutputData(data);
@@ -273,8 +273,5 @@ OutputData<double>* IntensityDataFunctions::getFourierTransform(const OutputData
     std::vector<std::vector<double>> fft_array_2d =
             IntensityDataFunctions::FT2DArray(array_2d);
 
-    OutputData<double>* fftOutputData = IntensityDataFunctions::createOutputDatafrom2DArray(
-                fft_array_2d);
-
-    return fftOutputData;
+    return std::unique_ptr<OutputData<double>>(IntensityDataFunctions::createOutputDatafrom2DArray(fft_array_2d));
 }

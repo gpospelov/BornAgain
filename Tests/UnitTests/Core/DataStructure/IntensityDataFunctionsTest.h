@@ -168,10 +168,10 @@ TEST_F(IntensityDataFunctionsTest, create2DArrayfromOutputDataTest)
     OutputData<double> out_data;
     out_data.addAxis("axis0", 2, 1.0, 2.0);
     out_data.addAxis("axis1", 3, 3.0, 4.0);
-    EXPECT_EQ(6, out_data.getAllocatedSize());
+    EXPECT_EQ(6u, out_data.getAllocatedSize());
 
-    EXPECT_EQ(2, out_data.getAxis(0).size()); // no. of rows
-    EXPECT_EQ(3, out_data.getAxis(1).size()); // no. of cols
+    EXPECT_EQ(2u, out_data.getAxis(0).size()); // no. of rows
+    EXPECT_EQ(3u, out_data.getAxis(1).size()); // no. of cols
 
     std::vector<double> arr_in{1,2,3,4,5,6};
     out_data.setRawDataVector(arr_in);

@@ -77,8 +77,8 @@ bool FourierTransformationTest::test_fft(const std::string& input_image_name,
     }
 
     // making fourier transformation
-    std::unique_ptr<OutputData<double>> fft(
-        IntensityDataFunctions::getFourierTransform(*input_image.get()));
+    std::unique_ptr<OutputData<double>> fft =
+            IntensityDataFunctions::createFFT(*input_image.get());
 
     // loading reference fft
     std::unique_ptr<OutputData<double>> reference_fft;

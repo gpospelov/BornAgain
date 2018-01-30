@@ -112,7 +112,7 @@ void IntensityDataCanvas::onfftAction()
         m_backup->copyFrom(*dataItem->getOutputData());
 
         dataItem->setOutputData(
-                    (IntensityDataFunctions::getFourierTransform(*dataItem->getOutputData())));
+                    (IntensityDataFunctions::createFFT(*dataItem->getOutputData())).release());
     }
 }
 

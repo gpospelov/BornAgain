@@ -235,6 +235,9 @@
 %newobject SpecularSimulation::getDetectorIntensity(AxesUnits units_type = AxesUnits::DEFAULT) const;
 %newobject SpecularSimulation::getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
+%newobject SimulationResult::data(AxesUnits units_type = AxesUnits::DEFAULT) const;
+%newobject SimulationResult::histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
+
 %newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
 %newobject IntensityDataIOFactory::readIntensityData(const std::string& file_name);
 

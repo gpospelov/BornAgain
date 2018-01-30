@@ -29,7 +29,7 @@ const double threshold = 1e-10;
 
 //! Returns file names to test fft.
 std::vector<std::string> inputImages() {
-    return {"CylindersAndPrisms.int.gz"};
+    return {"CylindersAndPrisms.int.gz", "RectDetectorGeneric.int.gz"};
 }
 
 //! Returns location of images to test fft.

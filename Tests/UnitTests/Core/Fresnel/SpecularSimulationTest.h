@@ -136,6 +136,10 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
     EXPECT_EQ(0.0, beam.getPhi());
 
     checkBeamState(sim);
+
+    sim.setInstrument(Instrument());
+
+    checkBeamState(sim);
 }
 
 TEST_F(SpecularSimulationTest, ConstructSimulation)

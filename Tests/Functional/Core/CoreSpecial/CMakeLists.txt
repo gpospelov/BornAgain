@@ -3,6 +3,7 @@ set(test CoreSpecial)
 set(test_cases
     BatchSimulation
     PolDWBAMagCylinders
+    FourierTransformationTest
 #    CoreIO
 #    DetectorTest
 )

@@ -22,6 +22,9 @@
 class FourierTransformationTest : public IFunctionalTest {
 protected:
     bool runTest();
+
+private:
+    bool test_fft(const std::string& input_image_name, const std::string& reference_fft_name);
 };
 
 #endif  // FOURIERTRANSFORMATIONTEST_H

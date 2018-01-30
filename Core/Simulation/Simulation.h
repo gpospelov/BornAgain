@@ -82,7 +82,7 @@ public:
     void addParameterDistribution(
         const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,
         double sigma_factor=0.0, const RealLimits& limits = RealLimits());
-    virtual void addParameterDistribution(const ParameterDistribution& par_distr);
+    void addParameterDistribution(const ParameterDistribution& par_distr);
     const DistributionHandler& getDistributionHandler() const { return m_distribution_handler; }
 
     void setOptions(const SimulationOptions& options) { m_options = options; }
@@ -126,6 +126,9 @@ private:
     //! @param n_elements Number of elements to process
     virtual std::unique_ptr<IComputation>
     generateSingleThreadedComputation(size_t start, size_t n_elements) = 0;
+
+    //! Checks the distribution validity for simulation.
+    virtual void validateParametrization(const ParameterDistribution&) const {}
 
     virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) = 0;
 

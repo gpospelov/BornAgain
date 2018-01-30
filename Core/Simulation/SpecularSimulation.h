@@ -62,9 +62,6 @@ public:
     OutputData<double>* getDetectorIntensity(
             AxesUnits units_type= AxesUnits::DEFAULT) const override;
 
-    using Simulation::addParameterDistribution;
-    void addParameterDistribution(const ParameterDistribution& par_distr) override;
-
     //! Returns detector signal (\f$ \propto |R|^2\f$) in the form of 1D Histogram
     Histogram1D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
@@ -92,8 +89,8 @@ private:
 
     void checkCache() const;
 
-    //! Checks if distribution is valid for inclination angle.
-    void validateParametrization(const ParameterDistribution& par_distr) const;
+    //! Checks the distribution validity for simulation.
+    void validateParametrization(const ParameterDistribution& par_distr) const override;
 
     //! Initializes simulation
     void initialize();

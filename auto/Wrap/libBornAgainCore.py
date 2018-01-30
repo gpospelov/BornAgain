@@ -26511,19 +26511,6 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_getDetectorIntensity(self, *args)
 
 
-    def addParameterDistribution(self, *args):
-        """
-        addParameterDistribution(SpecularSimulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0, RealLimits limits)
-        addParameterDistribution(SpecularSimulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples, double sigma_factor=0.0)
-        addParameterDistribution(SpecularSimulation self, std::string const & param_name, IDistribution1D distribution, size_t nbr_samples)
-        addParameterDistribution(SpecularSimulation self, ParameterDistribution par_distr)
-
-        void SpecularSimulation::addParameterDistribution(const ParameterDistribution &par_distr) override
-
-        """
-        return _libBornAgainCore.SpecularSimulation_addParameterDistribution(self, *args)
-
-
     def getIntensityData(self, *args):
         """
         getIntensityData(SpecularSimulation self, AxesUnits units_type) -> Histogram1D

@@ -184,12 +184,6 @@ OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_typ
     return detector->createDetectorIntensity(m_sim_elements, m_instrument.getBeam(), units_type);
 }
 
-void SpecularSimulation::addParameterDistribution(const ParameterDistribution& par_distr)
-{
-    validateParametrization(par_distr);
-    Simulation::addParameterDistribution(par_distr);
-}
-
 Histogram1D* SpecularSimulation::getIntensityData(AxesUnits units_type) const
 {
     std::unique_ptr<OutputData<double>> result(getDetectorIntensity(units_type));

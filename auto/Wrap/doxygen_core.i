@@ -14234,9 +14234,6 @@ Returns a pointer to incident angle axis.
 Returns detector count values in the form of  OutputData<double>. Detector counts are proportional to  $Reflectivity = |R|^2$ from the upper layer. 
 ";
 
-%feature("docstring")  SpecularSimulation::addParameterDistribution "void SpecularSimulation::addParameterDistribution(const ParameterDistribution &par_distr) override
-";
-
 %feature("docstring")  SpecularSimulation::getIntensityData "Histogram1D * SpecularSimulation::getIntensityData(AxesUnits units_type=AxesUnits::DEFAULT) const
 
 Returns detector signal (  $ \\\\propto |R|^2$) in the form of 1D Histogram. 

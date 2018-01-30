@@ -207,6 +207,7 @@ void Simulation::addParameterDistribution(const std::string& param_name,
 
 void Simulation::addParameterDistribution(const ParameterDistribution& par_distr)
 {
+    validateParametrization(par_distr);
     m_distribution_handler.addParameterDistribution(par_distr);
 }
 

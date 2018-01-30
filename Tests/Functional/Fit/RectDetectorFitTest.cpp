@@ -49,6 +49,7 @@ RectDetectorFitTest::createOutputData(const Simulation* simulation)
     std::unique_ptr<Simulation> simWithRoi(simulation->clone());
     simWithRoi->getInstrument().getDetector()->resetRegionOfInterest();
     simWithRoi->runSimulation();
-    std::unique_ptr<OutputData<double>> result(simWithRoi->getDetectorIntensity());
+    auto sim_result = simWithRoi->result();
+    std::unique_ptr<OutputData<double>> result(sim_result.data());
     return result;
 }

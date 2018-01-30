@@ -44,20 +44,19 @@ std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
 
     return result;
 }
-
 }
 
 bool GUIStandardTest::runTest()
 {
     m_reference_simulation->runSimulation();
+    auto ref_result = m_reference_simulation->result();
 
     auto domain_simulation = createDomainSimulation(*m_reference_simulation);
     domain_simulation->runSimulation();
+    auto domain_result = domain_simulation->result();
 
-    const std::unique_ptr<OutputData<double> > domain_data(
-                domain_simulation->getDetectorIntensity());
-    const std::unique_ptr<OutputData<double> > reference_data(
-        m_reference_simulation->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double> > domain_data(domain_result.data());
+    const std::unique_ptr<OutputData<double> > reference_data(ref_result.data());
 
     return TestUtils::isTheSame(*domain_data, *reference_data, m_threshold);
 }

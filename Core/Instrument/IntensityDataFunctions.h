@@ -72,13 +72,15 @@ BA_CORE_API_ std::vector<std::vector<double>> create2DArrayfromOutputData(
 BA_CORE_API_ std::vector<std::vector<double>> FT2DArray(
         const std::vector<std::vector<double>>& signal);
 
+#ifndef SWIG
+
 //! Creates OutputData from a 2D Array.
-BA_CORE_API_ OutputData<double>* createOutputDatafrom2DArray(
+BA_CORE_API_ std::unique_ptr<OutputData<double>> createOutputDatafrom2DArray(
         const std::vector<std::vector<double>>& array_2d);
 
-#ifndef SWIG
 //! Creates Fourier Transform (OutputData format) of intensity map (OutputData format).
 BA_CORE_API_ std::unique_ptr<OutputData<double>> createFFT(const OutputData<double> &data);
+
 #endif //SWIG
 
 }; // namespace IntensityDataFunctions

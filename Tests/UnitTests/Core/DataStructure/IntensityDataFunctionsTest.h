@@ -200,9 +200,6 @@ TEST_F(IntensityDataFunctionsTest, createOutputDatafrom2DArrayTest)
     std::vector<double> arr_in{1,2,3,4,5,6};
     std::vector<std::vector<double>> array_2d{{arr_in[0],arr_in[1],arr_in[2]},
                                               {arr_in[3],arr_in[4],arr_in[5]}};
-
-    OutputData<double> *result;
-    result = IntensityDataFunctions::createOutputDatafrom2DArray(array_2d);
-    std::vector<double> arr_out = result->getRawDataVector();
-    EXPECT_EQ(arr_in, arr_out);
+    auto data = IntensityDataFunctions::createOutputDatafrom2DArray(array_2d);
+    EXPECT_EQ(arr_in, data->getRawDataVector());
 }

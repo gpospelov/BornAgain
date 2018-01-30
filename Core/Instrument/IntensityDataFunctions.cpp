@@ -243,13 +243,13 @@ std::vector<std::vector<double>> IntensityDataFunctions::FT2DArray(
     return fft_array;
 }
 
-OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArray(
+std::unique_ptr<OutputData<double> > IntensityDataFunctions::createOutputDatafrom2DArray(
         const std::vector<std::vector<double>> &array_2d)
 {
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     size_t nrows = array_2d.size();
     size_t ncols = array_2d[0].size();
 
-    OutputData<double> *result = new OutputData<double>;
     result->addAxis("x", nrows, 0.0, double(nrows));
     result->addAxis("y", ncols, 0.0, double(ncols));
     std::vector<unsigned> axes_indices(2);
@@ -267,11 +267,7 @@ OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArray(
 
 std::unique_ptr<OutputData<double>> IntensityDataFunctions::createFFT(const OutputData<double> &data)
 {
-    std::vector<std::vector<double>> array_2d =
-            IntensityDataFunctions::create2DArrayfromOutputData(data);
-
-    std::vector<std::vector<double>> fft_array_2d =
-            IntensityDataFunctions::FT2DArray(array_2d);
-
-    return std::unique_ptr<OutputData<double>>(IntensityDataFunctions::createOutputDatafrom2DArray(fft_array_2d));
+    auto array_2d = IntensityDataFunctions::create2DArrayfromOutputData(data);
+    auto fft_array_2d = IntensityDataFunctions::FT2DArray(array_2d);
+    return IntensityDataFunctions::createOutputDatafrom2DArray(fft_array_2d);
 }

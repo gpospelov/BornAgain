@@ -54,6 +54,15 @@ C++ includes: UnitConverters.h
 // File: structUnitConverterSimple_1_1AxisData.xml
 
 
+// File: structAxisInfo.xml
+%feature("docstring") AxisInfo "
+
+Information about an axis in specific units. Can be used for plotting.
+
+C++ includes: SimulationResult.h
+";
+
+
 // File: classBaseMaterialImpl.xml
 %feature("docstring") BaseMaterialImpl "";
 
@@ -628,21 +637,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -13900,13 +13909,18 @@ C++ includes: SimulationResult.h
 %feature("docstring")  SimulationResult::SimulationResult "SimulationResult::SimulationResult(SimulationResult &&other)
 ";
 
-%feature("docstring")  SimulationResult::data "OutputData< double > * SimulationResult::data(AxesUnits units_type=AxesUnits::DEFAULT) const 
+%feature("docstring")  SimulationResult::data "OutputData< double > * SimulationResult::data(AxesUnits units=AxesUnits::DEFAULT) const 
 ";
 
-%feature("docstring")  SimulationResult::histogram1d "Histogram1D * SimulationResult::histogram1d(AxesUnits units_type=AxesUnits::DEFAULT) const 
+%feature("docstring")  SimulationResult::histogram1d "Histogram1D * SimulationResult::histogram1d(AxesUnits units=AxesUnits::DEFAULT) const 
 ";
 
-%feature("docstring")  SimulationResult::histogram2d "Histogram2D * SimulationResult::histogram2d(AxesUnits units_type=AxesUnits::DEFAULT) const 
+%feature("docstring")  SimulationResult::histogram2d "Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const 
+";
+
+%feature("docstring")  SimulationResult::axisInfo "std::vector< AxisInfo > SimulationResult::axisInfo(AxesUnits units=AxesUnits::DEFAULT) const
+
+Provide  AxisInfo for each axis and the given units. 
 ";
 
 %feature("docstring")  SimulationResult::size "size_t SimulationResult::size() const 

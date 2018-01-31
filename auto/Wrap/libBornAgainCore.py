@@ -17849,6 +17849,55 @@ def Histogram2D_dynamicCast(pHistogram):
     """Histogram2D_dynamicCast(IHistogram pHistogram) -> Histogram2D"""
     return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
 
+class AxisInfo(_object):
+    """
+
+
+    Information about an axis in specific units. Can be used for plotting.
+
+    C++ includes: SimulationResult.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, AxisInfo, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, AxisInfo, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["m_name"] = _libBornAgainCore.AxisInfo_m_name_set
+    __swig_getmethods__["m_name"] = _libBornAgainCore.AxisInfo_m_name_get
+    if _newclass:
+        m_name = _swig_property(_libBornAgainCore.AxisInfo_m_name_get, _libBornAgainCore.AxisInfo_m_name_set)
+    __swig_setmethods__["m_min"] = _libBornAgainCore.AxisInfo_m_min_set
+    __swig_getmethods__["m_min"] = _libBornAgainCore.AxisInfo_m_min_get
+    if _newclass:
+        m_min = _swig_property(_libBornAgainCore.AxisInfo_m_min_get, _libBornAgainCore.AxisInfo_m_min_set)
+    __swig_setmethods__["m_max"] = _libBornAgainCore.AxisInfo_m_max_set
+    __swig_getmethods__["m_max"] = _libBornAgainCore.AxisInfo_m_max_get
+    if _newclass:
+        m_max = _swig_property(_libBornAgainCore.AxisInfo_m_max_get, _libBornAgainCore.AxisInfo_m_max_set)
+
+    def __init__(self):
+        """
+        __init__(AxisInfo self) -> AxisInfo
+
+
+
+        Information about an axis in specific units. Can be used for plotting.
+
+        C++ includes: SimulationResult.h
+
+        """
+        this = _libBornAgainCore.new_AxisInfo()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_AxisInfo
+    __del__ = lambda self: None
+AxisInfo_swigregister = _libBornAgainCore.AxisInfo_swigregister
+AxisInfo_swigregister(AxisInfo)
+
 class SimulationResult(_object):
     """
 
@@ -17883,10 +17932,10 @@ class SimulationResult(_object):
 
     def data(self, *args):
         """
-        data(SimulationResult self, AxesUnits units_type) -> IntensityData
+        data(SimulationResult self, AxesUnits units) -> IntensityData
         data(SimulationResult self) -> IntensityData
 
-        OutputData< double > * SimulationResult::data(AxesUnits units_type=AxesUnits::DEFAULT) const 
+        OutputData< double > * SimulationResult::data(AxesUnits units=AxesUnits::DEFAULT) const 
 
         """
         return _libBornAgainCore.SimulationResult_data(self, *args)
@@ -17894,10 +17943,10 @@ class SimulationResult(_object):
 
     def histogram1d(self, *args):
         """
-        histogram1d(SimulationResult self, AxesUnits units_type) -> Histogram1D
+        histogram1d(SimulationResult self, AxesUnits units) -> Histogram1D
         histogram1d(SimulationResult self) -> Histogram1D
 
-        Histogram1D * SimulationResult::histogram1d(AxesUnits units_type=AxesUnits::DEFAULT) const 
+        Histogram1D * SimulationResult::histogram1d(AxesUnits units=AxesUnits::DEFAULT) const 
 
         """
         return _libBornAgainCore.SimulationResult_histogram1d(self, *args)
@@ -17905,13 +17954,26 @@ class SimulationResult(_object):
 
     def histogram2d(self, *args):
         """
-        histogram2d(SimulationResult self, AxesUnits units_type) -> Histogram2D
+        histogram2d(SimulationResult self, AxesUnits units) -> Histogram2D
         histogram2d(SimulationResult self) -> Histogram2D
 
-        Histogram2D * SimulationResult::histogram2d(AxesUnits units_type=AxesUnits::DEFAULT) const 
+        Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const 
 
         """
         return _libBornAgainCore.SimulationResult_histogram2d(self, *args)
+
+
+    def axisInfo(self, *args):
+        """
+        axisInfo(SimulationResult self, AxesUnits units) -> std::vector< AxisInfo,std::allocator< AxisInfo > >
+        axisInfo(SimulationResult self) -> std::vector< AxisInfo,std::allocator< AxisInfo > >
+
+        std::vector< AxisInfo > SimulationResult::axisInfo(AxesUnits units=AxesUnits::DEFAULT) const
+
+        Provide  AxisInfo for each axis and the given units. 
+
+        """
+        return _libBornAgainCore.SimulationResult_axisInfo(self, *args)
 
 
     def size(self):

@@ -143,7 +143,7 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
 def plot_simulation_result(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT):
     """
     Plots simulation result as color map and hold the plot.
-    :param result_: SimulationResult object obtained from GISASSimulation/OffSpecSimulation
+    :param result_: SimulationResult object obtained from GISAS/OffSpec/SpecularSimulation
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """

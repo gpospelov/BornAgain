@@ -226,8 +226,6 @@
 
 // ownership
 
-%newobject SpecularSimulation::getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
-
 %newobject SimulationResult::data(AxesUnits units_type = AxesUnits::DEFAULT) const;
 %newobject SimulationResult::histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
 

@@ -14250,11 +14250,6 @@ Sets beam parameters with alpha_i of the beam defined in the range.
 Returns a pointer to incident angle axis. 
 ";
 
-%feature("docstring")  SpecularSimulation::getIntensityData "Histogram1D * SpecularSimulation::getIntensityData(AxesUnits units_type=AxesUnits::DEFAULT) const
-
-Returns detector signal (  $ \\\\propto |R|^2$) in the form of 1D Histogram. 
-";
-
 
 // File: classSpecularSimulationElement.xml
 %feature("docstring") SpecularSimulationElement "

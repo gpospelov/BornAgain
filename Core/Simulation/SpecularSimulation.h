@@ -61,9 +61,6 @@ public:
     //! Returns a pointer to incident angle axis.
     const IAxis* getAlphaAxis() const;
 
-    //! Returns detector signal (\f$ \propto |R|^2\f$) in the form of 1D Histogram
-    Histogram1D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
-
 private:
     typedef complex_t (ILayerRTCoefficients::*DataGetter)() const;
 

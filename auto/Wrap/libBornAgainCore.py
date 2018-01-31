@@ -26570,19 +26570,6 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_getAlphaAxis(self)
 
 
-    def getIntensityData(self, *args):
-        """
-        getIntensityData(SpecularSimulation self, AxesUnits units_type) -> Histogram1D
-        getIntensityData(SpecularSimulation self) -> Histogram1D
-
-        Histogram1D * SpecularSimulation::getIntensityData(AxesUnits units_type=AxesUnits::DEFAULT) const
-
-        Returns detector signal (  $ \\propto |R|^2$) in the form of 1D Histogram. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_getIntensityData(self, *args)
-
-
     def setSampleBuilder(self, ptr):
         self.samplebuilder = ptr
         self.setSampleBuilderCpp(ptr)

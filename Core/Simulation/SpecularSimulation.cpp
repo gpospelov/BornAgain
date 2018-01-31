@@ -188,13 +188,6 @@ SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_ele
                                                  begin + static_cast<long>(n_elements));
 }
 
-Histogram1D* SpecularSimulation::getIntensityData(AxesUnits units_type) const
-{
-    auto sim_result = result();
-    std::unique_ptr<OutputData<double>> result(sim_result.data(units_type));
-    return new Histogram1D(*result);
-}
-
 std::vector<complex_t> SpecularSimulation::getScalarR(size_t i_layer) const
 {
     return getData(i_layer, &ILayerRTCoefficients::getScalarR);

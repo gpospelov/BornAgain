@@ -104,9 +104,6 @@ def plot(results):
     plt.xlabel('X, bins', fontsize=14)
     plt.ylabel('Y, bins', fontsize=14)
     plt.title("Relative difference")
-#    ba.plot_colormap_hist(results['difference'], title="Relative difference",
-#                     zmin=1e-06, zmax=1.0,
-#                     xlabel='X, mm', ylabel='Y, mm', zlabel=None)
 
     plt.subplots_adjust(left=0.05, right=0.95, top=0.88, bottom=0.12)
     plt.show()

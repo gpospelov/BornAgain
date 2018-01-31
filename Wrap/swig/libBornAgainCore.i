@@ -255,6 +255,7 @@
 // need to tell SWIG explicitly to instantiate these templates with given types
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;
 %template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
+%template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
 // SWIG does not automatically instantiate templates, so we declare these by hand
 %template(kvector_t) BasicVector3D<double>;

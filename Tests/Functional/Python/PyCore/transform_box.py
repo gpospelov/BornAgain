@@ -55,7 +55,6 @@ class BoxTransformationsTest(unittest.TestCase):
         box = ba.Particle(mParticle, ba.FormFactorBox(length, width, height))
         box.setPosition(kvector_t(0, 0, -layer_thickness/2 - height/2))
         reference_data = self.get_result(box)
-        #utils.plot_intensity_data(reference_data)
         #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_TransformBox.int")
 
         # second box

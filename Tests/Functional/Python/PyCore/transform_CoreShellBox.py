@@ -154,8 +154,6 @@ class TransformCoreShellBoxTest(unittest.TestCase):
 
         data = self.get_result(coreshell)
 
-        # utils.plot_intensity_data(data)
-
         diff = RelativeDifference(data, reference_data)
         print("test_CoreShellBoxRotateY:", diff)
         self.assertLess(diff, 1e-10)

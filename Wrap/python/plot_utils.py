@@ -17,89 +17,38 @@ import bornagain as ba
 from bornagain import deg as deg
 from bornagain import IFitObserver as IFitObserver
 try:  # workaround for build servers
+    import numpy as np
     from matplotlib import pyplot as plt
     from matplotlib import gridspec, colors
 except Exception as e:
     print("In plot_utils.py: {:s}".format(str(e)))
 
 
-def get_axes_limits(intensity):
+def get_axes_limits(result, units):
     """
     Returns axes range as expected by pyplot.imshow.
-    :param intensity: Histogram2D object from GISAS simulation
-    :return:axes range
+    :param result: SimulationResult object from a Simulation
+    :param units: units to use
+    :return: axes ranges as a flat list
     """
-    result = [intensity.getXmin(), intensity.getXmax(),
-              intensity.getYmin(), intensity.getYmax()]
+    axis_infos = result.axisInfo(units)
+    limits = [ [axis_infos[i].m_min, axis_infos[i].m_max] for i in range(len(axis_infos)) ]
+    flat_limits = [ v for sublist in limits for v in sublist ]
 
-    return result
+    return flat_limits
 
 
-def get_xlabel(intensity):
+def get_axes_labels(result, units):
     """
-    Returns the label for x-axis
-    :param intensity: Histogram2D object from GISAS simulation
-    :return:label for x-axis
+    Returns axes range as expected by pyplot.imshow.
+    :param result: SimulationResult object from a Simulation
+    :param units: units to use
+    :return: axes ranges as a flat list
     """
-    return intensity.getXaxis().getName()
+    axis_infos = result.axisInfo(units)
+    labels = [ axis_infos[i].m_name for i in range(len(axis_infos)) ]
 
-
-def get_ylabel(intensity):
-    """
-    Returns the label for y-axis
-    :param intensity: Histogram2D object from GISAS simulation
-    :return:label for y-axis
-    """
-    return intensity.getYaxis().getName()
-
-
-def plot_colormap_hist(intensity, zmin=None, zmax=None,
-                  xlabel=None, ylabel=None, zlabel=None,
-                  title=None):
-    """
-    Plots intensity data as color map
-    :param intensity: Histogram2D object obtained from GISASSimulation
-    :param zmin: Min value on amplitude's color bar
-    :param zmax: Max value on amplitude's color bar
-    """
-    zmax = intensity.getMaximum() if zmax is None else zmax
-    zmin = 1e-6*zmax if zmin is None else zmin
-
-    xlabel = get_xlabel(intensity) if xlabel is None else xlabel
-    ylabel = get_ylabel(intensity) if ylabel is None else ylabel
-    zlabel = "Intensity" if zlabel is None else zlabel
-
-    im = plt.imshow(
-        intensity.getArray(),
-        norm=colors.LogNorm(zmin, zmax),
-        extent=get_axes_limits(intensity),
-        aspect='auto',
-    )
-    cb = plt.colorbar(im, pad=0.025)
-
-    if xlabel:
-        plt.xlabel(xlabel, fontsize=14)
-
-    if ylabel:
-        plt.ylabel(ylabel, fontsize=14)
-
-    if zlabel:
-        cb.set_label(zlabel, size=14)
-
-    if title:
-        plt.title(title)
-
-
-def plot_intensity_data(intensity, zmin=None, zmax=None):
-    """
-    Plots intensity data as color map and hold the plot.
-    If command line parameter was provided, save image instead of plotting.
-    :param intensity: Histogram2D object obtained from GISASSimulation
-    :param zmin: Min value on amplitude's color bar
-    :param zmax: Max value on amplitude's color bar
-    """
-    plot_colormap_hist(intensity, zmin, zmax)
-    plt.show()
+    return labels
 
 
 def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
@@ -111,18 +60,20 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """
-    intensity = result.histogram2d(units)
-    zmax = intensity.getMaximum() if zmax is None else zmax
+    intensity = result.array()
+    zmax = np.amax(intensity) if zmax is None else zmax
     zmin = 1e-6*zmax if zmin is None else zmin
 
-    xlabel = get_xlabel(intensity) if xlabel is None else xlabel
-    ylabel = get_ylabel(intensity) if ylabel is None else ylabel
+    axes_limits = get_axes_limits(result, units)
+    axes_labels = get_axes_labels(result, units)
+    xlabel = axes_labels[0] if xlabel is None else xlabel
+    ylabel = axes_labels[1] if ylabel is None else ylabel
     zlabel = "Intensity" if zlabel is None else zlabel
 
     im = plt.imshow(
-        intensity.getArray(),
+        intensity,
         norm=colors.LogNorm(zmin, zmax),
-        extent=get_axes_limits(intensity),
+        extent=axes_limits,
         aspect='auto',
     )
     cb = plt.colorbar(im, pad=0.025)
@@ -149,6 +100,45 @@ def plot_simulation_result(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFA
     """
     plot_colormap(result, zmin, zmax, units)
     plt.show()
+
+
+def plot_histogram(intensity, zmin=None, zmax=None,
+                  xlabel=None, ylabel=None, zlabel=None,
+                  title=None):
+    """
+    Plots intensity data as color map
+    :param intensity: Histogram2D object obtained from GISASSimulation
+    :param zmin: Min value on amplitude's color bar
+    :param zmax: Max value on amplitude's color bar
+    """
+    zmax = intensity.getMaximum() if zmax is None else zmax
+    zmin = 1e-6*zmax if zmin is None else zmin
+
+    xlabel = intensity.getXaxis().getName() if xlabel is None else xlabel
+    ylabel = intensity.getYaxis().getName() if ylabel is None else ylabel
+    zlabel = "Intensity" if zlabel is None else zlabel
+    axes_limits = [intensity.getXmin(), intensity.getXmax(),
+                   intensity.getYmin(), intensity.getYmax()]
+
+    im = plt.imshow(
+        intensity.getArray(),
+        norm=colors.LogNorm(zmin, zmax),
+        extent=axes_limits,
+        aspect='auto',
+    )
+    cb = plt.colorbar(im, pad=0.025)
+
+    if xlabel:
+        plt.xlabel(xlabel, fontsize=14)
+
+    if ylabel:
+        plt.ylabel(ylabel, fontsize=14)
+
+    if zlabel:
+        cb.set_label(zlabel, size=14)
+
+    if title:
+        plt.title(title)
 
 
 class Plotter:
@@ -179,19 +169,19 @@ class PlotterGISAS(Plotter):
 
         self.make_subplot(1)
         real_data = fit_suite.getRealData()
-        plot_colormap_hist(real_data, title="\"Real\" data",
+        plot_histogram(real_data, title="\"Real\" data",
                       zmin=1.0, zmax=real_data.getMaximum(),
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(2)
         sim_data = fit_suite.getSimulationData()
-        plot_colormap_hist(sim_data, title="Simulated data",
+        plot_histogram(sim_data, title="Simulated data",
                       zmin=1.0, zmax=real_data.getMaximum(),
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(3)
         chi_data = fit_suite.getChiSquaredMap()
-        plot_colormap_hist(chi_data, title="Chi2 map",
+        plot_histogram(chi_data, title="Chi2 map",
                       zmin=0.001, zmax=10.0,
                       xlabel='', ylabel='', zlabel='')
 

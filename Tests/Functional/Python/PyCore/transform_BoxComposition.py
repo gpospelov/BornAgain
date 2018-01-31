@@ -74,7 +74,6 @@ class TransformBoxCompositionTest(unittest.TestCase):
         diff = RelativeDifference(data, reference_data)
         print("test_BoxComposition:", diff)
         self.assertLess(diff, 1e-10)
-        # utils.plot_intensity_data(reference_data)
 
     def test_BoxCompositionRotateX(self):
         """

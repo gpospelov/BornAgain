@@ -2622,6 +2622,218 @@ class swig_dummy_type_const_inode_vector(_object):
 swig_dummy_type_const_inode_vector_swigregister = _libBornAgainCore.swig_dummy_type_const_inode_vector_swigregister
 swig_dummy_type_const_inode_vector_swigregister(swig_dummy_type_const_inode_vector)
 
+class swig_dummy_type_axisinfo_vector(_object):
+    """Proxy of C++ std::vector<(AxisInfo)> class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, swig_dummy_type_axisinfo_vector, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, swig_dummy_type_axisinfo_vector, name)
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        """iterator(swig_dummy_type_axisinfo_vector self) -> SwigPyIterator"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_iterator(self)
+
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        """__nonzero__(swig_dummy_type_axisinfo_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___nonzero__(self)
+
+
+    def __bool__(self):
+        """__bool__(swig_dummy_type_axisinfo_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___bool__(self)
+
+
+    def __len__(self):
+        """__len__(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___len__(self)
+
+
+    def __getslice__(self, i, j):
+        """__getslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j) -> swig_dummy_type_axisinfo_vector"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___getslice__(self, i, j)
+
+
+    def __setslice__(self, *args):
+        """
+        __setslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j)
+        __setslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j, swig_dummy_type_axisinfo_vector v)
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___setslice__(self, *args)
+
+
+    def __delslice__(self, i, j):
+        """__delslice__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, std::vector< AxisInfo >::difference_type j)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___delslice__(self, i, j)
+
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i)
+        __delitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice)
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___delitem__(self, *args)
+
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice) -> swig_dummy_type_axisinfo_vector
+        __getitem__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i) -> AxisInfo
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___getitem__(self, *args)
+
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice, swig_dummy_type_axisinfo_vector v)
+        __setitem__(swig_dummy_type_axisinfo_vector self, PySliceObject * slice)
+        __setitem__(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::difference_type i, AxisInfo x)
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector___setitem__(self, *args)
+
+
+    def pop(self):
+        """pop(swig_dummy_type_axisinfo_vector self) -> AxisInfo"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_pop(self)
+
+
+    def append(self, x):
+        """append(swig_dummy_type_axisinfo_vector self, AxisInfo x)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_append(self, x)
+
+
+    def empty(self):
+        """empty(swig_dummy_type_axisinfo_vector self) -> bool"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_empty(self)
+
+
+    def size(self):
+        """size(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_size(self)
+
+
+    def swap(self, v):
+        """
+        swap(swig_dummy_type_axisinfo_vector self, swig_dummy_type_axisinfo_vector v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_swap(self, v)
+
+
+    def begin(self):
+        """begin(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::iterator"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_begin(self)
+
+
+    def end(self):
+        """end(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::iterator"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_end(self)
+
+
+    def rbegin(self):
+        """rbegin(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::reverse_iterator"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_rbegin(self)
+
+
+    def rend(self):
+        """rend(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::reverse_iterator"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_rend(self)
+
+
+    def clear(self):
+        """clear(swig_dummy_type_axisinfo_vector self)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_clear(self)
+
+
+    def get_allocator(self):
+        """get_allocator(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::allocator_type"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_get_allocator(self)
+
+
+    def pop_back(self):
+        """pop_back(swig_dummy_type_axisinfo_vector self)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_pop_back(self)
+
+
+    def erase(self, *args):
+        """
+        erase(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator pos) -> std::vector< AxisInfo >::iterator
+        erase(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator first, std::vector< AxisInfo >::iterator last) -> std::vector< AxisInfo >::iterator
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_erase(self, *args)
+
+
+    def __init__(self, *args):
+        """
+        __init__(std::vector<(AxisInfo)> self) -> swig_dummy_type_axisinfo_vector
+        __init__(std::vector<(AxisInfo)> self, swig_dummy_type_axisinfo_vector arg2) -> swig_dummy_type_axisinfo_vector
+        __init__(std::vector<(AxisInfo)> self, std::vector< AxisInfo >::size_type size) -> swig_dummy_type_axisinfo_vector
+        __init__(std::vector<(AxisInfo)> self, std::vector< AxisInfo >::size_type size, AxisInfo value) -> swig_dummy_type_axisinfo_vector
+        """
+        this = _libBornAgainCore.new_swig_dummy_type_axisinfo_vector(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def push_back(self, x):
+        """push_back(swig_dummy_type_axisinfo_vector self, AxisInfo x)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_push_back(self, x)
+
+
+    def front(self):
+        """front(swig_dummy_type_axisinfo_vector self) -> AxisInfo"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_front(self)
+
+
+    def back(self):
+        """back(swig_dummy_type_axisinfo_vector self) -> AxisInfo"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_back(self)
+
+
+    def assign(self, n, x):
+        """assign(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type n, AxisInfo x)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_assign(self, n, x)
+
+
+    def resize(self, *args):
+        """
+        resize(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type new_size)
+        resize(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type new_size, AxisInfo x)
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_resize(self, *args)
+
+
+    def insert(self, *args):
+        """
+        insert(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator pos, AxisInfo x) -> std::vector< AxisInfo >::iterator
+        insert(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::iterator pos, std::vector< AxisInfo >::size_type n, AxisInfo x)
+        """
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_insert(self, *args)
+
+
+    def reserve(self, n):
+        """reserve(swig_dummy_type_axisinfo_vector self, std::vector< AxisInfo >::size_type n)"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_reserve(self, n)
+
+
+    def capacity(self):
+        """capacity(swig_dummy_type_axisinfo_vector self) -> std::vector< AxisInfo >::size_type"""
+        return _libBornAgainCore.swig_dummy_type_axisinfo_vector_capacity(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_swig_dummy_type_axisinfo_vector
+    __del__ = lambda self: None
+swig_dummy_type_axisinfo_vector_swigregister = _libBornAgainCore.swig_dummy_type_axisinfo_vector_swigregister
+swig_dummy_type_axisinfo_vector_swigregister(swig_dummy_type_axisinfo_vector)
+
 class kvector_t(_object):
     """
 
@@ -17965,8 +18177,8 @@ class SimulationResult(_object):
 
     def axisInfo(self, *args):
         """
-        axisInfo(SimulationResult self, AxesUnits units) -> std::vector< AxisInfo,std::allocator< AxisInfo > >
-        axisInfo(SimulationResult self) -> std::vector< AxisInfo,std::allocator< AxisInfo > >
+        axisInfo(SimulationResult self, AxesUnits units) -> swig_dummy_type_axisinfo_vector
+        axisInfo(SimulationResult self) -> swig_dummy_type_axisinfo_vector
 
         std::vector< AxisInfo > SimulationResult::axisInfo(AxesUnits units=AxesUnits::DEFAULT) const
 

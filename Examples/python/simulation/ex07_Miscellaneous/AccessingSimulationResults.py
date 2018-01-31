@@ -50,7 +50,7 @@ def plot_cropped_map(hist):
     Plot cropped version of intensity data
     """
     crop = hist.crop(-1.0*deg, 0.5*deg, 1.0*deg, 1.0*deg)
-    ba.plot_colormap_hist(crop)
+    ba.plot_histogram(crop)
 
 
 def get_noisy_image(hist):
@@ -74,7 +74,7 @@ def plot_relative_difference(hist):
     """
     noisy = get_noisy_image(hist)
     diff = noisy.relativeDifferenceHistogram(hist)
-    ba.plot_colormap_hist(diff, zmin=1e-03, zmax=10)
+    ba.plot_histogram(diff, zmin=1e-03, zmax=10)
 
 
 def plot_slices(hist):
@@ -131,7 +131,7 @@ def plot(result):
     fig = plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)
-    ba.plot_colormap_hist(result)
+    ba.plot_histogram(result)
     plt.title("Intensity as colormap")
 
     plt.subplot(2, 2, 2)

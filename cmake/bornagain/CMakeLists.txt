@@ -1,12 +1,10 @@
-# this script is a trick to print the message at the end of installation
-
-
 if(APPLE)
     set(ld_library_variable DYLD_LIBRARY_PATH)
 else()
     set(ld_library_variable LD_LIBRARY_PATH)
 endif()
 
+# this script is a trick to print the message at the end of installation
 if(NOT WIN32 AND NOT BORNAGAIN_APPLE_BUNDLE)
 set(after_install_text "
 Installation done. Please read below.
@@ -21,3 +19,6 @@ Just add this command into your .bashrc or .bash_profile file.
 install(CODE "MESSAGE(\"${after_install_text}\")")
 
 endif()
+
+add_subdirectory(scripts)
+

@@ -18,6 +18,7 @@
 #include "SessionModel.h"
 #include "GUIHelpers.h"
 #include <QWidget>
+#include <QApplication>
 #include <QAction>
 
 IntensityDataFFTPresenter::IntensityDataFFTPresenter(QWidget* parent)
@@ -47,8 +48,12 @@ IntensityDataItem* IntensityDataFFTPresenter::fftItem(IntensityDataItem* origIte
     if (!origItem)
         throw GUIHelpers::Error("IntensityDataFFTPresenter::fftItem() -> Error. Empty item.");
 
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+
     m_fftItem->setOutputData(
         IntensityDataFunctions::createFFT(*origItem->getOutputData()).release());
+
+    QApplication::restoreOverrideCursor();
 
     return m_fftItem;
 }

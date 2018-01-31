@@ -52,15 +52,16 @@ QMap<AxesUnits, QString> init_description_to_units_map()
 
 void JobItemUtils::setResults(IntensityDataItem* intensityItem, const Simulation* simulation)
 {
+    auto sim_result = simulation->result();
     if (intensityItem->getOutputData() == nullptr) {
         const IDetector* detector = simulation->getInstrument().getDetector();
         setIntensityItemAxesUnits(intensityItem, detector);
         auto selected_units = axesUnitsFromName(intensityItem->selectedAxesUnits());
         updateAxesTitle(intensityItem);
-        std::unique_ptr<OutputData<double>> data(simulation->getDetectorIntensity(selected_units));
+        std::unique_ptr<OutputData<double>> data(sim_result.data(selected_units));
         intensityItem->setOutputData(data.release());
     } else {
-        std::unique_ptr<OutputData<double>> data(simulation->getDetectorIntensity());
+        std::unique_ptr<OutputData<double>> data(sim_result.data());
         intensityItem->setRawDataVector(data.get());
         if (!intensityItem->isZAxisLocked())
             intensityItem->computeDataRange();

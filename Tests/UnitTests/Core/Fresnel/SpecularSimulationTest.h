@@ -50,8 +50,7 @@ TEST_F(SpecularSimulationTest, InitialState)
     ASSERT_THROW(sim.runSimulation(), std::runtime_error);
     ASSERT_THROW(sim.getAlphaAxis(), std::runtime_error);
     EXPECT_EQ(nullptr, sim.sample());
-    ASSERT_THROW(sim.getIntensityData(), std::runtime_error);
-    ASSERT_THROW(sim.getDetectorIntensity(), std::runtime_error);
+    ASSERT_THROW(sim.result(), std::runtime_error);
 }
 
 std::unique_ptr<SpecularSimulation> SpecularSimulationTest::defaultSimulation()
@@ -78,8 +77,7 @@ TEST_F(SpecularSimulationTest, CloneOfEmpty)
     ASSERT_THROW(clone->runSimulation(), std::runtime_error);
     ASSERT_THROW(clone->getAlphaAxis(), std::runtime_error);
     EXPECT_EQ(nullptr, clone->sample());
-    ASSERT_THROW(clone->getIntensityData(), std::runtime_error);
-    ASSERT_THROW(clone->getDetectorIntensity(), std::runtime_error);
+    ASSERT_THROW(clone->result(), std::runtime_error);
 
     checkBeamState(sim);
     checkBeamState(*clone);
@@ -148,17 +146,18 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
 
     EXPECT_EQ(3u, sim->sample()->numberOfLayers());
 
-    ASSERT_THROW(sim->getIntensityData(), std::runtime_error);
+    ASSERT_THROW(sim->result(), std::runtime_error);
 
     sim->runSimulation();
+    auto sim_result = sim->result();
 
-    const std::unique_ptr<Histogram1D> reflectivity(sim->getIntensityData());
+    const std::unique_ptr<Histogram1D> reflectivity(sim_result.histogram1d(AxesUnits::RADIANS));
     EXPECT_EQ(10u, reflectivity->getTotalNumberOfBins());
     EXPECT_EQ(1u, reflectivity->getRank());
     EXPECT_EQ(0.0, reflectivity->getXaxis().getMin());
     EXPECT_EQ(2.0 * Units::degree, reflectivity->getXaxis().getMax());
 
-    const std::unique_ptr<OutputData<double>> output(sim->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double>> output(sim_result.data(AxesUnits::RADIANS));
     EXPECT_EQ(reflectivity->getTotalNumberOfBins(), output->getAllocatedSize());
     EXPECT_EQ(reflectivity->getRank(), output->getRank());
     EXPECT_EQ(reflectivity->getXaxis().getMin(), output->getAxis(0).getMin());
@@ -176,19 +175,19 @@ TEST_F(SpecularSimulationTest, SimulationClone)
 
     EXPECT_EQ(3u, clone->sample()->numberOfLayers());
 
-    ASSERT_THROW(clone->getIntensityData(), std::runtime_error);
-    ASSERT_THROW(clone->getDetectorIntensity(), std::runtime_error);
+    ASSERT_THROW(clone->result(), std::runtime_error);
 
     checkBeamState(*clone);
 
     sim->runSimulation();
 
     std::unique_ptr<SpecularSimulation> clone2(sim->clone());
+    auto clone_result = clone2->result();
 
-    std::unique_ptr<Histogram1D> output(clone2->getIntensityData());
+    std::unique_ptr<Histogram1D> output(clone_result.histogram1d());
     EXPECT_EQ(10u, output->getTotalNumberOfBins());
 
-    const std::unique_ptr<OutputData<double>> output_data(clone2->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double>> output_data(clone_result.data());
     EXPECT_EQ(10u, output_data->getAllocatedSize());
 
     checkBeamState(*clone2);
@@ -228,8 +227,9 @@ TEST_F(SpecularSimulationTest, OutOfRangeAngles)
     beam.parameter(BornAgain::Inclination)->setValue(-0.2 * Units::deg);
 
     sim->runSimulation();
+    auto sim_result = sim->result();
 
-    std::unique_ptr<Histogram1D> result(sim->getIntensityData());
+    std::unique_ptr<Histogram1D> result(sim_result.histogram1d());
     EXPECT_EQ(0.0, result->getBinContent(0));
     EXPECT_NE(0.0, result->getBinContent(1));
 }

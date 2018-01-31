@@ -43,7 +43,7 @@ class IntensityDataTest(unittest.TestCase):
     def test_access_simulation_intensity(self):
         simulation = ba.GISASSimulation()
         simulation.setDetectorParameters(10, -1.0, 1.0, 100, 0.0, 2.0)
-        data = simulation.getIntensityData()
+        data = simulation.result().histogram2d()
         self.assertEqual(1000, data.getTotalNumberOfBins())
         self.assertEqual(2, data.getRank())
         self.assertEqual(0, data.integral())

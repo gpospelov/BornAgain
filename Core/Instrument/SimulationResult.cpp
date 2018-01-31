@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "SimulationResult.h"
+#include "Histogram1D.h"
 #include "Histogram2D.h"
 #include "FixedBinAxis.h"
 #include "OutputData.h"
@@ -50,23 +51,67 @@ SimulationResult& SimulationResult::operator=(SimulationResult&& other)
     return *this;
 }
 
-OutputData<double>* SimulationResult::data(AxesUnits units_type) const
+OutputData<double>* SimulationResult::data(AxesUnits units) const
 {
     const size_t dim = mP_data->getRank();
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i = 0; i < dim; ++i)
-        result->addAxis(*createConvertedAxis(i, units_type));
+        result->addAxis(*createConvertedAxis(i, units));
     result->setRawDataVector(mP_data->getRawDataVector());
     return result.release();
 }
 
-Histogram2D* SimulationResult::histogram2d(AxesUnits units_type) const
+Histogram1D* SimulationResult::histogram1d(AxesUnits units) const
+{
+    if (mP_data->getRank() != 1 || mP_unit_converter->dimension() != 1)
+        throw std::runtime_error("Error in SimulationResult::histogram1d: "
+                                 "dimension of data is not 1");
+    std::unique_ptr<OutputData<double>> P_data(data(units));
+    return new Histogram1D(*P_data);
+}
+
+Histogram2D* SimulationResult::histogram2d(AxesUnits units) const
 {
     if (mP_data->getRank() != 2 || mP_unit_converter->dimension() != 2)
         throw std::runtime_error("Error in SimulationResult::histogram2d: "
                                  "dimension of data is not 2");
-    std::unique_ptr<OutputData<double>> P_data(data(units_type));
+    std::unique_ptr<OutputData<double>> P_data(data(units));
     return new Histogram2D(*P_data);
+}
+
+std::vector<AxisInfo> SimulationResult::axisInfo(AxesUnits units) const
+{
+    if (!mP_unit_converter) return {};
+    std::vector<AxisInfo> result;
+    auto dim = mP_unit_converter->dimension();
+    for (size_t i=0; i<dim; ++i) {
+        AxisInfo info = { mP_unit_converter->axisName(i, units),
+                          mP_unit_converter->calculateMin(i, units),
+                          mP_unit_converter->calculateMax(i, units) };
+        result.push_back(info);
+    }
+    return result;
+}
+
+double& SimulationResult::operator[](size_t i)
+{
+    if (mP_data) return (*mP_data)[i];
+    throw std::runtime_error("Error in SimulationResult::operator[]: "
+                             "no data initialized");
+}
+
+const double& SimulationResult::operator[](size_t i) const
+{
+    if (mP_data) return (*mP_data)[i];
+    throw std::runtime_error("Error in SimulationResult::operator[]: "
+                             "no data initialized");
+}
+
+size_t SimulationResult::size() const
+{
+    if (mP_data) return mP_data->getAllocatedSize();
+    throw std::runtime_error("Error in SimulationResult::size(): "
+                             "no data initialized");
 }
 
 PyObject* SimulationResult::array() const
@@ -86,7 +131,6 @@ std::unique_ptr<IAxis> SimulationResult::createConvertedAxis(size_t i_axis, Axes
 {
     double min = mP_unit_converter->calculateMin(i_axis, units);
     double max = mP_unit_converter->calculateMax(i_axis, units);
-    // TODO: Region of interest?
     auto axis_name = mP_unit_converter->axisName(i_axis);
     auto axis_size = mP_unit_converter->axisSize(i_axis);
     return std::make_unique<FixedBinAxis>(axis_name, axis_size, min, max);

@@ -28,17 +28,15 @@ bool areAlmostEqual(double a, double b, double tolerance)
     return std::abs(a-b) <= eps * std::max( tolerance*eps, std::max(1., tolerance)*std::abs(b) );
 }
 
-//! Returns the safe relative difference, which is |(a-b)/b| except in special cases.
+//! Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases.
 double get_relative_difference(double a, double b)
 {
     constexpr double eps = std::numeric_limits<double>::epsilon();
+    const double avg_abs = (std::abs(a) + std::abs(b))/2.0;
     // return 0.0 if relative error smaller than epsilon
-    if (std::abs(a-b) <= eps*std::abs(b))
+    if (std::abs(a-b) <= eps*avg_abs)
         return 0.0;
-    // for small numbers, divide by epsilon (to avoid catastrophic cancellation)
-    if (std::abs(b) <= eps)
-        return std::abs((a-b)/eps);
-    return std::abs((a-b)/b);
+    return std::abs(a-b)/avg_abs;
 }
 
 } // Numeric namespace

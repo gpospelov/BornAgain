@@ -57,9 +57,9 @@ def run_simulation():
     print(simulation.treeToString())
     print(simulation.parametersToString())
     simulation.runSimulation()
-    return simulation.getIntensityData()
+    return simulation.result()
 
 
 if __name__ == '__main__':
     result = run_simulation()
-    ba.plot_intensity_data(result)
+    ba.plot_simulation_result(result)

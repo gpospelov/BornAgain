@@ -19,12 +19,15 @@
 #include <memory>
 
 class IHistogram;
+class SimulationResult;
 
 //! Functions to work with intensity data.
 //! @ingroup tools
 
-namespace IntensityDataFunctions
-{
+namespace IntensityDataFunctions {
+//! Returns sum of relative differences between each pair of elements:
+//! (a, b) -> 2*abs(a - b)/(a + b)      ( and zero if  a-b=0 )
+BA_CORE_API_ double RelativeDifference(const SimulationResult& dat, const SimulationResult& ref);
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 BA_CORE_API_ double getRelativeDifference(const OutputData<double>& dat,

@@ -50,7 +50,7 @@ def RunSimulation():
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     # intensity data
-    return simulation.getIntensityData().getArray()
+    return simulation.result().array()
 	
 
 def SetParameters(i):

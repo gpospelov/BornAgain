@@ -61,7 +61,7 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    return simulation.getIntensityData()
+    return simulation.result()
 
 
 def plot(data):
@@ -71,8 +71,9 @@ def plot(data):
     from matplotlib import pyplot as plt
     plt.figure(figsize=(12.80, 10.24))
 
-    axis = data.getXaxis().getBinCenters()
-    intensities = data.getArray()
+    hist = data.histogram1d()
+    axis = hist.getXaxis().getBinCenters()
+    intensities = data.array()
 
     plt.xlabel(r'$\alpha_f$ (rad)', fontsize=16)
     plt.semilogy(axis, intensities)

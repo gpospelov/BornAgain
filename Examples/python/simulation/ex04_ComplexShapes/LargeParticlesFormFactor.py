@@ -86,7 +86,7 @@ def run_simulation():
         simulation = get_simulation(integration_flag)
         simulation.setSample(sample)
         simulation.runSimulation()
-        result = simulation.getIntensityData()
+        result = simulation.result()
 
         # plotting results
         plt.subplot(2, 2, i_plot+1)

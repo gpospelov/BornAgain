@@ -42,11 +42,11 @@ class SlicedSpheresTest(unittest.TestCase):
         multi_layer.addLayer(substrate)
         return multi_layer
 
-    def get_intensity_data(self, particle_to_air=None, particle_to_substrate=None):
+    def get_result(self, particle_to_air=None, particle_to_substrate=None):
         sample = self.get_sample(particle_to_air, particle_to_substrate)
         simulation = utils.get_simulation_MiniGISAS(sample)
         simulation.runSimulation()
-        return simulation.getIntensityData()
+        return simulation.result()
 
     def get_composition(self, top_material, bottom_material):
         """
@@ -91,13 +91,13 @@ class SlicedSpheresTest(unittest.TestCase):
 
         # spherical particle
         sphere = ba.Particle(mParticle, ba.FormFactorFullSphere(sphere_radius))
-        reference = self.get_intensity_data(sphere)
+        reference = self.get_result(sphere)
 
         # spherical composition
         composition = self.get_composition(mParticle, mParticle)
-        data = self.get_intensity_data(composition)
+        data = self.get_result(composition)
 
-        diff = ba.getRelativeDifference(data, reference)
+        diff = ba.RelativeDifference(data, reference)
         print(diff)
         self.assertLess(diff, 1e-10)
 
@@ -109,13 +109,13 @@ class SlicedSpheresTest(unittest.TestCase):
         """
 
         composition = self.get_composition(mParticle, mSubstrate)
-        reference = self.get_intensity_data(composition)
+        reference = self.get_result(composition)
 
         # spherical composition
         composition2 = self.get_composition_v2(mParticle, mSubstrate)
-        data = self.get_intensity_data(composition2)
+        data = self.get_result(composition2)
 
-        diff = ba.getRelativeDifference(data, reference)
+        diff = ba.RelativeDifference(data, reference)
         print(diff)
         self.assertLess(diff, 1e-10)
 
@@ -131,14 +131,14 @@ class SlicedSpheresTest(unittest.TestCase):
         shift = bottom_cup_height
 
         # Scattering from empty multilayer
-        reference = self.get_intensity_data()
+        reference = self.get_result()
 
         # spherical composition
         composition = self.get_composition(mAmbience, mSubstrate)
         composition.setPosition(0, 0, -shift)
-        data = self.get_intensity_data(composition)
+        data = self.get_result(composition)
 
-        diff = ba.getRelativeDifference(data, reference)
+        diff = ba.RelativeDifference(data, reference)
         print(diff)
         self.assertLess(diff, 1e-10)
 
@@ -155,14 +155,14 @@ class SlicedSpheresTest(unittest.TestCase):
         # spherical particle
         sphere = ba.Particle(mParticle, ba.FormFactorFullSphere(sphere_radius))
         sphere.setPosition(0, 0, -shift)
-        reference = self.get_intensity_data(sphere)
+        reference = self.get_result(sphere)
 
         # spherical composition
         composition = self.get_composition(mParticle, mParticle)
         composition.setPosition(0, 0, -shift)
-        data = self.get_intensity_data(composition)
+        data = self.get_result(composition)
 
-        diff = ba.getRelativeDifference(data, reference)
+        diff = ba.RelativeDifference(data, reference)
         print(diff)
         self.assertLess(diff, 1e-10)
 
@@ -177,32 +177,18 @@ class SlicedSpheresTest(unittest.TestCase):
 
         # truncated sphere on top of substrate with height 16nm
         truncatedSphere = ba.Particle(mParticle, ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius*2 - bottom_cup_height))
-        reference = self.get_intensity_data(truncatedSphere)
+        reference = self.get_result(truncatedSphere)
 
         # Particle composition, top part made of same material, as particle. Bottom part made of same material as substrate.
         composition = self.get_composition(mParticle, mSubstrate)
 
         composition_shift = bottom_cup_height
         composition.setPosition(0, 0, -composition_shift)
-        data = self.get_intensity_data(composition)
+        data = self.get_result(composition)
 
-        diff = ba.getRelativeDifference(data, reference)
+        diff = ba.RelativeDifference(data, reference)
         print(diff)
         self.assertLess(diff, 1e-10)
-
-    # def testExample(self):
-    #     """
-    #     Temporary method to generate reference data
-    #     """
-    #     m_top_cup = ba.HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7)
-    #     m_bottom_cup = ba.HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9)
-    #
-    #     composition = self.get_composition(m_top_cup, m_bottom_cup)
-    #     shift = 4*nm
-    #     composition.setPosition(0, 0, -shift)
-    #     data = self.get_intensity_data(composition)
-    #     ba.IntensityDataIOFactory.writeIntensityData(data, "SlicedComposition.int")
-
 
 
 if __name__ == '__main__':

@@ -69,7 +69,7 @@ def run_simulation():
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    return simulation.getIntensityData()
+    return simulation.result()
 
 
 if __name__ == '__main__':

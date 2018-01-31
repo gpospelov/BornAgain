@@ -41,7 +41,7 @@ def runSimulation():
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     ## intensity data
-    return simulation.getIntensityData()
+    return simulation.result()
 
 
 # --------------------------------------------------------------
@@ -53,7 +53,7 @@ def run_test():
 
     reference = utils.get_reference_data('polmagcylinders1_reference.int.gz')
 
-    diff = utils.get_difference(result.getArray(), reference.getArray())
+    diff = utils.get_difference(result.array(), reference.getArray())
 
     status = "OK"
     if diff > 2e-10:

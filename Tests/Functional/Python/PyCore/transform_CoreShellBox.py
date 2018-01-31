@@ -35,11 +35,11 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         multi_layer.addLayer(substrate)
         return multi_layer
 
-    def get_intensity_data(self, particle):
+    def get_result(self, particle):
         sample = self.get_sample(particle)
         simulation = utils.get_simulation_MiniGISAS(sample)
         simulation.runSimulation()
-        return simulation.getIntensityData()
+        return simulation.result()
 
     def test_SameMaterialCoreShellBox(self):
         """
@@ -54,7 +54,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         particle = Particle(mCore, FormFactorBox(shell_length, shell_width, shell_height))
         particle.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - shell_height/2.0))
 
-        reference_data = self.get_intensity_data(particle)
+        reference_data = self.get_result(particle)
 
         core_length = shell_length/2.0
         core_width = shell_width/2.0
@@ -64,9 +64,9 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         coreshell = ParticleCoreShell(shell, core, kvector_t(0.0, 0.0, (shell_height-core_height)/2.0))
         coreshell.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - shell_height/2.0))
 
-        data = self.get_intensity_data(coreshell)
+        data = self.get_result(coreshell)
 
-        diff = getRelativeDifference(data, reference_data)
+        diff = RelativeDifference(data, reference_data)
         print("test_SameMaterialCoreShell:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -92,7 +92,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         coreshell_ref = ParticleCoreShell(shell_ref, core_ref, kvector_t(0.0, 0.0, (shell_height-core_height)/2.0))
         coreshell_ref.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - shell_height/2.0))  # center of coreshell in center of the layer
 
-        reference_data = self.get_intensity_data(coreshell_ref)
+        reference_data = self.get_result(coreshell_ref)
 
         # building second CoreShell particle
         shell_length = 50.0
@@ -108,9 +108,9 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         coreshell.setRotation(RotationZ(90.0*degree))
         coreshell.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - shell_height/2.0))  # center of coreshell  in center of the layer
 
-        data = self.get_intensity_data(coreshell)
+        data = self.get_result(coreshell)
 
-        diff = getRelativeDifference(data, reference_data)
+        diff = RelativeDifference(data, reference_data)
         print("test_CoreShellBoxRotateZ:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -136,7 +136,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         coreshell_ref = ParticleCoreShell(shell_ref, core_ref, kvector_t(0.0, 0.0, (shell_height-core_height)/2.0))
         coreshell_ref.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - shell_height/2.0))  # center of coreshell in center of the layer
 
-        reference_data = self.get_intensity_data(coreshell_ref)
+        reference_data = self.get_result(coreshell_ref)
 
         # building second CoreShell particle
         shell_length = 50.0
@@ -152,11 +152,9 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         coreshell.setRotation(RotationY(90.*degree))
         coreshell.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0))  # center of coreshell  in center of the layer
 
-        data = self.get_intensity_data(coreshell)
+        data = self.get_result(coreshell)
 
-        # utils.plot_intensity_data(data)
-
-        diff = getRelativeDifference(data, reference_data)
+        diff = RelativeDifference(data, reference_data)
         print("test_CoreShellBoxRotateY:", diff)
         self.assertLess(diff, 1e-10)
 
@@ -182,7 +180,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         coreshell_ref = ParticleCoreShell(shell_ref, core_ref, kvector_t(0.0, 0.0, (shell_height-core_height)/2.0))
         coreshell_ref.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0 - shell_height/2.0))  # center of coreshell in center of the layer
 
-        reference_data = self.get_intensity_data(coreshell_ref)
+        reference_data = self.get_result(coreshell_ref)
         #IntensityDataIOFactory.writeIntensityData(reference_data, "ref_CoreShellBoxRotateZandY.int")
 
         # building second CoreShell particle
@@ -201,9 +199,9 @@ class TransformCoreShellBoxTest(unittest.TestCase):
         # rotation changes reference point, which now coincide with center of the volume
         coreshell.setPosition(kvector_t(0.0, 0.0, -layer_thickness/2.0))  # center of coreshell  in center of the layer
 
-        data = self.get_intensity_data(coreshell)
+        data = self.get_result(coreshell)
 
-        diff = getRelativeDifference(data, reference_data)
+        diff = RelativeDifference(data, reference_data)
         print("test_CoreShellBoxRotateZandY:", diff)
         self.assertLess(diff, 1e-10)
 

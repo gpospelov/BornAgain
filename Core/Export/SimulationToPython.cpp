@@ -41,7 +41,7 @@ const std::string defineSimulate = "def run_simulation():\n"
                                    "    simulation = getSimulation()\n"
                                    "    simulation.setSample(sample)\n"
                                    "    simulation.runSimulation()\n"
-                                   "    return simulation.getIntensityData()\n"
+                                   "    return simulation.result()\n"
                                    "\n\n";
 
 //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
@@ -330,14 +330,14 @@ std::string SimulationToPython::defineMain(SimulationToPython::EMainType mainTyp
     if (mainType == RUN_SIMULATION) {
         result = "if __name__ == '__main__': \n"
                  "    result = run_simulation()\n"
-                 "    ba.plot_intensity_data(result)\n";
+                 "    ba.plot_simulation_result(result)\n";
     } else if (mainType == SAVE_DATA) {
         result = "if __name__ == '__main__': \n"
                  "    result = run_simulation()\n"
                  "    import sys\n"
                  "    if len(sys.argv)<2:\n"
                  "        exit(\"File name is required\")\n"
-                 "    ba.IntensityDataIOFactory.writeIntensityData(result, sys.argv[1])\n";
+                 "    ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n";
     } else {
         throw std::runtime_error("ExportToPython::defineMain() -> Error. Unknown main type.");
     }

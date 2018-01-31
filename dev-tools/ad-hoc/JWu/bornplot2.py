@@ -151,7 +151,7 @@ def run_sim(simulation, detPars):
     """Run simulation and return plottable results
     """
     simulation.runSimulation()
-    data = simulation.getIntensityData().getArray()
+    data = simulation.result().array()
     nor = data[detPars.z.n - detPars.z.origin_index() - 1, detPars.y.origin_index()]
     data /= nor
     return data + 1e-80  # for log scale

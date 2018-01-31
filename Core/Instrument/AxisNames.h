@@ -30,6 +30,7 @@ std::map<AxesUnits, std::string> InitRectangularAxis0();
 std::map<AxesUnits, std::string> InitRectangularAxis1();
 std::map<AxesUnits, std::string> InitOffSpecAxis0();
 std::map<AxesUnits, std::string> InitOffSpecAxis1();
+std::map<AxesUnits, std::string> InitSpecAxis();
 }
 
 #endif // AXISNAMES_H

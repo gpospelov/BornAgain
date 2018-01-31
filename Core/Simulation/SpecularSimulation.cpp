@@ -73,6 +73,18 @@ size_t SpecularSimulation::numberOfSimulationElements() const
     return m_coordinate_axis->size();
 }
 
+SimulationResult SpecularSimulation::result() const
+{
+    const size_t i_layer = 0; // detector intensity is proportional to reflectivity from top layer
+    validityCheck(i_layer);
+    const auto detector = SpecDetector(m_instrument);
+    auto data = std::unique_ptr<OutputData<double>>(
+                    detector->createDetectorIntensity(m_sim_elements, m_instrument.getBeam()));
+    auto& axis = detector->getAxis(0);
+    SpecularConverter converter(m_instrument.getBeam(), axis);
+    return SimulationResult(*data, converter);
+}
+
 void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
                                            const IFootprintFactor* beam_shape)
 {
@@ -174,20 +186,6 @@ SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_ele
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
     return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, begin,
                                                  begin + static_cast<long>(n_elements));
-}
-
-OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_type) const
-{
-    const size_t i_layer = 0; // detector intensity is proportional to reflectivity from the zeroth layer
-    validityCheck(i_layer);
-    const auto detector = SpecDetector(m_instrument);
-    return detector->createDetectorIntensity(m_sim_elements, m_instrument.getBeam(), units_type);
-}
-
-Histogram1D* SpecularSimulation::getIntensityData(AxesUnits units_type) const
-{
-    std::unique_ptr<OutputData<double>> result(getDetectorIntensity(units_type));
-    return new Histogram1D(*result);
 }
 
 std::vector<complex_t> SpecularSimulation::getScalarR(size_t i_layer) const

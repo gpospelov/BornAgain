@@ -74,15 +74,16 @@ private:
         ~Workspace();
         void clear();
         friend class FourierTransform;
+
     private:
         //! Here, h = height (# rows), w = width (# columns)
-        int h_src, w_src; // size of input 'source' array in 2D
+        int h_src, w_src;   // size of input 'source' array in 2D
         int h_fftw, w_fftw; // size of output 'FT' array in 2D
 
-        double *in_src; // pointer to input 'source' array
+        double* in_src; // pointer to input 'source' array
 
         //! result of Fourier transformation of source
-        double *out_fftw; // pointer to output 'FT' array
+        double* out_fftw; // pointer to output 'FT' array
 
         fftw_plan p_forw_src;
     };

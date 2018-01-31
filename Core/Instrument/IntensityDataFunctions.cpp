@@ -12,25 +12,25 @@
 //
 // ************************************************************************** //
 
+#include "IntensityDataFunctions.h"
 #include "BornAgainNamespace.h"
 #include "ConvolutionDetectorResolution.h"
-#include "IHistogram.h"
-#include "IntensityDataFunctions.h"
-#include "Numeric.h"
 #include "FourierTransform.h"
+#include "IHistogram.h"
+#include "Numeric.h"
 #include <math.h>
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
-double IntensityDataFunctions::getRelativeDifference(
-        const OutputData<double>& dat, const OutputData<double>& ref)
+double IntensityDataFunctions::getRelativeDifference(const OutputData<double>& dat,
+                                                     const OutputData<double>& ref)
 {
-    if(!dat.hasSameDimensions(ref))
+    if (!dat.hasSameDimensions(ref))
         throw Exceptions::RuntimeErrorException(
             "IntensityDataFunctions::getRelativeDifference() -> "
             "Error. Different dimensions of data and reference.");
 
     double diff = 0.0;
-    for(size_t i=0; i<dat.getAllocatedSize(); ++i)
+    for (size_t i = 0; i < dat.getAllocatedSize(); ++i)
         diff += Numeric::get_relative_difference(dat[i], ref[i]);
     diff /= dat.getAllocatedSize();
 
@@ -39,23 +39,22 @@ double IntensityDataFunctions::getRelativeDifference(
     return diff;
 }
 
-double IntensityDataFunctions::getRelativeDifference(
-    const IHistogram& dat, const IHistogram& ref)
+double IntensityDataFunctions::getRelativeDifference(const IHistogram& dat, const IHistogram& ref)
 {
-    return getRelativeDifference(
-        *std::unique_ptr<OutputData<double>>(dat.getData().meanValues()),
-        *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()) );
+    return getRelativeDifference(*std::unique_ptr<OutputData<double>>(dat.getData().meanValues()),
+                                 *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()));
 }
 
-OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(
-    const OutputData<double>& data, const OutputData<double>& reference)
+std::unique_ptr<OutputData<double>>
+IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double>& data,
+                                                     const OutputData<double>& reference)
 {
-    if(!data.hasSameDimensions(reference))
+    if (!data.hasSameDimensions(reference))
         throw Exceptions::RuntimeErrorException(
             "IntensityDataFunctions::createRelativeDifferenceData() -> "
             "Error. Different dimensions of data and reference.");
-    OutputData<double>* result = reference.clone();
-    for(size_t i=0; i<result->getAllocatedSize(); ++i)
+    std::unique_ptr<OutputData<double>> result(reference.clone());
+    for (size_t i = 0; i < result->getAllocatedSize(); ++i)
         (*result)[i] = Numeric::get_relative_difference(data[i], reference[i]);
     return result;
 }
@@ -65,7 +64,7 @@ IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, 
 {
     if (data.getRank() != 2)
         throw Exceptions::LogicErrorException("IntensityDataFunctions::rotateDataByN90Deg()"
-            " -> Error! Works only on two-dimensional data");
+                                              " -> Error! Works only on two-dimensional data");
     n = (4 + n % 4) % 4;
     if (n == 0)
         return std::unique_ptr<OutputData<double>>(data.clone());
@@ -74,8 +73,8 @@ IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, 
     // swapping axes if necessary
     const IAxis& x_axis = data.getAxis(0);
     const IAxis& y_axis = data.getAxis(1);
-    output->addAxis( n == 2 ? x_axis : y_axis);
-    output->addAxis( n == 2 ? y_axis : x_axis);
+    output->addAxis(n == 2 ? x_axis : y_axis);
+    output->addAxis(n == 2 ? y_axis : x_axis);
 
     // creating index mapping
     std::function<void(std::vector<int>&)> index_mapping;
@@ -106,19 +105,19 @@ IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, 
     return output;
 }
 
-OutputData<double>* IntensityDataFunctions::createClippedDataSet(
-        const OutputData<double>& origin, double x1, double y1, double x2, double y2)
+std::unique_ptr<OutputData<double>>
+IntensityDataFunctions::createClippedDataSet(const OutputData<double>& origin, double x1, double y1,
+                                             double x2, double y2)
 {
     if (origin.getRank() != 2)
-        throw Exceptions::LogicErrorException(
-            "IntensityDataFunctions::createClippedData()"
-            " -> Error! Works only on two-dimensional data");
+        throw Exceptions::LogicErrorException("IntensityDataFunctions::createClippedData()"
+                                              " -> Error! Works only on two-dimensional data");
 
-    OutputData<double>* result = new OutputData<double>;
-    for(size_t i_axis=0; i_axis<origin.getRank(); i_axis++) {
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    for (size_t i_axis = 0; i_axis < origin.getRank(); i_axis++) {
         const IAxis& axis = origin.getAxis(i_axis);
         IAxis* new_axis;
-        if(i_axis == 0)
+        if (i_axis == 0)
             new_axis = axis.createClippedAxis(x1, x2);
         else
             new_axis = axis.createClippedAxis(y1, y2);
@@ -132,27 +131,13 @@ OutputData<double>* IntensityDataFunctions::createClippedDataSet(
     while (it_origin != origin.end()) {
         double x = origin.getAxisValue(it_origin.getIndex(), 0);
         double y = origin.getAxisValue(it_origin.getIndex(), 1);
-        if(result->getAxis(0).contains(x) && result->getAxis(1).contains(y)) {
+        if (result->getAxis(0).contains(x) && result->getAxis(1).contains(y)) {
             *it_result = *it_origin;
             ++it_result;
         }
         ++it_origin;
     }
 
-    return result;
-}
-
-OutputData<double>* IntensityDataFunctions::applyDetectorResolution(
-    const OutputData<double>& origin, const IResolutionFunction2D& resolution_function)
-{
-    if (origin.getRank() != 2)
-        throw Exceptions::LogicErrorException(
-            "IntensityDataFunctions::applyDetectorResolution()"
-            " -> Error! Works only on two-dimensional data");
-    OutputData<double>* result = origin.clone();
-    const std::unique_ptr<ConvolutionDetectorResolution> P_resolution(
-        new ConvolutionDetectorResolution(resolution_function));
-    P_resolution->applyDetectorResolution(result);
     return result;
 }
 
@@ -166,7 +151,7 @@ double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis& 
 {
     size_t index = axis.findClosestIndex(coordinate);
     Bin1D bin = axis.getBin(index);
-    double f = (coordinate - bin.m_lower)/bin.getBinSize();
+    double f = (coordinate - bin.m_lower) / bin.getBinSize();
     return static_cast<double>(index) + f;
 }
 
@@ -175,15 +160,15 @@ double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis& axi
     int index = static_cast<int>(value);
 
     double result(0);
-    if(index < 0) {
+    if (index < 0) {
         Bin1D bin = axis.getBin(0);
-        result = bin.m_lower + value*bin.getBinSize();
-    } else if(index >= static_cast<int>(axis.size())) {
-        Bin1D bin = axis.getBin(axis.size()-1);
-        result = bin.m_upper + (value-axis.size())*bin.getBinSize();
+        result = bin.m_lower + value * bin.getBinSize();
+    } else if (index >= static_cast<int>(axis.size())) {
+        Bin1D bin = axis.getBin(axis.size() - 1);
+        result = bin.m_upper + (value - axis.size()) * bin.getBinSize();
     } else {
         Bin1D bin = axis.getBin(static_cast<size_t>(index));
-        result = bin.m_lower + (value - static_cast<double>(index))*bin.getBinSize();
+        result = bin.m_lower + (value - static_cast<double>(index)) * bin.getBinSize();
     }
 
     return result;
@@ -195,20 +180,20 @@ void IntensityDataFunctions::coordinateToBinf(double& x, double& y, const Output
     y = coordinateToBinf(y, data.getAxis(BornAgain::Y_AXIS_INDEX));
 }
 
-void IntensityDataFunctions::coordinateFromBinf(
-    double& x, double& y, const OutputData<double>& data)
+void IntensityDataFunctions::coordinateFromBinf(double& x, double& y,
+                                                const OutputData<double>& data)
 {
     x = coordinateFromBinf(x, data.getAxis(BornAgain::X_AXIS_INDEX));
     y = coordinateFromBinf(y, data.getAxis(BornAgain::Y_AXIS_INDEX));
 }
 
-std::vector<std::vector<double>> IntensityDataFunctions::create2DArrayfromOutputData(
-        const OutputData<double> &data)
+std::vector<std::vector<double>>
+IntensityDataFunctions::create2DArrayfromOutputData(const OutputData<double>& data)
 {
     if (data.getRank() != 2)
         throw Exceptions::LogicErrorException(
-                "IntensityDataFunctions::create2DArrayfromOutputData() -> "
-                "Error! Works only on two-dimensional data");
+            "IntensityDataFunctions::create2DArrayfromOutputData() -> "
+            "Error! Works only on two-dimensional data");
 
     std::vector<std::vector<double>> array_2d;
     std::vector<double> row_vec; // row vector for constructing each row of 2D array
@@ -217,11 +202,9 @@ std::vector<std::vector<double>> IntensityDataFunctions::create2DArrayfromOutput
     size_t ncols = data.getAxis(1).size();
 
     size_t it = 0; // iterator of 'data'
-    for(size_t row=0; row<nrows; row++)
-    {
+    for (size_t row = 0; row < nrows; row++) {
         row_vec.clear();
-        for(size_t col=0; col<ncols; col++)
-        {
+        for (size_t col = 0; col < ncols; col++) {
             row_vec.push_back(data[it]);
             it++;
         }
@@ -231,8 +214,8 @@ std::vector<std::vector<double>> IntensityDataFunctions::create2DArrayfromOutput
     return array_2d;
 }
 
-std::vector<std::vector<double>> IntensityDataFunctions::FT2DArray(
-        const std::vector<std::vector<double>> &signal)
+std::vector<std::vector<double>>
+IntensityDataFunctions::FT2DArray(const std::vector<std::vector<double>>& signal)
 {
     FourierTransform ft;
     std::vector<std::vector<double>> fft_array;
@@ -243,18 +226,18 @@ std::vector<std::vector<double>> IntensityDataFunctions::FT2DArray(
     return fft_array;
 }
 
-OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArray(
-        const std::vector<std::vector<double>> &array_2d)
+std::unique_ptr<OutputData<double>> IntensityDataFunctions::createOutputDatafrom2DArray(
+    const std::vector<std::vector<double>>& array_2d)
 {
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     size_t nrows = array_2d.size();
     size_t ncols = array_2d[0].size();
 
-    OutputData<double> *result = new OutputData<double>;
     result->addAxis("x", nrows, 0.0, double(nrows));
     result->addAxis("y", ncols, 0.0, double(ncols));
     std::vector<unsigned> axes_indices(2);
-    for(unsigned row=0; row<nrows; row++) {
-        for(unsigned col=0; col<ncols; col++) {
+    for (unsigned row = 0; row < nrows; row++) {
+        for (unsigned col = 0; col < ncols; col++) {
             axes_indices[0] = row;
             axes_indices[1] = col;
             size_t global_index = result->toGlobalIndex(axes_indices);
@@ -265,16 +248,10 @@ OutputData<double>* IntensityDataFunctions::createOutputDatafrom2DArray(
     return result;
 }
 
-OutputData<double>* IntensityDataFunctions::getFourierTransform(const OutputData<double> &data)
+std::unique_ptr<OutputData<double>>
+IntensityDataFunctions::createFFT(const OutputData<double>& data)
 {
-    std::vector<std::vector<double>> array_2d =
-            IntensityDataFunctions::create2DArrayfromOutputData(data);
-
-    std::vector<std::vector<double>> fft_array_2d =
-            IntensityDataFunctions::FT2DArray(array_2d);
-
-    OutputData<double>* fftOutputData = IntensityDataFunctions::createOutputDatafrom2DArray(
-                fft_array_2d);
-
-    return fftOutputData;
+    auto array_2d = IntensityDataFunctions::create2DArrayfromOutputData(data);
+    auto fft_array_2d = IntensityDataFunctions::FT2DArray(array_2d);
+    return IntensityDataFunctions::createOutputDatafrom2DArray(fft_array_2d);
 }

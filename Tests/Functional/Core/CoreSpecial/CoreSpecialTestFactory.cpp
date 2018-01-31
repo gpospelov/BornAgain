@@ -17,6 +17,7 @@
 #include "DetectorTest.h"
 #include "PolDWBAMagCylinders.h"
 #include "CoreIOTest.h"
+#include "FourierTransformationTest.h"
 
 CoreSpecialTestFactory::CoreSpecialTestFactory()
 {
@@ -35,4 +36,8 @@ CoreSpecialTestFactory::CoreSpecialTestFactory()
     registerItem("DetectorTest",
                  create_new<DetectorTest>,
                  "Performance on set of detectors of different size");
+
+    registerItem("FourierTransformation",
+                 create_new<FourierTransformationTest>,
+                 "Fourier transformation of GISAS images");
 }

@@ -175,7 +175,7 @@ void FitComparisonWidget::calculateRelativeDifference()
     Q_ASSERT(diffItem());
 
     diffItem()->setOutputData(IntensityDataFunctions::createRelativeDifferenceData(
-        *simulatedDataItem()->getOutputData(), *realDataItem()->getOutputData()));
+        *simulatedDataItem()->getOutputData(), *realDataItem()->getOutputData()).release());
 
     diffItem()->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getXaxisTitle());
     diffItem()->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getYaxisTitle());

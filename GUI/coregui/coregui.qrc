@@ -53,5 +53,6 @@
         <file>images/toolbar16dark_run.svg</file>
         <file>images/caret-down.svg</file>
         <file>images/caret-right.svg</file>
+        <file>images/toolbar16light_fft.svg</file>
     </qresource>
 </RCC>

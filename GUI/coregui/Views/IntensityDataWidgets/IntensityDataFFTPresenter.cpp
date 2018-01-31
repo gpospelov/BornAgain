@@ -32,8 +32,8 @@ IntensityDataFFTPresenter::IntensityDataFFTPresenter(QWidget* parent)
         = dynamic_cast<IntensityDataItem*>(m_fftModel->insertNewItem(Constants::IntensityDataType));
 
     m_fftAction = new QAction(this);
-    m_fftAction->setText("Fourier Transform");
-    //m_fftAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
+    m_fftAction->setText("Fourier");
+    m_fftAction->setIcon(QIcon(":/images/toolbar16light_fft.svg"));
     m_fftAction->setToolTip("Get the Fourier Transform of current intensity map");
     connect(m_fftAction, &QAction::triggered, this, &IntensityDataFFTPresenter::onFFTActionRequest);
 }

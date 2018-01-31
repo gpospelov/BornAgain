@@ -1,7 +1,6 @@
-#include "google_test.h"
 #include "IntensityDataFunctions.h"
 #include "VariableBinAxis.h"
-
+#include "google_test.h"
 
 class IntensityDataFunctionsTest : public ::testing::Test
 {
@@ -19,19 +18,15 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetFixed)
     FixedBinAxis axis1("axis1", 3, 0.0, 3.0);
     data.addAxis(axis1);
 
-    for (size_t i = 0; i < data.getAllocatedSize(); ++i) {
+    for (size_t i = 0; i < data.getAllocatedSize(); ++i)
         data[i] = static_cast<double>(i);
-    }
 
-    OutputData<double>* clip
-        = IntensityDataFunctions::createClippedDataSet(data, -5.0, 0.0, -1.5, 1.5);
+    auto clip = IntensityDataFunctions::createClippedDataSet(data, -5.0, 0.0, -1.5, 1.5);
     std::vector<double> vref = {0.0, 1.0, 3.0, 4.0, 6.0, 7.0, 9.0, 10.0};
     EXPECT_EQ(clip->getAllocatedSize(), size_t(8));
-    int index(0);
-    for (size_t i = 0; i < clip->getAllocatedSize(); ++i) {
+    size_t index(0);
+    for (size_t i = 0; i < clip->getAllocatedSize(); ++i)
         EXPECT_EQ(vref[index++], (*clip)[i]);
-    }
-    delete clip;
 }
 
 TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
@@ -45,19 +40,15 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
     VariableBinAxis axis1("axis1", 4, values);
     data.addAxis(axis1);
 
-    for (size_t i = 0; i < data.getAllocatedSize(); ++i) {
+    for (size_t i = 0; i < data.getAllocatedSize(); ++i)
         data[i] = static_cast<double>(i);
-    }
 
-    OutputData<double>* clip
-        = IntensityDataFunctions::createClippedDataSet(data, -0.5, 0.5, 0.99, 2.0);
+    auto clip = IntensityDataFunctions::createClippedDataSet(data, -0.5, 0.5, 0.99, 2.0);
     std::vector<double> vref = {6.0, 7.0, 10.0, 11.0};
     EXPECT_EQ(clip->getAllocatedSize(), size_t(4));
     size_t index(0);
-    for (size_t i = 0; i < clip->getAllocatedSize(); ++i) {
+    for (size_t i = 0; i < clip->getAllocatedSize(); ++i)
         EXPECT_EQ(vref[index++], (*clip)[i]);
-    }
-    delete clip;
 }
 
 TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
@@ -173,33 +164,31 @@ TEST_F(IntensityDataFunctionsTest, create2DArrayfromOutputDataTest)
     EXPECT_EQ(2u, out_data.getAxis(0).size()); // no. of rows
     EXPECT_EQ(3u, out_data.getAxis(1).size()); // no. of cols
 
-    std::vector<double> arr_in{1,2,3,4,5,6};
+    std::vector<double> arr_in{1, 2, 3, 4, 5, 6};
     out_data.setRawDataVector(arr_in);
 
-    EXPECT_EQ(arr_in[0],out_data[0]);
-    EXPECT_EQ(arr_in[1],out_data[1]);
-    EXPECT_EQ(arr_in[2],out_data[2]);
-    EXPECT_EQ(arr_in[3],out_data[3]);
-    EXPECT_EQ(arr_in[4],out_data[4]);
-    EXPECT_EQ(arr_in[5],out_data[5]);
+    EXPECT_EQ(arr_in[0], out_data[0]);
+    EXPECT_EQ(arr_in[1], out_data[1]);
+    EXPECT_EQ(arr_in[2], out_data[2]);
+    EXPECT_EQ(arr_in[3], out_data[3]);
+    EXPECT_EQ(arr_in[4], out_data[4]);
+    EXPECT_EQ(arr_in[5], out_data[5]);
 
-    std::vector<double> arr_out = out_data.getRawDataVector();
+    auto arr_out = out_data.getRawDataVector();
     EXPECT_EQ(arr_in, arr_out);
 
-    std::vector<std::vector<double>> array_2d;
-    array_2d = IntensityDataFunctions::create2DArrayfromOutputData(out_data);
+    auto array_2d = IntensityDataFunctions::create2DArrayfromOutputData(out_data);
 
-    std::vector<std::vector<double>> array_expected_2d{{arr_in[0],arr_in[1], arr_in[2]},
-                                                       {arr_in[3],arr_in[4], arr_in[5]}};
-
+    std::vector<std::vector<double>> array_expected_2d{{arr_in[0], arr_in[1], arr_in[2]},
+                                                       {arr_in[3], arr_in[4], arr_in[5]}};
     EXPECT_EQ(array_expected_2d, array_2d);
 }
 
 TEST_F(IntensityDataFunctionsTest, createOutputDatafrom2DArrayTest)
 {
-    std::vector<double> arr_in{1,2,3,4,5,6};
-    std::vector<std::vector<double>> array_2d{{arr_in[0],arr_in[1],arr_in[2]},
-                                              {arr_in[3],arr_in[4],arr_in[5]}};
+    std::vector<double> arr_in{1, 2, 3, 4, 5, 6};
+    std::vector<std::vector<double>> array_2d{{arr_in[0], arr_in[1], arr_in[2]},
+                                              {arr_in[3], arr_in[4], arr_in[5]}};
     auto data = IntensityDataFunctions::createOutputDatafrom2DArray(array_2d);
     EXPECT_EQ(arr_in, data->getRawDataVector());
 }

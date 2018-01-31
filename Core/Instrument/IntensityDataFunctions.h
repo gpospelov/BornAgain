@@ -42,11 +42,12 @@ BA_CORE_API_ OutputData<double>* createRelativeDifferenceData(
 //! Applicable to 2D arrays only
 BA_CORE_API_ std::unique_ptr<OutputData<double>>
 createRearrangedDataSet(const OutputData<double>& data, int n);
-#endif //SWIG
 
 //! Returns new IntensityData objects which axes clipped to represent the specified rectangle.
-BA_CORE_API_ OutputData<double>* createClippedDataSet(
+BA_CORE_API_ std::unique_ptr<OutputData<double>> createClippedDataSet(
     const OutputData<double>& origin, double x1, double y1, double x2, double y2);
+
+#endif  // SWIG
 
 //! Applies detector resolution function and returns new IntensityData object.
 BA_CORE_API_ OutputData<double>* applyDetectorResolution(
@@ -81,7 +82,7 @@ BA_CORE_API_ std::unique_ptr<OutputData<double>> createOutputDatafrom2DArray(
 //! Creates Fourier Transform (OutputData format) of intensity map (OutputData format).
 BA_CORE_API_ std::unique_ptr<OutputData<double>> createFFT(const OutputData<double> &data);
 
-#endif //SWIG
+#endif  // SWIG
 
 }; // namespace IntensityDataFunctions
 

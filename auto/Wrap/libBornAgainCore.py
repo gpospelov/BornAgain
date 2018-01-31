@@ -20277,17 +20277,6 @@ def createRelativeDifferenceData(data, reference):
     """
     return _libBornAgainCore.createRelativeDifferenceData(data, reference)
 
-def createClippedDataSet(origin, x1, y1, x2, y2):
-    """
-    createClippedDataSet(IntensityData origin, double x1, double y1, double x2, double y2) -> IntensityData
-
-    OutputData< double > * IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
-
-    Returns new IntensityData objects which axes clipped to represent the specified rectangle. 
-
-    """
-    return _libBornAgainCore.createClippedDataSet(origin, x1, y1, x2, y2)
-
 def applyDetectorResolution(origin, resolution_function):
     """
     applyDetectorResolution(IntensityData origin, IResolutionFunction2D resolution_function) -> IntensityData
@@ -20322,6 +20311,14 @@ def coordinateFromBinf(*args):
 
     """
     return _libBornAgainCore.coordinateFromBinf(*args)
+
+def create2DArrayfromOutputData(data):
+    """create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t"""
+    return _libBornAgainCore.create2DArrayfromOutputData(data)
+
+def FT2DArray(signal):
+    """FT2DArray(vdouble2d_t signal) -> vdouble2d_t"""
+    return _libBornAgainCore.FT2DArray(signal)
 class IntensityDataIOFactory(_object):
     """
 

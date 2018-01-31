@@ -106,7 +106,7 @@ IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, 
     return output;
 }
 
-OutputData<double>* IntensityDataFunctions::createClippedDataSet(
+std::unique_ptr<OutputData<double>> IntensityDataFunctions::createClippedDataSet(
         const OutputData<double>& origin, double x1, double y1, double x2, double y2)
 {
     if (origin.getRank() != 2)
@@ -114,7 +114,7 @@ OutputData<double>* IntensityDataFunctions::createClippedDataSet(
             "IntensityDataFunctions::createClippedData()"
             " -> Error! Works only on two-dimensional data");
 
-    OutputData<double>* result = new OutputData<double>;
+    std::unique_ptr<OutputData<double> > result(new OutputData<double>);
     for(size_t i_axis=0; i_axis<origin.getRank(); i_axis++) {
         const IAxis& axis = origin.getAxis(i_axis);
         IAxis* new_axis;

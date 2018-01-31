@@ -50,7 +50,7 @@ class RotationsCubeTest(unittest.TestCase):
         multi_layer.addLayer(substrate)
         return multi_layer
 
-    def get_intensity_data(self, data, add_to="air"):
+    def get_result(self, data, add_to="air"):
         ff = data[0]
         rot = data[1]
         pos = data[2]
@@ -60,11 +60,11 @@ class RotationsCubeTest(unittest.TestCase):
         # simulation = self.get_simulation(sample)
         simulation = utils.get_simulation_MiniGISAS(sample)
         simulation.runSimulation()
-        return simulation.getIntensityData()
+        return simulation.result()
 
     def get_difference(self, reference_data, test_data, add_to="air"):
-        intensity = self.get_intensity_data(test_data, add_to)
-        return getRelativeDifference(reference_data, intensity)
+        intensity = self.get_result(test_data, add_to)
+        return RelativeDifference(reference_data, intensity)
 
     def testRotationZ(self):
         """
@@ -83,7 +83,7 @@ class RotationsCubeTest(unittest.TestCase):
             (box, RotationZ(45.*degree),  None,                  RotationZ(45.*degree),  None),  # cumulative rotation
         ]
 
-        reference_data = self.get_intensity_data(data_to_test[0])
+        reference_data = self.get_result(data_to_test[0])
 
         isSuccess = True
         for i in range(1, len(data_to_test)):
@@ -109,7 +109,7 @@ class RotationsCubeTest(unittest.TestCase):
             (box, RotationY(45.*degree),  kvector_t(0,0,0.0),    RotationY(45.*degree),  kvector_t(0,0,5.0)),  # rotating and translating
         ]
 
-        reference_data = self.get_intensity_data(data_to_test[0])
+        reference_data = self.get_result(data_to_test[0])
 
         isSuccess = True
         for i in range(1, len(data_to_test)):
@@ -135,7 +135,7 @@ class RotationsCubeTest(unittest.TestCase):
             (box, RotationX(45.*degree),  kvector_t(0,0,0.0),    RotationX(45.*degree),  kvector_t(0,0,5.0)),  # rotating and translating
         ]
 
-        reference_data = self.get_intensity_data(data_to_test[0])
+        reference_data = self.get_result(data_to_test[0])
 
         isSuccess = True
         for i in range(1, len(data_to_test)):
@@ -156,7 +156,7 @@ class RotationsCubeTest(unittest.TestCase):
             (box, RotationX(90.*degree),  kvector_t(0,0,-20.0),  None,                   None),  # rotating and translating
         ]
 
-        reference_data = self.get_intensity_data(data_to_test[0], "add_to_middle")
+        reference_data = self.get_result(data_to_test[0], "add_to_middle")
 
         isSuccess = True
         for i in range(1, len(data_to_test)):

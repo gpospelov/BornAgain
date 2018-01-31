@@ -31,7 +31,8 @@ bool BatchSimulation::runTest()
         sampleFactory.create("CylindersInBABuilder").release());
     simulation->setSampleBuilder(builder);
     simulation->runSimulation();
-    const std::unique_ptr<OutputData<double>> reference(simulation->getDetectorIntensity());
+    auto sim_result = simulation->result();
+    const std::unique_ptr<OutputData<double>> reference(sim_result.data());
     const std::unique_ptr<OutputData<double>> result(reference->clone());
     result->setAllTo(0.0);
 
@@ -45,7 +46,8 @@ bool BatchSimulation::runTest()
         threadInfo.current_batch = i_batch;
         batch->getOptions().setThreadInfo(threadInfo);
         batch->runSimulation();
-        std::unique_ptr<OutputData<double>> batchResult(batch->getDetectorIntensity());
+        auto batch_result = batch->result();
+        std::unique_ptr<OutputData<double>> batchResult(batch_result.data());
         *result += *batchResult.get();
     }
 

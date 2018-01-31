@@ -26,10 +26,21 @@ typedef _object PyObject;
 #endif
 #endif
 
+class Histogram1D;
 class Histogram2D;
 class IAxis;
 template<class T> class OutputData;
 class IUnitConverter;
+
+//! Information about an axis in specific units. Can be used for plotting.
+//! @ingroup simulation
+
+struct AxisInfo
+{
+    std::string m_name;
+    double m_min;
+    double m_max;
+};
 
 //! Wrapper around OutputData<double> that also provides unit conversions.
 //! @ingroup simulation
@@ -45,8 +56,17 @@ public:
     SimulationResult& operator=(const SimulationResult& other);
     SimulationResult& operator=(SimulationResult&& other);
 
-    OutputData<double>* data(AxesUnits units_type = AxesUnits::DEFAULT) const;
-    Histogram2D* histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
+    OutputData<double>* data(AxesUnits units = AxesUnits::DEFAULT) const;
+    Histogram1D* histogram1d(AxesUnits units = AxesUnits::DEFAULT) const;
+    Histogram2D* histogram2d(AxesUnits units = AxesUnits::DEFAULT) const;
+
+    //! Provide AxisInfo for each axis and the given units
+    std::vector<AxisInfo> axisInfo(AxesUnits units = AxesUnits::DEFAULT) const;
+
+    //! Data element access
+    double& operator[](size_t i);
+    const double& operator[](size_t i) const;
+    size_t size() const;
 
     //! returns data as Python numpy array
 #ifdef BORNAGAIN_PYTHON

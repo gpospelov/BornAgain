@@ -112,7 +112,8 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
                                    IIntensityNormalizer* normalizer)
 {
     m_simulation->runSimulation();
-    m_simulation_data.reset(m_simulation->getDetectorIntensity());
+    auto sim_result = m_simulation->result();
+    m_simulation_data.reset(sim_result.data());
 
     if(normalizer)
         normalizer->apply(*m_simulation_data.get());

@@ -10,7 +10,7 @@ from bornagain import *
 M_PI = numpy.pi
 
 # ----------------------------------
-# describe sample and run simulation 
+# describe sample and run simulation
 # ----------------------------------
 def RunSimulation():
     # defining materials
@@ -59,7 +59,7 @@ def RunSimulation():
     # run simulation
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return simulation.getIntensityData().getArray()
+    return simulation.result().array()
 
 
 #-------------------------------------------------------------
@@ -76,5 +76,5 @@ if __name__ == '__main__':
     plt.show()
 
 
- 
- 
+
+

@@ -98,24 +98,21 @@ def run_simulation():
     return example.run_simulation()
 
 
-def save(data, filename):
+def save(result, filename):
 
     filename += ".ref.int.gz"
-    ba.IntensityDataIOFactory.writeIntensityData(data, filename)
+    ba.IntensityDataIOFactory.writeSimulationResult(result, filename)
 
     print("example_template.py -> Writing results in '{0}'".format(filename))
 
 
 if __name__ == '__main__':
-    results = run_simulation()
+    result = run_simulation()
 
-    if type(results) is dict:
-        for name, subresult in results.items():
+    if type(result) is dict:
+        for name, subresult in result.items():
             filename = os.path.join(output_dir, example_name+"."+str(name))
             save(subresult, filename)
     else:
         filename = os.path.join(output_dir, example_name)
-        save(results, filename)
-
-
-
+        save(result, filename)

@@ -17,7 +17,7 @@ def RunSimulation():
     mAmbience = HomogeneousMaterial("Air", 0.0, 0.0 )
     mSubstrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8 )
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8 )
-    
+
     # particle
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = Particle(mParticle, cylinder_ff.clone())
@@ -52,7 +52,7 @@ def RunSimulation():
     # run simulation
     simulation.setSample(multi_layer)
     simulation.runSimulation()
-    return simulation.getIntensityData().getArray()
+    return simulation.result().array()
 
 
 #-------------------------------------------------------------
@@ -71,5 +71,5 @@ if __name__ == '__main__':
 
 
 
- 
- 
+
+

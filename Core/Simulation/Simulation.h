@@ -21,6 +21,7 @@
 #include "Instrument.h"
 #include "ProgressHandler.h"
 #include "SimulationOptions.h"
+#include "SimulationResult.h"
 #include "SampleProvider.h"
 
 template<class T> class OutputData;
@@ -75,9 +76,9 @@ public:
 
     virtual size_t numberOfSimulationElements() const=0;
 
-    //! Clone simulated intensity map
-    virtual OutputData<double>* getDetectorIntensity(
-        AxesUnits units_type = AxesUnits::DEFAULT) const=0;
+    //! Returns the results of the simulation in a format that supports unit conversion and export
+    //! to numpy arrays
+    virtual SimulationResult result() const=0;
 
     void addParameterDistribution(
         const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,

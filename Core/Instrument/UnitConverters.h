@@ -58,6 +58,8 @@ public:
     virtual double calculateMax(size_t i_axis, AxesUnits units_type) const=0;
     virtual size_t axisSize(size_t i_axis) const=0;
     virtual std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const=0;
+
+    virtual AxesUnits defaultUnits() const=0;
 };
 
 //! Interface for objects that provide axis translations to different units for IDetector objects
@@ -101,7 +103,6 @@ protected:
 
 private:
     virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const=0;
-    virtual AxesUnits defaultUnits() const=0;
     virtual std::vector<std::map<AxesUnits, std::string>> createNameMaps() const=0;
 };
 
@@ -118,10 +119,11 @@ public:
 
     SphericalConverter* clone() const override;
 
+    AxesUnits defaultUnits() const override;
+
 private:
     SphericalConverter(const SphericalConverter& other);
     double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
-    AxesUnits defaultUnits() const override { return AxesUnits::RADIANS; }
     std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
 };
 
@@ -137,10 +139,11 @@ public:
 
     RectangularConverter* clone() const override;
 
+    AxesUnits defaultUnits() const override;
+
 private:
     RectangularConverter(const RectangularConverter& other);
     double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
-    AxesUnits defaultUnits() const override { return AxesUnits::MM; }
     std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
     kvector_t normalizeToWavelength(kvector_t vector) const;
     double axisAngle(size_t i_axis, kvector_t k_f) const;
@@ -160,12 +163,34 @@ public:
 
     OffSpecularConverter* clone() const override;
 
+    AxesUnits defaultUnits() const override;
+
 private:
     OffSpecularConverter(const OffSpecularConverter& other);
     double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
-    AxesUnits defaultUnits() const override { return AxesUnits::RADIANS; }
     std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
     void addDetectorYAxis(const IDetector2D& detector);
+};
+
+//! IUnitConverter class that handles the unit translations for off-specular simulations
+//! with a spherical detector
+//! Its default units are radians for both axes
+//! @ingroup simulation_internal
+
+class BA_CORE_API_ SpecularConverter : public UnitConverterSimple
+{
+public:
+    SpecularConverter(const Beam& beam, const IAxis& alpha_axis);
+    virtual ~SpecularConverter();
+
+    SpecularConverter* clone() const override;
+
+    AxesUnits defaultUnits() const override;
+
+private:
+    SpecularConverter(const SpecularConverter& other);
+    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
+    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
 };
 
 #endif // UNITCONVERTERS_H

@@ -16,9 +16,9 @@
 #define SPECULARSIMULATION_H
 
 #include "Simulation.h"
-#include "SpecularSimulationElement.h"
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
+#include "SpecularSimulationElement.h"
 
 class IAxis;
 class IComputation;
@@ -48,6 +48,10 @@ public:
 
     size_t numberOfSimulationElements() const override;
 
+    //! Returns the results of the simulation in a format that supports unit conversion and export
+    //! to numpy arrays
+    SimulationResult result() const override;
+
     //! Sets beam parameters with alpha_i of the beam defined in the range.
     void setBeamParameters(double lambda, const IAxis& alpha_axis,
                            const IFootprintFactor* beam_shape = nullptr);
@@ -56,14 +60,6 @@ public:
 
     //! Returns a pointer to incident angle axis.
     const IAxis* getAlphaAxis() const;
-
-    //! Returns detector count values in the form of OutputData<double>. Detector counts are
-    //! proportional to \f$Reflectivity = |R|^2\f$ from the upper layer.
-    OutputData<double>* getDetectorIntensity(
-            AxesUnits units_type= AxesUnits::DEFAULT) const override;
-
-    //! Returns detector signal (\f$ \propto |R|^2\f$) in the form of 1D Histogram
-    Histogram1D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
 private:
     typedef complex_t (ILayerRTCoefficients::*DataGetter)() const;

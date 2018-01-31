@@ -72,27 +72,27 @@ def run_simulation():
     # simulation #1
     # initial simulation is used
     simulation.runSimulation()
-    results[0] = simulation.getIntensityData()
+    results[0] = simulation.result()
 
     # simulation #2
     # one sample parameter (cylinder height) is changed using exact parameter name
     simulation.setParameterValue("/GISASSimulation/MultiLayer/Layer0/ParticleLayout"
                                  "/Particle0/Cylinder/Height", 10.0*nm)
     simulation.runSimulation()
-    results[1] = simulation.getIntensityData()
+    results[1] = simulation.result()
 
     # simulation #3
     # all parameters matching criteria will be changed (cylinder height in this case)
     simulation.setParameterValue("*/Cylinder/Height", 100.0*nm)
     simulation.runSimulation()
-    results[2] = simulation.getIntensityData()
+    results[2] = simulation.result()
 
     # simulation #4
     # all parameters which are matching criteria will be changed
     simulation.setParameterValue("*/Cylinder/Height", 10.0*nm)
     simulation.setParameterValue("*/Prism3/*", 10.0*nm)
     simulation.runSimulation()
-    results[3] = simulation.getIntensityData()
+    results[3] = simulation.result()
 
     # See more trick in <source>/Tests/Functional/PyCore/legacy/parameterpool.py
 

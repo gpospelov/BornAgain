@@ -75,4 +75,14 @@ std::map<AxesUnits, std::string> InitOffSpecAxis1()
     result[AxesUnits::DEGREES] = "alpha_f [deg]";
     return result;
 }
+
+std::map<AxesUnits, std::string> InitSpecAxis()
+{
+    std::map<AxesUnits, std::string> result;
+    result[AxesUnits::NBINS] = "X [nbins]";
+    result[AxesUnits::RADIANS] = "alpha_i [rad]";
+    result[AxesUnits::DEGREES] = "alpha_i [deg]";
+    return result;
+}
+
 }

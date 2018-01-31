@@ -43,22 +43,26 @@ bool PolDWBAMagCylinders::runTest()
     simulation->setBeamPolarization(zplus);
     simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
-    const std::unique_ptr<OutputData<double> > P_data00(simulation->getDetectorIntensity());
+    auto sim_result = simulation->result();
+    const std::unique_ptr<OutputData<double> > P_data00(sim_result.data());
 
     simulation->setBeamPolarization(zplus);
     simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
-    const std::unique_ptr<OutputData<double> > P_data01(simulation->getDetectorIntensity());
+    sim_result = simulation->result();
+    const std::unique_ptr<OutputData<double> > P_data01(sim_result.data());
 
     simulation->setBeamPolarization(zmin);
     simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
-    const std::unique_ptr<OutputData<double> > P_data10(simulation->getDetectorIntensity());
+    sim_result = simulation->result();
+    const std::unique_ptr<OutputData<double> > P_data10(sim_result.data());
 
     simulation->setBeamPolarization(zmin);
     simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
-    const std::unique_ptr<OutputData<double> > P_data11(simulation->getDetectorIntensity());
+    sim_result = simulation->result();
+    const std::unique_ptr<OutputData<double> > P_data11(sim_result.data());
 
     const double threshold(2e-10);
     double diff(0);

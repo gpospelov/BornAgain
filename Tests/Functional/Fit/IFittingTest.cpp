@@ -115,6 +115,6 @@ std::unique_ptr<Simulation> IFittingTest::createSimulation()
 std::unique_ptr<OutputData<double> > IFittingTest::createOutputData(
     const Simulation* simulation)
 {
-    std::unique_ptr<OutputData<double>> result(simulation->getDetectorIntensity());
-    return result;
+    auto sim_result = simulation->result();
+    return std::unique_ptr<OutputData<double>>(sim_result.data());
 }

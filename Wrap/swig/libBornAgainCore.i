@@ -208,6 +208,7 @@
 #include "Simulation2D.h"
 #include "SimulationFactory.h"
 #include "SimulationOptions.h"
+#include "SimulationResult.h"
 #include "SlicedParticle.h"
 #include "SpecularSimulation.h"
 #include "SphericalDetector.h"
@@ -225,14 +226,8 @@
 
 // ownership
 
-%newobject GISASSimulation::getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
-%newobject GISASSimulation::getDetectorIntensity(AxesUnits units_type = AxesUnits::DEFAULT) const;
-
-%newobject OffSpecSimulation::getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
-%newobject OffSpecSimulation::getDetectorIntensity(AxesUnits units_type = AxesUnits::DEFAULT) const;
-
-%newobject SpecularSimulation::getDetectorIntensity(AxesUnits units_type = AxesUnits::DEFAULT) const;
-%newobject SpecularSimulation::getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
+%newobject SimulationResult::data(AxesUnits units_type = AxesUnits::DEFAULT) const;
+%newobject SimulationResult::histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
 %newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
 %newobject IntensityDataIOFactory::readIntensityData(const std::string& file_name);
@@ -260,6 +255,7 @@
 // need to tell SWIG explicitly to instantiate these templates with given types
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;
 %template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
+%template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
 // SWIG does not automatically instantiate templates, so we declare these by hand
 %template(kvector_t) BasicVector3D<double>;
@@ -363,6 +359,7 @@
 %include "IHistogram.h"
 %include "Histogram1D.h"
 %include "Histogram2D.h"
+%include "SimulationResult.h"
 %include "IBackground.h"
 %include "ConstantBackground.h"
 %include "IDetector.h"

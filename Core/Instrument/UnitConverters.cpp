@@ -46,10 +46,10 @@ void UnitConverterSimple::addAxisData(std::string name, double min, double max,
 double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) const
 {
     checkIndex(i_axis);
+    // Replace DEFAULT by the converter's default units:
+    if (units_type==AxesUnits::DEFAULT) units_type = defaultUnits();
     auto axis_data = m_axis_data_table[i_axis];
-    if (units_type==defaultUnits() || units_type==AxesUnits::DEFAULT) {
-        return axis_data.min;
-    } else if (units_type==AxesUnits::NBINS) {
+    if (units_type==AxesUnits::NBINS) {
         return 0.0;
     }
     return calculateValue(i_axis, units_type, axis_data.min);
@@ -58,10 +58,10 @@ double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) co
 double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) const
 {
     checkIndex(i_axis);
+    // Replace DEFAULT by the converter's default units:
+    if (units_type==AxesUnits::DEFAULT) units_type = defaultUnits();
     auto axis_data = m_axis_data_table[i_axis];
-    if (units_type==defaultUnits() || units_type==AxesUnits::DEFAULT) {
-        return axis_data.max;
-    } else if (units_type==AxesUnits::NBINS) {
+    if (units_type==AxesUnits::NBINS) {
         return static_cast<double>(axis_data.nbins);
     }
     return calculateValue(i_axis, units_type, axis_data.max);
@@ -78,6 +78,7 @@ std::string UnitConverterSimple::axisName(size_t i_axis, AxesUnits units_type) c
 {
     const std::vector<std::map<AxesUnits, std::string>> name_maps = createNameMaps();
     auto& name_map = name_maps[i_axis];
+    // Replace DEFAULT by the converter's default units:
     if (units_type==AxesUnits::DEFAULT) units_type = defaultUnits();
     auto it = name_map.find(units_type);
     if (it==name_map.end())
@@ -141,6 +142,8 @@ SphericalConverter* SphericalConverter::clone() const
     return new SphericalConverter(*this);
 }
 
+AxesUnits SphericalConverter::defaultUnits() const { return AxesUnits::DEGREES; }
+
 SphericalConverter::SphericalConverter(const SphericalConverter& other)
     : UnitConverterSimple(other)
 {}
@@ -148,6 +151,8 @@ SphericalConverter::SphericalConverter(const SphericalConverter& other)
 double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
 {
     switch(units_type) {
+    case AxesUnits::RADIANS:
+        return value;
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
     case AxesUnits::QSPACE:
@@ -200,6 +205,8 @@ RectangularConverter* RectangularConverter::clone() const
     return new RectangularConverter(*this);
 }
 
+AxesUnits RectangularConverter::defaultUnits() const { return AxesUnits::MM; }
+
 RectangularConverter::RectangularConverter(const RectangularConverter& other)
     : UnitConverterSimple(other)
     , mP_detector_pixel(other.mP_detector_pixel->clone())
@@ -213,10 +220,12 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
     auto max_pos = i_axis == 0 ? k10 : k01;  // position of max along given axis
     auto k_f = normalizeToWavelength(k00 + value*(max_pos - k00).unit());
     switch(units_type) {
-    case AxesUnits::DEGREES:
-        return Units::rad2deg(axisAngle(i_axis, k_f));
     case AxesUnits::RADIANS:
         return axisAngle(i_axis, k_f);
+    case AxesUnits::DEGREES:
+        return Units::rad2deg(axisAngle(i_axis, k_f));
+    case AxesUnits::MM:
+        return value;
     case AxesUnits::QSPACE:
     {
         auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
@@ -283,10 +292,12 @@ OffSpecularConverter::OffSpecularConverter(const IDetector2D& detector, const Be
 
 OffSpecularConverter::~OffSpecularConverter() =default;
 
-OffSpecularConverter*OffSpecularConverter::clone() const
+OffSpecularConverter* OffSpecularConverter::clone() const
 {
     return new OffSpecularConverter(*this);
 }
+
+AxesUnits OffSpecularConverter::defaultUnits() const { return AxesUnits::DEGREES; }
 
 OffSpecularConverter::OffSpecularConverter(const OffSpecularConverter& other)
     : UnitConverterSimple(other)
@@ -295,6 +306,8 @@ OffSpecularConverter::OffSpecularConverter(const OffSpecularConverter& other)
 double OffSpecularConverter::calculateValue(size_t, AxesUnits units_type, double value) const
 {
     switch(units_type) {
+    case AxesUnits::RADIANS:
+        return value;
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
     default:
@@ -304,7 +317,7 @@ double OffSpecularConverter::calculateValue(size_t, AxesUnits units_type, double
     }
 }
 
-std::vector<std::map<AxesUnits, std::string> > OffSpecularConverter::createNameMaps() const
+std::vector<std::map<AxesUnits, std::string>> OffSpecularConverter::createNameMaps() const
 {
     std::vector<std::map<AxesUnits, std::string>> result;
     result.push_back(AxisNames::InitOffSpecAxis0());
@@ -341,4 +354,48 @@ void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
         throw std::runtime_error("Error in OffSpecularConverter::addDetectorYAxis: "
                                  "wrong detector type");
     }
+}
+
+/* OffSpecularConverter **********************************************/
+
+SpecularConverter::SpecularConverter(const Beam& beam, const IAxis& alpha_axis)
+    : UnitConverterSimple(beam)
+{
+    auto alpha_axis_name = axisName(0);
+    addAxisData(alpha_axis_name, alpha_axis.getMin(), alpha_axis.getMax(), defaultUnits(),
+                alpha_axis.size());
+}
+
+SpecularConverter::~SpecularConverter() =default;
+
+SpecularConverter* SpecularConverter::clone() const
+{
+    return new SpecularConverter(*this);
+}
+
+AxesUnits SpecularConverter::defaultUnits() const { return AxesUnits::DEGREES; }
+
+SpecularConverter::SpecularConverter(const SpecularConverter& other)
+    : UnitConverterSimple(other)
+{}
+
+double SpecularConverter::calculateValue(size_t, AxesUnits units_type, double value) const
+{
+    switch(units_type) {
+    case AxesUnits::RADIANS:
+        return value;
+    case AxesUnits::DEGREES:
+        return Units::rad2deg(value);
+    default:
+        throw std::runtime_error("Error in SpecularConverter::calculateValue: "
+                                 "target units not available: "
+                                 + std::to_string(static_cast<int>(units_type)));
+    }
+}
+
+std::vector<std::map<AxesUnits, std::string> > SpecularConverter::createNameMaps() const
+{
+    std::vector<std::map<AxesUnits, std::string>> result;
+    result.push_back(AxisNames::InitSpecAxis());
+    return result;
 }

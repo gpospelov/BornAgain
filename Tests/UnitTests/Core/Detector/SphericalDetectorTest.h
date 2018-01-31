@@ -248,22 +248,6 @@ TEST_F(SphericalDetectorTest, getIntensityData)
     }
     EXPECT_EQ(intensityData[intensityData.getAllocatedSize() - 1], 23.0);
 
-    // Getting detectorIntensity and checking that amplitudes are correct and it is clipped to
-    // region of interest.
-
-    //    std::unique_ptr<OutputData<double>> detectorIntensity(
-    //                detector.getDetectorIntensity(intensityData, beam,
-    //                DetectorAxesUnits::DEGREES));
-
-    //    EXPECT_EQ(detectorIntensity->getAllocatedSize(), 8);
-    //    EXPECT_EQ((*detectorIntensity)[0], 5.0);
-    //    EXPECT_EQ((*detectorIntensity)[7], 18.0);
-    //    EXPECT_EQ(detectorIntensity->getAxis(0).size(), 4);
-    //    EXPECT_EQ(detectorIntensity->getAxis(0).getMin(), 0.0);
-    //    EXPECT_EQ(detectorIntensity->getAxis(0).getMax(), 4.0);
-    //    EXPECT_EQ(detectorIntensity->getAxis(1).size(), 2);
-    //    EXPECT_EQ(detectorIntensity->getAxis(1).getMin(), 1.0);
-    //    EXPECT_EQ(detectorIntensity->getAxis(1).getMax(), 3.0);
 }
 
 TEST_F(SphericalDetectorTest, MaskOfDetector)

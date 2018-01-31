@@ -38,11 +38,11 @@ class SlicedSpheresTest(unittest.TestCase):
         multi_layer.addLayer(substrate)
         return multi_layer
 
-    def get_intensity_data(self, particle_to_air=None, particle_to_substrate=None):
+    def get_result(self, particle_to_air=None, particle_to_substrate=None):
         sample = self.get_sample(particle_to_air, particle_to_substrate)
         simulation = utils.get_simulation_MiniGISAS(sample)
         simulation.runSimulation()
-        return simulation.getIntensityData()
+        return simulation.result()
 
     def testSphericalCupOnTopOfSubstrate(self):
         """
@@ -58,14 +58,14 @@ class SlicedSpheresTest(unittest.TestCase):
 
         # truncated sphere on top of substrate with height 16nm
         truncatedSphere = ba.Particle(mSubstrate, ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius*2 - sphere_shift))
-        reference = self.get_intensity_data(truncatedSphere)
+        reference = self.get_result(truncatedSphere)
 
         # sphere crossing interface to look like truncated sphere above
         sphere = ba.Particle(mSubstrate, ba.FormFactorFullSphere(sphere_radius))
         sphere.setPosition(0, 0, -sphere_shift)
-        data = self.get_intensity_data(sphere)
+        data = self.get_result(sphere)
 
-        diff = ba.getRelativeDifference(data, reference)
+        diff = ba.RelativeDifference(data, reference)
         print(diff)
         self.assertLess(diff, 1e-10)
 
@@ -81,14 +81,14 @@ class SlicedSpheresTest(unittest.TestCase):
         # Sphere truncated from top. Intended to go below interface.
         truncatedSphere = ba.Particle(mAmbience, ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius*2, sphere_radius*2 - sphere_shift))
         truncatedSphere.setPosition(0, 0, -sphere_shift)
-        reference = self.get_intensity_data(truncatedSphere)
+        reference = self.get_result(truncatedSphere)
 
         # sphere crossing interface to look like truncated sphere above
         sphere = ba.Particle(mAmbience, ba.FormFactorFullSphere(sphere_radius))
         sphere.setPosition(0, 0, -sphere_shift)
-        data = self.get_intensity_data(sphere)
+        data = self.get_result(sphere)
 
-        diff = ba.getRelativeDifference(data, reference)
+        diff = ba.RelativeDifference(data, reference)
         print(diff)
         self.assertLess(diff, 1e-10)
 
@@ -107,14 +107,14 @@ class SlicedSpheresTest(unittest.TestCase):
         # Sphere intended for air layer and crossing interface
         sphere1 = ba.Particle(mParticle, ba.FormFactorFullSphere(sphere_radius))
         sphere1.setPosition(0, 0, -sphere_shift)
-        reference = self.get_intensity_data(particle_to_air=sphere1)
+        reference = self.get_result(particle_to_air=sphere1)
 
         # Sphere intended for substrate layer and crossing interface
         sphere2 = ba.Particle(mParticle, ba.FormFactorFullSphere(sphere_radius))
         sphere2.setPosition(0, 0, -sphere_shift)
-        data = self.get_intensity_data(particle_to_substrate=sphere2)
+        data = self.get_result(particle_to_substrate=sphere2)
 
-        diff = ba.getRelativeDifference(data, reference)
+        diff = ba.RelativeDifference(data, reference)
         print(diff)
         self.assertLess(diff, 1e-10)
 

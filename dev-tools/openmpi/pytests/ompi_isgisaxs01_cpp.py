@@ -72,7 +72,7 @@ def run_simulation():
     simulation.runOMPISimulation()
 
     if(world_rank == 0):
-        sumresult = simulation.getIntensityData().getArray()
+        sumresult = simulation.result().array()
         print sumresult
         #pylab.imshow(sumresult + 1, norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0])
         #pylab.show()

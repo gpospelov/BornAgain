@@ -78,21 +78,17 @@ def create_real_data():
     sample = get_sample(5.0*nanometer, 5.0*nanometer, 5.0*nanometer, 5.0*nanometer)
     simulation = get_simulation()
     simulation.setSample(sample)
-
     simulation.runSimulation()
-    real_data = simulation.getIntensityData()
+    real_data = simulation.result().array()
 
-    # spoiling simulated data with the noise to produce "real" data
+    # spoiling simulated data with noise to produce "real" data
+    # random seed made as in FitSPheresInHexLattice_builder.py example
+    np.random.seed(0)
     noise_factor = 0.1
-    for i in range(0, real_data.getAllocatedSize()):
-        amplitude = real_data[i]
-        sigma = noise_factor*math.sqrt(amplitude)
-        noisy_amplitude = random.gauss(amplitude, sigma)
-        if noisy_amplitude < 0.1:
-            noisy_amplitude = 0.1
-        real_data[i] = noisy_amplitude
-    IntensityDataIOFactory.writeIntensityData(real_data, 'refdata_fitcylinderprisms.int')
-
+    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
+    noisy[noisy < 0.1] = 0.1
+    IntensityDataIOFactory.writeIntensityData(ba.Histogram2D(noisy),
+                                              'refdata_fitcylinderprisms.int')
 
 
 def get_simulation():

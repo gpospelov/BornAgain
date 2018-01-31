@@ -81,6 +81,9 @@ void InstrumentViewActions::onAddInstrument()
     } else if (instrumentType == Constants::OffSpecInstrumentType) {
         auto instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("Default OffSpec"));
+    } else if (instrumentType == Constants::SpecularInstrumentType) {
+        auto instrument = m_model->insertNewItem(instrumentType);
+        instrument->setItemName(suggestInstrumentName("Default Specular"));
     } else {
         qInfo() << "InstrumentViewActions::onAddInstrument() -> Not supported instrument type"
                 << instrumentType;
@@ -196,6 +199,6 @@ void InstrumentViewActions::initAddInstrumentMenu()
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 
     action = m_addInstrumentMenu->addAction("Default Specular");
-    action->setData(QVariant::fromValue(QStringLiteral("NotImplementedSpecType")));
+    action->setData(QVariant::fromValue(Constants::SpecularInstrumentType));
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 }

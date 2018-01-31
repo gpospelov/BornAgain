@@ -37,6 +37,11 @@ IntensityDataFFTPresenter::IntensityDataFFTPresenter(QWidget* parent)
     connect(m_fftAction, &QAction::triggered, this, &IntensityDataFFTPresenter::onFFTActionRequest);
 }
 
+void IntensityDataFFTPresenter::reset()
+{
+    m_in_fft_mode = false;
+}
+
 IntensityDataItem* IntensityDataFFTPresenter::fftItem(IntensityDataItem* origItem)
 {
     if (!origItem)

@@ -57,6 +57,7 @@ void IntensityDataWidget::setItem(SessionItem* jobItem)
     SessionItemWidget::setItem(jobItem);
     m_intensityCanvas->setItem(intensityDataItem());
     m_propertyWidget->setItem(intensityDataItem());
+    m_fftPresenter->reset();
 }
 
 QList<QAction*> IntensityDataWidget::actionList()

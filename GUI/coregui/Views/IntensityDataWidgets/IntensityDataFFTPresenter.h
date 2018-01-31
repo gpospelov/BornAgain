@@ -31,6 +31,8 @@ class BA_CORE_API_ IntensityDataFFTPresenter : public QObject {
 public:
     IntensityDataFFTPresenter(QWidget* parent = nullptr);
 
+    void reset();
+
     IntensityDataItem* fftItem(IntensityDataItem* origItem);
 
     QList<QAction*> actionList();

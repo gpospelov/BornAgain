@@ -50,10 +50,6 @@ BA_CORE_API_ std::unique_ptr<OutputData<double>> createClippedDataSet(
 
 #endif  // SWIG
 
-//! Applies detector resolution function and returns new IntensityData object.
-BA_CORE_API_ OutputData<double>* applyDetectorResolution(
-    const OutputData<double>& origin, const IResolutionFunction2D& resolution_function);
-
 //! Transforms coordinate on axis into the bin-fraction-coordinate.
 BA_CORE_API_ double coordinateToBinf(double coordinate, const IAxis& axis);
 

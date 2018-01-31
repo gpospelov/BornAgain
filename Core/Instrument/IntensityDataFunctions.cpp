@@ -142,20 +142,6 @@ std::unique_ptr<OutputData<double>> IntensityDataFunctions::createClippedDataSet
     return result;
 }
 
-OutputData<double>* IntensityDataFunctions::applyDetectorResolution(
-    const OutputData<double>& origin, const IResolutionFunction2D& resolution_function)
-{
-    if (origin.getRank() != 2)
-        throw Exceptions::LogicErrorException(
-            "IntensityDataFunctions::applyDetectorResolution()"
-            " -> Error! Works only on two-dimensional data");
-    OutputData<double>* result = origin.clone();
-    const std::unique_ptr<ConvolutionDetectorResolution> P_resolution(
-        new ConvolutionDetectorResolution(resolution_function));
-    P_resolution->applyDetectorResolution(result);
-    return result;
-}
-
 // For axis FixedBinAxis("axis", 8, -5.0, 3.0) the coordinate x=-4.5 (center of bin #0) will
 // be converted into 0.5 (which is a bin center expressed in bin fraction coordinates).
 // The coordinate -5.0 (outside of axis definition) will be converted to -0.5

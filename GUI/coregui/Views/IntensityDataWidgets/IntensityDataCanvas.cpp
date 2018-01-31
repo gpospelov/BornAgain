@@ -16,29 +16,27 @@
 #include "AppSvc.h"
 #include "ColorMap.h"
 #include "ColorMapCanvas.h"
+#include "ComboProperty.h"
+#include "IntensityDataFFTPresenter.h"
 #include "IntensityDataItem.h"
 #include "SavePlotAssistant.h"
 #include "projectmanager.h"
-#include "ComboProperty.h"
-#include "IntensityDataFFTPresenter.h"
 #include <QAction>
-#include <QVBoxLayout>
 #include <QMouseEvent>
 #include <QSettings>
+#include <QVBoxLayout>
 
-namespace {
+namespace
+{
 
 QString group_name() { return QStringLiteral("IntensityDataCanvas/"); }
-QString gradient_setting_name() { return group_name()+IntensityDataItem::P_GRADIENT; }
-QString interpolation_setting_name() { return group_name()+IntensityDataItem::P_IS_INTERPOLATED;}
-
+QString gradient_setting_name() { return group_name() + IntensityDataItem::P_GRADIENT; }
+QString interpolation_setting_name() { return group_name() + IntensityDataItem::P_IS_INTERPOLATED; }
 }
 
-IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
-    : SessionItemWidget(parent)
-    , m_colorMap(new ColorMapCanvas)
-    , m_resetViewAction(nullptr)
-    , m_savePlotAction(nullptr)
+IntensityDataCanvas::IntensityDataCanvas(QWidget* parent)
+    : SessionItemWidget(parent), m_colorMap(new ColorMapCanvas), m_resetViewAction(nullptr),
+      m_savePlotAction(nullptr)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -52,8 +50,8 @@ IntensityDataCanvas::IntensityDataCanvas(QWidget *parent)
 
     initActions();
 
-    connect(m_colorMap->customPlot(), &QCustomPlot::mousePress,
-            this, &IntensityDataCanvas::onMousePress, Qt::UniqueConnection);
+    connect(m_colorMap->customPlot(), &QCustomPlot::mousePress, this,
+            &IntensityDataCanvas::onMousePress, Qt::UniqueConnection);
 }
 
 void IntensityDataCanvas::setItem(SessionItem* intensityItem)
@@ -64,25 +62,16 @@ void IntensityDataCanvas::setItem(SessionItem* intensityItem)
     applyPersistentSettings();
 }
 
-QSize IntensityDataCanvas::sizeHint() const
-{
-    return QSize(500, 400);
-}
+QSize IntensityDataCanvas::sizeHint() const { return QSize(500, 400); }
 
-QSize IntensityDataCanvas::minimumSizeHint() const
-{
-    return QSize(128, 128);
-}
+QSize IntensityDataCanvas::minimumSizeHint() const { return QSize(128, 128); }
 
 QList<QAction*> IntensityDataCanvas::actionList()
 {
-    return QList<QAction*>() << m_resetViewAction << m_savePlotAction << m_fftAction;
+    return QList<QAction*>() << m_resetViewAction << m_savePlotAction;
 }
 
-void IntensityDataCanvas::onResetViewAction()
-{
-    intensityDataItem()->resetView();
-}
+void IntensityDataCanvas::onResetViewAction() { intensityDataItem()->resetView(); }
 
 void IntensityDataCanvas::onSavePlotAction()
 {
@@ -93,35 +82,14 @@ void IntensityDataCanvas::onSavePlotAction()
 
 void IntensityDataCanvas::onMousePress(QMouseEvent* event)
 {
-    if(event->button() == Qt::RightButton)
+    if (event->button() == Qt::RightButton)
         emit customContextMenuRequested(event->globalPos());
-}
-
-void IntensityDataCanvas::onfftAction()
-{
-    if(m_fftPresenter) {
-        // returning ColorMap to non-fft presentation
-        m_colorMap->setItem(intensityDataItem());
-        m_fftPresenter.reset();
-    } else {
-        m_fftPresenter.reset(new IntensityDataFFTPresenter);
-        m_colorMap->setItem(m_fftPresenter->fftItem(intensityDataItem()));
-    }
 }
 
 void IntensityDataCanvas::subscribeToItem()
 {
     intensityDataItem()->mapper()->setOnPropertyChange(
-        [this](const QString& name)
-    {
-        onPropertyChanged(name);
-    }, this);
-
-}
-
-void IntensityDataCanvas::unsubscribeFromItem()
-{
-    m_fftPresenter.reset();
+        [this](const QString& name) { onPropertyChanged(name); }, this);
 }
 
 IntensityDataItem* IntensityDataCanvas::intensityDataItem()
@@ -145,12 +113,6 @@ void IntensityDataCanvas::initActions()
     m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
     m_savePlotAction->setToolTip("Save plot");
     connect(m_savePlotAction, &QAction::triggered, this, &IntensityDataCanvas::onSavePlotAction);
-
-    m_fftAction = new QAction(this);
-    m_fftAction->setText("Fourier Transform");
-    //m_fftAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
-    m_fftAction->setToolTip("Get the Fourier Transform of current intensity map");
-    connect(m_fftAction, &QAction::triggered, this, &IntensityDataCanvas::onfftAction);
 }
 
 //! Reads gradient/ interpolation settings from IntensityDataItem and writes to persistant
@@ -174,7 +136,8 @@ void IntensityDataCanvas::applyPersistentSettings()
     QSettings settings;
 
     if (settings.contains(gradient_setting_name())) {
-        ComboProperty combo = intensityDataItem()->getItemValue(IntensityDataItem::P_GRADIENT)
+        ComboProperty combo = intensityDataItem()
+                                  ->getItemValue(IntensityDataItem::P_GRADIENT)
                                   .value<ComboProperty>();
         QString persistentGradient = settings.value(gradient_setting_name()).toString();
         if (combo.getValue() != persistentGradient) {

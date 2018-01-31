@@ -15,14 +15,13 @@
 #ifndef INTENSITYDATACANVAS_H
 #define INTENSITYDATACANVAS_H
 
-#include "SessionItemWidget.h"
 #include "OutputData.h"
+#include "SessionItemWidget.h"
 #include <memory>
 
 class SessionItem;
 class IntensityDataItem;
 class ColorMapCanvas;
-class IntensityDataFFTPresenter;
 class QAction;
 
 //! The IntensityDataCanvas class represents IntensityDataItem as color map,
@@ -44,13 +43,10 @@ public:
 public slots:
     void onResetViewAction();
     void onSavePlotAction();
-    void onMousePress(QMouseEvent *event);
-
-    void onfftAction();
+    void onMousePress(QMouseEvent* event);
 
 protected:
     void subscribeToItem();
-    void unsubscribeFromItem();
 
 private:
     IntensityDataItem* intensityDataItem();
@@ -61,10 +57,6 @@ private:
     ColorMapCanvas* m_colorMap;
     QAction* m_resetViewAction;
     QAction* m_savePlotAction;
-
-    QAction* m_fftAction;
-    std::unique_ptr<IntensityDataFFTPresenter> m_fftPresenter;
-
 };
 
 #endif // INTENSITYDATACANVAS_H

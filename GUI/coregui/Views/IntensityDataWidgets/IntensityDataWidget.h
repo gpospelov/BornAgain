@@ -16,6 +16,7 @@
 #define INTENSITYDATAWIDGET_H
 
 #include "SessionItemWidget.h"
+#include <memory>
 
 class SessionItem;
 class IntensityDataCanvas;
@@ -23,6 +24,7 @@ class IntensityDataPropertyWidget;
 class IntensityDataItem;
 class QAction;
 class QContextMenuEvent;
+class IntensityDataFFTPresenter;
 
 //! A common widget to display color map (IntensityDataCanvas) and properties
 //! (IntensityDataPropertyWidget) of intensity data item.
@@ -40,12 +42,14 @@ public:
 
 private slots:
     void onContextMenuRequest(const QPoint& point);
+    void onFFTAction();
 
 private:
     IntensityDataItem* intensityDataItem();
 
     IntensityDataCanvas* m_intensityCanvas;
     IntensityDataPropertyWidget* m_propertyWidget;
+    IntensityDataFFTPresenter* m_fftPresenter;
 };
 
 #endif // INTENSITYDATAWIDGET_H

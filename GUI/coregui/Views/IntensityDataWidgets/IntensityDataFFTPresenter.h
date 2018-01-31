@@ -21,6 +21,7 @@
 class SessionModel;
 class IntensityDataItem;
 class QWidget;
+class QAction;
 
 //! Provides support in Fast Fourier transformation of IntensityDataItem.
 //! Contains own model to hold IntensityDataItem with fft-transformed results.
@@ -32,9 +33,21 @@ public:
 
     IntensityDataItem* fftItem(IntensityDataItem* origItem);
 
+    QList<QAction*> actionList();
+
+    bool inFFTMode() const;
+
+signals:
+    void fftActionRequest();
+
+private slots:
+    void onFFTActionRequest();
+
 private:
+    QAction* m_fftAction;
     SessionModel *m_fftModel;
     IntensityDataItem* m_fftItem;
+    bool m_in_fft_mode;
 };
 
 #endif  //  INTENSITYDATAFFTPRESENTER_H

@@ -63,7 +63,7 @@ public:
             AxesUnits units_type= AxesUnits::DEFAULT) const override;
 
     //! Returns detector signal (\f$ \propto |R|^2\f$) in the form of 1D Histogram
-    Histogram1D* getIntensityData() const;
+    Histogram1D* getIntensityData(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
 private:
     typedef complex_t (ILayerRTCoefficients::*DataGetter)() const;
@@ -84,10 +84,13 @@ private:
     std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
                                                                     size_t n_elements) override;
 
-    //! Checks if simulation data is ready for retrieval
+    //! Checks if simulation data is ready for retrieval.
     void validityCheck(size_t i_layer) const;
 
     void checkCache() const;
+
+    //! Checks the distribution validity for simulation.
+    void validateParametrization(const ParameterDistribution& par_distr) const override;
 
     //! Initializes simulation
     void initialize();

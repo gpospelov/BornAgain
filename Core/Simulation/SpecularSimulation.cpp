@@ -13,18 +13,23 @@
 // ************************************************************************** //
 
 #include "SpecularSimulation.h"
+#include "Distributions.h"
+#include "Histogram1D.h"
 #include "IBackground.h"
 #include "IFootprintFactor.h"
 #include "IMultiLayerBuilder.h"
+#include "MathConstants.h"
 #include "MultiLayer.h"
 #include "MaterialUtils.h"
-#include "Histogram1D.h"
+#include "ParameterPool.h"
+#include "RealParameter.h"
 #include "SpecularComputation.h"
 #include "SpecularData.h"
 #include "SpecularDetector1D.h"
 
 namespace
 {
+const RealLimits alpha_limits = RealLimits::limited(0.0, M_PI_2);
 const SpecularDetector1D* SpecDetector(const Instrument& instrument);
 }
 
@@ -71,13 +76,29 @@ size_t SpecularSimulation::numberOfSimulationElements() const
 void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
                                            const IFootprintFactor* beam_shape)
 {
+    if (lambda <= 0.0)
+        throw std::runtime_error(
+            "Error in SpecularSimulation::setBeamParameters: wavelength must be positive.");
+    if (alpha_axis.getMin() < 0.0)
+        throw std::runtime_error(
+            "Error in SpecularSimulation::setBeamParameters: minimum value on angle axis is negative.");
+    if (alpha_axis.getMin() >= alpha_axis.getMax())
+        throw std::runtime_error("Error in SpecularSimulation::setBeamParameters: maximal value on "
+                                 "angle axis is less or equal to the minimal one.");
+    if (alpha_axis.size() == 0)
+        throw std::runtime_error(
+            "Error in SpecularSimulation::setBeamParameters: angle axis is empty");
+
     SpecularDetector1D detector(alpha_axis);
     m_instrument.setDetector(detector);
-
     m_coordinate_axis.reset(alpha_axis.clone());
 
+    // beam is initialized with zero-valued angles
+    // Zero-valued incident alpha is required for proper
+    // taking into account beam resolution effects
     const double phi_i = 0.0;
-    m_instrument.setBeamParameters(lambda, alpha_axis[0], phi_i);
+    const double alpha_i = 0.0;
+    m_instrument.setBeamParameters(lambda, alpha_i, phi_i);
 
     if (beam_shape)
         m_instrument.getBeam().setFootprintFactor(*beam_shape);
@@ -113,6 +134,7 @@ std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationEle
     std::vector<SpecularSimulationElement> result;
 
     const double wavelength = beam.getWavelength();
+    const double angle_shift = beam.getAlpha();
     PolarizationHandler handler;
     handler.setPolarization(beam.getPolarization());
     handler.setAnalyzerOperator(
@@ -121,9 +143,12 @@ std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationEle
     const size_t axis_size = m_coordinate_axis->size();
     result.reserve(axis_size);
     for (size_t i = 0; i < axis_size; ++i) {
-        result.emplace_back(wavelength, -alpha_i(i));
+        double result_angle = alpha_i(i) + angle_shift;
+        result.emplace_back(wavelength, -result_angle);
         auto& sim_element = result.back();
         sim_element.setPolarizationHandler(handler);
+        if (!alpha_limits.isInRange(result_angle))
+            sim_element.setCalculationFlag(false); // false = exclude from calculations
     }
 
     return result;
@@ -159,9 +184,9 @@ OutputData<double>* SpecularSimulation::getDetectorIntensity(AxesUnits units_typ
     return detector->createDetectorIntensity(m_sim_elements, m_instrument.getBeam(), units_type);
 }
 
-Histogram1D* SpecularSimulation::getIntensityData() const
+Histogram1D* SpecularSimulation::getIntensityData(AxesUnits units_type) const
 {
-    std::unique_ptr<OutputData<double>> result(getDetectorIntensity());
+    std::unique_ptr<OutputData<double>> result(getDetectorIntensity(units_type));
     return new Histogram1D(*result);
 }
 
@@ -204,15 +229,6 @@ void SpecularSimulation::validityCheck(size_t i_layer) const
     if (data_size != getAlphaAxis()->size())
         throw std::runtime_error("Error in SpecularSimulation::validityCheck: length of simulation "
                                  "element vector is not equal to the number of inclination angles");
-
-    for (size_t i = 0; i < data_size; ++i) {
-        const SpecularData& specular_data = m_sim_elements[i].specularData();
-        if (!specular_data.isInited()) {
-            std::ostringstream message;
-            message << "Error in SpecularSimulation::validityCheck: simulation element " << i << "does not contain specular info";
-            throw std::runtime_error(message.str());
-        }
-    }
 }
 
 void SpecularSimulation::checkCache() const
@@ -222,9 +238,29 @@ void SpecularSimulation::checkCache() const
                                  "vector and of its cache are different");
 }
 
+void SpecularSimulation::validateParametrization(const ParameterDistribution& par_distr) const
+{
+    const bool zero_mean = par_distr.getDistribution()->getMean() == 0.0;
+    if (zero_mean)
+        return;
+
+    std::unique_ptr<ParameterPool> parameter_pool(createParameterTree());
+    const std::vector<RealParameter*> names
+        = parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
+    for (const auto par : names)
+        if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
+            throw std::runtime_error("Error in SpecularSimulation: parameter distribution modifies "
+                                     "beam inclination while its mean value is not zero.");
+}
+
 void SpecularSimulation::initialize()
 {
     setName(BornAgain::SpecularSimulationType);
+
+    // allow for negative inclinations in the beam of specular simulation
+    // it is required for proper averaging in the case of divergent beam
+    auto inclination = m_instrument.getBeam().parameter(BornAgain::Inclination);
+    inclination->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
 void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)

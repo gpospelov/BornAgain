@@ -143,4 +143,8 @@ SimulationFactory::SimulationFactory()
     registerItem("SpecularWithSquareBeam", StandardSimulations::SpecularWithSquareBeam,
                  "The same as BasicSpecular, but implies beam size finiteness (beam is of the same "
                  "size as the sample). The beam is square in shape.");
+
+    registerItem("SpecularDivergentBeam", StandardSimulations::SpecularDivergentBeam,
+                 "Simulation implies beam divergence both in wavelength and "
+                 "inclination angle.");
 }

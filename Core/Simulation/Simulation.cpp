@@ -200,12 +200,14 @@ void Simulation::addParameterDistribution(const std::string& param_name,
                                           const IDistribution1D& distribution, size_t nbr_samples,
                                           double sigma_factor, const RealLimits& limits)
 {
-    m_distribution_handler.addParameterDistribution(
+    ParameterDistribution par_distr(
         param_name, distribution, nbr_samples, sigma_factor, limits);
+    addParameterDistribution(par_distr);
 }
 
 void Simulation::addParameterDistribution(const ParameterDistribution& par_distr)
 {
+    validateParametrization(par_distr);
     m_distribution_handler.addParameterDistribution(par_distr);
 }
 

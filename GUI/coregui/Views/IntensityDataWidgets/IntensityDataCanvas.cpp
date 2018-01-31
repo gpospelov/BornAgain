@@ -20,11 +20,11 @@
 #include "SavePlotAssistant.h"
 #include "projectmanager.h"
 #include "ComboProperty.h"
+#include "IntensityDataFFTPresenter.h"
 #include <QAction>
 #include <QVBoxLayout>
 #include <QMouseEvent>
 #include <QSettings>
-#include "IntensityDataFunctions.h"
 
 namespace {
 
@@ -99,20 +99,13 @@ void IntensityDataCanvas::onMousePress(QMouseEvent* event)
 
 void IntensityDataCanvas::onfftAction()
 {
-    auto dataItem = intensityDataItem();
-
-    if(m_backup)
-    {
-        dataItem->setOutputData(m_backup.release());
-    }
-
-    else
-    {
-        m_backup.reset(new OutputData<double>);
-        m_backup->copyFrom(*dataItem->getOutputData());
-
-        dataItem->setOutputData(
-                    (IntensityDataFunctions::createFFT(*dataItem->getOutputData())).release());
+    if(m_fftPresenter) {
+        // returning ColorMap to non-fft presentation
+        m_colorMap->setItem(intensityDataItem());
+        m_fftPresenter.reset();
+    } else {
+        m_fftPresenter.reset(new IntensityDataFFTPresenter);
+        m_colorMap->setItem(m_fftPresenter->fftItem(intensityDataItem()));
     }
 }
 
@@ -124,6 +117,11 @@ void IntensityDataCanvas::subscribeToItem()
         onPropertyChanged(name);
     }, this);
 
+}
+
+void IntensityDataCanvas::unsubscribeFromItem()
+{
+    m_fftPresenter.reset();
 }
 
 IntensityDataItem* IntensityDataCanvas::intensityDataItem()

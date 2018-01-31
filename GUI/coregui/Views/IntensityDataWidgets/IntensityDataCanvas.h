@@ -22,6 +22,7 @@
 class SessionItem;
 class IntensityDataItem;
 class ColorMapCanvas;
+class IntensityDataFFTPresenter;
 class QAction;
 
 //! The IntensityDataCanvas class represents IntensityDataItem as color map,
@@ -48,7 +49,8 @@ public slots:
     void onfftAction();
 
 protected:
-    virtual void subscribeToItem();
+    void subscribeToItem();
+    void unsubscribeFromItem();
 
 private:
     IntensityDataItem* intensityDataItem();
@@ -61,7 +63,7 @@ private:
     QAction* m_savePlotAction;
 
     QAction* m_fftAction;
-    std::unique_ptr<OutputData<double>> m_backup;
+    std::unique_ptr<IntensityDataFFTPresenter> m_fftPresenter;
 
 };
 

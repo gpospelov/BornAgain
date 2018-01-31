@@ -20,5 +20,6 @@ install(CODE "MESSAGE(\"${after_install_text}\")")
 
 endif()
 
-add_subdirectory(scripts)
-
+# to show files in Qt creator
+FILE(GLOB_RECURSE ScriptFiles "scripts/*.*")
+add_custom_target(scripts SOURCES ${ScriptFiles})

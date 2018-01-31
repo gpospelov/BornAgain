@@ -18,6 +18,7 @@
 #include "IntensityDataIOFactory.h"
 #include "OutputData.h"
 #include "TestUtils.h"
+#include "BATesting.h"
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -103,7 +104,7 @@ namespace
 {
 std::string inputImageDir()
 {
-    return std::string(CORE_STD_REF_DIR);
+    return std::string(BATesting::CoreReferenceDir());
 }
 
 std::vector<std::string> inputImageNames()

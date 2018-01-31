@@ -32,10 +32,11 @@ BA_CORE_API_ double getRelativeDifference(
 
 BA_CORE_API_ double getRelativeDifference(const IHistogram& dat, const IHistogram& ref);
 
-BA_CORE_API_ OutputData<double>* createRelativeDifferenceData(
+#ifndef SWIG
+
+BA_CORE_API_ std::unique_ptr<OutputData<double>> createRelativeDifferenceData(
     const OutputData<double>& data, const OutputData<double>& reference);
 
-#ifndef SWIG
 //! Returns a pointer to new object with input data rotated by
 //! n*90 deg counterclockwise (n > 0) or clockwise (n < 0)
 //! Axes are swapped if the data is effectively rotated by 90 or 270 degrees

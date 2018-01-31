@@ -47,14 +47,14 @@ double IntensityDataFunctions::getRelativeDifference(
         *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()) );
 }
 
-OutputData<double>* IntensityDataFunctions::createRelativeDifferenceData(
+std::unique_ptr<OutputData<double> > IntensityDataFunctions::createRelativeDifferenceData(
     const OutputData<double>& data, const OutputData<double>& reference)
 {
     if(!data.hasSameDimensions(reference))
         throw Exceptions::RuntimeErrorException(
             "IntensityDataFunctions::createRelativeDifferenceData() -> "
             "Error. Different dimensions of data and reference.");
-    OutputData<double>* result = reference.clone();
+    std::unique_ptr<OutputData<double> > result(reference.clone());
     for(size_t i=0; i<result->getAllocatedSize(); ++i)
         (*result)[i] = Numeric::get_relative_difference(data[i], reference[i]);
     return result;

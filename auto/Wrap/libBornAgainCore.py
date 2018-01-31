@@ -20268,15 +20268,6 @@ def getRelativeDifference(*args):
     """
     return _libBornAgainCore.getRelativeDifference(*args)
 
-def createRelativeDifferenceData(data, reference):
-    """
-    createRelativeDifferenceData(IntensityData data, IntensityData reference) -> IntensityData
-
-    OutputData< double > * IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
-
-    """
-    return _libBornAgainCore.createRelativeDifferenceData(data, reference)
-
 def applyDetectorResolution(origin, resolution_function):
     """
     applyDetectorResolution(IntensityData origin, IResolutionFunction2D resolution_function) -> IntensityData

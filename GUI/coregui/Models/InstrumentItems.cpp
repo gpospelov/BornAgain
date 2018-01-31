@@ -28,6 +28,7 @@
 
 namespace {
 const QString background_group_label = "Type";
+void addAxisGroupProperty(SessionItem* parent, const QString& tag);
 }
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
@@ -89,6 +90,19 @@ InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType
     item->setToolTip("Background type");
 }
 
+const QString SpecularInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
+
+SpecularInstrumentItem::SpecularInstrumentItem()
+    : InstrumentItem(Constants::SpecularInstrumentType)
+{
+    addAxisGroupProperty(this, P_ALPHA_AXIS);
+}
+
+std::unique_ptr<Instrument> SpecularInstrumentItem::createInstrument() const
+{
+    return InstrumentItem::createInstrument();
+}
+
 const QString Instrument2DItem::P_DETECTOR = "Detector";
 
 Instrument2DItem::Instrument2DItem(const QString& modelType)
@@ -146,7 +160,14 @@ const QString OffSpecInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
 OffSpecInstrumentItem::OffSpecInstrumentItem()
     : Instrument2DItem(Constants::OffSpecInstrumentType)
 {
-    auto item = addGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
+    addAxisGroupProperty(this, P_ALPHA_AXIS);
+}
+
+namespace
+{
+void addAxisGroupProperty(SessionItem* parent, const QString& tag)
+{
+    auto item = parent->addGroupProperty(tag, Constants::BasicAxisType);
     item->setToolTip("Incoming alpha range [deg]");
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan");
@@ -156,4 +177,5 @@ OffSpecInstrumentItem::OffSpecInstrumentItem()
     item->setItemValue(BasicAxisItem::P_MIN, 0.0);
     item->setItemValue(BasicAxisItem::P_MAX, 10.0);
 }
+} // namespace
 

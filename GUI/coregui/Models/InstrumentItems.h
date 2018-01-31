@@ -43,6 +43,16 @@ protected:
     explicit InstrumentItem(const QString& modelType);
 };
 
+class BA_CORE_API_ SpecularInstrumentItem : public InstrumentItem
+{
+public:
+    static const QString P_ALPHA_AXIS;
+
+    SpecularInstrumentItem();
+
+    std::unique_ptr<Instrument> createInstrument() const override;
+};
+
 class BA_CORE_API_ Instrument2DItem : public InstrumentItem
 {
 public:

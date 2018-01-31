@@ -87,17 +87,22 @@ bool FourierTransformationTest::test_fft(const std::string& input_image_name,
         reference_fft.reset(IntensityDataIOFactory::readOutputData(reference_fft_name));
     } catch (const std::exception&) {
         std::cout << "Error: no reference fft image. Creating new one.\n";
+    }
 
+    // comparing new fft against reference fft, if exist
+    bool success(false);
+    if (reference_fft)
+        success = TestUtils::isTheSame(*fft, *reference_fft, threshold) ? true : false;
+
+    if (!success) {
         FileSystemUtils::createDirectory(outputDir());
         std::string out_fname = FileSystemUtils::jointPath(
             outputDir(), FileSystemUtils::filename(reference_fft_name));
         IntensityDataIOFactory::writeOutputData(*fft, out_fname);
         std::cout << "New fft image stored in " << out_fname << "\n";
-        return false;
     }
 
-    // comparing new fft against reference fft
-    return TestUtils::isTheSame(*fft, *reference_fft, threshold) ? true : false;
+    return success;
 }
 
 namespace
@@ -118,7 +123,7 @@ std::vector<std::string> inputImageNames()
 
 std::string fftReferenceDir()
 {
-    return std::string(CORE_SPECIAL_REF_DIR);
+    return BATesting::CoreSpecialReferenceDir();
 }
 
 std::string fftReferenceImage(const std::string& input_image)
@@ -129,7 +134,7 @@ std::string fftReferenceImage(const std::string& input_image)
 
 std::string outputDir()
 {
-    return std::string(CORE_SPECIAL_OUT_DIR);
+    return std::string(BATesting::CoreOutputDir());
 }
 
 }

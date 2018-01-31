@@ -15,40 +15,22 @@
 #ifndef INTENSITYDATAFUNCTIONS_H
 #define INTENSITYDATAFUNCTIONS_H
 
-#include <memory>
 #include "OutputData.h"
+#include <memory>
 
 class IHistogram;
-class IResolutionFunction2D;
 
 //! Functions to work with intensity data.
 //! @ingroup tools
 
-namespace IntensityDataFunctions {
+namespace IntensityDataFunctions
+{
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
-BA_CORE_API_ double getRelativeDifference(
-    const OutputData<double>& dat, const OutputData<double>& ref);
+BA_CORE_API_ double getRelativeDifference(const OutputData<double>& dat,
+                                          const OutputData<double>& ref);
 
 BA_CORE_API_ double getRelativeDifference(const IHistogram& dat, const IHistogram& ref);
-
-#ifndef SWIG
-
-BA_CORE_API_ std::unique_ptr<OutputData<double>> createRelativeDifferenceData(
-    const OutputData<double>& data, const OutputData<double>& reference);
-
-//! Returns a pointer to new object with input data rotated by
-//! n*90 deg counterclockwise (n > 0) or clockwise (n < 0)
-//! Axes are swapped if the data is effectively rotated by 90 or 270 degrees
-//! Applicable to 2D arrays only
-BA_CORE_API_ std::unique_ptr<OutputData<double>>
-createRearrangedDataSet(const OutputData<double>& data, int n);
-
-//! Returns new IntensityData objects which axes clipped to represent the specified rectangle.
-BA_CORE_API_ std::unique_ptr<OutputData<double>> createClippedDataSet(
-    const OutputData<double>& origin, double x1, double y1, double x2, double y2);
-
-#endif  // SWIG
 
 //! Transforms coordinate on axis into the bin-fraction-coordinate.
 BA_CORE_API_ double coordinateToBinf(double coordinate, const IAxis& axis);
@@ -63,23 +45,37 @@ BA_CORE_API_ void coordinateToBinf(double& x, double& y, const OutputData<double
 BA_CORE_API_ void coordinateFromBinf(double& x, double& y, const OutputData<double>& data);
 
 //! Creates a vector of vectors of double (2D Array) from OutputData.
-BA_CORE_API_ std::vector<std::vector<double>> create2DArrayfromOutputData(
-        const OutputData<double>& data);
+BA_CORE_API_ std::vector<std::vector<double>>
+create2DArrayfromOutputData(const OutputData<double>& data);
 
 //! Creates a Fourier Transform of a 2D Array (vector of vectors).
-BA_CORE_API_ std::vector<std::vector<double>> FT2DArray(
-        const std::vector<std::vector<double>>& signal);
+BA_CORE_API_ std::vector<std::vector<double>>
+FT2DArray(const std::vector<std::vector<double>>& signal);
 
 #ifndef SWIG
 
+BA_CORE_API_ std::unique_ptr<OutputData<double>>
+createRelativeDifferenceData(const OutputData<double>& data, const OutputData<double>& reference);
+
+//! Returns new object with input data rotated by
+//! n*90 deg counterclockwise (n > 0) or clockwise (n < 0)
+//! Axes are swapped if the data is effectively rotated by 90 or 270 degrees
+//! Applicable to 2D arrays only
+BA_CORE_API_ std::unique_ptr<OutputData<double>>
+createRearrangedDataSet(const OutputData<double>& data, int n);
+
+//! Returns new IntensityData objects which axes clipped to represent the specified rectangle.
+BA_CORE_API_ std::unique_ptr<OutputData<double>>
+createClippedDataSet(const OutputData<double>& origin, double x1, double y1, double x2, double y2);
+
 //! Creates OutputData from a 2D Array.
-BA_CORE_API_ std::unique_ptr<OutputData<double>> createOutputDatafrom2DArray(
-        const std::vector<std::vector<double>>& array_2d);
+BA_CORE_API_ std::unique_ptr<OutputData<double>>
+createOutputDatafrom2DArray(const std::vector<std::vector<double>>& array_2d);
 
 //! Creates Fourier Transform (OutputData format) of intensity map (OutputData format).
-BA_CORE_API_ std::unique_ptr<OutputData<double>> createFFT(const OutputData<double> &data);
+BA_CORE_API_ std::unique_ptr<OutputData<double>> createFFT(const OutputData<double>& data);
 
-#endif  // SWIG
+#endif // SWIG
 
 }; // namespace IntensityDataFunctions
 

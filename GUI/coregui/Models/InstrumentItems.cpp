@@ -31,75 +31,10 @@ const QString background_group_label = "Type";
 }
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
+const QString InstrumentItem::P_BEAM = "Beam";
+const QString InstrumentItem::P_BACKGROUND = "Background";
 
-InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType)
-{
-    setItemName(modelType);
-    addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
-
-}
-
-const QString Instrument2DItem::P_BEAM = "Beam";
-const QString Instrument2DItem::P_DETECTOR = "Detector";
-const QString Instrument2DItem::P_BACKGROUND = "Background";
-
-Instrument2DItem::Instrument2DItem(const QString& modelType)
-    : InstrumentItem(modelType)
-{
-    addGroupProperty(P_BEAM, Constants::BeamType);
-
-    addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
-
-    setDefaultTag(P_DETECTOR);
-
-    auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
-    item->setDisplayName(background_group_label);
-    item->setToolTip("Background type");
-}
-
-Instrument2DItem::~Instrument2DItem() = default;
-
-BeamItem *Instrument2DItem::beamItem() const
-{
-    return &item<BeamItem>(P_BEAM);
-}
-
-DetectorItem* Instrument2DItem::detectorItem() const
-{
-    return &groupItem<DetectorItem>(P_DETECTOR);
-}
-
-GroupItem* Instrument2DItem::detectorGroup()
-{
-    return &item<GroupItem>(P_DETECTOR);
-}
-
-BackgroundItem* Instrument2DItem::backgroundItem() const
-{
-    return &groupItem<BackgroundItem>(P_BACKGROUND);
-}
-
-GroupItem* Instrument2DItem::backgroundGroup()
-{
-    return &item<GroupItem>(P_BACKGROUND);
-}
-
-void Instrument2DItem::setDetectorGroup(const QString& modelType)
-{
-    setGroupProperty(P_DETECTOR, modelType);
-}
-
-void Instrument2DItem::clearMasks()
-{
-    detectorItem()->clearMasks();
-}
-
-void Instrument2DItem::importMasks(MaskContainerItem* maskContainer)
-{
-    detectorItem()->importMasks(maskContainer);
-}
-
-QStringList Instrument2DItem::translateList(const QStringList& list) const
+QStringList InstrumentItem::translateList(const QStringList& list) const
 {
     QStringList result;
     // Add constant background directly to simulation
@@ -117,12 +52,83 @@ QStringList Instrument2DItem::translateList(const QStringList& list) const
     return result;
 }
 
-std::unique_ptr<Instrument> Instrument2DItem::createInstrument() const
+BeamItem* InstrumentItem::beamItem() const
+{
+    return &item<BeamItem>(P_BEAM);
+}
+
+BackgroundItem* InstrumentItem::backgroundItem() const
+{
+    return &groupItem<BackgroundItem>(P_BACKGROUND);
+}
+
+GroupItem* InstrumentItem::backgroundGroup()
+{
+    return &item<GroupItem>(P_BACKGROUND);
+}
+
+std::unique_ptr<Instrument> InstrumentItem::createInstrument() const
 {
     std::unique_ptr<Instrument> result(new Instrument);
 
     auto beam = beamItem()->createBeam();
     result->setBeam(*beam);
+
+    return result;
+}
+
+InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType)
+{
+    setItemName(modelType);
+    addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
+
+    addGroupProperty(P_BEAM, Constants::BeamType);
+
+    auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
+    item->setDisplayName(background_group_label);
+    item->setToolTip("Background type");
+}
+
+const QString Instrument2DItem::P_DETECTOR = "Detector";
+
+Instrument2DItem::Instrument2DItem(const QString& modelType)
+    : InstrumentItem(modelType)
+{
+    addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+
+    setDefaultTag(P_DETECTOR);
+}
+
+Instrument2DItem::~Instrument2DItem() = default;
+
+DetectorItem* Instrument2DItem::detectorItem() const
+{
+    return &groupItem<DetectorItem>(P_DETECTOR);
+}
+
+GroupItem* Instrument2DItem::detectorGroup()
+{
+    return &item<GroupItem>(P_DETECTOR);
+}
+
+void Instrument2DItem::setDetectorGroup(const QString& modelType)
+{
+    setGroupProperty(P_DETECTOR, modelType);
+}
+
+void Instrument2DItem::clearMasks()
+{
+    detectorItem()->clearMasks();
+}
+
+void Instrument2DItem::importMasks(MaskContainerItem* maskContainer)
+{
+    detectorItem()->importMasks(maskContainer);
+}
+
+std::unique_ptr<Instrument> Instrument2DItem::createInstrument() const
+{
+    auto result = InstrumentItem::createInstrument();
 
     auto detector = detectorItem()->createDetector();
     result->setDetector(*detector);

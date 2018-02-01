@@ -8,6 +8,8 @@ from utils import get_difference
 
 from libBornAgainCore import *
 
+REFERENCE_DIR = "@TEST_REFERENCE_DIR@/Special"
+
 
 # ----------------------------------
 # describe sample and run simulation
@@ -55,7 +57,7 @@ def get_reference_data(filename):
     """
     read and return reference data from file
     """
-    return IntensityDataIOFactory.readIntensityData("@REFERENCE_DIR@/Special/"+filename)
+    return IntensityDataIOFactory.readIntensityData(os.path.join(REFERENCE_DIR,filename))
 
 # --------------------------------------------------------------
 # run test and analyse test results

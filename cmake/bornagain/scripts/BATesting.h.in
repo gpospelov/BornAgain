@@ -23,13 +23,13 @@
 
 namespace BATesting {
 
-inline std::string ReferenceDataDir() { return "@CMAKE_SOURCE_DIR@/Tests/ReferenceData"; }
-inline std::string CoreReferenceDir() { return "@CMAKE_SOURCE_DIR@/Tests/ReferenceData/StandardSuite"; }
-inline std::string CoreSpecialReferenceDir() { return "@CMAKE_SOURCE_DIR@/Tests/ReferenceData/Special"; }
+inline std::string ReferenceDataDir() { return "@TEST_REFERENCE_DIR@"; }
+inline std::string CoreReferenceDir() { return "@TEST_REFERENCE_DIR@/StandardSuite"; }
+inline std::string CoreSpecialReferenceDir() { return "@TEST_REFERENCE_DIR@/Special"; }
 
-inline std::string TestOutputDir() { return "@CMAKE_BINARY_DIR@/test_output"; }
-inline std::string CoreOutputDir() { return "@CMAKE_BINARY_DIR@/test_output/Functional/Core"; }
-inline std::string GUIOutputDir() { return "@CMAKE_BINARY_DIR@/test_output/Functional/GUI"; }
+inline std::string TestOutputDir() { return "@TEST_OUTPUT_DIR@"; }
+inline std::string CoreOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/Core"; }
+inline std::string GUIOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/GUI"; }
 
 }
 

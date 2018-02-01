@@ -22,7 +22,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Camera; class Program; class Model;

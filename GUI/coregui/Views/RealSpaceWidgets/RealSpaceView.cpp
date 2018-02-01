@@ -19,7 +19,7 @@
 
 RealSpaceView::RealSpaceView(QWidget* parent)
     : QWidget(parent)
-    , m_3dview(new ba3d::Widget3D)
+    , m_3dview(new RealSpace::Widget3D)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);

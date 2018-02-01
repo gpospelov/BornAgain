@@ -20,7 +20,7 @@
 #include <QColor>
 #include <QMatrix4x4>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Model;

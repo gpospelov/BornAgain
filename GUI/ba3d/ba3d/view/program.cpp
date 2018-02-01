@@ -16,7 +16,7 @@
 #include "camera.h"
 #include <QMatrix4x4>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Program::Program() {

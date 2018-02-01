@@ -18,7 +18,7 @@
 
 //------------------------------------------------------------------------------
 
-using namespace ba3d;
+using namespace RealSpace;
 
 static float const sz = 100; // half sz
 

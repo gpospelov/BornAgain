@@ -20,7 +20,7 @@
 #include <QMatrix4x4>
 #include <QQuaternion>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Canvas;

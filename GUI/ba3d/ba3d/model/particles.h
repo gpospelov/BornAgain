@@ -17,7 +17,7 @@
 
 #include "object.h"
 
-namespace ba3d { namespace particle {
+namespace RealSpace { namespace particle {
 //------------------------------------------------------------------------------
 
 enum class EShape {

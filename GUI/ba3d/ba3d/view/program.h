@@ -18,7 +18,7 @@
 #include "../def.h"
 #include <QOpenGLShaderProgram>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Camera;

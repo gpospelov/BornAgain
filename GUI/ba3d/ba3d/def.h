@@ -26,7 +26,7 @@
 
 #include <QVector3D>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 struct Vector3D {

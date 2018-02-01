@@ -15,7 +15,7 @@
 #include "buffer.h"
 #include "../model/geometry.h"
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Buffer::Buffer(Geometry const& geometry) {

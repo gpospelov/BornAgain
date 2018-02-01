@@ -21,7 +21,7 @@
 #include <QVector>
 #include <QHash>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Canvas;

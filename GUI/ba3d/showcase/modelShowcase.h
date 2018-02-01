@@ -20,10 +20,10 @@
 
 //------------------------------------------------------------------------------
 
-class ModelShowcase : public ba3d::Model {
+class ModelShowcase : public RealSpace::Model {
 public:
-  using Particle = ba3d::particle::Particle;
-  using kind     = ba3d::particle::EShape;
+  using Particle = RealSpace::particle::Particle;
+  using kind     = RealSpace::particle::EShape;
 
   ModelShowcase();
   void showKind(kind);

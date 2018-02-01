@@ -20,13 +20,13 @@
 
 //------------------------------------------------------------------------------
 
-class ModelLayers : public ba3d::Model {
+class ModelLayers : public RealSpace::Model {
 public:
   ModelLayers();
-  void showKind(ba3d::particle::EShape);
+  void showKind(RealSpace::particle::EShape);
 
 private:
-  QVector<ba3d::particle::Particle*> ps;
+  QVector<RealSpace::particle::Particle*> ps;
 };
 
 //------------------------------------------------------------------------------

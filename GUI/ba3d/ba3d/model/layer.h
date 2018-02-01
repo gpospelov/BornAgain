@@ -17,7 +17,7 @@
 
 #include "object.h"
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 // particle layer: a transparent box

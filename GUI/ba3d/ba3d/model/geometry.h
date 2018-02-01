@@ -19,7 +19,7 @@
 #include "geometry_inc.h"
 #include <QVector>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Buffer;

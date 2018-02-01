@@ -16,7 +16,7 @@
 
 //------------------------------------------------------------------------------
 
-using namespace ba3d;
+using namespace RealSpace;
 
 static float const R = 1;
 

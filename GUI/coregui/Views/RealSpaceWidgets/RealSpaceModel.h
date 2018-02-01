@@ -18,7 +18,7 @@
 #include "WinDllMacros.h"
 #include <ba3d/model/model.h>
 
-class RealSpaceModel : public ba3d::Model
+class RealSpaceModel : public RealSpace::Model
 {
 public:
 

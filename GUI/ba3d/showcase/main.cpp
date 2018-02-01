@@ -51,10 +51,10 @@ int App::exec() {
   w2.setModel(ml.data());
   w3.setModel(ms.data());
 
-  w2.cam().lookAt(ba3d::Camera::pos_t(
-    ba3d::Vector3D::_z*90, ba3d::Vector3D(0,0,0), ba3d::Vector3D::_y));
+  w2.cam().lookAt(RealSpace::Camera::pos_t(
+    RealSpace::Vector3D::_z*90, RealSpace::Vector3D(0,0,0), RealSpace::Vector3D::_y));
 
-  connect(&win, &MainWindow::showKind, [&](ba3d::particle::EShape kind) {
+  connect(&win, &MainWindow::showKind, [&](RealSpace::particle::EShape kind) {
     ml->showKind(kind); ms->showKind(kind);
   });
 

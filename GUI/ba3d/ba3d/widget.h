@@ -18,7 +18,7 @@
 #include "def.h"
 #include <QWidget>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Model;

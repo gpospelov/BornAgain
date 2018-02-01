@@ -17,7 +17,7 @@
 #include "geometry.h"
 #include "../view/canvas.h"
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 #ifdef Q_OS_LINUX

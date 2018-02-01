@@ -14,7 +14,7 @@
 
 #include "../geometry.h"
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Geometry::mesh_t Geometry::meshBox() {

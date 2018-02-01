@@ -22,7 +22,7 @@
 #include <QMouseEvent>
 #include <qmath.h>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Canvas::Canvas()

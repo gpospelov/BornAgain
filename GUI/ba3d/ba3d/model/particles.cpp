@@ -16,7 +16,7 @@
 #include <qmath.h>
 #include <math.h>
 
-namespace ba3d { namespace particle {
+namespace RealSpace { namespace particle {
 //------------------------------------------------------------------------------
 
 QString const& name(EShape k) {

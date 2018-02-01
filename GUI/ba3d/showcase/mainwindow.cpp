@@ -46,7 +46,7 @@ void MainWindow::createLayout() {
   centralWidget()->setLayout(hb);
 
   // the thing
-  hb->addWidget((w3d_1 = new ba3d::Widget3D));
+  hb->addWidget((w3d_1 = new RealSpace::Widget3D));
   hb->setStretchFactor(w3d_1, 2);
   w3d_1->setBackground(palette().color(QPalette::Background));
 
@@ -54,16 +54,16 @@ void MainWindow::createLayout() {
   hb->addLayout(vb);
   hb->setStretchFactor(vb, 1);
 
-  vb->addWidget((w3d_2 = new ba3d::Widget3D));
+  vb->addWidget((w3d_2 = new RealSpace::Widget3D));
   vb->setStretchFactor(w3d_2, 1);
 
-  vb->addWidget((w3d_3 = new ba3d::Widget3D));
+  vb->addWidget((w3d_3 = new RealSpace::Widget3D));
   vb->setStretchFactor(w3d_3, 1);
 
   vb->addWidget((combo = new QComboBox));
 
   {
-    using namespace ba3d::particle;
+    using namespace RealSpace::particle;
     connect(combo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), [&](int i) {
       emit showKind(EShape(int(Particle::firstKind)+i));
     });

@@ -49,7 +49,7 @@ void MainWindow::createLayout() {
   auto vb = new QVBoxLayout;
   centralWidget()->setLayout(vb);
 
-  vb->addWidget((w3d = new ba3d::Widget3D));
+  vb->addWidget((w3d = new RealSpace::Widget3D));
 
 #ifdef Q_OS_OSX
   QColor clrBg(160,160,160);

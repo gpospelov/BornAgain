@@ -25,10 +25,10 @@
 
 void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item)
 {
-    model->defCamPos = ba3d::Camera::pos_t(
-        ba3d::Vector3D(-10, -140, 20),   // eye
-        ba3d::Vector3D(0, 0, -30),       // center
-        ba3d::Vector3D::_z);             // up vector
+    model->defCamPos = RealSpace::Camera::pos_t(
+        RealSpace::Vector3D(-10, -140, 20),   // eye
+        RealSpace::Vector3D(0, 0, -30),       // center
+        RealSpace::Vector3D::_z);             // up vector
 
     if (item.modelType() == Constants::MultiLayerType)
         populateMultiLayer(model, item);
@@ -86,7 +86,7 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model, const SessionItem
     auto particle = TransformTo3D::createParticle(particleItem);
 
     if (particle) {
-        particle->transform(ba3d::Vector3D::_0, ba3d::Vector3D(origin.x(), origin.y(), origin.z()));
+        particle->transform(RealSpace::Vector3D::_0, RealSpace::Vector3D(origin.x(), origin.y(), origin.z()));
         model->add(particle.release());
     }
 }

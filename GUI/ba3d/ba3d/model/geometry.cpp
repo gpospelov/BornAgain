@@ -15,7 +15,7 @@
 #include "geometry.h"
 #include "model.h"
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Geometry::vn_t::vn_t(const Vector3D& v_, const Vector3D& n_) : v(v_), n(n_) {}

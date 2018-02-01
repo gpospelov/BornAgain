@@ -14,7 +14,7 @@
 
 #include "camera.h"
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Camera::Camera()

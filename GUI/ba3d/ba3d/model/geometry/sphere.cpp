@@ -15,7 +15,7 @@
 #include "../geometry.h"
 #include <qmath.h>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 // cut: 0..1 - how much is cut off off the bottom

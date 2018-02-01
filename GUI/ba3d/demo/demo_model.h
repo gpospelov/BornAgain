@@ -22,12 +22,12 @@
 
 //------------------------------------------------------------------------------
 
-class DemoModel : public ba3d::Model {
+class DemoModel : public RealSpace::Model {
 public:
-  using super = ba3d::Model;
+  using super = RealSpace::Model;
 
-  using Particle = ba3d::particle::Particle;
-  using Camera   = ba3d::Camera;
+  using Particle = RealSpace::particle::Particle;
+  using Camera   = RealSpace::Camera;
 
   DemoModel();
 
@@ -38,7 +38,7 @@ public:
   void square(float sigma);
   void one();
   void oneOut();
-  void oneIn(ba3d::particle::EShape);
+  void oneIn(RealSpace::particle::EShape);
 
   void setCameraTop(bool animate = false);
   void setCameraSide(bool animate = false);
@@ -64,10 +64,10 @@ private:
   Camera::pos_t camPos;
 
 private:
-  void addLayer(ba3d::Range, QColor);
+  void addLayer(RealSpace::Range, QColor);
 
   QVector<Particle*> ps;
-  Particle* p; ba3d::particle::EShape kind = ba3d::particle::EShape::None;
+  Particle* p; RealSpace::particle::EShape kind = RealSpace::particle::EShape::None;
 
   Lattice activeMesh;
 

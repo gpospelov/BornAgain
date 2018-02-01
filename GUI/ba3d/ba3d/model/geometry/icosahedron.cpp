@@ -16,7 +16,7 @@
 #include <qmath.h>
 #include <QQuaternion>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Geometry::mesh_t Geometry::meshIcosahedron() {

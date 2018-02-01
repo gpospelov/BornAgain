@@ -20,7 +20,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLVertexArrayObject>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Geometry;

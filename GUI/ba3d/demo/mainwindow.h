@@ -30,7 +30,7 @@ class MainWindow : public QMainWindow
 public:
   MainWindow();
 
-  ba3d::Widget3D& widg3t() {
+  RealSpace::Widget3D& widg3t() {
     return *w3d;
   }
 
@@ -39,7 +39,7 @@ private:
   void keyPressEvent(QKeyEvent*);
 
   void createLayout();
-  ba3d::Widget3D *w3d;
+  RealSpace::Widget3D *w3d;
 
   class DemoModel* model();
 };

@@ -15,7 +15,7 @@
 #include "model.h"
 #include "geometry.h"
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Model::Model() : defCamPos(Vector3D::_1, Vector3D::_0, Vector3D::_z) {}

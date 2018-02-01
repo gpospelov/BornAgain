@@ -20,7 +20,7 @@
 
 //------------------------------------------------------------------------------
 
-using namespace ba3d;
+using namespace RealSpace;
 
 DemoModel::DemoModel() {
   setCameraSide();

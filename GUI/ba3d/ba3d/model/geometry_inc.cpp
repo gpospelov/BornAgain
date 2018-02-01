@@ -15,7 +15,7 @@
 #include "geometry_inc.h"
 #include <qmath.h>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 float const geometry::goldenRatio     = float(1 + qSqrt(5)) / 2;

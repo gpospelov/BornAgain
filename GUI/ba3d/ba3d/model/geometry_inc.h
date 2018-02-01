@@ -20,7 +20,7 @@
 
 // include to use geometry basics, without details
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Geometry;

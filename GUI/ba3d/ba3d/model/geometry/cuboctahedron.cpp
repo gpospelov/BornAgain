@@ -15,7 +15,7 @@
 #include "../geometry.h"
 #include <qmath.h>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Geometry::mesh_t Geometry::meshCuboctahedron(float rH, float alpha) { // t/D

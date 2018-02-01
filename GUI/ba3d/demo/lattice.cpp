@@ -43,7 +43,7 @@ int Lattice::iy(uint i) {
 }
 
 Lattice squareLattice(uint n, float sigma) {
-  using ba3d::Vector3D;
+  using RealSpace::Vector3D;
 
   auto rand01 = [&]() -> float {
     static bool seeded = false;

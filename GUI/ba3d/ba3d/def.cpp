@@ -17,7 +17,7 @@
 static_assert(QT_VERSION >= QT_VERSION_CHECK(5,5,1),
               "requires Qt >= 5.5.1, have " QT_VERSION_STR);
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Vector3D::Vector3D() : Vector3D(0,0,0) {}
@@ -40,7 +40,7 @@ Vector3D Vector3D::interpolateTo(const Vector3D& to, float rat) const {
   return *this * (1 - rat) + to * rat;
 }
 
-ba3d::Vector3D::operator QVector3D() const {
+RealSpace::Vector3D::operator QVector3D() const {
   return QVector3D(x, y, z);
 }
 

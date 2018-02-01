@@ -2,13 +2,13 @@
 # Tests/Functional/PyCore/scripts/CMakeLists.txt
 ############################################################################
 
+set(output_dir ${TEST_OUTPUT_DIR}/Functional/Python/PyCore)
+file(MAKE_DIRECTORY ${output_dir})
+
 file(GLOB sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.py")
 if(NOT BORNAGAIN_TIFF_SUPPORT)
     list(REMOVE_ITEM sources "intensitydata_io_tiff.py")
 endif()
-
-set(output_dir ${TEST_OUTPUT_DIR}/Functional/Python/PyCore)
-file(MAKE_DIRECTORY ${output_dir})
 
 foreach(_src ${sources})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${_src}

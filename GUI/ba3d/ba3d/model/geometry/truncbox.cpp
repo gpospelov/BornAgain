@@ -30,7 +30,7 @@ Geometry::mesh_t Geometry::meshTruncBox(flt tD) { // t/D
   auto side = [&](int ax, int ay, int az, int bx, int by, int bz,
                   xyz::rc d, bool rev) {
     xyz_vec vs_(8);
-    for_i (8)
+    for(int i=0; i<8; ++i)
       vs_[rev ? 7-i : i] =
         xyz(ax*as.at(i) + bx*bs.at(i),
             ay*as.at(i) + by*bs.at(i),

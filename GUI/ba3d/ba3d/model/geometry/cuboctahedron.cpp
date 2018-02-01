@@ -27,7 +27,7 @@ Geometry::mesh_t Geometry::meshCuboctahedron(flt rH, flt alpha) { // t/D
 
   xyz_vec vs_; vs_.reserve(12);
   flt z[] = {-D, H-D, +D}, d[] = {Db, D, Dt};
-  for_i (3)
+  for(int i=0; i<3; ++i)
     for (int x : {-1, +1})
       for (int y : {-1, +1}) {
         flt di = d[i];

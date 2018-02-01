@@ -28,7 +28,7 @@ Geometry::mesh_t Geometry::meshColumn(flt alpha, flt numSides) {
   // mesh of vertices and normals
   xyz_vec vb(slices), vt(slices), nbt(slices);
   flt const nz = (1 - Rt/Rb)*2*R;
-  for_int (s, slices) {
+  for(int s=0; s < slices; ++s) {
     flt th = flt(2*M_PI*s/slices), st = sinf(th), ct = cosf(th);
     xyz vb_(Rb*ct, Rb*st, -R), vt_(Rt*ct, Rt*st, +R);
     vb[s] = vb_; vt[s] = vt_;
@@ -41,7 +41,7 @@ Geometry::mesh_t Geometry::meshColumn(flt alpha, flt numSides) {
   xyz_vec vs; vs.reserve(nv);
   xyz_vec ns; if (smooth) ns.reserve(nv);
 
-  for_int (s, slices) {
+  for(int s=0; s < slices; ++s) {
     int s1 = s, s2 = (s+1) % slices;
 
     vs.addTrig(vb.at(s1), xyz(0,0,-R), vb.at(s2));          // bottom

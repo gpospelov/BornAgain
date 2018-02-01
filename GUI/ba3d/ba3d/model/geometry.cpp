@@ -21,7 +21,7 @@ namespace ba3d {
 Geometry::vn_t::vn_t(xyz::rc v_, xyz::rc n_) : v(v_), n(n_) {}
 
 void Geometry::xyz_vec::addVert(xyz::rc v, int n) {
-  for_i (n)
+  for(int i=0; i<n; ++i)
     append(v);
 }
 
@@ -41,7 +41,7 @@ void Geometry::xyz_vec::addQuad(Geometry::xyz_vec::rc vs,
 
 void Geometry::xyz_vec::addStrip(xyz_vec::rc vs, idx_vec::rc is) {
   Q_ASSERT(is.count() >= 3); // at least one triangle
-  for_i (is.count() - 2)
+  for(int i=0; i<is.count()-2; ++i)
     if (i%2)
       addTrig(vs.at(is.at(i)), vs.at(is.at(1+i)), vs.at(is.at(2+i)));
     else
@@ -51,7 +51,7 @@ void Geometry::xyz_vec::addStrip(xyz_vec::rc vs, idx_vec::rc is) {
 void Geometry::xyz_vec::addFan(xyz_vec::rc vs, idx_vec::rc is) {
   Q_ASSERT(is.count() >= 3); // at least one triangle
   auto &ctr = vs.at(is.at(0));
-  for_i (is.count() - 2)
+  for(int i=0; i<is.count()-2; ++i)
     addTrig(ctr, vs.at(is.at(1+i)),
                  vs.at(is.at(2+i)));
 }

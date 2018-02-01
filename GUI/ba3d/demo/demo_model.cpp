@@ -100,8 +100,8 @@ void DemoModel::square(float sigma) {
     for (uint i=0; i < uint(ps.count()); ++i)
       ps.at(i)->transform(xyz::_0, activeMesh.at(i));
 
-    uint const steps = 20;
-    for_int (s, steps + 1) {
+    int const steps = 20;
+    for(int s=0; s < steps + 1; ++s) {
       for (uint i=0; i < uint(ps.count()); ++i)
         ps.at(i)->fancy(xyz::_0, flt(s) / steps);
       snooze(false);
@@ -111,8 +111,8 @@ void DemoModel::square(float sigma) {
     auto home = squareLattice(n, 0), from = activeMesh;
     for (auto& m: home)
       m = m  * spacing + xyz(0, 0, -20);
-    uint const steps = 30;
-    for_int (s, steps + 1) {
+    int const steps = 30;
+    for(int s=0; s < steps + 1; ++s) {
       for (uint i=0; i < uint(ps.count()); ++i)
         ps.at(i)->transform(xyz::_0, from.at(i).interpolateTo(home.at(i), flt(s)/steps));
       snooze(false);
@@ -166,8 +166,8 @@ void DemoModel::one() {
 }
 
 void DemoModel::oneOut() {
-  uint const steps = 40;
-  for_i (steps + 1) {
+  int const steps = 40;
+  for(int i=0; i<steps+1; ++i) {
     flt a = 360.f / steps * i / 3;
     p->fancy(xyz(a, a, a), flt(steps-i) / steps);
     snooze(false);
@@ -182,8 +182,8 @@ void DemoModel::oneIn(particle::kind kind) {
 #endif
   p->transform(xyz::_0, xyz(0, 0, -hgtLayer));
 
-  uint const steps = 140;
-  for_i (steps + 1) {
+  int const steps = 140;
+  for(int i=0; i<steps+1; ++i) {
     flt a = 360.f / steps * i;
     p->fancy(xyz(a*2, a, a), flt(i) / steps);
     snooze(false);
@@ -206,8 +206,8 @@ void DemoModel::setCamera(Camera::pos_t::rc to, bool animate) {
   if (animate) {
     auto from = camPos;
 
-    uint const frames = 45;
-    for_i (frames + 1) {
+    int const frames = 45;
+    for(int i=0; i<frames+1; ++i) {
       defCamPos = from.interpolateTo(to, flt(i) / frames);
       snooze(true);
     }

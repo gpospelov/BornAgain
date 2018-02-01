@@ -50,9 +50,9 @@ void ModelLayers::showKind(particle::kind k) {
 
   flt z[] = {-10, -30, -45};
   ps.reserve(3*9*9);
-  for_int (i, 9)
-    for_int (j, 9)
-      for_int (zi, 3) {
+  for(int i=0; i<9; ++i)
+    for(int j=0; j<9; ++j)
+      for(int zi=0; zi<3; ++zi) {
         auto p = ModelShowcase::newParticle(k, 3);
         add(p); ps.append(p);
         p->transform(xyz::_0, xyz((i-4)*sz/10, (j-4)*sz/10, z[zi]+.001f));

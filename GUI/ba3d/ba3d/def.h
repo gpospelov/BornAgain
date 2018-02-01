@@ -21,24 +21,6 @@
 #pragma GCC diagnostic ignored "-Wfloat-equal"
 #endif
 
-// a handy iteration support
-#ifdef __GNUC__
-
-template <typename T> struct mut_typ          { typedef T typ; };
-template <typename T> struct mut_typ<T const> { typedef T typ; };
-
-#define for_int(i, n) \
-  for (mut_typ<decltype(n)>::typ i = decltype(n)(0), i##End = (n); i < i##End; ++i)
-
-#else // msvc fails the above
-
-#define for_int(i, n) \
-  for (int i = 0, i##End = (n); i < i##End; ++i)
-
-#endif
-
-#define for_i(n) for_int (i, n)
-
 //------------------------------------------------------------------------------
 // coordinates
 

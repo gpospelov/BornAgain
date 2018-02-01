@@ -46,7 +46,7 @@ Geometry::mesh_t Geometry::meshDodecahedron() {
   //face down
   auto q = QQuaternion::rotationTo(-xyz::_z,
     cross(vs_.at(8)-vs_.at(0), vs_.at(10)-vs_.at(0)));
-  for_i (20)
+  for(int i=0; i<20; ++i)
     vs_[i] = q.rotatedVector(vs_.at(i));
 
   xyz_vec vs; vs.reserve(180);

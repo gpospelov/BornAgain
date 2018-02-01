@@ -51,11 +51,11 @@ Geometry::mesh_t Geometry::meshSphere(flt cut) {
 
   flt const R = .5f;
 
-  for_int (r, rings) {
+  for(int r=0; r < rings; ++r) {
     flt ph = minPh + phRge * r/rings;
     flt cp = cosf(ph), sp = sinf(ph);
 
-    for_int (s, slices) {
+    for(int s=0; s < slices; ++s) {
       flt th = flt(2*M_PI*s/slices);
       xyz v(R*cp*cosf(th), R*cp*sinf(th), R*sp);
       vs_[r][s] = v;
@@ -68,10 +68,10 @@ Geometry::mesh_t Geometry::meshSphere(flt cut) {
   xyz_vec vs; vs.reserve(nv);
   xyz_vec ns; ns.reserve(nv);
 
-  for_int (r, rings) {
+  for(int r=0; r < rings; ++r) {
     auto &vr = vs_.at(r), &nr = ns_.at(r);
 
-    for_int (s, slices) {
+    for(int s=0; s < slices; ++s) {
       int s0 = s, s1 = (s+1) % slices;
 
       auto &v0 = vr.at(s0), &v1 = vr.at(s1);

@@ -26,7 +26,7 @@ Geometry::mesh_t Geometry::meshBox() {
       for (flt z : {-D, +D})
         vs_.append(xyz(x,y,z));
 
-  ENSURE(8 == vs_.count())
+  Q_ASSERT(8 == vs_.count());
 
   xyz_vec vs; vs.reserve(36);
 
@@ -37,7 +37,7 @@ Geometry::mesh_t Geometry::meshBox() {
   vs.addQuad(vs_, 0, 4, 5, 1);
   vs.addQuad(vs_, 2, 3, 7, 6);
 
-  ENSURE(36 == vs.count())
+  Q_ASSERT(36 == vs.count());
 
   return makeMesh(vs);
 }

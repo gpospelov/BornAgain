@@ -58,7 +58,7 @@ Geometry::mesh_t Geometry::meshTruncBox(flt tD) { // t/D
       for (int z : {-1, +1})
         corner(x, y, z);
 
-  ENSURE(150 == vs.count())
+  Q_ASSERT(150 == vs.count());
 
   return makeMesh(vs);
 }

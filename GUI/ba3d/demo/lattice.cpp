@@ -28,7 +28,7 @@ uint Lattice::index(int ix, int iy) {
   Q_ASSERT(-nx <= ix && ix <= +nx);
   Q_ASSERT(-ny <= iy && iy <= +ny);
   uint i = (2*nx + 1) * (iy + ny) + (ix + nx);
-  ENSURE (static_cast<int>(i) < count())
+  Q_ASSERT(static_cast<int>(i) < count());
   return i;
 }
 

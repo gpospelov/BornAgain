@@ -21,25 +21,6 @@
 #pragma GCC diagnostic ignored "-Wfloat-equal"
 #endif
 
-// debug support
-#ifndef NDEBUG
-
-// trace print
-#include <QDebug>
-#define TR(what) qDebug() << what;
-
-#else
-
-#define TR(what) ;
-
-#endif
-
-// trace print
-#define WT(what) TR(#what << what)
-
-// invariant
-#define ENSURE(cond) Q_ASSERT(cond);
-
 // a handy iteration support
 #ifdef __GNUC__
 

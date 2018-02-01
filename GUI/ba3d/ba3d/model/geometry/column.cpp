@@ -59,8 +59,8 @@ Geometry::mesh_t Geometry::meshColumn(flt alpha, flt numSides) {
     }
   }
 
-  ENSURE(vs.count() == nv)
-  ENSURE(!smooth || ns.count() == nv)
+  Q_ASSERT(vs.count() == nv);
+  Q_ASSERT(!smooth || ns.count() == nv);
 
   return makeMesh(vs, smooth ? &ns : nullptr);
 }

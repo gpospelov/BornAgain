@@ -34,7 +34,7 @@ Geometry::mesh_t Geometry::meshCuboctahedron(flt rH, flt alpha) { // t/D
         vs_.append(xyz(x*di, y*di, z[i]));
       }
 
-  ENSURE(12 == vs_.count())
+  Q_ASSERT(12 == vs_.count());
 
   xyz_vec vs; vs.reserve(60);
 
@@ -49,7 +49,7 @@ Geometry::mesh_t Geometry::meshCuboctahedron(flt rH, flt alpha) { // t/D
   vs.addQuad(vs_, 7, 11, 10, 6);
   vs.addQuad(vs_, 6, 10,  8, 4);
 
-  ENSURE(60 == vs.count())
+  Q_ASSERT(60 == vs.count());
 
   return makeMesh(vs);
 }

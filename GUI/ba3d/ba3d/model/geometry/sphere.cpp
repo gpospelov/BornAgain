@@ -23,7 +23,7 @@ Geometry::mesh_t Geometry::meshSphere(flt cut) {
   if (1 <= cut)
     return mesh_t();
   cut = qMax(0.f, cut);
-  ENSURE(0 <= cut && cut < 1)
+  Q_ASSERT(0 <= cut && cut < 1);
 
   // 'rings' is 1 less than actual rings (due to poles)
   int rings, slices = SLICES;
@@ -39,8 +39,8 @@ Geometry::mesh_t Geometry::meshSphere(flt cut) {
     phRge = flt(M_PI_2) - minPh;
   }
 
-  ENSURE(qAbs(minPh) < flt(M_PI_2))
-  ENSURE(1 <= rings && 2 <= slices)
+  Q_ASSERT(qAbs(minPh) < flt(M_PI_2));
+  Q_ASSERT(1 <= rings && 2 <= slices);
 
   // meshes of vertices and normals, without poles, _[ring][slice]
   QVector<xyz_vec> vs_(rings), ns_(rings);

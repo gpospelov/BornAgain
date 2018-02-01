@@ -32,7 +32,7 @@ Geometry::mesh_t Geometry::meshIcosahedron() {
       vs_.append(q.rotatedVector(xyz(g, 0, _1)));
     }
 
-  ENSURE(12 == vs_.count())
+  Q_ASSERT(12 == vs_.count());
 
   // scale to circumscribed sphere
   flt const F = .5f / vs_.at(0).length();
@@ -45,7 +45,7 @@ Geometry::mesh_t Geometry::meshIcosahedron() {
   vs.addFan(vs_, {9, 3, 11, 10, 4, 8, 3});
   vs.addStrip(vs_, {1, 3, 7, 11, 5, 10, 6, 4, 2, 8, 1, 3});
 
-  ENSURE(60 == vs.count())
+  Q_ASSERT(60 == vs.count());
 
   return makeMesh(vs);
 }

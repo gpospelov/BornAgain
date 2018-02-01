@@ -36,7 +36,7 @@ Geometry::mesh_t Geometry::meshDodecahedron() {
       vs_.append(xyz(g, 0, g1));
     }
 
-  ENSURE(20 == vs_.count())
+  Q_ASSERT(20 == vs_.count());
 
   // scale to circumscribed sphere
   flt const F = .5f / vs_.at(0).length();
@@ -69,7 +69,7 @@ Geometry::mesh_t Geometry::meshDodecahedron() {
   add5( 4, 13, 19,  5, 15);
   add5( 4,  8, 14,  6, 13);  // top
 
-  ENSURE(144 == vs.count())
+  Q_ASSERT(144 == vs.count());
 
   return makeMesh(vs);
 }

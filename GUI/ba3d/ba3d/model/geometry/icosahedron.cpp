@@ -20,13 +20,13 @@ namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Geometry::mesh_t Geometry::meshIcosahedron() {
-  float const G = geometry::GoldenRatio;
+  const float GR = GoldenRatio;
 
-  auto q = QQuaternion::rotationTo(-Vector3D::_z, Vector3D(0,1,-G));
+  auto q = QQuaternion::rotationTo(-Vector3D::_z, Vector3D(0,1,-GR));
 
   xyz_vec vs_; vs_.reserve(12);
   for (float _1 : {-1, +1})
-    for (float g : {-G, +G}) {
+    for (float g : {-GR, +GR}) {
       vs_.append(q.rotatedVector(Vector3D(0, _1, g)));
       vs_.append(q.rotatedVector(Vector3D(_1, g, 0)));
       vs_.append(q.rotatedVector(Vector3D(g, 0, _1)));

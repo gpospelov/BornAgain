@@ -28,6 +28,11 @@ class Geometry;
 typedef QSharedPointer<Geometry> shGeo;
 typedef QWeakPointer<Geometry>   wkGeo;
 
+// some useful constants:
+extern const float GoldenRatio;
+extern const float IcosahedronL2R;  // L/R conversion
+extern const float DodecahedronL2R;
+
 namespace geometry {
 
 // geometry enumerated id
@@ -35,10 +40,6 @@ enum class eid { Plane, Box, Sphere, Column,
                  Icosahedron, Dodecahedron, TruncatedBox,
                  Cuboctahedron };
 
-// these come useful
-extern float const GoldenRatio;
-extern float const IcosahedronL2R;  // L/R conversion
-extern float const DodecahedronL2R;
 
 // geometries may have 1 or 2 float parameters; together with eid -> hash key
 struct key {

@@ -20,8 +20,8 @@ namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Geometry::mesh_t Geometry::meshDodecahedron() {
-  float const G  = geometry::GoldenRatio,
-            G1 = 1/G;
+  const float GR  = GoldenRatio,
+            G1 = 1/GR;
 
   xyz_vec vs_; vs_.reserve(20);
   for (float x : {-1, +1})
@@ -30,7 +30,7 @@ Geometry::mesh_t Geometry::meshDodecahedron() {
         vs_.append(Vector3D(x,y,z));
 
   for (float g1 : {-G1, +G1})
-    for (float g : {-G, +G}) {
+    for (float g : {-GR, +GR}) {
       vs_.append(Vector3D(0, g1, g));
       vs_.append(Vector3D(g1, g, 0));
       vs_.append(Vector3D(g, 0, g1));

@@ -29,6 +29,7 @@ inline std::string CoreSpecialReferenceDir() { return "@CMAKE_SOURCE_DIR@/Tests/
 
 inline std::string TestOutputDir() { return "@CMAKE_BINARY_DIR@/test_output"; }
 inline std::string CoreOutputDir() { return "@CMAKE_BINARY_DIR@/test_output/Functional/Core"; }
+inline std::string GUIOutputDir() { return "@CMAKE_BINARY_DIR@/test_output/Functional/GUI"; }
 
 }
 

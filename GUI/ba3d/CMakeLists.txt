@@ -24,5 +24,3 @@ add_subdirectory (demo)
 set(library_name ba3d)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
-
-# eof

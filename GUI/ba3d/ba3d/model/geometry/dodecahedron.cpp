@@ -20,7 +20,7 @@ namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Geometry::mesh_t Geometry::meshDodecahedron() {
-  float const G  = geometry::goldenRatio,
+  float const G  = geometry::GoldenRatio,
             G1 = 1/G;
 
   xyz_vec vs_; vs_.reserve(20);

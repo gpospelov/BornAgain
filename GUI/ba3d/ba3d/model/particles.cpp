@@ -94,14 +94,14 @@ Cone::Cone(float R, float H, float alpha)
 Icosahedron::Icosahedron(float L)
 : Particle(key(eid::Icosahedron)) {
   isNull = (L <= 0);
-  float R = L / icosahedronL2R;
+  float R = L / IcosahedronL2R;
   scale  = Vector3D(R*2, R*2, R*2); offset = Vector3D(0, 0, R); set();
 }
 
 Dodecahedron::Dodecahedron(float L)
 : Particle(key(eid::Dodecahedron)) {
   isNull = (L <= 0);
-  float R = L / dodecahedronL2R;
+  float R = L / DodecahedronL2R;
   scale  = Vector3D(R*2, R*2, R*2); offset = Vector3D(0, 0, R); set();
 }
 

@@ -18,9 +18,9 @@
 namespace RealSpace {
 //------------------------------------------------------------------------------
 
-float const geometry::goldenRatio     = float(1 + qSqrt(5)) / 2;
-float const geometry::icosahedronL2R  = float(4 / (10 + 2*qSqrt(5)));
-float const geometry::dodecahedronL2R = float(4 / qSqrt(3) / (1+qSqrt(5)));
+float const geometry::GoldenRatio     = float(1 + qSqrt(5)) / 2;
+float const geometry::IcosahedronL2R  = float(4 / (10 + 2*qSqrt(5)));
+float const geometry::DodecahedronL2R = float(4 / qSqrt(3) / (1+qSqrt(5)));
 
 //------------------------------------------------------------------------------
 

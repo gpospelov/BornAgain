@@ -20,7 +20,7 @@ namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Geometry::mesh_t Geometry::meshIcosahedron() {
-  float const G = geometry::goldenRatio;
+  float const G = geometry::GoldenRatio;
 
   auto q = QQuaternion::rotationTo(-Vector3D::_z, Vector3D(0,1,-G));
 

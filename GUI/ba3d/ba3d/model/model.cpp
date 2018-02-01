@@ -65,9 +65,9 @@ Particles::Particle* Model::newParticle(Particles::EShape k, float R) {
   case EShape::Cone:
     return new Cone(R, D, 1.3f);
   case EShape::Icosahedron:
-    return new Icosahedron(R * geometry::icosahedronL2R);
+    return new Icosahedron(R * geometry::IcosahedronL2R);
   case EShape::Dodecahedron:
-    return new Dodecahedron(R * geometry::dodecahedronL2R);
+    return new Dodecahedron(R * geometry::DodecahedronL2R);
   case EShape::TruncatedCube:
     return new TruncatedCube(D, D/3);
   case EShape::Prism6:

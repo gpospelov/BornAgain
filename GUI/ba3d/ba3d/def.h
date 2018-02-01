@@ -60,9 +60,6 @@ template <typename T> struct mut_typ<T const> { typedef T typ; };
 
 #define for_i(n) for_int (i, n)
 
-// typedef for a base class
-#define BASE(cls) using base = cls;
-
 //------------------------------------------------------------------------------
 // coordinates
 

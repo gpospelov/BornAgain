@@ -26,7 +26,8 @@ class Canvas;
 class Camera;
 class Program;
 
-class Widget3D : public QWidget { BASE(QWidget)
+class Widget3D : public QWidget
+{
   Q_OBJECT
 public:
   Widget3D();

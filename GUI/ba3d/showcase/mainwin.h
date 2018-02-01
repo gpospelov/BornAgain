@@ -23,8 +23,9 @@
 
 class QComboBox;
 
-class MainWin : public QMainWindow { BASE(QMainWindow)
-  Q_OBJECT
+class MainWin : public QMainWindow
+{
+    Q_OBJECT
 public:
   MainWin();
 

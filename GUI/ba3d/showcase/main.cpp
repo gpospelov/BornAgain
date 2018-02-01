@@ -22,7 +22,8 @@
 
 //------------------------------------------------------------------------------
 
-class App : public QApplication { BASE(QApplication)
+class App : public QApplication
+{
 public:
   App(int& argc, char* argv[]);
  ~App();
@@ -30,7 +31,7 @@ public:
   int exec();
 };
 
-App::App(int& argc, char* argv[]) : base(argc, argv) {
+App::App(int& argc, char* argv[]) : QApplication(argc, argv) {
   setOrganizationName("c53");
   setApplicationName("ba3d");
 }
@@ -57,7 +58,7 @@ int App::exec() {
     ml->showKind(kind); ms->showKind(kind);
   });
 
-  return base::exec();
+  return QApplication::exec();
 }
 
 //------------------------------------------------------------------------------

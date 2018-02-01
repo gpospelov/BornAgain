@@ -29,7 +29,6 @@ class Camera; class Program; class Model;
 class Geometry; class Buffer; class Object;
 
 class Canvas: public QOpenGLWidget, protected QOpenGLFunctions {
-  BASE(QOpenGLWidget)
   Q_OBJECT
   friend class Object;
 public:

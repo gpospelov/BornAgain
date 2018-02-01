@@ -32,7 +32,8 @@ QString const& name(kind);
 
 //------------------------------------------------------------------------------
 
-class Particle : public Object { BASE(Object)
+class Particle : public Object
+{
 protected:
   Particle(geometry::key);
   xyz turn,   // turn before scale

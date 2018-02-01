@@ -21,7 +21,8 @@
 
 //------------------------------------------------------------------------------
 
-class App : public QApplication { BASE(QApplication)
+class App : public QApplication
+{
 public:
   App(int& argc, char* argv[]);
  ~App();
@@ -29,7 +30,7 @@ public:
   int exec();
 };
 
-App::App(int& argc, char* argv[]) : base(argc, argv) {
+App::App(int& argc, char* argv[]) : QApplication(argc, argv) {
   setOrganizationName("c53");
   setApplicationName("ba3d");
 }
@@ -43,7 +44,7 @@ int App::exec() {
   QScopedPointer<DemoModel> model(new DemoModel);
   win.widg3t().setModel(model.data());
 
-  return base::exec();
+  return QApplication::exec();
 }
 
 //------------------------------------------------------------------------------

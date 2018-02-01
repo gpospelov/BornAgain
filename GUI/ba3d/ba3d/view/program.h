@@ -24,7 +24,8 @@ namespace ba3d {
 class Camera;
 class Canvas;
 
-class Program: public QOpenGLShaderProgram { BASE(QOpenGLShaderProgram)
+class Program: public QOpenGLShaderProgram
+{
   friend class Canvas;
 public:
   Program();

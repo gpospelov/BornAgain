@@ -24,7 +24,8 @@
 
 class QSlider;
 
-class MainWin : public QMainWindow { BASE(QMainWindow)
+class MainWin : public QMainWindow
+{
   Q_OBJECT
 public:
   MainWin();

@@ -21,7 +21,8 @@ namespace ba3d {
 //------------------------------------------------------------------------------
 
 // particle layer: a transparent box
-class Layer : public Object { BASE(Object)
+class Layer : public Object
+{
 public:
   Layer(dxyz);
 };

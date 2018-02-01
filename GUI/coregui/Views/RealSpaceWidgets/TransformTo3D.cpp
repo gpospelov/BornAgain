@@ -76,12 +76,12 @@ std::unique_ptr<RealSpace::Layer> TransformTo3D::createLayer(const SessionItem& 
 }
 
 
-std::unique_ptr<RealSpace::particle::Particle>
+std::unique_ptr<RealSpace::Particles::Particle>
 TransformTo3D::createParticle(const SessionItem& particleItem)
 {
     Q_ASSERT(particleItem.modelType() == Constants::ParticleType);
 
-    std::unique_ptr<RealSpace::particle::Particle> result;
+    std::unique_ptr<RealSpace::Particles::Particle> result;
 
     auto ffItem = static_cast<FormFactorItem*>(
                 particleItem.getGroupItem(ParticleItem::P_FORM_FACTOR));
@@ -89,14 +89,14 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
     if(ffItem->modelType() == Constants::CylinderType) {
         double radius = ffItem->getItemValue(CylinderItem::P_RADIUS).toDouble();
         double height = ffItem->getItemValue(CylinderItem::P_HEIGHT).toDouble();
-        result = std::make_unique<RealSpace::particle::Cylinder>(radius, height);
+        result = std::make_unique<RealSpace::Particles::Cylinder>(radius, height);
     }
 
     else if(ffItem->modelType() == Constants::BoxType) {
         double length = ffItem->getItemValue(BoxItem::P_LENGTH).toDouble();
         double width = ffItem->getItemValue(BoxItem::P_WIDTH).toDouble();
         double height = ffItem->getItemValue(BoxItem::P_HEIGHT).toDouble();
-        result = std::make_unique<RealSpace::particle::Box>(length, width, height);
+        result = std::make_unique<RealSpace::Particles::Box>(length, width, height);
     }
 
     if(result) {

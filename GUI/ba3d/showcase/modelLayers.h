@@ -23,10 +23,10 @@
 class ModelLayers : public RealSpace::Model {
 public:
   ModelLayers();
-  void showKind(RealSpace::particle::EShape);
+  void showKind(RealSpace::Particles::EShape);
 
 private:
-  QVector<RealSpace::particle::Particle*> ps;
+  QVector<RealSpace::Particles::Particle*> ps;
 };
 
 //------------------------------------------------------------------------------

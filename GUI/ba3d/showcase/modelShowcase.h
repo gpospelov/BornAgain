@@ -22,8 +22,8 @@
 
 class ModelShowcase : public RealSpace::Model {
 public:
-  using Particle = RealSpace::particle::Particle;
-  using kind     = RealSpace::particle::EShape;
+  using Particle = RealSpace::Particles::Particle;
+  using kind     = RealSpace::Particles::EShape;
 
   ModelShowcase();
   void showKind(kind);

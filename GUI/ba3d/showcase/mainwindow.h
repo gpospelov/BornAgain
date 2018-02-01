@@ -42,7 +42,7 @@ public:
   }
 
 signals:
-  void showKind(RealSpace::particle::EShape);
+  void showKind(RealSpace::Particles::EShape);
 
 private:
   void closeEvent(QCloseEvent*);

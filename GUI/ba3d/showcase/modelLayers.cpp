@@ -40,12 +40,12 @@ ModelLayers::ModelLayers() {
   layer(-45, -55, Qt::gray);
 }
 
-void ModelLayers::showKind(particle::EShape k) {
+void ModelLayers::showKind(Particles::EShape k) {
   for (auto p : ps)
     delete p;
   ps.clear();
 
-  if (particle::EShape::None == k)
+  if (Particles::EShape::None == k)
     return;
 
   float z[] = {-10, -30, -45};

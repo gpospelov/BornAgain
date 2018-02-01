@@ -63,7 +63,7 @@ void MainWindow::createLayout() {
   vb->addWidget((combo = new QComboBox));
 
   {
-    using namespace RealSpace::particle;
+    using namespace RealSpace::Particles;
     connect(combo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), [&](int i) {
       emit showKind(EShape(int(Particle::firstKind)+i));
     });

@@ -54,7 +54,7 @@ int App::exec() {
   w2.cam().lookAt(RealSpace::Camera::pos_t(
     RealSpace::Vector3D::_z*90, RealSpace::Vector3D(0,0,0), RealSpace::Vector3D::_y));
 
-  connect(&win, &MainWindow::showKind, [&](RealSpace::particle::EShape kind) {
+  connect(&win, &MainWindow::showKind, [&](RealSpace::Particles::EShape kind) {
     ml->showKind(kind); ms->showKind(kind);
   });
 

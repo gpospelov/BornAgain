@@ -39,7 +39,7 @@ public:
   void clearOpaque();
   void clearBlend();
 
-  static particle::Particle* newParticle(particle::EShape k, float R);
+  static Particles::Particle* newParticle(Particles::EShape k, float R);
 
   void add(Object*);        // add an opaque object, the model takes ownership
   void addBlend(Object*);   // add a transparent object, the model takes ownership

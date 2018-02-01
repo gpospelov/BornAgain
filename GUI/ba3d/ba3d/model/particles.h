@@ -17,7 +17,7 @@
 
 #include "object.h"
 
-namespace RealSpace { namespace particle {
+namespace RealSpace { namespace Particles {
 //------------------------------------------------------------------------------
 
 enum class EShape {

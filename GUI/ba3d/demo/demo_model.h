@@ -26,7 +26,7 @@ class DemoModel : public RealSpace::Model {
 public:
   using super = RealSpace::Model;
 
-  using Particle = RealSpace::particle::Particle;
+  using Particle = RealSpace::Particles::Particle;
   using Camera   = RealSpace::Camera;
 
   DemoModel();
@@ -38,7 +38,7 @@ public:
   void square(float sigma);
   void one();
   void oneOut();
-  void oneIn(RealSpace::particle::EShape);
+  void oneIn(RealSpace::Particles::EShape);
 
   void setCameraTop(bool animate = false);
   void setCameraSide(bool animate = false);
@@ -67,7 +67,7 @@ private:
   void addLayer(RealSpace::Range, QColor);
 
   QVector<Particle*> ps;
-  Particle* p; RealSpace::particle::EShape kind = RealSpace::particle::EShape::None;
+  Particle* p; RealSpace::Particles::EShape kind = RealSpace::Particles::EShape::None;
 
   Lattice activeMesh;
 

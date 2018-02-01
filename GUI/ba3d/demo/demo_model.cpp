@@ -48,15 +48,15 @@ void DemoModel::switchFront() {
     one(); front = frontONE;
     break;
   case frontONE:
-    super::clearOpaque(); kind = particle::EShape::None;
+    super::clearOpaque(); kind = Particles::EShape::None;
     front = frontSQUARELOW; szSample = 400; square(0);
     break;
   case frontSQUARELOW:
-    super::clearOpaque(); ps.clear(); kind = particle::EShape::None;
+    super::clearOpaque(); ps.clear(); kind = Particles::EShape::None;
     front = frontSQUAREHIGH; szSample = 800; square(0);
     break;
   case frontSQUAREHIGH:
-    super::clearOpaque(); ps.clear(); kind = particle::EShape::None;
+    super::clearOpaque(); ps.clear(); kind = Particles::EShape::None;
     front = frontSQUAREINSANE; szSample = 2000; square(0);
     break;
   case frontSQUAREINSANE:
@@ -84,7 +84,7 @@ void DemoModel::square(float sigma) {
   if (ps.empty()) { // first time - init
     ps.resize(mesh.count());
     for (auto& p: ps) {
-      add((p = new particle::TruncatedSphere(R, R)));
+      add((p = new Particles::TruncatedSphere(R, R)));
       p->color = QColor(170, 0, 0);
 #ifdef Q_OS_OSX
       p->color = QColor(70, 0, 0);
@@ -156,7 +156,7 @@ void DemoModel::square(float sigma) {
 }
 
 void DemoModel::one() {
-  using eKind = particle::EShape;
+  using eKind = Particles::EShape;
   if (kind != eKind::None)
     oneOut();
   if (kind == eKind::AnisoPyramid)
@@ -175,7 +175,7 @@ void DemoModel::oneOut() {
   rem(p);
 }
 
-void DemoModel::oneIn(particle::EShape kind) {
+void DemoModel::oneIn(Particles::EShape kind) {
   add((p = newParticle(kind, R)));
 #ifdef Q_OS_OSX
   p->color = QColor(70,0,0);

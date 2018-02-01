@@ -44,8 +44,8 @@ void Model::clearBlend() {
   emit updated(false);
 }
 
-particle::Particle* Model::newParticle(particle::EShape k, float R) {
-  using namespace particle;
+Particles::Particle* Model::newParticle(Particles::EShape k, float R) {
+  using namespace Particles;
 
   float D = 2*R;
 

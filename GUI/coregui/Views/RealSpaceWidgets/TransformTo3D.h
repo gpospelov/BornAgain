@@ -35,7 +35,7 @@ std::unique_ptr<RealSpace::Layer> createLayer(const SessionItem& layerItem,
                                          const QVector3D& origin = QVector3D());
 
 BA_CORE_API_
-std::unique_ptr<RealSpace::particle::Particle> createParticle(const SessionItem& particleItem);
+std::unique_ptr<RealSpace::Particles::Particle> createParticle(const SessionItem& particleItem);
 
 }
 

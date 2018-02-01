@@ -7,31 +7,6 @@ file(MAKE_DIRECTORY ${OUTPUT_DIR})
 
 set(PYPERSIST_REFERENCE_DIR ${TEST_REFERENCE_DIR}/PyPersist)
 
-#set(PYPERSIST_REF_DIR ${REFERENCE_DIR}/PyPersist)
-#set(PYPERSIST_OUT_DIR ${CMAKE_CURRENT_BINARY_DIR})
-#file(MAKE_DIRECTORY ${PYPERSIST_OUT_DIR})
-
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYPERSIST_OUT_DIR=\\\"${PYPERSIST_OUT_DIR}\\\"")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYPERSIST_REF_DIR=\\\"${PYPERSIST_REF_DIR}\\\"")
-
-## for some reason these flags aren't propagated here by SetUpWindows.cmake
-#if(MSVC)
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
-#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
-#    add_definitions(-DYAML_CPP_DLL)
-#endif()
-
-#include_directories(
-#    ${BornAgainCore_INCLUDE_DIRS}
-#    ${EIGEN3_INCLUDE_DIR}
-#    ${YAMLCPP_INCLUDE_DIR}
-#    ${CMAKE_SOURCE_DIR}/Core/Simulation
-#    ${CMAKE_CURRENT_SOURCE_DIR}/../../TestMachinery
-#)
-
-#add_executable(PyPersistenceTest main.cpp PyPersistenceTest.h PyPersistenceTest.cpp)
-#target_link_libraries(PyPersistenceTest BornAgainCore BornAgainTestMachinery)
-
 # Python persistence test
 function(test_example example tolerance)
     set(script_path ${PY_EXAMPLES_DIR}/${example}.py)

@@ -2,9 +2,8 @@
 # Tests/Functional/PyCore/suite/CMakeLists.txt
 ############################################################################
 
-set(PYEXPORT_TMP_DIR ${CMAKE_CURRENT_BINARY_DIR})
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPYEXPORT_TMP_DIR=\\\"${PYEXPORT_TMP_DIR}\\\"")
+set(output_dir ${TEST_OUTPUT_DIR}/Functional/Python/PyStandard)
+file(MAKE_DIRECTORY ${output_dir})
 
 set(test_cases
     ApproximationDA

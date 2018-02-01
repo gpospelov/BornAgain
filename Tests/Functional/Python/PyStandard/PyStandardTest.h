@@ -17,8 +17,8 @@
 
 #include "IStandardTest.h"
 
-//! A functional test of PyCore (the Python wrapper of BornAgain/Core).
-//! Performs a given standard simulation, both directly and from a Python dump.
+//! Tests Python scripts generation from Core objects.
+//! Performs core standard simulation and checks it against simulation via generated Python script.
 
 class PyStandardTest : public IStandardTest
 {

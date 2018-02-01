@@ -4,7 +4,7 @@
 
 include(AddGTest)
 
-include_eigen()
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 # qtcreator prefers relative paths for project includes
 include_directories(
     ../utilities

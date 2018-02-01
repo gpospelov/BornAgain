@@ -12,7 +12,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_STD_REF_DIR=\\\"${CORE_STD_REF_DI
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_SPECIAL_REF_DIR=\\\"${CORE_SPECIAL_REF_DIR}\\\"")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCORE_SPECIAL_OUT_DIR=\\\"${CORE_SPECIAL_OUT_DIR}\\\"")
 
-include_eigen()
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}

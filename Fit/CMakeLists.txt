@@ -108,7 +108,7 @@ set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- dependencies ---------
-include_eigen()
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${Boost_INCLUDE_DIRS}
     ${RootMinimizers_INCLUDE_DIRS}

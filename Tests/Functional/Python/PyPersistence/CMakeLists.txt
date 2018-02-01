@@ -16,7 +16,7 @@ if(MSVC)
     add_definitions(-DYAML_CPP_DLL)
 endif()
 
-include_eigen()
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${YAMLCPP_INCLUDE_DIR}

@@ -9,7 +9,7 @@ if(POLICY CMP0042)
 endif()
 
 # --- source and include files ---------
-include_eigen()
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 set(include_dirs
     ${Boost_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}

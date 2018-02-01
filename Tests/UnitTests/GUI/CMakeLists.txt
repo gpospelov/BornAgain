@@ -13,7 +13,7 @@ file(GLOB include_files "*.h")
 
 find_package(Qt5Widgets REQUIRED)
 
-include_eigen()
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ../utilities
     ${Boost_INCLUDE_DIRS}

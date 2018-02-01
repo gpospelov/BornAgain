@@ -56,7 +56,7 @@ endif()
 #--- Include CMake macros and functions ---
 include(GetFilenameComponent) # overwrite CMake command
 include(SearchInstalledSoftware)
-include(EigenUtilities)
+include(ThirdPartyLibUtilities)
 include(CheckCompiler)
 if(ZERO_TOLERANCE)
     if(BORNAGAIN_USE_PYTHON3)

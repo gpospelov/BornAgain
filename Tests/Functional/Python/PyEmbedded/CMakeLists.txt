@@ -17,7 +17,7 @@ if(MSVC)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
 endif()
 
-include_eigen()
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}

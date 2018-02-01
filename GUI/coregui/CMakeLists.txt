@@ -114,7 +114,7 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
 # --- dependencies ---------
-include_eigen()
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${QtAddOn_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}

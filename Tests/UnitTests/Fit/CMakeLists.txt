@@ -4,7 +4,7 @@
 
 include(AddGTest)
 
-include_eigen()
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ../utilities
     ${BornAgainCore_INCLUDE_DIRS}

@@ -43,7 +43,7 @@ int Lattice::iy(uint i) {
 }
 
 Lattice squareLattice(uint n, float sigma) {
-  using xyz = ba3d::xyz;
+  using ba3d::Vector3D;
 
   auto rand01 = [&]() -> float {
     static bool seeded = false;
@@ -54,7 +54,7 @@ Lattice squareLattice(uint n, float sigma) {
     return qrand() / float(RAND_MAX);
   };
 
-  auto place00 = [&]() -> xyz {
+  auto place00 = [&]() -> Vector3D {
     // https://www.taygeta.com/random/gaussian.html
     float x01, y01, w;
 
@@ -65,28 +65,28 @@ Lattice squareLattice(uint n, float sigma) {
     } while (w >= 1.f);
 
     w = sqrt(-2.f * qLn(w) / w);
-    return ba3d::xyz(x01 * w * sigma, y01 * w * sigma, 0.01);
+    return Vector3D(x01 * w * sigma, y01 * w * sigma, 0.01);
   };
 
-  auto placeHere = [&](const xyz& here) -> xyz {
+  auto placeHere = [&](const Vector3D& here) -> Vector3D {
     return place00() + here;
   };
 
-  auto placeXY = [&](float x, float y) -> xyz {
-    return placeHere(xyz(x, y, 0));
+  auto placeXY = [&](float x, float y) -> Vector3D {
+    return placeHere(Vector3D(x, y, 0));
   };
 
   uint nn = (2*n + 1) * (2*n + 1); // total number
 
   auto mesh = Lattice(n, nn);
 
-  auto get = [&](int ix, int iy) -> const xyz& {
+  auto get = [&](int ix, int iy) -> const Vector3D& {
     return mesh.at(mesh.index(ix, iy));
   };
   (void)get;
 
   auto isMade = [&](int ix, int iy) -> bool {
-    return xyz::_0 != mesh.at(mesh.index(ix, iy));
+    return Vector3D::_0 != mesh.at(mesh.index(ix, iy));
   };
 
   auto put = [&](int ix, int iy) {

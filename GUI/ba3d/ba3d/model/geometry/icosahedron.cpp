@@ -22,14 +22,14 @@ namespace ba3d {
 Geometry::mesh_t Geometry::meshIcosahedron() {
   float const G = geometry::goldenRatio;
 
-  auto q = QQuaternion::rotationTo(-xyz::_z, xyz(0,1,-G));
+  auto q = QQuaternion::rotationTo(-Vector3D::_z, Vector3D(0,1,-G));
 
   xyz_vec vs_; vs_.reserve(12);
   for (float _1 : {-1, +1})
     for (float g : {-G, +G}) {
-      vs_.append(q.rotatedVector(xyz(0, _1, g)));
-      vs_.append(q.rotatedVector(xyz(_1, g, 0)));
-      vs_.append(q.rotatedVector(xyz(g, 0, _1)));
+      vs_.append(q.rotatedVector(Vector3D(0, _1, g)));
+      vs_.append(q.rotatedVector(Vector3D(_1, g, 0)));
+      vs_.append(q.rotatedVector(Vector3D(g, 0, _1)));
     }
 
   Q_ASSERT(12 == vs_.count());

@@ -36,7 +36,7 @@ class Particle : public Object
 {
 protected:
   Particle(geometry::key);
-  xyz turn,   // turn before scale
+  Vector3D turn,   // turn before scale
       scale,  // geometries are of 1-size (box 1x1x1, sphere D=1), need scaling
       offset, // geometries centered around origin; particles stand on z=0 plane
       rotate, translate;  // remembered
@@ -47,8 +47,8 @@ public:
   static kind const firstKind = kind::None,
                     lastKind  = kind::AnisoPyramid;
 
-  void transform(xyz rotate, xyz translate);
-  void fancy(xyz rotate, float r);
+  void transform(Vector3D rotate, Vector3D translate);
+  void fancy(Vector3D rotate, float r);
 };
 
 //------------------------------------------------------------------------------

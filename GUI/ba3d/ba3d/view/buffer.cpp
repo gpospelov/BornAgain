@@ -33,8 +33,8 @@ Buffer::Buffer(Geometry const& geometry) {
   glEnableVertexAttribArray(0); // vertices
   glEnableVertexAttribArray(1); // normals
 
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2*sizeof(xyz), nullptr);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 2*sizeof(xyz), reinterpret_cast<void *>(sizeof(xyz)));
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2*sizeof(Vector3D), nullptr);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 2*sizeof(Vector3D), reinterpret_cast<void *>(sizeof(Vector3D)));
 }
 
 void Buffer::draw() {

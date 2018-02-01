@@ -28,11 +28,11 @@ Geometry::mesh_t Geometry::meshTruncBox(float tD) { // t/D
   QVector<float> bs({+t, +D, +D, +t, -t, -D, -D, -t});
 
   auto side = [&](int ax, int ay, int az, int bx, int by, int bz,
-                  const xyz& d, bool rev) {
+                  const Vector3D& d, bool rev) {
     xyz_vec vs_(8);
     for(int i=0; i<8; ++i)
       vs_[rev ? 7-i : i] =
-        xyz(ax*as.at(i) + bx*bs.at(i),
+        Vector3D(ax*as.at(i) + bx*bs.at(i),
             ay*as.at(i) + by*bs.at(i),
             az*as.at(i) + bz*bs.at(i)) + d;
     vs.addFan(vs_, {0,1,2,3,4,5,6,7,0});
@@ -46,12 +46,12 @@ Geometry::mesh_t Geometry::meshTruncBox(float tD) { // t/D
       vs.addTrig(vs_.at(0), vs_.at(1), vs_.at(2));
   };
 
-  side(0,1,0, 0,0,1, xyz(+D,0,0), false);
-  side(0,1,0, 0,0,1, xyz(-D,0,0), true);
-  side(1,0,0, 0,0,1, xyz(0,+D,0), true);
-  side(1,0,0, 0,0,1, xyz(0,-D,0), false);
-  side(1,0,0, 0,1,0, xyz(0,0,+D), false);
-  side(1,0,0, 0,1,0, xyz(0,0,-D), true);
+  side(0,1,0, 0,0,1, Vector3D(+D,0,0), false);
+  side(0,1,0, 0,0,1, Vector3D(-D,0,0), true);
+  side(1,0,0, 0,0,1, Vector3D(0,+D,0), true);
+  side(1,0,0, 0,0,1, Vector3D(0,-D,0), false);
+  side(1,0,0, 0,1,0, Vector3D(0,0,+D), false);
+  side(1,0,0, 0,1,0, Vector3D(0,0,-D), true);
 
   for (int x : {-1, +1})
     for (int y : {-1, +1})

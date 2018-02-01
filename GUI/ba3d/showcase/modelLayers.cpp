@@ -23,11 +23,11 @@ using namespace ba3d;
 static float const sz = 100; // half sz
 
 ModelLayers::ModelLayers() {
-  defCamPos = Camera::pos_t(xyz(-10, -140, 20), xyz(0, 0, -30), xyz::_z);
+  defCamPos = Camera::pos_t(Vector3D(-10, -140, 20), Vector3D(0, 0, -30), Vector3D::_z);
 
   auto layer = [&](int z1, int z2, QColor color) {
     float s2 = sz /2;
-    auto l = new Layer(RangeXYZ(RangeFloat(-s2,+s2), RangeFloat(-s2,+s2), RangeFloat(z1, z2)));
+    auto l = new Layer(VectorRange(Range(-s2,+s2), Range(-s2,+s2), Range(z1, z2)));
     color.setAlphaF(.3);
     l->color = color;
 
@@ -55,7 +55,7 @@ void ModelLayers::showKind(particle::kind k) {
       for(int zi=0; zi<3; ++zi) {
         auto p = ModelShowcase::newParticle(k, 3);
         add(p); ps.append(p);
-        p->transform(xyz::_0, xyz((i-4)*sz/10, (j-4)*sz/10, z[zi]+.001f));
+        p->transform(Vector3D::_0, Vector3D((i-4)*sz/10, (j-4)*sz/10, z[zi]+.001f));
       }
 
   emit updated(false);

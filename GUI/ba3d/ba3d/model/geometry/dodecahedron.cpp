@@ -27,13 +27,13 @@ Geometry::mesh_t Geometry::meshDodecahedron() {
   for (float x : {-1, +1})
     for (float y : {-1, +1})
       for (float z : {-1, +1})
-        vs_.append(xyz(x,y,z));
+        vs_.append(Vector3D(x,y,z));
 
   for (float g1 : {-G1, +G1})
     for (float g : {-G, +G}) {
-      vs_.append(xyz(0, g1, g));
-      vs_.append(xyz(g1, g, 0));
-      vs_.append(xyz(g, 0, g1));
+      vs_.append(Vector3D(0, g1, g));
+      vs_.append(Vector3D(g1, g, 0));
+      vs_.append(Vector3D(g, 0, g1));
     }
 
   Q_ASSERT(20 == vs_.count());
@@ -44,7 +44,7 @@ Geometry::mesh_t Geometry::meshDodecahedron() {
     v = v*F;
 
   //face down
-  auto q = QQuaternion::rotationTo(-xyz::_z,
+  auto q = QQuaternion::rotationTo(-Vector3D::_z,
     cross(vs_.at(8)-vs_.at(0), vs_.at(10)-vs_.at(0)));
   for(int i=0; i<20; ++i)
     vs_[i] = q.rotatedVector(vs_.at(i));

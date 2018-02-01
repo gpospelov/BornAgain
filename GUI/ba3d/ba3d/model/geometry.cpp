@@ -18,18 +18,18 @@
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-Geometry::vn_t::vn_t(const xyz& v_, const xyz& n_) : v(v_), n(n_) {}
+Geometry::vn_t::vn_t(const Vector3D& v_, const Vector3D& n_) : v(v_), n(n_) {}
 
-void Geometry::xyz_vec::addVert(const xyz& v, int n) {
+void Geometry::xyz_vec::addVert(const Vector3D& v, int n) {
   for(int i=0; i<n; ++i)
     append(v);
 }
 
-void Geometry::xyz_vec::addTrig(const xyz& v1, const xyz& v2, const xyz& v3) {
+void Geometry::xyz_vec::addTrig(const Vector3D& v1, const Vector3D& v2, const Vector3D& v3) {
   append(v1); append(v2); append(v3);
 }
 
-void Geometry::xyz_vec::addQuad(const xyz& v1, const xyz& v2, const xyz& v3, const xyz& v4) {
+void Geometry::xyz_vec::addQuad(const Vector3D& v1, const Vector3D& v2, const Vector3D& v3, const Vector3D& v4) {
   addTrig(v1, v2, v3);
   addTrig(v3, v4, v1);
 }
@@ -102,8 +102,8 @@ Geometry::mesh_t Geometry::makeMesh(xyz_vec::rc vs, xyz_vec const* ns) {
   mesh_t mesh(nv);
 
   for (int i=0 ; i<nv; i+=3) {
-    const xyz& v0 = vs.at(0+i), v1 = vs.at(1+i), v2 = vs.at(2+i);
-    xyz const *n0, *n1, *n2; xyz nm;
+    const Vector3D& v0 = vs.at(0+i), v1 = vs.at(1+i), v2 = vs.at(2+i);
+    Vector3D const *n0, *n1, *n2; Vector3D nm;
 
     if (ns) {
       n0 = &ns->at(0+i); n1 = &ns->at(1+i); n2 = &ns->at(2+i);

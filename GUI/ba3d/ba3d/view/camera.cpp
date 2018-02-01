@@ -18,7 +18,7 @@ namespace ba3d {
 //------------------------------------------------------------------------------
 
 Camera::Camera()
-: pos(xyz::_z, xyz::_0, xyz::_x), zoom(1)
+: pos(Vector3D::_z, Vector3D::_0, Vector3D::_x), zoom(1)
 , vertAngle(60), nearPlane(1), farPlane(10000)
 , lightPos(pos.eye), lightPosRotated(lightPos) {
   setAspectRatio(1);
@@ -27,7 +27,7 @@ Camera::Camera()
 Camera::pos_t::pos_t() : eye(), ctr(), up() {
 }
 
-Camera::pos_t::pos_t(const xyz& eye_, const xyz& ctr_, const xyz& up_,
+Camera::pos_t::pos_t(const Vector3D& eye_, const Vector3D& ctr_, const Vector3D& up_,
                      QQuaternion const& rot_)
   : eye(eye_), ctr(ctr_), up(up_), rot(rot_) {
 }

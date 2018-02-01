@@ -18,7 +18,7 @@
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-Model::Model() : defCamPos(xyz::_1, xyz::_0, xyz::_z) {}
+Model::Model() : defCamPos(Vector3D::_1, Vector3D::_0, Vector3D::_z) {}
 
 Model::~Model() {
   for (auto o: objects) {

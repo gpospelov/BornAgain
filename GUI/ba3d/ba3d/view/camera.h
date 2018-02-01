@@ -37,10 +37,10 @@ public:
     typedef pos_t const& rc;
 
     pos_t();
-    pos_t(const xyz& eye, const xyz& ctr, const xyz& up,
+    pos_t(const Vector3D& eye, const Vector3D& ctr, const Vector3D& up,
           QQuaternion const& = QQuaternion());
 
-    xyz eye, ctr, up;
+    Vector3D eye, ctr, up;
     QQuaternion rot;
 
     pos_t interpolateTo(rc, float) const;
@@ -70,7 +70,7 @@ private:
   float vertAngle, nearPlane, farPlane;
 
   // light
-  xyz lightPos, lightPosRotated;
+  Vector3D lightPos, lightPosRotated;
 
   // transformation
   QQuaternion addRot;        // rotation, additional rotation

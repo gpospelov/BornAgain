@@ -31,9 +31,9 @@ class Geometry {
 public:
   // vertex+normal pair
   struct vn_t {
-    xyz v, n;
+    Vector3D v, n;
     vn_t() = default;
-    vn_t(const xyz& v, const xyz& n);
+    vn_t(const Vector3D& v, const Vector3D& n);
   };
 
   // vertex indices (for GL)
@@ -44,14 +44,14 @@ public:
   };
 
   // vertices (for GL)
-  struct xyz_vec : QVector<xyz> { typedef QVector<xyz> base;
+  struct xyz_vec : QVector<Vector3D> { typedef QVector<Vector3D> base;
     using base::base;
     typedef xyz_vec const& rc;
 
-    void addVert(const xyz&, int n = 1); // add a vertex, possibly multiple copies
+    void addVert(const Vector3D&, int n = 1); // add a vertex, possibly multiple copies
 
-    void addTrig(const xyz&, const xyz&, const xyz&);          // triangle
-    void addQuad(const xyz&, const xyz&, const xyz&, const xyz&); // quad as 2 triangles
+    void addTrig(const Vector3D&, const Vector3D&, const Vector3D&);          // triangle
+    void addQuad(const Vector3D&, const Vector3D&, const Vector3D&, const Vector3D&); // quad as 2 triangles
     void addQuad(xyz_vec::rc, idx, idx, idx, idx);
     void addStrip(xyz_vec::rc, idx_vec::rc);          // triangle strip
     void addFan(xyz_vec::rc, idx_vec::rc);            // triangle fan

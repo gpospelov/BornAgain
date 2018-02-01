@@ -57,7 +57,7 @@ Geometry::mesh_t Geometry::meshSphere(float cut) {
 
     for(int s=0; s < slices; ++s) {
       float th = float(2*M_PI*s/slices);
-      xyz v(R*cp*cosf(th), R*cp*sinf(th), R*sp);
+      Vector3D v(R*cp*cosf(th), R*cp*sinf(th), R*sp);
       vs_[r][s] = v;
       ns_[r][s] = v.normalized();
     }
@@ -78,12 +78,12 @@ Geometry::mesh_t Geometry::meshSphere(float cut) {
       auto &n0 = nr.at(s0), &n1 = nr.at(s1);
 
       if (r == 0) { // south pole
-        xyz vp, n0, n1, np(-xyz::_z);
+        Vector3D vp, n0, n1, np(-Vector3D::_z);
         if (cut > 0) {
-          vp = xyz(0, 0, v0.z);
+          vp = Vector3D(0, 0, v0.z);
           n0 = n1 = np;
         } else {
-          vp = xyz(0,0,-R);
+          vp = Vector3D(0,0,-R);
           n0 = nr.at(s0); n1 = nr.at(s1);
         }
         vs.addTrig(v0, vp, v1);
@@ -91,7 +91,7 @@ Geometry::mesh_t Geometry::meshSphere(float cut) {
       }
 
       if (r+1 == rings) {  // north pole
-        xyz vp(0, 0, +R), np(xyz::_z);
+        Vector3D vp(0, 0, +R), np(Vector3D::_z);
         vs.addTrig(v0, v1, vp);
         ns.addTrig(n0, n1, np);
       } else if (1 < rings) { // in between poles

@@ -26,7 +26,7 @@ class DemoModel : public ba3d::Model {
 public:
   using super = ba3d::Model;
 
-  using xyz = ba3d::xyz;
+  using xyz = ba3d::Vector3D;
   using Particle = ba3d::particle::Particle;
   using Camera   = ba3d::Camera;
 
@@ -65,7 +65,7 @@ private:
   Camera::pos_t camPos;
 
 private:
-  void addLayer(ba3d::RangeFloat, QColor);
+  void addLayer(ba3d::Range, QColor);
 
   QVector<Particle*> ps;
   Particle* p; ba3d::particle::kind kind = ba3d::particle::kind::None;

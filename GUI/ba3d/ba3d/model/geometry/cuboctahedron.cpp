@@ -31,7 +31,7 @@ Geometry::mesh_t Geometry::meshCuboctahedron(float rH, float alpha) { // t/D
     for (int x : {-1, +1})
       for (int y : {-1, +1}) {
         float di = d[i];
-        vs_.append(xyz(x*di, y*di, z[i]));
+        vs_.append(Vector3D(x*di, y*di, z[i]));
       }
 
   Q_ASSERT(12 == vs_.count());

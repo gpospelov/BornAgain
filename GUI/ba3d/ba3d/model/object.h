@@ -34,10 +34,10 @@ public:
 
   QColor color;
 
-  void transform(float scale, xyz rotate, xyz translate);
-  void transform(xyz scale, xyz rotate, xyz translate);
-  void transform(xyz scale, QQuaternion, xyz translate);
-  void transform(xyz turn, xyz scale, xyz rotate, xyz translate);
+  void transform(float scale, Vector3D rotate, Vector3D translate);
+  void transform(Vector3D scale, Vector3D rotate, Vector3D translate);
+  void transform(Vector3D scale, QQuaternion, Vector3D translate);
+  void transform(Vector3D turn, Vector3D scale, Vector3D rotate, Vector3D translate);
 
 protected:
   bool isNull;

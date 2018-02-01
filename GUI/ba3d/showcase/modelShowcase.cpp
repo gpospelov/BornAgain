@@ -21,20 +21,20 @@ using namespace ba3d;
 static float const R = 1;
 
 ModelShowcase::ModelShowcase() : p(nullptr) {
-  defCamPos.eye = xyz(0, -4*R, 0);
-  defCamPos.ctr = xyz(0, 0, R);
+  defCamPos.eye = Vector3D(0, -4*R, 0);
+  defCamPos.ctr = Vector3D(0, 0, R);
 
   Object *o;
 
   // bounding box
   addBlend(o = new Object(geometry::key(geometry::eid::Box)));
   o->color = QColor(0, 255, 0, 50);
-  o->transform(2*R, xyz::_0, xyz(0,0,R));
+  o->transform(2*R, Vector3D::_0, Vector3D(0,0,R));
 
   // bounding sphere
   addBlend(o = new Object(geometry::key(geometry::eid::Sphere)));
   o->color = QColor(0, 255, 255, 50);
-  o->transform(2*R, xyz::_0, xyz(0,0,R));
+  o->transform(2*R, Vector3D::_0, Vector3D(0,0,R));
 }
 
 void ModelShowcase::showKind(kind k) {

@@ -20,90 +20,90 @@ static_assert(QT_VERSION >= QT_VERSION_CHECK(5,5,1),
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-xyz::xyz() : xyz(0,0,0) {}
+Vector3D::Vector3D() : Vector3D(0,0,0) {}
 
-xyz::xyz(float v) : xyz(v,v,v) {}
+Vector3D::Vector3D(float v) : Vector3D(v,v,v) {}
 
-xyz::xyz(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
+Vector3D::Vector3D(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
 
-xyz::xyz(QVector3D const& v) : xyz(v.x(), v.y(), v.z()) {}
+Vector3D::Vector3D(QVector3D const& v) : Vector3D(v.x(), v.y(), v.z()) {}
 
-float xyz::length() const {
+float Vector3D::length() const {
   return QVector3D(*this).length();
 }
 
-xyz xyz::normalized() const {
+Vector3D Vector3D::normalized() const {
   return QVector3D(*this).normalized();
 }
 
-xyz xyz::interpolateTo(const xyz& to, float rat) const {
+Vector3D Vector3D::interpolateTo(const Vector3D& to, float rat) const {
   return *this * (1 - rat) + to * rat;
 }
 
-ba3d::xyz::operator QVector3D() const {
+ba3d::Vector3D::operator QVector3D() const {
   return QVector3D(x, y, z);
 }
 
-xyz const xyz::_0(0,0,0), xyz::_1(1,1,1),
-          xyz::_x(1,0,0), xyz::_y(0,1,0), xyz::_z(0,0,1);
+Vector3D const Vector3D::_0(0,0,0), Vector3D::_1(1,1,1),
+          Vector3D::_x(1,0,0), Vector3D::_y(0,1,0), Vector3D::_z(0,0,1);
 
-xyz cross(const xyz& v1, const xyz& v2) {
+Vector3D cross(const Vector3D& v1, const Vector3D& v2) {
   return QVector3D::crossProduct(v1, v2);
 }
 
-float dot(const xyz& v1, const xyz& v2) {
+float dot(const Vector3D& v1, const Vector3D& v2) {
   return QVector3D::dotProduct(v1, v2);
 }
 
-xyz operator+(const xyz& v) {
+Vector3D operator+(const Vector3D& v) {
   return v;
 }
 
-xyz operator-(const xyz& v) {
-  return xyz::_0 - v;
+Vector3D operator-(const Vector3D& v) {
+  return Vector3D::_0 - v;
 }
 
-xyz operator*(const xyz& v, float f) {
-  return xyz(v.x*f, v.y*f, v.z*f);
+Vector3D operator*(const Vector3D& v, float f) {
+  return Vector3D(v.x*f, v.y*f, v.z*f);
 }
 
-xyz operator+(const xyz& _1, const xyz& _2) {
-  return xyz(_1.x+_2.x, _1.y+_2.y, _1.z+_2.z);
+Vector3D operator+(const Vector3D& _1, const Vector3D& _2) {
+  return Vector3D(_1.x+_2.x, _1.y+_2.y, _1.z+_2.z);
 }
 
-xyz operator-(const xyz& _1, const xyz& _2) {
-  return xyz(_1.x-_2.x, _1.y-_2.y, _1.z-_2.z);
+Vector3D operator-(const Vector3D& _1, const Vector3D& _2) {
+  return Vector3D(_1.x-_2.x, _1.y-_2.y, _1.z-_2.z);
 }
 
 //------------------------------------------------------------------------------
 
-RangeFloat::RangeFloat(float r1, float r2) : min(qMin(r1,r2)), max(qMax(r1,r2)) {}
+Range::Range(float r1, float r2) : min(qMin(r1,r2)), max(qMax(r1,r2)) {}
 
-float RangeFloat::size() const {
+float Range::size() const {
   return max - min;
 }
 
-float RangeFloat::mid() const {
+float Range::mid() const {
   return (min + max) / 2;
 }
 
 //------------------------------------------------------------------------------
 
-RangeXYZ::RangeXYZ(RangeFloat x_, RangeFloat y_, RangeFloat z_) : x(x_), y(y_), z(z_) {}
+VectorRange::VectorRange(Range x_, Range y_, Range z_) : x(x_), y(y_), z(z_) {}
 
-RangeXYZ::RangeXYZ(xyz _1, xyz _2)
-: x(RangeFloat(_1.x,_2.x)), y(RangeFloat(_1.y,_2.y)), z(RangeFloat(_1.z,_2.z)) {}
+VectorRange::VectorRange(Vector3D _1, Vector3D _2)
+: x(Range(_1.x,_2.x)), y(Range(_1.y,_2.y)), z(Range(_1.z,_2.z)) {}
 
-xyz RangeXYZ::size() const {
-  return xyz(x.size(), y.size(), z.size());
+Vector3D VectorRange::size() const {
+  return Vector3D(x.size(), y.size(), z.size());
 }
 
-xyz RangeXYZ::mid() const {
-  return xyz(x.mid(), y.mid(), z.mid());
+Vector3D VectorRange::mid() const {
+  return Vector3D(x.mid(), y.mid(), z.mid());
 }
 
-float RangeXYZ::length() const {
-  return xyz(x.size(), y.size(), z.size()).length();
+float VectorRange::length() const {
+  return Vector3D(x.size(), y.size(), z.size()).length();
 }
 
 //------------------------------------------------------------------------------

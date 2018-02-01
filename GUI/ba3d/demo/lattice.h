@@ -20,9 +20,9 @@
 
 //------------------------------------------------------------------------------
 
-class Lattice : public QVector<ba3d::xyz> {
+class Lattice : public QVector<ba3d::Vector3D> {
 public:
-  using super = QVector<ba3d::xyz>;
+  using super = QVector<ba3d::Vector3D>;
 
   Lattice();
   Lattice(uint n, uint nn);

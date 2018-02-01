@@ -29,56 +29,56 @@
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-struct xyz {
+struct Vector3D {
   float x, y, z;
 
-  xyz();
-  xyz(float);
-  xyz(float, float, float);
+  Vector3D();
+  Vector3D(float);
+  Vector3D(float, float, float);
 
-  xyz(const xyz&) = default;
+  Vector3D(const Vector3D&) =default;
 
-  xyz(QVector3D const&);
+  Vector3D(QVector3D const&);
   operator QVector3D() const;
 
-  float length()     const;
-  xyz normalized() const;
+  float length() const;
+  Vector3D normalized() const;
 
-  xyz interpolateTo(const xyz&, float) const;
+  Vector3D interpolateTo(const Vector3D&, float) const;
 
-  static xyz const _0, _1, _x, _y, _z;
+  static Vector3D const _0, _1, _x, _y, _z;
 };
 
 // products
-xyz cross(const xyz&, const xyz&);
-float dot(const xyz&, const xyz&);
+Vector3D cross(const Vector3D&, const Vector3D&);
+float dot(const Vector3D&, const Vector3D&);
 
-xyz operator+(const xyz&);
-xyz operator-(const xyz&);
-xyz operator*(const xyz&, float);
+Vector3D operator+(const Vector3D&);
+Vector3D operator-(const Vector3D&);
+Vector3D operator*(const Vector3D&, float);
 
-xyz operator+(const xyz&, const xyz&);
-xyz operator-(const xyz&, const xyz&);
+Vector3D operator+(const Vector3D&, const Vector3D&);
+Vector3D operator-(const Vector3D&, const Vector3D&);
 
 //------------------------------------------------------------------------------
 
 // range of float
-struct RangeFloat {
+struct Range {
   float min, max;
-  RangeFloat(float, float);
+  Range(float, float);
 
   float size() const;
   float mid()  const;
 };
 
 // range of coordinates
-struct RangeXYZ {
-  RangeFloat x, y, z;
-  RangeXYZ(RangeFloat, RangeFloat, RangeFloat);
-  RangeXYZ(xyz, xyz);
+struct VectorRange {
+  Range x, y, z;
+  VectorRange(Range, Range, Range);
+  VectorRange(Vector3D, Vector3D);
 
-  xyz size()   const;
-  xyz mid()    const;
+  Vector3D size()   const;
+  Vector3D mid()    const;
 
   float length() const;
 };

@@ -24,7 +24,7 @@ Geometry::mesh_t Geometry::meshBox() {
   for (float x : {-D, +D})
     for (float y : {-D, +D})
       for (float z : {-D, +D})
-        vs_.append(xyz(x,y,z));
+        vs_.append(Vector3D(x,y,z));
 
   Q_ASSERT(8 == vs_.count());
 

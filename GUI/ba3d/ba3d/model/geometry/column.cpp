@@ -30,10 +30,10 @@ Geometry::mesh_t Geometry::meshColumn(float alpha, float numSides) {
   float const nz = (1 - Rt/Rb)*2*R;
   for(int s=0; s < slices; ++s) {
     float th = float(2*M_PI*s/slices), st = sinf(th), ct = cosf(th);
-    xyz vb_(Rb*ct, Rb*st, -R), vt_(Rt*ct, Rt*st, +R);
+    Vector3D vb_(Rb*ct, Rb*st, -R), vt_(Rt*ct, Rt*st, +R);
     vb[s] = vb_; vt[s] = vt_;
     if (smooth)
-      nbt[s] = xyz(vb_.x, vb_.y, nz).normalized();
+      nbt[s] = Vector3D(vb_.x, vb_.y, nz).normalized();
   }
 
   // make into triangles
@@ -44,13 +44,13 @@ Geometry::mesh_t Geometry::meshColumn(float alpha, float numSides) {
   for(int s=0; s < slices; ++s) {
     int s1 = s, s2 = (s+1) % slices;
 
-    vs.addTrig(vb.at(s1), xyz(0,0,-R), vb.at(s2));          // bottom
+    vs.addTrig(vb.at(s1), Vector3D(0,0,-R), vb.at(s2));          // bottom
     if (smooth)
-      ns.addVert(-xyz::_z, 3);
+      ns.addVert(-Vector3D::_z, 3);
 
-    vs.addTrig(xyz(0,0,+R), vt.at(s1), vt.at(s2));          // top
+    vs.addTrig(Vector3D(0,0,+R), vt.at(s1), vt.at(s2));          // top
     if (smooth)
-      ns.addVert(+xyz::_z, 3);
+      ns.addVert(+Vector3D::_z, 3);
 
     vs.addQuad(vb.at(s1), vb.at(s2), vt.at(s2), vt.at(s1)); // side
     if (smooth) {

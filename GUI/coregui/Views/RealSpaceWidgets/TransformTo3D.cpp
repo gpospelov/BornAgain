@@ -65,7 +65,7 @@ std::unique_ptr<ba3d::Layer> TransformTo3D::createLayer(const SessionItem& layer
     double zbottom = origin.z();
 
     std::unique_ptr<ba3d::Layer> result = std::make_unique<ba3d::Layer>(
-        ba3d::RangeXYZ(ba3d::RangeFloat(-s2,+s2), ba3d::RangeFloat(-s2,+s2), ba3d::RangeFloat(ztop, zbottom)));
+        ba3d::VectorRange(ba3d::Range(-s2,+s2), ba3d::Range(-s2,+s2), ba3d::Range(ztop, zbottom)));
 
     QColor color = layerItem.getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>().color();
     color.setAlphaF(.3);
@@ -110,7 +110,7 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
         double x = positionItem->getItemValue(VectorItem::P_X).toDouble();
         double y = positionItem->getItemValue(VectorItem::P_Y).toDouble();
         double z = positionItem->getItemValue(VectorItem::P_Z).toDouble();
-        result->transform(ba3d::xyz::_0, ba3d::xyz(x, y, z));
+        result->transform(ba3d::Vector3D::_0, ba3d::Vector3D(x, y, z));
     }
 
     return result;

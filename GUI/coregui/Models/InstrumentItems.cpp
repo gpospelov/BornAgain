@@ -28,78 +28,14 @@
 
 namespace {
 const QString background_group_label = "Type";
+void addAxisGroupProperty(SessionItem* parent, const QString& tag);
 }
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
+const QString InstrumentItem::P_BEAM = "Beam";
+const QString InstrumentItem::P_BACKGROUND = "Background";
 
-InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType)
-{
-    setItemName(modelType);
-    addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
-
-}
-
-const QString Instrument2DItem::P_BEAM = "Beam";
-const QString Instrument2DItem::P_DETECTOR = "Detector";
-const QString Instrument2DItem::P_BACKGROUND = "Background";
-
-Instrument2DItem::Instrument2DItem(const QString& modelType)
-    : InstrumentItem(modelType)
-{
-    addGroupProperty(P_BEAM, Constants::BeamType);
-
-    addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
-
-    setDefaultTag(P_DETECTOR);
-
-    auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
-    item->setDisplayName(background_group_label);
-    item->setToolTip("Background type");
-}
-
-Instrument2DItem::~Instrument2DItem() = default;
-
-BeamItem *Instrument2DItem::beamItem() const
-{
-    return &item<BeamItem>(P_BEAM);
-}
-
-DetectorItem* Instrument2DItem::detectorItem() const
-{
-    return &groupItem<DetectorItem>(P_DETECTOR);
-}
-
-GroupItem* Instrument2DItem::detectorGroup()
-{
-    return &item<GroupItem>(P_DETECTOR);
-}
-
-BackgroundItem* Instrument2DItem::backgroundItem() const
-{
-    return &groupItem<BackgroundItem>(P_BACKGROUND);
-}
-
-GroupItem* Instrument2DItem::backgroundGroup()
-{
-    return &item<GroupItem>(P_BACKGROUND);
-}
-
-void Instrument2DItem::setDetectorGroup(const QString& modelType)
-{
-    setGroupProperty(P_DETECTOR, modelType);
-}
-
-void Instrument2DItem::clearMasks()
-{
-    detectorItem()->clearMasks();
-}
-
-void Instrument2DItem::importMasks(MaskContainerItem* maskContainer)
-{
-    detectorItem()->importMasks(maskContainer);
-}
-
-QStringList Instrument2DItem::translateList(const QStringList& list) const
+QStringList InstrumentItem::translateList(const QStringList& list) const
 {
     QStringList result;
     // Add constant background directly to simulation
@@ -117,12 +53,96 @@ QStringList Instrument2DItem::translateList(const QStringList& list) const
     return result;
 }
 
-std::unique_ptr<Instrument> Instrument2DItem::createInstrument() const
+BeamItem* InstrumentItem::beamItem() const
+{
+    return &item<BeamItem>(P_BEAM);
+}
+
+BackgroundItem* InstrumentItem::backgroundItem() const
+{
+    return &groupItem<BackgroundItem>(P_BACKGROUND);
+}
+
+GroupItem* InstrumentItem::backgroundGroup()
+{
+    return &item<GroupItem>(P_BACKGROUND);
+}
+
+std::unique_ptr<Instrument> InstrumentItem::createInstrument() const
 {
     std::unique_ptr<Instrument> result(new Instrument);
 
     auto beam = beamItem()->createBeam();
     result->setBeam(*beam);
+
+    return result;
+}
+
+InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType)
+{
+    setItemName(modelType);
+    addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
+
+    addGroupProperty(P_BEAM, Constants::BeamType);
+
+    auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
+    item->setDisplayName(background_group_label);
+    item->setToolTip("Background type");
+}
+
+const QString SpecularInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
+
+SpecularInstrumentItem::SpecularInstrumentItem()
+    : InstrumentItem(Constants::SpecularInstrumentType)
+{
+    addAxisGroupProperty(this, P_ALPHA_AXIS);
+}
+
+std::unique_ptr<Instrument> SpecularInstrumentItem::createInstrument() const
+{
+    return InstrumentItem::createInstrument();
+}
+
+const QString Instrument2DItem::P_DETECTOR = "Detector";
+
+Instrument2DItem::Instrument2DItem(const QString& modelType)
+    : InstrumentItem(modelType)
+{
+    addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+
+    setDefaultTag(P_DETECTOR);
+}
+
+Instrument2DItem::~Instrument2DItem() = default;
+
+DetectorItem* Instrument2DItem::detectorItem() const
+{
+    return &groupItem<DetectorItem>(P_DETECTOR);
+}
+
+GroupItem* Instrument2DItem::detectorGroup()
+{
+    return &item<GroupItem>(P_DETECTOR);
+}
+
+void Instrument2DItem::setDetectorGroup(const QString& modelType)
+{
+    setGroupProperty(P_DETECTOR, modelType);
+}
+
+void Instrument2DItem::clearMasks()
+{
+    detectorItem()->clearMasks();
+}
+
+void Instrument2DItem::importMasks(MaskContainerItem* maskContainer)
+{
+    detectorItem()->importMasks(maskContainer);
+}
+
+std::unique_ptr<Instrument> Instrument2DItem::createInstrument() const
+{
+    auto result = InstrumentItem::createInstrument();
 
     auto detector = detectorItem()->createDetector();
     result->setDetector(*detector);
@@ -140,7 +160,14 @@ const QString OffSpecInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
 OffSpecInstrumentItem::OffSpecInstrumentItem()
     : Instrument2DItem(Constants::OffSpecInstrumentType)
 {
-    auto item = addGroupProperty(P_ALPHA_AXIS, Constants::BasicAxisType);
+    addAxisGroupProperty(this, P_ALPHA_AXIS);
+}
+
+namespace
+{
+void addAxisGroupProperty(SessionItem* parent, const QString& tag)
+{
+    auto item = parent->addGroupProperty(tag, Constants::BasicAxisType);
     item->setToolTip("Incoming alpha range [deg]");
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan");
@@ -150,4 +177,5 @@ OffSpecInstrumentItem::OffSpecInstrumentItem()
     item->setItemValue(BasicAxisItem::P_MIN, 0.0);
     item->setItemValue(BasicAxisItem::P_MAX, 10.0);
 }
+} // namespace
 

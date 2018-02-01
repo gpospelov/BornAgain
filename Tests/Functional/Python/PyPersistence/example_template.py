@@ -127,7 +127,11 @@ def save_result(result, filename):
     """
     fullname = os.path.join(OUTPUT_DIR, filename)
     print("Writing results in '{0}'".format(fullname))
-    ba.IntensityDataIOFactory.writeSimulationResult(result, filename)
+    try:
+        ba.IntensityDataIOFactory.writeSimulationResult(result, fullname)
+    except Exception, ex:
+        print("Exception caught, failed to write file", ex)
+
 
 
 def check_result(result, example_name):
@@ -135,7 +139,7 @@ def check_result(result, example_name):
     reffile = get_reffile_name(example_name)
 
     if not reffile:
-        save_result(example_name+".int.gz")
+        save_result(result, example_name+".int.gz")
         raise Exception("Absent reference file")
 
     print("Loading reference file '{}'".format(reffile))
@@ -146,7 +150,7 @@ def check_result(result, example_name):
     if diff > TOLERANCE:
         print("Failure - Difference {0} is above tolerance level {1}".format(diff, TOLERANCE))
         reffile_basename = os.path.basename(reffile)
-        save_result(result.data(), reffile_basename)
+        save_result(result, reffile_basename)
         raise Exception("Tolerance exceeded")
     else:
         print("Success - Difference {0} is below tolerance level{1}".format(diff, TOLERANCE))

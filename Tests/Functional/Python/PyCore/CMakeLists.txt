@@ -7,7 +7,7 @@ if(NOT BORNAGAIN_TIFF_SUPPORT)
     list(REMOVE_ITEM sources "intensitydata_io_tiff.py")
 endif()
 
-set(output_dir ${TEST_OUTPUT_DIR}/Functional/Python)
+set(output_dir ${TEST_OUTPUT_DIR}/Functional/Python/PyCore)
 
 foreach(_src ${sources})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${_src}

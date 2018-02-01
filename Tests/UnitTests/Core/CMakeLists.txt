@@ -4,12 +4,12 @@
 
 include(AddGTest)
 
+include_eigen()
 # qtcreator prefers relative paths for project includes
 include_directories(
     ../utilities
     ${BornAgainCore_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
     ${gtest_SOURCE_DIR}
     ${gtest_SOURCE_DIR}/include

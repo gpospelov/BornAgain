@@ -4,11 +4,11 @@
 
 include(AddGTest)
 
+include_eigen()
 include_directories(
     ../utilities
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
     ${Boost_INCLUDE_DIRS}
     ${RootMinimizers_INCLUDE_DIRS}
     ${gtest_SOURCE_DIR}

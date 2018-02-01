@@ -13,11 +13,11 @@ if(MSVC)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
 endif()
 
+include_eigen()
 include_directories(
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainGUI_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../TestMachinery
 )

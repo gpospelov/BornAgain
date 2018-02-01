@@ -22,8 +22,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/../modules)
 find_package(BornAgain REQUIRED)
 find_package(Eigen3 REQUIRED)
 
+include_eigen()
 include_directories(
-    ${EIGEN3_INCLUDE_DIR}
     ${BORNAGAIN_INCLUDE_DIR}
 )
 

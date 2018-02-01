@@ -9,8 +9,8 @@ if(POLICY CMP0042)
 endif()
 
 # --- source and include files ---------
+include_eigen()
 set(include_dirs
-    ${EIGEN3_INCLUDE_DIR}
     ${Boost_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
     ${BornAgainCore_INCLUDE_DIRS}

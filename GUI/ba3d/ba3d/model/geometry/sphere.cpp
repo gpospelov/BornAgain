@@ -19,7 +19,7 @@ namespace ba3d {
 //------------------------------------------------------------------------------
 
 // cut: 0..1 - how much is cut off off the bottom
-Geometry::mesh_t Geometry::meshSphere(flt cut) {
+Geometry::mesh_t Geometry::meshSphere(float cut) {
   if (1 <= cut)
     return mesh_t();
   cut = qMax(0.f, cut);
@@ -27,19 +27,19 @@ Geometry::mesh_t Geometry::meshSphere(flt cut) {
 
   // 'rings' is 1 less than actual rings (due to poles)
   int rings, slices = SLICES;
-  flt minPh, phRge;
+  float minPh, phRge;
 
   if (cut > 0) {
     minPh = asinf(2*cut - 1);
-    phRge = flt(M_PI_2) - minPh;
+    phRge = float(M_PI_2) - minPh;
     rings = qMax(1, qCeil(qreal(RINGS * phRge) / M_PI));
   } else {
     rings = RINGS - 1;
-    minPh = flt(M_PI) / rings - flt(M_PI_2);
-    phRge = flt(M_PI_2) - minPh;
+    minPh = float(M_PI) / rings - float(M_PI_2);
+    phRge = float(M_PI_2) - minPh;
   }
 
-  Q_ASSERT(qAbs(minPh) < flt(M_PI_2));
+  Q_ASSERT(qAbs(minPh) < float(M_PI_2));
   Q_ASSERT(1 <= rings && 2 <= slices);
 
   // meshes of vertices and normals, without poles, _[ring][slice]
@@ -49,14 +49,14 @@ Geometry::mesh_t Geometry::meshSphere(flt cut) {
   for (auto& ring: ns_)
     ring.resize(slices);
 
-  flt const R = .5f;
+  float const R = .5f;
 
   for(int r=0; r < rings; ++r) {
-    flt ph = minPh + phRge * r/rings;
-    flt cp = cosf(ph), sp = sinf(ph);
+    float ph = minPh + phRge * r/rings;
+    float cp = cosf(ph), sp = sinf(ph);
 
     for(int s=0; s < slices; ++s) {
-      flt th = flt(2*M_PI*s/slices);
+      float th = float(2*M_PI*s/slices);
       xyz v(R*cp*cosf(th), R*cp*sinf(th), R*sp);
       vs_[r][s] = v;
       ns_[r][s] = v.normalized();

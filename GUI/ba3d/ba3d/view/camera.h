@@ -43,7 +43,7 @@ public:
     xyz eye, ctr, up;
     QQuaternion rot;
 
-    pos_t interpolateTo(rc, flt) const;
+    pos_t interpolateTo(rc, float) const;
   };
 
   void lookAt(pos_t::rc);
@@ -61,13 +61,13 @@ private:
 
   // additional transformation
   void turnBy(QQuaternion const&);
-  void zoomBy(flt);
+  void zoomBy(float);
   void endTransform(bool keep);
 
   // camera setup
   pos_t pos;
-  flt zoom;
-  flt vertAngle, nearPlane, farPlane;
+  float zoom;
+  float vertAngle, nearPlane, farPlane;
 
   // light
   xyz lightPos, lightPosRotated;

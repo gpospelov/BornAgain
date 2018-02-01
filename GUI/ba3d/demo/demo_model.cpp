@@ -103,7 +103,7 @@ void DemoModel::square(float sigma) {
     int const steps = 20;
     for(int s=0; s < steps + 1; ++s) {
       for (uint i=0; i < uint(ps.count()); ++i)
-        ps.at(i)->fancy(xyz::_0, flt(s) / steps);
+        ps.at(i)->fancy(xyz::_0, float(s) / steps);
       snooze(false);
     }
   } else {
@@ -114,7 +114,7 @@ void DemoModel::square(float sigma) {
     int const steps = 30;
     for(int s=0; s < steps + 1; ++s) {
       for (uint i=0; i < uint(ps.count()); ++i)
-        ps.at(i)->transform(xyz::_0, from.at(i).interpolateTo(home.at(i), flt(s)/steps));
+        ps.at(i)->transform(xyz::_0, from.at(i).interpolateTo(home.at(i), float(s)/steps));
       snooze(false);
     }
 
@@ -168,8 +168,8 @@ void DemoModel::one() {
 void DemoModel::oneOut() {
   int const steps = 40;
   for(int i=0; i<steps+1; ++i) {
-    flt a = 360.f / steps * i / 3;
-    p->fancy(xyz(a, a, a), flt(steps-i) / steps);
+    float a = 360.f / steps * i / 3;
+    p->fancy(xyz(a, a, a), float(steps-i) / steps);
     snooze(false);
   }
   rem(p);
@@ -184,8 +184,8 @@ void DemoModel::oneIn(particle::kind kind) {
 
   int const steps = 140;
   for(int i=0; i<steps+1; ++i) {
-    flt a = 360.f / steps * i;
-    p->fancy(xyz(a*2, a, a), flt(i) / steps);
+    float a = 360.f / steps * i;
+    p->fancy(xyz(a*2, a, a), float(i) / steps);
     snooze(false);
   }
 }
@@ -208,7 +208,7 @@ void DemoModel::setCamera(Camera::pos_t::rc to, bool animate) {
 
     int const frames = 45;
     for(int i=0; i<frames+1; ++i) {
-      defCamPos = from.interpolateTo(to, flt(i) / frames);
+      defCamPos = from.interpolateTo(to, float(i) / frames);
       snooze(true);
     }
   } else {
@@ -232,7 +232,7 @@ void DemoModel::addLayer() {
 }
 
 void DemoModel::addLayer(dr z, QColor clr) {
-  flt s2 = szSample / 2;
+  float s2 = szSample / 2;
   auto l = new Layer(dxyz(dr(-s2,+s2), dr(-s2,+s2), z));
   clr.setAlphaF(.3);
   l->color = clr;

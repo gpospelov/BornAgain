@@ -18,18 +18,18 @@
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-Geometry::mesh_t Geometry::meshColumn(flt alpha, flt numSides) {
+Geometry::mesh_t Geometry::meshColumn(float alpha, float numSides) {
   int  const sides  = qRound(numSides);
   bool const smooth = (0 == sides); // sides: 0->smooth
   int  const slices = smooth ? SLICES : sides;
 
-  flt const R = .5f, Rb = R, Rt = Rb - 2*R/tanf(alpha);
+  float const R = .5f, Rb = R, Rt = Rb - 2*R/tanf(alpha);
 
   // mesh of vertices and normals
   xyz_vec vb(slices), vt(slices), nbt(slices);
-  flt const nz = (1 - Rt/Rb)*2*R;
+  float const nz = (1 - Rt/Rb)*2*R;
   for(int s=0; s < slices; ++s) {
-    flt th = flt(2*M_PI*s/slices), st = sinf(th), ct = cosf(th);
+    float th = float(2*M_PI*s/slices), st = sinf(th), ct = cosf(th);
     xyz vb_(Rb*ct, Rb*st, -R), vt_(Rt*ct, Rt*st, +R);
     vb[s] = vb_; vt[s] = vt_;
     if (smooth)

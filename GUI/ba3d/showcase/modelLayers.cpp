@@ -20,13 +20,13 @@
 
 using namespace ba3d;
 
-static flt const sz = 100; // half sz
+static float const sz = 100; // half sz
 
 ModelLayers::ModelLayers() {
   defCamPos = Camera::pos_t(xyz(-10, -140, 20), xyz(0, 0, -30), xyz::_z);
 
   auto layer = [&](int z1, int z2, QColor color) {
-    flt s2 = sz /2;
+    float s2 = sz /2;
     auto l = new Layer(dxyz(dr(-s2,+s2), dr(-s2,+s2), dr(z1, z2)));
     color.setAlphaF(.3);
     l->color = color;
@@ -48,7 +48,7 @@ void ModelLayers::showKind(particle::kind k) {
   if (particle::kind::None == k)
     return;
 
-  flt z[] = {-10, -30, -45};
+  float z[] = {-10, -30, -45};
   ps.reserve(3*9*9);
   for(int i=0; i<9; ++i)
     for(int j=0; j<9; ++j)

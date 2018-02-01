@@ -29,56 +29,53 @@
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-// 32b float as in GL; 3 letters as in 'int'
-using flt = float;
-
 #ifndef NDEBUG
 
-// in debug version checked, non-negative flt >= 0: (fl)t (p)ositive
+// in debug version checked, non-negative float >= 0: (fl)t (p)ositive
 struct flp {
-  flp(flt);
-  operator flt() const { return f; }
+  flp(float);
+  operator float() const { return f; }
 private:
-  flt f;
+  float f;
 };
 
 #else
 
-typedef flt flp;
+typedef float flp;
 
 #endif
 
 //------------------------------------------------------------------------------
 
 struct xyz {
-  flt x, y, z;
+  float x, y, z;
 
   typedef xyz const& rc;
 
   xyz();
-  xyz(flt);
-  xyz(flt, flt, flt);
+  xyz(float);
+  xyz(float, float, float);
 
   xyz(rc) = default;
 
   xyz(QVector3D const&);
   operator QVector3D() const;
 
-  flt length()     const;
+  float length()     const;
   xyz normalized() const;
 
-  xyz interpolateTo(rc, flt) const;
+  xyz interpolateTo(rc, float) const;
 
   static xyz const _0, _1, _x, _y, _z;
 };
 
 // products
 xyz cross(xyz::rc, xyz::rc);
-flt dot(xyz::rc, xyz::rc);
+float dot(xyz::rc, xyz::rc);
 
 xyz operator+(xyz::rc);
 xyz operator-(xyz::rc);
-xyz operator*(xyz::rc, flt);
+xyz operator*(xyz::rc, float);
 
 xyz operator+(xyz::rc, xyz::rc);
 xyz operator-(xyz::rc, xyz::rc);
@@ -87,11 +84,11 @@ xyz operator-(xyz::rc, xyz::rc);
 
 // (d)ifference or (r)ange
 struct dr {
-  flt min, max;
-  dr(flt, flt);
+  float min, max;
+  dr(float, float);
 
-  flt size() const;
-  flt mid()  const;
+  float size() const;
+  float mid()  const;
 };
 
 // dr of coordinates
@@ -103,7 +100,7 @@ struct dxyz {
   xyz size()   const;
   xyz mid()    const;
 
-  flt length() const;
+  float length() const;
 };
 
 //------------------------------------------------------------------------------

@@ -36,18 +36,18 @@ enum class eid { Plane, Box, Sphere, Column,
                  Cuboctahedron };
 
 // these come useful
-extern flt const goldenRatio;
-extern flt const icosahedronL2R;  // L/R conversion
-extern flt const dodecahedronL2R;
+extern float const goldenRatio;
+extern float const icosahedronL2R;  // L/R conversion
+extern float const dodecahedronL2R;
 
-// geometries may have 1 or 2 flt parameters; together with eid -> hash key
+// geometries may have 1 or 2 float parameters; together with eid -> hash key
 struct key {
   key(eid);
-  key(eid, flt);
-  key(eid, flt, flt);
+  key(eid, float);
+  key(eid, float, float);
 
   eid id;
-  flt p1, p2;
+  float p1, p2;
 
   bool operator==(key const&) const;
 };

@@ -74,12 +74,12 @@ private:
 
   static mesh_t meshPlane();
   static mesh_t meshBox();
-  static mesh_t meshSphere(flt cut);
-  static mesh_t meshColumn(flt alpha, flt sides);
+  static mesh_t meshSphere(float cut);
+  static mesh_t meshColumn(float alpha, float sides);
   static mesh_t meshIcosahedron();
   static mesh_t meshDodecahedron();
-  static mesh_t meshTruncBox(flt tD);
-  static mesh_t meshCuboctahedron(flt rH, flt alpha);
+  static mesh_t meshTruncBox(float tD);
+  static mesh_t meshCuboctahedron(float rH, float alpha);
 
   // mesh params for round shapes
   static int const RINGS = 12, SLICES = 24;

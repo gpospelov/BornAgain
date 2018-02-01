@@ -18,7 +18,7 @@
 
 using namespace ba3d;
 
-static flt const R = 1;
+static float const R = 1;
 
 ModelShowcase::ModelShowcase() : p(nullptr) {
   defCamPos.eye = xyz(0, -4*R, 0);

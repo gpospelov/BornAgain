@@ -18,7 +18,7 @@ namespace ba3d {
 //------------------------------------------------------------------------------
 
 Geometry::mesh_t Geometry::meshPlane() {
-  flt const D = .5f;
+  float const D = .5f;
 
   xyz_vec vs; vs.reserve(4);
   vs.addQuad({+D,+D, 0}, {-D,+D, 0}, {-D,-D, 0}, {+D,-D, 0});

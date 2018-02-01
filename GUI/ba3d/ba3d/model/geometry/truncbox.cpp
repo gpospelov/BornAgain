@@ -17,15 +17,15 @@
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-Geometry::mesh_t Geometry::meshTruncBox(flt tD) { // t/D
+Geometry::mesh_t Geometry::meshTruncBox(float tD) { // t/D
   if (tD <= 0)
     return meshBox();
 
-  flt const D = .5f, t = D * (1 - qMin(tD, 1.f));
+  float const D = .5f, t = D * (1 - qMin(tD, 1.f));
   xyz_vec vs; vs.reserve(150);
 
-  QVector<flt> as({+D, +t, -t, -D, -D, -t, +t, +D});
-  QVector<flt> bs({+t, +D, +D, +t, -t, -D, -D, -t});
+  QVector<float> as({+D, +t, -t, -D, -D, -t, +t, +D});
+  QVector<float> bs({+t, +D, +D, +t, -t, -D, -D, -t});
 
   auto side = [&](int ax, int ay, int az, int bx, int by, int bz,
                   xyz::rc d, bool rev) {

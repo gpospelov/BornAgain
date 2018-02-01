@@ -43,7 +43,6 @@ int Lattice::iy(uint i) {
 }
 
 Lattice squareLattice(uint n, float sigma) {
-  using flt = ba3d::flt;
   using xyz = ba3d::xyz;
 
   auto rand01 = [&]() -> float {
@@ -73,7 +72,7 @@ Lattice squareLattice(uint n, float sigma) {
     return place00() + here;
   };
 
-  auto placeXY = [&](flt x, flt y) -> xyz {
+  auto placeXY = [&](float x, float y) -> xyz {
     return placeHere(xyz(x, y, 0));
   };
 

@@ -32,7 +32,7 @@ Camera::pos_t::pos_t(xyz::rc eye_, xyz::rc ctr_, xyz::rc up_,
   : eye(eye_), ctr(ctr_), up(up_), rot(rot_) {
 }
 
-Camera::pos_t Camera::pos_t::interpolateTo(rc to, flt r) const {
+Camera::pos_t Camera::pos_t::interpolateTo(rc to, float r) const {
   return pos_t(
     eye.interpolateTo(to.eye, r),
     ctr.interpolateTo(to.ctr, r),
@@ -71,7 +71,7 @@ void Camera::turnBy(QQuaternion const& rot) {
   set();
 }
 
-void Camera::zoomBy(flt zoom_) {
+void Camera::zoomBy(float zoom_) {
   zoom = zoom_;
   set();
 }

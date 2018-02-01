@@ -48,7 +48,7 @@ public:
                     lastKind  = kind::AnisoPyramid;
 
   void transform(xyz rotate, xyz translate);
-  void fancy(xyz rotate, flt r);
+  void fancy(xyz rotate, float r);
 };
 
 //------------------------------------------------------------------------------

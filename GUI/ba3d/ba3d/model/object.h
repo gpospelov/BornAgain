@@ -34,7 +34,7 @@ public:
 
   QColor color;
 
-  void transform(flt scale, xyz rotate, xyz translate);
+  void transform(float scale, xyz rotate, xyz translate);
   void transform(xyz scale, xyz rotate, xyz translate);
   void transform(xyz scale, QQuaternion, xyz translate);
   void transform(xyz turn, xyz scale, xyz rotate, xyz translate);

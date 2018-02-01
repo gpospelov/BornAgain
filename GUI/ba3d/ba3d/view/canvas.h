@@ -45,7 +45,7 @@ public:
 
 private:
   QRect viewport;
-  flt   aspectRatio, colorBgR, colorBgG, colorBgB;
+  float aspectRatio, colorBgR, colorBgG, colorBgB;
 
   void setCamera(bool full = true);
 
@@ -54,7 +54,7 @@ private:
   void paintGL();
 
   QVector3D lastV;    // unprojected vector
-  flt       lastY;    // screen coordinate
+  float     lastY;    // screen coordinate
   QMatrix4x4 matModel, matProj;
   QVector3D  unproject(QPoint const&);
 

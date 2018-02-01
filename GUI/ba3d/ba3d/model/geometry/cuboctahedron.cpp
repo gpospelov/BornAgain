@@ -18,19 +18,19 @@
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-Geometry::mesh_t Geometry::meshCuboctahedron(flt rH, flt alpha) { // t/D
-  Q_ASSERT(alpha >= flt(M_PI_2));
+Geometry::mesh_t Geometry::meshCuboctahedron(float rH, float alpha) { // t/D
+  Q_ASSERT(alpha >= float(M_PI_2));
   Q_ASSERT(rH >= 0);
 
-  flt const D = .5f, H = 2*D / (rH + 1), t = tanf(alpha - flt(M_PI_2));
-  flt const Db = D - t*H, Dt = D - t*(2*D - H);
+  float const D = .5f, H = 2*D / (rH + 1), t = tanf(alpha - float(M_PI_2));
+  float const Db = D - t*H, Dt = D - t*(2*D - H);
 
   xyz_vec vs_; vs_.reserve(12);
-  flt z[] = {-D, H-D, +D}, d[] = {Db, D, Dt};
+  float z[] = {-D, H-D, +D}, d[] = {Db, D, Dt};
   for(int i=0; i<3; ++i)
     for (int x : {-1, +1})
       for (int y : {-1, +1}) {
-        flt di = d[i];
+        float di = d[i];
         vs_.append(xyz(x*di, y*di, z[i]));
       }
 

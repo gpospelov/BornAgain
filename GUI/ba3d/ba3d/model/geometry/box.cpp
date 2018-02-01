@@ -18,12 +18,12 @@ namespace ba3d {
 //------------------------------------------------------------------------------
 
 Geometry::mesh_t Geometry::meshBox() {
-  flt const D = .5f;
+  float const D = .5f;
 
   xyz_vec vs_; vs_.reserve(8);
-  for (flt x : {-D, +D})
-    for (flt y : {-D, +D})
-      for (flt z : {-D, +D})
+  for (float x : {-D, +D})
+    for (float y : {-D, +D})
+      for (float z : {-D, +D})
         vs_.append(xyz(x,y,z));
 
   Q_ASSERT(8 == vs_.count());

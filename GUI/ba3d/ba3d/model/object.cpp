@@ -36,7 +36,7 @@ Object::~Object() {
     model->rem(this);
 }
 
-void Object::transform(flt scale, xyz rotate, xyz translate) {
+void Object::transform(float scale, xyz rotate, xyz translate) {
   transform(xyz(scale,scale,scale), rotate, translate);
 }
 

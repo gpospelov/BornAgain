@@ -22,7 +22,7 @@ namespace ba3d {
 
 #ifndef NDEBUG
 
-flp::flp(flt f_) : f(f_) {
+flp::flp(float f_) : f(f_) {
   Q_ASSERT(0 <= f)
 }
 
@@ -32,13 +32,13 @@ flp::flp(flt f_) : f(f_) {
 
 xyz::xyz() : xyz(0,0,0) {}
 
-xyz::xyz(flt v) : xyz(v,v,v) {}
+xyz::xyz(float v) : xyz(v,v,v) {}
 
-xyz::xyz(flt x_, flt y_, flt z_) : x(x_), y(y_), z(z_) {}
+xyz::xyz(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
 
 xyz::xyz(QVector3D const& v) : xyz(v.x(), v.y(), v.z()) {}
 
-flt xyz::length() const {
+float xyz::length() const {
   return QVector3D(*this).length();
 }
 
@@ -46,7 +46,7 @@ xyz xyz::normalized() const {
   return QVector3D(*this).normalized();
 }
 
-xyz xyz::interpolateTo(rc to, flt rat) const {
+xyz xyz::interpolateTo(rc to, float rat) const {
   return *this * (1 - rat) + to * rat;
 }
 
@@ -61,7 +61,7 @@ xyz cross(xyz::rc v1, xyz::rc v2) {
   return QVector3D::crossProduct(v1, v2);
 }
 
-flt dot(xyz::rc v1, xyz::rc v2) {
+float dot(xyz::rc v1, xyz::rc v2) {
   return QVector3D::dotProduct(v1, v2);
 }
 
@@ -73,7 +73,7 @@ xyz operator-(xyz::rc v) {
   return xyz::_0 - v;
 }
 
-xyz operator*(xyz::rc v, flt f) {
+xyz operator*(xyz::rc v, float f) {
   return xyz(v.x*f, v.y*f, v.z*f);
 }
 
@@ -87,13 +87,13 @@ xyz operator-(xyz::rc _1, xyz::rc _2) {
 
 //------------------------------------------------------------------------------
 
-dr::dr(flt r1, flt r2) : min(qMin(r1,r2)), max(qMax(r1,r2)) {}
+dr::dr(float r1, float r2) : min(qMin(r1,r2)), max(qMax(r1,r2)) {}
 
-flt dr::size() const {
+float dr::size() const {
   return max - min;
 }
 
-flt dr::mid() const {
+float dr::mid() const {
   return (min + max) / 2;
 }
 
@@ -112,7 +112,7 @@ xyz dxyz::mid() const {
   return xyz(x.mid(), y.mid(), z.mid());
 }
 
-flt dxyz::length() const {
+float dxyz::length() const {
   return xyz(x.size(), y.size(), z.size()).length();
 }
 

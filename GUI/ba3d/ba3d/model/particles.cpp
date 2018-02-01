@@ -45,15 +45,15 @@ void Particle::transform(xyz rotate_, xyz translate_) {
                   (rotate = rotate_), offset + (translate = translate_));
 }
 
-void Particle::fancy(xyz rotate, flt r) {
+void Particle::fancy(xyz rotate, float r) {
   Object::transform(turn, scale*r, rotate, offset + translate);
 }
 
 //------------------------------------------------------------------------------
 
-static flt const pi2f   = flt(M_PI_2);
-static flt const sqrt2f = flt(qSqrt(2));
-static flt const sqrt3f = flt(qSqrt(3));
+static float const pi2f   = float(M_PI_2);
+static float const sqrt2f = float(qSqrt(2));
+static float const sqrt3f = float(qSqrt(3));
 
 FullSphere::FullSphere(flp R)
 : Particle(key(eid::Sphere, 0)) {
@@ -126,7 +126,7 @@ Cone6::Cone6(flp R, flp H, flp alpha)
 Pyramid::Pyramid(flp L, flp H, flp alpha)
 : Particle(key(eid::Column, alpha, 4)) {
   isNull = (L <= 0 || H <= 0 || alpha <= 0);
-  flt L2 = L * sqrt2f;
+  float L2 = L * sqrt2f;
   turn = xyz(0,0,45); scale  = xyz(L2, L2, H); offset = xyz(0, 0, H/2); set();
 }
 
@@ -139,14 +139,14 @@ Cuboctahedron::Cuboctahedron(flp L, flp H, flp rH, flp alpha)
 Prism3::Prism3(flp L, flp H)
 : Particle(key(eid::Column, pi2f, 3)) {
   isNull = (L <= 0 || H <= 0);
-  flt D = L*2 / sqrt3f;
+  float D = L*2 / sqrt3f;
   scale = xyz(D*2, D*2, H); offset = xyz(0, 0, H/2); set();
 }
 
 Tetrahedron::Tetrahedron(flp L, flp H, flp alpha)
 : Particle(key(eid::Column, alpha, 3)) {
   isNull = (L <= 0 || H <= 0 || alpha <= 0);
-  flt D = L*2 / sqrt3f;
+  float D = L*2 / sqrt3f;
   scale = xyz(D*2, D*2, H); offset = xyz(0, 0, H/2); set();
 }
 

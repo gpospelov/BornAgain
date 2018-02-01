@@ -37,9 +37,9 @@ Canvas::~Canvas() {
 }
 
 void Canvas::setBgColor(QColor const& c) {
-  colorBgR = flt(c.redF());
-  colorBgG = flt(c.greenF());
-  colorBgB = flt(c.blueF());
+  colorBgR = float(c.redF());
+  colorBgG = float(c.greenF());
+  colorBgB = float(c.blueF());
   update();
 }
 
@@ -93,7 +93,7 @@ void Canvas::initializeGL() {
 void Canvas::resizeGL(int w, int h) {
   int w1 = qMax(1, w), h1 = qMax(1, h);
   viewport.setRect(0, 0, w1, h1);
-  aspectRatio = flt(w1) / flt(h1);
+  aspectRatio = float(w1) / float(h1);
   setCamera(false);
 }
 
@@ -120,7 +120,7 @@ void Canvas::paintGL() {
 }
 
 QVector3D Canvas::unproject(QPoint const& p) {
-  flt x = p.x(), y = viewport.height() - p.y();
+  float x = p.x(), y = viewport.height() - p.y();
   return QVector3D(x, y, 1).unproject(matModel, matProj, viewport);
 }
 
@@ -153,7 +153,7 @@ void Canvas::mouseMoveEvent(QMouseEvent* e) {
       camera->turnBy(QQuaternion::rotationTo(v, lastV));
       break;
     case btnZOOM: {
-      flt d = (e->y() - lastY) / flt(viewport.height());
+      float d = (e->y() - lastY) / float(viewport.height());
       camera->zoomBy(1+d);
       break;
     }

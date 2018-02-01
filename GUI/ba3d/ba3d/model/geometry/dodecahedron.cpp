@@ -20,17 +20,17 @@ namespace ba3d {
 //------------------------------------------------------------------------------
 
 Geometry::mesh_t Geometry::meshDodecahedron() {
-  flt const G  = geometry::goldenRatio,
+  float const G  = geometry::goldenRatio,
             G1 = 1/G;
 
   xyz_vec vs_; vs_.reserve(20);
-  for (flt x : {-1, +1})
-    for (flt y : {-1, +1})
-      for (flt z : {-1, +1})
+  for (float x : {-1, +1})
+    for (float y : {-1, +1})
+      for (float z : {-1, +1})
         vs_.append(xyz(x,y,z));
 
-  for (flt g1 : {-G1, +G1})
-    for (flt g : {-G, +G}) {
+  for (float g1 : {-G1, +G1})
+    for (float g : {-G, +G}) {
       vs_.append(xyz(0, g1, g));
       vs_.append(xyz(g1, g, 0));
       vs_.append(xyz(g, 0, g1));
@@ -39,7 +39,7 @@ Geometry::mesh_t Geometry::meshDodecahedron() {
   Q_ASSERT(20 == vs_.count());
 
   // scale to circumscribed sphere
-  flt const F = .5f / vs_.at(0).length();
+  float const F = .5f / vs_.at(0).length();
   for (auto& v : vs_)
     v = v*F;
 

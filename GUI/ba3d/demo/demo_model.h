@@ -27,7 +27,6 @@ public:
   using super = ba3d::Model;
 
   using xyz = ba3d::xyz;
-  using flt = ba3d::flt;
   using Particle = ba3d::particle::Particle;
   using Camera   = ba3d::Camera;
 
@@ -58,10 +57,10 @@ private:
   enum {frontNONE, frontONE, frontSQUARELOW,
                    frontSQUAREHIGH, frontSQUAREINSANE } front = frontNONE;
 
-  flt szSample = 400;
-  flt const spacing  = 20; // of particles
-  flt const R = 6;
-  flt const hgtLayer = 20, hgtSubstrate = 35;
+  float szSample = 400;
+  float const spacing  = 20; // of particles
+  float const R = 6;
+  float const hgtLayer = 20, hgtSubstrate = 35;
 
   Camera::pos_t camPos;
 

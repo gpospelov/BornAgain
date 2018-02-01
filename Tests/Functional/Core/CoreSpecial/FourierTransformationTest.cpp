@@ -123,7 +123,7 @@ std::vector<std::string> inputImageNames()
 
 std::string fftReferenceDir()
 {
-    return BATesting::CoreSpecialReferenceDir();
+    return BATesting::CoreReferenceDir();
 }
 
 std::string fftReferenceImage(const std::string& input_image)

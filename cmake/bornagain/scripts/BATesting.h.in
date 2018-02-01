@@ -24,8 +24,7 @@
 namespace BATesting {
 
 inline std::string ReferenceDataDir() { return "@TEST_REFERENCE_DIR@"; }
-inline std::string CoreReferenceDir() { return "@TEST_REFERENCE_DIR@/StandardSuite"; }
-inline std::string CoreSpecialReferenceDir() { return "@TEST_REFERENCE_DIR@/Special"; }
+inline std::string CoreReferenceDir() { return "@TEST_REFERENCE_DIR@/Core"; }
 
 inline std::string TestOutputDir() { return "@TEST_OUTPUT_DIR@"; }
 inline std::string CoreOutputDir() { return "@TEST_OUTPUT_DIR@/Functional/Core"; }

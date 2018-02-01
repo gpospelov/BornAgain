@@ -24,7 +24,7 @@
 
 bool PolDWBAMagCylinders::runTest()
 {
-    const std::string trunc = FileSystemUtils::jointPath(BATesting::CoreSpecialReferenceDir(),
+    const std::string trunc = FileSystemUtils::jointPath(BATesting::CoreReferenceDir(),
                                                              "/polmagcylinders2_reference_");
     const std::unique_ptr<OutputData<double> >
         P_reference00(IntensityDataIOFactory::readOutputData(trunc + "00.int.gz"));

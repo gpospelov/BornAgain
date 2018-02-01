@@ -94,8 +94,6 @@ def run_simulation():
     simulation.runSimulation()
     results[3] = simulation.result()
 
-    # See more trick in <source>/Tests/Functional/PyCore/legacy/parameterpool.py
-
     return results
 
 

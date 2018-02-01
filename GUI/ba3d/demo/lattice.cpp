@@ -68,7 +68,7 @@ Lattice squareLattice(uint n, float sigma) {
     return ba3d::xyz(x01 * w * sigma, y01 * w * sigma, 0.01);
   };
 
-  auto placeHere = [&](xyz::rc here) -> xyz {
+  auto placeHere = [&](const xyz& here) -> xyz {
     return place00() + here;
   };
 
@@ -80,7 +80,7 @@ Lattice squareLattice(uint n, float sigma) {
 
   auto mesh = Lattice(n, nn);
 
-  auto get = [&](int ix, int iy) -> xyz::rc {
+  auto get = [&](int ix, int iy) -> const xyz& {
     return mesh.at(mesh.index(ix, iy));
   };
   (void)get;

@@ -33,7 +33,7 @@ public:
   struct vn_t {
     xyz v, n;
     vn_t() = default;
-    vn_t(xyz::rc v, xyz::rc n);
+    vn_t(const xyz& v, const xyz& n);
   };
 
   // vertex indices (for GL)
@@ -48,10 +48,10 @@ public:
     using base::base;
     typedef xyz_vec const& rc;
 
-    void addVert(xyz::rc, int n = 1); // add a vertex, possibly multiple copies
+    void addVert(const xyz&, int n = 1); // add a vertex, possibly multiple copies
 
-    void addTrig(xyz::rc, xyz::rc, xyz::rc);          // triangle
-    void addQuad(xyz::rc, xyz::rc, xyz::rc, xyz::rc); // quad as 2 triangles
+    void addTrig(const xyz&, const xyz&, const xyz&);          // triangle
+    void addQuad(const xyz&, const xyz&, const xyz&, const xyz&); // quad as 2 triangles
     void addQuad(xyz_vec::rc, idx, idx, idx, idx);
     void addStrip(xyz_vec::rc, idx_vec::rc);          // triangle strip
     void addFan(xyz_vec::rc, idx_vec::rc);            // triangle fan

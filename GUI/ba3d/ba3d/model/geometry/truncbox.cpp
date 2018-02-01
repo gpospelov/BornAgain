@@ -28,7 +28,7 @@ Geometry::mesh_t Geometry::meshTruncBox(float tD) { // t/D
   QVector<float> bs({+t, +D, +D, +t, -t, -D, -D, -t});
 
   auto side = [&](int ax, int ay, int az, int bx, int by, int bz,
-                  xyz::rc d, bool rev) {
+                  const xyz& d, bool rev) {
     xyz_vec vs_(8);
     for(int i=0; i<8; ++i)
       vs_[rev ? 7-i : i] =

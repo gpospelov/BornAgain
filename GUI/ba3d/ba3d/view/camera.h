@@ -37,7 +37,7 @@ public:
     typedef pos_t const& rc;
 
     pos_t();
-    pos_t(xyz::rc eye, xyz::rc ctr, xyz::rc up,
+    pos_t(const xyz& eye, const xyz& ctr, const xyz& up,
           QQuaternion const& = QQuaternion());
 
     xyz eye, ctr, up;

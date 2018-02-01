@@ -27,7 +27,7 @@ ModelLayers::ModelLayers() {
 
   auto layer = [&](int z1, int z2, QColor color) {
     float s2 = sz /2;
-    auto l = new Layer(dxyz(dr(-s2,+s2), dr(-s2,+s2), dr(z1, z2)));
+    auto l = new Layer(RangeXYZ(RangeFloat(-s2,+s2), RangeFloat(-s2,+s2), RangeFloat(z1, z2)));
     color.setAlphaF(.3);
     l->color = color;
 

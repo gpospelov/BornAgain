@@ -32,13 +32,11 @@ namespace ba3d {
 struct xyz {
   float x, y, z;
 
-  typedef xyz const& rc;
-
   xyz();
   xyz(float);
   xyz(float, float, float);
 
-  xyz(rc) = default;
+  xyz(const xyz&) = default;
 
   xyz(QVector3D const&);
   operator QVector3D() const;
@@ -46,38 +44,38 @@ struct xyz {
   float length()     const;
   xyz normalized() const;
 
-  xyz interpolateTo(rc, float) const;
+  xyz interpolateTo(const xyz&, float) const;
 
   static xyz const _0, _1, _x, _y, _z;
 };
 
 // products
-xyz cross(xyz::rc, xyz::rc);
-float dot(xyz::rc, xyz::rc);
+xyz cross(const xyz&, const xyz&);
+float dot(const xyz&, const xyz&);
 
-xyz operator+(xyz::rc);
-xyz operator-(xyz::rc);
-xyz operator*(xyz::rc, float);
+xyz operator+(const xyz&);
+xyz operator-(const xyz&);
+xyz operator*(const xyz&, float);
 
-xyz operator+(xyz::rc, xyz::rc);
-xyz operator-(xyz::rc, xyz::rc);
+xyz operator+(const xyz&, const xyz&);
+xyz operator-(const xyz&, const xyz&);
 
 //------------------------------------------------------------------------------
 
-// (d)ifference or (r)ange
-struct dr {
+// range of float
+struct RangeFloat {
   float min, max;
-  dr(float, float);
+  RangeFloat(float, float);
 
   float size() const;
   float mid()  const;
 };
 
-// dr of coordinates
-struct dxyz {
-  dr x, y, z;
-  dxyz(dr, dr, dr);
-  dxyz(xyz, xyz);
+// range of coordinates
+struct RangeXYZ {
+  RangeFloat x, y, z;
+  RangeXYZ(RangeFloat, RangeFloat, RangeFloat);
+  RangeXYZ(xyz, xyz);
 
   xyz size()   const;
   xyz mid()    const;

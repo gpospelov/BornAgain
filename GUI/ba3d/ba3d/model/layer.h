@@ -24,7 +24,7 @@ namespace ba3d {
 class Layer : public Object
 {
 public:
-  Layer(dxyz);
+  Layer(RangeXYZ);
 };
 
 //------------------------------------------------------------------------------

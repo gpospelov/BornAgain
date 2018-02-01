@@ -223,17 +223,17 @@ void DemoModel::cameraUpdated(DemoModel::Camera const& cam) {
 
 void DemoModel::addSubstrate() {
   QColor clr = Qt::lightGray;
-  addLayer(dr(-hgtLayer, -hgtLayer - hgtSubstrate), clr);
+  addLayer(RangeFloat(-hgtLayer, -hgtLayer - hgtSubstrate), clr);
 }
 
 void DemoModel::addLayer() {
   QColor clr = QColor(0, 100, 0);
-  addLayer(dr(0, -hgtLayer), clr);
+  addLayer(RangeFloat(0, -hgtLayer), clr);
 }
 
-void DemoModel::addLayer(dr z, QColor clr) {
+void DemoModel::addLayer(RangeFloat z, QColor clr) {
   float s2 = szSample / 2;
-  auto l = new Layer(dxyz(dr(-s2,+s2), dr(-s2,+s2), z));
+  auto l = new Layer(RangeXYZ(RangeFloat(-s2,+s2), RangeFloat(-s2,+s2), z));
   clr.setAlphaF(.3);
   l->color = clr;
   addBlend(l);

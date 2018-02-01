@@ -65,7 +65,7 @@ private:
   Camera::pos_t camPos;
 
 private:
-  void addLayer(ba3d::dr, QColor);
+  void addLayer(ba3d::RangeFloat, QColor);
 
   QVector<Particle*> ps;
   Particle* p; ba3d::particle::kind kind = ba3d::particle::kind::None;

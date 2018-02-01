@@ -65,7 +65,7 @@ std::unique_ptr<ba3d::Layer> TransformTo3D::createLayer(const SessionItem& layer
     double zbottom = origin.z();
 
     std::unique_ptr<ba3d::Layer> result = std::make_unique<ba3d::Layer>(
-        ba3d::dxyz(ba3d::dr(-s2,+s2), ba3d::dr(-s2,+s2), ba3d::dr(ztop, zbottom)));
+        ba3d::RangeXYZ(ba3d::RangeFloat(-s2,+s2), ba3d::RangeFloat(-s2,+s2), ba3d::RangeFloat(ztop, zbottom)));
 
     QColor color = layerItem.getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>().color();
     color.setAlphaF(.3);

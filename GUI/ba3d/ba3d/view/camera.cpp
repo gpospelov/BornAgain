@@ -27,7 +27,7 @@ Camera::Camera()
 Camera::pos_t::pos_t() : eye(), ctr(), up() {
 }
 
-Camera::pos_t::pos_t(xyz::rc eye_, xyz::rc ctr_, xyz::rc up_,
+Camera::pos_t::pos_t(const xyz& eye_, const xyz& ctr_, const xyz& up_,
                      QQuaternion const& rot_)
   : eye(eye_), ctr(ctr_), up(up_), rot(rot_) {
 }

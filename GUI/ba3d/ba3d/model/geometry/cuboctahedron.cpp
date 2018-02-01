@@ -19,8 +19,8 @@ namespace ba3d {
 //------------------------------------------------------------------------------
 
 Geometry::mesh_t Geometry::meshCuboctahedron(flt rH, flt alpha) { // t/D
-  EXPECT(alpha >= flt(M_PI_2))
-  EXPECT(rH >= 0)
+  Q_ASSERT(alpha >= flt(M_PI_2));
+  Q_ASSERT(rH >= 0);
 
   flt const D = .5f, H = 2*D / (rH + 1), t = tanf(alpha - flt(M_PI_2));
   flt const Db = D - t*H, Dt = D - t*(2*D - H);

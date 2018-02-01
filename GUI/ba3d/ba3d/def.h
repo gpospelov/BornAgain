@@ -37,8 +37,6 @@
 // trace print
 #define WT(what) TR(#what << what)
 
-// precondition
-#define EXPECT(cond) Q_ASSERT(cond);
 // invariant
 #define ENSURE(cond) Q_ASSERT(cond);
 

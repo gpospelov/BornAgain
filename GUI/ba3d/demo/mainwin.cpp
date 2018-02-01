@@ -117,7 +117,7 @@ void MainWin::createLayout() {
 
 DemoModel* MainWin::model() {
   auto model = dynamic_cast<DemoModel*>(w3d->getModel());
-  EXPECT(model)
+  Q_ASSERT(model);
   return model;
 }
 

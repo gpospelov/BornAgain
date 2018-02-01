@@ -93,7 +93,7 @@ void DemoModel::square(float sigma) {
     activeMesh.clear();
   }
 
-  EXPECT (ps.count() == mesh.count())
+  Q_ASSERT(ps.count() == mesh.count());
 
   if (activeMesh.empty()) {
     activeMesh = mesh;

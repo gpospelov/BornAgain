@@ -190,7 +190,7 @@ void Canvas::draw(QColor const& color, QMatrix4x4 const& mat, Geometry const& ge
   else
     buf = *it;
 
-  EXPECT(program)
+  Q_ASSERT(program);
   program->set(color);
   program->set(mat);
   buf->draw();

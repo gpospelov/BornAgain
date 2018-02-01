@@ -25,8 +25,8 @@ Lattice::Lattice(uint n_, uint nn) : super (nn), n(n_) {}
 
 uint Lattice::index(int ix, int iy) {
   int nx = n, ny = n;
-  EXPECT (-nx <= ix && ix <= +nx)
-  EXPECT (-ny <= iy && iy <= +ny)
+  Q_ASSERT(-nx <= ix && ix <= +nx);
+  Q_ASSERT(-ny <= iy && iy <= +ny);
   uint i = (2*nx + 1) * (iy + ny) + (ix + nx);
   ENSURE (static_cast<int>(i) < count())
   return i;
@@ -96,8 +96,8 @@ Lattice squareLattice(uint n, float sigma) {
   };
 
   auto growBy1Quadrant = [&](uint n, int mx, int my) {
-    EXPECT (n > 0)
-    EXPECT (1 == qAbs(mx) && 1 == qAbs(my))
+    Q_ASSERT(n > 0);
+    Q_ASSERT(1 == qAbs(mx) && 1 == qAbs(my));
 
     put(0*mx, n*my); put(n*mx, 0*my);
 
@@ -109,7 +109,7 @@ Lattice squareLattice(uint n, float sigma) {
   };
 
   auto growBy1 = [&](uint n) {
-    EXPECT (n > 0)
+    Q_ASSERT(n > 0);
     growBy1Quadrant(n, +1, +1);
     growBy1Quadrant(n, +1, -1);
     growBy1Quadrant(n, -1, +1);

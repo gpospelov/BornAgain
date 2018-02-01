@@ -23,7 +23,7 @@ namespace ba3d {
 #ifndef NDEBUG
 
 flp::flp(flt f_) : f(f_) {
-  EXPECT(0 <= f)
+  Q_ASSERT(0 <= f)
 }
 
 #endif

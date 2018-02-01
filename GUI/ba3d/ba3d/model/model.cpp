@@ -96,13 +96,15 @@ particle::Particle* Model::newParticle(particle::kind k, flp R) {
 }
 
 void Model::add(Object* o) {
-  EXPECT(o) EXPECT(!o->model)
+  Q_ASSERT(o);
+  Q_ASSERT(!o->model);
   o->model = this;
   objects.append(o);
 }
 
 void Model::addBlend(Object* o) {
-  EXPECT(o) EXPECT(!o->model)
+  Q_ASSERT(o);
+  Q_ASSERT(!o->model);
   o->model = this;
   objectsBlend.append(o);
 }
@@ -114,7 +116,7 @@ void Model::rem(Object* o) {
   else if ((i = objectsBlend.indexOf(o)) >= 0)
     objectsBlend.remove(i);
   else
-    EXPECT(false); // object not found, should not happen, bad caller!
+    Q_ASSERT(false); // object not found, should not happen, bad caller!
 
   o->releaseGeometry();
   o->model = nullptr;

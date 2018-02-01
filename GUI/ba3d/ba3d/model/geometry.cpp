@@ -40,7 +40,7 @@ void Geometry::xyz_vec::addQuad(Geometry::xyz_vec::rc vs,
 }
 
 void Geometry::xyz_vec::addStrip(xyz_vec::rc vs, idx_vec::rc is) {
-  EXPECT(is.count() >= 3) // at least one triangle
+  Q_ASSERT(is.count() >= 3); // at least one triangle
   for_i (is.count() - 2)
     if (i%2)
       addTrig(vs.at(is.at(i)), vs.at(is.at(1+i)), vs.at(is.at(2+i)));
@@ -49,7 +49,7 @@ void Geometry::xyz_vec::addStrip(xyz_vec::rc vs, idx_vec::rc is) {
 }
 
 void Geometry::xyz_vec::addFan(xyz_vec::rc vs, idx_vec::rc is) {
-  EXPECT(is.count() >= 3) // at least one triangle
+  Q_ASSERT(is.count() >= 3); // at least one triangle
   auto &ctr = vs.at(is.at(0));
   for_i (is.count() - 2)
     addTrig(ctr, vs.at(is.at(1+i)),
@@ -96,8 +96,8 @@ Geometry::~Geometry() {
 
 Geometry::mesh_t Geometry::makeMesh(xyz_vec::rc vs, xyz_vec const* ns) {
   int nv = vs.count();
-  EXPECT(0 == nv%3)
-  EXPECT(!ns || nv == ns->count()) // if normals not given, will be computed
+  Q_ASSERT(0 == nv%3);
+  Q_ASSERT(!ns || nv == ns->count()); // if normals not given, will be computed
 
   mesh_t mesh(nv);
 

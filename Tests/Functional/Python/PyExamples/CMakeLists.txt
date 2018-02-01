@@ -6,15 +6,15 @@
 #
 ###############################################################################
 
-# add_custom_target(TempQtCreatorTarget SOURCES check_functionality.py)
-
 file(GLOB sim_examples "${PY_EXAMPLES_DIR}/simulation/ex*/*.py")
 file(GLOB fit_examples "${PY_EXAMPLES_DIR}/fitting/ex09*/*.py")
 set(examples ${sim_examples} ${fit_examples})
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_functionality.py ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/check_functionality.py @ONLY)
+set(output_dir ${TEST_OUTPUT_DIR}/Functional/Python/PyExamples)
+set(test_script ${output_dir}/check_functionality.py)
 
-set(test_script ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/check_functionality.py)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_functionality.py ${test_script} @ONLY)
+
 foreach(example ${examples})
     set(script_path ${example})
 

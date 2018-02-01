@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/demo/mainwin.cpp
+//! @file      GUI/ba3d/demo/mainwindow.cpp
 //! @brief     Implement MainWin class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "mainwin.h"
+#include "mainwindow.h"
 
 #include <QApplication>
 #include <QBoxLayout>
@@ -25,7 +25,7 @@
 
 static QString const MAINWIN_GEOMETRY("MainWin Geometry");
 
-MainWin::MainWin() {
+MainWindow::MainWindow() {
   setWindowTitle(qApp->applicationName());
   createLayout();
 
@@ -33,17 +33,17 @@ MainWin::MainWin() {
   restoreGeometry(s.value(MAINWIN_GEOMETRY).toByteArray());
 }
 
-void MainWin::closeEvent(QCloseEvent*) {
+void MainWindow::closeEvent(QCloseEvent*) {
   QSettings s;
   s.setValue(MAINWIN_GEOMETRY, saveGeometry());
 }
 
-void MainWin::keyPressEvent(QKeyEvent* e) {
+void MainWindow::keyPressEvent(QKeyEvent* e) {
   if ("q" == e->text())
     close();
 }
 
-void MainWin::createLayout() {
+void MainWindow::createLayout() {
   setCentralWidget(new QWidget);
 
   auto vb = new QVBoxLayout;
@@ -115,7 +115,7 @@ void MainWin::createLayout() {
   });
 }
 
-DemoModel* MainWin::model() {
+DemoModel* MainWindow::model() {
   auto model = dynamic_cast<DemoModel*>(w3d->getModel());
   Q_ASSERT(model);
   return model;

@@ -15,7 +15,7 @@
 #include <ba3d/def.h>
 #include <ba3d/view/camera.h>
 
-#include "mainwin.h"
+#include "mainwindow.h"
 #include "demo_model.h"
 #include <QApplication>
 
@@ -38,7 +38,7 @@ App::App(int& argc, char* argv[]) : QApplication(argc, argv) {
 App::~App() {}
 
 int App::exec() {
-  MainWin win;
+  MainWindow win;
   win.show();
 
   QScopedPointer<DemoModel> model(new DemoModel);

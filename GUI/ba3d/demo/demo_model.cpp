@@ -48,15 +48,15 @@ void DemoModel::switchFront() {
     one(); front = frontONE;
     break;
   case frontONE:
-    super::clearOpaque(); kind = ba3d::particle::kind::None;
+    super::clearOpaque(); kind = particle::EShape::None;
     front = frontSQUARELOW; szSample = 400; square(0);
     break;
   case frontSQUARELOW:
-    super::clearOpaque(); ps.clear(); kind = ba3d::particle::kind::None;
+    super::clearOpaque(); ps.clear(); kind = particle::EShape::None;
     front = frontSQUAREHIGH; szSample = 800; square(0);
     break;
   case frontSQUAREHIGH:
-    super::clearOpaque(); ps.clear(); kind = ba3d::particle::kind::None;
+    super::clearOpaque(); ps.clear(); kind = particle::EShape::None;
     front = frontSQUAREINSANE; szSample = 2000; square(0);
     break;
   case frontSQUAREINSANE:
@@ -79,7 +79,7 @@ void DemoModel::square(float sigma) {
   uint n = qFloor(szSample / spacing / 2 - 1);
   auto mesh = squareLattice(n, sigma);
   for (auto& m: mesh)
-    m = m  * spacing + xyz(0, 0, -20);
+    m = m  * spacing + Vector3D(0, 0, -20);
 
   if (ps.empty()) { // first time - init
     ps.resize(mesh.count());
@@ -98,23 +98,23 @@ void DemoModel::square(float sigma) {
   if (activeMesh.empty()) {
     activeMesh = mesh;
     for (uint i=0; i < uint(ps.count()); ++i)
-      ps.at(i)->transform(xyz::_0, activeMesh.at(i));
+      ps.at(i)->transform(Vector3D::_0, activeMesh.at(i));
 
     int const steps = 20;
     for(int s=0; s < steps + 1; ++s) {
       for (uint i=0; i < uint(ps.count()); ++i)
-        ps.at(i)->fancy(xyz::_0, float(s) / steps);
+        ps.at(i)->fancy(Vector3D::_0, float(s) / steps);
       snooze(false);
     }
   } else {
     // back
     auto home = squareLattice(n, 0), from = activeMesh;
     for (auto& m: home)
-      m = m  * spacing + xyz(0, 0, -20);
+      m = m  * spacing + Vector3D(0, 0, -20);
     int const steps = 30;
     for(int s=0; s < steps + 1; ++s) {
       for (uint i=0; i < uint(ps.count()); ++i)
-        ps.at(i)->transform(xyz::_0, from.at(i).interpolateTo(home.at(i), float(s)/steps));
+        ps.at(i)->transform(Vector3D::_0, from.at(i).interpolateTo(home.at(i), float(s)/steps));
       snooze(false);
     }
 
@@ -144,7 +144,7 @@ void DemoModel::square(float sigma) {
          && (newPos - np).length() > step*1.001) {
             go = true;
             pos = np;
-            p->transform(xyz::_0, pos);
+            p->transform(Vector3D::_0, pos);
         }
       }
 
@@ -156,7 +156,7 @@ void DemoModel::square(float sigma) {
 }
 
 void DemoModel::one() {
-  using eKind = ba3d::particle::kind;
+  using eKind = particle::EShape;
   if (kind != eKind::None)
     oneOut();
   if (kind == eKind::AnisoPyramid)
@@ -169,37 +169,37 @@ void DemoModel::oneOut() {
   int const steps = 40;
   for(int i=0; i<steps+1; ++i) {
     float a = 360.f / steps * i / 3;
-    p->fancy(xyz(a, a, a), float(steps-i) / steps);
+    p->fancy(Vector3D(a, a, a), float(steps-i) / steps);
     snooze(false);
   }
   rem(p);
 }
 
-void DemoModel::oneIn(particle::kind kind) {
+void DemoModel::oneIn(particle::EShape kind) {
   add((p = newParticle(kind, R)));
 #ifdef Q_OS_OSX
   p->color = QColor(70,0,0);
 #endif
-  p->transform(xyz::_0, xyz(0, 0, -hgtLayer));
+  p->transform(Vector3D::_0, Vector3D(0, 0, -hgtLayer));
 
   int const steps = 140;
   for(int i=0; i<steps+1; ++i) {
     float a = 360.f / steps * i;
-    p->fancy(xyz(a*2, a, a), float(i) / steps);
+    p->fancy(Vector3D(a*2, a, a), float(i) / steps);
     snooze(false);
   }
 }
 
 void DemoModel::setCameraTop(bool animate) {
-  setCamera(Camera::pos_t(xyz(0, 0, szSample), xyz(0, 0, -20), xyz::_y), animate);
+  setCamera(Camera::pos_t(Vector3D(0, 0, szSample), Vector3D(0, 0, -20), Vector3D::_y), animate);
 }
 
 void DemoModel::setCameraSide(bool animate) {
-  setCamera(Camera::pos_t(xyz(-10, -szSample*1.1, 2*hgtLayer), xyz(0, 0, -20), xyz::_z), animate);
+  setCamera(Camera::pos_t(Vector3D(-10, -szSample*1.1, 2*hgtLayer), Vector3D(0, 0, -20), Vector3D::_z), animate);
 }
 
 void DemoModel::setCameraOne(bool animate) {
-  setCamera(Camera::pos_t(xyz(0, 0, spacing), xyz(0, 0, -20), xyz::_y), animate);
+  setCamera(Camera::pos_t(Vector3D(0, 0, spacing), Vector3D(0, 0, -20), Vector3D::_y), animate);
 }
 
 void DemoModel::setCamera(Camera::pos_t::rc to, bool animate) {

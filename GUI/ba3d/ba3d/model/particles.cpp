@@ -19,7 +19,7 @@
 namespace ba3d { namespace particle {
 //------------------------------------------------------------------------------
 
-QString const& name(kind k) {
+QString const& name(EShape k) {
   static QString names[] = {
     "", "FullSphere", "FullSpheroid", "Cylinder", "TruncatedSphere",
     "TruncatedSpheroid", "Cone", "Icosahedron", "Dodecahedron", "TruncatedCube",

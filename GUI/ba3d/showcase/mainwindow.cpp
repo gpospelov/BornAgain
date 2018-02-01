@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/showcase/mainwin.cpp
+//! @file      GUI/ba3d/showcase/mainwindow.cpp
 //! @brief     Implements MainWin class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "mainwin.h"
+#include "mainwindow.h"
 
 #include <QAction>
 #include <QApplication>
@@ -26,7 +26,7 @@
 
 static QString const MAINWIN_GEOMETRY("MainWin Geometry");
 
-MainWin::MainWin() {
+MainWindow::MainWindow() {
   setWindowTitle(qApp->applicationName());
   createLayout();
 
@@ -34,12 +34,12 @@ MainWin::MainWin() {
   restoreGeometry(s.value(MAINWIN_GEOMETRY).toByteArray());
 }
 
-void MainWin::closeEvent(QCloseEvent*) {
+void MainWindow::closeEvent(QCloseEvent*) {
   QSettings s;
   s.setValue(MAINWIN_GEOMETRY, saveGeometry());
 }
 
-void MainWin::createLayout() {
+void MainWindow::createLayout() {
   setCentralWidget(new QWidget);
 
   auto hb = new QHBoxLayout;
@@ -65,10 +65,10 @@ void MainWin::createLayout() {
   {
     using namespace ba3d::particle;
     connect(combo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), [&](int i) {
-      emit showKind(kind(int(Particle::firstKind)+i));
+      emit showKind(EShape(int(Particle::firstKind)+i));
     });
 
-    for (kind k=Particle::firstKind; k <= Particle::lastKind; k = kind(uint(k)+1))
+    for (EShape k=Particle::firstKind; k <= Particle::lastKind; k = EShape(uint(k)+1))
       combo->addItem(name(k));
   }
 }

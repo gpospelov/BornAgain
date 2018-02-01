@@ -44,51 +44,51 @@ void Model::clearBlend() {
   emit updated(false);
 }
 
-particle::Particle* Model::newParticle(particle::kind k, float R) {
+particle::Particle* Model::newParticle(particle::EShape k, float R) {
   using namespace particle;
 
   float D = 2*R;
 
   switch (k) {
-  case kind::None:
+  case EShape::None:
     return nullptr;
-  case kind::FullSphere:
+  case EShape::FullSphere:
     return new FullSphere(R);
-  case kind::FullSpheroid:
+  case EShape::FullSpheroid:
     return new FullSpheroid(R/2, D);
-  case kind::Cylinder:
+  case EShape::Cylinder:
     return new Cylinder(R, D);
-  case kind::TruncatedSphere:
+  case EShape::TruncatedSphere:
     return new TruncatedSphere(R, D/3);
-  case kind::TruncatedSpheroid:
+  case EShape::TruncatedSpheroid:
     return new TruncatedSpheroid(R, 2*R, 1.5);
-  case kind::Cone:
+  case EShape::Cone:
     return new Cone(R, D, 1.3f);
-  case kind::Icosahedron:
+  case EShape::Icosahedron:
     return new Icosahedron(R * geometry::icosahedronL2R);
-  case kind::Dodecahedron:
+  case EShape::Dodecahedron:
     return new Dodecahedron(R * geometry::dodecahedronL2R);
-  case kind::TruncatedCube:
+  case EShape::TruncatedCube:
     return new TruncatedCube(D, D/3);
-  case kind::Prism6:
+  case EShape::Prism6:
     return new Prism6(R, D);
-  case kind::Cone6:
+  case EShape::Cone6:
     return new Cone6(R, D, 1.3f);
-  case kind::Pyramid:
+  case EShape::Pyramid:
     return new Pyramid(D, D, 1.3f);
-  case kind::Cuboctahedron:
+  case EShape::Cuboctahedron:
     return new Cuboctahedron(D, R*3/2, 2.f/3, 2);
-  case kind::Prism3:
+  case EShape::Prism3:
     return new Prism3(R, D);
-  case kind::Tetrahedron:
+  case EShape::Tetrahedron:
     return new Tetrahedron(R, D, 1.3f);
-  case kind::EllipsoidalCylinder:
+  case EShape::EllipsoidalCylinder:
     return new EllipsoidalCylinder(R, R/2, D);
-  case kind::Box:
+  case EShape::Box:
     return new Box(D, D, D);
-  case kind::HemiEllipsoid:
+  case EShape::HemiEllipsoid:
     return new HemiEllipsoid(R, R, D);
-  case kind::AnisoPyramid:
+  case EShape::AnisoPyramid:
     return new AnisoPyramid(R, D, D, 1.3f);
   }
 

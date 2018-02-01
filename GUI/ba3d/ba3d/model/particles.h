@@ -20,7 +20,7 @@
 namespace ba3d { namespace particle {
 //------------------------------------------------------------------------------
 
-enum class kind {
+enum class EShape {
   None,
   FullSphere, FullSpheroid, Cylinder, TruncatedSphere, TruncatedSpheroid,
   Cone, Icosahedron, Dodecahedron, TruncatedCube, Prism6, Cone6, Pyramid,
@@ -28,7 +28,7 @@ enum class kind {
   HemiEllipsoid, AnisoPyramid,
 };
 
-QString const& name(kind);
+QString const& name(EShape);
 
 //------------------------------------------------------------------------------
 
@@ -44,8 +44,8 @@ protected:
   void set();
 
 public:
-  static kind const firstKind = kind::None,
-                    lastKind  = kind::AnisoPyramid;
+  static EShape const firstKind = EShape::None,
+                    lastKind  = EShape::AnisoPyramid;
 
   void transform(Vector3D rotate, Vector3D translate);
   void fancy(Vector3D rotate, float r);

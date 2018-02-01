@@ -15,7 +15,7 @@
 #include <ba3d/def.h>
 #include <ba3d/view/camera.h>
 
-#include "mainwin.h"
+#include "mainwindow.h"
 #include "modelLayers.h"
 #include "modelShowcase.h"
 #include <QApplication>
@@ -39,7 +39,7 @@ App::App(int& argc, char* argv[]) : QApplication(argc, argv) {
 App::~App() {}
 
 int App::exec() {
-  MainWin win;
+  MainWindow win;
   win.show();
 
   QScopedPointer<ModelLayers>   ml(new ModelLayers);
@@ -54,7 +54,7 @@ int App::exec() {
   w2.cam().lookAt(ba3d::Camera::pos_t(
     ba3d::Vector3D::_z*90, ba3d::Vector3D(0,0,0), ba3d::Vector3D::_y));
 
-  connect(&win, &MainWin::showKind, [&](ba3d::particle::kind kind) {
+  connect(&win, &MainWindow::showKind, [&](ba3d::particle::EShape kind) {
     ml->showKind(kind); ms->showKind(kind);
   });
 

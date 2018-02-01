@@ -23,7 +23,7 @@
 class ModelShowcase : public ba3d::Model {
 public:
   using Particle = ba3d::particle::Particle;
-  using kind     = ba3d::particle::kind;
+  using kind     = ba3d::particle::EShape;
 
   ModelShowcase();
   void showKind(kind);

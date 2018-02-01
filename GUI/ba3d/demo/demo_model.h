@@ -26,7 +26,6 @@ class DemoModel : public ba3d::Model {
 public:
   using super = ba3d::Model;
 
-  using xyz = ba3d::Vector3D;
   using Particle = ba3d::particle::Particle;
   using Camera   = ba3d::Camera;
 
@@ -39,7 +38,7 @@ public:
   void square(float sigma);
   void one();
   void oneOut();
-  void oneIn(ba3d::particle::kind);
+  void oneIn(ba3d::particle::EShape);
 
   void setCameraTop(bool animate = false);
   void setCameraSide(bool animate = false);
@@ -68,7 +67,7 @@ private:
   void addLayer(ba3d::Range, QColor);
 
   QVector<Particle*> ps;
-  Particle* p; ba3d::particle::kind kind = ba3d::particle::kind::None;
+  Particle* p; ba3d::particle::EShape kind = ba3d::particle::EShape::None;
 
   Lattice activeMesh;
 

@@ -8,6 +8,7 @@ if(NOT BORNAGAIN_TIFF_SUPPORT)
 endif()
 
 set(output_dir ${TEST_OUTPUT_DIR}/Functional/Python/PyCore)
+file(MAKE_DIRECTORY ${output_dir})
 
 foreach(_src ${sources})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${_src}

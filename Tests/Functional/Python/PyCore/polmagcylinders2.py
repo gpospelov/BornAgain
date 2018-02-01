@@ -8,8 +8,7 @@ from utils import get_difference
 
 from libBornAgainCore import *
 
-REFERENCE_DIR = "@TEST_REFERENCE_DIR@/Special"
-
+REFERENCE_DIR = "@TEST_REFERENCE_DIR@/Core"
 
 # ----------------------------------
 # describe sample and run simulation

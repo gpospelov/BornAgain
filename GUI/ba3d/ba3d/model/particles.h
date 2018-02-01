@@ -56,97 +56,97 @@ public:
 
 class FullSphere : public Particle {
 public:
-  FullSphere(flp R);
+  FullSphere(float R);
 };
 
 class FullSpheroid : public Particle {
 public:
-  FullSpheroid(flp R, flp H);
+  FullSpheroid(float R, float H);
 };
 
 class Cylinder : public Particle {
 public:
-  Cylinder(flp R, flp H);
+  Cylinder(float R, float H);
 };
 
 class TruncatedSphere : public Particle {
 public:
-  TruncatedSphere(flp R, flp H);
+  TruncatedSphere(float R, float H);
 };
 
 class TruncatedSpheroid : public Particle {
 public:
-  TruncatedSpheroid(flp R, flp H, flp fp);
+  TruncatedSpheroid(float R, float H, float fp);
 };
 
 class Cone : public Particle {
 public:
-  Cone(flp R, flp H, flp alpha);
+  Cone(float R, float H, float alpha);
 };
 
 class Icosahedron : public Particle {
 public:
-  Icosahedron(flp L);
+  Icosahedron(float L);
 };
 
 class Dodecahedron : public Particle {
 public:
-  Dodecahedron(flp L);
+  Dodecahedron(float L);
 };
 
 class TruncatedCube : public Particle {
 public:
-  TruncatedCube(flp L, flp t);
+  TruncatedCube(float L, float t);
 };
 
 class Prism6 : public Particle {
 public:
-  Prism6(flp R, flp H);
+  Prism6(float R, float H);
 };
 
 class Cone6 : public Particle {
 public:
-  Cone6(flp R, flp H, flp alpha);
+  Cone6(float R, float H, float alpha);
 };
 
 class Pyramid : public Particle {
 public:
-  Pyramid(flp L, flp H, flp alpha);
+  Pyramid(float L, float H, float alpha);
 };
 
 class Cuboctahedron : public Particle {
 public:
-  Cuboctahedron(flp L, flp H, flp rH, flp alpha);
+  Cuboctahedron(float L, float H, float rH, float alpha);
 };
 
 class Prism3 : public Particle {
 public:
-  Prism3(flp L, flp H);
+  Prism3(float L, float H);
 };
 
 class Tetrahedron : public Particle {
 public:
-  Tetrahedron(flp L, flp H, flp alpha);
+  Tetrahedron(float L, float H, float alpha);
 };
 
 class EllipsoidalCylinder : public Particle {
 public:
-  EllipsoidalCylinder(flp Ra, flp Rb, flp H);
+  EllipsoidalCylinder(float Ra, float Rb, float H);
 };
 
 class Box : public Particle {
 public:
-  Box(flp L, flp W, flp H);
+  Box(float L, float W, float H);
 };
 
 class HemiEllipsoid : public Particle {
 public:
-  HemiEllipsoid(flp Ra, flp Rb, flp H);
+  HemiEllipsoid(float Ra, float Rb, float H);
 };
 
 class AnisoPyramid : public Particle {
 public:
-  AnisoPyramid(flp L, flp W, flp H, flp alpha);
+  AnisoPyramid(float L, float W, float H, float alpha);
 };
 
 //------------------------------------------------------------------------------

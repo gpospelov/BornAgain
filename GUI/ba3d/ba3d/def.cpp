@@ -20,16 +20,6 @@ static_assert(QT_VERSION >= QT_VERSION_CHECK(5,5,1),
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-#ifndef NDEBUG
-
-flp::flp(float f_) : f(f_) {
-  Q_ASSERT(0 <= f)
-}
-
-#endif
-
-//------------------------------------------------------------------------------
-
 xyz::xyz() : xyz(0,0,0) {}
 
 xyz::xyz(float v) : xyz(v,v,v) {}

@@ -55,120 +55,120 @@ static float const pi2f   = float(M_PI_2);
 static float const sqrt2f = float(qSqrt(2));
 static float const sqrt3f = float(qSqrt(3));
 
-FullSphere::FullSphere(flp R)
+FullSphere::FullSphere(float R)
 : Particle(key(eid::Sphere, 0)) {
   isNull = (R <= 0);
   scale  = xyz(R*2); offset = xyz(0, 0, R); set();
 }
 
-FullSpheroid::FullSpheroid(flp R, flp H)
+FullSpheroid::FullSpheroid(float R, float H)
 : Particle(key(eid::Sphere, 0)) {
   isNull = (R <= 0 || H <= 0);
   scale  = xyz(R*2, R*2, H); offset = xyz(0, 0, H/2); set();
 }
 
-Cylinder::Cylinder(flp R, flp H)
+Cylinder::Cylinder(float R, float H)
 : Particle(key(eid::Column, pi2f, 0)) {
   isNull = (R <= 0 || H <= 0);
   scale  = xyz(R*2, R*2, H); offset = xyz(0, 0, H/2); set();
 }
 
-TruncatedSphere::TruncatedSphere(flp R, flp H)
+TruncatedSphere::TruncatedSphere(float R, float H)
 : Particle(key(eid::Sphere, 1 - H/R/2)) {
   isNull = (R <= 0 || H <= 0);
   scale  = xyz(R*2); offset = xyz(0, 0, H-R); set();
 }
 
-TruncatedSpheroid::TruncatedSpheroid(flp R, flp H, flp fp)
+TruncatedSpheroid::TruncatedSpheroid(float R, float H, float fp)
 : Particle(key(eid::Sphere, 1 - H/fp/R/2)) {
   isNull = (R <= 0 || H <= 0 || fp <= 0);
   scale  = xyz(R*2, R*2, fp*R*2); offset = xyz(0, 0, H-fp*R); set();
 }
 
-Cone::Cone(flp R, flp H, flp alpha)
+Cone::Cone(float R, float H, float alpha)
 : Particle(key(eid::Column, alpha, 0)) {
   isNull = (R <= 0 || H <= 0 || alpha <= 0);
   scale  = xyz(R*2, R*2, H); offset = xyz(0, 0, H/2); set();
 }
 
-Icosahedron::Icosahedron(flp L)
+Icosahedron::Icosahedron(float L)
 : Particle(key(eid::Icosahedron)) {
   isNull = (L <= 0);
-  flp R = L / icosahedronL2R;
+  float R = L / icosahedronL2R;
   scale  = xyz(R*2, R*2, R*2); offset = xyz(0, 0, R); set();
 }
 
-Dodecahedron::Dodecahedron(flp L)
+Dodecahedron::Dodecahedron(float L)
 : Particle(key(eid::Dodecahedron)) {
   isNull = (L <= 0);
-  flp R = L / dodecahedronL2R;
+  float R = L / dodecahedronL2R;
   scale  = xyz(R*2, R*2, R*2); offset = xyz(0, 0, R); set();
 }
 
-TruncatedCube::TruncatedCube(flp L, flp t)
+TruncatedCube::TruncatedCube(float L, float t)
 : Particle(key(eid::TruncatedBox, 2*t/L)) {
   isNull = (L <= 0);
   scale  = xyz(L,L,L); offset = xyz(0, 0, L/2); set();
 }
 
-Prism6::Prism6(flp R, flp H)
+Prism6::Prism6(float R, float H)
 : Particle(key(eid::Column, pi2f, 6)) {
   isNull = (R <= 0 || H <= 0);
   scale  = xyz(R*2, R*2, H); offset = xyz(0, 0, H/2); set();
 }
 
-Cone6::Cone6(flp R, flp H, flp alpha)
+Cone6::Cone6(float R, float H, float alpha)
 : Particle(key(eid::Column, alpha, 6)) {
   isNull = (R <= 0 || H <= 0 || alpha <= 0);
   scale  = xyz(R*2, R*2, H); offset = xyz(0, 0, H/2); set();
 }
 
-Pyramid::Pyramid(flp L, flp H, flp alpha)
+Pyramid::Pyramid(float L, float H, float alpha)
 : Particle(key(eid::Column, alpha, 4)) {
   isNull = (L <= 0 || H <= 0 || alpha <= 0);
   float L2 = L * sqrt2f;
   turn = xyz(0,0,45); scale  = xyz(L2, L2, H); offset = xyz(0, 0, H/2); set();
 }
 
-Cuboctahedron::Cuboctahedron(flp L, flp H, flp rH, flp alpha)
+Cuboctahedron::Cuboctahedron(float L, float H, float rH, float alpha)
 : Particle(key(eid::Cuboctahedron, rH, alpha)) {
   isNull = (L <= 0 || H <= 0 || rH <= 0 || alpha <= pi2f);
   scale  = xyz(L, L, L); offset = xyz(0, 0, L/2); set();
 }
 
-Prism3::Prism3(flp L, flp H)
+Prism3::Prism3(float L, float H)
 : Particle(key(eid::Column, pi2f, 3)) {
   isNull = (L <= 0 || H <= 0);
   float D = L*2 / sqrt3f;
   scale = xyz(D*2, D*2, H); offset = xyz(0, 0, H/2); set();
 }
 
-Tetrahedron::Tetrahedron(flp L, flp H, flp alpha)
+Tetrahedron::Tetrahedron(float L, float H, float alpha)
 : Particle(key(eid::Column, alpha, 3)) {
   isNull = (L <= 0 || H <= 0 || alpha <= 0);
   float D = L*2 / sqrt3f;
   scale = xyz(D*2, D*2, H); offset = xyz(0, 0, H/2); set();
 }
 
-EllipsoidalCylinder::EllipsoidalCylinder(flp Ra, flp Rb, flp H)
+EllipsoidalCylinder::EllipsoidalCylinder(float Ra, float Rb, float H)
 : Particle(key(eid::Column, pi2f, 0)) {
   isNull = (Ra <= 0 || Rb <= 0 || H <= 0);
   scale  = xyz(Ra*2, Rb*2, H); offset = xyz(0, 0, H/2); set();
 }
 
-Box::Box(flp L, flp W, flp H)
+Box::Box(float L, float W, float H)
 : Particle(key(eid::Column, pi2f, 4)) {
   isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
   turn = xyz(0,0,45); scale  = xyz(L*sqrt2f, W*sqrt2f, H); offset = xyz(0, 0, H/2); set();
 }
 
-HemiEllipsoid::HemiEllipsoid(flp Ra, flp Rb, flp H)
+HemiEllipsoid::HemiEllipsoid(float Ra, float Rb, float H)
 : Particle(key(eid::Sphere, .5f)) {
   isNull = (Ra <= 0 || Rb <= 0 || H <= 0);
   scale  = xyz(Ra*2, Rb*2, H*2); set();
 }
 
-AnisoPyramid::AnisoPyramid(flp L, flp W, flp H, flp alpha)
+AnisoPyramid::AnisoPyramid(float L, float W, float H, float alpha)
 : Particle(key(eid::Column, alpha, 4)) {
   isNull = (L <= 0 || W <= 0  || H <= 0 || alpha <= 0);
   turn = xyz(0,0,45); scale  = xyz(L*sqrt2f, W*sqrt2f, H); offset = xyz(0, 0, H/2); set();

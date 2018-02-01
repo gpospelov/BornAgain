@@ -44,10 +44,10 @@ void Model::clearBlend() {
   emit updated(false);
 }
 
-particle::Particle* Model::newParticle(particle::kind k, flp R) {
+particle::Particle* Model::newParticle(particle::kind k, float R) {
   using namespace particle;
 
-  flp D = 2*R;
+  float D = 2*R;
 
   switch (k) {
   case kind::None:

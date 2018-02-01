@@ -29,24 +29,6 @@
 namespace ba3d {
 //------------------------------------------------------------------------------
 
-#ifndef NDEBUG
-
-// in debug version checked, non-negative float >= 0: (fl)t (p)ositive
-struct flp {
-  flp(float);
-  operator float() const { return f; }
-private:
-  float f;
-};
-
-#else
-
-typedef float flp;
-
-#endif
-
-//------------------------------------------------------------------------------
-
 struct xyz {
   float x, y, z;
 

@@ -17,11 +17,12 @@ if(MSVC)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
 endif()
 
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
-    ${PYTHON_INCLUDE_DIRS} ${NUMPY_INCLUDE_DIR}
-    ${EIGEN3_INCLUDE_DIR}
+    ${PYTHON_INCLUDE_DIRS} 
+    ${NUMPY_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../TestMachinery
     ${CMAKE_SOURCE_DIR}/auto/Wrap
 )

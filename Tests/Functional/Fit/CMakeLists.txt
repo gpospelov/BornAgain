@@ -14,11 +14,13 @@ set(test_cases
     StandaloneFit
 )
 
+
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
+
 include_directories(
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../TestMachinery
     ${RootMinimizers_INCLUDE_DIRS}

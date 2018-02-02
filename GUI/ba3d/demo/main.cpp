@@ -19,38 +19,35 @@
 #include "demo_model.h"
 #include <QApplication>
 
-//------------------------------------------------------------------------------
-
 class App : public QApplication
 {
 public:
-  App(int& argc, char* argv[]);
- ~App();
+    App(int& argc, char* argv[]);
+    ~App();
 
-  int exec();
+    int exec();
 };
 
-App::App(int& argc, char* argv[]) : QApplication(argc, argv) {
-  setOrganizationName("c53");
-  setApplicationName("ba3d");
+App::App(int& argc, char* argv[]) : QApplication(argc, argv)
+{
+    setOrganizationName("c53");
+    setApplicationName("ba3d");
 }
 
 App::~App() {}
 
-int App::exec() {
-  MainWindow win;
-  win.show();
+int App::exec()
+{
+    MainWindow win;
+    win.show();
 
-  QScopedPointer<DemoModel> model(new DemoModel);
-  win.widg3t().setModel(model.data());
+    QScopedPointer<DemoModel> model(new DemoModel);
+    win.widg3t().setModel(model.data());
 
-  return QApplication::exec();
+    return QApplication::exec();
 }
 
-//------------------------------------------------------------------------------
-
-int main(int argc, char* argv[]) {
-  App(argc, argv).exec();
+int main(int argc, char* argv[])
+{
+    App(argc, argv).exec();
 }
-
-//------------------------------------------------------------------------------

@@ -20,29 +20,26 @@
 #include <ba3d/model/particles.h>
 #include <QMainWindow>
 
-//------------------------------------------------------------------------------
-
 class QSlider;
 
 class MainWindow : public QMainWindow
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  MainWindow();
+    MainWindow();
 
-  RealSpace::Widget3D& widg3t() {
-    return *w3d;
-  }
+    RealSpace::Widget3D& widg3t() {
+        return *w3d;
+    }
 
 private:
-  void closeEvent(QCloseEvent*);
-  void keyPressEvent(QKeyEvent*);
+    void closeEvent(QCloseEvent*);
+    void keyPressEvent(QKeyEvent*);
 
-  void createLayout();
-  RealSpace::Widget3D *w3d;
+    void createLayout();
+    RealSpace::Widget3D *w3d;
 
-  class DemoModel* model();
+    class DemoModel* model();
 };
 
-//------------------------------------------------------------------------------
-#endif
+#endif  // BA3D_MAINWINDOW_H

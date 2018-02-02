@@ -58,12 +58,6 @@ set(test_cases
     ConesWithLimitsDistribution
 )
 
-# for some reason these flags doesn't propagated here by SetUpWindows.cmake
-if(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc ")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHsc ")
-endif()
-
 include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${Boost_INCLUDE_DIRS}

@@ -129,8 +129,8 @@ def save_result(result, filename):
     print("Writing results in '{0}'".format(fullname))
     try:
         ba.IntensityDataIOFactory.writeSimulationResult(result, fullname)
-    except Exception, ex:
-        print("Exception caught, failed to write file", ex)
+    except Exception as err:
+        print("Exception caught, failed to write file", err)
 
 
 

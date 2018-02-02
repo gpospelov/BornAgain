@@ -44,7 +44,7 @@ public:
   void setCameraSide(bool animate = false);
   void setCameraOne(bool animate = false);
 
-  void setCamera(Camera::pos_t::rc, bool animate = false);
+  void setCamera(const Camera::Position&, bool animate = false);
 
   void cameraUpdated(Camera const&);
 
@@ -61,7 +61,7 @@ private:
   float const R = 6;
   float const hgtLayer = 20, hgtSubstrate = 35;
 
-  Camera::pos_t camPos;
+  Camera::Position camPos;
 
 private:
   void addLayer(RealSpace::Range, QColor);

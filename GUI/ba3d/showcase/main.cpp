@@ -51,7 +51,7 @@ int App::exec() {
   w2.setModel(ml.data());
   w3.setModel(ms.data());
 
-  w2.cam().lookAt(RealSpace::Camera::pos_t(
+  w2.cam().lookAt(RealSpace::Camera::Position(
     RealSpace::Vector3D::_z*90, RealSpace::Vector3D(0,0,0), RealSpace::Vector3D::_y));
 
   connect(&win, &MainWindow::showKind, [&](RealSpace::Particles::EShape kind) {

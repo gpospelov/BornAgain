@@ -32,22 +32,21 @@ class Camera : public QObject {
 public:
     Camera();
 
-    struct pos_t {
-        typedef pos_t const& rc;
+    struct Position {
 
-        pos_t();
-        pos_t(const Vector3D& eye, const Vector3D& ctr, const Vector3D& up,
-              QQuaternion const& = QQuaternion());
+        Position();
+        Position(const Vector3D& eye, const Vector3D& ctr, const Vector3D& up,
+                 const QQuaternion& = QQuaternion());
 
         Vector3D eye, ctr, up;
         QQuaternion rot;
 
-        pos_t interpolateTo(rc, float) const;
+        Position interpolateTo(const Position&, float) const;
     };
 
-    void lookAt(pos_t::rc);
+    void lookAt(const Position&);
 
-    pos_t::rc getPos() const { return pos; }
+    const Position& getPos() const { return pos; }
 
     void set();
 
@@ -55,7 +54,6 @@ signals:
     void updated(Camera const&);
 
 private:
-
     void setAspectRatio(float);
 
     // additional transformation
@@ -64,7 +62,7 @@ private:
     void endTransform(bool keep);
 
     // camera setup
-    pos_t pos;
+    Position pos;
     float zoom;
     float vertAngle, nearPlane, farPlane;
 

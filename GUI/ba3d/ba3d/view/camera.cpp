@@ -24,23 +24,23 @@ Camera::Camera()
     setAspectRatio(1);
 }
 
-Camera::pos_t::pos_t() : eye(), ctr(), up()
+Camera::Position::Position() : eye(), ctr(), up()
 {}
 
-Camera::pos_t::pos_t(const Vector3D& eye_, const Vector3D& ctr_, const Vector3D& up_,
+Camera::Position::Position(const Vector3D& eye_, const Vector3D& ctr_, const Vector3D& up_,
                      QQuaternion const& rot_)
     : eye(eye_), ctr(ctr_), up(up_), rot(rot_)
 {}
 
-Camera::pos_t Camera::pos_t::interpolateTo(rc to, float r) const
+Camera::Position Camera::Position::interpolateTo(const Position& to, float r) const
 {
-    return pos_t(eye.interpolateTo(to.eye, r),
+    return Position(eye.interpolateTo(to.eye, r),
                  ctr.interpolateTo(to.ctr, r),
                  up.interpolateTo(to.up, r),
                  QQuaternion::slerp(rot, to.rot, r) );
 }
 
-void Camera::lookAt(pos_t::rc pos_)
+void Camera::lookAt(const Position& pos_)
 {
     pos = pos_;
     lightPos = pos.eye;

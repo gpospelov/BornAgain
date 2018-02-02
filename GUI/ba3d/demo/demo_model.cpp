@@ -120,7 +120,7 @@ void DemoModel::square(float sigma) {
 
     activeMesh = home;
 
-    float const step = .2; bool go = true;
+    float const step = .2f; bool go = true;
     while (go) {
       go = false;
       for (uint i=0; i < uint(ps.count()); ++i) {
@@ -141,7 +141,7 @@ void DemoModel::square(float sigma) {
         if (hasSpace(xi-1, yi-1) && hasSpace(xi-1, yi-0) && hasSpace(xi-1, yi+1)
          && hasSpace(xi+1, yi-1) && hasSpace(xi+1, yi-0) && hasSpace(xi+1, yi+1)
          && hasSpace(xi-0, yi-1) && hasSpace(xi-0, yi+1)
-         && (newPos - np).length() > step*1.001) {
+         && (newPos - np).length() > step*1.001f) {
             go = true;
             pos = np;
             p->transform(Vector3D::_0, pos);
@@ -191,18 +191,19 @@ void DemoModel::oneIn(Particles::EShape kind) {
 }
 
 void DemoModel::setCameraTop(bool animate) {
-  setCamera(Camera::pos_t(Vector3D(0, 0, szSample), Vector3D(0, 0, -20), Vector3D::_y), animate);
+  setCamera(Camera::Position(Vector3D(0, 0, szSample), Vector3D(0, 0, -20), Vector3D::_y), animate);
 }
 
 void DemoModel::setCameraSide(bool animate) {
-  setCamera(Camera::pos_t(Vector3D(-10, -szSample*1.1, 2*hgtLayer), Vector3D(0, 0, -20), Vector3D::_z), animate);
+  setCamera(Camera::Position(Vector3D(-10, -szSample*1.1f, 2*hgtLayer),
+                             Vector3D(0, 0, -20), Vector3D::_z), animate);
 }
 
 void DemoModel::setCameraOne(bool animate) {
-  setCamera(Camera::pos_t(Vector3D(0, 0, spacing), Vector3D(0, 0, -20), Vector3D::_y), animate);
+  setCamera(Camera::Position(Vector3D(0, 0, spacing), Vector3D(0, 0, -20), Vector3D::_y), animate);
 }
 
-void DemoModel::setCamera(Camera::pos_t::rc to, bool animate) {
+void DemoModel::setCamera(const Camera::Position& to, bool animate) {
   if (animate) {
     auto from = camPos;
 

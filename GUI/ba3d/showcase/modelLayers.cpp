@@ -23,7 +23,7 @@ using namespace RealSpace;
 static float const sz = 100; // half sz
 
 ModelLayers::ModelLayers() {
-  defCamPos = Camera::pos_t(Vector3D(-10, -140, 20), Vector3D(0, 0, -30), Vector3D::_z);
+  defCamPos = Camera::Position(Vector3D(-10, -140, 20), Vector3D(0, 0, -30), Vector3D::_z);
 
   auto layer = [&](int z1, int z2, QColor color) {
     float s2 = sz /2;

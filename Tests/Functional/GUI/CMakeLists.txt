@@ -6,17 +6,7 @@ if(POLICY CMP0043)
 endif()
 
 find_package(Qt5Widgets REQUIRED)
-
-
-include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
-
-include_directories(
-    ${Boost_INCLUDE_DIRS}
-    ${BornAgainCore_INCLUDE_DIRS}
-    ${BornAgainGUI_INCLUDE_DIRS}
-    ${GSL_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../TestMachinery
-)
+include_directories(${BornAgainGUI_INCLUDE_DIRS})
 
 add_subdirectory(GUIStandardTest)
 add_subdirectory(GUISpecial)

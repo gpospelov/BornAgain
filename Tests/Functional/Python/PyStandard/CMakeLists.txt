@@ -58,15 +58,6 @@ set(test_cases
     ConesWithLimitsDistribution
 )
 
-include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
-include_directories(
-    ${Boost_INCLUDE_DIRS}
-    ${BornAgainCore_INCLUDE_DIRS}
-    ${GSL_INCLUDE_DIR}
-    ${CMAKE_SOURCE_DIR}/Core/Simulation
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../TestMachinery
-)
-
 add_executable(PyStandardTest main.cpp PyStandardTest.h PyStandardTest.cpp)
 target_link_libraries(PyStandardTest BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})

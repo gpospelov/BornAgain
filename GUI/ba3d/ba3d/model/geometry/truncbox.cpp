@@ -17,19 +17,19 @@
 namespace RealSpace {
 //------------------------------------------------------------------------------
 
-Geometry::mesh_t Geometry::meshTruncBox(float tD) { // t/D
+Geometry::Mesh Geometry::meshTruncBox(float tD) { // t/D
   if (tD <= 0)
     return meshBox();
 
   float const D = .5f, t = D * (1 - qMin(tD, 1.f));
-  xyz_vec vs; vs.reserve(150);
+  Vertices vs; vs.reserve(150);
 
   QVector<float> as({+D, +t, -t, -D, -D, -t, +t, +D});
   QVector<float> bs({+t, +D, +D, +t, -t, -D, -D, -t});
 
   auto side = [&](int ax, int ay, int az, int bx, int by, int bz,
                   const Vector3D& d, bool rev) {
-    xyz_vec vs_(8);
+    Vertices vs_(8);
     for(int i=0; i<8; ++i)
       vs_[rev ? 7-i : i] =
         Vector3D(ax*as.at(i) + bx*bs.at(i),
@@ -39,11 +39,11 @@ Geometry::mesh_t Geometry::meshTruncBox(float tD) { // t/D
   };
 
   auto corner = [&](int x, int y, int z) {
-    xyz_vec vs_({{D*x,D*y,t*z},{D*x,t*y,D*z},{t*x,D*y,D*z}});
+    Vertices vs_({{D*x,D*y,t*z},{D*x,t*y,D*z},{t*x,D*y,D*z}});
     if (x*y*z > 0)
-      vs.addTrig(vs_.at(0), vs_.at(2), vs_.at(1));
+      vs.addTriangle(vs_.at(0), vs_.at(2), vs_.at(1));
     else
-      vs.addTrig(vs_.at(0), vs_.at(1), vs_.at(2));
+      vs.addTriangle(vs_.at(0), vs_.at(1), vs_.at(2));
   };
 
   side(0,1,0, 0,0,1, Vector3D(+D,0,0), false);

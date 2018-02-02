@@ -18,7 +18,7 @@
 namespace RealSpace {
 //------------------------------------------------------------------------------
 
-Geometry::mesh_t Geometry::meshColumn(float alpha, float numSides) {
+Geometry::Mesh Geometry::meshColumn(float alpha, float numSides) {
   int  const sides  = qRound(numSides);
   bool const smooth = (0 == sides); // sides: 0->smooth
   int  const slices = smooth ? SLICES : sides;
@@ -26,7 +26,7 @@ Geometry::mesh_t Geometry::meshColumn(float alpha, float numSides) {
   float const R = .5f, Rb = R, Rt = Rb - 2*R/tanf(alpha);
 
   // mesh of vertices and normals
-  xyz_vec vb(slices), vt(slices), nbt(slices);
+  Vertices vb(slices), vt(slices), nbt(slices);
   float const nz = (1 - Rt/Rb)*2*R;
   for(int s=0; s < slices; ++s) {
     float th = float(2*M_PI*s/slices), st = sinf(th), ct = cosf(th);
@@ -38,19 +38,19 @@ Geometry::mesh_t Geometry::meshColumn(float alpha, float numSides) {
 
   // make into triangles
   int const nv = 6*2*slices;
-  xyz_vec vs; vs.reserve(nv);
-  xyz_vec ns; if (smooth) ns.reserve(nv);
+  Vertices vs; vs.reserve(nv);
+  Vertices ns; if (smooth) ns.reserve(nv);
 
   for(int s=0; s < slices; ++s) {
     int s1 = s, s2 = (s+1) % slices;
 
-    vs.addTrig(vb.at(s1), Vector3D(0,0,-R), vb.at(s2));          // bottom
+    vs.addTriangle(vb.at(s1), Vector3D(0,0,-R), vb.at(s2));          // bottom
     if (smooth)
-      ns.addVert(-Vector3D::_z, 3);
+      ns.addVertex(-Vector3D::_z, 3);
 
-    vs.addTrig(Vector3D(0,0,+R), vt.at(s1), vt.at(s2));          // top
+    vs.addTriangle(Vector3D(0,0,+R), vt.at(s1), vt.at(s2));          // top
     if (smooth)
-      ns.addVert(+Vector3D::_z, 3);
+      ns.addVertex(+Vector3D::_z, 3);
 
     vs.addQuad(vb.at(s1), vb.at(s2), vt.at(s2), vt.at(s1)); // side
     if (smooth) {

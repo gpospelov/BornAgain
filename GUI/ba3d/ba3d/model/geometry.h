@@ -30,36 +30,31 @@ class Geometry {
   friend class GeometryStore;
 public:
   // vertex+normal pair
-  struct vn_t {
+  struct Vert_Normal {
     Vector3D v, n;
-    vn_t() = default;
-    vn_t(const Vector3D& v, const Vector3D& n);
+    Vert_Normal() =default;
+    Vert_Normal(const Vector3D& v, const Vector3D& n);
   };
 
   // vertex indices (for GL)
   typedef quint8 idx;
-  struct idx_vec : QVector<idx> { typedef QVector<idx> base;
-    using base::base;
-    typedef idx_vec const& rc;
-  };
+  using Indices = QVector<idx>;
 
   // vertices (for GL)
-  struct xyz_vec : QVector<Vector3D> { typedef QVector<Vector3D> base;
-    using base::base;
-    typedef xyz_vec const& rc;
+  struct Vertices : QVector<Vector3D>
+  {
+    using QVector::QVector;
 
-    void addVert(const Vector3D&, int n = 1); // add a vertex, possibly multiple copies
-
-    void addTrig(const Vector3D&, const Vector3D&, const Vector3D&);          // triangle
+    void addVertex(const Vector3D&, int n = 1); // add a vertex, possibly multiple copies
+    void addTriangle(const Vector3D&, const Vector3D&, const Vector3D&);          // triangle
     void addQuad(const Vector3D&, const Vector3D&, const Vector3D&, const Vector3D&); // quad as 2 triangles
-    void addQuad(xyz_vec::rc, idx, idx, idx, idx);
-    void addStrip(xyz_vec::rc, idx_vec::rc);          // triangle strip
-    void addFan(xyz_vec::rc, idx_vec::rc);            // triangle fan
-
+    void addQuad(const Vertices&, idx, idx, idx, idx);
+    void addStrip(const Vertices&, const Indices&);          // triangle strip
+    void addFan(const Vertices&, const Indices&);            // triangle fan
   };
 
   // vertex/normal mesh
-  typedef QVector<vn_t> mesh_t;
+  using Mesh = QVector<Vert_Normal>;
 
   Geometry(geometry::key);
   virtual ~Geometry();
@@ -67,19 +62,19 @@ public:
 private:
   geometry::key key;
 
-  mesh_t mesh;
+  Mesh mesh;
   // make a mesh from vectors of vertices on (optionally) normals
-  static mesh_t makeMesh(xyz_vec::rc vs, xyz_vec const* ns = nullptr);
-  static mesh_t makeMesh(xyz_vec::rc vs, xyz_vec::rc ns);
+  static Mesh makeMesh(const Vertices& vs, Vertices const* ns = nullptr);
+  static Mesh makeMesh(const Vertices& vs, const Vertices& ns);
 
-  static mesh_t meshPlane();
-  static mesh_t meshBox();
-  static mesh_t meshSphere(float cut);
-  static mesh_t meshColumn(float alpha, float sides);
-  static mesh_t meshIcosahedron();
-  static mesh_t meshDodecahedron();
-  static mesh_t meshTruncBox(float tD);
-  static mesh_t meshCuboctahedron(float rH, float alpha);
+  static Mesh meshPlane();
+  static Mesh meshBox();
+  static Mesh meshSphere(float cut);
+  static Mesh meshColumn(float alpha, float sides);
+  static Mesh meshIcosahedron();
+  static Mesh meshDodecahedron();
+  static Mesh meshTruncBox(float tD);
+  static Mesh meshCuboctahedron(float rH, float alpha);
 
   // mesh params for round shapes
   static int const RINGS = 12, SLICES = 24;

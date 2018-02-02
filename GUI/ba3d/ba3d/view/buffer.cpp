@@ -28,7 +28,7 @@ Buffer::Buffer(Geometry const& geometry) {
 
   glBuffer.create();
   glBuffer.bind();
-  glBuffer.allocate(mesh.constData(), vertexCount * int(sizeof(Geometry::vn_t)));
+  glBuffer.allocate(mesh.constData(), vertexCount * int(sizeof(Geometry::Vert_Normal)));
 
   glEnableVertexAttribArray(0); // vertices
   glEnableVertexAttribArray(1); // normals

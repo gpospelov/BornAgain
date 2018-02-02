@@ -18,14 +18,14 @@
 namespace RealSpace {
 //------------------------------------------------------------------------------
 
-Geometry::mesh_t Geometry::meshCuboctahedron(float rH, float alpha) { // t/D
+Geometry::Mesh Geometry::meshCuboctahedron(float rH, float alpha) { // t/D
   Q_ASSERT(alpha >= float(M_PI_2));
   Q_ASSERT(rH >= 0);
 
   float const D = .5f, H = 2*D / (rH + 1), t = tanf(alpha - float(M_PI_2));
   float const Db = D - t*H, Dt = D - t*(2*D - H);
 
-  xyz_vec vs_; vs_.reserve(12);
+  Vertices vs_; vs_.reserve(12);
   float z[] = {-D, H-D, +D}, d[] = {Db, D, Dt};
   for(int i=0; i<3; ++i)
     for (int x : {-1, +1})
@@ -36,7 +36,7 @@ Geometry::mesh_t Geometry::meshCuboctahedron(float rH, float alpha) { // t/D
 
   Q_ASSERT(12 == vs_.count());
 
-  xyz_vec vs; vs.reserve(60);
+  Vertices vs; vs.reserve(60);
 
   vs.addQuad(vs_, 0,  1,  3, 2);
   vs.addQuad(vs_, 8, 10, 11, 9);

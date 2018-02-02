@@ -19,11 +19,11 @@
 namespace RealSpace {
 //------------------------------------------------------------------------------
 
-Geometry::mesh_t Geometry::meshDodecahedron() {
+Geometry::Mesh Geometry::meshDodecahedron() {
   const float GR  = GoldenRatio,
             G1 = 1/GR;
 
-  xyz_vec vs_; vs_.reserve(20);
+  Vertices vs_; vs_.reserve(20);
   for (float x : {-1, +1})
     for (float y : {-1, +1})
       for (float z : {-1, +1})
@@ -49,7 +49,7 @@ Geometry::mesh_t Geometry::meshDodecahedron() {
   for(int i=0; i<20; ++i)
     vs_[i] = q.rotatedVector(vs_.at(i));
 
-  xyz_vec vs; vs.reserve(180);
+  Vertices vs; vs.reserve(180);
 
   auto add5 = [&](idx i1, idx i2, idx i3, idx i4, idx i5) {
     vs.addFan(vs_, {i1, i2, i3, i4, i5, i1});

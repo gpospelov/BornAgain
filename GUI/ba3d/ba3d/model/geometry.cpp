@@ -18,41 +18,42 @@
 namespace RealSpace {
 //------------------------------------------------------------------------------
 
-Geometry::vn_t::vn_t(const Vector3D& v_, const Vector3D& n_) : v(v_), n(n_) {}
+Geometry::Vert_Normal::Vert_Normal(const Vector3D& v_, const Vector3D& n_) : v(v_), n(n_) {}
 
-void Geometry::xyz_vec::addVert(const Vector3D& v, int n) {
+void Geometry::Vertices::addVertex(const Vector3D& v, int n) {
   for(int i=0; i<n; ++i)
     append(v);
 }
 
-void Geometry::xyz_vec::addTrig(const Vector3D& v1, const Vector3D& v2, const Vector3D& v3) {
+void Geometry::Vertices::addTriangle(const Vector3D& v1, const Vector3D& v2, const Vector3D& v3) {
   append(v1); append(v2); append(v3);
 }
 
-void Geometry::xyz_vec::addQuad(const Vector3D& v1, const Vector3D& v2, const Vector3D& v3, const Vector3D& v4) {
-  addTrig(v1, v2, v3);
-  addTrig(v3, v4, v1);
+void Geometry::Vertices::addQuad(const Vector3D& v1, const Vector3D& v2,
+                                 const Vector3D& v3, const Vector3D& v4) {
+  addTriangle(v1, v2, v3);
+  addTriangle(v3, v4, v1);
 }
 
-void Geometry::xyz_vec::addQuad(Geometry::xyz_vec::rc vs,
+void Geometry::Vertices::addQuad(const Vertices& vs,
                                 idx i1, idx i2, idx i3, idx i4) {
   addQuad(vs.at(i1), vs.at(i2), vs.at(i3), vs.at(i4));
 }
 
-void Geometry::xyz_vec::addStrip(xyz_vec::rc vs, idx_vec::rc is) {
+void Geometry::Vertices::addStrip(const Vertices& vs, const Indices& is) {
   Q_ASSERT(is.count() >= 3); // at least one triangle
   for(int i=0; i<is.count()-2; ++i)
     if (i%2)
-      addTrig(vs.at(is.at(i)), vs.at(is.at(1+i)), vs.at(is.at(2+i)));
+      addTriangle(vs.at(is.at(i)), vs.at(is.at(1+i)), vs.at(is.at(2+i)));
     else
-      addTrig(vs.at(is.at(i)), vs.at(is.at(2+i)), vs.at(is.at(1+i)));
+      addTriangle(vs.at(is.at(i)), vs.at(is.at(2+i)), vs.at(is.at(1+i)));
 }
 
-void Geometry::xyz_vec::addFan(xyz_vec::rc vs, idx_vec::rc is) {
+void Geometry::Vertices::addFan(const Vertices& vs, const Indices& is) {
   Q_ASSERT(is.count() >= 3); // at least one triangle
   auto &ctr = vs.at(is.at(0));
   for(int i=0; i<is.count()-2; ++i)
-    addTrig(ctr, vs.at(is.at(1+i)),
+    addTriangle(ctr, vs.at(is.at(1+i)),
                  vs.at(is.at(2+i)));
 }
 
@@ -94,12 +95,12 @@ Geometry::~Geometry() {
   geometryStore().geometryDeleted(*this);
 }
 
-Geometry::mesh_t Geometry::makeMesh(xyz_vec::rc vs, xyz_vec const* ns) {
+Geometry::Mesh Geometry::makeMesh(const Vertices& vs, Vertices const* ns) {
   int nv = vs.count();
   Q_ASSERT(0 == nv%3);
   Q_ASSERT(!ns || nv == ns->count()); // if normals not given, will be computed
 
-  mesh_t mesh(nv);
+  Mesh mesh(nv);
 
   for (int i=0 ; i<nv; i+=3) {
     const Vector3D& v0 = vs.at(0+i), v1 = vs.at(1+i), v2 = vs.at(2+i);
@@ -112,15 +113,15 @@ Geometry::mesh_t Geometry::makeMesh(xyz_vec::rc vs, xyz_vec const* ns) {
       n0 = n1 = n2 = &nm;
     }
 
-    mesh.append(vn_t(v0,*n0));
-    mesh.append(vn_t(v1,*n1));
-    mesh.append(vn_t(v2,*n2));
+    mesh.append(Vert_Normal(v0,*n0));
+    mesh.append(Vert_Normal(v1,*n1));
+    mesh.append(Vert_Normal(v2,*n2));
   }
 
   return mesh;
 }
 
-Geometry::mesh_t Geometry::makeMesh(xyz_vec::rc vs, xyz_vec::rc ns) {
+Geometry::Mesh Geometry::makeMesh(const Vertices& vs, const Vertices& ns) {
   return makeMesh(vs, &ns);
 }
 

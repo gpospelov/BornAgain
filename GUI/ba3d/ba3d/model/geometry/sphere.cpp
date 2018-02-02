@@ -19,9 +19,9 @@ namespace RealSpace {
 //------------------------------------------------------------------------------
 
 // cut: 0..1 - how much is cut off off the bottom
-Geometry::mesh_t Geometry::meshSphere(float cut) {
+Geometry::Mesh Geometry::meshSphere(float cut) {
   if (1 <= cut)
-    return mesh_t();
+    return Mesh();
   cut = qMax(0.f, cut);
   Q_ASSERT(0 <= cut && cut < 1);
 
@@ -43,7 +43,7 @@ Geometry::mesh_t Geometry::meshSphere(float cut) {
   Q_ASSERT(1 <= rings && 2 <= slices);
 
   // meshes of vertices and normals, without poles, _[ring][slice]
-  QVector<xyz_vec> vs_(rings), ns_(rings);
+  QVector<Vertices> vs_(rings), ns_(rings);
   for (auto& ring: vs_)
     ring.resize(slices);
   for (auto& ring: ns_)
@@ -65,8 +65,8 @@ Geometry::mesh_t Geometry::meshSphere(float cut) {
 
   // make into triangles
   int const nv = 6*(rings)*slices;
-  xyz_vec vs; vs.reserve(nv);
-  xyz_vec ns; ns.reserve(nv);
+  Vertices vs; vs.reserve(nv);
+  Vertices ns; ns.reserve(nv);
 
   for(int r=0; r < rings; ++r) {
     auto &vr = vs_.at(r), &nr = ns_.at(r);
@@ -86,14 +86,14 @@ Geometry::mesh_t Geometry::meshSphere(float cut) {
           vp = Vector3D(0,0,-R);
           n0 = nr.at(s0); n1 = nr.at(s1);
         }
-        vs.addTrig(v0, vp, v1);
-        ns.addTrig(n0, np, n1);
+        vs.addTriangle(v0, vp, v1);
+        ns.addTriangle(n0, np, n1);
       }
 
       if (r+1 == rings) {  // north pole
         Vector3D vp(0, 0, +R), np(Vector3D::_z);
-        vs.addTrig(v0, v1, vp);
-        ns.addTrig(n0, n1, np);
+        vs.addTriangle(v0, v1, vp);
+        ns.addTriangle(n0, n1, np);
       } else if (1 < rings) { // in between poles
         auto &vr1 = vs_.at(r+1), &nr1 = ns_.at(r+1);
         auto &n2 = nr1.at(s1), &n3 = nr1.at(s0);

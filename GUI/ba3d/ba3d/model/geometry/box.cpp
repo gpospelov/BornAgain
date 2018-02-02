@@ -17,10 +17,10 @@
 namespace RealSpace {
 //------------------------------------------------------------------------------
 
-Geometry::mesh_t Geometry::meshBox() {
+Geometry::Mesh Geometry::meshBox() {
   float const D = .5f;
 
-  xyz_vec vs_; vs_.reserve(8);
+  Vertices vs_; vs_.reserve(8);
   for (float x : {-D, +D})
     for (float y : {-D, +D})
       for (float z : {-D, +D})
@@ -28,7 +28,7 @@ Geometry::mesh_t Geometry::meshBox() {
 
   Q_ASSERT(8 == vs_.count());
 
-  xyz_vec vs; vs.reserve(36);
+  Vertices vs; vs.reserve(36);
 
   vs.addQuad(vs_, 0, 2, 6, 4);
   vs.addQuad(vs_, 1, 5, 7, 3);

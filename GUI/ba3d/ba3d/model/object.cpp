@@ -61,7 +61,7 @@ void Object::transform(Vector3D turn, Vector3D scale, Vector3D rotate, Vector3D 
 }
 
 void Object::releaseGeometry() {
-  geo.clear();
+  geo.reset();
 }
 
 void Object::draw(Canvas& canvas) {

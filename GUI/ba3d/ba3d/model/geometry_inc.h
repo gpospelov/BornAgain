@@ -16,7 +16,7 @@
 #define BA3D_GEOMETRY_INC_H
 
 #include "../def.h"
-#include <QSharedPointer>
+#include <memory>
 
 // include to use geometry basics, without details
 
@@ -25,8 +25,8 @@ namespace RealSpace {
 
 class Geometry;
 
-typedef QSharedPointer<Geometry> shGeo;
-typedef QWeakPointer<Geometry>   wkGeo;
+typedef std::shared_ptr<Geometry> GeometryHandle;
+typedef std::weak_ptr<Geometry>   GeometryRef;
 
 // some useful constants:
 extern const float GoldenRatio;
@@ -58,7 +58,6 @@ struct KeyHash
 };
 
 } // namespace GeometricID
+} // namespace RealSpace
 
-//------------------------------------------------------------------------------
-}
-#endif
+#endif // BA3D_GEOMETRY_INC_H

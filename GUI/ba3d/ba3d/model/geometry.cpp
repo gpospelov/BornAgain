@@ -36,13 +36,13 @@ void Geometry::Vertices::addQuad(const Vector3D& v1, const Vector3D& v2,
 }
 
 void Geometry::Vertices::addQuad(const Vertices& vs,
-                                idx i1, idx i2, idx i3, idx i4) {
+                                unsigned i1, unsigned i2, unsigned i3, unsigned i4) {
   addQuad(vs.at(i1), vs.at(i2), vs.at(i3), vs.at(i4));
 }
 
 void Geometry::Vertices::addStrip(const Vertices& vs, const Indices& is) {
-  Q_ASSERT(is.count() >= 3); // at least one triangle
-  for(int i=0; i<is.count()-2; ++i)
+  Q_ASSERT(is.size() >= 3); // at least one triangle
+  for(unsigned i=0; i+2<is.size(); ++i)
     if (i%2)
       addTriangle(vs.at(is.at(i)), vs.at(is.at(1+i)), vs.at(is.at(2+i)));
     else
@@ -50,9 +50,9 @@ void Geometry::Vertices::addStrip(const Vertices& vs, const Indices& is) {
 }
 
 void Geometry::Vertices::addFan(const Vertices& vs, const Indices& is) {
-  Q_ASSERT(is.count() >= 3); // at least one triangle
+  Q_ASSERT(is.size() >= 3); // at least one triangle
   auto &ctr = vs.at(is.at(0));
-  for(int i=0; i<is.count()-2; ++i)
+  for(unsigned i=0; i+2<is.size(); ++i)
     addTriangle(ctr, vs.at(is.at(1+i)),
                  vs.at(is.at(2+i)));
 }
@@ -127,15 +127,15 @@ Geometry::Mesh Geometry::makeMesh(const Vertices& vs, const Vertices& ns) {
 
 //------------------------------------------------------------------------------
 
-shGeo GeometryStore::getGeometry(GeometricID::Key key) {
+GeometryHandle GeometryStore::getGeometry(GeometricID::Key key) {
   auto it = m_geometries.find(key);
   if (m_geometries.end() != it) {
-    shGeo g = it->second.toStrongRef();
-    return g;
+      if (auto g = it->second.lock())
+          return g;
   }
 
-  shGeo g = shGeo(new Geometry(key));
-  m_geometries[key] = g.toWeakRef();
+  GeometryHandle g = GeometryHandle(new Geometry(key));
+  m_geometries[key] = GeometryRef(g);
   return g;
 }
 

@@ -46,7 +46,7 @@ private:
   Model *model;
 
   GeometricID::Key gky;
-  shGeo         geo;      // retrieved on demand
+  GeometryHandle geo;      // retrieved on demand
   void releaseGeometry(); // can be released whenever
 
   QMatrix4x4 mat;

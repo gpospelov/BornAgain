@@ -51,7 +51,7 @@ Geometry::Mesh Geometry::meshDodecahedron() {
 
   Vertices vs; vs.reserve(180);
 
-  auto add5 = [&](idx i1, idx i2, idx i3, idx i4, idx i5) {
+  auto add5 = [&](unsigned i1, unsigned i2, unsigned i3, unsigned i4, unsigned i5) {
     vs.addFan(vs_, {i1, i2, i3, i4, i5, i1});
   };
 

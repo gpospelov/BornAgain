@@ -28,6 +28,8 @@ class SimulationOptionsItem;
 namespace DomainSimulationBuilder
 {
 
+//! Creates domain simulation from sample and instrument items.
+
 BA_CORE_API_ std::unique_ptr<Simulation> createSimulation(const MultiLayerItem* sampleItem,
                                             const InstrumentItem* instrumentItem,
                                             const SimulationOptionsItem* optionsItem = 0);

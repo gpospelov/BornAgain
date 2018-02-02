@@ -25,6 +25,7 @@
 #include "MultiLayerItem.h"
 #include "SimulationOptionsItem.h"
 #include "OffSpecSimulation.h"
+#include "SpecularSimulation.h"
 #include "TransformToDomain.h"
 #include "AxesItems.h"
 #include "Units.h"
@@ -38,6 +39,11 @@ std::unique_ptr<OffSpecSimulation>
 createOffSpecSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                         const OffSpecInstrumentItem* offspecInstrument,
                         const SimulationOptionsItem* optionsItem);
+
+std::unique_ptr<SpecularSimulation>
+createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                         const SpecularInstrumentItem* specular_instrument,
+                         const SimulationOptionsItem* options_item);
 }
 
 std::unique_ptr<Simulation>
@@ -57,6 +63,8 @@ DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
         return createGISASSimulation(std::move(P_multilayer), gisasInstrument, optionsItem);
     else if (auto offspecInstrument = dynamic_cast<const OffSpecInstrumentItem*>(instrumentItem))
         return createOffSpecSimulation(std::move(P_multilayer), offspecInstrument, optionsItem);
+    else if (auto specular_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrumentItem))
+        return createSpecularSimulation(std::move(P_multilayer), specular_instrument, optionsItem);
 
     throw GUIHelpers::Error(
         "DomainSimulationBuilder::createSimulation() -> Error. Not yet implemented");
@@ -116,5 +124,34 @@ std::unique_ptr<OffSpecSimulation> createOffSpecSimulation(std::unique_ptr<Multi
         offspec->setBackground(*P_background);
 
     return offspec;
+}
+
+std::unique_ptr<SpecularSimulation>
+createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                         const SpecularInstrumentItem* specular_instrument,
+                         const SimulationOptionsItem* options_item)
+{
+    std::unique_ptr<SpecularSimulation> specular_simulation
+        = std::make_unique<SpecularSimulation>(*P_multilayer);
+
+    auto beam_item = specular_instrument->beamItem();
+    auto axis_item = dynamic_cast<BasicAxisItem*>(
+        specular_instrument->getItem(SpecularInstrumentItem::P_ALPHA_AXIS));
+
+    // TODO Take care about beam divergence
+    // TODO: add footprint correction factor
+    specular_simulation->setBeamParameters(beam_item->getWavelength(),
+                                           *axis_item->createAxis(Units::degree));
+
+    // Simulation options
+    if (options_item)
+        TransformToDomain::setSimulationOptions(specular_simulation.get(), *options_item);
+
+    // Background simulation
+    auto P_background = specular_instrument->backgroundItem()->createBackground();
+    if (P_background)
+        specular_simulation->setBackground(*P_background);
+
+    return specular_simulation;
 }
 }

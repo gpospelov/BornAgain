@@ -16,9 +16,9 @@ if(MSVC)
     add_definitions(-DYAML_CPP_DLL)
 endif()
 
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
     ${YAMLCPP_INCLUDE_DIR}
     ${CMAKE_SOURCE_DIR}/Core/Simulation
     ${CMAKE_CURRENT_SOURCE_DIR}/../../TestMachinery

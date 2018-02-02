@@ -13,11 +13,11 @@ file(GLOB include_files "*.h")
 
 find_package(Qt5Widgets REQUIRED)
 
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ../utilities
     ${Boost_INCLUDE_DIRS}
     ${BornAgainCore_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR}
     ${BornAgainGUI_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}

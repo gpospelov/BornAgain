@@ -69,7 +69,10 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     addProperty(P_PRESENTATION_TYPE, Constants::IntensityDataPresentation)->setVisible(false);
 
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
-    registerTag(T_INSTRUMENT, 1, 1, QStringList() << Constants::GISASInstrumentType << Constants::OffSpecInstrumentType);
+    registerTag(T_INSTRUMENT, 1, 1,
+                QStringList() << Constants::GISASInstrumentType
+                              << Constants::OffSpecInstrumentType
+                              << Constants::SpecularInstrumentType);
     registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType);
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::RealDataType);
     registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterContainerType);

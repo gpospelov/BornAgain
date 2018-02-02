@@ -18,6 +18,7 @@
 #include "TestUtils.h"
 #include "Simulation.h"
 #include "BABuild.h"
+#include "BATesting.h"
 
 bool CoreStandardTest::runTest()
 {
@@ -26,7 +27,7 @@ bool CoreStandardTest::runTest()
     // Load reference if available
     try {
         reference.reset(IntensityDataIOFactory::readOutputData(
-            FileSystemUtils::jointPath(CORE_STD_REF_DIR, getName() + ".int.gz")));
+            FileSystemUtils::jointPath(BATesting::CoreReferenceDir(), getName() + ".int.gz")));
     } catch(const std::exception&) {
         std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
     }
@@ -44,16 +45,16 @@ bool CoreStandardTest::runTest()
 
     // Save simulation if different from reference.
     if (!success) {
-        FileSystemUtils::createDirectory(CORE_STD_OUT_DIR);
-        std::string out_fname = FileSystemUtils::jointPath(CORE_STD_OUT_DIR, getName() + ".int");
+        FileSystemUtils::createDirectories(BATesting::CoreOutputDir());
+        std::string out_fname = FileSystemUtils::jointPath(BATesting::CoreOutputDir(), getName() + ".int.gz");
         IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
-        std::cout << "New simulation result stored in " << out_fname << ".\n"
+        std::cout << "New simulation result stored in " << out_fname << "\n"
                   << "To visualize an intensity map, use "
                   << BABuild::buildBinDir() << "/plot_intensity_data.py;"
                   << "   to plot a difference image, use "
-                  << BABuild::buildBinDir() << "/plot_intensity_data_diff.py.\n"
-                  << "If the new result is correct, then gzip it and move it to "
-                  << CORE_STD_REF_DIR << "/.\n";
+                  << BABuild::buildBinDir() << "/plot_intensity_data_diff.py\n"
+                  << "If the new result is correct, then move it to "
+                  << BATesting::CoreReferenceDir() << "/\n";
     }
     return success;
 }

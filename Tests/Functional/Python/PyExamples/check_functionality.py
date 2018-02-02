@@ -15,6 +15,8 @@ from matplotlib import pyplot as plt
 
 sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 
+output_dir = "@output_dir@"
+
 def get_figure(filename):
     """
     Returns pyplot figure of appropriate size
@@ -57,6 +59,7 @@ def run_example(filename):
         exec_full(filename)
 
         plot_file_name = os.path.splitext(os.path.basename(filename))[0] + ".png"
+        plot_file_name = os.path.join(output_dir, plot_file_name)
         print(plot_file_name)
         plt.savefig(plot_file_name, bbox_inches='tight')
         plt.close(fig)

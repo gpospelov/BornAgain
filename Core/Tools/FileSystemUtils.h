@@ -34,6 +34,9 @@ BA_CORE_API_ std::string extensions(const std::string& path);
 //! Creates directory in current directory
 BA_CORE_API_ bool createDirectory(const std::string& dir_name);
 
+//! Creates directories in current directory for any element of dir_name which doesn't exist.
+BA_CORE_API_ bool createDirectories(const std::string& dir_name);
+
 //! Returns filenames of files in directory
 BA_CORE_API_ std::vector<std::string> filesInDirectory(const std::string& dir_name);
 

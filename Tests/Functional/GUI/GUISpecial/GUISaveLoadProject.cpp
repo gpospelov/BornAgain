@@ -29,6 +29,8 @@
 #include "SimulationOptionsItem.h"
 #include "MessageService.h"
 #include "projectdocument.h"
+#include "BATesting.h"
+#include "FileSystemUtils.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
 #include <QXmlStreamWriter>
@@ -39,6 +41,11 @@ const QString sample_name = "ParticleCompositionBuilder";
 const QString project_name = "untitled.pro";
 const int failure = 1;
 const int success = 0;
+
+QString path(const QString& projectName) {
+    return QString::fromStdString(
+                FileSystemUtils::jointPath(BATesting::GUIOutputDir(), projectName.toStdString()));
+}
 }
 
 GUISaveLoadProject::GUISaveLoadProject() : m_models(new ApplicationModels) {}
@@ -46,8 +53,9 @@ GUISaveLoadProject::GUISaveLoadProject() : m_models(new ApplicationModels) {}
 bool GUISaveLoadProject::runTest()
 {
     int nerr(0);
-    QString projectName1("test_GUISaveLoadProject_1");
-    QString projectName2("test_GUISaveLoadProject_2");
+
+    QString projectName1(path("test_GUISaveLoadProject_1"));
+    QString projectName2(path("test_GUISaveLoadProject_2"));
 
     // running simulation to fill models with fresh data
     nerr += run_job();
@@ -125,7 +133,7 @@ int GUISaveLoadProject::save_project_dir(const QString& projectName)
     if (ProjectUtils::exists(projectName))
         ProjectUtils::removeRecursively(projectName);
 
-    GUIHelpers::createSubdir(".", projectName);
+    FileSystemUtils::createDirectories(projectName.toStdString());
 
     ProjectDocument document;
     document.setApplicationModels(m_models.get());
@@ -166,8 +174,8 @@ int GUISaveLoadProject::load_project(const QString& projectName)
 int GUISaveLoadProject::check_difference(const QString& projectName1, const QString& projectName2)
 {
     std::cout << "GUISaveLoadProject::check_difference -> Checking difference of \n"
-              << "'./" << projectName1.toStdString() << "' - initially saved project \n"
-              << "'./" << projectName2.toStdString() << "' - loaded and then saved. \n";
+              << projectName1.toStdString() << "' - initially saved project \n"
+              << projectName2.toStdString() << "' - loaded and then saved. \n";
 
     auto project1 = m_results[projectName1];
     auto project2 = m_results[projectName2];

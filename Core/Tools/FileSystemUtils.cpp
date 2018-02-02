@@ -33,8 +33,12 @@ std::string FileSystemUtils::extensions(const std::string& path)
 
 bool FileSystemUtils::createDirectory(const std::string& dir_name)
 {
-    assert(dir_name != "");
     return boost::filesystem::create_directory(dir_name);
+}
+
+bool FileSystemUtils::createDirectories(const std::string& dir_name)
+{
+    return boost::filesystem::create_directories(dir_name);
 }
 
 std::vector<std::string> FileSystemUtils::filesInDirectory(const std::string& dir_name)

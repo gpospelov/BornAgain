@@ -33,7 +33,10 @@ endif()
 # source directory paths
 # -----------------------------------------------------------------------------
 
-set(REFERENCE_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)
+set(TEST_OUTPUT_DIR ${CMAKE_BINARY_DIR}/test_output)
+file(MAKE_DIRECTORY ${TEST_OUTPUT_DIR})
+set(TEST_REFERENCE_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)
+
 set(PY_EXAMPLES_DIR ${CMAKE_SOURCE_DIR}/Examples/python)
 
 # -----------------------------------------------------------------------------
@@ -126,6 +129,7 @@ endif()
 
 configure_file(${TEMPLATE_DIR}/BAVersion.h.in  ${BUILD_INC_DIR}/BAVersion.h @ONLY)
 configure_file(${TEMPLATE_DIR}/BABuild.h.in  ${BUILD_INC_DIR}/BABuild.h @ONLY)
+configure_file(${TEMPLATE_DIR}/BATesting.h.in  ${BUILD_INC_DIR}/BATesting.h @ONLY)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILD_INC_DIR}")
 
 configure_file(${CMAKE_SOURCE_DIR}/Examples/python/utils/plot_intensity_data.py

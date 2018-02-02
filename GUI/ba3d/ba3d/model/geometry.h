@@ -18,6 +18,7 @@
 #include "../def.h"
 #include "geometry_inc.h"
 #include <QVector>
+#include <unordered_map>
 
 namespace RealSpace {
 //------------------------------------------------------------------------------
@@ -61,9 +62,9 @@ public:
   virtual ~Geometry();
 
 private:
-  GeometricID::Key key;
+  GeometricID::Key m_key;
 
-  Mesh mesh;
+  Mesh m_mesh;
   // make a mesh from vectors of vertices on (optionally) normals
   static Mesh makeMesh(const Vertices& vs, Vertices const* ns = nullptr);
   static Mesh makeMesh(const Vertices& vs, const Vertices& ns);
@@ -94,7 +95,7 @@ signals:
   void deletingGeometry(Geometry const*); // signal to canvases
 
 private:
-  QHash<GeometricID::Key,wkGeo> geometries;
+  std::unordered_map<GeometricID::Key, wkGeo, GeometricID::KeyHash> m_geometries;
   void geometryDeleted(Geometry const&);  // ~Geometry() calls this
 };
 

@@ -35,27 +35,29 @@ extern const float DodecahedronL2R;
 
 namespace GeometricID {
 
-// geometry enumerated id
+// Enum id for basic shapes
 enum class BaseShape { Plane, Box, Sphere, Column,
                  Icosahedron, Dodecahedron, TruncatedBox,
                  Cuboctahedron };
 
 
-// geometries may have 1 or 2 float parameters; together with eid -> hash key
+// Real shapes will be parameterized by BaseShape enum and possibly two floats
 struct Key {
-  Key(BaseShape);
-  Key(BaseShape, float);
-  Key(BaseShape, float, float);
+    Key(BaseShape, float=0.0f, float=0.0f);
 
-  BaseShape id;
-  float p1, p2;
+    bool operator==(Key const&) const;
 
-  bool operator==(Key const&) const;
+    BaseShape id;
+    float p1, p2;
 };
 
-uint qHash(Key const&);
+// Hash functor for Key objects
+struct KeyHash
+{
+    std::size_t operator()(const Key& key) const noexcept;
+};
 
-}
+} // namespace GeometricID
 
 //------------------------------------------------------------------------------
 }

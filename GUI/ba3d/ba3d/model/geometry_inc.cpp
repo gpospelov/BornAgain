@@ -13,40 +13,32 @@
 // ************************************************************************** //
 
 #include "geometry_inc.h"
-#include <qmath.h>
+#include <cmath>
+#include <functional>
 
 namespace RealSpace {
-//------------------------------------------------------------------------------
 
-const float GoldenRatio     = float(1 + qSqrt(5)) / 2;
-const float IcosahedronL2R  = float(4 / (10 + 2*qSqrt(5)));
-const float DodecahedronL2R = float(4 / qSqrt(3) / (1+qSqrt(5)));
+// Useful constants:
+const float GoldenRatio     = (1.f + std::sqrt(5.f)) / 2.f;
+const float IcosahedronL2R  = 4.f / (10.f + 2.f*std::sqrt(5.f));
+const float DodecahedronL2R = 4.f / std::sqrt(3.f) / (1.f+std::sqrt(5.f));
 
-//------------------------------------------------------------------------------
-
-GeometricID::Key::Key(GeometricID::BaseShape id) : Key(id, 0, 0) {}
-
-GeometricID::Key::Key(GeometricID::BaseShape id, float p1) : Key(id, p1, 0) {}
-
+// Keys and hash:
 GeometricID::Key::Key(BaseShape id_, float p1_, float p2_)
-  : id(id_), p1(p1_), p2(p2_) {
+    : id(id_), p1(p1_), p2(p2_) {
 }
 
-bool GeometricID::Key::operator==(Key const& that) const {
-  return id == that.id && p1 == that.p1 && p2 == that.p2;
+bool GeometricID::Key::operator==(Key const& other) const {
+    return id == other.id && p1 == other.p1 && p2 == other.p2;
 }
 
-uint GeometricID::qHash(GeometricID::Key const& key) {
-  // the hash is simply a bitwise superposition of id, p1, p2
-  union {
-    float         f;
-    quint32       u;
-    GeometricID::BaseShape i;
-  } id, p1, p2;
-
-  id.i = key.id; p1.f = key.p1; p2.f = key.p2;
-  return id.u | p1.u | p2.u;
+std::size_t GeometricID::KeyHash::operator()(const GeometricID::Key& key) const noexcept
+{
+    {
+        size_t h1 = std::hash<int>{}(static_cast<int>(key.id));
+        size_t h2 = std::hash<float>{}(key.p1);
+        size_t h3 = std::hash<float>{}(key.p2);
+        return h1 ^ (h2 ^ h3);
+    }
 }
-
-//------------------------------------------------------------------------------
-}
+}  // namespace RealSpace

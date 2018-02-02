@@ -59,33 +59,33 @@ void Geometry::Vertices::addFan(const Vertices& vs, const Indices& is) {
 
 //------------------------------------------------------------------------------
 
-Geometry::Geometry(GeometricID::Key key_) : key(key_) {
+Geometry::Geometry(GeometricID::Key key_) : m_key(key_) {
   using namespace GeometricID;
 
-  switch (key.id) {
+  switch (m_key.id) {
   case BaseShape::Plane:
-    mesh = meshPlane();
+    m_mesh = meshPlane();
     break;
   case BaseShape::Box:
-    mesh = meshBox();
+    m_mesh = meshBox();
     break;
   case BaseShape::Sphere:
-    mesh = meshSphere(key.p1);
+    m_mesh = meshSphere(m_key.p1);
     break;
   case BaseShape::Column:
-    mesh = meshColumn(key.p1, key.p2);
+    m_mesh = meshColumn(m_key.p1, m_key.p2);
     break;
   case BaseShape::Icosahedron:
-    mesh = meshIcosahedron();
+    m_mesh = meshIcosahedron();
     break;
   case BaseShape::Dodecahedron:
-    mesh = meshDodecahedron();
+    m_mesh = meshDodecahedron();
     break;
   case BaseShape::TruncatedBox:
-    mesh = meshTruncBox(key.p1);
+    m_mesh = meshTruncBox(m_key.p1);
     break;
   case BaseShape::Cuboctahedron:
-    mesh = meshCuboctahedron(key.p1, key.p2);
+    m_mesh = meshCuboctahedron(m_key.p1, m_key.p2);
     break;
   }
 }
@@ -128,22 +128,20 @@ Geometry::Mesh Geometry::makeMesh(const Vertices& vs, const Vertices& ns) {
 //------------------------------------------------------------------------------
 
 shGeo GeometryStore::getGeometry(GeometricID::Key key) {
-  auto it = geometries.find(key);
-  if (geometries.end() != it) {
-    shGeo g = it->toStrongRef();
-    if (g)
-      return g;
-    geometries.erase(it); // it really should not come to this
+  auto it = m_geometries.find(key);
+  if (m_geometries.end() != it) {
+    shGeo g = it->second.toStrongRef();
+    return g;
   }
 
   shGeo g = shGeo(new Geometry(key));
-  geometries.insert(key, g.toWeakRef());
+  m_geometries[key] = g.toWeakRef();
   return g;
 }
 
 void GeometryStore::geometryDeleted(Geometry const& g) {
   emit deletingGeometry(&g);
-  geometries.remove(g.key);
+  m_geometries.erase(g.m_key);
 }
 
 GeometryStore& geometryStore() {

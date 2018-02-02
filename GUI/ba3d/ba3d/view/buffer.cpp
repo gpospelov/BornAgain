@@ -21,7 +21,7 @@ namespace RealSpace {
 Buffer::Buffer(Geometry const& geometry) {
   initializeOpenGLFunctions();
 
-  auto &mesh  = geometry.mesh;
+  auto &mesh  = geometry.m_mesh;
   vertexCount = mesh.count();
 
   QOpenGLVertexArrayObject::Binder __(&vao);

@@ -21,38 +21,36 @@
 #include <QMatrix4x4>
 
 namespace RealSpace {
-//------------------------------------------------------------------------------
 
 class Model;
 class Canvas;
 
 class Object {
-  friend class Model;
+    friend class Model;
 public:
-  Object(GeometricID::Key);
-  virtual ~Object();
+    Object(GeometricID::Key);
+    virtual ~Object();
 
-  QColor color;
+    QColor color;
 
-  void transform(float scale, Vector3D rotate, Vector3D translate);
-  void transform(Vector3D scale, Vector3D rotate, Vector3D translate);
-  void transform(Vector3D scale, QQuaternion, Vector3D translate);
-  void transform(Vector3D turn, Vector3D scale, Vector3D rotate, Vector3D translate);
+    void transform(float scale, Vector3D rotate, Vector3D translate);
+    void transform(Vector3D scale, Vector3D rotate, Vector3D translate);
+    void transform(Vector3D scale, QQuaternion, Vector3D translate);
+    void transform(Vector3D turn, Vector3D scale, Vector3D rotate, Vector3D translate);
 
 protected:
-  bool isNull;
+    bool isNull;
 
 private:
-  Model *model;
+    Model *model;
 
-  GeometricID::Key gky;
-  GeometryHandle geo;      // retrieved on demand
-  void releaseGeometry(); // can be released whenever
+    GeometricID::Key gky;
+    GeometryHandle geo;      // retrieved on demand
+    void releaseGeometry(); // can be released whenever
 
-  QMatrix4x4 mat;
-  void draw(Canvas&);
+    QMatrix4x4 mat;
+    void draw(Canvas&);
 };
 
-//------------------------------------------------------------------------------
-}
-#endif
+}  // namespace RealSpace
+#endif  // BA3D_OBJECT_H

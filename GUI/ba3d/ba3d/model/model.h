@@ -19,7 +19,6 @@
 #include "object.h"
 #include "particles.h"
 #include <QVector>
-#include <QHash>
 
 namespace RealSpace {
 //------------------------------------------------------------------------------
@@ -28,39 +27,38 @@ class Canvas;
 class Object;
 
 class Model : public QObject {
-  Q_OBJECT
-  friend class Canvas;
-  friend class Camera;
-  friend class Object;
+    Q_OBJECT
+    friend class Canvas;
+    friend class Camera;
+    friend class Object;
 public:
-  Model();
-  virtual ~Model();
+    Model();
+    virtual ~Model();
 
-  void clearOpaque();
-  void clearBlend();
+    void clearOpaque();
+    void clearBlend();
 
-  static Particles::Particle* newParticle(Particles::EShape k, float R);
+    static Particles::Particle* newParticle(Particles::EShape k, float R);
 
-  void add(Object*);        // add an opaque object, the model takes ownership
-  void addBlend(Object*);   // add a transparent object, the model takes ownership
-  void rem(Object*);        // removes an object, the caller becomes responsible
+    void add(Object*);        // add an opaque object, the model takes ownership
+    void addBlend(Object*);   // add a transparent object, the model takes ownership
+    void rem(Object*);        // removes an object, the caller becomes responsible
 
-  void releaseGeometries(); // may be called any time
+    void releaseGeometries(); // may be called any time
 
-  virtual void cameraUpdated(Camera const&) {}
+    virtual void cameraUpdated(Camera const&) {}
 
-  Camera::pos_t defCamPos;    // default camera params
+    Camera::pos_t defCamPos;    // default camera params
 
 signals:
-  void updated(bool withEye);
+    void updated(bool withEye);
 
 private:
-  QVector<Object*> objects, objectsBlend;
+    QVector<Object*> objects, objectsBlend;
 
-  void draw(Canvas&)      const;
-  void drawBlend(Canvas&) const;
+    void draw(Canvas&)      const;
+    void drawBlend(Canvas&) const;
 };
 
-//------------------------------------------------------------------------------
-}
-#endif
+}  // namespace RealSpace
+#endif  // BA3D_MODEL_H

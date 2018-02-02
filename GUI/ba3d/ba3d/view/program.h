@@ -19,30 +19,28 @@
 #include <QOpenGLShaderProgram>
 
 namespace RealSpace {
-//------------------------------------------------------------------------------
 
 class Camera;
 class Canvas;
 
 class Program: public QOpenGLShaderProgram
 {
-  friend class Canvas;
+    friend class Canvas;
 public:
-  Program();
+    Program();
 
 private:
-  void needsInit(); // mark as needed init
-  void init();      // inits, if needed
+    void needsInit(); // mark as needed init
+    void init();      // inits, if needed
 
-  void set(Camera const&);
-  void set(QColor const&);      // object color
-  void set(QMatrix4x4 const&);  // object transf
+    void set(Camera const&);
+    void set(QColor const&);      // object color
+    void set(QMatrix4x4 const&);  // object transf
 
-  bool doInit;
-  int  locMatProj, locMatModel, locMatObject,
-       locLightPos, locColor;
+    bool doInit;
+    int  locMatProj, locMatModel, locMatObject,
+    locLightPos, locColor;
 };
 
-//------------------------------------------------------------------------------
-}
-#endif
+}  // namespace RealSpace
+#endif  // BA3D_PROGRAM_H

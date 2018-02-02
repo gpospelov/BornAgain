@@ -15,32 +15,29 @@
 #include "../geometry.h"
 
 namespace RealSpace {
-//------------------------------------------------------------------------------
 
 Geometry::Mesh Geometry::meshBox() {
-  float const D = .5f;
+    float const D = .5f;
 
-  Vertices vs_; vs_.reserve(8);
-  for (float x : {-D, +D})
-    for (float y : {-D, +D})
-      for (float z : {-D, +D})
-        vs_.append(Vector3D(x,y,z));
+    Vertices vs_; vs_.reserve(8);
+    for (float x : {-D, +D})
+        for (float y : {-D, +D})
+            for (float z : {-D, +D})
+                vs_.append(Vector3D(x,y,z));
 
-  Q_ASSERT(8 == vs_.count());
+    Q_ASSERT(8 == vs_.count());
 
-  Vertices vs; vs.reserve(36);
+    Vertices vs; vs.reserve(36);
 
-  vs.addQuad(vs_, 0, 2, 6, 4);
-  vs.addQuad(vs_, 1, 5, 7, 3);
-  vs.addQuad(vs_, 0, 1, 3, 2);
-  vs.addQuad(vs_, 4, 6, 7, 5);
-  vs.addQuad(vs_, 0, 4, 5, 1);
-  vs.addQuad(vs_, 2, 3, 7, 6);
+    vs.addQuad(vs_, 0, 2, 6, 4);
+    vs.addQuad(vs_, 1, 5, 7, 3);
+    vs.addQuad(vs_, 0, 1, 3, 2);
+    vs.addQuad(vs_, 4, 6, 7, 5);
+    vs.addQuad(vs_, 0, 4, 5, 1);
+    vs.addQuad(vs_, 2, 3, 7, 6);
 
-  Q_ASSERT(36 == vs.count());
+    Q_ASSERT(36 == vs.count());
 
-  return makeMesh(vs);
+    return makeMesh(vs);
 }
-
-//------------------------------------------------------------------------------
-}
+}  // namespace RealSpace

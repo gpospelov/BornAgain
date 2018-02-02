@@ -18,14 +18,13 @@
 #include "object.h"
 
 namespace RealSpace { namespace Particles {
-//------------------------------------------------------------------------------
 
 enum class EShape {
-  None,
-  FullSphere, FullSpheroid, Cylinder, TruncatedSphere, TruncatedSpheroid,
-  Cone, Icosahedron, Dodecahedron, TruncatedCube, Prism6, Cone6, Pyramid,
-  Cuboctahedron, Prism3, Tetrahedron, EllipsoidalCylinder, Box,
-  HemiEllipsoid, AnisoPyramid,
+    None,
+    FullSphere, FullSpheroid, Cylinder, TruncatedSphere, TruncatedSpheroid,
+    Cone, Icosahedron, Dodecahedron, TruncatedCube, Prism6, Cone6, Pyramid,
+    Cuboctahedron, Prism3, Tetrahedron, EllipsoidalCylinder, Box,
+    HemiEllipsoid, AnisoPyramid,
 };
 
 QString const& name(EShape);
@@ -35,120 +34,138 @@ QString const& name(EShape);
 class Particle : public Object
 {
 protected:
-  Particle(GeometricID::Key);
-  Vector3D turn;   // turn before scale
-  Vector3D scale;  // geometries are of 1-size (box 1x1x1, sphere D=1), need scaling
-  Vector3D offset; // geometries centered around origin; particles stand on z=0 plane
-  Vector3D rotate, translate;  // remembered
+    Particle(GeometricID::Key);
+    Vector3D turn;   // turn before scale
+    Vector3D scale;  // geometries are of 1-size (box 1x1x1, sphere D=1), need scaling
+    Vector3D offset; // geometries centered around origin; particles stand on z=0 plane
+    Vector3D rotate, translate;  // remembered
 
-  void set();
+    void set();
 
 public:
-  static EShape const firstKind = EShape::None;
-  static EShape const lastKind = EShape::AnisoPyramid;
+    static EShape const firstKind = EShape::None;
+    static EShape const lastKind = EShape::AnisoPyramid;
 
-  void transform(Vector3D rotate, Vector3D translate);
-  void fancy(Vector3D rotate, float r);
+    void transform(Vector3D rotate, Vector3D translate);
+    void fancy(Vector3D rotate, float r);
 };
 
 //------------------------------------------------------------------------------
 // follow BornAgain manual, chapter 11, Particle form factors
 
-class FullSphere : public Particle {
+class FullSphere : public Particle
+{
 public:
-  FullSphere(float R);
+    FullSphere(float R);
 };
 
-class FullSpheroid : public Particle {
+class FullSpheroid : public Particle
+{
 public:
-  FullSpheroid(float R, float H);
+    FullSpheroid(float R, float H);
 };
 
-class Cylinder : public Particle {
+class Cylinder : public Particle
+{
 public:
-  Cylinder(float R, float H);
+    Cylinder(float R, float H);
 };
 
-class TruncatedSphere : public Particle {
+class TruncatedSphere : public Particle
+{
 public:
-  TruncatedSphere(float R, float H);
+    TruncatedSphere(float R, float H);
 };
 
-class TruncatedSpheroid : public Particle {
+class TruncatedSpheroid : public Particle
+{
 public:
-  TruncatedSpheroid(float R, float H, float fp);
+    TruncatedSpheroid(float R, float H, float fp);
 };
 
-class Cone : public Particle {
+class Cone : public Particle
+{
 public:
-  Cone(float R, float H, float alpha);
+    Cone(float R, float H, float alpha);
 };
 
-class Icosahedron : public Particle {
+class Icosahedron : public Particle
+{
 public:
-  Icosahedron(float L);
+    Icosahedron(float L);
 };
 
-class Dodecahedron : public Particle {
+class Dodecahedron : public Particle
+{
 public:
-  Dodecahedron(float L);
+    Dodecahedron(float L);
 };
 
-class TruncatedCube : public Particle {
+class TruncatedCube : public Particle
+{
 public:
-  TruncatedCube(float L, float t);
+    TruncatedCube(float L, float t);
 };
 
-class Prism6 : public Particle {
+class Prism6 : public Particle
+{
 public:
-  Prism6(float R, float H);
+    Prism6(float R, float H);
 };
 
-class Cone6 : public Particle {
+class Cone6 : public Particle
+{
 public:
-  Cone6(float R, float H, float alpha);
+    Cone6(float R, float H, float alpha);
 };
 
-class Pyramid : public Particle {
+class Pyramid : public Particle
+{
 public:
-  Pyramid(float L, float H, float alpha);
+    Pyramid(float L, float H, float alpha);
 };
 
-class Cuboctahedron : public Particle {
+class Cuboctahedron : public Particle
+{
 public:
-  Cuboctahedron(float L, float H, float rH, float alpha);
+    Cuboctahedron(float L, float H, float rH, float alpha);
 };
 
-class Prism3 : public Particle {
+class Prism3 : public Particle
+{
 public:
-  Prism3(float L, float H);
+    Prism3(float L, float H);
 };
 
-class Tetrahedron : public Particle {
+class Tetrahedron : public Particle
+{
 public:
-  Tetrahedron(float L, float H, float alpha);
+    Tetrahedron(float L, float H, float alpha);
 };
 
-class EllipsoidalCylinder : public Particle {
+class EllipsoidalCylinder : public Particle
+{
 public:
-  EllipsoidalCylinder(float Ra, float Rb, float H);
+    EllipsoidalCylinder(float Ra, float Rb, float H);
 };
 
-class Box : public Particle {
+class Box : public Particle
+{
 public:
-  Box(float L, float W, float H);
+    Box(float L, float W, float H);
 };
 
-class HemiEllipsoid : public Particle {
+class HemiEllipsoid : public Particle
+{
 public:
-  HemiEllipsoid(float Ra, float Rb, float H);
+    HemiEllipsoid(float Ra, float Rb, float H);
 };
 
-class AnisoPyramid : public Particle {
+class AnisoPyramid : public Particle
+{
 public:
-  AnisoPyramid(float L, float W, float H, float alpha);
+    AnisoPyramid(float L, float W, float H, float alpha);
 };
 
-//------------------------------------------------------------------------------
-}}
-#endif
+}}  // namespace RealSpace::Particles
+#endif  // BA3D_PARTICLES_H

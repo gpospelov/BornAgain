@@ -26,7 +26,7 @@ QColor const clrObject = Qt::lightGray;
 QColor const clrObject = Qt::black;
 #endif
 
-Object::Object(geometry::key gky_) : color(clrObject)
+Object::Object(GeometricID::Key gky_) : color(clrObject)
 , isNull(false), model(nullptr), gky(gky_) {
 }
 

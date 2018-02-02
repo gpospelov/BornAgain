@@ -24,24 +24,24 @@ const float DodecahedronL2R = float(4 / qSqrt(3) / (1+qSqrt(5)));
 
 //------------------------------------------------------------------------------
 
-geometry::key::key(geometry::eid id) : key(id, 0, 0) {}
+GeometricID::Key::Key(GeometricID::BaseShape id) : Key(id, 0, 0) {}
 
-geometry::key::key(geometry::eid id, float p1) : key(id, p1, 0) {}
+GeometricID::Key::Key(GeometricID::BaseShape id, float p1) : Key(id, p1, 0) {}
 
-geometry::key::key(eid id_, float p1_, float p2_)
+GeometricID::Key::Key(BaseShape id_, float p1_, float p2_)
   : id(id_), p1(p1_), p2(p2_) {
 }
 
-bool geometry::key::operator==(key const& that) const {
+bool GeometricID::Key::operator==(Key const& that) const {
   return id == that.id && p1 == that.p1 && p2 == that.p2;
 }
 
-uint geometry::qHash(geometry::key const& key) {
+uint GeometricID::qHash(GeometricID::Key const& key) {
   // the hash is simply a bitwise superposition of id, p1, p2
   union {
     float         f;
     quint32       u;
-    geometry::eid i;
+    GeometricID::BaseShape i;
   } id, p1, p2;
 
   id.i = key.id; p1.f = key.p1; p2.f = key.p2;

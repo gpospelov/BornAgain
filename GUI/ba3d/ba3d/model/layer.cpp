@@ -16,7 +16,7 @@
 
 namespace RealSpace {
 
-Layer::Layer(VectorRange d) : Object(geometry::key(geometry::eid::Box)) {
+Layer::Layer(VectorRange d) : Object(GeometricID::Key(GeometricID::BaseShape::Box)) {
   transform(d.size(), Vector3D::_0, d.mid());
 }
 

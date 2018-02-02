@@ -35,17 +35,17 @@ QString const& name(EShape);
 class Particle : public Object
 {
 protected:
-  Particle(geometry::key);
-  Vector3D turn,   // turn before scale
-      scale,  // geometries are of 1-size (box 1x1x1, sphere D=1), need scaling
-      offset, // geometries centered around origin; particles stand on z=0 plane
-      rotate, translate;  // remembered
+  Particle(GeometricID::Key);
+  Vector3D turn;   // turn before scale
+  Vector3D scale;  // geometries are of 1-size (box 1x1x1, sphere D=1), need scaling
+  Vector3D offset; // geometries centered around origin; particles stand on z=0 plane
+  Vector3D rotate, translate;  // remembered
 
   void set();
 
 public:
-  static EShape const firstKind = EShape::None,
-                    lastKind  = EShape::AnisoPyramid;
+  static EShape const firstKind = EShape::None;
+  static EShape const lastKind = EShape::AnisoPyramid;
 
   void transform(Vector3D rotate, Vector3D translate);
   void fancy(Vector3D rotate, float r);

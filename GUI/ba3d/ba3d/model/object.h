@@ -29,7 +29,7 @@ class Canvas;
 class Object {
   friend class Model;
 public:
-  Object(geometry::key);
+  Object(GeometricID::Key);
   virtual ~Object();
 
   QColor color;
@@ -45,7 +45,7 @@ protected:
 private:
   Model *model;
 
-  geometry::key gky;
+  GeometricID::Key gky;
   shGeo         geo;      // retrieved on demand
   void releaseGeometry(); // can be released whenever
 

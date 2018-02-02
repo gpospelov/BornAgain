@@ -33,27 +33,27 @@ extern const float GoldenRatio;
 extern const float IcosahedronL2R;  // L/R conversion
 extern const float DodecahedronL2R;
 
-namespace geometry {
+namespace GeometricID {
 
 // geometry enumerated id
-enum class eid { Plane, Box, Sphere, Column,
+enum class BaseShape { Plane, Box, Sphere, Column,
                  Icosahedron, Dodecahedron, TruncatedBox,
                  Cuboctahedron };
 
 
 // geometries may have 1 or 2 float parameters; together with eid -> hash key
-struct key {
-  key(eid);
-  key(eid, float);
-  key(eid, float, float);
+struct Key {
+  Key(BaseShape);
+  Key(BaseShape, float);
+  Key(BaseShape, float, float);
 
-  eid id;
+  BaseShape id;
   float p1, p2;
 
-  bool operator==(key const&) const;
+  bool operator==(Key const&) const;
 };
 
-uint qHash(key const&);
+uint qHash(Key const&);
 
 }
 

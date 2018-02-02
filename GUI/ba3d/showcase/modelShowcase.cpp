@@ -27,12 +27,12 @@ ModelShowcase::ModelShowcase() : p(nullptr) {
   Object *o;
 
   // bounding box
-  addBlend(o = new Object(geometry::key(geometry::eid::Box)));
+  addBlend(o = new Object(GeometricID::Key(GeometricID::BaseShape::Box)));
   o->color = QColor(0, 255, 0, 50);
   o->transform(2*R, Vector3D::_0, Vector3D(0,0,R));
 
   // bounding sphere
-  addBlend(o = new Object(geometry::key(geometry::eid::Sphere)));
+  addBlend(o = new Object(GeometricID::Key(GeometricID::BaseShape::Sphere)));
   o->color = QColor(0, 255, 255, 50);
   o->transform(2*R, Vector3D::_0, Vector3D(0,0,R));
 }

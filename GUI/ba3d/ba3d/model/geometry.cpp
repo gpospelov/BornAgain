@@ -59,32 +59,32 @@ void Geometry::Vertices::addFan(const Vertices& vs, const Indices& is) {
 
 //------------------------------------------------------------------------------
 
-Geometry::Geometry(geometry::key key_) : key(key_) {
-  using namespace geometry;
+Geometry::Geometry(GeometricID::Key key_) : key(key_) {
+  using namespace GeometricID;
 
   switch (key.id) {
-  case eid::Plane:
+  case BaseShape::Plane:
     mesh = meshPlane();
     break;
-  case eid::Box:
+  case BaseShape::Box:
     mesh = meshBox();
     break;
-  case eid::Sphere:
+  case BaseShape::Sphere:
     mesh = meshSphere(key.p1);
     break;
-  case eid::Column:
+  case BaseShape::Column:
     mesh = meshColumn(key.p1, key.p2);
     break;
-  case eid::Icosahedron:
+  case BaseShape::Icosahedron:
     mesh = meshIcosahedron();
     break;
-  case eid::Dodecahedron:
+  case BaseShape::Dodecahedron:
     mesh = meshDodecahedron();
     break;
-  case eid::TruncatedBox:
+  case BaseShape::TruncatedBox:
     mesh = meshTruncBox(key.p1);
     break;
-  case eid::Cuboctahedron:
+  case BaseShape::Cuboctahedron:
     mesh = meshCuboctahedron(key.p1, key.p2);
     break;
   }
@@ -127,7 +127,7 @@ Geometry::Mesh Geometry::makeMesh(const Vertices& vs, const Vertices& ns) {
 
 //------------------------------------------------------------------------------
 
-shGeo GeometryStore::getGeometry(geometry::key key) {
+shGeo GeometryStore::getGeometry(GeometricID::Key key) {
   auto it = geometries.find(key);
   if (geometries.end() != it) {
     shGeo g = it->toStrongRef();

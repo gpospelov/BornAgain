@@ -46,21 +46,22 @@ public:
     using QVector::QVector;
 
     void addVertex(const Vector3D&, int n = 1); // add a vertex, possibly multiple copies
-    void addTriangle(const Vector3D&, const Vector3D&, const Vector3D&);          // triangle
-    void addQuad(const Vector3D&, const Vector3D&, const Vector3D&, const Vector3D&); // quad as 2 triangles
+    void addTriangle(const Vector3D&, const Vector3D&, const Vector3D&); // triangle
+    void addQuad(const Vector3D&, const Vector3D&,
+                 const Vector3D&, const Vector3D&); // quad as 2 triangles
     void addQuad(const Vertices&, idx, idx, idx, idx);
-    void addStrip(const Vertices&, const Indices&);          // triangle strip
-    void addFan(const Vertices&, const Indices&);            // triangle fan
+    void addStrip(const Vertices&, const Indices&); // triangle strip
+    void addFan(const Vertices&, const Indices&);   // triangle fan
   };
 
   // vertex/normal mesh
   using Mesh = QVector<Vert_Normal>;
 
-  Geometry(geometry::key);
+  Geometry(GeometricID::Key);
   virtual ~Geometry();
 
 private:
-  geometry::key key;
+  GeometricID::Key key;
 
   Mesh mesh;
   // make a mesh from vectors of vertices on (optionally) normals
@@ -87,13 +88,13 @@ class GeometryStore : public QObject {
   Q_OBJECT
   friend class Geometry;
 public:
-  shGeo getGeometry(geometry::key);
+  shGeo getGeometry(GeometricID::Key);
 
 signals:
   void deletingGeometry(Geometry const*); // signal to canvases
 
 private:
-  QHash<geometry::key,wkGeo> geometries;
+  QHash<GeometricID::Key,wkGeo> geometries;
   void geometryDeleted(Geometry const&);  // ~Geometry() calls this
 };
 

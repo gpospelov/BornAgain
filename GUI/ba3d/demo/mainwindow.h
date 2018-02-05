@@ -28,7 +28,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow();
 
-    RealSpace::Widget3D& widg3t() {
+    RealSpace::Widget3D& widget3d() {
         return *w3d;
     }
 

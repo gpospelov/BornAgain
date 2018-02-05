@@ -119,7 +119,7 @@ void MainWindow::createLayout()
 
 DemoModel* MainWindow::model()
 {
-    auto model = dynamic_cast<DemoModel*>(w3d->getModel());
+    auto model = dynamic_cast<DemoModel*>(w3d->model());
     Q_ASSERT(model);
     return model;
 }

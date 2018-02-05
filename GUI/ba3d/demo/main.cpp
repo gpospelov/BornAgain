@@ -42,7 +42,7 @@ int App::exec()
     win.show();
 
     std::unique_ptr<DemoModel> model(new DemoModel);
-    win.widg3t().setModel(model.get());
+    win.widget3d().setModel(model.get());
 
     return QApplication::exec();
 }

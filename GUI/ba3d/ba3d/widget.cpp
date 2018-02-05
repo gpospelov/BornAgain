@@ -48,7 +48,7 @@ void Widget3D::setModel(Model* model) {
   camera->set();
 }
 
-Model* Widget3D::getModel() {
+Model* Widget3D::model() {
   return canvas->getModel();
 }
 

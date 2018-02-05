@@ -16,46 +16,48 @@
 #define BA3D_GEOMETRY_INC_H
 
 #include "../def.h"
-#include <QSharedPointer>
+#include <memory>
 
 // include to use geometry basics, without details
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Geometry;
 
-typedef QSharedPointer<Geometry> shGeo;
-typedef QWeakPointer<Geometry>   wkGeo;
+typedef std::shared_ptr<Geometry> GeometryHandle;
+typedef std::weak_ptr<Geometry>   GeometryRef;
 
-namespace geometry {
+// some useful constants:
+extern const float GoldenRatio;
+extern const float IcosahedronL2R;  // L/R conversion
+extern const float DodecahedronL2R;
 
-// geometry enumerated id
-enum class eid { Plane, Box, Sphere, Column,
+namespace GeometricID {
+
+// Enum id for basic shapes
+enum class BaseShape { Plane, Box, Sphere, Column,
                  Icosahedron, Dodecahedron, TruncatedBox,
                  Cuboctahedron };
 
-// these come useful
-extern flt const goldenRatio;
-extern flt const icosahedronL2R;  // L/R conversion
-extern flt const dodecahedronL2R;
 
-// geometries may have 1 or 2 flt parameters; together with eid -> hash key
-struct key {
-  key(eid);
-  key(eid, flt);
-  key(eid, flt, flt);
+// Real shapes will be parameterized by BaseShape enum and possibly two floats
+struct Key {
+    Key(BaseShape, float=0.0f, float=0.0f);
 
-  eid id;
-  flt p1, p2;
+    bool operator==(Key const&) const;
 
-  bool operator==(key const&) const;
+    BaseShape id;
+    float p1, p2;
 };
 
-uint qHash(key const&);
+// Hash functor for Key objects
+struct KeyHash
+{
+    std::size_t operator()(const Key& key) const noexcept;
+};
 
-}
+} // namespace GeometricID
+} // namespace RealSpace
 
-//------------------------------------------------------------------------------
-}
-#endif
+#endif // BA3D_GEOMETRY_INC_H

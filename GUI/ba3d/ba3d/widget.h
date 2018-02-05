@@ -18,7 +18,7 @@
 #include "def.h"
 #include <QWidget>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Model;
@@ -26,7 +26,8 @@ class Canvas;
 class Camera;
 class Program;
 
-class Widget3D : public QWidget { BASE(QWidget)
+class Widget3D : public QWidget
+{
   Q_OBJECT
 public:
   Widget3D();
@@ -36,7 +37,7 @@ public:
 
   void setBackground(QColor const&);
   void setModel(Model*); // model owned elsewhere, may be nullptr
-  Model* getModel();
+  Model* model();
 
 private:
   Canvas  *canvas;
@@ -47,4 +48,3 @@ private:
 //------------------------------------------------------------------------------
 }
 #endif
-// eof

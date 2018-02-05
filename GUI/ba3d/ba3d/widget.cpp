@@ -20,7 +20,7 @@
 
 #include <QBoxLayout>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Widget3D::Widget3D() : canvas(nullptr), camera(nullptr), program(nullptr) {
@@ -44,14 +44,13 @@ void Widget3D::setBackground(QColor const& color) {
 
 void Widget3D::setModel(Model* model) {
   canvas->setModel(model);
-  connect(camera, &ba3d::Camera::updated, model, &Model::cameraUpdated);
+  connect(camera, &RealSpace::Camera::updated, model, &Model::cameraUpdated);
   camera->set();
 }
 
-Model* Widget3D::getModel() {
+Model* Widget3D::model() {
   return canvas->getModel();
 }
 
 //------------------------------------------------------------------------------
 }
-// eof

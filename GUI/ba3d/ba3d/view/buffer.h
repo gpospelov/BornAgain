@@ -20,22 +20,20 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLVertexArrayObject>
 
-namespace ba3d {
-//------------------------------------------------------------------------------
+namespace RealSpace {
 
 class Geometry;
 
 // GL buffer
 class Buffer final : protected QOpenGLFunctions {
 public:
-  Buffer(Geometry const&);
-  void draw();
+    Buffer(Geometry const&);
+    void draw();
 
 private:
-  int vertexCount;
-  QOpenGLVertexArrayObject vao; QOpenGLBuffer glBuffer;
+    int vertexCount;
+    QOpenGLVertexArrayObject vao; QOpenGLBuffer glBuffer;
 };
 
-//------------------------------------------------------------------------------
-}
-#endif
+}  // namespace RealSpace
+#endif  // BA3D_BUFFER_H

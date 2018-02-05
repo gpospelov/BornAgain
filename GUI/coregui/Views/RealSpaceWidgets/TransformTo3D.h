@@ -31,11 +31,11 @@ namespace TransformTo3D
 BA_CORE_API_ double visualLayerThickness(const SessionItem& layerItem);
 
 BA_CORE_API_
-std::unique_ptr<ba3d::Layer> createLayer(const SessionItem& layerItem,
+std::unique_ptr<RealSpace::Layer> createLayer(const SessionItem& layerItem,
                                          const QVector3D& origin = QVector3D());
 
 BA_CORE_API_
-std::unique_ptr<ba3d::particle::Particle> createParticle(const SessionItem& particleItem);
+std::unique_ptr<RealSpace::Particles::Particle> createParticle(const SessionItem& particleItem);
 
 }
 

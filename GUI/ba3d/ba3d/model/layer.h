@@ -17,15 +17,13 @@
 
 #include "object.h"
 
-namespace ba3d {
-//------------------------------------------------------------------------------
+namespace RealSpace {
 
 // particle layer: a transparent box
-class Layer : public Object { BASE(Object)
+class Layer : public Object
+{
 public:
-  Layer(dxyz);
+    Layer(VectorRange);
 };
-
-//------------------------------------------------------------------------------
-}
-#endif
+}  // namespace RealSpace
+#endif  // BA3D_LAYER_H

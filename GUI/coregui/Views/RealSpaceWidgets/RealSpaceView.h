@@ -20,7 +20,7 @@
 
 class RealSpaceModel;
 
-namespace ba3d { class Widget3D;}
+namespace RealSpace { class Widget3D;}
 
 //! Contains 3D view.
 
@@ -34,7 +34,7 @@ public:
     void setModel(RealSpaceModel* model);
 
 private:
-    ba3d::Widget3D* m_3dview;
+    RealSpace::Widget3D* m_3dview;
 };
 
 #endif // REALSPACEVIEW_H

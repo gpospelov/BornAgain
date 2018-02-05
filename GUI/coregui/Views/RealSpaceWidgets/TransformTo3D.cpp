@@ -54,7 +54,7 @@ double TransformTo3D::visualLayerThickness(const SessionItem& layerItem)
     return thickness == 0.0 ? layer_min_thickness :  thickness;
 }
 
-std::unique_ptr<ba3d::Layer> TransformTo3D::createLayer(const SessionItem& layerItem, const QVector3D& origin)
+std::unique_ptr<RealSpace::Layer> TransformTo3D::createLayer(const SessionItem& layerItem, const QVector3D& origin)
 {
     Q_ASSERT(layerItem.modelType() == Constants::LayerType);
 
@@ -64,8 +64,8 @@ std::unique_ptr<ba3d::Layer> TransformTo3D::createLayer(const SessionItem& layer
     double ztop = origin.z() + thickness;
     double zbottom = origin.z();
 
-    std::unique_ptr<ba3d::Layer> result = std::make_unique<ba3d::Layer>(
-        ba3d::dxyz(ba3d::dr(-s2,+s2), ba3d::dr(-s2,+s2), ba3d::dr(ztop, zbottom)));
+    std::unique_ptr<RealSpace::Layer> result = std::make_unique<RealSpace::Layer>(
+        RealSpace::VectorRange(RealSpace::Range(-s2,+s2), RealSpace::Range(-s2,+s2), RealSpace::Range(ztop, zbottom)));
 
     QColor color = layerItem.getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>().color();
     color.setAlphaF(.3);
@@ -76,12 +76,12 @@ std::unique_ptr<ba3d::Layer> TransformTo3D::createLayer(const SessionItem& layer
 }
 
 
-std::unique_ptr<ba3d::particle::Particle>
+std::unique_ptr<RealSpace::Particles::Particle>
 TransformTo3D::createParticle(const SessionItem& particleItem)
 {
     Q_ASSERT(particleItem.modelType() == Constants::ParticleType);
 
-    std::unique_ptr<ba3d::particle::Particle> result;
+    std::unique_ptr<RealSpace::Particles::Particle> result;
 
     auto ffItem = static_cast<FormFactorItem*>(
                 particleItem.getGroupItem(ParticleItem::P_FORM_FACTOR));
@@ -89,14 +89,14 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
     if(ffItem->modelType() == Constants::CylinderType) {
         double radius = ffItem->getItemValue(CylinderItem::P_RADIUS).toDouble();
         double height = ffItem->getItemValue(CylinderItem::P_HEIGHT).toDouble();
-        result = std::make_unique<ba3d::particle::Cylinder>(radius, height);
+        result = std::make_unique<RealSpace::Particles::Cylinder>(radius, height);
     }
 
     else if(ffItem->modelType() == Constants::BoxType) {
         double length = ffItem->getItemValue(BoxItem::P_LENGTH).toDouble();
         double width = ffItem->getItemValue(BoxItem::P_WIDTH).toDouble();
         double height = ffItem->getItemValue(BoxItem::P_HEIGHT).toDouble();
-        result = std::make_unique<ba3d::particle::Box>(length, width, height);
+        result = std::make_unique<RealSpace::Particles::Box>(length, width, height);
     }
 
     if(result) {
@@ -110,7 +110,7 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
         double x = positionItem->getItemValue(VectorItem::P_X).toDouble();
         double y = positionItem->getItemValue(VectorItem::P_Y).toDouble();
         double z = positionItem->getItemValue(VectorItem::P_Z).toDouble();
-        result->transform(ba3d::xyz::_0, ba3d::xyz(x, y, z));
+        result->transform(RealSpace::Vector3D::_0, RealSpace::Vector3D(x, y, z));
     }
 
     return result;

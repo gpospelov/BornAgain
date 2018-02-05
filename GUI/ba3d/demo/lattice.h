@@ -18,22 +18,20 @@
 #include <ba3d/def.h>
 #include <QVector>
 
-//------------------------------------------------------------------------------
-
-class Lattice : public QVector<ba3d::xyz> {
+class Lattice : public QVector<RealSpace::Vector3D>
+{
 public:
-  using super = QVector<ba3d::xyz>;
+    using super = QVector<RealSpace::Vector3D>;
 
-  Lattice();
-  Lattice(uint n, uint nn);
+    Lattice();
+    Lattice(uint n, uint nn);
 
-  uint index(int ix, int iy);
-  int ix(uint);
-  int iy(uint);
-  uint n;
+    uint index(int ix, int iy);
+    int ix(uint);
+    int iy(uint);
+    uint n;
 };
 
 Lattice squareLattice(uint n, float sigma); // n half-size
 
-//------------------------------------------------------------------------------
-#endif
+#endif  // BA3D_LATTICE_H

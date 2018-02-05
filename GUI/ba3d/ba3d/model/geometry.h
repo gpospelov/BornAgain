@@ -18,92 +18,95 @@
 #include "../def.h"
 #include "geometry_inc.h"
 #include <QVector>
+#include <QObject>
+#include <unordered_map>
+#include <vector>
 
-namespace ba3d {
-//------------------------------------------------------------------------------
+namespace RealSpace {
 
 class Buffer;
 class GeometryStore;
 
 class Geometry {
-  friend class Buffer;
-  friend class GeometryStore;
+    friend class Buffer;
+    friend class GeometryStore;
 public:
-  // vertex+normal pair
-  struct vn_t {
-    xyz v, n;
-    vn_t() = default;
-    vn_t(xyz::rc v, xyz::rc n);
-  };
+    // vertex + normal pair
+    struct Vert_Normal {
+        Vector3D v, n;
+        Vert_Normal() =default;
+        Vert_Normal(const Vector3D& v, const Vector3D& n);
+    };
 
-  // vertex indices (for GL)
-  typedef quint8 idx;
-  struct idx_vec : QVector<idx> { typedef QVector<idx> base;
-    using base::base;
-    typedef idx_vec const& rc;
-  };
+    // vertex indices (for GL)
+    using Indices = std::vector<unsigned>;
 
-  // vertices (for GL)
-  struct xyz_vec : QVector<xyz> { typedef QVector<xyz> base;
-    using base::base;
-    typedef xyz_vec const& rc;
+    // vertices (for GL)
+    struct Vertices : private QVector<Vector3D>
+    {
+        using QVector::QVector;
+        using QVector::append;
+        using QVector::reserve;
+        using QVector::resize;
+        using QVector::operator[];
+        using QVector::at;
+        using QVector::count;
+        using QVector::begin;
+        using QVector::end;
 
-    void addVert(xyz::rc, int n = 1); // add a vertex, possibly multiple copies
+        void addVertex(const Vector3D&, int n = 1);     // add a vertex, possibly multiple copies
+        void addTriangle(const Vector3D&, const Vector3D&, const Vector3D&);   // triangle
+        void addQuad(const Vector3D&, const Vector3D&,
+                     const Vector3D&, const Vector3D&); // quad as 2 triangles
+        void addQuad(const Vertices&, unsigned, unsigned, unsigned, unsigned); // quad by indices
+        void addStrip(const Vertices&, const Indices&); // triangle strip
+        void addFan(const Vertices&, const Indices&);   // triangle fan
+    };
 
-    void addTrig(xyz::rc, xyz::rc, xyz::rc);          // triangle
-    void addQuad(xyz::rc, xyz::rc, xyz::rc, xyz::rc); // quad as 2 triangles
-    void addQuad(xyz_vec::rc, idx, idx, idx, idx);
-    void addStrip(xyz_vec::rc, idx_vec::rc);          // triangle strip
-    void addFan(xyz_vec::rc, idx_vec::rc);            // triangle fan
+    // vertex/normal mesh
+    using Mesh = QVector<Vert_Normal>;
 
-  };
-
-  // vertex/normal mesh
-  typedef QVector<vn_t> mesh_t;
-
-  Geometry(geometry::key);
-  virtual ~Geometry();
+    Geometry(GeometricID::Key);
+    virtual ~Geometry();
 
 private:
-  geometry::key key;
+    GeometricID::Key m_key;
 
-  mesh_t mesh;
-  // make a mesh from vectors of vertices on (optionally) normals
-  static mesh_t makeMesh(xyz_vec::rc vs, xyz_vec const* ns = nullptr);
-  static mesh_t makeMesh(xyz_vec::rc vs, xyz_vec::rc ns);
+    Mesh m_mesh;
+    // make a mesh from vectors of vertices and (optionally) normals
+    static Mesh makeMesh(const Vertices& vs, Vertices const* ns = nullptr);
+    static Mesh makeMesh(const Vertices& vs, const Vertices& ns);
 
-  static mesh_t meshPlane();
-  static mesh_t meshBox();
-  static mesh_t meshSphere(flt cut);
-  static mesh_t meshColumn(flt alpha, flt sides);
-  static mesh_t meshIcosahedron();
-  static mesh_t meshDodecahedron();
-  static mesh_t meshTruncBox(flt tD);
-  static mesh_t meshCuboctahedron(flt rH, flt alpha);
+    static Mesh meshPlane();
+    static Mesh meshBox();
+    static Mesh meshSphere(float cut);
+    static Mesh meshColumn(float alpha, float sides);
+    static Mesh meshIcosahedron();
+    static Mesh meshDodecahedron();
+    static Mesh meshTruncBox(float tD);
+    static Mesh meshCuboctahedron(float rH, float alpha);
 
-  // mesh params for round shapes
-  static int const RINGS = 12, SLICES = 24;
+    // mesh params for round shapes
+    static int const RINGS = 12, SLICES = 24;
 };
 
-//------------------------------------------------------------------------------
-
 // a single store keeps existing geometries for sharing
+
 class GeometryStore : public QObject {
   Q_OBJECT
   friend class Geometry;
 public:
-  shGeo getGeometry(geometry::key);
+  GeometryHandle getGeometry(GeometricID::Key);
 
 signals:
   void deletingGeometry(Geometry const*); // signal to canvases
 
 private:
-  QHash<geometry::key,wkGeo> geometries;
+  std::unordered_map<GeometricID::Key, GeometryRef, GeometricID::KeyHash> m_geometries;
   void geometryDeleted(Geometry const&);  // ~Geometry() calls this
 };
 
 GeometryStore& geometryStore(); // simpleton
 
-//------------------------------------------------------------------------------
-}
+}  // namespace RealSpace
 #endif

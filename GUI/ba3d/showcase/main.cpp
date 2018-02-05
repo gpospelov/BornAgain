@@ -15,14 +15,15 @@
 #include <ba3d/def.h>
 #include <ba3d/view/camera.h>
 
-#include "mainwin.h"
+#include "mainwindow.h"
 #include "modelLayers.h"
 #include "modelShowcase.h"
 #include <QApplication>
 
 //------------------------------------------------------------------------------
 
-class App : public QApplication { BASE(QApplication)
+class App : public QApplication
+{
 public:
   App(int& argc, char* argv[]);
  ~App();
@@ -30,7 +31,7 @@ public:
   int exec();
 };
 
-App::App(int& argc, char* argv[]) : base(argc, argv) {
+App::App(int& argc, char* argv[]) : QApplication(argc, argv) {
   setOrganizationName("c53");
   setApplicationName("ba3d");
 }
@@ -38,7 +39,7 @@ App::App(int& argc, char* argv[]) : base(argc, argv) {
 App::~App() {}
 
 int App::exec() {
-  MainWin win;
+  MainWindow win;
   win.show();
 
   QScopedPointer<ModelLayers>   ml(new ModelLayers);
@@ -50,14 +51,14 @@ int App::exec() {
   w2.setModel(ml.data());
   w3.setModel(ms.data());
 
-  w2.cam().lookAt(ba3d::Camera::pos_t(
-    ba3d::xyz::_z*90, ba3d::xyz(0,0,0), ba3d::xyz::_y));
+  w2.cam().lookAt(RealSpace::Camera::Position(
+    RealSpace::Vector3D::_z*90, RealSpace::Vector3D(0,0,0), RealSpace::Vector3D::_y));
 
-  connect(&win, &MainWin::showKind, [&](ba3d::particle::kind kind) {
+  connect(&win, &MainWindow::showKind, [&](RealSpace::Particles::EShape kind) {
     ml->showKind(kind); ms->showKind(kind);
   });
 
-  return base::exec();
+  return QApplication::exec();
 }
 
 //------------------------------------------------------------------------------

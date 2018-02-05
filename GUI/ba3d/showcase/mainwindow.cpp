@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/showcase/mainwin.cpp
+//! @file      GUI/ba3d/showcase/mainwindow.cpp
 //! @brief     Implements MainWin class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "mainwin.h"
+#include "mainwindow.h"
 
 #include <QAction>
 #include <QApplication>
@@ -26,7 +26,7 @@
 
 static QString const MAINWIN_GEOMETRY("MainWin Geometry");
 
-MainWin::MainWin() {
+MainWindow::MainWindow() {
   setWindowTitle(qApp->applicationName());
   createLayout();
 
@@ -34,19 +34,19 @@ MainWin::MainWin() {
   restoreGeometry(s.value(MAINWIN_GEOMETRY).toByteArray());
 }
 
-void MainWin::closeEvent(QCloseEvent*) {
+void MainWindow::closeEvent(QCloseEvent*) {
   QSettings s;
   s.setValue(MAINWIN_GEOMETRY, saveGeometry());
 }
 
-void MainWin::createLayout() {
+void MainWindow::createLayout() {
   setCentralWidget(new QWidget);
 
   auto hb = new QHBoxLayout;
   centralWidget()->setLayout(hb);
 
   // the thing
-  hb->addWidget((w3d_1 = new ba3d::Widget3D));
+  hb->addWidget((w3d_1 = new RealSpace::Widget3D));
   hb->setStretchFactor(w3d_1, 2);
   w3d_1->setBackground(palette().color(QPalette::Background));
 
@@ -54,21 +54,21 @@ void MainWin::createLayout() {
   hb->addLayout(vb);
   hb->setStretchFactor(vb, 1);
 
-  vb->addWidget((w3d_2 = new ba3d::Widget3D));
+  vb->addWidget((w3d_2 = new RealSpace::Widget3D));
   vb->setStretchFactor(w3d_2, 1);
 
-  vb->addWidget((w3d_3 = new ba3d::Widget3D));
+  vb->addWidget((w3d_3 = new RealSpace::Widget3D));
   vb->setStretchFactor(w3d_3, 1);
 
   vb->addWidget((combo = new QComboBox));
 
   {
-    using namespace ba3d::particle;
+    using namespace RealSpace::Particles;
     connect(combo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), [&](int i) {
-      emit showKind(kind(int(Particle::firstKind)+i));
+      emit showKind(EShape(int(Particle::firstKind)+i));
     });
 
-    for (kind k=Particle::firstKind; k <= Particle::lastKind; k = kind(uint(k)+1))
+    for (EShape k=Particle::firstKind; k <= Particle::lastKind; k = EShape(uint(k)+1))
       combo->addItem(name(k));
   }
 }

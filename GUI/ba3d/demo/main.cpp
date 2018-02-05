@@ -17,6 +17,7 @@
 
 #include "mainwindow.h"
 #include "demo_model.h"
+#include <memory>
 #include <QApplication>
 
 class App : public QApplication
@@ -30,8 +31,7 @@ public:
 
 App::App(int& argc, char* argv[]) : QApplication(argc, argv)
 {
-    setOrganizationName("c53");
-    setApplicationName("ba3d");
+    setApplicationName("BornAgain real space demo");
 }
 
 App::~App() {}
@@ -41,8 +41,8 @@ int App::exec()
     MainWindow win;
     win.show();
 
-    QScopedPointer<DemoModel> model(new DemoModel);
-    win.widg3t().setModel(model.data());
+    std::unique_ptr<DemoModel> model(new DemoModel);
+    win.widg3t().setModel(model.get());
 
     return QApplication::exec();
 }

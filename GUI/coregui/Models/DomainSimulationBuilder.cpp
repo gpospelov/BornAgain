@@ -25,14 +25,31 @@
 #include "MultiLayerItem.h"
 #include "SimulationOptionsItem.h"
 #include "OffSpecSimulation.h"
+#include "SpecularSimulation.h"
 #include "TransformToDomain.h"
 #include "AxesItems.h"
 #include "Units.h"
 
-//! Creates domain simulation from sample and instrument items.
-std::unique_ptr<Simulation> DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
-                                                        const InstrumentItem* instrumentItem,
-                                                        const SimulationOptionsItem* optionsItem)
+namespace {
+std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                                                       const GISASInstrumentItem* gisasInstrument,
+                                                       const SimulationOptionsItem* optionsItem);
+
+std::unique_ptr<OffSpecSimulation>
+createOffSpecSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                        const OffSpecInstrumentItem* offspecInstrument,
+                        const SimulationOptionsItem* optionsItem);
+
+std::unique_ptr<SpecularSimulation>
+createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                         const SpecularInstrumentItem* specular_instrument,
+                         const SimulationOptionsItem* options_item);
+}
+
+std::unique_ptr<Simulation>
+DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
+                                          const InstrumentItem* instrumentItem,
+                                          const SimulationOptionsItem* optionsItem)
 {
     if (sampleItem == nullptr || instrumentItem == nullptr) {
         QString message("DomainSimulationBuilder::getSimulation() -> Error. Either MultiLayerItem "
@@ -40,51 +57,101 @@ std::unique_ptr<Simulation> DomainSimulationBuilder::createSimulation(const Mult
         throw GUIHelpers::Error(message);
     }
 
-    if (auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(instrumentItem)) {
-        std::unique_ptr<GISASSimulation> gisas(new GISASSimulation);
-        auto P_multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);
-        auto P_instrument = DomainObjectBuilder::buildInstrument(*gisasInstrument);
-        gisas->setSample(*P_multilayer);
-        gisas->setInstrument(*P_instrument);
-        TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(), gisas.get());
+    auto P_multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);
 
-        // Simulation options
-        if (optionsItem)
-            TransformToDomain::setSimulationOptions(gisas.get(), *optionsItem);
+    if (auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(instrumentItem))
+        return createGISASSimulation(std::move(P_multilayer), gisasInstrument, optionsItem);
+    else if (auto offspecInstrument = dynamic_cast<const OffSpecInstrumentItem*>(instrumentItem))
+        return createOffSpecSimulation(std::move(P_multilayer), offspecInstrument, optionsItem);
+    else if (auto specular_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrumentItem))
+        return createSpecularSimulation(std::move(P_multilayer), specular_instrument, optionsItem);
 
-        // Background simulation
-        auto P_background = gisasInstrument->backgroundItem()->createBackground();
-        if (P_background)
-            gisas->setBackground(*P_background);
+    throw GUIHelpers::Error(
+        "DomainSimulationBuilder::createSimulation() -> Error. Not yet implemented");
+}
 
-        return std::unique_ptr<Simulation> (gisas.release());
+namespace
+{
+std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                                                  const GISASInstrumentItem* gisasInstrument,
+                                                  const SimulationOptionsItem* optionsItem)
+{
+    std::unique_ptr<GISASSimulation> gisas(new GISASSimulation);
+    auto P_instrument = DomainObjectBuilder::buildInstrument(*gisasInstrument);
+    gisas->setSample(*P_multilayer);
+    gisas->setInstrument(*P_instrument);
+    TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(),
+                                                             gisas.get());
 
-    } else if (auto offspecInstrument = dynamic_cast<const OffSpecInstrumentItem*>(instrumentItem)) {
-        std::unique_ptr<OffSpecSimulation> offspec(new OffSpecSimulation);
-        auto P_multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);
-        auto P_instrument = DomainObjectBuilder::buildInstrument(*offspecInstrument);
-        offspec->setSample(*P_multilayer);
-        offspec->setInstrument(*P_instrument);
+    // Simulation options
+    if (optionsItem)
+        TransformToDomain::setSimulationOptions(gisas.get(), *optionsItem);
 
-        auto beamItem = offspecInstrument->beamItem();
-        auto axisItem = dynamic_cast<BasicAxisItem*>(offspecInstrument->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS));
-        offspec->setBeamParameters(beamItem->getWavelength(), *axisItem->createAxis(Units::degree), beamItem->getAzimuthalAngle());
+    // Background simulation
+    auto P_background = gisasInstrument->backgroundItem()->createBackground();
+    if (P_background)
+        gisas->setBackground(*P_background);
 
-        // TODO Take care about distributions
-//        TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(), gisas.get());
+    return gisas;
+}
 
-        // Simulation options
-        if (optionsItem)
-            TransformToDomain::setSimulationOptions(offspec.get(), *optionsItem);
+std::unique_ptr<OffSpecSimulation> createOffSpecSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                                                    const OffSpecInstrumentItem* offspecInstrument,
+                                                    const SimulationOptionsItem* optionsItem)
+{
+    std::unique_ptr<OffSpecSimulation> offspec(new OffSpecSimulation);
+    auto P_instrument = DomainObjectBuilder::buildInstrument(*offspecInstrument);
+    offspec->setSample(*P_multilayer);
+    offspec->setInstrument(*P_instrument);
 
-        // Background simulation
-        auto P_background = offspecInstrument->backgroundItem()->createBackground();
-        if (P_background)
-            offspec->setBackground(*P_background);
+    auto beamItem = offspecInstrument->beamItem();
+    auto axisItem = dynamic_cast<BasicAxisItem*>(
+        offspecInstrument->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS));
+    offspec->setBeamParameters(beamItem->getWavelength(), *axisItem->createAxis(Units::degree),
+                               beamItem->getAzimuthalAngle());
 
-        return std::unique_ptr<Simulation> (offspec.release());
+    // TODO Take care about distributions
+    // TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(),
+    //                                                          gisas.get());
 
-    }
+    // Simulation options
+    if (optionsItem)
+        TransformToDomain::setSimulationOptions(offspec.get(), *optionsItem);
 
-    throw GUIHelpers::Error("DomainSimulationBuilder::createSimulation() -> Error. Not yet implemented");
+    // Background simulation
+    auto P_background = offspecInstrument->backgroundItem()->createBackground();
+    if (P_background)
+        offspec->setBackground(*P_background);
+
+    return offspec;
+}
+
+std::unique_ptr<SpecularSimulation>
+createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                         const SpecularInstrumentItem* specular_instrument,
+                         const SimulationOptionsItem* options_item)
+{
+    std::unique_ptr<SpecularSimulation> specular_simulation
+        = std::make_unique<SpecularSimulation>(*P_multilayer);
+
+    auto beam_item = specular_instrument->beamItem();
+    auto axis_item = dynamic_cast<BasicAxisItem*>(
+        specular_instrument->getItem(SpecularInstrumentItem::P_ALPHA_AXIS));
+
+    // TODO Take care about beam divergence
+    // TODO: add footprint correction factor
+    specular_simulation->setBeamParameters(beam_item->getWavelength(),
+                                           *axis_item->createAxis(Units::degree));
+
+    // Simulation options
+    if (options_item)
+        TransformToDomain::setSimulationOptions(specular_simulation.get(), *options_item);
+
+    // Background simulation
+    auto P_background = specular_instrument->backgroundItem()->createBackground();
+    if (P_background)
+        specular_simulation->setBackground(*P_background);
+
+    return specular_simulation;
+}
 }

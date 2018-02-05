@@ -22,6 +22,7 @@
 #include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
+#include "SpecularSimulation.h"
 #include <QFileInfo>
 #include <QDebug>
 
@@ -52,6 +53,9 @@ QMap<AxesUnits, QString> init_description_to_units_map()
 
 void JobItemUtils::setResults(IntensityDataItem* intensityItem, const Simulation* simulation)
 {
+    if (dynamic_cast<const SpecularSimulation*>(simulation))
+        throw GUIHelpers::Error("Error in JobItemUtils::setResults: specular simulation "
+                                 "currently is not handled by GUI");
     auto sim_result = simulation->result();
     if (intensityItem->getOutputData() == nullptr) {
         const IDetector* detector = simulation->getInstrument().getDetector();

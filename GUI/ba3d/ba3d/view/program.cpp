@@ -16,9 +16,18 @@
 #include "camera.h"
 #include <QMatrix4x4>
 
+// The macro call has to be in the global namespace
+inline void InitShaderResources() {
+    Q_INIT_RESOURCE(shaders);
+}
+
 namespace RealSpace {
 
-Program::Program() {
+Program::Program()
+{
+    // make sure our resource file gets initialized
+    InitShaderResources();
+
     needsInit();
 }
 
@@ -26,45 +35,24 @@ void Program::needsInit() {
     doInit = true;
 }
 
-namespace {
-static char const *shaderVertex =
-        "attribute vec3 vertex;"
-        "attribute vec3 normal;"
-        "uniform   mat4 matProj, matModel, matObject;"
-        "varying   vec3 vo, nm;"
-
-        "void main() {"
-        "  vec4 vertObj = matObject * vec4(vertex,1);"
-        "  gl_Position  = matProj * matModel * vertObj;"
-        "  vo = vertObj.xyz; nm = normal;"
-        "}";
-
-static char const *shaderFragment =
-        "uniform highp vec3 lightPos;"
-        "uniform highp vec4 color;"
-
-        "varying highp vec3 vo, nm;"
-
-        "void main() {"
-        "  highp vec3  L  = normalize(lightPos - vo);"
-        "  highp vec3  N  = normalize(nm);"
-        "  highp float NL = dot(N,L);"
-        #ifdef Q_OS_OSX
-        "  highp vec4  C  = color*(0.6 + NL*0.4);"  // mix ambient with specular
-        #else
-        "  highp vec4  C  = color*(0.4 + NL*0.6);"
-        #endif
-        "  gl_FragColor   = clamp(C, 0.0, 1.0);"
-        "}";
-}
-
 void Program::init() {
     if (!doInit)
         return;
     doInit = false;
 
-    addShaderFromSourceCode(QOpenGLShader::Vertex,   shaderVertex);
-    addShaderFromSourceCode(QOpenGLShader::Fragment, shaderFragment);
+    auto shader_found = addShaderFromSourceFile(QOpenGLShader::Vertex,
+                                                ":/shaders/vertex_shader.vert");
+    if (!shader_found)
+        throw std::runtime_error("Vertex shader not loaded");
+#ifdef Q_OS_OSX
+    shader_found = addShaderFromSourceFile(QOpenGLShader::Fragment,
+                                           ":/shaders/fragment_shader_OSX.frag");
+#else
+    shader_found = addShaderFromSourceFile(QOpenGLShader::Fragment,
+                                           ":/shaders/fragment_shader.frag");
+#endif
+    if (!shader_found)
+        throw std::runtime_error("Fragment shader not loaded");
 
     bindAttributeLocation("vertex", 0);
     bindAttributeLocation("normal", 1);

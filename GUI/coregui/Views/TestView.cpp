@@ -36,7 +36,7 @@ TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
 {
-    test_ComponentProxyModel();
+//    test_ComponentProxyModel();
 //    test_MaterialEditor();
 //    test_MinimizerSettings();
 //    test_AccordionWidget();

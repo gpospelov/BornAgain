@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "ColorMapUtils.h"
-#include "SpecularDataWidget.h"
+#include "SpecularDataCanvas.h"
 #include "SpecularDataItem.h"
 #include "plot_constants.h"
 
-SpecularDataWidget::SpecularDataWidget(QWidget* parent)
+SpecularDataCanvas::SpecularDataCanvas(QWidget* parent)
     : QWidget(parent), m_customPlot(new QCustomPlot)
 
 {
@@ -43,20 +43,20 @@ SpecularDataWidget::SpecularDataWidget(QWidget* parent)
     m_customPlot->yAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size));
 }
 
-void SpecularDataWidget::setData(SpecularDataItem* data_item)
+void SpecularDataCanvas::setData(SpecularDataItem* data_item)
 {
     m_data_item = data_item;
     initGraphFromItem();
 }
 
-void SpecularDataWidget::clearData()
+void SpecularDataCanvas::clearData()
 {
     m_customPlot->removeGraph(m_customPlot->graph());
     initGraph();
     m_customPlot->replot();
 }
 
-void SpecularDataWidget::initGraph()
+void SpecularDataCanvas::initGraph()
 {
     m_customPlot->addGraph();
 
@@ -71,7 +71,7 @@ void SpecularDataWidget::initGraph()
     axisRectangle->setMargins(QMargins(em*4, fontAscent*2, em*2, fontAscent*2));
 }
 
-void SpecularDataWidget::initGraphFromItem()
+void SpecularDataCanvas::initGraphFromItem()
 {
     const auto underlying_data = intensityData()->getOutputData();
     for (size_t i = 0, size = underlying_data->getAllocatedSize(); i < size; ++i) {

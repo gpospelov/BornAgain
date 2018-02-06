@@ -22,7 +22,7 @@
 #include "ApplicationModels.h"
 #include "SampleModel.h"
 #include "SpecularDataItem.h"
-#include "SpecularDataWidget.h"
+#include "SpecularDataCanvas.h"
 #include "TestComponentView.h"
 #include "mainwindow.h"
 #include <QTreeView>
@@ -179,7 +179,7 @@ void TestView::test_specular_data_widget()
     layout->setMargin(0);
     layout->setSpacing(0);
     auto data = SpecularDataItem::createTestItem();
-    auto widget = new SpecularDataWidget;
+    auto widget = new SpecularDataCanvas;
     widget->setData(data);
     layout->addWidget(widget);
     setLayout(layout);

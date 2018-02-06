@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARDATAWIDGET_H
-#define SPECULARDATAWIDGET_H
+#ifndef SPECULARDATACANVAS_H
+#define SPECULARDATACANVAS_H
 
 #include "WinDllMacros.h"
 #include "qcustomplot.h"
@@ -21,11 +21,11 @@
 
 class SpecularDataItem;
 
-class BA_CORE_API_ SpecularDataWidget : public QWidget
+class BA_CORE_API_ SpecularDataCanvas : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SpecularDataWidget(QWidget* parent = nullptr);
+    explicit SpecularDataCanvas(QWidget* parent = nullptr);
 
 public slots:
     void setData(SpecularDataItem* data_item);
@@ -40,4 +40,4 @@ private:
     SpecularDataItem* m_data_item;
 };
 
-#endif // SPECULARDATAWIDGET_H
+#endif // SPECULARDATACANVAS_H

@@ -179,8 +179,8 @@ void TestView::test_specular_data_widget()
     layout->setMargin(0);
     layout->setSpacing(0);
     auto data = SpecularDataItem::createTestItem();
-    auto widget = new SpecularDataCanvas;
-    widget->setData(data);
+    auto widget = new SpecularDataCanvas(this);
+    widget->setItem(data);
     layout->addWidget(widget);
     setLayout(layout);
 }

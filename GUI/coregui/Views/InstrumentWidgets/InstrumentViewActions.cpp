@@ -77,13 +77,13 @@ void InstrumentViewActions::onAddInstrument()
 
     if (instrumentType == Constants::GISASInstrumentType) {
         auto instrument = m_model->insertNewItem(instrumentType);
-        instrument->setItemName(suggestInstrumentName("Default GISAS"));
+        instrument->setItemName(suggestInstrumentName("GISAS"));
     } else if (instrumentType == Constants::OffSpecInstrumentType) {
         auto instrument = m_model->insertNewItem(instrumentType);
-        instrument->setItemName(suggestInstrumentName("Default OffSpec"));
+        instrument->setItemName(suggestInstrumentName("OffSpec"));
     } else if (instrumentType == Constants::SpecularInstrumentType) {
         auto instrument = m_model->insertNewItem(instrumentType);
-        instrument->setItemName(suggestInstrumentName("Default Specular"));
+        instrument->setItemName(suggestInstrumentName("Specular"));
     } else {
         qInfo() << "InstrumentViewActions::onAddInstrument() -> Not supported instrument type"
                 << instrumentType;
@@ -188,17 +188,21 @@ QMap<QString, int> InstrumentViewActions::mapOfNames()
 void InstrumentViewActions::initAddInstrumentMenu()
 {
     m_addInstrumentMenu = new QMenu("Add new instrument");
+    m_addInstrumentMenu->setToolTipsVisible(true);
 
-    auto action = m_addInstrumentMenu->addAction("Default GISAS");
+    auto action = m_addInstrumentMenu->addAction("GISAS");
     action->setData(QVariant::fromValue(Constants::GISASInstrumentType));
+    action->setToolTip("Add GISAS instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
     m_addInstrumentMenu->setDefaultAction(action);
 
-    action = m_addInstrumentMenu->addAction("Default OffSpec");
+    action = m_addInstrumentMenu->addAction("OffSpec");
     action->setData(QVariant::fromValue(Constants::OffSpecInstrumentType));
+    action->setToolTip("Add OffSpec instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 
-    action = m_addInstrumentMenu->addAction("Default Specular");
+    action = m_addInstrumentMenu->addAction("Specular");
     action->setData(QVariant::fromValue(Constants::SpecularInstrumentType));
+    action->setToolTip("Add Specular instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 }

@@ -100,7 +100,7 @@ void ApplicationModels::resetModels()
 
     m_instrumentModel->clear();
     SessionItem* instrument = m_instrumentModel->insertNewItem(Constants::GISASInstrumentType);
-    instrument->setItemName("Default GISAS");
+    instrument->setItemName("GISAS");
 }
 
 //! creates and initializes models, order is important

@@ -77,7 +77,7 @@ void IntensityDataCanvas::onSavePlotAction()
 {
     QString dirname = AppSvc::projectManager()->userExportDir();
     SavePlotAssistant saveAssistant;
-    saveAssistant.savePlot(dirname, m_colorMap->customPlot(), intensityDataItem());
+    saveAssistant.savePlot(dirname, m_colorMap->customPlot(), intensityDataItem()->getOutputData());
 }
 
 void IntensityDataCanvas::onMousePress(QMouseEvent* event)

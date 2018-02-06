@@ -23,16 +23,16 @@
 
 SpecularDataWidget::SpecularDataWidget(QWidget* parent)
     : SessionItemWidget(parent)
-    , m_intensityCanvas(new SpecularDataCanvas)
-    , m_propertyWidget(new IntensityDataPropertyWidget)
+    , m_intensity_canvas(new SpecularDataCanvas)
+    , m_property_widget(new IntensityDataPropertyWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     auto hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
-    hlayout->addWidget(m_intensityCanvas);
-    hlayout->addWidget(m_propertyWidget);
+    hlayout->addWidget(m_intensity_canvas);
+    hlayout->addWidget(m_property_widget);
 
     auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -41,22 +41,22 @@ SpecularDataWidget::SpecularDataWidget(QWidget* parent)
 
     setLayout(mainLayout);
 
-    connect(m_intensityCanvas, &SpecularDataCanvas::customContextMenuRequested, this,
+    connect(m_intensity_canvas, &SpecularDataCanvas::customContextMenuRequested, this,
             &SpecularDataWidget::onContextMenuRequest);
 
-    m_propertyWidget->setVisible(false);
+    m_property_widget->setVisible(false);
 }
 
 void SpecularDataWidget::setItem(SessionItem* jobItem)
 {
     SessionItemWidget::setItem(jobItem);
-    m_intensityCanvas->setItem(specularDataItem());
-    m_propertyWidget->setItem(specularDataItem());
+    m_intensity_canvas->setItem(specularDataItem());
+    m_property_widget->setItem(specularDataItem());
 }
 
 QList<QAction*> SpecularDataWidget::actionList()
 {
-    return m_intensityCanvas->actionList() + m_propertyWidget->actionList();
+    return m_intensity_canvas->actionList() + m_property_widget->actionList();
 }
 
 void SpecularDataWidget::onContextMenuRequest(const QPoint& point)

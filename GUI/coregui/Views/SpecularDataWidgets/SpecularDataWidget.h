@@ -38,8 +38,8 @@ private slots:
 private:
     SpecularDataItem* specularDataItem();
 
-    SpecularDataCanvas* m_intensityCanvas;
-    IntensityDataPropertyWidget* m_propertyWidget;
+    SpecularDataCanvas* m_intensity_canvas;
+    IntensityDataPropertyWidget* m_property_widget;
 };
 
 #endif // SPECULARDATAWIDGET_H

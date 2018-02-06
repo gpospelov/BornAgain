@@ -1,0 +1,45 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/coregui/Views/SpecularDataWidgets/SpecularDataWidget.h
+//! @brief     Defines class SpecularDataWidget
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
+#ifndef SPECULARDATAWIDGET_H
+#define SPECULARDATAWIDGET_H
+
+#include "SessionItemWidget.h"
+
+class SpecularDataCanvas;
+class SpecularDataItem;
+class IntensityDataPropertyWidget;
+
+class SpecularDataWidget : public SessionItemWidget
+{
+    Q_OBJECT
+
+public:
+    SpecularDataWidget(QWidget* parent = nullptr);
+
+    void setItem(SessionItem* jobItem);
+
+    QList<QAction*> actionList();
+
+private slots:
+    void onContextMenuRequest(const QPoint& point);
+
+private:
+    SpecularDataItem* specularDataItem();
+
+    SpecularDataCanvas* m_intensityCanvas;
+    IntensityDataPropertyWidget* m_propertyWidget;
+};
+
+#endif // SPECULARDATAWIDGET_H

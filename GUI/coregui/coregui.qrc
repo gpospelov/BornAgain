@@ -4,8 +4,6 @@
         <file>images/closebutton.png</file>
         <file>images/reset.png</file>
         <file>images/darkclosebutton.png</file>
-        <file>images/gisas_instrument.png</file>
-        <file>images/gisas_instrument_bw.png</file>
         <file>mainwindow/tooltips.xml</file>
         <file>images/treeview-branch-closed.png</file>
         <file>images/treeview-branch-end.png</file>
@@ -54,5 +52,11 @@
         <file>images/caret-down.svg</file>
         <file>images/caret-right.svg</file>
         <file>images/toolbar16light_fft.svg</file>
+        <file>images/gisas_instrument.svg</file>
+        <file>images/gisas_instrument_shaded.svg</file>
+        <file>images/offspec_instrument.svg</file>
+        <file>images/offspec_instrument_shaded.svg</file>
+        <file>images/specular_instrument.svg</file>
+        <file>images/specular_instrument_shaded.svg</file>
     </qresource>
 </RCC>

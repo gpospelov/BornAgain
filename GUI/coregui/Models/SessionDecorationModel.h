@@ -35,8 +35,6 @@ public:
 
     QVariant data(const QModelIndex& index, int role) const;
 
-    SessionModel* sessionModel();
-
 private:
     QVariant createIcon(const QModelIndex& index) const;
     QVariant textColor(const QModelIndex& index) const;

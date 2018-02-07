@@ -448,7 +448,7 @@ OffSpecSimulation* StandardSimulations::MiniOffSpec()
 {
     std::unique_ptr<OffSpecSimulation> result(new OffSpecSimulation());
 
-    const int n_alpha(300);
+    const int n_alpha(20);
     const double alpha_min(0.0*Units::deg);
     const double alpha_max(4.0*Units::deg);
     const int n_phi(10);

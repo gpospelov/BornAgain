@@ -34,6 +34,14 @@
 #include <QCheckBox>
 #include <QLineEdit>
 
+namespace {
+// These functions are required for testing purposes only
+// They must be removed after completion of
+// SpecularDataWidget
+double getTestValue(size_t bin);
+SpecularDataItem* fillTestItem(SessionItem* item);
+}
+
 TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
@@ -175,12 +183,36 @@ void TestView::test_ba3d()
 
 void TestView::test_specular_data_widget()
 {
+    SessionModel* tempModel = new SessionModel("Test", this);
+    auto data = fillTestItem(tempModel->insertNewItem(Constants::SpecularDataType));
+
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
-    auto data = SpecularDataItem::createTestItem();
     auto widget = new SpecularDataWidget(this);
     widget->setItem(data);
     layout->addWidget(widget);
     setLayout(layout);
+}
+
+namespace {
+double getTestValue(size_t bin)
+{
+    const double factor = M_PI / (180.0 * 100.0);
+    const double angle = bin * factor;
+    return (std::cos(angle * 1000.0) + 1.5) * std::exp(-(bin / 100.0));
+}
+
+SpecularDataItem* fillTestItem(SessionItem* item)
+{
+    SpecularDataItem* result = dynamic_cast<SpecularDataItem*>(item);
+    Q_ASSERT(result);
+    auto outputData = std::make_unique<OutputData<double>>();
+    outputData->addAxis(FixedBinAxis("Angle [deg]", 1000, 0.0, 10.0));
+    for (size_t i = 0; i < 1000; ++i)
+        outputData->operator[](i) = getTestValue(i);
+
+    result->setOutputData(outputData.release());
+    return result;
+}
 }

@@ -60,11 +60,13 @@ def get_offspec_simulation():
     # define detector parameters
     n_alpha, alpha_min, alpha_max = 300, 0.0*deg, 4.0*deg
     n_phi, phi_min, phi_max = 10, -0.1*deg, 0.1*deg
-    simulation.setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
+    simulation.setDetectorParameters(
+        n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
 
     # define the beam with alpha_i varied between alpha_i_min and alpha_i_max
     n_scan_points, alpha_i_min, alpha_i_max = n_alpha, alpha_min, alpha_max
-    alpha_i_axis = ba.FixedBinAxis("alpha_i", n_scan_points, alpha_i_min, alpha_i_max)
+    alpha_i_axis = ba.FixedBinAxis(
+        "alpha_i", n_scan_points, alpha_i_min, alpha_i_max)
     simulation.setBeamParameters(5.0*angstrom, alpha_i_axis, 0.0)
 
     simulation.setBeamIntensity(1e9)
@@ -74,7 +76,8 @@ def get_offspec_simulation():
     d_alpha = (alpha_max - alpha_min)/n_alpha
     d_phi = (phi_max-phi_min)/n_phi
     sigma_factor = 1.0
-    simulation.setDetectorResolutionFunction(ba.ResolutionFunction2DGaussian(sigma_factor*d_alpha, sigma_factor*d_phi))
+    simulation.setDetectorResolutionFunction(
+        ba.ResolutionFunction2DGaussian(sigma_factor*d_alpha, sigma_factor*d_phi))
 
     return simulation
 

@@ -18,12 +18,37 @@
 #include <boost/program_options/parsers.hpp>
 #include <fstream>
 #include <iostream>
+#include <QSize>
+
+namespace {
+const char* geometry = "geometry";
+
+//! Converts string "1600x1000" to QSize(1600, 1000)
+QSize windowSize(const QString& size_string) {
+    auto list = size_string.split("x");
+
+    if (list.size() != 2)
+        return QSize();
+
+    return QSize(list[0].toInt(), list[1].toInt());
+}
+
+//! Returns true if windows size makes sence.
+bool isValid(const QSize& win_size) {
+    if (win_size.width() > 640 && win_size.height() > 480)
+        return true;
+
+    return false;
+}
+
+}
 
 ApplicationOptions::ApplicationOptions(int argc, char** argv) : m_options_is_consistent(false)
 {
-    m_options.add_options()("help,h", "print help message")("version,v", "print version number")(
-        "with-debug", "run application with debug printout")("no-splash",
-                                                             "do not show splash screen");
+    m_options.add_options()("help,h", "print help message");
+    m_options.add_options()("with-debug", "run application with debug printout");
+    m_options.add_options()("no-splash",  "do not show splash screen");
+    m_options.add_options()(geometry,  bpo::value<std::string>(), "Main window geometry, e.g. 1600x1000");
 
     parseCommandLine(argc, argv);
 
@@ -81,16 +106,23 @@ boost::program_options::options_description& ApplicationOptions::getOptions() { 
 
 void ApplicationOptions::processOptions()
 {
-    if (!m_options_is_consistent)
-        return;
-
     if (m_variables_map.count("help")) {
         printHelpMessage();
         m_options_is_consistent = false;
-    } else if (m_variables_map.count("version")) {
+    }
+
+    else if (m_variables_map.count("version")) {
         std::cout << "BornAgain-" << GUIHelpers::getBornAgainVersionString().toStdString()
                   << std::endl;
         m_options_is_consistent = false;
+    }
+
+    else if(m_variables_map.count(geometry)) {
+        if (!isValid(mainWindowSize())) {
+            std::cout << "Wrong window size, try --geometry=1600x900\n";
+            m_options_is_consistent = false;
+        }
+
     }
 }
 
@@ -98,4 +130,10 @@ void ApplicationOptions::printHelpMessage() const
 {
     std::cout << "BornAgain Graphical User Interface" << std::endl;
     std::cout << m_options << std::endl;
+}
+
+QSize ApplicationOptions::mainWindowSize() const
+{
+    QString size_str = QString::fromStdString(m_variables_map[geometry].as<std::string>());
+    return windowSize(size_str);
 }

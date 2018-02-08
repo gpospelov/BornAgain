@@ -24,6 +24,8 @@ GCC_DIAG_ON(unused-parameter);
 
 #include <string>
 
+class QSize;
+
 namespace bpo = boost::program_options;
 
 //! @class ApplicationOptions
@@ -56,6 +58,8 @@ public:
     void processOptions();
 
     void printHelpMessage() const;
+
+    QSize mainWindowSize() const;
 
 private:
     //! true if options are consistent (no conflicts, no --help request)

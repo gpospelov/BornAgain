@@ -39,6 +39,9 @@ int main(int argc, char* argv[])
 
     MainWindow win;
 
+    if (options.find("geometry"))
+        win.resize(options.mainWindowSize());
+
     if (options.find("no-splash")) {
         win.show();
 

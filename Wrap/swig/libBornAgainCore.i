@@ -94,6 +94,8 @@
 #include "FitSuiteObjects.h"
 #include "FitParameterSet.h"
 #include "FixedBinAxis.h"
+#include "FootprintFactorGaussian.h"
+#include "FootprintFactorSquare.h"
 #include "FormFactorAnisoPyramid.h"
 #include "FormFactorBox.h"
 #include "FormFactorCone.h"
@@ -351,6 +353,10 @@
 %include "FormFactorTruncatedSphere.h"
 %include "FormFactorTruncatedSpheroid.h"
 %include "FormFactorWeighted.h"
+
+%include "IFootprintFactor.h"
+%include "FootprintFactorGaussian.h"
+%include "FootprintFactorSquare.h"
 
 %include "Simulation.h"
 %include "Simulation2D.h"

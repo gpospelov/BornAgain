@@ -293,3 +293,24 @@ void SpecularDataItem::setLastModified(const QDateTime &dtime)
 {
     m_last_modified = dtime;
 }
+
+namespace {
+double getTestValue(size_t bin)
+{
+    const double factor = M_PI / (180.0 * 100.0);
+    const double angle = bin * factor;
+    return (std::cos(angle * 1000.0) + 1.5) * std::exp(-(bin / 100.0));
+}
+}
+
+SpecularDataItem* SpecularDataItem::createTestItem()
+{
+    auto outputData = std::make_unique<OutputData<double>>();
+    outputData->addAxis(FixedBinAxis("Angle [deg]", 1000, 0.0, 10.0));
+    for (size_t i = 0; i < 1000; ++i)
+        outputData->operator[](i) = getTestValue(i);
+
+    auto result = new SpecularDataItem();
+    result->setOutputData(outputData.release());
+    return result;
+}

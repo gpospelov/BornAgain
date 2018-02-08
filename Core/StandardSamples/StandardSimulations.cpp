@@ -30,6 +30,7 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "SampleBuilderFactory.h"
 #include "SpecularSimulation.h"
+#include "OffSpecSimulation.h"
 #include "Units.h"
 #include <memory>
 
@@ -438,6 +439,33 @@ SpecularSimulation* StandardSimulations::SpecularDivergentBeam()
     ParameterPattern pattern2;
     pattern2.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
     result->addParameterDistribution(pattern2.toStdString(), alpha_distr, n_integration_points);
+
+    return result.release();
+}
+
+// OffSpec simulation used in ResonatorOffSpecSetup.py
+OffSpecSimulation* StandardSimulations::MiniOffSpec()
+{
+    std::unique_ptr<OffSpecSimulation> result(new OffSpecSimulation());
+
+    const int n_alpha(19);
+    const double alpha_min(0.0*Units::deg);
+    const double alpha_max(4.0*Units::deg);
+    const int n_phi(9);
+    const double phi_min(-0.1*Units::deg);
+    const double phi_max(0.1*Units::deg);
+
+    result->setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
+
+    const int n_scan_points(n_alpha);
+    const double alpha_i_min(alpha_min);
+    const double alpha_i_max(alpha_max);
+
+    FixedBinAxis alpha_i_axis("alpha_i", n_scan_points, alpha_i_min, alpha_i_max);
+    result->setBeamParameters(5.0*Units::angstrom, alpha_i_axis, 0.0);
+
+    result->setBeamIntensity(1e9);
+    result->getOptions().setIncludeSpecular(true);
 
     return result.release();
 }

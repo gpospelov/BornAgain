@@ -448,10 +448,10 @@ OffSpecSimulation* StandardSimulations::MiniOffSpec()
 {
     std::unique_ptr<OffSpecSimulation> result(new OffSpecSimulation());
 
-    const int n_alpha(20);
+    const int n_alpha(21);
     const double alpha_min(0.0*Units::deg);
     const double alpha_max(4.0*Units::deg);
-    const int n_phi(10);
+    const int n_phi(11);
     const double phi_min(-0.1*Units::deg);
     const double phi_max(0.1*Units::deg);
 
@@ -467,8 +467,7 @@ OffSpecSimulation* StandardSimulations::MiniOffSpec()
     result->setBeamIntensity(1e9);
     result->getOptions().setIncludeSpecular(true);
 
-    double d_alpha = (alpha_max - alpha_min)/n_alpha;
-    double d_phi = (phi_max-phi_min)/n_phi;
+    const double d_alpha(0.01*Units::deg), d_phi(0.05*Units::deg);
     double sigma_factor = 1.0;
     result->setDetectorResolutionFunction(
                 ResolutionFunction2DGaussian(sigma_factor*d_alpha, sigma_factor*d_phi));

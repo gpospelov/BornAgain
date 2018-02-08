@@ -17,10 +17,10 @@
 
 #include "SessionItemWidget.h"
 #include "WinDllMacros.h"
-#include "qcustomplot.h"
 #include <QWidget>
 
 class SpecularDataItem;
+class SpecularPlotCanvas;
 
 class BA_CORE_API_ SpecularDataCanvas : public SessionItemWidget
 {
@@ -42,14 +42,12 @@ public slots:
     //void clearData();
 
 private:
-    void initGraph();
-    void initGraphFromItem();
     SpecularDataItem* specularDataItem();
     void initActions();
 
-    QCustomPlot* m_customPlot;
-    QAction* m_resetViewAction;
-    QAction* m_savePlotAction;
+    SpecularPlotCanvas* m_plot_canvas;
+    QAction* m_reset_view_action;
+    QAction* m_save_plot_action;
 };
 
 #endif // SPECULARDATACANVAS_H

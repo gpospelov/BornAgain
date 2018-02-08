@@ -28,6 +28,7 @@
 #include "Rectangle.h"
 #include "StringUtils.h"
 #include "Units.h"
+#include "FixedBinAxis.h"
 #include <iomanip>
 
 namespace PythonFormatting
@@ -277,5 +278,22 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
 
     return result.str();
 }
+
+std::string printAxis(const IAxis& axis, const std::string& units)
+{
+    std::ostringstream result;
+
+    if (auto fixedAxis = dynamic_cast<const FixedBinAxis*>(&axis)) {
+        result << "ba.FixedBinAxis("
+               << fixedAxis->size() << ", "
+               << printValue(fixedAxis->getMin(), units) << ", "
+               << printValue(fixedAxis->getMax(), units) << ")";
+
+    } else {
+        throw std::runtime_error("PythonFormatting::printAxis() -> Error. Unsupported axis");
+    }
+
+                  return result.str();
+    }
 
 } // namespace PythonFormatting

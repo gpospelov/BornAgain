@@ -96,7 +96,8 @@ void MaskEditorCanvas::onSavePlotRequest()
     QString dirname = AppSvc::projectManager()->userExportDir();
 
     SavePlotAssistant saveAssistant;
-    saveAssistant.savePlot(dirname, m_scene->colorMap()->customPlot(), m_intensityDataItem);
+    saveAssistant.savePlot(dirname, m_scene->colorMap()->customPlot(),
+                           m_intensityDataItem->getOutputData());
 }
 
 void MaskEditorCanvas::onResetViewRequest()

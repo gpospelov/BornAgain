@@ -53,6 +53,7 @@
 #include "ResolutionFunctionItems.h"
 #include "RotationItems.h"
 #include "SimulationOptionsItem.h"
+#include "SpecularDataItem.h"
 #include "SphericalDetectorItem.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
@@ -164,6 +165,7 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::JobItemType, create_new<JobItem>);
 
     add(Constants::IntensityDataType, create_new<IntensityDataItem>);
+    add(Constants::SpecularDataType, create_new<SpecularDataItem>);
 
     add(Constants::BasicAxisType, create_new<BasicAxisItem>);
     add(Constants::AmplitudeAxisType, create_new<AmplitudeAxisItem>);

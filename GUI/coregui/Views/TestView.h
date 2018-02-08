@@ -32,6 +32,7 @@ private:
     void test_MinimizerSettings();
     void test_AccordionWidget();
     void test_ba3d();
+    void test_specular_data_widget();
 
     MainWindow* m_mainWindow;
 };

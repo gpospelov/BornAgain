@@ -39,7 +39,6 @@ public slots:
     void onResetViewAction();
     void onSavePlotAction();
     void onMousePress(QMouseEvent* event);
-    //void clearData();
 
 private:
     SpecularDataItem* specularDataItem();

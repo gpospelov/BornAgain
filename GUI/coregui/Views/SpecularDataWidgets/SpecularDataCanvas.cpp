@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "AppSvc.h"
-#include "ColorMapUtils.h"
 #include "projectmanager.h"
 #include "SavePlotAssistant.h"
 #include "SpecularDataCanvas.h"
 #include "SpecularDataItem.h"
 #include "SpecularPlotCanvas.h"
 #include "plot_constants.h"
+#include "qcustomplot.h"
 
 SpecularDataCanvas::SpecularDataCanvas(QWidget* parent)
     : SessionItemWidget(parent)
@@ -63,7 +63,8 @@ void SpecularDataCanvas::onSavePlotAction()
 {
     QString dirname = AppSvc::projectManager()->userExportDir();
     SavePlotAssistant saveAssistant;
-    saveAssistant.savePlot(dirname, m_plot_canvas->customPlot(), specularDataItem()->getOutputData());
+    saveAssistant.savePlot(dirname, m_plot_canvas->customPlot(),
+                           specularDataItem()->getOutputData());
 }
 
 void SpecularDataCanvas::onMousePress(QMouseEvent* event)
@@ -71,13 +72,6 @@ void SpecularDataCanvas::onMousePress(QMouseEvent* event)
     if (event->button() == Qt::RightButton)
         emit customContextMenuRequested(event->globalPos());
 }
-
-/*void SpecularDataCanvas::clearData()
-{
-    m_customPlot->removeGraph(m_customPlot->graph());
-    initGraph();
-    m_customPlot->replot();
-}*/
 
 SpecularDataItem* SpecularDataCanvas::specularDataItem()
 {
@@ -93,7 +87,7 @@ void SpecularDataCanvas::initActions()
     m_reset_view_action->setText("Reset");
     m_reset_view_action->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
     m_reset_view_action->setToolTip("Reset view\n"
-                                  "x,y,z axes range will be set to default");
+                                    "x,y axes range will be set to default");
     connect(m_reset_view_action, &QAction::triggered, this, &SpecularDataCanvas::onResetViewAction);
 
     m_save_plot_action = new QAction(this);

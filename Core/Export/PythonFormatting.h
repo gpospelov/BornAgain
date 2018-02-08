@@ -32,6 +32,9 @@ class IAxis;
 namespace PythonFormatting
 {
 
+BA_CORE_API_ std::string scriptPreamble();
+BA_CORE_API_ std::string getSampleFunctionName();
+
 BA_CORE_API_ std::string representShape2D(const std::string& indent, const IShape2D* ishape,
                                           bool mask_value,
                                           std::function<std::string(double)> printValueFunc);

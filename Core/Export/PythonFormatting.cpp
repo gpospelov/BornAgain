@@ -34,6 +34,21 @@
 namespace PythonFormatting
 {
 
+std::string scriptPreamble()
+{
+    const std::string result = "import numpy\n"
+                               "import bornagain as ba\n"
+                               "from bornagain import deg, angstrom, nm, kvector_t\n\n\n";
+
+    return result;
+}
+
+std::string getSampleFunctionName()
+{
+    return "get_sample";
+}
+
+
 //! Returns fixed Python code snippet that defines the function "runSimulation".
 
 std::string representShape2D(const std::string& indent, const IShape2D* ishape, bool mask_value,

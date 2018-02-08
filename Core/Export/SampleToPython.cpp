@@ -86,7 +86,7 @@ SampleToPython::~SampleToPython() = default;
 
 std::string SampleToPython::defineGetSample() const
 {
-    return "def get_sample():\n" + defineMaterials() + defineLayers() + defineFormFactors()
+    return "def "+getSampleFunctionName()+"():\n" + defineMaterials() + defineLayers() + defineFormFactors()
            + defineParticles() + defineCoreShellParticles() + defineParticleCompositions()
            + defineLattices() + defineCrystals() + defineMesoCrystals()
            + defineParticleDistributions() + defineInterferenceFunctions() + defineParticleLayouts()

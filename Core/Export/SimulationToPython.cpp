@@ -32,12 +32,8 @@ using namespace PythonFormatting;
 
 namespace
 {
-const std::string preamble = "import numpy\n"
-                             "import bornagain as ba\n"
-                             "from bornagain import deg, angstrom, nm, kvector_t\n\n\n";
-
 const std::string defineSimulate = "def run_simulation():\n"
-                                   "    sample = get_sample()\n"
+                                   "    sample = "+getSampleFunctionName()+"()\n"
                                    "    simulation = get_simulation()\n"
                                    "    simulation.setSample(sample)\n"
                                    "    simulation.runSimulation()\n"
@@ -67,7 +63,7 @@ std::string SimulationToPython::generateSimulationCode(const Simulation& simulat
 
     SampleToPython sampleGenerator;
 
-    return preamble + sampleGenerator.generateSampleCode(*simulation.sample())
+    return scriptPreamble() + sampleGenerator.generateSampleCode(*simulation.sample())
            + defineGetSimulation(&simulation) + defineSimulate + defineMain(mainType);
 }
 

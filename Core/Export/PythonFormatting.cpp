@@ -161,6 +161,13 @@ std::string printValue(double value, const std::string& units)
                                  + "'");
 }
 
+std::string printString(const std::string& value)
+{
+    std::ostringstream result;
+    result << "\"" << value << "\"";
+    return result.str();
+}
+
 bool isSquare(double length1, double length2, double angle)
 {
     return length1 == length2 && Numeric::areAlmostEqual(angle, M_PI_2);
@@ -285,6 +292,7 @@ std::string printAxis(const IAxis& axis, const std::string& units)
 
     if (auto fixedAxis = dynamic_cast<const FixedBinAxis*>(&axis)) {
         result << "ba.FixedBinAxis("
+               << printString(fixedAxis->getName()) << ", "
                << fixedAxis->size() << ", "
                << printValue(fixedAxis->getMin(), units) << ", "
                << printValue(fixedAxis->getMax(), units) << ")";
@@ -293,7 +301,7 @@ std::string printAxis(const IAxis& axis, const std::string& units)
         throw std::runtime_error("PythonFormatting::printAxis() -> Error. Unsupported axis");
     }
 
-                  return result.str();
-    }
+    return result.str();
+}
 
 } // namespace PythonFormatting

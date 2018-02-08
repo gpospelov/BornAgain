@@ -43,6 +43,7 @@ BA_CORE_API_ std::string printNm(double input);
 BA_CORE_API_ std::string printScientificDouble(double input);
 BA_CORE_API_ std::string printDegrees(double input);
 BA_CORE_API_ std::string printValue(double value, const std::string& units = "");
+BA_CORE_API_ std::string printString(const std::string& value);
 
 BA_CORE_API_ bool isSquare(double length1, double length2, double angle);
 BA_CORE_API_ bool isHexagonal(double length1, double length2, double angle);

@@ -258,8 +258,11 @@ std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simul
     std::ostringstream result;
     const Beam& beam = simulation.getInstrument().getBeam();
 
+    result << indent() << "alpha_i_axis = "
+           << PythonFormatting::printAxis(*simulation.beamAxis(), BornAgain::UnitsRad) << "\n";
+
     result << indent() << "simulation.setBeamParameters(" << printNm(beam.getWavelength()) << ", "
-           << printDegrees(beam.getAlpha()) << ", " << printDegrees(beam.getPhi()) << ")\n";
+           << "alpha_i_axis, " << printDegrees(beam.getPhi()) << ")\n";
 
     result << defineBeamPolarization(beam);
     result << defineBeamIntensity(beam);

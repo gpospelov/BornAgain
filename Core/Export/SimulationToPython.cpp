@@ -34,12 +34,11 @@ namespace
 {
 const std::string preamble = "import numpy\n"
                              "import bornagain as ba\n"
-                             "from bornagain import deg, angstrom, nm, kvector_t\n\n";
+                             "from bornagain import deg, angstrom, nm, kvector_t\n\n\n";
 
 const std::string defineSimulate = "def run_simulation():\n"
-                                   "    # Run Simulation\n"
-                                   "    sample = getSample()\n"
-                                   "    simulation = getSimulation()\n"
+                                   "    sample = get_sample()\n"
+                                   "    simulation = get_simulation()\n"
                                    "    simulation.setSample(sample)\n"
                                    "    simulation.runSimulation()\n"
                                    "    return simulation.result()\n"
@@ -75,7 +74,7 @@ std::string SimulationToPython::generateSimulationCode(const Simulation& simulat
 std::string SimulationToPython::defineGetSimulation(const Simulation* simulation) const
 {
     std::ostringstream result;
-    result << "def getSimulation():\n";
+    result << "def get_simulation():\n";
 
     if (auto gisas = dynamic_cast<const GISASSimulation*>(simulation))
         result << defineGISASSimulation(gisas);

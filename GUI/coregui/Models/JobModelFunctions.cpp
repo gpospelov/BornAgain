@@ -44,8 +44,22 @@ void createFitContainers(JobItem *jobItem);
 void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
 {
     auto model = jobItem->model();
-    model->insertNewItem(Constants::IntensityDataType,
+
+    auto instrumentType = jobItem->instrumentItem()->modelType();
+    if (instrumentType == Constants::SpecularInstrumentType) {
+        model->insertNewItem(Constants::SpecularDataType,
                          model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+
+    } else if(instrumentType == Constants::GISASInstrumentType ||
+              instrumentType == Constants::OffSpecInstrumentType) {
+
+        model->insertNewItem(Constants::IntensityDataType,
+                         model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+    } else {
+        throw GUIHelpers::Error("JobModelFunctions::setupJobItemOutput() -> Error. "
+                                "Unsupported instrument type");
+    }
+
 }
 
 

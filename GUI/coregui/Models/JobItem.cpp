@@ -73,7 +73,8 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
                 QStringList() << Constants::GISASInstrumentType
                               << Constants::OffSpecInstrumentType
                               << Constants::SpecularInstrumentType);
-    registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType);
+    registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType
+                << Constants::SpecularDataType);
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::RealDataType);
     registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterContainerType);
 
@@ -224,10 +225,7 @@ InstrumentItem* JobItem::instrumentItem()
 
 void JobItem::setResults(const Simulation* simulation)
 {
-    IntensityDataItem* intensityItem = intensityDataItem();
-    Q_ASSERT(intensityItem);
-
-    JobItemUtils::setResults(intensityItem, simulation);
+    JobItemUtils::setResults(this, simulation);
     updateIntensityDataFileName();
 }
 

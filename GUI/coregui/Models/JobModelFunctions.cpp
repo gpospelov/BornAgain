@@ -38,6 +38,31 @@ void cropRealData(JobItem *jobItem);
 void createFitContainers(JobItem *jobItem);
 }
 
+
+//! Setup items intended for storing results of the job.
+
+void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
+{
+    auto model = jobItem->model();
+
+    auto instrumentType = jobItem->instrumentItem()->modelType();
+    if (instrumentType == Constants::SpecularInstrumentType) {
+        model->insertNewItem(Constants::SpecularDataType,
+                         model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+
+    } else if(instrumentType == Constants::GISASInstrumentType ||
+              instrumentType == Constants::OffSpecInstrumentType) {
+
+        model->insertNewItem(Constants::IntensityDataType,
+                         model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+    } else {
+        throw GUIHelpers::Error("JobModelFunctions::setupJobItemOutput() -> Error. "
+                                "Unsupported instrument type");
+    }
+
+}
+
+
 //! Setups JobItem for fit.
 
 void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem *realDataItem)

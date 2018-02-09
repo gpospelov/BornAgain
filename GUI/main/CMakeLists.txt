@@ -50,7 +50,7 @@ endif()
 # -----------------------------------------------------------------------------
 add_executable(${executable_name}
                ${executable_options}
-               ${source_files}
+               ${source_files} ${include_files}
                ${system_addons})
 
 

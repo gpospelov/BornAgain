@@ -93,7 +93,7 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
 
     ParameterTreeUtils::createParameterTree(jobItem);
 
-    insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+    JobModelFunctions::setupJobItemOutput(jobItem);
 
     if(realDataItem)
         JobModelFunctions::setupJobItemForFit(jobItem, realDataItem);

@@ -22,6 +22,7 @@ class Simulation;
 class IntensityDataItem;
 class InstrumentItem;
 class JobItem;
+class SpecularDataItem;
 
 //! Contains set of convenience methods to set data to the IntensityDataItem from domain simulation.
 //! Used to modify OutputData's axes units as requested by IntensityDataItem.
@@ -29,8 +30,14 @@ class JobItem;
 namespace JobItemUtils
 {
 
+//! Sets simulation results to the JobItem.
+BA_CORE_API_ void setResults(JobItem* jobItem, const Simulation* simulation);
+
 //! Sets simulation results into the IntensityDataItem
 BA_CORE_API_ void setResults(IntensityDataItem* intensityItem, const Simulation* simulation);
+
+//! Sets simulation results into the SpecularDataItem
+BA_CORE_API_ void setResults(SpecularDataItem* specItem, const Simulation* simulation);
 
 //! updates axes of OutputData in IntensityData item
 BA_CORE_API_ void updateDataAxes(IntensityDataItem* intensityItem,

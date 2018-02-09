@@ -23,6 +23,7 @@
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include "SpecularSimulation.h"
+#include "SpecularDataItem.h"
 #include <QFileInfo>
 #include <QDebug>
 
@@ -49,6 +50,25 @@ QMap<AxesUnits, QString> init_description_to_units_map()
     result[AxesUnits::QSPACE] = Constants::UnitsQyQz;
     return result;
 }
+}
+
+void JobItemUtils::setResults(JobItem* jobItem, const Simulation* simulation)
+{
+    auto dataItem = jobItem->getItem(JobItem::T_OUTPUT);
+    Q_ASSERT(dataItem);
+
+    if (dataItem->modelType() == Constants::IntensityDataType) {
+        setResults(jobItem->intensityDataItem(), simulation);
+    } else if (dataItem->modelType() == Constants::SpecularDataType) {
+        auto specItem = dynamic_cast<SpecularDataItem*>(dataItem);
+        setResults(specItem, simulation);
+    } else {
+        throw GUIHelpers::Error("JobItemUtils::setResults() -> Error. Unsupported data item.");
+    }
+}
+
+void JobItemUtils::setResults(SpecularDataItem* specItem, const Simulation* simulation) {
+    specItem->setOutputData(simulation->result().data());
 }
 
 void JobItemUtils::setResults(IntensityDataItem* intensityItem, const Simulation* simulation)

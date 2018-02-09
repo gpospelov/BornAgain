@@ -225,10 +225,7 @@ InstrumentItem* JobItem::instrumentItem()
 
 void JobItem::setResults(const Simulation* simulation)
 {
-    IntensityDataItem* intensityItem = intensityDataItem();
-    Q_ASSERT(intensityItem);
-
-    JobItemUtils::setResults(intensityItem, simulation);
+    JobItemUtils::setResults(this, simulation);
     updateIntensityDataFileName();
 }
 

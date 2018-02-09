@@ -38,6 +38,17 @@ void cropRealData(JobItem *jobItem);
 void createFitContainers(JobItem *jobItem);
 }
 
+
+//! Setup items intended for storing results of the job.
+
+void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
+{
+    auto model = jobItem->model();
+    model->insertNewItem(Constants::IntensityDataType,
+                         model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+}
+
+
 //! Setups JobItem for fit.
 
 void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem *realDataItem)

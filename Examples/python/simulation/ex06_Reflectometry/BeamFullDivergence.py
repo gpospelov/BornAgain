@@ -35,6 +35,8 @@ d_ti = 30 * ba.angstrom
 
 def get_sample():
     # defining materials
+    # this example implies beam divergence in the wavelength,
+    # thus MaterialBySLD must be used to provide correct result
     m_air = ba.MaterialBySLD("Air", 0.0, 0.0)
     m_ni = ba.MaterialBySLD("Ni", density_ni * bc_ni, 0.0)
     m_ti = ba.MaterialBySLD("Ti", density_ti * bc_ti, 0.0)
@@ -95,7 +97,7 @@ def plot(data):
     axis = hist.getXaxis().getBinCenters()
     intensities = data.array()
 
-    plt.xlabel(r'$\alpha_f$ (rad)', fontsize=16)
+    plt.xlabel(r'$\alpha_f$ (deg)', fontsize=16)
     plt.ylabel(r'Reflectivity, a.u.', fontsize=16)
     plt.semilogy(axis, intensities)
 

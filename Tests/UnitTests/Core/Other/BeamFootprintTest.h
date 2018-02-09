@@ -17,10 +17,10 @@ TEST_F(BeamFootprintTest, ErroneousArguments)
     EXPECT_THROW(std::make_unique<FootprintFactorSquare>(-1.0), std::runtime_error);
 
     FootprintFactorGaussian gaussian_ff(std::numeric_limits<double>::infinity());
-    EXPECT_THROW(gaussian_ff.calculate(-90.0 * Units::deg), std::runtime_error);
+    EXPECT_EQ(0.0, gaussian_ff.calculate(-90.0 * Units::deg));
 
     FootprintFactorSquare square_ff(std::numeric_limits<double>::infinity());
-    EXPECT_THROW(square_ff.calculate(-90.0 * Units::deg), std::runtime_error);
+    EXPECT_EQ(0.0, square_ff.calculate(-90.0 * Units::deg));
 }
 
 TEST_F(BeamFootprintTest, CalcForCornerCases)

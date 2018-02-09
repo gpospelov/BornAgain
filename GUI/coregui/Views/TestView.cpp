@@ -15,6 +15,7 @@
 #include "TestView.h"
 #include "AccordionWidget.h"
 #include "JobModel.h"
+#include "JobItem.h"
 #include "MaskEditor.h"
 #include "MaterialEditor.h"
 #include "MinimizerItem.h"
@@ -184,13 +185,15 @@ void TestView::test_ba3d()
 void TestView::test_specular_data_widget()
 {
     SessionModel* tempModel = new SessionModel("Test", this);
-    auto data = fillTestItem(tempModel->insertNewItem(Constants::SpecularDataType));
+    auto job_item = dynamic_cast<JobItem*>(tempModel->insertNewItem(Constants::JobItemType));
+    fillTestItem(tempModel->insertNewItem(Constants::SpecularDataType,
+                                          tempModel->indexOfItem(job_item), -1, JobItem::T_OUTPUT));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
     auto widget = new SpecularDataWidget(this);
-    widget->setItem(data);
+    widget->setItem(job_item);
     layout->addWidget(widget);
     setLayout(layout);
 }

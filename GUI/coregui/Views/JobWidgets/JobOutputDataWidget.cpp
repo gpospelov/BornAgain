@@ -61,9 +61,9 @@ void JobOutputDataWidget::onActivityChanged(int activity)
         if (activity == JobViewFlags::FITTING_ACTIVITY) {
             widget->setPresentation(Constants::FitComparisonPresentation);
         } else if (activity == JobViewFlags::REAL_TIME_ACTIVITY) {
-            widget->setPresentation(Constants::IntensityDataPresentation);
+            widget->setDefaultPresentation();
         } else if (activity == JobViewFlags::JOB_VIEW_ACTIVITY) {
-            widget->setPresentation(Constants::IntensityDataPresentation);
+            widget->setDefaultPresentation();
         }
     }
 }
@@ -74,5 +74,5 @@ bool JobOutputDataWidget::isValidJobItem(JobItem *item)
         return false;
 
     // do not show running job items, the rest (canceled, fitted, etc) are shown
-    return item->isRunning() ? false: true;
+    return !item->isRunning();
 }

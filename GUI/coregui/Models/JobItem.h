@@ -98,6 +98,7 @@ public:
     RealDataItem* realDataItem();
 
     QString presentationType();
+    QString defaultPresentationType();
 
 private:
     void updateIntensityDataFileName();

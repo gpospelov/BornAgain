@@ -263,6 +263,25 @@ QString JobItem::presentationType()
     return getItemValue(P_PRESENTATION_TYPE).toString();
 }
 
+QString JobItem::defaultPresentationType()
+{
+    auto instrument = instrumentItem();
+    if (!instrument)
+        GUIHelpers::Error("Error in JobItem::defaultPresentationType: default presentation type "
+                          "cannot be determined");
+
+    auto instrument_type = instrument->modelType();
+    if (instrument_type == Constants::SpecularInstrumentType)
+        return Constants::SpecularDataPresentation;
+    else if (instrument_type == Constants::GISASInstrumentType
+             || instrument_type == Constants::OffSpecInstrumentType)
+        return Constants::IntensityDataPresentation;
+    else
+        GUIHelpers::Error("Error in JobItem::defaultPresentationType: unknown type of instrument "
+                          "attached to the job item.");
+    return QString();
+}
+
 //! Updates the name of file to store intensity data.
 
 void JobItem::updateIntensityDataFileName()

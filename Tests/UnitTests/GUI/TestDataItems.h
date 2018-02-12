@@ -1,21 +1,22 @@
 #include "google_test.h"
 #include "SessionModel.h"
-#include "IntensityDataItem.h"
+#include "DataItem.h"
 #include <QTest>
 
-class TestIntensityDataItem : public ::testing::Test
+class TestDataItems : public ::testing::Test
 {
 public:
-    ~TestIntensityDataItem();
+    ~TestDataItems();
+
+    void testItemClock(QString type);
 };
 
-TestIntensityDataItem::~TestIntensityDataItem() = default;
+TestDataItems::~TestDataItems() = default;
 
-TEST_F(TestIntensityDataItem, test_lastModified)
+void TestDataItems::testItemClock(QString model_type)
 {
     SessionModel model("TempModel");
-    IntensityDataItem* item
-        = dynamic_cast<IntensityDataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    DataItem* item = dynamic_cast<DataItem*>(model.insertNewItem(model_type));
 
     QDateTime time = QDateTime::currentDateTime();
     item->setLastModified(time);
@@ -25,7 +26,7 @@ TEST_F(TestIntensityDataItem, test_lastModified)
     QTest::qSleep(nap_time);
 
     // changing item (file name)
-    item->setItemValue(IntensityDataItem::P_FILE_NAME, "name.txt");
+    item->setItemValue(DataItem::P_FILE_NAME, "name.txt");
     QDateTime time2 = item->lastModified();
     EXPECT_TRUE(time.msecsTo(time2) > nap_time / 2);
 
@@ -35,4 +36,14 @@ TEST_F(TestIntensityDataItem, test_lastModified)
     item->emitDataChanged();
     QDateTime time3 = item->lastModified();
     EXPECT_TRUE(time2.msecsTo(time3) > nap_time / 2);
+}
+
+TEST_F(TestDataItems, testSpecularItemClock)
+{
+    testItemClock(Constants::SpecularDataType);
+}
+
+TEST_F(TestDataItems, testIntensityItemClock)
+{
+    testItemClock(Constants::IntensityDataType);
 }

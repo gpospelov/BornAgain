@@ -77,8 +77,14 @@ QStringList JobResultsPresenter::presentationList(SessionItem* item)
 {
     Q_ASSERT(item->modelType() == Constants::JobItemType);
 
-    return QStringList() << Constants::IntensityDataPresentation
-                         << Constants::SpecularDataPresentation
-                         << Constants::IntensityProjectionsPresentation
-                         << Constants::FitComparisonPresentation;
+    auto job_item = dynamic_cast<JobItem*>(item);
+    Q_ASSERT(job_item);
+
+    QStringList result;
+    if (job_item->defaultPresentationType() == Constants::SpecularDataPresentation)
+        result << Constants::SpecularDataPresentation;
+    else
+        result << Constants::IntensityDataPresentation
+               << Constants::IntensityProjectionsPresentation;
+    return result << Constants::FitComparisonPresentation;
 }

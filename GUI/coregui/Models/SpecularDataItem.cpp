@@ -249,12 +249,12 @@ QPair<double, double> SpecularDataItem::dataRange() const
     const OutputData<double>* data = getOutputData();
     double min(*std::min_element(data->begin(), data->end()));
     double max(*std::max_element(data->begin(), data->end()));
-    if (isLog()) {
-        min /= 2.0;
-        max *= 2.0;
-    } else {
-        max = max * 1.1;
-    }
+
+    // log y-axis is assumed by default no dependence in axis limits on log/linear mode provides
+    // uniform and expected behaviour both in the case of zoomed plot and in the case of
+    // default plot layout
+    min /= 2.0;
+    max *= 2.0;
 
     return QPair<double, double>(min, max);
 }

@@ -123,7 +123,7 @@ void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
 
 //! loads intensity data from project directory
 
-void JobItemUtils::loadIntensityData(IntensityDataItem *intensityItem, const QString &projectDir)
+void JobItemUtils::loadIntensityData(DataItem *intensityItem, const QString &projectDir)
 {
     QString filename = intensityItem->fileName(projectDir);
     auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
@@ -133,7 +133,7 @@ void JobItemUtils::loadIntensityData(IntensityDataItem *intensityItem, const QSt
 
 //! Saves intensityData in project directory
 
-void JobItemUtils::saveIntensityData(IntensityDataItem* intensityItem, const QString& projectDir)
+void JobItemUtils::saveIntensityData(DataItem* intensityItem, const QString& projectDir)
 {
     if (!intensityItem || !intensityItem->getOutputData())
         return;

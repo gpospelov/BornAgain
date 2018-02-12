@@ -291,13 +291,13 @@ QString JobItem::defaultPresentationType()
 
 void JobItem::updateIntensityDataFileName()
 {
-    if (IntensityDataItem* item = intensityDataItem())
-        item->setItemValue(IntensityDataItem::P_FILE_NAME,
+    if (DataItem* item = dataItem())
+        item->setItemValue(DataItem::P_FILE_NAME,
                            JobItemFunctions::jobResultsFileName(*this));
 
     if (RealDataItem* realItem = realDataItem())
         if (IntensityDataItem* item = realItem->intensityDataItem())
-            item->setItemValue(IntensityDataItem::P_FILE_NAME,
+            item->setItemValue(DataItem::P_FILE_NAME,
                                JobItemFunctions::jobReferenceFileName(*this));
 }
 

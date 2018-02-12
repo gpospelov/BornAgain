@@ -206,7 +206,7 @@ bool ProjectDocument::hasErrors() const
 
 bool ProjectDocument::hasData() const
 {
-    return m_dataService->dataItems().isEmpty() ? false : true;
+    return !m_dataService->dataItems().isEmpty();
 }
 
 QString ProjectDocument::documentVersion() const

@@ -14,7 +14,7 @@
 
 #include "OutputDataIOService.h"
 #include "ApplicationModels.h"
-#include "IntensityDataItem.h"
+#include "DataItem.h"
 #include "JobItemUtils.h"
 #include "ProjectUtils.h"
 #include "MessageService.h"
@@ -83,17 +83,16 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
 
 //! Returns all IntensityDataItems available for save/load.
 
-QVector<IntensityDataItem*> OutputDataIOService::dataItems() const
+QVector<DataItem*> OutputDataIOService::dataItems() const
 {
-    QVector<IntensityDataItem*> result;
+    QVector<DataItem*> result;
 
     if (!m_applicationModels)
         return result;
 
-    for (auto item : m_applicationModels->nonXMLData()) {
-        if (auto intensityItem = dynamic_cast<IntensityDataItem*>(item))
-            result.push_back(intensityItem);
-    }
+    for (auto item : m_applicationModels->nonXMLData())
+        if (auto data_item = dynamic_cast<DataItem*>(item))
+            result.push_back(data_item);
 
     return result;
 }

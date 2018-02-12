@@ -117,6 +117,11 @@ IntensityDataItem* JobItem::intensityDataItem()
     return dynamic_cast<IntensityDataItem*>(getItem(T_OUTPUT));
 }
 
+DataItem* JobItem::dataItem()
+{
+    return dynamic_cast<DataItem*>(getItem(T_OUTPUT));
+}
+
 QString JobItem::getStatus() const
 {
     return getItemValue(P_STATUS).toString();

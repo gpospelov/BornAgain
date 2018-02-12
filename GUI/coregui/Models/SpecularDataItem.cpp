@@ -23,9 +23,8 @@ const QString SpecularDataItem::P_AXES_UNITS = "Axes Units";
 const QString SpecularDataItem::P_TITLE = "Title";
 const QString SpecularDataItem::P_XAXIS = "x-axis";
 const QString SpecularDataItem::P_YAXIS = "y-axis";
-const QString SpecularDataItem::P_FILE_NAME = "FileName";
 
-SpecularDataItem::SpecularDataItem() : SessionItem(Constants::SpecularDataType)
+SpecularDataItem::SpecularDataItem() : DataItem(Constants::SpecularDataType)
 {
     ComboProperty units = ComboProperty() << Constants::UnitsNbins;
     addProperty(P_AXES_UNITS, units.variant());
@@ -45,27 +44,11 @@ SpecularDataItem::SpecularDataItem() : SessionItem(Constants::SpecularDataType)
 
     setXaxisTitle("X [nbins]");
     setYaxisTitle("Signal [a.u.]");
-
-    // name of the file used to serialize given SpecularDataItem
-    addProperty(P_FILE_NAME, QStringLiteral("undefined"))->setVisible(false);
-
-    mapper()->setOnPropertyChange([this](const QString& name)
-    {
-        if(name == P_FILE_NAME)
-            setLastModified(QDateTime::currentDateTime());
-    });
-
-    mapper()->setOnValueChange([this]()
-    {
-        // OutputData was modified
-        setLastModified(QDateTime::currentDateTime());
-    });
 }
 
 void SpecularDataItem::setOutputData(OutputData<double>* data)
 {
-    Q_ASSERT(data);
-    m_data.reset(data);
+    DataItem::setOutputData(data);
 
     updateAxesZoomLevel();
     updateAxesLabels();
@@ -78,11 +61,7 @@ void SpecularDataItem::setOutputData(OutputData<double>* data)
 
 void SpecularDataItem::setRawDataVector(const OutputData<double>* data)
 {
-    if (!m_data->hasSameDimensions(*data)) {
-        throw GUIHelpers::Error("SpecularDataItem::setRawDataVector() -> Error. "
-                                "Different dimensions of data.");
-    }
-    m_data->setRawDataVector(data->getRawDataVector());
+    DataItem::setRawDataVector(data);
     emitDataChanged();
 }
 
@@ -156,12 +135,6 @@ QString SpecularDataItem::selectedAxesUnits() const
 {
     ComboProperty combo = getItemValue(SpecularDataItem::P_AXES_UNITS).value<ComboProperty>();
     return combo.getValue();
-}
-
-QString SpecularDataItem::fileName(const QString& projectDir) const
-{
-    QString filename = getItemValue(SpecularDataItem::P_FILE_NAME).toString();
-    return projectDir.isEmpty() ? filename : projectDir + QStringLiteral("/") + filename;
 }
 
 void SpecularDataItem::setLowerX(double xmin)
@@ -282,14 +255,4 @@ void SpecularDataItem::resetView()
 {
     setAxesRangeToData();
     computeDataRange();
-}
-
-QDateTime SpecularDataItem::lastModified() const
-{
-    return m_last_modified;
-}
-
-void SpecularDataItem::setLastModified(const QDateTime &dtime)
-{
-    m_last_modified = dtime;
 }

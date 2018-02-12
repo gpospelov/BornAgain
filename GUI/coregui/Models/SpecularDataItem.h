@@ -15,30 +15,25 @@
 #ifndef SPECULARDATAITEM_H
 #define SPECULARDATAITEM_H
 
-#include "SessionItem.h"
-#include "OutputData.h"
-#include <QDateTime>
+#include "DataItem.h"
 
 class AmplitudeAxisItem;
 class BasicAxisItem;
 class MaskContainerItem;
 class ProjectionContainerItem;
 
-class BA_CORE_API_ SpecularDataItem : public SessionItem
+class BA_CORE_API_ SpecularDataItem : public DataItem
 {
 public:
     static const QString P_TITLE;
     static const QString P_AXES_UNITS;
     static const QString P_XAXIS;
     static const QString P_YAXIS;
-    static const QString P_FILE_NAME;
 
     SpecularDataItem();
 
-    OutputData<double>* getOutputData() { return m_data.get(); }
-    const OutputData<double>* getOutputData() const { return m_data.get(); }
-    void setOutputData(OutputData<double>* data);
-    void setRawDataVector(const OutputData<double>* data);
+    void setOutputData(OutputData<double>* data) override;
+    void setRawDataVector(const OutputData<double>* data) override;
 
     //! Number of bins in data
     int getNbins() const;
@@ -65,8 +60,6 @@ public:
 
     QString selectedAxesUnits() const;
 
-    QString fileName(const QString& projectDir = QString()) const;
-
     void updateDataRange();
     void computeDataRange();
     QPair<double, double> dataRange() const;
@@ -76,9 +69,6 @@ public:
     const AmplitudeAxisItem* yAxisItem() const;
 
     void resetView();
-
-    QDateTime lastModified() const;
-    void setLastModified(const QDateTime& dtime);
 
 public slots:
     void setLowerX(double xmin);
@@ -93,9 +83,6 @@ public slots:
 private:
     void updateAxesZoomLevel();
     void updateAxesLabels();
-
-    std::unique_ptr<OutputData<double>> m_data; //!< simulation results
-    QDateTime m_last_modified;
 };
 
 #endif // SPECULARDATAITEM_H

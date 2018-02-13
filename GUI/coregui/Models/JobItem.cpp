@@ -117,6 +117,11 @@ IntensityDataItem* JobItem::intensityDataItem()
     return dynamic_cast<IntensityDataItem*>(getItem(T_OUTPUT));
 }
 
+DataItem* JobItem::dataItem()
+{
+    return dynamic_cast<DataItem*>(getItem(T_OUTPUT));
+}
+
 QString JobItem::getStatus() const
 {
     return getItemValue(P_STATUS).toString();
@@ -263,17 +268,36 @@ QString JobItem::presentationType()
     return getItemValue(P_PRESENTATION_TYPE).toString();
 }
 
+QString JobItem::defaultPresentationType()
+{
+    auto instrument = instrumentItem();
+    if (!instrument)
+        GUIHelpers::Error("Error in JobItem::defaultPresentationType: default presentation type "
+                          "cannot be determined");
+
+    auto instrument_type = instrument->modelType();
+    if (instrument_type == Constants::SpecularInstrumentType)
+        return Constants::SpecularDataPresentation;
+    else if (instrument_type == Constants::GISASInstrumentType
+             || instrument_type == Constants::OffSpecInstrumentType)
+        return Constants::IntensityDataPresentation;
+    else
+        GUIHelpers::Error("Error in JobItem::defaultPresentationType: unknown type of instrument "
+                          "attached to the job item.");
+    return QString();
+}
+
 //! Updates the name of file to store intensity data.
 
 void JobItem::updateIntensityDataFileName()
 {
-    if (IntensityDataItem* item = intensityDataItem())
-        item->setItemValue(IntensityDataItem::P_FILE_NAME,
+    if (DataItem* item = dataItem())
+        item->setItemValue(DataItem::P_FILE_NAME,
                            JobItemFunctions::jobResultsFileName(*this));
 
     if (RealDataItem* realItem = realDataItem())
         if (IntensityDataItem* item = realItem->intensityDataItem())
-            item->setItemValue(IntensityDataItem::P_FILE_NAME,
+            item->setItemValue(DataItem::P_FILE_NAME,
                                JobItemFunctions::jobReferenceFileName(*this));
 }
 

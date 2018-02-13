@@ -91,6 +91,8 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
     jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
 
+    jobItem->setItemValue(JobItem::P_PRESENTATION_TYPE, jobItem->defaultPresentationType());
+
     ParameterTreeUtils::createParameterTree(jobItem);
 
     JobModelFunctions::setupJobItemOutput(jobItem);

@@ -263,6 +263,7 @@ const ModelType AVERAGE_LAYER_MATERIAL = "Average Layer Material";
 // --- Presentation types ----------------------------------------------------------
 
 const QString IntensityDataPresentation = "Color Map";
+const QString SpecularDataPresentation = "Reflectometry";
 const QString IntensityProjectionsPresentation = "Projections";
 const QString FitComparisonPresentation = "Fit Data";
 const QString MaskEditorPresentation = "Mask Editor";

@@ -13,11 +13,12 @@
 // ************************************************************************** //
 
 #include "SpecularDataWidget.h"
-#include "SpecularDataItem.h"
-#include "SpecularDataCanvas.h"
-#include "JobItem.h"
+#include "GUIHelpers.h"
 #include "IntensityDataItemUtils.h"
 #include "IntensityDataPropertyWidget.h"
+#include "JobItem.h"
+#include "SpecularDataItem.h"
+#include "SpecularDataCanvas.h"
 #include <QBoxLayout>
 #include <QMenu>
 
@@ -69,12 +70,10 @@ void SpecularDataWidget::onContextMenuRequest(const QPoint& point)
 
 SpecularDataItem* SpecularDataWidget::specularDataItem()
 {
-    // temporarily commented out
-    // return IntensityDataItemUtils::intensityDataItem(currentItem());
+    auto parent = currentItem();
+    if (!parent || parent->modelType() != Constants::JobItemType)
+        throw GUIHelpers::Error(
+            "Error in SpecularDataWidget::specularDataItem: parent item is of unexpected type");
 
-    // temporary solution, should be removed after starting to use
-    // JobItem
-    SpecularDataItem* result = dynamic_cast<SpecularDataItem*>(currentItem());
-    Q_ASSERT(result);
-    return result;
+    return &parent->item<SpecularDataItem>(JobItem::T_OUTPUT);
 }

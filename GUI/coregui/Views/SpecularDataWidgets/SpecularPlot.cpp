@@ -174,6 +174,7 @@ void SpecularPlot::setPlotFromItem(SpecularDataItem* specularItem)
 
     m_block_update = true;
 
+    m_custom_plot->graph(0)->data()->clear();
     setAxesRangeFromItem(specularItem);
     setAxesLabelsFromItem(specularItem);
     setDataFromItem(specularItem);

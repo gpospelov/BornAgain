@@ -62,7 +62,6 @@ void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
 
 }
 
-
 //! Setups JobItem for fit.
 
 void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem *realDataItem)

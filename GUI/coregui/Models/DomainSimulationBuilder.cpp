@@ -140,6 +140,7 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
 
     // TODO Take care about beam divergence
     // TODO: add footprint correction factor
+    specular_simulation->setBeamIntensity(beam_item->getIntensity());
     specular_simulation->setBeamParameters(beam_item->getWavelength(),
                                            *axis_item->createAxis(Units::degree));
 

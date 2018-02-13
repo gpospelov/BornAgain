@@ -13,10 +13,11 @@
 // ************************************************************************** //
 
 #include "JobResultsPresenter.h"
-#include "IntensityDataProjectionsWidget.h"
 #include "FitComparisonWidget.h"
-#include "JobItem.h"
+#include "IntensityDataProjectionsWidget.h"
 #include "IntensityDataWidget.h"
+#include "JobItem.h"
+#include "SpecularDataWidget.h"
 
 namespace {
 // Will switch to the presentation which was used before for given item
@@ -32,6 +33,8 @@ JobResultsPresenter::JobResultsPresenter(QWidget* parent)
                    create_new<IntensityDataProjectionsWidget>);
 
     registerWidget(Constants::FitComparisonPresentation, create_new<FitComparisonWidget>);
+
+    registerWidget(Constants::SpecularDataPresentation, create_new<SpecularDataWidget>);
 }
 
 QString JobResultsPresenter::itemPresentation() const
@@ -46,6 +49,13 @@ void JobResultsPresenter::setPresentation(const QString& presentationType)
 {
     ItemComboWidget::setPresentation(presentationType);
     currentItem()->setItemValue(JobItem::P_PRESENTATION_TYPE, presentationType);
+}
+
+void JobResultsPresenter::setDefaultPresentation()
+{
+    auto job_item = dynamic_cast<JobItem*>(currentItem());
+    Q_ASSERT(job_item);
+    setPresentation(job_item->defaultPresentationType());
 }
 
 //! Returns list of presentation types, available for given item. JobItem with fitting abilities
@@ -67,7 +77,14 @@ QStringList JobResultsPresenter::presentationList(SessionItem* item)
 {
     Q_ASSERT(item->modelType() == Constants::JobItemType);
 
-    return QStringList() << Constants::IntensityDataPresentation
-                         << Constants::IntensityProjectionsPresentation
-                         << Constants::FitComparisonPresentation;
+    auto job_item = dynamic_cast<JobItem*>(item);
+    Q_ASSERT(job_item);
+
+    QStringList result;
+    if (job_item->defaultPresentationType() == Constants::SpecularDataPresentation)
+        result << Constants::SpecularDataPresentation;
+    else
+        result << Constants::IntensityDataPresentation
+               << Constants::IntensityProjectionsPresentation;
+    return result << Constants::FitComparisonPresentation;
 }

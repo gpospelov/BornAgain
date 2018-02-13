@@ -17,7 +17,7 @@
 
 //! Static method to create info for just saved IntensityDataItem.
 
-OutputDataSaveInfo OutputDataSaveInfo::createSaved(const IntensityDataItem *item)
+OutputDataSaveInfo OutputDataSaveInfo::createSaved(const DataItem *item)
 {
     Q_ASSERT(item);
 
@@ -43,7 +43,7 @@ bool OutputDataSaveInfo::wasSavedBefore(const QDateTime& dtime) const
 
 //-----------------------------------------------------------------------------
 
-void OutputDataDirHistory::markAsSaved(const IntensityDataItem *item)
+void OutputDataDirHistory::markAsSaved(const DataItem *item)
 {
     if (contains(item))
         throw GUIHelpers::Error("OutputDataDirHistory::markAsSaved() -> Error. "
@@ -52,13 +52,13 @@ void OutputDataDirHistory::markAsSaved(const IntensityDataItem *item)
     m_history.push_back(OutputDataSaveInfo::createSaved(item));
 }
 
-bool OutputDataDirHistory::wasModifiedSinceLastSave(const IntensityDataItem *item)
+bool OutputDataDirHistory::wasModifiedSinceLastSave(const DataItem *item)
 {
     // non existing item is treated as modified since last save
     return contains(item) ? itemInfo(item).wasModifiedSinceLastSave() : true;
 }
 
-bool OutputDataDirHistory::contains(const IntensityDataItem *item) {
+bool OutputDataDirHistory::contains(const DataItem *item) {
     for(auto& info : m_history)
         if(info.dataItem() == item)
             return true;
@@ -78,7 +78,7 @@ QStringList OutputDataDirHistory::savedFileNames() const
     return result;
 }
 
-OutputDataSaveInfo OutputDataDirHistory::itemInfo(const IntensityDataItem* item) const
+OutputDataSaveInfo OutputDataDirHistory::itemInfo(const DataItem* item) const
 {
     for(auto& info : m_history) {
         if (info.dataItem() == item)
@@ -96,7 +96,7 @@ bool OutputDataIOHistory::hasHistory(const QString& dirname) const
 }
 
 bool OutputDataIOHistory::wasModifiedSinceLastSave(const QString& dirname,
-                                                   const IntensityDataItem* item)
+                                                   const DataItem *item)
 {
     if (!hasHistory(dirname))
         throw GUIHelpers::Error("OutputDataIOHistory::wasModifiedSinceLastSave() -> Error. "

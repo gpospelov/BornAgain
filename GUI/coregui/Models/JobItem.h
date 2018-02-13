@@ -17,15 +17,16 @@
 
 #include "SessionItem.h"
 
-class IntensityDataItem;
-class Simulation;
-class MultiLayerItem;
-class InstrumentItem;
-class SimulationOptionsItem;
-class FitSuiteItem;
-class ParameterContainerItem;
+class DataItem;
 class FitParameterContainerItem;
+class FitSuiteItem;
+class InstrumentItem;
+class IntensityDataItem;
+class MultiLayerItem;
+class ParameterContainerItem;
 class RealDataItem;
+class Simulation;
+class SimulationOptionsItem;
 
 class BA_CORE_API_ JobItem : public SessionItem
 {
@@ -56,6 +57,7 @@ public:
     void setIdentifier(const QString& identifier);
 
     IntensityDataItem* intensityDataItem();
+    DataItem* dataItem();
 
     QString getStatus() const;
     void setStatus(const QString& status);
@@ -98,6 +100,7 @@ public:
     RealDataItem* realDataItem();
 
     QString presentationType();
+    QString defaultPresentationType();
 
 private:
     void updateIntensityDataFileName();

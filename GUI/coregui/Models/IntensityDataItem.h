@@ -15,15 +15,13 @@
 #ifndef INTENSITYDATAITEM_H
 #define INTENSITYDATAITEM_H
 
-#include "SessionItem.h"
-#include "OutputData.h"
-#include <QDateTime>
+#include "DataItem.h"
 
 class BasicAxisItem;
 class MaskContainerItem;
 class ProjectionContainerItem;
 
-class BA_CORE_API_ IntensityDataItem : public SessionItem
+class BA_CORE_API_ IntensityDataItem : public DataItem
 {
 public:
     static const QString P_PROJECTIONS_FLAG;
@@ -34,16 +32,13 @@ public:
     static const QString P_XAXIS;
     static const QString P_YAXIS;
     static const QString P_ZAXIS;
-    static const QString P_FILE_NAME;
     static const QString T_MASKS;
     static const QString T_PROJECTIONS;
 
     IntensityDataItem();
 
-    OutputData<double>* getOutputData() { return m_data.get(); }
-    const OutputData<double>* getOutputData() const { return m_data.get(); }
-    void setOutputData(OutputData<double>* data);
-    void setRawDataVector(const OutputData<double>* data);
+    void setOutputData(OutputData<double>* data) override;
+    void setRawDataVector(const OutputData<double>* data) override;
 
     int getNbinsX() const;
     int getNbinsY() const;
@@ -80,8 +75,6 @@ public:
 
     QString selectedAxesUnits() const;
 
-    QString fileName(const QString& projectDir = QString()) const;
-
     void updateDataRange();
     void computeDataRange();
     QPair<double, double> dataRange() const;
@@ -97,9 +90,6 @@ public:
 
     MaskContainerItem* maskContainerItem();
     ProjectionContainerItem* projectionContainerItem();
-
-    QDateTime lastModified() const;
-    void setLastModified(const QDateTime& dtime);
 
 public slots:
     void setLowerX(double xmin);
@@ -118,9 +108,6 @@ public slots:
 private:
     void updateAxesZoomLevel();
     void updateAxesLabels();
-
-    std::unique_ptr<OutputData<double>> m_data; //!< simulation results
-    QDateTime m_last_modified;
 };
 
 #endif // INTENSITYDATAITEM_H

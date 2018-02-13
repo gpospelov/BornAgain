@@ -28,6 +28,7 @@ public:
     explicit JobResultsPresenter(QWidget* parent = 0);
 
     void setPresentation(const QString& presentationType) override;
+    void setDefaultPresentation();
 
 protected:
     QString itemPresentation() const override;

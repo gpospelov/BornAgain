@@ -32,7 +32,6 @@ namespace
 const RealLimits alpha_limits = RealLimits::limited(0.0, M_PI_2);
 const double zero_phi_i = 0.0;
 const double zero_alpha_i = 0.0;
-const SpecularDetector1D* SpecDetector(const Instrument& instrument);
 }
 
 SpecularSimulation::SpecularSimulation() : Simulation()
@@ -310,16 +309,4 @@ std::vector<complex_t> SpecularSimulation::getScalarT(size_t i_layer) const
 std::vector<complex_t> SpecularSimulation::getScalarKz(size_t i_layer) const
 {
     return getData(i_layer, &ILayerRTCoefficients::getScalarKz);
-}
-
-namespace
-{
-const SpecularDetector1D* SpecDetector(const Instrument& instrument)
-{
-    const auto detector = dynamic_cast<const SpecularDetector1D*>(instrument.getDetector());
-    if (!detector)
-        throw std::runtime_error(
-            "Error in SpecularSimulation: wrong detector type");
-    return detector;
-}
 }

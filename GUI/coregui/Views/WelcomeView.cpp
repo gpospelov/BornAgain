@@ -90,8 +90,6 @@ void WelcomeView::generateRecentProjectList()
     setCurrentProjectName(currentProjectFancyName());
     m_recentProjectLayout->addWidget(recentProLabel);
 
-    m_signalMapper.reset(new QSignalMapper);
-
     for (const auto& file : projectManager()->recentProjects()) {
         QPalette palette;
         palette.setColor(QPalette::ButtonText, QColor(41, 73, 150));
@@ -101,16 +99,10 @@ void WelcomeView::generateRecentProjectList()
         button->setFont(StyleUtils::labelFont());
         button->setPalette(palette);
         button->setFixedHeight(30);
-        m_signalMapper->setMapping(button, file);
-        connect(button, SIGNAL(clicked()), m_signalMapper.get(), SLOT(map()));
+        connect(button, &QCommandLinkButton::clicked, [=] { projectManager()->openProject(file); });
         m_recentProjectLayout->addWidget(button);
     }
-
     m_recentProjectLayout->addStretch();
-
-    connect(m_signalMapper.get(),
-            static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped),
-            projectManager(), &ProjectManager::openProject);
 }
 
 //! returns current project name suited for displaying on current project layout

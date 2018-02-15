@@ -77,11 +77,8 @@ SimulationResult SpecularSimulation::result() const
 {
     const size_t i_layer = 0; // detector intensity is proportional to reflectivity from top layer
     validityCheck(i_layer);
-    const auto detector = SpecDetector(m_instrument);
-    auto data = std::unique_ptr<OutputData<double>>(
-                    detector->createDetectorIntensity(m_sim_elements, m_instrument.getBeam()));
-    auto& axis = detector->getAxis(0);
-    SpecularConverter converter(m_instrument.getBeam(), axis);
+    auto data = createIntensityData();
+    SpecularConverter converter(m_instrument.getBeam(), *m_coordinate_axis);
     return SimulationResult(*data, converter);
 }
 
@@ -119,7 +116,7 @@ void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axi
 void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,
                                            double alpha_i_max, const IFootprintFactor* beam_shape)
 {
-    FixedBinAxis axis("alpha_i", nbins, alpha_i_min, alpha_i_max);
+    FixedBinAxis axis("alpha_i", static_cast<size_t>(nbins), alpha_i_min, alpha_i_max);
     setBeamParameters(lambda, axis, beam_shape);
 }
 
@@ -133,7 +130,7 @@ const IAxis* SpecularSimulation::getAlphaAxis() const
 
 void SpecularSimulation::initSimulationElementVector()
 {
-    auto beam = m_instrument.getBeam();
+    const auto& beam = m_instrument.getBeam();
     m_sim_elements = generateSimulationElements(beam);
 
     if (!m_cache.empty())
@@ -300,6 +297,18 @@ void SpecularSimulation::moveDataFromCache()
 double SpecularSimulation::alpha_i(size_t index) const
 {
     return m_coordinate_axis->getBin(index).getMidPoint();
+}
+
+std::unique_ptr<OutputData<double>> SpecularSimulation::createIntensityData() const
+{
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    result->addAxis(*m_coordinate_axis);
+
+    size_t i = 0;
+    for (auto iter = m_sim_elements.begin(); iter != m_sim_elements.end(); ++iter, ++i)
+        result->operator[](i) = iter->getIntensity();
+
+    return result;
 }
 
 namespace

@@ -103,6 +103,8 @@ private:
 
     double alpha_i(size_t index) const;
 
+    std::unique_ptr<OutputData<double>> createIntensityData() const;
+
     //! Returns vector of reflection coefficients (\f$R\f$) for all alpha_i angles for given layer index.
     //! Deprecated and will be removed.
     std::vector<complex_t> getScalarR(size_t i_layer) const;

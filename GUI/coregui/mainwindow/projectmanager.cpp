@@ -289,28 +289,22 @@ void ProjectManager::openProject(QString fileName)
     if (fileName.isEmpty()) {
         fileName = QFileDialog::getOpenFileName(m_mainWindow, "Open project file",
                 workingDirectory(), "BornAgain project Files (*.pro)");
-
         if (fileName.isEmpty())
             return;
     }
-
     createNewProject();
     loadProject(fileName);
 
     if (m_project_document->isReady()) {
         addToRecentProjects();
-
     } else if (m_project_document->hasErrors()) {
         riseProjectLoadFailedDialog();
         deleteCurrentProject();
         createNewProject();
-
     } else if (m_project_document->hasWarnings()) {
         riseProjectLoadWarningDialog();
         addToRecentProjects();
     }
-
-    emit projectOpened();
     emit modified();
 }
 

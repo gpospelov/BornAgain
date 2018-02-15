@@ -48,7 +48,6 @@ public:
 
 signals:
     void modified();
-    void projectOpened();
 
 public slots:
     void setAutosaveEnabled(bool value);

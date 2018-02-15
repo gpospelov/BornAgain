@@ -103,6 +103,7 @@ private:
 
     double incidentAngle(size_t index) const;
 
+    //! Creates intensity data from simulation elements
     std::unique_ptr<OutputData<double>> createIntensityData() const;
 
     //! Returns vector of reflection coefficients (\f$R\f$) for all alpha_i angles for given layer

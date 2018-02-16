@@ -39,11 +39,6 @@ public:
     std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;
 #endif // SWIG
 
-    //! Returns new intensity map with detector resolution applied and axes in requested units
-    OutputData<double>*
-    createDetectorIntensity(const std::vector<SpecularSimulationElement>& elements,
-                            const Beam& beam, AxesUnits units_type=AxesUnits::DEFAULT) const;
-
     //! Returns region of interest if exists.
     const RegionOfInterest* regionOfInterest() const override { return nullptr; }
 
@@ -64,12 +59,6 @@ protected:
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
                                     double& amin, double& amax) const override;
-
-private:
-    void setDataToDetectorMap(OutputData<double>& detectorMap,
-                              const std::vector<SpecularSimulationElement>& elements) const;
-
-    double alphaI(size_t index) const;
 };
 
 #endif /* SPECULARDETECTOR1D_H_ */

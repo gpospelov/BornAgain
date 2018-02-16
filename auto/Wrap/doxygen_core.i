@@ -14186,11 +14186,6 @@ Returns detector masks container.
 Create a vector of  DetectorElement objects according to the detector. 
 ";
 
-%feature("docstring")  SpecularDetector1D::createDetectorIntensity "OutputData< double > * SpecularDetector1D::createDetectorIntensity(const std::vector< SpecularSimulationElement > &elements, const Beam &beam, AxesUnits units_type=AxesUnits::DEFAULT) const
-
-Returns new intensity map with detector resolution applied and axes in requested units. 
-";
-
 %feature("docstring")  SpecularDetector1D::regionOfInterest "const RegionOfInterest* SpecularDetector1D::regionOfInterest() const override
 
 Returns region of interest if exists. 

@@ -105,10 +105,6 @@ void SampleView::initSelectionModel()
 
 void SampleView::createActions()
 {
-    m_add_item_mapper = new QSignalMapper(this);
-    connect(m_add_item_mapper, SIGNAL(mapped(const QString &)),
-            this, SLOT(addItem(const QString &)));
-
     m_delete_item_action = new QAction("Delete", this);
     m_delete_item_action->setStatusTip("Delete current object");
     connect(m_delete_item_action, SIGNAL(triggered()),
@@ -226,9 +222,7 @@ void SampleView::showContextMenu(const QPoint &pnt)
             else {
                 add_action = new QAction(item_name, this);
                 m_add_action_map[item_name] = add_action;
-                connect(add_action, SIGNAL(triggered()),
-                        m_add_item_mapper, SLOT(map()));
-                m_add_item_mapper->setMapping(add_action, item_name);
+                connect(add_action, &QAction::triggered, [=] { addItem(item_name); });
             }
             add_menu.addAction(add_action);
         }

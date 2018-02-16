@@ -19,7 +19,6 @@
 #include "IntensityDataItem.h"
 #include <QAction>
 #include <QItemSelectionModel>
-#include <QSignalMapper>
 #include <QMenu>
 #include <memory>
 
@@ -27,7 +26,6 @@ JobSelectorActions::JobSelectorActions(JobModel* jobModel, QObject* parent)
     : QObject(parent)
     , m_runJobAction(nullptr)
     , m_removeJobAction(nullptr)
-    , m_signalMapper(new QSignalMapper(this))
     , m_selectionModel(nullptr)
     , m_jobModel(jobModel)
 {
@@ -40,9 +38,6 @@ JobSelectorActions::JobSelectorActions(JobModel* jobModel, QObject* parent)
     m_removeJobAction->setIcon(QIcon(":/images/toolbar16dark_recycle.svg"));
     m_removeJobAction->setToolTip("Remove currently selected job.");
     connect(m_removeJobAction, &QAction::triggered, this, &JobSelectorActions::onRemoveJob);
-
-    connect(m_signalMapper, SIGNAL(mapped(int)), this, SLOT(equalizeSelectedToJob(int)));
-
 }
 
 void JobSelectorActions::setSelectionModel(QItemSelectionModel* selectionModel)
@@ -156,8 +151,7 @@ void JobSelectorActions::setupEqualizeMenu(QMenu& menu)
     for (int i = 0; i < selected.count(); ++i) {
         JobItem* jobItem = m_jobModel->getJobItemForIndex(selected.at(i));
         QAction* action = equalize_menu->addAction(QString("to ").append(jobItem->itemName()));
-        connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
-        m_signalMapper->setMapping(action, i);
+        connect(action, &QAction::triggered, [=] { equalizeSelectedToJob(i); });
     }
 }
 

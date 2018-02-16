@@ -186,7 +186,7 @@ void FitComparisonWidget::calculateRelativeDifference()
 
 void FitComparisonWidget::unsubscribeFromChildren()
 {
-    if (simulatedDataItem())
+    if (jobItem() && simulatedDataItem())
         simulatedDataItem()->mapper()->unsubscribe(this);
 
     if (diffItem())
@@ -196,7 +196,6 @@ void FitComparisonWidget::unsubscribeFromChildren()
 JobItem* FitComparisonWidget::jobItem()
 {
     JobItem* jobItem = dynamic_cast<JobItem*>(currentItem());
-    Q_ASSERT(jobItem);
     return jobItem;
 }
 

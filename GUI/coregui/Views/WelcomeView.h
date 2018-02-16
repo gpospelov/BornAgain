@@ -21,7 +21,6 @@
 class QPushButton;
 class MainWindow;
 class ProjectManager;
-class QSignalMapper;
 class QVBoxLayout;
 class FancyLabel;
 class QBoxLayout;

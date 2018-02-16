@@ -28,7 +28,6 @@
 #include "mainwindow_constants.h"
 #include <QAction>
 #include <QMenu>
-#include <QSignalMapper>
 #include <QTreeView>
 #include <QVBoxLayout>
 
@@ -40,7 +39,6 @@ FitParameterWidget::FitParameterWidget(QWidget *parent)
     , m_createFitParAction(0)
     , m_removeFromFitParAction(0)
     , m_removeFitParAction(0)
-    , m_signalMapper(0)
     , m_fitParameterModel(0)
     , m_delegate(new SessionModelDelegate(this))
     , m_keyboardFilter(new DeleteEventFilter(this))
@@ -242,9 +240,6 @@ void FitParameterWidget::init_actions()
     m_removeFitParAction = new QAction(QStringLiteral("Remove fit parameter"), this);
     connect(m_removeFitParAction, SIGNAL(triggered()), this, SLOT(onRemoveFitParAction()));
 
-    m_signalMapper = new QSignalMapper(this);
-    connect(m_signalMapper, SIGNAL(mapped(int)), this, SLOT(onAddToFitParAction(int)));
-
     connect(m_keyboardFilter, SIGNAL(removeItem()), this, SLOT(onRemoveFitParAction()));
 }
 
@@ -262,8 +257,7 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
 
     menu.addAction(m_createFitParAction);
     QMenu *addToFitParMenu = menu.addMenu("Add to existing fit parameter");
-    addToFitParMenu->setDisabled(true);
-    Q_UNUSED(addToFitParMenu);
+    addToFitParMenu->setEnabled(true);
 
     const bool allow_one_fit_parameter_to_have_more_than_one_link = true;
     if (allow_one_fit_parameter_to_have_more_than_one_link) {
@@ -276,8 +270,7 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
         for (int i = 0; i < fitParNames.count(); ++i) {
             QAction* action
                 = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
-            connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
-            m_signalMapper->setMapping(action, i);
+            connect(action, &QAction::triggered, [=] { onAddToFitParAction(i); });
             addToFitParMenu->addAction(action);
         }
     }

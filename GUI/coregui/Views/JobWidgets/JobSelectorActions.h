@@ -23,7 +23,6 @@ class QAction;
 class JobModel;
 class QItemSelectionModel;
 class QModelIndex;
-class QSignalMapper;
 class QMenu;
 
 //! The JobSelectorActions class contains actions to run/remove jobs. Actions are used by the
@@ -52,7 +51,6 @@ private:
 
     QAction* m_runJobAction;
     QAction* m_removeJobAction;
-    QSignalMapper* m_signalMapper;
     QItemSelectionModel* m_selectionModel;
     JobModel* m_jobModel;
 };

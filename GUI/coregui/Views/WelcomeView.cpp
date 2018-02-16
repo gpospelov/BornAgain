@@ -24,7 +24,6 @@
 #include "StyleUtils.h"
 #include <QCommandLinkButton>
 #include <QDesktopServices>
-#include <QSignalMapper>
 #include <QUrl>
 #include <QVBoxLayout>
 

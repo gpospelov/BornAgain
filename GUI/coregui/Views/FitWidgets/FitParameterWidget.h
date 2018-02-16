@@ -22,7 +22,6 @@
 class JobItem;
 class ParameterTuningWidget;
 class QTreeView;
-class QSignalMapper;
 class QAction;
 class QMenu;
 class FitParameterProxyModel;
@@ -92,7 +91,6 @@ private:
     QAction *m_createFitParAction;
     QAction *m_removeFromFitParAction;
     QAction *m_removeFitParAction;
-    QSignalMapper *m_signalMapper;
     FitParameterProxyModel* m_fitParameterModel;
     SessionModelDelegate *m_delegate;
     DeleteEventFilter *m_keyboardFilter;

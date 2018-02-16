@@ -17,7 +17,6 @@
 #include "item_constants.h"
 #include <QMenu>
 #include <QAction>
-#include <QSignalMapper>
 
 ComponentTreeActions::ComponentTreeActions(QObject* parent)
     : QObject(parent)
@@ -26,13 +25,11 @@ ComponentTreeActions::ComponentTreeActions(QObject* parent)
 
 //! Creates right-mouse-click context menu on top of ComponentTreeView
 //! which will allow user to switch between scientific notation and the notation
-//! with specifid number of decimals.
+//! with a specified number of decimals.
 
 void ComponentTreeActions::onCustomContextMenuRequested(const QPoint& point, SessionItem& item)
 {
     bool sc_editor = item.editorType() == Constants::ScientificEditorType;
-
-    std::unique_ptr<QSignalMapper> mapper(new QSignalMapper);
 
     QMenu menu;
     QAction* scientificAction = menu.addAction("Scientific presentation");
@@ -55,17 +52,11 @@ void ComponentTreeActions::onCustomContextMenuRequested(const QPoint& point, Ses
         auto action = doubleMenu->addAction(QString("%1 digits").arg(i));
         if (!sc_editor && item.decimals() == i)
             action->setChecked(true);
-        connect(action, SIGNAL(triggered()), mapper.get(), SLOT(map()));
-        mapper->setMapping(action, i);
+        connect(action, &QAction::triggered, [i,&item] {
+            item.setEditorType(Constants::DefaultEditorType);
+            item.setDecimals(i);
+            });
     }
-
-    connect(mapper.get(),  static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped),
-            [&](int decimals)
-    {
-        item.setEditorType(Constants::DefaultEditorType);
-        item.setDecimals(decimals);
-    });
-
     menu.exec(point);
 }
 

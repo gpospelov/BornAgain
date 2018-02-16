@@ -289,28 +289,22 @@ void ProjectManager::openProject(QString fileName)
     if (fileName.isEmpty()) {
         fileName = QFileDialog::getOpenFileName(m_mainWindow, "Open project file",
                 workingDirectory(), "BornAgain project Files (*.pro)");
-
         if (fileName.isEmpty())
             return;
     }
-
     createNewProject();
     loadProject(fileName);
 
     if (m_project_document->isReady()) {
         addToRecentProjects();
-
     } else if (m_project_document->hasErrors()) {
         riseProjectLoadFailedDialog();
         deleteCurrentProject();
         createNewProject();
-
     } else if (m_project_document->hasWarnings()) {
         riseProjectLoadWarningDialog();
         addToRecentProjects();
     }
-
-    emit projectOpened();
     emit modified();
 }
 
@@ -347,16 +341,14 @@ void ProjectManager::loadProject(const QString& projectFileName)
 {
     bool useAutosave = m_saveService && ProjectUtils::hasAutosavedData(projectFileName);
 
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     if(useAutosave && restoreProjectDialog(projectFileName)) {
-        QApplication::setOverrideCursor(Qt::WaitCursor);
         m_project_document->load(ProjectUtils::autosaveName(projectFileName));
         m_project_document->setProjectFileName(projectFileName);
         m_project_document->setModified(true);
     } else {
-        QApplication::setOverrideCursor(Qt::WaitCursor);
         m_project_document->load(projectFileName);
     }
-
     QApplication::restoreOverrideCursor();
 }
 

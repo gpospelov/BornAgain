@@ -275,7 +275,7 @@ class PlotterSpecular(Plotter):
         sim_data = fit_suite.getSimulationData()
 
         # normalizing axis coordinates
-        axis = real_data.getXaxis().getBinCenters()
+        axis = sim_data.getXaxis().getBinCenters()
         axis_values = [value for value in axis]
 
         # default font properties dictionary to use

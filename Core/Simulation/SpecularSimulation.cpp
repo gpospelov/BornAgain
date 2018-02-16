@@ -30,7 +30,8 @@
 namespace
 {
 const RealLimits alpha_limits = RealLimits::limited(0.0, M_PI_2);
-const SpecularDetector1D* SpecDetector(const Instrument& instrument);
+const double zero_phi_i = 0.0;
+const double zero_alpha_i = 0.0;
 }
 
 SpecularSimulation::SpecularSimulation() : Simulation()
@@ -77,11 +78,8 @@ SimulationResult SpecularSimulation::result() const
 {
     const size_t i_layer = 0; // detector intensity is proportional to reflectivity from top layer
     validityCheck(i_layer);
-    const auto detector = SpecDetector(m_instrument);
-    auto data = std::unique_ptr<OutputData<double>>(
-                    detector->createDetectorIntensity(m_sim_elements, m_instrument.getBeam()));
-    auto& axis = detector->getAxis(0);
-    SpecularConverter converter(m_instrument.getBeam(), axis);
+    auto data = createIntensityData();
+    SpecularConverter converter(m_instrument.getBeam(), *m_coordinate_axis);
     return SimulationResult(*data, converter);
 }
 
@@ -92,8 +90,8 @@ void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axi
         throw std::runtime_error(
             "Error in SpecularSimulation::setBeamParameters: wavelength must be positive.");
     if (alpha_axis.getMin() < 0.0)
-        throw std::runtime_error(
-            "Error in SpecularSimulation::setBeamParameters: minimum value on angle axis is negative.");
+        throw std::runtime_error("Error in SpecularSimulation::setBeamParameters: minimum value on "
+                                 "angle axis is negative.");
     if (alpha_axis.getMin() >= alpha_axis.getMax())
         throw std::runtime_error("Error in SpecularSimulation::setBeamParameters: maximal value on "
                                  "angle axis is less or equal to the minimal one.");
@@ -108,9 +106,7 @@ void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axi
     // beam is initialized with zero-valued angles
     // Zero-valued incident alpha is required for proper
     // taking into account beam resolution effects
-    const double phi_i = 0.0;
-    const double alpha_i = 0.0;
-    m_instrument.setBeamParameters(lambda, alpha_i, phi_i);
+    m_instrument.setBeamParameters(lambda, zero_alpha_i, zero_phi_i);
 
     if (beam_shape)
         m_instrument.getBeam().setFootprintFactor(*beam_shape);
@@ -119,7 +115,7 @@ void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axi
 void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,
                                            double alpha_i_max, const IFootprintFactor* beam_shape)
 {
-    FixedBinAxis axis("alpha_i", nbins, alpha_i_min, alpha_i_max);
+    FixedBinAxis axis("alpha_i", static_cast<size_t>(nbins), alpha_i_min, alpha_i_max);
     setBeamParameters(lambda, axis, beam_shape);
 }
 
@@ -133,7 +129,7 @@ const IAxis* SpecularSimulation::getAlphaAxis() const
 
 void SpecularSimulation::initSimulationElementVector()
 {
-    auto beam = m_instrument.getBeam();
+    const auto& beam = m_instrument.getBeam();
     m_sim_elements = generateSimulationElements(beam);
 
     if (!m_cache.empty())
@@ -141,7 +137,8 @@ void SpecularSimulation::initSimulationElementVector()
     m_cache.resize(m_sim_elements.size(), 0);
 }
 
-std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationElements(const Beam& beam)
+std::vector<SpecularSimulationElement>
+SpecularSimulation::generateSimulationElements(const Beam& beam)
 {
     std::vector<SpecularSimulationElement> result;
 
@@ -155,7 +152,7 @@ std::vector<SpecularSimulationElement> SpecularSimulation::generateSimulationEle
     const size_t axis_size = m_coordinate_axis->size();
     result.reserve(axis_size);
     for (size_t i = 0; i < axis_size; ++i) {
-        double result_angle = alpha_i(i) + angle_shift;
+        double result_angle = incidentAngle(i) + angle_shift;
         result.emplace_back(wavelength, -result_angle);
         auto& sim_element = result.back();
         sim_element.setPolarizationHandler(handler);
@@ -186,21 +183,6 @@ SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_ele
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
     return std::make_unique<SpecularComputation>(*sample(), m_options, m_progress, begin,
                                                  begin + static_cast<long>(n_elements));
-}
-
-std::vector<complex_t> SpecularSimulation::getScalarR(size_t i_layer) const
-{
-    return getData(i_layer, &ILayerRTCoefficients::getScalarR);
-}
-
-std::vector<complex_t> SpecularSimulation::getScalarT(size_t i_layer) const
-{
-    return getData(i_layer, &ILayerRTCoefficients::getScalarT);
-}
-
-std::vector<complex_t> SpecularSimulation::getScalarKz(size_t i_layer) const
-{
-    return getData(i_layer, &ILayerRTCoefficients::getScalarKz);
 }
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
@@ -297,19 +279,34 @@ void SpecularSimulation::moveDataFromCache()
     m_cache.shrink_to_fit();
 }
 
-double SpecularSimulation::alpha_i(size_t index) const
+double SpecularSimulation::incidentAngle(size_t index) const
 {
     return m_coordinate_axis->getBin(index).getMidPoint();
 }
 
-namespace
+std::unique_ptr<OutputData<double>> SpecularSimulation::createIntensityData() const
 {
-const SpecularDetector1D* SpecDetector(const Instrument& instrument)
-{
-    const auto detector = dynamic_cast<const SpecularDetector1D*>(instrument.getDetector());
-    if (!detector)
-        throw std::runtime_error(
-            "Error in SpecularSimulation: wrong detector type");
-    return detector;
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    result->addAxis(*m_coordinate_axis);
+
+    size_t i = 0;
+    for (auto iter = m_sim_elements.begin(); iter != m_sim_elements.end(); ++iter, ++i)
+        result->operator[](i) = iter->getIntensity();
+
+    return result;
 }
+
+std::vector<complex_t> SpecularSimulation::getScalarR(size_t i_layer) const
+{
+    return getData(i_layer, &ILayerRTCoefficients::getScalarR);
+}
+
+std::vector<complex_t> SpecularSimulation::getScalarT(size_t i_layer) const
+{
+    return getData(i_layer, &ILayerRTCoefficients::getScalarT);
+}
+
+std::vector<complex_t> SpecularSimulation::getScalarKz(size_t i_layer) const
+{
+    return getData(i_layer, &ILayerRTCoefficients::getScalarKz);
 }

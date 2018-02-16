@@ -59,19 +59,6 @@ BA_CORE_API_ Material MaterialBySLD(const std::string& name, double sld, double 
 
 //! @ingroup materials
 
-//! Constructs a wavelength-independent material with given sld and absorptive term
-//! As opposed to MaterialBySLD, absorptive term is the product of number density and
-//! absorptive cross-section \f$ \sigma_0 \f$ at \f$ \lambda = 1.798197\f$ Angstroms.
-//! The latter corresponds to 2200 m/s neutrons.
-//! @param name: material name
-//! @param sld: scattering length density, \f$ nm^{-2} \f$
-//! @param abs_cx: absorptive term at \f$ \lambda = 1.798197\f$ Angstroms, \f$ nm^{-1} \f$
-//! @param magnetization: magnetization (in A/m)
-BA_CORE_API_ Material MaterialByAbsCX(const std::string& name, double sld, double abs_cx,
-                                      kvector_t magnetization = kvector_t());
-
-//! @ingroup materials
-
 //! Creates averaged material. Square refractive index of returned material is arithmetic mean over
 //! _regions_ and _layer_mat_. Magnetization (if present) is averaged linearly.
 BA_CORE_API_ Material createAveragedMaterial(const Material& layer_mat, const std::vector<HomogeneousRegion>& regions);

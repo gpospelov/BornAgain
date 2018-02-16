@@ -55,13 +55,6 @@ Material MaterialBySLD(const std::string& name, double sld, double abs_term,
     return Material(std::move(mat_impl));
 }
 
-constexpr double basic_wavelength = 0.1798197; // nm, wavelength of 2200 m/s neutrons
-Material MaterialByAbsCX(const std::string& name, double sld, double abs_cx,
-                         kvector_t magnetization)
-{
-    return MaterialBySLD(name, sld, abs_cx / basic_wavelength, magnetization);
-}
-
 Material MaterialBySLD()
 {
     return MaterialBySLD("vacuum", 0.0, 0.0, kvector_t{});

@@ -56,15 +56,6 @@ TEST_F(MaterialTest, MaterialConstruction)
     EXPECT_EQ("Material", material6.getName());
     EXPECT_EQ(material_data, material6.materialData());
     EXPECT_EQ(default_magnetism, material6.magnetization());
-
-    constexpr double basic_wavelength = 0.1798197; // nm
-    Material material7 = MaterialByAbsCX("Material", material_data.real(),
-                                         material_data.imag() * basic_wavelength);
-    EXPECT_TRUE(material7.getName() == material6.getName());
-    EXPECT_TRUE(material7.magnetization() == material6.magnetization());
-    EXPECT_DOUBLE_EQ(material7.materialData().real(), material6.materialData().real());
-    EXPECT_DOUBLE_EQ(material7.materialData().imag(), material6.materialData().imag());
-    EXPECT_TRUE(material7.typeID() == material6.typeID());
 }
 
 TEST_F(MaterialTest, MaterialTransform)

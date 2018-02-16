@@ -18,7 +18,6 @@
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
 #include <QAction>
-#include <QSignalMapper>
 #include <QTreeView>
 
 class MainWindow;
@@ -86,7 +85,6 @@ private:
     QMap<QWidget *, QDockWidget *> m_widget_to_dock;
     QMap<QDockWidget *, QWidget *> m_dock_to_widget;
 
-    QSignalMapper *m_add_item_mapper;
     QMap<QString, QAction *> m_add_action_map;
     QAction *m_delete_item_action;
 

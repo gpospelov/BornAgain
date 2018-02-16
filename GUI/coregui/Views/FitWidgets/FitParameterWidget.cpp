@@ -270,7 +270,7 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
         for (int i = 0; i < fitParNames.count(); ++i) {
             QAction* action
                 = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
-            connect(action, &QAction::triggered, [=] { this->onAddToFitParAction(i); });
+            connect(action, &QAction::triggered, [=] { onAddToFitParAction(i); });
             addToFitParMenu->addAction(action);
         }
     }

@@ -66,13 +66,6 @@ BA_CORE_API_ Material MaterialBySLD(const std::string& name, double sld_real, do
 
 //! @ingroup materials
 
-//! Constructs a wavelength-independent material with a given complex-valued
-//! scattering lenght density (SLD). SLD units are \f$ nm^{-2} \f$.
-BA_CORE_API_ Material createMaterialBySLDInNativeUnits(const std::string& name, double sld_real,
-                                                       double sld_imag, kvector_t magnetization);
-
-//! @ingroup materials
-
 //! Creates averaged material. Square refractive index of returned material is arithmetic mean over
 //! _regions_ and _layer_mat_. Magnetization (if present) is averaged linearly.
 BA_CORE_API_ Material createAveragedMaterial(const Material& layer_mat,

@@ -17,10 +17,12 @@
 #include "RefractiveMaterialImpl.h"
 #include "SlicedParticle.h"
 #include "MaterialUtils.h"
+#include "Units.h"
 #include <functional>
 
 namespace
 {
+const double inv_sq_angstroms = 1.0 / (Units::angstrom * Units::angstrom);
 template <class T>
 T averageData(const Material& layer_mat, const std::vector<HomogeneousRegion>& regions,
               std::function<T(const Material&)> average);
@@ -55,15 +57,8 @@ Material MaterialBySLD()
 Material MaterialBySLD(const std::string& name, double sld_real, double sld_imag,
                        kvector_t magnetization)
 {
-    // A^{-2} = 100 nm^{-2}
-    return createMaterialBySLDInNativeUnits(name, sld_real * 100.0, sld_imag * 100.0, magnetization);
-}
-
-Material createMaterialBySLDInNativeUnits(const std::string& name, double sld_real, double sld_imag,
-                                          kvector_t magnetization)
-{
-    std::unique_ptr<MaterialBySLDImpl> mat_impl(
-        new MaterialBySLDImpl(name, sld_real, sld_imag, magnetization));
+    std::unique_ptr<MaterialBySLDImpl> mat_impl(new MaterialBySLDImpl(
+        name, sld_real * inv_sq_angstroms, sld_imag * inv_sq_angstroms, magnetization));
     return Material(std::move(mat_impl));
 }
 
@@ -101,7 +96,7 @@ Material createAveragedMaterial(const Material& layer_mat,
         complex_t (*avrData)(const Material&)
             = [](const Material& mat) { return mat.materialData(); };
         const complex_t avr_mat_data = averageData<complex_t>(layer_mat, regions, avrData);
-        return createMaterialBySLDInNativeUnits(avr_mat_name, avr_mat_data.real(), avr_mat_data.imag(),
+        return MaterialBySLD(avr_mat_name, avr_mat_data.real(), avr_mat_data.imag(),
                                           mag_avr);
     } else
         throw std::runtime_error("Error in CalculateAverageMaterial: unknown material type.");

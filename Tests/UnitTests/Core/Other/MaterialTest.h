@@ -33,8 +33,8 @@ TEST_F(MaterialTest, MaterialConstruction)
     EXPECT_EQ(material_data, material2.materialData());
     EXPECT_EQ(magnetism, material2.magnetization());
 
-    Material material3 = createMaterialBySLDInNativeUnits("MagMaterial", material_data.real(),
-                                                          material_data.imag(), magnetism);
+    Material material3
+        = MaterialBySLD("MagMaterial", material_data.real(), material_data.imag(), magnetism);
     EXPECT_EQ("MagMaterial", material3.getName());
     EXPECT_EQ(material_data, material3.materialData());
     EXPECT_EQ(magnetism, material3.magnetization());
@@ -116,6 +116,7 @@ TEST_F(MaterialTest, ComputationTest)
     const double number_density = avog_number * density / mol_mass; // 1/nm^3, Fe number density
     const double sld_real = number_density * bc;
     const double sld_imag = number_density * abs_cs / ( 2.0 * basic_wavelength);
+    const double sq_angstroms = Units::angstrom * Units::angstrom;
 
     const complex_t sld_ref(8.0241e-04,  // nm^{-2}, reference data
                             6.0448e-8); // taken from https://sld-calculator.appspot.com/
@@ -128,7 +129,7 @@ TEST_F(MaterialTest, ComputationTest)
     const double wl_factor_1100 = 4.0 * basic_wavelength * basic_wavelength / M_PI;
 
     // MaterialBySLD accepts sld in AA^{-2}
-    Material material = MaterialBySLD("Fe", sld_real / 100, sld_imag / 100);
+    Material material = MaterialBySLD("Fe", sld_real * sq_angstroms, sld_imag * sq_angstroms);
 
     complex_t sld_res_2200
         = (1.0 - material.refractiveIndex2(basic_wavelength)) / wl_factor_2200;
@@ -177,7 +178,7 @@ TEST_F(MaterialTest, AveragedMaterialTest)
     EXPECT_EQ(material_avr2.magnetization(), kvector_t(0.5, 0.0, 0.0));
     EXPECT_TRUE(material_avr2.typeID() == MATERIAL_TYPES::RefractiveMaterial);
 
-    const Material material3 = createMaterialBySLDInNativeUnits("Material3", 0.5, 0.5, magnetization);
+    const Material material3 = MaterialBySLD("Material3", 0.5, 0.5, magnetization);
     EXPECT_THROW(createAveragedMaterial(material3, regions), std::runtime_error);
 
     const Material material4 = HomogeneousMaterial();

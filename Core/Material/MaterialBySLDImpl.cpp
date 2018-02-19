@@ -14,9 +14,12 @@
 
 #include "MaterialBySLDImpl.h"
 #include "WavevectorInfo.h"
+#include "Units.h"
 
 namespace
 {
+const double square_angstroms = Units::angstrom * Units::angstrom;
+
 inline double getWlPrefactor(double wavelength)
 {
     return wavelength * wavelength / M_PI;
@@ -52,7 +55,7 @@ complex_t MaterialBySLDImpl::refractiveIndex2(double wavelength) const
 
 complex_t MaterialBySLDImpl::materialData() const
 {
-    return complex_t(m_sld_real, m_sld_imag);
+    return complex_t(m_sld_real * square_angstroms, m_sld_imag * square_angstroms);
 }
 
 complex_t MaterialBySLDImpl::scalarSubtrSLD(const WavevectorInfo& wavevectors) const

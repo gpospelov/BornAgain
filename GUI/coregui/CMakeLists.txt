@@ -174,6 +174,7 @@ if(WIN32)
 
     install(FILES
     ${QTDIR}/plugins/imageformats/qjpeg.dll
+    ${QTDIR}/plugins/imageformats/qsvg.dll
     DESTINATION bin/imageformats COMPONENT Libraries)
 
 endif()

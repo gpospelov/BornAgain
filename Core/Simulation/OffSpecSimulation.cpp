@@ -14,10 +14,13 @@
 
 #include "OffSpecSimulation.h"
 #include "BornAgainNamespace.h"
+#include "Distributions.h"
 #include "DWBAComputation.h"
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
+#include "ParameterPool.h"
+#include "RealParameter.h"
 #include "SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()
@@ -68,8 +71,8 @@ void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_
         throw Exceptions::ClassInitializationException(
                 "OffSpecSimulation::prepareSimulation() "
                 "-> Error. Incoming alpha range size < 1.");
-    double alpha_start = alpha_axis[0];
-    m_instrument.setBeamParameters(wavelength, alpha_start, phi_i);
+    const double alpha_zero = 0.0;
+    m_instrument.setBeamParameters(wavelength, alpha_zero, phi_i);
     updateIntensityMap();
 }
 
@@ -91,19 +94,36 @@ void OffSpecSimulation::initSimulationElementVector()
 {
     m_sim_elements.clear();
     Beam beam = m_instrument.getBeam();
-    double wavelength = beam.getWavelength();
-    double phi_i = beam.getPhi();
+    const double wavelength = beam.getWavelength();
+    const double phi_i = beam.getPhi();
+    const double alpha_shift = beam.getAlpha();
 
     for (size_t i = 0; i < mP_alpha_i_axis->size(); ++i) {
         // Incoming angle by convention defined as positive:
         double alpha_i = mP_alpha_i_axis->getBin(i).getMidPoint();
-        beam.setCentralK(wavelength, alpha_i, phi_i);
+        double total_alpha = alpha_i + alpha_shift;
+        beam.setCentralK(wavelength, total_alpha, phi_i);
         auto sim_elements_i = generateSimulationElements(beam);
         m_sim_elements.insert(m_sim_elements.end(), std::make_move_iterator(sim_elements_i.begin()),
                               std::make_move_iterator(sim_elements_i.end()));
     }
     if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);
+}
+
+void OffSpecSimulation::validateParametrization(const ParameterDistribution& par_distr) const
+{
+    const bool zero_mean = par_distr.getDistribution()->getMean() == 0.0;
+    if (zero_mean)
+        return;
+
+    std::unique_ptr<ParameterPool> parameter_pool(createParameterTree());
+    const std::vector<RealParameter*> names
+        = parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
+    for (const auto par : names)
+        if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
+            throw std::runtime_error("Error in OffSpecSimulation: parameter distribution of "
+                                     "beam inclination angle should have zero mean.");
 }
 
 void OffSpecSimulation::transferResultsToIntensityMap()

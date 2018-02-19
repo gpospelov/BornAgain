@@ -81,3 +81,6 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
 endif()
 
 message(STATUS "Compiler Flags: ${all_cxx_flags}")
+message(STATUS "Shared linker Flags: ${CMAKE_SHARED_LINKER_FLAGS}")
+message(STATUS "Exe linker Flags: ${CMAKE_EXE_LINKER_FLAGS}")
+

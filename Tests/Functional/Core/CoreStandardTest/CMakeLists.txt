@@ -27,6 +27,7 @@ set(test_cases
     DetectorResolution
     FormFactors
     FormFactorsAbs
+    GISASAbsorptiveSLDLayers
     HexParaCrystal
     LargeCylindersMonteCarlo
     Lattice1D

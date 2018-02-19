@@ -17,7 +17,7 @@
 #include <sstream>
 
 SpecularFitTest::SpecularFitTest()
-    : IFittingTest("Minuit2", "Migrad", "BasicSpecular", "MaterialBySLDBuilder")
+    : IFittingTest("Minuit2", "Migrad", "BasicSpecular", "PlainMultiLayerBySLDBuilder")
 {
 }
 

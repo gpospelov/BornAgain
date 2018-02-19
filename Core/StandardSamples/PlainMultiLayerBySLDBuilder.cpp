@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/MaterialBySLDBuilder.cpp
-//! @brief     Implements class MaterialBySLDBuilder.
+//! @file      Core/StandardSamples/Core/StandardSamples/PlainMultiLayerBySLDBuilder.cpp
+//! @brief     Implements class PlainMultiLayerBySLDBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,13 +12,13 @@
 //
 // ************************************************************************** //
 
-#include "MaterialBySLDBuilder.h"
+#include "PlainMultiLayerBySLDBuilder.h"
 #include "MaterialFactoryFuncs.h"
 #include "Layer.h"
 #include "MultiLayer.h"
 #include "Units.h"
 
-MaterialBySLDBuilder::MaterialBySLDBuilder()
+PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder()
     : m_number_of_layers(10)
     , m_si { 2.0704e-06, 2.3726e-11}
     , m_ti {-1.9493e-06, 9.6013e-10}
@@ -27,7 +27,7 @@ MaterialBySLDBuilder::MaterialBySLDBuilder()
     , m_thick_ni(7.0) //nm
 {}
 
-MultiLayer* MaterialBySLDBuilder::buildSample() const
+MultiLayer* PlainMultiLayerBySLDBuilder::buildSample() const
 {
     std::unique_ptr<MultiLayer> multi_layer(new MultiLayer());
 
@@ -43,10 +43,9 @@ MultiLayer* MaterialBySLDBuilder::buildSample() const
 
     multi_layer->addLayer(vacuum_layer);
     for (size_t i = 0; i < m_number_of_layers; ++i) {
-	multi_layer->addLayer(ti_layer);
-	multi_layer->addLayer(ni_layer);
+        multi_layer->addLayer(ti_layer);
+        multi_layer->addLayer(ni_layer);
     }
     multi_layer->addLayer(substrate_layer);
     return multi_layer.release();
 }
-

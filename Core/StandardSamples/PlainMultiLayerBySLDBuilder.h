@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/MaterialBySLDBuilder.h
-//! @brief     Defines class MaterialBySLDBuilder.
+//! @file      Core/StandardSamples/PlainMultiLayerBySLDBuilder.h
+//! @brief     Declares the class PlainMultiLayerBySLDBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,20 +12,19 @@
 //
 // ************************************************************************** //
 
-#ifndef MATERIALBYSLDBUILDER_H_
-#define MATERIALBYSLDBUILDER_H_
+#ifndef PLANEMULTILAYERBYSLDBUILDER_H_
+#define PLANEMULTILAYERBYSLDBUILDER_H_
 
 #include "IMultiLayerBuilder.h"
 
 //! Builds a sample with 10 interchanging homogeneous layers of Ti and Ni on silicone substrate.
 //! Ti is 70 angstroms thick, Ni is 30 angstroms thick.
-//! Titanium absorption coefficient is exaggerated 10^4 times for its effect to be noticeable
 //! @ingroup standard_samples
 
-class BA_CORE_API_ MaterialBySLDBuilder : public IMultiLayerBuilder
+class BA_CORE_API_ PlainMultiLayerBySLDBuilder : public IMultiLayerBuilder
 {
 public:
-    MaterialBySLDBuilder();
+    PlainMultiLayerBySLDBuilder();
     MultiLayer* buildSample() const override;
 
 protected:
@@ -41,4 +40,4 @@ protected:
     double m_thick_ni; //!< thickness of Ni layer
 };
 
-#endif /* MATERIALBYSLDBUILDER_H_ */
+#endif /* PLANEMULTILAYERBYSLDBUILDER_H_ */

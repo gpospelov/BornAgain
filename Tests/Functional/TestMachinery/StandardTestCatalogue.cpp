@@ -30,6 +30,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "LayersWithAbsorptionBuilder",
         2e-10);
 
+    add("GISASAbsorptiveSLDLayers",
+        "Test for SLD material in GISAS simulations",
+        "MiniGISAS",
+        "LayersWithAbsorptionBySLDBuilder",
+        2e-10);
+
     add("CylindersAndPrisms",
         "Mixture of cylinders and prisms without interference",
         "MiniGISAS",
@@ -380,9 +386,9 @@ StandardTestCatalogue::StandardTestCatalogue()
 
     add("HomogeneousTiNiSampleWithAbsorption",
         "Specular simulation for 10 interchanging Ti-Ni homogeneous "
-            "layers with absorptive SLD material (exaggerated absorption for Ti)",
+            "layers with absorptive SLD material",
         "BasicSpecular",
-        "MaterialBySLDBuilder",
+        "PlainMultiLayerBySLDBuilder",
         1e-10);
 
     add("RoughnessInSpecular",

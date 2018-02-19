@@ -22,9 +22,9 @@
 #include "HomogeneousMultilayerBuilder.h"
 #include "LatticeBuilder.h"
 #include "LayersWithAbsorptionBuilder.h"
+#include "LayersWithAbsorptionBySLDBuilder.h"
 #include "MagneticParticlesBuilder.h"
 #include "MagneticLayersBuilder.h"
-#include "MaterialBySLDBuilder.h"
 #include "MesoCrystalBuilder.h"
 #include "MultiLayerWithRoughnessBuilder.h"
 #include "MultipleLayoutBuilder.h"
@@ -32,6 +32,7 @@
 #include "ParticleCompositionBuilder.h"
 #include "ParticleDistributionsBuilder.h"
 #include "ParticleInTheAirBuilder.h"
+#include "PlainMultiLayerBySLDBuilder.h"
 #include "RealParameter.h"
 #include "RipplesBuilder.h"
 #include "RotatedPyramidsBuilder.h"
@@ -263,6 +264,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "3 layer system with absorption");
 
     registerItem(
+         "LayersWithAbsorptionBySLDBuilder",
+         create_new<LayersWithAbsorptionBySLDBuilder>,
+         "3 SLD-layer system with absorption");
+
+    registerItem(
         "BoxesSquareLatticeBuilder",
         create_new<BoxesSquareLatticeBuilder>,
         "Boxes in a square lattice");
@@ -297,10 +303,10 @@ SampleBuilderFactory::SampleBuilderFactory()
         create_new<HomogeneousMultilayerBuilder>,
         "Alternating homogeneous layers of Ti and Ni on silicone substrate.");
 
-    registerItem(
-        "MaterialBySLDBuilder",
-        create_new<MaterialBySLDBuilder>,
-        "Alternating homogeneous layers of Ti and Ni on silicone substrate (wavelength-independent).");
+    registerItem("PlainMultiLayerBySLDBuilder",
+                 create_new<PlainMultiLayerBySLDBuilder>,
+                 "Alternating homogeneous layers of Ti and Ni on silicone substrate "
+                 "(wavelength-independent).");
 
     registerItem(
         "ResonatorBuilder",

@@ -47,17 +47,24 @@ Material HomogeneousMaterial()
     return HomogeneousMaterial("vacuum", 0.0, 0.0, kvector_t{});
 }
 
-Material MaterialBySLD(const std::string& name, double sld, double abs_term,
-                       kvector_t magnetization)
-{
-    std::unique_ptr<MaterialBySLDImpl> mat_impl(
-        new MaterialBySLDImpl(name, sld, abs_term, magnetization));
-    return Material(std::move(mat_impl));
-}
-
 Material MaterialBySLD()
 {
     return MaterialBySLD("vacuum", 0.0, 0.0, kvector_t{});
+}
+
+Material MaterialBySLD(const std::string& name, double sld_real, double sld_imag,
+                       kvector_t magnetization)
+{
+    // A^{-2} = 100 nm^{-2}
+    return createMaterialBySLDInNativeUnits(name, sld_real * 100.0, sld_imag * 100.0, magnetization);
+}
+
+Material createMaterialBySLDInNativeUnits(const std::string& name, double sld_real, double sld_imag,
+                                          kvector_t magnetization)
+{
+    std::unique_ptr<MaterialBySLDImpl> mat_impl(
+        new MaterialBySLDImpl(name, sld_real, sld_imag, magnetization));
+    return Material(std::move(mat_impl));
 }
 
 Material createAveragedMaterial(const Material& layer_mat,
@@ -94,7 +101,8 @@ Material createAveragedMaterial(const Material& layer_mat,
         complex_t (*avrData)(const Material&)
             = [](const Material& mat) { return mat.materialData(); };
         const complex_t avr_mat_data = averageData<complex_t>(layer_mat, regions, avrData);
-        return MaterialBySLD(avr_mat_name, avr_mat_data.real(), avr_mat_data.imag(), mag_avr);
+        return createMaterialBySLDInNativeUnits(avr_mat_name, avr_mat_data.real(), avr_mat_data.imag(),
+                                          mag_avr);
     } else
         throw std::runtime_error("Error in CalculateAverageMaterial: unknown material type.");
 }

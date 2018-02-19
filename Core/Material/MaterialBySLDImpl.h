@@ -24,8 +24,9 @@
 class BA_CORE_API_ MaterialBySLDImpl : public MagneticMaterialImpl
 {
 public:
-    friend BA_CORE_API_ Material MaterialBySLD(const std::string& name, double sld, double abs_term,
-                                               kvector_t magnetization);
+    friend BA_CORE_API_ Material createMaterialBySLDInNativeUnits(const std::string& name,
+                                                                  double sld_real, double sld_imag,
+                                                                  kvector_t magnetization);
 
     virtual ~MaterialBySLDImpl() = default;
 
@@ -54,13 +55,11 @@ public:
     void print(std::ostream &ostr) const override;
 
 private:
-    MaterialBySLDImpl(const std::string& name, double sld, double abs_term,
-                                  kvector_t magnetization);
+    MaterialBySLDImpl(const std::string& name, double sld_real, double sld_imag,
+                      kvector_t magnetization);
 
-    double m_sld; //!< product of number density and coherent scattering length
-                  //!< (scattering length density)
-    double m_abs_term;  //!< product of number density and
-                        //!< absorption cross-section normalized to wavelength
+    double m_sld_real; //!< complex-valued scattering length density
+    double m_sld_imag; //!< imaginary part of scattering length density (negative by default)
 };
 
 #endif /* MATERIALBYSLDIMPL_H_ */

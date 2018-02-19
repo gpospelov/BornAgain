@@ -33,8 +33,8 @@ TEST_F(MaterialTest, MaterialConstruction)
     EXPECT_EQ(material_data, material2.materialData());
     EXPECT_EQ(magnetism, material2.magnetization());
 
-    Material material3
-        = MaterialBySLD("MagMaterial", material_data.real(), material_data.imag(), magnetism);
+    Material material3 = createMaterialBySLDInNativeUnits("MagMaterial", material_data.real(),
+                                                          material_data.imag(), magnetism);
     EXPECT_EQ("MagMaterial", material3.getName());
     EXPECT_EQ(material_data, material3.materialData());
     EXPECT_EQ(magnetism, material3.magnetization());
@@ -53,8 +53,6 @@ TEST_F(MaterialTest, MaterialConstruction)
     EXPECT_EQ(default_magnetism, material5.magnetization());
 
     Material material6 = MaterialBySLD("Material", material_data.real(), material_data.imag());
-    EXPECT_EQ("Material", material6.getName());
-    EXPECT_EQ(material_data, material6.materialData());
     EXPECT_EQ(default_magnetism, material6.magnetization());
 }
 
@@ -107,7 +105,7 @@ TEST_F(MaterialTest, DefaultMaterials)
 TEST_F(MaterialTest, ComputationTest)
 {
     // Reference data for Fe taken from
-    // https://sld-calculator.appspot.com/save
+    // https://sld-calculator.appspot.com
     // http://www.ati.ac.at/~neutropt/scattering/table.html
     const double bc = 9.45e-6;      // nm, bound coherent scattering length
     const double abs_cs = 2.56e-10; // nm^2, absorption cross-section for 2200 m/s neutrons
@@ -116,19 +114,30 @@ TEST_F(MaterialTest, ComputationTest)
     const double avog_number = 6.022e+23;      // mol^{-1}, Avogadro number
     const double density = 7.874e-21;          // g/nm^3, Fe material density
     const double number_density = avog_number * density / mol_mass; // 1/nm^3, Fe number density
-    const double sld = number_density * bc;
-    const double abs_term = number_density * abs_cs / basic_wavelength;
+    const double sld_real = number_density * bc;
+    const double sld_imag = number_density * abs_cs / ( 2.0 * basic_wavelength);
 
-    const complex_t sld_ref(8.0241e-04,
-                            -6.0448e-8); // nm^{-2}, reference data, wavelength-independent
+    const complex_t sld_ref(8.0241e-04,  // nm^{-2}, reference data
+                            6.0448e-8); // taken from https://sld-calculator.appspot.com/
+
+    // checking input data and reference values are the same
+    EXPECT_NEAR(2.0 * (sld_ref.real() - sld_real) / (sld_ref.real() + sld_real), 0.0, 1e-3);
+    EXPECT_NEAR(2.0 * (sld_ref.imag() - sld_imag) / (sld_ref.imag() + sld_imag), 0.0, 1e-3);
+
     const double wl_factor_2200 = basic_wavelength * basic_wavelength / M_PI;
     const double wl_factor_1100 = 4.0 * basic_wavelength * basic_wavelength / M_PI;
 
-    Material material = MaterialBySLD("Fe", sld, abs_term);
-    const complex_t sld_res_2200
+    // MaterialBySLD accepts sld in AA^{-2}
+    Material material = MaterialBySLD("Fe", sld_real / 100, sld_imag / 100);
+
+    complex_t sld_res_2200
         = (1.0 - material.refractiveIndex2(basic_wavelength)) / wl_factor_2200;
-    const complex_t sld_res_1100
+    complex_t sld_res_1100
         = (1.0 - material.refractiveIndex2(2.0 * basic_wavelength)) / wl_factor_1100;
+
+    // change the sign of imaginary part according to internal convention
+    sld_res_2200 = std::conj(sld_res_2200);
+    sld_res_1100 = std::conj(sld_res_1100);
 
     EXPECT_NEAR(0.0, (sld_ref.real() - sld_res_2200.real()) / sld_ref.real(), 1e-3);
     EXPECT_NEAR(0.0, (sld_ref.imag() - sld_res_2200.imag()) / sld_ref.imag(), 1e-3);
@@ -168,7 +177,7 @@ TEST_F(MaterialTest, AveragedMaterialTest)
     EXPECT_EQ(material_avr2.magnetization(), kvector_t(0.5, 0.0, 0.0));
     EXPECT_TRUE(material_avr2.typeID() == MATERIAL_TYPES::RefractiveMaterial);
 
-    const Material material3 = MaterialBySLD("Material3", 0.5, 0.5, magnetization);
+    const Material material3 = createMaterialBySLDInNativeUnits("Material3", 0.5, 0.5, magnetization);
     EXPECT_THROW(createAveragedMaterial(material3, regions), std::runtime_error);
 
     const Material material4 = HomogeneousMaterial();
@@ -234,25 +243,10 @@ TEST_F(MaterialTest, MaterialMove)
     kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
     Material material = HomogeneousMaterial("MagMaterial", refIndex, magnetism);
 
-    Material move(std::move(material));
-    EXPECT_EQ("MagMaterial", move.getName());
-    EXPECT_EQ(material_data, move.materialData());
-    EXPECT_EQ(magnetism, move.magnetization());
+    Material moved_material(std::move(material));
+    EXPECT_EQ("MagMaterial", moved_material.getName());
+    EXPECT_EQ(material_data, moved_material.materialData());
+    EXPECT_EQ(magnetism, moved_material.magnetization());
     EXPECT_TRUE(material.isEmpty());
-}
-
-TEST_F(MaterialTest, MaterialAssignment)
-{
-    Material material = MaterialBySLD("Material", 1.0, 1.0);
-    Material material_ref = MaterialBySLD("Material", 1.0, 1.0);
-
-    material = material;
-    EXPECT_TRUE(material == material_ref);
-
-    material = std::move(material);
-    EXPECT_TRUE(material == material_ref);
-
-    Material material2 = std::move(material);
-    EXPECT_TRUE(material.isEmpty());
-    EXPECT_THROW(material2 = material, Exceptions::NullPointerException);
+    EXPECT_THROW(Material material2 = material, Exceptions::NullPointerException);
 }

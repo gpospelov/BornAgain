@@ -22,6 +22,7 @@
 #include "HomogeneousMultilayerBuilder.h"
 #include "LatticeBuilder.h"
 #include "LayersWithAbsorptionBuilder.h"
+#include "LayersWithAbsorptionBySLDBuilder.h"
 #include "MagneticParticlesBuilder.h"
 #include "MagneticLayersBuilder.h"
 #include "MesoCrystalBuilder.h"
@@ -261,6 +262,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "LayersWithAbsorptionBuilder",
         create_new<LayersWithAbsorptionBuilder>,
         "3 layer system with absorption");
+
+    registerItem(
+         "LayersWithAbsorptionBySLDBuilder",
+         create_new<LayersWithAbsorptionBySLDBuilder>,
+         "3 SLD-layer system with absorption");
 
     registerItem(
         "BoxesSquareLatticeBuilder",

@@ -30,6 +30,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "LayersWithAbsorptionBuilder",
         2e-10);
 
+    add("GISASAbsorptiveSLDLayers",
+        "Test for SLD material in GISAS simulations",
+        "MiniGISAS",
+        "LayersWithAbsorptionBySLDBuilder",
+        2e-10);
+
     add("CylindersAndPrisms",
         "Mixture of cylinders and prisms without interference",
         "MiniGISAS",

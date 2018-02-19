@@ -15,27 +15,25 @@ from os import path
 wavelength = 1.54 * ba.angstrom
 
 # substrate (Si)
-bc_si = 4.1491 * ba.angstrom * 1e-5  # bound coherent scattering length for Si
+si_sld_real = 2.0704e-06  # \AA^{-2}
 density_si = 0.0499 / ba.angstrom ** 3  # Si atomic number density
 
 # layers' parameters
 n_repetitions = 10
 # Ni
-bc_ni = 10.3 * ba.angstrom * 1e-5
-density_ni = 0.0915 / ba.angstrom ** 3
+ni_sld_real = 9.4245e-06  # \AA^{-2}
 d_ni = 70 * ba.angstrom
 # Ti
-bc_ti = -3.438 * ba.angstrom * 1e-5
-density_ti = 0.0567 / ba.angstrom ** 3
+ti_sld_real = -1.9493e-06  # \AA^{-2}
 d_ti = 30 * ba.angstrom
 
 
 def get_sample():
     # defining materials
     m_air = ba.MaterialBySLD()
-    m_ni = ba.MaterialBySLD("Ni", density_ni * bc_ni, 0.0)
-    m_ti = ba.MaterialBySLD("Ti", density_ti * bc_ti, 0.0)
-    m_substrate = ba.MaterialBySLD("SiSubstrate", density_si * bc_si, 0.0)
+    m_ni = ba.MaterialBySLD("Ni", ni_sld_real, 0.0)
+    m_ti = ba.MaterialBySLD("Ti", ti_sld_real, 0.0)
+    m_substrate = ba.MaterialBySLD("SiSubstrate", si_sld_real, 0.0)
 
     # air layer and substrate form multi layer
     air_layer = ba.Layer(m_air)

@@ -79,6 +79,8 @@ void FitSessionManager::removeController(SessionItem* jobItem)
         throw GUIHelpers::Error("FitActivityManager::removeFitSession() -> Error. "
                                 "Can't find fit session");
 
+    if (m_activeController==it.value())
+        m_activeController = nullptr;
     it.value()->deleteLater();
     m_item_to_controller.erase(it);
 }

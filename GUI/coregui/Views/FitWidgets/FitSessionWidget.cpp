@@ -65,12 +65,8 @@ void FitSessionWidget::setModelTuningWidget(ParameterTuningWidget* tuningWidget)
 void FitSessionWidget::setSessionController(FitSessionController* sessionController)
 {
     if (m_sessionController) {
-        disconnect(m_sessionController, &FitSessionController::fittingError,
-                   this, &FitSessionWidget::onFittingError);
-        disconnect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
-                m_sessionController, &FitSessionController::onStartFittingRequest);
-        disconnect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
-                m_sessionController, &FitSessionController::onStopFittingRequest);
+        disconnect(m_sessionController, 0, this, 0);
+        disconnect(m_controlWidget, 0, m_sessionController, 0);
     }
 
     m_sessionController = sessionController;
@@ -78,6 +74,7 @@ void FitSessionWidget::setSessionController(FitSessionController* sessionControl
     if (m_sessionController) {
         connect(m_sessionController, &FitSessionController::fittingError,
                 this, &FitSessionWidget::onFittingError);
+        connect(m_sessionController, &QObject::destroyed, [this] { m_sessionController=nullptr; });
         connect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
                 m_sessionController, &FitSessionController::onStartFittingRequest);
         connect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,

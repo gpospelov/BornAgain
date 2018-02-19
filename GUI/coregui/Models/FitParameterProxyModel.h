@@ -23,7 +23,7 @@ class SessionModel;
 class FitParameterContainerItem;
 class SessionItem;
 
-//! The FitParameterProxyModel adopt original JobModel to show items from FitParameterContainer
+//! The FitParameterProxyModel adapts the original JobModel to show items from FitParameterContainer
 //! in 5 column tree view.
 //! It is derived from QAbstractItemModel (and not from QAbstractProxyModel).
 
@@ -33,7 +33,10 @@ class BA_CORE_API_ FitParameterProxyModel : public QAbstractItemModel
 
 public:
 
-    explicit FitParameterProxyModel(FitParameterContainerItem *fitParContainer, QObject *parent = 0);
+    explicit FitParameterProxyModel(FitParameterContainerItem *fitParContainer,
+                                    QObject *parent = 0);
+
+    ~FitParameterProxyModel();
 
     enum EColumn {PAR_NAME, PAR_TYPE, PAR_VALUE, PAR_MIN, PAR_MAX, MAX_COLUMNS};
 

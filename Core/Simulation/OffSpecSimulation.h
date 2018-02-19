@@ -58,12 +58,15 @@ private:
     //! Initializes the vector of Simulation elements
     void initSimulationElementVector() override;
 
+    //! Checks the distribution validity for simulation.
+    void validateParametrization(const ParameterDistribution& par_distr) const override;
+
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
-    void transferResultsToIntensityMap() final;
+    void transferResultsToIntensityMap() override;
 
     //! Default implementation only adds the detector axes
-    void updateIntensityMap() override final;
+    void updateIntensityMap() override;
 
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = mp_alpha_i_axis->getBin(index)

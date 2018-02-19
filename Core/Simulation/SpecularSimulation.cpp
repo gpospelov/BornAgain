@@ -229,8 +229,8 @@ void SpecularSimulation::validateParametrization(const ParameterDistribution& pa
         = parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
     for (const auto par : names)
         if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
-            throw std::runtime_error("Error in SpecularSimulation: parameter distribution modifies "
-                                     "beam inclination while its mean value is not zero.");
+            throw std::runtime_error("Error in SpecularSimulation: parameter distribution of "
+                                     "beam inclination angle should have zero mean.");
 }
 
 void SpecularSimulation::initialize()

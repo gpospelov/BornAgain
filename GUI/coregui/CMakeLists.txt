@@ -68,7 +68,9 @@ set(include_widgetbox
     "Views/widgetbox/widgetbox.h"
     "Views/widgetbox/widgetbox_global.h"
 )
-add_definitions(-DQDESIGNER_UILIB_LIBRARY)
+if(WIN32)
+	add_definitions(-DQDESIGNER_UILIB_LIBRARY)
+endif()
 
 list(APPEND include_files ${include_widgetbox})
 

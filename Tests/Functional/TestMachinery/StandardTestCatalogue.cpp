@@ -380,9 +380,9 @@ StandardTestCatalogue::StandardTestCatalogue()
 
     add("HomogeneousTiNiSampleWithAbsorption",
         "Specular simulation for 10 interchanging Ti-Ni homogeneous "
-            "layers with absorptive SLD material (exaggerated absorption for Ti)",
+            "layers with absorptive SLD material",
         "BasicSpecular",
-        "MaterialBySLDBuilder",
+        "PlainMultiLayerBySLDBuilder",
         1e-10);
 
     add("RoughnessInSpecular",

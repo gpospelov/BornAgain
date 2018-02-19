@@ -68,6 +68,8 @@ set(include_widgetbox
     "Views/widgetbox/widgetbox.h"
     "Views/widgetbox/widgetbox_global.h"
 )
+add_definitions(-DQDESIGNER_UILIB_LIBRARY)
+
 list(APPEND include_files ${include_widgetbox})
 
 list(APPEND include_dirs ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox)

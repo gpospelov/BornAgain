@@ -30,9 +30,12 @@ BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, double delta,
 
 //! @ingroup materials
 
-//! Constructs a material with _name_, _refractive_index_ and _magnetization_ (in A/m). Alternatively,
-//! \f$\delta\f$ and \f$\beta\f$ for refractive index \f$n = 1 - \delta + i \beta\f$ can be passed directly.
-//! With no parameters given, constructs default (vacuum) material with \f$n = 1\f$ and zero magnetization.
+//! Constructs a material with _name_, _refractive_index_ and _magnetization_ (in A/m).
+//! Alternatively,
+//! \f$\delta\f$ and \f$\beta\f$ for refractive index \f$n = 1 - \delta + i \beta\f$ can be passed
+//! directly.
+//! With no parameters given, constructs default (vacuum) material with \f$n = 1\f$ and zero
+//! magnetization.
 BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
                                               kvector_t magnetization = kvector_t());
 
@@ -42,38 +45,32 @@ BA_CORE_API_ Material MaterialBySLD();
 
 //! @ingroup materials
 
-//! Constructs a wavelength-independent material with given sld and absorptive term
-//! Absorptive term is wavelength-independent (normalized to a wavelength)
-//! and can be considered as inverse of imaginary part of complex scattering length density:
-//! \f$ SLD = (N b_{coh}, N \sigma_{abs}(\lambda_0) / \lambda_0) \f$
-//! Here \f$ N \f$ - material number density,
-//! \f$ b_{coh} \f$ - bound coherent scattering length
-//! \f$ \sigma_{abs}(\lambda_0) \f$ - absorption cross-section at \f$ \lambda_0 \f$ wavelength.
-//! With no parameters given, constructs default (vacuum) material with zero sld and zero magnetization.
+//! Constructs a wavelength-independent material with a given complex-valued
+//! scattering lenght density (SLD).
+//! SLD values for a wide variety of materials can be found on
+//! https://sld-calculator.appspot.com/
+//! and
+//! https://www.ncnr.nist.gov/resources/activation/
+//! By convention, SLD imaginary part is treated as negative by default, which corresponds to
+//! attenuation of the signal.
+//! With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld
+//! and zero magnetization.
 //! @param name: material name
-//! @param sld: scattering length density, \f$ nm^{-2} \f$
-//! @param abs_term: wavelength-independent absorptive term, \f$ nm^{-2} \f$
+//! @param sld_real: real part of the scattering length density, inverse square angstroms
+//! @param sld_imag: imaginary part of the scattering length density, inverse square angstroms
 //! @param magnetization: magnetization (in A/m)
-BA_CORE_API_ Material MaterialBySLD(const std::string& name, double sld, double abs_term,
+BA_CORE_API_ Material MaterialBySLD(const std::string& name, double sld_real, double sld_imag,
                                     kvector_t magnetization = kvector_t());
 
-//! @ingroup materials
-
-//! Constructs a wavelength-independent material with given sld and absorptive term
-//! As opposed to MaterialBySLD, absorptive term is the product of number density and
-//! absorptive cross-section \f$ \sigma_0 \f$ at \f$ \lambda = 1.798197\f$ Angstroms.
-//! The latter corresponds to 2200 m/s neutrons.
-//! @param name: material name
-//! @param sld: scattering length density, \f$ nm^{-2} \f$
-//! @param abs_cx: absorptive term at \f$ \lambda = 1.798197\f$ Angstroms, \f$ nm^{-1} \f$
-//! @param magnetization: magnetization (in A/m)
-BA_CORE_API_ Material MaterialByAbsCX(const std::string& name, double sld, double abs_cx,
-                                      kvector_t magnetization = kvector_t());
+#ifndef SWIG
 
 //! @ingroup materials
 
 //! Creates averaged material. Square refractive index of returned material is arithmetic mean over
 //! _regions_ and _layer_mat_. Magnetization (if present) is averaged linearly.
-BA_CORE_API_ Material createAveragedMaterial(const Material& layer_mat, const std::vector<HomogeneousRegion>& regions);
+BA_CORE_API_ Material createAveragedMaterial(const Material& layer_mat,
+                                             const std::vector<HomogeneousRegion>& regions);
+
+#endif //SWIG
 
 #endif /* MATERIALFACTORYFUNCS_H_ */

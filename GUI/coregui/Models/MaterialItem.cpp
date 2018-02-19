@@ -56,11 +56,11 @@ void MaterialItem::setRefractiveData(double delta, double beta)
 
 //! Turns material into SLD based material.
 
-void MaterialItem::setSLDData(double sld, double abs_term)
+void MaterialItem::setSLDData(double sld_real, double sld_imag)
 {
     auto sldData = setGroupProperty(P_MATERIAL_DATA, Constants::MaterialSLDDataType);
-    sldData->setItemValue(MaterialSLDDataItem::P_SLD, sld);
-    sldData->setItemValue(MaterialSLDDataItem::P_ABS_TERM, abs_term);
+    sldData->setItemValue(MaterialSLDDataItem::P_SLD_REAL, sld_real);
+    sldData->setItemValue(MaterialSLDDataItem::P_SLD_IMAG, sld_imag);
 }
 
 QString MaterialItem::identifier() const { return getItemValue(P_IDENTIFIER).toString(); }
@@ -83,9 +83,9 @@ std::unique_ptr<Material> MaterialItem::createMaterial() const
         return std::make_unique<Material>(HomogeneousMaterial(name, delta, beta, magnetization));
 
     } else if (dataItem->modelType() == Constants::MaterialSLDDataType) {
-        double sld = dataItem->getItemValue(MaterialSLDDataItem::P_SLD).toDouble();
-        double abs_term = dataItem->getItemValue(MaterialSLDDataItem::P_ABS_TERM).toDouble();
-        return std::make_unique<Material>(MaterialBySLD(name, sld, abs_term, magnetization));
+        double sld_real = dataItem->getItemValue(MaterialSLDDataItem::P_SLD_REAL).toDouble();
+        double sld_imag = dataItem->getItemValue(MaterialSLDDataItem::P_SLD_IMAG).toDouble();
+        return std::make_unique<Material>(MaterialBySLD(name, sld_real, sld_imag, magnetization));
     }
 
     throw GUIHelpers::Error("MaterialItem::createMaterial() -> Error. "

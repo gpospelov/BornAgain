@@ -20,9 +20,9 @@
 
 MaterialBySLDBuilder::MaterialBySLDBuilder()
     : m_number_of_layers(10)
-    , m_si {4.1491e-6, 4.99e+1, 0.171 * Units::barn} // [nm, nm^{-3}, nm^2]
-    , m_ti {-3.438e-6, 5.67e+1, 6.09 * Units::barn * 1e+4} // [nm, nm^{-3}, nm^2]
-    , m_ni {1.03e-5, 9.15e+1, 4.49 * Units::barn}    // [nm, nm^{-3}, nm^2]
+    , m_si { 2.0704e-06, 2.3726e-11}
+    , m_ti {-1.9493e-06, 9.6013e-10}
+    , m_ni { 9.4245e-06, 1.1423e-09}
     , m_thick_ti(3.0) // nm
     , m_thick_ni(7.0) //nm
 {}
@@ -32,9 +32,9 @@ MultiLayer* MaterialBySLDBuilder::buildSample() const
     std::unique_ptr<MultiLayer> multi_layer(new MultiLayer());
 
     Material vacuum_material = MaterialBySLD();
-    Material substrate_material = MaterialByAbsCX("Si_substrate", m_si.sld(), m_si.abs_term());
-    Material ni_material = MaterialByAbsCX("Ni", m_ni.sld(), m_ni.abs_term());
-    Material ti_material = MaterialByAbsCX("Ti", m_ti.sld(), m_ti.abs_term());
+    Material substrate_material = MaterialBySLD("Si_substrate", m_si.sld_real, m_si.sld_imag);
+    Material ni_material = MaterialBySLD("Ni", m_ni.sld_real, m_ni.sld_imag);
+    Material ti_material = MaterialBySLD("Ti", m_ti.sld_real, m_ti.sld_imag);
 
     Layer vacuum_layer(vacuum_material, 0);
     Layer ni_layer(ni_material, m_thick_ni);

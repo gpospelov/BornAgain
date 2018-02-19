@@ -38,17 +38,16 @@ MaterialRefractiveDataItem::MaterialRefractiveDataItem()
 
 // ------------------------------------------------------------------------------------------------
 
-const QString MaterialSLDDataItem::P_SLD = "SLD";
-const QString MaterialSLDDataItem::P_ABS_TERM = "Absorption";
+const QString MaterialSLDDataItem::P_SLD_REAL = "SLD, real";
+const QString MaterialSLDDataItem::P_SLD_IMAG = "SLD, imaginary";
 
 MaterialSLDDataItem::MaterialSLDDataItem()
     : MaterialDataItem(Constants::MaterialSLDDataType)
 {
-    addProperty(P_SLD, 0.0)->setEditorType(Constants::ScientificEditorType)
+    addProperty(P_SLD_REAL, 0.0)->setEditorType(Constants::ScientificEditorType)
         .setLimits(RealLimits::limitless())
-        .setToolTip("Scattering length density");
-    addProperty(P_ABS_TERM, 0.0)->setEditorType(Constants::ScientificEditorType)
+        .setToolTip("Real part of SLD (SLD = real - i*imag), AA^{-2}");
+    addProperty(P_SLD_IMAG, 0.0)->setEditorType(Constants::ScientificEditorType)
         .setLimits(RealLimits::limitless())
-        .setToolTip("Absorption cross-section")
-        .setDisplayName("Absorption term");
+        .setToolTip("Imaginary part of SLD (SLD = real - i*imag), AA^{-2}");
 }

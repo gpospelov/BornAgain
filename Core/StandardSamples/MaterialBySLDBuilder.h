@@ -30,20 +30,8 @@ public:
 
 protected:
     struct MaterialData {
-        double sld() const
-        {
-            return density * scat_length;
-        }
-
-        //! Returns macroscopic cross-section for 2200 m/s neutrons
-        double abs_term() const
-        {
-            return density * abs_cx;
-        }
-
-        double scat_length; //!< bound coherent scattering length
-        double density;     //!< number density
-        double abs_cx;      //!< absorption cross-section for 2200 m/s neutrons
+        double sld_real; //!< real part of sld in AA^{-2}
+        double sld_imag; //!< imaginary part of sld in AA^{-2}
     };
     size_t m_number_of_layers;
     MaterialData m_si;

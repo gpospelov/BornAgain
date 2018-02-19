@@ -35,8 +35,8 @@ public:
 class BA_CORE_API_ MaterialSLDDataItem : public MaterialDataItem
 {
 public:
-    static const QString P_SLD;
-    static const QString P_ABS_TERM;
+    static const QString P_SLD_REAL;
+    static const QString P_SLD_IMAG;
 
     MaterialSLDDataItem();
 };

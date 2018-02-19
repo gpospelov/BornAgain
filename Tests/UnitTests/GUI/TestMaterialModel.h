@@ -39,9 +39,9 @@ TEST_F(TestMaterialModel, addSLDMaterial)
 
     EXPECT_EQ(model->rowCount(QModelIndex()), 0);
 
-    const double sld(0.2), abs_term(0.1);
+    const double sld_real(0.2), sld_imag(0.1);
     const QString name("MaterialName");
-    auto material = model->addSLDMaterial(name, sld, abs_term);
+    auto material = model->addSLDMaterial(name, sld_real, sld_imag);
 
     EXPECT_EQ(model->rowCount(QModelIndex()), 1);
     EXPECT_EQ(model->itemForIndex(material->index()), material);
@@ -49,8 +49,8 @@ TEST_F(TestMaterialModel, addSLDMaterial)
 
     EXPECT_EQ(material->itemName(), name);
     auto materialData = material->getGroupItem(MaterialItem::P_MATERIAL_DATA);
-    EXPECT_EQ(materialData->getItemValue(MaterialSLDDataItem::P_SLD), sld);
-    EXPECT_EQ(materialData->getItemValue(MaterialSLDDataItem::P_ABS_TERM), abs_term);
+    EXPECT_EQ(materialData->getItemValue(MaterialSLDDataItem::P_SLD_REAL), sld_real);
+    EXPECT_EQ(materialData->getItemValue(MaterialSLDDataItem::P_SLD_IMAG), sld_imag);
 }
 
 TEST_F(TestMaterialModel, cloneMaterial)

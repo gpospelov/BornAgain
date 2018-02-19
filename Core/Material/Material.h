@@ -74,7 +74,8 @@ public:
     //! Get the magnetization (in A/m)
     kvector_t magnetization() const;
 
-    //! Returns underlying material data
+    //! Returns underlying material data. The units of returned values
+    //! are the same as the ones passed to material factory functions
     complex_t materialData() const;
 
     //! Returns true if material underlying data is nullptr

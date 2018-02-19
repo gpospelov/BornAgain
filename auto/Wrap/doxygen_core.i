@@ -10363,7 +10363,7 @@ Get the magnetization (in A/m)
 
 %feature("docstring")  Material::materialData "complex_t Material::materialData() const
 
-Returns underlying material data. 
+Returns underlying material data. The units of returned values are the same as the ones passed to material factory functions 
 ";
 
 %feature("docstring")  Material::isEmpty "bool Material::isEmpty() const
@@ -17034,11 +17034,6 @@ magnetization:
 magnetization (in A/m) 
 ";
 
-%feature("docstring")  createMaterialBySLDInNativeUnits "Material createMaterialBySLDInNativeUnits(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization)
-
-Constructs a wavelength-independent material with a given complex-valued scattering lenght density (SLD). SLD units are  $ nm^{-2} $. 
-";
-
 %feature("docstring")  createAveragedMaterial "Material createAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
 
 Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
@@ -17078,11 +17073,6 @@ imaginary part of the scattering length density, inverse square angstroms
 
 magnetization: 
 magnetization (in A/m) 
-";
-
-%feature("docstring")  createMaterialBySLDInNativeUnits "BA_CORE_API_ Material createMaterialBySLDInNativeUnits(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization)
-
-Constructs a wavelength-independent material with a given complex-valued scattering lenght density (SLD). SLD units are  $ nm^{-2} $. 
 ";
 
 %feature("docstring")  createAveragedMaterial "BA_CORE_API_ Material createAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)

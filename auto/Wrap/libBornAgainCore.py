@@ -23499,7 +23499,7 @@ class Material(_object):
 
         complex_t Material::materialData() const
 
-        Returns underlying material data. 
+        Returns underlying material data. The units of returned values are the same as the ones passed to material factory functions 
 
         """
         return _libBornAgainCore.Material_materialData(self)

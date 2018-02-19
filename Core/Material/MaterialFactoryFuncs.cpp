@@ -17,10 +17,12 @@
 #include "RefractiveMaterialImpl.h"
 #include "SlicedParticle.h"
 #include "MaterialUtils.h"
+#include "Units.h"
 #include <functional>
 
 namespace
 {
+const double inv_sq_angstroms = 1.0 / (Units::angstrom * Units::angstrom);
 template <class T>
 T averageData(const Material& layer_mat, const std::vector<HomogeneousRegion>& regions,
               std::function<T(const Material&)> average);
@@ -47,24 +49,17 @@ Material HomogeneousMaterial()
     return HomogeneousMaterial("vacuum", 0.0, 0.0, kvector_t{});
 }
 
-Material MaterialBySLD(const std::string& name, double sld, double abs_term,
-                       kvector_t magnetization)
-{
-    std::unique_ptr<MaterialBySLDImpl> mat_impl(
-        new MaterialBySLDImpl(name, sld, abs_term, magnetization));
-    return Material(std::move(mat_impl));
-}
-
-constexpr double basic_wavelength = 0.1798197; // nm, wavelength of 2200 m/s neutrons
-Material MaterialByAbsCX(const std::string& name, double sld, double abs_cx,
-                         kvector_t magnetization)
-{
-    return MaterialBySLD(name, sld, abs_cx / basic_wavelength, magnetization);
-}
-
 Material MaterialBySLD()
 {
     return MaterialBySLD("vacuum", 0.0, 0.0, kvector_t{});
+}
+
+Material MaterialBySLD(const std::string& name, double sld_real, double sld_imag,
+                       kvector_t magnetization)
+{
+    std::unique_ptr<MaterialBySLDImpl> mat_impl(new MaterialBySLDImpl(
+        name, sld_real * inv_sq_angstroms, sld_imag * inv_sq_angstroms, magnetization));
+    return Material(std::move(mat_impl));
 }
 
 Material createAveragedMaterial(const Material& layer_mat,
@@ -101,7 +96,8 @@ Material createAveragedMaterial(const Material& layer_mat,
         complex_t (*avrData)(const Material&)
             = [](const Material& mat) { return mat.materialData(); };
         const complex_t avr_mat_data = averageData<complex_t>(layer_mat, regions, avrData);
-        return MaterialBySLD(avr_mat_name, avr_mat_data.real(), avr_mat_data.imag(), mag_avr);
+        return MaterialBySLD(avr_mat_name, avr_mat_data.real(), avr_mat_data.imag(),
+                                          mag_avr);
     } else
         throw std::runtime_error("Error in CalculateAverageMaterial: unknown material type.");
 }

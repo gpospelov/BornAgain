@@ -18,19 +18,15 @@ n_sig = 3  # number of sigmas to convolve over
 n_points = 25  # number of points to convolve over
 
 # substrate (Si)
-# bound coherent scattering length for Si (nat. ab.)
-bc_si = 4.1491 * ba.angstrom * 1e-5
-density_si = 0.0499 / ba.angstrom ** 3  # Si atomic number density
+si_sld_real = 2.0704e-06  # \AA^{-2}
 # layer parameters
 n_repetitions = 10
 # Ni
-bc_ni = 10.3 * ba.angstrom * 1e-5
-density_ni = 0.0915 / ba.angstrom ** 3
-d_ni = 70 * ba.angstrom
+ni_sld_real = 9.4245e-06  # \AA^{-2}
+d_ni = 70 * ba.angstrom  # ni layer thickness (nm)
 # Ti
-bc_ti = -3.438 * ba.angstrom * 1e-5
-density_ti = 0.0567 / ba.angstrom ** 3
-d_ti = 30 * ba.angstrom
+ti_sld_real = -1.9493e-06  # \AA^{-2}
+d_ti = 30 * ba.angstrom  # ti layer thickness (nm)
 
 
 def get_sample():
@@ -38,9 +34,9 @@ def get_sample():
     # this example implies beam divergence in the wavelength,
     # thus MaterialBySLD must be used to provide correct result
     m_air = ba.MaterialBySLD("Air", 0.0, 0.0)
-    m_ni = ba.MaterialBySLD("Ni", density_ni * bc_ni, 0.0)
-    m_ti = ba.MaterialBySLD("Ti", density_ti * bc_ti, 0.0)
-    m_substrate = ba.MaterialBySLD("SiSubstrate", density_si * bc_si, 0.0)
+    m_ni = ba.MaterialBySLD("Ni", ni_sld_real, 0.0)
+    m_ti = ba.MaterialBySLD("Ti", ti_sld_real, 0.0)
+    m_substrate = ba.MaterialBySLD("SiSubstrate", si_sld_real, 0.0)
 
     air_layer = ba.Layer(m_air)
     ni_layer = ba.Layer(m_ni, d_ni)

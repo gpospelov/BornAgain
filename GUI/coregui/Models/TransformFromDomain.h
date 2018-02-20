@@ -20,7 +20,6 @@
 
 class BeamDistributionItem;
 class BeamItem;
-class FormFactorAnisoPyramid;
 class Simulation;
 class GISASSimulation;
 class InterferenceFunction1DLattice;
@@ -47,60 +46,50 @@ class Simulation2D;
 namespace TransformFromDomain
 {
 BA_CORE_API_ void setRadialParaCrystalItem(SessionItem* item,
-                                    const InterferenceFunctionRadialParaCrystal& sample);
+                                           const InterferenceFunctionRadialParaCrystal& sample);
 
 BA_CORE_API_ void set2DParaCrystalItem(SessionItem* item,
-                                    const InterferenceFunction2DParaCrystal& sample);
+                                       const InterferenceFunction2DParaCrystal& sample);
 
-BA_CORE_API_ void set1DLatticeItem(SessionItem* item,
-                                    const InterferenceFunction1DLattice& sample);
+BA_CORE_API_ void set1DLatticeItem(SessionItem* item, const InterferenceFunction1DLattice& sample);
 
-BA_CORE_API_ void set2DLatticeItem(SessionItem* item,
-                                    const InterferenceFunction2DLattice& sample);
+BA_CORE_API_ void set2DLatticeItem(SessionItem* item, const InterferenceFunction2DLattice& sample);
 
 BA_CORE_API_ void setLayerItem(SessionItem* layer_item, const Layer* layer,
-                                    const LayerInterface* top_interface);
+                               const LayerInterface* top_interface);
 
-BA_CORE_API_ void setRoughnessItem(SessionItem* item,
-                                    const LayerRoughness& sample);
+BA_CORE_API_ void setRoughnessItem(SessionItem* item, const LayerRoughness& sample);
 
 BA_CORE_API_ void setParticleDistributionItem(SessionItem* item,
-                                    const ParticleDistribution& sample);
+                                              const ParticleDistribution& sample);
 
 BA_CORE_API_ bool isValidRoughness(const LayerRoughness* roughness);
 
-BA_CORE_API_ void setGISASBeamItem(BeamItem* beam_item,
-                                    const GISASSimulation& simulation);
+BA_CORE_API_ void setGISASBeamItem(BeamItem* beam_item, const GISASSimulation& simulation);
 
 BA_CORE_API_ void setDetector(Instrument2DItem* instrument_item, const Simulation2D& simulation);
 
-BA_CORE_API_ void setDetectorGeometry(Instrument2DItem* instrument_item,
-                                      const IDetector& detector);
+BA_CORE_API_ void setDetectorGeometry(Instrument2DItem* instrument_item, const IDetector& detector);
 
-BA_CORE_API_ void setDetectorResolution(DetectorItem* detector_item,
-                                                  const IDetector& detector);
+BA_CORE_API_ void setDetectorResolution(DetectorItem* detector_item, const IDetector& detector);
 
-BA_CORE_API_ void setDetectorProperties(DetectorItem* detector_item,
-                                                  const IDetector& detector);
-
+BA_CORE_API_ void setDetectorProperties(DetectorItem* detector_item, const IDetector& detector);
 
 BA_CORE_API_ void setSphericalDetector(SphericalDetectorItem* detector_item,
-                                    const SphericalDetector &detector);
+                                       const SphericalDetector& detector);
 
 BA_CORE_API_ void setRectangularDetector(RectangularDetectorItem* detector_item,
-                                    const RectangularDetector &detector);
+                                         const RectangularDetector& detector);
 
-BA_CORE_API_ void setDetectorMasks(DetectorItem* detector_item,
-                                   const Simulation& simulation);
+BA_CORE_API_ void setDetectorMasks(DetectorItem* detector_item, const Simulation& simulation);
 
-BA_CORE_API_ void setMaskContainer(MaskContainerItem* container_item,
-                                   const IDetector& detector, double scale);
+BA_CORE_API_ void setMaskContainer(MaskContainerItem* container_item, const IDetector& detector,
+                                   double scale);
 
 BA_CORE_API_ void setItemFromSample(BeamDistributionItem* beam_distribution_item,
                                     const ParameterDistribution& parameter_distribution);
 
-BA_CORE_API_ void setBackground(GISASInstrumentItem* instrument_item,
-                                const Simulation& simulation);
+BA_CORE_API_ void setBackground(GISASInstrumentItem* instrument_item, const Simulation& simulation);
 }
 
 #endif // TRANSFORMFROMDOMAIN_H

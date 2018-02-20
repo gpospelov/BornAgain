@@ -38,6 +38,33 @@ def get_axes_limits(result, units):
     return flat_limits
 
 
+def translate_axis_label(label):
+    """
+    Formats an axis label into a LaTeX representation
+    :param label: text representation of the axis label
+    :return: LaTeX representation
+    """
+    label_dict = {
+                 'X [nbins]'     : r'$X$',
+                 'phi_f [rad]'   : r'$\phi_f (rad)$',
+                 'phi_f [deg]'   : r'$\phi_f ( ^{\circ})$',
+                 'alpha_i [rad]' : r'$\alpha_i (rad)$',
+                 'alpha_i [deg]' : r'$\alpha_i ( ^{\circ})$',
+                 'X [mm]'        : r'$X (mm)$',
+                 'Qy [1/nm]'     : r'$Q_y (nm^{-1})$',
+
+                 'Y [nbins]'     : r'$Y$',
+                 'alpha_f [rad]' : r'$\alpha_f (rad)$',
+                 'alpha_f [deg]' : r'$\alpha_f ( ^{\circ})$',
+                 'Y [mm]'        : r'$Y (mm)$',
+                 'Qz [1/nm]'     : r'$Q_z (nm^{-1})$'
+                 }
+    if label in label_dict.keys():
+        return label_dict[label]
+    else:
+        return label
+
+
 def get_axes_labels(result, units):
     """
     Returns axes range as expected by pyplot.imshow.
@@ -46,7 +73,7 @@ def get_axes_labels(result, units):
     :return: axes ranges as a flat list
     """
     axis_infos = result.axisInfo(units)
-    labels = [ axis_infos[i].m_name for i in range(len(axis_infos)) ]
+    labels = [ translate_axis_label(axis_infos[i].m_name) for i in range(len(axis_infos)) ]
 
     return labels
 

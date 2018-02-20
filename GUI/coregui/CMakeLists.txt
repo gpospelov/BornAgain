@@ -68,6 +68,10 @@ set(include_widgetbox
     "Views/widgetbox/widgetbox.h"
     "Views/widgetbox/widgetbox_global.h"
 )
+if(WIN32)
+	add_definitions(-DQDESIGNER_UILIB_LIBRARY)
+endif()
+
 list(APPEND include_files ${include_widgetbox})
 
 list(APPEND include_dirs ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox)
@@ -172,6 +176,7 @@ if(WIN32)
 
     install(FILES
     ${QTDIR}/plugins/imageformats/qjpeg.dll
+    ${QTDIR}/plugins/imageformats/qsvg.dll
     DESTINATION bin/imageformats COMPONENT Libraries)
 
 endif()

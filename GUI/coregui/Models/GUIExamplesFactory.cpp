@@ -66,7 +66,7 @@ SessionItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleMo
     QString exampleName = m_name_to_registry[name];
 
     SampleBuilderFactory factory;
-    const std::unique_ptr<ISample> sample(factory.createSample(exampleName.toStdString()));
+    const std::unique_ptr<MultiLayer> sample(factory.createSample(exampleName.toStdString()));
 
     GUIObjectBuilder guiBuilder;
     return guiBuilder.populateSampleModel(sampleModel, materialModel, *sample.get(), name);

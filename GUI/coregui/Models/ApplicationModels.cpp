@@ -163,7 +163,7 @@ void ApplicationModels::createJobModel()
 void ApplicationModels::createTestSample()
 {
     SampleBuilderFactory factory;
-    const std::unique_ptr<ISample> P_sample(factory.createSample("CylindersAndPrismsBuilder"));
+    const std::unique_ptr<MultiLayer> P_sample(factory.createSample("CylindersAndPrismsBuilder"));
 
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, m_materialModel, *P_sample);

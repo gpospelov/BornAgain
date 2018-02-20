@@ -123,7 +123,7 @@ void TestComponentView::onExpandRequest()
 void TestComponentView::init_source()
 {
     SampleBuilderFactory factory;
-    const std::unique_ptr<ISample> sample(factory.createSample("CylindersAndPrismsBuilder"));
+    const std::unique_ptr<MultiLayer> sample(factory.createSample("CylindersAndPrismsBuilder"));
     GUIObjectBuilder guiBuilder;
     guiBuilder.populateSampleModel(m_sampleModel, m_materialModel, *sample);
     m_sampleModel->insertNewItem(Constants::VectorType);

@@ -40,7 +40,7 @@ SessionItem* GUIObjectBuilder::populateSampleModel(SampleModel* sampleModel,
 
 SessionItem* GUIObjectBuilder::populateSampleModel(SampleModel* sampleModel,
                                                    MaterialModel* materialModel,
-                                                   const ISample& sample,
+                                                   const MultiLayer& sample,
                                                    const QString& sample_name)
 {
     GUIDomainSampleVisitor visitor;

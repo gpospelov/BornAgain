@@ -78,7 +78,7 @@ bool GUIPerformanceTest::runTest()
 
 void GUIPerformanceTest::test_domain_to_gui()
 {
-    static std::unique_ptr<ISample> sample;
+    static std::unique_ptr<MultiLayer> sample;
 
     if(!sample) {
         m_models->resetModels();
@@ -103,7 +103,7 @@ void GUIPerformanceTest::test_gui_to_domain()
         m_models->resetModels();
 
         SampleBuilderFactory factory;
-        const std::unique_ptr<ISample> sample(factory.createSample(m_sample_name.toStdString()));
+        const std::unique_ptr<MultiLayer> sample(factory.createSample(m_sample_name.toStdString()));
 
         GUIObjectBuilder guiBuilder;
         guiBuilder.populateSampleModel(m_models->sampleModel(), m_models->materialModel(), *sample);
@@ -124,7 +124,7 @@ void GUIPerformanceTest::test_real_time()
         SimulationOptionsItem *optionsItem = m_models->documentModel()->simulationOptionsItem();
 
         SampleBuilderFactory factory;
-        const std::unique_ptr<ISample> sample(factory.createSample(m_sample_name.toStdString()));
+        const std::unique_ptr<MultiLayer> sample(factory.createSample(m_sample_name.toStdString()));
 
         GUIObjectBuilder guiBuilder;
         guiBuilder.populateSampleModel(m_models->sampleModel(), m_models->materialModel(), *sample);

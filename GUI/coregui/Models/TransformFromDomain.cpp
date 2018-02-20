@@ -205,7 +205,7 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness* roughness)
     return true;
 }
 
-void TransformFromDomain::setItemFromSample(BeamItem* beam_item, const Simulation& simulation)
+void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimulation& simulation)
 {
     Q_ASSERT(beam_item);
     Beam beam = simulation.getInstrument().getBeam();
@@ -245,7 +245,7 @@ void TransformFromDomain::setItemFromSample(BeamItem* beam_item, const Simulatio
     SetVectorItem(*beam_item, BeamItem::P_POLARIZATION, beam.getBlochVector());
 }
 
-void TransformFromDomain::setInstrumentDetectorFromSample(GISASInstrumentItem* instrument_item,
+void TransformFromDomain::setDetectorGeometry(GISASInstrumentItem* instrument_item,
                                                           const Simulation& simulation)
 {
     const IDetector* p_detector = simulation.getInstrument().getDetector();

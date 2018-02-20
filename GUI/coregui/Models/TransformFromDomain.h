@@ -70,10 +70,10 @@ BA_CORE_API_ void setItemFromSample(SessionItem* item,
 
 BA_CORE_API_ bool isValidRoughness(const LayerRoughness* roughness);
 
-BA_CORE_API_ void setItemFromSample(BeamItem* beam_item,
-                                    const Simulation& simulation);
+BA_CORE_API_ void setGISASBeamItem(BeamItem* beam_item,
+                                    const GISASSimulation& simulation);
 
-BA_CORE_API_ void setInstrumentDetectorFromSample(GISASInstrumentItem* detector_item,
+BA_CORE_API_ void setDetectorGeometry(GISASInstrumentItem* detector_item,
                                                   const Simulation& simulation);
 
 BA_CORE_API_ void setItemFromSample(SphericalDetectorItem* detector_item,

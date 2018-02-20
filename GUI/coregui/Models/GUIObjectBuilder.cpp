@@ -27,13 +27,12 @@
 #include "TransformFromDomain.h"
 
 SessionItem* GUIObjectBuilder::populateSampleModelFromSim(SampleModel* sampleModel,
-                                                   MaterialModel* materialModel,
-                                                   const Simulation& simulation)
+                                                          MaterialModel* materialModel,
+                                                          const Simulation& simulation)
 {
     std::unique_ptr<Simulation> sim(simulation.clone());
     sim->prepareSimulation();
-    SessionItem* item
-        = populateSampleModel(sampleModel, materialModel, *sim->sample());
+    SessionItem* item = populateSampleModel(sampleModel, materialModel, *sim->sample());
     return item;
 }
 
@@ -66,10 +65,10 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instru
 
         // beam
         auto& beam_item = p_instrument_item->item<BeamItem>(Instrument2DItem::P_BEAM);
-        TransformFromDomain::setItemFromSample(&beam_item, *gisasSimulation);
+        TransformFromDomain::setGISASBeamItem(&beam_item, *gisasSimulation);
 
         // detector
-        TransformFromDomain::setInstrumentDetectorFromSample(p_instrument_item, *gisasSimulation);
+        TransformFromDomain::setDetectorGeometry(p_instrument_item, *gisasSimulation);
 
         // detector masks
         TransformFromDomain::setDetectorMasks(p_instrument_item->detectorItem(), *gisasSimulation);

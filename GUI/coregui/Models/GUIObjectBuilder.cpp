@@ -68,10 +68,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instru
         TransformFromDomain::setGISASBeamItem(&beam_item, *gisasSimulation);
 
         // detector
-        TransformFromDomain::setDetectorGeometry(p_instrument_item, *gisasSimulation);
-
-        // detector masks
-        TransformFromDomain::setDetectorMasks(p_instrument_item->detectorItem(), *gisasSimulation);
+        TransformFromDomain::setDetector(p_instrument_item, *gisasSimulation);
 
         // background
         TransformFromDomain::setBackground(p_instrument_item, *gisasSimulation);

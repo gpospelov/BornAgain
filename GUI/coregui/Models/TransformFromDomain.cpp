@@ -245,32 +245,36 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
     SetVectorItem(*beam_item, BeamItem::P_POLARIZATION, beam.getBlochVector());
 }
 
-void TransformFromDomain::setDetectorGeometry(GISASInstrumentItem* instrument_item,
-                                                          const Simulation& simulation)
+void TransformFromDomain::setDetector(Instrument2DItem* instrument_item, const Simulation2D& simulation)
 {
     const IDetector* p_detector = simulation.getInstrument().getDetector();
-    DetectorItem* detector_item;
+    setDetectorGeometry(instrument_item, *p_detector);
 
-    if(auto detector = dynamic_cast<const SphericalDetector*>(p_detector)) {
+    auto detector_item = instrument_item->detectorItem();
+
+    setDetectorResolution(detector_item, *p_detector);
+    setDetectorProperties(detector_item, *p_detector);
+    setDetectorMasks(detector_item, simulation);
+}
+
+void TransformFromDomain::setDetectorGeometry(Instrument2DItem* instrument_item,
+                                                          const IDetector& detector)
+{
+    if(auto det = dynamic_cast<const SphericalDetector*>(&detector)) {
         instrument_item->setDetectorGroup(Constants::SphericalDetectorType);
-        detector_item = instrument_item->detectorItem();
-        auto item = dynamic_cast<SphericalDetectorItem*>(detector_item);
-        setSphericalDetector(item, *detector);
+        auto item = dynamic_cast<SphericalDetectorItem*>(instrument_item->detectorItem());
+        setSphericalDetector(item, *det);
     }
-    else if(auto detector = dynamic_cast<const RectangularDetector*>(p_detector)) {
+    else if(auto det = dynamic_cast<const RectangularDetector*>(&detector)) {
         instrument_item->setDetectorGroup(Constants::RectangularDetectorType);
-        detector_item = instrument_item->detectorItem();
-        auto item = dynamic_cast<RectangularDetectorItem*>(detector_item);
-        setRectangularDetector(item, *detector);
+        auto item = dynamic_cast<RectangularDetectorItem*>(instrument_item->detectorItem());
+        setRectangularDetector(item, *det);
     }
     else {
         throw GUIHelpers::Error(
             "TransformFromDomain::setDetectorGeometry() -> Unknown detector type.");
     }
 
-    setDetectorResolution(detector_item, *p_detector);
-
-    setDetectorProperties(detector_item, *p_detector);
 }
 
 void TransformFromDomain::setDetectorResolution(DetectorItem* detector_item,
@@ -281,7 +285,6 @@ void TransformFromDomain::setDetectorResolution(DetectorItem* detector_item,
     if(!p_resfunc)
         return;
 
-    // detector resolution
     if (auto p_convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
         if (auto resfunc = dynamic_cast<const ResolutionFunction2DGaussian*>(
                 p_convfunc->getResolutionFunction2D())) {
@@ -296,16 +299,12 @@ void TransformFromDomain::setDetectorResolution(DetectorItem* detector_item,
             item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
                                scale*resfunc->getSigmaY());
         } else {
-            throw GUIHelpers::Error("TransformFromDomain::setInstrumentDetectorFromSample("
-                                    "InstrumentItem* instrumentItem, const GISASSimulation& "
-                                    "simulation) -> Error, unknown detector resolution "
-                                    "function");
+            throw GUIHelpers::Error("TransformFromDomain::setDetectorResolution() -> Error. "
+                                    "Unknown detector resolution function");
         }
     } else {
-        throw GUIHelpers::Error(
-            "TransformFromDomain::setInstrumentDetectorFromSample(InstrumentItem* "
-            "instrumentItem, const GISASSimulation& simulation) -> Error, not a "
-            "ConvolutionDetectorResolution function");
+        throw GUIHelpers::Error("TransformFromDomain::setDetectorResolution() -> Error. "
+            "Not a ConvolutionDetectorResolution function");
     }
 }
 

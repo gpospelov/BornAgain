@@ -84,11 +84,10 @@ void GUITranslationTest::processParameterTree()
 {
     m_models->instrumentModel()->clear();
     // populating GUI models from domain
-    GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModelFromSim(m_models->sampleModel(), m_models->materialModel(),
+    GUIObjectBuilder::populateSampleModelFromSim(m_models->sampleModel(), m_models->materialModel(),
                                           *m_simulation);
-    guiBuilder.populateInstrumentModel(m_models->instrumentModel(), *m_simulation);
-    guiBuilder.populateDocumentModel(m_models->documentModel(), *m_simulation);
+    GUIObjectBuilder::populateInstrumentModel(m_models->instrumentModel(), *m_simulation);
+    GUIObjectBuilder::populateDocumentModel(m_models->documentModel(), *m_simulation);
 
     JobItem *jobItem = m_models->jobModel()->addJob(
                 m_models->sampleModel()->multiLayerItem(),

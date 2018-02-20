@@ -165,8 +165,7 @@ void ApplicationModels::createTestSample()
     SampleBuilderFactory factory;
     const std::unique_ptr<MultiLayer> P_sample(factory.createSample("CylindersAndPrismsBuilder"));
 
-    GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_sampleModel, m_materialModel, *P_sample);
+    GUIObjectBuilder::populateSampleModel(m_sampleModel, m_materialModel, *P_sample);
 
     // to populate InstrumentView with predefined instrument
     //    const std::unique_ptr<GISASSimulation> simulation(StandardSimulations::GISASWithMasks());

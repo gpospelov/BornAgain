@@ -68,8 +68,7 @@ SessionItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleMo
     SampleBuilderFactory factory;
     const std::unique_ptr<MultiLayer> sample(factory.createSample(exampleName.toStdString()));
 
-    GUIObjectBuilder guiBuilder;
-    return guiBuilder.populateSampleModel(sampleModel, materialModel, *sample.get(), name);
+    return GUIObjectBuilder::populateSampleModel(sampleModel, materialModel, *sample.get(), name);
 }
 
 //SessionItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)

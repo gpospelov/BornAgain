@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Models/GUIObjectBuilder.h
-//! @brief     Defines class GUIObjectBuilder
+//! @brief     Defines GUIObjectBuilder namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -28,24 +28,25 @@ class DocumentModel;
 class Simulation;
 class ExternalProperty;
 
-//! Class to build SampleModel and InstrumentModel from domain's ISample
-class BA_CORE_API_ GUIObjectBuilder
+//! Contains set of methods to populate GUI models with content from domain.
+
+namespace GUIObjectBuilder
 {
-public:
-    GUIObjectBuilder() {}
+BA_CORE_API_ SessionItem* populateSampleModelFromSim(SampleModel* sampleModel,
+                                                     MaterialModel* materialModel,
+                                                     const Simulation& simulation);
 
-    SessionItem* populateSampleModelFromSim(SampleModel* sampleModel, MaterialModel* materialModel,
-                                     const Simulation& simulation);
+BA_CORE_API_ SessionItem* populateSampleModel(SampleModel* sampleModel,
+                                              MaterialModel* materialModel,
+                                              const MultiLayer& sample,
+                                              const QString& sample_name = QString());
 
-    SessionItem* populateSampleModel(SampleModel* sampleModel, MaterialModel* materialModel,
-                                     const MultiLayer& sample, const QString& sample_name = QString());
+BA_CORE_API_ SessionItem* populateInstrumentModel(InstrumentModel* p_instrument_model,
+                                                  const Simulation& simulation,
+                                                  const QString& instrument_name = QString());
 
-    SessionItem* populateInstrumentModel(InstrumentModel* p_instrument_model,
-                                         const Simulation& simulation,
-                                         const QString& instrument_name = QString());
-
-    SessionItem* populateDocumentModel(DocumentModel* p_documentModel,
-                                       const Simulation& simulation);
+BA_CORE_API_ SessionItem* populateDocumentModel(DocumentModel* p_documentModel,
+                                                const Simulation& simulation);
 };
 
 #endif // GUIOBJECTBUILDER_H

@@ -76,10 +76,17 @@ BA_CORE_API_ void setGISASBeamItem(BeamItem* beam_item,
 BA_CORE_API_ void setDetectorGeometry(GISASInstrumentItem* detector_item,
                                                   const Simulation& simulation);
 
-BA_CORE_API_ void setItemFromSample(SphericalDetectorItem* detector_item,
+BA_CORE_API_ void setDetectorResolution(DetectorItem* detector_item,
+                                                  const IDetector& detector);
+
+BA_CORE_API_ void setDetectorProperties(DetectorItem* detector_item,
+                                                  const IDetector& detector);
+
+
+BA_CORE_API_ void setSphericalDetector(SphericalDetectorItem* detector_item,
                                     const SphericalDetector &detector);
 
-BA_CORE_API_ void setItemFromSample(RectangularDetectorItem* detector_item,
+BA_CORE_API_ void setRectangularDetector(RectangularDetectorItem* detector_item,
                                     const RectangularDetector &detector);
 
 BA_CORE_API_ void setDetectorMasks(DetectorItem* detector_item,

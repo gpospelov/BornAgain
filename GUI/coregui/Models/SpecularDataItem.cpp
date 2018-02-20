@@ -227,6 +227,7 @@ QPair<double, double> SpecularDataItem::dataRange() const
     // uniform and expected behaviour both in the case of zoomed plot and in the case of
     // default plot layout
     min /= 2.0;
+    min = std::max(std::numeric_limits<double>::epsilon(), min);
     max *= 2.0;
 
     return QPair<double, double>(min, max);

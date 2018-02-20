@@ -35,7 +35,7 @@ TEST_F(TestParaCrystalItems, test_Para2D_fromToDomain)
 
     // from domain
     InterferenceFunction2DParaCrystalItem item;
-    TransformFromDomain::setItemFromSample(&item, &orig);
+    TransformFromDomain::set2DParaCrystalItem(&item, orig);
 
     EXPECT_EQ(item.getItemValue(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH).toDouble(),
               orig.dampingLength());

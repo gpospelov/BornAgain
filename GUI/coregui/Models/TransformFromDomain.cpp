@@ -81,38 +81,38 @@ void setDistribution(SessionItem* item, ParameterDistribution par_distr,
                      QString group_name, double factor = 1.0);
 }
 
-void TransformFromDomain::setItemFromSample(SessionItem* item,
-                                            const InterferenceFunctionRadialParaCrystal* sample)
+void TransformFromDomain::setRadialParaCrystalItem(SessionItem* item,
+                                            const InterferenceFunctionRadialParaCrystal& sample)
 {
     item->setItemValue(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE,
-                                sample->peakDistance());
+                                sample.peakDistance());
     item->setItemValue(InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH,
-                                sample->dampingLength());
+                                sample.dampingLength());
     item->setItemValue(InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE,
-                                sample->domainSize());
+                                sample.domainSize());
     item->setItemValue(InterferenceFunctionRadialParaCrystalItem::P_KAPPA,
-                                sample->kappa());
+                                sample.kappa());
 
-    auto ipdf = OnlyChildOfType<IFTDistribution1D>(*sample);
+    auto ipdf = OnlyChildOfType<IFTDistribution1D>(sample);
     QString group_name = InterferenceFunctionRadialParaCrystalItem::P_PDF;
     SetPDF1D(item, ipdf, group_name);
 }
 
-void TransformFromDomain::setItemFromSample(SessionItem* item,
-                                            const InterferenceFunction2DParaCrystal* sample)
+void TransformFromDomain::set2DParaCrystalItem(SessionItem* item,
+                                            const InterferenceFunction2DParaCrystal& sample)
 {
-    set2DLatticeParameters(item, sample->lattice());
+    set2DLatticeParameters(item, sample.lattice());
 
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH,
-                                sample->dampingLength());
+                                sample.dampingLength());
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1,
-                                sample->domainSizes()[0]);
+                                sample.domainSizes()[0]);
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2,
-                                sample->domainSizes()[1]);
+                                sample.domainSizes()[1]);
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION,
-                                sample->integrationOverXi());
+                                sample.integrationOverXi());
 
-    auto pdfs = ChildNodesOfType<IFTDistribution2D>(*sample);
+    auto pdfs = ChildNodesOfType<IFTDistribution2D>(sample);
     QStringList group_names;
     group_names << InterferenceFunction2DParaCrystalItem::P_PDF1
                 << InterferenceFunction2DParaCrystalItem::P_PDF2;
@@ -120,34 +120,34 @@ void TransformFromDomain::setItemFromSample(SessionItem* item,
         setPDF2D(item, pdfs[i], group_names[i]);
 }
 
-void TransformFromDomain::setItemFromSample(SessionItem* item,
-                                            const InterferenceFunction1DLattice* sample)
+void TransformFromDomain::set1DLatticeItem(SessionItem* item,
+                                            const InterferenceFunction1DLattice& sample)
 {
-    Lattice1DParameters lattice_params = sample->getLatticeParameters();
+    Lattice1DParameters lattice_params = sample.getLatticeParameters();
     item->setItemValue(InterferenceFunction1DLatticeItem::P_LENGTH,
                                 lattice_params.m_length);
     item->setItemValue(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
                                 Units::rad2deg(lattice_params.m_xi));
 
-    auto pdf = OnlyChildOfType<IFTDecayFunction1D>(*sample);
+    auto pdf = OnlyChildOfType<IFTDecayFunction1D>(sample);
     QString group_name = InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION;
     SetDecayFunction1D(item, pdf, group_name);
 }
 
-void TransformFromDomain::setItemFromSample(SessionItem* item,
-                                            const InterferenceFunction2DLattice* sample)
+void TransformFromDomain::set2DLatticeItem(SessionItem* item,
+                                            const InterferenceFunction2DLattice& sample)
 {
-    set2DLatticeParameters(item, sample->lattice());
+    set2DLatticeParameters(item, sample.lattice());
 
     item->setItemValue(InterferenceFunction2DLatticeItem::P_XI_INTEGRATION,
-                                sample->integrationOverXi());
+                                sample.integrationOverXi());
 
-    auto p_pdf = OnlyChildOfType<IFTDecayFunction2D>(*sample);
+    auto p_pdf = OnlyChildOfType<IFTDecayFunction2D>(sample);
     QString group_name = InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION;
     SetDecayFunction2D(item, p_pdf, group_name);
 }
 
-void TransformFromDomain::setItemFromSample(SessionItem* layerItem, const Layer* layer,
+void TransformFromDomain::setLayerItem(SessionItem* layerItem, const Layer* layer,
                                             const LayerInterface* top_interface)
 {
     layerItem->setItemValue(LayerItem::P_THICKNESS, layer->thickness());
@@ -159,35 +159,35 @@ void TransformFromDomain::setItemFromSample(SessionItem* layerItem, const Layer*
         if (TransformFromDomain::isValidRoughness(roughness)) {
             SessionItem* roughnessItem = layerItem->setGroupProperty(
                 LayerItem::P_ROUGHNESS, Constants::LayerBasicRoughnessType);
-            TransformFromDomain::setItemFromSample(roughnessItem, roughness);
+            TransformFromDomain::setRoughnessItem(roughnessItem, *roughness);
         }
     }
 }
 
-void TransformFromDomain::setItemFromSample(SessionItem* item, const LayerRoughness* sample)
+void TransformFromDomain::setRoughnessItem(SessionItem* item, const LayerRoughness& sample)
 {
-    item->setItemValue(LayerBasicRoughnessItem::P_SIGMA, sample->getSigma());
-    item->setItemValue(LayerBasicRoughnessItem::P_HURST, sample->getHurstParameter());
+    item->setItemValue(LayerBasicRoughnessItem::P_SIGMA, sample.getSigma());
+    item->setItemValue(LayerBasicRoughnessItem::P_HURST, sample.getHurstParameter());
     item->setItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH,
-                                sample->getLatteralCorrLength());
+                                sample.getLatteralCorrLength());
 }
 
 //! Initialization of ParticleDistributionItem
-void TransformFromDomain::setItemFromSample(SessionItem* item,
-                                            const ParticleDistribution* sample)
+void TransformFromDomain::setParticleDistributionItem(SessionItem* item,
+                                            const ParticleDistribution& sample)
 {
     ParticleDistributionItem *distItem = dynamic_cast<ParticleDistributionItem*>(item);
     Q_ASSERT(distItem);
 
-    distItem->setItemValue(ParticleItem::P_ABUNDANCE, sample->abundance());
+    distItem->setItemValue(ParticleItem::P_ABUNDANCE, sample.abundance());
 
-    ParameterDistribution par_distr = sample->parameterDistribution();
+    ParameterDistribution par_distr = sample.parameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
 
     distItem->setDomainCacheName(main_distr_par_name);
 
     double unit_factor(1.0);
-    if (ParameterUtils::mainParUnits(*sample) == BornAgain::UnitsRad)
+    if (ParameterUtils::mainParUnits(sample) == BornAgain::UnitsRad)
         unit_factor = 1. / Units::degree;
 
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
@@ -429,11 +429,11 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detector_item,
         if(detector_item->modelType() == Constants::SphericalDetectorType)
             scale = 1./Units::degree;
 
-        setDetectorMasks(detector_item->maskContainerItem(), *detector, scale);
+        setMaskContainer(detector_item->maskContainerItem(), *detector, scale);
     }
 }
 
-void TransformFromDomain::setDetectorMasks(MaskContainerItem* container_item,
+void TransformFromDomain::setMaskContainer(MaskContainerItem* container_item,
                                            const IDetector& detector, double scale)
 {
     auto detectorMask = detector.detectorMask();

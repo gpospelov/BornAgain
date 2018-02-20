@@ -201,8 +201,8 @@ void JobQueueData::assignForDeletion(JobWorker* worker)
     worker->disconnect();
     for (auto it = m_workers.begin(); it != m_workers.end(); ++it) {
         if (it.value() == worker) {
-            worker->deleteLater();
             m_workers.erase(it);
+            delete worker;
             return;
         }
     }

@@ -24,7 +24,7 @@
 IntensityDataFFTPresenter::IntensityDataFFTPresenter(QWidget* parent)
     : QObject(parent)
     , m_fftAction(nullptr)
-    , m_fftModel(new SessionModel("TempFFTModel"))
+    , m_fftModel(new SessionModel("TempFFTModel", this))
     , m_fftItem(nullptr)
     , m_in_fft_mode(false)
 {

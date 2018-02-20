@@ -24,6 +24,9 @@ except Exception as e:
     print("In plot_utils.py: {:s}".format(str(e)))
 
 
+label_fontsize = 16
+
+
 def get_axes_limits(result, units):
     """
     Returns axes range as expected by pyplot.imshow.
@@ -45,19 +48,19 @@ def translate_axis_label(label):
     :return: LaTeX representation
     """
     label_dict = {
-                 'X [nbins]'     : r'$X$',
-                 'phi_f [rad]'   : r'$\phi_f (rad)$',
-                 'phi_f [deg]'   : r'$\phi_f ( ^{\circ})$',
-                 'alpha_i [rad]' : r'$\alpha_i (rad)$',
-                 'alpha_i [deg]' : r'$\alpha_i ( ^{\circ})$',
-                 'X [mm]'        : r'$X (mm)$',
-                 'Qy [1/nm]'     : r'$Q_y (nm^{-1})$',
+                 'X [nbins]'     : r'$X \; (bins)$',
+                 'phi_f [rad]'   : r'$\varphi_f \; (rad)$',
+                 'phi_f [deg]'   : r'$\varphi_f \; (deg)$',
+                 'alpha_i [rad]' : r'$\alpha_i \; (rad)$',
+                 'alpha_i [deg]' : r'$\alpha_i \; (deg)$',
+                 'X [mm]'        : r'$X \; (mm)$',
+                 'Qy [1/nm]'     : r'$Q_y \; (nm^{-1})$',
 
-                 'Y [nbins]'     : r'$Y$',
-                 'alpha_f [rad]' : r'$\alpha_f (rad)$',
-                 'alpha_f [deg]' : r'$\alpha_f ( ^{\circ})$',
-                 'Y [mm]'        : r'$Y (mm)$',
-                 'Qz [1/nm]'     : r'$Q_z (nm^{-1})$'
+                 'Y [nbins]'     : r'$Y \; (bins)$',
+                 'alpha_f [rad]' : r'$\alpha_f \; (rad)$',
+                 'alpha_f [deg]' : r'$\alpha_f \; (deg)$',
+                 'Y [mm]'        : r'$Y \; (mm)$',
+                 'Qz [1/nm]'     : r'$Q_z \; (nm^{-1})$'
                  }
     if label in label_dict.keys():
         return label_dict[label]
@@ -106,13 +109,13 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
     cb = plt.colorbar(im, pad=0.025)
 
     if xlabel:
-        plt.xlabel(xlabel, fontsize=14)
+        plt.xlabel(xlabel, fontsize=label_fontsize)
 
     if ylabel:
-        plt.ylabel(ylabel, fontsize=14)
+        plt.ylabel(ylabel, fontsize=label_fontsize)
 
     if zlabel:
-        cb.set_label(zlabel, size=14)
+        cb.set_label(zlabel, size=label_fontsize)
 
     if title:
         plt.title(title)
@@ -126,6 +129,7 @@ def plot_simulation_result(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFA
     :param zmax: Max value on amplitude's color bar
     """
     plot_colormap(result, zmin, zmax, units)
+    plt.tight_layout()
     plt.show()
 
 
@@ -147,6 +151,7 @@ def plot_histogram(intensity, zmin=None, zmax=None,
     axes_limits = [intensity.getXmin(), intensity.getXmax(),
                    intensity.getYmin(), intensity.getYmax()]
 
+    plt.tight_layout()
     im = plt.imshow(
         intensity.getArray(),
         norm=colors.LogNorm(zmin, zmax),
@@ -156,13 +161,13 @@ def plot_histogram(intensity, zmin=None, zmax=None,
     cb = plt.colorbar(im, pad=0.025)
 
     if xlabel:
-        plt.xlabel(xlabel, fontsize=14)
+        plt.xlabel(xlabel, fontsize=label_fontsize)
 
     if ylabel:
-        plt.ylabel(ylabel, fontsize=14)
+        plt.ylabel(ylabel, fontsize=label_fontsize)
 
     if zlabel:
-        cb.set_label(zlabel, size=14)
+        cb.set_label(zlabel, size=label_fontsize)
 
     if title:
         plt.title(title)
@@ -308,7 +313,7 @@ class PlotterSpecular(Plotter):
         # default font properties dictionary to use
         font = {'family': 'serif',
                 'weight': 'normal',
-                'size': 16}
+                'size': label_fontsize}
 
         plt.subplot(self.gs[0])
         plt.semilogy(axis_values, sim_data.getArray(), 'b',

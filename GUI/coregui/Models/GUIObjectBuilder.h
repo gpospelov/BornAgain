@@ -34,9 +34,8 @@ class BA_CORE_API_ GUIObjectBuilder
 public:
     GUIObjectBuilder() {}
 
-    SessionItem* populateSampleModel(SampleModel* sampleModel, MaterialModel* materialModel,
-                                     const Simulation& simulation,
-                                     const QString& sample_name = QString());
+    SessionItem* populateSampleModelFromSim(SampleModel* sampleModel, MaterialModel* materialModel,
+                                     const Simulation& simulation);
 
     SessionItem* populateSampleModel(SampleModel* sampleModel, MaterialModel* materialModel,
                                      const MultiLayer& sample, const QString& sample_name = QString());

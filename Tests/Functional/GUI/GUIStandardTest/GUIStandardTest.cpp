@@ -35,7 +35,7 @@ std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
 
     // populating GUI models from domain
     GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(sampleModel.get(), materialModel.get(), origin);
+    guiBuilder.populateSampleModelFromSim(sampleModel.get(), materialModel.get(), origin);
     guiBuilder.populateInstrumentModel(instrumentModel.get(), origin);
     guiBuilder.populateDocumentModel(documentModel.get(), origin);
 

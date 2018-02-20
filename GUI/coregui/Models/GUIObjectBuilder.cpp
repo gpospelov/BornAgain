@@ -26,15 +26,14 @@
 #include "SimulationOptionsItem.h"
 #include "TransformFromDomain.h"
 
-SessionItem* GUIObjectBuilder::populateSampleModel(SampleModel* sampleModel,
+SessionItem* GUIObjectBuilder::populateSampleModelFromSim(SampleModel* sampleModel,
                                                    MaterialModel* materialModel,
-                                                   const Simulation& simulation,
-                                                   const QString& sample_name)
+                                                   const Simulation& simulation)
 {
     std::unique_ptr<Simulation> sim(simulation.clone());
     sim->prepareSimulation();
     SessionItem* item
-        = populateSampleModel(sampleModel, materialModel, *sim->sample(), sample_name);
+        = populateSampleModel(sampleModel, materialModel, *sim->sample());
     return item;
 }
 

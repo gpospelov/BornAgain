@@ -174,6 +174,7 @@ void addAxisGroupProperty(SessionItem* parent, const QString& tag)
     item->getItem(BasicAxisItem::P_MIN)->setToolTip("Starting value [deg]");
     item->getItem(BasicAxisItem::P_MAX)->setToolTip("Ending value [deg]");
 
+    item->setItemValue(BasicAxisItem::P_TITLE, "alpha_i");
     item->setItemValue(BasicAxisItem::P_MIN, 0.0);
     item->setItemValue(BasicAxisItem::P_MAX, 10.0);
 }

@@ -217,9 +217,8 @@ void PyImportAssistant::populateModels(const MultiLayer& multilayer, const QStri
         if (multilayer.getName() != BornAgain::MultiLayerType)
             name = QString::fromStdString(multilayer.getName());
 
-        GUIObjectBuilder guiBuilder;
-        guiBuilder.populateSampleModel(m_mainWindow->sampleModel(), m_mainWindow->materialModel(),
-                                       multilayer, name);
+        GUIObjectBuilder::populateSampleModel(m_mainWindow->sampleModel(),
+                m_mainWindow->materialModel(), multilayer, name);
 
         QString message("Seems that import was successfull.\n\n"
                         "Check SampleView for new sample and material editor for new materials.");

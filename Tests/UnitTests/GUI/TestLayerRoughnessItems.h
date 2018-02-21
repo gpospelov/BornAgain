@@ -36,7 +36,7 @@ TEST_F(TestLayerRoughnessItems, test_LayerRoughnessFromDomain)
 {
     LayerRoughness roughness(10.0, 20.0, 30.0);
     LayerBasicRoughnessItem roughnessItem;
-    TransformFromDomain::setItemFromSample(&roughnessItem, &roughness);
+    TransformFromDomain::setRoughnessItem(&roughnessItem, roughness);
     EXPECT_EQ(roughness.getSigma(),
               roughnessItem.getItemValue(LayerBasicRoughnessItem::P_SIGMA).toDouble());
     EXPECT_EQ(roughness.getHurstParameter(),

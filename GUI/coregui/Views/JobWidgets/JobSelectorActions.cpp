@@ -19,6 +19,7 @@
 #include "IntensityDataItem.h"
 #include <QAction>
 #include <QItemSelectionModel>
+#include <QPersistentModelIndex>
 #include <QMenu>
 #include <memory>
 
@@ -56,15 +57,13 @@ void JobSelectorActions::onRunJob()
 
 void JobSelectorActions::onRemoveJob()
 {
-    Q_ASSERT(m_selectionModel);
-    QModelIndexList indexList = m_selectionModel->selectedIndexes();
+    QList<QPersistentModelIndex> toRemove;
+    for (auto index : m_selectionModel->selectedIndexes())
+        if (canRemoveJob(index))
+            toRemove.append(QPersistentModelIndex(index));
 
-    while (indexList.size()) {
-        if (canRemoveJob(indexList.first())) {
-            m_jobModel->removeJob(indexList.first());
-            indexList = m_selectionModel->selectedIndexes();
-        }
-    }
+    for (auto index : toRemove)
+        m_jobModel->removeJob(index);
 }
 
 //! Generates context menu at given point. If indexAtPoint is provided, the actions will be done
@@ -176,7 +175,7 @@ bool JobSelectorActions::canRemoveJob(const QModelIndex& index) const
         return false;
 
     const JobItem* jobItem = m_jobModel->getJobItemForIndex(index);
-    if (jobItem->isRunning())
+    if (jobItem->isRunning() || jobItem->getStatus() == Constants::STATUS_FITTING)
         return false;
 
     return true;

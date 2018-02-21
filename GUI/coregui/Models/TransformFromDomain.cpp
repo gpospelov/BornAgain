@@ -60,6 +60,7 @@
 #include "SphericalDetectorItem.h"
 #include "Units.h"
 #include "OffSpecSimulation.h"
+#include "FixedBinAxis.h"
 
 using namespace INodeUtils;
 using SessionItemUtils::SetVectorItem;
@@ -547,6 +548,20 @@ void TransformFromDomain::setBackground(Instrument2DItem* instrument_item,
         instrument_item->setGroupProperty(Instrument2DItem::P_BACKGROUND,
                                           Constants::PoissonNoiseBackgroundType);
     }
+}
+
+void TransformFromDomain::setAxisItem(SessionItem* item, const IAxis& axis, double factor)
+{
+    if (item->modelType() != Constants::BasicAxisType)
+        throw GUIHelpers::Error("TransformFromDomain::setAxisItem() -> Error. Unexpected item.");
+
+    if (!dynamic_cast<const FixedBinAxis*>(&axis))
+        throw GUIHelpers::Error("TransformFromDomain::setAxisItem() -> Error. Unexpected axis");
+
+    item->setItemValue(BasicAxisItem::P_NBINS, static_cast<int>(axis.size()));
+    item->setItemValue(BasicAxisItem::P_MIN, factor*axis.getMin());
+    item->setItemValue(BasicAxisItem::P_MAX, factor*axis.getMax());
+    item->setItemValue(BasicAxisItem::P_TITLE, QString::fromStdString(axis.getName()));
 }
 
 namespace

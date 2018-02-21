@@ -43,6 +43,7 @@ class GISASInstrumentItem;
 class Instrument2DItem;
 class Simulation2D;
 class OffSpecSimulation;
+class IAxis;
 
 namespace TransformFromDomain
 {
@@ -93,6 +94,9 @@ BA_CORE_API_ void setItemFromSample(BeamDistributionItem* beam_distribution_item
                                     const ParameterDistribution& parameter_distribution);
 
 BA_CORE_API_ void setBackground(Instrument2DItem* instrument_item, const Simulation& simulation);
+
+BA_CORE_API_ void setAxisItem(SessionItem* item, const IAxis& axis, double factor = 1.0);
+
 }
 
 #endif // TRANSFORMFROMDOMAIN_H

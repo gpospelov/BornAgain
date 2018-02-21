@@ -52,6 +52,8 @@ used for fitting.
     This directory containes examples for fitting specular data
     FitSpecularBasics.py - basic demosntration of fitting specular data with BornAgain. GENX simulation results are
                            used as reference data.
+    XRDFitting.py - fitting live data from XRD reflectometer with BornAgain
+    XRDSampleBuilder - auxiliary file for XRDFitting
 
 --- ex10_FitGALAXIData
     This directory contains an example of fitting data from real detector (GALAXI)

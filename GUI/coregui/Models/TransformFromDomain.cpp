@@ -59,6 +59,7 @@
 #include "SphericalDetector.h"
 #include "SphericalDetectorItem.h"
 #include "Units.h"
+#include "OffSpecSimulation.h"
 
 using namespace INodeUtils;
 using SessionItemUtils::SetVectorItem;
@@ -236,6 +237,17 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
 
     // polarization parameters
     SetVectorItem(*beam_item, BeamItem::P_POLARIZATION, beam.getBlochVector());
+}
+
+void TransformFromDomain::setOffSpecBeamItem(BeamItem* beam_item, const OffSpecSimulation& simulation)
+{
+    Beam beam = simulation.getInstrument().getBeam();
+
+    beam_item->setIntensity(beam.getIntensity());
+    beam_item->setWavelength(beam.getWavelength());
+    beam_item->setInclinationAngle(Units::rad2deg(beam.getAlpha()));
+    beam_item->setAzimuthalAngle(Units::rad2deg(beam.getPhi()));
+    // TODO implement beam divergence
 }
 
 void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,
@@ -522,7 +534,7 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribut
     setDistribution(beam_distribution_item, parameter_distribution, group_name, unit_factor);
 }
 
-void TransformFromDomain::setBackground(GISASInstrumentItem* instrument_item,
+void TransformFromDomain::setBackground(Instrument2DItem* instrument_item,
                                         const Simulation& simulation)
 {
     auto p_bg = simulation.background();

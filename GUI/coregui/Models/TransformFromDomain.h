@@ -42,6 +42,7 @@ class IDetector;
 class GISASInstrumentItem;
 class Instrument2DItem;
 class Simulation2D;
+class OffSpecSimulation;
 
 namespace TransformFromDomain
 {
@@ -67,6 +68,8 @@ BA_CORE_API_ bool isValidRoughness(const LayerRoughness* roughness);
 
 BA_CORE_API_ void setGISASBeamItem(BeamItem* beam_item, const GISASSimulation& simulation);
 
+BA_CORE_API_ void setOffSpecBeamItem(BeamItem* beam_item, const OffSpecSimulation& simulation);
+
 BA_CORE_API_ void setDetector(Instrument2DItem* instrument_item, const Simulation2D& simulation);
 
 BA_CORE_API_ void setDetectorGeometry(Instrument2DItem* instrument_item, const IDetector& detector);
@@ -89,7 +92,7 @@ BA_CORE_API_ void setMaskContainer(MaskContainerItem* container_item, const IDet
 BA_CORE_API_ void setItemFromSample(BeamDistributionItem* beam_distribution_item,
                                     const ParameterDistribution& parameter_distribution);
 
-BA_CORE_API_ void setBackground(GISASInstrumentItem* instrument_item, const Simulation& simulation);
+BA_CORE_API_ void setBackground(Instrument2DItem* instrument_item, const Simulation& simulation);
 }
 
 #endif // TRANSFORMFROMDOMAIN_H

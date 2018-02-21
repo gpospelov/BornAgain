@@ -25,12 +25,18 @@
 #include "Simulation.h"
 #include "SimulationOptionsItem.h"
 #include "TransformFromDomain.h"
+#include "OffSpecSimulation.h"
 
 namespace
 {
 GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
                                                const GISASSimulation& simulation,
                                                const QString& name);
+
+OffSpecInstrumentItem* createOffSpecInstrumentItem(InstrumentModel* model,
+                                               const OffSpecSimulation& simulation,
+                                               const QString& name);
+
 }
 
 SessionItem* GUIObjectBuilder::populateSampleModelFromSim(SampleModel* sampleModel,
@@ -64,6 +70,10 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instru
 
     if (auto gisasSimulation = dynamic_cast<const GISASSimulation*>(&simulation)) {
         return createGISASInstrumentItem(p_instrument_model, *gisasSimulation, name);
+    }
+
+    else if(auto offSpecSimulation = dynamic_cast<const OffSpecSimulation*>(&simulation)) {
+        return createOffSpecInstrumentItem(p_instrument_model, *offSpecSimulation, name);
     }
 
     throw GUIHelpers::Error("GUIObjectBuilder::populateInstrumentModel() -> Error. Simulation is "
@@ -106,4 +116,19 @@ GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
 
     return result;
 }
+
+OffSpecInstrumentItem* createOffSpecInstrumentItem(InstrumentModel* model,
+                                               const OffSpecSimulation& simulation,
+                                               const QString& name)
+{
+    auto result = dynamic_cast<OffSpecInstrumentItem*>(model->insertNewItem(Constants::OffSpecInstrumentType));
+
+    result->setItemName(name);
+    TransformFromDomain::setOffSpecBeamItem(result->beamItem(), simulation);
+    TransformFromDomain::setDetector(result, simulation);
+    TransformFromDomain::setBackground(result, simulation);
+
+    return result;
+}
+
 }

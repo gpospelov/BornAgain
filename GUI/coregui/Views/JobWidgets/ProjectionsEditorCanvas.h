@@ -78,6 +78,7 @@ private:
     IntensityDataItem *m_intensityDataItem;
 
     MaskEditorFlags::Activity m_currentActivity;
+    bool m_block_update;
 };
 
 #endif // PROJECTIONSEDITORCANVAS_H

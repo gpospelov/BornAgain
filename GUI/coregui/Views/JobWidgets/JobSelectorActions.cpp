@@ -166,7 +166,11 @@ bool JobSelectorActions::canRunJob(const QModelIndex& index) const
         return false;
 
     const JobItem* jobItem = m_jobModel->getJobItemForIndex(index);
-    return jobItem->isRunning() ? false : true;
+
+    if (jobItem->isRunning() || jobItem->getStatus() == Constants::STATUS_FITTING)
+        return false;
+
+    return true;
 }
 
 bool JobSelectorActions::canRemoveJob(const QModelIndex& index) const

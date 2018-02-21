@@ -26,6 +26,13 @@
 #include "SimulationOptionsItem.h"
 #include "TransformFromDomain.h"
 
+namespace
+{
+GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
+                                               const GISASSimulation& simulation,
+                                               const QString& name);
+}
+
 SessionItem* GUIObjectBuilder::populateSampleModelFromSim(SampleModel* sampleModel,
                                                           MaterialModel* materialModel,
                                                           const Simulation& simulation)
@@ -51,29 +58,12 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instru
 {
     Q_ASSERT(p_instrument_model);
 
-    if (const GISASSimulation* gisasSimulation
-        = dynamic_cast<const GISASSimulation*>(&simulation)) {
+    QString name = instrument_name.isEmpty()
+                       ? QString::fromStdString(simulation.getInstrument().getName())
+                       : instrument_name;
 
-        GISASInstrumentItem* p_instrument_item = dynamic_cast<GISASInstrumentItem*>(
-            p_instrument_model->insertNewItem(Constants::GISASInstrumentType));
-
-        if (instrument_name.isEmpty()) {
-            p_instrument_item->setItemName(gisasSimulation->getInstrument().getName().c_str());
-        } else {
-            p_instrument_item->setItemName(instrument_name);
-        }
-
-        // beam
-        auto& beam_item = p_instrument_item->item<BeamItem>(Instrument2DItem::P_BEAM);
-        TransformFromDomain::setGISASBeamItem(&beam_item, *gisasSimulation);
-
-        // detector
-        TransformFromDomain::setDetector(p_instrument_item, *gisasSimulation);
-
-        // background
-        TransformFromDomain::setBackground(p_instrument_item, *gisasSimulation);
-
-        return p_instrument_item;
+    if (auto gisasSimulation = dynamic_cast<const GISASSimulation*>(&simulation)) {
+        return createGISASInstrumentItem(p_instrument_model, *gisasSimulation, name);
     }
 
     throw GUIHelpers::Error("GUIObjectBuilder::populateInstrumentModel() -> Error. Simulation is "
@@ -98,4 +88,22 @@ SessionItem* GUIObjectBuilder::populateDocumentModel(DocumentModel* p_document_m
         p_options_item->setIncludeSpecularPeak(Constants::Yes);
     }
     return p_options_item;
+}
+
+namespace
+{
+GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
+                                               const GISASSimulation& simulation,
+                                               const QString& name)
+{
+    auto result
+        = dynamic_cast<GISASInstrumentItem*>(model->insertNewItem(Constants::GISASInstrumentType));
+
+    result->setItemName(name);
+    TransformFromDomain::setGISASBeamItem(result->beamItem(), simulation);
+    TransformFromDomain::setDetector(result, simulation);
+    TransformFromDomain::setBackground(result, simulation);
+
+    return result;
+}
 }

@@ -31,6 +31,8 @@
 #include "IntensityDataItem.h"
 #include "ImportDataUtils.h"
 #include "MaterialPropertyController.h"
+#include "StandardSimulations.h"
+#include "OffSpecSimulation.h"
 #include <QtCore/QXmlStreamWriter>
 
 ApplicationModels::ApplicationModels(QObject* parent)
@@ -168,8 +170,8 @@ void ApplicationModels::createTestSample()
     GUIObjectBuilder::populateSampleModel(m_sampleModel, m_materialModel, *P_sample);
 
     // to populate InstrumentView with predefined instrument
-    //    const std::unique_ptr<GISASSimulation> simulation(StandardSimulations::GISASWithMasks());
-    //    guiBuilder.populateInstrumentModel(m_instrumentModel, *simulation);
+    const std::unique_ptr<OffSpecSimulation> simulation(StandardSimulations::MiniOffSpec());
+    GUIObjectBuilder::populateInstrumentModel(m_instrumentModel, *simulation);
 }
 
 void ApplicationModels::createTestJob()

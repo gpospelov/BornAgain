@@ -21,11 +21,12 @@
 #include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "MultiLayer.h"
+#include "OffSpecSimulation.h"
 #include "SampleModel.h"
 #include "Simulation.h"
 #include "SimulationOptionsItem.h"
 #include "TransformFromDomain.h"
-#include "OffSpecSimulation.h"
+#include "Units.h"
 
 namespace
 {
@@ -34,9 +35,8 @@ GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
                                                const QString& name);
 
 OffSpecInstrumentItem* createOffSpecInstrumentItem(InstrumentModel* model,
-                                               const OffSpecSimulation& simulation,
-                                               const QString& name);
-
+                                                   const OffSpecSimulation& simulation,
+                                                   const QString& name);
 }
 
 SessionItem* GUIObjectBuilder::populateSampleModelFromSim(SampleModel* sampleModel,
@@ -72,7 +72,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instru
         return createGISASInstrumentItem(p_instrument_model, *gisasSimulation, name);
     }
 
-    else if(auto offSpecSimulation = dynamic_cast<const OffSpecSimulation*>(&simulation)) {
+    else if (auto offSpecSimulation = dynamic_cast<const OffSpecSimulation*>(&simulation)) {
         return createOffSpecInstrumentItem(p_instrument_model, *offSpecSimulation, name);
     }
 
@@ -118,17 +118,20 @@ GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
 }
 
 OffSpecInstrumentItem* createOffSpecInstrumentItem(InstrumentModel* model,
-                                               const OffSpecSimulation& simulation,
-                                               const QString& name)
+                                                   const OffSpecSimulation& simulation,
+                                                   const QString& name)
 {
-    auto result = dynamic_cast<OffSpecInstrumentItem*>(model->insertNewItem(Constants::OffSpecInstrumentType));
+    auto result = dynamic_cast<OffSpecInstrumentItem*>(
+        model->insertNewItem(Constants::OffSpecInstrumentType));
 
     result->setItemName(name);
     TransformFromDomain::setOffSpecBeamItem(result->beamItem(), simulation);
     TransformFromDomain::setDetector(result, simulation);
     TransformFromDomain::setBackground(result, simulation);
 
+    auto axisItem = result->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS);
+    TransformFromDomain::setAxisItem(axisItem, *simulation.beamAxis(), 1. / Units::deg);
+
     return result;
 }
-
 }

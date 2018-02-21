@@ -86,12 +86,12 @@ def plot(results):
     plt.subplot(1, 3, 1)
     ba.plot_colormap(results['spherical'], title="Spherical detector",
                      xlabel=r'$\phi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$',
-                     zlabel=None)
+                     zlabel="")
 
     # showing  result of rectangular detector simulation
     plt.subplot(1, 3, 2)
     ba.plot_colormap(results['rectangular'], title="Rectangular detector",
-                     xlabel='X, mm', ylabel='Y, mm', zlabel=None)
+                     xlabel='X, mm', ylabel='Y, mm', zlabel="")
 
     # show relative difference between two plots (sph[i]-rect[i])/rect[i]
     # for every detector pixel
@@ -105,7 +105,8 @@ def plot(results):
     plt.ylabel('Y, bins', fontsize=14)
     plt.title("Relative difference")
 
-    plt.subplots_adjust(left=0.05, right=0.95, top=0.88, bottom=0.12)
+    plt.subplots_adjust(left=0.05, right=0.92, top=0.88, bottom=0.12)
+    plt.tight_layout()
     plt.show()
 
 

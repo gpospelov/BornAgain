@@ -100,10 +100,7 @@ SimulationOptionsItem::SimulationOptionsItem()
 int SimulationOptionsItem::getNumberOfThreads() const
 {
     ComboProperty combo = getItemValue(P_NTHREADS).value<ComboProperty>();
-    foreach(QChar ch, combo.getValue()) {
-        if(ch.isDigit()) return ch.digitValue();
-    }
-    return 0;
+	return m_text_to_nthreads[combo.getValue()];
 }
 
 bool SimulationOptionsItem::runImmediately() const
@@ -181,16 +178,20 @@ QString SimulationOptionsItem::runPolicy() const
 //! returns list with number of threads to select
 QStringList SimulationOptionsItem::getCPUUsageOptions()
 {
+	m_text_to_nthreads.clear();
     QStringList result;
     int nthreads = std::thread::hardware_concurrency();
     for(int i = nthreads; i>0; i--){
+		QString str;
         if(i == nthreads) {
-            result.append(QString("Max (%1 threads)").arg(QString::number(i)));
+            str = QString("Max (%1 threads)").arg(QString::number(i));
         } else if(i == 1) {
-            result.append(QString("%1 thread").arg(QString::number(i)));
+            str = QString("%1 thread").arg(QString::number(i));
         } else {
-            result.append(QString("%1 threads").arg(QString::number(i)));
+            str = QString("%1 threads").arg(QString::number(i));
         }
+		result.append(str);
+		m_text_to_nthreads[str] = i;
     }
-    return result;
+    return result;  
 }

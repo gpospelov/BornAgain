@@ -16,6 +16,7 @@
 #define SIMULATIONOPTIONSITEM_H
 
 #include "SessionItem.h"
+#include <QMap>
 
 //! The SimulationOptionsItem class holds simulation status (run policy, number of threads,
 //! integration flag). Used in SimulationView to define job settings. When job is started,
@@ -54,6 +55,7 @@ public:
 private:
     QString runPolicy() const;
     QStringList getCPUUsageOptions();
+	QMap<QString, int> m_text_to_nthreads;
 };
 
 #endif // SIMULATIONOPTIONSITEM_H

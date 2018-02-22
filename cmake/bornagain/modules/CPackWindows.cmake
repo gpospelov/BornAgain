@@ -26,14 +26,14 @@ set (CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
   Push \\\"PATH\\\"
   Push \\\"P\\\"
   Push \\\"HKCU\\\"
-  Push \\\"$INSTDIR\\\\bin\\\"
+  Push \\\"$INSTDIR\\\\lib\\\"
   Call EnvVarUpdate
   Pop  \\\$0
 
   Push \\\"PYTHONPATH\\\"
   Push \\\"P\\\"
   Push \\\"HKLM\\\"
-  Push \\\"$INSTDIR\\\\bin\\\"
+  Push \\\"$INSTDIR\\\\python\\\"
   Call EnvVarUpdate
   Pop  \\\$0
 

@@ -202,13 +202,11 @@ class PlotterGISAS(Plotter):
         self.make_subplot(1)
         real_data = fit_suite.getRealData()
         plot_histogram(real_data, title="\"Real\" data",
-                      zmin=1.0, zmax=real_data.getMaximum(),
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(2)
         sim_data = fit_suite.getSimulationData()
         plot_histogram(sim_data, title="Simulated data",
-                      zmin=1.0, zmax=real_data.getMaximum(),
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(3)

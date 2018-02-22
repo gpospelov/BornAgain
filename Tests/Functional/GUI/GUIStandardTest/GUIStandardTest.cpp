@@ -34,10 +34,9 @@ std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
     const std::unique_ptr<MaterialModel> materialModel(new MaterialModel);
 
     // populating GUI models from domain
-    GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(sampleModel.get(), materialModel.get(), origin);
-    guiBuilder.populateInstrumentModel(instrumentModel.get(), origin);
-    guiBuilder.populateDocumentModel(documentModel.get(), origin);
+    GUIObjectBuilder::populateSampleModelFromSim(sampleModel.get(), materialModel.get(), origin);
+    GUIObjectBuilder::populateInstrumentModel(instrumentModel.get(), origin);
+    GUIObjectBuilder::populateDocumentModel(documentModel.get(), origin);
 
     auto result = DomainSimulationBuilder::createSimulation(sampleModel->multiLayerItem(),
             instrumentModel->instrumentItem(), documentModel->simulationOptionsItem());

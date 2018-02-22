@@ -117,6 +117,14 @@ Eigen::Matrix2cd Beam::getPolarization() const
     return result;
 }
 
+std::vector<const INode*> Beam::getChildren() const
+{
+    if (m_shape_factor)
+        return {m_shape_factor.get()};
+    else
+        return {};
+}
+
 void Beam::init_parameters()
 {
     registerParameter(BornAgain::Intensity, &m_intensity).setNonnegative();

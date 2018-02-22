@@ -128,6 +128,7 @@ class RotationEuler;
 class RotationX;
 class RotationY;
 class RotationZ;
+class SpecularDetector1D;
 class SpecularSimulation;
 class SphericalDetector;
 class SquareLattice;
@@ -254,6 +255,7 @@ public:
     virtual void visit(const RotationX*) {}
     virtual void visit(const RotationY*) {}
     virtual void visit(const RotationZ*) {}
+    virtual void visit(const SpecularDetector1D*) {}
     virtual void visit(const SpecularSimulation*) {}
     virtual void visit(const SphericalDetector*) {}
     virtual void visit(const SquareLattice*) {}

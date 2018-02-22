@@ -111,7 +111,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomain)
     particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::AnisoPyramidType);
 
     // Sets it from domain
-    TransformFromDomain::setItemFromSample(distItem, &particle_collection);
+    TransformFromDomain::setParticleDistributionItem(distItem, particle_collection);
 
     ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                              .value<ComboProperty>();
@@ -146,7 +146,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
     model.insertNewItem(Constants::ParticleType, partDistItem->index());
 
     //    // Sets it from domain
-    TransformFromDomain::setItemFromSample(partDistItem, &particle_collection);
+    TransformFromDomain::setParticleDistributionItem(partDistItem, particle_collection);
 
     SessionItem* distItem = partDistItem->getGroupItem(ParticleDistributionItem::P_DISTRIBUTION);
     Q_ASSERT(distItem);

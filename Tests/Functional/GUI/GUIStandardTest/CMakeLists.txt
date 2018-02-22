@@ -54,6 +54,7 @@ set(test_cases
     RotatedPyramidsDistribution
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
+    OffSpecularResonator
 )
 
 add_executable(GUIStandardTest main.cpp GUIStandardTest.cpp GUIStandardTest.h )

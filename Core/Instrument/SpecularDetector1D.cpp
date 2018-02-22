@@ -23,11 +23,13 @@
 
 SpecularDetector1D::SpecularDetector1D(const IAxis& axis)
 {
+    initialize();
     addAxis(axis);
 }
 
 SpecularDetector1D::SpecularDetector1D(const SpecularDetector1D& detector) : IDetector(detector)
 {
+    initialize();
 }
 
 SpecularDetector1D::~SpecularDetector1D() = default;
@@ -75,4 +77,9 @@ void SpecularDetector1D::calculateAxisRange(size_t axis_index, const Beam& beam,
     } else {
         IDetector::calculateAxisRange(axis_index, beam, units, amin, amax);
     }
+}
+
+void SpecularDetector1D::initialize()
+{
+    setName(BornAgain::SpecularDetectorType);
 }

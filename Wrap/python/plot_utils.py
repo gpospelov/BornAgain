@@ -283,7 +283,7 @@ class PlotterSpecular(Plotter):
         labels = ("Parameter", "Value")
         table_data = [["Minimizer", '{:s}'.format(self.trunc_str(minimizer, trunc_length))],
                       ["Iteration", '${:d}$'.format(n_iterations)],
-                      ["$\chi^2$", '${:s}$'.format(self.as_si(fom_max, n_digits))]]
+                      ["$\chi^2_{max}$", '${:s}$'.format(self.as_si(fom_max, n_digits))]]
         for fitPar in fitted_parameters:
             table_data.append(['{:s}'.format(self.trunc_str(fitPar.name(), trunc_length)),
                                '${:s}$'.format(self.as_si(fitPar.value(), n_digits))])

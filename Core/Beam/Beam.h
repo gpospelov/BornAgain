@@ -69,6 +69,7 @@ public:
     double getPhi() const { return m_phi; }
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
+    std::vector<const INode*> getChildren() const override;
 
 private:
     void init_parameters();

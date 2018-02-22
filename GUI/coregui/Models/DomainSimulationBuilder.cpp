@@ -31,6 +31,8 @@
 #include "Units.h"
 
 namespace {
+void addBackgroundToSimulation(const InstrumentItem& instrument, Simulation& simulation);
+
 std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                                                        const GISASInstrumentItem* gisasInstrument,
                                                        const SimulationOptionsItem* optionsItem);
@@ -72,6 +74,13 @@ DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
 
 namespace
 {
+void addBackgroundToSimulation(const InstrumentItem& instrument, Simulation& simulation)
+{
+    auto P_background = instrument.backgroundItem()->createBackground();
+    if (P_background)
+        simulation.setBackground(*P_background);
+}
+
 std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                                                   const GISASInstrumentItem* gisasInstrument,
                                                   const SimulationOptionsItem* optionsItem)
@@ -87,10 +96,7 @@ std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLaye
     if (optionsItem)
         TransformToDomain::setSimulationOptions(gisas.get(), *optionsItem);
 
-    // Background simulation
-    auto P_background = gisasInstrument->backgroundItem()->createBackground();
-    if (P_background)
-        gisas->setBackground(*P_background);
+    addBackgroundToSimulation(*gisasInstrument, *gisas);
 
     return gisas;
 }
@@ -118,10 +124,7 @@ std::unique_ptr<OffSpecSimulation> createOffSpecSimulation(std::unique_ptr<Multi
     if (optionsItem)
         TransformToDomain::setSimulationOptions(offspec.get(), *optionsItem);
 
-    // Background simulation
-    auto P_background = offspecInstrument->backgroundItem()->createBackground();
-    if (P_background)
-        offspec->setBackground(*P_background);
+    addBackgroundToSimulation(*offspecInstrument, *offspec);
 
     return offspec;
 }
@@ -148,10 +151,7 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     if (options_item)
         TransformToDomain::setSimulationOptions(specular_simulation.get(), *options_item);
 
-    // Background simulation
-    auto P_background = specular_instrument->backgroundItem()->createBackground();
-    if (P_background)
-        specular_simulation->setBackground(*P_background);
+    addBackgroundToSimulation(*specular_instrument, *specular_simulation);
 
     return specular_simulation;
 }

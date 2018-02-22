@@ -142,19 +142,9 @@ IHistogram* FitSuite::getChiSquaredMap(size_t i_item) const
     return result.release();
 }
 
-const OutputData<double>* FitSuite::getRealOutputData(size_t i_item) const
-{
-    return &m_impl->fitObjects()->getRealData(i_item);
-}
-
 const OutputData<double>* FitSuite::getSimulationOutputData(size_t i_item) const
 {
     return &m_impl->fitObjects()->getSimulationData(i_item);
-}
-
-const OutputData<double>* FitSuite::getChiSquaredOutputData(size_t i_item) const
-{
-    return &m_impl->fitObjects()->getChiSquaredMap(i_item);
 }
 
 std::string FitSuite::parametersToString() const

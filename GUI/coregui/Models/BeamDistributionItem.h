@@ -28,8 +28,8 @@ public:
     static const QString P_DISTRIBUTION;
     explicit BeamDistributionItem(const QString& name);
 
-    std::unique_ptr<ParameterDistribution> getParameterDistributionForName(
-            const std::string &parameter_name);
+    std::unique_ptr<ParameterDistribution>
+    getParameterDistributionForName(const std::string& parameter_name) const;
 
     virtual double meanValue() const;
 

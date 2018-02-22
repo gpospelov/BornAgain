@@ -90,7 +90,7 @@ std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLaye
     gisas->setSample(*P_multilayer);
     gisas->setInstrument(*P_instrument);
     TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(),
-                                                             gisas.get());
+                                                             *gisas.get());
 
     // Simulation options
     if (optionsItem)
@@ -148,7 +148,7 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                                            *axis_item->createAxis(Units::degree));
 
     TransformToDomain::addDistributionParametersToSimulation(*beam_item,
-                                                             specular_simulation.get());
+                                                             *specular_simulation.get());
 
     // Simulation options
     if (options_item)

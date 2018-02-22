@@ -39,7 +39,7 @@ BeamDistributionItem::BeamDistributionItem(const QString& name)
 
 //! returns parameter distribution to add into the Simulation
 std::unique_ptr<ParameterDistribution>
-BeamDistributionItem::getParameterDistributionForName(const std::string& parameter_name)
+BeamDistributionItem::getParameterDistributionForName(const std::string& parameter_name) const
 {
     std::unique_ptr<ParameterDistribution> P_par_distr{};
     if (auto distributionItem = dynamic_cast<DistributionItem*>(getGroupItem(P_DISTRIBUTION))) {

@@ -92,7 +92,7 @@ def run_simulation():
         plt.subplot(2, 2, i_plot+1)
         plt.subplots_adjust(wspace=0.3, hspace=0.3)
 
-        ba.plot_colormap(result)
+        ba.plot_colormap(result, zmin=1e-2)
 
         plt.text(0.0, 2.1, conditions[i_plot]['title'],
                  horizontalalignment='center', verticalalignment='center',

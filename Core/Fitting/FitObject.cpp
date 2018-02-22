@@ -19,6 +19,7 @@
 #include "SimulationArea.h"
 #include "BornAgainNamespace.h"
 #include "DetectorFunctions.h"
+#include "IHistogram.h"
 
 static_assert(std::is_copy_constructible<FitObject>::value == false,
     "FitObject should not be copy constructable");
@@ -54,6 +55,18 @@ const OutputData<double>& FitObject::simulationData() const
 std::vector<const INode*> FitObject::getChildren() const
 {
     return std::vector<const INode*>() << m_simulation;
+}
+
+std::unique_ptr<IHistogram> FitObject::createRealDataHistogram() const
+{
+    OutputData<double> buff;
+    buff.copyShapeFrom(simulationData());
+
+    SimulationRoiArea area(m_simulation->getInstrument().getDetector());
+    for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it) {
+        buff[it.roiIndex()] = (*m_real_data)[it.detectorIndex()];
+    }
+    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
 }
 
 //! Check if real_data shape corresponds with the detector.

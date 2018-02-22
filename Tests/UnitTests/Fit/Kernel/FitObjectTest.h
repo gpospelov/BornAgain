@@ -56,7 +56,7 @@ TEST_F(FitObjectTest, RoiPair)
 
     // so new axes should be
     size_t roi_nx(3), roi_ny(3);
-    double roi_xmin(0.0), roi_xmax(3.0), roi_ymin(1.0), roi_ymax(4.0);
+//    double roi_xmin(0.0), roi_xmax(3.0), roi_ymin(1.0), roi_ymax(4.0);
 
     OutputData<double> data;
     data.addAxis(FixedBinAxis(BornAgain::PHI_AXIS_NAME, nx, xmin, xmax));

@@ -22,6 +22,7 @@
 class FitElement;
 class Simulation;
 class IIntensityNormalizer;
+class IHistogram;
 
 //! Holds simulation description and real data to run the fit.
 //! @ingroup fitting_internal
@@ -58,6 +59,11 @@ public:
                             IIntensityNormalizer* normalizer=0);
 
     std::vector<const INode*> getChildren() const;
+
+#ifndef SWIG
+    //! Returns histogram representing real data clipped to ROI
+    std::unique_ptr<IHistogram> createRealDataHistogram() const;
+#endif
 
 protected:
     //! Registers some class members for later access via parameter pool

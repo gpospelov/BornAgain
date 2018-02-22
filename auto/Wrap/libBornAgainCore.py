@@ -6317,18 +6317,6 @@ class FitObject(INode):
         return _libBornAgainCore.FitObject_simulationData(self)
 
 
-    def chiSquaredMap(self):
-        """
-        chiSquaredMap(FitObject self) -> IntensityData
-
-        const OutputData< double > & FitObject::chiSquaredMap() const
-
-        Returns chi2 map. 
-
-        """
-        return _libBornAgainCore.FitObject_chiSquaredMap(self)
-
-
     def weight(self):
         """
         weight(FitObject self) -> double
@@ -6364,18 +6352,6 @@ class FitObject(INode):
 
         """
         return _libBornAgainCore.FitObject_prepareFitElements(self, fit_elements, weight, normalizer)
-
-
-    def transferToChi2Map(self, first, last):
-        """
-        transferToChi2Map(FitObject self, std::vector< FitElement,std::allocator< FitElement > >::const_iterator first, std::vector< FitElement,std::allocator< FitElement > >::const_iterator last)
-
-        void FitObject::transferToChi2Map(std::vector< FitElement >::const_iterator first, std::vector< FitElement >::const_iterator last) const
-
-        Updates ChiSquared map from external vector and returns const reference to it. Used from Python in FitSuiteDrawObserver. 
-
-        """
-        return _libBornAgainCore.FitObject_transferToChi2Map(self, first, last)
 
 
     def getChildren(self):
@@ -7114,25 +7090,6 @@ class FitSuiteObjects(INode):
 
         """
         return _libBornAgainCore.FitSuiteObjects_getSimulationData(self, i_item)
-
-
-    def getChiSquaredMap(self, i_item=0):
-        """
-        getChiSquaredMap(FitSuiteObjects self, size_t i_item=0) -> IntensityData
-        getChiSquaredMap(FitSuiteObjects self) -> IntensityData
-
-        const OutputData< double > & FitSuiteObjects::getChiSquaredMap(size_t i_item=0) const
-
-        Returns new chi-squared map from corresponding  FitObject
-
-        Parameters:
-        -----------
-
-        i_item: 
-        Index of  FitObject
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_getChiSquaredMap(self, i_item)
 
 
     def runSimulations(self):

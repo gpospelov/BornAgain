@@ -47,9 +47,6 @@ public:
     //! Returns simulated data.
     const OutputData<double>& simulationData() const;
 
-    //! Returns chi2 map.
-    const OutputData<double>& chiSquaredMap() const;
-
     //! Returns weight of data set in chi2 calculations.
     double weight() const { return m_weight; }
 
@@ -59,9 +56,6 @@ public:
 
     void prepareFitElements(std::vector<FitElement>& fit_elements, double weight,
                             IIntensityNormalizer* normalizer=0);
-
-    void transferToChi2Map(std::vector<FitElement>::const_iterator first,
-                           std::vector<FitElement>::const_iterator last) const;
 
     std::vector<const INode*> getChildren() const;
 
@@ -76,7 +70,6 @@ private:
     std::unique_ptr<Simulation> m_simulation;
     std::unique_ptr<OutputData<double>> m_real_data;
     std::unique_ptr<OutputData<double>> m_simulation_data;
-    std::unique_ptr<OutputData<double>> m_chi2_data;
     double m_weight;
     size_t m_fit_elements_count;
 };

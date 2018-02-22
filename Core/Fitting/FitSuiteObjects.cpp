@@ -68,23 +68,6 @@ const OutputData<double> &FitSuiteObjects::getSimulationData(size_t i_item) cons
     return m_fit_objects[check_index(i_item)]->simulationData();
 }
 
-const OutputData<double> &FitSuiteObjects::getChiSquaredMap(size_t i_item) const
-{
-    check_index(i_item);
-
-    size_t istart(0);
-    for(size_t i=0; i<i_item; ++i)
-        istart += m_fit_objects[i]->numberOfFitElements();
-
-    std::vector<FitElement>::const_iterator start = m_fit_elements.begin() + istart;
-    std::vector<FitElement>::const_iterator end = start
-            + m_fit_objects[i_item]->numberOfFitElements();
-
-    m_fit_objects[i_item]->transferToChi2Map(start, end);
-
-    return m_fit_objects[i_item]->chiSquaredMap();
-}
-
 //! loop through all defined simulations and run them
 void FitSuiteObjects::runSimulations()
 {

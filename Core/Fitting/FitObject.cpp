@@ -51,11 +51,6 @@ const OutputData<double>& FitObject::simulationData() const
     return *m_simulation_data.get();
 }
 
-const OutputData<double>& FitObject::chiSquaredMap() const
-{
-    return *m_chi2_data.get();
-}
-
 std::vector<const INode*> FitObject::getChildren() const
 {
     return std::vector<const INode*>() << m_simulation;
@@ -66,7 +61,6 @@ void FitObject::init_dataset(const OutputData<double>& real_data)
 {
     process_realdata(real_data);
 
-    m_chi2_data.reset(m_simulation->getInstrument().createDetectorMap());
 //    bool put_masked_areas_to_zero(true);
 //    m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
 //                                                   put_masked_areas_to_zero);
@@ -124,16 +118,4 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
                 (*m_real_data)[it.roiIndex()], weight);
         fit_elements.push_back(element);
     }
-}
-
-//! Updates ChiSquared map from external vector and returns const reference to it. Used from
-//! Python in FitSuiteDrawObserver.
-
-void FitObject::transferToChi2Map(
-    std::vector<FitElement>::const_iterator first,
-    std::vector<FitElement>::const_iterator last) const
-{
-    m_chi2_data->setAllTo(0.0);
-    for(std::vector<FitElement>::const_iterator it=first; it!=last; ++it)
-        (*m_chi2_data)[it->getIndex()] = it->getSquaredDifference();
 }

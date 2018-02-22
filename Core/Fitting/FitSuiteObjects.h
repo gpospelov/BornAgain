@@ -44,10 +44,6 @@ public:
     //! Replaces default ChiSquaredModule with new one
     void setChiSquaredModule(const IChiSquaredModule &chi2_module);
 
-    //! Returns real data from corresponding FitObject
-    //! @param i_item Index of FitObject
-    const OutputData<double>& getRealData(size_t i_item = 0) const;
-
     //! Returns simulated data from corresponding FitObject
     //! @param i_item Index of FitObject
     const OutputData<double>& getSimulationData(size_t i_item = 0) const;

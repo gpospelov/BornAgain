@@ -7054,25 +7054,6 @@ class FitSuiteObjects(INode):
         return _libBornAgainCore.FitSuiteObjects_setChiSquaredModule(self, chi2_module)
 
 
-    def getRealData(self, i_item=0):
-        """
-        getRealData(FitSuiteObjects self, size_t i_item=0) -> IntensityData
-        getRealData(FitSuiteObjects self) -> IntensityData
-
-        const OutputData< double > & FitSuiteObjects::getRealData(size_t i_item=0) const
-
-        Returns real data from corresponding  FitObject
-
-        Parameters:
-        -----------
-
-        i_item: 
-        Index of  FitObject
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_getRealData(self, i_item)
-
-
     def getSimulationData(self, i_item=0):
         """
         getSimulationData(FitSuiteObjects self, size_t i_item=0) -> IntensityData

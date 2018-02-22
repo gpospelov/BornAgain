@@ -65,7 +65,6 @@ protected:
 
 private:
     void init_dataset(const OutputData<double>& real_data);
-    void process_realdata(const OutputData<double>& real_data);
 
     std::unique_ptr<Simulation> m_simulation;
     std::unique_ptr<OutputData<double>> m_real_data;

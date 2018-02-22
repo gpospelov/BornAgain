@@ -123,9 +123,7 @@ size_t FitSuite::numberOfFitObjects() const
 
 IHistogram* FitSuite::getRealData(size_t i_item) const
 {
-    std::unique_ptr<IHistogram> result(IHistogram::createHistogram(
-            m_impl->fitObjects()->getRealData(i_item)));
-    return result.release();
+    return m_impl->fitObjects()->createRealDataHistogram(i_item).release();
 }
 
 IHistogram* FitSuite::getSimulationData(size_t i_item) const

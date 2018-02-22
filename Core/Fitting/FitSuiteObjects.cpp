@@ -124,6 +124,18 @@ std::vector<const INode*> FitSuiteObjects::getChildren() const
     return result;
 }
 
+std::unique_ptr<IHistogram> FitSuiteObjects::createRealDataHistogram(size_t i_item) const
+{
+    // copying shape and axes labels from SimulationResults
+    OutputData<double> buff;
+    buff.copyShapeFrom(getSimulationData(i_item));
+
+    for(std::vector<FitElement>::const_iterator it=getStart(i_item); it!=getEnd(i_item); ++it)
+        buff[it->getIndex()] = it->getRealValue();
+
+    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
+}
+
 std::unique_ptr<IHistogram> FitSuiteObjects::createSimulationHistogram(size_t i_item) const
 {
     return std::unique_ptr<IHistogram>(IHistogram::createHistogram(getSimulationData(i_item)));

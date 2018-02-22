@@ -58,7 +58,7 @@ bool TestUtils::runPython(const std::string& py_command)
         std::string("NOPLOT=TRUE") + " " + BABuild::pythonExecutable() + " -B " + py_command;
 #else
     std::string sys_command = std::string("set PYTHONPATH=") + BABuild::buildLibDir() + " & " +
-        std::string("set NOPLOT=TRUE") + " & " +BABuild::pythonExecutable() + " -B " + py_command;
+        std::string("set NOPLOT=TRUE") + " & \"" +BABuild::pythonExecutable() + "\" -B " + py_command;
 #endif
     std::cout << sys_command << std::endl/*sic*/; // flush output before calling std::system
     int ret = std::system(sys_command.c_str());

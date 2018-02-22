@@ -61,7 +61,8 @@ def get_noisy_image(hist):
 
 
 def plot_histogram(hist, zmin=None, zmax=None):
-    ba.plot_histogram(hist, xlabel=r'$\varphi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$',
+    ba.plot_histogram(hist, xlabel=r'$\varphi_f ^{\circ}$',
+                      ylabel=r'$\alpha_f ^{\circ}$',
                       zlabel="", zmin=zmin, zmax=zmax)
 
 

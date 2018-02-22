@@ -108,7 +108,11 @@ if(BORNAGAIN_PYTHON)
     configure_file(${WRAP_DIR}/python/plot_utils.py
                    ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
 
-    set(BA_MODULES_IMPORT_PATH "..")
+    if(WIN32)
+        set(BA_MODULES_IMPORT_PATH "../../bin")
+    else()
+        set(BA_MODULES_IMPORT_PATH "..")
+    endif()
     if(BORNAGAIN_APPLE_BUNDLE)
         set(BA_MODULES_IMPORT_PATH
             lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})

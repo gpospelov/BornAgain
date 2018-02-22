@@ -81,7 +81,7 @@ endif()
 
 if(WIN32)
     set(destination_bin bin)
-    set(destination_lib lib)
+    set(destination_lib ${destination_bin})
     set(destination_gui bin)
     set(destination_include include)
     set(destination_examples Examples)

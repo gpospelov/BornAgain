@@ -23,16 +23,9 @@ set( CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\images\\
 set( CPACK_NSIS_MUI_UNIICON "${CMAKE_CURRENT_SOURCE_DIR}/GUI\\\\coregui\\\\images\\\\BornAgain.ico" )
 
 set (CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-  Push \\\"PATH\\\"
-  Push \\\"P\\\"
-  Push \\\"HKCU\\\"
-  Push \\\"$INSTDIR\\\\lib\\\"
-  Call EnvVarUpdate
-  Pop  \\\$0
-
   Push \\\"PYTHONPATH\\\"
   Push \\\"P\\\"
-  Push \\\"HKLM\\\"
+  Push \\\"HKCU\\\"
   Push \\\"$INSTDIR\\\\python\\\"
   Call EnvVarUpdate
   Pop  \\\$0
@@ -41,21 +34,15 @@ set (CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
 ")
 
 set (CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-  Push \\\"PATH\\\"
-  Push \\\"R\\\"
-  Push \\\"HKCU\\\"
-  Push \\\"$INSTDIR\\\\bin\\\"
-  Call un.EnvVarUpdate
-  Pop  \\\$0
-
   Push \\\"PYTHONPATH\\\"
   Push \\\"R\\\"
-  Push \\\"HKLM\\\"
-  Push \\\"$INSTDIR\\\\bin\\\"
+  Push \\\"HKCU\\\"
+  Push \\\"$INSTDIR\\\\python\\\"
   Call un.EnvVarUpdate
   Pop  \\\$0
 
+  RMDir /r \\\"$INSTDIR\\\\bin\\\"
+  RMDir /r \\\"$INSTDIR\\\\python\\\"
   Delete \\\"$DESKTOP\\\\BornAgain.lnk\\\"
-
 ")
 

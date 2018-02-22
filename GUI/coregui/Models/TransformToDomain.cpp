@@ -50,6 +50,7 @@
 #include "RotationItems.h"
 #include "SessionItemUtils.h"
 #include "SimulationOptionsItem.h"
+#include "SpecularSimulation.h"
 #include "TransformationItem.h"
 #include "Units.h"
 #include "VectorItem.h"
@@ -177,6 +178,23 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
                 simulation->addParameterDistribution(*P_par_distr);
         }
     }
+}
+
+void TransformToDomain::addDistributionParametersToSimulation(const SessionItem& beam_item,
+                                                              SpecularSimulation* simulation)
+{
+    ParameterPattern pattern_wavelength;
+    pattern_wavelength.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
+    if (beam_item.modelType() != Constants::BeamType)
+        return;
+    auto beam_wavelength
+        = dynamic_cast<BeamWavelengthItem*>(beam_item.getItem(BeamItem::P_WAVELENGTH));
+    if (!beam_wavelength)
+        return;
+    auto P_par_distr
+        = beam_wavelength->getParameterDistributionForName(pattern_wavelength.toStdString());
+    if (P_par_distr)
+        simulation->addParameterDistribution(*P_par_distr);
 }
 
 void TransformToDomain::setSimulationOptions(Simulation* simulation,

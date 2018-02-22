@@ -46,6 +46,8 @@ BA_CORE_API_ std::unique_ptr<ParticleLayout> createParticleLayout(const SessionI
 
 BA_CORE_API_ void addDistributionParametersToSimulation(
     const SessionItem& beam_item, GISASSimulation* simulation);
+BA_CORE_API_ void addDistributionParametersToSimulation(
+    const SessionItem& beam_item, SpecularSimulation* simulation);
 BA_CORE_API_ void setSimulationOptions(Simulation* simulation, const SessionItem& item);
 BA_CORE_API_ void setTransformationInfo(IParticle* result, const SessionItem& item);
 BA_CORE_API_ void setPositionInfo(IParticle* result, const SessionItem& item);

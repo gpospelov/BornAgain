@@ -147,6 +147,9 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     specular_simulation->setBeamParameters(beam_item->getWavelength(),
                                            *axis_item->createAxis(Units::degree));
 
+    TransformToDomain::addDistributionParametersToSimulation(*beam_item,
+                                                             specular_simulation.get());
+
     // Simulation options
     if (options_item)
         TransformToDomain::setSimulationOptions(specular_simulation.get(), *options_item);

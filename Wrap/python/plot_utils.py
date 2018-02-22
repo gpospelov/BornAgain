@@ -199,14 +199,21 @@ class PlotterGISAS(Plotter):
     def plot(self, fit_suite):
         Plotter.reset(self)
 
+
         self.make_subplot(1)
         real_data = fit_suite.getRealData()
+
+        zmax = real_data.getMaximum()
+        zmin = zmax*1e-6
+
         plot_histogram(real_data, title="\"Real\" data",
+                      zmin=zmin, zmax=zmax,
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(2)
         sim_data = fit_suite.getSimulationData()
         plot_histogram(sim_data, title="Simulated data",
+                      zmin=zmin, zmax=zmax,
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(3)

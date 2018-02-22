@@ -111,7 +111,13 @@ void JobModel::restore(JobItem *jobItem)
 
 bool JobModel::hasUnfinishedJobs()
 {
-    return m_queue_data->hasUnfinishedJobs();
+    bool result = m_queue_data->hasUnfinishedJobs();
+    for (auto jobItem : topItems<JobItem>()) {
+        if (jobItem->getStatus() == Constants::STATUS_FITTING)
+            result = true;
+    }
+
+    return result;
 }
 
 void JobModel::clear()

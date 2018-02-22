@@ -107,7 +107,8 @@ def plot(results):
 
     for nplot, hist in results.items():
         plt.subplot(2, 2, nplot+1)
-        ba.plot_colormap(hist)
+        ba.plot_colormap(hist, zlabel="")
+    plt.tight_layout()
     plt.show()
 
 

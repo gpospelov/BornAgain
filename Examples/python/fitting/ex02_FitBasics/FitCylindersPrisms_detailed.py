@@ -9,6 +9,7 @@ by poor performance of matplotlib drawing routines.
 import math
 import random
 import bornagain as ba
+import numpy as np
 from matplotlib import pyplot as plt
 from bornagain import deg, angstrom, nm
 

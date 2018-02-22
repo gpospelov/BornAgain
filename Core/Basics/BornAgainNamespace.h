@@ -41,6 +41,7 @@ const std::string DetectorType = "Detector";
 const std::string SphericalDetectorType = "SphericalDetector";
 const std::string RectangularDetectorType = "RectangularDetector";
 const std::string IsGISAXSDetectorType = "IsGISAXSDetector";
+const std::string SpecularDetectorType = "SpecularDetector1D";
 const std::string BeamType = "Beam";
 const std::string GaussianFootprintFactorType = "FootprintFactorGaussian";
 const std::string SquareFootprintFactorType = "FootprintFactorSquare";

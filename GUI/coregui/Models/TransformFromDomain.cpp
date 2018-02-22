@@ -61,6 +61,7 @@
 #include "Units.h"
 #include "OffSpecSimulation.h"
 #include "FixedBinAxis.h"
+#include "Particle.h"
 
 using namespace INodeUtils;
 using SessionItemUtils::SetVectorItem;

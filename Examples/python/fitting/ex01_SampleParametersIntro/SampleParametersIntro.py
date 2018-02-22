@@ -113,7 +113,8 @@ def plot(results):
 
     for nplot, result in results.items():
         plt.subplot(2, 2, nplot+1)
-        ba.plot_colormap(result)
+        ba.plot_colormap(result, zlabel="")
+    plt.tight_layout()
     plt.show()
 
 

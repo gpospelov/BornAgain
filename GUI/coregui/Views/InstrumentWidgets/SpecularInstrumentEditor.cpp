@@ -18,7 +18,7 @@ SpecularInstrumentEditor::SpecularInstrumentEditor(QWidget* parent)
 
     addEditor(mainLayout, m_beamEditor, "Beam parameters");
 //    addEditor(mainLayout, m_polarizationAnalysisEditor, "Polarization analysis", /*expanded*/false);
-//    addEditor(mainLayout, m_environmentEditor, "Environment", /*expanded*/false);
+    addEditor(mainLayout, m_environmentEditor, "Environment", /*expanded*/false);
 
     mainLayout->addStretch();
 
@@ -28,7 +28,7 @@ SpecularInstrumentEditor::SpecularInstrumentEditor(QWidget* parent)
 void SpecularInstrumentEditor::subscribeToItem()
 {
     m_beamEditor->setItem(instrumentItem());
-//    m_environmentEditor->setItem(instrumentItem());
+    m_environmentEditor->setItem(instrumentItem());
 //    m_polarizationAnalysisEditor->setItem(instrumentItem());
 }
 

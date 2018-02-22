@@ -130,9 +130,7 @@ IHistogram* FitSuite::getRealData(size_t i_item) const
 
 IHistogram* FitSuite::getSimulationData(size_t i_item) const
 {
-    std::unique_ptr<IHistogram> result(IHistogram::createHistogram(
-            m_impl->fitObjects()->getSimulationData(i_item)));
-    return result.release();
+    return m_impl->fitObjects()->createSimulationHistogram(i_item).release();
 }
 
 IHistogram* FitSuite::getChiSquaredMap(size_t i_item) const

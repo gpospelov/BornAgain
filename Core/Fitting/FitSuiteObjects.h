@@ -18,6 +18,7 @@
 #include "FitObject.h"
 
 class IChiSquaredModule;
+class IHistogram;
 
 //! Holds vector of FitObject's (simulation and real data) to fit
 //! @ingroup fitting_internal
@@ -53,7 +54,7 @@ public:
 
     //! Returns new chi-squared map from corresponding FitObject
     //! @param i_item Index of FitObject
-    const OutputData<double>& getChiSquaredMap(size_t i_item = 0) const;
+    const OutputData<double>& getChiSquaredMap(size_t i_item = 0) const;    
 
     //! run all simulation defined in fit pairs
     void runSimulations();
@@ -75,6 +76,12 @@ public:
     iterator end() { return m_fit_objects.end(); }
 
     std::vector<const INode*> getChildren() const;
+
+#ifndef SWIG
+    //! Returns simulated data from corresponding FitObject
+    //! @param i_item Index of FitObject
+    std::unique_ptr<IHistogram> createSimulationHistogram(size_t i_item = 0) const;
+#endif
 
 protected:
     //! Registers some class members for later access via parameter pool

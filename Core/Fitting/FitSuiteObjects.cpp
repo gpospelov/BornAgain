@@ -14,6 +14,7 @@
 
 #include "FitSuiteObjects.h"
 #include "ChiSquaredModule.h"
+#include "Histogram2D.h"
 
 static_assert(std::is_copy_constructible<FitSuiteObjects>::value == false,
     "FitSuiteObjects should not be copy constructable");
@@ -138,6 +139,11 @@ std::vector<const INode*> FitSuiteObjects::getChildren() const
     }
 
     return result;
+}
+
+std::unique_ptr<IHistogram> FitSuiteObjects::createSimulationHistogram(size_t i_item) const
+{
+    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(getSimulationData(i_item)));
 }
 
 double FitSuiteObjects::calculateChiSquaredValue()

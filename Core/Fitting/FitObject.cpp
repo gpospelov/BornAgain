@@ -19,6 +19,7 @@
 #include "SimulationArea.h"
 #include "BornAgainNamespace.h"
 #include "DetectorFunctions.h"
+#include "IHistogram.h"
 
 static_assert(std::is_copy_constructible<FitObject>::value == false,
     "FitObject should not be copy constructable");
@@ -51,53 +52,35 @@ const OutputData<double>& FitObject::simulationData() const
     return *m_simulation_data.get();
 }
 
-const OutputData<double>& FitObject::chiSquaredMap() const
-{
-    return *m_chi2_data.get();
-}
-
 std::vector<const INode*> FitObject::getChildren() const
 {
     return std::vector<const INode*>() << m_simulation;
 }
 
-//! Initialize detector, if necessary, to match experimental data
-void FitObject::init_dataset(const OutputData<double>& real_data)
+std::unique_ptr<IHistogram> FitObject::createRealDataHistogram() const
 {
-    process_realdata(real_data);
+    OutputData<double> buff;
+    buff.copyShapeFrom(simulationData());
 
-    m_chi2_data.reset(m_simulation->getInstrument().createDetectorMap());
-//    bool put_masked_areas_to_zero(true);
-//    m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
-//                                                   put_masked_areas_to_zero);
+    SimulationRoiArea area(m_simulation->getInstrument().getDetector());
+    for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it) {
+        buff[it.roiIndex()] = (*m_real_data)[it.detectorIndex()];
+    }
+    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
 }
 
-//! Adapt real data to use with fitting.
-// If real_data and the detector have the same size, real_data will be croped to the ROI
-// If size of real_data and the detector is different, it is assumed that it is already cropped
-void FitObject::process_realdata(const OutputData<double> &real_data)
+//! Check if real_data shape corresponds with the detector.
+
+void FitObject::init_dataset(const OutputData<double>& real_data)
 {
     const IDetector* detector = m_simulation->getInstrument().getDetector();
     if(!DetectorFunctions::hasSameDimensions(*detector, real_data)){
-        std::unique_ptr<OutputData<double>> detectorMap(
-                    m_simulation->getInstrument().createDetectorMap());
-
-        if(detectorMap->hasSameDimensions(real_data)) {
-            detectorMap->setRawDataVector(real_data.getRawDataVector());
-            m_real_data.reset(detectorMap.release());
-        } else {
-
         std::ostringstream message;
         message << "FitObject::check_realdata() -> Error. Axes of the real data doesn't match "
                 << "the detector. Real data:" << DetectorFunctions::axesToString(real_data)
                         << ", detector:" << DetectorFunctions::axesToString(*detector) << ".";
-        throw Exceptions::RuntimeErrorException(message.str());
-        }
-    } else {
-        bool put_masked_areas_to_zero(false);
-        m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
-                                                       put_masked_areas_to_zero);
     }
+    m_real_data.reset(real_data.clone());
 }
 
 size_t FitObject::numberOfFitElements() const
@@ -121,19 +104,7 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
     SimulationArea area(m_simulation->getInstrument().getDetector());
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         FitElement element(it.roiIndex(), (*m_simulation_data)[it.roiIndex()],
-                (*m_real_data)[it.roiIndex()], weight);
+                (*m_real_data)[it.detectorIndex()], weight);
         fit_elements.push_back(element);
     }
-}
-
-//! Updates ChiSquared map from external vector and returns const reference to it. Used from
-//! Python in FitSuiteDrawObserver.
-
-void FitObject::transferToChi2Map(
-    std::vector<FitElement>::const_iterator first,
-    std::vector<FitElement>::const_iterator last) const
-{
-    m_chi2_data->setAllTo(0.0);
-    for(std::vector<FitElement>::const_iterator it=first; it!=last; ++it)
-        (*m_chi2_data)[it->getIndex()] = it->getSquaredDifference();
 }

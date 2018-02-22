@@ -41,7 +41,7 @@ public:
 
 private:
     void swapContent(FitElement& other);
-    size_t m_index;
+    size_t m_index; // roiIndex
     double m_simul_value;
     double m_real_value;
     double m_weight;

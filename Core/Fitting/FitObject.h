@@ -22,6 +22,7 @@
 class FitElement;
 class Simulation;
 class IIntensityNormalizer;
+class IHistogram;
 
 //! Holds simulation description and real data to run the fit.
 //! @ingroup fitting_internal
@@ -47,9 +48,6 @@ public:
     //! Returns simulated data.
     const OutputData<double>& simulationData() const;
 
-    //! Returns chi2 map.
-    const OutputData<double>& chiSquaredMap() const;
-
     //! Returns weight of data set in chi2 calculations.
     double weight() const { return m_weight; }
 
@@ -60,10 +58,12 @@ public:
     void prepareFitElements(std::vector<FitElement>& fit_elements, double weight,
                             IIntensityNormalizer* normalizer=0);
 
-    void transferToChi2Map(std::vector<FitElement>::const_iterator first,
-                           std::vector<FitElement>::const_iterator last) const;
-
     std::vector<const INode*> getChildren() const;
+
+#ifndef SWIG
+    //! Returns histogram representing real data clipped to ROI
+    std::unique_ptr<IHistogram> createRealDataHistogram() const;
+#endif
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -71,12 +71,10 @@ protected:
 
 private:
     void init_dataset(const OutputData<double>& real_data);
-    void process_realdata(const OutputData<double>& real_data);
 
     std::unique_ptr<Simulation> m_simulation;
     std::unique_ptr<OutputData<double>> m_real_data;
     std::unique_ptr<OutputData<double>> m_simulation_data;
-    std::unique_ptr<OutputData<double>> m_chi2_data;
     double m_weight;
     size_t m_fit_elements_count;
 };

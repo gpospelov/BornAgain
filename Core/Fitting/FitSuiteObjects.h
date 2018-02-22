@@ -18,6 +18,7 @@
 #include "FitObject.h"
 
 class IChiSquaredModule;
+class IHistogram;
 
 //! Holds vector of FitObject's (simulation and real data) to fit
 //! @ingroup fitting_internal
@@ -43,17 +44,9 @@ public:
     //! Replaces default ChiSquaredModule with new one
     void setChiSquaredModule(const IChiSquaredModule &chi2_module);
 
-    //! Returns real data from corresponding FitObject
-    //! @param i_item Index of FitObject
-    const OutputData<double>& getRealData(size_t i_item = 0) const;
-
     //! Returns simulated data from corresponding FitObject
     //! @param i_item Index of FitObject
     const OutputData<double>& getSimulationData(size_t i_item = 0) const;
-
-    //! Returns new chi-squared map from corresponding FitObject
-    //! @param i_item Index of FitObject
-    const OutputData<double>& getChiSquaredMap(size_t i_item = 0) const;
 
     //! run all simulation defined in fit pairs
     void runSimulations();
@@ -76,6 +69,21 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
+#ifndef SWIG
+    //! Returns real data from corresponding FitObject. ROI is taken into account.
+    //! @param i_item Index of FitObject
+    std::unique_ptr<IHistogram> createRealDataHistogram(size_t i_item = 0) const;
+
+    //! Returns simulated data from corresponding FitObject.  ROI is taken into account.
+    //! @param i_item Index of FitObject
+    std::unique_ptr<IHistogram> createSimulationHistogram(size_t i_item = 0) const;
+
+    //! Returns new chi-squared map from corresponding FitObject. ROI is taken into account.
+    //! @param i_item Index of FitObject
+    std::unique_ptr<IHistogram> createChiSquaredHistogram(size_t i_item = 0) const;
+
+#endif
+
 protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters() {}
@@ -84,6 +92,9 @@ protected:
 
 private:
     inline size_t check_index(size_t index) const;
+
+    std::vector<FitElement>::const_iterator getStart(size_t i_item) const;
+    std::vector<FitElement>::const_iterator getEnd(size_t i_item) const;
 
     FitObjects_t m_fit_objects;
     double m_total_weight;

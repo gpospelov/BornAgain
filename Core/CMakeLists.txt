@@ -108,7 +108,11 @@ if(BORNAGAIN_PYTHON)
     configure_file(${WRAP_DIR}/python/plot_utils.py
                    ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
 
-    set(BA_MODULES_IMPORT_PATH "..")
+    if(WIN32)
+        set(BA_MODULES_IMPORT_PATH "../../bin")
+    else()
+        set(BA_MODULES_IMPORT_PATH "..")
+    endif()
     if(BORNAGAIN_APPLE_BUNDLE)
         set(BA_MODULES_IMPORT_PATH
             lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
@@ -199,9 +203,6 @@ if(WIN32)
             ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
             )
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
-        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
-        # for functional tests
-        # install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.dll DESTINATION ${destination_lib} COMPONENT Libraries)
         ADD_CUSTOM_COMMAND(
             TARGET ${library_name}
             POST_BUILD

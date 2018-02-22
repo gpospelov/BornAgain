@@ -81,12 +81,12 @@ endif()
 
 if(WIN32)
     set(destination_bin bin)
-    set(destination_lib bin)
+    set(destination_lib ${destination_bin})
     set(destination_gui bin)
     set(destination_include include)
     set(destination_examples Examples)
     set(destination_images Images)
-    set(destination_libexec ${destination_bin})
+    set(destination_libexec python)
 else()
     set(destination_suffix BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
     if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
@@ -111,7 +111,15 @@ else()
     set(destination_images ${destination_share}Images)
 endif()
 
-message(STATUS "Destination directories: bin->${destination_bin}, lib->${destination_lib}, gui&libexec->${destination_libexec}, include->${destination_include}, share->${destination_share}")
+message(STATUS "Destination directories:
+    bin->${destination_bin},
+    lib->${destination_lib},
+    gui->${destination_gui},
+    include->${destination_include},
+    share->${destination_share},
+    examples->${destination_examples},
+    images->${destination_images},
+    libexec->${destination_libexec}")
 
 # -----------------------------------------------------------------------------
 # configure files

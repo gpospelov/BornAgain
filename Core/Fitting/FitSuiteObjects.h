@@ -81,6 +81,11 @@ public:
     //! Returns simulated data from corresponding FitObject
     //! @param i_item Index of FitObject
     std::unique_ptr<IHistogram> createSimulationHistogram(size_t i_item = 0) const;
+
+    //! Returns new chi-squared map from corresponding FitObject
+    //! @param i_item Index of FitObject
+    std::unique_ptr<IHistogram> createChiSquaredHistogram(size_t i_item = 0) const;
+
 #endif
 
 protected:
@@ -91,6 +96,9 @@ protected:
 
 private:
     inline size_t check_index(size_t index) const;
+
+    std::vector<FitElement>::const_iterator getStart(size_t i_item) const;
+    std::vector<FitElement>::const_iterator getEnd(size_t i_item) const;
 
     FitObjects_t m_fit_objects;
     double m_total_weight;

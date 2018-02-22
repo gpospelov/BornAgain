@@ -146,6 +146,18 @@ std::unique_ptr<IHistogram> FitSuiteObjects::createSimulationHistogram(size_t i_
     return std::unique_ptr<IHistogram>(IHistogram::createHistogram(getSimulationData(i_item)));
 }
 
+std::unique_ptr<IHistogram> FitSuiteObjects::createChiSquaredHistogram(size_t i_item) const
+{
+    // copying shape and axes labels from SimulationResults
+    OutputData<double> buff;
+    buff.copyShapeFrom(getSimulationData(i_item));
+
+    for(std::vector<FitElement>::const_iterator it=getStart(i_item); it!=getEnd(i_item); ++it)
+        buff[it->getIndex()] = it->getSquaredDifference();
+
+    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
+}
+
 double FitSuiteObjects::calculateChiSquaredValue()
 {
     m_chi2_module->processFitElements(m_fit_elements.begin(), m_fit_elements.end());
@@ -166,4 +178,22 @@ size_t FitSuiteObjects::check_index(size_t index) const
     if( index >= m_fit_objects.size() )
         throw Exceptions::OutOfBoundsException("FitSuiteKit::check() -> Index outside of range");
     return index;
+}
+
+//! Returns iterator pointing to the begin of FitObject with given i_item index.
+
+std::vector<FitElement>::const_iterator FitSuiteObjects::getStart(size_t i_item) const
+{
+    check_index(i_item);
+
+    int istart(0);
+    for(size_t i=0; i<i_item; ++i)
+        istart += m_fit_objects[i]->numberOfFitElements();
+
+    return m_fit_elements.begin() + istart;
+}
+
+std::vector<FitElement>::const_iterator FitSuiteObjects::getEnd(size_t i_item) const
+{
+    return getStart(i_item) + static_cast<int>(m_fit_objects[i_item]->numberOfFitElements());
 }

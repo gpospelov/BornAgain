@@ -16,6 +16,12 @@ BUNDLE_DIR = ""
 # Locations
 # -----------------------------------------------------------------------------
 
+def is_python3():
+    if (sys.version_info > (3, 0)):
+        return True
+    else
+        return False
+
 
 def set_bundle_dir(bundle_dir):
     global BUNDLE_DIR
@@ -109,8 +115,10 @@ def otool(filename):
     p = subprocess.Popen(['otool', '-XL', filename], stdout=subprocess.PIPE)
     # return iter(p.stdout.readline, b'')
     for line in iter(p.stdout.readline, b''):
-        str = line.strip().split()[0]
-        yield str
+        if is_python3():
+            yield line.decode('ascii').strip().split()[0]
+        else:
+            yield line.strip().split()[0]
 
 
 def setId(filename, newId):

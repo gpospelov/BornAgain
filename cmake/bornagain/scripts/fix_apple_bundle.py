@@ -311,7 +311,8 @@ def copy_qt_libraries():
 
 def copy_qt_plugins():
     print "--> Copying Qt plugins"
-    plugins = ['platforms/libqcocoa.dylib', 'iconengines/libqsvgicon.dylib', 'imageformats/libqjpeg.dylib', 'imageformats/libqsvg.dylib']
+    plugins = ['platforms/libqcocoa.dylib', 'iconengines/libqsvgicon.dylib',
+        'imageformats/libqjpeg.dylib', 'imageformats/libqsvg.dylib', 'styles/libqmacstyle.dlib']
     print "   ",
     for name in plugins:
         print name,

@@ -300,9 +300,9 @@ def copy_python_framework():
 def copy_qt_libraries():
     print("--> Copying Qt libraries")
     libs = ['QtCore', 'QtDBus', 'QtDesigner', 'QtGui', 'QtPrintSupport', 'QtWidgets', 'QtXml', 'QtSvg', 'QtNetwork', 'QtOpenGL']
-    print("   ",)
+    print("   ", end="")
     for libname in libs:
-        print(libname,)
+        print(libname, end="")
         libpath = os.path.join(libname+".framework", "Versions", "5")
         srcfile = os.path.join(qtlibs_path(), libpath, libname)
         if os.path.exists(srcfile):
@@ -314,9 +314,9 @@ def copy_qt_plugins():
     print("--> Copying Qt plugins")
     plugins = ['platforms/libqcocoa.dylib', 'iconengines/libqsvgicon.dylib',
         'imageformats/libqjpeg.dylib', 'imageformats/libqsvg.dylib', 'styles/libqmacstyle.dylib']
-    print("   ",)
+    print("   ", end="")
     for name in plugins:
-        print(name,)
+        print(name, end="")
         srcfile = os.path.join(qtplugins_path(), name)
         dstdir = os.path.join(bundle_plugins_path(), os.path.dirname(name))
         dstfile = copy_file_to_dir(srcfile, dstdir)

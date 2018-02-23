@@ -60,7 +60,7 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     endif()
     message(STATUS "Found Python libraries version ${PYTHONLIBS_VERSION_STRING} at ${PYTHON_LIBRARIES}; includes at ${PYTHON_INCLUDE_DIRS}")
 
-    if(PYTHONLIBS_VERSION_STRING MATCHES "^3.*$")
+    if(PYTHONLIBS_VERSION_STRING MATCHES "^3.*$" AND NOT BORNAGAIN_USE_PYTHON3)
         set(BORNAGAIN_USE_PYTHON3 ON)
         message(STATUS "Python 3 will be used. Setting BORNAGAIN_USE_PYTHON3 to ${BORNAGAIN_USE_PYTHON3}.")
     endif()

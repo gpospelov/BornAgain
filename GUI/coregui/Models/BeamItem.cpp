@@ -18,6 +18,7 @@
 #include "BeamDistributionItem.h"
 #include "BeamWavelengthItem.h"
 #include "BornAgainNamespace.h"
+#include "GUIHelpers.h"
 #include "ParameterTranslators.h"
 #include "SessionItemUtils.h"
 #include "Units.h"
@@ -35,7 +36,7 @@ const QString BeamItem::P_INCLINATION_ANGLE = QString::fromStdString(BornAgain::
 const QString BeamItem::P_AZIMUTHAL_ANGLE = QString::fromStdString(BornAgain::Azimuth);
 const QString BeamItem::P_POLARIZATION = QString("Polarization");
 
-BeamItem::BeamItem() : SessionItem(Constants::BeamType)
+BeamItem::BeamItem(const QString& beam_model) : SessionItem(beam_model)
 {
     addProperty(P_INTENSITY, 1e+08)
         ->setLimits(RealLimits::limited(0.0, 1e+32))
@@ -43,7 +44,13 @@ BeamItem::BeamItem() : SessionItem(Constants::BeamType)
         .setEditorType(Constants::ScientificEditorType);
 
     addGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
-    addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
+
+    if (beam_model == Constants::BeamType)
+        addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
+    else if (beam_model == Constants::SpecularBeamType)
+        addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAxisType);
+    else
+        GUIHelpers::Error("Error in BeamItem: unknown type of the beam");
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
     addGroupProperty(P_POLARIZATION, Constants::VectorType)->setToolTip(polarization_tooltip);
 
@@ -131,3 +138,9 @@ std::unique_ptr<Beam> BeamItem::createBeam() const
 
     return result;
 }
+
+SpecularBeamItem::SpecularBeamItem() : BeamItem(Constants::SpecularBeamType)
+{
+}
+
+SpecularBeamItem::~SpecularBeamItem() = default;

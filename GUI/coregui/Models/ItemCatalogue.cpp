@@ -84,6 +84,7 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::OffSpecInstrumentType, create_new<OffSpecInstrumentItem>);
     add(Constants::SpecularInstrumentType, create_new<SpecularInstrumentItem>);
     add(Constants::BeamType, create_new<BeamItem>);
+    add(Constants::SpecularBeamType, create_new<SpecularBeamItem>);
     add(Constants::BackgroundNoneType, create_new<BackgroundNoneItem>);
     add(Constants::ConstantBackgroundType, create_new<ConstantBackgroundItem>);
     add(Constants::PoissonNoiseBackgroundType, create_new<PoissonNoiseBackgroundItem>);

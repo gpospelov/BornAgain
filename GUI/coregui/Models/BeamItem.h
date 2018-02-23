@@ -28,7 +28,8 @@ public:
     static const QString P_INCLINATION_ANGLE;
     static const QString P_AZIMUTHAL_ANGLE;
     static const QString P_POLARIZATION;
-    BeamItem();
+
+    explicit BeamItem(const QString& beam_model = Constants::BeamType);
     virtual ~BeamItem();
 
     double getIntensity() const;
@@ -44,6 +45,13 @@ public:
     void setAzimuthalAngle(double value, const QString& distribution_name = QString());
 
     std::unique_ptr<Beam> createBeam() const;
+};
+
+class BA_CORE_API_ SpecularBeamItem : public BeamItem
+{
+public:
+    SpecularBeamItem();
+    virtual ~SpecularBeamItem();
 };
 
 #endif // BEAMITEM_H

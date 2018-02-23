@@ -27,7 +27,7 @@ include(VERSION.cmake)
 
 # --- Declare project-wide user flags, and set default values ---
 option(BORNAGAIN_PYTHON "Build with python support" ON)
-option(BORNAGAIN_USE_PYTHON3 "Build against python 3.5 instead of 2.7" OFF)
+option(BORNAGAIN_USE_PYTHON3 "Build against python 3.x instead of 2.7" ON)
 option(BORNAGAIN_GENERATE_BINDINGS "Generate python bindings during build (requires swig)" OFF)
 option(BORNAGAIN_GENERATE_PYTHON_DOCS "Generate python documentation from the doxygen comments" OFF)
 option(BORNAGAIN_GUI "Build a graphical user interface" ON)

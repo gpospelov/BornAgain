@@ -23,6 +23,10 @@ def is_python3():
         return False
 
 
+def python_version_string():
+    return str(sys.version_info[0]) + "." + str(sys.version_info[1])
+
+
 def set_bundle_dir(bundle_dir):
     global BUNDLE_DIR
     BUNDLE_DIR = bundle_dir
@@ -46,7 +50,9 @@ def bundle_main_executables():
 
 
 def bundle_python_library():
-    return os.path.join("Python.framework", "Versions", "2.7", "Python")
+    def is_python3():
+        return os.path.join("Python.framework", "Versions", python_version_string(), "Python")
+    else:
 
 
 def qtlibs_path():

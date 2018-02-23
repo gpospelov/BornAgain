@@ -34,11 +34,34 @@ from distutils.sysconfig import get_python_lib
 
 BORNAGAIN_VERSION = "0.0"
 
+def is_python3():
+    if (sys.version_info > (3, 0)):
+        return True
+    else:
+        return False
 
-def run_command(cmd):
-    p = subprocess.Popen([cmd], stdout=subprocess.PIPE)
+def python_version_string():
+    return str(sys.version_info[0]) + "." + str(sys.version_info[1])
+
+
+def install_name_tool(args):
+    p = subprocess.Popen(['install_name_tool', args], stdout=subprocess.PIPE)
     p.communicate()
     return
+
+
+def exec_full(filepath):
+    """
+    Executes embedded python script.
+    http://stackoverflow.com/questions/436198/what-is-an-alternative-to-execfile-in-python-3
+    """
+    import os
+    global_namespace = {
+        "__file__": filepath,
+        "__name__": "__main__",
+    }
+    with open(filepath, 'rb') as file:
+        exec(compile(file.read(), filepath, 'exec'), global_namespace)
 
 
 def get_python_shared_library():
@@ -210,19 +233,19 @@ def patch_libraries(dir_name):
     libfiles = glob.glob(os.path.join(dir_name, '*/_libBornAgain*'))
     for f in libfiles:
         if "libBornAgainCore" in f or "libBornAgainFit" in f:
-            cmd = "install_name_tool -delete_rpath  @loader_path/../../Frameworks " + f
-            run_command(cmd)
-        cmd = "install_name_tool -add_rpath  @loader_path/../Frameworks " + f
-        run_command(cmd)
+            #cmd = "install_name_tool -delete_rpath  @loader_path/../../Frameworks " + f
+            install_name_tool("-delete_rpath  @loader_path/../../Frameworks " + f)
+        #cmd = "install_name_tool -add_rpath  @loader_path/../Frameworks " + f
+        install_name_tool("-add_rpath  @loader_path/../Frameworks " + f)
         if "libBornAgainCore" in f:
-            cmd = "install_name_tool -add_rpath  @loader_path/. " + f
-            run_command(cmd)
+            #cmd = "install_name_tool -add_rpath  @loader_path/. " + f
+            install_name_tool("-add_rpath  @loader_path/. " + f)
 
     libfiles += glob.glob(os.path.join(dir_name, '*/libboost_python*'))
     for f in libfiles:
-        # cmd = "install_name_tool -change @rpath/libpython2.7.dylib " + get_python_shared_library() + " " + f
-        cmd = "install_name_tool -change @rpath/Python.framework/Versions/2.7/Python " + get_python_shared_library() + " " + f
-        run_command(cmd)
+        #cmd = "install_name_tool -change @rpath/Python.framework/Versions/2.7/Python " + get_python_shared_library() + " " + f
+        install_name_tool("-change @rpath/Python.framework/Versions/"+python_version_string()+"/Python " + get_python_shared_library() + " " + f)
+
 
     pass
 
@@ -262,7 +285,7 @@ def install_bundle(dir_name):
     
     os.chdir(bundle_dir)
     sys.argv = ['setup.py', 'install']
-    execfile('setup.py')
+    exec_full('setup.py')
     print("\nBornAgain Python bundle is successfully installed in '{0}'".format(get_python_lib()))
     print("Congratulations!")
     
@@ -283,9 +306,13 @@ if __name__ == '__main__':
     print("[0] - Generate bundle with BornAgain libraries, do not install it.")
     print("[1] - Generate bundle and install it into site-packages of your Python.")
     print("[2] - Exit")
-    
-    var = int(raw_input("Enter your choice [1]: ") or "1")
-            
+
+    var = 0
+    if is_python3():
+        var = int(input("Enter your choice [1]: ") or "1")
+    else:
+        var = int(raw_input("Enter your choice [1]: ") or "1")
+
     if var == 0:
         create_bundle(app_dir)
     elif var == 1:

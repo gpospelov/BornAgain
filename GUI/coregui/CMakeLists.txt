@@ -179,4 +179,8 @@ if(WIN32)
     ${QTDIR}/plugins/imageformats/qsvg.dll
     DESTINATION bin/imageformats COMPONENT Libraries)
 
+    install(FILES
+    ${QTDIR}/plugins/styles/qwindowsvistastyle.dll
+    DESTINATION bin/styles COMPONENT Libraries)
+
 endif()

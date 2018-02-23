@@ -24,9 +24,9 @@
 
 using SessionItemUtils::GetVectorItem;
 
-namespace {
-const QString polarization_tooltip =
-        "Polarization of the beam, given as the Bloch vector";
+namespace
+{
+const QString polarization_tooltip = "Polarization of the beam, given as the Bloch vector";
 }
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
@@ -37,9 +37,10 @@ const QString BeamItem::P_POLARIZATION = QString("Polarization");
 
 BeamItem::BeamItem() : SessionItem(Constants::BeamType)
 {
-    addProperty(P_INTENSITY, 1e+08)->setLimits(RealLimits::limited(0.0, 1e+32))
-            .setToolTip("Beam intensity in neutrons (or gammas) per sec.")
-            .setEditorType(Constants::ScientificEditorType);
+    addProperty(P_INTENSITY, 1e+08)
+        ->setLimits(RealLimits::limited(0.0, 1e+32))
+        .setToolTip("Beam intensity in neutrons (or gammas) per sec.")
+        .setEditorType(Constants::ScientificEditorType);
 
     addGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
@@ -49,7 +50,7 @@ BeamItem::BeamItem() : SessionItem(Constants::BeamType)
     addTranslator(VectorParameterTranslator(P_POLARIZATION, BornAgain::BlochVector));
 }
 
-BeamItem::~BeamItem(){}
+BeamItem::~BeamItem() = default;
 
 double BeamItem::getIntensity() const
 {
@@ -63,16 +64,16 @@ void BeamItem::setIntensity(double value)
 
 double BeamItem::getWavelength() const
 {
-    BeamWavelengthItem *beamWavelength = dynamic_cast<BeamWavelengthItem *>(getItem(P_WAVELENGTH));
+    BeamWavelengthItem* beamWavelength = dynamic_cast<BeamWavelengthItem*>(getItem(P_WAVELENGTH));
     return beamWavelength->wavelength();
 }
 
-void BeamItem::setWavelength(double value, const QString &distribution_name)
+void BeamItem::setWavelength(double value, const QString& distribution_name)
 {
     Q_UNUSED(distribution_name);
-    SessionItem *beamWavelength = getItem(P_WAVELENGTH);
+    SessionItem* beamWavelength = getItem(P_WAVELENGTH);
     Q_ASSERT(beamWavelength);
-    SessionItem *distributionItem = beamWavelength->setGroupProperty(
+    SessionItem* distributionItem = beamWavelength->setGroupProperty(
         BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
     Q_ASSERT(distributionItem);
     distributionItem->setItemValue(DistributionNoneItem::P_VALUE, value);
@@ -80,18 +81,19 @@ void BeamItem::setWavelength(double value, const QString &distribution_name)
 
 double BeamItem::getInclinationAngle() const
 {
-    BeamInclinationAngleItem *inclination = dynamic_cast<BeamInclinationAngleItem *>(getItem(P_INCLINATION_ANGLE));
+    BeamInclinationAngleItem* inclination
+        = dynamic_cast<BeamInclinationAngleItem*>(getItem(P_INCLINATION_ANGLE));
     return inclination->inclinationAngle();
 }
 
 // TODO Move down to BeamAngleItem
 
-void BeamItem::setInclinationAngle(double value, const QString &distribution_name)
+void BeamItem::setInclinationAngle(double value, const QString& distribution_name)
 {
     Q_UNUSED(distribution_name);
-    SessionItem *angleItem = getItem(P_INCLINATION_ANGLE);
+    SessionItem* angleItem = getItem(P_INCLINATION_ANGLE);
     Q_ASSERT(angleItem);
-    SessionItem *distributionItem = angleItem->setGroupProperty(
+    SessionItem* distributionItem = angleItem->setGroupProperty(
         BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
     Q_ASSERT(distributionItem);
     distributionItem->setItemValue(DistributionNoneItem::P_VALUE, value);
@@ -99,16 +101,17 @@ void BeamItem::setInclinationAngle(double value, const QString &distribution_nam
 
 double BeamItem::getAzimuthalAngle() const
 {
-    BeamAzimuthalAngleItem *inclination = dynamic_cast<BeamAzimuthalAngleItem *>(getItem(P_AZIMUTHAL_ANGLE));
+    BeamAzimuthalAngleItem* inclination
+        = dynamic_cast<BeamAzimuthalAngleItem*>(getItem(P_AZIMUTHAL_ANGLE));
     return inclination->azimuthalAngle();
 }
 
-void BeamItem::setAzimuthalAngle(double value, const QString &distribution_name)
+void BeamItem::setAzimuthalAngle(double value, const QString& distribution_name)
 {
     Q_UNUSED(distribution_name);
-    SessionItem *angleItem = getItem(P_AZIMUTHAL_ANGLE);
+    SessionItem* angleItem = getItem(P_AZIMUTHAL_ANGLE);
     Q_ASSERT(angleItem);
-    SessionItem *distributionItem = angleItem->setGroupProperty(
+    SessionItem* distributionItem = angleItem->setGroupProperty(
         BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
     Q_ASSERT(distributionItem);
     distributionItem->setItemValue(DistributionNoneItem::P_VALUE, value);

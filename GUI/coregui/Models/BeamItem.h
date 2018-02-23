@@ -35,13 +35,13 @@ public:
     void setIntensity(double value);
 
     double getWavelength() const;
-    void setWavelength(double value, const QString &distribution_name = QString());
+    void setWavelength(double value, const QString& distribution_name = QString());
 
     double getInclinationAngle() const;
-    void setInclinationAngle(double value, const QString &distribution_name = QString());
+    void setInclinationAngle(double value, const QString& distribution_name = QString());
 
     double getAzimuthalAngle() const;
-    void setAzimuthalAngle(double value, const QString &distribution_name = QString());
+    void setAzimuthalAngle(double value, const QString& distribution_name = QString());
 
     std::unique_ptr<Beam> createBeam() const;
 };

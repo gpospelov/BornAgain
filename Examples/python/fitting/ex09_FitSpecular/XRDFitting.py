@@ -8,13 +8,12 @@ import bornagain as ba
 from XRDSampleBuilder import SiAgNPSampleBuilder
 
 # fixed parameters
+beam_intensity = 1e7
 wavelength = 1.54*ba.angstrom
-beam_divergence = 0.02 * ba.deg
+beam_divergence = 0.04 * ba.deg
 
 # starting values
-beam_intensity = 1.4e7
 beam_to_sample_ratio = 0.05
-background_intensity = 1.0
 layer_roughness = 0.1 * ba.nm
 np_thickness = 1 * ba.nm
 np_concentration = 1.0
@@ -47,8 +46,8 @@ def create_simulation(axis):
     simulation.setBeamParameters(wavelength, axis, footprint)
     simulation.setBeamIntensity(beam_intensity)
     simulation.addParameterDistribution("*/Beam/InclinationAngle", alpha_distr,
-                                        25, 3)
-    bg = ba.ConstantBackground(background_intensity)
+                                        30, 3)
+    bg = ba.PoissonNoiseBackground()
     simulation.setBackground(bg)
     return simulation
 
@@ -94,46 +93,37 @@ def init_fit_parameters(fit_suite):
     :param fit_suite: fitting suite
     :return: None
     """
-    fit_par1 = fit_suite.addFitParameter(
-        "*Intensity", beam_intensity, ba.AttLimits.limited(1.0, 1.2e9),
-        1.0e+5)
-    fit_par1.setName("Intensity")
 
-    fit_par2 = fit_suite.addFitParameter(
+    fit_par1 = fit_suite.addFitParameter(
         "*BeamToSampleWidthRatio", beam_to_sample_ratio,
         ba.AttLimits.limited(0.0, 0.1),
         0.01)
-    fit_par2.setName("BeamToSampleRatio")
+    fit_par1.setName("BeamToSampleRatio")
 
-    fit_par3 = fit_suite.addFitParameter(
+    fit_par2 = fit_suite.addFitParameter(
         "*roughness", layer_roughness, ba.AttLimits.limited(0.0, 2.0 * ba.nm),
                       0.01 * ba.nm)
-    fit_par3.setName("Roughness")
+    fit_par2.setName("Roughness")
 
-    fit_par4 = fit_suite.addFitParameter(
+    fit_par3 = fit_suite.addFitParameter(
         "*np_thickness", np_thickness, ba.AttLimits.limited(0.0, 2.0 * ba.nm),
                          0.01 * ba.nm)
-    fit_par4.setName("np_thick")
+    fit_par3.setName("np_thick")
 
-    fit_par5 = fit_suite.addFitParameter(
+    fit_par4 = fit_suite.addFitParameter(
         "*np_concentration", np_concentration, ba.AttLimits.limited(0.0, 1.0),
         0.01)
-    fit_par5.setName("np_dens")
+    fit_par4.setName("np_dens")
 
-    fit_par6 = fit_suite.addFitParameter(
-        "*BackgroundValue", background_intensity, ba.AttLimits.limited(0.0, 1.0),
-        0.01)
-    fit_par6.setName("backgr")
-
-    fit_par7 = fit_suite.addFitParameter(
+    fit_par5 = fit_suite.addFitParameter(
         "*oxide_thickness", oxide_thickness, ba.AttLimits.limited(0.0, 2.0 * ba.nm),
                             0.01 * ba.nm)
-    fit_par7.setName("sio2_thick")
+    fit_par5.setName("sio2_thick")
 
-    fit_par8 = fit_suite.addFitParameter(
+    fit_par6 = fit_suite.addFitParameter(
         "*oxide_concentration", oxide_concentration, ba.AttLimits.limited(0.0, 1.0),
         0.01)
-    fit_par8.setName("sio2_dens")
+    fit_par6.setName("sio2_dens")
 
 
 def run_fitting():

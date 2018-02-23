@@ -50,9 +50,7 @@ def bundle_main_executables():
 
 
 def bundle_python_library():
-    def is_python3():
-        return os.path.join("Python.framework", "Versions", python_version_string(), "Python")
-    else:
+    return os.path.join("Python.framework", "Versions", python_version_string(), "Python")
 
 
 def qtlibs_path():

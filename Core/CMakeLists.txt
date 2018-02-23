@@ -210,7 +210,6 @@ if(WIN32)
             ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
             ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
             )
-
     endif()
 
     # system libraries
@@ -264,7 +263,6 @@ else()
         install(FILES ${WRAP_DIR}/python/bornagain_python_install.py
             DESTINATION ${destination_libexec})
     endif()
-
 endif()
 
 # Install bornagain/__init__.py and utilites

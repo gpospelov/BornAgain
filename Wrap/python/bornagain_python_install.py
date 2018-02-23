@@ -44,8 +44,23 @@ def python_version_string():
     return str(sys.version_info[0]) + "." + str(sys.version_info[1])
 
 
-def install_name_tool(args):
-    p = subprocess.Popen(['install_name_tool', args], stdout=subprocess.PIPE)
+def add_rpath(newpath, filename):
+    print("add_rpath ", newpath, filename)
+    p = subprocess.Popen(['install_name_tool', '-add_rpath', newpath, filename], stdout=subprocess.PIPE)
+    p.communicate()
+    return
+
+
+def change_rpath(oldpath, newpath, filename):
+    print("change_rpath ", oldpath, newpath, filename)
+    p = subprocess.Popen(['install_name_tool', '-change', oldpath, newpath, filename], stdout=subprocess.PIPE)
+    p.communicate()
+    return
+
+
+def delete_rpath(todelete, filename):
+    print("delete_rpath ", todelete, filename)
+    p = subprocess.Popen(['install_name_tool', '-delete_rpath', todelete, filename], stdout=subprocess.PIPE)
     p.communicate()
     return
 
@@ -234,17 +249,17 @@ def patch_libraries(dir_name):
     for f in libfiles:
         if "libBornAgainCore" in f or "libBornAgainFit" in f:
             #cmd = "install_name_tool -delete_rpath  @loader_path/../../Frameworks " + f
-            install_name_tool("-delete_rpath  @loader_path/../../Frameworks " + f)
+            delete_rpath("@loader_path/../../Frameworks", f)
         #cmd = "install_name_tool -add_rpath  @loader_path/../Frameworks " + f
-        install_name_tool("-add_rpath  @loader_path/../Frameworks " + f)
+        add_rpath("@loader_path/../Frameworks", f)
         if "libBornAgainCore" in f:
             #cmd = "install_name_tool -add_rpath  @loader_path/. " + f
-            install_name_tool("-add_rpath  @loader_path/. " + f)
+            add_rpath("@loader_path/.", f)
 
     libfiles += glob.glob(os.path.join(dir_name, '*/libboost_python*'))
     for f in libfiles:
         #cmd = "install_name_tool -change @rpath/Python.framework/Versions/2.7/Python " + get_python_shared_library() + " " + f
-        install_name_tool("-change @rpath/Python.framework/Versions/"+python_version_string()+"/Python " + get_python_shared_library() + " " + f)
+        change_rpath("@rpath/Python.framework/Versions/"+python_version_string()+"/Python", get_python_shared_library(), f)
 
 
     pass

@@ -1,5 +1,120 @@
+BornAgain-1.11.0, released 2018.02.28
   > API changes
     1) detector axes units (e.g. ba.IDetector2D.NBINS) now accessed through AxesUnits (e.g. ba.AxesUnits.NBINS)
+  > Summary:
+    1) Off-specular simulation is now supported in the GUI.
+    2) Support for materials defined by SLD.
+    3) Specular simulation implemented in core library.
+    4) New interface for simulation results now includes possible unit conversions.
+    5) Python API: retrieve minimizer catalogue.
+    6) Switched to Python 3.x as the default version.
+    7) GUI: extensive refactoring to improve maintainability.
+    8) GUI: possibility to add constant or Poisson background to simulations.
+    9) GUI: Fourier transform of simulation results.
+    10) GUI: beam polarization and polarization analysis are now supported.
+    11) Documentation: large part of website has been migrated to Hugo website
+    12) Bugfix: BornAgain GUI no longer contains a limit on number of threads. 
+    13) Numerous other bugfixes.
+
+  * Bug #1871: Prevent using WavelengthIndependentMaterial in computations with material averaging or make universal averaging procedure
+  * Bug #1872: Prevent user from creating mixed samples with mixed wavelength-dependent and wavelength-independent materials
+  * Bug #1875: Provide proper export to python for all flavours of materials
+  * Bug #1883: Make MaterialItem create proper type of material
+  * Bug #1886: Average materials do not work if more than one layout is connected to the layer
+  * Bug #1891: GUI: crash in import data view when linking to instrument
+  * Bug #1897: warnings from Eigen3
+  * Bug #1911: Revise SessionItem::setData method
+  * Bug #1913: Thread count issue on Windows on modern CPU
+  * Bug #1914: Lattice::reciprocalLatticeVectorsWithinRadius does not behave as expected
+  * Bug #1919: Entering negative values for delta/beta in MaterialEditor is not enabled
+  * Bug #1922: GUI: using tab after entering parameter value puts back the old value
+  * Bug #1924: Discrepancy in GENX and BornAgain results for absorptive sample
+  * Bug #1926: Compilation fails on Windows with Qt 5.10.0
+  * Bug #1944: GUI: provide automatic TotalSurfaceDensity update on lattice parameter change
+  * Bug #1945: GUI: switch ColorMap label to scientific notation
+  * Bug #1961: Numerous fixes for beam divergence and footprint
+  * Bug #1962: GUI crashes on recent project load
+  * Bug #1966: GUI crash: switch project after job removal
+  * Bug #1967: Real time view of specular doesn't work
+  * Bug #1970: Rearrange directory structure of Win installer
+  * Bug #1973: BornAgain functional tests fail under Python 3.6
+  * Bug #1976: BornAgain GUI style in Windows and MacOS is not flat anymore in Qt5.10
+  * Feature #1005: Create off-specular simulation functional test
+  * Feature #1772: GUI: implement projections editor for ImportView widget
+  * Feature #1783: GUI: get rid of ScientificDoubleProperty
+  * Feature #1786: Switch source *.h *.cpp files to new version of header (copyright, authors)
+  * Feature #1814: GUI: provide FitView with possibility to set same color scale for real and simulated data
+  * Feature #1818: Investigate simulation performance in the case of large detectors
+  * Feature #1826: GUI: revise all tooltips of InstrumentView
+  * Feature #1842: Improve simulation performance in the case of large detectors
+  * Feature #1848: GUI: provide polarized beam and polarization analysis for detector
+  * Feature #1849: Provide materials with magnetization in GUI
+  * Feature #1850: GUI: provide correct translations for polarized scattering: GUI -> domain
+  * Feature #1853: Provide Python3 based Windows installer
+  * Feature #1854: Provide Python3 based MacOS installer
+  * Feature #1855: Modify installation instructions for Win and MacOS to stress forthcoming Python3 transition
+  * Feature #1858: Make possible using scattering length, number densities and scattering length densities as input material data
+  * Feature #1859: Implement fitting for specular signal simulations
+  * Feature #1860: Allow for instrument resolution in specular calculations
+  * Feature #1865: GUI: provide correct translations for polarized scattering: domain -> GUI
+  * Feature #1866: GUI: provide correct translations for polarized scattering: GUI -> Python
+  * Feature #1868: GUI: provide off-specular instrument type in GUI
+  * Feature #1869: Implement transform from domain for off-specular instrument
+  * Feature #1870: Implement export-to-Python for off-specular instrument
+  * Feature #1874: Provide a way to add background to simulated data
+  * Feature #1878: GUI: provide prototype of ComponentEditor not relying on qtpropertybrowser framework
+  * Feature #1879: Set default beam intensity to 1 instead of 0
+  * Feature #1882: Provide material type functionality in GUI
+  * Feature #1884: Provide common interface for Simulation and SpecularSimulation
+  * Feature #1885: BornAgain GUI should open a project even if image files are missing
+  * Feature #1892: GUI: refactor instrument view for better appearance of polarization related widgets
+  * Feature #1895: Make an IDetector base class independent on dimensionality of the detector
+  * Feature #1902: Add 1D detector for specular simulations
+  * Feature #1904: Replace MaterialProperty and ColorProperty with universal property
+  * Feature #1905: Provide access to minimizer catalogue from python
+  * Feature #1906: Add functional test for specular simulation
+  * Feature #1907: Merge ComboProperty and GroupProperty
+  * Feature #1908: Add background option to GUI
+  * Feature #1909: Correctly provide translation of background to Python/GUI/domain
+  * Feature #1910: Employ 1D detector and get rid of virtual runSimulation in SpecularSimulation
+  * Feature #1912: Provide combobox for background selection
+  * Feature #1921: Move GUI unit tests from QtTest to google test
+  * Feature #1923: Propagate exception messages from python extensions of BornAgain library
+  * Feature #1929: Switch Python3 ON by default
+  * Feature #1931: Implement footprint correction
+  * Feature #1932: Implement rectangular detector for offspecular simulation
+  * Feature #1933: Provide same functionality for offspecular simulation as for GISASSimulation
+  * Feature #1935: GUI: create uniform icons for GISAS, OffSpec and Specular instruments
+  * Feature #1936: GUI: provide specular instrument type in GUI
+  * Feature #1947: Provide MaterialBySLD functional test
+  * Feature #1948: Provide fourier transformation of simulated image in GUI
+  * Feature #1951: Apply new unit conversion machinery for SpecularSimulation
+  * Feature #1955: Revise axes labels in all Python examples
+  * Feature #1969: Enable distribution of inclination angle in off-specular simulation
+  * Documentation #1852: Remove Eigen3 dependency on BornAgain website before releasing
+  * Documentation #1880: Provide example of new wavelength-independent material usage
+  * Documentation #1941: Website: port Python examples section to Hugo
+  * Documentation #1942: Website: port "Working with Python scripts" to Hugo, part 1
+  * Documentation #1946: Revise MaterialBySLD (user interface and documentation)
+  * Documentation #1956: Website: port "Working with Python scripts" to Hugo, part 2
+  * Documentation #1957: Website: port "Working with Python scripts" to Hugo, part 3
+  * Documentation #1958: Website: port "Working with Python scripts" to Hugo, part 4
+  * Documentation #1959: Website: port "Using Graphical User Interface" to Hugo
+  * Documentation #1960: Website: port "Troubleshooting and FAQ" to Hugo
+  * Documentation #1963: Website: web-link highlight in tables
+  * Refactoring #1856: Refactor JobView to present JobItem uniformly
+  * Refactoring #1881: Reduce SessionItem interface
+  * Refactoring #1917: Find a better way to carry specular data from Fresnel map to SpecularSimulation
+  * Refactoring #1925: Functional tests have become considerably slower starting from pull request #336
+  * Refactoring #1930: Refactor OffSpecSimulation
+  * Refactoring #1934: Move creation of simulation elements out of instrument/detector
+  * Refactoring #1943: Remove creation of simulation elements from SpecularDetector1D
+  * Refactoring #1949: Restrict usage of simulation results to result() method (remove the other ones)
+  * Refactoring #1953: Refactor real space viewing library for easy integration into GUI and better maintenance
+  * Testing #1867: Provide functional test for translation of magnetic scattering properties
+  * Testing #1965: Provide an example of fitting real reflectometry data with BornAgain
+  * Configuration #1851: Review, define and configure build configurations on the buildserver
+  * Configuration #1863: Fix changing of working directory by build script on Windows buildslave
 
 BornAgain-1.10.0, released 2017.10.09
   > MacOS specific

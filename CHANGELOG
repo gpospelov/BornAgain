@@ -1,6 +1,7 @@
 BornAgain-1.11.0, released 2018.02.28
   > API changes
-    1) detector axes units (e.g. ba.IDetector2D.NBINS) now accessed through AxesUnits (e.g. ba.AxesUnits.NBINS)
+    1) Detector axes units (e.g. ba.IDetector2D.NBINS) now accessed through AxesUnits (e.g. ba.AxesUnits.NBINS).
+    2) GUI project compatibility with previous versions is broken.
   > Summary:
     1) Off-specular simulation is now supported in the GUI.
     2) Support for materials defined by SLD.

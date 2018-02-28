@@ -30,8 +30,10 @@ private:
     bool isPropertyRelated(SessionItem* item);
     bool isNewRootItem(SessionItem* item);
     void processRootItem(SessionItem* item, const QPersistentModelIndex& sourceIndex);
+    bool isSubGroup(SessionItem* item);
     bool isGroupChildren(SessionItem* item);
     void processGroupItem(SessionItem* item, const QPersistentModelIndex& sourceIndex);
+    void processSubGroupItem(SessionItem* item, const QPersistentModelIndex& sourceIndex);
     void processDefaultItem(SessionItem* item, const QPersistentModelIndex& sourceIndex);
 };
 

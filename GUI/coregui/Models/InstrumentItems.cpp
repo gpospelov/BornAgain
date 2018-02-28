@@ -39,8 +39,10 @@ QStringList InstrumentItem::translateList(const QStringList& list) const
 {
     QStringList result;
     // Add constant background directly to simulation
-    if (list.back().startsWith(P_BACKGROUND) && list.size()==2) {
-        result << list[0] << QString::fromStdString(BornAgain::ConstantBackgroundType);
+    // TODO: this way of directly adding background is too sensitive
+    //       to the background name
+    if (list.back().endsWith(P_BACKGROUND) && list.size()==2) {
+        result << list[0] << list[1];
     } else {
         // TODO Consider usage of ModelTypeTranslator in IntrusmentItem's constructor
         // after the refactoring of SessionItem::translateList

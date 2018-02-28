@@ -41,8 +41,10 @@ void JobView::onFocusRequest(JobItem* jobItem)
     if (jobItem->runInBackground())
         return;
 
-    m_docks->jobSelector()->makeJobItemSelected(jobItem);
-    setAppropriateActivityForJob(jobItem);
+    if (jobItem != m_docks->jobSelector()->currentJobItem()) {
+        m_docks->jobSelector()->makeJobItemSelected(jobItem);
+        setAppropriateActivityForJob(jobItem);
+    }
 
     emit focusRequest(MainWindow::JOB);
 }

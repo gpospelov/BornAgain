@@ -186,7 +186,7 @@ int ComponentProxyStrategy::parentVisibleRow(const SessionItem& item)
         return result;
 
     for(auto child : item.parent()->children()) {
-        if (child->isVisible() )
+        if (child->isVisible() && isPropertyRelated(child))
             ++result;
 
         if (&item == child)

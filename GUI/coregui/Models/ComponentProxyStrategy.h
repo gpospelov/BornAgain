@@ -35,6 +35,8 @@ private:
     void processGroupItem(SessionItem* item, const QPersistentModelIndex& sourceIndex);
     void processSubGroupItem(SessionItem* item, const QPersistentModelIndex& sourceIndex);
     void processDefaultItem(SessionItem* item, const QPersistentModelIndex& sourceIndex);
+
+    int parentVisibleRow(const SessionItem& item);
 };
 
 #endif  //  COMPONENTPROXYSTRATEGY_H

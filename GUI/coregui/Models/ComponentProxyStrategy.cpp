@@ -129,7 +129,7 @@ void ComponentProxyStrategy::processGroupItem(SessionItem* item,
         auto groupItem = dynamic_cast<const GroupItem*>(ancestor);
         if (item->parent() == groupItem->currentItem()) {
             QPersistentModelIndex proxyIndex
-                = createProxyIndex(SessionItemUtils::ParentVisibleRow(*item), sourceIndex.column(), sourceIndex.internalPointer());
+                = createProxyIndex(parentVisibleRow(*item), sourceIndex.column(), sourceIndex.internalPointer());
 
             m_sourceToProxy.insert(sourceIndex, proxyIndex);
             m_proxySourceParent.insert(proxyIndex, groupItem->index());
@@ -149,7 +149,7 @@ void ComponentProxyStrategy::processSubGroupItem(SessionItem* item,
 
         if (item->parent() == groupItem->currentItem()) {
             QPersistentModelIndex proxyIndex
-                = createProxyIndex(SessionItemUtils::ParentVisibleRow(*item), sourceIndex.column(), sourceIndex.internalPointer());
+                = createProxyIndex(parentVisibleRow(*item), sourceIndex.column(), sourceIndex.internalPointer());
 
             m_sourceToProxy.insert(sourceIndex, proxyIndex);
             m_proxySourceParent.insert(proxyIndex, groupItem->index());
@@ -167,7 +167,7 @@ void ComponentProxyStrategy::processDefaultItem(SessionItem* item,
         return;
 
     QPersistentModelIndex proxyIndex
-        = createProxyIndex(SessionItemUtils::ParentVisibleRow(*item), sourceIndex.column(), item);
+        = createProxyIndex(parentVisibleRow(*item), sourceIndex.column(), item);
 
     m_sourceToProxy.insert(sourceIndex, proxyIndex);
 
@@ -176,4 +176,22 @@ void ComponentProxyStrategy::processDefaultItem(SessionItem* item,
         sourceParent = sourceIndex.parent();
 
     m_proxySourceParent.insert(proxyIndex, sourceParent);
+}
+
+int ComponentProxyStrategy::parentVisibleRow(const SessionItem& item)
+{
+    int result(-1);
+
+    if (!item.parent() || !item.isVisible())
+        return result;
+
+    for(auto child : item.parent()->children()) {
+        if (child->isVisible() )
+            ++result;
+
+        if (&item == child)
+            return result;
+    }
+
+    return result;
 }

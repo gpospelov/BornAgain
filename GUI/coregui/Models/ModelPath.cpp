@@ -113,7 +113,10 @@ bool ModelPath::isInFittingBlackList(const QString& par_name)
          RectangularDetectorItem::P_V0,
          RectangularDetectorItem::P_DBEAM_U0,
          RectangularDetectorItem::P_DBEAM_V0,
-         RectangularDetectorItem::P_DISTANCE
+         RectangularDetectorItem::P_DISTANCE,
+
+         // Detector resolution
+         Constants::ResolutionFunction2DGaussianType
     };
 
     for (const auto& name : fitting_black_list)

@@ -15,8 +15,7 @@
 #ifndef FITPARAMETERWIDGET_H
 #define FITPARAMETERWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
+#include "SessionItemWidget.h"
 #include <memory>
 
 class JobItem;
@@ -36,13 +35,12 @@ class OverlayLabelController;
 //! The FitParametersWidget class contains a tree view to set fit parameters (fix/release,
 //! starting value, min/max bounds). It occupies buttom right corner of JobView.
 
-class BA_CORE_API_ FitParameterWidget : public QWidget
+class BA_CORE_API_ FitParameterWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
     FitParameterWidget(QWidget *parent = 0);
 
-    void setItem(JobItem *jobItem);
     void setParameterTuningWidget(ParameterTuningWidget *tuningWidget);
 
 //    QSize sizeHint() const;
@@ -63,6 +61,7 @@ private slots:
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
+    void subscribeToItem();
 
 private:
     void init_actions();
@@ -77,6 +76,7 @@ private:
     void setActionsEnabled(bool value);
     void connectTuningWidgetSelection(bool active);
     void connectFitParametersSelection(bool active);
+    JobItem* jobItem();
 
     QVector<FitParameterItem *> selectedFitParameters();
     QVector<FitParameterItem *> emptyFitParameters();
@@ -86,7 +86,6 @@ private:
     void updateInfoLabel();
 
     QTreeView *m_treeView;
-    JobItem *m_jobItem;
     ParameterTuningWidget *m_tuningWidget;
     QAction *m_createFitParAction;
     QAction *m_removeFromFitParAction;

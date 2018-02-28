@@ -81,6 +81,6 @@ void FitSessionManager::removeController(SessionItem* jobItem)
 
     if (m_activeController==it.value())
         m_activeController = nullptr;
-    it.value()->deleteLater();
+    delete it.value();
     m_item_to_controller.erase(it);
 }

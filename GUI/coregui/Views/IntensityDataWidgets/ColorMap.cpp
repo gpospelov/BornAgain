@@ -23,6 +23,8 @@
 
 namespace {
 const int replot_update_interval = 10;
+const int colorbar_width_logz = 50;
+const int colorbar_width = 80;
 }
 
 ColorMap::ColorMap(QWidget* parent)
@@ -31,7 +33,8 @@ ColorMap::ColorMap(QWidget* parent)
     , m_colorMap(nullptr), m_colorScale(nullptr)
     , m_updateTimer(new UpdateTimer(replot_update_interval, this))
     , m_colorMapEvent(new ColorMapEvent(this))
-    , m_block_update(true)
+    , m_colorBarLayout(new  QCPLayoutGrid)
+    , m_block_update(true)    
 {
     initColorMap();
 
@@ -118,6 +121,7 @@ void ColorMap::setMouseTrackingEnabled(bool enable)
 //! sets logarithmic scale
 void ColorMap::setLogz(bool logz)
 {
+    m_colorBarLayout->setMinimumSize(logz ? colorbar_width_logz : colorbar_width,10);
     ColorMapUtils::setLogz(m_colorScale, logz);
 }
 
@@ -268,6 +272,13 @@ void ColorMap::initColorMap()
     m_colorMap = new QCPColorMap(m_customPlot->xAxis, m_customPlot->yAxis);
     m_colorScale = new QCPColorScale(m_customPlot);
     m_colorMap->setColorScale(m_colorScale);
+
+    m_colorBarLayout->addElement(0,0, m_colorScale);
+    m_colorBarLayout->setMinimumSize(colorbar_width_logz,10);
+    m_colorBarLayout->setMargins(QMargins(0,0,0,0));
+
+    m_colorScale->axis()->axisRect()->setMargins(QMargins(0,0,0,0));
+    m_colorScale->axis()->axisRect()->setAutoMargins(QCP::msNone);
 
     m_colorScale->setBarWidth(Constants::plot_colorbar_size);
     m_colorScale->axis()->setTickLabelFont(
@@ -433,12 +444,12 @@ void ColorMap::setDataRangeFromItem(IntensityDataItem* item)
 
 void ColorMap::setColorScaleVisible(bool visibility_flag)
 {
-    m_colorScale->setVisible(visibility_flag);
+    m_colorBarLayout->setVisible(visibility_flag);
     if (visibility_flag) {
         // add it to the right of the main axis rect
-        m_customPlot->plotLayout()->addElement(0, 1, m_colorScale);
+        m_customPlot->plotLayout()->addElement(0, 1, m_colorBarLayout);
     } else {
-        m_customPlot->plotLayout()->take(m_colorScale);
+        m_customPlot->plotLayout()->take(m_colorBarLayout);
         m_customPlot->plotLayout()->simplify();
     }
 }

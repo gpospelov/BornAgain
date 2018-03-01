@@ -120,6 +120,7 @@ private:
     QCPColorScale* m_colorScale;
     UpdateTimer* m_updateTimer;
     ColorMapEvent* m_colorMapEvent;
+    QCPLayoutGrid* m_colorBarLayout;
 
     bool m_block_update;
 };

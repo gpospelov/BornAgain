@@ -15,8 +15,11 @@
 #include "ParameterTreeItems.h"
 #include "DistributionItems.h"
 #include "FitParameterHelper.h"
+#include "InstrumentItems.h"
 #include "ModelPath.h"
+#include "RectangularDetectorItem.h"
 #include "SessionModel.h"
+#include "SphericalDetectorItem.h"
 
 // ----------------------------------------------------------------------------
 
@@ -78,8 +81,45 @@ void ParameterItem::restoreFromBackup()
 
 bool ParameterItem::isFittable() const
 {
+    static const QStringList fitting_black_list {
+        // distribution types
+        Constants::DistributionGateType,
+        Constants::DistributionLorentzType,
+        Constants::DistributionGaussianType,
+        Constants::DistributionLogNormalType,
+        Constants::DistributionCosineType,
+        Constants::DistributionTrapezoidType,
+
+        // axes
+        SphericalDetectorItem::P_PHI_AXIS,
+        SphericalDetectorItem::P_ALPHA_AXIS,
+        RectangularDetectorItem::P_X_AXIS,
+        RectangularDetectorItem::P_Y_AXIS,
+        OffSpecInstrumentItem::P_ALPHA_AXIS,
+
+         // rectangular detector positioning
+         RectangularDetectorItem::P_ALIGNMENT,
+         RectangularDetectorItem::P_NORMAL,
+         RectangularDetectorItem::P_DIRECTION,
+         RectangularDetectorItem::P_U0,
+         RectangularDetectorItem::P_V0,
+         RectangularDetectorItem::P_DBEAM_U0,
+         RectangularDetectorItem::P_DBEAM_V0,
+         RectangularDetectorItem::P_DISTANCE,
+
+         // Detector resolution
+         Constants::ResolutionFunction2DGaussianType
+    };
+
     Q_ASSERT(ModelPath::ancestor(this, Constants::JobItemType));
-    return ModelPath::isInFittingBlackList(FitParameterHelper::getParameterItemPath(this));
+
+    const QString& par_path = FitParameterHelper::getParameterItemPath(this);
+
+    for (const auto& name : fitting_black_list)
+        if (par_path.contains(name))
+            return false;
+
+    return true;
 }
 
 // ----------------------------------------------------------------------------

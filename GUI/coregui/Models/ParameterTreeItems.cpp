@@ -85,7 +85,7 @@ void ParameterItem::restoreFromBackup()
 
 bool ParameterItem::isFittable() const
 {
-    static const std::map<QStringList, QStringList> black_list {
+    static const QVector<QPair<QStringList, QStringList>> black_list {
         {// global scope
          {QString()},
          {Constants::DistributionSigmaFactor}

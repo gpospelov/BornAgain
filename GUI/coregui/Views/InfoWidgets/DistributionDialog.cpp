@@ -15,6 +15,7 @@
 #include "DistributionDialog.h"
 #include "DistributionEditor.h"
 #include "SessionItem.h"
+#include "StyleUtils.h"
 #include <QHBoxLayout>
 #include <QPushButton>
 
@@ -45,6 +46,7 @@ DistributionDialog::DistributionDialog(QWidget *parent)
     setLayout(layout);
 
     setAttribute(Qt::WA_DeleteOnClose, true);
+    StyleUtils::setResizable(this);
 }
 
 void DistributionDialog::setItem(SessionItem *item)

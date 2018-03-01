@@ -32,14 +32,17 @@ FitSessionController::FitSessionController(QObject* parent)
     , m_fitlog(new FitLog)
     , m_block_progress_update(false)
 {
-    connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this, &FitSessionController::onPlotsUpdate);
+    connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this,
+            &FitSessionController::onPlotsUpdate);
 
     connect(m_observer.get(), &GUIFitObserver::progressInfoUpdate, this,
             &FitSessionController::onProgressInfoUpdate);
 
-    connect(m_observer.get(), &GUIFitObserver::logInfoUpdate, [&](const QString& text) {
-        m_fitlog->append(text.toStdString(), FitLogFlags::DEFAULT);
-    });
+    connect(
+        m_observer.get(), &GUIFitObserver::logInfoUpdate, this,
+        [this](const QString& text) {
+            m_fitlog->append(text.toStdString(), FitLogFlags::DEFAULT);
+        });
 
     connect(m_runFitManager, &FitWorkerLauncher::fittingStarted, this,
             &FitSessionController::onFittingStarted);

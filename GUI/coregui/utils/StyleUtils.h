@@ -20,6 +20,7 @@
 #include <QFont>
 
 class QTreeView;
+class QWidget;
 
 namespace StyleUtils
 {
@@ -38,6 +39,9 @@ BA_CORE_API_ QFont sectionFont(bool bold = false);
 
 //! Returns font for labels.
 BA_CORE_API_ QFont labelFont(bool bold = false);
+
+//! Make modal dialog resizable.
+BA_CORE_API_ void setResizable(QDialog* dialog);
 
 }
 

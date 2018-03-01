@@ -459,12 +459,14 @@ void ColorMap::setColorScaleVisible(bool visibility_flag)
 void ColorMap::marginsChangedNotify()
 {
     QMargins axesMargins = m_customPlot->axisRect()->margins();
-    QMargins colorBarMargins = m_colorScale->margins();
-    QMargins colorScaleMargins = m_colorScale->axis()->axisRect()->margins();
+//    QMargins colorBarMargins = m_colorScale->margins();
+//    QMargins colorScaleMargins = m_colorScale->axis()->axisRect()->margins();
 
     double left = axesMargins.left();
-    double right = axesMargins.right() + colorBarMargins.right() + m_colorScale->barWidth()
-            + colorScaleMargins.right();
+//    double right = axesMargins.right() + colorBarMargins.right() + m_colorScale->barWidth()
+//            + colorScaleMargins.right() + m_colorBarLayout->rect().width();
+
+    double right = axesMargins.right() + m_colorBarLayout->rect().width();
 
     emit marginsChanged(left, right);
 }

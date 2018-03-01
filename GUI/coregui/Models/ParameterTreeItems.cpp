@@ -81,6 +81,12 @@ void ParameterItem::restoreFromBackup()
 
 bool ParameterItem::isFittable() const
 {
+    static const QStringList application_scope {
+        Constants::GISASInstrumentType,
+        Constants::OffSpecInstrumentType,
+        Constants::SpecularInstrumentType
+    };
+
     static const QStringList fitting_black_list {
         // distribution types
         Constants::DistributionGateType,
@@ -115,9 +121,16 @@ bool ParameterItem::isFittable() const
 
     const QString& par_path = FitParameterHelper::getParameterItemPath(this);
 
-    for (const auto& name : fitting_black_list)
+    bool is_in_scope = false;
+    for (const auto& name : application_scope)
         if (par_path.contains(name))
-            return false;
+            is_in_scope = true;
+
+    if (is_in_scope) {
+        for (const auto& name : fitting_black_list)
+            if (par_path.contains(name))
+                return false;
+    }
 
     return true;
 }

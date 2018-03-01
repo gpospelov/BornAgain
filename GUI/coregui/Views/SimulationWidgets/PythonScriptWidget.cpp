@@ -20,6 +20,7 @@
 #include "PythonSyntaxHighlighter.h"
 #include "WarningSign.h"
 #include "InstrumentItems.h"
+#include "StyleUtils.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPushButton>
@@ -74,6 +75,7 @@ PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     setLayout(mainLayout);
 
     setAttribute(Qt::WA_DeleteOnClose, true);
+    StyleUtils::setResizable(this);
 }
 
 void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,

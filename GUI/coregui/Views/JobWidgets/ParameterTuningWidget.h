@@ -54,7 +54,6 @@ public slots:
     void makeSelected(ParameterItem* item);
 
 protected:
-    void resizeEvent(QResizeEvent* event);
     void contextMenuEvent(QContextMenuEvent*);
     void subscribeToItem();
 

@@ -13,11 +13,9 @@
 // ************************************************************************** //
 
 #include "ModelPath.h"
-#include "InstrumentItems.h"
 #include "JobItem.h"
-#include "RectangularDetectorItem.h"
 #include "SessionModel.h"
-#include "SphericalDetectorItem.h"
+
 
 QString ModelPath::getPathFromIndex(const QModelIndex& index)
 {
@@ -83,40 +81,6 @@ bool ModelPath::isValidItem(SessionModel* model, SessionItem* item, const QModel
             return isvalid;
     }
     return false;
-}
-
-//! Returns true when we know how to translate ParameterItem link to domain name.
-
-bool ModelPath::isTranslatable(const SessionItem* item, const QString& par_name)
-{
-    Q_UNUSED(item);
-    QStringList non_translatable_names{Constants::DistributionSigmaFactor};
-    if (par_name.contains(Constants::SphericalDetectorType)) {
-        QStringList excluded_names{SphericalDetectorItem::P_PHI_AXIS,
-                                   SphericalDetectorItem::P_ALPHA_AXIS};
-        for (auto name : excluded_names) {
-            if (par_name.contains(name))
-                return false;
-        }
-    }
-    if (par_name.contains(Constants::RectangularDetectorType)) {
-        QStringList excluded_names{
-            RectangularDetectorItem::P_X_AXIS,    RectangularDetectorItem::P_Y_AXIS,
-            RectangularDetectorItem::P_ALIGNMENT, RectangularDetectorItem::P_NORMAL,
-            RectangularDetectorItem::P_DIRECTION, RectangularDetectorItem::P_U0,
-            RectangularDetectorItem::P_V0,        RectangularDetectorItem::P_DBEAM_U0,
-            RectangularDetectorItem::P_DBEAM_V0,  RectangularDetectorItem::P_DISTANCE,
-        };
-        for (auto name : excluded_names) {
-            if (par_name.contains(name))
-                return false;
-        }
-    }
-    for (auto name : non_translatable_names) {
-        if (par_name.contains(name))
-            return false;
-    }
-    return true;
 }
 
 //! Returns ancestor of given modelType for given item.

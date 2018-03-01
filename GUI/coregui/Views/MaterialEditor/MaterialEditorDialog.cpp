@@ -19,6 +19,7 @@
 #include "mainwindow_constants.h"
 #include "ExternalProperty.h"
 #include "MaterialItemUtils.h"
+#include "StyleUtils.h"
 #include <QAction>
 #include <QPushButton>
 #include <QSettings>
@@ -46,6 +47,8 @@ MaterialEditorDialog::MaterialEditorDialog(MaterialModel* materialModel, QWidget
     layout->addLayout(createButtonLayout());
 
     setLayout(layout);
+
+    StyleUtils::setResizable(this);
 }
 
 //! replaces original material model with the model modified by MaterialEditor

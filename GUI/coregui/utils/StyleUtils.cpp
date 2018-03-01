@@ -14,6 +14,8 @@
 
 #include "StyleUtils.h"
 #include "DesignerHelper.h"
+#include "hostosinfo.h"
+#include <QDialog>
 #include <QTreeView>
 
 void StyleUtils::setPropertyStyle(QTreeView* tree)
@@ -41,7 +43,7 @@ QString StyleUtils::propertyTreeStyle()
               "QTreeView::branch:open:has-children:!has-siblings,"
               "QTreeView::branch:open:has-children:has-siblings  {"
               "padding:2px 2px 2px 2px;border-image: none; image: url(:/images/caret-down.svg);"
-            "}";
+              "}";
 
     // background of selected rows restored
     result += "QTreeView::item:selected{background:#3daee9;}";
@@ -51,19 +53,19 @@ QString StyleUtils::propertyTreeStyle()
 
 QString StyleUtils::realtimeTreeStyle()
 {
-    QString result =
-    "QTreeView::branch {background: "
-    "palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
-    "{border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:"
-    "adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:"
-    "!has-children:!has-siblings:adjoins-item {border-image: "
-    "url(:/images/treeview-branch-end.png) "
-    "0;}QTreeView::branch:has-children:!has-siblings:closed"
-    ",QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: "
-    "url(:/images/"
-    "treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
-    "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
-    "url(:/images/treeview-branch-open.png);}";
+    QString result
+        = "QTreeView::branch {background: "
+          "palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
+          "{border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:"
+          "adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:"
+          "!has-children:!has-siblings:adjoins-item {border-image: "
+          "url(:/images/treeview-branch-end.png) "
+          "0;}QTreeView::branch:has-children:!has-siblings:closed"
+          ",QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: "
+          "url(:/images/"
+          "treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
+          "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
+          "url(:/images/treeview-branch-open.png);}";
 
     return result;
 }
@@ -84,4 +86,13 @@ QFont StyleUtils::labelFont(bool bold)
     result.setBold(bold);
 
     return result;
+}
+
+void StyleUtils::setResizable(QDialog* dialog)
+{
+    if (GUI_OS_Utils::HostOsInfo::isMacHost()) {
+        dialog->setWindowFlags(Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint
+                               | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint
+                               | Qt::Window);
+    }
 }

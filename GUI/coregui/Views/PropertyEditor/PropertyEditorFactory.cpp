@@ -156,7 +156,7 @@ QWidget* createCustomDoubleEditor(const SessionItem& item)
     result->setKeyboardTracking(true);
 
     result->setFocusPolicy(Qt::StrongFocus);
-    result->installEventFilter(new WheelEventEater(result));
+//    result->installEventFilter(new WheelEventEater(result));
 
     result->setMaximum(std::numeric_limits<double>::max());
     result->setMinimum(std::numeric_limits<double>::lowest());
@@ -178,7 +178,7 @@ QWidget* createCustomIntEditor(const SessionItem& item)
 {
     auto result = new QSpinBox;
     result->setFocusPolicy(Qt::StrongFocus);
-    result->installEventFilter(new WheelEventEater(result));
+//    result->installEventFilter(new WheelEventEater(result));
 
     result->setMaximum(std::numeric_limits<int>::max());
     result->setKeyboardTracking(true);

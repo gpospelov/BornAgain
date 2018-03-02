@@ -160,13 +160,6 @@ void ParameterTuningWidget::makeSelected(ParameterItem* item)
         selectionModel()->select(proxyIndex, QItemSelectionModel::Select);
 }
 
-void ParameterTuningWidget::resizeEvent(QResizeEvent* event)
-{
-    Q_UNUSED(event);
-    if (m_treeView)
-        m_treeView->setColumnWidth(0, width()/2);
-}
-
 void ParameterTuningWidget::contextMenuEvent(QContextMenuEvent* )
 {
     // reimplemented to suppress context menu from QMainWindow

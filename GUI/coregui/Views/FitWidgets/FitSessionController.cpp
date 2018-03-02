@@ -32,14 +32,17 @@ FitSessionController::FitSessionController(QObject* parent)
     , m_fitlog(new FitLog)
     , m_block_progress_update(false)
 {
-    connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this, &FitSessionController::onPlotsUpdate);
+    connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this,
+            &FitSessionController::onPlotsUpdate);
 
     connect(m_observer.get(), &GUIFitObserver::progressInfoUpdate, this,
             &FitSessionController::onProgressInfoUpdate);
 
-    connect(m_observer.get(), &GUIFitObserver::logInfoUpdate, [&](const QString& text) {
-        m_fitlog->append(text.toStdString(), FitLogFlags::DEFAULT);
-    });
+    connect(
+        m_observer.get(), &GUIFitObserver::logInfoUpdate, this,
+        [this](const QString& text) {
+            m_fitlog->append(text.toStdString(), FitLogFlags::DEFAULT);
+        });
 
     connect(m_runFitManager, &FitWorkerLauncher::fittingStarted, this,
             &FitSessionController::onFittingStarted);
@@ -48,11 +51,7 @@ FitSessionController::FitSessionController(QObject* parent)
     connect(m_runFitManager, &FitWorkerLauncher::fittingError, this, &FitSessionController::onFittingError);
 }
 
-FitSessionController::~FitSessionController()
-{
-    if (m_jobItem)
-        m_jobItem->mapper()->unsubscribe(this);
-}
+FitSessionController::~FitSessionController() = default;
 
 void FitSessionController::setItem(JobItem* item)
 {
@@ -62,7 +61,8 @@ void FitSessionController::setItem(JobItem* item)
     m_jobItem = item;
     Q_ASSERT(m_jobItem);
 
-    m_jobItem->mapper()->setOnItemDestroy([this](SessionItem*) {m_jobItem = 0;}, this);
+    // no need to unsubscribe from jobItem on jobItem destroy. FitSessionManager deletes
+    // controller right after the jobItem.
 
     // Propagates update interval from FitSuiteItem to fit observer.
     m_jobItem->fitSuiteItem()->mapper()->setOnPropertyChange(

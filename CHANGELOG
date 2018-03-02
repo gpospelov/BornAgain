@@ -1,4 +1,4 @@
-BornAgain-1.11.0, released 2018.02.28
+BornAgain-1.11.0, released 2018.03.02
   > API changes
     1) Detector axes units (e.g. ba.IDetector2D.NBINS) now accessed through AxesUnits (e.g. ba.AxesUnits.NBINS).
     2) GUI project compatibility with previous versions is broken.
@@ -40,6 +40,16 @@ BornAgain-1.11.0, released 2018.02.28
   * Bug #1970: Rearrange directory structure of Win installer
   * Bug #1973: BornAgain functional tests fail under Python 3.6
   * Bug #1976: BornAgain GUI style in Windows and MacOS is not flat anymore in Qt5.10
+  * Bug #1977: GUI on mac os x: Python script view window cannot be resized
+  * Bug #1978: GUI on mac os x: Number of MC points drops to zero
+  * Bug #1979: BornAgain GUI: cannot fit the constant background
+  * Bug #1980: GUI: fitting of incident angle
+  * Bug #1981: BornAgain GUI: cannot fit beam parameters with distributions
+  * Bug #1982: GUI: fit of particles with size distributions causes negative values
+  * Bug #1983: GUI crash on project close
+  * Bug #1985: Changing parameter in realtime view switches back to fitview
+  * Bug #1986: GUI: splitter between ColorMap and RealTimeWidget jumps on parameter tuning
+  * Bug #1989: BornAgain crash after loading different project
   * Feature #1005: Create off-specular simulation functional test
   * Feature #1772: GUI: implement projections editor for ImportView widget
   * Feature #1783: GUI: get rid of ScientificDoubleProperty

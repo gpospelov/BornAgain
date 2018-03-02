@@ -74,8 +74,8 @@ void BeamDistributionItem::initDistributionItem()
     GroupItem* groupItem = dynamic_cast<GroupItem*>(getItem(P_DISTRIBUTION));
     Q_ASSERT(groupItem);
 
-    SessionItem* distributionNone(0);
-    foreach (SessionItem* item, groupItem->getItems(GroupItem::T_ITEMS)) {
+    SessionItem* distributionNone = nullptr;
+    for (auto item : groupItem->getItems(GroupItem::T_ITEMS)) {
         if (item->modelType() == Constants::DistributionNoneType) {
             distributionNone = item;
             break;
@@ -85,18 +85,18 @@ void BeamDistributionItem::initDistributionItem()
     if (!distributionNone)
         return;
 
-    foreach (SessionItem* item, groupItem->getItems(GroupItem::T_ITEMS)) {
-        if (item != distributionNone) {
-            DistributionItem* distrItem = dynamic_cast<DistributionItem*>(item);
-            RealLimits limits = distributionNone->getItem(DistributionNoneItem::P_VALUE)->limits();
+    for (auto item : groupItem->getItems(GroupItem::T_ITEMS)) {
+        if (item == distributionNone)
+            continue;
+        DistributionItem* distrItem = dynamic_cast<DistributionItem*>(item);
+        RealLimits limits = distributionNone->getItem(DistributionNoneItem::P_VALUE)->limits();
 
-            distrItem->init_parameters(
-                distributionNone->getItemValue(DistributionNoneItem::P_VALUE).toDouble(), limits);
+        distrItem->init_parameters(
+            distributionNone->getItemValue(DistributionNoneItem::P_VALUE).toDouble(), limits);
 
-            // hiding limits from the editor
-            if (distrItem->isTag(DistributionItem::P_LIMITS))
-                distrItem->getItem(DistributionItem::P_LIMITS)->setVisible(false);
-        }
+        // hiding limits from the editor
+        if (distrItem->isTag(DistributionItem::P_LIMITS))
+            distrItem->getItem(DistributionItem::P_LIMITS)->setVisible(false);
     }
 }
 

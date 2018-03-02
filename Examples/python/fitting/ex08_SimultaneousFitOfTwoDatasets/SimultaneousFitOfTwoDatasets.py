@@ -41,6 +41,7 @@ def get_simulation(incident_alpha=0.2):
     simulation.setDetectorParameters(50, -1.5*deg, 1.5*deg,
                                      50, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, incident_alpha, 0.0*deg)
+    simulation.setBeamIntensity(1e+08)
     return simulation
 
 
@@ -55,7 +56,7 @@ def create_real_data(incident_alpha):
     simulation.runSimulation()
 
     # retrieving simulated data in the form of numpy array
-    real_data = simulation.getIntensityData().getArray()
+    real_data = simulation.result().array()
 
     # spoiling simulated data with the noise to produce "real" data
     noise_factor = 0.1

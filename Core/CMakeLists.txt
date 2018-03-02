@@ -107,10 +107,12 @@ if(BORNAGAIN_PYTHON)
 
     configure_file(${WRAP_DIR}/python/plot_utils.py
                    ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
-               configure_file(${WRAP_DIR}/python/yaml_utils.py
-                              ${CMAKE_BINARY_DIR}/lib/bornagain/yaml_utils.py COPYONLY)
 
-    set(BA_MODULES_IMPORT_PATH "..")
+    if(WIN32)
+        set(BA_MODULES_IMPORT_PATH "../../bin")
+    else()
+        set(BA_MODULES_IMPORT_PATH "..")
+    endif()
     if(BORNAGAIN_APPLE_BUNDLE)
         set(BA_MODULES_IMPORT_PATH
             lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
@@ -151,7 +153,8 @@ if(BORNAGAIN_TIFF_SUPPORT)
     target_link_libraries(${library_name} ${TIFF_LIBRARIES})
 endif()
 
-include_directories(${EIGEN3_INCLUDE_DIR} ${Boost_INCLUDE_DIRS} ${FFTW_INCLUDE_DIR}
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
+include_directories(${Boost_INCLUDE_DIRS} ${FFTW_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR} ${Faddeeva_INCLUDE_DIR})
 target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW_LIBRARY} ${GSL_LIBRARIES}
     ${Faddeeva_LIBRARY})
@@ -200,9 +203,6 @@ if(WIN32)
             ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
             )
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
-        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
-        # for functional tests
-        # install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.dll DESTINATION ${destination_lib} COMPONENT Libraries)
         ADD_CUSTOM_COMMAND(
             TARGET ${library_name}
             POST_BUILD
@@ -210,7 +210,6 @@ if(WIN32)
             ${CMAKE_BINARY_DIR}/bin/${libprefix}${library_name}${libsuffix}
             ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}${libsuffix}
             )
-
     endif()
 
     # system libraries
@@ -264,7 +263,6 @@ else()
         install(FILES ${WRAP_DIR}/python/bornagain_python_install.py
             DESTINATION ${destination_libexec})
     endif()
-
 endif()
 
 # Install bornagain/__init__.py and utilites
@@ -272,5 +270,3 @@ install(FILES "${CMAKE_BINARY_DIR}/lib/bornagain/__init__.py"
         DESTINATION ${destination_libexec}/bornagain/ COMPONENT Libraries)
 install(FILES "${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py"
         DESTINATION ${destination_libexec}/bornagain/ COMPONENT Libraries)
-install(FILES "${CMAKE_BINARY_DIR}/lib/bornagain/yaml_utils.py"
-            DESTINATION ${destination_libexec}/bornagain/ COMPONENT Libraries)

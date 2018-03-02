@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -41,12 +40,14 @@ public:
 
     std::string toString() const;
 
+    std::vector<std::string> minimizerNames() const;
+
     std::vector<std::string> algorithmNames(const std::string& minimizerName) const;
 
     std::vector<std::string> algorithmDescriptions(const std::string& minimizerName) const;
 
+    const MinimizerInfo& minimizerInfo(const std::string& minimizerName) const;
 private:
-    MinimizerInfo minimizerInfo(const std::string& minimizerName) const;
 
     void addMinimizerInfo(const MinimizerInfo& info);
     std::vector<MinimizerInfo> m_minimizers;

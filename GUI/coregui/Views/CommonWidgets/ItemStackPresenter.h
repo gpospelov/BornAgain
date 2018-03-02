@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -32,7 +30,10 @@ template <class T> class BA_CORE_API_ ItemStackPresenter : public ItemStackWidge
 public:
     ItemStackPresenter(bool single_widget = false) : m_single_widget(single_widget){}
 
-    virtual void setItem(SessionItem* item, bool* isNew = 0);
+    //! Shows the widget for given item (and hides previous one).
+    //! If no widget yet exists, it will be created (flag isNew will become 'true' in this case).
+    template<class U>
+    void setItem(U* item, bool* isNew = 0);
 
     T* currentWidget();
     T* itemWidget(SessionItem* item);
@@ -48,7 +49,8 @@ private:
 };
 
 template <class T>
-void ItemStackPresenter<T>::setItem(SessionItem* item, bool* isNew)
+template <class U>
+void ItemStackPresenter<T>::setItem(U* item, bool* isNew)
 {
     validateItem(item);
 
@@ -73,6 +75,8 @@ void ItemStackPresenter<T>::setItem(SessionItem* item, bool* isNew)
     m_stackedWidget->setCurrentWidget(widget);
     if (widget->isHidden())
         widget->show();
+
+    widget->setItem(item);
 }
 
 template <class T>

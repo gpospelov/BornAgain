@@ -8,6 +8,8 @@ sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import libBornAgainCore as ba
 from libBornAgainCore import deg, angstrom
 
+REFERENCE_DIR = "@PYCORE_REFERENCE_DIR@"
+
 def get_difference(data, reference):
     """
     calculate numeric difference between result and reference data
@@ -34,7 +36,7 @@ def get_reference_data(filename):
     """
     read and return reference data from file
     """
-    return ba.IntensityDataIOFactory.readIntensityData("@REFERENCE_DIR@/legacy/"+filename)
+    return ba.IntensityDataIOFactory.readIntensityData(os.path.join(REFERENCE_DIR, filename))
 
 def get_simulation_MiniGISAS(sample = None):
     simulation = ba.GISASSimulation()

@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -44,22 +43,18 @@ RegionOfInterest::RegionOfInterest(double xlow, double ylow, double xup, double 
     , m_ax2(0)
     , m_ay2(0)
     , m_glob_index0(0)
-{
-
-}
+{}
 
 RegionOfInterest *RegionOfInterest::clone() const
 {
     return new RegionOfInterest(*this);
 }
 
-RegionOfInterest::~RegionOfInterest()
-{
-
-}
+RegionOfInterest::~RegionOfInterest() {}
 
 RegionOfInterest::RegionOfInterest(const RegionOfInterest &other)
-    : m_rectangle(other.m_rectangle->clone())
+    : ICloneable()
+    , m_rectangle(other.m_rectangle->clone())
     , m_ax1(other.m_ax1)
     , m_ay1(other.m_ay1)
     , m_ax2(other.m_ax2)
@@ -67,9 +62,7 @@ RegionOfInterest::RegionOfInterest(const RegionOfInterest &other)
     , m_glob_index0(other.m_glob_index0)
     , m_detector_dims(other.m_detector_dims)
     , m_roi_dims(other.m_roi_dims)
-{
-
-}
+{}
 
 double RegionOfInterest::getXlow() const
 {

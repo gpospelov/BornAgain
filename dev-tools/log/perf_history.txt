@@ -623,3 +623,51 @@ compile time: real 4m18.371s, user 24m2.298s, sys 1m56.004s
 ctest time:   real 0m45.376s, user 1m10.176s, sys 0m3.583s
 | 2017-09-29 12:33:18 | scgsun   | Linux x86_64 | 2.7    | 97.9540   | 15.4191    | 0.5813     | 0.5248          | 3.1319          | 0.3585    | 2.1234        | 0.5118            | 2.5499         | 0.8501 | 2.0469      | 1.9635    | 0.7772    |
 GUI Performance: domain2gui 1.412 | gui2domain 1.534 |realTime 1.303
+
+# Befor qtproperttybrowser framework removal
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2017-12-07 12:46:15 | scgsun   | Linux x86_64 | 2.7    | 88.9056   | 13.7139    | 0.5326     | 0.5061          | 3.1150          | 0.3598    | 2.1117        | 0.5101            | 2.5284         | 0.8601 | 0.4302      | 1.9775    | 0.7826    |
+
+compile time: real 4m39.873s, user 26m6.687s,  sys 1m56.863s
+ctest time:   real 0m47.258s, user  1m12.286s, sys 0m3.785s
+domain2gui: 1.136, gui2domain: 1.734, realTime: 1.274
+
+# after qtpropertybrowserframework removal
+compile time: real 4m29.715s, user 25m18.486s, sys 1m53.298s
+
+# after unit tests refactoring (no numerics in functional tests), after SessionModel refactoring
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2017-12-18 10:07:41 | scgsun   | Linux x86_64 | 2.7    | 89.6946   | 13.7180    | 0.5314     | 0.5718          | 3.1055          | 0.3623    | 2.0929        | 0.5021            | 2.5312         | 0.8436 | 0.4270      | 1.9687    | 0.7815    |
+domain2gui: 0.844, gui2domain: 1.542, realTime : 1.243
+make check real: 0m31.140s, user    0m56.692s: sys     0m3.284s
+
+# 2017-12-20
+# before improvements for large detectors, CoreSpecial DetectorTest 
+Linux student-pc 4.10.0-42-generic #46-Ubuntu SMP Mon Dec 4 14:38:01 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+BornAgain Release
+          Parameters               32x32             128x128             512x512           1024x1024           2048x2048
+                Runs                1000                  50                   4                   1                   1
+       elements_rect            0.000312              0.0044             0.08175               0.355               1.447
+            run_rect            0.013923             0.12488              1.7455               7.044              24.367
+      elements_spher            0.000213             0.00388               0.063                0.29               1.166
+           run_spher            0.014307             0.08286             1.46425                5.52              21.646
+# after, same configuration
+          Parameters               32x32             128x128             512x512           1024x1024           2048x2048
+                Runs                1000                  50                   4                   1                   1
+       elements_rect            0.000232              0.0038               0.077               0.327               1.216
+            run_rect            0.013454              0.1134             1.60725              11.961              24.224
+      elements_spher            0.000175             0.00264              0.0555               0.219               0.849
+           run_spher            0.013471             0.10048             2.23475               6.422              25.736
+
+# 2018-01-16 Before SimulationElement refactoring (storage -> cache)
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2018-01-16 16:13:54 | scgsun   | Linux x86_64 | 2.7    | 88.6752   | 14.9203    | 0.5591     | 0.5113          | 3.4269          | 0.3858    | 2.4094        | 0.5332            | 2.8185         | 0.9108 | 0.4769      | 2.0954    | 0.7929    |
+
+domain2gui: 0.872, gui2domain: 1.553, realTime: 1.325
+time make check: real    0m33.769s, user    1m8.385s, sys     0m21.089s
+
+# after SimulationElement refactoring
+| date                | hostname | sysinfo      | python | total cpu | total wall | MultiLayer | CylindersInDWBA | RotatedPyramids | CoreShell | SquareLattice | RadialParaCrystal | HexParaCrystal | SSCA   | Mesocrystal | PolMagCyl | Custom FF |
+| 2018-01-16 16:19:09 | scgsun   | Linux x86_64 | 2.7    | 89.2321   | 14.7215    | 0.5673     | 0.5132          | 3.3753          | 0.4000    | 2.3567        | 0.5233            | 2.7055         | 0.8943 | 0.4781      | 2.1366    | 0.7713    |
+domain2gui: 0.873, gui2domain: 1.577m realTime: 1.374
+time make check: real    0m33.753s user    1m8.605s, sys     0m20.989s

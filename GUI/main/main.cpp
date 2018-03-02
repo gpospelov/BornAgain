@@ -7,72 +7,50 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
-#include "FitProgressInfo.h"
 #include "SplashScreen.h"
 #include "appoptions.h"
 #include "mainwindow.h"
-#include "ComboProperty.h"
+#include "FitProgressInfo.h"
 #include <QApplication>
 #include <QLocale>
 #include <QMetaType>
-#include <QTime>
-#include <iostream>
 
-void messageHandler(QtMsgType type, const QMessageLogContext &, const QString &msg)
-{
-     Q_UNUSED(type);
-     Q_UNUSED(msg);
-}
+void messageHandler(QtMsgType, const QMessageLogContext&, const QString&) {}
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     ApplicationOptions options(argc, argv);
-    if(!options.isConsistent()) return 0;
+    if (!options.isConsistent())
+        return 0;
 
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
-    qRegisterMetaType<QVector<double> >("QVector<double>");
+    qRegisterMetaType<QVector<double>>("QVector<double>");
     qRegisterMetaType<FitProgressInfo>("FitProgressInfo");
 
-//  If uncomment line below, we will be able to compare QVariant containig ComboProperty
-//  but the program will be unstable.
-//    QMetaType::registerComparators<ComboProperty>();
+    QApplication app(argc, argv);
 
-    QApplication a(argc, argv);
-
-    if(!a.arguments().contains(QLatin1String("--with-debug"))) {
+    if (!options.find("with-debug"))
         qInstallMessageHandler(messageHandler);
+
+    MainWindow win;
+
+    if (options.find("geometry"))
+        win.resize(options.mainWindowSize());
+
+    if (options.find("no-splash")) {
+        win.show();
+
+    } else {
+        SplashScreen splash;
+        splash.start(/*show_during*/1500);
+        win.show();
+        splash.finish(&win);
     }
 
-    MainWindow w;
-
-    SplashScreen *splash(0);
-    if(!options.find("no-splash")) {
-        splash = new SplashScreen();
-        splash->show();
-
-        int time(1500);
-        QTime dieTime = QTime::currentTime().addMSecs(time);
-        QTime timer;
-        timer.start();
-        while( QTime::currentTime() < dieTime )
-        {
-            splash->setProgress(timer.elapsed()/(time/100));
-            QCoreApplication::processEvents( QEventLoop::AllEvents, 100 );
-        }
-    }
-
-
-    w.show();
-
-    if(splash)
-        splash->finish(&w);
-
-    return a.exec();
+    return app.exec();
 }

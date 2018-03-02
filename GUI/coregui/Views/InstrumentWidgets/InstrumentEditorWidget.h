@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -23,22 +21,21 @@
 class SessionItem;
 class DetectorItem;
 class QLineEdit;
-class QComboBox;
-class InstrumentComponentsWidget;
+class InstrumentPresenter;
 
-//! Main widget of InstrumentView. Contains InstrumentComponentsWidget with beam and detector
-//! settings.
+//! Main widget of InstrumentView. Contains InstrumentPresenter
+//! showing proper insturment editor for given instrument type.
 
 class BA_CORE_API_ InstrumentEditorWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    InstrumentEditorWidget(QWidget* parent = 0);
+    InstrumentEditorWidget(QWidget* parent = nullptr);
 
     QSize sizeHint() const;
 
-    void setInstrumentItem(SessionItem* instrument);
+    void setItem(SessionItem* instrument);
 
 signals:
     void extendedDetectorEditorRequest(DetectorItem*);
@@ -47,12 +44,11 @@ public slots:
     void onChangedEditor(const QString&);
 
 private:
-    QLayout* create_NameAndTypeLayout();
+    QLayout* createTopLayout();
     void updateWidgets();
 
     QLineEdit* m_nameLineEdit;
-    QComboBox* m_typeComboBox;
-    InstrumentComponentsWidget* m_instrumentComponents;
+    InstrumentPresenter* m_instrumentPresenter;
     SessionItem* m_currentItem;
     bool m_block_signals;
 };

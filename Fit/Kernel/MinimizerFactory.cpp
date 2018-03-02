@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -23,6 +22,9 @@
 #include "MinimizerCatalogue.h"
 #include <sstream>
 #include <iostream>
+#include <boost/format.hpp>
+#include <memory>
+#include <iomanip>
 
 IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
                                               const std::string& algorithmType,
@@ -76,9 +78,54 @@ void MinimizerFactory::printCatalogue()
     std::cout << catalogueToString() << std::endl;
 }
 
+//! Returns multi-line string representing catalogue content: minimizer names and list of their
+//! algorithms.
+
 std::string MinimizerFactory::catalogueToString()
 {
     return catalogue().toString();
+}
+
+//! Returns multi-line string representing detailed catalogue content:
+//! minimizer names, list of their algorithms and description, list of minimizer options.
+
+std::string MinimizerFactory::catalogueDetailsToString()
+{
+    const int text_width = 80;
+    std::ostringstream result;
+    const std::string fmt("%-20s| %-65s\n");
+
+    for (const auto& minimizerName : catalogue().minimizerNames()) {
+        // general info
+        const MinimizerInfo& info = catalogue().minimizerInfo(minimizerName);
+        result << std::string(text_width, '-') << "\n";
+        result << boost::format(fmt) % info.name() % info.description();
+        result << std::string(text_width, '-') << "\n";
+
+        // algorithm names and description
+        result << "\nAlgorithm names\n";
+        auto algorithmNames = info.algorithmNames();
+        auto algorithmDescription = info.algorithmDescriptions();
+        for (size_t i=0; i<algorithmNames.size(); ++i)
+            result << boost::format(fmt) % algorithmNames[i] % algorithmDescription[i];
+        if (algorithmNames.size()>1)
+            result << boost::format(fmt) % "Default algorithm" % info.algorithmName();
+
+        // list of minimizer options
+        std::unique_ptr<IMinimizer> minimizer(createMinimizer(minimizerName));
+        if (auto rootMinimizer = dynamic_cast<RootMinimizerAdapter*>(minimizer.get())) {
+            result << "\nOptions\n";
+            for(auto option : rootMinimizer->options()) {
+                std::ostringstream opt;
+                opt << std::setw(5) << std::left << option->value() << option->description();
+                result << boost::format(fmt) % option->name() % opt.str();
+            }
+        }
+
+        result << "\n";
+    }
+
+    return result.str();
 }
 
 const MinimizerCatalogue& MinimizerFactory::catalogue()

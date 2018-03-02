@@ -7,16 +7,13 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "Lattice2DItems.h"
 #include "BornAgainNamespace.h"
-#include "GUIHelpers.h"
 #include "Lattice2D.h"
 #include "Units.h"
 
@@ -33,6 +30,11 @@ Lattice2DItem::Lattice2DItem(const QString& modelType)
     : SessionItem(modelType)
 {
 
+}
+
+double Lattice2DItem::unitCellArea() const
+{
+    return createLattice()->unitCellArea();
 }
 
 const QString BasicLatticeItem::P_LATTICE_LENGTH1
@@ -57,7 +59,7 @@ BasicLatticeItem::BasicLatticeItem()
 
 std::unique_ptr<Lattice2D> BasicLatticeItem::createLattice() const
 {
-    return GUIHelpers::make_unique<BasicLattice>(
+    return std::make_unique<BasicLattice>(
                 getItemValue(P_LATTICE_LENGTH1).toDouble(),
                 getItemValue(P_LATTICE_LENGTH2).toDouble(),
                 Units::deg2rad(getItemValue(P_LATTICE_ANGLE).toDouble()),
@@ -80,7 +82,7 @@ SquareLatticeItem::SquareLatticeItem()
 
 std::unique_ptr<Lattice2D> SquareLatticeItem::createLattice() const
 {
-    return GUIHelpers::make_unique<SquareLattice>(
+    return std::make_unique<SquareLattice>(
                 getItemValue(P_LATTICE_LENGTH).toDouble(),
                 Units::deg2rad(getItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE).toDouble())
                 );
@@ -101,7 +103,7 @@ HexagonalLatticeItem::HexagonalLatticeItem()
 
 std::unique_ptr<Lattice2D> HexagonalLatticeItem::createLattice() const
 {
-    return GUIHelpers::make_unique<HexagonalLattice>(
+    return std::make_unique<HexagonalLattice>(
                 getItemValue(P_LATTICE_LENGTH).toDouble(),
                 Units::deg2rad(getItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE).toDouble())
                 );

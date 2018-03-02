@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -22,9 +20,10 @@
 #include <QSortFilterProxyModel>
 #include <QVBoxLayout>
 
-SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model, QWidget *parent)
+SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel* selection_model, QWidget* parent)
     : QWidget(parent)
-    , m_selection_model(0)
+    , m_selection_model(nullptr)
+    , m_propertyEditor(new ComponentEditor(ComponentEditor::FullTree))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle(QLatin1String("Property Editor"));
@@ -32,55 +31,61 @@ SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel *selection_model,
 
     setSelectionModel(selection_model);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-
-    m_propertyEditor = new ComponentEditor;
-
     mainLayout->addWidget(m_propertyEditor);
+
     setLayout(mainLayout);
 }
 
-void SamplePropertyWidget::setSelectionModel(QItemSelectionModel *selection_model)
+QSize SamplePropertyWidget::sizeHint() const
 {
-    if(selection_model != m_selection_model) {
-        if(m_selection_model)
-            disconnect(m_selection_model,
-                    SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-                    this,
-                    SLOT(selectionChanged(QItemSelection,QItemSelection)) );
+    return QSize(230, 256);
+}
 
-        m_selection_model = selection_model;
+QSize SamplePropertyWidget::minimumSizeHint() const
+{
+    return QSize(230, 64);
+}
 
-        connect(m_selection_model,
-                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-                this,
-                SLOT(selectionChanged(QItemSelection,QItemSelection)) );
+void SamplePropertyWidget::setSelectionModel(QItemSelectionModel* selection_model)
+{
+    if (selection_model == m_selection_model)
+        return;
 
+    if (m_selection_model) {
+        disconnect(m_selection_model, &QItemSelectionModel::selectionChanged,
+                   this, &SamplePropertyWidget::selectionChanged);
+    }
+
+    m_selection_model = selection_model;
+
+    if (m_selection_model) {
+        connect(m_selection_model, &QItemSelectionModel::selectionChanged,
+                this, &SamplePropertyWidget::selectionChanged);
     }
 }
 
-// show property of currently selected object (triggered by the graphics scene)
-// if more than one object is selected, show only last selected
-void SamplePropertyWidget::selectionChanged(const QItemSelection & selected,
-                                            const QItemSelection & deselected)
+// TODO Refactor this together with whole SampleView. Remove knowledge about proxy model.
+
+void SamplePropertyWidget::selectionChanged(const QItemSelection& selected,
+                                            const QItemSelection&)
 {
-    (void)deselected;
     QModelIndexList indices = selected.indexes();
 
-    if(indices.size()) {
-        QSortFilterProxyModel *proxy = dynamic_cast<QSortFilterProxyModel*>(const_cast<QAbstractItemModel*>(indices[0].model()));
+    if (indices.size()) {
         QModelIndex index = indices.back();
-        if (proxy) {
-            index = proxy->mapToSource(index);
-        }
-        SessionItem *item = static_cast<SessionItem *>(
-                index.internalPointer());
-//        m_propertyEditor->setItem(item, item->modelType());
+
+        if(auto proxy = dynamic_cast<QSortFilterProxyModel*>(
+            const_cast<QAbstractItemModel*>(indices.front().model())))
+            index = proxy->mapToSource(indices.back());
+
+        SessionItem* item = static_cast<SessionItem*>(index.internalPointer());
         if (item)
-            m_propertyEditor->setItem(item, item->modelType());
+            m_propertyEditor->setItem(item);
+
     } else {
-        m_propertyEditor->setItem(0);
+        m_propertyEditor->setItem(nullptr);
     }
 }

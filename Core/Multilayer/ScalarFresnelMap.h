@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -38,14 +37,19 @@ public:
     ScalarFresnelMap();
     ~ScalarFresnelMap() final;
 
-    const ILayerRTCoefficients* getOutCoefficients (
-        const SimulationElement& sim_element, size_t layer_index) const final override;
+    const ILayerRTCoefficients* getOutCoefficients (const SimulationElement& sim_element,
+                                                    size_t layer_index) const final override;
 
-    const ILayerRTCoefficients* getInCoefficients(
-        const SimulationElement& sim_element, size_t layer_index) const final override;
+    const ILayerRTCoefficients* getInCoefficients(const SimulationElement& sim_element,
+                                                  size_t layer_index) const final override;
+
+    //! Fills simulation element specular data
+    void fillSpecularData(SpecularSimulationElement& sim_element) const override;
 
 private:
     const ScalarRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index) const;
+    const std::vector<ScalarRTCoefficients>& getCoefficientsFromCache(kvector_t kvec) const;
+
     mutable std::unordered_map<std::pair<double, double>, std::vector<ScalarRTCoefficients>,
                                Hash2Doubles> m_hash_table;
 };

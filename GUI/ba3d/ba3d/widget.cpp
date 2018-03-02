@@ -1,4 +1,16 @@
-// GPL3; https://github.com/jburle/ba3d
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/ba3d/Widget.cpp
+//! @brief     Implement Widget class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
 
 #include "widget.h"
 #include "model/model.h"
@@ -8,7 +20,7 @@
 
 #include <QBoxLayout>
 
-namespace ba3d {
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 Widget3D::Widget3D() : canvas(nullptr), camera(nullptr), program(nullptr) {
@@ -32,14 +44,13 @@ void Widget3D::setBackground(QColor const& color) {
 
 void Widget3D::setModel(Model* model) {
   canvas->setModel(model);
-  connect(camera, &ba3d::Camera::updated, model, &Model::cameraUpdated);
+  connect(camera, &RealSpace::Camera::updated, model, &Model::cameraUpdated);
   camera->set();
 }
 
-Model* Widget3D::getModel() {
+Model* Widget3D::model() {
   return canvas->getModel();
 }
 
 //------------------------------------------------------------------------------
 }
-// eof

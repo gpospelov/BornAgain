@@ -7,46 +7,36 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "OffSpecSimulation.h"
 #include "BornAgainNamespace.h"
+#include "Distributions.h"
+#include "DWBAComputation.h"
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
+#include "ParameterPool.h"
+#include "RealParameter.h"
 #include "SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()
-    : mp_alpha_i_axis(nullptr)
 {
     initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(const MultiLayer& p_sample)
-    : Simulation(p_sample)
-    , mp_alpha_i_axis(nullptr)
+    : Simulation2D(p_sample)
 {
     initialize();
 }
 
 OffSpecSimulation::OffSpecSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : Simulation(p_sample_builder)
-    , mp_alpha_i_axis(nullptr)
+    : Simulation2D(p_sample_builder)
 {
-    initialize();
-}
-
-OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
-    : Simulation(other)
-    , mp_alpha_i_axis(nullptr)
-{
-    if(other.mp_alpha_i_axis)
-        mp_alpha_i_axis = other.mp_alpha_i_axis->clone();
-    m_intensity_map.copyFrom(other.m_intensity_map);
     initialize();
 }
 
@@ -59,53 +49,81 @@ void OffSpecSimulation::prepareSimulation()
 size_t OffSpecSimulation::numberOfSimulationElements() const
 {
     checkInitialization();
-    return getInstrument().getDetector()->numberOfSimulationElements()*mp_alpha_i_axis->size();
+    return getInstrument().getDetector()->numberOfSimulationElements()*mP_alpha_i_axis->size();
 }
 
-Histogram2D* OffSpecSimulation::getIntensityData() const
+SimulationResult OffSpecSimulation::result() const
 {
-    const std::unique_ptr<OutputData<double> > data(getDetectorIntensity());
-    return new Histogram2D(*data);
+    auto data = std::unique_ptr<OutputData<double>>(m_intensity_map.clone());
+    auto p_det = dynamic_cast<const IDetector2D*>(getInstrument().getDetector());
+    if (p_det) {
+        OffSpecularConverter converter(*p_det, getInstrument().getBeam(), *mP_alpha_i_axis);
+        return SimulationResult(*data, converter);
+    }
+    throw std::runtime_error("Error in OffSpecSimulation::result: "
+                             "wrong or absent detector type");
 }
 
-void OffSpecSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis, double phi_i)
+void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_axis, double phi_i)
 {
-    delete mp_alpha_i_axis;
-    mp_alpha_i_axis = alpha_axis.clone();
+    mP_alpha_i_axis.reset(alpha_axis.clone());
     if (alpha_axis.size()<1)
         throw Exceptions::ClassInitializationException(
                 "OffSpecSimulation::prepareSimulation() "
                 "-> Error. Incoming alpha range size < 1.");
-    double alpha_start = alpha_axis[0];
-    m_instrument.setBeamParameters(lambda, alpha_start, phi_i);
+    const double alpha_zero = 0.0;
+    m_instrument.setBeamParameters(wavelength, alpha_zero, phi_i);
     updateIntensityMap();
 }
 
-void OffSpecSimulation::setDetectorParameters(size_t n_x, double x_min, double x_max,
-                                              size_t n_y, double y_min, double y_max)
+const IAxis* OffSpecSimulation::beamAxis() const
 {
-    m_instrument.setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
-    updateIntensityMap();
+    return mP_alpha_i_axis.get();
+}
+
+OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
+    : Simulation2D(other)
+{
+    if(other.mP_alpha_i_axis)
+        mP_alpha_i_axis.reset(other.mP_alpha_i_axis->clone());
+    m_intensity_map.copyFrom(other.m_intensity_map);
+    initialize();
 }
 
 void OffSpecSimulation::initSimulationElementVector()
 {
     m_sim_elements.clear();
     Beam beam = m_instrument.getBeam();
-    double wavelength = beam.getWavelength();
-    double phi_i = beam.getPhi();
-    checkInitialization();
+    const double wavelength = beam.getWavelength();
+    const double phi_i = beam.getPhi();
+    const double alpha_shift = beam.getAlpha();
 
-    for (size_t iAlpha = 0; iAlpha < mp_alpha_i_axis->size(); ++iAlpha) {
+    for (size_t i = 0; i < mP_alpha_i_axis->size(); ++i) {
         // Incoming angle by convention defined as positive:
-        double alpha_i = mp_alpha_i_axis->getBin(iAlpha).getMidPoint();
-        beam.setCentralK(wavelength, alpha_i, phi_i);
-        m_instrument.setBeam(beam);
-        std::vector<SimulationElement> sim_elements_alpha_i =
-            m_instrument.createSimulationElements();
-        m_sim_elements.insert(m_sim_elements.end(), sim_elements_alpha_i.begin(),
-                              sim_elements_alpha_i.end());
+        double alpha_i = mP_alpha_i_axis->getBin(i).getMidPoint();
+        double total_alpha = alpha_i + alpha_shift;
+        beam.setCentralK(wavelength, total_alpha, phi_i);
+        auto sim_elements_i = generateSimulationElements(beam);
+        m_sim_elements.insert(m_sim_elements.end(), std::make_move_iterator(sim_elements_i.begin()),
+                              std::make_move_iterator(sim_elements_i.end()));
     }
+    if (m_cache.empty())
+        m_cache.resize(m_sim_elements.size(), 0.0);
+}
+
+void OffSpecSimulation::validateParametrization(const ParameterDistribution& par_distr) const
+{
+    const bool zero_mean = par_distr.getDistribution()->getMean() == 0.0;
+    if (zero_mean)
+        return;
+
+    std::unique_ptr<ParameterPool> parameter_pool(createParameterTree());
+    const std::vector<RealParameter*> names
+        = parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
+    for (const auto par : names)
+        if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
+            throw std::runtime_error("Error in OffSpecSimulation: parameter distribution of "
+                                     "beam inclination angle should have zero mean.");
 }
 
 void OffSpecSimulation::transferResultsToIntensityMap()
@@ -117,15 +135,15 @@ void OffSpecSimulation::transferResultsToIntensityMap()
         throw Exceptions::RuntimeErrorException(
             "OffSpecSimulation::transferResultsToIntensityMap: "
             "intensity map size does not conform to number of calculated intensities");
-    for (size_t i=0; i<mp_alpha_i_axis->size(); ++i)
+    for (size_t i=0; i<mP_alpha_i_axis->size(); ++i)
         transferDetectorImage(i);
 }
 
 void OffSpecSimulation::updateIntensityMap()
 {
     m_intensity_map.clear();
-    if (mp_alpha_i_axis)
-        m_intensity_map.addAxis(*mp_alpha_i_axis);
+    if (mP_alpha_i_axis)
+        m_intensity_map.addAxis(*mP_alpha_i_axis);
     size_t detector_dimension = m_instrument.getDetectorDimension();
     if (detector_dimension==2)
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(1));
@@ -149,7 +167,7 @@ void OffSpecSimulation::transferDetectorImage(size_t index)
 
 void OffSpecSimulation::checkInitialization() const
 {
-    if (!mp_alpha_i_axis || mp_alpha_i_axis->size()<1)
+    if (!mP_alpha_i_axis || mP_alpha_i_axis->size()<1)
         throw Exceptions::ClassInitializationException(
                 "OffSpecSimulation::checkInitialization() "
                 "Incoming alpha range not configured.");

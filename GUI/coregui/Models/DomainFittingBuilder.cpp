@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -27,6 +25,7 @@
 #include "MinimizerItem.h"
 #include "RealDataItem.h"
 #include "FitParameter.h"
+#include "InstrumentItems.h"
 
 std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
 {
@@ -45,9 +44,8 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
             result->addFitParameter(*fitPar);
     }
 
-    const std::unique_ptr<GISASSimulation> simulation(
-		DomainSimulationBuilder::getSimulation(jobItem->multiLayerItem(), jobItem->instrumentItem(),
-                                               jobItem->getSimulationOptionsItem()));
+    const auto simulation = DomainSimulationBuilder::createSimulation(jobItem->multiLayerItem(),
+            jobItem->instrumentItem(), jobItem->simulationOptionsItem());
 
     RealDataItem *realDataItem = jobItem->realDataItem();
     if(!realDataItem)

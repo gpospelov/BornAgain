@@ -7,16 +7,15 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "CylindersBuilder.h"
+#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
-#include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "MultiLayer.h"
@@ -38,9 +37,9 @@ MultiLayer* CylindersInDWBABuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
@@ -70,8 +69,8 @@ MultiLayer* CylindersInBABuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
 
@@ -98,9 +97,9 @@ MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
@@ -130,9 +129,9 @@ MultiLayer* RotatedCylindersBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial substrate_material("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     FormFactorCylinder ff_cylinder(m_radius, m_height);
     RotationY rotation(M_PI);

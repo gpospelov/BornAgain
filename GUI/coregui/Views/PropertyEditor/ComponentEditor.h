@@ -3,65 +3,74 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/PropertyEditor/ComponentEditor.h
-//! @brief     Defines class ComponentEditor
+//! @brief     Defines ComponentEditor class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #ifndef COMPONENTEDITOR_H
 #define COMPONENTEDITOR_H
 
-#include "ComponentEditorFlags.h"
 #include "WinDllMacros.h"
 #include <QWidget>
-#include <memory>
 
-class ComponentEditorPrivate;
+class ComponentView;
 class SessionItem;
-class SessionModel;
-class QtVariantProperty;
-class QtProperty;
+class QBoxLayout;
+
+//! Component editor for SessionItem. Can have various appearance depending
+//! on EditorFlags
 
 class BA_CORE_API_ ComponentEditor : public QWidget
 {
     Q_OBJECT
 public:
-    ComponentEditor(ComponentEditorFlags::PresentationType flags = ComponentEditorFlags::BROWSER_TABLE, QWidget *parent = 0);
+    enum EditorFlags {
+        Tree      = 0x1000,
+        Widget    = 0x2000,
 
-    virtual ~ComponentEditor();
+        PlainLayout  = 0x0010, // editor embedded in standard box layout
+        GroupLayout  = 0x0020, // editor embedded in QGroupBox
+        InfoLayout   = 0x0040, // editor embedded in GroupInfoBox
 
-    void setItem(SessionItem *item, const QString &group_name=QString());
+        T_Header     = 0x0100, // to show QTreeView header (Tree mode only)
+        T_Root       = 0x0200, // to show root item  (Tree mode only)
+        W_NoChildren = 0x0400, // show no children (Widget mode only)
 
-    void updateEditor(SessionItem *item, QtVariantProperty *parentProperty = 0);
+        FullTree     = Tree | PlainLayout | T_Header | T_Root,
+        HeaderTree   = Tree | PlainLayout | T_Header,
+        MiniTree     = Tree | PlainLayout,
+        PlainWidget  = Widget | PlainLayout,
+        GroupWidget  = Widget | GroupLayout,
+        InfoWidget   = Widget | InfoLayout,
+    };
+    Q_DECLARE_FLAGS(EditorType, EditorFlags)
 
+    ComponentEditor(EditorType editorType = HeaderTree, const QString& title = QString());
+
+    void setItem(SessionItem* item);
     void clearEditor();
+    void addItem(SessionItem* item);
 
-    void setHeaderHidden(bool hide);
-
-public slots:
-    virtual void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
-    virtual void onRowsInserted(const QModelIndex &parent, int first, int last);
+signals:
+    void dialogRequest(SessionItem* item, const QString& names);
 
 private slots:
-    void onQtPropertyChanged(QtProperty *, const QVariant &value);
+    void onDialogRequest();
 
-protected:
-    QList<SessionItem *> componentItems(SessionItem *item) const;
-    void cleanChildren(SessionItem *item);
+private:
+    ComponentView* createComponentView();
 
-    void disconnectModel(SessionModel *model);
-    void connectModel(SessionModel *model);
-    void disconnectManager();
-    void connectManager();
-
-    std::unique_ptr<ComponentEditorPrivate> m_d;
+    EditorType m_type;
+    ComponentView* m_componentView;
+    SessionItem* m_item;
+    QString m_title;
 };
 
+Q_DECLARE_OPERATORS_FOR_FLAGS(ComponentEditor::EditorType)
 
-#endif // COMPONENTEDITOR_H
+#endif  // COMPONENTEDITOR_H

@@ -1,7 +1,10 @@
 project (ba3d)
 cmake_minimum_required (VERSION 3.1 FATAL_ERROR)
+if(POLICY CMP0071)
+  cmake_policy(SET CMP0071 NEW)
+endif()
 
-set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD 14)
 if (CMAKE_COMPILER_IS_GNUCXX)
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif ()
@@ -24,5 +27,3 @@ add_subdirectory (demo)
 set(library_name ba3d)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
-
-# eof

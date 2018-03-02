@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -30,23 +28,20 @@ class BA_CORE_API_ JobRealTimeWidget : public QWidget
 {
     Q_OBJECT
 public:
-    JobRealTimeWidget(JobModel *jobModel, QWidget *parent = 0);
+    JobRealTimeWidget(JobModel* jobModel, QWidget* parent = nullptr);
 
-    ParameterTuningWidget *parameterTuningWidget(JobItem *jobItem);
+    ParameterTuningWidget* parameterTuningWidget(JobItem* jobItem);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
 public slots:
-    void setItem(JobItem *jobItem);
-    void onResetParameters();
+    void setItem(JobItem* jobItem);
 
 private:
-    ParameterTuningWidget *currentParameterTuningWidget();
-    bool isValidJobItem(JobItem *item);
+    bool isValidJobItem(JobItem* item);
 
-    class JobRealTimeToolBar *m_toolBar;
-    ItemStackPresenter<ParameterTuningWidget> *m_stackedWidget;
+    ItemStackPresenter<ParameterTuningWidget>* m_stackedWidget;
 };
 
 #endif // JOBREALTIMEWIDGET_H

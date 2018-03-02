@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -17,6 +16,7 @@
 #include "SessionDecorationModel.h"
 #include "SessionModel.h"
 #include "GUIHelpers.h"
+#include "StyleUtils.h"
 #include <QVBoxLayout>
 #include <QTreeView>
 
@@ -36,9 +36,10 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
    layout->setSpacing(0);
    layout->addWidget(m_tree);
 
+   StyleUtils::setPropertyStyle(m_tree);
+
    m_decorationProxy->setSessionModel(model);
    m_tree->setModel(m_decorationProxy);
-
 
    if (m_decorationProxy->rowCount(QModelIndex()) > 0)
        setExpanded(true);

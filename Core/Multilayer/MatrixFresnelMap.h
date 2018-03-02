@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -34,22 +33,30 @@ class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
     MatrixFresnelMap();
-    ~MatrixFresnelMap() final;
+    virtual ~MatrixFresnelMap();
 
-    const ILayerRTCoefficients* getOutCoefficients(
-        const SimulationElement& sim_element, size_t layer_index) const final override;
+    const ILayerRTCoefficients* getOutCoefficients(const SimulationElement& sim_element,
+                                                   size_t layer_index) const final override;
 
-    const ILayerRTCoefficients* getInCoefficients(
-        const SimulationElement& sim_element, size_t layer_index) const final override;
+    const ILayerRTCoefficients* getInCoefficients(const SimulationElement& sim_element,
+                                                  size_t layer_index) const final override;
 
     void setMultilayer(const MultiLayer& multilayer) final override;
 
+    //! Fills simulation element specular data
+    void fillSpecularData(SpecularSimulationElement& sim_element) const override;
+
+    typedef std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>, HashKVector>
+        CoefficientHash;
+
 private:
+    const ILayerRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index,
+                                                const MultiLayer& multilayer,
+                                                CoefficientHash& hash_table) const;
+
     std::unique_ptr<MultiLayer> mP_inverted_multilayer;
-    mutable std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>,
-                               HashKVector> m_hash_table_out;
-    mutable std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>,
-                               HashKVector> m_hash_table_in;
+    mutable CoefficientHash m_hash_table_out;
+    mutable CoefficientHash m_hash_table_in;
 };
 
 #endif // MATRIXFRESNELMAP_H

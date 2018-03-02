@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -42,7 +41,7 @@ public:
 
     double topZ(const IRotation& rotation) const override final;
 
-    void setAmbientMaterial(HomogeneousMaterial material) override final;
+    void setAmbientMaterial(Material material) override final;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 

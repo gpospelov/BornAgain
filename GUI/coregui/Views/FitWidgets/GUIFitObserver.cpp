@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -79,7 +77,7 @@ void GUIFitObserver::update(FitSuite *subject)
 
         m_simData.reset(subject->getSimulationOutputData()->clone());
         emit plotsUpdate();
-    }    
+    }
 
     if (subject->isLastIteration())
         emit logInfoUpdate(reportToString(subject));

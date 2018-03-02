@@ -41,7 +41,7 @@ def runSimulation():
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     ## intensity data
-    return simulation.getIntensityData()
+    return simulation.result()
 
 
 # --------------------------------------------------------------
@@ -49,11 +49,11 @@ def runSimulation():
 # --------------------------------------------------------------
 def run_test():
     result = runSimulation()
-    # IntensityDataIOFactory.writeIntensityData(result, 'polmagcylinders1_reference.int')
+    # ba.IntensityDataIOFactory.writeIntensityData(result, 'polmagcylinders1_reference.int')
 
     reference = utils.get_reference_data('polmagcylinders1_reference.int.gz')
 
-    diff = utils.get_difference(result.getArray(), reference.getArray())
+    diff = utils.get_difference(result.array(), reference.getArray())
 
     status = "OK"
     if diff > 2e-10:

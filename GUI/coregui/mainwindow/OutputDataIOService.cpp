@@ -7,26 +7,28 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "OutputDataIOService.h"
 #include "ApplicationModels.h"
-#include "IntensityDataItem.h"
+#include "DataItem.h"
 #include "JobItemUtils.h"
 #include "ProjectUtils.h"
+#include "MessageService.h"
 
 OutputDataIOService::OutputDataIOService(QObject* parent)
     : QObject(parent), m_applicationModels(nullptr)
 {
+    setObjectName("OutputDataIOService");
 }
 
 OutputDataIOService::OutputDataIOService(ApplicationModels* models, QObject* parent)
     : QObject(parent), m_applicationModels(nullptr)
 {
+    setObjectName("OutputDataIOService");
     setApplicationModels(models);
 }
 
@@ -59,13 +61,21 @@ void OutputDataIOService::save(const QString& projectDir)
     m_history.setHistory(projectDir, newHistory);
 }
 
-void OutputDataIOService::load(const QString& projectDir)
+void OutputDataIOService::load(const QString& projectDir, MessageService* messageService)
 {
     OutputDataDirHistory newHistory;
 
     for (auto item : dataItems()) {
-        JobItemUtils::loadIntensityData(item, projectDir);
-        newHistory.markAsSaved(item);
+
+        try {
+            JobItemUtils::loadIntensityData(item, projectDir);
+            newHistory.markAsSaved(item);
+        } catch (const std::exception& ex) {
+            if (messageService)
+                messageService->send_warning(this, QString(ex.what()));
+            else
+                throw ex;
+        }
     }
 
     m_history.setHistory(projectDir, newHistory);
@@ -73,17 +83,16 @@ void OutputDataIOService::load(const QString& projectDir)
 
 //! Returns all IntensityDataItems available for save/load.
 
-QVector<IntensityDataItem*> OutputDataIOService::dataItems() const
+QVector<DataItem*> OutputDataIOService::dataItems() const
 {
-    QVector<IntensityDataItem*> result;
+    QVector<DataItem*> result;
 
     if (!m_applicationModels)
         return result;
 
-    for (auto item : m_applicationModels->nonXMLData()) {
-        if (auto intensityItem = dynamic_cast<IntensityDataItem*>(item))
-            result.push_back(intensityItem);
-    }
+    for (auto item : m_applicationModels->nonXMLData())
+        if (auto data_item = dynamic_cast<DataItem*>(item))
+            result.push_back(data_item);
 
     return result;
 }

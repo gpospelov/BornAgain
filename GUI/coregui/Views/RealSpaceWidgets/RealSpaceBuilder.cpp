@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,7 +16,7 @@
 #include "RealSpaceModel.h"
 #include "SessionItem.h"
 #include "LayerItem.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "MultiLayerItem.h"
 #include "TransformTo3D.h"
 #include "ParticleLayoutItem.h"
@@ -27,10 +25,10 @@
 
 void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item)
 {
-    model->defCamPos = ba3d::Camera::pos_t(
-        ba3d::xyz(-10, -140, 20),   // eye
-        ba3d::xyz(0, 0, -30),       // center
-        ba3d::xyz::_z);             // up vector
+    model->defCamPos = RealSpace::Camera::Position(
+        RealSpace::Vector3D(-10, -140, 20),   // eye
+        RealSpace::Vector3D(0, 0, -30),       // center
+        RealSpace::Vector3D::_z);             // up vector
 
     if (item.modelType() == Constants::MultiLayerType)
         populateMultiLayer(model, item);
@@ -88,7 +86,7 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model, const SessionItem
     auto particle = TransformTo3D::createParticle(particleItem);
 
     if (particle) {
-        particle->transform(ba3d::xyz::_0, ba3d::xyz(origin.x(), origin.y(), origin.z()));
+        particle->transform(RealSpace::Vector3D::_0, RealSpace::Vector3D(origin.x(), origin.y(), origin.z()));
         model->add(particle.release());
     }
 }

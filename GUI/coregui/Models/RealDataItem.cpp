@@ -7,23 +7,21 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "RealDataItem.h"
-#include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "ComboProperty.h"
 #include "SessionModel.h"
 #include "ComboProperty.h"
 #include "JobItemUtils.h"
-#include "ImportDataAssistant.h"
+#include "ImportDataUtils.h"
 #include "MaskUnitsConverter.h"
 #include "JobItemFunctions.h"
+#include "InstrumentItems.h"
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
@@ -131,13 +129,13 @@ void RealDataItem::updateToInstrument()
 
     if(m_linkedInstrument == 0) {
         ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
-        item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+        item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
         item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
         item->setXaxisTitle("X [nbins]");
         item->setYaxisTitle("Y [nbins]");
         MaskUnitsConverter converter;
         converter.convertToNbins(intensityDataItem());
-        item->setOutputData(ImportDataAssistant::createSimplifiedOutputData(*item->getOutputData()));
+        item->setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*item->getOutputData()).release());
         item->setAxesRangeToData();
         converter.convertFromNbins(intensityDataItem());
     }

@@ -1,13 +1,15 @@
+#include "google_test.h"
+#include "Exceptions.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
-#include "Exceptions.h"
 
 class ParameterPoolTest : public ::testing::Test
 {
- protected:
-    ParameterPoolTest(){}
-    virtual ~ParameterPoolTest(){}
+protected:
+    ~ParameterPoolTest();
 };
+
+ParameterPoolTest::~ParameterPoolTest() = default;
 
 TEST_F(ParameterPoolTest, initialState)
 {
@@ -20,8 +22,8 @@ TEST_F(ParameterPoolTest, addParameter)
 {
     double par1(1.0), par2(2.0);
     ParameterPool pool;
-    RealParameter *rp1 = new RealParameter("rp1", &par1);
-    RealParameter *rp2 = new RealParameter("rp2", &par2);
+    RealParameter* rp1 = new RealParameter("rp1", &par1);
+    RealParameter* rp2 = new RealParameter("rp2", &par2);
 
     EXPECT_EQ(&pool.addParameter(rp1), rp1);
     EXPECT_EQ(&pool.addParameter(rp2), rp2);
@@ -38,7 +40,7 @@ TEST_F(ParameterPoolTest, addParameter)
     EXPECT_EQ(pool.parameter("rp3"), nullptr);
 
     // vector of parameter names
-    std::vector<std::string> names{"rp1","rp2"};
+    std::vector<std::string> names{"rp1", "rp2"};
     EXPECT_EQ(pool.parameterNames(), names);
 
     // cleaning the pool
@@ -50,9 +52,9 @@ TEST_F(ParameterPoolTest, matchedParameters)
 {
     double par1(1.0), par2(2.0), par3(3.0);
     ParameterPool pool;
-    RealParameter *rp1 = new RealParameter("par1", &par1);
-    RealParameter *rp2 = new RealParameter("xxx", &par2);
-    RealParameter *rp3 = new RealParameter("par3", &par3);
+    RealParameter* rp1 = new RealParameter("par1", &par1);
+    RealParameter* rp2 = new RealParameter("xxx", &par2);
+    RealParameter* rp3 = new RealParameter("par3", &par3);
 
     pool.addParameter(rp1);
     pool.addParameter(rp2);
@@ -99,7 +101,7 @@ TEST_F(ParameterPoolTest, setValue)
 TEST_F(ParameterPoolTest, clone)
 {
     double par1(1.0), par2(2.0), par3(3.0);
-    ParameterPool *pool = new ParameterPool;
+    ParameterPool* pool = new ParameterPool;
     pool->addParameter(new RealParameter("par1", &par1));
     pool->addParameter(new RealParameter("xxx", &par2));
     pool->addParameter(new RealParameter("par3", &par3));
@@ -118,7 +120,7 @@ TEST_F(ParameterPoolTest, clone)
 TEST_F(ParameterPoolTest, copyToExternalPool)
 {
     double par1(1.0), par2(2.0);
-    ParameterPool *pool = new ParameterPool;
+    ParameterPool* pool = new ParameterPool;
     pool->addParameter(new RealParameter("par1", &par1));
     pool->addParameter(new RealParameter("par2", &par2));
 
@@ -141,7 +143,7 @@ TEST_F(ParameterPoolTest, copyToExternalPool)
 TEST_F(ParameterPoolTest, removeParameter)
 {
     double par1(1.0), par2(2.0);
-    ParameterPool pool ;
+    ParameterPool pool;
     pool.addParameter(new RealParameter("par1", &par1));
     pool.addParameter(new RealParameter("par2", &par2));
     EXPECT_EQ(pool.size(), 2u);
@@ -151,4 +153,3 @@ TEST_F(ParameterPoolTest, removeParameter)
     EXPECT_EQ(pool.size(), 1u);
     EXPECT_TRUE(pool.parameter("par1") == nullptr);
 }
-

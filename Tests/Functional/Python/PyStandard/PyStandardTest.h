@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,8 +17,8 @@
 
 #include "IStandardTest.h"
 
-//! A functional test of PyCore (the Python wrapper of BornAgain/Core).
-//! Performs a given standard simulation, both directly and from a Python dump.
+//! Tests Python scripts generation from Core objects.
+//! Performs core standard simulation and checks it against simulation via generated Python script.
 
 class PyStandardTest : public IStandardTest
 {

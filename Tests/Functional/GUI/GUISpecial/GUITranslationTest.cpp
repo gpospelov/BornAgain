@@ -7,32 +7,33 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "GUITranslationTest.h"
-#include "SimulationFactory.h"
-#include "SampleBuilderFactory.h"
-#include "GISASSimulation.h"
-#include "SampleModel.h"
-#include "InstrumentModel.h"
-#include "GUIObjectBuilder.h"
 #include "ApplicationModels.h"
-#include "JobModel.h"
+#include "BeamItem.h"
 #include "DocumentModel.h"
-#include "JobItem.h"
-#include "ParameterTreeUtils.h"
-#include "ParameterTreeItems.h"
-#include "ParameterPool.h"
 #include "FitParameterHelper.h"
+#include "GISASSimulation.h"
 #include "GUIHelpers.h"
-#include "StringUtils.h"
-#include "MultiLayer.h"
+#include "GUIObjectBuilder.h"
+#include "InstrumentModel.h"
+#include "InstrumentItems.h"
+#include "JobItem.h"
+#include "JobModel.h"
 #include "ModelPath.h"
+#include "MultiLayer.h"
+#include "MultiLayerItem.h"
+#include "ParameterPool.h"
+#include "ParameterTreeItems.h"
+#include "ParameterTreeUtils.h"
+#include "SampleBuilderFactory.h"
+#include "SampleModel.h"
+#include "SimulationFactory.h"
+#include "StringUtils.h"
 #include <QStack>
 
 namespace {
@@ -45,7 +46,12 @@ GUITranslationTest::GUITranslationTest(const std::string& simName, const std::st
     , m_sampleName(sampleName)
 {
     SimulationFactory simFactory;
-    m_simulation = simFactory.create(m_simulationName);
+    std::unique_ptr<Simulation> simulation = simFactory.create(m_simulationName);
+    if (GISASSimulation* gisas = dynamic_cast<GISASSimulation*>(simulation.get())) {
+        m_simulation.reset(gisas);
+        simulation.release();
+    } else
+        throw std::runtime_error("Error in GUITranslationTest: wrong simulation type.");
 
     SampleBuilderFactory sampleFactory;
     m_simulation->setSample(*sampleFactory.createSample(m_sampleName));
@@ -78,16 +84,16 @@ void GUITranslationTest::processParameterTree()
 {
     m_models->instrumentModel()->clear();
     // populating GUI models from domain
-    GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_models->sampleModel(), *m_simulation);
-    guiBuilder.populateInstrumentModel(m_models->instrumentModel(), *m_simulation);
-    guiBuilder.populateDocumentModel(m_models->documentModel(), *m_simulation);
+    GUIObjectBuilder::populateSampleModelFromSim(m_models->sampleModel(), m_models->materialModel(),
+                                          *m_simulation);
+    GUIObjectBuilder::populateInstrumentModel(m_models->instrumentModel(), *m_simulation);
+    GUIObjectBuilder::populateDocumentModel(m_models->documentModel(), *m_simulation);
 
     JobItem *jobItem = m_models->jobModel()->addJob(
                 m_models->sampleModel()->multiLayerItem(),
                 m_models->instrumentModel()->instrumentItem(),
                 0,
-                m_models->documentModel()->getSimulationOptionsItem());
+                m_models->documentModel()->simulationOptionsItem());
 
     SessionItem *container = jobItem->parameterContainerItem();
 
@@ -139,7 +145,31 @@ std::string GUITranslationTest::translationResultsToString() const
 
 bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
 {
-    (void)domainName;
+    std::vector<std::string> invalidNames {
+        BornAgain::Direction,
+        BornAgain::Efficiency,
+        BornAgain::Transmission,
+        BornAgain::Inclination,
+        BornAgain::Azimuth
+    };
+    for (auto name : invalidNames) {
+        if (domainName.find(name) != std::string::npos)
+            return false;
+    }
+    return true;
+}
+
+//! Returns true, if it makes sence to look for domain translation for given GUI name.
+//! Intended to supress warnings about not-yet implemented translations.
+
+bool GUITranslationTest::isValidGUIName(const std::string& guiName) const
+{
+    std::vector<std::string> invalidNames {
+    };
+    for (auto name : invalidNames) {
+        if (guiName.find(name) != std::string::npos)
+            return false;
+    }
     return true;
 }
 
@@ -155,6 +185,8 @@ bool GUITranslationTest::checkExistingTranslations()
     std::unique_ptr<ParameterPool> pool(m_simulation->createParameterTree());
     std::vector<ParItem> wrong_translations;
     for(auto guiPar : m_translations) {
+        if (!isValidGUIName(guiPar.parPath))
+            continue;
         try {
             pool->getMatchedParameters(guiPar.translatedName);
         } catch (const std::runtime_error &/*ex*/) {

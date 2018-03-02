@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -27,6 +25,9 @@ class SessionModel;
 class FitFlowWidget;
 class ColorMapLabel;
 class QAction;
+class IntensityDataPropertyWidget;
+class PropertyRepeater;
+class FitComparisonController;
 
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
@@ -36,37 +37,36 @@ class BA_CORE_API_ FitComparisonWidget : public SessionItemWidget
     Q_OBJECT
 
 public:
-    explicit FitComparisonWidget(QWidget *parent = 0);
+    explicit FitComparisonWidget(QWidget* parent = 0);
     ~FitComparisonWidget();
 
-    virtual QList<QAction *> actionList();
+    virtual QList<QAction*> actionList();
 
 private slots:
     void onResetViewAction();
 
 protected:
-    virtual void subscribeToItem();
-    virtual void unsubscribeFromItem();
+    void subscribeToItem();
+    void unsubscribeFromItem();
 
 private:
-    IntensityDataItem *createRelativeDifferenceItem();
     void calculateRelativeDifference();
-    void restoreLabels(IntensityDataItem *intensityItem);
-    void removeLabels(IntensityDataItem *intensityItem);
+    void unsubscribeFromChildren();
 
     JobItem* jobItem();
     IntensityDataItem* realDataItem();
     IntensityDataItem* simulatedDataItem();
+    IntensityDataItem* diffItem();
 
-    ColorMapCanvas *m_realDataPlot;
-    ColorMapCanvas *m_simulatedDataPlot;
-    ColorMapCanvas *m_relativeDiffPlot;
-    FitFlowWidget *m_fitFlowWidget;
-    ColorMapLabel *m_statusLabel;
+    ColorMapCanvas* m_realDataPlot;
+    ColorMapCanvas* m_simulatedDataPlot;
+    ColorMapCanvas* m_relativeDiffPlot;
+    FitFlowWidget* m_fitFlowWidget;
+    ColorMapLabel* m_statusLabel;
+    IntensityDataPropertyWidget* m_propertyWidget;
 
-    IntensityDataItem *m_relativeDiffItem;
-    QAction *m_resetViewAction;
-    SessionModel *m_tempIntensityDataModel;
+    QAction* m_resetViewAction;
+    FitComparisonController* m_comparisonController;
 };
 
 #endif // FITCOMPARISONWIDGET_H

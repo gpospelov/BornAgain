@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -58,7 +56,7 @@ const unsigned int REALTIME_WIDGET_WIDTH_HINT = 480;
 const unsigned int FIT_ACTIVITY_PANEL_HEIGHT = 380;
 const unsigned int FIT_SUITE_WIDGET_HEIGHT= 330;
 const unsigned int RUN_FIT_CONTROL_WIDGET_HEIGHT = 50;
-const unsigned int ITEM_SELECTOR_WIDGET_WIDTH = 128;
+const unsigned int ITEM_SELECTOR_WIDGET_WIDTH = 96;
 const unsigned int ITEM_SELECTOR_WIDGET_HEIGHT = 765;
 
 const unsigned int hint_panel_width = 230;
@@ -75,12 +73,6 @@ const QString JobMessagePanelName = "Message Panel";
 const QString JobViewActivityName = "Job View Activity";
 const QString JobRealTimeActivityName = "Real Time Activity";
 const QString JobFittingActivityName = "Fitting Activity";
-
-//
-const QString IntensityDataWidgetName = "Color Map";
-const QString JobProjectionsWidgetName = "Projections";
-
-const QString FitComparisonWidgetName = "Fit Data";
 
 const int toolbar_icon_size = 32;
 

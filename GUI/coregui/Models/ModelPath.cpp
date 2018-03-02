@@ -7,17 +7,15 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "ModelPath.h"
-#include "SessionModel.h"
 #include "JobItem.h"
-#include "InstrumentItem.h"
+#include "SessionModel.h"
+
 
 QString ModelPath::getPathFromIndex(const QModelIndex& index)
 {
@@ -42,11 +40,12 @@ QModelIndex ModelPath::getIndexFromPath(const SessionModel* model, const QString
         QStringList parts = path.split("/");
         SessionItem* t = model->rootItem();
         for (int i = 0; i < parts.length(); i++) {
-            if (t->modelType() == Constants::JobItemType && parts[i] == Constants::InstrumentType) {
+            if (t->modelType() == Constants::JobItemType
+                && parts[i] == Constants::GISASInstrumentType) {
                 t = t->getItem(JobItem::T_INSTRUMENT);
                 continue;
             }
-            for (int j = 0; j < t->rowCount(); j++) {
+            for (int j = 0; j < t->numberOfChildren(); j++) {
                 if (t->childAt(j)->itemName() == parts[i]) {
                     t = t->childAt(j);
                     break;
@@ -82,20 +81,6 @@ bool ModelPath::isValidItem(SessionModel* model, SessionItem* item, const QModel
             return isvalid;
     }
     return false;
-}
-
-//! Returns true when we know how to translate ParameterItem link to domain name.
-
-bool ModelPath::isTranslatable(const SessionItem* item, const QString& par_name)
-{
-    Q_UNUSED(item);
-    if (par_name.contains(Constants::SphericalDetectorType))
-        return false;
-    if (par_name.contains(Constants::RectangularDetectorType))
-        return false;
-    if (par_name.contains(Constants::DistributionSigmaFactor))
-        return false;
-    return true;
 }
 
 //! Returns ancestor of given modelType for given item.

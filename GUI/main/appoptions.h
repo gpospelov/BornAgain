@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,7 +16,6 @@
 #define APPOPTIONS_H
 
 #include "Macros.h"
-#include "WinDllMacros.h"
 GCC_DIAG_OFF(unused-parameter);
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/positional_options.hpp>
@@ -27,8 +24,9 @@ GCC_DIAG_ON(unused-parameter);
 
 #include <string>
 
-namespace bpo = boost::program_options;
+class QSize;
 
+namespace bpo = boost::program_options;
 
 //! @class ApplicationOptions
 //! @ingroup tools_internal
@@ -37,37 +35,40 @@ namespace bpo = boost::program_options;
 class ApplicationOptions
 {
 public:
-    ApplicationOptions(int argc = 0, char **argv = 0);
+    ApplicationOptions(int argc = 0, char** argv = 0);
 
     //! access to variable with given name defined in variables container
-    const bpo::variable_value& operator[] (const std::string& s) const;
+    const bpo::variable_value& operator[](const std::string& s) const;
 
     //! Returns true if option with given name has been set
-    bool find(std::string name) const { return (m_variables_map.count(name.c_str()) ? true : false); }
+    bool find(std::string name) const;
 
-    //! Returns true if options are consistent (no conflicting options, no --help request, config file is parsed)
-    bool isConsistent() const { return m_options_is_consistent; }
+    //! Returns true if options are consistent (no conflicts, no --help request)
+    bool isConsistent() const;
 
     //! Parses command line arguments
-    void parseCommandLine(int argc, char **argv);
+    void parseCommandLine(int argc, char** argv);
 
     //! Returns reference to the variables container
-    bpo::variables_map& getVariables() { return m_variables_map; }
+    bpo::variables_map& getVariables();
 
     //! Returns reference to the options description
-    bpo::options_description& getOptions() { return m_options; }
+    bpo::options_description& getOptions();
 
     void processOptions();
 
     void printHelpMessage() const;
 
+    QSize mainWindowSize() const;
+
 private:
-    bool m_options_is_consistent;       //! true if options are consistent (no conflicts, no --help request)
-    bpo::options_description m_options; //! options description, to be filled with add() from different program modules
-    bpo::positional_options_description m_positional_options; //! positional options description, to be filled with addPositional() from main module
+    //! true if options are consistent (no conflicts, no --help request)
+    bool m_options_is_consistent;
+    //! options description, to be filled with add() from different program modules
+    bpo::options_description m_options;
+    //! positional options description, to be filled with addPositional() from main module
+    bpo::positional_options_description m_positional_options;
     bpo::variables_map m_variables_map; //! parsed variables
 };
-
-
 
 #endif // APPOPTIONS_H

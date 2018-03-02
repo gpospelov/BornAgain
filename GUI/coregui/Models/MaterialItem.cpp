@@ -7,58 +7,87 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "MaterialItem.h"
+#include "ExternalProperty.h"
 #include "GUIHelpers.h"
-#include "HomogeneousMaterial.h"
-#include "MaterialUtils.h"
-#include "RefractiveIndexItem.h"
+#include "MaterialDataItems.h"
+#include "MaterialFactoryFuncs.h"
+#include "MaterialItemUtils.h"
+#include "SessionItemUtils.h"
 
+using SessionItemUtils::GetVectorItem;
+
+namespace
+{
+const QString magnetization_tooltip = "Magnetization (A/m)";
+}
 
 const QString MaterialItem::P_COLOR = "Color";
-const QString MaterialItem::P_REFRACTIVE_INDEX = "Refractive index";
+const QString MaterialItem::P_MATERIAL_DATA = "Material data";
+const QString MaterialItem::P_MAGNETIZATION = "Magnetization";
 const QString MaterialItem::P_IDENTIFIER = "Identifier";
 
-MaterialItem::MaterialItem()
-    : SessionItem(Constants::HomogeneousMaterialType)
+MaterialItem::MaterialItem() : SessionItem(Constants::MaterialType)
 {
-    setItemName(Constants::HomogeneousMaterialType);
+    setItemName(Constants::MaterialType);
 
-    ColorProperty color;
-    addProperty(P_COLOR, color.getVariant());
-    addGroupProperty(P_REFRACTIVE_INDEX, Constants::RefractiveIndexType);
+    ExternalProperty color = MaterialItemUtils::colorProperty(QColor(Qt::red));
+    addProperty(P_COLOR, color.variant())->setEditorType(Constants::ColorEditorExternalType);
+
+    addGroupProperty(P_MATERIAL_DATA, Constants::MaterialDataGroup);
+    addGroupProperty(P_MAGNETIZATION, Constants::VectorType)->setToolTip(magnetization_tooltip);
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid());
     getItem(P_IDENTIFIER)->setVisible(false);
 }
 
-QString MaterialItem::getIdentifier() const
+//! Turns material into refractive index material.
+
+void MaterialItem::setRefractiveData(double delta, double beta)
 {
-    return getItemValue(P_IDENTIFIER).toString();
+    auto refractiveData = setGroupProperty(P_MATERIAL_DATA, Constants::MaterialRefractiveDataType);
+    refractiveData->setItemValue(MaterialRefractiveDataItem::P_DELTA, delta);
+    refractiveData->setItemValue(MaterialRefractiveDataItem::P_BETA, beta);
 }
 
-QColor MaterialItem::getColor() const
+//! Turns material into SLD based material.
+
+void MaterialItem::setSLDData(double sld_real, double sld_imag)
 {
-    ColorProperty property = getItemValue(P_COLOR).value<ColorProperty>();
-    return property.getColor();
+    auto sldData = setGroupProperty(P_MATERIAL_DATA, Constants::MaterialSLDDataType);
+    sldData->setItemValue(MaterialSLDDataItem::P_SLD_REAL, sld_real);
+    sldData->setItemValue(MaterialSLDDataItem::P_SLD_IMAG, sld_imag);
 }
 
-std::unique_ptr<HomogeneousMaterial> MaterialItem::createMaterial() const
+QString MaterialItem::identifier() const { return getItemValue(P_IDENTIFIER).toString(); }
+
+QColor MaterialItem::color() const
 {
-    const RefractiveIndexItem *refractiveIndexItem
-        = dynamic_cast<const RefractiveIndexItem *>(
-            getItem(MaterialItem::P_REFRACTIVE_INDEX));
+    ExternalProperty property = getItemValue(P_COLOR).value<ExternalProperty>();
+    return property.color();
+}
 
-    Q_ASSERT(refractiveIndexItem);
+std::unique_ptr<Material> MaterialItem::createMaterial() const
+{
+    auto dataItem = getGroupItem(P_MATERIAL_DATA);
+    auto magnetization = GetVectorItem(*this, P_MAGNETIZATION);
+    auto name = itemName().toStdString();
 
-    double delta = refractiveIndexItem->getDelta();
-    double beta = refractiveIndexItem->getBeta();
+    if (dataItem->modelType() == Constants::MaterialRefractiveDataType) {
+        double delta = dataItem->getItemValue(MaterialRefractiveDataItem::P_DELTA).toDouble();
+        double beta = dataItem->getItemValue(MaterialRefractiveDataItem::P_BETA).toDouble();
+        return std::make_unique<Material>(HomogeneousMaterial(name, delta, beta, magnetization));
 
-    return GUIHelpers::make_unique<HomogeneousMaterial>(
-                itemName().toStdString(), delta, beta);
+    } else if (dataItem->modelType() == Constants::MaterialSLDDataType) {
+        double sld_real = dataItem->getItemValue(MaterialSLDDataItem::P_SLD_REAL).toDouble();
+        double sld_imag = dataItem->getItemValue(MaterialSLDDataItem::P_SLD_IMAG).toDouble();
+        return std::make_unique<Material>(MaterialBySLD(name, sld_real, sld_imag, magnetization));
+    }
+
+    throw GUIHelpers::Error("MaterialItem::createMaterial() -> Error. "
+                            "Not implemented material type");
 }

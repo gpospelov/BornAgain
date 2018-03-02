@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -19,7 +17,7 @@
 #include "DesignerScene.h"
 #include "GUIHelpers.h"
 #include "LayerItem.h"
-#include "MaterialProperty.h"
+#include "ExternalProperty.h"
 #include "MultiLayerView.h"
 #include "SampleModel.h"
 #include "SessionItem.h"
@@ -79,8 +77,8 @@ void ILayerView::updateColor()
     if(m_item->isTag(LayerItem::P_MATERIAL)) {
         QVariant v = m_item->getItemValue(LayerItem::P_MATERIAL);
         if (v.isValid()) {
-            MaterialProperty mp = v.value<MaterialProperty>();
-            setColor(mp.getColor());
+            ExternalProperty mp = v.value<ExternalProperty>();
+            setColor(mp.color());
             update();
         } else {
             Q_ASSERT(0);
@@ -159,7 +157,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         this->getItem()->setItemValue(SessionGraphicsItem::P_XPOS, newPos.x());
         this->getItem()->setItemValue(SessionGraphicsItem::P_YPOS, newPos.y());
 
-        model->moveParameterizedItem(this->getItem(), 0);
+        model->moveItem(this->getItem(), 0);
         QGraphicsItem::mouseReleaseEvent(event);
         return;
     }
@@ -167,7 +165,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     // Layer was moved either from one MultiLayer to another, or is moved inside
     // one multilayer: changing ownership or row within same ownership.
     if (requested_parent) {
-        model->moveParameterizedItem(this->getItem(),
+        model->moveItem(this->getItem(),
                                      requested_parent->getItem(), requested_row);
         QGraphicsItem::mouseReleaseEvent(event);
         return;

@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -29,6 +27,9 @@ class BA_CORE_API_ DetectorItem : public SessionItem
 public:
     static const QString T_MASKS;
     static const QString P_RESOLUTION_FUNCTION;
+    static const QString P_ANALYZER_DIRECTION;
+    static const QString P_ANALYZER_EFFICIENCY;
+    static const QString P_ANALYZER_TOTAL_TRANSMISSION;
     explicit DetectorItem(const QString& modelType);
 
     std::unique_ptr<IDetector2D> createDetector() const;

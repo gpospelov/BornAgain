@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -26,10 +25,10 @@
 //! @ingroup distribution_internal
 class BA_CORE_API_ IFTDecayFunction1D : public ICloneable, public INode
 {
-public:    
+public:
     //! Constructor of one-dimensional decay function.
     //! @param decay_length: half-width of the distribution in nanometers
-    IFTDecayFunction1D(double decay_length) : m_decay_length(decay_length) {}
+    IFTDecayFunction1D(double decay_length);
 
     virtual IFTDecayFunction1D* clone() const=0;
     virtual double evaluate(double q) const=0;

@@ -7,16 +7,15 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SimulationSetupAssistant.h"
 #include "SampleValidator.h"
-#include "ImportDataAssistant.h"
+#include "ImportDataUtils.h"
+#include "InstrumentItems.h"
 #include <QMessageBox>
 
 //! Returns true if given setup is valid for submitting the job
@@ -28,7 +27,7 @@ SimulationSetupAssistant::SimulationSetupAssistant()
 }
 
 bool SimulationSetupAssistant::isValidSimulationSetup(const MultiLayerItem *multiLayerItem,
-                                                      const InstrumentItem *instrumentItem,
+                                                      const InstrumentItem* instrumentItem,
                                                       const RealDataItem *realData)
 {
     clear();
@@ -63,7 +62,7 @@ void SimulationSetupAssistant::checkMultiLayerItem(const MultiLayerItem *multiLa
     }
 }
 
-void SimulationSetupAssistant::checkInstrumentItem(const InstrumentItem *instrumentItem)
+void SimulationSetupAssistant::checkInstrumentItem(const InstrumentItem* instrumentItem)
 {
     if(!instrumentItem) {
         m_messages.append(QStringLiteral("No instrument selected"));
@@ -74,14 +73,14 @@ void SimulationSetupAssistant::checkInstrumentItem(const InstrumentItem *instrum
 //! Check if setup is suitable for fitting. In the case when there is a realData defined,
 //! its axes will be compared with current detector item.
 
-void SimulationSetupAssistant::checkFittingSetup(const InstrumentItem *instrumentItem,
+void SimulationSetupAssistant::checkFittingSetup(const InstrumentItem* instrumentItem,
                                                  const RealDataItem *realData)
 {
     if(!realData)
         return;
 
     QString message;
-    if(!ImportDataAssistant::hasSameDimensions(instrumentItem, realData, message)) {
+    if(!ImportDataUtils::HasSameShape(*instrumentItem, *realData, &message)) {
         m_isValid = false;
         m_messages.append("The RealData doesn't match selected instrument: "+message);
     }

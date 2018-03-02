@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -22,9 +20,7 @@
 
 ParameterTuningModel::ParameterTuningModel(QObject *parent)
     : FilterPropertyProxy(2, parent)
-{
-
-}
+{}
 
 Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex &proxyIndex) const
 {
@@ -32,9 +28,9 @@ Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex &proxyIndex) const
 
     QModelIndex sourceIndex = toSourceIndex(proxyIndex);
     if(sourceIndex.isValid()) {
-        if (sourceIndex.column() == SessionModel::ITEM_VALUE) result |= Qt::ItemIsEditable;
+        if (sourceIndex.column() == SessionFlags::ITEM_VALUE) result |= Qt::ItemIsEditable;
 
-        const QString modelType = sourceIndex.data(SessionModel::ModelTypeRole).toString();
+        const QString modelType = sourceIndex.data(SessionFlags::ModelTypeRole).toString();
         if(modelType == Constants::ParameterType) {
             if(ParameterItem *parameterItem = getParameterItem(proxyIndex)) {
                 if(parameterItem->isFittable())
@@ -42,7 +38,6 @@ Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex &proxyIndex) const
             }
         }
     }
-
     return result;
 }
 

@@ -7,15 +7,12 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "RealDataModel.h"
-#include "ImportDataAssistant.h"
 #include "RealDataItem.h"
 
 RealDataModel::RealDataModel(QObject *parent)
@@ -36,7 +33,7 @@ QVector<SessionItem *> RealDataModel::nonXMLData() const
 {
     QVector<SessionItem *> result;
 
-    for (auto realData : topItems(Constants::RealDataType)) {
+    for (auto realData : topItems<RealDataItem>()) {
         if (auto intensityItem = realData->getItem(RealDataItem::T_INTENSITY_DATA))
             result.push_back(intensityItem);
     }

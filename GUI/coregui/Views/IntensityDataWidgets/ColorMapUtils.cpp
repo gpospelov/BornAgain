@@ -7,17 +7,17 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "ColorMapUtils.h"
+#include "ColorMap.h"
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "item_constants.h"
+#include <QFontMetrics>
 
 using gradient_map_t = QMap<QString, QCPColorGradient::GradientPreset>;
 
@@ -46,6 +46,17 @@ gradient_map_t createGradientMap() {
 QCPRange qcpRange(double xmin, double xmax, int nbins) {
     double dx = (xmax-xmin)/nbins;
     return QCPRange(xmin+dx/2., xmax-dx/2.);
+}
+
+QMargins defaultMargins(const QWidget& widget)
+{
+    QFontMetrics fontMetric(widget.font());
+    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
+    int left = static_cast<int>(6.0 * em);
+    int top = static_cast<int>(fontAscent * 1.5);
+    int right = static_cast<int>(em * 1.2);
+    int bottom = static_cast<int>(4.5 * fontAscent);
+    return QMargins(left, top, right, bottom);
 }
 
 }
@@ -124,4 +135,11 @@ void ColorMapUtils::setLogz(QCPAxis* axis, bool isLogz)
         QSharedPointer<QCPAxisTicker> ticker(new QCPAxisTicker);
         axis->setTicker(ticker);
     }
+}
+
+void ColorMapUtils::setDefaultMargins(QCustomPlot* customPlot)
+{
+    auto* axisRectangle = customPlot->axisRect();
+    axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
+    axisRectangle->setMargins(defaultMargins(*customPlot));
 }

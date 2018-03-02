@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -41,7 +40,7 @@ IsGISAXSDetector *IsGISAXSDetector::clone() const
     return new IsGISAXSDetector(*this);
 }
 
-IAxis *IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
+std::unique_ptr<IAxis> IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
 {
     if (max <= min) {
         throw Exceptions::LogicErrorException(
@@ -50,10 +49,11 @@ IAxis *IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min, dou
     if (n_bins == 0) {
         throw Exceptions::LogicErrorException(
             "IsGISAXSDetector::createAxis() -> Error! Number n_bins can't be zero.");
-    }    return new CustomBinAxis(getAxisName(index), n_bins, min, max);
+    }
+    return std::make_unique<CustomBinAxis>(axisName(index), n_bins, min, max);
 }
 
 size_t IsGISAXSDetector::getIndexOfSpecular(const Beam& /*beam*/) const
 {
-    return getTotalSize();
+    return totalSize();
 }

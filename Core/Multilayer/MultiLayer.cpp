@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -21,7 +20,7 @@
 #include "LayerFillLimits.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
-#include "HomogeneousMaterial.h"
+#include "MaterialUtils.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <iomanip>
@@ -40,6 +39,7 @@ void MultiLayer::init_parameters()
     parameterPool()->clear(); // non-trivially needed
     registerParameter(BornAgain::CrossCorrelationLength, &m_crossCorrLength).
         setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerVector(BornAgain::ExternalField, &m_ext_field, BornAgain::UnitsNone);
 }
 
 MultiLayer* MultiLayer::clone() const
@@ -52,10 +52,10 @@ MultiLayer* MultiLayer::cloneInvertB() const
     return genericClone( [](const Layer* p_layer) { return p_layer->cloneInvertB(); } );
 }
 
-MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
+std::unique_ptr<MultiLayer> MultiLayer::cloneSliced(bool use_average_layers) const
 {
     if (!use_average_layers || numberOfLayers()==0)
-        return clone();
+        return std::unique_ptr<MultiLayer>(clone());
     auto layer_limits = calculateLayerZLimits();
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
@@ -79,7 +79,7 @@ MultiLayer* MultiLayer::cloneSliced(bool use_average_layers) const
         for (size_t j=1; j<sliced_layers.size(); ++j)
             P_result->addLayer(*sliced_layers[j]);
     }
-    return P_result.release();
+    return P_result;
 }
 
 //! Returns pointer to the top interface of the layer.
@@ -95,15 +95,15 @@ const LayerInterface* MultiLayer::layerBottomInterface(size_t i_layer) const
     return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : nullptr;
 }
 
-HomogeneousMaterial MultiLayer::layerMaterial(size_t i_layer) const
+Material MultiLayer::layerMaterial(size_t i_layer) const
 {
     return *layer(i_layer)->material();
 }
 
-void MultiLayer::setLayerMaterial(size_t i_layer, HomogeneousMaterial material)
+void MultiLayer::setLayerMaterial(size_t i_layer, Material material)
 {
     auto p_layer = m_layers[check_layer_index(i_layer)];
-    p_layer->setMaterial(material);
+    p_layer->setMaterial(std::move(material));
 }
 
 //! Adds layer with top roughness
@@ -173,10 +173,16 @@ size_t MultiLayer::indexOfLayer(const Layer* p_layer) const
 
 bool MultiLayer::containsMagneticMaterial() const
 {
-    for (const HomogeneousMaterial* mat: containedMaterials())
+    for (const Material* mat: containedMaterials())
         if (mat->isMagneticMaterial())
             return true;
     return false;
+}
+
+bool MultiLayer::containsCompatibleMaterials() const
+{
+    return MaterialUtils::checkMaterialTypes(containedMaterials())
+           != MATERIAL_TYPES::InvalidMaterialType;
 }
 
 void MultiLayer::initBFields()

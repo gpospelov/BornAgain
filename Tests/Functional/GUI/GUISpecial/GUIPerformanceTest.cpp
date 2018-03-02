@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -29,11 +27,12 @@
 #include "DocumentModel.h"
 #include "ParameterTreeUtils.h"
 #include "ParameterTreeItems.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "DetectorItems.h"
 #include "ModelPath.h"
 #include "IntensityDataItem.h"
 #include "FitParameterHelper.h"
+#include "GUIHelpers.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
 #include <random>
@@ -79,7 +78,7 @@ bool GUIPerformanceTest::runTest()
 
 void GUIPerformanceTest::test_domain_to_gui()
 {
-    static std::unique_ptr<ISample> sample;
+    static std::unique_ptr<MultiLayer> sample;
 
     if(!sample) {
         m_models->resetModels();
@@ -88,8 +87,8 @@ void GUIPerformanceTest::test_domain_to_gui()
     }
 
     m_models->sampleModel()->clear();
-    GUIObjectBuilder guiBuilder;
-    guiBuilder.populateSampleModel(m_models->sampleModel(), *sample);
+    GUIObjectBuilder::populateSampleModel(m_models->sampleModel(), m_models->materialModel(),
+                                          *sample);
 }
 
 //! Creates gui sample once and then populates domain.
@@ -104,16 +103,15 @@ void GUIPerformanceTest::test_gui_to_domain()
         m_models->resetModels();
 
         SampleBuilderFactory factory;
-        const std::unique_ptr<ISample> sample(factory.createSample(m_sample_name.toStdString()));
+        const std::unique_ptr<MultiLayer> sample(factory.createSample(m_sample_name.toStdString()));
 
-        GUIObjectBuilder guiBuilder;
-        guiBuilder.populateSampleModel(m_models->sampleModel(), *sample);
+        GUIObjectBuilder::populateSampleModel(m_models->sampleModel(), m_models->materialModel(),
+                                              *sample);
 
     }
 
-    std::unique_ptr<GISASSimulation> sim(DomainSimulationBuilder::getSimulation(
-        m_models->sampleModel()->multiLayerItem(),
-        m_models->instrumentModel()->instrumentItem()));
+    auto sim = DomainSimulationBuilder::createSimulation(m_models->sampleModel()->multiLayerItem(),
+            m_models->instrumentModel()->instrumentItem());
 }
 
 void GUIPerformanceTest::test_real_time()
@@ -123,15 +121,20 @@ void GUIPerformanceTest::test_real_time()
     if(!jobItem) {
         m_models->resetModels();
 
-        SimulationOptionsItem *optionsItem = m_models->documentModel()->getSimulationOptionsItem();
+        SimulationOptionsItem *optionsItem = m_models->documentModel()->simulationOptionsItem();
 
         SampleBuilderFactory factory;
-        const std::unique_ptr<ISample> sample(factory.createSample(m_sample_name.toStdString()));
+        const std::unique_ptr<MultiLayer> sample(factory.createSample(m_sample_name.toStdString()));
 
-        GUIObjectBuilder guiBuilder;
-        guiBuilder.populateSampleModel(m_models->sampleModel(), *sample);
+        GUIObjectBuilder::populateSampleModel(m_models->sampleModel(), m_models->materialModel(),
+                                              *sample);
 
-        m_models->instrumentModel()->instrumentItem()->detectorItem()->setSize(50, 50);
+        if (auto instrument2DItem = dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem())) {
+            instrument2DItem->detectorItem()->setSize(50, 50);
+        } else {
+            throw GUIHelpers::Error("GUISaveLoadProject::run_job() -> Error. ApplicationModels is "
+                                    "in unexpected state");
+        }
 
         jobItem = m_models->jobModel()->addJob(
                    m_models->sampleModel()->multiLayerItem(),

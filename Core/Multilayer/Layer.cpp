@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -19,13 +18,14 @@
 #include "ILayout.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
+#include "MaterialUtils.h"
 
 #include <set>
 
 //! Constructor of a layer with thickness and material
 //! @param material: material the layer is made of
 //! @param thickness: thickness of a layer in nanometers
-Layer::Layer(HomogeneousMaterial material, double thickness)
+Layer::Layer(Material material, double thickness)
     : m_material(std::move(material))
     , m_thickness(thickness)
 {
@@ -60,19 +60,9 @@ void Layer::setThickness(double thickness)
     m_thickness = thickness;
 }
 
-void Layer::setMaterial(HomogeneousMaterial material)
+void Layer::setMaterial(Material material)
 {
     m_material = std::move(material);
-}
-
-complex_t Layer::refractiveIndex() const
-{
-    return m_material.refractiveIndex();
-}
-
-complex_t Layer::refractiveIndex2() const
-{
-    return m_material.refractiveIndex2();
 }
 
 void Layer::addLayout(const ILayout& layout)
@@ -153,15 +143,15 @@ SafePointerVector<Layer> Layer::slice(ZLimits limits, Layer::ELayerType layer_ty
 
 complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
 {
-    complex_t n = m_material.refractiveIndex();
-    return ScalarReducedPotential(n, k, n_ref);
+    complex_t n = m_material.refractiveIndex(2.0 * M_PI / k.mag());
+    return MaterialUtils::ScalarReducedPotential(n, k, n_ref);
 }
 
 Eigen::Matrix2cd Layer::polarizedReducedPotential(kvector_t k, double n_ref) const
 {
-    complex_t n = m_material.refractiveIndex();
+    complex_t n = m_material.refractiveIndex(2.0 * M_PI / k.mag());
     kvector_t b_field = bField();
-    return PolarizedReducedPotential(n, b_field, k, n_ref);
+    return MaterialUtils::PolarizedReducedPotential(n, b_field, k, n_ref);
 }
 
 void Layer::initBField(kvector_t h_field, double b_z)

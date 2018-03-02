@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -21,25 +19,12 @@
 #include <QObject>
 #include <QMap>
 
-namespace ToolTipsXML {
-const QString modelTag = "ToolTipsData";
-const QString contextTag = "context";
-const QString categoryTag = "category";
-const QString propertyTag = "property";
-const QString tooltipTag = "tooltip";
-const QString whatsthisTag = "whatsthis";
-const QString nameAttribute = "name";
-const QString sampleViewContext = "SampleView";
-const QString titleProperty = "Title";
-const QString descriptionProperty = "Description";
-}
-
 //! The MaterialEditor is the main class to access materials.
 class BA_CORE_API_ ToolTipDataBase : public QObject
 {
     Q_OBJECT
 public:
-    ToolTipDataBase(QObject* parent = 0);
+    explicit ToolTipDataBase(QObject* parent = nullptr);
     virtual ~ToolTipDataBase();
 
     static QString widgetboxToolTip(const QString& className);

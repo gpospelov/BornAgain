@@ -1,4 +1,4 @@
-//* ************************************************************************* //
+// ************************************************************************** //
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -7,12 +7,10 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-//* ************************************************************************* //
+// ************************************************************************** //
 
 #ifndef GUIHELPERS_H
 #define GUIHELPERS_H
@@ -56,8 +54,6 @@ BA_CORE_API_ bool question(QWidget* parent, const QString& title,
 BA_CORE_API_ bool okToDelete(QWidget* parent, const QString& title,
         const QString& text, const QString& detailedText=QString());
 
-BA_CORE_API_ int getVariantType(const QVariant& variant);
-
 BA_CORE_API_ QString getBornAgainVersionString();
 
 BA_CORE_API_ QString getValidFileName(const QString& proposed_name);
@@ -79,11 +75,6 @@ BA_CORE_API_ QString currentDateTime();
 BA_CORE_API_ QStringList fromStdStrings(const std::vector<std::string>& container);
 
 BA_CORE_API_ QVector<double> fromStdVector(const std::vector<double>& data);
-
-template<class T, class... Ts> std::unique_ptr<T> make_unique(Ts&&... params)
-{
-    return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
-}
 
 BA_CORE_API_ QString createUuid();
 

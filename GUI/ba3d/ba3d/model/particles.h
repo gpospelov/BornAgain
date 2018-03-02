@@ -1,142 +1,171 @@
-// GPL3; https://github.com/jburle/ba3d
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/ba3d/model/particle.h
+//! @brief     Defines Particle class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
 
 #ifndef BA3D_PARTICLES_H
 #define BA3D_PARTICLES_H
 
 #include "object.h"
 
-namespace ba3d { namespace particle {
-//------------------------------------------------------------------------------
+namespace RealSpace { namespace Particles {
 
-enum class kind {
-  None,
-  FullSphere, FullSpheroid, Cylinder, TruncatedSphere, TruncatedSpheroid,
-  Cone, Icosahedron, Dodecahedron, TruncatedCube, Prism6, Cone6, Pyramid,
-  Cuboctahedron, Prism3, Tetrahedron, EllipsoidalCylinder, Box,
-  HemiEllipsoid, AnisoPyramid,
+enum class EShape {
+    None,
+    FullSphere, FullSpheroid, Cylinder, TruncatedSphere, TruncatedSpheroid,
+    Cone, Icosahedron, Dodecahedron, TruncatedCube, Prism6, Cone6, Pyramid,
+    Cuboctahedron, Prism3, Tetrahedron, EllipsoidalCylinder, Box,
+    HemiEllipsoid, AnisoPyramid,
 };
 
-QString const& name(kind);
+QString const& name(EShape);
 
 //------------------------------------------------------------------------------
 
-class Particle : public Object { BASE(Object)
+class Particle : public Object
+{
 protected:
-  Particle(geometry::key);
-  xyz turn,   // turn before scale
-      scale,  // geometries are of 1-size (box 1x1x1, sphere D=1), need scaling
-      offset, // geometries centered around origin; particles stand on z=0 plane
-      rotate, translate;  // remembered
+    Particle(GeometricID::Key);
+    Vector3D turn;   // turn before scale
+    Vector3D scale;  // geometries are of 1-size (box 1x1x1, sphere D=1), need scaling
+    Vector3D offset; // geometries centered around origin; particles stand on z=0 plane
+    Vector3D rotate, translate;  // remembered
 
-  void set();
+    void set();
 
 public:
-  static kind const firstKind = kind::None,
-                    lastKind  = kind::AnisoPyramid;
+    static EShape const firstKind = EShape::None;
+    static EShape const lastKind = EShape::AnisoPyramid;
 
-  void transform(xyz rotate, xyz translate);
-  void fancy(xyz rotate, flt r);
+    void transform(Vector3D rotate, Vector3D translate);
+    void fancy(Vector3D rotate, float r);
 };
 
 //------------------------------------------------------------------------------
 // follow BornAgain manual, chapter 11, Particle form factors
 
-class FullSphere : public Particle {
+class FullSphere : public Particle
+{
 public:
-  FullSphere(flp R);
+    FullSphere(float R);
 };
 
-class FullSpheroid : public Particle {
+class FullSpheroid : public Particle
+{
 public:
-  FullSpheroid(flp R, flp H);
+    FullSpheroid(float R, float H);
 };
 
-class Cylinder : public Particle {
+class Cylinder : public Particle
+{
 public:
-  Cylinder(flp R, flp H);
+    Cylinder(float R, float H);
 };
 
-class TruncatedSphere : public Particle {
+class TruncatedSphere : public Particle
+{
 public:
-  TruncatedSphere(flp R, flp H);
+    TruncatedSphere(float R, float H);
 };
 
-class TruncatedSpheroid : public Particle {
+class TruncatedSpheroid : public Particle
+{
 public:
-  TruncatedSpheroid(flp R, flp H, flp fp);
+    TruncatedSpheroid(float R, float H, float fp);
 };
 
-class Cone : public Particle {
+class Cone : public Particle
+{
 public:
-  Cone(flp R, flp H, flp alpha);
+    Cone(float R, float H, float alpha);
 };
 
-class Icosahedron : public Particle {
+class Icosahedron : public Particle
+{
 public:
-  Icosahedron(flp L);
+    Icosahedron(float L);
 };
 
-class Dodecahedron : public Particle {
+class Dodecahedron : public Particle
+{
 public:
-  Dodecahedron(flp L);
+    Dodecahedron(float L);
 };
 
-class TruncatedCube : public Particle {
+class TruncatedCube : public Particle
+{
 public:
-  TruncatedCube(flp L, flp t);
+    TruncatedCube(float L, float t);
 };
 
-class Prism6 : public Particle {
+class Prism6 : public Particle
+{
 public:
-  Prism6(flp R, flp H);
+    Prism6(float R, float H);
 };
 
-class Cone6 : public Particle {
+class Cone6 : public Particle
+{
 public:
-  Cone6(flp R, flp H, flp alpha);
+    Cone6(float R, float H, float alpha);
 };
 
-class Pyramid : public Particle {
+class Pyramid : public Particle
+{
 public:
-  Pyramid(flp L, flp H, flp alpha);
+    Pyramid(float L, float H, float alpha);
 };
 
-class Cuboctahedron : public Particle {
+class Cuboctahedron : public Particle
+{
 public:
-  Cuboctahedron(flp L, flp H, flp rH, flp alpha);
+    Cuboctahedron(float L, float H, float rH, float alpha);
 };
 
-class Prism3 : public Particle {
+class Prism3 : public Particle
+{
 public:
-  Prism3(flp L, flp H);
+    Prism3(float L, float H);
 };
 
-class Tetrahedron : public Particle {
+class Tetrahedron : public Particle
+{
 public:
-  Tetrahedron(flp L, flp H, flp alpha);
+    Tetrahedron(float L, float H, float alpha);
 };
 
-class EllipsoidalCylinder : public Particle {
+class EllipsoidalCylinder : public Particle
+{
 public:
-  EllipsoidalCylinder(flp Ra, flp Rb, flp H);
+    EllipsoidalCylinder(float Ra, float Rb, float H);
 };
 
-class Box : public Particle {
+class Box : public Particle
+{
 public:
-  Box(flp L, flp W, flp H);
+    Box(float L, float W, float H);
 };
 
-class HemiEllipsoid : public Particle {
+class HemiEllipsoid : public Particle
+{
 public:
-  HemiEllipsoid(flp Ra, flp Rb, flp H);
+    HemiEllipsoid(float Ra, float Rb, float H);
 };
 
-class AnisoPyramid : public Particle {
+class AnisoPyramid : public Particle
+{
 public:
-  AnisoPyramid(flp L, flp W, flp H, flp alpha);
+    AnisoPyramid(float L, float W, float H, float alpha);
 };
 
-//------------------------------------------------------------------------------
-}}
-#endif
-// eof
+}}  // namespace RealSpace::Particles
+#endif  // BA3D_PARTICLES_H

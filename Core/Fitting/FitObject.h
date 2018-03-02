@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,17 +17,17 @@
 
 #include "INode.h"
 #include "OutputData.h"
-#include <INoncopyable.h>
 #include <memory>
 
 class FitElement;
-class GISASSimulation;
+class Simulation;
 class IIntensityNormalizer;
+class IHistogram;
 
 //! Holds simulation description and real data to run the fit.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitObject : public INode, public INoncopyable
+class BA_CORE_API_ FitObject : public INode
 {
 public:
     //! FitObject constructor
@@ -36,7 +35,7 @@ public:
     //! @param real_data The real data
     //! @param weight Weight of dataset in chi2 calculations
     //! @param adjust_detector_to_data Detector axes will be adjusted to real data axes, if true
-    FitObject(const GISASSimulation& simulation, const OutputData<double>& real_data,
+    FitObject(const Simulation& simulation, const OutputData<double>& real_data,
               double weight = 1);
 
     virtual ~FitObject();
@@ -49,12 +48,6 @@ public:
     //! Returns simulated data.
     const OutputData<double>& simulationData() const;
 
-    //! Returns chi2 map.
-    const OutputData<double>& chiSquaredMap() const;
-
-    //! Returns simulation
-    const GISASSimulation& simulation() const;
-
     //! Returns weight of data set in chi2 calculations.
     double weight() const { return m_weight; }
 
@@ -65,12 +58,12 @@ public:
     void prepareFitElements(std::vector<FitElement>& fit_elements, double weight,
                             IIntensityNormalizer* normalizer=0);
 
-    void transferToChi2Map(std::vector<FitElement>::const_iterator first,
-                           std::vector<FitElement>::const_iterator last) const;
-
     std::vector<const INode*> getChildren() const;
 
-    std::string getDefaultAxisUnits() const;
+#ifndef SWIG
+    //! Returns histogram representing real data clipped to ROI
+    std::unique_ptr<IHistogram> createRealDataHistogram() const;
+#endif
 
 protected:
     //! Registers some class members for later access via parameter pool
@@ -78,12 +71,10 @@ protected:
 
 private:
     void init_dataset(const OutputData<double>& real_data);
-    void process_realdata(const OutputData<double>& real_data);
 
-    std::unique_ptr<GISASSimulation> m_simulation;
+    std::unique_ptr<Simulation> m_simulation;
     std::unique_ptr<OutputData<double>> m_real_data;
     std::unique_ptr<OutputData<double>> m_simulation_data;
-    std::unique_ptr<OutputData<double>> m_chi2_data;
     double m_weight;
     size_t m_fit_elements_count;
 };

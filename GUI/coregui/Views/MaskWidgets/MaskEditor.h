@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -36,32 +34,33 @@ class BA_CORE_API_ MaskEditor : public QMainWindow
 {
     Q_OBJECT
 public:
-    MaskEditor(QWidget *parent = 0);
+    MaskEditor(QWidget* parent = nullptr);
 
 public slots:
     //! Main method to setup context for mask editing
     //! @par model The model which will hold all masks
     //! @par maskContainerIndex Index of top level MaskContainerItem in the model to hold masks
     //! @par intensityItem IntensityDataItem which will be used as background for Mask drawing
-    void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
-                        IntensityDataItem *intensityItem);
+    void setMaskContext(SessionModel* model, const QModelIndex& maskContainerIndex,
+                        IntensityDataItem* intensityItem);
+
+    void resetContext();
 
     void onPropertyPanelRequest();
 
-    QList<QAction *> topToolBarActions();
+    QList<QAction*> topToolBarActions();
 
 protected:
-    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent* event);
 
 private:
     void setup_connections();
 
-    MaskEditorActions *m_editorActions;
-    MaskEditorToolBar *m_toolBar;
-    MaskEditorPropertyPanel *m_editorPropertyPanel;
-    MaskEditorCanvas *m_editorCanvas;
-    Manhattan::MiniSplitter *m_splitter;
+    MaskEditorActions* m_editorActions;
+    MaskEditorToolBar* m_toolBar;
+    MaskEditorPropertyPanel* m_editorPropertyPanel;
+    MaskEditorCanvas* m_editorCanvas;
+    Manhattan::MiniSplitter* m_splitter;
 };
-
 
 #endif // MASKEDITOR_H

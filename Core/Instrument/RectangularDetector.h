@@ -2,14 +2,13 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/RectangularDetector.h
-//!     Defines class RectangularDetector.
+//! @file      Core/Instrument/RectangularDetector.cpp
+//! @brief     Defines class RectangularDetector.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,6 +17,8 @@
 
 #include "IDetector2D.h"
 #include "IPixel.h"
+
+class RectangularPixel;
 
 //! A flat rectangular detector with axes and resolution function.
 //! @ingroup simulation
@@ -38,7 +39,7 @@ public:
     //! @param width Width of the detector in mm along x-direction
     //! @param nybins Number of bins (pixels) in y-direction
     //! @param height Height of the detector in mm along y-direction
-    RectangularDetector(int nxbins, double width, int nybins, double height);
+    RectangularDetector(size_t nxbins, double width, size_t nybins, double height);
 
     RectangularDetector(const RectangularDetector& other);
 
@@ -73,24 +74,23 @@ public:
     EDetectorArrangement getDetectorArrangment() const;
 
     //! returns vector of valid axes units
-    std::vector<EAxesUnits> getValidAxesUnits() const override;
+    std::vector<AxesUnits> validAxesUnits() const override;
 
     //! return default axes units
-    EAxesUnits getDefaultAxesUnits() const override;
+    AxesUnits defaultAxesUnits() const override;
+
+    RectangularPixel* regionOfInterestPixel() const;
 
 protected:
     //! Create an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
 
-    //! Generates an axis with correct name and default binning for given index
-    IAxis* createAxis(size_t index, size_t n_bins, double min, double max) const override;
-
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, EAxesUnits units,
-                                    double &amin, double &amax) const override;
+    void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
+                            double& amin, double& amax) const override;
 
     //! Returns the name for the axis with given index
-    std::string getAxisName(size_t index) const override;
+    std::string axisName(size_t index) const override;
 
     //! Returns index of pixel that contains the specular wavevector.
     //! If no pixel contains this specular wavevector, the number of pixels is
@@ -123,6 +123,7 @@ public:
     RectangularPixel* clone() const override;
     RectangularPixel* createZeroSizePixel(double x, double y) const override;
     kvector_t getK(double x, double y, double wavelength) const override;
+    kvector_t getPosition(double x, double y) const;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;
 private:

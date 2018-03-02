@@ -160,7 +160,7 @@ def run_simulation(det, ff, trafo=None):
     simulation = get_simulation(det)
     simulation.setSample(sample)
     simulation.runSimulation()
-    data = simulation.getIntensityData().getArray()
+    data = simulation.result().array()
     nor = data[det.alpha.n - det.alpha.central_index() - 1, det.phi.central_index()]
     data /= nor
     return data + 1e-80  # for log scale

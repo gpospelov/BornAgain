@@ -1,107 +1,106 @@
-#include <QtTest>
-#include "projectdocument.h"
+#include "google_test.h"
 #include "ApplicationModels.h"
-#include "InstrumentModel.h"
-#include "InstrumentItem.h"
 #include "GUIHelpers.h"
+#include "InstrumentItems.h"
+#include "InstrumentModel.h"
+#include "IntensityDataItem.h"
 #include "JobItemUtils.h"
 #include "ProjectUtils.h"
+#include "RealDataItem.h"
+#include "RealDataModel.h"
+#include "projectdocument.h"
 #include "test_utils.h"
+#include <QFileInfo>
 #include <QSignalSpy>
-#include <QDebug>
 
-class TestProjectDocument : public QObject
+class TestProjectDocument : public ::testing::Test
 {
-    Q_OBJECT
+public:
+    ~TestProjectDocument();
 
-private:
     //! helper method to modify something in a model
-    void modify_models(ApplicationModels* models) {
+    void modify_models(ApplicationModels* models)
+    {
         auto instrument = models->instrumentModel()->instrumentItem();
         instrument->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
     }
-
-private slots:
-    void test_documentFlags();
-    void test_projectDocument();
-    void test_projectDocumentWithData();
 };
 
-inline void TestProjectDocument::test_documentFlags()
+TestProjectDocument::~TestProjectDocument() = default;
+
+TEST_F(TestProjectDocument, test_documentFlags)
 {
     ProjectFlags::DocumentStatus flags;
-    QVERIFY(flags.testFlag(ProjectFlags::STATUS_OK) == false);
-    QVERIFY(flags.testFlag(ProjectFlags::STATUS_WARNING) == false);
-    QVERIFY(flags.testFlag(ProjectFlags::STATUS_FAILED) == false);
+    EXPECT_FALSE(flags.testFlag(ProjectFlags::STATUS_OK));
+    EXPECT_FALSE(flags.testFlag(ProjectFlags::STATUS_WARNING));
+    EXPECT_FALSE(flags.testFlag(ProjectFlags::STATUS_FAILED));
 
     ProjectFlags::setFlag(flags, ProjectFlags::STATUS_WARNING);
-    QVERIFY(flags.testFlag(ProjectFlags::STATUS_OK) == false);
-    QVERIFY(flags.testFlag(ProjectFlags::STATUS_WARNING) == true);
-    QVERIFY(flags.testFlag(ProjectFlags::STATUS_FAILED) == false);
+    EXPECT_FALSE(flags.testFlag(ProjectFlags::STATUS_OK));
+    EXPECT_TRUE(flags.testFlag(ProjectFlags::STATUS_WARNING));
+    EXPECT_FALSE(flags.testFlag(ProjectFlags::STATUS_FAILED));
 
-    //flags.setFlag(ProjectFlags::STATUS_OK); // only in Qt5.7
+    // flags.setFlag(ProjectFlags::STATUS_OK); // only in Qt5.7
     ProjectFlags::setFlag(flags, ProjectFlags::STATUS_OK);
-    QVERIFY(flags.testFlag(ProjectFlags::STATUS_OK) == true);
-    QVERIFY(flags.testFlag(ProjectFlags::STATUS_WARNING) == true);
-    QVERIFY(flags.testFlag(ProjectFlags::STATUS_FAILED) == false);
+    EXPECT_TRUE(flags.testFlag(ProjectFlags::STATUS_OK));
+    EXPECT_TRUE(flags.testFlag(ProjectFlags::STATUS_WARNING));
+    EXPECT_FALSE(flags.testFlag(ProjectFlags::STATUS_FAILED));
 
     ProjectFlags::DocumentStatus flags2(ProjectFlags::STATUS_WARNING | ProjectFlags::STATUS_FAILED);
-    QVERIFY(flags2.testFlag(ProjectFlags::STATUS_OK) == false);
-    QVERIFY(flags2.testFlag(ProjectFlags::STATUS_WARNING) == true);
-    QVERIFY(flags2.testFlag(ProjectFlags::STATUS_FAILED) == true);
+    EXPECT_FALSE(flags2.testFlag(ProjectFlags::STATUS_OK));
+    EXPECT_TRUE(flags2.testFlag(ProjectFlags::STATUS_WARNING));
+    EXPECT_TRUE(flags2.testFlag(ProjectFlags::STATUS_FAILED));
 
     ProjectDocument document;
-    QVERIFY(document.documentStatus() == ProjectFlags::STATUS_OK);
-    QVERIFY(document.isReady() == true);
-    QVERIFY(document.hasWarnings() == false);
-    QVERIFY(document.hasErrors() == false);
+    EXPECT_TRUE(document.documentStatus() == ProjectFlags::STATUS_OK);
+    EXPECT_TRUE(document.isReady());
+    EXPECT_FALSE(document.hasWarnings());
+    EXPECT_FALSE(document.hasErrors());
 }
 
-inline void TestProjectDocument::test_projectDocument()
+TEST_F(TestProjectDocument, test_projectDocument)
 {
     const QString projectDir("test_projectDocument");
     TestUtils::create_dir(projectDir);
-    const QString projectFileName(projectDir+"/document.pro");
+    const QString projectFileName(projectDir + "/document.pro");
 
     ApplicationModels models;
-    ProjectDocument* document = new ProjectDocument;
-    document->setApplicationModels(&models);
+    ProjectDocument document;
+    document.setApplicationModels(&models);
 
     // Checking initial document status
-    QVERIFY(document->isModified() == false);
-    QVERIFY(document->hasValidNameAndPath() == false);
-    QCOMPARE(document->projectDir(), QString());
-    QCOMPARE(document->projectName(), QString());
-    QCOMPARE(document->projectFileName(), QString());
+    EXPECT_TRUE(document.isModified() == false);
+    EXPECT_TRUE(document.hasValidNameAndPath() == false);
+    EXPECT_EQ(document.projectDir(), QString());
+    EXPECT_EQ(document.projectName(), QString());
+    EXPECT_EQ(document.projectFileName(), QString());
 
     // Checking document name and isModified status after project save
-    document->save(projectFileName);
-    QVERIFY(document->hasValidNameAndPath() == true);
-    QCOMPARE(document->projectDir(), projectDir);
-    QCOMPARE(document->projectName(), QString("document"));
-    QCOMPARE(document->projectFileName(), projectFileName);
-    QVERIFY(document->isModified() == false);
+    document.save(projectFileName);
+    EXPECT_TRUE(document.hasValidNameAndPath());
+    EXPECT_EQ(document.projectDir(), projectDir);
+    EXPECT_EQ(document.projectName(), QString("document"));
+    EXPECT_EQ(document.projectFileName(), projectFileName);
+    EXPECT_FALSE(document.isModified());
 
-    QSignalSpy spyDocument(document, SIGNAL(modified()));
-    QCOMPARE(spyDocument.count(), 0);
+    QSignalSpy spyDocument(&document, SIGNAL(modified()));
+    EXPECT_EQ(spyDocument.count(), 0);
 
     // Changing document and checking its status
     modify_models(&models);
-    QVERIFY(document->isModified() == true);
-    QCOMPARE(spyDocument.count(), 1);
+    EXPECT_TRUE(document.isModified());
+    EXPECT_EQ(spyDocument.count(), 1);
 
     // Saving document
-    document->save(projectFileName);
-    QVERIFY(document->isModified() == false);
-    QCOMPARE(spyDocument.count(), 2); // save triggers 'modified' signal
+    document.save(projectFileName);
+    EXPECT_FALSE(document.isModified());
+    EXPECT_EQ(spyDocument.count(), 2); // save triggers 'modified' signal
 
     QFileInfo info(projectFileName);
-    QVERIFY(info.exists());
-
-    delete document;
+    EXPECT_TRUE(info.exists());
 }
 
-inline void TestProjectDocument::test_projectDocumentWithData()
+TEST_F(TestProjectDocument, test_projectDocumentWithData)
 {
     const QString projectDir("test_projectDocumentWithData");
     TestUtils::create_dir(projectDir);
@@ -115,13 +114,13 @@ inline void TestProjectDocument::test_projectDocumentWithData()
                                            models.instrumentModel()->instrumentItem());
     intensityItem->setItemValue(IntensityDataItem::P_FILE_NAME, "realdata.int.gz");
 
-    ProjectDocument* document = new ProjectDocument;
-    document->setApplicationModels(&models);
-    document->save(projectDir+"/untitled.pro");
+    ProjectDocument document;
+    document.setApplicationModels(&models);
+    document.save(projectDir + "/untitled.pro");
 
-    QFileInfo info(projectDir+"/untitled.pro");
-    QVERIFY(info.exists());
+    QFileInfo info(projectDir + "/untitled.pro");
+    EXPECT_TRUE(info.exists());
 
-    info.setFile(projectDir+"/realdata.int.gz");
-    QVERIFY(info.exists());
+    info.setFile(projectDir + "/realdata.int.gz");
+    EXPECT_TRUE(info.exists());
 }

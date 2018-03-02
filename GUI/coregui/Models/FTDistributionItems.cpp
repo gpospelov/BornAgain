@@ -7,17 +7,14 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "FTDistributionItems.h"
 #include "Units.h"
 #include "BornAgainNamespace.h"
-#include "GUIHelpers.h"
 
 const QString FTDistribution1DItem::P_OMEGA = QString::fromStdString(BornAgain::Omega);
 
@@ -44,7 +41,7 @@ FTDistribution1DCauchyItem::FTDistribution1DCauchyItem()
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DCauchyItem::createFTDistribution() const
 {
-    return GUIHelpers::make_unique<FTDistribution1DCauchy>(getItemValue(P_OMEGA).toDouble());
+    return std::make_unique<FTDistribution1DCauchy>(getItemValue(P_OMEGA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -58,7 +55,7 @@ FTDistribution1DGaussItem::FTDistribution1DGaussItem()
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DGaussItem::createFTDistribution() const
 {
-    return GUIHelpers::make_unique<FTDistribution1DGauss>(getItemValue(P_OMEGA).toDouble());
+    return std::make_unique<FTDistribution1DGauss>(getItemValue(P_OMEGA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -72,7 +69,7 @@ FTDistribution1DGateItem::FTDistribution1DGateItem()
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DGateItem::createFTDistribution() const
 {
-    return GUIHelpers::make_unique<FTDistribution1DGate>(getItemValue(P_OMEGA).toDouble());
+    return std::make_unique<FTDistribution1DGate>(getItemValue(P_OMEGA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -86,7 +83,7 @@ FTDistribution1DTriangleItem::FTDistribution1DTriangleItem()
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DTriangleItem::createFTDistribution() const
 {
-    return GUIHelpers::make_unique<FTDistribution1DTriangle>(
+    return std::make_unique<FTDistribution1DTriangle>(
                 getItemValue(P_OMEGA).toDouble());
 }
 
@@ -101,7 +98,7 @@ FTDistribution1DCosineItem::FTDistribution1DCosineItem()
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DCosineItem::createFTDistribution() const
 {
-    return GUIHelpers::make_unique<FTDistribution1DCosine>(getItemValue(P_OMEGA).toDouble());
+    return std::make_unique<FTDistribution1DCosine>(getItemValue(P_OMEGA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -119,17 +116,14 @@ FTDistribution1DVoigtItem::FTDistribution1DVoigtItem()
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DVoigtItem::createFTDistribution() const
 {
-    return GUIHelpers::make_unique<FTDistribution1DVoigt>(getItemValue(P_OMEGA).toDouble(),
+    return std::make_unique<FTDistribution1DVoigt>(getItemValue(P_OMEGA).toDouble(),
                                                           getItemValue(P_ETA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
 
-// TODO BACKCOMPATIBILITY (fix when we will break back compatibility)
-// Make P_OMEGA_X, P_OMEGA_Y depend on BornAgain::OmegaX and OmegaY
-
-const QString FTDistribution2DItem::P_OMEGA_X = "CoherenceLengthX"; // temp FIXME
-const QString FTDistribution2DItem::P_OMEGA_Y = "CoherenceLengthY"; // temp FIXME
+const QString FTDistribution2DItem::P_OMEGA_X = QString::fromStdString(BornAgain::OmegaX);
+const QString FTDistribution2DItem::P_OMEGA_Y = QString::fromStdString(BornAgain::OmegaY);
 const QString FTDistribution2DItem::P_GAMMA = QString::fromStdString(BornAgain::Gamma);
 
 FTDistribution2DItem::FTDistribution2DItem(const QString& name)
@@ -139,14 +133,10 @@ FTDistribution2DItem::FTDistribution2DItem(const QString& name)
 
 void FTDistribution2DItem::add_omega_properties()
 {
-    // TODO BACKCOMPATIBILITY (remove setDisplayName when P_OMEGA_X will be "OmegaX")
     addProperty(P_OMEGA_X, 1.0)->setToolTip(
-        QStringLiteral("Half-width of the distribution along its x-axis in nanometers"))
-            .setDisplayName("OmegaX");
-
+        QStringLiteral("Half-width of the distribution along its x-axis in nanometers"));
     addProperty(P_OMEGA_Y, 1.0)->setToolTip(
-        QStringLiteral("Half-width of the distribution along its y-axis in nanometers"))
-            .setDisplayName("OmegaY");
+        QStringLiteral("Half-width of the distribution along its y-axis in nanometers"));
 }
 
 void FTDistribution2DItem::add_gamma_property()
@@ -173,7 +163,7 @@ FTDistribution2DCauchyItem::FTDistribution2DCauchyItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DCauchyItem::createFTDistribution() const
 {
-    auto result = GUIHelpers::make_unique<FTDistribution2DCauchy>(
+    auto result = std::make_unique<FTDistribution2DCauchy>(
                 getItemValue(P_OMEGA_X).toDouble(),
                 getItemValue(P_OMEGA_Y).toDouble(),
                 Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
@@ -191,7 +181,7 @@ FTDistribution2DGaussItem::FTDistribution2DGaussItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DGaussItem::createFTDistribution() const
 {
-    auto result = GUIHelpers::make_unique<FTDistribution2DGauss>(
+    auto result = std::make_unique<FTDistribution2DGauss>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
 
@@ -209,7 +199,7 @@ FTDistribution2DGateItem::FTDistribution2DGateItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DGateItem::createFTDistribution() const
 {
-    auto result = GUIHelpers::make_unique<FTDistribution2DGate>(
+    auto result = std::make_unique<FTDistribution2DGate>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
     return std::move(result);
@@ -226,7 +216,7 @@ FTDistribution2DConeItem::FTDistribution2DConeItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DConeItem::createFTDistribution() const
 {
-    auto result = GUIHelpers::make_unique<FTDistribution2DCone>(
+    auto result = std::make_unique<FTDistribution2DCone>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
     return std::move(result);
@@ -249,7 +239,7 @@ FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DVoigtItem::createFTDistribution() const
 {
-    auto result = GUIHelpers::make_unique<FTDistribution2DVoigt>(
+    auto result = std::make_unique<FTDistribution2DVoigt>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         getItemValue(P_ETA).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()));

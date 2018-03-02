@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -61,6 +60,13 @@ bool IsZRotation(const IRotation& rot)
 {
     auto transform = rot.getTransform3D();
     return transform.isZRotation();
+}
+
+// --- IdentityRotation -------------------------------------------------------
+
+Transform3D IdentityRotation::getTransform3D() const
+{
+    return Transform3D::createIdentity();
 }
 
 // --- RotationX --------------------------------------------------------------
@@ -137,4 +143,3 @@ Transform3D RotationEuler::getTransform3D() const
 {
     return Transform3D::createRotateEuler(m_alpha, m_beta, m_gamma);
 }
-

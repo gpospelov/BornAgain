@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,6 +17,8 @@
 
 #include "ISample.h"
 #include "Vectors3D.h"
+
+class IRotation;
 
 //! Interface for a generic particle.
 //!
@@ -44,6 +45,9 @@ public:
 
     //! Translates the particle with the given vector
     virtual void translate(kvector_t translation) =0;
+
+    //! Applies the given rotation to the particle
+    virtual void rotate(const IRotation& rotation) =0;
 
 protected:
     double m_abundance;

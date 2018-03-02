@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -36,13 +34,14 @@ const ModelType ParticleLayoutType = "ParticleLayout";
 const ModelType ParticleCoreShellType = "ParticleCoreShell";
 const ModelType ParticleDistributionType = "ParticleDistribution";
 const ModelType ParticleCompositionType = "ParticleComposition";
-const ModelType TransformationType = "Rotation";
+const ModelType RotationType = "Rotation";
 const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceRadialParaCrystal";
 const ModelType InterferenceFunction2DParaCrystalType = "Interference2DParaCrystal";
 const ModelType InterferenceFunction1DLatticeType = "Interference1DLattice";
 const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
-const ModelType InstrumentType = "Instrument";
-//const ModelType DetectorContainerType = "DetectorContainer";
+const ModelType GISASInstrumentType = "GISASInstrument";
+const ModelType OffSpecInstrumentType = "OffSpecInstrument";
+const ModelType SpecularInstrumentType = "SpecularInstrument";
 const ModelType BeamType = "Beam";
 
 const ModelType FormFactorType = "FormFactor";
@@ -118,9 +117,10 @@ const ModelType BasicLatticeType = "BasicLattice";
 const ModelType SquareLatticeType = "SquareLattice";
 const ModelType HexagonalLatticeType = "HexagonalLattice";
 
-const ModelType HomogeneousMaterialType = "HomogeneousMaterial";
+const ModelType MaterialType = "Material";
 
-const ModelType RefractiveIndexType = "RefractiveIndex";
+const ModelType MaterialRefractiveDataType = "MaterialRefractiveData";
+const ModelType MaterialSLDDataType = "MaterialSLDData";
 
 const ModelType MagneticFieldType = "MagneticField";
 
@@ -135,6 +135,7 @@ const ModelType FitSuiteType = "FitSuite";
 
 const ModelType JobItemType = "JobItem";
 const ModelType IntensityDataType = "IntensityData";
+const ModelType SpecularDataType = "SpecularData";
 
 const ModelType BasicAxisType = "BasicAxis";
 const ModelType AmplitudeAxisType = "AmplitudeAxis";
@@ -161,7 +162,6 @@ const ModelType RegionOfInterestType = "RegionOfInterest";
 const ModelType SimulationOptionsType = "SimulationOptions";
 
 const ModelType RealDataType = "RealData";
-const ModelType LinkInstrumentType = "LinkInstrument";
 
 const ModelType MinimizerContainerType = "MinimizerContainer";
 const ModelType MinuitMinimizerType = "Minuit2";
@@ -180,6 +180,10 @@ const ModelType RealLimitsLimitedType = "RealLimitsLimited";
 
 const ModelType ProjectionContainerType = "ProjectionContainer";
 
+const ModelType BackgroundNoneType = "NoBackground";
+const ModelType ConstantBackgroundType = "ConstantBackground";
+const ModelType PoissonNoiseBackgroundType = "PoissonNoiseBackground";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -197,6 +201,8 @@ const ModelType MaterialGroup = "Material group";
 const ModelType ResolutionFunctionGroup = "Resolution function group";
 const ModelType MinimizerLibraryGroup = "Minimizer library group";
 const ModelType RealLimitsGroup = "RealLimits group";
+const ModelType BackgroundGroup = "Background group";
+const ModelType MaterialDataGroup = "Material data group";
 
 // --- Units&Constants----------------------------------------------------------
 
@@ -254,15 +260,24 @@ const ModelType LAYOUT_SSCA = "Size Space Coupling Approximation";
 const ModelType AMBIENT_LAYER_MATERIAL = "Ambient Layer Material";
 const ModelType AVERAGE_LAYER_MATERIAL = "Average Layer Material";
 
+// --- Presentation types ----------------------------------------------------------
+
+const QString IntensityDataPresentation = "Color Map";
+const QString SpecularDataPresentation = "Reflectometry";
+const QString IntensityProjectionsPresentation = "Projections";
+const QString FitComparisonPresentation = "Fit Data";
+const QString MaskEditorPresentation = "Mask Editor";
+
 // --- Custom variants ----------------------------------------------------------
 
-const ModelType ScientificDoublePropertyType = "ScientificDoubleProperty";
-const ModelType MaterialPropertyType = "MaterialProperty";
+const ModelType ExternalPropertyType = "ExternalProperty";
 const ModelType ComboPropertyType = "ComboProperty";
-const ModelType ColorPropertyType = "ColorProperty";
-const ModelType GroupPropertyType = "GroupProperty_t";
-const ModelType AnglePropertyType = "AngleProperty";
 
+// --- Custom editors for variant propertues ---
+const ModelType DefaultEditorType = "Default";
+const ModelType ScientificEditorType = "SceintificDouble";
+const ModelType MaterialEditorExternalType = "ExtMaterialEditor";
+const ModelType ColorEditorExternalType = "ExtColorEditor";
 }
 
 #endif // ITEM_CONSTANTS_H

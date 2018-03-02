@@ -7,42 +7,31 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SessionItemWidget.h"
 #include "SessionItem.h"
+#include "SessionItemController.h"
 
 SessionItemWidget::SessionItemWidget(QWidget* parent)
     : QWidget(parent)
-    , m_currentItem(nullptr)
-    , is_subscribed(false)
+    , m_itemController(new SessionItemController(this))
 {
-
+    m_itemController->setSubscribeCallback([this](){subscribeToItem();});
+    m_itemController->setUnsubscribeCallback([this](){unsubscribeFromItem();});
 }
 
-SessionItemWidget::~SessionItemWidget()
-{
-    unsubscribe();
-}
+SessionItemWidget::~SessionItemWidget() = default;
 
 void SessionItemWidget::setItem(SessionItem* item)
 {
-    if(m_currentItem == item)
-        return;
+    m_itemController->setItem(item);
 
-    unsubscribe(); // from previous item
-
-    m_currentItem = item;
-    if (!m_currentItem)
-        return;
-
-    if(!isHidden())
-        subscribe();
+    if (isVisible())
+        m_itemController->subscribe();
 }
 
 QList<QAction*> SessionItemWidget::actionList()
@@ -50,34 +39,23 @@ QList<QAction*> SessionItemWidget::actionList()
     return QList<QAction *>();
 }
 
+SessionItem* SessionItemWidget::currentItem()
+{
+    return const_cast<SessionItem*>(
+        static_cast<const SessionItemWidget*>(this)->currentItem());
+}
+
+const SessionItem* SessionItemWidget::currentItem() const
+{
+    return m_itemController->currentItem();
+}
+
 void SessionItemWidget::showEvent(QShowEvent*)
 {
-    subscribe();
+    m_itemController->subscribe();
 }
 
 void SessionItemWidget::hideEvent(QHideEvent*)
 {
-    unsubscribe();
-}
-
-void SessionItemWidget::subscribe()
-{
-    if (!m_currentItem || is_subscribed)
-        return;
-
-    m_currentItem->mapper()->setOnItemDestroy([this](SessionItem*) { m_currentItem = 0; }, this);
-
-    subscribeToItem();
-
-    is_subscribed = true;
-}
-
-void SessionItemWidget::unsubscribe()
-{
-    if (m_currentItem)
-        m_currentItem->mapper()->unsubscribe(this);
-
-    unsubscribeFromItem();
-
-    is_subscribed = false;
+    m_itemController->unsubscribe();
 }

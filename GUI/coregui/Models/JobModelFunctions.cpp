@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -20,7 +18,7 @@
 #include "RealDataItem.h"
 #include "IntensityDataItem.h"
 #include "FitSuiteItem.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "GUIHelpers.h"
 #include "MaskUnitsConverter.h"
 #include "DetectorItems.h"
@@ -40,6 +38,30 @@ void cropRealData(JobItem *jobItem);
 void createFitContainers(JobItem *jobItem);
 }
 
+
+//! Setup items intended for storing results of the job.
+
+void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
+{
+    auto model = jobItem->model();
+
+    auto instrumentType = jobItem->instrumentItem()->modelType();
+    if (instrumentType == Constants::SpecularInstrumentType) {
+        model->insertNewItem(Constants::SpecularDataType,
+                         model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+
+    } else if(instrumentType == Constants::GISASInstrumentType ||
+              instrumentType == Constants::OffSpecInstrumentType) {
+
+        model->insertNewItem(Constants::IntensityDataType,
+                         model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+    } else {
+        throw GUIHelpers::Error("JobModelFunctions::setupJobItemOutput() -> Error. "
+                                "Unsupported instrument type");
+    }
+
+}
+
 //! Setups JobItem for fit.
 
 void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem *realDataItem)
@@ -53,6 +75,7 @@ void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem 
     JobModelFunctions::copyMasksToInstrument(jobItem);
     JobModelFunctions::cropRealData(jobItem);
     JobModelFunctions::createFitContainers(jobItem);
+    jobItem->setItemValue(JobItem::P_PRESENTATION_TYPE, Constants::FitComparisonPresentation);
 }
 
 
@@ -66,7 +89,7 @@ void JobModelFunctions::copyRealDataItem(JobItem *jobItem, const RealDataItem *r
     SessionModel *model = jobItem->model();
 
     RealDataItem *realDataItemCopy = dynamic_cast<RealDataItem *>(
-        model->copyParameterizedItem(realDataItem, jobItem, JobItem::T_REALDATA));
+        model->copyItem(realDataItem, jobItem, JobItem::T_REALDATA));
     Q_ASSERT(realDataItemCopy);
 
     realDataItemCopy->intensityDataItem()->setOutputData(
@@ -97,7 +120,12 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
 void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
 {
     IntensityDataItem *intensityItem = jobItem->realDataItem()->intensityDataItem();
-    jobItem->instrumentItem()->importMasks(intensityItem->maskContainerItem());
+    if (auto instrument2DItem = dynamic_cast<Instrument2DItem*>(jobItem->instrumentItem())) {
+        instrument2DItem->importMasks(intensityItem->maskContainerItem());
+    } else {
+        throw GUIHelpers::Error("JobModelFunctions::copyMasksToInstrument() -> Error. Not "
+                                "implemented instrument type.");
+    }
 }
 
 //! Crops RealDataItem to the region of interest.
@@ -108,11 +136,10 @@ void JobModelFunctions::cropRealData(JobItem *jobItem) {
     // adjusting real data to the size of region of interest
     IntensityDataItem *intensityItem = realData->intensityDataItem();
 
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*jobItem->instrumentItem());
+    auto instrument = DomainObjectBuilder::buildInstrument(*jobItem->instrumentItem());
     instrument->initDetector();
 
-    IDetector2D::EAxesUnits requested_units
+    AxesUnits requested_units
         = JobItemUtils::axesUnitsFromName(intensityItem->selectedAxesUnits());
 
     std::unique_ptr<OutputData<double>> adjustedData = DetectorFunctions::createDataSet(

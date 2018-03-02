@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -33,6 +32,7 @@ const size_t Y_AXIS_INDEX = 1;
 // Simulation types
 const std::string GISASSimulationType = "GISASSimulation";
 const std::string OffSpecSimulationType = "OffSpecSimulation";
+const std::string SpecularSimulationType = "SpecularSimulation";
 
 // Instrument related constants
 const std::string InstrumentType = "Instrument";
@@ -41,7 +41,13 @@ const std::string DetectorType = "Detector";
 const std::string SphericalDetectorType = "SphericalDetector";
 const std::string RectangularDetectorType = "RectangularDetector";
 const std::string IsGISAXSDetectorType = "IsGISAXSDetector";
+const std::string SpecularDetectorType = "SpecularDetector1D";
 const std::string BeamType = "Beam";
+const std::string GaussianFootprintFactorType = "FootprintFactorGaussian";
+const std::string SquareFootprintFactorType = "FootprintFactorSquare";
+const std::string DetectorAnalyzer = "Analyzer";
+const std::string ConstantBackgroundType = "ConstantBackground";
+const std::string PoissonNoiseBackgroundType = "PoissonNoiseBackground";
 
 // ISample object types
 const std::string MultiLayerType = "MultiLayer";
@@ -155,18 +161,10 @@ const std::string SampleBuilderType = "SampleBuilder";
 
 // Parameter names (dimensions, angles, ...)
 const std::string Abundance = "Abundance";
-const std::string PositionX = "PositionX";
-const std::string PositionY = "PositionY";
-const std::string PositionZ = "PositionZ";
-const std::string BasisVector_AX = "BasisAX";
-const std::string BasisVector_AY = "BasisAY";
-const std::string BasisVector_AZ = "BasisAZ";
-const std::string BasisVector_BX = "BasisBX";
-const std::string BasisVector_BY = "BasisBY";
-const std::string BasisVector_BZ = "BasisBZ";
-const std::string BasisVector_CX = "BasisCX";
-const std::string BasisVector_CY = "BasisCY";
-const std::string BasisVector_CZ = "BasisCZ";
+const std::string Position = "Position";
+const std::string BasisVector_A = "BasisA";
+const std::string BasisVector_B = "BasisB";
+const std::string BasisVector_C = "BasisC";
 const std::string Radius = "Radius";
 const std::string RadiusX = "RadiusX";
 const std::string RadiusY = "RadiusY";
@@ -232,6 +230,13 @@ const std::string CrossCorrelationLength = "CrossCorrelationLength";
 const std::string Inclination = "InclinationAngle";
 const std::string Azimuth = "AzimuthalAngle";
 const std::string TotalParticleDensity = "TotalParticleDensity";
+const std::string ExternalField = "ExternalField";
+const std::string BlochVector = "BlochVector";
+const std::string Direction = "Direction";
+const std::string Efficiency = "Efficiency";
+const std::string Transmission = "Transmission";
+const std::string BackgroundValue = "BackgroundValue";
+const std::string BeamToSampleWidthRatio = "BeamToSampleWidthRatio";
 
 const std::string UnitsRad = "rad";
 const std::string UnitsNm = "nm";

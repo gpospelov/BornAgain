@@ -7,48 +7,46 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #ifndef DISTRIBUTIONEDITOR_H
 #define DISTRIBUTIONEDITOR_H
 
-#include "SessionItem.h"
-#include "qcustomplot.h"
-#include <QWidget>
-#include <memory>
+#include "SessionItemWidget.h"
 
 class QGroupBox;
-class DistributionWidget;
 class GroupItem;
-class ComponentBoxEditor;
+class DistributionWidget;
+class ComponentFlatView;
+class DistributionItem;
 
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
-//! to show Distribution1D and awesome property editor to change distribution parameters
-class DistributionEditor : public QWidget
+//! to show Distribution1D and property editor to change distribution parameters.
+
+class BA_CORE_API_ DistributionEditor : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    DistributionEditor(QWidget *parent = 0);
-    virtual ~DistributionEditor();
+    DistributionEditor(QWidget* parent = nullptr);
 
-    void setItem(SessionItem *item);
-    void plotItem(SessionItem *item);
     void setNameOfEditor(QString name);
 
-private slots:
-    void onPropertyChanged(const QString &property_name);
+protected:
+    void subscribeToItem();
 
 private:
-    ComponentBoxEditor *m_propertyEditor;
-    GroupItem *m_item;
-    DistributionWidget *m_plotwidget;
+    void onPropertyChanged(const QString& property_name);
+    GroupItem* groupItem();
+    DistributionItem* distributionItem();
+
+    ComponentFlatView* m_propertyEditor;
+    GroupItem* m_item;
+    DistributionWidget* m_plotwidget;
     QString m_nameOfEditor;
-    QGroupBox *m_box;
+    QGroupBox* m_box;
 };
 
 #endif // DISTRIBUTIONEDITOR_H

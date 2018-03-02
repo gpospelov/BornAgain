@@ -7,16 +7,13 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "DistributionItems.h"
 #include "Distributions.h"
-#include "GUIHelpers.h"
 #include "BornAgainNamespace.h"
 #include "RealLimitsItems.h"
 #include <cmath>
@@ -128,7 +125,7 @@ std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution(double
 {
     double min = getItemValue(P_MIN).toDouble();
     double max = getItemValue(P_MAX).toDouble();
-    return GUIHelpers::make_unique<DistributionGate>(scale*min, scale*max);
+    return std::make_unique<DistributionGate>(scale*min, scale*max);
 }
 
 void DistributionGateItem::init_distribution(double value)
@@ -159,7 +156,7 @@ std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution(dou
 {
     double mean = getItemValue(P_MEAN).toDouble();
     double hwhm = getItemValue(P_HWHM).toDouble();
-    return GUIHelpers::make_unique<DistributionLorentz>(scale*mean, scale*hwhm);
+    return std::make_unique<DistributionLorentz>(scale*mean, scale*hwhm);
 }
 
 void DistributionLorentzItem::init_distribution(double value)
@@ -192,7 +189,7 @@ std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution(do
 {
     double mean = getItemValue(P_MEAN).toDouble();
     double std_dev = getItemValue(P_STD_DEV).toDouble();
-    return GUIHelpers::make_unique<DistributionGaussian>(scale*mean, scale*std_dev);
+    return std::make_unique<DistributionGaussian>(scale*mean, scale*std_dev);
 }
 
 void DistributionGaussianItem::init_distribution(double value)
@@ -226,7 +223,7 @@ std::unique_ptr<IDistribution1D> DistributionLogNormalItem::createDistribution(d
 {
     double median = getItemValue(P_MEDIAN).toDouble();
     double scale_par = getItemValue(P_SCALE_PAR).toDouble();
-    return GUIHelpers::make_unique<DistributionLogNormal>(scale*median, scale_par);
+    return std::make_unique<DistributionLogNormal>(scale*median, scale_par);
 }
 
 void DistributionLogNormalItem::init_distribution(double value)
@@ -259,7 +256,7 @@ std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution(doub
 {
     double mean = getItemValue(P_MEAN).toDouble();
     double sigma = getItemValue(P_SIGMA).toDouble();
-    return GUIHelpers::make_unique<DistributionCosine>(scale*mean, scale*sigma);
+    return std::make_unique<DistributionCosine>(scale*mean, scale*sigma);
 }
 
 void DistributionCosineItem::init_distribution(double value)
@@ -299,7 +296,7 @@ std::unique_ptr<IDistribution1D> DistributionTrapezoidItem::createDistribution(d
     double left = getItemValue(P_LEFTWIDTH).toDouble();
     double middle = getItemValue(P_MIDDLEWIDTH).toDouble();
     double right = getItemValue(P_RIGHTWIDTH).toDouble();
-    return GUIHelpers::make_unique<DistributionTrapezoid>(scale*center, scale*left,
+    return std::make_unique<DistributionTrapezoid>(scale*center, scale*left,
                                                           scale*middle, scale*right);
 }
 

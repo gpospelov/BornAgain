@@ -7,39 +7,39 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "Particle.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorDecoratorPositionFactor.h"
-#include "HomogeneousMaterial.h"
+#include "MaterialFactoryFuncs.h"
 
 Particle::Particle()
+    : m_material(HomogeneousMaterial())
 {
     initialize();
 }
 
-Particle::Particle(HomogeneousMaterial material)
-    : m_material(material)
+Particle::Particle(Material material)
+    : m_material(std::move(material))
 {
     initialize();
 }
 
-Particle::Particle(HomogeneousMaterial material, const IFormFactor& form_factor)
-    : m_material(material)
+Particle::Particle(Material material, const IFormFactor& form_factor)
+    : m_material(std::move(material))
     , mP_form_factor(form_factor.clone())
 {
     initialize();
     registerChild(mP_form_factor.get());
 }
 
-Particle::Particle(HomogeneousMaterial material, const IFormFactor& form_factor,
+Particle::Particle(Material material, const IFormFactor& form_factor,
                    const IRotation& rotation)
-    : m_material(material)
+    : m_material(std::move(material))
     , mP_form_factor(form_factor.clone())
 {
     initialize();
@@ -71,7 +71,7 @@ SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
                 mP_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
     std::unique_ptr<FormFactorDecoratorMaterial> P_ff(new FormFactorDecoratorMaterial(*P_temp_ff));
     double volume = P_temp_ff->volume();
-    HomogeneousMaterial transformed_material(
+    Material transformed_material(
                 m_material.transformedMaterial(P_rotation->getTransform3D()));
     P_ff->setMaterial(transformed_material);
     SlicedParticle result;
@@ -80,14 +80,9 @@ SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
     return result;
 }
 
-void Particle::setMaterial(HomogeneousMaterial material)
+void Particle::setMaterial(Material material)
 {
     m_material = std::move(material);
-}
-
-complex_t Particle::refractiveIndex() const
-{
-    return m_material.refractiveIndex();
 }
 
 void Particle::setFormFactor(const IFormFactor& form_factor)

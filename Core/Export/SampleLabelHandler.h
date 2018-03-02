@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -24,7 +23,7 @@ class IAbstractParticle;
 class IFormFactor;
 class IInterferenceFunction;
 class ILayout;
-class HomogeneousMaterial;
+class Material;
 class IRotation;
 class Lattice;
 class Layer;
@@ -53,7 +52,7 @@ public:
     typedef LabelMap<const IInterferenceFunction*> interferences_t;
     typedef LabelMap<const Layer*> layers_t;
     typedef LabelMap<const ILayout*> layouts_t;
-    typedef LabelMap<const HomogeneousMaterial*> materials_t;
+    typedef LabelMap<const Material*> materials_t;
     typedef LabelMap<const Lattice*> lattices_t;
     typedef LabelMap<const MesoCrystal*> mesocrystals_t;
     typedef LabelMap<const MultiLayer*> multilayers_t;
@@ -86,7 +85,7 @@ public:
     std::string labelInterferenceFunction(const IInterferenceFunction* sample);
     std::string labelLayer(const Layer* sample);
     std::string labelLayout(const ILayout* sample);
-    std::string labelMaterial(const HomogeneousMaterial* sample);
+    std::string labelMaterial(const Material* sample);
     std::string labelLattice(const Lattice* sample);
     std::string labelMultiLayer(const MultiLayer* sample);
     std::string labelParticle(const IAbstractParticle* sample);
@@ -98,7 +97,7 @@ public:
     void insertInterferenceFunction(const IInterferenceFunction* sample);
     void insertLayer(const Layer* sample);
     void insertLayout(const ILayout* sample);
-    void insertMaterial(const HomogeneousMaterial* sample);
+    void insertMaterial(const Material* sample);
     void insertLattice(const Lattice* sample);
     void insertMesoCrystal(const MesoCrystal* sample);
     void insertMultiLayer(const MultiLayer* sample);

@@ -7,38 +7,56 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "DetectorItems.h"
-#include "MaskItems.h"
-#include "DetectorItems.h"
-#include "SessionModel.h"
 #include "IDetector2D.h"
+#include "MaskItems.h"
+#include "ParameterTranslators.h"
 #include "ResolutionFunctionItems.h"
 #include "ResolutionFunction2DGaussian.h"
+#include "SessionItemUtils.h"
+#include "SessionModel.h"
+
+using SessionItemUtils::GetVectorItem;
 
 namespace {
-    const QString res_func_group_label = "Type";
+const QString res_func_group_label = "Type";
+const QString analyzer_direction_tooltip = "Direction of the polarization analysis";
+const QString analyzer_efficiency_tooltip = "Efficiency of the polarization analysis";
+const QString analyzer_transmission_tooltip = "Total transmission of the polarization analysis";
 }
 
 const QString DetectorItem::T_MASKS = "Masks";
-const QString DetectorItem::P_RESOLUTION_FUNCTION = "ResolutionFunctions";
+const QString DetectorItem::P_RESOLUTION_FUNCTION = "Resolution function";
+const QString DetectorItem::P_ANALYZER_DIRECTION = "Analyzer direction";
+const QString DetectorItem::P_ANALYZER_EFFICIENCY = QString::fromStdString(BornAgain::Efficiency);
+const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION =
+        QString::fromStdString(BornAgain::Transmission);
 
 DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
 {
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
 
+    addGroupProperty(P_ANALYZER_DIRECTION, Constants::VectorType)->setToolTip(
+                analyzer_direction_tooltip);
+    addProperty(P_ANALYZER_EFFICIENCY, 0.0)->setToolTip(analyzer_efficiency_tooltip);
+    addProperty(P_ANALYZER_TOTAL_TRANSMISSION, 1.0)->setToolTip(analyzer_transmission_tooltip);
+
+    QString additional_name = QString::fromStdString(BornAgain::DetectorAnalyzer);
+    addTranslator(VectorParameterTranslator(P_ANALYZER_DIRECTION, BornAgain::Direction,
+                                            { additional_name }));
+    addTranslator(AddElementTranslator(P_ANALYZER_EFFICIENCY, additional_name));
+    addTranslator(AddElementTranslator(P_ANALYZER_TOTAL_TRANSMISSION, additional_name));
+
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_RESOLUTION_FUNCTION)
             update_resolution_function_tooltips();
     });
-
 }
 
 std::unique_ptr<IDetector2D> DetectorItem::createDetector() const
@@ -48,6 +66,12 @@ std::unique_ptr<IDetector2D> DetectorItem::createDetector() const
 
     if (auto resFunc = createResolutionFunction())
         result->setResolutionFunction(*resFunc);
+
+    kvector_t analyzer_dir = GetVectorItem(*this, P_ANALYZER_DIRECTION);
+    double analyzer_eff = getItemValue(P_ANALYZER_EFFICIENCY).toDouble();
+    double analyzer_total_trans = getItemValue(P_ANALYZER_TOTAL_TRANSMISSION).toDouble();
+    if (analyzer_dir.mag() > 0.0)
+        result->setAnalyzerProperties(analyzer_dir, analyzer_eff, analyzer_total_trans);
 
     return result;
 }
@@ -74,7 +98,7 @@ void DetectorItem::importMasks(MaskContainerItem* maskContainer)
     clearMasks();
 
     if (maskContainer)
-        model()->copyParameterizedItem(maskContainer, this, T_MASKS);
+        model()->copyItem(maskContainer, this, T_MASKS);
 }
 
 void DetectorItem::register_resolution_function()
@@ -113,8 +137,8 @@ void DetectorItem::addMasksToDomain(IDetector2D* detector) const
 
     const double scale = axesToDomainUnitsFactor();
 
-    for (int i_row = maskContainer->childItems().size(); i_row > 0; --i_row) {
-        if (auto maskItem = dynamic_cast<MaskItem*>(maskContainer->childItems().at(i_row - 1))) {
+    for (int i_row = maskContainer->children().size(); i_row > 0; --i_row) {
+        if (auto maskItem = dynamic_cast<MaskItem*>(maskContainer->children().at(i_row - 1))) {
 
             if (maskItem->modelType() == Constants::RegionOfInterestType) {
                 double xlow = scale * maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();

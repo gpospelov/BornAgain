@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -29,7 +27,7 @@ const QString abundance_tooltip =
 
 const QString position_tooltip =
     "Relative position of the particle's reference point \n"
-    "in the coordinate system of the parent";
+    "in the coordinate system of the parent (nm)";
 }
 
 const QString ParticleCoreShellItem::T_CORE = "Core Tag";
@@ -50,9 +48,9 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     registerTag(T_CORE, 0, 1, QStringList() << Constants::ParticleType);
     registerTag(T_SHELL, 0, 1, QStringList() << Constants::ParticleType);
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
-                QStringList() << Constants::TransformationType);
+                QStringList() << Constants::RotationType);
 
-    addTranslator(PositionTranslator());
+    addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, BornAgain::Position));
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange(
@@ -70,7 +68,6 @@ ParticleCoreShellItem::ParticleCoreShellItem()
 std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const
 {
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
-    auto children = childItems();
     std::unique_ptr<Particle> P_core {};
     std::unique_ptr<Particle> P_shell {};
     auto core_item = dynamic_cast<ParticleItem*>(getItem(T_CORE));
@@ -82,7 +79,7 @@ std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShel
     if (!P_core || !P_shell)
         throw GUIHelpers::Error("ParticleCoreShellItem::createParticleCoreShell -> Error. Either "
                                 "core or shell particle is undefined.");
-    auto P_coreshell = GUIHelpers::make_unique<ParticleCoreShell>(*P_shell, *P_core);
+    auto P_coreshell = std::make_unique<ParticleCoreShell>(*P_shell, *P_core);
     P_coreshell->setAbundance(abundance);
     TransformToDomain::setTransformationInfo(P_coreshell.get(), *this);
     return P_coreshell;

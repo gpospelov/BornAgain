@@ -1,14 +1,18 @@
+#include "google_test.h"
+#include "BornAgainNamespace.h"
 #include "Crystal.h"
+#include "FormFactorFullSphere.h"
 #include "Lattice.h"
 #include "MesoCrystal.h"
-#include "FormFactorFullSphere.h"
-#include "BornAgainNamespace.h"
+#include "ParticleComposition.h"
 
 class MesoCrystalTest : public ::testing::Test
 {
 protected:
-    MesoCrystalTest(){}
+    ~MesoCrystalTest();
 };
+
+MesoCrystalTest::~MesoCrystalTest() = default;
 
 TEST_F(MesoCrystalTest, getChildren)
 {

@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -25,6 +23,7 @@ class QAction;
 class SessionModel;
 class QItemSelectionModel;
 class QModelIndex;
+class QMenu;
 
 //! Collection of actions to add/remove/clone instrument.
 
@@ -33,10 +32,13 @@ class BA_CORE_API_ InstrumentViewActions : public QObject
     Q_OBJECT
 
 public:
-    explicit InstrumentViewActions(QWidget* parent = 0);
+    explicit InstrumentViewActions(QWidget* parent = nullptr);
+    ~InstrumentViewActions();
 
     void setModel(SessionModel* model);
     void setSelectionModel(QItemSelectionModel* selectionModel);
+
+    QMenu* instrumentMenu();
 
 public slots:
     void onAddInstrument();
@@ -49,8 +51,9 @@ private:
     void updateSelection();
     QString suggestInstrumentName(const QString& currentName);
     QMap<QString, int> mapOfNames();
+    void initAddInstrumentMenu();
 
-    QAction* m_addInstrumentAction;
+    QMenu* m_addInstrumentMenu;
     QAction* m_removeInstrumentAction;
     QAction* m_cloneInstrumentAction;
     SessionModel* m_model;

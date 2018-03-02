@@ -7,24 +7,20 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "DocumentModel.h"
 #include "SimulationOptionsItem.h"
 
-DocumentModel::DocumentModel(QObject *parent)
-    : SessionModel(SessionXML::DocumentModelTag, parent)
+DocumentModel::DocumentModel(QObject* parent) : SessionModel(SessionXML::DocumentModelTag, parent)
 {
     setObjectName(SessionXML::DocumentModelTag);
 }
 
-SimulationOptionsItem *DocumentModel::getSimulationOptionsItem()
+SimulationOptionsItem* DocumentModel::simulationOptionsItem()
 {
-    return dynamic_cast<SimulationOptionsItem *>(topItem(Constants::SimulationOptionsType));
-
+    return topItem<SimulationOptionsItem>();
 }

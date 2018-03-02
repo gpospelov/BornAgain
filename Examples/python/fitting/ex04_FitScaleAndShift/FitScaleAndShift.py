@@ -62,7 +62,7 @@ def create_real_data():
     simulation.runSimulation()
 
     # retrieving simulated data in the form of numpy array
-    real_data = simulation.getIntensityData().getArray()
+    real_data = simulation.result().array()
 
     scale = 2.0
     background = 100

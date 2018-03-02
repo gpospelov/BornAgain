@@ -15,6 +15,7 @@ set(test_cases
     BoxesWithSpecular
     BoxStackComposition
     CenteredSquareLattice
+    ConstantBackground
     CoreShellBoxRotateZandY
     CoreShellParticle
     CosineRipple
@@ -22,9 +23,11 @@ set(test_cases
     CylindersWithSizeDistribution
     DetectorResolution
     FormFactors
+    GISASAbsorptiveSLDLayers
     HexParaCrystal
     LargeCylindersMonteCarlo
     Lattice1D
+    MagneticSpheres
     MesoCrystal
     MultiLayerWithRoughness
     MultipleLayout
@@ -51,6 +54,7 @@ set(test_cases
     RotatedPyramidsDistribution
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
+    OffSpecularResonator
 )
 
 add_executable(GUIStandardTest main.cpp GUIStandardTest.cpp GUIStandardTest.h )

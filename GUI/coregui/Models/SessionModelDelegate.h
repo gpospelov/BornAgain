@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,13 +16,7 @@
 #define SESSIONMODELDELEGATE_H
 
 #include "WinDllMacros.h"
-#include "GroupProperty.h"
 #include <QStyledItemDelegate>
-
-class ComboProperty;
-class MaterialProperty;
-class ColorProperty;
-class ScientificDoubleProperty;
 
 //! The SessionModelDelegate class presents the content of SessionModel items in
 //! standard QTreeView. Extents base QItemDelegate with possibility to show/edit
@@ -34,7 +26,7 @@ class BA_CORE_API_ SessionModelDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    SessionModelDelegate(QWidget* parent);
+    SessionModelDelegate(QObject* parent);
 
     void paint(QPainter* painter, const QStyleOptionViewItem& option,
                const QModelIndex& index) const;
@@ -46,16 +38,18 @@ public:
 
     void setEditorData(QWidget* editor, const QModelIndex& index) const;
 
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+    void updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option,
+                              const QModelIndex& index) const;
+
 private slots:
-    void onComboPropertyChanged(const ComboProperty&);
-    void onGroupPropertyChanged(const GroupProperty_t&);
-    void onMaterialPropertyChanged(const MaterialProperty&);
-    void onColorPropertyChanged(const ColorProperty&);
-    void onScientificDoublePropertyChanged(const ScientificDoubleProperty&);
+    void onCustomEditorDataChanged(const QVariant&);
 
 private:
     void paintCustomLabel(QPainter* painter, const QStyleOptionViewItem& option,
                           const QModelIndex& index, const QString& text) const;
+
 };
 
 #endif // SESSIONMODELDELEGATE_H

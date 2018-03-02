@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -21,6 +20,10 @@
 #include "RealParameter.h"
 
 //===============1D======================
+
+IFTDecayFunction1D::IFTDecayFunction1D(double decay_length)
+    : m_decay_length(decay_length)
+{}
 
 void IFTDecayFunction1D::register_decay_length()
 {

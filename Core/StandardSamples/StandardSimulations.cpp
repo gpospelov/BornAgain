@@ -7,16 +7,18 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "StandardSimulations.h"
 #include "BornAgainNamespace.h"
+#include <ConstantBackground.h>
 #include "Distributions.h"
 #include "Ellipse.h"
+#include "FootprintFactorGaussian.h"
+#include "FootprintFactorSquare.h"
 #include "GISASSimulation.h"
 #include "IsGISAXSDetector.h"
 #include "Line.h"
@@ -27,10 +29,13 @@
 #include "RectangularDetector.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "SampleBuilderFactory.h"
+#include "SpecularSimulation.h"
+#include "OffSpecSimulation.h"
 #include "Units.h"
+#include <memory>
 
 namespace {
-    const int rdet_nbinsx(40), rdet_nbinsy(30);
+    const size_t rdet_nbinsx(40), rdet_nbinsy(30);
     const double rdet_width(20.0), rdet_height(18.0), rdet_distance(1000.0);
 }
 
@@ -69,6 +74,17 @@ GISASSimulation* StandardSimulations::BasicGISAS00()
     kvector_t zplus(0.0, 0.0, 1.0);
     result->setBeamPolarization(zplus);
     result->setAnalyzerProperties(zplus, 1.0, 0.5);
+    return result;
+}
+
+//! Basic GISAS simulation for spin flip channel.
+
+GISASSimulation*StandardSimulations::BasicPolarizedGISAS()
+{
+    GISASSimulation* result = BasicGISAS();
+    kvector_t zplus(0.0, 0.0, 1.0);
+    result->setBeamPolarization(zplus);
+    result->setAnalyzerProperties(zplus, -1.0, 0.5);
     return result;
 }
 
@@ -352,4 +368,104 @@ GISASSimulation* StandardSimulations::RectDetWithRoi()
     result->addMask(Rectangle(3.0, 4.0, 5.0, 7.0));
     result->setRegionOfInterest(2.0, 3.0, 18.0, 15.0);
     return result;
+}
+
+GISASSimulation* StandardSimulations::ConstantBackgroundGISAS()
+{
+    GISASSimulation* result = MiniGISAS();
+    ConstantBackground bg(1e3);
+    result->setBackground(bg);
+    return result;
+}
+
+SpecularSimulation* StandardSimulations::BasicSpecular()
+{
+    const double wavelength = 1.54 * Units::angstrom;
+    const int number_of_bins = 2000;
+    const double min_angle = 0 * Units::deg;
+    const double max_angle = 5 * Units::deg;
+
+    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle);
+    return result.release();
+}
+
+SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam()
+{
+    const double wavelength = 1.54 * Units::angstrom;
+    const int number_of_bins = 2000;
+    const double min_angle = 0 * Units::deg;
+    const double max_angle = 5 * Units::deg;
+
+    auto gaussian_ff = std::make_unique<FootprintFactorGaussian>(1.0);
+
+    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle, gaussian_ff.get());
+    return result.release();
+}
+
+SpecularSimulation* StandardSimulations::SpecularWithSquareBeam()
+{
+    const double wavelength = 1.54 * Units::angstrom;
+    const int number_of_bins = 2000;
+    const double min_angle = 0 * Units::deg;
+    const double max_angle = 5 * Units::deg;
+
+    auto square_ff = std::make_unique<FootprintFactorSquare>(1.0);
+
+    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle, square_ff.get());
+    return result.release();
+}
+
+SpecularSimulation* StandardSimulations::SpecularDivergentBeam()
+{
+    const double wavelength = 1.54 * Units::angstrom;
+    const int number_of_bins = 20;
+    const size_t n_integration_points = 10;
+    const double min_angle = 0 * Units::deg;
+    const double max_angle = 5 * Units::deg;
+
+    DistributionGaussian wavelength_distr(wavelength, 0.1*Units::angstrom);
+    DistributionGaussian alpha_distr(0.0, 0.1*Units::degree);
+
+    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle);
+
+    ParameterPattern pattern1;
+    pattern1.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
+    result->addParameterDistribution(pattern1.toStdString(), wavelength_distr,
+                                     n_integration_points);
+    ParameterPattern pattern2;
+    pattern2.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
+    result->addParameterDistribution(pattern2.toStdString(), alpha_distr, n_integration_points);
+
+    return result.release();
+}
+
+// OffSpec simulation used in ResonatorOffSpecSetup.py
+OffSpecSimulation* StandardSimulations::MiniOffSpec()
+{
+    std::unique_ptr<OffSpecSimulation> result(new OffSpecSimulation());
+
+    const int n_alpha(19);
+    const double alpha_min(0.0*Units::deg);
+    const double alpha_max(4.0*Units::deg);
+    const int n_phi(9);
+    const double phi_min(-0.1*Units::deg);
+    const double phi_max(0.1*Units::deg);
+
+    result->setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
+
+    const int n_scan_points(n_alpha);
+    const double alpha_i_min(alpha_min);
+    const double alpha_i_max(alpha_max);
+
+    FixedBinAxis alpha_i_axis("alpha_i", n_scan_points, alpha_i_min, alpha_i_max);
+    result->setBeamParameters(5.0*Units::angstrom, alpha_i_axis, 0.0);
+
+    result->setBeamIntensity(1e9);
+    result->getOptions().setIncludeSpecular(true);
+
+    return result.release();
 }

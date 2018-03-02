@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -23,6 +21,7 @@
 #include "SampleToolBar.h"
 #include "SampleViewComponents.h"
 #include "mainwindow.h"
+#include "ApplicationModels.h"
 #include <QDockWidget>
 #include <QMenu>
 #include <QTimer>
@@ -31,8 +30,7 @@ SampleView::SampleView(MainWindow *mainWindow)
     : Manhattan::FancyMainWindow(mainWindow)
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
-    , m_sampleModel(mainWindow->sampleModel())
-    , m_instrumentModel(mainWindow->instrumentModel())
+    , m_models(mainWindow->models())
 {
     setObjectName("SampleView");
 
@@ -81,7 +79,7 @@ void SampleView::initSubWindows()
     m_subWindows[WIDGET_BOX] =
             SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
 
-    m_tree_view = SampleViewComponents::createTreeView(m_sampleModel, this);
+    m_tree_view = SampleViewComponents::createTreeView(m_models->sampleModel(), this);
     m_subWindows[SAMPLE_TREE] = m_tree_view;
     m_tree_view->expandAll();
     connect(m_tree_view->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),
@@ -92,12 +90,11 @@ void SampleView::initSubWindows()
     InfoWidget *infoWidget = new InfoWidget(this);
     connect(infoWidget, SIGNAL(widgetHeightRequest(int)), this, SLOT(setDockHeightForWidget(int)));
     connect(infoWidget, SIGNAL(widgetCloseRequest()), this, SLOT(onWidgetCloseRequest()));
-    infoWidget->setSampleModel(m_sampleModel);
-    infoWidget->setInstrumentModel(m_instrumentModel);
+    infoWidget->setSampleModel(m_models->sampleModel());
+    infoWidget->setInstrumentModel(m_models->instrumentModel());
     m_subWindows[INFO] = infoWidget;
 
-    m_sampleDesigner->setSampleModel(m_sampleModel);
-    m_sampleDesigner->setInstrumentModel(m_instrumentModel);
+    m_sampleDesigner->setModels(m_models);
     m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel(), dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(m_tree_view->model())));
 }
 
@@ -108,10 +105,6 @@ void SampleView::initSelectionModel()
 
 void SampleView::createActions()
 {
-    m_add_item_mapper = new QSignalMapper(this);
-    connect(m_add_item_mapper, SIGNAL(mapped(const QString &)),
-            this, SLOT(addItem(const QString &)));
-
     m_delete_item_action = new QAction("Delete", this);
     m_delete_item_action->setStatusTip("Delete current object");
     connect(m_delete_item_action, SIGNAL(triggered()),
@@ -216,9 +209,9 @@ void SampleView::showContextMenu(const QPoint &pnt)
     QModelIndex parent_index = FilterPropertyProxy::toSourceIndex(getTreeView()->indexAt(pnt));
     getTreeView()->setCurrentIndex(parent_index);
     if (!parent_index.isValid()) {
-        addItemNames = ItemFactory::getValidTopItemNames().toVector();
+        addItemNames = ItemFactory::ValidTopItemTypes().toVector();
     } else {
-        addItemNames = getSampleModel()->getAcceptableDefaultItemTypes(parent_index);
+        addItemNames = getSampleModel()->acceptableDefaultItemTypes(parent_index);
     }
     if (addItemNames.size() > 0) {
         foreach (QString item_name, addItemNames) {
@@ -229,9 +222,7 @@ void SampleView::showContextMenu(const QPoint &pnt)
             else {
                 add_action = new QAction(item_name, this);
                 m_add_action_map[item_name] = add_action;
-                connect(add_action, SIGNAL(triggered()),
-                        m_add_item_mapper, SLOT(map()));
-                m_add_item_mapper->setMapping(add_action, item_name);
+                connect(add_action, &QAction::triggered, [=] { addItem(item_name); });
             }
             add_menu.addAction(add_action);
         }
@@ -320,7 +311,7 @@ QModelIndex SampleView::getIndexAtColumnZero(const QModelIndex &index)
 
 SampleModel *SampleView::getSampleModel()
 {
-    return m_sampleModel;
+    return m_models->sampleModel();
 }
 
 QTreeView *SampleView::getTreeView()

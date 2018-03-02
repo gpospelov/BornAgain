@@ -7,21 +7,20 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SimulationDataSelectorWidget.h"
 #include "ApplicationModels.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "MultiLayerItem.h"
 #include "RealDataItem.h"
 #include "RealDataModel.h"
 #include "SampleModel.h"
+#include "ModelUtils.h"
 #include <QComboBox>
 #include <QFileDialog>
 #include <QGroupBox>
@@ -94,7 +93,7 @@ void SimulationDataSelectorWidget::setApplicationModels(ApplicationModels *appli
 
 const MultiLayerItem *SimulationDataSelectorWidget::selectedMultiLayerItem() const
 {
-    auto items = m_applicationModels->sampleModel()->topItems();
+    auto items = m_applicationModels->sampleModel()->topItems<MultiLayerItem>();
     if(items.isEmpty()) return nullptr;
     return dynamic_cast<const MultiLayerItem *>(items.at(selectedSampleIndex()));
 }
@@ -102,11 +101,10 @@ const MultiLayerItem *SimulationDataSelectorWidget::selectedMultiLayerItem() con
 //! Returns selected InstrumentItem taking into account that there might be several
 //! instruments with same name.
 
-const InstrumentItem *SimulationDataSelectorWidget::selectedInstrumentItem() const
+const InstrumentItem* SimulationDataSelectorWidget::selectedInstrumentItem() const
 {
-    auto items = m_applicationModels->instrumentModel()->topItems();
-    if(items.isEmpty()) return nullptr;
-    return dynamic_cast<const InstrumentItem *>(items.at(selectedInstrumentIndex()));
+    auto items = m_applicationModels->instrumentModel()->topItems<InstrumentItem>();
+    return items.isEmpty() ? nullptr : items.at(selectedInstrumentIndex());
 }
 
 //! Returns selected InstrumentItem taking into account that there might be several
@@ -125,9 +123,9 @@ const RealDataItem *SimulationDataSelectorWidget::selectedRealDataItem() const
 void SimulationDataSelectorWidget::updateViewElements()
 {
     Q_ASSERT(m_applicationModels);
-    updateSelection(m_instrumentCombo, m_applicationModels->instrumentModel()->topItemNames());
-    updateSelection(m_sampleCombo, m_applicationModels->sampleModel()->topItemNames(Constants::MultiLayerType));
-    updateSelection(m_realDataCombo, m_applicationModels->realDataModel()->topItemNames(), true);
+    updateSelection(m_instrumentCombo, ModelUtils::topItemNames(m_applicationModels->instrumentModel()));
+    updateSelection(m_sampleCombo, ModelUtils::topItemNames(m_applicationModels->sampleModel(), Constants::MultiLayerType));
+    updateSelection(m_realDataCombo, ModelUtils::topItemNames(m_applicationModels->realDataModel()), true);
 }
 
 int SimulationDataSelectorWidget::selectedInstrumentIndex() const

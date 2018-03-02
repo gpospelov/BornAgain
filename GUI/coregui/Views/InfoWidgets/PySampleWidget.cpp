@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,11 +16,12 @@
 #include "DesignerHelper.h"
 #include "DomainObjectBuilder.h"
 #include "MultiLayer.h"
-#include "PythonFormatting.h"
+#include "ExportToPython.h"
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
 #include "WarningSign.h"
 #include "UpdateTimer.h"
+#include "MultiLayerItem.h"
 #include <QScrollBar>
 #include <QTextEdit>
 #include <QVBoxLayout>
@@ -162,14 +161,13 @@ QString PySampleWidget::generateCodeSnippet()
     m_warningSign->clear();
     QString result;
 
-    foreach (SessionItem* sampleItem, m_sampleModel->topItems(Constants::MultiLayerType)) {
-        DomainObjectBuilder builder;
+    for(const MultiLayerItem* sampleItem : m_sampleModel->topItems<MultiLayerItem>()) {
         try {
-            auto multilayer = builder.buildMultiLayer(*sampleItem);
+            auto multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);
             if (!result.isEmpty())
                 result.append("\n");
             result.append(QString::fromStdString(
-                          PythonFormatting::generateSampleCode(*multilayer)));
+                          ExportToPython::generateSampleCode(*multilayer)));
         } catch (const std::exception& ex) {
             QString message
                 = QString("Generation of Python Script failed. Code is not complete.\n\n"

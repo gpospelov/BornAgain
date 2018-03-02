@@ -1,104 +1,62 @@
-#include <QtTest>
+#include "google_test.h"
 #include <QString>
 #include <QCoreApplication>
-#include "TestMapperCases.h"
+#include <QAbstractItemModel>
+#include "Comparators.h"
+
+#include "TestComboProperty.h"
+#include "TestComponentProxyModel.h"
+#include "TestComponentUtils.h"
+#include "TestDataItems.h"
+#include "TestDetectorItems.h"
+#include "TestExternalProperty.h"
+#include "TestFitParameterModel.h"
 #include "TestFormFactorItems.h"
 #include "TestFTDistributionItems.h"
-#include "TestParameterizedItem.h"
-#include "TestParticleItem.h"
-#include "TestLayerRoughnessItems.h"
-#include "TestParaCrystalItems.h"
-#include "TestSessionModel.h"
-#include "TestSessionItem.h"
+#include "TestGroupItem.h"
 #include "TestGUICoreObjectCorrespondence.h"
-#include "TestMapperForItem.h"
-#include "TestParticleDistributionItem.h"
 #include "TestGUIHelpers.h"
-#include "TestFitParameterModel.h"
-#include "TestMaterialModel.h"
-#include "TestComboProperty.h"
-#include "TestTranslations.h"
-#include "TestGroupProperty.h"
-#include "TestParameterTreeUtils.h"
-#include "TestDetectorItems.h"
+#include "TestLayerItems.h"
+#include "TestLayerRoughnessItems.h"
 #include "TestLinkInstrument.h"
-#include "TestUpdateTimer.h"
-#include "TestProjectDocument.h"
-#include "TestSaveService.h"
+#include "TestMapperCases.h"
+#include "TestMapperForItem.h"
+#include "TestMaterialModel.h"
+#include "TestMaterialPropertyController.h"
+#include "TestModelUtils.h"
 #include "TestOutputDataIOService.h"
-#include "TestIntensityDataItem.h"
-#include "TestProjectUtils.h"
+#include "TestParaCrystalItems.h"
+#include "TestParameterTreeUtils.h"
 #include "TestParticleCoreShell.h"
-
-inline bool TestResult(QObject *testObject, int argc = 0, char **argv = Q_NULLPTR) {
-	return QTest::qExec(testObject, argc, argv) != 0;
-}
+#include "TestParticleDistributionItem.h"
+#include "TestParticleItem.h"
+#include "TestProjectDocument.h"
+#include "TestProjectUtils.h"
+#include "TestPropertyRepeater.h"
+#include "TestProxyModelStrategy.h"
+#include "TestSaveService.h"
+#include "TestSessionItemController.h"
+#include "TestSessionItem.h"
+#include "TestSessionItemUtils.h"
+#include "TestSessionModel.h"
+#include "TestSessionXML.h"
+#include "TestTranslations.h"
+#include "TestUpdateTimer.h"
+#include "TestSessionItemData.h"
+#include "TestSessionItemTags.h"
+#include "TestMessageService.h"
+#include "TestParticleLayoutItem.h"
+#include "TestAxesItems.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
     Q_UNUSED(app);
 
-    QMetaType::registerComparators<ComboProperty>();
+    Comparators::registerComparators();
+    qRegisterMetaType<QAbstractItemModel::LayoutChangeHint>("LayoutChangeHint");
 
-    TestFormFactorItems testFormFactorItems;
-    TestFTDistributionItems testFTDistributionItems;
-    TestParameterizedItem testParameterizedItem;
-    TestParticleItem testParticleItem;
-    TestLayerRoughnessItems testLayerRoughnessItems;
-    TestParaCrystalItems testParaCrystalItems;
-    TestSessionModel testSessionModel;
-    TestGUICoreObjectCorrespondence testGUICoreObjectCorrespondence;
-    TestSessionItem testSessionItem;
-    TestMapperCases testMapperCases;
-    TestMapperForItem testMapperForItem;
-    TestGUIHelpers testGUIHelpers;
-    TestFitParameterModel testFitParameterModel;
-    TestMaterialModel testMaterialModel;
-    TestComboProperty testComboProperty;
-    TestTranslations testTranslations;
-    TestGroupProperty testGroupProperty;
-    TestParticleDistributionItem testParticleDistributionItem;
-    TestParameterTreeUtils testParameterTreeUtils;
-    TestDetectorItems testDetectorItems;
-    TestLinkInstrument testLinkInstrument;
-    TestUpdateTimer testUpdateTimer;
-    TestProjectDocument testProjectDocument;
-    TestSaveService testSaveService;
-    TestOutputDataIOService testIO;
-    TestIntensityDataItem testIntensityData;
-    TestProjectUtils testProjectUtils;
-    TestParticleCoreShell testParticleCoreShell;
+    ::testing::InitGoogleTest(&argc, argv);
 
-    bool status(false);
-
-    status |= TestResult(&testFormFactorItems, argc, argv);
-    status |= TestResult(&testFTDistributionItems, argc, argv);
-    status |= TestResult(&testParameterizedItem, argc, argv);
-    status |= TestResult(&testParticleItem, argc, argv);
-    status |= TestResult(&testLayerRoughnessItems, argc, argv);
-    status |= TestResult(&testParaCrystalItems, argc, argv);
-    status |= TestResult(&testSessionModel, argc, argv);
-    status |= TestResult(&testGUICoreObjectCorrespondence, argc, argv);
-    status |= TestResult(&testSessionItem);
-    status |= TestResult(&testMapperCases, argc, argv);
-    status |= TestResult(&testSessionModel, argc, argv);
-    status |= TestResult(&testMapperForItem, argc, argv);
-    status |= TestResult(&testGUIHelpers, argc, argv);
-    status |= TestResult(&testFitParameterModel, argc, argv);
-    status |= TestResult(&testMaterialModel, argc, argv);
-    status |= TestResult(&testComboProperty, argc, argv);
-    status |= TestResult(&testTranslations, argc, argv);
-    status |= TestResult(&testGroupProperty, argc, argv);
-    status |= TestResult(&testParticleDistributionItem, argc, argv);
-    status |= TestResult(&testParameterTreeUtils, argc, argv);
-    status |= TestResult(&testDetectorItems, argc, argv);
-    status |= TestResult(&testLinkInstrument, argc, argv);
-    status |= TestResult(&testUpdateTimer, argc, argv);
-    status |= TestResult(&testProjectDocument, argc, argv);
-    status |= TestResult(&testSaveService, argc, argv);
-    status |= TestResult(&testIO, argc, argv);
-    status |= TestResult(&testIntensityData, argc, argv);
-    status |= TestResult(&testProjectUtils, argc, argv);
-
-    return status;
+    // run all google tests
+    return RUN_ALL_TESTS();
 }

@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -49,6 +48,9 @@ namespace MathFunctions
     BA_CORE_API_ complex_t tanhc(const complex_t z);
 
     BA_CORE_API_ complex_t Laue(const complex_t z, size_t N);
+
+    //! Error function of real-valued argument
+    BA_CORE_API_ double erf(double arg);
 
 
 // ************************************************************************** //
@@ -99,6 +101,7 @@ namespace MathFunctions
     BA_CORE_API_ double GenerateUniformRandom();
     BA_CORE_API_ double GenerateStandardNormalRandom();
     BA_CORE_API_ double GenerateNormalRandom(double average, double std_dev);
+    BA_CORE_API_ double GeneratePoissonRandom(double average);
 
 } // Namespace MathFunctions
 

@@ -7,16 +7,13 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "BeamDistributionItem.h"
 #include "Distributions.h"
-#include "GUIHelpers.h"
 #include "GroupItem.h"
 #include "ParameterDistribution.h"
 #include "ParameterTranslators.h"
@@ -63,7 +60,7 @@ BeamDistributionItem::getParameterDistributionForName(const std::string& paramet
 
             RealLimits limits = limitsItem->createRealLimits(scaleFactor());
 
-            P_par_distr = GUIHelpers::make_unique<ParameterDistribution>(
+            P_par_distr = std::make_unique<ParameterDistribution>(
                 parameter_name, *P_distribution, nbr_samples, sigma_factor, limits);
         }
     }

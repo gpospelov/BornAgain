@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -74,8 +73,8 @@ public:
     //! Sets transformation.
     void setRotation(const IRotation& rotation);
 
-    //! Applies transformation by composing it with the existing one
-    void rotate(const IRotation& rotation);
+    //! Rotates the particle
+    void rotate(const IRotation& rotation) override final;
 
     std::vector<const INode*> getChildren() const override;
 

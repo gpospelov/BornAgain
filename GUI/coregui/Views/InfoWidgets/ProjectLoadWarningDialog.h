@@ -7,51 +7,50 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #ifndef PROJECTLOADWARNINGDIALOG_H
 #define PROJECTLOADWARNINGDIALOG_H
 
+#include "WinDllMacros.h"
 #include <QDialog>
 #include <QStringList>
 
-class WarningMessageService;
+class MessageService;
 class QTableWidget;
 class QLabel;
+class QLayout;
 class QTableWidgetItem;
 
 //! @class ProjectLoadWarningDialog
 //! @brief The dialog to inform user about encountered problems during the loading of old project
 
-class ProjectLoadWarningDialog : public QDialog
+class BA_CORE_API_ ProjectLoadWarningDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    ProjectLoadWarningDialog(QWidget *parent, const WarningMessageService *messageService = 0,
-            const QString &documentVersion = QString());
+    ProjectLoadWarningDialog(QWidget* parent, const MessageService* messageService = 0,
+                             const QString& documentVersion = QString());
 
 private:
-    QWidget *createTopPanel();
-    QWidget *createModelInfoPanel();
-    QWidget *createExplanationPanel();
-    QWidget *createDetailsPanel();
-    QTableWidget *createTableWidget();
-    int getNumberOfTableRows() const;
-    QStringList getTableHeaderLabels() const;
-    QTableWidgetItem *createTableItem(const QString &name);
+    QWidget* createTopPanel();
+    QWidget* createModelInfoPanel();
+    QWidget* createExplanationPanel();
+    QWidget* createDetailsPanel();
+    QTableWidget* createTableWidget();
+    QLayout* buttonLayout();
 
-    QStringList getModelNames() const;
-    QLabel *createModelStatusLabel(const QString &model_name) const;
+    int numberOfTableRows() const;
+    QStringList tableHeaderLabels() const;
+    QTableWidgetItem* createTableItem(const QString& name);
 
-    QString getExplanationText() const;
+    QString explanationText() const;
 
-    const WarningMessageService *m_messageService;
+    const MessageService* m_messageService;
     QString m_projectDocumentVersion;
 };
 

@@ -1,81 +1,95 @@
-// GPL3; https://github.com/jburle/ba3d
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/ba3d/model/camera.cpp
+//! @brief     Implements Camera class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
 
 #include "camera.h"
 
-namespace ba3d {
-//------------------------------------------------------------------------------
+namespace RealSpace {
 
 Camera::Camera()
-: pos(xyz::_z, xyz::_0, xyz::_x), zoom(1)
-, vertAngle(60), nearPlane(1), farPlane(10000)
-, lightPos(pos.eye), lightPosRotated(lightPos) {
-  setAspectRatio(1);
+    : pos(Vector3D::_z, Vector3D::_0, Vector3D::_x)
+    , zoom(1), vertAngle(60), nearPlane(1), farPlane(10000)
+    , lightPos(pos.eye), lightPosRotated(lightPos)
+{
+    setAspectRatio(1);
 }
 
-Camera::pos_t::pos_t() : eye(), ctr(), up() {
-}
+Camera::Position::Position() : eye(), ctr(), up()
+{}
 
-Camera::pos_t::pos_t(xyz::rc eye_, xyz::rc ctr_, xyz::rc up_,
+Camera::Position::Position(const Vector3D& eye_, const Vector3D& ctr_, const Vector3D& up_,
                      QQuaternion const& rot_)
-  : eye(eye_), ctr(ctr_), up(up_), rot(rot_) {
+    : eye(eye_), ctr(ctr_), up(up_), rot(rot_)
+{}
+
+Camera::Position Camera::Position::interpolateTo(const Position& to, float r) const
+{
+    return Position(eye.interpolateTo(to.eye, r),
+                 ctr.interpolateTo(to.ctr, r),
+                 up.interpolateTo(to.up, r),
+                 QQuaternion::slerp(rot, to.rot, r) );
 }
 
-Camera::pos_t Camera::pos_t::interpolateTo(rc to, flt r) const {
-  return pos_t(
-    eye.interpolateTo(to.eye, r),
-    ctr.interpolateTo(to.ctr, r),
-    up.interpolateTo(to.up, r),
-    QQuaternion::slerp(rot, to.rot, r)
-  );
-}
-
-void Camera::lookAt(pos_t::rc pos_) {
-  pos = pos_; lightPos = pos.eye;
-  set();
+void Camera::lookAt(const Position& pos_)
+{
+    pos = pos_;
+    lightPos = pos.eye;
+    set();
 }
 
 // recalculate dependent params
-void Camera::set() {
-  matModel.setToIdentity();
-  matModel.lookAt((pos.eye-pos.ctr)*zoom + pos.ctr, pos.ctr, pos.up);
+void Camera::set()
+{
+    matModel.setToIdentity();
+    matModel.lookAt((pos.eye-pos.ctr)*zoom + pos.ctr, pos.ctr, pos.up);
 
-  QQuaternion rt(pos.rot * addRot);
-  matModel.translate(+pos.ctr);
-  matModel.rotate(rt);
-  matModel.translate(-pos.ctr);
+    QQuaternion rt(pos.rot * addRot);
+    matModel.translate(+pos.ctr);
+    matModel.rotate(rt);
+    matModel.translate(-pos.ctr);
 
-  lightPosRotated = rt.inverted().rotatedVector(lightPos);
+    lightPosRotated = rt.inverted().rotatedVector(lightPos);
 
-  emit updated(*this);
+    emit updated(*this);
 }
 
-void Camera::setAspectRatio(float ratio) {
-  matProj.setToIdentity();
-  matProj.perspective(vertAngle, ratio, nearPlane, farPlane);
+void Camera::setAspectRatio(float ratio)
+{
+    matProj.setToIdentity();
+    matProj.perspective(vertAngle, ratio, nearPlane, farPlane);
 }
 
-void Camera::turnBy(QQuaternion const& rot) {
-  addRot = rot;
-  set();
+void Camera::turnBy(QQuaternion const& rot)
+{
+    addRot = rot;
+    set();
 }
 
-void Camera::zoomBy(flt zoom_) {
-  zoom = zoom_;
-  set();
+void Camera::zoomBy(float zoom_)
+{
+    zoom = zoom_;
+    set();
 }
 
-void Camera::endTransform(bool keep) {
-  if (keep) {
-    pos.rot = (pos.rot * addRot).normalized();
-    pos.eye = pos.eye * zoom; // TODO limit
-  }
-
-  addRot = QQuaternion();
-  zoom = 1;
-
-  set();
+void Camera::endTransform(bool keep)
+{
+    if (keep) {
+        pos.rot = (pos.rot * addRot).normalized();
+        pos.eye = pos.eye * zoom; // TODO limit
+    }
+    addRot = QQuaternion();
+    zoom = 1;
+    set();
 }
 
-//------------------------------------------------------------------------------
-}
-// eof
+}  // namespace RealSpace

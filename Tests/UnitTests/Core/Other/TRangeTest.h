@@ -1,29 +1,30 @@
+#include "google_test.h"
 #include "TRange.h"
 #include <algorithm>
 
 class TRangeTest : public ::testing::Test
 {
- protected:
+protected:
     TRangeTest();
     virtual ~TRangeTest();
 
-    const TRange<int> *intRange;
-    const TRange<float> *floatRange;
-    const TRange<double> *doubleRange;
-    const TSampledRange<int> *intSampledRange;
-    const TSampledRange<float> *floatSampledRange;
-    const TSampledRange<double> *doubleSampledRange;
+    const TRange<int>* intRange;
+    const TRange<float>* floatRange;
+    const TRange<double>* doubleRange;
+    const TSampledRange<int>* intSampledRange;
+    const TSampledRange<float>* floatSampledRange;
+    const TSampledRange<double>* doubleSampledRange;
 };
 
 TRangeTest::TRangeTest()
 {
-    intRange = new TRange<int>(1,100);
+    intRange = new TRange<int>(1, 100);
     floatRange = new TRange<float>(101.0f, 200.0f);
-    doubleRange = new TRange<double>(201.0,300.0);
+    doubleRange = new TRange<double>(201.0, 300.0);
 
     intSampledRange = new TSampledRange<int>(4000u, 1, 100);
     floatSampledRange = new TSampledRange<float>(5000u, 101.0f, 200.0f);
-    doubleSampledRange = new TSampledRange<double>(6000u, 201.0,300.0);
+    doubleSampledRange = new TSampledRange<double>(6000u, 201.0, 300.0);
 }
 
 TRangeTest::~TRangeTest()
@@ -48,7 +49,6 @@ TEST_F(TRangeTest, TRangeTestUpperBound)
     EXPECT_EQ(100, intRange->getUpperBound());
     EXPECT_EQ(200.0f, floatRange->getUpperBound());
     EXPECT_EQ(300.0, doubleRange->getUpperBound());
-
 }
 
 TEST_F(TRangeTest, TRangeTestDifference)
@@ -79,7 +79,6 @@ TEST_F(TRangeTest, TRangeTestInRange)
     EXPECT_FALSE(intRange->inRange(101));
     EXPECT_FALSE(floatRange->inRange(201.0f));
     EXPECT_FALSE(doubleRange->inRange(301.0));
-
 }
 
 TEST_F(TRangeTest, TSampledRangeNSamples)

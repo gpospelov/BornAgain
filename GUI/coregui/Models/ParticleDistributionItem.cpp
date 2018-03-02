@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -57,7 +55,7 @@ ParticleDistributionItem::ParticleDistributionItem()
     setDefaultTag(T_PARTICLES);
 
     ComboProperty par_prop;
-    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.getVariant())->setToolTip(
+    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.variant())->setToolTip(
         QStringLiteral("Parameter to distribute"));
 
     updateParameterList();
@@ -71,8 +69,7 @@ ParticleDistributionItem::ParticleDistributionItem()
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
 {
-    auto children = childItems();
-    if (children.size() == 0)
+    if (children().size() == 0)
         return nullptr;
     std::unique_ptr<IParticle> P_particle = TransformToDomain::createIParticle(*getItem());
     if (!P_particle)
@@ -101,7 +98,7 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
                           distr_item.getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble() :
                           0.0;
     ParameterDistribution par_distr(domain_par, *P_distribution, nbr_samples, sigma_factor, limits);
-    auto result = GUIHelpers::make_unique<ParticleDistribution>(*P_particle, par_distr);
+    auto result = std::make_unique<ParticleDistribution>(*P_particle, par_distr);
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     result->setAbundance(abundance);
     return result;
@@ -139,7 +136,7 @@ void ParticleDistributionItem::updateParameterList()
     // we first set parameter, and then clear the cache name, to not to allow
     // initDistributionItem to override limits obtained from the domain
     if(prop != newProp)
-        setItemValue(P_DISTRIBUTED_PARAMETER, newProp.getVariant());
+        setItemValue(P_DISTRIBUTED_PARAMETER, newProp.variant());
 
     if(make_cache_clear)
         m_domain_cache_name.clear();

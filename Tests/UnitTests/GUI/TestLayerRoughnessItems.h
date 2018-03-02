@@ -1,18 +1,18 @@
-#include <QtTest>
+#include "google_test.h"
 #include "LayerRoughness.h"
 #include "LayerRoughnessItems.h"
 #include "TransformToDomain.h"
 #include "TransformFromDomain.h"
 
-class TestLayerRoughnessItems : public QObject {
-    Q_OBJECT
-
-private slots:
-    void test_LayerRoughnessToDomain();
-    void test_LayerRoughnessFromDomain();
+class TestLayerRoughnessItems : public ::testing::Test
+{
+public:
+    ~TestLayerRoughnessItems();
 };
 
-inline void TestLayerRoughnessItems::test_LayerRoughnessToDomain()
+TestLayerRoughnessItems::~TestLayerRoughnessItems() = default;
+
+TEST_F(TestLayerRoughnessItems, test_LayerRoughnessToDomain)
 {
     LayerBasicRoughnessItem roughnessItem;
     roughnessItem.setItemValue(LayerBasicRoughnessItem::P_SIGMA, 10.0);
@@ -20,21 +20,28 @@ inline void TestLayerRoughnessItems::test_LayerRoughnessToDomain()
     roughnessItem.setItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH, 30.0);
 
     auto P_roughness = TransformToDomain::createLayerRoughness(roughnessItem);
-    QCOMPARE(P_roughness->getSigma(), roughnessItem.getItemValue(LayerBasicRoughnessItem::P_SIGMA).toDouble());
-    QCOMPARE(P_roughness->getHurstParameter(), roughnessItem.getItemValue(LayerBasicRoughnessItem::P_HURST).toDouble());
-    QCOMPARE(P_roughness->getLatteralCorrLength(), roughnessItem.getItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
+    EXPECT_EQ(P_roughness->getSigma(),
+              roughnessItem.getItemValue(LayerBasicRoughnessItem::P_SIGMA).toDouble());
+    EXPECT_EQ(P_roughness->getHurstParameter(),
+              roughnessItem.getItemValue(LayerBasicRoughnessItem::P_HURST).toDouble());
+    EXPECT_EQ(
+        P_roughness->getLatteralCorrLength(),
+        roughnessItem.getItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
 
     LayerZeroRoughnessItem zeroRoughnessItem;
-    QVERIFY(TransformToDomain::createLayerRoughness(zeroRoughnessItem) == nullptr);
+    EXPECT_TRUE(TransformToDomain::createLayerRoughness(zeroRoughnessItem) == nullptr);
 }
 
-inline void TestLayerRoughnessItems::test_LayerRoughnessFromDomain()
+TEST_F(TestLayerRoughnessItems, test_LayerRoughnessFromDomain)
 {
     LayerRoughness roughness(10.0, 20.0, 30.0);
     LayerBasicRoughnessItem roughnessItem;
-    TransformFromDomain::setItemFromSample(&roughnessItem, &roughness);
-    QCOMPARE(roughness.getSigma(), roughnessItem.getItemValue(LayerBasicRoughnessItem::P_SIGMA).toDouble());
-    QCOMPARE(roughness.getHurstParameter(), roughnessItem.getItemValue(LayerBasicRoughnessItem::P_HURST).toDouble());
-    QCOMPARE(roughness.getLatteralCorrLength(), roughnessItem.getItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
+    TransformFromDomain::setRoughnessItem(&roughnessItem, roughness);
+    EXPECT_EQ(roughness.getSigma(),
+              roughnessItem.getItemValue(LayerBasicRoughnessItem::P_SIGMA).toDouble());
+    EXPECT_EQ(roughness.getHurstParameter(),
+              roughnessItem.getItemValue(LayerBasicRoughnessItem::P_HURST).toDouble());
+    EXPECT_EQ(
+        roughness.getLatteralCorrLength(),
+        roughnessItem.getItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
 }
-

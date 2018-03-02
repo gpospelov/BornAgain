@@ -7,29 +7,47 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
-#ifndef SPECULARCOMPUTATION_H
-#define SPECULARCOMPUTATION_H
+#ifndef SPECULARCOMPUTATION_H_
+#define SPECULARCOMPUTATION_H_
 
-#include "IComputationTerm.h"
+#include "IComputation.h"
+#include "Complex.h"
+#include "SimulationOptions.h"
+#include "SpecularComputationTerm.h"
 
-//! Computes the specular scattering.
-//! Controlled by MainComputation.
+class IFresnelMap;
+class MultiLayer;
+struct HomogeneousRegion;
+class IComputationTerm;
+
+//! Performs a single-threaded specular computation with given sample.
+//!
+//! Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+//!
 //! @ingroup algorithms_internal
 
-class SpecularComputation final : public IComputationTerm
+class SpecularComputation : public IComputation
 {
+    using SpecularElementIter = std::vector<SpecularSimulationElement>::iterator;
 public:
-    SpecularComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
+    SpecularComputation(const MultiLayer& multilayer, const SimulationOptions& options,
+                        ProgressHandler& progress,
+                        SpecularElementIter begin_it,
+                        SpecularElementIter end_it);
+    virtual ~SpecularComputation();
 
-    void eval(ProgressHandler* progress,
-              const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it) const override;
+private:
+    void runProtected() override;
+    std::unique_ptr<IFresnelMap> createFresnelMap();
+
+    SpecularElementIter m_begin_it, m_end_it; //!< these iterators define the span of detector bins this simulation will work on
+    std::unique_ptr<IFresnelMap> mP_fresnel_map;
+    SpecularComputationTerm m_computation_term;
 };
 
-#endif // SPECULARCOMPUTATION_H
+#endif /* SPECULARCOMPUTATION_H_ */

@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,13 +16,15 @@
 #define INTENSITYDATAWIDGET_H
 
 #include "SessionItemWidget.h"
+#include <memory>
 
 class SessionItem;
 class IntensityDataCanvas;
 class IntensityDataPropertyWidget;
 class IntensityDataItem;
 class QAction;
-class TestWidget;
+class QContextMenuEvent;
+class IntensityDataFFTPresenter;
 
 //! A common widget to display color map (IntensityDataCanvas) and properties
 //! (IntensityDataPropertyWidget) of intensity data item.
@@ -42,12 +42,14 @@ public:
 
 private slots:
     void onContextMenuRequest(const QPoint& point);
+    void onFFTAction();
 
 private:
     IntensityDataItem* intensityDataItem();
 
     IntensityDataCanvas* m_intensityCanvas;
     IntensityDataPropertyWidget* m_propertyWidget;
+    IntensityDataFFTPresenter* m_fftPresenter;
 };
 
 #endif // INTENSITYDATAWIDGET_H

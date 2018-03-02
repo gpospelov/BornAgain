@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -55,7 +54,7 @@ public:
     }
 
 #ifndef SWIG
-    std::unique_ptr<AbstractProduct> create(const Key& item_key) {
+    std::unique_ptr<AbstractProduct> create(const Key& item_key) const{
         auto it = m_callbacks.find(item_key);
         if( it == m_callbacks.end() ) {
             std::ostringstream message;
@@ -81,7 +80,7 @@ public:
         return m_callbacks.insert(make_pair(item_key, CreateFn)).second;
     }
 
-    bool contains(const Key& item_key)
+    bool contains(const Key& item_key) const
     {
         return m_callbacks.find(item_key) != m_callbacks.end();
     }

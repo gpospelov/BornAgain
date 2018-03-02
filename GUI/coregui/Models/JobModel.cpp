@@ -7,17 +7,15 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "JobModel.h"
 #include "FitSuiteItem.h"
 #include "GUIHelpers.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "JobItemUtils.h"
@@ -28,7 +26,6 @@
 #include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
 #include "JobModelFunctions.h"
-#include "ImportDataAssistant.h"
 
 JobModel::JobModel(QObject *parent)
     : SessionModel(SessionXML::JobModelTag, parent)
@@ -73,7 +70,7 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
 
 //! Main method to add a job
 JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
-                          const InstrumentItem *instrumentItem,
+                          const InstrumentItem* instrumentItem,
                           const RealDataItem *realDataItem,
                           const SimulationOptionsItem *optionItem)
 {
@@ -85,18 +82,20 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     jobItem->setItemName(generateJobName());
     jobItem->setIdentifier(GUIHelpers::createUuid());
 
-    SessionItem *multilayer = copyParameterizedItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
+    SessionItem *multilayer = copyItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
     multilayer->setItemName(Constants::MultiLayerType);
-    SessionItem *instrument = copyParameterizedItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
-    instrument->setItemName(Constants::InstrumentType);
-    copyParameterizedItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
+    SessionItem *instrument = copyItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    instrument->setItemName(instrumentItem->modelType());
+    copyItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
     jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
 
+    jobItem->setItemValue(JobItem::P_PRESENTATION_TYPE, jobItem->defaultPresentationType());
+
     ParameterTreeUtils::createParameterTree(jobItem);
 
-    insertNewItem(Constants::IntensityDataType, indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+    JobModelFunctions::setupJobItemOutput(jobItem);
 
     if(realDataItem)
         JobModelFunctions::setupJobItemForFit(jobItem, realDataItem);
@@ -112,14 +111,20 @@ void JobModel::restore(JobItem *jobItem)
 
 bool JobModel::hasUnfinishedJobs()
 {
-    return m_queue_data->hasUnfinishedJobs();
+    bool result = m_queue_data->hasUnfinishedJobs();
+    for (auto jobItem : topItems<JobItem>()) {
+        if (jobItem->getStatus() == Constants::STATUS_FITTING)
+            result = true;
+    }
+
+    return result;
 }
 
 void JobModel::clear()
 {
-    foreach (SessionItem *item, topItems(Constants::JobItemType)) {
+    for (auto item : topItems())
         removeJob(item->index());
-    }
+
     SessionModel::clear();
 }
 
@@ -127,7 +132,7 @@ QVector<SessionItem *> JobModel::nonXMLData() const
 {
     QVector<SessionItem *> result;
 
-    for (auto jobItem : topItems(Constants::JobItemType)) {
+    for (auto jobItem : topItems<JobItem>()) {
         if (auto intensityItem = jobItem->getItem(JobItem::T_OUTPUT))
             result.push_back(intensityItem);
 
@@ -202,6 +207,6 @@ void JobModel::restoreItem(SessionItem *item)
     if (ParameterItem *parameter = dynamic_cast<ParameterItem*>(item))
         parameter->restoreFromBackup();
 
-    for (auto child : item->childItems())
+    for (auto child : item->children())
         restoreItem(child);
 }

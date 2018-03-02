@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -21,6 +20,7 @@
 
 template <class T> class OutputData;
 class IHistogram;
+class SimulationResult;
 
 //! Provides users with possibility to read and write IntensityData from/to files
 //! in different format. Type of the file will be deduced from file name.
@@ -58,6 +58,9 @@ public:
 
     //! Writes histogram in file
     static void writeIntensityData(const IHistogram &histogram, const std::string& file_name);
+
+    //! Writes OutputData contained in the given SimulationResult object
+    static void writeSimulationResult(const SimulationResult& result, const std::string& file_name);
 };
 
 #endif // INTENSITYDATAIOFACTORY_H

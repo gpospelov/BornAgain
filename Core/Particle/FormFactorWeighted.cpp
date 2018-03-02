@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -72,7 +71,7 @@ void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor, double we
     m_weights.push_back(weight);
 }
 
-void FormFactorWeighted::setAmbientMaterial(HomogeneousMaterial material)
+void FormFactorWeighted::setAmbientMaterial(Material material)
 {
     for (size_t index=0; index<m_form_factors.size(); ++index)
         m_form_factors[index]->setAmbientMaterial(material);

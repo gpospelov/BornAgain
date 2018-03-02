@@ -7,27 +7,27 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "JobRealTimeToolBar.h"
 #include <QToolButton>
 
-//! main tool bar on top of SampleView window
-JobRealTimeToolBar::JobRealTimeToolBar(QWidget *parent)
+JobRealTimeToolBar::JobRealTimeToolBar(QWidget* parent)
     : StyledToolBar(parent)
-    , m_resetParametersButton(0)
+    , m_resetParametersButton(new QToolButton)
 {
-    m_resetParametersButton = new QToolButton;
-    m_resetParametersButton->setText("Reset Values");
+    setMinimumSize(minimumHeight(), minimumHeight());
+
+    m_resetParametersButton->setText("Reset values");
     m_resetParametersButton->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
     m_resetParametersButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_resetParametersButton->setToolTip("Reset parameter tree to initial values");
-    connect(m_resetParametersButton, SIGNAL(clicked()), this, SIGNAL(resetParameters()));
     addWidget(m_resetParametersButton);
+
+    connect(m_resetParametersButton, &QToolButton::clicked,
+            this, &JobRealTimeToolBar::resetParameters);
 }
 

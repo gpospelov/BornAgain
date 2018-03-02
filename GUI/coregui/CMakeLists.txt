@@ -13,6 +13,9 @@ endif()
 if(POLICY CMP0028)
     cmake_policy(SET CMP0028 NEW)
 endif()
+if(POLICY CMP0071)
+  cmake_policy(SET CMP0071 NEW)
+endif()
 
 set(library_name BornAgainGUI)
 
@@ -35,6 +38,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/AccordionWidget
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/ImportDataWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/CommonWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/SpecularDataWidgets
 )
 
 if(BORNAGAIN_OPENGL)
@@ -55,7 +59,6 @@ set(source_widgetbox
     "Views/widgetbox/widgetboxcategorylistview.cpp"
     "Views/widgetbox/widgetboxtreewidget.cpp"
     "Views/widgetbox/widgetbox.cpp"
-    "Views/widgetbox/widgetbox_dnditem.cpp"
 )
 list(APPEND source_files ${source_widgetbox})
 
@@ -63,9 +66,12 @@ set(include_widgetbox
     "Views/widgetbox/widgetboxcategorylistview.h"
     "Views/widgetbox/widgetboxtreewidget.h"
     "Views/widgetbox/widgetbox.h"
-    "Views/widgetbox/widgetbox_dnditem.h"
     "Views/widgetbox/widgetbox_global.h"
 )
+if(WIN32)
+	add_definitions(-DQDESIGNER_UILIB_LIBRARY)
+endif()
+
 list(APPEND include_files ${include_widgetbox})
 
 list(APPEND include_dirs ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox)
@@ -113,13 +119,13 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
 # --- dependencies ---------
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${QtAddOn_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
     ${BornAgainCore_INCLUDE_DIRS}
     ${BornAgainFit_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
     ${PYTHON_INCLUDE_DIRS}
     ${ba3d_INCLUDE_DIRS}
 )
@@ -170,6 +176,11 @@ if(WIN32)
 
     install(FILES
     ${QTDIR}/plugins/imageformats/qjpeg.dll
+    ${QTDIR}/plugins/imageformats/qsvg.dll
     DESTINATION bin/imageformats COMPONENT Libraries)
+
+    install(FILES
+    ${QTDIR}/plugins/styles/qwindowsvistastyle.dll
+    DESTINATION bin/styles COMPONENT Libraries)
 
 endif()

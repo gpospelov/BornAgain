@@ -7,16 +7,17 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SimulationFactory.h"
 #include "GISASSimulation.h"
+#include "SpecularSimulation.h"
 #include "RealParameter.h"
 #include "StandardSimulations.h"
+#include "OffSpecSimulation.h"
 
 SimulationFactory::SimulationFactory()
 {
@@ -27,6 +28,10 @@ SimulationFactory::SimulationFactory()
     registerItem("BasicGISAS00",
                  StandardSimulations::BasicGISAS00,
                  "Basic GISAS for polarization studies");
+
+    registerItem("BasicPolarizedGISAS",
+                 StandardSimulations::BasicPolarizedGISAS,
+                 "Basic GISAS for spin flip channel");
 
     registerItem("MiniGISAS",
                  StandardSimulations::MiniGISAS,
@@ -118,4 +123,32 @@ SimulationFactory::SimulationFactory()
     registerItem("RectDetWithRoi",
                  StandardSimulations::RectDetWithRoi,
                  "Rectangular detector with ROI and mask");
+
+    // background
+
+    registerItem("ConstantBackground",
+                 StandardSimulations::ConstantBackgroundGISAS,
+                 "Simulation with a constant background value");
+
+    // specular simulations
+
+    registerItem("BasicSpecular",
+                 StandardSimulations::BasicSpecular,
+                 "Basic specular simulation with [0, 15] deg incident angle range and "
+                 "1.54 angstroms wavelength.");
+
+    registerItem("SpecularWithGaussianBeam", StandardSimulations::SpecularWithGaussianBeam,
+                 "The same as BasicSpecular, but implies beam size finiteness (beam is of the same "
+                 "size as the sample). The beam is gaussian in shape.");
+
+    registerItem("SpecularWithSquareBeam", StandardSimulations::SpecularWithSquareBeam,
+                 "The same as BasicSpecular, but implies beam size finiteness (beam is of the same "
+                 "size as the sample). The beam is square in shape.");
+
+    registerItem("SpecularDivergentBeam", StandardSimulations::SpecularDivergentBeam,
+                 "Simulation implies beam divergence both in wavelength and "
+                 "inclination angle.");
+
+    registerItem("OffSpecMini", StandardSimulations::MiniOffSpec,
+                 "Mini OffSpecular simulation for resonator experiment.");
 }

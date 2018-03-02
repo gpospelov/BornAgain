@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -20,15 +18,13 @@
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
 #include <QAction>
-#include <QSignalMapper>
 #include <QTreeView>
 
 class MainWindow;
-class SampleModel;
-class InstrumentModel;
 class SampleDesigner;
 class SampleToolBar;
-
+class ApplicationModels;
+class SampleModel;
 
 class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow
 {
@@ -89,12 +85,10 @@ private:
     QMap<QWidget *, QDockWidget *> m_widget_to_dock;
     QMap<QDockWidget *, QWidget *> m_dock_to_widget;
 
-    QSignalMapper *m_add_item_mapper;
     QMap<QString, QAction *> m_add_action_map;
     QAction *m_delete_item_action;
 
-    SampleModel *m_sampleModel;
-    InstrumentModel *m_instrumentModel;
+    ApplicationModels* m_models;
     QTreeView *m_tree_view;
 
     QItemSelectionModel *m_selection_model;

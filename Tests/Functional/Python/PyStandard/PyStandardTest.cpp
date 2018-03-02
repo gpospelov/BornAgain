@@ -7,17 +7,17 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "PyStandardTest.h"
+#include "BATesting.h"
+#include "ExportToPython.h"
 #include "FileSystemUtils.h"
-#include "GISASSimulation.h"
 #include "IntensityDataIOFactory.h"
-#include "PythonFormatting.h"
+#include "Simulation.h"
 #include "TestUtils.h"
 #include <fstream>
 #include <iostream>
@@ -26,15 +26,17 @@
 bool PyStandardTest::runTest()
 {
     // Set output data filename, and remove old output files
-    std::string output_name = FileSystemUtils::jointPath(PYEXPORT_TMP_DIR, getName());
+    std::string output_name
+        = FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), getName());
     std::string output_path = output_name + ".ref.int.gz";
-    std::remove( output_path.c_str() );
-    std::cout << "Removed old output " << output_path << "n";
+    std::remove(output_path.c_str());
+    std::cout << "Removed old output " << output_path << "\n";
 
     // Generate Python script
-    std::string pyscript_filename = FileSystemUtils::jointPath(PYEXPORT_TMP_DIR, getName() + ".py");
+    std::string pyscript_filename
+        = FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), getName() + ".py");
     std::ofstream pythonFile(pyscript_filename);
-    pythonFile << PythonFormatting::generatePyExportTest(*m_reference_simulation);
+    pythonFile << ExportToPython::generatePyExportTest(*m_reference_simulation);
     pythonFile.close();
 
     // Run Python script
@@ -44,12 +46,12 @@ bool PyStandardTest::runTest()
     // Run direct simulation
     std::cout << "Running simulation and comparing with result from Py script\n";
     m_reference_simulation->runSimulation();
+    auto ref_result = m_reference_simulation->result();
 
-    const std::unique_ptr<OutputData<double> > reference_data(
-        m_reference_simulation->getDetectorIntensity());
+    const std::unique_ptr<OutputData<double>> reference_data(ref_result.data());
 
     // Compare results
-    const std::unique_ptr<OutputData<double> > domain_data(
+    const std::unique_ptr<OutputData<double>> domain_data(
         IntensityDataIOFactory::readOutputData(output_path));
 
     return TestUtils::isTheSame(*domain_data, *reference_data, m_threshold);

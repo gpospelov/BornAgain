@@ -1,3 +1,5 @@
+#include "google_test.h"
+#include "Histogram1D.h"
 #include "Histogram2D.h"
 #include <memory>
 
@@ -9,7 +11,6 @@ class Histogram2DTest : public ::testing::Test
 
     Histogram2D *hist;
 };
-
 
 // y
 // 4.0   -----------------------------------

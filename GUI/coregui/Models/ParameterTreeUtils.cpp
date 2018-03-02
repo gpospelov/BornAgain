@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -22,7 +20,6 @@
 #include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
 #include "SampleModel.h"
-#include "ScientificDoubleProperty.h"
 #include "GUIHelpers.h"
 #include "FitParameterHelper.h"
 #include "SampleModel.h"
@@ -238,11 +235,6 @@ void handleItem(SessionItem* tree, const SessionItem* source)
         tree->setDisplayName(source->itemName());
 
         double sourceValue = source->value().toDouble();
-        if (source->value().typeName() == Constants::ScientificDoublePropertyType) {
-            ScientificDoubleProperty intensity = source->value().value<ScientificDoubleProperty>();
-            sourceValue = intensity.getValue();
-        }
-
         tree->setValue(QVariant(sourceValue));
         QString path = ModelPath::getPathFromIndex(source->index());
         int firstSlash = path.indexOf('/');
@@ -256,14 +248,10 @@ void handleItem(SessionItem* tree, const SessionItem* source)
         return;
     }
 
-    for (SessionItem* child : source->childItems()) {
+    for (SessionItem* child : source->children()) {
         if (child->isVisible() && child->isEnabled()) {
             if (child->modelType() == Constants::PropertyType) {
                 if (child->value().type() == QVariant::Double) {
-                    SessionItem* branch
-                        = tree->model()->insertNewItem(Constants::ParameterType, tree->index());
-                    handleItem(branch, child);
-                } else if (child->value().typeName() == Constants::ScientificDoublePropertyType) {
                     SessionItem* branch
                         = tree->model()->insertNewItem(Constants::ParameterType, tree->index());
                     handleItem(branch, child);
@@ -271,7 +259,7 @@ void handleItem(SessionItem* tree, const SessionItem* source)
 
             } else if (child->modelType() == Constants::GroupItemType) {
                 SessionItem* currentItem = dynamic_cast<GroupItem*>(child)->currentItem();
-                if (currentItem && currentItem->rowCount() > 0) {
+                if (currentItem && currentItem->numberOfChildren() > 0) {
                     SessionItem* branch = tree->model()->insertNewItem(
                         Constants::ParameterLabelType, tree->index());
                     handleItem(branch, currentItem);

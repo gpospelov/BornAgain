@@ -7,16 +7,17 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "CoreSpecialTestFactory.h"
 #include "BatchSimulation.h"
+#include "DetectorTest.h"
 #include "PolDWBAMagCylinders.h"
 #include "CoreIOTest.h"
+#include "FourierTransformationTest.h"
 
 CoreSpecialTestFactory::CoreSpecialTestFactory()
 {
@@ -31,4 +32,12 @@ CoreSpecialTestFactory::CoreSpecialTestFactory()
     registerItem("CoreIO",
                  create_new<CoreIOTest>,
                  "Input/output of heavy files");
+
+    registerItem("DetectorTest",
+                 create_new<DetectorTest>,
+                 "Performance on set of detectors of different size");
+
+    registerItem("FourierTransformation",
+                 create_new<FourierTransformationTest>,
+                 "Fourier transformation of GISAS images");
 }

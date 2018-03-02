@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -119,15 +117,6 @@ bool okToDelete(QWidget *parent, const QString &title, const QString &text, cons
             qobject_cast<QPushButton*>(deleteButton));
     messageBox->exec();
     return messageBox->clickedButton() == deleteButton;
-}
-
-//! returns type of variant
-int getVariantType(const QVariant &variant)
-{
-    int result = variant.type();
-    if (result == QVariant::UserType)
-        result = variant.userType();
-    return result;
 }
 
 QString getBornAgainVersionString()

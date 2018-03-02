@@ -7,15 +7,15 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "ProjectionsEditorActions.h"
 #include "SessionModel.h"
+#include "SaveProjectionsAssistant.h"
+#include "IntensityDataItemUtils.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QModelIndexList>
@@ -24,33 +24,38 @@ ProjectionsEditorActions::ProjectionsEditorActions(QWidget* parent)
     : QObject(parent)
     , m_resetViewAction(new QAction(this))
     , m_togglePanelAction(new QAction(this))
+    , m_deleteAction(new QAction("Remove selected", this))
     , m_model(nullptr)
+    , m_intensityDataItem(nullptr)
     , m_selectionModel(nullptr)
+    , m_parent(parent)
 {
     // Actions for top toolbar
-    m_resetViewAction = new QAction(this);
     m_resetViewAction->setText("Reset");
     m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
-    m_resetViewAction->setToolTip("Reset View");
-    connect(m_resetViewAction, SIGNAL(triggered()), this, SIGNAL(resetViewRequest()));
+    m_resetViewAction->setToolTip("Reset view\n"
+                                  "x,y,z axes range will be set to default");
+    connect(m_resetViewAction, &QAction::triggered,
+            this, &ProjectionsEditorActions::resetViewRequest);
 
-    m_togglePanelAction = new QAction(this);
     m_togglePanelAction->setText("Properties");
     m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
-    m_togglePanelAction->setToolTip("Toggle Property Panel");
-    connect(m_togglePanelAction, SIGNAL(triggered()), this, SIGNAL(propertyPanelRequest()));
+    m_togglePanelAction->setToolTip("Toggle property panel");
+    connect(m_togglePanelAction, &QAction::triggered,
+            this, &ProjectionsEditorActions::propertyPanelRequest);
 
-    m_deleteAction = new QAction(QStringLiteral("Remove selected"), parent);
     m_deleteAction->setToolTip("Remove selected (Del)");
     m_deleteAction->setShortcuts(QKeySequence::Delete);
-    parent->addAction(m_deleteAction);
-    connect(m_deleteAction, SIGNAL(triggered()), this, SLOT(onDeleteAction()));
+    connect(m_deleteAction, &QAction::triggered, this, &ProjectionsEditorActions::onDeleteAction);
 }
 
-void ProjectionsEditorActions::setModel(SessionModel* maskModel, const QModelIndex& rootIndex)
+void ProjectionsEditorActions::setContext(SessionModel* model,
+                                          const QModelIndex& containerIndex,
+                                          IntensityDataItem* intensityItem)
 {
-    m_model = maskModel;
-    m_rootIndex = rootIndex;
+    m_model = model;
+    m_containerIndex = containerIndex;
+    m_intensityDataItem = intensityItem;
 }
 
 void ProjectionsEditorActions::setSelectionModel(QItemSelectionModel* selectionModel)
@@ -73,4 +78,14 @@ void ProjectionsEditorActions::onDeleteAction()
         m_model->removeRows(indexes.back().row(), 1, indexes.back().parent());
         indexes = m_selectionModel->selectedIndexes();
     }
+}
+
+//! Performs saving of projections in ascii file
+void ProjectionsEditorActions::onSaveAction()
+{
+    if (!m_intensityDataItem)
+        return;
+
+    SaveProjectionsAssistant assistant;
+    assistant.saveProjections(m_parent, m_intensityDataItem);
 }

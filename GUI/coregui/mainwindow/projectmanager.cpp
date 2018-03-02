@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -19,7 +17,7 @@
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "ProjectLoadWarningDialog.h"
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "newprojectdialog.h"
@@ -44,7 +42,7 @@ namespace {
 ProjectManager::ProjectManager(MainWindow* parent)
     : m_mainWindow(parent)
     , m_project_document(nullptr)
-    , m_messageService(new WarningMessageService)
+    , m_messageService(new MessageService)
     , m_saveService(new SaveService(this))
 
 {
@@ -291,28 +289,22 @@ void ProjectManager::openProject(QString fileName)
     if (fileName.isEmpty()) {
         fileName = QFileDialog::getOpenFileName(m_mainWindow, "Open project file",
                 workingDirectory(), "BornAgain project Files (*.pro)");
-
         if (fileName.isEmpty())
             return;
     }
-
     createNewProject();
     loadProject(fileName);
 
     if (m_project_document->isReady()) {
         addToRecentProjects();
-
     } else if (m_project_document->hasErrors()) {
         riseProjectLoadFailedDialog();
         deleteCurrentProject();
         createNewProject();
-
     } else if (m_project_document->hasWarnings()) {
         riseProjectLoadWarningDialog();
         addToRecentProjects();
     }
-
-    emit projectOpened();
     emit modified();
 }
 
@@ -349,16 +341,14 @@ void ProjectManager::loadProject(const QString& projectFileName)
 {
     bool useAutosave = m_saveService && ProjectUtils::hasAutosavedData(projectFileName);
 
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     if(useAutosave && restoreProjectDialog(projectFileName)) {
-        QApplication::setOverrideCursor(Qt::WaitCursor);
         m_project_document->load(ProjectUtils::autosaveName(projectFileName));
         m_project_document->setProjectFileName(projectFileName);
         m_project_document->setModified(true);
     } else {
-        QApplication::setOverrideCursor(Qt::WaitCursor);
         m_project_document->load(projectFileName);
     }
-
     QApplication::restoreOverrideCursor();
 }
 
@@ -417,8 +407,8 @@ void ProjectManager::riseProjectLoadFailedDialog()
     QString message = QString("Failed to load the project '%1' \n\n")
                           .arg(m_project_document->projectFileName());
 
-    QString details = m_messageService->getMessages(m_project_document);
-    message.append(details);
+    for (auto details : m_messageService->errorDescriptionList(m_project_document))
+        message.append(details+"\n");
 
     QMessageBox::warning(m_mainWindow, "Error while opening project file", message);
 }

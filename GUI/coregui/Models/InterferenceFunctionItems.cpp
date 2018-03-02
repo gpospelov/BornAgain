@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,7 +16,6 @@
 #include "BornAgainNamespace.h"
 #include "Lattice2DItems.h"
 #include "ModelPath.h"
-#include "GUIHelpers.h"
 #include "Units.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDecayFunctions.h"
@@ -29,6 +26,10 @@
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "InterferenceFunction1DLattice.h"
 #include "GroupItem.h"
+
+namespace {
+    const QString decay_function_tag = "Decay Function";
+}
 
 // TODO (when back compatibility will be broken  again)
 // Make InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION and
@@ -76,7 +77,7 @@ InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystal
 std::unique_ptr<IInterferenceFunction>
 InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const
 {
-    auto result = GUIHelpers::make_unique<InterferenceFunctionRadialParaCrystal>(
+    auto result = std::make_unique<InterferenceFunctionRadialParaCrystal>(
         getItemValue(P_PEAK_DISTANCE).toDouble(), getItemValue(P_DAMPING_LENGTH).toDouble());
     result->setDomainSize(getItemValue(P_DOMAIN_SIZE).toDouble());
     result->setKappa(getItemValue(P_KAPPA).toDouble());
@@ -201,7 +202,7 @@ const QString InterferenceFunction1DLatticeItem::P_LENGTH =
         QString::fromStdString(BornAgain::Length);
 const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE =
         QString::fromStdString(BornAgain::Xi);
-const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = "Decay Function";
+const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = decay_function_tag;
 
 InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
     : InterferenceFunctionItem(Constants::InterferenceFunction1DLatticeType)
@@ -219,7 +220,7 @@ InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
 std::unique_ptr<IInterferenceFunction>
 InterferenceFunction1DLatticeItem::createInterferenceFunction() const
 {
-    auto result = GUIHelpers::make_unique<InterferenceFunction1DLattice>(
+    auto result = std::make_unique<InterferenceFunction1DLattice>(
         getItemValue(P_LENGTH).toDouble(),
         Units::deg2rad(getItemValue(P_ROTATION_ANGLE).toDouble()));
     auto pdfItem = dynamic_cast<FTDecayFunction1DItem*>(
@@ -231,7 +232,7 @@ InterferenceFunction1DLatticeItem::createInterferenceFunction() const
 // --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunction2DLatticeItem::P_LATTICE_TYPE = "LatticeType";
-const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = "DecayFunction";
+const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = decay_function_tag;
 const QString InterferenceFunction2DLatticeItem::P_XI_INTEGRATION = "Integration_over_xi";
 
 InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()

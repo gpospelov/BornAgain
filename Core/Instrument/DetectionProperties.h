@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,34 +17,42 @@
 
 #include "WinDllMacros.h"
 #include "EigenCore.h"
+#include "INode.h"
 #include "Vectors3D.h"
 
 //! Detector properties (efficiency, transmission).
 //! @ingroup simulation
 
-class BA_CORE_API_ DetectionProperties {
+class BA_CORE_API_ DetectionProperties : public INode {
 public:
     DetectionProperties();
+    DetectionProperties(const DetectionProperties& other);
+
+    virtual ~DetectionProperties();
 
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission);
 
-    //! Gets the polarization density matrix (in spin basis along z-axis)
+    //! Return the polarization density matrix (in spin basis along z-axis)
     Eigen::Matrix2cd analyzerOperator() const;
 
+    //! Retrieve the analyzer characteristics
+    kvector_t analyzerDirection() const;
+    double analyzerEfficiency() const; //!< will always return positive value
+    double analyzerTotalTransmission() const;
+
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+
 private:
-    //! Initialize polarization
-    void initPolarizationOperator();
-
-    Eigen::Matrix2cd calculateAnalyzerOperator(
-        const kvector_t direction, double efficiency, double total_transmission = 1.0) const;
-
+    void init_parameters();
     //! Verify if the given analyzer properties are physical
     bool checkAnalyzerProperties(const kvector_t direction, double efficiency,
                                  double total_transmission) const;
 
-    Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
+    kvector_t m_direction;  //!< direction of polarization analysis
+    double m_efficiency;  //!< efficiency of polarization analysis
+    double m_total_transmission;  //!< total transmission of polarization analysis
 };
 
 #endif // DETECTIONPROPERTIES_H

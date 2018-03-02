@@ -7,18 +7,22 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
-#include "GISASSimulation.h"
+#include "IBackground.h"
 #include "BornAgainNamespace.h"
+#include "DWBAComputation.h"
+#include "GISASSimulation.h"
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
+#include "RectangularDetector.h"
 #include "SimulationElement.h"
+#include "SphericalDetector.h"
+#include "UnitConverters.h"
 
 GISASSimulation::GISASSimulation()
 {
@@ -26,19 +30,13 @@ GISASSimulation::GISASSimulation()
 }
 
 GISASSimulation::GISASSimulation(const MultiLayer& p_sample)
-    : Simulation(p_sample)
+    : Simulation2D(p_sample)
 {
     initialize();
 }
 
 GISASSimulation::GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
-    : Simulation(p_sample_builder)
-{
-    initialize();
-}
-
-GISASSimulation::GISASSimulation(const GISASSimulation& other)
-    : Simulation(other)
+    : Simulation2D(p_sample_builder)
 {
     initialize();
 }
@@ -57,18 +55,25 @@ size_t GISASSimulation::numberOfSimulationElements() const
     return getInstrument().getDetector()->numberOfSimulationElements();
 }
 
-OutputData<double>* GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type) const
+SimulationResult GISASSimulation::result() const
 {
-    std::unique_ptr<OutputData<double>> result(
-        m_instrument.createDetectorIntensity(m_sim_elements, units_type));
-    return result.release();
-}
-
-Histogram2D* GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type) const
-{
-    std::unique_ptr<Histogram2D> result(
-        m_instrument.createIntensityData(m_sim_elements, units_type));
-    return result.release();
+    auto data = std::unique_ptr<OutputData<double>>(
+                    m_instrument.createDetectorIntensity(m_sim_elements));
+    auto p_det = getInstrument().getDetector();
+    if (p_det) {
+        auto p_spher_det = dynamic_cast<const SphericalDetector*>(p_det);
+        if (p_spher_det) {
+            SphericalConverter converter(*p_spher_det, getInstrument().getBeam());
+            return SimulationResult(*data, converter);
+        }
+        auto p_rect_det = dynamic_cast<const RectangularDetector*>(p_det);
+        if (p_rect_det) {
+            RectangularConverter converter(*p_rect_det, getInstrument().getBeam());
+            return SimulationResult(*data, converter);
+        }
+    }
+    throw std::runtime_error("Error in GISASSimulation::result: "
+                             "wrong or absent detector type");
 }
 
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
@@ -79,53 +84,18 @@ void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, doubl
     m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
 }
 
-void GISASSimulation::setDetector(const IDetector2D& detector)
+GISASSimulation::GISASSimulation(const GISASSimulation& other)
+    : Simulation2D(other)
 {
-    m_instrument.setDetector(detector);
-}
-
-void GISASSimulation::setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
-                                            size_t n_alpha, double alpha_min, double alpha_max)
-{
-    m_instrument.setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
-}
-
-void GISASSimulation::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
-{
-    m_instrument.getDetector()->setRegionOfInterest(xlow, ylow, xup, yup);
-}
-
-void GISASSimulation::resetRegionOfInterest()
-{
-    m_instrument.getDetector()->resetRegionOfInterest();
-}
-
-void GISASSimulation::removeMasks()
-{
-    m_instrument.getDetector()->removeMasks();
-}
-
-void GISASSimulation::addMask(const IShape2D& shape, bool mask_value)
-{
-    m_instrument.getDetector()->addMask(shape, mask_value);
-}
-
-void GISASSimulation::maskAll()
-{
-    m_instrument.getDetector()->maskAll();
+    initialize();
 }
 
 void GISASSimulation::initSimulationElementVector()
 {
-    m_sim_elements = m_instrument.createSimulationElements();
-}
-
-void GISASSimulation::transferResultsToIntensityMap()
-{
-}
-
-void GISASSimulation::updateIntensityMap()
-{
+    auto beam = m_instrument.getBeam();
+    m_sim_elements = generateSimulationElements(beam);
+    if (m_cache.empty())
+        m_cache.resize(m_sim_elements.size(), 0.0);
 }
 
 void GISASSimulation::initialize()

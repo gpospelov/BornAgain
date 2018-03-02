@@ -16,6 +16,7 @@ set(test_cases
     BoxesWithSpecular
     BoxStackComposition
     CenteredSquareLattice
+    ConstantBackground
     CoreShellBoxRotateZandY
     CoreShellParticle
     CosineRipple
@@ -26,10 +27,12 @@ set(test_cases
     DetectorResolution
     FormFactors
     FormFactorsAbs
+    GISASAbsorptiveSLDLayers
     HexParaCrystal
     LargeCylindersMonteCarlo
     Lattice1D
     MagneticParticleZeroField
+    MagneticSpheres
     MagneticSubstrateZeroField
     MagneticRotation
     MesoCrystal
@@ -58,6 +61,13 @@ set(test_cases
     RotatedPyramidsDistribution
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
+    HomogeneousTiNiSample
+    HomogeneousTiNiSampleWithAbsorption
+    RoughnessInSpecular
+    GaussianBeamFootprint
+    SquareBeamFootprint
+    SpecularDivergentBeam
+    OffSpecularResonator
     )
 
 add_executable(CoreStandardTest main.cpp CoreStandardTest.h CoreStandardTest.cpp)

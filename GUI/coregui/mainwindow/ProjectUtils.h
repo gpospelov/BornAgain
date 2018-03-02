@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -64,6 +63,9 @@ BA_CORE_API_ QStringList substract(const QStringList& lhs, const QStringList& rh
 
 //! Returns multi-lione string representing content of text file.
 QString readTextFile(const QString& fileName);
+
+//! Returns directory which user is normally using to export files.
+BA_CORE_API_ QString userExportDir();
 
 }
 

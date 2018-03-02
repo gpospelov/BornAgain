@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -36,7 +34,7 @@ void SampleValidator::initValidator()
 
 void SampleValidator::iterateItems(const SessionItem *parentItem)
 {
-    foreach(const SessionItem *child, parentItem->childItems()) {
+    foreach(const SessionItem *child, parentItem->children()) {
         validateItem(child);
         iterateItems(child);
     }

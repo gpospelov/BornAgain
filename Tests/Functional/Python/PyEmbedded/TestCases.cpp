@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -23,6 +22,7 @@
 #include "MultiLayer.h"
 #include "BornAgainNamespace.h"
 #include "SampleBuilderFactory.h"
+#include "ExportToPython.h"
 #include "PythonFormatting.h"
 #include <iostream>
 #include <sstream>
@@ -361,16 +361,14 @@ bool ExportToPythonAndBack::runTest()
     SampleBuilderFactory factory;
     std::unique_ptr<MultiLayer> sample(factory.createSample("CylindersAndPrismsBuilder"));
 
-    auto code = PythonFormatting::generateSampleCode(*sample);
+    auto code = ExportToPython::generateSampleCode(*sample);
 
     std::stringstream snippet;
-    snippet << "import bornagain as ba                                        \n";
-    snippet << "from bornagain import deg, angstrom, nm                     \n\n";
-    snippet << code;
+    snippet << PythonFormatting::scriptPreamble() << code;
 
-    auto multilayer = PyImport::createFromPython(snippet.str(), "getSample",
-                                                 BABuild::buildLibDir());
-    auto new_code = PythonFormatting::generateSampleCode(*multilayer);
+    auto multilayer = PyImport::createFromPython(snippet.str(),
+            PythonFormatting::getSampleFunctionName(), BABuild::buildLibDir());
+    auto new_code = ExportToPython::generateSampleCode(*multilayer);
 
     return code == new_code;
 }

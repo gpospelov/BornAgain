@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -17,7 +16,7 @@
 #define OUTPUTDATAIOHISTORY_H
 
 #include "WinDllMacros.h"
-#include "IntensityDataItem.h"
+#include "DataItem.h"
 #include <QVector>
 #include <QDateTime>
 
@@ -28,11 +27,11 @@ class IntensityDataItem;
 class BA_CORE_API_ OutputDataSaveInfo
 {
 public:
-    OutputDataSaveInfo() : m_dataItem(nullptr){}
+    OutputDataSaveInfo() : m_dataItem(nullptr) {}
 
-    static OutputDataSaveInfo createSaved(const IntensityDataItem* item);
+    static OutputDataSaveInfo createSaved(const DataItem* item);
 
-    const IntensityDataItem* dataItem() const { return m_dataItem; }
+    const DataItem* dataItem() const { return m_dataItem; }
 
     QString fileName() const { return m_file_name; }
 
@@ -43,7 +42,7 @@ private:
 
     QDateTime m_last_saved;
     QString m_file_name;
-    const IntensityDataItem* m_dataItem;
+    const DataItem* m_dataItem;
 };
 
 //! Save history information for collection of IntensityDataItems.
@@ -52,16 +51,16 @@ class BA_CORE_API_ OutputDataDirHistory {
 public:
     OutputDataDirHistory() {}
 
-    void markAsSaved(const IntensityDataItem* item);
+    void markAsSaved(const DataItem* item);
 
-    bool wasModifiedSinceLastSave(const IntensityDataItem* item);
+    bool wasModifiedSinceLastSave(const DataItem* item);
 
-    bool contains(const IntensityDataItem* item);
+    bool contains(const DataItem* item);
 
     QStringList savedFileNames() const;
 
 private:
-    OutputDataSaveInfo itemInfo(const IntensityDataItem* item) const;
+    OutputDataSaveInfo itemInfo(const DataItem* item) const;
 
     QVector<OutputDataSaveInfo> m_history;
 };
@@ -72,7 +71,7 @@ class BA_CORE_API_ OutputDataIOHistory {
 public:
     bool hasHistory(const QString& dirname) const;
 
-    bool wasModifiedSinceLastSave(const QString& dirname, const IntensityDataItem* item);
+    bool wasModifiedSinceLastSave(const QString& dirname, const DataItem* item);
 
     void setHistory(const QString& dirname, const OutputDataDirHistory& history);
 

@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -43,19 +41,22 @@ RealDataMaskWidget::RealDataMaskWidget(QWidget *parent)
     setLayout(mainLayout);
 }
 
-void RealDataMaskWidget::setItem(SessionItem* realDataItem)
+QList<QAction*> RealDataMaskWidget::actionList()
 {
-    SessionItemWidget::setItem(realDataItem);
+    return m_maskEditor->topToolBarActions();
+}
 
+void RealDataMaskWidget::subscribeToItem()
+{
     auto intensityItem = intensityDataItem();
-    auto container = createMaskContainer(intensityItem);
+    auto container = maskContainer(intensityItem);
     m_maskEditor->setMaskContext(intensityItem->model(), container->index(), intensityItem);
     m_maskEditor->update();
 }
 
-QList<QAction*> RealDataMaskWidget::actionList()
+void RealDataMaskWidget::unsubscribeFromItem()
 {
-    return m_maskEditor->topToolBarActions();
+    m_maskEditor->resetContext();
 }
 
 IntensityDataItem* RealDataMaskWidget::intensityDataItem()
@@ -66,7 +67,7 @@ IntensityDataItem* RealDataMaskWidget::intensityDataItem()
     return result;
 }
 
-MaskContainerItem* RealDataMaskWidget::createMaskContainer(IntensityDataItem* intensityData)
+MaskContainerItem* RealDataMaskWidget::maskContainer(IntensityDataItem* intensityData)
 {
     auto containerItem = intensityData->getItem(IntensityDataItem::T_MASKS);
     if (!containerItem)

@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -19,6 +17,11 @@
 #include "item_constants.h"
 #include <QTabWidget>
 #include <QVBoxLayout>
+
+namespace {
+const int horizontal_projection_tab = 0;
+const int vertical_projection_tab = 1;
+}
 
 ProjectionsWidget::ProjectionsWidget(QWidget* parent)
     : SessionItemWidget(parent)
@@ -36,6 +39,8 @@ ProjectionsWidget::ProjectionsWidget(QWidget* parent)
 
     layout->addWidget(m_tabWidget);
     setLayout(layout);
+
+    setConnected(true);
 }
 
 void ProjectionsWidget::setItem(SessionItem* intensityItem)
@@ -47,15 +52,34 @@ void ProjectionsWidget::setItem(SessionItem* intensityItem)
 
 void ProjectionsWidget::onActivityModeChanged(MaskEditorFlags::Activity value)
 {
-    if(value == MaskEditorFlags::HORIZONTAL_LINE_MODE) {
-        m_tabWidget->setCurrentIndex(0);
-    } else if (value == MaskEditorFlags::VERTICAL_LINE_MODE) {
-        m_tabWidget->setCurrentIndex(1);
-    }
+    setConnected(false);
+
+    if(value == MaskEditorFlags::HORIZONTAL_LINE_MODE)
+        m_tabWidget->setCurrentIndex(horizontal_projection_tab);
+    else if (value == MaskEditorFlags::VERTICAL_LINE_MODE)
+        m_tabWidget->setCurrentIndex(vertical_projection_tab);
+
+    setConnected(true);
 }
 
 void ProjectionsWidget::onMarginsChanged(double left, double right)
 {
     m_xProjection->onMarginsChanged(left, right);
     m_yProjection->onMarginsChanged(left, right);
+}
+
+void ProjectionsWidget::onTabChanged(int tab_index)
+{
+    if (tab_index == horizontal_projection_tab)
+        emit changeActivityRequest(MaskEditorFlags::HORIZONTAL_LINE_MODE);
+    else if (tab_index == vertical_projection_tab)
+        emit changeActivityRequest(MaskEditorFlags::VERTICAL_LINE_MODE);
+}
+
+void ProjectionsWidget::setConnected(bool isConnected)
+{
+    if (isConnected)
+        connect(m_tabWidget, &QTabWidget::currentChanged, this, &ProjectionsWidget::onTabChanged);
+    else
+        disconnect(m_tabWidget, &QTabWidget::currentChanged, this, &ProjectionsWidget::onTabChanged);
 }

@@ -1,12 +1,16 @@
+#include "google_test.h"
+#include "BornAgainNamespace.h"
 #include "Crystal.h"
 #include "Lattice.h"
-#include "BornAgainNamespace.h"
+#include "ParticleComposition.h"
 
 class CrystalTest : public ::testing::Test
 {
 protected:
-    CrystalTest(){}
+    ~CrystalTest();
 };
+
+CrystalTest::~CrystalTest() = default;
 
 TEST_F(CrystalTest, getChildren)
 {

@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -17,11 +16,12 @@
 #include "Beam.h"
 #include "BornAgainNamespace.h"
 #include "IDetectorResolution.h"
+#include "RegionOfInterest.h"
 #include "SimulationElement.h"
 #include "MathConstants.h"
 #include "Units.h"
 
-RectangularDetector::RectangularDetector(int nxbins, double width, int nybins, double height)
+RectangularDetector::RectangularDetector(size_t nxbins, double width, size_t nybins, double height)
     : m_u0(0.0)
     , m_v0(0.0)
     , m_direction(kvector_t(0.0, -1.0, 0.0))
@@ -52,7 +52,7 @@ RectangularDetector::RectangularDetector(const RectangularDetector& other)
 
 RectangularDetector::~RectangularDetector() {}
 
-RectangularDetector *RectangularDetector::clone() const
+RectangularDetector* RectangularDetector::clone() const
 {
     return new RectangularDetector(*this);
 }
@@ -98,22 +98,6 @@ void RectangularDetector::setDirectBeamPosition(double u0, double v0)
     m_detector_arrangement = PERPENDICULAR_TO_REFLECTED_BEAM_DPOS;
     m_dbeam_u0 = u0;
     m_dbeam_v0 = v0;
-}
-
-IPixel *RectangularDetector::createPixel(size_t index) const
-{
-    const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
-    size_t u_index = getAxisBinIndex(index, BornAgain::X_AXIS_INDEX);
-    size_t v_index = getAxisBinIndex(index, BornAgain::Y_AXIS_INDEX);
-
-    Bin1D u_bin = u_axis.getBin(u_index);
-    Bin1D v_bin = v_axis.getBin(v_index);
-    kvector_t corner_position( m_normal_to_detector
-            + (u_bin.m_lower - m_u0)*m_u_unit + (v_bin.m_lower - m_v0)*m_v_unit );
-    kvector_t width = u_bin.getBinSize()*m_u_unit;
-    kvector_t height = v_bin.getBinSize()*m_v_unit;
-    return new RectangularPixel(corner_position, width, height);
 }
 
 double RectangularDetector::getWidth() const
@@ -178,43 +162,71 @@ RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrang
     return m_detector_arrangement;
 }
 
-std::vector<IDetector2D::EAxesUnits> RectangularDetector::getValidAxesUnits() const
+std::vector<AxesUnits> RectangularDetector::validAxesUnits() const
 {
-    std::vector<IDetector2D::EAxesUnits> result = IDetector2D::getValidAxesUnits();
-    std::vector<IDetector2D::EAxesUnits> addon =
-        { IDetector2D::RADIANS, IDetector2D::DEGREES, IDetector2D::MM, IDetector2D::QYQZ };
+    std::vector<AxesUnits> result = IDetector2D::validAxesUnits();
+    std::vector<AxesUnits> addon =
+        { AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::MM, AxesUnits::QSPACE };
     result.insert(result.end(), addon.begin(), addon.end());
     return result;
 }
 
-IDetector2D::EAxesUnits RectangularDetector::getDefaultAxesUnits() const
+AxesUnits RectangularDetector::defaultAxesUnits() const
 {
-    return IDetector2D::MM;
+    return AxesUnits::MM;
 }
 
-IAxis *RectangularDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
+RectangularPixel* RectangularDetector::regionOfInterestPixel() const
 {
-    if (max <= min)
-        throw Exceptions::LogicErrorException(
-            "RectangularDetector::createAxis() -> Error! max <= min");
-    if (n_bins == 0)
-        throw Exceptions::LogicErrorException(
-            "RectangularDetector::createAxis() -> Error! Number n_bins can't be zero.");
-    return new FixedBinAxis(getAxisName(index), n_bins, min, max);
+    const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    double u_min, v_min, width, height;
+    auto p_roi = regionOfInterest();
+    if (p_roi) {
+        u_min = p_roi->getXlow();
+        v_min = p_roi->getYlow();
+        width = p_roi->getXup() - p_roi->getXlow();
+        height = p_roi->getYup() - p_roi->getYlow();
+    } else {
+        u_min = u_axis.getMin();
+        v_min = v_axis.getMin();
+        width = getWidth();
+        height = getHeight();
+    }
+    const kvector_t corner_position(m_normal_to_detector + (u_min - m_u0) * m_u_unit
+                                    + (v_min - m_v0) * m_v_unit);
+    const kvector_t uaxis_vector = width * m_u_unit;
+    const kvector_t vaxis_vector = height * m_v_unit;
+    return new RectangularPixel(corner_position, uaxis_vector, vaxis_vector);
 }
 
-void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam &beam,
-    IDetector2D::EAxesUnits units, double &amin, double &amax) const
+IPixel* RectangularDetector::createPixel(size_t index) const
+{
+    const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
+    const IAxis& v_axis = getAxis(BornAgain::Y_AXIS_INDEX);
+    const size_t u_index = axisBinIndex(index, BornAgain::X_AXIS_INDEX);
+    const size_t v_index = axisBinIndex(index, BornAgain::Y_AXIS_INDEX);
+
+    const Bin1D u_bin = u_axis.getBin(u_index);
+    const Bin1D v_bin = v_axis.getBin(v_index);
+    const kvector_t corner_position(m_normal_to_detector + (u_bin.m_lower - m_u0) * m_u_unit
+                                    + (v_bin.m_lower - m_v0) * m_v_unit);
+    const kvector_t width = u_bin.getBinSize() * m_u_unit;
+    const kvector_t height = v_bin.getBinSize() * m_v_unit;
+    return new RectangularPixel(corner_position, width, height);
+}
+
+void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam& beam,
+    AxesUnits units, double& amin, double& amax) const
 {
     amin = 0.0; amax=0.0;
-    if(units == MM) {
+    if(units == AxesUnits::MM) {
         amin = getAxis(axis_index).getMin();
         amax = getAxis(axis_index).getMax();
-    }else if(units == RADIANS || units == DEGREES) {
+    }else if(units == AxesUnits::RADIANS || units == AxesUnits::DEGREES) {
         double scale(1.0);
-        if (units == DEGREES)
+        if (units == AxesUnits::DEGREES)
             scale = 1. / Units::degree;
-
         if(axis_index == BornAgain::X_AXIS_INDEX) {
             const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
             SimulationElement el_left_bottom
@@ -233,14 +245,12 @@ void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam &beam
             amin = scale * el_center_bottom.getAlpha(0.5, 0.0);
             amax = scale * el_center_top.getAlpha(0.5, 1.0);
         }
-
     } else {
         IDetector2D::calculateAxisRange(axis_index, beam, units, amin, amax);
     }
-
 }
 
-std::string RectangularDetector::getAxisName(size_t index) const
+std::string RectangularDetector::axisName(size_t index) const
 {
     switch (index) {
     case 0:
@@ -255,13 +265,13 @@ std::string RectangularDetector::getAxisName(size_t index) const
 
 size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
 {
-    if (getDimension()!=2) return getTotalSize();
+    if (dimension()!=2) return totalSize();
     double alpha = beam.getAlpha();
     double phi = beam.getPhi();
     kvector_t k_spec = vecOfLambdaAlphaPhi(beam.getWavelength(), alpha, phi);
     kvector_t normal_unit = m_normal_to_detector.unit();
     double kd = k_spec.dot(normal_unit);
-    if (kd<=0.0) return getTotalSize();
+    if (kd<=0.0) return totalSize();
     kvector_t k_orth = (k_spec/kd - normal_unit)*m_distance;
     double u = k_orth.dot(m_u_unit) + m_u0;
     double v = k_orth.dot(m_v_unit) + m_v0;
@@ -272,7 +282,7 @@ size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
     if (u_index < u_axis.size() && v_index < v_axis.size()) {
         return getGlobalIndex(u_index, v_index);
     }
-    return getTotalSize();
+    return totalSize();
 }
 
 void RectangularDetector::setDistanceAndOffset(double distance, double u0, double v0)
@@ -346,12 +356,12 @@ RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvecto
     m_solid_angle = calculateSolidAngle();
 }
 
-RectangularPixel *RectangularPixel::clone() const
+RectangularPixel* RectangularPixel::clone() const
 {
     return new RectangularPixel(m_corner_pos, m_width, m_height);
 }
 
-RectangularPixel *RectangularPixel::createZeroSizePixel(double x, double y) const
+RectangularPixel* RectangularPixel::createZeroSizePixel(double x, double y) const
 {
     kvector_t position = m_corner_pos + x*m_width + y*m_height;
     kvector_t null_vector;
@@ -363,6 +373,11 @@ kvector_t RectangularPixel::getK(double x, double y, double wavelength) const
     kvector_t direction = m_corner_pos + x*m_width + y*m_height;
     double length = M_TWOPI/wavelength;
     return normalizeLength(direction, length);
+}
+
+kvector_t RectangularPixel::getPosition(double x, double y) const
+{
+    return m_corner_pos + x*m_width + y*m_height;
 }
 
 double RectangularPixel::getIntegrationFactor(double x, double y) const

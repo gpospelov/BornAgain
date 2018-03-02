@@ -180,7 +180,7 @@ def run_simulation():
         print "For now continue without OpenMPI..."
         simulation.runSimulation()
         simulation.normalize()
-        sumresult = simulation.getIntensityData().getArray()
+        sumresult = simulation.result().array()
 
     else:
         if(world_rank != 0):
@@ -192,10 +192,10 @@ def run_simulation():
             simulation.runSimulation()
             simulation.normalize()
 
-            comm.Send(simulation.getIntensityData().getArray())
+            comm.Send(simulation.result().array())
 
         if(world_rank == 0):
-            sumresult = simulation.getIntensityData().getArray()
+            sumresult = simulation.result().array()
             sumresult = numpy.zeros(sumresult.shape)
 
             print "preparing to receive"

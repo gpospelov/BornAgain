@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -60,10 +59,12 @@ void OutputDataWriteINTStrategy::writeOutputData(
     output_stream << "# BornAgain Intensity Data\n\n";
 
     for(size_t i=0; i<data.getRank(); ++i) {
-        const IAxis& axis = data.getAxis(i);
+        std::string axis_name = std::string("axis") + std::to_string(i);
+        std::unique_ptr<IAxis> P_axis(data.getAxis(i).clone());
+        P_axis->setName(axis_name);
         output_stream << std::endl;
         output_stream << "# axis-" << i << "\n";
-        output_stream << (axis) << "\n";
+        output_stream << (*P_axis) << "\n";
     }
     size_t n_columns = data.getAxis(data.getRank()-1).size();
 

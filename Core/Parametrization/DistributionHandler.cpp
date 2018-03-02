@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -26,17 +25,6 @@ DistributionHandler::DistributionHandler()
 
 DistributionHandler::~DistributionHandler()
 {
-}
-
-void DistributionHandler::addParameterDistribution(
-    const std::string& param_name, const IDistribution1D& distribution,
-    size_t nbr_samples, double sigma_factor, const RealLimits& limits)
-{
-    if (nbr_samples > 0) {
-        ParameterDistribution par_distr(
-            param_name, distribution, nbr_samples, sigma_factor, limits);
-        addParameterDistribution(par_distr);
-    }
 }
 
 void DistributionHandler::addParameterDistribution(const ParameterDistribution& par_distr)

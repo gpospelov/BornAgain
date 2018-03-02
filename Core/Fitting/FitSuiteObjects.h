@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -19,13 +18,14 @@
 #include "FitObject.h"
 
 class IChiSquaredModule;
+class IHistogram;
 
 //! Holds vector of FitObject's (simulation and real data) to fit
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ FitSuiteObjects : public INode, public INoncopyable
+class BA_CORE_API_ FitSuiteObjects : public INode
 {
- public:
+public:
     typedef SafePointerVector<FitObject> FitObjects_t;
     typedef FitObjects_t::iterator iterator;
 
@@ -35,7 +35,7 @@ class BA_CORE_API_ FitSuiteObjects : public INode, public INoncopyable
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     //! Adds to kit pair of (simulation, real data) for consecutive simulation
-    FitObject* add(const GISASSimulation& simulation, const OutputData<double>& real_data,
+    FitObject* add(const Simulation& simulation, const OutputData<double>& real_data,
              double weight = 1.0);
 
     //! Returns total number of data points (number of all non-masked channels in all fit objects)
@@ -44,17 +44,9 @@ class BA_CORE_API_ FitSuiteObjects : public INode, public INoncopyable
     //! Replaces default ChiSquaredModule with new one
     void setChiSquaredModule(const IChiSquaredModule &chi2_module);
 
-    //! Returns real data from corresponding FitObject
-    //! @param i_item Index of FitObject
-    const OutputData<double>& getRealData(size_t i_item = 0) const;
-
     //! Returns simulated data from corresponding FitObject
     //! @param i_item Index of FitObject
     const OutputData<double>& getSimulationData(size_t i_item = 0) const;
-
-    //! Returns new chi-squared map from corresponding FitObject
-    //! @param i_item Index of FitObject
-    const OutputData<double>& getChiSquaredMap(size_t i_item = 0) const;
 
     //! run all simulation defined in fit pairs
     void runSimulations();
@@ -77,15 +69,32 @@ class BA_CORE_API_ FitSuiteObjects : public INode, public INoncopyable
 
     std::vector<const INode*> getChildren() const;
 
-    std::string getDefaultAxesUnits(size_t i_item = 0) const;
- protected:
+#ifndef SWIG
+    //! Returns real data from corresponding FitObject. ROI is taken into account.
+    //! @param i_item Index of FitObject
+    std::unique_ptr<IHistogram> createRealDataHistogram(size_t i_item = 0) const;
+
+    //! Returns simulated data from corresponding FitObject.  ROI is taken into account.
+    //! @param i_item Index of FitObject
+    std::unique_ptr<IHistogram> createSimulationHistogram(size_t i_item = 0) const;
+
+    //! Returns new chi-squared map from corresponding FitObject. ROI is taken into account.
+    //! @param i_item Index of FitObject
+    std::unique_ptr<IHistogram> createChiSquaredHistogram(size_t i_item = 0) const;
+
+#endif
+
+protected:
     //! Registers some class members for later access via parameter pool
     void init_parameters() {}
 
     double calculateChiSquaredValue();
 
- private:
+private:
     inline size_t check_index(size_t index) const;
+
+    std::vector<FitElement>::const_iterator getStart(size_t i_item) const;
+    std::vector<FitElement>::const_iterator getEnd(size_t i_item) const;
 
     FitObjects_t m_fit_objects;
     double m_total_weight;

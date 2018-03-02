@@ -7,29 +7,31 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #ifndef ICLONEABLE_H
 #define ICLONEABLE_H
 
-#include "INoncopyable.h"
 #include "WinDllMacros.h"
 
-//! Mix-in for objects that must not be copied, except by cloning.
+//! Interface for polymorphic classes that should not be copied, except by explicit cloning.
 //!
-//! The base class INoncopyable disables the copy constructor and the operator=
-//! in all its child classes.
 //! Child classes of ICloneable must provide clone().
 
 //! @ingroup tools_internal
 
-class BA_CORE_API_ ICloneable : public INoncopyable
+class BA_CORE_API_ ICloneable
 {
 public:
+    ICloneable();
+    virtual ~ICloneable();
+
+    ICloneable(const ICloneable&) =delete;
+    ICloneable& operator=(const ICloneable&) =delete;
+
     virtual ICloneable* clone() const =0;
     virtual void transferToCPP() {} //!< Used for Python overriding of clone (see swig/tweaks.py)
 };

@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -20,26 +18,29 @@
 #include "SessionModel.h"
 
 class MaterialItem;
-class MaterialProperty;
+class ExternalProperty;
 
 class BA_CORE_API_ MaterialModel : public SessionModel
 {
     Q_OBJECT
 
 public:
-    explicit MaterialModel(QObject* parent = 0);
-    virtual ~MaterialModel() {}
+    explicit MaterialModel(QObject* parent = nullptr);
+    ~MaterialModel();
 
-    virtual MaterialModel* createCopy(SessionItem* parent = 0);
+    MaterialModel* createCopy(SessionItem* parent = nullptr);
 
-    MaterialItem* addMaterial(const QString& name, double delta = 0.0, double beta = 0.0);
-    void removeMaterial(MaterialItem*);
+    MaterialItem* addRefractiveMaterial(const QString& name, double delta, double beta);
+    MaterialItem* addSLDMaterial(const QString& name, double sld, double abs_term);
 
-    MaterialItem* getMaterial(const QModelIndex& index);
-    MaterialItem* getMaterial(const MaterialProperty& property);
-    MaterialItem* getMaterial(const QString& material_name);
+    MaterialItem* materialFromIndex(const QModelIndex& index);
+    MaterialItem* materialFromName(const QString& name);
+    MaterialItem* materialFromIdentifier(const QString& identifier);
 
     MaterialItem* cloneMaterial(const QModelIndex& index);
+
+private:
+    MaterialItem* createMaterial(const QString& name);
 };
 
 #endif // MATERIALMODEL_H

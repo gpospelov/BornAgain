@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -23,19 +21,17 @@
 class QXmlStreamWriter;
 class QXmlStreamReader;
 class SessionItem;
-class WarningMessageService;
+class MessageService;
 
-namespace SessionXML {
+namespace SessionXML
+{
 const QString ItemMimeType = "application/org.bornagainproject.xml.item.z";
 const QString LinkMimeType = "application/org.bornagainproject.fittinglink";
 
-const QString ModelTag("SessionModel");
 const QString InstrumentModelTag("InstrumentModel");
 const QString SampleModelTag("SampleModel");
 const QString MaterialModelTag("MaterialModel");
-const QString FitModelTag("FitModel");
 const QString JobModelTag("JobModel");
-const QString MaskModelTag("MaskModel");
 const QString DocumentModelTag("DocumentModel");
 const QString RealDataModelTag("RealDataModel");
 
@@ -52,37 +48,19 @@ const QString ParameterValueAttribute("ParValue");
 const QString ParameterRoleAttribute("ParRole");
 const QString ParameterExtAttribute("ParExt");
 
-const QString IdentifierAttribute("Identifier");
+const QString ExternalPropertyTextAtt("Text");
+const QString ExternalPropertyColorAtt("Color");
+const QString ExternalPropertyIdentifierAtt("Identifier");
 
-const QString ColorRedAttribute("Red");
-const QString ColorGreenAttribute("Green");
-const QString ColorBlueAttribute("Blue");
-const QString ColorAlphaAttribute("Alpha");
+BA_CORE_API_ void writeTo(QXmlStreamWriter* writer, SessionItem* parent);
+BA_CORE_API_ void writeItemAndChildItems(QXmlStreamWriter* writer, const SessionItem* item);
+BA_CORE_API_ void writeVariant(QXmlStreamWriter* writer, QVariant variant, int role);
 
-const QString AngleUnitsAttribute("Units");
-
+BA_CORE_API_ void readItems(QXmlStreamReader* reader, SessionItem* parent,
+                            QString topTag = QString(),
+                            MessageService* messageService = nullptr);
+BA_CORE_API_ QString readProperty(QXmlStreamReader* reader, SessionItem* item,
+                                  MessageService* messageService = nullptr);
 }
-
-class BA_CORE_API_ SessionWriter
-{
-public:
-    static void writeTo(QXmlStreamWriter *writer, SessionItem *parent);
-    static void writeItemAndChildItems(QXmlStreamWriter *writer, const SessionItem *item);
-    static void writeVariant(QXmlStreamWriter *writer, QVariant variant, int role);
-};
-
-class BA_CORE_API_ SessionReader
-{
-public:
-    static void readItems(QXmlStreamReader *reader, SessionItem *item,
-                          const QString &topTag = QString(),
-                          WarningMessageService *messageService=0);
-    static QString readProperty(QXmlStreamReader *reader, SessionItem *item,
-                                WarningMessageService *messageService=0);
-
-private:
-    static void report_error(WarningMessageService *messageService, SessionItem *item,
-                      const QString &error_type, const QString &message);
-};
 
 #endif // SESSIONXML_H

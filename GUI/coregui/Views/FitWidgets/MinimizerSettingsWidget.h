@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -32,17 +30,17 @@ class BA_CORE_API_ MinimizerSettingsWidget : public QWidget
     Q_OBJECT
 
 public:
-    MinimizerSettingsWidget(QWidget *parent = 0);
+    MinimizerSettingsWidget(QWidget* parent = nullptr);
 
     QSize minimumSizeHint() const;
 
 public slots:
-    void setItem(JobItem *jobItem);
-    void setItem(MinimizerContainerItem *minimizerItem);
+    void setItem(JobItem* jobItem);
+    void setItem(MinimizerContainerItem* minimizerItem);
 
 private:
-    MinimizerContainerItem *m_currentItem;
-    ComponentEditor *m_propertyEditor;
+    MinimizerContainerItem* m_currentItem;
+    ComponentEditor* m_componentEditor;
 };
 
 #endif // MINIMIZERSETTINGSWIDGET_H

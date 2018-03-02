@@ -76,11 +76,11 @@ def run_simulation():
         simulation.setThreadInfo(thread_info)
         simulation.runSimulation()
         print "preparing to send"
-        comm.Send(simulation.getIntensityData().getArray())
+        comm.Send(simulation.result().array())
 
     if(world_rank == 0):
         #simulation.runSimulation()
-        sumresult = simulation.getIntensityData().getArray()
+        sumresult = simulation.result().array()
         print sumresult
         sumresult = numpy.zeros(sumresult.shape)
         print sumresult

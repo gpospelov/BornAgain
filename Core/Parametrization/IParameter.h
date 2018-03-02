@@ -7,16 +7,14 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #ifndef IPARAMETER_H
 #define IPARAMETER_H
 
-#include "INoncopyable.h"
 #include "INamed.h"
 #include <functional>
 #include <stdexcept>
@@ -29,7 +27,8 @@
 //! @ingroup tools_internal
 
 template<class T>
-class IParameter : public INamed, public INoncopyable {
+class IParameter : public INamed
+{
 public:
     IParameter() =delete;
     IParameter(const std::string& name, T* data, const std::string& parent_name,
@@ -63,7 +62,6 @@ IParameter<T>::IParameter(const std::string& name, T* data,
     , m_parent_name(parent_name)
     , m_onChange(onChange)
 {
-
     if(!m_data)
         throw std::runtime_error("Attempt to construct an IParameter with null data pointer");
 }

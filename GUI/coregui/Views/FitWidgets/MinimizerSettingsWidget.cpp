@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -24,16 +22,16 @@
 
 MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget *parent)
     : QWidget(parent)
-    , m_currentItem(0)
-    , m_propertyEditor(new ComponentEditor)
+    , m_currentItem(nullptr)
+    , m_componentEditor(new ComponentEditor)
 {
     setWindowTitle(QLatin1String("Minimizer Settings"));
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    auto layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(m_propertyEditor);
+    layout->addWidget(m_componentEditor);
 
     setLayout(layout);
 }
@@ -43,15 +41,15 @@ QSize MinimizerSettingsWidget::minimumSizeHint() const
     return QSize(25, 25);
 }
 
-void MinimizerSettingsWidget::setItem(JobItem *jobItem)
+void MinimizerSettingsWidget::setItem(JobItem* jobItem)
 {
     Q_ASSERT(jobItem);
     setItem(jobItem->fitSuiteItem()->minimizerContainerItem());
 }
 
-void MinimizerSettingsWidget::setItem(MinimizerContainerItem *minimizerItem)
+void MinimizerSettingsWidget::setItem(MinimizerContainerItem* minimizerItem)
 {
     Q_ASSERT(minimizerItem);
     m_currentItem = minimizerItem;
-    m_propertyEditor->setItem(minimizerItem);
+    m_componentEditor->setItem(minimizerItem);
 }

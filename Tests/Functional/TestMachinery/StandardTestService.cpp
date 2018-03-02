@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -17,8 +16,8 @@
 #include "StandardTestCatalogue.h"
 #include "IMultiLayerBuilder.h"
 #include "SampleBuilderFactory.h"
+#include "Simulation.h"
 #include "SimulationFactory.h"
-#include "GISASSimulation.h"
 #include "MultiLayer.h"
 #include "IFunctionalTest.h"
 #include "TestUtils.h"
@@ -56,7 +55,7 @@ bool StandardTestServiceBase::execute(int argc, char** argv)
     int number_of_failed_tests = 0;
 
     for(size_t sample_index=0; sample_index<builder->size(); ++sample_index) {
-        std::unique_ptr<GISASSimulation> simulation(
+        std::unique_ptr<Simulation> simulation(
                     SimulationFactory().createItem(info.m_simulation_name));
 
         std::unique_ptr<MultiLayer> sample(builder->createSample(sample_index));

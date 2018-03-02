@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -31,11 +29,11 @@ InstrumentView::InstrumentView(MainWindow* mainWindow)
       m_instrumentEditor(new ItemStackPresenter<InstrumentEditorWidget>(true)),
       m_instrumentModel(mainWindow->instrumentModel())
 {
-    QHBoxLayout* horizontalLayout = new QHBoxLayout;
+    auto horizontalLayout = new QHBoxLayout;
     horizontalLayout->addWidget(m_instrumentSelector);
     horizontalLayout->addWidget(m_instrumentEditor, 1);
 
-    QVBoxLayout* mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(m_toolBar);
@@ -46,11 +44,11 @@ InstrumentView::InstrumentView(MainWindow* mainWindow)
     m_actions->setModel(m_instrumentModel);
     m_actions->setSelectionModel(m_instrumentSelector->selectionModel());
 
-    connect(m_instrumentSelector, SIGNAL(contextMenuRequest(const QPoint&, const QModelIndex&)),
-            m_actions, SLOT(onContextMenuRequest(const QPoint&, const QModelIndex&)));
+    connect(m_instrumentSelector, &InstrumentSelectorWidget::contextMenuRequest,
+            m_actions, &InstrumentViewActions::onContextMenuRequest);
 
-    connect(m_instrumentSelector, SIGNAL(selectionChanged(SessionItem*)), this,
-            SLOT(onItemSelectionChanged(SessionItem*)));
+    connect(m_instrumentSelector, &InstrumentSelectorWidget::selectionChanged,
+            this, &InstrumentView::onItemSelectionChanged);
 }
 
 void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem* detectorItem)
@@ -63,9 +61,6 @@ void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem* detectorItem)
 void InstrumentView::onItemSelectionChanged(SessionItem* instrumentItem)
 {
     m_instrumentEditor->setItem(instrumentItem);
-
-    if (auto widget = m_instrumentEditor->currentWidget())
-        widget->setInstrumentItem(instrumentItem);
 }
 
 void InstrumentView::showEvent(QShowEvent*)

@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -46,6 +45,21 @@ public:
 BA_CORE_API_ IRotation* createProduct(const IRotation& left, const IRotation& right);
 
 bool IsZRotation(const IRotation& rot);
+
+class BA_CORE_API_ IdentityRotation : public IRotation
+{
+public:
+    IdentityRotation() =default;
+
+    IdentityRotation* clone() const { return new IdentityRotation(); }
+    IdentityRotation* createInverse() const { return new IdentityRotation(); }
+
+    void accept(INodeVisitor* visitor) const { visitor->visit(this); }
+
+    Transform3D getTransform3D() const;
+
+    bool isIdentity() const { return true; }
+};
 
 class BA_CORE_API_ RotationX : public IRotation
 {

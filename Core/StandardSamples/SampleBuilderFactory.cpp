@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -20,8 +19,10 @@
 #include "CustomMorphologyBuilder.h"
 #include "CylindersAndPrismsBuilder.h"
 #include "CylindersBuilder.h"
+#include "HomogeneousMultilayerBuilder.h"
 #include "LatticeBuilder.h"
 #include "LayersWithAbsorptionBuilder.h"
+#include "LayersWithAbsorptionBySLDBuilder.h"
 #include "MagneticParticlesBuilder.h"
 #include "MagneticLayersBuilder.h"
 #include "MesoCrystalBuilder.h"
@@ -31,6 +32,7 @@
 #include "ParticleCompositionBuilder.h"
 #include "ParticleDistributionsBuilder.h"
 #include "ParticleInTheAirBuilder.h"
+#include "PlainMultiLayerBySLDBuilder.h"
 #include "RealParameter.h"
 #include "RipplesBuilder.h"
 #include "RotatedPyramidsBuilder.h"
@@ -39,6 +41,7 @@
 #include "TwoDimLatticeBuilder.h"
 #include "TwoLayerRoughnessBuilder.h"
 #include "SlicedParticleBuilder.h"
+#include "ResonatorBuilder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -181,6 +184,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Rotated magnetic particle in magnetic substrate");
 
     registerItem(
+         "MagneticSpheresBuilder",
+         create_new<MagneticSpheresBuilder>,
+         "Spheres with magnetization inside substrate");
+
+    registerItem(
         "MultiLayerWithRoughnessBuilder",
         create_new<MultiLayerWithRoughnessBuilder>,
         "Layer with correlated roughness");
@@ -256,6 +264,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "3 layer system with absorption");
 
     registerItem(
+         "LayersWithAbsorptionBySLDBuilder",
+         create_new<LayersWithAbsorptionBySLDBuilder>,
+         "3 SLD-layer system with absorption");
+
+    registerItem(
         "BoxesSquareLatticeBuilder",
         create_new<BoxesSquareLatticeBuilder>,
         "Boxes in a square lattice");
@@ -284,6 +297,21 @@ SampleBuilderFactory::SampleBuilderFactory()
         "ConesWithLimitsDistributionBuilder",
         create_new<ConesWithLimitsDistributionBuilder>,
         "Cones with the distribution applied to the angle and RealLimits defined.");
+
+    registerItem(
+        "HomogeneousMultilayerBuilder",
+        create_new<HomogeneousMultilayerBuilder>,
+        "Alternating homogeneous layers of Ti and Ni on silicone substrate.");
+
+    registerItem("PlainMultiLayerBySLDBuilder",
+                 create_new<PlainMultiLayerBySLDBuilder>,
+                 "Alternating homogeneous layers of Ti and Ni on silicone substrate "
+                 "(wavelength-independent).");
+
+    registerItem(
+        "ResonatorBuilder",
+        create_new<ResonatorBuilder>,
+        "Multilayer with bi-layer sequence for OffSpec testing.");
 
 }
 

@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -57,6 +56,7 @@ double DecouplingApproximationStrategy::polarizedCalculation(
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
     auto precomputed_ff = precomputePolarized(sim_element, m_formfactor_wrappers);
+    const auto& polarization_handler = sim_element.polarizationHandler();
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         Eigen::Matrix2cd ff = precomputed_ff[i];
         if (!ff.allFinite())
@@ -65,11 +65,11 @@ double DecouplingApproximationStrategy::polarizedCalculation(
                 "Error! Form factor contains NaN or infinite");
         double fraction = m_formfactor_wrappers[i]->relativeAbundance();
         mean_amplitude += fraction * ff;
-        mean_intensity += fraction * (ff * sim_element.getPolarization() * ff.adjoint());
+        mean_intensity += fraction * (ff * polarization_handler.getPolarization() * ff.adjoint());
     }
-    Eigen::Matrix2cd amplitude_matrix = sim_element.getAnalyzerOperator() * mean_amplitude
-            * sim_element.getPolarization() * mean_amplitude.adjoint();
-    Eigen::Matrix2cd intensity_matrix = sim_element.getAnalyzerOperator() * mean_intensity;
+    Eigen::Matrix2cd amplitude_matrix = polarization_handler.getAnalyzerOperator() * mean_amplitude
+            * polarization_handler.getPolarization() * mean_amplitude.adjoint();
+    Eigen::Matrix2cd intensity_matrix = polarization_handler.getAnalyzerOperator() * mean_intensity;
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());
     double itf_function = mP_iff->evaluate(sim_element.getMeanQ());

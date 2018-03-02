@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -40,6 +39,7 @@ private:
 
 class BA_CORE_API_ Benchmark
 {
+    typedef OrderedMap<std::string, Duration*> BenchmarkMap;
 public:
     Benchmark() {}
     ~Benchmark();
@@ -48,11 +48,12 @@ public:
     void stop(const std::string& name);
     double runTime(const std::string& name);
     std::string report() const;
+    const BenchmarkMap& retrieveData() const {return m_data;}
 
     void test_method(const std::string& name, std::function<void(void)> f, int ntries);
 
 private:
-    OrderedMap<std::string, Duration* > m_data;
+    BenchmarkMap m_data;
 };
 
 #endif // COREIOTEST_H

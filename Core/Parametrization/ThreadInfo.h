@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -24,15 +23,13 @@
 struct BA_CORE_API_ ThreadInfo
 {
     ThreadInfo();
-    int n_threads;
-    int current_thread;
-    int n_batches;
-    int current_batch;
+    unsigned n_threads;
+    unsigned n_batches;
+    unsigned current_batch;
 };
 
 inline ThreadInfo::ThreadInfo()
     : n_threads(0)
-    , current_thread(0)
     , n_batches(1)
     , current_batch(0)
 {

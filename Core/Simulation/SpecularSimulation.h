@@ -7,107 +7,120 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #ifndef SPECULARSIMULATION_H
 #define SPECULARSIMULATION_H
 
-#include "ICloneable.h"
+#include "Simulation.h"
 #include "ILayerRTCoefficients.h"
-#include "IParameterized.h"
 #include "OutputData.h"
-#include <memory>
+#include "SpecularSimulationElement.h"
 
 class IAxis;
+class IComputation;
+class IFootprintFactor;
 class ISample;
 class IMultiLayerBuilder;
 class MultiLayer;
+class Histogram1D;
 
 //! Main class to run a specular simulation.
 //! @ingroup simulation
 
-class BA_CORE_API_ SpecularSimulation : public ICloneable, public IParameterized
+class BA_CORE_API_ SpecularSimulation : public Simulation
 {
 public:
-    typedef std::shared_ptr<const ILayerRTCoefficients> LayerRTCoefficients_t;
-    typedef std::vector<LayerRTCoefficients_t> MultiLayerRTCoefficients_t;
-
     SpecularSimulation();
-    SpecularSimulation(const ISample& sample);
+    SpecularSimulation(const MultiLayer& sample);
     SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
     virtual ~SpecularSimulation();
 
-    SpecularSimulation* clone() const;
+    SpecularSimulation* clone() const override;
 
-    //! Run a simulation with the current parameter settings
-    void runSimulation();
+    //! Put into a clean state for running a simulation.
+    void prepareSimulation() override;
 
-    //! Sets the sample to be tested
-    void setSample(const ISample& sample);
+    void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
 
-    //! Returns the sample
-    ISample* sample() const { return mP_sample.get(); }
+    size_t numberOfSimulationElements() const override;
 
-    //! Sets the sample builder
-    void setSampleBuilder(std::shared_ptr<IMultiLayerBuilder> sample_builder);
+    //! Returns the results of the simulation in a format that supports unit conversion and export
+    //! to numpy arrays
+    SimulationResult result() const override;
 
-    //! return sample builder
-    std::shared_ptr<IMultiLayerBuilder> sampleBuilder() const { return mP_sample_builder; }
+    //! Sets beam parameters with alpha_i of the beam defined in the range.
+    void setBeamParameters(double lambda, const IAxis& alpha_axis,
+                           const IFootprintFactor* beam_shape = nullptr);
+    void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max,
+                           const IFootprintFactor* beam_shape = nullptr);
 
-    //! Sets beam parameters with alpha_i of the beam defined in the range
-    void setBeamParameters(double lambda, const IAxis& alpha_axis);
-    void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max);
-
-    //! returns alpha_i axis
+    //! Returns a pointer to incident angle axis.
     const IAxis* getAlphaAxis() const;
 
-    //! returns vector of reflection coefficients for all alpha_i angles for given layer index
-    std::vector<complex_t> getScalarR(size_t i_layer) const;
+private:
+    typedef complex_t (ILayerRTCoefficients::*DataGetter)() const;
 
-    //! returns vector of transmission coefficients for all alpha_i angles for given layer index
-    std::vector<complex_t> getScalarT(size_t i_layer) const;
-
-    //! returns vector of Kz coefficients for all alpha_i angles for given layer index
-    std::vector<complex_t> getScalarKz(size_t i_layer) const;
-
-    LayerRTCoefficients_t getLayerRTCoefficients(size_t i_alpha, size_t i_layer) const;
-
-    //! Put into a clean state for running a simulation
-    void prepareSimulation();
-
-protected:
     SpecularSimulation(const SpecularSimulation& other);
 
-    //! Registers some class members for later access via parameter pool
-    void init_parameters() {}
+    //! Initializes the vector of Simulation elements
+    void initSimulationElementVector() override;
 
-    //! Update the sample by calling the sample builder, if present
-    void updateSample();
+    //! Generate simulation elements for given beam
+    std::vector<SpecularSimulationElement> generateSimulationElements(const Beam& beam);
 
-    //! calculates RT coefficients for multilayer without magnetic materials
-    void collectRTCoefficientsScalar(const MultiLayer* multilayer);
+    std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
 
-    //! calculates RT coefficients for multilayer with magnetic materials
-    void collectRTCoefficientsMatrix(const MultiLayer* multilayer);
+    //! Generate a single threaded computation for a given range of simulation elements
+    //! @param start Index of the first element to include into computation
+    //! @param n_elements Number of elements to process
+    std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
+                                                                    size_t n_elements) override;
 
-    //! check if simulation was run already and has valid coefficients
-    void checkCoefficients(size_t i_layer) const;
+    //! Checks if simulation data is ready for retrieval.
+    void validityCheck(size_t i_layer) const;
 
-    //! update data axes
-    void updateCoefficientDataAxes();
+    void checkCache() const;
 
-    std::unique_ptr<ISample> mP_sample;
-    std::shared_ptr<IMultiLayerBuilder> mP_sample_builder;
-    std::unique_ptr<IAxis> mP_alpha_i_axis;
-    double m_lambda = 0.0;  //!< wavelength in vacuum
+    //! Checks the distribution validity for simulation.
+    void validateParametrization(const ParameterDistribution& par_distr) const override;
 
-#ifndef SWIG
-    OutputData<MultiLayerRTCoefficients_t> m_data;
-#endif
+    //! Initializes simulation
+    void initialize();
+
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle
+    //! for single simulation element specified by _index_.
+    void normalizeIntensity(size_t index, double beam_intensity) override;
+
+    void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
+
+    void addDataToCache(double weight) override;
+
+    void moveDataFromCache() override;
+
+    double incidentAngle(size_t index) const;
+
+    //! Creates intensity data from simulation elements
+    std::unique_ptr<OutputData<double>> createIntensityData() const;
+
+    //! Returns vector of reflection coefficients (\f$R\f$) for all alpha_i angles for given layer
+    //! index. Deprecated and will be removed.
+    std::vector<complex_t> getScalarR(size_t i_layer) const;
+
+    //! Returns vector of transmission coefficients for all alpha_i angles for given layer index.
+    //! Deprecated and will be removed.
+    std::vector<complex_t> getScalarT(size_t i_layer) const;
+
+    //! Returns vector of Kz coefficients for all alpha_i angles for given layer index.
+    //! Deprecated and will be removed.
+    std::vector<complex_t> getScalarKz(size_t i_layer) const;
+
+    std::unique_ptr<IAxis> m_coordinate_axis;
+    std::vector<SpecularSimulationElement> m_sim_elements;
+    std::vector<double> m_cache;
 };
 
 #endif // SPECULARSIMULATION_H

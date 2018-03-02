@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,15 +16,17 @@
 #define JOBITEM_H
 
 #include "SessionItem.h"
-class IntensityDataItem;
-class GISASSimulation;
-class MultiLayerItem;
-class InstrumentItem;
-class SimulationOptionsItem;
-class FitSuiteItem;
-class ParameterContainerItem;
+
+class DataItem;
 class FitParameterContainerItem;
+class FitSuiteItem;
+class InstrumentItem;
+class IntensityDataItem;
+class MultiLayerItem;
+class ParameterContainerItem;
 class RealDataItem;
+class Simulation;
+class SimulationOptionsItem;
 
 class BA_CORE_API_ JobItem : public SessionItem
 {
@@ -42,6 +42,7 @@ public:
     static const QString P_DURATION;
     static const QString P_COMMENTS;
     static const QString P_PROGRESS;
+    static const QString P_PRESENTATION_TYPE;
     static const QString T_SAMPLE;
     static const QString T_INSTRUMENT;
     static const QString T_OUTPUT;
@@ -49,16 +50,17 @@ public:
     static const QString T_PARAMETER_TREE;
     static const QString T_SIMULATION_OPTIONS;
     static const QString T_FIT_SUITE;
-    explicit JobItem();
-    virtual ~JobItem();
+
+    JobItem();
 
     QString getIdentifier() const;
-    void setIdentifier(const QString &identifier);
+    void setIdentifier(const QString& identifier);
 
-    IntensityDataItem *intensityDataItem();
+    IntensityDataItem* intensityDataItem();
+    DataItem* dataItem();
 
     QString getStatus() const;
-    void setStatus(const QString &status);
+    void setStatus(const QString& status);
 
     bool isIdle() const;
     bool isRunning() const;
@@ -67,43 +69,42 @@ public:
     bool isFailed() const;
     bool isValidForFitting();
 
-    void setBeginTime(const QString &begin_time);
+    void setBeginTime(const QString& begin_time);
 
-    void setEndTime(const QString &end_time);
+    void setEndTime(const QString& end_time);
 
     void setDuration(int duration);
 
     QString getComments() const;
-    void setComments(const QString &comments);
+    void setComments(const QString& comments);
 
     int getProgress() const;
     void setProgress(int progress);
 
-    int getNumberOfThreads() const;
-
-    void setRunPolicy(const QString &run_policy);
-
     bool runImmediately() const;
     bool runInBackground() const;
 
-    MultiLayerItem *multiLayerItem();
+    MultiLayerItem* multiLayerItem();
 
-    InstrumentItem *instrumentItem();
+    InstrumentItem* instrumentItem();
 
-    SimulationOptionsItem *getSimulationOptionsItem();
+    SimulationOptionsItem* simulationOptionsItem();
 
-    void setResults(const GISASSimulation *simulation);
+    void setResults(const Simulation* simulation);
 
-    FitSuiteItem *fitSuiteItem();
-    ParameterContainerItem *parameterContainerItem();
-    const ParameterContainerItem *parameterContainerItem() const;
+    FitSuiteItem* fitSuiteItem();
+    ParameterContainerItem* parameterContainerItem();
+    const ParameterContainerItem* parameterContainerItem() const;
 
-    FitParameterContainerItem *fitParameterContainerItem();
-    RealDataItem *realDataItem();
+    FitParameterContainerItem* fitParameterContainerItem();
+    RealDataItem* realDataItem();
+
+    QString presentationType();
+    QString defaultPresentationType();
 
 private:
     void updateIntensityDataFileName();
-    const SimulationOptionsItem *getSimulationOptionsItem() const;
+    const SimulationOptionsItem* simulationOptionsItem() const;
 };
 
 #endif // JOBITEM_H

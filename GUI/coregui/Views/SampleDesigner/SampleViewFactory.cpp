@@ -7,15 +7,12 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SampleViewFactory.h"
-#include "GUIHelpers.h"
 #include "InterferenceFunctionViews.h"
 #include "LayerView.h"
 #include "MultiLayerView.h"
@@ -33,7 +30,7 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::LayerType
         << Constants::ParticleLayoutType
         << Constants::ParticleType
-        << Constants::TransformationType
+        << Constants::RotationType
         << Constants::ParticleCoreShellType
         << Constants::ParticleCompositionType
         << Constants::MesoCrystalType
@@ -68,7 +65,7 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     else if (name==Constants::ParticleType) {
         return new ParticleView();
     }
-    else if (name==Constants::TransformationType) {
+    else if (name==Constants::RotationType) {
         return new TransformationView();
     }
     else if (name==Constants::ParticleCoreShellType) {
@@ -95,9 +92,5 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     else if (name==Constants::InterferenceFunction2DLatticeType) {
         return new InterferenceFunction2DLatticeView();
     }
-    else {
-//        throw GUIHelpers::Error("SampleViewFactory::createSampleView() -> Error! Can't create a view for " + name);
-    }
-
     return 0;
 }

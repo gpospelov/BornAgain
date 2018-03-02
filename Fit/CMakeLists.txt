@@ -108,9 +108,9 @@ set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- dependencies ---------
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${Boost_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
     ${RootMinimizers_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
     )
@@ -173,6 +173,5 @@ if(WIN32)
             )
 
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
-        install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_bin} COMPONENT Libraries)
     endif()
 endif()

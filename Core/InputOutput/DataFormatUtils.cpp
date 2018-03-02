@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -208,9 +207,13 @@ std::vector<double> DataFormatUtils::parse_doubles(const std::string& str)
     std::istringstream iss(str);
     DataFormatUtils::readLineOfDoubles(result, iss);
     if( result.empty() ) {
-        std::cout << "StringUtils::parse_doubles -> "
-            "Warning! No parsed values in 1d vector of doubles." << std::endl;
-        std::cout << "Line '" << str << "'" << std::endl;
+        std::string out = str;
+        const size_t max_string_length(10);
+        if(out.size() > max_string_length)
+            out.resize(max_string_length, ' ');
+        out += " ...";
+        throw std::runtime_error("DataFormatUtils::parse_doubles -> Error! Can't parse double "
+                                 "values from a string '"+out+"'");
     }
     return result;
 }

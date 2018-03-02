@@ -1,17 +1,18 @@
+#include "google_test.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorFullSphere.h"
-#include "HomogeneousMaterial.h"
+#include "MaterialFactoryFuncs.h"
 #include "MathConstants.h"
 #include "Particle.h"
 #include "ParticleComposition.h"
-#include "BornAgainNamespace.h"
-#include <iostream>
 
 class ParticleCompositionTest : public ::testing::Test
 {
 protected:
-    ParticleCompositionTest(){}
-    virtual ~ParticleCompositionTest(){}
+    ~ParticleCompositionTest();
 };
+
+ParticleCompositionTest::~ParticleCompositionTest() = default;
 
 TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor)
 {
@@ -27,7 +28,7 @@ TEST_F(ParticleCompositionTest, ParticleCompositionClone)
     ParticleComposition composition;
     Particle particle;
     kvector_t position = kvector_t(1.0, 1.0, 1.0);
-    HomogeneousMaterial material("Air", 0.0, 0.0);
+    Material material = HomogeneousMaterial("Air", 0.0, 0.0);
     composition.addParticle(particle, position);
 
     std::unique_ptr<ParticleComposition> clone(composition.clone());
@@ -44,7 +45,7 @@ TEST_F(ParticleCompositionTest, ParticleCompositionClone)
 
 TEST_F(ParticleCompositionTest, getChildren)
 {
-    HomogeneousMaterial material("Air", 0.0, 0.0);
+    Material material = HomogeneousMaterial("Air", 0.0, 0.0);
 
     ParticleComposition composition;
     composition.addParticle(Particle(material, FormFactorFullSphere(1.0)));

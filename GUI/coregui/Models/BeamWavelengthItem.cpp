@@ -15,7 +15,7 @@
 #include "BeamWavelengthItem.h"
 
 BeamWavelengthItem::BeamWavelengthItem()
-    : BeamDistributionItem(Constants::BeamWavelengthType)
+    : BeamDistributionItem(Constants::BeamWavelengthType, m_show_mean)
 {
     register_distribution_group();
 
@@ -24,7 +24,7 @@ BeamWavelengthItem::BeamWavelengthItem()
     valueItem->setDecimals(4);
     valueItem->setValue(0.1);
 
-    initDistributionItem();
+    initDistributionItem(m_show_mean);
 }
 
 //! Returns wavelength. In the case of distribution applied, returns its mean.

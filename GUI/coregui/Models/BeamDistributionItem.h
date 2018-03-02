@@ -26,7 +26,7 @@ class BA_CORE_API_ BeamDistributionItem : public SessionItem
 {
 public:
     static const QString P_DISTRIBUTION;
-    explicit BeamDistributionItem(const QString& name);
+    explicit BeamDistributionItem(const QString& name, bool show_mean);
 
     std::unique_ptr<ParameterDistribution>
     getParameterDistributionForName(const std::string& parameter_name) const;
@@ -36,7 +36,7 @@ public:
 protected:
     virtual double scaleFactor() const;
     void register_distribution_group();
-    void initDistributionItem();
+    void initDistributionItem(bool show_mean);
 
     virtual std::unique_ptr<IDistribution1D> createDistribution1D() const;
 };

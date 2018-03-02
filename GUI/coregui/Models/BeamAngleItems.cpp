@@ -16,7 +16,7 @@
 #include "Units.h"
 
 BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
-    : BeamDistributionItem(Constants::BeamAzimuthalAngleType)
+    : BeamDistributionItem(Constants::BeamAzimuthalAngleType, m_show_mean)
 {
     register_distribution_group();
 
@@ -25,7 +25,7 @@ BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
     valueItem->setDecimals(3);
     valueItem->setValue(0.0);
 
-    initDistributionItem();
+    initDistributionItem(m_show_mean);
 }
 
 //! Returns beam azimuthal angle. In the case of distribution applied, returns its mean.
@@ -43,7 +43,7 @@ double BeamAzimuthalAngleItem::scaleFactor() const
 // ------------------------------------------------------------------------------------------------
 
 BeamInclinationAngleItem::BeamInclinationAngleItem()
-    : BeamDistributionItem(Constants::BeamInclinationAngleType)
+    : BeamDistributionItem(Constants::BeamInclinationAngleType, m_show_mean)
 {
     register_distribution_group();
 
@@ -52,7 +52,7 @@ BeamInclinationAngleItem::BeamInclinationAngleItem()
     valueItem->setDecimals(3);
     valueItem->setValue(0.2);
 
-    initDistributionItem();
+    initDistributionItem(m_show_mean);
 }
 
 //! Returns beam inclination angle. In the case of distribution applied, returns its mean.

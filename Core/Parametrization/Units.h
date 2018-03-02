@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -29,6 +28,9 @@ static const double meter       = 1.e+9*nanometer;
 
 // Symbols for length
 static const double nm  = nanometer;
+
+// Area (cross-section)
+static const double barn = nanometer * nanometer * 1e-10;
 
 // Angle
 static const double radian      = 1.;

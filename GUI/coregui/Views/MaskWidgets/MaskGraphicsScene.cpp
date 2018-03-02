@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -105,22 +103,32 @@ void MaskGraphicsScene::setMaskContext(SessionModel *model, const QModelIndex &m
     }
 }
 
+void MaskGraphicsScene::resetContext()
+{
+    m_intensityItem = nullptr;
+    if (m_maskModel) {
+        disconnect(m_maskModel, SIGNAL(modelAboutToBeReset()),
+                   this, SLOT(resetScene()));
+        disconnect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int, int)),
+                   this, SLOT(onRowsInserted(QModelIndex, int, int)));
+        disconnect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)),
+                   this, SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
+        disconnect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int, int)),
+                   this, SLOT(onRowsRemoved(QModelIndex, int, int)));
+        disconnect(m_maskModel, SIGNAL(modelReset()),
+                   this, SLOT(updateScene()));
+    }
+    m_maskModel = nullptr;
+    m_maskContainerIndex = QModelIndex();
+    resetScene();
+}
+
 void MaskGraphicsScene::setSelectionModel(QItemSelectionModel *model)
 {
     Q_ASSERT(model);
-
-    if (model != m_selectionModel) {
-
-        if (m_selectionModel)
-            disconnect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-                       this, SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
-
-        m_selectionModel = model;
-
-        if (m_selectionModel)
-            connect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-                    this, SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
-    }
+    m_selectionModel = model;
+    connect(m_selectionModel, &QItemSelectionModel::selectionChanged,
+            this, &MaskGraphicsScene::onSessionSelectionChanged, Qt::UniqueConnection);
 }
 
 ColorMap *MaskGraphicsScene::colorMap()
@@ -139,6 +147,8 @@ void MaskGraphicsScene::onActivityModeChanged(MaskEditorFlags::Activity value)
 
     m_context.setActivityType(value);
     setInPanAndZoomMode(m_context.isInZoomMode());
+
+    updateCursors();
 }
 
 void MaskGraphicsScene::onMaskValueChanged(MaskEditorFlags::MaskValue value)
@@ -178,10 +188,17 @@ void MaskGraphicsScene::cancelCurrentDrawing()
 
 void MaskGraphicsScene::resetScene()
 {
+    Q_ASSERT(m_selectionModel);
+    m_block_selection = true;
+    m_selectionModel->clearSelection();
+    clearSelection();
+
     clear();
     m_ItemToView.clear();
     m_proxy = 0;
     m_adaptor.reset(new ColorMapSceneAdaptor);
+
+    m_block_selection = false;
 }
 
 //! Main method to update scene on various changes in the model.
@@ -545,6 +562,19 @@ void MaskGraphicsScene::setInPanAndZoomMode(bool value)
         view->setAcceptedMouseButtons(acceptedButton);
 
     m_proxy->setInZoomMode(value);
+}
+
+//! Change cursor to stress that hovered item is movable (when not in PanZoom mode)
+
+void MaskGraphicsScene::updateCursors()
+{
+    for (auto it = m_ItemToView.begin(); it != m_ItemToView.end(); ++it) {
+        if (it.key()->modelType() == Constants::VerticalLineMaskType) {
+            it.value()->setCursor(m_context.isInZoomMode() ? Qt::ArrowCursor : Qt::SizeHorCursor);
+        } else if(it.key()->modelType() == Constants::HorizontalLineMaskType) {
+            it.value()->setCursor(m_context.isInZoomMode() ? Qt::ArrowCursor : Qt::SizeVerCursor);
+        }
+    }
 }
 
 void MaskGraphicsScene::makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event)

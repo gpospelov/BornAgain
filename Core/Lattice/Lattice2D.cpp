@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -22,9 +21,7 @@
 
 Lattice2D::Lattice2D(double rotation_angle)
     : m_xi(rotation_angle)
-{
-
-}
+{}
 
 Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const
 {
@@ -47,6 +44,7 @@ void Lattice2D::onChange()
 }
 
 Lattice2D::Lattice2D(const Lattice2D& other)
+    : ICloneable()
 {
     m_xi = other.m_xi;
     setName(other.getName());

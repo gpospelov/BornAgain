@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -30,19 +28,16 @@
 #include "mainwindow_constants.h"
 #include <QAction>
 #include <QMenu>
-#include <QSignalMapper>
 #include <QTreeView>
 #include <QVBoxLayout>
 
 FitParameterWidget::FitParameterWidget(QWidget *parent)
-    : QWidget(parent)
+    : SessionItemWidget(parent)
     , m_treeView(new QTreeView)
-    , m_jobItem(0)
     , m_tuningWidget(0)
     , m_createFitParAction(0)
     , m_removeFromFitParAction(0)
     , m_removeFitParAction(0)
-    , m_signalMapper(0)
     , m_fitParameterModel(0)
     , m_delegate(new SessionModelDelegate(this))
     , m_keyboardFilter(new DeleteEventFilter(this))
@@ -70,20 +65,6 @@ FitParameterWidget::FitParameterWidget(QWidget *parent)
 
     m_infoLabel->setArea(m_treeView);
     m_infoLabel->setText(QStringLiteral("Drop parameter(s) to fit here"));
-}
-
-void FitParameterWidget::setItem(JobItem *jobItem)
-{
-    if(jobItem == m_jobItem) {
-        return;
-    }
-
-    else {
-        m_jobItem = jobItem;
-        if (!m_jobItem) return;
-
-        init_fit_model();
-    }
 }
 
 //! Sets ParameterTuningWidget to be able to provide it with context menu and steer
@@ -154,7 +135,7 @@ void FitParameterWidget::onFitParametersSelectionChanged(const QItemSelection &s
         SessionItem *item = m_fitParameterModel->itemForIndex(index);
         if(item->parent()->modelType() == Constants::FitParameterLinkType) {
             QString link = item->parent()->getItemValue(FitParameterLinkItem::P_LINK).toString();
-            m_tuningWidget->makeSelected(FitParameterHelper::getParameterItem(m_jobItem->fitParameterContainerItem(), link));
+            m_tuningWidget->makeSelected(FitParameterHelper::getParameterItem(jobItem()->fitParameterContainerItem(), link));
         }
 
     }
@@ -166,8 +147,8 @@ void FitParameterWidget::onFitParametersSelectionChanged(const QItemSelection &s
 void FitParameterWidget::onCreateFitParAction()
 {
     foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
-        if(!FitParameterHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
-            FitParameterHelper::createFitParameter(m_jobItem->fitParameterContainerItem(), item);
+        if(!FitParameterHelper::getFitParameterItem(jobItem()->fitParameterContainerItem(), item)) {
+            FitParameterHelper::createFitParameter(jobItem()->fitParameterContainerItem(), item);
         }
     }
 }
@@ -178,8 +159,8 @@ void FitParameterWidget::onCreateFitParAction()
 void FitParameterWidget::onRemoveFromFitParAction()
 {
     foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
-        if(FitParameterHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item)) {
-            FitParameterHelper::removeFromFitParameters(m_jobItem->fitParameterContainerItem(), item);
+        if(FitParameterHelper::getFitParameterItem(jobItem()->fitParameterContainerItem(), item)) {
+            FitParameterHelper::removeFromFitParameters(jobItem()->fitParameterContainerItem(), item);
         }
     }
 }
@@ -188,7 +169,7 @@ void FitParameterWidget::onRemoveFromFitParAction()
 
 void FitParameterWidget::onRemoveFitParAction()
 {
-    FitParameterContainerItem *container = m_jobItem->fitParameterContainerItem();
+    FitParameterContainerItem *container = jobItem()->fitParameterContainerItem();
 
     // retrieve both, selected FitParameterItem and FitParameterItemLink
     QVector<FitParameterLinkItem *> linksToRemove = selectedFitParameterLinks();
@@ -212,9 +193,9 @@ void FitParameterWidget::onRemoveFitParAction()
 void FitParameterWidget::onAddToFitParAction(int ipar)
 {
     QStringList fitParNames
-        = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
+        = FitParameterHelper::getFitParameterNames(jobItem()->fitParameterContainerItem());
     foreach (ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
-        FitParameterHelper::addToFitParameter(m_jobItem->fitParameterContainerItem(), item,
+        FitParameterHelper::addToFitParameter(jobItem()->fitParameterContainerItem(), item,
                                           fitParNames.at(ipar));
     }
 }
@@ -233,6 +214,11 @@ void FitParameterWidget::contextMenuEvent(QContextMenuEvent *event)
     Q_UNUSED(event);
 }
 
+void FitParameterWidget::subscribeToItem()
+{
+    init_fit_model();
+}
+
 void FitParameterWidget::init_actions()
 {
     m_createFitParAction = new QAction(QStringLiteral("Create fit parameter"), this);
@@ -244,9 +230,6 @@ void FitParameterWidget::init_actions()
     m_removeFitParAction = new QAction(QStringLiteral("Remove fit parameter"), this);
     connect(m_removeFitParAction, SIGNAL(triggered()), this, SLOT(onRemoveFitParAction()));
 
-    m_signalMapper = new QSignalMapper(this);
-    connect(m_signalMapper, SIGNAL(mapped(int)), this, SLOT(onAddToFitParAction(int)));
-
     connect(m_keyboardFilter, SIGNAL(removeItem()), this, SLOT(onRemoveFitParAction()));
 }
 
@@ -254,7 +237,7 @@ void FitParameterWidget::init_actions()
 
 void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
 {
-    if(m_jobItem->getStatus() == Constants::STATUS_FITTING) {
+    if(jobItem()->getStatus() == Constants::STATUS_FITTING) {
         setActionsEnabled(false);
         return;
     }
@@ -264,13 +247,12 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
 
     menu.addAction(m_createFitParAction);
     QMenu *addToFitParMenu = menu.addMenu("Add to existing fit parameter");
-    addToFitParMenu->setDisabled(true);
-    Q_UNUSED(addToFitParMenu);
+    addToFitParMenu->setEnabled(true);
 
     const bool allow_one_fit_parameter_to_have_more_than_one_link = true;
     if (allow_one_fit_parameter_to_have_more_than_one_link) {
         QStringList fitParNames
-            = FitParameterHelper::getFitParameterNames(m_jobItem->fitParameterContainerItem());
+            = FitParameterHelper::getFitParameterNames(jobItem()->fitParameterContainerItem());
         if (fitParNames.isEmpty() || canCreateFitParameter() == false) {
             addToFitParMenu->setEnabled(false);
         }
@@ -278,8 +260,7 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
         for (int i = 0; i < fitParNames.count(); ++i) {
             QAction* action
                 = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
-            connect(action, SIGNAL(triggered()), m_signalMapper, SLOT(map()));
-            m_signalMapper->setMapping(action, i);
+            connect(action, &QAction::triggered, [=] { onAddToFitParAction(i); });
             addToFitParMenu->addAction(action);
         }
     }
@@ -292,7 +273,7 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
 
 void FitParameterWidget::initFitParameterTreeContextMenu(QMenu &menu)
 {
-    if(m_jobItem->getStatus() == Constants::STATUS_FITTING) {
+    if(jobItem()->getStatus() == Constants::STATUS_FITTING) {
         setActionsEnabled(false);
         return;
     }
@@ -306,8 +287,8 @@ void FitParameterWidget::init_fit_model()
     m_treeView->setModel(0);
 
     delete m_fitParameterModel;
-    m_fitParameterModel = new FitParameterProxyModel(m_jobItem->fitParameterContainerItem(),
-                                                   m_jobItem->fitParameterContainerItem()->model());
+    m_fitParameterModel = new FitParameterProxyModel(jobItem()->fitParameterContainerItem(),
+                                                   jobItem()->fitParameterContainerItem()->model());
     m_treeView->setModel(m_fitParameterModel);
 
     connect(m_fitParameterModel, SIGNAL(dataChanged(QModelIndex,QModelIndex,QVector<int>)),
@@ -326,7 +307,7 @@ bool FitParameterWidget::canCreateFitParameter()
     QVector<ParameterItem *> selected = m_tuningWidget->getSelectedParameters();
     foreach(ParameterItem *item, selected) {
         if(FitParameterHelper::getFitParameterItem(
-                    m_jobItem->fitParameterContainerItem(), item) == nullptr)
+                    jobItem()->fitParameterContainerItem(), item) == nullptr)
             return true;
     }
     return false;
@@ -339,7 +320,7 @@ bool FitParameterWidget::canRemoveFromFitParameters()
 {
     QVector<ParameterItem *> selected = m_tuningWidget->getSelectedParameters();
     foreach(ParameterItem *item, selected) {
-        if(FitParameterHelper::getFitParameterItem(m_jobItem->fitParameterContainerItem(), item))
+        if(FitParameterHelper::getFitParameterItem(jobItem()->fitParameterContainerItem(), item))
             return true;
     }
     return false;
@@ -377,7 +358,7 @@ QVector<FitParameterItem *> FitParameterWidget::selectedFitParameters()
 QVector<FitParameterItem*> FitParameterWidget::emptyFitParameters()
 {
     QVector<FitParameterItem *> result;
-    for(auto fitParItem : m_jobItem->fitParameterContainerItem()->fitParameterItems())
+    for(auto fitParItem : jobItem()->fitParameterContainerItem()->fitParameterItems())
         if(fitParItem->getItems(FitParameterItem::T_LINK).empty())
             result.push_back(fitParItem);
 
@@ -424,8 +405,10 @@ void FitParameterWidget::spanParameters()
 //! Places overlay label on top of tree view, if there is no fit parameters
 void FitParameterWidget::updateInfoLabel()
 {
-    Q_ASSERT(m_jobItem);
-    bool is_to_show_label = m_jobItem->fitParameterContainerItem()->isEmpty();
+    if (!jobItem())
+        return;
+
+    bool is_to_show_label = jobItem()->fitParameterContainerItem()->isEmpty();
     m_infoLabel->setShown(is_to_show_label);
 }
 
@@ -455,4 +438,9 @@ void FitParameterWidget::connectFitParametersSelection(bool active) {
                 SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
                 this, SLOT(onFitParametersSelectionChanged(QItemSelection)));
     }
+}
+
+JobItem* FitParameterWidget::jobItem()
+{
+    return dynamic_cast<JobItem*>(currentItem());
 }

@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -34,6 +32,7 @@ class DesignerMimeData;
 class SampleViewAligner;
 class NodeEditor;
 class FilterPropertyProxy;
+class MaterialModel;
 
 
 //! Main class which represents SessionModel on graphics scene
@@ -47,6 +46,7 @@ public:
 
     void setSampleModel(SampleModel *sampleModel);
     void setInstrumentModel(InstrumentModel *instrumentModel);
+    void setMaterialModel(MaterialModel* materialModel);
     void setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy);
 
     SampleModel *getSampleModel() { return m_sampleModel; }
@@ -101,6 +101,7 @@ private:
 
     SampleModel *m_sampleModel;
     InstrumentModel *m_instrumentModel;
+    MaterialModel* m_materialModel;
     QItemSelectionModel *m_selectionModel;
     FilterPropertyProxy *m_proxy;
     bool m_block_selection;

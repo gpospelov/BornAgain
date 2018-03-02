@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -219,8 +217,8 @@ void PyImportAssistant::populateModels(const MultiLayer& multilayer, const QStri
         if (multilayer.getName() != BornAgain::MultiLayerType)
             name = QString::fromStdString(multilayer.getName());
 
-        GUIObjectBuilder guiBuilder;
-        guiBuilder.populateSampleModel(m_mainWindow->sampleModel(), multilayer, name);
+        GUIObjectBuilder::populateSampleModel(m_mainWindow->sampleModel(),
+                m_mainWindow->materialModel(), multilayer, name);
 
         QString message("Seems that import was successfull.\n\n"
                         "Check SampleView for new sample and material editor for new materials.");

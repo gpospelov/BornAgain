@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -34,13 +32,15 @@ class BA_CORE_API_ RealDataMaskWidget : public SessionItemWidget
 public:
     RealDataMaskWidget(QWidget* parent = 0);
 
-    void setItem(SessionItem* realDataItem);
-
     QList<QAction*> actionList();
+
+protected:
+    void subscribeToItem();
+    void unsubscribeFromItem();
 
 private:
     IntensityDataItem* intensityDataItem();
-    MaskContainerItem* createMaskContainer(IntensityDataItem* intensityData);
+    MaskContainerItem* maskContainer(IntensityDataItem* intensityData);
 
     MaskEditor* m_maskEditor;
 };

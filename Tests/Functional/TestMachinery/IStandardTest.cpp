@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -17,13 +16,11 @@
 #include "GISASSimulation.h"
 
 IStandardTest::IStandardTest(const std::string& name, const std::string& description,
-                             const GISASSimulation& simulation, double threshold)
+                             const Simulation& simulation, double threshold)
     : IFunctionalTest(name, description)
     , m_reference_simulation(simulation.clone())
     , m_threshold(threshold)
-{
-
-}
+{}
 
 IStandardTest::~IStandardTest() = default;
 

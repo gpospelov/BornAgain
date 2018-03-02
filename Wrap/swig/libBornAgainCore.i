@@ -74,6 +74,7 @@
 #include "Bin.h"
 #include "ChiSquaredModule.h"
 #include "Complex.h"
+#include "ConstantBackground.h"
 #include "ConstKBinAxis.h"
 #include "Crystal.h"
 #include "CustomBinAxis.h"
@@ -93,6 +94,8 @@
 #include "FitSuiteObjects.h"
 #include "FitParameterSet.h"
 #include "FixedBinAxis.h"
+#include "FootprintFactorGaussian.h"
+#include "FootprintFactorSquare.h"
 #include "FormFactorAnisoPyramid.h"
 #include "FormFactorBox.h"
 #include "FormFactorCone.h"
@@ -134,8 +137,8 @@
 #include "GISASSimulation.h"
 #include "Histogram1D.h"
 #include "Histogram2D.h"
-#include "HomogeneousMaterial.h"
 #include "IAbstractParticle.h"
+#include "IBackground.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "IDetector2D.h"
@@ -149,7 +152,6 @@
 #include "ILayout.h"
 #include "INamed.h"
 #include "INode.h"
-#include "INoncopyable.h"
 #include "IObserver.h"
 #include "IParameterized.h"
 #include "IParticle.h"
@@ -181,6 +183,7 @@
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "Line.h"
+#include "MaterialFactoryFuncs.h"
 #include "MathFunctions.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
@@ -194,6 +197,7 @@
 #include "ParticleCoreShell.h"
 #include "ParticleDistribution.h"
 #include "ParticleLayout.h"
+#include "PoissonNoiseBackground.h"
 #include "Polygon.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
@@ -203,8 +207,10 @@
 #include "Rotations.h"
 #include "SampleBuilderFactory.h"
 #include "Simulation.h"
+#include "Simulation2D.h"
 #include "SimulationFactory.h"
 #include "SimulationOptions.h"
+#include "SimulationResult.h"
 #include "SlicedParticle.h"
 #include "SpecularSimulation.h"
 #include "SphericalDetector.h"
@@ -217,17 +223,13 @@
 #include "IIntensityFunction.h"
 #include "IIntensityNormalizer.h"
 #include "ISquaredFunction.h"
-#include "MathFunctions.h"
 #include "AdjustMinimizerStrategy.h"
 %}
 
 // ownership
 
-%newobject GISASSimulation::getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
-%newobject GISASSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
-
-%newobject OffSpecSimulation::getIntensityData(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
-%newobject OffSpecSimulation::getDetectorIntensity(IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const;
+%newobject SimulationResult::data(AxesUnits units_type = AxesUnits::DEFAULT) const;
+%newobject SimulationResult::histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
 %newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
 %newobject IntensityDataIOFactory::readIntensityData(const std::string& file_name);
@@ -247,7 +249,6 @@
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"
-%include "INoncopyable.h"
 %include "ICloneable.h"
 %include "INamed.h"
 %include "IParameterized.h"
@@ -256,12 +257,16 @@
 // need to tell SWIG explicitly to instantiate these templates with given types
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;
 %template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
+%template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
 // SWIG does not automatically instantiate templates, so we declare these by hand
 %template(kvector_t) BasicVector3D<double>;
 %template(vector_kvector_t) std::vector<BasicVector3D<double>>;
 %template(cvector_t) BasicVector3D<std::complex<double>>;
 %template(vector_cvector_t) std::vector<BasicVector3D<std::complex<double>>>;
+
+// SWIG workaround for using axes units the same way as they are used in cpp files
+%rename(AxesUnits) AxesUnitsWrap;
 
 %include "Complex.h"
 %include "Units.h"
@@ -349,13 +354,21 @@
 %include "FormFactorTruncatedSpheroid.h"
 %include "FormFactorWeighted.h"
 
+%include "IFootprintFactor.h"
+%include "FootprintFactorGaussian.h"
+%include "FootprintFactorSquare.h"
+
 %include "Simulation.h"
+%include "Simulation2D.h"
 %include "SimulationOptions.h"
 %include "GISASSimulation.h"
 %include "IHistogram.h"
 %include "Histogram1D.h"
 %include "Histogram2D.h"
-%include "HomogeneousMaterial.h"
+%include "SimulationResult.h"
+%include "IBackground.h"
+%include "ConstantBackground.h"
+%include "IDetector.h"
 %include "IDetector2D.h"
 %include "IDetectorResolution.h"
 %include "Distributions.h"
@@ -392,7 +405,8 @@
 %include "Layer.h"
 %include "LayerRoughness.h"
 %include "Line.h"
-%include "MathFunctions.h"
+%include "Material.h"
+%include "MaterialFactoryFuncs.h"
 %include "MesoCrystal.h"
 %include "MultiLayer.h"
 %include "OffSpecSimulation.h"
@@ -408,6 +422,7 @@
 %include "ParticleCoreShell.h"
 %include "ParticleDistribution.h"
 %include "ParticleLayout.h"
+%include "PoissonNoiseBackground.h"
 %include "Polygon.h"
 %include "RealParameter.h"
 %include "Rectangle.h"
@@ -419,6 +434,7 @@
 %include "ThreadInfo.h"
 %template(SampleBuilderFactoryTemp) IFactory<std::string, IMultiLayerBuilder>;
 %include "SampleBuilderFactory.h"
-%template(SimulationFactoryTemp) IFactory<std::string, GISASSimulation>;
+%template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 %include "SimulationFactory.h"
+%include "UnitConverters.h"
 

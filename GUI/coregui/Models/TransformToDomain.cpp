@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -37,55 +35,49 @@
 #include "LayerItem.h"
 #include "LayerRoughnessItems.h"
 #include "MaskItems.h"
-#include "MaterialUtils.h"
+#include "MaterialItemUtils.h"
 #include "MesoCrystal.h"
 #include "MesoCrystalItem.h"
 #include "MultiLayerItem.h"
 #include "ParameterPattern.h"
+#include "Particle.h"
 #include "ParticleCompositionItem.h"
+#include "ParticleCoreShell.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
 #include "ParticleLayoutItem.h"
 #include "RotationItems.h"
+#include "SessionItemUtils.h"
 #include "SimulationOptionsItem.h"
 #include "TransformationItem.h"
-#include "Particle.h"
 #include "Units.h"
 #include "VectorItem.h"
-#include "ParticleCoreShell.h"
 
-std::unique_ptr<HomogeneousMaterial> TransformToDomain::createDomainMaterial(const SessionItem& item)
+using SessionItemUtils::GetVectorItem;
+
+std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
-    MaterialProperty material_property;
-    if (item.modelType() == Constants::ParticleType) {
-        material_property
-            = item.getItemValue(ParticleItem::P_MATERIAL).value<MaterialProperty>();
-    } else if (item.modelType() == Constants::LayerType) {
-        material_property
-            = item.getItemValue(LayerItem::P_MATERIAL).value<MaterialProperty>();
-    }
-    if (!material_property.isDefined())
-        throw GUIHelpers::Error(
-            "TransformToDomain::createDomainMaterial() -> Error. Can't create material "
-            "for item '"+item.displayName()+"'.");
-
-    return MaterialUtils::createDomainMaterial(material_property);
+    QString tag = MaterialItemUtils::materialTag(item);
+    ExternalProperty property = item.getItemValue(tag).value<ExternalProperty>();
+    return MaterialItemUtils::createDomainMaterial(property);
 }
 
 std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionItem& item)
 {
-    auto P_multilayer = GUIHelpers::make_unique<MultiLayer>();
+    auto P_multilayer = std::make_unique<MultiLayer>();
     auto cross_corr_length
         = item.getItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if (cross_corr_length > 0)
         P_multilayer->setCrossCorrLength(cross_corr_length);
+    auto external_field = GetVectorItem(item, MultiLayerItem::P_EXTERNAL_FIELD);
+    P_multilayer->setExternalField(external_field);
     return P_multilayer;
 }
 
 std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem& item)
 {
-    auto P_layer = GUIHelpers::make_unique<Layer>(
+    auto P_layer = std::make_unique<Layer>(
         *createDomainMaterial(item),
         item.getItemValue(LayerItem::P_THICKNESS).toDouble());
     P_layer->setNumberOfSlices(item.getItemValue(LayerItem::P_NSLICES).toUInt());
@@ -98,7 +90,7 @@ TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem)
     if (roughnessItem.modelType() == Constants::LayerZeroRoughnessType) {
         return nullptr;
     } else if (roughnessItem.modelType() == Constants::LayerBasicRoughnessType) {
-        return GUIHelpers::make_unique<LayerRoughness>(
+        return std::make_unique<LayerRoughness>(
             roughnessItem.getItemValue(LayerBasicRoughnessItem::P_SIGMA).toDouble(),
             roughnessItem.getItemValue(LayerBasicRoughnessItem::P_HURST).toDouble(),
             roughnessItem.getItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH)
@@ -111,7 +103,7 @@ TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem)
 std::unique_ptr<ParticleLayout>
 TransformToDomain::createParticleLayout(const SessionItem& item)
 {
-    auto P_layout = GUIHelpers::make_unique<ParticleLayout>();
+    auto P_layout = std::make_unique<ParticleLayout>();
     auto prop = item.getItemValue(ParticleLayoutItem::P_APPROX).value<ComboProperty>();
     QString approximation = prop.getValue();
     if (approximation == Constants::LAYOUT_DA) {
@@ -187,7 +179,7 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
     }
 }
 
-void TransformToDomain::setSimulationOptions(GISASSimulation* simulation,
+void TransformToDomain::setSimulationOptions(Simulation* simulation,
                                              const SessionItem& item)
 {
     Q_ASSERT(item.modelType() == Constants::SimulationOptionsType);
@@ -213,19 +205,15 @@ void TransformToDomain::setTransformationInfo(IParticle* result, const SessionIt
 
 void TransformToDomain::setPositionInfo(IParticle* result, const SessionItem& item)
 {
-    SessionItem* positionItem = item.getItem(ParticleItem::P_POSITION);
-    Q_ASSERT(positionItem);
-    double pos_x = positionItem->getItemValue(VectorItem::P_X).toDouble();
-    double pos_y = positionItem->getItemValue(VectorItem::P_Y).toDouble();
-    double pos_z = positionItem->getItemValue(VectorItem::P_Z).toDouble();
-    result->setPosition(pos_x, pos_y, pos_z);
+    kvector_t pos = GetVectorItem(item, ParticleItem::P_POSITION);
+    result->setPosition(pos.x(), pos.y(), pos.z());
 }
 
 void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& item)
 {
-    QVector<SessionItem*> children = item.childItems();
+    QVector<SessionItem*> children = item.children();
     for (int i = 0; i < children.size(); ++i) {
-        if (children[i]->modelType() == Constants::TransformationType) {
+        if (children[i]->modelType() == Constants::RotationType) {
             auto& rot_item = children[i]->groupItem<RotationItem>(TransformationItem::P_ROT);
             auto rotation = rot_item.createRotation();
             if (rotation)

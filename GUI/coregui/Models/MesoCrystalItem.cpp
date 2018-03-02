@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke, Dmitry Yurov
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -27,8 +25,11 @@
 #include "ParticleCoreShell.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleItem.h"
+#include "SessionItemUtils.h"
 #include "TransformToDomain.h"
 #include "VectorItem.h"
+
+using SessionItemUtils::GetVectorItem;
 
 namespace {
 const QString abundance_tooltip =
@@ -46,7 +47,7 @@ const QString lattice_vector3_tooltip =
 
 const QString position_tooltip =
     "Relative position of the mesocrystal's reference point \n"
-    "in the coordinate system of the parent";
+    "in the coordinate system of the parent (nm)";
 
 const QString density_tooltip =
     "Number of mesocrystals per square nanometer (particle surface density).\n "
@@ -84,11 +85,18 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
     setDefaultTag(T_BASIS_PARTICLE);
 
     registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
-                QStringList() << Constants::TransformationType);
+                QStringList() << Constants::RotationType);
 
-    addTranslator(PositionTranslator());
+    addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, BornAgain::Position));
     addTranslator(RotationTranslator());
-    addTranslator(MesoCrystalTranslator());
+    QStringList additional_names { QString::fromStdString(BornAgain::LatticeType),
+                                   QString::fromStdString(BornAgain::CrystalType) };
+    addTranslator(VectorParameterTranslator(P_VECTOR_A, BornAgain::BasisVector_A,
+                                            additional_names));
+    addTranslator(VectorParameterTranslator(P_VECTOR_B, BornAgain::BasisVector_B,
+                                            additional_names));
+    addTranslator(VectorParameterTranslator(P_VECTOR_C, BornAgain::BasisVector_C,
+                                            additional_names));
 
     mapper()->setOnParentChange(
                 [this](SessionItem *parent) {
@@ -121,7 +129,7 @@ std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
                                 "No outer shape defined");
     }
 
-    auto P_result = GUIHelpers::make_unique<MesoCrystal>(crystal, *P_ff);
+    auto P_result = std::make_unique<MesoCrystal>(crystal, *P_ff);
     TransformToDomain::setTransformationInfo(P_result.get(), *this);
 
     return P_result;
@@ -140,36 +148,27 @@ QStringList MesoCrystalItem::translateList(const QStringList& list) const
 
 Lattice MesoCrystalItem::getLattice() const
 {
-    SessionItem* lattice_vector1_item = getItem(P_VECTOR_A);
-    SessionItem* lattice_vector2_item = getItem(P_VECTOR_B);
-    SessionItem* lattice_vector3_item = getItem(P_VECTOR_C);
-    kvector_t a1(lattice_vector1_item->getItemValue(VectorItem::P_X).toDouble(),
-                 lattice_vector1_item->getItemValue(VectorItem::P_Y).toDouble(),
-                 lattice_vector1_item->getItemValue(VectorItem::P_Z).toDouble());
-    kvector_t a2(lattice_vector2_item->getItemValue(VectorItem::P_X).toDouble(),
-                 lattice_vector2_item->getItemValue(VectorItem::P_Y).toDouble(),
-                 lattice_vector2_item->getItemValue(VectorItem::P_Z).toDouble());
-    kvector_t a3(lattice_vector3_item->getItemValue(VectorItem::P_X).toDouble(),
-                 lattice_vector3_item->getItemValue(VectorItem::P_Y).toDouble(),
-                 lattice_vector3_item->getItemValue(VectorItem::P_Z).toDouble());
+    kvector_t a1 = GetVectorItem(*this, P_VECTOR_A);
+    kvector_t a2 = GetVectorItem(*this, P_VECTOR_B);
+    kvector_t a3 = GetVectorItem(*this, P_VECTOR_C);
     return Lattice(a1, a2, a3);
 }
 
 std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const
 {
-    QVector<SessionItem *> children = childItems();
-    for (int i = 0; i < children.size(); ++i) {
-        if (children[i]->modelType() == Constants::ParticleType) {
-            auto *particle_item = static_cast<ParticleItem*>(children[i]);
+    QVector<SessionItem *> childlist = children();
+    for (int i = 0; i < childlist.size(); ++i) {
+        if (childlist[i]->modelType() == Constants::ParticleType) {
+            auto *particle_item = static_cast<ParticleItem*>(childlist[i]);
             return particle_item->createParticle();
-        } else if (children[i]->modelType() == Constants::ParticleCoreShellType) {
-            auto *particle_coreshell_item = static_cast<ParticleCoreShellItem*>(children[i]);
+        } else if (childlist[i]->modelType() == Constants::ParticleCoreShellType) {
+            auto *particle_coreshell_item = static_cast<ParticleCoreShellItem*>(childlist[i]);
             return particle_coreshell_item->createParticleCoreShell();
-        } else if (children[i]->modelType() == Constants::ParticleCompositionType) {
-            auto *particlecomposition_item = static_cast<ParticleCompositionItem*>(children[i]);
+        } else if (childlist[i]->modelType() == Constants::ParticleCompositionType) {
+            auto *particlecomposition_item = static_cast<ParticleCompositionItem*>(childlist[i]);
             return particlecomposition_item->createParticleComposition();
-        } else if (children[i]->modelType() == Constants::MesoCrystalType) {
-            auto *mesocrystal_item = static_cast<MesoCrystalItem*>(children[i]);
+        } else if (childlist[i]->modelType() == Constants::MesoCrystalType) {
+            auto *mesocrystal_item = static_cast<MesoCrystalItem*>(childlist[i]);
             return mesocrystal_item->createMesoCrystal();
         }
     }

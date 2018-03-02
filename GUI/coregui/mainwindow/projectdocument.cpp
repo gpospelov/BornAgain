@@ -7,29 +7,23 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "projectdocument.h"
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
-#include "WarningMessageService.h"
+#include "MessageService.h"
 #include "ProjectUtils.h"
 #include "OutputDataIOService.h"
 #include "JobModel.h"
 #include <QDir>
 #include <QXmlStreamReader>
 #include <QElapsedTimer>
-#include <QDebug>
 
 namespace {
-const QString OPEN_FILE_ERROR = "OPEN_FILE_ERROR";
-const QString EXCEPTION_THROW = "EXCEPTION_THROW";
-const QString XML_FORMAT_ERROR = "XML_FORMAT_ERROR";
 const QString minimal_supported_version = "1.6.0";
 }
 
@@ -121,9 +115,6 @@ void ProjectDocument::save_project_file(const QString& project_file_name, bool a
         m_modified = false;
         emit modified();
     }
-
-    qDebug() << "ProjectDocument::save_project_file() -> " << project_file_name
-             << timer.elapsed() << "msec";
 }
 
 void ProjectDocument::save_project_data(const QString& project_file_name)
@@ -132,9 +123,6 @@ void ProjectDocument::save_project_data(const QString& project_file_name)
     timer.start();
 
     m_dataService->save(ProjectUtils::projectDir(project_file_name));
-
-    qDebug() << "ProjectDocument::save_project_data() -> " << project_file_name
-             << timer.elapsed() << "msec";
 }
 
 
@@ -148,30 +136,30 @@ void ProjectDocument::load(const QString& project_file_name)
 
     QFile file(projectFileName());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        m_messageService->send_message(this, OPEN_FILE_ERROR, file.errorString());
+        QString message = QString("Open file error '%1'").arg(file.errorString());
+        m_messageService->send_error(this, message);
         ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
         return;
     }
 
     try {
-        // loading project file
         disconnectModels();
         readFrom(&file);
         file.close();
 
         timer2.start();
-        m_dataService->load(projectDir());
+        m_dataService->load(projectDir(), m_messageService);
         m_applicationModels->jobModel()->link_instruments();
         connectModels();
 
-    } catch (const std::exception& ex) {
-        ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
-        m_messageService->send_message(this, EXCEPTION_THROW, QString(ex.what()));
-    }
+        if (m_messageService->warningCount())
+            ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_WARNING);
 
-    qDebug() << "ProjectDocument::load() -> Project load time:"
-             << (timer1.elapsed() - timer2.elapsed()) << ";"
-             << "nonXML load time:" << timer2.elapsed();
+    } catch (const std::exception& ex) {
+        QString message = QString("Exception thrown '%1'").arg(QString(ex.what()));
+        m_messageService->send_error(this, message);
+        ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
+    }
 }
 
 bool ProjectDocument::hasValidNameAndPath()
@@ -191,7 +179,7 @@ void ProjectDocument::setModified(bool flag)
         emit modified();
 }
 
-void ProjectDocument::setLogger(WarningMessageService* messageService)
+void ProjectDocument::setLogger(MessageService* messageService)
 {
     m_messageService = messageService;
 }
@@ -218,7 +206,7 @@ bool ProjectDocument::hasErrors() const
 
 bool ProjectDocument::hasData() const
 {
-    return m_dataService->dataItems().isEmpty() ? false : true;
+    return !m_dataService->dataItems().isEmpty();
 }
 
 QString ProjectDocument::documentVersion() const
@@ -237,6 +225,7 @@ void ProjectDocument::onModelChanged()
 
 void ProjectDocument::readFrom(QIODevice* device)
 {
+    Q_ASSERT(m_messageService);
     QXmlStreamReader reader(device);
 
     while (!reader.atEnd()) {
@@ -253,7 +242,7 @@ void ProjectDocument::readFrom(QIODevice* device)
                                               "minimal supported version '%2'")
                                           .arg(m_currentVersion)
                                           .arg(minimal_supported_version);
-                    m_messageService->send_message(this, OPEN_FILE_ERROR, message);
+                    m_messageService->send_error(this, message);
                     return;
                 }
 
@@ -263,7 +252,7 @@ void ProjectDocument::readFrom(QIODevice* device)
                 //
             } else {
                 m_applicationModels->readFrom(&reader, m_messageService);
-                if (m_messageService->hasWarnings(m_applicationModels)) {
+                if (m_messageService->messageCount(m_applicationModels) > 0) {
                     ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_WARNING);
                 }
             }
@@ -272,7 +261,8 @@ void ProjectDocument::readFrom(QIODevice* device)
 
     if (reader.hasError()) {
         ProjectFlags::setFlag(m_documentStatus, ProjectFlags::STATUS_FAILED);
-        m_messageService->send_message(this, XML_FORMAT_ERROR, reader.errorString());
+        QString message = QString("Format error '%1'").arg(reader.errorString());
+        m_messageService->send_error(this, message);
         return;
     }
 }

@@ -3,7 +3,9 @@ set(test CoreSpecial)
 set(test_cases
     BatchSimulation
     PolDWBAMagCylinders
+    FourierTransformation
 #    CoreIO
+#    DetectorTest
 )
 
 file(GLOB source_files "*.cpp")

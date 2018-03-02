@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -22,7 +20,7 @@
 #include <QVector>
 
 class QCustomPlot;
-class IntensityDataItem;
+template <class T> class OutputData;
 
 //! Assistant class which contains all logic for saving IntensityData to various formats
 //! from IntensityDataPlotWidget.
@@ -38,10 +36,10 @@ public:
         QString m_filter;
     };
 
-    void savePlot(const QString &dirname, QCustomPlot *plot, IntensityDataItem *item);
+    void savePlot(const QString& dirname, QCustomPlot* plot, OutputData<double>* output_data);
 
 private:
-    void saveToFile(const QString &dirname, QCustomPlot *plot, IntensityDataItem *item);
+    void saveToFile(const QString& dirname, QCustomPlot* plot, OutputData<double>* output_data);
     QString getFilterString() const;
     QString composeFileName(const QString &fileName, const QString &filterName) const;
     bool isValidExtension(const QString &fileName) const;

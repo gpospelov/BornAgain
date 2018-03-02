@@ -7,31 +7,37 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #ifndef GUIMESSAGE_H
 #define GUIMESSAGE_H
 
+#include "WinDllMacros.h"
 #include <QString>
 
-class GUIMessage
+class QObject;
+
+class BA_CORE_API_ GUIMessage
 {
 public:
     GUIMessage(const QString &senderName, const QString &messageType,
                const QString &messageDescription);
+    GUIMessage(const QObject* sender, const QString &messageType,
+               const QString &messageDescription);
 
-    QString getSenderName() const;
-    QString getMessageType() const;
-    QString getMessageDescription() const;
+    QString senderName() const;
+    QString messageType() const;
+    QString messageDescription() const;
 
-    QString getText() const;
+    QString text() const;
+
+    const QObject* sender() const;
 
 private:
+    const QObject* m_sender;
     QString m_senderName;
     QString m_messageType;
     QString m_messageDescription;

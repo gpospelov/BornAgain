@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -20,6 +19,7 @@
 #include <string>
 #include <memory>
 
+class Simulation;
 class GISASSimulation;
 
 //! Base class for tests that compare results with reference data.
@@ -29,14 +29,14 @@ class BA_CORE_API_ IStandardTest : public IFunctionalTest
 {
 public:
     IStandardTest(const std::string& name, const std::string& description,
-                  const GISASSimulation& simulation, double threshold);
+                  const Simulation& simulation, double threshold);
 
     ~IStandardTest();
 
     bool runTest() =0;
 
 protected:
-    std::unique_ptr<GISASSimulation> m_reference_simulation;
+    std::unique_ptr<Simulation> m_reference_simulation;
     double m_threshold;
 };
 

@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -115,12 +113,14 @@ private:
     void setColorScaleVisible(bool visibility_flag);
 
     IntensityDataItem* intensityItem();
+    const IntensityDataItem* intensityItem() const;
 
     QCustomPlot* m_customPlot;
     QCPColorMap* m_colorMap;
     QCPColorScale* m_colorScale;
     UpdateTimer* m_updateTimer;
     ColorMapEvent* m_colorMapEvent;
+    QCPLayoutGrid* m_colorBarLayout;
 
     bool m_block_update;
 };

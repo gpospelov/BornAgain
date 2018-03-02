@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -118,55 +117,41 @@ Transform3D Transform3D::getInverse() const
     return result;
 }
 
-BasicVector3D<double> Transform3D::transformed(
-        const BasicVector3D<double>& v) const
+template <class ivector_t>
+ivector_t Transform3D::transformed(const ivector_t& v) const
 {
-    double x = m_matrix(0,0)*v.x() + m_matrix(0,1)*v.y() + m_matrix(0,2)*v.z();
-    double y = m_matrix(1,0)*v.x() + m_matrix(1,1)*v.y() + m_matrix(1,2)*v.z();
-    double z = m_matrix(2,0)*v.x() + m_matrix(2,1)*v.y() + m_matrix(2,2)*v.z();
-    return BasicVector3D<double>(x, y, z);
+    auto x = m_matrix(0, 0) * v.x() + m_matrix(0, 1) * v.y() + m_matrix(0, 2) * v.z();
+    auto y = m_matrix(1, 0) * v.x() + m_matrix(1, 1) * v.y() + m_matrix(1, 2) * v.z();
+    auto z = m_matrix(2, 0) * v.x() + m_matrix(2, 1) * v.y() + m_matrix(2, 2) * v.z();
+    return ivector_t(x, y, z);
 }
 
-BasicVector3D<complex_t> Transform3D::transformed(
-        const BasicVector3D<complex_t>& v) const
+template BA_CORE_API_ kvector_t Transform3D::transformed<kvector_t>(const kvector_t& v) const;
+template BA_CORE_API_ cvector_t Transform3D::transformed<cvector_t>(const cvector_t& v) const;
+
+template <class ivector_t>
+ivector_t Transform3D::transformedInverse(const ivector_t& v) const
 {
-    complex_t x = m_matrix(0,0)*v.x() + m_matrix(0,1)*v.y() + m_matrix(0,2)*v.z();
-    complex_t y = m_matrix(1,0)*v.x() + m_matrix(1,1)*v.y() + m_matrix(1,2)*v.z();
-    complex_t z = m_matrix(2,0)*v.x() + m_matrix(2,1)*v.y() + m_matrix(2,2)*v.z();
-    return BasicVector3D<complex_t>(x, y, z);
+    auto x = m_inverse_matrix(0, 0) * v.x() + m_inverse_matrix(0, 1) * v.y()
+             + m_inverse_matrix(0, 2) * v.z();
+    auto y = m_inverse_matrix(1, 0) * v.x() + m_inverse_matrix(1, 1) * v.y()
+             + m_inverse_matrix(1, 2) * v.z();
+    auto z = m_inverse_matrix(2, 0) * v.x() + m_inverse_matrix(2, 1) * v.y()
+             + m_inverse_matrix(2, 2) * v.z();
+    return ivector_t(x, y, z);
 }
 
-BasicVector3D<double> Transform3D::transformedInverse(
-        const BasicVector3D<double>& v) const
-{
-    double x = m_inverse_matrix(0,0)*v.x() + m_inverse_matrix(0,1)*v.y()
-            + m_inverse_matrix(0,2)*v.z();
-    double y = m_inverse_matrix(1,0)*v.x() + m_inverse_matrix(1,1)*v.y()
-            + m_inverse_matrix(1,2)*v.z();
-    double z = m_inverse_matrix(2,0)*v.x() + m_inverse_matrix(2,1)*v.y()
-            + m_inverse_matrix(2,2)*v.z();
-    return BasicVector3D<double>(x, y, z);
-}
-
-BasicVector3D<complex_t> Transform3D::transformedInverse(
-        const BasicVector3D<complex_t>& v) const
-{
-    complex_t x = m_inverse_matrix(0,0)*v.x() + m_inverse_matrix(0,1)*v.y()
-            + m_inverse_matrix(0,2)*v.z();
-    complex_t y = m_inverse_matrix(1,0)*v.x() + m_inverse_matrix(1,1)*v.y()
-            + m_inverse_matrix(1,2)*v.z();
-    complex_t z = m_inverse_matrix(2,0)*v.x() + m_inverse_matrix(2,1)*v.y()
-            + m_inverse_matrix(2,2)*v.z();
-    return BasicVector3D<complex_t>(x, y, z);
-}
+template BA_CORE_API_ kvector_t
+Transform3D::transformedInverse<kvector_t>(const kvector_t& v) const;
+template BA_CORE_API_ cvector_t
+Transform3D::transformedInverse<cvector_t>(const cvector_t& v) const;
 
 Transform3D* Transform3D::clone() const
 {
     return new Transform3D(m_matrix);
 }
 
-Transform3D Transform3D::operator*(
-        const Transform3D& other) const
+Transform3D Transform3D::operator*(const Transform3D& other) const
 {
     Eigen::Matrix3d product_matrix = this->m_matrix * other.m_matrix;
     return Transform3D(product_matrix);
@@ -177,8 +162,7 @@ bool Transform3D::operator==(const Transform3D &other) const
     return this->m_matrix == other.m_matrix;
 }
 
-Transform3D::ERotationType Transform3D::getRotationType()
-        const
+Transform3D::ERotationType Transform3D::getRotationType() const
 {
     if (isXRotation()) return XAXIS;
     if (isYRotation()) return YAXIS;
@@ -229,7 +213,7 @@ bool Transform3D::isZRotation() const
 }
 
 Transform3D::Transform3D(const Eigen::Matrix3d& matrix)
-: m_matrix(matrix)
+    : m_matrix(matrix)
 {
     m_inverse_matrix = m_matrix.inverse();
 }

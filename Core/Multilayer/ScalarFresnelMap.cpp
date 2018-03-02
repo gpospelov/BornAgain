@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,6 +17,7 @@
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
 #include "SpecularMatrix.h"
+#include "SpecularSimulationElement.h"
 
 namespace {
 std::vector<ScalarRTCoefficients> calculateCoefficients(const MultiLayer& multilayer,
@@ -42,24 +42,34 @@ const ILayerRTCoefficients* ScalarFresnelMap::getInCoefficients(
     return getCoefficients(sim_element.getKi(), layer_index);
 }
 
+void ScalarFresnelMap::fillSpecularData(SpecularSimulationElement& sim_element) const
+{
+    const auto& kvec = sim_element.getKi();
+    if (m_use_cache)
+        sim_element.setSpecular(SpecularData(getCoefficientsFromCache(kvec)));
+    else
+        sim_element.setSpecular(SpecularData(calculateCoefficients(*mP_multilayer, kvec)));
+}
+
 const ScalarRTCoefficients* ScalarFresnelMap::getCoefficients(
         kvector_t kvec, size_t layer_index) const
 {
     if (!m_use_cache) {
-        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
+        auto coeffs = calculateCoefficients(*mP_multilayer, kvec);
         return new ScalarRTCoefficients(coeffs[layer_index]);
     }
-    ScalarRTCoefficients* result;
+    const auto& coef_vector = getCoefficientsFromCache(kvec);
+    return new ScalarRTCoefficients(coef_vector[layer_index]);
+}
+
+const std::vector<ScalarRTCoefficients>&
+ScalarFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
+{
     std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());
     auto it = m_hash_table.find(k2_theta);
-    if (it != m_hash_table.end())
-        result = new ScalarRTCoefficients(it->second[layer_index]);
-    else {
-        auto coeffs { calculateCoefficients(*mP_multilayer, kvec) };
-        result = new ScalarRTCoefficients(coeffs[layer_index]);
-        m_hash_table[k2_theta] = std::move(coeffs);
-    }
-    return result;
+    if (it == m_hash_table.end())
+        it = m_hash_table.insert({k2_theta, calculateCoefficients(*mP_multilayer, kvec)}).first;
+    return it->second;
 }
 
 namespace {

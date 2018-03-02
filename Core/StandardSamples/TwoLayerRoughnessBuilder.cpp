@@ -7,14 +7,13 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "TwoLayerRoughnessBuilder.h"
-#include "HomogeneousMaterial.h"
+#include "MaterialFactoryFuncs.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
 #include "MultiLayer.h"
@@ -31,8 +30,8 @@ TwoLayerRoughnessBuilder::TwoLayerRoughnessBuilder()
 MultiLayer* TwoLayerRoughnessBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
-    HomogeneousMaterial air_material("Air", 0., 0.);
-    HomogeneousMaterial substrate_material("Substrate", 15e-6, 0.0);
+    Material air_material = HomogeneousMaterial("Air", 0., 0.);
+    Material substrate_material = HomogeneousMaterial("Substrate", 15e-6, 0.0);
 
     Layer air_layer(air_material, 0);
     Layer substrate_layer(substrate_material, 0);

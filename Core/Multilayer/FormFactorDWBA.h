@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -34,8 +33,8 @@ public:
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    void setAmbientMaterial(HomogeneousMaterial material) override {
-        mP_form_factor->setAmbientMaterial(material);
+    void setAmbientMaterial(Material material) override {
+        mP_form_factor->setAmbientMaterial(std::move(material));
     }
 
     //! Calculates and returns a form factor calculation in DWBA

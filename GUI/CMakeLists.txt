@@ -18,11 +18,6 @@ endif()
 
 add_subdirectory(coregui)
 
-if(BORNAGAIN_CRASHHANDLER)
-    add_definitions(-DBORNAGAIN_CRASHHANDLER)
-    add_subdirectory(crashhandler)
-endif()
-
 add_subdirectory(main)
 
 set(BornAgainGUI_INCLUDE_DIRS ${BornAgainGUI_INCLUDE_DIRS} PARENT_SCOPE)

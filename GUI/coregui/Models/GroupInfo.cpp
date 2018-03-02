@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -39,6 +38,8 @@ void GroupInfo::add(const QString& itemType, const QString& itemLabel)
 
 QString GroupInfo::defaultType() const
 {
+    if (m_defaultItemType == QString() && m_info.size()!=0)
+        return m_info[0].m_itemType;
     return m_defaultItemType;
 }
 
@@ -72,6 +73,11 @@ QStringList GroupInfo::itemLabels() const
 
     return result;
 
+}
+
+bool GroupInfo::isValid()
+{
+    return !m_groupType.isEmpty();
 }
 
 bool GroupInfo::containsType(const QString& itemType) const

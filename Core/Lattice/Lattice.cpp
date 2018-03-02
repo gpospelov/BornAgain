@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -72,8 +71,8 @@ double Lattice::volume() const
     return std::abs(m_a.dot( m_b.cross(m_c)));
 }
 
-void Lattice::getReciprocalLatticeBasis(kvector_t b1, kvector_t b2,
-        kvector_t b3) const
+void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2,
+        kvector_t &b3) const
 {
     if (!m_cache_ok) {
         initialize();
@@ -89,9 +88,9 @@ ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in)
     double a1_coord = vector_in.dot(m_ra)/M_TWOPI;
     double a2_coord = vector_in.dot(m_rb)/M_TWOPI;
     double a3_coord = vector_in.dot(m_rc)/M_TWOPI;
-    int c1 = (int)std::floor(a1_coord + 0.5);
-    int c2 = (int)std::floor(a2_coord + 0.5);
-    int c3 = (int)std::floor(a3_coord + 0.5);
+    int c1 = static_cast<int>(std::floor(a1_coord + 0.5));
+    int c2 = static_cast<int>(std::floor(a2_coord + 0.5));
+    int c3 = static_cast<int>(std::floor(a3_coord + 0.5));
     return ivector_t(c1, c2, c3);
 }
 
@@ -100,9 +99,9 @@ ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t 
     double b1_coord = vector_in.dot(m_a)/M_TWOPI;
     double b2_coord = vector_in.dot(m_b)/M_TWOPI;
     double b3_coord = vector_in.dot(m_c)/M_TWOPI;
-    int c1 = (int)std::floor(b1_coord + 0.5);
-    int c2 = (int)std::floor(b2_coord + 0.5);
-    int c3 = (int)std::floor(b3_coord + 0.5);
+    int c1 = static_cast<int>(std::floor(b1_coord + 0.5));
+    int c2 = static_cast<int>(std::floor(b2_coord + 0.5));
+    int c3 = static_cast<int>(std::floor(b3_coord + 0.5));
     return ivector_t(c1, c2, c3);
 }
 
@@ -140,16 +139,10 @@ void Lattice::onChange()
 
 void Lattice::registerBasisVectors()
 {
-    if(!parameter(BornAgain::BasisVector_AX)) {
-        registerParameter(BornAgain::BasisVector_AX, &m_a[0]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_AY, &m_a[1]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_AZ, &m_a[2]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_BX, &m_b[0]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_BY, &m_b[1]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_BZ, &m_b[2]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_CX, &m_c[0]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_CY, &m_c[1]).setUnit(BornAgain::UnitsNm);
-        registerParameter(BornAgain::BasisVector_CZ, &m_c[2]).setUnit(BornAgain::UnitsNm);
+    if(!parameter(XComponentName(BornAgain::BasisVector_A))) {
+        registerVector(BornAgain::BasisVector_A, &m_a, BornAgain::UnitsNm);
+        registerVector(BornAgain::BasisVector_B, &m_b, BornAgain::UnitsNm);
+        registerVector(BornAgain::BasisVector_C, &m_c, BornAgain::UnitsNm);
     }
 }
 
@@ -168,9 +161,9 @@ std::vector<kvector_t> Lattice::vectorsWithinRadius(
     const kvector_t v1, const kvector_t v2, const kvector_t v3,
     const kvector_t rec1, const kvector_t rec2, const kvector_t rec3) const
 {
-    int max_X = (int)std::floor( rec1.mag()*radius/M_TWOPI );
-    int max_Y = (int)std::floor( rec2.mag()*radius/M_TWOPI );
-    int max_Z = (int)std::floor( rec3.mag()*radius/M_TWOPI );
+    int max_X = static_cast<int>(std::floor(rec1.mag()*radius/M_TWOPI + 0.5));
+    int max_Y = static_cast<int>(std::floor(rec2.mag()*radius/M_TWOPI + 0.5));
+    int max_Z = static_cast<int>(std::floor(rec3.mag()*radius/M_TWOPI + 0.5));
 
     std::vector<kvector_t> ret;
     for (int index_X = -max_X; index_X <= max_X; ++index_X) {

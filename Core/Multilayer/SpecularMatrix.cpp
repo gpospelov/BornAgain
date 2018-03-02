@@ -7,14 +7,12 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SpecularMatrix.h"
-#include "HomogeneousMaterial.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
@@ -49,7 +47,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t k,
     coeff.clear();
     coeff.resize(N);
 
-    double n_ref = sample.layer(0)->refractiveIndex().real();
+    double n_ref = sample.layer(0)->material()->refractiveIndex(2 * M_PI / k.mag()).real();
 
     // Calculate refraction angle, expressed as lambda or k_z, for each layer.
     double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;

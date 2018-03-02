@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -29,10 +27,12 @@ public:
     TestView(MainWindow* mainWindow = 0);
 
 private:
+    void test_ComponentProxyModel();
     void test_MaterialEditor();
     void test_MinimizerSettings();
     void test_AccordionWidget();
     void test_ba3d();
+    void test_specular_data_widget();
 
     MainWindow* m_mainWindow;
 };

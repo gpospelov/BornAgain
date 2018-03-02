@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,7 +17,7 @@
 
 #include "ISample.h"
 #include "Complex.h"
-#include "HomogeneousMaterial.h"
+#include "Material.h"
 #include "SafePointerVector.h"
 #include "ZLimits.h"
 
@@ -36,7 +35,7 @@ public:
         BOTTOMLAYER,
         ONLYLAYER
     };
-    Layer(HomogeneousMaterial material, double thickness = 0);
+    Layer(Material material, double thickness = 0);
 
     ~Layer();
 
@@ -48,11 +47,8 @@ public:
     void setThickness(double thickness);
     double thickness() const { return m_thickness; }
 
-    const HomogeneousMaterial* material() const override final { return &m_material; }
-    void setMaterial(HomogeneousMaterial material);
-
-    complex_t refractiveIndex() const;
-    complex_t refractiveIndex2() const; //!< squared refractive index
+    const Material* material() const override final { return &m_material; }
+    void setMaterial(Material material);
 
     void addLayout(const ILayout& decoration);
     size_t numberOfLayouts() const { return m_layouts.size(); }
@@ -88,7 +84,7 @@ private:
     //! Return the magnetic B-field in this layer
     kvector_t bField() const;
 
-    HomogeneousMaterial m_material;       //!< material
+    Material m_material;                  //!< material
     kvector_t m_B_field;                  //!< cached value of magnetic induction
     double m_thickness;                   //!< layer thickness in nanometers
     SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer

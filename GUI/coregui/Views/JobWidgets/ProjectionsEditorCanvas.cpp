@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -36,6 +34,7 @@ ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
     , m_model(nullptr)
     , m_intensityDataItem(nullptr)
     , m_currentActivity(MaskEditorFlags::HORIZONTAL_LINE_MODE)
+    , m_block_update(false)
 {
     setObjectName(QStringLiteral("MaskEditorCanvas"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -69,6 +68,15 @@ void ProjectionsEditorCanvas::setContext(SessionModel* model,
     getScene()->onActivityModeChanged(m_currentActivity);
 }
 
+void ProjectionsEditorCanvas::resetContext()
+{
+    m_intensityDataItem = nullptr;
+    m_containerIndex = QModelIndex();
+    setConnected(false);
+    m_colorMap = nullptr;
+    m_scene->resetContext();
+}
+
 void ProjectionsEditorCanvas::setSelectionModel(QItemSelectionModel* model)
 {
     getScene()->setSelectionModel(model);
@@ -76,8 +84,10 @@ void ProjectionsEditorCanvas::setSelectionModel(QItemSelectionModel* model)
 
 void ProjectionsEditorCanvas::onEnteringColorMap()
 {
-    Q_ASSERT(m_liveProjection == nullptr);
-    Q_ASSERT(m_containerIndex.isValid());
+    if (m_liveProjection || m_block_update)
+        return;
+
+    m_block_update = true;
 
     if(m_currentActivity == MaskEditorFlags::HORIZONTAL_LINE_MODE)
         m_liveProjection = m_model->insertNewItem(Constants::HorizontalLineMaskType,
@@ -89,26 +99,41 @@ void ProjectionsEditorCanvas::onEnteringColorMap()
     if(m_liveProjection)
         m_liveProjection->setItemValue(MaskItem::P_IS_VISIBLE, false);
 
+    m_block_update = false;
 }
 
 void ProjectionsEditorCanvas::onLeavingColorMap()
 {
+    if (m_block_update)
+        return;
+
+    m_block_update = true;
+
     if (m_liveProjection) {
         m_liveProjection->parent()->takeRow(
                     m_liveProjection->parent()->rowOfChild(m_liveProjection));
         delete m_liveProjection;
         m_liveProjection = nullptr;
     }
+
+    m_block_update = false;
 }
 
 void ProjectionsEditorCanvas::onPositionChanged(double x, double y)
 {
+    if (m_block_update)
+        return;
+
+    m_block_update = true;
+
     if(m_liveProjection) {
         if(m_currentActivity == MaskEditorFlags::HORIZONTAL_LINE_MODE)
             m_liveProjection->setItemValue(HorizontalLineItem::P_POSY, y);
         else if(m_currentActivity == MaskEditorFlags::VERTICAL_LINE_MODE)
             m_liveProjection->setItemValue(VerticalLineItem::P_POSX, x);
     }
+
+    m_block_update = false;
 }
 
 void ProjectionsEditorCanvas::onResetViewRequest()
@@ -147,7 +172,7 @@ void ProjectionsEditorCanvas::setConnected(bool isConnected)
         connect(m_colorMap->colorMapEvent(), SIGNAL(leavingColorMap()),
                 this, SLOT(onLeavingColorMap()), Qt::UniqueConnection);
         connect(m_colorMap->colorMapEvent(), SIGNAL(positionChanged(double, double)),
-                this, SLOT(onPositionChanged(double, double)), Qt::UniqueConnection);        
+                this, SLOT(onPositionChanged(double, double)), Qt::UniqueConnection);
         connect(m_colorMap, SIGNAL(marginsChanged(double,double)),
                 this, SIGNAL(marginsChanged(double,double)), Qt::UniqueConnection);
     }

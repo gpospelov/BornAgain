@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -30,27 +29,42 @@ FitSuite::FitSuite()
 FitSuite::~FitSuite()
 {}
 
-void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
+void FitSuite::addSimulationAndRealData(const Simulation& simulation,
                                         const OutputData<double>& real_data, double weight)
 {
     m_impl->addSimulationAndRealData(simulation, real_data, weight);
 }
 
-void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
+void FitSuite::addSimulationAndRealData(const Simulation& simulation,
                                         const IHistogram& real_data, double weight)
 {
     const std::unique_ptr<OutputData<double>> data(real_data.createOutputData());
     m_impl->addSimulationAndRealData(simulation, *data, weight);
 }
 
-void FitSuite::addSimulationAndRealData(const GISASSimulation& simulation,
+void FitSuite::addSimulationAndRealData(const Simulation& simulation,
                               const std::vector<std::vector<double>>& real_data,
                               double weight)
 {
+    // TODO: provide a way to construct OutputData<double> right from numpy array
     std::unique_ptr<IHistogram> data(IHistogram::createFrom(real_data));
-    addSimulationAndRealData(simulation, *data.get(), weight);
+    addSimulationAndRealData(simulation, *data, weight);
 }
 
+void FitSuite::addSimulationAndRealData(const Simulation& simulation,
+                                        const std::vector<double>& real_data,
+                                        double weight)
+{
+    const size_t data_size = real_data.size();
+    if (data_size == 0)
+        throw std::runtime_error("Error in FitSuite::addSimulationAndRealData: real_data array"
+                                 "is of zero size.");
+    std::unique_ptr<OutputData<double>> data_container(new OutputData<double>);
+    data_container->addAxis("x-axis", data_size, 0.0, static_cast<double>(data_size - 1));
+    for (size_t i = 0; i < data_size; ++i)
+        (*data_container)[i] = real_data[i];
+    addSimulationAndRealData(simulation, *data_container, weight);
+}
 
 FitParameter *FitSuite::addFitParameter(const std::string& pattern, double value,
                                const AttLimits& limits, double step)
@@ -109,41 +123,22 @@ size_t FitSuite::numberOfFitObjects() const
 
 IHistogram* FitSuite::getRealData(size_t i_item) const
 {
-    std::unique_ptr<IHistogram> result(IHistogram::createHistogram(
-            m_impl->fitObjects()->getRealData(i_item)));
-    result->setAxesUnits(m_impl->fitObjects()->getDefaultAxesUnits());
-    return result.release();
+    return m_impl->fitObjects()->createRealDataHistogram(i_item).release();
 }
 
 IHistogram* FitSuite::getSimulationData(size_t i_item) const
 {
-    std::unique_ptr<IHistogram> result(IHistogram::createHistogram(
-            m_impl->fitObjects()->getSimulationData(i_item)));
-    result->setAxesUnits(m_impl->fitObjects()->getDefaultAxesUnits());
-    return result.release();
+    return m_impl->fitObjects()->createSimulationHistogram(i_item).release();
 }
 
 IHistogram* FitSuite::getChiSquaredMap(size_t i_item) const
 {
-    std::unique_ptr<IHistogram> result(IHistogram::createHistogram(
-            m_impl->fitObjects()->getChiSquaredMap(i_item)));
-    result->setAxesUnits(m_impl->fitObjects()->getDefaultAxesUnits());
-    return result.release();
-}
-
-const OutputData<double>* FitSuite::getRealOutputData(size_t i_item) const
-{
-    return &m_impl->fitObjects()->getRealData(i_item);
+    return m_impl->fitObjects()->createChiSquaredHistogram(i_item).release();
 }
 
 const OutputData<double>* FitSuite::getSimulationOutputData(size_t i_item) const
 {
     return &m_impl->fitObjects()->getSimulationData(i_item);
-}
-
-const OutputData<double>* FitSuite::getChiSquaredOutputData(size_t i_item) const
-{
-    return &m_impl->fitObjects()->getChiSquaredMap(i_item);
 }
 
 std::string FitSuite::parametersToString() const

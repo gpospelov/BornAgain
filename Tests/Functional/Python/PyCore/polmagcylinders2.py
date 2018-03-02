@@ -8,6 +8,7 @@ from utils import get_difference
 
 from libBornAgainCore import *
 
+REFERENCE_DIR = "@TEST_REFERENCE_DIR@/Core"
 
 # ----------------------------------
 # describe sample and run simulation
@@ -47,7 +48,7 @@ def getSimulationIntensity(rho_beam, efficiency):
     simulation.setSample(multi_layer)
     simulation.setBeamIntensity(1e7)
     simulation.runSimulation()
-    return simulation.getIntensityData()
+    return simulation.result()
 
 
 # TODO: revert to some standard solution. For other tests, get_reference_data comes from utils.py.
@@ -55,7 +56,7 @@ def get_reference_data(filename):
     """
     read and return reference data from file
     """
-    return IntensityDataIOFactory.readIntensityData("@REFERENCE_DIR@/Special/"+filename)
+    return IntensityDataIOFactory.readIntensityData(os.path.join(REFERENCE_DIR,filename))
 
 # --------------------------------------------------------------
 # run test and analyse test results
@@ -69,13 +70,13 @@ def run_test():
     # IntensityDataIOFactory.writeIntensityData(getSimulationIntensity(zmin, 1.0), 'polmagcylinders2_reference_10.int')
     # IntensityDataIOFactory.writeIntensityData(getSimulationIntensity(zmin, -1.0), 'polmagcylinders2_reference_11.int')
     diff = 0.0
-    diff += get_difference(getSimulationIntensity(zplus, 1.0).getArray(),
+    diff += get_difference(getSimulationIntensity(zplus, 1.0).array(),
                            get_reference_data('polmagcylinders2_reference_00.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zplus, -1.0).getArray(),
+    diff += get_difference(getSimulationIntensity(zplus, -1.0).array(),
                            get_reference_data('polmagcylinders2_reference_01.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zmin, 1.0).getArray(),
+    diff += get_difference(getSimulationIntensity(zmin, 1.0).array(),
                            get_reference_data('polmagcylinders2_reference_10.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zmin, -1.0).getArray(),
+    diff += get_difference(getSimulationIntensity(zmin, -1.0).array(),
                            get_reference_data('polmagcylinders2_reference_11.int.gz').getArray())
 
     diff /= 4.0

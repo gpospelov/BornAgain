@@ -7,18 +7,15 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #ifndef FITFLOWWIDGET_H
 #define FITFLOWWIDGET_H
 
-#include "WinDllMacros.h"
-#include <QFrame>
+#include "SessionItemWidget.h"
 
 class HistogramPlot;
 class FitSuiteItem;
@@ -26,20 +23,20 @@ class FitSuiteItem;
 //! The FitFlowWidget class is intended for showing chi2 .vs interation count dependency.
 //! The main goal is to fill vacant place in FitComparisonWidget.
 
-//  FIXME Switch to SessionItemWidget
-
-class BA_CORE_API_ FitFlowWidget : public QFrame
+class BA_CORE_API_ FitFlowWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    explicit FitFlowWidget(QWidget *parent = 0);
-    ~FitFlowWidget();
+    explicit FitFlowWidget(QWidget *parent = nullptr);
 
-    void setItem(FitSuiteItem *fitSuiteItem);
+protected:
+    void subscribeToItem();
+    void unsubscribeFromItem();
 
 private:
+    FitSuiteItem* fitSuiteItem();
+
     HistogramPlot *m_histPlot;
-    FitSuiteItem *m_fitSuiteItem;
     QVector<double> m_x;
     QVector<double> m_y;
 };

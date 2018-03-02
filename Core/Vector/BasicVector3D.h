@@ -3,22 +3,21 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Vector/BasicVector3D.h
-//! @brief      Declares template class BasicVector3D.
+//! @brief     Declares template class BasicVector3D.
 //!
-//! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
-//! then reworked beyond recongnition. Removed split of point and vector semantics.
-//! Transforms are relegated to a separate class Transform3D.
-//!
-//! @homepage  http://bornagainproject.org
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #ifndef BASICVECTOR3D_H
 #define BASICVECTOR3D_H
+
+//! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
+//! then reworked beyond recongnition. Removed split of point and vector semantics.
+//! Transforms are relegated to a separate class Transform3D.
 
 #include "WinDllMacros.h"
 #include <complex>
@@ -260,8 +259,7 @@ inline bool operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 
 //! Creates a vector<double> as a wavevector with given wavelength and angles.
 //! Specifically needed for grazing-incidence scattering.
-BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(
-    const double _lambda, const double _alpha, const double _phi);
+BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi);
 
 
 // =============================================================================

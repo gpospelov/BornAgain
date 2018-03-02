@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -23,7 +21,7 @@
 
 class JobItem;
 class JobModel;
-class GISASSimulation;
+class Simulation;
 class JobWorker;
 
 //! The JobQueueData class holds all objects/logic to run simulation in a thread.
@@ -32,17 +30,13 @@ class BA_CORE_API_ JobQueueData : public QObject
 {
     Q_OBJECT
 public:
-    JobQueueData(JobModel *jobModel);
-
-    QThread *getThread(QString identifier);
-    JobWorker *getRunner(QString identifier);
-    GISASSimulation *getSimulation(QString identifier);
+    JobQueueData(JobModel* jobModel);
 
     bool hasUnfinishedJobs();
 
 signals:
     void globalProgress(int);
-    void focusRequest(JobItem *jobItem);
+    void focusRequest(JobItem* jobItem);
 
 public slots:
     void onStartedJob();
@@ -52,23 +46,27 @@ public slots:
     void onFinishedThread();
     void onCancelAllJobs();
 
-    void runJob(JobItem *jobItem);
-    void cancelJob(const QString &identifier);
-    void removeJob(const QString &identifier);
+    void runJob(JobItem* jobItem);
+    void cancelJob(const QString& identifier);
+    void removeJob(const QString& identifier);
 
 private:
-    void assignForDeletion(QThread *thread);
-    void assignForDeletion(JobWorker *runner);
-    void clearSimulation(const QString &identifier);
-    void processFinishedJob(JobWorker *runner, JobItem *jobItem);
+    void assignForDeletion(QThread* thread);
+    void assignForDeletion(JobWorker* worker);
+    void clearSimulation(const QString& identifier);
+    void processFinishedJob(JobWorker* worker, JobItem* jobItem);
 
     void updateGlobalProgress();
 
-    QMap<QString, QThread *> m_threads; //! correspondance of JobIdentifier and running threads
-    QMap<QString, JobWorker *> m_runners; //! correspondance of JobIdentifier and JobRunner's
-    QMap<QString, GISASSimulation *> m_simulations; //! correspondance of JobIdentifier and simulation
+    QThread* getThread(const QString& identifier);
+    JobWorker* getWorker(const QString& identifier);
+    Simulation* getSimulation(const QString& identifier);
 
-    JobModel *m_jobModel;
+    QMap<QString, QThread*> m_threads;   //! job identifier to the thread
+    QMap<QString, JobWorker*> m_workers; //! job identifier to jobWorker
+    QMap<QString, Simulation*> m_simulations; //! job identifier to simulation
+
+    JobModel* m_jobModel;
 };
 
 #endif // JOBQUEUEDATA_H

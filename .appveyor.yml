@@ -1,4 +1,4 @@
-image: Previous Visual Studio 2015
+image: Visual Studio 2017
 
 matrix:
   fast_finish: true
@@ -8,32 +8,31 @@ platform:
 
 # http://www.appveyor.com/docs/installed-software
 environment:
-  QTDIR: "C:\\Qt\\5.7\\msvc2015_64"
-  MYCONDA: "C:\\Miniconda-x64;C:\\Miniconda-x64\\Scripts;C:\\Miniconda-x64\\Library\\bin"
-  MYGIT: "C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\usr\\bin;"
-  MYOTHER: "C:\\Program Files (x86)\\CMake\\bin;C:\\Program Files\\7-Zip"
-  MYMSVC: "C:\\Program Files (x86)\\MSBuild\\14.0\\Bin;"
-  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%MYGIT%;%MYOTHER%"
-  PYTHONPATH: "C:\\Miniconda-x64;C:\\Miniconda-x64\\Lib;C:\\Miniconda-x64\\Lib\\site-packages;C:\\Miniconda-x64\\DLLs"
+  QTDIR: "C:\\Qt\\5.9\\msvc2017_64"
+  MYCONDA: "C:\\Miniconda3-x64;C:\\Miniconda3-x64\\Scripts;C:\\Miniconda3-x64\\Library\\bin"
+  PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%PATH%"
+  PYTHONPATH: "C:\\Miniconda3-x64;C:\\Miniconda3-x64\\Lib;C:\\Miniconda3-x64\\Lib\\site-packages;C:\\Miniconda3-x64\\DLLs"
 build:
   parallel: true
 
 init:  
 - echo "BornAgain init"
 - echo %PATH%
+
+install:
+- cmd: git submodule -q update --init
   
 before_build:
 - echo "BornAgain before_build"
 - echo %PATH%
 - python -m pip install numpy
-- python -m pip install pyyaml
-- C:\cygwin\bin\wget -q http://apps.jcns.fz-juelich.de/redmine/attachments/download/279/local_x64.zip -O %temp%\local_x64.zip
+- C:\cygwin\bin\wget -q http://apps.jcns.fz-juelich.de/redmine/attachments/download/348/local_x64.zip -O %temp%\local_x64.zip
 - 7z x %temp%\local_x64.zip -oC:\opt > null
 
 build_script:
 - mkdir build
 - cd build
-- cmake -G "Visual Studio 14 2015 Win64" -DCMAKE_INCLUDE_PATH=C:/opt/local_x64/include -DCMAKE_LIBRARY_PATH=C:/opt/local_x64/lib ..
+- cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_INCLUDE_PATH=C:/opt/local_x64/include -DCMAKE_LIBRARY_PATH=C:/opt/local_x64/lib ..
 - cmake --build . --config Release
 
 test_script:
@@ -42,7 +41,7 @@ test_script:
 - echo %PYTHONPATH%
 - echo %PYTHONHOME%
 - ps: >-
-    ctest -LE Examples --output-on-failure
+    ctest -LE Fullcheck --output-on-failure
 
     if (-not $?) { 
 

@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -17,6 +16,8 @@
 #include "projectdocument.h"
 #include "GUIHelpers.h"
 #include "JobItemFunctions.h"
+#include "AppSvc.h"
+#include "projectmanager.h"
 #include <QFileInfo>
 #include <QDateTime>
 #include <QDir>
@@ -133,3 +134,8 @@ QString ProjectUtils::readTextFile(const QString& fileName)
     return in.readAll();
 }
 
+
+QString ProjectUtils::userExportDir()
+{
+    return AppSvc::projectManager()->userExportDir();
+}

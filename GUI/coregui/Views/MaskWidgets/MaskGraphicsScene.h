@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -50,6 +48,8 @@ public:
     void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
                         IntensityDataItem *intensityItem);
 
+    void resetContext();
+
     void setSelectionModel(QItemSelectionModel *model);
 
     ColorMap *colorMap();
@@ -85,7 +85,7 @@ private:
     void deleteViews(const QModelIndex & itemIndex);
     void removeItemViewFromScene(SessionItem *item);
 
-    bool isValidMouseClick(QGraphicsSceneMouseEvent *event);    
+    bool isValidMouseClick(QGraphicsSceneMouseEvent *event);
     bool isValidForRectangleShapeDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);
     bool isValidForLineDrawing(QGraphicsSceneMouseEvent *event);
@@ -95,6 +95,7 @@ private:
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
     void setInPanAndZoomMode(bool value);
+    void updateCursors();
 
     void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event);
 

@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -25,7 +24,7 @@ class ILayout;
 class IInterferenceFunctionStrategy;
 
 //! Computes the scattering contribution from one particle layout.
-//! Controlled by MainComputation.
+//! Used by DWBAComputation.
 //! @ingroup algorithms_internal
 
 class ParticleLayoutComputation final : public IComputationTerm

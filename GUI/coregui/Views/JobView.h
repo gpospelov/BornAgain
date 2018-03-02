@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -34,21 +32,21 @@ class BA_CORE_API_ JobView : public Manhattan::FancyMainWindow
     Q_OBJECT
 
 public:
-    JobView(MainWindow *mainWindow);
+    JobView(MainWindow* mainWindow);
 
 signals:
     void focusRequest(int);
     void activityChanged(int activity);
 
 public slots:
-    void onFocusRequest(JobItem *jobItem);
+    void onFocusRequest(JobItem* jobItem);
     void setActivity(int activity);
     void onDockMenuRequest();
-    void onSelectionChanged(JobItem *jobItem);
+    void onSelectionChanged(JobItem* jobItem);
 
 protected:
-    virtual void showEvent(QShowEvent *);
-    virtual void hideEvent(QHideEvent *);
+    virtual void showEvent(QShowEvent*);
+    virtual void hideEvent(QHideEvent*);
 
 private:
     void connectSignals();
@@ -56,13 +54,13 @@ private:
     void connectLayoutRelated();
     void connectJobRelated();
 
-    void setAppropriateActivityForJob(JobItem *jobItem);
+    void setAppropriateActivityForJob(JobItem* jobItem);
 
-    JobViewDocks *m_docks;
-    JobActivityStatusBar *m_jobActivityStatusBar;
-    JobProgressAssistant *m_progressAssistant;
-    JobItem *m_currentItem;
-    MainWindow *m_mainWindow;
+    JobViewDocks* m_docks;
+    JobActivityStatusBar* m_jobActivityStatusBar;
+    JobProgressAssistant* m_progressAssistant;
+    JobItem* m_currentItem;
+    MainWindow* m_mainWindow;
 };
 
 #endif // JOBVIEW_H

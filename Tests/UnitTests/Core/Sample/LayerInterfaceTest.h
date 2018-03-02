@@ -1,16 +1,18 @@
+#include "google_test.h"
+#include "BornAgainNamespace.h"
 #include "Layer.h"
 #include "LayerInterface.h"
-#include "HomogeneousMaterial.h"
 #include "LayerRoughness.h"
-#include "BornAgainNamespace.h"
+#include "MaterialFactoryFuncs.h"
 #include <memory>
 
 class LayerInterfaceTest : public ::testing::Test
 {
- protected:
-    LayerInterfaceTest(){}
-    virtual ~LayerInterfaceTest(){}
+protected:
+    ~LayerInterfaceTest();
 };
+
+LayerInterfaceTest::~LayerInterfaceTest() = default;
 
 TEST_F(LayerInterfaceTest, createSmoothInterface)
 {
@@ -18,7 +20,7 @@ TEST_F(LayerInterfaceTest, createSmoothInterface)
     std::unique_ptr<Layer> layer1(new Layer(HomogeneousMaterial("air", 0.0, 0.0)));
 
     std::unique_ptr<LayerInterface> interface(
-                LayerInterface::createSmoothInterface(layer0.get(), layer1.get()));
+        LayerInterface::createSmoothInterface(layer0.get(), layer1.get()));
 
     EXPECT_EQ(interface->topLayer(), layer0.get());
     EXPECT_EQ(interface->bottomLayer(), layer1.get());
@@ -37,7 +39,7 @@ TEST_F(LayerInterfaceTest, createRoughInterface)
     EXPECT_EQ(interface->topLayer(), layer0.get());
     EXPECT_EQ(interface->bottomLayer(), layer1.get());
     EXPECT_EQ(interface->getRoughness()->getSigma(), 1.0);
-    std::vector<const INode*> children =interface->getChildren();
+    std::vector<const INode*> children = interface->getChildren();
     EXPECT_EQ(children.size(), 1u);
     EXPECT_EQ(children.at(0)->getName(), BornAgain::LayerBasicRoughnessType);
 }

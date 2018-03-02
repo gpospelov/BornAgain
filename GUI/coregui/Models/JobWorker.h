@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -20,7 +18,7 @@
 #include "WinDllMacros.h"
 #include <QObject>
 
-class GISASSimulation;
+class Simulation;
 
 //! The JobWorker class provides running the domain simulation in a thread.
 
@@ -28,23 +26,17 @@ class BA_CORE_API_ JobWorker : public QObject
 {
     Q_OBJECT
 public:
+    JobWorker(const QString& identifier, Simulation* simulation);
 
-    JobWorker(QString identifier, GISASSimulation *simulation = 0);
+    QString identifier() const;
 
-    QString getIdentifier() const { return m_identifier; }
-    void setIdentifier(QString identifier) { m_identifier = identifier; }
+    int progress() const;
 
-    int getProgress() const { return m_percentage_done; }
+    QString status() const;
 
-    bool simulationInformsUs(int);
+    QString failureMessage() const;
 
-    bool isTerminated() { return m_terminate_request_flag; }
-
-    QString getStatus() const { return m_job_status; }
-
-    QString getFailureMessage() const { return m_failure_message; }
-
-    int getSimulationDuration() const { return m_simulation_duration; }
+    int simulationDuration() const;
 
 signals:
     void started();
@@ -56,8 +48,10 @@ public slots:
     void terminate();
 
 private:
+    bool updateProgress(int percentage_done);
+
     QString m_identifier;
-    GISASSimulation *m_simulation;
+    Simulation* m_simulation;
     int m_percentage_done;
     QString m_job_status;
     bool m_terminate_request_flag;

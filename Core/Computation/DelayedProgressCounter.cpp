@@ -7,17 +7,13 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "ProgressHandler.h"
 #include "DelayedProgressCounter.h"
-
-// To emit vtable in this translation unit (see warning weak-vtables):
-DelayedProgressCounter::~DelayedProgressCounter() {}
 
 void DelayedProgressCounter::stepProgress(ProgressHandler* progress)
 {

@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -44,7 +43,7 @@ public:
 
     void addFormFactor(const IFormFactor& form_factor, double weight=1.0);
 
-    void setAmbientMaterial(HomogeneousMaterial material) override final;
+    void setAmbientMaterial(Material material) override final;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 

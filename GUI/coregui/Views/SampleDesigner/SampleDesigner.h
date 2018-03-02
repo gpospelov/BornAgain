@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -27,6 +25,7 @@ class DesignerWidgetFactory;
 class InstrumentModel;
 class SampleModel;
 class FilterPropertyProxy;
+class ApplicationModels;
 
 //! sample designer interface
 class BA_CORE_API_ SampleDesignerInterface : public QObject
@@ -57,8 +56,7 @@ public:
 
     QWidget *getCentralWidget() { return m_designerView; }
 
-    void setSampleModel(SampleModel *sampleModel);
-    void setInstrumentModel(InstrumentModel *instrumentModel);
+    void setModels(ApplicationModels* models);
     void setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy);
 
 public slots:

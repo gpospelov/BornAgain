@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -19,12 +18,13 @@
 #include "IntensityDataIOFactory.h"
 #include "SimulationFactory.h"
 #include "FileSystemUtils.h"
+#include "BATesting.h"
 #include <memory>
 
 
 bool PolDWBAMagCylinders::runTest()
 {
-    const std::string trunc = FileSystemUtils::jointPath(CORE_SPECIAL_REF_DIR,
+    const std::string trunc = FileSystemUtils::jointPath(BATesting::CoreReferenceDir(),
                                                              "/polmagcylinders2_reference_");
     const std::unique_ptr<OutputData<double> >
         P_reference00(IntensityDataIOFactory::readOutputData(trunc + "00.int.gz"));
@@ -43,22 +43,26 @@ bool PolDWBAMagCylinders::runTest()
     simulation->setBeamPolarization(zplus);
     simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
-    const std::unique_ptr<OutputData<double> > P_data00(simulation->getDetectorIntensity());
+    auto sim_result = simulation->result();
+    const std::unique_ptr<OutputData<double> > P_data00(sim_result.data());
 
     simulation->setBeamPolarization(zplus);
     simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
-    const std::unique_ptr<OutputData<double> > P_data01(simulation->getDetectorIntensity());
+    sim_result = simulation->result();
+    const std::unique_ptr<OutputData<double> > P_data01(sim_result.data());
 
     simulation->setBeamPolarization(zmin);
     simulation->setAnalyzerProperties(zplus, 1.0, 0.5);
     simulation->runSimulation();
-    const std::unique_ptr<OutputData<double> > P_data10(simulation->getDetectorIntensity());
+    sim_result = simulation->result();
+    const std::unique_ptr<OutputData<double> > P_data10(sim_result.data());
 
     simulation->setBeamPolarization(zmin);
     simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
     simulation->runSimulation();
-    const std::unique_ptr<OutputData<double> > P_data11(simulation->getDetectorIntensity());
+    sim_result = simulation->result();
+    const std::unique_ptr<OutputData<double> > P_data11(sim_result.data());
 
     const double threshold(2e-10);
     double diff(0);

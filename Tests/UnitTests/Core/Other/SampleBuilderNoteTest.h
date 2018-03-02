@@ -1,14 +1,16 @@
-#include "SampleBuilderNode.h"
-#include "MultiLayer.h"
+#include "google_test.h"
 #include "IMultiLayerBuilder.h"
+#include "MultiLayer.h"
 #include "ParameterPool.h"
-#include <memory>
+#include "SampleBuilderNode.h"
 #include <iostream>
+#include <memory>
 #include <stdexcept>
 
-class SampleBuilderNoteTest : public ::testing::Test
+class SampleBuilderNodeTest : public ::testing::Test
 {
 public:
+    ~SampleBuilderNodeTest();
 
     //! Returns test multilayer.
     static std::unique_ptr<MultiLayer> testMultiLayer(double length)
@@ -22,7 +24,7 @@ public:
     class TestBuilder : public IMultiLayerBuilder
     {
     public:
-        explicit TestBuilder(double length=42.0) : m_length(length)
+        explicit TestBuilder(double length = 42.0) : m_length(length)
         {
             setName("TestBuilder");
             registerParameter("length", &m_length);
@@ -31,14 +33,13 @@ public:
         MultiLayer* buildSample() const { return testMultiLayer(m_length).release(); }
         double m_length;
     };
-
-protected:
-    SampleBuilderNoteTest() {}
 };
+
+SampleBuilderNodeTest::~SampleBuilderNodeTest() = default;
 
 //! Checks children and pool parameters.
 
-TEST_F(SampleBuilderNoteTest, builderParameters)
+TEST_F(SampleBuilderNodeTest, builderParameters)
 {
     SampleBuilderNode builderNode;
 
@@ -49,7 +50,7 @@ TEST_F(SampleBuilderNoteTest, builderParameters)
     EXPECT_EQ(bool(builderNode), false);
 
     // setting builder
-    std::shared_ptr<IMultiLayerBuilder> builder(new SampleBuilderNoteTest::TestBuilder(33.0));
+    std::shared_ptr<IMultiLayerBuilder> builder(new SampleBuilderNodeTest::TestBuilder(33.0));
     builderNode.setSampleBuilder(builder);
     EXPECT_EQ(bool(builderNode), true);
 
@@ -75,10 +76,10 @@ TEST_F(SampleBuilderNoteTest, builderParameters)
 
 //! Checks assignment operator.
 
-TEST_F(SampleBuilderNoteTest, assignmentOperator)
+TEST_F(SampleBuilderNodeTest, assignmentOperator)
 {
     SampleBuilderNode builderNode;
-    std::shared_ptr<IMultiLayerBuilder> builder(new SampleBuilderNoteTest::TestBuilder(33.0));
+    std::shared_ptr<IMultiLayerBuilder> builder(new SampleBuilderNodeTest::TestBuilder(33.0));
     builderNode.setSampleBuilder(builder);
 
     // checking assignment

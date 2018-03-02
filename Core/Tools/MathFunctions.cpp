@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -87,6 +86,15 @@ complex_t MathFunctions::Laue(const complex_t z, size_t N) // Exp(iNx/2)*Sin((N+
     if(std::abs(z)<std::numeric_limits<double>::epsilon())
         return N+1.0;
     return exp_I(N/2.0*z)*std::sin(z*(N+1.0)/2.0)/std::sin(z/2.0);
+}
+
+double MathFunctions::erf(double arg)
+{
+    if (arg < 0.0)
+        throw std::runtime_error("Error in MathFunctions::erf: negative argument is not allowed");
+    if (std::isinf(arg))
+        return 1.0;
+    return gsl_sf_erf(arg);
 }
 
 // ************************************************************************** //
@@ -370,15 +378,32 @@ double MathFunctions::GenerateUniformRandom()
     return (double)random_int / RAND_MAX;
 }
 
-double MathFunctions::GenerateNormalRandom(double average, double std_dev)
-{
-    return GenerateStandardNormalRandom()*std_dev + average;
-}
-
 double MathFunctions::GenerateStandardNormalRandom() // using c++11 standard library
 {
     unsigned seed = static_cast<unsigned>(std::chrono::system_clock::now().time_since_epoch().count());
     std::default_random_engine generator(seed);
     std::normal_distribution<double> distribution(0.0, 1.0);
     return distribution(generator);
+}
+
+double MathFunctions::GenerateNormalRandom(double average, double std_dev)
+{
+    return GenerateStandardNormalRandom()*std_dev + average;
+}
+
+double MathFunctions::GeneratePoissonRandom(double average) // using c++11 standard library
+{
+    unsigned seed = static_cast<unsigned>(std::chrono::system_clock::now().time_since_epoch().count());
+    std::default_random_engine generator(seed);
+    if (average <= 0.0)
+        return 0.0;
+    if (average < 1000.0) {  // Use std::poisson_distribution
+        std::poisson_distribution<int> distribution(average);
+        int sample = distribution(generator);
+        return (double)sample;
+    } else {                 // Use normal approximation
+        std::normal_distribution<double> distribution(average, std::sqrt(average));
+        double sample = distribution(generator);
+        return std::max(0.0, sample);
+    }
 }

@@ -9,7 +9,7 @@
 #  @authors   Scientific Computing Group at MLZ Garching
 #  @authors   J. Burle, C. Durniak, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 project(CylindersAndPrisms)
 
@@ -22,8 +22,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/../modules)
 find_package(BornAgain REQUIRED)
 find_package(Eigen3 REQUIRED)
 
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
-    ${EIGEN3_INCLUDE_DIR}
     ${BORNAGAIN_INCLUDE_DIR}
 )
 

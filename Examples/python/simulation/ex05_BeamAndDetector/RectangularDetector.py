@@ -79,27 +79,34 @@ def plot(results):
     """
     Plots results of two simulations and their relative difference on one canvas
     """
+    from matplotlib import colors
     fig = plt.figure(figsize=(13.6, 5.12))
 
     # showing  result of spherical detector simulation
     plt.subplot(1, 3, 1)
     ba.plot_colormap(results['spherical'], title="Spherical detector",
                      xlabel=r'$\phi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$',
-                     zlabel=None)
+                     zlabel="")
 
     # showing  result of rectangular detector simulation
     plt.subplot(1, 3, 2)
     ba.plot_colormap(results['rectangular'], title="Rectangular detector",
-                     xlabel='X, mm', ylabel='Y, mm', zlabel=None)
+                     xlabel='X, mm', ylabel='Y, mm', zlabel="")
 
     # show relative difference between two plots (sph[i]-rect[i])/rect[i]
     # for every detector pixel
+    sph_array = results['spherical'].array()
+    rect_array = results['rectangular'].array()
+    rel_diff = 2.0 * numpy.abs(sph_array - rect_array)/(sph_array + rect_array)
     plt.subplot(1, 3, 3)
-    ba.plot_colormap(results['difference'], title="Relative difference",
-                     zmin=1e-06, zmax=1.0,
-                     xlabel='X, mm', ylabel='Y, mm', zlabel=None)
+    im = plt.imshow(rel_diff, norm=colors.LogNorm(1e-6, 1.0), aspect='auto')
+    cb = plt.colorbar(im, pad=0.025)
+    plt.xlabel('X, bins', fontsize=14)
+    plt.ylabel('Y, bins', fontsize=14)
+    plt.title("Relative difference")
 
-    plt.subplots_adjust(left=0.05, right=0.95, top=0.88, bottom=0.12)
+    plt.subplots_adjust(left=0.05, right=0.92, top=0.88, bottom=0.12)
+    plt.tight_layout()
     plt.show()
 
 
@@ -116,15 +123,12 @@ def run_simulation():
     # runs simulation for spherical detector
     simulation.setDetector(get_spherical_detector())
     simulation.runSimulation()
-    results['spherical'] = simulation.getIntensityData(ba.IDetector2D.DEGREES)
+    results['spherical'] = simulation.result()
 
     # runs simulation for rectangular detector
     simulation.setDetector(get_rectangular_detector())
     simulation.runSimulation()
-    results['rectangular'] = simulation.getIntensityData()
-
-    results['difference'] = results['rectangular'].relativeDifferenceHistogram(
-        results['spherical'])
+    results['rectangular'] = simulation.result()
 
     return results
 

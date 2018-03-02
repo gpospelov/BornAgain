@@ -1,88 +1,85 @@
-// GPL3; https://github.com/jburle/ba3d
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/ba3d/model/program.cpp
+//! @brief     Implements Program class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
 
 #include "program.h"
 #include "camera.h"
 #include <QMatrix4x4>
 
-namespace ba3d {
-//------------------------------------------------------------------------------
+// The macro call has to be in the global namespace
+inline void InitShaderResources() {
+    Q_INIT_RESOURCE(shaders);
+}
 
-Program::Program() {
-  needsInit();
+namespace RealSpace {
+
+Program::Program()
+{
+    // make sure our resource file gets initialized
+    InitShaderResources();
+
+    needsInit();
 }
 
 void Program::needsInit() {
-  doInit = true;
-}
-
-namespace {
-static char const *shaderVertex =
-  "attribute vec3 vertex;"
-  "attribute vec3 normal;"
-  "uniform   mat4 matProj, matModel, matObject;"
-  "varying   vec3 vo, nm;"
-
-  "void main() {"
-  "  vec4 vertObj = matObject * vec4(vertex,1);"
-  "  gl_Position  = matProj * matModel * vertObj;"
-  "  vo = vertObj.xyz; nm = normal;"
-  "}";
-
-static char const *shaderFragment =
-  "uniform highp vec3 lightPos;"
-  "uniform highp vec4 color;"
-
-  "varying highp vec3 vo, nm;"
-
-  "void main() {"
-  "  highp vec3  L  = normalize(lightPos - vo);"
-  "  highp vec3  N  = normalize(nm);"
-  "  highp float NL = dot(N,L);"
-#ifdef Q_OS_OSX
-  "  highp vec4  C  = color*(0.6 + NL*0.4);"  // mix ambient with specular
-#else
-  "  highp vec4  C  = color*(0.4 + NL*0.6);"
-#endif
-  "  gl_FragColor   = clamp(C, 0.0, 1.0);"
-  "}";
+    doInit = true;
 }
 
 void Program::init() {
-  if (!doInit)
-    return;
-  doInit = false;
+    if (!doInit)
+        return;
+    doInit = false;
 
-  addShaderFromSourceCode(QOpenGLShader::Vertex,   shaderVertex);
-  addShaderFromSourceCode(QOpenGLShader::Fragment, shaderFragment);
+    auto shader_found = addShaderFromSourceFile(QOpenGLShader::Vertex,
+                                                ":/shaders/vertex_shader.vert");
+    if (!shader_found)
+        throw std::runtime_error("Vertex shader not loaded");
+#ifdef Q_OS_OSX
+    shader_found = addShaderFromSourceFile(QOpenGLShader::Fragment,
+                                           ":/shaders/fragment_shader_OSX.frag");
+#else
+    shader_found = addShaderFromSourceFile(QOpenGLShader::Fragment,
+                                           ":/shaders/fragment_shader.frag");
+#endif
+    if (!shader_found)
+        throw std::runtime_error("Fragment shader not loaded");
 
-  bindAttributeLocation("vertex", 0);
-  bindAttributeLocation("normal", 1);
+    bindAttributeLocation("vertex", 0);
+    bindAttributeLocation("normal", 1);
 
-  link();
+    link();
 
-  bind();
-  locMatProj   = uniformLocation("matProj");
-  locMatModel  = uniformLocation("matModel");
-  locMatObject = uniformLocation("matObject");
-  locLightPos  = uniformLocation("lightPos");
-  locColor     = uniformLocation("color");
-  release();
+    bind();
+    locMatProj   = uniformLocation("matProj");
+    locMatModel  = uniformLocation("matModel");
+    locMatObject = uniformLocation("matObject");
+    locLightPos  = uniformLocation("lightPos");
+    locColor     = uniformLocation("color");
+    release();
 }
 
 void Program::set(Camera const& camera) {
-  setUniformValue(locMatProj,  camera.matProj);
-  setUniformValue(locMatModel, camera.matModel);
-  setUniformValue(locLightPos, camera.lightPosRotated);
+    setUniformValue(locMatProj,  camera.matProj);
+    setUniformValue(locMatModel, camera.matModel);
+    setUniformValue(locLightPos, camera.lightPosRotated);
 }
 
 void Program::set(QColor const&color) {
-  setUniformValue(locColor, color);
+    setUniformValue(locColor, color);
 }
 
 void Program::set(QMatrix4x4 const& mat) {
-  setUniformValue(locMatObject, mat);
+    setUniformValue(locMatObject, mat);
 }
 
-//------------------------------------------------------------------------------
-}
-// eof
+}  // namespace RealSpace

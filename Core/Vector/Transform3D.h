@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -75,19 +74,12 @@ public:
     Transform3D getInverse() const;
 
     //! Return transformed vector _v_.
-    BasicVector3D<double> transformed(const BasicVector3D<double>& v) const;
+    template <class ivector_t>
+    ivector_t transformed(const ivector_t& v) const;
 
     //! Return transformed vector _v_.
-    BasicVector3D<complex_t>
-        transformed(const BasicVector3D<complex_t>& v) const;
-
-    //! Return transformed vector _v_.
-    BasicVector3D<double>
-        transformedInverse(const BasicVector3D<double>& v) const;
-
-    //! Return transformed vector _v_.
-    BasicVector3D<complex_t>
-        transformedInverse(const BasicVector3D<complex_t>& v) const;
+    template <class ivector_t>
+    ivector_t transformedInverse(const ivector_t& v) const;
 
     //! Composes two transformations
     Transform3D operator*(const Transform3D &other) const;

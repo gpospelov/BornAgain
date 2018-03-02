@@ -7,16 +7,14 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "LayerItem.h"
 #include "BornAgainNamespace.h"
-#include "MaterialUtils.h"
+#include "MaterialItemUtils.h"
 
 namespace {
 const QString layer_nslices_tooltip =
@@ -38,8 +36,9 @@ LayerItem::LayerItem()
     addProperty(P_THICKNESS, 0.0)->setLimits(RealLimits::lowerLimited(0.0))
         .setToolTip(QStringLiteral("Thickness of a layer in nanometers"));
 
-    addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant())
-            ->setToolTip(QStringLiteral("Material the layer is made of"));
+    addProperty(P_MATERIAL, MaterialItemUtils::defaultMaterialProperty().variant())
+            ->setToolTip(QStringLiteral("Material the layer is made of"))
+            .setEditorType(Constants::MaterialEditorExternalType);
 
     addProperty(P_NSLICES, 1)->setLimits(RealLimits::lowerLimited(0.0))
             .setToolTip(layer_nslices_tooltip);

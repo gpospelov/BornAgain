@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -19,21 +17,24 @@
 
 #include "SessionItem.h"
 
-class HomogeneousMaterial;
+class Material;
 
 class BA_CORE_API_ MaterialItem : public SessionItem
 {
-
-
 public:
     static const QString P_COLOR;
-    static const QString P_REFRACTIVE_INDEX;
+    static const QString P_MATERIAL_DATA;
+    static const QString P_MAGNETIZATION;
     static const QString P_IDENTIFIER;
-    explicit MaterialItem();
 
-    QString getIdentifier() const;
-    QColor getColor() const;
-    std::unique_ptr<HomogeneousMaterial> createMaterial() const;
+    MaterialItem();
+
+    void setRefractiveData(double delta, double beta);
+    void setSLDData(double sld_real, double sld_imag);
+
+    QString identifier() const;
+    QColor color() const;
+    std::unique_ptr<Material> createMaterial() const;
 };
 
 #endif // MATERIALITEM_H

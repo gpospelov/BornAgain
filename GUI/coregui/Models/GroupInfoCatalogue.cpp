@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -151,6 +150,19 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::RealLimitsUpperLimitedType, "UpperLimited");
     info.add(Constants::RealLimitsLimitedType, "Limited");
     info.setDefaultType(Constants::RealLimitsLimitlessType);
+    addInfo(info);
+
+    info = GroupInfo(Constants::BackgroundGroup);
+    info.add(Constants::BackgroundNoneType, "None");
+    info.add(Constants::ConstantBackgroundType, "Constant background");
+    info.add(Constants::PoissonNoiseBackgroundType, "Poisson noise");
+    info.setDefaultType(Constants::BackgroundNoneType);
+    addInfo(info);
+
+    info = GroupInfo(Constants::MaterialDataGroup);
+    info.add(Constants::MaterialRefractiveDataType, "Refractive index based");
+    info.add(Constants::MaterialSLDDataType, "SLD based");
+    info.setDefaultType(Constants::MaterialRefractiveDataType);
     addInfo(info);
 }
 

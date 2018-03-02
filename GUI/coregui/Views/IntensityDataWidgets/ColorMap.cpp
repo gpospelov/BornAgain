@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,7 +16,6 @@
 #include "AxesItems.h"
 #include "ColorMapEvent.h"
 #include "ColorMapUtils.h"
-#include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "MathConstants.h"
 #include "UpdateTimer.h"
@@ -26,6 +23,8 @@
 
 namespace {
 const int replot_update_interval = 10;
+const int colorbar_width_logz = 50;
+const int colorbar_width = 80;
 }
 
 ColorMap::ColorMap(QWidget* parent)
@@ -34,7 +33,8 @@ ColorMap::ColorMap(QWidget* parent)
     , m_colorMap(nullptr), m_colorScale(nullptr)
     , m_updateTimer(new UpdateTimer(replot_update_interval, this))
     , m_colorMapEvent(new ColorMapEvent(this))
-    , m_block_update(true)
+    , m_colorBarLayout(new  QCPLayoutGrid)
+    , m_block_update(true)    
 {
     initColorMap();
 
@@ -94,6 +94,8 @@ bool ColorMap::axesRangeContains(double xpos, double ypos) const
 ColorMapBin ColorMap::colorMapBin(double xpos, double ypos) const
 {
     ColorMapBin result;
+    if (!intensityItem())
+        return result;
 
     result.m_x = xpos;
     result.m_y = ypos;
@@ -103,6 +105,8 @@ ColorMapBin ColorMap::colorMapBin(double xpos, double ypos) const
 
     m_colorMap->data()->coordToCell(xpos, ypos, &result.m_nx, &result.m_ny);
     result.m_value = m_colorMap->data()->cell(result.m_nx, result.m_ny);
+
+    result.m_logz = intensityItem()->isLogz();
 
     return result;
 }
@@ -117,6 +121,7 @@ void ColorMap::setMouseTrackingEnabled(bool enable)
 //! sets logarithmic scale
 void ColorMap::setLogz(bool logz)
 {
+    m_colorBarLayout->setMinimumSize(logz ? colorbar_width_logz : colorbar_width,10);
     ColorMapUtils::setLogz(m_colorScale, logz);
 }
 
@@ -268,6 +273,13 @@ void ColorMap::initColorMap()
     m_colorScale = new QCPColorScale(m_customPlot);
     m_colorMap->setColorScale(m_colorScale);
 
+    m_colorBarLayout->addElement(0,0, m_colorScale);
+    m_colorBarLayout->setMinimumSize(colorbar_width_logz,10);
+    m_colorBarLayout->setMargins(QMargins(0,0,0,0));
+
+    m_colorScale->axis()->axisRect()->setMargins(QMargins(0,0,0,0));
+    m_colorScale->axis()->axisRect()->setAutoMargins(QCP::msNone);
+
     m_colorScale->setBarWidth(Constants::plot_colorbar_size);
     m_colorScale->axis()->setTickLabelFont(
         QFont(QFont().family(), Constants::plot_tick_label_size));
@@ -328,11 +340,7 @@ void ColorMap::setUpdateTimerConnected(bool isConnected)
 //! to make fixed margins for whole colormap (change in axes labels wont affect axes rectangle)
 void ColorMap::setFixedColorMapMargins()
 {
-    QFontMetrics fontMetric(font());
-    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
-    auto* axisRectangle = m_customPlot->axisRect();
-    axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
-    axisRectangle->setMargins(QMargins(6.0 * em, fontAscent * 1.5, em * 1.2, 4.5 * fontAscent));
+    ColorMapUtils::setDefaultMargins(m_customPlot);
 }
 
 //! Sets initial state of ColorMap to match given intensity item.
@@ -436,12 +444,12 @@ void ColorMap::setDataRangeFromItem(IntensityDataItem* item)
 
 void ColorMap::setColorScaleVisible(bool visibility_flag)
 {
-    m_colorScale->setVisible(visibility_flag);
+    m_colorBarLayout->setVisible(visibility_flag);
     if (visibility_flag) {
         // add it to the right of the main axis rect
-        m_customPlot->plotLayout()->addElement(0, 1, m_colorScale);
+        m_customPlot->plotLayout()->addElement(0, 1, m_colorBarLayout);
     } else {
-        m_customPlot->plotLayout()->take(m_colorScale);
+        m_customPlot->plotLayout()->take(m_colorBarLayout);
         m_customPlot->plotLayout()->simplify();
     }
 }
@@ -451,17 +459,25 @@ void ColorMap::setColorScaleVisible(bool visibility_flag)
 void ColorMap::marginsChangedNotify()
 {
     QMargins axesMargins = m_customPlot->axisRect()->margins();
-    QMargins colorBarMargins = m_colorScale->margins();
-    QMargins colorScaleMargins = m_colorScale->axis()->axisRect()->margins();
+//    QMargins colorBarMargins = m_colorScale->margins();
+//    QMargins colorScaleMargins = m_colorScale->axis()->axisRect()->margins();
 
     double left = axesMargins.left();
-    double right = axesMargins.right() + colorBarMargins.right() + m_colorScale->barWidth()
-            + colorScaleMargins.right();
+//    double right = axesMargins.right() + colorBarMargins.right() + m_colorScale->barWidth()
+//            + colorScaleMargins.right() + m_colorBarLayout->rect().width();
+
+    double right = axesMargins.right() + m_colorBarLayout->rect().width();
 
     emit marginsChanged(left, right);
 }
 
 IntensityDataItem* ColorMap::intensityItem()
 {
-    return dynamic_cast<IntensityDataItem*>(currentItem());
+    return const_cast<IntensityDataItem*>(
+        static_cast<const ColorMap*>(this)->intensityItem());
+}
+
+const IntensityDataItem* ColorMap::intensityItem() const
+{
+    return dynamic_cast<const IntensityDataItem*>(currentItem());
 }

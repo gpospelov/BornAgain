@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -20,9 +18,10 @@
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
 
-namespace Manhattan {
-    class FancyTabWidget;
-    class ProgressBar;
+namespace Manhattan
+{
+class FancyTabWidget;
+class ProgressBar;
 }
 
 class WelcomeView;
@@ -44,40 +43,37 @@ class ActionManager;
 class ToolTipDataBase;
 class UpdateNotifier;
 
-
 class BA_CORE_API_ MainWindow : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
 public:
-    enum ETabViewId {WELCOME, INSTRUMENT, SAMPLE, IMPORT, SIMULATION, JOB, MAXVIEWCOUNT};
+    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, IMPORT, SIMULATION, JOB, MAXVIEWCOUNT };
 
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget* parent = nullptr);
 
-    MaterialModel *materialModel();
-    InstrumentModel *instrumentModel();
-    SampleModel *sampleModel();
-    RealDataModel *realDataModel();
-    JobModel *jobModel();
-    ApplicationModels *models();
+    MaterialModel* materialModel();
+    InstrumentModel* instrumentModel();
+    SampleModel* sampleModel();
+    RealDataModel* realDataModel();
+    JobModel* jobModel();
+    ApplicationModels* models();
 
-    Manhattan::ProgressBar *progressBar();
-    QStatusBar *statusBar();
+    Manhattan::ProgressBar* progressBar();
+    QStatusBar* statusBar();
 
-    ActionManager *getActionManager();
-    ProjectManager *projectManager();
-    UpdateNotifier *getUpdateNotifier();
+    ProjectManager* projectManager();
+    UpdateNotifier* updateNotifier();
 
 public slots:
-    void onChangeTabWidget(int index);
     void onFocusRequest(int index);
     void openRecentProject();
     void onRunSimulationShortcut();
     void onSessionModelViewActive(bool isActive);
 
 protected:
-    virtual void closeEvent(QCloseEvent *event);
-    virtual void showEvent(QShowEvent *event);
+    virtual void closeEvent(QCloseEvent* event);
+    virtual void showEvent(QShowEvent* event);
 
 private:
     void initApplication();
@@ -88,22 +84,22 @@ private:
     void writeSettings();
     void initConnections();
 
-    Manhattan::FancyTabWidget  *m_tabWidget;
-    Manhattan::ProgressBar *m_progressBar;
+    Manhattan::FancyTabWidget* m_tabWidget;
+    Manhattan::ProgressBar* m_progressBar;
 
-    ApplicationModels *m_applicationModels;
-    ProjectManager *m_projectManager;
-    ActionManager *m_actionManager;
-    ToolTipDataBase *m_toolTipDataBase;
-    UpdateNotifier *m_updateNotifier;
+    ApplicationModels* m_applicationModels;
+    ProjectManager* m_projectManager;
+    ActionManager* m_actionManager;
+    ToolTipDataBase* m_toolTipDataBase;
+    UpdateNotifier* m_updateNotifier;
 
-    WelcomeView *m_welcomeView;
-    InstrumentView *m_instrumentView;
-    SampleView *m_sampleView;
-    ImportDataView *m_importDataView;
-    SimulationView *m_simulationView;
-    JobView *m_jobView;
-    SessionModelView *m_sessionModelView;
+    WelcomeView* m_welcomeView;
+    InstrumentView* m_instrumentView;
+    SampleView* m_sampleView;
+    ImportDataView* m_importDataView;
+    SimulationView* m_simulationView;
+    JobView* m_jobView;
+    SessionModelView* m_sessionModelView;
 };
 
 #endif // MAINWINDOW_H

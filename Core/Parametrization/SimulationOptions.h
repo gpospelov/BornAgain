@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -42,19 +41,19 @@ public:
     //! the hardware)
     void setNumberOfThreads(int nthreads);
 
-    int getNumberOfThreads() const;
+    unsigned getNumberOfThreads() const;
 
     //! @brief Sets number of batches to split
     void setNumberOfBatches(int nbatches);
 
-    int getNumberOfBatches() const;
+    unsigned getNumberOfBatches() const;
 
-    int getCurrentBatch() const;
+    unsigned getCurrentBatch() const;
 
     //! @brief Sets the batch and thread information to be used
     void setThreadInfo(const ThreadInfo& thread_info) { m_thread_info = thread_info; }
 
-    int getHardwareConcurrency() const;
+    unsigned getHardwareConcurrency() const;
 
     void setIncludeSpecular(bool include_specular) { m_include_specular = include_specular; }
 

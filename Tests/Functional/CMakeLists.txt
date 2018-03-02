@@ -2,8 +2,14 @@
 # Tests/Functional/CMakeLists.txt (called from top-level CMakeLists.txt)
 ############################################################################
 
-set(BUILD_REF_DIR ${CMAKE_BINARY_DIR}/ref)
-file(MAKE_DIRECTORY ${BUILD_REF_DIR})
+include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
+include_directories(
+    ${Boost_INCLUDE_DIRS}
+    ${GSL_INCLUDE_DIR}
+    ${BornAgainCore_INCLUDE_DIRS}
+    ${BornAgainFit_INCLUDE_DIRS}
+    ${CMAKE_SOURCE_DIR}/Tests/Functional/TestMachinery
+)
 
 add_subdirectory(TestMachinery)
 add_subdirectory(Core)

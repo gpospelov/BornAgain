@@ -7,42 +7,80 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SessionDecorationModel.h"
-#include "SessionModel.h"
 #include "MaterialItem.h"
+#include "SessionModel.h"
 #include <QColor>
 #include <QIcon>
 #include <QPixmap>
 
-namespace {
+namespace
+{
 
-QIcon instrumentIcon() {
-    QIcon result;
-    result.addPixmap(QPixmap(":/images/gisas_instrument_bw.png"), QIcon::Normal);
-    result.addPixmap(QPixmap(":/images/gisas_instrument.png"), QIcon::Selected);
+struct IconCatalogue {
+    QIcon gisasIcon;
+    QIcon offspecIcon;
+    QIcon specularIcon;
+
+    IconCatalogue()
+    {
+        gisasIcon.addPixmap(QPixmap(":/images/gisas_instrument.svg"), QIcon::Selected);
+        gisasIcon.addPixmap(QPixmap(":/images/gisas_instrument_shaded.svg"), QIcon::Normal);
+        offspecIcon.addPixmap(QPixmap(":/images/offspec_instrument.svg"), QIcon::Selected);
+        offspecIcon.addPixmap(QPixmap(":/images/offspec_instrument_shaded.svg"), QIcon::Normal);
+        specularIcon.addPixmap(QPixmap(":/images/specular_instrument.svg"), QIcon::Selected);
+        specularIcon.addPixmap(QPixmap(":/images/specular_instrument_shaded.svg"), QIcon::Normal);
+    }
+};
+
+IconCatalogue& iconCatalogue()
+{
+    static IconCatalogue result;
     return result;
 }
 
 QIcon materialIcon(const QColor& color)
 {
     QIcon result;
-    QPixmap pixmap(10,10);
+    QPixmap pixmap(10, 10);
     pixmap.fill(color);
     result.addPixmap(pixmap);
     return result;
 }
 
+QVariant itemIcon(const SessionItem* item)
+{
+    QVariant result;
+
+    auto modelType = item->modelType();
+
+    auto& icons = iconCatalogue();
+
+    if (modelType == Constants::GISASInstrumentType) {
+        return QVariant(icons.gisasIcon);
+
+    } else if (modelType == Constants::OffSpecInstrumentType) {
+        return QVariant(icons.offspecIcon);
+
+    } else if (modelType == Constants::SpecularInstrumentType) {
+        return QVariant(icons.specularIcon);
+
+    } else if (modelType == Constants::MaterialType) {
+        auto materialItem = dynamic_cast<const MaterialItem*>(item);
+        return QVariant(materialIcon(materialItem->color()));
+    }
+
+    return result;
+}
 }
 
 SessionDecorationModel::SessionDecorationModel(QObject* parent, SessionModel* model)
-    : QIdentityProxyModel(parent)
-    , m_model(nullptr)
+    : QIdentityProxyModel(parent), m_model(nullptr)
 {
     setSessionModel(model);
 }
@@ -61,7 +99,7 @@ QVariant SessionDecorationModel::data(const QModelIndex& index, int role) const
             return result;
     }
 
-    if(role == Qt::TextColorRole) {
+    if (role == Qt::TextColorRole) {
         QVariant result = textColor(index);
         if (result.isValid())
             return result;
@@ -70,25 +108,12 @@ QVariant SessionDecorationModel::data(const QModelIndex& index, int role) const
     return QIdentityProxyModel::data(index, role);
 }
 
-SessionModel* SessionDecorationModel::sessionModel()
-{
-    return m_model;
-}
-
 QVariant SessionDecorationModel::createIcon(const QModelIndex& index) const
 {
-    QVariant result;
+    if (SessionItem* item = m_model->itemForIndex(index))
+        return itemIcon(item);
 
-    if (SessionItem* item = m_model->itemForIndex(index)) {
-        if (item->modelType() == Constants::InstrumentType) {
-            return instrumentIcon();
-        } else if(item->modelType() == Constants::HomogeneousMaterialType) {
-            if (const MaterialItem *materialItem = dynamic_cast<const MaterialItem *>(item))
-                return materialIcon(materialItem->getColor());
-        }
-    }
-
-    return result;
+    return QVariant();
 }
 
 //! Returns text color. Disabled SessionItem's will appear in gray.

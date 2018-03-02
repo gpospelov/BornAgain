@@ -7,21 +7,26 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "FitObject.h"
 #include "FitElement.h"
-#include "GISASSimulation.h"
+#include "Simulation.h"
 #include "IIntensityNormalizer.h"
 #include "SimulationArea.h"
 #include "BornAgainNamespace.h"
 #include "DetectorFunctions.h"
+#include "IHistogram.h"
 
-FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double >& real_data,
+static_assert(std::is_copy_constructible<FitObject>::value == false,
+    "FitObject should not be copy constructable");
+static_assert(std::is_copy_assignable<FitObject>::value == false,
+    "FitObject should not be copy assignable");
+
+FitObject::FitObject(const Simulation& simulation, const OutputData<double >& real_data,
     double weight)
     : m_simulation(simulation.clone())
     , m_weight(weight)
@@ -29,8 +34,7 @@ FitObject::FitObject(const GISASSimulation& simulation, const OutputData<double 
 
 {
     setName("FitObject");
-    m_fit_elements_count =
-            m_simulation->getInstrument().getDetector()->numberOfSimulationElements();
+    m_fit_elements_count = m_simulation->numberOfSimulationElements();
     registerChild(m_simulation.get());
     init_dataset(real_data);
 }
@@ -48,64 +52,35 @@ const OutputData<double>& FitObject::simulationData() const
     return *m_simulation_data.get();
 }
 
-const OutputData<double>& FitObject::chiSquaredMap() const
-{
-    return *m_chi2_data.get();
-}
-
-const GISASSimulation& FitObject::simulation() const
-{
-    return *m_simulation.get();
-}
-
 std::vector<const INode*> FitObject::getChildren() const
 {
     return std::vector<const INode*>() << m_simulation;
 }
 
-std::string FitObject::getDefaultAxisUnits() const
+std::unique_ptr<IHistogram> FitObject::createRealDataHistogram() const
 {
-    return DetectorFunctions::detectorUnitsName(
-        m_simulation->getInstrument().getDetector()->getDefaultAxesUnits());
+    OutputData<double> buff;
+    buff.copyShapeFrom(simulationData());
+
+    SimulationRoiArea area(m_simulation->getInstrument().getDetector());
+    for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it) {
+        buff[it.roiIndex()] = (*m_real_data)[it.detectorIndex()];
+    }
+    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
 }
 
-//! Initialize detector, if necessary, to match experimental data
+//! Check if real_data shape corresponds with the detector.
+
 void FitObject::init_dataset(const OutputData<double>& real_data)
 {
-    process_realdata(real_data);
-
-    m_chi2_data.reset(m_simulation->getInstrument().createDetectorMap());
-//    bool put_masked_areas_to_zero(true);
-//    m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
-//                                                   put_masked_areas_to_zero);
-}
-
-//! Adapt real data to use with fitting.
-// If real_data and the detector have the same size, real_data will be croped to the ROI
-// If size of real_data and the detector is different, it is assumed that it is already cropped
-void FitObject::process_realdata(const OutputData<double> &real_data)
-{
-    const IDetector2D *detector = m_simulation->getInstrument().getDetector();
+    const IDetector* detector = m_simulation->getInstrument().getDetector();
     if(!DetectorFunctions::hasSameDimensions(*detector, real_data)){
-        std::unique_ptr<OutputData<double>> detectorMap(
-                    m_simulation->getInstrument().createDetectorMap());
-
-        if(detectorMap->hasSameDimensions(real_data)) {
-            detectorMap->setRawDataVector(real_data.getRawDataVector());
-            m_real_data.reset(detectorMap.release());
-        } else {
-
         std::ostringstream message;
         message << "FitObject::check_realdata() -> Error. Axes of the real data doesn't match "
                 << "the detector. Real data:" << DetectorFunctions::axesToString(real_data)
                         << ", detector:" << DetectorFunctions::axesToString(*detector) << ".";
-        throw Exceptions::RuntimeErrorException(message.str());
-        }
-    } else {
-        bool put_masked_areas_to_zero(false);
-        m_real_data = DetectorFunctions::createDataSet(m_simulation->getInstrument(), real_data,
-                                                       put_masked_areas_to_zero);
     }
+    m_real_data.reset(real_data.clone());
 }
 
 size_t FitObject::numberOfFitElements() const
@@ -120,7 +95,8 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
                                    IIntensityNormalizer* normalizer)
 {
     m_simulation->runSimulation();
-    m_simulation_data.reset(m_simulation->getDetectorIntensity());
+    auto sim_result = m_simulation->result();
+    m_simulation_data.reset(sim_result.data());
 
     if(normalizer)
         normalizer->apply(*m_simulation_data.get());
@@ -128,19 +104,7 @@ void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double
     SimulationArea area(m_simulation->getInstrument().getDetector());
     for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
         FitElement element(it.roiIndex(), (*m_simulation_data)[it.roiIndex()],
-                (*m_real_data)[it.roiIndex()], weight);
+                (*m_real_data)[it.detectorIndex()], weight);
         fit_elements.push_back(element);
     }
-}
-
-//! Updates ChiSquared map from external vector and returns const reference to it. Used from
-//! Python in FitSuiteDrawObserver.
-
-void FitObject::transferToChi2Map(
-    std::vector<FitElement>::const_iterator first,
-    std::vector<FitElement>::const_iterator last) const
-{
-    m_chi2_data->setAllTo(0.0);
-    for(std::vector<FitElement>::const_iterator it=first; it!=last; ++it)
-        (*m_chi2_data)[it->getIndex()] = it->getSquaredDifference();
 }

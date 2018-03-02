@@ -1,48 +1,46 @@
+#include "google_test.h"
 #include "Layer.h"
-#include "HomogeneousMaterial.h"
+#include "MaterialFactoryFuncs.h"
 #include "ParticleLayout.h"
 #include "Units.h"
 
 class LayerTest : public ::testing::Test
 {
- protected:
-    LayerTest(){}
-    virtual ~LayerTest(){}
+protected:
+    virtual ~LayerTest();
 };
+
+LayerTest::~LayerTest() = default;
 
 TEST_F(LayerTest, LayerGetAndSet)
 {
-    HomogeneousMaterial air("air",0,0);
-
-    Layer layer(air, 10*Units::nanometer);
-    EXPECT_EQ(air.getName(), layer.material()->getName());
+    Material air = HomogeneousMaterial("air", 0, 0);
+    Layer layer(air, 10 * Units::nanometer);
+    EXPECT_EQ(air, *layer.material());
     EXPECT_EQ(0u, layer.layouts().size());
     EXPECT_EQ(10, layer.thickness());
     EXPECT_EQ(layer.numberOfLayouts(), 0u);
-    EXPECT_EQ(complex_t(1, 0), layer.refractiveIndex());
     EXPECT_EQ(BornAgain::LayerType, layer.getName());
 
     layer.setThickness(20.0);
+    EXPECT_EQ(air, *layer.material());
     EXPECT_EQ(20, layer.thickness());
     EXPECT_EQ(BornAgain::LayerType, layer.getName());
-    EXPECT_EQ(complex_t(1, 0), layer.refractiveIndex());
 
     std::unique_ptr<Layer> clone(layer.clone());
-    EXPECT_EQ(air.getName(), clone->material()->getName());
+    EXPECT_EQ(air, *clone->material());
     EXPECT_EQ(0u, clone->layouts().size());
     EXPECT_EQ(20, clone->thickness());
     EXPECT_EQ(clone->numberOfLayouts(), 0u);
-    EXPECT_EQ(complex_t(1, 0), clone->refractiveIndex());
     EXPECT_EQ(BornAgain::LayerType, clone->getName());
 }
 
-
 TEST_F(LayerTest, LayerAndDecoration)
 {
-    HomogeneousMaterial air("air",0,0);
+    Material air = HomogeneousMaterial("air", 0, 0);
     std::unique_ptr<ParticleLayout> layout1(new ParticleLayout());
 
-    Layer layer(air, 10*Units::nanometer);
+    Layer layer(air, 10 * Units::nanometer);
     layer.addLayout(*layout1);
     EXPECT_EQ(layer.numberOfLayouts(), 1u);
 

@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -28,12 +27,12 @@ AdjustMinimizerStrategyTest::AdjustMinimizerStrategyTest()
 void AdjustMinimizerStrategyTest::initParameterPlan()
 {
     m_parplans.clear();
-    m_parplans.push_back(new FitParameterPlan("*Height", 2.0 * Units::nanometer,
-                                            5.0 * Units::nanometer,
-                                            AttLimits::limited(0.01, 30.0), 0.05));
-    m_parplans.push_back(new FitParameterPlan("*Radius", 10.0 * Units::nanometer,
-                                            5.0 * Units::nanometer,
-                                            AttLimits::limited(0.01, 30.0), 0.05));
+    m_parplans.push_back(std::make_unique<FitParameterPlan>("*Height", 2.0 * Units::nanometer,
+                                                            5.0 * Units::nanometer,
+                                                            AttLimits::limited(0.01, 30.0), 0.05));
+    m_parplans.push_back(std::make_unique<FitParameterPlan>("*Radius", 10.0 * Units::nanometer,
+                                                            5.0 * Units::nanometer,
+                                                            AttLimits::limited(0.01, 30.0), 0.05));
 }
 
 std::unique_ptr<FitSuite> AdjustMinimizerStrategyTest::createFitSuite() {

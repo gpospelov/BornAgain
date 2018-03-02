@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -23,6 +21,7 @@
 class SessionItem;
 class QShowEvent;
 class QHideEvent;
+class SessionItemController;
 
 //! The SessionItemWidget class is a base for all widgets representing the content
 //! of SessionItem. It provides subscribe/unsibscribe mechanism on show/hide events.
@@ -39,7 +38,8 @@ public:
     virtual void setItem(SessionItem* item);
     virtual QList<QAction*> actionList();
 
-    SessionItem* currentItem() { return m_currentItem; }
+    SessionItem* currentItem();
+    const SessionItem* currentItem() const;
 
 protected:
     virtual void subscribeToItem() {}
@@ -48,10 +48,7 @@ protected:
     virtual void hideEvent(QHideEvent*);
 
 private:
-    void subscribe();
-    void unsubscribe();
-    SessionItem* m_currentItem;
-    bool is_subscribed;
+    SessionItemController* m_itemController;
 };
 
 #endif // SESSIONITEMWIDGET_H

@@ -75,7 +75,7 @@ def simulate(ff):
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
-    return simulation.getIntensityData()
+    return simulation.result()
 
 
 def run_simulation():

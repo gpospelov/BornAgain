@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -36,6 +34,7 @@ public:
     void setOnValueChange(std::function<void(void)> f, const void* caller = 0);
 
     void setOnPropertyChange(std::function<void(QString)> f, const void* caller = 0);
+    void setOnPropertyChange(std::function<void(SessionItem*, QString)>  f, const void* caller = 0);
 
     void setOnChildPropertyChange(std::function<void(SessionItem*, QString)> f,
                                   const void* caller = 0);
@@ -96,7 +95,7 @@ private:
     using call_item_str_t = std::pair<std::function<void(SessionItem*, QString)>, const void*>;
 
     std::vector<call_t> m_onValueChange;
-    std::vector<call_str_t> m_onPropertyChange;
+    std::vector<call_item_str_t> m_onPropertyChange;
     std::vector<call_item_str_t> m_onChildPropertyChange;
     std::vector<call_item_t> m_onParentChange;
     std::vector<call_item_t> m_onChildrenChange;

@@ -1,17 +1,16 @@
-#ifndef REGIONOFINTERESTTEST_H
-#define REGIONOFINTERESTTEST_H
-
+#include "google_test.h"
+#include "Exceptions.h"
 #include "RegionOfInterest.h"
 #include "SphericalDetector.h"
-#include "Exceptions.h"
 #include <memory>
 
 class RegionOfInterestTest : public ::testing::Test
 {
- protected:
-    RegionOfInterestTest(){}
-    virtual ~RegionOfInterestTest(){}
+protected:
+    ~RegionOfInterestTest();
 };
+
+RegionOfInterestTest::~RegionOfInterestTest() = default;
 
 //! Testing region of interest with reasonable area within the detector.
 
@@ -47,7 +46,6 @@ TEST_F(RegionOfInterestTest, constructor)
     EXPECT_EQ(roi.detectorIndex(2), 9u);
     EXPECT_EQ(roi.detectorIndex(9), 22u);
 }
-
 
 //! Testing region of interest which is larger than the detector.
 
@@ -113,5 +111,3 @@ TEST_F(RegionOfInterestTest, clone)
     EXPECT_EQ(clone->detectorIndex(2), 9u);
     EXPECT_EQ(clone->detectorIndex(9), 22u);
 }
-
-#endif

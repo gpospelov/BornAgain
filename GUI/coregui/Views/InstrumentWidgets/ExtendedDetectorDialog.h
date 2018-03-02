@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -31,7 +29,7 @@ class ExtendedDetectorDialog : public QDialog
     Q_OBJECT
 
 public:
-    ExtendedDetectorDialog(QWidget* parent = 0);
+    ExtendedDetectorDialog(QWidget* parent = nullptr);
 
 public slots:
     void setDetectorContext(InstrumentModel* instrumentModel, DetectorItem* detectorItem);

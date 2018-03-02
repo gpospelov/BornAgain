@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -25,7 +23,7 @@ class SessionModel;
 class FitParameterContainerItem;
 class SessionItem;
 
-//! The FitParameterProxyModel adopt original JobModel to show items from FitParameterContainer
+//! The FitParameterProxyModel adapts the original JobModel to show items from FitParameterContainer
 //! in 5 column tree view.
 //! It is derived from QAbstractItemModel (and not from QAbstractProxyModel).
 
@@ -35,7 +33,10 @@ class BA_CORE_API_ FitParameterProxyModel : public QAbstractItemModel
 
 public:
 
-    explicit FitParameterProxyModel(FitParameterContainerItem *fitParContainer, QObject *parent = 0);
+    explicit FitParameterProxyModel(FitParameterContainerItem *fitParContainer,
+                                    QObject *parent = 0);
+
+    ~FitParameterProxyModel();
 
     enum EColumn {PAR_NAME, PAR_TYPE, PAR_VALUE, PAR_MIN, PAR_MAX, MAX_COLUMNS};
 

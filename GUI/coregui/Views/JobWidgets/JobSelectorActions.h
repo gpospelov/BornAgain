@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -25,34 +23,36 @@ class QAction;
 class JobModel;
 class QItemSelectionModel;
 class QModelIndex;
+class QMenu;
 
 //! The JobSelectorActions class contains actions to run/remove jobs. Actions are used by the
 //! toolbar and JobSelectorList's context menu.
 
-class BA_CORE_API_ JobSelectorActions : public QObject {
+class BA_CORE_API_ JobSelectorActions : public QObject
+{
     Q_OBJECT
 public:
-    JobSelectorActions(JobModel *jobModel, QObject *parent = 0);
+    JobSelectorActions(JobModel* jobModel, QObject* parent = 0);
 
-    void setSelectionModel(QItemSelectionModel *selectionModel);
-    void setToolBar(class StyledToolBar *toolBar);
+    void setSelectionModel(QItemSelectionModel* selectionModel);
 
 public slots:
     void onRunJob();
     void onRemoveJob();
-    void onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint = QModelIndex());
+    void onContextMenuRequest(const QPoint& point, const QModelIndex& indexAtPoint = QModelIndex());
+    void equalizeSelectedToJob(int selected_id);
 
 private:
-    void initItemContextMenu(class QMenu &menu, const QModelIndex &indexAtPoint);
+    void initItemContextMenu(QMenu& menu, const QModelIndex& indexAtPoint);
+    void setupEqualizeMenu(QMenu& menu);
     void setAllActionsEnabled(bool value);
-    bool canRunJob(const QModelIndex &index) const;
-    bool canRemoveJob(const QModelIndex &index) const;
+    bool canRunJob(const QModelIndex& index) const;
+    bool canRemoveJob(const QModelIndex& index) const;
 
-    QAction *m_runJobAction;
-    QAction *m_removeJobAction;
-    //QSignalMapper *m_signalMapper;
-    QItemSelectionModel *m_selectionModel;
-    JobModel *m_jobModel;
+    QAction* m_runJobAction;
+    QAction* m_removeJobAction;
+    QItemSelectionModel* m_selectionModel;
+    JobModel* m_jobModel;
 };
 
 #endif // JOBSELECTORACTIONS_H

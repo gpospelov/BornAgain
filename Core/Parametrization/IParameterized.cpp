@@ -7,17 +7,16 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "IParameterized.h"
-#include "RealLimits.h"
-#include "ParameterPool.h"
-#include "RealParameter.h"
 #include "Exceptions.h"
+#include "ParameterPool.h"
+#include "RealLimits.h"
+#include "RealParameter.h"
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -59,7 +58,15 @@ std::string IParameterized::parametersToString() const
 RealParameter& IParameterized::registerParameter(const std::string& name, double* data)
 {
     return m_pool->addParameter(
-        new RealParameter( name, data, getName(), [&]()->void{ onChange(); } ));
+                new RealParameter( name, data, getName(), [&]()->void{ onChange(); } ));
+}
+
+void IParameterized::registerVector(const std::string& base_name, kvector_t* p_vec,
+                                    const std::string& units)
+{
+    registerParameter(XComponentName(base_name), &((*p_vec)[0])).setUnit(units);
+    registerParameter(YComponentName(base_name), &((*p_vec)[1])).setUnit(units);
+    registerParameter(ZComponentName(base_name), &((*p_vec)[2])).setUnit(units);
 }
 
 void IParameterized::setParameterValue(const std::string& name, double value)
@@ -76,6 +83,13 @@ void IParameterized::setParameterValue(const std::string& name, double value)
     onChange();
 }
 
+void IParameterized::setVectorValue(const std::string& base_name, kvector_t value)
+{
+    setParameterValue(XComponentName(base_name), value.x());
+    setParameterValue(YComponentName(base_name), value.y());
+    setParameterValue(ZComponentName(base_name), value.z());
+}
+
 //! Returns parameter with given 'name'.
 RealParameter* IParameterized::parameter(const std::string& name) const {
     return m_pool->parameter(name);
@@ -84,4 +98,26 @@ RealParameter* IParameterized::parameter(const std::string& name) const {
 void IParameterized::removeParameter(const std::string& name)
 {
     m_pool->removeParameter(name);
+}
+
+void IParameterized::removeVector(const std::string& base_name)
+{
+    removeParameter(XComponentName(base_name));
+    removeParameter(YComponentName(base_name));
+    removeParameter(ZComponentName(base_name));
+}
+
+std::string IParameterized::XComponentName(const std::string& base_name)
+{
+    return base_name + "X";
+}
+
+std::string IParameterized::YComponentName(const std::string& base_name)
+{
+    return base_name + "Y";
+}
+
+std::string IParameterized::ZComponentName(const std::string& base_name)
+{
+    return base_name + "Z";
 }

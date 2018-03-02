@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -40,7 +38,8 @@
 #include <QPainter>
 
 DesignerScene::DesignerScene(QObject *parent)
-    : QGraphicsScene(parent), m_sampleModel(0), m_instrumentModel(0), m_selectionModel(0), m_proxy(0),
+    : QGraphicsScene(parent), m_sampleModel(0), m_instrumentModel(0), m_materialModel(0),
+      m_selectionModel(0), m_proxy(0),
       m_block_selection(false), m_aligner(new SampleViewAligner(this))
 {
     setSceneRect(QRectF(-800, 0, 1600, 1600));
@@ -96,6 +95,11 @@ void DesignerScene::setSampleModel(SampleModel *sampleModel)
 void DesignerScene::setInstrumentModel(InstrumentModel *instrumentModel)
 {
     m_instrumentModel = instrumentModel;
+}
+
+void DesignerScene::setMaterialModel(MaterialModel* materialModel)
+{
+    m_materialModel = materialModel;
 }
 
 void DesignerScene::setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy)
@@ -367,7 +371,7 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
     }
     delete connection; // deleting just created connection because it will be recreated from the
                        // model
-    m_sampleModel->moveParameterizedItem(childView->getItem(),
+    m_sampleModel->moveItem(childView->getItem(),
                                          parentView->getItem(), -1, tag);
 }
 
@@ -375,7 +379,7 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection *connection)
 void DesignerScene::removeConnection(NodeEditorConnection *connection)
 {
     IView *childView = dynamic_cast<IView *>(connection->outputPort()->parentItem());
-    m_sampleModel->moveParameterizedItem(childView->getItem(), 0);
+    m_sampleModel->moveItem(childView->getItem(), 0);
 }
 
 //! handles drag event
@@ -431,7 +435,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
             } else if (GUIExamplesFactory::isValidExampleName(mimeData->getClassName())) {
                 SessionItem *topItem = GUIExamplesFactory::createSampleItems(
-                    mimeData->getClassName(), m_sampleModel);
+                    mimeData->getClassName(), m_sampleModel, m_materialModel);
                 QRectF boundingRect = DesignerHelper::getDefaultBoundingRect(topItem->modelType());
                 QPointF reference(event->scenePos().x() - boundingRect.width() / 2,
                                   event->scenePos().y() - boundingRect.height() / 2);

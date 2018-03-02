@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -22,7 +20,7 @@
 
 class RealSpaceModel;
 
-namespace ba3d { class Widget3D;}
+namespace RealSpace { class Widget3D;}
 
 //! Contains 3D view.
 
@@ -36,7 +34,7 @@ public:
     void setModel(RealSpaceModel* model);
 
 private:
-    ba3d::Widget3D* m_3dview;
+    RealSpace::Widget3D* m_3dview;
 };
 
 #endif // REALSPACEVIEW_H

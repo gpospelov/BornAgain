@@ -7,16 +7,15 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "CoreShellParticleBuilder.h"
+#include "MaterialFactoryFuncs.h"
 #include "FormFactorBox.h"
 #include "Layer.h"
-#include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
@@ -30,13 +29,13 @@ MultiLayer* CoreShellParticleBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
 
     complex_t n_particle_shell(1.0-1e-4, 2e-8);
     complex_t n_particle_core(1.0-6e-5, 2e-8);
 
-    HomogeneousMaterial shell_material("Shell", n_particle_shell);
-    HomogeneousMaterial core_material("Core", n_particle_core);
+    Material shell_material = HomogeneousMaterial("Shell", n_particle_shell);
+    Material core_material = HomogeneousMaterial("Core", n_particle_core);
 
     Layer air_layer(air_material);
 
@@ -62,11 +61,11 @@ MultiLayer* CoreShellBoxRotateZandYBuilder::buildSample() const
 {
     const double layer_thickness(100.0*Units::nanometer);
 
-    HomogeneousMaterial mAmbience("Air", 0.0, 0.0);
-    HomogeneousMaterial mMiddle("Teflon", 2.900e-6, 6.019e-9);
-    HomogeneousMaterial mSubstrate("Substrate", 3.212e-6, 3.244e-8);
-    HomogeneousMaterial mCore("Ag", 1.245e-5, 5.419e-7);
-    HomogeneousMaterial mShell("AgO2", 8.600e-6, 3.442e-7);
+    Material mAmbience = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material mMiddle = HomogeneousMaterial("Teflon", 2.900e-6, 6.019e-9);
+    Material mSubstrate = HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8);
+    Material mCore = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
+    Material mShell = HomogeneousMaterial("AgO2", 8.600e-6, 3.442e-7);
 
     // core shell particle
     const double shell_length(50.0*Units::nanometer);

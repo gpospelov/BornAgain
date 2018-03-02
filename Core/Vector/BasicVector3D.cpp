@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -23,8 +22,7 @@ typedef std::complex<double> complex_t;
 // Quasi constructor
 // -----------------------------------------------------------------------------
 
-BasicVector3D<double> vecOfLambdaAlphaPhi(
-    const double _lambda, const double _alpha, const double _phi)
+BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
 {
     double k = M_TWOPI/_lambda;
     return BasicVector3D<double>(

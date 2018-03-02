@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -40,21 +38,23 @@ class BA_CORE_API_ ProjectionsEditor : public QMainWindow
     Q_OBJECT
 
 public:
-    ProjectionsEditor(QWidget* parent = 0);
+    ProjectionsEditor(QWidget* parent = nullptr);
 
     void setContext(SessionModel* model, const QModelIndex& shapeContainerIndex,
                     IntensityDataItem* intensityItem);
 
-    QList<QAction *> topToolBarActions();
+    void resetContext();
+
+    QList<QAction*> topToolBarActions();
 
 private:
     void setup_connections();
 
     ProjectionsEditorActions* m_editorActions;
-    ProjectionsToolBar* m_toolBar; //! main tool bar with bottoms at the right
+    ProjectionsToolBar* m_toolBar;                //! main tool bar with bottoms at the right
     ProjectionsEditorCanvas* m_projectionsCanvas; //! canvas with color map at the top
-    ProjectionsWidget* m_projectionsWidget; //! bottom widget to draw projections plot
-    ProjectionsPropertyPanel* m_propertyPanel; //! pannel at the right with properties
+    ProjectionsWidget* m_projectionsWidget;       //! bottom widget to draw projections plot
+    ProjectionsPropertyPanel* m_propertyPanel;    //! pannel at the right with properties
     QItemSelectionModel* m_selectionModel;
     Manhattan::MiniSplitter* m_rightSplitter;
     QSplitter* m_bottomSplitter;

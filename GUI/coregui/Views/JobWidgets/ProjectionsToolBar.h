@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -36,6 +34,7 @@ public:
 
 public slots:
     void onChangeActivityRequest(MaskEditorFlags::Activity value);
+    void onProjectionTabChange(MaskEditorFlags::Activity value);
 
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);
@@ -46,6 +45,7 @@ private slots:
 private:
     void setup_selection_group();
     void setup_shapes_group();
+    void setup_extratools_group();
     void add_separator();
     MaskEditorFlags::Activity currentActivity() const;
     void setCurrentActivity(MaskEditorFlags::Activity value);

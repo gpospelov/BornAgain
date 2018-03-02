@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -67,7 +65,7 @@ const QString FitParameterItem::T_LINK = "Link tag";
 
 FitParameterItem::FitParameterItem() : SessionItem(Constants::FitParameterType)
 {
-    addProperty(P_TYPE, fitParameterTypeCombo().getVariant());
+    addProperty(P_TYPE, fitParameterTypeCombo().variant());
     addProperty(P_START_VALUE, 0.0);
     addProperty(P_MIN, 0.0);
     addProperty(P_MAX, 0.0)->setEnabled(false);

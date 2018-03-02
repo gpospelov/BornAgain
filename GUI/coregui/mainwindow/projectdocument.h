@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -23,7 +21,7 @@
 
 class QIODevice;
 class ApplicationModels;
-class WarningMessageService;
+class MessageService;
 class OutputDataIOService;
 
 namespace ProjectDocumentXML
@@ -74,7 +72,7 @@ public:
     bool isModified();
     void setModified(bool flag);
 
-    void setLogger(WarningMessageService* messageService);
+    void setLogger(MessageService* messageService);
 
     ProjectFlags::DocumentStatus documentStatus() const;
 
@@ -106,7 +104,7 @@ private:
     ApplicationModels* m_applicationModels;
     bool m_modified;
     ProjectFlags::DocumentStatus m_documentStatus;
-    WarningMessageService* m_messageService;
+    MessageService* m_messageService;
     QString m_currentVersion;
     OutputDataIOService* m_dataService;
 };

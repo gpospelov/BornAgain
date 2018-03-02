@@ -7,16 +7,18 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SessionModel.h"
 
-ModelMapper::ModelMapper(QObject* parent) : QObject(parent), m_active{true}, m_model(0), m_item(0)
+ModelMapper::ModelMapper(QObject* parent)
+    : QObject(parent)
+    , m_active(true)
+    , m_model(nullptr)
+    , m_item(nullptr)
 {
 }
 
@@ -35,8 +37,20 @@ void ModelMapper::setOnValueChange(std::function<void(void)> f, const void* call
 
 void ModelMapper::setOnPropertyChange(std::function<void(QString)> f, const void* caller)
 {
-    m_onPropertyChange.push_back(call_str_t(f, caller));
+    auto ff = [=](SessionItem* item, const QString& property) {
+        (void)item;
+        f(property);
+    };
+    m_onPropertyChange.push_back(call_item_str_t(ff, caller));
 }
+
+void ModelMapper::setOnPropertyChange(std::function<void (SessionItem*, QString)> f,
+                                      const void* caller)
+{
+    m_onPropertyChange.push_back(call_item_str_t(f, caller));
+}
+
+//! Calls back on child property change, report childItem and property name.
 
 void ModelMapper::setOnChildPropertyChange(std::function<void(SessionItem*, QString)> f,
                                            const void* caller)
@@ -54,6 +68,9 @@ void ModelMapper::setOnParentChange(std::function<void(SessionItem*)> f, const v
     m_onParentChange.push_back(call_item_t(f, caller));
 }
 
+//! Calls back when number of children has changed, reports newChild.
+//! newChild == nullptr denotes the case when number of children has decreased.
+
 void ModelMapper::setOnChildrenChange(std::function<void(SessionItem*)> f, const void* caller)
 {
     m_onChildrenChange.push_back(call_item_t(f, caller));
@@ -63,6 +80,10 @@ void ModelMapper::setOnSiblingsChange(std::function<void()> f, const void* calle
 {
     m_onSiblingsChange.push_back(call_t(f, caller));
 }
+
+//! Calls back on any change in children (number of children or their properties),
+//! reports childItem.
+//! childItem == nullptr denotes the case when child was removed.
 
 void ModelMapper::setOnAnyChildChange(std::function<void(SessionItem*)> f, const void* caller)
 {
@@ -96,27 +117,21 @@ void ModelMapper::unsubscribe(const void* caller)
 void ModelMapper::setModel(SessionModel* model)
 {
     if (m_model) {
-        disconnect(m_model, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), this,
-                   SLOT(onDataChanged(QModelIndex, QModelIndex, QVector<int>)));
-        disconnect(m_model, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
-                   SLOT(onRowsInserted(QModelIndex, int, int)));
-        disconnect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
-                   SLOT(onBeginRemoveRows(QModelIndex, int, int)));
-        disconnect(m_model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                   SLOT(onRowRemoved(QModelIndex, int, int)));
+        disconnect(m_model, &SessionModel::dataChanged, this, &ModelMapper::onDataChanged);
+        disconnect(m_model, &SessionModel::rowsInserted, this, &ModelMapper::onRowsInserted);
+        disconnect(m_model, &SessionModel::rowsAboutToBeRemoved,
+                   this, &ModelMapper::onBeginRemoveRows);
+        disconnect(m_model, &SessionModel::rowsRemoved, this, &ModelMapper::onRowRemoved);
     }
 
     m_model = model;
 
     if (m_model) {
-        connect(m_model, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), this,
-                SLOT(onDataChanged(QModelIndex, QModelIndex, QVector<int>)));
-        connect(m_model, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
-                SLOT(onRowsInserted(QModelIndex, int, int)));
-        connect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
-                SLOT(onBeginRemoveRows(QModelIndex, int, int)));
-        connect(m_model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                SLOT(onRowRemoved(QModelIndex, int, int)));
+        connect(m_model, &SessionModel::dataChanged, this, &ModelMapper::onDataChanged);
+        connect(m_model, &SessionModel::rowsInserted, this, &ModelMapper::onRowsInserted);
+        connect(m_model, &SessionModel::rowsAboutToBeRemoved,
+                   this, &ModelMapper::onBeginRemoveRows);
+        connect(m_model, &SessionModel::rowsRemoved, this, &ModelMapper::onRowRemoved);
     }
 }
 
@@ -142,7 +157,7 @@ void ModelMapper::callOnPropertyChange(const QString& name)
 {
     if (m_active)
         for (auto f : m_onPropertyChange)
-            f.first(name);
+            f.first(m_item, name);
 }
 
 void ModelMapper::callOnChildPropertyChange(SessionItem* item, const QString& name)
@@ -197,8 +212,8 @@ void ModelMapper::callOnItemDestroy()
 
 void ModelMapper::clearMapper()
 {
-    m_item = 0;
-    setModel(0);
+    m_item = nullptr;
+    setModel(nullptr);
     m_onValueChange.clear();
     m_onPropertyChange.clear();
     m_onChildPropertyChange.clear();
@@ -283,10 +298,8 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex& parent, int first, int /*
         if (m_item == oldChild)
             callOnParentChange(0);
 
-        if (nestling == 0) {
-            callOnChildrenChange(0);
+        if (nestling == 0)
             callOnAboutToRemoveChild(oldChild);
-        }
     }
 
     if (m_item == oldChild)
@@ -301,6 +314,9 @@ void ModelMapper::onRowRemoved(const QModelIndex& parent, int first, int /*last*
         callOnAnyChildChange(nullptr);
         callOnSiblingsChange();
     }
+
+    if (nestling == 0 )
+        callOnChildrenChange(nullptr);
 
     if (m_aboutToDelete.isValid() && m_aboutToDelete == parent.child(first, 0))
         clearMapper();

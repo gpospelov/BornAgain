@@ -7,6 +7,7 @@ set(test_cases
     HexParaTranslation
     Lattice1DTranslation
     Lattice2DTranslation
+    MagneticSpheresTranslation
     MesoCrystalTranslation
     Para2DTranslation
     SizeDistributionTranslation
@@ -15,6 +16,7 @@ set(test_cases
     RotationTranslation
     RoughnessTranslation
     TwoLayerRoughnessTranslation
+    SaveLoadProject
 #    GUIPerformanceTest  # too heavy, call manually when necessary
 )
 

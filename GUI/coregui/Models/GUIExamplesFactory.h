@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -22,6 +20,7 @@
 
 class SessionItem;
 class SampleModel;
+class MaterialModel;
 
 //! Class that generates GUI model from
 class BA_CORE_API_ GUIExamplesFactory
@@ -29,7 +28,7 @@ class BA_CORE_API_ GUIExamplesFactory
 public:
     static bool isValidExampleName(const QString &name);
 
-    static SessionItem *createSampleItems(const QString &name, SampleModel *sampleModel);
+    static SessionItem *createSampleItems(const QString &name, SampleModel *sampleModel, MaterialModel* materialModel);
 //    static SessionItem *createInstrumentItems(const QString &name, InstrumentModel *instrumentModel);
 
 private:

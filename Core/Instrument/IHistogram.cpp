@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -387,14 +386,4 @@ void IHistogram::load(const std::string& filename)
 {
     const std::unique_ptr<IHistogram> hist(IntensityDataIOFactory::readIntensityData(filename));
     copyContentFrom(*hist);
-}
-
-void IHistogram::setAxesUnits(const std::string& name)
-{
-    m_axes_units = name;
-}
-
-std::string IHistogram::axesUnits() const
-{
-    return m_axes_units;
 }

@@ -7,16 +7,15 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "DistributionDialog.h"
 #include "DistributionEditor.h"
 #include "SessionItem.h"
+#include "StyleUtils.h"
 #include <QHBoxLayout>
 #include <QPushButton>
 
@@ -47,6 +46,7 @@ DistributionDialog::DistributionDialog(QWidget *parent)
     setLayout(layout);
 
     setAttribute(Qt::WA_DeleteOnClose, true);
+    StyleUtils::setResizable(this);
 }
 
 void DistributionDialog::setItem(SessionItem *item)

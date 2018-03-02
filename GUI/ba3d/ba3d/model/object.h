@@ -1,4 +1,16 @@
-// GPL3; https://github.com/jburle/ba3d
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/ba3d/model/object.h
+//! @brief     Defines Object class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
 
 #ifndef BA3D_OBJECT_H
 #define BA3D_OBJECT_H
@@ -8,40 +20,37 @@
 #include <QColor>
 #include <QMatrix4x4>
 
-namespace ba3d {
-//------------------------------------------------------------------------------
+namespace RealSpace {
 
 class Model;
 class Canvas;
 
 class Object {
-  friend class Model;
+    friend class Model;
 public:
-  Object(geometry::key);
-  virtual ~Object();
+    Object(GeometricID::Key);
+    virtual ~Object();
 
-  QColor color;
+    QColor color;
 
-  void transform(flt scale, xyz rotate, xyz translate);
-  void transform(xyz scale, xyz rotate, xyz translate);
-  void transform(xyz scale, QQuaternion, xyz translate);
-  void transform(xyz turn, xyz scale, xyz rotate, xyz translate);
+    void transform(float scale, Vector3D rotate, Vector3D translate);
+    void transform(Vector3D scale, Vector3D rotate, Vector3D translate);
+    void transform(Vector3D scale, QQuaternion, Vector3D translate);
+    void transform(Vector3D turn, Vector3D scale, Vector3D rotate, Vector3D translate);
 
 protected:
-  bool isNull;
+    bool isNull;
 
 private:
-  Model *model;
+    Model *model;
 
-  geometry::key gky;
-  shGeo         geo;      // retrieved on demand
-  void releaseGeometry(); // can be released whenever
+    GeometricID::Key gky;
+    GeometryHandle geo;      // retrieved on demand
+    void releaseGeometry(); // can be released whenever
 
-  QMatrix4x4 mat;
-  void draw(Canvas&);
+    QMatrix4x4 mat;
+    void draw(Canvas&);
 };
 
-//------------------------------------------------------------------------------
-}
-#endif
-// eof
+}  // namespace RealSpace
+#endif  // BA3D_OBJECT_H

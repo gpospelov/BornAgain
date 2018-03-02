@@ -1,18 +1,19 @@
-#include "OrderedMap.h"
+#include "google_test.h"
 #include "INamed.h"
+#include "OrderedMap.h"
 
 class OrderedMapTest : public ::testing::Test
 {
 protected:
-    OrderedMapTest(){}
-    virtual ~OrderedMapTest(){}
+    ~OrderedMapTest();
 };
 
+OrderedMapTest::~OrderedMapTest() = default;
 
 TEST_F(OrderedMapTest, OrderedMapInsert)
 {
     OrderedMap<int, std::string> omap;
-    EXPECT_EQ( size_t(0), omap.size());
+    EXPECT_EQ(size_t(0), omap.size());
 
     std::vector<int> keys = {3, 2, 1};
     std::vector<std::string> values = {"aaa", "bbb", "ccc"};
@@ -20,19 +21,19 @@ TEST_F(OrderedMapTest, OrderedMapInsert)
     omap.insert(keys[0], values[0]);
     omap.insert(keys[1], values[1]);
     omap.insert(keys[2], values[2]);
-    EXPECT_EQ( size_t(3), omap.size());
+    EXPECT_EQ(size_t(3), omap.size());
 
     // check that <key,value> are stored in the order of insertion and that there is no sorting
     // along key as in normal map
-    int npos(0);
-    for(OrderedMap<int, std::string>::const_iterator it = omap.begin(); it!= omap.end(); ++it) {
+    size_t npos(0);
+    for (OrderedMap<int, std::string>::const_iterator it = omap.begin(); it != omap.end(); ++it) {
         EXPECT_EQ(keys[npos], it->first);
         EXPECT_EQ(values[npos], it->second);
         npos++;
     }
 
     omap.clear();
-    EXPECT_EQ( size_t(0), omap.size());
+    EXPECT_EQ(size_t(0), omap.size());
 }
 
 TEST_F(OrderedMapTest, OrderedMapErase)
@@ -47,7 +48,8 @@ TEST_F(OrderedMapTest, OrderedMapErase)
     omap.insert(keys[2], values[2]);
 
     int npos(0);
-    for(OrderedMap<std::string, double>::const_iterator it = omap.begin(); it!= omap.end(); ++it) {
+    for (OrderedMap<std::string, double>::const_iterator it = omap.begin(); it != omap.end();
+         ++it) {
         EXPECT_EQ(keys[npos], it->first);
         EXPECT_EQ(values[npos], it->second);
         npos++;
@@ -64,7 +66,8 @@ TEST_F(OrderedMapTest, OrderedMapErase)
     keys = {"ccc", "aaa"};
     values = {2.0, 3.0};
     npos = 0;
-    for(OrderedMap<std::string, double>::const_iterator it = omap.begin(); it!= omap.end(); ++it) {
+    for (OrderedMap<std::string, double>::const_iterator it = omap.begin(); it != omap.end();
+         ++it) {
         EXPECT_EQ(keys[npos], it->first);
         EXPECT_EQ(values[npos], it->second);
         npos++;
@@ -80,7 +83,7 @@ TEST_F(OrderedMapTest, OrderedMapErase)
 
 TEST_F(OrderedMapTest, OrderedMapGetValue)
 {
-    OrderedMap<const INamed *, INamed *> omap;
+    OrderedMap<const INamed*, INamed*> omap;
 
     std::unique_ptr<INamed> key1(new INamed("key1"));
     std::unique_ptr<INamed> key2(new INamed("key2"));
@@ -100,7 +103,7 @@ TEST_F(OrderedMapTest, OrderedMapGetValue)
 
 TEST_F(OrderedMapTest, OrderedMapFind)
 {
-    OrderedMap<const INamed *, std::string> omap;
+    OrderedMap<const INamed*, std::string> omap;
 
     std::unique_ptr<INamed> n1(new INamed("named1"));
     std::unique_ptr<INamed> n2(new INamed("named2"));
@@ -110,7 +113,7 @@ TEST_F(OrderedMapTest, OrderedMapFind)
     omap.insert(n1.get(), "aaa");
     omap.insert(n2.get(), "bbb");
     omap.insert(n3.get(), "ccc");
-    EXPECT_EQ( size_t(3), omap.size());
+    EXPECT_EQ(size_t(3), omap.size());
 
     EXPECT_EQ(omap.find(n1.get())->first, n1.get());
     EXPECT_EQ(omap.find(n1.get())->first->getName(), "named1");
@@ -133,7 +136,7 @@ TEST_F(OrderedMapTest, OrderedMapReInsert)
     std::unique_ptr<INamed> P_n2(new INamed("named2"));
     std::unique_ptr<INamed> P_n3(new INamed("named3"));
 
-    OrderedMap<INamed *, double> omap;
+    OrderedMap<INamed*, double> omap;
     omap.insert(P_n1.get(), 1.0);
     omap.insert(P_n2.get(), 2.0);
     omap.insert(P_n3.get(), 3.0);

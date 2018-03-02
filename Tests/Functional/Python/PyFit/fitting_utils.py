@@ -53,7 +53,7 @@ def get_real_data():
     """
     simulation = get_simulation()
     simulation.runSimulation()
-    return simulation.getIntensityData()
+    return simulation.result()
 
 
 def get_fit_suite(minimizer, algorithm):
@@ -63,7 +63,7 @@ def get_fit_suite(minimizer, algorithm):
     fit_suite = FitSuite()
     fit_suite.addFitParameter("*Height", 4.*nanometer, 0.04*nanometer, Limits.limited(2.0, 8.0))
     fit_suite.addFitParameter("*Radius", 6.*nanometer, 0.06*nanometer, Limits.limited(2.0, 8.0))
-    fit_suite.addSimulationAndRealData(get_simulation(), get_real_data())
+    fit_suite.addSimulationAndRealData(get_simulation(), get_real_data().array())
     fit_suite.setMinimizer(MinimizerFactory.createMinimizer(minimizer, algorithm))
     return fit_suite
 

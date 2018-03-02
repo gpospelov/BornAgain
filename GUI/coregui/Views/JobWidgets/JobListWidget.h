@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -35,31 +33,28 @@ class BA_CORE_API_ JobListWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit JobListWidget(QWidget *parent = 0);
+    explicit JobListWidget(QWidget* parent = nullptr);
 
-    void setModel(JobModel *model);
+    void setModel(JobModel* model);
 
-//    QSize sizeHint() const { return QSize(64, 768); }
-//    QSize minimumSizeHint() const { return QSize(64, 64); }
+    QItemSelectionModel* selectionModel();
 
-    QItemSelectionModel *selectionModel();
-
-    const JobItem *currentJobItem() const;
+    const JobItem* currentJobItem() const;
 
 signals:
-    void contextMenuRequest(const QPoint &point, const QModelIndex &index);
-    void selectionChanged(JobItem *);
+    void contextMenuRequest(const QPoint& point, const QModelIndex& index);
+    void selectionChanged(JobItem*);
 
 public slots:
-    void makeJobItemSelected(JobItem *jobItem);
+    void makeJobItemSelected(JobItem* jobItem);
 
 private slots:
-    void onItemSelectionChanged(SessionItem *item);
+    void onItemSelectionChanged(SessionItem* item);
 
 private:
-    JobListViewDelegate *m_listViewDelegate;
-    ItemSelectorWidget *m_listView;
-    JobModel *m_jobModel;
+    JobListViewDelegate* m_listViewDelegate;
+    ItemSelectorWidget* m_listView;
+    JobModel* m_jobModel;
 };
 
 #endif // JOBLISTWIDGET_H

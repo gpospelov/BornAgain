@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -37,7 +35,7 @@ bool FilterPropertyProxy::filterAcceptsRow(int sourceRow, const QModelIndex &sou
     QModelIndex index = sourceModel()->index(sourceRow, 1, sourceParent);
     if (!sourceParent.isValid())
         return true;
-    const QString modelType = index.data(SessionModel::ModelTypeRole).toString();
+    const QString modelType = index.data(SessionFlags::ModelTypeRole).toString();
     if (modelType == Constants::PropertyType || modelType == Constants::GroupItemType
         || modelType == Constants::VectorType)
         return false;

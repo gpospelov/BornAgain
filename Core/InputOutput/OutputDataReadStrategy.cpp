@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -54,6 +53,11 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
     size_t nrows = data.size();
     size_t ncols(0);
     if(nrows) ncols = data[0].size();
+
+    if (ncols == 0)
+        throw std::runtime_error("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "
+                                 "Can't parse file");
+
     for(size_t row=0; row<nrows; row++) {
         if(data[row].size() != ncols)
             throw std::runtime_error("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "

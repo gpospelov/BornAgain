@@ -7,30 +7,30 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "InstrumentViewActions.h"
 #include "SessionModel.h"
+#include "ModelUtils.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QMenu>
 #include <QModelIndex>
+#include <QVariant>
+#include <QDebug>
 
 InstrumentViewActions::InstrumentViewActions(QWidget* parent)
     : QObject(parent)
-    , m_addInstrumentAction(nullptr)
+    , m_addInstrumentMenu(nullptr)
     , m_removeInstrumentAction(nullptr)
     , m_cloneInstrumentAction(nullptr)
     , m_model(nullptr)
     , m_selectionModel(nullptr)
 {
-    m_addInstrumentAction = new QAction(QIcon(":/images/toolbar16dark_newitem.svg"),
-            "Add new instrument", this);
+    initAddInstrumentMenu();
 
     m_removeInstrumentAction = new QAction(QIcon(":/images/toolbar16dark_recycle.svg"),
             "Remove this instrument", this);
@@ -38,24 +38,64 @@ InstrumentViewActions::InstrumentViewActions(QWidget* parent)
     m_cloneInstrumentAction  = new QAction(QIcon(":/images/toolbar16dark_cloneitem.svg"),
             "Clone this instrument", this);
 
-    connect(m_addInstrumentAction, SIGNAL(triggered()), this, SLOT(onAddInstrument()));
-    connect(m_removeInstrumentAction, SIGNAL(triggered()), this, SLOT(onRemoveInstrument()));
-    connect(m_cloneInstrumentAction, SIGNAL(triggered()), this, SLOT(onCloneInstrument()));
+    connect(m_removeInstrumentAction, &QAction::triggered,
+            this, &InstrumentViewActions::onRemoveInstrument);
+    connect(m_cloneInstrumentAction, &QAction::triggered,
+            this, &InstrumentViewActions::onCloneInstrument);
 }
 
-void InstrumentViewActions::setModel(SessionModel* model) { m_model = model; }
+InstrumentViewActions::~InstrumentViewActions()
+{
+    delete m_addInstrumentMenu;
+}
+
+void InstrumentViewActions::setModel(SessionModel* model)
+{
+    m_model = model;
+}
 
 void InstrumentViewActions::setSelectionModel(QItemSelectionModel* selectionModel)
 {
     m_selectionModel = selectionModel;
 }
 
+//! Returns menu to create one of available instrument types.
+
+QMenu* InstrumentViewActions::instrumentMenu()
+{
+    return m_addInstrumentMenu;
+}
+
+//! Adds instrument of certain type. Type of instrument is extracted from sender internal data.
+
 void InstrumentViewActions::onAddInstrument()
 {
-    SessionItem* instrument = m_model->insertNewItem(Constants::InstrumentType);
-    instrument->setItemName(suggestInstrumentName("Default GISAS"));
+    auto action = qobject_cast<QAction *>(sender());
+    Q_ASSERT(action && action->data().canConvert(QVariant::String));
+
+    QString instrumentType = action->data().toString();
+
+    if (instrumentType == Constants::GISASInstrumentType) {
+        auto instrument = m_model->insertNewItem(instrumentType);
+        instrument->setItemName(suggestInstrumentName("GISAS"));
+    } else if (instrumentType == Constants::OffSpecInstrumentType) {
+        auto instrument = m_model->insertNewItem(instrumentType);
+        instrument->setItemName(suggestInstrumentName("OffSpec"));
+    } else if (instrumentType == Constants::SpecularInstrumentType) {
+        auto instrument = m_model->insertNewItem(instrumentType);
+        instrument->setItemName(suggestInstrumentName("Specular"));
+    } else {
+        qInfo() << "InstrumentViewActions::onAddInstrument() -> Not supported instrument type"
+                << instrumentType;
+    }
+
     updateSelection();
+
+    // Setting default action to the just triggered action
+    m_addInstrumentMenu->setDefaultAction(action);
 }
+
+//! Removes currently selected instrument.
 
 void InstrumentViewActions::onRemoveInstrument()
 {
@@ -67,6 +107,8 @@ void InstrumentViewActions::onRemoveInstrument()
     updateSelection();
 }
 
+//! Clones currently selected instrument.
+
 void InstrumentViewActions::onCloneInstrument()
 {
     QModelIndex currentIndex = m_selectionModel->currentIndex();
@@ -74,7 +116,7 @@ void InstrumentViewActions::onCloneInstrument()
     if (currentIndex.isValid()) {
         SessionItem* item  = m_model->itemForIndex(currentIndex);
         QString nameOfClone = suggestInstrumentName(item->itemName());
-        SessionItem *clone = m_model->copyParameterizedItem(item);
+        SessionItem *clone = m_model->copyItem(item);
         clone->setItemName(nameOfClone);
     }
 }
@@ -86,17 +128,15 @@ void InstrumentViewActions::onContextMenuRequest(const QPoint& point,
 
     setAllActionsEnabled(indexAtPoint.isValid());
 
-    m_addInstrumentAction->setEnabled(true);
-
-    menu.addAction(m_addInstrumentAction);
-    menu.addAction(m_removeInstrumentAction);
     menu.addAction(m_cloneInstrumentAction);
+    menu.addAction(m_removeInstrumentAction);
+    menu.addSeparator();
+    menu.addMenu(m_addInstrumentMenu);
     menu.exec(point);
 }
 
 void InstrumentViewActions::setAllActionsEnabled(bool value)
 {
-    m_addInstrumentAction->setEnabled(value);
     m_removeInstrumentAction->setEnabled(value);
     m_cloneInstrumentAction->setEnabled(value);
 }
@@ -129,19 +169,41 @@ QMap<QString, int> InstrumentViewActions::mapOfNames()
 {
     QMap<QString, int> result;
 
-    QModelIndex parentIndex;
-    for (int i_row = 0; i_row < m_model->rowCount(parentIndex); ++i_row) {
-        QModelIndex itemIndex = m_model->index(i_row, 0, parentIndex);
-        QString name = m_model->itemForIndex(itemIndex)->itemName();
+    for(auto& name : ModelUtils::topItemNames(m_model)) {
         int ncopy(1);
         QRegExp regexp("\\((.*)\\)");
-        if (regexp.indexIn(name) >= 0) {
+        if (regexp.indexIn(name) >= 0)
             ncopy = regexp.cap(1).toInt();
-        }
         name.replace(regexp.cap(0), "");
         name = name.trimmed();
         result[name] = ncopy;
     }
 
     return result;
+}
+
+//! Constructs menu to add instruments of various types. The type of instrument
+//! is encoded in QAction internal data.
+
+void InstrumentViewActions::initAddInstrumentMenu()
+{
+    m_addInstrumentMenu = new QMenu("Add new instrument");
+    m_addInstrumentMenu->setToolTipsVisible(true);
+
+    auto action = m_addInstrumentMenu->addAction("GISAS");
+    action->setData(QVariant::fromValue(Constants::GISASInstrumentType));
+    action->setToolTip("Add GISAS instrument with default settings");
+    connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
+    m_addInstrumentMenu->setDefaultAction(action);
+
+    action = m_addInstrumentMenu->addAction("OffSpec");
+    action->setData(QVariant::fromValue(Constants::OffSpecInstrumentType));
+    action->setToolTip("Add OffSpec instrument with default settings");
+    connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
+
+    // TODO: enable after specular instrument is ready
+    /*action = m_addInstrumentMenu->addAction("Specular");
+    action->setData(QVariant::fromValue(Constants::SpecularInstrumentType));
+    action->setToolTip("Add Specular instrument with default settings");
+    connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);*/
 }

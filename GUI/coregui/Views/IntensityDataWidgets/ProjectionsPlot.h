@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -35,9 +33,7 @@ class BA_CORE_API_ ProjectionsPlot : public SessionItemWidget
 
 public:
     ProjectionsPlot(const QString& projectionType, QWidget* parent = 0);
-    virtual ~ProjectionsPlot();
-
-    void setItem(SessionItem* intensityItem);
+    ~ProjectionsPlot();
 
 public slots:
     void onMarginsChanged(double left, double right);
@@ -53,6 +49,7 @@ private:
     ProjectionContainerItem* projectionContainerItem();
     QVector<SessionItem*> projectionItems();
     QCPGraph* graphForItem(SessionItem* item);
+    void unsubscribeFromChildren();
 
     void updateProjectionsData();
     void updateProjections();

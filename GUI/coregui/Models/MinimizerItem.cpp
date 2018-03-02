@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -57,7 +55,7 @@ const QString MinuitMinimizerItem::P_MAXFUNCTIONCALLS
 
 MinuitMinimizerItem::MinuitMinimizerItem() : MinimizerItem(Constants::MinuitMinimizerType)
 {
-    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).getVariant());
+    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).variant());
 
     addProperty(P_STRATEGY, 1)
         ->setToolTip("Minimization strategy (0-low, 1-medium, 2-high quality)");
@@ -97,7 +95,7 @@ const QString GSLMultiMinimizerItem::P_MAXITERATIONS
 
 GSLMultiMinimizerItem::GSLMultiMinimizerItem() : MinimizerItem(Constants::GSLMultiMinimizerType)
 {
-    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).getVariant());
+    addProperty(P_ALGORITHMS, MinimizerItemCatalogue::algorithmCombo(modelType()).variant());
     addProperty(P_MAXITERATIONS, 0)->setToolTip("Maximum number of iterations");
 }
 

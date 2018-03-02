@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -51,7 +49,6 @@ signals:
     void resetViewRequest();
     void propertyPanelRequest();
     void savePlotRequest();
-    void rotateDataRequest();
 
 public slots:
     void onItemContextMenuRequest(const QPoint& point);
@@ -77,7 +74,6 @@ private:
     QAction* m_resetViewAction;
     QAction* m_savePlotAction;
     QAction* m_togglePanelAction;
-    QAction* m_rotateDataAction;
 
     SessionModel* m_maskModel;
     QModelIndex m_rootIndex; //! Index in the model corresponding to IntensityDataItem

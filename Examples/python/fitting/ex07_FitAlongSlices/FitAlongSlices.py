@@ -8,8 +8,8 @@ from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
-phi_slice_value = 0.0*deg  # position of vertical slice
-alpha_slice_value = 0.2*deg  # position of horizontal slice
+phi_slice_value = 0.0  # position of vertical slice in deg
+alpha_slice_value = 0.2  # position of horizontal slice in deg
 
 
 def get_sample(radius=5.0*nm, height=10.0*nm):
@@ -44,6 +44,7 @@ def get_simulation():
     simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
                                      100, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setBeamIntensity(1e+08)
     return simulation
 
 
@@ -57,7 +58,7 @@ def create_real_data():
     simulation.runSimulation()
 
     # retrieving simulated data in the form of numpy array
-    real_data = simulation.getIntensityData().getArray()
+    real_data = simulation.result().array()
 
     # spoiling simulated data with the noise to produce "real" data
     noise_factor = 0.1
@@ -84,28 +85,28 @@ class DrawObserver(ba.IFitObserver):
         im = plt.imshow(
             data.getArray(),
             norm=matplotlib.colors.LogNorm(1.0, data.getMaximum()),
-            extent=[data.getXmin()/deg, data.getXmax()/deg,
-                    data.getYmin()/deg, data.getYmax()/deg])
+            extent=[data.getXmin(), data.getXmax(),
+                    data.getYmin(), data.getYmax()])
         plt.colorbar(im)
         plt.title("\"Real\" data")
         plt.xlabel(r'$\phi_f$', fontsize=12)
         plt.ylabel(r'$\alpha_f$', fontsize=12)
         # line representing vertical slice
-        plt.plot([phi_slice_value / deg, phi_slice_value / deg],
-                 [data.getYmin() / deg, data.getYmax() / deg],
+        plt.plot([phi_slice_value, phi_slice_value],
+                 [data.getYmin(), data.getYmax()],
                  color='gray', linestyle='-', linewidth=1)
         # line representing horizontal slice
-        plt.plot([data.getXmin() / deg, data.getXmax() / deg],
-                 [alpha_slice_value / deg, alpha_slice_value / deg],
+        plt.plot([data.getXmin(), data.getXmax()],
+                 [alpha_slice_value, alpha_slice_value],
                  color='gray', linestyle='-', linewidth=1)
 
     def plot_slices(self, slices, title, nplot):
         plt.subplot(2, 2, nplot)
         plt.subplots_adjust(wspace=0.2, hspace=0.3)
         for label, slice in slices:
-            plt.semilogy(slice.getBinCenters()/deg,
+            plt.semilogy(slice.getBinCenters(),
                          slice.getBinValues(), label=label)
-            plt.xlim(slice.getXmin()/deg, slice.getXmax()/deg)
+            plt.xlim(slice.getXmin(), slice.getXmax())
             plt.ylim(1.0, slice.getMaximum()*10.0)
         plt.legend(loc='upper right')
         plt.title(title)
@@ -144,7 +145,7 @@ class DrawObserver(ba.IFitObserver):
             ("simul", simul_data.projectionX(alpha_slice_value))
             ]
         title = ( "Horizontal slice at alpha =" +
-                  '{:3.1f}'.format(alpha_slice_value/deg) )
+                  '{:3.1f}'.format(alpha_slice_value) )
         self.plot_slices(slices, title, nplot=2)
 
         # vertical slices
@@ -152,7 +153,7 @@ class DrawObserver(ba.IFitObserver):
             ("real", real_data.projectionY(phi_slice_value)),
             ("simul", simul_data.projectionY(phi_slice_value))
             ]
-        title = "Vertical slice at phi =" + '{:3.1f}'.format(phi_slice_value/deg)
+        title = "Vertical slice at phi =" + '{:3.1f}'.format(phi_slice_value)
         self.plot_slices(slices, title, nplot=3)
 
         # display fit parameters

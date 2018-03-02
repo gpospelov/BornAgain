@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -47,9 +46,9 @@ double FormFactorCoreShell::topZ(const IRotation& rotation) const
     return mP_shell->topZ(rotation);
 }
 
-void FormFactorCoreShell::setAmbientMaterial(HomogeneousMaterial material)
+void FormFactorCoreShell::setAmbientMaterial(Material material)
 {
-    mP_shell->setAmbientMaterial(material);
+    mP_shell->setAmbientMaterial(std::move(material));
 }
 
 complex_t FormFactorCoreShell::evaluate(const WavevectorInfo& wavevectors) const

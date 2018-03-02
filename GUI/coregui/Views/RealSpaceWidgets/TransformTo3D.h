@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -33,11 +31,11 @@ namespace TransformTo3D
 BA_CORE_API_ double visualLayerThickness(const SessionItem& layerItem);
 
 BA_CORE_API_
-std::unique_ptr<ba3d::Layer> createLayer(const SessionItem& layerItem,
+std::unique_ptr<RealSpace::Layer> createLayer(const SessionItem& layerItem,
                                          const QVector3D& origin = QVector3D());
 
 BA_CORE_API_
-std::unique_ptr<ba3d::particle::Particle> createParticle(const SessionItem& particleItem);
+std::unique_ptr<RealSpace::Particles::Particle> createParticle(const SessionItem& particleItem);
 
 }
 

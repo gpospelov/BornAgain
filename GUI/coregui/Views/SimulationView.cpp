@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -20,16 +18,14 @@
 #include "mainwindow.h"
 #include <QVBoxLayout>
 
-SimulationView::SimulationView(MainWindow *mainWindow)
-    : QWidget(mainWindow)
-    , m_simulationSetupWidget(new SimulationSetupWidget)
-    , m_toolBar(new StyledToolBar)
+SimulationView::SimulationView(MainWindow* mainWindow)
+    : QWidget(mainWindow), m_simulationSetupWidget(new SimulationSetupWidget),
+      m_toolBar(new StyledToolBar)
 {
-    m_toolBar->setMinimumSize(24, 24);
-
+    m_toolBar->setFixedHeight(m_toolBar->minimumHeight());
     m_simulationSetupWidget->setApplicationModels(mainWindow->models());
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto* mainLayout = new QVBoxLayout;
     mainLayout->setSizeConstraint(QLayout::SetNoConstraint);
     mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_simulationSetupWidget);
@@ -38,13 +34,17 @@ SimulationView::SimulationView(MainWindow *mainWindow)
     setLayout(mainLayout);
 }
 
+void SimulationView::onRunSimulationShortcut()
+{
+    m_simulationSetupWidget->onRunSimulation();
+}
+
+void SimulationView::showEvent(QShowEvent*)
+{
+    updateSimulationViewElements();
+}
 
 void SimulationView::updateSimulationViewElements()
 {
     m_simulationSetupWidget->updateViewElements();
-}
-
-void SimulationView::onRunSimulationShortcut()
-{
-    m_simulationSetupWidget->onRunSimulation();
 }

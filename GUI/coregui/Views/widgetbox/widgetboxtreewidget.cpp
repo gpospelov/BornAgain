@@ -43,11 +43,9 @@
 #include "widgetboxcategorylistview.h"
 
 // shared
-//#include <iconloader_p.h>
 #include <sheet_delegate_p.h>
 #include <ui4_p.h>
 #include <qdesigner_utils_p.h>
-//#include <pluginmanager_p.h>
 
 // sdk
 #include <QtDesigner/QDesignerFormEditorInterface>
@@ -58,16 +56,6 @@
 #else
 #include <QtUiPlugin/QDesignerCustomWidgetInterface>
 #endif
-
-//#include <QtDesigner/QDesignerSettingsInterface>
-
-//#include <QtWidgets/QHeaderView>
-//#include <QtWidgets/QApplication>
-//#include <QtWidgets/QTreeWidgetItem>
-//#include <QtGui/QContextMenuEvent>
-//#include <QtWidgets/QAction>
-//#include <QtWidgets/QActionGroup>
-//#include <QtWidgets/QMenu>
 
 #include <QHeaderView>
 #include <QApplication>
@@ -100,26 +88,6 @@ static const char* qtLogoC = "qtlogo.png";
 static const char* invisibleNameC = "[invisible]";
 
 
-//QDESIGNER_SHARED_EXPORT QIcon createIconSet(const QString& name)
-//{
-//    QStringList candidates = QStringList()
-//        << (QString::fromUtf8(":/qt-project.org/formeditor/images/") + name)
-//#ifdef Q_OS_MAC
-//        << (QString::fromUtf8(":/qt-project.org/formeditor/images/mac/") + name)
-//#else
-//        << (QString::fromUtf8(":/qt-project.org/formeditor/images/win/") + name)
-//#endif
-//        << (QString::fromUtf8(":/qt-project.org/formeditor/images/designer_") + name);
-
-//    foreach (const QString& f, candidates) {
-//        if (QFile::exists(f))
-//            return QIcon(f);
-//    }
-
-//    return QIcon();
-//}
-
-
 QIcon createIconSet(const QString& name)
 {
     return QIcon(QString::fromUtf8(":/widgetbox/") + name);
@@ -142,7 +110,6 @@ static ETopLevelRole topLevelRole(const  QTreeWidgetItem* item)
 
 namespace qdesigner_internal {
 
-//WidgetBoxTreeWidget::WidgetBoxTreeWidget(QDesignerFormEditorInterface* core, QWidget* parent) :
 WidgetBoxTreeWidget::WidgetBoxTreeWidget(SampleDesignerInterface* core, QWidget* parent) :
     QTreeWidget(parent),
     m_core(core),
@@ -192,43 +159,12 @@ WidgetBoxCategoryListView* WidgetBoxTreeWidget::categoryViewAt(int idx) const
 void WidgetBoxTreeWidget::saveExpandedState() const
 {
     return;
-
-//    QStringList closedCategories;
-//    if (const int numCategories = categoryCount()) {
-//        for (int i = 0; i < numCategories; ++i) {
-//            const QTreeWidgetItem* cat_item = topLevelItem(i);
-//            if (!isItemExpanded(cat_item))
-//                closedCategories.append(cat_item->text(0));
-//        }
-//    }
-//    QDesignerSettingsInterface* settings = m_core->settingsManager();
-//    settings->beginGroup(QLatin1String(widgetBoxRootElementC));
-//    settings->setValue(QStringLiteral("Closed categories"), closedCategories);
-//    settings->setValue(QStringLiteral("View mode"), m_iconMode);
-//    settings->endGroup();
 }
 
 void  WidgetBoxTreeWidget::restoreExpandedState()
 {
     std::cout << "WidgetBoxTreeWidget::restoreExpandedState() -> XXX Not implemented." << std::endl;
     return;
-
-//    typedef QSet<QString> StringSet;
-//    QDesignerSettingsInterface* settings = m_core->settingsManager();
-//    m_iconMode = settings->value(QStringLiteral("WidgetBox/View mode")).toBool();
-//    updateViewMode();
-//    const StringSet closedCategories = settings->value(QStringLiteral("WidgetBox/Closed categories"), QStringList()).toStringList().toSet();
-//    expandAll();
-//    if (closedCategories.empty())
-//        return;
-
-//    if (const int numCategories = categoryCount()) {
-//        for (int i = 0; i < numCategories; ++i) {
-//            QTreeWidgetItem* item = topLevelItem(i);
-//            if (closedCategories.contains(item->text(0)))
-//                item->setExpanded(false);
-//            }
-//    }
 }
 
 WidgetBoxTreeWidget::~WidgetBoxTreeWidget()
@@ -339,7 +275,6 @@ int WidgetBoxTreeWidget::indexOfCategory(const QString& name) const
 
 bool WidgetBoxTreeWidget::load(QDesignerWidgetBox::LoadMode loadMode)
 {
-//    std::cout << "WidgetBoxTreeWidget::load() -> XXX" << loadMode << std::endl;
     switch (loadMode) {
     case QDesignerWidgetBox::LoadReplace:
         clear();
@@ -374,9 +309,6 @@ bool WidgetBoxTreeWidget::loadContents(const QString& contents)
     foreach(const Category& cat, cat_list)
         addCategory(cat);
 
-    // addCustomCategories(false); // ZZZ
-    // Restore which items are expanded
-    //restoreExpandedState(); ZZZ
     return true;
 }
 
@@ -638,84 +570,12 @@ void WidgetBoxTreeWidget::writeCategories(QXmlStreamWriter& writer, const Catego
     writer.writeEndElement(); // widgetBox
 }
 
-//static int findCategory(const QString& name, const WidgetBoxTreeWidget::CategoryList& list)
-//{
-//    int idx = 0;
-//    foreach (const WidgetBoxTreeWidget::Category& cat, list) {
-//        if (cat.name() == name)
-//            return idx;
-//        ++idx;
-//    }
-//    return -1;
-//}
-
-//static inline bool isValidIcon(const QIcon& icon)
-//{
-//    if (!icon.isNull()) {
-//        const QList<QSize> availableSizes = icon.availableSizes();
-//        if (!availableSizes.empty())
-//            return !availableSizes.front().isEmpty();
-//    }
-//    return false;
-//}
-
 WidgetBoxTreeWidget::CategoryList WidgetBoxTreeWidget::loadCustomCategoryList() const
 {
     CategoryList result;
 
     std::cout << "WidgetBoxTreeWidget::loadCustomCategoryList() -> XXX Not implemented." << std::endl;
     return result;
-
-//    const QDesignerPluginManager* pm = m_core->pluginManager();
-//    const QDesignerPluginManager::CustomWidgetList customWidgets = pm->registeredCustomWidgets();
-//    if (customWidgets.empty())
-//        return result;
-
-//    static const QString customCatName = "Custom Widgets";
-
-//    const QString invisible = QLatin1String(invisibleNameC);
-//    const QString iconPrefix = QLatin1String(iconPrefixC);
-
-//    foreach(QDesignerCustomWidgetInterface* c, customWidgets) {
-//        const QString dom_xml = c->domXml();
-//        if (dom_xml.isEmpty())
-//            continue;
-
-//        const QString pluginName = c->name();
-//        const QDesignerCustomWidgetData data = pm->customWidgetData(c);
-//        QString displayName = data.xmlDisplayName();
-//        if (displayName.isEmpty())
-//            displayName = pluginName;
-
-//        QString cat_name = c->group();
-//        if (cat_name.isEmpty())
-//            cat_name = customCatName;
-//        else if (cat_name == invisible)
-//            continue;
-
-//        int idx = findCategory(cat_name, result);
-//        if (idx == -1) {
-//            result.append(Category(cat_name));
-//            idx = result.size() - 1;
-//        }
-//        Category& cat = result[idx];
-
-//        const QIcon icon = c->icon();
-
-//        QString icon_name;
-//        if (isValidIcon(icon)) {
-//            icon_name = iconPrefix;
-//            std::cout << "YYY " << icon_name.toStdString() << std::endl;
-//            icon_name += pluginName;
-//            m_pluginIcons.insert(icon_name, icon);
-//        } else {
-//            icon_name = QLatin1String(qtLogoC);
-//        }
-
-//        cat.addWidget(Widget(displayName, dom_xml, icon_name, Widget::Custom));
-//    }
-
-//    return result;
 }
 
 void WidgetBoxTreeWidget::adjustSubListSize(QTreeWidgetItem* cat_item)
@@ -799,7 +659,6 @@ void WidgetBoxTreeWidget::addCategory(const Category& cat)
     for (int i = 0; i < widgetCount; ++i) {
         const Widget w = cat.widget(i);
         if (!categoryView->containsWidget(w.name()))
-//            std::cout << "XXX 1.7 " << w.iconName().toStdString() << std::endl;
             categoryView->addWidget(w, iconForWidget(w.iconName()), isScratchPad);
     }
     adjustSubListSize(cat_item);
@@ -914,7 +773,6 @@ void WidgetBoxTreeWidget::updateViewMode()
             }
         }
     }
-
     updateGeometries();
 }
 

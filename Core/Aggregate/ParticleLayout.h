@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -17,6 +16,7 @@
 #define PARTICLELAYOUT_H
 
 #include "ILayout.h"
+#include "Rotations.h"
 #include "Vectors3D.h"
 #include <memory>
 
@@ -31,8 +31,7 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 {
 public:
     ParticleLayout();
-    ParticleLayout(const IAbstractParticle& particle);
-    ParticleLayout(const IAbstractParticle& particle, double abundance);
+    ParticleLayout(const IAbstractParticle& particle, double abundance=-1.0);
     ~ParticleLayout();
 
     ParticleLayout* clone() const final override;
@@ -40,11 +39,9 @@ public:
 
     void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
-    void addParticle(const IAbstractParticle& particle);
-    void addParticle(const IAbstractParticle& particle, double abundance); // TODO delete this
-    void addParticle(const IParticle& particle, double abundance, const kvector_t position);
-    void addParticle(const IParticle& particle, double abundance,
-                     const kvector_t position, const IRotation& rotation);
+    void addParticle(const IAbstractParticle& particle, double abundance=-1.0,
+                     const kvector_t position=kvector_t(),
+                     const IRotation& rotation=IdentityRotation());
 
     SafePointerVector<const IParticle> particles() const final override;
 

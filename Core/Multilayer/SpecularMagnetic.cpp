@@ -7,16 +7,14 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SpecularMagnetic.h"
 #include "Layer.h"
 #include "LayerInterface.h"
-#include "HomogeneousMaterial.h"
 #include "MultiLayer.h"
 #include "WavevectorInfo.h"
 #include <Eigen/LU>
@@ -40,7 +38,7 @@ void SpecularMagnetic::calculateEigenvalues(
     const MultiLayer& sample, const kvector_t k, std::vector<MatrixRTCoefficients>& coeff)
 {
     double mag_k = k.mag();
-    double n_ref = sample.layer(0)->refractiveIndex().real();
+    double n_ref = sample.layer(0)->material()->refractiveIndex(2 * M_PI / mag_k).real();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
     for(size_t i=0; i<coeff.size(); ++i) {
         coeff[i].m_scatt_matrix = sample.layer(i)->polarizedReducedPotential(k, n_ref);

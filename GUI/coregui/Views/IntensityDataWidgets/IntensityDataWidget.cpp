@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,37 +16,40 @@
 #include "IntensityDataItem.h"
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataCanvas.h"
-#include "RealDataItem.h"
-#include "SessionItem.h"
 #include "JobItem.h"
-#include <QAction>
+#include "IntensityDataItemUtils.h"
+#include "IntensityDataFFTPresenter.h"
 #include <QBoxLayout>
 #include <QMenu>
-#include <QLabel>
 
-IntensityDataWidget::IntensityDataWidget(QWidget *parent)
+IntensityDataWidget::IntensityDataWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_intensityCanvas(new IntensityDataCanvas)
     , m_propertyWidget(new IntensityDataPropertyWidget)
+    , m_fftPresenter(new IntensityDataFFTPresenter(this))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QHBoxLayout *hlayout = new QHBoxLayout;
+    auto hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
-
     hlayout->addWidget(m_intensityCanvas);
     hlayout->addWidget(m_propertyWidget);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-
     mainLayout->addLayout(hlayout);
+
     setLayout(mainLayout);
 
-    connect(m_intensityCanvas, SIGNAL(customContextMenuRequested(const QPoint &)),
-            this, SLOT(onContextMenuRequest(const QPoint &)));
+    connect(m_intensityCanvas, &IntensityDataCanvas::customContextMenuRequested, this,
+            &IntensityDataWidget::onContextMenuRequest);
+
+    connect(m_fftPresenter, &IntensityDataFFTPresenter::fftActionRequest, this,
+            &IntensityDataWidget::onFFTAction);
+
+    m_propertyWidget->setVisible(false);
 }
 
 void IntensityDataWidget::setItem(SessionItem* jobItem)
@@ -56,11 +57,12 @@ void IntensityDataWidget::setItem(SessionItem* jobItem)
     SessionItemWidget::setItem(jobItem);
     m_intensityCanvas->setItem(intensityDataItem());
     m_propertyWidget->setItem(intensityDataItem());
+    m_fftPresenter->reset();
 }
 
 QList<QAction*> IntensityDataWidget::actionList()
 {
-    return m_intensityCanvas->actionList() + m_propertyWidget->actionList();
+    return m_intensityCanvas->actionList() + m_fftPresenter->actionList() + m_propertyWidget->actionList();
 }
 
 void IntensityDataWidget::onContextMenuRequest(const QPoint& point)
@@ -71,10 +73,20 @@ void IntensityDataWidget::onContextMenuRequest(const QPoint& point)
     menu.exec(point);
 }
 
+void IntensityDataWidget::onFFTAction()
+{
+    if(m_fftPresenter->inFFTMode()) {
+        auto fftItem = m_fftPresenter->fftItem(intensityDataItem());
+        m_intensityCanvas->setItem(fftItem);
+        m_propertyWidget->setItem(fftItem);
+    } else {
+        // returning ColorMap to non-fft presentation
+        m_intensityCanvas->setItem(intensityDataItem());
+        m_propertyWidget->setItem(intensityDataItem());
+    }
+}
+
 IntensityDataItem* IntensityDataWidget::intensityDataItem()
 {
-    IntensityDataItem* result
-        = dynamic_cast<IntensityDataItem*>(currentItem()->getItem(JobItem::T_OUTPUT));
-    Q_ASSERT(result);
-    return result;
+    return IntensityDataItemUtils::intensityDataItem(currentItem());
 }

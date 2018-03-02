@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -39,6 +37,9 @@ public:
     MaskEditorCanvas(QWidget *parent = 0);
 
     void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex, IntensityDataItem *intensityItem);
+
+    void resetContext();
+
     void setSelectionModel(QItemSelectionModel *model);
 
     MaskGraphicsScene *getScene();
@@ -51,7 +52,6 @@ public slots:
     void onPresentationTypeRequest(MaskEditorFlags::PresentationType presentationType);
     void onSavePlotRequest();
     void onResetViewRequest();
-    void onRotateDataRequest();
 
 private:
     bool isAxisRangeMatchData() const;

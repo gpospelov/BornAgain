@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -20,7 +19,7 @@
 #include <string>
 #include <memory>
 class IFunctionalTest;
-class GISASSimulation;
+class Simulation;
 
 //! @class StandardTestServiceBase
 //! @ingroup standard_samples
@@ -34,7 +33,7 @@ public:
 
 private:
     virtual IFunctionalTest* createTest(const std::string& name, const std::string& description,
-                                        const GISASSimulation& simulation,
+                                        const Simulation& simulation,
                                         double threshold) = 0;
 };
 
@@ -50,14 +49,14 @@ class StandardTestService : public StandardTestServiceBase
 
 private:
     virtual IFunctionalTest* createTest(const std::string& name, const std::string& description,
-                                        const GISASSimulation&  simulation,
+                                        const Simulation&  simulation,
                                         double threshold)
     {
         return createStandardTest(name, description, simulation, threshold);
     }
 
     T* createStandardTest(const std::string& name, const std::string& description,
-                          const GISASSimulation&  simulation, double threshold) {
+                          const Simulation&  simulation, double threshold) {
         return new T(name, description, simulation, threshold);
     }
 };

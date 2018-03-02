@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -28,7 +26,7 @@ class ComponentEditor;
 class QItemSelection;
 class QItemSelectionModel;
 class MaterialItem;
-class MaterialProperty;
+class ExternalProperty;
 
 //! Main widget of MaterialEditor
 
@@ -37,18 +35,18 @@ class BA_CORE_API_ MaterialEditor : public QWidget
     Q_OBJECT
 
 public:
-    MaterialEditor(MaterialModel* materialModel, QWidget* parent = 0);
+    MaterialEditor(MaterialModel* materialModel, QWidget* parent = nullptr);
 
-    QItemSelectionModel* getSelectionModel();
+    QItemSelectionModel* selectionModel();
 
-    MaterialItem* getSelectedMaterial();
+    MaterialItem* selectedMaterial();
 
-    void setInitialMaterialProperty(const MaterialProperty& matProperty);
+    void setInitialMaterialProperty(const ExternalProperty& matProperty);
 
-    bool isModelWasModified() const;
+    bool modelWasChanged() const;
 
 private slots:
-    void onSelectionChanged(const QItemSelection& selected, const QItemSelection&);
+    void onSelectionChanged(const QItemSelection&selected, const QItemSelection&);
     void onDataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&);
     void onRowsInserted(const QModelIndex&, int, int);
     void onRowsRemoved(const QModelIndex&, int, int);

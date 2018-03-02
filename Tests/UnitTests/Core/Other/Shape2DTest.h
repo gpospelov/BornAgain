@@ -1,16 +1,19 @@
-#include "Rectangle.h"
+#include "google_test.h"
 #include "Bin.h"
 #include "Ellipse.h"
 #include "Line.h"
 #include "MathConstants.h"
+#include "Rectangle.h"
 #include "Units.h"
 #include <memory>
 
 class Shape2DTest : public ::testing::Test
 {
 public:
+    ~Shape2DTest();
 };
 
+Shape2DTest::~Shape2DTest() = default;
 
 TEST_F(Shape2DTest, Rectangle)
 {
@@ -56,7 +59,7 @@ TEST_F(Shape2DTest, Ellipse)
     EXPECT_FALSE(ellipse.contains(4.0, -2.0));
     EXPECT_TRUE(ellipse.contains(6.0, -2.0));
 
-    Ellipse ellipse2(10.0, 1.0, 8.0, 4.0, 45.0*Units::degree);
+    Ellipse ellipse2(10.0, 1.0, 8.0, 4.0, 45.0 * Units::degree);
     EXPECT_TRUE(ellipse2.contains(10.0, 1.0));
     EXPECT_FALSE(ellipse2.contains(15.0, 0.0));
     EXPECT_TRUE(ellipse2.contains(7.0, 3.0));
@@ -76,12 +79,12 @@ TEST_F(Shape2DTest, Line)
     EXPECT_FALSE(line.contains(1.01, 0.0));
 
     Line line2(0.0, 0.0, 1.0, 1.0);
-    EXPECT_TRUE(line2.contains(Bin1D(0.5, 1.0),Bin1D(0.0, 0.5)));
-    EXPECT_FALSE(line2.contains(Bin1D(0.51, 1.0),Bin1D(0.0, 0.49)));
+    EXPECT_TRUE(line2.contains(Bin1D(0.5, 1.0), Bin1D(0.0, 0.5)));
+    EXPECT_FALSE(line2.contains(Bin1D(0.51, 1.0), Bin1D(0.0, 0.49)));
 
     std::unique_ptr<Line> clone(line2.clone());
-    EXPECT_TRUE(clone->contains(Bin1D(0.5, 1.0),Bin1D(0.0, 0.5)));
-    EXPECT_FALSE(clone->contains(Bin1D(0.51, 1.0),Bin1D(0.0, 0.49)));
+    EXPECT_TRUE(clone->contains(Bin1D(0.5, 1.0), Bin1D(0.0, 0.5)));
+    EXPECT_FALSE(clone->contains(Bin1D(0.51, 1.0), Bin1D(0.0, 0.49)));
 }
 
 TEST_F(Shape2DTest, VerticalLine)

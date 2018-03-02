@@ -7,14 +7,19 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "FitSuiteObjects.h"
 #include "ChiSquaredModule.h"
+#include "Histogram2D.h"
+
+static_assert(std::is_copy_constructible<FitSuiteObjects>::value == false,
+    "FitSuiteObjects should not be copy constructable");
+static_assert(std::is_copy_assignable<FitSuiteObjects>::value == false,
+    "FitSuiteObjects should not be copy assignable");
 
 FitSuiteObjects::FitSuiteObjects()
   : m_total_weight(0)
@@ -32,7 +37,7 @@ FitSuiteObjects::~FitSuiteObjects()
 }
 
 FitObject* FitSuiteObjects::add(
-    const GISASSimulation& simulation, const OutputData<double>& real_data, double weight)
+    const Simulation& simulation, const OutputData<double>& real_data, double weight)
 {
     m_total_weight += weight;
     FitObject *result = new FitObject(simulation, real_data, weight);
@@ -53,31 +58,9 @@ void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule& chi2_module)
     m_chi2_module.reset(chi2_module.clone());
 }
 
-const OutputData<double> &FitSuiteObjects::getRealData(size_t i_item) const
-{
-    return m_fit_objects[check_index(i_item)]->realData();
-}
-
 const OutputData<double> &FitSuiteObjects::getSimulationData(size_t i_item) const
 {
     return m_fit_objects[check_index(i_item)]->simulationData();
-}
-
-const OutputData<double> &FitSuiteObjects::getChiSquaredMap(size_t i_item) const
-{
-    check_index(i_item);
-
-    size_t istart(0);
-    for(size_t i=0; i<i_item; ++i)
-        istart += m_fit_objects[i]->numberOfFitElements();
-
-    std::vector<FitElement>::const_iterator start = m_fit_elements.begin() + istart;
-    std::vector<FitElement>::const_iterator end = start
-            + m_fit_objects[i_item]->numberOfFitElements();
-
-    m_fit_objects[i_item]->transferToChi2Map(start, end);
-
-    return m_fit_objects[i_item]->chiSquaredMap();
 }
 
 //! loop through all defined simulations and run them
@@ -136,9 +119,26 @@ std::vector<const INode*> FitSuiteObjects::getChildren() const
     return result;
 }
 
-std::string FitSuiteObjects::getDefaultAxesUnits(size_t i_item) const
+std::unique_ptr<IHistogram> FitSuiteObjects::createRealDataHistogram(size_t i_item) const
 {
-    return m_fit_objects[check_index(i_item)]->getDefaultAxisUnits();
+    return m_fit_objects[check_index(i_item)]->createRealDataHistogram();
+}
+
+std::unique_ptr<IHistogram> FitSuiteObjects::createSimulationHistogram(size_t i_item) const
+{
+    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(getSimulationData(i_item)));
+}
+
+std::unique_ptr<IHistogram> FitSuiteObjects::createChiSquaredHistogram(size_t i_item) const
+{
+    // copying shape and axes labels from SimulationResults
+    OutputData<double> buff;
+    buff.copyShapeFrom(getSimulationData(i_item));
+
+    for(std::vector<FitElement>::const_iterator it=getStart(i_item); it!=getEnd(i_item); ++it)
+        buff[it->getIndex()] = it->getSquaredDifference();
+
+    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
 }
 
 double FitSuiteObjects::calculateChiSquaredValue()
@@ -161,4 +161,22 @@ size_t FitSuiteObjects::check_index(size_t index) const
     if( index >= m_fit_objects.size() )
         throw Exceptions::OutOfBoundsException("FitSuiteKit::check() -> Index outside of range");
     return index;
+}
+
+//! Returns iterator pointing to the begin of FitObject with given i_item index.
+
+std::vector<FitElement>::const_iterator FitSuiteObjects::getStart(size_t i_item) const
+{
+    check_index(i_item);
+
+    int istart(0);
+    for(size_t i=0; i<i_item; ++i)
+        istart += m_fit_objects[i]->numberOfFitElements();
+
+    return m_fit_elements.begin() + istart;
+}
+
+std::vector<FitElement>::const_iterator FitSuiteObjects::getEnd(size_t i_item) const
+{
+    return getStart(i_item) + static_cast<int>(m_fit_objects[i_item]->numberOfFitElements());
 }

@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -17,6 +16,7 @@
 #include "MinimizerTests.h"
 #include "RectDetectorFitTest.h"
 #include "AdjustMinimizerStrategyTest.h"
+#include "SpecularFitTest.h"
 #include "StandaloneFitTest.h"
 #include "MultiPatternFitTest.h"
 
@@ -76,4 +76,9 @@ StandardFitsFactory::StandardFitsFactory()
         "StandaloneFit",
         create_new<StandaloneFitTest>,
                 "Test of standalone fit of arbitrary functions");
+
+    registerItem(
+        "SpecularFit",
+        create_new<SpecularFitTest>,
+                "Test of fitting specular data");
 }

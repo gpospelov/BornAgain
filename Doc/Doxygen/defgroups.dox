@@ -10,7 +10,7 @@
 @brief Classes to describe experimental sample.
 
 \defgroup materials Materials
-@brief Classes to describe magnetic and non-magnetic materials.
+@brief Classes and functions to describe magnetic and non-magnetic materials.
 
 \defgroup formfactors Available formfactors
 @brief Available form factors.

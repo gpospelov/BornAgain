@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -29,13 +28,30 @@ public:
     virtual QStringList translate(const QStringList& list) const=0;
 };
 
-class PositionTranslator : public IPathTranslator {
+class ModelTypeTranslator : public IPathTranslator {
 public:
-    ~PositionTranslator() override {}
+    ModelTypeTranslator(QString gui_model_type, QString domain_name);
+    ~ModelTypeTranslator() override {}
 
-    PositionTranslator* clone() const override { return new PositionTranslator; }
+    ModelTypeTranslator* clone() const override;
 
-    virtual QStringList translate(const QStringList& list) const override;
+    QStringList translate(const QStringList& list) const override;
+private:
+    QString m_gui_model_type;
+    QString m_domain_name;
+};
+
+class AddElementTranslator : public IPathTranslator {
+public:
+    AddElementTranslator(QString gui_name, QString additional_name);
+    ~AddElementTranslator() override {}
+
+    AddElementTranslator* clone() const override;
+
+    QStringList translate(const QStringList& list) const override;
+private:
+    QString m_gui_name;
+    QString m_additional_name;
 };
 
 class RotationTranslator : public IPathTranslator {
@@ -44,7 +60,7 @@ public:
 
     RotationTranslator* clone() const override { return new RotationTranslator; }
 
-    virtual QStringList translate(const QStringList& list) const override;
+    QStringList translate(const QStringList& list) const override;
 };
 
 class DistributionNoneTranslator : public IPathTranslator {
@@ -53,7 +69,7 @@ public:
 
     DistributionNoneTranslator* clone() const override { return new DistributionNoneTranslator; }
 
-    virtual QStringList translate(const QStringList& list) const override;
+    QStringList translate(const QStringList& list) const override;
 };
 
 class RoughnessTranslator : public IPathTranslator {
@@ -63,20 +79,26 @@ public:
 
     RoughnessTranslator* clone() const override;
 
-    virtual QStringList translate(const QStringList& list) const override;
+    QStringList translate(const QStringList& list) const override;
 private:
     int getLayerIndex(QString layerName) const;
     int numberOfLayers() const;
     const SessionItem* mp_parent;
 };
 
-class MesoCrystalTranslator : public IPathTranslator {
+class VectorParameterTranslator : public IPathTranslator {
 public:
-    ~MesoCrystalTranslator() override {}
+    VectorParameterTranslator(QString gui_name, std::string base_name,
+                              QStringList additional_names=QStringList());
+    ~VectorParameterTranslator() override {}
 
-    MesoCrystalTranslator* clone() const override { return new MesoCrystalTranslator; }
+    VectorParameterTranslator* clone() const override;
 
-    virtual QStringList translate(const QStringList& list) const override;
+    QStringList translate(const QStringList& list) const override;
+private:
+    QString m_gui_name;
+    std::string m_base_name;
+    QStringList m_additional_names;
 };
 
 #endif // PARAMETERTRANSLATORS_H

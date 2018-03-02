@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -55,7 +54,7 @@ public:
     double volume() const;
 
     //! Returns the reciprocal basis vectors
-    void getReciprocalLatticeBasis(kvector_t b1, kvector_t b2, kvector_t b3) const;
+    void getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const;
 
     //! Returns the nearest lattice point from a given vector
     ivector_t getNearestLatticeVectorCoordinates(const kvector_t vector_in) const;

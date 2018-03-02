@@ -7,15 +7,15 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "GUISpecialTestFactory.h"
 #include "TranslationCases.h"
 #include "GUIPerformanceTest.h"
+#include "GUISaveLoadProject.h"
 
 GUISpecialTestFactory::GUISpecialTestFactory()
 {
@@ -75,8 +75,15 @@ GUISpecialTestFactory::GUISpecialTestFactory()
                  create_new<MesoCrystalTranslationTest>,
                  "MesoCrystalTranslation test");
 
+    registerItem("MagneticSpheresTranslation",
+                 create_new<MagneticSpheresTranslationTest>,
+                 "MagneticSpheresTranslation test");
+
     registerItem("GUIPerformance",
                  create_new<GUIPerformanceTest>,
                  "Measuring GUI performance on typical tasks.");
 
+    registerItem("SaveLoadProject",
+                 create_new<GUISaveLoadProject>,
+                 "Save/load project test");
 }

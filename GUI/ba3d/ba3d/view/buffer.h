@@ -1,4 +1,16 @@
-// GPL3; https://github.com/jburle/ba3d
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/ba3d/model/buffer.h
+//! @brief     Defines Buffer class
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
 
 #ifndef BA3D_BUFFER_H
 #define BA3D_BUFFER_H
@@ -8,23 +20,20 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLVertexArrayObject>
 
-namespace ba3d {
-//------------------------------------------------------------------------------
+namespace RealSpace {
 
 class Geometry;
 
 // GL buffer
 class Buffer final : protected QOpenGLFunctions {
 public:
-  Buffer(Geometry const&);
-  void draw();
+    Buffer(Geometry const&);
+    void draw();
 
 private:
-  int vertexCount;
-  QOpenGLVertexArrayObject vao; QOpenGLBuffer glBuffer;
+    int vertexCount;
+    QOpenGLVertexArrayObject vao; QOpenGLBuffer glBuffer;
 };
 
-//------------------------------------------------------------------------------
-}
-#endif
-// eof
+}  // namespace RealSpace
+#endif  // BA3D_BUFFER_H

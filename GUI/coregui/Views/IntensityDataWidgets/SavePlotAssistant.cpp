@@ -7,17 +7,14 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SavePlotAssistant.h"
 #include "ColorMap.h"
 #include "IntensityDataIOFactory.h"
-#include "IntensityDataItem.h"
 #include <QFileDialog>
 #include <QMessageBox>
 
@@ -53,8 +50,8 @@ SavePlotAssistant::Format::Format(const QString &file_extention, const QString &
 
 }
 
-void SavePlotAssistant::savePlot(const QString &dirname, QCustomPlot *plot,
-                                 IntensityDataItem *item)
+void SavePlotAssistant::savePlot(const QString& dirname, QCustomPlot* plot,
+                                 OutputData<double>* output_data)
 
 {
     QString selectedFilter("*.png");
@@ -66,7 +63,7 @@ void SavePlotAssistant::savePlot(const QString &dirname, QCustomPlot *plot,
 
     if(!nameToSave.isEmpty()) {
         try {
-            saveToFile(nameToSave, plot, item);
+            saveToFile(nameToSave, plot, output_data);
         } catch(const std::exception &ex) {
             QString message = "Attempt to save file with the name '";
             message.append(nameToSave);
@@ -78,7 +75,8 @@ void SavePlotAssistant::savePlot(const QString &dirname, QCustomPlot *plot,
 
 }
 
-void SavePlotAssistant::saveToFile(const QString &fileName, QCustomPlot *plot, IntensityDataItem *item)
+void SavePlotAssistant::saveToFile(const QString& fileName, QCustomPlot* plot,
+                                   OutputData<double>* output_data)
 {
     if(isPngFile(fileName)) {
         plot->savePng(fileName);
@@ -93,8 +91,8 @@ void SavePlotAssistant::saveToFile(const QString &fileName, QCustomPlot *plot, I
     }
 
     else {
-        IntensityDataIOFactory::writeOutputData(*item->getOutputData(),
-                                                fileName.toStdString());
+        Q_ASSERT(output_data);
+        IntensityDataIOFactory::writeOutputData(*output_data, fileName.toStdString());
     }
 }
 

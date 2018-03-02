@@ -7,23 +7,23 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "ParticleItem.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorItems.h"
-#include "GUIHelpers.h"
-#include "MaterialUtils.h"
+#include "MaterialItemUtils.h"
 #include "ModelPath.h"
+#include "Particle.h"
 #include "ParticleCoreShellItem.h"
+#include "SessionItemUtils.h"
 #include "TransformToDomain.h"
 #include "VectorItem.h"
-#include "Particle.h"
+
+using SessionItemUtils::SetVectorItem;
 
 namespace {
 const QString abundance_tooltip =
@@ -32,7 +32,7 @@ const QString abundance_tooltip =
 
 const QString position_tooltip =
     "Relative position of the particle's reference point \n"
-    "in the coordinate system of the parent";
+    "in the coordinate system of the parent (nm)";
 }
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
@@ -45,17 +45,18 @@ ParticleItem::ParticleItem()
     : SessionGraphicsItem(Constants::ParticleType)
 {
     addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
-    addProperty(P_MATERIAL, MaterialUtils::getDefaultMaterialProperty().getVariant())
-        ->setToolTip(QStringLiteral("Material of particle"));
+    addProperty(P_MATERIAL, MaterialItemUtils::defaultMaterialProperty().variant())
+        ->setToolTip(QStringLiteral("Material of particle"))
+        .setEditorType(Constants::MaterialEditorExternalType);
 
     addProperty(P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0)).setDecimals(3)
         .setToolTip(abundance_tooltip);
     addGroupProperty(P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
 
-    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::TransformationType);
+    registerTag(T_TRANSFORMATION, 0, 1, QStringList() << Constants::RotationType);
     setDefaultTag(T_TRANSFORMATION);
 
-    addTranslator(PositionTranslator());
+    addTranslator(VectorParameterTranslator(P_POSITION, BornAgain::Position));
     addTranslator(RotationTranslator());
 
     mapper()->setOnParentChange([this](SessionItem* newParent) {
@@ -66,7 +67,7 @@ ParticleItem::ParticleItem()
 std::unique_ptr<Particle> ParticleItem::createParticle() const
 {
     auto P_material = TransformToDomain::createDomainMaterial(*this);
-    auto P_particle = GUIHelpers::make_unique<Particle>(*P_material);
+    auto P_particle = std::make_unique<Particle>(*P_material);
 
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     P_particle->setAbundance(abundance);
@@ -87,10 +88,9 @@ void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
         setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         if (isShellParticle()) {
+            kvector_t zero_vector;
+            SetVectorItem(*this, ParticleItem::P_POSITION, zero_vector);
             SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
-            positionItem->setItemValue(VectorItem::P_X, 0.0);
-            positionItem->setItemValue(VectorItem::P_Y, 0.0);
-            positionItem->setItemValue(VectorItem::P_Z, 0.0);
             positionItem->setEnabled(false);
         }
     } else {

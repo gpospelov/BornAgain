@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -39,10 +37,6 @@ public:
 
     void setModel(SessionModel* model);
 
-    //! Shows the widget for given item (and hides previous one).
-    //! If no widget yet exists, it will be created (flag isNew will become 'true' in this case).
-    virtual void setItem(SessionItem* item, bool* isNew = 0) = 0;
-
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
 
@@ -51,7 +45,6 @@ public:
 public slots:
     virtual void onModelAboutToBeReset();
     virtual void onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int);
-    virtual void onSelectionChanged(SessionItem* item);
 
 protected:
     void connectModel();

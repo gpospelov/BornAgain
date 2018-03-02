@@ -7,14 +7,15 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "GroupItem.h"
+#include "GUIHelpers.h"
+#include "GroupItemController.h"
+#include "ComboProperty.h"
 #include "GUIHelpers.h"
 
 const QString GroupItem::T_ITEMS = "Item tag";
@@ -23,37 +24,35 @@ GroupItem::GroupItem() : SessionItem(Constants::GroupItemType)
 {
     registerTag(T_ITEMS);
     setDefaultTag(T_ITEMS);
+
+    mapper()->setOnValueChange([this]() { onValueChange(); });
 }
 
-void GroupItem::setGroup(GroupProperty_t group)
+GroupItem::~GroupItem() = default;
+
+void GroupItem::setGroupInfo(const GroupInfo& groupInfo)
 {
-    if (value().isValid())
+    if (m_controller)
         throw GUIHelpers::Error("GroupItem::setGroup() -> Error. Attempt to set group twice.");
 
-    group->setGroupItem(this);
-    setValue(QVariant::fromValue(group));
-}
-
-GroupProperty_t GroupItem::groupProperty() const
-{
-    return value().value<GroupProperty_t>();
+    m_controller = std::make_unique<GroupItemController>(this, groupInfo);
+    updateComboValue();
 }
 
 SessionItem* GroupItem::currentItem() const
 {
-    return value().isValid() ? groupProperty()->currentItem() : nullptr;
+    return m_controller ? m_controller->currentItem() : nullptr;
 }
 
 QString GroupItem::currentType() const
 {
-    return groupProperty()->currentType();
+    return m_controller->currentType();
 }
 
 SessionItem* GroupItem::setCurrentType(const QString& modelType)
 {
-    GroupProperty_t group_property = groupProperty();
-    group_property->setCurrentType(modelType);
-
+    m_controller->setCurrentType(modelType);
+    updateComboValue();
     return currentItem();
 }
 
@@ -62,3 +61,29 @@ QStringList GroupItem::translateList(const QStringList& list) const
     // we do not add here the name of itself
     return list;
 }
+
+SessionItem* GroupItem::getItemOfType(const QString& type)
+{
+    return m_controller->getItemOfType(type);
+}
+
+void GroupItem::onValueChange()
+{
+    if (!value().canConvert<ComboProperty>())
+        throw GUIHelpers::Error("GroupItem::onValueChange() -> Error. Wrong property type");
+
+    ComboProperty property = value().value<ComboProperty>();
+    if (property.currentIndex() != m_controller->currentIndex()) {
+        m_controller->setCurrentIndex(property.currentIndex());
+        // because of the delay between ComboProperty change and the change in GroupItem here,
+        // we have to emit signals once again to inform other views (i.e. views other than the view
+        // were property was changed)
+        emitDataChanged(Qt::DisplayRole | Qt::EditRole);
+    }
+}
+
+void GroupItem::updateComboValue()
+{
+    setValue(m_controller->createCombo());
+}
+

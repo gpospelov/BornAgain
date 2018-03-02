@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -29,6 +28,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "Test of all form factors defined, absorption case",
         "MiniGISAS_v2",
         "LayersWithAbsorptionBuilder",
+        2e-10);
+
+    add("GISASAbsorptiveSLDLayers",
+        "Test for SLD material in GISAS simulations",
+        "MiniGISAS",
+        "LayersWithAbsorptionBySLDBuilder",
         2e-10);
 
     add("CylindersAndPrisms",
@@ -275,6 +280,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "MagneticRotationBuilder",
         2e-10);
 
+    add("MagneticSpheres",
+        "Magnetic spheres inside substrate",
+        "MiniGISASSpinFlipZ",
+        "MagneticSpheresBuilder",
+        2e-10);
+
     add("TransformBox",
         "Rotated/translated box in 3 layers system",
         "MiniGISAS",
@@ -355,6 +366,59 @@ StandardTestCatalogue::StandardTestCatalogue()
         "Spherical particle made of two different materials crossing interface",
         "MiniGISAS",
         "SlicedCompositionBuilder",
+        1e-10);
+
+    // Simulations with background
+
+    add("ConstantBackground",
+        "Constant background is added to the simulation",
+        "ConstantBackground",
+        "CylindersInBABuilder",
+        1e-10);
+
+    // Specular simulations
+
+    add("HomogeneousTiNiSample",
+        "Specular simulation for 10 interchanging Ti-Ni homogeneous layers",
+        "BasicSpecular",
+        "HomogeneousMultilayerBuilder",
+        1e-10);
+
+    add("HomogeneousTiNiSampleWithAbsorption",
+        "Specular simulation for 10 interchanging Ti-Ni homogeneous "
+            "layers with absorptive SLD material",
+        "BasicSpecular",
+        "PlainMultiLayerBySLDBuilder",
+        1e-10);
+
+    add("RoughnessInSpecular",
+        "Specular simulation with rough sample",
+        "BasicSpecular",
+        "MultiLayerWithRoughnessBuilder",
+        2e-9);
+
+    add("GaussianBeamFootprint",
+        "Similar to HomogeneousTiNiSample, but with finite-sized gaussian beam",
+        "SpecularWithGaussianBeam",
+        "HomogeneousMultilayerBuilder",
+        1e-10);
+
+    add("SquareBeamFootprint",
+        "Similar to HomogeneousTiNiSample, but with finite-sized square beam",
+        "SpecularWithSquareBeam",
+        "HomogeneousMultilayerBuilder",
+        1e-10);
+
+    add("SpecularDivergentBeam",
+        "Simulates beam divergence both in wavelength and inclination angle",
+        "SpecularDivergentBeam",
+        "HomogeneousMultilayerBuilder",
+        1e-10);
+
+    add("OffSpecularResonator",
+        "Simulates resonator in OffSpec setup",
+        "OffSpecMini",
+        "ResonatorBuilder",
         1e-10);
 }
 

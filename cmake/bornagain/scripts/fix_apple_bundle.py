@@ -1,6 +1,7 @@
 """
 Script to fix all dependencies in OS X bundle. Runs automatically when -DBORNAGAIN_APPLE_BUNDLE
 """
+from __future__ import print_function
 import os
 import sys
 import platform
@@ -14,6 +15,16 @@ BUNDLE_DIR = ""
 # -----------------------------------------------------------------------------
 # Locations
 # -----------------------------------------------------------------------------
+
+def is_python3():
+    if (sys.version_info > (3, 0)):
+        return True
+    else:
+        return False
+
+
+def python_version_string():
+    return str(sys.version_info[0]) + "." + str(sys.version_info[1])
 
 
 def set_bundle_dir(bundle_dir):
@@ -39,7 +50,7 @@ def bundle_main_executables():
 
 
 def bundle_python_library():
-    return os.path.join("Python.framework", "Versions", "2.7", "Python")
+    return os.path.join("Python.framework", "Versions", python_version_string(), "Python")
 
 
 def qtlibs_path():
@@ -108,8 +119,10 @@ def otool(filename):
     p = subprocess.Popen(['otool', '-XL', filename], stdout=subprocess.PIPE)
     # return iter(p.stdout.readline, b'')
     for line in iter(p.stdout.readline, b''):
-        str = line.strip().split()[0]
-        yield str
+        if is_python3():
+            yield line.decode('ascii').strip().split()[0]
+        else:
+            yield line.strip().split()[0]
 
 
 def setId(filename, newId):
@@ -125,7 +138,7 @@ def fixDependency(filename, old, new):
     """
     Replaces old dependency with new one for given binary file
     """
-    print "    fixDependency(filename, old, new)", filename, old, new
+    print("    fixDependency(filename, old, new)", filename, old, new)
     p = subprocess.Popen(['install_name_tool', '-change', old, new, filename], stdout=subprocess.PIPE)
     p.communicate()
     return
@@ -260,7 +273,7 @@ def get_python_library_location():
     Returns location of Python library. The library is deduced from interpreter itself
     """
     for dependency in otool(sys.executable):
-        print dependency
+        print(dependency)
         if os.path.exists(dependency) and "Python.framework" in dependency:
             return dependency
 
@@ -285,11 +298,11 @@ def copy_python_framework():
     """
     Copies Python library to the bundle. The name of the library will be deduced from the interpreter itself.
     """
-    print "--> Copying Python framework"
+    print("--> Copying Python framework")
     python_lib = get_python_library_location()
     destfile = os.path.join(bundle_frameworks_path(), bundle_python_library())
     make_dir(os.path.dirname(destfile))
-    print "    From '{0}'\n    To '{1}'".format(python_lib, destfile)
+    print("    From '{0}'\n    To '{1}'".format(python_lib, destfile))
     if not os.path.exists(destfile):
         shutil.copyfile(python_lib, destfile)
         libId = "@rpath/" + bundle_python_library()
@@ -297,11 +310,11 @@ def copy_python_framework():
 
 
 def copy_qt_libraries():
-    print "--> Copying Qt libraries"
+    print("--> Copying Qt libraries")
     libs = ['QtCore', 'QtDBus', 'QtDesigner', 'QtGui', 'QtPrintSupport', 'QtWidgets', 'QtXml', 'QtSvg', 'QtNetwork', 'QtOpenGL']
-    print "   ",
+    print("   ", end="")
     for libname in libs:
-        print libname,
+        print(libname, end="")
         libpath = os.path.join(libname+".framework", "Versions", "5")
         srcfile = os.path.join(qtlibs_path(), libpath, libname)
         if os.path.exists(srcfile):
@@ -310,11 +323,12 @@ def copy_qt_libraries():
 
 
 def copy_qt_plugins():
-    print "--> Copying Qt plugins"
-    plugins = ['platforms/libqcocoa.dylib', 'iconengines/libqsvgicon.dylib', 'imageformats/libqjpeg.dylib']
-    print "   ",
+    print("--> Copying Qt plugins")
+    plugins = ['platforms/libqcocoa.dylib', 'iconengines/libqsvgicon.dylib',
+        'imageformats/libqjpeg.dylib', 'imageformats/libqsvg.dylib', 'styles/libqmacstyle.dylib']
+    print("   ", end="")
     for name in plugins:
-        print name,
+        print(name, end="")
         srcfile = os.path.join(qtplugins_path(), name)
         dstdir = os.path.join(bundle_plugins_path(), os.path.dirname(name))
         dstfile = copy_file_to_dir(srcfile, dstdir)
@@ -331,35 +345,35 @@ def process_dependency(dependency):
     origLocation  = get_dependency_orig_location(dependency)
     destLocation = get_dependency_dest_location(dependency)
 
-    print "     ------"
+    print("     ------")
     if libId == dependency:
-        print "     selfDependency"
+        print("     selfDependency")
         return None, None
 
     if origLocation == None:
-        print "     origLocation >", origLocation
+        print("     origLocation >", origLocation)
         return libId, None
 
-    print "     origLocation >", origLocation
-    print "     destLocation >", destLocation
-    print "            libId >", libId
+    print("     origLocation >", origLocation)
+    print("     destLocation >", destLocation)
+    print("            libId >", libId)
 
     if os.path.exists(destLocation):
         return libId, None
-    print "       copying to >", destLocation
+    print("       copying to >", destLocation)
     copy_file_to_file(origLocation, destLocation)
     setId(destLocation, libId)
     return libId, destLocation
 
 
 def walk_through_dependencies(file_name):
-    print "============================"
-    print "walk_through ", file_name
+    print("============================")
+    print("walk_through ", file_name)
     for dependency in otool(file_name):
-        print "---> ", file_name, dependency
+        print("---> ", file_name, dependency)
         if is_to_bundle_dependency(dependency):
             libId, new_location = process_dependency(dependency)
-            print "to Bundle", libId, new_location
+            print("to Bundle", libId, new_location)
             if libId:
                 fixDependency(file_name, dependency, libId)
                 if new_location:
@@ -367,7 +381,7 @@ def walk_through_dependencies(file_name):
 
 
 def copy_dependencies():
-    print "--> Copying third party dependencies"
+    print("--> Copying third party dependencies")
     for binfile in iter(bornagain_binaries()):
         walk_through_dependencies(binfile)
 
@@ -391,22 +405,22 @@ def validate_dependencies():
             break
 
     if len(files_with_missed_dependencies):
-        print "Error! Still unresolved dependencies."
-        print files_with_missed_dependencies
+        print("Error! Still unresolved dependencies.")
+        print(files_with_missed_dependencies)
         raise Exception("Unresolved dependencies!")
 
 
 def fix_apple_bundle():
-    print '-'*80
-    print "Fixing OS X bundle at '{0}'".format(bundle_dir())
-    print '-'*80
+    print('-'*80)
+    print("Fixing OS X bundle at '{0}'".format(bundle_dir()))
+    print('-'*80)
     # # copy_python_framework()
     # FIXME provide automatic recognition of Qt dependency type (@rpath or hard coded)
     copy_qt_libraries() # this line should be uncommented for macport based builds
     copy_qt_plugins()
     copy_dependencies()
     validate_dependencies()
-    print "Done!"
+    print("Done!")
 
 
 if __name__ == '__main__':

@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -19,49 +17,75 @@
 #include "DomainObjectBuilder.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
+#include "SpecularSimulation.h"
+#include "SpecularDataItem.h"
 #include <QFileInfo>
+#include <QDebug>
 
 namespace
 {
-QMap<QString, IDetector2D::EAxesUnits> init_units_to_description_map()
+QMap<QString, AxesUnits> init_units_to_description_map()
 {
-    QMap<QString, IDetector2D::EAxesUnits> result;
-    result[Constants::UnitsNbins] = IDetector2D::NBINS;
-    result[Constants::UnitsRadians] = IDetector2D::RADIANS;
-    result[Constants::UnitsDegrees] = IDetector2D::DEGREES;
-    result[Constants::UnitsMm] = IDetector2D::MM;
-    result[Constants::UnitsQyQz] = IDetector2D::QYQZ;
+    QMap<QString, AxesUnits> result;
+    result[Constants::UnitsNbins] = AxesUnits::NBINS;
+    result[Constants::UnitsRadians] = AxesUnits::RADIANS;
+    result[Constants::UnitsDegrees] = AxesUnits::DEGREES;
+    result[Constants::UnitsMm] = AxesUnits::MM;
+    result[Constants::UnitsQyQz] = AxesUnits::QSPACE;
     return result;
 }
 
-QMap<IDetector2D::EAxesUnits, QString> init_description_to_units_map()
+QMap<AxesUnits, QString> init_description_to_units_map()
 {
-    QMap<IDetector2D::EAxesUnits, QString> result;
-    result[IDetector2D::NBINS] = Constants::UnitsNbins;
-    result[IDetector2D::RADIANS] = Constants::UnitsRadians;
-    result[IDetector2D::DEGREES] = Constants::UnitsDegrees;
-    result[IDetector2D::MM] = Constants::UnitsMm;
-    result[IDetector2D::QYQZ] = Constants::UnitsQyQz;
+    QMap<AxesUnits, QString> result;
+    result[AxesUnits::NBINS] = Constants::UnitsNbins;
+    result[AxesUnits::RADIANS] = Constants::UnitsRadians;
+    result[AxesUnits::DEGREES] = Constants::UnitsDegrees;
+    result[AxesUnits::MM] = Constants::UnitsMm;
+    result[AxesUnits::QSPACE] = Constants::UnitsQyQz;
     return result;
 }
 }
 
-void JobItemUtils::setResults(IntensityDataItem* intensityItem, const GISASSimulation* simulation)
+void JobItemUtils::setResults(JobItem* jobItem, const Simulation* simulation)
 {
+    auto dataItem = jobItem->getItem(JobItem::T_OUTPUT);
+    Q_ASSERT(dataItem);
+
+    if (dataItem->modelType() == Constants::IntensityDataType) {
+        setResults(jobItem->intensityDataItem(), simulation);
+    } else if (dataItem->modelType() == Constants::SpecularDataType) {
+        auto specItem = dynamic_cast<SpecularDataItem*>(dataItem);
+        setResults(specItem, simulation);
+    } else {
+        throw GUIHelpers::Error("JobItemUtils::setResults() -> Error. Unsupported data item.");
+    }
+}
+
+void JobItemUtils::setResults(SpecularDataItem* specItem, const Simulation* simulation) {
+    specItem->setOutputData(simulation->result().data());
+}
+
+void JobItemUtils::setResults(IntensityDataItem* intensityItem, const Simulation* simulation)
+{
+    if (dynamic_cast<const SpecularSimulation*>(simulation))
+        throw GUIHelpers::Error("Error in JobItemUtils::setResults: specular simulation "
+                                 "currently is not handled by GUI");
+    auto sim_result = simulation->result();
     if (intensityItem->getOutputData() == nullptr) {
-        const IDetector2D* detector = simulation->getInstrument().getDetector();
+        const IDetector* detector = simulation->getInstrument().getDetector();
         setIntensityItemAxesUnits(intensityItem, detector);
         auto selected_units = axesUnitsFromName(intensityItem->selectedAxesUnits());
         updateAxesTitle(intensityItem);
-        std::unique_ptr<OutputData<double>> data(simulation->getDetectorIntensity(selected_units));
+        std::unique_ptr<OutputData<double>> data(sim_result.data(selected_units));
         intensityItem->setOutputData(data.release());
     } else {
-        std::unique_ptr<OutputData<double>> data(simulation->getDetectorIntensity());
+        std::unique_ptr<OutputData<double>> data(sim_result.data());
         intensityItem->setRawDataVector(data.get());
         if (!intensityItem->isZAxisLocked())
             intensityItem->computeDataRange();
@@ -75,12 +99,18 @@ void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
                                   const InstrumentItem* instrumentItem)
 {
     Q_ASSERT(intensityItem);
-    Q_ASSERT(instrumentItem);
+
+    if (!instrumentItem) {
+        // special case when reading old project files: project failed on load instrument
+        // but we want to try to recover the rest.
+        qInfo() << "JobItemUtils::updateDataAxes() -> Error. Absent instrument.";
+        return;
+    }
 
     if (!intensityItem->getOutputData())
         return;
 
-    IDetector2D::EAxesUnits requested_units
+    AxesUnits requested_units
         = axesUnitsFromName(intensityItem->selectedAxesUnits());
 
     OutputData<double>* newData = createDetectorMap(instrumentItem, requested_units);
@@ -93,7 +123,7 @@ void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
 
 //! loads intensity data from project directory
 
-void JobItemUtils::loadIntensityData(IntensityDataItem *intensityItem, const QString &projectDir)
+void JobItemUtils::loadIntensityData(DataItem *intensityItem, const QString &projectDir)
 {
     QString filename = intensityItem->fileName(projectDir);
     auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
@@ -103,7 +133,7 @@ void JobItemUtils::loadIntensityData(IntensityDataItem *intensityItem, const QSt
 
 //! Saves intensityData in project directory
 
-void JobItemUtils::saveIntensityData(IntensityDataItem* intensityItem, const QString& projectDir)
+void JobItemUtils::saveIntensityData(DataItem* intensityItem, const QString& projectDir)
 {
     if (!intensityItem || !intensityItem->getOutputData())
         return;
@@ -115,17 +145,17 @@ void JobItemUtils::saveIntensityData(IntensityDataItem* intensityItem, const QSt
 
 //! Correspondance of domain detector axes types to their gui counterpart.
 
-QString JobItemUtils::nameFromAxesUnits(IDetector2D::EAxesUnits units)
+QString JobItemUtils::nameFromAxesUnits(AxesUnits units)
 {
-    static QMap<IDetector2D::EAxesUnits, QString> units_to_name = init_description_to_units_map();
+    static QMap<AxesUnits, QString> units_to_name = init_description_to_units_map();
     return units_to_name[units];
 }
 
 //! Correspondance of GUI axes units names to their domain counterpart.
 
-IDetector2D::EAxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
+AxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
 {
-    static QMap<QString, IDetector2D::EAxesUnits> name_to_units = init_units_to_description_map();
+    static QMap<QString, AxesUnits> name_to_units = init_units_to_description_map();
     return name_to_units[name];
 }
 
@@ -133,13 +163,13 @@ IDetector2D::EAxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
 //! SphericalDetector's default units (RADIANS) will be converted to DEGREES
 //! RectangularDetector's default units (MM) will remain the same
 
-IDetector2D::EAxesUnits JobItemUtils::preferableGUIAxesUnits(IDetector2D::EAxesUnits default_units)
+AxesUnits JobItemUtils::preferableGUIAxesUnits(AxesUnits default_units)
 {
-    if (default_units == IDetector2D::RADIANS)
-        return IDetector2D::DEGREES;
+    if (default_units == AxesUnits::RADIANS)
+        return AxesUnits::DEGREES;
 
-    if (default_units == IDetector2D::MM)
-        return IDetector2D::MM;
+    if (default_units == AxesUnits::MM)
+        return AxesUnits::MM;
 
     return default_units;
 }
@@ -149,8 +179,7 @@ IDetector2D::EAxesUnits JobItemUtils::preferableGUIAxesUnits(IDetector2D::EAxesU
 void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
                                               const InstrumentItem* instrumentItem)
 {
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*instrumentItem);
+    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
     instrument->initDetector();
     setIntensityItemAxesUnits(intensityItem, instrument->getDetector());
 }
@@ -158,18 +187,18 @@ void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
 //! Sets axes units suitable for given detector. Currently selected units will  be preserved.
 
 void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
-                                              const IDetector2D* detector)
+                                              const IDetector* detector)
 {
     ComboProperty combo;
 
-    foreach (auto units, detector->getValidAxesUnits())
+    for (auto units : detector->validAxesUnits())
         combo << nameFromAxesUnits(units);
 
-    IDetector2D::EAxesUnits preferrable_units
-        = preferableGUIAxesUnits(detector->getDefaultAxesUnits());
+    AxesUnits preferrable_units
+        = preferableGUIAxesUnits(detector->defaultAxesUnits());
 
     combo.setValue(nameFromAxesUnits(preferrable_units));
-    intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.getVariant());
+    intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
 }
 
 void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
@@ -196,36 +225,33 @@ void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
 void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
                                             const InstrumentItem* instrumentItem)
 {
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*instrumentItem);
+    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
     instrument->initDetector();
-    IDetector2D::EAxesUnits units = instrument->getDetector()->getDefaultAxesUnits();
+    AxesUnits units = instrument->getDetector()->defaultAxesUnits();
     auto detector = instrument->getDetector();
     setIntensityItemAxesUnits(intensityItem, detector);
     updateAxesTitle(intensityItem);
-    intensityItem->setOutputData(detector->createDetectorMap(instrument->getBeam(),
-                                                             preferableGUIAxesUnits(units)));
+    intensityItem->setOutputData(
+        detector->createDetectorMap(instrument->getBeam(), preferableGUIAxesUnits(units))
+            .release());
 }
 
 //! creates detector map from instrument description with axes corresponding to given units
 OutputData<double>* JobItemUtils::createDetectorMap(const InstrumentItem* instrumentItem,
-                                                     IDetector2D::EAxesUnits units)
+                                                     AxesUnits units)
 {
-    DomainObjectBuilder builder;
-    auto instrument = builder.buildInstrument(*instrumentItem);
+    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
     instrument->initDetector();
 
-    if (units == IDetector2D::DEFAULT)
-        units = instrument->getDetector()->getDefaultAxesUnits();
+    if (units == AxesUnits::DEFAULT)
+        units = instrument->getDetector()->defaultAxesUnits();
 
-    OutputData<double>* result
-        = instrument->getDetector()->createDetectorMap(instrument->getBeam(), units);
-
+    auto result = instrument->getDetector()->createDetectorMap(instrument->getBeam(), units);
     if (!result) {
         throw GUIHelpers::Error("JobResultsPresenter::createDetectorMap -> Error. "
                                 "Can't create detector map.");
     }
 
-    return result;
+    return result.release();
 }
 

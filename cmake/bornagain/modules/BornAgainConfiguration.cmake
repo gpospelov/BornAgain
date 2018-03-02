@@ -33,7 +33,10 @@ endif()
 # source directory paths
 # -----------------------------------------------------------------------------
 
-set(REFERENCE_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)
+set(TEST_OUTPUT_DIR ${CMAKE_BINARY_DIR}/test_output)
+file(MAKE_DIRECTORY ${TEST_OUTPUT_DIR})
+set(TEST_REFERENCE_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)
+
 set(PY_EXAMPLES_DIR ${CMAKE_SOURCE_DIR}/Examples/python)
 
 # -----------------------------------------------------------------------------
@@ -78,12 +81,12 @@ endif()
 
 if(WIN32)
     set(destination_bin bin)
-    set(destination_lib bin)
+    set(destination_lib ${destination_bin})
     set(destination_gui bin)
     set(destination_include include)
     set(destination_examples Examples)
     set(destination_images Images)
-    set(destination_libexec ${destination_bin})
+    set(destination_libexec python)
 else()
     set(destination_suffix BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
     if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
@@ -108,7 +111,15 @@ else()
     set(destination_images ${destination_share}Images)
 endif()
 
-message(STATUS "Destination directories: bin->${destination_bin}, lib->${destination_lib}, gui&libexec->${destination_libexec}, include->${destination_include}, share->${destination_share}")
+message(STATUS "Destination directories:
+    bin->${destination_bin},
+    lib->${destination_lib},
+    gui->${destination_gui},
+    include->${destination_include},
+    share->${destination_share},
+    examples->${destination_examples},
+    images->${destination_images},
+    libexec->${destination_libexec}")
 
 # -----------------------------------------------------------------------------
 # configure files
@@ -126,12 +137,13 @@ endif()
 
 configure_file(${TEMPLATE_DIR}/BAVersion.h.in  ${BUILD_INC_DIR}/BAVersion.h @ONLY)
 configure_file(${TEMPLATE_DIR}/BABuild.h.in  ${BUILD_INC_DIR}/BABuild.h @ONLY)
+configure_file(${TEMPLATE_DIR}/BATesting.h.in  ${BUILD_INC_DIR}/BATesting.h @ONLY)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILD_INC_DIR}")
 
 configure_file(${CMAKE_SOURCE_DIR}/Examples/python/utils/plot_intensity_data.py
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/view1.py @ONLY)
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/plot_intensity_data.py COPYONLY)
 configure_file(${CMAKE_SOURCE_DIR}/Examples/python/utils/plot_intensity_data_diff.py
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/view2.py @ONLY)
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/plot_intensity_data_diff.py COPYONLY)
 
 # -----------------------------------------------------------------------------
 # configure BornAgain launch scripts

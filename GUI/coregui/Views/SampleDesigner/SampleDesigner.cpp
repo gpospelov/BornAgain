@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -20,6 +18,7 @@
 #include "FilterPropertyProxy.h"
 #include "ISample.h"
 #include "MultiLayerView.h"
+#include "ApplicationModels.h"
 
 SampleDesigner::SampleDesigner(QWidget *parent)
     : SampleDesignerInterface(parent)
@@ -35,17 +34,12 @@ SampleDesigner::~SampleDesigner()
 {
 }
 
-
-void SampleDesigner::setSampleModel(SampleModel *sampleModel)
+void SampleDesigner::setModels(ApplicationModels* models)
 {
-    if(sampleModel) m_designerScene->setSampleModel(sampleModel);
+    m_designerScene->setSampleModel(models->sampleModel());
+    m_designerScene->setInstrumentModel(models->instrumentModel());
+    m_designerScene->setMaterialModel(models->materialModel());
 }
-
-void SampleDesigner::setInstrumentModel(InstrumentModel *instrumentModel)
-{
-    if(instrumentModel) m_designerScene->setInstrumentModel(instrumentModel);
-}
-
 
 void SampleDesigner::setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy)
 {

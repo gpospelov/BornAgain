@@ -7,15 +7,13 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "InstrumentModel.h"
-#include "InstrumentItem.h"
+#include "InstrumentItems.h"
 
 InstrumentModel::InstrumentModel(QObject *parent)
     : SessionModel(SessionXML::InstrumentModelTag, parent)
@@ -31,8 +29,8 @@ InstrumentModel *InstrumentModel::createCopy(SessionItem *parent)
     return result;
 }
 
-InstrumentItem *InstrumentModel::instrumentItem(const QString &instrument_name)
+InstrumentItem* InstrumentModel::instrumentItem()
 {
-    return dynamic_cast<InstrumentItem *>(topItem(Constants::InstrumentType, instrument_name));
+    return topItem<InstrumentItem>();
 }
 

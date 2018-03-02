@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -18,9 +16,11 @@
 #include "DesignerHelper.h"
 #include "DomainSimulationBuilder.h"
 #include "GISASSimulation.h"
-#include "PythonFormatting.h"
+#include "ExportToPython.h"
 #include "PythonSyntaxHighlighter.h"
 #include "WarningSign.h"
+#include "InstrumentItems.h"
+#include "StyleUtils.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPushButton>
@@ -75,21 +75,22 @@ PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     setLayout(mainLayout);
 
     setAttribute(Qt::WA_DeleteOnClose, true);
+    StyleUtils::setResizable(this);
 }
 
 void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
-        const InstrumentItem *instrumentItem, const SimulationOptionsItem *optionItem,
+        const InstrumentItem* instrumentItem, const SimulationOptionsItem *optionItem,
                                               const QString &outputDir)
 {
     m_outputDir = outputDir;
     m_warningSign->clear();
 
     try {
-        const std::unique_ptr<GISASSimulation> simulation(
-            DomainSimulationBuilder::getSimulation(sampleItem, instrumentItem, optionItem));
+        const auto simulation =
+            DomainSimulationBuilder::createSimulation(sampleItem, instrumentItem, optionItem);
 
         QString code = QString::fromStdString(
-            PythonFormatting::generateSimulationCode(*simulation));
+            ExportToPython::generateSimulationCode(*simulation));
         m_textEdit->clear();
         m_textEdit->setText(code);
 

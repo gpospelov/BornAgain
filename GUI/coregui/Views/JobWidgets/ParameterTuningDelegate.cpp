@@ -7,19 +7,17 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "ParameterTuningDelegate.h"
-#include "GUIHelpers.h"
 #include "ModelPath.h"
 #include "ParameterTreeItems.h"
 #include "ParameterTuningModel.h"
 #include "SessionModel.h"
+#include "SessionItemUtils.h"
 #include <QAbstractItemModel>
 #include <QApplication>
 #include <QDoubleSpinBox>
@@ -118,7 +116,7 @@ void ParameterTuningDelegate::paint(QPainter *painter,
 
         QVariant prop_value = index.model()->data(index, Qt::EditRole);
         if(prop_value.isValid()) {
-            int type = GUIHelpers::getVariantType(prop_value);
+            int type = SessionItemUtils::VariantType(prop_value);
             if (type == QVariant::Double) {
                 double value = prop_value.toDouble();
                 QString text(QString::number(value));

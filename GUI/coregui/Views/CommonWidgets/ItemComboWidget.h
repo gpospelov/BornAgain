@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -47,17 +45,22 @@ public:
 
     void registerWidget(const QString& presentationType, factory_function_t);
 
-    void setPresentation(const QString& presentationType);
+    virtual void setPresentation(const QString& presentationType);
 
+    void setToolBarVisible(bool value);
 protected:
     virtual QStringList activePresentationList(SessionItem* item);
     virtual QStringList presentationList(SessionItem* item);
+    virtual QString itemPresentation() const;
+    QString selectedPresentation() const;
+    SessionItem* currentItem();
+    const SessionItem* currentItem() const;
 
 private slots:
     void onComboChanged(const QString& name);
 
 private:
-    QString currentPresentation() const;
+    void setSizeToCurrentWidget();
 
     ItemComboToolBar* m_toolBar;
     QStackedWidget* m_stackedWidget;

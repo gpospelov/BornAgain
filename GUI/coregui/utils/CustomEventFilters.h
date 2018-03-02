@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -89,5 +87,18 @@ protected:
     QString m_shortcode;
     int m_index;
 };
+
+//! Filter out right mouse button events.
+
+class BA_CORE_API_ RightMouseButtonEater : public QObject
+{
+    Q_OBJECT
+public:
+    RightMouseButtonEater(QObject* parent = 0);
+
+protected:
+    bool eventFilter(QObject* obj, QEvent* event);
+};
+
 
 #endif // CUSTOMEVENTFILTERS_H

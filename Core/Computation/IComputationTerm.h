@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2017
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   J. Burle, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -27,7 +26,7 @@ class SimulationElement;
 class SimulationOptions;
 
 //! Computes an independent term of the scattering intensity.
-//! Controlled by MainComputation, which adds up all contributions from subclasses
+//! Used by DWBAComputation, which adds up all contributions from subclasses
 //! of IComputationTerm
 //! @ingroup algorithms_internal
 

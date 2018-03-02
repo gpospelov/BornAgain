@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -17,11 +16,11 @@
 #include "Units.h"
 #include "MultiLayer.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "FormFactorCylinder.h"
 #include "InterferenceFunction2DLattice.h"
-#include "HomogeneousMaterial.h"
 #include "GISASSimulation.h"
 
 namespace {
@@ -42,7 +41,7 @@ void MultiPatternFitTest::initParameterPlan()
     par.setLimited(4., 12.).addPattern("*Cylinder/Radius").addPattern("*Cylinder/Height");
 
     const double tolerance(0.01);
-    m_parplans.push_back(new FitParameterPlan(par, expected_value, tolerance));
+    m_parplans.push_back(std::make_unique<FitParameterPlan>(par, expected_value, tolerance));
 }
 
 std::unique_ptr<MultiLayer> MultiPatternFitTest::createSample()

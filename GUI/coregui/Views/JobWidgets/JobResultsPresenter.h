@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -29,9 +27,13 @@ class BA_CORE_API_ JobResultsPresenter : public ItemComboWidget
 public:
     explicit JobResultsPresenter(QWidget* parent = 0);
 
+    void setPresentation(const QString& presentationType) override;
+    void setDefaultPresentation();
+
 protected:
-    QStringList activePresentationList(SessionItem* item);
-    virtual QStringList presentationList(SessionItem* item);
+    QString itemPresentation() const override;
+    QStringList activePresentationList(SessionItem* item) override;
+    QStringList presentationList(SessionItem* item) override;
 };
 
 #endif // JOBRESULTSPRESENTER_H

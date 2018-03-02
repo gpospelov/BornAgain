@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -44,8 +42,13 @@ void ItemComboToolBar::setPresentationList(const QStringList& presentationList,
 {
     Q_ASSERT(presentationList.size());
 
+    QString previous = currentPresentation();
+
     setComboConnected(false);
+    m_comboBox->clear();
     m_comboBox->addItems(presentationList);
+    if (activeList.contains(previous))
+        m_comboBox->setCurrentText(previous);
 
     if(!activeList.isEmpty())
         makeItemsEnabled(activeList);
@@ -67,7 +70,7 @@ void ItemComboToolBar::setActionList(const QList<QAction*>& actionList)
 
     foreach (QAction* action, actionList) {
         addAction(action);
-        addStyledSeparator();
+        addSpacing();
     }
 
     addStyledExpand();

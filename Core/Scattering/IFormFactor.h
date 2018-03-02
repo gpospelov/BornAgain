@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -19,7 +18,7 @@
 #include "ISample.h"
 #include "Complex.h"
 #include "EigenCore.h"
-#include "HomogeneousMaterial.h"
+#include "Material.h"
 #include "Vectors3D.h"
 #include "ZLimits.h"
 
@@ -49,8 +48,8 @@ public:
     IFormFactor* createSlicedFormFactor(ZLimits limits, const IRotation& rot,
                                         kvector_t translation) const;
 
-    //! Passes the refractive index of the ambient material in which this particle is embedded.
-    virtual void setAmbientMaterial(HomogeneousMaterial) =0;
+    //! Passes the material in which this particle is embedded.
+    virtual void setAmbientMaterial(Material) = 0;
 
     //! Returns scattering amplitude for complex wavevectors ki, kf.
     virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;

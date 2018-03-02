@@ -7,19 +7,18 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "MesoCrystalBuilder.h"
+#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "Crystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "HomogeneousMaterial.h"
 #include "ISelectionRule.h"
 #include "Layer.h"
 #include "LayerInterface.h"

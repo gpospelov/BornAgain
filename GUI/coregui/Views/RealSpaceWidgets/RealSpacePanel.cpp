@@ -7,16 +7,14 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "RealSpacePanel.h"
 #include "mainwindow_constants.h"
-#include "ComponentBoxEditor.h"
+#include "ComponentEditor.h"
 #include "FilterPropertyProxy.h"
 #include "SampleModel.h"
 #include <QTreeView>
@@ -56,23 +54,21 @@ void RealSpacePanel::setModel(SampleModel* model)
 
     m_treeView->expandAll();
 
-    connect(m_model, SIGNAL(rowsInserted(QModelIndex,int,int)),
-            m_treeView, SLOT(expandAll()), Qt::UniqueConnection);
+    connect(m_model, &SampleModel::rowsInserted, [=](){m_treeView->expandAll();});
 
-    connect(m_treeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-            this, SLOT(onSelectionChanged(QItemSelection, QItemSelection)), Qt::UniqueConnection);
-
+    connect(m_treeView->selectionModel(), &QItemSelectionModel::selectionChanged,
+            this, &RealSpacePanel::onSelectionChanged, Qt::UniqueConnection);
 }
 
 QSize RealSpacePanel::sizeHint() const
 {
-    return QSize(Constants::hint_panel_width*1.3, 256);
+    return QSize(static_cast<int>(Constants::hint_panel_width*1.3), 256);
 
 }
 
 QSize RealSpacePanel::minimumSizeHint() const
 {
-    return QSize(Constants::hint_panel_width*1.3, 63);
+    return QSize(static_cast<int>(Constants::hint_panel_width*1.3), 63);
 }
 
 void RealSpacePanel::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)
@@ -86,10 +82,10 @@ void RealSpacePanel::onSelectionChanged(const QItemSelection& selected, const QI
         QModelIndex index = m_proxy->mapToSource(indices.back());
         SessionItem* item = m_model->itemForIndex(index);
         Q_ASSERT(item);
-        m_componentEditor->setItem(item, item->modelType());
+        m_componentEditor->setItem(item);
         emit selectionChanged(index);
     } else {
-        m_componentEditor->setItem(0);
+        m_componentEditor->setItem(nullptr);
         emit selectionChanged(QModelIndex());
     }
 }

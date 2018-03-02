@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -34,7 +33,7 @@ public:
     IFormFactorDecorator* clone() const override=0;
     void accept(INodeVisitor* visitor) const override=0;
 
-    void setAmbientMaterial(HomogeneousMaterial material) override {
+    void setAmbientMaterial(Material material) override {
         mp_form_factor->setAmbientMaterial(material); }
 
     double volume() const override {

@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -62,15 +60,15 @@ bool GUIExamplesFactory::isValidExampleName(const QString &name)
 }
 
 //! Populate sample model with
-SessionItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel)
+SessionItem *GUIExamplesFactory::createSampleItems(const QString &name, SampleModel *sampleModel,
+                                                   MaterialModel* materialModel)
 {
     QString exampleName = m_name_to_registry[name];
 
     SampleBuilderFactory factory;
-    const std::unique_ptr<ISample> sample(factory.createSample(exampleName.toStdString()));
+    const std::unique_ptr<MultiLayer> sample(factory.createSample(exampleName.toStdString()));
 
-    GUIObjectBuilder guiBuilder;
-    return guiBuilder.populateSampleModel(sampleModel, *sample.get(), name);
+    return GUIObjectBuilder::populateSampleModel(sampleModel, materialModel, *sample.get(), name);
 }
 
 //SessionItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel *instrumentModel)

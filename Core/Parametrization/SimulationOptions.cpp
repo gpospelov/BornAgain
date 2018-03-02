@@ -7,13 +7,13 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SimulationOptions.h"
+#include <stdexcept>
 #include <thread>
 
 SimulationOptions::SimulationOptions()
@@ -38,35 +38,47 @@ void SimulationOptions::setMonteCarloIntegration(bool flag, size_t mc_points)
 
 void SimulationOptions::setNumberOfThreads(int nthreads)
 {
-    if(nthreads == 0)
-        m_thread_info.n_threads = (int)std::thread::hardware_concurrency();
-    else if(nthreads > 0)
+    if (nthreads == 0)
+        m_thread_info.n_threads = getHardwareConcurrency();
+    else if (nthreads > 0)
         m_thread_info.n_threads = nthreads;
     else
         m_thread_info.n_threads = 1;
 }
 
-int SimulationOptions::getNumberOfThreads() const
+unsigned SimulationOptions::getNumberOfThreads() const
 {
+    if (m_thread_info.n_threads < 1)
+        throw std::runtime_error("Error in SimulationOptions::getNumberOfThreads: Number of "
+                                 "threads must be positive");
     return m_thread_info.n_threads;
 }
 
 void SimulationOptions::setNumberOfBatches(int nbatches)
 {
+    if (nbatches < 1)
+        throw std::runtime_error("Error in SimulationOptions::setNumberOfBatches: Number of "
+                                 "batches must be positive");
     m_thread_info.n_batches = nbatches;
 }
 
-int SimulationOptions::getNumberOfBatches() const
+unsigned SimulationOptions::getNumberOfBatches() const
 {
+    if (m_thread_info.n_batches < 1)
+        throw std::runtime_error("Error in SimulationOptions::getNumberOfBatches: Number of "
+                                 "batches must be positive");
     return m_thread_info.n_batches;
 }
 
-int SimulationOptions::getCurrentBatch() const
+unsigned SimulationOptions::getCurrentBatch() const
 {
+    if (m_thread_info.current_batch >= getNumberOfBatches())
+        throw std::runtime_error(
+            "Error in SimulationOptions::getCurrentBatch: current batch is out of range");
     return m_thread_info.current_batch;
 }
 
-int SimulationOptions::getHardwareConcurrency() const
+unsigned SimulationOptions::getHardwareConcurrency() const
 {
-    return (int)std::thread::hardware_concurrency();
+    return std::thread::hardware_concurrency();
 }

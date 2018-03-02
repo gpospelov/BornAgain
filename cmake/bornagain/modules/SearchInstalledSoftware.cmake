@@ -1,14 +1,15 @@
 # Search for installed software required by BornAgain
 
-# === obligatory packages ===
-
 find_package(Threads REQUIRED)
-
-# --- math packages ---
-find_package(Eigen3 REQUIRED)
 find_package(FFTW REQUIRED)
-find_package(GSL REQUIRED) # revert this when issue 1404 is resolved
-find_package(YamlCpp05 REQUIRED)
+find_package(GSL REQUIRED)
+
+# --- Eigen3 is a git submodule; use system eigen if this submodule was not properly cloned ---
+set(EIGEN3_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/ThirdParty/Core/eigen3" CACHE INTERNAL "")
+if(NOT EXISTS "${EIGEN3_INCLUDE_DIR}/signature_of_eigen3_matrix_library")
+    unset(EIGEN3_INCLUDE_DIR CACHE)
+    find_package(Eigen3 REQUIRED)
+endif()
 
 # --- Boost ---
 set(Boost_NO_BOOST_CMAKE ON) # prevent shortcut
@@ -45,7 +46,7 @@ if (BORNAGAIN_GENERATE_BINDINGS AND BORNAGAIN_GENERATE_PYTHON_DOCS)
 endif()
 
 if (BORNAGAIN_USE_PYTHON3)
-    set(Python_ADDITIONAL_VERSIONS 3.5 3.4 3.3)
+    set(Python_ADDITIONAL_VERSIONS 3.6 3.5 3.4 3.3)
 else()
     set(Python_ADDITIONAL_VERSIONS 2.7)
 endif()
@@ -59,12 +60,17 @@ if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
     endif()
     message(STATUS "Found Python libraries version ${PYTHONLIBS_VERSION_STRING} at ${PYTHON_LIBRARIES}; includes at ${PYTHON_INCLUDE_DIRS}")
 
+    if(PYTHONLIBS_VERSION_STRING MATCHES "^3.*$")
+        set(BORNAGAIN_USE_PYTHON3 ON)
+    endif()
+    message(STATUS "BORNAGAIN_USE_PYTHON3: ${BORNAGAIN_USE_PYTHON3}.")
+
     if(NOT WIN32)
+        include(ValidatePythonInstallation)
         ValidatePythonInstallation()
     endif()
 
     find_package(Numpy REQUIRED)
-    find_package(PyYaml REQUIRED)
 endif()
 
 # --- Swig ---

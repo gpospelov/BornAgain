@@ -1,11 +1,15 @@
+#include "google_test.h"
 #include "Polygon.h"
+#include "Bin.h"
 #include <memory>
 
 class PolygonTest : public ::testing::Test
 {
 public:
+    ~PolygonTest();
 };
 
+PolygonTest::~PolygonTest() = default;
 
 TEST_F(PolygonTest, SimpleRectangle)
 {
@@ -47,7 +51,7 @@ TEST_F(PolygonTest, SandWatchShape)
     std::vector<double> x = {2.0, -2.0, 2.0, -2.0, 2.0};
     std::vector<double> y = {2.0, 2.0, -2.0, -2.0, 2.0};
     Polygon polygon(x, y);
-//    std::cout << polygon << std::endl;
+    //    std::cout << polygon << std::endl;
 
     // for some reason area calculation doesn't work for boost's polygon of such shape
     // EXPECT_DOUBLE_EQ(8.0, polygon.getArea());
@@ -59,7 +63,6 @@ TEST_F(PolygonTest, SandWatchShape)
 
     EXPECT_FALSE(polygon.contains(1.0, 0.0));
     EXPECT_FALSE(polygon.contains(-1.5, 0.5));
-
 }
 
 TEST_F(PolygonTest, ContainsBin)
@@ -78,14 +81,13 @@ TEST_F(PolygonTest, ContainsBin)
     EXPECT_FALSE(polygon.contains(binx2, biny2));
 }
 
-
 TEST_F(PolygonTest, Clone)
 {
     std::vector<double> x = {4.0, -4.0, -4.0, 4.0, 4.0};
     std::vector<double> y = {2.0, 2.0, -2.0, -2.0, 2.0};
     Polygon polygon(x, y);
 
-    std::unique_ptr<Polygon > clone(polygon.clone());
+    std::unique_ptr<Polygon> clone(polygon.clone());
     EXPECT_DOUBLE_EQ(32.0, clone->getArea());
     EXPECT_TRUE(clone->contains(0.0, 0.0));
     EXPECT_TRUE(clone->contains(4.0, 2.0));
@@ -101,8 +103,8 @@ TEST_F(PolygonTest, ConstructFrom2DArray)
     const size_t npoints(5);
     double array[npoints][2] = {{4.0, 2.0}, {-4.0, 2.0}, {-4.0, -2.0}, {4.0, -2.0}, {4.0, 2.0}};
 
-    std::vector<std::vector<double > > points;
-    for(size_t i=0; i<npoints; ++i) {
+    std::vector<std::vector<double>> points;
+    for (size_t i = 0; i < npoints; ++i) {
         std::vector<double> p = {array[i][0], array[i][1]};
         points.push_back(p);
     }
@@ -116,19 +118,3 @@ TEST_F(PolygonTest, ConstructFrom2DArray)
     EXPECT_FALSE(polygon.contains(0.0, 2.01));
     EXPECT_FALSE(polygon.contains(4.0, -2.01));
 }
-
-//TEST_F(PolygonTest, GetPoints)
-//{
-//    std::vector<double> xpos;
-//    std::vector<double> ypos;
-
-//    std::vector<double> x = {4.0, -4.0, -4.0, 4.0, 4.0};
-//    std::vector<double> y = {2.0, 2.0, -2.0, -2.0, 2.0};
-//    Polygon polygon(x, y);
-
-//    polygon.getPoints(xpos, ypos);
-//    for(size_t i=0; i<xpos.size(); ++i) {
-//        std::cout << xpos[i] << " " << ypos[i] << std::endl;
-//    }
-
-//}

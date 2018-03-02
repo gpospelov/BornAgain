@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -22,15 +21,18 @@
 #include "Instrument.h"
 #include "ProgressHandler.h"
 #include "SimulationOptions.h"
+#include "SimulationResult.h"
 #include "SampleProvider.h"
 
 template<class T> class OutputData;
-class Computation;
-class MultiLayer;
+class IBackground;
+class IComputation;
 class IMultiLayerBuilder;
+class MultiLayer;
 
-//! Pure virtual base class of OffSpecularSimulation and GISASSimulation,
-//! holds common infrastructure to run a simulation.
+//! Pure virtual base class of OffSpecularSimulation, GISASSimulation and SpecularSimulation.
+//! Holds the common infrastructure to run a simulation: multithreading, batch processing,
+//! weighting over parameter distributions, ...
 //! @ingroup simulation
 
 class BA_CORE_API_ Simulation : public ICloneable, public INode
@@ -69,11 +71,14 @@ public:
 
     void setSampleBuilder(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
 
+    void setBackground(const IBackground& bg);
+    const IBackground* background() const { return mP_background.get(); }
+
     virtual size_t numberOfSimulationElements() const=0;
 
-    //! Clone simulated intensity map
-    virtual OutputData<double>* getDetectorIntensity(
-        IDetector2D::EAxesUnits units_type = IDetector2D::DEFAULT) const=0;
+    //! Returns the results of the simulation in a format that supports unit conversion and export
+    //! to numpy arrays
+    virtual SimulationResult result() const=0;
 
     void addParameterDistribution(
         const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,
@@ -93,40 +98,53 @@ public:
 protected:
     Simulation(const Simulation& other);
 
-    virtual void initSimulationElementVector() =0;
-
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
-    virtual void transferResultsToIntensityMap() =0;
+    virtual void transferResultsToIntensityMap() {}
 
-    //! Update the sample by calling the sample builder, if present
-    void updateSample();
-
-    void runSingleSimulation();
-
-    virtual void updateIntensityMap() =0;
-
-#ifndef SWIG
-    void normalize(std::vector<SimulationElement>::iterator begin_it,
-                   std::vector<SimulationElement>::iterator end_it) const;
-#endif
-
-    //! Returns the start iterator of simulation elements for the current batch
-    std::vector<SimulationElement>::iterator getBatchStart(int n_batches, int current_batch);
-
-    //! Returns the end iterator of simulation elements for the current batch
-    std::vector<SimulationElement>::iterator getBatchEnd(int n_batches, int current_batch);
+    virtual void updateIntensityMap() {}
 
     SampleProvider m_sample_provider;
     SimulationOptions m_options;
     DistributionHandler m_distribution_handler;
     ProgressHandler m_progress;
-    std::vector<SimulationElement> m_sim_elements;
     Instrument m_instrument;
+    std::unique_ptr<IBackground> mP_background;
 
 private:
     void initialize();
-    void imposeConsistencyOfBatchNumbers(int& n_batches, int& current_batch);
+
+    //! Update the sample by calling the sample builder, if present
+    void updateSample();
+
+    void runSingleSimulation(size_t batch_start, size_t batch_size, double weight = 1.0);
+
+    //! Initializes the vector of Simulation elements
+    virtual void initSimulationElementVector() = 0;
+
+    //! Generate a single threaded computation for a given range of simulation elements
+    //! @param start Index of the first element to include into computation
+    //! @param n_elements Number of elements to process
+    virtual std::unique_ptr<IComputation>
+    generateSingleThreadedComputation(size_t start, size_t n_elements) = 0;
+
+    //! Checks the distribution validity for simulation.
+    virtual void validateParametrization(const ParameterDistribution&) const {}
+
+    virtual void addBackGroundIntensity(size_t start_ind, size_t n_elements) = 0;
+
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
+    //! @param start_ind Index of the first element to operate on
+    //! @param n_elements Number of elements to process
+    void normalize(size_t start_ind, size_t n_elements);
+
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle
+    //! for single simulation element specified by _index_.
+    virtual void normalizeIntensity(size_t index, double beam_intensity) = 0;
+
+    virtual void addDataToCache(double weight) = 0;
+
+    virtual void moveDataFromCache() = 0;
 };
 
 #endif // SIMULATION_H

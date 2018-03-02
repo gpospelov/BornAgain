@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -20,6 +19,7 @@
 
 class BasicLattice;
 class Beam;
+class ConstantBackground;
 class ConvolutionDetectorResolution;
 class Crystal;
 class DistributionCosine;
@@ -30,6 +30,8 @@ class DistributionLorentz;
 class DistributionTrapezoid;
 class FitObject;
 class FitSuiteObjects;
+class FootprintFactorGaussian;
+class FootprintFactorSquare;
 class FormFactorAnisoPyramid;
 class FormFactorBox;
 class FormFactorCone;
@@ -89,6 +91,7 @@ class GISASSimulation;
 class HexagonalLattice;
 class IAbstractParticle;
 class IClusteredParticles;
+class IdentityRotation;
 class IFormFactor;
 class IFormFactorBorn;
 class IFormFactorDecorator;
@@ -118,12 +121,15 @@ class ParticleComposition;
 class ParticleCoreShell;
 class ParticleDistribution;
 class ParticleLayout;
+class PoissonNoiseBackground;
 class RectangularDetector;
 class ResolutionFunction2DGaussian;
 class RotationEuler;
 class RotationX;
 class RotationY;
 class RotationZ;
+class SpecularDetector1D;
+class SpecularSimulation;
 class SphericalDetector;
 class SquareLattice;
 
@@ -140,6 +146,7 @@ public:
 
     virtual void visit(const BasicLattice*) {}
     virtual void visit(const Beam*) {}
+    virtual void visit(const ConstantBackground*) {}
     virtual void visit(const ConvolutionDetectorResolution*) {}
     virtual void visit(const Crystal*) {}
     virtual void visit(const DistributionCosine*) {}
@@ -150,6 +157,8 @@ public:
     virtual void visit(const DistributionTrapezoid*) {}
     virtual void visit(const FitObject*) {}
     virtual void visit(const FitSuiteObjects*) {}
+    virtual void visit(const FootprintFactorGaussian*) {}
+    virtual void visit(const FootprintFactorSquare*) {}
     virtual void visit(const FormFactorAnisoPyramid*) {}
     virtual void visit(const FormFactorBox*) {}
     virtual void visit(const FormFactorCone*) {}
@@ -209,6 +218,7 @@ public:
     virtual void visit(const HexagonalLattice*) {}
     virtual void visit(const IAbstractParticle*) {}
     virtual void visit(const IClusteredParticles*) {}
+    virtual void visit(const IdentityRotation*) {}
     virtual void visit(const IFormFactor*) {}
     virtual void visit(const IFormFactorBorn*) {}
     virtual void visit(const IFormFactorDecorator*) {}
@@ -238,12 +248,15 @@ public:
     virtual void visit(const ParticleCoreShell*) {}
     virtual void visit(const ParticleDistribution*) {}
     virtual void visit(const ParticleLayout*) {}
+    virtual void visit(const PoissonNoiseBackground*) {}
     virtual void visit(const RectangularDetector*) {}
     virtual void visit(const ResolutionFunction2DGaussian*) {}
     virtual void visit(const RotationEuler*) {}
     virtual void visit(const RotationX*) {}
     virtual void visit(const RotationY*) {}
     virtual void visit(const RotationZ*) {}
+    virtual void visit(const SpecularDetector1D*) {}
+    virtual void visit(const SpecularSimulation*) {}
     virtual void visit(const SphericalDetector*) {}
     virtual void visit(const SquareLattice*) {}
 

@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -17,7 +16,7 @@
 #define FORMFACTORDECORATORMATERIAL_H
 
 #include "IFormFactorDecorator.h"
-#include "HomogeneousMaterial.h"
+#include "Material.h"
 #include <memory>
 
 //! Decorates a scalar formfactor with the correct factor for the material's
@@ -36,12 +35,10 @@ public:
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     //! Sets the material of the scatterer
-    void setMaterial(HomogeneousMaterial material);
+    void setMaterial(Material material);
 
     //! Sets the ambient material
-    void setAmbientMaterial(HomogeneousMaterial material) override;
-
-    complex_t getAmbientRefractiveIndex() const;
+    void setAmbientMaterial(Material material) override;
 
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 #ifndef SWIG
@@ -52,8 +49,8 @@ public:
 private:
     complex_t getRefractiveIndexFactor(const WavevectorInfo& wavevectors) const;
 
-    HomogeneousMaterial m_material;
-    HomogeneousMaterial m_ambient_material;
+    Material m_material;
+    Material m_ambient_material;
 };
 
 #endif // FORMFACTORDECORATORMATERIAL_H

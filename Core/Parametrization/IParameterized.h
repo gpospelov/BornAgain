@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -17,6 +16,8 @@
 #define IPARAMETERIZED_H
 
 #include "INamed.h"
+#include "Vectors3D.h"
+#include "BornAgainNamespace.h"
 
 class RealLimits;
 class ParameterPool;
@@ -32,7 +33,7 @@ public:
     IParameterized(const IParameterized& other);
     ~IParameterized();
 
-    IParameterized operator=(const IParameterized& other) = delete;
+    IParameterized& operator=(const IParameterized& other) = delete;
 
     //! Returns pointer to the parameter pool.
     ParameterPool* parameterPool() const { return m_pool; }
@@ -45,7 +46,12 @@ public:
 
     RealParameter& registerParameter(const std::string& name, double* parpointer);
 
+    void registerVector(const std::string& base_name, kvector_t* p_vec,
+                        const std::string& units=BornAgain::UnitsNm);
+
     void setParameterValue(const std::string& name, double value);
+
+    void setVectorValue(const std::string& base_name, kvector_t value);
 
     RealParameter* parameter(const std::string& name) const;
 
@@ -54,6 +60,11 @@ public:
 
     void removeParameter(const std::string& name);
 
+    void removeVector(const std::string& base_name);
+
+    static std::string XComponentName(const std::string& base_name);
+    static std::string YComponentName(const std::string& base_name);
+    static std::string ZComponentName(const std::string& base_name);
 private:
     ParameterPool* m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };

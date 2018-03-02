@@ -7,10 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2016
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   Céline Durniak, Marina Ganeva, David Li, Gennady Pospelov
-//! @authors   Walter Van Herck, Joachim Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -50,7 +48,7 @@ void ItemComboWidget::setItem(SessionItem* item)
 
     m_currentItem = item;
 
-    setPresentation(currentPresentation());
+    setPresentation(itemPresentation());
 }
 
 void ItemComboWidget::registerWidget(const QString& presentationType, factory_function_t f)
@@ -75,13 +73,20 @@ void ItemComboWidget::setPresentation(const QString& presentationType)
         widget = m_widgetFactory.create(presentationType).release();
         m_stackedWidget->addWidget(widget);
         m_presentationTypeToWidget[presentationType] = widget;
-        widget->setItem(m_currentItem);
     }
     Q_ASSERT(widget);
+    widget->setItem(m_currentItem);
     m_toolBar->setActionList(widget->actionList());
     m_stackedWidget->setCurrentWidget(widget);
     if (widget->isHidden())
         widget->show();
+
+    setSizeToCurrentWidget();
+}
+
+void ItemComboWidget::setToolBarVisible(bool value)
+{
+    m_toolBar->setVisible(value);
 }
 
 //! Returns list of active presentations for given item. Active presentation is the one
@@ -101,12 +106,48 @@ QStringList ItemComboWidget::presentationList(SessionItem* item)
     return activePresentationList(item);
 }
 
-void ItemComboWidget::onComboChanged(const QString&)
+//! Presentation which should be shown for current item.
+
+QString ItemComboWidget::itemPresentation() const
 {
-    setPresentation(currentPresentation());
+    return selectedPresentation();
 }
 
-QString ItemComboWidget::currentPresentation() const
+//! Presentation selected in combo selector.
+
+QString ItemComboWidget::selectedPresentation() const
 {
     return m_toolBar->currentPresentation();
+}
+
+SessionItem* ItemComboWidget::currentItem()
+{
+    return const_cast<SessionItem*>(static_cast<const ItemComboWidget*>(this)->currentItem());
+}
+
+const SessionItem* ItemComboWidget::currentItem() const
+{
+    return m_currentItem;
+}
+
+void ItemComboWidget::onComboChanged(const QString&)
+{
+    setPresentation(selectedPresentation());
+}
+
+//! Resizes QStackedWidget to currently active page.
+
+void ItemComboWidget::setSizeToCurrentWidget()
+{
+    for (int i = 0; i < m_stackedWidget->count (); ++i)
+    {
+        // determine the vertical size policy
+        QSizePolicy::Policy policy = QSizePolicy::Ignored;
+        if (i == m_stackedWidget->currentIndex())
+            policy = QSizePolicy::Expanding;
+
+        // update the size policy
+        auto page = m_stackedWidget->widget(i);
+        page->setSizePolicy(policy, policy);
+    }
 }

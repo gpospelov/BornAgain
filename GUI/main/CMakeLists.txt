@@ -7,6 +7,8 @@ set(executable_name BornAgain)
 # source files
 # -----------------------------------------------------------------------------
 include_directories(
+    ${CMAKE_SOURCE_DIR}/Wrap
+    ${Boost_INCLUDE_DIRS}
     ${BornAgainGUI_INCLUDE_DIRS}
     ${QtAddOn_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
@@ -48,7 +50,7 @@ endif()
 # -----------------------------------------------------------------------------
 add_executable(${executable_name}
                ${executable_options}
-               ${source_files}
+               ${source_files} ${include_files}
                ${system_addons})
 
 

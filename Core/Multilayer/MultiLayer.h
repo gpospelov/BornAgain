@@ -7,9 +7,8 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
@@ -47,7 +46,7 @@ public:
     MultiLayer();
     virtual ~MultiLayer();
 
-    virtual void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
     size_t numberOfLayers() const { return m_layers.size(); }
     size_t numberOfInterfaces() const { return m_interfaces.size(); }
@@ -81,10 +80,10 @@ public:
     const LayerInterface* layerBottomInterface(size_t i_layer) const;
 
     //! Returns layer material
-    HomogeneousMaterial layerMaterial(size_t i_layer) const;
+    Material layerMaterial(size_t i_layer) const;
 
     //! Changes a layer's material
-    void setLayerMaterial(size_t i_layer, HomogeneousMaterial material);
+    void setLayerMaterial(size_t i_layer, Material material);
 
     //! Returns a clone of multilayer with clones of all layers and recreated
     //! interfaces between layers
@@ -93,9 +92,11 @@ public:
     //! Returns a clone with inverted magnetic fields
     MultiLayer* cloneInvertB() const;
 
+#ifndef SWIG
     //! Returns a clone of multilayer where the original layers may be sliced into several sublayers
     //! for usage with the graded layer approximation
-    MultiLayer* cloneSliced(bool use_average_layers) const;
+    std::unique_ptr<MultiLayer> cloneSliced(bool use_average_layers) const;
+#endif // SWIG
 
     //! Sets cross correlation length of roughnesses between interfaces
     void setCrossCorrLength(double crossCorrLength);
@@ -128,6 +129,9 @@ public:
     size_t topZToLayerIndex(double z_value) const;
 
     bool containsMagneticMaterial() const;
+
+    //! Returns true if the multilayer contains non-default materials of one type only
+    bool containsCompatibleMaterials() const;
 
     //! precalculate the magnetic B fields in each layer
     void initBFields();

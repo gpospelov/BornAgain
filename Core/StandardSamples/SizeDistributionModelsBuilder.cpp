@@ -7,17 +7,16 @@
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2015
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
 
 #include "SizeDistributionModelsBuilder.h"
+#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
 #include "FormFactorCylinder.h"
-#include "HomogeneousMaterial.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "Layer.h"
 #include "MultiLayer.h"
@@ -32,9 +31,9 @@ MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
 {
         MultiLayer* multi_layer = new MultiLayer();
 
-        HomogeneousMaterial m_ambience("Air", 0.0, 0.0);
-        HomogeneousMaterial m_substrate("Substrate", 6e-6, 2e-8);
-        HomogeneousMaterial m_particle("Particle", 6e-4, 2e-8);
+        Material m_ambience = HomogeneousMaterial("Air", 0.0, 0.0);
+        Material m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+        Material m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
         // cylindrical particle 1
         double radius1(5*Units::nanometer);
@@ -75,9 +74,9 @@ MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial m_ambience("Air", 0.0, 0.0);
-    HomogeneousMaterial m_substrate("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial m_particle("Particle", 6e-4, 2e-8);
+    Material m_ambience = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    Material m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     // cylindrical particle 1
     double radius1(5*Units::nanometer);
@@ -128,9 +127,9 @@ MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
 
-    HomogeneousMaterial m_ambience("Air", 0.0, 0.0);
-    HomogeneousMaterial m_substrate("Substrate", 6e-6, 2e-8);
-    HomogeneousMaterial m_particle("Particle", 6e-4, 2e-8);
+    Material m_ambience = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material m_substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    Material m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     // cylindrical particle 1
     double radius1(5*Units::nanometer);
@@ -174,8 +173,8 @@ MultiLayer* CylindersInSSCABuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
-    HomogeneousMaterial air_material("Air", 0.0, 0.0);
-    HomogeneousMaterial particle_material("Particle", 6e-4, 2e-8);
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
 

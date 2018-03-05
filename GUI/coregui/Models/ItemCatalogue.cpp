@@ -54,6 +54,7 @@
 #include "RotationItems.h"
 #include "SimulationOptionsItem.h"
 #include "SpecularDataItem.h"
+#include "SpecularBeamInclinationItem.h"
 #include "SphericalDetectorItem.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
@@ -173,6 +174,7 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::BeamWavelengthType, create_new<BeamWavelengthItem>);
     add(Constants::BeamAzimuthalAngleType, create_new<BeamAzimuthalAngleItem>);
     add(Constants::BeamInclinationAngleType, create_new<BeamInclinationAngleItem>);
+    add(Constants::BeamInclinationAxisType, create_new<SpecularBeamInclinationItem>);
 
     add(Constants::ResolutionFunctionNoneType, create_new<ResolutionFunctionNoneItem>);
     add(Constants::ResolutionFunction2DGaussianType, create_new<ResolutionFunction2DGaussianItem>);

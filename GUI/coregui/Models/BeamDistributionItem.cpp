@@ -121,9 +121,11 @@ double BeamDistributionItem::scaleFactor() const
     return 1.0;
 }
 
-void BeamDistributionItem::register_distribution_group()
+void BeamDistributionItem::register_distribution_group(const QString& group_type)
 {
-    addGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
+    Q_ASSERT(group_type == Constants::DistributionExtendedGroup
+             || group_type == Constants::DistributionWithZeroAverageGroup);
+    addGroupProperty(P_DISTRIBUTION, group_type);
 }
 
 std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D() const

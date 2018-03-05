@@ -18,7 +18,7 @@
 BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
     : BeamDistributionItem(Constants::BeamAzimuthalAngleType, m_show_mean)
 {
-    register_distribution_group();
+    register_distribution_group(Constants::DistributionExtendedGroup);
 
     SessionItem *valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_VALUE);
     valueItem->setLimits(RealLimits::limited(-90.0, 90.0));
@@ -45,7 +45,7 @@ double BeamAzimuthalAngleItem::scaleFactor() const
 BeamInclinationAngleItem::BeamInclinationAngleItem()
     : BeamDistributionItem(Constants::BeamInclinationAngleType, m_show_mean)
 {
-    register_distribution_group();
+    register_distribution_group(Constants::DistributionExtendedGroup);
 
     SessionItem *valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_VALUE);
     valueItem->setLimits(RealLimits::limited(0.0, 90.0));

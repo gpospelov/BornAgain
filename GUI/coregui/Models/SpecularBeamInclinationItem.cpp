@@ -27,7 +27,7 @@ const QString SpecularBeamInclinationItem::P_ALPHA_AXIS = "Alpha axis";
 SpecularBeamInclinationItem::SpecularBeamInclinationItem()
     : BeamDistributionItem(Constants::SpecularBeamInclinationType, m_show_mean)
 {
-    register_distribution_group();
+    register_distribution_group(Constants::DistributionWithZeroAverageGroup);
     addAxisGroupProperty(this, P_ALPHA_AXIS);
     setupDistributionMean(getGroupItem(P_DISTRIBUTION));
 

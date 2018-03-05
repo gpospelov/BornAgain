@@ -35,7 +35,7 @@ public:
 
 protected:
     virtual double scaleFactor() const;
-    void register_distribution_group();
+    void register_distribution_group(const QString& group_type);
     void initDistributionItem(bool show_mean);
 
     virtual std::unique_ptr<IDistribution1D> createDistribution1D() const;

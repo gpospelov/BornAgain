@@ -48,7 +48,7 @@ BeamItem::BeamItem(const QString& beam_model) : SessionItem(beam_model)
     if (beam_model == Constants::BeamType)
         addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
     else if (beam_model == Constants::SpecularBeamType)
-        addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAxisType);
+        addGroupProperty(P_INCLINATION_ANGLE, Constants::SpecularBeamInclinationType);
     else
         GUIHelpers::Error("Error in BeamItem: unknown type of the beam");
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);

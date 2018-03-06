@@ -23,6 +23,9 @@ public:
     BeamWavelengthItem();
 
     double wavelength() const;
+
+private:
+    static const bool m_show_mean = true;
 };
 
 #endif // BEAMWAVELENGTHITEM_H

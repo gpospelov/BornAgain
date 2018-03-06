@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "DomainSimulationBuilder.h"
+#include "AxesItems.h"
 #include "BackgroundItems.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
@@ -23,14 +24,16 @@
 #include "InstrumentItems.h"
 #include "MultiLayer.h"
 #include "MultiLayerItem.h"
-#include "SimulationOptionsItem.h"
 #include "OffSpecSimulation.h"
+#include "SimulationOptionsItem.h"
 #include "SpecularSimulation.h"
+#include "SpecularBeamInclinationItem.h"
 #include "TransformToDomain.h"
-#include "AxesItems.h"
 #include "Units.h"
 
 namespace {
+void addBackgroundToSimulation(const InstrumentItem& instrument, Simulation& simulation);
+
 std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                                                        const GISASInstrumentItem* gisasInstrument,
                                                        const SimulationOptionsItem* optionsItem);
@@ -72,6 +75,13 @@ DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
 
 namespace
 {
+void addBackgroundToSimulation(const InstrumentItem& instrument, Simulation& simulation)
+{
+    auto P_background = instrument.backgroundItem()->createBackground();
+    if (P_background)
+        simulation.setBackground(*P_background);
+}
+
 std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                                                   const GISASInstrumentItem* gisasInstrument,
                                                   const SimulationOptionsItem* optionsItem)
@@ -81,16 +91,13 @@ std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLaye
     gisas->setSample(*P_multilayer);
     gisas->setInstrument(*P_instrument);
     TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(),
-                                                             gisas.get());
+                                                             *gisas.get());
 
     // Simulation options
     if (optionsItem)
         TransformToDomain::setSimulationOptions(gisas.get(), *optionsItem);
 
-    // Background simulation
-    auto P_background = gisasInstrument->backgroundItem()->createBackground();
-    if (P_background)
-        gisas->setBackground(*P_background);
+    addBackgroundToSimulation(*gisasInstrument, *gisas);
 
     return gisas;
 }
@@ -118,10 +125,7 @@ std::unique_ptr<OffSpecSimulation> createOffSpecSimulation(std::unique_ptr<Multi
     if (optionsItem)
         TransformToDomain::setSimulationOptions(offspec.get(), *optionsItem);
 
-    // Background simulation
-    auto P_background = offspecInstrument->backgroundItem()->createBackground();
-    if (P_background)
-        offspec->setBackground(*P_background);
+    addBackgroundToSimulation(*offspecInstrument, *offspec);
 
     return offspec;
 }
@@ -135,8 +139,9 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
         = std::make_unique<SpecularSimulation>(*P_multilayer);
 
     auto beam_item = specular_instrument->beamItem();
-    auto axis_item = dynamic_cast<BasicAxisItem*>(
-        specular_instrument->getItem(SpecularInstrumentItem::P_ALPHA_AXIS));
+    const auto axis_item
+        = dynamic_cast<BasicAxisItem*>(beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE)
+                                           ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
 
     // TODO Take care about beam divergence
     // TODO: add footprint correction factor
@@ -144,14 +149,14 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     specular_simulation->setBeamParameters(beam_item->getWavelength(),
                                            *axis_item->createAxis(Units::degree));
 
+    TransformToDomain::addDistributionParametersToSimulation(*beam_item,
+                                                             *specular_simulation.get());
+
     // Simulation options
     if (options_item)
         TransformToDomain::setSimulationOptions(specular_simulation.get(), *options_item);
 
-    // Background simulation
-    auto P_background = specular_instrument->backgroundItem()->createBackground();
-    if (P_background)
-        specular_simulation->setBackground(*P_background);
+    addBackgroundToSimulation(*specular_instrument, *specular_simulation);
 
     return specular_simulation;
 }

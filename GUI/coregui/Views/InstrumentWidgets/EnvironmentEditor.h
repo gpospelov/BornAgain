@@ -19,7 +19,7 @@
 
 class ComponentEditor;
 class QGridLayout;
-class GISASInstrumentItem;
+class InstrumentItem;
 class ColumnResizer;
 
 //! Environment editor (i.e. background) for GISASInstrumentEditor.
@@ -37,7 +37,7 @@ protected:
     void unsubscribeFromItem();
 
 private:
-    GISASInstrumentItem* instrumentItem();
+    InstrumentItem* instrumentItem();
     ColumnResizer* m_columnResizer;
     ComponentEditor* m_backgroundEditor;
     QGridLayout* m_gridLayout;

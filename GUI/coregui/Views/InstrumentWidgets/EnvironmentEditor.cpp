@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "EnvironmentEditor.h"
-#include "ComponentEditor.h"
-#include "InstrumentItems.h"
-#include "GroupItem.h"
 #include "ColumnResizer.h"
+#include "ComponentEditor.h"
+#include "GroupItem.h"
+#include "InstrumentItems.h"
 #include "LayoutUtils.h"
 #include <QSpacerItem>
 #include <QGridLayout>
@@ -56,9 +56,9 @@ void EnvironmentEditor::unsubscribeFromItem()
     m_backgroundEditor->clearEditor();
 }
 
-GISASInstrumentItem* EnvironmentEditor::instrumentItem()
+InstrumentItem* EnvironmentEditor::instrumentItem()
 {
-    auto result = dynamic_cast<GISASInstrumentItem*>(currentItem());
+    auto result = dynamic_cast<InstrumentItem*>(currentItem());
     Q_ASSERT(result);
     return result;
 }

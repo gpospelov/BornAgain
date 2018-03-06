@@ -85,6 +85,14 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.setDefaultType(Constants::DistributionNoneType);
     addInfo(info);
 
+    info = GroupInfo(Constants::DistributionWithZeroAverageGroup);
+    info.add(Constants::DistributionNoneType, "None");
+    info.add(Constants::DistributionLorentzType, "Lorentz");
+    info.add(Constants::DistributionGaussianType, "Gaussian");
+    info.add(Constants::DistributionCosineType, "Cosine");
+    info.setDefaultType(Constants::DistributionNoneType);
+    addInfo(info);
+
     info = GroupInfo(Constants::FTDistribution1DGroup);
     info.add(Constants::FTDistribution1DCauchyType, "Cauchy 1D");
     info.add(Constants::FTDistribution1DGaussType, "Gauss 1D");

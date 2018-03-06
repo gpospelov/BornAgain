@@ -25,7 +25,10 @@ public:
     double azimuthalAngle() const;
 
 protected:
-    virtual double scaleFactor() const;
+    double scaleFactor() const override;
+
+private:
+    static const bool m_show_mean = true;
 };
 
 class BA_CORE_API_ BeamInclinationAngleItem : public BeamDistributionItem
@@ -36,7 +39,10 @@ public:
     double inclinationAngle() const;
 
 protected:
-    virtual double scaleFactor() const;
+    double scaleFactor() const override;
+
+private:
+    static const bool m_show_mean = true;
 };
 
 #endif // BEAMANGLEITEMS_H

@@ -42,7 +42,7 @@ const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
 const ModelType GISASInstrumentType = "GISASInstrument";
 const ModelType OffSpecInstrumentType = "OffSpecInstrument";
 const ModelType SpecularInstrumentType = "SpecularInstrument";
-const ModelType BeamType = "Beam";
+const ModelType GISASBeamType = "GISASBeam";
 const ModelType SpecularBeamType = "SpecularBeam";
 
 const ModelType FormFactorType = "FormFactor";

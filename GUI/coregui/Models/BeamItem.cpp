@@ -21,6 +21,7 @@
 #include "GUIHelpers.h"
 #include "ParameterTranslators.h"
 #include "SessionItemUtils.h"
+#include "SpecularBeamInclinationItem.h"
 #include "Units.h"
 
 using SessionItemUtils::GetVectorItem;
@@ -44,13 +45,6 @@ BeamItem::BeamItem(const QString& beam_model) : SessionItem(beam_model)
         .setEditorType(Constants::ScientificEditorType);
 
     addGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
-
-    if (beam_model == Constants::BeamType)
-        addGroupProperty(P_INCLINATION_ANGLE, Constants::BeamInclinationAngleType);
-    else if (beam_model == Constants::SpecularBeamType)
-        addGroupProperty(P_INCLINATION_ANGLE, Constants::SpecularBeamInclinationType);
-    else
-        GUIHelpers::Error("Error in BeamItem: unknown type of the beam");
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
     addGroupProperty(P_POLARIZATION, Constants::VectorType)->setToolTip(polarization_tooltip);
 
@@ -75,53 +69,33 @@ double BeamItem::getWavelength() const
     return beamWavelength->wavelength();
 }
 
-void BeamItem::setWavelength(double value, const QString& distribution_name)
+void BeamItem::setWavelength(double value)
 {
-    Q_UNUSED(distribution_name);
-    SessionItem* beamWavelength = getItem(P_WAVELENGTH);
-    Q_ASSERT(beamWavelength);
-    SessionItem* distributionItem = beamWavelength->setGroupProperty(
-        BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
-    Q_ASSERT(distributionItem);
-    distributionItem->setItemValue(DistributionNoneItem::P_VALUE, value);
+    auto beam_wavelength = dynamic_cast<BeamWavelengthItem*>(getItem(P_WAVELENGTH));
+    Q_ASSERT(beam_wavelength);
+    beam_wavelength->resetToValue(value);
 }
 
-double BeamItem::getInclinationAngle() const
+void BeamItem::setInclinationAngle(double value)
 {
-    BeamInclinationAngleItem* inclination
-        = dynamic_cast<BeamInclinationAngleItem*>(getItem(P_INCLINATION_ANGLE));
-    return inclination->inclinationAngle();
-}
-
-// TODO Move down to BeamAngleItem
-
-void BeamItem::setInclinationAngle(double value, const QString& distribution_name)
-{
-    Q_UNUSED(distribution_name);
-    SessionItem* angleItem = getItem(P_INCLINATION_ANGLE);
+    auto angleItem = dynamic_cast<BeamDistributionItem*>(getItem(P_INCLINATION_ANGLE));
     Q_ASSERT(angleItem);
-    SessionItem* distributionItem = angleItem->setGroupProperty(
-        BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
-    Q_ASSERT(distributionItem);
-    distributionItem->setItemValue(DistributionNoneItem::P_VALUE, value);
+    angleItem->resetToValue(value);
 }
 
 double BeamItem::getAzimuthalAngle() const
 {
-    BeamAzimuthalAngleItem* inclination
+    const auto inclination
         = dynamic_cast<BeamAzimuthalAngleItem*>(getItem(P_AZIMUTHAL_ANGLE));
+    Q_ASSERT(inclination);
     return inclination->azimuthalAngle();
 }
 
-void BeamItem::setAzimuthalAngle(double value, const QString& distribution_name)
+void BeamItem::setAzimuthalAngle(double value)
 {
-    Q_UNUSED(distribution_name);
-    SessionItem* angleItem = getItem(P_AZIMUTHAL_ANGLE);
+    auto angleItem = dynamic_cast<BeamDistributionItem*>(getItem(P_AZIMUTHAL_ANGLE));
     Q_ASSERT(angleItem);
-    SessionItem* distributionItem = angleItem->setGroupProperty(
-        BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
-    Q_ASSERT(distributionItem);
-    distributionItem->setItemValue(DistributionNoneItem::P_VALUE, value);
+    angleItem->resetToValue(value);
 }
 
 std::unique_ptr<Beam> BeamItem::createBeam() const
@@ -139,8 +113,44 @@ std::unique_ptr<Beam> BeamItem::createBeam() const
     return result;
 }
 
+void BeamItem::setInclinationProperty(const QString& inclination_type)
+{
+    addGroupProperty(P_INCLINATION_ANGLE, inclination_type);
+}
+
 SpecularBeamItem::SpecularBeamItem() : BeamItem(Constants::SpecularBeamType)
 {
+    setInclinationProperty(Constants::SpecularBeamInclinationType);
 }
 
 SpecularBeamItem::~SpecularBeamItem() = default;
+
+double SpecularBeamItem::getInclinationAngle() const
+{
+    Q_ASSERT(
+        dynamic_cast<BeamDistributionItem*>(getItem(P_INCLINATION_ANGLE))->meanValue()
+        == 0.0);
+    return 0.0;
+}
+
+void SpecularBeamItem::setInclinationAngle(double value)
+{
+    Q_ASSERT(value == 0.0);
+    value = 0.0;
+    BeamItem::setInclinationAngle(value);
+}
+
+GISASBeamItem::GISASBeamItem() : BeamItem(Constants::GISASBeamType)
+{
+    setInclinationProperty(Constants::BeamInclinationAngleType);
+}
+
+GISASBeamItem::~GISASBeamItem() = default;
+
+double GISASBeamItem::getInclinationAngle() const
+{
+    const auto inclination
+        = dynamic_cast<BeamInclinationAngleItem*>(getItem(P_INCLINATION_ANGLE));
+    Q_ASSERT(inclination);
+    return inclination->inclinationAngle();
+}

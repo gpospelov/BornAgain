@@ -21,7 +21,6 @@ class Beam;
 
 class BA_CORE_API_ BeamItem : public SessionItem
 {
-
 public:
     static const QString P_INTENSITY;
     static const QString P_WAVELENGTH;
@@ -29,22 +28,26 @@ public:
     static const QString P_AZIMUTHAL_ANGLE;
     static const QString P_POLARIZATION;
 
-    explicit BeamItem(const QString& beam_model = Constants::BeamType);
     virtual ~BeamItem();
 
     double getIntensity() const;
     void setIntensity(double value);
 
     double getWavelength() const;
-    void setWavelength(double value, const QString& distribution_name = QString());
+    void setWavelength(double value);
 
-    double getInclinationAngle() const;
-    void setInclinationAngle(double value, const QString& distribution_name = QString());
+    virtual double getInclinationAngle() const = 0;
+    virtual void setInclinationAngle(double value);
 
     double getAzimuthalAngle() const;
-    void setAzimuthalAngle(double value, const QString& distribution_name = QString());
+    void setAzimuthalAngle(double value);
 
     std::unique_ptr<Beam> createBeam() const;
+
+protected:
+    explicit BeamItem(const QString& beam_model);
+
+    void setInclinationProperty(const QString& inclination_type);
 };
 
 class BA_CORE_API_ SpecularBeamItem : public BeamItem
@@ -52,6 +55,18 @@ class BA_CORE_API_ SpecularBeamItem : public BeamItem
 public:
     SpecularBeamItem();
     virtual ~SpecularBeamItem();
+
+    double getInclinationAngle() const override;
+    void setInclinationAngle(double value) override;
+};
+
+class BA_CORE_API_ GISASBeamItem : public BeamItem
+{
+public:
+    GISASBeamItem();
+    virtual ~GISASBeamItem();
+
+    double getInclinationAngle() const override;
 };
 
 #endif // BEAMITEM_H

@@ -113,6 +113,14 @@ double BeamDistributionItem::meanValue() const
         return getGroupItem(P_DISTRIBUTION)->getItemValue(DistributionNoneItem::P_VALUE).toDouble();
 }
 
+void BeamDistributionItem::resetToValue(double value)
+{
+    SessionItem* distributionItem = setGroupProperty(
+        BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
+    Q_ASSERT(distributionItem);
+    distributionItem->setItemValue(DistributionNoneItem::P_VALUE, value);
+}
+
 //! Scales the values provided by distribution (to perform deg->rad convertion in the case
 //! of AngleDistributionItems.
 

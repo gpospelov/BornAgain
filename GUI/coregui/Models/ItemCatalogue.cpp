@@ -83,7 +83,7 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::GISASInstrumentType, create_new<GISASInstrumentItem>);
     add(Constants::OffSpecInstrumentType, create_new<OffSpecInstrumentItem>);
     add(Constants::SpecularInstrumentType, create_new<SpecularInstrumentItem>);
-    add(Constants::BeamType, create_new<BeamItem>);
+    add(Constants::GISASBeamType, create_new<GISASBeamItem>);
     add(Constants::SpecularBeamType, create_new<SpecularBeamItem>);
     add(Constants::BackgroundNoneType, create_new<BackgroundNoneItem>);
     add(Constants::ConstantBackgroundType, create_new<ConstantBackgroundItem>);

@@ -88,7 +88,7 @@ InstrumentItem::InstrumentItem(const QString& modelType)
 
     const QString& beam_type = modelType == Constants::SpecularInstrumentType
                                    ? Constants::SpecularBeamType
-                                   : Constants::BeamType;
+                                   : Constants::GISASBeamType;
     addGroupProperty(P_BEAM, beam_type);
 
     auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);

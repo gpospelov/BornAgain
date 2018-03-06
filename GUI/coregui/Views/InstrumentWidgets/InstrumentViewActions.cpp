@@ -201,9 +201,8 @@ void InstrumentViewActions::initAddInstrumentMenu()
     action->setToolTip("Add OffSpec instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 
-    // TODO: enable after specular instrument is ready
-    /*action = m_addInstrumentMenu->addAction("Specular");
+    action = m_addInstrumentMenu->addAction("Specular");
     action->setData(QVariant::fromValue(Constants::SpecularInstrumentType));
     action->setToolTip("Add Specular instrument with default settings");
-    connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);*/
+    connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 }

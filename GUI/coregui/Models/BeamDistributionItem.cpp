@@ -23,23 +23,23 @@
 
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
 
-BeamDistributionItem::BeamDistributionItem(const QString& name)
+BeamDistributionItem::BeamDistributionItem(const QString& name, bool show_mean)
     : SessionItem(name)
 {
     addTranslator(DistributionNoneTranslator());
 
     mapper()->setOnChildPropertyChange(
-                [this](SessionItem* item, const QString &)
+                [this, show_mean](SessionItem* item, const QString &)
     {
         if(item->modelType() == Constants::GroupItemType && item->parent() == this)
-            initDistributionItem();
+            initDistributionItem(show_mean);
     });
 
 }
 
 //! returns parameter distribution to add into the Simulation
 std::unique_ptr<ParameterDistribution>
-BeamDistributionItem::getParameterDistributionForName(const std::string& parameter_name)
+BeamDistributionItem::getParameterDistributionForName(const std::string& parameter_name) const
 {
     std::unique_ptr<ParameterDistribution> P_par_distr{};
     if (auto distributionItem = dynamic_cast<DistributionItem*>(getGroupItem(P_DISTRIBUTION))) {
@@ -69,13 +69,13 @@ BeamDistributionItem::getParameterDistributionForName(const std::string& paramet
 
 //! Propagates the value and limits stored in DistributionNone type into alls distributions.
 
-void BeamDistributionItem::initDistributionItem()
+void BeamDistributionItem::initDistributionItem(bool show_mean)
 {
     GroupItem* groupItem = dynamic_cast<GroupItem*>(getItem(P_DISTRIBUTION));
     Q_ASSERT(groupItem);
 
-    SessionItem* distributionNone(0);
-    foreach (SessionItem* item, groupItem->getItems(GroupItem::T_ITEMS)) {
+    SessionItem* distributionNone = nullptr;
+    for (auto item : groupItem->getItems(GroupItem::T_ITEMS)) {
         if (item->modelType() == Constants::DistributionNoneType) {
             distributionNone = item;
             break;
@@ -84,19 +84,21 @@ void BeamDistributionItem::initDistributionItem()
 
     if (!distributionNone)
         return;
+    const RealLimits limits = distributionNone->getItem(DistributionNoneItem::P_VALUE)->limits();
 
-    foreach (SessionItem* item, groupItem->getItems(GroupItem::T_ITEMS)) {
-        if (item != distributionNone) {
-            DistributionItem* distrItem = dynamic_cast<DistributionItem*>(item);
-            RealLimits limits = distributionNone->getItem(DistributionNoneItem::P_VALUE)->limits();
+    for (auto item : groupItem->getItems(GroupItem::T_ITEMS)) {
+        DistributionItem* distrItem = dynamic_cast<DistributionItem*>(item);
+        distrItem->showMean(show_mean);
 
-            distrItem->init_parameters(
-                distributionNone->getItemValue(DistributionNoneItem::P_VALUE).toDouble(), limits);
+        if (item == distributionNone)
+            continue;
 
-            // hiding limits from the editor
-            if (distrItem->isTag(DistributionItem::P_LIMITS))
-                distrItem->getItem(DistributionItem::P_LIMITS)->setVisible(false);
-        }
+        distrItem->init_parameters(
+            distributionNone->getItemValue(DistributionNoneItem::P_VALUE).toDouble(), limits);
+
+        // hiding limits from the editor
+        if (distrItem->isTag(DistributionItem::P_LIMITS))
+            distrItem->getItem(DistributionItem::P_LIMITS)->setVisible(false);
     }
 }
 
@@ -119,9 +121,11 @@ double BeamDistributionItem::scaleFactor() const
     return 1.0;
 }
 
-void BeamDistributionItem::register_distribution_group()
+void BeamDistributionItem::register_distribution_group(const QString& group_type)
 {
-    addGroupProperty(P_DISTRIBUTION, Constants::DistributionExtendedGroup);
+    Q_ASSERT(group_type == Constants::DistributionExtendedGroup
+             || group_type == Constants::DistributionWithZeroAverageGroup);
+    addGroupProperty(P_DISTRIBUTION, group_type);
 }
 
 std::unique_ptr<IDistribution1D> BeamDistributionItem::createDistribution1D() const

@@ -43,6 +43,7 @@ const ModelType GISASInstrumentType = "GISASInstrument";
 const ModelType OffSpecInstrumentType = "OffSpecInstrument";
 const ModelType SpecularInstrumentType = "SpecularInstrument";
 const ModelType BeamType = "Beam";
+const ModelType SpecularBeamType = "SpecularBeam";
 
 const ModelType FormFactorType = "FormFactor";
 const ModelType AnisoPyramidType = "AnisoPyramid";
@@ -144,6 +145,7 @@ const ModelType BeamDistributionType = "BeamDistribution";
 const ModelType BeamWavelengthType = "BeamWavelength";
 const ModelType BeamAzimuthalAngleType = "BeamAzimuthalAngle";
 const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
+const ModelType SpecularBeamInclinationType = "SpecularBeamInclinationAxis";
 
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
@@ -192,6 +194,7 @@ const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType DistributionGroup = "Distribution group";
 const ModelType DistributionExtendedGroup = "Distribution extended group";
+const ModelType DistributionWithZeroAverageGroup = "Distribution with zero average group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType FTDecayFunction1DGroup = "Decay function 1D";

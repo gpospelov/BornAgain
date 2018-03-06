@@ -15,29 +15,29 @@
 #include "SpecularBeamEditor.h"
 #include "BeamDistributionItem.h"
 #include "BeamItem.h"
+#include "ColumnResizer.h"
 #include "ComponentEditor.h"
 #include "DistributionDialog.h"
 #include "InstrumentItems.h"
 #include "LayoutUtils.h"
-#include "ColumnResizer.h"
+#include "SpecularBeamInclinationItem.h"
 #include <QGridLayout>
 #include <QGroupBox>
 
 namespace
 {
 const QString wavelength_title("Wavelength [nm]");
-const QString inclination_title("Inclination angle [deg]");
-const QString azimuthal_title("Azimuthal angle [deg]");
+const QString inclination_title("Inclination angles [deg]");
 const QString polarization_title("Polarization (Bloch vector)");
 }
 
 SpecularBeamEditor::SpecularBeamEditor(ColumnResizer* columnResizer, QWidget* parent)
     : SessionItemWidget(parent)
     , m_columnResizer(columnResizer)
-    , m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget)),
-      m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title)),
-      m_inclinationEditor(new ComponentEditor(ComponentEditor::GroupWidget, inclination_title)),
-      m_gridLayout(new QGridLayout)
+    , m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget))
+    , m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title))
+    , m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title))
+    , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_intensityEditor, 0, 0);
     m_gridLayout->addWidget(m_wavelengthEditor, 1, 0);
@@ -61,13 +61,19 @@ SpecularBeamEditor::SpecularBeamEditor(ColumnResizer* columnResizer, QWidget* pa
 
 void SpecularBeamEditor::subscribeToItem()
 {
-    m_intensityEditor->setItem(beamItem()->getItem(BeamItem::P_INTENSITY));
+    const auto beam_item = beamItem();
+    Q_ASSERT(beam_item);
 
-    auto wavelengthItem = beamItem()->getItem(BeamItem::P_WAVELENGTH);
+    m_intensityEditor->setItem(beam_item->getItem(SpecularBeamItem::P_INTENSITY));
+
+    auto wavelengthItem = beam_item->getItem(SpecularBeamItem::P_WAVELENGTH);
     m_wavelengthEditor->setItem(wavelengthItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 
-    auto inclinationItem = instrumentItem()->getItem(SpecularInstrumentItem::P_ALPHA_AXIS);
-    m_inclinationEditor->setItem(inclinationItem);
+    auto inclinationItem = beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE);
+    m_inclinationEditor->setItem(
+        inclinationItem->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
+    m_inclinationEditor->addItem(
+        inclinationItem->getItem(SpecularBeamInclinationItem::P_DISTRIBUTION));
 }
 
 void SpecularBeamEditor::unsubscribeFromItem()
@@ -95,7 +101,10 @@ void SpecularBeamEditor::onDialogRequest(SessionItem* item, const QString& name)
         return;
 
     auto dialog = new DistributionDialog(this);
-    dialog->setItem(item);
+    auto item_to_set = item->modelType() == Constants::BeamInclinationAxisType
+                           ? item->getItem(SpecularBeamInclinationItem::P_DISTRIBUTION)
+                           : item;
+    dialog->setItem(item_to_set);
     dialog->setNameOfEditor(name);
     dialog->show();
 }

@@ -50,6 +50,7 @@
 #include "RotationItems.h"
 #include "SessionItemUtils.h"
 #include "SimulationOptionsItem.h"
+#include "SpecularBeamInclinationItem.h"
 #include "SpecularSimulation.h"
 #include "TransformationItem.h"
 #include "Units.h"
@@ -172,13 +173,16 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
 void TransformToDomain::addDistributionParametersToSimulation(const SessionItem& beam_item,
                                                               SpecularSimulation& simulation)
 {
-    if (beam_item.modelType() != Constants::BeamType) {
-        Q_ASSERT(beam_item.modelType() == Constants::BeamType);
+    if (beam_item.modelType() != Constants::SpecularBeamType) {
+        Q_ASSERT(beam_item.modelType() == Constants::SpecularBeamType);
         return;
     }
 
     setParameterDistributionToSimulation<BeamWavelengthItem>(
-        BornAgain::Wavelength, beam_item.getItem(BeamItem::P_WAVELENGTH), simulation);
+        BornAgain::Wavelength, beam_item.getItem(SpecularBeamItem::P_WAVELENGTH), simulation);
+    setParameterDistributionToSimulation<SpecularBeamInclinationItem>(
+        BornAgain::Inclination, beam_item.getItem(SpecularBeamItem::P_INCLINATION_ANGLE),
+        simulation);
 }
 
 void TransformToDomain::setSimulationOptions(Simulation* simulation,

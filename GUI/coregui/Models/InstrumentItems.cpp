@@ -80,25 +80,29 @@ std::unique_ptr<Instrument> InstrumentItem::createInstrument() const
     return result;
 }
 
-InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType)
+InstrumentItem::InstrumentItem(const QString& modelType)
+    : SessionItem(modelType)
 {
     setItemName(modelType);
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
 
-    addGroupProperty(P_BEAM, Constants::BeamType);
+    const QString& beam_type = modelType == Constants::SpecularInstrumentType
+                                   ? Constants::SpecularBeamType
+                                   : Constants::BeamType;
+    addGroupProperty(P_BEAM, beam_type);
 
     auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
     item->setDisplayName(background_group_label);
     item->setToolTip("Background type");
 }
 
-const QString SpecularInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
 
 SpecularInstrumentItem::SpecularInstrumentItem()
     : InstrumentItem(Constants::SpecularInstrumentType)
 {
-    addAxisGroupProperty(this, P_ALPHA_AXIS);
 }
+
+SpecularInstrumentItem::~SpecularInstrumentItem() = default;
 
 std::unique_ptr<Instrument> SpecularInstrumentItem::createInstrument() const
 {

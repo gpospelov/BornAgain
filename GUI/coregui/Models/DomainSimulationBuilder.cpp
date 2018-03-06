@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "DomainSimulationBuilder.h"
+#include "AxesItems.h"
 #include "BackgroundItems.h"
 #include "BeamItem.h"
 #include "DetectorItems.h"
@@ -23,11 +24,11 @@
 #include "InstrumentItems.h"
 #include "MultiLayer.h"
 #include "MultiLayerItem.h"
-#include "SimulationOptionsItem.h"
 #include "OffSpecSimulation.h"
+#include "SimulationOptionsItem.h"
 #include "SpecularSimulation.h"
+#include "SpecularBeamInclinationItem.h"
 #include "TransformToDomain.h"
-#include "AxesItems.h"
 #include "Units.h"
 
 namespace {
@@ -138,8 +139,9 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
         = std::make_unique<SpecularSimulation>(*P_multilayer);
 
     auto beam_item = specular_instrument->beamItem();
-    auto axis_item = dynamic_cast<BasicAxisItem*>(
-        specular_instrument->getItem(SpecularInstrumentItem::P_ALPHA_AXIS));
+    const auto axis_item
+        = dynamic_cast<BasicAxisItem*>(beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE)
+                                           ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
 
     // TODO Take care about beam divergence
     // TODO: add footprint correction factor

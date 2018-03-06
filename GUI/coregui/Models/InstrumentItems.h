@@ -20,9 +20,9 @@
 class BackgroundItem;
 class BeamItem;
 class DetectorItem;
-class MaskContainerItem;
 class GroupItem;
 class Instrument;
+class MaskContainerItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
@@ -46,9 +46,8 @@ protected:
 class BA_CORE_API_ SpecularInstrumentItem : public InstrumentItem
 {
 public:
-    static const QString P_ALPHA_AXIS;
-
     SpecularInstrumentItem();
+    virtual ~SpecularInstrumentItem();
 
     std::unique_ptr<Instrument> createInstrument() const override;
 };
@@ -56,9 +55,9 @@ public:
 class BA_CORE_API_ Instrument2DItem : public InstrumentItem
 {
 public:
-    virtual ~Instrument2DItem();
-
     static const QString P_DETECTOR;
+
+    virtual ~Instrument2DItem();
 
     DetectorItem* detectorItem() const;
     GroupItem* detectorGroup();

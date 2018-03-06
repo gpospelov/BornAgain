@@ -17,11 +17,11 @@
 
 #include "SessionItemWidget.h"
 
+class BeamItem;
+class ColumnResizer;
 class ComponentEditor;
 class QGridLayout;
 class SpecularInstrumentItem;
-class BeamItem;
-class ColumnResizer;
 
 //! Specular beam editor. Operates on SpecularInstrumentItem.
 

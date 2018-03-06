@@ -117,9 +117,20 @@ void BeamItem::setInclinationProperty(const QString& inclination_type)
     addGroupProperty(P_INCLINATION_ANGLE, inclination_type);
 }
 
+// Specular beam item
+/* ------------------------------------------------------------------------- */
+
+const QString SpecularBeamItem::P_FOOPTPRINT = QString("Footprint");
+
+const QString footprint_group_label("Type");
+
 SpecularBeamItem::SpecularBeamItem() : BeamItem(Constants::SpecularBeamType)
 {
     setInclinationProperty(Constants::SpecularBeamInclinationType);
+
+    auto item = addGroupProperty(P_FOOPTPRINT, Constants::FootprintGroup);
+    item->setDisplayName(footprint_group_label);
+    item->setToolTip("Footprint type");
 }
 
 SpecularBeamItem::~SpecularBeamItem() = default;
@@ -138,6 +149,9 @@ void SpecularBeamItem::setInclinationAngle(double value)
     value = 0.0;
     BeamItem::setInclinationAngle(value);
 }
+
+// GISAS beam item
+/* ------------------------------------------------------------------------- */
 
 GISASBeamItem::GISASBeamItem() : BeamItem(Constants::GISASBeamType)
 {

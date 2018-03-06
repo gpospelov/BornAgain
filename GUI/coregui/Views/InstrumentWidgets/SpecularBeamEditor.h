@@ -45,6 +45,7 @@ private:
     ComponentEditor* m_intensityEditor;
     ComponentEditor* m_wavelengthEditor;
     ComponentEditor* m_inclinationEditor;
+    ComponentEditor* m_footprint_editor;
     QGridLayout* m_gridLayout;
 };
 

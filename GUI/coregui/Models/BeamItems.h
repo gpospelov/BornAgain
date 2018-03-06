@@ -53,6 +53,8 @@ protected:
 class BA_CORE_API_ SpecularBeamItem : public BeamItem
 {
 public:
+    static const QString P_FOOPTPRINT;
+
     SpecularBeamItem();
     virtual ~SpecularBeamItem();
 

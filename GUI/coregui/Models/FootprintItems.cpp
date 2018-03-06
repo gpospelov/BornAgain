@@ -19,8 +19,9 @@
 #include "item_constants.h"
 
 namespace {
+const QString footprint_value_name = "Width ratio";
 const QString footprint_value_tooltip =
-        "Beam to sample width ratio";
+        "The ratio of beam and sample full widths";
 }
 
 // Base class
@@ -49,8 +50,7 @@ std::unique_ptr<IFootprintFactor> FootprintNoneItem::createFootprint() const
 // Gaussian footprint
 /* ------------------------------------------------ */
 
-const QString FootprintGaussianItem::P_VALUE
-    = QString::fromStdString(BornAgain::BeamToSampleWidthRatio);
+const QString FootprintGaussianItem::P_VALUE = footprint_value_name;
 
 FootprintGaussianItem::FootprintGaussianItem()
     : FootprintItem(Constants::FootprintGaussianType)
@@ -69,8 +69,7 @@ std::unique_ptr<IFootprintFactor> FootprintGaussianItem::createFootprint() const
 // Square footprint
 /* ------------------------------------------------ */
 
-const QString FootprintSquareItem::P_VALUE
-    = QString::fromStdString(BornAgain::BeamToSampleWidthRatio);
+const QString FootprintSquareItem::P_VALUE = footprint_value_name;
 
 FootprintSquareItem::FootprintSquareItem()
     : FootprintItem(Constants::FootprintSquareType)

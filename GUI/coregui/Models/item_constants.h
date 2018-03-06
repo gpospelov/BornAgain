@@ -186,6 +186,10 @@ const ModelType BackgroundNoneType = "NoBackground";
 const ModelType ConstantBackgroundType = "ConstantBackground";
 const ModelType PoissonNoiseBackgroundType = "PoissonNoiseBackground";
 
+const ModelType FootprintNoneType = "NoFootprint";
+const ModelType FootprintGaussianType = "GaussianFootrpint";
+const ModelType FootprintSquareType = "SquareFootprint";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";

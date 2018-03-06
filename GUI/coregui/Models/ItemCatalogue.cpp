@@ -23,6 +23,7 @@
 #include "FTDistributionItems.h"
 #include "FitParameterItems.h"
 #include "FitSuiteItem.h"
+#include "FootprintItems.h"
 #include "FormFactorItems.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
@@ -88,6 +89,9 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::BackgroundNoneType, create_new<BackgroundNoneItem>);
     add(Constants::ConstantBackgroundType, create_new<ConstantBackgroundItem>);
     add(Constants::PoissonNoiseBackgroundType, create_new<PoissonNoiseBackgroundItem>);
+    add(Constants::FootprintNoneType, create_new<FootprintNoneItem>);
+    add(Constants::FootprintGaussianType, create_new<FootprintGaussianItem>);
+    add(Constants::FootprintSquareType, create_new<FootprintSquareItem>);
     add(Constants::VectorType, create_new<VectorItem>);
     add(Constants::PropertyType, create_new<PropertyItem>);
 

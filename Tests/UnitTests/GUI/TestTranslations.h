@@ -1,6 +1,6 @@
 #include "google_test.h"
 #include "BeamDistributionItem.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "DistributionItems.h"
 #include "InstrumentItems.h"
 #include "ModelPath.h"

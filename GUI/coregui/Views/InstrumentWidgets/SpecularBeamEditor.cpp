@@ -14,7 +14,7 @@
 
 #include "SpecularBeamEditor.h"
 #include "BeamDistributionItem.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "ColumnResizer.h"
 #include "ComponentEditor.h"
 #include "DistributionDialog.h"

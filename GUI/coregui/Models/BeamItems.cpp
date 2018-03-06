@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/BeamItem.cpp
-//! @brief     Implements class BeamItem
+//! @file      GUI/coregui/Models/BeamItems.cpp
+//! @brief     Implements BeamItem hierarchy
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "Beam.h"
 #include "BeamAngleItems.h"
 #include "BeamDistributionItem.h"
@@ -21,7 +21,6 @@
 #include "GUIHelpers.h"
 #include "ParameterTranslators.h"
 #include "SessionItemUtils.h"
-#include "SpecularBeamInclinationItem.h"
 #include "Units.h"
 
 using SessionItemUtils::GetVectorItem;

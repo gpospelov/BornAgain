@@ -14,7 +14,7 @@
 
 #include "TransformToDomain.h"
 #include "BeamAngleItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "BeamWavelengthItem.h"
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"

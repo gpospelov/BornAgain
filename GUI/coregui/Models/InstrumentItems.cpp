@@ -14,7 +14,7 @@
 
 #include "InstrumentItems.h"
 #include "BackgroundItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "BornAgainNamespace.h"
 #include "DetectorItems.h"
 #include "GUIHelpers.h"

@@ -16,7 +16,7 @@
 #include "AxesItems.h"
 #include "BackgroundItems.h"
 #include "BeamAngleItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "BeamWavelengthItem.h"
 #include "DetectorItems.h"
 #include "FTDecayFunctionItems.h"

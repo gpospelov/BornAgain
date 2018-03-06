@@ -15,7 +15,7 @@
 #include "DomainSimulationBuilder.h"
 #include "AxesItems.h"
 #include "BackgroundItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
 #include "GISASSimulation.h"

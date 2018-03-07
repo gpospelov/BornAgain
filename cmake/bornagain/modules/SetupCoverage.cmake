@@ -11,7 +11,6 @@ list(APPEND coverage_ignore_dirs "'*/auto/*'")
 list(APPEND coverage_ignore_dirs "'*/Tests/*'")
 list(APPEND coverage_ignore_dirs "'*/ThirdParty/*'")
 list(APPEND coverage_ignore_dirs "'*/build/*'")
-list(APPEND coverage_ignore_dirs "'*/GUI/externals/*'")
 
 set(html_dir ${CMAKE_CURRENT_BINARY_DIR}/coverage)
 file(MAKE_DIRECTORY ${html_dir})

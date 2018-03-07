@@ -1,6 +1,6 @@
 # DebugOptimization.cmake
 #
-# description: add debug optimization (gcc only)custom target 'coverage' which generates a code coverage report
+# description: add debug optimization (gcc only)
 #
 # usage: from build directory
 #

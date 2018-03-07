@@ -38,7 +38,6 @@ protected:
 
 private:
     SpecularInstrumentItem* instrumentItem();
-    BeamItem* beamItem();
     void onDialogRequest(SessionItem* item, const QString& name);
 
     ColumnResizer* m_columnResizer;

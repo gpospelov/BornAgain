@@ -102,6 +102,11 @@ SpecularInstrumentItem::SpecularInstrumentItem()
     initBeamGroup(Constants::SpecularBeamType);
 }
 
+SpecularBeamItem* SpecularInstrumentItem::beamItem() const
+{
+    return &item<SpecularBeamItem>(P_BEAM);
+}
+
 SpecularInstrumentItem::~SpecularInstrumentItem() = default;
 
 std::unique_ptr<Instrument> SpecularInstrumentItem::createInstrument() const

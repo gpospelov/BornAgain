@@ -18,6 +18,7 @@
 #include "SessionItem.h"
 
 class Beam;
+class FootprintItem;
 
 class BA_CORE_API_ BeamItem : public SessionItem
 {
@@ -60,6 +61,8 @@ public:
 
     double getInclinationAngle() const override;
     void setInclinationAngle(double value) override;
+
+    FootprintItem* currentFootprintItem() const;
 };
 
 class BA_CORE_API_ GISASBeamItem : public BeamItem

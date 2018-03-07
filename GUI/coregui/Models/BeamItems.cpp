@@ -18,6 +18,7 @@
 #include "BeamDistributionItem.h"
 #include "BeamWavelengthItem.h"
 #include "BornAgainNamespace.h"
+#include "FootprintItems.h"
 #include "GUIHelpers.h"
 #include "ParameterTranslators.h"
 #include "SessionItemUtils.h"
@@ -148,6 +149,11 @@ void SpecularBeamItem::setInclinationAngle(double value)
     Q_ASSERT(value == 0.0);
     value = 0.0;
     BeamItem::setInclinationAngle(value);
+}
+
+FootprintItem* SpecularBeamItem::currentFootprintItem() const
+{
+    return &groupItem<FootprintItem>(P_FOOPTPRINT);
 }
 
 // GISAS beam item

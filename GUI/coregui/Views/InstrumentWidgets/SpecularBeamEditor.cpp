@@ -64,7 +64,7 @@ SpecularBeamEditor::SpecularBeamEditor(ColumnResizer* columnResizer, QWidget* pa
 
 void SpecularBeamEditor::subscribeToItem()
 {
-    const auto beam_item = beamItem();
+    const auto beam_item = instrumentItem()->beamItem();
     Q_ASSERT(beam_item);
 
     m_intensityEditor->setItem(beam_item->getItem(SpecularBeamItem::P_INTENSITY));
@@ -94,11 +94,6 @@ SpecularInstrumentItem* SpecularBeamEditor::instrumentItem()
     auto result = dynamic_cast<SpecularInstrumentItem*>(currentItem());
     Q_ASSERT(result);
     return result;
-}
-
-BeamItem* SpecularBeamEditor::beamItem()
-{
-    return instrumentItem()->beamItem();
 }
 
 void SpecularBeamEditor::onDialogRequest(SessionItem* item, const QString& name)

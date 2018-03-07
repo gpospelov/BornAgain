@@ -43,7 +43,7 @@ class BA_CORE_API_ IMinimizer
     virtual void minimize() =0;
 
     //! clear resources (parameters) for consecutives minimizations
-    virtual void clear() {};
+    virtual void clear() {}
 
     //! Sets internal minimizer parameters using external parameter list
     virtual void setParameters(const FitParameterSet& parameters) =0;

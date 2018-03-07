@@ -42,7 +42,7 @@ const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
 const ModelType GISASInstrumentType = "GISASInstrument";
 const ModelType OffSpecInstrumentType = "OffSpecInstrument";
 const ModelType SpecularInstrumentType = "SpecularInstrument";
-const ModelType BeamType = "Beam";
+const ModelType GISASBeamType = "GISASBeam";
 const ModelType SpecularBeamType = "SpecularBeam";
 
 const ModelType FormFactorType = "FormFactor";
@@ -186,6 +186,10 @@ const ModelType BackgroundNoneType = "NoBackground";
 const ModelType ConstantBackgroundType = "ConstantBackground";
 const ModelType PoissonNoiseBackgroundType = "PoissonNoiseBackground";
 
+const ModelType FootprintNoneType = "NoFootprint";
+const ModelType FootprintGaussianType = "GaussianFootrpint";
+const ModelType FootprintSquareType = "SquareFootprint";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -206,6 +210,7 @@ const ModelType MinimizerLibraryGroup = "Minimizer library group";
 const ModelType RealLimitsGroup = "RealLimits group";
 const ModelType BackgroundGroup = "Background group";
 const ModelType MaterialDataGroup = "Material data group";
+const ModelType FootprintGroup = "Footprint group";
 
 // --- Units&Constants----------------------------------------------------------
 

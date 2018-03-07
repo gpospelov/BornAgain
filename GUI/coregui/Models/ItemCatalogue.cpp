@@ -16,13 +16,14 @@
 #include "AxesItems.h"
 #include "BackgroundItems.h"
 #include "BeamAngleItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "BeamWavelengthItem.h"
 #include "DetectorItems.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDistributionItems.h"
 #include "FitParameterItems.h"
 #include "FitSuiteItem.h"
+#include "FootprintItems.h"
 #include "FormFactorItems.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
@@ -83,11 +84,14 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::GISASInstrumentType, create_new<GISASInstrumentItem>);
     add(Constants::OffSpecInstrumentType, create_new<OffSpecInstrumentItem>);
     add(Constants::SpecularInstrumentType, create_new<SpecularInstrumentItem>);
-    add(Constants::BeamType, create_new<BeamItem>);
+    add(Constants::GISASBeamType, create_new<GISASBeamItem>);
     add(Constants::SpecularBeamType, create_new<SpecularBeamItem>);
     add(Constants::BackgroundNoneType, create_new<BackgroundNoneItem>);
     add(Constants::ConstantBackgroundType, create_new<ConstantBackgroundItem>);
     add(Constants::PoissonNoiseBackgroundType, create_new<PoissonNoiseBackgroundItem>);
+    add(Constants::FootprintNoneType, create_new<FootprintNoneItem>);
+    add(Constants::FootprintGaussianType, create_new<FootprintGaussianItem>);
+    add(Constants::FootprintSquareType, create_new<FootprintSquareItem>);
     add(Constants::VectorType, create_new<VectorItem>);
     add(Constants::PropertyType, create_new<PropertyItem>);
 

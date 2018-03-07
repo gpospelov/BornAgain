@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "GUIObjectBuilder.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "DocumentModel.h"
 #include "GISASSimulation.h"
 #include "GUIDomainSampleVisitor.h"

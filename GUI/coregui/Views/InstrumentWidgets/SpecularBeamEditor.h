@@ -38,13 +38,13 @@ protected:
 
 private:
     SpecularInstrumentItem* instrumentItem();
-    BeamItem* beamItem();
     void onDialogRequest(SessionItem* item, const QString& name);
 
     ColumnResizer* m_columnResizer;
     ComponentEditor* m_intensityEditor;
     ComponentEditor* m_wavelengthEditor;
     ComponentEditor* m_inclinationEditor;
+    ComponentEditor* m_footprint_editor;
     QGridLayout* m_gridLayout;
 };
 

@@ -126,7 +126,7 @@ void TestComponentView::init_source()
     const std::unique_ptr<MultiLayer> sample(factory.createSample("CylindersWithSizeDistributionBuilder"));
     GUIObjectBuilder::populateSampleModel(m_sampleModel, m_materialModel, *sample);
     m_sampleModel->insertNewItem(Constants::VectorType);
-    m_sampleModel->insertNewItem(Constants::BeamType);
+    m_sampleModel->insertNewItem(Constants::GISASBeamType);
 
     // adding intensity data item
     m_sampleModel->insertNewItem(Constants::IntensityDataType);

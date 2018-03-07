@@ -18,9 +18,11 @@
 #include "BeamItems.h"
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
+#include "FootprintItems.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
 #include "IBackground.h"
+#include "IFootprintFactor.h"
 #include "InstrumentItems.h"
 #include "MultiLayer.h"
 #include "MultiLayerItem.h"
@@ -142,12 +144,12 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     const auto axis_item
         = dynamic_cast<BasicAxisItem*>(beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE)
                                            ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
+    const auto footprint = beam_item->currentFootprintItem();
 
-    // TODO Take care about beam divergence
-    // TODO: add footprint correction factor
     specular_simulation->setBeamIntensity(beam_item->getIntensity());
     specular_simulation->setBeamParameters(beam_item->getWavelength(),
-                                           *axis_item->createAxis(Units::degree));
+                                           *axis_item->createAxis(Units::degree),
+                                           footprint->createFootprint().get());
 
     TransformToDomain::addDistributionParametersToSimulation(*beam_item,
                                                              *specular_simulation.get());

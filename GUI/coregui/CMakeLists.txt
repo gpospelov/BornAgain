@@ -179,8 +179,14 @@ if(WIN32)
     ${QTDIR}/plugins/imageformats/qsvg.dll
     DESTINATION bin/imageformats COMPONENT Libraries)
 
-    install(FILES
-    ${QTDIR}/plugins/styles/qwindowsvistastyle.dll
-    DESTINATION bin/styles COMPONENT Libraries)
+    set(QT_VISTA_STYLE "${QTDIR}/plugins/styles/qwindowsvistastyle.dll")
+    if(EXISTS "${QT_VISTA_STYLE}")
+        install(FILES
+		${QT_VISTA_STYLE}
+                DESTINATION bin/styles COMPONENT Libraries)
+    else(EXISTS "${QT_VISTA_STYLE}")
+        MESSAGE(AUTHOR_WARNING "File ${QT_VISTA_STYLE} not found.")
+    endif(EXISTS "${QT_VISTA_STYLE}")
+    unset(QT_VISTA_STYLE)
 
 endif()

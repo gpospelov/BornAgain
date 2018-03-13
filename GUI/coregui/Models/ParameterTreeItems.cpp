@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "ParameterTreeItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "DistributionItems.h"
 #include "FitParameterHelper.h"
 #include "InstrumentItems.h"

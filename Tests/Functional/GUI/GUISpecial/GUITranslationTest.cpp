@@ -14,7 +14,7 @@
 
 #include "GUITranslationTest.h"
 #include "ApplicationModels.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "DocumentModel.h"
 #include "FitParameterHelper.h"
 #include "GISASSimulation.h"

@@ -14,7 +14,7 @@
 
 #include "TransformToDomain.h"
 #include "BeamAngleItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "BeamWavelengthItem.h"
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
@@ -157,8 +157,8 @@ std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribut
 void TransformToDomain::addDistributionParametersToSimulation(const SessionItem& beam_item,
                                                               GISASSimulation& simulation)
 {
-    if (beam_item.modelType() != Constants::BeamType) {
-        Q_ASSERT(beam_item.modelType() == Constants::BeamType);
+    if (beam_item.modelType() != Constants::GISASBeamType) {
+        Q_ASSERT(beam_item.modelType() == Constants::GISASBeamType);
         return;
     }
 

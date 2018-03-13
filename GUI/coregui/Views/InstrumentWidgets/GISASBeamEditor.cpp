@@ -14,7 +14,7 @@
 
 #include "GISASBeamEditor.h"
 #include "BeamDistributionItem.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "ComponentEditor.h"
 #include "DistributionDialog.h"
 #include "InstrumentItems.h"

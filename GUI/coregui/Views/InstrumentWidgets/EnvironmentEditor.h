@@ -22,8 +22,8 @@ class QGridLayout;
 class InstrumentItem;
 class ColumnResizer;
 
-//! Environment editor (i.e. background) for GISASInstrumentEditor.
-//! Operates on GISASInstrumentItem.
+//! Environment editor (i.e. background) for instrument editors.
+//! Operates on InstrumentItem.
 
 class BA_CORE_API_ EnvironmentEditor : public SessionItemWidget
 {

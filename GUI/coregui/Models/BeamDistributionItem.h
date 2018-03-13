@@ -32,6 +32,7 @@ public:
     getParameterDistributionForName(const std::string& parameter_name) const;
 
     virtual double meanValue() const;
+    void resetToValue(double value);
 
 protected:
     virtual double scaleFactor() const;

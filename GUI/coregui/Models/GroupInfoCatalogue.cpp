@@ -172,6 +172,13 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::MaterialSLDDataType, "SLD based");
     info.setDefaultType(Constants::MaterialRefractiveDataType);
     addInfo(info);
+
+    info = GroupInfo(Constants::FootprintGroup);
+    info.add(Constants::FootprintNoneType, "None");
+    info.add(Constants::FootprintGaussianType, "Gaussian footprint");
+    info.add(Constants::FootprintSquareType, "Square footprint");
+    info.setDefaultType(Constants::FootprintNoneType);
+    addInfo(info);
 }
 
 GroupInfo GroupInfoCatalogue::groupInfo(const QString& groupType) const

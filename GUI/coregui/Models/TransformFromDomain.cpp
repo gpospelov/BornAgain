@@ -17,7 +17,7 @@
 #include "BackgroundItems.h"
 #include "Beam.h"
 #include "BeamAngleItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "ConstantBackground.h"
 #include "ConvolutionDetectorResolution.h"
 #include "DetectorItems.h"

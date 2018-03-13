@@ -15,10 +15,9 @@
 #ifndef INSTRUMENTITEMS_H
 #define INSTRUMENTITEMS_H
 
-#include "SessionItem.h"
+#include "BeamItems.h"
 
 class BackgroundItem;
-class BeamItem;
 class DetectorItem;
 class GroupItem;
 class Instrument;
@@ -33,7 +32,7 @@ public:
 
     QStringList translateList(const QStringList& list) const override;
 
-    BeamItem* beamItem() const;
+    virtual BeamItem* beamItem() const;
     BackgroundItem* backgroundItem() const;
     GroupItem* backgroundGroup();
 
@@ -41,6 +40,8 @@ public:
 
 protected:
     explicit InstrumentItem(const QString& modelType);
+
+    void initBeamGroup(const QString& beam_model);
 };
 
 class BA_CORE_API_ SpecularInstrumentItem : public InstrumentItem
@@ -48,6 +49,8 @@ class BA_CORE_API_ SpecularInstrumentItem : public InstrumentItem
 public:
     SpecularInstrumentItem();
     virtual ~SpecularInstrumentItem();
+
+    SpecularBeamItem* beamItem() const override;
 
     std::unique_ptr<Instrument> createInstrument() const override;
 };

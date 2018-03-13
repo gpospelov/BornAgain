@@ -35,7 +35,6 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 target_link_libraries(${library_name}
     ${BornAgainCore_LIBRARY}
     ${CMAKE_THREAD_LIBS_INIT}
-    ${YAMLCPP_LIBRARY}
     )
 
 if(APPLE AND BORNAGAIN_APPLE_BUNDLE)

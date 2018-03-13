@@ -14,7 +14,7 @@
 
 #include "InstrumentItems.h"
 #include "BackgroundItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "BornAgainNamespace.h"
 #include "DetectorItems.h"
 #include "GUIHelpers.h"
@@ -86,20 +86,25 @@ InstrumentItem::InstrumentItem(const QString& modelType)
     setItemName(modelType);
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
 
-    const QString& beam_type = modelType == Constants::SpecularInstrumentType
-                                   ? Constants::SpecularBeamType
-                                   : Constants::BeamType;
-    addGroupProperty(P_BEAM, beam_type);
-
     auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
     item->setDisplayName(background_group_label);
     item->setToolTip("Background type");
 }
 
+void InstrumentItem::initBeamGroup(const QString& beam_model)
+{
+    addGroupProperty(P_BEAM, beam_model);
+}
 
 SpecularInstrumentItem::SpecularInstrumentItem()
     : InstrumentItem(Constants::SpecularInstrumentType)
 {
+    initBeamGroup(Constants::SpecularBeamType);
+}
+
+SpecularBeamItem* SpecularInstrumentItem::beamItem() const
+{
+    return &item<SpecularBeamItem>(P_BEAM);
 }
 
 SpecularInstrumentItem::~SpecularInstrumentItem() = default;
@@ -114,6 +119,7 @@ const QString Instrument2DItem::P_DETECTOR = "Detector";
 Instrument2DItem::Instrument2DItem(const QString& modelType)
     : InstrumentItem(modelType)
 {
+    initBeamGroup(Constants::GISASBeamType);
     addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
 
     setDefaultTag(P_DETECTOR);

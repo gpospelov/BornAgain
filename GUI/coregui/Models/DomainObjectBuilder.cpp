@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "DomainObjectBuilder.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"

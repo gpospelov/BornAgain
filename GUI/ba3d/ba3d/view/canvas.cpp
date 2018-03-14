@@ -179,12 +179,12 @@ void Canvas::wheelEvent(QWheelEvent* e)
         if(e->delta() < 0)
         {
             //Zoom in
-            camera->zoomBy(1.25);
+            camera->zoomBy(1.25f);
         }
         else
         {
             //Zoom out
-            camera->zoomBy(0.75);
+            camera->zoomBy(0.8f);
         }
         camera->endTransform(true);
         update();
@@ -250,9 +250,9 @@ void Canvas::faceView()
     if (model){
         // Top-face view
         camera->lookAt(RealSpace::Camera::Position(
-                                   RealSpace::Vector3D(1, 0, 140),   // eye
+                                   RealSpace::Vector3D(0, 0, 140),   // eye
                                    RealSpace::Vector3D(0, 0, 0),       // center
-                                   RealSpace::Vector3D::_z));
+                                   RealSpace::Vector3D::_y));
         camera->endTransform(true);
         update();
     }

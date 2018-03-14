@@ -24,7 +24,7 @@
 class BA_CORE_API_ IInterferenceFunction : public ISample
 {
 public:
-    virtual ~IInterferenceFunction() {}
+    virtual ~IInterferenceFunction();
 
     virtual IInterferenceFunction* clone() const=0;
     virtual void accept(INodeVisitor* visitor) const =0;

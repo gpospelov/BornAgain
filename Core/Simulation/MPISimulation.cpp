@@ -66,7 +66,7 @@ void MPISimulation::runSimulation(Simulation* simulation)
 }
 #else
 
-#include "Exceptions.h"
+#include <stdexcept>
 
 // -----------------------------------------------------------------------------
 // No MPI support
@@ -74,7 +74,7 @@ void MPISimulation::runSimulation(Simulation* simulation)
 
 void MPISimulation::runSimulation(Simulation* /* simulation */)
 {
-    throw Exceptions::RuntimeErrorException(
+    throw std::runtime_error(
         "MPISimulation::runSimulation() -> Error! Can't run MPI simulation. "
         "The package was compiled without MPI support (compile with -DBORNAGAIN_MPI=ON)" );
 }

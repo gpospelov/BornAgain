@@ -19,10 +19,12 @@
 #include <memory>
 #include <string>
 
-class Simulation;
+class Beam;
+class IFootprintFactor;
 class GISASSimulation;
 class OffSpecSimulation;
-class Beam;
+class Simulation;
+class SpecularSimulation;
 
 //! Write a Python script that allows to run the current simulation.
 
@@ -41,15 +43,18 @@ private:
     std::string defineGetSimulation(const Simulation* simulation) const;
     std::string defineGISASSimulation(const GISASSimulation* simulation) const;
     std::string defineOffSpecSimulation(const OffSpecSimulation* simulation) const;
+    std::string defineSpecularSimulation(const SpecularSimulation* simulation) const;
     std::string defineDetector(const Simulation* simulation) const;
     std::string defineDetectorResolutionFunction(const Simulation* simulation) const;
     std::string defineDetectorPolarizationAnalysis(const Simulation* simulation) const;
 
     std::string defineGISASBeam(const GISASSimulation& simulation) const;
     std::string defineOffSpecBeam(const OffSpecSimulation& simulation) const;
+    std::string defineSpecularBeam(const SpecularSimulation& simulation) const;
 
     std::string defineBeamPolarization(const Beam& beam) const;
     std::string defineBeamIntensity(const Beam& beam) const;
+    std::string defineFootprint(const IFootprintFactor& beam) const;
 
     std::string defineParameterDistributions(const Simulation* simulation) const;
     std::string defineMasks(const Simulation* simulation) const;

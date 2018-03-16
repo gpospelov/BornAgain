@@ -15,6 +15,8 @@
 #include "SimulationToPython.h"
 #include "ConstantBackground.h"
 #include "ConvolutionDetectorResolution.h"
+#include "FootprintFactorGaussian.h"
+#include "FootprintFactorSquare.h"
 #include "GISASSimulation.h"
 #include "INodeUtils.h"
 #include "ParameterUtils.h"
@@ -24,6 +26,7 @@
 #include "RegionOfInterest.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "SampleToPython.h"
+#include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "OffSpecSimulation.h"
 #include <iomanip>
@@ -76,6 +79,8 @@ std::string SimulationToPython::defineGetSimulation(const Simulation* simulation
         result << defineGISASSimulation(gisas);
     else if (auto offspec = dynamic_cast<const OffSpecSimulation*>(simulation))
         result << defineOffSpecSimulation(offspec);
+    else if (auto spec = dynamic_cast<const SpecularSimulation*>(simulation))
+        result << defineSpecularSimulation(spec);
     else
         throw std::runtime_error("SimulationToPython::defineGetSimulation() -> Error. "
                                  "Wrong simulation type");
@@ -109,6 +114,18 @@ std::string SimulationToPython::defineOffSpecSimulation(const OffSpecSimulation*
     result << defineOffSpecBeam(*simulation);
     result << defineParameterDistributions(simulation);
     result << defineMasks(simulation);
+    result << defineSimulationOptions(simulation);
+    result << defineBackground(simulation);
+    return result.str();
+}
+
+std::string SimulationToPython::defineSpecularSimulation(const SpecularSimulation* simulation) const
+{
+    std::ostringstream result;
+    result << indent() << "simulation = ba.SpecularSimulation()\n";
+    result << defineDetectorPolarizationAnalysis(simulation);
+    result << defineSpecularBeam(*simulation);
+    result << defineParameterDistributions(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
     return result.str();
@@ -264,6 +281,29 @@ std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simul
     return result.str();
 }
 
+std::string SimulationToPython::defineSpecularBeam(const SpecularSimulation& simulation) const
+{
+    std::ostringstream result;
+    const Beam& beam = simulation.getInstrument().getBeam();
+
+    const auto footprint = beam.footprintFactor();
+    if (footprint)
+        result << indent() << "footprint = " << defineFootprint(*footprint);
+
+    result << indent() << "alpha_i_axis = "
+           << PythonFormatting::printAxis(*simulation.getAlphaAxis(), BornAgain::UnitsRad) << "\n";
+
+    result << indent() << "simulation.setBeamParameters(" << printNm(beam.getWavelength()) << ", "
+           << "alpha_i_axis";
+    if (footprint)
+        result << ", " << "footprint";
+    result << ")\n";
+
+    result << defineBeamPolarization(beam);
+    result << defineBeamIntensity(beam);
+    return result.str();
+}
+
 std::string SimulationToPython::defineBeamPolarization(const Beam& beam) const
 {
     std::ostringstream result;
@@ -288,6 +328,20 @@ std::string SimulationToPython::defineBeamIntensity(const Beam& beam) const
     return result.str();
 }
 
+std::string SimulationToPython::defineFootprint(const IFootprintFactor& footprint) const
+{
+    std::ostringstream result;
+
+    if (dynamic_cast<const FootprintFactorGaussian*>(&footprint))
+        result << "ba.FootprintFactorGaussian";
+    else if (dynamic_cast<const FootprintFactorSquare*>(&footprint))
+        result << "ba.FootprintFactorSquare";
+    else
+        throw std::runtime_error(
+            "Error in SimulationToPython::defineFootprint: unknown footprint type");
+    result << "(" << printDouble(footprint.widthRatio()) << ")\n";
+    return result.str();
+}
 
 std::string SimulationToPython::defineParameterDistributions(const Simulation* simulation) const
 {

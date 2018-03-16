@@ -121,16 +121,56 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
         plt.title(title)
 
 
-def plot_simulation_result(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT):
+def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesUnits.DEFAULT,
+              xlabel=None, ylabel=None, title=None):
     """
-    Plots simulation result as color map and hold the plot.
+    Plots intensity data for specular simulation result
+    :param result: SimulationResult from SpecularSimulation
+    :param ymin: minimal y-axis value to show
+    :param ymax: maximum y-axis value to show
+    :param units: units on the x-axis
+    """
+
+    data = result.data(units)
+    intensity = data.getArray()
+    x_axis = data.getAxis(0).getBinCenters()
+    ymax = np.amax(intensity) * 2.0 if ymax is None else ymax
+    ymin = max(np.amin(intensity) * 0.5, 1e-18 * ymax) if ymin is None else ymin
+
+    xlabel = get_axes_labels(result, units)[0] if xlabel is None else xlabel
+    ylabel = "Intensity" if ylabel is None else ylabel
+
+    plt.semilogy(x_axis, intensity)
+
+    plt.ylim([ymin, ymax])
+
+    if xlabel:
+        plt.xlabel(xlabel, fontsize=label_fontsize)
+
+    if ylabel:
+        plt.ylabel(ylabel, fontsize=label_fontsize)
+
+    if title:
+        plt.title(title)
+
+
+def plot_simulation_result(result, intensity_min=None, intensity_max=None, units=ba.AxesUnits.DEFAULT,
+                           postpone_show=False):
+    """
+    Draws simulation result and (optionally) shows the plot.
     :param result_: SimulationResult object obtained from GISAS/OffSpec/SpecularSimulation
-    :param zmin: Min value on amplitude's color bar
-    :param zmax: Max value on amplitude's color bar
+    :param intensity_min: Min value on amplitude's axis or color bar
+    :param intensity_max: Max value on amplitude's axis or color bar
+    :param units: units for plot axes
+    :param postpone_show: postpone showing the plot for later tuning (False by default)
     """
-    plot_colormap(result, zmin, zmax, units)
+    if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
+        plot_specular_simulation_result(result, intensity_min, intensity_max)
+    else:
+        plot_colormap(result, intensity_min, intensity_max, units)
     plt.tight_layout()
-    plt.show()
+    if not postpone_show:
+        plt.show()
 
 
 def plot_histogram(intensity, zmin=None, zmax=None,

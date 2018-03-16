@@ -58,6 +58,9 @@ set(test_cases
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
     OffSpecularResonator
+    GaussianBeamFootprint
+    SpecularDivergentBeam
+    HomogeneousTiNiSampleWithAbsorption
 )
 
 add_executable(PyStandardTest main.cpp PyStandardTest.h PyStandardTest.cpp)

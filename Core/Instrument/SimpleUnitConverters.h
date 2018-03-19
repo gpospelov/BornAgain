@@ -19,7 +19,7 @@
 #include <memory>
 #include <vector>
 
-#include "UnitConverters.h"
+#include "IUnitConverter.h"
 #include "Vectors3D.h"
 
 class Beam;

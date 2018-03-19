@@ -15,7 +15,7 @@
 #ifndef SIMULATIONRESULT_H
 #define SIMULATIONRESULT_H
 
-#include "UnitConverters.h"
+#include "IUnitConverter.h"
 #include "WinDllMacros.h"
 #include <memory>
 #include <vector>

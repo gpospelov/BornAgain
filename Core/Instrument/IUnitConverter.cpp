@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/UnitConverters.cpp
-//! @brief     Implements IUnitConverter classes.
+//! @file      Core/Instrument/IUnitConverter.cpp
+//! @brief     Implements IUnitConverter class.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,6 +12,6 @@
 //
 // ************************************************************************** //
 
-#include "UnitConverters.h"
+#include "IUnitConverter.h"
 
 IUnitConverter::~IUnitConverter() =default;

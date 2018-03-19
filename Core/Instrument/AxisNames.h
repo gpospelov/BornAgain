@@ -15,7 +15,7 @@
 #ifndef AXISNAMES_H
 #define AXISNAMES_H
 
-#include "UnitConverters.h"
+#include "IUnitConverter.h"
 #include <map>
 
 //! Contains functions to create maps that give the right axis names for different

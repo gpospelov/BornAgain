@@ -18,9 +18,9 @@
 #include "IAxis.h"
 #include "ICloneable.h"
 #include "INode.h"
+#include "IUnitConverter.h"
 #include "DetectionProperties.h"
 #include "SafePointerVector.h"
-#include "UnitConverters.h"
 
 class Beam;
 class DetectorElement;

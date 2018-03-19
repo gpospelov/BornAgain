@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/UnitConverters.h
-//! @brief     Defines interface IUnitConverter and its subclasses.
+//! @file      Core/Instrument/IUnitConverter.h
+//! @brief     Defines interface IUnitConverter and possible axis units.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -30,7 +30,7 @@ struct BA_CORE_API_ AxesUnitsWrap {
 };
 typedef AxesUnitsWrap::AxesUnits AxesUnits;
 
-//! Interface for objects that provide axis translations to different units for IDetector objects
+//! Interface to provide axis translations to different units for simulation output
 //! @ingroup simulation_internal
 
 class BA_CORE_API_ IUnitConverter : public ICloneable

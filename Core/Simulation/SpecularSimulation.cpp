@@ -23,6 +23,7 @@
 #include "MaterialUtils.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
+#include "SimpleUnitConverters.h"
 #include "SpecularComputation.h"
 #include "SpecularData.h"
 #include "SpecularDetector1D.h"

@@ -1,7 +1,7 @@
 #include "google_test.h"
 #include "Beam.h"
 #include "RectangularDetector.h"
-#include "UnitConverters.h"
+#include "SimpleUnitConverters.h"
 #include "Units.h"
 #include "Vectors3D.h"
 

@@ -21,6 +21,7 @@
 #include "MultiLayer.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
+#include "SimpleUnitConverters.h"
 #include "SimulationElement.h"
 
 OffSpecSimulation::OffSpecSimulation()

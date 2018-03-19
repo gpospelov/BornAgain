@@ -20,9 +20,9 @@
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "RectangularDetector.h"
+#include "SimpleUnitConverters.h"
 #include "SimulationElement.h"
 #include "SphericalDetector.h"
-#include "UnitConverters.h"
 
 GISASSimulation::GISASSimulation()
 {

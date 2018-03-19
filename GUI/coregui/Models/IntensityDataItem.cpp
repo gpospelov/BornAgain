@@ -307,9 +307,6 @@ void IntensityDataItem::updateDataRange()
     if (isZAxisLocked())
         return;
 
-    if (getLowerZ() <= getUpperZ())
-        return;
-
     computeDataRange();
 }
 

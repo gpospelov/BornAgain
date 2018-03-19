@@ -80,16 +80,11 @@ void JobItemUtils::setResults(IntensityDataItem* intensityItem, const Simulation
     if (intensityItem->getOutputData() == nullptr) {
         const IDetector* detector = simulation->getInstrument().getDetector();
         setIntensityItemAxesUnits(intensityItem, detector);
-        auto selected_units = axesUnitsFromName(intensityItem->selectedAxesUnits());
         updateAxesTitle(intensityItem);
-        std::unique_ptr<OutputData<double>> data(sim_result.data(selected_units));
-        intensityItem->setOutputData(data.release());
-    } else {
-        std::unique_ptr<OutputData<double>> data(sim_result.data());
-        intensityItem->setRawDataVector(data.get());
-        if (!intensityItem->isZAxisLocked())
-            intensityItem->computeDataRange();
     }
+    auto selected_units = axesUnitsFromName(intensityItem->selectedAxesUnits());
+    std::unique_ptr<OutputData<double>> data(sim_result.data(selected_units));
+    intensityItem->setOutputData(data.release());
 }
 
 //! Updates axes of OutputData in IntensityData item to correspond with ::P_AXES_UNITS selection.

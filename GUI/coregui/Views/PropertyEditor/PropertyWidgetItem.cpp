@@ -98,16 +98,9 @@ void PropertyWidgetItem::connectEditor(QWidget* editor)
     if (auto customEditor = dynamic_cast<ComboPropertyEditor*>(editor)) {
         connect(customEditor, &ComboPropertyEditor::dataChanged,
                 [=] { m_delegate->commitData(customEditor); });
-
     } else if (auto customEditor = dynamic_cast<QSpinBox*>(editor)) {
-        connect(customEditor, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+        connect(customEditor, qOverload<int>(&QSpinBox::valueChanged),
                 [=] { m_delegate->commitData(customEditor); });
-
-    } else if (auto customEditor = dynamic_cast<QDoubleSpinBox*>(editor)) {
-        connect(customEditor,
-                static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged),
-                [=] { m_delegate->commitData(customEditor); });
-
     } else if (auto customEditor = dynamic_cast<ScientificDoublePropertyEditor*>(editor)) {
         connect(customEditor, &ScientificDoublePropertyEditor::dataChanged,
                 [=] { m_delegate->commitData(customEditor); });

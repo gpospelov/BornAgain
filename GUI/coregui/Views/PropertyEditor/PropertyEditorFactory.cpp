@@ -111,21 +111,17 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
             result = createCustomDoubleEditor(item);
         }
     }
-
     else if(isIntProperty(item.value())) {
         result = createCustomIntEditor(item);
     }
-
     else if(isBoolProperty(item.value())) {
         auto editor = new BoolEditor;
         editor->setData(item.value());
         result = editor;
     }
-
     else if(isStringProperty(item.value())) {
         result = createCustomStringEditor(item);
     }
-
     else if(isExternalProperty(item.value())) {
         auto editor = new ExternalPropertyEditor;
         editor->setData(item.value());
@@ -133,13 +129,11 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
             editor->setExternalDialogType(item.editorType());
         result = editor;
     }
-
     else if(isComboProperty(item.value())) {
         auto editor = new ComboPropertyEditor;
         editor->setData(item.value());
         result = editor;
     }
-
     if (parent && result)
         result->setParent(parent);
 

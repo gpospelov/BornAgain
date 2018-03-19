@@ -15,9 +15,6 @@
 #ifndef SIMPLEUNITCONVERTERS_H
 #define SIMPLEUNITCONVERTERS_H
 
-#include <map>
-#include <vector>
-
 #include "IUnitConverter.h"
 #include "Vectors3D.h"
 
@@ -43,7 +40,6 @@ public:
     double calculateMax(size_t i_axis, AxesUnits units_type) const override;
     size_t axisSize(size_t i_axis) const override;
 
-    std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const override;
     std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const override;
 
 protected:
@@ -70,7 +66,6 @@ protected:
 
 private:
     virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const=0;
-    virtual std::vector<std::map<AxesUnits, std::string>> createNameMaps() const=0;
 };
 
 //! IUnitConverter class that handles the unit translations for spherical detectors

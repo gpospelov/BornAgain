@@ -16,8 +16,10 @@
 #define UNITCONVERTERS_H
 
 #include <cstddef>
+#include <map>
 #include <memory>
 #include <string>
+#include <vector>
 #include "ICloneable.h"
 #include "WinDllMacros.h"
 
@@ -48,12 +50,16 @@ public:
     virtual double calculateMin(size_t i_axis, AxesUnits units_type) const=0;
     virtual double calculateMax(size_t i_axis, AxesUnits units_type) const=0;
     virtual size_t axisSize(size_t i_axis) const=0;
-    virtual std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const=0;
+
+    std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const;
 
     virtual AxesUnits defaultUnits() const=0;
 #ifndef SWIG
     virtual std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const = 0;
 #endif // SWIG
+
+private:
+    virtual std::vector<std::map<AxesUnits, std::string>> createNameMaps() const=0;
 };
 
 #endif // UNITCONVERTERS_H

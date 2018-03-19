@@ -74,19 +74,6 @@ size_t UnitConverterSimple::axisSize(size_t i_axis) const
     return axis_data.nbins;
 }
 
-std::string UnitConverterSimple::axisName(size_t i_axis, AxesUnits units_type) const
-{
-    const std::vector<std::map<AxesUnits, std::string>> name_maps = createNameMaps();
-    auto& name_map = name_maps[i_axis];
-    // Replace DEFAULT by the converter's default units:
-    if (units_type==AxesUnits::DEFAULT) units_type = defaultUnits();
-    auto it = name_map.find(units_type);
-    if (it==name_map.end())
-        throw std::runtime_error("Error in UnitConverterSimple::axisName: "
-                                 "unknown or unsupported unit type");
-    return it->second;
-}
-
 std::unique_ptr<IAxis> UnitConverterSimple::createConvertedAxis(size_t i_axis,
                                                                 AxesUnits units) const
 {

@@ -16,9 +16,12 @@
 #define UNITCONVERTERS_H
 
 #include <cstddef>
+#include <memory>
 #include <string>
 #include "ICloneable.h"
 #include "WinDllMacros.h"
+
+class IAxis;
 
 //! Wrapper for detector axes units, required for a better representation of
 //! detector axes units in python
@@ -48,6 +51,9 @@ public:
     virtual std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const=0;
 
     virtual AxesUnits defaultUnits() const=0;
+#ifndef SWIG
+    virtual std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const = 0;
+#endif // SWIG
 };
 
 #endif // UNITCONVERTERS_H

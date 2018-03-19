@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Instrument/SimpleUnitConverters.h
-//! @brief     Defines interface SimpleUnitConverter and its subclasses.
+//! @brief     Defines interface UnitConverterSimple and its subclasses.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,14 +16,12 @@
 #define SIMPLEUNITCONVERTERS_H
 
 #include <map>
-#include <memory>
 #include <vector>
 
 #include "IUnitConverter.h"
 #include "Vectors3D.h"
 
 class Beam;
-class IAxis;
 class IDetector;
 class IDetector2D;
 class RectangularDetector;
@@ -46,6 +44,7 @@ public:
     size_t axisSize(size_t i_axis) const override;
 
     std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const override;
+    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const override;
 
 protected:
     UnitConverterSimple(const UnitConverterSimple& other);

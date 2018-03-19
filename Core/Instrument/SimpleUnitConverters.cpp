@@ -87,6 +87,16 @@ std::string UnitConverterSimple::axisName(size_t i_axis, AxesUnits units_type) c
     return it->second;
 }
 
+std::unique_ptr<IAxis> UnitConverterSimple::createConvertedAxis(size_t i_axis,
+                                                                AxesUnits units) const
+{
+    double min = calculateMin(i_axis, units);
+    double max = calculateMax(i_axis, units);
+    auto axis_name = axisName(i_axis);
+    auto axis_size = axisSize(i_axis);
+    return std::make_unique<FixedBinAxis>(axis_name, axis_size, min, max);
+}
+
 UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
     : m_axis_data_table(other.m_axis_data_table)
     , m_wavelength(other.m_wavelength)

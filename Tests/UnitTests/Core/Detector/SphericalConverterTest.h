@@ -66,6 +66,22 @@ TEST_F(SphericalConverterTest, SphericalConverter)
 
     EXPECT_THROW(converter.calculateMin(2, AxesUnits::DEFAULT), std::runtime_error);
     EXPECT_THROW(converter.calculateMax(2, AxesUnits::DEFAULT), std::runtime_error);
+
+    auto axis = converter.createConvertedAxis(0, AxesUnits::DEFAULT);
+    EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis.get()));
+    EXPECT_EQ(axis->size(), converter.axisSize(0));
+    EXPECT_EQ(axis->getName(), converter.axisName(0));
+    EXPECT_EQ(axis->getMin(), converter.calculateMin(0, AxesUnits::DEFAULT));
+    EXPECT_EQ(axis->getMax(), converter.calculateMax(0, AxesUnits::DEFAULT));
+
+    auto axis2 = converter.createConvertedAxis(1, AxesUnits::QSPACE);
+    EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis2.get()));
+    EXPECT_EQ(axis2->size(), converter.axisSize(1));
+    EXPECT_EQ(axis2->getName(), converter.axisName(1));
+    EXPECT_EQ(axis2->getMin(), converter.calculateMin(1, AxesUnits::QSPACE));
+    EXPECT_EQ(axis2->getMax(), converter.calculateMax(1, AxesUnits::QSPACE));
+
+    EXPECT_THROW(converter.createConvertedAxis(2, AxesUnits::DEFAULT), std::runtime_error);
 }
 
 TEST_F(SphericalConverterTest, SphericalConverterClone)

@@ -13,24 +13,22 @@
 // ************************************************************************** //
 
 #include "FitObject.h"
-#include "FitElement.h"
-#include "Simulation.h"
-#include "IIntensityNormalizer.h"
-#include "SimulationArea.h"
 #include "BornAgainNamespace.h"
 #include "DetectorFunctions.h"
+#include "FitElement.h"
 #include "IHistogram.h"
+#include "IIntensityNormalizer.h"
+#include "Simulation.h"
+#include "SimulationArea.h"
 
 static_assert(std::is_copy_constructible<FitObject>::value == false,
-    "FitObject should not be copy constructable");
+              "FitObject should not be copy constructable");
 static_assert(std::is_copy_assignable<FitObject>::value == false,
-    "FitObject should not be copy assignable");
+              "FitObject should not be copy assignable");
 
-FitObject::FitObject(const Simulation& simulation, const OutputData<double >& real_data,
-    double weight)
-    : m_simulation(simulation.clone())
-    , m_weight(weight)
-    , m_fit_elements_count(0)
+FitObject::FitObject(const Simulation& simulation, const OutputData<double>& real_data,
+                     double weight)
+    : m_simulation(simulation.clone()), m_weight(weight), m_fit_elements_count(0)
 
 {
     setName("FitObject");
@@ -39,18 +37,11 @@ FitObject::FitObject(const Simulation& simulation, const OutputData<double >& re
     init_dataset(real_data);
 }
 
-FitObject::~FitObject()
-{}
+FitObject::~FitObject() {}
 
-const OutputData<double>& FitObject::realData() const
-{
-    return *m_real_data.get();
-}
+const OutputData<double>& FitObject::realData() const { return *m_real_data.get(); }
 
-const OutputData<double>& FitObject::simulationData() const
-{
-    return *m_simulation_data.get();
-}
+const OutputData<double>& FitObject::simulationData() const { return *m_simulation_data.get(); }
 
 std::vector<const INode*> FitObject::getChildren() const
 {
@@ -63,8 +54,15 @@ std::unique_ptr<IHistogram> FitObject::createRealDataHistogram() const
     buff.copyShapeFrom(simulationData());
 
     SimulationRoiArea area(m_simulation->getInstrument().getDetector());
-    for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it) {
-        buff[it.roiIndex()] = (*m_real_data)[it.detectorIndex()];
+    for (SimulationRoiArea::iterator it = area.begin(); it != area.end(); ++it) {
+        // FIXME find elegant (issue #2018)
+        size_t rdata_index
+            = m_simulation_data->getAllocatedSize() == m_real_data->getAllocatedSize()
+                  ? it.roiIndex()
+                  : it.detectorIndex();
+        if (rdata_index >= m_real_data->getAllocatedSize())
+            throw ("FitObject::prepareFitElements() -> Error. Out-of-bounds.");
+        buff[it.roiIndex()] = (*m_real_data)[rdata_index];
     }
     return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
 }
@@ -74,37 +72,43 @@ std::unique_ptr<IHistogram> FitObject::createRealDataHistogram() const
 void FitObject::init_dataset(const OutputData<double>& real_data)
 {
     const IDetector* detector = m_simulation->getInstrument().getDetector();
-    if(!DetectorFunctions::hasSameDimensions(*detector, real_data)){
+    if (!DetectorFunctions::hasSameDimensions(*detector, real_data)) {
         std::ostringstream message;
-        message << "FitObject::check_realdata() -> Error. Axes of the real data doesn't match "
+        message << "FitObject::check_realdata() -> Warning. Axes of the real data doesn't match "
                 << "the detector. Real data:" << DetectorFunctions::axesToString(real_data)
-                        << ", detector:" << DetectorFunctions::axesToString(*detector) << ".";
+                << ", detector:" << DetectorFunctions::axesToString(*detector) << ".";
+        // FIXME find elegant way (issue #2018)
     }
     m_real_data.reset(real_data.clone());
 }
 
-size_t FitObject::numberOfFitElements() const
-{
-    return m_fit_elements_count;
-}
+size_t FitObject::numberOfFitElements() const { return m_fit_elements_count; }
 
 //! Runs simulation and put results (the real and simulated intensities) into external vector.
 //! Masked channels will be excluded from the vector.
 
-void FitObject::prepareFitElements(std::vector<FitElement> &fit_elements, double weight,
+void FitObject::prepareFitElements(std::vector<FitElement>& fit_elements, double weight,
                                    IIntensityNormalizer* normalizer)
 {
     m_simulation->runSimulation();
     auto sim_result = m_simulation->result();
     m_simulation_data.reset(sim_result.data());
 
-    if(normalizer)
+    if (normalizer)
         normalizer->apply(*m_simulation_data.get());
 
     SimulationArea area(m_simulation->getInstrument().getDetector());
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
+        // FIXME find elegant way (issue #2018)
+        size_t rdata_index
+            = m_simulation_data->getAllocatedSize() == m_real_data->getAllocatedSize()
+                  ? it.roiIndex()
+                  : it.detectorIndex();
+
+        if (rdata_index >= m_real_data->getAllocatedSize())
+            throw ("FitObject::prepareFitElements() -> Error. Out-of-bounds.");
         FitElement element(it.roiIndex(), (*m_simulation_data)[it.roiIndex()],
-                (*m_real_data)[it.detectorIndex()], weight);
+                           (*m_real_data)[rdata_index], weight);
         fit_elements.push_back(element);
     }
 }

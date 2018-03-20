@@ -134,25 +134,4 @@ private:
     void addDetectorYAxis(const IDetector2D& detector);
 };
 
-//! IUnitConverter class that handles the unit translations for off-specular simulations
-//! with a spherical detector
-//! Its default units are radians for both axes
-//! @ingroup simulation_internal
-
-class BA_CORE_API_ SpecularConverter : public UnitConverterSimple
-{
-public:
-    SpecularConverter(const Beam& beam, const IAxis& alpha_axis);
-    virtual ~SpecularConverter();
-
-    SpecularConverter* clone() const override;
-
-    AxesUnits defaultUnits() const override;
-
-private:
-    SpecularConverter(const SpecularConverter& other);
-    double calculateValue(size_t i_axis, AxesUnits units_type, double value) const override;
-    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
-};
-
 #endif // SIMPLEUNITCONVERTERS_H

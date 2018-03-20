@@ -15,14 +15,18 @@
 #include "UnitConverter1D.h"
 #include "AxisNames.h"
 #include "Beam.h"
-#include "IAxis.h"
+#include "FixedBinAxis.h"
 #include "MathConstants.h"
 #include "Units.h"
 #include "VariableBinAxis.h"
 
 namespace {
 void checkDimensions(size_t i_axis);
-double getQ(double wavelength, double angle);
+
+double getQ(double wavelength, double angle)
+{
+    return 4.0 * M_PI * std::sin(angle) / wavelength;
+}
 }
 
 UnitConverter1D::UnitConverter1D(const Beam& beam, const IAxis& axis)
@@ -48,17 +52,21 @@ size_t UnitConverter1D::dimension() const
 double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const
 {
     checkDimensions(i_axis);
-    if (units_type == AxesUnits::DEFAULT)
-        units_type = defaultUnits();
-    return calculateValue(units_type, m_axis->getMin());
+    units_type = determineUnits(units_type);
+    if (units_type == AxesUnits::NBINS)
+        return 0.0;
+    auto translator = getTranslator(units_type);
+    return translator(m_axis->getMin());
 }
 
 double UnitConverter1D::calculateMax(size_t i_axis, AxesUnits units_type) const
 {
     checkDimensions(i_axis);
-    if (units_type == AxesUnits::DEFAULT)
-        units_type = defaultUnits();
-    return calculateValue(units_type, m_axis->getMax());
+    units_type = determineUnits(units_type);
+    if (units_type == AxesUnits::NBINS)
+        return static_cast<double>(m_axis->size());
+    auto translator = getTranslator(units_type);
+    return translator(m_axis->getMax());
 }
 
 size_t UnitConverter1D::axisSize(size_t i_axis) const
@@ -75,11 +83,15 @@ AxesUnits UnitConverter1D::defaultUnits() const
 std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const
 {
     checkDimensions(i_axis);
-    if (units == AxesUnits::DEFAULT)
-        units = defaultUnits();
+    units = determineUnits(units);
+    if (units == AxesUnits::NBINS)
+        return std::make_unique<FixedBinAxis>(axisName(0, units), m_axis->size(),
+                                              calculateMin(0, units), calculateMax(0, units));
+
     auto boundaries = m_axis->getBinBoundaries();
+    auto translator = getTranslator(units);
     for (size_t i = 0, size = boundaries.size(); i < size; ++i)
-        boundaries[i] = calculateValue(units, boundaries[i]);
+        boundaries[i] = translator(boundaries[i]);
     const auto& name = axisName(0, units);
     return std::make_unique<VariableBinAxis>(name, m_axis->size(), boundaries);
 }
@@ -90,17 +102,15 @@ UnitConverter1D::UnitConverter1D(const UnitConverter1D& other)
 {
 }
 
-double UnitConverter1D::calculateValue(AxesUnits units_type, double value) const
+std::function<double (double)> UnitConverter1D::getTranslator(AxesUnits units_type) const
 {
     switch(units_type) {
     case AxesUnits::RADIANS:
-        return value;
+        return [](double value) { return value; };
     case AxesUnits::DEGREES:
-        return Units::rad2deg(value);
-    case AxesUnits::NBINS:
-        return m_axis->findIndex(value);
+        return [](double value) { return Units::rad2deg(value); };
     case AxesUnits::QSPACE:
-        return getQ(m_wavelength, value);
+        return [this](double value) { return getQ(m_wavelength, value); };
     default:
         throw std::runtime_error("Error in SpecularConverter::calculateValue: "
                                  "target units not available: "
@@ -123,10 +133,5 @@ void checkDimensions(size_t i_axis)
     throw std::runtime_error("Error in UnitConverter1D::checkDimensions: "
                              "input dimension"
                              + std::to_string(i_axis) + "exceeds dimensionality of the converter.");
-}
-
-double getQ(double wavelength, double angle)
-{
-    return 4.0 * M_PI * std::sin(angle) / wavelength;
 }
 }

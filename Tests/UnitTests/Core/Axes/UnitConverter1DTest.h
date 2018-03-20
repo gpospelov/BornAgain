@@ -44,7 +44,8 @@ void UnitConverter1DTest::checkMainFunctionality(const UnitConverter1D& test_obj
 
     EXPECT_NEAR(test_object.calculateMax(0, AxesUnits::DEFAULT), Units::rad2deg(m_alpha_end),
                 Units::rad2deg(m_alpha_end) * 1e-10);
-    EXPECT_NEAR(test_object.calculateMax(0, AxesUnits::NBINS), static_cast<double>(m_nbins), 1e-10);
+    EXPECT_NEAR(test_object.calculateMax(0, AxesUnits::NBINS), static_cast<double>(m_nbins),
+                1e-10);
     EXPECT_NEAR(test_object.calculateMax(0, AxesUnits::RADIANS), m_alpha_end, m_alpha_end * 1e-10);
     EXPECT_NEAR(test_object.calculateMax(0, AxesUnits::DEGREES), Units::rad2deg(m_alpha_end),
                 Units::rad2deg(m_alpha_end) * 1e-10);
@@ -64,6 +65,13 @@ void UnitConverter1DTest::checkMainFunctionality(const UnitConverter1D& test_obj
     EXPECT_EQ(axis2->getName(), test_object.axisName(0, AxesUnits::QSPACE));
     EXPECT_EQ(axis2->getMin(), test_object.calculateMin(0, AxesUnits::QSPACE));
     EXPECT_EQ(axis2->getMax(), test_object.calculateMax(0, AxesUnits::QSPACE));
+
+    auto axis3 = test_object.createConvertedAxis(0, AxesUnits::NBINS);
+    EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis3.get()));
+    EXPECT_EQ(axis3->size(), test_object.axisSize(0));
+    EXPECT_EQ(axis3->getName(), test_object.axisName(0, AxesUnits::NBINS));
+    EXPECT_EQ(axis3->getMin(), test_object.calculateMin(0, AxesUnits::NBINS));
+    EXPECT_EQ(axis3->getMax(), test_object.calculateMax(0, AxesUnits::NBINS));
 }
 
 TEST_F(UnitConverter1DTest, UnitConverter1D)

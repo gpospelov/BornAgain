@@ -436,5 +436,5 @@
 %include "SampleBuilderFactory.h"
 %template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 %include "SimulationFactory.h"
-%include "UnitConverters.h"
+%include "IUnitConverter.h"
 

@@ -39,7 +39,6 @@ QString doubleToString(const SessionItem& item)
         auto locale = QLocale::system();
         result = locale.toString(item.value().toDouble(), 'f', item.decimals());
     }
-
     return result;
 }
 
@@ -50,8 +49,7 @@ QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent) {
     }
     return nullptr;
 }
-
-}
+}  // unnamed namespace
 
 SessionModelDelegate::SessionModelDelegate(QObject* parent)
     : QStyledItemDelegate(parent)
@@ -64,11 +62,9 @@ void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& 
     if (PropertyEditorFactory::IsCustomVariant(index.data())) {
         QString text = PropertyEditorFactory::ToString(index.data());
         paintCustomLabel(painter, option, index, text);
-
     } else if (isDoubleProperty(index)) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
         paintCustomLabel(painter, option, index, doubleToString(*item));
-
     } else {
         QStyledItemDelegate::paint(painter, option, index);
     }
@@ -88,11 +84,9 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
             // Int and Double will be handled by standard spin boxes
             // QStyledItemDelegate already knows how to handle it, no special connections are required
         }
-
     } else {
         result = QStyledItemDelegate::createEditor(parent, option, index);
     }
-
     return result;
 }
 

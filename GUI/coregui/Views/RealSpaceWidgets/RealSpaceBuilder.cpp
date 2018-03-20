@@ -222,7 +222,7 @@ void RealSpaceBuilder::populateInterference2DBasic(RealSpaceModel* model,
             static_cast<int>(l2*std::sin(Units::deg2rad(l_alpha+l_xi)));
 
     // Choosing the larger between n1 and n2
-    int n = n1 >= n2 ? n1: n2;
+    int n = std::max(n1,n2);
 
     for (int i = -n; i <= n; ++i)
     {

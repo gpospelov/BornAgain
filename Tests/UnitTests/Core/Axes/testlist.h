@@ -8,3 +8,4 @@
 #include "ConstKBinAxisTest.h"
 #include "FixedBinAxisTest.h"
 #include "CVectorTest.h"
+#include "UnitConverter1DTest.h"

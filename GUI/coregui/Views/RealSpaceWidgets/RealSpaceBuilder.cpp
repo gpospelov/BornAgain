@@ -216,10 +216,10 @@ void RealSpaceBuilder::populateInterference2DBasic(RealSpaceModel* model,
     // Estimate the limit 'n' of the integer multiple i and j of the lattice vectors required in
     // order to populate particles correctly within the 3D model's boundaries
     int n1 = static_cast<int>(layer_size*2)/
-            static_cast<int>(l1*cos(Units::deg2rad(l_xi)));
+            static_cast<int>(l1*std::cos(Units::deg2rad(l_xi)));
 
     int n2 = static_cast<int>(layer_size*2)/
-            static_cast<int>(l2*sin(Units::deg2rad(l_alpha+l_xi)));
+            static_cast<int>(l2*std::sin(Units::deg2rad(l_alpha+l_xi)));
 
     // Choosing the larger between n1 and n2
     int n = n1 >= n2 ? n1: n2;
@@ -248,17 +248,17 @@ void RealSpaceBuilder::populateInterference2DBasic(RealSpaceModel* model,
                 // l1 and l2 are the lattice vectors
                 // i and j are the integer multiples of l1 and l2 respectively
 
-                double pos_x = i*l1*cos(Units::deg2rad(l_xi))+
-                        j*l2*cos(Units::deg2rad(l_alpha + l_xi)) + x;
+                double pos_x = i*l1*std::cos(Units::deg2rad(l_xi))+
+                        j*l2*std::cos(Units::deg2rad(l_alpha + l_xi)) + x;
 
-                double pos_y = i*l1*sin(Units::deg2rad(l_xi))+
-                        j*l2*sin(Units::deg2rad(l_alpha + l_xi)) + y;
+                double pos_y = i*l1*std::sin(Units::deg2rad(l_xi))+
+                        j*l2*std::sin(Units::deg2rad(l_alpha + l_xi)) + y;
 
                 double pos_z = z;
 
                 // Check if the position lies within the boundaries of the 3D model
-                if (abs(pos_x) <= layer_size && abs(pos_y) <= layer_size
-                        && abs(pos_z) <= layer_thickness)
+                if (std::abs(pos_x) <= layer_size && std::abs(pos_y) <= layer_size
+                        && std::abs(pos_z) <= layer_thickness)
                 {
                     // Randomly display a particle at the position, given its abundance
                     if (rand_num <= cumulative_abundances.at(k)/total_abundance)

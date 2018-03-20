@@ -15,9 +15,10 @@
 #ifndef SIMULATIONRESULT_H
 #define SIMULATIONRESULT_H
 
-#include "UnitConverters.h"
+#include "IUnitConverter.h"
 #include "WinDllMacros.h"
 #include <memory>
+#include <vector>
 
 #ifdef BORNAGAIN_PYTHON
 #ifndef PyObject_HEAD
@@ -30,7 +31,6 @@ class Histogram1D;
 class Histogram2D;
 class IAxis;
 template<class T> class OutputData;
-class IUnitConverter;
 
 //! Information about an axis in specific units. Can be used for plotting.
 //! @ingroup simulation

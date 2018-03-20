@@ -26,6 +26,7 @@
 #include "SpecularComputation.h"
 #include "SpecularData.h"
 #include "SpecularDetector1D.h"
+#include "UnitConverter1D.h"
 
 namespace
 {
@@ -79,7 +80,7 @@ SimulationResult SpecularSimulation::result() const
     const size_t i_layer = 0; // detector intensity is proportional to reflectivity from top layer
     validityCheck(i_layer);
     auto data = createIntensityData();
-    SpecularConverter converter(m_instrument.getBeam(), *m_coordinate_axis);
+    UnitConverter1D converter(m_instrument.getBeam(), *m_coordinate_axis);
     return SimulationResult(*data, converter);
 }
 

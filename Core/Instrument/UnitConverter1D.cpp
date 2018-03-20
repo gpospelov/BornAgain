@@ -52,7 +52,7 @@ size_t UnitConverter1D::dimension() const
 double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const
 {
     checkDimensions(i_axis);
-    units_type = determineUnits(units_type);
+    units_type = replaceDefaultUnits(units_type);
     if (units_type == AxesUnits::NBINS)
         return 0.0;
     auto translator = getTranslator(units_type);
@@ -62,7 +62,7 @@ double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const
 double UnitConverter1D::calculateMax(size_t i_axis, AxesUnits units_type) const
 {
     checkDimensions(i_axis);
-    units_type = determineUnits(units_type);
+    units_type = replaceDefaultUnits(units_type);
     if (units_type == AxesUnits::NBINS)
         return static_cast<double>(m_axis->size());
     auto translator = getTranslator(units_type);
@@ -83,7 +83,7 @@ AxesUnits UnitConverter1D::defaultUnits() const
 std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const
 {
     checkDimensions(i_axis);
-    units = determineUnits(units);
+    units = replaceDefaultUnits(units);
     if (units == AxesUnits::NBINS)
         return std::make_unique<FixedBinAxis>(axisName(0, units), m_axis->size(),
                                               calculateMin(0, units), calculateMax(0, units));

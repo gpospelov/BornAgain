@@ -58,11 +58,6 @@ private:
     //! Returns translating functional (rads --> desired units)
     std::function<double (double)> getTranslator(AxesUnits units_type) const;
 
-    AxesUnits determineUnits(AxesUnits units) const
-    {
-        return units == AxesUnits::DEFAULT ? defaultUnits() : units;
-    }
-
     //! Creates name map for axis in various units
     std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
 

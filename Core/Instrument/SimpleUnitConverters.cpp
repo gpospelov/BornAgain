@@ -46,8 +46,7 @@ void UnitConverterSimple::addAxisData(std::string name, double min, double max,
 double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) const
 {
     checkIndex(i_axis);
-    // Replace DEFAULT by the converter's default units:
-    if (units_type==AxesUnits::DEFAULT) units_type = defaultUnits();
+    units_type = replaceDefaultUnits(units_type);
     auto axis_data = m_axis_data_table[i_axis];
     if (units_type==AxesUnits::NBINS) {
         return 0.0;
@@ -58,8 +57,7 @@ double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) co
 double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) const
 {
     checkIndex(i_axis);
-    // Replace DEFAULT by the converter's default units:
-    if (units_type==AxesUnits::DEFAULT) units_type = defaultUnits();
+    units_type = replaceDefaultUnits(units_type);
     auto axis_data = m_axis_data_table[i_axis];
     if (units_type==AxesUnits::NBINS) {
         return static_cast<double>(axis_data.nbins);

@@ -58,6 +58,13 @@ public:
     virtual std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const = 0;
 #endif // SWIG
 
+protected:
+    //! Substitutes converter's default units when appropriate.
+    AxesUnits replaceDefaultUnits(AxesUnits units) const
+    {
+        return units == AxesUnits::DEFAULT ? defaultUnits() : units;
+    }
+
 private:
     virtual std::vector<std::map<AxesUnits, std::string>> createNameMaps() const=0;
 };

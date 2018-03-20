@@ -23,6 +23,11 @@
 #include <qmath.h>
 #include <QMessageBox>
 
+namespace {
+    const float zoom_in_scale = 1.25f;
+    const float zoom_out_scale = 0.8f;
+}
+
 namespace RealSpace {
 
 Canvas::Canvas()
@@ -179,12 +184,12 @@ void Canvas::wheelEvent(QWheelEvent* e)
         if(e->delta() < 0)
         {
             //Zoom in
-            camera->zoomBy(1.25f);
+            camera->zoomBy(zoom_in_scale);
         }
         else
         {
             //Zoom out
-            camera->zoomBy(0.8f);
+            camera->zoomBy(zoom_out_scale);
         }
         camera->endTransform(true);
         update();

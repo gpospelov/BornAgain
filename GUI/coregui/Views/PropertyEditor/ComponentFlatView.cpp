@@ -60,7 +60,6 @@ void ComponentFlatView::addItem(SessionItem* item)
         setItem(item);
         return;
     }
-
     m_topItems.push_back(item);
     updateItemProperties();
 }
@@ -69,34 +68,26 @@ void ComponentFlatView::setModel(SessionModel* model)
 {
     if (m_model) {
         disconnect(m_model, &SessionModel::dataChanged, this, &ComponentFlatView::onDataChanged);
-
     }
-
     m_model = model;
-
     if (m_model) {
         connect(m_model, &SessionModel::dataChanged, this, &ComponentFlatView::onDataChanged);
     }
-
 }
 
 void ComponentFlatView::clearLayout()
 {
     Q_ASSERT(m_gridLayout);
-
     LayoutUtils::clearGridLayout(m_gridLayout, false);
 
     for(auto widget: m_widgetItems)
         widget->deleteLater();
-
     m_widgetItems.clear();
-
 }
 
 void ComponentFlatView::setShowChildren(bool show)
 {
     m_show_children = show;
-
 }
 
 void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIndex&bottomRight,
@@ -120,28 +111,22 @@ void ComponentFlatView::clearEditor()
 
 void ComponentFlatView::updateItemProperties()
 {
-
     clearLayout();
 
     QList<const SessionItem*> allitems;
-
     for (auto item : m_topItems)
         allitems += ComponentUtils::componentItems(*item);
 
     int nrow(0);
     for (auto child : allitems) {
-
         auto widget = createWidget(child);
         if (!widget)
             continue;
-
         widget->addToGrid(m_gridLayout, ++nrow);
         m_widgetItems.push_back(widget);
-
         if (!m_show_children)
             break;
     }
-
 }
 
 void ComponentFlatView::updateItemRoles(SessionItem* item)

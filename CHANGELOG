@@ -1,3 +1,9 @@
+BornAgain-1.11.1, released 2018.03.21
+  > Hotfix:
+    * Bug #1993: Plot ticks are not updated if axes changed in real time view
+    * Bug #2007: GUI->Instrument view-> entering floating point numbers
+    * Bug #2008: GUI->Fitting: ROI in experimental data causes NaN fitting parameters
+
 BornAgain-1.11.0, released 2018.03.02
   > API changes
     1) Detector axes units (e.g. ba.IDetector2D.NBINS) now accessed through AxesUnits (e.g. ba.AxesUnits.NBINS).

@@ -122,6 +122,10 @@ void MainWindow::openRecentProject()
 
 void MainWindow::onRunSimulationShortcut()
 {
+    // This clearFocus is needed for the propagation of the current editor value,
+    // since the runSimulation method will only change focus after finishing the simulation
+    if (auto widget = QApplication::focusWidget())
+        widget->clearFocus();
     m_simulationView->onRunSimulationShortcut();
 }
 
@@ -132,11 +136,9 @@ void MainWindow::onSessionModelViewActive(bool isActive)
     if (isActive) {
         if (m_sessionModelView)
             return;
-
         m_sessionModelView = new SessionModelView(this);
         m_tabWidget->insertTab(MAXVIEWCOUNT, m_sessionModelView,
                                QIcon(":/images/main_sessionmodel.svg"), "Models");
-
     } else {
         if (!m_sessionModelView)
             return;
@@ -160,7 +162,6 @@ void MainWindow::closeEvent(QCloseEvent* event)
         event->ignore();
         return;
     }
-
     if (m_projectManager->closeCurrentProject()) {
         writeSettings();
         event->accept();

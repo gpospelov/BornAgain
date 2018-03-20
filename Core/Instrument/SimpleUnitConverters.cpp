@@ -79,7 +79,7 @@ std::unique_ptr<IAxis> UnitConverterSimple::createConvertedAxis(size_t i_axis,
 {
     double min = calculateMin(i_axis, units);
     double max = calculateMax(i_axis, units);
-    auto axis_name = axisName(i_axis);
+    auto axis_name = axisName(i_axis, units);
     auto axis_size = axisSize(i_axis);
     return std::make_unique<FixedBinAxis>(axis_name, axis_size, min, max);
 }

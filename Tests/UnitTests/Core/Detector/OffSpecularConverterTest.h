@@ -72,7 +72,7 @@ TEST_F(OffSpecularConverterTest, OffSpecularConverter)
     auto axis2 = converter.createConvertedAxis(1, AxesUnits::RADIANS);
     EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis2.get()));
     EXPECT_EQ(axis2->size(), converter.axisSize(1));
-    EXPECT_EQ(axis2->getName(), converter.axisName(1));
+    EXPECT_EQ(axis2->getName(), converter.axisName(1, AxesUnits::RADIANS));
     EXPECT_EQ(axis2->getMin(), converter.calculateMin(1, AxesUnits::RADIANS));
     EXPECT_EQ(axis2->getMax(), converter.calculateMax(1, AxesUnits::RADIANS));
 

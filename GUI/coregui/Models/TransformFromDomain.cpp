@@ -56,6 +56,8 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "ResolutionFunctionItems.h"
 #include "SessionItemUtils.h"
+#include "SpecularBeamInclinationItem.h"
+#include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "SphericalDetectorItem.h"
 #include "Units.h"
@@ -250,6 +252,33 @@ void TransformFromDomain::setOffSpecBeamItem(BeamItem* beam_item, const OffSpecS
     beam_item->setInclinationAngle(Units::rad2deg(beam.getAlpha()));
     beam_item->setAzimuthalAngle(Units::rad2deg(beam.getPhi()));
     // TODO implement beam divergence
+}
+
+void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
+                                              const SpecularSimulation& simulation)
+{
+    Beam beam = simulation.getInstrument().getBeam();
+
+    beam_item->setIntensity(beam.getIntensity());
+    beam_item->setWavelength(beam.getWavelength());
+
+    const double incident_angle = Units::rad2deg(beam.getAlpha());
+    if (incident_angle != 0.0)
+        throw GUIHelpers::Error(
+            "Error in TransformFromDomain::setSpecularBeamItem(): incident angle "
+            "is set to non-zero value");
+    beam_item->setInclinationAngle(incident_angle);
+
+    const double azimuthal_angle = Units::rad2deg(beam.getAlpha());
+    if (azimuthal_angle != 0.0)
+        throw GUIHelpers::Error(
+            "Error in TransformFromDomain::setSpecularBeamItem(): beam azimuthal angle "
+            "is set to non-zero value");
+    beam_item->setAzimuthalAngle(azimuthal_angle);
+
+    auto inclination_item = beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE);
+    auto axis_item = inclination_item->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS);
+    TransformFromDomain::setAxisItem(axis_item, *simulation.getAlphaAxis(), 1. / Units::deg);
 }
 
 void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,
@@ -536,17 +565,17 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribut
     setDistribution(beam_distribution_item, parameter_distribution, group_name, unit_factor);
 }
 
-void TransformFromDomain::setBackground(Instrument2DItem* instrument_item,
+void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
                                         const Simulation& simulation)
 {
     auto p_bg = simulation.background();
     if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
         auto constant_bg_item = instrument_item->setGroupProperty(
-            Instrument2DItem::P_BACKGROUND, Constants::ConstantBackgroundType);
+            InstrumentItem::P_BACKGROUND, Constants::ConstantBackgroundType);
         double value = p_constant_bg->backgroundValue();
         constant_bg_item->setItemValue(ConstantBackgroundItem::P_VALUE, value);
     } else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
-        instrument_item->setGroupProperty(Instrument2DItem::P_BACKGROUND,
+        instrument_item->setGroupProperty(InstrumentItem::P_BACKGROUND,
                                           Constants::PoissonNoiseBackgroundType);
     }
 }

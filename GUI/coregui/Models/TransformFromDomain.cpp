@@ -82,6 +82,10 @@ void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice);
 
 void setDistribution(SessionItem* item, ParameterDistribution par_distr, QString group_name,
                      double factor = 1.0);
+
+void addDistributionToBeamItem(const std::string& parameter_name, const QString& item_name,
+                               const ParameterDistribution& distribution,
+                               const BeamItem* beam_item);
 }
 
 void TransformFromDomain::setRadialParaCrystalItem(
@@ -220,26 +224,12 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
     const DistributionHandler::Distributions_t distributions
         = simulation.getDistributionHandler().getDistributions();
     for (size_t i = 0; i < distributions.size(); ++i) {
-        ParameterPattern pattern_wavelength;
-        pattern_wavelength.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
-        ParameterPattern pattern_alpha;
-        pattern_alpha.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
-        ParameterPattern pattern_phi;
-        pattern_phi.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Azimuth);
-        std::string mainParameterName = distributions[i].getMainParameterName();
-        if (mainParameterName == pattern_wavelength.toStdString()) {
-            BeamDistributionItem* beamWavelength
-                = dynamic_cast<BeamDistributionItem*>(beam_item->getItem(BeamItem::P_WAVELENGTH));
-            setItemFromSample(beamWavelength, distributions[i]);
-        } else if (mainParameterName == pattern_alpha.toStdString()) {
-            BeamDistributionItem* inclinationAngle = dynamic_cast<BeamDistributionItem*>(
-                beam_item->getItem(BeamItem::P_INCLINATION_ANGLE));
-            setItemFromSample(inclinationAngle, distributions[i]);
-        } else if (mainParameterName == pattern_phi.toStdString()) {
-            BeamDistributionItem* azimuthalAngle = dynamic_cast<BeamDistributionItem*>(
-                beam_item->getItem(BeamItem::P_AZIMUTHAL_ANGLE));
-            setItemFromSample(azimuthalAngle, distributions[i]);
-        }
+        addDistributionToBeamItem(BornAgain::Wavelength, BeamItem::P_WAVELENGTH, distributions[i],
+                                  beam_item);
+        addDistributionToBeamItem(BornAgain::Inclination, BeamItem::P_INCLINATION_ANGLE,
+                                  distributions[i], beam_item);
+        addDistributionToBeamItem(BornAgain::Azimuth, BeamItem::P_AZIMUTHAL_ANGLE, distributions[i],
+                                  beam_item);
     }
 
     // polarization parameters
@@ -836,5 +826,17 @@ void setDistribution(SessionItem* part_distr_item, ParameterDistribution par_dis
     // TODO It's wrong if domain distribution made for angles.
     if (distItem->isTag(DistributionItem::P_LIMITS))
         distItem->init_limits_group(par_distr.getLimits(), factor);
+}
+
+void addDistributionToBeamItem(const std::string& parameter_name, const QString& item_name,
+                               const ParameterDistribution& distribution, const BeamItem* beam_item)
+{
+    ParameterPattern pattern;
+    pattern.beginsWith("*").add(BornAgain::BeamType).add(parameter_name);
+    if (distribution.getMainParameterName() != pattern.toStdString())
+        return;
+
+    const auto beam_parameter = dynamic_cast<BeamDistributionItem*>(beam_item->getItem(item_name));
+    TransformFromDomain::setItemFromSample(beam_parameter, distribution);
 }
 } // unnamed namespace

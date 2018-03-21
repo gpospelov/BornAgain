@@ -254,24 +254,22 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
 
     beam_item->setIntensity(beam.getIntensity());
     beam_item->setWavelength(beam.getWavelength());
+    beam_item->setInclinationAngle(0.0); // inclination angle is hardcoded
+    beam_item->setAzimuthalAngle(0.0); // azimuthal angle is hardcoded
 
-    const double incident_angle = Units::rad2deg(beam.getAlpha());
-    if (incident_angle != 0.0)
-        throw GUIHelpers::Error(
-            "Error in TransformFromDomain::setSpecularBeamItem(): incident angle "
-            "is set to non-zero value");
-    beam_item->setInclinationAngle(incident_angle);
-
-    const double azimuthal_angle = Units::rad2deg(beam.getAlpha());
-    if (azimuthal_angle != 0.0)
-        throw GUIHelpers::Error(
-            "Error in TransformFromDomain::setSpecularBeamItem(): beam azimuthal angle "
-            "is set to non-zero value");
-    beam_item->setAzimuthalAngle(azimuthal_angle);
-
-    auto inclination_item = beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE);
-    auto axis_item = inclination_item->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS);
+    auto axis_item = beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE)
+                         ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS);
     TransformFromDomain::setAxisItem(axis_item, *simulation.getAlphaAxis(), 1. / Units::deg);
+
+    // distribution parameters
+    const DistributionHandler::Distributions_t distributions
+        = simulation.getDistributionHandler().getDistributions();
+    for (size_t i = 0; i < distributions.size(); ++i) {
+        addDistributionToBeamItem(BornAgain::Wavelength, BeamItem::P_WAVELENGTH, distributions[i],
+                                  beam_item);
+        addDistributionToBeamItem(BornAgain::Inclination, BeamItem::P_INCLINATION_ANGLE,
+                                  distributions[i], beam_item);
+    }
 
     setFootprintFactor(beam.footprintFactor(), beam_item);
 }

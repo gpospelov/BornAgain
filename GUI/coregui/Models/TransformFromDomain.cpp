@@ -551,11 +551,7 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribut
             "with defined min,max are not yet implemented in GUI");
     }
 
-    double unit_factor(1.0);
-    if (beam_distribution_item->modelType() == Constants::BeamAzimuthalAngleType
-        || beam_distribution_item->modelType() == Constants::BeamInclinationAngleType) {
-        unit_factor = 1. / Units::degree;
-    }
+    const double unit_factor = 1.0 / beam_distribution_item->scaleFactor();
     QString group_name = BeamDistributionItem::P_DISTRIBUTION;
     setDistribution(beam_distribution_item, parameter_distribution, group_name, unit_factor);
 }

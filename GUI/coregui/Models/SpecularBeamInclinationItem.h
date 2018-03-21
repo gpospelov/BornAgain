@@ -30,7 +30,6 @@ public:
     SpecularBeamInclinationItem();
     virtual ~SpecularBeamInclinationItem();
 
-protected:
     double scaleFactor() const override;
 
 private:

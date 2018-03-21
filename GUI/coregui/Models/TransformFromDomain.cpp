@@ -23,6 +23,9 @@
 #include "DetectorItems.h"
 #include "Distributions.h"
 #include "Ellipse.h"
+#include "FootprintFactorGaussian.h"
+#include "FootprintFactorSquare.h"
+#include "FootprintItems.h"
 #include "FTDistributions1D.h"
 #include "FTDistributions2D.h"
 #include "FTDecayFunctionItems.h"
@@ -257,7 +260,7 @@ void TransformFromDomain::setOffSpecBeamItem(BeamItem* beam_item, const OffSpecS
 void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
                                               const SpecularSimulation& simulation)
 {
-    Beam beam = simulation.getInstrument().getBeam();
+    const Beam& beam = simulation.getInstrument().getBeam();
 
     beam_item->setIntensity(beam.getIntensity());
     beam_item->setWavelength(beam.getWavelength());
@@ -279,6 +282,8 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
     auto inclination_item = beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE);
     auto axis_item = inclination_item->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS);
     TransformFromDomain::setAxisItem(axis_item, *simulation.getAlphaAxis(), 1. / Units::deg);
+
+    setFootprintFactor(beam.footprintFactor(), beam_item);
 }
 
 void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,
@@ -577,6 +582,24 @@ void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
     } else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
         instrument_item->setGroupProperty(InstrumentItem::P_BACKGROUND,
                                           Constants::PoissonNoiseBackgroundType);
+    }
+}
+
+void TransformFromDomain::setFootprintFactor(const IFootprintFactor* footprint,
+                                             SpecularBeamItem* beam_item)
+{
+    if (!footprint)
+        return;
+    if (const auto gaussian_fp = dynamic_cast<const FootprintFactorGaussian*>(footprint)) {
+        auto gaussian_fp_item = beam_item->setGroupProperty(
+            SpecularBeamItem::P_FOOPTPRINT, Constants::FootprintGaussianType);
+        const double value = gaussian_fp->widthRatio();
+        gaussian_fp_item->setItemValue(FootprintGaussianItem::P_VALUE, value);
+    } else if (const auto square_fp = dynamic_cast<const FootprintFactorSquare*>(footprint)) {
+        auto square_fp_item = beam_item->setGroupProperty(
+            SpecularBeamItem::P_FOOPTPRINT, Constants::FootprintSquareType);
+        const double value = square_fp->widthRatio();
+        square_fp_item->setItemValue(FootprintSquareItem::P_VALUE, value);
     }
 }
 

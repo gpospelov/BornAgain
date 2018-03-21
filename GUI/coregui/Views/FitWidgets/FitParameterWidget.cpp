@@ -85,6 +85,7 @@ void FitParameterWidget::setParameterTuningWidget(ParameterTuningWidget *tuningW
 
         connect(m_tuningWidget, SIGNAL(itemContextMenuRequest(QPoint)),
             this, SLOT(onTuningWidgetContextMenu(QPoint)), Qt::UniqueConnection);
+        connect(m_tuningWidget, &QObject::destroyed, [this] { m_tuningWidget=nullptr; });
     }
 }
 

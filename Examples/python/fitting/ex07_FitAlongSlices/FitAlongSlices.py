@@ -178,8 +178,8 @@ def run_fitting():
     # corresponding to the vertical and horizontal lines. This will make
     # simulation/fitting to be performed along slices only.
     simulation.maskAll()
-    simulation.addMask(ba.HorizontalLine(alpha_slice_value), False)
-    simulation.addMask(ba.VerticalLine(phi_slice_value), False)
+    simulation.addMask(ba.HorizontalLine(alpha_slice_value*deg), False)
+    simulation.addMask(ba.VerticalLine(phi_slice_value*deg), False)
 
     fit_suite = ba.FitSuite()
     fit_suite.addSimulationAndRealData(simulation, real_data)

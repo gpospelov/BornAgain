@@ -55,6 +55,10 @@ set(test_cases
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
     OffSpecularResonator
+    SquareBeamFootprint
+    GaussianBeamFootprint
+    SpecularDivergentBeam
+    HomogeneousTiNiSampleWithAbsorption
 )
 
 add_executable(GUIStandardTest main.cpp GUIStandardTest.cpp GUIStandardTest.h )

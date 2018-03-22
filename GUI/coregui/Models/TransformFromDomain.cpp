@@ -23,6 +23,9 @@
 #include "DetectorItems.h"
 #include "Distributions.h"
 #include "Ellipse.h"
+#include "FootprintFactorGaussian.h"
+#include "FootprintFactorSquare.h"
+#include "FootprintItems.h"
 #include "FTDistributions1D.h"
 #include "FTDistributions2D.h"
 #include "FTDecayFunctionItems.h"
@@ -56,6 +59,8 @@
 #include "ResolutionFunction2DGaussian.h"
 #include "ResolutionFunctionItems.h"
 #include "SessionItemUtils.h"
+#include "SpecularBeamInclinationItem.h"
+#include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "SphericalDetectorItem.h"
 #include "Units.h"
@@ -77,6 +82,10 @@ void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice);
 
 void setDistribution(SessionItem* item, ParameterDistribution par_distr, QString group_name,
                      double factor = 1.0);
+
+void addDistributionToBeamItem(const std::string& parameter_name, const QString& item_name,
+                               const ParameterDistribution& distribution,
+                               const BeamItem* beam_item);
 }
 
 void TransformFromDomain::setRadialParaCrystalItem(
@@ -215,26 +224,12 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
     const DistributionHandler::Distributions_t distributions
         = simulation.getDistributionHandler().getDistributions();
     for (size_t i = 0; i < distributions.size(); ++i) {
-        ParameterPattern pattern_wavelength;
-        pattern_wavelength.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
-        ParameterPattern pattern_alpha;
-        pattern_alpha.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
-        ParameterPattern pattern_phi;
-        pattern_phi.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Azimuth);
-        std::string mainParameterName = distributions[i].getMainParameterName();
-        if (mainParameterName == pattern_wavelength.toStdString()) {
-            BeamDistributionItem* beamWavelength
-                = dynamic_cast<BeamDistributionItem*>(beam_item->getItem(BeamItem::P_WAVELENGTH));
-            setItemFromSample(beamWavelength, distributions[i]);
-        } else if (mainParameterName == pattern_alpha.toStdString()) {
-            BeamDistributionItem* inclinationAngle = dynamic_cast<BeamDistributionItem*>(
-                beam_item->getItem(BeamItem::P_INCLINATION_ANGLE));
-            setItemFromSample(inclinationAngle, distributions[i]);
-        } else if (mainParameterName == pattern_phi.toStdString()) {
-            BeamDistributionItem* azimuthalAngle = dynamic_cast<BeamDistributionItem*>(
-                beam_item->getItem(BeamItem::P_AZIMUTHAL_ANGLE));
-            setItemFromSample(azimuthalAngle, distributions[i]);
-        }
+        addDistributionToBeamItem(BornAgain::Wavelength, BeamItem::P_WAVELENGTH, distributions[i],
+                                  beam_item);
+        addDistributionToBeamItem(BornAgain::Inclination, BeamItem::P_INCLINATION_ANGLE,
+                                  distributions[i], beam_item);
+        addDistributionToBeamItem(BornAgain::Azimuth, BeamItem::P_AZIMUTHAL_ANGLE, distributions[i],
+                                  beam_item);
     }
 
     // polarization parameters
@@ -250,6 +245,33 @@ void TransformFromDomain::setOffSpecBeamItem(BeamItem* beam_item, const OffSpecS
     beam_item->setInclinationAngle(Units::rad2deg(beam.getAlpha()));
     beam_item->setAzimuthalAngle(Units::rad2deg(beam.getPhi()));
     // TODO implement beam divergence
+}
+
+void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
+                                              const SpecularSimulation& simulation)
+{
+    const Beam& beam = simulation.getInstrument().getBeam();
+
+    beam_item->setIntensity(beam.getIntensity());
+    beam_item->setWavelength(beam.getWavelength());
+    beam_item->setInclinationAngle(0.0); // inclination angle is hardcoded
+    beam_item->setAzimuthalAngle(0.0); // azimuthal angle is hardcoded
+
+    auto axis_item = beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE)
+                         ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS);
+    TransformFromDomain::setAxisItem(axis_item, *simulation.getAlphaAxis(), 1. / Units::deg);
+
+    // distribution parameters
+    const DistributionHandler::Distributions_t distributions
+        = simulation.getDistributionHandler().getDistributions();
+    for (size_t i = 0; i < distributions.size(); ++i) {
+        addDistributionToBeamItem(BornAgain::Wavelength, BeamItem::P_WAVELENGTH, distributions[i],
+                                  beam_item);
+        addDistributionToBeamItem(BornAgain::Inclination, BeamItem::P_INCLINATION_ANGLE,
+                                  distributions[i], beam_item);
+    }
+
+    setFootprintFactor(beam.footprintFactor(), beam_item);
 }
 
 void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,
@@ -527,27 +549,41 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribut
             "with defined min,max are not yet implemented in GUI");
     }
 
-    double unit_factor(1.0);
-    if (beam_distribution_item->modelType() == Constants::BeamAzimuthalAngleType
-        || beam_distribution_item->modelType() == Constants::BeamInclinationAngleType) {
-        unit_factor = 1. / Units::degree;
-    }
+    const double unit_factor = 1.0 / beam_distribution_item->scaleFactor();
     QString group_name = BeamDistributionItem::P_DISTRIBUTION;
     setDistribution(beam_distribution_item, parameter_distribution, group_name, unit_factor);
 }
 
-void TransformFromDomain::setBackground(Instrument2DItem* instrument_item,
+void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
                                         const Simulation& simulation)
 {
     auto p_bg = simulation.background();
     if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
         auto constant_bg_item = instrument_item->setGroupProperty(
-            Instrument2DItem::P_BACKGROUND, Constants::ConstantBackgroundType);
+            InstrumentItem::P_BACKGROUND, Constants::ConstantBackgroundType);
         double value = p_constant_bg->backgroundValue();
         constant_bg_item->setItemValue(ConstantBackgroundItem::P_VALUE, value);
     } else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
-        instrument_item->setGroupProperty(Instrument2DItem::P_BACKGROUND,
+        instrument_item->setGroupProperty(InstrumentItem::P_BACKGROUND,
                                           Constants::PoissonNoiseBackgroundType);
+    }
+}
+
+void TransformFromDomain::setFootprintFactor(const IFootprintFactor* footprint,
+                                             SpecularBeamItem* beam_item)
+{
+    if (!footprint)
+        return;
+    if (const auto gaussian_fp = dynamic_cast<const FootprintFactorGaussian*>(footprint)) {
+        auto gaussian_fp_item = beam_item->setGroupProperty(
+            SpecularBeamItem::P_FOOPTPRINT, Constants::FootprintGaussianType);
+        const double value = gaussian_fp->widthRatio();
+        gaussian_fp_item->setItemValue(FootprintGaussianItem::P_VALUE, value);
+    } else if (const auto square_fp = dynamic_cast<const FootprintFactorSquare*>(footprint)) {
+        auto square_fp_item = beam_item->setGroupProperty(
+            SpecularBeamItem::P_FOOPTPRINT, Constants::FootprintSquareType);
+        const double value = square_fp->widthRatio();
+        square_fp_item->setItemValue(FootprintSquareItem::P_VALUE, value);
     }
 }
 
@@ -784,5 +820,17 @@ void setDistribution(SessionItem* part_distr_item, ParameterDistribution par_dis
     // TODO It's wrong if domain distribution made for angles.
     if (distItem->isTag(DistributionItem::P_LIMITS))
         distItem->init_limits_group(par_distr.getLimits(), factor);
+}
+
+void addDistributionToBeamItem(const std::string& parameter_name, const QString& item_name,
+                               const ParameterDistribution& distribution, const BeamItem* beam_item)
+{
+    ParameterPattern pattern;
+    pattern.beginsWith("*").add(BornAgain::BeamType).add(parameter_name);
+    if (distribution.getMainParameterName() != pattern.toStdString())
+        return;
+
+    const auto beam_parameter = dynamic_cast<BeamDistributionItem*>(beam_item->getItem(item_name));
+    TransformFromDomain::setItemFromSample(beam_parameter, distribution);
 }
 } // unnamed namespace

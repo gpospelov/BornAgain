@@ -34,8 +34,9 @@ public:
     virtual double meanValue() const;
     void resetToValue(double value);
 
-protected:
     virtual double scaleFactor() const;
+
+protected:
     void register_distribution_group(const QString& group_type);
     void initDistributionItem(bool show_mean);
 

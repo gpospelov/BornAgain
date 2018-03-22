@@ -24,7 +24,6 @@ public:
 
     double azimuthalAngle() const;
 
-protected:
     double scaleFactor() const override;
 
 private:
@@ -38,7 +37,6 @@ public:
 
     double inclinationAngle() const;
 
-protected:
     double scaleFactor() const override;
 
 private:

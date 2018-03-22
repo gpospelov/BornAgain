@@ -415,6 +415,8 @@ StandardTestCatalogue::StandardTestCatalogue()
         "HomogeneousMultilayerBuilder",
         1e-10);
 
+    // off-specular simulation
+
     add("OffSpecularResonator",
         "Simulates resonator in OffSpec setup",
         "OffSpecMini",

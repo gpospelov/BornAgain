@@ -25,6 +25,7 @@
 #include "SampleModel.h"
 #include "Simulation.h"
 #include "SimulationOptionsItem.h"
+#include "SpecularSimulation.h"
 #include "TransformFromDomain.h"
 #include "Units.h"
 
@@ -37,6 +38,10 @@ GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
 OffSpecInstrumentItem* createOffSpecInstrumentItem(InstrumentModel* model,
                                                    const OffSpecSimulation& simulation,
                                                    const QString& name);
+
+SpecularInstrumentItem* createSpecularInstrumentItem(InstrumentModel* model,
+                                                     const SpecularSimulation& simulation,
+                                                     const QString& name);
 }
 
 SessionItem* GUIObjectBuilder::populateSampleModelFromSim(SampleModel* sampleModel,
@@ -70,10 +75,10 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instru
 
     if (auto gisasSimulation = dynamic_cast<const GISASSimulation*>(&simulation)) {
         return createGISASInstrumentItem(p_instrument_model, *gisasSimulation, name);
-    }
-
-    else if (auto offSpecSimulation = dynamic_cast<const OffSpecSimulation*>(&simulation)) {
+    } else if (auto offSpecSimulation = dynamic_cast<const OffSpecSimulation*>(&simulation)) {
         return createOffSpecInstrumentItem(p_instrument_model, *offSpecSimulation, name);
+    } else if (auto spec_simulation = dynamic_cast<const SpecularSimulation*>(&simulation)) {
+        return createSpecularInstrumentItem(p_instrument_model, *spec_simulation, name);
     }
 
     throw GUIHelpers::Error("GUIObjectBuilder::populateInstrumentModel() -> Error. Simulation is "
@@ -131,6 +136,20 @@ OffSpecInstrumentItem* createOffSpecInstrumentItem(InstrumentModel* model,
 
     auto axisItem = result->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS);
     TransformFromDomain::setAxisItem(axisItem, *simulation.beamAxis(), 1. / Units::deg);
+
+    return result;
+}
+
+SpecularInstrumentItem* createSpecularInstrumentItem(InstrumentModel* model,
+                                                     const SpecularSimulation& simulation,
+                                                     const QString& name)
+{
+    auto result = dynamic_cast<SpecularInstrumentItem*>(
+        model->insertNewItem(Constants::SpecularInstrumentType));
+
+    result->setItemName(name);
+    TransformFromDomain::setSpecularBeamItem(result->beamItem(), simulation);
+    TransformFromDomain::setBackground(result, simulation);
 
     return result;
 }

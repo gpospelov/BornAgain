@@ -139,7 +139,7 @@ void InterferenceFunctionFinite2DLattice::setLattice(const Lattice2D& lattice)
 
 void InterferenceFunctionFinite2DLattice::init_parameters()
 {
-    registerParameter(BornAgain::Length, &m_sigma2).setNonnegative();
+    registerParameter(BornAgain::PositionVariance, &m_sigma2).setNonnegative();
     mP_integrator
         = make_integrator_real(this, &InterferenceFunctionFinite2DLattice::interferenceForXi);
 }

@@ -1999,6 +1999,21 @@ Returns true if area defined by two bins is inside or on border of ellipse; more
 ";
 
 
+// File: classFiniteSquareLatticeBuilder.xml
+%feature("docstring") FiniteSquareLatticeBuilder "
+
+Builds sample: 2D finite lattice with thermal disorder.
+
+C++ includes: TwoDimLatticeBuilder.h
+";
+
+%feature("docstring")  FiniteSquareLatticeBuilder::FiniteSquareLatticeBuilder "FiniteSquareLatticeBuilder::FiniteSquareLatticeBuilder()
+";
+
+%feature("docstring")  FiniteSquareLatticeBuilder::buildSample "MultiLayer * FiniteSquareLatticeBuilder::buildSample() const 
+";
+
+
 // File: classFitElement.xml
 %feature("docstring") FitElement "
 
@@ -15329,10 +15344,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml

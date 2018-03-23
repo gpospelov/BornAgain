@@ -125,9 +125,9 @@ InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(
     , m_size_2(other.m_size_2)
 {
     setName(other.getName());
-    setIntegrationOverXi(other.integrationOverXi());
     if(other.m_lattice)
         setLattice(*other.m_lattice);
+    setIntegrationOverXi(other.integrationOverXi());
     init_parameters();
 }
 
@@ -139,7 +139,7 @@ void InterferenceFunctionFinite2DLattice::setLattice(const Lattice2D& lattice)
 
 void InterferenceFunctionFinite2DLattice::init_parameters()
 {
-    registerParameter(BornAgain::Length, &m_sigma2).setUnit(BornAgain::UnitsNm2).setNonnegative();
+    registerParameter(BornAgain::Length, &m_sigma2).setNonnegative();
     mP_integrator
         = make_integrator_real(this, &InterferenceFunctionFinite2DLattice::interferenceForXi);
 }

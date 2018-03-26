@@ -112,6 +112,18 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     connect(m_materialEditorButton, SIGNAL(clicked()), this, SLOT(onMaterialEditorCall()));
     addWidget(m_materialEditorButton);
 
+    addStyledSeparator();
+
+    // RealSpace 3D Viewer
+    addWidget(new QLabel(" "));
+    m_RealSpaceViewerButton = new QToolButton;
+    m_RealSpaceViewerButton->setText("Real Space Viewer");
+    //m_RealSpaceViewerButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_materialeditor.png"));
+    m_RealSpaceViewerButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_RealSpaceViewerButton->setToolTip("Open real space 3D viewer.");
+    //connect(m_RealSpaceViewerButton, SIGNAL(clicked()), this, SLOT(onRealSpaceViewerCall()));
+    addWidget(m_RealSpaceViewerButton);
+
     // Additional actions
     m_zoomOutAction = new QAction(this);
     m_zoomOutAction->setShortcut(QKeySequence(Qt::Key_Minus));
@@ -140,4 +152,9 @@ void SampleToolBar::onScaleComboChanged(const QString &scale_string)
 void SampleToolBar::onMaterialEditorCall()
 {
     ExternalProperty mp = MaterialItemUtils::selectMaterialProperty();
+}
+
+void SampleToolBar::onRealSpaceViewerCall()
+{
+    // to be implemented
 }

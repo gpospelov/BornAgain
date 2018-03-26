@@ -46,6 +46,7 @@ public slots:
     void onViewSelectionMode(int);
     void onScaleComboChanged(const QString &);
     void onMaterialEditorCall();
+    void onRealSpaceViewerCall();
 
 private:
     QButtonGroup *m_pointerModeGroup;
@@ -54,6 +55,7 @@ private:
     QToolButton *m_alignItemsButton;
     QComboBox *m_scaleCombo;
     QToolButton *m_materialEditorButton;
+    QToolButton *m_RealSpaceViewerButton;
     QAction *m_zoomInAction;
     QAction *m_zoomOutAction;
 };

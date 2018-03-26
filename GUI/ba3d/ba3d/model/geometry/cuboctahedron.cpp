@@ -17,11 +17,15 @@
 
 namespace RealSpace {
 
-Geometry::Mesh Geometry::meshCuboctahedron(float rH, float alpha) { // t/D
-    Q_ASSERT(alpha >= float(M_PI_2));
+Geometry::Mesh Geometry::meshCuboctahedron(float rH, float beta) { // t/D
+
+    // beta is the angle between the absolute base of the shape (NOT the common square base)
+    // and a side face. In terms of alpha (angle with common square base), it is (PI-alpha) radians
+
+    Q_ASSERT(beta >= float(M_PI_2));
     Q_ASSERT(rH >= 0);
 
-    float const D = .5f, H = 2*D / (rH + 1), t = tanf(alpha - float(M_PI_2));
+    float const D = .5f, H = 2*D / (rH + 1), t = tanf(beta - float(M_PI_2));
     float const Db = D - t*H, Dt = D - t*(2*D - H);
 
     Vertices vs_; vs_.reserve(12);

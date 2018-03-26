@@ -20,6 +20,7 @@
 #include "VectorItem.h"
 #include "LayerItem.h"
 #include "MultiLayerItem.h"
+#include "Units.h"
 
 namespace {
     const double layer_size = 50.0;
@@ -61,11 +62,13 @@ std::unique_ptr<RealSpace::Layer> TransformTo3D::createLayer(const SessionItem& 
     double thickness = TransformTo3D::visualLayerThickness(layerItem);
 
     double s2 = layer_size;
-    double ztop = origin.z() + thickness;
-    double zbottom = origin.z();
+    double ztop = static_cast<double>(origin.z()) + thickness;
+    double zbottom = static_cast<double>(origin.z());
 
     std::unique_ptr<RealSpace::Layer> result = std::make_unique<RealSpace::Layer>(
-        RealSpace::VectorRange(RealSpace::Range(-s2,+s2), RealSpace::Range(-s2,+s2), RealSpace::Range(ztop, zbottom)));
+        RealSpace::VectorRange(RealSpace::Range(static_cast<float>(-s2),static_cast<float>(+s2)),
+                               RealSpace::Range(static_cast<float>(-s2),static_cast<float>(+s2)),
+                               RealSpace::Range(static_cast<float>(ztop),static_cast<float>(zbottom))));
 
     QColor color = layerItem.getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>().color();
     color.setAlphaF(.3);
@@ -91,7 +94,8 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
         double width = ffItem->getItemValue(AnisoPyramidItem::P_WIDTH).toDouble();
         double height = ffItem->getItemValue(AnisoPyramidItem::P_HEIGHT).toDouble();
         double alpha = ffItem->getItemValue(AnisoPyramidItem::P_ALPHA).toDouble();
-        result = std::make_unique<RealSpace::Particles::AnisoPyramid>(length, width, height, alpha);
+        result = std::make_unique<RealSpace::Particles::AnisoPyramid>(length, width, height,
+                                                                      Units::deg2rad(alpha));
     }
 
     else if(ffItem->modelType() == Constants::BoxType) {
@@ -105,14 +109,16 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
         double radius = ffItem->getItemValue(ConeItem::P_RADIUS).toDouble();
         double height = ffItem->getItemValue(ConeItem::P_HEIGHT).toDouble();
         double alpha = ffItem->getItemValue(ConeItem::P_ALPHA).toDouble();
-        result = std::make_unique<RealSpace::Particles::Cone>(radius, height, alpha);
+        result = std::make_unique<RealSpace::Particles::Cone>(radius, height,
+                                                              Units::deg2rad(alpha));
     }
 
     else if(ffItem->modelType() == Constants::Cone6Type) {
         double baseedge = ffItem->getItemValue(Cone6Item::P_BASEEDGE).toDouble();
         double height = ffItem->getItemValue(Cone6Item::P_HEIGHT).toDouble();
         double alpha = ffItem->getItemValue(Cone6Item::P_ALPHA).toDouble();
-        result = std::make_unique<RealSpace::Particles::Cone6>(baseedge, height, alpha);
+        result = std::make_unique<RealSpace::Particles::Cone6>(baseedge, height,
+                                                               Units::deg2rad(alpha));
     }
 
     else if(ffItem->modelType() == Constants::CuboctahedronType) {
@@ -121,7 +127,8 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
         double height_ratio = ffItem->getItemValue(CuboctahedronItem::P_HEIGHT_RATIO).toDouble();
         double alpha = ffItem->getItemValue(CuboctahedronItem::P_ALPHA).toDouble();
         result = std::make_unique<RealSpace::Particles::Cuboctahedron>(length, height,
-                                                                       height_ratio, alpha);
+                                                                       height_ratio,
+                                                                       Units::deg2rad(alpha));
     }
 
     else if(ffItem->modelType() == Constants::CylinderType) {
@@ -183,14 +190,16 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
         double baseedge = ffItem->getItemValue(PyramidItem::P_BASEEDGE).toDouble();
         double height = ffItem->getItemValue(PyramidItem::P_HEIGHT).toDouble();
         double alpha = ffItem->getItemValue(PyramidItem::P_ALPHA).toDouble();
-        result = std::make_unique<RealSpace::Particles::Pyramid>(baseedge, height, alpha);
+        result = std::make_unique<RealSpace::Particles::Pyramid>(baseedge, height,
+                                                                 Units::deg2rad(alpha));
     }
 
     else if(ffItem->modelType() == Constants::TetrahedronType) {
         double baseedge = ffItem->getItemValue(TetrahedronItem::P_BASEEDGE).toDouble();
         double height = ffItem->getItemValue(TetrahedronItem::P_HEIGHT).toDouble();
         double alpha = ffItem->getItemValue(TetrahedronItem::P_ALPHA).toDouble();
-        result = std::make_unique<RealSpace::Particles::Tetrahedron>(baseedge, height, alpha);
+        result = std::make_unique<RealSpace::Particles::Tetrahedron>(baseedge, height,
+                                                                     Units::deg2rad(alpha));
     }
 
     else if(ffItem->modelType() == Constants::TruncatedCubeType) {
@@ -225,7 +234,9 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
         double x = positionItem->getItemValue(VectorItem::P_X).toDouble();
         double y = positionItem->getItemValue(VectorItem::P_Y).toDouble();
         double z = positionItem->getItemValue(VectorItem::P_Z).toDouble();
-        result->transform(RealSpace::Vector3D::_0, RealSpace::Vector3D(x, y, z));
+        result->transform(RealSpace::Vector3D::_0, RealSpace::Vector3D(static_cast<float>(x),
+                                                                       static_cast<float>(y),
+                                                                       static_cast<float>(z)) );
     }
 
     return result;

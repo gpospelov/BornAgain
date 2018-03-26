@@ -41,12 +41,6 @@ MatrixFresnelMap::getOutCoefficients(const SimulationElement& sim_element, size_
                            m_hash_table_out);
 }
 
-const ILayerRTCoefficients*
-MatrixFresnelMap::getInCoefficients(const SimulationElement& sim_element, size_t layer_index) const
-{
-    return getCoefficients(sim_element.getKi(), layer_index, *mP_multilayer, m_hash_table_in);
-}
-
 void MatrixFresnelMap::fillSpecularData(SpecularSimulationElement& sim_element) const
 {
     const auto& kvec = sim_element.getKi();
@@ -57,9 +51,16 @@ void MatrixFresnelMap::fillSpecularData(SpecularSimulationElement& sim_element) 
         sim_element.setSpecular(SpecularData(calculateCoefficients(*mP_multilayer, kvec)));
 }
 
-const ILayerRTCoefficients* MatrixFresnelMap::getCoefficients(kvector_t kvec, size_t layer_index,
-                                                const MultiLayer& multilayer,
-                                                CoefficientHash& hash_table) const
+const ILayerRTCoefficients* MatrixFresnelMap::getCoefficients(const kvector_t& kvec,
+                                                              size_t layer_index) const
+{
+    return getCoefficients(kvec, layer_index, *mP_multilayer, m_hash_table_in);
+}
+
+const ILayerRTCoefficients* MatrixFresnelMap::getCoefficients(const kvector_t& kvec,
+                                                              size_t layer_index,
+                                                              const MultiLayer& multilayer,
+                                                              CoefficientHash& hash_table) const
 {
     if (!m_use_cache) {
         auto coeffs = calculateCoefficients(multilayer, kvec);

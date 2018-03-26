@@ -19,10 +19,13 @@
 #include <cstddef>
 #include <memory>
 
+template<class T> class BasicVector3D;
 class ILayerRTCoefficients;
 class MultiLayer;
 class SimulationElement;
 class SpecularSimulationElement;
+
+typedef BasicVector3D<double> kvector_t;
 
 //! Holds the necessary information to calculate the radiation wavefunction in every layer
 //! for different incoming (outgoing) angles of the beam in the top layer
@@ -40,8 +43,11 @@ public:
             const SimulationElement& sim_element, size_t layer_index) const =0;
 
     //! Retrieves the amplitude coefficients for an incoming wavevector.
-    virtual const ILayerRTCoefficients* getInCoefficients(
-            const SimulationElement& sim_element, size_t layer_index) const =0;
+    template <typename T>
+    const ILayerRTCoefficients* getInCoefficients(const T& sim_element, size_t layer_index) const
+    {
+        return getCoefficients(sim_element.getKi(), layer_index);
+    }
 
     //! Fills simulation element specular data
     virtual void fillSpecularData(SpecularSimulationElement& sim_element) const = 0;
@@ -53,6 +59,9 @@ public:
     void disableCaching();
 
 protected:
+    virtual const ILayerRTCoefficients* getCoefficients(const kvector_t& kvec,
+                                                        size_t layer_index) const = 0;
+
     bool m_use_cache;
     std::unique_ptr<MultiLayer> mP_multilayer;
 };

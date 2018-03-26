@@ -38,9 +38,6 @@ public:
     const ILayerRTCoefficients* getOutCoefficients(const SimulationElement& sim_element,
                                                    size_t layer_index) const final override;
 
-    const ILayerRTCoefficients* getInCoefficients(const SimulationElement& sim_element,
-                                                  size_t layer_index) const final override;
-
     void setMultilayer(const MultiLayer& multilayer) final override;
 
     //! Fills simulation element specular data
@@ -50,7 +47,9 @@ public:
         CoefficientHash;
 
 private:
-    const ILayerRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index,
+    const ILayerRTCoefficients* getCoefficients(const kvector_t& kvec,
+                                                size_t layer_index) const override;
+    const ILayerRTCoefficients* getCoefficients(const kvector_t& kvec, size_t layer_index,
                                                 const MultiLayer& multilayer,
                                                 CoefficientHash& hash_table) const;
 

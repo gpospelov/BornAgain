@@ -80,11 +80,11 @@ private:
     static Mesh meshPlane();
     static Mesh meshBox();
     static Mesh meshSphere(float cut);
-    static Mesh meshColumn(float alpha, float sides);
+    static Mesh meshColumn(float ratio_Rt_Rb, float numSides);
     static Mesh meshIcosahedron();
     static Mesh meshDodecahedron();
     static Mesh meshTruncBox(float tD);
-    static Mesh meshCuboctahedron(float rH, float alpha);
+    static Mesh meshCuboctahedron(float rH, float beta);
 
     // mesh params for round shapes
     static int const RINGS = 12, SLICES = 24;

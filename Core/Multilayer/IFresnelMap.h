@@ -39,12 +39,13 @@ public:
     virtual ~IFresnelMap();
 
     //! Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
-    virtual const ILayerRTCoefficients* getOutCoefficients(
-            const SimulationElement& sim_element, size_t layer_index) const =0;
+    virtual std::unique_ptr<const ILayerRTCoefficients>
+    getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const = 0;
 
     //! Retrieves the amplitude coefficients for an incoming wavevector.
     template <typename T>
-    const ILayerRTCoefficients* getInCoefficients(const T& sim_element, size_t layer_index) const
+    std::unique_ptr<const ILayerRTCoefficients> getInCoefficients(const T& sim_element,
+                                                                  size_t layer_index) const
     {
         return getCoefficients(sim_element.getKi(), layer_index);
     }
@@ -59,8 +60,8 @@ public:
     void disableCaching();
 
 protected:
-    virtual const ILayerRTCoefficients* getCoefficients(const kvector_t& kvec,
-                                                        size_t layer_index) const = 0;
+    virtual std::unique_ptr<const ILayerRTCoefficients>
+    getCoefficients(const kvector_t& kvec, size_t layer_index) const = 0;
 
     bool m_use_cache;
     std::unique_ptr<MultiLayer> mP_multilayer;

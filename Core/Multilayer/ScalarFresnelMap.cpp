@@ -31,8 +31,8 @@ ScalarFresnelMap::ScalarFresnelMap()
 ScalarFresnelMap::~ScalarFresnelMap()
 {}
 
-const ILayerRTCoefficients* ScalarFresnelMap::getOutCoefficients(
-        const SimulationElement& sim_element, size_t layer_index) const
+std::unique_ptr<const ILayerRTCoefficients>
+ScalarFresnelMap::getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const
 {
     return getCoefficients(-sim_element.getMeanKf(), layer_index);
 }
@@ -46,15 +46,15 @@ void ScalarFresnelMap::fillSpecularData(SpecularSimulationElement& sim_element) 
         sim_element.setSpecular(SpecularData(calculateCoefficients(*mP_multilayer, kvec)));
 }
 
-const ILayerRTCoefficients* ScalarFresnelMap::getCoefficients(const kvector_t& kvec,
-                                                              size_t layer_index) const
+std::unique_ptr<const ILayerRTCoefficients>
+ScalarFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index) const
 {
     if (!m_use_cache) {
         auto coeffs = calculateCoefficients(*mP_multilayer, kvec);
-        return new ScalarRTCoefficients(coeffs[layer_index]);
+        return std::make_unique<const ScalarRTCoefficients>(coeffs[layer_index]);
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec);
-    return new ScalarRTCoefficients(coef_vector[layer_index]);
+    return std::make_unique<const ScalarRTCoefficients>(coef_vector[layer_index]);
 }
 
 const std::vector<ScalarRTCoefficients>&

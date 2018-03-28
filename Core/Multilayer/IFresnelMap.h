@@ -15,12 +15,12 @@
 #ifndef IFRESNELMAP_H
 #define IFRESNELMAP_H
 
+#include "ILayerRTCoefficients.h"
 #include "WinDllMacros.h"
 #include <cstddef>
 #include <memory>
 
 template<class T> class BasicVector3D;
-class ILayerRTCoefficients;
 class MultiLayer;
 class SimulationElement;
 class SpecularSimulationElement;

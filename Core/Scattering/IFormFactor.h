@@ -75,8 +75,7 @@ public:
 #ifndef SWIG
     //! Sets reflection/transmission info
     virtual void setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients>,
-                                 std::unique_ptr<const ILayerRTCoefficients>)
-    {}
+                                 std::unique_ptr<const ILayerRTCoefficients>);
 #endif
 
 protected:

@@ -21,13 +21,16 @@
 #include <QLabel>
 #include <QDebug>
 
-RealSpaceWidget::RealSpaceWidget(QWidget* parent)
+RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel, QTreeView *treeView, QWidget* parent)
     : QWidget(parent)
     , m_actions(new RealSpaceActions)
     , m_toolBar(new RealSpaceToolBar)
     , m_canvas(new RealSpaceCanvas)
     , m_panel(new RealSpacePanel)
 {
+    Q_UNUSED(sampleModel);
+    Q_UNUSED(treeView);
+
     QHBoxLayout* hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
@@ -61,8 +64,9 @@ RealSpaceWidget::RealSpaceWidget(QWidget* parent)
 
 }
 
-void RealSpaceWidget::setModel(SampleModel* model)
+void RealSpaceWidget::setModel(SampleModel* model, QTreeView *treeView)
 {
+    Q_UNUSED(treeView);
     m_panel->setModel(model);
     m_canvas->setModel(model);
 }

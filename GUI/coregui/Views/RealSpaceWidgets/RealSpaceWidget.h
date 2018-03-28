@@ -18,6 +18,8 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+#include <QTreeView>
+
 class RealSpaceToolBar;
 class RealSpaceCanvas;
 class RealSpaceActions;
@@ -31,9 +33,9 @@ class BA_CORE_API_ RealSpaceWidget : public QWidget
     Q_OBJECT
 
 public:
-    RealSpaceWidget(QWidget* parent = 0);
+    RealSpaceWidget(SampleModel* sampleModel, QTreeView* treeView, QWidget* parent = nullptr);
 
-    void setModel(SampleModel* model);
+    void setModel(SampleModel* model, QTreeView* treeView);
 
 private:
     RealSpaceActions* m_actions;

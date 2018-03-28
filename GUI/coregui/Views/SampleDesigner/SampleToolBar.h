@@ -17,6 +17,10 @@
 
 #include "StyledToolBar.h"
 
+#include "SampleModel.h"
+#include <QTreeView>
+#include "RealSpaceViewerDialog.h"
+
 class QAction;
 class QToolButton;
 class QToolBar;
@@ -31,7 +35,8 @@ class BA_CORE_API_ SampleToolBar : public StyledToolBar
     Q_OBJECT
 
 public:
-    explicit SampleToolBar(QWidget *parent = 0);
+    explicit SampleToolBar(SampleModel* sampleModel, QTreeView* treeView,
+                           QWidget *parent = 0);
 
 signals:
     void deleteItems();
@@ -46,7 +51,9 @@ public slots:
     void onViewSelectionMode(int);
     void onScaleComboChanged(const QString &);
     void onMaterialEditorCall();
+
     void onRealSpaceViewerCall();
+    void onDialogClosed();
 
 private:
     QButtonGroup *m_pointerModeGroup;
@@ -55,9 +62,13 @@ private:
     QToolButton *m_alignItemsButton;
     QComboBox *m_scaleCombo;
     QToolButton *m_materialEditorButton;
-    QToolButton *m_RealSpaceViewerButton;
     QAction *m_zoomInAction;
     QAction *m_zoomOutAction;
+
+    QToolButton *m_RealSpaceViewerButton;
+    SampleModel *m_sampleModel;
+    QTreeView *m_treeView;
+    RealSpaceViewerDialog *m_dialog;
 };
 
 #endif // SAMPLETOOLBAR_H

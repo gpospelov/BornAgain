@@ -54,7 +54,7 @@ void RealSpacePanel::setModel(SampleModel* model)
 
     m_treeView->expandAll();
 
-    connect(m_model, &SampleModel::rowsInserted, [=](){m_treeView->expandAll();});
+    connect(m_model, &SampleModel::rowsInserted, this, [=](){m_treeView->expandAll();});
 
     connect(m_treeView->selectionModel(), &QItemSelectionModel::selectionChanged,
             this, &RealSpacePanel::onSelectionChanged, Qt::UniqueConnection);

@@ -28,7 +28,6 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
 {
     setName(BornAgain::FFFullSphereType);
     registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
-    mP_shape.reset(new TruncatedEllipsoid(radius, radius, radius, 2.0*radius, 0.0));
     onChange();
 }
 

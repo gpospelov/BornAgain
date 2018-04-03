@@ -56,7 +56,7 @@ bool MesoCrystalPerformanceTest::runTest()
     std::shared_ptr<IMultiLayerBuilder> builder(new MesoCrystalPerformanceBuilder);
     simulation.setSampleBuilder(builder);
 
-    simulation.setRegionOfInterest(10.0, 10.0, 65.0, 80.0);
+    simulation.setRegionOfInterest(40.0, 40.0, 41.0, 41.0);
 
     std::cout << "MesoCrystalPerformanceTest::runTest() -> Starting simulation\n";
     simulation.runSimulation();

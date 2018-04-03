@@ -43,7 +43,7 @@ MesoCrystalPerformanceBuilder::MesoCrystalPerformanceBuilder()
       m_meso_height(200 * nm), m_meso_radius(800 * nm), m_sigma_meso_height(20.0 * nm),
       m_sigma_meso_radius(20.0 * nm), m_sigma_lattice_length_a(0.5 * nm), m_roughness(6.0 * nm),
       m_surface_filling_ratio(0.25), m_phi_start(0.0 * deg), m_phi_stop(360.0 * deg),
-      m_phi_rotation_steps(1), m_tilt_start(0.0 * deg), m_tilt_stop(1.0 * deg), m_tilt_steps(1)
+      m_phi_rotation_steps(5), m_tilt_start(0.0 * deg), m_tilt_stop(1.0 * deg), m_tilt_steps(1)
 {
 }
 

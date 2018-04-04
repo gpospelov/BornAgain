@@ -35,7 +35,8 @@ class BA_CORE_API_ SampleToolBar : public StyledToolBar
     Q_OBJECT
 
 public:
-    explicit SampleToolBar(SampleModel* sampleModel, QTreeView* treeView,
+    explicit SampleToolBar(SampleModel* sampleModel = nullptr,
+                           QItemSelectionModel* selectionModel = nullptr,
                            QWidget *parent = 0);
 
 signals:
@@ -53,7 +54,6 @@ public slots:
     void onMaterialEditorCall();
 
     void onRealSpaceViewerCall();
-    void onDialogClosed();
 
 private:
     QButtonGroup *m_pointerModeGroup;
@@ -67,8 +67,10 @@ private:
 
     QToolButton *m_RealSpaceViewerButton;
     SampleModel *m_sampleModel;
-    QTreeView *m_treeView;
+    QItemSelectionModel *m_selectionModel;
     RealSpaceViewerDialog *m_dialog;
+
+    bool m_dialog_on;
 };
 
 #endif // SAMPLETOOLBAR_H

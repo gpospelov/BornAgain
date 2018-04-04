@@ -27,12 +27,13 @@
 #include <RealSpaceViewerDialog.h>
 
 //! main tool bar on top of SampleView window
-SampleToolBar::SampleToolBar(SampleModel *sampleModel, QTreeView *treeView,
+SampleToolBar::SampleToolBar(SampleModel *sampleModel, QItemSelectionModel* selectionModel,
                              QWidget *parent)
     : StyledToolBar(parent)
     , m_sampleModel(sampleModel)
-    , m_treeView(treeView)
+    , m_selectionModel(selectionModel)
     , m_dialog(nullptr)
+    , m_dialog_on(false)
 {
     // Select & Pan
     QToolButton *selectionPointerButton = new QToolButton;
@@ -127,7 +128,6 @@ SampleToolBar::SampleToolBar(SampleModel *sampleModel, QTreeView *treeView,
     //m_RealSpaceViewerButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_materialeditor.png"));
     m_RealSpaceViewerButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_RealSpaceViewerButton->setToolTip("Open real space 3D viewer.");
-    m_RealSpaceViewerButton->setCheckable(true);
     connect(m_RealSpaceViewerButton, SIGNAL(clicked()), this, SLOT(onRealSpaceViewerCall()));
     addWidget(m_RealSpaceViewerButton);
 
@@ -162,24 +162,14 @@ void SampleToolBar::onMaterialEditorCall()
 
 void SampleToolBar::onRealSpaceViewerCall()
 {
-    // on first click, the RSV button is checked and the dialog window is created
-    if(m_RealSpaceViewerButton->isChecked())
+    // keep only one instance of dialog alive using a boolean flag
+    if(!m_dialog_on)
     {
-        m_dialog = new RealSpaceViewerDialog(m_sampleModel, m_treeView, this);
-        //m_dialog->setWindowFlags(Qt::Window); // to have minimize, maximize and close buttons
+        m_dialog_on = true;
+        m_dialog = new RealSpaceViewerDialog(m_sampleModel, m_selectionModel, this);
         m_dialog->show();
 
-        // on closing of dialog window, uncheck the RSV button
-        connect(m_dialog, &RealSpaceViewerDialog::dialogClosed,
-                this, &SampleToolBar::onDialogClosed);
+        // undo the flag when the dialog is destroyed on close event
+        connect(m_dialog, &QAction::destroyed, this, [&](){m_dialog_on = false;} );
     }
-    // on subsequent clicks (uncheck or check) of RSV button, it is always set as checked
-    // so as to keep only one instance of the dialog window alive
-    else
-        m_RealSpaceViewerButton->setChecked(true);
-}
-
-void SampleToolBar::onDialogClosed()
-{
-    m_RealSpaceViewerButton->setChecked(false);
 }

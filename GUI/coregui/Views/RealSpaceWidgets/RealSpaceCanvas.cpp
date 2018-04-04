@@ -19,9 +19,11 @@
 #include "RealSpaceModel.h"
 #include <QVBoxLayout>
 
+#include <FilterPropertyProxy.h>
+
 RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     : QWidget(parent)
-    , m_model(nullptr)
+    , m_sampleModel(nullptr)
     , m_view(new RealSpaceView)
 {
     QVBoxLayout* layout = new QVBoxLayout;
@@ -37,29 +39,47 @@ RealSpaceCanvas::~RealSpaceCanvas()
 
 }
 
-void RealSpaceCanvas::setModel(SampleModel* model)
+void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* selectionModel)
 {
-    if (model != m_model) {
+    if (sampleModel != m_sampleModel) {
 
-        if (m_model)
-            setConnected(m_model, false);
+        if (m_sampleModel)
+            setConnected(m_sampleModel, false);
 
-        m_model = model;
+        m_sampleModel = sampleModel;
 
-        if (m_model && !isHidden()) {
-            setConnected(m_model, true);
+        m_selectionModel = selectionModel;
+
+        if (m_sampleModel && !isHidden()) {
+            setConnected(m_sampleModel, true);
+            if(selectionModel != nullptr)
+            {
+                QModelIndexList indices = m_selectionModel->selection().indexes();
+                if(indices.size())
+                    m_currentSelection = FilterPropertyProxy::toSourceIndex(indices.back());
+            }
             updateScene();
         }
     }
 }
 
-void RealSpaceCanvas::onSelectionChanged(const QModelIndex& selected)
+void RealSpaceCanvas::onSelectionChanged(const QItemSelection &selected /* selected */,
+                                         const QItemSelection & /* deselected */)
 {
-    if (!selected.isValid()) {
+    QModelIndexList indices = selected.indexes();
+    QModelIndex selectedIndex;
+
+    if(indices.size())
+        selectedIndex = FilterPropertyProxy::toSourceIndex(indices.back());
+    else
+        selectedIndex = m_currentSelection;
+
+
+    if (!selectedIndex.isValid()) {
         resetScene();
 
     } else {
-        m_currentSelection = selected;
+        m_currentSelection = selectedIndex;
         updateScene();
     }
 }
@@ -86,7 +106,7 @@ void RealSpaceCanvas::updateScene()
 
     m_realSpaceModel.reset(new RealSpaceModel);
 
-    SessionItem* item = m_model->itemForIndex(m_currentSelection);
+    SessionItem* item = m_sampleModel->itemForIndex(m_currentSelection);
 
     Q_ASSERT(item);
     RealSpaceBuilder::populate(m_realSpaceModel.get(), *item);
@@ -118,13 +138,13 @@ void RealSpaceCanvas::faceView()
 
 void RealSpaceCanvas::showEvent(QShowEvent*)
 {
-    setConnected(m_model, true);
+    setConnected(m_sampleModel, true);
     updateScene();
 }
 
 void RealSpaceCanvas::hideEvent(QHideEvent*)
 {
-    setConnected(m_model, false);
+    setConnected(m_sampleModel, false);
 }
 
 void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)

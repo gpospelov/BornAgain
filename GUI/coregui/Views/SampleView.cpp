@@ -261,7 +261,7 @@ void SampleView::connectSignals()
     connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
 
     // toolBar should be initialized after MaterialBrowser
-    m_toolBar = new SampleToolBar(getSampleModel(), getTreeView(), this);
+    m_toolBar = new SampleToolBar(getSampleModel(), m_tree_view->selectionModel(), this);
     connect(m_toolBar, SIGNAL(deleteItems()),
             m_sampleDesigner->getView(), SLOT(deleteSelectedItems()));
     connect(m_toolBar, SIGNAL(selectionMode(int)), m_sampleDesigner->getView(), SLOT(onSelectionMode(int)));

@@ -21,16 +21,13 @@ class BA_CORE_API_ RealSpaceViewerDialog : public QDialog
     Q_OBJECT
 
 public:
-    RealSpaceViewerDialog(SampleModel* sampleModel, QTreeView* treeView, QWidget *parent = nullptr);
-
-    void closeEvent(QCloseEvent* event);
-
-signals:
-    void dialogClosed();
+    RealSpaceViewerDialog(SampleModel* sampleModel = nullptr,
+                          QItemSelectionModel* selectionModel = nullptr,
+                          QWidget *parent = nullptr);
 
 private:
     SampleModel *m_sampleModel;
-    QTreeView *m_treeView;
+    QItemSelectionModel *m_selectionModel;
 };
 
 

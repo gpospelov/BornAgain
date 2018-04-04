@@ -12,15 +12,15 @@
 
 namespace
 {
-const QSize minimum_dialog_size(600, 400);
-const QSize default_dialog_size(950, 600);
+    const QSize minimum_dialog_size(400, 250);
+    const QSize default_dialog_size(500, 400);
 }
 
-RealSpaceViewerDialog::RealSpaceViewerDialog(SampleModel *sampleModel, QTreeView *treeView,
-                                             QWidget *parent)
+RealSpaceViewerDialog::RealSpaceViewerDialog(SampleModel *sampleModel,
+                                             QItemSelectionModel* selectionModel, QWidget *parent)
     : QDialog(parent)
     , m_sampleModel(sampleModel)
-    , m_treeView(treeView)
+    , m_selectionModel(selectionModel)
 {
     setWindowTitle("Real Space Viewer");
     setMinimumSize(minimum_dialog_size);
@@ -33,19 +33,12 @@ RealSpaceViewerDialog::RealSpaceViewerDialog(SampleModel *sampleModel, QTreeView
     //layout->setContentsMargins(0, 0, 0, 0);
 
     #ifdef BORNAGAIN_OPENGL
-    RealSpaceWidget* widget = new RealSpaceWidget(m_sampleModel, m_treeView);
-    widget->setModel(m_sampleModel, m_treeView);
+    RealSpaceWidget* widget = new RealSpaceWidget(m_sampleModel, m_selectionModel);
+    widget->setModel(m_sampleModel, m_selectionModel);
     layout->addWidget(widget);
     #endif
 
     setLayout(layout);
+    setAttribute(Qt::WA_DeleteOnClose, true);
     StyleUtils::setResizable(this);
 }
-
-void RealSpaceViewerDialog::closeEvent(QCloseEvent *event)
-{
-    Q_UNUSED(event);
-    emit dialogClosed();
-}
-
-

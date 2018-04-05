@@ -16,24 +16,24 @@
 #include "RealSpaceToolBar.h"
 #include "RealSpaceCanvas.h"
 #include "RealSpaceActions.h"
-#include "RealSpacePanel.h"
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDebug>
 
-RealSpaceWidget::RealSpaceWidget(QWidget* parent)
+RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
+                                 QItemSelectionModel* selectionModel, QWidget* parent)
     : QWidget(parent)
     , m_actions(new RealSpaceActions)
     , m_toolBar(new RealSpaceToolBar)
     , m_canvas(new RealSpaceCanvas)
-    , m_panel(new RealSpacePanel)
+    , m_sampleModel(sampleModel)
+    , m_selectionModel(selectionModel)
 {
     QHBoxLayout* hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
     hlayout->setContentsMargins(0, 0, 0, 0);
     hlayout->addWidget(m_canvas);
-    hlayout->addWidget(m_panel);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -44,8 +44,8 @@ RealSpaceWidget::RealSpaceWidget(QWidget* parent)
 
     setLayout(mainLayout);
 
-    connect(m_panel, SIGNAL(selectionChanged(QModelIndex)),
-            m_canvas, SLOT(onSelectionChanged(QModelIndex)));
+    connect(m_selectionModel, &QItemSelectionModel::selectionChanged,
+            m_canvas, &RealSpaceCanvas::onSelectionChanged);
 
     //connect(m_toolBar, SIGNAL(defaultViewAction()), m_canvas, SLOT(onDefaultViewAction()));
     connect(m_toolBar, &RealSpaceToolBar::defaultViewAction,
@@ -58,11 +58,11 @@ RealSpaceWidget::RealSpaceWidget(QWidget* parent)
     //connect(m_toolBar, SIGNAL(faceViewAction()), m_canvas, SLOT(onFaceViewAction()));
     connect(m_toolBar, &RealSpaceToolBar::faceViewAction,
             m_canvas, &RealSpaceCanvas::onFaceViewAction);
-
 }
 
-void RealSpaceWidget::setModel(SampleModel* model)
+void RealSpaceWidget::setModel(SampleModel* sampleModel, QItemSelectionModel *selectionModel)
 {
-    m_panel->setModel(model);
-    m_canvas->setModel(model);
+    m_sampleModel = sampleModel;
+    m_selectionModel = selectionModel;
+    m_canvas->setModel(m_sampleModel, m_selectionModel);
 }

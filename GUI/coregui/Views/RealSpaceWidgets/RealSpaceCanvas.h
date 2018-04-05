@@ -20,6 +20,8 @@
 #include <QModelIndex>
 #include <memory>
 
+#include <QItemSelectionModel>
+
 class SampleModel;
 class RealSpaceView;
 class RealSpaceModel;
@@ -34,10 +36,11 @@ public:
     RealSpaceCanvas(QWidget* parent = 0);
     ~RealSpaceCanvas();
 
-    void setModel(SampleModel* model);
+    void setModel(SampleModel* sampleModel = nullptr,
+                  QItemSelectionModel* selectionModel = nullptr);
 
 public slots:
-    void onSelectionChanged(const QModelIndex& selected);
+    void onSelectionChanged(const QItemSelection &selected, const QItemSelection &);
 
     void onDefaultViewAction();
     void onEdgeViewAction();
@@ -58,10 +61,12 @@ protected:
 private:
     void setConnected(SampleModel* model, bool makeConnected);
 
-    SampleModel* m_model;
+    SampleModel* m_sampleModel;
     QModelIndex m_currentSelection;
     RealSpaceView* m_view;
     std::unique_ptr<RealSpaceModel> m_realSpaceModel;
+
+    QItemSelectionModel* m_selectionModel;
 };
 
 #endif // REALSPACESCENE_H

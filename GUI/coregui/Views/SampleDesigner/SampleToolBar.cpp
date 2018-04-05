@@ -24,9 +24,16 @@
 #include <QPushButton>
 #include <QToolButton>
 
+#include <RealSpaceViewerDialog.h>
+
 //! main tool bar on top of SampleView window
-SampleToolBar::SampleToolBar(QWidget *parent)
+SampleToolBar::SampleToolBar(SampleModel *sampleModel, QItemSelectionModel* selectionModel,
+                             QWidget *parent)
     : StyledToolBar(parent)
+    , m_sampleModel(sampleModel)
+    , m_selectionModel(selectionModel)
+    , m_dialog(nullptr)
+    , m_dialog_on(false)
 {
     // Select & Pan
     QToolButton *selectionPointerButton = new QToolButton;
@@ -112,6 +119,18 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     connect(m_materialEditorButton, SIGNAL(clicked()), this, SLOT(onMaterialEditorCall()));
     addWidget(m_materialEditorButton);
 
+    addStyledSeparator();
+
+    // RealSpace 3D Viewer
+    addWidget(new QLabel(" "));
+    m_RealSpaceViewerButton = new QToolButton;
+    m_RealSpaceViewerButton->setText("Real Space Viewer");
+    //m_RealSpaceViewerButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_materialeditor.png"));
+    m_RealSpaceViewerButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_RealSpaceViewerButton->setToolTip("Open real space 3D viewer.");
+    connect(m_RealSpaceViewerButton, SIGNAL(clicked()), this, SLOT(onRealSpaceViewerCall()));
+    addWidget(m_RealSpaceViewerButton);
+
     // Additional actions
     m_zoomOutAction = new QAction(this);
     m_zoomOutAction->setShortcut(QKeySequence(Qt::Key_Minus));
@@ -123,7 +142,6 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     connect(m_zoomInAction, SIGNAL(triggered()), this, SIGNAL(zoomIn()));
     addAction(m_zoomInAction);
 }
-
 
 void SampleToolBar::onViewSelectionMode(int mode)
 {
@@ -140,4 +158,18 @@ void SampleToolBar::onScaleComboChanged(const QString &scale_string)
 void SampleToolBar::onMaterialEditorCall()
 {
     ExternalProperty mp = MaterialItemUtils::selectMaterialProperty();
+}
+
+void SampleToolBar::onRealSpaceViewerCall()
+{
+    // keep only one instance of dialog alive using a boolean flag
+    if(!m_dialog_on)
+    {
+        m_dialog_on = true;
+        m_dialog = new RealSpaceViewerDialog(m_sampleModel, m_selectionModel, this);
+        m_dialog->show();
+
+        // undo the flag when the dialog is destroyed on close event
+        connect(m_dialog, &QAction::destroyed, this, [&](){m_dialog_on = false;} );
+    }
 }

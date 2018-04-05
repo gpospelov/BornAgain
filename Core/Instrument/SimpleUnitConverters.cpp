@@ -211,10 +211,10 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
 {
     if (units_type == AxesUnits::MM)
         return value;
-    auto k00 = mP_detector_pixel->getPosition(0.0, 0.0);
-    auto k01 = mP_detector_pixel->getPosition(0.0, 1.0);
-    auto k10 = mP_detector_pixel->getPosition(1.0, 0.0);
-    auto max_pos = i_axis == 0 ? k10 : k01;  // position of max along given axis
+    const auto k00 = mP_detector_pixel->getPosition(0.0, 0.0);
+    const auto k01 = mP_detector_pixel->getPosition(0.0, 1.0);
+    const auto k10 = mP_detector_pixel->getPosition(1.0, 0.0);
+    const auto& max_pos = i_axis == 0 ? k10 : k01;  // position of max along given axis
     const double shift = value - m_axis_data_table[i_axis].min;
     auto k_f = normalizeToWavelength(k00 + shift*(max_pos - k00).unit());
     switch(units_type) {

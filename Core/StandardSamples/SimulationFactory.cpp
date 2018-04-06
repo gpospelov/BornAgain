@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "SimulationFactory.h"
+#include "DepthProbeSimulation.h"
 #include "GISASSimulation.h"
 #include "SpecularSimulation.h"
 #include "RealParameter.h"
@@ -151,4 +152,10 @@ SimulationFactory::SimulationFactory()
 
     registerItem("OffSpecMini", StandardSimulations::MiniOffSpec,
                  "Mini OffSpecular simulation for resonator experiment.");
+
+    // depth probe simulations
+
+    registerItem("BasicDepthProbe",
+                 StandardSimulations::BasicDepthProbe,
+                 "Basic 20x20 depth probe simulation with [0, 1] deg angle and [-100, 100] z span");
 }

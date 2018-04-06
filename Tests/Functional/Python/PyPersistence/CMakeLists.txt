@@ -61,6 +61,7 @@ test_example("simulation/ex06_Reflectometry/BeamAngularDivergence" 2e-10)
 test_example("simulation/ex06_Reflectometry/BeamFullDivergence" 2e-10)
 
 test_example("simulation/ex07_Miscellaneous/CylindersInAverageLayer" 2e-10)
+test_example("simulation/ex07_Miscellaneous/DepthProbe" 2e-10)
 test_example("simulation/ex07_Miscellaneous/HalfSpheresInAverageTopLayer" 2e-10)
 test_example("simulation/ex07_Miscellaneous/MagneticSpheres" 2e-10)
 

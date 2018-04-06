@@ -6,6 +6,8 @@
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
 
+#include <vector>
+
 class IAxis;
 class IComputation;
 class IFootprintFactor;

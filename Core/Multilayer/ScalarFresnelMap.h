@@ -39,9 +39,6 @@ public:
     getOutCoefficients(const SimulationElement& sim_element,
                        size_t layer_index) const override;
 
-    //! Fills simulation element specular data
-    void fillSpecularData(SpecularSimulationElement& sim_element) const override;
-
 private:
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;

@@ -24,7 +24,6 @@
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include "SpecularComputation.h"
-#include "SpecularData.h"
 #include "SpecularDetector1D.h"
 #include "UnitConverter1D.h"
 
@@ -164,19 +163,6 @@ SpecularSimulation::generateSimulationElements(const Beam& beam)
     return result;
 }
 
-std::vector<complex_t> SpecularSimulation::getData(size_t i_layer, DataGetter fn_ptr) const
-{
-    validityCheck(i_layer);
-    std::vector<complex_t> result;
-    const size_t data_size = m_sim_elements.size();
-    result.resize(data_size);
-    for (size_t i = 0; i < data_size; ++i) {
-        const auto& specular_data = m_sim_elements[i].specularData();
-        result[i] = (specular_data[i_layer].*fn_ptr)();
-    }
-    return result;
-}
-
 std::unique_ptr<IComputation>
 SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
 {
@@ -295,21 +281,6 @@ std::unique_ptr<OutputData<double>> SpecularSimulation::createIntensityData() co
         result->operator[](i) = iter->getIntensity();
 
     return result;
-}
-
-std::vector<complex_t> SpecularSimulation::getScalarR(size_t i_layer) const
-{
-    return getData(i_layer, &ILayerRTCoefficients::getScalarR);
-}
-
-std::vector<complex_t> SpecularSimulation::getScalarT(size_t i_layer) const
-{
-    return getData(i_layer, &ILayerRTCoefficients::getScalarT);
-}
-
-std::vector<complex_t> SpecularSimulation::getScalarKz(size_t i_layer) const
-{
-    return getData(i_layer, &ILayerRTCoefficients::getScalarKz);
 }
 
 std::vector<double> SpecularSimulation::rawResults() const

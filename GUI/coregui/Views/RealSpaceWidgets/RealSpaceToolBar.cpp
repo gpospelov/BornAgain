@@ -16,6 +16,7 @@
 #include "mainwindow_constants.h"
 
 #include <QToolButton>
+#include <QCheckBox>
 
 RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     : StyledToolBar(parent)
@@ -28,9 +29,10 @@ RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     //m_defaultViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
     m_defaultViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_defaultViewButton->setToolTip("Default view of the sample");
-    //connect(m_defaultViewButton, SIGNAL(clicked()), this, SIGNAL(defaultViewAction()));
     connect(m_defaultViewButton, &QToolButton::clicked, this, &RealSpaceToolBar::defaultViewAction);
     addWidget(m_defaultViewButton);
+
+    addSeparator();
 
     // Edge View
     m_edgeViewButton = new QToolButton;
@@ -38,9 +40,10 @@ RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     //m_edgeViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
     m_edgeViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_edgeViewButton->setToolTip("View the sample from the edge");
-    //connect(m_edgeViewButton, SIGNAL(clicked()), this, SIGNAL(edgeViewAction()));
     connect(m_edgeViewButton, &QToolButton::clicked, this, &RealSpaceToolBar::edgeViewAction);
     addWidget(m_edgeViewButton);
+
+    addSeparator();
 
     // Face View
     m_faceViewButton = new QToolButton;
@@ -48,7 +51,29 @@ RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     //m_faceViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
     m_faceViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_faceViewButton->setToolTip("View the sample from the top (face)");
-    //connect(m_faceViewButton, SIGNAL(clicked()), this, SIGNAL(faceViewAction()));
     connect(m_faceViewButton, &QToolButton::clicked, this, &RealSpaceToolBar::faceViewAction);
     addWidget(m_faceViewButton);
+
+    addSeparator();
+
+    // Lock View
+    m_lockViewCheckBox = new QCheckBox;
+    m_lockViewCheckBox->setText("Lock View");
+    m_lockViewCheckBox->setToolTip("Lock/unlock current sample selection");
+    m_lockViewCheckBox->setCheckable(true);
+    connect(m_lockViewCheckBox, &QCheckBox::clicked,
+            this, [&](){emit RealSpaceToolBar::lockViewAction(m_lockViewCheckBox->isChecked());});
+    addWidget(m_lockViewCheckBox);
+
+    /*
+    // Lock View
+    m_lockViewButton = new QToolButton;
+    m_lockViewButton->setText("Lock View");
+    m_lockViewButton->setToolTip("Lock/unlock current sample selection");
+    //m_lockViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
+    m_lockViewButton->setCheckable(true);
+    connect(m_lockViewButton, &QToolButton::clicked,
+            this, [&](){emit lockViewAction(m_lockViewButton->isChecked());});
+    addWidget(m_lockViewButton);
+    */
 }

@@ -44,8 +44,6 @@ public:
         m_intensities = std::forward<T>(intensities);
     }
 
-    void addIntensities(const std::valarray<double>& intensities) { m_intensities += intensities; }
-
     const std::valarray<double>& getIntensities() const { return m_intensities; }
 
     void setZPositions(const IAxis* z_positions) {m_z_positions = z_positions;}

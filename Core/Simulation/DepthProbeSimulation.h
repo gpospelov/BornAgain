@@ -22,7 +22,7 @@ public:
     DepthProbeSimulation();
     DepthProbeSimulation(const MultiLayer& sample);
     DepthProbeSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    virtual ~DepthProbeSimulation();
+    ~DepthProbeSimulation() override;
 
     DepthProbeSimulation* clone() const override;
 

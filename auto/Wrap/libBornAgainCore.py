@@ -7534,6 +7534,11 @@ class IMultiLayerBuilder(IParameterized):
         return _libBornAgainCore.IMultiLayerBuilder_parametersToString(self)
 
 
+    def createParameterTree(self):
+        """createParameterTree(IMultiLayerBuilder self) -> ParameterPool"""
+        return _libBornAgainCore.IMultiLayerBuilder_createParameterTree(self)
+
+
     def isPythonBuilder():
         """isPythonBuilder() -> bool"""
         return _libBornAgainCore.IMultiLayerBuilder_isPythonBuilder()

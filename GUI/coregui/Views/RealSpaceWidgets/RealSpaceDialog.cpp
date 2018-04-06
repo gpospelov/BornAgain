@@ -38,7 +38,7 @@ RealSpaceDialog::RealSpaceDialog(SampleModel *sampleModel,
     resize(default_dialog_size);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    // read the user's last settings (size and position) of the dialog box
+    // read the user's last persistent settings (size and position) of the dialog box
     readSettings();
 
     QVBoxLayout *layout = new QVBoxLayout;
@@ -59,7 +59,7 @@ RealSpaceDialog::RealSpaceDialog(SampleModel *sampleModel,
 
 void RealSpaceDialog::closeEvent(QCloseEvent *)
 {
-    // on close event, remember the settings (size and position) of the dialog box
+    // on close event, remember the settings (size and position) of the dialog box as persistent
     writeSettings();
 }
 

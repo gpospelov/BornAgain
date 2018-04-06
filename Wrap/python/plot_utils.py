@@ -191,7 +191,6 @@ def plot_histogram(intensity, zmin=None, zmax=None,
     axes_limits = [intensity.getXmin(), intensity.getXmax(),
                    intensity.getYmin(), intensity.getYmax()]
 
-    plt.tight_layout()
     im = plt.imshow(
         intensity.getArray(),
         norm=colors.LogNorm(zmin, zmax),
@@ -211,6 +210,8 @@ def plot_histogram(intensity, zmin=None, zmax=None,
 
     if title:
         plt.title(title)
+
+    plt.tight_layout()
 
 
 class Plotter:

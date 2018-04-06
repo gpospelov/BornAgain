@@ -18,6 +18,7 @@
 #include "PolDWBAMagCylinders.h"
 #include "CoreIOTest.h"
 #include "FourierTransformationTest.h"
+#include "MesoCrystalPerformanceTest.h"
 
 CoreSpecialTestFactory::CoreSpecialTestFactory()
 {
@@ -40,4 +41,8 @@ CoreSpecialTestFactory::CoreSpecialTestFactory()
     registerItem("FourierTransformation",
                  create_new<FourierTransformationTest>,
                  "Fourier transformation of GISAS images");
+
+    registerItem("MesoPerformance",
+                 create_new<MesoCrystalPerformanceTest>,
+                 "Heavy mesocrystal simulation");
 }

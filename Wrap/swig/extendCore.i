@@ -41,6 +41,10 @@
         return ($self)->IParameterized::createParameterTree();
         }
 
+    virtual void onChange() {
+        return ($self)->IParameterized::onChange();
+    }
+
     static bool isPythonBuilder() {
         return true; }
 };

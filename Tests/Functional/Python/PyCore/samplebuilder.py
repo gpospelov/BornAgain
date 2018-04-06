@@ -33,10 +33,6 @@ class SampleBuilderTest(unittest.TestCase):
 
         self.assertEqual(builder.m_width.value, initial_width)
         builder.setParameterValue("width", 43.0)
-        # self.assertEqual(builder.m_width.value, 43.0)
-        #
-        # par_str = builder.parametersToString()
-        # self.assertEqual(par_str, "'/SampleBuilder/width':43\n\n")
 
     def test_parameterString(self):
         """

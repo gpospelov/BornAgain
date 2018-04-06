@@ -1,5 +1,5 @@
-#ifndef REALSPACEVIEWERDIALOG_H
-#define REALSPACEVIEWERDIALOG_H
+#ifndef REALSPACEDIALOG_H
+#define REALSPACEDIALOG_H
 
 #include "WinDllMacros.h"
 #include <QDialog>
@@ -16,12 +16,12 @@ class QBoxLayout;
 
 //! Dialog to hold RealSpaceViewer.
 
-class BA_CORE_API_ RealSpaceViewerDialog : public QDialog
+class BA_CORE_API_ RealSpaceDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    RealSpaceViewerDialog(SampleModel* sampleModel = nullptr,
+    RealSpaceDialog(SampleModel* sampleModel = nullptr,
                           QItemSelectionModel* selectionModel = nullptr,
                           QWidget *parent = nullptr);
 
@@ -31,4 +31,4 @@ private:
 };
 
 
-#endif // REALSPACEVIEWERDIALOG_H
+#endif // REALSPACEDIALOG_H

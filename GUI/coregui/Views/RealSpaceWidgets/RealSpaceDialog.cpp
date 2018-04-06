@@ -1,5 +1,5 @@
 
-#include "RealSpaceViewerDialog.h"
+#include "RealSpaceDialog.h"
 #include "RealSpaceWidget.h"
 
 #include "StyleUtils.h"
@@ -16,7 +16,7 @@ namespace
     const QSize default_dialog_size(500, 400);
 }
 
-RealSpaceViewerDialog::RealSpaceViewerDialog(SampleModel *sampleModel,
+RealSpaceDialog::RealSpaceDialog(SampleModel *sampleModel,
                                              QItemSelectionModel* selectionModel, QWidget *parent)
     : QDialog(parent)
     , m_sampleModel(sampleModel)

@@ -44,14 +44,12 @@ public:
         m_intensities = std::forward<T>(intensities);
     }
 
-    void addIntensities(const std::valarray<double>& intensities) { m_intensities += intensities; }
-
     const std::valarray<double>& getIntensities() const { return m_intensities; }
 
     void setZPositions(const IAxis* z_positions) {m_z_positions = z_positions;}
     const IAxis* getZPositions() const {return m_z_positions;}
 
-    size_t size() {return m_intensities.size();}
+    size_t size() const {return m_intensities.size();}
 
     //! Set calculation flag (if it's false, zero intensity is assigned to the element)
     void setCalculationFlag(bool calculation_flag) {m_calculation_flag = calculation_flag;}

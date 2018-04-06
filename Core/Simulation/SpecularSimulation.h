@@ -37,7 +37,7 @@ public:
     SpecularSimulation();
     SpecularSimulation(const MultiLayer& sample);
     SpecularSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    virtual ~SpecularSimulation();
+    ~SpecularSimulation() override;
 
     SpecularSimulation* clone() const override;
 
@@ -62,8 +62,6 @@ public:
     const IAxis* getAlphaAxis() const;
 
 private:
-    typedef complex_t (ILayerRTCoefficients::*DataGetter)() const;
-
     SpecularSimulation(const SpecularSimulation& other);
 
     //! Initializes the vector of Simulation elements
@@ -71,8 +69,6 @@ private:
 
     //! Generate simulation elements for given beam
     std::vector<SpecularSimulationElement> generateSimulationElements(const Beam& beam);
-
-    std::vector<complex_t> getData(size_t i_layer, DataGetter fn_ptr) const;
 
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
@@ -105,18 +101,6 @@ private:
 
     //! Creates intensity data from simulation elements
     std::unique_ptr<OutputData<double>> createIntensityData() const;
-
-    //! Returns vector of reflection coefficients (\f$R\f$) for all alpha_i angles for given layer
-    //! index. Deprecated and will be removed.
-    std::vector<complex_t> getScalarR(size_t i_layer) const;
-
-    //! Returns vector of transmission coefficients for all alpha_i angles for given layer index.
-    //! Deprecated and will be removed.
-    std::vector<complex_t> getScalarT(size_t i_layer) const;
-
-    //! Returns vector of Kz coefficients for all alpha_i angles for given layer index.
-    //! Deprecated and will be removed.
-    std::vector<complex_t> getScalarKz(size_t i_layer) const;
 
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;

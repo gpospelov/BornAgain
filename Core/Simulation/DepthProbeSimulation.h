@@ -6,6 +6,8 @@
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
 
+#include <vector>
+
 class IAxis;
 class IComputation;
 class IFootprintFactor;
@@ -20,7 +22,7 @@ public:
     DepthProbeSimulation();
     DepthProbeSimulation(const MultiLayer& sample);
     DepthProbeSimulation(const std::shared_ptr<IMultiLayerBuilder> sample_builder);
-    virtual ~DepthProbeSimulation();
+    ~DepthProbeSimulation() override;
 
     DepthProbeSimulation* clone() const override;
 

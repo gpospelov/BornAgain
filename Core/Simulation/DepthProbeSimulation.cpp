@@ -288,10 +288,37 @@ std::unique_ptr<OutputData<double>> DepthProbeSimulation::createIntensityData() 
 
 std::vector<double> DepthProbeSimulation::rawResults() const
 {
-    throw std::runtime_error("Error in DepthProbeSimulation::rawResults: not implemented");
+    validityCheck();
+    const size_t z_size = getZAxis()->size();
+    const size_t alpha_size = getAlphaAxis()->size();
+
+    std::vector<double> result;
+    result.reserve(alpha_size * z_size);
+    for (size_t i = 0; i < alpha_size; ++i) {
+        if (m_sim_elements[i].size() != z_size)
+            throw std::runtime_error("Error in DepthProbeSimulation::rawResults: simulation "
+                                     "element size is not equal to the size of the position axis");
+        const auto& intensities = m_sim_elements[i].getIntensities();
+        result.insert(result.end(), std::begin(intensities), std::end(intensities));
+    }
+
+    return result;
 }
 
-void DepthProbeSimulation::setRawResults(const std::vector<double>&)
+void DepthProbeSimulation::setRawResults(const std::vector<double>& raw_results)
 {
-    throw std::runtime_error("Error in DepthProbeSimulation::setRawResults: not implemented");
+    validityCheck();
+    const size_t z_size = getZAxis()->size();
+    const size_t alpha_size = getAlphaAxis()->size();
+
+    if (raw_results.size() != z_size * alpha_size)
+        throw std::runtime_error(
+            "Error in DepthProbeSimulation::setRawResults: the vector to set is of invalid size");
+
+    const double* raw_array = raw_results.data();
+    for (size_t i = 0; i < alpha_size; ++i) {
+        std::valarray<double> fixed_angle_result(raw_array, z_size);
+        m_sim_elements[i].setIntensities(std::move(fixed_angle_result));
+        raw_array += z_size;
+    }
 }

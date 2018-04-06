@@ -1295,9 +1295,6 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  DepthProbeElement::setIntensities "void DepthProbeElement::setIntensities(T &&intensities)
 ";
 
-%feature("docstring")  DepthProbeElement::addIntensities "void DepthProbeElement::addIntensities(const std::valarray< double > &intensities)
-";
-
 %feature("docstring")  DepthProbeElement::getIntensities "const std::valarray<double>& DepthProbeElement::getIntensities() const
 ";
 
@@ -1307,7 +1304,7 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  DepthProbeElement::getZPositions "const IAxis* DepthProbeElement::getZPositions() const
 ";
 
-%feature("docstring")  DepthProbeElement::size "size_t DepthProbeElement::size()
+%feature("docstring")  DepthProbeElement::size "size_t DepthProbeElement::size() const
 ";
 
 %feature("docstring")  DepthProbeElement::setCalculationFlag "void DepthProbeElement::setCalculationFlag(bool calculation_flag)
@@ -1331,7 +1328,7 @@ Set calculation flag (if it's false, zero intensity is assigned to the element)
 %feature("docstring")  DepthProbeSimulation::DepthProbeSimulation "DepthProbeSimulation::DepthProbeSimulation(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
 ";
 
-%feature("docstring")  DepthProbeSimulation::~DepthProbeSimulation "DepthProbeSimulation::~DepthProbeSimulation()
+%feature("docstring")  DepthProbeSimulation::~DepthProbeSimulation "DepthProbeSimulation::~DepthProbeSimulation() override
 ";
 
 %feature("docstring")  DepthProbeSimulation::clone "DepthProbeSimulation * DepthProbeSimulation::clone() const override
@@ -7266,11 +7263,6 @@ Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
 Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
 
-%feature("docstring")  IFresnelMap::fillSpecularData "virtual void IFresnelMap::fillSpecularData(SpecularSimulationElement &sim_element) const =0
-
-Fills simulation element specular data. 
-";
-
 %feature("docstring")  IFresnelMap::setMultilayer "void IFresnelMap::setMultilayer(const MultiLayer &multilayer)
 
 Sets the multilayer to be used for the Fresnel calculations. 
@@ -10643,7 +10635,7 @@ C++ includes: MatrixFresnelMap.h
 %feature("docstring")  MatrixFresnelMap::MatrixFresnelMap "MatrixFresnelMap::MatrixFresnelMap()
 ";
 
-%feature("docstring")  MatrixFresnelMap::~MatrixFresnelMap "MatrixFresnelMap::~MatrixFresnelMap()
+%feature("docstring")  MatrixFresnelMap::~MatrixFresnelMap "MatrixFresnelMap::~MatrixFresnelMap() override
 ";
 
 %feature("docstring")  MatrixFresnelMap::getOutCoefficients "std::unique_ptr< const ILayerRTCoefficients > MatrixFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const final override
@@ -10654,11 +10646,6 @@ Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
 %feature("docstring")  MatrixFresnelMap::setMultilayer "void MatrixFresnelMap::setMultilayer(const MultiLayer &multilayer) final override
 
 Sets the multilayer to be used for the Fresnel calculations. 
-";
-
-%feature("docstring")  MatrixFresnelMap::fillSpecularData "void MatrixFresnelMap::fillSpecularData(SpecularSimulationElement &sim_element) const override
-
-Fills simulation element specular data. 
 ";
 
 
@@ -13548,11 +13535,6 @@ C++ includes: ScalarFresnelMap.h
 Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector. 
 ";
 
-%feature("docstring")  ScalarFresnelMap::fillSpecularData "void ScalarFresnelMap::fillSpecularData(SpecularSimulationElement &sim_element) const override
-
-Fills simulation element specular data. 
-";
-
 
 // File: classScalarRTCoefficients.xml
 %feature("docstring") ScalarRTCoefficients "
@@ -14306,27 +14288,6 @@ C++ includes: SpecularComputationTerm.h
 ";
 
 
-// File: classSpecularData.xml
-%feature("docstring") SpecularData "
-
-Helper class for  SpecularSimulationElement to carry specular information
-
-C++ includes: SpecularData.h
-";
-
-%feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData()
-";
-
-%feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData(MatrixVector coefficients)
-";
-
-%feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData(ScalarVector coefficients)
-";
-
-%feature("docstring")  SpecularData::isInited "bool SpecularData::isInited() const
-";
-
-
 // File: classSpecularDetector1D.xml
 %feature("docstring") SpecularDetector1D "
 
@@ -14415,7 +14376,7 @@ C++ includes: SpecularSimulation.h
 %feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
 ";
 
-%feature("docstring")  SpecularSimulation::~SpecularSimulation "SpecularSimulation::~SpecularSimulation()
+%feature("docstring")  SpecularSimulation::~SpecularSimulation "SpecularSimulation::~SpecularSimulation() override
 ";
 
 %feature("docstring")  SpecularSimulation::clone "SpecularSimulation * SpecularSimulation::clone() const override
@@ -14499,16 +14460,6 @@ Returns assigned  PolarizationHandler.
 ";
 
 %feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
-";
-
-%feature("docstring")  SpecularSimulationElement::specularData "const SpecularData& SpecularSimulationElement::specularData() const
-
-Returns specular data container. 
-";
-
-%feature("docstring")  SpecularSimulationElement::setSpecular "void SpecularSimulationElement::setSpecular(SpecularData specular_data)
-
-Set specular data. 
 ";
 
 %feature("docstring")  SpecularSimulationElement::setCalculationFlag "void SpecularSimulationElement::setCalculationFlag(bool calculation_flag)
@@ -15421,10 +15372,10 @@ C++ includes: ZLimits.h
 // File: namespace_0D489.xml
 
 
-// File: namespace_0D569.xml
+// File: namespace_0D567.xml
 
 
-// File: namespace_0D591.xml
+// File: namespace_0D589.xml
 
 
 // File: namespace_0D84.xml
@@ -16220,6 +16171,9 @@ GISAS simulation with rectangular detector, region of interest and mask.
 ";
 
 %feature("docstring")  StandardSimulations::MiniOffSpec "OffSpecSimulation * StandardSimulations::MiniOffSpec()
+";
+
+%feature("docstring")  StandardSimulations::BasicDepthProbe "DepthProbeSimulation * StandardSimulations::BasicDepthProbe()
 ";
 
 
@@ -17953,12 +17907,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SimulationElement_8h.xml
-
-
-// File: SpecularData_8cpp.xml
-
-
-// File: SpecularData_8h.xml
 
 
 // File: SpecularSimulationElement_8cpp.xml

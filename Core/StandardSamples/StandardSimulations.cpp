@@ -14,7 +14,8 @@
 
 #include "StandardSimulations.h"
 #include "BornAgainNamespace.h"
-#include <ConstantBackground.h>
+#include "ConstantBackground.h"
+#include "DepthProbeSimulation.h"
 #include "Distributions.h"
 #include "Ellipse.h"
 #include "FootprintFactorGaussian.h"
@@ -466,6 +467,24 @@ OffSpecSimulation* StandardSimulations::MiniOffSpec()
 
     result->setBeamIntensity(1e9);
     result->getOptions().setIncludeSpecular(true);
+
+    return result.release();
+}
+
+DepthProbeSimulation* StandardSimulations::BasicDepthProbe()
+{
+    auto result = std::make_unique<DepthProbeSimulation>();
+
+    const double wavelength = 10.0 * Units::angstrom;
+    const size_t n_alpha = 20;
+    const double alpha_min = 0.0 * Units::deg;
+    const double alpha_max = 1.0 * Units::deg;
+    const size_t n_z = n_alpha;
+    const double z_min = -100.0 * Units::nm;
+    const double z_max = 100.0 * Units::nm;
+
+    result->setBeamParameters(wavelength, n_alpha, alpha_min, alpha_max);
+    result->setZSpan(n_z, z_min, z_max);
 
     return result.release();
 }

@@ -422,6 +422,14 @@ StandardTestCatalogue::StandardTestCatalogue()
         "OffSpecMini",
         "ResonatorBuilder",
         1e-10);
+
+    // depth probe simulation
+
+    add("DepthProbeTest",
+        "Test for basic functionality of depth probe",
+        "BasicDepthProbe",
+        "HomogeneousMultilayerBuilder",
+        1e-10);
 }
 
 //! Adds test description to the catalogue.

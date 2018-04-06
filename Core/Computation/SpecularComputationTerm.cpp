@@ -2,7 +2,6 @@
 #include "ILayerRTCoefficients.h"
 #include "MultiLayer.h"
 #include "SpecularComputationTerm.h"
-#include "SpecularData.h"
 #include "SpecularSimulationElement.h"
 
 SpecularComputationTerm::SpecularComputationTerm(const MultiLayer* p_multi_layer,
@@ -18,13 +17,8 @@ void SpecularComputationTerm::eval(ProgressHandler*, const SpecularElementIter& 
         return;
 
     for (auto it = begin_it; it != end_it; ++it)
-        if (it->isCalculated())
-            evalSingle(it);
-}
-
-void SpecularComputationTerm::evalSingle(const SpecularElementIter& iter) const
-{
-    mp_fresnel_map->fillSpecularData(*iter);
-    const ILayerRTCoefficients& layer_data = iter->specularData()[0];
-    iter->setIntensity(std::norm(layer_data.getScalarR()));
+        if (it->isCalculated()) {
+            double intensity = std::norm(mp_fresnel_map->getInCoefficients(*it, 0)->getScalarR());
+            it->setIntensity(intensity);
+        }
 }

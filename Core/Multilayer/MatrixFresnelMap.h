@@ -33,16 +33,13 @@ class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
     MatrixFresnelMap();
-    virtual ~MatrixFresnelMap();
+    ~MatrixFresnelMap() override;
 
     std::unique_ptr<const ILayerRTCoefficients>
     getOutCoefficients(const SimulationElement& sim_element,
                        size_t layer_index) const final override;
 
     void setMultilayer(const MultiLayer& multilayer) final override;
-
-    //! Fills simulation element specular data
-    void fillSpecularData(SpecularSimulationElement& sim_element) const override;
 
     typedef std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>, HashKVector>
         CoefficientHash;

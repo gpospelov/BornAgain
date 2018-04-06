@@ -47,17 +47,17 @@ RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
     connect(m_selectionModel, &QItemSelectionModel::selectionChanged,
             m_canvas, &RealSpaceCanvas::onSelectionChanged);
 
-    //connect(m_toolBar, SIGNAL(defaultViewAction()), m_canvas, SLOT(onDefaultViewAction()));
     connect(m_toolBar, &RealSpaceToolBar::defaultViewAction,
             m_canvas, &RealSpaceCanvas::onDefaultViewAction);
 
-    //connect(m_toolBar, SIGNAL(edgeViewAction()), m_canvas, SLOT(onEdgeViewAction()));
     connect(m_toolBar, &RealSpaceToolBar::edgeViewAction,
             m_canvas, &RealSpaceCanvas::onEdgeViewAction);
 
-    //connect(m_toolBar, SIGNAL(faceViewAction()), m_canvas, SLOT(onFaceViewAction()));
     connect(m_toolBar, &RealSpaceToolBar::faceViewAction,
             m_canvas, &RealSpaceCanvas::onFaceViewAction);
+
+    connect(m_toolBar, &RealSpaceToolBar::lockViewAction,
+            m_canvas, &RealSpaceCanvas::onLockViewAction);
 }
 
 void RealSpaceWidget::setModel(SampleModel* sampleModel, QItemSelectionModel *selectionModel)

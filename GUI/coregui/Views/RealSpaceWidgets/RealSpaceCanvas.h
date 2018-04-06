@@ -39,12 +39,16 @@ public:
     void setModel(SampleModel* sampleModel = nullptr,
                   QItemSelectionModel* selectionModel = nullptr);
 
+signals:
+    void lockViewUnchecked(const QItemSelection &, const QItemSelection &);
+
 public slots:
     void onSelectionChanged(const QItemSelection &selected, const QItemSelection &);
 
     void onDefaultViewAction();
     void onEdgeViewAction();
     void onFaceViewAction();
+    void onLockViewAction(bool);
 
 private slots:
     void updateScene();
@@ -67,6 +71,7 @@ private:
     std::unique_ptr<RealSpaceModel> m_realSpaceModel;
 
     QItemSelectionModel* m_selectionModel;
+    bool m_lockView_on;
 };
 
 #endif // REALSPACESCENE_H

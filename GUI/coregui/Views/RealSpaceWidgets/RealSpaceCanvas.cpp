@@ -25,6 +25,7 @@ RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     : QWidget(parent)
     , m_sampleModel(nullptr)
     , m_view(new RealSpaceView)
+    , m_lockView_on(false)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -32,6 +33,9 @@ RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     layout->addWidget(m_view);
     setLayout(layout);
 
+    // listening whether lock view in RealSpaceToolBar has been unchecked or not
+    connect(this, &RealSpaceCanvas::lockViewUnchecked,
+            this, &RealSpaceCanvas::onSelectionChanged);
 }
 
 RealSpaceCanvas::~RealSpaceCanvas()
@@ -58,7 +62,9 @@ void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* se
                 if(indices.size())
                     m_currentSelection = FilterPropertyProxy::toSourceIndex(indices.back());
             }
-            updateScene();
+
+            if(m_lockView_on == false)
+                updateScene();
         }
     }
 }
@@ -66,21 +72,24 @@ void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* se
 void RealSpaceCanvas::onSelectionChanged(const QItemSelection &selected /* selected */,
                                          const QItemSelection & /* deselected */)
 {
-    QModelIndexList indices = selected.indexes();
-    QModelIndex selectedIndex;
+    if(m_lockView_on == false)
+    {
+        QModelIndexList indices = selected.indexes();
+        QModelIndex selectedIndex;
 
-    if(indices.size())
-        selectedIndex = FilterPropertyProxy::toSourceIndex(indices.back());
-    else
-        selectedIndex = m_currentSelection;
+        if(indices.size())
+            selectedIndex = FilterPropertyProxy::toSourceIndex(indices.back());
+        else
+            selectedIndex = m_currentSelection;
 
 
-    if (!selectedIndex.isValid()) {
-        resetScene();
+        if (!selectedIndex.isValid()) {
+            resetScene();
 
-    } else {
-        m_currentSelection = selectedIndex;
-        updateScene();
+        } else {
+            m_currentSelection = selectedIndex;
+            updateScene();
+        }
     }
 }
 
@@ -97,6 +106,18 @@ void RealSpaceCanvas::onEdgeViewAction()
 void RealSpaceCanvas::onFaceViewAction()
 {
     faceView();
+}
+
+void RealSpaceCanvas::onLockViewAction(bool lockView_on)
+{
+    // if lock view is unchecked, emit a signal to display the current selection on the canvas
+    if(m_lockView_on == true && lockView_on == false)
+    {
+        m_lockView_on = lockView_on;
+        emit lockViewUnchecked(m_selectionModel->selection(), m_selectionModel->selection());
+    }
+
+    m_lockView_on = lockView_on;
 }
 
 void RealSpaceCanvas::updateScene()

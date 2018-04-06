@@ -1,5 +1,4 @@
 #include "SpecularSimulationElement.h"
-#include "SpecularData.h"
 
 const double phi_i_0 = 0.0;
 

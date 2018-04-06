@@ -33,6 +33,14 @@
     virtual void setParameterValue(const std::string& name, double value) {
         dynamic_cast<IParameterized*>($self)->setParameterValue(name, value); }
 
+    virtual std::string parametersToString() const {
+        return ($self)->IParameterized::parametersToString();
+        }
+
+    virtual ParameterPool* createParameterTree() const {
+        return ($self)->IParameterized::createParameterTree();
+        }
+
     static bool isPythonBuilder() {
         return true; }
 };

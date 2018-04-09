@@ -7,7 +7,7 @@ find_package(GSL REQUIRED)
 # --- Eigen3 is a git submodule; throw an error if submodule is not initialized ---
 set(EIGEN3_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/ThirdParty/Core/eigen3" CACHE INTERNAL "")
 if( NOT EXISTS "${EIGEN3_INCLUDE_DIR}/.git" )
-    message( FATAL_ERROR "The git submodules are not available. Please run
+    message( FATAL_ERROR "Eigen3 submodule was not initialized. Please run
                           git submodule update --init")
 endif()
 

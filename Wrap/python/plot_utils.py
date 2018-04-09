@@ -211,8 +211,6 @@ def plot_histogram(intensity, zmin=None, zmax=None,
     if title:
         plt.title(title)
 
-    plt.tight_layout()
-
 
 class Plotter:
     def __init__(self):

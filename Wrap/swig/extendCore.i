@@ -41,6 +41,10 @@
         return ($self)->IParameterized::createParameterTree();
         }
 
+    virtual ParameterPool* parameterPool() const {
+        return ($self)->IParameterized::parameterPool();
+    }
+
     virtual void onChange() {
         return ($self)->IParameterized::onChange();
     }

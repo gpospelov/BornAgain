@@ -28,10 +28,26 @@
 
 %extend IMultiLayerBuilder {
     virtual RealParameter* registerParameter(const std::string& name, int64_t parpointer) {
-        return &((*($self)).registerParameter(name, (double*)parpointer)); }
+        return &(($self)->IParameterized::registerParameter(name, (double*)parpointer)); }
 
     virtual void setParameterValue(const std::string& name, double value) {
-        dynamic_cast<IParameterized*>($self)->setParameterValue(name, value); }
+        ($self)->IParameterized::setParameterValue(name, value); }
+
+    virtual std::string parametersToString() const {
+        return ($self)->IParameterized::parametersToString();
+        }
+
+    virtual ParameterPool* createParameterTree() const {
+        return ($self)->IParameterized::createParameterTree();
+        }
+
+    virtual ParameterPool* parameterPool() const {
+        return ($self)->IParameterized::parameterPool();
+    }
+
+    virtual void onChange() {
+        return ($self)->IParameterized::onChange();
+    }
 
     static bool isPythonBuilder() {
         return true; }

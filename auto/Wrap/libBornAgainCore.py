@@ -7486,18 +7486,6 @@ class IMultiLayerBuilder(IParameterized):
         return _libBornAgainCore.IMultiLayerBuilder_buildSample(self)
 
 
-    def onChange(self):
-        """
-        onChange(IMultiLayerBuilder self)
-
-        virtual void IMultiLayerBuilder::onChange()
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
-
-
     def createSample(self, index=0):
         """
         createSample(IMultiLayerBuilder self, size_t index=0) -> MultiLayer
@@ -7527,6 +7515,33 @@ class IMultiLayerBuilder(IParameterized):
     def setParameterValue(self, name, value):
         """setParameterValue(IMultiLayerBuilder self, std::string const & name, double value)"""
         return _libBornAgainCore.IMultiLayerBuilder_setParameterValue(self, name, value)
+
+
+    def parametersToString(self):
+        """parametersToString(IMultiLayerBuilder self) -> std::string"""
+        return _libBornAgainCore.IMultiLayerBuilder_parametersToString(self)
+
+
+    def createParameterTree(self):
+        """createParameterTree(IMultiLayerBuilder self) -> ParameterPool"""
+        return _libBornAgainCore.IMultiLayerBuilder_createParameterTree(self)
+
+
+    def parameterPool(self):
+        """parameterPool(IMultiLayerBuilder self) -> ParameterPool"""
+        return _libBornAgainCore.IMultiLayerBuilder_parameterPool(self)
+
+
+    def onChange(self):
+        """
+        onChange(IMultiLayerBuilder self)
+
+        virtual void IMultiLayerBuilder::onChange()
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
 
 
     def isPythonBuilder():

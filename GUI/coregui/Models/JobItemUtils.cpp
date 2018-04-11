@@ -24,6 +24,7 @@
 #include "RealDataItem.h"
 #include "SpecularSimulation.h"
 #include "SpecularDataItem.h"
+#include "UnitConverterUtils.h"
 #include <QFileInfo>
 #include <QDebug>
 
@@ -76,10 +77,9 @@ void JobItemUtils::setResults(IntensityDataItem* intensityItem, const Simulation
     if (dynamic_cast<const SpecularSimulation*>(simulation))
         throw GUIHelpers::Error("Error in JobItemUtils::setResults: specular simulation "
                                  "currently is not handled by GUI");
-    auto sim_result = simulation->result();
+    const auto sim_result = simulation->result();
     if (intensityItem->getOutputData() == nullptr) {
-        const IDetector* detector = simulation->getInstrument().getDetector();
-        setIntensityItemAxesUnits(intensityItem, detector);
+        setIntensityItemAxesUnits(intensityItem, sim_result.converter());
         updateAxesTitle(intensityItem);
     }
     auto selected_units = axesUnitsFromName(intensityItem->selectedAxesUnits());
@@ -174,23 +174,19 @@ AxesUnits JobItemUtils::preferableGUIAxesUnits(AxesUnits default_units)
 void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
                                               const InstrumentItem* instrumentItem)
 {
-    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
-    instrument->initDetector();
-    setIntensityItemAxesUnits(intensityItem, instrument->getDetector());
+    const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
+    setIntensityItemAxesUnits(intensityItem, *converter);
 }
 
-//! Sets axes units suitable for given detector. Currently selected units will  be preserved.
-
 void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
-                                              const IDetector* detector)
+                                             const IUnitConverter& converter)
 {
     ComboProperty combo;
 
-    for (auto units : detector->validAxesUnits())
+    for (auto units : converter.availableUnits())
         combo << nameFromAxesUnits(units);
 
-    AxesUnits preferrable_units
-        = preferableGUIAxesUnits(detector->defaultAxesUnits());
+    AxesUnits preferrable_units = converter.defaultUnits();
 
     combo.setValue(nameFromAxesUnits(preferrable_units));
     intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
@@ -220,32 +216,24 @@ void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
 void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
                                             const InstrumentItem* instrumentItem)
 {
-    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
-    instrument->initDetector();
-    AxesUnits units = instrument->getDetector()->defaultAxesUnits();
-    auto detector = instrument->getDetector();
-    setIntensityItemAxesUnits(intensityItem, detector);
+    const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
+    setIntensityItemAxesUnits(intensityItem, *converter);
     updateAxesTitle(intensityItem);
-    intensityItem->setOutputData(
-        detector->createDetectorMap(instrument->getBeam(), preferableGUIAxesUnits(units))
-            .release());
+    auto output_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
+    intensityItem->setOutputData(output_data.release());
 }
 
 //! creates detector map from instrument description with axes corresponding to given units
 OutputData<double>* JobItemUtils::createDetectorMap(const InstrumentItem* instrumentItem,
                                                      AxesUnits units)
 {
-    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
-    instrument->initDetector();
+    const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
+    units = UnitConverterUtils::substituteDefaultUnits(*converter, units);
 
-    if (units == AxesUnits::DEFAULT)
-        units = instrument->getDetector()->defaultAxesUnits();
-
-    auto result = instrument->getDetector()->createDetectorMap(instrument->getBeam(), units);
-    if (!result) {
+    auto result = UnitConverterUtils::createOutputData(*converter, units);
+    if (!result)
         throw GUIHelpers::Error("JobResultsPresenter::createDetectorMap -> Error. "
                                 "Can't create detector map.");
-    }
 
     return result.release();
 }

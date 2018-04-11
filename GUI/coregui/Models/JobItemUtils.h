@@ -63,7 +63,7 @@ BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
                                             const InstrumentItem* instrumentItem);
 
 BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
-                                            const IDetector* detector);
+                                            const IUnitConverter& converter);
 
 BA_CORE_API_ void updateAxesTitle(IntensityDataItem* intensityItem);
 

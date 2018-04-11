@@ -40,7 +40,6 @@ private:
     QToolButton *m_edgeViewButton;
     QToolButton *m_faceViewButton;
     QCheckBox *m_lockViewCheckBox;
-    //QToolButton *m_lockViewButton;
 };
 
 #endif // REALSPACETOOLBAR_H

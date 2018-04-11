@@ -65,15 +65,4 @@ RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
             this, [&](){emit RealSpaceToolBar::lockViewAction(m_lockViewCheckBox->isChecked());});
     addWidget(m_lockViewCheckBox);
 
-    /*
-    // Lock View
-    m_lockViewButton = new QToolButton;
-    m_lockViewButton->setText("Lock View");
-    m_lockViewButton->setToolTip("Lock/unlock current sample selection");
-    //m_lockViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
-    m_lockViewButton->setCheckable(true);
-    connect(m_lockViewButton, &QToolButton::clicked,
-            this, [&](){emit lockViewAction(m_lockViewButton->isChecked());});
-    addWidget(m_lockViewButton);
-    */
 }

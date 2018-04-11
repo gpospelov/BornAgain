@@ -65,8 +65,6 @@ BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
 BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
                                             const IUnitConverter& converter);
 
-BA_CORE_API_ void updateAxesTitle(IntensityDataItem* intensityItem);
-
 BA_CORE_API_ void createDefaultDetectorMap(IntensityDataItem* intensityItem,
                                            const InstrumentItem* instrumentItem);
 }

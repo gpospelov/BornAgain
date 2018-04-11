@@ -51,6 +51,8 @@ QMap<AxesUnits, QString> init_description_to_units_map()
     result[AxesUnits::QSPACE] = Constants::UnitsQyQz;
     return result;
 }
+
+void updateAxesTitle(IntensityDataItem* intensityItem);
 }
 
 void JobItemUtils::setResults(JobItem* jobItem, const Simulation* simulation)
@@ -193,7 +195,18 @@ void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
     intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
 }
 
-void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
+void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
+                                            const InstrumentItem* instrumentItem)
+{
+    const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
+    setIntensityItemAxesUnits(intensityItem, *converter);
+    updateAxesTitle(intensityItem);
+    auto output_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
+    intensityItem->setOutputData(output_data.release());
+}
+
+namespace {
+void updateAxesTitle(IntensityDataItem* intensityItem)
 {
     // axes labels
     if (intensityItem->selectedAxesUnits() == Constants::UnitsRadians) {
@@ -213,13 +226,4 @@ void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
         intensityItem->setYaxisTitle(QStringLiteral("Y [nbins]"));
     }
 }
-
-void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
-                                            const InstrumentItem* instrumentItem)
-{
-    const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
-    setIntensityItemAxesUnits(intensityItem, *converter);
-    updateAxesTitle(intensityItem);
-    auto output_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
-    intensityItem->setOutputData(output_data.release());
 }

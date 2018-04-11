@@ -18368,6 +18368,11 @@ class SimulationResult(_object):
         return _libBornAgainCore.SimulationResult_axisInfo(self, *args)
 
 
+    def converter(self):
+        """converter(SimulationResult self) -> IUnitConverter"""
+        return _libBornAgainCore.SimulationResult_converter(self)
+
+
     def size(self):
         """
         size(SimulationResult self) -> size_t

@@ -17736,10 +17736,29 @@ class IHistogram(_object):
         return _libBornAgainCore.IHistogram_integral(self)
 
 
+    def array(self, *args):
+        """
+        array(IHistogram self, IHistogram::DataType dataType) -> PyObject
+        array(IHistogram self) -> PyObject *
+
+        PyObject * IHistogram::array(DataType dataType=DataType::INTEGRAL) const
+
+        Returns numpy array with bin content (accumulated values). 
+
+        """
+        return _libBornAgainCore.IHistogram_array(self, *args)
+
+
     def getArray(self, *args):
         """
         getArray(IHistogram self, IHistogram::DataType dataType) -> PyObject
         getArray(IHistogram self) -> PyObject *
+
+        PyObject * IHistogram::getArray(DataType dataType=DataType::INTEGRAL) const
+
+        Deprecated
+        Use  array() instead. 
+
         """
         return _libBornAgainCore.IHistogram_getArray(self, *args)
 
@@ -17976,17 +17995,32 @@ class Histogram1D(IHistogram):
 
 
     def getBinCentersNumpy(self):
-        """getBinCentersNumpy(Histogram1D self) -> PyObject *"""
+        """
+        getBinCentersNumpy(Histogram1D self) -> PyObject *
+
+        PyObject * Histogram1D::getBinCentersNumpy() const 
+
+        """
         return _libBornAgainCore.Histogram1D_getBinCentersNumpy(self)
 
 
     def getBinValuesNumpy(self):
-        """getBinValuesNumpy(Histogram1D self) -> PyObject *"""
+        """
+        getBinValuesNumpy(Histogram1D self) -> PyObject *
+
+        PyObject * Histogram1D::getBinValuesNumpy() const 
+
+        """
         return _libBornAgainCore.Histogram1D_getBinValuesNumpy(self)
 
 
     def getBinErrorsNumpy(self):
-        """getBinErrorsNumpy(Histogram1D self) -> PyObject *"""
+        """
+        getBinErrorsNumpy(Histogram1D self) -> PyObject *
+
+        PyObject * Histogram1D::getBinErrorsNumpy() const 
+
+        """
         return _libBornAgainCore.Histogram1D_getBinErrorsNumpy(self)
 
 
@@ -18326,7 +18360,14 @@ class SimulationResult(_object):
 
 
     def array(self):
-        """array(SimulationResult self) -> PyObject *"""
+        """
+        array(SimulationResult self) -> PyObject *
+
+        PyObject * SimulationResult::array() const
+
+        returns data as Python numpy array 
+
+        """
         return _libBornAgainCore.SimulationResult_array(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationResult
@@ -24579,7 +24620,14 @@ class IntensityData(_object):
 
 
     def getArray(self):
-        """getArray(IntensityData self) -> PyObject *"""
+        """
+        getArray(IntensityData self) -> PyObject *
+
+        PyObject* OutputData< T >::getArray() const
+
+        returns data as Python numpy array 
+
+        """
         return _libBornAgainCore.IntensityData_getArray(self)
 
 
@@ -24588,8 +24636,6 @@ class IntensityData(_object):
         isInitialized(IntensityData self) -> bool
 
         bool OutputData< T >::isInitialized() const
-
-        returns data as Python numpy array
 
         returns true if object is correctly initialized 
 
@@ -25897,7 +25943,13 @@ class ParticleLayout(ILayout):
 
         void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final override
 
-        Sets total particle surface density.  particle_density: number of particles per square nanometer 
+        Sets total particle surface density.
+
+        Parameters:
+        -----------
+
+        particle_density: 
+        number of particles per square nanometer 
 
         """
         return _libBornAgainCore.ParticleLayout_setTotalParticleSurfaceDensity(self, particle_density)

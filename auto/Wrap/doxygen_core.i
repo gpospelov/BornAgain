@@ -6036,6 +6036,15 @@ returns vector of bin content (the value accumulated by bins)
 returns vector of bin errors 
 ";
 
+%feature("docstring")  Histogram1D::getBinCentersNumpy "PyObject * Histogram1D::getBinCentersNumpy() const 
+";
+
+%feature("docstring")  Histogram1D::getBinValuesNumpy "PyObject * Histogram1D::getBinValuesNumpy() const 
+";
+
+%feature("docstring")  Histogram1D::getBinErrorsNumpy "PyObject * Histogram1D::getBinErrorsNumpy() const 
+";
+
 %feature("docstring")  Histogram1D::crop "Histogram1D * Histogram1D::crop(double xmin, double xmax)
 
 Create new histogram by applying crop on axis. 
@@ -7697,6 +7706,17 @@ Multiply this histogram (every bin content value) by a constant.
 %feature("docstring")  IHistogram::integral "double IHistogram::integral() const
 
 Returns integral of bins content (computed as a sum of all bin content). 
+";
+
+%feature("docstring")  IHistogram::array "PyObject * IHistogram::array(DataType dataType=DataType::INTEGRAL) const
+
+Returns numpy array with bin content (accumulated values). 
+";
+
+%feature("docstring")  IHistogram::getArray "PyObject * IHistogram::getArray(DataType dataType=DataType::INTEGRAL) const
+
+Deprecated
+Use  array() instead. 
 ";
 
 %feature("docstring")  IHistogram::reset "void IHistogram::reset()
@@ -11427,9 +11447,12 @@ Returns true if objects a) have same dimensions b) bin boundaries of axes coinci
 Returns true if object have same dimensions and shape of axis. 
 ";
 
-%feature("docstring")  OutputData::isInitialized "bool OutputData< T >::isInitialized() const
+%feature("docstring")  OutputData::getArray "PyObject* OutputData< T >::getArray() const
 
-returns data as Python numpy array
+returns data as Python numpy array 
+";
+
+%feature("docstring")  OutputData::isInitialized "bool OutputData< T >::isInitialized() const
 
 returns true if object is correctly initialized 
 ";
@@ -12104,7 +12127,13 @@ Returns surface density of all particles.
 
 %feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final override
 
-Sets total particle surface density.  particle_density: number of particles per square nanometer 
+Sets total particle surface density.
+
+Parameters:
+-----------
+
+particle_density: 
+number of particles per square nanometer 
 ";
 
 %feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const  final override
@@ -14117,6 +14146,11 @@ Provide  AxisInfo for each axis and the given units.
 %feature("docstring")  SimulationResult::size "size_t SimulationResult::size() const 
 ";
 
+%feature("docstring")  SimulationResult::array "PyObject * SimulationResult::array() const
+
+returns data as Python numpy array 
+";
+
 
 // File: classSimulationRoiArea.xml
 %feature("docstring") SimulationRoiArea "
@@ -15383,6 +15417,9 @@ C++ includes: ZLimits.h
 %feature("docstring")  ArrayUtils::getShape "std::pair< size_t, size_t > ArrayUtils::getShape(const T &data)
 
 Returns shape nrows, ncols of 2D array. 
+";
+
+%feature("docstring")  ArrayUtils::createNumpyArray "PyObject * ArrayUtils::createNumpyArray(const std::vector< double > &data)
 ";
 
 
@@ -18279,6 +18316,9 @@ Calculates the z-coordinate of the highest vertex after rotation.
 
 
 // File: WavevectorInfo_8h.xml
+
+
+// File: deprecated.xml
 
 
 // File: dir_52a2c863b7b3435f7dcd40f26828d521.xml

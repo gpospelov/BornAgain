@@ -52,7 +52,8 @@ QMap<AxesUnits, QString> init_description_to_units_map()
     return result;
 }
 
-void updateAxesTitle(IntensityDataItem* intensityItem);
+void updateAxesTitle(IntensityDataItem* intensityItem, const IUnitConverter& converter,
+                     AxesUnits units);
 }
 
 void JobItemUtils::setResults(JobItem* jobItem, const Simulation* simulation)
@@ -81,8 +82,9 @@ void JobItemUtils::setResults(IntensityDataItem* intensityItem, const Simulation
                                  "currently is not handled by GUI");
     const auto sim_result = simulation->result();
     if (intensityItem->getOutputData() == nullptr) {
-        setIntensityItemAxesUnits(intensityItem, sim_result.converter());
-        updateAxesTitle(intensityItem);
+        const auto& converter = sim_result.converter();
+        setIntensityItemAxesUnits(intensityItem, converter);
+        updateAxesTitle(intensityItem, converter, converter.defaultUnits());
     }
     auto selected_units = axesUnitsFromName(intensityItem->selectedAxesUnits());
     std::unique_ptr<OutputData<double>> data(sim_result.data(selected_units));
@@ -116,7 +118,7 @@ void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
 
     intensityItem->setOutputData(newData.release());
     intensityItem->setAxesRangeToData();
-    updateAxesTitle(intensityItem);
+    updateAxesTitle(intensityItem, *converter, requested_units);
 }
 
 //! loads intensity data from project directory
@@ -200,30 +202,18 @@ void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
 {
     const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
     setIntensityItemAxesUnits(intensityItem, *converter);
-    updateAxesTitle(intensityItem);
+    updateAxesTitle(intensityItem, *converter, converter->defaultUnits());
     auto output_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
     intensityItem->setOutputData(output_data.release());
 }
 
-namespace {
-void updateAxesTitle(IntensityDataItem* intensityItem)
+namespace
 {
-    // axes labels
-    if (intensityItem->selectedAxesUnits() == Constants::UnitsRadians) {
-        intensityItem->setXaxisTitle(QStringLiteral("phi_f [rad]"));
-        intensityItem->setYaxisTitle(QStringLiteral("alpha_f [rad]"));
-    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsDegrees) {
-        intensityItem->setXaxisTitle(QStringLiteral("phi_f [deg]"));
-        intensityItem->setYaxisTitle(QStringLiteral("alpha_f [deg]"));
-    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsQyQz) {
-        intensityItem->setXaxisTitle(QStringLiteral("Qy [1/nm]"));
-        intensityItem->setYaxisTitle(QStringLiteral("Qz [1/nm]"));
-    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsMm) {
-        intensityItem->setXaxisTitle(QStringLiteral("X [mm]"));
-        intensityItem->setYaxisTitle(QStringLiteral("Y [mm]"));
-    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsNbins) {
-        intensityItem->setXaxisTitle(QStringLiteral("X [nbins]"));
-        intensityItem->setYaxisTitle(QStringLiteral("Y [nbins]"));
-    }
+void updateAxesTitle(IntensityDataItem* intensityItem, const IUnitConverter& converter,
+                     AxesUnits units)
+{
+    intensityItem->setXaxisTitle(QString::fromStdString(converter.axisName(0, units)));
+    if (converter.dimension() > 1)
+        intensityItem->setYaxisTitle(QString::fromStdString(converter.axisName(1, units)));
 }
 }

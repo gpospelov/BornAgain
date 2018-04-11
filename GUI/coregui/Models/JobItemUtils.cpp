@@ -108,10 +108,11 @@ void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
     AxesUnits requested_units
         = axesUnitsFromName(intensityItem->selectedAxesUnits());
 
-    OutputData<double>* newData = createDetectorMap(instrumentItem, requested_units);
+    const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
+    auto newData = UnitConverterUtils::createOutputData(*converter.get(), requested_units);
     newData->setRawDataVector(intensityItem->getOutputData()->getRawDataVector());
 
-    intensityItem->setOutputData(newData);
+    intensityItem->setOutputData(newData.release());
     intensityItem->setAxesRangeToData();
     updateAxesTitle(intensityItem);
 }
@@ -222,19 +223,3 @@ void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
     auto output_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
     intensityItem->setOutputData(output_data.release());
 }
-
-//! creates detector map from instrument description with axes corresponding to given units
-OutputData<double>* JobItemUtils::createDetectorMap(const InstrumentItem* instrumentItem,
-                                                     AxesUnits units)
-{
-    const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
-    units = UnitConverterUtils::substituteDefaultUnits(*converter, units);
-
-    auto result = UnitConverterUtils::createOutputData(*converter, units);
-    if (!result)
-        throw GUIHelpers::Error("JobResultsPresenter::createDetectorMap -> Error. "
-                                "Can't create detector map.");
-
-    return result.release();
-}
-
